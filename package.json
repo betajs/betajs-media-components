@@ -1,0 +1,51 @@
+{
+	"name": "betajs-media-components",
+	"version": "0.0.1",
+	"description": "BetaJS-Media is a JavaScript media UI components framework",
+	"homepage": "http://betajs.com",
+	"contributors": ["Oliver Friedmann"],
+	"license": "MIT",
+	"devDependencies": {
+		"grunt": "",
+		"grunt-contrib-jshint": "",
+		"grunt-contrib-nodeunit": "",
+		"grunt-contrib-concat": "",
+		"grunt-contrib-uglify": "",
+		"grunt-contrib-clean": "",
+		"grunt-preprocess": "",
+		"grunt-git-revision-count": "",
+		"grunt-closure-tools": "",
+		"grunt-node-qunit": "",
+		"grunt-contrib-jshint": "",
+		"grunt-wget": "",
+		"grunt-jsdoc": "",
+		"grunt-shell": "",
+		"grunt-template": ""
+	},
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/betajs/betajs-media-components.git"
+	},
+	"meta": {
+		"status": "Active, In Development",
+		"weakDependencies": {
+			"betajs-scoped": "https://github.com/betajs/betajs-scoped"
+		},
+		"dependencies": {
+			"betajs": "https://github.com/betajs/betajs",
+			"betajs-browser": "https://github.com/betajs/betajs-browser",
+			"betajs-flash": "https://github.com/betajs/betajs-flash",
+			"betajs-media": "https://github.com/betajs/betajs-media",
+			"betajs-dynamics": "https://github.com/betajs/betajs-dynamics"
+		},
+		"tests": {
+			"Test Suite": "http://rawgit.com/betajs/betajs-media-components/master/tests/tests.html"
+		},
+		"cdn": {
+			"betajs-media-components.js": "http://cdn.rawgit.com/betajs/betajs-media/master/dist/betajs-media-components.js",
+			"betajs-media-components.min.js": "http://cdn.rawgit.com/betajs/betajs-media/master/dist/betajs-media-components.min.js",
+			"betajs-media-components-noscoped.js": "http://cdn.rawgit.com/betajs/betajs-media/master/dist/betajs-media-components-noscoped.js",
+			"betajs-media-components-noscoped.min.js": "http://cdn.rawgit.com/betajs/betajs-media/master/dist/betajs-media-components-noscoped.min.js"
+		}
+	}
+}

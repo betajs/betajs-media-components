@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+	    if (typeof String.prototype.trim !== 'function') {
+		    String.prototype.trim = function () {
+		        return this.replace(/^\s+|\s+$/g, ''); 
+		    };
+		}
+	</script>
+	<script src="../vendors/jquery.min.js"></script>
+	<script src="../vendors/beta.js"></script>
+	<script src="../vendors/beta-browser-noscoped.js"></script>
+	<script src="../vendors/betajs-flash-noscoped.js"></script>
+	<script src="../vendors/betajs-media-noscoped.js"></script>
+	<script src="../vendors/betajs-dynamics-noscoped.js"></script>
+	<script src="../dist/betajs-media-components.js"></script>
+	<link rel="stylesheet" href="../dist/betajs-media-components.css" />
+	<style>
+	    html, body {
+	       height: 100%;
+	    }
+		.container {
+		    margin: 100px;
+		    width: 75%;
+		    height: 75%;
+		    background: transparent url(http://thumb7.shutterstock.com/display_pic_with_logo/180118/146770721/stock-photo-beautiful-sensual-woman-face-146770721.jpg) no-repeat;
+		    background-size: cover;
+		}
+		.parent {
+		    position: relative;
+		    width: 100%;
+		    height: 100%;
+		}
+	</style>
+</head>
+<body>
+    <!-- 
+    <div class="container">
+        <div class="parent">
+            <ba-videoplayer-loader></ba-videoplayer-loader>
+        </div>
+    </div>
+	<div class="container">
+		<div class="parent">
+   	      <ba-videoplayer-message ba-message="Playback error. Tap to retry."></ba-videoplayer-message>
+		</div>
+	</div>
+    <div class="container">
+        <div class="parent">
+            <ba-videoplayer-playbutton></ba-videoplayer-playbutton>
+        </div>
+    </div>
+     -->
+    <div class="container">
+        <div class="parent">
+            <ba-videoplayer-controlbar></ba-videoplayer-controlbar>
+        </div>
+    </div>
+    <script>
+    if (BetaJS.Browser.Info.isInternetExplorer() && BetaJS.Browser.Info.internetExplorerVersion() < 9)
+    	$("body").addClass("ba-videoplayer-ie8");
+    else
+    	$("body").addClass("ba-videoplayer-noie8");
+    BetaJS.Dynamics.Dynamic.activate();
+    </script>     
+</body>
+</html>

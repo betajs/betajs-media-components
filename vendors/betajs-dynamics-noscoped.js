@@ -1,5 +1,5 @@
 /*!
-betajs-dynamics - v0.0.8 - 2015-11-09
+betajs-dynamics - v0.0.11 - 2015-11-23
 Copyright (c) Oliver Friedmann,Victor Lingenthal
 MIT Software License.
 */
@@ -16,7 +16,7 @@ Scoped.binding("jquery", "global:jQuery");
 Scoped.define("module:", function () {
 	return {
 		guid: "d71ebf84-e555-4e9b-b18a-11d74fdcefe2",
-		version: '158.1447116728674'
+		version: '161.1448319002891'
 	};
 });
 
@@ -528,6 +528,15 @@ Scoped.define("module:Data.Scope", [
 				return this.__properties.get(key);
 			},
 			
+			setProp: function (key, value) {
+				this.__properties.setProp(key, value);
+				return this;
+			},
+			
+			getProp: function (key) {
+				return this.__properties.getProp(key);
+			},
+
 			define: function (name, func, ctx) {
 				this.__functions[name] = Functions.as_method(func, ctx || this);
 				return this;
@@ -665,6 +674,18 @@ Scoped.define("module:Data.MultiScope", [
 				return iter.hasNext() ? iter.next().get(key) : null;
 			},
 			
+			setProp: function (key, value) {
+				var iter = this.iterator();
+				while (iter.hasNext())
+					iter.next().setProp(key, value);
+				return this;
+			},
+			
+			getProp: function (key) {
+				var iter = this.iterator();
+				return iter.hasNext() ? iter.next().getProp(key) : null;
+			},
+
 			define: function (name, func) {
 				var iter = this.iterator();
 				while (iter.hasNext())
@@ -1073,6 +1094,7 @@ Scoped.define("module:Handlers.Node", [
 	    "base:Events.EventsMixin",
 	    "base:Ids",
 	    "browser:Dom",
+	    "browser:Info",
 	    "module:Parser",
 	    "jquery:",
 	    "module:Data.Mesh",
@@ -1080,7 +1102,7 @@ Scoped.define("module:Handlers.Node", [
 	    "base:Types",
 	    "module:Registries",
 	    "module:Handlers.Attr"
-	], function (Class, EventsMixin, Ids, Dom, Parser, $, Mesh, Objs, Types, Registries, Attr, scoped) {
+	], function (Class, EventsMixin, Ids, Dom, Info, Parser, $, Mesh, Objs, Types, Registries, Attr, scoped) {
 	var Cls;
 	Cls = Class.extend({scoped: scoped}, [EventsMixin, function (inherited) {
 		return {
@@ -1117,9 +1139,13 @@ Scoped.define("module:Handlers.Node", [
 					watch: this.properties()
 				});
 				
-				if (this._element.attributes)
+				if (this._element.attributes) {
+					// Copy attributes first before registering it, preventing a bug when partials add attributes during initialization
+					var attrs = [];
 					for (var i = 0; i < this._element.attributes.length; ++i)
-						this._registerAttr(this._element.attributes[i]);
+						attrs.push(this._element.attributes[i]);
+					Objs.iter(attrs, this._registerAttr, this);
+				}
 
 				this._locked = false;
 				this._active = !this._active;
@@ -1209,6 +1235,13 @@ Scoped.define("module:Handlers.Node", [
 				}
 				if (!Registries.handler.get(tagv))
 					return false;
+				if (Info.isInternetExplorer() && Info.internetExplorerVersion() < 9) {
+					this._$element = $(Dom.changeTag(this._$element.get(0), tagv));
+					this._element = this._$element.get(0);
+					Objs.iter(this._attrs, function (attr) {
+						attr.updateElement(this._element);
+					}, this);
+				}
 				this._tagHandler = Registries.handler.create(tagv, {
 					parentElement: this._$element.get(0),
 					parentHandler: this._handler,
@@ -1238,8 +1271,8 @@ Scoped.define("module:Handlers.Node", [
 		        	if (this._restoreInnerTemplate)
 		        		this._$element.html(this._innerTemplate);
 		        	this._touchedInner = true;
-					if (this._element.nodeType == this._element.TEXT_NODE) {
-						this._dyn = Parser.parseText(this._element.textContent);
+		        	if (this._element.nodeType == 3) {
+		        		this._dyn = Parser.parseText(this._$element.text());
 						if (this._dyn) {
 							this.__dynOn(this._dyn, function () {
 								this.__updateDyn();
@@ -1264,7 +1297,10 @@ Scoped.define("module:Handlers.Node", [
 				var value = this.__executeDyn(this._dyn);
 				if (force || value != this._dyn.value) {
 					this._dyn.value = value;
-					this._element.textContent = value;
+					if ("textContent" in this._element)
+						this._element.textContent = value;
+					else
+						this._$element.replaceWith(value);
 				}
 			},
 				
@@ -1923,6 +1959,19 @@ Scoped.define("module:Partials.ShowPartial", ["module:Handlers.Partial"], functi
  		};
  	});
  	Cls.register("ba-show");
+	return Cls;
+});
+
+Scoped.define("module:Partials.StylesPartial", ["module:Handlers.Partial"], function (Partial, scoped) {
+ 	var Cls = Partial.extend({scoped: scoped}, {
+		
+		_apply: function (value) {
+			for (var key in value)
+				this._node._$element.css(key, value[key]);
+		}
+
+ 	});
+ 	Cls.register("ba-styles");
 	return Cls;
 });
 

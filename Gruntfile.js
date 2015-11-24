@@ -18,13 +18,21 @@ module.exports = function(grunt) {
 					dist_raw : {
 						dest : 'dist/betajs-media-components-raw.js',
 						src : [ 'src/fragments/begin.js-fragment',
-								'src/*/*.js',
+						        'dist/betajs-media-components-templates.js',
+								'src/**/*.js',
 								'src/fragments/end.js-fragment' ]
 					},
 					dist_scoped : {
 						dest : 'dist/betajs-media-components.js',
 						src : [ 'vendors/scoped.js',
 								'dist/betajs-media-components-noscoped.js' ]
+					},
+					dist_scss: {
+						dest: 'dist/betajs-media-components.scss',
+						src: [
+						    'src/video_player/globals/globals.scss',
+							'src/**/*.scss'
+						]
 					}
 				},
 				preprocess : {
@@ -39,11 +47,39 @@ module.exports = function(grunt) {
 						dest : 'dist/betajs-media-components-noscoped.js'
 					}
 				},
+				sass: {
+					dist: {
+						files: {
+							'dist/betajs-media-components.css': 'dist/betajs-media-components.scss'
+						}
+					}
+				},
+				cssmin: {
+					target: {
+						files: {
+							'dist/betajs-media-components.css.min': 'dist/betajs-media-components.css'
+						}
+					}
+				},
 				clean : {
 					raw: "dist/betajs-media-components-raw.js",
 					closure: "dist/betajs-media-components-closure.js",
 					browserstack : [ "./browserstack.json", "BrowserStackLocal" ],
+					templates: "dist/betajs-media-components-templates.js",
+					scss: "dist/betajs-media-components.scss",
 					jsdoc : ['./jsdoc.conf.json']
+				},
+				betajs_templates: {
+					dist: {
+						files: {
+							"dist/betajs-media-components-templates.js": [
+								"src/**/*.html"
+							]
+						},
+						options: {
+							namespace: 'BetaJS.MediaComponents.Templates'
+						}
+					}
 				},
 				jsdoc : {
 					dist : {
@@ -73,10 +109,10 @@ module.exports = function(grunt) {
 						es5: false,
 						es3: true
 					},
-					source : [ "./src/*/*.js"],
+					source : [ "./src/**/*.js"],
 					dist : [ "./dist/betajs-media-components-noscoped.js", "./dist/betajs-media-components.js" ],
 					gruntfile : [ "./Gruntfile.js" ],
-					tests : [ "./tests/*/*.js" ]
+					tests : [ "./tests/**/*.js" ]
 				},
 				closureCompiler : {
 					options : {
@@ -206,6 +242,16 @@ module.exports = function(grunt) {
 							"browserstack.json" : ["json.tpl"]
 						}
 					}			
+				},
+				csslint : {
+					strict : {
+						options : {
+							"import" : 2,
+							"box-sizing": false,
+							"bulletproof-font-face": false
+						},
+						src : [ 'dist/betajs-media-components.css' ]
+					}
 				}
 			});
 	
@@ -220,15 +266,20 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-node-qunit');
 	grunt.loadNpmTasks('grunt-jsdoc');
 	grunt.loadNpmTasks('grunt-shell');	
+	grunt.loadNpmTasks('grunt-contrib-sass');
+	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-template');
+	grunt.loadNpmTasks('grunt-betajs-templates');
+	grunt.loadNpmTasks('grunt-contrib-csslint');
 
-	grunt.registerTask('default', [ 'revision-count', 'concat:dist_raw',
-			'preprocess', 'clean:raw', 'concat:dist_scoped', 'uglify' ]);
+	grunt.registerTask('default', [ 'revision-count', 'betajs_templates', 'concat:dist_raw',
+			'preprocess', 'clean:raw', 'clean:templates', 'concat:dist_scoped', 'uglify',
+			'concat:dist_scss', 'sass', 'cssmin', 'clean:scss' ]);
 	grunt.registerTask('lint', [ 'jshint:source', 'jshint:dist',
 	                 			 'jshint:gruntfile', 'jshint:tests' ]);
 	grunt.registerTask('qunit', [ 'shell:tests' ]);
 	grunt.registerTask('docs', ['template:jsdoc', 'jsdoc', 'clean:jsdoc']);
-	grunt.registerTask('check', ['lint', 'qunit']);
+	grunt.registerTask('check', ['lint', 'csslint', 'qunit']);
 	grunt.registerTask('dependencies', [ 'wget:dependencies' ]);
 	grunt.registerTask('closure', [ 'closureCompiler', 'clean:closure' ]);
 	grunt.registerTask('browserstack-desktop', [ 'template:browserstack-desktop', 'shell:browserstack', 'clean:browserstack' ]);

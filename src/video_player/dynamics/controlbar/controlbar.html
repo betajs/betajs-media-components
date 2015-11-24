@@ -1,0 +1,49 @@
+
+<div class="{{css}}-dashboard">
+	<div class="{{css}}-progressbar {{expandedprogress ? '' : (css + '-progressbar-small')}}"
+	     onmousedown="{{startUpdatePosition(domEvent)}}"
+	     onmouseup="{{stopUpdatePosition(domEvent)}}"
+	     onmouseleave="{{stopUpdatePosition(domEvent)}}"
+	     onmousemove="{{progressUpdatePosition(domEvent)}}">
+		<div class="{{css}}-progressbar-cache" ba-styles="{{{width: Math.round(cached / duration * 100) + '%'}}}"></div>
+		<div class="{{css}}-progressbar-position" ba-styles="{{{width: Math.round(position / duration * 100) + '%'}}}">
+			<div class="{{css}}-progressbar-button"></div>
+		</div>
+	</div>
+	<div class="{{css}}-backbar"></div>
+	<div class="{{css}}-controlbar">
+		<div class="{{css}}-leftbutton-container">
+			<div class="{{css}}-button-inner" ba-show="{{!pausable}}" ba-click="play()">
+				<i class="{{css}}-icon-play"></i>
+			</div>
+            <div class="{{css}}-button-inner" ba-show="{{pausable}}" ba-click="pause()">
+                <i class="{{css}}-icon-pause"></i>
+            </div>
+		</div>
+		<div class="{{css}}-time-container">
+			<div class="{{css}}-time-value">{{position_formatted}}</div>
+			<div class="{{css}}-time-sep">/</div>
+			<div class="{{css}}-time-value">{{duration_formatted}}</div>
+		</div>
+		<div class="{{css}}-rightbutton-container">
+			<div class="{{css}}-button-inner" ba-click="toggle_fullscreen()">
+				<i class="{{css}}-icon-resize-full"></i>
+			</div>
+		</div>
+		<div class="{{css}}-volumebar">
+			<div class="{{css}}-volumebar-inner"
+			     onmousedown="{{startUpdateVolume(domEvent)}}"
+                 onmouseup="{{stopUpdateVolume(domEvent)}}"
+                 onmouseleave="{{stopUpdateVolume(domEvent)}}"
+                 onmousemove="{{progressUpdateVolume(domEvent)}}">
+				<div class="{{css}}-volumebar-position" ba-styles="{{{width: Math.round(volume * 100) + '%'}}}"></div>
+				<div class="{{css}}-volumebar-button"></div>
+			</div>
+		</div>
+		<div class="{{css}}-rightbutton-container">
+			<div class="{{css}}-button-inner" ba-click="toggle_volume()">
+				<i class="{{css}}-icon-volume-up"></i>
+			</div>
+		</div>
+	</div>
+</div>

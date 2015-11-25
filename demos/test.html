@@ -1,13 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script>
-	    if (typeof String.prototype.trim !== 'function') {
-		    String.prototype.trim = function () {
-		        return this.replace(/^\s+|\s+$/g, ''); 
-		    };
-		}
-	</script>
 	<script src="../vendors/jquery.min.js"></script>
 	<script src="../vendors/beta.js"></script>
 	<script src="../vendors/beta-browser-noscoped.js"></script>
@@ -24,7 +17,7 @@
 		    margin: 100px;
 		    width: 75%;
 		    height: 75%;
-		    background: transparent url(http://thumb7.shutterstock.com/display_pic_with_logo/180118/146770721/stock-photo-beautiful-sensual-woman-face-146770721.jpg) no-repeat;
+		    background: transparent url(stock-image.jpg) no-repeat;
 		    background-size: cover;
 		}
 		.parent {
@@ -58,6 +51,9 @@
         </div>
     </div>
     <script>
+    
+    
+    
     if (BetaJS.Browser.Info.isInternetExplorer() && BetaJS.Browser.Info.internetExplorerVersion() < 9)
     	$("body").addClass("ba-videoplayer-ie8");
     else

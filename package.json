@@ -12,6 +12,7 @@
 		"grunt-contrib-concat": "",
 		"grunt-contrib-uglify": "",
 		"grunt-contrib-clean": "",
+		"grunt-contrib-copy": "",
 		"grunt-preprocess": "",
 		"grunt-git-revision-count": "",
 		"grunt-closure-tools": "",

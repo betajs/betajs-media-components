@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.1 - 2015-11-23
+betajs-media-components - v0.0.1 - 2015-11-24
 Copyright (c) Oliver Friedmann
 MIT Software License.
 */
@@ -15,7 +15,7 @@ Scoped.binding("jquery", "global:jQuery");
 Scoped.define("module:", function () {
 	return {
 		guid: "7a20804e-be62-4982-91c6-98eb096d2e70",
-		version: '2.1448332212281'
+		version: '3.1448416756665'
 	};
 });
 

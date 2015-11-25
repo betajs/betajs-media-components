@@ -1,5 +1,5 @@
 /*!
-betajs-dynamics - v0.0.11 - 2015-11-23
+betajs-dynamics - v0.0.13 - 2015-11-24
 Copyright (c) Oliver Friedmann,Victor Lingenthal
 MIT Software License.
 */
@@ -16,7 +16,7 @@ Scoped.binding("jquery", "global:jQuery");
 Scoped.define("module:", function () {
 	return {
 		guid: "d71ebf84-e555-4e9b-b18a-11d74fdcefe2",
-		version: '161.1448319002891'
+		version: '162.1448398713812'
 	};
 });
 
@@ -288,7 +288,9 @@ Scoped.define("module:Data.Mesh", [
 		};
 	}]);
 });
-Scoped.define("module:Parser", ["base:Types", "base:Objs", "base:JavaScript"], function (Types, Objs, JavaScript) {
+Scoped.define("module:Parser", [
+    "base:Types", "base:Objs", "base:JavaScript", "base:Strings"
+], function (Types, Objs, JavaScript, Strings) {
 	return {		
 		
 		parseText: function (text) {
@@ -344,7 +346,7 @@ Scoped.define("module:Parser", ["base:Types", "base:Objs", "base:JavaScript"], f
 			var i = code.indexOf("::");
 			var args = null;
 			if (i >= 0) {
-				args = code.substring(0, i).trim();
+				args = Strings.trim(code.substring(0, i));
 				code = code.substring(i + 2);
 			}
 			return {
@@ -928,13 +930,14 @@ Scoped.define("module:Handlers.HandlerMixin", ["base:Objs", "base:Strings", "jqu
 		},
 		
 		_handlerGetTemplate: function (template) {
+			template = Strings.trim(template);
 			this.cls._templateCache = this.cls._templateCache || {};
 			if (!this.cls._templateCache[template]) {
 				var compiled;
 				try {
-					compiled = $(template.trim());
+					compiled = $(template);
 				} catch (e) {
-					compiled = $(document.createTextNode(template.trim()));
+					compiled = $(document.createTextNode(template));
 				}
 				this.cls._templateCache[template] = compiled;
 			}
@@ -1570,7 +1573,7 @@ Scoped.define("module:Partials.IgnorePartial", ["module:Handlers.Partial"], func
 });
 
 
-Scoped.define("module:Partials.EventPartial", ["module:Handlers.Partial"], function (Partial, scoped) {
+Scoped.define("module:Partials.EventPartial", ["module:Handlers.Partial", "base:Strings"], function (Partial, Strings, scoped) {
   /**
    * @name ba-on
    *
@@ -1598,7 +1601,7 @@ Scoped.define("module:Partials.EventPartial", ["module:Handlers.Partial"], funct
  				var self = this;
  				this.__postfix = postfix;
  				this._node._$element.on(postfix + "." + this.cid(), function () {
- 					self._execute(value.trim());
+ 					self._execute(Strings.trim(value));
  				});
  			},
  			
@@ -1620,8 +1623,9 @@ Scoped.define("module:Partials.RepeatElementPartial", [
         "base:Objs",
         "jquery:",
         "module:Parser",
-        "base:Properties.Properties"
-	], function (Partial, Collection, FilteredCollection, Objs, $, Parser, Properties, scoped) {
+        "base:Properties.Properties",
+        "base:Strings"
+	], function (Partial, Collection, FilteredCollection, Objs, $, Parser, Properties, Strings, scoped) {
   /**
    * @name ba-repeat-element
    *
@@ -1656,7 +1660,7 @@ Scoped.define("module:Partials.RepeatElementPartial", [
  			},
  			
  			_newItemElements: function () {
- 				var template = this.__filteredTemplate.trim();
+ 				var template = Strings.trim(this.__filteredTemplate);
 				var element = $(template).get(0);
 				this._node._$element.after(element);
  				element["ba-handled"] = true;
@@ -1676,8 +1680,9 @@ Scoped.define("module:Partials.RepeatPartial", [
         "base:Collections.FilteredCollection",
         "base:Objs",
         "jquery:",
-        "module:Parser"
-	], function (Partial, Properties, Collection, FilteredCollection, Objs, $, Parser, scoped) {
+        "module:Parser",
+        "base:Strings"
+	], function (Partial, Properties, Collection, FilteredCollection, Objs, $, Parser, Strings, scoped) {
 	  /**
 	   * @name ba-repeat
 	   *
@@ -1702,11 +1707,11 @@ Scoped.define("module:Partials.RepeatPartial", [
  				inherited.constructor.apply(this, arguments);
  				this.__registered = false;
  				args = args.split("~");
- 				this.__repeatArg = args[0].trim();
+ 				this.__repeatArg = Strings.trim(args[0]);
  				this._destroyCollection = false;
  				this._destroyValueCollection = false;
  				if (args.length > 1) {
- 					this.__repeatFilter = Parser.parseCode(args[1].trim());
+ 					this.__repeatFilter = Parser.parseCode(Strings.trim(args[1]));
  					var self = this;
  					node.mesh().watch(this.__repeatFilter.dependencies, function () {
  						self.__filterChanged();
@@ -1860,7 +1865,7 @@ Scoped.define("module:Partials.RepeatPartial", [
  			
  			_newItemElements: function () {
  				var elements;
- 				var template = this._node._innerTemplate.trim();
+ 				var template = Strings.trim(this._node._innerTemplate);
  				try {
  					elements = $(template).appendTo(this._node._$element);
  				} catch (e) {

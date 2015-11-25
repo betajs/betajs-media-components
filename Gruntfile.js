@@ -61,6 +61,15 @@ module.exports = function(grunt) {
 						}
 					}
 				},
+				copy: {
+					"fonts": {
+						files: [
+							{expand: true, cwd: "vendors/fontello/font", src: 'fontello.eot', dest: "dist", rename: function(dest, src) {
+						        return dest + '/betajs-media-components-ie8.eot';
+						    }}
+						]
+					}
+				},
 				clean : {
 					raw: "dist/betajs-media-components-raw.js",
 					closure: "dist/betajs-media-components-closure.js",
@@ -255,6 +264,7 @@ module.exports = function(grunt) {
 				}
 			});
 	
+	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-git-revision-count');
@@ -274,7 +284,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('default', [ 'revision-count', 'betajs_templates', 'concat:dist_raw',
 			'preprocess', 'clean:raw', 'clean:templates', 'concat:dist_scoped', 'uglify',
-			'concat:dist_scss', 'sass', 'cssmin', 'clean:scss' ]);
+			'concat:dist_scss', 'sass', 'cssmin', 'clean:scss', 'copy:fonts' ]);
 	grunt.registerTask('lint', [ 'jshint:source', 'jshint:dist',
 	                 			 'jshint:gruntfile', 'jshint:tests' ]);
 	grunt.registerTask('qunit', [ 'shell:tests' ]);

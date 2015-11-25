@@ -8,6 +8,7 @@ $volume_width: 100px;
 $volume_height: 8px;
 $time_value_width: 40px;
 $time_sep_width: 15px;
+$ie8_margintop: 6px;
 
 $progressbar_transition: 0.1s;
 $button_fontsize: 14px;
@@ -167,12 +168,20 @@ $text_color: #FFF;
     font-size: $button_fontsize;        
 }
 
+.#{$css}-ie8 .#{$css}-button-inner {
+    margin-top: $ie8_margintop;
+}
+
 .#{$css}-time-container {
     @include left-container-width(2 * $time_value_width + $time_sep_width);
     text-align: center;
     font-family: $text_fontfamily;
     font-size: $text_fontsize;
     color: $text_color;
+}
+
+.#{$css}-ie8 .#{$css}-time-container {
+    margin-top: $ie8_margintop;
 }
 
 .#{$css}-time-value {
@@ -191,6 +200,10 @@ $text_color: #FFF;
 
 .#{$css}-volumebar {
     @include right-container-width($volume_width);
+}
+
+.#{$css}-ie8 .#{$css}-volumebar {
+    margin-top: -$ie8_margintop;
 }
 
 .#{$css}-volumebar-inner {

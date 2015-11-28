@@ -2,8 +2,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
     "base:Dynamics.Dynamic",
     "base:Time",
     "module:Templates",
-    "jquery:"
-], function (Class, Time, Templates, $, scoped) {
+    "jquery:",
+    "module:Assets"
+], function (Class, Time, Templates, $, Assets, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {
 			
@@ -66,11 +67,19 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 				},
 				
 				toggle_volume: function () {
-					alert("toggle volume");
+					if (this.get("volume") > 0) {
+						this.__oldVolume = this.get("volume");
+						this.set("volume", 0);
+					} else 
+						this.set("volume", this.__oldVolume || 1);
 				},
 				
 				toggle_fullscreen: function () {
 					alert("toggle fullscreen");
+				},
+				
+				rerecord: function () {
+					alert("rerecord");
 				}
 				
 			},
@@ -90,5 +99,19 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 			}
 			
 		};
-	}).register("ba-videoplayer-controlbar");
+	})
+	.register("ba-videoplayer-controlbar")
+    .attachStringTable(Assets.strings)
+    .addStrings({
+    	"video-progress": "Video progress",
+    	"rerecord-video": "Re-record video?",
+    	"play-video": "Play video",
+    	"pause-video": "Pause video",
+    	"elapsed-time": "Elasped time",
+    	"total-time": "Total length of video",
+    	"fullscreen-video": "Enter fullscreen",
+    	"volume-button": "Set volume",
+    	"volume-mute": "Mute sound",
+    	"volume-unmute": "Unmute sound"
+    });
 });

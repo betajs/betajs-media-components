@@ -6,27 +6,32 @@
 	     onmouseleave="{{stopUpdatePosition(domEvent)}}"
 	     onmousemove="{{progressUpdatePosition(domEvent)}}">
 		<div class="{{css}}-progressbar-cache" ba-styles="{{{width: Math.round(cached / duration * 100) + '%'}}}"></div>
-		<div class="{{css}}-progressbar-position" ba-styles="{{{width: Math.round(position / duration * 100) + '%'}}}">
+		<div class="{{css}}-progressbar-position" ba-styles="{{{width: Math.round(position / duration * 100) + '%'}}}" title="{{string('video-progress')}}">
 			<div class="{{css}}-progressbar-button"></div>
 		</div>
 	</div>
 	<div class="{{css}}-backbar"></div>
 	<div class="{{css}}-controlbar">
+        <div class="{{css}}-leftbutton-container">
+            <div class="{{css}}-button-inner" ba-click="rerecord()" title="{{string('rerecord-video')}">
+                <i class="{{css}}-icon-ccw"></i>
+            </div>
+        </div>
 		<div class="{{css}}-leftbutton-container">
-			<div class="{{css}}-button-inner" ba-show="{{!pausable}}" ba-click="play()">
+			<div class="{{css}}-button-inner" ba-show="{{!pausable}}" ba-click="play()" title="{{string('play-video')}}">
 				<i class="{{css}}-icon-play"></i>
 			</div>
-            <div class="{{css}}-button-inner" ba-show="{{pausable}}" ba-click="pause()">
+            <div class="{{css}}-button-inner" ba-show="{{pausable}}" ba-click="pause()" title="{{string('pause-video')}}">
                 <i class="{{css}}-icon-pause"></i>
             </div>
 		</div>
 		<div class="{{css}}-time-container">
-			<div class="{{css}}-time-value">{{position_formatted}}</div>
+			<div class="{{css}}-time-value" title="{{string('elapsed-time')}}">{{position_formatted}}</div>
 			<div class="{{css}}-time-sep">/</div>
-			<div class="{{css}}-time-value">{{duration_formatted}}</div>
+			<div class="{{css}}-time-value" title="{{string('total-time')}}">{{duration_formatted}}</div>
 		</div>
 		<div class="{{css}}-rightbutton-container">
-			<div class="{{css}}-button-inner" ba-click="toggle_fullscreen()">
+			<div class="{{css}}-button-inner" ba-click="toggle_fullscreen()" title="{{string('fullscreen-video')}}">
 				<i class="{{css}}-icon-resize-full"></i>
 			</div>
 		</div>
@@ -37,12 +42,12 @@
                  onmouseleave="{{stopUpdateVolume(domEvent)}}"
                  onmousemove="{{progressUpdateVolume(domEvent)}}">
 				<div class="{{css}}-volumebar-position" ba-styles="{{{width: Math.round(volume * 100) + '%'}}}"></div>
-				<div class="{{css}}-volumebar-button"></div>
+				<div class="{{css}}-volumebar-button" title="{{string('volume-button')}}"></div>
 			</div>
 		</div>
 		<div class="{{css}}-rightbutton-container">
-			<div class="{{css}}-button-inner" ba-click="toggle_volume()">
-				<i class="{{css}}-icon-volume-up"></i>
+			<div class="{{css}}-button-inner" ba-click="toggle_volume()" title="{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}">
+				<i class="{{css + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}"></i>
 			</div>
 		</div>
 	</div>

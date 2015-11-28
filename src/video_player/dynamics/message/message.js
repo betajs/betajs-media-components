@@ -9,7 +9,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Message", [
 			
 			attrs: {
 				"css": "ba-videoplayer",
-				"message": 'Foobar'
+				"message": ''
 			},
 			
 			functions: {

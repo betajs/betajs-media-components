@@ -1,4 +1,4 @@
-$loader_width: 15%;
+$loader_size: 5px;
 
 
 .#{$css}-noie8 .#{$css}-loader-container {
@@ -10,7 +10,6 @@ $loader_width: 15%;
     -o-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    width: $loader_width;
 }
 
 .#{$css}-noie8 .#{$css}-loader-loader:before {
@@ -22,7 +21,7 @@ $loader_width: 15%;
 .#{$css}-noie8 .#{$css}-loader-loader {
     position: relative;
     width: 100%;
-    font-size: 1vw;
+    font-size: $loader_size;
     box-sizing: content-box;
     border-top: 1.1em solid #999;
     border-top: 1.1em solid rgba(255, 255, 255, 0.2);

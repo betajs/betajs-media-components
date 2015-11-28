@@ -1,7 +1,8 @@
 Scoped.define("module:VideoPlayer.Dynamics.Playbutton", [
     "base:Dynamics.Dynamic",
-    "module:Templates"
-], function (Class, Templates, scoped) {
+    "module:Templates",
+    "module:Assets"
+], function (Class, Templates, Assets, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {
 			
@@ -20,5 +21,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Playbutton", [
 			}
 			
 		};
-	}).register("ba-videoplayer-playbutton");
+	})
+	.register("ba-videoplayer-playbutton")
+    .attachStringTable(Assets.strings)
+    .addStrings({
+    	"tooltip": "Click to play video."
+    });
 });

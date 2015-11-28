@@ -1,5 +1,5 @@
 /*!
-betajs-browser - v1.0.5 - 2015-11-12
+betajs-browser - v1.0.4 - 2015-11-28
 Copyright (c) Oliver Friedmann
 MIT Software License.
 */
@@ -21,7 +21,7 @@ Scoped.define("base:$", ["jquery:"], function (jquery) {
 Scoped.define("module:", function () {
 	return {
 		guid: "02450b15-9bbf-4be2-b8f6-b483bc015d06",
-		version: '45.1447348177254'
+		version: '44.1448739127275'
 	};
 });
 
@@ -283,7 +283,9 @@ Scoped.define("module:Cookies", ["base:Objs", "base:Types"], function (Objs, Typ
 	};
 });
 
-Scoped.define("module:Dom", ["base:Objs", "jquery:"], function (Objs, $) {
+Scoped.define("module:Dom", [
+    "base:Objs", "jquery:", "base:Types"
+], function (Objs, $, Types) {
 	return {	
 		
 		changeTag: function (node, name) {
@@ -499,6 +501,16 @@ Scoped.define("module:Dom", ["base:Objs", "jquery:"], function (Objs, $) {
 			if (start_offset > 0) 
 				node = $(node.get(0).splitText(start_offset));
 			return node;
+		},
+		
+		entitiesToUnicode: function (s) {
+			if (!s || !Types.is_string(s) || s.indexOf("&") < 0)
+				return s;
+			var temp = document.createElement("span");
+			temp.innerHTML = s;
+			s = temp.innerText;
+			temp.remove();
+			return s;
 		}
 				
 	};
@@ -1199,13 +1211,13 @@ Scoped.define("module:Info", [
 		
 		isFirefox: function () {
 			return this.__cached("isFirefox", function (nav, ua, ualc) {
-				return ualc.indexOf("firefox") != -1 || ualc.indexOf("fxios") != -1;
+				return ualc.indexOf("firefox") != -1;
 			});
 		},
 		
 		isSafari: function () {
 			return this.__cached("isSafari", function (nav, ua, ualc) {
-				return !this.isChrome() && !this.isOpera() && !this.isEdge() && !this.isFirefox() && ualc.indexOf("safari") != -1;
+				return !this.isChrome() && !this.isOpera() && !this.isEdge() && ualc.indexOf("safari") != -1;
 			});
 		},
 		
@@ -1905,10 +1917,6 @@ Scoped.define("module:Upload.ResumableFileUploader", [
 					self._successCallback(message);
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
-					if (self._options.resumable.acceptedAssembleError && self._options.resumable.acceptedAssembleError == jqXHR.status) {
-						self._successCallback(message);
-						return;
-					}
 					Async.eventually(function () {
 						self._resumableSuccessCallback(file, message, resilience - 1);
 					}, self._options.resumable.assembleResilienceTimeout || 0);

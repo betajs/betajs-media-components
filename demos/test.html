@@ -10,20 +10,16 @@
 	<script src="../dist/betajs-media-components.js"></script>
 	<link rel="stylesheet" href="../dist/betajs-media-components.css" />
 	<style>
-	    html, body {
-	       height: 100%;
-	    }
-		.container {
-		    margin: 100px;
-		    width: 75%;
-		    height: 75%;
-		    background: transparent url(stock-image.jpg) no-repeat;
-		    background-size: cover;
-		}
 		.parent {
-		    position: relative;
-		    width: 100%;
-		    height: 100%;
+		    position: absolute;
+		    left: 0;
+		    right: 0;
+		    top: 0;
+		    bottom: 0;
+		}
+		.video-container {
+		  display: inline-block;
+		  position: relative;
 		}
 	</style>
 </head>
@@ -44,16 +40,15 @@
             <ba-videoplayer-playbutton></ba-videoplayer-playbutton>
         </div>
     </div>
-     -->
     <div class="container">
         <div class="parent">
             <ba-videoplayer-controlbar></ba-videoplayer-controlbar>
         </div>
     </div>
+     -->
+    <ba-videoplayer ba-poster="sample-cover.png" ba-src="sample-video.mp4"></ba-videoplayer>
     <script>
-    
-    
-    
+    BetaJS.MediaComponents.Assets.strings.addTag("language:de");
     if (BetaJS.Browser.Info.isInternetExplorer() && BetaJS.Browser.Info.internetExplorerVersion() < 9)
     	$("body").addClass("ba-videoplayer-ie8");
     else

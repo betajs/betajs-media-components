@@ -1,5 +1,5 @@
 /*!
-betajs-browser - v1.0.4 - 2015-11-28
+betajs-browser - v1.0.6 - 2015-11-28
 Copyright (c) Oliver Friedmann
 MIT Software License.
 */
@@ -21,7 +21,7 @@ Scoped.define("base:$", ["jquery:"], function (jquery) {
 Scoped.define("module:", function () {
 	return {
 		guid: "02450b15-9bbf-4be2-b8f6-b483bc015d06",
-		version: '44.1448739127275'
+		version: '45.1448752726220'
 	};
 });
 
@@ -1211,13 +1211,13 @@ Scoped.define("module:Info", [
 		
 		isFirefox: function () {
 			return this.__cached("isFirefox", function (nav, ua, ualc) {
-				return ualc.indexOf("firefox") != -1;
+				return ualc.indexOf("firefox") != -1 || ualc.indexOf("fxios") != -1;
 			});
 		},
 		
 		isSafari: function () {
 			return this.__cached("isSafari", function (nav, ua, ualc) {
-				return !this.isChrome() && !this.isOpera() && !this.isEdge() && ualc.indexOf("safari") != -1;
+				return !this.isChrome() && !this.isOpera() && !this.isEdge() && !this.isFirefox() && ualc.indexOf("safari") != -1;
 			});
 		},
 		
@@ -1917,6 +1917,10 @@ Scoped.define("module:Upload.ResumableFileUploader", [
 					self._successCallback(message);
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
+					if (self._options.resumable.acceptedAssembleError && self._options.resumable.acceptedAssembleError == jqXHR.status) {
+						self._successCallback(message);
+						return;
+					}
 					Async.eventually(function () {
 						self._resumableSuccessCallback(file, message, resilience - 1);
 					}, self._options.resumable.assembleResilienceTimeout || 0);
@@ -1946,7 +1950,8 @@ Scoped.define("module:Upload.CordovaFileUploader", [
  		
  		_upload: function () {
  			var self = this;
- 		    var fileURI = this._options.source.localURL;
+ 		    //var fileURI = this._options.source.localURL;
+ 			var fileURI = this._options.source.fullPath.split(':')[1];
  		    var fileUploadOptions = new FileUploadOptions();
  		    fileUploadOptions.fileKey = "file";
  		    fileUploadOptions.fileName = fileURI.substr(fileURI.lastIndexOf('/') + 1);

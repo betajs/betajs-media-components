@@ -1,7 +1,7 @@
 {
 	"name": "betajs-media-components",
-	"version": "0.0.1",
-	"description": "BetaJS-Media is a JavaScript media UI components framework",
+	"version": "0.0.2",
+	"description": "BetaJS-Media-Components is a JavaScript media UI components framework",
 	"homepage": "http://betajs.com",
 	"contributors": ["Oliver Friedmann"],
 	"license": "MIT",

@@ -1,6 +1,6 @@
-# betajs-media-components 0.0.1
+# betajs-media-components 0.0.2
 
-BetaJS-Media is a JavaScript media UI components framework
+BetaJS-Media-Components is a JavaScript media UI components framework
 
 
 ## Status

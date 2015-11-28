@@ -16,7 +16,7 @@ Scoped.binding("jquery", "global:jQuery");
 Scoped.define("module:", function () {
 	return {
 		guid: "d71ebf84-e555-4e9b-b18a-11d74fdcefe2",
-		version: '171.1448739171285'
+		version: '171.1448746608628'
 	};
 });
 
@@ -886,8 +886,8 @@ Scoped.define("module:Handlers.Attr", [
 });
 
 Scoped.define("module:Handlers.HandlerMixin", [
-    "base:Objs", "base:Strings", "base:Functions", "jquery:", "browser:Loader", "module:Handlers.Node", "module:Registries"
-], function (Objs, Strings, Functions, $, Loader, Node, Registries) {
+    "base:Objs", "base:Strings", "base:Functions", "jquery:", "browser:Loader", "module:Handlers.Node", "module:Registries", "module:Handlers.HandlerNameRegistry"
+], function (Objs, Strings, Functions, $, Loader, Node, Registries, HandlerNameRegistry) {
 	return {		
 		
 		_notifications: {
@@ -920,6 +920,8 @@ Scoped.define("module:Handlers.HandlerMixin", [
 		
 		_handlerInitialize: function (options) {
 			options = options || {};
+			if (options.name_registry)
+				this.__nameRegistry = this.auto_destroy(new HandlerNameRegistry());
 			this._parentHandler = options.parentHandler || null;
 			this._argumentAttrs = {};
 			var template = options.template || this.template;
@@ -963,6 +965,28 @@ Scoped.define("module:Handlers.HandlerMixin", [
 				this.__element = compiled;
 				this.__activeElement = this.__element.parent();
 			}
+		},
+		
+		nameRegistry: function () {
+			return this.__nameRegistry || (this.parent() ? this.parent().nameRegistry() : null);
+		},
+		
+		byName: function (name) {
+			return this.nameRegistry().get(name);
+		},
+		
+		__assocs: {},
+		
+		addAssoc: function (name, registeredName) {
+			this.__assocs[name] = registeredName;
+		},
+		
+		removeAssoc: function (name) {
+			delete this.__assocs[name];
+		},
+		
+		assoc: function (name) {
+			return this.byName(this.__assocs[name] || name);
 		},
 		
 		setArgumentAttr: function (key, value) {
@@ -1096,6 +1120,50 @@ Scoped.define("module:Handlers.Partial", [
 		
 	});
 });
+
+
+
+Scoped.define("module:Handlers.HandlerNameRegistry", [
+    "base:Class", "base:Objs"                                    
+], function (Class, Objs, scoped) {
+	return Class.extend({scoped: scoped}, function (inherited) {
+		return {
+
+			__handlers: {},
+			
+			destroy: function () {
+				Objs.iter(this.__handlers, function (value, name) {
+					this.unregister(name);
+				}, this);
+				inherited.destroy.call(this);
+			},
+			
+			register: function (handler, name) {
+				this.unregister(name);
+				this.__handlers[name] = handler;
+				handler.on("destroy", function () {
+					this.unregister(name);
+				}, this);
+			},
+			
+			unregister: function (name) {
+				if (name in this.__handlers) {
+					var handler = this.__handlers[name];
+					delete this.__handlers[name];
+					if (!handler.destroyed())
+						handler.off(null, null, this);
+				}
+			},
+			
+			get: function (name) {
+				return this.__handlers[name];
+			}
+		
+		};
+			
+	});
+});
+
 Scoped.define("module:Handlers.Node", [
 	    "base:Class",
 	    "base:Events.EventsMixin",
@@ -1383,6 +1451,28 @@ Scoped.define("module:Registries", ["base:Classes.ClassRegistry", "base:Strings"
 	
 	};
 });
+
+Scoped.define("module:Partials.AssocPartial", ["module:Handlers.Partial"], function (Partial, scoped) {
+ 	var Cls = Partial.extend({scoped: scoped}, function (inherited) {
+ 		return {
+			
+ 			constructor: function (node, args, value, postfix) {
+ 				inherited.constructor.apply(this, arguments);
+ 				this.__postfix = postfix;
+ 				this._node._handler.addAssoc(postfix, value); 
+ 			},
+ 			
+ 			destroy: function () {
+ 				this._node._handler.removeAssoc(this.__postfix);
+ 				inherited.destroy.call(this);
+ 			}
+ 			
+ 		};
+ 	});
+ 	Cls.register("ba-assoc");
+	return Cls;
+});
+
 Scoped.define("module:Partials.AttrsPartial", ["module:Handlers.Partial"], function (Partial, scoped) {
   /**
    * @name ba-attrs
@@ -1514,7 +1604,7 @@ Scoped.define("module:Partials.ClickPartial", ["module:Handlers.Partial"], funct
  				inherited.constructor.apply(this, arguments);
  				var self = this;
  				this._node._$element.on("click", function (e) {
-          e.stopPropagation();
+ 					e.stopPropagation();
  					self._execute();
  				});
  			}
@@ -1637,6 +1727,26 @@ Scoped.define("module:Partials.EventPartial", ["module:Handlers.Partial", "base:
  		};
  	});
  	Cls.register("ba-on");
+	return Cls;
+});
+
+
+Scoped.define("module:Partials.RegisterPartial", ["module:Handlers.Partial"], function (Partial, scoped) {
+ 	var Cls = Partial.extend({scoped: scoped}, function (inherited) {
+ 		return {
+			
+ 			bindTagHandler: function (handler) {
+ 				handler.nameRegistry().register(handler, this._value);
+ 			},
+ 			
+ 			unbindTagHandler: function (handler) {
+ 				if (handler)
+ 					handler.nameRegistry().unregister(this._value);
+ 			}
+ 			
+ 		};
+ 	});
+ 	Cls.register("ba-register");
 	return Cls;
 });
 
@@ -2134,7 +2244,7 @@ Scoped.define("module:Dynamic", [
 		},
 		
 		activate: function (options) {
-			var dyn = new this(options || {element: document.body});
+			var dyn = new this(options || {element: document.body, name_registry: true});
 			dyn.activate();
 			return dyn;
 		},

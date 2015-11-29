@@ -1,59 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<script src="../vendors/jquery.min.js"></script>
-	<script src="../vendors/beta.js"></script>
-	<script src="../vendors/beta-browser-noscoped.js"></script>
-	<script src="../vendors/betajs-flash-noscoped.js"></script>
-	<script src="../vendors/betajs-media-noscoped.js"></script>
-	<script src="../vendors/betajs-dynamics-noscoped.js"></script>
-	<script src="../dist/betajs-media-components.js"></script>
-	<link rel="stylesheet" href="../dist/betajs-media-components.css" />
-	<style>
-		.parent {
-		    position: absolute;
-		    left: 0;
-		    right: 0;
-		    top: 0;
-		    bottom: 0;
-		}
-		.video-container {
-		  display: inline-block;
-		  position: relative;
-		}
-	</style>
-</head>
-<body>
-    <!-- 
-    <div class="container">
-        <div class="parent">
-            <ba-videoplayer-loader></ba-videoplayer-loader>
-        </div>
-    </div>
-	<div class="container">
-		<div class="parent">
-   	      <ba-videoplayer-message ba-message="Playback error. Tap to retry."></ba-videoplayer-message>
-		</div>
-	</div>
-    <div class="container">
-        <div class="parent">
-            <ba-videoplayer-playbutton></ba-videoplayer-playbutton>
-        </div>
-    </div>
-    <div class="container">
-        <div class="parent">
-            <ba-videoplayer-controlbar></ba-videoplayer-controlbar>
-        </div>
-    </div>
-     -->
-    <ba-videoplayer ba-poster="sample-cover.png" ba-src="sample-video.mp4"></ba-videoplayer>
-    <script>
-    BetaJS.MediaComponents.Assets.strings.addTag("language:de");
-    if (BetaJS.Browser.Info.isInternetExplorer() && BetaJS.Browser.Info.internetExplorerVersion() < 9)
-    	$("body").addClass("ba-videoplayer-ie8");
-    else
-    	$("body").addClass("ba-videoplayer-noie8");
-    BetaJS.Dynamics.Dynamic.activate();
-    </script>     
-</body>
+    <head>
+		<script src="../vendors/jquery.min.js"></script>
+		<script src="../vendors/beta.js"></script>
+		<script src="../vendors/beta-browser-noscoped.js"></script>
+		<script src="../vendors/betajs-flash-noscoped.js"></script>
+		<script src="../vendors/betajs-media-noscoped.js"></script>
+		<script src="../vendors/betajs-dynamics-noscoped.js"></script>
+		<script src="../dist/betajs-media-components.js"></script>
+		<link  href="../dist/betajs-media-components.css" rel="stylesheet" />
+	</head>
+    <body>
+
+	    <ba-videoplayer ba-poster="sample-cover.png" ba-source="sample-video.mp4"></ba-videoplayer>
+	
+	    <script>
+	        BetaJS.Flash.options = {
+	            flashFile: "../vendors/betajs-flash.swf",
+	            forceReload: true
+	        };
+	        BetaJS.MediaComponents.Assets.strings.addTag("language:de");
+	        BetaJS.Dynamics.Dynamic.activate();
+	    </script>     
+
+	</body>
 </html>

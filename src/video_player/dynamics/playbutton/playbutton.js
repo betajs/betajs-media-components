@@ -15,7 +15,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Playbutton", [
 			functions: {
 				
 				play: function () {
-					alert("play");
+					this.trigger("play");
 				}
 				
 			}

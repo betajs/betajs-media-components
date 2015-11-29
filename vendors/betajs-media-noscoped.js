@@ -1,5 +1,5 @@
 /*!
-betajs-media - v0.0.3 - 2015-11-04
+betajs-media - v0.0.3 - 2015-11-29
 Copyright (c) Oliver Friedmann
 MIT Software License.
 */
@@ -15,7 +15,7 @@ Scoped.binding("jquery", "global:jQuery");
 Scoped.define("module:", function () {
 	return {
 		guid: "8475efdb-dd7e-402e-9f50-36c76945a692",
-		version: '27.1446660783758'
+		version: '28.1448805172970'
 	};
 });
 
@@ -30,8 +30,9 @@ Scoped.define("module:Player.FlashPlayer", [
     "base:Objs",
     "base:Functions",
     "base:Types",
-    "jquery:"    
-], function (Class, Dom, Info, FlashClassRegistry, FlashEmbedding, Strings, Async, Objs, Functions, Types, $, scoped) {
+    "jquery:",
+    "base:Promise"
+], function (Class, Dom, Info, FlashClassRegistry, FlashEmbedding, Strings, Async, Objs, Functions, Types, $, Promise, scoped) {
 	var Cls = Class.extend({scoped: scoped}, function (inherited) {
 		return {
 			
@@ -255,10 +256,11 @@ Scoped.define("module:Player.FlashPlayer", [
 		
 		polyfill: function (element, polyfilltag, force, eventual) {
 			if (eventual) {
+				var promise = Promise.create();
 				Async.eventually(function () {
-					Cls.polyfill(element, polyfilltag, force);
+					promise.asyncSuccess(Cls.polyfill(element, polyfilltag, force));
 				});
-				return element; 
+				return promise; 
 			}
 			if (element.tagName.toLowerCase() != "video" || !("networkState" in element))
 				return Cls.attach(element);

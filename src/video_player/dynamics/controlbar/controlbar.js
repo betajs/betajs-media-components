@@ -17,7 +17,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 				"cached": 4 * 60 * 1000,
 				"volume": 0.6,
 				"expandedprogress": true,
-				"pausable": false
+				"playing": false,
+				"rerecordable": false
 			},
 			
 			functions: {
@@ -79,7 +80,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 				},
 				
 				rerecord: function () {
-					alert("rerecord");
+					this.trigger("rerecord");
 				}
 				
 			},
@@ -91,11 +92,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 				this.properties().compute("duration_formatted", function () {
 					return Time.formatTime(this.get("duration"), "mm:ss");
 				}, ['duration']);
-				var self = this;
-				setInterval(function () {
-					self.set("expandedprogress", !self.get("expandedprogress"));
-					self.set("pausable", !self.get("pausable"));
-				}, 2500);
 			}
 			
 		};

@@ -12,16 +12,16 @@
 	</div>
 	<div class="{{css}}-backbar"></div>
 	<div class="{{css}}-controlbar">
-        <div class="{{css}}-leftbutton-container">
+        <div class="{{css}}-leftbutton-container" ba-if="{{rerecordable}}">
             <div class="{{css}}-button-inner" ba-click="rerecord()" title="{{string('rerecord-video')}">
                 <i class="{{css}}-icon-ccw"></i>
             </div>
         </div>
 		<div class="{{css}}-leftbutton-container">
-			<div class="{{css}}-button-inner" ba-show="{{!pausable}}" ba-click="play()" title="{{string('play-video')}}">
+			<div class="{{css}}-button-inner" ba-show="{{!playing}}" ba-click="play()" title="{{string('play-video')}}">
 				<i class="{{css}}-icon-play"></i>
 			</div>
-            <div class="{{css}}-button-inner" ba-show="{{pausable}}" ba-click="pause()" title="{{string('pause-video')}}">
+            <div class="{{css}}-button-inner" ba-show="{{playing}}" ba-click="pause()" title="{{string('pause-video')}}">
                 <i class="{{css}}-icon-pause"></i>
             </div>
 		</div>

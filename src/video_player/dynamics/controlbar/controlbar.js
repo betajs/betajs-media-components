@@ -3,8 +3,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
     "base:Time",
     "module:Templates",
     "jquery:",
-    "module:Assets"
-], function (Class, Time, Templates, $, Assets, scoped) {
+    "module:Assets",
+    "base:Browser.Info"
+], function (Class, Time, Templates, $, Assets, Info, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {
 			
@@ -12,13 +13,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 			
 			attrs: {
 				"css": "ba-videoplayer",
-				"duration": 5 * 60 * 1000,
-				"position": 3 * 60 * 1000,
-				"cached": 4 * 60 * 1000,
+				"duration": 0,
+				"position": 0,
+				"cached": 0,
 				"volume": 0.6,
 				"expandedprogress": true,
 				"playing": false,
-				"rerecordable": false
+				"rerecordable": false,
+				"activitydelta": 0
 			},
 			
 			functions: {
@@ -34,6 +36,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 					if (!this.get("_updatePosition"))
 						return;
 					this.set("position", this.get("duration") * (event[0].clientX - $(event[0].currentTarget).offset().left) / $(event[0].currentTarget).width());
+					this.trigger("position", this.get("position"));
 				},
 				
 				stopUpdatePosition: function (event) {
@@ -60,11 +63,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 				},
 
 				play: function () {
-					alert("play");
+					this.trigger("play");
 				},
 				
 				pause: function () {
-					alert("pause");
+					this.trigger("pause");
 				},
 				
 				toggle_volume: function () {
@@ -87,11 +90,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 			
 			create: function () {
 				this.properties().compute("position_formatted", function () {
-					return Time.formatTime(this.get("position"), "mm:ss");
+					return Time.formatTime(this.get("position") * 1000, "mm:ss");
 				}, ['position']);
 				this.properties().compute("duration_formatted", function () {
-					return Time.formatTime(this.get("duration"), "mm:ss");
+					return Time.formatTime(this.get("duration") * 1000, "mm:ss");
 				}, ['duration']);
+				this.set("ismobile", Info.isMobile());
 			}
 			
 		};

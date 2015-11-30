@@ -11,6 +11,7 @@ $time_sep_width: 15px;
 $ie8_margintop: 6px;
 
 $progressbar_transition: 0.1s;
+$dashboard_transition: 0.5s;
 $button_fontsize: 14px;
 $text_fontsize: 13px;
 $text_fontfamily: Arial, sans-serif;
@@ -78,6 +79,11 @@ $text_color: #FFF;
 .#{$css}-dashboard {
     @include align-full-bottom;
     position: absolute;
+    transition: opacity $dashboard_transition;
+}
+
+.#{$css}-dashboard-hidden {
+    opacity: 0;
 }
 
 

@@ -1,7 +1,19 @@
 
-<div class="{{css}}-container {{css}}-{{ie8 ? 'ie8' : 'noie8'}}">
-    <video class="{{css}}-video" ba-repeat="{{source::sources}}">
-        <source src="{{source.src}}" type="{{source.type}}" />
+<div
+    class="{{css}}-container {{css}}-{{ie8 ? 'ie8' : 'noie8'}}"
+    ba-on:mousemove="user_activity()"
+    ba-on:mousedown="user_activity()"
+    ba-on:touchstart="user_activity()"
+>
+    <video
+        class="{{css}}-video"
+        ba-repeat="{{source::sources}}"
+        preload="none"
+    >
+        <source
+            src="{{source.src}}"
+            type="{{source.type}}"
+        />
     </video>
     <div class='{{css}}-overlay'>
     
@@ -9,12 +21,18 @@
             ba-show="{{state==='main'}}"
             ba-playing="{{playing}}"
             ba-event:rerecord="rerecord"
+            ba-event:play="play"
+            ba-event:pause="pause"
+            ba-event:position="seek"
+            ba-duration="{{duration}}"
+            ba-position="{{position}}"
+            ba-activitydelta="{{activity_delta}}"
             ba-rerecordable="{{rerecordable}}"
         ></ba-videoplayer-controlbar>
         
         <ba-videoplayer-playbutton
             ba-show="{{state==='init'}}"
-            ba-event:play="play"
+            ba-event:play="load"
         ></ba-videoplayer-playbutton>
         
         <ba-videoplayer-loader

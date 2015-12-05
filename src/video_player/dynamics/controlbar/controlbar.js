@@ -16,10 +16,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 				"duration": 0,
 				"position": 0,
 				"cached": 0,
-				"volume": 0.6,
+				"volume": 1.0,
 				"expandedprogress": true,
 				"playing": false,
 				"rerecordable": false,
+				"fullscreen": true,
 				"activitydelta": 0
 			},
 			
@@ -55,6 +56,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 					if (!this.get("_updateVolume"))
 						return;
 					this.set("volume", (event[0].clientX - $(event[0].currentTarget).offset().left) / $(event[0].currentTarget).width());
+					this.trigger("volume", this.get("volume"));
 				},
 				
 				stopUpdateVolume: function (event) {
@@ -76,10 +78,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 						this.set("volume", 0);
 					} else 
 						this.set("volume", this.__oldVolume || 1);
+					this.trigger("volume", this.get("volume"));
 				},
 				
 				toggle_fullscreen: function () {
-					alert("toggle fullscreen");
+					this.trigger("fullscreen");
 				},
 				
 				rerecord: function () {

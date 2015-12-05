@@ -5,16 +5,7 @@
     ba-on:mousedown="user_activity()"
     ba-on:touchstart="user_activity()"
 >
-    <video
-        class="{{css}}-video"
-        ba-repeat="{{source::sources}}"
-        preload="none"
-    >
-        <source
-            src="{{source.src}}"
-            type="{{source.type}}"
-        />
-    </video>
+    <video class="{{css}}-video"></video>
     <div class='{{css}}-overlay'>
     
         <ba-videoplayer-controlbar
@@ -24,10 +15,15 @@
             ba-event:play="play"
             ba-event:pause="pause"
             ba-event:position="seek"
+            ba-event:volume="set_volume"
+            ba-event:fullscreen="toggle_fullscreen"
+            ba-volume="{{volume}}"
             ba-duration="{{duration}}"
+            ba-cached="{{buffered}}"
             ba-position="{{position}}"
             ba-activitydelta="{{activity_delta}}"
             ba-rerecordable="{{rerecordable}}"
+            ba-fullscreen="{{fullscreensupport}}"
         ></ba-videoplayer-controlbar>
         
         <ba-videoplayer-playbutton
@@ -36,7 +32,7 @@
         ></ba-videoplayer-playbutton>
         
         <ba-videoplayer-loader
-            ba-show="{{state==='loading'}}"
+            ba-show="{{state==='loading' || buffering}}"
         ></ba-videoplayer-loader>
         
         <ba-videoplayer-message

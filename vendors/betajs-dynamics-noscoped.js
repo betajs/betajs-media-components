@@ -1,5 +1,5 @@
 /*!
-betajs-dynamics - v0.0.14 - 2015-11-29
+betajs-dynamics - v0.0.18 - 2015-12-05
 Copyright (c) Oliver Friedmann,Victor Lingenthal
 MIT Software License.
 */
@@ -16,7 +16,7 @@ Scoped.binding("jquery", "global:jQuery");
 Scoped.define("module:", function () {
 	return {
 		guid: "d71ebf84-e555-4e9b-b18a-11d74fdcefe2",
-		version: '172.1448830711981'
+		version: '183.1449325286878'
 	};
 });
 
@@ -448,6 +448,7 @@ Scoped.define("module:Data.Scope", [
 					scopes: {},
 					bind: {},
 					attrs: {},
+					extendables: [],
 					collections: {}
 				}, options);
 				var parent = options.parent;
@@ -456,6 +457,7 @@ Scoped.define("module:Data.Scope", [
 				this.__parent = parent;
 				this.__root = parent ? parent.root() : this;
 				this.__children = {};
+				this.__extendables = Objs.objectify(options.extendables);
 				this.__properties = new Properties();
 				this.__properties.on("change", function (key, value, oldValue) {
 					this.trigger("change:" + key, value, oldValue);
@@ -519,6 +521,8 @@ Scoped.define("module:Data.Scope", [
 			},
 			
 			set: function (key, value, force) {
+				if (key in this.__extendables) 
+					value = Objs.tree_extend(this.__properties.get(key) || {}, value);
 				this.__properties.set(key, value, force);
 				return this;
 			},
@@ -990,6 +994,8 @@ Scoped.define("module:Handlers.HandlerMixin", [
 		},
 		
 		setArgumentAttr: function (key, value) {
+			if (key in this.__extendables) 
+				value = Objs.tree_extend(this.properties().get(key) || {}, value);
 			this.properties().set(key, value);
 			this._argumentAttrs[key] = true;
 		},
@@ -1000,6 +1006,10 @@ Scoped.define("module:Handlers.HandlerMixin", [
 		
 		element: function () {
 			return this.__element;
+		},
+		
+		activeElement: function () {
+			return this.__activeElement;
 		},
 		
 		activate: function () {
@@ -1069,6 +1079,7 @@ Scoped.define("module:Handlers.Partial", [
 				this._args = args;
 				this._value = value;
 				this._active = false;
+				this._postfix = postfix;
 			},
 			
 			change: function (value, oldValue) {
@@ -1458,12 +1469,11 @@ Scoped.define("module:Partials.AssocPartial", ["module:Handlers.Partial"], funct
 			
  			constructor: function (node, args, value, postfix) {
  				inherited.constructor.apply(this, arguments);
- 				this.__postfix = postfix;
  				this._node._handler.addAssoc(postfix, value); 
  			},
  			
  			destroy: function () {
- 				this._node._handler.removeAssoc(this.__postfix);
+ 				this._node._handler.removeAssoc(this._postfix);
  				inherited.destroy.call(this);
  			}
  			
@@ -1506,23 +1516,16 @@ Scoped.define("module:Partials.AttrsPartial", ["module:Handlers.Partial"], funct
 
 
 Scoped.define("module:Partials.DataPartial", ["module:Handlers.Partial"], function (Partial, scoped) {
-  	var Cls = Partial.extend({scoped: scoped}, function (inherited) {
- 		return {
-			
- 			_apply: function (value) {
- 				this._node._tagHandler.data(this.__postfix, value);
- 			},
- 			
- 			bindTagHandler: function (handler) {
- 				this._apply(this._value);
- 			},
-
- 			constructor: function (node, args, value, postfix) {
- 				inherited.constructor.apply(this, arguments);
- 				this.__postfix = postfix;
- 			}
- 		
- 		};
+  	var Cls = Partial.extend({scoped: scoped},  {
+		
+		_apply: function (value) {
+			this._node._tagHandler.data(this._postfix, value);
+		},
+		
+		bindTagHandler: function (handler) {
+			this._apply(this._value);
+		}
+	
  	});
  	Cls.register("ba-data");
 	return Cls;
@@ -1616,21 +1619,14 @@ Scoped.define("module:Partials.ClickPartial", ["module:Handlers.Partial"], funct
 });
 
 Scoped.define("module:Partials.EventPartial", ["module:Handlers.Partial"], function (Partial, scoped) {
-  	var Cls = Partial.extend({scoped: scoped}, function (inherited) {
- 		return {
+  	var Cls = Partial.extend({scoped: scoped}, {
 			
- 			bindTagHandler: function (handler) {
- 				handler.on(this.__postfix, function (arg1, arg2, arg3, arg4) {
- 					this._node._handler.call(this._value, arg1, arg2, arg3, arg4);
- 				}, this);
- 			},
-
- 			constructor: function (node, args, value, postfix) {
- 				inherited.constructor.apply(this, arguments);
- 				this.__postfix = postfix;
- 			}
+		bindTagHandler: function (handler) {
+			handler.on(this._postfix, function (arg1, arg2, arg3, arg4) {
+				this._node._handler.call(this._value, arg1, arg2, arg3, arg4);
+			}, this);
+		}
  		
- 		};
  	});
  	Cls.register("ba-event");
 	return Cls;
@@ -1734,14 +1730,13 @@ Scoped.define("module:Partials.EventPartial", ["module:Handlers.Partial", "base:
  			constructor: function (node, args, value, postfix) {
  				inherited.constructor.apply(this, arguments);
  				var self = this;
- 				this.__postfix = postfix;
  				this._node._$element.on(postfix + "." + this.cid(), function () {
  					self._execute(Strings.trim(value));
  				});
  			},
  			
  			destroy: function () {
- 				this._node._$element.off(this.__postfix + "." + this.cid());
+ 				this._node._$element.off(this._postfix + "." + this.cid());
  				inherited.destroy.call(this);
  			}
  		
@@ -2203,8 +2198,9 @@ Scoped.define("module:Dynamic", [
    	    "module:Handlers.HandlerMixin",
    	    "base:Objs",
    	    "base:Strings",
-   	    "module:Registries"
-   	], function (Scope, HandlerMixin, Objs, Strings, Registries, scoped) {
+   	    "module:Registries",
+   	    "jquery:"
+   	], function (Scope, HandlerMixin, Objs, Strings, Registries, $, scoped) {
 	var Cls;
 	Cls = Scope.extend({scoped: scoped}, [HandlerMixin, function (inherited) {
    		return {
@@ -2216,6 +2212,8 @@ Scoped.define("module:Dynamic", [
 			constructor: function (options) {
 				this.initial = this.initial || {};
 				options = Objs.extend(Objs.clone(this.initial, 1), options);
+				this.domevents = Objs.extend(this.domevents, options.domevents);
+				this.windowevents = Objs.extend(this.windowevents, options.windowevents);
 				Objs.iter(this.cls.__initialForward, function (key) {
 					if (!(key in options) && (key in this))
 						options[key] = this[key];
@@ -2240,13 +2238,40 @@ Scoped.define("module:Dynamic", [
 			handle_call_exception: function (name, args, e) {
 				console.log("Dynamics Exception in '" + this.cls.classname + "' calling method '" + name + "' : " + e);
 				return null;
+			},
+			
+			domevents: {},
+			windowevents: {},
+			
+			_afterActivate: function (activeElement) {
+				this.activeElement().off("." + this.cid() + "-domevents");
+				$(window).off("." + this.cid() + "-windowevents");
+				var self = this;
+				Objs.iter(this.domevents, function (target, event) {
+					var ev = event.split(" ");
+					var source = ev.length === 1 ? this.activeElement() : this.activeElement().find(ev[1]);
+					source.on(ev[0] + "." + this.cid() + "-domevents", function (eventData) {
+						self.call(target, eventData);
+					});
+				}, this);
+				Objs.iter(this.windowevents, function (target, event) {
+					$(window).on(event + "." + this.cid() + "-windowevents", function (eventData) {
+						self.call(target, eventData);
+					});
+				}, this);
+			},
+			
+			destroy: function () {
+				this.activeElement().off("." + this.cid() + "-domevents");
+				$(window).off("." + this.cid() + "-windowevents");
+				inherited.destroy.call(this);
 			}
 				
 		};
 	}], {
 		
 		__initialForward: [
-		    "functions", "attrs", "collections", "template", "create", "bind", "scopes"
+		    "functions", "attrs", "extendables", "collections", "template", "create", "bind", "scopes"
         ],
 		
 		canonicName: function () {
@@ -2260,7 +2285,7 @@ Scoped.define("module:Dynamic", [
 		register: function (key, registry) {
 			registry = registry || Registries.handler;
 			this.__registeredName = key || this.registeredName();
-			registry.register(key, this);
+			registry.register(this.__registeredName, this);
 			return this;
 		},
 		

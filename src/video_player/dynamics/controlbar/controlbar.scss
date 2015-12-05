@@ -206,6 +206,8 @@ $text_color: #FFF;
 
 .#{$css}-volumebar {
     @include right-container-width($volume_width);
+    margin-left: $volume_height*2;
+    margin-right: $volume_height*2;
 }
 
 .#{$css}-ie8 .#{$css}-volumebar {
@@ -224,22 +226,22 @@ $text_color: #FFF;
     @include round-edges($volume_height / 2);
     background-color: $progressbar_position_bgcolor;
     height: 100%;
-    float: left;
+    @include align-left();
 }
 
 .#{$css}-volumebar-button {
-    float: left;
-    width: $volume_height;
-    height: 100%;
+    $radius: $volume_height - 2 * $progressbar_button_overflow;
+    @include border-radius($radius);
     background: $progressbar_button_bgcolor;
     box-sizing: content-box;
     border: $progressbar_button_border solid $progressbar_button_bordercolor;
-    padding: 2 * $progressbar_button_overflow;
-    $radius: $volume_height - 2 * $progressbar_button_overflow;
-    @include border-radius($radius);
-    $ml: floor($volume_height / 2);
-    margin-left: -$ml;
-    $mt: floor($radius/2);
-    margin-top: -$mt;
+
+    position: absolute;
+    right: -$radius;
+    top: -($progressbar_button_border + $progressbar_button_overflow);
+    z-index: 1;
+    width: $progressbar_height + 2 * $progressbar_button_overflow;
+    height: $progressbar_height + 2 * $progressbar_button_overflow;
+
 }
 

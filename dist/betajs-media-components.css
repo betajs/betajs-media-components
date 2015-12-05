@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.2 - 2015-11-29
+betajs-media-components - v0.0.2 - 2015-12-05
 Copyright (c) Oliver Friedmann
 MIT Software License.
 */
@@ -139,7 +139,9 @@ MIT Software License.
 .ba-videoplayer-volumebar {
   float: right;
   height: 100%;
-  width: 100px; }
+  width: 100px;
+  margin-left: 16px;
+  margin-right: 16px; }
 
 .ba-videoplayer-ie8 .ba-videoplayer-volumebar {
   margin-top: -6px; }
@@ -167,21 +169,22 @@ MIT Software License.
   border-top-right-radius: 4px;
   background-color: #8CF;
   height: 100%;
-  float: left; }
+  position: absolute;
+  left: 0; }
 
 .ba-videoplayer-volumebar-button {
-  float: left;
-  width: 8px;
-  height: 100%;
-  background: #FFF;
-  box-sizing: content-box;
-  border: 1px solid #999;
-  padding: 2px;
   -moz-border-radius: 6px;
   -webkit-border-radius: 6px;
   border-radius: 6px;
-  margin-left: -4px;
-  margin-top: -3px; }
+  background: #FFF;
+  box-sizing: content-box;
+  border: 1px solid #999;
+  position: absolute;
+  right: -6px;
+  top: -2px;
+  z-index: 1;
+  width: 11px;
+  height: 11px; }
 
 .ba-videoplayer-noie8 .ba-videoplayer-loader-container {
   position: absolute;

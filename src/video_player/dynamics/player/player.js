@@ -2,13 +2,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "base:Dynamics.Dynamic",
     "module:Templates",
     "base:Browser.Info",
-    "base:Media.Player.FlashPlayer",
+    "base:Media.Player.VideoPlayerWrapper",
     "base:Types",
     "base:Objs",
     "base:Strings",
     "base:Time",
     "base:Timers"
-], function (Class, Templates, Info, FlashPlayer, Types, Objs, Strings, Time, Timers, scoped) {
+], function (Class, Templates, Info, VideoPlayerWrapper, Types, Objs, Strings, Time, Timers, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {
 			
@@ -32,51 +32,47 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				}));
 				this.set("ie8", Info.isInternetExplorer() && Info.internetExplorerVersion() < 9);
 				
-				var sources = this.get("source") || this.get("sources");
-				if (Types.is_string(sources))
-					sources = sources.split(" ");
-				var sourcesMapped = [];
-				Objs.iter(sources, function (source) {
-					if (Types.is_string(source))
-						source = {src: source};
-					if (!source.type)
-						source.type = source.src.indexOf(".") >= 0 ? "video/" + Strings.last_after(source.src, ".") : "video";
-					sourcesMapped.push(source);
-				}, this);
-				this.set("sources", sourcesMapped);
-				
 				this.set("message", "");
 				this.set("state", "init");
 				this.set("playing", false);
 				this.set("loaded", false);
 				this.set("duration", 0.0);
 				this.set("position", 0.0);
+				this.set("buffered", 0.0);
 				this.set("last_activity", Time.now());
+				this.set("volume", 1.0);
+				
+				this.properties().compute("buffering", function () {
+					return this.get("buffered") < this.get("position");
+				}, ["buffered", "position"]);
 			},
 			
 			_afterActivate: function () {
 				var video = this.element().find("video").get(0);
-				video.poster = this.get("poster");
-				$(video).on("error", function () {
-					console.log(arguments);
-				});
-				FlashPlayer.polyfill(video, "div", this.get("forceflash"), true).success(function (video) {
-					this._video = video;
-					var $video = $(video);
-					this._$video = $video;
-					var self = this;
-					Objs.iter({
-						"canplay": "_eventLoaded",
-						"timeupdate": "_eventProgress",
-						"playing": "_eventPlaying",
-						"pause": "_eventPause",
-						"ended": "_eventEnded"
-					}, function (method, event) {
-						$video.on(event, function () {
-							self[method]();
-						});
-					});
-				}, this);
+				VideoPlayerWrapper.create({
+			    	element: video,
+			    	poster: this.get("poster"),
+			    	source: this.get("source"),
+			    	sources: this.get("sources"),
+			    	forceflash: !!this.get("forceflash"),
+			    	preload: true
+			    }).error(function () {
+			    	
+			    	// TODO
+			    	
+			    }, this).success(function (instance) {
+			    	
+			    	this.player = this.auto_destroy(instance);			    	
+					this.set("loaded", this.player.loaded());
+					// TODO loaded
+					// TODO error
+					this.player.on("loaded", this._eventLoaded, this);
+					if (this.player.loaded())
+						this._eventLoaded();
+					this.player.on("playing", this._eventPlaying, this);
+					this.player.on("paused", this._eventPaused, this);
+					this.player.on("ended", this._eventEnded, this);
+			    }, this);
 			},
 			
 			functions: {
@@ -104,6 +100,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				user_activity: function () {
 					this.set("last_activity", Time.now());
 					this.set("activity_delta", 0);
+				},
+				
+				set_volume: function (volume) {
+					this._methodSetVolume(volume);
+				},
+				
+				toggle_fullscreen: function () {
+					this.player.enterFullscreen();
 				}
 			
 			},
@@ -112,23 +116,23 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				if (this.get("state") === "init") {
 					if (this.get("loaded")) {
 						this.set("state", "main");
-						this._video.play();
+						this.player.play();
 					} else {
 						this.set("state", "loading");
-						this._video.play();
+						this.player.play();
 					}
 				}
 			},
 			
 			_methodPlay: function () {
 				if (this.get("state") === "main") {
-					this._video.play();
+					this.player.play();
 				}
 			},
 			
 			_methodPause: function () {
 				if (this.get("state") === "main") {
-					this._video.pause();
+					this.player.pause();
 				}
 			},
 
@@ -139,13 +143,21 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 			},
 			
 			_methodSeek: function (position) {
-				this._video.currentTime = position;
+				this.player.setPosition(position);
 				this.trigger("seek", position);
+			},
+			
+			_methodSetVolume: function (volume) {
+				volume = Math.min(1.0, volume);
+				this.set("volume", volume);
+				this.player.setVolume(volume);
+				this.player.setMuted(volume <= 0);
 			},
 			
 			_eventLoaded: function () {
 				this.set("loaded", true);
-				this.set("duration", this._video.duration);
+				this.set("duration", this.player.duration());
+				this.set("fullscreensupport", this.player.supportsFullscreen());
 				if (this.get("state") === "loading")
 					this.set("state", "main");
 				this.trigger("loaded");
@@ -156,9 +168,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				this.trigger("playing");
 			},
 			
-			_eventPause: function () {
+			_eventPaused: function () {
 				this.set("playing", false);
-				this.trigger("pause");
+				this.trigger("paused");
 			},
 
 			_eventEnded: function () {
@@ -167,14 +179,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				this.set("state", "init");
 			},
 			
-			_eventProgress: function () {
-				this.set("position", this._video.currentTime);
-				this.trigger("progress", this.get("position"));
-			},
-			
 			_timerFire: function () {
 				if (this.get("state") === "main") {
 					this.set("activity_delta", Time.now() - this.get("last_activity"));
+					this.set("position", this.player.position());
+					this.set("buffered", this.player.buffered());
+					this.set("duration", this.player.duration());
 				}
 			}
 			

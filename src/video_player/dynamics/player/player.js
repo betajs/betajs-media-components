@@ -16,6 +16,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 			
 			attrs: {
 				"css": "ba-videoplayer",
+				"dynplaybutton": "videoplayer-playbutton",
 				"poster": "",
 				"source": "",
 				"sources": [],

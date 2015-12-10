@@ -1,5 +1,5 @@
 /*!
-betajs-media - v0.0.4 - 2015-12-05
+betajs-media - v0.0.4 - 2015-12-09
 Copyright (c) Oliver Friedmann
 MIT Software License.
 */
@@ -15,7 +15,7 @@ Scoped.binding("jquery", "global:jQuery");
 Scoped.define("module:", function () {
 	return {
 		guid: "8475efdb-dd7e-402e-9f50-36c76945a692",
-		version: '28.1449328041478'
+		version: '30.1449698837201'
 	};
 });
 
@@ -1051,6 +1051,8 @@ Scoped.define("module:WebRTC.RecorderWrapper", [
 			_stopRecord: function () {},
 			
 			_dataAvailable: function (videoBlob, audioBlob) {
+				if (this.destroyed())
+					return;
 				this.trigger("data", videoBlob, audioBlob);
 			},
 			
@@ -1200,8 +1202,12 @@ Scoped.define("module:WebRTC.WhammyAudioRecorderWrapper", [
 			supported: function (options) {
 				if (!inherited.supported.call(this, options))
 					return false;
-				if (Info.isChrome() && Info.chromeVersion() >= 47 && document.location.href.indexOf("https://") !== 0)
-					return false;
+				if (document.location.href.indexOf("https://") !== 0 && document.location.hostname !== "localhost") {
+					if (Info.isChrome() && Info.chromeVersion() >= 47)
+						return false;
+					if (Info.isOpera() && Info.operaVersion() >= 34)
+						return false;
+				}
 				return AudioRecorder.supported() && WhammyRecorder.supported();
 			}
 		
@@ -1402,7 +1408,7 @@ Scoped.define("module:WebRTC.Support", [
 				if (stream.stop) {
 					stream.stop();
 				} else if (stream.getTracks) {
-					stream.getTracks().each(function (track) {
+					stream.getTracks().forEach(function (track) {
 						track.stop();
 					});
 				}
@@ -1474,7 +1480,8 @@ Scoped.define("module:WebRTC.WhammyRecorder", [
 			},
 
 			destroy: function () {
-				this.stop();
+				this._started = false;
+				this.trigger("stopped");
 				inherited.destroy.call(this);
 			},
 
@@ -1529,7 +1536,7 @@ Scoped.define("module:WebRTC.WhammyRecorder", [
 			},
 			
 			averageFrameRate: function () {
-				return this._frames.length > 0 ? (this.frames.length / (Time.now() - this._startTime) / 1000) : null;
+				return this._frames.length > 0 ? (this._frames.length / (Time.now() - this._startTime) * 1000) : null;
 			},
 			
 			_generateData: function () {

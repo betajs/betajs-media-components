@@ -1,9 +1,14 @@
 Scoped.define("module:Assets", [
-    "base:Classes.StringTable"
-], function (StringTable) {
+    "base:Classes.LocaleTable",
+    "base:Browser.Info"
+], function (LocaleTable, Info) {
+	
+	var strings = new LocaleTable();
+	strings.setWeakLocale(Info.language());
+	
 	return {
 		
-		strings: new StringTable()
+		strings: strings
 		
 	};
 });

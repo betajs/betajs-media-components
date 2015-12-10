@@ -9,6 +9,7 @@
     <div class='{{css}}-overlay'>
     
         <ba-videoplayer-controlbar
+            ba-css="{{css}}"
             ba-show="{{state==='main'}}"
             ba-playing="{{playing}}"
             ba-event:rerecord="rerecord"
@@ -26,16 +27,19 @@
             ba-fullscreen="{{fullscreensupport}}"
         ></ba-videoplayer-controlbar>
         
-        <ba-videoplayer-playbutton
+        <ba-{{dynplaybutton}}
+            ba-css="{{css}}"
             ba-show="{{state==='init'}}"
             ba-event:play="load"
-        ></ba-videoplayer-playbutton>
+        ></ba-{{dynplaybutton}}>
         
         <ba-videoplayer-loader
+            ba-css="{{css}}"
             ba-show="{{state==='loading' || buffering}}"
         ></ba-videoplayer-loader>
         
         <ba-videoplayer-message
+            ba-css="{{css}}"
             ba-show="{{state==='message'}}"
             ba-message="{{message}}"
         ></ba-videoplayer-message>

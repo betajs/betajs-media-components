@@ -1,5 +1,5 @@
 /*!
-betajs-dynamics - v0.0.18 - 2015-12-05
+betajs-dynamics - v0.0.19 - 2015-12-08
 Copyright (c) Oliver Friedmann,Victor Lingenthal
 MIT Software License.
 */
@@ -16,7 +16,7 @@ Scoped.binding("jquery", "global:jQuery");
 Scoped.define("module:", function () {
 	return {
 		guid: "d71ebf84-e555-4e9b-b18a-11d74fdcefe2",
-		version: '183.1449325286878'
+		version: '190.1449625292335'
 	};
 });
 
@@ -451,6 +451,8 @@ Scoped.define("module:Data.Scope", [
 					extendables: [],
 					collections: {}
 				}, options);
+				if (options.initialbind)
+					options.bind = Objs.extend(options.bind, options.initialbind);
 				var parent = options.parent;
 				this.__manager = parent ? parent.__manager : this._auto_destroy(new ScopeManager(this));
 				inherited.constructor.call(this);
@@ -753,10 +755,11 @@ Scoped.define("module:Handlers.Attr", [
 	    "module:Parser",
 	    "jquery:",
 	    "base:Types",
+	    "base:Objs",
 	    "base:Strings",
 	    "module:Registries",
 	    "browser:Dom"
-	], function (Class, Parser, $, Types, Strings, Registries, Dom, scoped) {
+	], function (Class, Parser, $, Types, Objs, Strings, Registries, Dom, scoped) {
 	var Cls;
 	Cls = Class.extend({scoped: scoped}, function (inherited) {
 		return {
@@ -854,11 +857,20 @@ Scoped.define("module:Handlers.Attr", [
 				this._tagHandler = handler;
 				if (!this._partial && Registries.prefixes[Strings.splitFirst(this._attrName, "-").head]) {
 					var innerKey = Strings.first_after(this._attrName, "-");					
-					this._tagHandler.setArgumentAttr(innerKey, this._attrValue);
+					this._tagHandler.setArgumentAttr(innerKey, Class.is_pure_json(this._attrValue) ? Objs.clone(this._attrValue, 1) : this._attrValue);
 					if (this._dyn && this._dyn.bidirectional) {
-						this._tagHandler.properties().on("change:" + innerKey, function (value) {
-							this._node.mesh().write(this._dyn.variable, value);
-						}, this);							
+						if (Class.is_pure_json(this._attrValue)) {
+							this._tagHandler.properties().bind(innerKey, this._node._handler.properties(), {
+								deep: true,
+								left: true,
+								right: true,
+								secondKey: this._dyn.variable
+							});
+						} else {
+							this._tagHandler.properties().on("change:" + innerKey, function (value) {
+								this._node.mesh().write(this._dyn.variable, value);
+							}, this);							
+						}
 					}
 				} else if (this._partial) {
 					this._partial.bindTagHandler(handler);
@@ -2271,7 +2283,7 @@ Scoped.define("module:Dynamic", [
 	}], {
 		
 		__initialForward: [
-		    "functions", "attrs", "extendables", "collections", "template", "create", "bind", "scopes"
+		    "functions", "attrs", "extendables", "collections", "template", "create", "scopes"
         ],
 		
 		canonicName: function () {

@@ -12,14 +12,13 @@
 </head>
 <body>
 
-    <ba-videoplayer ba-poster="sample-cover.png" ba-source="sample-video.mp4" ></ba-videoplayer>
+    <ba-videoplayer ba-poster="sample-cover.png" ba-source="sample-video.mp4" ba-css="ba-videoplayer"></ba-videoplayer>
     
     <script>
         BetaJS.Flash.options = {
             flashFile: "../vendors/betajs-flash.swf",
             forceReload: true
         };
-        BetaJS.MediaComponents.Assets.strings.addTag("language:de");
         BetaJS.Dynamics.Dynamic.activate();
     </script>
 

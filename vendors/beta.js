@@ -1,5 +1,5 @@
 /*!
-betajs - v1.0.16 - 2015-12-05
+betajs - v1.0.20 - 2015-12-09
 Copyright (c) Oliver Friedmann,Victor Lingenthal
 MIT Software License.
 */
@@ -557,7 +557,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs - v1.0.16 - 2015-12-05
+betajs - v1.0.20 - 2015-12-09
 Copyright (c) Oliver Friedmann,Victor Lingenthal
 MIT Software License.
 */
@@ -570,7 +570,7 @@ Scoped.binding("module", "global:BetaJS");
 Scoped.define("module:", function () {
 	return {
 		guid: "71366f7a-7da3-4e55-9a0b-ea0e4e2a9e79",
-		version: '438.1449321794497'
+		version: '442.1449693402394'
 	};
 });
 
@@ -1018,6 +1018,10 @@ Scoped.define("module:Class", ["module:Types", "module:Objs", "module:Functions"
 		
 		is_class_instance: function (obj) {
 			return obj && Types.is_object(obj) && ("__class_instance_guid" in obj) && obj.__class_instance_guid == this.prototype.__class_instance_guid;
+		},
+		
+		is_pure_json: function (obj) {
+			return obj && Types.is_object(obj) && !this.is_class_instance(obj);
 		},
 		
 		is_instance_of: function (obj) {
@@ -1566,8 +1570,9 @@ Scoped.define("module:Collections.Collection", [
 	    "module:Ids",
 	    "module:Properties.Properties",
 	    "module:Iterators.ArrayIterator",
+	    "module:Iterators.FilteredIterator",
 	    "module:Types"
-	], function (Class, EventsMixin, Objs, Functions, ArrayList, Ids, Properties, ArrayIterator, Types, scoped) {
+	], function (Class, EventsMixin, Objs, Functions, ArrayList, Ids, Properties, ArrayIterator, FilteredIterator, Types, scoped) {
 	return Class.extend({scoped: scoped}, [EventsMixin, function (inherited) {
 		return {
 
@@ -1748,6 +1753,12 @@ Scoped.define("module:Collections.Collection", [
 			
 			iterator: function () {
 				return ArrayIterator.byIterate(this.iterate, this);
+			},
+			
+			query: function (subset) {
+				return new FilteredIterator(this.iterator(), function (prop) {
+					return prop.isSupersetOf(subset); 
+				});
 			},
 			
 			clear: function () {
@@ -3717,6 +3728,19 @@ Scoped.define("module:Objs", ["module:Types"], function (Types) {
 			}
 			return c;
 		},
+		
+		subset_of: function (a, b) {
+			a = Types.is_array(a) ? this.objectify(a) : a;
+			b = Types.is_array(b) ? this.objectify(b) : b;
+			for (var key in a)
+				if (a[key] != b[key])
+					return false;
+			return true;
+		},
+		
+		superset_of: function (a, b) {
+			return this.subset_of(b, a);
+		},
 
 		contains_key: function (obj, key) {
 			if (Types.is_array(obj))
@@ -4754,6 +4778,14 @@ Scoped.define("module:Properties.PropertiesMixin", [
 		
 		pid: function () {
 			return this.cid();
+		},
+		
+		isSubsetOf: function (props) {
+			return Objs.subset_of(this.data(), props.data ? props.data() : props);
+		},
+		
+		isSupersetOf: function (props) {
+			return Objs.superset_of(this.data(), props.data ? props.data() : props);
 		}
 		
 	};
@@ -7455,6 +7487,8 @@ Scoped.define("module:Types", function () {
 				return parseInt(x, 10);
 			if (type == "date" || type == "time" || type == "datetime")
 				return parseInt(x, 10);
+			if (type == "float" || type == "double")
+				return parseFloat(x);
 			return x;
 		},
 		
@@ -7627,12 +7661,20 @@ Scoped.define("module:Classes.Taggable", [
 			return this;
 		},
 		
+		removeTags: function (tags) {
+			Objs.iter(tags, this.removeTag, this);
+		},
+		
 		addTag: function (tag) {
 			this.__tags[tag] = true;
 			this._notify("tags-changed");
 			return this;
 		},
 		
+		addTags: function (tags) {
+			Objs.iter(tags, this.addTag, this);
+		},
+
 		tagIntersect: function (tags) {
 			return Objs.filter(tags, this.hasTag, this);
 		}
@@ -7719,6 +7761,50 @@ Scoped.define("module:Classes.StringTable", [
 
 		};
 	}]);
+});
+
+
+
+Scoped.define("module:Classes.LocaleTable", [
+	"module:Classes.StringTable"
+], function (StringTable, scoped) {
+	return StringTable.extend({scoped: scoped}, function (inherited) {
+		return {
+			
+			__locale: null,
+			
+			_localeTags: function (locale) {
+				if (!locale)
+					return null;
+				var result = [];
+				result.push("language:" + locale);
+				if (locale.indexOf("-") > 0)
+					result.push("language:" + locale.substring(0, locale.indexOf("-")));
+				return result;
+			},
+
+			clearLocale: function () {
+				this.removeTags(this._localeTags(this.__locale));
+				this.__locale = null;
+			},
+			
+			setLocale: function (locale) {
+				this.clearLocale();
+				this.__locale = this._localeTags(locale);
+				this.addTags(this.__locale);
+			},
+			
+			isLocaleSet: function () {
+				return !!this.__locale;
+			},
+			
+			setWeakLocale: function (locale) {
+				if (!this.isLocaleSet())
+					this.setLocale(locale);
+			}
+			
+		};
+	});
 });
 Scoped.define("module:Net.AjaxException", ["module:Exceptions.Exception"], function (Exception, scoped) {
 	return Exception.extend({scoped: scoped}, function (inherited) {

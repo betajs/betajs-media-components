@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.2 - 2015-12-05
+betajs-media-components - v0.0.2 - 2015-12-09
 Copyright (c) Oliver Friedmann
 MIT Software License.
 */
@@ -560,7 +560,7 @@ Public.exports();
 }).call(this);
 
 /*!
-betajs-media-components - v0.0.2 - 2015-12-05
+betajs-media-components - v0.0.2 - 2015-12-09
 Copyright (c) Oliver Friedmann
 MIT Software License.
 */
@@ -576,7 +576,7 @@ Scoped.binding("jquery", "global:jQuery");
 Scoped.define("module:", function () {
 	return {
 		guid: "7a20804e-be62-4982-91c6-98eb096d2e70",
-		version: '8.1449328694830'
+		version: '9.1449694221979'
 	};
 });
 
@@ -591,7 +591,7 @@ BetaJS.MediaComponents.Templates.message = ' <div class="{{css}}-message-contain
 
 BetaJS.MediaComponents.Templates.playbutton = ' <div class="{{css}}-playbutton-container">  <div class="{{css}}-playbutton-button" ba-click="play()" title="{{string(\'tooltip\')}}"></div> </div> ';
 
-BetaJS.MediaComponents.Templates.player = ' <div     class="{{css}}-container {{css}}-{{ie8 ? \'ie8\' : \'noie8\'}}"     ba-on:mousemove="user_activity()"     ba-on:mousedown="user_activity()"     ba-on:touchstart="user_activity()" >     <video class="{{css}}-video"></video>     <div class=\'{{css}}-overlay\'>              <ba-videoplayer-controlbar             ba-show="{{state===\'main\'}}"             ba-playing="{{playing}}"             ba-event:rerecord="rerecord"             ba-event:play="play"             ba-event:pause="pause"             ba-event:position="seek"             ba-event:volume="set_volume"             ba-event:fullscreen="toggle_fullscreen"             ba-volume="{{volume}}"             ba-duration="{{duration}}"             ba-cached="{{buffered}}"             ba-position="{{position}}"             ba-activitydelta="{{activity_delta}}"             ba-rerecordable="{{rerecordable}}"             ba-fullscreen="{{fullscreensupport}}"         ></ba-videoplayer-controlbar>                  <ba-videoplayer-playbutton             ba-show="{{state===\'init\'}}"             ba-event:play="load"         ></ba-videoplayer-playbutton>                  <ba-videoplayer-loader             ba-show="{{state===\'loading\' || buffering}}"         ></ba-videoplayer-loader>                  <ba-videoplayer-message             ba-show="{{state===\'message\'}}"             ba-message="{{message}}"         ></ba-videoplayer-message>     </div> </div> ';
+BetaJS.MediaComponents.Templates.player = ' <div     class="{{css}}-container {{css}}-{{ie8 ? \'ie8\' : \'noie8\'}}"     ba-on:mousemove="user_activity()"     ba-on:mousedown="user_activity()"     ba-on:touchstart="user_activity()" >     <video class="{{css}}-video"></video>     <div class=\'{{css}}-overlay\'>              <ba-videoplayer-controlbar             ba-css="{{css}}"             ba-show="{{state===\'main\'}}"             ba-playing="{{playing}}"             ba-event:rerecord="rerecord"             ba-event:play="play"             ba-event:pause="pause"             ba-event:position="seek"             ba-event:volume="set_volume"             ba-event:fullscreen="toggle_fullscreen"             ba-volume="{{volume}}"             ba-duration="{{duration}}"             ba-cached="{{buffered}}"             ba-position="{{position}}"             ba-activitydelta="{{activity_delta}}"             ba-rerecordable="{{rerecordable}}"             ba-fullscreen="{{fullscreensupport}}"         ></ba-videoplayer-controlbar>                  <ba-{{dynplaybutton}}             ba-css="{{css}}"             ba-show="{{state===\'init\'}}"             ba-event:play="load"         ></ba-{{dynplaybutton}}>                  <ba-videoplayer-loader             ba-css="{{css}}"             ba-show="{{state===\'loading\' || buffering}}"         ></ba-videoplayer-loader>                  <ba-videoplayer-message             ba-css="{{css}}"             ba-show="{{state===\'message\'}}"             ba-message="{{message}}"         ></ba-videoplayer-message>     </div> </div> ';
 
 Scoped.require(["module:Assets"], function (Assets) {
 	Assets.strings.register({
@@ -826,6 +826,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 			
 			attrs: {
 				"css": "ba-videoplayer",
+				"dynplaybutton": "videoplayer-playbutton",
 				"poster": "",
 				"source": "",
 				"sources": [],
@@ -1002,11 +1003,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 	}).register("ba-videoplayer");
 });
 Scoped.define("module:Assets", [
-    "base:Classes.StringTable"
-], function (StringTable) {
+    "base:Classes.LocaleTable",
+    "base:Browser.Info"
+], function (LocaleTable, Info) {
+	
+	var strings = new LocaleTable();
+	strings.setWeakLocale(Info.language());
+	
 	return {
 		
-		strings: new StringTable()
+		strings: strings
 		
 	};
 });

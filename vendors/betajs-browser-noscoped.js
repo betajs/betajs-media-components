@@ -1,5 +1,5 @@
 /*!
-betajs-browser - v1.0.7 - 2015-12-05
+betajs-browser - v1.0.11 - 2015-12-09
 Copyright (c) Oliver Friedmann
 MIT Software License.
 */
@@ -21,7 +21,7 @@ Scoped.define("base:$", ["jquery:"], function (jquery) {
 Scoped.define("module:", function () {
 	return {
 		guid: "02450b15-9bbf-4be2-b8f6-b483bc015d06",
-		version: '52.1449326659387'
+		version: '57.1449698832487'
 	};
 });
 
@@ -1099,7 +1099,8 @@ Scoped.define("module:Info", [
 					platform: navigator.platform,
 					userAgent: navigator.userAgent,
 					window_chrome: "chrome" in window,
-					window_opera: "opera" in window
+					window_opera: "opera" in window,
+					language: navigator.language || navigator.userLanguage || ""
 				};
 			}
 			return this.__navigator;
@@ -1118,6 +1119,12 @@ Scoped.define("module:Info", [
 		setNavigator: function (obj) {
 			this.__navigator = obj;
 			this.__cache = {};
+		},
+		
+		language: function () {
+			return this.__cached("language", function (nav) {
+				return nav.language;
+			});
 		},
 	
 		flash: function () {
@@ -1277,6 +1284,16 @@ Scoped.define("module:Info", [
 			});
 		},
 		
+		operaVersion: function () {
+			return this.__cached("operaVersion", function (nav, ua) {
+				var re = /OPR\/(\d+\.\d+)[^\d]/gi;
+				var ma = re.exec(ua);
+				if (ma)
+					return parseFloat(ma[1]);
+				return null;
+			});
+		},
+
 		inIframe: function () {
 		    try {
 		        return window.self !== window.top;
@@ -1396,7 +1413,7 @@ Scoped.define("module:Info", [
 		    	check: function () { return this.isSafari(); }
 		    }, android: {
 		    	format: "Android",
-		    	check: function () { return this.isAndroid() && !this.isChrome(); }
+		    	check: function () { return this.isAndroid() && !this.isChrome() && !this.isFirefox(); }
 		    }, webos: {
 		    	format: "WebOS",
 		    	check: function () { return this.isWebOS(); }

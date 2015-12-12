@@ -8,8 +8,9 @@
     <video class="{{css}}-video"></video>
     <div class='{{css}}-overlay'>
     
-        <ba-videoplayer-controlbar
+        <ba-{{dyncontrolbar}}
             ba-css="{{css}}"
+            ba-template="{{tmplcontrolbar}}"
             ba-show="{{state==='main'}}"
             ba-playing="{{playing}}"
             ba-event:rerecord="rerecord"
@@ -25,23 +26,26 @@
             ba-activitydelta="{{activity_delta}}"
             ba-rerecordable="{{rerecordable}}"
             ba-fullscreen="{{fullscreensupport}}"
-        ></ba-videoplayer-controlbar>
+        ></ba-{{dyncontrolbar}}>
         
         <ba-{{dynplaybutton}}
             ba-css="{{css}}"
+            ba-template="{{tmplplaybutton}}"
             ba-show="{{state==='init'}}"
             ba-event:play="load"
         ></ba-{{dynplaybutton}}>
         
-        <ba-videoplayer-loader
+        <ba-{{dynloader}}
             ba-css="{{css}}"
+            ba-template="{{tmplloader}}"
             ba-show="{{state==='loading' || buffering}}"
-        ></ba-videoplayer-loader>
+        ></ba-{{dynloader}}>
         
-        <ba-videoplayer-message
+        <ba-{{dynmessage}}
             ba-css="{{css}}"
+            ba-template="{{tmplmessage}}"
             ba-show="{{state==='message'}}"
             ba-message="{{message}}"
-        ></ba-videoplayer-message>
+        ></ba-{{dynmessage}}>
     </div>
 </div>

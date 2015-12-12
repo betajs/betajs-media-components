@@ -8,7 +8,9 @@ Scoped.define("module:Assets", [
 	
 	return {
 		
-		strings: strings
+		strings: strings,
+		
+		themes: {}
 		
 	};
 });

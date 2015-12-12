@@ -1,6 +1,7 @@
 Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "base:Dynamics.Dynamic",
     "module:Templates",
+    "module:Assets",
     "base:Browser.Info",
     "base:Media.Player.VideoPlayerWrapper",
     "base:Types",
@@ -8,7 +9,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "base:Strings",
     "base:Time",
     "base:Timers"
-], function (Class, Templates, Info, VideoPlayerWrapper, Types, Objs, Strings, Time, Timers, scoped) {
+], function (Class, Templates, Assets, Info, VideoPlayerWrapper, Types, Objs, Strings, Time, Timers, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {
 			
@@ -17,14 +18,25 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 			attrs: {
 				"css": "ba-videoplayer",
 				"dynplaybutton": "videoplayer-playbutton",
+				"tmplplaybutton": "",
+				"dynloader": "videoplayer-loader",
+				"tmplloader": "",
+				"dynmessage": "videoplayer-message",
+				"tmplmessage": "",
+				"dyncontrolbar": "videoplayer-controlbar",
+				"tmplcontrolbar": "",
 				"poster": "",
 				"source": "",
 				"sources": [],
 				"forceflash": false,
-				"rerecordable": false
+				"rerecordable": false,
+				"theme": ""
 			},
 			
 			create: function () {
+				if (this.get("theme") in Assets.themes)
+					this.setAll(Assets.themes[this.get("theme")]);
+				
 				this._timer = this.auto_destroy(new Timers.Timer({
 					context: this,
 					fire: this._timerFire,

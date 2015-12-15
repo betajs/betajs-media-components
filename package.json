@@ -1,6 +1,6 @@
 {
 	"name": "betajs-media-components",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"description": "BetaJS-Media-Components is a JavaScript media UI components framework",
 	"homepage": "http://betajs.com",
 	"contributors": ["Oliver Friedmann"],
@@ -24,8 +24,10 @@
 		"grunt-wget": "",
 		"grunt-jsdoc": "",
 		"grunt-shell": "",
+		"grunt-yaml": "",
 		"grunt-template": "",
-		"grunt-betajs-templates": ""
+		"grunt-betajs-templates": "",
+		"he": ""
 	},
 	"repository": {
 		"type": "git",

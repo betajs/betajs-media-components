@@ -1,0 +1,49 @@
+$playbutton_size: 5px;
+$playbutton_frame_thickness: 0.6em;
+$playbutton_default_opacity: 0.6;
+$playbutton_hover_opacity: 0.9;
+
+
+.#{$cssmodern}-playbutton-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    border: $playbutton_frame_thickness solid #999;
+    border: $playbutton_frame_thickness solid rgba(255, 255, 255, $playbutton_default_opacity);
+    border-radius: 50%;
+    width: 10em;
+    height: 10em;
+    font-size: $playbutton_size;
+    box-sizing: content-box;
+    cursor: pointer;
+}
+
+.#{$cssmodern}-playbutton-container:hover {
+    border: $playbutton_frame_thickness solid rgba(255, 255, 255, $playbutton_hover_opacity);
+}
+
+.#{$cssmodern}-playbutton-button {
+    position: relative;
+    width: 0; 
+    height: 0; 
+    border-top: 2em solid transparent;
+    border-bottom: 2em solid transparent;
+    border-left: 3.5em solid rgba(255, 255, 255, $playbutton_default_opacity);
+    margin: auto;
+    left: 0.4em;
+    top: 3.00em;
+    -moz-transform: scale(.9999);
+    -webkit-transform: scale(.9999);
+    -o-transform: scale(.9999);
+    -ms-transform: scale(.9999);
+    transform: scale(.9999);
+}
+
+.#{$cssmodern}-playbutton-container:hover .#{$cssmodern}-playbutton-button {
+    border-left: 3.5em solid rgba(255, 255, 255, $playbutton_hover_opacity);
+}

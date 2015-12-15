@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>BetaJS-Media-Components Tests</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.11.0.css">
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.1.1/es5-shim.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/json2/20140204/json2.js"></script>
+		<script src="../vendors/scoped.js"></script>
+		<script src="../vendors/beta-noscoped.js"></script>
+		<script src="../vendors/betajs-browser-noscoped.js"></script>
+		<script src="../vendors/betajs-flash-noscoped.js"></script>
+        <script src="../vendors/betajs-media-noscoped.js"></script>
+        <script src="../vendors/betajs-dynamics-noscoped.js"></script>
+		<script src="../dist/betajs-media-components-noscoped.js"></script>
+		<link rel="stylesheet" href="../dist/betajs-media-components.css">
+		<script>
+            BetaJS.Flash.options = {
+                flashFile: "../vendors/betajs-flash.swf",
+                forceReload: true
+            };
+		</script>
+	</head>
+	<body>
+		<div id="qunit"></div>
+		<div id="qunit-fixture"></div>
+		<script src="http://code.jquery.com/qunit/qunit-1.11.0.js"></script>
+		<script src="tests/player.js"></script>
+	</body>
+</html>

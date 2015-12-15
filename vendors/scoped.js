@@ -1,5 +1,5 @@
 /*!
-betajs-scoped - v0.0.2 - 2015-07-08
+betajs-scoped - v0.0.4 - 2015-12-12
 Copyright (c) Oliver Friedmann
 MIT Software License.
 */
@@ -129,6 +129,15 @@ var Attach = {
 		if (current == this)
 			return this;
 		Attach.__revert = current;
+		if (current) {
+			try {
+				var exported = current.__exportScoped();
+				this.__exportBackup = this.__exportScoped();
+				this.__importScoped(exported);
+			} catch (e) {
+				// We cannot upgrade the old version.
+			}
+		}
 		Globals.set(Attach.__namespace, this);
 		return this;
 	},
@@ -139,6 +148,8 @@ var Attach = {
 		if (typeof Attach.__revert != "undefined")
 			Globals.set(Attach.__namespace, Attach.__revert);
 		delete Attach.__revert;
+		if (Attach.__exportBackup)
+			this.__importScoped(Attach.__exportBackup);
 		return this;
 	},
 	
@@ -173,9 +184,8 @@ function newNamespace (options) {
 	
 	var nsRoot = initNode({ready: true});
 	
-	var treeRoot = null;
-	
 	if (options.tree) {
+		var treeRoot = null;
 		if (options.global) {
 			try {
 				if (window)
@@ -222,14 +232,17 @@ function newNamespace (options) {
 	}
 	
 	function nodeSetData(node, value) {
-		if (typeof value == "object") {
-			for (var key in value) {
+		if (typeof value == "object" && node.ready) {
+			for (var key in value)
 				node.data[key] = value[key];
-				if (node.children[key])
-					node.children[key].data = value[key];
-			}
 		} else
 			node.data = value;
+		if (typeof value == "object") {
+			for (var ckey in value) {
+				if (node.children[ckey])
+					node.children[ckey].data = value[ckey];
+			}
+		}
 		nodeEnforce(node);
 		for (var k in node.children)
 			nodeDigest(node.children[k]);
@@ -309,6 +322,11 @@ function newNamespace (options) {
 			nodeSetData(node, value);
 		},
 		
+		get: function (path) {
+			var node = nodeNavigate(path);
+			return node.ready ? node.data : null;
+		},
+		
 		lazy: function (path, callback, context) {
 			var node = nodeNavigate(path);
 			if (node.ready)
@@ -331,16 +349,31 @@ function newNamespace (options) {
 		
 		unresolvedWatchers: function (path) {
 			return nodeUnresolvedWatchers(nodeNavigate(path), path);
+		},
+		
+		__export: function () {
+			return {
+				options: options,
+				nsRoot: nsRoot
+			};
+		},
+		
+		__import: function (data) {
+			options = data.options;
+			nsRoot = data.nsRoot;
 		}
 		
 	};
 	
 }
-function newScope (parent, parentNamespace, rootNamespace, globalNamespace) {
+function newScope (parent, parentNS, rootNS, globalNS) {
 	
 	var self = this;
 	var nextScope = null;
 	var childScopes = [];
+	var parentNamespace = parentNS;
+	var rootNamespace = rootNS;
+	var globalNamespace = globalNS;
 	var localNamespace = newNamespace({tree: true});
 	var privateNamespace = newNamespace({tree: false});
 	
@@ -463,7 +496,53 @@ function newScope (parent, parentNamespace, rootNamespace, globalNamespace) {
 		
 		define: function () {
 			return custom.call(this, arguments, "define", function (ns, result) {
+				if (ns.namespace.get(ns.path))
+					throw ("Scoped namespace " + ns.path + " has already been defined. Use extend to extend an existing namespace instead");
 				ns.namespace.set(ns.path, result);
+			});
+		},
+		
+		assume: function () {
+			var args = Helper.matchArgs(arguments, {
+				assumption: true,
+				dependencies: "array",
+				callback: true,
+				context: "object",
+				error: "string"
+			});
+			var dependencies = args.dependencies || [];
+			dependencies.unshift(args.assumption);
+			this.require(dependencies, function (assumptionValue) {
+				if (!args.callback.apply(args.context || this, arguments))
+					throw ("Scoped Assumption '" + args.assumption + "' failed, value is " + assumptionValue + (args.error ? ", but assuming " + args.error : "")); 
+			});
+		},
+		
+		assumeVersion: function () {
+			var args = Helper.matchArgs(arguments, {
+				assumption: true,
+				dependencies: "array",
+				callback: true,
+				context: "object",
+				error: "string"
+			});
+			var dependencies = args.dependencies || [];
+			dependencies.unshift(args.assumption);
+			this.require(dependencies, function () {
+				var argv = arguments;
+				var assumptionValue = argv[0];
+				argv[0] = assumptionValue.split(".");
+				for (var i = 0; i < argv[0].length; ++i)
+					argv[0][i] = parseInt(argv[0][i], 10);
+				if (Helper.typeOf(args.callback) === "function") {
+					if (!args.callback.apply(args.context || this, args))
+						throw ("Scoped Assumption '" + args.assumption + "' failed, value is " + assumptionValue + (args.error ? ", but assuming " + args.error : ""));
+				} else {
+					var version = (args.callback + "").split(".");
+					for (var j = 0; j < Math.min(argv[0].length, version.length); ++j)
+						if (parseInt(version[j], 10) > argv[0][j])
+							throw ("Scoped Version Assumption '" + args.assumption + "' failed, value is " + assumptionValue + ", but assuming at least " + args.callback);
+				}
 			});
 		},
 		
@@ -528,6 +607,24 @@ function newScope (parent, parentNamespace, rootNamespace, globalNamespace) {
 		unresolved: function (namespaceLocator) {
 			var ns = this.resolve(namespaceLocator);
 			return ns.namespace.unresolvedWatchers(ns.path);
+		},
+		
+		__export: function () {
+			return {
+				parentNamespace: parentNamespace.__export(),
+				rootNamespace: rootNamespace.__export(),
+				globalNamespace: globalNamespace.__export(),
+				localNamespace: localNamespace.__export(),
+				privateNamespace: privateNamespace.__export()
+			};
+		},
+		
+		__import: function (data) {
+			parentNamespace.__import(data.parentNamespace);
+			rootNamespace.__import(data.rootNamespace);
+			globalNamespace.__import(data.globalNamespace);
+			localNamespace.__import(data.localNamespace);
+			privateNamespace.__import(data.privateNamespace);
 		}
 		
 	};
@@ -540,12 +637,26 @@ var rootScope = newScope(null, rootNamespace, rootNamespace, globalNamespace);
 var Public = Helper.extend(rootScope, {
 		
 	guid: "4b6878ee-cb6a-46b3-94ac-27d91f58d666",
-	version: '9.9436392609879',
+	version: '21.1449951185971',
 		
 	upgrade: Attach.upgrade,
 	attach: Attach.attach,
 	detach: Attach.detach,
-	exports: Attach.exports
+	exports: Attach.exports,
+	
+	__exportScoped: function () {
+		return {
+			globalNamespace: globalNamespace.__export(),
+			rootNamespace: rootNamespace.__export(),
+			rootScope: rootScope.__export()
+		};
+	},
+	
+	__importScoped: function (data) {
+		globalNamespace.__import(data.globalNamespace);
+		rootNamespace.__import(data.rootNamespace);
+		rootScope.__import(data.rootScope);
+	}
 	
 });
 

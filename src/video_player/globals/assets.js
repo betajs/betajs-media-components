@@ -1,6 +1,6 @@
 Scoped.define("module:Assets", [
     "base:Classes.LocaleTable",
-    "base:Browser.Info"
+    "browser:Info"
 ], function (LocaleTable, Info) {
 	
 	var strings = new LocaleTable();

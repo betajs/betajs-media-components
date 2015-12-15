@@ -1,8 +1,8 @@
 $loader_size: 5px;
-$loader_frame_thickness: 1.1em;
+$loader_frame_thickness: 0.6em;
 
 
-.#{$css}-noie8 .#{$css}-loader-container {
+.#{$cssmodern}-noie8 .#{$cssmodern}-loader-container {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -13,41 +13,41 @@ $loader_frame_thickness: 1.1em;
     transform: translate(-50%, -50%);
 }
 
-.#{$css}-noie8 .#{$css}-loader-loader:before {
+.#{$cssmodern}-noie8 .#{$cssmodern}-loader-loader:before {
     content: "";
     display: block;
     padding-top: 100%; /* initial ratio of 1:1*/
 }
 
-.#{$css}-noie8 .#{$css}-loader-loader {
+.#{$cssmodern}-noie8 .#{$cssmodern}-loader-loader {
     position: relative;
     width: 100%;
     font-size: $loader_size;
     box-sizing: content-box;
     border-top: $loader_frame_thickness solid #999;
-    border-top: $loader_frame_thickness solid rgba(255, 255, 255, 0.2);
+    border-top: $loader_frame_thickness solid rgba(255, 255, 255, 0.4);
     border-right: $loader_frame_thickness solid #999;
-    border-right: $loader_frame_thickness solid rgba(255, 255, 255, 0.2);
+    border-right: $loader_frame_thickness solid rgba(255, 255, 255, 0.4);
     border-bottom: $loader_frame_thickness solid #999;
-    border-bottom: $loader_frame_thickness solid rgba(255, 255, 255, 0.2);
+    border-bottom: $loader_frame_thickness solid rgba(255, 255, 255, 0.4);
     border-left: $loader_frame_thickness solid #ffffff;
     -webkit-transform: translateZ(0);
     -moz-transform: translateZ(0);
     -o-transform: translateZ(0);
     -ms-transform: translateZ(0);
     transform: translateZ(0);
-    -webkit-animation: #{$css}-loader-load8 1.1s infinite linear;
-    -moz-animation: #{$css}-loader-load8 1.1s infinite linear;
-    animation: #{$css}-loader-load8 1.1s infinite linear;
+    -webkit-animation: #{$cssmodern}-loader-load8 1.1s infinite linear;
+    -moz-animation: #{$cssmodern}-loader-load8 1.1s infinite linear;
+    animation: #{$cssmodern}-loader-load8 1.1s infinite linear;
 }
 
-.#{$css}-noie8 .#{$css}-loader-loader, .#{$css}-noie8 .#{$css}-loader-loader:after {
+.#{$cssmodern}-noie8 .#{$cssmodern}-loader-loader, .#{$cssmodern}-noie8 .#{$cssmodern}-loader-loader:after {
     border-radius: 50%;
     width: 10em;
     height: 10em;
 }
 
-@-webkit-keyframes #{$css}-loader-load8 {
+@-webkit-keyframes #{$cssmodern}-loader-load8 {
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
@@ -57,7 +57,7 @@ $loader_frame_thickness: 1.1em;
     transform: rotate(360deg);
   }
 }
-@keyframes #{$css}-loader-load8 {
+@keyframes #{$cssmodern}-loader-load8 {
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
@@ -69,13 +69,13 @@ $loader_frame_thickness: 1.1em;
 }
 
 
-.#{$css}-ie8 .#{$css}-loader-container {
+.#{$cssmodern}-ie8 .#{$cssmodern}-loader-container {
     width: 100%;
     height: 100%;
     position: absolute;
 }
 
-.#{$css}-ie8 .#{$css}-loader-loader {
+.#{$cssmodern}-ie8 .#{$cssmodern}-loader-loader {
     cursor: pointer;
     top: 50%;
     position: relative;    

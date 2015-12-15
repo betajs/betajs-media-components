@@ -12,27 +12,59 @@ module.exports = function(grunt) {
 					}
 				},
 				concat : {
-					options : {
-						banner : module.banner
-					},
 					dist_raw : {
+						options : {
+							banner : module.banner
+						},
 						dest : 'dist/betajs-media-components-raw.js',
 						src : [ 'src/fragments/begin.js-fragment',
 						        'dist/betajs-media-components-templates.js',
-								'src/**/*.js',
+						        'dist/betajs-media-components-locales.js',
+								'src/video_player/dynamics/**/*.js',
+								'src/video_player/globals/*.js',
 								'src/fragments/end.js-fragment' ]
 					},
 					dist_scoped : {
+						options : {
+							banner : module.banner
+						},
 						dest : 'dist/betajs-media-components.js',
 						src : [ 'vendors/scoped.js',
 								'dist/betajs-media-components-noscoped.js' ]
 					},
 					dist_scss: {
+						options : {
+							banner : module.banner
+						},
 						dest: 'dist/betajs-media-components.scss',
 						src: [
 						    'src/video_player/globals/globals.scss',
-							'src/**/*.scss'
+						    'src/video_player/globals/*.scss',
+							'src/video_player/dynamics/**/*.scss'
 						]
+					},
+					dist_theme_modern_js: {
+						options : {
+							banner : module.banner
+						},
+						dest: "dist/themes/modern.js",
+						src: [
+						    'src/video_player/themes/modern/theme.js'
+                        ]
+					},
+					dist_theme_modern_scss: {
+						options : {
+							banner : module.banner
+						},
+						dest: "dist/themes/modern.scss",
+						src: [
+						    'src/video_player/themes/modern/theme.scss',
+						    'src/video_player/themes/modern/*.scss'
+                        ]
+					},
+					dist_locales: {
+						dest: "dist/betajs-media-components-locales.yml",
+						src: ["src/**/locales/*.yml"]
 					}
 				},
 				preprocess : {
@@ -52,12 +84,22 @@ module.exports = function(grunt) {
 						files: {
 							'dist/betajs-media-components.css': 'dist/betajs-media-components.scss'
 						}
+					},
+					dist_theme_modern: {
+						files: {
+							'dist/themes/modern.css': 'dist/themes/modern.scss'
+						}
 					}
 				},
 				cssmin: {
-					target: {
+					dist: {
 						files: {
 							'dist/betajs-media-components.css.min': 'dist/betajs-media-components.css'
+						}
+					},
+					dist_theme_modern: {
+						files: {
+							'dist/themes/modern.css.min': 'dist/themes/modern.css'
 						}
 					}
 				},
@@ -72,11 +114,13 @@ module.exports = function(grunt) {
 				},
 				clean : {
 					raw: "dist/betajs-media-components-raw.js",
+					locales: "dist/betajs-media-components-locales*.*",
 					closure: "dist/betajs-media-components-closure.js",
 					browserstack : [ "./browserstack.json", "BrowserStackLocal" ],
 					templates: "dist/betajs-media-components-templates.js",
 					scss: "dist/betajs-media-components.scss",
-					jsdoc : ['./jsdoc.conf.json']
+					jsdoc : ['./jsdoc.conf.json'],
+					scss_theme_modern: 'dist/themes/modern.scss'
 				},
 				betajs_templates: {
 					dist: {
@@ -86,7 +130,28 @@ module.exports = function(grunt) {
 							]
 						},
 						options: {
-							namespace: 'BetaJS.MediaComponents.Templates'
+							namespace: 'module:Templates',
+							scoped: true
+						}
+					}
+				},
+				yaml: {
+					locales: {
+						options: {
+							 middleware: function(response, json, src, dest){
+								 for (var language in response) {
+									 for (var key in response[language]) {
+										 response[language][key] = require('he').encode(response[language][key]);
+									 }
+								 }
+								 json = JSON.stringify(response, null, 4);
+								 grunt.file.write(dest, json);
+						         grunt.log.writeln('Compiled ' + src.cyan + ' -> ' + dest.cyan);
+						     },
+						     disableDest: true
+						},				
+						files: {
+							"dist/betajs-media-components-locales.json": ["dist/betajs-media-components-locales.yml"]
 						}
 					}
 				},
@@ -111,6 +176,11 @@ module.exports = function(grunt) {
 							'dist/betajs-media-components-noscoped.min.js' : [ 'dist/betajs-media-components-noscoped.js' ],
 							'dist/betajs-media-components.min.js' : [ 'dist/betajs-media-components.js' ]
 						}
+					},
+					dist_theme_modern_js : {
+						files : {
+							'dist/themes/modern.min.js' : [ 'dist/themes/modern.js' ]
+						}
 					}
 				},
 				jshint : {
@@ -133,7 +203,8 @@ module.exports = function(grunt) {
 						}
 					},
 					dist : {
-						src : [ "./vendors/beta.js",
+						src : [ "./vendors/scoped.js",
+						        "./vendors/beta-noscoped.js",
 								"./vendors/betajs-flash-noscoped.js",
 								"./vendors/betajs-browser-noscoped.js",
 								"./vendors/beta-media-noscoped.js",
@@ -149,7 +220,7 @@ module.exports = function(grunt) {
 						},
 						files : {
 							"./vendors/scoped.js" : "https://raw.githubusercontent.com/betajs/betajs-scoped/master/dist/scoped.js",
-							"./vendors/beta.js" : "https://raw.githubusercontent.com/betajs/betajs/master/dist/beta.js",
+							"./vendors/beta-noscoped.js" : "https://raw.githubusercontent.com/betajs/betajs/master/dist/beta-noscoped.js",
 							"./vendors/betajs-browser-noscoped.js" : "https://raw.githubusercontent.com/betajs/betajs-browser/master/dist/betajs-browser-noscoped.js",
 							"./vendors/betajs-flash-noscoped.js" : "https://raw.githubusercontent.com/betajs/betajs-flash/master/dist/betajs-flash-noscoped.js",
 							"./vendors/betajs-flash.swf" : "https://raw.githubusercontent.com/betajs/betajs-flash/master/dist/betajs-flash.swf",
@@ -181,6 +252,18 @@ module.exports = function(grunt) {
 						},
 						files : {
 							"README.md" : ["readme.tpl"]
+						}
+					},
+					"locales": {
+						options : {
+							data: function () {
+								return {
+									data: grunt.file.readJSON("dist/betajs-media-components-locales.json")
+								};
+							}
+						},
+						files : {
+							"dist/betajs-media-components-locales.js" : ["locale.tpl"]
 						}
 					},
 					"jsdoc": {
@@ -259,7 +342,7 @@ module.exports = function(grunt) {
 							"box-sizing": false,
 							"bulletproof-font-face": false
 						},
-						src : [ 'dist/betajs-media-components.css' ]
+						src : [ 'dist/betajs-media-components.css', 'dist/themes/modern.css' ]
 					}
 				}
 			});
@@ -281,10 +364,14 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-template');
 	grunt.loadNpmTasks('grunt-betajs-templates');
 	grunt.loadNpmTasks('grunt-contrib-csslint');
+	grunt.loadNpmTasks('grunt-yaml');
 
-	grunt.registerTask('default', [ 'revision-count', 'betajs_templates', 'concat:dist_raw',
-			'preprocess', 'clean:raw', 'clean:templates', 'concat:dist_scoped', 'uglify',
-			'concat:dist_scss', 'sass', 'cssmin', 'clean:scss', 'copy:fonts' ]);
+	grunt.registerTask('default', [ 'revision-count', 'betajs_templates', 
+	        'concat:dist_locales', 'yaml', 'template:locales', 'concat:dist_raw', 'clean:locales',  
+			'preprocess', 'clean:raw', 'clean:templates', 'concat:dist_scoped', 'uglify:dist',
+			'concat:dist_scss', 'sass:dist', 'cssmin:dist', 'clean:scss', 'copy:fonts' ]);
+	grunt.registerTask('themes', ['concat:dist_theme_modern_js', 'uglify:dist_theme_modern_js', "concat:dist_theme_modern_scss",
+	                              'sass:dist_theme_modern', 'cssmin:dist_theme_modern', 'clean:scss_theme_modern']);
 	grunt.registerTask('lint', [ 'jshint:source', 'jshint:dist',
 	                 			 'jshint:gruntfile', 'jshint:tests' ]);
 	grunt.registerTask('qunit', [ 'shell:tests' ]);

@@ -1,10 +1,10 @@
 /*!
-betajs-media-components - v0.0.3 - 2015-12-11
+betajs-media-components - v0.0.5 - 2015-12-14
 Copyright (c) Oliver Friedmann
 MIT Software License.
 */
 /*!
-betajs-scoped - v0.0.2 - 2015-07-08
+betajs-scoped - v0.0.4 - 2015-12-12
 Copyright (c) Oliver Friedmann
 MIT Software License.
 */
@@ -134,6 +134,15 @@ var Attach = {
 		if (current == this)
 			return this;
 		Attach.__revert = current;
+		if (current) {
+			try {
+				var exported = current.__exportScoped();
+				this.__exportBackup = this.__exportScoped();
+				this.__importScoped(exported);
+			} catch (e) {
+				// We cannot upgrade the old version.
+			}
+		}
 		Globals.set(Attach.__namespace, this);
 		return this;
 	},
@@ -144,6 +153,8 @@ var Attach = {
 		if (typeof Attach.__revert != "undefined")
 			Globals.set(Attach.__namespace, Attach.__revert);
 		delete Attach.__revert;
+		if (Attach.__exportBackup)
+			this.__importScoped(Attach.__exportBackup);
 		return this;
 	},
 	
@@ -178,9 +189,8 @@ function newNamespace (options) {
 	
 	var nsRoot = initNode({ready: true});
 	
-	var treeRoot = null;
-	
 	if (options.tree) {
+		var treeRoot = null;
 		if (options.global) {
 			try {
 				if (window)
@@ -227,14 +237,17 @@ function newNamespace (options) {
 	}
 	
 	function nodeSetData(node, value) {
-		if (typeof value == "object") {
-			for (var key in value) {
+		if (typeof value == "object" && node.ready) {
+			for (var key in value)
 				node.data[key] = value[key];
-				if (node.children[key])
-					node.children[key].data = value[key];
-			}
 		} else
 			node.data = value;
+		if (typeof value == "object") {
+			for (var ckey in value) {
+				if (node.children[ckey])
+					node.children[ckey].data = value[ckey];
+			}
+		}
 		nodeEnforce(node);
 		for (var k in node.children)
 			nodeDigest(node.children[k]);
@@ -314,6 +327,11 @@ function newNamespace (options) {
 			nodeSetData(node, value);
 		},
 		
+		get: function (path) {
+			var node = nodeNavigate(path);
+			return node.ready ? node.data : null;
+		},
+		
 		lazy: function (path, callback, context) {
 			var node = nodeNavigate(path);
 			if (node.ready)
@@ -336,16 +354,31 @@ function newNamespace (options) {
 		
 		unresolvedWatchers: function (path) {
 			return nodeUnresolvedWatchers(nodeNavigate(path), path);
+		},
+		
+		__export: function () {
+			return {
+				options: options,
+				nsRoot: nsRoot
+			};
+		},
+		
+		__import: function (data) {
+			options = data.options;
+			nsRoot = data.nsRoot;
 		}
 		
 	};
 	
 }
-function newScope (parent, parentNamespace, rootNamespace, globalNamespace) {
+function newScope (parent, parentNS, rootNS, globalNS) {
 	
 	var self = this;
 	var nextScope = null;
 	var childScopes = [];
+	var parentNamespace = parentNS;
+	var rootNamespace = rootNS;
+	var globalNamespace = globalNS;
 	var localNamespace = newNamespace({tree: true});
 	var privateNamespace = newNamespace({tree: false});
 	
@@ -468,7 +501,53 @@ function newScope (parent, parentNamespace, rootNamespace, globalNamespace) {
 		
 		define: function () {
 			return custom.call(this, arguments, "define", function (ns, result) {
+				if (ns.namespace.get(ns.path))
+					throw ("Scoped namespace " + ns.path + " has already been defined. Use extend to extend an existing namespace instead");
 				ns.namespace.set(ns.path, result);
+			});
+		},
+		
+		assume: function () {
+			var args = Helper.matchArgs(arguments, {
+				assumption: true,
+				dependencies: "array",
+				callback: true,
+				context: "object",
+				error: "string"
+			});
+			var dependencies = args.dependencies || [];
+			dependencies.unshift(args.assumption);
+			this.require(dependencies, function (assumptionValue) {
+				if (!args.callback.apply(args.context || this, arguments))
+					throw ("Scoped Assumption '" + args.assumption + "' failed, value is " + assumptionValue + (args.error ? ", but assuming " + args.error : "")); 
+			});
+		},
+		
+		assumeVersion: function () {
+			var args = Helper.matchArgs(arguments, {
+				assumption: true,
+				dependencies: "array",
+				callback: true,
+				context: "object",
+				error: "string"
+			});
+			var dependencies = args.dependencies || [];
+			dependencies.unshift(args.assumption);
+			this.require(dependencies, function () {
+				var argv = arguments;
+				var assumptionValue = argv[0];
+				argv[0] = assumptionValue.split(".");
+				for (var i = 0; i < argv[0].length; ++i)
+					argv[0][i] = parseInt(argv[0][i], 10);
+				if (Helper.typeOf(args.callback) === "function") {
+					if (!args.callback.apply(args.context || this, args))
+						throw ("Scoped Assumption '" + args.assumption + "' failed, value is " + assumptionValue + (args.error ? ", but assuming " + args.error : ""));
+				} else {
+					var version = (args.callback + "").split(".");
+					for (var j = 0; j < Math.min(argv[0].length, version.length); ++j)
+						if (parseInt(version[j], 10) > argv[0][j])
+							throw ("Scoped Version Assumption '" + args.assumption + "' failed, value is " + assumptionValue + ", but assuming at least " + args.callback);
+				}
 			});
 		},
 		
@@ -533,6 +612,24 @@ function newScope (parent, parentNamespace, rootNamespace, globalNamespace) {
 		unresolved: function (namespaceLocator) {
 			var ns = this.resolve(namespaceLocator);
 			return ns.namespace.unresolvedWatchers(ns.path);
+		},
+		
+		__export: function () {
+			return {
+				parentNamespace: parentNamespace.__export(),
+				rootNamespace: rootNamespace.__export(),
+				globalNamespace: globalNamespace.__export(),
+				localNamespace: localNamespace.__export(),
+				privateNamespace: privateNamespace.__export()
+			};
+		},
+		
+		__import: function (data) {
+			parentNamespace.__import(data.parentNamespace);
+			rootNamespace.__import(data.rootNamespace);
+			globalNamespace.__import(data.globalNamespace);
+			localNamespace.__import(data.localNamespace);
+			privateNamespace.__import(data.privateNamespace);
 		}
 		
 	};
@@ -545,12 +642,26 @@ var rootScope = newScope(null, rootNamespace, rootNamespace, globalNamespace);
 var Public = Helper.extend(rootScope, {
 		
 	guid: "4b6878ee-cb6a-46b3-94ac-27d91f58d666",
-	version: '9.9436392609879',
+	version: '21.1449951185971',
 		
 	upgrade: Attach.upgrade,
 	attach: Attach.attach,
 	detach: Attach.detach,
-	exports: Attach.exports
+	exports: Attach.exports,
+	
+	__exportScoped: function () {
+		return {
+			globalNamespace: globalNamespace.__export(),
+			rootNamespace: rootNamespace.__export(),
+			rootScope: rootScope.__export()
+		};
+	},
+	
+	__importScoped: function (data) {
+		globalNamespace.__import(data.globalNamespace);
+		rootNamespace.__import(data.rootNamespace);
+		rootScope.__import(data.rootScope);
+	}
 	
 });
 
@@ -558,9 +669,8 @@ Public = Public.upgrade();
 Public.exports();
 	return Public;
 }).call(this);
-
 /*!
-betajs-media-components - v0.0.3 - 2015-12-11
+betajs-media-components - v0.0.5 - 2015-12-14
 Copyright (c) Oliver Friedmann
 MIT Software License.
 */
@@ -570,54 +680,42 @@ var Scoped = this.subScope();
 
 Scoped.binding("module", "global:BetaJS.MediaComponents");
 Scoped.binding("base", "global:BetaJS");
+Scoped.binding("browser", "global:BetaJS.Browser");
+Scoped.binding("flash", "global:BetaJS.Flash");
+Scoped.binding("media", "global:BetaJS.Media");
+Scoped.binding("dynamics", "global:BetaJS.Dynamics");
 
 Scoped.binding("jquery", "global:jQuery");
 
 Scoped.define("module:", function () {
 	return {
 		guid: "7a20804e-be62-4982-91c6-98eb096d2e70",
-		version: '10.1449878958998'
+		version: '11.1450150166349'
 	};
 });
 
-BetaJS = BetaJS || {};
-BetaJS.MediaComponents = BetaJS.MediaComponents || {};
-BetaJS.MediaComponents.Templates = BetaJS.MediaComponents.Templates || {};
-BetaJS.MediaComponents.Templates.controlbar = ' <div class="{{css}}-dashboard {{activitydelta > 5000 ? (css + \'-dashboard-hidden\') : \'\'}}">  <div class="{{css}}-progressbar {{activitydelta < 2500 || ismobile ? \'\' : (css + \'-progressbar-small\')}}"       onmousedown="{{startUpdatePosition(domEvent)}}"       onmouseup="{{stopUpdatePosition(domEvent)}}"       onmouseleave="{{stopUpdatePosition(domEvent)}}"       onmousemove="{{progressUpdatePosition(domEvent)}}">   <div class="{{css}}-progressbar-cache" ba-styles="{{{width: Math.round(duration ? cached / duration * 100 : 0) + \'%\'}}}"></div>   <div class="{{css}}-progressbar-position" ba-styles="{{{width: Math.round(duration ? position / duration * 100 : 0) + \'%\'}}}" title="{{string(\'video-progress\')}}">    <div class="{{css}}-progressbar-button"></div>   </div>  </div>  <div class="{{css}}-backbar"></div>  <div class="{{css}}-controlbar">         <div class="{{css}}-leftbutton-container" ba-if="{{rerecordable}}">             <div class="{{css}}-button-inner" ba-click="rerecord()" title="{{string(\'rerecord-video\')}">                 <i class="{{css}}-icon-ccw"></i>             </div>         </div>   <div class="{{css}}-leftbutton-container">    <div class="{{css}}-button-inner" ba-show="{{!playing}}" ba-click="play()" title="{{string(\'play-video\')}}">     <i class="{{css}}-icon-play"></i>    </div>             <div class="{{css}}-button-inner" ba-show="{{playing}}" ba-click="pause()" title="{{string(\'pause-video\')}}">                 <i class="{{css}}-icon-pause"></i>             </div>   </div>   <div class="{{css}}-time-container">    <div class="{{css}}-time-value" title="{{string(\'elapsed-time\')}}">{{position_formatted}}</div>    <div class="{{css}}-time-sep">/</div>    <div class="{{css}}-time-value" title="{{string(\'total-time\')}}">{{duration_formatted}}</div>   </div>   <div class="{{css}}-rightbutton-container" ba-if="{{fullscreen}}">    <div class="{{css}}-button-inner" ba-click="toggle_fullscreen()" title="{{string(\'fullscreen-video\')}}">     <i class="{{css}}-icon-resize-full"></i>    </div>   </div>   <div class="{{css}}-volumebar">    <div class="{{css}}-volumebar-inner"         onmousedown="{{startUpdateVolume(domEvent)}}"                  onmouseup="{{stopUpdateVolume(domEvent)}}"                  onmouseleave="{{stopUpdateVolume(domEvent)}}"                  onmousemove="{{progressUpdateVolume(domEvent)}}">     <div class="{{css}}-volumebar-position" ba-styles="{{{width: Math.min(100, Math.round(volume * 100)) + \'%\'}}}">         <div class="{{css}}-volumebar-button" title="{{string(\'volume-button\')}}"></div>     </div>        </div>   </div>   <div class="{{css}}-rightbutton-container">    <div class="{{css}}-button-inner" ba-click="toggle_volume()" title="{{string(volume > 0 ? \'volume-mute\' : \'volume-unmute\')}}">     <i class="{{css + \'-icon-volume-\' + (volume >= 0.5 ? \'up\' : (volume > 0 ? \'down\' : \'off\')) }}"></i>    </div>   </div>  </div> </div> ';
+Scoped.assumeVersion("base:version", 444);
+Scoped.assumeVersion("browser:version", 58);
+Scoped.assumeVersion("flash:version", 19);
+Scoped.assumeVersion("media:version", 31);
+Scoped.assumeVersion("dynamics:version", 195);
 
-BetaJS.MediaComponents.Templates.loader = ' <div class="{{css}}-loader-container">     <div class="{{css}}-loader-loader" title="{{string(\'tooltip\')}}">     </div> </div>';
-
-BetaJS.MediaComponents.Templates.message = ' <div class="{{css}}-message-container" ba-click="click()">     <div class=\'{{css}}-message-message\'>         {{message}}     </div> </div>';
-
-BetaJS.MediaComponents.Templates.playbutton = ' <div class="{{css}}-playbutton-container">  <div class="{{css}}-playbutton-button" ba-click="play()" title="{{string(\'tooltip\')}}"></div> </div> ';
-
-BetaJS.MediaComponents.Templates.player = ' <div     class="{{css}}-container {{css}}-{{ie8 ? \'ie8\' : \'noie8\'}}"     ba-on:mousemove="user_activity()"     ba-on:mousedown="user_activity()"     ba-on:touchstart="user_activity()" >     <video class="{{css}}-video"></video>     <div class=\'{{css}}-overlay\'>              <ba-{{dyncontrolbar}}             ba-css="{{css}}"             ba-template="{{tmplcontrolbar}}"             ba-show="{{state===\'main\'}}"             ba-playing="{{playing}}"             ba-event:rerecord="rerecord"             ba-event:play="play"             ba-event:pause="pause"             ba-event:position="seek"             ba-event:volume="set_volume"             ba-event:fullscreen="toggle_fullscreen"             ba-volume="{{volume}}"             ba-duration="{{duration}}"             ba-cached="{{buffered}}"             ba-position="{{position}}"             ba-activitydelta="{{activity_delta}}"             ba-rerecordable="{{rerecordable}}"             ba-fullscreen="{{fullscreensupport}}"         ></ba-{{dyncontrolbar}}>                  <ba-{{dynplaybutton}}             ba-css="{{css}}"             ba-template="{{tmplplaybutton}}"             ba-show="{{state===\'init\'}}"             ba-event:play="load"         ></ba-{{dynplaybutton}}>                  <ba-{{dynloader}}             ba-css="{{css}}"             ba-template="{{tmplloader}}"             ba-show="{{state===\'loading\' || buffering}}"         ></ba-{{dynloader}}>                  <ba-{{dynmessage}}             ba-css="{{css}}"             ba-template="{{tmplmessage}}"             ba-show="{{state===\'message\'}}"             ba-message="{{message}}"         ></ba-{{dynmessage}}>     </div> </div> ';
-
+Scoped.extend('module:Templates', function () {
+return {"controlbar":" <div class=\"{{css}}-dashboard {{activitydelta > 5000 ? (css + '-dashboard-hidden') : ''}}\">  <div class=\"{{css}}-progressbar {{activitydelta < 2500 || ismobile ? '' : (css + '-progressbar-small')}}\"       onmousedown=\"{{startUpdatePosition(domEvent)}}\"       onmouseup=\"{{stopUpdatePosition(domEvent)}}\"       onmouseleave=\"{{stopUpdatePosition(domEvent)}}\"       onmousemove=\"{{progressUpdatePosition(domEvent)}}\">   <div class=\"{{css}}-progressbar-cache\" ba-styles=\"{{{width: Math.round(duration ? cached / duration * 100 : 0) + '%'}}}\"></div>   <div class=\"{{css}}-progressbar-position\" ba-styles=\"{{{width: Math.round(duration ? position / duration * 100 : 0) + '%'}}}\" title=\"{{string('video-progress')}}\">    <div class=\"{{css}}-progressbar-button\"></div>   </div>  </div>  <div class=\"{{css}}-backbar\"></div>  <div class=\"{{css}}-controlbar\">         <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{rerecordable}}\">             <div class=\"{{css}}-button-inner\" ba-click=\"rerecord()\" title=\"{{string('rerecord-video')}\">                 <i class=\"{{css}}-icon-ccw\"></i>             </div>         </div>   <div class=\"{{css}}-leftbutton-container\">    <div class=\"{{css}}-button-inner\" ba-show=\"{{!playing}}\" ba-click=\"play()\" title=\"{{string('play-video')}}\">     <i class=\"{{css}}-icon-play\"></i>    </div>             <div class=\"{{css}}-button-inner\" ba-show=\"{{playing}}\" ba-click=\"pause()\" title=\"{{string('pause-video')}}\">                 <i class=\"{{css}}-icon-pause\"></i>             </div>   </div>   <div class=\"{{css}}-time-container\">    <div class=\"{{css}}-time-value\" title=\"{{string('elapsed-time')}}\">{{position_formatted}}</div>    <div class=\"{{css}}-time-sep\">/</div>    <div class=\"{{css}}-time-value\" title=\"{{string('total-time')}}\">{{duration_formatted}}</div>   </div>   <div class=\"{{css}}-rightbutton-container\" ba-if=\"{{fullscreen}}\">    <div class=\"{{css}}-button-inner\" ba-click=\"toggle_fullscreen()\" title=\"{{string('fullscreen-video')}}\">     <i class=\"{{css}}-icon-resize-full\"></i>    </div>   </div>   <div class=\"{{css}}-volumebar\">    <div class=\"{{css}}-volumebar-inner\"         onmousedown=\"{{startUpdateVolume(domEvent)}}\"                  onmouseup=\"{{stopUpdateVolume(domEvent)}}\"                  onmouseleave=\"{{stopUpdateVolume(domEvent)}}\"                  onmousemove=\"{{progressUpdateVolume(domEvent)}}\">     <div class=\"{{css}}-volumebar-position\" ba-styles=\"{{{width: Math.min(100, Math.round(volume * 100)) + '%'}}}\">         <div class=\"{{css}}-volumebar-button\" title=\"{{string('volume-button')}}\"></div>     </div>        </div>   </div>   <div class=\"{{css}}-rightbutton-container\">    <div class=\"{{css}}-button-inner\" ba-click=\"toggle_volume()\" title=\"{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}\">     <i class=\"{{css + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}\"></i>    </div>   </div>  </div> </div> ","loader":" <div class=\"{{css}}-loader-container\">     <div class=\"{{css}}-loader-loader\" title=\"{{string('tooltip')}}\">     </div> </div>","message":" <div class=\"{{css}}-message-container\" ba-click=\"click()\">     <div class='{{css}}-message-message'>         {{message}}     </div> </div>","playbutton":" <div class=\"{{css}}-playbutton-container\">  <div class=\"{{css}}-playbutton-button\" ba-click=\"play()\" title=\"{{string('tooltip')}}\"></div> </div> ","player":" <div     class=\"{{css}}-container {{css}}-{{ie8 ? 'ie8' : 'noie8'}}\"     ba-on:mousemove=\"user_activity()\"     ba-on:mousedown=\"user_activity()\"     ba-on:touchstart=\"user_activity()\" >     <video class=\"{{css}}-video\"></video>     <div class='{{css}}-overlay'>              <ba-{{dyncontrolbar}}             ba-css=\"{{css}}\"             ba-template=\"{{tmplcontrolbar}}\"             ba-show=\"{{state==='main'}}\"             ba-playing=\"{{playing}}\"             ba-event:rerecord=\"rerecord\"             ba-event:play=\"play\"             ba-event:pause=\"pause\"             ba-event:position=\"seek\"             ba-event:volume=\"set_volume\"             ba-event:fullscreen=\"toggle_fullscreen\"             ba-volume=\"{{volume}}\"             ba-duration=\"{{duration}}\"             ba-cached=\"{{buffered}}\"             ba-position=\"{{position}}\"             ba-activitydelta=\"{{activity_delta}}\"             ba-rerecordable=\"{{rerecordable}}\"             ba-fullscreen=\"{{fullscreensupport}}\"         ></ba-{{dyncontrolbar}}>                  <ba-{{dynplaybutton}}             ba-css=\"{{css}}\"             ba-template=\"{{tmplplaybutton}}\"             ba-show=\"{{state==='init'}}\"             ba-event:play=\"play\"         ></ba-{{dynplaybutton}}>                  <ba-{{dynloader}}             ba-css=\"{{css}}\"             ba-template=\"{{tmplloader}}\"             ba-show=\"{{state==='loading' || buffering}}\"         ></ba-{{dynloader}}>                  <ba-{{dynmessage}}             ba-css=\"{{css}}\"             ba-template=\"{{tmplmessage}}\"             ba-show=\"{{state==='message'}}\"             ba-message=\"{{message}}\"             ba-event:click=\"play\"         ></ba-{{dynmessage}}>     </div> </div> "};
+});
 Scoped.require(["module:Assets"], function (Assets) {
-	Assets.strings.register({
-		"ba-videoplayer-playbutton.tooltip": "Hier clicken um Wiedergabe zu starten.",
-		"ba-videoplayer-loader.tooltip": "Video wird geladen...",
-    	"ba-videoplayer-controlbar.video-progress": "Videofortschritt",
-    	"ba-videoplayer-controlbar.rerecord-video": "Video erneut aufnehmen?",
-    	"ba-videoplayer-controlbar.play-video": "Video wiedergeben",
-    	"ba-videoplayer-controlbar.pause-video": "Video pausieren",
-    	"ba-videoplayer-controlbar.elapsed-time": "Vergangene Zeit",
-    	"ba-videoplayer-controlbar.total-time": "L&auml;nge des Videos",
-    	"ba-videoplayer-controlbar.fullscreen-video": "Vollbildmodus",
-    	"ba-videoplayer-controlbar.volume-button": "Lautst&auml;rke regulieren",
-    	"ba-videoplayer-controlbar.volume-mute": "Ton abstellen",
-    	"ba-videoplayer-controlbar.volume-unmute": "Ton wieder einstellen"
-	}, ["language:de"]);
+    var languages = {"language:de":{"ba-videoplayer-playbutton.tooltip":"Hier clicken um Wiedergabe zu starten.","ba-videoplayer-loader.tooltip":"Video wird geladen...","ba-videoplayer-controlbar.video-progress":"Videofortschritt","ba-videoplayer-controlbar.rerecord-video":"Video erneut aufnehmen?","ba-videoplayer-controlbar.play-video":"Video wiedergeben","ba-videoplayer-controlbar.pause-video":"Video pausieren","ba-videoplayer-controlbar.elapsed-time":"Vergangene Zeit","ba-videoplayer-controlbar.total-time":"L&#xE4;nge des Videos","ba-videoplayer-controlbar.fullscreen-video":"Vollbildmodus","ba-videoplayer-controlbar.volume-button":"Lautst&#xE4;rke regulieren","ba-videoplayer-controlbar.volume-mute":"Ton abstellen","ba-videoplayer-controlbar.volume-unmute":"Ton wieder einstellen","ba-videoplayer.video-error":"Es ist ein Fehler aufgetreten, bitte versuchen Sie es sp&#xE4;ter noch einmal. Hier klicken, um es noch einmal zu probieren."}};
+    for (var language in languages)
+        Assets.strings.register(languages[language], [language]);
 });
 
-
 Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
-    "base:Dynamics.Dynamic",
+    "dynamics:Dynamic",
     "base:Time",
     "module:Templates",
     "jquery:",
     "module:Assets",
-    "base:Browser.Info"
+    "browser:Info"
 ], function (Class, Time, Templates, $, Assets, Info, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {
@@ -732,7 +830,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
     });
 });
 Scoped.define("module:VideoPlayer.Dynamics.Loader", [
-    "base:Dynamics.Dynamic",
+    "dynamics:Dynamic",
     "module:Templates",
     "module:Assets"
 ], function (Class, Templates, Assets, scoped) {
@@ -754,7 +852,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Loader", [
     });
 });
 Scoped.define("module:VideoPlayer.Dynamics.Message", [
-    "base:Dynamics.Dynamic",
+    "dynamics:Dynamic",
     "module:Templates"
 ], function (Class, Templates, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
@@ -770,7 +868,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Message", [
 			functions: {
 				
 				click: function () {
-					alert("click");
+					this.trigger("click");
 				}
 				
 			}
@@ -779,7 +877,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Message", [
 	}).register("ba-videoplayer-message");
 });
 Scoped.define("module:VideoPlayer.Dynamics.Playbutton", [
-    "base:Dynamics.Dynamic",
+    "dynamics:Dynamic",
     "module:Templates",
     "module:Assets"
 ], function (Class, Templates, Assets, scoped) {
@@ -809,11 +907,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Playbutton", [
     });
 });
 Scoped.define("module:VideoPlayer.Dynamics.Player", [
-    "base:Dynamics.Dynamic",
+    "dynamics:Dynamic",
     "module:Templates",
     "module:Assets",
-    "base:Browser.Info",
-    "base:Media.Player.VideoPlayerWrapper",
+    "browser:Info",
+    "media:Player.VideoPlayerWrapper",
     "base:Types",
     "base:Objs",
     "base:Strings",
@@ -840,7 +938,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"sources": [],
 				"forceflash": false,
 				"rerecordable": false,
-				"theme": ""
+				"theme": "",
+				"message": "",
+				"autoplay": false
 			},
 			
 			create: function () {
@@ -864,6 +964,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				this.set("buffered", 0.0);
 				this.set("last_activity", Time.now());
 				this.set("volume", 1.0);
+				this.set("activated", false);
 				
 				this.properties().compute("buffering", function () {
 					return this.get("buffered") < this.get("position");
@@ -878,31 +979,29 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 			    	source: this.get("source"),
 			    	sources: this.get("sources"),
 			    	forceflash: !!this.get("forceflash"),
-			    	preload: true
-			    }).error(function () {
-			    	
-			    	// TODO
-			    	
+			    	preload: false
+			    }).error(function (e) {
+			    	this._eventError(e);
 			    }, this).success(function (instance) {
-			    	
-			    	this.player = this.auto_destroy(instance);			    	
+			    	this.set("activated", true);
+			    	this.player = instance;			    	
+					this.player.on("error", this._eventError, this);
+					this.player.on("postererror", this._eventPosterError, this);
 					this.set("loaded", this.player.loaded());
-					// TODO loaded
-					// TODO error
 					this.player.on("loaded", this._eventLoaded, this);
 					if (this.player.loaded())
 						this._eventLoaded();
 					this.player.on("playing", this._eventPlaying, this);
 					this.player.on("paused", this._eventPaused, this);
 					this.player.on("ended", this._eventEnded, this);
+					if (this.get("autoplay"))
+						this._methodPlay();
+			        if (this.player.error())
+			        	this._eventError(this.player.error());
 			    }, this);
 			},
 			
 			functions: {
-				
-				load: function () {
-					this._methodLoad();
-				},
 				
 				play: function () {
 					this._methodPlay();
@@ -935,8 +1034,27 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 			
 			},
 			
-			_methodLoad: function () {
-				if (this.get("state") === "init") {
+			destroy: function () {
+				if (this.player)
+					this.player.weakDestroy();
+				inherited.destroy.call(this);
+			},
+			
+			play: function () {
+				this.call("play");
+			},
+			
+			error: function () {
+				return this.get("activated") ? this.player.error() : null;
+			},
+			
+			_methodPlay: function () {
+				if (!this.get("activated")) {
+					this.set("autoplay", true);
+					return;
+				}
+				var state = this.get("state");
+				if (state === "init" || state === "message") {
 					if (this.get("loaded")) {
 						this.set("state", "main");
 						this.player.play();
@@ -944,12 +1062,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 						this.set("state", "loading");
 						this.player.play();
 					}
-				}
-			},
-			
-			_methodPlay: function () {
-				if (this.get("state") === "main") {
-					this.player.play();
+				} else if (state === "main") {
+					this.player.player();
 				}
 			},
 			
@@ -1002,6 +1116,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				this.set("state", "init");
 			},
 			
+			_eventError: function (error) {
+				this.set("state", "message");
+				this.set("message", this.string("video-error"));
+				this.trigger("error", error);
+			},
+			
+			_eventPosterError: function () {
+				this.trigger("postererror");
+			},
+
 			_timerFire: function () {
 				if (this.get("state") === "main") {
 					this.set("activity_delta", Time.now() - this.get("last_activity"));
@@ -1012,11 +1136,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 			}
 			
 		};
-	}).register("ba-videoplayer");
+	}).register("ba-videoplayer")
+	.attachStringTable(Assets.strings)
+    .addStrings({
+    	"video-error": "An error occurred, please try again later. Click to retry."
+    });
 });
 Scoped.define("module:Assets", [
     "base:Classes.LocaleTable",
-    "base:Browser.Info"
+    "browser:Info"
 ], function (LocaleTable, Info) {
 	
 	var strings = new LocaleTable();

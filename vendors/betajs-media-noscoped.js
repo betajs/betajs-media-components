@@ -1,5 +1,5 @@
 /*!
-betajs-media - v0.0.4 - 2015-12-09
+betajs-media - v0.0.5 - 2015-12-13
 Copyright (c) Oliver Friedmann
 MIT Software License.
 */
@@ -9,22 +9,27 @@ var Scoped = this.subScope();
 
 Scoped.binding("module", "global:BetaJS.Media");
 Scoped.binding("base", "global:BetaJS");
+Scoped.binding("browser", "global:BetaJS.Browser");
+Scoped.binding("flash", "global:BetaJS.Flash");
 
 Scoped.binding("jquery", "global:jQuery");
 
 Scoped.define("module:", function () {
 	return {
 		guid: "8475efdb-dd7e-402e-9f50-36c76945a692",
-		version: '30.1449698837201'
+		version: '32.1450042216810'
 	};
 });
 
+Scoped.assumeVersion("base:version", 444);
+Scoped.assumeVersion("browser:version", 58);
+Scoped.assumeVersion("flash:version", 19);
 Scoped.define("module:Player.FlashPlayer", [
-    "base:Browser.DomExtend.DomExtension",
-	"base:Browser.Dom",
-	"base:Browser.Info",
-    "base:Flash.FlashClassRegistry",
-    "base:Flash.FlashEmbedding",
+    "browser:DomExtend.DomExtension",
+	"browser:Dom",
+	"browser:Info",
+    "flash:FlashClassRegistry",
+    "flash:FlashEmbedding",
     "base:Strings",
     "base:Async",
     "base:Objs",
@@ -118,10 +123,14 @@ Scoped.define("module:Player.FlashPlayer", [
 				
 				if (this.readAttr("poster")) {
 					this._flashObjs.imageLoader = this._embedding.newObject("flash.display.Loader");
-					this._flashObjs.imageLoader.get("contentLoaderInfo").addEventListener("complete", this._embedding.newCallback(Functions.as_method(function () {
+					var contentLoaderInfo = this._flashObjs.imageLoader.get("contentLoaderInfo");
+					contentLoaderInfo.addEventListener("complete", this._embedding.newCallback(Functions.as_method(function () {
 						this.__imageLoaded = true;
 						if (!this.__metaLoaded)
 							this.recomputeBB();
+					}, this)));
+					contentLoaderInfo.addEventListener("ioError", this._embedding.newCallback(Functions.as_method(function () {
+						this.domEvent("postererror");
 					}, this)));
 					this._flashObjs.imageUrlRequest = this._embedding.newObject("flash.net.URLRequest", this.readAttr("poster"));
 					this._flashObjs.imageLoader.load(this._flashObjs.imageUrlRequest);
@@ -336,6 +345,7 @@ Scoped.define("module:Player.VideoPlayerWrapper", [
 				this._preload = options.preload || false;
 				this._options = options;
 				this._loaded = false;
+				this._postererror = false;
 				this._error = 0;
 			},
 			
@@ -354,6 +364,10 @@ Scoped.define("module:Player.VideoPlayerWrapper", [
 			
 			loaded: function () {
 				return this._loaded;
+			},
+			
+			postererror: function () {
+				return this._postererror;
 			},
 			
 			buffered: function () {},
@@ -378,6 +392,11 @@ Scoped.define("module:Player.VideoPlayerWrapper", [
 			_eventError: function (error) {
 				this._error = error;
 				this.trigger("error", error);
+			},
+
+			_eventPosterError: function () {
+				this._postererror = true;
+				this.trigger("postererror");
 			},
 			
 			supportsFullscreen: function () {
@@ -438,12 +457,12 @@ Scoped.define("module:Player.VideoPlayerWrapper", [
 
 Scoped.define("module:Player.Html5VideoPlayerWrapper", [
     "module:Player.VideoPlayerWrapper",
-    "base:Browser.Info",
+    "browser:Info",
     "base:Promise",
     "base:Objs",
     "base:Timers.Timer",
     "jquery:",
-    "base:Browser.Dom"
+    "browser:Dom"
 ], function (VideoPlayerWrapper, Info, Promise, Objs, Timer, $, Dom, scoped) {
 	var Cls = VideoPlayerWrapper.extend({scoped: scoped}, function (inherited) {
 		return {
@@ -524,6 +543,14 @@ Scoped.define("module:Player.Html5VideoPlayerWrapper", [
 				videoOn("playing", this._eventPlaying);
 				videoOn("pause", this._eventPaused);
 				videoOn("ended", this._eventEnded);
+				self._$element.find("source").on("error" + "." + self.cid(), function () {
+					self._eventError(self.cls.ERROR_NO_PLAYABLE_SOURCE);
+				});
+				var image = new Image();
+				image.onerror = function () {
+					self._eventPosterError();
+				};
+				image.src = this.poster();
 			},
 			
 			buffered: function () {
@@ -553,9 +580,9 @@ Scoped.define("module:Player.Html5VideoPlayerWrapper", [
 Scoped.define("module:Player.FlashPlayerWrapper", [
      "module:Player.VideoPlayerWrapper",
      "module:Player.FlashPlayer",
-     "base:Browser.Info",
+     "browser:Info",
      "base:Promise",
-     "base:Browser.Dom"
+     "browser:Dom"
 ], function (VideoPlayerWrapper, FlashPlayer, Info, Promise, Dom, scoped) {
 	var Cls = VideoPlayerWrapper.extend({scoped: scoped}, function (inherited) {
 		return {
@@ -580,16 +607,18 @@ Scoped.define("module:Player.FlashPlayerWrapper", [
 					this._$element = $(this._element);
 					this._transitionals.element = this._element;
 				}
-				this._flashPlayer = this.auto_destroy(new FlashPlayer(this._element, {
+				this._flashPlayer = new FlashPlayer(this._element, {
 					poster: this.poster(),
 					sources: this.sources()
-				}));
+				});
 				return this._flashPlayer.ready.success(function () {
 					this._setup();
 				}, this);
 			},
 			
 			destroy: function () {
+				if (this._flashPlayer)
+					this._flashPlayer.weakDestroy();
 				this._$element.html("");
 				inherited.destroy.call(this);
 			},
@@ -609,6 +638,7 @@ Scoped.define("module:Player.FlashPlayerWrapper", [
 				videoOn("error", function () {
 					this._eventError(this.cls.ERROR_NO_PLAYABLE_SOURCE);
 				});
+				videoOn("postererror", this._eventPosterError);
 			},
 			
 			position: function () {
@@ -1136,7 +1166,7 @@ Scoped.define("module:WebRTC.WhammyAudioRecorderWrapper", [
      "module:WebRTC.RecorderWrapper",
      "module:WebRTC.AudioRecorder",
      "module:WebRTC.WhammyRecorder",
-     "base:Browser.Info"
+     "browser:Info"
 ], function (RecorderWrapper, AudioRecorder, WhammyRecorder, Info, scoped) {
 	var Cls = RecorderWrapper.extend({scoped: scoped}, {
 /*
@@ -1222,7 +1252,7 @@ Scoped.define("module:WebRTC.WhammyAudioRecorderWrapper", [
 Scoped.define("module:WebRTC.Support", [
     "base:Promise.Promise",
     "base:Objs",
-    "base:Browser.Info"
+    "browser:Info"
 ], function (Promise, Objs, Info) {
 	return {
 		

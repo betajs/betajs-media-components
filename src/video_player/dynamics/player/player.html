@@ -32,7 +32,7 @@
             ba-css="{{css}}"
             ba-template="{{tmplplaybutton}}"
             ba-show="{{state==='init'}}"
-            ba-event:play="load"
+            ba-event:play="play"
         ></ba-{{dynplaybutton}}>
         
         <ba-{{dynloader}}
@@ -46,6 +46,7 @@
             ba-template="{{tmplmessage}}"
             ba-show="{{state==='message'}}"
             ba-message="{{message}}"
+            ba-event:click="play"
         ></ba-{{dynmessage}}>
     </div>
 </div>

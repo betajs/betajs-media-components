@@ -1,5 +1,5 @@
 /*!
-betajs-flash - v0.0.2 - 2015-10-25
+betajs-flash - v0.0.4 - 2015-12-12
 Copyright (c) Oliver Friedmann
 MIT Software License.
 */
@@ -9,13 +9,14 @@ var Scoped = this.subScope();
 
 Scoped.binding("module", "global:BetaJS.Flash");
 Scoped.binding("base", "global:BetaJS");
+Scoped.binding("browser", "global:BetaJS.Browser");
 
 Scoped.binding("jquery", "global:jQuery");
 
 Scoped.define("module:", function () {
 	return {
 		guid: "3adc016a-e639-4d1a-b4cb-e90cab02bc4f",
-		version: '17.1445787592546',
+		version: '19.1449954327828',
 		__global: {},
 		options: {
 			flashFile: "betajs-flash.swf"
@@ -23,9 +24,11 @@ Scoped.define("module:", function () {
 	};
 });
 
+Scoped.assumeVersion("base:version", 444);
+Scoped.assumeVersion("browser:version", 58);
 Scoped.define("module:FlashEmbedding", [ "base:Class", "base:Events.EventsMixin", "jquery:", "base:Strings",
 		"base:Functions", "base:Types", "base:Objs", "base:Ids", "base:Time", "base:Timers.Timer", "base:Async", "module:__global",
-		"module:FlashObjectWrapper", "module:FlashClassWrapper", "base:Browser.FlashHelper", "module:" ], function(Class, EventsMixin, $,
+		"module:FlashObjectWrapper", "module:FlashClassWrapper", "browser:FlashHelper", "module:" ], function(Class, EventsMixin, $,
 		Strings, Functions, Types, Objs, Ids, Time, Timer, Async, moduleGlobal, FlashObjectWrapper, FlashClassWrapper, FlashHelper, mod, scoped) {
 	return Class.extend({
 		scoped : scoped

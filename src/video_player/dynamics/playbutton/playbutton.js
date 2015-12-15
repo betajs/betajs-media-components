@@ -1,5 +1,5 @@
 Scoped.define("module:VideoPlayer.Dynamics.Playbutton", [
-    "base:Dynamics.Dynamic",
+    "dynamics:Dynamic",
     "module:Templates",
     "module:Assets"
 ], function (Class, Templates, Assets, scoped) {

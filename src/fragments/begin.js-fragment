@@ -4,6 +4,10 @@ var Scoped = this.subScope();
 
 Scoped.binding("module", "global:BetaJS.MediaComponents");
 Scoped.binding("base", "global:BetaJS");
+Scoped.binding("browser", "global:BetaJS.Browser");
+Scoped.binding("flash", "global:BetaJS.Flash");
+Scoped.binding("media", "global:BetaJS.Media");
+Scoped.binding("dynamics", "global:BetaJS.Dynamics");
 
 Scoped.binding("jquery", "global:jQuery");
 
@@ -13,3 +17,9 @@ Scoped.define("module:", function () {
 		version: '/* @echo MAJOR_VERSION */./* @echo MINOR_VERSION */'
 	};
 });
+
+Scoped.assumeVersion("base:version", 444);
+Scoped.assumeVersion("browser:version", 58);
+Scoped.assumeVersion("flash:version", 19);
+Scoped.assumeVersion("media:version", 31);
+Scoped.assumeVersion("dynamics:version", 195);

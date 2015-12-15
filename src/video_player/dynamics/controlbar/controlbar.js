@@ -1,10 +1,10 @@
 Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
-    "base:Dynamics.Dynamic",
+    "dynamics:Dynamic",
     "base:Time",
     "module:Templates",
     "jquery:",
     "module:Assets",
-    "base:Browser.Info"
+    "browser:Info"
 ], function (Class, Time, Templates, $, Assets, Info, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {

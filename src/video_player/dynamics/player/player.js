@@ -1,9 +1,9 @@
 Scoped.define("module:VideoPlayer.Dynamics.Player", [
-    "base:Dynamics.Dynamic",
+    "dynamics:Dynamic",
     "module:Templates",
     "module:Assets",
-    "base:Browser.Info",
-    "base:Media.Player.VideoPlayerWrapper",
+    "browser:Info",
+    "media:Player.VideoPlayerWrapper",
     "base:Types",
     "base:Objs",
     "base:Strings",
@@ -30,7 +30,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"sources": [],
 				"forceflash": false,
 				"rerecordable": false,
-				"theme": ""
+				"theme": "",
+				"message": "",
+				"autoplay": false
 			},
 			
 			create: function () {
@@ -54,6 +56,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				this.set("buffered", 0.0);
 				this.set("last_activity", Time.now());
 				this.set("volume", 1.0);
+				this.set("activated", false);
 				
 				this.properties().compute("buffering", function () {
 					return this.get("buffered") < this.get("position");
@@ -68,31 +71,29 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 			    	source: this.get("source"),
 			    	sources: this.get("sources"),
 			    	forceflash: !!this.get("forceflash"),
-			    	preload: true
-			    }).error(function () {
-			    	
-			    	// TODO
-			    	
+			    	preload: false
+			    }).error(function (e) {
+			    	this._eventError(e);
 			    }, this).success(function (instance) {
-			    	
-			    	this.player = this.auto_destroy(instance);			    	
+			    	this.set("activated", true);
+			    	this.player = instance;			    	
+					this.player.on("error", this._eventError, this);
+					this.player.on("postererror", this._eventPosterError, this);
 					this.set("loaded", this.player.loaded());
-					// TODO loaded
-					// TODO error
 					this.player.on("loaded", this._eventLoaded, this);
 					if (this.player.loaded())
 						this._eventLoaded();
 					this.player.on("playing", this._eventPlaying, this);
 					this.player.on("paused", this._eventPaused, this);
 					this.player.on("ended", this._eventEnded, this);
+					if (this.get("autoplay"))
+						this._methodPlay();
+			        if (this.player.error())
+			        	this._eventError(this.player.error());
 			    }, this);
 			},
 			
 			functions: {
-				
-				load: function () {
-					this._methodLoad();
-				},
 				
 				play: function () {
 					this._methodPlay();
@@ -125,8 +126,27 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 			
 			},
 			
-			_methodLoad: function () {
-				if (this.get("state") === "init") {
+			destroy: function () {
+				if (this.player)
+					this.player.weakDestroy();
+				inherited.destroy.call(this);
+			},
+			
+			play: function () {
+				this.call("play");
+			},
+			
+			error: function () {
+				return this.get("activated") ? this.player.error() : null;
+			},
+			
+			_methodPlay: function () {
+				if (!this.get("activated")) {
+					this.set("autoplay", true);
+					return;
+				}
+				var state = this.get("state");
+				if (state === "init" || state === "message") {
 					if (this.get("loaded")) {
 						this.set("state", "main");
 						this.player.play();
@@ -134,12 +154,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 						this.set("state", "loading");
 						this.player.play();
 					}
-				}
-			},
-			
-			_methodPlay: function () {
-				if (this.get("state") === "main") {
-					this.player.play();
+				} else if (state === "main") {
+					this.player.player();
 				}
 			},
 			
@@ -192,6 +208,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				this.set("state", "init");
 			},
 			
+			_eventError: function (error) {
+				this.set("state", "message");
+				this.set("message", this.string("video-error"));
+				this.trigger("error", error);
+			},
+			
+			_eventPosterError: function () {
+				this.trigger("postererror");
+			},
+
 			_timerFire: function () {
 				if (this.get("state") === "main") {
 					this.set("activity_delta", Time.now() - this.get("last_activity"));
@@ -202,5 +228,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 			}
 			
 		};
-	}).register("ba-videoplayer");
+	}).register("ba-videoplayer")
+	.attachStringTable(Assets.strings)
+    .addStrings({
+    	"video-error": "An error occurred, please try again later. Click to retry."
+    });
 });

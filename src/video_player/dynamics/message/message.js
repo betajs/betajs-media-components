@@ -1,5 +1,5 @@
 Scoped.define("module:VideoPlayer.Dynamics.Message", [
-    "base:Dynamics.Dynamic",
+    "dynamics:Dynamic",
     "module:Templates"
 ], function (Class, Templates, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
@@ -15,7 +15,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Message", [
 			functions: {
 				
 				click: function () {
-					alert("click");
+					this.trigger("click");
 				}
 				
 			}

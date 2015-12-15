@@ -1,15 +1,9 @@
-(function () {
-
-var Scoped = this.subScope();
-
-Scoped.binding("module", "global:BetaJS.MediaComponents");
-
-Scoped.extend("module:Assets.themes", function () {
+Scoped.extend("module:Assets.themes", ["module:Templates"], function (Templates) {
 	return {
 		modern: {
-			css: "ba-videoplayer-theme-modern"
+			css: "ba-videoplayer-theme-modern",
+			tmplplaybutton: Templates["modern-playbutton"],
+			tmplcontrolbar: Templates["modern-controlbar"]
 		}
 	};
 });
-
-}).call(Scoped);

@@ -2,6 +2,8 @@ $playbutton_size: 5px;
 $playbutton_frame_thickness: 0.6em;
 $playbutton_default_opacity: 0.6;
 $playbutton_hover_opacity: 0.9;
+$playbutton_transition_time: .25s;
+$playbutton_background_opacity: 0.2;
 
 
 .#{$cssmodern}-playbutton-container {
@@ -21,10 +23,16 @@ $playbutton_hover_opacity: 0.9;
     font-size: $playbutton_size;
     box-sizing: content-box;
     cursor: pointer;
+    transition: border $playbutton_transition_time ease-in-out, background $playbutton_transition_time ease-in-out;
+    -moz-transition: border $playbutton_transition_time ease-in-out, background $playbutton_transition_time ease-in-out;
+    -webkit-transition: border $playbutton_transition_time ease-in-out, background $playbutton_transition_time ease-in-out;
+    -o-transition: border $playbutton_transition_time ease-in-out, background $playbutton_transition_time ease-in-out;
+    background: rgba(255, 255, 255, 0);
 }
 
 .#{$cssmodern}-playbutton-container:hover {
     border: $playbutton_frame_thickness solid rgba(255, 255, 255, $playbutton_hover_opacity);
+    background: rgba(255, 255, 255, $playbutton_background_opacity);
 }
 
 .#{$cssmodern}-playbutton-button {
@@ -37,11 +45,10 @@ $playbutton_hover_opacity: 0.9;
     margin: auto;
     left: 0.4em;
     top: 3.00em;
-    -moz-transform: scale(.9999);
-    -webkit-transform: scale(.9999);
-    -o-transform: scale(.9999);
-    -ms-transform: scale(.9999);
-    transform: scale(.9999);
+    transition: border-left $playbutton_transition_time ease-in-out;
+    -moz-transition: border-left $playbutton_transition_time ease-in-out;
+    -webkit-transition: border-left $playbutton_transition_time ease-in-out;
+    -o-transition: border-left $playbutton_transition_time ease-in-out;
 }
 
 .#{$cssmodern}-playbutton-container:hover .#{$cssmodern}-playbutton-button {

@@ -49,7 +49,10 @@ module.exports = function(grunt) {
 						},
 						dest: "dist/themes/modern.js",
 						src: [
-						    'src/video_player/themes/modern/theme.js'
+						    'src/fragments/theme-begin.js-fragment',
+						    "dist/themes/modern-templates.js",
+						    'src/video_player/themes/modern/theme.js',
+						    'src/fragments/end.js-fragment'
                         ]
 					},
 					dist_theme_modern_scss: {
@@ -120,13 +123,24 @@ module.exports = function(grunt) {
 					templates: "dist/betajs-media-components-templates.js",
 					scss: "dist/betajs-media-components.scss",
 					jsdoc : ['./jsdoc.conf.json'],
-					scss_theme_modern: 'dist/themes/modern.scss'
+					theme_modern: ['dist/themes/modern.scss', "dist/themes/modern-templates.js"]
 				},
 				betajs_templates: {
 					dist: {
 						files: {
 							"dist/betajs-media-components-templates.js": [
 								"src/**/*.html"
+							]
+						},
+						options: {
+							namespace: 'module:Templates',
+							scoped: true
+						}
+					},
+					dist_theme_modern: {
+						files: {
+							"dist/themes/modern-templates.js": [
+								"src/video_player/themes/modern/*.html"
 							]
 						},
 						options: {
@@ -366,12 +380,12 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-csslint');
 	grunt.loadNpmTasks('grunt-yaml');
 
-	grunt.registerTask('default', [ 'revision-count', 'betajs_templates', 
+	grunt.registerTask('default', [ 'revision-count', 'betajs_templates:dist', 
 	        'concat:dist_locales', 'yaml', 'template:locales', 'concat:dist_raw', 'clean:locales',  
 			'preprocess', 'clean:raw', 'clean:templates', 'concat:dist_scoped', 'uglify:dist',
 			'concat:dist_scss', 'sass:dist', 'cssmin:dist', 'clean:scss', 'copy:fonts' ]);
-	grunt.registerTask('themes', ['concat:dist_theme_modern_js', 'uglify:dist_theme_modern_js', "concat:dist_theme_modern_scss",
-	                              'sass:dist_theme_modern', 'cssmin:dist_theme_modern', 'clean:scss_theme_modern']);
+	grunt.registerTask('themes', ['betajs_templates:dist_theme_modern', 'concat:dist_theme_modern_js', 'uglify:dist_theme_modern_js', "concat:dist_theme_modern_scss",
+	                              'sass:dist_theme_modern', 'cssmin:dist_theme_modern', 'clean:theme_modern']);
 	grunt.registerTask('lint', [ 'jshint:source', 'jshint:dist',
 	                 			 'jshint:gruntfile', 'jshint:tests' ]);
 	grunt.registerTask('qunit', [ 'shell:tests' ]);

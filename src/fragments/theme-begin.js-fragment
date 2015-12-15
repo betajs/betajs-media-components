@@ -1,0 +1,5 @@
+(function () {
+
+var Scoped = this.subScope();
+
+Scoped.binding("module", "global:BetaJS.MediaComponents");

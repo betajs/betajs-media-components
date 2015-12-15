@@ -1,0 +1,93 @@
+$dashboard_transition: 0.5s;
+$controlbar_height: 40px;
+$controlbar_background: #ecebed;
+$button_fontsize: 13px;
+$button_width: 40px;
+$button_color: #eb6a74; //#5da894;
+$button_border_color: #dbdbdb;
+$time_value_width: 100px;
+$ie8_margintop: 6px;
+$text_fontfamily: Lato, Arial, sans-serif;
+$text_fontsize: 13px;
+$text_color: #666666;
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Lato Regular'), local('Lato-Regular'), url(http://themes.googleusercontent.com/static/fonts/lato/v6/9k-RPmcnxYEPm8CNFsH2gg.woff) format('woff');
+}
+
+@mixin align-full-bottom {
+    left: 0;
+    right: 0;
+    bottom: 0;
+} 
+
+@mixin left-container-width($width) {
+    float: left;
+    height: 100%;
+    width: $width;
+}
+
+@mixin horizontal-center {
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.#{$cssmodern}-button-inner {
+    @include horizontal-center;
+    text-align: center;
+    cursor: pointer;
+    color: $button_color;
+    font-size: $button_fontsize;        
+}
+
+.#{$cssmodern}-dashboard {
+    @include align-full-bottom;
+    position: absolute;
+    transition: opacity $dashboard_transition;
+    opacity: 0.9;
+	height: $controlbar_height;
+    overflow: hidden;
+    background: $controlbar_background;
+}
+
+.#{$cssmodern}-dashboard-hidden {
+    opacity: 0;
+}
+
+.#{$cssmodern}-leftbutton-container {
+    @include left-container-width($button_width);
+    border-right: 1px solid $button_border_color;
+}
+
+.#{$cssmodern}-rightbutton-container {
+    @include left-container-width($button_width);
+    border-left: 1px solid $button_border_color;
+}
+
+.#{$cssmodern}-time-container {
+    @include left-container-width($time_value_width);
+    text-align: center;
+    font-family: $text_fontfamily;
+    font-size: $text_fontsize;
+    color: $text_color;
+    border-right: 1px solid $button_border_color;
+}
+
+.#{$cssmodern}-ie8 .#{$cssmodern}-time-container {
+    margin-top: $ie8_margintop;
+}
+
+.#{$cssmodern}-time-value {
+    @include horizontal-center;
+    float: left;
+    width: $time_value_width;
+}
+

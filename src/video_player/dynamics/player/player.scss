@@ -15,3 +15,8 @@
     width: 100%;
     display: block;
 }
+
+.#{$css}-container video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none;
+}

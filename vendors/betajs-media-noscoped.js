@@ -1,5 +1,5 @@
 /*!
-betajs-media - v0.0.5 - 2015-12-13
+betajs-media - v0.0.6 - 2015-12-15
 Copyright (c) Oliver Friedmann
 MIT Software License.
 */
@@ -17,7 +17,7 @@ Scoped.binding("jquery", "global:jQuery");
 Scoped.define("module:", function () {
 	return {
 		guid: "8475efdb-dd7e-402e-9f50-36c76945a692",
-		version: '32.1450042216810'
+		version: '33.1450234783738'
 	};
 });
 
@@ -125,7 +125,10 @@ Scoped.define("module:Player.FlashPlayer", [
 					this._flashObjs.imageLoader = this._embedding.newObject("flash.display.Loader");
 					var contentLoaderInfo = this._flashObjs.imageLoader.get("contentLoaderInfo");
 					contentLoaderInfo.addEventListener("complete", this._embedding.newCallback(Functions.as_method(function () {
-						this.__imageLoaded = true;
+						this.__imageLoaded = {
+							width: this._flashObjs.imageLoader.get("width"),
+							height: this._flashObjs.imageLoader.get("height")
+						};
 						if (!this.__metaLoaded)
 							this.recomputeBB();
 					}, this)));
@@ -195,8 +198,8 @@ Scoped.define("module:Player.FlashPlayer", [
 				if (!this.__imageLoaded && !this.__metaLoaded)
 					return null;
 				return {
-					width: this.__metaLoaded ? this._flashData.meta.width : this._flashObjs.imageLoader.get("width"),
-					height: this.__metaLoaded ? this._flashData.meta.height : this._flashObjs.imageLoader.get("height")
+					width: this.__metaLoaded ? this._flashData.meta.width : this.__imageLoaded.width,
+					height: this.__metaLoaded ? this._flashData.meta.height : this.__imageLoaded.height
 				};
 			},
 			
@@ -461,9 +464,10 @@ Scoped.define("module:Player.Html5VideoPlayerWrapper", [
     "base:Promise",
     "base:Objs",
     "base:Timers.Timer",
+    "base:Strings",
     "jquery:",
     "browser:Dom"
-], function (VideoPlayerWrapper, Info, Promise, Objs, Timer, $, Dom, scoped) {
+], function (VideoPlayerWrapper, Info, Promise, Objs, Timer, Strings, $, Dom, scoped) {
 	var Cls = VideoPlayerWrapper.extend({scoped: scoped}, function (inherited) {
 		return {
 			
@@ -483,13 +487,24 @@ Scoped.define("module:Player.Html5VideoPlayerWrapper", [
 				var self = this;
 				var promise = Promise.create();
 				this._$element.html("");
+				var sources = this.sources();
+				var ie9 = Info.isInternetExplorer() && Info.internetExplorerVersion() == 9;
 				if (this._element.tagName.toLowerCase() !== "video") {
 					this._element = Dom.changeTag(this._element, "video");
 					this._$element = $(this._element);
 					this._transitionals.element = this._element;
+				} else if (ie9) {
+					var str = Strings.splitLast(this._element.outerHTML, "</video>").head;
+					Objs.iter(sources, function (source) {
+						str += "<source type='" + source.type + "' src='" + source.src + "' />";
+					});
+					str += "</video>";
+					var $str = $(str);
+					this._$element.replaceWith($str);
+					this._$element = $str;
+					this._element = this._$element.get(0);
+					this._transitionals.element = this._element;
 				}
-
-				this._element.poster = this.poster();
 				this._$element.on("loadedmetadata", function () {
 					promise.asyncSuccess(true);
 				});
@@ -506,16 +521,24 @@ Scoped.define("module:Player.Html5VideoPlayerWrapper", [
 				if (!this._preload)
 					this._$element.attr("preload", "none");
 				var errorCount = 0;
-				var sources = this.sources();
-				Objs.iter(sources, function (source) {
-					$source = $("<source type='" + source.type + "' />").appendTo(this._$element);
-					$source.on("error", function () {
+				if (!ie9) {
+					Objs.iter(sources, function (source) {
+						$source = $("<source type='" + source.type + "' />").appendTo(this._$element);
+						$source.on("error", function () {
+							errorCount++;
+							if (errorCount === sources.length)
+								promise.asyncError(true);
+						});
+						$source.get(0).src = source.src;
+					}, this);
+				} else {
+					this._$element.find("source").on("error", function () {
 						errorCount++;
 						if (errorCount === sources.length)
 							promise.asyncError(true);
 					});
-					$source.get(0).src = source.src;
-				}, this);
+				}
+				this._element.poster = this.poster();
 				promise.callback(function () {
 					this._$element.find("source").off("error");
 					timer.destroy();
@@ -548,6 +571,8 @@ Scoped.define("module:Player.Html5VideoPlayerWrapper", [
 				});
 				var image = new Image();
 				image.onerror = function () {
+					self._$element.attr("poster", "");
+					self._$element.attr("preload", "");
 					self._eventPosterError();
 				};
 				image.src = this.poster();
@@ -1030,7 +1055,7 @@ Scoped.define("module:WebRTC.RecorderWrapper", [
 			},
 			
 			duration: function () {
-				return (this._recording ? Time.now() : this._stopTime) - this._startTime;
+				return (this._recording || !this._stopTime ? Time.now() : this._stopTime) - this._startTime;
 			},
 			
 			unbindMedia: function () {

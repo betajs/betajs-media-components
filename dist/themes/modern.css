@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.5 - 2015-12-15
+betajs-media-components - v0.0.6 - 2015-12-15
 Copyright (c) Oliver Friedmann
 MIT Software License.
 */
@@ -17,9 +17,14 @@ MIT Software License.
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
   text-align: center;
-  cursor: pointer;
   color: #eb6a74;
   font-size: 13px; }
+
+.ba-videoplayer-theme-modern-green .ba-videoplayer-theme-modern-button-inner {
+  color: #5da894; }
+
+.ba-videoplayer-theme-modern-blue .ba-videoplayer-theme-modern-button-inner {
+  color: #2a74eb; }
 
 .ba-videoplayer-theme-modern-dashboard {
   left: 0;
@@ -39,13 +44,17 @@ MIT Software License.
   float: left;
   height: 100%;
   width: 40px;
-  border-right: 1px solid #dbdbdb; }
+  border-right: 1px solid #dbdbdb;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent; }
 
 .ba-videoplayer-theme-modern-rightbutton-container {
-  float: left;
+  float: right;
   height: 100%;
   width: 40px;
-  border-left: 1px solid #dbdbdb; }
+  border-left: 1px solid #dbdbdb;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent; }
 
 .ba-videoplayer-theme-modern-time-container {
   float: left;
@@ -70,6 +79,99 @@ MIT Software License.
   transform: translateY(-50%);
   float: left;
   width: 100px; }
+
+.ba-videoplayer-theme-modern-volumebar {
+  float: right;
+  height: 100%;
+  width: 60px;
+  margin-right: 12px; }
+
+.ba-videoplayer-theme-modern-ie8 .ba-videoplayer-theme-modern-volumebar {
+  margin-top: -6px; }
+
+.ba-videoplayer-theme-modern-volumebar-inner {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  background: #878787;
+  height: 6px;
+  cursor: pointer; }
+
+.ba-videoplayer-theme-modern-volumebar-position {
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  background-color: #eb6a74;
+  height: 100%;
+  position: absolute;
+  left: 0; }
+
+.ba-videoplayer-theme-modern-green .ba-videoplayer-theme-modern-volumebar-position {
+  background-color: #5da894; }
+
+.ba-videoplayer-theme-modern-blue .ba-videoplayer-theme-modern-volumebar-position {
+  background-color: #2a74eb; }
+
+.ba-videoplayer-theme-modern-progressbar {
+  overflow: hidden;
+  height: 100%;
+  padding-left: 12px;
+  padding-right: 12px; }
+
+.ba-videoplayer-theme-modern-ie8 .ba-videoplayer-theme-modern-progressbar {
+  margin-top: -6px; }
+
+.ba-videoplayer-theme-modern-progressbar-cache {
+  position: absolute;
+  left: 0;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  background-color: #BBB;
+  height: 6px;
+  cursor: pointer; }
+
+.ba-videoplayer-theme-modern-progressbar-inner {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  background: #878787;
+  height: 6px;
+  cursor: pointer; }
+
+.ba-videoplayer-theme-modern-progressbar-position {
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  background-color: #eb6a74;
+  height: 100%;
+  position: absolute;
+  left: 0; }
+
+.ba-videoplayer-theme-modern-green .ba-videoplayer-theme-modern-progressbar-position {
+  background-color: #5da894; }
+
+.ba-videoplayer-theme-modern-blue .ba-videoplayer-theme-modern-progressbar-position {
+  background-color: #2a74eb; }
 
 .ba-videoplayer-theme-modern-noie8 .ba-videoplayer-theme-modern-loader-container {
   position: absolute;
@@ -224,5 +326,9 @@ MIT Software License.
 .ba-videoplayer-theme-modern-video {
   width: 100%;
   display: block; }
+
+.ba-videoplayer-theme-modern-container video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none; }
 
 /*# sourceMappingURL=modern.css.map */

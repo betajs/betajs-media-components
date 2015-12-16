@@ -1,5 +1,5 @@
 /*!
-betajs-browser - v1.0.12 - 2015-12-12
+betajs-browser - v1.0.12 - 2015-12-15
 Copyright (c) Oliver Friedmann
 MIT Software License.
 */
@@ -21,7 +21,7 @@ Scoped.define("base:$", ["jquery:"], function (jquery) {
 Scoped.define("module:", function () {
 	return {
 		guid: "02450b15-9bbf-4be2-b8f6-b483bc015d06",
-		version: '58.1449951831697'
+		version: '60.1450222236628'
 	};
 });
 
@@ -509,7 +509,7 @@ Scoped.define("module:Dom", [
 				return s;
 			var temp = document.createElement("span");
 			temp.innerHTML = s;
-			s = temp.innerText;
+			s = $(temp).text();
 			if (temp.remove)
 				temp.remove();
 			return s;
@@ -607,10 +607,15 @@ Scoped.define("module:DomExtend.DomExtension", [
 			
 			computeActualBB: function (idealBB) {
 				var width = this._$element.width();
-				if (this._$element.width() < idealBB.width && !this._element.style.width) {
+				if (this._$element.width() <= idealBB.width && !this._element.style.width) {
 					this._element.style.width = idealBB.width + "px";
 					width = this._$element.width();
-					delete this._element.style.width;
+					var current = this._$element;
+					while (current.get(0) != document) {
+						current = current.parent();
+						width = Math.min(width, current.width());
+					}
+					this._element.style.width = null;
 				}
 				return {
 					width: width,

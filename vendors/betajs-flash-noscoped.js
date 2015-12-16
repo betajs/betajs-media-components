@@ -1,5 +1,5 @@
 /*!
-betajs-flash - v0.0.4 - 2015-12-12
+betajs-flash - v0.0.4 - 2015-12-14
 Copyright (c) Oliver Friedmann
 MIT Software License.
 */
@@ -16,7 +16,7 @@ Scoped.binding("jquery", "global:jQuery");
 Scoped.define("module:", function () {
 	return {
 		guid: "3adc016a-e639-4d1a-b4cb-e90cab02bc4f",
-		version: '19.1449954327828',
+		version: '20.1450150002905',
 		__global: {},
 		options: {
 			flashFile: "betajs-flash.swf"
@@ -209,8 +209,13 @@ Scoped.define("module:FlashEmbedding", [ "base:Class", "base:Events.EventsMixin"
 				if (this.__is_ready) {
 					var test = Time.now();
 					var tries = 10;
-					while (this.__embedding.echo(test) !== test && tries > 0)
+					while (tries > 0) {
+						try {
+							if (this.__embedding.echo(test) == test)
+								break;
+						} catch (e) {}
 						tries--;
+					}
 					var result = tries === 0;
 					if (result !== this.__is_suspended) {
 						this.__is_suspended = result;

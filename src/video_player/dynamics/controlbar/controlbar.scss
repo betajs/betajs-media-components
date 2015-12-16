@@ -159,10 +159,14 @@ $text_color: #FFF;
 
 .#{$css}-leftbutton-container {
     @include left-container-width($button_width);
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
 .#{$css}-rightbutton-container {
     @include right-container-width($button_width);
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
 

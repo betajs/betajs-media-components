@@ -32,7 +32,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"rerecordable": false,
 				"theme": "",
 				"message": "",
-				"autoplay": false
+				"autoplay": false,
+				"csstheme": ""
 			},
 			
 			create: function () {
@@ -59,8 +60,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				this.set("activated", false);
 				
 				this.properties().compute("buffering", function () {
-					return this.get("buffered") < this.get("position");
-				}, ["buffered", "position"]);
+					return this.get("playing") && this.get("state") === "main" && this.get("buffered") < this.get("position") && this.get("last_position_change_delta") > 1000;
+				}, ["buffered", "position", "last_position_change_delta", "playing", "state"]);
 			},
 			
 			_afterActivate: function () {
@@ -155,7 +156,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 						this.player.play();
 					}
 				} else if (state === "main") {
-					this.player.player();
+					this.player.play();
 				}
 			},
 			
@@ -221,7 +222,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 			_timerFire: function () {
 				if (this.get("state") === "main") {
 					this.set("activity_delta", Time.now() - this.get("last_activity"));
-					this.set("position", this.player.position());
+					var new_position = this.player.position();
+					if (new_position != this.get("position") || this.get("last_position_change"))
+						this.set("last_position_change", Time.now());
+					this.set("last_position_change_delta", Time.now() - this.get("last_position_change"));
+					this.set("position", new_position);
 					this.set("buffered", this.player.buffered());
 					this.set("duration", this.player.duration());
 				}

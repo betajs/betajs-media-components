@@ -1,0 +1,34 @@
+.#{$css}-playbutton-container {
+	@include transform-translate(-50%, -50%);
+	@include border-rgba($playbutton_frame_thickness, 255, 255, 255, $playbutton_default_opacity, #999);
+	@include absolute-center-center;
+	@include transition2(border, background, $playbutton_transition_time, ease-in-out);
+    border-radius: 50%;
+    width: 10em;
+    height: 10em;
+    font-size: $playbutton_size;
+    box-sizing: content-box;
+    cursor: pointer;
+}
+
+.#{$css}-playbutton-button {
+    @include border-left-rgba(3.5em, 255, 255, 255, $playbutton_default_opacity, white);
+    @include transition1(border-left, $playbutton_transition_time, ease-in-out);
+    position: relative;
+    margin: auto;
+    width: 0; 
+    height: 0; 
+    border-top: 2em solid transparent;
+    border-bottom: 2em solid transparent;
+    left: 0.4em;
+    top: 3.00em;
+}
+
+.#{$css}-playbutton-container:hover {
+	@include border-rgba($playbutton_frame_thickness, 255, 255, 255, $playbutton_hover_opacity, white);
+	@include background-rgba(255, 255, 255, $playbutton_background_opacity, white);
+}
+
+.#{$css}-playbutton-container:hover .#{$css}-playbutton-button {
+    @include border-left-rgba(3.5em, 255, 255, 255, $playbutton_hover_opacity, white);
+}

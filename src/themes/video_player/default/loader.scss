@@ -1,16 +1,6 @@
-$loader_size: 5px;
-$loader_frame_thickness: 1.1em;
-
-
 .#{$css}-noie8 .#{$css}-loader-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    -moz-transform: translate(-50%, -50%);
-    -o-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+	@include transform-translate(-50%, -50%);
+	@include absolute-center-center;
 }
 
 .#{$css}-noie8 .#{$css}-loader-loader:before {
@@ -20,22 +10,15 @@ $loader_frame_thickness: 1.1em;
 }
 
 .#{$css}-noie8 .#{$css}-loader-loader {
+	@include transform-translate-z(0);
     position: relative;
     width: 100%;
     font-size: $loader_size;
     box-sizing: content-box;
-    border-top: $loader_frame_thickness solid #999;
-    border-top: $loader_frame_thickness solid rgba(255, 255, 255, 0.2);
-    border-right: $loader_frame_thickness solid #999;
-    border-right: $loader_frame_thickness solid rgba(255, 255, 255, 0.2);
-    border-bottom: $loader_frame_thickness solid #999;
-    border-bottom: $loader_frame_thickness solid rgba(255, 255, 255, 0.2);
-    border-left: $loader_frame_thickness solid #ffffff;
-    -webkit-transform: translateZ(0);
-    -moz-transform: translateZ(0);
-    -o-transform: translateZ(0);
-    -ms-transform: translateZ(0);
-    transform: translateZ(0);
+    @include border-top-rgba($loader_frame_thickness, 255, 255, 255, 0.2, #999);
+    @include border-right-rgba($loader_frame_thickness, 255, 255, 255, 0.2, #999);
+    @include border-bottom-rgba($loader_frame_thickness, 255, 255, 255, 0.2, #999);
+    border-left: $loader_frame_thickness solid #ffffff;    
     -webkit-animation: #{$css}-loader-load8 1.1s infinite linear;
     -moz-animation: #{$css}-loader-load8 1.1s infinite linear;
     animation: #{$css}-loader-load8 1.1s infinite linear;
@@ -70,9 +53,7 @@ $loader_frame_thickness: 1.1em;
 
 
 .#{$css}-ie8 .#{$css}-loader-container {
-    width: 100%;
-    height: 100%;
-    position: absolute;
+    @include absolute-max-max;
 }
 
 .#{$css}-ie8 .#{$css}-loader-loader {

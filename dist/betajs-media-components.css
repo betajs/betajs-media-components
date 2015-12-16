@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.6 - 2015-12-15
+betajs-media-components - v0.0.6 - 2015-12-16
 Copyright (c) Oliver Friedmann
 MIT Software License.
 */
@@ -206,20 +206,27 @@ MIT Software License.
   font-family: "ba-videoplayer-fontello-ie8"; }
 
 .ba-videoplayer-dashboard {
+  position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  position: absolute;
-  transition: opacity 0.5s; }
+  transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out; }
 
 .ba-videoplayer-dashboard-hidden {
   opacity: 0; }
 
 .ba-videoplayer-progressbar {
-  height: 9px;
-  background: #999;
   cursor: pointer;
-  transition: height 0.1s; }
+  -webkit-tap-highlight-color: transparent;
+  transition: height 0.1s ease-in-out;
+  -moz-transition: height 0.1s ease-in-out;
+  -webkit-transition: height 0.1s ease-in-out;
+  -o-transition: height 0.1s ease-in-out;
+  height: 9px;
+  background: #999; }
 
 .ba-videoplayer-progressbar-small {
   height: 3px; }
@@ -227,9 +234,12 @@ MIT Software License.
 .ba-videoplayer-progressbar-position {
   position: absolute;
   left: 0;
+  transition: height 0.1s ease-in-out;
+  -moz-transition: height 0.1s ease-in-out;
+  -webkit-transition: height 0.1s ease-in-out;
+  -o-transition: height 0.1s ease-in-out;
   background-color: #8CF;
-  height: 9px;
-  transition: height 0.1s; }
+  height: 9px; }
 
 .ba-videoplayer-progressbar-small .ba-videoplayer-progressbar-position {
   height: 3px; }
@@ -237,9 +247,12 @@ MIT Software License.
 .ba-videoplayer-progressbar-cache {
   position: absolute;
   left: 0;
+  transition: height 0.1s ease-in-out;
+  -moz-transition: height 0.1s ease-in-out;
+  -webkit-transition: height 0.1s ease-in-out;
+  -o-transition: height 0.1s ease-in-out;
   background-color: #EEE;
-  height: 9px;
-  transition: height 0.1s; }
+  height: 9px; }
 
 .ba-videoplayer-progressbar-small .ba-videoplayer-progressbar-cache {
   height: 3px; }
@@ -262,46 +275,47 @@ MIT Software License.
   display: none; }
 
 .ba-videoplayer-backbar {
+  position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  position: absolute;
   height: 30px;
   background: #000;
   opacity: 0.7; }
 
 .ba-videoplayer-controlbar {
+  position: relative;
   left: 0;
   right: 0;
   bottom: 0;
-  position: relative;
   height: 30px;
   overflow: hidden; }
 
 .ba-videoplayer-leftbutton-container {
   float: left;
-  height: 100%;
   width: 50px;
+  height: 100%;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent; }
 
 .ba-videoplayer-rightbutton-container {
   float: right;
-  height: 100%;
   width: 50px;
+  height: 100%;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent; }
 
 .ba-videoplayer-button-inner {
-  position: relative;
-  top: 50%;
   -webkit-transform: translateY(-50%);
   -moz-transform: translateY(-50%);
   -o-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
+  top: 50%;
+  position: relative;
   text-align: center;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
   color: #FFF;
   font-size: 14px; }
 
@@ -310,8 +324,8 @@ MIT Software License.
 
 .ba-videoplayer-time-container {
   float: left;
-  height: 100%;
   width: 95px;
+  height: 100%;
   text-align: center;
   font-family: Arial, sans-serif;
   font-size: 13px;
@@ -321,31 +335,33 @@ MIT Software License.
   margin-top: 6px; }
 
 .ba-videoplayer-time-value {
-  position: relative;
-  top: 50%;
   -webkit-transform: translateY(-50%);
   -moz-transform: translateY(-50%);
   -o-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
+  top: 50%;
+  position: relative;
+  text-align: center;
   float: left;
   width: 40px; }
 
 .ba-videoplayer-time-sep {
-  position: relative;
-  top: 50%;
   -webkit-transform: translateY(-50%);
   -moz-transform: translateY(-50%);
   -o-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
+  top: 50%;
+  position: relative;
+  text-align: center;
   float: left;
   width: 15px; }
 
 .ba-videoplayer-volumebar {
   float: right;
-  height: 100%;
   width: 100px;
+  height: 100%;
   margin-left: 16px;
   margin-right: 16px; }
 
@@ -353,35 +369,39 @@ MIT Software License.
   margin-top: -6px; }
 
 .ba-videoplayer-volumebar-inner {
-  position: relative;
-  top: 50%;
   -webkit-transform: translateY(-50%);
   -moz-transform: translateY(-50%);
   -o-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
+  top: 50%;
+  position: relative;
+  text-align: center;
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
   background: #999;
-  height: 8px;
-  cursor: pointer; }
+  height: 8px; }
 
 .ba-videoplayer-volumebar-position {
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
-  background-color: #8CF;
-  height: 100%;
   position: absolute;
-  left: 0; }
+  left: 0;
+  background-color: #8CF;
+  height: 100%; }
 
 .ba-videoplayer-volumebar-button {
   -moz-border-radius: 6px;
   -webkit-border-radius: 6px;
   border-radius: 6px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
   background: #FFF;
   box-sizing: content-box;
   border: 1px solid #999;
@@ -393,14 +413,14 @@ MIT Software License.
   height: 11px; }
 
 .ba-videoplayer-noie8 .ba-videoplayer-loader-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
   -webkit-transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);
   -o-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%); }
+  transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%; }
 
 .ba-videoplayer-noie8 .ba-videoplayer-loader-loader:before {
   content: "";
@@ -409,6 +429,11 @@ MIT Software License.
   /* initial ratio of 1:1*/ }
 
 .ba-videoplayer-noie8 .ba-videoplayer-loader-loader {
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
   position: relative;
   width: 100%;
   font-size: 5px;
@@ -420,11 +445,6 @@ MIT Software License.
   border-bottom: 1.1em solid #999;
   border-bottom: 1.1em solid rgba(255, 255, 255, 0.2);
   border-left: 1.1em solid #ffffff;
-  -webkit-transform: translateZ(0);
-  -moz-transform: translateZ(0);
-  -o-transform: translateZ(0);
-  -ms-transform: translateZ(0);
-  transform: translateZ(0);
   -webkit-animation: ba-videoplayer-loader-load8 1.1s infinite linear;
   -moz-animation: ba-videoplayer-loader-load8 1.1s infinite linear;
   animation: ba-videoplayer-loader-load8 1.1s infinite linear; }
@@ -449,9 +469,9 @@ MIT Software License.
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg); } }
 .ba-videoplayer-ie8 .ba-videoplayer-loader-container {
+  position: absolute;
   width: 100%;
-  height: 100%;
-  position: absolute; }
+  height: 100%; }
 
 .ba-videoplayer-ie8 .ba-videoplayer-loader-loader {
   cursor: pointer;
@@ -475,15 +495,15 @@ MIT Software License.
   opacity: 0.75; }
 
 .ba-videoplayer-message-message {
-  position: absolute;
-  top: 50%;
   -webkit-transform: translateY(-50%);
   -moz-transform: translateY(-50%);
   -o-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
-  width: 100%;
   color: white;
+  position: absolute;
+  width: 100%;
+  top: 50%;
   text-align: center; }
 
 .ba-videoplayer-noie8 .ba-videoplayer-playbutton-container {
@@ -498,6 +518,10 @@ MIT Software License.
   width: 15%; }
 
 .ba-videoplayer-noie8 .ba-videoplayer-playbutton-button {
+  transition: opacity 0.25s ease-in-out;
+  -moz-transition: opacity 0.25s ease-in-out;
+  -webkit-transition: opacity 0.25s ease-in-out;
+  -o-transition: opacity 0.25s ease-in-out;
   position: relative;
   width: 100%;
   display: block;
@@ -507,10 +531,6 @@ MIT Software License.
   background-size: contain;
   opacity: 0.75;
   cursor: pointer;
-  transition: opacity 0.25s ease-in-out;
-  -moz-transition: opacity 0.25s ease-in-out;
-  -webkit-transition: opacity 0.25s ease-in-out;
-  -o-transition: opacity 0.25s ease-in-out;
   background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbDpzcGFjZT0icHJlc2VydmUiIHZpZXdCb3g9IjAgMCA0MCA0MCIgdmVyc2lvbj0iMS4xIiB5PSIwcHgiIHg9IjBweCIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDQwIDQwIj48Zz48cGF0aCBmaWxsPSJncmF5IiBkPSJtMzcuMyAxMGMtNS41LTkuNi0xNy43LTEyLjgtMjcuMy03LjNzLTEyLjggMTcuNy03LjMgMjcuMyAxNy44IDEyLjggMjcuMyA3LjNjOS42LTUuNSAxMi44LTE3LjcgNy4zLTI3LjN6IiAvPjxwYXRoIGZpbGw9IndoaXRlIiBkPSJtMzcuMyAxMGMtNS41LTkuNi0xNy43LTEyLjgtMjcuMy03LjNzLTEyLjggMTcuNy03LjMgMjcuMyAxNy44IDEyLjggMjcuMyA3LjNjOS42LTUuNSAxMi44LTE3LjcgNy4zLTI3LjN6bS05LjMgMjMuOWMtNy43IDQuNC0xNy40IDEuOC0yMS45LTUuOS00LjQtNy42LTEuNy0xNy40IDUuOS0yMS45IDcuNy00LjQgMTcuNC0xLjggMjEuOSA1LjkgNC40IDcuNyAxLjggMTcuNC01LjkgMjEuOXptLTAuOC0xNC43bC0xMC41LTYuMWMtMS4yLTAuNC0xLjQtMC4yLTEuNyAxbDAuMSAxMi4xYzAuMiAxLjIgMC42IDEuNCAxLjcgMWwxMC40LTZjMC45LTAuNyAwLjktMS4zIDAtMnoiLz48L2c+PC9zdmc+Cg==");
   background-repeat: no-repeat;
   background-color: transparent; }
@@ -519,9 +539,9 @@ MIT Software License.
   opacity: 0.9; }
 
 .ba-videoplayer-ie8 .ba-videoplayer-playbutton-container {
+  position: absolute;
   width: 100%;
-  height: 100%;
-  position: absolute; }
+  height: 100%; }
 
 .ba-videoplayer-ie8 .ba-videoplayer-playbutton-button {
   cursor: pointer;
@@ -551,7 +571,8 @@ MIT Software License.
   display: block; }
 
 .ba-videoplayer-container video::-webkit-media-controls-start-playback-button {
-  display: none !important;
-  -webkit-appearance: none; }
+  display: none;
+  -webkit-appearance: none;
+  -moz-appearance: none; }
 
 /*# sourceMappingURL=betajs-media-components.css.map */

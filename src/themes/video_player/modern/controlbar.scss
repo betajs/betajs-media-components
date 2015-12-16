@@ -1,0 +1,141 @@
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Lato Regular'), local('Lato-Regular'), url(http://themes.googleusercontent.com/static/fonts/lato/v6/9k-RPmcnxYEPm8CNFsH2gg.woff) format('woff');
+}
+
+.#{$css}-button-inner {
+    @include relative-center-center;
+    color: $button_color;
+    font-size: $button_fontsize;
+}
+
+.#{$css}-green .#{$css}-button-inner {
+	color: $button_color_green;
+}
+
+.#{$css}-blue .#{$css}-button-inner {
+	color: $button_color_blue;
+}
+
+.#{$css}-dashboard {
+    @include absolute-align-full-bottom;
+    @include transition1(opacity, $dashboard_transition, ease-in-out);
+    opacity: 0.9;
+	height: $controlbar_height;
+    overflow: hidden;
+    background: $controlbar_background;
+}
+
+.#{$css}-dashboard-hidden {
+    opacity: 0;
+}
+
+.#{$css}-leftbutton-container {
+    @include float-width-height(left, $button_width, 100%);
+    @include clickable;
+	box-sizing: content-box;
+    border-right: 1px solid $button_border_color;
+}
+
+.#{$css}-rightbutton-container {
+    @include float-width-height(right, $button_width, 100%);
+    @include clickable;
+	box-sizing: content-box;
+    border-left: 1px solid $button_border_color;
+}
+
+.#{$css}-time-container {
+    @include float-width-height(left, $time_value_width, 100%);
+    text-align: center;
+    font-family: $text_fontfamily;
+    font-size: $text_fontsize;
+    color: $text_color;
+	box-sizing: content-box;
+    border-right: 1px solid $button_border_color;
+}
+
+.#{$css}-ie8 .#{$css}-time-container {
+    margin-top: $ie8_margintop;
+}
+
+.#{$css}-time-value {
+    @include relative-center-center;
+    float: left;
+    width: $time_value_width;
+}
+
+.#{$css}-volumebar {
+    @include float-width-height(right, $volume_width, 100%);
+    margin-right: $volume_height*2;
+}
+
+.#{$css}-ie8 .#{$css}-volumebar {
+    margin-top: -$ie8_margintop;
+}
+
+.#{$css}-volumebar-inner {
+    @include relative-center-center;
+    @include border-round-edges($volume_height / 2);
+    @include clickable;
+    background: $controls_bgcolor;
+    height: $volume_height;
+}
+
+.#{$css}-volumebar-position {
+    @include border-round-edges($volume_height / 2);
+    @include absolute-align-left();
+    background-color: $button_color;
+    height: 100%;
+}
+
+.#{$css}-green .#{$css}-volumebar-position {
+	background-color: $button_color_green;
+}
+
+.#{$css}-blue .#{$css}-volumebar-position {
+	background-color: $button_color_blue;
+}
+
+.#{$css}-progressbar {
+    overflow: hidden;
+    height: 100%;
+    padding-left: $volume_height*2;
+    padding-right: $volume_height*2;
+}
+
+.#{$css}-ie8 .#{$css}-progressbar {
+    margin-top: -$ie8_margintop;
+}
+
+.#{$css}-progressbar-cache {
+    @include absolute-align-left;
+    @include border-round-edges($volume_height / 2);
+    @include clickable;
+    background-color: $progressbar_cache_bgcolor;
+    height: $volume_height;
+}
+
+.#{$css}-progressbar-inner {
+    @include relative-center-center;
+    @include border-round-edges($volume_height / 2);
+    @include clickable;
+    background: $controls_bgcolor;
+    height: $volume_height;
+}
+
+.#{$css}-progressbar-position {
+    @include border-round-edges($volume_height / 2);
+    @include absolute-align-left();
+    background-color: $button_color;
+    height: 100%;
+}
+
+.#{$css}-green .#{$css}-progressbar-position {
+	background-color: $button_color_green;
+}
+
+.#{$css}-blue .#{$css}-progressbar-position {
+	background-color: $button_color_blue;
+}

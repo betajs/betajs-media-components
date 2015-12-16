@@ -1,23 +1,11 @@
-$playbutton_size: 15%;
-$playbutton_opacity: 0.75;
-$playbutton_hover_opacity: 0.9;
-$playbutton_transition_time: .25s;
-
-
 .#{$css}-noie8 .#{$css}-playbutton-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    -moz-transform: translate(-50%, -50%);
-    -o-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+	@include absolute-center-center;
+	@include transform-translate(-50%, -50%);
     width: $playbutton_size;
 }
 
-
 .#{$css}-noie8 .#{$css}-playbutton-button {
+    @include transition1(opacity, $playbutton_transition_time, ease-in-out);
     position: relative;
     width: 100%;
     display: block;
@@ -26,10 +14,6 @@ $playbutton_transition_time: .25s;
     background-size: contain;
     opacity: $playbutton_opacity;
     cursor: pointer;
-    transition: opacity $playbutton_transition_time ease-in-out;
-    -moz-transition: opacity $playbutton_transition_time ease-in-out;
-    -webkit-transition: opacity $playbutton_transition_time ease-in-out;
-    -o-transition: opacity $playbutton_transition_time ease-in-out;
     background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbDpzcGFjZT0icHJlc2VydmUiIHZpZXdCb3g9IjAgMCA0MCA0MCIgdmVyc2lvbj0iMS4xIiB5PSIwcHgiIHg9IjBweCIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDQwIDQwIj48Zz48cGF0aCBmaWxsPSJncmF5IiBkPSJtMzcuMyAxMGMtNS41LTkuNi0xNy43LTEyLjgtMjcuMy03LjNzLTEyLjggMTcuNy03LjMgMjcuMyAxNy44IDEyLjggMjcuMyA3LjNjOS42LTUuNSAxMi44LTE3LjcgNy4zLTI3LjN6IiAvPjxwYXRoIGZpbGw9IndoaXRlIiBkPSJtMzcuMyAxMGMtNS41LTkuNi0xNy43LTEyLjgtMjcuMy03LjNzLTEyLjggMTcuNy03LjMgMjcuMyAxNy44IDEyLjggMjcuMyA3LjNjOS42LTUuNSAxMi44LTE3LjcgNy4zLTI3LjN6bS05LjMgMjMuOWMtNy43IDQuNC0xNy40IDEuOC0yMS45LTUuOS00LjQtNy42LTEuNy0xNy40IDUuOS0yMS45IDcuNy00LjQgMTcuNC0xLjggMjEuOSA1LjkgNC40IDcuNyAxLjggMTcuNC01LjkgMjEuOXptLTAuOC0xNC43bC0xMC41LTYuMWMtMS4yLTAuNC0xLjQtMC4yLTEuNyAxbDAuMSAxMi4xYzAuMiAxLjIgMC42IDEuNCAxLjcgMWwxMC40LTZjMC45LTAuNyAwLjktMS4zIDAtMnoiLz48L2c+PC9zdmc+Cg==');
     background-repeat: no-repeat;
     background-color: transparent;
@@ -40,9 +24,7 @@ $playbutton_transition_time: .25s;
 }
 
 .#{$css}-ie8 .#{$css}-playbutton-container {
-    width: 100%;
-    height: 100%;
-    position: absolute;
+    @include absolute-max-max();
 }
 
 .#{$css}-ie8 .#{$css}-playbutton-button {

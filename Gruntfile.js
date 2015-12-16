@@ -20,8 +20,8 @@ module.exports = function(grunt) {
 						src : [ 'src/fragments/begin.js-fragment',
 						        'dist/betajs-media-components-templates.js',
 						        'dist/betajs-media-components-locales.js',
-								'src/video_player/dynamics/**/*.js',
-								'src/video_player/globals/*.js',
+								'src/dynamics/common/*.js',
+								'src/dynamics/video_player/**/*.js',
 								'src/fragments/end.js-fragment' ]
 					},
 					dist_scoped : {
@@ -38,10 +38,24 @@ module.exports = function(grunt) {
 						},
 						dest: 'dist/betajs-media-components.scss',
 						src: [
-						    'src/video_player/globals/globals.scss',
-						    'src/video_player/globals/*.scss',
-							'src/video_player/dynamics/**/*.scss'
+						    'src/themes/video_player/default/theme.scss',
+						    'src/themes/video_player/common/*.scss',
+						    'src/themes/video_player/default/*.scss'
 						]
+					},
+					dist_theme_modern_scss: {
+						options : {
+							banner : module.banner
+						},
+						dest: "dist/themes/modern.scss",
+						src: [
+						    'src/themes/video_player/modern/theme.scss',
+						    'src/themes/video_player/common/mixins.scss',
+						    'src/themes/video_player/default/player.scss',
+						    'src/themes/video_player/default/loader.scss',
+						    'src/themes/video_player/default/message.scss',
+						    'src/themes/video_player/modern/*.scss'
+                        ]
 					},
 					dist_theme_modern_js: {
 						options : {
@@ -51,23 +65,13 @@ module.exports = function(grunt) {
 						src: [
 						    'src/fragments/theme-begin.js-fragment',
 						    "dist/themes/modern-templates.js",
-						    'src/video_player/themes/modern/theme.js',
+						    'src/themes/video_player/modern/theme.js',
 						    'src/fragments/end.js-fragment'
-                        ]
-					},
-					dist_theme_modern_scss: {
-						options : {
-							banner : module.banner
-						},
-						dest: "dist/themes/modern.scss",
-						src: [
-						    'src/video_player/themes/modern/theme.scss',
-						    'src/video_player/themes/modern/*.scss'
                         ]
 					},
 					dist_locales: {
 						dest: "dist/betajs-media-components-locales.yml",
-						src: ["src/**/locales/*.yml"]
+						src: ["src/locales/**/*.yml"]
 					}
 				},
 				preprocess : {
@@ -140,7 +144,7 @@ module.exports = function(grunt) {
 					dist_theme_modern: {
 						files: {
 							"dist/themes/modern-templates.js": [
-								"src/video_player/themes/modern/*.html"
+								"src/themes/video_player/modern/*.html"
 							]
 						},
 						options: {

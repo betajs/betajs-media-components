@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script src="../vendors/jquery.min.js"></script>
+</head>
+<body>
+
+	<video poster="sample-cover.png">
+		<source src="sample-video.mp4" type="video/mp4" />
+	</video>
+	<button>
+		Play
+	</button>
+    
+    <script>
+    	$("button").on("click", function () {
+    		$("video").get(0).play();
+    	});
+    </script>
+
+</body>
+</html>

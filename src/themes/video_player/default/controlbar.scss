@@ -1,110 +1,28 @@
-$progressbar_height: 9px;
-$progressbar_height_small: 3px;
-$progressbar_button_border: 1px;
-$progressbar_button_overflow: 1px;
-$controlbar_height: 30px;
-$button_width: 50px;
-$volume_width: 100px;
-$volume_height: 8px;
-$time_value_width: 40px;
-$time_sep_width: 15px;
-$ie8_margintop: 6px;
-
-$progressbar_transition: 0.1s;
-$dashboard_transition: 0.5s;
-$button_fontsize: 14px;
-$text_fontsize: 13px;
-$text_fontfamily: Arial, sans-serif;
-$controlbar_opacity: 0.7;
-
-$progressbar_bgcolor: #999;
-$progressbar_position_bgcolor: #8CF;
-$progressbar_cache_bgcolor: #EEE;
-$progressbar_button_bgcolor: #FFF;
-$progressbar_button_bordercolor: #999;
-$controlbar_bgcolor: #000;
-$text_color: #FFF;
-
-
-
-
-@mixin align-full-bottom {
-    left: 0;
-    right: 0;
-    bottom: 0;
-} 
-
-@mixin align-left {
-    position: absolute;
-    left: 0;
-}
-
-@mixin border-radius($radius) {
-    -moz-border-radius: $radius;
-    -webkit-border-radius: $radius;
-    border-radius: $radius;
-}
-
-@mixin left-container-width($width) {
-    float: left;
-    height: 100%;
-    width: $width;
-}
-
-@mixin right-container-width($width) {
-    float: right;
-    height: 100%;
-    width: $width;
-}
-
-@mixin horizontal-center {
-    position: relative;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    -moz-transform: translateY(-50%);
-    -o-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-}
-
-@mixin round-edges($width) {
-    border-bottom-left-radius: $width;
-    border-bottom-right-radius: $width;
-    border-top-left-radius: $width;
-    border-top-right-radius: $width;
-};
-
-
-
 .#{$css}-dashboard {
-    @include align-full-bottom;
-    position: absolute;
-    transition: opacity $dashboard_transition;
+    @include absolute-align-full-bottom;
+    @include transition1(opacity, $dashboard_transition, ease-in-out);
 }
 
 .#{$css}-dashboard-hidden {
     opacity: 0;
 }
 
-
-
 .#{$css}-progressbar {
+    @include clickable;
+    @include transition1(height, $progressbar_transition, ease-in-out);
     height: $progressbar_height;
     background: $progressbar_bgcolor;
-    cursor: pointer;
-    transition: height $progressbar_transition;
 }
 
 .#{$css}-progressbar-small {
     height: $progressbar_height_small;
 }
  
-
 .#{$css}-progressbar-position {
-    @include align-left;
+    @include absolute-align-left;
+    @include transition1(height, $progressbar_transition, ease-in-out);
     background-color: $progressbar_position_bgcolor;
     height: $progressbar_height;
-    transition: height $progressbar_transition;
 }
 
 .#{$css}-progressbar-small .#{$css}-progressbar-position {
@@ -112,10 +30,10 @@ $text_color: #FFF;
 }
 
 .#{$css}-progressbar-cache {
-    @include align-left;
+    @include absolute-align-left;
+    @include transition1(height, $progressbar_transition, ease-in-out);
     background-color: $progressbar_cache_bgcolor;
     height: $progressbar_height;
-    transition: height $progressbar_transition;
 }
 
 .#{$css}-progressbar-small .#{$css}-progressbar-cache {
@@ -140,40 +58,33 @@ $text_color: #FFF;
     display: none;
 }
 
-
 .#{$css}-backbar {
-    @include align-full-bottom();
-    position: absolute;
+    @include absolute-align-full-bottom;
     height: $controlbar_height;
     background: $controlbar_bgcolor;
     opacity: $controlbar_opacity;
 }
 
 .#{$css}-controlbar {
-    @include align-full-bottom();
-    position: relative;
+    @include relative-align-full-bottom;
     height: $controlbar_height;
     overflow: hidden;
 }
 
-
 .#{$css}-leftbutton-container {
-    @include left-container-width($button_width);
-    cursor: pointer;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    @include float-width-height(left, $button_width, 100%);
+    @include clickable;
 }
 
 .#{$css}-rightbutton-container {
-    @include right-container-width($button_width);
-    cursor: pointer;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    @include float-width-height(right, $button_width, 100%);
+    @include clickable;
 }
 
 
 .#{$css}-button-inner {
-    @include horizontal-center;
-    text-align: center;
-    cursor: pointer;
+    @include relative-center-center;
+    @include clickable;
     color: $text_color;
     font-size: $button_fontsize;        
 }
@@ -183,7 +94,7 @@ $text_color: #FFF;
 }
 
 .#{$css}-time-container {
-    @include left-container-width(2 * $time_value_width + $time_sep_width);
+    @include float-width-height(left, 2 * $time_value_width + $time_sep_width, 100%);
     text-align: center;
     font-family: $text_fontfamily;
     font-size: $text_fontsize;
@@ -195,21 +106,19 @@ $text_color: #FFF;
 }
 
 .#{$css}-time-value {
-    @include horizontal-center;
+    @include relative-center-center;
     float: left;
     width: $time_value_width;
 }
 
 .#{$css}-time-sep {
-    @include horizontal-center;
+    @include relative-center-center;
     float: left;
     width: $time_sep_width;
 }
 
-
-
 .#{$css}-volumebar {
-    @include right-container-width($volume_width);
+    @include float-width-height(right, $volume_width, 100%);
     margin-left: $volume_height*2;
     margin-right: $volume_height*2;
 }
@@ -219,33 +128,32 @@ $text_color: #FFF;
 }
 
 .#{$css}-volumebar-inner {
-    @include horizontal-center;
-    @include round-edges($volume_height / 2);
+    @include relative-center-center;
+    @include border-round-edges($volume_height / 2);
+    @include clickable;
     background: $progressbar_bgcolor;
     height: $volume_height;
-    cursor: pointer;
 }
 
 .#{$css}-volumebar-position {
-    @include round-edges($volume_height / 2);
+    @include border-round-edges($volume_height / 2);
+    @include absolute-align-left();
     background-color: $progressbar_position_bgcolor;
     height: 100%;
-    @include align-left();
 }
 
 .#{$css}-volumebar-button {
     $radius: $volume_height - 2 * $progressbar_button_overflow;
     @include border-radius($radius);
+    @include clickable;
     background: $progressbar_button_bgcolor;
     box-sizing: content-box;
     border: $progressbar_button_border solid $progressbar_button_bordercolor;
-
     position: absolute;
     right: -$radius;
     top: -($progressbar_button_border + $progressbar_button_overflow);
     z-index: 1;
     width: $progressbar_height + 2 * $progressbar_button_overflow;
     height: $progressbar_height + 2 * $progressbar_button_overflow;
-
 }
 

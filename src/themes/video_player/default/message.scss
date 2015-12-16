@@ -1,0 +1,14 @@
+.#{$css}-message-container {
+	@include absolute-align-all;
+    background: $message_bgcolor;
+    opacity: $message_opacity;
+}
+
+.#{$css}-message-message {
+	@include transform-translate-y(-50%);
+    color: $message_color;
+    position: absolute;
+    width: 100%;
+    top: 50%;    
+    text-align: center;
+}

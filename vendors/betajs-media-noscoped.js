@@ -1,5 +1,5 @@
 /*!
-betajs-media - v0.0.6 - 2015-12-15
+betajs-media - v0.0.7 - 2015-12-16
 Copyright (c) Oliver Friedmann
 MIT Software License.
 */
@@ -17,7 +17,7 @@ Scoped.binding("jquery", "global:jQuery");
 Scoped.define("module:", function () {
 	return {
 		guid: "8475efdb-dd7e-402e-9f50-36c76945a692",
-		version: '33.1450234783738'
+		version: '34.1450275339129'
 	};
 });
 
@@ -508,12 +508,15 @@ Scoped.define("module:Player.Html5VideoPlayerWrapper", [
 				this._$element.on("loadedmetadata", function () {
 					promise.asyncSuccess(true);
 				});
+				var nosourceCounter = 10;
 				var timer = new Timer({
 					context: this,
 					fire: function () {
-						if (this._element.networkState === this._element.NETWORK_NO_SOURCE)
-							promise.asyncError(true);
-						else if (this._element.networkState === this._element.NETWORK_IDLE) 
+						if (this._element.networkState === this._element.NETWORK_NO_SOURCE) {
+							nosourceCounter--;
+							if (nosourceCounter <= 0)
+								promise.asyncError(true);
+						} else if (this._element.networkState === this._element.NETWORK_IDLE) 
 							promise.asyncSuccess(true);
 					},
 					delay: 50

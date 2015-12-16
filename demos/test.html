@@ -14,16 +14,20 @@
     <link  href="../dist/themes/modern.css" rel="stylesheet" />
 </head>
 <body>
-
     <ba-videoplayer ba-poster="sample-cover.png" ba-source="sample-video.mp4" ba-theme="modern" ba-forceflashx="true"></ba-videoplayer>
+    <ba-videoplayer ba-poster="sample-cover.png" ba-source="sample-video.mp4" ba-themex="modern" ba-forceflashx="true"></ba-videoplayer>
+
+	<fieldset id="console-log-div"></fieldset>
     
     <script>
+    	console.log = function (s) {
+    		$("#console-log-div").append("<p>" + s + "</p>");
+    	};
         BetaJS.Flash.options = {
             flashFile: "../vendors/betajs-flash.swf",
             forceReload: true
         };
         BetaJS.Dynamics.Dynamic.activate();
     </script>
-
 </body>
 </html>

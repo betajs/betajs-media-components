@@ -1,0 +1,148 @@
+@mixin transform-translate($x, $y) {
+    -webkit-transform: translate($x, $y);
+    -moz-transform: translate($x, $y);
+    -o-transform: translate($x, $y);
+    -ms-transform: translate($x, $y);
+    transform: translate($x, $y);
+}
+
+@mixin transform-translate-y($y) {
+    -webkit-transform: translateY($y);
+    -moz-transform: translateY($y);
+    -o-transform: translateY($y);
+    -ms-transform: translateY($y);
+    transform: translateY($y);
+}
+
+@mixin transform-translate-z($y) {
+    -webkit-transform: translateZ($y);
+    -moz-transform: translateZ($y);
+    -o-transform: translateZ($y);
+    -ms-transform: translateZ($y);
+    transform: translateZ($y);
+}
+
+
+@mixin align-all() {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+@mixin align-full-bottom() {
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+@mixin absolute-align-left {
+    position: absolute;
+    left: 0;
+}
+
+@mixin absolute-align-all() {
+    position: absolute;
+    @include align-all();
+}
+
+@mixin absolute-align-full-bottom() {
+    position: absolute;
+    @include align-full-bottom();
+}
+
+@mixin relative-align-full-bottom() {
+    position: relative;
+    @include align-full-bottom();
+}
+
+@mixin absolute-center-center() {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+@mixin absolute-max-max() {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+@mixin relative-center-center {
+    @include transform-translate-y(-50%);
+    top: 50%;
+    position: relative;
+    text-align: center;
+}
+
+@mixin float-width-height($float, $width, $height) {
+    float: $float;
+    width: $width;
+    height: $height;
+}
+
+
+@mixin background-rgba($r, $g, $b, $o, $fallback) {
+    background: $fallback;
+    background: rgba($r, $g, $b, $o);
+}
+
+@mixin border-rgba($thinkness, $r, $g, $b, $o, $fallback) {
+    border: $thinkness solid $fallback;
+    border: $thinkness solid rgba($r, $g, $b, $o);
+}
+
+@mixin border-top-rgba($thinkness, $r, $g, $b, $o, $fallback) {
+    border-top: $thinkness solid $fallback;
+    border-top: $thinkness solid rgba($r, $g, $b, $o);
+}
+
+@mixin border-left-rgba($thinkness, $r, $g, $b, $o, $fallback) {
+    border-left: $thinkness solid $fallback;
+    border-left: $thinkness solid rgba($r, $g, $b, $o);
+}
+
+@mixin border-bottom-rgba($thinkness, $r, $g, $b, $o, $fallback) {
+    border-bottom: $thinkness solid $fallback;
+    border-bottom: $thinkness solid rgba($r, $g, $b, $o);
+}
+
+@mixin border-right-rgba($thinkness, $r, $g, $b, $o, $fallback) {
+    border-right: $thinkness solid $fallback;
+    border-right: $thinkness solid rgba($r, $g, $b, $o);
+}
+
+@mixin border-round-edges($width) {
+    border-bottom-left-radius: $width;
+    border-bottom-right-radius: $width;
+    border-top-left-radius: $width;
+    border-top-right-radius: $width;
+}
+
+@mixin border-radius($radius) {
+    -moz-border-radius: $radius;
+    -webkit-border-radius: $radius;
+    border-radius: $radius;
+}
+
+
+
+@mixin transition1($attribute, $time, $mode) {
+    transition: $attribute $time $mode;
+    -moz-transition: $attribute $time $mode;
+    -webkit-transition: $attribute $time $mode;
+    -o-transition: $attribute $time $mode;
+}
+
+@mixin transition2($attribute1, $attribute2, $time, $mode) {
+    transition: $attribute1 $time $mode, $attribute2 $time $mode;
+    -moz-transition: $attribute1 $time $mode, $attribute2 $time $mode;
+    -webkit-transition: $attribute1 $time $mode, $attribute2 $time $mode;
+    -o-transition: $attribute1 $time $mode, $attribute2 $time $mode;
+}
+
+
+@mixin clickable {
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}

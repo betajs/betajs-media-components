@@ -17,6 +17,7 @@
 }
 
 .#{$css}-container video::-webkit-media-controls-start-playback-button {
-  display: none !important;
+  display: none;
   -webkit-appearance: none;
+  -moz-appearance: none;
 }

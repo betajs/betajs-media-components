@@ -18,8 +18,8 @@ Scoped.define("module:", function () {
 	};
 });
 
-Scoped.assumeVersion("base:version", 444);
-Scoped.assumeVersion("browser:version", 58);
-Scoped.assumeVersion("flash:version", 19);
-Scoped.assumeVersion("media:version", 31);
-Scoped.assumeVersion("dynamics:version", 195);
+Scoped.assumeVersion("base:version", 445);
+Scoped.assumeVersion("browser:version", 61);
+Scoped.assumeVersion("flash:version", 20);
+Scoped.assumeVersion("media:version", 34);
+Scoped.assumeVersion("dynamics:version", 198);

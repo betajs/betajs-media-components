@@ -1,5 +1,5 @@
 /*!
-betajs-dynamics - v0.0.24 - 2015-12-15
+betajs-dynamics - v0.0.25 - 2015-12-17
 Copyright (c) Oliver Friedmann,Victor Lingenthal
 MIT Software License.
 */
@@ -16,7 +16,7 @@ Scoped.binding("jquery", "global:jQuery");
 Scoped.define("module:", function () {
 	return {
 		guid: "d71ebf84-e555-4e9b-b18a-11d74fdcefe2",
-		version: '198.1450234742232'
+		version: '200.1450331595740'
 	};
 });
 
@@ -1058,6 +1058,7 @@ Scoped.define("module:Handlers.HandlerMixin", [
 						this.template = template;
 						this.activate();
 					}, this);
+					return;
 				}
 			}
 			
@@ -1438,8 +1439,12 @@ Scoped.define("module:Handlers.Node", [
 					this._dyn.value = value;
 					if ("textContent" in this._element)
 						this._element.textContent = Dom.entitiesToUnicode(value);
-					else
+					else if (Info.isInternetExplorer() && Info.internetExplorerVersion() < 9 && ("data" in this._element))
+						this._element.data = Dom.entitiesToUnicode(value === null ? "" : value);
+					else {
+						// OF: Not clear if this is ever executed and whether it actually does something meaningful.
 						this._$element.replaceWith(value);
+					}
 				}
 			},
 				
@@ -1559,6 +1564,8 @@ Scoped.define("module:Partials.AttrsPartial", ["module:Handlers.Partial"], funct
  	var Cls = Partial.extend({scoped: scoped}, {
 		
 		_apply: function (value) {
+			if (!this._active)
+				return;
 			var props = this._node._tagHandler ? this._node._tagHandler.properties() : this._node.properties();
 			for (var key in value)
 				props.set(key, value[key]);

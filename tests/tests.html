@@ -23,9 +23,31 @@
 		</script>
 	</head>
 	<body>
+		<button id="clickme" style="width:100%;height:50%;font-size:10em;display:none">CLICK</button>
 		<div id="qunit"></div>
 		<div id="qunit-fixture"></div>
 		<script src="http://code.jquery.com/qunit/qunit-1.11.0.js"></script>
+		<script>
+			QUnit.launcher = function (method, ctx) {
+				method.apply(ctx);
+			};
+			if (BetaJS.Browser.Info.isMobile()) {				
+				var _method, _ctx;
+				QUnit.launcher = function (method, ctx) {
+					_method = method;
+					_ctx = ctx;
+					$("#clickme").show();
+				};
+				$("#clickme").on("click", function () {
+					$("#clickme").hide();
+					_method.apply(_ctx);
+				});
+			}
+		/*
+			window.onerror = function (a,b,c,d,e,f,g,h) {
+				console.log("Error", a,b,c,d,e,f,g,h);
+			};*/
+		</script>
 		<script src="tests/player.js"></script>
 	</body>
 </html>

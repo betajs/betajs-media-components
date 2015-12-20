@@ -17,12 +17,12 @@
                 <i class="{{css}}-icon-ccw"></i>
             </div>
         </div>
-		<div class="{{css}}-leftbutton-container" ba-show="{{!playing}}" ba-click="play()" title="{{string('play-video')}}">
+		<div class="{{css}}-leftbutton-container" ba-if="{{!playing}}" ba-click="play()" title="{{string('play-video')}}">
 			<div class="{{css}}-button-inner">
 				<i class="{{css}}-icon-play"></i>
 			</div>
 		</div>
-		<div class="{{css}}-leftbutton-container" ba-show="{{playing}}" ba-click="pause()" title="{{string('pause-video')}}">
+		<div class="{{css}}-leftbutton-container" ba-if="{{playing}}" ba-click="pause()" title="{{string('pause-video')}}">
             <div class="{{css}}-button-inner">
                 <i class="{{css}}-icon-pause"></i>
             </div>

@@ -51,6 +51,7 @@ module.exports = function(grunt) {
 						src: [
 						    'src/themes/video_player/modern/theme.scss',
 						    'src/themes/video_player/common/mixins.scss',
+						    'src/themes/video_player/common/fontello.scss',
 						    'src/themes/video_player/default/player.scss',
 						    'src/themes/video_player/default/loader.scss',
 						    'src/themes/video_player/default/message.scss',
@@ -88,11 +89,17 @@ module.exports = function(grunt) {
 				},
 				sass: {
 					dist: {
+						options: {
+							sourcemap: 'none'
+						},
 						files: {
 							'dist/betajs-media-components.css': 'dist/betajs-media-components.scss'
 						}
 					},
 					dist_theme_modern: {
+						options: {
+							sourcemap: 'none'
+						},
 						files: {
 							'dist/themes/modern.css': 'dist/themes/modern.scss'
 						}

@@ -5,11 +5,6 @@
   src: local('Lato Regular'), local('Lato-Regular'), url(http://themes.googleusercontent.com/static/fonts/lato/v6/9k-RPmcnxYEPm8CNFsH2gg.woff) format('woff');
 }
 
-.#{$css}-button-inner {
-    @include relative-center-center;
-    color: $button_color;
-    font-size: $button_fontsize;
-}
 
 .#{$css}-green .#{$css}-button-inner {
 	color: $button_color_green;
@@ -39,12 +34,33 @@
     border-right: 1px solid $button_border_color;
 }
 
-.#{$css}-rightbutton-container {
+.#{$css}-noie8 .#{$css}-rightbutton-container {
     @include float-width-height(right, $button_width, 100%);
     @include clickable;
 	box-sizing: content-box;
     border-left: 1px solid $button_border_color;
 }
+
+.#{$css}-ie8 .#{$css}-rightbutton-container {
+    @include float-width-height(right, $button_width, 50%);
+    @include clickable;
+	box-sizing: content-box;
+    border-left: 1px solid $button_border_color;
+}
+
+.#{$css}-noie8 .#{$css}-button-inner {
+    @include relative-center-center;
+    color: $button_color;
+    font-size: $button_fontsize;
+}
+
+.#{$css}-ie8 .#{$css}-button-inner {
+    margin-top: $ie8_margintop + 6;
+    text-align: center;
+    color: $button_color;
+    font-size: $button_fontsize;
+}
+
 
 .#{$css}-time-container {
     @include float-width-height(left, $time_value_width, 100%);
@@ -57,7 +73,7 @@
 }
 
 .#{$css}-ie8 .#{$css}-time-container {
-    margin-top: $ie8_margintop;
+    margin-top: $ie8_margintop + 5;
 }
 
 .#{$css}-time-value {
@@ -66,13 +82,15 @@
     width: $time_value_width;
 }
 
-.#{$css}-volumebar {
+.#{$css}-noie8 .#{$css}-volumebar {
     @include float-width-height(right, $volume_width, 100%);
     margin-right: $volume_height*2;
 }
 
 .#{$css}-ie8 .#{$css}-volumebar {
-    margin-top: -$ie8_margintop;
+    @include float-width-height(right, $volume_width, 50%);
+    margin-top: $ie8_margintop+10;
+    margin-right: $volume_height*2;
 }
 
 .#{$css}-volumebar-inner {
@@ -98,7 +116,7 @@
 	background-color: $button_color_blue;
 }
 
-.#{$css}-progressbar {
+.#{$css}-noie8 .#{$css}-progressbar {
     overflow: hidden;
     height: 100%;
     padding-left: $volume_height*2;
@@ -106,7 +124,12 @@
 }
 
 .#{$css}-ie8 .#{$css}-progressbar {
-    margin-top: -$ie8_margintop;
+    overflow: hidden;
+    height: 50%;
+    padding-left: $volume_height*2;
+    padding-right: $volume_height*2;
+    margin-right: $button_width;
+    margin-top: $ie8_margintop;
 }
 
 .#{$css}-progressbar-cache {

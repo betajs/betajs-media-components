@@ -29,11 +29,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"source": "",
 				"sources": [],
 				"forceflash": false,
+				"noflash": false,
 				"rerecordable": false,
 				"theme": "",
 				"message": "",
 				"autoplay": false,
-				"csstheme": ""
+				"csstheme": "",
+				"preload": false
 			},
 			
 			create: function () {
@@ -72,7 +74,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 			    	source: this.get("source"),
 			    	sources: this.get("sources"),
 			    	forceflash: !!this.get("forceflash"),
-			    	preload: false
+			    	noflash: !!this.get("noflash"),
+			    	preload: !!this.get("preload")
 			    }).error(function (e) {
 			    	this._eventError(e);
 			    }, this).success(function (instance) {
@@ -220,16 +223,18 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 			},
 
 			_timerFire: function () {
-				if (this.get("state") === "main") {
-					this.set("activity_delta", Time.now() - this.get("last_activity"));
-					var new_position = this.player.position();
-					if (new_position != this.get("position") || this.get("last_position_change"))
-						this.set("last_position_change", Time.now());
-					this.set("last_position_change_delta", Time.now() - this.get("last_position_change"));
-					this.set("position", new_position);
-					this.set("buffered", this.player.buffered());
-					this.set("duration", this.player.duration());
-				}
+				try {
+					if (this.get("state") === "main") {
+						this.set("activity_delta", Time.now() - this.get("last_activity"));
+						var new_position = this.player.position();
+						if (new_position != this.get("position") || this.get("last_position_change"))
+							this.set("last_position_change", Time.now());
+						this.set("last_position_change_delta", Time.now() - this.get("last_position_change"));
+						this.set("position", new_position);
+						this.set("buffered", this.player.buffered());
+						this.set("duration", this.player.duration());
+					}
+				} catch (e) {}
 			}
 			
 		};

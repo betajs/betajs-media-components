@@ -1,5 +1,5 @@
 /*!
-betajs-media - v0.0.7 - 2015-12-16
+betajs-media - v0.0.7 - 2015-12-18
 Copyright (c) Oliver Friedmann
 MIT Software License.
 */
@@ -17,7 +17,7 @@ Scoped.binding("jquery", "global:jQuery");
 Scoped.define("module:", function () {
 	return {
 		guid: "8475efdb-dd7e-402e-9f50-36c76945a692",
-		version: '34.1450275339129'
+		version: '35.1450466013328'
 	};
 });
 
@@ -178,7 +178,7 @@ Scoped.define("module:Player.FlashPlayer", [
 				var code = event.get("info").code;
 				if (code == "NetStream.Play.StreamNotFound") {
 					this._flashData.status = "error";
-					this.domEvent("error");
+					this.domEvent("videoerror");
 				}
 				if (code == "NetStream.Play.Start")
 					this._flashData.status = "start";
@@ -231,7 +231,8 @@ Scoped.define("module:Player.FlashPlayer", [
 			},
 			
 			play: function () {
-				this._flashObjs.main.setChildIndex(this._flashObjs.video, 1);
+				if (this._flashObjs.main.imageLoader)
+					this._flashObjs.main.setChildIndex(this._flashObjs.video, 1);
 				if (this._flashData.status === "paused")
 					this._flashObjs.stream.resumeVoid();
 				else
@@ -663,7 +664,7 @@ Scoped.define("module:Player.FlashPlayerWrapper", [
 				videoOn("playing", this._eventPlaying);
 				videoOn("pause", this._eventPaused);
 				videoOn("ended", this._eventEnded);
-				videoOn("error", function () {
+				videoOn("videoerror", function () {
 					this._eventError(this.cls.ERROR_NO_PLAYABLE_SOURCE);
 				});
 				videoOn("postererror", this._eventPosterError);

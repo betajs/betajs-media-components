@@ -1,5 +1,5 @@
 /*!
-betajs-flash - v0.0.4 - 2015-12-14
+betajs-flash - v0.0.4 - 2015-12-23
 Copyright (c) Oliver Friedmann
 MIT Software License.
 */
@@ -16,8 +16,7 @@ Scoped.binding("jquery", "global:jQuery");
 Scoped.define("module:", function () {
 	return {
 		guid: "3adc016a-e639-4d1a-b4cb-e90cab02bc4f",
-		version: '20.1450150002905',
-		__global: {},
+		version: '21.1450889965167',
 		options: {
 			flashFile: "betajs-flash.swf"
 		}
@@ -27,9 +26,9 @@ Scoped.define("module:", function () {
 Scoped.assumeVersion("base:version", 444);
 Scoped.assumeVersion("browser:version", 58);
 Scoped.define("module:FlashEmbedding", [ "base:Class", "base:Events.EventsMixin", "jquery:", "base:Strings",
-		"base:Functions", "base:Types", "base:Objs", "base:Ids", "base:Time", "base:Timers.Timer", "base:Async", "module:__global",
+		"base:Functions", "base:Types", "base:Objs", "base:Ids", "base:Time", "base:Timers.Timer", "base:Async", "base:Tokens",
 		"module:FlashObjectWrapper", "module:FlashClassWrapper", "browser:FlashHelper", "module:" ], function(Class, EventsMixin, $,
-		Strings, Functions, Types, Objs, Ids, Time, Timer, Async, moduleGlobal, FlashObjectWrapper, FlashClassWrapper, FlashHelper, mod, scoped) {
+		Strings, Functions, Types, Objs, Ids, Time, Timer, Async, Tokens, FlashObjectWrapper, FlashClassWrapper, FlashHelper, mod, scoped) {
 	return Class.extend({
 		scoped : scoped
 	}, [EventsMixin, function(inherited) {
@@ -44,13 +43,13 @@ Scoped.define("module:FlashEmbedding", [ "base:Class", "base:Events.EventsMixin"
 				this.__callbacks = {
 					ready: Functions.as_method(this.__ready, this)
 				};
-				this.__namespace = "BetaJS.Flash.__global." + this.cid();
+				this.__namespace = "flash_" + Tokens.generate_token();
 				this.__is_ready = false;
 				this.__is_suspended = false;
 				this.__ready_queue = [];
 				this.__wrappers = {};
 				this.__staticWrappers = {};
-				moduleGlobal[this.cid()] = this.__callbacks;
+				window[this.__namespace] = this.__callbacks;
 				flashOptions = Objs.extend(Objs.clone(mod.options, 1), Objs.extend({
 					FlashVars: {}
 				}, flashOptions));
@@ -66,7 +65,7 @@ Scoped.define("module:FlashEmbedding", [ "base:Class", "base:Events.EventsMixin"
 			},
 			
 			destroy: function () {
-				delete moduleGlobal[this.cid()];
+				delete window[this.__namespace];
 				Objs.iter(this.__wrappers, function (wrapper) {
 					wrapper.destroy();
 				});

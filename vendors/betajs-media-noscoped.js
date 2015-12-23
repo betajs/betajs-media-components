@@ -1,5 +1,5 @@
 /*!
-betajs-media - v0.0.7 - 2015-12-18
+betajs-media - v0.0.8 - 2015-12-23
 Copyright (c) Oliver Friedmann
 MIT Software License.
 */
@@ -17,7 +17,7 @@ Scoped.binding("jquery", "global:jQuery");
 Scoped.define("module:", function () {
 	return {
 		guid: "8475efdb-dd7e-402e-9f50-36c76945a692",
-		version: '35.1450466013328'
+		version: '37.1450890039119'
 	};
 });
 
@@ -469,7 +469,7 @@ Scoped.define("module:Player.Html5VideoPlayerWrapper", [
     "jquery:",
     "browser:Dom"
 ], function (VideoPlayerWrapper, Info, Promise, Objs, Timer, Strings, $, Dom, scoped) {
-	var Cls = VideoPlayerWrapper.extend({scoped: scoped}, function (inherited) {
+	return VideoPlayerWrapper.extend({scoped: scoped}, function (inherited) {
 		return {
 			
 			constructor: function (options, transitionals) {
@@ -599,10 +599,6 @@ Scoped.define("module:Player.Html5VideoPlayerWrapper", [
 		
 		};		
 	});	
-	
-	VideoPlayerWrapper.register(Cls, 2);
-	
-	return Cls;
 });
 
 
@@ -613,7 +609,7 @@ Scoped.define("module:Player.FlashPlayerWrapper", [
      "base:Promise",
      "browser:Dom"
 ], function (VideoPlayerWrapper, FlashPlayer, Info, Promise, Dom, scoped) {
-	var Cls = VideoPlayerWrapper.extend({scoped: scoped}, function (inherited) {
+	return VideoPlayerWrapper.extend({scoped: scoped}, function (inherited) {
 		return {
 		
 			_initialize: function () {
@@ -688,10 +684,18 @@ Scoped.define("module:Player.FlashPlayerWrapper", [
             
 		};		
 	});	
-	
-	VideoPlayerWrapper.register(Cls, 1);
-	
-	return Cls;
+});
+
+
+
+Scoped.extend("module:Player.VideoPlayerWrapper", [
+    "module:Player.VideoPlayerWrapper",
+    "module:Player.Html5VideoPlayerWrapper",
+    "module:Player.FlashPlayerWrapper"
+], function (VideoPlayerWrapper, Html5VideoPlayerWrapper, FlashPlayerWrapper) {
+	VideoPlayerWrapper.register(Html5VideoPlayerWrapper, 2);
+	VideoPlayerWrapper.register(FlashPlayerWrapper, 1);
+	return {};
 });
 
 Scoped.define("module:WebRTC.AudioAnalyser", [
@@ -714,6 +718,7 @@ Scoped.define("module:WebRTC.AudioAnalyser", [
 			destroy: function () {
 				this._analyserNode.disconnect();
 				delete this._analyserNode;
+				this._audioContext.close();
 				delete this._audioContext;
 				inherited.destroy.call(this);
 			},
@@ -836,9 +841,11 @@ Scoped.define("module:WebRTC.AudioRecorder", [
 				this._volumeGain.disconnect();
 				this._audioInput.disconnect();
 				this._scriptProcessor.onaudioprocess = null;
+				this._audioContext.close();
 				delete this._scriptProcessor;
 				delete this._volumeGain;
-				delete this._audioInput;
+				delete this._audioInput;				
+				delete this._audioContext;
 			},
 
 			start: function () {
@@ -1152,7 +1159,7 @@ Scoped.define("module:WebRTC.MediaRecorderWrapper", [
     "module:WebRTC.RecorderWrapper",
     "module:WebRTC.MediaRecorder"
 ], function (RecorderWrapper, MediaRecorder, scoped) {
-	var Cls = RecorderWrapper.extend({scoped: scoped}, {
+	return RecorderWrapper.extend({scoped: scoped}, {
 
 		_boundMedia: function () {
 			this._recorder = new MediaRecorder(this._stream);
@@ -1184,10 +1191,6 @@ Scoped.define("module:WebRTC.MediaRecorderWrapper", [
 		
 		};		
 	});	
-	
-	RecorderWrapper.register(Cls, 2);
-	
-	return Cls;
 });
 
 
@@ -1197,7 +1200,7 @@ Scoped.define("module:WebRTC.WhammyAudioRecorderWrapper", [
      "module:WebRTC.WhammyRecorder",
      "browser:Info"
 ], function (RecorderWrapper, AudioRecorder, WhammyRecorder, Info, scoped) {
-	var Cls = RecorderWrapper.extend({scoped: scoped}, {
+	return RecorderWrapper.extend({scoped: scoped}, {
 /*
 		_getConstraints: function () {
 			return {
@@ -1272,10 +1275,17 @@ Scoped.define("module:WebRTC.WhammyAudioRecorderWrapper", [
 		
 		};		
 	});	
-	
-	RecorderWrapper.register(Cls, 1);
-	
-	return Cls;
+});
+
+
+Scoped.extend("module:WebRTC.RecorderWrapper", [
+	"module:WebRTC.RecorderWrapper",
+	"module:WebRTC.MediaRecorderWrapper",
+	"module:WebRTC.WhammyAudioRecorderWrapper"
+], function (RecorderWrapper, MediaRecorderWrapper, WhammyAudioRecorderWrapper) {
+	RecorderWrapper.register(MediaRecorderWrapper, 2);
+	RecorderWrapper.register(WhammyAudioRecorderWrapper, 1);
+	return {};
 });
 
 Scoped.define("module:WebRTC.Support", [

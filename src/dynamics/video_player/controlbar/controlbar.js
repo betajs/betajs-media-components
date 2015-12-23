@@ -5,6 +5,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
     "jquery:",
     "module:Assets",
     "browser:Info"
+], [
+    "dynamics:Partials.StylesPartial",
+    "dynamics:Partials.ShowPartial",
+    "dynamics:Partials.IfPartial",
+    "dynamics:Partials.ClickPartial"
 ], function (Class, Time, Templates, $, Assets, Info, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {

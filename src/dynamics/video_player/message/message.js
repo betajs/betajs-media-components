@@ -1,6 +1,8 @@
 Scoped.define("module:VideoPlayer.Dynamics.Message", [
     "dynamics:Dynamic",
     "module:Templates"
+], [
+    "dynamics:Partials.ClickPartial"
 ], function (Class, Templates, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {

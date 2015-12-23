@@ -1,10 +1,10 @@
 /*!
-betajs-media-components - v0.0.6 - 2015-12-19
+betajs-media-components - v0.0.7 - 2015-12-23
 Copyright (c) Oliver Friedmann
 MIT Software License.
 */
 /*!
-betajs-scoped - v0.0.4 - 2015-12-12
+betajs-scoped - v0.0.5 - 2015-12-23
 Copyright (c) Oliver Friedmann
 MIT Software License.
 */
@@ -424,7 +424,7 @@ function newScope (parent, parentNS, rootNS, globalNS) {
 						params.push(Helper.stringify(argmts[i]));
 					this.compiled += this.options.ident + "." + name + "(" + params.join(", ") + ");\n\n";
 				}
-				var result = args.callback.apply(args.context || this, arguments);
+				var result = this.options.compile ? {} : args.callback.apply(args.context || this, arguments);
 				callback.call(this, ns, result);
 			}, this);
 		};
@@ -642,7 +642,7 @@ var rootScope = newScope(null, rootNamespace, rootNamespace, globalNamespace);
 var Public = Helper.extend(rootScope, {
 		
 	guid: "4b6878ee-cb6a-46b3-94ac-27d91f58d666",
-	version: '21.1449951185971',
+	version: '22.1450888807473',
 		
 	upgrade: Attach.upgrade,
 	attach: Attach.attach,
@@ -670,7 +670,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.6 - 2015-12-19
+betajs-media-components - v0.0.7 - 2015-12-23
 Copyright (c) Oliver Friedmann
 MIT Software License.
 */
@@ -689,7 +689,7 @@ Scoped.binding("jquery", "global:jQuery");
 Scoped.define("module:", function () {
 	return {
 		guid: "7a20804e-be62-4982-91c6-98eb096d2e70",
-		version: '16.1450557713558'
+		version: '17.1450890171962'
 	};
 });
 
@@ -701,10 +701,11 @@ Scoped.assumeVersion("dynamics:version", 198);
 Scoped.extend('module:Templates', function () {
 return {"controlbar":" <div class=\"{{css}}-dashboard {{activitydelta > 5000 ? (css + '-dashboard-hidden') : ''}}\">  <div class=\"{{css}}-progressbar {{activitydelta < 2500 || ismobile ? '' : (css + '-progressbar-small')}}\"       onmousedown=\"{{startUpdatePosition(domEvent)}}\"       onmouseup=\"{{stopUpdatePosition(domEvent)}}\"       onmouseleave=\"{{stopUpdatePosition(domEvent)}}\"       onmousemove=\"{{progressUpdatePosition(domEvent)}}\">   <div class=\"{{css}}-progressbar-cache\" ba-styles=\"{{{width: Math.round(duration ? cached / duration * 100 : 0) + '%'}}}\"></div>   <div class=\"{{css}}-progressbar-position\" ba-styles=\"{{{width: Math.round(duration ? position / duration * 100 : 0) + '%'}}}\" title=\"{{string('video-progress')}}\">    <div class=\"{{css}}-progressbar-button\"></div>   </div>  </div>  <div class=\"{{css}}-backbar\"></div>  <div class=\"{{css}}-controlbar\">         <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{rerecordable}}\"  ba-click=\"rerecord()\" title=\"{{string('rerecord-video')}\">             <div class=\"{{css}}-button-inner\">                 <i class=\"{{css}}-icon-ccw\"></i>             </div>         </div>   <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{!playing}}\" ba-click=\"play()\" title=\"{{string('play-video')}}\">    <div class=\"{{css}}-button-inner\">     <i class=\"{{css}}-icon-play\"></i>    </div>   </div>   <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{playing}}\" ba-click=\"pause()\" title=\"{{string('pause-video')}}\">             <div class=\"{{css}}-button-inner\">                 <i class=\"{{css}}-icon-pause\"></i>             </div>   </div>   <div class=\"{{css}}-time-container\">    <div class=\"{{css}}-time-value\" title=\"{{string('elapsed-time')}}\">{{position_formatted}}</div>    <div class=\"{{css}}-time-sep\">/</div>    <div class=\"{{css}}-time-value\" title=\"{{string('total-time')}}\">{{duration_formatted}}</div>   </div>   <div class=\"{{css}}-rightbutton-container\" ba-if=\"{{fullscreen}}\" ba-click=\"toggle_fullscreen()\" title=\"{{string('fullscreen-video')}}\">    <div class=\"{{css}}-button-inner\">     <i class=\"{{css}}-icon-resize-full\"></i>    </div>   </div>   <div class=\"{{css}}-volumebar\">    <div class=\"{{css}}-volumebar-inner\"         onmousedown=\"{{startUpdateVolume(domEvent)}}\"                  onmouseup=\"{{stopUpdateVolume(domEvent)}}\"                  onmouseleave=\"{{stopUpdateVolume(domEvent)}}\"                  onmousemove=\"{{progressUpdateVolume(domEvent)}}\">     <div class=\"{{css}}-volumebar-position\" ba-styles=\"{{{width: Math.min(100, Math.round(volume * 100)) + '%'}}}\">         <div class=\"{{css}}-volumebar-button\" title=\"{{string('volume-button')}}\"></div>     </div>        </div>   </div>   <div class=\"{{css}}-rightbutton-container\" ba-click=\"toggle_volume()\" title=\"{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}\">    <div class=\"{{css}}-button-inner\">     <i class=\"{{css + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}\"></i>    </div>   </div>  </div> </div> ","loader":" <div class=\"{{css}}-loader-container\">     <div class=\"{{css}}-loader-loader\" title=\"{{string('tooltip')}}\">     </div> </div>","message":" <div class=\"{{css}}-message-container\" ba-click=\"click()\">     <div class='{{css}}-message-message'>         {{message}}     </div> </div>","playbutton":" <div class=\"{{css}}-playbutton-container\" ba-click=\"play()\" title=\"{{string('tooltip')}}\">  <div class=\"{{css}}-playbutton-button\"></div> </div> ","player":" <div     class=\"{{css}}-container {{css}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}\"     ba-on:mousemove=\"user_activity()\"     ba-on:mousedown=\"user_activity()\"     ba-on:touchstart=\"user_activity()\" >     <video class=\"{{css}}-video\"></video>     <div class='{{css}}-overlay'>              <ba-{{dyncontrolbar}}             ba-css=\"{{css}}\"             ba-template=\"{{tmplcontrolbar}}\"             ba-show=\"{{state==='main'}}\"             ba-playing=\"{{playing}}\"             ba-event:rerecord=\"rerecord\"             ba-event:play=\"play\"             ba-event:pause=\"pause\"             ba-event:position=\"seek\"             ba-event:volume=\"set_volume\"             ba-event:fullscreen=\"toggle_fullscreen\"             ba-volume=\"{{volume}}\"             ba-duration=\"{{duration}}\"             ba-cached=\"{{buffered}}\"             ba-position=\"{{position}}\"             ba-activitydelta=\"{{activity_delta}}\"             ba-rerecordable=\"{{rerecordable}}\"             ba-fullscreen=\"{{fullscreensupport}}\"         ></ba-{{dyncontrolbar}}>                  <ba-{{dynplaybutton}}             ba-css=\"{{css}}\"             ba-template=\"{{tmplplaybutton}}\"             ba-show=\"{{state==='init'}}\"             ba-event:play=\"play\"         ></ba-{{dynplaybutton}}>                  <ba-{{dynloader}}             ba-css=\"{{css}}\"             ba-template=\"{{tmplloader}}\"             ba-show=\"{{state==='loading' || buffering}}\"         ></ba-{{dynloader}}>                  <ba-{{dynmessage}}             ba-css=\"{{css}}\"             ba-template=\"{{tmplmessage}}\"             ba-show=\"{{state==='message'}}\"             ba-message=\"{{message}}\"             ba-event:click=\"play\"         ></ba-{{dynmessage}}>     </div> </div> ","modern-controlbar":" <div class=\"{{css}}-dashboard {{activitydelta > 5000 ? (css + '-dashboard-hidden') : ''}}\">        <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{rerecordable}}\" ba-click=\"rerecord()\" title=\"{{string('rerecord-video')}\">            <div class=\"{{css}}-button-inner\">                <i class=\"{{css}}-icon-ccw\"></i>            </div>        </div>  <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{!playing}}\" ba-click=\"play()\" title=\"{{string('play-video')}}\">   <div class=\"{{css}}-button-inner\">    <i class=\"{{css}}-icon-play\"></i>   </div>  </div>  <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{playing}}\" ba-click=\"pause()\" title=\"{{string('pause-video')}}\">    <div class=\"{{css}}-button-inner\">    <i class=\"{{css}}-icon-pause\"></i>   </div>  </div>  <div class=\"{{css}}-time-container\">   <div class=\"{{css}}-time-value\" title=\"{{string('elapsed-time')}}\">{{position_formatted}}/{{duration_formatted}}</div>  </div>  <div class=\"{{css}}-rightbutton-container\" ba-if=\"{{fullscreen}}\" ba-click=\"toggle_fullscreen()\" title=\"{{string('fullscreen-video')}}\">   <div class=\"{{css}}-button-inner\">    <i class=\"{{css}}-icon-resize-full\"></i>   </div>  </div>  <div class=\"{{css}}-volumebar\">   <div class=\"{{css}}-volumebar-inner\"           onmousedown=\"{{startUpdateVolume(domEvent)}}\"                 onmouseup=\"{{stopUpdateVolume(domEvent)}}\"                 onmouseleave=\"{{stopUpdateVolume(domEvent)}}\"                 onmousemove=\"{{progressUpdateVolume(domEvent)}}\">    <div class=\"{{css}}-volumebar-position\" ba-styles=\"{{{width: Math.ceil(1+Math.min(99, Math.round(volume * 100))) + '%'}}}\" title=\"{{string('volume-button')}}\"></div>       </div>  </div>  <div class=\"{{css}}-rightbutton-container\" ba-click=\"toggle_volume()\" title=\"{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}\">   <div class=\"{{css}}-button-inner\">    <i class=\"{{css + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}\"></i>   </div>  </div>  <div class=\"{{css}}-progressbar\">   <div class=\"{{css}}-progressbar-inner\"        onmousedown=\"{{startUpdatePosition(domEvent)}}\"        onmouseup=\"{{stopUpdatePosition(domEvent)}}\"        onmouseleave=\"{{stopUpdatePosition(domEvent)}}\"        onmousemove=\"{{progressUpdatePosition(domEvent)}}\">   <div class=\"{{css}}-progressbar-cache\" ba-styles=\"{{{width: Math.round(duration ? cached / duration * 100 : 0) + '%'}}}\"></div>   <div class=\"{{css}}-progressbar-position\" ba-styles=\"{{{width: Math.round(duration ? position / duration * 100 : 0) + '%'}}}\" title=\"{{string('video-progress')}}\"></div>  </div> </div> "};
 });
-Scoped.require(["module:Assets"], function (Assets) {
+Scoped.extend("module:Assets", ["module:Assets"], function (Assets) {
     var languages = {"language:de":{"ba-videoplayer-playbutton.tooltip":"Hier clicken um Wiedergabe zu starten.","ba-videoplayer-loader.tooltip":"Video wird geladen...","ba-videoplayer-controlbar.video-progress":"Videofortschritt","ba-videoplayer-controlbar.rerecord-video":"Video erneut aufnehmen?","ba-videoplayer-controlbar.play-video":"Video wiedergeben","ba-videoplayer-controlbar.pause-video":"Video pausieren","ba-videoplayer-controlbar.elapsed-time":"Vergangene Zeit","ba-videoplayer-controlbar.total-time":"L&#xE4;nge des Videos","ba-videoplayer-controlbar.fullscreen-video":"Vollbildmodus","ba-videoplayer-controlbar.volume-button":"Lautst&#xE4;rke regulieren","ba-videoplayer-controlbar.volume-mute":"Ton abstellen","ba-videoplayer-controlbar.volume-unmute":"Ton wieder einstellen","ba-videoplayer.video-error":"Es ist ein Fehler aufgetreten, bitte versuchen Sie es sp&#xE4;ter noch einmal. Hier klicken, um es noch einmal zu probieren."}};
     for (var language in languages)
         Assets.strings.register(languages[language], [language]);
+    return {};
 });
 
 Scoped.define("module:Assets", [
@@ -730,6 +731,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
     "jquery:",
     "module:Assets",
     "browser:Info"
+], [
+    "dynamics:Partials.StylesPartial",
+    "dynamics:Partials.ShowPartial",
+    "dynamics:Partials.IfPartial",
+    "dynamics:Partials.ClickPartial"
 ], function (Class, Time, Templates, $, Assets, Info, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {
@@ -868,6 +874,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Loader", [
 Scoped.define("module:VideoPlayer.Dynamics.Message", [
     "dynamics:Dynamic",
     "module:Templates"
+], [
+    "dynamics:Partials.ClickPartial"
 ], function (Class, Templates, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {
@@ -894,6 +902,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Playbutton", [
     "dynamics:Dynamic",
     "module:Templates",
     "module:Assets"
+], [
+    "dynamics:Partials.ClickPartial"
 ], function (Class, Templates, Assets, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {
@@ -931,6 +941,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "base:Strings",
     "base:Time",
     "base:Timers"
+], [
+    "module:VideoPlayer.Dynamics.Playbutton",
+    "module:VideoPlayer.Dynamics.Message",
+    "module:VideoPlayer.Dynamics.Loader",
+    "module:VideoPlayer.Dynamics.Controlbar",
+    "dynamics:Partials.EventPartial",
+    "dynamics:Partials.OnPartial",
+    "dynamics:Partials.TemplatePartial"
 ], function (Class, Templates, Assets, Info, VideoPlayerWrapper, Types, Objs, Strings, Time, Timers, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {
@@ -1166,4 +1184,5 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     	"video-error": "An error occurred, please try again later. Click to retry."
     });
 });
+
 }).call(Scoped);

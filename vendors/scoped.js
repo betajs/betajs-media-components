@@ -1,5 +1,5 @@
 /*!
-betajs-scoped - v0.0.4 - 2015-12-12
+betajs-scoped - v0.0.5 - 2015-12-23
 Copyright (c) Oliver Friedmann
 MIT Software License.
 */
@@ -419,7 +419,7 @@ function newScope (parent, parentNS, rootNS, globalNS) {
 						params.push(Helper.stringify(argmts[i]));
 					this.compiled += this.options.ident + "." + name + "(" + params.join(", ") + ");\n\n";
 				}
-				var result = args.callback.apply(args.context || this, arguments);
+				var result = this.options.compile ? {} : args.callback.apply(args.context || this, arguments);
 				callback.call(this, ns, result);
 			}, this);
 		};
@@ -637,7 +637,7 @@ var rootScope = newScope(null, rootNamespace, rootNamespace, globalNamespace);
 var Public = Helper.extend(rootScope, {
 		
 	guid: "4b6878ee-cb6a-46b3-94ac-27d91f58d666",
-	version: '21.1449951185971',
+	version: '22.1450888807473',
 		
 	upgrade: Attach.upgrade,
 	attach: Attach.attach,

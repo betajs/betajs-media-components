@@ -9,6 +9,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "base:Strings",
     "base:Time",
     "base:Timers"
+], [
+    "module:VideoPlayer.Dynamics.Playbutton",
+    "module:VideoPlayer.Dynamics.Message",
+    "module:VideoPlayer.Dynamics.Loader",
+    "module:VideoPlayer.Dynamics.Controlbar",
+    "dynamics:Partials.EventPartial",
+    "dynamics:Partials.OnPartial",
+    "dynamics:Partials.TemplatePartial"
 ], function (Class, Templates, Assets, Info, VideoPlayerWrapper, Types, Objs, Strings, Time, Timers, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {

@@ -1,5 +1,5 @@
 /*!
-betajs-dynamics - v0.0.25 - 2015-12-17
+betajs-dynamics - v0.0.27 - 2015-12-23
 Copyright (c) Oliver Friedmann,Victor Lingenthal
 MIT Software License.
 */
@@ -16,7 +16,7 @@ Scoped.binding("jquery", "global:jQuery");
 Scoped.define("module:", function () {
 	return {
 		guid: "d71ebf84-e555-4e9b-b18a-11d74fdcefe2",
-		version: '200.1450331595740'
+		version: '208.1450889906941'
 	};
 });
 
@@ -436,9 +436,10 @@ Scoped.define("module:Data.Scope", [
 	    "base:Ids",
 	    "base:Properties.Properties",
 	    "base:Collections.Collection",
+	    "base:Strings",
 	    "module:Data.ScopeManager",
 	    "module:Data.MultiScope"
-	], function (Class, EventsMixin, ListenMixin, ObjectIdMixin, Functions, Types, Objs, Ids, Properties, Collection, ScopeManager, MultiScope, scoped) {
+	], function (Class, EventsMixin, ListenMixin, ObjectIdMixin, Functions, Types, Objs, Ids, Properties, Collection, Strings, ScopeManager, MultiScope, scoped) {
 	return Class.extend({scoped: scoped}, [EventsMixin, ListenMixin, ObjectIdMixin, function (inherited) {
 		return {
 				
@@ -451,7 +452,8 @@ Scoped.define("module:Data.Scope", [
 					bind: {},
 					attrs: {},
 					extendables: [],
-					collections: {}
+					collections: {},
+					computed: {}
 				}, options);
 				if (options.bindings)
 					options.bind = Objs.extend(options.bind, options.bindings);
@@ -483,6 +485,10 @@ Scoped.define("module:Data.Scope", [
 				Objs.iter(options.bind, function (value, key) {
 					var i = value.indexOf(":");
 					this.bind(this.scope(value.substring(0, i)), key, {secondKey: value.substring(i + 1)});
+				}, this);
+				Objs.iter(options.computed, function (value, key) {
+					var splt = Strings.splitHead(":");
+					this.__properties.compute(splt.head, value, splt.tail.split(","));
 				}, this);
 			},
 			
@@ -557,7 +563,10 @@ Scoped.define("module:Data.Scope", [
 			call: function (name) {
 				var args = Functions.getArguments(arguments, 1);
 				try {					
-					return this.__functions[name].apply(this, args);
+					if (Types.is_string(name))
+						return this.__functions[name].apply(this, args);
+					else
+						return name.apply(this, args);
 				} catch (e) {
 					return this.handle_call_exception(name, args, e);
 				}
@@ -916,8 +925,16 @@ Scoped.define("module:Handlers.Attr", [
 });
 
 Scoped.define("module:Handlers.HandlerMixin", [
-    "base:Objs", "base:Strings", "base:Functions", "jquery:", "browser:Loader", "module:Handlers.Node", "module:Registries", "module:Handlers.HandlerNameRegistry"
-], function (Objs, Strings, Functions, $, Loader, Node, Registries, HandlerNameRegistry) {
+    "base:Objs",
+    "base:Strings",
+    "base:Functions",
+    "jquery:",
+    "browser:Loader",
+    "module:Handlers.Node",
+    "module:Registries",
+    "module:Handlers.HandlerNameRegistry",
+    "browser:DomMutation.NodeRemoveObserver"
+], function (Objs, Strings, Functions, $, Loader, Node, Registries, HandlerNameRegistry, NodeRemoveObserver) {
 	return {		
 		
 		_notifications: {
@@ -962,6 +979,13 @@ Scoped.define("module:Handlers.HandlerMixin", [
 			this.__element = options.element ? $(options.element) : null;
 			this.initialContent = this.__element ? this.__element.html() : $(this._parentElement).html();
 			this.__activeElement = this.__element ? this.__element : $(this._parentElement);
+			if (options.remove_observe) {
+				this.__removeObserver = this.auto_destroy(NodeRemoveObserver.create(this.__activeElement.get(0)));
+				this.__removeObserver.on("node-removed", function () {
+					this.weakDestroy();
+				}, this);
+			}
+			this.__activeElement.dynamicshandler = this;
 			
 			/*
 			if (this.template)
@@ -1580,44 +1604,6 @@ Scoped.define("module:Partials.AttrsPartial", ["module:Handlers.Partial"], funct
 	return Cls;
 });
 
-
-Scoped.define("module:Partials.DataPartial", ["module:Handlers.Partial"], function (Partial, scoped) {
-  	var Cls = Partial.extend({scoped: scoped},  {
-  		
-		_apply: function (value) {
-			this._node._tagHandler.data(this._postfix, value);
-		},
-		
-		bindTagHandler: function (handler) {
-			this._apply(this._value);
-		}
-	
- 	}, {
- 		
- 		meta: {
- 			requires_tag_handler: true
- 		}
- 		
- 	});
- 	Cls.register("ba-data");
-	return Cls;
-});
-
-
-Scoped.define("module:Partials.FunctionsPartial", ["module:Handlers.Partial", "browser:Info", "base:Objs"], function (Partial, Info, Objs, scoped) {
- 	var Cls = Partial.extend({scoped: scoped}, function (inherited) {
- 		return {
-			
- 			bindTagHandler: function (handler) { 				
- 				Objs.extend(handler.__functions, this._value); 
- 			}
- 		
- 		};
- 	});
- 	Cls.register("ba-functions");
-	return Cls;
-});
-
 Scoped.define("module:Partials.ClassPartial", ["module:Handlers.Partial"], function (Partial, scoped) {
   /**
    * @name ba-class
@@ -1690,6 +1676,29 @@ Scoped.define("module:Partials.ClickPartial", ["module:Handlers.Partial"], funct
 	return Cls;
 });
 
+
+Scoped.define("module:Partials.DataPartial", ["module:Handlers.Partial"], function (Partial, scoped) {
+  	var Cls = Partial.extend({scoped: scoped},  {
+  		
+		_apply: function (value) {
+			this._node._tagHandler.data(this._postfix, value);
+		},
+		
+		bindTagHandler: function (handler) {
+			this._apply(this._value);
+		}
+	
+ 	}, {
+ 		
+ 		meta: {
+ 			requires_tag_handler: true
+ 		}
+ 		
+ 	});
+ 	Cls.register("ba-data");
+	return Cls;
+});
+
 Scoped.define("module:Partials.EventPartial", ["module:Handlers.Partial"], function (Partial, scoped) {
   	var Cls = Partial.extend({scoped: scoped}, {
 			
@@ -1701,6 +1710,21 @@ Scoped.define("module:Partials.EventPartial", ["module:Handlers.Partial"], funct
  		
  	});
  	Cls.register("ba-event");
+	return Cls;
+});
+
+
+Scoped.define("module:Partials.FunctionsPartial", ["module:Handlers.Partial", "browser:Info", "base:Objs"], function (Partial, Info, Objs, scoped) {
+ 	var Cls = Partial.extend({scoped: scoped}, function (inherited) {
+ 		return {
+			
+ 			bindTagHandler: function (handler) { 				
+ 				Objs.extend(handler.__functions, this._value); 
+ 			}
+ 		
+ 		};
+ 	});
+ 	Cls.register("ba-functions");
 	return Cls;
 });
 
@@ -2034,15 +2058,12 @@ Scoped.define("module:Partials.RepeatPartial", [
  				var result = [];
  				var self = this;
  				var elements = this._newItemElements();
- 				var elementArr = [];
  				elements.each(function () {
  					result.push(self._node._registerChild(this, locals));
- 					elementArr.push($(this));
  				});
  				this._collectionChildren[item.cid()] = {
 					item: item,
-					nodes: result,
-					elements: elementArr
+					nodes: result
 				};
  				var idx = this._collection.getIndex(item);
  				if (idx < this._collection.count() - 1)
@@ -2064,23 +2085,34 @@ Scoped.define("module:Partials.RepeatPartial", [
  				return this._collectionChildren[item.cid()];
  			},
  			
- 			_prependItem: function (base, item) {
- 				var baseData = this._itemData(base);
+ 			_itemDataElements: function (item) {
  				var itemData = this._itemData(item);
- 				if (!baseData || !itemData)
+ 				if (!itemData)
+ 					return null;
+ 				var result = [];
+ 				Objs.iter(itemData.nodes, function (node) {
+ 					result.push(node.$element());
+ 				});
+ 				return result;
+ 			},
+ 			
+ 			_prependItem: function (base, item) {
+ 				var baseDataElements = this._itemDataElements(base);
+ 				var itemDataElements = this._itemDataElements(item);
+ 				if (!baseDataElements || !itemDataElements)
  					return;
- 				Objs.iter(itemData.elements, function (element) {
- 					element.insertBefore(baseData.elements[0]);
+ 				Objs.iter(itemDataElements, function (element) {
+ 					element.insertBefore(baseDataElements[0]);
  				});
  			},
  			
  			_appendItem: function (base, item) {
- 				var baseData = this._itemData(base);
- 				var itemData = this._itemData(item);
- 				if (!baseData || !itemData)
+ 				var baseDataElements = this._itemDataElements(base);
+ 				var itemDataElements = this._itemDataElements(item);
+ 				if (!baseDataElements || !itemDataElements)
  					return;
- 				var current = baseData.elements[baseData.elements.length - 1];
- 				Objs.iter(itemData.elements, function (element) {
+ 				var current = baseDataElements[baseDataElements.length - 1];
+ 				Objs.iter(itemDataElements, function (element) {
  					current.after(element);
  					current = element;
  				});
@@ -2289,6 +2321,94 @@ Scoped.define("module:Partials.TemplateUrlPartial",
 
 });
 
+Scoped.define("module:DomObserver", [
+    "base:Class",
+    "base:Objs",
+    "browser:DomMutation.NodeInsertObserver",
+    "module:Registries",
+    "module:Dynamic",
+    "jquery:"
+], function (Class, Objs, NodeInsertObserver, Registries, Dynamic, $, scoped) {
+	return Class.extend({scoped: scoped}, function (inherited) {
+		return {
+			
+			constructor: function (options) {
+				inherited.constructor.call(this);
+				options = options || {};
+				this.__root = options.root || document.body;
+				this.__persistent_dynamics = !!options.persistent_dynamics;
+				this.__allowed_dynamics = options.allowed_dynamics ? Objs.objectify(options.allowed_dynamics) : null;
+				this.__forbidden_dynamics = options.forbidden_dynamics ? Objs.objectify(options.forbidden_dynamics) : null;
+				this.__dynamics = {};
+				if (!options.ignore_existing) {
+					Objs.iter(Registries.handler.classes(), function (cls, key) {
+						if (this.__forbidden_dynamics && this.__forbidden_dynamics[key])
+							return;
+						if (this.__allowed_dynamics && !this.__allowed_dynamics[key])
+							return;
+						var self = this;
+						$(this.__root).find(key).each(function () {
+							if (this.dynamicshandler)
+								return;
+							self.__nodeInserted(this);
+						});
+					}, this);
+				}
+				this.__observer = NodeInsertObserver.create({
+					root: this.__root,
+					filter: this.__observerFilter,
+					context: this
+				});
+				this.__observer.on("node-inserted", this.__nodeInserted, this);
+			},
+			
+			destroy: function () {
+				this.__observer.destroy();
+				Objs.iter(this.__dynamics, function (dynamic) {
+					dynamic.off(null, null, this);
+					if (!this.__persistent_dynamics)
+						dynamic.weakDestroy();
+				}, this);
+				inherited.destroy.call(this);
+			},
+			
+			__observerFilter: function (node) {
+				if (node.dynamicshandler || !node.tagName)
+					return false;
+				var tag = node.tagName.toLowerCase();
+				if (!Registries.handler.get(tag))
+					return false;
+				if (this.__forbidden_dynamics && this.__forbidden_dynamics[tag])
+					return false;
+				if (this.__allowed_dynamics && !this.__allowed_dynamics[tag])
+					return false;
+				return true;
+			},
+			
+			__nodeInserted: function (node) {
+				var dynamic = new Dynamic({
+					element: node,
+					remove_observe: true
+				});
+				this.__dynamics[dynamic.cid()] = dynamic;
+				dynamic.on("destroy", function () {
+					delete this.__dynamics[dynamic.cid()];
+				}, this);
+				dynamic.activate();
+			}
+			
+		};
+	}, {
+		
+		__singleton: null,
+		
+		activate: function (options) {
+			if (!this.__singleton)
+				this.__singleton = new this(options);
+		}		
+		
+	});
+});
 Scoped.define("module:Dynamic", [
    	    "module:Data.Scope",
    	    "module:Handlers.HandlerMixin",
@@ -2329,15 +2449,15 @@ Scoped.define("module:Dynamic", [
 				this.functions = this.__functions;
 				this._handlerInitialize(options);
 				this.__createActivate = options.create || function () {};
+				this.__registered_dom_events = [];
+				this.dom_events = {};
+				this.window_events = {};
 			},
 			
 			handle_call_exception: function (name, args, e) {
 				Registries.warning("Dynamics Exception in '" + this.cls.classname + "' calling method '" + name + "' : " + e);
 				return null;
 			},
-			
-			domevents: {},
-			windowevents: {},
 			
 			_afterActivate: function (activeElement) {
 				this.activeElement().off("." + this.cid() + "-domevents");
@@ -2346,6 +2466,7 @@ Scoped.define("module:Dynamic", [
 				Objs.iter(this.domevents, function (target, event) {
 					var ev = event.split(" ");
 					var source = ev.length === 1 ? this.activeElement() : this.activeElement().find(ev[1]);
+					this.__registered_dom_events.push(source);
 					source.on(ev[0] + "." + this.cid() + "-domevents", function (eventData) {
 						self.call(target, eventData);
 					});
@@ -2358,7 +2479,9 @@ Scoped.define("module:Dynamic", [
 			},
 			
 			destroy: function () {
-				this.activeElement().off("." + this.cid() + "-domevents");
+				Objs.iter(this.__registered_dom_events, function (source) {
+					source.off("." + this.cid() + "-domevents");
+				}, this);
 				$(window).off("." + this.cid() + "-windowevents");
 				inherited.destroy.call(this);
 			}
@@ -2367,7 +2490,7 @@ Scoped.define("module:Dynamic", [
 	}], {
 		
 		__initialForward: [
-		    "functions", "attrs", "extendables", "collections", "template", "create", "scopes", "bindings"
+		    "functions", "attrs", "extendables", "collections", "template", "create", "scopes", "bindings", "computed"
         ],
 		
 		canonicName: function () {

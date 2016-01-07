@@ -1,4 +1,6 @@
 $css: "ba-videoplayer-theme-modern";
+$cssie8: "ba-videoplayer-ie8";
+$cssnoie8: "ba-videoplayer-noie8";
 $fontello_name: "ba-videoplayer" + "-fontello";
 
 $loader_size: 5px;
@@ -26,7 +28,7 @@ $button_color_blue: #2a74eb;
 $button_border_color: #dbdbdb;
 $time_value_width: 100px;
 $ie8_margintop: 6px;
-$text_fontfamily: Lato, Arial, sans-serif;
+$text_fontfamily: Helvetica Neue, Helvetica, Arial, sans-serif;
 $text_fontsize: 13px;
 $text_color: #666666;
 $controls_bgcolor: #878787;

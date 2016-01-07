@@ -54,7 +54,6 @@ module.exports = function(grunt) {
 						    'src/themes/video_player/common/fontello.scss',
 						    'src/themes/video_player/default/player.scss',
 						    'src/themes/video_player/default/loader.scss',
-						    'src/themes/video_player/default/message.scss',
 						    'src/themes/video_player/modern/*.scss'
                         ]
 					},
@@ -108,12 +107,12 @@ module.exports = function(grunt) {
 				cssmin: {
 					dist: {
 						files: {
-							'dist/betajs-media-components.css.min': 'dist/betajs-media-components.css'
+							'dist/betajs-media-components.min.css': 'dist/betajs-media-components.css'
 						}
 					},
 					dist_theme_modern: {
 						files: {
-							'dist/themes/modern.css.min': 'dist/themes/modern.css'
+							'dist/themes/modern.min.css': 'dist/themes/modern.css'
 						}
 					}
 				},

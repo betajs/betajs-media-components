@@ -1,10 +1,10 @@
-.#{$css}-noie8 .#{$css}-playbutton-container {
+.#{$cssnoie8} .#{$css}-playbutton-container {
 	@include absolute-center-center;
 	@include transform-translate(-50%, -50%);
     width: $playbutton_size;
 }
 
-.#{$css}-noie8 .#{$css}-playbutton-button {
+.#{$cssnoie8} .#{$css}-playbutton-button {
     @include transition1(opacity, $playbutton_transition_time, ease-in-out);
     position: relative;
     width: 100%;
@@ -19,13 +19,13 @@
     background-color: transparent;
 }
 
-.#{$css}-noie8 .#{$css}-playbutton-button:hover {
+.#{$cssnoie8} .#{$css}-playbutton-button:hover {
     opacity: $playbutton_hover_opacity;
 }
 
-.#{$css}-ie8 .#{$css}-playbutton-container {}
+.#{$cssie8} .#{$css}-playbutton-container {}
 
-.#{$css}-ie8 .#{$css}-playbutton-button {
+.#{$cssie8} .#{$css}-playbutton-button {
 	@include absolute-align-all();
     margin: auto;
     cursor: pointer;

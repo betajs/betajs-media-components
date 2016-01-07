@@ -2,4 +2,5 @@
 
 var Scoped = this.subScope();
 
+Scoped.binding("browser", "global:BetaJS.Browser");
 Scoped.binding("module", "global:BetaJS.MediaComponents");

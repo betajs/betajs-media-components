@@ -1,4 +1,4 @@
-# betajs-media-components 0.0.2
+# betajs-media-components 0.0.9
 
 BetaJS-Media-Components is a JavaScript media UI components framework
 
@@ -14,6 +14,17 @@ Active, In Development
 | Git        | [git://github.com/betajs/betajs-media-components.git](git://github.com/betajs/betajs-media-components.git) |
 | Repository | [http://github.com/betajs/betajs-media-components](http://github.com/betajs/betajs-media-components) |
 
+
+## Compatability (Tested)
+| Target | Versions |
+| :----- | -------: |
+| Firefox | 4 - Latest |
+| Chrome | 14 - Latest |
+| Safari | 4 - Latest |
+| Opera | 12 - Latest |
+| Internet Explorer | 8 - Latest |
+| iOS | 7.0 - Latest |
+| Android | 4.0 - Latest |
 
 
 ## CDN
@@ -49,11 +60,12 @@ Active, In Development
 
 ## Contributors
 
+- Ziggeo
 - Oliver Friedmann
 
 
 ## License
 
-MIT
+Apache 2.0
 
 

@@ -1,7 +1,7 @@
 /*!
-betajs-media-components - v0.0.8 - 2016-01-07
-Copyright (c) Oliver Friedmann
-MIT Software License.
+betajs-media-components - v0.0.9 - 2016-01-17
+Copyright (c) Ziggeo,Oliver Friedmann
+Apache 2.0 Software License.
 */
 (function () {
 
@@ -18,7 +18,7 @@ Scoped.binding("jquery", "global:jQuery");
 Scoped.define("module:", function () {
 	return {
 		guid: "7a20804e-be62-4982-91c6-98eb096d2e70",
-		version: '18.1452196925643'
+		version: '19.1453060877232'
 	};
 });
 
@@ -309,7 +309,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"message": "",
 				"autoplay": false,
 				"csstheme": "",
-				"preload": false
+				"preload": false,
+				"loop": false
+			},
+
+			types: {
+				"loop": "boolean",
+				"autoplay": "boolean"
 			},
 			
 			create: function () {
@@ -349,7 +355,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 			    	sources: this.get("sources"),
 			    	forceflash: !!this.get("forceflash"),
 			    	noflash: !!this.get("noflash"),
-			    	preload: !!this.get("preload")
+			    	preload: !!this.get("preload"),
+					loop: !!this.get("loop")
 			    }).error(function (e) {
 			    	this._eventError(e);
 			    }, this).success(function (instance) {

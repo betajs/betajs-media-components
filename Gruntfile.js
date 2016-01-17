@@ -275,7 +275,15 @@ module.exports = function(grunt) {
 							}
 						},
 						files : {
-							"README.md" : ["readme.tpl"]
+							"README.md" : ["compile/readme.tpl"]
+						}
+					},
+					"license" : {
+						options : {
+							data: grunt.file.readJSON('package.json')
+						},
+						files : {
+							"LICENSE" : ["compile/license.tpl"]
 						}
 					},
 					"locales": {
@@ -287,7 +295,7 @@ module.exports = function(grunt) {
 							}
 						},
 						files : {
-							"dist/betajs-media-components-locales.js" : ["locale.tpl"]
+							"dist/betajs-media-components-locales.js" : ["compile/locale.tpl"]
 						}
 					},
 					"jsdoc": {
@@ -325,7 +333,7 @@ module.exports = function(grunt) {
 							}
 						},
 						files : {
-							"jsdoc.conf.json": ["json.tpl"]
+							"jsdoc.conf.json": ["compile/json.tpl"]
 						}
 					},
 					"browserstack-desktop" : {
@@ -355,7 +363,7 @@ module.exports = function(grunt) {
 							}
 						},
 						files : {
-							"browserstack.json" : ["json.tpl"]
+							"browserstack.json" : ["compile/json.tpl"]
 						}
 					}			
 				},
@@ -405,5 +413,6 @@ module.exports = function(grunt) {
 	grunt.registerTask('closure', [ 'closureCompiler', 'clean:closure' ]);
 	grunt.registerTask('browserstack-desktop', [ 'template:browserstack-desktop', 'shell:browserstack', 'clean:browserstack' ]);
 	grunt.registerTask('readme', [ 'template:readme' ]);
+	grunt.registerTask('license', [ 'template:license' ]);
 
 };

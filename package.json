@@ -1,10 +1,10 @@
 {
 	"name": "betajs-media-components",
-	"version": "0.0.8",
+	"version": "0.0.9",
 	"description": "BetaJS-Media-Components is a JavaScript media UI components framework",
 	"homepage": "http://betajs.com",
-	"contributors": ["Oliver Friedmann"],
-	"license": "MIT",
+	"contributors": ["Ziggeo", "Oliver Friedmann"],
+	"license": "Apache 2.0",
 	"devDependencies": {
 		"grunt": "",
 		"grunt-contrib-jshint": "",

@@ -48,7 +48,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"message": "",
 				"autoplay": false,
 				"csstheme": "",
-				"preload": false
+				"preload": false,
+				"loop": false
+			},
+
+			types: {
+				"loop": "boolean",
+				"autoplay": "boolean"
 			},
 			
 			create: function () {
@@ -88,7 +94,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 			    	sources: this.get("sources"),
 			    	forceflash: !!this.get("forceflash"),
 			    	noflash: !!this.get("noflash"),
-			    	preload: !!this.get("preload")
+			    	preload: !!this.get("preload"),
+					loop: !!this.get("loop")
 			    }).error(function (e) {
 			    	this._eventError(e);
 			    }, this).success(function (instance) {

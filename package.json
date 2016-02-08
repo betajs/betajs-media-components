@@ -1,6 +1,6 @@
 {
 	"name": "betajs-media-components",
-	"version": "0.0.9",
+	"version": "0.0.11",
 	"description": "BetaJS-Media-Components is a JavaScript media UI components framework",
 	"homepage": "http://betajs.com",
 	"contributors": ["Ziggeo", "Oliver Friedmann"],
@@ -21,19 +21,29 @@
 	    "grunt-contrib-sass": "",
 	    "grunt-contrib-cssmin": "",
 	    "grunt-contrib-csslint": "",
+	    "grunt-contrib-connect": "",
 		"grunt-wget": "",
 		"grunt-jsdoc": "",
 		"grunt-shell": "",
 		"grunt-yaml": "",
 		"grunt-template": "",
 		"grunt-betajs-templates": "",
-		"he": ""
+		"he": "",
+		"betajs-compile": "betajs/betajs-compile"
 	},
 	"repository": {
 		"type": "git",
 		"url": "git://github.com/betajs/betajs-media-components.git"
 	},
 	"meta": {
+		"guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
+		"blog": "http://blog.betajs.com",
+		"twitter": "http://twitter.com/thebetajs",
+		"badges": {
+			"codeclimate": true,
+			"travis": false,
+			"npm": false
+		},
 		"status": "Active, In Development",
 		"weakDependencies": {
 			"betajs-scoped": "https://github.com/betajs/betajs-scoped"

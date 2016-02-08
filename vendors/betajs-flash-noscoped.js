@@ -1,7 +1,7 @@
 /*!
-betajs-flash - v0.0.4 - 2015-12-23
-Copyright (c) Oliver Friedmann
-MIT Software License.
+betajs-flash - v0.0.10 - 2016-02-07
+Copyright (c) Ziggeo,Oliver Friedmann
+Apache 2.0 Software License.
 */
 (function () {
 
@@ -16,7 +16,7 @@ Scoped.binding("jquery", "global:jQuery");
 Scoped.define("module:", function () {
 	return {
 		guid: "3adc016a-e639-4d1a-b4cb-e90cab02bc4f",
-		version: '21.1450889965167',
+		version: '27.1454871935973',
 		options: {
 			flashFile: "betajs-flash.swf"
 		}
@@ -46,6 +46,7 @@ Scoped.define("module:FlashEmbedding", [ "base:Class", "base:Events.EventsMixin"
 				this.__namespace = "flash_" + Tokens.generate_token();
 				this.__is_ready = false;
 				this.__is_suspended = false;
+				this.__throttle_status = "";
 				this.__ready_queue = [];
 				this.__wrappers = {};
 				this.__staticWrappers = {};
@@ -56,6 +57,7 @@ Scoped.define("module:FlashEmbedding", [ "base:Class", "base:Events.EventsMixin"
 				flashOptions.FlashVars.ready = this.__namespace + ".ready";
 				if (options.debug)
 					flashOptions.FlashVars.debug = true;
+				this.__container = $(container);
 				this.__embedding = FlashHelper.embedFlashObject(container, flashOptions);
 				this.__suspendedTimer = this.auto_destroy(new Timer({
 					delay: 50,
@@ -72,6 +74,7 @@ Scoped.define("module:FlashEmbedding", [ "base:Class", "base:Events.EventsMixin"
 				Objs.iter(this.__staticWrappers, function (wrapper) {
 					wrapper.destroy();
 				});
+				this.__container.html("");
 				inherited.destroy.call(this);
 			},
 			
@@ -220,11 +223,22 @@ Scoped.define("module:FlashEmbedding", [ "base:Class", "base:Events.EventsMixin"
 						this.__is_suspended = result;
 						this.trigger(result ? "suspended" : "resumed");
 					}
+					try {
+						var status = this.__embedding.throttle();
+						var changed = status !== this.__throttle_status;
+						this.__throttle_status = status;
+						if (changed)
+							this.trigger(this.isThrottled() ? "throttled" : "unthrottled");
+					} catch (e) {}
 				}
 			},
 			
 			isSuspended: function () {
 				return this.__is_ready && this.__is_suspended;
+			},
+
+			isThrottled: function () {
+				return this.__throttle_status === "throttle";
 			},
 			
 			__ready: function () {

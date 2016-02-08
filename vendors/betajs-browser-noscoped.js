@@ -1,7 +1,7 @@
 /*!
-betajs-browser - v1.0.17 - 2015-12-23
+betajs-browser - v1.0.22 - 2016-02-06
 Copyright (c) Oliver Friedmann
-MIT Software License.
+Apache 2.0 Software License.
 */
 (function () {
 
@@ -21,11 +21,11 @@ Scoped.define("base:$", ["jquery:"], function (jquery) {
 Scoped.define("module:", function () {
 	return {
 		guid: "02450b15-9bbf-4be2-b8f6-b483bc015d06",
-		version: '63.1450889613503'
+		version: '69.1454807666949'
 	};
 });
 
-Scoped.assumeVersion("base:version", 444);
+Scoped.assumeVersion("base:version", 451);
 Scoped.define("module:JQueryAjax", [
 	    "base:Net.AbstractAjax",
 	    "base:Net.AjaxException",
@@ -35,30 +35,6 @@ Scoped.define("module:JQueryAjax", [
 	], function (AbstractAjax, AjaxException, Promise, BrowserInfo, $, scoped) {
 	return AbstractAjax.extend({scoped: scoped}, function (inherited) {
 		return {
-			
-			_syncCall: function (options) {
-				var result;
-				$.ajax({
-					type: options.method,
-					async: false,
-					url: options.uri,
-					dataType: options.decodeType ? options.decodeType : null, 
-					data: options.encodeType && options.encodeType == "json" ? JSON.stringify(options.data) : options.data,
-					success: function (response) {
-						result = response;
-					},
-					error: function (jqXHR, textStatus, errorThrown) {
-						var err = "";
-						try {
-							err = JSON.parse(jqXHR.responseText);
-						} catch (e) {
-							err = JSON.parse('"' + jqXHR.responseText + '"');
-						}
-						throw new AjaxException(jqXHR.status, errorThrown, err);
-					}
-				});
-				return result;
-			},
 			
 			_asyncCall: function (options, callbacks) {
 				var promise = Promise.create();
@@ -78,7 +54,11 @@ Scoped.define("module:JQueryAjax", [
 						try {
 							err = JSON.parse(jqXHR.responseText);
 						} catch (e) {
-							err = JSON.parse('"' + jqXHR.responseText + '"');
+							try {
+								err = JSON.parse('"' + jqXHR.responseText + '"');
+							} catch (e) {
+								err = {};
+							}
 						}
 						promise.asyncError(new AjaxException(jqXHR.status, errorThrown, err));
 					}
@@ -159,7 +139,7 @@ Scoped.define("module:Apps", [
 		},
 		
 		googleIntent: function (protocol, url, appIdent) {
-			return "intent://" + uri + ";scheme=" + protocol + ";package=" + appIdent + ";end";
+			return "intent://" + url + ";scheme=" + protocol + ";package=" + appIdent + ";end";
 		}
 		
 	};
@@ -285,9 +265,18 @@ Scoped.define("module:Cookies", ["base:Objs", "base:Types"], function (Objs, Typ
 });
 
 Scoped.define("module:Dom", [
-    "base:Objs", "jquery:", "base:Types"
-], function (Objs, $, Types) {
-	return {	
+    "base:Objs",
+    "jquery:",
+    "base:Types",
+    "module:Info"
+], function (Objs, $, Types, Info) {
+	return {
+		
+		outerHTML: function (element) {
+			if (!Info.isFirefox() || Info.firefoxVersion() >= 11)
+				return element.outerHTML;
+			return $('<div>').append($(element).clone()).html();
+		},
 		
 		changeTag: function (node, name) {
 			var replacement = document.createElement(name);
@@ -524,8 +513,9 @@ Scoped.define("module:DomExtend.DomExtension", [
     "base:Functions",
     "base:Async",
     "module:DomMutation.NodeRemoveObserver",
-    "module:DomMutation.NodeResizeObserver"
-], function (Class, jquery, Objs, Functions, Async, NodeRemoveObserver, NodeResizeObserver, scoped) {
+    "module:DomMutation.NodeResizeObserver",
+    "jquery:"
+], function (Class, jquery, Objs, Functions, Async, NodeRemoveObserver, NodeResizeObserver, $, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {
 			
@@ -674,7 +664,7 @@ Scoped.define("module:DomMutation.MutationObserverNodeRemoveObserver", [
 			constructor: function (node) {
 				inherited.constructor.call(this, node);
 				var self = this;
-				this._observer = new MutationObserver(function (mutations) {
+				this._observer = new window.MutationObserver(function (mutations) {
 					Objs.iter(mutations, function (mutation) {
 						for (var i = 0; i < mutation.removedNodes.length; ++i)
 							self._nodeRemoved(mutation.removedNodes[i]);
@@ -706,8 +696,9 @@ Scoped.define("module:DomMutation.MutationObserverNodeRemoveObserver", [
 
 Scoped.define("module:DomMutation.DOMNodeRemovedNodeRemoveObserver", [
 	"module:DomMutation.NodeRemoveObserver",
+	"module:Info",
 	"jquery:"
-], function (Observer, $, scoped) {
+], function (Observer, Info, $, scoped) {
 	return Observer.extend({scoped: scoped}, function (inherited) {
 		return {
 			
@@ -728,7 +719,7 @@ Scoped.define("module:DomMutation.DOMNodeRemovedNodeRemoveObserver", [
 	}, {
 		
 		supported: function (node) {
-			return true;
+			return !Info.isInternetExplorer() || Info.internetExplorerVersion() >= 9;
 		}
 		
 	});	
@@ -736,13 +727,56 @@ Scoped.define("module:DomMutation.DOMNodeRemovedNodeRemoveObserver", [
 });
 
 
+
+Scoped.define("module:DomMutation.TimerNodeRemoveObserver", [
+  	"module:DomMutation.NodeRemoveObserver",
+  	"base:Timers.Timer",
+  	"jquery:"
+], function (Observer, Timer, $, scoped) {
+	return Observer.extend({scoped: scoped}, function (inherited) {
+		return {
+			
+			constructor: function (node) {
+				inherited.constructor.call(this, node);
+				this._timer = new Timer({
+					context: this,
+					fire: this._fire,
+					delay: 100
+				});
+			},
+			
+			destroy: function () {
+				this._timer.weakDestroy();
+				inherited.destroy.call(this);
+			},
+			
+			_fire: function () {
+				if (!this._node.parentElement) {
+					this._timer.stop();
+					this._nodeRemoved(this._node);
+				}
+			}
+			
+		};
+	}, {
+		
+		supported: function (node) {
+			return true;
+		}
+		
+	});	
+
+});
+
 Scoped.extend("module:DomMutation.NodeRemoveObserver", [
     "module:DomMutation.NodeRemoveObserver",
     "module:DomMutation.MutationObserverNodeRemoveObserver",
-    "module:DomMutation.DOMNodeRemovedNodeRemoveObserver"
-], function (Observer, MutationObserverNodeRemoveObserver, DOMNodeRemovedNodeRemoveObserver) {
-	Observer.register(MutationObserverNodeRemoveObserver, 2);
-	Observer.register(DOMNodeRemovedNodeRemoveObserver, 1);
+    "module:DomMutation.DOMNodeRemovedNodeRemoveObserver",
+    "module:DomMutation.TimerNodeRemoveObserver"
+], function (Observer, MutationObserverNodeRemoveObserver, DOMNodeRemovedNodeRemoveObserver, TimerNodeRemoveObserver) {
+	Observer.register(MutationObserverNodeRemoveObserver, 3);
+	Observer.register(DOMNodeRemovedNodeRemoveObserver, 2);
+	Observer.register(TimerNodeRemoveObserver, 1);
 	return {};
 });
 
@@ -809,7 +843,7 @@ Scoped.define("module:DomMutation.MutationObserverNodeInsertObserver", [
 			constructor: function (options) {
 				inherited.constructor.call(this, options);
 				var self = this;
-				this._observer = new MutationObserver(function (mutations) {
+				this._observer = new window.MutationObserver(function (mutations) {
 					Objs.iter(mutations, function (mutation) {
 						for (var i = 0; i < mutation.addedNodes.length; ++i)
 							self._nodeInserted(mutation.addedNodes[i]);
@@ -878,8 +912,8 @@ Scoped.extend("module:DomMutation.NodeInsertObserver", [
 	"module:DomMutation.MutationObserverNodeInsertObserver",
 	"module:DomMutation.DOMNodeInsertedNodeInsertObserver"
 ], function (Observer, MutationObserverNodeInsertObserver, DOMNodeInsertedNodeInsertObserver) {
-	Observer.register(MutationObserverNodeInsertObserver, 2);
-	Observer.register(DOMNodeInsertedNodeInsertObserver, 1);
+	Observer.register(MutationObserverNodeInsertObserver, 3);
+	Observer.register(DOMNodeInsertedNodeInsertObserver, 2);
 	return {};
 });
 
@@ -1557,6 +1591,26 @@ Scoped.define("module:Info", [
 		operaVersion: function () {
 			return this.__cached("operaVersion", function (nav, ua) {
 				var re = /OPR\/(\d+\.\d+)[^\d]/gi;
+				var ma = re.exec(ua);
+				if (ma)
+					return parseFloat(ma[1]);
+				return null;
+			});
+		},
+		
+		safariVersion: function () {
+			return this.__cached("safariVersion", function (nav, ua) {
+				var re = /Version\/(\d+\.\d+)[^\d]/gi;
+				var ma = re.exec(ua);
+				if (ma)
+					return parseFloat(ma[1]);
+				return null;
+			});
+		},
+
+		firefoxVersion: function () {
+			return this.__cached("firefoxVersion", function (nav, ua) {
+				var re = /Firefox\/(\d+\.\d+)/gi;
 				var ma = re.exec(ua);
 				if (ma)
 					return parseFloat(ma[1]);
@@ -2242,13 +2296,13 @@ Scoped.define("module:Upload.CordovaFileUploader", [
  			var self = this;
  		    //var fileURI = this._options.source.localURL;
  			var fileURI = this._options.source.fullPath.split(':')[1];
- 		    var fileUploadOptions = new FileUploadOptions();
+ 		    var fileUploadOptions = new window.FileUploadOptions();
  		    fileUploadOptions.fileKey = "file";
  		    fileUploadOptions.fileName = fileURI.substr(fileURI.lastIndexOf('/') + 1);
  		    fileUploadOptions.mimeType = this._options.source.type;
  		    fileUploadOptions.httpMethod = "POST";
  		    fileUploadOptions.params = this._options.data;
- 		    var fileTransfer = new FileTransfer();
+ 		    var fileTransfer = new window.FileTransfer();
  		    fileTransfer.upload(fileURI, this._options.url, function (data) {
 	    		self._successCallback(data);
  		    }, function (data) {

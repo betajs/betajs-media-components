@@ -1,7 +1,7 @@
 /*!
-betajs-media - v0.0.8 - 2015-12-23
-Copyright (c) Oliver Friedmann
-MIT Software License.
+betajs-media - v0.0.13 - 2016-02-07
+Copyright (c) Ziggeo,Oliver Friedmann
+Apache 2.0 Software License.
 */
 (function () {
 
@@ -17,7 +17,7 @@ Scoped.binding("jquery", "global:jQuery");
 Scoped.define("module:", function () {
 	return {
 		guid: "8475efdb-dd7e-402e-9f50-36c76945a692",
-		version: '37.1450890039119'
+		version: '41.1454872522203'
 	};
 });
 
@@ -348,6 +348,7 @@ Scoped.define("module:Player.VideoPlayerWrapper", [
 				this._$element = $(options.element);
 				this._preload = options.preload || false;
 				this._options = options;
+				this._loop = options.loop || false;
 				this._loaded = false;
 				this._postererror = false;
 				this._error = 0;
@@ -466,16 +467,13 @@ Scoped.define("module:Player.Html5VideoPlayerWrapper", [
     "base:Objs",
     "base:Timers.Timer",
     "base:Strings",
+    "base:Async",
     "jquery:",
     "browser:Dom"
-], function (VideoPlayerWrapper, Info, Promise, Objs, Timer, Strings, $, Dom, scoped) {
+], function (VideoPlayerWrapper, Info, Promise, Objs, Timer, Strings, Async, $, Dom, scoped) {
 	return VideoPlayerWrapper.extend({scoped: scoped}, function (inherited) {
 		return {
 			
-			constructor: function (options, transitionals) {
-				inherited.constructor.call(this, options, transitionals);
-			},
-
 			_initialize: function () {
 				if (this._options.nohtml5)
 					return Promise.error(true);
@@ -506,7 +504,17 @@ Scoped.define("module:Player.Html5VideoPlayerWrapper", [
 					this._element = this._$element.get(0);
 					this._transitionals.element = this._element;
 				}
-				this._$element.on("loadedmetadata", function () {
+				/*
+				var loadevent = "loadedmetadata";
+				if (Info.isSafari() && Info.safariVersion() < 9)
+					loadevent = "loadstart";
+					*/
+				var loadevent = "loadstart";
+				this._$element.on(loadevent, function () {
+					if (/*loadevent === "loadstart" && */self._element.networkState === self._element.NETWORK_NO_SOURCE) {
+						promise.asyncError(true);
+						return;
+					}
 					promise.asyncSuccess(true);
 				});
 				var nosourceCounter = 10;
@@ -524,10 +532,12 @@ Scoped.define("module:Player.Html5VideoPlayerWrapper", [
 				});				
 				if (!this._preload)
 					this._$element.attr("preload", "none");
+				if (this._loop)
+					this._$element.attr("loop", "loop");
 				var errorCount = 0;
 				if (!ie9) {
 					Objs.iter(sources, function (source) {
-						$source = $("<source type='" + source.type + "' />").appendTo(this._$element);
+						var $source = $("<source type='" + source.type + "' />").appendTo(this._$element);
 						$source.on("error", function () {
 							errorCount++;
 							if (errorCount === sources.length)
@@ -580,6 +590,14 @@ Scoped.define("module:Player.Html5VideoPlayerWrapper", [
 					self._eventPosterError();
 				};
 				image.src = this.poster();
+				if (Info.isSafari() && (Info.safariVersion() > 5 || Info.safariVersion() < 9)) {
+					if (this._element.networkState === this._element.NETWORK_LOADING) {
+						Async.eventually(function () {
+							if (!this.destroyed() && this._element.networkState === this._element.NETWORK_LOADING && this._element.buffered.length === 0)
+								this._eventError(this.cls.ERROR_NO_PLAYABLE_SOURCE);
+						}, this, 10000);
+					}
+				}
 			},
 			
 			buffered: function () {
@@ -607,8 +625,9 @@ Scoped.define("module:Player.FlashPlayerWrapper", [
      "module:Player.FlashPlayer",
      "browser:Info",
      "base:Promise",
-     "browser:Dom"
-], function (VideoPlayerWrapper, FlashPlayer, Info, Promise, Dom, scoped) {
+     "browser:Dom",
+     "jquery:"
+], function (VideoPlayerWrapper, FlashPlayer, Info, Promise, Dom, $, scoped) {
 	return VideoPlayerWrapper.extend({scoped: scoped}, function (inherited) {
 		return {
 		
@@ -632,10 +651,13 @@ Scoped.define("module:Player.FlashPlayerWrapper", [
 					this._$element = $(this._element);
 					this._transitionals.element = this._element;
 				}
-				this._flashPlayer = new FlashPlayer(this._element, {
+				var opts = {
 					poster: this.poster(),
 					sources: this.sources()
-				});
+				};
+				if (this._loop)
+					opts.loop = true;
+				this._flashPlayer = new FlashPlayer(this._element, opts);
 				return this._flashPlayer.ready.success(function () {
 					this._setup();
 				}, this);
@@ -1214,6 +1236,8 @@ Scoped.define("module:WebRTC.WhammyAudioRecorderWrapper", [
 		},
 
 		_boundMedia: function () {
+			this._videoBlob = null;
+			this._audioBlob = null;
 			this._whammyRecorder = new WhammyRecorder(this._stream, {
 				//recorderWidth: this._options.recordResolution.width,
 				//recorderHeight: this._options.recordResolution.height,
@@ -1289,7 +1313,7 @@ Scoped.extend("module:WebRTC.RecorderWrapper", [
 });
 
 Scoped.define("module:WebRTC.Support", [
-    "base:Promise.Promise",
+    "base:Promise",
     "base:Objs",
     "browser:Info"
 ], function (Promise, Objs, Info) {
@@ -1345,7 +1369,7 @@ Scoped.define("module:WebRTC.Support", [
 		mediaStreamTrackSources: function () {
 			if (!this.mediaStreamTrackSourcesSupported())
 				return Promise.error("Unsupported");
-			var promise = new Promise();
+			var promise = Promise.create();
 			try {
 				MediaStreamTrack.getSources(function (sources) {
 					var result = {
@@ -1379,7 +1403,7 @@ Scoped.define("module:WebRTC.Support", [
 		},
 		
 		streamQueryResolution: function (stream) {
-			var promise = new Promise();
+			var promise = Promise.create();
 			var video = this.bindStreamToVideo(stream);			
             video.addEventListener("playing", function () {
                 setTimeout(function () {
@@ -1395,7 +1419,7 @@ Scoped.define("module:WebRTC.Support", [
 		},
 		
 		userMedia: function (options) {
-			var promise = new Promise();
+			var promise = Promise.create();
 			this.globals().getUserMedia.call(navigator, options, function (stream) {
 				promise.asyncSuccess(stream);
 			}, function (e) {

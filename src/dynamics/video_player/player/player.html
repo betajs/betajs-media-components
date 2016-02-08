@@ -5,13 +5,13 @@
     ba-on:mousedown="user_activity()"
     ba-on:touchstart="user_activity()"
 >
-    <video class="{{css}}-video"></video>
+    <video class="{{css}}-video" data-video="video"></video>
     <div class='{{css}}-overlay'>
     
         <ba-{{dyncontrolbar}}
             ba-css="{{csscontrolbar || css}}"
             ba-template="{{tmplcontrolbar}}"
-            ba-show="{{state==='main'}}"
+            ba-show="{{controlbar_active}}"
             ba-playing="{{playing}}"
             ba-event:rerecord="rerecord"
             ba-event:play="play"
@@ -31,22 +31,22 @@
         <ba-{{dynplaybutton}}
             ba-css="{{cssplaybutton || css}}"
             ba-template="{{tmplplaybutton}}"
-            ba-show="{{state==='init'}}"
-            ba-event:play="play"
+            ba-show="{{playbutton_active}}"
+            ba-event:play="playbutton_click"
         ></ba-{{dynplaybutton}}>
         
         <ba-{{dynloader}}
             ba-css="{{cssloader || css}}"
             ba-template="{{tmplloader}}"
-            ba-show="{{state==='loading' || buffering}}"
+            ba-show="{{loader_active}}"
         ></ba-{{dynloader}}>
         
         <ba-{{dynmessage}}
             ba-css="{{cssmessage || css}}"
             ba-template="{{tmplmessage}}"
-            ba-show="{{state==='message'}}"
+            ba-show="{{message_active}}"
             ba-message="{{message}}"
-            ba-event:click="play"
+            ba-event:click="message_click"
         ></ba-{{dynmessage}}>
     </div>
 </div>

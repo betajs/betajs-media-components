@@ -1,7 +1,7 @@
 /*!
-betajs-media-components - v0.0.7 - 2016-01-02
-Copyright (c) Oliver Friedmann
-MIT Software License.
+betajs-media-components - v0.0.11 - 2016-02-07
+Copyright (c) Ziggeo,Oliver Friedmann
+Apache 2.0 Software License.
 */
 (function () {
 

@@ -8,15 +8,26 @@ module.exports = function(grunt) {
 	
 	
     /* Compilation */    
-    .concatTask('concat-raw', [
-        'src/fragments/begin.js-fragment',
-		'dist/betajs-media-components-templates.js',
+	.scopedclosurerevisionTask(null, [
+  		'dist/betajs-media-components-templates.js',
 		'dist/betajs-media-components-locales.js',
 		'src/dynamics/common/*.js',
-		'src/dynamics/video_player/**/*.js',
-		'src/fragments/end.js-fragment'
-     ], 'dist/' + dist + '-raw.js')
-    .preprocessrevisionTask(null, 'dist/' + dist + '-raw.js', 'dist/' + dist + '-noscoped.js')
+		'src/dynamics/video_player/**/*.js'
+     ], "dist/" + dist + "-noscoped.js", {
+		"module": "global:BetaJS.MediaComponents",
+		"base": "global:BetaJS",
+		"browser": "global:BetaJS.Browser",
+		"flash": "global:BetaJS.Flash",
+		"media": "global:BetaJS.Media",
+		"dynamics": "global:BetaJS.Dynamics",
+		"jquery": "global:jQuery"
+    }, {
+    	"base:version": 474,
+    	"browser:version": 70,
+    	"flash:version": 27,
+    	"dynamics:version": 219,
+    	"media:version": 42
+    })	
     .concatTask('concat-scoped', ['vendors/scoped.js', 'dist/' + dist + '-noscoped.js'], 'dist/' + dist + '.js')
     .concatsassTask('concat-dist-css', [
         'src/themes/video_player/default/theme.scss',
@@ -98,8 +109,7 @@ module.exports = function(grunt) {
         'codeclimate',        
         'templates-dist',
         'locales',
-        'concat-raw',
-        'preprocessrevision',
+        'scopedclosurerevision',
         'concat-scoped',
         'uglify-noscoped',
         'uglify-scoped',

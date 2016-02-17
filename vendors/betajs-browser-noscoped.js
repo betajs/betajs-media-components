@@ -1,31 +1,16 @@
-/*!
-betajs-browser - v1.0.22 - 2016-02-06
-Copyright (c) Oliver Friedmann
-Apache 2.0 Software License.
-*/
 (function () {
-
 var Scoped = this.subScope();
-
-Scoped.binding("module", "global:BetaJS.Browser");
-Scoped.binding("base", "global:BetaJS");
-
-Scoped.binding("jquery", "global:jQuery");
-Scoped.binding("json", "global:JSON");
-Scoped.binding("resumablejs", "global:Resumable");
-
-Scoped.define("base:$", ["jquery:"], function (jquery) {
-	return jquery;
-});
-
+Scoped.binding('module', 'global:BetaJS.Browser');
+Scoped.binding('base', 'global:BetaJS');
+Scoped.binding('jquery', 'global:jQuery');
+Scoped.binding('resumablejs', 'global:Resumable');
 Scoped.define("module:", function () {
 	return {
-		guid: "02450b15-9bbf-4be2-b8f6-b483bc015d06",
-		version: '69.1454807666949'
-	};
+    "guid": "02450b15-9bbf-4be2-b8f6-b483bc015d06",
+    "version": "70.1455672026473"
+};
 });
-
-Scoped.assumeVersion("base:version", 451);
+Scoped.assumeVersion('base:version', 474);
 Scoped.define("module:JQueryAjax", [
 	    "base:Net.AbstractAjax",
 	    "base:Net.AjaxException",
@@ -56,7 +41,7 @@ Scoped.define("module:JQueryAjax", [
 						} catch (e) {
 							try {
 								err = JSON.parse('"' + jqXHR.responseText + '"');
-							} catch (e) {
+							} catch (e2) {
 								err = {};
 							}
 						}
@@ -262,659 +247,6 @@ Scoped.define("module:Cookies", ["base:Objs", "base:Types"], function (Objs, Typ
 		}
 		
 	};
-});
-
-Scoped.define("module:Dom", [
-    "base:Objs",
-    "jquery:",
-    "base:Types",
-    "module:Info"
-], function (Objs, $, Types, Info) {
-	return {
-		
-		outerHTML: function (element) {
-			if (!Info.isFirefox() || Info.firefoxVersion() >= 11)
-				return element.outerHTML;
-			return $('<div>').append($(element).clone()).html();
-		},
-		
-		changeTag: function (node, name) {
-			var replacement = document.createElement(name);
-			for (var i = 0; i < node.attributes.length; ++i)
-				replacement.setAttribute(node.attributes[i].nodeName, node.attributes[i].nodeValue);
-		    while (node.firstChild)
-		        replacement.appendChild(node.firstChild);
-		    node.parentNode.replaceChild(replacement, node);
-			return replacement;
-		},		
-		
-		traverseNext: function (node, skip_children) {
-			if ("get" in node)
-				node = node.get(0);
-			if (node.firstChild && !skip_children)
-				return $(node.firstChild);
-			if (!node.parentNode)
-				return null;
-			if (node.nextSibling)
-				return $(node.nextSibling);
-			return this.traverseNext(node.parentNode, true);
-		},
-		
-		/** @suppress {checkTypes} */
-		selectNode : function(node, offset) {
-			node = $(node).get(0);
-			var selection = null;
-			var range = null;
-			if (window.getSelection) {
-				selection = window.getSelection();
-				selection.removeAllRanges();
-				range = document.createRange();
-			} else if (document.selection) {
-				selection = document.selection;
-				range = selection.createRange();
-			}
-			if (offset) {
-				range.setStart(node, offset);
-				range.setEnd(node, offset);
-				selection.addRange(range);
-			} else {
-				range.selectNode(node);
-				selection.addRange(range);
-			}
-		},
-	
-		/** @suppress {checkTypes} */
-		selectionStartNode : function() {
-			if (window.getSelection)
-				return $(window.getSelection().getRangeAt(0).startContainer);
-			else if (document.selection)
-				return $(document.selection.createRange().startContainer);
-			return null;
-		},
-		
-		/** @suppress {checkTypes} */
-		selectedHtml : function() {
-			if (window.getSelection)
-				return window.getSelection().toString();
-			else if (document.selection)
-				return document.selection.createRange().htmlText;
-			return "";
-		},
-		
-		/** @suppress {checkTypes} */
-		selectionAncestor : function() {
-			if (window.getSelection)
-				return $(window.getSelection().getRangeAt(0).commonAncestorContainer);
-			else if (document.selection)
-				return $(document.selection.createRange().parentElement());
-			return null;
-		},
-		
-		/** @suppress {checkTypes} */
-		selectionStartOffset: function () {
-			if (window.getSelection)
-				return window.getSelection().getRangeAt(0).startOffset;
-			else if (document.selection)
-				return document.selection.createRange().startOffset;
-			return null;
-		},
-		
-		/** @suppress {checkTypes} */
-		selectionEndOffset: function () {
-			if (window.getSelection)
-				return window.getSelection().getRangeAt(0).endOffset;
-			else if (document.selection)
-				return document.selection.createRange().endOffset;
-			return null;
-		},
-	
-		/** @suppress {checkTypes} */
-		selectionStart : function() {
-			if (window.getSelection)
-				return $(window.getSelection().getRangeAt(0).startContainer);
-			else if (document.selection)
-				return $(document.selection.createRange().startContainer);
-			return null;
-		},
-	
-		/** @suppress {checkTypes} */
-		selectionEnd : function() {
-			if (window.getSelection)
-				return $(window.getSelection().getRangeAt(0).endContainer);
-			else if (document.selection)
-				return $(document.selection.createRange().endContainer);
-			return null;
-		},
-		
-		/** @suppress {checkTypes} */
-		selectionNonEmpty: function () {
-			var start = this.selectionStart();
-			var end = this.selectionEnd();
-			return start && end && start.get(0) && end.get(0) && (start.get(0) != end.get(0) || this.selectionStartOffset() != this.selectionEndOffset());
-		},
-		
-		/** @suppress {checkTypes} */
-		selectionContained: function (node) {
-			return node.has(this.selectionStart()).length > 0 && node.has(this.selectionEnd()).length > 0;
-		},
-	
-		/** @suppress {checkTypes} */
-		selectionNodes: function () {
-			var result = [];
-			var start = this.selectionStart();
-			var end = this.selectionEnd();
-			result.push(start);
-			var current = start;
-			while (current.get(0) != end.get(0)) {
-				current = this.traverseNext(current);
-				result.push(current);
-			}
-			return result;
-		},
-		
-		/** @suppress {checkTypes} */
-		selectionLeaves: function () {
-			return Objs.filter(this.selectionNodes(), function (node) { return node.children().length === 0; });
-		},
-		
-		contentSiblings: function (node) {
-			return node.parent().contents().filter(function () {
-				return this != node.get(0);
-			});
-		},
-		
-		remove_tag_from_parent_path: function (node, tag, context) {	
-			tag = tag.toLowerCase();
-			node = $(node);
-			var parents = node.parents(context ? context + " " + tag : tag);
-			for (var i = 0; i < parents.length; ++i) {
-				var parent = parents.get(i);
-				parent = $(parent);
-				while (node.get(0) != parent.get(0)) {
-					this.contentSiblings(node).wrap("<" + tag + "></" + tag + ">");
-					node = node.parent();
-				}
-				parent.contents().unwrap();
-			}
-		},
-		
-		/** @suppress {checkTypes} */
-		selectionSplitOffsets: function () {
-			var startOffset = this.selectionStartOffset();
-			var endOffset = this.selectionEndOffset();
-			var start = this.selectionStart();
-			var end = this.selectionEnd();
-			var single = start.get(0) == end.get(0);
-			if (endOffset < end.get(0).wholeText.length) {
-				var endElem = end.get(0);
-				endElem.splitText(endOffset);
-				end = $(endElem);
-				if (single)
-					start = end;
-			}
-			if (startOffset > 0) {
-				start = $(start.get(0).splitText(startOffset));
-				if (single)
-					end = start;
-			}
-			this.selectRange(start, end);
-		},
-		
-		/** @suppress {checkTypes} */
-		selectRange: function (start_node, end_node, start_offset, end_offset) {
-			start_node = $(start_node);
-			end_node = $(end_node);
-			var selection = null;
-			var range = null;
-			if (window.getSelection) {
-				selection = window.getSelection();
-				selection.removeAllRanges();
-				range = document.createRange();
-			} else if (document.selection) {
-				selection = document.selection;
-				range = selection.createRange();
-			}
-			range.setStart(start_node.get(0), start_offset || 0);
-			range.setEnd(end_node.get(0), end_offset || end_node.get(0).data.length);
-			selection.addRange(range);
-		},
-		
-		splitNode: function (node, start_offset, end_offset) {
-			node = $(node);
-			start_offset = start_offset || 0;
-			end_offset = end_offset || node.get(0).data.length;
-			if (end_offset < node.get(0).data.length) {
-				var elem = node.get(0);
-				elem.splitText(end_offset);
-				node = $(elem);
-			}
-			if (start_offset > 0) 
-				node = $(node.get(0).splitText(start_offset));
-			return node;
-		},
-		
-		entitiesToUnicode: function (s) {
-			if (!s || !Types.is_string(s) || s.indexOf("&") < 0)
-				return s;
-			var temp = document.createElement("span");
-			temp.innerHTML = s;
-			s = $(temp).text();
-			if (temp.remove)
-				temp.remove();
-			return s;
-		}
-				
-	};
-});
-Scoped.define("module:DomExtend.DomExtension", [
-    "base:Class",
-    "jquery:",
-    "base:Objs",
-    "base:Functions",
-    "base:Async",
-    "module:DomMutation.NodeRemoveObserver",
-    "module:DomMutation.NodeResizeObserver",
-    "jquery:"
-], function (Class, jquery, Objs, Functions, Async, NodeRemoveObserver, NodeResizeObserver, $, scoped) {
-	return Class.extend({scoped: scoped}, function (inherited) {
-		return {
-			
-			_domMethods: [],
-			_domAttrs: {},
-			
-			constructor: function (element, attrs) {
-				inherited.constructor.call(this);
-				this._element = element;
-				this._$element = $(element);
-				element.domExtension = this;
-				this._actualBB = null;
-				this._idealBB = null;
-				this._attrs = attrs || {};
-				Objs.iter(this._domMethods, function (method) {
-					this._element[method] = Functions.as_method(this[method], this);
-				}, this);
-				Objs.iter(['get', 'set'], function (method) {
-					this._element[method] = Functions.as_method(this[method], this);
-				}, this);
-				Async.eventually(function () {
-					this._nodeRemoveObserver = this.auto_destroy(new NodeRemoveObserver(element));
-					this._nodeRemoveObserver.on("node-removed", this.weakDestroy, this);
-					this._nodeResizeObserver = this.auto_destroy(new NodeResizeObserver(element));
-					this._nodeResizeObserver.on("node-resized", function () {
-						this.recomputeBB();
-						this._notify("resized");
-					}, this);
-				}, this);
-				if (!this._$element.css("display") || this._$element.css("display") == "inline")
-					this._$element.css("display", "inline-block");
-			},
-			
-			domEvent: function (eventName) {
-				this._$element.trigger(eventName);
-			},
-			
-			readAttr: function (key) {
-				return key in this._element.attributes ? this._element.attributes[key].value : (key in this._element ? this._element[key] : this._attrs[key]);
-			},
-			
-			hasAttr: function (key) {
-				return key in this._element.attributes || key in this._element || key in this._attrs;
-			},
-
-			writeAttr: function (key, value) {
-				if (key in this._element.attributes)
-					this._element.attributes[key].value = value;
-				else if (key in this._element)
-					this._element[key] = value;
-				else
-					this._attrs[key] = value;
-			},
-			
-			unsetAttr: function (key) {
-				delete this._element[key];
-				this._element.removeAttribute(key);
-				delete this._attrs[key];
-			},
-			
-			get: function (key) {
-				var meta = this._domAttrs[key] || {};
-				if (!(meta.get))
-					return this.readAttr(key);
-				var value = Functions.callWithin(this, meta.get);
-				this.writeAttr(key, value);
-				return value;
-			},
-			
-			set: function (key, value) {
-				this.writeAttr(key, value);
-				var meta = this._domAttrs[key] || {};
-				if (meta.set)
-					Functions.callWithin(this, meta.set, value);
-			},
-			
-			computeActualBB: function (idealBB) {
-				var width = this._$element.width();
-				if (this._$element.width() <= idealBB.width && !this._element.style.width) {
-					this._element.style.width = idealBB.width + "px";
-					width = this._$element.width();
-					var current = this._$element;
-					while (current.get(0) != document) {
-						current = current.parent();
-						width = Math.min(width, current.width());
-					}
-					this._element.style.width = null;
-				}
-				return {
-					width: width,
-					height: Math.round(width * idealBB.height / idealBB.width)
-				};
-			},
-			
-			idealBB: function () {
-				return null;
-			},
-			
-			recomputeBB: function () {
-				var idealBB = this.idealBB();
-				if (!idealBB)
-					return;
-				var actualBB = this.computeActualBB(idealBB);
-				this._idealBB = idealBB;
-				this._actualBB = actualBB;
-				this.setActualBB(actualBB);
-			},
-			
-			setActualBB: function (actualBB) {}
-			
-		};
-	});
-});
-
-Scoped.define("module:DomMutation.NodeRemoveObserver", [
-    "base:Classes.ConditionalInstance",
-    "base:Events.EventsMixin"
-], function (ConditionalInstance, EventsMixin, scoped) {
-	return ConditionalInstance.extend({scoped: scoped}, [EventsMixin, function (inherited) {
-		return {
-			
-			constructor: function (node) {
-				inherited.constructor.call(this);
-				this._node = node;
-			},
-			
-			_nodeRemoved: function (node) {
-				if (node !== this._node)
-					return;
-				this.trigger("node-removed");
-			}
-			
-		};
-	}]);
-});
-
-
-
-Scoped.define("module:DomMutation.MutationObserverNodeRemoveObserver", [
-	"module:DomMutation.NodeRemoveObserver",
-	"base:Objs"
-], function (Observer, Objs, scoped) {
-	return Observer.extend({scoped: scoped}, function (inherited) {
-		return {
-			
-			constructor: function (node) {
-				inherited.constructor.call(this, node);
-				var self = this;
-				this._observer = new window.MutationObserver(function (mutations) {
-					Objs.iter(mutations, function (mutation) {
-						for (var i = 0; i < mutation.removedNodes.length; ++i)
-							self._nodeRemoved(mutation.removedNodes[i]);
-					});
-				});
-				this._observer.observe(node.parentNode, {childList: true});
-			},
-			
-			destroy: function () {
-				this._observer.disconnect();
-				inherited.destroy.call(this);
-			}
-			
-		};
-	}, {
-		
-		supported: function (node) {
-			try {
-				return !!window.MutationObserver;
-			} catch (e) {
-				return false;
-			}
-		}
-		
-	});	
-});
-
-
-
-Scoped.define("module:DomMutation.DOMNodeRemovedNodeRemoveObserver", [
-	"module:DomMutation.NodeRemoveObserver",
-	"module:Info",
-	"jquery:"
-], function (Observer, Info, $, scoped) {
-	return Observer.extend({scoped: scoped}, function (inherited) {
-		return {
-			
-			constructor: function (node) {
-				inherited.constructor.call(this, node);
-				var self = this;
-				$(document).on("DOMNodeRemoved." + this.cid(), function (event) {
-					self._nodeRemoved(event.target);
-				});
-			},
-			
-			destroy: function () {
-				$(document).off("DOMNodeRemoved." + this.cid());
-				inherited.destroy.call(this);
-			}
-			
-		};
-	}, {
-		
-		supported: function (node) {
-			return !Info.isInternetExplorer() || Info.internetExplorerVersion() >= 9;
-		}
-		
-	});	
-
-});
-
-
-
-Scoped.define("module:DomMutation.TimerNodeRemoveObserver", [
-  	"module:DomMutation.NodeRemoveObserver",
-  	"base:Timers.Timer",
-  	"jquery:"
-], function (Observer, Timer, $, scoped) {
-	return Observer.extend({scoped: scoped}, function (inherited) {
-		return {
-			
-			constructor: function (node) {
-				inherited.constructor.call(this, node);
-				this._timer = new Timer({
-					context: this,
-					fire: this._fire,
-					delay: 100
-				});
-			},
-			
-			destroy: function () {
-				this._timer.weakDestroy();
-				inherited.destroy.call(this);
-			},
-			
-			_fire: function () {
-				if (!this._node.parentElement) {
-					this._timer.stop();
-					this._nodeRemoved(this._node);
-				}
-			}
-			
-		};
-	}, {
-		
-		supported: function (node) {
-			return true;
-		}
-		
-	});	
-
-});
-
-Scoped.extend("module:DomMutation.NodeRemoveObserver", [
-    "module:DomMutation.NodeRemoveObserver",
-    "module:DomMutation.MutationObserverNodeRemoveObserver",
-    "module:DomMutation.DOMNodeRemovedNodeRemoveObserver",
-    "module:DomMutation.TimerNodeRemoveObserver"
-], function (Observer, MutationObserverNodeRemoveObserver, DOMNodeRemovedNodeRemoveObserver, TimerNodeRemoveObserver) {
-	Observer.register(MutationObserverNodeRemoveObserver, 3);
-	Observer.register(DOMNodeRemovedNodeRemoveObserver, 2);
-	Observer.register(TimerNodeRemoveObserver, 1);
-	return {};
-});
-
-
-Scoped.define("module:DomMutation.NodeResizeObserver", [
-    "base:Class",
-    "base:Events.EventsMixin",
-    "jquery:"
-], function (Class, EventsMixin, $, scoped) {
-	return Class.extend({scoped: scoped}, [EventsMixin, function (inherited) {
-		return {
-			
-			constructor: function (node) {
-				inherited.constructor.call(this);
-				var self = this;
-				$(window).on("resize." + this.cid(), function () {
-					self._resized();
-				});
-			},
-			
-			destroy: function () {
-				$(window).off("." + this.cid());
-				inherited.destroy.call(this);
-			},
-			
-			_resized: function () {
-				this.trigger("node-resized");
-			}
-			
-		};
-	}]);
-});
-
-
-Scoped.define("module:DomMutation.NodeInsertObserver", [
-	"base:Classes.ConditionalInstance",
-	"base:Events.EventsMixin"
-], function (ConditionalInstance, EventsMixin, scoped) {
-	return ConditionalInstance.extend({scoped: scoped}, [EventsMixin, function (inherited) {
-		return {
-			
-			_nodeInserted: function (node) {
-				if (this._options.parent && node.parentNode !== this._options.parent)
-					return;
-				if (this._options.root && !this._options.root.contains(node))
-					return;
-				if (this._options.filter && !this._options.filter.call(this._options.context || this, node))
-					return;
-				this.trigger("node-inserted", node);
-			}
-			
-		};
-	}]);
-});
-
-
-Scoped.define("module:DomMutation.MutationObserverNodeInsertObserver", [
-	"module:DomMutation.NodeInsertObserver",
-	"base:Objs"
-], function (Observer, Objs, scoped) {
-	return Observer.extend({scoped: scoped}, function (inherited) {
-		return {
-			
-			constructor: function (options) {
-				inherited.constructor.call(this, options);
-				var self = this;
-				this._observer = new window.MutationObserver(function (mutations) {
-					Objs.iter(mutations, function (mutation) {
-						for (var i = 0; i < mutation.addedNodes.length; ++i)
-							self._nodeInserted(mutation.addedNodes[i]);
-					});
-				});
-				this._observer.observe(this._options.root || this._options.parent || document.body, {
-					childList: true,
-					subtree: !!this._options.parent
-				});
-			},
-			
-			destroy: function () {
-				this._observer.disconnect();
-				inherited.destroy.call(this);
-			}
-			
-		};
-	}, {
-		
-		supported: function (node) {
-			try {
-				return !!window.MutationObserver;
-			} catch (e) {
-				return false;
-			}
-		}
-		
-	});	
-});
-
-
-
-Scoped.define("module:DomMutation.DOMNodeInsertedNodeInsertObserver", [
-	"module:DomMutation.NodeInsertObserver",
-	"jquery:"
-], function (Observer, $, scoped) {
-	return Observer.extend({scoped: scoped}, function (inherited) {
-		return {
-			
-			constructor: function (options) {
-				inherited.constructor.call(this, options);
-				var self = this;
-				$(document).on("DOMNodeInserted." + this.cid(), function (event) {
-					self._nodeInserted(event.target);
-				});
-			},
-			
-			destroy: function () {
-				$(document).off("DOMNodeInserted." + this.cid());
-				inherited.destroy.call(this);
-			}
-			
-		};
-	}, {
-		
-		supported: function (node) {
-			return true;
-		}
-		
-	});	
-});
-
-
-Scoped.extend("module:DomMutation.NodeInsertObserver", [
-	"module:DomMutation.NodeInsertObserver",
-	"module:DomMutation.MutationObserverNodeInsertObserver",
-	"module:DomMutation.DOMNodeInsertedNodeInsertObserver"
-], function (Observer, MutationObserverNodeInsertObserver, DOMNodeInsertedNodeInsertObserver) {
-	Observer.register(MutationObserverNodeInsertObserver, 3);
-	Observer.register(DOMNodeInsertedNodeInsertObserver, 2);
-	return {};
 });
 
 /*
@@ -2142,9 +1474,8 @@ Scoped.define("module:Upload.FormIframeFileUploader", [
      "module:Upload.FileUploader",
      "jquery:",
      "base:Net.Uri",
-     "json:",
      "base:Objs"
-], function (FileUploader, $, Uri, JSON, Objs, scoped) {
+], function (FileUploader, $, Uri, Objs, scoped) {
 	return FileUploader.extend({scoped: scoped}, {
 		
 		_upload: function () {
@@ -2347,4 +1678,657 @@ Scoped.extend("module:Upload.FileUploader", [
 	FileUploader.register(ResumableFileUploader, 3);
 	return {};
 });
+Scoped.define("module:Dom", [
+    "base:Objs",
+    "jquery:",
+    "base:Types",
+    "module:Info"
+], function (Objs, $, Types, Info) {
+	return {
+		
+		outerHTML: function (element) {
+			if (!Info.isFirefox() || Info.firefoxVersion() >= 11)
+				return element.outerHTML;
+			return $('<div>').append($(element).clone()).html();
+		},
+		
+		changeTag: function (node, name) {
+			var replacement = document.createElement(name);
+			for (var i = 0; i < node.attributes.length; ++i)
+				replacement.setAttribute(node.attributes[i].nodeName, node.attributes[i].nodeValue);
+		    while (node.firstChild)
+		        replacement.appendChild(node.firstChild);
+		    node.parentNode.replaceChild(replacement, node);
+			return replacement;
+		},		
+		
+		traverseNext: function (node, skip_children) {
+			if ("get" in node)
+				node = node.get(0);
+			if (node.firstChild && !skip_children)
+				return $(node.firstChild);
+			if (!node.parentNode)
+				return null;
+			if (node.nextSibling)
+				return $(node.nextSibling);
+			return this.traverseNext(node.parentNode, true);
+		},
+		
+		/** @suppress {checkTypes} */
+		selectNode : function(node, offset) {
+			node = $(node).get(0);
+			var selection = null;
+			var range = null;
+			if (window.getSelection) {
+				selection = window.getSelection();
+				selection.removeAllRanges();
+				range = document.createRange();
+			} else if (document.selection) {
+				selection = document.selection;
+				range = selection.createRange();
+			}
+			if (offset) {
+				range.setStart(node, offset);
+				range.setEnd(node, offset);
+				selection.addRange(range);
+			} else {
+				range.selectNode(node);
+				selection.addRange(range);
+			}
+		},
+	
+		/** @suppress {checkTypes} */
+		selectionStartNode : function() {
+			if (window.getSelection)
+				return $(window.getSelection().getRangeAt(0).startContainer);
+			else if (document.selection)
+				return $(document.selection.createRange().startContainer);
+			return null;
+		},
+		
+		/** @suppress {checkTypes} */
+		selectedHtml : function() {
+			if (window.getSelection)
+				return window.getSelection().toString();
+			else if (document.selection)
+				return document.selection.createRange().htmlText;
+			return "";
+		},
+		
+		/** @suppress {checkTypes} */
+		selectionAncestor : function() {
+			if (window.getSelection)
+				return $(window.getSelection().getRangeAt(0).commonAncestorContainer);
+			else if (document.selection)
+				return $(document.selection.createRange().parentElement());
+			return null;
+		},
+		
+		/** @suppress {checkTypes} */
+		selectionStartOffset: function () {
+			if (window.getSelection)
+				return window.getSelection().getRangeAt(0).startOffset;
+			else if (document.selection)
+				return document.selection.createRange().startOffset;
+			return null;
+		},
+		
+		/** @suppress {checkTypes} */
+		selectionEndOffset: function () {
+			if (window.getSelection)
+				return window.getSelection().getRangeAt(0).endOffset;
+			else if (document.selection)
+				return document.selection.createRange().endOffset;
+			return null;
+		},
+	
+		/** @suppress {checkTypes} */
+		selectionStart : function() {
+			if (window.getSelection)
+				return $(window.getSelection().getRangeAt(0).startContainer);
+			else if (document.selection)
+				return $(document.selection.createRange().startContainer);
+			return null;
+		},
+	
+		/** @suppress {checkTypes} */
+		selectionEnd : function() {
+			if (window.getSelection)
+				return $(window.getSelection().getRangeAt(0).endContainer);
+			else if (document.selection)
+				return $(document.selection.createRange().endContainer);
+			return null;
+		},
+		
+		/** @suppress {checkTypes} */
+		selectionNonEmpty: function () {
+			var start = this.selectionStart();
+			var end = this.selectionEnd();
+			return start && end && start.get(0) && end.get(0) && (start.get(0) != end.get(0) || this.selectionStartOffset() != this.selectionEndOffset());
+		},
+		
+		/** @suppress {checkTypes} */
+		selectionContained: function (node) {
+			return node.has(this.selectionStart()).length > 0 && node.has(this.selectionEnd()).length > 0;
+		},
+	
+		/** @suppress {checkTypes} */
+		selectionNodes: function () {
+			var result = [];
+			var start = this.selectionStart();
+			var end = this.selectionEnd();
+			result.push(start);
+			var current = start;
+			while (current.get(0) != end.get(0)) {
+				current = this.traverseNext(current);
+				result.push(current);
+			}
+			return result;
+		},
+		
+		/** @suppress {checkTypes} */
+		selectionLeaves: function () {
+			return Objs.filter(this.selectionNodes(), function (node) { return node.children().length === 0; });
+		},
+		
+		contentSiblings: function (node) {
+			return node.parent().contents().filter(function () {
+				return this != node.get(0);
+			});
+		},
+		
+		remove_tag_from_parent_path: function (node, tag, context) {	
+			tag = tag.toLowerCase();
+			node = $(node);
+			var parents = node.parents(context ? context + " " + tag : tag);
+			for (var i = 0; i < parents.length; ++i) {
+				var parent = parents.get(i);
+				parent = $(parent);
+				while (node.get(0) != parent.get(0)) {
+					this.contentSiblings(node).wrap("<" + tag + "></" + tag + ">");
+					node = node.parent();
+				}
+				parent.contents().unwrap();
+			}
+		},
+		
+		/** @suppress {checkTypes} */
+		selectionSplitOffsets: function () {
+			var startOffset = this.selectionStartOffset();
+			var endOffset = this.selectionEndOffset();
+			var start = this.selectionStart();
+			var end = this.selectionEnd();
+			var single = start.get(0) == end.get(0);
+			if (endOffset < end.get(0).wholeText.length) {
+				var endElem = end.get(0);
+				endElem.splitText(endOffset);
+				end = $(endElem);
+				if (single)
+					start = end;
+			}
+			if (startOffset > 0) {
+				start = $(start.get(0).splitText(startOffset));
+				if (single)
+					end = start;
+			}
+			this.selectRange(start, end);
+		},
+		
+		/** @suppress {checkTypes} */
+		selectRange: function (start_node, end_node, start_offset, end_offset) {
+			start_node = $(start_node);
+			end_node = $(end_node);
+			var selection = null;
+			var range = null;
+			if (window.getSelection) {
+				selection = window.getSelection();
+				selection.removeAllRanges();
+				range = document.createRange();
+			} else if (document.selection) {
+				selection = document.selection;
+				range = selection.createRange();
+			}
+			range.setStart(start_node.get(0), start_offset || 0);
+			range.setEnd(end_node.get(0), end_offset || end_node.get(0).data.length);
+			selection.addRange(range);
+		},
+		
+		splitNode: function (node, start_offset, end_offset) {
+			node = $(node);
+			start_offset = start_offset || 0;
+			end_offset = end_offset || node.get(0).data.length;
+			if (end_offset < node.get(0).data.length) {
+				var elem = node.get(0);
+				elem.splitText(end_offset);
+				node = $(elem);
+			}
+			if (start_offset > 0) 
+				node = $(node.get(0).splitText(start_offset));
+			return node;
+		},
+		
+		entitiesToUnicode: function (s) {
+			if (!s || !Types.is_string(s) || s.indexOf("&") < 0)
+				return s;
+			var temp = document.createElement("span");
+			temp.innerHTML = s;
+			s = $(temp).text();
+			if (temp.remove)
+				temp.remove();
+			return s;
+		}
+				
+	};
+});
+Scoped.define("module:DomExtend.DomExtension", [
+    "base:Class",
+    "jquery:",
+    "base:Objs",
+    "base:Functions",
+    "base:Async",
+    "module:DomMutation.NodeRemoveObserver",
+    "module:DomMutation.NodeResizeObserver",
+    "jquery:"
+], function (Class, jquery, Objs, Functions, Async, NodeRemoveObserver, NodeResizeObserver, $, scoped) {
+	return Class.extend({scoped: scoped}, function (inherited) {
+		return {
+			
+			_domMethods: [],
+			_domAttrs: {},
+			
+			constructor: function (element, attrs) {
+				inherited.constructor.call(this);
+				this._element = element;
+				this._$element = $(element);
+				element.domExtension = this;
+				this._actualBB = null;
+				this._idealBB = null;
+				this._attrs = attrs || {};
+				Objs.iter(this._domMethods, function (method) {
+					this._element[method] = Functions.as_method(this[method], this);
+				}, this);
+				Objs.iter(['get', 'set'], function (method) {
+					this._element[method] = Functions.as_method(this[method], this);
+				}, this);
+				Async.eventually(function () {
+					this._nodeRemoveObserver = this.auto_destroy(new NodeRemoveObserver(element));
+					this._nodeRemoveObserver.on("node-removed", this.weakDestroy, this);
+					this._nodeResizeObserver = this.auto_destroy(new NodeResizeObserver(element));
+					this._nodeResizeObserver.on("node-resized", function () {
+						this.recomputeBB();
+						this._notify("resized");
+					}, this);
+				}, this);
+				if (!this._$element.css("display") || this._$element.css("display") == "inline")
+					this._$element.css("display", "inline-block");
+			},
+			
+			domEvent: function (eventName) {
+				this._$element.trigger(eventName);
+			},
+			
+			readAttr: function (key) {
+				return key in this._element.attributes ? this._element.attributes[key].value : (key in this._element ? this._element[key] : this._attrs[key]);
+			},
+			
+			hasAttr: function (key) {
+				return key in this._element.attributes || key in this._element || key in this._attrs;
+			},
+
+			writeAttr: function (key, value) {
+				if (key in this._element.attributes)
+					this._element.attributes[key].value = value;
+				else if (key in this._element)
+					this._element[key] = value;
+				else
+					this._attrs[key] = value;
+			},
+			
+			unsetAttr: function (key) {
+				delete this._element[key];
+				this._element.removeAttribute(key);
+				delete this._attrs[key];
+			},
+			
+			get: function (key) {
+				var meta = this._domAttrs[key] || {};
+				if (!(meta.get))
+					return this.readAttr(key);
+				var value = Functions.callWithin(this, meta.get);
+				this.writeAttr(key, value);
+				return value;
+			},
+			
+			set: function (key, value) {
+				this.writeAttr(key, value);
+				var meta = this._domAttrs[key] || {};
+				if (meta.set)
+					Functions.callWithin(this, meta.set, value);
+			},
+			
+			computeActualBB: function (idealBB) {
+				var width = this._$element.width();
+				if (this._$element.width() <= idealBB.width && !this._element.style.width) {
+					this._element.style.width = idealBB.width + "px";
+					width = this._$element.width();
+					var current = this._$element;
+					while (current.get(0) != document) {
+						current = current.parent();
+						width = Math.min(width, current.width());
+					}
+					this._element.style.width = null;
+				}
+				return {
+					width: width,
+					height: Math.round(width * idealBB.height / idealBB.width)
+				};
+			},
+			
+			idealBB: function () {
+				return null;
+			},
+			
+			recomputeBB: function () {
+				var idealBB = this.idealBB();
+				if (!idealBB)
+					return;
+				var actualBB = this.computeActualBB(idealBB);
+				this._idealBB = idealBB;
+				this._actualBB = actualBB;
+				this.setActualBB(actualBB);
+			},
+			
+			setActualBB: function (actualBB) {}
+			
+		};
+	});
+});
+
+Scoped.define("module:DomMutation.NodeRemoveObserver", [
+    "base:Classes.ConditionalInstance",
+    "base:Events.EventsMixin"
+], function (ConditionalInstance, EventsMixin, scoped) {
+	return ConditionalInstance.extend({scoped: scoped}, [EventsMixin, function (inherited) {
+		return {
+			
+			constructor: function (node) {
+				inherited.constructor.call(this);
+				this._node = node;
+			},
+			
+			_nodeRemoved: function (node) {
+				if (node !== this._node)
+					return;
+				this.trigger("node-removed");
+			}
+			
+		};
+	}]);
+});
+
+
+
+Scoped.define("module:DomMutation.MutationObserverNodeRemoveObserver", [
+	"module:DomMutation.NodeRemoveObserver",
+	"base:Objs"
+], function (Observer, Objs, scoped) {
+	return Observer.extend({scoped: scoped}, function (inherited) {
+		return {
+			
+			constructor: function (node) {
+				inherited.constructor.call(this, node);
+				var self = this;
+				this._observer = new window.MutationObserver(function (mutations) {
+					Objs.iter(mutations, function (mutation) {
+						for (var i = 0; i < mutation.removedNodes.length; ++i)
+							self._nodeRemoved(mutation.removedNodes[i]);
+					});
+				});
+				this._observer.observe(node.parentNode, {childList: true});
+			},
+			
+			destroy: function () {
+				this._observer.disconnect();
+				inherited.destroy.call(this);
+			}
+			
+		};
+	}, {
+		
+		supported: function (node) {
+			try {
+				return !!window.MutationObserver;
+			} catch (e) {
+				return false;
+			}
+		}
+		
+	});	
+});
+
+
+
+Scoped.define("module:DomMutation.DOMNodeRemovedNodeRemoveObserver", [
+	"module:DomMutation.NodeRemoveObserver",
+	"module:Info",
+	"jquery:"
+], function (Observer, Info, $, scoped) {
+	return Observer.extend({scoped: scoped}, function (inherited) {
+		return {
+			
+			constructor: function (node) {
+				inherited.constructor.call(this, node);
+				var self = this;
+				$(document).on("DOMNodeRemoved." + this.cid(), function (event) {
+					self._nodeRemoved(event.target);
+				});
+			},
+			
+			destroy: function () {
+				$(document).off("DOMNodeRemoved." + this.cid());
+				inherited.destroy.call(this);
+			}
+			
+		};
+	}, {
+		
+		supported: function (node) {
+			return !Info.isInternetExplorer() || Info.internetExplorerVersion() >= 9;
+		}
+		
+	});	
+
+});
+
+
+
+Scoped.define("module:DomMutation.TimerNodeRemoveObserver", [
+  	"module:DomMutation.NodeRemoveObserver",
+  	"base:Timers.Timer",
+  	"jquery:"
+], function (Observer, Timer, $, scoped) {
+	return Observer.extend({scoped: scoped}, function (inherited) {
+		return {
+			
+			constructor: function (node) {
+				inherited.constructor.call(this, node);
+				this._timer = new Timer({
+					context: this,
+					fire: this._fire,
+					delay: 100
+				});
+			},
+			
+			destroy: function () {
+				this._timer.weakDestroy();
+				inherited.destroy.call(this);
+			},
+			
+			_fire: function () {
+				if (!this._node.parentElement) {
+					this._timer.stop();
+					this._nodeRemoved(this._node);
+				}
+			}
+			
+		};
+	}, {
+		
+		supported: function (node) {
+			return true;
+		}
+		
+	});	
+
+});
+
+Scoped.extend("module:DomMutation.NodeRemoveObserver", [
+    "module:DomMutation.NodeRemoveObserver",
+    "module:DomMutation.MutationObserverNodeRemoveObserver",
+    "module:DomMutation.DOMNodeRemovedNodeRemoveObserver",
+    "module:DomMutation.TimerNodeRemoveObserver"
+], function (Observer, MutationObserverNodeRemoveObserver, DOMNodeRemovedNodeRemoveObserver, TimerNodeRemoveObserver) {
+	Observer.register(MutationObserverNodeRemoveObserver, 3);
+	Observer.register(DOMNodeRemovedNodeRemoveObserver, 2);
+	Observer.register(TimerNodeRemoveObserver, 1);
+	return {};
+});
+
+
+Scoped.define("module:DomMutation.NodeResizeObserver", [
+    "base:Class",
+    "base:Events.EventsMixin",
+    "jquery:"
+], function (Class, EventsMixin, $, scoped) {
+	return Class.extend({scoped: scoped}, [EventsMixin, function (inherited) {
+		return {
+			
+			constructor: function (node) {
+				inherited.constructor.call(this);
+				var self = this;
+				$(window).on("resize." + this.cid(), function () {
+					self._resized();
+				});
+			},
+			
+			destroy: function () {
+				$(window).off("." + this.cid());
+				inherited.destroy.call(this);
+			},
+			
+			_resized: function () {
+				this.trigger("node-resized");
+			}
+			
+		};
+	}]);
+});
+
+
+Scoped.define("module:DomMutation.NodeInsertObserver", [
+	"base:Classes.ConditionalInstance",
+	"base:Events.EventsMixin"
+], function (ConditionalInstance, EventsMixin, scoped) {
+	return ConditionalInstance.extend({scoped: scoped}, [EventsMixin, function (inherited) {
+		return {
+			
+			_nodeInserted: function (node) {
+				if (this._options.parent && node.parentNode !== this._options.parent)
+					return;
+				if (this._options.root && !this._options.root.contains(node))
+					return;
+				if (this._options.filter && !this._options.filter.call(this._options.context || this, node))
+					return;
+				this.trigger("node-inserted", node);
+			}
+			
+		};
+	}]);
+});
+
+
+Scoped.define("module:DomMutation.MutationObserverNodeInsertObserver", [
+	"module:DomMutation.NodeInsertObserver",
+	"base:Objs"
+], function (Observer, Objs, scoped) {
+	return Observer.extend({scoped: scoped}, function (inherited) {
+		return {
+			
+			constructor: function (options) {
+				inherited.constructor.call(this, options);
+				var self = this;
+				this._observer = new window.MutationObserver(function (mutations) {
+					Objs.iter(mutations, function (mutation) {
+						for (var i = 0; i < mutation.addedNodes.length; ++i)
+							self._nodeInserted(mutation.addedNodes[i]);
+					});
+				});
+				this._observer.observe(this._options.root || this._options.parent || document.body, {
+					childList: true,
+					subtree: !!this._options.parent
+				});
+			},
+			
+			destroy: function () {
+				this._observer.disconnect();
+				inherited.destroy.call(this);
+			}
+			
+		};
+	}, {
+		
+		supported: function (node) {
+			try {
+				return !!window.MutationObserver;
+			} catch (e) {
+				return false;
+			}
+		}
+		
+	});	
+});
+
+
+
+Scoped.define("module:DomMutation.DOMNodeInsertedNodeInsertObserver", [
+	"module:DomMutation.NodeInsertObserver",
+	"jquery:"
+], function (Observer, $, scoped) {
+	return Observer.extend({scoped: scoped}, function (inherited) {
+		return {
+			
+			constructor: function (options) {
+				inherited.constructor.call(this, options);
+				var self = this;
+				$(document).on("DOMNodeInserted." + this.cid(), function (event) {
+					self._nodeInserted(event.target);
+				});
+			},
+			
+			destroy: function () {
+				$(document).off("DOMNodeInserted." + this.cid());
+				inherited.destroy.call(this);
+			}
+			
+		};
+	}, {
+		
+		supported: function (node) {
+			return true;
+		}
+		
+	});	
+});
+
+
+Scoped.extend("module:DomMutation.NodeInsertObserver", [
+	"module:DomMutation.NodeInsertObserver",
+	"module:DomMutation.MutationObserverNodeInsertObserver",
+	"module:DomMutation.DOMNodeInsertedNodeInsertObserver"
+], function (Observer, MutationObserverNodeInsertObserver, DOMNodeInsertedNodeInsertObserver) {
+	Observer.register(MutationObserverNodeInsertObserver, 3);
+	Observer.register(DOMNodeInsertedNodeInsertObserver, 2);
+	return {};
+});
+
 }).call(Scoped);

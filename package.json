@@ -28,6 +28,7 @@
 		"grunt-yaml": "",
 		"grunt-template": "",
 		"grunt-betajs-templates": "",
+		"betajs-scoped": "",
 		"he": "",
 		"betajs-compile": "betajs/betajs-compile"
 	},

@@ -1,29 +1,19 @@
-/*!
-betajs-media - v0.0.13 - 2016-02-07
-Copyright (c) Ziggeo,Oliver Friedmann
-Apache 2.0 Software License.
-*/
 (function () {
-
 var Scoped = this.subScope();
-
-Scoped.binding("module", "global:BetaJS.Media");
-Scoped.binding("base", "global:BetaJS");
-Scoped.binding("browser", "global:BetaJS.Browser");
-Scoped.binding("flash", "global:BetaJS.Flash");
-
-Scoped.binding("jquery", "global:jQuery");
-
+Scoped.binding('module', 'global:BetaJS.Media');
+Scoped.binding('base', 'global:BetaJS');
+Scoped.binding('browser', 'global:BetaJS.Browser');
+Scoped.binding('flash', 'global:BetaJS.Flash');
+Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
-		guid: "8475efdb-dd7e-402e-9f50-36c76945a692",
-		version: '41.1454872522203'
-	};
+    "guid": "8475efdb-dd7e-402e-9f50-36c76945a692",
+    "version": "42.1455672967098"
+};
 });
-
-Scoped.assumeVersion("base:version", 444);
-Scoped.assumeVersion("browser:version", 58);
-Scoped.assumeVersion("flash:version", 19);
+Scoped.assumeVersion('base:version', 474);
+Scoped.assumeVersion('browser:version', 70);
+Scoped.assumeVersion('flash:version', 27);
 Scoped.define("module:Player.FlashPlayer", [
     "browser:DomExtend.DomExtension",
 	"browser:Dom",
@@ -333,9 +323,12 @@ Scoped.define("module:Player.VideoPlayerWrapper", [
 						source.type = "video/" + source.ext;
 					if (!source.ext && source.type)
 						source.ext = Strings.last_after(source.type, "/");
-					if (!source.ext && !source.type && source.src.indexOf(".") >= 0) {
-						source.ext = Strings.last_after(source.src, ".");
-						source.type = "video/" + source.ext;
+					if (!source.ext && !source.type) {
+						var temp = Strings.splitFirst(source.src, "?").head;
+						if (temp.indexOf(".") >= 0) {
+							source.ext = Strings.last_after(temp, ".");
+							source.type = "video/" + source.ext;
+						}
 					}
 					if (!source.type)
 						source.type = "video";

@@ -10,7 +10,7 @@ Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "21.1455673271079"
+    "version": "22.1455806854953"
 };
 });
 Scoped.assumeVersion('base:version', 474);
@@ -334,6 +334,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 			
 			extendables: ["states"],
 			
+			remove_on_destroy: true,
+			
 			create: function () {
 				if (this.get("theme") in Assets.themes)
 					this.setAll(Assets.themes[this.get("theme")]);
@@ -480,7 +482,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				this._attachVideo();
 			},
 
-			object_functions: ["play", "rerecord", "pause", "seek", "set_volume"],
+			object_functions: ["play", "rerecord", "pause", "stop", "seek", "set_volume"],
 			
 			functions: {
 				
@@ -511,6 +513,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 					if (this.get("playing"))
 						this.player.pause();
 				},
+				
+				stop: function () {
+					if (!this.videoLoaded())
+						return;
+					if (this.get("playing"))
+						this.player.pause();
+					this.player.setPosition(0);
+					this.trigger("stopped");
+				},			
 				
 				seek: function (position) {
 					if (this.videoLoaded())

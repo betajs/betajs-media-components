@@ -193,9 +193,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
 				this.listenOn(this.dyn, "playing", function () {
 					this.next("PlayVideo");
 				}, this);
-				Async.eventually(function () {
-					this.dyn.player.play();
-				}, this);				
+				this.dyn.player.play();
 			}
 	
 		};

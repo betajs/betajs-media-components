@@ -10,7 +10,7 @@ Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "22.1455806854953"
+    "version": "23.1455902185915"
 };
 });
 Scoped.assumeVersion('base:version', 474);
@@ -439,17 +439,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 			    	this._error("attach", e);
 			    }, this).success(function (instance) {
 			    	this.player = instance;			    	
-			    	this.trigger("attached", instance);
 					this.player.on("postererror", function () {
 				    	this._error("poster");
 					}, this);					
-					this.player.once("loaded", function () {
-						this.set("duration", this.player.duration());
-						this.set("fullscreensupport", this.player.supportsFullscreen());
-						this.trigger("loaded");
-					}, this);
-					if (this.player.loaded())
-						this.player.trigger("loaded");
 					this.player.on("playing", function () {
 						this.set("playing", true);
 						this.trigger("playing");
@@ -467,6 +459,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 						this.set("playing", false);
 						this.trigger("ended");
 					}, this);
+			    	this.trigger("attached", instance);
+					this.player.once("loaded", function () {
+						this.set("duration", this.player.duration());
+						this.set("fullscreensupport", this.player.supportsFullscreen());
+						this.trigger("loaded");
+					}, this);
+					if (this.player.loaded())
+						this.player.trigger("loaded");
 			    }, this);
 			},
 			
@@ -774,9 +774,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
 				this.listenOn(this.dyn, "playing", function () {
 					this.next("PlayVideo");
 				}, this);
-				Async.eventually(function () {
-					this.dyn.player.play();
-				}, this);				
+				this.dyn.player.play();
 			}
 	
 		};

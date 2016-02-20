@@ -187,17 +187,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 			    	this._error("attach", e);
 			    }, this).success(function (instance) {
 			    	this.player = instance;			    	
-			    	this.trigger("attached", instance);
 					this.player.on("postererror", function () {
 				    	this._error("poster");
 					}, this);					
-					this.player.once("loaded", function () {
-						this.set("duration", this.player.duration());
-						this.set("fullscreensupport", this.player.supportsFullscreen());
-						this.trigger("loaded");
-					}, this);
-					if (this.player.loaded())
-						this.player.trigger("loaded");
 					this.player.on("playing", function () {
 						this.set("playing", true);
 						this.trigger("playing");
@@ -215,6 +207,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 						this.set("playing", false);
 						this.trigger("ended");
 					}, this);
+			    	this.trigger("attached", instance);
+					this.player.once("loaded", function () {
+						this.set("duration", this.player.duration());
+						this.set("fullscreensupport", this.player.supportsFullscreen());
+						this.trigger("loaded");
+					}, this);
+					if (this.player.loaded())
+						this.player.trigger("loaded");
 			    }, this);
 			},
 			

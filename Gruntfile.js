@@ -43,6 +43,7 @@ module.exports = function(grunt) {
     })
     .cleanTask('clean-compile', ['dist/betajs-media-components-templates.js', 'dist/betajs-media-components-locales.js'])
     .simplecopyTask('copy-fonts', {'dist/betajs-media-components-ie8.eot': 'vendors/fontello/font/fontello.eot'})
+    .packageTask()
 
     /* Compile Themes */
     .betajstemplatesTask('templates-themes', ['src/themes/video_player/modern/*.html'], 'dist/themes/modern-templates.js', 'module:Templates')
@@ -104,6 +105,7 @@ module.exports = function(grunt) {
 	grunt.initConfig(gruntHelper.config);	
 
 	grunt.registerTask('default', [
+	    'package',
         'readme',
         'license',
         'codeclimate',        

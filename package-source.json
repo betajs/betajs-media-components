@@ -1,0 +1,77 @@
+{
+	"name": "betajs-media-components",
+	"version": "0.0.14",
+	"description": "BetaJS-Media-Components is a JavaScript media UI components framework",
+	"contributors": ["Ziggeo", "Oliver Friedmann"],
+	"devDependencies": {
+		"grunt": "",
+		"grunt-contrib-jshint": "",
+		"grunt-contrib-concat": "",
+		"grunt-contrib-uglify": "",
+		"grunt-contrib-clean": "",
+		"grunt-contrib-copy": "",
+		"grunt-preprocess": "",
+		"grunt-git-revision-count": "",
+		"grunt-closure-tools": "",
+		"grunt-node-qunit": "",
+		"qunit": "",
+		"grunt-contrib-jshint": "",
+	    "grunt-contrib-sass": "",
+	    "grunt-contrib-cssmin": "",
+	    "grunt-contrib-csslint": "",
+	    "grunt-contrib-connect": "",
+		"grunt-wget": "",
+		"grunt-jsdoc": "",
+		"grunt-shell": "",
+		"grunt-yaml": "",
+		"grunt-template": "",
+		"grunt-betajs-templates": "",
+		"grunt-betajs-docs-compile": "",
+		"betajs-scoped": "",
+		"he": "",
+		"betajs-compile": "betajs/betajs-compile"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/betajs/betajs-media-components.git"
+	},
+	"meta": {
+		"guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
+		"installdoc": "docsrc/common/install.md",
+		"summarydoc": "docsrc/common/summary.md",
+		"badges": {
+			"codeclimate": true,
+			"travis": false,
+			"npm": false
+		},
+		"weakDependencies": {
+			"betajs-scoped": "https://github.com/betajs/betajs-scoped"
+		},
+		"dependencies": {
+			"betajs": "https://github.com/betajs/betajs",
+			"betajs-browser": "https://github.com/betajs/betajs-browser",
+			"betajs-flash": "https://github.com/betajs/betajs-flash",
+			"betajs-media": "https://github.com/betajs/betajs-media",
+			"betajs-dynamics": "https://github.com/betajs/betajs-dynamics"
+		},
+		"compatability": {
+		      "Firefox": "4 - Latest",
+		      "Chrome": "15 - Latest",
+		      "Safari": "4 - Latest",
+		      "Opera": "12 - Latest",
+		      "Internet Explorer": "8 - Latest",
+		      "Edge": "12 - Latest",
+		      "iOS": "7.0 - Latest",
+		      "Android": "4.0 - Latest"
+		},
+		"tests": {
+			"Test Suite": "http://rawgit.com/betajs/betajs-media-components/master/tests/tests.html"
+		},
+		"cdn": {
+			"betajs-media-components.js": "http://cdn.rawgit.com/betajs/betajs-media/master/dist/betajs-media-components.js",
+			"betajs-media-components.min.js": "http://cdn.rawgit.com/betajs/betajs-media/master/dist/betajs-media-components.min.js",
+			"betajs-media-components-noscoped.js": "http://cdn.rawgit.com/betajs/betajs-media/master/dist/betajs-media-components-noscoped.js",
+			"betajs-media-components-noscoped.min.js": "http://cdn.rawgit.com/betajs/betajs-media/master/dist/betajs-media-components-noscoped.min.js"
+		}
+	}
+}

@@ -1,15 +1,56 @@
-# betajs-media-components 0.0.13
+# betajs-media-components 0.0.14
 [![Code Climate](https://codeclimate.com/github/betajs/betajs-media-components/badges/gpa.svg)](https://codeclimate.com/github/betajs/betajs-media-components)
 
 
 BetaJS-Media-Components is a JavaScript media UI components framework
 
-## Status
-Active, In Development
+
+
+## Getting Started
+
+
+You can use the library in the browser and compile it as well.
+
+#### Browser
+
+```javascript
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="betajs/dist/betajs.min.js"></script>
+	<script src="betajs-browser/dist/betajs-browser.min.js"></script>
+	<script src="betajs-flash/dist/betajs-flash.min.js"></script>
+	<script src="betajs-media/dist/betajs-media.min.js"></script>
+	<script src="betajs-dynamics/dist/betajs-dynamics.min.js"></script>
+	<script src="betajs-media-components/dist/betajs-media-components.min.js"></script>
+``` 
+
+#### Compile
+
+```javascript
+	git clone https://github.com/betajs/betajs-media-components.git
+	npm install
+	grunt
+```
 
 
 
+## Basic Usage
 
+
+```html
+
+	<ba-videoplayer ba-poster="sample-cover.png" ba-source="sample-video.mp4" ba-theme="modern"></ba-videoplayer>
+```
+
+```js
+
+	// For fallback
+    BetaJS.Flash.options = {
+        flashFile: "betajs-flash.swf"
+    };
+    
+    BetaJS.Dynamics.Dynamic.activate();
+    
+```
 
 
 
@@ -24,7 +65,7 @@ Active, In Development
 
 
 
-## Compatability (Tested)
+## Compatability
 | Target | Versions |
 | :----- | -------: |
 | Firefox | 4 - Latest |
@@ -75,6 +116,6 @@ Active, In Development
 
 ## License
 
-Apache 2.0
+Apache-2.0
 
 

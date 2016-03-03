@@ -1,30 +1,25 @@
-/*!
-betajs-flash - v0.0.10 - 2016-02-07
-Copyright (c) Ziggeo,Oliver Friedmann
-Apache 2.0 Software License.
-*/
 (function () {
-
 var Scoped = this.subScope();
-
-Scoped.binding("module", "global:BetaJS.Flash");
-Scoped.binding("base", "global:BetaJS");
-Scoped.binding("browser", "global:BetaJS.Browser");
-
-Scoped.binding("jquery", "global:jQuery");
-
+Scoped.binding('module', 'global:BetaJS.Flash');
+Scoped.binding('base', 'global:BetaJS');
+Scoped.binding('browser', 'global:BetaJS.Browser');
+Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
-		guid: "3adc016a-e639-4d1a-b4cb-e90cab02bc4f",
-		version: '27.1454871935973',
+    "guid": "3adc016a-e639-4d1a-b4cb-e90cab02bc4f",
+    "version": "28.1455900306233"
+};
+});
+Scoped.assumeVersion('base:version', 444);
+Scoped.assumeVersion('browser:version', 58);
+Scoped.extend("module:", ["module:"], function () {
+	return {
 		options: {
-			flashFile: "betajs-flash.swf"
+			flashFile: "betajs-flash.swf"			
 		}
 	};
 });
 
-Scoped.assumeVersion("base:version", 444);
-Scoped.assumeVersion("browser:version", 58);
 Scoped.define("module:FlashEmbedding", [ "base:Class", "base:Events.EventsMixin", "jquery:", "base:Strings",
 		"base:Functions", "base:Types", "base:Objs", "base:Ids", "base:Time", "base:Timers.Timer", "base:Async", "base:Tokens",
 		"module:FlashObjectWrapper", "module:FlashClassWrapper", "browser:FlashHelper", "module:" ], function(Class, EventsMixin, $,
@@ -67,7 +62,10 @@ Scoped.define("module:FlashEmbedding", [ "base:Class", "base:Events.EventsMixin"
 			},
 			
 			destroy: function () {
-				delete window[this.__namespace];
+				try {
+					window[this.__namespace] = null;
+					delete window[this.__namespace];
+				} catch (e) {}
 				Objs.iter(this.__wrappers, function (wrapper) {
 					wrapper.destroy();
 				});

@@ -15,7 +15,7 @@
         "url": "https://github.com/betajs/betajs-media-components/issues"
     },
     "name": "betajs-media-components",
-    "version": "0.0.14",
+    "version": "0.0.16",
     "description": "BetaJS-Media-Components is a JavaScript media UI components framework",
     "contributors": [
         "Ziggeo",
@@ -75,7 +75,7 @@
         },
         "compatability": {
             "Firefox": "4 - Latest",
-            "Chrome": "14 - Latest",
+            "Chrome": "15 - Latest",
             "Safari": "4 - Latest",
             "Opera": "12 - Latest",
             "Internet Explorer": "8 - Latest",

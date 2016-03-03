@@ -1,6 +1,6 @@
 Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
     "dynamics:Dynamic",
-    "base:Time",
+    "base:TimeFormat",
     "module:Templates",
     "jquery:",
     "module:Assets",
@@ -10,7 +10,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
     "dynamics:Partials.ShowPartial",
     "dynamics:Partials.IfPartial",
     "dynamics:Partials.ClickPartial"
-], function (Class, Time, Templates, $, Assets, Info, scoped) {
+], function (Class, TimeFormat, Templates, $, Assets, Info, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {
 			
@@ -98,10 +98,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 			
 			create: function () {
 				this.properties().compute("position_formatted", function () {
-					return Time.formatTime(this.get("position") * 1000, "mm:ss");
+					return TimeFormat.format(TimeFormat.ELAPSED_MINUTES_SECONDS, this.get("position") * 1000);
 				}, ['position']);
 				this.properties().compute("duration_formatted", function () {
-					return Time.formatTime(this.get("duration") * 1000, "mm:ss");
+					return TimeFormat.format(TimeFormat.ELAPSED_MINUTES_SECONDS, this.get("duration") * 1000);
 				}, ['duration']);
 				this.set("ismobile", Info.isMobile());
 			}

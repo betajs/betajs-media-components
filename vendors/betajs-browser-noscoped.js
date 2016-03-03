@@ -7,7 +7,7 @@ Scoped.binding('resumablejs', 'global:Resumable');
 Scoped.define("module:", function () {
 	return {
     "guid": "02450b15-9bbf-4be2-b8f6-b483bc015d06",
-    "version": "70.1455672026473"
+    "version": "71.1455804900395"
 };
 });
 Scoped.assumeVersion('base:version', 474);
@@ -2265,7 +2265,7 @@ Scoped.define("module:DomMutation.MutationObserverNodeInsertObserver", [
 				});
 				this._observer.observe(this._options.root || this._options.parent || document.body, {
 					childList: true,
-					subtree: !!this._options.parent
+					subtree: !this._options.parent
 				});
 			},
 			

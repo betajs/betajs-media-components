@@ -60,6 +60,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"autoplay": false,
 				"preload": false,
 				"loop": false,
+				"nofullscreen": false,
 				"ready": true,
 				/* States */
 				"states": {
@@ -77,7 +78,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"loop": "boolean",
 				"autoplay": "boolean",
 				"preload": "boolean",
-				"ready": "boolean"				
+				"ready": "boolean",
+				"nofullscreen": "boolean"
 			},
 			
 			extendables: ["states"],

@@ -1,7 +1,7 @@
 /*!
-betajs-dynamics - v0.0.35 - 2016-02-07
-Copyright (c) Oliver Friedmann,Victor Lingenthal
-Apache 2.0 Software License.
+betajs-dynamics - v0.0.38 - 2016-03-02
+Copyright (c) Victor Lingenthal,Oliver Friedmann
+Apache-2.0 Software License.
 */
 (function () {
 
@@ -16,7 +16,7 @@ Scoped.binding("jquery", "global:jQuery");
 Scoped.define("module:", function () {
 	return {
 		guid: "d71ebf84-e555-4e9b-b18a-11d74fdcefe2",
-		version: '219.1454870118315'
+		version: '222.1456952555938'
 	};
 });
 
@@ -293,8 +293,8 @@ Scoped.define("module:Data.Mesh", [
 	}]);
 });
 Scoped.define("module:Parser", [
-    "base:Types", "base:Objs", "base:JavaScript", "base:Strings"
-], function (Types, Objs, JavaScript, Strings) {
+    "base:Types", "base:Objs", "base:JavaScript"
+], function (Types, Objs, JavaScript) {
 	return {		
 		
 		parseText: function (text) {
@@ -337,7 +337,7 @@ Scoped.define("module:Parser", [
 					});
 					return s;
 				},
-				dependencies: Objs.keys(dependencies)
+				dependencies: Object.keys(dependencies)
 			};
 		},
 		
@@ -350,7 +350,7 @@ Scoped.define("module:Parser", [
 			var i = code.indexOf("::");
 			var args = null;
 			if (i >= 0) {
-				args = Strings.trim(code.substring(0, i));
+				args = code.substring(0, i).trim();
 				code = code.substring(i + 2);
 			}
 			return {
@@ -359,7 +359,7 @@ Scoped.define("module:Parser", [
 				variable: bidirectional ? code : null,
 				/*jslint evil: true */
 				func: new Function ("obj", "with (obj) { return " + code + "; }"),
-				dependencies: Objs.keys(Objs.objectify(JavaScript.extractIdentifiers(code, true)))
+				dependencies: Object.keys(Objs.objectify(JavaScript.extractIdentifiers(code, true)))
 			};
 		}
 	
@@ -875,7 +875,7 @@ Scoped.define("module:Dynamic", [
 		   	_notifications: {
 				_activate: "__createActivate"
 			},
-				
+			
 			constructor: function (options) {
 				this.initial = this.initial || {};
 				options = Objs.extend(Objs.clone(this.initial, 1), options);
@@ -890,6 +890,7 @@ Scoped.define("module:Dynamic", [
 					} else
 						options[key] = this[key];
 				}, this);
+				this.__dispose = options.dispose;
 				Objs.iter(this.object_functions, function (key) {
 					this[key] = function () {
 						var args = Functions.getArguments(arguments);
@@ -942,6 +943,12 @@ Scoped.define("module:Dynamic", [
 			},
 			
 			destroy: function () {
+				Objs.iter(this.__dispose, function (attr) {
+					var obj = this.get(attr);
+					this.set(attr, null);
+					if (obj && obj.weakDestroy)
+						obj.weakDestroy();
+				}, this);
 				Objs.iter(this.__registered_dom_events, function (source) {
 					source.off("." + this.cid() + "-domevents");
 				}, this);
@@ -953,7 +960,7 @@ Scoped.define("module:Dynamic", [
 	}], {
 		
 		__initialForward: [
-		    "functions", "attrs", "extendables", "collections", "template", "create", "scopes", "bindings", "computed", "types", "events"
+		    "functions", "attrs", "extendables", "collections", "template", "create", "scopes", "bindings", "computed", "types", "events", "dispose"
         ],
 		
 		canonicName: function () {
@@ -1001,6 +1008,9 @@ Scoped.define("module:Dynamic", [
 		_extender: {
 			attrs: function (base, overwrite) {
 				return Objs.extend(Objs.clone(base, 1), overwrite);
+			},
+			dispose: function (first, second) {
+				return (first || []).concat(second || []);
 			}
 		}
 	
@@ -1213,8 +1223,11 @@ Scoped.define("module:Handlers.HandlerMixin", [
 	
 		__handlerDestruct: function () {
 			Objs.iter(this.__rootNodes, function (node) {
+				var $element = node.$element();
 				node.destroy();
-			});
+				if (this.remove_on_destroy)
+					$element.html("");
+			}, this);
 		},
 		
 		template: null,
@@ -1227,6 +1240,8 @@ Scoped.define("module:Handlers.HandlerMixin", [
 				return this.parent().string(key);
 			return key;
 		},
+		
+		remove_on_destroy: false,
 		
 		_handlerInitialize: function (options) {
 			options = options || {};
@@ -1780,7 +1795,7 @@ Scoped.define("module:Handlers.Node", [
 	}]);
 	return Cls;
 });
-Scoped.define("module:Registries", ["base:Classes.ClassRegistry", "base:Strings", "jquery:"], function (ClassRegistry, Strings, $) {
+Scoped.define("module:Registries", ["base:Classes.ClassRegistry", "jquery:"], function (ClassRegistry, $) {
 	return {		
 		
 		handler: new ClassRegistry({}, true),
@@ -1792,7 +1807,7 @@ Scoped.define("module:Registries", ["base:Classes.ClassRegistry", "base:Strings"
 			cache: {},
 			
 			create: function (template) {
-				template = Strings.trim(template);
+				template = template.trim();
 				var cached = this.cache[template];
 				if (cached)
 					return cached.clone();
@@ -2066,7 +2081,7 @@ Scoped.define("module:Partials.IgnorePartial", ["module:Handlers.Partial"], func
 });
 
 
-Scoped.define("module:Partials.OnPartial", ["module:Handlers.Partial", "base:Strings"], function (Partial, Strings, scoped) {
+Scoped.define("module:Partials.OnPartial", ["module:Handlers.Partial"], function (Partial, Strings, scoped) {
   /**
    * @name ba-on
    *
@@ -2093,7 +2108,7 @@ Scoped.define("module:Partials.OnPartial", ["module:Handlers.Partial", "base:Str
  				inherited.constructor.apply(this, arguments);
  				var self = this;
  				this._node._$element.on(postfix + "." + this.cid(), function () {
- 					self._execute(Strings.trim(value));
+ 					self._execute(value.trim());
  				});
  			},
  			
@@ -2136,9 +2151,8 @@ Scoped.define("module:Partials.RepeatElementPartial", [
         "jquery:",
         "module:Parser",
         "base:Properties.Properties",
-        "base:Strings",
         "browser:Dom"
-	], function (Partial, Collection, FilteredCollection, Objs, $, Parser, Properties, Strings, Dom, scoped) {
+	], function (Partial, Collection, FilteredCollection, Objs, $, Parser, Properties, Dom, scoped) {
   /**
    * @name ba-repeat-element
    *
@@ -2172,8 +2186,14 @@ Scoped.define("module:Partials.RepeatElementPartial", [
  				inherited._activate.call(this);
  			},
  			
+ 			_iterateCollection: function (callback) {
+ 				var a = this._collection.iterator().asArray();
+ 				for (var i = a.length - 1; i >= 0; --i)
+ 					callback.call(this, a[i]);
+ 			},
+ 			
  			_newItemElements: function () {
- 				var template = Strings.trim(this.__filteredTemplate);
+ 				var template = this.__filteredTemplate.trim();
 				var element = $(template).get(0);
 				this._node._$element.after(element);
  				element["ba-handled"] = true;
@@ -2194,9 +2214,8 @@ Scoped.define("module:Partials.RepeatPartial", [
         "base:Objs",
         "jquery:",
         "module:Parser",
-        "base:Strings",
         "module:Registries"
-	], function (Partial, Properties, Collection, FilteredCollection, Objs, $, Parser, Strings, Registries, scoped) {
+	], function (Partial, Properties, Collection, FilteredCollection, Objs, $, Parser, Registries, scoped) {
 	  /**
 	   * @name ba-repeat
 	   *
@@ -2221,11 +2240,11 @@ Scoped.define("module:Partials.RepeatPartial", [
  				inherited.constructor.apply(this, arguments);
  				this.__registered = false;
  				args = args.split("~");
- 				this.__repeatArg = Strings.trim(args[0]);
+ 				this.__repeatArg = args[0].trim();
  				this._destroyCollection = false;
  				this._destroyValueCollection = false;
  				if (args.length > 1) {
- 					this.__repeatFilter = Parser.parseCode(Strings.trim(args[1]));
+ 					this.__repeatFilter = Parser.parseCode(args[1].trim());
  					var self = this;
  					node.mesh().watch(this.__repeatFilter.dependencies, function () {
  						self.__filterChanged();
@@ -2271,6 +2290,10 @@ Scoped.define("module:Partials.RepeatPartial", [
 				}, true);
  			},
  			
+ 			_iterateCollection: function (callback) {
+ 				this._collection.iterate(callback, this);
+ 			},
+ 			
  			__register: function () {
  				this.__unregister();
  				this._isArray = !Collection.is_instance_of(this._value);
@@ -2285,7 +2308,7 @@ Scoped.define("module:Partials.RepeatPartial", [
 					context: this
 				}) : this._valueCollection;
 				this._collectionChildren = {};
-				this._collection.iterate(this.__addItem, this);
+				this._iterateCollection(this.__addItem);
 				this._collection.on("add", this.__addItem, this);
 				this._collection.on("remove", this.__removeItem, this);
 				this._collection.on("reindexed", function (item) {
@@ -2302,7 +2325,7 @@ Scoped.define("module:Partials.RepeatPartial", [
  			__unregister: function () {
  				if (!this._collection)
  					return;
- 				this._collection.iterate(this.__removeItem, this);
+ 				this._iterateCollection(this.__removeItem);
  				var $element = this._node._$element;
  				this._node._removeChildren();
  				$element.html("");

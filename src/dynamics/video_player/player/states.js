@@ -17,7 +17,10 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
 			}, Objs.objectify(this.dynamics)), function (value, key) {
 				this.dyn.set(key + "_active", value);
 			}, this);
+			this._started();
 		},
+		
+		_started: function () {},
 		
 		play: function () {
 			this.dyn.set("autoplay", true);
@@ -31,18 +34,15 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.FatalError", [
 	"module:VideoPlayer.Dynamics.PlayerStates.State"
 ], function (State, scoped) {
-	return State.extend({scoped: scoped}, function (inherited) {
-		return {
-			
-			dynamics: ["message"],
-			_locals: ["message"],
-	
-			_start: function () {
-				inherited._start.call(this);
-				this.dyn.set("message", this._message || this.dyn.string("video-error"));
-			}
-	
-		};
+	return State.extend({scoped: scoped}, {
+		
+		dynamics: ["message"],
+		_locals: ["message"],
+
+		_started: function () {
+			this.dyn.set("message", this._message || this.dyn.string("video-error"));
+		}
+
 	});
 });
 
@@ -54,23 +54,19 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.FatalError", [
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Initial", [
     "module:VideoPlayer.Dynamics.PlayerStates.State"
 ], function (State, scoped) {
-	return State.extend({scoped: scoped}, function (inherited) {
-		return {
-			
-			dynamics: ["loader"],
-	
-			_start: function () {
-				inherited._start.call(this);
-				if (this.dyn.get("ready"))
+	return State.extend({scoped: scoped}, { 
+		
+		dynamics: ["loader"],
+
+		_started: function () {
+			if (this.dyn.get("ready"))
+				this.next("LoadPlayer");
+			else {
+				this.listenOn(this.dyn, "change:ready", function () {
 					this.next("LoadPlayer");
-				else {
-					this.listenOn(this.dyn, "change:ready", function () {
-						this.next("LoadPlayer");
-					});
-				}
+				});
 			}
-	
-		};
+		}
 	});
 });
 
@@ -78,27 +74,24 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Initial", [
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadPlayer", [
 	"module:VideoPlayer.Dynamics.PlayerStates.State"
 ], function (State, scoped) {
-	return State.extend({scoped: scoped}, function (inherited) {
-		return {
+	return State.extend({scoped: scoped}, {
 			
-			dynamics: ["loader"],
+		dynamics: ["loader"],
+
+		_started: function () {
+			this.listenOn(this.dyn, "error:attach", function () {
+				this.next("LoadError");
+			}, this);
+			this.listenOn(this.dyn, "error:poster", function () {
+				if (!this.dyn.get("states").poster_error.ignore)
+					this.next("PosterError");
+			}, this);
+			this.listenOn(this.dyn, "attached", function () {
+				this.next("PosterReady");
+			}, this);
+			this.dyn.reattachVideo();
+		}
 	
-			_start: function () {
-				inherited._start.call(this);
-				this.listenOn(this.dyn, "error:attach", function () {
-					this.next("LoadError");
-				}, this);
-				this.listenOn(this.dyn, "error:poster", function () {
-					if (!this.dyn.get("states").poster_error.ignore)
-						this.next("PosterError");
-				}, this);
-				this.listenOn(this.dyn, "attached", function () {
-					this.next("PosterReady");
-				}, this);
-				this.dyn.reattachVideo();
-			}
-	
-		};
 	});
 });
 
@@ -107,20 +100,17 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadPlayer", [
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadError", [
 	"module:VideoPlayer.Dynamics.PlayerStates.State"
 ], function (State, scoped) {
-	return State.extend({scoped: scoped}, function (inherited) {
-		return {
-			
-			dynamics: ["message"],
-	
-			_start: function () {
-				inherited._start.call(this);
-				this.dyn.set("message", this.dyn.string("video-error"));
-				this.listenOn(this.dyn, "message:click", function () {
-					this.next("LoadPlayer");
-				}, this);
-			}
-	
-		};
+	return State.extend({scoped: scoped}, {
+		
+		dynamics: ["message"],
+
+		_started: function () {
+			this.dyn.set("message", this.dyn.string("video-error"));
+			this.listenOn(this.dyn, "message:click", function () {
+				this.next("LoadPlayer");
+			}, this);
+		}
+
 	});
 });
 
@@ -129,26 +119,23 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadError", [
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
 	"module:VideoPlayer.Dynamics.PlayerStates.State"
 ], function (State, scoped) {
-	return State.extend({scoped: scoped}, function (inherited) {
-		return {
-			
-			dynamics: ["playbutton"],
-	
-			_start: function () {
-				inherited._start.call(this);
-				this.listenOn(this.dyn, "error:poster", function () {
-					if (!this.dyn.get("states").poster_error.ignore)
-						this.next("PosterError");
-				}, this);
-				if (this.dyn.get("autoplay"))
-					this.next("LoadVideo");
-			},
-			
-			play: function () {
-				this.next("LoadVideo");
-			}
-	
-		};
+	return State.extend({scoped: scoped}, {
+		
+		dynamics: ["playbutton"],
+
+		_started: function () {
+			this.listenOn(this.dyn, "error:poster", function () {
+				if (!this.dyn.get("states").poster_error.ignore)
+					this.next("PosterError");
+			}, this);
+			if (this.dyn.get("autoplay"))
+				this.play();
+		},
+		
+		play: function () {
+			this.next("LoadVideo");
+		}
+
 	});
 });
 
@@ -157,20 +144,17 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterError", [
 	"module:VideoPlayer.Dynamics.PlayerStates.State"
 ], function (State, scoped) {
-	return State.extend({scoped: scoped}, function (inherited) {
-		return {
-			
-			dynamics: ["message"],
-			
-			_start: function () {
-				inherited._start.call(this);
-				this.dyn.set("message", this.dyn.string("video-error"));
-				this.listenOn(this.dyn, "message:click", function () {
-					this.next(this.dyn.get("states").poster_error.click_play ? "LoadVideo" : "LoadPlayer");
-				}, this);
-			}
-	
-		};
+	return State.extend({scoped: scoped}, {
+		
+		dynamics: ["message"],
+		
+		_started: function () {
+			this.dyn.set("message", this.dyn.string("video-error"));
+			this.listenOn(this.dyn, "message:click", function () {
+				this.next(this.dyn.get("states").poster_error.click_play ? "LoadVideo" : "LoadPlayer");
+			}, this);
+		}
+
 	});
 });
 
@@ -180,23 +164,20 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
 	"module:VideoPlayer.Dynamics.PlayerStates.State",
 	"base:Async"
 ], function (State, Async, scoped) {
-	return State.extend({scoped: scoped}, function (inherited) {
-		return {
-			
-			dynamics: ["loader"],
+	return State.extend({scoped: scoped}, {
+		
+		dynamics: ["loader"],
+
+		_started: function () {
+			this.listenOn(this.dyn, "error:video", function () {
+				this.next("ErrorVideo");
+			}, this);
+			this.listenOn(this.dyn, "playing", function () {
+				this.next("PlayVideo");
+			}, this);
+			this.dyn.player.play();
+		}
 	
-			_start: function () {
-				inherited._start.call(this);
-				this.listenOn(this.dyn, "error:video", function () {
-					this.next("ErrorVideo");
-				}, this);
-				this.listenOn(this.dyn, "playing", function () {
-					this.next("PlayVideo");
-				}, this);
-				this.dyn.player.play();
-			}
-	
-		};
 	});
 });
 
@@ -205,20 +186,17 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.ErrorVideo", [
 	"module:VideoPlayer.Dynamics.PlayerStates.State"
 ], function (State, scoped) {
-	return State.extend({scoped: scoped}, function (inherited) {
-		return {
-			
-			dynamics: ["message"],
+	return State.extend({scoped: scoped}, {
+		
+		dynamics: ["message"],
+
+		_started: function () {
+			this.dyn.set("message", this.dyn.string("video-error"));
+			this.listenOn(this.dyn, "message:click", function () {
+				this.next("LoadVideo");
+			}, this);
+		}
 	
-			_start: function () {
-				inherited._start.call(this);
-				this.dyn.set("message", this.dyn.string("video-error"));
-				this.listenOn(this.dyn, "message:click", function () {
-					this.next("LoadVideo");
-				}, this);
-			}
-	
-		};
 	});
 });
 
@@ -228,30 +206,27 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.ErrorVideo", [
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
 	"module:VideoPlayer.Dynamics.PlayerStates.State"
 ], function (State, scoped) {
-	return State.extend({scoped: scoped}, function (inherited) {
-		return {
-			
-			dynamics: ["controlbar"],
-	
-			_start: function () {
-				inherited._start.call(this);
-				this.listenOn(this.dyn, "ended", function () {
-					this.next("PosterReady");
-				}, this);
-				this.listenOn(this.dyn, "change:buffering", function () {
-					this.dyn.set("loader_active", this.dyn.get("buffering"));
-				}, this);
-				this.listenOn(this.dyn, "error:video", function () {
-					this.next("ErrorVideo");
-				}, this);
-			},
-			
-			play: function () {
-				if (!this.dyn.get("playing"))
-					this.dyn.player.play();
-			}
-	
-		};
+	return State.extend({scoped: scoped}, {
+		
+		dynamics: ["controlbar"],
+
+		_started: function () {
+			this.listenOn(this.dyn, "ended", function () {
+				this.next("PosterReady");
+			}, this);
+			this.listenOn(this.dyn, "change:buffering", function () {
+				this.dyn.set("loader_active", this.dyn.get("buffering"));
+			}, this);
+			this.listenOn(this.dyn, "error:video", function () {
+				this.next("ErrorVideo");
+			}, this);
+		},
+		
+		play: function () {
+			if (!this.dyn.get("playing"))
+				this.dyn.player.play();
+		}
+
 	});
 });
 

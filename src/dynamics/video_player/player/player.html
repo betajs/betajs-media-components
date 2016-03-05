@@ -6,47 +6,6 @@
     ba-on:touchstart="user_activity()"
 >
     <video class="{{css}}-video" data-video="video"></video>
-    <div class='{{css}}-overlay'>
-    
-        <ba-{{dyncontrolbar}}
-            ba-css="{{csscontrolbar || css}}"
-            ba-template="{{tmplcontrolbar}}"
-            ba-show="{{controlbar_active}}"
-            ba-playing="{{playing}}"
-            ba-event:rerecord="rerecord"
-            ba-event:play="play"
-            ba-event:pause="pause"
-            ba-event:position="seek"
-            ba-event:volume="set_volume"
-            ba-event:fullscreen="toggle_fullscreen"
-            ba-volume="{{volume}}"
-            ba-duration="{{duration}}"
-            ba-cached="{{buffered}}"
-            ba-position="{{position}}"
-            ba-activitydelta="{{activity_delta}}"
-            ba-rerecordable="{{rerecordable}}"
-            ba-fullscreen="{{fullscreensupport && !nofullscreen}}"
-        ></ba-{{dyncontrolbar}}>
-        
-        <ba-{{dynplaybutton}}
-            ba-css="{{cssplaybutton || css}}"
-            ba-template="{{tmplplaybutton}}"
-            ba-show="{{playbutton_active}}"
-            ba-event:play="playbutton_click"
-        ></ba-{{dynplaybutton}}>
-        
-        <ba-{{dynloader}}
-            ba-css="{{cssloader || css}}"
-            ba-template="{{tmplloader}}"
-            ba-show="{{loader_active}}"
-        ></ba-{{dynloader}}>
-        
-        <ba-{{dynmessage}}
-            ba-css="{{cssmessage || css}}"
-            ba-template="{{tmplmessage}}"
-            ba-show="{{message_active}}"
-            ba-message="{{message}}"
-            ba-event:click="message_click"
-        ></ba-{{dynmessage}}>
+    <div class='{{css}}-overlay' ba-inner-template="{{tmploverlay}}">
     </div>
 </div>

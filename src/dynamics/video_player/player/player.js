@@ -20,12 +20,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.Controlbar",
     "dynamics:Partials.EventPartial",
     "dynamics:Partials.OnPartial",
-    "dynamics:Partials.TemplatePartial"
+    "dynamics:Partials.TemplatePartial",
+    "dynamics:Partials.InnerTemplatePartial"
 ], function (Class, Templates, Assets, Info, VideoPlayerWrapper, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, InitialState, PlayerStates, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {
 			
 			template: Templates.player,
+			
+			overlay_template: Templates.player_overlay,
 			
 			attrs: {
 				/* CSS */
@@ -48,6 +51,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"tmplloader": "",
 				"tmplmessage": "",
 				"tmplcontrolbar": "",
+				"tmploverlay": "",
 				/* Attributes */
 				"poster": "",
 				"source": "",
@@ -87,9 +91,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 			remove_on_destroy: true,
 			
 			create: function () {
-				if (this.get("theme") in Assets.themes)
-					this.setAll(Assets.themes[this.get("theme")]);
+				if (this.get("theme") in Assets.themes) {
+					Objs.iter(Assets.themes[this.get("theme")], function (value, key) {
+						if (!this.isArgumentAttr(key))
+							this.set(key, value);
+					}, this);
+				}
 
+				if (!this.get("tmploverlay"))
+					this.set("tmploverlay", this.overlay_template);
 				this.set("ie8", Info.isInternetExplorer() && Info.internetExplorerVersion() < 9);
 				this.set("duration", 0.0);
 				this.set("position", 0.0);

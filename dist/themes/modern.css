@@ -1,7 +1,7 @@
 /*!
-betajs-media-components - v0.0.11 - 2016-02-07
+betajs-media-components - v0.0.17 - 2016-03-03
 Copyright (c) Ziggeo,Oliver Friedmann
-Apache 2.0 Software License.
+Apache-2.0 Software License.
 */
 .ba-videoplayer-theme-modern-icon-play:before {
   font-family: "ba-videoplayer-fontello";
@@ -275,12 +275,6 @@ Apache 2.0 Software License.
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg); } }
-.ba-videoplayer-theme-modern-green .ba-videoplayer-theme-modern-button-inner {
-  color: #5da894; }
-
-.ba-videoplayer-theme-modern-blue .ba-videoplayer-theme-modern-button-inner {
-  color: #2a74eb; }
-
 .ba-videoplayer-theme-modern-dashboard {
   position: absolute;
   left: 0;
@@ -410,12 +404,6 @@ Apache 2.0 Software License.
   background-color: #eb6a74;
   height: 100%; }
 
-.ba-videoplayer-theme-modern-green .ba-videoplayer-theme-modern-volumebar-position {
-  background-color: #5da894; }
-
-.ba-videoplayer-theme-modern-blue .ba-videoplayer-theme-modern-volumebar-position {
-  background-color: #2a74eb; }
-
 .ba-videoplayer-noie8 .ba-videoplayer-theme-modern-progressbar {
   overflow: hidden;
   height: 100%;
@@ -470,11 +458,23 @@ Apache 2.0 Software License.
   background-color: #eb6a74;
   height: 100%; }
 
+.ba-videoplayer-theme-modern-green .ba-videoplayer-theme-modern-volumebar-position {
+  background-color: #5da894; }
+
+.ba-videoplayer-theme-modern-blue .ba-videoplayer-theme-modern-volumebar-position {
+  background-color: #2a74eb; }
+
 .ba-videoplayer-theme-modern-green .ba-videoplayer-theme-modern-progressbar-position {
   background-color: #5da894; }
 
 .ba-videoplayer-theme-modern-blue .ba-videoplayer-theme-modern-progressbar-position {
   background-color: #2a74eb; }
+
+.ba-videoplayer-theme-modern-green .ba-videoplayer-theme-modern-button-inner {
+  color: #5da894; }
+
+.ba-videoplayer-theme-modern-blue .ba-videoplayer-theme-modern-button-inner {
+  color: #2a74eb; }
 
 .ba-videoplayer-noie8 .ba-videoplayer-theme-modern-playbutton-container {
   -webkit-transform: translate(-50%, -50%);

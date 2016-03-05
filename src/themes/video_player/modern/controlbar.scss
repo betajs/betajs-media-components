@@ -1,11 +1,3 @@
-.#{$css}-green .#{$css}-button-inner {
-	color: $button_color_green;
-}
-
-.#{$css}-blue .#{$css}-button-inner {
-	color: $button_color_blue;
-}
-
 .#{$css}-dashboard {
     @include absolute-align-full-bottom;
     @include transition1(opacity, $dashboard_transition, ease-in-out);
@@ -100,14 +92,6 @@
     height: 100%;
 }
 
-.#{$css}-green .#{$css}-volumebar-position {
-	background-color: $button_color_green;
-}
-
-.#{$css}-blue .#{$css}-volumebar-position {
-	background-color: $button_color_blue;
-}
-
 .#{$cssnoie8} .#{$css}-progressbar {
     overflow: hidden;
     height: 100%;
@@ -147,6 +131,14 @@
     height: 100%;
 }
 
+.#{$css}-green .#{$css}-volumebar-position {
+	background-color: $button_color_green;
+}
+
+.#{$css}-blue .#{$css}-volumebar-position {
+	background-color: $button_color_blue;
+}
+
 .#{$css}-green .#{$css}-progressbar-position {
 	background-color: $button_color_green;
 }
@@ -154,3 +146,12 @@
 .#{$css}-blue .#{$css}-progressbar-position {
 	background-color: $button_color_blue;
 }
+
+.#{$css}-green .#{$css}-button-inner {
+	color: $button_color_green;
+}
+
+.#{$css}-blue .#{$css}-button-inner {
+	color: $button_color_blue;
+}
+

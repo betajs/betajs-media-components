@@ -7,4 +7,3 @@ node_modules
 browserstack.json
 BrowserStackLocal
 jsdoc.conf.json
-*.mp4

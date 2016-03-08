@@ -14,7 +14,7 @@ Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
     "guid": "8475efdb-dd7e-402e-9f50-36c76945a692",
-    "version": "44.1456952594710"
+    "version": "44.1456954139211"
 };
 });
 Scoped.assumeVersion('base:version', 474);

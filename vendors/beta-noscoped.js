@@ -10,7 +10,7 @@ Scoped.binding('module', 'global:BetaJS');
 Scoped.define("module:", function () {
 	return {
     "guid": "71366f7a-7da3-4e55-9a0b-ea0e4e2a9e79",
-    "version": "477.1456946243277"
+    "version": "477.1456966715651"
 };
 });
 Scoped.require(['module:'], function (mod) {
@@ -325,6 +325,22 @@ Scoped.define("module:Class", ["module:Types", "module:Objs", "module:Functions"
 
 });
 	
+Scoped.define("module:Classes.ReferenceCounterMixin", function () {
+	return {
+		__reference_count: 1,
+		
+		acquireReference: function () {
+			this.__reference_count++;
+		},
+		
+		releaseReference: function () {
+			this.__reference_count--;
+			if (this.__reference_count === 0)
+				this.weakDestroy();
+		}
+	};
+});
+
 Scoped.define("module:Classes.InvokerMixin", ["module:Objs", "module:Types", "module:Functions"], function (Objs, Types, Functions) {
 	return {
 		
@@ -2825,9 +2841,10 @@ Scoped.define("module:Properties.Properties", [
 	    "module:Class",
 	    "module:Objs",
 	    "module:Events.EventsMixin",
-	    "module:Properties.PropertiesMixin"
-	], function (Class, Objs, EventsMixin, PropertiesMixin, scoped) {
-	return Class.extend({scoped: scoped}, [EventsMixin, PropertiesMixin, function (inherited) {
+	    "module:Properties.PropertiesMixin",
+	    "module:Classes.ReferenceCounterMixin"
+	], function (Class, Objs, EventsMixin, PropertiesMixin, ReferenceCounterMixin, scoped) {
+	return Class.extend({scoped: scoped}, [EventsMixin, PropertiesMixin, ReferenceCounterMixin, function (inherited) {
 		return {
 			constructor: function (obj, materializes) {
 				inherited.constructor.call(this);
@@ -5085,6 +5102,8 @@ Scoped.define("module:Collections.Collection", [
 				}
 				options = options || {};
 				this.__indices = {};
+				if (options.release_references)
+					this.__release_references = true;
 				if (options.indices)
 					Objs.iter(options.indices, this.add_secondary_index, this);
 				var list_options = {};
@@ -5131,12 +5150,16 @@ Scoped.define("module:Collections.Collection", [
 			get_compare: function () {
 				this.__data.get_compare();
 			},
+			
+			__unload_item: function (object) {
+				if ("off" in object)
+					object.off(null, null, this);
+				if (this.__release_references)
+					object.releaseReference();
+			},
 		
 			destroy: function () {
-				this.__data.iterate(function (object) {
-					if ("off" in object)
-						object.off(null, null, this);
-				}, this);
+				this.__data.iterate(this.__unload_item, this);
 				this.__data.destroy();
 				this.trigger("destroy");
 				inherited.destroy.call(this);
@@ -5240,9 +5263,8 @@ Scoped.define("module:Collections.Collection", [
 					}
 				}, this);
 				var result = this.__data.remove(object);
-				if ("off" in object)
-					object.off(null, null, this);
 				this.trigger("remove", object);
+				this.__unload_item(object);
 				this.trigger("update");
 				return result;
 			},
@@ -7689,7 +7711,7 @@ Scoped.define("module:States.Host", [
 
 			finalize: function () {
 				if (this._state)
-					this._state.destroy();
+					this._state.end();
 				this._state = null;    	
 			},
 

@@ -1,5 +1,5 @@
 /*!
-betajs-dynamics - v0.0.38 - 2016-03-02
+betajs-dynamics - v0.0.40 - 2016-03-06
 Copyright (c) Victor Lingenthal,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -16,7 +16,7 @@ Scoped.binding("jquery", "global:jQuery");
 Scoped.define("module:", function () {
 	return {
 		guid: "d71ebf84-e555-4e9b-b18a-11d74fdcefe2",
-		version: '222.1456952555938'
+		version: '232.1457271433304'
 	};
 });
 
@@ -365,6 +365,7 @@ Scoped.define("module:Parser", [
 	
 	};
 });
+
 Scoped.define("module:Data.ScopeManager", [
 	    "base:Class",
 	    "base:Trees.TreeNavigator",
@@ -1852,6 +1853,7 @@ Scoped.define("module:Partials.AssocPartial", ["module:Handlers.Partial"], funct
 	return Cls;
 });
 
+
 Scoped.define("module:Partials.AttrsPartial", ["module:Handlers.Partial"], function (Partial, scoped) {
   /**
    * @name ba-attrs
@@ -2078,6 +2080,30 @@ Scoped.define("module:Partials.IgnorePartial", ["module:Handlers.Partial"], func
  	});
  	Cls.register("ba-ignore");
 	return Cls;
+});
+
+Scoped.define("module:Partials.InnerTemplatePartial",
+	["module:Handlers.Partial"], function (Partial, scoped) {
+
+ 	var Cls = Partial.extend({scoped: scoped}, function (inherited) {		
+ 		return {
+
+			constructor: function (node, args, value) {
+				inherited.constructor.apply(this, arguments);
+				node._$element.html(value);
+			}
+
+ 		};
+ 	}, {
+ 		
+ 		meta: {
+ 			value_hidden: true
+ 		}
+ 		
+ 	});
+ 	Cls.register("ba-inner-template");
+	return Cls;
+
 });
 
 

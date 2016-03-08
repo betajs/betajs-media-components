@@ -22,7 +22,7 @@
         "Oliver Friedmann"
     ],
     "devDependencies": {
-    	"lodash": "",
+        "lodash": "",
         "grunt": "",
         "grunt-contrib-jshint": "",
         "grunt-contrib-concat": "",

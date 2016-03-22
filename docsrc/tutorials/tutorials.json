@@ -1,0 +1,19 @@
+{  
+   "video_player_component": {  
+      "title":"Video Player Component",
+      "children": {
+      	  "embedding_video_player_component": {
+      	      "title": "Embedding"
+      	  },
+      	  "advanced_video_player_component": {
+      	  	  "title": "Advanced Options"
+      	  },
+      	  "themes_video_player_component": {
+      	  	  "title": "Themes"
+      	  },
+      	  "locales_video_player_component": {
+      	  	  "title": "Locales"
+      	  }
+      }
+   }
+}

@@ -1,3 +1,9 @@
+/*!
+betajs-browser - v1.0.26 - 2016-03-19
+Copyright (c) Oliver Friedmann
+Apache-2.0 Software License.
+*/
+
 (function () {
 var Scoped = this.subScope();
 Scoped.binding('module', 'global:BetaJS.Browser');
@@ -7,7 +13,7 @@ Scoped.binding('resumablejs', 'global:Resumable');
 Scoped.define("module:", function () {
 	return {
     "guid": "02450b15-9bbf-4be2-b8f6-b483bc015d06",
-    "version": "71.1455804900395"
+    "version": "75.1458353423617"
 };
 });
 Scoped.assumeVersion('base:version', 474);
@@ -1916,7 +1922,64 @@ Scoped.define("module:Dom", [
 			if (temp.remove)
 				temp.remove();
 			return s;
+		},
+		
+		elementSupportsFullscreen: function (element) {
+			return [
+			    "requestFullscreen",
+			    "webkitRequestFullscreen",
+			    "mozRequestFullScreen",
+			    "msRequestFullscreen"
+			].some(function (key) {
+				return key in element;
+			});
+		},
+		
+		elementEnterFullscreen: function (element) {
+			Objs.iter([
+			    "requestFullscreen",
+			    "webkitRequestFullscreen",
+			    "mozRequestFullScreen",
+			    "msRequestFullscreen"
+			], function (key) {
+				if (key in element)
+					element[key].call(element);
+				return !(key in element);
+			});
+		},
+		
+		elementIsFullscreen: function (element) {
+			return [
+			    "fullscreenElement",
+			    "webkitFullscreenElement",
+			    "mozFullScreenElement",
+			    "msFullscreenElement"
+			].some(function (key) {
+				return document[key] === element;
+			});
+		},
+		
+		elementOnFullscreenChange: function (element, callback, context) {
+			var self = this;
+			$(element).on([
+			    "fullscreenchange",
+			    "webkitfullscreenchange",
+			    "mozfullscreenchange",
+			    "MSFullscreenChange"
+            ].join(" "), function () {
+				callback.call(context || this, element, self.elementIsFullscreen(element));
+			});
+		},
+		
+		elementOffFullscreenChange: function (element) {
+			$(element).off([
+			    "fullscreenchange",
+			    "webkitfullscreenchange",
+			    "mozfullscreenchange",
+			    "MSFullscreenChange"
+            ].join(" "));
 		}
+		
 				
 	};
 });

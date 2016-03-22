@@ -66,6 +66,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"loop": false,
 				"nofullscreen": false,
 				"ready": true,
+				"stretch": false,
 				/* States */
 				"states": {
 					"poster_error": {
@@ -83,7 +84,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"autoplay": "boolean",
 				"preload": "boolean",
 				"ready": "boolean",
-				"nofullscreen": "boolean"
+				"nofullscreen": "boolean",
+				"stretch": "boolean"
 			},
 			
 			extendables: ["states"],
@@ -107,6 +109,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				this.set("volume", 1.0);
 				this.set("message", "");
 				this.set("fullscreensupport", false);
+				this.set("csssize", "normal");
 				
 				this.set("loader_active", false);
 				this.set("playbutton_active", false);
@@ -121,7 +124,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				this.__attachRequested = false;
 				this.__activated = false;
 				this.__error = null;
+				this.__currentStretch = null;
 				
+				this.on("change:stretch", function () {
+					this._updateStretch();
+				}, this);
 				this.host = this.auto_destroy(new Host({
 					stateRegistry: new ClassRegistry(this.cls.playerStates())
 				}));
@@ -224,9 +231,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 						this.set("duration", this.player.duration());
 						this.set("fullscreensupport", this.player.supportsFullscreen());
 						this.trigger("loaded");
+						this._updateStretch();
 					}, this);
 					if (this.player.loaded())
 						this.player.trigger("loaded");
+					this._updateStretch();
 			    }, this);
 			},
 			
@@ -323,6 +332,52 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 						this.set("duration", this.player.duration());
 					}
 				} catch (e) {}
+				this._updateStretch();
+				this._updateCSSSize();
+			},
+			
+			_updateCSSSize: function () {
+				this.set("csssize", this.element().width() > 400 ? "normal" : (this.element().width() > 300 ? "medium" : "small"));
+			},
+			
+			videoHeight: function () {
+				return this.videoAttached() ? this.player.videoHeight() : NaN;
+			},
+			
+			videoWidth: function () {
+				return this.videoAttached() ? this.player.videoWidth() : NaN;
+			},
+			
+			aspectRatio: function () {
+				return this.videoWidth() / this.videoHeight();
+			},
+			
+			_parentAspectRatio: function () {
+				return this.activeElement().parent().width() / this.activeElement().parent().height();
+			},
+			
+			_updateStretch: function () {
+				var newStretch = null;
+				if (this.get("stretch")) {
+					var ar = this.aspectRatio();
+					if (isFinite(ar)) {
+						var par = this._parentAspectRatio();
+						if (isFinite(par)) {
+							if (par > ar)
+								newStretch = "height";
+							if (par < ar)
+								newStretch = "width";
+						} else if (par === Infinite)
+							newStretch = "height";
+					}
+				}
+				if (this.__currentStretch !== newStretch) {
+					if (this.__currentStretch)
+						this.activeElement().removeClass(this.get("css") + "-stretch-" + this.__currentStretch);
+					if (newStretch)
+						this.activeElement().addClass(this.get("css") + "-stretch-" + newStretch);
+				}
+				this.__currentStretch = newStretch;				
 			}
 
 		};

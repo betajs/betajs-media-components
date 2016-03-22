@@ -155,3 +155,17 @@
 	color: $button_color_blue;
 }
 
+
+
+.#{$css}-size-small .#{$css}-time-container {
+	display: none;
+}
+
+.#{$css}-size-medium .#{$css}-volumebar, .#{$css}-size-small .#{$css}-volumebar {
+	display: none;
+}
+
+.#{$css}-size-medium .#{$css}-volume-button-container, .#{$css}-size-small .#{$css}-volume-button-container {
+	display: none;
+}
+

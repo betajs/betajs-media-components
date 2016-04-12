@@ -11,6 +11,7 @@ module.exports = function(grunt) {
 	.scopedclosurerevisionTask(null, [
   		'dist/betajs-media-components-templates.js',
 		'dist/betajs-media-components-locales.js',
+		'src/ads/**/*.js',
 		'src/dynamics/common/*.js',
 		'src/dynamics/video_player/**/*.js'
      ], "dist/" + dist + "-noscoped.js", {

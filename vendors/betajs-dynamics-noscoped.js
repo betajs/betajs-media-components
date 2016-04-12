@@ -1,5 +1,5 @@
 /*!
-betajs-dynamics - v0.0.40 - 2016-03-06
+betajs-dynamics - v0.0.41 - 2016-03-06
 Copyright (c) Victor Lingenthal,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -16,7 +16,7 @@ Scoped.binding("jquery", "global:jQuery");
 Scoped.define("module:", function () {
 	return {
 		guid: "d71ebf84-e555-4e9b-b18a-11d74fdcefe2",
-		version: '232.1457271433304'
+		version: '235.1457307852360'
 	};
 });
 
@@ -477,7 +477,10 @@ Scoped.define("module:Data.Scope", [
 				this.__data = options.data;
 				this.setAll(Types.is_function(options.attrs) ? options.attrs() : options.attrs);
 				Objs.iter(options.collections, function (value, key) {
-					this.set(key, new Collection({objects: value}));
+					this.set(key, this.auto_destroy(new Collection({
+						objects: value,
+						release_references: true
+					})));
 				}, this);
 				if (parent)
 					parent.__add(this);
@@ -2327,7 +2330,9 @@ Scoped.define("module:Partials.RepeatPartial", [
  				this._valueCollection = this._destroyValueCollection ? new Collection({
  					objects: Objs.map(this._value, function (val) {
  						return new Properties({value: val});
- 					})}) : this._value;
+ 					}),
+ 					release_references: true
+ 				}) : this._value;
  				this._destroyCollection = !!this.__repeatFilter;
 				this._collection = this._destroyCollection ? new FilteredCollection(this._valueCollection, {
 					filter: this.__filterFunc,

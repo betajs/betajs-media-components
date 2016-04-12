@@ -1,7 +1,7 @@
 /** @flow **//*!
-betajs-scoped - v0.0.7 - 2016-02-06
+betajs-scoped - v0.0.10 - 2016-04-07
 Copyright (c) Oliver Friedmann
-Apache 2.0 Software License.
+Apache-2.0 Software License.
 */
 var Scoped = (function () {
 var Globals = {
@@ -442,6 +442,19 @@ function newScope (parent, parentNS, rootNS, globalNS) {
 						params.push(Helper.stringify(argmts[i]));
 					this.compiled += this.options.ident + "." + name + "(" + params.join(", ") + ");\n\n";
 				}
+				if (this.options.dependencies) {
+					this.dependencies[ns.path] = this.dependencies[ns.path] || {};
+					if (args.dependencies) {
+						args.dependencies.forEach(function (dep) {
+							this.dependencies[ns.path][this.resolve(dep).path] = true;
+						}, this);
+					}
+					if (args.hiddenDependencies) {
+						args.hiddenDependencies.forEach(function (dep) {
+							this.dependencies[ns.path][this.resolve(dep).path] = true;
+						}, this);
+					}
+				}
 				var result = this.options.compile ? {} : args.callback.apply(args.context || this, arguments);
 				callback.call(this, ns, result);
 			}, this);
@@ -463,10 +476,13 @@ function newScope (parent, parentNS, rootNS, globalNS) {
 		options: {
 			lazy: false,
 			ident: "Scoped",
-			compile: false			
+			compile: false,
+			dependencies: false
 		},
 		
 		compiled: "",
+		
+		dependencies: {},
 		
 		nextScope: function () {
 			if (!nextScope)
@@ -660,7 +676,7 @@ var rootScope = newScope(null, rootNamespace, rootNamespace, globalNamespace);
 var Public = Helper.extend(rootScope, {
 		
 	guid: "4b6878ee-cb6a-46b3-94ac-27d91f58d666",
-	version: '37.1454812115138',
+	version: '43.1460041676769',
 		
 	upgrade: Attach.upgrade,
 	attach: Attach.attach,

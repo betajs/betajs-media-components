@@ -12,7 +12,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "base:States.Host",
     "base:Classes.ClassRegistry",
     "module:VideoPlayer.Dynamics.PlayerStates.Initial",
-    "module:VideoPlayer.Dynamics.PlayerStates"
+    "module:VideoPlayer.Dynamics.PlayerStates",
+    "module:Ads.AbstractVideoAdProvider"
 ], [
     "module:VideoPlayer.Dynamics.Playbutton",
     "module:VideoPlayer.Dynamics.Message",
@@ -22,7 +23,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "dynamics:Partials.OnPartial",
     "dynamics:Partials.TemplatePartial",
     "dynamics:Partials.InnerTemplatePartial"
-], function (Class, Templates, Assets, Info, VideoPlayerWrapper, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, InitialState, PlayerStates, scoped) {
+], function (Class, Templates, Assets, Info, VideoPlayerWrapper, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, InitialState, PlayerStates, AdProvider, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {
 			
@@ -56,9 +57,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"poster": "",
 				"source": "",
 				"sources": [],
+				"playlist": null,
 				/* Configuration */
 				"forceflash": false,
 				"noflash": false,
+				/* Ads */
+				"adprovider": null,
+				"preroll": false,
 				/* Options */
 				"rerecordable": false,
 				"autoplay": false,
@@ -85,7 +90,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"preload": "boolean",
 				"ready": "boolean",
 				"nofullscreen": "boolean",
-				"stretch": "boolean"
+				"stretch": "boolean",
+				"preroll": "boolean"
 			},
 			
 			extendables: ["states"],
@@ -99,7 +105,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 							this.set(key, value);
 					}, this);
 				}
-
+				if (this.get("adprovider")) {
+					this._adProvider = this.get("adprovider");
+					if (Types.is_string(this._adProvider))
+						this._adProvider = AdProvider.registry[this._adProvider];
+				}
+				if (this.get("playlist")) {
+					var pl0 = (this.get("playlist"))[0];
+					this.set("poster", pl0.poster);
+					this.set("source", pl0.source);
+					this.set("sources", pl0.sources);
+				}
 				if (!this.get("tmploverlay"))
 					this.set("tmploverlay", this.overlay_template);
 				this.set("ie8", Info.isInternetExplorer() && Info.internetExplorerVersion() < 9);
@@ -180,6 +196,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				this.set("playing", false);
 				if (this.player)
 					this.player.weakDestroy();
+				if (this._prerollAd)
+					this._prerollAd.weakDestroy();
 				this.player = null;
 			},
 			
@@ -205,6 +223,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 			    }).error(function (e) {
 			    	this._error("attach", e);
 			    }, this).success(function (instance) {
+					if (this._adProvider && this.get("preroll")) {
+						this._prerollAd = this._adProvider.newPrerollAd({
+							videoElement: this.element().find("[data-video='video']").get(0),
+							adElement: this.element().find("[data-video='ad']").get(0)
+						});
+					}
 			    	this.player = instance;			    	
 					this.player.on("postererror", function () {
 				    	this._error("poster");

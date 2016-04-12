@@ -1,12 +1,12 @@
 /*!
-betajs-media-components - v0.0.18 - 2016-03-21
+betajs-media-components - v0.0.19 - 2016-04-11
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
 /** @flow **//*!
-betajs-scoped - v0.0.7 - 2016-02-06
+betajs-scoped - v0.0.10 - 2016-04-07
 Copyright (c) Oliver Friedmann
-Apache 2.0 Software License.
+Apache-2.0 Software License.
 */
 var Scoped = (function () {
 var Globals = {
@@ -447,6 +447,19 @@ function newScope (parent, parentNS, rootNS, globalNS) {
 						params.push(Helper.stringify(argmts[i]));
 					this.compiled += this.options.ident + "." + name + "(" + params.join(", ") + ");\n\n";
 				}
+				if (this.options.dependencies) {
+					this.dependencies[ns.path] = this.dependencies[ns.path] || {};
+					if (args.dependencies) {
+						args.dependencies.forEach(function (dep) {
+							this.dependencies[ns.path][this.resolve(dep).path] = true;
+						}, this);
+					}
+					if (args.hiddenDependencies) {
+						args.hiddenDependencies.forEach(function (dep) {
+							this.dependencies[ns.path][this.resolve(dep).path] = true;
+						}, this);
+					}
+				}
 				var result = this.options.compile ? {} : args.callback.apply(args.context || this, arguments);
 				callback.call(this, ns, result);
 			}, this);
@@ -468,10 +481,13 @@ function newScope (parent, parentNS, rootNS, globalNS) {
 		options: {
 			lazy: false,
 			ident: "Scoped",
-			compile: false			
+			compile: false,
+			dependencies: false
 		},
 		
 		compiled: "",
+		
+		dependencies: {},
 		
 		nextScope: function () {
 			if (!nextScope)
@@ -665,7 +681,7 @@ var rootScope = newScope(null, rootNamespace, rootNamespace, globalNamespace);
 var Public = Helper.extend(rootScope, {
 		
 	guid: "4b6878ee-cb6a-46b3-94ac-27d91f58d666",
-	version: '37.1454812115138',
+	version: '43.1460041676769',
 		
 	upgrade: Attach.upgrade,
 	attach: Attach.attach,
@@ -693,7 +709,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.18 - 2016-03-21
+betajs-media-components - v0.0.19 - 2016-04-11
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -710,7 +726,7 @@ Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "30.1458605053355"
+    "version": "32.1460394550033"
 };
 });
 Scoped.assumeVersion('base:version', 474);
@@ -719,13 +735,166 @@ Scoped.assumeVersion('flash:version', 27);
 Scoped.assumeVersion('dynamics:version', 219);
 Scoped.assumeVersion('media:version', 42);
 Scoped.extend('module:Templates', function () {
-return {"controlbar":" <div class=\"{{css}}-dashboard {{activitydelta > 5000 ? (css + '-dashboard-hidden') : ''}}\">  <div class=\"{{css}}-progressbar {{activitydelta < 2500 || ismobile ? '' : (css + '-progressbar-small')}}\"       onmousedown=\"{{startUpdatePosition(domEvent)}}\"       onmouseup=\"{{stopUpdatePosition(domEvent)}}\"       onmouseleave=\"{{stopUpdatePosition(domEvent)}}\"       onmousemove=\"{{progressUpdatePosition(domEvent)}}\">   <div class=\"{{css}}-progressbar-cache\" ba-styles=\"{{{width: Math.round(duration ? cached / duration * 100 : 0) + '%'}}}\"></div>   <div class=\"{{css}}-progressbar-position\" ba-styles=\"{{{width: Math.round(duration ? position / duration * 100 : 0) + '%'}}}\" title=\"{{string('video-progress')}}\">    <div class=\"{{css}}-progressbar-button\"></div>   </div>  </div>  <div class=\"{{css}}-backbar\"></div>  <div class=\"{{css}}-controlbar\">         <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{rerecordable}}\"  ba-click=\"rerecord()\" title=\"{{string('rerecord-video')}\">             <div class=\"{{css}}-button-inner\">                 <i class=\"{{css}}-icon-ccw\"></i>             </div>         </div>   <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{!playing}}\" ba-click=\"play()\" title=\"{{string('play-video')}}\">    <div class=\"{{css}}-button-inner\">     <i class=\"{{css}}-icon-play\"></i>    </div>   </div>   <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{playing}}\" ba-click=\"pause()\" title=\"{{string('pause-video')}}\">             <div class=\"{{css}}-button-inner\">                 <i class=\"{{css}}-icon-pause\"></i>             </div>   </div>   <div class=\"{{css}}-time-container\">    <div class=\"{{css}}-time-value\" title=\"{{string('elapsed-time')}}\">{{position_formatted}}</div>    <div class=\"{{css}}-time-sep\">/</div>    <div class=\"{{css}}-time-value\" title=\"{{string('total-time')}}\">{{duration_formatted}}</div>   </div>   <div class=\"{{css}}-rightbutton-container\" ba-if=\"{{fullscreen}}\" ba-click=\"toggle_fullscreen()\" title=\"{{string('fullscreen-video')}}\">    <div class=\"{{css}}-button-inner\">     <i class=\"{{css}}-icon-resize-full\"></i>    </div>   </div>   <div class=\"{{css}}-volumebar\">    <div class=\"{{css}}-volumebar-inner\"         onmousedown=\"{{startUpdateVolume(domEvent)}}\"                  onmouseup=\"{{stopUpdateVolume(domEvent)}}\"                  onmouseleave=\"{{stopUpdateVolume(domEvent)}}\"                  onmousemove=\"{{progressUpdateVolume(domEvent)}}\">     <div class=\"{{css}}-volumebar-position\" ba-styles=\"{{{width: Math.min(100, Math.round(volume * 100)) + '%'}}}\">         <div class=\"{{css}}-volumebar-button\" title=\"{{string('volume-button')}}\"></div>     </div>        </div>   </div>   <div class=\"{{css}}-rightbutton-container\" ba-click=\"toggle_volume()\" title=\"{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}\">    <div class=\"{{css}}-button-inner\">     <i class=\"{{css + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}\"></i>    </div>   </div>  </div> </div> ","loader":" <div class=\"{{css}}-loader-container\">     <div class=\"{{css}}-loader-loader\" title=\"{{string('tooltip')}}\">     </div> </div>","message":" <div class=\"{{css}}-message-container\" ba-click=\"click()\">     <div class='{{css}}-message-message'>         {{message}}     </div> </div>","playbutton":" <div class=\"{{css}}-playbutton-container\" ba-click=\"play()\" title=\"{{string('tooltip')}}\">  <div class=\"{{css}}-playbutton-button\"></div> </div> ","player":" <div     class=\"{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}\"     ba-on:mousemove=\"user_activity()\"     ba-on:mousedown=\"user_activity()\"     ba-on:touchstart=\"user_activity()\" >     <video class=\"{{css}}-video\" data-video=\"video\"></video>     <div class='{{css}}-overlay' ba-inner-template=\"{{tmploverlay}}\">     </div> </div> ","player_overlay":"<ba-{{dyncontrolbar}}     ba-css=\"{{csscontrolbar || css}}\"     ba-template=\"{{tmplcontrolbar}}\"     ba-show=\"{{controlbar_active}}\"     ba-playing=\"{{playing}}\"     ba-event:rerecord=\"rerecord\"     ba-event:play=\"play\"     ba-event:pause=\"pause\"     ba-event:position=\"seek\"     ba-event:volume=\"set_volume\"     ba-event:fullscreen=\"toggle_fullscreen\"     ba-volume=\"{{volume}}\"     ba-duration=\"{{duration}}\"     ba-cached=\"{{buffered}}\"     ba-position=\"{{position}}\"     ba-activitydelta=\"{{activity_delta}}\"     ba-rerecordable=\"{{rerecordable}}\"     ba-fullscreen=\"{{fullscreensupport && !nofullscreen}}\"     ba-source=\"{{source}}\" ></ba-{{dyncontrolbar}}>  <ba-{{dynplaybutton}}     ba-css=\"{{cssplaybutton || css}}\"     ba-template=\"{{tmplplaybutton}}\"     ba-show=\"{{playbutton_active}}\"     ba-event:play=\"playbutton_click\" ></ba-{{dynplaybutton}}>  <ba-{{dynloader}}     ba-css=\"{{cssloader || css}}\"     ba-template=\"{{tmplloader}}\"     ba-show=\"{{loader_active}}\" ></ba-{{dynloader}}>  <ba-{{dynmessage}}     ba-css=\"{{cssmessage || css}}\"     ba-template=\"{{tmplmessage}}\"     ba-show=\"{{message_active}}\"     ba-message=\"{{message}}\"     ba-event:click=\"message_click\" ></ba-{{dynmessage}}> ","modern-controlbar":" <div class=\"{{css}}-dashboard {{activitydelta > 5000 ? (css + '-dashboard-hidden') : ''}}\">        <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{rerecordable}}\" ba-click=\"rerecord()\" title=\"{{string('rerecord-video')}\">            <div class=\"{{css}}-button-inner\">                <i class=\"{{css}}-icon-ccw\"></i>            </div>        </div>  <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{!playing}}\" ba-click=\"play()\" title=\"{{string('play-video')}}\">   <div class=\"{{css}}-button-inner\">    <i class=\"{{css}}-icon-play\"></i>   </div>  </div>  <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{playing}}\" ba-click=\"pause()\" title=\"{{string('pause-video')}}\">    <div class=\"{{css}}-button-inner\">    <i class=\"{{css}}-icon-pause\"></i>   </div>  </div>  <div class=\"{{css}}-time-container\">   <div class=\"{{css}}-time-value\" title=\"{{string('elapsed-time')}}\">{{position_formatted}}/{{duration_formatted}}</div>  </div>  <div class=\"{{css}}-rightbutton-container\" ba-if=\"{{fullscreen}}\" ba-click=\"toggle_fullscreen()\" title=\"{{string('fullscreen-video')}}\">   <div class=\"{{css}}-button-inner\">    <i class=\"{{css}}-icon-resize-full\"></i>   </div>  </div>  <div class=\"{{css}}-volumebar\">   <div class=\"{{css}}-volumebar-inner\"           onmousedown=\"{{startUpdateVolume(domEvent)}}\"                 onmouseup=\"{{stopUpdateVolume(domEvent)}}\"                 onmouseleave=\"{{stopUpdateVolume(domEvent)}}\"                 onmousemove=\"{{progressUpdateVolume(domEvent)}}\">    <div class=\"{{css}}-volumebar-position\" ba-styles=\"{{{width: Math.ceil(1+Math.min(99, Math.round(volume * 100))) + '%'}}}\" title=\"{{string('volume-button')}}\"></div>       </div>  </div>  <div class=\"{{css}}-rightbutton-container {{css}}-volume-button-container\" ba-click=\"toggle_volume()\" title=\"{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}\">   <div class=\"{{css}}-button-inner\">    <i class=\"{{css + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}\"></i>   </div>  </div>  <div class=\"{{css}}-progressbar\">   <div class=\"{{css}}-progressbar-inner\"        onmousedown=\"{{startUpdatePosition(domEvent)}}\"        onmouseup=\"{{stopUpdatePosition(domEvent)}}\"        onmouseleave=\"{{stopUpdatePosition(domEvent)}}\"        onmousemove=\"{{progressUpdatePosition(domEvent)}}\">   <div class=\"{{css}}-progressbar-cache\" ba-styles=\"{{{width: Math.round(duration ? cached / duration * 100 : 0) + '%'}}}\"></div>   <div class=\"{{css}}-progressbar-position\" ba-styles=\"{{{width: Math.round(duration ? position / duration * 100 : 0) + '%'}}}\" title=\"{{string('video-progress')}}\"></div>  </div> </div> "};
+return {"controlbar":" <div class=\"{{css}}-dashboard {{activitydelta > 5000 ? (css + '-dashboard-hidden') : ''}}\">  <div class=\"{{css}}-progressbar {{activitydelta < 2500 || ismobile ? '' : (css + '-progressbar-small')}}\"       onmousedown=\"{{startUpdatePosition(domEvent)}}\"       onmouseup=\"{{stopUpdatePosition(domEvent)}}\"       onmouseleave=\"{{stopUpdatePosition(domEvent)}}\"       onmousemove=\"{{progressUpdatePosition(domEvent)}}\">   <div class=\"{{css}}-progressbar-cache\" ba-styles=\"{{{width: Math.round(duration ? cached / duration * 100 : 0) + '%'}}}\"></div>   <div class=\"{{css}}-progressbar-position\" ba-styles=\"{{{width: Math.round(duration ? position / duration * 100 : 0) + '%'}}}\" title=\"{{string('video-progress')}}\">    <div class=\"{{css}}-progressbar-button\"></div>   </div>  </div>  <div class=\"{{css}}-backbar\"></div>  <div class=\"{{css}}-controlbar\">         <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{rerecordable}}\"  ba-click=\"rerecord()\" title=\"{{string('rerecord-video')}\">             <div class=\"{{css}}-button-inner\">                 <i class=\"{{css}}-icon-ccw\"></i>             </div>         </div>   <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{!playing}}\" ba-click=\"play()\" title=\"{{string('play-video')}}\">    <div class=\"{{css}}-button-inner\">     <i class=\"{{css}}-icon-play\"></i>    </div>   </div>   <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{playing}}\" ba-click=\"pause()\" title=\"{{string('pause-video')}}\">             <div class=\"{{css}}-button-inner\">                 <i class=\"{{css}}-icon-pause\"></i>             </div>   </div>   <div class=\"{{css}}-time-container\">    <div class=\"{{css}}-time-value\" title=\"{{string('elapsed-time')}}\">{{position_formatted}}</div>    <div class=\"{{css}}-time-sep\">/</div>    <div class=\"{{css}}-time-value\" title=\"{{string('total-time')}}\">{{duration_formatted}}</div>   </div>   <div class=\"{{css}}-rightbutton-container\" ba-if=\"{{fullscreen}}\" ba-click=\"toggle_fullscreen()\" title=\"{{string('fullscreen-video')}}\">    <div class=\"{{css}}-button-inner\">     <i class=\"{{css}}-icon-resize-full\"></i>    </div>   </div>   <div class=\"{{css}}-volumebar\">    <div class=\"{{css}}-volumebar-inner\"         onmousedown=\"{{startUpdateVolume(domEvent)}}\"                  onmouseup=\"{{stopUpdateVolume(domEvent)}}\"                  onmouseleave=\"{{stopUpdateVolume(domEvent)}}\"                  onmousemove=\"{{progressUpdateVolume(domEvent)}}\">     <div class=\"{{css}}-volumebar-position\" ba-styles=\"{{{width: Math.min(100, Math.round(volume * 100)) + '%'}}}\">         <div class=\"{{css}}-volumebar-button\" title=\"{{string('volume-button')}}\"></div>     </div>        </div>   </div>   <div class=\"{{css}}-rightbutton-container\" ba-click=\"toggle_volume()\" title=\"{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}\">    <div class=\"{{css}}-button-inner\">     <i class=\"{{css + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}\"></i>    </div>   </div>  </div> </div> ","loader":" <div class=\"{{css}}-loader-container\">     <div class=\"{{css}}-loader-loader\" title=\"{{string('tooltip')}}\">     </div> </div>","message":" <div class=\"{{css}}-message-container\" ba-click=\"click()\">     <div class='{{css}}-message-message'>         {{message}}     </div> </div>","playbutton":" <div class=\"{{css}}-playbutton-container\" ba-click=\"play()\" title=\"{{string('tooltip')}}\">  <div class=\"{{css}}-playbutton-button\"></div> </div> ","player":" <div     class=\"{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}\"     ba-on:mousemove=\"user_activity()\"     ba-on:mousedown=\"user_activity()\"     ba-on:touchstart=\"user_activity()\" >     <video class=\"{{css}}-video\" data-video=\"video\"></video>     <div class=\"{{css}}-overlay\" data-video=\"ad\" style=\"display:none\"></div>     <div class='{{css}}-overlay' ba-inner-template=\"{{tmploverlay}}\">     </div> </div> ","player_overlay":"<ba-{{dyncontrolbar}}     ba-css=\"{{csscontrolbar || css}}\"     ba-template=\"{{tmplcontrolbar}}\"     ba-show=\"{{controlbar_active}}\"     ba-playing=\"{{playing}}\"     ba-event:rerecord=\"rerecord\"     ba-event:play=\"play\"     ba-event:pause=\"pause\"     ba-event:position=\"seek\"     ba-event:volume=\"set_volume\"     ba-event:fullscreen=\"toggle_fullscreen\"     ba-volume=\"{{volume}}\"     ba-duration=\"{{duration}}\"     ba-cached=\"{{buffered}}\"     ba-position=\"{{position}}\"     ba-activitydelta=\"{{activity_delta}}\"     ba-rerecordable=\"{{rerecordable}}\"     ba-fullscreen=\"{{fullscreensupport && !nofullscreen}}\"     ba-source=\"{{source}}\" ></ba-{{dyncontrolbar}}>  <ba-{{dynplaybutton}}     ba-css=\"{{cssplaybutton || css}}\"     ba-template=\"{{tmplplaybutton}}\"     ba-show=\"{{playbutton_active}}\"     ba-event:play=\"playbutton_click\" ></ba-{{dynplaybutton}}>  <ba-{{dynloader}}     ba-css=\"{{cssloader || css}}\"     ba-template=\"{{tmplloader}}\"     ba-show=\"{{loader_active}}\" ></ba-{{dynloader}}>  <ba-{{dynmessage}}     ba-css=\"{{cssmessage || css}}\"     ba-template=\"{{tmplmessage}}\"     ba-show=\"{{message_active}}\"     ba-message=\"{{message}}\"     ba-event:click=\"message_click\" ></ba-{{dynmessage}}> ","modern-controlbar":" <div class=\"{{css}}-dashboard {{activitydelta > 5000 ? (css + '-dashboard-hidden') : ''}}\">        <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{rerecordable}}\" ba-click=\"rerecord()\" title=\"{{string('rerecord-video')}\">            <div class=\"{{css}}-button-inner\">                <i class=\"{{css}}-icon-ccw\"></i>            </div>        </div>  <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{!playing}}\" ba-click=\"play()\" title=\"{{string('play-video')}}\">   <div class=\"{{css}}-button-inner\">    <i class=\"{{css}}-icon-play\"></i>   </div>  </div>  <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{playing}}\" ba-click=\"pause()\" title=\"{{string('pause-video')}}\">    <div class=\"{{css}}-button-inner\">    <i class=\"{{css}}-icon-pause\"></i>   </div>  </div>  <div class=\"{{css}}-time-container\">   <div class=\"{{css}}-time-value\" title=\"{{string('elapsed-time')}}\">{{position_formatted}}/{{duration_formatted}}</div>  </div>  <div class=\"{{css}}-rightbutton-container\" ba-if=\"{{fullscreen}}\" ba-click=\"toggle_fullscreen()\" title=\"{{string('fullscreen-video')}}\">   <div class=\"{{css}}-button-inner\">    <i class=\"{{css}}-icon-resize-full\"></i>   </div>  </div>  <div class=\"{{css}}-volumebar\">   <div class=\"{{css}}-volumebar-inner\"           onmousedown=\"{{startUpdateVolume(domEvent)}}\"                 onmouseup=\"{{stopUpdateVolume(domEvent)}}\"                 onmouseleave=\"{{stopUpdateVolume(domEvent)}}\"                 onmousemove=\"{{progressUpdateVolume(domEvent)}}\">    <div class=\"{{css}}-volumebar-position\" ba-styles=\"{{{width: Math.ceil(1+Math.min(99, Math.round(volume * 100))) + '%'}}}\" title=\"{{string('volume-button')}}\"></div>       </div>  </div>  <div class=\"{{css}}-rightbutton-container {{css}}-volume-button-container\" ba-click=\"toggle_volume()\" title=\"{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}\">   <div class=\"{{css}}-button-inner\">    <i class=\"{{css + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}\"></i>   </div>  </div>  <div class=\"{{css}}-progressbar\">   <div class=\"{{css}}-progressbar-inner\"        onmousedown=\"{{startUpdatePosition(domEvent)}}\"        onmouseup=\"{{stopUpdatePosition(domEvent)}}\"        onmouseleave=\"{{stopUpdatePosition(domEvent)}}\"        onmousemove=\"{{progressUpdatePosition(domEvent)}}\">   <div class=\"{{css}}-progressbar-cache\" ba-styles=\"{{{width: Math.round(duration ? cached / duration * 100 : 0) + '%'}}}\"></div>   <div class=\"{{css}}-progressbar-position\" ba-styles=\"{{{width: Math.round(duration ? position / duration * 100 : 0) + '%'}}}\" title=\"{{string('video-progress')}}\"></div>  </div> </div> "};
 });
 Scoped.extend("module:Assets", ["module:Assets"], function (Assets) {
     var languages = {"language:de":{"ba-videoplayer-playbutton.tooltip":"Hier clicken um Wiedergabe zu starten.","ba-videoplayer-loader.tooltip":"Video wird geladen...","ba-videoplayer-controlbar.video-progress":"Videofortschritt","ba-videoplayer-controlbar.rerecord-video":"Video erneut aufnehmen?","ba-videoplayer-controlbar.play-video":"Video wiedergeben","ba-videoplayer-controlbar.pause-video":"Video pausieren","ba-videoplayer-controlbar.elapsed-time":"Vergangene Zeit","ba-videoplayer-controlbar.total-time":"L&#xE4;nge des Videos","ba-videoplayer-controlbar.fullscreen-video":"Vollbildmodus","ba-videoplayer-controlbar.volume-button":"Lautst&#xE4;rke regulieren","ba-videoplayer-controlbar.volume-mute":"Ton abstellen","ba-videoplayer-controlbar.volume-unmute":"Ton wieder einstellen","ba-videoplayer.video-error":"Es ist ein Fehler aufgetreten, bitte versuchen Sie es sp&#xE4;ter noch einmal. Hier klicken, um es noch einmal zu probieren."}};
     for (var language in languages)
         Assets.strings.register(languages[language], [language]);
     return {};
+});
+
+Scoped.define("module:Ads.AdSenseVideoAdProvider", [
+		"module:Ads.AbstractVideoAdProvider", "module:Ads.AdSensePrerollAd" ],
+function(AbstractVideoAdProvider, AdSensePrerollAd, scoped) {
+	return AbstractVideoAdProvider.extend({
+		scoped : scoped
+	}, {
+
+		_newPrerollAd : function(options) {
+			return new AdSensePrerollAd(this, options);
+		}
+
+	});
+});
+
+
+Scoped.define("module:Ads.AdSensePrerollAd", [
+  	"module:Ads.AbstractPrerollAd"
+  ], function (AbstractVideoPrerollAd, scoped) {
+  	return AbstractVideoPrerollAd.extend({scoped: scoped}, function (inherited) {
+  		return {
+  				
+  			constructor: function (provider, options) {
+  				inherited.constructor.call(this, provider, options);
+  				this._adDisplayContainer = new google.ima.AdDisplayContainer(this._options.adElement, this._options.videoElement);
+  				// Must be done as the result of a user action on mobile
+  				this._adDisplayContainer.initialize();
+  				//Re-use this AdsLoader instance for the entire lifecycle of your page.
+  				this._adsLoader = new google.ima.AdsLoader(this._adDisplayContainer);
+  	
+  				var self = this;
+  				this._adsLoader.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, function () {
+  					self._adError();
+  				}, false);
+  				this._adsLoader.addEventListener(google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED, function () {
+  					self._adLoaded.apply(self, arguments);
+  				}, false);
+  				
+  				this._adsRequest = new google.ima.AdsRequest();
+  				this._adsRequest.adTagUrl = this._provider.options().adTagUrl;
+  			},
+  			
+  			_executeAd: function (options) {
+  				// Specify the linear and nonlinear slot sizes. This helps the SDK to
+  				// select the correct creative if multiple are returned.
+  				this._adsRequest.linearAdSlotWidth = options.width;
+  				this._adsRequest.linearAdSlotHeight = options.height;
+  				// adsRequest.nonLinearAdSlotWidth = 640;
+  				// adsRequest.nonLinearAdSlotHeight = 150;
+  				
+  				this._adsLoader.requestAds(this._adsRequest);
+  			},
+  			
+  			_adError: function () {
+  				if (this._adsManager)
+  					this._adsManager.destroy();
+  				this._adFinished();
+  			},
+  			
+  			_adLoaded: function (adsManagerLoadedEvent) {
+  				  // Get the ads manager.
+  				  this._adsManager = adsManagerLoadedEvent.getAdsManager(this._options.videoElement);
+  				  // See API reference for contentPlayback
+  				
+  				  try {
+  					    // Initialize the ads manager. Ad rules playlist will start at this time.
+  					  this._adsManager.init(this._adsRequest.linearAdSlotWidth, this._adsRequest.linearAdSlotHeight, google.ima.ViewMode.NORMAL);
+  					    // Call start to show ads. Single video and overlay ads will
+  					    // start at this time; this call will be ignored for ad rules, as ad rules
+  					    // ads start when the adsManager is initialized.
+  					  this._adsManager.start();
+  					  } catch (adError) {
+  					    // An error may be thrown if there was a problem with the VAST response.
+  					  }
+  	
+  				  var self = this;
+  				  // Add listeners to the required events.
+  				  this._adsManager.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, function () {
+  				      self._adError();
+  				  }, false);
+  				
+  				  //this._adsManager.addEventListener(google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED, function () {});
+  				  this._adsManager.addEventListener(google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED, function () {
+  					  self._adFinished();
+  				  });
+  			}
+  		
+  		};	
+  	});
+  });
+
+Scoped.define("module:Ads.AbstractVideoAdProvider", [ "base:Class" ], function(
+		Class, scoped) {
+	return Class.extend({
+		scoped : scoped
+	}, function(inherited) {
+		return {
+
+			constructor : function(options) {
+				inherited.constructor.call(this);
+				this._options = options;
+			},
+
+			options : function() {
+				return this._options;
+			},
+
+			_newPrerollAd : function(options) {
+			},
+
+			newPrerollAd : function(options) {
+				return this._newPrerollAd(options);
+			},
+			
+			register: function (name) {
+				this.cls.registry[name] = this;
+			}
+
+		};
+	}, {
+		
+		registry: {}
+		
+	});
+});
+
+
+Scoped.define("module:Ads.AbstractPrerollAd", [ "base:Class",
+		"base:Events.EventsMixin", "jquery:" ], function(Class, EventsMixin, $, scoped) {
+	return Class.extend({
+		scoped : scoped
+	}, [ EventsMixin, function(inherited) {
+		return {
+
+			constructor : function(provider, options) {
+				inherited.constructor.call(this);
+				this._provider = provider;
+				this._options = options;
+			},
+
+			executeAd : function(options) {
+				$(this._options.adElement).show();
+				this._executeAd(options);
+			},
+
+			_adFinished : function() {
+				$(this._options.adElement).hide();
+				this.trigger("finished");
+			}
+
+		};
+	} ]);
 });
 
 Scoped.define("module:Assets", [
@@ -964,7 +1133,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "base:States.Host",
     "base:Classes.ClassRegistry",
     "module:VideoPlayer.Dynamics.PlayerStates.Initial",
-    "module:VideoPlayer.Dynamics.PlayerStates"
+    "module:VideoPlayer.Dynamics.PlayerStates",
+    "module:Ads.AbstractVideoAdProvider"
 ], [
     "module:VideoPlayer.Dynamics.Playbutton",
     "module:VideoPlayer.Dynamics.Message",
@@ -974,7 +1144,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "dynamics:Partials.OnPartial",
     "dynamics:Partials.TemplatePartial",
     "dynamics:Partials.InnerTemplatePartial"
-], function (Class, Templates, Assets, Info, VideoPlayerWrapper, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, InitialState, PlayerStates, scoped) {
+], function (Class, Templates, Assets, Info, VideoPlayerWrapper, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, InitialState, PlayerStates, AdProvider, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {
 			
@@ -1008,9 +1178,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"poster": "",
 				"source": "",
 				"sources": [],
+				"playlist": null,
 				/* Configuration */
 				"forceflash": false,
 				"noflash": false,
+				/* Ads */
+				"adprovider": null,
+				"preroll": false,
 				/* Options */
 				"rerecordable": false,
 				"autoplay": false,
@@ -1037,7 +1211,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"preload": "boolean",
 				"ready": "boolean",
 				"nofullscreen": "boolean",
-				"stretch": "boolean"
+				"stretch": "boolean",
+				"preroll": "boolean"
 			},
 			
 			extendables: ["states"],
@@ -1051,7 +1226,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 							this.set(key, value);
 					}, this);
 				}
-
+				if (this.get("adprovider")) {
+					this._adProvider = this.get("adprovider");
+					if (Types.is_string(this._adProvider))
+						this._adProvider = AdProvider.registry[this._adProvider];
+				}
+				if (this.get("playlist")) {
+					var pl0 = (this.get("playlist"))[0];
+					this.set("poster", pl0.poster);
+					this.set("source", pl0.source);
+					this.set("sources", pl0.sources);
+				}
 				if (!this.get("tmploverlay"))
 					this.set("tmploverlay", this.overlay_template);
 				this.set("ie8", Info.isInternetExplorer() && Info.internetExplorerVersion() < 9);
@@ -1132,6 +1317,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				this.set("playing", false);
 				if (this.player)
 					this.player.weakDestroy();
+				if (this._prerollAd)
+					this._prerollAd.weakDestroy();
 				this.player = null;
 			},
 			
@@ -1157,6 +1344,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 			    }).error(function (e) {
 			    	this._error("attach", e);
 			    }, this).success(function (instance) {
+					if (this._adProvider && this.get("preroll")) {
+						this._prerollAd = this._adProvider.newPrerollAd({
+							videoElement: this.element().find("[data-video='video']").get(0),
+							adElement: this.element().find("[data-video='ad']").get(0)
+						});
+					}
 			    	this.player = instance;			    	
 					this.player.on("postererror", function () {
 				    	this._error("poster");
@@ -1481,7 +1674,32 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
 		},
 		
 		play: function () {
-			this.next("LoadVideo");
+			this.next("Preroll");
+		}
+
+	});
+});
+
+
+
+Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Preroll", [
+	"module:VideoPlayer.Dynamics.PlayerStates.State"
+], function (State, scoped) {
+	return State.extend({scoped: scoped}, {
+		
+		dynamics: [],
+
+		_started: function () {
+			if (this.dyn._prerollAd) {
+				this.dyn._prerollAd.once("finished", function () {
+					this.next("LoadVideo");
+				}, this);
+				this.dyn._prerollAd.executeAd({
+					width: this.dyn.videoWidth(),
+					height: this.dyn.videoHeight()
+				});
+			} else
+				this.next("LoadVideo");
 		}
 
 	});
@@ -1559,8 +1777,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
 		dynamics: ["controlbar"],
 
 		_started: function () {
+			this.dyn.set("autoplay", false);
 			this.listenOn(this.dyn, "ended", function () {
-				this.next("PosterReady");
+				this.next("NextVideo");
 			}, this);
 			this.listenOn(this.dyn, "change:buffering", function () {
 				this.dyn.set("loader_active", this.dyn.get("buffering"));
@@ -1573,6 +1792,36 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
 		play: function () {
 			if (!this.dyn.get("playing"))
 				this.dyn.player.play();
+		}
+
+	});
+});
+
+
+Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
+	"module:VideoPlayer.Dynamics.PlayerStates.State"
+], function (State, scoped) {
+	return State.extend({scoped: scoped}, {
+
+		_started: function () {
+			if (this.dyn.get("playlist")) {
+				var list = this.dyn.get("playlist");
+				var head = list.shift();
+				if (this.dyn.get("loop"))
+					list.push(head);
+				this.dyn.set("playlist", list);
+				if (list.length > 0) {
+					var pl0 = list[0];
+					this.dyn.set("poster", pl0.poster);
+					this.dyn.set("source", pl0.source);
+					this.dyn.set("sources", pl0.sources);
+					this.dyn.reattachVideo();
+					this.dyn.set("autoplay", true);
+					this.next("LoadPlayer");
+					return;
+				}
+			}
+			this.next("PosterReady");
 		}
 
 	});

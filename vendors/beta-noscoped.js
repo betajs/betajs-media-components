@@ -1,5 +1,5 @@
 /*!
-betajs - v1.0.40 - 2016-03-02
+betajs - v1.0.46 - 2016-03-27
 Copyright (c) Oliver Friedmann,Victor Lingenthal
 Apache-2.0 Software License.
 */
@@ -10,7 +10,7 @@ Scoped.binding('module', 'global:BetaJS');
 Scoped.define("module:", function () {
 	return {
     "guid": "71366f7a-7da3-4e55-9a0b-ea0e4e2a9e79",
-    "version": "477.1456966715651"
+    "version": "484.1459099481601"
 };
 });
 Scoped.require(['module:'], function (mod) {
@@ -363,105 +363,6 @@ Scoped.define("module:Classes.InvokerMixin", ["module:Objs", "module:Types", "mo
 });
 
 
-Scoped.define("module:Classes.ModuleMixin", ["module:Objs"], function (Objs) {
-	return {
-	
-		_notifications : {
-			construct : function() {
-				this.__modules = {};
-			},
-			destroy : function() {
-				Objs.iter(this.__modules, this.remove_module, this);
-			}
-		},
-	
-		add_module : function(module) {
-			if (module.cid() in this.__modules)
-				return;
-			this.__modules[module.cid()] = module;
-			module.register(this);
-			this._notify("add_module", module);
-		},
-	
-		remove_module : function(module) {
-			if (!(module.cid() in this.__modules))
-				return;
-			delete this.__modules[module.cid()];
-			module.unregister(this);
-			this._notify("remove_module", module);
-		}
-		
-	};
-});
-
-
-Scoped.define("module:Classes.Module", ["module:Class", "module:Objs", "module:Ids", "module:Types"], function (Class, Objs, Ids, Types, scoped) {
-	return Class.extend({scoped: scoped}, function (inherited) {
-		return {
-
-			constructor : function(options) {
-				inherited.constructor.call(this);
-				this._objects = {};
-				this.__auto_destroy = "auto_destroy" in options ? options.auto_destroy : true;
-			},
-		
-			destroy : function() {
-				Objs.iter(this._objects, this.unregister, this);
-				inherited.destroy.call(this);
-			},
-		
-			register : function(object) {
-				var id = Ids.objectId(object);
-				if ( id in this._objects)
-					return;
-				var data = {};
-				this._objects[id] = {
-					object : object,
-					data : data
-				};
-				object.add_module(this);
-				this._register(object, data);
-			},
-		
-			_register : function(object) {
-			},
-		
-			unregister : function(object) {
-				var id = Ids.objectId(object);
-				if (!( id in this._objects))
-					return;
-				var data = this._objects[id].data;
-				this._unregister(object, data);
-				delete this._objects[id];
-				object.remove_module(this);
-				if ("off" in object)
-					object.off(null, null, this);
-				if (this.__auto_destroy && Types.is_empty(this._objects))
-					this.destroy();
-			},
-		
-			_unregister : function(object) {
-			},
-		
-			_data : function(object) {
-				return this._objects[Ids.objectId(object)].data;
-			}
-			
-		};
-	}, {
-	
-		__instance : null,
-	
-		singleton : function() {
-			if (!this.__instance)
-				this.__instance = new this({
-					auto_destroy : false
-				});
-			return this.__instance;
-		}
-	
-	});
-});
 
 
 Scoped.define("module:Classes.HelperClassMixin", ["module:Objs", "module:Types", "module:Functions", "module:Promise"], function (Objs, Types, Functions, Promise) {
@@ -583,56 +484,6 @@ Scoped.define("module:Classes.MultiDelegatable", ["module:Class", "module:Objs"]
 });
 
 
-Scoped.define("module:Classes.ClassRegistry", [
-    "module:Class",
-    "module:Types",
-    "module:Functions",
-    "module:Objs"
-], function (Class, Types, Functions, Objs, scoped) {
-	return Class.extend({scoped: scoped}, function (inherited) {
-		return {
-
-			constructor: function (classes, lowercase) {
-				inherited.constructor.call(this);
-				this._classes = Types.is_array(classes) ? classes : [classes || {}];
-				this._lowercase = lowercase;
-			},
-			
-			_sanitize: function (key) {
-				return this._lowercase ? key.toLowerCase() : key;
-			},
-			
-			register: function (key, cls) {
-				this._classes[this._classes.length - 1][this._sanitize(key)] = cls;
-			},
-			
-			get: function (key) {
-				if (!Types.is_string(key))
-					return key;
-				key = this._sanitize(key);
-				for (var i = this._classes.length - 1; i >= 0; --i)
-					if (key in this._classes[i])
-						return this._classes[i][key];
-				return null;
-			},
-			
-			create: function (key) {
-				var cons = Functions.newClassFunc(this.get(key));
-				return cons.apply(this, Functions.getArguments(arguments, 1));
-			},
-			
-			classes: function () {
-				var result = {};
-				Objs.iter(this._classes, function (classes) {
-					result = Objs.extend(result, classes);
-				});
-				return result;
-			}
-			
-		};
-	});
-});
-
 
 Scoped.define("module:Classes.ObjectIdScopeMixin", function () {
 	return {
@@ -683,87 +534,6 @@ Scoped.define("module:Classes.ObjectIdMixin", ["module:Classes.ObjectIdScope", "
 	    }
 	
 	};
-});
-
-
-
-Scoped.define("module:Classes.ContextRegistry", [
-    "module:Class",
-    "module:Ids",
-    "module:Types",
-    "module:Iterators.MappedIterator",
-    "module:Iterators.ObjectValuesIterator"
-], function (Class, Ids, Types, MappedIterator, ObjectValuesIterator, scoped) {
-	return Class.extend({scoped: scoped}, function (inherited) {
-		return {
-			
-			constructor: function (serializer, serializerContext) {
-				inherited.constructor.apply(this);
-				this.__data = {};
-				this.__contexts = {};
-				this.__serializer = serializer || this.__defaultSerializer;
-				this.__serializerContext = serializerContext || this;
-			},
-			
-			__defaultSerializer: function (data) {
-				return Types.is_object(data) ? Ids.objectId(data) : data;
-			},
-			
-			_serializeContext: function (ctx) {
-				return ctx ? Ids.objectId(ctx) : null;
-			},
-			
-			_serializeData: function (data) {
-				return this.__serializer.call(this.__serializerContext, data);
-			},
-			
-			get: function (data) {
-				var serializedData = this._serializeData(data);
-				return this.__data[serializedData];
-			},
-			
-			register: function (data, context) {
-				var serializedData = this._serializeData(data);
-				var serializedCtx = this._serializeContext(context);
-				var result = false;
-				if (!(serializedData in this.__data)) {
-					this.__data[serializedData] = {
-						data: data,
-						contexts: {}
-					};
-					result = true;
-				}
-				this.__data[serializedData].contexts[serializedCtx] = true;
-				return result ? this.__data[serializedData] : null;
-			},
-			
-			unregister: function (data, context) {
-				var serializedData = this.__serializer.call(this.__serializerContext, data);
-				if (!this.__data[serializedData])
-					return null;
-				if (context) {
-					var serializedCtx = this._serializeContext(context);
-					delete this.__data[serializedData].contexts[serializedCtx];
-				}
-				if (!context || Types.is_empty(this.__data[serializedData].contexts)) {
-					var oldData = this.__data[serializedData];
-					return oldData;
-				}
-				return null;
-			},
-			
-			customIterator: function () {
-				return new ObjectValuesIterator(this.__data);
-			},
-			
-			iterator: function () {
-				return new MappedIterator(this.customIterator(), function (item) {
-					return item.data;
-				});
-			}
-
-		};
-	});
 });
 
 
@@ -841,6 +611,12 @@ Scoped.define("module:Events.EventsMixin", [
                                             ], function (Timer, Async, LinkedList, Functions, Types, Objs) {
 
 	return {
+
+		_notifications: {
+			"destroy": function () {
+				this.off(null, null, null);
+			} 
+		},
 
 		EVENT_SPLITTER: /\s+/,
 
@@ -4922,6 +4698,203 @@ Scoped.define("module:Classes.LocaleAggregator", [
         };
     }]);
 });
+Scoped.define("module:Classes.ClassRegistry", [
+    "module:Class",
+    "module:Types",
+    "module:Functions",
+    "module:Objs"
+], function (Class, Types, Functions, Objs, scoped) {
+	return Class.extend({scoped: scoped}, function (inherited) {
+		return {
+
+			constructor: function (classes, lowercase) {
+				inherited.constructor.call(this);
+				this._classes = Types.is_array(classes) ? classes : [classes || {}];
+				this._lowercase = lowercase;
+			},
+			
+			_sanitize: function (key) {
+				return this._lowercase ? key.toLowerCase() : key;
+			},
+			
+			register: function (key, cls) {
+				this._classes[this._classes.length - 1][this._sanitize(key)] = cls;
+			},
+			
+			get: function (key) {
+				if (!Types.is_string(key))
+					return key;
+				key = this._sanitize(key);
+				for (var i = this._classes.length - 1; i >= 0; --i)
+					if (key in this._classes[i])
+						return this._classes[i][key];
+				return null;
+			},
+			
+			create: function (key) {
+				var cons = Functions.newClassFunc(this.get(key));
+				return cons.apply(this, Functions.getArguments(arguments, 1));
+			},
+			
+			classes: function () {
+				var result = {};
+				Objs.iter(this._classes, function (classes) {
+					result = Objs.extend(result, classes);
+				});
+				return result;
+			}
+			
+		};
+	});
+});
+
+
+Scoped.define("module:Classes.ContextRegistry", [
+    "module:Class",
+    "module:Ids",
+    "module:Types",
+    "module:Objs",
+    "module:Iterators.MappedIterator",
+    "module:Iterators.ObjectValuesIterator"
+], function (Class, Ids, Types, Objs, MappedIterator, ObjectValuesIterator, scoped) {
+	return Class.extend({scoped: scoped}, function (inherited) {
+		return {
+			
+			constructor: function (serializer, serializerContext) {
+				inherited.constructor.apply(this);
+				this.__data = {};
+				this.__contexts = {};
+				this.__serializer = serializer || this.__defaultSerializer;
+				this.__serializerContext = serializerContext || this;
+			},
+			
+			__defaultSerializer: function (data) {
+				return Types.is_object(data) ? Ids.objectId(data) : data;
+			},
+			
+			_serializeContext: function (ctx) {
+				return ctx ? Ids.objectId(ctx) : null;
+			},
+			
+			_serializeData: function (data) {
+				return this.__serializer.call(this.__serializerContext, data);
+			},
+			
+			get: function (data) {
+				var serializedData = this._serializeData(data);
+				return this.__data[serializedData];
+			},
+			
+			/*
+			 * Registers data with respect to an optional context
+			 *
+			 * @param data - data (mandatory)
+			 * @param context - context (optional)
+			 * 
+			 * @return data if data was not registered before, null otherwise
+			 * 
+			 */
+			register: function (data, context) {
+				var serializedData = this._serializeData(data);
+				var serializedCtx = this._serializeContext(context);
+				var result = false;
+				if (!(serializedData in this.__data)) {
+					this.__data[serializedData] = {
+						data: data,
+						contexts: {}
+					};
+					result = true;
+				}
+				if (!(serializedCtx in this.__contexts)) {
+					this.__contexts[serializedCtx] = {
+						context: context,
+						datas: {}
+					};
+				}
+				this.__data[serializedData].contexts[serializedCtx] = true;
+				this.__contexts[serializedCtx].datas[serializedData] = true;
+				return result ? this.__data[serializedData].data : null;
+			},
+			
+			/*
+			 * Unregisters data with respect to a context.
+			 * If no data is given, all data with respect to the context is unregistered.
+			 * If no context is given, all context with respect to the data are unregistered.
+			 * If nothing is given, everything is unregistered.
+			 * 
+			 * @param data - data (optional)
+			 * @param context - context (optional)
+			 * 
+			 * @result unregistered data in an array
+			 */
+			
+			unregister: function (data, context) {
+				var result = [];
+				if (data) {
+					var serializedData = this.__serializer.call(this.__serializerContext, data);
+					if (this.__data[serializedData]) {
+						if (context) {
+							var serializedCtx = this._serializeContext(context);
+							if (this.__contexts[serializedCtx]) {
+								delete this.__contexts[serializedCtx].datas[serializedData];
+								if (Types.is_empty(this.__contexts[serializedCtx].datas))
+									delete this.__contexts[serializedCtx];
+							}
+							delete this.__data[serializedData].contexts[serializedCtx];
+							if (Types.is_empty(this.__data[serializedData].contexts)) {
+								result.push(this.__data[serializedData].data);
+								delete this.__data[serializedData];
+							}
+						} else {
+							Objs.iter(this.__data[serializedData].contexts, function (dummy, serializedCtx) {
+								if (this.__contexts[serializedCtx]) {
+									delete this.__contexts[serializedCtx].datas[serializedData];
+									if (Types.is_empty(this.__contexts[serializedCtx].datas))
+										delete this.__contexts[serializedCtx];
+								}
+							}, this);
+							result.push(this.__data[serializedData].data);
+							delete this.__data[serializedData];
+						}
+					}
+				} else if (context) {
+					var serializedCtx2 = this._serializeContext(context);
+					if (this.__contexts[serializedCtx2]) {
+						Objs.iter(this.__contexts[serializedCtx2].datas, function (dummy, serializedData) {
+							if (this.__data[serializedData]) {
+								delete this.__data[serializedData].contexts[serializedCtx2];
+								if (Types.is_empty(this.__data[serializedData].contexts)) {
+									result.push(this.__data[serializedData].data);
+									delete this.__data[serializedData];
+								}
+							}
+						}, this);
+						delete this.__contexts[serializedCtx2];
+					}
+				} else {
+					Objs.iter(this.__data, function (data) {
+						result.push(data.data);
+					}, this);
+					this.__data = {};
+					this.__contexts = [];
+				}
+				return result;
+			},
+			
+			customIterator: function () {
+				return new ObjectValuesIterator(this.__data);
+			},
+			
+			iterator: function () {
+				return new MappedIterator(this.customIterator(), function (item) {
+					return item.data;
+				});
+			}
+
+		};
+	});
+});
+
 Scoped.define("module:Classes.Taggable", [
     "module:Objs"
 ], function (Objs) {
@@ -5210,21 +5183,28 @@ Scoped.define("module:Collections.Collection", [
 				return ident;
 			},
 			
+			replace_object: function (oriObject) {
+				var is_prop = Class.is_class_instance(oriObject);
+				var object = is_prop ? oriObject : new Properties(oriObject);
+				if (this.exists(object)) {
+					var existing = this.getById(this.get_ident(object));
+					if (is_prop) {
+						this.remove(existing);
+						this.add(object);
+					} else {
+						existing.setAll(oriObject);
+						return existing;
+					}
+				} else
+					this.add(object);
+				return object;
+			},
+			
 			replace_objects: function (objects, keep_others) {
 				var ids = {};
 				Objs.iter(objects, function (oriObject) {
-					var is_prop = Class.is_class_instance(oriObject);
-					var object = is_prop ? oriObject : new Properties(oriObject);
+					var object = this.replace_object(oriObject);
 					ids[this.get_ident(object)] = true;
-					if (this.exists(object)) {
-						var existing = this.getById(this.get_ident(object));
-						if (is_prop) {
-							this.remove(existing);
-							this.add(object);
-						} else
-							existing.setAll(oriObject);
-					} else
-						this.add(object);
 				}, this);
 				if (!keep_others) {
 					var iterator = this.iterator();
@@ -6182,6 +6162,7 @@ Scoped.define("module:Iterators.ArrayIterator", ["module:Iterators.Iterator"], f
 				this.__i++;
 				return ret;
 			}
+			
 		};
 	}, {
 
@@ -6546,7 +6527,12 @@ Scoped.extend("module:Iterators", ["module:Types", "module:Iterators.Iterator", 
 });
 
 
-Scoped.define("module:Iterators.Iterator", ["module:Class", "module:Functions"], function (Class, Functions, scoped) {
+Scoped.define("module:Iterators.Iterator", [
+    "module:Class",
+    "module:Functions",
+    "module:Async",
+    "module:Promise"
+], function (Class, Functions, Async, Promise, scoped) {
 	return Class.extend({scoped: scoped}, {
 		
 		hasNext: function () {
@@ -6577,9 +6563,25 @@ Scoped.define("module:Iterators.Iterator", ["module:Class", "module:Functions"],
 			return arr;
 		},
 
-		iterate: function (callback, context) {
-			while (this.hasNext())
-				callback.call(context || this, this.next());
+		iterate: function (cb, ctx) {
+			while (this.hasNext()) {
+				var result = cb.call(ctx || this, this.next());
+				if (result === false)
+					return;
+			}
+		},
+		
+		asyncIterate: function (cb, ctx, time) {
+			if (!this.hasNext())
+				return Promise.value(true);
+			var result = cb.call(ctx || this, this.next());
+			if (result === false)
+				return Promise.value(true);
+			var promise = Promise.create();
+			Async.eventually(function () {
+				this.asyncIterate(cb, ctx, time).forwardCallback(promise);
+			}, this, time);
+			return promise;
 		}
 
 	});
@@ -7292,6 +7294,8 @@ Scoped.define("module:States.CompetingHost", ["module:States.Host"], function (H
 			},
 
 			_can_transition_to: function (state) {
+				if (!inherited._can_transition_to.call(this, state))
+					return false;
 				if (!this._composite)
 					return true;
 				var others = this._composite.other_hosts(this);
@@ -7428,9 +7432,9 @@ Scoped.define("module:Router.Router", [ "module:Class",
 	    function(inherited) {
 	    	return {
 
-	    		constructor : function() {
+	    		constructor : function(routes) {
 	    			inherited.constructor.call(this);
-	    			this._routeParser = new RouteParser();
+	    			this._routeParser = new RouteParser(routes);
 	    			this._current = null;
 	    		},
 
@@ -7686,6 +7690,7 @@ Scoped.define("module:States.Host", [
 				options = options || {};
 				this._stateRegistry = options.stateRegistry;
 				this._baseState = options.baseState;
+				this._enabled = true;
 			},
 
 			initialize: function (initial_state, initial_args) {
@@ -7718,6 +7723,14 @@ Scoped.define("module:States.Host", [
 			destroy: function () {
 				this.finalize();
 				inherited.destroy.call(this);
+			},
+			
+			enable: function () {
+				this._enabled = true;
+			},
+			
+			disable: function () {
+				this._enabled = false;
 			},
 
 			state: function () {
@@ -7764,7 +7777,7 @@ Scoped.define("module:States.Host", [
 			},
 
 			_can_transition_to: function (state) {
-				return true;
+				return this._enabled;
 			},
 
 			_stateEvent: function (state, s) {
@@ -7806,6 +7819,7 @@ Scoped.define("module:States.State", [
 			_locals: [],
 			_persistents: [],
 			_defaults: {},
+			_clonedDefaults: {},
 
 			_white_list: null,
 			
@@ -7820,7 +7834,7 @@ Scoped.define("module:States.State", [
 				inherited.constructor.call(this);
 				this.host = host;
 				this.transitionals = transitionals;
-				args = Objs.extend(Objs.clone(this._defaults || {}, 1), args);
+				args = Objs.extend(Objs.extend(Objs.clone(this._clonedDefaults || {}, -1), Objs.clone(this._defaults || {}, 1)), args);
 				this._locals = Types.is_function(this._locals) ? this._locals() : this._locals;
 				var used = {};
 				for (var i = 0; i < this._locals.length; ++i) {

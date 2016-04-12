@@ -133,7 +133,32 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
 		},
 		
 		play: function () {
-			this.next("LoadVideo");
+			this.next("Preroll");
+		}
+
+	});
+});
+
+
+
+Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Preroll", [
+	"module:VideoPlayer.Dynamics.PlayerStates.State"
+], function (State, scoped) {
+	return State.extend({scoped: scoped}, {
+		
+		dynamics: [],
+
+		_started: function () {
+			if (this.dyn._prerollAd) {
+				this.dyn._prerollAd.once("finished", function () {
+					this.next("LoadVideo");
+				}, this);
+				this.dyn._prerollAd.executeAd({
+					width: this.dyn.videoWidth(),
+					height: this.dyn.videoHeight()
+				});
+			} else
+				this.next("LoadVideo");
 		}
 
 	});
@@ -211,8 +236,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
 		dynamics: ["controlbar"],
 
 		_started: function () {
+			this.dyn.set("autoplay", false);
 			this.listenOn(this.dyn, "ended", function () {
-				this.next("PosterReady");
+				this.next("NextVideo");
 			}, this);
 			this.listenOn(this.dyn, "change:buffering", function () {
 				this.dyn.set("loader_active", this.dyn.get("buffering"));
@@ -225,6 +251,36 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
 		play: function () {
 			if (!this.dyn.get("playing"))
 				this.dyn.player.play();
+		}
+
+	});
+});
+
+
+Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
+	"module:VideoPlayer.Dynamics.PlayerStates.State"
+], function (State, scoped) {
+	return State.extend({scoped: scoped}, {
+
+		_started: function () {
+			if (this.dyn.get("playlist")) {
+				var list = this.dyn.get("playlist");
+				var head = list.shift();
+				if (this.dyn.get("loop"))
+					list.push(head);
+				this.dyn.set("playlist", list);
+				if (list.length > 0) {
+					var pl0 = list[0];
+					this.dyn.set("poster", pl0.poster);
+					this.dyn.set("source", pl0.source);
+					this.dyn.set("sources", pl0.sources);
+					this.dyn.reattachVideo();
+					this.dyn.set("autoplay", true);
+					this.next("LoadPlayer");
+					return;
+				}
+			}
+			this.next("PosterReady");
 		}
 
 	});

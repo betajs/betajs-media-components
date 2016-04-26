@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script src="../vendors/jquery.min.js"></script>
+	<script src="../vendors/scoped.js"></script>
+	<script src="../vendors/beta-noscoped.js"></script>
+	<script src="../vendors/betajs-browser-noscoped.js"></script>
+	<script src="../vendors/betajs-flash-noscoped.js"></script>
+	<script src="../vendors/betajs-media-noscoped.js"></script>
+	<script src="../vendors/betajs-dynamics-noscoped.js"></script>
+	<script src="../dist/betajs-media-components-noscoped.js"></script>
+	<link  href="../dist/betajs-media-components.css" rel="stylesheet" />
+    <script src="../dist/themes/modern.js"></script>
+    <link  href="../dist/themes/modern.css" rel="stylesheet" />
+</head>
+<body style="background: #EEE">
+	<h3>
+		Flash
+	</h3>
+	<ba-videoplayer ba-poster="sample-cover.png" ba-source="sample-video.mp4" ba-theme="modern" ba-forceflash style="width:100%"></ba-videoplayer>
+	<h3>
+		HTML 5
+	</h3>
+	<ba-videoplayer ba-poster="sample-cover.png" ba-source="sample-video.mp4" ba-theme="modern" ba-noflash style="width:100%"></ba-videoplayer>
+	
+    <script>
+        BetaJS.Flash.options = {
+            flashFile: "../vendors/betajs-flash.swf",
+            forceReload: true
+        };
+        BetaJS.Dynamics.Dynamic.activate();
+    </script>
+</body>
+</html>

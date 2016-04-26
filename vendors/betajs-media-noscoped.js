@@ -1,5 +1,5 @@
 /*!
-betajs-media - v0.0.20 - 2016-04-10
+betajs-media - v0.0.20 - 2016-04-12
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -14,7 +14,7 @@ Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
     "guid": "8475efdb-dd7e-402e-9f50-36c76945a692",
-    "version": "50.1460319422916"
+    "version": "51.1460500725595"
 };
 });
 Scoped.assumeVersion('base:version', 474);
@@ -529,18 +529,13 @@ Scoped.define("module:Player.Html5VideoPlayerWrapper", [
 					promise.asyncSuccess(true);
 				});
 				var nosourceCounter = 10;
-				var loadCounter = 10;
 				var timer = new Timer({
 					context: this,
 					fire: function () {
 						if (this._element.networkState === this._element.NETWORK_NO_SOURCE) {
 							nosourceCounter--;
-							if (nosourceCounter <= 0) {
-								this._element.load();
-								loadCounter--;
-								if (loadCounter <= 0)
-									promise.asyncError(true);
-							}
+							if (nosourceCounter <= 0) 
+								promise.asyncError(true);
 						} else if (this._element.networkState === this._element.NETWORK_IDLE) 
 							promise.asyncSuccess(true);
 					},
@@ -576,6 +571,9 @@ Scoped.define("module:Player.Html5VideoPlayerWrapper", [
 				promise.success(function () {
 					this._setup();
 				}, this);
+				try {
+					this._$element.get(0).load();
+				} catch (e) {}
 				return promise;
 			},
 			

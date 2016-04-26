@@ -14,10 +14,10 @@
     <link  href="../dist/themes/modern.css" rel="stylesheet" />
 </head>
 <body style="background: #EEE">
-	<ba-videoplayer ba-poster="sample-cover.png" ba-source="sample-video.mp4" ba-forceflash></ba-videoplayer>
-	<ba-videoplayer ba-poster="sample-cover.png" ba-source="sample-video.mp4" ba-theme="modern"></ba-videoplayer>
-
+	<ba-videoplayer ba-poster="sample-cover.png" ba-source="sample-video.mp4" ba-theme="modern" ba-noflash style="width:100%"></ba-videoplayer>
+	
     <script>
+    	BetaJS.MediaComponents.Assets.strings.setLocale('de');
         BetaJS.Flash.options = {
             flashFile: "../vendors/betajs-flash.swf",
             forceReload: true

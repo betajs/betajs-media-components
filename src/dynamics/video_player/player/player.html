@@ -4,6 +4,7 @@
     ba-on:mousemove="user_activity()"
     ba-on:mousedown="user_activity()"
     ba-on:touchstart="user_activity()"
+    style="{{width ? 'width:' + width + ((width + '').match(/^\d+$/g) ? 'px' : '') + ';' : ''}}{{height ? 'height:' + height + ((height + '').match(/^\d+$/g) ? 'px' : '') + ';' : ''}}"
 >
     <video class="{{css}}-video" data-video="video"></video>
     <div class="{{css}}-overlay" data-video="ad" style="display:none"></div>

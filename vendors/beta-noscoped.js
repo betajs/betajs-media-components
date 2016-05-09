@@ -1,5 +1,5 @@
 /*!
-betajs - v1.0.46 - 2016-03-27
+betajs - v1.0.52 - 2016-04-30
 Copyright (c) Oliver Friedmann,Victor Lingenthal
 Apache-2.0 Software License.
 */
@@ -10,7 +10,7 @@ Scoped.binding('module', 'global:BetaJS');
 Scoped.define("module:", function () {
 	return {
     "guid": "71366f7a-7da3-4e55-9a0b-ea0e4e2a9e79",
-    "version": "484.1459099481601"
+    "version": "497.1462024414602"
 };
 });
 Scoped.require(['module:'], function (mod) {
@@ -47,8 +47,8 @@ Scoped.define("module:Class", ["module:Types", "module:Objs", "module:Functions"
 				result = obj.constructor;
 		});
 		var has_constructor = Types.is_defined(result);
-		if (!Types.is_defined(result))
-			result = function () { parent.apply(this, arguments); };
+		if (!has_constructor)
+			result = function () { parent.prototype.constructor.apply(this, arguments); };
 	
 		// Add Parent Statics
 		Objs.extend(result, parent);
@@ -109,9 +109,12 @@ Scoped.define("module:Class", ["module:Types", "module:Objs", "module:Functions"
 		
 		// Setup Prototype
 		result.__notifications = {};
+		result.__implements = {};
 		
 		if (parent.__notifications)
 			Objs.extend(result.__notifications, parent.__notifications, 1);		
+		if (parent.__implements)
+			Objs.extend(result.__implements, parent.__implements, 1);		
 	
 		Objs.iter(objects, function (object) {
 			for (var objkey in object)
@@ -129,8 +132,14 @@ Scoped.define("module:Class", ["module:Types", "module:Objs", "module:Functions"
 					result.__notifications[key].push(object._notifications[key]);
 				}
 			}
+			if (object._implements) {
+				Objs.iter(Types.is_string(object._implements) ? [object._implements] : object._implements, function (impl) {
+					result.__implements[impl] = true;
+				});
+			}
 		});	
 		delete result.prototype._notifications;
+		delete result.prototype._implements;
 	
 		if (!has_constructor)
 			result.prototype.constructor = parent.prototype.constructor;
@@ -209,6 +218,8 @@ Scoped.define("module:Class", ["module:Types", "module:Objs", "module:Functions"
 	
 	Class.prototype.__class_instance_guid = "e6b0ed30-80ee-4b28-af02-7d52430ba45f";
 	
+	//Class.prototype.supportsGc = false;
+	
 	Class.prototype.constructor = function () {
 		this._notify("construct");
 	};
@@ -233,12 +244,30 @@ Scoped.define("module:Class", ["module:Types", "module:Objs", "module:Functions"
 	};
 	
 	Class.prototype.weakDestroy = function () {
-		if (!this.destroyed())
+		if (!this.destroyed()) {
+			if (this.__gc) {
+				this.__gc.queue(this);
+				return;
+			}
 			this.destroy();
+		}
 	};
 
 	Class.prototype.__destroyedDestroy = function () {
 		throw ("Trying to destroy destroyed object " + this.cid() + ": " + this.cls.classname + ".");
+	};
+	
+	Class.prototype.enableGc = function (gc) {
+		if (this.supportsGc)
+			this.__gc = gc; 
+	};
+	
+	Class.prototype.dependDestroy = function (other) {
+		if (other.destroyed)
+			return;
+		if (this.__gc)
+			other.enableGc();
+		other.weakDestroy();
 	};
 	
 	Class.prototype.cid = function () {
@@ -252,13 +281,15 @@ Scoped.define("module:Class", ["module:Types", "module:Objs", "module:Functions"
 	};
 	
 	Class.prototype.auto_destroy = function (obj) {
-		if (!this.__auto_destroy_list)
-			this.__auto_destroy_list = [];
-		var target = obj;
-		if (!Types.is_array(target))
-		   target = [target];
-		for (var i = 0; i < target.length; ++i)
-		   this.__auto_destroy_list.push(target[i]);
+		if (obj) {
+			if (!this.__auto_destroy_list)
+				this.__auto_destroy_list = [];
+			var target = obj;
+			if (!Types.is_array(target))
+			   target = [target];
+			for (var i = 0; i < target.length; ++i)
+			   this.__auto_destroy_list.push(target[i]);
+		}
 		return obj;
 	};
 	
@@ -274,9 +305,25 @@ Scoped.define("module:Class", ["module:Types", "module:Objs", "module:Functions"
 		}, this);
 	};
 	
+	Class.prototype.impl = function (identifier) {
+		return !!(this.cls.__implements && this.cls.__implements[Types.is_string(identifier) ? identifier : identifier._implements]);
+	};
+	
 	Class.prototype.instance_of = function (cls) {
 		return this.cls.ancestor_of(cls);
 	};
+	
+	Class.prototype.increaseRef = function () {
+		this.__referenceCount = this.__referenceCount || 0;
+		this.__referenceCount++;
+	};
+	
+	Class.prototype.decreaseRef = function () {
+		this.__referenceCount = this.__referenceCount || 0;
+		this.__referenceCount--;
+		if (this.__referenceCount <= 0)
+			this.weakDestroy();
+	};	
 	
 	Class.prototype.inspect = function () {
 		return {
@@ -541,8 +588,22 @@ Scoped.define("module:Classes.ObjectIdMixin", ["module:Classes.ObjectIdScope", "
 
 
 Scoped.define("module:Comparators", ["module:Types", "module:Properties.Properties"], function (Types, Properties) {
+
+	/**
+	 * Comparator Functions
+	 * 
+	 * @module BetaJS.Comparators
+	 */
 	return {		
 		
+		
+		/**
+		 * Creates a function that compares two json object w.r.t. a json object, mapping keys to a comparison order,
+		 * e.g. {'last_name': 1, 'first_name': -1, 'age': -1 }  
+		 * 
+		 * @param {json} object comparison object
+		 * @return {function} function for comparing two objects w.r.t. the comparison object
+		 */
 		byObject: function (object) {
 			var self = this;
 			return function (left, right) {
@@ -558,7 +619,15 @@ Scoped.define("module:Comparators", ["module:Types", "module:Properties.Properti
 				return 0;
 			};
 		},
+
 		
+		/**
+		 * Compares to variables by the natural order in JS.
+		 * 
+		 * @param a value A
+		 * @param b value B
+		 * @return {int} 1 if a > b, -1 if a < b and 0 otherwise
+		 */
 		byValue: function (a, b) {
 			if (Types.is_string(a))
 				return a.localeCompare(b);
@@ -569,6 +638,15 @@ Scoped.define("module:Comparators", ["module:Types", "module:Properties.Properti
 			return 0;
 		},
 		
+
+		/**
+		 * Compares two values a and b recursively.
+		 * 
+		 * @param a value A
+		 * @param b value B
+		 * @param {int} depth depth limit for the recursion, leave blank for infinite recursion
+		 * @return {bool} true if both values are equal
+		 */
 		deepEqual: function (a, b, depth) {
 			if (depth === 0)
 				return true;
@@ -595,12 +673,21 @@ Scoped.define("module:Comparators", ["module:Types", "module:Properties.Properti
 				return a === b;
 		},
 		
+		
+		/**
+		 * Determines whether two lists are equal. Two lists are considered equal if their elements are equal.
+		 * 
+		 * @param a list A
+		 * @param b list B
+		 * @return {bool} true if both lists are equal
+		 */
 		listEqual: function (a, b) {
 			return this.deepEqual(a, b, 2);
 		}
 			
 	};
 });
+
 Scoped.define("module:Events.EventsMixin", [
                                             "module:Timers.Timer",
                                             "module:Async",
@@ -611,8 +698,14 @@ Scoped.define("module:Events.EventsMixin", [
                                             ], function (Timer, Async, LinkedList, Functions, Types, Objs) {
 
 	return {
+		
+		_implements: "3d63b44f-c9f0-4aa7-b39e-7cbf195122b4",
 
 		_notifications: {
+			"construct": function () {
+			    this.__suspendedEvents = 0;
+			    this.__suspendedEventsQueue = [];			    				
+			},
 			"destroy": function () {
 				this.off(null, null, null);
 			} 
@@ -824,9 +917,6 @@ Scoped.define("module:Events.EventsMixin", [
 			}
 	    },
 	    
-	    __suspendedEvents: 0,
-	    __suspendedEventsQueue: [],
-	    
 	    suspendEvents: function () {
 	    	this.__suspendedEvents++;
 	    },
@@ -979,15 +1069,20 @@ Scoped.extend("module:Exceptions.Exception", ["module:Exceptions"], ["module:Exc
 });
 
 Scoped.define("module:Functions", ["module:Types"], function (Types) {
-	/** Function and Function Argument Support
+	
+	/**
+	 * Function and Function Argument Support
+	 * 
 	 * @module BetaJS.Functions
 	 */
 	return {
 	
-	    /** Takes a function and an instance and returns the method call as a function
+		
+	    /**
+	     * Takes a function and an instance and returns the method call as a function
 	     * 
-	     * @param func function
-	     * @param instance instance
+	     * @param {function} func function
+	     * @param {object} instance instance
 	     * @return method call 
 	     */
 		as_method: function (func, instance) {
@@ -996,9 +1091,11 @@ Scoped.define("module:Functions", ["module:Types"], function (Types) {
 			};
 		},
 		
-	    /** Takes a function and returns a function that calls the original function on the first call and returns the return value on all subsequent call. In other words a lazy function cache.
+		
+	    /**
+	     * Takes a function and returns a function that calls the original function on the first call and returns the return value on all subsequent call. In other words a lazy function cache.
 	     * 
-	     * @param func function
+	     * @param {function} func function
 	     * @return cached function 
 	     */
 		once: function (func) {
@@ -1014,21 +1111,26 @@ Scoped.define("module:Functions", ["module:Types"], function (Types) {
 			};
 		},
 		
-	    /** Converts some other function's arguments to an array
+		
+	    /**
+	     * Converts some other function's arguments to an array
 	     * 
 	     * @param args function arguments
-	     * @param slice number of arguments to be omitted (default: 0)
-	     * @return arguments as array 
+	     * @param {integer} slice number of arguments to be omitted (default: 0)
+	     * @return {array} arguments as array 
 	     */	
 		getArguments: function (args, slice) {
 			return Array.prototype.slice.call(args, slice || 0);
 		},
 		
-	    /** Matches functions arguments against some pattern
+		
+	    /**
+	     * Matches functions arguments against some pattern
 	     * 
 	     * @param args function arguments
-	     * @param pattern typed pattern
-	     * @return matched arguments as associative array 
+	     * @param {integer} skip number of arguments to be omitted (default: 0) 
+	     * @param {object} pattern typed pattern
+	     * @return {object} matched arguments as associative array 
 	     */	
 		matchArgs: function (args, skip, pattern) {
 			if (arguments.length < 3) {
@@ -1053,7 +1155,14 @@ Scoped.define("module:Functions", ["module:Types"], function (Types) {
 			return result;
 		},
 		
-		/** @suppress {checkTypes} */
+		
+		/**
+		 * Creates a function for creating new instances of a class.
+		 *  
+		 * @param {object} cls Class
+		 * @return {function} class instantiation function 
+		 * @suppress {checkTypes}
+		 */
 		newClassFunc: function (cls) {
 			return function () {
 				var args = arguments;
@@ -1065,10 +1174,25 @@ Scoped.define("module:Functions", ["module:Types"], function (Types) {
 			};
 		},
 		
+
+		/**
+		 * Creates a new class instance with arguments.
+		 *  
+		 * @param {object} cls Class
+		 * @return {function} class instance 
+		 */
 		newClass: function (cls) {
 			return this.newClassFunc(cls).apply(this, this.getArguments(arguments, 1));
 		},
 		
+
+		/**
+		 * Call an object method.
+		 *  
+		 * @param {object} context object instance
+		 * @param method function or string of method
+		 * @return result of function call 
+		 */
 		callWithin: function (context, method) {
 			if (Types.is_string(method))
 				method = context[method];
@@ -1078,28 +1202,38 @@ Scoped.define("module:Functions", ["module:Types"], function (Types) {
 	};
 });
 
-Scoped.define("module:Ids", function () {
-	/** Id Generation
+Scoped.define("module:Ids", [
+    "module:Types",
+    "module:Objs"
+], function (Types, Objs) {
+	
+	/**
+	 * Id Generation
+	 * 
 	 * @module BetaJS.Ids
 	 */
 	return {
 	
 		__uniqueId: 0,
 		
-	    /** Returns a unique identifier
+		
+	    /**
+	     * Returns a unique identifier
 	     * 
-	     * @param prefix a prefix string for the identifier (optional)
-	     * @return unique identifier
+	     * @param {string} prefix a prefix string for the identifier (optional)
+	     * @return {string} unique identifier
 	     */
 		uniqueId: function (prefix) {
 			return (prefix || "") + (this.__uniqueId++);
 		},
 		
-	    /** Returns the object's unique identifier or sets it
+		
+	    /**
+	     * Returns the object's unique identifier or sets it
 	     * 
-	     * @param object the object
-	     * @param id (optional)
-	     * @return object's unique identifier
+	     * @param {object} object the object
+	     * @param {string} id (optional)
+	     * @return {string} object's unique identifier
 	     */
 		objectId: function (object, id) {
 			if (typeof id != "undefined")
@@ -1107,6 +1241,25 @@ Scoped.define("module:Ids", function () {
 			else if (!object.__cid)
 				object.__cid = this.uniqueId("cid_");
 			return object.__cid;
+		},
+		
+		/**
+		 * Returns a unique key for any given value of any type.
+		 * This is not a hash value.
+		 * 
+		 * @param value a value to generate a unique key
+		 * @param {int} depth optional depth for exploring by value instead of by reference
+		 * @return unique key
+		 */
+		uniqueKey: function (value, depth) {
+			if (depth && depth > 0 && (Types.is_object(value) || Types.is_array(value))) {
+				return JSON.stringify(Objs.map(value, function (x) {
+					return this.uniqueKey(x, depth - 1);
+				}, this));
+			}
+			if (Types.is_object(value) || Types.is_array(value) || Types.is_function(value))
+				return this.objectId(value);
+			return value;
 		}
 	
 	};
@@ -1199,6 +1352,11 @@ Scoped.define("module:IdGenerators.TimedIdGenerator", ["module:IdGenerators.IdGe
 
 
 Scoped.define("module:JavaScript", ["module:Objs"], function (Objs) {
+	/**
+	 * JavaScript Simple Parse Functions
+	 * 
+	 * @module JavaScript
+	 */
 	return {
 		
 		STRING_SINGLE_QUOTATION_REGEX: /'[^']*'/g,
@@ -1207,22 +1365,47 @@ Scoped.define("module:JavaScript", ["module:Objs"], function (Objs) {
 		IDENTIFIER_REGEX: /[a-zA-Z_][a-zA-Z_0-9]*/g,
 		IDENTIFIER_SCOPE_REGEX: /[a-zA-Z_][a-zA-Z_0-9\.]*/g,
 	
-		RESERVED: Objs.objectify(
-			["if", "then", "else", "return", "var"],
-			true),
+		RESERVED: Objs.objectify([
+	        "if", "then", "else", "return", "var"
+	    ], true),
 		
+	    /**
+	     * Is string a JS-reserved keyword?
+	     * 
+	     * @param {string} key string in question
+	     * @return {boolean} true if reserved
+	     */
 		isReserved: function (key) {
 			return key in this.RESERVED;
 		},
 		
+		/**
+		 * Is string a valid JS identifier?
+		 * 
+		 * @param {string} key string in question
+		 * @return {boolean} true if identifier
+		 */
 		isIdentifier: function (key) {
 			return !this.isReserved(key);
 		},
 		
+		/**
+		 * Remove string definitions from JS code.
+		 * 
+		 * @param {string} code input code
+		 * @return {string} code without strings
+		 */
 		removeStrings: function (code) {
 			return code.replace(this.STRING_SINGLE_QUOTATION_REGEX, "").replace(this.STRING_DOUBLE_QUOTATION_REGEX, "");
 		},	
-		
+
+		/**
+		 * Return JS identifiers from a piece of code.
+		 * 
+		 * @param {string} code input code
+		 * @param {boolean} keepScopes keep scopes, e.g. `foo.bar` instead of `foo` and `bar` (default: false)
+		 * @return {array} array of extracted identifiers
+		 */
 		extractIdentifiers: function (code, keepScopes) {
 			var regex = keepScopes ? this.IDENTIFIER_SCOPE_REGEX : this.IDENTIFIER_REGEX;
 			code = this.removeStrings(code);
@@ -2519,6 +2702,8 @@ Scoped.define("module:Properties.PropertiesMixin", [
 		__setChanged: function (key, value, oldValue, notStrong) {
 			this.trigger("change", key, value, oldValue);
 			this._afterSet(key, value);
+			if (this.destroyed())
+				return;
 			var keys = key ? key.split(".") : [];
 			var current = this.__properties.watchers;
 			var head = "";
@@ -2736,17 +2921,36 @@ Scoped.define("module:Sort", [
 });
 
 Scoped.define("module:Strings", ["module:Objs"], function (Objs) {
-	/** String Utilities
+	/**
+	 * String Utilities
+	 * 
 	 * @module BetaJS.Strings
 	 */
 	return {
 		
+		/**
+		 * Pads a string from the left with characters if necessary.
+		 * 
+		 * @param {string} s string that should be padded
+		 * @param {string} padding padding string that should be used (e.g. whitespace)
+		 * @param {int} length minimum length of result string
+		 * 
+		 * @return {string} padded string
+		 */
 		padLeft: function (s, padding, length) {
 			while (s.length < length)
 				s = padding + s;
 			return s;
 		},
 		
+		/**
+		 * Pads a string from the left with zeros ('0') if necessary.
+		 * 
+		 * @param {string} s string that should be padded
+		 * @param {int} length minimum length of result string
+		 * 
+		 * @return {string} zero-padded string
+		 */
 		padZeros: function (s, length) {
 			return this.padLeft(s + "", "0", length);
 		},
@@ -2827,7 +3031,8 @@ Scoped.define("module:Strings", ["module:Objs"], function (Objs) {
 			return this.starts_with(s, needle) ? s.substring(needle.length) : s;
 		},
 		
-		/** Returns the complete remaining part of a string after a the last occurrence of a sub string
+		/**
+		 * Returns the complete remaining part of a string after the last occurrence of a sub string
 		 *
 		 * @param s string in question
 		 * @param needle sub string
@@ -2837,6 +3042,13 @@ Scoped.define("module:Strings", ["module:Objs"], function (Objs) {
 			return this.splitLast(s, needle).tail;
 		},
 		
+		/**
+		 * Returns the complete remaining part of a string after the first occurrence of a sub string
+		 *
+		 * @param s string in question
+		 * @param needle sub string
+		 * @return remaining part of the string in question after the first occurrence of the sub string
+		 */
 		first_after: function (s, needle) {
 			return s.substring(s.indexOf(needle) + 1, s.length);
 		},
@@ -2869,28 +3081,6 @@ Scoped.define("module:Strings", ["module:Objs"], function (Objs) {
 			return result;
 		},
 		
-		splitFirst: function (s, delimiter) {
-			var i = s.indexOf(delimiter);
-			return {
-				head: i >= 0 ? s.substring(0, i) : s,
-				tail: i >= 0 ? s.substring(i + delimiter.length) : ""
-			};
-		},
-		
-		splitLast: function (s, delimiter) {
-			var i = s.lastIndexOf(delimiter);
-			return {
-				head: i >= 0 ? s.substring(0, i) : "",
-				tail: i >= 0 ? s.substring(i + delimiter.length) : s
-			};
-		},
-		
-		replaceAll: function (s, sub, wth) {
-			while (s.indexOf(sub) >= 0)
-				s = s.replace(sub, wth);
-			return s;
-		},
-	
 		/** Trims all trailing and leading whitespace and removes block indentations
 		 *
 		 * @param s string
@@ -2915,12 +3105,41 @@ Scoped.define("module:Strings", ["module:Objs"], function (Objs) {
 			return a.join("\n").trim();
 		},
 	
+		/**
+		 * Replaces all occurrences of a substring with something else.
+		 * 
+		 * @param {string} s input string
+		 * @param {string} sub search string
+		 * @param {string} wth replacement string
+		 * 
+		 * @return {string} input with all occurrences of the search string replaced by the replacement string
+		 */
+		replaceAll: function (s, sub, wth) {
+			while (s.indexOf(sub) >= 0)
+				s = s.replace(sub, wth);
+			return s;
+		},
+	
+		/**
+		 * Capitalizes all first characters of all words in a string.
+		 * 
+		 * @param {string} input input string
+		 * 
+		 * @return {string} input with all first characters capitalized
+		 */
 		capitalize : function(input) {
 			return input.replace(/\w\S*/g, function(txt) {
 				return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
 			});
 		},
 	
+		/**
+		 * Extracts the name from an email address name string (e.g. 'Foo Bar <foobar@domain.com>')
+		 * 
+		 * @param {string} input email address name input string
+		 * 
+		 * @return {string} name included in the string
+		 */
 		email_get_name : function(input) {
 		    input = input || "";
 			var temp = input.split("<");
@@ -2933,6 +3152,13 @@ Scoped.define("module:Strings", ["module:Objs"], function (Objs) {
 			return this.capitalize(input);
 		},
 	
+		/**
+		 * Extracts the email from an email address name string (e.g. 'Foo Bar <foobar@domain.com>')
+		 * 
+		 * @param {string} input email address name input string
+		 * 
+		 * @return {string} email included in the string
+		 */
 		email_get_email : function(input) {
 	        input = input || "";
 			var temp = input.split("<");
@@ -2945,11 +3171,57 @@ Scoped.define("module:Strings", ["module:Objs"], function (Objs) {
 			return input;
 		},
 	
+		/**
+		 * Extracts the salutatory name from an email address name string (normally the first name)
+		 * 
+		 * @param {string} input email address name input string
+		 * 
+		 * @return {string} salutatory name
+		 */
 		email_get_salutatory_name : function(input) {
-	        input = input || "";
-			return (this.email_get_name(input).split(" "))[0];
+			return (this.email_get_name(input || "").split(" "))[0];
 		},
 		
+		/**
+		 * Splits a string into two by the first occurrence of a delimiter
+		 * 
+		 * @param {string} s input string
+		 * @param {string} delimiter delimiter string
+		 * 
+		 * @return {object} a json object, mapping 'head' to the region left and 'tail' to region right to the delimiter
+		 */
+		splitFirst: function (s, delimiter) {
+			var i = s.indexOf(delimiter);
+			return {
+				head: i >= 0 ? s.substring(0, i) : s,
+				tail: i >= 0 ? s.substring(i + delimiter.length) : ""
+			};
+		},
+		
+		/**
+		 * Splits a string into two by the last occurrence of a delimiter
+		 * 
+		 * @param {string} s input string
+		 * @param {string} delimiter delimiter string
+		 * 
+		 * @return {object} a json object, mapping 'head' to the region left and 'tail' to region right to the delimiter
+		 */
+		splitLast: function (s, delimiter) {
+			var i = s.lastIndexOf(delimiter);
+			return {
+				head: i >= 0 ? s.substring(0, i) : "",
+				tail: i >= 0 ? s.substring(i + delimiter.length) : s
+			};
+		},
+		
+		/**
+		 * Replace all groups in a regular expression string by string parameters.
+		 * 
+		 * @param {string} regex regular expression with groups as a string
+		 * @param {array} args array of string parameters
+		 * 
+		 * @return {string} regular expression with groups being replaced by string parameters
+		 */
 		regexReplaceGroups: function (regex, args) {
 			var findGroup = /\(.*?\)/;
 			var f = function (captured) {
@@ -2964,6 +3236,13 @@ Scoped.define("module:Strings", ["module:Objs"], function (Objs) {
 			return regex;
 		},
 		
+		/**
+		 * Given a regular expression with named capture groups (e.g. '(foobar:\d+)'), compute a normal regular expression with mappings to the named groups.
+		 * 
+		 * @param {string} regex regular expression with named capture groups
+		 * 
+		 * @return {object} mapping object
+		 */
 		namedCaptureRegex: function (regex) {
 			var groupMap = {};
 			var groupIdx = 0;
@@ -3603,7 +3882,13 @@ Scoped.define("module:Time", [], function () {
 
 });
 
+
 Scoped.define("module:TimeFormat", ["module:Time", "module:Strings", "module:Objs"], function (Time, Strings, Objs) {
+	/**
+	 * Module for formatting Time / Date
+	 * 
+	 * @module BetaJS.TimeFormat
+	 */
 	return {
 		
 		/*
@@ -3739,6 +4024,16 @@ Scoped.define("module:TimeFormat", ["module:Time", "module:Strings", "module:Obj
 		WEEKDAY: "ddd",
 		HOURS_MINUTES_TT: "hh:MM tt",
 		
+		
+		/**
+		 * Format a given time w.r.t. a given time format
+		 * 
+		 * @param {string} timeFormat a time format string
+		 * @param {int} time time as integer to be formatted
+		 * @param {int} timezone timezone bias (optional)
+		 * @return {string} formatted time
+		 * 
+		 */
 		format: function (timeFormat, time, timezone) {
 			var timezoneTime = Time.timeToTimezoneBasedDate(time, timezone);
 			var bias = Time.timezoneBias(timezone);
@@ -3756,14 +4051,34 @@ Scoped.define("module:TimeFormat", ["module:Time", "module:Strings", "module:Obj
 			return result;
 		},
 		
+		/**
+		 * Format the month as a three letter string
+		 * 
+		 * @param {int} month month as an int
+		 * @return {string} three letter month string
+		 */
 		monthString: function (month) {
 			return this.format("mmm", Time.encodePeriod({month: month}));			
 		},
 		
+		/**
+		 * Format the weekday as a three letter string
+		 * 
+		 * @param {int} weekday weekday as an int
+		 * @return {string} three letter weekday string
+		 */
 		weekdayString: function (weekday) {
 			return this.format("ddd", Time.encodePeriod({weekday: weekday}));
 		},
 		
+		/**
+		 * Format most significant part of date / time relative to current time
+		 * 
+		 * @param {int} time date/time to be formatted
+		 * @param {int} currentTime relative to current time (optional)
+		 * @param {int} timezone time zone bias (optional)
+		 * @return {string} formatted time
+		 */
 		formatRelativeMostSignificant: function (time, currentTime, timezone) {
 			currentTime = currentTime || Time.now();
 			var t = Time.decodeTime(time, timezone);
@@ -3795,11 +4110,10 @@ Scoped.define("module:Tokens", function() {
 	return {
 
 		/**
-		 * Returns a new token
+		 * Generates a random token
 		 * 
-		 * @param length
-		 *            optional length of token, default is 16
-		 * @return token
+		 * @param {integer} length optional length of token, default is 16
+		 * @return {string} generated token
 		 */
 		generate_token : function(length) {
 			length = length || 16;
@@ -3809,7 +4123,13 @@ Scoped.define("module:Tokens", function() {
 			return s.substr(0, length);
 		},
 
-		// http://jsperf.com/string-hashing-methods
+		/**
+		 * Generated a simple hash value from a string.
+		 * 
+		 * @param {string} input string
+		 * @return {integer} simple hash value
+		 * @see http://jsperf.com/string-hashing-methods 
+		 */
 		simple_hash : function(s) {
 			var nHash = 0;
 			if (!s.length)
@@ -4040,15 +4360,16 @@ Scoped.define("module:Trees.TreeQueryObject", ["module:Class", "module:Events.Ev
 });
 
 Scoped.define("module:Types", function () {
-	/** Type-Testing and Type-Parsing
+	/**
+	 * Type-Testing and Type-Parsing
+	 * 
 	 * @module BetaJS.Types
 	 */
 	return {
 		/**
 		 * Returns whether argument is an object
 		 * 
-		 * @param x
-		 *            argument
+		 * @param x argument
 		 * @return true if x is an object
 		 */
 		is_object : function(x) {
@@ -4058,8 +4379,7 @@ Scoped.define("module:Types", function () {
 		/**
 		 * Returns whether argument is an array
 		 * 
-		 * @param x
-		 *            argument
+		 * @param x argument
 		 * @return true if x is an array
 		 */
 		is_array : function(x) {
@@ -4070,8 +4390,7 @@ Scoped.define("module:Types", function () {
 		 * Returns whether argument is undefined (which is different from being
 		 * null)
 		 * 
-		 * @param x
-		 *            argument
+		 * @param x argument
 		 * @return true if x is undefined
 		 */
 		is_undefined : function(x) {
@@ -4082,8 +4401,7 @@ Scoped.define("module:Types", function () {
 		 * Returns whether argument is null (which is different from being
 		 * undefined)
 		 * 
-		 * @param x
-		 *            argument
+		 * @param x argument
 		 * @return true if x is null
 		 */
 		is_null : function(x) {
@@ -4093,8 +4411,7 @@ Scoped.define("module:Types", function () {
 		/**
 		 * Returns whether argument is undefined or null
 		 * 
-		 * @param x
-		 *            argument
+		 * @param x argument
 		 * @return true if x is undefined or null
 		 */
 		is_none : function(x) {
@@ -4104,8 +4421,7 @@ Scoped.define("module:Types", function () {
 		/**
 		 * Returns whether argument is defined (could be null)
 		 * 
-		 * @param x
-		 *            argument
+		 * @param x argument
 		 * @return true if x is defined
 		 */
 		is_defined : function(x) {
@@ -4116,8 +4432,7 @@ Scoped.define("module:Types", function () {
 		 * Returns whether argument is empty (undefined, null, an empty array or
 		 * an empty object)
 		 * 
-		 * @param x
-		 *            argument
+		 * @param x argument
 		 * @return true if x is empty
 		 */
 		is_empty : function(x) {
@@ -4136,8 +4451,7 @@ Scoped.define("module:Types", function () {
 		/**
 		 * Returns whether argument is a string
 		 * 
-		 * @param x
-		 *            argument
+		 * @param x argument
 		 * @return true if x is a a string
 		 */
 		is_string : function(x) {
@@ -4147,8 +4461,7 @@ Scoped.define("module:Types", function () {
 		/**
 		 * Returns whether argument is a function
 		 * 
-		 * @param x
-		 *            argument
+		 * @param x argument
 		 * @return true if x is a function
 		 */
 		is_function : function(x) {
@@ -4158,8 +4471,7 @@ Scoped.define("module:Types", function () {
 		/**
 		 * Returns whether argument is boolean
 		 * 
-		 * @param x
-		 *            argument
+		 * @param x argument
 		 * @return true if x is boolean
 		 */
 		is_boolean : function(x) {
@@ -4173,10 +4485,8 @@ Scoped.define("module:Types", function () {
 		 * arrays, we compare them recursively by their components. Otherwise,
 		 * we use localeCompare which compares strings.
 		 * 
-		 * @param x
-		 *            left value
-		 * @param y
-		 *            right value
+		 * @param x left value
+		 * @param y right value
 		 * @return 1 if x > y, -1 if x < y and 0 if x == y
 		 */
 		compare : function(x, y) {
@@ -4199,8 +4509,7 @@ Scoped.define("module:Types", function () {
 		/**
 		 * Parses a boolean string
 		 * 
-		 * @param x
-		 *            boolean as a string
+		 * @param x boolean as a string
 		 * @return boolean value
 		 */
 		parseBool : function(x) {
@@ -4216,8 +4525,7 @@ Scoped.define("module:Types", function () {
 		/**
 		 * Returns the type of a given expression
 		 * 
-		 * @param x
-		 *            expression
+		 * @param x expression
 		 * @return type string
 		 */
 		type_of : function(x) {
@@ -4226,6 +4534,13 @@ Scoped.define("module:Types", function () {
 			return typeof x;
 		},
 
+		/**
+		 * Parses a value given a specific type.
+		 * 
+		 * @param x value to be parsed
+		 * @param {string} type the specific type to be parsed (accepts: bool, boolean, int, integer, date, time, datetime, float, double)
+		 * @return parsed value
+		 */
 		parseType : function(x, type) {
 			if (!this.is_string(x))
 				return x;
@@ -4241,6 +4556,12 @@ Scoped.define("module:Types", function () {
 			return x;
 		},
 		
+		/**
+		 * Returns the specific type of a JavaScript object
+		 * 
+		 * @param {object} obj an object instance
+		 * @return {string} the object type
+		 */
 		objectType: function (obj) {
 			if (!this.is_object(obj))
 				return null;
@@ -4295,6 +4616,70 @@ Scoped.define("module:Channels.ReceiverSender", ["module:Channels.Sender"], func
 	});
 });
 
+
+Scoped.define("module:Classes.AbstractGarbageCollector", [
+    "module:Class"    
+], function (Class, scoped) {
+	return Class.extend({scoped: scoped}, function (inherited) {
+		return {
+			
+			constructor: function () {
+				inherited.constructor.call(this);
+				this.__classes = {};
+				this.__queue = [];
+			},
+			
+			queue: function (obj) {
+				if (!obj || obj.destroyed() || this.__classes[obj.cid()])
+					return;
+				this.__queue.push(obj);
+				this.__classes[obj.cid()] = obj;
+			},
+			
+			hasNext: function () {
+				return this.__queue.length > 0;
+			},
+			
+			destroyNext: function () {
+				var obj = this.__queue.shift();
+				delete this.__classes[obj.cid()];
+				if (!obj.destroyed())
+					obj.destroy();
+				delete obj.__gc;
+			}
+
+		};
+	});
+});
+
+
+Scoped.define("module:Classes.DefaultGarbageCollector", [
+    "module:Classes.AbstractGarbageCollector",
+    "module:Timers.Timer",
+    "module:Time"
+], function (Class, Timer, Time, scoped) {
+	return Class.extend({scoped: scoped}, function (inherited) {
+		return {
+			
+			constructor: function (delay, duration) {
+				inherited.constructor.call(this);
+				this.__duration = duration || 5;
+				this.auto_destroy(new Timer({
+					fire: this.__fire,
+					context: this,
+					delay: delay || 100
+				}));
+			},
+			
+			__fire: function () {
+				var t = Time.now() + this.__duration;
+				while (Time.now() < t && this.hasNext())
+					this.destroyNext();
+			}		
+
+		};
+	});
+});
 
 Scoped.define("module:Channels.SenderMultiplexer", ["module:Channels.Sender"], function (Sender, scoped) {
 	return Sender.extend({scoped: scoped}, function (inherited) {
@@ -6008,6 +6393,7 @@ Scoped.define("module:Promise", [
 });
 
 
+
 Scoped.define("module:Timers.Timer", [
     "module:Class",
     "module:Objs",
@@ -6024,7 +6410,7 @@ Scoped.define("module:Timers.Timer", [
 			 * bool start (optional, default true): should it start immediately
 			 * bool real_time (default false)
 			 * int duration (optional, default null)
-			 * int fire_max (optiona, default null)
+			 * int fire_max (optional, default null)
 			 * 
 			 */
 			constructor: function (options) {

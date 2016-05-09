@@ -1,27 +1,23 @@
 /*!
-betajs-dynamics - v0.0.41 - 2016-03-06
+betajs-dynamics - v0.0.45 - 2016-04-26
 Copyright (c) Victor Lingenthal,Oliver Friedmann
 Apache-2.0 Software License.
 */
+
 (function () {
-
 var Scoped = this.subScope();
-
-Scoped.binding("module", "global:BetaJS.Dynamics");
-Scoped.binding("base", "global:BetaJS");
-Scoped.binding("browser", "global:BetaJS.Browser");
-
-Scoped.binding("jquery", "global:jQuery");
-
+Scoped.binding('module', 'global:BetaJS.Dynamics');
+Scoped.binding('base', 'global:BetaJS');
+Scoped.binding('browser', 'global:BetaJS.Browser');
+Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
-		guid: "d71ebf84-e555-4e9b-b18a-11d74fdcefe2",
-		version: '235.1457307852360'
-	};
+    "guid": "d71ebf84-e555-4e9b-b18a-11d74fdcefe2",
+    "version": "239.1461692226869"
+};
 });
-
-Scoped.assumeVersion("base:version", 444);
-Scoped.assumeVersion("browser:version", 65);
+Scoped.assumeVersion('base:version', 496);
+Scoped.assumeVersion('browser:version', 76);
 Scoped.define("module:Data.Mesh", [
 	    "base:Class",
 	    "base:Events.EventsMixin",
@@ -295,7 +291,9 @@ Scoped.define("module:Data.Mesh", [
 Scoped.define("module:Parser", [
     "base:Types", "base:Objs", "base:JavaScript"
 ], function (Types, Objs, JavaScript) {
-	return {		
+	return {
+		
+		__cache: {},		
 		
 		parseText: function (text) {
 			if (!text)
@@ -342,25 +340,31 @@ Scoped.define("module:Parser", [
 		},
 		
 		parseCode: function (code) {
+			var result = this.__cache[code];
+			if (result)
+				return result;
 			var bidirectional = false;
-			if (code.charAt(0) == "=") {
+			var c = code;
+			if (c.charAt(0) == "=") {
 				bidirectional = true;
-				code = code.substring(1);
+				c = c.substring(1);
 			}
-			var i = code.indexOf("::");
+			var i = c.indexOf("::");
 			var args = null;
 			if (i >= 0) {
-				args = code.substring(0, i).trim();
-				code = code.substring(i + 2);
+				args = c.substring(0, i).trim();
+				c = c.substring(i + 2);
 			}
-			return {
+			result = {
 				bidirectional: bidirectional,
 				args: args,
-				variable: bidirectional ? code : null,
+				variable: bidirectional ? c : null,
 				/*jslint evil: true */
-				func: new Function ("obj", "with (obj) { return " + code + "; }"),
-				dependencies: Object.keys(Objs.objectify(JavaScript.extractIdentifiers(code, true)))
+				func: new Function ("obj", "with (obj) { return " + c + "; }"),
+				dependencies: Object.keys(Objs.objectify(JavaScript.extractIdentifiers(c, true)))
 			};
+			this.__cache[code] = result;
+			return result;
 		}
 	
 	};
@@ -466,7 +470,8 @@ Scoped.define("module:Data.Scope", [
 				this.__root = parent ? parent.root() : this;
 				this.__children = {};
 				this.__extendables = Objs.objectify(options.extendables);
-				this.__properties = new Properties();
+				this.__properties = options.properties || new Properties();
+				this.__properties.increaseRef();
 				this.__properties.on("change", function (key, value, oldValue) {
 					this.trigger("change:" + key, value, oldValue);
 				}, this);
@@ -475,12 +480,18 @@ Scoped.define("module:Data.Scope", [
 				}, this);
 				this.__scopes = {};
 				this.__data = options.data;
-				this.setAll(Types.is_function(options.attrs) ? options.attrs() : options.attrs);
+				Objs.iter(Types.is_function(options.attrs) ? options.attrs() : options.attrs, function (value, key) {
+					if (!this.__properties.has(key))
+						this.set(key, value);
+				}, this);
+				this.setAll();
 				Objs.iter(options.collections, function (value, key) {
-					this.set(key, this.auto_destroy(new Collection({
-						objects: value,
-						release_references: true
-					})));
+					if (!this.__properties.has(key)) {
+						this.set(key, this.auto_destroy(new Collection({
+							objects: value,
+							release_references: true
+						})));
+					}
 				}, this);
 				if (parent)
 					parent.__add(this);
@@ -508,7 +519,7 @@ Scoped.define("module:Data.Scope", [
 				Objs.iter(this.__children, function (child) {
 					child.destroy();
 				});
-				this.__properties.destroy();
+				this.__properties.decreaseRef();
 				if (this.__parent)
 					this.__parent.__remove(this);
 				inherited.destroy.call(this);
@@ -875,6 +886,8 @@ Scoped.define("module:Dynamic", [
 	var Cls;
 	Cls = Scope.extend({scoped: scoped}, [HandlerMixin, function (inherited) {
    		return {
+   			
+   			supportsGc: true,
 
 		   	_notifications: {
 				_activate: "__createActivate"
@@ -1141,7 +1154,7 @@ Scoped.define("module:Handlers.Attr", [
 						this._partial.change(value, old);
 					if (this._attrName === "value" && this._element.value !== value)
 						this.__inputVal(this._element, value);
-					if (this._tagHandler && this._dyn)
+					if (this._tagHandler && this._dyn && !this._partial)
 						this._tagHandler.properties().set(Strings.first_after(this._attrName, "-"), value);
 				}
 			},
@@ -1169,6 +1182,11 @@ Scoped.define("module:Handlers.Attr", [
 				} else if (this._partial) {
 					this._partial.bindTagHandler(handler);
 				}
+			},
+			
+			prepareTagHandler: function (createArguments) {
+				if (this._partial)
+					this._partial.prepareTagHandler(createArguments);
 			},
 			
 			unbindTagHandler: function (handler) {
@@ -1461,6 +1479,8 @@ Scoped.define("module:Handlers.Partial", [
 			
 			unbindTagHandler: function (handler) {},
 			
+			prepareTagHandler: function (createArguments) {},
+			
 			_change: function (value, oldValue) {},
 			
 			_activate: function () {},
@@ -1665,7 +1685,7 @@ Scoped.define("module:Handlers.Node", [
 						attr.unbindTagHandler(this._tagHandler);
 					}, this);
 					this.off(null, null, this._tagHandler);
-					this._tagHandler.destroy();
+					this._tagHandler.weakDestroy();
 					this._tagHandler = null;
 				}
 			},
@@ -1691,12 +1711,16 @@ Scoped.define("module:Handlers.Node", [
 						attr.updateElement(this._element);
 					}, this);
 				}
-				this._tagHandler = Registries.handler.create(tagv, {
+				var createArguments = {
 					parentElement: this._$element.get(0),
 					parentHandler: this._handler,
 					autobind: false,
 					tagName: tagv					
-				});
+				};
+				Objs.iter(this._attrs, function (attr) {
+					attr.prepareTagHandler(createArguments);
+				}, this);
+				this._tagHandler = Registries.handler.create(tagv, createArguments);
 				//this._$element.append(this._tagHandler.element());
 				Objs.iter(this._attrs, function (attr) {
 					attr.bindTagHandler(this._tagHandler);
@@ -2014,6 +2038,21 @@ Scoped.define("module:Partials.FunctionsPartial", ["module:Handlers.Partial", "b
 	return Cls;
 });
 
+Scoped.define("module:Partials.GcPartial", ["module:Handlers.Partial"], function (Partial, scoped) {
+ 	var Cls = Partial.extend({scoped: scoped}, function (inherited) {
+ 		return {
+			
+ 			bindTagHandler: function (handler) {
+ 				if (this._value) 
+ 					handler.enableGc(this._value);
+ 			}
+ 		
+ 		};
+ 	});
+ 	Cls.register("ba-gc");
+	return Cls;
+});
+
 Scoped.define("module:Partials.IfPartial", ["module:Partials.ShowPartial"], function (Partial, scoped) {
   /**
    * @name ba-if
@@ -2107,6 +2146,20 @@ Scoped.define("module:Partials.InnerTemplatePartial",
  	Cls.register("ba-inner-template");
 	return Cls;
 
+});
+
+Scoped.define("module:Partials.NoScope", ["module:Handlers.Partial"], function (Partial, scoped) {
+ 	var Cls = Partial.extend({scoped: scoped}, function (inherited) {
+ 		return {
+			 			 			
+ 			prepareTagHandler: function (createArguments) {
+ 				createArguments.properties = this._node.properties();
+ 			}
+ 		
+ 		};
+ 	});
+ 	Cls.register("ba-noscope");
+	return Cls;
 });
 
 

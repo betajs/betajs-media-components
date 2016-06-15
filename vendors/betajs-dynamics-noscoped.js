@@ -1,5 +1,5 @@
 /*!
-betajs-dynamics - v0.0.45 - 2016-04-26
+betajs-dynamics - v0.0.52 - 2016-06-14
 Copyright (c) Victor Lingenthal,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -13,7 +13,7 @@ Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
     "guid": "d71ebf84-e555-4e9b-b18a-11d74fdcefe2",
-    "version": "239.1461692226869"
+    "version": "249.1465946194577"
 };
 });
 Scoped.assumeVersion('base:version', 496);
@@ -442,9 +442,10 @@ Scoped.define("module:Data.Scope", [
 	    "base:Ids",
 	    "base:Properties.Properties",
 	    "base:Collections.Collection",
+	    "base:Events.Events",
 	    "module:Data.ScopeManager",
 	    "module:Data.MultiScope"
-	], function (Class, EventsMixin, ListenMixin, ObjectIdMixin, Functions, Types, Strings, Objs, Ids, Properties, Collection, ScopeManager, MultiScope, scoped) {
+	], function (Class, EventsMixin, ListenMixin, ObjectIdMixin, Functions, Types, Strings, Objs, Ids, Properties, Collection, Events, ScopeManager, MultiScope, scoped) {
 	return Class.extend({scoped: scoped}, [EventsMixin, ListenMixin, ObjectIdMixin, function (inherited) {
 		return {
 				
@@ -459,10 +460,14 @@ Scoped.define("module:Data.Scope", [
 					extendables: [],
 					collections: {},
 					computed: {},
-					events: {}
+					events: {},
+					channels: {},
+					registerchannels: []
 				}, options);
 				if (options.bindings)
 					options.bind = Objs.extend(options.bind, options.bindings);
+				this._channels = {};
+				this.__channelCache = {};				
 				var parent = options.parent;
 				this.__manager = parent ? parent.__manager : this._auto_destroy(new ScopeManager(this));
 				inherited.constructor.call(this);
@@ -508,6 +513,13 @@ Scoped.define("module:Data.Scope", [
 				}, this);
 				Objs.iter(options.events, function (value, key) {
 					this.on(key, value, this);
+				}, this);
+				Objs.iter(options.registerchannels, this.registerChannel, this);
+				Objs.iter(options.channels, function (value, key) {
+					var splt = Strings.splitFirst(key, ":");
+					var channel = this.channel(splt.head);
+					if (channel)
+						this.listenOn(this.channel(splt.head), splt.tail, value, this);
 				}, this);
 			},
 			
@@ -606,6 +618,22 @@ Scoped.define("module:Data.Scope", [
 			
 			_eventChain: function () {
 				return this.parent();
+			},
+			
+			registerChannel: function (s) {
+				this._channels[s] = this.auto_destroy(new Events());
+			},
+			
+			channel: function (s) {
+				if (!(s in this.__channelCache)) {
+					var result = null;
+					if (this._channels[s])
+						result = this._channels[s];
+					else if (this.__parent)
+						result = this.__parent.channel(s);
+					this.__channelCache[s] = result;
+				}
+				return this.__channelCache[s];
 			},
 			
 			root: function () {
@@ -880,9 +908,10 @@ Scoped.define("module:Dynamic", [
    	    "base:Strings",
    	    "base:Types",
    	    "base:Functions",
+   	    "base:Events.Events",
    	    "module:Registries",
    	    "jquery:"
-   	], function (Scope, HandlerMixin, Objs, Strings, Types, Functions, Registries, $, scoped) {
+   	], function (Scope, HandlerMixin, Objs, Strings, Types, Functions, Events, Registries, $, scoped) {
 	var Cls;
 	Cls = Scope.extend({scoped: scoped}, [HandlerMixin, function (inherited) {
    		return {
@@ -923,6 +952,7 @@ Scoped.define("module:Dynamic", [
 					}
 				}
 				inherited.constructor.call(this, options);
+				this._channels.global = this.cls.__globalEvents;
 				if (options.tagName) {
 					this._tagName = options.tagName;
 					this.data("tagname", this._tagName);
@@ -977,8 +1007,10 @@ Scoped.define("module:Dynamic", [
 	}], {
 		
 		__initialForward: [
-		    "functions", "attrs", "extendables", "collections", "template", "create", "scopes", "bindings", "computed", "types", "events", "dispose"
+		    "functions", "attrs", "extendables", "collections", "template", "create", "scopes", "bindings", "computed", "types", "events", "dispose", "channels", "registerchannels"
         ],
+        
+        __globalEvents: new Events(),
 		
 		canonicName: function () {
 			return Strings.last_after(this.classname, ".").toLowerCase();
@@ -1076,13 +1108,10 @@ Scoped.define("module:Handlers.Attr", [
 			},
 			
 			__inputVal: function (el, value) {
-				if (arguments.length > 1) {
-					if (el.type == "checkbox")
-						el.checked = value;
-					else
-						el.value = value;
-				}
-				return el.type == "checkbox" ? el.checked : el.value;
+				var valueKey = el.type === 'checkbox' || el.type === 'radio' ? 'checked' : 'value';
+				if (arguments.length > 1) 
+					el[valueKey] = value;
+				return el[valueKey];
 			},
 			
 			updateElement: function (element, attribute) {
@@ -1881,7 +1910,11 @@ Scoped.define("module:Partials.AssocPartial", ["module:Handlers.Partial"], funct
 });
 
 
-Scoped.define("module:Partials.AttrsPartial", ["module:Handlers.Partial"], function (Partial, scoped) {
+Scoped.define("module:Partials.AttrsPartial", [
+    "module:Handlers.Partial",
+    "base:Objs",
+    "base:Class"
+], function (Partial, Objs, Class, scoped) {
   /**
    * @name ba-attrs
    *
@@ -1906,7 +1939,8 @@ Scoped.define("module:Partials.AttrsPartial", ["module:Handlers.Partial"], funct
 		},
 		
 		bindTagHandler: function (handler) {
-			this._apply(this._value);
+			for (var key in this._value)
+				handler.setArgumentAttr(key, Class.is_pure_json(this._value[key]) ? Objs.clone(this._value[key], 1) : this._value[key]);
 		}
 
  	});
@@ -2572,15 +2606,18 @@ Scoped.define("module:Partials.ShowPartial", ["module:Handlers.Partial"], functi
 			
  			constructor: function (node, args, value) {
  				inherited.constructor.apply(this, arguments);
+ 				this.__oldDisplay = null;
  				if (!value)
  					node._$element.hide();
  			},
  			
  			_apply: function (value) {
- 				if (value)
- 					this._node._$element.show();
- 				else
- 					this._node._$element.hide();
+ 				if (value) {
+ 					this._node._$element.css("display", this.__oldDisplay && this.__oldDisplay !== "none" ? this.__oldDisplay : "");
+ 				} else {
+ 					this.__oldDisplay = this._node._$element.css("display");
+ 					this._node._$element.css("display", "none");
+ 				}
  			}
  		
  		};

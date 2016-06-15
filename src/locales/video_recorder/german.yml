@@ -1,0 +1,24 @@
+"language:de":
+    ba-videorecorder-chooser.record-video: Video aufnehmen
+    ba-videorecorder-chooser.upload-video: Video hochladen
+    ba-videorecorder-controlbar.settings: Einstellungen
+    ba-videorecorder-controlbar.camerahealthy: Gute Beleuchtung
+    ba-videorecorder-controlbar.cameraunhealthy: Beleuchtung nicht optimal
+    ba-videorecorder-controlbar.microphonehealthy: Soundqualität einwandfrei
+    ba-videorecorder-controlbar.microphoneunhealthy: Mikrofon bis jetzt stumm
+    ba-videorecorder-controlbar.record: Video aufnehmen
+    ba-videorecorder-controlbar.record-tooltip: Hier clicken um Aufnahme zu starten.
+    ba-videorecorder-controlbar.stop: Aufnahme stoppen
+    ba-videorecorder-controlbar.stop-tooltip: Hier clicken um Aufnahme zu stoppen.
+    ba-videorecorder-controlbar.skip: Überspringen
+    ba-videorecorder-controlbar.skip-tooltip: Hier clicken um zu Überspringen.
+    ba-videorecorder.recorder-error: Es ist ein Fehler aufgetreten, bitte versuchen Sie es später noch einmal. Hier klicken, um es noch einmal zu probieren.
+    ba-videorecorder.pick-covershot: Bitte wählen Sie einen Covershot aus.
+    ba-videorecorder.uploading: Hochladen
+    ba-videorecorder.uploading-failed: Hochladen fehlgeschlagen. Hier klicken, um es noch einmal zu probieren.
+    ba-videorecorder.verifying: Verifizieren
+    ba-videorecorder.verifying-failed: Verifizierung fehlgeschlagen. Hier klicken, um es noch einmal zu probieren.
+    ba-videorecorder.rerecord-confirm: Möchten Sie Ihr Video wirklich noch einmal aufnehmen?
+    ba-videorecorder.video_file_too_large: Die angegebene Videodatei ist zu groß. Hier klicken, um eine kleinere Videodatei hochzuladen.
+    ba-videorecorder.unsupported_video_type: "Bitte laden Sie Dateien des folgenden Typs hoch: %s. Hier klicken, um es noch einmal zu probieren."        
+    

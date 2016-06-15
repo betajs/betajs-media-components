@@ -11,14 +11,19 @@ Scoped.define("module:VideoPlayer.Dynamics.Playbutton", [
 			template: Templates.playbutton,
 			
 			attrs: {
-				"css": "ba-videoplayer"
+				"css": "ba-videoplayer",
+				"rerecordable": false
 			},
 			
 			functions: {
 				
 				play: function () {
 					this.trigger("play");
-				}
+				},
+				
+				rerecord: function () {
+					this.trigger("rerecord");
+				}				
 				
 			}
 			
@@ -27,6 +32,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Playbutton", [
 	.register("ba-videoplayer-playbutton")
     .attachStringTable(Assets.strings)
     .addStrings({
-    	"tooltip": "Click to play video."
+    	"tooltip": "Click to play video.",
+    	"rerecord": "Re-record"
     });
 });

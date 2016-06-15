@@ -1,7 +1,7 @@
 $css: "ba-videoplayer";
 $cssie8: "ba-videoplayer-ie8";
 $cssnoie8: "ba-videoplayer-noie8";
-$fontello_name: $css + "-fontello";
+$fontello_name: "betajs-media-components-fontello";
 
 $loader_size: 5px;
 $loader_frame_thickness: 1.1em;
@@ -41,3 +41,18 @@ $progressbar_button_bgcolor: #FFF;
 $progressbar_button_bordercolor: #999;
 $controlbar_bgcolor: #000;
 $text_color: #FFF;
+
+
+$rerecord_text_color: white;
+$rerecord_button_color: #8CF;
+$rerecord_font_family: Arial, sans-serif;
+
+$rerecord_height: 32px;
+$rerecord_opacity: 0.1;
+$rerecord_bgcolor: black;
+$rerecord_padding: 16px;
+$rerecord_primarybutton_radius: 2px;
+$rerecord_primarybutton_padding: 4px;
+$rerecord_primarybutton_vertical_padding: 8px;
+$rerecord_primarybutton_font_weight: normal;
+$rerecord_primarybutton_font_size: 14px;

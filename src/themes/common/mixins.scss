@@ -14,6 +14,14 @@
     transform: translateY($y);
 }
 
+@mixin transform-translate-x($x) {
+    -webkit-transform: translateX($x);
+    -moz-transform: translateX($x);
+    -o-transform: translateX($x);
+    -ms-transform: translateX($x);
+    transform: translateX($x);
+}
+
 @mixin transform-translate-z($y) {
     -webkit-transform: translateZ($y);
     -moz-transform: translateZ($y);
@@ -28,6 +36,12 @@
     right: 0;
     top: 0;
     bottom: 0;
+}
+
+@mixin align-full-top() {
+    left: 0;
+    right: 0;
+    top: 0;
 }
 
 @mixin align-full-bottom() {
@@ -46,9 +60,19 @@
     @include align-all();
 }
 
+@mixin relative-align-all() {
+    position: relative;
+    @include align-all();
+}
+
 @mixin absolute-align-full-bottom() {
     position: absolute;
     @include align-full-bottom();
+}
+
+@mixin absolute-align-full-top() {
+    position: absolute;
+    @include align-full-top();
 }
 
 @mixin relative-align-full-bottom() {
@@ -81,6 +105,10 @@
     height: $height;
 }
 
+@mixin float-height($float, $height) {
+    float: $float;
+    height: $height;
+}
 
 @mixin background-rgba($r, $g, $b, $o, $fallback) {
     background: $fallback;

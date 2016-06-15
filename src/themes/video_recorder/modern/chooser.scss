@@ -1,0 +1,30 @@
+.#{$css}-chooser-icon-container {
+	margin: 16px;
+	color: $chooser_primary_button_bgcolor;
+	font-size: 32px;
+}
+
+
+.#{$css}-green .#{$css}-chooser-icon-container {
+	color: $button_color_green;
+}
+
+.#{$css}-blue .#{$css}-chooser-icon-container {
+	color: $button_color_blue;
+}
+
+.#{$css}-green .#{$css}-chooser-primary-button {
+	background-color: $button_color_green;
+}
+
+.#{$css}-blue .#{$css}-chooser-primary-button {
+	background-color: $button_color_blue;
+}
+
+.#{$css}-green .#{$css}-chooser-secondary-button {
+	color: $button_color_green;
+}
+
+.#{$css}-blue .#{$css}-chooser-secondary-button {
+	color: $button_color_blue;
+}

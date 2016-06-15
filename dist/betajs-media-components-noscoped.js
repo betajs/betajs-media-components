@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.20 - 2016-05-09
+betajs-media-components - v0.0.21 - 2016-06-14
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -16,7 +16,7 @@ Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "34.1462805304736"
+    "version": "35.1465958586091"
 };
 });
 Scoped.assumeVersion('base:version', 474);
@@ -25,10 +25,10 @@ Scoped.assumeVersion('flash:version', 27);
 Scoped.assumeVersion('dynamics:version', 219);
 Scoped.assumeVersion('media:version', 42);
 Scoped.extend('module:Templates', function () {
-return {"controlbar":" <div class=\"{{css}}-dashboard {{activitydelta > 5000 ? (css + '-dashboard-hidden') : ''}}\">  <div class=\"{{css}}-progressbar {{activitydelta < 2500 || ismobile ? '' : (css + '-progressbar-small')}}\"       onmousedown=\"{{startUpdatePosition(domEvent)}}\"       onmouseup=\"{{stopUpdatePosition(domEvent)}}\"       onmouseleave=\"{{stopUpdatePosition(domEvent)}}\"       onmousemove=\"{{progressUpdatePosition(domEvent)}}\">   <div class=\"{{css}}-progressbar-cache\" ba-styles=\"{{{width: Math.round(duration ? cached / duration * 100 : 0) + '%'}}}\"></div>   <div class=\"{{css}}-progressbar-position\" ba-styles=\"{{{width: Math.round(duration ? position / duration * 100 : 0) + '%'}}}\" title=\"{{string('video-progress')}}\">    <div class=\"{{css}}-progressbar-button\"></div>   </div>  </div>  <div class=\"{{css}}-backbar\"></div>  <div class=\"{{css}}-controlbar\">         <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{rerecordable}}\"  ba-click=\"rerecord()\" title=\"{{string('rerecord-video')}\">             <div class=\"{{css}}-button-inner\">                 <i class=\"{{css}}-icon-ccw\"></i>             </div>         </div>   <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{!playing}}\" ba-click=\"play()\" title=\"{{string('play-video')}}\">    <div class=\"{{css}}-button-inner\">     <i class=\"{{css}}-icon-play\"></i>    </div>   </div>   <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{playing}}\" ba-click=\"pause()\" title=\"{{string('pause-video')}}\">             <div class=\"{{css}}-button-inner\">                 <i class=\"{{css}}-icon-pause\"></i>             </div>   </div>   <div class=\"{{css}}-time-container\">    <div class=\"{{css}}-time-value\" title=\"{{string('elapsed-time')}}\">{{position_formatted}}</div>    <div class=\"{{css}}-time-sep\">/</div>    <div class=\"{{css}}-time-value\" title=\"{{string('total-time')}}\">{{duration_formatted}}</div>   </div>   <div class=\"{{css}}-rightbutton-container\" ba-if=\"{{fullscreen}}\" ba-click=\"toggle_fullscreen()\" title=\"{{string('fullscreen-video')}}\">    <div class=\"{{css}}-button-inner\">     <i class=\"{{css}}-icon-resize-full\"></i>    </div>   </div>   <div class=\"{{css}}-volumebar\">    <div class=\"{{css}}-volumebar-inner\"         onmousedown=\"{{startUpdateVolume(domEvent)}}\"                  onmouseup=\"{{stopUpdateVolume(domEvent)}}\"                  onmouseleave=\"{{stopUpdateVolume(domEvent)}}\"                  onmousemove=\"{{progressUpdateVolume(domEvent)}}\">     <div class=\"{{css}}-volumebar-position\" ba-styles=\"{{{width: Math.min(100, Math.round(volume * 100)) + '%'}}}\">         <div class=\"{{css}}-volumebar-button\" title=\"{{string('volume-button')}}\"></div>     </div>        </div>   </div>   <div class=\"{{css}}-rightbutton-container\" ba-click=\"toggle_volume()\" title=\"{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}\">    <div class=\"{{css}}-button-inner\">     <i class=\"{{css + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}\"></i>    </div>   </div>  </div> </div> ","loader":" <div class=\"{{css}}-loader-container\">     <div class=\"{{css}}-loader-loader\" title=\"{{string('tooltip')}}\">     </div> </div>","message":" <div class=\"{{css}}-message-container\" ba-click=\"click()\">     <div class='{{css}}-message-message'>         {{message}}     </div> </div>","playbutton":" <div class=\"{{css}}-playbutton-container\" ba-click=\"play()\" title=\"{{string('tooltip')}}\">  <div class=\"{{css}}-playbutton-button\"></div> </div> ","player":" <div     class=\"{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}\"     ba-on:mousemove=\"user_activity()\"     ba-on:mousedown=\"user_activity()\"     ba-on:touchstart=\"user_activity()\"     style=\"{{width ? 'width:' + width + ((width + '').match(/^\\d+$/g) ? 'px' : '') + ';' : ''}}{{height ? 'height:' + height + ((height + '').match(/^\\d+$/g) ? 'px' : '') + ';' : ''}}\" >     <video class=\"{{css}}-video\" data-video=\"video\"></video>     <div class=\"{{css}}-overlay\" data-video=\"ad\" style=\"display:none\"></div>     <div class='{{css}}-overlay' ba-inner-template=\"{{tmploverlay}}\">     </div> </div> ","player_overlay":"<ba-{{dyncontrolbar}}     ba-css=\"{{csscontrolbar || css}}\"     ba-template=\"{{tmplcontrolbar}}\"     ba-show=\"{{controlbar_active}}\"     ba-playing=\"{{playing}}\"     ba-event:rerecord=\"rerecord\"     ba-event:play=\"play\"     ba-event:pause=\"pause\"     ba-event:position=\"seek\"     ba-event:volume=\"set_volume\"     ba-event:fullscreen=\"toggle_fullscreen\"     ba-volume=\"{{volume}}\"     ba-duration=\"{{duration}}\"     ba-cached=\"{{buffered}}\"     ba-position=\"{{position}}\"     ba-activitydelta=\"{{activity_delta}}\"     ba-rerecordable=\"{{rerecordable}}\"     ba-fullscreen=\"{{fullscreensupport && !nofullscreen}}\"     ba-source=\"{{source}}\" ></ba-{{dyncontrolbar}}>  <ba-{{dynplaybutton}}     ba-css=\"{{cssplaybutton || css}}\"     ba-template=\"{{tmplplaybutton}}\"     ba-show=\"{{playbutton_active}}\"     ba-event:play=\"playbutton_click\" ></ba-{{dynplaybutton}}>  <ba-{{dynloader}}     ba-css=\"{{cssloader || css}}\"     ba-template=\"{{tmplloader}}\"     ba-show=\"{{loader_active}}\" ></ba-{{dynloader}}>  <ba-{{dynmessage}}     ba-css=\"{{cssmessage || css}}\"     ba-template=\"{{tmplmessage}}\"     ba-show=\"{{message_active}}\"     ba-message=\"{{message}}\"     ba-event:click=\"message_click\" ></ba-{{dynmessage}}> ","modern-controlbar":" <div class=\"{{css}}-dashboard {{activitydelta > 5000 ? (css + '-dashboard-hidden') : ''}}\">        <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{rerecordable}}\" ba-click=\"rerecord()\" title=\"{{string('rerecord-video')}\">            <div class=\"{{css}}-button-inner\">                <i class=\"{{css}}-icon-ccw\"></i>            </div>        </div>  <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{!playing}}\" ba-click=\"play()\" title=\"{{string('play-video')}}\">   <div class=\"{{css}}-button-inner\">    <i class=\"{{css}}-icon-play\"></i>   </div>  </div>  <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{playing}}\" ba-click=\"pause()\" title=\"{{string('pause-video')}}\">    <div class=\"{{css}}-button-inner\">    <i class=\"{{css}}-icon-pause\"></i>   </div>  </div>  <div class=\"{{css}}-time-container\">   <div class=\"{{css}}-time-value\" title=\"{{string('elapsed-time')}}\">{{position_formatted}}/{{duration_formatted}}</div>  </div>  <div class=\"{{css}}-rightbutton-container\" ba-if=\"{{fullscreen}}\" ba-click=\"toggle_fullscreen()\" title=\"{{string('fullscreen-video')}}\">   <div class=\"{{css}}-button-inner\">    <i class=\"{{css}}-icon-resize-full\"></i>   </div>  </div>  <div class=\"{{css}}-volumebar\">   <div class=\"{{css}}-volumebar-inner\"           onmousedown=\"{{startUpdateVolume(domEvent)}}\"                 onmouseup=\"{{stopUpdateVolume(domEvent)}}\"                 onmouseleave=\"{{stopUpdateVolume(domEvent)}}\"                 onmousemove=\"{{progressUpdateVolume(domEvent)}}\">    <div class=\"{{css}}-volumebar-position\" ba-styles=\"{{{width: Math.ceil(1+Math.min(99, Math.round(volume * 100))) + '%'}}}\" title=\"{{string('volume-button')}}\"></div>       </div>  </div>  <div class=\"{{css}}-rightbutton-container {{css}}-volume-button-container\" ba-click=\"toggle_volume()\" title=\"{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}\">   <div class=\"{{css}}-button-inner\">    <i class=\"{{css + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}\"></i>   </div>  </div>  <div class=\"{{css}}-progressbar\">   <div class=\"{{css}}-progressbar-inner\"        onmousedown=\"{{startUpdatePosition(domEvent)}}\"        onmouseup=\"{{stopUpdatePosition(domEvent)}}\"        onmouseleave=\"{{stopUpdatePosition(domEvent)}}\"        onmousemove=\"{{progressUpdatePosition(domEvent)}}\">   <div class=\"{{css}}-progressbar-cache\" ba-styles=\"{{{width: Math.round(duration ? cached / duration * 100 : 0) + '%'}}}\"></div>   <div class=\"{{css}}-progressbar-position\" ba-styles=\"{{{width: Math.round(duration ? position / duration * 100 : 0) + '%'}}}\" title=\"{{string('video-progress')}}\"></div>  </div> </div> "};
+return {"video_player_controlbar":" <div class=\"{{css}}-dashboard {{activitydelta > 5000 && hideonactivity ? (css + '-dashboard-hidden') : ''}}\">  <div class=\"{{css}}-progressbar {{activitydelta < 2500 || ismobile ? '' : (css + '-progressbar-small')}}\"       onmousedown=\"{{startUpdatePosition(domEvent)}}\"       onmouseup=\"{{stopUpdatePosition(domEvent)}}\"       onmouseleave=\"{{stopUpdatePosition(domEvent)}}\"       onmousemove=\"{{progressUpdatePosition(domEvent)}}\">   <div class=\"{{css}}-progressbar-cache\" ba-styles=\"{{{width: Math.round(duration ? cached / duration * 100 : 0) + '%'}}}\"></div>   <div class=\"{{css}}-progressbar-position\" ba-styles=\"{{{width: Math.round(duration ? position / duration * 100 : 0) + '%'}}}\" title=\"{{string('video-progress')}}\">    <div class=\"{{css}}-progressbar-button\"></div>   </div>  </div>  <div class=\"{{css}}-backbar\"></div>  <div class=\"{{css}}-controlbar\">         <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{rerecordable}}\"  ba-click=\"rerecord()\" title=\"{{string('rerecord-video')}}\">             <div class=\"{{css}}-button-inner\">                 <i class=\"{{css}}-icon-ccw\"></i>             </div>         </div>   <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{!playing}}\" ba-click=\"play()\" title=\"{{string('play-video')}}\">    <div class=\"{{css}}-button-inner\">     <i class=\"{{css}}-icon-play\"></i>    </div>   </div>   <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{playing}}\" ba-click=\"pause()\" title=\"{{string('pause-video')}}\">             <div class=\"{{css}}-button-inner\">                 <i class=\"{{css}}-icon-pause\"></i>             </div>   </div>   <div class=\"{{css}}-time-container\">    <div class=\"{{css}}-time-value\" title=\"{{string('elapsed-time')}}\">{{position_formatted}}</div>    <div class=\"{{css}}-time-sep\">/</div>    <div class=\"{{css}}-time-value\" title=\"{{string('total-time')}}\">{{duration_formatted}}</div>   </div>   <div class=\"{{css}}-rightbutton-container\" ba-if=\"{{fullscreen}}\" ba-click=\"toggle_fullscreen()\" title=\"{{string('fullscreen-video')}}\">    <div class=\"{{css}}-button-inner\">     <i class=\"{{css}}-icon-resize-full\"></i>    </div>   </div>   <div class=\"{{css}}-volumebar\">    <div class=\"{{css}}-volumebar-inner\"         onmousedown=\"{{startUpdateVolume(domEvent)}}\"                  onmouseup=\"{{stopUpdateVolume(domEvent)}}\"                  onmouseleave=\"{{stopUpdateVolume(domEvent)}}\"                  onmousemove=\"{{progressUpdateVolume(domEvent)}}\">     <div class=\"{{css}}-volumebar-position\" ba-styles=\"{{{width: Math.min(100, Math.round(volume * 100)) + '%'}}}\">         <div class=\"{{css}}-volumebar-button\" title=\"{{string('volume-button')}}\"></div>     </div>        </div>   </div>   <div class=\"{{css}}-rightbutton-container\" ba-click=\"toggle_volume()\" title=\"{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}\">    <div class=\"{{css}}-button-inner\">     <i class=\"{{css + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}\"></i>    </div>   </div>  </div> </div> ","video_player_loader":" <div class=\"{{css}}-loader-container\">     <div class=\"{{css}}-loader-loader\" title=\"{{string('tooltip')}}\">     </div> </div>","video_player_message":" <div class=\"{{css}}-message-container\" ba-click=\"click()\">     <div class='{{css}}-message-message'>         {{message}}     </div> </div>","playbutton":" <div class=\"{{css}}-playbutton-container\" ba-click=\"play()\" title=\"{{string('tooltip')}}\">  <div class=\"{{css}}-playbutton-button\"></div> </div>  <div class=\"{{css}}-rerecord-bar\" ba-if=\"{{rerecordable}}\">  <div class=\"{{css}}-rerecord-backbar\"></div>  <div class=\"{{css}}-rerecord-frontbar\">         <div class=\"{{css}}-rerecord-button-container\">          <div class=\"{{css}}-rerecord-button\" onclick=\"{{rerecord()}}\">           {{string('rerecord')}}          </div>         </div>  </div> </div> ","player":" <div     class=\"{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}\"     ba-on:mousemove=\"user_activity()\"     ba-on:mousedown=\"user_activity()\"     ba-on:touchstart=\"user_activity()\"     style=\"{{width ? 'width:' + width + ((width + '').match(/^\\d+$/g) ? 'px' : '') + ';' : ''}}{{height ? 'height:' + height + ((height + '').match(/^\\d+$/g) ? 'px' : '') + ';' : ''}}\" >     <video class=\"{{css}}-video\" data-video=\"video\"></video>     <div class=\"{{css}}-overlay\" data-video=\"ad\" style=\"display:none\"></div>     <div class='{{css}}-overlay'>      <ba-{{dyncontrolbar}}       ba-css=\"{{csscontrolbar || css}}\"       ba-template=\"{{tmplcontrolbar}}\"       ba-show=\"{{controlbar_active}}\"       ba-playing=\"{{playing}}\"       ba-event:rerecord=\"rerecord\"       ba-event:play=\"play\"       ba-event:pause=\"pause\"       ba-event:position=\"seek\"       ba-event:volume=\"set_volume\"       ba-event:fullscreen=\"toggle_fullscreen\"       ba-volume=\"{{volume}}\"       ba-duration=\"{{duration}}\"       ba-cached=\"{{buffered}}\"       ba-position=\"{{position}}\"       ba-activitydelta=\"{{activity_delta}}\"       ba-hideoninactivity=\"{{hideoninactivity}}\"       ba-rerecordable=\"{{rerecordable}}\"       ba-fullscreen=\"{{fullscreensupport && !nofullscreen}}\"       ba-source=\"{{source}}\"   ></ba-{{dyncontrolbar}}>      <ba-{{dynplaybutton}}       ba-css=\"{{cssplaybutton || css}}\"       ba-template=\"{{tmplplaybutton}}\"       ba-show=\"{{playbutton_active}}\"       ba-rerecordable=\"{{rerecordable}}\"       ba-event:play=\"playbutton_click\"       ba-event:rerecord=\"rerecord\"   ></ba-{{dynplaybutton}}>      <ba-{{dynloader}}       ba-css=\"{{cssloader || css}}\"       ba-template=\"{{tmplloader}}\"       ba-show=\"{{loader_active}}\"   ></ba-{{dynloader}}>      <ba-{{dynmessage}}       ba-css=\"{{cssmessage || css}}\"       ba-template=\"{{tmplmessage}}\"       ba-show=\"{{message_active}}\"       ba-message=\"{{message}}\"       ba-event:click=\"message_click\"   ></ba-{{dynmessage}}>     </div> </div> ","video_recorder_chooser":" <div class=\"{{css}}-chooser-container\">   <div class=\"{{css}}-chooser-button-container\">   <div>    <div class=\"{{css}}-chooser-primary-button\"         ba-click=\"primary()\"         ba-if=\"{{has_primary}}\">     <input ba-if=\"{{enable_primary_select && primary_select_capture}}\"            type=\"file\"            class=\"{{css}}-chooser-file\"            style=\"height:100\"            onchange=\"{{primary_select(event)}}\"            accept=\"{{primary_accept_string}}\"            capture />     <input ba-if=\"{{enable_primary_select && !primary_select_capture}}\"            type=\"file\"            class=\"{{css}}-chooser-file\"            style=\"height:100\"            onchange=\"{{primary_select(event)}}\"            accept=\"{{primary_accept_string}}\" />     <i class=\"{{css}}-icon-{{primaryrecord ? 'videocam' : 'upload'}}\"></i>     <span>      {{primary_label}}     </span>    </div>   </div>   <div>    <div class=\"{{css}}-chooser-secondary-button\"         ba-click=\"secondary()\"         ba-if=\"{{has_secondary}}\">     <input ba-if=\"{{enable_secondary_select && secondary_select_capture}}\"            type=\"file\"            class=\"{{css}}-chooser-file\"            style=\"height:100\"            onchange=\"{{secondary_select(event)}}\"            accept=\"{{secondary_accept_string}}\" />     <input ba-if=\"{{enable_secondary_select && !secondary_select_capture}}\"            type=\"file\"            class=\"{{css}}-chooser-file\"            style=\"height:100\"            onchange=\"{{secondary_select(event)}}\"            accept=\"{{secondary_accept_string}}\" />     <span>      {{secondary_label}}     </span>    </div>   </div>  </div> </div>","video_recorder_controlbar":"<div class=\"{{css}}-dashboard\">  <div class=\"{{css}}-backbar\"></div>  <div class=\"{{css}}-settings\" ba-show=\"{{settingsvisible && settingsopen}}\">   <div class=\"{{css}}-settings-backbar\"></div>   <div class=\"{{css}}-settings-front\">    <ul ba-repeat=\"{{camera :: cameras}}\">     <li>      <input type='radio' name='camera' value=\"{{selectedcamera == camera.id}}\" onclick=\"{{selectCamera(camera.id)}}\" />      <span></span>      <label onclick=\"{{selectCamera(camera.id)}}\">       {{camera.label}}      </label>      </li>    </ul>    <hr />    <ul ba-repeat=\"{{microphone :: microphones}}\">     <li onclick=\"{{selectMicrophone(microphone.id)}}\">      <input type='radio' name='microphone' value=\"{{selectedmicrophone == microphone.id}}\" />      <span></span>      <label>       {{microphone.label}}      </label>      </li>    </ul>   </div>  </div>  <div class=\"{{css}}-controlbar\">         <div class=\"{{css}}-leftbutton-container\" ba-show=\"{{settingsvisible}}\">             <div class=\"{{css}}-button-inner {{css}}-button-{{settingsopen ? 'selected' : 'unselected'}}\"                  onclick=\"{{settingsopen=!settingsopen}}\"                  onmouseenter=\"{{hover(string('settings'))}}\"                  onmouseleave=\"{{unhover()}}\">                 <i class=\"{{css}}-icon-cog\"></i>             </div>         </div>         <div class=\"{{css}}-lefticon-container\" ba-show=\"{{settingsvisible}}\">             <div class=\"{{css}}-icon-inner\"                  onmouseenter=\"{{hover(string(camerahealthy ? 'camerahealthy' : 'cameraunhealthy'))}}\"                  onmouseleave=\"{{unhover()}}\">                 <i class=\"{{css}}-icon-videocam {{css}}-icon-state-{{camerahealthy ? 'good' : 'bad' }}\"></i>             </div>         </div>         <div class=\"{{css}}-lefticon-container\" ba-show=\"{{settingsvisible}}\">             <div class=\"{{css}}-icon-inner\"                  onmouseenter=\"{{hover(string(microphonehealthy ? 'microphonehealthy' : 'microphoneunhealthy'))}}\"                  onmouseleave=\"{{unhover()}}\">                 <i class=\"{{css}}-icon-mic {{css}}-icon-state-{{microphonehealthy ? 'good' : 'bad' }}\"></i>             </div>         </div>         <div class=\"{{css}}-lefticon-container\" ba-show=\"{{stopvisible && recordingindication}}\">             <div class=\"{{css}}-recording-indication\">             </div>         </div>         <div class=\"{{css}}-label-container\" ba-show=\"{{controlbarlabel}}\">          <div class=\"{{css}}-label-label\">           {{controlbarlabel}}          </div>         </div>         <div class=\"{{css}}-rightbutton-container\" ba-show=\"{{recordvisible}}\">          <div class=\"{{css}}-button-primary\"                  onclick=\"{{record()}}\"                  onmouseenter=\"{{hover(string('record-tooltip'))}}\"                  onmouseleave=\"{{unhover()}}\">           {{string('record')}}          </div>         </div>         <div class=\"{{css}}-rightbutton-container\" ba-show=\"{{stopvisible}}\">          <div class=\"{{css}}-button-primary\"                  onclick=\"{{stop()}}\"                  onmouseenter=\"{{hover(string('stop-tooltip'))}}\"                  onmouseleave=\"{{unhover()}}\">           {{string('stop')}}          </div>         </div>         <div class=\"{{css}}-centerbutton-container\" ba-show=\"{{skipvisible}}\">          <div class=\"{{css}}-button-primary\"                  onclick=\"{{skip()}}\"                  onmouseenter=\"{{hover(string('skip-tooltip'))}}\"                  onmouseleave=\"{{unhover()}}\">           {{string('skip')}}          </div>         </div>  </div> </div> ","video_recorder_imagegallery":"<div class=\"{{css}}-imagegallery-leftbutton\">  <div class=\"{{css}}-imagegallery-button-inner\" onclick=\"{{left()}}\">   <i class=\"ba-videorecorder-icon-left-open\"></i>  </div> </div>   <div ba-repeat=\"{{image::images}}\" class=\"{{css}}-imagegallery-container\" data-gallery-container>      <div class=\"{{css}}-imagegallery-image\"           ba-styles=\"{{{left: image.left + 'px', top: image.top + 'px', width: image.width + 'px', height: image.height + 'px'}}}\"           onclick=\"{{select(image)}}\">      </div> </div>   <div class=\"{{css}}-imagegallery-rightbutton\">  <div class=\"{{css}}-imagegallery-button-inner\" onclick=\"{{right()}}\">   <i class=\"ba-videorecorder-icon-right-open\"></i>  </div> </div> ","video_recorder_loader":" <div class=\"{{css}}-loader-container\">     <div class=\"{{css}}-loader-loader\" title=\"{{tooltip}}\">     </div> </div> <div class=\"{{css}}-loader-label\" ba-show=\"{{label}}\">  {{label}} </div>","video_recorder_message":" <div class=\"{{css}}-message-container\" ba-click=\"click()\">     <div class='{{css}}-message-message'>         {{message || \"\"}}     </div> </div>","recorder":" <div ba-show=\"{{!player_active}}\"      class=\"{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}\"      style=\"{{width ? 'width:' + width + ((width + '').match(/^\\d+$/g) ? 'px' : '') + ';' : 'width:100%;'}}{{height ? 'height:' + height + ((height + '').match(/^\\d+$/g) ? 'px' : '') + ';' : 'height:100%'}}\" >       <video class=\"{{css}}-video {{css}}-{{hasrecorder ? 'hasrecorder' : 'norecorder'}}\" data-video=\"video\"></video>     <div class='{{css}}-overlay' ba-show=\"{{!hideoverlay}}\" data-overlay=\"overlay\">   <ba-{{dynloader}}       ba-css=\"{{cssloader || css}}\"       ba-template=\"{{tmplloader}}\"       ba-show=\"{{loader_active}}\"       ba-tooltip=\"{{loadertooltip}}\"       ba-label=\"{{loaderlabel}}\"   ></ba-{{dynloader}}>      <ba-{{dynmessage}}       ba-css=\"{{cssmessage || css}}\"       ba-template=\"{{tmplmessage}}\"       ba-show=\"{{message_active}}\"       ba-message=\"{{message}}\"       ba-event:click=\"message_click\"   ></ba-{{dynmessage}}>    <ba-{{dyntopmessage}}       ba-css=\"{{csstopmessage || css}}\"       ba-template=\"{{tmpltopmessage}}\"       ba-show=\"{{topmessage_active && (topmessage || hovermessage)}}\"       ba-topmessage=\"{{hovermessage || topmessage}}\"   ></ba-{{dyntopmessage}}>      <ba-{{dynchooser}}       ba-css=\"{{csschooser || css}}\"       ba-template=\"{{tmplchooser}}\"       ba-show=\"{{chooser_active}}\"       ba-allowrecord=\"{{allowrecord}}\"       ba-allowupload=\"{{allowupload}}\"       ba-allowcustomupload=\"{{allowcustomupload}}\"       ba-primaryrecord=\"{{primaryrecord}}\"       ba-event:record=\"record_video\"       ba-event:upload=\"upload_video\"   ></ba-{{dynchooser}}>      <ba-{{dynimagegallery}}       ba-css=\"{{cssimagegallery || css}}\"       ba-template=\"{{tmplimagegallery}}\"       ba-if=\"{{imagegallery_active}}\"       ba-imagecount=\"{{gallerysnapshots}}\"       ba-imagenativewidth=\"{{recordingwidth}}\"       ba-imagenativeheight=\"{{recordingheight}}\"       ba-event:image-selected=\"{{select_image}}\"   ></ba-{{dynimagegallery}}>      <ba-{{dyncontrolbar}}       ba-css=\"{{csscontrolbar || css}}\"       ba-template=\"{{tmplcontrolbar}}\"       ba-show=\"{{controlbar_active}}\"       ba-cameras=\"{{cameras}}\"       ba-microphones=\"{{microphones}}\"       ba-selectedcamera=\"{{selectedcamera || 0}}\"       ba-selectedmicrophone=\"{{selectedmicrophone || 0}}\"       ba-camerahealthy=\"{{camerahealthy}}\"       ba-microphonehealthy=\"{{microphonehealthy}}\"       ba-hovermessage=\"{{=hovermessage}}\"       ba-settingsvisible=\"{{settingsvisible}}\"       ba-recordvisible=\"{{recordvisible}}\"       ba-stopvisible=\"{{stopvisible}}\"       ba-skipvisible=\"{{skipvisible}}\"       ba-controlbarlabel=\"{{controlbarlabel}}\"       ba-event:select-camera=\"select_camera\"       ba-event:select-microphone=\"select_microphone\"       ba-event:invoke-record=\"record\"       ba-event:invoke-stop=\"stop\"       ba-event:invoke-skip=\"invoke_skip\"   ></ba-{{dyncontrolbar}}>     </div> </div>  <div ba-if=\"{{player_active}}\"      style=\"{{width ? 'width:' + width + ((width + '').match(/^\\d+$/g) ? 'px' : '') + ';' : ''}}{{height ? 'height:' + height + ((height + '').match(/^\\d+$/g) ? 'px' : '') + ';' : ''}}\" >  <ba-{{dynvideoplayer}} ba-theme=\"{{theme || 'default'}}\"                         ba-source=\"{{playbacksource}}\"                         ba-poster=\"{{playbackposter}}\"                         ba-hideoninactivity=\"{{false}}\"                         ba-forceflash=\"{{forceflash}}\"                         ba-noflash=\"{{noflash}}\"                         ba-stretch=\"{{stretch}}\"                         ba-attrs=\"{{playerattrs}}\"                         ba-data:id=\"player\"                         ba-width=\"{{width}}\"                         ba-height=\"{{height}}\"                         ba-rerecordable=\"{{rerecordable && (recordings === null || recordings > 0)}}\"                         ba-reloadonplay=\"{{true}}\"                         ba-autoplay=\"{{autoplay}}\"                         ba-nofullscreen=\"{{nofullscreen}}\"                         ba-event:rerecord=\"rerecord\"                         ba-event:playing=\"playing\"                         ba-event:paused=\"paused\"                         ba-event:ended=\"ended\"                         >  </ba-{{dynvideoplayer}}> </div>","video_recorder_topmessage":" <div class=\"{{css}}-topmessage-container\">     <div class='{{css}}-topmessage-background'>     </div>     <div class='{{css}}-topmessage-message'>         {{topmessage}}     </div> </div>","modern-video_player_controlbar":" <div class=\"{{css}}-dashboard {{activitydelta > 5000 && hideoninactivity ? (css + '-dashboard-hidden') : ''}}\">        <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{rerecordable}}\" ba-click=\"rerecord()\" title=\"{{string('rerecord-video')}}\">            <div class=\"{{css}}-button-inner\">                <i class=\"{{css}}-icon-ccw\"></i>            </div>        </div>  <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{!playing}}\" ba-click=\"play()\" title=\"{{string('play-video')}}\">   <div class=\"{{css}}-button-inner\">    <i class=\"{{css}}-icon-play\"></i>   </div>  </div>  <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{playing}}\" ba-click=\"pause()\" title=\"{{string('pause-video')}}\">    <div class=\"{{css}}-button-inner\">    <i class=\"{{css}}-icon-pause\"></i>   </div>  </div>  <div class=\"{{css}}-time-container\">   <div class=\"{{css}}-time-value\" title=\"{{string('elapsed-time')}}\">{{position_formatted}}/{{duration_formatted}}</div>  </div>  <div class=\"{{css}}-rightbutton-container\" ba-if=\"{{fullscreen}}\" ba-click=\"toggle_fullscreen()\" title=\"{{string('fullscreen-video')}}\">   <div class=\"{{css}}-button-inner\">    <i class=\"{{css}}-icon-resize-full\"></i>   </div>  </div>  <div class=\"{{css}}-volumebar\">   <div class=\"{{css}}-volumebar-inner\"           onmousedown=\"{{startUpdateVolume(domEvent)}}\"                 onmouseup=\"{{stopUpdateVolume(domEvent)}}\"                 onmouseleave=\"{{stopUpdateVolume(domEvent)}}\"                 onmousemove=\"{{progressUpdateVolume(domEvent)}}\">    <div class=\"{{css}}-volumebar-position\" ba-styles=\"{{{width: Math.ceil(1+Math.min(99, Math.round(volume * 100))) + '%'}}}\" title=\"{{string('volume-button')}}\"></div>       </div>  </div>  <div class=\"{{css}}-rightbutton-container {{css}}-volume-button-container\" ba-click=\"toggle_volume()\" title=\"{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}\">   <div class=\"{{css}}-button-inner\">    <i class=\"{{css + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}\"></i>   </div>  </div>  <div class=\"{{css}}-progressbar\">   <div class=\"{{css}}-progressbar-inner\"        onmousedown=\"{{startUpdatePosition(domEvent)}}\"        onmouseup=\"{{stopUpdatePosition(domEvent)}}\"        onmouseleave=\"{{stopUpdatePosition(domEvent)}}\"        onmousemove=\"{{progressUpdatePosition(domEvent)}}\">   <div class=\"{{css}}-progressbar-cache\" ba-styles=\"{{{width: Math.round(duration ? cached / duration * 100 : 0) + '%'}}}\"></div>   <div class=\"{{css}}-progressbar-position\" ba-styles=\"{{{width: Math.round(duration ? position / duration * 100 : 0) + '%'}}}\" title=\"{{string('video-progress')}}\"></div>  </div> </div> ","modern-video_recorder_chooser":" <div class=\"{{css}}-chooser-container\">   <div class=\"{{css}}-chooser-button-container\">     <div class=\"{{css}}-chooser-icon-container\">    <i class=\"{{css}}-icon-{{primaryrecord ? 'videocam' : 'upload'}}\"></i>   </div>   <div>    <div class=\"{{css}}-chooser-primary-button\"         ba-click=\"primary()\"         ba-if=\"{{has_primary}}\">     <input ba-if=\"{{enable_primary_select && primary_select_capture}}\"            type=\"file\"            class=\"{{css}}-chooser-file\"            style=\"height:100\"            onchange=\"{{primary_select(event)}}\"            accept=\"{{primary_accept_string}}\"            capture />     <input ba-if=\"{{enable_primary_select && !primary_select_capture}}\"            type=\"file\"            class=\"{{css}}-chooser-file\"            style=\"height:100\"            onchange=\"{{primary_select(event)}}\"            accept=\"{{primary_accept_string}}\" />     <span>      {{primary_label}}     </span>    </div>   </div>   <div>    <div class=\"{{css}}-chooser-secondary-button\"         ba-click=\"secondary()\"         ba-if=\"{{has_secondary}}\">     <input ba-if=\"{{enable_secondary_select && secondary_select_capture}}\"            type=\"file\"            class=\"{{css}}-chooser-file\"            style=\"height:100\"            onchange=\"{{secondary_select(event)}}\"            accept=\"{{secondary_accept_string}}\" />     <input ba-if=\"{{enable_secondary_select && !secondary_select_capture}}\"            type=\"file\"            class=\"{{css}}-chooser-file\"            style=\"height:100\"            onchange=\"{{secondary_select(event)}}\"            accept=\"{{secondary_accept_string}}\" />     <span>      {{secondary_label}}     </span>    </div>   </div>  </div> </div>"};
 });
 Scoped.extend("module:Assets", ["module:Assets"], function (Assets) {
-    var languages = {"language:de":{"ba-videoplayer-playbutton.tooltip":"Hier clicken um Wiedergabe zu starten.","ba-videoplayer-loader.tooltip":"Video wird geladen...","ba-videoplayer-controlbar.video-progress":"Videofortschritt","ba-videoplayer-controlbar.rerecord-video":"Video erneut aufnehmen?","ba-videoplayer-controlbar.play-video":"Video wiedergeben","ba-videoplayer-controlbar.pause-video":"Video pausieren","ba-videoplayer-controlbar.elapsed-time":"Vergangene Zeit","ba-videoplayer-controlbar.total-time":"L&#xE4;nge des Videos","ba-videoplayer-controlbar.fullscreen-video":"Vollbildmodus","ba-videoplayer-controlbar.volume-button":"Lautst&#xE4;rke regulieren","ba-videoplayer-controlbar.volume-mute":"Ton abstellen","ba-videoplayer-controlbar.volume-unmute":"Ton wieder einstellen","ba-videoplayer.video-error":"Es ist ein Fehler aufgetreten, bitte versuchen Sie es sp&#xE4;ter noch einmal. Hier klicken, um es noch einmal zu probieren."}};
+    var languages = {"language:de":{"ba-videorecorder-chooser.record-video":"Video aufnehmen","ba-videorecorder-chooser.upload-video":"Video hochladen","ba-videorecorder-controlbar.settings":"Einstellungen","ba-videorecorder-controlbar.camerahealthy":"Gute Beleuchtung","ba-videorecorder-controlbar.cameraunhealthy":"Beleuchtung nicht optimal","ba-videorecorder-controlbar.microphonehealthy":"Soundqualit&#xE4;t einwandfrei","ba-videorecorder-controlbar.microphoneunhealthy":"Mikrofon bis jetzt stumm","ba-videorecorder-controlbar.record":"Video aufnehmen","ba-videorecorder-controlbar.record-tooltip":"Hier clicken um Aufnahme zu starten.","ba-videorecorder-controlbar.stop":"Aufnahme stoppen","ba-videorecorder-controlbar.stop-tooltip":"Hier clicken um Aufnahme zu stoppen.","ba-videorecorder-controlbar.skip":"&#xDC;berspringen","ba-videorecorder-controlbar.skip-tooltip":"Hier clicken um zu &#xDC;berspringen.","ba-videorecorder.recorder-error":"Es ist ein Fehler aufgetreten, bitte versuchen Sie es sp&#xE4;ter noch einmal. Hier klicken, um es noch einmal zu probieren.","ba-videorecorder.pick-covershot":"Bitte w&#xE4;hlen Sie einen Covershot aus.","ba-videorecorder.uploading":"Hochladen","ba-videorecorder.uploading-failed":"Hochladen fehlgeschlagen. Hier klicken, um es noch einmal zu probieren.","ba-videorecorder.verifying":"Verifizieren","ba-videorecorder.verifying-failed":"Verifizierung fehlgeschlagen. Hier klicken, um es noch einmal zu probieren.","ba-videorecorder.rerecord-confirm":"M&#xF6;chten Sie Ihr Video wirklich noch einmal aufnehmen?","ba-videorecorder.video_file_too_large":"Die angegebene Videodatei ist zu gro&#xDF;. Hier klicken, um eine kleinere Videodatei hochzuladen.","ba-videorecorder.unsupported_video_type":"Bitte laden Sie Dateien des folgenden Typs hoch: %s. Hier klicken, um es noch einmal zu probieren."}};
     for (var language in languages)
         Assets.strings.register(languages[language], [language]);
     return {};
@@ -199,7 +199,9 @@ Scoped.define("module:Assets", [
 		
 		strings: strings,
 		
-		themes: {}
+		playerthemes: {},
+		
+		recorderthemes: {}
 		
 	};
 });
@@ -219,7 +221,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {
 			
-			template: Templates.controlbar,
+			template: Templates.video_player_controlbar,
 			
 			attrs: {
 				"css": "ba-videoplayer",
@@ -336,7 +338,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Loader", [
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {
 			
-			template: Templates.loader,
+			template: Templates.video_player_loader,
 			
 			attrs: {
 				"css": "ba-videoplayer"
@@ -359,7 +361,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Message", [
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {
 			
-			template: Templates.message,
+			template: Templates.video_player_message,
 			
 			attrs: {
 				"css": "ba-videoplayer",
@@ -390,14 +392,19 @@ Scoped.define("module:VideoPlayer.Dynamics.Playbutton", [
 			template: Templates.playbutton,
 			
 			attrs: {
-				"css": "ba-videoplayer"
+				"css": "ba-videoplayer",
+				"rerecordable": false
 			},
 			
 			functions: {
 				
 				play: function () {
 					this.trigger("play");
-				}
+				},
+				
+				rerecord: function () {
+					this.trigger("rerecord");
+				}				
 				
 			}
 			
@@ -406,7 +413,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Playbutton", [
 	.register("ba-videoplayer-playbutton")
     .attachStringTable(Assets.strings)
     .addStrings({
-    	"tooltip": "Click to play video."
+    	"tooltip": "Click to play video.",
+    	"rerecord": "Re-record"
     });
 });
 Scoped.define("module:VideoPlayer.Dynamics.Player", [
@@ -432,15 +440,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.Controlbar",
     "dynamics:Partials.EventPartial",
     "dynamics:Partials.OnPartial",
-    "dynamics:Partials.TemplatePartial",
-    "dynamics:Partials.InnerTemplatePartial"
+    "dynamics:Partials.TemplatePartial"
 ], function (Class, Templates, Assets, Info, VideoPlayerWrapper, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, InitialState, PlayerStates, AdProvider, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {
 			
 			template: Templates.player,
-			
-			overlay_template: Templates.player_overlay,
 			
 			attrs: {
 				/* CSS */
@@ -465,7 +470,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"tmplloader": "",
 				"tmplmessage": "",
 				"tmplcontrolbar": "",
-				"tmploverlay": "",
 				/* Attributes */
 				"poster": "",
 				"source": "",
@@ -474,6 +478,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				/* Configuration */
 				"forceflash": false,
 				"noflash": false,
+				"reloadonplay": false,
 				/* Ads */
 				"adprovider": null,
 				"preroll": false,
@@ -485,6 +490,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"nofullscreen": false,
 				"ready": true,
 				"stretch": false,
+				"hideoninactivity": true,
+				"skipinitial": false,
 				/* States */
 				"states": {
 					"poster_error": {
@@ -504,7 +511,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"ready": "boolean",
 				"nofullscreen": "boolean",
 				"stretch": "boolean",
-				"preroll": "boolean"
+				"preroll": "boolean",
+				"hideoninactivity": "boolean",
+				"skipinitial": "boolean"
 			},
 			
 			extendables: ["states"],
@@ -512,8 +521,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 			remove_on_destroy: true,
 			
 			create: function () {
-				if (this.get("theme") in Assets.themes) {
-					Objs.iter(Assets.themes[this.get("theme")], function (value, key) {
+				if (this.get("theme") in Assets.playerthemes) {
+					Objs.iter(Assets.playerthemes[this.get("theme")], function (value, key) {
 						if (!this.isArgumentAttr(key))
 							this.set(key, value);
 					}, this);
@@ -529,8 +538,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 					this.set("source", pl0.source);
 					this.set("sources", pl0.sources);
 				}
-				if (!this.get("tmploverlay"))
-					this.set("tmploverlay", this.overlay_template);
 				this.set("ie8", Info.isInternetExplorer() && Info.internetExplorerVersion() < 9);
 				this.set("duration", 0.0);
 				this.set("position", 0.0);
@@ -632,7 +639,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 			    	forceflash: !!this.get("forceflash"),
 			    	noflash: !!this.get("noflash"),
 			    	preload: !!this.get("preload"),
-					loop: !!this.get("loop")
+					loop: !!this.get("loop"),
+					reloadonplay: !!this.get("reloadonplay")
 			    }).error(function (e) {
 			    	this._error("attach", e);
 			    }, this).success(function (instance) {
@@ -789,8 +797,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				return this.videoWidth() / this.videoHeight();
 			},
 			
-			_parentAspectRatio: function () {
-				return this.activeElement().parent().width() / this.activeElement().parent().height();
+			parentWidth: function () {
+				return this.activeElement().parent().width();
+			},
+			
+			parentHeight: function () {
+				return this.activeElement().parent().height();
+			},
+
+			parentAspectRatio: function () {
+				return this.parentWidth() / this.parentHeight();
 			},
 			
 			_updateStretch: function () {
@@ -798,13 +814,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				if (this.get("stretch")) {
 					var ar = this.aspectRatio();
 					if (isFinite(ar)) {
-						var par = this._parentAspectRatio();
+						var par = this.parentAspectRatio();
 						if (isFinite(par)) {
 							if (par > ar)
 								newStretch = "height";
 							if (par < ar)
 								newStretch = "width";
-						} else if (par === Infinite)
+						} else if (par === Infinity)
 							newStretch = "height";
 					}
 				}
@@ -961,7 +977,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
 				if (!this.dyn.get("states").poster_error.ignore)
 					this.next("PosterError");
 			}, this);
-			if (this.dyn.get("autoplay"))
+			if (this.dyn.get("autoplay") || this.dyn.get("skipinitial"))
 				this.play();
 		},
 		
@@ -1033,7 +1049,10 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
 			this.listenOn(this.dyn, "playing", function () {
 				this.next("PlayVideo");
 			}, this);
-			this.dyn.player.play();
+			if (this.dyn.get("skipinitial") && !this.dyn.get("autoplay"))
+				this.next("PlayVideo");
+			else
+				this.dyn.player.play();
 		}
 	
 	});
@@ -1120,4 +1139,1336 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
 });
 
 
+Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
+    "dynamics:Dynamic",
+    "module:Templates",
+    "module:Assets",
+    "browser:Info"
+], [
+    "dynamics:Partials.ClickPartial",
+    "dynamics:Partials.IfPartial"
+], function (Class, Templates, Assets, Info, scoped) {
+	return Class.extend({scoped: scoped}, function (inherited) {
+		return {
+			
+			template: Templates.video_recorder_chooser,
+			
+			attrs: {
+				"css": "ba-videorecorder",
+				"allowrecord": true,
+				"allowupload": true,
+				"allowcustomupload": true,
+				"primaryrecord": true
+			},
+			
+			create: function () {
+				this.set("has_primary", true);
+				this.set("enable_primary_select", false);
+				this.set("primary_label", this.string(this.get("primaryrecord") ? "record-video" : "upload-video"));
+				this.set("secondary_label", this.string(this.get("primaryrecord") ? "upload-video" : "record-video"));
+				if (!this.get("allowrecord") || !this.get("primaryrecord") || (Info.isMobile() && (!Info.isAndroid() || !Info.isCordova()))) {
+					this.set("enable_primary_select", true);
+					this.set("primary_select_capture", Info.isMobile() && this.get("allowrecord") && this.get("primaryrecord"));
+					this.set("primary_accept_string", Info.isMobile() && this.get("allowrecord") && this.get("primaryrecord") ? "video/*,video/mp4;capture=camcorder" : (Info.isMobile() || !this.get("allowcustomupload") ? "video/*,video/mp4" : ""));
+				}
+				this.set("has_secondary", this.get("allowrecord") && this.get("allowupload"));
+				this.set("enable_secondary_select", false);
+				if (this.get("primaryrecord") || (Info.isMobile() && (!Info.isAndroid() || !Info.isCordova()))) {
+					this.set("enable_secondary_select", true);
+					this.set("secondary_select_capture", Info.isMobile() && !this.get("primaryrecord"));
+					this.set("secondary_accept_string", Info.isMobile() && !this.get("primaryrecord") ? "video/*,video/mp4;capture=camcorder" : (Info.isMobile() || !this.get("allowcustomupload") ? "video/*,video/mp4" : ""));
+				}
+			},
+			
+			__recordCordova: function () {
+				var self = this;
+				navigator.device.capture.captureVideo(function (mediaFiles) {
+				    var mediaFile = mediaFiles[0];
+				    self.trigger("upload", mediaFile);
+				}, function (error) {}, {limit:1});
+			},
+			
+			functions: {
+				primary: function () {
+					if (this.get("enable_primary_select"))
+						return;
+					if (Info.isMobile() && Info.isAndroid() && Info.isCordova())
+						this.__recordCordova();
+					else
+						this.trigger("record");
+				},
+				secondary: function () {
+					if (this.get("enable_secondary_select"))
+						return;
+					if (Info.isMobile() && Info.isAndroid() && Info.isCordova())
+						this.__recordCordova();
+					else
+						this.trigger("record");
+				},
+				primary_select: function (event) {
+					if (!this.get("enable_primary_select"))
+						return;
+					this.trigger("upload", event.target);
+				},
+				secondary_select: function (event) {
+					if (!this.get("enable_secondary_select"))
+						return;
+					this.trigger("upload", event.target);
+				}
+			}
+			
+		};
+	}).register("ba-videorecorder-chooser")
+	.attachStringTable(Assets.strings)
+    .addStrings({
+    	"record-video": "Record Your Video",
+    	"upload-video": "Upload Video"
+    });
+});
+
+Scoped.define("module:VideoRecorder.Dynamics.Controlbar", [
+    "dynamics:Dynamic",
+    "module:Templates",
+    "module:Assets",
+    "base:Timers.Timer"
+], [
+	"dynamics:Partials.ShowPartial",
+	"dynamics:Partials.RepeatPartial"	
+], function (Class, Templates, Assets, Timer, scoped) {
+	return Class.extend({scoped: scoped}, function (inherited) {
+		return {
+			
+			template: Templates.video_recorder_controlbar,
+			
+			attrs: {
+				"css": "ba-videorecorder",
+				"hovermessage": "",
+				"recordingindication": true
+			},
+			
+			create: function () {
+				this.auto_destroy(new Timer({
+					context: this,
+					fire: function () {
+						this.set("recordingindication", !this.get("recordingindication"));
+					},
+					delay: 500
+				}));
+			},
+			
+			functions: {
+				selectCamera: function (cameraId) {
+					this.trigger("select-camera", cameraId);
+				},
+				selectMicrophone: function (microphoneId) {
+					this.trigger("select-microphone", microphoneId);
+				},
+				hover: function (text) {
+					this.set("hovermessage", text);
+				},
+				unhover: function () {
+					this.set("hovermessage", "");
+				},
+				record: function () {
+					this.trigger("invoke-record");
+				},
+				stop: function () {
+					this.trigger("invoke-stop");
+				},
+				skip: function () {
+					this.trigger("invoke-skip");
+				}
+			}
+			
+		};
+	})
+	.register("ba-videorecorder-controlbar")
+	.attachStringTable(Assets.strings)
+    .addStrings({
+    	"settings": "Settings",
+    	"camerahealthy": "Lighting is good",
+    	"cameraunhealthy": "Lighting is not optimal",
+    	"microphonehealthy": "Sound is good",
+    	"microphoneunhealthy": "Cannot pick up any sound",
+    	"record": "Record",
+    	"record-tooltip": "Click here to record.",
+    	"stop": "Stop",
+    	"stop-tooltip": "Click here to stop.",
+    	"skip": "Skip",
+    	"skip-tooltip": "Click here to skip."
+    });
+});
+Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
+    "dynamics:Dynamic",
+    "module:Templates",
+    "base:Collections.Collection",
+    "base:Properties.Properties",
+    "jquery:",
+    "base:Timers.Timer"
+], [
+    "dynamics:Partials.StylesPartial"
+], function (Class, Templates, Collection, Properties, $, Timer, scoped) {
+	return Class.extend({scoped: scoped}, function (inherited) {
+		return {
+			
+			template: Templates.video_recorder_imagegallery,
+			
+			attrs: {
+				"css": "ba-videorecorder",
+				"imagecount": 3,
+				"imagenativewidth": 0,
+				"imagenativeheight": 0,
+				"containerwidth": 0,
+				"containerheight": 0,
+				"containeroffset": 0,
+				"deltafrac": 1/8
+			},
+			
+			computed: {
+				"imagewidth:imagecount,containerwidth,deltafrac": function () {
+					if (this.get("imagecount") <= 0)
+						return 0.0;
+					return this.get("containerwidth") * (1 - this.get("deltafrac")) / this.get("imagecount");
+				},
+				"imagedelta:imagecount,containerwidth,deltafrac": function () {
+					if (this.get("imagecount") <= 1)
+						return 0.0;
+					return this.get("containerwidth") * (this.get("deltafrac")) / (this.get("imagecount") - 1);
+				},
+				"imageheight:imagewidth,imagenativewidth,imagenativeheight": function () {
+					return this.get("imagenativeheight") * this.get("imagewidth") / this.get("imagenativewidth");
+				}
+			},
+			
+			create: function () {
+				var images = this.auto_destroy(new Collection());
+				this.set("images", images);
+				this.snapshotindex = 0;
+				this._updateImageCount();
+				this.on("change:imagecount", this._updateImageCount, this);
+				this.on("change:imagewidth change:imageheight change:imagedelta", this._recomputeImageBoxes, this);
+				this.auto_destroy(new Timer({
+					context: this,
+					delay: 1000,
+					fire: function () {
+						this.updateContainerSize();
+					}
+				}));
+			},
+			
+			destroy: function () {
+				this.get("images").iterate(function (image) {
+					if (image.snapshotDisplay)
+						this.parent().recorder.removeSnapshotDisplay(image.snapshotDisplay);
+				}, this);
+				inherited.destroy.call(this);
+			},
+			
+			_updateImageCount: function () {
+				var images = this.get("images");
+				var n = this.get("imagecount");
+				while (images.count() < n) {
+					var image = new Properties({index: images.count()});
+					this._recomputeImageBox(image);
+					images.add(image);
+				}
+				while (images.count() > n)
+					images.remove(images.getByIndex(images.count() - 1));
+			},
+			
+			_recomputeImageBoxes: function () {
+				this.get("images").iterate(function (image) {
+					this._recomputeImageBox(image);
+				}, this);
+			},
+			
+			_recomputeImageBox: function (image) {
+				var i = image.get("index");
+				var iw = this.get("imagewidth");
+				var ih = this.get("imageheight");
+				var id = this.get("imagedelta");
+				var h = this.get("containerheight");
+				image.set("left", 1+Math.round(i * (iw + id)));
+				image.set("top", 1+Math.round((h - ih) / 2));
+				image.set("width", 1+Math.round(iw));
+				image.set("height", 1+Math.round(ih));
+				if (image.snapshot && image.snapshotDisplay) {
+					this.parent().recorder.updateSnapshotDisplay(
+						image.snapshot,
+						image.snapshotDisplay,
+						image.get("left") + this.get("containeroffset"),
+						image.get("top"),
+						image.get("width"),
+						image.get("height")
+					);
+				}
+			},
+			
+			updateContainerSize: function () {
+				var container = this.activeElement().find("[data-gallery-container]");
+				this.set("containeroffset", parseInt(container.position().left, 10));
+				this.set("containerheight", parseInt(container.height(), 10));
+				this.set("containerwidth", parseInt(container.width(), 10));
+			},
+			
+			_afterActivate: function (element) {
+				inherited._afterActivate.apply(this, arguments);
+				this.updateContainerSize();
+			},
+			
+			loadImageSnapshot: function (image, snapshotindex) {
+				if (image.snapshotDisplay) {
+					this.parent().recorder.removeSnapshotDisplay(image.snapshotDisplay);
+					image.snapshotDisplay = null;
+				}
+				var snapshots = this.parent().snapshots;
+				image.snapshot = snapshots[((snapshotindex % snapshots.length) + snapshots.length) % snapshots.length]; 
+				image.snapshotDisplay = this.parent().recorder.createSnapshotDisplay(
+					this.activeElement().get(0),
+					image.snapshot,
+					image.get("left") + this.get("containeroffset"),
+					image.get("top"),
+					image.get("width"),
+					image.get("height")
+				);
+			},
+			
+			loadSnapshots: function () {
+				this.get("images").iterate(function (image) {
+					this.loadImageSnapshot(image, this.snapshotindex + image.get("index"));
+				}, this);
+			},
+			
+			nextSnapshots: function () {
+				this.snapshotindex += this.get("imagecount");
+				this.loadSnapshots();
+			},
+			
+			prevSnapshots: function () {
+				this.snapshotindex -= this.get("imagecount");
+				this.loadSnapshots();
+			},
+			
+			functions: {
+				left: function () {
+					this.prevSnapshots();
+				},
+				right: function () {
+					this.nextSnapshots();
+				},
+				select: function (image) {
+					this.trigger("image-selected", image.snapshot);
+				}
+			}
+			
+		};
+	}).register("ba-videorecorder-imagegallery");
+});
+Scoped.define("module:VideoRecorder.Dynamics.Loader", [
+    "dynamics:Dynamic",
+    "module:Templates"
+], [
+	"dynamics:Partials.ShowPartial"
+], function (Class, Templates, scoped) {
+	return Class.extend({scoped: scoped}, function (inherited) {
+		return {
+			
+			template: Templates.video_recorder_loader,
+			
+			attrs: {
+				"css": "ba-videorecorder",
+				"tooltip": "",
+				"label": "",
+				"message": ""
+			}
+			
+		};
+	}).register("ba-videorecorder-loader");
+});
+Scoped.define("module:VideoRecorder.Dynamics.Message", [
+    "dynamics:Dynamic",
+    "module:Templates"
+], [
+    "dynamics:Partials.ClickPartial"
+], function (Class, Templates, scoped) {
+	return Class.extend({scoped: scoped}, function (inherited) {
+		return {
+			
+			template: Templates.video_recorder_message,
+			
+			attrs: {
+				"css": "ba-videorecorder",
+				"message": ''
+			},
+			
+			functions: {
+				
+				click: function () {
+					this.trigger("click");
+				}
+				
+			}
+			
+		};
+	}).register("ba-videorecorder-message");
+});
+
+Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
+    "dynamics:Dynamic",
+    "module:Templates",
+    "module:Assets",
+    "browser:Info",
+    "browser:Upload.MultiUploader",
+    "browser:Upload.FileUploader",
+    "media:Recorder.VideoRecorderWrapper",
+    "base:Types",
+    "base:Objs",
+    "base:Strings",
+    "base:Time",
+    "base:Timers",
+    "base:States.Host",
+    "base:Classes.ClassRegistry",
+    "base:Collections.Collection",
+    "base:Promise",
+    "module:VideoRecorder.Dynamics.RecorderStates.Initial",
+    "module:VideoRecorder.Dynamics.RecorderStates"
+], [
+    "module:VideoRecorder.Dynamics.Imagegallery",
+    "module:VideoRecorder.Dynamics.Loader",
+    "module:VideoRecorder.Dynamics.Controlbar",
+    "module:VideoRecorder.Dynamics.Message",
+    "module:VideoRecorder.Dynamics.Topmessage",
+    "module:VideoRecorder.Dynamics.Chooser",
+    "dynamics:Partials.ShowPartial",
+    "dynamics:Partials.IfPartial",
+    "dynamics:Partials.EventPartial",
+    "dynamics:Partials.OnPartial",
+    "dynamics:Partials.DataPartial",
+    "dynamics:Partials.AttrsPartial",
+    "dynamics:Partials.TemplatePartial"
+], function (Class, Templates, Assets, Info, MultiUploader, FileUploader, VideoRecorderWrapper, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Collection, Promise, InitialState, RecorderStates, scoped) {
+	return Class.extend({scoped: scoped}, function (inherited) {
+		return {
+			
+			template: Templates.recorder,
+			
+			attrs: {
+				/* CSS */
+				"css": "ba-videorecorder",
+				"iecss": "ba-videorecorder",
+				"cssimagegallery": "",
+				"cssloader": "",
+				"csscontrolbar": "",
+				"cssmessage": "",
+				"csstopmessage": "",
+				"csschooser": "",
+				"width": "",
+				"height": "",
+				"gallerysnapshots": 3,
+				/* Themes */
+				"theme": "",
+				"csstheme": "",
+				/* Dynamics */
+				"dynimagegallery": "videorecorder-imagegallery",
+				"dynloader": "videorecorder-loader",
+				"dyncontrolbar": "videorecorder-controlbar",
+				"dynmessage": "videorecorder-message",
+				"dyntopmessage": "videorecorder-topmessage",
+				"dynchooser": "videorecorder-chooser",
+				"dynvideoplayer": "videoplayer",
+				/* Templates */
+				"tmplimagegallery": "",
+				"tmplloader": "",
+				"tmplcontrolbar": "",
+				"tmplmessage": "",
+				"tmpltopmessage": "",
+				"tmplchooser": "",
+				/* Attributes */
+				"autorecord": false,
+				"autoplay": false,
+				"allowrecord": true,
+				"allowupload": true,
+				"allowcustomupload": true,
+				"primaryrecord": true,
+				"nofullscreen": false,
+				"recordingwidth": 640,
+				"recordingheight": 480,
+				"countdown": 3,
+				"snapshotmax": 15,
+				"snapshottype": "jpg",
+				"picksnapshots": true,
+				"playbacksource": "",
+				"playbackposter": "",
+				"recordermode": true,
+				"skipinitial": false,
+				"timelimit": null,
+				"rtmpstreamtype": "mp4",
+				"allowedextensions": null,
+				"filesizelimit": null,
+				/* Configuration */
+				"forceflash": false,
+				"noflash": false,
+				"flashicognitosupport": false,
+				"uploadoptions": {},
+				"playerattrs": {},
+				/* Options */
+				"rerecordable": true,
+				"recordings": null,
+				"ready": true,
+				"stretch": false
+			},
+
+			types: {
+				"forceflash": "boolean",
+				"noflash": "boolean",
+				"rerecordable": "boolean",
+				"ready": "boolean",
+				"stretch": "boolean",
+				"autorecord": "boolean",
+				"autoplay": "boolean",
+				"allowrecord": "boolean",
+				"allowupload": "boolean",
+				"allowcustomupload": "boolean",
+				"primaryrecord": "boolean",
+				"flashicognitosupport": "boolean",
+				"recordermode": "boolean",
+				"nofullscreen": "boolean",
+				"picksnapshots": "boolean"
+			},
+			
+			extendables: ["states"],
+			
+			remove_on_destroy: true,
+			
+			create: function () {
+				
+				if (this.get("theme") in Assets.recorderthemes) {
+					Objs.iter(Assets.recorderthemes[this.get("theme")], function (value, key) {
+						if (!this.isArgumentAttr(key))
+							this.set(key, value);
+					}, this);
+				}
+				this.set("ie8", Info.isInternetExplorer() && Info.internetExplorerVersion() < 9);
+				this.set("hideoverlay", false);
+
+				this.__attachRequested = false;
+				this.__activated = false;
+				this._bound = false;
+				this.__recording = false;
+				this.__error = null;
+				this.__currentStretch = null;
+				
+				this.on("change:stretch", function () {
+					this._updateStretch();
+				}, this);
+				this.host = this.auto_destroy(new Host({
+					stateRegistry: new ClassRegistry(this.cls.recorderStates())
+				}));
+				this.host.dynamic = this;
+				this.host.initialize(InitialState);
+				
+				this._timer = this.auto_destroy(new Timers.Timer({
+					context: this,
+					fire: this._timerFire,
+					delay: 250,
+					start: true
+				}));
+				
+			},
+			
+			state: function () {
+				return this.host.state();
+			},
+			
+			recorderAttached: function () {
+				return !!this.recorder;
+			},
+			
+			videoError: function () {
+				return this.__error;
+			},
+			
+			_error: function (error_type, error_code) {
+				this.__error = {
+					error_type: error_type,
+					error_code: error_code
+				};
+				this.trigger("error:" + error_type, error_code);
+				this.trigger("error", error_type, error_code);
+			},
+			
+			_clearError: function () {
+				this.__error = null;
+			},
+			
+			_detachRecorder: function () {
+				if (this.recorder)
+					this.recorder.weakDestroy();
+				this.recorder = null;
+				this.set("hasrecorder", false);
+			},
+			
+			_attachRecorder: function () {
+				if (this.recorderAttached())
+					return;
+				if (!this.__activated) {
+					this.__attachRequested = true;
+					return;
+				}
+				this.set("hasrecorder", true);
+				this.snapshots = [];
+				this.__attachRequested = false;
+				var video = this.element().find("[data-video='video']").get(0);
+				this._clearError();
+				this.recorder = VideoRecorderWrapper.create({
+					element: video,
+			    	forceflash: this.get("forceflash"),
+			    	noflash: this.get("noflash"),
+			    	recordVideo: true,
+			    	recordAudio: true,
+			    	recordingWidth: this.get("recordingwidth"),
+			    	recordingHeight: this.get("recordingheight"),
+			    	flashFullSecurityDialog: !this.get("flashicognitosupport"),
+			    	rtmpStreamType: this.get("rtmpstreamtype")
+			    });
+				if (!this.recorder)
+					this._error("attach");
+			},
+			
+			_bindMedia: function () {
+				if (this._bound || !this.recorderAttached())
+					return;
+				this.recorder.ready.success(function () {
+					this.recorder.on("require_display", function () {
+						this.set("hideoverlay", true);
+					}, this);
+					this.recorder.bindMedia().error(function (e) {
+						this.trigger("access_forbidden", e);
+						this.set("hideoverlay", false);
+						this.off("require_display", null, this);
+						this._error("bind", e);
+					}, this).success(function () {
+						this.trigger("access_granted");
+						this.set("hideoverlay", false);
+						this.off("require_display", null, this);
+						this.recorder.enumerateDevices().success(function (devices) {
+							var selected = this.recorder.currentDevices();
+							this.set("selectedcamera", selected.video);
+							this.set("selectedmicrophone", selected.audio);
+							this.set("cameras", new Collection(Objs.values(devices.video)));
+							this.set("microphones", new Collection(Objs.values(devices.audio)));
+						}, this);
+						this.recorder.testSoundLevel(true);
+						this.set("devicetesting", true);
+						this._updateStretch();
+						while (this.snapshots.length > 0) {
+							var snapshot = this.snapshots.unshift();
+							this.recorder.removeSnapshot(snapshot);
+						}
+						this._bound = true;
+						this.trigger("bound");
+					}, this);
+				}, this);
+			},
+			
+			isFlash: function () {
+				return this.recorder && this.recorder.isFlash();
+			},
+			
+			_initializeUploader: function () {
+				if (this._dataUploader)
+					this._dataUploader.weakDestroy();
+				this._dataUploader = new MultiUploader();
+			},
+			
+			_unbindMedia: function () {
+				if (!this._bound)
+					return;
+				this.recorder.unbindMedia();
+				this._bound = false;
+			},
+			
+			_uploadCovershot: function (image) {
+				var uploader = this.recorder.createSnapshotUploader(image, this.get("snapshottype"), this.get("uploadoptions").image);
+				uploader.upload();
+				this._dataUploader.addUploader(uploader);
+			},
+			
+			_uploadVideoFile: function (file) {
+				var uploader = FileUploader.create(Objs.extend({ source: file }, this.get("uploadoptions").video));
+				uploader.upload();
+				this._dataUploader.addUploader(uploader);
+			},
+			
+			_prepareRecording: function () {
+				return Promise.create(true);
+			},
+			
+			_startRecording: function () {
+				if (this.__recording)
+					return Promise.error(true);
+				this.recorder.testSoundLevel(false);
+				this.set("devicetesting", false);
+				return this.recorder.startRecord({
+					rtmp: this.get("uploadoptions").rtmp,
+					video: this.get("uploadoptions").video,
+					audio: this.get("uploadoptions").audio
+				}).success(function () {
+					this.__recording = true;
+					this.__recording_start_time = Time.now();
+				}, this);
+			},
+			
+			_stopRecording: function () {
+				if (!this.__recording)
+					return Promise.error(true);
+				return this.recorder.stopRecord({
+					rtmp: this.get("uploadoptions").rtmp,
+					video: this.get("uploadoptions").video,
+					audio: this.get("uploadoptions").audio
+				}).success(function (uploader) {
+					this.__recording = false;
+					uploader.upload();
+					this._dataUploader.addUploader(uploader);
+				}, this);
+			},
+			
+			_verifyRecording: function () {
+				return Promise.create(true);
+			},
+			
+			_afterActivate: function (element) {
+				inherited._afterActivate.call(this, element);
+				this.__activated = true;
+				if (this.__attachRequested)
+					this._attachRecorder();
+			},
+			
+			_showBackgroundSnapshot: function () {
+				this._hideBackgroundSnapshot();
+				this.__backgroundSnapshot = this.recorder.createSnapshot(this.get("snapshottype"));
+				var el = this.activeElement().find("[data-video]");
+				this.__backgroundSnapshotDisplay = this.recorder.createSnapshotDisplay(
+					el.get(0),
+					this.__backgroundSnapshot,
+					0,
+					0,
+					parseInt(el.width(), 10),
+					parseInt(el.height(), 10)
+				);
+			},
+			
+			_hideBackgroundSnapshot: function () {
+				if (this.__backgroundSnapshotDisplay)
+					this.recorder.removeSnapshotDisplay(this.__backgroundSnapshotDisplay);
+				delete this.__backgroundSnapshotDisplay;
+				if (this.__backgroundSnapshot)
+					this.recorder.removeSnapshot(this.__backgroundSnapshot);
+				delete this.__backgroundSnapshot;
+			},
+			
+			object_functions: ["record", "rerecord", "stop", "play", "pause"],
+
+			functions: {
+				
+				record: function () {
+					this.host.state().record();
+				},
+				
+				record_video: function () {
+					this.host.state().selectRecord();
+				},
+				
+				upload_video: function (file) {
+					this.host.state().selectUpload(file);
+				},
+				
+				select_camera: function (camera_id) {
+					if (this.recorder) {
+						this.recorder.setCurrentDevices({video: camera_id});
+						this.set("selectedcamera", camera_id);
+					}
+				},
+				
+				select_microphone: function (microphone_id) {
+					if (this.recorder) {
+						this.recorder.setCurrentDevices({audio: microphone_id});
+						this.set("selectedmicrophone", microphone_id);
+					}
+					this.set("microphonehealthy", false);
+				},
+				
+				invoke_skip: function () {
+					this.trigger("invoke-skip");
+				},
+				
+				select_image: function (image) {
+					this.trigger("select-image", image);
+				},
+				
+				rerecord: function () {
+					if (confirm(this.string("rerecord-confirm")))
+						this.host.state().rerecord();
+				},
+				
+				stop: function () {
+					this.host.state().stop();
+				},
+				
+				play: function () {
+					this.host.state().play();
+				},
+
+				pause: function () {
+					this.host.state().pause();
+				},
+				
+				message_click: function () {
+					this.trigger("message-click");
+				},
+				
+				playing: function () {
+					this.trigger("playing");
+				},
+				
+				paused: function () {
+					this.trigger("paused");
+				},
+				
+				ended: function () {
+					this.trigger("ended");
+				}
+						
+			},
+			
+			destroy: function () {
+				this._detachRecorder();
+				inherited.destroy.call(this);
+			},
+			
+			_timerFire: function () {
+				try {
+					if (this.recorderAttached() && this.get("devicetesting")) {
+						var lightLevel = this.recorder.lightLevel();
+						this.set("camerahealthy", lightLevel >= 100 && lightLevel <= 200);
+						this.set("microphonehealthy", this.get("microphonehealthy") || this.recorder.soundLevel() >= 1.01);
+					}
+				} catch (e) {}
+				
+				if (this.__recording && this.__recording_start_time + 500 < Time.now()) {
+					var p = this.snapshots.length < this.get("snapshotmax") ? 0.25 : 0.05;
+					if (Math.random() <= p) {
+						var snap = this.recorder.createSnapshot(this.get("snapshottype"));
+						if (snap) {
+							if (this.snapshots.length < this.get("snapshotmax")) {
+								this.snapshots.push(snap);
+							} else {
+								var i = Math.floor(Math.random() * this.get("snapshotmax"));
+								this.recorder.removeSnapshot(this.snapshots[i]);
+								this.snapshots[i] = snap;
+							}
+						}
+					}
+				}
+				
+				this._updateStretch();
+				this._updateCSSSize();
+			},
+			
+			_updateCSSSize: function () {
+				this.set("csssize", this.element().width() > 400 ? "normal" : (this.element().width() > 300 ? "medium" : "small"));
+			},
+			
+			videoHeight: function () {
+				return this.recorderAttached() ? this.recorder.cameraHeight() : NaN;
+			},
+			
+			videoWidth: function () {
+				return this.recorderAttached() ? this.recorder.cameraWidth() : NaN;
+			},
+			
+			aspectRatio: function () {
+				return this.videoWidth() / this.videoHeight();
+			},
+			
+			parentWidth: function () {
+				return this.get("width") || this.activeElement().width();
+			},
+			
+			parentHeight: function () {
+				return this.get("height") || this.activeElement().height();
+			},
+
+			parentAspectRatio: function () {
+				return this.parentWidth() / this.parentHeight();
+			},
+			
+			_updateStretch: function () {
+				var newStretch = null;
+				if (this.get("stretch")) {
+					var ar = this.aspectRatio();
+					if (isFinite(ar)) {
+						var par = this.parentAspectRatio();
+						if (isFinite(par)) {
+							if (par > ar)
+								newStretch = "height";
+							if (par < ar)
+								newStretch = "width";
+						} else if (par === Infinity)
+							newStretch = "height";
+					}
+				}
+				if (this.__currentStretch !== newStretch) {
+					if (this.__currentStretch)
+						this.activeElement().removeClass(this.get("css") + "-stretch-" + this.__currentStretch);
+					if (newStretch)
+						this.activeElement().addClass(this.get("css") + "-stretch-" + newStretch);
+				}
+				this.__currentStretch = newStretch;				
+			}
+
+		};
+	}, {
+		
+		recorderStates: function () {
+			return [RecorderStates];
+		}
+		
+	}).register("ba-videorecorder")
+	.attachStringTable(Assets.strings)
+    .addStrings({
+    	"recorder-error": "An error occurred, please try again later. Click to retry.",
+    	"pick-covershot": "Pick a covershot.",
+    	"uploading": "Uploading",
+    	"uploading-failed": "Uploading failed - click here to retry.",
+    	"verifying": "Verifying",
+    	"verifying-failed": "Verifying failed - click here to retry.",
+    	"rerecord-confirm": "Do you really want to re-record your video?",
+    	"video_file_too_large": "Your video file is too large - click here to try again with a smaller video file.",
+    	"unsupported_video_type": "Please upload: %s - click here to retry."    		
+    });
+});
+Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.State", [
+    "base:States.State",
+    "base:Events.ListenMixin",
+    "base:Objs"
+], function (State, ListenMixin, Objs, scoped) {
+	return State.extend({scoped: scoped}, [ListenMixin, {
+
+		dynamics: [],
+	
+		_start: function () {
+			this.dyn = this.host.dynamic;
+			Objs.iter(Objs.extend({
+				"message": false,
+				"chooser": false,
+				"topmessage": false,
+				"controlbar": false,
+				"loader": false,
+				"imagegallery": false,
+				"player": false
+			}, Objs.objectify(this.dynamics)), function (value, key) {
+				this.dyn.set(key + "_active", value);
+			}, this);
+			this._started();
+		},
+		
+		_started: function () {},
+		
+		record: function () {
+			this.dyn.set("autorecord", true);
+		},
+		
+		stop: function () {},
+		
+		play: function () {},
+		
+		pause: function () {},
+		
+		rerecord: function () {},
+		
+		selectRecord: function () {},
+		
+		selectUpload: function (file) {}
+	
+	}]);
+});
+
+
+
+Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.FatalError", [
+	"module:VideoRecorder.Dynamics.RecorderStates.State"
+], function (State, scoped) {
+	return State.extend({scoped: scoped}, {
+		
+		dynamics: ["message"],
+		_locals: ["message", "retry"],
+
+		_started: function () {
+			this.dyn.set("message", this._message || this.dyn.string("recorder-error"));
+			this.listenOn(this.dyn, "message-click", function () {
+				if (this._retry)
+					this.next(this._retry);
+			});
+		}
+
+	});
+});
+
+
+Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Initial", [
+    "module:VideoRecorder.Dynamics.RecorderStates.State"
+], function (State, scoped) {
+	return State.extend({scoped: scoped}, { 
+		
+		_started: function () {
+			this.dyn._initializeUploader();
+			if (!this.dyn.get("recordermode"))
+				this.next("Player");
+			else if (this.dyn.get("autorecord") || this.dyn.get("skipinitial"))
+				this.next("CameraAccess");
+			else
+				this.next("Chooser");
+		}
+	
+	});
+});
+
+
+Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Player", [
+	"module:VideoRecorder.Dynamics.RecorderStates.State"
+], function (State, scoped) {
+	return State.extend({scoped: scoped}, { 
+		
+		dynamics: ["player"],
+
+		_started: function () {
+			this.player = this.dyn.scope(">[id='player']").materialize(true);
+		},
+		
+		rerecord: function () {
+			this.dyn.trigger("rerecord");
+			this.dyn.set("recordermode", true);
+			this.next("Initial");
+		},
+		
+		stop: function () {
+			this.player.stop();
+		},
+		
+		play: function () {
+			this.player.play();
+		},
+		
+		pause: function () {
+			this.player.pause();
+		}		
+		
+	});
+});
+
+
+Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
+	"module:VideoRecorder.Dynamics.RecorderStates.State",
+	"jquery:",
+	"base:Strings",
+	"browser:Info"
+], function (State, $, Strings, Info, scoped) {
+	return State.extend({scoped: scoped}, {
+		
+		dynamics: ["chooser"],
+		
+		record: function () {
+			this.dyn.set("autorecord", true);
+			this.selectRecord();
+		},
+		
+		selectRecord: function () {
+			this.next("CameraAccess");
+		},
+		
+		selectUpload: function (file) {
+			if (!(Info.isMobile() && Info.isAndroid() && Info.isCordova())) {
+				if (this.dyn.get("allowedextensions")) {
+					var filename = $(file).val().toLowerCase();
+					var found = false;
+					this.dyn.get("allowedextensions").forEach(function (extension) {
+						if (Strings.ends_with(filename, "." + extension.toLowerCase()))
+							found = true;
+					}, this);
+					if (!found) {
+						this.next("FatalError", {
+							message: this.dyn.strings("unsupported_video_type").replace("%s", this.dyn.get("allowedextensions").join(" / ")),
+							retry: "Chooser"
+						});
+						return;
+					}
+				}
+				if (this.dyn.get("filesizelimit")) {
+					var f = file;
+					if (f.files && f.files.length > 0 && f.files[0].size > this.dyn.get("filesizelimit")) {
+						this.next("FatalError", {
+							message: this.dyn.strings("video_file_too_large"),
+							retry: "Chooser"
+						});
+						return;
+					}
+				}
+			}
+			this.dyn._prepareRecording().success(function () {
+				this.dyn._uploadVideoFile(file);
+				this.next("Uploading");
+			}, this).error(function (s) {
+				this.next("FatalError", { message: s, retry: "Chooser" });
+			}, this);
+		}
+		
+	});
+});
+
+
+Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraAccess", [
+	"module:VideoRecorder.Dynamics.RecorderStates.State"
+], function (State, scoped) {
+	return State.extend({scoped: scoped}, {
+		
+		dynamics: ["topmessage", "controlbar"],
+		
+		_started: function () {
+			this.dyn.set("settingsvisible", true);
+			this.dyn.set("recordvisible", true);
+			this.dyn.set("stopvisible", false);
+			this.dyn.set("skipvisible", false);
+			this.dyn.set("controlbarlabel", "");
+			this.listenOn(this.dyn, "bound", function () {
+				if (this.dyn.get("autorecord"))
+					this.next("RecordPrepare");
+			}, this);
+			this.listenOn(this.dyn, "error", function (s) {
+				this.next("FatalError", { message: s, retry: "Initial" });
+			}, this);
+			this.dyn._attachRecorder();
+			this.dyn._bindMedia();
+		},
+		
+		record: function () {
+			if (!this.dyn.get("autorecord"))
+				this.next("RecordPrepare");
+		}
+		
+	});
+});
+
+
+Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.RecordPrepare", [
+	"module:VideoRecorder.Dynamics.RecorderStates.State",
+	"base:Timers.Timer",
+	"base:Time"
+], function (State, Timer, Time, scoped) {
+	return State.extend({scoped: scoped}, {
+		
+		dynamics: ["loader"],
+		
+		_started: function () {
+			this._promise = this.dyn._prepareRecording();
+			this.dyn.set("message", "");
+			if (this.dyn.get("countdown")) {
+				this.dyn.set("loaderlabel", this.dyn.get("countdown"));
+				var endTime = Time.now() + this.dyn.get("countdown") * 1000;
+				var timer = new Timer({
+					context: this,
+					delay: 100,
+					fire: function () {
+						this.dyn.set("loaderlabel", "" + Math.round(Math.max(0, endTime - Time.now()) / 1000));
+						if (endTime <= Time.now()) {
+							this.dyn.set("loaderlabel", "");
+							timer.stop();
+							this._startRecording();
+						}
+					}
+				});				
+				this.auto_destroy(timer);
+			} else
+				this._startRecording();
+		},
+		
+		record: function () {
+			this._startRecording();
+		},
+
+		_startRecording: function () {
+			this._promise.success(function () {
+				this.dyn._startRecording().success(function () {
+					this.next("Recording");
+				}, this).error(function (s) {
+					this.next("FatalError", { message: s, retry: "CameraAccess" });
+				}, this);
+			}, this).error(function (s) {
+				this.next("FatalError", { message: s, retry: "CameraAccess" });
+			}, this);
+		}
+		
+	});
+});
+
+
+Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
+	"module:VideoRecorder.Dynamics.RecorderStates.State",
+	"base:Timers.Timer",
+	"base:Time",
+	"base:TimeFormat"
+], function (State, Timer, Time, TimeFormat, scoped) {
+	return State.extend({scoped: scoped}, {
+		
+		dynamics: ["topmessage", "controlbar"],
+		
+		_started: function () {
+			this.dyn.trigger("recording");
+			this.dyn.set("settingsvisible", false);
+			this.dyn.set("recordvisible", false);
+			this.dyn.set("stopvisible", true);
+			this.dyn.set("skipvisible", false);
+			this._startTime = Time.now();
+			this._stopping = false;
+			this._timer = this.auto_destroy(new Timer({
+				immediate: true,
+				delay: 10,
+				context: this,
+				fire: this._timerFire
+			}));
+		},
+		
+		_timerFire: function () {
+			var limit = this.dyn.get("timelimit");
+			var current = Time.now();
+			var display = Math.max(0, limit ? (this._startTime + limit * 1000 - current) : (current - this._startTime));
+			this.dyn.set("controlbarlabel", TimeFormat.format(TimeFormat.ELAPSED_MINUTES_SECONDS, display));
+			if (limit && this._startTime + limit * 1000 <= current) {
+				this._timer.stop();
+				this.stop();
+			}
+		},
+		
+		stop: function () {
+			if (this._stopping)
+				return;
+			this._stopping = true;
+			this.dyn._stopRecording().success(function () {
+				this.dyn._showBackgroundSnapshot();
+				this.dyn._unbindMedia();
+				this.dyn.trigger("recording_stopped");
+				if (this.dyn.get("picksnapshots"))
+					this.next("CovershotSelection");
+				else
+					this.next("Uploading");
+			}, this).error(function (s) {
+				this.next("FatalError", { message: s, retry: "CameraAccess" });
+			}, this);
+		}
+		
+	});
+});
+
+
+Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection", [
+	"module:VideoRecorder.Dynamics.RecorderStates.State"
+], function (State, scoped) {
+	return State.extend({scoped: scoped}, {
+		
+		dynamics: ["imagegallery", "topmessage", "controlbar"],
+		
+		_started: function () {
+			this.dyn.set("settingsvisible", false);
+			this.dyn.set("recordvisible", false);
+			this.dyn.set("stopvisible", false);
+			this.dyn.set("skipvisible", true);
+			this.dyn.set("controlbarlabel", "");
+			this.dyn.set("topmessage", this.dyn.string('pick-covershot'));
+			var imagegallery = this.dyn.scope(">[tagname='ba-videorecorder-imagegallery']").materialize(true);
+			imagegallery.loadSnapshots();
+			imagegallery.updateContainerSize();
+			this.listenOn(this.dyn, "invoke-skip", function () {
+				this.next("Uploading");
+			}, this);
+			this.listenOn(this.dyn, "select-image", function (image) {
+				this.dyn._uploadCovershot(image);
+				this.next("Uploading");
+			}, this);
+		}
+		
+	});
+});
+
+
+Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
+	"module:VideoRecorder.Dynamics.RecorderStates.State"
+], function (State, scoped) {
+	return State.extend({scoped: scoped}, { 
+		
+		dynamics: ["loader", "message"],
+		
+		_started: function () {
+			this.dyn.trigger("uploading");
+			this.dyn.set("topmessage", "");
+			this.dyn.set("message", this.dyn.string("uploading"));
+			var uploader = this.dyn._dataUploader;
+			this.listenOn(uploader, "success", function () {
+				this.next("Verifying");
+			});
+			this.listenOn(uploader, "error", function () {
+				this.next("FatalError", { message: this.dyn.string("uploading-failed"), retry: "Uploading" });
+			});
+			this.listenOn(uploader, "progress", function (uploaded, total) {
+				if (total !== 0) {
+					this.dyn.trigger("upload_progress", uploaded / total);
+					this.dyn.set("message", this.dyn.string("uploading") + ": " + Math.round(uploaded / total * 100) + "%");
+				}
+			});
+			uploader.reset();
+			uploader.upload();
+		}
+	});
+});
+
+
+Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Verifying", [
+	"module:VideoRecorder.Dynamics.RecorderStates.State"
+], function (State, scoped) {
+	return State.extend({scoped: scoped}, { 
+		
+		dynamics: ["loader", "message"],
+		
+		_started: function () {
+			this.dyn.trigger("verifying");
+			this.dyn.set("message", this.dyn.string("verifying") + "...");
+			this.dyn._verifyRecording().success(function () {
+				this.dyn._hideBackgroundSnapshot();
+				this.dyn._detachRecorder();
+				if (this.dyn.get("recordings"))
+					this.dyn.set("recordings", this.dyn.get("recordings") - 1);
+				this.next("Player");
+			}, this).error(function () {
+				this.next("FatalError", { message: this.dyn.string("verifying-failed"), retry: "Verifying" });
+			}, this);
+		}
+	});
+});
+
+Scoped.define("module:VideoRecorder.Dynamics.Topmessage", [
+    "dynamics:Dynamic",
+    "module:Templates"
+], function (Class, Templates, scoped) {
+	return Class.extend({scoped: scoped}, function (inherited) {
+		return {
+			
+			template: Templates.video_recorder_topmessage,
+			
+			attrs: {
+				"css": "ba-videorecorder",
+				"topmessage": ''
+			}
+			
+		};
+	}).register("ba-videorecorder-topmessage");
+});
 }).call(Scoped);

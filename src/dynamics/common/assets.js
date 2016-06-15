@@ -10,7 +10,9 @@ Scoped.define("module:Assets", [
 		
 		strings: strings,
 		
-		themes: {}
+		playerthemes: {},
+		
+		recorderthemes: {}
 		
 	};
 });

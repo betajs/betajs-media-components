@@ -7,7 +7,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Message", [
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {
 			
-			template: Templates.message,
+			template: Templates.video_player_message,
 			
 			attrs: {
 				"css": "ba-videoplayer",

@@ -14,7 +14,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {
 			
-			template: Templates.controlbar,
+			template: Templates.video_player_controlbar,
 			
 			attrs: {
 				"css": "ba-videoplayer",

@@ -1,7 +1,7 @@
 $css: "ba-videoplayer-theme-modern";
 $cssie8: "ba-videoplayer-ie8";
 $cssnoie8: "ba-videoplayer-noie8";
-$fontello_name: "ba-videoplayer" + "-fontello";
+$fontello_name: "betajs-media-components-fontello";
 
 $loader_size: 5px;
 $loader_frame_thickness: 0.6em;
@@ -35,3 +35,19 @@ $controls_bgcolor: #878787;
 $volume_width: 60px;
 $volume_height: 6px;
 $progressbar_cache_bgcolor: #BBB;
+
+
+$rerecord_text_color: white;
+$rerecord_font_family: Arial, sans-serif;
+
+
+$rerecord_height: 48px;
+$rerecord_opacity: 0.5;
+$rerecord_bgcolor: black;
+$rerecord_padding: 24px;
+$rerecord_padding: 16px;
+$rerecord_primarybutton_radius: 3px;
+$rerecord_primarybutton_padding: 8px;
+$rerecord_primarybutton_vertical_padding: 16px;
+$rerecord_primarybutton_font_weight: bold;
+$rerecord_primarybutton_font_size: 14px;

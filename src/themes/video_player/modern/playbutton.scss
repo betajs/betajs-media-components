@@ -32,3 +32,55 @@
 .#{$cssnoie8} .#{$css}-playbutton-container:hover .#{$css}-playbutton-button {
     @include border-left-rgba(3.5em, 255, 255, 255, $playbutton_hover_opacity, white);
 }
+
+.#{$css}-rerecord-bar {
+    @include absolute-align-full-bottom;
+}
+
+.#{$css}-rerecord-backbar {
+    @include absolute-align-full-bottom;
+    height: $rerecord_height;
+    background: $rerecord_bgcolor;
+    opacity: $rerecord_opacity;
+}
+
+.#{$css}-rerecord-frontbar {
+    @include relative-align-full-bottom;
+    height: $rerecord_height;
+    overflow: hidden;
+    padding-left: $rerecord_padding;
+    padding-right: $rerecord_padding;
+}
+
+.#{$css}-rerecord-button-container {
+	height: 100%;
+    @include clickable;
+    padding-left: 8px;
+    padding-right: 8px;
+    display: inline-block;
+    position:relative;
+    left:50%;
+    transform:translateX(-50%);
+}
+
+.#{$css}-rerecord-button {
+    @include relative-center-center;
+    @include clickable;
+	border-radius: $rerecord_primarybutton_radius;
+	padding: $rerecord_primarybutton_padding;
+	padding-left: $rerecord_primarybutton_vertical_padding;
+	padding-right: $rerecord_primarybutton_vertical_padding;
+	background: $button_color;
+	color: $rerecord_text_color;
+	font-family: $rerecord_font_family;
+	font-weight: $rerecord_primarybutton_font_weight;
+	font-size: $rerecord_primarybutton_font_size;
+}
+
+.#{$css}-green .#{$css}-rerecord-button {
+	background: $button_color_green;
+}
+
+.#{$css}-blue .#{$css}-rerecord-button {
+	background: $button_color_blue;
+}

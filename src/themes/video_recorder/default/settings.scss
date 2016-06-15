@@ -1,0 +1,66 @@
+.#{$css}-settings {
+	position: absolute;
+	left: 0;
+	bottom: $controlbar_height;
+	color: $text_color;
+	margin: $settings_margin;
+	padding: $settings_padding;	
+}
+
+.#{$css}-settings-backbar {
+    @include absolute-align-all;
+	border-radius: $settings_radius;
+    background: $settings_bgcolor;
+    opacity: $settings_opacity;
+    border: $settings_border;
+}
+
+.#{$css}-settings-front {
+    @include relative-align-all;
+    font-family: $font_family;
+	font-size: $settings_font_size;
+}
+
+.#{$css}-settings hr {
+	border-top: none;
+	border-bottom-color: $text_color;
+	margin: 2px;
+	margin-left: $settings_horizontal_margin;
+	margin-right: $settings_horizontal_margin;
+}
+
+.#{$css}-settings ul {
+	margin: 0;
+	padding: 0;
+}
+
+.#{$css}-settings li {
+	list-style-type: none;
+	padding: $settings_item_padding;
+}
+
+.#{$css}-settings label {
+	cursor: pointer;
+}
+
+.#{$css}-settings input[type=radio] {
+	display: none;
+}
+
+.#{$css}-settings span {
+	cursor: pointer;
+	width: 4px;
+	height: 4px;
+	background: $settings_radio_color;
+	border: 3px solid $settings_radio_color;
+	border-radius: 4px;
+	margin: 1px;
+	box-sizing: content-box;
+	top: 2px;
+	display: inline-block;
+	position: relative;
+}
+	
+.#{$css}-settings input[type=radio]:checked + span  {
+	border: 3px solid $settings_radio_color_selected;
+}

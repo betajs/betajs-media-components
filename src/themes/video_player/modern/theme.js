@@ -1,4 +1,4 @@
-Scoped.extend("module:Assets.themes", [
+Scoped.extend("module:Assets.playerthemes", [
     "module:Templates",
     "browser:Info"
 ], function (Templates, Info) {
@@ -6,7 +6,7 @@ Scoped.extend("module:Assets.themes", [
 	return {
 		"modern": {
 			css: "ba-videoplayer-theme-modern",
-			tmplcontrolbar: Templates["modern-controlbar"],
+			tmplcontrolbar: Templates["modern-video_player_controlbar"],
 			cssloader: ie8 ? "ba-videoplayer" : "",
 			cssmessage: "ba-videoplayer",
 			cssplaybutton: ie8 ? "ba-videoplayer" : ""
@@ -14,7 +14,7 @@ Scoped.extend("module:Assets.themes", [
 		"modern-green": {
 			css: "ba-videoplayer-theme-modern",
 			csstheme: "ba-videoplayer-theme-modern-green",
-			tmplcontrolbar: Templates["modern-controlbar"],
+			tmplcontrolbar: Templates["modern-video_player_controlbar"],
 			cssloader: ie8 ? "ba-videoplayer" : "",
 			cssmessage: "ba-videoplayer",
 			cssplaybutton: ie8 ? "ba-videoplayer" : ""
@@ -22,7 +22,7 @@ Scoped.extend("module:Assets.themes", [
 		"modern-blue": {
 			css: "ba-videoplayer-theme-modern",
 			csstheme: "ba-videoplayer-theme-modern-blue",
-			tmplcontrolbar: Templates["modern-controlbar"],
+			tmplcontrolbar: Templates["modern-video_player_controlbar"],
 			cssloader: ie8 ? "ba-videoplayer" : "",
 			cssmessage: "ba-videoplayer",
 			cssplaybutton: ie8 ? "ba-videoplayer" : ""

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.8/es5-shim.js"></script>
+	<script src="../vendors/jquery.min.js"></script>
+	<script src="../vendors/scoped.js"></script>
+	<script src="../vendors/beta-noscoped.js"></script>
+	<script src="../vendors/betajs-browser-noscoped.js"></script>
+	<script src="../vendors/betajs-flash-noscoped.js"></script>
+	<script src="../vendors/betajs-media-noscoped.js"></script>
+	<script src="../vendors/betajs-dynamics-noscoped.js"></script>
+	<script src="../dist/betajs-media-components-noscoped.js"></script>
+	<link  href="../dist/betajs-media-components.css" rel="stylesheet" />
+    <script src="../dist/themes/modern.js"></script>
+    <link  href="../dist/themes/modern.css" rel="stylesheet" />
+</head>
+<body style="background: red">
+	<ba-videoplayer ba-poster="sample-cover.png" ba-source="sample-video.mp4" ></ba-videoplayer>
+	
+    <script>
+        BetaJS.Flash.options = {
+            flashFile: "../vendors/betajs-flash.swf",
+            forceReload: true
+        };
+        BetaJS.Dynamics.Dynamic.activate();
+    </script>
+</body>
+</html>

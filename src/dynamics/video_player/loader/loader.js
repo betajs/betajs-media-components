@@ -6,7 +6,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Loader", [
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {
 			
-			template: Templates.loader,
+			template: Templates.video_player_loader,
 			
 			attrs: {
 				"css": "ba-videoplayer"

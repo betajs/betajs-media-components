@@ -1,0 +1,48 @@
+.#{$css}-imagegallery-leftbutton {
+	@include transform-translate-y(-50%);
+    position: absolute;
+    margin-left: $imagegallery_buttonmargin;
+    margin-right: $imagegallery_buttonmargin;
+    top: 50%;    
+    left: 0;
+    width: $imagegallery_buttonsize;
+    height: $imagegallery_buttonsize;
+}
+
+.#{$css}-imagegallery-rightbutton {
+	@include transform-translate-y(-50%);
+    position: absolute;
+    margin-left: $imagegallery_buttonmargin;
+    margin-right: $imagegallery_buttonmargin;
+    top: 50%;    
+    right: 0;
+    width: $imagegallery_buttonsize;
+    height: $imagegallery_buttonsize;
+}
+
+.#{$css}-imagegallery-container {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 2 * $imagegallery_buttonmargin + $imagegallery_buttonsize;
+	right: 2 * $imagegallery_buttonmargin + $imagegallery_buttonsize;
+}
+
+.#{$css}-imagegallery-image {
+	z-index: 2;
+    position: absolute;
+    box-sizing: border-box;
+    cursor:pointer;
+	border: 2px solid gray;
+}
+
+.#{$css}-imagegallery-image:hover {
+	border: 2px solid white;
+}
+
+.#{$css}-imagegallery-button-inner {
+    @include relative-center-center;
+    @include clickable;
+    color: $text_color;
+    font-size: $button_fontsize;        
+}

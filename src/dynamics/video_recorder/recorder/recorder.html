@@ -1,0 +1,103 @@
+
+<div ba-show="{{!player_active}}"
+     class="{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}"
+     style="{{width ? 'width:' + width + ((width + '').match(/^\d+$/g) ? 'px' : '') + ';' : 'width:100%;'}}{{height ? 'height:' + height + ((height + '').match(/^\d+$/g) ? 'px' : '') + ';' : 'height:100%'}}"
+>
+	
+    <video class="{{css}}-video {{css}}-{{hasrecorder ? 'hasrecorder' : 'norecorder'}}" data-video="video"></video>
+    <div class='{{css}}-overlay' ba-show="{{!hideoverlay}}" data-overlay="overlay">
+		<ba-{{dynloader}}
+		    ba-css="{{cssloader || css}}"
+		    ba-template="{{tmplloader}}"
+		    ba-show="{{loader_active}}"
+		    ba-tooltip="{{loadertooltip}}"
+		    ba-label="{{loaderlabel}}"
+		></ba-{{dynloader}}>
+		
+		<ba-{{dynmessage}}
+		    ba-css="{{cssmessage || css}}"
+		    ba-template="{{tmplmessage}}"
+		    ba-show="{{message_active}}"
+		    ba-message="{{message}}"
+		    ba-event:click="message_click"
+		></ba-{{dynmessage}}>
+
+		<ba-{{dyntopmessage}}
+		    ba-css="{{csstopmessage || css}}"
+		    ba-template="{{tmpltopmessage}}"
+		    ba-show="{{topmessage_active && (topmessage || hovermessage)}}"
+		    ba-topmessage="{{hovermessage || topmessage}}"
+		></ba-{{dyntopmessage}}>
+		
+		<ba-{{dynchooser}}
+		    ba-css="{{csschooser || css}}"
+		    ba-template="{{tmplchooser}}"
+		    ba-show="{{chooser_active}}"
+		    ba-allowrecord="{{allowrecord}}"
+		    ba-allowupload="{{allowupload}}"
+		    ba-allowcustomupload="{{allowcustomupload}}"
+		    ba-primaryrecord="{{primaryrecord}}"
+		    ba-event:record="record_video"
+		    ba-event:upload="upload_video"
+		></ba-{{dynchooser}}>
+		
+		<ba-{{dynimagegallery}}
+		    ba-css="{{cssimagegallery || css}}"
+		    ba-template="{{tmplimagegallery}}"
+		    ba-if="{{imagegallery_active}}"
+		    ba-imagecount="{{gallerysnapshots}}"
+		    ba-imagenativewidth="{{recordingwidth}}"
+		    ba-imagenativeheight="{{recordingheight}}"
+		    ba-event:image-selected="{{select_image}}"
+		></ba-{{dynimagegallery}}>
+		
+		<ba-{{dyncontrolbar}}
+		    ba-css="{{csscontrolbar || css}}"
+		    ba-template="{{tmplcontrolbar}}"
+		    ba-show="{{controlbar_active}}"
+		    ba-cameras="{{cameras}}"
+		    ba-microphones="{{microphones}}"
+		    ba-selectedcamera="{{selectedcamera || 0}}"
+		    ba-selectedmicrophone="{{selectedmicrophone || 0}}"
+		    ba-camerahealthy="{{camerahealthy}}"
+		    ba-microphonehealthy="{{microphonehealthy}}"
+		    ba-hovermessage="{{=hovermessage}}"
+		    ba-settingsvisible="{{settingsvisible}}"
+		    ba-recordvisible="{{recordvisible}}"
+		    ba-stopvisible="{{stopvisible}}"
+		    ba-skipvisible="{{skipvisible}}"
+		    ba-controlbarlabel="{{controlbarlabel}}"
+		    ba-event:select-camera="select_camera"
+		    ba-event:select-microphone="select_microphone"
+		    ba-event:invoke-record="record"
+		    ba-event:invoke-stop="stop"
+		    ba-event:invoke-skip="invoke_skip"
+		></ba-{{dyncontrolbar}}>
+    </div>
+</div>
+
+<div ba-if="{{player_active}}"
+     style="{{width ? 'width:' + width + ((width + '').match(/^\d+$/g) ? 'px' : '') + ';' : ''}}{{height ? 'height:' + height + ((height + '').match(/^\d+$/g) ? 'px' : '') + ';' : ''}}"
+>
+	<ba-{{dynvideoplayer}} ba-theme="{{theme || 'default'}}"
+	                       ba-source="{{playbacksource}}"
+	                       ba-poster="{{playbackposter}}"
+	                       ba-hideoninactivity="{{false}}"
+	                       ba-forceflash="{{forceflash}}"
+	                       ba-noflash="{{noflash}}"
+	                       ba-stretch="{{stretch}}"
+	                       ba-attrs="{{playerattrs}}"
+	                       ba-data:id="player"
+	                       ba-width="{{width}}"
+	                       ba-height="{{height}}"
+	                       ba-rerecordable="{{rerecordable && (recordings === null || recordings > 0)}}"
+	                       ba-reloadonplay="{{true}}"
+	                       ba-autoplay="{{autoplay}}"
+	                       ba-nofullscreen="{{nofullscreen}}"
+	                       ba-event:rerecord="rerecord"
+	                       ba-event:playing="playing"
+	                       ba-event:paused="paused"
+	                       ba-event:ended="ended"
+	                       >
+	</ba-{{dynvideoplayer}}>
+</div>

@@ -1,5 +1,6 @@
 "language:de":
     ba-videoplayer-playbutton.tooltip: Hier clicken um Wiedergabe zu starten.
+    ba-videoplayer-playbutton.rerecord: Video neu aufnehmen
     ba-videoplayer-loader.tooltip: Video wird geladen...
     ba-videoplayer-controlbar.video-progress: Videofortschritt
     ba-videoplayer-controlbar.rerecord-video: Video erneut aufnehmen?

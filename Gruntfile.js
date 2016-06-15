@@ -13,7 +13,8 @@ module.exports = function(grunt) {
 		'dist/betajs-media-components-locales.js',
 		'src/ads/**/*.js',
 		'src/dynamics/common/*.js',
-		'src/dynamics/video_player/**/*.js'
+		'src/dynamics/video_player/**/*.js',
+		'src/dynamics/video_recorder/**/*.js'
      ], "dist/" + dist + "-noscoped.js", {
 		"module": "global:BetaJS.MediaComponents",
 		"base": "global:BetaJS",
@@ -31,9 +32,15 @@ module.exports = function(grunt) {
     })	
     .concatTask('concat-scoped', ['vendors/scoped.js', 'dist/' + dist + '-noscoped.js'], 'dist/' + dist + '.js')
     .concatsassTask('concat-dist-css', [
+        'src/themes/common/mixins.scss',
+        'src/themes/common/fontello_font.scss',
         'src/themes/video_player/default/theme.scss',
-        'src/themes/video_player/common/*.scss',
-        'src/themes/video_player/default/*.scss'
+        'src/themes/common/fontello.scss',
+        'src/themes/video_player/default/*.scss',
+
+        'src/themes/video_recorder/default/theme.scss',
+        'src/../src/themes/common/fontello.scss',
+        'src/themes/video_recorder/default/*.scss'
      ], 'dist/betajs-media-components.css')
     .uglifyTask('uglify-noscoped', 'dist/' + dist + '-noscoped.js', 'dist/' + dist + '-noscoped.min.js')
     .uglifyTask('uglify-scoped', 'dist/' + dist + '.js', 'dist/' + dist + '.min.js')
@@ -52,16 +59,27 @@ module.exports = function(grunt) {
 	    'src/fragments/theme-begin.js-fragment',
 	    'dist/themes/modern-templates.js',
 	    'src/themes/video_player/modern/theme.js',
+	    'src/themes/video_recorder/modern/theme.js',
 	    'src/fragments/end.js-fragment'
     ], 'dist/themes/modern.js')
     .uglifyTask('uglify-themes', 'dist/themes/modern.js', 'dist/themes/modern.min.js')
     .concatsassTask('concat-themes-css', [
+  	    'src/themes/common/mixins.scss',
 	    'src/themes/video_player/modern/theme.scss',
-	    'src/themes/video_player/common/mixins.scss',
-	    'src/themes/video_player/common/fontello.scss',
+        'src/themes/common/fontello.scss',
 	    'src/themes/video_player/default/player.scss',
 	    'src/themes/video_player/default/loader.scss',
-	    'src/themes/video_player/modern/*.scss'
+	    'src/themes/video_player/modern/*.scss',
+	    
+	    'src/themes/video_recorder/modern/theme.scss',
+        'src/../src/themes/common/fontello.scss',
+	    'src/themes/video_recorder/default/recorder.scss',
+	    'src/themes/video_recorder/default/chooser.scss',
+	    'src/themes/video_recorder/default/topmessage.scss',
+	    'src/themes/video_recorder/default/imagegallery.scss',
+	    'src/themes/video_recorder/default/controlbar.scss',
+	    'src/themes/video_recorder/default/settings.scss',
+	    'src/themes/video_recorder/modern/*.scss'
     ], 'dist/themes/modern.css')
     .cssminTask('cssmin-themes', 'dist/themes/modern.css', 'dist/themes/modern.min.css')
     .cleanTask('clean-themes', 'dist/themes/modern-templates.js')

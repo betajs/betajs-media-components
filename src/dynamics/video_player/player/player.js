@@ -21,15 +21,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.Controlbar",
     "dynamics:Partials.EventPartial",
     "dynamics:Partials.OnPartial",
-    "dynamics:Partials.TemplatePartial",
-    "dynamics:Partials.InnerTemplatePartial"
+    "dynamics:Partials.TemplatePartial"
 ], function (Class, Templates, Assets, Info, VideoPlayerWrapper, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, InitialState, PlayerStates, AdProvider, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {
 			
 			template: Templates.player,
-			
-			overlay_template: Templates.player_overlay,
 			
 			attrs: {
 				/* CSS */
@@ -54,7 +51,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"tmplloader": "",
 				"tmplmessage": "",
 				"tmplcontrolbar": "",
-				"tmploverlay": "",
 				/* Attributes */
 				"poster": "",
 				"source": "",
@@ -63,6 +59,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				/* Configuration */
 				"forceflash": false,
 				"noflash": false,
+				"reloadonplay": false,
 				/* Ads */
 				"adprovider": null,
 				"preroll": false,
@@ -74,6 +71,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"nofullscreen": false,
 				"ready": true,
 				"stretch": false,
+				"hideoninactivity": true,
+				"skipinitial": false,
 				/* States */
 				"states": {
 					"poster_error": {
@@ -93,7 +92,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"ready": "boolean",
 				"nofullscreen": "boolean",
 				"stretch": "boolean",
-				"preroll": "boolean"
+				"preroll": "boolean",
+				"hideoninactivity": "boolean",
+				"skipinitial": "boolean"
 			},
 			
 			extendables: ["states"],
@@ -101,8 +102,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 			remove_on_destroy: true,
 			
 			create: function () {
-				if (this.get("theme") in Assets.themes) {
-					Objs.iter(Assets.themes[this.get("theme")], function (value, key) {
+				if (this.get("theme") in Assets.playerthemes) {
+					Objs.iter(Assets.playerthemes[this.get("theme")], function (value, key) {
 						if (!this.isArgumentAttr(key))
 							this.set(key, value);
 					}, this);
@@ -118,8 +119,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 					this.set("source", pl0.source);
 					this.set("sources", pl0.sources);
 				}
-				if (!this.get("tmploverlay"))
-					this.set("tmploverlay", this.overlay_template);
 				this.set("ie8", Info.isInternetExplorer() && Info.internetExplorerVersion() < 9);
 				this.set("duration", 0.0);
 				this.set("position", 0.0);
@@ -221,7 +220,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 			    	forceflash: !!this.get("forceflash"),
 			    	noflash: !!this.get("noflash"),
 			    	preload: !!this.get("preload"),
-					loop: !!this.get("loop")
+					loop: !!this.get("loop"),
+					reloadonplay: !!this.get("reloadonplay")
 			    }).error(function (e) {
 			    	this._error("attach", e);
 			    }, this).success(function (instance) {
@@ -378,8 +378,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				return this.videoWidth() / this.videoHeight();
 			},
 			
-			_parentAspectRatio: function () {
-				return this.activeElement().parent().width() / this.activeElement().parent().height();
+			parentWidth: function () {
+				return this.activeElement().parent().width();
+			},
+			
+			parentHeight: function () {
+				return this.activeElement().parent().height();
+			},
+
+			parentAspectRatio: function () {
+				return this.parentWidth() / this.parentHeight();
 			},
 			
 			_updateStretch: function () {
@@ -387,13 +395,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				if (this.get("stretch")) {
 					var ar = this.aspectRatio();
 					if (isFinite(ar)) {
-						var par = this._parentAspectRatio();
+						var par = this.parentAspectRatio();
 						if (isFinite(par)) {
 							if (par > ar)
 								newStretch = "height";
 							if (par < ar)
 								newStretch = "width";
-						} else if (par === Infinite)
+						} else if (par === Infinity)
 							newStretch = "height";
 					}
 				}

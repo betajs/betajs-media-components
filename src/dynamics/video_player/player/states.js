@@ -128,7 +128,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
 				if (!this.dyn.get("states").poster_error.ignore)
 					this.next("PosterError");
 			}, this);
-			if (this.dyn.get("autoplay"))
+			if (this.dyn.get("autoplay") || this.dyn.get("skipinitial"))
 				this.play();
 		},
 		
@@ -200,7 +200,10 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
 			this.listenOn(this.dyn, "playing", function () {
 				this.next("PlayVideo");
 			}, this);
-			this.dyn.player.play();
+			if (this.dyn.get("skipinitial") && !this.dyn.get("autoplay"))
+				this.next("PlayVideo");
+			else
+				this.dyn.player.play();
 		}
 	
 	});

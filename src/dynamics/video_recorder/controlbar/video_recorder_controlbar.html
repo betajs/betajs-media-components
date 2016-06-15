@@ -1,0 +1,84 @@
+<div class="{{css}}-dashboard">
+	<div class="{{css}}-backbar"></div>
+	<div class="{{css}}-settings" ba-show="{{settingsvisible && settingsopen}}">
+		<div class="{{css}}-settings-backbar"></div>
+		<div class="{{css}}-settings-front">
+			<ul ba-repeat="{{camera :: cameras}}">
+				<li>
+					<input type='radio' name='camera' value="{{selectedcamera == camera.id}}" onclick="{{selectCamera(camera.id)}}" />
+					<span></span>
+					<label onclick="{{selectCamera(camera.id)}}">
+						{{camera.label}}
+					</label>
+				 </li>
+			</ul>
+			<hr />
+			<ul ba-repeat="{{microphone :: microphones}}">
+				<li onclick="{{selectMicrophone(microphone.id)}}">
+					<input type='radio' name='microphone' value="{{selectedmicrophone == microphone.id}}" />
+					<span></span>
+					<label>
+						{{microphone.label}}
+					</label>
+				 </li>
+			</ul>
+		</div>
+	</div>
+	<div class="{{css}}-controlbar">
+        <div class="{{css}}-leftbutton-container" ba-show="{{settingsvisible}}">
+            <div class="{{css}}-button-inner {{css}}-button-{{settingsopen ? 'selected' : 'unselected'}}"
+                 onclick="{{settingsopen=!settingsopen}}"
+                 onmouseenter="{{hover(string('settings'))}}"
+                 onmouseleave="{{unhover()}}">
+                <i class="{{css}}-icon-cog"></i>
+            </div>
+        </div>
+        <div class="{{css}}-lefticon-container" ba-show="{{settingsvisible}}">
+            <div class="{{css}}-icon-inner"
+                 onmouseenter="{{hover(string(camerahealthy ? 'camerahealthy' : 'cameraunhealthy'))}}"
+                 onmouseleave="{{unhover()}}">
+                <i class="{{css}}-icon-videocam {{css}}-icon-state-{{camerahealthy ? 'good' : 'bad' }}"></i>
+            </div>
+        </div>
+        <div class="{{css}}-lefticon-container" ba-show="{{settingsvisible}}">
+            <div class="{{css}}-icon-inner"
+                 onmouseenter="{{hover(string(microphonehealthy ? 'microphonehealthy' : 'microphoneunhealthy'))}}"
+                 onmouseleave="{{unhover()}}">
+                <i class="{{css}}-icon-mic {{css}}-icon-state-{{microphonehealthy ? 'good' : 'bad' }}"></i>
+            </div>
+        </div>
+        <div class="{{css}}-lefticon-container" ba-show="{{stopvisible && recordingindication}}">
+            <div class="{{css}}-recording-indication">
+            </div>
+        </div>
+        <div class="{{css}}-label-container" ba-show="{{controlbarlabel}}">
+        	<div class="{{css}}-label-label">
+        		{{controlbarlabel}}
+        	</div>
+        </div>
+        <div class="{{css}}-rightbutton-container" ba-show="{{recordvisible}}">
+        	<div class="{{css}}-button-primary"
+                 onclick="{{record()}}"
+                 onmouseenter="{{hover(string('record-tooltip'))}}"
+                 onmouseleave="{{unhover()}}">
+        		{{string('record')}}
+        	</div>
+        </div>
+        <div class="{{css}}-rightbutton-container" ba-show="{{stopvisible}}">
+        	<div class="{{css}}-button-primary"
+                 onclick="{{stop()}}"
+                 onmouseenter="{{hover(string('stop-tooltip'))}}"
+                 onmouseleave="{{unhover()}}">
+        		{{string('stop')}}
+        	</div>
+        </div>
+        <div class="{{css}}-centerbutton-container" ba-show="{{skipvisible}}">
+        	<div class="{{css}}-button-primary"
+                 onclick="{{skip()}}"
+                 onmouseenter="{{hover(string('skip-tooltip'))}}"
+                 onmouseleave="{{unhover()}}">
+        		{{string('skip')}}
+        	</div>
+        </div>
+	</div>
+</div>

@@ -1,0 +1,70 @@
+$css: "ba-videorecorder";
+$cssie8: "ba-videorecorder-ie8";
+$cssnoie8: "ba-videorecorder-noie8";
+$fontello_name: "betajs-media-components-fontello";
+
+$font_family: Arial, sans-serif;
+$recorder_bgcolor: #FDFDFD;
+$text_color: white;
+
+$button_color: #8CF;
+
+$message_bgcolor: black;
+$message_opacity: 0.75;
+
+$topmessage_bgcolor: black;
+$topmessage_opacity: 0.1;
+$topmessage_fontsize: 16px;
+$topmessage_height: 32px;
+$topmessage_fontweight: normal;
+
+$loader_size: 5px;
+$loader_frame_thickness: 1.1em;
+$loader_label_fontsize: 40px;
+
+$chooser_fontsize: 14px;
+$chooser_primary_button_bgcolor: #8CF;
+$chooser_primary_button_vertical_padding: 12px;
+$chooser_primary_button_horizontal_padding: 32px;
+$chooser_primary_button_border_radius: 4px;
+$chooser_secondary_button_color: $chooser_primary_button_bgcolor;
+$chooser_secondary_button_padding: 8px;
+
+$imagegallery_buttonmargin: 10px;
+$imagegallery_buttonsize: 20px;
+
+$settings_margin: 4px;
+$settings_padding: 4px;	
+$settings_radius: 4px;
+$settings_bgcolor: black;
+$settings_opacity: 0.25;
+$settings_border: 1px solid white;
+$settings_font_size: 12px;
+$settings_horizontal_margin: 8px;
+$settings_item_padding: 2px;
+$settings_radio_color: white;
+$settings_radio_color_selected: $button_color;
+
+$controlbar_height: 32px;
+$controlbar_opacity: 0.1;
+$controlbar_bgcolor: black;
+$controlbar_padding: 16px;
+$controlbar_icon_good: #0F0;
+$controlbar_icon_bad: #F00;
+$controlbar_label_padding: 7px;
+$controlbar_recording_indication_color: red;
+$controlbar_recording_indication_size: 12px;
+$controlbar_button_horizontal_padding: 8px;
+$controlbar_primarybutton_radius: 2px;
+$controlbar_primarybutton_padding: 4px;
+$controlbar_primarybutton_vertical_padding: 8px;
+$controlbar_primarybutton_font_weight: normal;
+$controlbar_primarybutton_font_size: 14px;
+$controlbar_primarybutton_border: none;
+$controlbar_primarybutton_horizontal_margin: 10px;
+$controlbar_button_fontsize: 14px;
+$controlbar_button_margin: 4px;
+$controlbar_button_padding: 3px;
+$controlbar_button_vertical_padding: 3px;
+$controlbar_button_border_radius: 2px;
+$controlbar_button_border: 1px solid $text_color;

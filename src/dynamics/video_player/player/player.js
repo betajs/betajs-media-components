@@ -35,6 +35,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"cssplaybutton": "",
 				"cssloader": "",
 				"cssmessage": "",
+				"csstopmessage": "",
 				"csscontrolbar": "",
 				"width": "",
 				"height": "",
@@ -45,11 +46,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"dynplaybutton": "videoplayer-playbutton",
 				"dynloader": "videoplayer-loader",
 				"dynmessage": "videoplayer-message",
+				"dyntopmessage": "videoplayer-topmessage",
 				"dyncontrolbar": "videoplayer-controlbar",
 				/* Templates */
 				"tmplplaybutton": "",
 				"tmplloader": "",
 				"tmplmessage": "",
+				"tmpltopmessage": "",
 				"tmplcontrolbar": "",
 				/* Attributes */
 				"poster": "",
@@ -73,6 +76,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"stretch": false,
 				"hideoninactivity": true,
 				"skipinitial": false,
+				"topmessage": "",
 				/* States */
 				"states": {
 					"poster_error": {

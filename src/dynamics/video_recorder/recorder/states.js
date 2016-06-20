@@ -15,11 +15,11 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.State", [
 				"topmessage": false,
 				"controlbar": false,
 				"loader": false,
-				"imagegallery": false,
-				"player": false
+				"imagegallery": false
 			}, Objs.objectify(this.dynamics)), function (value, key) {
 				this.dyn.set(key + "_active", value);
 			}, this);
+			this.dyn.set("playertopmessage", "");
 			this._started();
 		},
 		
@@ -29,11 +29,17 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.State", [
 			this.dyn.set("autorecord", true);
 		},
 		
-		stop: function () {},
+		stop: function () {
+			this.dyn.scopes.player.execute('stop');
+		},
 		
-		play: function () {},
+		play: function () {
+			this.dyn.scopes.player.execute('play');
+		},
 		
-		pause: function () {},
+		pause: function () {
+			this.dyn.scopes.player.execute('pause');
+		},		
 		
 		rerecord: function () {},
 		
@@ -72,6 +78,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Initial", [
 	return State.extend({scoped: scoped}, { 
 		
 		_started: function () {
+			this.dyn.set("player_active", false);
 			this.dyn._initializeUploader();
 			if (!this.dyn.get("recordermode"))
 				this.next("Player");
@@ -90,29 +97,19 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Player", [
 ], function (State, scoped) {
 	return State.extend({scoped: scoped}, { 
 		
-		dynamics: ["player"],
-
-		_started: function () {
-			this.player = this.dyn.scope(">[id='player']").materialize(true);
-		},
-		
 		rerecord: function () {
 			this.dyn.trigger("rerecord");
 			this.dyn.set("recordermode", true);
 			this.next("Initial");
 		},
 		
-		stop: function () {
-			this.player.stop();
+		_started: function () {
+			this.dyn.set("player_active", true);
 		},
 		
-		play: function () {
-			this.player.play();
-		},
-		
-		pause: function () {
-			this.player.pause();
-		}		
+		_end: function () {
+			this.dyn.set("player_active", false);
+		}
 		
 	});
 });
@@ -361,21 +358,33 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
 			this.dyn.trigger("uploading");
 			this.dyn.set("topmessage", "");
 			this.dyn.set("message", this.dyn.string("uploading"));
+			this.dyn.set("playertopmessage", this.dyn.get("message"));
 			var uploader = this.dyn._dataUploader;
 			this.listenOn(uploader, "success", function () {
 				this.next("Verifying");
 			});
 			this.listenOn(uploader, "error", function () {
+				this.dyn.set("player_active", false);
 				this.next("FatalError", { message: this.dyn.string("uploading-failed"), retry: "Uploading" });
 			});
 			this.listenOn(uploader, "progress", function (uploaded, total) {
 				if (total !== 0) {
 					this.dyn.trigger("upload_progress", uploaded / total);
 					this.dyn.set("message", this.dyn.string("uploading") + ": " + Math.round(uploaded / total * 100) + "%");
+					this.dyn.set("playertopmessage", this.dyn.get("message"));
 				}
 			});
 			uploader.reset();
 			uploader.upload();
+			if (this.dyn.get("localplayback") && this.dyn.recorder.supportsLocalPlayback()) {
+				this.dyn.set("playbacksource", this.dyn.recorder.localPlaybackSource());
+				if (this.dyn.__lastCovershotUpload)
+					this.dyn.set("playbackposter", this.dyn.recorder.snapshotToLocalPoster(this.dyn.__lastCovershotUpload));
+				this.dyn.set("loader_active", false);
+				this.dyn.set("message_active", false);
+				this.dyn._hideBackgroundSnapshot();
+				this.dyn.set("player_active", true);
+			}
 		}
 	});
 });
@@ -391,13 +400,20 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Verifying", [
 		_started: function () {
 			this.dyn.trigger("verifying");
 			this.dyn.set("message", this.dyn.string("verifying") + "...");
+			this.dyn.set("playertopmessage", this.dyn.get("message"));
+			if (this.dyn.get("localplayback") && this.dyn.recorder.supportsLocalPlayback()) {
+				this.dyn.set("loader_active", false);
+				this.dyn.set("message_active", false);
+			}
 			this.dyn._verifyRecording().success(function () {
+				this.dyn.trigger("verified");
 				this.dyn._hideBackgroundSnapshot();
 				this.dyn._detachRecorder();
 				if (this.dyn.get("recordings"))
 					this.dyn.set("recordings", this.dyn.get("recordings") - 1);
 				this.next("Player");
 			}, this).error(function () {
+				this.dyn.set("player_active", false);
 				this.next("FatalError", { message: this.dyn.string("verifying-failed"), retry: "Verifying" });
 			}, this);
 		}

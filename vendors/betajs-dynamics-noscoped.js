@@ -1,5 +1,5 @@
 /*!
-betajs-dynamics - v0.0.52 - 2016-06-14
+betajs-dynamics - v0.0.54 - 2016-06-19
 Copyright (c) Victor Lingenthal,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -13,11 +13,11 @@ Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
     "guid": "d71ebf84-e555-4e9b-b18a-11d74fdcefe2",
-    "version": "249.1465946194577"
+    "version": "251.1466393258332"
 };
 });
-Scoped.assumeVersion('base:version', 496);
-Scoped.assumeVersion('browser:version', 76);
+Scoped.assumeVersion('base:version', 502);
+Scoped.assumeVersion('browser:version', 78);
 Scoped.define("module:Data.Mesh", [
 	    "base:Class",
 	    "base:Events.EventsMixin",
@@ -1267,6 +1267,7 @@ Scoped.define("module:Handlers.HandlerMixin", [
 		},
 		
 		__handlerConstruct: function () {
+			this.__activated = false;
 			this._mesh_extend = {
 				string: Functions.as_method(this.string, this)	
 			};
@@ -1399,6 +1400,9 @@ Scoped.define("module:Handlers.HandlerMixin", [
 		},
 		
 		activate: function () {
+			if (this.__activated)
+				return;
+			this.__activated = true;
 			/*
 			if (this.__deferActivate) {
 				this.__deferedActivate = true;
@@ -1654,8 +1658,12 @@ Scoped.define("module:Handlers.Node", [
 					attr.destroy();
 				});
 				this._removeChildren();
-				if (this._tagHandler && !this._tagHandler.destroyed())
-					this._tagHandler.destroy();
+				if (this._tagHandler && !this._tagHandler.destroyed()) {
+					if (this._tagHandler.cacheable)
+						Registries.handlerCache.suspend(this._tagHandler, this._$element);
+					else
+						this._tagHandler.weakDestroy();
+				}
 				if (this._dyn)
 					this.properties().off(null, null, this._dyn);
 				if (this._parent)
@@ -1714,7 +1722,10 @@ Scoped.define("module:Handlers.Node", [
 						attr.unbindTagHandler(this._tagHandler);
 					}, this);
 					this.off(null, null, this._tagHandler);
-					this._tagHandler.weakDestroy();
+					if (this._tagHandler.cacheable)
+						Registries.handlerCache.suspend(this._tagHandler, this._$element);
+					else
+						this._tagHandler.weakDestroy();
 					this._tagHandler = null;
 				}
 			},
@@ -1744,12 +1755,16 @@ Scoped.define("module:Handlers.Node", [
 					parentElement: this._$element.get(0),
 					parentHandler: this._handler,
 					autobind: false,
+					cacheable: false,
 					tagName: tagv					
 				};
 				Objs.iter(this._attrs, function (attr) {
 					attr.prepareTagHandler(createArguments);
 				}, this);
-				this._tagHandler = Registries.handler.create(tagv, createArguments);
+				if (createArguments.cacheable)
+					this._tagHandler = Registries.handlerCache.resume(tagv, this._$element, this._handler);
+				if (!this._tagHandler)
+					this._tagHandler = Registries.handler.create(tagv, createArguments);
 				//this._$element.append(this._tagHandler.element());
 				Objs.iter(this._attrs, function (attr) {
 					attr.bindTagHandler(this._tagHandler);
@@ -1884,6 +1899,40 @@ Scoped.define("module:Registries", ["base:Classes.ClassRegistry", "jquery:"], fu
 			try {
 				console.log(s);
 			} catch (e) {}
+		},
+		
+		handlerCache: {
+			
+			cache: {},
+			cacheDom: null,
+			
+			suspend: function (handler, element) {
+				if (!this.cacheDom)
+					this.cacheDom = $("<div ba-ignore style='display:none'></div>").appendTo(document.body);
+				var cacheDom = this.cacheDom;
+				var name = handler.data("tagname");
+				this.cache[name] = this.cache[name] || [];
+				this.cache[name].push({
+					handler: handler,
+					elements: element.children()
+				});
+				element.children().each(function () {
+					cacheDom.append(this);
+				});
+			},
+			
+			resume: function (name, element, parentHandler) {
+				if (!this.cache[name] || this.cache[name].length === 0)
+					return null;
+				var record = this.cache[name].shift();
+				element.html(record.elements);
+				record.handler._handlerInitialize({
+					parentHandler: parentHandler,
+					parentElement: element
+				});
+				return record.handler;
+			} 
+			
 		}
 	
 	};
@@ -1945,6 +1994,29 @@ Scoped.define("module:Partials.AttrsPartial", [
 
  	});
  	Cls.register("ba-attrs");
+	return Cls;
+});
+
+
+Scoped.define("module:Partials.CachePartial", ["module:Handlers.Partial"], function (Partial, scoped) {
+  	var Cls = Partial.extend({scoped: scoped},  {
+  		
+		bindTagHandler: function (handler) {
+			handler.cacheable = true;
+		},
+		
+		prepareTagHandler: function (createArguments) {
+			createArguments.cacheable = true;
+		}
+	
+ 	}, {
+ 		
+ 		meta: {
+ 			requires_tag_handler: true
+ 		}
+ 		
+ 	});
+ 	Cls.register("ba-cache");
 	return Cls;
 });
 
@@ -2606,18 +2678,36 @@ Scoped.define("module:Partials.ShowPartial", ["module:Handlers.Partial"], functi
 			
  			constructor: function (node, args, value) {
  				inherited.constructor.apply(this, arguments);
- 				this.__oldDisplay = null;
+ 				this.__oldDisplay = undefined;
+ 				this.__readOldDisplay = false;
+ 				this.__hidden = false;
  				if (!value)
- 					node._$element.hide();
+ 					this.__hide();
+ 			},
+ 			
+ 			__hide: function () {
+ 				if (this.__hidden)
+ 					return;
+ 				this.__hidden = true;
+ 				if (!this.__readOldDisplay) {
+ 					this.__oldDisplay = this._node._$element.get(0).style.display;
+ 					this.__readOldDisplay = true;
+ 				}
+ 				this._node._$element.get(0).style.display = "none";
+ 			},
+ 			
+ 			__show: function () {
+ 				if (!this.__hidden)
+ 					return;
+ 				this.__hidden = false;
+ 				this._node._$element.get(0).style.display = this.__oldDisplay && this.__oldDisplay !== 'none' ? this.__oldDisplay : "";
  			},
  			
  			_apply: function (value) {
- 				if (value) {
- 					this._node._$element.css("display", this.__oldDisplay && this.__oldDisplay !== "none" ? this.__oldDisplay : "");
- 				} else {
- 					this.__oldDisplay = this._node._$element.css("display");
- 					this._node._$element.css("display", "none");
- 				}
+ 				if (value)
+ 					this.__show();
+ 				else
+ 					this.__hide();
  			}
  		
  		};

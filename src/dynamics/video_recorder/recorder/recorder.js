@@ -95,6 +95,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				"forceflash": false,
 				"noflash": false,
 				"flashicognitosupport": false,
+				"localplayback": false,
 				"uploadoptions": {},
 				"playerattrs": {},
 				/* Options */
@@ -102,6 +103,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				"recordings": null,
 				"ready": true,
 				"stretch": false
+			},
+			
+			scopes: {
+				player: ">[id='player']"
 			},
 
 			types: {
@@ -275,6 +280,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 			},
 			
 			_uploadCovershot: function (image) {
+				this.__lastCovershotUpload = image;
 				var uploader = this.recorder.createSnapshotUploader(image, this.get("snapshottype"), this.get("uploadoptions").image);
 				uploader.upload();
 				this._dataUploader.addUploader(uploader);
@@ -512,7 +518,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				}
 				this.__currentStretch = newStretch;				
 			}
-
+			
 		};
 	}, {
 		

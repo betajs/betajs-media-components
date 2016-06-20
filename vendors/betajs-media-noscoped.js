@@ -1,5 +1,5 @@
 /*!
-betajs-media - v0.0.25 - 2016-06-14
+betajs-media - v0.0.26 - 2016-06-19
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -14,12 +14,12 @@ Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
     "guid": "8475efdb-dd7e-402e-9f50-36c76945a692",
-    "version": "56.1465945189434"
+    "version": "57.1466393400225"
 };
 });
-Scoped.assumeVersion('base:version', 496);
-Scoped.assumeVersion('browser:version', 76);
-Scoped.assumeVersion('flash:version', 28);
+Scoped.assumeVersion('base:version', 502);
+Scoped.assumeVersion('browser:version', 78);
+Scoped.assumeVersion('flash:version', 33);
 Scoped.define("module:Player.FlashPlayer", [
     "browser:DomExtend.DomExtension",
 	"browser:Dom",
@@ -331,25 +331,33 @@ Scoped.define("module:Player.VideoPlayerWrapper", [
 				var sources = options.source || options.sources || [];
 				if (Types.is_string(sources))
 					sources = sources.split(" ");
+				else if (!Types.is_array(sources))
+					sources = [sources];
 				var sourcesMapped = [];
 				Objs.iter(sources, function (source) {
 					if (Types.is_string(source))
 						source = {src: source.trim()};
+					else if (typeof Blob !== 'undefined' && source instanceof Blob)
+						source = {src: source};
 					if (source.ext && !source.type)
 						source.type = "video/" + source.ext;
 					if (!source.ext && source.type)
 						source.ext = Strings.last_after(source.type, "/");
-					if (!source.ext && !source.type) {
+					if (!source.ext && !source.type && Types.is_string(source.src)) {
 						var temp = Strings.splitFirst(source.src, "?").head;
 						if (temp.indexOf(".") >= 0) {
 							source.ext = Strings.last_after(temp, ".");
 							source.type = "video/" + source.ext;
 						}
 					}
-					if (!source.type)
-						source.type = "video";
-					source.ext = source.ext.toLowerCase();
-					source.type = source.type.toLowerCase();
+					if (source.ext)
+						source.ext = source.ext.toLowerCase();
+					if (source.type)
+						source.type = source.type.toLowerCase();
+					if (typeof Blob !== 'undefined' && source.src instanceof Blob)
+						source.src = (window.URL || window.webkitURL).createObjectURL(source.src);
+					if (typeof Blob !== 'undefined' && source.audiosrc instanceof Blob)
+						source.audiosrc = (window.URL || window.webkitURL).createObjectURL(source.audiosrc);
 					sourcesMapped.push(source);
 				}, this);
 				this._sources = sourcesMapped;
@@ -511,7 +519,7 @@ Scoped.define("module:Player.Html5VideoPlayerWrapper", [
 				} else if (ie9) {
 					var str = Strings.splitLast(this._element.outerHTML, "</video>").head;
 					Objs.iter(sources, function (source) {
-						str += "<source type='" + source.type + "' src='" + source.src + "' />";
+						str += "<source" + (source.type ? " type='" + source.type + "'" : "") + " src='" + source.src + "' />";
 					});
 					str += "</video>";
 					var $str = $(str);
@@ -551,15 +559,22 @@ Scoped.define("module:Player.Html5VideoPlayerWrapper", [
 				if (this._loop)
 					this._$element.attr("loop", "loop");
 				var errorCount = 0;
+				this._audioElement = null;
 				if (!ie9) {
 					Objs.iter(sources, function (source) {
-						var $source = $("<source type='" + source.type + "' />").appendTo(this._$element);
+						var $source = $("<source" + (source.type ? " type='" + source.type + "'" : "") + " />").appendTo(this._$element);
 						$source.on("error", function () {
 							errorCount++;
 							if (errorCount === sources.length)
 								promise.asyncError(true);
 						});
 						$source.get(0).src = source.src;
+						if (source.audiosrc) {
+							if (!this._audioElement)
+								this._audioElement = $("<audio></audio>").insertAfter(this._$element).get(0);
+							$source = $("<source" + (source.type ? " type='" + source.type + "'" : "") + " />").appendTo(this._audioElement);
+							$source.get(0).src = source.audiosrc;
+						}
 					}, this);
 				} else {
 					this._$element.find("source").on("error", function () {
@@ -568,7 +583,8 @@ Scoped.define("module:Player.Html5VideoPlayerWrapper", [
 							promise.asyncError(true);
 					});
 				}
-				this._element.poster = this.poster();
+				if (this.poster())
+					this._element.poster = this.posterURL();
 				promise.callback(function () {
 					this._$element.find("source").off("error");
 					timer.destroy();
@@ -582,7 +598,17 @@ Scoped.define("module:Player.Html5VideoPlayerWrapper", [
 				return promise;
 			},
 			
+			posterURL: function () {
+				var poster = this.poster();			
+				console.log(poster, typeof Blob !== 'undefined' , poster instanceof Blob);
+				if (poster && typeof Blob !== 'undefined' && poster instanceof Blob)
+					return (window.URL || window.webkitURL).createObjectURL(poster);
+				return poster;
+			},
+			
 			destroy: function () {
+				if (this._audioElement)
+					this._audioElement.remove();
 				if (this.supportsFullscreen())
 					Dom.elementOffFullscreenChange(this._element);
 				this._$element.html("");
@@ -604,17 +630,19 @@ Scoped.define("module:Player.Html5VideoPlayerWrapper", [
 				self._$element.find("source").on("error" + "." + self.cid(), function () {
 					self._eventError(self.cls.ERROR_NO_PLAYABLE_SOURCE);
 				});
-				var image = new Image();
-				image.onerror = function () {
-					self._$element.attr("poster", "");
-					self._$element.attr("preload", "");
-					self._eventPosterError();
-				};
-				image.src = this.poster();
-				image.onload = function () {
-					self.__imageWidth = image.width;
-					self.__imageHeight = image.height;
-				};
+				if (this.poster()) {
+					var image = new Image();
+					image.onerror = function () {
+						self._$element.attr("poster", "");
+						self._$element.attr("preload", "");
+						self._eventPosterError();
+					};
+					image.src = this.posterURL();
+					image.onload = function () {
+						self.__imageWidth = image.width;
+						self.__imageHeight = image.height;
+					};
+				}
 				if (Info.isSafari() && (Info.safariVersion() > 5 || Info.safariVersion() < 9)) {
 					if (this._element.networkState === this._element.NETWORK_LOADING) {
 						Async.eventually(function () {
@@ -655,7 +683,44 @@ Scoped.define("module:Player.Html5VideoPlayerWrapper", [
 	        
 	        videoHeight: function () {
 	        	return this._$element.get(0).height || this.__imageHeight || NaN;
-	        }
+	        },
+	        
+            play: function () {
+            	inherited.play.call(this);
+            	if (this._audioElement) {
+	            	if (this._reloadonplay)
+	            		this._audioElement.load();
+	            	this._audioElement.play();
+            	}
+            },
+            
+            pause: function () {
+            	this._element.pause();
+            	if (this._audioElement)
+	            	this._audioElement.pause();
+	        },
+	        
+	        setPosition: function (position) {
+	        	this._element.currentTime = position;
+            	if (this._audioElement)
+	            	this._audioElement.currentTime = position;
+	        },
+	        
+	        muted: function () {
+	        	return (this._audioElement ? this._audioElement : this._element).muted;
+	        },
+	        
+	        setMuted: function (muted) {
+	        	(this._audioElement ? this._audioElement : this._element).muted = muted;
+	        },
+	        
+	        volume: function () {
+	        	return (this._audioElement ? this._audioElement : this._element).volume;
+	        },
+	        
+	        setVolume: function (volume) {
+	        	(this._audioElement ? this._audioElement : this._element).volume = volume;
+	        }	        
 		
 		};		
 	});	
@@ -1162,6 +1227,8 @@ Scoped.define("module:Flash.FlashRecorder", [
 						return;
 					}
 					if (code === "NetConnection.Connect.Success" && this._status() === 'connecting') {
+						if (this.__streamType === 'mp4')
+							this._flashObjs.connection.callVoid("setStreamType", null, "live");
 						this._flashObjs.stream = this._embedding.newObject("flash.net.NetStream", this._flashObjs.connection);
 						this._flashObjs.stream.addEventListener("netStatus", this._embedding.newCallback(Functions.as_method(function (event) {
 							var code = event.get("info").code;
@@ -1196,7 +1263,7 @@ Scoped.define("module:Flash.FlashRecorder", [
 						this._flashObjs.stream.set("bufferTime", 120);
 						if (this.__streamType === 'mp4') {
 							this._flashObjs.h264Settings = this._embedding.newObject("flash.media.H264VideoStreamSettings");
-							this._flashObjs.h264Settings.setProfileLevel("BASELINE", "LEVEL_3_1");
+							this._flashObjs.h264Settings.setProfileLevel("baseline", "3.1");
 							this._flashObjs.stream.set("videoStreamSettings", this._flashObjs.h264Settings);
 						}
 						this._flashObjs.stream.attachCameraVoid(this._flashObjs.camera);
@@ -1205,8 +1272,6 @@ Scoped.define("module:Flash.FlashRecorder", [
 					}
 				}, this)));
 				this._flashObjs.connection.connectVoid(serverUrl);
-				if (this.__streamType === 'mp4')
-					this._flashObjs.connection.callVoid("setStreamType", null, "live");
 			},
 			
 			stopRecord: function () {
@@ -1380,6 +1445,18 @@ Scoped.define("module:Recorder.VideoRecorderWrapper", [
 			
 			isFlash: function () {
 				return false;
+			},
+			
+			supportsLocalPlayback: function () {
+				return false;
+			},
+			
+			snapshotToLocalPoster: function (snapshot) {
+				return null;
+			},
+			
+			localPlaybackSource: function () {
+				return null;
 			}
 			
 		};
@@ -1524,6 +1601,7 @@ Scoped.define("module:Recorder.WebRTCVideoRecorderWrapper", [
 			},
 			
 			startRecord: function (options) {
+				this.__localPlaybackSource = null;
 				this._recorder.startRecord();
 				return Promise.value(true);
 			},
@@ -1539,6 +1617,10 @@ Scoped.define("module:Recorder.WebRTCVideoRecorderWrapper", [
 					var audioUploader = FileUploader.create(Objs.extend({
 						source: audioBlob
 					}, options.audio));
+					this.__localPlaybackSource = {
+						src: videoBlob,
+						audiosrc: audioBlob
+					};
 					var multiUploader = new MultiUploader();
 					multiUploader.addUploader(videoUploader);
 					multiUploader.addUploader(audioUploader);
@@ -1546,7 +1628,19 @@ Scoped.define("module:Recorder.WebRTCVideoRecorderWrapper", [
 				}, this);
 				this._recorder.stopRecord();
 				return promise;
-			}
+			},
+			
+			supportsLocalPlayback: function () {
+				return true;
+			},
+			
+			snapshotToLocalPoster: function (snapshot) {
+				return snapshot;
+			},
+			
+			localPlaybackSource: function () {
+				return this.__localPlaybackSource;
+			}			
 			
 		};		
 	}, {

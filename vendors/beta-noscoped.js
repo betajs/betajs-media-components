@@ -1,5 +1,5 @@
 /*!
-betajs - v1.0.54 - 2016-06-06
+betajs - v1.0.55 - 2016-06-19
 Copyright (c) Oliver Friedmann,Victor Lingenthal
 Apache-2.0 Software License.
 */
@@ -10,7 +10,7 @@ Scoped.binding('module', 'global:BetaJS');
 Scoped.define("module:", function () {
 	return {
     "guid": "71366f7a-7da3-4e55-9a0b-ea0e4e2a9e79",
-    "version": "500.1465241267335"
+    "version": "502.1466393152696"
 };
 });
 Scoped.require(['module:'], function (mod) {
@@ -175,7 +175,7 @@ Scoped.define("module:Class", ["module:Types", "module:Objs", "module:Functions"
 		},
 		
 		is_pure_json: function (obj) {
-			return obj && Types.is_object(obj) && !this.is_class_instance(obj);
+			return obj && Types.is_object(obj) && !this.is_class_instance(obj) && Types.is_pure_object(obj);
 		},
 		
 		is_instance_of: function (obj) {
@@ -372,22 +372,6 @@ Scoped.define("module:Class", ["module:Types", "module:Objs", "module:Functions"
 
 });
 	
-Scoped.define("module:Classes.ReferenceCounterMixin", function () {
-	return {
-		__reference_count: 1,
-		
-		acquireReference: function () {
-			this.__reference_count++;
-		},
-		
-		releaseReference: function () {
-			this.__reference_count--;
-			if (this.__reference_count === 0)
-				this.weakDestroy();
-		}
-	};
-});
-
 Scoped.define("module:Classes.InvokerMixin", ["module:Objs", "module:Types", "module:Functions"], function (Objs, Types, Functions) {
 	return {
 		
@@ -2827,8 +2811,7 @@ Scoped.define("module:Properties.Properties", [
 	    "module:Class",
 	    "module:Objs",
 	    "module:Events.EventsMixin",
-	    "module:Properties.PropertiesMixin",
-	    "module:Classes.ReferenceCounterMixin"
+	    "module:Properties.PropertiesMixin"
 	], function (Class, Objs, EventsMixin, PropertiesMixin, ReferenceCounterMixin, scoped) {
 	return Class.extend({scoped: scoped}, [EventsMixin, PropertiesMixin, ReferenceCounterMixin, function (inherited) {
 		return {
@@ -3806,41 +3789,19 @@ Scoped.define("module:Templates.Template", ["module:Class", "module:Templates"],
 
 
 Scoped.define("module:Time", [], function () {
+	/**
+	 * Time Helper Functions
+	 * 
+	 * All time routines are based on UTC time.
+	 * The optional timezone parameter should be used as follows:
+	 *    - undefined or false: UTC
+	 *    - true: user's local time zone
+	 *    - int value: actual time zone bias in minutes
+	 *    
+	 * @module BetaJS.Time
+	 */
 	return {
-			
-		/*
-		 * All time routines are based on UTC time.
-		 * The optional timezone parameter should be used as follows:
-		 *    - undefined or false: UTC
-		 *    - true: user's local time zone
-		 *    - int value: actual time zone bias in minutes
-		 */
-			
 		
-		timezoneBias: function (timezone) {
-			if (timezone === true)
-				timezone = (new Date()).getTimezoneOffset();
-			if (typeof timezone == "undefined" || timezone === null || timezone === false)
-				timezone = 0;
-			return timezone * 60 * 1000;
-		},
-			
-		timeToDate: function (t, timezone) {
-			return new Date(t + this.timezoneBias(timezone));
-		},
-		
-		dateToTime: function (d, timezone) {
-			return d.getTime() - this.timezoneBias(timezone);
-		},
-		
-		timeToTimezoneBasedDate: function (t, timezone) {
-			return new Date(t - this.timezoneBias(timezone));
-		},
-		
-		timezoneBasedDateToTime: function (d, timezone) {
-			return d.getTime() + this.timezoneBias(timezone);
-		},
-	
 		__components: {
 			"year": {
 				"set": function (date, value) { date.setUTCFullYear(value); },
@@ -3886,7 +3847,78 @@ Scoped.define("module:Time", [], function () {
 				"milliseconds": 1
 			}
 		},
+
+		/**
+		 * Computes the timezone bias in milliseconds from UTC
+		 * 
+		 * @param {int} timezone bias in minutes; can be true to use current time zone; can be undefined to use UTC
+		 * 
+		 * @return {int} timezone bias in milliseconds
+		 */
+		timezoneBias: function (timezone) {
+			if (timezone === true)
+				timezone = (new Date()).getTimezoneOffset();
+			if (typeof timezone == "undefined" || timezone === null || timezone === false)
+				timezone = 0;
+			return timezone * 60 * 1000;
+		},
+			
+		/**
+		 * Given a time in milliseconds, compute a Date object.
+		 * 
+		 * @param {int} t time in milliseconds
+		 * @param {int} timezone timezone (optional)
+		 * 
+		 * @return {object} Date object
+		 */
+		timeToDate: function (t, timezone) {
+			return new Date(t + this.timezoneBias(timezone));
+		},
 		
+		/**
+		 * Given a time as a Date object, return UTC time in milliseconds.
+		 * 
+		 * @param {object} d time as Date object
+		 * @param {int} timezone timezone (optional)
+		 * 
+		 * @return {int} UTC time in milliseconds
+		 */
+		dateToTime: function (d, timezone) {
+			return d.getTime() - this.timezoneBias(timezone);
+		},
+		
+		/**
+		 * Given a time in milliseconds, compute a timezone-based Date object.
+		 * 
+		 * @param {int} t time in milliseconds
+		 * @param {int} timezone timezone (optional)
+		 * 
+		 * @return {object} timezone-based Date object
+		 */
+		timeToTimezoneBasedDate: function (t, timezone) {
+			return new Date(t - this.timezoneBias(timezone));
+		},
+		
+		/**
+		 * Given a time as a timezone-based Date object, return UTC time in milliseconds.
+		 * 
+		 * @param {object} d time as a timezone-based Date object
+		 * @param {int} timezone timezone (optional)
+		 * 
+		 * @return {int} UTC time in milliseconds
+		 */
+		timezoneBasedDateToTime: function (d, timezone) {
+			return d.getTime() + this.timezoneBias(timezone);
+		},
+		
+		/**
+		 * Decode time into its time components
+		 *
+		 * @param {int} t time in milliseconds
+		 * @param {int} timezone timezone (optional)
+		 * 
+		 * @return {object} decoded time component
+		 */
 		decodeTime: function (t, timezone) {
 			var d = this.timeToTimezoneBasedDate(t || this.now(), timezone);
 			var result = {};
@@ -3895,14 +3927,39 @@ Scoped.define("module:Time", [], function () {
 			return result;
 		},
 	
+		/**
+		 * Encode time from components to UTC time
+		 * 
+		 * @param {object} data component data
+		 * @param {int} timezone timezone (optional)
+		 * 
+		 * @return {int} encoded UTC time
+		 */
 		encodeTime: function (data, timezone) {
 			return this.updateTime(this.now(), data, timezone);
 		},
 		
+		/**
+		 * Encode time period data from components to milliseconds
+		 * 
+		 * @param {object} data component data
+		 * @param {int} timezone timezone (optional)
+		 * 
+		 * @return {int} encoded milliseconds
+		 */
 		encodePeriod: function (data) {
 			return this.incrementTime(0, data);
 		},
 		
+		/**
+		 * Updates a given time with respect to provided component data
+		 * 
+		 * @param {int} t UTC time
+		 * @param {object} data component data
+		 * @param {int} timezone timezone (optional)
+		 * 
+		 * @return {int} updated UTC time
+		 */
 		updateTime: function (t, data, timezone) {
 			var d = this.timeToTimezoneBasedDate(t, timezone);
 			for (var key in data)
@@ -3910,10 +3967,25 @@ Scoped.define("module:Time", [], function () {
 			return this.timezoneBasedDateToTime(d, timezone);
 		},
 		
+		/**
+		 * Returns the current time in milliseconds
+		 * 
+		 * @param {int} timezone timezone (optional)
+		 * 
+		 * @return {int} current time
+		 */
 		now: function (timezone) {
 			return this.dateToTime(new Date(), timezone);
 		},
 		
+		/**
+		 * Increments a given time with respect to provided component data
+		 * 
+		 * @param {int} t UTC time
+		 * @param {object} data component data
+		 * 
+		 * @return {int} incremented UTC time
+		 */
 		incrementTime: function (t, data) {
 			var d = this.timeToDate(t);
 			for (var key in data) 
@@ -3921,6 +3993,15 @@ Scoped.define("module:Time", [], function () {
 			return this.dateToTime(d);
 		},
 		
+		/**
+		 * Floors a given time with respect to a component key and all smaller components.
+		 * 
+		 * @param {int} t time
+		 * @param {string} key component key
+		 * @param {int} timezone timezone (optional)
+		 * 
+		 * @return {int} floored time
+		 */
 		floorTime: function (t, key, timezone) {
 			var d = this.timeToTimezoneBasedDate(t, timezone);
 			var found = false;
@@ -3933,18 +4014,52 @@ Scoped.define("module:Time", [], function () {
 			return this.timezoneBasedDateToTime(d, timezone);
 		},
 		
+		/**
+		 * Computes how long a specific time is ago from now.
+		 * 
+		 * @param {int} t time
+		 * @param {int} timezone timezone (optional)
+		 * 
+		 * @return {int} milliseconds ago
+		 */
 		ago: function (t, timezone) {
 			return this.now(timezone) - t;
 		},
 		
+		/**
+		 * Returns the multiplicity of a time component given a time.
+		 * 
+		 * @param {int} t time
+		 * @param {string} key component key
+		 * @param {function} rounding function (default is floor)
+		 * 
+		 * @return {int} multiplicity of time
+		 */
 		timeComponent: function (t, key, round) {
 			return Math[round || "floor"](t / this.__components[key].milliseconds);
 		},
 		
+		/**
+		 * Returns the value of a time component given a time.
+		 * 
+		 * @param {int} t time
+		 * @param {string} key component key
+		 * 
+		 * @return {int} value of time
+		 */
 		timeComponentGet: function (t, key) {
 			return this.__components[key].get(t);
 		},
 		
+		/**
+		 * Returns the remainder of a time component given a time.
+		 * 
+		 * @param {int} t time
+		 * @param {string} key component key
+		 * @param {function} rounding function (default is floor)
+		 * 
+		 * @return {int} remainder of time
+		 */
 		timeModulo: function (t, key, round) {
 			return this.timeComponent(t, key, round) % (this.__components[key].max + 1);
 		}
@@ -4597,6 +4712,16 @@ Scoped.define("module:Types", function () {
 		},
 
 		/**
+		 * Parses an array of type "foo,bar"
+		 * 
+		 * @param x array as a string
+		 * @return array
+		 */
+		parseArray : function(x) {
+			return x.split(",");
+		},
+
+		/**
 		 * Returns the type of a given expression
 		 * 
 		 * @param x expression
@@ -4627,6 +4752,10 @@ Scoped.define("module:Types", function () {
 				return parseInt(x, 10);
 			if (type == "float" || type == "double")
 				return parseFloat(x);
+			if (type == "array")
+				return this.parseArray(x);
+			if (type == "object")
+				return JSON.parse(x);
 			return x;
 		},
 		
@@ -4639,10 +4768,19 @@ Scoped.define("module:Types", function () {
 		objectType: function (obj) {
 			if (!this.is_object(obj))
 				return null;
-			var matcher = obj.match(/\[object (.*)\]/);
+			var matcher = obj.toString().match(/\[object (.*)\]/);
 			return matcher ? matcher[1] : null;
-		}
+		},
 		
+		/**
+		 * Returns whether a given object is a pure object
+		 * 
+		 * @param {object} obj an object instance
+		 * @return {boolean} true if pure
+		 */
+		is_pure_object: function (obj) {
+			return this.is_object(obj) && (obj.toString().toLowerCase() === '[object]' || obj.toString().toLowerCase() === '[object object]');
+		}
 		
 	};
 });
@@ -5157,6 +5295,44 @@ Scoped.define("module:Classes.LocaleAggregator", [
         };
     }]);
 });
+Scoped.define("module:Classes.ObjectCache", [
+    "module:Class",
+    "module:Objs"
+], function (Class, Objs, scoped) {
+	return Class.extend({scoped: scoped}, function (inherited) {
+		return {
+			
+			constructor: function (keyFunction, keyFunctionCtx) {
+				inherited.constructor.call(this);
+				this.__keyFunction = keyFunction;
+				this.__keyFunctionCtx = keyFunctionCtx;
+				this.__cache = {};
+			},
+			
+			destroy: function () {
+				Objs.iter(this.__cache, function (obj) {
+					obj.off(null, null, this);
+				}, this);
+			},
+			
+			get: function (key) {
+				return this.__cache[key];
+			},
+			
+			register: function (obj) {
+				var key = this.__keyFunction.call(this.__keyFunctionCtx || this, obj);
+				if (this.__cache[key] && !this.__cache[key].destroyed())
+					this.__cache[key].off(null, null, this);
+				this.__cache[key] = obj;
+				obj.on("destroy", function () {
+					delete this.__cache[key];
+				}, this);
+			}
+			
+		};
+	});
+});
+
 Scoped.define("module:Classes.ClassRegistry", [
     "module:Class",
     "module:Types",
@@ -5587,7 +5763,7 @@ Scoped.define("module:Collections.Collection", [
 				if ("off" in object)
 					object.off(null, null, this);
 				if (this.__release_references)
-					object.releaseReference();
+					object.decreaseRef();
 			},
 		
 			destroy: function () {
@@ -5642,39 +5818,39 @@ Scoped.define("module:Collections.Collection", [
 				return ident;
 			},
 			
-			replace_object: function (oriObject) {
-				var is_prop = Class.is_class_instance(oriObject);
-				var object = is_prop ? oriObject : new Properties(oriObject);
-				if (this.exists(object)) {
-					var existing = this.getById(this.get_ident(object));
-					if (is_prop) {
-						this.remove(existing);
-						this.add(object);
-					} else {
-						existing.setAll(oriObject);
-						return existing;
-					}
-				} else
-					this.add(object);
-				return object;
-			},
-			
 			replace_objects: function (objects, keep_others) {
+				var addQueue = [];
 				var ids = {};
 				Objs.iter(objects, function (oriObject) {
-					var object = this.replace_object(oriObject);
-					ids[this.get_ident(object)] = true;
+					var is_prop = Class.is_class_instance(oriObject);
+					var obj = is_prop ? oriObject : new Properties(oriObject);
+					var id = this.get_ident(obj);
+					ids[id] = true;
+					var old = this.getById(id);
+					if (!old)
+						addQueue.push(obj);
+					else if (is_prop) {
+						this.remove(old);
+						this.add(obj);
+					} else {
+						obj.destroy();
+						old.setAll(oriObject);
+					}
 				}, this);
 				if (!keep_others) {
 					var iterator = this.iterator();
 					while (iterator.hasNext()) {
 						var object = iterator.next();
-						var ident = this.get_ident(object);
-						if (!(ident in ids))
+						if (!ids[this.get_ident(object)]) {
 							this.remove(object);
+							if (addQueue.length > 0)
+								this.add(addQueue.shift());
+						}
 					}
 					iterator.destroy();
 				}
+				while (addQueue.length > 0)
+					this.add(addQueue.shift());
 			},
 			
 			add_objects: function (objects) {
@@ -6546,6 +6722,7 @@ Scoped.define("module:Timers.Timer", [
 					fire_max: null,
 					immediate: false
 				}, options);
+				this.__immediate = options.immediate;
 				this.__delay = options.delay;
 				this.__destroy_on_fire = options.destroy_on_fire;
 				this.__destroy_on_stop = options.destroy_on_stop;
@@ -8051,6 +8228,8 @@ Scoped.define("module:Router.Router", [ "module:Class",
 	    			var parsed = this._routeParser.parse(route);
 	    			if (parsed)
 	    				this.dispatch(parsed.name, parsed.args, route);
+	    			else
+	    				this.trigger("notfound", route);
 	    		},
 
 	    		dispatch : function(name, args, route) {

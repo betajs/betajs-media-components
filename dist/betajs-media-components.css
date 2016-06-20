@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.21 - 2016-06-14
+betajs-media-components - v0.0.21 - 2016-06-19
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -884,6 +884,31 @@ Apache-2.0 Software License.
   display: inline-block;
   height: 100%;
   width: 100%; }
+
+.ba-videoplayer-topmessage-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0; }
+
+.ba-videoplayer-topmessage-message {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  font-weight: normal;
+  color: #FFF;
+  padding: 8px;
+  text-align: center; }
+
+.ba-videoplayer-topmessage-background {
+  background: black;
+  opacity: 0.1;
+  width: 100%;
+  height: 32px;
+  position: absolute; }
 
 .ba-videorecorder-icon-play:before {
   font-family: "betajs-media-components-fontello";

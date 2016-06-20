@@ -24,11 +24,11 @@ module.exports = function(grunt) {
 		"dynamics": "global:BetaJS.Dynamics",
 		"jquery": "global:jQuery"
     }, {
-    	"base:version": 474,
-    	"browser:version": 70,
-    	"flash:version": 27,
-    	"dynamics:version": 219,
-    	"media:version": 42
+    	"base:version": 502,
+    	"browser:version": 78,
+    	"flash:version": 33,
+    	"dynamics:version": 251,
+    	"media:version": 57
     })	
     .concatTask('concat-scoped', ['vendors/scoped.js', 'dist/' + dist + '-noscoped.js'], 'dist/' + dist + '.js')
     .concatsassTask('concat-dist-css', [
@@ -69,6 +69,7 @@ module.exports = function(grunt) {
         'src/themes/common/fontello.scss',
 	    'src/themes/video_player/default/player.scss',
 	    'src/themes/video_player/default/loader.scss',
+	    'src/themes/video_player/default/topmessage.scss',
 	    'src/themes/video_player/modern/*.scss',
 	    
 	    'src/themes/video_recorder/modern/theme.scss',

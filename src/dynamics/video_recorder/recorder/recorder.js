@@ -81,6 +81,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				"recordingheight": 480,
 				"countdown": 3,
 				"snapshotmax": 15,
+				"framerate": null,
 				"snapshottype": "jpg",
 				"picksnapshots": true,
 				"playbacksource": "",
@@ -124,7 +125,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				"flashicognitosupport": "boolean",
 				"recordermode": "boolean",
 				"nofullscreen": "boolean",
-				"picksnapshots": "boolean"
+				"picksnapshots": "boolean",
+				"localplayback": "boolean"
 			},
 			
 			extendables: ["states"],
@@ -220,7 +222,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 			    	recordingWidth: this.get("recordingwidth"),
 			    	recordingHeight: this.get("recordingheight"),
 			    	flashFullSecurityDialog: !this.get("flashicognitosupport"),
-			    	rtmpStreamType: this.get("rtmpstreamtype")
+			    	rtmpStreamType: this.get("rtmpstreamtype"),
+			    	framerate: this.get("framerate")
 			    });
 				if (!this.recorder)
 					this._error("attach");
@@ -438,12 +441,20 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				inherited.destroy.call(this);
 			},
 			
+			lightLevel: function () {
+				return this.recorderAttached() ? this.recorder.lightLevel() : null;
+			},
+			
+			soundLevel: function () {
+				return this.recorderAttached() ? this.recorder.soundLevel() : null;
+			},
+			
 			_timerFire: function () {
 				try {
 					if (this.recorderAttached() && this.get("devicetesting")) {
-						var lightLevel = this.recorder.lightLevel();
+						var lightLevel = this.lightLevel();
 						this.set("camerahealthy", lightLevel >= 100 && lightLevel <= 200);
-						this.set("microphonehealthy", this.get("microphonehealthy") || this.recorder.soundLevel() >= 1.01);
+						this.set("microphonehealthy", this.get("microphonehealthy") || this.soundLevel() >= 1.01);
 					}
 				} catch (e) {}
 				

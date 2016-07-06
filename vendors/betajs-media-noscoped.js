@@ -1,5 +1,5 @@
 /*!
-betajs-media - v0.0.26 - 2016-06-19
+betajs-media - v0.0.27 - 2016-07-03
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -14,7 +14,7 @@ Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
     "guid": "8475efdb-dd7e-402e-9f50-36c76945a692",
-    "version": "57.1466393400225"
+    "version": "58.1467587782131"
 };
 });
 Scoped.assumeVersion('base:version', 502);
@@ -248,7 +248,7 @@ Scoped.define("module:Player.FlashPlayer", [
 			},
 			
 			pause: function () {
-				if (this._flashData.status !== "playing")
+				if (this._flashData.status === "paused")
 					return;
 				this._flashData.status = "paused";
 				this._flashObjs.stream.pauseVoid();
@@ -600,7 +600,6 @@ Scoped.define("module:Player.Html5VideoPlayerWrapper", [
 			
 			posterURL: function () {
 				var poster = this.poster();			
-				console.log(poster, typeof Blob !== 'undefined' , poster instanceof Blob);
 				if (poster && typeof Blob !== 'undefined' && poster instanceof Blob)
 					return (window.URL || window.webkitURL).createObjectURL(poster);
 				return poster;

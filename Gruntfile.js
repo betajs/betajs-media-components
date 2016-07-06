@@ -32,6 +32,7 @@ module.exports = function(grunt) {
     })	
     .concatTask('concat-scoped', ['vendors/scoped.js', 'dist/' + dist + '-noscoped.js'], 'dist/' + dist + '.js')
     .concatsassTask('concat-dist-css', [
+        //'vendors/_hacks.scss',
         'src/themes/common/mixins.scss',
         'src/themes/common/fontello_font.scss',
         'src/themes/video_player/default/theme.scss',
@@ -50,7 +51,7 @@ module.exports = function(grunt) {
     	return require('he').encode(s);
     })
     .cleanTask('clean-compile', ['dist/betajs-media-components-templates.js', 'dist/betajs-media-components-locales.js'])
-    .simplecopyTask('copy-fonts', {'dist/betajs-media-components-ie8.eot': 'vendors/fontello/font/fontello.eot'})
+    .simplecopyTask('copy-fonts', {'dist/bjsmc-ie8.eot': 'vendors/fontello/font/fontello.eot'})
     .packageTask()
 
     /* Compile Themes */
@@ -64,6 +65,7 @@ module.exports = function(grunt) {
     ], 'dist/themes/modern.js')
     .uglifyTask('uglify-themes', 'dist/themes/modern.js', 'dist/themes/modern.min.js')
     .concatsassTask('concat-themes-css', [
+        //'vendors/_hacks.scss',
   	    'src/themes/common/mixins.scss',
 	    'src/themes/video_player/modern/theme.scss',
         'src/themes/common/fontello.scss',
@@ -112,7 +114,8 @@ module.exports = function(grunt) {
         'betajs/betajs-flash/dist/betajs-flash-noscoped.js',
         'betajs/betajs-flash/dist/betajs-flash.swf',
         'betajs/betajs-media/dist/betajs-media-noscoped.js',
-        'betajs/betajs-dynamics/dist/betajs-dynamics-noscoped.js'
+        'betajs/betajs-dynamics/dist/betajs-dynamics-noscoped.js',
+        'saadeghi/browser-hack-sass-mixins/_hacks.scss'
      ] })
 
     /* Markdown Files */
@@ -123,7 +126,7 @@ module.exports = function(grunt) {
     .docsTask();
 
 	grunt.initConfig(gruntHelper.config);	
-
+	
 	grunt.registerTask('default', [
 	    'package',
         'readme',
@@ -138,7 +141,8 @@ module.exports = function(grunt) {
         'concat-dist-css',
         'cssmin-dist',
         'clean-compile',
-        'copy-fonts'
+        'copy-fonts',
+        "generate-default-yml"
     ]);
 	grunt.registerTask('themes', [
         'templates-themes',
@@ -149,5 +153,26 @@ module.exports = function(grunt) {
         'clean-themes'
     ]);
 	grunt.registerTask('check', ['csslinter', 'lint', 'browserqunit']);
+
+	grunt.registerTask("generate-default-yml", function () {
+		var done = this.async();
+		require('jsdom').jsdom.env("", [
+            "./vendors/jquery.min.js",
+            "./vendors/scoped.js",
+            "./vendors/beta-noscoped.js",
+            "./vendors/betajs-browser-noscoped.js",
+            "./vendors/betajs-dynamics-noscoped.js",
+            "./vendors/betajs-media-noscoped.js",
+            "./dist/betajs-media-components-noscoped.js"
+        ], function (err, window) {
+			var strings = window.BetaJS.MediaComponents.Assets.strings.all();
+			var lang = {
+				"language:en": strings
+			};
+			var yml = require("js-yaml").dump(lang);
+			grunt.file.write("./dist/english.yml", yml);
+			done();
+        });
+	});
 
 };

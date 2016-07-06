@@ -1,42 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<script src="../vendors/jquery.min.js"></script>
-	<script src="../vendors/scoped.js"></script>
-	<script src="../vendors/beta-noscoped.js"></script>
-	<script src="../vendors/betajs-browser-noscoped.js"></script>
-	<script src="../vendors/betajs-flash-noscoped.js"></script>
-	<script src="../vendors/betajs-media-noscoped.js"></script>
-	<script src="../vendors/betajs-dynamics-noscoped.js"></script>
-	<script src="../dist/betajs-media-components-noscoped.js"></script>
-	<link  href="../dist/betajs-media-components.css" rel="stylesheet" />
-    <script src="../dist/themes/modern.js"></script>
-    <link  href="../dist/themes/modern.css" rel="stylesheet" />
+<script src="es5-shim.js"></script>
+<script src="../vendors/jquery.min.js"></script>
+<script src="../vendors/scoped.js"></script>
+<script src="../vendors/beta-noscoped.js"></script>
+<script src="../vendors/betajs-browser-noscoped.js"></script>
+<script src="../vendors/betajs-flash-noscoped.js"></script>
+<script src="../vendors/betajs-media-noscoped.js"></script>
+<script src="../vendors/betajs-dynamics-noscoped.js"></script>
+<script src="../dist/betajs-media-components-noscoped.js"></script>
+<link href="../dist/betajs-media-components.css" rel="stylesheet" />
+<script src="../dist/themes/modern.js"></script>
+<link href="../dist/themes/modern.css" rel="stylesheet" />
+
 </head>
 <body style="background: #EEE">
-	<h3>
-		Default
-	</h3>
-	<ba-videoplayer ba-poster="sample-cover.png" ba-source="sample-video.mp4"></ba-videoplayer>
-	<h3>
-		Modern
-	</h3>
-	<ba-videoplayer ba-poster="sample-cover.png" ba-source="sample-video.mp4" ba-theme="modern"></ba-videoplayer>
-	<h3>
-		Modern Blue
-	</h3>
-	<ba-videoplayer ba-poster="sample-cover.png" ba-source="sample-video.mp4" ba-theme="modern-blue"></ba-videoplayer>
-	<h3>
-		Modern Green
-	</h3>
-	<ba-videoplayer ba-poster="sample-cover.png" ba-source="sample-video.mp4" ba-theme="modern-green"></ba-videoplayer>
+<style>
+  html.ie-force-pseudo-refresh :before,
+  html.ie-force-pseudo-refresh :after {
+    content : none !important;
+  }
+</style>
+<script>
 
-    <script>
-        BetaJS.Flash.options = {
-            flashFile: "../vendors/betajs-flash.swf",
-            forceReload: true
-        };
-        BetaJS.Dynamics.Dynamic.activate();
-    </script>
+  if ( window.attachEvent && !window.addEventListener ) { // <-- Poor man's IE8 detection
+    window.attachEvent( "onload", function() {
+      var
+        html = document.documentElement,
+        clss = html.className;
+
+      html.className = clss + " ie-force-pseudo-refresh";
+      setTimeout( function(){ html.className = clss; }, 0 );
+    });
+  }
+</script>
+<div class="ba-videoplayer-ie8s">
+	<i class="ba-videoplayer-icon-play"></i>
+</div>
+
+	<h3>Default</h3>
+	<ba-videoplayer ba-poster="sample-cover.png"
+		ba-source="sample-video.mp4"></ba-videoplayer>
+	<h3>Modern</h3>
+	<ba-videoplayer ba-poster="sample-cover.png"
+		ba-source="sample-video.mp4" ba-theme="modern"></ba-videoplayer>
+	<h3>Modern Blue</h3>
+	<ba-videoplayer ba-poster="sample-cover.png"
+		ba-source="sample-video.mp4" ba-theme="modern-blue"></ba-videoplayer>
+	<h3>Modern Green</h3>
+	<ba-videoplayer ba-poster="sample-cover.png"
+		ba-source="sample-video.mp4" ba-theme="modern-green"></ba-videoplayer>
+
+	<script>
+		BetaJS.Flash.options = {
+			flashFile : "../vendors/betajs-flash.swf",
+			forceReload : true
+		};
+		BetaJS.Dynamics.Dynamic.activate();
+	</script>
 </body>
 </html>

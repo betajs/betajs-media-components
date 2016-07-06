@@ -1,10 +1,10 @@
 /*!
-betajs-media-components - v0.0.21 - 2016-06-19
+betajs-media-components - v0.0.22 - 2016-07-04
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
 .ba-videoplayer-theme-modern-icon-play:before {
-  font-family: "betajs-media-components-fontello";
+  font-family: "bjsmc";
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -28,11 +28,8 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e800'; }
 
-.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-icon-play:before {
-  font-family: "betajs-media-components-fontello-ie8"; }
-
 .ba-videoplayer-theme-modern-icon-pause:before {
-  font-family: "betajs-media-components-fontello";
+  font-family: "bjsmc";
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -56,11 +53,8 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e801'; }
 
-.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-icon-pause:before {
-  font-family: "betajs-media-components-fontello-ie8"; }
-
 .ba-videoplayer-theme-modern-icon-volume-off:before {
-  font-family: "betajs-media-components-fontello";
+  font-family: "bjsmc";
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -84,11 +78,8 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e802'; }
 
-.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-icon-volume-off:before {
-  font-family: "betajs-media-components-fontello-ie8"; }
-
 .ba-videoplayer-theme-modern-icon-volume-down:before {
-  font-family: "betajs-media-components-fontello";
+  font-family: "bjsmc";
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -112,11 +103,8 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e803'; }
 
-.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-icon-volume-down:before {
-  font-family: "betajs-media-components-fontello-ie8"; }
-
 .ba-videoplayer-theme-modern-icon-volume-up:before {
-  font-family: "betajs-media-components-fontello";
+  font-family: "bjsmc";
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -140,11 +128,8 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e804'; }
 
-.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-icon-volume-up:before {
-  font-family: "betajs-media-components-fontello-ie8"; }
-
 .ba-videoplayer-theme-modern-icon-resize-full:before {
-  font-family: "betajs-media-components-fontello";
+  font-family: "bjsmc";
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -168,11 +153,8 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e805'; }
 
-.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-icon-resize-full:before {
-  font-family: "betajs-media-components-fontello-ie8"; }
-
 .ba-videoplayer-theme-modern-icon-videocam:before {
-  font-family: "betajs-media-components-fontello";
+  font-family: "bjsmc";
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -196,11 +178,8 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e806'; }
 
-.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-icon-videocam:before {
-  font-family: "betajs-media-components-fontello-ie8"; }
-
 .ba-videoplayer-theme-modern-icon-ccw:before {
-  font-family: "betajs-media-components-fontello";
+  font-family: "bjsmc";
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -224,11 +203,8 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e807'; }
 
-.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-icon-ccw:before {
-  font-family: "betajs-media-components-fontello-ie8"; }
-
 .ba-videoplayer-theme-modern-icon-upload:before {
-  font-family: "betajs-media-components-fontello";
+  font-family: "bjsmc";
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -252,11 +228,8 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e808'; }
 
-.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-icon-upload:before {
-  font-family: "betajs-media-components-fontello-ie8"; }
-
 .ba-videoplayer-theme-modern-icon-left-open:before {
-  font-family: "betajs-media-components-fontello";
+  font-family: "bjsmc";
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -280,11 +253,8 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e809'; }
 
-.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-icon-left-open:before {
-  font-family: "betajs-media-components-fontello-ie8"; }
-
 .ba-videoplayer-theme-modern-icon-right-open:before {
-  font-family: "betajs-media-components-fontello";
+  font-family: "bjsmc";
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -308,11 +278,8 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e80a'; }
 
-.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-icon-right-open:before {
-  font-family: "betajs-media-components-fontello-ie8"; }
-
 .ba-videoplayer-theme-modern-icon-cog:before {
-  font-family: "betajs-media-components-fontello";
+  font-family: "bjsmc";
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -336,11 +303,8 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e80b'; }
 
-.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-icon-cog:before {
-  font-family: "betajs-media-components-fontello-ie8"; }
-
 .ba-videoplayer-theme-modern-icon-mic:before {
-  font-family: "betajs-media-components-fontello";
+  font-family: "bjsmc";
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -364,11 +328,8 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e80c'; }
 
-.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-icon-mic:before {
-  font-family: "betajs-media-components-fontello-ie8"; }
-
 .ba-videoplayer-theme-modern-icon-mute:before {
-  font-family: "betajs-media-components-fontello";
+  font-family: "bjsmc";
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -392,11 +353,8 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e80d'; }
 
-.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-icon-mute:before {
-  font-family: "betajs-media-components-fontello-ie8"; }
-
 .ba-videoplayer-theme-modern-icon-lightbulb:before {
-  font-family: "betajs-media-components-fontello";
+  font-family: "bjsmc";
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -419,9 +377,6 @@ Apache-2.0 Software License.
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e80e'; }
-
-.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-icon-lightbulb:before {
-  font-family: "betajs-media-components-fontello-ie8"; }
 
 .ba-videoplayer-theme-modern-container {
   display: inline-block;
@@ -875,7 +830,7 @@ Apache-2.0 Software License.
   background: #2a74eb; }
 
 .ba-videorecorder-theme-modern-icon-play:before {
-  font-family: "betajs-media-components-fontello";
+  font-family: "bjsmc";
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -899,11 +854,8 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e800'; }
 
-.ba-videorecorder-ie8 .ba-videorecorder-theme-modern-icon-play:before {
-  font-family: "betajs-media-components-fontello-ie8"; }
-
 .ba-videorecorder-theme-modern-icon-pause:before {
-  font-family: "betajs-media-components-fontello";
+  font-family: "bjsmc";
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -927,11 +879,8 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e801'; }
 
-.ba-videorecorder-ie8 .ba-videorecorder-theme-modern-icon-pause:before {
-  font-family: "betajs-media-components-fontello-ie8"; }
-
 .ba-videorecorder-theme-modern-icon-volume-off:before {
-  font-family: "betajs-media-components-fontello";
+  font-family: "bjsmc";
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -955,11 +904,8 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e802'; }
 
-.ba-videorecorder-ie8 .ba-videorecorder-theme-modern-icon-volume-off:before {
-  font-family: "betajs-media-components-fontello-ie8"; }
-
 .ba-videorecorder-theme-modern-icon-volume-down:before {
-  font-family: "betajs-media-components-fontello";
+  font-family: "bjsmc";
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -983,11 +929,8 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e803'; }
 
-.ba-videorecorder-ie8 .ba-videorecorder-theme-modern-icon-volume-down:before {
-  font-family: "betajs-media-components-fontello-ie8"; }
-
 .ba-videorecorder-theme-modern-icon-volume-up:before {
-  font-family: "betajs-media-components-fontello";
+  font-family: "bjsmc";
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -1011,11 +954,8 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e804'; }
 
-.ba-videorecorder-ie8 .ba-videorecorder-theme-modern-icon-volume-up:before {
-  font-family: "betajs-media-components-fontello-ie8"; }
-
 .ba-videorecorder-theme-modern-icon-resize-full:before {
-  font-family: "betajs-media-components-fontello";
+  font-family: "bjsmc";
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -1039,11 +979,8 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e805'; }
 
-.ba-videorecorder-ie8 .ba-videorecorder-theme-modern-icon-resize-full:before {
-  font-family: "betajs-media-components-fontello-ie8"; }
-
 .ba-videorecorder-theme-modern-icon-videocam:before {
-  font-family: "betajs-media-components-fontello";
+  font-family: "bjsmc";
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -1067,11 +1004,8 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e806'; }
 
-.ba-videorecorder-ie8 .ba-videorecorder-theme-modern-icon-videocam:before {
-  font-family: "betajs-media-components-fontello-ie8"; }
-
 .ba-videorecorder-theme-modern-icon-ccw:before {
-  font-family: "betajs-media-components-fontello";
+  font-family: "bjsmc";
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -1095,11 +1029,8 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e807'; }
 
-.ba-videorecorder-ie8 .ba-videorecorder-theme-modern-icon-ccw:before {
-  font-family: "betajs-media-components-fontello-ie8"; }
-
 .ba-videorecorder-theme-modern-icon-upload:before {
-  font-family: "betajs-media-components-fontello";
+  font-family: "bjsmc";
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -1123,11 +1054,8 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e808'; }
 
-.ba-videorecorder-ie8 .ba-videorecorder-theme-modern-icon-upload:before {
-  font-family: "betajs-media-components-fontello-ie8"; }
-
 .ba-videorecorder-theme-modern-icon-left-open:before {
-  font-family: "betajs-media-components-fontello";
+  font-family: "bjsmc";
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -1151,11 +1079,8 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e809'; }
 
-.ba-videorecorder-ie8 .ba-videorecorder-theme-modern-icon-left-open:before {
-  font-family: "betajs-media-components-fontello-ie8"; }
-
 .ba-videorecorder-theme-modern-icon-right-open:before {
-  font-family: "betajs-media-components-fontello";
+  font-family: "bjsmc";
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -1179,11 +1104,8 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e80a'; }
 
-.ba-videorecorder-ie8 .ba-videorecorder-theme-modern-icon-right-open:before {
-  font-family: "betajs-media-components-fontello-ie8"; }
-
 .ba-videorecorder-theme-modern-icon-cog:before {
-  font-family: "betajs-media-components-fontello";
+  font-family: "bjsmc";
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -1207,11 +1129,8 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e80b'; }
 
-.ba-videorecorder-ie8 .ba-videorecorder-theme-modern-icon-cog:before {
-  font-family: "betajs-media-components-fontello-ie8"; }
-
 .ba-videorecorder-theme-modern-icon-mic:before {
-  font-family: "betajs-media-components-fontello";
+  font-family: "bjsmc";
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -1235,11 +1154,8 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e80c'; }
 
-.ba-videorecorder-ie8 .ba-videorecorder-theme-modern-icon-mic:before {
-  font-family: "betajs-media-components-fontello-ie8"; }
-
 .ba-videorecorder-theme-modern-icon-mute:before {
-  font-family: "betajs-media-components-fontello";
+  font-family: "bjsmc";
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -1263,11 +1179,8 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e80d'; }
 
-.ba-videorecorder-ie8 .ba-videorecorder-theme-modern-icon-mute:before {
-  font-family: "betajs-media-components-fontello-ie8"; }
-
 .ba-videorecorder-theme-modern-icon-lightbulb:before {
-  font-family: "betajs-media-components-fontello";
+  font-family: "bjsmc";
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -1290,9 +1203,6 @@ Apache-2.0 Software License.
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e80e'; }
-
-.ba-videorecorder-ie8 .ba-videorecorder-theme-modern-icon-lightbulb:before {
-  font-family: "betajs-media-components-fontello-ie8"; }
 
 .ba-videorecorder-theme-modern-container {
   display: inline-block;

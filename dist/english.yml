@@ -1,0 +1,37 @@
+"language:en": 
+  "ba-videorecorder-chooser.record-video": Record Your Video
+  "ba-videorecorder-chooser.upload-video": Upload Video
+  "ba-videorecorder-controlbar.settings": Settings
+  "ba-videorecorder-controlbar.camerahealthy": Lighting is good
+  "ba-videorecorder-controlbar.cameraunhealthy": Lighting is not optimal
+  "ba-videorecorder-controlbar.microphonehealthy": Sound is good
+  "ba-videorecorder-controlbar.microphoneunhealthy": Cannot pick up any sound
+  "ba-videorecorder-controlbar.record": Record
+  "ba-videorecorder-controlbar.record-tooltip": Click here to record.
+  "ba-videorecorder-controlbar.stop": Stop
+  "ba-videorecorder-controlbar.stop-tooltip": Click here to stop.
+  "ba-videorecorder-controlbar.skip": Skip
+  "ba-videorecorder-controlbar.skip-tooltip": Click here to skip.
+  "ba-videorecorder.recorder-error": "An error occurred, please try again later. Click to retry."
+  "ba-videorecorder.pick-covershot": Pick a covershot.
+  "ba-videorecorder.uploading": Uploading
+  "ba-videorecorder.uploading-failed": "Uploading failed - click here to retry."
+  "ba-videorecorder.verifying": Verifying
+  "ba-videorecorder.verifying-failed": "Verifying failed - click here to retry."
+  "ba-videorecorder.rerecord-confirm": "Do you really want to re-record your video?"
+  "ba-videorecorder.video_file_too_large": "Your video file is too large - click here to try again with a smaller video file."
+  "ba-videorecorder.unsupported_video_type": "Please upload: %s - click here to retry."
+  "ba-videoplayer-controlbar.video-progress": Video progress
+  "ba-videoplayer-controlbar.rerecord-video": "Re-record video?"
+  "ba-videoplayer-controlbar.play-video": Play video
+  "ba-videoplayer-controlbar.pause-video": Pause video
+  "ba-videoplayer-controlbar.elapsed-time": Elasped time
+  "ba-videoplayer-controlbar.total-time": Total length of video
+  "ba-videoplayer-controlbar.fullscreen-video": Enter fullscreen
+  "ba-videoplayer-controlbar.volume-button": Set volume
+  "ba-videoplayer-controlbar.volume-mute": Mute sound
+  "ba-videoplayer-controlbar.volume-unmute": Unmute sound
+  "ba-videoplayer-loader.tooltip": Loading video...
+  "ba-videoplayer-playbutton.tooltip": Click to play video.
+  "ba-videoplayer-playbutton.rerecord": "Re-record"
+  "ba-videoplayer.video-error": "An error occurred, please try again later. Click to retry."

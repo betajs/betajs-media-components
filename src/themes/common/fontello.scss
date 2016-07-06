@@ -34,17 +34,9 @@
     content: '\e800';
 }
 
-.#{$cssie8} .#{$css}-icon-play:before {
-    font-family: $fontello_name + "-ie8";
-}
-
 .#{$css}-icon-pause:before {
     @include fontello-icon;
     content: '\e801';
-}
-
-.#{$cssie8} .#{$css}-icon-pause:before {
-    font-family: $fontello_name + "-ie8";
 }
 
 .#{$css}-icon-volume-off:before {
@@ -52,17 +44,9 @@
     content: '\e802';
 }
 
-.#{$cssie8} .#{$css}-icon-volume-off:before {
-    font-family: $fontello_name + "-ie8";
-}
-
 .#{$css}-icon-volume-down:before {
     @include fontello-icon;
     content: '\e803';
-}
-
-.#{$cssie8} .#{$css}-icon-volume-down:before {
-    font-family: $fontello_name + "-ie8";
 }
 
 .#{$css}-icon-volume-up:before {
@@ -70,17 +54,9 @@
     content: '\e804';
 }
 
-.#{$cssie8} .#{$css}-icon-volume-up:before {
-    font-family: $fontello_name + "-ie8";
-}
-
 .#{$css}-icon-resize-full:before {
     @include fontello-icon;
     content: '\e805';
-}
-
-.#{$cssie8} .#{$css}-icon-resize-full:before {
-    font-family: $fontello_name + "-ie8";
 }
 
 .#{$css}-icon-videocam:before {
@@ -88,17 +64,9 @@
     content: '\e806';
 }
 
-.#{$cssie8} .#{$css}-icon-videocam:before {
-    font-family: $fontello_name + "-ie8";
-}
-
 .#{$css}-icon-ccw:before {
     @include fontello-icon;
     content: '\e807';
-}
-
-.#{$cssie8} .#{$css}-icon-ccw:before {
-    font-family: $fontello_name + "-ie8";
 }
 
 .#{$css}-icon-upload:before {
@@ -106,17 +74,9 @@
     content: '\e808';
 }
 
-.#{$cssie8} .#{$css}-icon-upload:before {
-    font-family: $fontello_name + "-ie8";
-}
-
 .#{$css}-icon-left-open:before {
     @include fontello-icon;
     content: '\e809';
-}
-
-.#{$cssie8} .#{$css}-icon-left-open:before {
-    font-family: $fontello_name + "-ie8";
 }
 
 .#{$css}-icon-right-open:before {
@@ -124,17 +84,9 @@
     content: '\e80a';
 }
 
-.#{$cssie8} .#{$css}-icon-right-open:before {
-    font-family: $fontello_name + "-ie8";
-}
-
 .#{$css}-icon-cog:before {
     @include fontello-icon;
     content: '\e80b';
-}
-
-.#{$cssie8} .#{$css}-icon-cog:before {
-    font-family: $fontello_name + "-ie8";
 }
 
 .#{$css}-icon-mic:before {
@@ -142,24 +94,12 @@
     content: '\e80c';
 }
 
-.#{$cssie8} .#{$css}-icon-mic:before {
-    font-family: $fontello_name + "-ie8";
-}
-
 .#{$css}-icon-mute:before {
     @include fontello-icon;
     content: '\e80d';
 }
 
-.#{$cssie8} .#{$css}-icon-mute:before {
-    font-family: $fontello_name + "-ie8";
-}
-
 .#{$css}-icon-lightbulb:before {
     @include fontello-icon;
     content: '\e80e';
-}
-
-.#{$cssie8} .#{$css}-icon-lightbulb:before {
-    font-family: $fontello_name + "-ie8";
 }

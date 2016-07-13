@@ -1,5 +1,5 @@
 /*!
-betajs-media - v0.0.27 - 2016-07-03
+betajs-media - v0.0.28 - 2016-07-12
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -14,7 +14,7 @@ Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
     "guid": "8475efdb-dd7e-402e-9f50-36c76945a692",
-    "version": "58.1467587782131"
+    "version": "59.1468378083573"
 };
 });
 Scoped.assumeVersion('base:version', 502);
@@ -857,9 +857,10 @@ Scoped.define("module:Flash.FlashRecorder", [
     "base:Time",
     "jquery:",
     "base:Promise",
-    "base:Events.EventsMixin"
-], function (Class, Dom, Info, FlashClassRegistry, FlashEmbedding, Strings, Async, Objs, Functions, Types, Timer, Time, $, Promise, EventsMixin, scoped) {
-	var Cls = Class.extend({scoped: scoped}, [EventsMixin, function (inherited) {
+    "base:Events.EventsMixin",
+    "module:Recorder.PixelSampleMixin"
+], function (Class, Dom, Info, FlashClassRegistry, FlashEmbedding, Strings, Async, Objs, Functions, Types, Timer, Time, $, Promise, EventsMixin, PixelSampleMixin, scoped) {
+	var Cls = Class.extend({scoped: scoped}, [EventsMixin, PixelSampleMixin, function (inherited) {
 		return {
 			
 			constructor: function (element, attrs) {
@@ -880,6 +881,10 @@ Scoped.define("module:Flash.FlashRecorder", [
 				this.__streamType = this.readAttr("streamtype") || 'mp4';
 				this.__fps = this.readAttr('fps') || 20;				
 				this._embedding.ready(this.__initializeEmbedding, this);
+			},
+			
+			averageFrameRate: function () {
+				return this.__fps;
 			},
 			
 			__initializeEmbedding: function () {
@@ -1069,22 +1074,28 @@ Scoped.define("module:Flash.FlashRecorder", [
 					this._flashObjs.microphone.set(key, params[key]);
 			},
 			
-			lightLevel: function (samples) {
+			_pixelSample: function (samples, callback, context) {
+				samples = samples || 100;
 				var w = this._flashObjs.cameraVideo.get("width");
 				var h = this._flashObjs.cameraVideo.get("height");
 				var lightLevelBmp = this._embedding.newObject("flash.display.BitmapData", w, h);
 				lightLevelBmp.draw(this._flashObjs.cameraVideo);
-				samples = samples || 10;
-				var total_samples = samples * samples;
-				var total_light = 0;
-				for (var i = 0; i < samples; ++i)
-					for (var j = 0; j < samples; ++j) {
-						var rgb = lightLevelBmp.getPixel(Math.round(i * w / samples), Math.round(j * h / samples));
-						var light = ((rgb % 256) + ((rgb / 256) % 256) + ((rgb / 256 / 256) % 256)) / 3;
-						total_light += light;
-					}				
+				var multiple = 2;
+				while (samples > 0) {
+					for (var i = 1; i < multiple; ++i) {
+						for (var j = 1; j < multiple; ++j) {
+							var rgb = lightLevelBmp.getPixel(Math.floor(i * w / multiple), Math.floor(j * h / multiple));
+							callback.call(context || this, rgb % 256, (rgb / 256) % 256, (rgb / 256 / 256) % 256);
+							--samples;
+							if (samples <= 0)
+								break;
+						}
+						if (samples <= 0)
+							break;
+					}
+					++multiple;
+				}
 				lightLevelBmp.destroy();
-				return total_light / total_samples;
 			},
 			
 			testSoundLevel: function (activate) {
@@ -1385,6 +1396,55 @@ Scoped.define("module:Flash.Support", [
 
 
 
+Scoped.define("module:Recorder.PixelSampleMixin", [
+], function () {
+	return {
+		
+		lightLevel: function (samples) {
+			samples = samples || 100;
+			var total_light = 0.0;
+			this._pixelSample(samples, function (r, g, b) {
+				total_light += r + g + b;
+			});
+			return total_light / (3 * samples);
+		},
+		
+		blankLevel: function (samples) {
+			samples = samples || 100;
+			var total_light = 0.0;
+			this._pixelSample(samples, function (r, g, b) {
+				total_light += Math.pow(r, 2) + Math.pow(g, 2) + Math.pow(b, 2);
+			});
+			return Math.sqrt(total_light / (3 * samples));
+		},
+		
+		_materializePixelSample: function (sample) {
+			var result = [];
+			this._pixelSample(sample, function (r,g,b) {
+				result.push([r,g,b]);
+			});
+			return result;
+		},
+		
+		deltaCoefficient: function (samples) {
+			samples = samples || 100;
+			var current = this._materializePixelSample(samples);
+			if (!this.__deltaSample) {
+				this.__deltaSample = current;
+				return null;
+			}
+			var delta_total = 0.0;
+			for (var i = 0; i < current.length; ++i)
+				for (var j = 0; j < 3; ++j)
+					delta_total += Math.pow(current[i][j] - this.__deltaSample[i][j], 2);
+			this.__deltaSample = current;
+			return Math.sqrt(delta_total / (3 * samples));
+		}
+
+	};
+});
+
+
 Scoped.define("module:Recorder.VideoRecorderWrapper", [
     "base:Classes.ConditionalInstance",
     "base:Events.EventsMixin",
@@ -1427,6 +1487,8 @@ Scoped.define("module:Recorder.VideoRecorderWrapper", [
 			lightLevel: function () {},			
 			soundLevel: function () {},
 			testSoundLevel: function (activate) {},
+			blankLevel: function () {},			
+			deltaCoefficient: function () {},
 			
 			enumerateDevices: function () {},
 			currentDevices: function () {},
@@ -1455,6 +1517,10 @@ Scoped.define("module:Recorder.VideoRecorderWrapper", [
 			},
 			
 			localPlaybackSource: function () {
+				return null;
+			},
+			
+			averageFrameRate: function () {
 				return null;
 			}
 			
@@ -1497,6 +1563,7 @@ Scoped.define("module:Recorder.WebRTCVideoRecorderWrapper", [
 					this._element = Dom.changeTag(this._element, "video");
 				this._recorder = RecorderWrapper.create({
 		            video: this._element,
+		            framerate: this._options.framerate,
 		            recordVideo: this._options.recordVideo,
 		            recordAudio: this._options.recordAudio,
 		            recordResolution: {
@@ -1530,6 +1597,14 @@ Scoped.define("module:Recorder.WebRTCVideoRecorderWrapper", [
 				return this._recorder.lightLevel();
 			},
 			
+			blankLevel: function () {
+				return this._recorder.blankLevel();
+			},			
+			
+			deltaCoefficient: function () {
+				return this._recorder.deltaCoefficient();
+			},
+
 			soundLevel: function () {
 				return this._analyser ? this._analyser.soundLevel() : 0.0;
 			},
@@ -1639,6 +1714,10 @@ Scoped.define("module:Recorder.WebRTCVideoRecorderWrapper", [
 			
 			localPlaybackSource: function () {
 				return this.__localPlaybackSource;
+			},
+			
+			averageFrameRate: function () {
+				return this._recorder.averageFrameRate();
 			}			
 			
 		};		
@@ -1673,7 +1752,8 @@ Scoped.define("module:Recorder.FlashVideoRecorderWrapper", [
 				this._recorder = new FlashRecorder(this._element, {
 					streamtype: this._options.rtmpStreamType,
 	            	camerawidth: this._options.recordingWidth,
-	            	cameraheight: this._options.recordingHeight
+	            	cameraheight: this._options.recordingHeight,
+	            	fps: this._options.framerate
 		        });
 				this._recorder.ready.forwardCallback(this.ready);
 				this._recorder.on("require_display", function () {
@@ -1692,6 +1772,14 @@ Scoped.define("module:Recorder.FlashVideoRecorderWrapper", [
 			
 			_unbindMedia: function () {
 				return this._recorder.unbindMedia();
+			},
+
+			blankLevel: function () {
+				return this._recorder.blankLevel();
+			},			
+			
+			deltaCoefficient: function () {
+				return this._recorder.deltaCoefficient();
 			},
 
 			lightLevel: function () {
@@ -1817,7 +1905,11 @@ Scoped.define("module:Recorder.FlashVideoRecorderWrapper", [
 			
 			isFlash: function () {
 				return true;
-			}			
+			},
+			
+			averageFrameRate: function () {
+				return this._recorder.averageFrameRate();
+			}
 		
 		};		
 	}, {
@@ -2157,9 +2249,10 @@ Scoped.define("module:WebRTC.RecorderWrapper", [
     "base:Events.EventsMixin",
     "base:Objs",
     "module:WebRTC.Support",
-    "base:Time"
-], function (ConditionalInstance, EventsMixin, Objs, Support, Time, scoped) {
-	return ConditionalInstance.extend({scoped: scoped}, [EventsMixin, function (inherited) {
+    "base:Time",
+    "module:Recorder.PixelSampleMixin"
+], function (ConditionalInstance, EventsMixin, Objs, Support, Time, PixelSampleMixin, scoped) {
+	return ConditionalInstance.extend({scoped: scoped}, [EventsMixin, PixelSampleMixin, function (inherited) {
 		return {
 			
 			constructor: function (options) {
@@ -2269,22 +2362,32 @@ Scoped.define("module:WebRTC.RecorderWrapper", [
 	        	return data;
 			},
 			
-			lightLevel: function (sampleRoot) {
-				sampleRoot = sampleRoot || 10;
+			_pixelSample: function (samples, callback, context) {
+				samples = samples || 100;
 			    var canvas = document.createElement('canvas');
-				canvas.width = this._video.videoWidth || this._video.clientWidth;
-				canvas.height = this._video.videoHeight || this._video.clientHeight;
-			    var context = canvas.getContext('2d');
-	        	context.drawImage(this._video, 0, 0, canvas.width, canvas.height);
-	        	var acc = 0.0;
-	        	for (var x = 0; x < sampleRoot; ++x)
-	        		for (var y = 0; y < sampleRoot; ++y) {
-	        			var data = context.getImageData(Math.floor(canvas.width * x / sampleRoot), Math.floor(canvas.height * y / sampleRoot), 1, 1).data;
-	        			acc += (data[0] + data[1] + data[2]) / 3; 
-	        		}
-	        	return acc / sampleRoot / sampleRoot;
+				var w = this._video.videoWidth || this._video.clientWidth;
+				var h = this._video.videoHeight || this._video.clientHeight;
+				canvas.width = w;
+				canvas.height = h;
+			    var ctx = canvas.getContext('2d');
+			    ctx.drawImage(this._video, 0, 0, w, h);
+				var multiple = 2;
+				while (samples > 0) {
+					for (var i = 1; i < multiple; ++i) {
+						for (var j = 1; j < multiple; ++j) {
+							var data = ctx.getImageData(Math.floor(i * w / multiple), Math.floor(j * h / multiple), 1, 1).data;
+							callback.call(context || this, data[0], data[1], data[2]);
+							--samples;
+							if (samples <= 0)
+								break;
+						}
+						if (samples <= 0)
+							break;
+					}
+					++multiple;
+				}
 			},
-			
+
 			_boundMedia: function () {},
 			
 			_unboundMedia: function () {},
@@ -2355,6 +2458,10 @@ Scoped.define("module:WebRTC.MediaRecorderWrapper", [
 		
 		_stopRecord: function () {
 			this._recorder.stop();
+		},
+		
+		averageFrameRate: function () {
+			return null;
 		}
 
 	}, function (inherited) {
@@ -2397,7 +2504,8 @@ Scoped.define("module:WebRTC.WhammyAudioRecorderWrapper", [
 				this._whammyRecorder = new WhammyRecorder(this._stream, {
 					//recorderWidth: this._options.recordResolution.width,
 					//recorderHeight: this._options.recordResolution.height,
-					video: this._video
+					video: this._video,
+					framerate: this._options.framerate
 				});
 			}
 			if (this._hasAudio) {
@@ -2739,7 +2847,8 @@ Scoped.define("module:WebRTC.WhammyRecorder", [
 				this._options = Objs.extend({
 					recordWidth: 320,
 					recordHeight: 240,
-					video: null
+					video: null,
+					framerate: null
 				}, options);
 				this._started = false;
 			},
@@ -2797,7 +2906,8 @@ Scoped.define("module:WebRTC.WhammyRecorder", [
 		            this._isOnStartedDrawingNonBlankFramesInvoked = true;
 		            this.trigger("onStartedDrawingNonBlankFrames");
 		        }
-		        Async.eventually(this._process, [], this, Math.max(1, 10 - (Time.now() - now)));
+		        var maxTime = this._options.framerate ? 1000 / this._options.framerate : 10;
+		        Async.eventually(this._process, [], this, Math.max(1, maxTime - (Time.now() - now)));
 			},
 			
 			averageFrameRate: function () {

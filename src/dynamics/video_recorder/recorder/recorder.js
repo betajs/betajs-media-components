@@ -167,6 +167,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 					start: true
 				}));
 				
+				this.__cameraResponsive = true;
+				this.__cameraSignal = true;
+				
 			},
 			
 			state: function () {
@@ -441,6 +444,14 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				inherited.destroy.call(this);
 			},
 			
+			deltaCoefficient: function () {
+				return this.recorderAttached() ? this.recorder.deltaCoefficient() : null;
+			},
+
+			blankLevel: function () {
+				return this.recorderAttached() ? this.recorder.blankLevel() : null;
+			},
+
 			lightLevel: function () {
 				return this.recorderAttached() ? this.recorder.lightLevel() : null;
 			},
@@ -474,6 +485,24 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 					}
 				}
 				
+				try {
+					if (this.recorderAttached() && this._timer.fire_count() % 20 === 0) {
+						var signal = this.blankLevel() >= 0.01;
+						if (signal !== this.__cameraSignal) {
+							this.__cameraSignal = signal;
+							this.trigger(signal ? "camera_signal" : "camera_nosignal");
+						}
+					}
+					if (this.recorderAttached() && this._timer.fire_count() % 20 === 10) {
+						var delta = this.recorder.deltaCoefficient(); 
+						var responsive = delta === null || delta >= 0.5;
+						if (responsive !== this.__cameraResponsive) {
+							this.__cameraResponsive = responsive;
+							this.trigger(responsive ? "camera_responsive" : "camera_unresponsive");
+						}
+					}
+				} catch (e) {}
+				
 				this._updateStretch();
 				this._updateCSSSize();
 			},
@@ -504,6 +533,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
 			parentAspectRatio: function () {
 				return this.parentWidth() / this.parentHeight();
+			},
+			
+			averageFrameRate: function () {
+				return this.recorderAttached() ? this.recorder.averageFrameRate() : null;
 			},
 			
 			_updateStretch: function () {

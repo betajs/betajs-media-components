@@ -64,15 +64,15 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
 					else
 						this.trigger("record");
 				},
-				primary_select: function (event) {
+				primary_select: function (domEvent) {
 					if (!this.get("enable_primary_select"))
 						return;
-					this.trigger("upload", event.target);
+					this.trigger("upload", domEvent[0].target);
 				},
-				secondary_select: function (event) {
+				secondary_select: function (domEvent) {
 					if (!this.get("enable_secondary_select"))
 						return;
-					this.trigger("upload", event.target);
+					this.trigger("upload", domEvent[0].target);
 				}
 			}
 			

@@ -10,14 +10,14 @@
 				       type="file"
 				       class="{{css}}-chooser-file"
 				       style="height:100"
-				       onchange="{{primary_select(event)}}"
+				       onchange="{{primary_select(domEvent)}}"
 				       accept="{{primary_accept_string}}"
 				       capture />
 				<input ba-if="{{enable_primary_select && !primary_select_capture}}"
 				       type="file"
 				       class="{{css}}-chooser-file"
 				       style="height:100"
-				       onchange="{{primary_select(event)}}"
+				       onchange="{{primary_select(domEvent)}}"
 				       accept="{{primary_accept_string}}" />
 				<i class="{{css}}-icon-{{primaryrecord ? 'videocam' : 'upload'}}"></i>
 				<span>
@@ -33,13 +33,13 @@
 				       type="file"
 				       class="{{css}}-chooser-file"
 				       style="height:100"
-				       onchange="{{secondary_select(event)}}"
+				       onchange="{{secondary_select(domEvent)}}"
 				       accept="{{secondary_accept_string}}" />
 				<input ba-if="{{enable_secondary_select && !secondary_select_capture}}"
 				       type="file"
 				       class="{{css}}-chooser-file"
 				       style="height:100"
-				       onchange="{{secondary_select(event)}}"
+				       onchange="{{secondary_select(domEvent)}}"
 				       accept="{{secondary_accept_string}}" />
 				<span>
 					{{secondary_label}}

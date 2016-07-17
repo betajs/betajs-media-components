@@ -486,14 +486,14 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				}
 				
 				try {
-					if (this.recorderAttached() && this._timer.fire_count() % 20 === 0) {
+					if (this.recorderAttached() && this._timer.fire_count() % 20 === 0 && this._accessing_camera) {
 						var signal = this.blankLevel() >= 0.01;
 						if (signal !== this.__cameraSignal) {
 							this.__cameraSignal = signal;
 							this.trigger(signal ? "camera_signal" : "camera_nosignal");
 						}
 					}
-					if (this.recorderAttached() && this._timer.fire_count() % 20 === 10) {
+					if (this.recorderAttached() && this._timer.fire_count() % 20 === 10 && this._accessing_camera) {
 						var delta = this.recorder.deltaCoefficient(); 
 						var responsive = delta === null || delta >= 0.5;
 						if (responsive !== this.__cameraResponsive) {

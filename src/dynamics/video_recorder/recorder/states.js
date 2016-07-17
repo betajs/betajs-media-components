@@ -20,6 +20,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.State", [
 				this.dyn.set(key + "_active", value);
 			}, this);
 			this.dyn.set("playertopmessage", "");
+			this.dyn._accessing_camera = false;
 			this._started();
 		},
 		
@@ -217,6 +218,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.RecordPrepare", [
 		dynamics: ["loader"],
 		
 		_started: function () {
+			this.dyn._accessing_camera = true;
 			this._promise = this.dyn._prepareRecording();
 			this.dyn.set("message", "");
 			if (this.dyn.get("countdown")) {
@@ -270,6 +272,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
 		dynamics: ["topmessage", "controlbar"],
 		
 		_started: function () {
+			this.dyn._accessing_camera = true;
 			this.dyn.trigger("recording");
 			this.dyn.set("settingsvisible", false);
 			this.dyn.set("recordvisible", false);
@@ -385,7 +388,16 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
 				this.dyn._hideBackgroundSnapshot();
 				this.dyn.set("player_active", true);
 			}
+		},
+		
+		rerecord: function () {
+			this.dyn._hideBackgroundSnapshot();
+			this.dyn._detachRecorder();
+			this.dyn.trigger("rerecord");
+			this.dyn.set("recordermode", true);
+			this.next("Initial");
 		}
+		
 	});
 });
 
@@ -416,6 +428,15 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Verifying", [
 				this.dyn.set("player_active", false);
 				this.next("FatalError", { message: this.dyn.string("verifying-failed"), retry: "Verifying" });
 			}, this);
+		},
+		
+		rerecord: function () {
+			this.dyn._hideBackgroundSnapshot();
+			this.dyn._detachRecorder();
+			this.dyn.trigger("rerecord");
+			this.dyn.set("recordermode", true);
+			this.next("Initial");
 		}
+		
 	});
 });

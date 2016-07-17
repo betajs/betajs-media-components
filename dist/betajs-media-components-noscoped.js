@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.24 - 2016-07-12
+betajs-media-components - v0.0.25 - 2016-07-16
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -16,7 +16,7 @@ Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "38.1468378124621"
+    "version": "39.1468716255336"
 };
 });
 Scoped.assumeVersion('base:version', 502);
@@ -2021,14 +2021,14 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				}
 				
 				try {
-					if (this.recorderAttached() && this._timer.fire_count() % 20 === 0) {
+					if (this.recorderAttached() && this._timer.fire_count() % 20 === 0 && this._accessing_camera) {
 						var signal = this.blankLevel() >= 0.01;
 						if (signal !== this.__cameraSignal) {
 							this.__cameraSignal = signal;
 							this.trigger(signal ? "camera_signal" : "camera_nosignal");
 						}
 					}
-					if (this.recorderAttached() && this._timer.fire_count() % 20 === 10) {
+					if (this.recorderAttached() && this._timer.fire_count() % 20 === 10 && this._accessing_camera) {
 						var delta = this.recorder.deltaCoefficient(); 
 						var responsive = delta === null || delta >= 0.5;
 						if (responsive !== this.__cameraResponsive) {
@@ -2141,6 +2141,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.State", [
 				this.dyn.set(key + "_active", value);
 			}, this);
 			this.dyn.set("playertopmessage", "");
+			this.dyn._accessing_camera = false;
 			this._started();
 		},
 		
@@ -2338,6 +2339,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.RecordPrepare", [
 		dynamics: ["loader"],
 		
 		_started: function () {
+			this.dyn._accessing_camera = true;
 			this._promise = this.dyn._prepareRecording();
 			this.dyn.set("message", "");
 			if (this.dyn.get("countdown")) {
@@ -2391,6 +2393,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
 		dynamics: ["topmessage", "controlbar"],
 		
 		_started: function () {
+			this.dyn._accessing_camera = true;
 			this.dyn.trigger("recording");
 			this.dyn.set("settingsvisible", false);
 			this.dyn.set("recordvisible", false);
@@ -2506,7 +2509,16 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
 				this.dyn._hideBackgroundSnapshot();
 				this.dyn.set("player_active", true);
 			}
+		},
+		
+		rerecord: function () {
+			this.dyn._hideBackgroundSnapshot();
+			this.dyn._detachRecorder();
+			this.dyn.trigger("rerecord");
+			this.dyn.set("recordermode", true);
+			this.next("Initial");
 		}
+		
 	});
 });
 
@@ -2537,7 +2549,16 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Verifying", [
 				this.dyn.set("player_active", false);
 				this.next("FatalError", { message: this.dyn.string("verifying-failed"), retry: "Verifying" });
 			}, this);
+		},
+		
+		rerecord: function () {
+			this.dyn._hideBackgroundSnapshot();
+			this.dyn._detachRecorder();
+			this.dyn.trigger("rerecord");
+			this.dyn.set("recordermode", true);
+			this.next("Initial");
 		}
+		
 	});
 });
 

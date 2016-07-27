@@ -15,10 +15,10 @@
     width: 100%;
     font-size: $loader_size;
     box-sizing: content-box;
-    @include border-top-rgba($loader_frame_thickness, 255, 255, 255, 0.2, #999);
-    @include border-right-rgba($loader_frame_thickness, 255, 255, 255, 0.2, #999);
-    @include border-bottom-rgba($loader_frame_thickness, 255, 255, 255, 0.2, #999);
-    border-left: $loader_frame_thickness solid #ffffff;    
+    @include border-top-rgba($loader_frame_thickness, 225, 225, 225, 0.2, #999);
+    @include border-right-rgba($loader_frame_thickness, 225, 225, 225, 0.2, #999);
+    @include border-bottom-rgba($loader_frame_thickness, 225, 225, 225, 0.2, #999);
+    border-left: $loader_frame_thickness solid #ddd;    
     -webkit-animation: #{$css}-loader-load8 1.1s infinite linear;
     -moz-animation: #{$css}-loader-load8 1.1s infinite linear;
     animation: #{$css}-loader-load8 1.1s infinite linear;

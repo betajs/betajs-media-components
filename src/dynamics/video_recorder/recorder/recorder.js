@@ -574,6 +574,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 	.attachStringTable(Assets.strings)
     .addStrings({
     	"recorder-error": "An error occurred, please try again later. Click to retry.",
+    	"access-forbidden": "Access to the camera was forbidden. Click to retry.",
     	"pick-covershot": "Pick a covershot.",
     	"uploading": "Uploading",
     	"uploading-failed": "Uploading failed - click here to retry.",

@@ -13,6 +13,7 @@
   "ba-videorecorder-controlbar.skip": Skip
   "ba-videorecorder-controlbar.skip-tooltip": Click here to skip.
   "ba-videorecorder.recorder-error": "An error occurred, please try again later. Click to retry."
+  "ba-videorecorder.access-forbidden": Access to the camera was forbidden. Click to retry.
   "ba-videorecorder.pick-covershot": Pick a covershot.
   "ba-videorecorder.uploading": Uploading
   "ba-videorecorder.uploading-failed": "Uploading failed - click here to retry."

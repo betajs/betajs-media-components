@@ -176,6 +176,47 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
 
 
 Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraAccess", [
+	"module:VideoRecorder.Dynamics.RecorderStates.State",
+	"base:Timers.Timer"
+], function (State, Timer, scoped) {
+	return State.extend({scoped: scoped}, {
+		
+		dynamics: ["loader"],
+		
+		_started: function () {
+			this.dyn.set("settingsvisible", true);
+			this.dyn.set("recordvisible", true);
+			this.dyn.set("stopvisible", false);
+			this.dyn.set("skipvisible", false);
+			this.dyn.set("controlbarlabel", "");
+			this.listenOn(this.dyn, "bound", function () {
+				var timer = this.auto_destroy(new Timer({
+					start: true,
+					delay: 100,
+					context: this,
+					fire: function () {
+						if (this.dyn.recorder.blankLevel() >= 0.01 && this.dyn.recorder.deltaCoefficient() >= 0.01) {
+							timer.stop();
+							this.next("CameraHasAccess");
+						}
+					}
+				}));
+			}, this);
+			this.listenOn(this.dyn, "error", function (s) {
+				this.next("FatalError", { message: s, retry: "Initial" });
+			}, this);
+			this.listenOn(this.dyn, "access_forbidden", function () {
+				this.next("FatalError", { message: this.dyn.string("access-forbidden"), retry: "Initial" });
+			}, this);
+			this.dyn._attachRecorder();
+			this.dyn._bindMedia();
+		}
+				
+	});
+});
+
+
+Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraHasAccess", [
 	"module:VideoRecorder.Dynamics.RecorderStates.State"
 ], function (State, scoped) {
 	return State.extend({scoped: scoped}, {
@@ -188,15 +229,8 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraAccess", [
 			this.dyn.set("stopvisible", false);
 			this.dyn.set("skipvisible", false);
 			this.dyn.set("controlbarlabel", "");
-			this.listenOn(this.dyn, "bound", function () {
-				if (this.dyn.get("autorecord"))
-					this.next("RecordPrepare");
-			}, this);
-			this.listenOn(this.dyn, "error", function (s) {
-				this.next("FatalError", { message: s, retry: "Initial" });
-			}, this);
-			this.dyn._attachRecorder();
-			this.dyn._bindMedia();
+			if (this.dyn.get("autorecord"))
+				this.next("RecordPrepare");
 		},
 		
 		record: function () {

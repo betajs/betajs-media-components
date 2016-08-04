@@ -198,6 +198,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
 				this.next("ErrorVideo");
 			}, this);
 			this.listenOn(this.dyn, "playing", function () {
+				if (this.dyn.get("autoseek"))
+					this.dyn.execute("seek", this.dyn.get("autoseek"));
 				this.next("PlayVideo");
 			}, this);
 			if (this.dyn.get("skipinitial") && !this.dyn.get("autoplay"))
@@ -240,7 +242,14 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
 
 		_started: function () {
 			this.dyn.set("autoplay", false);
+			this.listenOn(this.dyn, "change:currentstream", function () {
+				this.dyn.set("autoplay", true);
+				this.dyn.set("autoseek", this.dyn.player.position());
+				this.dyn.reattachVideo();
+				this.next("LoadPlayer");
+			}, this);
 			this.listenOn(this.dyn, "ended", function () {
+				this.dyn.set("autoseek", null);
 				this.next("NextVideo");
 			}, this);
 			this.listenOn(this.dyn, "change:buffering", function () {

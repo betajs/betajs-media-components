@@ -95,6 +95,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				/* Configuration */
 				"forceflash": false,
 				"noflash": false,
+				"noaudio": false,
 				"flashicognitosupport": false,
 				"localplayback": false,
 				"uploadoptions": {},
@@ -126,7 +127,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				"recordermode": "boolean",
 				"nofullscreen": "boolean",
 				"picksnapshots": "boolean",
-				"localplayback": "boolean"
+				"localplayback": "boolean",
+				"noaudio": "boolean"
 			},
 			
 			extendables: ["states"],
@@ -221,7 +223,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 			    	forceflash: this.get("forceflash"),
 			    	noflash: this.get("noflash"),
 			    	recordVideo: true,
-			    	recordAudio: true,
+			    	recordAudio: !this.get("noaudio"),
 			    	recordingWidth: this.get("recordingwidth"),
 			    	recordingHeight: this.get("recordingheight"),
 			    	flashFullSecurityDialog: !this.get("flashicognitosupport"),
@@ -255,7 +257,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 							this.set("cameras", new Collection(Objs.values(devices.video)));
 							this.set("microphones", new Collection(Objs.values(devices.audio)));
 						}, this);
-						this.recorder.testSoundLevel(true);
+						if (!this.get("noaudio"))
+							this.recorder.testSoundLevel(true);
 						this.set("devicetesting", true);
 						this._updateStretch();
 						while (this.snapshots.length > 0) {
@@ -305,7 +308,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 			_startRecording: function () {
 				if (this.__recording)
 					return Promise.error(true);
-				this.recorder.testSoundLevel(false);
+				if (!this.get("noaudio"))
+					this.recorder.testSoundLevel(false);
 				this.set("devicetesting", false);
 				return this.recorder.startRecord({
 					rtmp: this.get("uploadoptions").rtmp,
@@ -465,7 +469,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 					if (this.recorderAttached() && this.get("devicetesting")) {
 						var lightLevel = this.lightLevel();
 						this.set("camerahealthy", lightLevel >= 100 && lightLevel <= 200);
-						this.set("microphonehealthy", this.get("microphonehealthy") || this.soundLevel() >= 1.01);
+						if (!this.get("noaudio"))
+							this.set("microphonehealthy", this.get("microphonehealthy") || this.soundLevel() >= 1.01);
 					}
 				} catch (e) {}
 				

@@ -58,6 +58,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"poster": "",
 				"source": "",
 				"sources": [],
+				"sourcefilter": {},
+				"streams": [],
+				"currentstream": null,
 				"playlist": null,
 				/* Configuration */
 				"forceflash": false,
@@ -123,6 +126,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 					this.set("source", pl0.source);
 					this.set("sources", pl0.sources);
 				}
+				if (this.get("streams") && !this.get("currentstream"))
+					this.set("currentstream", (this.get("streams"))[0]);
 				this.set("ie8", Info.isInternetExplorer() && Info.internetExplorerVersion() < 9);
 				this.set("duration", 0.0);
 				this.set("position", 0.0);
@@ -166,6 +171,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				this.properties().compute("buffering", function () {
 					return this.get("playing") && this.get("buffered") < this.get("position") && this.get("last_position_change_delta") > 1000;
 				}, ["buffered", "position", "last_position_change_delta", "playing"]);
+				
 			},
 			
 			state: function () {
@@ -216,17 +222,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				this.__attachRequested = false;
 				var video = this.element().find("[data-video='video']").get(0);
 				this._clearError();
-				VideoPlayerWrapper.create({
+				VideoPlayerWrapper.create(Objs.extend(this._getSources(), {
 			    	element: video,
-			    	poster: this.get("poster"),
-			    	source: this.get("source"),
-			    	sources: this.get("sources"),
 			    	forceflash: !!this.get("forceflash"),
 			    	noflash: !!this.get("noflash"),
 			    	preload: !!this.get("preload"),
 					loop: !!this.get("loop"),
 					reloadonplay: !!this.get("reloadonplay")
-			    }).error(function (e) {
+			    })).error(function (e) {
 			    	this._error("attach", e);
 			    }, this).success(function (instance) {
 					if (this._adProvider && this.get("preroll")) {
@@ -267,6 +270,24 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 						this.player.trigger("loaded");
 					this._updateStretch();
 			    }, this);
+			},
+			
+			_getSources: function () {
+				var filter = this.get("currentstream") ? this.get("currentstream").filter : this.get("sourcefilter");
+				var poster = this.get("poster");
+				var source = this.get("source");
+				var sources = filter ? Objs.filter(this.get("sources"), function (source) {
+					return Objs.subset_of(filter, source);
+				}, this) : this.get("sources");
+				Objs.iter(sources, function (s) {
+					if (s.poster)
+						poster = s.poster;
+				});
+				return {
+					poster: poster,
+					source: source,
+					sources: sources
+				};
 			},
 			
 			_afterActivate: function (element) {

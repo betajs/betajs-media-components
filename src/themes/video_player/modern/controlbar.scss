@@ -155,6 +155,11 @@
 	color: $button_color_blue;
 }
 
+.#{$css}-button-text {
+	font-family: Arial;
+    font-weight: bold;
+}
+
 
 
 .#{$css}-size-small .#{$css}-time-container {

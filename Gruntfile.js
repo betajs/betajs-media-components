@@ -47,7 +47,7 @@ module.exports = function(grunt) {
     .uglifyTask('uglify-scoped', 'dist/' + dist + '.js', 'dist/' + dist + '.min.js')
     .cssminTask('cssmin-dist', 'dist/' + dist + '.css', 'dist/' + dist + '.min.css')
     .betajstemplatesTask('templates-dist', ['src/**/*.html'], 'dist/betajs-media-components-templates.js', 'module:Templates')
-    .yamltojsTask('locales', ['src/locales/**/*.yml'], 'dist/betajs-media-components-locales.js', 'src/fragments/locale.tpl', function (s) {
+    .yamltojsTask('locales', ['src/locales/*.yml'], 'dist/betajs-media-components-locales.js', 'src/fragments/locale.tpl', function (s) {
     	return require('he').encode(s);
     })
     .cleanTask('clean-compile', ['dist/betajs-media-components-templates.js', 'dist/betajs-media-components-locales.js'])

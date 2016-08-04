@@ -37,6 +37,11 @@
 				<i class="{{css}}-icon-resize-full"></i>
 			</div>
 		</div>
+		<div class="{{css}}-rightbutton-container" ba-if="{{streams.length > 1 && currentstream}}" ba-click="toggle_stream()" title="{{string('change-resolution')}}">
+			<div class="{{css}}-button-inner">
+				<span class="{{css}}-button-text">{{currentstream_label}}</span>
+			</div>
+		</div>
 		<div class="{{css}}-volumebar">
 			<div class="{{css}}-volumebar-inner"
 			     onmousedown="{{startUpdateVolume(domEvent)}}"

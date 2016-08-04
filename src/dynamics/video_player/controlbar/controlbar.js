@@ -1,16 +1,18 @@
 Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
     "dynamics:Dynamic",
     "base:TimeFormat",
+    "base:Comparators",
     "module:Templates",
     "jquery:",
     "module:Assets",
-    "browser:Info"
+    "browser:Info",
+    "media:Player.Support"
 ], [
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.ShowPartial",
     "dynamics:Partials.IfPartial",
     "dynamics:Partials.ClickPartial"
-], function (Class, TimeFormat, Templates, $, Assets, Info, scoped) {
+], function (Class, TimeFormat, Comparators, Templates, $, Assets, Info, PlayerSupport, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {
 			
@@ -25,8 +27,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 				"expandedprogress": true,
 				"playing": false,
 				"rerecordable": false,
+				"streams": [],
+				"currentstream": null,
 				"fullscreen": true,
 				"activitydelta": 0
+			},
+			
+			computed: {
+				"currentstream_label:currentstream": function () {
+					var cs = this.get("currentstream");
+					return cs ? (cs.label ? cs.label : PlayerSupport.resolutionToLabel(cs.width, cs.height)): "";
+				}
 			},
 			
 			functions: {
@@ -92,6 +103,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 				
 				rerecord: function () {
 					this.trigger("rerecord");
+				},
+				
+				toggle_stream: function () {
+					var streams = this.get("streams");
+					var current = streams.length - 1;
+					streams.forEach(function (stream, i) {
+						if (Comparators.deepEqual(stream, this.get("currentstream")))
+							current = i;
+					}, this);
+					this.set("currentstream", streams[(current + 1) % streams.length]);
 				}
 				
 			},
@@ -120,6 +141,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
     	"fullscreen-video": "Enter fullscreen",
     	"volume-button": "Set volume",
     	"volume-mute": "Mute sound",
-    	"volume-unmute": "Unmute sound"
+    	"volume-unmute": "Unmute sound",
+    	"change-resolution": "Change resolution"
     });
 });

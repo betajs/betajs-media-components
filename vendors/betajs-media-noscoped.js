@@ -1,5 +1,5 @@
 /*!
-betajs-media - v0.0.28 - 2016-07-12
+betajs-media - v0.0.30 - 2016-08-04
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -14,7 +14,7 @@ Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
     "guid": "8475efdb-dd7e-402e-9f50-36c76945a692",
-    "version": "59.1468378083573"
+    "version": "62.1470287200119"
 };
 });
 Scoped.assumeVersion('base:version', 502);
@@ -312,6 +312,21 @@ Scoped.define("module:Player.FlashPlayer", [
 		
 	});
 	return Cls;
+});
+Scoped.define("module:Player.Support", function () {
+	return {
+		
+		resolutionToLabel: function (width, height) {
+			if (height < 300)
+				return "SD";
+			if (height < 400)
+				return "360p";
+			if (height < 500)
+				return "480p";
+			return "HD";
+		}
+		
+	};
 });
 Scoped.define("module:Player.VideoPlayerWrapper", [
     "base:Classes.OptimisticConditionalInstance",
@@ -1345,12 +1360,16 @@ Scoped.define("module:Flash.Support", [
     "base:Promise",
     "base:Timers.Timer",
     "base:Async",
+    "base:Objs",
     "flash:FlashClassRegistry",
-    "flash:FlashEmbedding"
-], function (Promise, Timer, Async, FlashClassRegistry, FlashEmbedding) {
+    "flash:FlashEmbedding",
+    "browser:Info"
+], function (Promise, Timer, Async, Objs, FlashClassRegistry, FlashEmbedding, Info) {
 	return {
 		
 		flashCanConnect: function (url, timeout) {
+			if (!Info.flash().installed())
+				return Promise.error(false);
 			var promise = Promise.create();
 			var registry = new FlashClassRegistry();
 			registry.register("flash.net.NetConnection", ["connect", "addEventListener"]);
@@ -1387,8 +1406,47 @@ Scoped.define("module:Flash.Support", [
 				});				
 			});
 			return promise;
-		}
+		},
 		
+		enumerateMediaSources: function () {
+			if (!Info.flash().installed())
+				return Promise.error(false);
+			var promise = Promise.create();
+			var registry = new FlashClassRegistry();
+			registry.register("flash.media.Microphone");
+			registry.register("flash.media.Camera");
+			var embedding = new FlashEmbedding(null, {
+				registry: registry,
+				wrap: true
+			});
+			embedding.ready(function () {
+				var videos = embedding.getClass("flash.media.Camera").get("names");
+				var audios = embedding.getClass("flash.media.Microphone").get("names");
+				promise.asyncSuccess({
+					videoCount: Objs.count(videos),
+					audioCount: Objs.count(audios),
+					video: Objs.map(videos, function (value, key) {
+						return {
+							id: key,
+							label: value
+						};
+					}),
+					audio: Objs.map(audios, function (value, key) {
+						return {
+							id: key,
+							label: value
+						};
+					})
+				});
+			});
+			promise.callback(function () {
+				Async.eventually(function () {
+					embedding.destroy();
+				});				
+			});
+			return promise;
+		}
+
 	};
 });
 
@@ -2201,6 +2259,16 @@ Scoped.define("module:WebRTC.MediaRecorder", [
 				this._stream = stream;
 				this._started = false;
 				var MediaRecorder = Support.globals().MediaRecorder;
+				/*
+				 * This is supposed to work according to the docs, but it is not:
+				 * 
+				 * https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder/MediaRecorder#Example
+				 */
+				/*
+				var mediaRecorderOptions = {};
+				mediaRecorderOptions.mimeType = "video/mp4";
+				this._mediaRecorder = new MediaRecorder(stream, mediaRecorderOptions);
+				*/
 				this._mediaRecorder = new MediaRecorder(stream);
 				this._mediaRecorder.ondataavailable = Functions.as_method(this._dataAvailable, this);
 			},
@@ -2736,6 +2804,16 @@ Scoped.define("module:WebRTC.Support", [
 						ideal: options.video.height
 					};
 				}
+				/* This is supposed to work according to docs, but it is not:
+				 * https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia#Frame_rate
+				 */
+				/*
+				if (options.video.frameRate) {
+					opts.video.frameRate = {
+						ideal: options.video.frameRate
+					};
+				}
+				*/
 				if (options.video.sourceId)
 					opts.video.sourceId = options.video.sourceId; 
 				return this.userMedia(opts);

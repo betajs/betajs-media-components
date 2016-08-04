@@ -1,5 +1,5 @@
 /*!
-betajs-dynamics - v0.0.58 - 2016-07-12
+betajs-dynamics - v0.0.61 - 2016-07-24
 Copyright (c) Victor Lingenthal,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -13,7 +13,7 @@ Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
     "guid": "d71ebf84-e555-4e9b-b18a-11d74fdcefe2",
-    "version": "256.1468377825079"
+    "version": "259.1469413006683"
 };
 });
 Scoped.assumeVersion('base:version', 502);
@@ -1119,7 +1119,7 @@ Scoped.define("module:Handlers.Attr", [
 			__inputVal: function (el, value) {
 				var valueKey = el.type === 'checkbox' || el.type === 'radio' ? 'checked' : 'value';
 				if (arguments.length > 1) 
-					el[valueKey] = value;
+					el[valueKey] = value === null || value === undefined ? "" : value;
 				return el[valueKey];
 			},
 			
@@ -1770,6 +1770,8 @@ Scoped.define("module:Handlers.Node", [
 				Objs.iter(this._attrs, function (attr) {
 					attr.prepareTagHandler(createArguments);
 				}, this);
+				if (createArguments.ignoreTagHandler)
+					return;
 				if (createArguments.cacheable)
 					this._tagHandler = Registries.handlerCache.resume(tagv, this._$element, this._handler);
 				if (!this._tagHandler)
@@ -2395,6 +2397,10 @@ Scoped.define("module:Partials.RepeatElementPartial", [
 				this._node._$element.after(element);
  				element["ba-handled"] = true;
  				return $(element);
+ 			},
+ 			
+ 			prepareTagHandler: function (createArguments) {
+ 				createArguments.ignoreTagHandler = true;
  			}
 
  		};
@@ -2829,6 +2835,28 @@ Scoped.define("module:Partials.TemplateUrlPartial",
  	Cls.register("ba-template-url");
 	return Cls;
 
+});
+
+Scoped.define("module:Partials.WeakIfPartial", ["module:Partials.ShowPartial"], function (Partial, scoped) {
+ 	var Cls = Partial.extend({scoped: scoped}, function (inherited) {
+ 		return {
+			
+ 			constructor: function (node, args, value) {
+ 				inherited.constructor.apply(this, arguments);
+ 				if (!value)
+ 					node.deactivate();
+ 			},
+ 			
+ 			_apply: function (value) {
+ 				inherited._apply.call(this, value);
+ 				if (value)
+ 					this._node.activate();
+ 			}
+ 		
+ 		};
+ 	});
+ 	Cls.register("ba-weak-if");
+	return Cls;
 });
 
 }).call(Scoped);

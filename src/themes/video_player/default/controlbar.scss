@@ -94,6 +94,11 @@
     font-size: $button_fontsize;        
 }
 
+.#{$css}-button-text {
+	font-family: Arial;
+    font-weight: bold;
+}
+
 .#{$cssie8} .#{$css}-button-inner {
     margin-top: $ie8_margintop;
 }

@@ -14,8 +14,24 @@
     <link  href="../dist/themes/modern.css" rel="stylesheet" />
 </head>
 <body style="background: #EEE">
-	<ba-videoplayer ba-poster="sample-cover.png" ba-source="sample-video.mp4" ba-theme="modern" ba-noflash ba-width='50%'></ba-videoplayer>
+	<ba-videoplayer ba-sources="{{[{src:'sample-video.mp4', poster: 'sample-cover.png', hd: true}, {src:'sample-video2.mp4', poster:'sample-cover2.png', hd: false}]}}"
+	                ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
+	                ba-theme="modern"
+	                ba-noflash
+	                ba-hideoninactivity="false"
+	                ba-skipinitial="true"
+	                ba-experimental="true"
+	                ba-width='50%'></ba-videoplayer>
 	
+	<ba-videoplayer ba-poster="sample-cover.png"
+	                ba-source="sample-video.mp4"
+	                ba-theme="default"
+	                ba-noflash
+	                ba-hideoninactivity="false"
+	                ba-skipinitial="true"
+	                ba-experimental="true"
+	                ba-width='50%'></ba-videoplayer>
+
     <script>
         BetaJS.Flash.options = {
             flashFile: "../vendors/betajs-flash.swf",

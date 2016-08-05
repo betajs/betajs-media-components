@@ -198,6 +198,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
 				this.next("ErrorVideo");
 			}, this);
 			this.listenOn(this.dyn, "playing", function () {
+				if (this.destroyed() || this.dyn.destroyed())
+					return;
 				if (this.dyn.get("autoseek"))
 					this.dyn.execute("seek", this.dyn.get("autoseek"));
 				this.next("PlayVideo");

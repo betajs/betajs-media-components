@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.27 - 2016-08-04
+betajs-media-components - v0.0.27 - 2016-08-05
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -996,7 +996,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.27 - 2016-08-04
+betajs-media-components - v0.0.27 - 2016-08-05
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1013,7 +1013,7 @@ Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "41.1470287252976"
+    "version": "42.1470372517837"
 };
 });
 Scoped.assumeVersion('base:version', 502);
@@ -2091,6 +2091,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
 				this.next("ErrorVideo");
 			}, this);
 			this.listenOn(this.dyn, "playing", function () {
+				if (this.destroyed() || this.dyn.destroyed())
+					return;
 				if (this.dyn.get("autoseek"))
 					this.dyn.execute("seek", this.dyn.get("autoseek"));
 				this.next("PlayVideo");

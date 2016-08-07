@@ -413,7 +413,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
 			});
 			uploader.reset();
 			uploader.upload();
-			if (this.dyn.get("localplayback") && this.dyn.recorder.supportsLocalPlayback()) {
+			if (this.dyn.get("localplayback") && this.dyn.recorder && this.dyn.recorder.supportsLocalPlayback()) {
 				this.dyn.set("playbacksource", this.dyn.recorder.localPlaybackSource());
 				if (this.dyn.__lastCovershotUpload)
 					this.dyn.set("playbackposter", this.dyn.recorder.snapshotToLocalPoster(this.dyn.__lastCovershotUpload));
@@ -447,7 +447,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Verifying", [
 			this.dyn.trigger("verifying");
 			this.dyn.set("message", this.dyn.string("verifying") + "...");
 			this.dyn.set("playertopmessage", this.dyn.get("message"));
-			if (this.dyn.get("localplayback") && this.dyn.recorder.supportsLocalPlayback()) {
+			if (this.dyn.get("localplayback") && this.dyn.recorder && this.dyn.recorder.supportsLocalPlayback()) {
 				this.dyn.set("loader_active", false);
 				this.dyn.set("message_active", false);
 			}

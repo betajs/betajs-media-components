@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.28 - 2016-08-06
+betajs-media-components - v0.0.28 - 2016-08-07
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -996,7 +996,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.28 - 2016-08-06
+betajs-media-components - v0.0.28 - 2016-08-07
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1013,7 +1013,7 @@ Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "43.1470533958551"
+    "version": "44.1470542629633"
 };
 });
 Scoped.assumeVersion('base:version', 502);
@@ -2236,7 +2236,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
 			create: function () {
 				this.set("has_primary", true);
 				this.set("enable_primary_select", false);
-				this.set("primary_label", this.string(this.get("primaryrecord") ? "record-video" : "upload-video"));
+				this.set("primary_label", this.string(this.get("primaryrecord") && this.get("allowrecord") ? "record-video" : "upload-video"));
 				this.set("secondary_label", this.string(this.get("primaryrecord") ? "upload-video" : "record-video"));
 				if (!this.get("allowrecord") || !this.get("primaryrecord") || (Info.isMobile() && (!Info.isAndroid() || !Info.isCordova()))) {
 					this.set("enable_primary_select", true);

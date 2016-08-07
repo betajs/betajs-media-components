@@ -23,7 +23,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
 			create: function () {
 				this.set("has_primary", true);
 				this.set("enable_primary_select", false);
-				this.set("primary_label", this.string(this.get("primaryrecord") ? "record-video" : "upload-video"));
+				this.set("primary_label", this.string(this.get("primaryrecord") && this.get("allowrecord") ? "record-video" : "upload-video"));
 				this.set("secondary_label", this.string(this.get("primaryrecord") ? "upload-video" : "record-video"));
 				if (!this.get("allowrecord") || !this.get("primaryrecord") || (Info.isMobile() && (!Info.isAndroid() || !Info.isCordova()))) {
 					this.set("enable_primary_select", true);

@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.28 - 2016-08-07
+betajs-media-components - v0.0.29 - 2016-08-17
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -996,7 +996,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.28 - 2016-08-07
+betajs-media-components - v0.0.29 - 2016-08-17
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1013,7 +1013,7 @@ Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "44.1470542629633"
+    "version": "45.1471468275815"
 };
 });
 Scoped.assumeVersion('base:version', 502);
@@ -2675,6 +2675,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				"recordermode": true,
 				"skipinitial": false,
 				"timelimit": null,
+				"timeminlimit": null,
 				"rtmpstreamtype": "mp4",
 				"allowedextensions": null,
 				"filesizelimit": null,
@@ -3512,6 +3513,15 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
 		},
 		
 		stop: function () {
+			var minlimit = this.dyn.get("timeminlimit");
+			if (minlimit) {
+				var delta = Time.now() - this._startTime;
+				if (delta < minlimit) {
+					var limit = this.dyn.get("timelimit");
+					if (!limit || limit > delta)
+						return;
+				}
+			}
 			if (this._stopping)
 				return;
 			this._stopping = true;
@@ -3576,6 +3586,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
 			this.dyn.set("playertopmessage", this.dyn.get("message"));
 			var uploader = this.dyn._dataUploader;
 			this.listenOn(uploader, "success", function () {
+				this.dyn.trigger("uploaded");
 				this.next("Verifying");
 			});
 			this.listenOn(uploader, "error", function () {

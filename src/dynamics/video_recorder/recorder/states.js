@@ -334,6 +334,15 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
 		},
 		
 		stop: function () {
+			var minlimit = this.dyn.get("timeminlimit");
+			if (minlimit) {
+				var delta = Time.now() - this._startTime;
+				if (delta < minlimit) {
+					var limit = this.dyn.get("timelimit");
+					if (!limit || limit > delta)
+						return;
+				}
+			}
 			if (this._stopping)
 				return;
 			this._stopping = true;
@@ -398,6 +407,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
 			this.dyn.set("playertopmessage", this.dyn.get("message"));
 			var uploader = this.dyn._dataUploader;
 			this.listenOn(uploader, "success", function () {
+				this.dyn.trigger("uploaded");
 				this.next("Verifying");
 			});
 			this.listenOn(uploader, "error", function () {

@@ -89,6 +89,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				"recordermode": true,
 				"skipinitial": false,
 				"timelimit": null,
+				"timeminlimit": null,
 				"rtmpstreamtype": "mp4",
 				"allowedextensions": null,
 				"filesizelimit": null,

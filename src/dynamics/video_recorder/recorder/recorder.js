@@ -129,7 +129,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				"nofullscreen": "boolean",
 				"picksnapshots": "boolean",
 				"localplayback": "boolean",
-				"noaudio": "boolean"
+				"noaudio": "boolean",
+				"skipinitial": "boolean"
 			},
 			
 			extendables: ["states"],

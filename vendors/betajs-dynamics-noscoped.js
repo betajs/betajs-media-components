@@ -1,5 +1,5 @@
 /*!
-betajs-dynamics - v0.0.61 - 2016-07-24
+betajs-dynamics - v0.0.68 - 2016-09-01
 Copyright (c) Victor Lingenthal,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -13,11 +13,11 @@ Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
     "guid": "d71ebf84-e555-4e9b-b18a-11d74fdcefe2",
-    "version": "259.1469413006683"
+    "version": "268.1472764452332"
 };
 });
-Scoped.assumeVersion('base:version', 502);
-Scoped.assumeVersion('browser:version', 78);
+Scoped.assumeVersion('base:version', 531);
+Scoped.assumeVersion('browser:version', 79);
 Scoped.define("module:Data.Mesh", [
 	    "base:Class",
 	    "base:Events.EventsMixin",
@@ -206,7 +206,7 @@ Scoped.define("module:Data.Mesh", [
 					return base;
 				var splt = Strings.splitFirst(tail, ".");
 				var hd = head ? head + "." + splt.head : splt.head;
-				if (Properties.is_instance_of(current)) {
+				if (Properties.is_instance_of(current) && !current.destroyed()) {
 					if (current.has(splt.head))
 						return this._sub_navigate(current, splt.head, splt.tail, current, current.get(splt.head));
 					else if (splt.head in current)
@@ -901,9 +901,24 @@ Scoped.define("module:DomObserver", [
 		
 	});
 });
+Scoped.define("module:Exceptions.DynamicsCallException", [
+    "base:Exceptions.Exception"
+], function (Exception, scoped) {
+	return Exception.extend({scoped: scoped}, function (inherited) {		
+		return {
+			
+			constructor: function (clsname, methodname, args, e) {
+				inherited.constructor.call(this, "Dynamics Exception in '" + clsname + "' calling method '" + methodname + "' : " + e);
+			}
+		
+		};
+	});
+});
+
 Scoped.define("module:Dynamic", [
    	    "module:Data.Scope",
    	    "module:Handlers.HandlerMixin",
+   	    "module:Exceptions.DynamicsCallException",
    	    "base:Objs",
    	    "base:Strings",
    	    "base:Types",
@@ -911,7 +926,7 @@ Scoped.define("module:Dynamic", [
    	    "base:Events.Events",
    	    "module:Registries",
    	    "jquery:"
-   	], function (Scope, HandlerMixin, Objs, Strings, Types, Functions, Events, Registries, $, scoped) {
+   	], function (Scope, HandlerMixin, DynamicsCallException, Objs, Strings, Types, Functions, Events, Registries, $, scoped) {
 	var Cls;
 	Cls = Scope.extend({scoped: scoped}, [HandlerMixin, function (inherited) {
    		return {
@@ -966,7 +981,7 @@ Scoped.define("module:Dynamic", [
 			},
 			
 			handle_call_exception: function (name, args, e) {
-				Registries.warning("Dynamics Exception in '" + this.cls.classname + "' calling method '" + name + "' : " + e);
+				Registries.throwException(new DynamicsCallException(this.cls.classname, name, args, e));
 				return null;
 			},
 			
@@ -979,17 +994,19 @@ Scoped.define("module:Dynamic", [
 					var source = ev.length === 1 ? this.activeElement() : this.activeElement().find(ev[1]);
 					this.__registered_dom_events.push(source);
 					source.on(ev[0] + "." + this.cid() + "-domevents", function (eventData) {
-						self.call(target, eventData);
+						self.execute(target, eventData, $(this));
 					});
 				}, this);
 				Objs.iter(this.windowevents, function (target, event) {
 					$(window).on(event + "." + this.cid() + "-windowevents", function (eventData) {
-						self.call(target, eventData);
+						self.execute(target, eventData, $(this));
 					});
 				}, this);
 			},
 			
 			destroy: function () {
+				if (this.free)
+					this.free();
 				Objs.iter(this.__dispose, function (attr) {
 					var obj = this.get(attr);
 					this.set(attr, null);
@@ -1075,16 +1092,32 @@ Scoped.define("module:Dynamic", [
 	});
 	return Cls;
 });
+Scoped.define("module:Exceptions.TagHandlerException", [
+	"base:Exceptions.Exception"
+], function (Exception, scoped) {
+	return Exception.extend({scoped: scoped}, function (inherited) {		
+		return {
+			
+			constructor: function (clsname, tag) {
+				inherited.constructor.call(this, clsname + " is expecting a tag handler, but no registered tag handler for " + tag + " has been found.");
+			}
+		
+		};
+	});
+});
+
 Scoped.define("module:Handlers.Attr", [
 	    "base:Class",
+	    "module:Exceptions.TagHandlerException",
 	    "module:Parser",
 	    "jquery:",
 	    "base:Types",
 	    "base:Objs",
 	    "base:Strings",
+	    "base:Async",
 	    "module:Registries",
 	    "browser:Dom"
-	], function (Class, Parser, $, Types, Objs, Strings, Registries, Dom, scoped) {
+	], function (Class, TagHandlerException, Parser, $, Types, Objs, Strings, Async, Registries, Dom, scoped) {
 	var Cls;
 	Cls = Class.extend({scoped: scoped}, function (inherited) {
 		return {
@@ -1118,8 +1151,15 @@ Scoped.define("module:Handlers.Attr", [
 			
 			__inputVal: function (el, value) {
 				var valueKey = el.type === 'checkbox' || el.type === 'radio' ? 'checked' : 'value';
-				if (arguments.length > 1) 
-					el[valueKey] = value === null || value === undefined ? "" : value;
+				if (arguments.length > 1)  {
+					value = value === null || value === undefined ? "" : value;
+					if (el.type === "select-one") {
+						Async.eventually(function () {
+							el[valueKey] = value;
+						});
+					} else 
+						el[valueKey] = value;
+				}
 				return el[valueKey];
 			},
 			
@@ -1142,7 +1182,7 @@ Scoped.define("module:Handlers.Attr", [
 				if (this._dyn) {
 					var self = this;
 					if (this._dyn.bidirectional && this._attrName == "value") {
-						this._$element.on("change keyup keypress keydown blur focus update", function () {
+						this._$element.on("change keyup keypress keydown blur focus update input", function () {
 							self._node.mesh().write(self._dyn.variable, self.__inputVal(self._element));
 						});
 					}
@@ -1239,7 +1279,7 @@ Scoped.define("module:Handlers.Attr", [
 			activate: function () {
 				if (this._partial) {
 					if (this._partial.cls.meta.requires_tag_handler && !this._tagHandler) {
-						Registries.warning(this._partial.cls.classname + " is expecting a tag handler, but no registered tag handler for " + this._node.tag() + " has been found.");
+						Registries.throwException(new TagHandlerException(this._partial.cls.classname, this._node.tag()));
 						return;
 					}
 					this._partial.activate();
@@ -1422,6 +1462,7 @@ Scoped.define("module:Handlers.HandlerMixin", [
 				this._handlerInitializeTemplate(this.template, this._parentElement);
 			else {
 				if (this.templateUrl) {
+					this.__activated = false;
 					Loader.loadHtml(this.templateUrl, function (template) {
 						this.templateUrl = null;
 						this.template = template;
@@ -1481,9 +1522,11 @@ Scoped.define("module:Handlers.Handler", [
 
 Scoped.define("module:Handlers.Partial", [
  	    "base:Class",
+ 	    "base:JavaScript",
+ 	    "base:Functions",
  	    "module:Parser",
  	    "module:Registries"
- 	], function (Class, Parser, Registries, scoped) {
+ 	], function (Class, JavaScript, Functions, Parser, Registries, scoped) {
  	return Class.extend({scoped: scoped}, function (inherited) {
  		return {
 			
@@ -1534,6 +1577,16 @@ Scoped.define("module:Handlers.Partial", [
 			_execute: function (code) {
 				var dyn = Parser.parseCode(code || this._value);
 				this._node.__executeDyn(dyn);
+			},
+			
+			_valueExecute: function (args) {
+				var value = this._value.trim();
+				if (JavaScript.isProperIdentifier(value)) {
+					args = Functions.getArguments(args);
+					args.unshift(value);
+					this._node._handler.execute.apply(this._node._handler, args);
+				} else
+					this._execute(value);			
 			}
 			
 			
@@ -1878,7 +1931,11 @@ Scoped.define("module:Handlers.Node", [
 	}]);
 	return Cls;
 });
-Scoped.define("module:Registries", ["base:Classes.ClassRegistry", "jquery:"], function (ClassRegistry, $) {
+Scoped.define("module:Registries", [
+    "base:Classes.ClassRegistry",
+    "base:Exceptions.AsyncExceptionThrower",
+    "jquery:"
+], function (ClassRegistry, AsyncExceptionThrower, $) {
 	return {		
 		
 		handler: new ClassRegistry({}, true),
@@ -1906,10 +1963,12 @@ Scoped.define("module:Registries", ["base:Classes.ClassRegistry", "jquery:"], fu
 			
 		},
 		
-		warning: function (s) {
+		throwException: function (e) {
 			try {
-				console.log(s);
-			} catch (e) {}
+				if (!this.exceptionThrower)
+					this.exceptionThrower = new AsyncExceptionThrower();
+				this.exceptionThrower.throwException(e);
+			} catch (ex) {}
 		},
 		
 		handlerCache: {
@@ -2126,12 +2185,14 @@ Scoped.define("module:Partials.DataPartial", ["module:Handlers.Partial"], functi
 	return Cls;
 });
 
-Scoped.define("module:Partials.EventPartial", ["module:Handlers.Partial"], function (Partial, scoped) {
+Scoped.define("module:Partials.EventPartial", [
+    "module:Handlers.Partial"
+], function (Partial, scoped) {
   	var Cls = Partial.extend({scoped: scoped}, {
 			
 		bindTagHandler: function (handler) {
-			handler.on(this._postfix, function (arg1, arg2, arg3, arg4) {
-				this._node._handler.call(this._value, arg1, arg2, arg3, arg4);
+			handler.on(this._postfix, function () {
+				this._valueExecute(arguments);
 			}, this);
 		}
  		
@@ -2319,6 +2380,34 @@ Scoped.define("module:Partials.OnPartial", ["module:Handlers.Partial"], function
  		};
  	});
  	Cls.register("ba-on");
+	return Cls;
+});
+
+Scoped.define("module:Partials.RadioGroupPartial", ["module:Handlers.Partial"], function (Partial, scoped) {
+ 	var Cls = Partial.extend({scoped: scoped}, function (inherited) {
+ 		return {
+			
+ 			constructor: function (node, args, value) {
+ 				inherited.constructor.apply(this, arguments);
+ 				var self = this;
+ 				value = value.trim();
+ 				this._node._$element.prop("checked", self._node._$element.val() === this._node.properties().get(value));
+ 				this._node._$element.on("change." + this.cid(), function () {
+ 					self._node.properties().set(value, self._node._$element.val());
+ 				});
+ 				self._node.properties().on("change:" + value, function () {
+ 					this._node._$element.prop("checked", self._node._$element.val() === this._node.properties().get(value)); 					
+ 				}, this);
+ 			},
+ 			
+ 			destroy: function () {
+ 				this._node._$element.off("change." + this.cid());
+ 				inherited.destroy.call(this);
+ 			}
+ 		
+ 		};
+ 	});
+ 	Cls.register("ba-radio-group");
 	return Cls;
 });
 
@@ -2835,6 +2924,25 @@ Scoped.define("module:Partials.TemplateUrlPartial",
  	Cls.register("ba-template-url");
 	return Cls;
 
+});
+
+Scoped.define("module:Partials.TogglePartial", ["module:Handlers.Partial"], function (Partial, scoped) {
+ 	var Cls = Partial.extend({scoped: scoped}, function (inherited) {
+ 		return {
+			
+ 			constructor: function (node, args, value, postfix) {
+ 				inherited.constructor.apply(this, arguments);
+ 				node._$element.prop(postfix, value ? postfix : null);
+ 			},
+ 			
+ 			_apply: function (value) {
+ 				this._node._$element.prop(this._postfix, value ? this._postfix : null);
+ 			}
+ 		
+ 		};
+ 	});
+ 	Cls.register("ba-toggle");
+	return Cls;
 });
 
 Scoped.define("module:Partials.WeakIfPartial", ["module:Partials.ShowPartial"], function (Partial, scoped) {

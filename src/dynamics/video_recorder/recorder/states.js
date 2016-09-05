@@ -84,7 +84,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Initial", [
 			if (!this.dyn.get("recordermode"))
 				this.next("Player");
 			else if (this.dyn.get("autorecord") || this.dyn.get("skipinitial"))
-				this.next("CameraAccess");
+				this.eventualNext("CameraAccess");
 			else
 				this.next("Chooser");
 		}

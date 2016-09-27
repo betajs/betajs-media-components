@@ -28,6 +28,7 @@
     ba-videorecorder-controlbar.skip: Überspringen
     ba-videorecorder-controlbar.skip-tooltip: Hier clicken um zu Überspringen.
     ba-videorecorder.recorder-error: Es ist ein Fehler aufgetreten, bitte versuchen Sie es später noch einmal. Hier klicken, um es noch einmal zu probieren.
+    ba-videorecorder.attach-error: Wir konnten nicht auf die Kamera zugreifen. Je nach Browser und Gerät muss möglicherweise Flash installiert oder die Seite über SSL geladen werden.
     ba-videorecorder.access-forbidden: Kamerazugriff wurde verweigert. Hier klick, um es noch einmal zu probieren.
     ba-videorecorder.pick-covershot: Bitte wählen Sie einen Covershot aus.
     ba-videorecorder.uploading: Hochladen

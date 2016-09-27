@@ -203,7 +203,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraAccess", [
 				}));
 			}, this);
 			this.listenOn(this.dyn, "error", function (s) {
-				this.next("FatalError", { message: s, retry: "Initial" });
+				this.next("FatalError", { message: this.dyn.string("attach-error"), retry: "Initial" });
 			}, this);
 			this.listenOn(this.dyn, "access_forbidden", function () {
 				this.next("FatalError", { message: this.dyn.string("access-forbidden"), retry: "Initial" });

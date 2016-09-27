@@ -28,6 +28,9 @@
   ba-videorecorder-controlbar.skip: Skip
   ba-videorecorder-controlbar.skip-tooltip: Click here to skip.
   ba-videorecorder.recorder-error: 'An error occurred, please try again later. Click to retry.'
+  ba-videorecorder.attach-error: >-
+    We could not access the camera interface. Depending on the device and
+    browser, you might need to install Flash or access the page via SSL.
   ba-videorecorder.access-forbidden: Access to the camera was forbidden. Click to retry.
   ba-videorecorder.pick-covershot: Pick a covershot.
   ba-videorecorder.uploading: Uploading

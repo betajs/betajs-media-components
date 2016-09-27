@@ -397,6 +397,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				select_microphone: function (microphone_id) {
 					if (this.recorder) {
 						this.recorder.setCurrentDevices({audio: microphone_id});
+						this.recorder.testSoundLevel(true);
 						this.set("selectedmicrophone", microphone_id);
 					}
 					this.set("microphonehealthy", false);
@@ -471,8 +472,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 					if (this.recorderAttached() && this.get("devicetesting")) {
 						var lightLevel = this.lightLevel();
 						this.set("camerahealthy", lightLevel >= 100 && lightLevel <= 200);
-						if (!this.get("noaudio"))
-							this.set("microphonehealthy", this.get("microphonehealthy") || this.soundLevel() >= 1.01);
+						if (!this.get("noaudio") && !this.get("microphonehealthy") && this.soundLevel() >= 1.01) {
+							this.set("microphonehealthy", true);
+							this.recorder.testSoundLevel(false);
+						}
 					}
 				} catch (e) {}
 				
@@ -581,6 +584,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 	.attachStringTable(Assets.strings)
     .addStrings({
     	"recorder-error": "An error occurred, please try again later. Click to retry.",
+    	"attach-error": "We could not access the camera interface. Depending on the device and browser, you might need to install Flash or access the page via SSL.",
     	"access-forbidden": "Access to the camera was forbidden. Click to retry.",
     	"pick-covershot": "Pick a covershot.",
     	"uploading": "Uploading",

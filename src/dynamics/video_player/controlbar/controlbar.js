@@ -27,6 +27,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 				"expandedprogress": true,
 				"playing": false,
 				"rerecordable": false,
+				"submittable": false,
 				"streams": [],
 				"currentstream": null,
 				"fullscreen": true,
@@ -105,6 +106,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 					this.trigger("rerecord");
 				},
 				
+				submit: function () {
+					this.set("submittable", false);
+					this.set("rerecordable", false);
+					this.trigger("submit");
+				},
+				
 				toggle_stream: function () {
 					var streams = this.get("streams");
 					var current = streams.length - 1;
@@ -134,6 +141,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
     .addStrings({
     	"video-progress": "Video progress",
     	"rerecord-video": "Re-record video?",
+    	"submit-video": "Submit video",
     	"play-video": "Play video",
     	"pause-video": "Pause video",
     	"elapsed-time": "Elasped time",

@@ -15,7 +15,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Controlbar", [
 			attrs: {
 				"css": "ba-videorecorder",
 				"hovermessage": "",
-				"recordingindication": true
+				"recordingindication": true,
+				"covershot_accept_string":  "image/*,image/png,image/jpg,image/jpeg"
 			},
 			
 			create: function () {
@@ -44,11 +45,17 @@ Scoped.define("module:VideoRecorder.Dynamics.Controlbar", [
 				record: function () {
 					this.trigger("invoke-record");
 				},
+				rerecord: function () {
+					this.trigger("invoke-rerecord");
+				},
 				stop: function () {
 					this.trigger("invoke-stop");
 				},
 				skip: function () {
 					this.trigger("invoke-skip");
+				},
+				uploadCovershot: function (domEvent) {
+					this.trigger("upload-covershot", domEvent[0].target);
 				}
 			}
 			
@@ -64,6 +71,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Controlbar", [
     	"microphoneunhealthy": "Cannot pick up any sound",
     	"record": "Record",
     	"record-tooltip": "Click here to record.",
+    	"rerecord": "Re-record",
+    	"rerecord-tooltip": "Click here to re-record.",
+    	"upload-covershot": "Upload",
+    	"upload-covershot-tooltip": "Click here to upload custom cover shot",
     	"stop": "Stop",
     	"stop-tooltip": "Click here to stop.",
     	"skip": "Skip",

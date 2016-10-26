@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.33 - 2016-09-27
+betajs-media-components - v0.0.34 - 2016-10-25
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -16,7 +16,7 @@ Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "47.1475008119192"
+    "version": "48.1477420855763"
 };
 });
 Scoped.assumeVersion('base:version', 502);
@@ -25,10 +25,10 @@ Scoped.assumeVersion('flash:version', 33);
 Scoped.assumeVersion('dynamics:version', 251);
 Scoped.assumeVersion('media:version', 57);
 Scoped.extend('module:Templates', function () {
-return {"video_player_controlbar":" <div class=\"{{css}}-dashboard {{activitydelta > 5000 && hideonactivity ? (css + '-dashboard-hidden') : ''}}\">  <div class=\"{{css}}-progressbar {{activitydelta < 2500 || ismobile ? '' : (css + '-progressbar-small')}}\"       onmousedown=\"{{startUpdatePosition(domEvent)}}\"       onmouseup=\"{{stopUpdatePosition(domEvent)}}\"       onmouseleave=\"{{stopUpdatePosition(domEvent)}}\"       onmousemove=\"{{progressUpdatePosition(domEvent)}}\">   <div class=\"{{css}}-progressbar-cache\" ba-styles=\"{{{width: Math.round(duration ? cached / duration * 100 : 0) + '%'}}}\"></div>   <div class=\"{{css}}-progressbar-position\" ba-styles=\"{{{width: Math.round(duration ? position / duration * 100 : 0) + '%'}}}\" title=\"{{string('video-progress')}}\">    <div class=\"{{css}}-progressbar-button\"></div>   </div>  </div>  <div class=\"{{css}}-backbar\"></div>  <div class=\"{{css}}-controlbar\">         <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{rerecordable}}\"  ba-click=\"rerecord()\" title=\"{{string('rerecord-video')}}\">             <div class=\"{{css}}-button-inner\">                 <i class=\"{{css}}-icon-ccw\"></i>             </div>         </div>   <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{!playing}}\" ba-click=\"play()\" title=\"{{string('play-video')}}\">    <div class=\"{{css}}-button-inner\">     <i class=\"{{css}}-icon-play\"></i>    </div>   </div>   <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{playing}}\" ba-click=\"pause()\" title=\"{{string('pause-video')}}\">             <div class=\"{{css}}-button-inner\">                 <i class=\"{{css}}-icon-pause\"></i>             </div>   </div>   <div class=\"{{css}}-time-container\">    <div class=\"{{css}}-time-value\" title=\"{{string('elapsed-time')}}\">{{position_formatted}}</div>    <div class=\"{{css}}-time-sep\">/</div>    <div class=\"{{css}}-time-value\" title=\"{{string('total-time')}}\">{{duration_formatted}}</div>   </div>   <div class=\"{{css}}-rightbutton-container\" ba-if=\"{{fullscreen}}\" ba-click=\"toggle_fullscreen()\" title=\"{{string('fullscreen-video')}}\">    <div class=\"{{css}}-button-inner\">     <i class=\"{{css}}-icon-resize-full\"></i>    </div>   </div>   <div class=\"{{css}}-rightbutton-container\" ba-if=\"{{streams.length > 1 && currentstream}}\" ba-click=\"toggle_stream()\" title=\"{{string('change-resolution')}}\">    <div class=\"{{css}}-button-inner\">     <span class=\"{{css}}-button-text\">{{currentstream_label}}</span>    </div>   </div>   <div class=\"{{css}}-volumebar\">    <div class=\"{{css}}-volumebar-inner\"         onmousedown=\"{{startUpdateVolume(domEvent)}}\"                  onmouseup=\"{{stopUpdateVolume(domEvent)}}\"                  onmouseleave=\"{{stopUpdateVolume(domEvent)}}\"                  onmousemove=\"{{progressUpdateVolume(domEvent)}}\">     <div class=\"{{css}}-volumebar-position\" ba-styles=\"{{{width: Math.min(100, Math.round(volume * 100)) + '%'}}}\">         <div class=\"{{css}}-volumebar-button\" title=\"{{string('volume-button')}}\"></div>     </div>        </div>   </div>   <div class=\"{{css}}-rightbutton-container\" ba-click=\"toggle_volume()\" title=\"{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}\">    <div class=\"{{css}}-button-inner\">     <i class=\"{{css + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}\"></i>    </div>   </div>  </div> </div> ","video_player_loader":" <div class=\"{{css}}-loader-container\">     <div class=\"{{css}}-loader-loader\" title=\"{{string('tooltip')}}\">     </div> </div>","video_player_message":" <div class=\"{{css}}-message-container\" ba-click=\"click()\">     <div class='{{css}}-message-message'>         {{message}}     </div> </div>","playbutton":" <div class=\"{{css}}-playbutton-container\" ba-click=\"play()\" title=\"{{string('tooltip')}}\">  <div class=\"{{css}}-playbutton-button\"></div> </div>  <div class=\"{{css}}-rerecord-bar\" ba-if=\"{{rerecordable}}\">  <div class=\"{{css}}-rerecord-backbar\"></div>  <div class=\"{{css}}-rerecord-frontbar\">         <div class=\"{{css}}-rerecord-button-container\">          <div class=\"{{css}}-rerecord-button\" onclick=\"{{rerecord()}}\">           {{string('rerecord')}}          </div>         </div>  </div> </div> ","player":" <div     class=\"{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}\"     ba-on:mousemove=\"user_activity()\"     ba-on:mousedown=\"user_activity()\"     ba-on:touchstart=\"user_activity()\"     style=\"{{width ? 'width:' + width + ((width + '').match(/^\\d+$/g) ? 'px' : '') + ';' : ''}}{{height ? 'height:' + height + ((height + '').match(/^\\d+$/g) ? 'px' : '') + ';' : ''}}\" >     <video class=\"{{css}}-video\" data-video=\"video\"></video>     <div class=\"{{css}}-overlay\" data-video=\"ad\" style=\"display:none\"></div>     <div class='{{css}}-overlay'>      <ba-{{dyncontrolbar}}       ba-css=\"{{csscontrolbar || css}}\"       ba-template=\"{{tmplcontrolbar}}\"       ba-show=\"{{controlbar_active}}\"       ba-playing=\"{{playing}}\"       ba-event:rerecord=\"rerecord\"       ba-event:play=\"play\"       ba-event:pause=\"pause\"       ba-event:position=\"seek\"       ba-event:volume=\"set_volume\"       ba-event:fullscreen=\"toggle_fullscreen\"       ba-volume=\"{{volume}}\"       ba-duration=\"{{duration}}\"       ba-cached=\"{{buffered}}\"       ba-position=\"{{position}}\"       ba-activitydelta=\"{{activity_delta}}\"       ba-hideoninactivity=\"{{hideoninactivity}}\"       ba-rerecordable=\"{{rerecordable}}\"       ba-streams=\"{{streams}}\"       ba-currentstream=\"{{=currentstream}}\"       ba-fullscreen=\"{{fullscreensupport && !nofullscreen}}\"       ba-source=\"{{source}}\"   ></ba-{{dyncontrolbar}}>      <ba-{{dynplaybutton}}       ba-css=\"{{cssplaybutton || css}}\"       ba-template=\"{{tmplplaybutton}}\"       ba-show=\"{{playbutton_active}}\"       ba-rerecordable=\"{{rerecordable}}\"       ba-event:play=\"playbutton_click\"       ba-event:rerecord=\"rerecord\"   ></ba-{{dynplaybutton}}>      <ba-{{dynloader}}       ba-css=\"{{cssloader || css}}\"       ba-template=\"{{tmplloader}}\"       ba-show=\"{{loader_active}}\"   ></ba-{{dynloader}}>      <ba-{{dynmessage}}       ba-css=\"{{cssmessage || css}}\"       ba-template=\"{{tmplmessage}}\"       ba-show=\"{{message_active}}\"       ba-message=\"{{message}}\"       ba-event:click=\"message_click\"   ></ba-{{dynmessage}}>    <ba-{{dyntopmessage}}       ba-css=\"{{csstopmessage || css}}\"       ba-template=\"{{tmpltopmessage}}\"       ba-show=\"{{topmessage}}\"       ba-topmessage=\"{{topmessage}}\"   ></ba-{{dyntopmessage}}>     </div> </div> ","video_player_topmessage":" <div class=\"{{css}}-topmessage-container\">     <div class='{{css}}-topmessage-background'>     </div>     <div class='{{css}}-topmessage-message'>         {{topmessage}}     </div> </div>","video_recorder_chooser":" <div class=\"{{css}}-chooser-container\">   <div class=\"{{css}}-chooser-button-container\">   <div>    <div class=\"{{css}}-chooser-primary-button\"         ba-click=\"primary()\"         ba-if=\"{{has_primary}}\">     <input ba-if=\"{{enable_primary_select && primary_select_capture}}\"            type=\"file\"            class=\"{{css}}-chooser-file\"            style=\"height:100\"            onchange=\"{{primary_select(domEvent)}}\"            accept=\"{{primary_accept_string}}\"            capture />     <input ba-if=\"{{enable_primary_select && !primary_select_capture}}\"            type=\"file\"            class=\"{{css}}-chooser-file\"            style=\"height:100\"            onchange=\"{{primary_select(domEvent)}}\"            accept=\"{{primary_accept_string}}\" />     <i class=\"{{css}}-icon-{{primaryrecord ? 'videocam' : 'upload'}}\"></i>     <span>      {{primary_label}}     </span>    </div>   </div>   <div>    <div class=\"{{css}}-chooser-secondary-button\"         ba-click=\"secondary()\"         ba-if=\"{{has_secondary}}\">     <input ba-if=\"{{enable_secondary_select && secondary_select_capture}}\"            type=\"file\"            class=\"{{css}}-chooser-file\"            style=\"height:100\"            onchange=\"{{secondary_select(domEvent)}}\"            accept=\"{{secondary_accept_string}}\" />     <input ba-if=\"{{enable_secondary_select && !secondary_select_capture}}\"            type=\"file\"            class=\"{{css}}-chooser-file\"            style=\"height:100\"            onchange=\"{{secondary_select(domEvent)}}\"            accept=\"{{secondary_accept_string}}\" />     <span>      {{secondary_label}}     </span>    </div>   </div>  </div> </div>","video_recorder_controlbar":"<div class=\"{{css}}-dashboard\">  <div class=\"{{css}}-backbar\"></div>  <div class=\"{{css}}-settings\" ba-show=\"{{settingsvisible && settingsopen}}\">   <div class=\"{{css}}-settings-backbar\"></div>   <div class=\"{{css}}-settings-front\">    <ul ba-repeat=\"{{camera :: cameras}}\">     <li>      <input type='radio' name='camera' value=\"{{selectedcamera == camera.id}}\" onclick=\"{{selectCamera(camera.id)}}\" />      <span></span>      <label onclick=\"{{selectCamera(camera.id)}}\">       {{camera.label}}      </label>      </li>    </ul>    <hr ba-show=\"{{!noaudio}}\"/>    <ul ba-repeat=\"{{microphone :: microphones}}\" ba-show=\"{{!noaudio}}\">     <li onclick=\"{{selectMicrophone(microphone.id)}}\">      <input type='radio' name='microphone' value=\"{{selectedmicrophone == microphone.id}}\" />      <span></span>      <label>       {{microphone.label}}      </label>      </li>    </ul>   </div>  </div>  <div class=\"{{css}}-controlbar\">         <div class=\"{{css}}-leftbutton-container\" ba-show=\"{{settingsvisible}}\">             <div class=\"{{css}}-button-inner {{css}}-button-{{settingsopen ? 'selected' : 'unselected'}}\"                  onclick=\"{{settingsopen=!settingsopen}}\"                  onmouseenter=\"{{hover(string('settings'))}}\"                  onmouseleave=\"{{unhover()}}\">                 <i class=\"{{css}}-icon-cog\"></i>             </div>         </div>         <div class=\"{{css}}-lefticon-container\" ba-show=\"{{settingsvisible}}\">             <div class=\"{{css}}-icon-inner\"                  onmouseenter=\"{{hover(string(camerahealthy ? 'camerahealthy' : 'cameraunhealthy'))}}\"                  onmouseleave=\"{{unhover()}}\">                 <i class=\"{{css}}-icon-videocam {{css}}-icon-state-{{camerahealthy ? 'good' : 'bad' }}\"></i>             </div>         </div>         <div class=\"{{css}}-lefticon-container\" ba-show=\"{{settingsvisible && !noaudio}}\">             <div class=\"{{css}}-icon-inner\"                  onmouseenter=\"{{hover(string(microphonehealthy ? 'microphonehealthy' : 'microphoneunhealthy'))}}\"                  onmouseleave=\"{{unhover()}}\">                 <i class=\"{{css}}-icon-mic {{css}}-icon-state-{{microphonehealthy ? 'good' : 'bad' }}\"></i>             </div>         </div>         <div class=\"{{css}}-lefticon-container\" ba-show=\"{{stopvisible && recordingindication}}\">             <div class=\"{{css}}-recording-indication\">             </div>         </div>         <div class=\"{{css}}-label-container\" ba-show=\"{{controlbarlabel}}\">          <div class=\"{{css}}-label-label\">           {{controlbarlabel}}          </div>         </div>         <div class=\"{{css}}-rightbutton-container\" ba-show=\"{{recordvisible}}\">          <div class=\"{{css}}-button-primary\"                  onclick=\"{{record()}}\"                  onmouseenter=\"{{hover(string('record-tooltip'))}}\"                  onmouseleave=\"{{unhover()}}\">           {{string('record')}}          </div>         </div>         <div class=\"{{css}}-rightbutton-container\" ba-show=\"{{stopvisible}}\">          <div class=\"{{css}}-button-primary\"                  onclick=\"{{stop()}}\"                  onmouseenter=\"{{hover(string('stop-tooltip'))}}\"                  onmouseleave=\"{{unhover()}}\">           {{string('stop')}}          </div>         </div>         <div class=\"{{css}}-centerbutton-container\" ba-show=\"{{skipvisible}}\">          <div class=\"{{css}}-button-primary\"                  onclick=\"{{skip()}}\"                  onmouseenter=\"{{hover(string('skip-tooltip'))}}\"                  onmouseleave=\"{{unhover()}}\">           {{string('skip')}}          </div>         </div>  </div> </div> ","video_recorder_imagegallery":"<div class=\"{{css}}-imagegallery-leftbutton\">  <div class=\"{{css}}-imagegallery-button-inner\" onclick=\"{{left()}}\">   <i class=\"ba-videorecorder-icon-left-open\"></i>  </div> </div>   <div ba-repeat=\"{{image::images}}\" class=\"{{css}}-imagegallery-container\" data-gallery-container>      <div class=\"{{css}}-imagegallery-image\"           ba-styles=\"{{{left: image.left + 'px', top: image.top + 'px', width: image.width + 'px', height: image.height + 'px'}}}\"           onclick=\"{{select(image)}}\">      </div> </div>   <div class=\"{{css}}-imagegallery-rightbutton\">  <div class=\"{{css}}-imagegallery-button-inner\" onclick=\"{{right()}}\">   <i class=\"ba-videorecorder-icon-right-open\"></i>  </div> </div> ","video_recorder_loader":" <div class=\"{{css}}-loader-container\">     <div class=\"{{css}}-loader-loader\" title=\"{{tooltip}}\">     </div> </div> <div class=\"{{css}}-loader-label\" ba-show=\"{{label}}\">  {{label}} </div>","video_recorder_message":" <div class=\"{{css}}-message-container\" ba-click=\"click()\">     <div class='{{css}}-message-message'>         {{message || \"\"}}     </div> </div>","recorder":" <div ba-show=\"{{!player_active}}\"      class=\"{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}\"      style=\"{{width ? 'width:' + width + ((width + '').match(/^\\d+$/g) ? 'px' : '') + ';' : 'width:100%;'}}{{height ? 'height:' + height + ((height + '').match(/^\\d+$/g) ? 'px' : '') + ';' : 'height:100%'}}\" >       <video class=\"{{css}}-video {{css}}-{{hasrecorder ? 'hasrecorder' : 'norecorder'}}\" data-video=\"video\"></video>     <div class='{{css}}-overlay' ba-show=\"{{!hideoverlay}}\" data-overlay=\"overlay\">   <ba-{{dynloader}}       ba-css=\"{{cssloader || css}}\"       ba-template=\"{{tmplloader}}\"       ba-show=\"{{loader_active}}\"       ba-tooltip=\"{{loadertooltip}}\"       ba-label=\"{{loaderlabel}}\"   ></ba-{{dynloader}}>      <ba-{{dynmessage}}       ba-css=\"{{cssmessage || css}}\"       ba-template=\"{{tmplmessage}}\"       ba-show=\"{{message_active}}\"       ba-message=\"{{message}}\"       ba-event:click=\"message_click\"   ></ba-{{dynmessage}}>    <ba-{{dyntopmessage}}       ba-css=\"{{csstopmessage || css}}\"       ba-template=\"{{tmpltopmessage}}\"       ba-show=\"{{topmessage_active && (topmessage || hovermessage)}}\"       ba-topmessage=\"{{hovermessage || topmessage}}\"   ></ba-{{dyntopmessage}}>      <ba-{{dynchooser}}       ba-css=\"{{csschooser || css}}\"       ba-template=\"{{tmplchooser}}\"       ba-show=\"{{chooser_active}}\"       ba-allowrecord=\"{{allowrecord}}\"       ba-allowupload=\"{{allowupload}}\"       ba-allowcustomupload=\"{{allowcustomupload}}\"       ba-primaryrecord=\"{{primaryrecord}}\"       ba-event:record=\"record_video\"       ba-event:upload=\"upload_video\"   ></ba-{{dynchooser}}>      <ba-{{dynimagegallery}}       ba-css=\"{{cssimagegallery || css}}\"       ba-template=\"{{tmplimagegallery}}\"       ba-if=\"{{imagegallery_active}}\"       ba-imagecount=\"{{gallerysnapshots}}\"       ba-imagenativewidth=\"{{recordingwidth}}\"       ba-imagenativeheight=\"{{recordingheight}}\"       ba-event:image-selected=\"select_image\"   ></ba-{{dynimagegallery}}>      <ba-{{dyncontrolbar}}       ba-css=\"{{csscontrolbar || css}}\"       ba-template=\"{{tmplcontrolbar}}\"       ba-show=\"{{controlbar_active}}\"       ba-cameras=\"{{cameras}}\"       ba-microphones=\"{{microphones}}\"       ba-noaudio=\"{{noaudio}}\"       ba-selectedcamera=\"{{selectedcamera || 0}}\"       ba-selectedmicrophone=\"{{selectedmicrophone || 0}}\"       ba-camerahealthy=\"{{camerahealthy}}\"       ba-microphonehealthy=\"{{microphonehealthy}}\"       ba-hovermessage=\"{{=hovermessage}}\"       ba-settingsvisible=\"{{settingsvisible}}\"       ba-recordvisible=\"{{recordvisible}}\"       ba-stopvisible=\"{{stopvisible}}\"       ba-skipvisible=\"{{skipvisible}}\"       ba-controlbarlabel=\"{{controlbarlabel}}\"       ba-event:select-camera=\"select_camera\"       ba-event:select-microphone=\"select_microphone\"       ba-event:invoke-record=\"record\"       ba-event:invoke-stop=\"stop\"       ba-event:invoke-skip=\"invoke_skip\"   ></ba-{{dyncontrolbar}}>     </div> </div>  <div ba-if=\"{{player_active}}\"      style=\"{{width ? 'width:' + width + ((width + '').match(/^\\d+$/g) ? 'px' : '') + ';' : ''}}{{height ? 'height:' + height + ((height + '').match(/^\\d+$/g) ? 'px' : '') + ';' : ''}}\" >  <ba-{{dynvideoplayer}} ba-theme=\"{{theme || 'default'}}\"                         ba-source=\"{{playbacksource}}\"                         ba-poster=\"{{playbackposter}}\"                         ba-hideoninactivity=\"{{false}}\"                         ba-forceflash=\"{{forceflash}}\"                         ba-noflash=\"{{noflash}}\"                         ba-stretch=\"{{stretch}}\"                         ba-attrs=\"{{playerattrs}}\"                         ba-data:id=\"player\"                         ba-width=\"{{width}}\"                         ba-height=\"{{height}}\"                         ba-rerecordable=\"{{rerecordable && (recordings === null || recordings > 0)}}\"                         ba-reloadonplay=\"{{true}}\"                         ba-autoplay=\"{{autoplay}}\"                         ba-nofullscreen=\"{{nofullscreen}}\"                         ba-topmessage=\"{{playertopmessage}}\"                         ba-event:rerecord=\"rerecord\"                         ba-event:playing=\"playing\"                         ba-event:paused=\"paused\"                         ba-event:ended=\"ended\"                         >  </ba-{{dynvideoplayer}}> </div>","video_recorder_topmessage":" <div class=\"{{css}}-topmessage-container\">     <div class='{{css}}-topmessage-background'>     </div>     <div class='{{css}}-topmessage-message'>         {{topmessage}}     </div> </div>","modern-video_player_controlbar":" <div class=\"{{css}}-dashboard {{activitydelta > 5000 && hideoninactivity ? (css + '-dashboard-hidden') : ''}}\">        <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{rerecordable}}\" ba-click=\"rerecord()\" title=\"{{string('rerecord-video')}}\">            <div class=\"{{css}}-button-inner\">                <i class=\"{{css}}-icon-ccw\"></i>            </div>        </div>  <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{!playing}}\" ba-click=\"play()\" title=\"{{string('play-video')}}\">   <div class=\"{{css}}-button-inner\">    <i class=\"{{css}}-icon-play\"></i>   </div>  </div>  <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{playing}}\" ba-click=\"pause()\" title=\"{{string('pause-video')}}\">    <div class=\"{{css}}-button-inner\">    <i class=\"{{css}}-icon-pause\"></i>   </div>  </div>  <div class=\"{{css}}-time-container\">   <div class=\"{{css}}-time-value\" title=\"{{string('elapsed-time')}}\">{{position_formatted}}/{{duration_formatted}}</div>  </div>  <div class=\"{{css}}-rightbutton-container\" ba-if=\"{{fullscreen}}\" ba-click=\"toggle_fullscreen()\" title=\"{{string('fullscreen-video')}}\">   <div class=\"{{css}}-button-inner\">    <i class=\"{{css}}-icon-resize-full\"></i>   </div>  </div>  <div class=\"{{css}}-rightbutton-container\" ba-if=\"{{streams.length > 1 && currentstream}}\" ba-click=\"toggle_stream()\" title=\"{{string('change-resolution')}}\">   <div class=\"{{css}}-button-inner\">    <span class=\"{{css}}-button-text\">{{currentstream_label}}</span>   </div>  </div>  <div class=\"{{css}}-volumebar\">   <div class=\"{{css}}-volumebar-inner\"           onmousedown=\"{{startUpdateVolume(domEvent)}}\"                 onmouseup=\"{{stopUpdateVolume(domEvent)}}\"                 onmouseleave=\"{{stopUpdateVolume(domEvent)}}\"                 onmousemove=\"{{progressUpdateVolume(domEvent)}}\">    <div class=\"{{css}}-volumebar-position\" ba-styles=\"{{{width: Math.ceil(1+Math.min(99, Math.round(volume * 100))) + '%'}}}\" title=\"{{string('volume-button')}}\"></div>       </div>  </div>  <div class=\"{{css}}-rightbutton-container {{css}}-volume-button-container\" ba-click=\"toggle_volume()\" title=\"{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}\">   <div class=\"{{css}}-button-inner\">    <i class=\"{{css + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}\"></i>   </div>  </div>  <div class=\"{{css}}-progressbar\">   <div class=\"{{css}}-progressbar-inner\"        onmousedown=\"{{startUpdatePosition(domEvent)}}\"        onmouseup=\"{{stopUpdatePosition(domEvent)}}\"        onmouseleave=\"{{stopUpdatePosition(domEvent)}}\"        onmousemove=\"{{progressUpdatePosition(domEvent)}}\">   <div class=\"{{css}}-progressbar-cache\" ba-styles=\"{{{width: Math.round(duration ? cached / duration * 100 : 0) + '%'}}}\"></div>   <div class=\"{{css}}-progressbar-position\" ba-styles=\"{{{width: Math.round(duration ? position / duration * 100 : 0) + '%'}}}\" title=\"{{string('video-progress')}}\"></div>  </div> </div> ","modern-video_recorder_chooser":" <div class=\"{{css}}-chooser-container\">   <div class=\"{{css}}-chooser-button-container\">     <div class=\"{{css}}-chooser-icon-container\">    <i class=\"{{css}}-icon-{{primaryrecord ? 'videocam' : 'upload'}}\"></i>   </div>   <div>    <div class=\"{{css}}-chooser-primary-button\"         ba-click=\"primary()\"         ba-if=\"{{has_primary}}\">     <input ba-if=\"{{enable_primary_select && primary_select_capture}}\"            type=\"file\"            class=\"{{css}}-chooser-file\"            style=\"height:100\"            onchange=\"{{primary_select(domEvent)}}\"            accept=\"{{primary_accept_string}}\"            capture />     <input ba-if=\"{{enable_primary_select && !primary_select_capture}}\"            type=\"file\"            class=\"{{css}}-chooser-file\"            style=\"height:100\"            onchange=\"{{primary_select(domEvent)}}\"            accept=\"{{primary_accept_string}}\" />     <span>      {{primary_label}}     </span>    </div>   </div>   <div>    <div class=\"{{css}}-chooser-secondary-button\"         ba-click=\"secondary()\"         ba-if=\"{{has_secondary}}\">     <input ba-if=\"{{enable_secondary_select && secondary_select_capture}}\"            type=\"file\"            class=\"{{css}}-chooser-file\"            style=\"height:100\"            onchange=\"{{secondary_select(domEvent)}}\"            accept=\"{{secondary_accept_string}}\" />     <input ba-if=\"{{enable_secondary_select && !secondary_select_capture}}\"            type=\"file\"            class=\"{{css}}-chooser-file\"            style=\"height:100\"            onchange=\"{{secondary_select(domEvent)}}\"            accept=\"{{secondary_accept_string}}\" />     <span>      {{secondary_label}}     </span>    </div>   </div>  </div> </div>"};
+return {"video_player_controlbar":" <div class=\"{{css}}-dashboard {{activitydelta > 5000 && hideonactivity ? (css + '-dashboard-hidden') : ''}}\">  <div class=\"{{css}}-progressbar {{activitydelta < 2500 || ismobile ? '' : (css + '-progressbar-small')}}\"       onmousedown=\"{{startUpdatePosition(domEvent)}}\"       onmouseup=\"{{stopUpdatePosition(domEvent)}}\"       onmouseleave=\"{{stopUpdatePosition(domEvent)}}\"       onmousemove=\"{{progressUpdatePosition(domEvent)}}\">   <div class=\"{{css}}-progressbar-cache\" ba-styles=\"{{{width: Math.round(duration ? cached / duration * 100 : 0) + '%'}}}\"></div>   <div class=\"{{css}}-progressbar-position\" ba-styles=\"{{{width: Math.round(duration ? position / duration * 100 : 0) + '%'}}}\" title=\"{{string('video-progress')}}\">    <div class=\"{{css}}-progressbar-button\"></div>   </div>  </div>  <div class=\"{{css}}-backbar\"></div>  <div class=\"{{css}}-controlbar\">         <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{submittable}}\"  ba-click=\"submit()\">             <div class=\"{{css}}-button-inner\">                 {{string('submit-video')}}             </div>         </div>         <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{rerecordable}}\"  ba-click=\"rerecord()\" title=\"{{string('rerecord-video')}}\">             <div class=\"{{css}}-button-inner\">                 <i class=\"{{css}}-icon-ccw\"></i>             </div>         </div>   <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{!playing}}\" ba-click=\"play()\" title=\"{{string('play-video')}}\">    <div class=\"{{css}}-button-inner\">     <i class=\"{{css}}-icon-play\"></i>    </div>   </div>   <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{playing}}\" ba-click=\"pause()\" title=\"{{string('pause-video')}}\">             <div class=\"{{css}}-button-inner\">                 <i class=\"{{css}}-icon-pause\"></i>             </div>   </div>   <div class=\"{{css}}-time-container\">    <div class=\"{{css}}-time-value\" title=\"{{string('elapsed-time')}}\">{{position_formatted}}</div>    <div class=\"{{css}}-time-sep\">/</div>    <div class=\"{{css}}-time-value\" title=\"{{string('total-time')}}\">{{duration_formatted}}</div>   </div>   <div class=\"{{css}}-rightbutton-container\" ba-if=\"{{fullscreen}}\" ba-click=\"toggle_fullscreen()\" title=\"{{string('fullscreen-video')}}\">    <div class=\"{{css}}-button-inner\">     <i class=\"{{css}}-icon-resize-full\"></i>    </div>   </div>   <div class=\"{{css}}-rightbutton-container\" ba-if=\"{{streams.length > 1 && currentstream}}\" ba-click=\"toggle_stream()\" title=\"{{string('change-resolution')}}\">    <div class=\"{{css}}-button-inner\">     <span class=\"{{css}}-button-text\">{{currentstream_label}}</span>    </div>   </div>   <div class=\"{{css}}-volumebar\">    <div class=\"{{css}}-volumebar-inner\"         onmousedown=\"{{startUpdateVolume(domEvent)}}\"                  onmouseup=\"{{stopUpdateVolume(domEvent)}}\"                  onmouseleave=\"{{stopUpdateVolume(domEvent)}}\"                  onmousemove=\"{{progressUpdateVolume(domEvent)}}\">     <div class=\"{{css}}-volumebar-position\" ba-styles=\"{{{width: Math.min(100, Math.round(volume * 100)) + '%'}}}\">         <div class=\"{{css}}-volumebar-button\" title=\"{{string('volume-button')}}\"></div>     </div>        </div>   </div>   <div class=\"{{css}}-rightbutton-container\" ba-click=\"toggle_volume()\" title=\"{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}\">    <div class=\"{{css}}-button-inner\">     <i class=\"{{css + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}\"></i>    </div>   </div>  </div> </div> ","video_player_loader":" <div class=\"{{css}}-loader-container\">     <div class=\"{{css}}-loader-loader\" title=\"{{string('tooltip')}}\">     </div> </div>","video_player_message":" <div class=\"{{css}}-message-container\" ba-click=\"click()\">     <div class='{{css}}-message-message'>         {{message}}     </div> </div>","playbutton":" <div class=\"{{css}}-playbutton-container\" ba-click=\"play()\" title=\"{{string('tooltip')}}\">  <div class=\"{{css}}-playbutton-button\"></div> </div>  <div class=\"{{css}}-rerecord-bar\" ba-if=\"{{rerecordable || submittable}}\">  <div class=\"{{css}}-rerecord-backbar\"></div>  <div class=\"{{css}}-rerecord-frontbar\">         <div class=\"{{css}}-rerecord-button-container\" ba-if=\"{{submittable}}\">             <div class=\"{{css}}-rerecord-button\" onclick=\"{{submit()}}\">                 {{string('submit-video')}}             </div>         </div>         <div class=\"{{css}}-rerecord-button-container\" ba-if=\"{{rerecordable}}\">          <div class=\"{{css}}-rerecord-button\" onclick=\"{{rerecord()}}\">           {{string('rerecord')}}          </div>         </div>  </div> </div> ","player":" <div     class=\"{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}\"     ba-on:mousemove=\"user_activity()\"     ba-on:mousedown=\"user_activity()\"     ba-on:touchstart=\"user_activity()\"     style=\"{{width ? 'width:' + width + ((width + '').match(/^\\d+$/g) ? 'px' : '') + ';' : ''}}{{height ? 'height:' + height + ((height + '').match(/^\\d+$/g) ? 'px' : '') + ';' : ''}}\" >     <video class=\"{{css}}-video\" data-video=\"video\"></video>     <div class=\"{{css}}-overlay\" data-video=\"ad\" style=\"display:none\"></div>     <div class='{{css}}-overlay'>      <ba-{{dyncontrolbar}}       ba-css=\"{{csscontrolbar || css}}\"       ba-template=\"{{tmplcontrolbar}}\"       ba-show=\"{{controlbar_active}}\"       ba-playing=\"{{playing}}\"       ba-event:rerecord=\"rerecord\"       ba-event:submit=\"submit\"       ba-event:play=\"play\"       ba-event:pause=\"pause\"       ba-event:position=\"seek\"       ba-event:volume=\"set_volume\"       ba-event:fullscreen=\"toggle_fullscreen\"       ba-volume=\"{{volume}}\"       ba-duration=\"{{duration}}\"       ba-cached=\"{{buffered}}\"       ba-position=\"{{position}}\"       ba-activitydelta=\"{{activity_delta}}\"       ba-hideoninactivity=\"{{hideoninactivity}}\"       ba-rerecordable=\"{{rerecordable}}\"       ba-submittable=\"{{submittable}}\"       ba-streams=\"{{streams}}\"       ba-currentstream=\"{{=currentstream}}\"       ba-fullscreen=\"{{fullscreensupport && !nofullscreen}}\"       ba-source=\"{{source}}\"   ></ba-{{dyncontrolbar}}>      <ba-{{dynplaybutton}}       ba-css=\"{{cssplaybutton || css}}\"       ba-template=\"{{tmplplaybutton}}\"       ba-show=\"{{playbutton_active}}\"       ba-rerecordable=\"{{rerecordable}}\"       ba-submittable=\"{{submittable}}\"       ba-event:play=\"playbutton_click\"       ba-event:rerecord=\"rerecord\"       ba-event:submit=\"submit\"   ></ba-{{dynplaybutton}}>      <ba-{{dynloader}}       ba-css=\"{{cssloader || css}}\"       ba-template=\"{{tmplloader}}\"       ba-show=\"{{loader_active}}\"   ></ba-{{dynloader}}>      <ba-{{dynmessage}}       ba-css=\"{{cssmessage || css}}\"       ba-template=\"{{tmplmessage}}\"       ba-show=\"{{message_active}}\"       ba-message=\"{{message}}\"       ba-event:click=\"message_click\"   ></ba-{{dynmessage}}>    <ba-{{dyntopmessage}}       ba-css=\"{{csstopmessage || css}}\"       ba-template=\"{{tmpltopmessage}}\"       ba-show=\"{{topmessage}}\"       ba-topmessage=\"{{topmessage}}\"   ></ba-{{dyntopmessage}}>     </div> </div> ","video_player_topmessage":" <div class=\"{{css}}-topmessage-container\">     <div class='{{css}}-topmessage-background'>     </div>     <div class='{{css}}-topmessage-message'>         {{topmessage}}     </div> </div>","video_recorder_chooser":" <div class=\"{{css}}-chooser-container\">   <div class=\"{{css}}-chooser-button-container\">   <div>    <div class=\"{{css}}-chooser-primary-button\"         ba-click=\"primary()\"         ba-if=\"{{has_primary}}\">     <input ba-if=\"{{enable_primary_select && primary_select_capture}}\"            type=\"file\"            class=\"{{css}}-chooser-file\"            style=\"height:100\"            onchange=\"{{primary_select(domEvent)}}\"            accept=\"{{primary_accept_string}}\"            capture />     <input ba-if=\"{{enable_primary_select && !primary_select_capture}}\"            type=\"file\"            class=\"{{css}}-chooser-file\"            style=\"height:100\"            onchange=\"{{primary_select(domEvent)}}\"            accept=\"{{primary_accept_string}}\" />     <i class=\"{{css}}-icon-{{primaryrecord ? 'videocam' : 'upload'}}\"></i>     <span>      {{primary_label}}     </span>    </div>   </div>   <div>    <div class=\"{{css}}-chooser-secondary-button\"         ba-click=\"secondary()\"         ba-if=\"{{has_secondary}}\">     <input ba-if=\"{{enable_secondary_select && secondary_select_capture}}\"            type=\"file\"            class=\"{{css}}-chooser-file\"            style=\"height:100\"            onchange=\"{{secondary_select(domEvent)}}\"            accept=\"{{secondary_accept_string}}\" />     <input ba-if=\"{{enable_secondary_select && !secondary_select_capture}}\"            type=\"file\"            class=\"{{css}}-chooser-file\"            style=\"height:100\"            onchange=\"{{secondary_select(domEvent)}}\"            accept=\"{{secondary_accept_string}}\" />     <span>      {{secondary_label}}     </span>    </div>   </div>  </div> </div>","video_recorder_controlbar":"<div class=\"{{css}}-dashboard\">  <div class=\"{{css}}-backbar\"></div>  <div class=\"{{css}}-settings\" ba-show=\"{{settingsvisible && settingsopen}}\">   <div class=\"{{css}}-settings-backbar\"></div>   <div class=\"{{css}}-settings-front\">    <ul ba-repeat=\"{{camera :: cameras}}\">     <li>      <input type='radio' name='camera' value=\"{{selectedcamera == camera.id}}\" onclick=\"{{selectCamera(camera.id)}}\" />      <span></span>      <label onclick=\"{{selectCamera(camera.id)}}\">       {{camera.label}}      </label>      </li>    </ul>    <hr ba-show=\"{{!noaudio}}\"/>    <ul ba-repeat=\"{{microphone :: microphones}}\" ba-show=\"{{!noaudio}}\">     <li onclick=\"{{selectMicrophone(microphone.id)}}\">      <input type='radio' name='microphone' value=\"{{selectedmicrophone == microphone.id}}\" />      <span></span>      <label>       {{microphone.label}}      </label>      </li>    </ul>   </div>  </div>  <div class=\"{{css}}-controlbar\">         <div class=\"{{css}}-leftbutton-container\" ba-show=\"{{settingsvisible}}\">             <div class=\"{{css}}-button-inner {{css}}-button-{{settingsopen ? 'selected' : 'unselected'}}\"                  onclick=\"{{settingsopen=!settingsopen}}\"                  onmouseenter=\"{{hover(string('settings'))}}\"                  onmouseleave=\"{{unhover()}}\">                 <i class=\"{{css}}-icon-cog\"></i>             </div>         </div>         <div class=\"{{css}}-lefticon-container\" ba-show=\"{{settingsvisible}}\">             <div class=\"{{css}}-icon-inner\"                  onmouseenter=\"{{hover(string(camerahealthy ? 'camerahealthy' : 'cameraunhealthy'))}}\"                  onmouseleave=\"{{unhover()}}\">                 <i class=\"{{css}}-icon-videocam {{css}}-icon-state-{{camerahealthy ? 'good' : 'bad' }}\"></i>             </div>         </div>         <div class=\"{{css}}-lefticon-container\" ba-show=\"{{settingsvisible && !noaudio}}\">             <div class=\"{{css}}-icon-inner\"                  onmouseenter=\"{{hover(string(microphonehealthy ? 'microphonehealthy' : 'microphoneunhealthy'))}}\"                  onmouseleave=\"{{unhover()}}\">                 <i class=\"{{css}}-icon-mic {{css}}-icon-state-{{microphonehealthy ? 'good' : 'bad' }}\"></i>             </div>         </div>         <div class=\"{{css}}-lefticon-container\" ba-show=\"{{stopvisible && recordingindication}}\">             <div class=\"{{css}}-recording-indication\">             </div>         </div>         <div class=\"{{css}}-label-container\" ba-show=\"{{controlbarlabel}}\">          <div class=\"{{css}}-label-label\">           {{controlbarlabel}}          </div>         </div>         <div class=\"{{css}}-rightbutton-container\" ba-show=\"{{recordvisible}}\">          <div class=\"{{css}}-button-primary\"                  onclick=\"{{record()}}\"                  onmouseenter=\"{{hover(string('record-tooltip'))}}\"                  onmouseleave=\"{{unhover()}}\">           {{string('record')}}          </div>         </div>         <div class=\"{{css}}-rightbutton-container\" ba-if=\"{{uploadcovershotvisible}}\">          <div class=\"{{css}}-button-primary\"                  onmouseenter=\"{{hover(string('upload-covershot-tooltip'))}}\"                  onmouseleave=\"{{unhover()}}\">                  <input type=\"file\"            class=\"{{css}}-chooser-file\"            style=\"height:100\"            onchange=\"{{uploadCovershot(domEvent)}}\"            accept=\"{{covershot_accept_string}}\" />                  <span>            {{string('upload-covershot')}}           </span>          </div>         </div>         <div class=\"{{css}}-rightbutton-container\" ba-show=\"{{rerecordvisible}}\">          <div class=\"{{css}}-button-primary\"                  onclick=\"{{rerecord()}}\"                  onmouseenter=\"{{hover(string('rerecord-tooltip'))}}\"                  onmouseleave=\"{{unhover()}}\">           {{string('rerecord')}}          </div>         </div>         <div class=\"{{css}}-rightbutton-container\" ba-show=\"{{stopvisible}}\">          <div class=\"{{css}}-button-primary\"                  onclick=\"{{stop()}}\"                  onmouseenter=\"{{hover(string('stop-tooltip'))}}\"                  onmouseleave=\"{{unhover()}}\">           {{string('stop')}}          </div>         </div>         <div class=\"{{css}}-centerbutton-container\" ba-show=\"{{skipvisible}}\">          <div class=\"{{css}}-button-primary\"                  onclick=\"{{skip()}}\"                  onmouseenter=\"{{hover(string('skip-tooltip'))}}\"                  onmouseleave=\"{{unhover()}}\">           {{string('skip')}}          </div>         </div>  </div> </div> ","video_recorder_imagegallery":"<div class=\"{{css}}-imagegallery-leftbutton\">  <div class=\"{{css}}-imagegallery-button-inner\" onclick=\"{{left()}}\">   <i class=\"ba-videorecorder-icon-left-open\"></i>  </div> </div>   <div ba-repeat=\"{{image::images}}\" class=\"{{css}}-imagegallery-container\" data-gallery-container>      <div class=\"{{css}}-imagegallery-image\"           ba-styles=\"{{{left: image.left + 'px', top: image.top + 'px', width: image.width + 'px', height: image.height + 'px'}}}\"           onclick=\"{{select(image)}}\">      </div> </div>   <div class=\"{{css}}-imagegallery-rightbutton\">  <div class=\"{{css}}-imagegallery-button-inner\" onclick=\"{{right()}}\">   <i class=\"ba-videorecorder-icon-right-open\"></i>  </div> </div> ","video_recorder_loader":" <div class=\"{{css}}-loader-container\">     <div class=\"{{css}}-loader-loader\" title=\"{{tooltip}}\">     </div> </div> <div class=\"{{css}}-loader-label\" ba-show=\"{{label}}\">  {{label}} </div>","video_recorder_message":" <div class=\"{{css}}-message-container\" ba-click=\"click()\">     <div class='{{css}}-message-message'>         {{message || \"\"}}     </div> </div>","recorder":" <div ba-show=\"{{!player_active}}\"      class=\"{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}\"      style=\"{{width ? 'width:' + width + ((width + '').match(/^\\d+$/g) ? 'px' : '') + ';' : 'width:100%;'}}{{height ? 'height:' + height + ((height + '').match(/^\\d+$/g) ? 'px' : '') + ';' : 'height:100%'}}\" >       <video class=\"{{css}}-video {{css}}-{{hasrecorder ? 'hasrecorder' : 'norecorder'}}\" data-video=\"video\"></video>     <div class='{{css}}-overlay' ba-show=\"{{!hideoverlay}}\" data-overlay=\"overlay\">   <ba-{{dynloader}}       ba-css=\"{{cssloader || css}}\"       ba-template=\"{{tmplloader}}\"       ba-show=\"{{loader_active}}\"       ba-tooltip=\"{{loadertooltip}}\"       ba-label=\"{{loaderlabel}}\"   ></ba-{{dynloader}}>      <ba-{{dynmessage}}       ba-css=\"{{cssmessage || css}}\"       ba-template=\"{{tmplmessage}}\"       ba-show=\"{{message_active}}\"       ba-message=\"{{message}}\"       ba-event:click=\"message_click\"   ></ba-{{dynmessage}}>    <ba-{{dyntopmessage}}       ba-css=\"{{csstopmessage || css}}\"       ba-template=\"{{tmpltopmessage}}\"       ba-show=\"{{topmessage_active && (topmessage || hovermessage)}}\"       ba-topmessage=\"{{hovermessage || topmessage}}\"   ></ba-{{dyntopmessage}}>      <ba-{{dynchooser}}       ba-css=\"{{csschooser || css}}\"       ba-template=\"{{tmplchooser}}\"       ba-show=\"{{chooser_active}}\"       ba-allowrecord=\"{{allowrecord}}\"       ba-allowupload=\"{{allowupload}}\"       ba-allowcustomupload=\"{{allowcustomupload}}\"       ba-primaryrecord=\"{{primaryrecord}}\"       ba-event:record=\"record_video\"       ba-event:upload=\"upload_video\"   ></ba-{{dynchooser}}>      <ba-{{dynimagegallery}}       ba-css=\"{{cssimagegallery || css}}\"       ba-template=\"{{tmplimagegallery}}\"       ba-if=\"{{imagegallery_active}}\"       ba-imagecount=\"{{gallerysnapshots}}\"       ba-imagenativewidth=\"{{recordingwidth}}\"       ba-imagenativeheight=\"{{recordingheight}}\"       ba-event:image-selected=\"select_image\"   ></ba-{{dynimagegallery}}>      <ba-{{dyncontrolbar}}       ba-css=\"{{csscontrolbar || css}}\"       ba-template=\"{{tmplcontrolbar}}\"       ba-show=\"{{controlbar_active}}\"       ba-cameras=\"{{cameras}}\"       ba-microphones=\"{{microphones}}\"       ba-noaudio=\"{{noaudio}}\"       ba-selectedcamera=\"{{selectedcamera || 0}}\"       ba-selectedmicrophone=\"{{selectedmicrophone || 0}}\"       ba-camerahealthy=\"{{camerahealthy}}\"       ba-microphonehealthy=\"{{microphonehealthy}}\"       ba-hovermessage=\"{{=hovermessage}}\"       ba-settingsvisible=\"{{settingsvisible}}\"       ba-recordvisible=\"{{recordvisible}}\"       ba-uploadcovershotvisible=\"{{uploadcovershotvisible}}\"       ba-rerecordvisible=\"{{rerecordvisible}}\"       ba-stopvisible=\"{{stopvisible}}\"       ba-skipvisible=\"{{skipvisible}}\"       ba-controlbarlabel=\"{{controlbarlabel}}\"       ba-event:select-camera=\"select_camera\"       ba-event:select-microphone=\"select_microphone\"       ba-event:invoke-record=\"record\"       ba-event:invoke-rerecord=\"rerecord\"       ba-event:invoke-stop=\"stop\"       ba-event:invoke-skip=\"invoke_skip\"       ba-event:upload-covershot=\"upload_covershot\"   ></ba-{{dyncontrolbar}}>     </div> </div>  <div ba-if=\"{{player_active}}\"      style=\"{{width ? 'width:' + width + ((width + '').match(/^\\d+$/g) ? 'px' : '') + ';' : ''}}{{height ? 'height:' + height + ((height + '').match(/^\\d+$/g) ? 'px' : '') + ';' : ''}}\" >  <ba-{{dynvideoplayer}} ba-theme=\"{{theme || 'default'}}\"                         ba-source=\"{{playbacksource}}\"                         ba-poster=\"{{playbackposter}}\"                         ba-hideoninactivity=\"{{false}}\"                         ba-forceflash=\"{{forceflash}}\"                         ba-noflash=\"{{noflash}}\"                         ba-stretch=\"{{stretch}}\"                         ba-attrs=\"{{playerattrs}}\"                         ba-data:id=\"player\"                         ba-width=\"{{width}}\"                         ba-height=\"{{height}}\"                         ba-rerecordable=\"{{rerecordable && (recordings === null || recordings > 0)}}\"                         ba-submittable=\"{{manualsubmit}}\"                         ba-reloadonplay=\"{{true}}\"                         ba-autoplay=\"{{autoplay}}\"                         ba-nofullscreen=\"{{nofullscreen}}\"                         ba-topmessage=\"{{playertopmessage}}\"                         ba-event:rerecord=\"rerecord\"                         ba-event:playing=\"playing\"                         ba-event:paused=\"paused\"                         ba-event:ended=\"ended\"                         ba-event:submit=\"manual_submit\"                         >  </ba-{{dynvideoplayer}}> </div>","video_recorder_topmessage":" <div class=\"{{css}}-topmessage-container\">     <div class='{{css}}-topmessage-background'>     </div>     <div class='{{css}}-topmessage-message'>         {{topmessage}}     </div> </div>","modern-video_player_controlbar":" <div class=\"{{css}}-dashboard {{activitydelta > 5000 && hideoninactivity ? (css + '-dashboard-hidden') : ''}}\">         <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{submittable}}\"  ba-click=\"submit()\">             <div class=\"{{css}}-button-inner\">                 {{string('submit-video')}}             </div>         </div>        <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{rerecordable}}\" ba-click=\"rerecord()\" title=\"{{string('rerecord-video')}}\">            <div class=\"{{css}}-button-inner\">                <i class=\"{{css}}-icon-ccw\"></i>            </div>        </div>  <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{!playing}}\" ba-click=\"play()\" title=\"{{string('play-video')}}\">   <div class=\"{{css}}-button-inner\">    <i class=\"{{css}}-icon-play\"></i>   </div>  </div>  <div class=\"{{css}}-leftbutton-container\" ba-if=\"{{playing}}\" ba-click=\"pause()\" title=\"{{string('pause-video')}}\">    <div class=\"{{css}}-button-inner\">    <i class=\"{{css}}-icon-pause\"></i>   </div>  </div>  <div class=\"{{css}}-time-container\">   <div class=\"{{css}}-time-value\" title=\"{{string('elapsed-time')}}\">{{position_formatted}}/{{duration_formatted}}</div>  </div>  <div class=\"{{css}}-rightbutton-container\" ba-if=\"{{fullscreen}}\" ba-click=\"toggle_fullscreen()\" title=\"{{string('fullscreen-video')}}\">   <div class=\"{{css}}-button-inner\">    <i class=\"{{css}}-icon-resize-full\"></i>   </div>  </div>  <div class=\"{{css}}-rightbutton-container\" ba-if=\"{{streams.length > 1 && currentstream}}\" ba-click=\"toggle_stream()\" title=\"{{string('change-resolution')}}\">   <div class=\"{{css}}-button-inner\">    <span class=\"{{css}}-button-text\">{{currentstream_label}}</span>   </div>  </div>  <div class=\"{{css}}-volumebar\">   <div class=\"{{css}}-volumebar-inner\"           onmousedown=\"{{startUpdateVolume(domEvent)}}\"                 onmouseup=\"{{stopUpdateVolume(domEvent)}}\"                 onmouseleave=\"{{stopUpdateVolume(domEvent)}}\"                 onmousemove=\"{{progressUpdateVolume(domEvent)}}\">    <div class=\"{{css}}-volumebar-position\" ba-styles=\"{{{width: Math.ceil(1+Math.min(99, Math.round(volume * 100))) + '%'}}}\" title=\"{{string('volume-button')}}\"></div>       </div>  </div>  <div class=\"{{css}}-rightbutton-container {{css}}-volume-button-container\" ba-click=\"toggle_volume()\" title=\"{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}\">   <div class=\"{{css}}-button-inner\">    <i class=\"{{css + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}\"></i>   </div>  </div>  <div class=\"{{css}}-progressbar\">   <div class=\"{{css}}-progressbar-inner\"        onmousedown=\"{{startUpdatePosition(domEvent)}}\"        onmouseup=\"{{stopUpdatePosition(domEvent)}}\"        onmouseleave=\"{{stopUpdatePosition(domEvent)}}\"        onmousemove=\"{{progressUpdatePosition(domEvent)}}\">   <div class=\"{{css}}-progressbar-cache\" ba-styles=\"{{{width: Math.round(duration ? cached / duration * 100 : 0) + '%'}}}\"></div>   <div class=\"{{css}}-progressbar-position\" ba-styles=\"{{{width: Math.round(duration ? position / duration * 100 : 0) + '%'}}}\" title=\"{{string('video-progress')}}\"></div>  </div> </div> ","modern-video_recorder_chooser":" <div class=\"{{css}}-chooser-container\">   <div class=\"{{css}}-chooser-button-container\">     <div class=\"{{css}}-chooser-icon-container\">    <i class=\"{{css}}-icon-{{primaryrecord ? 'videocam' : 'upload'}}\"></i>   </div>   <div>    <div class=\"{{css}}-chooser-primary-button\"         ba-click=\"primary()\"         ba-if=\"{{has_primary}}\">     <input ba-if=\"{{enable_primary_select && primary_select_capture}}\"            type=\"file\"            class=\"{{css}}-chooser-file\"            style=\"height:100\"            onchange=\"{{primary_select(domEvent)}}\"            accept=\"{{primary_accept_string}}\"            capture />     <input ba-if=\"{{enable_primary_select && !primary_select_capture}}\"            type=\"file\"            class=\"{{css}}-chooser-file\"            style=\"height:100\"            onchange=\"{{primary_select(domEvent)}}\"            accept=\"{{primary_accept_string}}\" />     <span>      {{primary_label}}     </span>    </div>   </div>   <div>    <div class=\"{{css}}-chooser-secondary-button\"         ba-click=\"secondary()\"         ba-if=\"{{has_secondary}}\">     <input ba-if=\"{{enable_secondary_select && secondary_select_capture}}\"            type=\"file\"            class=\"{{css}}-chooser-file\"            style=\"height:100\"            onchange=\"{{secondary_select(domEvent)}}\"            accept=\"{{secondary_accept_string}}\" />     <input ba-if=\"{{enable_secondary_select && !secondary_select_capture}}\"            type=\"file\"            class=\"{{css}}-chooser-file\"            style=\"height:100\"            onchange=\"{{secondary_select(domEvent)}}\"            accept=\"{{secondary_accept_string}}\" />     <span>      {{secondary_label}}     </span>    </div>   </div>  </div> </div>"};
 });
 Scoped.extend("module:Assets", ["module:Assets"], function (Assets) {
-    var languages = {"language:de":{"ba-videoplayer-playbutton.tooltip":"Hier clicken um Wiedergabe zu starten.","ba-videoplayer-playbutton.rerecord":"Video neu aufnehmen","ba-videoplayer-loader.tooltip":"Video wird geladen...","ba-videoplayer-controlbar.change-resolution":"Aufl&#xF6;sung anpassen","ba-videoplayer-controlbar.video-progress":"Videofortschritt","ba-videoplayer-controlbar.rerecord-video":"Video erneut aufnehmen?","ba-videoplayer-controlbar.play-video":"Video wiedergeben","ba-videoplayer-controlbar.pause-video":"Video pausieren","ba-videoplayer-controlbar.elapsed-time":"Vergangene Zeit","ba-videoplayer-controlbar.total-time":"L&#xE4;nge des Videos","ba-videoplayer-controlbar.fullscreen-video":"Vollbildmodus","ba-videoplayer-controlbar.volume-button":"Lautst&#xE4;rke regulieren","ba-videoplayer-controlbar.volume-mute":"Ton abstellen","ba-videoplayer-controlbar.volume-unmute":"Ton wieder einstellen","ba-videoplayer.video-error":"Es ist ein Fehler aufgetreten, bitte versuchen Sie es sp&#xE4;ter noch einmal. Hier klicken, um es noch einmal zu probieren.","ba-videorecorder-chooser.record-video":"Video aufnehmen","ba-videorecorder-chooser.upload-video":"Video hochladen","ba-videorecorder-controlbar.settings":"Einstellungen","ba-videorecorder-controlbar.camerahealthy":"Gute Beleuchtung","ba-videorecorder-controlbar.cameraunhealthy":"Beleuchtung nicht optimal","ba-videorecorder-controlbar.microphonehealthy":"Soundqualit&#xE4;t einwandfrei","ba-videorecorder-controlbar.microphoneunhealthy":"Mikrofon bis jetzt stumm","ba-videorecorder-controlbar.record":"Video aufnehmen","ba-videorecorder-controlbar.record-tooltip":"Hier clicken um Aufnahme zu starten.","ba-videorecorder-controlbar.stop":"Aufnahme stoppen","ba-videorecorder-controlbar.stop-tooltip":"Hier clicken um Aufnahme zu stoppen.","ba-videorecorder-controlbar.skip":"&#xDC;berspringen","ba-videorecorder-controlbar.skip-tooltip":"Hier clicken um zu &#xDC;berspringen.","ba-videorecorder.recorder-error":"Es ist ein Fehler aufgetreten, bitte versuchen Sie es sp&#xE4;ter noch einmal. Hier klicken, um es noch einmal zu probieren.","ba-videorecorder.attach-error":"Wir konnten nicht auf die Kamera zugreifen. Je nach Browser und Ger&#xE4;t muss m&#xF6;glicherweise Flash installiert oder die Seite &#xFC;ber SSL geladen werden.","ba-videorecorder.access-forbidden":"Kamerazugriff wurde verweigert. Hier klick, um es noch einmal zu probieren.","ba-videorecorder.pick-covershot":"Bitte w&#xE4;hlen Sie einen Covershot aus.","ba-videorecorder.uploading":"Hochladen","ba-videorecorder.uploading-failed":"Hochladen fehlgeschlagen. Hier klicken, um es noch einmal zu probieren.","ba-videorecorder.verifying":"Verifizieren","ba-videorecorder.verifying-failed":"Verifizierung fehlgeschlagen. Hier klicken, um es noch einmal zu probieren.","ba-videorecorder.rerecord-confirm":"M&#xF6;chten Sie Ihr Video wirklich noch einmal aufnehmen?","ba-videorecorder.video_file_too_large":"Die angegebene Videodatei ist zu gro&#xDF;. Hier klicken, um eine kleinere Videodatei hochzuladen.","ba-videorecorder.unsupported_video_type":"Bitte laden Sie Dateien des folgenden Typs hoch: %s. Hier klicken, um es noch einmal zu probieren."}};
+    var languages = {"language:de":{"ba-videoplayer-playbutton.tooltip":"Hier clicken um Wiedergabe zu starten.","ba-videoplayer-playbutton.rerecord":"Video neu aufnehmen","ba-videoplayer-playbutton.submit-video":"Video akzeptieren","ba-videoplayer-loader.tooltip":"Video wird geladen...","ba-videoplayer-controlbar.change-resolution":"Aufl&#xF6;sung anpassen","ba-videoplayer-controlbar.video-progress":"Videofortschritt","ba-videoplayer-controlbar.rerecord-video":"Video erneut aufnehmen?","ba-videoplayer-controlbar.submit-video":"Video akzeptieren","ba-videoplayer-controlbar.play-video":"Video wiedergeben","ba-videoplayer-controlbar.pause-video":"Video pausieren","ba-videoplayer-controlbar.elapsed-time":"Vergangene Zeit","ba-videoplayer-controlbar.total-time":"L&#xE4;nge des Videos","ba-videoplayer-controlbar.fullscreen-video":"Vollbildmodus","ba-videoplayer-controlbar.volume-button":"Lautst&#xE4;rke regulieren","ba-videoplayer-controlbar.volume-mute":"Ton abstellen","ba-videoplayer-controlbar.volume-unmute":"Ton wieder einstellen","ba-videoplayer.video-error":"Es ist ein Fehler aufgetreten, bitte versuchen Sie es sp&#xE4;ter noch einmal. Hier klicken, um es noch einmal zu probieren.","ba-videorecorder-chooser.record-video":"Video aufnehmen","ba-videorecorder-chooser.upload-video":"Video hochladen","ba-videorecorder-controlbar.settings":"Einstellungen","ba-videorecorder-controlbar.camerahealthy":"Gute Beleuchtung","ba-videorecorder-controlbar.cameraunhealthy":"Beleuchtung nicht optimal","ba-videorecorder-controlbar.microphonehealthy":"Soundqualit&#xE4;t einwandfrei","ba-videorecorder-controlbar.microphoneunhealthy":"Mikrofon bis jetzt stumm","ba-videorecorder-controlbar.record":"Video aufnehmen","ba-videorecorder-controlbar.record-tooltip":"Hier clicken um Aufnahme zu starten.","ba-videorecorder-controlbar.rerecord":"Video neu aufnehmen","ba-videorecorder-controlbar.rerecord-tooltip":"Hier clicken um Video erneut aufzunehmen.","ba-videorecorder-controlbar.upload-covershot":"Hochladen","ba-videorecorder-controlbar.upload-covershot-tooltip":"Hier clicken um einen Covershot hochzuladen.","ba-videorecorder-controlbar.stop":"Aufnahme stoppen","ba-videorecorder-controlbar.stop-tooltip":"Hier clicken um Aufnahme zu stoppen.","ba-videorecorder-controlbar.skip":"&#xDC;berspringen","ba-videorecorder-controlbar.skip-tooltip":"Hier clicken um zu &#xDC;berspringen.","ba-videorecorder.recorder-error":"Es ist ein Fehler aufgetreten, bitte versuchen Sie es sp&#xE4;ter noch einmal. Hier klicken, um es noch einmal zu probieren.","ba-videorecorder.attach-error":"Wir konnten nicht auf die Kamera zugreifen. Je nach Browser und Ger&#xE4;t muss m&#xF6;glicherweise Flash installiert oder die Seite &#xFC;ber SSL geladen werden.","ba-videorecorder.access-forbidden":"Kamerazugriff wurde verweigert. Hier klick, um es noch einmal zu probieren.","ba-videorecorder.pick-covershot":"Bitte w&#xE4;hlen Sie einen Covershot aus.","ba-videorecorder.uploading":"Hochladen","ba-videorecorder.uploading-failed":"Hochladen fehlgeschlagen. Hier klicken, um es noch einmal zu probieren.","ba-videorecorder.verifying":"Verifizieren","ba-videorecorder.verifying-failed":"Verifizierung fehlgeschlagen. Hier klicken, um es noch einmal zu probieren.","ba-videorecorder.rerecord-confirm":"M&#xF6;chten Sie Ihr Video wirklich noch einmal aufnehmen?","ba-videorecorder.video_file_too_large":"Die angegebene Videodatei ist zu gro&#xDF;. Hier klicken, um eine kleinere Videodatei hochzuladen.","ba-videorecorder.unsupported_video_type":"Bitte laden Sie Dateien des folgenden Typs hoch: %s. Hier klicken, um es noch einmal zu probieren."}};
     for (var language in languages)
         Assets.strings.register(languages[language], [language]);
     return {};
@@ -234,6 +234,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 				"expandedprogress": true,
 				"playing": false,
 				"rerecordable": false,
+				"submittable": false,
 				"streams": [],
 				"currentstream": null,
 				"fullscreen": true,
@@ -312,6 +313,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 					this.trigger("rerecord");
 				},
 				
+				submit: function () {
+					this.set("submittable", false);
+					this.set("rerecordable", false);
+					this.trigger("submit");
+				},
+				
 				toggle_stream: function () {
 					var streams = this.get("streams");
 					var current = streams.length - 1;
@@ -341,6 +348,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
     .addStrings({
     	"video-progress": "Video progress",
     	"rerecord-video": "Re-record video?",
+    	"submit-video": "Submit video",
     	"play-video": "Play video",
     	"pause-video": "Pause video",
     	"elapsed-time": "Elasped time",
@@ -415,7 +423,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Playbutton", [
 			
 			attrs: {
 				"css": "ba-videoplayer",
-				"rerecordable": false
+				"rerecordable": false,
+				"submittable": false
 			},
 			
 			functions: {
@@ -424,6 +433,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Playbutton", [
 					this.trigger("play");
 				},
 				
+				submit: function () {
+					this.set("submittable", false);
+					this.set("rerecordable", false);
+					this.trigger("submit");
+				},
+
 				rerecord: function () {
 					this.trigger("rerecord");
 				}				
@@ -436,7 +451,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Playbutton", [
     .attachStringTable(Assets.strings)
     .addStrings({
     	"tooltip": "Click to play video.",
-    	"rerecord": "Re-record"
+    	"rerecord": "Re-record",
+    	"submit-video": "Submit video"    	
     });
 });
 Scoped.define("module:VideoPlayer.Dynamics.Player", [
@@ -512,6 +528,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"preroll": false,
 				/* Options */
 				"rerecordable": false,
+				"submittable": false,
 				"autoplay": false,
 				"preload": false,
 				"loop": false,
@@ -770,6 +787,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 					this.trigger("rerecord");
 				},
 				
+				submit: function () {
+					if (!this.get("submittable"))
+						return;
+					this.trigger("submit");
+					this.set("submittable", false);
+					this.set("rerecordable", false);
+				},
+
 				pause: function () {
 					if (this.get("playing"))
 						this.player.pause();
@@ -1318,7 +1343,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Controlbar", [
 			attrs: {
 				"css": "ba-videorecorder",
 				"hovermessage": "",
-				"recordingindication": true
+				"recordingindication": true,
+				"covershot_accept_string":  "image/*,image/png,image/jpg,image/jpeg"
 			},
 			
 			create: function () {
@@ -1347,11 +1373,17 @@ Scoped.define("module:VideoRecorder.Dynamics.Controlbar", [
 				record: function () {
 					this.trigger("invoke-record");
 				},
+				rerecord: function () {
+					this.trigger("invoke-rerecord");
+				},
 				stop: function () {
 					this.trigger("invoke-stop");
 				},
 				skip: function () {
 					this.trigger("invoke-skip");
+				},
+				uploadCovershot: function (domEvent) {
+					this.trigger("upload-covershot", domEvent[0].target);
 				}
 			}
 			
@@ -1367,6 +1399,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Controlbar", [
     	"microphoneunhealthy": "Cannot pick up any sound",
     	"record": "Record",
     	"record-tooltip": "Click here to record.",
+    	"rerecord": "Re-record",
+    	"rerecord-tooltip": "Click here to re-record.",
+    	"upload-covershot": "Upload",
+    	"upload-covershot-tooltip": "Click here to upload custom cover shot",
     	"stop": "Stop",
     	"stop-tooltip": "Click here to stop.",
     	"skip": "Skip",
@@ -1680,13 +1716,18 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				"timelimit": null,
 				"timeminlimit": null,
 				"rtmpstreamtype": "mp4",
+				"microphone-volume": 1.0,
+				"flip-camera": false,
+				"early-rerecord": false,
+				"custom-covershots": false,
+				"manualsubmit": false,
 				"allowedextensions": null,
 				"filesizelimit": null,
 				/* Configuration */
 				"forceflash": false,
 				"noflash": false,
 				"noaudio": false,
-				"flashicognitosupport": false,
+				"flashincognitosupport": false,
 				"localplayback": false,
 				"uploadoptions": {},
 				"playerattrs": {},
@@ -1713,13 +1754,18 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				"allowupload": "boolean",
 				"allowcustomupload": "boolean",
 				"primaryrecord": "boolean",
-				"flashicognitosupport": "boolean",
+				"flashincognitosupport": "boolean",
 				"recordermode": "boolean",
 				"nofullscreen": "boolean",
 				"picksnapshots": "boolean",
 				"localplayback": "boolean",
 				"noaudio": "boolean",
-				"skipinitial": "boolean"
+				"skipinitial": "boolean",
+				"microphone-volume": "float",
+				"flip-camera": "boolean",
+				"early-rerecord": "boolean",
+				"custom-covershots": "boolean",
+				"manualsubmit": "boolean"
 			},
 			
 			extendables: ["states"],
@@ -1817,9 +1863,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 			    	recordAudio: !this.get("noaudio"),
 			    	recordingWidth: this.get("recordingwidth"),
 			    	recordingHeight: this.get("recordingheight"),
-			    	flashFullSecurityDialog: !this.get("flashicognitosupport"),
+			    	flashFullSecurityDialog: !this.get("flashincognitosupport"),
 			    	rtmpStreamType: this.get("rtmpstreamtype"),
-			    	framerate: this.get("framerate")
+			    	framerate: this.get("framerate"),
+			    	flip: this.get("flip-camera")
 			    });
 				if (!this.recorder)
 					this._error("attach");
@@ -1839,6 +1886,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 						this._error("bind", e);
 					}, this).success(function () {
 						this.trigger("access_granted");
+						this.recorder.setVolumeGain(this.get("microphone-volume"));
 						this.set("hideoverlay", false);
 						this.off("require_display", null, this);
 						this.recorder.enumerateDevices().success(function (devices) {
@@ -1886,6 +1934,12 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				this._dataUploader.addUploader(uploader);
 			},
 			
+			_uploadCovershotFile: function (file) {
+				var uploader = FileUploader.create(Objs.extend({ source: file }, this.get("uploadoptions").image));
+				uploader.upload();
+				this._dataUploader.addUploader(uploader);
+			},
+
 			_uploadVideoFile: function (file) {
 				var uploader = FileUploader.create(Objs.extend({ source: file }, this.get("uploadoptions").video));
 				uploader.upload();
@@ -1960,7 +2014,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				delete this.__backgroundSnapshot;
 			},
 			
-			object_functions: ["record", "rerecord", "stop", "play", "pause"],
+			object_functions: ["record", "rerecord", "stop", "play", "pause", "reset"],
 
 			functions: {
 				
@@ -1976,6 +2030,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 					this.host.state().selectUpload(file);
 				},
 				
+				upload_covershot: function (file) {
+					this.host.state().uploadCovershot(file);
+				},
+
 				select_camera: function (camera_id) {
 					if (this.recorder) {
 						this.recorder.setCurrentDevices({video: camera_id});
@@ -2031,6 +2089,19 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				
 				ended: function () {
 					this.trigger("ended");
+				},
+				
+				reset: function () {
+					this._stopRecording().callback(function () {
+						this._detachRecorder();
+						this.host.state().next("Initial");
+					}, this);
+				},
+				
+				manual_submit: function () {
+					this.set("rerecordable", false);
+					this.set("manualsubmit", false);
+					this.trigger("manually_submitted");
 				}
 						
 			},
@@ -2233,7 +2304,9 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.State", [
 		
 		selectRecord: function () {},
 		
-		selectUpload: function (file) {}
+		selectUpload: function (file) {},
+		
+		uploadCovershot: function (file) {}
 	
 	}]);
 });
@@ -2449,7 +2522,9 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.RecordPrepare", [
 					context: this,
 					delay: 100,
 					fire: function () {
-						this.dyn.set("loaderlabel", "" + Math.round(Math.max(0, endTime - Time.now()) / 1000));
+						var time_left = Math.max(0, endTime - Time.now());
+						this.dyn.set("loaderlabel", "" + Math.round(time_left / 1000));
+						this.dyn.trigger("countdown", time_left);
 						if (endTime <= Time.now()) {
 							this.dyn.set("loaderlabel", "");
 							timer.stop();
@@ -2563,6 +2638,8 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
 			this.dyn.set("stopvisible", false);
 			this.dyn.set("skipvisible", true);
 			this.dyn.set("controlbarlabel", "");
+			this.dyn.set("rerecordvisible", this.dyn.get("early-rerecord"));
+			this.dyn.set("uploadcovershotvisible", this.dyn.get("custom-covershots"));
 			this.dyn.set("topmessage", this.dyn.string('pick-covershot'));
 			var imagegallery = this.dyn.scope(">[tagname='ba-videorecorder-imagegallery']").materialize(true);
 			imagegallery.loadSnapshots();
@@ -2574,6 +2651,19 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
 				this.dyn._uploadCovershot(image);
 				this.next("Uploading");
 			}, this);
+		},
+		
+		rerecord: function () {
+			this.dyn._hideBackgroundSnapshot();
+			this.dyn._detachRecorder();
+			this.dyn.trigger("rerecord");
+			this.dyn.set("recordermode", true);
+			this.next("Initial");
+		},
+		
+		uploadCovershot: function (file) {
+			this.dyn._uploadCovershotFile(file);
+			this.next("Uploading");
 		}
 		
 	});
@@ -2589,6 +2679,9 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
 		
 		_started: function () {
 			this.dyn.trigger("uploading");
+			this.dyn.set("rerecordvisible", this.dyn.get("early-rerecord"));
+			if (this.dyn.get("early-rerecord"))
+				this.dyn.set("controlbar_active", true);
 			this.dyn.set("topmessage", "");
 			this.dyn.set("message", this.dyn.string("uploading"));
 			this.dyn.set("playertopmessage", this.dyn.get("message"));
@@ -2599,7 +2692,10 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
 			});
 			this.listenOn(uploader, "error", function () {
 				this.dyn.set("player_active", false);
-				this.next("FatalError", { message: this.dyn.string("uploading-failed"), retry: "Uploading" });
+				this.next("FatalError", {
+					message: this.dyn.string("uploading-failed"),
+					retry: this.dyn.recorderAttached() ? "Uploading" : "Initial"
+				});
 			});
 			this.listenOn(uploader, "progress", function (uploaded, total) {
 				if (total !== 0) {
@@ -2647,6 +2743,10 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Verifying", [
 			if (this.dyn.get("localplayback") && this.dyn.recorder && this.dyn.recorder.supportsLocalPlayback()) {
 				this.dyn.set("loader_active", false);
 				this.dyn.set("message_active", false);
+			} else {
+				this.dyn.set("rerecordvisible", this.dyn.get("early-rerecord"));
+				if (this.dyn.get("early-rerecord"))
+					this.dyn.set("controlbar_active", true);
 			}
 			this.dyn._verifyRecording().success(function () {
 				this.dyn.trigger("verified");
@@ -2657,7 +2757,10 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Verifying", [
 				this.next("Player");
 			}, this).error(function () {
 				this.dyn.set("player_active", false);
-				this.next("FatalError", { message: this.dyn.string("verifying-failed"), retry: "Verifying" });
+				this.next("FatalError", {
+					message: this.dyn.string("verifying-failed"),
+					retry: this.dyn.recorderAttached() ? "Verifying" : "Initial"
+				});
 			}, this);
 		},
 		

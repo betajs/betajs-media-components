@@ -71,6 +71,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"preroll": false,
 				/* Options */
 				"rerecordable": false,
+				"submittable": false,
 				"autoplay": false,
 				"preload": false,
 				"loop": false,
@@ -329,6 +330,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 					this.trigger("rerecord");
 				},
 				
+				submit: function () {
+					if (!this.get("submittable"))
+						return;
+					this.trigger("submit");
+					this.set("submittable", false);
+					this.set("rerecordable", false);
+				},
+
 				pause: function () {
 					if (this.get("playing"))
 						this.player.pause();

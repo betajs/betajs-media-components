@@ -1,5 +1,5 @@
 /*!
-betajs-media - v0.0.33 - 2016-09-04
+betajs-media - v0.0.36 - 2016-10-25
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -14,7 +14,7 @@ Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
     "guid": "8475efdb-dd7e-402e-9f50-36c76945a692",
-    "version": "65.1473002707220"
+    "version": "69.1477448024638"
 };
 });
 Scoped.assumeVersion('base:version', 502);
@@ -448,8 +448,6 @@ Scoped.define("module:Encoding.WebmEncoder.Support", [
 	        		data = this.__bitsToBuffer(data.toString(2));
 	        	else if (tp === "string")
 	        		data = this.__strToBuffer(data);
-	        	if (tp === "undefined")
-	        		console.log(entry);
 	            var len = data.size || data.byteLength || data.length;
 	            var zeroes = Math.ceil(Math.ceil(Math.log(len) / Math.log(2)) / 8);
 	            var size_str = len.toString(2);
@@ -541,7 +539,7 @@ Scoped.define("module:Player.FlashPlayer", [
 							sources.push(element.childNodes[i].src.toLowerCase());
 					}
 				} else {
-					var $current = this._$element;
+					var $current = $(this._element);
 					while (true) {
 						var $next = $current.next();
 						var next = $next.get(0);
@@ -671,10 +669,10 @@ Scoped.define("module:Player.FlashPlayer", [
 			},
 			
 			setActualBB: function (actualBB) {
-				this._$element.find("object").css("width", actualBB.width + "px");
-				this._$element.find("embed").css("width", actualBB.width + "px");
-				this._$element.find("object").css("height", actualBB.height + "px");
-				this._$element.find("embed").css("height", actualBB.height + "px");
+				$(this._element).find("object").css("width", actualBB.width + "px");
+				$(this._element).find("embed").css("width", actualBB.width + "px");
+				$(this._element).find("object").css("height", actualBB.height + "px");
+				$(this._element).find("embed").css("height", actualBB.height + "px");
 				if (this.__metaLoaded) {
 					this._flashObjs.video.set("width", actualBB.width);
 					this._flashObjs.video.set("height", actualBB.height);
@@ -1079,7 +1077,8 @@ Scoped.define("module:Player.Html5VideoPlayerWrapper", [
 					this._setup();
 				}, this);
 				try {
-					this._$element.get(0).load();
+					if (!Info.isChrome())
+						this._$element.get(0).load();
 				} catch (e) {}
 				return promise;
 			},
@@ -1094,8 +1093,8 @@ Scoped.define("module:Player.Html5VideoPlayerWrapper", [
 			destroy: function () {
 				if (this._audioElement)
 					this._audioElement.remove();
-				if (this.supportsFullscreen())
-					Dom.elementOffFullscreenChange(this._element);
+				if (this.supportsFullscreen() && this.__fullscreenListener)
+					Dom.elementOffFullscreenChange(this._element, this.__fullscreenListener);
 				this._$element.html("");
 				inherited.destroy.call(this);
 			},
@@ -1138,7 +1137,7 @@ Scoped.define("module:Player.Html5VideoPlayerWrapper", [
 				}
 				if (this.supportsFullscreen()) {
 					this.__videoClassBackup = "";
-					Dom.elementOnFullscreenChange(this._element, function (element, inFullscreen) {
+					this.__fullscreenListener = Dom.elementOnFullscreenChange(this._element, function (element, inFullscreen) {
 						if (inFullscreen) {
 							this.__videoClassBackup = this._$element.attr("class");
 							this._$element.attr("class", "");
@@ -1367,6 +1366,8 @@ Scoped.define("module:Flash.FlashRecorder", [
 				this.__streamType = this.readAttr("streamtype") || 'mp4';
 				this.__microphoneCodec = this.readAttr("microphonecodec") || 'speex';
 				this.__fps = this.readAttr('fps') || 20;				
+				this.__defaultGain = 55;
+				this._flip = Types.parseBool(this.readAttr("flip") || false);
 				this._embedding.ready(this.__initializeEmbedding, this);
 			},
 			
@@ -1478,6 +1479,11 @@ Scoped.define("module:Flash.FlashRecorder", [
 				this._flashObjs.camera.setKeyFrameInterval(5);
 				this._flashObjs.video.attachCamera(this._flashObjs.camera);
 				this._flashObjs.cameraVideo.attachCamera(this._flashObjs.camera);
+				if (this._flip) {
+					if (this._flashObjs.video.get("scaleX") > 0)
+						this._flashObjs.video.set("scaleX", -this._flashObjs.video.get("scaleX"));
+					this._flashObjs.video.set("x", this._flashObjs.video.get("width"));
+				}
 			},
 			
 			_detachCamera: function () {
@@ -1549,13 +1555,24 @@ Scoped.define("module:Flash.FlashRecorder", [
 			setMicrophoneProfile: function(profile) {
 				profile = profile || {};
 				this._flashObjs.microphone.setLoopBack(profile.loopback || false);
-				this._flashObjs.microphone.set("gain", profile.gain || 55);
+				this._flashObjs.microphone.set("gain", profile.gain || this.__defaultGain);
 				this._flashObjs.microphone.setSilenceLevel(profile.silenceLevel || 0);
 				this._flashObjs.microphone.setUseEchoSuppression(profile.echoSuppression || false);
 				this._flashObjs.microphone.set("rate", profile.rate || 44);
 				this._flashObjs.microphone.set("encodeQuality", profile.encodeQuality || 10);
 				this._flashObjs.microphone.set("codec", profile.codec || this.__microphoneCodec);
 				this._currentMicrophoneProfile = profile;
+			},
+			
+			getVolumeGain: function () {
+				var gain = this._mediaBound ? this._flashObjs.micropone.get("gain") : 55;
+				return gain / 55.0;
+			},
+			
+			setVolumeGain: function (volumeGain) {
+				this.__defaultGain = Math.max(Math.min(0, Math.round(volumeGain * 55)), 100);
+				if (this._mediaBound)
+					this._flashObjs.microphone.set("gain", this.__defaultGain);
 			},
 			
 			_pixelSample: function (samples, callback, context) {
@@ -1682,14 +1699,19 @@ Scoped.define("module:Flash.FlashRecorder", [
 			},
 			
 			setActualBB: function (actualBB) {
-				this._$element.find("object").css("width", actualBB.width + "px");
-				this._$element.find("embed").css("width", actualBB.width + "px");
-				this._$element.find("object").css("height", actualBB.height + "px");
-				this._$element.find("embed").css("height", actualBB.height + "px");
+				$(this._element).find("object").css("width", actualBB.width + "px");
+				$(this._element).find("embed").css("width", actualBB.width + "px");
+				$(this._element).find("object").css("height", actualBB.height + "px");
+				$(this._element).find("embed").css("height", actualBB.height + "px");
 				var video = this._flashObjs.video;
 				if (video) {
 					video.set("width", actualBB.width);
 					video.set("height", actualBB.height);
+					if (this._flip) {
+						if (video.get("scaleX") > 0)
+							video.set("scaleX", -video.get("scaleX"));
+						video.set("x", video.get("width"));
+					}
 				}
 			},
 			
@@ -2017,6 +2039,9 @@ Scoped.define("module:Recorder.VideoRecorderWrapper", [
 			blankLevel: function () {},			
 			deltaCoefficient: function () {},
 			
+			getVolumeGain: function () {},
+			setVolumeGain: function (volumeGain) {},
+			
 			enumerateDevices: function () {},
 			currentDevices: function () {},
 			setCurrentDevices: function (devices) {},
@@ -2090,6 +2115,7 @@ Scoped.define("module:Recorder.WebRTCVideoRecorderWrapper", [
 					this._element = Dom.changeTag(this._element, "video");
 				this._recorder = RecorderWrapper.create({
 		            video: this._element,
+		            flip: !!this._options.flip,
 		            framerate: this._options.framerate,
 		            recordVideo: this._options.recordVideo,
 		            recordAudio: this._options.recordAudio,
@@ -2128,6 +2154,14 @@ Scoped.define("module:Recorder.WebRTCVideoRecorderWrapper", [
 				return this._recorder.blankLevel();
 			},			
 			
+			getVolumeGain: function () {
+				return this._recorder.getVolumeGain();
+			},
+			
+			setVolumeGain: function (volumeGain) {
+				this._recorder.setVolumeGain(volumeGain);
+			},
+
 			deltaCoefficient: function () {
 				return this._recorder.deltaCoefficient();
 			},
@@ -2277,6 +2311,7 @@ Scoped.define("module:Recorder.FlashVideoRecorderWrapper", [
 				if (this._element.tagName.toLowerCase() !== "div")
 					this._element = Dom.changeTag(this._element, "div");
 				this._recorder = new FlashRecorder(this._element, {
+		            flip: !!this._options.flip,
 					streamtype: this._options.rtmpStreamType,
 	            	camerawidth: this._options.recordingWidth,
 	            	cameraheight: this._options.recordingHeight,
@@ -2316,6 +2351,14 @@ Scoped.define("module:Recorder.FlashVideoRecorderWrapper", [
 			soundLevel: function () {
 				var sl = this._recorder.soundLevel();
 				return sl <= 1 ? 1.0 : (1.0 + (sl-1)/100);
+			},
+
+			getVolumeGain: function () {
+				return this._recorder.getVolumeGain();
+			},
+			
+			setVolumeGain: function (volumeGain) {
+				this._recorder.setVolumeGain(volumeGain);
 			},
 
 			testSoundLevel: function (activate) {
@@ -2541,6 +2584,7 @@ Scoped.define("module:WebRTC.AudioRecorder", [
 				this._stream = stream;
 				this._started = false;
 				this._stopped = false;
+				this._volumeGainValue = 1.0;
 				//this.__initializeContext();
 			},
 
@@ -2583,11 +2627,22 @@ Scoped.define("module:WebRTC.AudioRecorder", [
 				inherited.destroy.call(this);
 			},
 			
+			getVolumeGain: function () {
+				return this._volumeGainValue;
+			},
+			
+			setVolumeGain: function (volumeGain) {
+				this._volumeGainValue = volumeGain;
+				if (this._volumeGain)
+					this._volumeGain.value.gain = volumeGain;
+			},
+
 			__initializeContext: function () {
 				var AudioContext = Support.globals().AudioContext;
 				this._audioContext = new AudioContext();
 				this._actualSampleRate = this._audioContext.sampleRate || this._options.sampleRate;
 				this._volumeGain = this._audioContext.createGain();
+				this._volumeGain.gain.value = this._volumeGainValue;
 				this._audioInput = this._audioContext.createMediaStreamSource(this._stream);
 				this._audioInput.connect(this._volumeGain);
 				this._scriptProcessor = Support.globals().audioContextScriptProcessor.call(
@@ -2701,6 +2756,7 @@ Scoped.define("module:WebRTC.MediaRecorder", [
 				*/
 				this._mediaRecorder = new MediaRecorder(stream);
 				this._mediaRecorder.ondataavailable = Functions.as_method(this._dataAvailable, this);
+				this._mediaRecorder.onstop = Functions.as_method(this._dataStop, this);
 			},
 			
 			destroy: function () {
@@ -2712,6 +2768,7 @@ Scoped.define("module:WebRTC.MediaRecorder", [
 				if (this._started)
 					return;
 				this._started = true;
+				this._chunks = [];
 				this._mediaRecorder.start();
 				this.trigger("started");
 			},
@@ -2725,10 +2782,22 @@ Scoped.define("module:WebRTC.MediaRecorder", [
 			},
 			
 			_dataAvailable: function (e) {
-				this._data = new Blob([e.data], {
-					type: e.data.type
-				});
-				this.trigger("data", this._data);
+				this._chunks.push(e.data);
+			},
+
+			_dataStop: function (e) {
+				this._data = new Blob(this._chunks, { type: "video/webm" });
+				this._chunks = [];
+				if (Info.isFirefox()) {
+					var self = this;
+					var fileReader = new FileReader();
+					fileReader.onload = function() {
+					    self._data = new Blob([this.result], {type: self._data.type});
+						self.trigger("data", self._data);
+					};
+					fileReader.readAsArrayBuffer(this._data);
+				} else
+					this.trigger("data", this._data);
 			}
 						
 		};		
@@ -2760,6 +2829,7 @@ Scoped.define("module:WebRTC.RecorderWrapper", [
 				this._bound = false;
 				this._hasAudio = false;
 				this._hasVideo = false;
+				this._flip = !!options.flip;
 			},
 			
 			_getConstraints: function () {
@@ -2795,7 +2865,7 @@ Scoped.define("module:WebRTC.RecorderWrapper", [
 					this._hasVideo = this._options.recordVideo && stream.getVideoTracks().length > 0;
 					this._bound = true;
 					this._stream = stream;
-					Support.bindStreamToVideo(stream, this._video);
+					Support.bindStreamToVideo(stream, this._video, this._flip);
 					this.trigger("bound", stream);
 					this._boundMedia();
 				}, this);
@@ -2894,6 +2964,10 @@ Scoped.define("module:WebRTC.RecorderWrapper", [
 			
 			_stopRecord: function () {},
 			
+			getVolumeGain: function () {},
+			
+			setVolumeGain: function (volumeGain) {},
+
 			_dataAvailable: function (videoBlob, audioBlob) {
 				if (this.destroyed())
 					return;
@@ -2958,6 +3032,12 @@ Scoped.define("module:WebRTC.MediaRecorderWrapper", [
 			this._recorder.stop();
 		},
 		
+		getVolumeGain: function () {
+		},
+		
+		setVolumeGain: function (volumeGain) {
+		},
+
 		averageFrameRate: function () {
 			return null;
 		}
@@ -3048,6 +3128,15 @@ Scoped.define("module:WebRTC.WhammyAudioRecorderWrapper", [
 				this._whammyRecorder.stop();
 			if (this._hasAudio)
 				this._audioRecorder.stop();
+		},
+		
+		getVolumeGain: function () {
+			return this._audioRecorder ? this._audioRecorder.getVolumeGain() : 1.0;
+		},
+		
+		setVolumeGain: function (volumeGain) {
+			if (this._audioRecorder)
+				this._audioRecorder.setVolumeGain(volumeGain);
 		},
 		
 		averageFrameRate: function () {
@@ -3312,7 +3401,7 @@ Scoped.define("module:WebRTC.Support", [
 			} catch (e) {}
 		},
 		
-		bindStreamToVideo: function (stream, video) {
+		bindStreamToVideo: function (stream, video, flip) {
 			if (!video)
 				video = document.createElement("video");
 			video.volume = 0;
@@ -3321,6 +3410,19 @@ Scoped.define("module:WebRTC.Support", [
                 video.mozSrcObject = stream;
             else
             	video.src = this.globals().URL.createObjectURL(stream);
+			if (flip) {
+				video.style["-moz-transform"] = "scale(-1, 1)";
+				video.style["-webkit-transform"] = "scale(-1, 1)";
+				video.style["-o-transform"] = "scale(-1, 1)";
+				video.style.transform = "scale(-1, 1)";
+				video.style.filter = "FlipH";
+			} else {
+				delete video.style["-moz-transform"];
+				delete video.style["-webkit-transform"];
+				delete video.style["-o-transform"];
+				delete video.style.transform;
+				delete video.style.filter;
+			}
 			video.autoplay = true;
 			video.play();
 			return video;

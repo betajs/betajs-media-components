@@ -91,13 +91,18 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				"timelimit": null,
 				"timeminlimit": null,
 				"rtmpstreamtype": "mp4",
+				"microphone-volume": 1.0,
+				"flip-camera": false,
+				"early-rerecord": false,
+				"custom-covershots": false,
+				"manualsubmit": false,
 				"allowedextensions": null,
 				"filesizelimit": null,
 				/* Configuration */
 				"forceflash": false,
 				"noflash": false,
 				"noaudio": false,
-				"flashicognitosupport": false,
+				"flashincognitosupport": false,
 				"localplayback": false,
 				"uploadoptions": {},
 				"playerattrs": {},
@@ -124,13 +129,18 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				"allowupload": "boolean",
 				"allowcustomupload": "boolean",
 				"primaryrecord": "boolean",
-				"flashicognitosupport": "boolean",
+				"flashincognitosupport": "boolean",
 				"recordermode": "boolean",
 				"nofullscreen": "boolean",
 				"picksnapshots": "boolean",
 				"localplayback": "boolean",
 				"noaudio": "boolean",
-				"skipinitial": "boolean"
+				"skipinitial": "boolean",
+				"microphone-volume": "float",
+				"flip-camera": "boolean",
+				"early-rerecord": "boolean",
+				"custom-covershots": "boolean",
+				"manualsubmit": "boolean"
 			},
 			
 			extendables: ["states"],
@@ -228,9 +238,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 			    	recordAudio: !this.get("noaudio"),
 			    	recordingWidth: this.get("recordingwidth"),
 			    	recordingHeight: this.get("recordingheight"),
-			    	flashFullSecurityDialog: !this.get("flashicognitosupport"),
+			    	flashFullSecurityDialog: !this.get("flashincognitosupport"),
 			    	rtmpStreamType: this.get("rtmpstreamtype"),
-			    	framerate: this.get("framerate")
+			    	framerate: this.get("framerate"),
+			    	flip: this.get("flip-camera")
 			    });
 				if (!this.recorder)
 					this._error("attach");
@@ -250,6 +261,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 						this._error("bind", e);
 					}, this).success(function () {
 						this.trigger("access_granted");
+						this.recorder.setVolumeGain(this.get("microphone-volume"));
 						this.set("hideoverlay", false);
 						this.off("require_display", null, this);
 						this.recorder.enumerateDevices().success(function (devices) {
@@ -297,6 +309,12 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				this._dataUploader.addUploader(uploader);
 			},
 			
+			_uploadCovershotFile: function (file) {
+				var uploader = FileUploader.create(Objs.extend({ source: file }, this.get("uploadoptions").image));
+				uploader.upload();
+				this._dataUploader.addUploader(uploader);
+			},
+
 			_uploadVideoFile: function (file) {
 				var uploader = FileUploader.create(Objs.extend({ source: file }, this.get("uploadoptions").video));
 				uploader.upload();
@@ -371,7 +389,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				delete this.__backgroundSnapshot;
 			},
 			
-			object_functions: ["record", "rerecord", "stop", "play", "pause"],
+			object_functions: ["record", "rerecord", "stop", "play", "pause", "reset"],
 
 			functions: {
 				
@@ -387,6 +405,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 					this.host.state().selectUpload(file);
 				},
 				
+				upload_covershot: function (file) {
+					this.host.state().uploadCovershot(file);
+				},
+
 				select_camera: function (camera_id) {
 					if (this.recorder) {
 						this.recorder.setCurrentDevices({video: camera_id});
@@ -442,6 +464,19 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				
 				ended: function () {
 					this.trigger("ended");
+				},
+				
+				reset: function () {
+					this._stopRecording().callback(function () {
+						this._detachRecorder();
+						this.host.state().next("Initial");
+					}, this);
+				},
+				
+				manual_submit: function () {
+					this.set("rerecordable", false);
+					this.set("manualsubmit", false);
+					this.trigger("manually_submitted");
 				}
 						
 			},

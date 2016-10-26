@@ -1,5 +1,5 @@
 /*!
-betajs-dynamics - v0.0.68 - 2016-09-01
+betajs-dynamics - v0.0.69 - 2016-10-17
 Copyright (c) Victor Lingenthal,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -13,7 +13,7 @@ Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
     "guid": "d71ebf84-e555-4e9b-b18a-11d74fdcefe2",
-    "version": "268.1472764452332"
+    "version": "270.1476760819985"
 };
 });
 Scoped.assumeVersion('base:version', 531);
@@ -1448,6 +1448,17 @@ Scoped.define("module:Handlers.HandlerMixin", [
 			return this.__activeElement;
 		},
 		
+		_updateActiveElement: function (activeElement) {
+			this.__activeElement = activeElement;
+			if (this.__removeObserver) {
+				this.__removeObserver.weakDestroy();
+				this.__removeObserver = this.auto_destroy(NodeRemoveObserver.create(this.__activeElement.get(0)));
+				this.__removeObserver.on("node-removed", function () {
+					this.weakDestroy();
+				}, this);				
+			}
+		},
+		
 		activate: function () {
 			if (this.__activated)
 				return;
@@ -1807,11 +1818,14 @@ Scoped.define("module:Handlers.Node", [
 				if (!Registries.handler.get(tagv))
 					return false;
 				if (Info.isInternetExplorer() && Info.internetExplorerVersion() < 9) {
+					var isActiveElement = this._$element.get(0) === this._handler.activeElement().get(0);
 					this._$element = $(Dom.changeTag(this._$element.get(0), tagv));
 					this._element = this._$element.get(0);
 					Objs.iter(this._attrs, function (attr) {
 						attr.updateElement(this._element);
 					}, this);
+					if (isActiveElement)
+						this._handler._updateActiveElement(this._$element);
 				}
 				var createArguments = {
 					parentElement: this._$element.get(0),

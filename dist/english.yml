@@ -1,10 +1,12 @@
 'language:en':
   ba-videoplayer-playbutton.tooltip: Click to play video.
   ba-videoplayer-playbutton.rerecord: Re-record
+  ba-videoplayer-playbutton.submit-video: Submit video
   ba-videoplayer-loader.tooltip: Loading video...
   ba-videoplayer-controlbar.change-resolution: Change resolution
   ba-videoplayer-controlbar.video-progress: Video progress
   ba-videoplayer-controlbar.rerecord-video: Re-record video?
+  ba-videoplayer-controlbar.submit-video: Submit video
   ba-videoplayer-controlbar.play-video: Play video
   ba-videoplayer-controlbar.pause-video: Pause video
   ba-videoplayer-controlbar.elapsed-time: Elasped time
@@ -23,6 +25,10 @@
   ba-videorecorder-controlbar.microphoneunhealthy: Cannot pick up any sound
   ba-videorecorder-controlbar.record: Record
   ba-videorecorder-controlbar.record-tooltip: Click here to record.
+  ba-videorecorder-controlbar.rerecord: Re-record
+  ba-videorecorder-controlbar.rerecord-tooltip: Click here to re-record.
+  ba-videorecorder-controlbar.upload-covershot: Upload
+  ba-videorecorder-controlbar.upload-covershot-tooltip: Click here to upload custom cover shot
   ba-videorecorder-controlbar.stop: Stop
   ba-videorecorder-controlbar.stop-tooltip: Click here to stop.
   ba-videorecorder-controlbar.skip: Skip

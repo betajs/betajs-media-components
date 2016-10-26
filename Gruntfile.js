@@ -115,7 +115,8 @@ module.exports = function(grunt) {
         'betajs/betajs-flash/dist/betajs-flash.swf',
         'betajs/betajs-media/dist/betajs-media-noscoped.js',
         'betajs/betajs-dynamics/dist/betajs-dynamics-noscoped.js',
-        'saadeghi/browser-hack-sass-mixins/_hacks.scss'
+        'saadeghi/browser-hack-sass-mixins/_hacks.scss',
+        'betajs/betajs-shims/dist/betajs-shims.js'
      ] })
 
     /* Markdown Files */

@@ -64,6 +64,28 @@
         		{{string('record')}}
         	</div>
         </div>
+        <div class="{{css}}-rightbutton-container" ba-if="{{uploadcovershotvisible}}">
+        	<div class="{{css}}-button-primary"
+                 onmouseenter="{{hover(string('upload-covershot-tooltip'))}}"
+                 onmouseleave="{{unhover()}}">
+                 <input type="file"
+				       class="{{css}}-chooser-file"
+				       style="height:100"
+				       onchange="{{uploadCovershot(domEvent)}}"
+				       accept="{{covershot_accept_string}}" />
+                 <span>
+        			{{string('upload-covershot')}}
+        		</span>
+        	</div>
+        </div>
+        <div class="{{css}}-rightbutton-container" ba-show="{{rerecordvisible}}">
+        	<div class="{{css}}-button-primary"
+                 onclick="{{rerecord()}}"
+                 onmouseenter="{{hover(string('rerecord-tooltip'))}}"
+                 onmouseleave="{{unhover()}}">
+        		{{string('rerecord')}}
+        	</div>
+        </div>
         <div class="{{css}}-rightbutton-container" ba-show="{{stopvisible}}">
         	<div class="{{css}}-button-primary"
                  onclick="{{stop()}}"

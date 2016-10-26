@@ -1,5 +1,5 @@
 /*!
-betajs-flash - v0.0.15 - 2016-06-12
+betajs-flash - v0.0.17 - 2016-10-24
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -13,7 +13,7 @@ Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
     "guid": "3adc016a-e639-4d1a-b4cb-e90cab02bc4f",
-    "version": "33.1465770701066"
+    "version": "35.1477334014703"
 };
 });
 Scoped.assumeVersion('base:version', 444);
@@ -69,7 +69,7 @@ Scoped.define("module:FlashEmbedding", [ "base:Class", "base:Events.EventsMixin"
 					container = container.get(0);
 				}
 				this.__container = $(container);
-				this.__embedding = FlashHelper.embedFlashObject(container, flashOptions);
+				this.__embedding = FlashHelper.embedFlashObject(this.__container.get(0), flashOptions);
 				this.__suspendedTimer = this.auto_destroy(new Timer({
 					delay: 50,
 					context: this,

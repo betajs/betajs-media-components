@@ -1,10 +1,12 @@
 "language:de":
     ba-videoplayer-playbutton.tooltip: Hier clicken um Wiedergabe zu starten.
     ba-videoplayer-playbutton.rerecord: Video neu aufnehmen
+    ba-videoplayer-playbutton.submit-video: Video akzeptieren
     ba-videoplayer-loader.tooltip: Video wird geladen...
     ba-videoplayer-controlbar.change-resolution: Auflösung anpassen
     ba-videoplayer-controlbar.video-progress: Videofortschritt
     ba-videoplayer-controlbar.rerecord-video: Video erneut aufnehmen?
+    ba-videoplayer-controlbar.submit-video: Video akzeptieren
     ba-videoplayer-controlbar.play-video: Video wiedergeben
     ba-videoplayer-controlbar.pause-video: Video pausieren
     ba-videoplayer-controlbar.elapsed-time: Vergangene Zeit
@@ -23,6 +25,10 @@
     ba-videorecorder-controlbar.microphoneunhealthy: Mikrofon bis jetzt stumm
     ba-videorecorder-controlbar.record: Video aufnehmen
     ba-videorecorder-controlbar.record-tooltip: Hier clicken um Aufnahme zu starten.
+    ba-videorecorder-controlbar.rerecord: Video neu aufnehmen
+    ba-videorecorder-controlbar.rerecord-tooltip: Hier clicken um Video erneut aufzunehmen.
+    ba-videorecorder-controlbar.upload-covershot: Hochladen
+    ba-videorecorder-controlbar.upload-covershot-tooltip: Hier clicken um einen Covershot hochzuladen.
     ba-videorecorder-controlbar.stop: Aufnahme stoppen
     ba-videorecorder-controlbar.stop-tooltip: Hier clicken um Aufnahme zu stoppen.
     ba-videorecorder-controlbar.skip: Überspringen

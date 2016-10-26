@@ -1,5 +1,5 @@
 /** @flow **//*!
-betajs-scoped - v0.0.11 - 2016-06-28
+betajs-scoped - v0.0.12 - 2016-10-02
 Copyright (c) Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -24,6 +24,8 @@ return {
 			return window[key];
 		if (typeof global !== "undefined")
 			return global[key];
+		if (typeof self !== "undefined")
+			return self[key];
 		return undefined;
 	},
 
@@ -40,6 +42,8 @@ return {
 			window[key] = value;
 		if (typeof global !== "undefined")
 			global[key] = value;
+		if (typeof self !== "undefined")
+			self[key] = value;
 		return value;
 	},
 	
@@ -355,6 +359,10 @@ function newNamespace (opts/* : {tree ?: boolean, global ?: boolean, root ?: Obj
 			try {
 				if (global)
 					nsRoot.data = global;
+			} catch (e) { }
+			try {
+				if (self)
+					nsRoot.data = self;
 			} catch (e) { }
 		} else
 			nsRoot.data = options.root;
@@ -949,7 +957,7 @@ var Public = Helper.extend(rootScope, (function () {
 return {
 		
 	guid: "4b6878ee-cb6a-46b3-94ac-27d91f58d666",
-	version: '48.1467144390733',
+	version: '49.1475462345450',
 		
 	upgrade: Attach.upgrade,
 	attach: Attach.attach,

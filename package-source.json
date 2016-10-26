@@ -1,6 +1,6 @@
 {
 	"name": "betajs-media-components",
-	"version": "0.0.33",
+	"version": "0.0.34",
 	"description": "BetaJS-Media-Components is a JavaScript media UI components framework",
 	"contributors": ["Ziggeo", "Oliver Friedmann"],
 	"devDependencies": {
@@ -47,7 +47,8 @@
 			"npm": false
 		},
 		"weakDependencies": {
-			"betajs-scoped": "https://github.com/betajs/betajs-scoped"
+			"betajs-scoped": "https://github.com/betajs/betajs-scoped",
+			"betajs-shims": "https://github.com/betajs/betajs-shims"
 		},
 		"dependencies": {
 			"betajs": "https://github.com/betajs/betajs",

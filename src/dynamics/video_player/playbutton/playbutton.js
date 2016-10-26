@@ -12,7 +12,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Playbutton", [
 			
 			attrs: {
 				"css": "ba-videoplayer",
-				"rerecordable": false
+				"rerecordable": false,
+				"submittable": false
 			},
 			
 			functions: {
@@ -21,6 +22,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Playbutton", [
 					this.trigger("play");
 				},
 				
+				submit: function () {
+					this.set("submittable", false);
+					this.set("rerecordable", false);
+					this.trigger("submit");
+				},
+
 				rerecord: function () {
 					this.trigger("rerecord");
 				}				
@@ -33,6 +40,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Playbutton", [
     .attachStringTable(Assets.strings)
     .addStrings({
     	"tooltip": "Click to play video.",
-    	"rerecord": "Re-record"
+    	"rerecord": "Re-record",
+    	"submit-video": "Submit video"    	
     });
 });

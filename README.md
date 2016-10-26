@@ -1,4 +1,4 @@
-# betajs-media-components 0.0.33
+# betajs-media-components 0.0.34
 [![Code Climate](https://codeclimate.com/github/betajs/betajs-media-components/badges/gpa.svg)](https://codeclimate.com/github/betajs/betajs-media-components)
 
 
@@ -107,6 +107,7 @@ You can use the library in the browser and compile it as well.
 | Name | URL |
 | :----- | -------: |
 | betajs-scoped | [Open](https://github.com/betajs/betajs-scoped) |
+| betajs-shims | [Open](https://github.com/betajs/betajs-shims) |
 
 
 ## Contributors

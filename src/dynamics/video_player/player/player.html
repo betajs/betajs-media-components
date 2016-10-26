@@ -15,6 +15,7 @@
 		    ba-show="{{controlbar_active}}"
 		    ba-playing="{{playing}}"
 		    ba-event:rerecord="rerecord"
+		    ba-event:submit="submit"
 		    ba-event:play="play"
 		    ba-event:pause="pause"
 		    ba-event:position="seek"
@@ -27,6 +28,7 @@
 		    ba-activitydelta="{{activity_delta}}"
 		    ba-hideoninactivity="{{hideoninactivity}}"
 		    ba-rerecordable="{{rerecordable}}"
+		    ba-submittable="{{submittable}}"
 		    ba-streams="{{streams}}"
 		    ba-currentstream="{{=currentstream}}"
 		    ba-fullscreen="{{fullscreensupport && !nofullscreen}}"
@@ -38,8 +40,10 @@
 		    ba-template="{{tmplplaybutton}}"
 		    ba-show="{{playbutton_active}}"
 		    ba-rerecordable="{{rerecordable}}"
+		    ba-submittable="{{submittable}}"
 		    ba-event:play="playbutton_click"
 		    ba-event:rerecord="rerecord"
+		    ba-event:submit="submit"
 		></ba-{{dynplaybutton}}>
 		
 		<ba-{{dynloader}}

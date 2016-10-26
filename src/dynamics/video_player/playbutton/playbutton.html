@@ -3,10 +3,15 @@
 	<div class="{{css}}-playbutton-button"></div>
 </div>
 
-<div class="{{css}}-rerecord-bar" ba-if="{{rerecordable}}">
+<div class="{{css}}-rerecord-bar" ba-if="{{rerecordable || submittable}}">
 	<div class="{{css}}-rerecord-backbar"></div>
 	<div class="{{css}}-rerecord-frontbar">
-        <div class="{{css}}-rerecord-button-container">
+        <div class="{{css}}-rerecord-button-container" ba-if="{{submittable}}">
+            <div class="{{css}}-rerecord-button" onclick="{{submit()}}">
+                {{string('submit-video')}}
+            </div>
+        </div>
+        <div class="{{css}}-rerecord-button-container" ba-if="{{rerecordable}}">
         	<div class="{{css}}-rerecord-button" onclick="{{rerecord()}}">
         		{{string('rerecord')}}
         	</div>

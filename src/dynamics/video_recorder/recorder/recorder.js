@@ -157,6 +157,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				}
 				this.set("ie8", Info.isInternetExplorer() && Info.internetExplorerVersion() < 9);
 				this.set("hideoverlay", false);
+				
+				if (Info.isMobile())
+					this.set("skipinitial", false);
 
 				this.__attachRequested = false;
 				this.__activated = false;
@@ -248,7 +251,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 			},
 			
 			_bindMedia: function () {
-				if (this._bound || !this.recorderAttached())
+				if (this._bound || !this.recorderAttached() || !this.recorder)
 					return;
 				this.recorder.ready.success(function () {
 					this.recorder.on("require_display", function () {

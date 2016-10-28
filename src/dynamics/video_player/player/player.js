@@ -231,8 +231,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 					loop: !!this.get("loop"),
 					reloadonplay: !!this.get("reloadonplay")
 			    })).error(function (e) {
+			    	if (this.destroyed())
+			    		return;
 			    	this._error("attach", e);
 			    }, this).success(function (instance) {
+			    	if (this.destroyed())
+			    		return;
 					if (this._adProvider && this.get("preroll")) {
 						this._prerollAd = this._adProvider.newPrerollAd({
 							videoElement: this.element().find("[data-video='video']").get(0),
@@ -380,6 +384,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 			},
 			
 			_timerFire: function () {
+				if (this.destroyed())
+					return;
 				try {
 					if (this.videoLoaded()) {
 						this.set("activity_delta", Time.now() - this.get("last_activity"));

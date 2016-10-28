@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.34 - 2016-10-25
+betajs-media-components - v0.0.35 - 2016-10-28
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1004,7 +1004,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.34 - 2016-10-25
+betajs-media-components - v0.0.35 - 2016-10-28
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1021,7 +1021,7 @@ Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "48.1477420855763"
+    "version": "49.1477628971966"
 };
 });
 Scoped.assumeVersion('base:version', 502);
@@ -1693,8 +1693,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 					loop: !!this.get("loop"),
 					reloadonplay: !!this.get("reloadonplay")
 			    })).error(function (e) {
+			    	if (this.destroyed())
+			    		return;
 			    	this._error("attach", e);
 			    }, this).success(function (instance) {
+			    	if (this.destroyed())
+			    		return;
 					if (this._adProvider && this.get("preroll")) {
 						this._prerollAd = this._adProvider.newPrerollAd({
 							videoElement: this.element().find("[data-video='video']").get(0),
@@ -1842,6 +1846,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 			},
 			
 			_timerFire: function () {
+				if (this.destroyed())
+					return;
 				try {
 					if (this.videoLoaded()) {
 						this.set("activity_delta", Time.now() - this.get("last_activity"));
@@ -2787,6 +2793,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				}
 				this.set("ie8", Info.isInternetExplorer() && Info.internetExplorerVersion() < 9);
 				this.set("hideoverlay", false);
+				
+				if (Info.isMobile())
+					this.set("skipinitial", false);
 
 				this.__attachRequested = false;
 				this.__activated = false;
@@ -2878,7 +2887,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 			},
 			
 			_bindMedia: function () {
-				if (this._bound || !this.recorderAttached())
+				if (this._bound || !this.recorderAttached() || !this.recorder)
 					return;
 				this.recorder.ready.success(function () {
 					this.recorder.on("require_display", function () {
@@ -3319,12 +3328,14 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.State", [
 
 
 Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.FatalError", [
-	"module:VideoRecorder.Dynamics.RecorderStates.State"
-], function (State, scoped) {
+	"module:VideoRecorder.Dynamics.RecorderStates.State",
+	"browser:Info",
+	"base:Timers.Timer"
+], function (State, Info, Timer, scoped) {
 	return State.extend({scoped: scoped}, {
 		
 		dynamics: ["message"],
-		_locals: ["message", "retry"],
+		_locals: ["message", "retry", "flashtest"],
 
 		_started: function () {
 			this.dyn.set("message", this._message || this.dyn.string("recorder-error"));
@@ -3332,6 +3343,18 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.FatalError", [
 				if (this._retry)
 					this.next(this._retry);
 			});
+			if (this._flashtest && !Info.isMobile() && Info.flash().supported() && !Info.flash().installed()) {
+				this.auto_destroy(new Timer({
+					delay: 500,
+					context: this,
+					fire: function () {
+						if (Info.flash(true).installed())
+							this.next(this._retry);
+					}
+				}));
+				if (Info.isSafari() && Info.safariVersion() >= 10)
+					document.location.href = "//get.adobe.com/flashplayer";
+			}
 		}
 
 	});
@@ -3468,13 +3491,14 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraAccess", [
 				}));
 			}, this);
 			this.listenOn(this.dyn, "error", function (s) {
-				this.next("FatalError", { message: this.dyn.string("attach-error"), retry: "Initial" });
+				this.next("FatalError", { message: this.dyn.string("attach-error"), retry: "Initial", flashtest: true });
 			}, this);
 			this.listenOn(this.dyn, "access_forbidden", function () {
 				this.next("FatalError", { message: this.dyn.string("access-forbidden"), retry: "Initial" });
 			}, this);
 			this.dyn._attachRecorder();
-			this.dyn._bindMedia();
+			if (this.dyn)
+				this.dyn._bindMedia();
 		}
 				
 	});

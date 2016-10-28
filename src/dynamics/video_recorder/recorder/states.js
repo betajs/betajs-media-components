@@ -56,12 +56,14 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.State", [
 
 
 Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.FatalError", [
-	"module:VideoRecorder.Dynamics.RecorderStates.State"
-], function (State, scoped) {
+	"module:VideoRecorder.Dynamics.RecorderStates.State",
+	"browser:Info",
+	"base:Timers.Timer"
+], function (State, Info, Timer, scoped) {
 	return State.extend({scoped: scoped}, {
 		
 		dynamics: ["message"],
-		_locals: ["message", "retry"],
+		_locals: ["message", "retry", "flashtest"],
 
 		_started: function () {
 			this.dyn.set("message", this._message || this.dyn.string("recorder-error"));
@@ -69,6 +71,18 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.FatalError", [
 				if (this._retry)
 					this.next(this._retry);
 			});
+			if (this._flashtest && !Info.isMobile() && Info.flash().supported() && !Info.flash().installed()) {
+				this.auto_destroy(new Timer({
+					delay: 500,
+					context: this,
+					fire: function () {
+						if (Info.flash(true).installed())
+							this.next(this._retry);
+					}
+				}));
+				if (Info.isSafari() && Info.safariVersion() >= 10)
+					document.location.href = "//get.adobe.com/flashplayer";
+			}
 		}
 
 	});
@@ -205,13 +219,14 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraAccess", [
 				}));
 			}, this);
 			this.listenOn(this.dyn, "error", function (s) {
-				this.next("FatalError", { message: this.dyn.string("attach-error"), retry: "Initial" });
+				this.next("FatalError", { message: this.dyn.string("attach-error"), retry: "Initial", flashtest: true });
 			}, this);
 			this.listenOn(this.dyn, "access_forbidden", function () {
 				this.next("FatalError", { message: this.dyn.string("access-forbidden"), retry: "Initial" });
 			}, this);
 			this.dyn._attachRecorder();
-			this.dyn._bindMedia();
+			if (this.dyn)
+				this.dyn._bindMedia();
 		}
 				
 	});

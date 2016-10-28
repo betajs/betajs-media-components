@@ -1,5 +1,5 @@
 /*!
-betajs-media - v0.0.36 - 2016-10-25
+betajs-media - v0.0.37 - 2016-10-28
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -14,7 +14,7 @@ Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
     "guid": "8475efdb-dd7e-402e-9f50-36c76945a692",
-    "version": "69.1477448024638"
+    "version": "70.1477628703998"
 };
 });
 Scoped.assumeVersion('base:version', 502);
@@ -2485,7 +2485,7 @@ Scoped.define("module:Recorder.FlashVideoRecorderWrapper", [
 	}, {
 		
 		supported: function (options) {
-			return !Info.isMobile() && !options.noflash;
+			return !Info.isMobile() && !options.noflash && Info.flash().installed();
 		}
 		
 	});	

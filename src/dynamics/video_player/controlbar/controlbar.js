@@ -141,7 +141,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
     .addStrings({
     	"video-progress": "Video progress",
     	"rerecord-video": "Re-record video?",
-    	"submit-video": "Submit video",
+    	"submit-video": "Confirm video",
     	"play-video": "Play video",
     	"pause-video": "Pause video",
     	"elapsed-time": "Elasped time",

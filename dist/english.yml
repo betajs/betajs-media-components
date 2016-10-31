@@ -1,12 +1,12 @@
 'language:en':
   ba-videoplayer-playbutton.tooltip: Click to play video.
   ba-videoplayer-playbutton.rerecord: Re-record
-  ba-videoplayer-playbutton.submit-video: Submit video
+  ba-videoplayer-playbutton.submit-video: Confirm video
   ba-videoplayer-loader.tooltip: Loading video...
   ba-videoplayer-controlbar.change-resolution: Change resolution
   ba-videoplayer-controlbar.video-progress: Video progress
   ba-videoplayer-controlbar.rerecord-video: Re-record video?
-  ba-videoplayer-controlbar.submit-video: Submit video
+  ba-videoplayer-controlbar.submit-video: Confirm video
   ba-videoplayer-controlbar.play-video: Play video
   ba-videoplayer-controlbar.pause-video: Pause video
   ba-videoplayer-controlbar.elapsed-time: Elasped time

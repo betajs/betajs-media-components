@@ -62,6 +62,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"streams": [],
 				"currentstream": null,
 				"playlist": null,
+				"volume": 1.0,
 				/* Configuration */
 				"forceflash": false,
 				"noflash": false,
@@ -102,7 +103,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"stretch": "boolean",
 				"preroll": "boolean",
 				"hideoninactivity": "boolean",
-				"skipinitial": "boolean"
+				"skipinitial": "boolean",
+				"volume": "float"
 			},
 			
 			extendables: ["states"],
@@ -110,6 +112,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 			remove_on_destroy: true,
 			
 			create: function () {
+				if (Info.isMobile()) {
+					this.set("autoplay", false);
+					this.set("loop", false);
+				}
 				if (this.get("theme") in Assets.playerthemes) {
 					Objs.iter(Assets.playerthemes[this.get("theme")], function (value, key) {
 						if (!this.isArgumentAttr(key))
@@ -133,7 +139,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				this.set("duration", 0.0);
 				this.set("position", 0.0);
 				this.set("buffered", 0.0);
-				this.set("volume", 1.0);
 				this.set("message", "");
 				this.set("fullscreensupport", false);
 				this.set("csssize", "normal");
@@ -266,6 +271,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 					}, this);
 			    	this.trigger("attached", instance);
 					this.player.once("loaded", function () {
+						var volume = Math.min(1.0, this.get("volume"));
+						this.player.setVolume(volume);
+						this.player.setMuted(volume <= 0);
 						this.set("duration", this.player.duration());
 						this.set("fullscreensupport", this.player.supportsFullscreen());
 						this.trigger("loaded");

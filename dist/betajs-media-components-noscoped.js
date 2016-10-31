@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.35 - 2016-10-28
+betajs-media-components - v0.0.36 - 2016-10-31
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -16,7 +16,7 @@ Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "49.1477628971966"
+    "version": "50.1477954913944"
 };
 });
 Scoped.assumeVersion('base:version', 502);
@@ -348,7 +348,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
     .addStrings({
     	"video-progress": "Video progress",
     	"rerecord-video": "Re-record video?",
-    	"submit-video": "Submit video",
+    	"submit-video": "Confirm video",
     	"play-video": "Play video",
     	"pause-video": "Pause video",
     	"elapsed-time": "Elasped time",
@@ -452,7 +452,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Playbutton", [
     .addStrings({
     	"tooltip": "Click to play video.",
     	"rerecord": "Re-record",
-    	"submit-video": "Submit video"    	
+    	"submit-video": "Confirm video"    	
     });
 });
 Scoped.define("module:VideoPlayer.Dynamics.Player", [
@@ -519,6 +519,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"streams": [],
 				"currentstream": null,
 				"playlist": null,
+				"volume": 1.0,
 				/* Configuration */
 				"forceflash": false,
 				"noflash": false,
@@ -559,7 +560,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"stretch": "boolean",
 				"preroll": "boolean",
 				"hideoninactivity": "boolean",
-				"skipinitial": "boolean"
+				"skipinitial": "boolean",
+				"volume": "float"
 			},
 			
 			extendables: ["states"],
@@ -567,6 +569,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 			remove_on_destroy: true,
 			
 			create: function () {
+				if (Info.isMobile()) {
+					this.set("autoplay", false);
+					this.set("loop", false);
+				}
 				if (this.get("theme") in Assets.playerthemes) {
 					Objs.iter(Assets.playerthemes[this.get("theme")], function (value, key) {
 						if (!this.isArgumentAttr(key))
@@ -590,7 +596,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				this.set("duration", 0.0);
 				this.set("position", 0.0);
 				this.set("buffered", 0.0);
-				this.set("volume", 1.0);
 				this.set("message", "");
 				this.set("fullscreensupport", false);
 				this.set("csssize", "normal");
@@ -723,6 +728,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 					}, this);
 			    	this.trigger("attached", instance);
 					this.player.once("loaded", function () {
+						var volume = Math.min(1.0, this.get("volume"));
+						this.player.setVolume(volume);
+						this.player.setMuted(volume <= 0);
 						this.set("duration", this.player.duration());
 						this.set("fullscreensupport", this.player.supportsFullscreen());
 						this.trigger("loaded");
@@ -1944,6 +1952,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 			},
 			
 			_uploadCovershotFile: function (file) {
+				this.__lastCovershotUpload = file;
 				var uploader = FileUploader.create(Objs.extend({ source: file }, this.get("uploadoptions").image));
 				uploader.upload();
 				this._dataUploader.addUploader(uploader);
@@ -2469,6 +2478,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraAccess", [
 		_started: function () {
 			this.dyn.set("settingsvisible", true);
 			this.dyn.set("recordvisible", true);
+			this.dyn.set("rerecordvisible", false);
 			this.dyn.set("stopvisible", false);
 			this.dyn.set("skipvisible", false);
 			this.dyn.set("controlbarlabel", "");
@@ -2510,6 +2520,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraHasAccess", [
 		_started: function () {
 			this.dyn.set("settingsvisible", true);
 			this.dyn.set("recordvisible", true);
+			this.dyn.set("rerecordvisible", false);
 			this.dyn.set("stopvisible", false);
 			this.dyn.set("skipvisible", false);
 			this.dyn.set("controlbarlabel", "");
@@ -2595,6 +2606,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
 			this.dyn._accessing_camera = true;
 			this.dyn.trigger("recording");
 			this.dyn.set("settingsvisible", false);
+			this.dyn.set("rerecordvisible", false);
 			this.dyn.set("recordvisible", false);
 			this.dyn.set("stopvisible", true);
 			this.dyn.set("skipvisible", false);

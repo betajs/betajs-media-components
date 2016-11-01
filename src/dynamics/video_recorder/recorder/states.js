@@ -464,8 +464,6 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
 					this.dyn.set("playertopmessage", this.dyn.get("message"));
 				}
 			});
-			uploader.reset();
-			uploader.upload();
 			if (this.dyn.get("localplayback") && this.dyn.recorder && this.dyn.recorder.supportsLocalPlayback()) {
 				this.dyn.set("playbacksource", this.dyn.recorder.localPlaybackSource());
 				if (this.dyn.__lastCovershotUpload)
@@ -475,6 +473,8 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
 				this.dyn._hideBackgroundSnapshot();
 				this.dyn.set("player_active", true);
 			}
+			uploader.reset();
+			uploader.upload();
 		},
 		
 		rerecord: function () {

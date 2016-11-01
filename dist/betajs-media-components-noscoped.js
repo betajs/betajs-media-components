@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.36 - 2016-10-31
+betajs-media-components - v0.0.36 - 2016-11-01
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -16,7 +16,7 @@ Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "50.1477954913944"
+    "version": "51.1478000617516"
 };
 });
 Scoped.assumeVersion('base:version', 502);
@@ -1483,7 +1483,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
 			
 			destroy: function () {
 				this.get("images").iterate(function (image) {
-					if (image.snapshotDisplay)
+					if (image.snapshotDisplay && this.parent().recorder)
 						this.parent().recorder.removeSnapshotDisplay(image.snapshotDisplay);
 				}, this);
 				inherited.destroy.call(this);
@@ -2740,8 +2740,6 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
 					this.dyn.set("playertopmessage", this.dyn.get("message"));
 				}
 			});
-			uploader.reset();
-			uploader.upload();
 			if (this.dyn.get("localplayback") && this.dyn.recorder && this.dyn.recorder.supportsLocalPlayback()) {
 				this.dyn.set("playbacksource", this.dyn.recorder.localPlaybackSource());
 				if (this.dyn.__lastCovershotUpload)
@@ -2751,6 +2749,8 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
 				this.dyn._hideBackgroundSnapshot();
 				this.dyn.set("player_active", true);
 			}
+			uploader.reset();
+			uploader.upload();
 		},
 		
 		rerecord: function () {

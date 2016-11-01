@@ -58,7 +58,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
 			
 			destroy: function () {
 				this.get("images").iterate(function (image) {
-					if (image.snapshotDisplay)
+					if (image.snapshotDisplay && this.parent().recorder)
 						this.parent().recorder.removeSnapshotDisplay(image.snapshotDisplay);
 				}, this);
 				inherited.destroy.call(this);
@@ -83,6 +83,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
 			},
 			
 			_recomputeImageBox: function (image) {
+				if (!this.parent().recorder)
+					return;
 				var i = image.get("index");
 				var iw = this.get("imagewidth");
 				var ih = this.get("imageheight");

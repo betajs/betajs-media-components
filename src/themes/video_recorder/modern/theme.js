@@ -1,8 +1,6 @@
 Scoped.extend("module:Assets.recorderthemes", [
-    "module:Templates",
-    "browser:Info"
-], function (Templates, Info) {
-	var ie8 = Info.isInternetExplorer() && Info.internetExplorerVersion() <= 8;
+    "module:Templates"
+], function (Templates) {
 	return {
 		"modern": {
 			css: "ba-videorecorder-theme-modern",

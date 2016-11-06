@@ -630,7 +630,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
     	"uploading-failed": "Uploading failed - click here to retry.",
     	"verifying": "Verifying",
     	"verifying-failed": "Verifying failed - click here to retry.",
-    	"rerecord-confirm": "Do you really want to re-record your video?",
+    	"rerecord-confirm": "Do you really want to redo your video?",
     	"video_file_too_large": "Your video file is too large - click here to try again with a smaller video file.",
     	"unsupported_video_type": "Please upload: %s - click here to retry."    		
     });

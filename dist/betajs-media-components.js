@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.36 - 2016-11-01
+betajs-media-components - v0.0.38 - 2016-11-06
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1004,7 +1004,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.36 - 2016-11-01
+betajs-media-components - v0.0.38 - 2016-11-06
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1021,7 +1021,7 @@ Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "51.1478000617516"
+    "version": "52.1478470089468"
 };
 });
 Scoped.assumeVersion('base:version', 502);
@@ -1352,7 +1352,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
     .attachStringTable(Assets.strings)
     .addStrings({
     	"video-progress": "Video progress",
-    	"rerecord-video": "Re-record video?",
+    	"rerecord-video": "Redo video?",
     	"submit-video": "Confirm video",
     	"play-video": "Play video",
     	"pause-video": "Pause video",
@@ -1456,7 +1456,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Playbutton", [
     .attachStringTable(Assets.strings)
     .addStrings({
     	"tooltip": "Click to play video.",
-    	"rerecord": "Re-record",
+    	"rerecord": "Redo",
     	"submit-video": "Confirm video"    	
     });
 });
@@ -2418,8 +2418,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Controlbar", [
     	"microphoneunhealthy": "Cannot pick up any sound",
     	"record": "Record",
     	"record-tooltip": "Click here to record.",
-    	"rerecord": "Re-record",
-    	"rerecord-tooltip": "Click here to re-record.",
+    	"rerecord": "Redo",
+    	"rerecord-tooltip": "Click here to redo.",
     	"upload-covershot": "Upload",
     	"upload-covershot-tooltip": "Click here to upload custom cover shot",
     	"stop": "Stop",
@@ -2513,6 +2513,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
 			},
 			
 			_recomputeImageBox: function (image) {
+				if (!this.parent().recorder)
+					return;
 				var i = image.get("index");
 				var iw = this.get("imagewidth");
 				var ih = this.get("imageheight");
@@ -3274,7 +3276,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
     	"uploading-failed": "Uploading failed - click here to retry.",
     	"verifying": "Verifying",
     	"verifying-failed": "Verifying failed - click here to retry.",
-    	"rerecord-confirm": "Do you really want to re-record your video?",
+    	"rerecord-confirm": "Do you really want to redo your video?",
     	"video_file_too_large": "Your video file is too large - click here to try again with a smaller video file.",
     	"unsupported_video_type": "Please upload: %s - click here to retry."    		
     });
@@ -3653,7 +3655,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
 				this.dyn._showBackgroundSnapshot();
 				this.dyn._unbindMedia();
 				this.dyn.trigger("recording_stopped");
-				if (this.dyn.get("picksnapshots"))
+				if (this.dyn.get("picksnapshots") && this.dyn.snapshots.length >= this.dyn.get("gallerysnapshots"))
 					this.next("CovershotSelection");
 				else
 					this.next("Uploading");

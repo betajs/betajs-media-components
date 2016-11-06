@@ -372,7 +372,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
 				this.dyn._showBackgroundSnapshot();
 				this.dyn._unbindMedia();
 				this.dyn.trigger("recording_stopped");
-				if (this.dyn.get("picksnapshots"))
+				if (this.dyn.get("picksnapshots") && this.dyn.snapshots.length >= this.dyn.get("gallerysnapshots"))
 					this.next("CovershotSelection");
 				else
 					this.next("Uploading");

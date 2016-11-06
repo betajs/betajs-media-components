@@ -1,11 +1,11 @@
 'language:en':
   ba-videoplayer-playbutton.tooltip: Click to play video.
-  ba-videoplayer-playbutton.rerecord: Re-record
+  ba-videoplayer-playbutton.rerecord: Redo
   ba-videoplayer-playbutton.submit-video: Confirm video
   ba-videoplayer-loader.tooltip: Loading video...
   ba-videoplayer-controlbar.change-resolution: Change resolution
   ba-videoplayer-controlbar.video-progress: Video progress
-  ba-videoplayer-controlbar.rerecord-video: Re-record video?
+  ba-videoplayer-controlbar.rerecord-video: Redo video?
   ba-videoplayer-controlbar.submit-video: Confirm video
   ba-videoplayer-controlbar.play-video: Play video
   ba-videoplayer-controlbar.pause-video: Pause video
@@ -25,8 +25,8 @@
   ba-videorecorder-controlbar.microphoneunhealthy: Cannot pick up any sound
   ba-videorecorder-controlbar.record: Record
   ba-videorecorder-controlbar.record-tooltip: Click here to record.
-  ba-videorecorder-controlbar.rerecord: Re-record
-  ba-videorecorder-controlbar.rerecord-tooltip: Click here to re-record.
+  ba-videorecorder-controlbar.rerecord: Redo
+  ba-videorecorder-controlbar.rerecord-tooltip: Click here to redo.
   ba-videorecorder-controlbar.upload-covershot: Upload
   ba-videorecorder-controlbar.upload-covershot-tooltip: Click here to upload custom cover shot
   ba-videorecorder-controlbar.stop: Stop
@@ -43,7 +43,7 @@
   ba-videorecorder.uploading-failed: Uploading failed - click here to retry.
   ba-videorecorder.verifying: Verifying
   ba-videorecorder.verifying-failed: Verifying failed - click here to retry.
-  ba-videorecorder.rerecord-confirm: Do you really want to re-record your video?
+  ba-videorecorder.rerecord-confirm: Do you really want to redo your video?
   ba-videorecorder.video_file_too_large: >-
     Your video file is too large - click here to try again with a smaller video
     file.

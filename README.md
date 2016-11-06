@@ -1,4 +1,4 @@
-# betajs-media-components 0.0.36
+# betajs-media-components 0.0.38
 [![Code Climate](https://codeclimate.com/github/betajs/betajs-media-components/badges/gpa.svg)](https://codeclimate.com/github/betajs/betajs-media-components)
 
 
@@ -110,14 +110,23 @@ You can use the library in the browser and compile it as well.
 | betajs-shims | [Open](https://github.com/betajs/betajs-shims) |
 
 
-## Contributors
+## Main Contributors
 
 - Ziggeo
 - Oliver Friedmann
 
-
 ## License
 
 Apache-2.0
+
+
+
+
+
+
+## Sponsors
+
+- Ziggeo
+- Browserstack
 
 

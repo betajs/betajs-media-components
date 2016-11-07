@@ -202,7 +202,6 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraAccess", [
 		_started: function () {
 			this.dyn.set("settingsvisible", true);
 			this.dyn.set("recordvisible", true);
-			this.dyn.set("rerecordvisible", false);
 			this.dyn.set("stopvisible", false);
 			this.dyn.set("skipvisible", false);
 			this.dyn.set("controlbarlabel", "");
@@ -244,7 +243,6 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraHasAccess", [
 		_started: function () {
 			this.dyn.set("settingsvisible", true);
 			this.dyn.set("recordvisible", true);
-			this.dyn.set("rerecordvisible", false);
 			this.dyn.set("stopvisible", false);
 			this.dyn.set("skipvisible", false);
 			this.dyn.set("controlbarlabel", "");
@@ -330,7 +328,6 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
 			this.dyn._accessing_camera = true;
 			this.dyn.trigger("recording");
 			this.dyn.set("settingsvisible", false);
-			this.dyn.set("rerecordvisible", false);
 			this.dyn.set("recordvisible", false);
 			this.dyn.set("stopvisible", true);
 			this.dyn.set("skipvisible", false);
@@ -464,6 +461,8 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
 					this.dyn.set("playertopmessage", this.dyn.get("message"));
 				}
 			});
+			uploader.reset();
+			uploader.upload();
 			if (this.dyn.get("localplayback") && this.dyn.recorder && this.dyn.recorder.supportsLocalPlayback()) {
 				this.dyn.set("playbacksource", this.dyn.recorder.localPlaybackSource());
 				if (this.dyn.__lastCovershotUpload)
@@ -473,8 +472,6 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
 				this.dyn._hideBackgroundSnapshot();
 				this.dyn.set("player_active", true);
 			}
-			uploader.reset();
-			uploader.upload();
 		},
 		
 		rerecord: function () {

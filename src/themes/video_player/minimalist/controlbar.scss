@@ -1,0 +1,148 @@
+.#{$css}-dashboard {
+    @include absolute-align-full-bottom;
+    @include transition1(opacity, $dashboard_transition, ease-in-out);
+    opacity: 0.9;
+    height: $controlbar_height;
+    overflow: hidden;
+    margin: 0 4%;
+}
+
+.#{$css}-button-container {
+    font-family: $font_family;
+    font-weight: 100;
+    display: inline-block;
+    width: $button_width;
+    color: $button_color;
+}
+
+.#{$css}-controlbar-top-block {
+    height: 100%;
+    .#{$css}-button-container {
+        position: relative;
+        margin: 0 auto;
+        height: 100%;
+        width: 100%;
+        .#{$css}-button-inner {
+            top: 50%;
+            color: $playbutton_color;
+            font-size: $playbutton_size;
+        }
+    }
+}
+
+.#{$css}-right-block {
+    float: right;
+}
+
+.#{$css}-icon-pause {
+    opacity: 0;
+}
+
+.#{$cssnoie8} .#{$css}-button-inner {
+    @include relative-center-center;
+    color: $button_color;
+    font-size: $button_fontsize;
+}
+
+.#{$cssie8} .#{$css}-button-inner {
+    margin-top: $ie8_margintop + 6;
+    text-align: center;
+    color: $button_color;
+    font-size: $button_fontsize;
+    margin-left: 3px;
+}
+
+.#{$css}-controlbar-middle-block {
+    position: relative;
+    bottom: 45px;
+}
+
+.#{$css}-progressbar {
+    height: $progressbar_container_height;
+}
+
+.#{$cssnoie8} .#{$css}-progressbar {
+    overflow: hidden;
+}
+
+.#{$cssie8} .#{$css}-progressbar {
+    overflow: hidden;
+    padding-left: $volume_height*2;
+    padding-right: $volume_height*2;
+    margin-right: $button_width;
+    margin-top: $ie8_margintop;
+}
+
+.#{$css}-progressbar-cache {
+    @include absolute-align-left;
+    @include clickable;
+    background-color: $progressbar_cache_bgcolor;
+    height: $progressbar_height;
+}
+
+.#{$css}-progressbar-inner {
+    @include relative-center-center;
+    @include clickable;
+    background: $controls_bgcolor;
+    height: $progressbar_height;
+}
+
+.#{$css}-progressbar-position {
+    @include absolute-align-left();
+    background-color: $progressbar_button_overflow;
+    height: 100%;
+}
+
+
+.#{$css}-progressbar-button {
+    @include border-radius(50%);
+    background: $progressbar_button_overflow;
+    box-sizing: content-box;
+    border: none;
+    position: absolute;
+    right: -7px;
+    top: $progressbar_height / -2;
+    z-index: 1;
+    width: 8px;
+    height: 8px;
+}
+
+.#{$css}-controlbar-bottom-block{
+    position: relative;
+    bottom: 40px;
+}
+
+.#{$css}-time-container {
+    width: $button_width * 2.2;
+    float: left;
+    color: $text_secondary_color;
+    letter-spacing: .1em;
+    font-size: .8em;
+    & > div {
+       float: left;
+        &:first-child{
+            color: $text_color;
+        }
+    }
+    & > p {
+        float: left;
+        margin: 0 3px;
+    }
+}
+
+.#{$css}-stream-label {
+    margin-top: 15px;
+    font-size: .7em;
+    display: inline-block;
+    padding: 3px;
+    background-color: $stream_label_bg_color;
+    color: $stream_label_color;
+}
+
+.#{css}-size-small  .#{$css}-controlbar-top-block {
+    .#{$css}-button-container {
+        .#{$css}-button-inner {
+            font-size: $playbutton_size / 2;
+        }
+    }
+}

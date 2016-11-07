@@ -313,7 +313,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 			},
 			
 			_uploadCovershotFile: function (file) {
-				this.__lastCovershotUpload = file;
 				var uploader = FileUploader.create(Objs.extend({ source: file }, this.get("uploadoptions").image));
 				uploader.upload();
 				this._dataUploader.addUploader(uploader);

@@ -1,12 +1,12 @@
 'language:en':
   ba-videoplayer-playbutton.tooltip: Click to play video.
   ba-videoplayer-playbutton.rerecord: Re-record
-  ba-videoplayer-playbutton.submit-video: Confirm video
+  ba-videoplayer-playbutton.submit-video: Submit video
   ba-videoplayer-loader.tooltip: Loading video...
   ba-videoplayer-controlbar.change-resolution: Change resolution
   ba-videoplayer-controlbar.video-progress: Video progress
   ba-videoplayer-controlbar.rerecord-video: Re-record video?
-  ba-videoplayer-controlbar.submit-video: Confirm video
+  ba-videoplayer-controlbar.submit-video: Submit video
   ba-videoplayer-controlbar.play-video: Play video
   ba-videoplayer-controlbar.pause-video: Pause video
   ba-videoplayer-controlbar.elapsed-time: Elasped time
@@ -48,3 +48,8 @@
     Your video file is too large - click here to try again with a smaller video
     file.
   ba-videorecorder.unsupported_video_type: 'Please upload: %s - click here to retry.'
+  ba-videoplayer-topmessage.volume-button: Set volume
+  ba-videoplayer-topmessage.fullscreen-video: Enter fullscreen
+  ba-videoplayer-topmessage.volume-mute: Mute sound
+  ba-videoplayer-topmessage.volume-unmute: Unmute sound
+  ba-videoplayer-topmessage.share-media: Share this media

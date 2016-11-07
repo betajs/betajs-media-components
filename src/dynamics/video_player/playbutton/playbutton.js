@@ -41,6 +41,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Playbutton", [
     .addStrings({
     	"tooltip": "Click to play video.",
     	"rerecord": "Re-record",
-    	"submit-video": "Confirm video"    	
+    	"submit-video": "Submit video"    	
     });
 });

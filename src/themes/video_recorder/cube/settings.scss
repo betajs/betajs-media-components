@@ -1,0 +1,7 @@
+.#{$css}-green .#{$css}-settings input[type=radio]:checked + span  {
+	border: 3px solid $button_color_green;
+}
+
+.#{$css}-blue .#{$css}-settings input[type=radio]:checked + span  {
+	border: 3px solid $button_color_blue;
+}

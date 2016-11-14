@@ -1,0 +1,248 @@
+/* Elevate */
+.#{$cssie8} .#{$css}-overlay {
+   top: 85%;
+}
+
+.#{$cssie8} .#{$css}-dashboard {
+   position: relative;
+}
+
+.#{$css}-dashboard {
+    position: absolute;
+    left: 2.5%;
+    bottom: 10px;
+    width: $dashboard_width;
+    opacity: 1;
+    overflow: hidden;
+}
+
+.#{$css}-dashboard-hidden {
+    opacity: 0;
+}
+
+.#{$css}-top-block {
+    padding-top: 15px;
+    width: 100%;
+    clear: both;
+}
+
+.#{$css}-bottom-block {
+    width: 100%;
+    clear: both;
+    background: $controlbar_background;
+    height: $controlbar_bottom_height;
+}
+
+.#{$css}-left-block {
+    float: left;
+    & > div {
+        float: left;
+        line-height: $controlbar_line_height;
+    }
+}
+
+.#{$css}-center-block {
+    float: left;
+    padding: 0 10px;
+}
+
+.#{$css}-right-block{
+    float: right;
+    & > div {
+        float: right;
+        line-height: $controlbar_line_height;
+        text-align: center;
+    }
+
+    & > div:first-child {
+        float: left;
+        border-left: 1px solid $button_border_color;
+        line-height: $controlbar_line_height - 2;
+    }
+
+}
+
+.#{$css}-top-right-block{
+    float: right;
+    .#{$css}-time-value{
+        color: white;
+        text-align: right;
+    }
+}
+
+.#{$css}-button-container {
+    width: $button_width;
+    border-right: 1px solid $button_border_color;
+    text-align: center;
+}
+
+.#{$css}-icon-play, .#{$css}-icon-pause{
+    color: $button_color;
+}
+
+.#{$css}-icon-volume-up, .#{$css}-icon-play, .#{$css}-icon-pause, .#{$css}-icon-resize-full {
+    &:before{
+        font-size: $text_fontsize;
+        margin: 0;
+        line-height: inherit;
+    }
+}
+
+.#{$css}-icon-volume-up {
+    color: $button_color_secondary;
+}
+
+
+.#{$cssnoie8} .#{$css}-button-inner {
+    @include relative-center-center;
+    color: $button_color;
+    font-size: $button_fontsize;
+}
+
+.#{$cssie8} .#{$css}-button-inner {
+    margin-top: $ie8_margintop + 6;
+    color: $button_color;
+    font-size: $button_fontsize;
+    margin-left: 3px;
+}
+
+.#{$css}-time-container {
+    @include float-width-height(left, $time_value_width, 100%);
+    position: relative;
+    top: $progressbar_height;
+    text-align: center;
+    font-family: $text_fontfamily;
+    font-size: $text_fontsize;
+    color: $text_color;
+	box-sizing: content-box;
+    border: none;
+}
+
+.#{$cssie8} .#{$css}-time-container {
+    margin-top: $ie8_margintop + 5;
+}
+
+.#{$css}-time-value {
+    @include relative-center-center;
+    float: left;
+    font-size: $text_fontsize;
+    width: $time_value_width;
+    letter-spacing: 0.1em;
+}
+
+.#{$cssnoie8} .#{$css}-volumebar {
+    @include float-width-height(right, $volume_width, 100%);
+    margin-right: $volume_height*2;
+}
+
+.#{$cssie8} .#{$css}-volumebar {
+    @include float-width-height(right, $volume_width, 50%);
+    margin-top: $ie8_margintop+10;
+    margin-right: $volume_height*2;
+}
+
+.#{$css}-progressbar {
+    overflow: hidden;
+    height: 100%;
+    padding: 10px 5px 5px 0;
+}
+
+.#{$css}-progressbar-inner {
+    @include relative-center-center;
+    @include border-radius($progressbar_height / 4);
+    @include clickable;
+    background: $progressbar_cache_bgcolor;
+    height: $progressbar_height;
+    left: -5px;
+}
+
+.#{$css}-progressbar-cache {
+    @include absolute-align-left;
+    @include border-round-edges($volume_height / 2);
+    @include clickable;
+    background-color: $progressbar_cache_bgcolor;
+    height: $progressbar_height;
+}
+
+.#{$css}-progressbar-position {
+    @include absolute-align-left();
+    background-color: $progressbar_button_overflow;
+    height: 100%;
+}
+
+.#{$css}-progressbar-button {
+    @include border-radius(50%);
+    box-sizing: content-box;
+    display: inline-block;
+    position: absolute;
+    right: -5px;
+    top: $progressbar_height / -2;
+    z-index: 1;
+    background-color: $button-color;
+    border: ($progressbar_height / 2) solid white;
+    height: $progressbar_height;
+    width: $progressbar_height;
+}
+
+.#{$css}-button-text {
+	font-family: sans-serif;
+    font-weight: normal;
+    font-size: 10px;
+}
+
+.#{$css}-size-small .#{$css}-time-container, .#{$css}-size-small .#{$css}-center-block {
+	display: none;
+}
+
+.#{$css}-size-medium .#{$css}-volumebar {
+	display: none;
+}
+
+.#{$css}-size-medium .#{$css}-volume-button-container, .#{$css}-size-small .#{$css}-volume-button-container {
+	display: none;
+}
+
+.#{$css}-size-medium .#{$css}-right-time-container{
+    display: none;
+}
+
+.#{$css}-video-title-block > p {
+    font-size: $text_fontsize;
+    color: $button_color_secondary;
+    margin: 0;
+    line-height: $controlbar_line_height;
+    & > span {
+        font-size: 1em;
+        color: $text_color;
+        font-weight: bold;
+    }
+}
+
+.#{$css}-stream-label-container{
+    .#{$css}-stream-label {
+        background-color: $stream_label_bg_color;
+        color: $stream_label_color;
+        padding: 3px;
+    }
+}
+
+.#{$css}-top-left-block{
+    float: left;
+}
+
+.#{$cssnoie8} .#{$css}-full-screen-btn-inner {
+    text-align: left;
+    padding-left: 4px;
+}
+
+.#{$css}-icon-resize-full{
+    color: $button_color_secondary;
+}
+
+.#{$css}-size-small .#{$css}-volumebar {
+    display: none;
+}
+
+.#{$css}-size-small .#{$css}-dashboard{
+    width: 100%;
+}

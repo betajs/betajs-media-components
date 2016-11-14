@@ -1,5 +1,5 @@
 /*!
-betajs-dynamics - v0.0.69 - 2016-10-17
+betajs-dynamics - v0.0.72 - 2016-11-13
 Copyright (c) Victor Lingenthal,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -13,7 +13,7 @@ Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
     "guid": "d71ebf84-e555-4e9b-b18a-11d74fdcefe2",
-    "version": "270.1476760819985"
+    "version": "275.1479041734269"
 };
 });
 Scoped.assumeVersion('base:version', 531);
@@ -819,15 +819,15 @@ Scoped.define("module:DomObserver", [
     "browser:DomMutation.NodeInsertObserver",
     "module:Registries",
     "module:Dynamic",
-    "jquery:"
-], function (Class, Objs, NodeInsertObserver, Registries, Dynamic, $, scoped) {
+    "browser:Dom"
+], function (Class, Objs, NodeInsertObserver, Registries, Dynamic, Dom, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {
 			
 			constructor: function (options) {
 				inherited.constructor.call(this);
 				options = options || {};
-				this.__root = options.root || document.body;
+				this.__root = Dom.unbox(options.root || document.body);
 				this.__persistent_dynamics = !!options.persistent_dynamics;
 				this.__allowed_dynamics = options.allowed_dynamics ? Objs.objectify(options.allowed_dynamics) : null;
 				this.__forbidden_dynamics = options.forbidden_dynamics ? Objs.objectify(options.forbidden_dynamics) : null;
@@ -838,12 +838,12 @@ Scoped.define("module:DomObserver", [
 							return;
 						if (this.__allowed_dynamics && !this.__allowed_dynamics[key])
 							return;
-						var self = this;
-						$(this.__root).find(key).each(function () {
-							if (this.dynamicshandler)
-								return;
-							self.__nodeInserted(this);
-						});
+						var tags = this.__root.getElementsByTagName(key.toUpperCase());
+						for (var i = 0; i < tags.length; ++i) {
+							var elem = tags[i];
+							if (!elem.dynamicshandler)
+								this.__nodeInserted(elem);
+						}
 					}, this);
 				}
 				this.__observer = NodeInsertObserver.create({
@@ -916,17 +916,19 @@ Scoped.define("module:Exceptions.DynamicsCallException", [
 });
 
 Scoped.define("module:Dynamic", [
-   	    "module:Data.Scope",
-   	    "module:Handlers.HandlerMixin",
-   	    "module:Exceptions.DynamicsCallException",
-   	    "base:Objs",
-   	    "base:Strings",
-   	    "base:Types",
-   	    "base:Functions",
-   	    "base:Events.Events",
-   	    "module:Registries",
-   	    "jquery:"
-   	], function (Scope, HandlerMixin, DynamicsCallException, Objs, Strings, Types, Functions, Events, Registries, $, scoped) {
+    "module:Data.Scope",
+    "module:Handlers.HandlerMixin",
+    "module:Exceptions.DynamicsCallException",
+    "base:Objs",
+    "base:Strings",
+    "base:Types",
+    "base:Functions",
+    "base:Events.Events",
+    "module:Registries",
+    "browser:Dom",
+    "browser:Events",
+    "jquery:"
+], function (Scope, HandlerMixin, DynamicsCallException, Objs, Strings, Types, Functions, Events, Registries, Dom, DomEvents, $, scoped) {
 	var Cls;
 	Cls = Scope.extend({scoped: scoped}, [HandlerMixin, function (inherited) {
    		return {
@@ -975,9 +977,9 @@ Scoped.define("module:Dynamic", [
 				this.functions = this.__functions;
 				this._handlerInitialize(options);
 				this.__createActivate = options.create || function () {};
-				this.__registered_dom_events = [];
 				this.dom_events = {};
 				this.window_events = {};
+				this.__domEvents = new DomEvents();
 			},
 			
 			handle_call_exception: function (name, args, e) {
@@ -986,19 +988,20 @@ Scoped.define("module:Dynamic", [
 			},
 			
 			_afterActivate: function (activeElement) {
-				this.activeElement().off("." + this.cid() + "-domevents");
-				$(window).off("." + this.cid() + "-windowevents");
+				this.__domEvents.clear();
 				var self = this;
 				Objs.iter(this.domevents, function (target, event) {
 					var ev = event.split(" ");
 					var source = ev.length === 1 ? this.activeElement() : this.activeElement().find(ev[1]);
-					this.__registered_dom_events.push(source);
-					source.on(ev[0] + "." + this.cid() + "-domevents", function (eventData) {
+					var f = function (eventData) {
 						self.execute(target, eventData, $(this));
-					});
+					};
+					for (var i = 0; i < source.length; ++i) {
+						this.__domEvents.on(source.get(i), ev[0], f);
+					}
 				}, this);
 				Objs.iter(this.windowevents, function (target, event) {
-					$(window).on(event + "." + this.cid() + "-windowevents", function (eventData) {
+					this.__domEvents.on(window, event, function (eventData) {
 						self.execute(target, eventData, $(this));
 					});
 				}, this);
@@ -1013,10 +1016,7 @@ Scoped.define("module:Dynamic", [
 					if (obj && obj.weakDestroy)
 						obj.weakDestroy();
 				}, this);
-				Objs.iter(this.__registered_dom_events, function (source) {
-					source.off("." + this.cid() + "-domevents");
-				}, this);
-				$(window).off("." + this.cid() + "-windowevents");
+				this.__domEvents.destroy();
 				inherited.destroy.call(this);
 			}
 				
@@ -1038,7 +1038,10 @@ Scoped.define("module:Dynamic", [
 		},
 		
 		findByElement: function (element) {
-			return $(element).get(0).dynamicshandler;
+			if (!element)
+				return null;
+			element = Dom.unbox(element);
+			return element && element.dynamicshandler ? element.dynamicshandler : null; 
 		},
 		
 		register: function (key, registry) {
@@ -1082,7 +1085,22 @@ Scoped.define("module:Dynamic", [
 				return Objs.extend(Objs.clone(base, 1), overwrite);
 			},
 			attrs: function (base, overwrite) {
-				return Objs.extend(Objs.clone(base, 1), overwrite);
+				if (Types.is_function(base))
+					if (Types.is_function(overwrite)) {
+						return function () {
+							return Objs.extend(base(), overwrite());
+						};
+					} else {
+						return function () {
+							return Objs.extend(base(), overwrite);
+						};
+					}
+				else if (Types.is_function(overwrite)) {
+					return function () {
+						return Objs.extend(Objs.clone(base, 1), overwrite());
+					};
+				} else
+					return Objs.extend(Objs.clone(base, 1), overwrite);
 			},
 			dispose: function (first, second) {
 				return (first || []).concat(second || []);
@@ -1107,17 +1125,18 @@ Scoped.define("module:Exceptions.TagHandlerException", [
 });
 
 Scoped.define("module:Handlers.Attr", [
-	    "base:Class",
-	    "module:Exceptions.TagHandlerException",
-	    "module:Parser",
-	    "jquery:",
-	    "base:Types",
-	    "base:Objs",
-	    "base:Strings",
-	    "base:Async",
-	    "module:Registries",
-	    "browser:Dom"
-	], function (Class, TagHandlerException, Parser, $, Types, Objs, Strings, Async, Registries, Dom, scoped) {
+    "base:Class",
+    "module:Exceptions.TagHandlerException",
+    "module:Parser",
+    "jquery:",
+    "base:Types",
+    "base:Objs",
+    "base:Strings",
+    "base:Async",
+    "module:Registries",
+    "browser:Dom",
+    "browser:Events"
+], function (Class, TagHandlerException, Parser, $, Types, Objs, Strings, Async, Registries, Dom, Events, scoped) {
 	var Cls;
 	Cls = Class.extend({scoped: scoped}, function (inherited) {
 		return {
@@ -1163,6 +1182,12 @@ Scoped.define("module:Handlers.Attr", [
 				return el[valueKey];
 			},
 			
+			_events: function () {
+				if (!this.__events) 
+					this.__events = this.auto_destroy(new Events());
+				return this.__events;
+			},
+			
 			updateElement: function (element, attribute) {
 				this._element = element;
 				this._$element = $(element);
@@ -1180,23 +1205,22 @@ Scoped.define("module:Handlers.Attr", [
 						this._attribute.value = "";
 				}
 				if (this._dyn) {
-					var self = this;
 					if (this._dyn.bidirectional && this._attrName == "value") {
-						this._$element.on("change keyup keypress keydown blur focus update input", function () {
-							self._node.mesh().write(self._dyn.variable, self.__inputVal(self._element));
-						});
+						this._events().on(this._element, "change keyup keypress keydown blur focus update input", function () {
+							this._node.mesh().write(this._dyn.variable, this.__inputVal(this._element));
+						}, this);
 					}
 					if (this._isEvent) {
 						this._attribute.value = '';
-						this._$element.on(this._attrName.substring(2), function () {
+						this._events().on(this._element, this._attrName.substring(2), function () {
 							// Ensures the domEvent does not continue to
 							// overshadow another variable after the __executeDyn call ends.
-							var oldDomEvent = self._node._locals.domEvent;
-							self._node._locals.domEvent = arguments;
-							self._node.__executeDyn(self._dyn);
-							if (self._node && self._node._locals)
-								self._node._locals.domEvent = oldDomEvent;
-						});
+							var oldDomEvent = this._node._locals.domEvent;
+							this._node._locals.domEvent = arguments;
+							this._node.__executeDyn(this._dyn);
+							if (this._node && this._node._locals)
+								this._node._locals.domEvent = oldDomEvent;
+						}, this);
 					}
 				}
 			},
@@ -1324,10 +1348,10 @@ Scoped.define("module:Handlers.HandlerMixin", [
 	
 		__handlerDestruct: function () {
 			Objs.iter(this.__rootNodes, function (node) {
-				var $element = node.$element();
+				var element = node.element();
 				node.destroy();
 				if (this.remove_on_destroy)
-					$element.html("");
+					element.innerHTML = "";
 			}, this);
 		},
 		
@@ -1366,26 +1390,6 @@ Scoped.define("module:Handlers.HandlerMixin", [
 				}, this);
 			}
 			this.__activeElement.get(0).dynamicshandler = this;
-			
-			/*
-			if (this.template)
-				this._handlerInitializeTemplate(this.template, this._parentElement);
-			else {
-				if (this.templateUrl) {
-					this.__deferActivate = true;
-					if (this.__element)
-						this.__element.html("");
-					else if (this._parentElement)
-						$(this._parentElement).html("");
-					Loader.loadHtml(this.templateUrl, function (template) {
-						this.__deferActivate = false;
-						this._handlerInitializeTemplate(template, this._parentElement);
-						if (this.__deferedActivate)
-							this.activate();
-					}, this);
-				}
-			}
-			*/
 		},
 		
 		_handlerInitializeTemplate: function (template, parentElement) {
@@ -1693,7 +1697,7 @@ Scoped.define("module:Handlers.Node", [
 				this._tagHandler = null;
 				
 				this._$element = $(element);
-				this._template = Dom.outerHTML(element);
+				this._template = element.outerHTML;
 				this._innerTemplate = element.innerHTML;
 				this._locals = locals || {};
 				this._active = true;
@@ -1808,9 +1812,9 @@ Scoped.define("module:Handlers.Node", [
 				var tagv = this.__tagValue();
 				if (!tagv)
 					return;
-				if (this._dynTag && this._$element.get(0).tagName.toLowerCase() != tagv.toLowerCase()) {
-					this._$element = $(Dom.changeTag(this._$element.get(0), tagv));
-					this._element = this._$element.get(0);
+				if (this._dynTag && this._element.tagName.toLowerCase() != tagv.toLowerCase()) {
+					this._element = Dom.changeTag(this._element, tagv);
+					this._$element = $(this._element);
 					Objs.iter(this._attrs, function (attr) {
 						attr.updateElement(this._element);
 					}, this);
@@ -1818,9 +1822,9 @@ Scoped.define("module:Handlers.Node", [
 				if (!Registries.handler.get(tagv))
 					return false;
 				if (Info.isInternetExplorer() && Info.internetExplorerVersion() < 9) {
-					var isActiveElement = this._$element.get(0) === this._handler.activeElement().get(0);
-					this._$element = $(Dom.changeTag(this._$element.get(0), tagv));
-					this._element = this._$element.get(0);
+					var isActiveElement = this._element === this._handler.activeElement().get(0);
+					this._element = Dom.changeTag(this._element, tagv);
+					this._$element = $(this._element);
 					Objs.iter(this._attrs, function (attr) {
 						attr.updateElement(this._element);
 					}, this);
@@ -1828,7 +1832,7 @@ Scoped.define("module:Handlers.Node", [
 						this._handler._updateActiveElement(this._$element);
 				}
 				var createArguments = {
-					parentElement: this._$element.get(0),
+					parentElement: this._element,
 					parentHandler: this._handler,
 					autobind: false,
 					cacheable: false,
@@ -1843,7 +1847,6 @@ Scoped.define("module:Handlers.Node", [
 					this._tagHandler = Registries.handlerCache.resume(tagv, this._$element, this._handler);
 				if (!this._tagHandler)
 					this._tagHandler = Registries.handler.create(tagv, createArguments);
-				//this._$element.append(this._tagHandler.element());
 				Objs.iter(this._attrs, function (attr) {
 					attr.bindTagHandler(this._tagHandler);
 				}, this);
@@ -1864,7 +1867,7 @@ Scoped.define("module:Handlers.Node", [
 				var registered = this.__registerTagHandler();
 		        if (!registered && this._expandChildren) {
 		        	if (this._restoreInnerTemplate)
-		        		this._$element.html(this._innerTemplate);
+		        		this._element.innerHTML = this._innerTemplate;
 		        	this._touchedInner = true;
 		        	if (this._element.nodeType == 3) {
 		        		this._dyn = Parser.parseText(this._$element.text());
@@ -1879,7 +1882,6 @@ Scoped.define("module:Handlers.Node", [
 						if (!this._element.childNodes[i]["ba-handled"])
 							this._registerChild(this._element.childNodes[i]);
 				}
-				// this._$element.css("display", "");
 				Objs.iter(this._attrs, function (attr) {
 					attr.activate();
 				});
@@ -1932,7 +1934,7 @@ Scoped.define("module:Handlers.Node", [
 					this._dyn = null;
 				}
 				if (this._touchedInner)
-					this._$element.html("");
+					this._element.innerHTML = "";
 				this._restoreInnerTemplate = true;
 				this._locked = false;
 			},	
@@ -2136,7 +2138,10 @@ Scoped.define("module:Partials.ClassPartial", ["module:Handlers.Partial"], funct
 	return Cls;
 });
 
-Scoped.define("module:Partials.ClickPartial", ["module:Handlers.Partial"], function (Partial, scoped) {
+Scoped.define("module:Partials.ClickPartial", [
+	"module:Handlers.Partial",
+	"browser:Events"
+], function (Partial, Events, scoped) {
   /**
    * @name ba-click
    *
@@ -2163,11 +2168,11 @@ Scoped.define("module:Partials.ClickPartial", ["module:Handlers.Partial"], funct
 			
  			constructor: function (node, args, value) {
  				inherited.constructor.apply(this, arguments);
- 				var self = this;
- 				this._node._$element.on("click", function (e) {
+ 				var events = this.auto_destroy(new Events());
+ 				events.on(this._node.element(), "click", function (e) {
  					e.stopPropagation();
- 					self._execute();
- 				});
+ 					this._execute();
+ 				}, this);
  			}
  		
  		};
@@ -2324,7 +2329,7 @@ Scoped.define("module:Partials.InnerTemplatePartial",
 
 			constructor: function (node, args, value) {
 				inherited.constructor.apply(this, arguments);
-				node._$element.html(value);
+				node._element.innerHTML = value;
 			}
 
  		};
@@ -2355,7 +2360,10 @@ Scoped.define("module:Partials.NoScopePartial", ["module:Handlers.Partial"], fun
 });
 
 
-Scoped.define("module:Partials.OnPartial", ["module:Handlers.Partial"], function (Partial, Strings, scoped) {
+Scoped.define("module:Partials.OnPartial", [
+	"module:Handlers.Partial",
+	"browser:Events"
+], function (Partial, Events, scoped) {
   /**
    * @name ba-on
    *
@@ -2380,15 +2388,10 @@ Scoped.define("module:Partials.OnPartial", ["module:Handlers.Partial"], function
 			
  			constructor: function (node, args, value, postfix) {
  				inherited.constructor.apply(this, arguments);
- 				var self = this;
- 				this._node._$element.on(postfix + "." + this.cid(), function () {
- 					self._execute(value.trim());
- 				});
- 			},
- 			
- 			destroy: function () {
- 				this._node._$element.off(this._postfix + "." + this.cid());
- 				inherited.destroy.call(this);
+ 				var events = this.auto_destroy(new Events());
+ 				events.on(this._node._element, postfix.trim(), function () {
+ 					this._execute(value.trim());
+ 				}, this);
  			}
  		
  		};
@@ -2397,26 +2400,24 @@ Scoped.define("module:Partials.OnPartial", ["module:Handlers.Partial"], function
 	return Cls;
 });
 
-Scoped.define("module:Partials.RadioGroupPartial", ["module:Handlers.Partial"], function (Partial, scoped) {
+Scoped.define("module:Partials.RadioGroupPartial", [
+	"module:Handlers.Partial",
+	"browser:Events"
+], function (Partial, Events, scoped) {
  	var Cls = Partial.extend({scoped: scoped}, function (inherited) {
  		return {
 			
  			constructor: function (node, args, value) {
  				inherited.constructor.apply(this, arguments);
- 				var self = this;
+ 				var events = this.auto_destroy(new Events());
  				value = value.trim();
- 				this._node._$element.prop("checked", self._node._$element.val() === this._node.properties().get(value));
- 				this._node._$element.on("change." + this.cid(), function () {
- 					self._node.properties().set(value, self._node._$element.val());
- 				});
- 				self._node.properties().on("change:" + value, function () {
- 					this._node._$element.prop("checked", self._node._$element.val() === this._node.properties().get(value)); 					
+ 				this._node._$element.prop("checked", this._node._$element.val() === this._node.properties().get(value));
+ 				events.on(this._node.element(), "change", function () {
+ 					this._node.properties().set(value, this._node._$element.val());
  				}, this);
- 			},
- 			
- 			destroy: function () {
- 				this._node._$element.off("change." + this.cid());
- 				inherited.destroy.call(this);
+ 				this._node.properties().on("change:" + value, function () {
+ 					this._node._$element.prop("checked", this._node._$element.val() === this._node.properties().get(value)); 					
+ 				}, this);
  			}
  		
  		};
@@ -2480,11 +2481,11 @@ Scoped.define("module:Partials.RepeatElementPartial", [
 			
  			constructor: function (node, args, value) {
  				inherited.constructor.apply(this, arguments);
- 				this.__filteredTemplate = Dom.outerHTML($(node._template).removeAttr("ba-repeat-element").get(0));
+ 				this.__filteredTemplate = $(node._template).removeAttr("ba-repeat-element").get(0).outerHTML;
  			},
  			
  			_activate: function () {
- 				this._node._$element.hide();
+ 				this._node.element().style.display = "none";
  				inherited._activate.call(this);
  			},
  			
@@ -2557,7 +2558,9 @@ Scoped.define("module:Partials.RepeatPartial", [
  					}, this.__repeatFilter);
  				}
  				node._expandChildren = false;
- 				node._$element.html("");
+ 				try {
+ 					node._element.innerHTML = "";
+ 				} catch (e) {}
  			},
 
  			destroy: function () {
@@ -2634,9 +2637,9 @@ Scoped.define("module:Partials.RepeatPartial", [
  				if (!this._collection)
  					return;
  				this._iterateCollection(this.__removeItem);
- 				var $element = this._node._$element;
+ 				var element = this._node._element;
  				this._node._removeChildren();
- 				$element.html("");
+ 				element.innerHTML = "";
  				this._collection.off(null, null, this);
  				this._valueCollection.off(null, null, this);
  				if (this._destroyCollection)
@@ -2726,7 +2729,10 @@ Scoped.define("module:Partials.RepeatPartial", [
 	return Cls;
 });
 
-Scoped.define("module:Partials.ReturnPartial", ["module:Handlers.Partial"], function (Partial, scoped) {
+Scoped.define("module:Partials.ReturnPartial", [
+	"module:Handlers.Partial",
+	"browser:Events"
+], function (Partial, Events, scoped) {
   /**
    * @name ba-return
    *
@@ -2746,11 +2752,11 @@ Scoped.define("module:Partials.ReturnPartial", ["module:Handlers.Partial"], func
 			
  			constructor: function (node, args, value) {
  				inherited.constructor.apply(this, arguments);
- 				var self = this;
- 				this._node._$element.on("keypress", function (event) {
- 					if (event.which === 13)
- 						self._execute();
- 				});        
+ 				var events = this.auto_destroy(new Events());
+ 				events.on(this._node._element, "keypress", function (e) {
+ 					if (e.which === 13)
+ 						this._execute();
+ 				}, this);
  			}
  		
  		};
@@ -2808,17 +2814,17 @@ Scoped.define("module:Partials.ShowPartial", ["module:Handlers.Partial"], functi
  					return;
  				this.__hidden = true;
  				if (!this.__readOldDisplay) {
- 					this.__oldDisplay = this._node._$element.get(0).style.display;
+ 					this.__oldDisplay = this._node._element.style.display;
  					this.__readOldDisplay = true;
  				}
- 				this._node._$element.get(0).style.display = "none";
+ 				this._node._element.style.display = "none";
  			},
  			
  			__show: function () {
  				if (!this.__hidden)
  					return;
  				this.__hidden = false;
- 				this._node._$element.get(0).style.display = this.__oldDisplay && this.__oldDisplay !== 'none' ? this.__oldDisplay : "";
+ 				this._node._element.style.display = this.__oldDisplay && this.__oldDisplay !== 'none' ? this.__oldDisplay : "";
  			},
  			
  			_apply: function (value) {
@@ -2839,7 +2845,7 @@ Scoped.define("module:Partials.StylesPartial", ["module:Handlers.Partial"], func
 		
 		_apply: function (value) {
 			for (var key in value)
-				this._node._$element.css(key, value[key]);
+				this._node._element.style[key] = value[key];
 		}
 
  	});
@@ -2848,7 +2854,11 @@ Scoped.define("module:Partials.StylesPartial", ["module:Handlers.Partial"], func
 });
 
 
-Scoped.define("module:Partials.TapPartial", ["module:Handlers.Partial", "browser:Info"], function (Partial, Info, scoped) {
+Scoped.define("module:Partials.TapPartial", [
+	"module:Handlers.Partial",
+	"browser:Info",
+	"browser:Events"
+], function (Partial, Info, Events, scoped) {
   /**
    * @name ba-tap
    *
@@ -2867,11 +2877,11 @@ Scoped.define("module:Partials.TapPartial", ["module:Handlers.Partial", "browser
 			
  			constructor: function (node, args, value) {
  				inherited.constructor.apply(this, arguments);
- 				var self = this;
- 				this._node._$element.on(Info.isMobile() ? "touchstart" : "click", function (e) {
+ 				var events = this.auto_destroy(new Events());
+ 				events.on(this._node._element, Info.isMobile() ? "touchstart" : "click", function (e) {
  					e.stopPropagation();
- 					self._execute();
- 				});
+ 					this._execute();
+ 				}, this);
  			}
  		
  		};
@@ -2924,9 +2934,9 @@ Scoped.define("module:Partials.TemplateUrlPartial",
 			constructor: function (node, args, value) {
 				inherited.constructor.apply(this, arguments);
 				node._expandChildren = false;
-				node._$element.html("");
+				node._element.innerHTML = "";
 				Loader.loadHtml(value, function (template) {
-					node._$element.html(template);
+					node._element.innerHTML = template;
 					node._$element.children().each(function () {
 	 					node._registerChild(this);
 	 				});

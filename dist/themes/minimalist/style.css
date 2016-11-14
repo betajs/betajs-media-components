@@ -1,0 +1,1686 @@
+/*!
+betajs-media-components - v0.0.39 - 2016-11-13
+Copyright (c) Ziggeo,Oliver Friedmann
+Apache-2.0 Software License.
+*/
+.ba-videoplayer-minimalist-theme-icon-play:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e800'; }
+
+.ba-videoplayer-minimalist-theme-icon-pause:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e801'; }
+
+.ba-videoplayer-minimalist-theme-icon-volume-off:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e802'; }
+
+.ba-videoplayer-minimalist-theme-icon-volume-down:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e803'; }
+
+.ba-videoplayer-minimalist-theme-icon-volume-up:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e804'; }
+
+.ba-videoplayer-minimalist-theme-icon-resize-full:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e805'; }
+
+.ba-videoplayer-minimalist-theme-icon-videocam:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e806'; }
+
+.ba-videoplayer-minimalist-theme-icon-ccw:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e807'; }
+
+.ba-videoplayer-minimalist-theme-icon-upload:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e808'; }
+
+.ba-videoplayer-minimalist-theme-icon-left-open:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e809'; }
+
+.ba-videoplayer-minimalist-theme-icon-right-open:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e80a'; }
+
+.ba-videoplayer-minimalist-theme-icon-cog:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e80b'; }
+
+.ba-videoplayer-minimalist-theme-icon-mic:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e80c'; }
+
+.ba-videoplayer-minimalist-theme-icon-mute:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e80d'; }
+
+.ba-videoplayer-minimalist-theme-icon-lightbulb:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e80e'; }
+
+.ba-videoplayer-minimalist-theme-icon-full-screen:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f131'; }
+
+.ba-videoplayer-minimalist-theme-icon-share:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f130'; }
+
+.ba-videoplayer-minimalist-theme-container {
+  display: inline-block;
+  position: relative; }
+
+.ba-videoplayer-minimalist-theme-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0; }
+
+.ba-videoplayer-minimalist-theme-video {
+  width: 100%;
+  display: block; }
+
+.ba-videoplayer-minimalist-theme-container video::-webkit-media-controls-start-playback-button {
+  display: none;
+  -webkit-appearance: none;
+  -moz-appearance: none; }
+
+.ba-videoplayer-minimalist-theme-stretch-height .ba-videoplayer-minimalist-theme-container, .ba-videoplayer-minimalist-theme-stretch-width .ba-videoplayer-minimalist-theme-container {
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%; }
+
+.ba-videoplayer-minimalist-theme-stretch-height .ba-videoplayer-minimalist-theme-video {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  min-width: 100%; }
+
+.ba-videoplayer-minimalist-theme-stretch-width .ba-videoplayer-minimalist-theme-video {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  max-height: 100%;
+  height: 100%;
+  width: 10000px; }
+
+.ba-videoplayer-minimalist-theme-stretch-width, .ba-videoplayer-minimalist-theme-stretch-height {
+  display: inline-block;
+  height: 100%;
+  width: 100%; }
+
+.ba-videoplayer-minimalist-theme-loader-container {
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%; }
+
+.ba-videoplayer-minimalist-theme-loader-loader:before {
+  content: "";
+  display: block;
+  padding-top: 100%;
+  /* initial ratio of 1:1*/ }
+
+.ba-videoplayer-minimalist-theme-loader-loader {
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  position: relative;
+  width: 100%;
+  font-size: 5px;
+  box-sizing: content-box;
+  border-top: 0.6em solid #999;
+  border-top: 0.6em solid rgba(255, 255, 255, 0.2);
+  border-right: 0.6em solid #999;
+  border-right: 0.6em solid rgba(255, 255, 255, 0.2);
+  border-bottom: 0.6em solid #999;
+  border-bottom: 0.6em solid rgba(255, 255, 255, 0.2);
+  border-left: 0.6em solid #ffffff;
+  -webkit-animation: ba-videoplayer-minimalist-theme-loader-load8 1.1s infinite linear;
+  -moz-animation: ba-videoplayer-minimalist-theme-loader-load8 1.1s infinite linear;
+  animation: ba-videoplayer-minimalist-theme-loader-load8 1.1s infinite linear; }
+
+.ba-videoplayer-minimalist-theme-loader-loader, .ba-videoplayer-minimalist-theme-loader-loader:after {
+  border-radius: 50%;
+  width: 10em;
+  height: 10em; }
+
+@-webkit-keyframes ba-videoplayer-minimalist-theme-loader-load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+@keyframes ba-videoplayer-minimalist-theme-loader-load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+.ba-videoplayer-minimalist-theme-topmessage-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0; }
+
+.ba-videoplayer-minimalist-theme-topmessage-message {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  color: #ffffff;
+  padding: 17.5px;
+  text-align: center; }
+
+.ba-videoplayer-minimalist-theme-topmessage-background {
+  background: black;
+  opacity: 0.3;
+  width: 100%;
+  height: 50px;
+  position: absolute; }
+
+.ba-videoplayer-minimalist-theme-dashboard {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out;
+  opacity: 0.9;
+  height: 100%;
+  overflow: hidden;
+  margin: 0 4%; }
+
+.ba-videoplayer-minimalist-theme-button-container {
+  font-family: Arial, sans-serif;
+  font-weight: 100;
+  display: inline-block;
+  width: 40px;
+  color: #ffffff; }
+
+.ba-videoplayer-minimalist-theme-controlbar-top-block {
+  height: 100%; }
+  .ba-videoplayer-minimalist-theme-controlbar-top-block .ba-videoplayer-minimalist-theme-button-container {
+    position: relative;
+    margin: 0 auto;
+    height: 100%;
+    width: 100%; }
+    .ba-videoplayer-minimalist-theme-controlbar-top-block .ba-videoplayer-minimalist-theme-button-container .ba-videoplayer-minimalist-theme-button-inner {
+      top: 50%;
+      color: rgba(255, 255, 255, 0.35);
+      font-size: 4em; }
+
+.ba-videoplayer-minimalist-theme-right-block {
+  float: right; }
+
+.ba-videoplayer-minimalist-theme-icon-pause {
+  opacity: 0; }
+
+.ba-videoplayer-noie8 .ba-videoplayer-minimalist-theme-button-inner {
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  top: 50%;
+  position: relative;
+  text-align: center;
+  color: #ffffff;
+  font-size: 13px; }
+
+.ba-videoplayer-ie8 .ba-videoplayer-minimalist-theme-button-inner {
+  margin-top: 12px;
+  text-align: center;
+  color: #ffffff;
+  font-size: 13px;
+  margin-left: 3px; }
+
+.ba-videoplayer-minimalist-theme-controlbar-middle-block {
+  position: relative;
+  bottom: 45px; }
+
+.ba-videoplayer-minimalist-theme-progressbar {
+  height: 15px; }
+
+.ba-videoplayer-noie8 .ba-videoplayer-minimalist-theme-progressbar {
+  overflow: hidden; }
+
+.ba-videoplayer-ie8 .ba-videoplayer-minimalist-theme-progressbar {
+  overflow: hidden;
+  padding-left: 12px;
+  padding-right: 12px;
+  margin-right: 40px;
+  margin-top: 6px; }
+
+.ba-videoplayer-minimalist-theme-progressbar-cache {
+  position: absolute;
+  left: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  background-color: rgba(255, 255, 255, 0.3);
+  height: 4px; }
+
+.ba-videoplayer-minimalist-theme-progressbar-inner {
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  top: 50%;
+  position: relative;
+  text-align: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  background: rgba(255, 255, 255, 0.2);
+  height: 4px; }
+
+.ba-videoplayer-minimalist-theme-progressbar-position {
+  position: absolute;
+  left: 0;
+  background-color: #5daa96;
+  height: 100%; }
+
+.ba-videoplayer-minimalist-theme-progressbar-button {
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  background: #5daa96;
+  box-sizing: content-box;
+  border: none;
+  position: absolute;
+  right: -7px;
+  top: -2px;
+  z-index: 1;
+  width: 8px;
+  height: 8px; }
+
+.ba-videoplayer-minimalist-theme-controlbar-bottom-block {
+  position: relative;
+  bottom: 40px; }
+
+.ba-videoplayer-minimalist-theme-time-container {
+  width: 88px;
+  float: left;
+  color: rgba(250, 254, 255, 0.35);
+  letter-spacing: .1em;
+  font-size: .8em; }
+  .ba-videoplayer-minimalist-theme-time-container > div {
+    float: left; }
+    .ba-videoplayer-minimalist-theme-time-container > div:first-child {
+      color: #ffffff; }
+  .ba-videoplayer-minimalist-theme-time-container > p {
+    float: left;
+    margin: 0 3px; }
+
+.ba-videoplayer-minimalist-theme-stream-label {
+  margin-top: 15px;
+  font-size: .7em;
+  display: inline-block;
+  padding: 3px;
+  background-color: #676f76;
+  color: white; }
+
+.css-size-small .ba-videoplayer-minimalist-theme-controlbar-top-block .ba-videoplayer-minimalist-theme-button-container .ba-videoplayer-minimalist-theme-button-inner {
+  font-size: 2em; }
+
+/* Full screen options */
+:-webkit-full-screen {
+  display: none; }
+
+:-moz-full-screen::backdrop {
+  display: none; }
+
+:-ms-fullscreen::-ms-backdrop {
+  display: none; }
+
+:fullscreen::backdrop {
+  display: none; }
+
+:-webkit-full-screen::backdrop {
+  background-color: #006; }
+
+:-moz-full-screen::backdrop {
+  background-color: #006; }
+
+:-ms-fullscreen::-ms-backdrop {
+  background-color: #006; }
+
+:fullscreen::backdrop {
+  background-color: #006; }
+
+.ba-videoplayer-noie8 .ba-videoplayer-minimalist-theme-topmessage-message .css-rightbutton-container {
+  width: 21px; }
+
+.ba-videoplayer-minimalist-theme-topmessage-background {
+  background: transparent;
+  position: relative;
+  height: 40px; }
+
+.ba-videoplayer-minimalist-theme-topmessage-message {
+  line-height: 25px;
+  padding: 0;
+  text-align: left;
+  font-size: 0.65rem;
+  letter-spacing: .05rem;
+  font-weight: 100; }
+
+.ba-videoplayer-minimalist-theme-topmessage-background {
+  background: none; }
+
+.ba-videoplayer-minimalist-theme-topmessage-message {
+  margin: 0 2.5%; }
+  .ba-videoplayer-minimalist-theme-topmessage-message .ba-videoplayer-minimalist-theme-right-block {
+    height: 50px;
+    line-height: 50px; }
+
+.ba-videoplayer-minimalist-theme-title {
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  top: 30px; }
+
+.ba-videoplayer-noie8 .ba-videoplayer-minimalist-theme-topmessage-message .ba-videoplayer-minimalist-theme-button-inner {
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  -o-transform: translateY(0);
+  -ms-transform: translateY(0);
+  transform: translateY(0); }
+
+.ba-videoplayer-noie8 .ba-videoplayer-minimalist-theme-topmessage-container .ba-videoplayer-minimalist-theme-rightbutton-container {
+  width: 25px; }
+
+.ba-videoplayer-minimalist-theme-topmessage-message .ba-videoplayer-minimalist-theme-button-container {
+  width: 20px; }
+
+.ba-videorecorder-theme-space-icon-play:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e800'; }
+
+.ba-videorecorder-theme-space-icon-pause:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e801'; }
+
+.ba-videorecorder-theme-space-icon-volume-off:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e802'; }
+
+.ba-videorecorder-theme-space-icon-volume-down:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e803'; }
+
+.ba-videorecorder-theme-space-icon-volume-up:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e804'; }
+
+.ba-videorecorder-theme-space-icon-resize-full:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e805'; }
+
+.ba-videorecorder-theme-space-icon-videocam:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e806'; }
+
+.ba-videorecorder-theme-space-icon-ccw:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e807'; }
+
+.ba-videorecorder-theme-space-icon-upload:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e808'; }
+
+.ba-videorecorder-theme-space-icon-left-open:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e809'; }
+
+.ba-videorecorder-theme-space-icon-right-open:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e80a'; }
+
+.ba-videorecorder-theme-space-icon-cog:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e80b'; }
+
+.ba-videorecorder-theme-space-icon-mic:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e80c'; }
+
+.ba-videorecorder-theme-space-icon-mute:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e80d'; }
+
+.ba-videorecorder-theme-space-icon-lightbulb:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e80e'; }
+
+.ba-videorecorder-theme-space-icon-full-screen:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f131'; }
+
+.ba-videorecorder-theme-space-icon-share:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f130'; }
+
+.ba-videorecorder-theme-space-container {
+  display: inline-block;
+  position: relative;
+  background: #FFF; }
+
+.ba-videorecorder-theme-space-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0; }
+
+.ba-videorecorder-theme-space-video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: #FFF; }
+
+.ba-videorecorder-theme-space-norecorder {
+  background: black; }
+
+.ba-videorecorder-theme-space-container video::-webkit-media-controls-start-playback-button {
+  display: none;
+  -webkit-appearance: none;
+  -moz-appearance: none; }
+
+.ba-videorecorder-theme-space-stretch-height .ba-videorecorder-theme-space-container, .ba-videorecorder-theme-space-stretch-width .ba-videorecorder-theme-space-container {
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%; }
+
+.ba-videorecorder-theme-space-stretch-height .ba-videorecorder-theme-space-video {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  height: inherit;
+  min-width: 100%; }
+
+.ba-videorecorder-theme-space-stretch-width .ba-videorecorder-theme-space-video {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  max-height: 100%;
+  height: 100%;
+  width: 10000px; }
+
+.ba-videorecorder-theme-space-stretch-width, .ba-videorecorder-theme-space-stretch-height {
+  display: inline-block;
+  height: 100%;
+  width: 100%; }
+
+.ba-videorecorder-theme-space-videorecorder-player {
+  display: block;
+  width: 100%;
+  height: 100%; }
+
+.ba-videorecorder-theme-space-chooser-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: #FFF; }
+
+.ba-videorecorder-theme-space-chooser-file {
+  position: absolute;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  left: 0;
+  top: 0;
+  z-index: 100; }
+
+.ba-videorecorder-theme-space-chooser-file::-webkit-file-upload-button {
+  cursor: pointer; }
+
+.ba-videorecorder-theme-space-chooser-button-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center; }
+
+.ba-videorecorder-theme-space-chooser-primary-button {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  background: #eb6a74;
+  color: white;
+  padding: 12px;
+  padding-left: 32px;
+  padding-right: 32px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  text-align: center;
+  display: inline-block;
+  position: relative;
+  white-space: nowrap; }
+
+.ba-videorecorder-theme-space-chooser-secondary-button {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  color: #eb6a74;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  text-align: center;
+  display: inline-block;
+  padding: 8px;
+  position: relative;
+  white-space: nowrap; }
+
+.ba-videorecorder-theme-space-topmessage-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0; }
+
+.ba-videorecorder-theme-space-topmessage-message {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  color: white;
+  padding: 8.5px;
+  text-align: center; }
+
+.ba-videorecorder-theme-space-topmessage-background {
+  background: black;
+  opacity: 0.3;
+  width: 100%;
+  height: 32px;
+  position: absolute; }
+
+.ba-videorecorder-theme-space-imagegallery-leftbutton {
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  position: absolute;
+  margin-left: 14px;
+  margin-right: 14px;
+  top: 50%;
+  left: 0;
+  width: 24px;
+  height: 24px; }
+
+.ba-videorecorder-theme-space-imagegallery-rightbutton {
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  position: absolute;
+  margin-left: 14px;
+  margin-right: 14px;
+  top: 50%;
+  right: 0;
+  width: 24px;
+  height: 24px; }
+
+.ba-videorecorder-theme-space-imagegallery-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 52px;
+  right: 52px; }
+
+.ba-videorecorder-theme-space-imagegallery-image {
+  z-index: 2;
+  position: absolute;
+  box-sizing: border-box;
+  cursor: pointer;
+  border: 2px solid gray; }
+
+.ba-videorecorder-theme-space-imagegallery-image:hover {
+  border: 2px solid white; }
+
+.ba-videorecorder-theme-space-imagegallery-button-inner {
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  top: 50%;
+  position: relative;
+  text-align: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  color: white;
+  font-size: 13px; }
+
+.ba-videorecorder-theme-space-dashboard {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0; }
+
+.ba-videorecorder-theme-space-backbar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 48px;
+  background: black;
+  opacity: 0.5; }
+
+.ba-videorecorder-theme-space-controlbar {
+  position: relative;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 48px;
+  overflow: hidden;
+  padding-left: 16px;
+  padding-right: 16px; }
+
+.ba-videorecorder-theme-space-icon-state-good {
+  color: #9F9; }
+
+.ba-videorecorder-theme-space-icon-state-bad {
+  color: #F99; }
+
+.ba-videorecorder-theme-space-label-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0; }
+
+.ba-videorecorder-theme-space-label-label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  color: white;
+  padding: 15px;
+  text-align: center; }
+
+.ba-videorecorder-theme-space-recording-indication {
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  top: 50%;
+  position: relative;
+  text-align: center;
+  background: red;
+  width: 12px;
+  height: 12px;
+  margin-left: 12px;
+  margin-right: 12px;
+  border-radius: 12px; }
+
+.ba-videorecorder-theme-space-rightbutton-container {
+  float: right;
+  height: 100%;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  padding-left: 8px;
+  padding-right: 8px; }
+
+.ba-videorecorder-theme-space-centerbutton-container {
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  display: inline-block;
+  position: relative;
+  left: 50%;
+  height: 100%;
+  padding-left: 8px;
+  padding-right: 8px; }
+
+.ba-videorecorder-theme-space-lefticon-container {
+  float: left;
+  height: 100%; }
+
+.ba-videorecorder-theme-space-leftbutton-container {
+  float: left;
+  height: 100%;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent; }
+
+.ba-videorecorder-theme-space-button-primary {
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  top: 50%;
+  position: relative;
+  text-align: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  border-radius: 3px;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding: 8px;
+  padding-left: 16px;
+  padding-right: 16px;
+  background: #eb6a74;
+  color: white;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  border: none; }
+
+.ba-videorecorder-theme-space-button-inner {
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  top: 50%;
+  position: relative;
+  text-align: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  color: white;
+  font-size: 20px;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding: 3px;
+  padding-left: 6px;
+  padding-right: 6px;
+  border: 1px solid white;
+  border-radius: 4px; }
+
+.ba-videorecorder-theme-space-icon-inner {
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  top: 50%;
+  position: relative;
+  text-align: center;
+  color: white;
+  font-size: 20px;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding: 3px;
+  padding-left: 6px;
+  padding-right: 6px;
+  border: 1px solid white;
+  border-radius: 4px; }
+
+.ba-videorecorder-theme-space-button-selected {
+  border: 1px solid #eb6a74;
+  color: #eb6a74;
+  background: white; }
+
+.ba-videorecorder-theme-space-size-small .ba-videorecorder-theme-space-lefticon-container {
+  display: none; }
+
+.ba-videorecorder-theme-space-settings {
+  position: absolute;
+  left: 0;
+  bottom: 48px;
+  color: white;
+  margin: 4px;
+  padding: 4px; }
+
+.ba-videorecorder-theme-space-settings-backbar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 3px;
+  background: black;
+  opacity: 0.5;
+  border: none; }
+
+.ba-videorecorder-theme-space-settings-front {
+  position: relative;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  font-family: Arial, sans-serif;
+  font-size: 12px; }
+
+.ba-videorecorder-theme-space-settings hr {
+  border-top: none;
+  border-bottom-color: white;
+  margin: 2px;
+  margin-left: 48px;
+  margin-right: 48px; }
+
+.ba-videorecorder-theme-space-settings ul {
+  margin: 0;
+  padding: 0; }
+
+.ba-videorecorder-theme-space-settings li {
+  list-style-type: none;
+  padding: 8px; }
+
+.ba-videorecorder-theme-space-settings label {
+  cursor: pointer; }
+
+.ba-videorecorder-theme-space-settings input[type=radio] {
+  display: none; }
+
+.ba-videorecorder-theme-space-settings span {
+  cursor: pointer;
+  width: 4px;
+  height: 4px;
+  background: white;
+  border: 3px solid white;
+  border-radius: 4px;
+  margin: 1px;
+  box-sizing: content-box;
+  top: 2px;
+  display: inline-block;
+  position: relative; }
+
+.ba-videorecorder-theme-space-settings input[type=radio]:checked + span {
+  border: 3px solid #eb6a74; }
+
+.ba-videorecorder-theme-space-chooser-icon-container {
+  margin: 16px;
+  color: #eb6a74;
+  font-size: 32px; }
+
+.ba-videorecorder-theme-space-green .ba-videorecorder-theme-space-chooser-icon-container {
+  color: #5da894; }
+
+.ba-videorecorder-theme-space-blue .ba-videorecorder-theme-space-chooser-icon-container {
+  color: #2a74eb; }
+
+.ba-videorecorder-theme-space-green .ba-videorecorder-theme-space-chooser-primary-button {
+  background-color: #5da894; }
+
+.ba-videorecorder-theme-space-blue .ba-videorecorder-theme-space-chooser-primary-button {
+  background-color: #2a74eb; }
+
+.ba-videorecorder-theme-space-green .ba-videorecorder-theme-space-chooser-secondary-button {
+  color: #5da894; }
+
+.ba-videorecorder-theme-space-blue .ba-videorecorder-theme-space-chooser-secondary-button {
+  color: #2a74eb; }
+
+.ba-videorecorder-theme-space-green .ba-videorecorder-theme-space-button-primary {
+  background: #5da894; }
+
+.ba-videorecorder-theme-space-blue .ba-videorecorder-theme-space-button-primary {
+  background: #2a74eb; }
+
+.ba-videorecorder-theme-space-imagegallery-button-inner {
+  background: black;
+  opacity: 0.5;
+  padding: 4px;
+  border-radius: 3px; }
+
+.ba-videorecorder-theme-space-imagegallery-leftbutton .ba-videorecorder-theme-space-imagegallery-button-inner {
+  padding-left: 2px; }
+
+.ba-videorecorder-theme-space-green .ba-videorecorder-theme-space-settings input[type=radio]:checked + span {
+  border: 3px solid #5da894; }
+
+.ba-videorecorder-theme-space-blue .ba-videorecorder-theme-space-settings input[type=radio]:checked + span {
+  border: 3px solid #2a74eb; }

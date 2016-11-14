@@ -1,5 +1,5 @@
 /*!
-betajs-shims - v0.0.7 - 2016-10-17
+betajs-shims - v0.0.11 - 2016-11-12
 Copyright (c) Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -184,23 +184,49 @@ Apache-2.0 Software License.
         if (eventMap[type])
         	wrapper = eventMap[type].wrapper(wrapper);
         this.attachEvent("on" + (eventMap[type] ? eventMap[type].event : type), wrapper);
-        this.__eventlisteners = this.__eventlisteners || {};
-        this.__eventlisteners[type] = this.__eventlisteners[type] || [];
-        this.__eventlisteners[type].push({listener:listener, wrapper:wrapper});
+        try {
+	        this.__eventlisteners = this.__eventlisteners || {};
+	        this.__eventlisteners[type] = this.__eventlisteners[type] || [];
+	        this.__eventlisteners[type].push({listener:listener, wrapper:wrapper});
+        } catch (e) {
+        	listener.__eventwrapper = wrapper;
+        }
 	};
 	this.removeEventListener = this.removeEventListener || function (type, listener, useCapture) {
-		if (this.__eventlisteners && this.__eventlisteners[type]) {
-			for (var i = 0; i < this.__eventlisteners[type].length; ++i) {
-				if (this.__eventlisteners[type][i].listener === listener) {
-		            this.detachEvent("on" + (eventMap[type] ? eventMap[type].event : type), this.__eventlisteners[type][i].wrapper);
-		            this.__eventlisteners[type].splice(i, 1);
-		            return;
+		try {
+			if (this.__eventlisteners && this.__eventlisteners[type]) {
+				for (var i = 0; i < this.__eventlisteners[type].length; ++i) {
+					if (this.__eventlisteners[type][i].listener === listener) {
+			            this.detachEvent("on" + (eventMap[type] ? eventMap[type].event : type), this.__eventlisteners[type][i].wrapper);
+			            this.__eventlisteners[type].splice(i, 1);
+			            return;
+					}
+				}
+			}
+		} catch (e) {}
+		try {
+			if (listener.__eventwrapper)
+				this.detachEvent("on" + (eventMap[type] ? eventMap[type].event : type), listener.__eventwrapper);
+		} catch (e) {}
+	};
+	this.dispatchEvent = this.dispatchEvent || function (eventObject) {
+		var type = eventObject.type;
+		var onEvent = "on" + type;
+		try {
+			return this.fireEvent(onEvent, eventObject);
+		} catch (e) {
+			var E = Element;
+			try {
+				E = HTMLElement;
+			} catch (e) {}
+			if (onEvent in E.prototype)
+				throw e;
+			if (this.__eventlisteners && this.__eventlisteners[type]) {
+				for (var i = 0; i < this.__eventlisteners[type].length; ++i) {
+					this.__eventlisteners[type][i].wrapper.call(this, eventObject);
 				}
 			}
 		}
-	};
-	this.dispatchEvent = this.dispatchEvent || function (eventObject) {
-		return this.fireEvent("on" + eventObject.type, eventObject);
 	};
 }).call((function () {
 	try {
@@ -233,6 +259,27 @@ Apache-2.0 Software License.
 }).call((function () {
 	try {
 		return Window.prototype;
+	} catch (e) {
+		return null;
+	}
+}).call(this));
+
+(function() {
+	if (!this || !Object.defineProperty || !Object.getOwnPropertyDescriptor || Object.getOwnPropertyDescriptor(this, "outerHTML"))
+		return;
+    Object.defineProperty(this, "outerHTML", {
+       get: function() {
+    	   var temp = document.createElement("div");
+    	   temp.appendChild(this.cloneNode(true));
+    	   var result = temp.innerHTML;
+    	   if (temp.remove)
+    		   temp.remove();
+    	   return result;
+       }
+   });
+}).call((function () {
+	try {
+		return Element.prototype;
 	} catch (e) {
 		return null;
 	}

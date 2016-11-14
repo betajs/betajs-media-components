@@ -1,5 +1,5 @@
 /*!
-betajs - v1.0.87 - 2016-10-17
+betajs - v1.0.88 - 2016-11-12
 Copyright (c) Oliver Friedmann,Victor Lingenthal
 Apache-2.0 Software License.
 */
@@ -10,7 +10,7 @@ Scoped.binding('module', 'global:BetaJS');
 Scoped.define("module:", function () {
 	return {
     "guid": "71366f7a-7da3-4e55-9a0b-ea0e4e2a9e79",
-    "version": "568.1476760482593"
+    "version": "578.1478985688572"
 };
 });
 Scoped.require(['module:'], function (mod) {
@@ -566,26 +566,67 @@ Scoped.define("module:Class", ["module:Types", "module:Objs", "module:Functions"
 		
 		__notifications: {},
 		
+		/**
+		 * Determines whether this cls is an ancestor of another class.
+		 * 
+		 * @param {object} cls in question
+		 * 
+		 * @return {boolean} true if ancestor
+		 */
 		ancestor_of: function (cls) {
 			return (this == cls) || (this != Class && this.parent.ancestor_of(cls));
 		},
 		
+		/**
+		 * Determines whether something is of type class.
+		 * 
+		 * @param cls class in question
+		 * 
+		 * @return {boolean} true if class
+		 */
 		is_class: function (cls) {
 			return cls && Types.is_object(cls) && ("__class_guid" in cls) && cls.__class_guid == this.__class_guid;
 		},
 		
+		/**
+		 * Determines whether something is of type class instance.
+		 * 
+		 * @param obj instance in question
+		 * 
+		 * @return {boolean} true if class instance
+		 */
 		is_class_instance: function (obj) {
 			return obj && Types.is_object(obj) && ("__class_instance_guid" in obj) && obj.__class_instance_guid == this.prototype.__class_instance_guid;
 		},
 		
+		/**
+		 * Determines whether something is pure json and not a class instance.
+		 * 
+		 * @param obj json in question
+		 * 
+		 * @return {boolean} true if pure json
+		 */
 		is_pure_json: function (obj) {
 			return obj && Types.is_object(obj) && !this.is_class_instance(obj) && Types.is_pure_object(obj);
 		},
 		
+		/**
+		 * Determines whether an object is an instance of this class.
+		 * 
+		 * @param {object} obj object in question
+		 * 
+		 * @return {boolean} true if instance of class
+		 */
 		is_instance_of: function (obj) {
 			return obj && this.is_class_instance(obj) && obj.instance_of(this);
 		},
 		
+		/**
+		 * Adhoc defines a new class.
+		 * 
+		 * @param parent scoped string of parent class or parent class
+		 * @param current scoped string of new class
+		 */
 		define: function (parent, current) {
 			var args = Functions.getArguments(arguments, 2);
 			if (Types.is_object(parent)) {
@@ -600,9 +641,10 @@ Scoped.define("module:Class", ["module:Types", "module:Objs", "module:Functions"
 				});
 			}
 		},
-		
-		// Legacy Methods
-	
+
+		/**
+		 * @deprecated
+		 */
 		_inherited: function (cls, func) {
 			return cls.parent[func].apply(this, Array.prototype.slice.apply(arguments, [2]));
 		}	
@@ -624,10 +666,16 @@ Scoped.define("module:Class", ["module:Types", "module:Objs", "module:Functions"
 	
 	//Class.prototype.supportsGc = false;
 	
+	/**
+	 * Creates a new instance.
+	 */
 	Class.prototype.constructor = function () {
 		this._notify("construct");
 	};
 	
+	/**
+	 * Destroys this instance.
+	 */
 	Class.prototype.destroy = function () {
 		this._notify("destroy");
 		if (this.__auto_destroy_list) {
@@ -643,10 +691,18 @@ Scoped.define("module:Class", ["module:Types", "module:Objs", "module:Functions"
 		this.destroy = this.__destroyedDestroy;
 	};
 	
+	/**
+	 * Determines whether this instance has already been destroyed.
+	 * 
+	 * @return {boolean} true if this instance has been destroyed
+	 */
 	Class.prototype.destroyed = function () {
 		return this.destroy === this.__destroyedDestroy;
 	};
 	
+	/**
+	 * Weakly destroy this instance, only destroying it if it hasn't been destroyed already.
+	 */
 	Class.prototype.weakDestroy = function () {
 		if (!this.destroyed()) {
 			if (this.__gc) {
@@ -661,29 +717,56 @@ Scoped.define("module:Class", ["module:Types", "module:Objs", "module:Functions"
 		throw ("Trying to destroy destroyed object " + this.cid() + ": " + this.cls.classname + ".");
 	};
 	
+	/**
+	 * Enable garbage collection for this instance.
+	 */
 	Class.prototype.enableGc = function (gc) {
 		if (this.supportsGc)
 			this.__gc = gc; 
+		return this;
 	};
 	
+	/**
+	 * Destroy another instance depending on this one.
+	 * 
+	 * @param {object} other other object that should be destroyed
+	 */
 	Class.prototype.dependDestroy = function (other) {
-		if (other.destroyed)
+		if (other.destroyed())
 			return;
 		if (this.__gc)
 			other.enableGc();
 		other.weakDestroy();
+		return this;
 	};
 	
+	/**
+	 * Returns the unique id of the object.
+	 * 
+	 * @return {string} unique id
+	 */
 	Class.prototype.cid = function () {
 		return Ids.objectId(this);
 	};
 
 	Class.prototype.cls = Class;
 	
+	/**
+	 * Generates a context-free function of a method.
+	 * 
+	 * @param {string} s name of method
+	 * 
+	 * @return {function} context-free function
+	 */
 	Class.prototype.as_method = function (s) {
 		return Functions.as_method(this[s], this);
 	};
 	
+	/**
+	 * Automatically destroys an object when this object is being destroyed.
+	 * 
+	 * @param {object} obj
+	 */
 	Class.prototype.auto_destroy = function (obj) {
 		if (obj) {
 			if (!this.__auto_destroy_list)
@@ -697,6 +780,13 @@ Scoped.define("module:Class", ["module:Types", "module:Objs", "module:Functions"
 		return obj;
 	};
 	
+	/**
+	 * Notify all notifications listeners of an internal notification event.
+	 * 
+	 * @param {string} name notification name
+	 * 
+	 * @protected
+	 */
 	Class.prototype._notify = function (name) {
 		if (!this.cls.__notifications)
 			return;
@@ -709,26 +799,53 @@ Scoped.define("module:Class", ["module:Types", "module:Objs", "module:Functions"
 		}, this);
 	};
 	
+	/**
+	 * Checks whether this instance implements a certain mixin.
+	 *
+	 * @param identifier mixin identifier
+	 * 
+	 * @return {boolean} true if it implements the mixin
+	 */
 	Class.prototype.impl = function (identifier) {
 		return !!(this.cls.__implements && this.cls.__implements[Types.is_string(identifier) ? identifier : identifier._implements]);
 	};
 	
+	/**
+	 * Determines whether this instance is an instance of a certain class.
+	 * 
+	 * @param {object} cls class in question
+	 * 
+	 * @return {boolean} true if instance is instance of class
+	 */
 	Class.prototype.instance_of = function (cls) {
 		return this.cls.ancestor_of(cls);
 	};
 	
+	/**
+	 * Increases the reference counter of this instance.
+	 */
 	Class.prototype.increaseRef = function () {
 		this.__referenceCount = this.__referenceCount || 0;
 		this.__referenceCount++;
+		return this;
 	};
 	
+	/**
+	 * Decreases the reference counter of this instance.
+	 */
 	Class.prototype.decreaseRef = function () {
 		this.__referenceCount = this.__referenceCount || 0;
 		this.__referenceCount--;
 		if (this.__referenceCount <= 0)
 			this.weakDestroy();
+		return this;
 	};	
 	
+	/**
+	 * Inspects the instance for debugging purposes.
+	 * 
+	 * @return {object} json object describing the instance
+	 */
 	Class.prototype.inspect = function () {
 		return {
 			header: {
@@ -762,12 +879,17 @@ Scoped.define("module:Class", ["module:Types", "module:Objs", "module:Functions"
 	};
 
 	
-	// Legacy Methods
 	
+	/**
+	 * @deprecated
+	 */
 	Class.prototype._auto_destroy = function(obj) {
 		return this.auto_destroy(obj);
 	};
 	
+	/**
+	 * @deprecated
+	 */
 	Class.prototype._inherited = function (cls, func) {
 		return cls.parent.prototype[func].apply(this, Array.prototype.slice.apply(arguments, [2]));
 	};
@@ -776,10 +898,24 @@ Scoped.define("module:Class", ["module:Types", "module:Objs", "module:Functions"
 
 });
 	
-Scoped.define("module:Classes.InvokerMixin", ["module:Objs", "module:Types", "module:Functions"], function (Objs, Types, Functions) {
+Scoped.define("module:Classes.InvokerMixin", [
+    "module:Objs", "module:Types", "module:Functions"
+], function (Objs, Types, Functions) {
+	
+	/**
+	 * Invoker Mixin, delegating method calls to an invocation function.
+	 * 
+	 * @mixin BetaJS.Classes.InvokerMixin
+	 */
 	return {
 		
-		invoke_delegate : function(invoker, members) {
+		/**
+		 * Delegate member functio names to an invoker function.
+		 * 
+		 * @param {function} invoker invoker delegation function
+		 * @param {array} members array of member function names
+		 */
+		invoke_delegate : function (invoker, members) {
 			if (!Types.is_array(members))
 				members = [members];
 			invoker = this[invoker];
@@ -800,9 +936,25 @@ Scoped.define("module:Classes.InvokerMixin", ["module:Objs", "module:Types", "mo
 
 
 
-Scoped.define("module:Classes.HelperClassMixin", ["module:Objs", "module:Types", "module:Functions", "module:Promise"], function (Objs, Types, Functions, Promise) {
+Scoped.define("module:Classes.HelperClassMixin", [
+    "module:Objs", "module:Types", "module:Functions", "module:Promise"
+], function (Objs, Types, Functions, Promise) {
+	
+	/**
+	 * HelperClass Mixin
+	 * 
+	 * @mixin BetaJS.Classes.HelperClassMixin
+	 */
 	return {
 	
+		/**
+		 * Add Helper Class
+		 * 
+		 * @param {class} helper_class helper class to add
+		 * @param {objects} options optional options
+		 * 
+		 * @return {object} added helper instance
+		 */
 		addHelper: function (helper_class, options) {
 			var helper = new helper_class(this, options);
 			this.__helpers = this.__helpers || [];
@@ -810,6 +962,12 @@ Scoped.define("module:Classes.HelperClassMixin", ["module:Objs", "module:Types",
 			return helper;
 		},
 		
+		/**
+		 * Notify all helpers of a method call.
+		 * 
+		 * @param {objects} options method call options
+		 * @return accumlated return value
+		 */
 		_helper: function (options) {
 			this.__helpers = this.__helpers || [];
 			if (Types.is_string(options)) {
@@ -842,15 +1000,35 @@ Scoped.define("module:Classes.HelperClassMixin", ["module:Objs", "module:Types",
 
 
 
-Scoped.define("module:Classes.PathResolver", ["module:Class", "module:Objs"], function (Class, Objs, scoped) {
+Scoped.define("module:Classes.PathResolver", [
+    "module:Class", "module:Objs"
+], function (Class, Objs, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
+		
+		/**
+		 * Path Resolver Class
+		 * 
+		 * @class BetaJS.Classes.PathResolver
+		 */
 		return {
 
+			/**
+			 * Creates a new instance.
+			 * 
+			 * @param {object} bindings path resolution bindings
+			 */
 			constructor: function (bindings) {
 				inherited.constructor.call(this);
 				this._bindings = bindings || {};
 			},
 			
+			/**
+			 * Extend instance by more bindings.
+			 * 
+			 * @param {object} bindings bindings to extend
+			 * @param {string} namespace optional namespace
+			 * 
+			 */
 			extend: function (bindings, namespace) {
 				if (namespace) {
 					for (var key in bindings) {
@@ -868,6 +1046,13 @@ Scoped.define("module:Classes.PathResolver", ["module:Class", "module:Objs"], fu
 					this._bindings = Objs.extend(this._bindings, bindings);
 			},
 			
+			/**
+			 * Map an array of path expressions to their resolutions.
+			 * 
+			 * @param {array} arr list of path expression
+			 * 
+			 * @return {array} resolved expressions
+			 */
 			map: function (arr) {
 				var result = [];
 				for (var i = 0; i < arr.length; ++i) {
@@ -877,6 +1062,13 @@ Scoped.define("module:Classes.PathResolver", ["module:Class", "module:Objs"], fu
 				return result;
 			},
 			
+			/**
+			 * Resolve a path rexpression.
+			 * 
+			 * @param {string} path path expression to resolve
+			 * 
+			 * @return {string} resolved path expression
+			 */
 			resolve : function(path) {
 				var regExp = /\{([^}]+)\}/;
 				while (true) {
@@ -888,6 +1080,13 @@ Scoped.define("module:Classes.PathResolver", ["module:Class", "module:Objs"], fu
 				return this.simplify(path);
 			},
 			
+			/**
+			 * Simplify a path expression.
+			 * 
+			 * @param {string} path path expression to simplify
+			 * 
+			 * @return {string} simplified path expression
+			 */
 			simplify: function (path) {
 				return path.replace(/[^\/]+\/\.\.\//, "").replace(/\/[^\/]+\/\.\./, "");
 			}
@@ -897,10 +1096,24 @@ Scoped.define("module:Classes.PathResolver", ["module:Class", "module:Objs"], fu
 });
 
 
-Scoped.define("module:Classes.MultiDelegatable", ["module:Class", "module:Objs"], function (Class, Objs, scoped) {
+Scoped.define("module:Classes.MultiDelegatable", [
+    "module:Class", "module:Objs"
+], function (Class, Objs, scoped) {	
 	return Class.extend({scoped: scoped}, function (inherited) {
+		
+		/**
+		 * Multi Delegatable Class
+		 * 
+		 * @class BetaJS.Classes.MultiDelegatable
+		 */
 		return {
 
+			/**
+			 * Creates a new instance.
+			 * 
+			 * @param {array} objects list of objects
+			 * @param {array} methods list of methods
+			 */
 			constructor: function (objects, methods) {
 				inherited.constructor.call(this);
 				Objs.iter(methods, function (method) {
@@ -921,10 +1134,23 @@ Scoped.define("module:Classes.MultiDelegatable", ["module:Class", "module:Objs"]
 
 
 Scoped.define("module:Classes.ObjectIdScopeMixin", function () {
+	
+	/**
+	 * Object Id Scope Mixin
+	 * 
+	 * @mixin BetaJS.Classes.ObjectIdScopeMixin
+	 */
 	return {
 
 		__objects: {},
 
+		/**
+		 * Return object for specific id
+		 * 
+		 * @param {string} id id of object
+		 * 
+		 * @return {object} object in question
+		 */
 	    get: function (id) {
 	        return this.__objects[id];
 	    }
@@ -933,18 +1159,42 @@ Scoped.define("module:Classes.ObjectIdScopeMixin", function () {
 });	
 	
 		
-Scoped.define("module:Classes.ObjectIdScope", ["module:Class", "module:Classes.ObjectIdScopeMixin"], function (Class, Mixin, scoped) {
-	return Class.extend({scoped: scoped}, Mixin, {
-		singleton: function () {
-			if (!this.__singleton)
-				this.__singleton = new this();
-			return this.__singleton;
-		}
+Scoped.define("module:Classes.ObjectIdScope", [
+    "module:Class", "module:Classes.ObjectIdScopeMixin"
+], function (Class, Mixin, scoped) {
+	return Class.extend({scoped: scoped}, Mixin, function (inherited) {
+		
+		/**
+		 * Objecct Id Scope Class
+		 * 
+		 * @class BetaJS.Classes.ObjectIdScope
+		 */
+		return {
+
+			/**
+			 * Create or return singleton instance of this class.
+			 * 
+			 * @return {object} singleton instance
+			 */
+			singleton: function () {
+				if (!this.__singleton)
+					this.__singleton = new this();
+				return this.__singleton;
+			}
+		};
 	});
 });
 
 
-Scoped.define("module:Classes.ObjectIdMixin", ["module:Classes.ObjectIdScope", "module:Objs", "module:Ids"], function (ObjectIdScope, Objs, Ids) {
+Scoped.define("module:Classes.ObjectIdMixin", [
+    "module:Classes.ObjectIdScope", "module:Objs", "module:Ids"
+], function (ObjectIdScope, Objs, Ids) {
+	
+	/**
+	 * Object Id Mixin
+	 * 
+	 * @mixin BetaJS.Classes.ObjectIdMixin
+	 */
 	return {
 	
 	    _notifications: {
@@ -970,10 +1220,6 @@ Scoped.define("module:Classes.ObjectIdMixin", ["module:Classes.ObjectIdScope", "
 	
 	};
 });
-
-
-
-
 
 Scoped.define("module:Comparators", ["module:Types", "module:Properties.Properties"], function (Types, Properties) {
 
@@ -1186,14 +1432,19 @@ Scoped.define("module:Compress", function () {
 
 
 Scoped.define("module:Events.EventsMixin", [
-                                            "module:Timers.Timer",
-                                            "module:Async",
-                                            "module:Lists.LinkedList",
-                                            "module:Functions",
-                                            "module:Types",
-                                            "module:Objs"
-                                            ], function (Timer, Async, LinkedList, Functions, Types, Objs) {
+	"module:Timers.Timer",
+	"module:Async",
+	"module:Lists.LinkedList",
+	"module:Functions",
+	"module:Types",
+	"module:Objs"
+], function (Timer, Async, LinkedList, Functions, Types, Objs) {
 
+	/**
+	 * Events Mixin
+	 * 
+	 * @mixin BetaJS.Events.EventsMixin
+	 */
 	return {
 		
 		_implements: "3d63b44f-c9f0-4aa7-b39e-7cbf195122b4",
@@ -1435,44 +1686,81 @@ Scoped.define("module:Events.EventsMixin", [
 
 
 Scoped.define("module:Events.Events", ["module:Class", "module:Events.EventsMixin"], function (Class, Mixin, scoped) {
+	/**
+	 * Events Class
+	 * 
+	 * @class BetaJS.Events.Events
+	 * @implements BetaJS.Events.EventsMixin
+	 */
 	return Class.extend({scoped: scoped}, Mixin);
 });
 
 
 Scoped.define("module:Events.ListenMixin", ["module:Ids", "module:Objs"], function (Ids, Objs) {
+	/**
+	 * Listen Mixin, automatically de-registering all listeners on destruction.
+	 * 
+	 * @mixin BetaJS.Events.ListenMixin
+	 */
 	return {
 
 		_notifications: {
 			"destroy": "listenOff" 
 		},
 
+		/**
+		 * Listen to an event.
+		 * 
+		 * @param {object} target target event emitter
+		 * @param {string} events event(s) to listen to
+		 * @param {function} callback event callback function
+		 * @param {object} options optional listener options
+		 */
 		listenOn: function (target, events, callback, options) {
 			if (!this.__listen_mixin_listen) this.__listen_mixin_listen = {};
 			this.__listen_mixin_listen[Ids.objectId(target)] = target;
 			target.on(events, callback, this, options);
+			return this;
 		},
 
+		/**
+		 * Listen to an event once.
+		 * 
+		 * @param {object} target target event emitter
+		 * @param {string} events event(s) to listen to
+		 * @param {function} callback event callback function
+		 * @param {object} options optional listener options
+		 */
 		listenOnce: function (target, events, callback, options) {
 			if (!this.__listen_mixin_listen) this.__listen_mixin_listen = {};
 			this.__listen_mixin_listen[Ids.objectId(target)] = target;
 			target.once(events, callback, this, options);
+			return this;
 		},
 
+		/**
+		 * Stop Listenning to an event.
+		 * 
+		 * @param {object} target target event emitter
+		 * @param {string} events event(s) to listen to
+		 * @param {function} callback event callback function
+		 */
 		listenOff: function (target, events, callback) {
 			if (!this.__listen_mixin_listen)
-				return;
+				return this;
 			if (target) {
 				target.off(events, callback, this);
 				if (!events && !callback)
 					delete this.__listen_mixin_listen[Ids.objectId(target)];
-			}
-			else
+			} else {
 				Objs.iter(this.__listen_mixin_listen, function (obj) {
 					if (obj && "off" in obj)
 						obj.off(events, callback, this);
 					if (!events && !callback)
 						delete this.__listen_mixin_listen[Ids.objectId(obj)];
 				}, this);
+			}
+			return this;
 		}		
 
 	};
@@ -1480,6 +1768,12 @@ Scoped.define("module:Events.ListenMixin", ["module:Ids", "module:Objs"], functi
 
 
 Scoped.define("module:Events.Listen", ["module:Class", "module:Events.ListenMixin"], function (Class, Mixin, scoped) {
+	/**
+	 * Listen Class
+	 * 
+	 * @class BetaJS.Events.Listen
+	 * @implements BetaJS.Events.ListenMixin
+	 */
 	return Class.extend({scoped: scoped}, Mixin);
 });
 Scoped.define("module:Functions", ["module:Types"], function (Types) {
@@ -2276,65 +2570,105 @@ Scoped.define("module:Lists.AbstractList", [
 });
 
 
-Scoped.define("module:Lists.LinkedList", ["module:Lists.AbstractList"], function (AbstractList, scoped) {
-	return AbstractList.extend({scoped: scoped},  {
-
-		__first: null,
-		__last: null,
-
-		_add: function (obj) {
-			this.__last = {
-					obj: obj,
-					prev: this.__last,
-					next: null
-			};
-			if (this.__first)
-				this.__last.prev.next = this.__last;
-			else
-				this.__first = this.__last;
-			return this.__last;
-		},
-
-		_remove: function (container) {
-			if (container.next)
-				container.next.prev = container.prev;
-			else
-				this.__last = container.prev;
-			if (container.prev)
-				container.prev.next = container.next;
-			else
-				this.__first = container.next;
-			return container.obj;
-		},
-
-		_get: function (container) {
-			return container.obj;
-		},
-
-		_iterate: function (cb, context) {
-			var current = this.__first;
-			while (current) {
-				var prev = current;
-				current = current.next;
-				if (!cb.apply(context || this, [prev.obj, prev]))
-					return;
+Scoped.define("module:Lists.LinkedList", [
+    "module:Lists.AbstractList"
+], function (AbstractList, scoped) {
+	return AbstractList.extend({scoped: scoped}, function (inherited) {
+		
+		/**
+		 * Linked List Implementation of List
+		 * 
+		 * @class BetaJS.Lists.LinkedList
+		 */
+		return {
+			
+			__first: null,
+			__last: null,
+	
+			/**
+			 * @override
+			 */
+			_add: function (obj) {
+				this.__last = {
+						obj: obj,
+						prev: this.__last,
+						next: null
+				};
+				if (this.__first)
+					this.__last.prev.next = this.__last;
+				else
+					this.__first = this.__last;
+				return this.__last;
+			},
+	
+			/**
+			 * @override
+			 */
+			_remove: function (container) {
+				if (container.next)
+					container.next.prev = container.prev;
+				else
+					this.__last = container.prev;
+				if (container.prev)
+					container.prev.next = container.next;
+				else
+					this.__first = container.next;
+				return container.obj;
+			},
+	
+			/**
+			 * @override
+			 */
+			_get: function (container) {
+				return container.obj;
+			},
+	
+			/**
+			 * @override
+			 */
+			_iterate: function (cb, context) {
+				var current = this.__first;
+				while (current) {
+					var prev = current;
+					current = current.next;
+					if (!cb.apply(context || this, [prev.obj, prev]))
+						return;
+				}
 			}
-		}
-
+			
+		};
 	});
 });
 
 
-Scoped.define("module:Lists.ObjectIdList", ["module:Lists.AbstractList", "module:Ids"], function (AbstractList, Ids, scoped) {
+Scoped.define("module:Lists.ObjectIdList", [
+    "module:Lists.AbstractList",
+    "module:Ids"
+], function (AbstractList, Ids, scoped) {
 	return AbstractList.extend({scoped: scoped}, function (inherited) {
+		
+		/**
+		 * Object Id List Class
+		 * 
+		 * @class BetaJS.Lists.ObjectIdList
+		 */
 		return {
 
+			/**
+			 * Creates a new instance.
+			 * 
+			 * @param {array} objects optional initial set of objects
+			 * @param {function} id_generator optional id generating function
+			 */
 			constructor: function (objects, id_generator) {
 				this.__map = {};
 				this.__id_generator = id_generator;
 				inherited.constructor.call(this, objects);
 			},
 
+			/**
+			 * @override
+			 */
 			_add: function (object) {
 				var id = object.__cid;
 				if (!id) {
@@ -2348,21 +2682,33 @@ Scoped.define("module:Lists.ObjectIdList", ["module:Lists.AbstractList", "module
 				return id;
 			},
 
+			/**
+			 * @override
+			 */
 			_remove: function (ident) {
 				var obj = this.__map[ident];
 				delete this.__map[ident];
 				return obj;
 			},
 
+			/**
+			 * @override
+			 */
 			_get: function (ident) {
 				return this.__map[ident];
 			},
 
+			/**
+			 * @override
+			 */
 			_iterate: function (callback, context) {
 				for (var key in this.__map)
 					callback.apply(context || this, [this.__map[key], key]);
 			},
 
+			/**
+			 * @override
+			 */
 			get_ident: function (object) {
 				var ident = Ids.objectId(object);
 				return this.__map[ident] ? ident : null;
@@ -2376,8 +2722,20 @@ Scoped.define("module:Lists.ObjectIdList", ["module:Lists.AbstractList", "module
 
 Scoped.define("module:Lists.ArrayList", ["module:Lists.AbstractList", "module:Ids", "module:Objs"], function (AbstractList, Ids, Objs, scoped) {
 	return AbstractList.extend({scoped: scoped}, function (inherited) {
+		
+		/**
+		 * Array List Class
+		 * 
+		 * @class BetaJS.Lists.ArrayList
+		 */
 		return {
 
+			/**
+			 * Creates a new instance.
+			 * 
+			 * @param {array} objects optional initial set of objects
+			 * @param {options} options optional options parameter
+			 */
 			constructor: function (objects, options) {
 				this.__idToIndex = {};
 				this.__items = [];
@@ -2389,16 +2747,31 @@ Scoped.define("module:Lists.ArrayList", ["module:Lists.AbstractList", "module:Id
 				inherited.constructor.call(this, objects);
 			},
 
+			/**
+			 * Set current compare function.
+			 * 
+			 * @param {function} compare compare function
+			 */
 			set_compare: function (compare) {
 				this._compare = compare;
 				if (compare)
 					this.sort();
 			},
 
+			/**
+			 * Get current compare function.
+			 * 
+			 * @return {function} current compare function
+			 */
 			get_compare: function () {
 				return this._compare;
 			},
 
+			/**
+			 * Sort list using a compare function.
+			 * 
+			 * @param {function} compare compare function
+			 */
 			sort: function (compare) {
 				compare = compare || this._compare;
 				if (!compare)
@@ -2411,6 +2784,13 @@ Scoped.define("module:Lists.ArrayList", ["module:Lists.AbstractList", "module:Id
 
 			_sorted: function () {},
 
+			/**
+			 * Reindex the index of an item.
+			 * 
+			 * @param {int} index index of the item
+			 * 
+			 * @return {int} new index of the item
+			 */
 			re_index: function (index) {
 				if (!this._compare)
 					return index;
@@ -2444,6 +2824,9 @@ Scoped.define("module:Lists.ArrayList", ["module:Lists.AbstractList", "module:Id
 				return this._get_ident ? this._get_ident(object) : Ids.objectId(object);
 			},
 
+			/**
+			 * @override
+			 */
 			_add: function (object) {
 				var last = this.__items.length;
 				this.__items.push(object);
@@ -2452,6 +2835,9 @@ Scoped.define("module:Lists.ArrayList", ["module:Lists.AbstractList", "module:Id
 				return i;
 			},
 
+			/**
+			 * @override
+			 */
 			_remove: function (ident) {
 				var obj = this.__items[ident];
 				for (var i = ident + 1; i < this.__items.length; ++i) {
@@ -2463,10 +2849,16 @@ Scoped.define("module:Lists.ArrayList", ["module:Lists.AbstractList", "module:Id
 				return obj;
 			},
 
+			/**
+			 * @override
+			 */
 			_get: function (ident) {
 				return this.__items[ident];
 			},
 
+			/**
+			 * @override
+			 */
 			_iterate: function (callback, context) {
 				var items = Objs.clone(this.__items, 1);
 				for (var i = 0; i < items.length; ++i)
@@ -2478,11 +2870,21 @@ Scoped.define("module:Lists.ArrayList", ["module:Lists.AbstractList", "module:Id
 				this._ident_changed(object, index);
 			},
 
+			/**
+			 * @override
+			 */
 			get_ident: function (object) {
 				var id = this.__objectId(object);
 				return id in this.__idToIndex ? this.__idToIndex[id] : null;
 			},
 
+			/**
+			 * Returns the identifier given an id.
+			 * 
+			 * @param {string} id id
+			 * 
+			 * @return {string} identifier
+			 */
 			ident_by_id: function (id) {
 				return this.__idToIndex[id];
 			}
@@ -8864,7 +9266,7 @@ Scoped.define("module:Promise", [
 					promises = [promises];
 				var f = function (error, value) {
 					if (error)
-						this.__errorPromise = promises[this.idx];
+						this.promise.__errorPromise = this.promise.__promises[this.idx];
 					else {
 						this.promise.__successCount++;
 						this.promise.__values[this.idx] = value;
@@ -10216,6 +10618,268 @@ Scoped.define("module:Iterators.Iterator", [
 	});
 });
 
+Scoped.define("module:Loggers.ConsoleLogListener", [
+	"module:Loggers.LogListener"
+], function (LogListener, scoped) {
+	return LogListener.extend({scoped: scoped}, function (inherited) {
+		
+		/**
+		 * Console Log Listener Class
+		 * 
+		 * @class BetaJS.Loggers.ConsoleLogListener
+		 */
+		return {
+			
+			/**
+			 * @override
+			 */
+			message: function (source, msg) {
+				console[msg.type].apply(console, msg.args);
+			}
+
+		};
+	});
+});
+Scoped.define("module:Loggers.LogListener", [
+	"module:Class"
+], function (Class, scoped) {
+	return Class.extend({scoped: scoped}, function (inherited) {
+		
+		/**
+		 * Abstract Log Listener Class, reacting to logging calls
+		 * 
+		 * @class BetaJS.Loggers.LogListener
+		 */
+		return {
+			
+			/**
+			 * Called when a log message is created.
+			 * 
+			 * @param {object} source logger source
+			 * @param {object} msg message object
+			 */
+			message: function (source, msg) {}
+			
+		};
+	});
+});
+Scoped.define("module:Loggers.LogListenerFilter", [
+	"module:Loggers.LogListener",
+	"module:Objs",
+	"module:Types"
+], function (LogListener, Objs, Types, scoped) {
+	return LogListener.extend({scoped: scoped}, function (inherited) {
+		
+		/**
+		 * Log Listener Filter Class
+		 * 
+		 * @class BetaJS.Loggers.LogListenerFilter
+		 */
+		return {
+			
+			/**
+			 * Creates a new instance.
+			 * 
+			 * @param {object} target target log listener that should be filtered for
+			 * @param {array} tags tags that should be filtered by
+			 */
+			constructor: function (target, tags) {
+				inherited.constructor.call(this);
+				this.__target = target;
+				this.__tags = tags;
+			},
+
+			/**
+			 * @override
+			 */
+			message: function (source, msg) {
+				var tags = Objs.objectify(msg.tags); 
+				var result = false;
+				if (Types.is_array(this.__tags[0])) {
+					result = this.__tags.some(function (sub) {
+						return sub.every(function (tag) {
+							return tags[tag];
+						});
+					});
+				} else {
+					result = this.__tags.every(function (tag) {
+						return tags[tag];
+					});
+				}
+				if (result)
+					this.__target.message(source, msg);
+			}
+			
+		};
+	});
+});
+Scoped.define("module:Loggers.Logger", [
+	"module:Class",
+	"module:Objs",
+	"module:Functions"
+], function (Class, Objs, Functions, scoped) {
+	var Cls = Class.extend({scoped: scoped}, function (inherited) {
+		
+		/**
+		 * Logger Class
+		 * 
+		 * @class BetaJS.Loggers.Logger
+		 */
+		return {
+			
+			/**
+			 * Creates a new instance.
+			 * 
+			 * @param {object} options options for the logger
+			 */
+			constructor: function (options) {
+				inherited.constructor.call(this);
+				options = options || {};
+				this.__listeners = {};
+				this.__tags = options.tags || [];
+				Objs.iter(options.listeners, this.addListener, this);
+			},
+			
+			/**
+			 * Adds a new listener to the logger.
+			 * 
+			 * @param {object} listener listener to be added
+			 */
+			addListener: function (listener) {
+				this.__listeners[listener.cid()] = listener;
+				return this;
+			},
+			
+			/**
+			 * Remove an existing listener from the logger.
+			 * 
+			 * @param {object} listener listener to be removed
+			 */
+			removeListener: function (listener) {
+				delete this.__listeners[listener.cid()];
+				return this;
+			},
+			
+			/**
+			 * Create a new log message.
+			 */
+			log: function () {
+				return this.message(this, {
+					type: "log",
+					args: Functions.getArguments(arguments, 0)
+				});
+			},
+			
+			/**
+			 * Creates a log function calling the logger.
+			 */
+			logf: function () {
+				return Functions.as_method(this.log, this);
+			},
+			
+			/**
+			 * Create a new warn message.
+			 */
+			warn: function () {
+				return this.message(this, {
+					type: "warn",
+					args: Functions.getArguments(arguments, 0)
+				});
+			},
+			
+			/**
+			 * Create a new error message.
+			 */
+			error: function () {
+				return this.message(this, {
+					type: "error",
+					args: Functions.getArguments(arguments, 0)
+				});
+			},
+			
+			/**
+			 * Create a new tagged log message.
+			 * 
+			 * @param {array} tags tags for the message
+			 */
+			taggedlog: function (tags) {
+				return this.message(this, {
+					type: "log",
+					tags: tags,
+					args: Functions.getArguments(arguments, 1)
+				});
+			},
+			
+			/**
+			 * Create a new tagged warn message.
+			 * 
+			 * @param {array} tags tags for the message
+			 */
+			taggedwarn: function (tags) {
+				return this.message(this, {
+					type: "warn",
+					tags: tags,
+					args: Functions.getArguments(arguments, 1)
+				});
+			},
+
+			/**
+			 * Create a new tagged error message.
+			 * 
+			 * @param {array} tags tags for the message
+			 */
+			taggederror: function (tags) {
+				return this.message(this, {
+					type: "error",
+					tags: tags,
+					args: Functions.getArguments(arguments, 1)
+				});
+			},
+
+			/**
+			 * Create a new log message.
+			 * 
+			 * @param {object} source logger source for message
+			 * @param {object} msg log message
+			 */
+			message: function (source, msg) {
+				Objs.iter(this.__listeners, function (listener) {
+					msg.tags = this.__tags.concat(msg.tags || []);
+					listener.message(this, msg);
+				}, this);
+				return this;
+			},
+			
+			/**
+			 * Create a new sub logger by tags.
+			 *
+			 * @return {object} sub logger
+			 */
+			tag: function () {
+				return new Cls({
+					tags: Functions.getArguments(arguments),
+					listeners: [this]
+				});
+			}
+			
+		};
+	}, {
+		
+		/**
+		 * Return global singleton logger instance.
+		 * 
+		 * @return {object} singleton logger
+		 */
+		global: function () {
+			if (!this.__global)
+				this.__global = new Cls();
+			return this.__global;
+		}
+		
+	});
+	
+	return Cls;
+});
 Scoped.define("module:Net.SocketSenderChannel", [
     "module:Channels.Sender"
 ], function (Sender, scoped) {
@@ -11574,13 +12238,23 @@ Scoped.define("module:States.CompetingState", ["module:States.State"], function 
 	});
 });
 
-Scoped.define("module:Router.RouteParser", [ "module:Class", "module:Strings",
-                                             "module:Objs" ], function(Class, Strings, Objs, scoped) {
-	return Class.extend({
-		scoped : scoped
-	}, function(inherited) {
+Scoped.define("module:Router.RouteParser", [
+    "module:Class", "module:Strings", "module:Objs"
+], function (Class, Strings, Objs, scoped) {
+	return Class.extend({ scoped : scoped }, function(inherited) {
+		
+		/**
+		 * Route Parser Class
+		 * 
+		 * @class BetaJS.Router.RouteParser
+		 */
 		return {
 
+			/**
+			 * Create a new instance.
+			 * 
+			 * @param {object} routes routes mapping
+			 */
 			constructor : function(routes) {
 				inherited.constructor.call(this);
 				this.routes = {};
@@ -11589,6 +12263,12 @@ Scoped.define("module:Router.RouteParser", [ "module:Class", "module:Strings",
 				}, this);
 			},
 
+			/**
+			 * Return parses a route and returns the parsed result.
+			 * 
+			 * @param {string} route route to be parsed
+			 * @return {object} parsed route
+			 */
 			parse : function(route) {
 				for ( var key in this.routes) {
 					var entry = this.routes[key];
@@ -11603,6 +12283,15 @@ Scoped.define("module:Router.RouteParser", [ "module:Class", "module:Strings",
 				return null;
 			},
 
+			/**
+			 * Recreates a full route from an abstract route descriptor and route arguments.
+			 * 
+			 * @param {string} name route descriptor
+			 * @param {array} args arguments for route
+			 * 
+			 * @return {string} full route
+			 * 
+			 */
 			format : function(name, args) {
 				args = args || {};
 				var entry = this.routes[name];
@@ -11610,6 +12299,12 @@ Scoped.define("module:Router.RouteParser", [ "module:Class", "module:Strings",
 						entry.captureRegex.mapBack(args));
 			},
 
+			/**
+			 * Bind a new route.
+			 * 
+			 * @param {string} key route descriptor
+			 * @param {string} route route regex string
+			 */
 			bind : function(key, route) {
 				this.routes[key] = {
 						name : key,
@@ -11623,13 +12318,23 @@ Scoped.define("module:Router.RouteParser", [ "module:Class", "module:Strings",
 	});
 });
 
-Scoped.define("module:Router.RouteMap", [ "module:Class", "module:Strings",
-                                          "module:Objs" ], function(Class, Strings, Objs, scoped) {
-	return Class.extend({
-		scoped : scoped
-	}, function(inherited) {
+Scoped.define("module:Router.RouteMap", [
+	"module:Class", "module:Strings", "module:Objs"
+], function(Class, Strings, Objs, scoped) {
+	return Class.extend({ scoped : scoped }, function(inherited) {
+		
+		/**
+		 * RouteMap Class, mapping routes to routes.
+		 * 
+		 * @class BetaJS.Router.RouteMap
+		 */
 		return {
 
+			/**
+			 * Creates new instance.
+			 * 
+			 * @param {object} options initialization options
+			 */
 			constructor : function(options) {
 				inherited.constructor.call(this);
 				options = options || {};
@@ -11638,6 +12343,14 @@ Scoped.define("module:Router.RouteMap", [ "module:Class", "module:Strings",
 				this._bindings = options.bindings || {};
 			},
 
+			/**
+			 * Maps a route.
+			 * 
+			 * @param {string} name route name
+			 * @param {array} args route arguments
+			 * 
+			 * @return {object} mapped route
+			 */
 			map : function(name, args) {
 				var binding = this._bindings[name];
 				if (binding)
@@ -11650,6 +12363,12 @@ Scoped.define("module:Router.RouteMap", [ "module:Class", "module:Strings",
 				};
 			},
 
+			/**
+			 * Binds a route.
+			 * 
+			 * @param {string} name name of route
+			 * @param {function} func function to bind the route to
+			 */
 			bind : function(name, func) {
 				this._bindings[name] = func;
 				return this;
@@ -11659,93 +12378,168 @@ Scoped.define("module:Router.RouteMap", [ "module:Class", "module:Strings",
 	});
 });
 
-Scoped.define("module:Router.Router", [ "module:Class",
-                                        "module:Events.EventsMixin", "module:Objs",
-                                        "module:Router.RouteParser", "module:Comparators" ], function(Class,
-                                        		EventsMixin, Objs, RouteParser, Comparators, scoped) {
-	return Class.extend({
-		scoped : scoped
-	}, [
-	    EventsMixin,
-	    function(inherited) {
-	    	return {
+Scoped.define("module:Router.Router", [
+    "module:Class",
+    "module:Events.EventsMixin",
+    "module:Objs",
+    "module:Router.RouteParser",
+    "module:Comparators"
+], function(Class, EventsMixin, Objs, RouteParser, Comparators, scoped) {
+	return Class.extend({ scoped : scoped }, [EventsMixin, function(inherited) {
+		
+		/**
+		 * Router Class
+		 * 
+		 * @class BetaJS.Router.Router
+		 */
+    	return {
 
-	    		constructor : function(routes) {
-	    			inherited.constructor.call(this);
-	    			this._routeParser = new RouteParser(routes);
-	    			this._current = null;
-	    		},
+    		/**
+    		 * Creates new instance.
+    		 * 
+    		 * @param {object} routes routes mapping for route parser
+    		 */
+    		constructor : function(routes) {
+    			inherited.constructor.call(this);
+    			this._routeParser = new RouteParser(routes);
+    			this._current = null;
+    		},
 
-	    		destroy : function() {
-	    			this._routeParser.destroy();
-	    			inherited.destroy.call(this);
-	    		},
+    		/**
+    		 * @override
+    		 */
+    		destroy : function() {
+    			this._routeParser.destroy();
+    			inherited.destroy.call(this);
+    		},
 
-	    		bind : function(key, route, func, ctx) {
-	    			this._routeParser.bind(key, route);
-	    			if (func)
-	    				this.on("dispatch:" + key, func, ctx);
-	    			return this;
-	    		},
+    		/**
+    		 * Bind a new route.
+    		 * 
+			 * @param {string} key route descriptor
+			 * @param {string} route route regex string
+			 * @param {function} func optional function to be called when route is dispatched
+			 * @param {object} ctx optional function context
+    		 */
+    		bind : function(key, route, func, ctx) {
+    			this._routeParser.bind(key, route);
+    			if (func)
+    				this.on("dispatch:" + key, func, ctx);
+    			return this;
+    		},
 
-	    		current : function() {
-	    			return this._current;
-	    		},
+    		/**
+    		 * Returns the current route.
+    		 * 
+    		 * @return {string} current route
+    		 */
+    		current : function() {
+    			return this._current;
+    		},
 
-	    		navigate : function(route) {
-	    			this.trigger("navigate", route);
-	    			this.trigger("navigate:" + route);
-	    			var parsed = this._routeParser.parse(route);
-	    			if (parsed)
-	    				this.dispatch(parsed.name, parsed.args, route);
-	    			else
-	    				this.trigger("notfound", route);
-	    		},
+    		/**
+    		 * Navigates to a new route.
+    		 * 
+    		 * @param {string} route route to navigate to
+    		 */
+    		navigate : function(route) {
+    			this.trigger("navigate", route);
+    			this.trigger("navigate:" + route);
+    			var parsed = this._routeParser.parse(route);
+    			if (parsed)
+    				this.dispatch(parsed.name, parsed.args, route);
+    			else
+    				this.trigger("notfound", route);
+    			return this;
+    		},
 
-	    		dispatch : function(name, args, route) {
-	    			if (this._current) {
-	    				if (this._current.name === name && Comparators.deepEqual(args, this._current.args, 2))
-	    					return;
-	    				this.trigger("leave", this._current.name,
-	    						this._current.args, this._current);
-	    				this.trigger("leave:" + this._current.name,
-	    						this._current.args, this._current);
-	    			}
-	    			var current = {
-    					route : route || this.format(name, args),
-    					name : name,
-    					args : args
-	    			};
-	    			this.trigger("dispatch", name, args, current);
-	    			this.trigger("dispatch:" + name, args, current);
-	    			this._current = current;
-	    			this.trigger("dispatched", name, args, current);
-	    			this.trigger("dispatched:" + name, args, current);
-	    		},
+    		/**
+    		 * Dispatches a new route.
+    		 * 
+    		 * @param {string} name name of route
+    		 * @param {array} args arguments of new route
+    		 * @param {string} route optional route string
+    		 * 
+    		 */
+    		dispatch : function(name, args, route) {
+    			if (this._current) {
+    				if (this._current.name === name && Comparators.deepEqual(args, this._current.args, 2))
+    					return;
+    				this.trigger("leave", this._current.name,
+    						this._current.args, this._current);
+    				this.trigger("leave:" + this._current.name,
+    						this._current.args, this._current);
+    			}
+    			var current = {
+					route : route || this.format(name, args),
+					name : name,
+					args : args
+    			};
+    			this.trigger("dispatch", name, args, current);
+    			this.trigger("dispatch:" + name, args, current);
+    			this._current = current;
+    			this.trigger("dispatched", name, args, current);
+    			this.trigger("dispatched:" + name, args, current);
+    			return this;
+    		},
 
-	    		format : function(name, args) {
-	    			return this._routeParser.format(name, args);
-	    		}
+			/**
+			 * Recreates a full route from an abstract route descriptor and route arguments.
+			 * 
+			 * @param {string} name route descriptor
+			 * @param {array} args arguments for route
+			 * 
+			 * @return {string} full route
+			 * 
+			 */
+    		format : function(name, args) {
+    			return this._routeParser.format(name, args);
+    		}
 
-	    	};
-	    } ]);
+    	};
+    } ]);
 });
 
 
 
-Scoped.define("module:Router.RouteBinder", [ "module:Class", "module:Types" ], function(Class, Types, scoped) {
-	return Class.extend({ scoped : scoped
-	}, function(inherited) {
+Scoped.define("module:Router.RouteBinder", [
+	"module:Class", "module:Types"
+], function( Class, Types, scoped) {
+	return Class.extend({ scoped : scoped }, function(inherited) {
+		
+		/**
+		 * Abstract Route Binder Class for bidirectionally binding the route to a separate router.
+		 * 
+		 * @class BetaJS.Router.RouteBinder
+		 */
 		return {
 			
+			/**
+			 * Overwrite the local route of this binder.
+			 * 
+			 * @param {string} currentRoute current route
+			 */
 			_setLocalRoute: function (currentRoute) {},
 			
+			/**
+			 * Read the local route of this binder.
+			 * 
+			 * @return {string} local route
+			 */
 			_getLocalRoute: function () {},
 			
+			/**
+			 * Notify the router that the local route has changed.
+			 */
 			_localRouteChanged: function () {
 				this.setGlobalRoute(this._getLocalRoute());
 			},
 
+			/**
+			 * Creates a new instance.
+			 * 
+			 * @param {object} router router instance
+			 */
 			constructor : function(router) {
 				inherited.constructor.call(this);
 				this._router = router;
@@ -11758,20 +12552,35 @@ Scoped.define("module:Router.RouteBinder", [ "module:Class", "module:Types" ], f
 					this.setGlobalRoute(this._getLocalRoute());
 			},
 
+			/**
+			 * @override
+			 */
 			destroy : function() {
 				this._router.off(null, null, this);
 				inherited.destroy.call(this);
 			},
 			
+			/**
+			 * Sets the local route.
+			 * 
+			 * @param {string} currentRoute current route
+			 */
 			setLocalRoute: function (currentRoute) {
 				this._setLocalRoute(currentRoute);
+				return this;
 			},
 			
+			/**
+			 * Sets the global route.
+			 * 
+			 * @param {string} route new global route
+			 */
 			setGlobalRoute: function (route) {
 				if (Types.is_string(route))
 					this._router.navigate(route);
 				else
 					this._router.dispatch(route.name, route.args);
+				return this;
 			}
 
 		};
@@ -11779,12 +12588,25 @@ Scoped.define("module:Router.RouteBinder", [ "module:Class", "module:Types" ], f
 });
 
 
-Scoped.define("module:Router.StateRouteBinder", [ "module:Router.RouteBinder", "module:Objs", "module:Strings",
-                                                  "module:Router.RouteMap" ], function(RouteBinder, Objs, Strings, RouteMap, scoped) {
-	return RouteBinder.extend({ scoped : scoped
-	}, function(inherited) {
+Scoped.define("module:Router.StateRouteBinder", [
+	"module:Router.RouteBinder", "module:Objs", "module:Strings", "module:Router.RouteMap"
+], function(RouteBinder, Objs, Strings, RouteMap, scoped) {
+	return RouteBinder.extend({ scoped : scoped }, function(inherited) {
+		
+		/**
+		 * State Router Binder Class, binding a router to a state machine
+		 * 
+		 * @class BetaJS.Router.StateRouteBinder
+		 */
 		return {
 
+			/**
+			 * Creates a new instance.
+			 * 
+			 * @param {object} router router instance
+			 * @param {object} stateHost state host instance
+			 * @param {object} options optional options
+			 */
 			constructor : function(router, stateHost, options) {
 				this._stateHost = stateHost;
 				options = Objs.extend({
@@ -11813,6 +12635,9 @@ Scoped.define("module:Router.StateRouteBinder", [ "module:Router.RouteBinder", "
 				stateHost.on("start", this._localRouteChanged, this);
 			},
 
+			/**
+			 * @override
+			 */
 			destroy : function() {
 				this._routeToState.destroy();
 				this._stateToRoute.destroy();
@@ -11820,22 +12645,44 @@ Scoped.define("module:Router.StateRouteBinder", [ "module:Router.RouteBinder", "
 				inherited.destroy.call(this);
 			},
 
+			/**
+			 * Bind a route to a state.
+			 * 
+			 * @param {string} name route name
+			 * @param {function} func state function
+			 */
 			bindRouteToState : function(name, func) {
 				this._routeToState.bind(name, func);
 				return this;
 			},
 
+			/**
+			 * Bind a state to a route.
+			 * 
+			 * @param {string} name state name
+			 * @param {function} func route function
+			 */
 			bindStateToRoute : function(name, func) {
 				this._stateToRoute.bind(name, func);
 				return this;
 			},
 
+			/**
+			 * Register a new route and corresponding state.
+			 * 
+			 * @param {string} name name of route / state
+			 * @param {string} route new route
+			 * @param {object} extension state extension object
+			 */
 			register: function (name, route, extension) {
 				this._router.bind(name, route);
 				this._stateHost.register(this._options.capitalizeStates ? Strings.capitalize(name) : name, extension);
 				return this;
 			},			
 
+			/**
+			 * @override
+			 */
 			_setLocalRoute: function (currentRoute) {
 				var mapped = this._routeToState.map(currentRoute.name, currentRoute.args);
 				if (mapped) {
@@ -11848,6 +12695,9 @@ Scoped.define("module:Router.StateRouteBinder", [ "module:Router.RouteBinder", "
 				}
 			},
 			
+			/**
+			 * @override
+			 */
 			_getLocalRoute: function () {
 				if (!this._stateHost.state())
 					return null;
@@ -11859,13 +12709,24 @@ Scoped.define("module:Router.StateRouteBinder", [ "module:Router.RouteBinder", "
 	});
 });
 
-Scoped.define("module:Router.RouterHistory", [ "module:Class",
-                                               "module:Events.EventsMixin" ], function(Class, EventsMixin, scoped) {
-	return Class.extend({
-		scoped : scoped
-	}, [ EventsMixin, function(inherited) {
+
+Scoped.define("module:Router.RouterHistory", [
+	"module:Class", "module:Events.EventsMixin"
+], function(Class, EventsMixin, scoped) {
+	return Class.extend({ scoped : scoped }, [ EventsMixin, function(inherited) {
+		
+		/**
+		 * Router History Class
+		 * 
+		 * @class BetaJS.Router.RouterHistory
+		 */
 		return {
 
+			/**
+			 * Creates a new instance.
+			 * 
+			 * @param {object} router router instance
+			 */
 			constructor : function(router) {
 				inherited.constructor.call(this);
 				this._router = router;
@@ -11877,25 +12738,50 @@ Scoped.define("module:Router.RouterHistory", [ "module:Class",
 				}, this);
 			},
 
+			/**
+			 * @override
+			 */
 			destroy : function() {
 				this._router.off(null, null, this);
 				inherited.destroy.call(this);
 			},
 
+			/**
+			 * Returns the last history item.
+			 * 
+			 * @param {int} index optional index, counting from the end.
+			 * @return {string} history route
+			 */
 			last : function(index) {
 				index = index || 0;
 				return this.get(this.count() - 1 - index);
 			},
 
+			/**
+			 * Return the number of history items.
+			 * 
+			 * @return {int} number of history items 
+			 */
 			count : function() {
 				return this._history.length;
 			},
 
+			/**
+			 * Returns a history item.
+			 * 
+			 * @param {int} index optional index, counting from the start.
+			 * @return {string} history route
+			 */
 			get : function(index) {
 				index = index || 0;
 				return this._history[index];
 			},
 
+			/**
+			 * Goes back in history.
+			 * 
+			 * @param {int} index optional index, stating how many items to go back.
+			 */
 			back : function(index) {
 				if (this.count() < 2)
 					return null;
@@ -11915,16 +12801,22 @@ Scoped.define("module:Router.RouterHistory", [ "module:Class",
 });
 
 Scoped.define("module:States.Host", [
-                                     "module:Properties.Properties",
-                                     "module:Events.EventsMixin",
-                                     "module:States.State",
-                                     "module:Types",
-                                     "module:Strings",
-                                     "module:Classes.ClassRegistry"
-                                     ], function (Class, EventsMixin, State, Types, Strings, ClassRegistry, scoped) {
+    "module:Properties.Properties", "module:Events.EventsMixin", "module:States.State", "module:Types", "module:Strings", "module:Classes.ClassRegistry"
+], function (Class, EventsMixin, State, Types, Strings, ClassRegistry, scoped) {
 	return Class.extend({scoped: scoped}, [EventsMixin, function (inherited) {
+		
+		/**
+		 * State Machine Host Class
+		 * 
+		 * @class BetaJS.States.Host
+		 */
 		return {
 
+			/**
+			 * Creates a new instance.
+			 * 
+			 * @param {object} options options for state host
+			 */
 			constructor: function (options) {
 				inherited.constructor.call(this);
 				options = options || {};
@@ -11933,6 +12825,13 @@ Scoped.define("module:States.Host", [
 				this._enabled = true;
 			},
 
+			/**
+			 * Initialize state machine.
+			 * 
+			 * @param initial_state initial state as string or class
+			 * @param {object} initial_args initial arguments for state
+			 * 
+			 */
 			initialize: function (initial_state, initial_args) {
 				if (!this._stateRegistry) {
 					var s = null;
@@ -11947,85 +12846,199 @@ Scoped.define("module:States.Host", [
 					this._stateRegistry = this._auto_destroy(new ClassRegistry(Scoped.getGlobal(s)));
 				}
 				this._createState(initial_state, initial_args).start();
-				this._baseState = this._baseState || this._state.cls; 
+				this._baseState = this._baseState || this._state.cls;
+				return this;
 			},
 
+			/**
+			 * Creates a new state.
+			 * 
+			 * @protected
+			 * 
+			 * @param state state as string or class
+			 * @param {object} args arguments for state
+			 * @param {object} transitionals transitional arguments for state
+			 * 
+			 * @return {object} created state
+			 */
 			_createState: function (state, args, transitionals) {
 				return this._stateRegistry.create(state, this, args || {}, transitionals || {});
 			},
 
+			/**
+			 * Finalize current state.
+			 */
 			finalize: function () {
 				if (this._state)
 					this._state.end();
-				this._state = null;    	
+				this._state = null;
+				return this;
 			},
 
+			/**
+			 * @override
+			 */
 			destroy: function () {
 				this.finalize();
 				inherited.destroy.call(this);
 			},
 			
+			/**
+			 * Enable the state machine.
+			 */
 			enable: function () {
 				this._enabled = true;
+				return this;
 			},
 			
+			/**
+			 * Disable the state machine.
+			 */
 			disable: function () {
 				this._enabled = false;
+				return this;
 			},
 
+			/**
+			 * Returns the current state.
+			 * 
+			 * @return {object} current state
+			 */
 			state: function () {
 				return this._state;
 			},
 
+			/**
+			 * Returns the current state name.
+			 * 
+			 * @return {string} state name
+			 */
 			state_name: function () {
 				return this.state().state_name();
 			},
 
+			/**
+			 * Transitions to the next state
+			 * 
+			 * @return {object} next state
+			 */
 			next: function () {
 				return this.state() ? this.state().next.apply(this.state(), arguments) : this.initialize.apply(this, arguments);
 			},
 			
+			/**
+			 * Weakly transitions to the next state
+			 * 
+			 * @return {object} next state
+			 */
 			weakNext: function () {
 				return this.state() ? this.state().weakNext.apply(this.state(), arguments) : this.initialize.apply(this, arguments);
 			},
 			
+			/**
+			 * Starts a new state.
+			 * 
+			 * @protected
+			 * 
+			 * @param {object} state state to start
+			 */
 			_start: function (state) {
 				this._stateEvent(state, "before_start");
 				this._state = state;
 				this.set("name", state.state_name());
 			},
 
+			/**
+			 * Called after an event was started.
+			 * 
+			 * @protected
+			 * 
+			 * @param {object} state state in question
+			 */
 			_afterStart: function (state) {
 				this._stateEvent(state, "start");
 			},
 
+			/**
+			 * End a state.
+			 * 
+			 * @protected
+			 * 
+			 * @param {object} state state in question
+			 */
 			_end: function (state) {
 				this._stateEvent(state, "end");
 				this._state = null;
 			},
 
+			/**
+			 * Called after an event was ended.
+			 * 
+			 * @protected
+			 * 
+			 * @param {object} state state in question
+			 */
 			_afterEnd: function (state) {
 				this._stateEvent(state, "after_end");
 			},
 
+			/**
+			 * Called when a transition to a state is taking place.
+			 * 
+			 * @protected
+			 * 
+			 * @param {object} state state in question
+			 */
 			_next: function (state) {
 				this._stateEvent(state, "next");
 			},
 
+			/**
+			 * Called after transitioning to a state.
+			 * 
+			 * @protected
+			 * 
+			 * @param {object} state state in question
+			 */
 			_afterNext: function (state) {
 				this._stateEvent(state, "after_next");
 			},
 
+			/**
+			 * Determines whether we can transition to a state
+			 * 
+			 * @protected
+			 * 
+			 * @param {object} state state in question
+			 * @return {boolean} true if we can transition
+			 */
 			_can_transition_to: function (state) {
 				return this._enabled;
 			},
 
+			/**
+			 * Triggers a state event.
+			 * 
+			 * @protected
+			 * 
+			 * @param {object} state state in question
+			 * @param {string} s name of event
+			 */
 			_stateEvent: function (state, s) {
 				this.trigger("event", s, state.state_name(), state.description());
 				this.trigger(s, state.state_name(), state.description());
 				this.trigger(s + ":" + state.state_name(), state.description());
 			},
 
+			/**
+			 * Registers a new state.
+			 * 
+			 * @param {string} state_name name of new state
+			 * @param {object} parent_state class of parent state we should inherit from
+			 * @param {object} extend extension of state class
+			 * 
+			 * @return {object} new state class
+			 */
 			register: function (state_name, parent_state, extend) {
 				if (!Types.is_string(parent_state)) {
 					extend = parent_state;
@@ -12047,13 +13060,15 @@ Scoped.define("module:States.Host", [
 
 
 Scoped.define("module:States.State", [
-                                      "module:Class",
-                                      "module:Types",
-                                      "module:Strings",
-                                      "module:Async",
-                                      "module:Objs"
-                                      ], function (Class, Types, Strings, Async, Objs, scoped) {
+    "module:Class", "module:Types", "module:Strings", "module:Async", "module:Objs"
+], function (Class, Types, Strings, Async, Objs, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
+		
+		/**
+		 * Abstract State Class
+		 * 
+		 * @class BetaJS.States.State
+		 */
 		return {
 
 			_locals: [],
@@ -12070,6 +13085,13 @@ Scoped.define("module:States.State", [
 			__next_state: null,
 			__suspended: 0,
 
+			/**
+			 * Creates a new instance.
+			 * 
+			 * @param {object} host state host
+			 * @param {object} args arguments for creating the state
+			 * @param {object} transitionals transitionals variables
+			 */
 			constructor: function (host, args, transitionals) {
 				inherited.constructor.call(this);
 				this.host = host;
@@ -12097,6 +13119,11 @@ Scoped.define("module:States.State", [
 				host.resumeEvents();
 			},
 			
+			/**
+			 * Returns all attributes of the state.
+			 * 
+			 * @return {object} all attributes
+			 */
 			allAttr: function () {
 				var result = Objs.clone(this.host.data(), 1);
 				Objs.iter(this._locals, function (key) {
@@ -12108,17 +13135,30 @@ Scoped.define("module:States.State", [
 				return result;
 			},
 
+			/**
+			 * Returns the name of state.
+			 * 
+			 * @return {string} name of state
+			 */
 			state_name: function () {
 				return Strings.last_after(this.cls.classname, ".");
 			},
 
+			/**
+			 * Returns the description of state.
+			 * 
+			 * @return {string} description of state
+			 */
 			description: function () {
 				return this.state_name();
 			},
 
+			/**
+			 * Starts the state.
+			 */
 			start: function () {
 				if (this._starting)
-					return;
+					return this;
 				this._starting = true;
 				this.host._start(this);
 				this._start();
@@ -12126,27 +13166,51 @@ Scoped.define("module:States.State", [
 					this.host._afterStart(this);
 					this._started = true;
 				}
+				return this;
 			},
 
+			/**
+			 * Ends the state.
+			 */
 			end: function () {
 				if (this._stopped)
-					return;
+					return this;
 				this._stopped = true;
 				this._end();
 				this.host._end(this);
 				this.host._afterEnd(this);
 				this.destroy();
+				return this;
 			},
 
+			/**
+			 * Eventually transitions to the next state.
+			 * 
+			 * @param {string} state_name name of next state
+			 * @param {object} args arguments for creating the state
+			 * @param {object} transitionals transitionals variables
+			 * 
+			 * @return {object} next state
+			 */
 			eventualNext: function (state_name, args, transitionals) {
 				this.suspend();
-				this.next(state_name, args, transitionals);
+				var state = this.next(state_name, args, transitionals);
 				this.eventualResume();
+				return state;
 			},
 
+			/**
+			 * Eventually transitions to the next state.
+			 * 
+			 * @param {string} state_name name of next state
+			 * @param {object} args arguments for creating the state
+			 * @param {object} transitionals transitionals variables
+			 * 
+			 * @return {object} next state
+			 */
 			next: function (state_name, args, transitionals) {
 				if (!this._starting || this._stopped || this.__next_state)
-					return;
+					return null;
 				args = args || {};
 				for (var i = 0; i < this._persistents.length; ++i) {
 					if (!(this._persistents[i] in args))
@@ -12155,7 +13219,7 @@ Scoped.define("module:States.State", [
 				var obj = this.host._createState(state_name, args, transitionals);
 				if (!this.can_transition_to(obj)) {
 					obj.destroy();
-					return;
+					return null;
 				}
 				if (!this._started) {
 					this.host._afterStart(this);
@@ -12166,8 +13230,18 @@ Scoped.define("module:States.State", [
 				this._transition();
 				if (this.__suspended <= 0)
 					this.__next();
+				return obj;
 			},
 			
+			/**
+			 * Checks weakly whether a prospective new state is equal to this state.
+			 * 
+			 * @param {string} state_name name of next state
+			 * @param {object} args arguments for creating the state
+			 * @param {object} transitionals transitionals variables
+			 * 
+			 * @return {boolean} true if equal
+			 */
 			weakSame: function (state_name, args, transitionals) {
 				var same = true;
 				if (state_name !== this.state_name())
@@ -12180,6 +13254,15 @@ Scoped.define("module:States.State", [
 				return same;
 			},
 			
+			/**
+			 * Weakly transitions to the next state.
+			 * 
+			 * @param {string} state_name name of next state
+			 * @param {object} args arguments for creating the state
+			 * @param {object} transitionals transitionals variables
+			 * 
+			 * @return {object} next state
+			 */
 			weakNext: function (state_name, args, transitionals) {
 				return this.weakSame.apply(this, arguments) ? this : this.next.apply(this, arguments);
 			},
@@ -12204,20 +13287,39 @@ Scoped.define("module:States.State", [
 			_transition: function () {
 			},
 
+			/**
+			 * Suspends the state.
+			 */
 			suspend: function () {
 				this.__suspended++;
+				return this;
 			},
 
+			/**
+			 * Eventually resumes the state.
+			 */
 			eventualResume: function () {
 				Async.eventually(this.resume, this);
+				return this;
 			},
 
+			/**
+			 * Resumes the state.
+			 */
 			resume: function () {
 				this.__suspended--;
 				if (this.__suspended === 0 && !this._stopped && this.__next_state)
 					this.__next();
+				return this;
 			},
 
+			/**
+			 * Determines whether the state can transition to another state.
+			 * 
+			 * @param {object} state another state
+			 * 
+			 * @return {boolean} true if it can transition
+			 */
 			can_transition_to: function (state) {
 				return this.host && this.host._can_transition_to(state) && this._can_transition_to(state);
 			},
@@ -12243,10 +13345,23 @@ Scoped.define("module:States.State", [
 });
 
 
-Scoped.define("module:States.StateRouter", ["module:Class", "module:Objs"], function (Class, Objs, scoped) {
+Scoped.define("module:States.StateRouter", [
+	"module:Class", "module:Objs"
+], function (Class, Objs, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
+		
+		/**
+		 * State Router Class
+		 * 
+		 * @class BetaJS.States.StateRouter
+		 */
 		return {
 
+			/**
+			 * Creates a new instance.
+			 * 
+			 * @param {object} host state host
+			 */
 			constructor: function (host) {
 				inherited.constructor.call(this);
 				this._host = host;
@@ -12254,18 +13369,32 @@ Scoped.define("module:States.StateRouter", ["module:Class", "module:Objs"], func
 				this._states = {};
 			},
 
+			/**
+			 * Register a route.
+			 * 
+			 * @param {string} route route to be registered
+			 * @param {string} state state to be registered
+			 * @param {array} mapping optional argument mapping
+			 */
 			registerRoute: function (route, state, mapping) {
 				var descriptor = {
-						key: route,
-						route: new RegExp("^" + route + "$"),
-						state: state,
-						mapping: mapping || []
+					key: route,
+					route: new RegExp("^" + route + "$"),
+					state: state,
+					mapping: mapping || []
 				};
 				this._routes.push(descriptor);
 				this._states[state] = descriptor;
 				return this;
 			},
-
+			
+			/**
+			 * Read a route from a state object.
+			 * 
+			 * @param {object} stateObject state object
+			 * 
+			 * @return {string} corresponding route
+			 */
 			readRoute: function (stateObject) {
 				var descriptor = this._states[stateObject.state_name()];
 				if (!descriptor)
@@ -12278,6 +13407,13 @@ Scoped.define("module:States.StateRouter", ["module:Class", "module:Objs"], func
 				return route;
 			},
 
+			/**
+			 * Parses a route.
+			 * 
+			 * @param {string} route route to be parsed
+			 * 
+			 * @return {object} state and argument descriptor
+			 */
 			parseRoute: function (route) {
 				for (var i = 0; i < this._routes.length; ++i) {
 					var descriptor = this._routes[i];
@@ -12295,14 +13431,25 @@ Scoped.define("module:States.StateRouter", ["module:Class", "module:Objs"], func
 				return null;
 			},
 
+			/**
+			 * Returns the current route.
+			 * 
+			 * @return {string} current route
+			 */
 			currentRoute: function () {
 				return this.readRoute(this._host.state());
 			},
 
+			/**
+			 * Navigate to a route.
+			 * 
+			 * @param {string} route route to be navigated to
+			 */
 			navigateRoute: function (route) {
 				var parsed = this.parseRoute(route);
 				if (parsed)
 					this._host.next(parsed.state, parsed.args);
+				return this;
 			}
 
 		};		

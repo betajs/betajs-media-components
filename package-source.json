@@ -1,6 +1,6 @@
 {
 	"name": "betajs-media-components",
-	"version": "0.0.38",
+	"version": "0.0.39",
 	"description": "BetaJS-Media-Components is a JavaScript media UI components framework",
 	"contributors": ["Ziggeo", "Oliver Friedmann"],
 	"devDependencies": {
@@ -18,6 +18,9 @@
 		"qunit": "",
 		"jsdom": "",
 		"js-yaml": "",
+		"express": "",
+		"multer": "",
+		"js-ffmpeg": "",
 	    "grunt-contrib-sass": "",
 	    "grunt-contrib-cssmin": "",
 	    "grunt-contrib-csslint": "",

@@ -103,3 +103,13 @@
     @include fontello-icon;
     content: '\e80e';
 }
+
+.#{$css}-icon-full-screen:before {
+  @include fontello-icon;
+  content: '\f131';
+}
+
+.#{$css}-icon-share:before {
+  @include fontello-icon;
+  content: '\f130';
+}

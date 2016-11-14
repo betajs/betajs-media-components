@@ -99,6 +99,11 @@
     text-align: center;
 }
 
+@mixin relative-horizontally-center {
+    position: relative;
+    margin: auto;
+}
+
 @mixin float-width-height($float, $width, $height) {
     float: $float;
     width: $width;
@@ -147,6 +152,11 @@
     border-top-right-radius: $width;
 }
 
+@mixin border-right-round-edges($width) {
+    border-bottom-right-radius: $width;
+    border-top-right-radius: $width;
+}
+
 @mixin border-radius($radius) {
     -moz-border-radius: $radius;
     -webkit-border-radius: $radius;
@@ -173,4 +183,36 @@
 @mixin clickable {
     cursor: pointer;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+@mixin full-screen-display($display) {
+    :-webkit-full-screen{
+        display: $display;
+    }
+    :-moz-full-screen::backdrop{
+        display: $display;
+    }
+    :-ms-fullscreen::-ms-backdrop{
+        display: $display;
+    }
+
+    :fullscreen::backdrop{
+        display: $display;
+    }
+}
+
+@mixin full-screen-backdrop($color) {
+    :-webkit-full-screen::backdrop{
+       background-color: $color;
+    }
+    :-moz-full-screen::backdrop{
+       background-color: $color;
+    }
+    :-ms-fullscreen::-ms-backdrop{
+        background-color: $color;
+    }
+
+    :fullscreen::backdrop{
+       background-color: $color;
+    }
 }

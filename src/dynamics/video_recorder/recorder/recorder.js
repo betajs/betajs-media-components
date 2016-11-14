@@ -91,6 +91,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				"timelimit": null,
 				"timeminlimit": null,
 				"rtmpstreamtype": "mp4",
+				"rtmpmicrophonecodec": "speex",
 				"microphone-volume": 1.0,
 				"flip-camera": false,
 				"early-rerecord": false,
@@ -243,6 +244,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 			    	recordingHeight: this.get("recordingheight"),
 			    	flashFullSecurityDialog: !this.get("flashincognitosupport"),
 			    	rtmpStreamType: this.get("rtmpstreamtype"),
+			    	rtmpMicrophoneCodec: this.get("rtmpmicrophonecodec"),
 			    	framerate: this.get("framerate"),
 			    	flip: this.get("flip-camera")
 			    });

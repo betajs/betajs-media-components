@@ -1,0 +1,75 @@
+$css: "ba-videoplayer-elevate-theme";
+$cssie8: "ba-videoplayer-elevate-ie8";
+$cssnoie8: "ba-videoplayer-elevate-noie8";
+$fontello_name: "bjsmc";
+
+$loader_size: 5px;
+$loader_frame_thickness: 0.6em;
+
+$message_bgcolor: black;
+$message_opacity: 0.75;
+$message_color: white;
+
+$font_family: sans-serif;
+$topmessage_bgcolor: black;
+$topmessage_opacity: 0.3;
+$topmessage_fontsize: 15px;
+$topmessage_height: 32px;
+$topmessage_fontweight: bold;
+
+$playbutton_size: 5px;
+$playbutton_frame_thickness: 0.6em;
+$playbutton_default_opacity: 0.6;
+$playbutton_hover_opacity: 0.9;
+$playbutton_transition_time: .25s;
+$playbutton_background_opacity: 0.2;
+
+$dashboard_width: 95%;
+$dashboard_transition: 0.5s;
+$dashboard_border_color: rgba(0, 0, 0, 0.1);
+
+$controlbar_height: 52px;
+$controlbar_bottom_height: 32px;
+$controlbar_line_height: 32px;
+$controlbar_background: rgba(255, 255, 255, 1);
+$controlbar_left_block_width: 12%;
+$controlbar_center_block_width: 75%;
+$controlbar_right_block_width: 12%;
+
+$button_fontsize: 13px;
+$button_width: 40px;
+$button_color: #5daa96;
+$button_color_secondary: #b0b0b0;
+$button_border_color: rgba(0, 0, 0, .15);
+$time_value_width: 100px;
+$ie8_margintop: 6px;
+$text_fontfamily: Helvetica Neue, Helvetica, Arial, sans-serif;
+$text_fontsize: 0.7rem;
+$text_color: #2c2c2c;
+$controls_bgcolor: rgba(93, 170, 150, 0.3);
+$volume_width: 60px;
+$volume_height: 6px;
+
+$progressbar_width: 95%;
+$progressbar_cache_bgcolor: #ededed;
+$progressbar_button_overflow: #5daa96;
+$progressbar_height: 8px;
+$stream_label_bg_color: #5daa96;
+$stream_label_color: #ffffff;
+$time_value_width: 40px;
+$aligned-buttons-container: 80px;
+
+$rerecord_text_color: white;
+$rerecord_font_family: Arial, sans-serif;
+
+
+$rerecord_height: 48px;
+$rerecord_opacity: 0.5;
+$rerecord_bgcolor: black;
+$rerecord_padding: 24px;
+$rerecord_padding: 16px;
+$rerecord_primarybutton_radius: 3px;
+$rerecord_primarybutton_padding: 8px;
+$rerecord_primarybutton_vertical_padding: 16px;
+$rerecord_primarybutton_font_weight: bold;
+$rerecord_primarybutton_font_size: 14px;

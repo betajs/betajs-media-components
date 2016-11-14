@@ -1,0 +1,104 @@
+.#{$css}-dashboard {
+  @include absolute-align-full-bottom;
+  @include transition1(opacity, $dashboard_transition, ease-in-out);
+  bottom: -1px;
+  opacity: 0.9;
+  font-size: $text_fontsize;
+  height: $controlbar_height;
+  overflow: hidden;
+  background: $controlbar_background;
+  color: $text_color;
+}
+
+
+.#{$css}-left-block {
+  float: left;
+}
+
+.#{$css}-center-block {
+  float: left;
+  .#{$css}-progress-bar-container {
+    position: absolute;
+    width: 100%;
+  }
+}
+
+.#{$css}-right-block {
+  float: right;
+  .#{$css}-icon-volume-up, .#{$css}-icon-volume-down, .#{$css}-icon-resize-full {
+    color: $button_color_secondary;
+  }
+}
+
+.#{$css}-button-container {
+  float: left;
+  width: $button-width;
+  height: $controlbar_height;
+  line-height: $controlbar_line_height;
+  text-align: center;
+}
+
+.#{$css}-timer-container {
+  color: $text_color;
+  background: $controlbar_background;
+  letter-spacing: .1em;
+  width: 84px;
+  font-weight: 100;
+  font-size: .9em;
+  padding: 0 2.5px;
+  & > div {
+    float: left;
+    width: $button_width;
+  }
+
+  & > p {
+    float: left;
+    margin: 0;
+    width: 4px;
+  }
+}
+
+.#{$css}-stream-label{
+  color: $stream_label_color;
+  background: $stream_label_bg_color;
+  padding: 5px 3px 5px 6px;
+  font-weight: 100;
+  letter-spacing: .1em;
+  font-size: 0.8em;
+}
+
+.#{$cssnoie8} .#{$css}-progressbar {
+  overflow: hidden;
+  height: 100%;
+}
+
+.#{$cssie8} .#{$css}-progressbar {
+  overflow: hidden;
+  height: 50%;
+  margin-top: $ie8_margintop;
+}
+
+.#{$css}-progressbar-cache {
+  @include absolute-align-left;
+  @include clickable;
+  background-color: transparent;
+  height: $progressbar_height;
+}
+
+.#{$css}-progressbar-inner {
+  @include relative-center-center;
+  @include clickable;
+  background: transparent;
+  height: $progressbar_height;
+}
+
+.#{$css}-progressbar-position {
+  @include absolute-align-left();
+  background-color: $progressbar_button_overflow;
+  height: 100%;
+}
+
+
+.#{$css}-progressbar-button {
+  display: none;
+}

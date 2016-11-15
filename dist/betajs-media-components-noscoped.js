@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.39 - 2016-11-13
+betajs-media-components - v0.0.40 - 2016-11-14
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -16,7 +16,7 @@ Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "53.1479098702413"
+    "version": "55.1479156855755"
 };
 });
 Scoped.assumeVersion('base:version', 502);
@@ -1818,6 +1818,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				"filesizelimit": null,
 				/* Configuration */
 				"forceflash": false,
+				"simulate": false,
 				"noflash": false,
 				"noaudio": false,
 				"flashincognitosupport": false,
@@ -1858,7 +1859,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				"flip-camera": "boolean",
 				"early-rerecord": "boolean",
 				"custom-covershots": "boolean",
-				"manualsubmit": "boolean"
+				"manualsubmit": "boolean",
+				"simulate": "boolean"
 			},
 			
 			extendables: ["states"],
@@ -1889,18 +1891,18 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				this.on("change:stretch", function () {
 					this._updateStretch();
 				}, this);
-				this.host = this.auto_destroy(new Host({
+				this.host = new Host({
 					stateRegistry: new ClassRegistry(this.cls.recorderStates())
-				}));
+				});
 				this.host.dynamic = this;
 				this.host.initialize(InitialState);
 				
-				this._timer = this.auto_destroy(new Timers.Timer({
+				this._timer = new Timers.Timer({
 					context: this,
 					fire: this._timerFire,
 					delay: 250,
 					start: true
-				}));
+				});
 				
 				this.__cameraResponsive = true;
 				this.__cameraSignal = true;
@@ -1953,6 +1955,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				this._clearError();
 				this.recorder = VideoRecorderWrapper.create({
 					element: video,
+					simulate: this.get("simulate"),
 			    	forceflash: this.get("forceflash"),
 			    	noflash: this.get("noflash"),
 			    	recordVideo: true,
@@ -2025,6 +2028,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 			},
 			
 			_uploadCovershot: function (image) {
+				if (this.get("simulate"))
+					return;
 				this.__lastCovershotUpload = image;
 				var uploader = this.recorder.createSnapshotUploader(image, this.get("snapshottype"), this.get("uploadoptions").image);
 				uploader.upload();
@@ -2032,6 +2037,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 			},
 			
 			_uploadCovershotFile: function (file) {
+				if (this.get("simulate"))
+					return;
 				this.__lastCovershotUpload = file;
 				var uploader = FileUploader.create(Objs.extend({ source: file }, this.get("uploadoptions").image));
 				uploader.upload();
@@ -2039,6 +2046,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 			},
 
 			_uploadVideoFile: function (file) {
+				if (this.get("simulate"))
+					return;
 				var uploader = FileUploader.create(Objs.extend({ source: file }, this.get("uploadoptions").video));
 				uploader.upload();
 				this._dataUploader.addUploader(uploader);
@@ -2204,7 +2213,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 						
 			},
 			
-			destroy: function () {
+			destroy: function () {				
+				this._timer.destroy();
+				this.host.destroy();
 				this._detachRecorder();
 				inherited.destroy.call(this);
 			},

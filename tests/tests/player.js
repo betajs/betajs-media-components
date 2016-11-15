@@ -37,7 +37,9 @@ if (!BetaJS.Browser.Info.isMobile()) {
 		var player = dyn.scope(">[tagname='ba-videoplayer']").materialize(true);
 		player.on("playing", function () {
 			ok(true);
-			$("#visible-fixture").html("");
+			setTimeout(function () {
+				$("#visible-fixture").html("");
+			}, 10);
 			start();
 		});
 		player.on("error", function () {

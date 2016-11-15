@@ -1,5 +1,5 @@
 /*!
-betajs-media - v0.0.39 - 2016-11-13
+betajs-media - v0.0.40 - 2016-11-14
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -14,7 +14,7 @@ Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
     "guid": "8475efdb-dd7e-402e-9f50-36c76945a692",
-    "version": "72.1479092382804"
+    "version": "73.1479154067107"
 };
 });
 Scoped.assumeVersion('base:version', 502);
@@ -2248,21 +2248,19 @@ Scoped.define("module:Recorder.WebRTCVideoRecorderWrapper", [
 			stopRecord: function (options) {
 				var promise = Promise.create();
 				this._recorder.once("data", function (videoBlob, audioBlob) {
-					var videoUploader = FileUploader.create(Objs.extend({
-						source: videoBlob
-					}, options.video));
-					if (!audioBlob)
-						promise.asyncSuccess(videoUploader);
-					var audioUploader = FileUploader.create(Objs.extend({
-						source: audioBlob
-					}, options.audio));
 					this.__localPlaybackSource = {
 						src: videoBlob,
 						audiosrc: audioBlob
 					};
 					var multiUploader = new MultiUploader();
-					multiUploader.addUploader(videoUploader);
-					multiUploader.addUploader(audioUploader);
+					if (!this._options.simulate) {
+						multiUploader.addUploader(FileUploader.create(Objs.extend({
+							source: videoBlob
+						}, options.video)));
+						multiUploader.addUploader(FileUploader.create(Objs.extend({
+							source: audioBlob
+						}, options.audio)));
+					}
 					promise.asyncSuccess(multiUploader);
 				}, this);
 				this._recorder.stopRecord();
@@ -2305,8 +2303,9 @@ Scoped.define("module:Recorder.FlashVideoRecorderWrapper", [
     "base:Promise",
     "base:Objs",
     "base:Timers.Timer",
-    "browser:Upload.CustomUploader"
-], function (VideoRecorderWrapper, FlashRecorder, Dom, Info, Promise, Objs, Timer, CustomUploader, scoped) {
+    "browser:Upload.CustomUploader",
+    "browser:Upload.MultiUploader"
+], function (VideoRecorderWrapper, FlashRecorder, Dom, Info, Promise, Objs, Timer, CustomUploader, MultiUploader, scoped) {
 	return VideoRecorderWrapper.extend({scoped: scoped}, function (inherited) {
 		return {
 			
@@ -2440,6 +2439,8 @@ Scoped.define("module:Recorder.FlashVideoRecorderWrapper", [
 			},
 			
 			startRecord: function (options) {
+				if (this._options.simulate)
+					return Promise.value(true);
 				var self = this;
 				var ctx = {};
 				var promise = Promise.create();
@@ -2455,6 +2456,8 @@ Scoped.define("module:Recorder.FlashVideoRecorderWrapper", [
 			},
 			
 			stopRecord: function (options) {
+				if (this._options.simulate)
+					return Promise.value(new MultiUploader());
 				var self = this;
 				var ctx = {};
 				var uploader = new CustomUploader();

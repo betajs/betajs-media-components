@@ -310,12 +310,12 @@ module.exports = function(grunt) {
         "generate-default-yml",
 
         // Include theme generation
-        "modern-theme",
-        "space-theme",
-        'theatre-theme',
-        'elevate-theme',
-        'cube-theme',
-        'minimalist-theme'
+        // "modern-theme",
+        "space-theme" //,
+        // 'theatre-theme',
+        // 'elevate-theme',
+        // 'cube-theme',
+        //'minimalist-theme'
     ]);
 
   // ** MODERN THEME **//

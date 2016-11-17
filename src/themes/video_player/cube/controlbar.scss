@@ -1,13 +1,14 @@
 .#{$css}-dashboard {
   @include absolute-align-full-bottom;
   @include transition1(opacity, $dashboard_transition, ease-in-out);
+  @include background-rgba(0, 0, 0, 0.35, #b2b2b2);
+  //background: $controlbar_background;
   bottom: -1px;
-  opacity: 0.9;
+  color: $text_color;
   font-size: $text_fontsize;
   height: $controlbar_height;
+  opacity: 0.9;
   overflow: hidden;
-  background: $controlbar_background;
-  color: $text_color;
 }
 
 
@@ -39,8 +40,9 @@
 }
 
 .#{$css}-timer-container {
+  @include background-rgba(0, 0, 0, 0.35, #b2b2b2);
+  //background: $controlbar_background;
   color: $text_color;
-  background: $controlbar_background;
   letter-spacing: .1em;
   width: 84px;
   font-weight: 100;

@@ -27,10 +27,10 @@
 }
 
 .#{$css}-bottom-block {
-    width: 100%;
-    clear: both;
     background: $controlbar_background;
+    clear: both;
     height: $controlbar_bottom_height;
+    width: 100%;
 }
 
 .#{$css}-left-block {

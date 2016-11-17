@@ -17,13 +17,15 @@ $topmessage_fontsize: 15px;
 $topmessage_height: 50px;
 $topmessage_fontweight: bold;
 
-$playbutton_size: 4em;
+$playbutton_size: 3em;
 $playbutton_color: rgba( 255, 255, 255, 0.35);
 $playbutton_frame_thickness: 0.6em;
 $playbutton_default_opacity: 0.6;
 $playbutton_hover_opacity: 0.9;
 $playbutton_transition_time: .25s;
 $playbutton_background_opacity: 0.2;
+
+$controlbar_header_height: 40px;
 
 $dashboard_transition: 0.5s;
 $controlbar_height: 100%;
@@ -44,6 +46,7 @@ $controls_bgcolor: rgba( 255, 255, 255, 0.2);
 $volume_width: 60px;
 $volume_height: 6px;
 $progressbar_cache_bgcolor: rgba( 255, 255, 255, 0.3);
+$progressbar_cache_bgcolor_ie_hex: 30ffffff;
 $progressbar_button_overflow: #5daa96;
 $progressbar_container_height: 15px;
 $progressbar_height: 4px;

@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.39 - 2016-11-13
+betajs-media-components - v0.0.39 - 2016-11-17
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -582,10 +582,10 @@ Apache-2.0 Software License.
   clear: both; }
 
 .ba-videoplayer-elevate-theme-bottom-block {
-  width: 100%;
+  background: #ffffff;
   clear: both;
-  background: white;
-  height: 32px; }
+  height: 32px;
+  width: 100%; }
 
 .ba-videoplayer-elevate-theme-left-block {
   float: left; }
@@ -605,7 +605,7 @@ Apache-2.0 Software License.
     text-align: center; }
   .ba-videoplayer-elevate-theme-right-block > div:first-child {
     float: left;
-    border-left: 1px solid rgba(0, 0, 0, 0.15);
+    border-left: 1px solid #e5e5e5;
     line-height: 30px; }
 
 .ba-videoplayer-elevate-theme-top-right-block {
@@ -616,7 +616,7 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-elevate-theme-button-container {
   width: 40px;
-  border-right: 1px solid rgba(0, 0, 0, 0.15);
+  border-right: 1px solid #e5e5e5;
   text-align: center; }
 
 .ba-videoplayer-elevate-theme-icon-play, .ba-videoplayer-elevate-theme-icon-pause {
@@ -710,7 +710,7 @@ Apache-2.0 Software License.
   border-radius: 2px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  background: #ededed;
+  background: #ffffff;
   height: 8px;
   left: -5px; }
 
@@ -723,7 +723,7 @@ Apache-2.0 Software License.
   border-top-right-radius: 3px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  background-color: #ededed;
+  background-color: #ffffff;
   height: 8px; }
 
 .ba-videoplayer-elevate-theme-progressbar-position {

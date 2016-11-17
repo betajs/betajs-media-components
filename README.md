@@ -110,23 +110,14 @@ You can use the library in the browser and compile it as well.
 | betajs-shims | [Open](https://github.com/betajs/betajs-shims) |
 
 
-## Main Contributors
+## Contributors
 
 - Ziggeo
 - Oliver Friedmann
 
+
 ## License
 
 Apache-2.0
-
-
-
-
-
-
-## Sponsors
-
-- Ziggeo
-- Browserstack
 
 

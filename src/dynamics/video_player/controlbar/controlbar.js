@@ -42,7 +42,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 			},
 			
 			functions: {
-				
+
+				share_media: function() {},
+
 				startUpdatePosition: function (event) {
 					event[0].preventDefault();
 					this.set("_updatePosition", true);
@@ -150,6 +152,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
     	"volume-button": "Set volume",
     	"volume-mute": "Mute sound",
     	"volume-unmute": "Unmute sound",
-    	"change-resolution": "Change resolution"
+    	"change-resolution": "Change resolution",
+			"share-media": "Share this media"
     });
 });

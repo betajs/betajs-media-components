@@ -25,10 +25,12 @@ $playbutton_transition_time: .25s;
 $playbutton_background_opacity: 0.2;
 
 $dashboard_transition: 0.5s;
-$controlbar_height: 40px;
+$controlbar_height: 100%;
+$controlbar_header_height: 32px;
+$controlbar_footer_height: 40px;
 $controlbar_background: rgba(0, 0, 0, 0.4);
 $button_fontsize: 13px;
-$button_width: 40px;
+$button_width: 30px;
 $button_color: #ffffff;
 $button_color_green: #5da894;
 $button_color_blue: #2a74eb;
@@ -46,6 +48,7 @@ $progressbar_button_overflow: #5daa96;
 $progressbar_height: 3px;
 $stream_label_bg_color: #676f76;
 $stream_label_color: #ffffff;
+$stream_label_width: 20px;
 
 
 $rerecord_text_color: white;

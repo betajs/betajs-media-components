@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.39 - 2016-11-13
+betajs-media-components - v0.0.39 - 2016-11-17
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -562,35 +562,82 @@ Apache-2.0 Software License.
   position: absolute;
   left: 0;
   right: 0;
+  top: 0;
   bottom: 0;
+  height: 100%;
+  overflow: hidden; }
+
+.ba-videoplayer-space-theme-controlbar-header {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  background: #999999;
+  background: rgba(0, 0, 0, 0.4);
+  font-size: 0.65rem;
+  font-weight: 100;
+  height: 32px;
+  letter-spacing: .05rem;
+  line-height: 34px;
+  padding: 0 3px 0 12px;
+  text-align: center; }
+
+.ba-videoplayer-space-theme-controlbar-footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #999999;
+  background: rgba(0, 0, 0, 0.4);
   transition: opacity 0.5s ease-in-out;
   -moz-transition: opacity 0.5s ease-in-out;
   -webkit-transition: opacity 0.5s ease-in-out;
   -o-transition: opacity 0.5s ease-in-out;
-  opacity: 0.9;
   height: 40px;
-  overflow: hidden;
-  background: rgba(0, 0, 0, 0.4); }
+  padding: 0 5px; }
+
+.ba-videoplayer-ie8 .ba-videoplayer-space-theme-controlbar-header, .ba-videoplayer-ie8 .ba-videoplayer-space-theme-controlbar-footer {
+  opacity: .8; }
 
 .ba-videoplayer-space-theme-dashboard-hidden {
   opacity: 0; }
 
 .pull-right {
-  float: right !important; }
+  float: right; }
+
+.ba-videoplayer-noie8 .ba-videoplayer-space-theme-controlbar-header .css-rightbutton-container {
+  width: 21px; }
+
+.ba-videoplayer-space-theme-controlbar-header-background {
+  position: relative;
+  height: 40px; }
+
+.ba-videoplayer-space-theme-title {
+  float: left;
+  color: #ffffff; }
+
+.ba-videoplayer-noie8 .ba-videoplayer-space-theme-controlbar-header .ba-videoplayer-space-theme-button-inner {
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  -o-transform: translateY(0);
+  -ms-transform: translateY(0);
+  transform: translateY(0); }
+
+.ba-videoplayer-noie8 .ba-videoplayer-space-theme-topmessage-container .ba-videoplayer-space-theme-rightbutton-container {
+  width: 25px; }
 
 .ba-videoplayer-space-theme-leftbutton-container {
   float: left;
-  width: 40px;
+  width: 30px;
   height: 100%;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   box-sizing: content-box;
-  border: none;
-  width: 50px; }
+  border: none; }
 
 .ba-videoplayer-noie8 .ba-videoplayer-space-theme-rightbutton-container {
   float: right;
-  width: 40px;
+  width: 30px;
   height: 100%;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
@@ -599,14 +646,21 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-ie8 .ba-videoplayer-space-theme-rightbutton-container {
   float: right;
-  width: 40px;
+  width: 30px;
   height: 50%;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   box-sizing: content-box;
   border: none; }
 
+.ba-videoplayer-space-theme-right-time-container {
+  padding-right: 10px; }
+
 .ba-videoplayer-noie8 .ba-videoplayer-space-theme-button-inner {
+  color: #ffffff;
+  font-size: 13px; }
+
+.ba-videoplayer-noie8 .ba-videoplayer-space-theme-controlbar-footer .ba-videoplayer-space-theme-button-inner {
   -webkit-transform: translateY(-50%);
   -moz-transform: translateY(-50%);
   -o-transform: translateY(-50%);
@@ -614,9 +668,7 @@ Apache-2.0 Software License.
   transform: translateY(-50%);
   top: 50%;
   position: relative;
-  text-align: center;
-  color: #ffffff;
-  font-size: 13px; }
+  text-align: center; }
 
 .ba-videoplayer-ie8 .ba-videoplayer-space-theme-button-inner {
   margin-top: 12px;
@@ -680,6 +732,7 @@ Apache-2.0 Software License.
   border-top-right-radius: 3px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
+  background: #cee5df;
   background: rgba(93, 170, 150, 0.3);
   height: 6px; }
 
@@ -704,7 +757,7 @@ Apache-2.0 Software License.
   height: 50%;
   padding-left: 12px;
   padding-right: 12px;
-  margin-right: 40px;
+  margin-right: 30px;
   margin-top: 6px; }
 
 .ba-videoplayer-space-theme-progressbar-cache {
@@ -716,7 +769,8 @@ Apache-2.0 Software License.
   border-top-right-radius: 3px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  background-color: rgba(93, 170, 150, 0.3);
+  background: #cee5df;
+  background: rgba(93, 170, 150, 0.3);
   height: 3px; }
 
 .ba-videoplayer-space-theme-progressbar-inner {
@@ -734,6 +788,7 @@ Apache-2.0 Software License.
   border-top-right-radius: 3px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
+  background: #cee5df;
   background: rgba(93, 170, 150, 0.3);
   height: 3px; }
 
@@ -786,7 +841,7 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-space-theme-stream-label-container {
   background-color: #676f76;
-  width: 25px;
+  width: 20px;
   padding: 2px; }
   .ba-videoplayer-space-theme-stream-label-container .ba-videoplayer-space-theme-stream-label {
     background-color: #676f76; }

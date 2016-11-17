@@ -263,8 +263,7 @@ module.exports = function(grunt) {
         './vendors/beta-dynamics-noscoped.js',
         './dist/betajs-media-components-noscoped.js'
      ], null, { jquery: true })
-    .browserstackTask(null, 'tests/tests.html', {desktop: true, mobile: false})
-    .browserstackTask(null, 'tests/tests.html', {desktop: false, mobile: true})
+    .browserstackTask(null, 'tests/browserstack.html', {desktop: true, mobile: true})
     .lintTask(null, ['./src/**/*.js', './dist/' + dist + '-noscoped.js', './dist/' + dist + '.js', './Gruntfile.js', './tests/**/*.js'])
     .csslinterTask(null, ['dist/betajs-media-components.css', 'dist/themes/modern.css', 'dist/themes/space/style.css'])
 

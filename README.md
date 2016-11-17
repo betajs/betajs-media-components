@@ -69,13 +69,13 @@ You can use the library in the browser and compile it as well.
 | Target | Versions |
 | :----- | -------: |
 | Firefox | 4 - Latest |
-| Chrome | 15 - Latest |
+| Chrome | 18 - Latest |
 | Safari | 4 - Latest |
 | Opera | 12 - Latest |
 | Internet Explorer | 8 - Latest |
 | Edge | 12 - Latest |
-| iOS | 7.0 - Latest |
-| Android | 4.0 - Latest |
+| iOS | 4.0 - Latest |
+| Android | 2.3 - Latest |
 
 
 ## CDN

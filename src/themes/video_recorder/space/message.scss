@@ -1,0 +1,49 @@
+.#{$video_player}-message-container {
+  .#{$video_player}-first-inner-message-container {
+    @include background-rgba( 255, 255, 255, .3, #7f7f7f );
+    @include border-radius(50%);
+    height: $message_height + ( $message_side_interval * 9 );
+    width: $message_width + ( $message_side_interval * 9 );
+    z-index: 4;
+    .#{$video_player}-second-inner-message-container {
+      @include background-rgba( 255, 255, 255, .5, #b2b2b2 );
+      @include border-radius(50%);
+      height: $message_height + ( $message_side_interval * 6 );
+      position: relative;
+      left: $message_side_interval + ($message_side_interval / 2);
+      top: $message_side_interval + ($message_side_interval / 2);
+      width: $message_width + ( $message_side_interval * 6 );
+      z-index: 6;
+      .#{$video_player}-third-inner-message-container {
+        @include background-rgba( 255, 255, 255, .7, #e5e5e5 );
+        @include border-radius(50%);
+        height: $message_height + ( $message_side_interval * 3 );
+        position: relative;
+        left: $message_side_interval + ($message_side_interval / 2);
+        top: $message_side_interval + ($message_side_interval / 2);
+        width: $message_width + ( $message_side_interval * 3 );
+        z-index: 8;
+        .#{$video_player}-fourth-inner-message-container {
+          background: $message_bgcolor;
+          @include border-radius(50%);
+          @include absolute-center-center();
+          position: relative;
+          height: $message_height;
+          left: $message_side_interval;
+          top: $message_side_interval;
+          width: $message_width;
+          z-index: 10;
+        }
+      }
+    }
+  }
+
+}
+
+.#{$video_player}-message-message {
+  color: $message_color;
+  font-size: $topmessage_fontsize;
+  font-weight: 100;
+  letter-spacing: .1em;
+}
+

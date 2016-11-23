@@ -3,6 +3,19 @@ var FS = require("fs");
 var Multer = require("multer");
 var Ffmpeg = require("js-ffmpeg");
 
+
+//In case if require SSL based hostname, also please uncomment below code
+// var https = require('https');
+// var fs = require('fs');
+// var path = require('path');
+//
+// var options = {
+// 	key: fs.readFileSync(path.join(__dirname, '/ssl/server.key')),
+// 	cert: fs.readFileSync(path.join(__dirname, '/ssl/server.crt')),
+// 	requestCert: false,
+// 	rejectUnauthorized: false
+// };
+
 var express = Express();
 var upload = Multer({ storage: Multer.memoryStorage() });
 var port = 6001;
@@ -33,6 +46,11 @@ express.post("/files/:source/transcode/:target", function (request, response) {
 		response.status(200).send({});
 	});
 });
+
+// //In the case if require SSL based hostname
+// https.createServer(options, express).listen(port, function () {
+// 	console.log('Server started and listen port %s., Full path: https://localhost:%s/static/index.html', port, port);
+// });
 
 express.listen(port, function () {
 	console.log("Listening on", port);

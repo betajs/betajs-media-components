@@ -51,9 +51,11 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				"width": "",
 				"height": "",
 				"gallerysnapshots": 3,
+
 				/* Themes */
 				"theme": "",
 				"csstheme": "",
+
 				/* Dynamics */
 				"dynimagegallery": "videorecorder-imagegallery",
 				"dynloader": "videorecorder-loader",
@@ -62,6 +64,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				"dyntopmessage": "videorecorder-topmessage",
 				"dynchooser": "videorecorder-chooser",
 				"dynvideoplayer": "videoplayer",
+
 				/* Templates */
 				"tmplimagegallery": "",
 				"tmplloader": "",
@@ -69,6 +72,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				"tmplmessage": "",
 				"tmpltopmessage": "",
 				"tmplchooser": "",
+
 				/* Attributes */
 				"autorecord": false,
 				"autoplay": false,
@@ -99,6 +103,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				"manualsubmit": false,
 				"allowedextensions": null,
 				"filesizelimit": null,
+
 				/* Configuration */
 				"forceflash": false,
 				"noflash": false,
@@ -107,6 +112,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				"localplayback": false,
 				"uploadoptions": {},
 				"playerattrs": {},
+
 				/* Options */
 				"rerecordable": true,
 				"recordings": null,
@@ -443,7 +449,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 					if (confirm(this.string("rerecord-confirm")))
 						this.host.state().rerecord();
 				},
-				
+
 				stop: function () {
 					this.host.state().stop();
 				},

@@ -396,9 +396,10 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
 			this.dyn.set("settingsvisible", false);
 			this.dyn.set("recordvisible", false);
 			this.dyn.set("stopvisible", false);
-			this.dyn.set("skipvisible", true);
+			this.dyn.set("skipvisible", false);
 			this.dyn.set("controlbarlabel", "");
-			this.dyn.set("rerecordvisible", this.dyn.get("early-rerecord"));
+      this.dyn.set("rerecordvisible", true);
+			//this.dyn.set("rerecordvisible", this.dyn.get("early-rerecord"));
 			this.dyn.set("uploadcovershotvisible", this.dyn.get("custom-covershots"));
 			this.dyn.set("topmessage", this.dyn.string('pick-covershot'));
 			var imagegallery = this.dyn.scope(">[tagname='ba-videorecorder-imagegallery']").materialize(true);

@@ -26,8 +26,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Controlbar", [
 						this.set("recordingindication", !this.get("recordingindication"));
 					},
 					delay: 500
-				}));
-			},
+				})); },
 			
 			functions: {
 				selectCamera: function (cameraId) {

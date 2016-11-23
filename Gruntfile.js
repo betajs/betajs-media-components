@@ -112,8 +112,7 @@ module.exports = function(grunt) {
       'src/themes/video_recorder/default/imagegallery.scss',
       'src/themes/video_recorder/default/controlbar.scss',
       'src/themes/video_recorder/default/settings.scss',
-      'src/themes/video_recorder/space/*.scss',
-      'src/themes/video_recorder/space/**/*.scss'
+      'src/themes/video_recorder/space/*.scss'
     ], 'dist/themes/space/style.css')
     .cssminTask('cssmin-space-theme', 'dist/themes/space/style.css', 'dist/themes/space/style.min.css')
     .cleanTask('clean-space-theme', 'dist/themes/space/space-templates.js')
@@ -290,15 +289,18 @@ module.exports = function(grunt) {
     /* Documentation */
     .docsTask();
 
+
+  grunt.loadNpmTasks('grunt-watchify');
+
 	grunt.initConfig(gruntHelper.config);
 
 	grunt.registerTask('default', [
-	      'package',
-        'readme',
-        'license',
-        'codeclimate',
+        'package',
+        //'readme',
+        //'license',
+        //'codeclimate',
         'templates-dist',
-        'locales',
+        //'locales',
         'scopedclosurerevision',
         'concat-scoped',
         'uglify-noscoped',
@@ -306,8 +308,8 @@ module.exports = function(grunt) {
         'concat-dist-css',
         'cssmin-dist',
         'clean-compile',
-        'copy-fonts',
-        "generate-default-yml",
+        //'copy-fonts',
+        //"generate-default-yml",
 
         // Include theme generation
         // "modern-theme",

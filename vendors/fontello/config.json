@@ -107,6 +107,12 @@
       "css": "lightbulb",
       "code": 59406,
       "src": "fontawesome"
+    },
+    {
+      "uid": "09bdae120f85e79f2db16145a9e1f6d8",
+      "css": "crop",
+      "code": 61733,
+      "src": "fontawesome"
     }
   ]
 }

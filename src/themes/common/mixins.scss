@@ -217,22 +217,22 @@
     }
 }
 
-//@mixin transparent($opacity) {
-//    /* works for IE 5+. */
-//    filter:alpha(opacity= ( $opacity*10 ) );
-//
-//    /* works for IE 8. */
-//    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=#{$opacity * 10})";
-//
-//    /* works for old school versions of the Mozilla browsers like Netscape Navigator. */
-//    -moz-opacity:$opacity;
-//
-//    /* This is for old versions of Safari (1.x) with KHTML rendering engine */
-//    -khtml-opacity: $opacity;
-//
-//    /* This is the "most important" one because it's the current standard in CSS. This will work in most versions of Firefox, Safari, and Opera. */
-//    opacity: $opacity;
-//}
+@mixin transparent($opacity) {
+    /* works for IE 5+. */
+    filter:alpha(opacity= ( $opacity*10 ) );
+
+    /* works for IE 8. */
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=#{$opacity * 10})";
+
+    /* works for old school versions of the Mozilla browsers like Netscape Navigator. */
+    -moz-opacity:$opacity;
+
+    /* This is for old versions of Safari (1.x) with KHTML rendering engine */
+    -khtml-opacity: $opacity;
+
+    /* This is the "most important" one because it's the current standard in CSS. This will work in most versions of Firefox, Safari, and Opera. */
+    opacity: $opacity;
+}
 
 @mixin argb($hex) {
     background: none;
@@ -266,4 +266,26 @@
     /* IE9/FF/chrome/safari supported */
     color: rgba($R, $G, $B, $opacity);
 
+}
+
+@mixin settings_bubble_bottom_shape ($h, $radius, $r, $g, $b, $o, $fallback, $left) {
+    @include background-rgba($r, $g, $b, $o, $fallback);
+    @include border-radius($radius);
+    display: inline-block;
+    height: $h;
+    line-height: $h;
+    position: relative;
+
+    &:before {
+        @include border-right-rgba( 6px, $r, $g, $b, 0, transparent );
+        @include border-top-rgba( 9px, $r, $g, $b, $o, $fallback);
+        @include border-left-rgba( 6px, $r, $g, $b, 0, transparent );
+        content:"";
+        height: 0;
+        left: $left;
+        position: absolute;
+        right: 100%;
+        top: $h;
+        width: 0;
+    }
 }

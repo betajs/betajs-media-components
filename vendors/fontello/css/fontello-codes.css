@@ -14,5 +14,6 @@
 .icon-mic:before { content: '\e80c'; } /* '' */
 .icon-mute:before { content: '\e80d'; } /* '' */
 .icon-lightbulb:before { content: '\e80e'; } /* '' */
+.icon-crop:before { content: '\f125'; } /* '' */
 .icon-share:before { content: '\f130'; } /* '' */
 .icon-resize-full-alt:before { content: '\f131'; } /* '' */

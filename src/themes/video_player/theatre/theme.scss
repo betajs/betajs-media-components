@@ -56,16 +56,19 @@ $time_value_width: 40px;
 $aligned-buttons-container: 80px;
 
 $rerecord_text_color: white;
-$rerecord_font_family: Arial, sans-serif;
+$rerecord_font_family: sans-serif;
 
 
-$rerecord_height: 48px;
-$rerecord_opacity: 0.5;
-$rerecord_bgcolor: black;
+$rerecord_height: 50px;
+$rerecord_opacity: 1;
+$rerecord_bgcolor: white;
 $rerecord_padding: 24px;
 $rerecord_padding: 16px;
 $rerecord_primarybutton_radius: 3px;
-$rerecord_primarybutton_padding: 8px;
+$rerecord_primarybutton_color: #5daa96;
+$rerecord_primarybutton_text_color: white;
+$rerecord_primarybutton_padding: 0;
 $rerecord_primarybutton_vertical_padding: 16px;
-$rerecord_primarybutton_font_weight: bold;
-$rerecord_primarybutton_font_size: 14px;
+$rerecord_primarybutton_font_weight: 100;
+$rerecord_primarybutton_font_size: 12px;
+$rerecord_letter_spacing: .1em;

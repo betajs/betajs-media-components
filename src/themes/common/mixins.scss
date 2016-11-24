@@ -55,6 +55,14 @@
     left: 0;
 }
 
+@mixin absolute-align-right-bottom {
+    bottom: 0;
+    left: auto;
+    position: absolute;
+    right: 0;
+    top: auto;
+}
+
 @mixin absolute-align-all() {
     position: absolute;
     @include align-all();

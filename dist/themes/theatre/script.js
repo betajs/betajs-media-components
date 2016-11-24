@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.39 - 2016-11-17
+betajs-media-components - v0.0.39 - 2016-11-24
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -28,16 +28,19 @@ Scoped.extend("module:Assets.playerthemes", [
 });
 
 Scoped.extend("module:Assets.recorderthemes", [
-    "module:Templates",
-    "browser:Info"
-], function (Templates, Info) {
-	var ie8 = Info.isInternetExplorer() && Info.internetExplorerVersion() <= 8;
+    "module:Templates"
+], function (Templates) {
 	return {
-		"space": {
-			css: "ba-videorecorder-space-theme",
+		"theatre": {
+			css: "ba-videorecorder-theme-theatre",
 			cssmessage: "ba-videorecorder",
 			cssloader: "ba-videorecorder",
-			tmplchooser: Templates["space-video_recorder_chooser"]
+      tmpltopmessage: Templates["theatre-video_recorder_topmessage"],
+      tmplcontrolbar: Templates["theatre-video_recorder_controlbar"],
+      tmplimagegallery: Templates["theatre-recorder_imagegallery"],
+			tmplloader: Templates["theatre-video_recorder_loader"],
+      tmplchooser: Templates["theatre-video_recorder_chooser"],
+      tmplmessage: Templates["theatre-video_recorder_message"]
 		}
 	};
 });

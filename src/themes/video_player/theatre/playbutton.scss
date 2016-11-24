@@ -1,0 +1,78 @@
+.#{$css}-playbutton-container {
+    border: none;
+}
+
+.#{$css}-playbutton-container {
+    border-radius: 50%;
+	@include transform-translate(-50%, -50%);
+	@include background-rgba( 255, 255, 255, $playbutton_default_opacity, #999 );
+	@include absolute-center-center;
+	@include transition2(border, background, $playbutton_transition_time, ease-in-out);
+    width: 10em;
+    height: 10em;
+    font-size: $playbutton_size;
+    box-sizing: content-box;
+    cursor: pointer;
+}
+
+.#{$css}-playbutton-button {
+    @include border-left-rgba(3.5em, 0, 0, 0, $playbutton_default_opacity, #666666);
+    @include transition1(border-left, $playbutton_transition_time, ease-in-out);
+    position: relative;
+    margin: auto;
+    width: 0;
+    height: 0;
+    border-top: 2em solid transparent;
+    border-bottom: 2em solid transparent;
+    left: 0.4em;
+    top: 3.00em;
+}
+
+.#{$css}-playbutton-container:hover {
+	@include border-rgba($playbutton_frame_thickness, 255, 255, 255, $playbutton_hover_opacity, white);
+}
+
+.#{$css}-playbutton-container:hover .#{$css}-playbutton-button {
+    @include border-left-rgba(3.5em, 255, 255, 255, $playbutton_hover_opacity, white);
+}
+
+.#{$css}-rerecord-bar {
+    @include absolute-align-full-bottom;
+    background: $rerecord_bgcolor;
+}
+
+.#{$css}-rerecord-backbar {
+    @include absolute-align-full-bottom;
+    height: $rerecord_height;
+    background: $rerecord_bgcolor;
+    opacity: $rerecord_opacity;
+}
+
+.#{$css}-rerecord-frontbar {
+    @include relative-align-full-bottom;
+    height: $rerecord_height;
+    overflow: hidden;
+    padding-left: $rerecord_padding;
+    padding-right: $rerecord_padding;
+    text-align: center;
+}
+
+.#{$css}-rerecord-button-container {
+    display: inline-block;
+}
+
+.#{$css}-rerecord-button {
+    background: $rerecord_primarybutton_color;
+    border-radius: 0;
+    color: $rerecord_primarybutton_text_color;
+    @include clickable;
+    font-family: $rerecord_font_family;
+    font-weight: $rerecord_primarybutton_font_weight;
+    font-size: $rerecord_primarybutton_font_size;
+    height: $rerecord_height;
+    padding: $rerecord_primarybutton_padding;
+    padding-left: $rerecord_primarybutton_vertical_padding;
+    padding-right: $rerecord_primarybutton_vertical_padding;
+    line-height: $rerecord_height;
+    letter-spacing: $rerecord_letter_spacing;
+}

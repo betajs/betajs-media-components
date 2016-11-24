@@ -1,14 +1,12 @@
 .#{$css}-topmessage-message {
-    background: $settings_bgcolor;
-    @include border-radius($controlbar_primarybutton_radius);
-    color: $text_color_secondary;
+    color: $text_color;
     display: inline-block;
     font-family: $font_family;
     font-size: $controlbar_primarybutton_font_size;
     font-weight: 100;
     padding: $controlbar_button_padding;
     position: relative;
-    margin: 15px 0 0 15px;
+    margin: 15px 0 3px;
 }
 
 .#{$css}-topmessage-background{

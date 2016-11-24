@@ -1,18 +1,23 @@
-$css: "ba-videorecorder-theme-space";
+$css: "ba-videorecorder-theme-cube";
 $cssie8: "ba-videorecorder-ie8";
 $cssnoie8: "ba-videorecorder-noie8";
 $fontello_name: "bjsmc";
+$recorder: "ba-videorecorder";
 
-$font_family: Arial, sans-serif;
-$recorder_bgcolor: #FFF;
-$text_color: white;
+$font_family: sans-serif;
+$recorder_bgcolor: #5daa96;
+$text_color: #ffffff;
+$text_color_secondary: #373737;
+$button_color: #5daa96;
 
-$button_color: #eb6a74;
-$button_color_green: #5da894;
-$button_color_blue: #2a74eb;
-
-$message_bgcolor: black;
+$message_bgcolor: white;
+$topmessage_fontsize: 12px;
 $message_opacity: 0.75;
+$message_color: black;
+$message_opacity: 0.75;
+$message_height: 90px;
+$message_width: 90px;
+$message_side_interval: 8px;
 
 $topmessage_bgcolor: black;
 $topmessage_opacity: 0.3;
@@ -31,18 +36,24 @@ $chooser_primary_button_border_radius: 4px;
 $chooser_secondary_button_color: $chooser_primary_button_bgcolor;
 $chooser_secondary_button_padding: 8px;
 $chooser_fontsize: 14px;
+$chooser_icon_size: 32px;
+$chooser_icon_margin: 16px;
+$chooser_background: #ffffff;
+
 
 $imagegallery_buttonmargin: 14px;
-$imagegallery_buttonsize: 24px;
+$imagegallery_buttonsize: 30px;
 $imagegallery_button_bgcolor: black;
 $imagegallery_button_opacity: 0.5;
 $imagegallery_button_padding: 4px;
 $imagegallery_button_radius: 3px;
+$imagegallery_border_radius: 3px;
+
 
 $settings_margin: 4px;
 $settings_padding: 4px;
 $settings_radius: 3px;
-$settings_bgcolor: black;
+$settings_bgcolor: #ffffff;
 $settings_opacity: 0.5;
 $settings_border: none;
 $settings_font_size: 12px;
@@ -51,7 +62,9 @@ $settings_item_padding: 8px;
 $settings_radio_color: white;
 $settings_radio_color_selected: $button_color;
 
-$controlbar_height: 48px;
+
+$controlbar_height: 50px;
+$controlbar_footer_height: 50px;
 $controlbar_opacity: 0.5;
 $controlbar_bgcolor: black;
 $controlbar_padding: 16px;
@@ -61,17 +74,24 @@ $controlbar_label_padding: 15px;
 $controlbar_recording_indication_color: red;
 $controlbar_recording_indication_size: 12px;
 $controlbar_button_horizontal_padding: 8px;
-$controlbar_primarybutton_radius: 3px;
+$controlbar_primarybutton_background: #5daa96;
+$controlbar_primarybutton_color: white;
+$controlbar_primarybutton_radius: 18px;
 $controlbar_primarybutton_padding: 8px;
 $controlbar_primarybutton_vertical_padding: 16px;
 $controlbar_primarybutton_font_weight: bold;
-$controlbar_primarybutton_font_size: 14px;
+$controlbar_primarybutton_min_width: 3em;
+$controlbar_primarybutton_font_size: 12px;
 $controlbar_primarybutton_border: none;
 $controlbar_primarybutton_horizontal_margin: 5px;
 $controlbar_button_fontsize: 20px;
 $controlbar_button_margin: 5px;
-$controlbar_button_padding: 6px;
+$controlbar_button_padding: 7px 15px;
 $controlbar_button_vertical_padding: 3px;
-$controlbar_button_border_radius: 4px;
-$controlbar_button_border: 1px solid $text_color;
+$controlbar_button_border_radius: 50%;
+$controlbar_button_size: 40px;
+$controlbar_button_hover_background: #ffffff;
+$controlbar_button_hover_color: #5daa96;
+$controlbar_button_border: 1px solid #e5e5e5;
+$controlbar_button_color: white;
 

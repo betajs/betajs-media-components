@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.39 - 2016-11-17
+betajs-media-components - v0.0.39 - 2016-11-24
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -31,16 +31,19 @@ Scoped.extend("module:Assets.playerthemes", [
 });
 
 Scoped.extend("module:Assets.recorderthemes", [
-    "module:Templates",
-    "browser:Info"
-], function (Templates, Info) {
-	var ie8 = Info.isInternetExplorer() && Info.internetExplorerVersion() <= 8;
+    "module:Templates"
+], function (Templates) {
 	return {
 		"cube": {
-			css: "ba-videorecorder-cube-theme",
+			css: "ba-videorecorder-theme-cube",
 			cssmessage: "ba-videorecorder",
 			cssloader: "ba-videorecorder",
-			tmplchooser: Templates["cube-video_recorder_chooser"]
+      tmpltopmessage: Templates["cube-video_recorder_topmessage"],
+      tmplcontrolbar: Templates["cube-video_recorder_controlbar"],
+      tmplimagegallery: Templates["cube-recorder_imagegallery"],
+			tmplloader: Templates["cube-video_recorder_loader"],
+      tmplchooser: Templates["cube-video_recorder_chooser"],
+      tmplmessage: Templates["cube-video_recorder_message"]
 		}
 	};
 });

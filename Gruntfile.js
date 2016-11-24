@@ -314,10 +314,10 @@ module.exports = function(grunt) {
         // Include theme generation
         // "modern-theme",
         // "space-theme",
-        'theatre-theme'//,
-        // 'elevate-theme',
-        // 'cube-theme',
-        //'minimalist-theme'
+        // "theatre-theme",
+        // "elevate-theme",
+        "cube-theme"//,
+        // "minimalist-theme"
     ]);
 
   // ** MODERN THEME **//
@@ -360,7 +360,7 @@ module.exports = function(grunt) {
     'clean-elevate-theme'
   ]);
 
-  // **  Elevate THEME **//
+  // **  Cube THEME **//
   grunt.registerTask('cube-theme', [
     'templates-cube-theme',
     'concat-cube-theme',

@@ -81,8 +81,7 @@
         .#{$css}-button-inner {
             top: 38%;
             color: $playbutton_color;
-            //opacity: $playbutton_background_opacity;
-            font-size: $playbutton_size;
+            font-size: $controlbar_playbutton_font_size;
         }
     }
 }
@@ -209,7 +208,7 @@
 .#{css}-size-small  .#{$css}-controlbar-top-block {
     .#{$css}-button-container {
         .#{$css}-button-inner {
-            font-size: $playbutton_size / 2;
+            font-size: $controlbar_playbutton_font_size / 2;
         }
     }
 }

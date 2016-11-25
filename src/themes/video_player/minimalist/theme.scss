@@ -17,14 +17,16 @@ $topmessage_fontsize: 15px;
 $topmessage_height: 50px;
 $topmessage_fontweight: bold;
 
-$playbutton_size: 3em;
+$playbutton_size: 60px;
 $playbutton_color: rgba( 255, 255, 255, 0.35);
 $playbutton_frame_thickness: 0.6em;
 $playbutton_default_opacity: 0.6;
 $playbutton_hover_opacity: 0.9;
 $playbutton_transition_time: .25s;
 $playbutton_background_opacity: 0.2;
+$playbutton_font_size: 7px;
 
+$controlbar_playbutton_font_size: 3em;
 $controlbar_header_height: 40px;
 
 $dashboard_transition: 0.5s;
@@ -63,8 +65,11 @@ $rerecord_opacity: 0.5;
 $rerecord_bgcolor: black;
 $rerecord_padding: 24px;
 $rerecord_padding: 16px;
-$rerecord_primarybutton_radius: 3px;
-$rerecord_primarybutton_padding: 8px;
+$rerecord_primarybutton_radius: 0;
+$rerecord_primarybutton_color: #5daa96;
+$rerecord_primarybutton_text_color: white;
+$rerecord_primarybutton_padding: 9px 20px;
 $rerecord_primarybutton_vertical_padding: 16px;
-$rerecord_primarybutton_font_weight: bold;
-$rerecord_primarybutton_font_size: 14px;
+$rerecord_primarybutton_font_weight: 100;
+$rerecord_primarybutton_font_size: 12px;
+$rerecord_letter_spacing: .1em;

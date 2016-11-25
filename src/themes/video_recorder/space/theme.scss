@@ -11,10 +11,16 @@ $text_color_secondary: #373737;
 
 $button_color: #5daa96;
 
-$message_bgcolor: black;
+$message_bgcolor: white;
 $message_opacity: 0.75;
+$message_color: black;
+$message_opacity: 0.75;
+$message_height: 90px;
+$message_width: 90px;
+$message_side_interval: 8px;
 
 $topmessage_bgcolor: black;
+$topmessage_fontsize: 12px;
 $topmessage_opacity: 0.3;
 $topmessage_fontsize: 15px;
 $topmessage_height: 32px;

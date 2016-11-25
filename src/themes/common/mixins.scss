@@ -280,8 +280,8 @@
     @include background-rgba($r, $g, $b, $o, $fallback);
     @include border-radius($radius);
     display: inline-block;
-    height: $h;
-    line-height: $h;
+    padding: 10px 0;
+    line-height: 1.2;
     position: relative;
 
     &:before {
@@ -296,4 +296,34 @@
         top: $h;
         width: 0;
     }
+}
+
+@mixin settings_bubble_left_to_right_shape ($w, $radius, $r, $g, $b, $o, $fallback, $top) {
+    @include background-rgba($r, $g, $b, $o, $fallback);
+    @include border-radius($radius);
+    display: inline-block;
+    padding: 9px 0;
+    line-height: 1.2;
+    min-width: $w;
+    position: relative;
+    &:before {
+        @include border-bottom-rgba( 6px, $r, $g, $b, 0, transparent );
+        @include border-right-rgba( 9px, $r, $g, $b, $o, #fallabck );
+        @include border-top-rgba( 6px, $r, $g, $b, 0, transparent );
+        content:"";
+        height: 0;
+        top: $top;
+        position: absolute;
+        right: 100%;
+        width: 0;
+    }
+}
+
+@mixin absolute_left_sidebar($width) {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: auto;
+    top: 0;
+    width: $width;
 }

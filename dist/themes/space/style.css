@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.39 - 2016-11-23
+betajs-media-components - v0.0.39 - 2016-11-24
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -2211,7 +2211,6 @@ Apache-2.0 Software License.
   -webkit-border-radius: 18px;
   border-radius: 18px;
   color: #373737;
-  cursor: pointer;
   display: inline-block;
   font-family: sans-serif;
   font-size: 12px;

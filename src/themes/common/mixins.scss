@@ -280,7 +280,7 @@
     @include background-rgba($r, $g, $b, $o, $fallback);
     @include border-radius($radius);
     display: inline-block;
-    padding: 10px 0;
+    padding: 12px 0;
     line-height: 1.2;
     position: relative;
 

@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.39 - 2016-11-24
+betajs-media-components - v0.0.39 - 2016-11-26
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1915,8 +1915,8 @@ Apache-2.0 Software License.
   -webkit-border-radius: 4px;
   border-radius: 4px;
   display: inline-block;
-  height: 40px;
-  line-height: 40px;
+  padding: 12px 0;
+  line-height: 1.2;
   position: relative; }
   .ba-videorecorder-theme-theatre-bubble-info:before {
     border-right: 6px solid transparent;

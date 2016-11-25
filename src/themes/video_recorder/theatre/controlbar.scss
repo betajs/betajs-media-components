@@ -103,7 +103,7 @@
 }
 
 .#{$css}-bubble-info {
-  @include settings_bubble_bottom_shape ( 40px, 4px, 255, 255, 255, 1, #ffffff, 10px );
+  @include settings_bubble_bottom_shape ( 39px, 4px, 255, 255, 255, 1, #ffffff, 10px );
 }
 
 .#{$css}-controlbar-center-section {

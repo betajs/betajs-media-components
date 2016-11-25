@@ -296,11 +296,11 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('default', [
         'package',
-        //'readme',
-        //'license',
-        //'codeclimate',
+        'readme',
+        'license',
+        'codeclimate',
         'templates-dist',
-        //'locales',
+        'locales',
         'scopedclosurerevision',
         'concat-scoped',
         'uglify-noscoped',
@@ -308,16 +308,16 @@ module.exports = function(grunt) {
         'concat-dist-css',
         'cssmin-dist',
         'clean-compile',
-        //'copy-fonts',
-        //"generate-default-yml",
+        'copy-fonts',
+        "generate-default-yml",
 
         // Include theme generation
-        // "modern-theme",
-        // "space-theme",
-        // "theatre-theme",
-        "elevate-theme"//,
-        // "cube-theme",
-        // "minimalist-theme"
+        "modern-theme",
+        "space-theme",
+        "theatre-theme",
+        "elevate-theme",
+        "cube-theme",
+        "minimalist-theme"
     ]);
 
   // ** MODERN THEME **//

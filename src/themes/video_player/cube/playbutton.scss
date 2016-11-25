@@ -43,7 +43,7 @@
 .#{$css}-rerecord-backbar {
     @include absolute-align-full-bottom;
     height: $rerecord_height;
-    background: $rerecord_bgcolor;
+    //background: $rerecord_bgcolor;
     opacity: $rerecord_opacity;
 }
 

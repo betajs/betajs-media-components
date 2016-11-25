@@ -37,7 +37,12 @@
     float: left;
     & > div {
         float: left;
-        line-height: $controlbar_line_height;
+        font-size: $button_fontsize;
+        color: $button_color;
+        line-height: $controlbar_line_height - 1;
+        border-right: 1px solid $button_border_color;
+        text-align: center;
+        width: $button_width;
     }
 }
 
@@ -49,14 +54,14 @@
 .#{$css}-right-block{
     float: right;
     & > div {
+        border-left: 1px solid $button_border_color;
         float: right;
-        line-height: $controlbar_line_height;
+        line-height: $controlbar_line_height - 1;
         text-align: center;
     }
 
     & > div:first-child {
         float: left;
-        border-left: 1px solid $button_border_color;
         line-height: $controlbar_line_height - 2;
     }
 
@@ -72,7 +77,6 @@
 
 .#{$css}-button-container {
     width: $button_width;
-    border-right: 1px solid $button_border_color;
     text-align: center;
 }
 

@@ -1,0 +1,68 @@
+.#{$css}-playbutton-container {
+    border: none;
+}
+
+.#{$css}-playbutton-container {
+    border-radius: 50%;
+    @include background-rgba( 255, 255, 255, 1, #ffffff );
+	@include transform-translate(-50%, -50%);
+	@include absolute-center-center;
+	@include transition2(border, background, $playbutton_transition_time, ease-in-out);
+    width: $playbutton_size;
+    height: $playbutton_size;
+    font-size: $playbutton_font_size;
+    box-sizing: content-box;
+    cursor: pointer;
+}
+
+.#{$css}-playbutton-container:hover {
+	@include border-rgba($playbutton_frame_thickness, 255, 255, 255, $playbutton_hover_opacity, white);
+}
+
+.#{$css}-playbutton-container:hover .#{$css}-playbutton-button {
+    @include border-left-rgba(3.5em, 0, 0, 0, $playbutton_hover_opacity, #666666);
+}
+
+.#{$css}-playbutton-button {
+    @include border-left-rgba(3.5em, 0, 0, 0, $playbutton_default_opacity, #666666);
+    @include transition1(border-left, $playbutton_transition_time, ease-in-out);
+    position: relative;
+    margin: auto;
+    width: 0;
+    height: 0;
+    border-top: 2em solid transparent;
+    border-bottom: 2em solid transparent;
+    left: 4px;
+    top: 17px;
+}
+
+.#{$css}-rerecord-bar {
+    @include absolute-align-full-bottom;
+}
+
+.#{$css}-rerecord-backbar {  }
+
+.#{$css}-rerecord-frontbar {
+    @include relative-align-full-bottom;
+    height: $rerecord_height;
+    overflow: hidden;
+    padding-left: $rerecord_padding;
+    padding-right: $rerecord_padding;
+    text-align: center;
+}
+
+.#{$css}-rerecord-button-container {
+    display: inline-block;
+}
+
+.#{$css}-rerecord-button {
+    background: $rerecord_primarybutton_color;
+    border-radius: $rerecord_primarybutton_radius;
+    color: $rerecord_primarybutton_text_color;
+    @include clickable;
+    font-family: $rerecord_font_family;
+    font-weight: $rerecord_primarybutton_font_weight;
+    font-size: $rerecord_primarybutton_font_size;
+    padding: $rerecord_primarybutton_padding;
+    letter-spacing: $rerecord_letter_spacing;
+}

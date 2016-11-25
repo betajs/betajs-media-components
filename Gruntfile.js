@@ -315,9 +315,9 @@ module.exports = function(grunt) {
         // "modern-theme",
         // "space-theme",
         // "theatre-theme",
-        // "elevate-theme",
+        "elevate-theme"//,
         // "cube-theme",
-        "minimalist-theme"
+        // "minimalist-theme"
     ]);
 
   // ** MODERN THEME **//

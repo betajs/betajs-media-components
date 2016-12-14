@@ -1,0 +1,81 @@
+PLAYER:
+video-player-controlbar
+    #submit-video-button + + + + + +
+    #button-icon-ccw + + + + + +
+    #button-icon-play + + + + + +
+    #button-icon-pause + + + + + +
+    #button-icon-resize-full + + + + + +
+    #button-stream-label + + + + + +
+    #button-volume-bar - - - +
+    #button-icon-volume + + + + + +
+    -#progress-bar-inner - +
+
+video-player-loader
+    #loader-block
+
+video-player-message
+    #message-block +
+
+play-button
+    #play-button +
+    #player-submit-button +
+    #player-rerecord-button +
+
+video-player-topmessage
+    #topmessage-message-block
+
+
+RECORD:
+video-recorder-chooser:
+    #chooser-primary-button + +
+    #file-input-opt1 + +
+    #file-input-opt2 + +
+    #chooser-secondary-button + +
+    #file-input-secondary-opt1 +
+    #file-input-secondary-opt2 +
+
+video-recorder-controlbar
+    #recorder-settings + + + + +
+    #settings-list-front + - + - -
+    -#camera-settings + + + + +
+    -#microphone-settings + + + + +
+    #controlbar + + + +
+    #record-button-icon-cog + + + + +
+    #record-button-icon-videocam + + + + +
+    #record-button-icon-mic + + + + +
+    #recording-indicator - - - - -
+    #record-label-block + + + + +
+    #record-primary-button + + + + +
+    #rerecord-primary-button + + + + +
+    #covershot-primary-button + + + + +
+    #stop-primary-button + + + + +
+    #skip-primary-button + + + + +
+
+video-recorder-imagegallery
+    -#image-gallery + + + + +
+    #slider-left-button + + + + +
+    #slider-left-inner-button + + + + +
+    #images-imagegallery-container + + + + +
+    #slider-inner-button + + + + +
+    #slider-right-inner-button + + + + +
+
+video-recorder-loader
+    #recorder-loader-block + + + + +
+    #recorder-loader-label-container + + + + +
+    -#recorder-loader-label + + + + +
+    -#recorder-loader-wait-button + + + + +
+
+video-recorder-message
+    #recorder-message-container + + + + +
+    #recorder-message-block + + + + +
+
+recorder
+    #recorder-rerecorder
+    #recorder-status
+    #recorder-container
+    #recorder-overlay
+    #recorder-player
+
+video-recorder-topmessage
+    #recorder-topmessage-block - + + +
+

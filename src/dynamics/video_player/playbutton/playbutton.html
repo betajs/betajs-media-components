@@ -1,5 +1,5 @@
 
-<div class="{{css}}-playbutton-container" ba-click="play()" title="{{string('tooltip')}}">
+<div id="play-button" class="{{css}}-playbutton-container" ba-click="play()" title="{{string('tooltip')}}">
 	<div class="{{css}}-playbutton-button"></div>
 </div>
 
@@ -7,12 +7,12 @@
 	<div class="{{css}}-rerecord-backbar"></div>
 	<div class="{{css}}-rerecord-frontbar">
         <div class="{{css}}-rerecord-button-container" ba-if="{{submittable}}">
-            <div class="{{css}}-rerecord-button" onclick="{{submit()}}">
+            <div id="player-submit-button" class="{{css}}-rerecord-button" onclick="{{submit()}}">
                 {{string('submit-video')}}
             </div>
         </div>
         <div class="{{css}}-rerecord-button-container" ba-if="{{rerecordable}}">
-        	<div class="{{css}}-rerecord-button" onclick="{{rerecord()}}">
+        	<div id="player-rerecord-button" class="{{css}}-rerecord-button" onclick="{{rerecord()}}">
         		{{string('rerecord')}}
         	</div>
         </div>

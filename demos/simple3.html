@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script src="../vendors/jquery.min.js"></script>
+	<script src="../vendors/scoped.js"></script>
+	<script src="../vendors/beta-noscoped.js"></script>
+	<script src="../vendors/betajs-browser-noscoped.js"></script>
+	<script src="../vendors/betajs-flash-noscoped.js"></script>
+	<script src="../vendors/betajs-media-noscoped.js"></script>
+	<script src="../vendors/betajs-dynamics-noscoped.js"></script>
+	<script src="../dist/betajs-media-components-noscoped.js"></script>
+	<link  href="../dist/betajs-media-components.css" rel="stylesheet" />
+    <script src="../dist/themes/modern/script.js"></script>
+    <link  href="../dist/themes/modern/style.css" rel="stylesheet" />
+    <script src="../dist/themes/minimalist/script.js"></script>
+    <link  href="../dist/themes/minimalist/style.css" rel="stylesheet" />
+    <script src="../dist/themes/space/script.js"></script>
+    <link  href="../dist/themes/space/style.css" rel="stylesheet" />
+    <script src="../dist/themes/elevate/script.js"></script>
+    <link  href="../dist/themes/elevate/style.css" rel="stylesheet" />
+    <script src="../dist/themes/cube/script.js"></script>
+    <link  href="../dist/themes/cube/style.css" rel="stylesheet" />
+    <script src="../dist/themes/theatre/script.js"></script>
+    <link  href="../dist/themes/theatre/style.css" rel="stylesheet" />
+</head>
+<body style="background: #EEE">
+	<ba-videoplayer ba-sources="{{[{src:'sample-video.mp4', poster: 'sample-cover.png', hd: true}, {src:'sample-video2.mp4', poster:'sample-cover2.png', hd: false}]}}"
+	                ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
+	                ba-theme="cube"
+	                ba-hideoninactivity="false"
+	                ba-title="foobar"
+	                ba-width='50%'></ba-videoplayer>
+	
+
+    <script>
+        BetaJS.Flash.options = {
+            flashFile: "../vendors/betajs-flash.swf",
+            forceReload: true
+        };
+        BetaJS.Dynamics.Dynamic.activate();
+    </script>
+</body>
+</html>

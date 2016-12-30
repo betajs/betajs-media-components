@@ -1,6 +1,6 @@
 # betajs-media-components 0.0.40
 [![Code Climate](https://codeclimate.com/github/betajs/betajs-media-components/badges/gpa.svg)](https://codeclimate.com/github/betajs/betajs-media-components)
-
+[![Gitter Chat](https://badges.gitter.im/betajs/betajs-media-components.svg)](https://gitter.im/betajs/betajs-media-components)
 
 BetaJS-Media-Components is a JavaScript media UI components framework
 
@@ -59,9 +59,10 @@ You can use the library in the browser and compile it as well.
 | :--------- | --: |
 | Homepage   | [http://betajs.com](http://betajs.com) |
 | Git        | [git://github.com/betajs/betajs-media-components.git](git://github.com/betajs/betajs-media-components.git) |
-| Repository | [http://github.com/betajs/betajs-media-components](http://github.com/betajs/betajs-media-components) |
+| Repository | [https://github.com/betajs/betajs-media-components](https://github.com/betajs/betajs-media-components) |
 | Blog       | [http://blog.betajs.com](http://blog.betajs.com) | 
 | Twitter    | [http://twitter.com/thebetajs](http://twitter.com/thebetajs) | 
+| Gitter     | [https://gitter.im/betajs/betajs-media-components](https://gitter.im/betajs/betajs-media-components) | 
 
 
 

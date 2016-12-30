@@ -1,0 +1,55 @@
+'language:nl':
+  ba-videoplayer-playbutton.tooltip: Klik om video af te spelen.
+  ba-videoplayer-playbutton.rerecord: opnieuw
+  ba-videoplayer-playbutton.submit-video: Bevestig video
+  ba-videoplayer-loader.tooltip: Loading video ...
+  ba-videoplayer-controlbar.change-resolution: resolutie Change
+  ba-videoplayer-controlbar.video-progress: video vooruitgang
+  ba-videoplayer-controlbar.rerecord-video: Opnieuw video?
+  ba-videoplayer-controlbar.submit-video: Bevestig video
+  ba-videoplayer-controlbar.play-video: Video afspelen
+  ba-videoplayer-controlbar.pause-video: pauze video
+  ba-videoplayer-controlbar.elapsed-time: Verstreken tijd
+  ba-videoplayer-controlbar.total-time: De totale lengte van de video
+  ba-videoplayer-controlbar.fullscreen-video: Voer fullscreen
+  ba-videoplayer-controlbar.volume-button: Volume instellen
+  ba-videoplayer-controlbar.volume-mute: geluid uitschakelen
+  ba-videoplayer-controlbar.volume-unmute: geluid vrijgeven
+  ba-videoplayer.video-error: >-
+    Er is een fout opgetreden, probeer het later opnieuw. Klik hier om opnieuw
+    te proberen.
+  ba-videorecorder-chooser.record-video: Neem uw video
+  ba-videorecorder-chooser.upload-video: Upload Video
+  ba-videorecorder-controlbar.settings: instellingen
+  ba-videorecorder-controlbar.camerahealthy: Verlichting is goed
+  ba-videorecorder-controlbar.cameraunhealthy: Verlichting is niet optimaal
+  ba-videorecorder-controlbar.microphonehealthy: Het geluid is goed
+  ba-videorecorder-controlbar.microphoneunhealthy: Kan niet pikken elk geluid
+  ba-videorecorder-controlbar.record: Record
+  ba-videorecorder-controlbar.record-tooltip: Klik hier om te registreren.
+  ba-videorecorder-controlbar.rerecord: opnieuw
+  ba-videorecorder-controlbar.rerecord-tooltip: Klik hier om opnieuw te doen.
+  ba-videorecorder-controlbar.upload-covershot: Uploaden
+  ba-videorecorder-controlbar.upload-covershot-tooltip: Klik hier om te uploaden aangepaste hoes schot
+  ba-videorecorder-controlbar.stop: Stop
+  ba-videorecorder-controlbar.stop-tooltip: Klik hier om te stoppen.
+  ba-videorecorder-controlbar.skip: Overspringen
+  ba-videorecorder-controlbar.skip-tooltip: Klik hier om over te slaan.
+  ba-videorecorder.recorder-error: >-
+    Er is een fout opgetreden, probeer het later opnieuw. Klik hier om opnieuw
+    te proberen.
+  ba-videorecorder.attach-error: >-
+    We konden geen toegang tot de camera-interface. Afhankelijk van het apparaat
+    en de browser, moet u misschien Flash installeren of toegang tot de pagina
+    via SSL.
+  ba-videorecorder.access-forbidden: De toegang tot de camera was verboden. Klik hier om opnieuw te proberen.
+  ba-videorecorder.pick-covershot: Kies een covershot.
+  ba-videorecorder.uploading: uploaden
+  ba-videorecorder.uploading-failed: Uploaden mislukt - klik hier om opnieuw te proberen.
+  ba-videorecorder.verifying: Het verifiëren
+  ba-videorecorder.verifying-failed: Verifying mislukt - klik hier om opnieuw te proberen.
+  ba-videorecorder.rerecord-confirm: Wil je echt wilt uw video opnieuw te doen?
+  ba-videorecorder.video_file_too_large: >-
+    Uw video bestand is te groot (%s) - klik hier om opnieuw te proberen met een
+    kleinere videobestand.
+  ba-videorecorder.unsupported_video_type: 'Upload: %s - klik hier om opnieuw te proberen.'

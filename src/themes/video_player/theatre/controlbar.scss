@@ -1,18 +1,14 @@
 /* Theatre */
-.#{$css}-overlay {
-   top: 85%;
-}
-
 .#{$css}-dashboard {
-    position: absolute;
-    left: 12.5%;
-    bottom: 15px;
-    width: $dashboard_width;
-    border: 1px solid $dashboard_border_color;
-    opacity: 1;
-	height: $controlbar_height;
-    overflow: hidden;
     background: $controlbar_background;
+    bottom: 15px;
+    border: 1px solid $dashboard_border_color;
+    height: $controlbar_height;
+    left: 12.5%;
+    opacity: 1;
+    overflow: hidden;
+    position: absolute;
+    width: $dashboard_width;
 }
 
 .#{$css}-dashboard-hidden {
@@ -142,7 +138,8 @@
     @include relative-center-center;
     @include border-round-edges($volume_height / 2);
     @include clickable;
-    background: $controls_bgcolor;
+    @include background-rgba(93, 170, 150, 0.3, #cee5df);
+    //background: $controls_bgcolor;
     height: $volume_height;
 }
 

@@ -55,6 +55,14 @@
     left: 0;
 }
 
+@mixin absolute-align-right-bottom {
+    bottom: 0;
+    left: auto;
+    position: absolute;
+    right: 0;
+    top: auto;
+}
+
 @mixin absolute-align-all() {
     position: absolute;
     @include align-all();
@@ -215,4 +223,107 @@
     :fullscreen::backdrop{
        background-color: $color;
     }
+}
+
+@mixin transparent($opacity) {
+    /* works for IE 5+. */
+    filter:alpha(opacity= ( $opacity*10 ) );
+
+    /* works for IE 8. */
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=#{$opacity * 10})";
+
+    /* works for old school versions of the Mozilla browsers like Netscape Navigator. */
+    -moz-opacity:$opacity;
+
+    /* This is for old versions of Safari (1.x) with KHTML rendering engine */
+    -khtml-opacity: $opacity;
+
+    /* This is the "most important" one because it's the current standard in CSS. This will work in most versions of Firefox, Safari, and Opera. */
+    opacity: $opacity;
+}
+
+@mixin argb($hex) {
+    background: none;
+    -ms-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=$hex,endColorstr=$hex);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=$hex,endColorstr=$hex);
+    zoom: 1;
+}
+
+
+@mixin background-rgba-ie($filter, $R, $G, $B, $opacity, $fallback) {
+
+    /* Web browsers that does not support RGBa, the Fallback */
+    background: rgb($R, $G, $B);
+
+    /* IE9/FF/chrome/safari supported */
+    background: rgba($R, $G, $B, $opacity);
+
+    /* IE 8 suppoerted */
+    /* Here some time problem for Hover than you can use background color/image */
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$filter}, endColorstr=#{$filter})";
+
+    /* Below IE7 supported */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$filter}, endColorstr=#{$filter});
+}
+
+@mixin color-rgba($R, $G, $B, $opacity, $fallback) {
+
+    /* Web browsers that does not support RGBa the Fallback*/
+    color: $fallback;
+
+    /* IE9/FF/chrome/safari supported */
+    color: rgba($R, $G, $B, $opacity);
+
+}
+
+@mixin settings_bubble_bottom_shape ($h, $radius, $r, $g, $b, $o, $fallback, $left) {
+    @include background-rgba($r, $g, $b, $o, $fallback);
+    @include border-radius($radius);
+    display: inline-block;
+    padding: 12px 0;
+    line-height: 1.2;
+    position: relative;
+
+    &:before {
+        @include border-right-rgba( 6px, $r, $g, $b, 0, transparent );
+        @include border-top-rgba( 9px, $r, $g, $b, $o, $fallback);
+        @include border-left-rgba( 6px, $r, $g, $b, 0, transparent );
+        content:"";
+        height: 0;
+        left: $left;
+        position: absolute;
+        right: 100%;
+        top: $h;
+        width: 0;
+    }
+}
+
+@mixin settings_bubble_left_to_right_shape ($w, $radius, $r, $g, $b, $o, $fallback, $top) {
+    @include background-rgba($r, $g, $b, $o, $fallback);
+    @include border-radius($radius);
+    display: inline-block;
+    padding: 9px 0;
+    line-height: 1.2;
+    min-width: $w;
+    position: relative;
+    &:before {
+        @include border-bottom-rgba( 6px, $r, $g, $b, 0, transparent );
+        @include border-right-rgba( 9px, $r, $g, $b, $o, transparent );
+        @include border-top-rgba( 6px, $r, $g, $b, 0, transparent );
+        content:"";
+        height: 0;
+        top: $top;
+        position: absolute;
+        right: 100%;
+        width: 0;
+    }
+}
+
+@mixin absolute_left_sidebar($width) {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: auto;
+    top: 0;
+    width: $width;
 }

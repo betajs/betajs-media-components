@@ -1,14 +1,14 @@
-Scoped.extend("module:Assets.recorderthemes", [
-    "module:Templates",
-    "browser:Info"
-], function (Templates, Info) {
-	var ie8 = Info.isInternetExplorer() && Info.internetExplorerVersion() <= 8;
+Scoped.extend("module:Assets.recorderthemes", [ "module:Templates" ], function(
+		Templates) {
 	return {
-		"space": {
-			css: "ba-videorecorder-space-theme",
-			cssmessage: "ba-videorecorder",
+		"theatre" : {
+			css : "ba-videorecorder-theme-theatre",
+			cssmessage : "ba-videorecorder",
+			tmplcontrolbar : Templates["theatre-video_recorder_controlbar"],
+			tmplimagegallery : Templates["theatre-recorder_imagegallery"],
 			cssloader: "ba-videorecorder",
-			tmplchooser: Templates["space-video_recorder_chooser"]
+			tmplchooser : Templates["theatre-video_recorder_chooser"],
+			tmplmessage : Templates["theatre-video_recorder_message"]
 		}
 	};
 });

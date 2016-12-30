@@ -1,5 +1,5 @@
 /*!
-betajs - v1.0.88 - 2016-11-12
+betajs - v1.0.93 - 2016-12-17
 Copyright (c) Oliver Friedmann,Victor Lingenthal
 Apache-2.0 Software License.
 */
@@ -10,7 +10,7 @@ Scoped.binding('module', 'global:BetaJS');
 Scoped.define("module:", function () {
 	return {
     "guid": "71366f7a-7da3-4e55-9a0b-ea0e4e2a9e79",
-    "version": "578.1478985688572"
+    "version": "587.1481994327278"
 };
 });
 Scoped.require(['module:'], function (mod) {
@@ -195,7 +195,7 @@ Scoped.define("module:Ajax.Support", [
 					return value !== null && value !== undefined;
 				});
 			}
-			options.isCorsRequest = Uri.isCrossDomainUri(document.location.href, options.uri);
+			options.isCorsRequest = typeof document !== "undefined" && Uri.isCrossDomainUri(document.location.href, options.uri);
 			return options;
 		},
 		
@@ -823,20 +823,38 @@ Scoped.define("module:Class", ["module:Types", "module:Objs", "module:Functions"
 	
 	/**
 	 * Increases the reference counter of this instance.
+	 * 
+	 * @param {object} reference optional reference object
 	 */
-	Class.prototype.increaseRef = function () {
+	Class.prototype.increaseRef = function (reference) {
 		this.__referenceCount = this.__referenceCount || 0;
 		this.__referenceCount++;
+		this.__referenceObjects = this.__referenceObjects || {};
+		if (reference) {
+			if (!this.__referenceObjects[reference.cid()])
+				this.__referenceObjects[reference.cid()] = reference;
+			else
+				this.__referenceCount--;
+		}
 		return this;
 	};
 	
 	/**
 	 * Decreases the reference counter of this instance.
+	 * 
+	 * @param {object} reference optional reference object
 	 */
-	Class.prototype.decreaseRef = function () {
+	Class.prototype.decreaseRef = function (reference) {
 		this.__referenceCount = this.__referenceCount || 0;
 		this.__referenceCount--;
-		if (this.__referenceCount <= 0)
+		this.__referenceObjects = this.__referenceObjects || {};
+		if (reference) {
+			if (this.__referenceObjects[reference.cid()])
+				delete this.__referenceObjects[reference.cid()];
+			else
+				this.__referenceCount++;
+		}
+		if (this.__referenceCount <= 0 && Types.is_empty(this.__referenceObjects))
 			this.weakDestroy();
 		return this;
 	};	
@@ -1517,6 +1535,14 @@ Scoped.define("module:Events.EventsMixin", [
 				object.params = params;
 		},
 
+		/**
+		 * Listen to an event(s).
+		 * 
+		 * @param {string} events event(s) to listen to
+		 * @param {function} callback event callback function
+		 * @param {object} context optional callback context
+		 * @param {object} options optional options
+		 */
 		on: function(events, callback, context, options) {
 			this.__events_mixin_events = this.__events_mixin_events || {};
 			events = events.split(this.EVENT_SPLITTER);
@@ -1541,6 +1567,13 @@ Scoped.define("module:Events.EventsMixin", [
 			return this;
 		},
 
+		/**
+		 * Stop listening to an event(s).
+		 * 
+		 * @param {string} events event(s) to listen to
+		 * @param {function} callback event callback function
+		 * @param {object} context optional callback context
+		 */
 		off: function(events, callback, context) {
 			this.__events_mixin_events = this.__events_mixin_events || {};
 			if (events) {
@@ -1578,15 +1611,29 @@ Scoped.define("module:Events.EventsMixin", [
 			return this;
 		},
 
-		triggerAsync: function () {
+		/**
+		 * Listen to an event(s) once.
+		 * 
+		 * @param {string} events event(s) to listen to
+		 * @param {function} callback event callback function
+		 * @param {object} context optional callback context
+		 * @param {object} options optional options
+		 */
+		once: function (events, callback, context, options) {
 			var self = this;
-			var args = Functions.getArguments(arguments);
-			var timeout = setTimeout(function () {
-				clearTimeout(timeout);
-				self.trigger.apply(self, args);
-			}, 0);
+			var once = Functions.once(function() {
+				self.off(events, once);
+				callback.apply(this, arguments);
+			});
+			once._callback = callback;
+			return this.on(events, once, context, options);
 		},
 
+		/**
+		 * Trigger an event(s) asynchronously.
+		 * 
+		 * @param {string} events events to be triggered
+		 */
 		trigger: function(events) {
 			if (this.__suspendedEvents > 0) {
 				this.__suspendedEventsQueue.push(arguments);
@@ -1611,6 +1658,26 @@ Scoped.define("module:Events.EventsMixin", [
 			return this;
 		},
 		
+		/**
+		 * Trigger an event(s) asynchronously.
+		 * 
+		 * @param {string} events events to be triggered
+		 */
+		triggerAsync: function () {
+			var self = this;
+			var args = Functions.getArguments(arguments);
+			var timeout = setTimeout(function () {
+				clearTimeout(timeout);
+				self.trigger.apply(self, args);
+			}, 0);
+			return this;
+		},
+
+		/**
+		 * Persistenly trigger an event(s).
+		 * 
+		 * @param {string} events events to be triggered
+		 */
 		persistentTrigger: function (events) {
 			this.trigger.apply(this, arguments);
 			events = events.split(this.EVENT_SPLITTER);
@@ -1620,18 +1687,17 @@ Scoped.define("module:Events.EventsMixin", [
 				this.__events_mixin_persistent_events[event] = this.__events_mixin_persistent_events[event] || [];
 				this.__events_mixin_persistent_events[event].push(rest);
 			}, this);
+			return this;
 		},
 
-		once: function (events, callback, context, options) {
-			var self = this;
-			var once = Functions.once(function() {
-				self.off(events, once);
-				callback.apply(this, arguments);
-			});
-			once._callback = callback;
-			return this.on(events, once, context, options);
-		},
-
+		/**
+		 * Delegate certain events to this event object.
+		 * 
+		 * @param {string} events events to be delegated
+		 * @param {object} source source event object
+		 * @param {string} prefix optional event prefix for delegation
+		 * @param {array} params optional additional event params
+		 */
 		delegateEvents: function (events, source, prefix, params) {
 			params = params || []; 
 			prefix = prefix ? prefix + ":" : "";
@@ -1650,10 +1716,25 @@ Scoped.define("module:Events.EventsMixin", [
 					}, this);
 				}, this);
 			}
+			return this;
 		},
 		
+		/**
+		 * Returns the parent event object in the chain.
+		 * 
+		 * @return {object} parent event object
+		 * 
+		 * @protected
+		 * @abstract
+		 */
 		_eventChain: function () {},
 		
+		/**
+		 * Trigger an event locally and up the chain.
+		 * 
+		 * @param {string} eventName name of event
+		 * @param data event data
+		 */
 		chainedTrigger: function (eventName, data) {
 			data = Objs.extend({
 				source: this,
@@ -1665,20 +1746,29 @@ Scoped.define("module:Events.EventsMixin", [
 				if (chain && chain.chainedTrigger)
 					chain.chainedTrigger(eventName, data);
 			}
+			return this;
 	    },
 	    
+		/**
+		 * Suspend all events until resumed.
+		 */
 	    suspendEvents: function () {
 	    	this.__suspendedEvents++;
+	    	return this;
 	    },
 	    
+		/**
+		 * Resume all events.
+		 */
 	    resumeEvents: function () {
 	    	this.__suspendedEvents--;
 	    	if (this.__suspendedEvents !== 0)
-	    		return;
+	    		return this;
 	    	Objs.iter(this.__suspendedEventsQueue, function (ev) {
 	    		this.trigger.apply(this, ev);
 	    	}, this);
 	    	this.__suspendedEventsQueue = [];
+	    	return this;
 	    }
 
 	};
@@ -1784,7 +1874,20 @@ Scoped.define("module:Functions", ["module:Types"], function (Types) {
 	 * @module BetaJS.Functions
 	 */
 	return {
-	
+		
+		/**
+		 * Returns the current stack trace.
+		 * 
+		 * @param {int} index optional stack trace start index
+		 * 
+		 * @return {array} stack trace array
+		 */
+		getStackTrace: function (index) {
+			var stack = (new Error()).stack.split("\n");
+			while (stack.length > 0 && stack[0].trim().toLowerCase() === "error")
+				stack.shift();
+			return index ? stack.slice(index) : stack;
+		},
 		
 	    /**
 	     * Takes a function and an instance and returns the method call as a function
@@ -2065,7 +2168,7 @@ Scoped.define("module:JavaScript", ["module:Objs"], function (Objs) {
 	/**
 	 * JavaScript Simple Parse Functions
 	 * 
-	 * @module JavaScript
+	 * @module BetaJS.JavaScript
 	 */
 	return {
 		
@@ -2176,9 +2279,13 @@ Scoped.define("module:KeyValue.KeyValueStore", [
 			 * 
 			 * @param {string} key key to set the value for
 			 * @param value new value for key
+			 * @fires BetaJS.KeyValue.KeyValueStore#change
 			 */
 			set: function (key, value) {
 				this._set(key, value);
+				/**
+				 * @event BetaJS.KeyValue.KeyValueStore#change
+				 */
 				this.trigger("change:" + key, value);
 			},
 			
@@ -3817,10 +3924,17 @@ Scoped.define("module:Properties.PropertiesMixin", [
 	"module:Strings",
 	"module:Types",
 	"module:Functions"
-	], function (Scopes, Objs, Strings, Types, Functions) {
-	
+], function (Scopes, Objs, Strings, Types, Functions) {
+
+	/**
+	 * Properties Mixin
+	 * 
+	 * @mixin BetaJS.Properties.PropertiesMixin
+	 */
 	return {
 			
+		__properties_guid: "ec816b66-7284-43b1-a945-0600c6abfde3",
+		
 		_notifications: {
 			"construct": function () {
 				this.__properties = {
@@ -3846,6 +3960,9 @@ Scoped.define("module:Properties.PropertiesMixin", [
 				Objs.iter(this.__properties.bindings, function (value, key) {
 					this.unbind(key);
 				}, this);
+				/**
+				 * @event BetaJS.Properties.PropertiesMixin#destroy
+				 */
 				this.trigger("destroy");
 			},
 			"register_event": function (event) {
@@ -3860,92 +3977,6 @@ Scoped.define("module:Properties.PropertiesMixin", [
 						this.__unregisterWatcher(Strings.strip_start(event, eventType + ":"), eventType);
 				}, this);
 			}
-		},
-		
-		materializes: [],
-		
-		_resolveProps: function (key) {
-			var result = {
-				props: this,
-				key: key
-			};
-			var scope = this.data();
-			while (key) {
-				if (!scope || !Types.is_object(scope))
-					return result;
-				if (scope.__properties_guid === this.__properties_guid)
-					return scope._resolveProps(key);
-				var spl = Strings.splitFirst(key, ".");
-				if (!(spl.head in scope))
-					return result;
-				key = spl.tail;
-				scope = scope[spl.head];
-			}
-			return result;
-		},
-		
-		getProp: function (key) {
-			var resolved = this._resolveProps(key);
-			return resolved.props.get(resolved.key);
-		},
-		
-		setProp: function (key, value) {
-			var resolved = this._resolveProps(key);
-			resolved.props.set(resolved.key, value);
-		},
-		
-		uncomputeProp: function (key) {
-			var resolved = this._resolveProps(key);
-			return resolved.props.uncompute(resolved.key);
-		},
-		
-		computeProp: function (key, func) {
-			var resolved = this._resolveProps(key);
-			return resolved.props.compute(resolved.key, func);
-		},
-
-		get: function (key) {
-			return Scopes.get(key, this.__properties.data);
-		},
-		
-		_canSet: function (key, value) {
-			return true;
-		},
-		
-		_beforeSet: function (key, value) {
-			return value;
-		},
-		
-		_afterSet: function (key, value) {},
-		
-		has: function (key) {
-			return Scopes.has(key, this.__properties.data);
-		},
-		
-		setAll: function (obj) {
-			for (var key in obj)
-				this.set(key, obj[key]);
-			return this;
-		},
-		
-		keys: function (mapped) {
-			return Objs.keys(this.__properties.data, mapped);
-		},
-		
-		data: function () {
-			return this.__properties.data;
-		},
-		
-		getAll: function () {
-			return Objs.clone(this.__properties.data, 1);
-		},
-		
-		materializeAttr: function (attr) {
-			this[attr] = function (value) {
-				if (arguments.length === 0)
-					return this.get(attr);
-				this.set(attr, value);
-			};
 		},
 		
 		__registerWatcher: function (key, event) {
@@ -3982,6 +4013,299 @@ Scoped.define("module:Properties.PropertiesMixin", [
 			}
 		},
 		
+		__unsetChanged: function (key, oldValue) {
+			/**
+			 * @event BetaJS.Properties.PropertiesMixin#unset
+			 */
+			this.trigger("unset", key, oldValue);
+			var keys = key ? key.split(".") : [];
+			var current = this.__properties.watchers;
+			var head = "";
+			var tail = key;
+			for (var i = 0; i < keys.length; ++i) {
+				if (current.eventCount > 0) {
+					/**
+					 * @event BetaJS.Properties.PropertiesMixin#deepunset
+					 */
+					this.trigger("deepunset:" + head, oldValue, tail);
+				}
+				if (!(keys[i] in current.children))
+					return this;
+				current = current.children[keys[i]];
+				head = head ? (head + "." + keys[i]) : keys[i];
+				tail = Strings.first_after(tail, ".");
+			}
+			function process_unset(current, key, oldValue) {
+				if (Types.is_undefined(oldValue))
+					return;
+				if (current.eventCount > 0) {
+					/**
+					 * @event BetaJS.Properties.PropertiesMixin#unset
+					 */
+					this.trigger("unset:" + key, oldValue);
+				}
+				Objs.iter(current.children, function (child, subkey) {
+					process_unset.call(this, child, key ? (key + "." + subkey) : subkey, oldValue[subkey]);
+				}, this);
+			}
+			process_unset.call(this, current, key, oldValue);
+			return this;
+		},
+		
+		__setChanged: function (key, value, oldValue, notStrong) {
+			/**
+			 * @event BetaJS.Properties.PropertiesMixin#change
+			 */
+			this.trigger("change", key, value, oldValue);
+			this._afterSet(key, value);
+			if (this.destroyed())
+				return;
+			var keys = key ? key.split(".") : [];
+			var current = this.__properties.watchers;
+			var head = "";
+			var tail = key;
+			for (var i = 0; i < keys.length; ++i) {
+				if (current.eventCount > 0) {
+					if (!notStrong) {
+						/**
+						 * @event BetaJS.Properties.PropertiesMixin#strongdeepchange
+						 */
+						this.trigger("strongdeepchange:" + head, value, oldValue, tail);
+					}
+					/**
+					 * @event BetaJS.Properties.PropertiesMixin#deepchange
+					 */
+					this.trigger("deepchange:" + head, value, oldValue, tail);
+				}
+				if (!(keys[i] in current.children))
+					return;
+				current = current.children[keys[i]];
+				head = head ? (head + "." + keys[i]) : keys[i];
+				tail = Strings.first_after(tail, ".");
+			}
+			function process_set(current, key, value, oldValue) {
+				if (value == oldValue)
+					return;
+				if (current.eventCount > 0) {
+					if (!notStrong) {
+						/**
+						 * @event BetaJS.Properties.PropertiesMixin#strongchange
+						 */
+						this.trigger("strongchange:" + key, value, oldValue);
+					}
+					/**
+					 * @event BetaJS.Properties.PropertiesMixin#change
+					 */
+					this.trigger("change:" + key, value, oldValue);
+				}
+				Objs.iter(current.children, function (child, subkey) {
+					process_set.call(this, child, key ? (key + "." + subkey) : subkey, Types.is_object(value) && value ? value[subkey] : null, Types.is_object(oldValue) && oldValue ? oldValue[subkey] : null);
+				}, this);
+			}
+			process_set.call(this, current, key, value, oldValue);
+		},
+
+		/**
+		 * Attributes that will be materialized upon initialization.
+		 */
+		materializes: [],
+		
+		/**
+		 * Resolve the scope associated with a key.
+		 * 
+		 * @param {string} key key to resolve
+		 * @return associated scope
+		 * 
+		 * @protected
+		 */
+		_resolveProps: function (key) {
+			var result = {
+				props: this,
+				key: key
+			};
+			var scope = this.data();
+			while (key) {
+				if (!scope || !Types.is_object(scope))
+					return result;
+				if (scope.__properties_guid === this.__properties_guid)
+					return scope._resolveProps(key);
+				var spl = Strings.splitFirst(key, ".");
+				if (!(spl.head in scope))
+					return result;
+				key = spl.tail;
+				scope = scope[spl.head];
+			}
+			return result;
+		},
+		
+		/**
+		 * Check whether a key can be set to a value.
+		 * 
+		 * @param {string} key key in question
+		 * @param value value in question
+		 * 
+		 * @return {boolean} true if can be set
+		 * 
+		 * @protected
+		 */
+		_canSet: function (key, value) {
+			return true;
+		},
+		
+		/**
+		 * Called before setting a value.
+		 * 
+		 * @param {string} key key in question
+		 * @param value value in question
+		 * 
+		 * @return value, possibly altered
+		 * 
+		 * @protected
+		 */
+		_beforeSet: function (key, value) {
+			return value;
+		},
+		
+		/**
+		 * Called after setting a value.
+		 * 
+		 * @param {string} key key in question
+		 * @param value value in question
+		 * 
+		 * @protected
+		 */
+		_afterSet: function (key, value) {},
+		
+		/**
+		 * Get value for key, resolving intermediate properties instances.
+		 * 
+		 * @param {string} key key to read
+		 * 
+		 * @return associated value
+		 */
+		getProp: function (key) {
+			var resolved = this._resolveProps(key);
+			return resolved.props.get(resolved.key);
+		},
+		
+		/**
+		 * Set value for key, resolving intermediate properties instances.
+		 * 
+		 * @param {string} key to read
+		 * @param value value to write
+		 */
+		setProp: function (key, value) {
+			var resolved = this._resolveProps(key);
+			resolved.props.set(resolved.key, value);
+			return this;
+		},
+		
+		/**
+		 * Remove computation of a key.
+		 * 
+		 * @param {string} key key to remove computation for
+		 */
+		uncomputeProp: function (key) {
+			var resolved = this._resolveProps(key);
+			return resolved.props.uncompute(resolved.key);
+		},
+		
+		/**
+		 * Add computation of a key.
+		 * 
+		 * @param {string} key key to add computation for
+		 * @param {function} func function to compute the key
+		 */
+		computeProp: function (key, func) {
+			var resolved = this._resolveProps(key);
+			var args = Functions.getArguments(arguments);
+			args[0] = resolved.key;
+			return resolved.props.compute.apply(resolved.props.compute, args);
+		},
+
+		/**
+		 * Returns the value associated with a key.
+		 * 
+		 * @param {string} key key to read value for
+		 * 
+		 * @return value for key
+		 */
+		get: function (key) {
+			return Scopes.get(key, this.__properties.data);
+		},
+		
+		/**
+		 * Checks whether a key is set.
+		 * 
+		 * @param {string} key key in question
+		 * 
+		 * @return {boolean} true if key is set
+		 */
+		has: function (key) {
+			return Scopes.has(key, this.__properties.data);
+		},
+		
+		/**
+		 * Sets all attributes in a JSON object.
+		 * 
+		 * @param {object} obj JSON object data
+		 * 
+		 */
+		setAll: function (obj) {
+			for (var key in obj)
+				this.set(key, obj[key]);
+			return this;
+		},
+		
+		/**
+		 * Returns all keys of the instance, possibly mapped.
+		 * 
+		 * @param {function} mapped optional key mapping
+		 * 
+		 * @return {array} all keys
+		 */
+		keys: function (mapped) {
+			return Objs.keys(this.__properties.data, mapped);
+		},
+		
+		/**
+		 * Returns a data pointer to the raw data. Read only.
+		 * 
+		 * @return {object} data pointer
+		 */
+		data: function () {
+			return this.__properties.data;
+		},
+		
+		/**
+		 * Returns a raw data copy.
+		 * 
+		 * @return {object} raw data copy
+		 */
+		getAll: function () {
+			return Objs.clone(this.__properties.data, 1);
+		},
+		
+		/**
+		 * Materializes an attribute as a function.
+		 * 
+		 * @param {string} attr attribute to be materialized
+		 * 
+		 */
+		materializeAttr: function (attr) {
+			this[attr] = function (value) {
+				if (arguments.length === 0)
+					return this.get(attr);
+				this.set(attr, value);
+			};
+			return this;
+		},
+		
+		/**
+		 * Remove the computation of a key.
+		 * 
+		 * @param {string} key key for which the computation should be removed
+		 */
 		uncompute: function (key) {
 			if (key in this.__properties.computed) {
 				Objs.iter(this.__properties.computed[key].dependencies, function (dependency) {
@@ -3992,6 +4316,12 @@ Scoped.define("module:Properties.PropertiesMixin", [
 			return this;
 		},
 		
+		/**
+		 * Add a computation for a key.
+		 * 
+		 * @param {string} key key to add computation for
+		 * @param {function} func function to compute the key
+		 */
 		compute: function (key, func) {
 			var args = Functions.matchArgs(arguments, 2, {
 				setter: "function",
@@ -4050,6 +4380,12 @@ Scoped.define("module:Properties.PropertiesMixin", [
 			return this;
 		},
 		
+		/**
+		 * Removes a binding for a key and another properties instance.
+		 * 
+		 * @param {string} key key for which the binding should be removed
+		 * @param {object} props other properties instance
+		 */
 		unbind: function (key, props) {
 			if (key in this.__properties.bindings) {
 				for (var i = this.__properties.bindings[key].length - 1; i >= 0; --i) {
@@ -4069,6 +4405,13 @@ Scoped.define("module:Properties.PropertiesMixin", [
 			return this;
 		},
 		
+		/**
+		 * Adds a binding for a key and another properties instance.
+		 * 
+		 * @param {string} key key for which the binding should be added
+		 * @param {object} props other properties instance
+		 * @param {object} options optional options
+		 */
 		bind: function (key, properties, options) {
 			options = Objs.extend({
 				secondKey: key,
@@ -4150,71 +4493,12 @@ Scoped.define("module:Properties.PropertiesMixin", [
 			}, binding);
 			return this;
 		},
-		
-		__unsetChanged: function (key, oldValue) {
-			this.trigger("unset", key, oldValue);
-			var keys = key ? key.split(".") : [];
-			var current = this.__properties.watchers;
-			var head = "";
-			var tail = key;
-			for (var i = 0; i < keys.length; ++i) {
-				if (current.eventCount > 0)
-					this.trigger("deepunset:" + head, oldValue, tail);
-				if (!(keys[i] in current.children))
-					return this;
-				current = current.children[keys[i]];
-				head = head ? (head + "." + keys[i]) : keys[i];
-				tail = Strings.first_after(tail, ".");
-			}
-			function process_unset(current, key, oldValue) {
-				if (Types.is_undefined(oldValue))
-					return;
-				if (current.eventCount > 0)
-					this.trigger("unset:" + key, oldValue);
-				Objs.iter(current.children, function (child, subkey) {
-					process_unset.call(this, child, key ? (key + "." + subkey) : subkey, oldValue[subkey]);
-				}, this);
-			}
-			process_unset.call(this, current, key, oldValue);
-			return this;
-		},
-		
-		__setChanged: function (key, value, oldValue, notStrong) {
-			this.trigger("change", key, value, oldValue);
-			this._afterSet(key, value);
-			if (this.destroyed())
-				return;
-			var keys = key ? key.split(".") : [];
-			var current = this.__properties.watchers;
-			var head = "";
-			var tail = key;
-			for (var i = 0; i < keys.length; ++i) {
-				if (current.eventCount > 0) {
-					if (!notStrong)
-						this.trigger("strongdeepchange:" + head, value, oldValue, tail);
-					this.trigger("deepchange:" + head, value, oldValue, tail);
-				}
-				if (!(keys[i] in current.children))
-					return;
-				current = current.children[keys[i]];
-				head = head ? (head + "." + keys[i]) : keys[i];
-				tail = Strings.first_after(tail, ".");
-			}
-			function process_set(current, key, value, oldValue) {
-				if (value == oldValue)
-					return;
-				if (current.eventCount > 0) {
-					if (!notStrong)
-						this.trigger("strongchange:" + key, value, oldValue);
-					this.trigger("change:" + key, value, oldValue);
-				}
-				Objs.iter(current.children, function (child, subkey) {
-					process_set.call(this, child, key ? (key + "." + subkey) : subkey, Types.is_object(value) && value ? value[subkey] : null, Types.is_object(oldValue) && oldValue ? oldValue[subkey] : null);
-				}, this);
-			}
-			process_set.call(this, current, key, value, oldValue);
-		},
-		
+				
+		/**
+		 * Removes a key from the properties instance.
+		 * 
+		 * @param {string} key key to be removed
+		 */
 		unset: function (key) {
 			if (this.has(key)) {
 				var oldValue = this.get(key);
@@ -4224,8 +4508,13 @@ Scoped.define("module:Properties.PropertiesMixin", [
 			return this;
 		},
 		
-		__properties_guid: "ec816b66-7284-43b1-a945-0600c6abfde3",
-		
+		/**
+		 * Sets a key in the properties instance.
+		 * 
+		 * @param {string} key key to be set
+		 * @param value value to be set
+		 * @param {boolean} force optional force argument
+		 */
 		set: function (key, value, force) {
 			if (Types.is_object(value) && value && value.guid == this.__properties_guid) {
 				if (value.properties)
@@ -4240,12 +4529,21 @@ Scoped.define("module:Properties.PropertiesMixin", [
 				Scopes.set(key, value, this.__properties.data);
 				this.__setChanged(key, value, oldValue);
 			} else if (force) {
+				/**
+				 * @event BetaJS.Properties.PropertiesMixin#change
+				 */
 				this.trigger("change", key, value, oldValue, true);
+				/**
+				 * @event BetaJS.Properties.PropertiesMixin#change
+				 */
 				this.trigger("change:" + key, value, oldValue, true);
 			}
 			return this;
 		},
 		
+		/**
+		 * @deprecated
+		 */
 		binding: function (key) {
 			return {
 				guid: this.__properties_guid,
@@ -4254,6 +4552,9 @@ Scoped.define("module:Properties.PropertiesMixin", [
 			};
 		},
 		
+		/**
+		 * @deprecated
+		 */
 		computed : function (f, dependencies) {
 			return {
 				guid: this.__properties_guid,
@@ -4261,15 +4562,34 @@ Scoped.define("module:Properties.PropertiesMixin", [
 				dependencies: dependencies
 			};
 		},
-		
+
+		/**
+		 * Returns the properties unique id.
+		 * 
+		 * @return {string} unique properties id
+		 */
 		pid: function () {
 			return this.cid();
 		},
 		
+		/**
+		 * Checks whether this properties instance is a subset of another properties instance.
+		 *  
+		 * @param {object} props another properties instance or JSON object
+		 * 
+		 * @return {boolean} true if this instance is a subset of the other properties object
+		 */
 		isSubsetOf: function (props) {
 			return Objs.subset_of(this.data(), props.data ? props.data() : props);
 		},
 		
+		/**
+		 * Checks whether this properties instance is a superset of another properties instance.
+		 *  
+		 * @param {object} props another properties instance or JSON object
+		 * 
+		 * @return {boolean} true if this instance is a superset of the other properties object
+		 */
 		isSupersetOf: function (props) {
 			return Objs.superset_of(this.data(), props.data ? props.data() : props);
 		}
@@ -4279,13 +4599,26 @@ Scoped.define("module:Properties.PropertiesMixin", [
 
 
 Scoped.define("module:Properties.Properties", [
-	    "module:Class",
-	    "module:Objs",
-	    "module:Events.EventsMixin",
-	    "module:Properties.PropertiesMixin"
-	], function (Class, Objs, EventsMixin, PropertiesMixin, ReferenceCounterMixin, scoped) {
+    "module:Class",
+    "module:Objs",
+    "module:Events.EventsMixin",
+    "module:Properties.PropertiesMixin"
+], function (Class, Objs, EventsMixin, PropertiesMixin, ReferenceCounterMixin, scoped) {
 	return Class.extend({scoped: scoped}, [EventsMixin, PropertiesMixin, ReferenceCounterMixin, function (inherited) {
+		
+		/**
+		 * Properties Class
+		 * 
+		 * @class BetaJS.Properties.Properties
+		 */
 		return {
+			
+			/**
+			 * Creates a new instance.
+			 * 
+			 * @param {object} obj optional initial attributes
+			 * @param {array} materializes optional initial attributes that should be materialized
+			 */
 			constructor: function (obj, materializes) {
 				inherited.constructor.call(this);
 				if (obj)
@@ -4296,6 +4629,7 @@ Scoped.define("module:Properties.Properties", [
 					}, this);
 				}
 			}
+		
 		};
 	}]);
 });
@@ -4438,6 +4772,19 @@ Scoped.define("module:Strings", ["module:Objs"], function (Objs) {
 	 * @module BetaJS.Strings
 	 */
 	return {
+		
+		/**
+		 * Escapes a string to be used as an exact match in a regular expression.
+		 * 
+		 * @param {string} s string in question
+		 * 
+		 * @return {string} escaped string
+		 * 
+		 * @link http://stackoverflow.com/a/3561711
+		 */
+		regexEscape: function (s) {
+			return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+		},
 		
 		/**
 		 * Pads a string from the left with characters if necessary.
@@ -4797,12 +5144,30 @@ Scoped.define("module:Strings", ["module:Objs"], function (Objs) {
 });
 
 Scoped.define("module:Structures.AvlTree", function () {
+	
+	/**
+	 * Abstract AvlTree Structure
+	 * 
+	 * @module BetaJS.Structures.AvlTree
+	 */
 	return {
 	
+		/**
+		 * Returns an empty avl tree.
+		 * 
+		 * @return {object} empty avl tree
+		 */
 		empty : function() {
 			return null;
 		},
 	
+		/**
+		 * Returns a singleton avl tree.
+		 * 
+		 * @param data data for singleton node
+		 * 
+		 * @return {object} singleton avl tree
+		 */
 		singleton : function(data) {
 			return {
 				data : data,
@@ -4813,127 +5178,207 @@ Scoped.define("module:Structures.AvlTree", function () {
 			};
 		},
 	
+		/**
+		 * Returns the smallest data item in an avl tree.
+		 * 
+		 * @param {object} root tree root
+		 * @return smallest data item
+		 */
 		min : function(root) {
 			return root.left ? this.min(root.left) : root.data;
 		},
 	
+		/**
+		 * Returns the largest data item in an avl tree.
+		 * 
+		 * @param {object} root tree root
+		 * @return largest data item
+		 */
 		max : function(root) {
 			return root.right ? this.max(root.right) : root.data;
 		},
 	
+		/**
+		 * Returns the height of an avl tree.
+		 * 
+		 * @param {object} root tree root
+		 * @return {int} height
+		 */
 		height : function(node) {
 			return node ? node.height : 0;
 		},
 		
+		/**
+		 * Returns the number of nodes in an avl tree.
+		 * 
+		 * @param {object} root tree root
+		 * @return {int} number of nodes
+		 */
 		length : function (node){
 			return node ? node.length : 0;
 		}, 
 	
-		height_join : function(left, right) {
+		/**
+		 * @private
+		 */
+		__height_join : function(left, right) {
 			return 1 + Math.max(this.height(left), this.height(right));
 		},
 	
+		/**
+		 * @private
+		 */
 		length_join : function(left, right) {
 			return 1 + this.length(left) + this.length(right);
 		},
 
-		create : function(data, left, right) {
+		/**
+		 * @private
+		 */
+		__create : function(data, left, right) {
 			return {
 				data : data,
 				left : left,
 				right : right,
-				height : this.height_join(left, right),
+				height : this.__height_join(left, right),
 				length : this.length_join(left, right)
 			};
 		},
 	
+		/**
+		 * Creates a new balanced tree from a tree of small elements, a tree of large elements and a data item inbetween.
+		 * 
+		 * @param data data item
+		 * @param {object} left avl tree of small elements
+		 * @param {object} right avl tree of large elements
+		 * 
+		 * @return {object} avl tree containing all data
+		 */
 		balance : function(data, left, right) {
 			if (this.height(left) > this.height(right) + 2) {
 				if (this.height(left.left) >= this.height(left.right))
-					return this.create(left.data, left.left, this.create(data,
+					return this.__create(left.data, left.left, this.__create(data,
 							left.right, right));
 				else
-					return this.create(left.right.data, this.create(left.data,
-							left.left, left.right.left), this.create(data,
+					return this.__create(left.right.data, this.__create(left.data,
+							left.left, left.right.left), this.__create(data,
 							left.right.right, right));
 			} else if (this.height(right) > this.height(left) + 2) {
 				if (this.height(right.right) >= this.height(right.left))
-					return this.create(right.data, this.create(data, left,
+					return this.__create(right.data, this.__create(data, left,
 							right.left), right.right);
 				else
-					return this.create(right.left.data, this.create(data, left,
-							right.left.left), this.create(right.data,
+					return this.__create(right.left.data, this.__create(data, left,
+							right.left.left), this.__create(right.data,
 							right.left.right, right.right));
 			} else
-				return this.create(data, left, right);
+				return this.__create(data, left, right);
 		},
 	
+		/**
+		 * @private
+		 */
 		__add_left : function(data, left) {
 			return left ? this.balance(left.data, this.__add_left(data, left.left),
 					left.right) : this.singleton(data);
 		},
 	
+		/**
+		 * @private
+		 */
 		__add_right : function(data, right) {
 			return right ? this.balance(right.data, right.data, this.__add_right(
 					data, right.right)) : this.singleton(data);
 		},
 	
-		join : function(data, left, right) {
+		/**
+		 * @private
+		 */
+		__join : function(data, left, right) {
 			if (!left)
 				return this.__add_left(data, right);
 			else if (!right)
 				return this.__add_right(data, left);
 			else if (this.height(left) > this.height(right) + 2)
-				return this.balance(left.data, left.left, this.join(data,
+				return this.balance(left.data, left.left, this.__join(data,
 						left.right, right));
 			else if (this.height(right) > this.height(left) + 2)
-				return this.balance(right.data, this.join(data, left, right.left),
+				return this.balance(right.data, this.__join(data, left, right.left),
 						right.right);
 			else
-				return this.create(data, left, right);
+				return this.__create(data, left, right);
 		},
 	
+		/**
+		 * Returns and removes the smallest item from the tree.
+		 * 
+		 * @param {object} root avl tree
+		 * 
+		 * @return {array} array, containing the smallest element and the remaining tree
+		 */
 		take_min : function(root) {
 			if (!root.left)
 				return [ root.data, root.right ];
 			var result = this.take_min(root.left);
-			return [ result[0], this.join(root.data, result[1], root.right) ];
+			return [ result[0], this.__join(root.data, result[1], root.right) ];
 		},
 	
+		/**
+		 * Returns and removes the largest item from the tree.
+		 * 
+		 * @param {object} root avl tree
+		 * 
+		 * @return {array} array, containing the largest element and the remaining tree
+		 */
 		take_max : function(root) {
 			if (!root.right)
 				return [ root.data, root.left ];
 			var result = this.take_max(root.right);
-			return [ result[0], this.join(root.data, root.left, result[1]) ];
+			return [ result[0], this.__join(root.data, root.left, result[1]) ];
 		},
 	
+		/*
 		reroot : function(left, right) {
 			if (!left || !right)
 				return left || right;
 			if (this.height(left) > this.height(right)) {
 				var max = this.take_max(left);
-				return this.join(max[0], max[1], right);
+				return this.__join(max[0], max[1], right);
 			}
 			var min = this.take_min(right);
-			return this.join(min[0], left, min[1]);
-	
+			return this.__join(min[0], left, min[1]);
 		},
+		*/
 	
+		/**
+		 * Returns and removes the smallest item from the tree, denaturalizing the tree in an iterative fashion.
+		 * 
+		 * @param {object} root avl tree
+		 * 
+		 * @return {array} array, containing the smallest element and the remaining denaturalized tree
+		 */
 		take_min_iter : function(root) {
 			if (!root)
 				return null;
 			if (!root.left)
 				return [ root.data, root.left ];
-			return this.take_min_iter(this.create(root.left.data, root.left.left,
-					this.create(root.data, root.left.right, root.right)));
+			return this.take_min_iter(this.__create(root.left.data, root.left.left,
+					this.__create(root.data, root.left.right, root.right)));
 		},
 	
+		/**
+		 * Returns and removes the largest item from the tree, denaturalizing the tree in an iterative fashion.
+		 * 
+		 * @param {object} root avl tree
+		 * 
+		 * @return {array} array, containing the largest element and the remaining denaturalized tree
+		 */
 		take_max_iter : function(root) {
 			if (!root)
 				return null;
 			if (!root.right)
 				return [ root.data, root.right ];
-			return this.take_max_iter(this.create(root.right.data, this.create(
+			return this.take_max_iter(this.__create(root.right.data, this.__create(
 					root.data, root.left, root.right.left), root.right.right));
 		}
 	
@@ -4943,8 +5388,20 @@ Scoped.define("module:Structures.AvlTree", function () {
 
 
 Scoped.define("module:Structures.TreeMap", ["module:Structures.AvlTree"], function (AvlTree) {
+	
+	/**
+	 * TreeMap Structure, based on AvlTree
+	 * 
+	 * @module BetaJS.Structures.TreeMap
+	 */
 	return {
 	
+		/**
+		 * Returns an empty Tree Map.
+		 * 
+		 * @param {function} compare data comparison function
+		 * @return {object} empty tree map
+		 */
 		empty : function(compare) {
 			return {
 				root : null,
@@ -4954,14 +5411,29 @@ Scoped.define("module:Structures.TreeMap", ["module:Structures.AvlTree"], functi
 			};
 		},
 	
+		/**
+		 * Determines whether a tree map is empty.
+		 * 
+		 * @param {object} t tree map
+		 * @return {boolean} true if empty
+		 */
 		is_empty : function(t) {
 			return !t.root;
 		},
 	
+		/**
+		 * Returns the number of elements in the map.
+		 * 
+		 * @param {object} t tree map
+		 * @return {int} number of elements
+		 */
 		length : function(t) {
 			return t.root ? t.root.length : 0;
 		},
 	
+		/**
+		 * @private
+		 */
 		__add : function(key, value, t, node) {
 			var kv = {
 				key : key,
@@ -4979,15 +5451,36 @@ Scoped.define("module:Structures.TreeMap", ["module:Structures.AvlTree"], functi
 				return AvlTree.balance(node.data, node.left, this.__add(key, value, t, node.right));
 		},
 	
+		/**
+		 * Add a key value mapping to the map.
+		 * 
+		 * @param key key
+		 * @param value value
+		 * @param {object} t tree map
+		 * 
+		 * @return {object} updated tree map
+		 */
 		add : function(key, value, t) {
 			t.root = this.__add(key, value, t, t.root);
 			return t;
 		},
 	
+		/**
+		 * Creates a singleton tree map.
+		 * 
+		 * @param key key
+		 * @param value value
+		 * @param {function} compare comparison function
+		 * 
+		 * @return {object} singleton tree map
+		 */
 		singleton : function(key, value, compare) {
 			return this.add(key, value, this.empty(compare));
 		},
 	
+		/**
+		 * @private
+		 */
 		__find : function(key, t, root) {
 			if (!root)
 				return null;
@@ -4995,10 +5488,20 @@ Scoped.define("module:Structures.TreeMap", ["module:Structures.AvlTree"], functi
 			return c === 0 ? root.data.value : this.__find(key, t, c < 0 ? root.left : root.right);
 		},
 	
+		/**
+		 * Finds a value for a key in the map.
+		 * 
+		 * @param key key
+		 * @param {object} t tree map
+		 * @return value for key
+		 */
 		find : function(key, t) {
 			return this.__find(key, t, t.root);
 		},
 	
+		/**
+		 * @private
+		 */
 		__iterate : function(t, node, callback, context, reverse) {
 			if (!node)
 				return true;
@@ -5008,10 +5511,21 @@ Scoped.define("module:Structures.TreeMap", ["module:Structures.AvlTree"], functi
 				this.__iterate(t, reverse ? node.left : node.right, callback, context, reverse));
 		},
 	
+		/**
+		 * Iterates over the tree map.
+		 * 
+		 * @param {object} t tree map
+		 * @param {function} callback callback function
+		 * @param {object} context optional callback context
+		 * @param {boolean} reverse optional reverse direction flag
+		 */
 		iterate : function(t, callback, context, reverse) {
 			this.__iterate(t, t.root, callback, context, reverse);
 		},
 	
+		/**
+		 * @private
+		 */
 		__iterate_from : function(key, t, node, callback, context, reverse) {
 			if (!node)
 				return true;
@@ -5023,10 +5537,29 @@ Scoped.define("module:Structures.TreeMap", ["module:Structures.AvlTree"], functi
 			return this.__iterate_from(key, t, reverse ? node.left : node.right, callback, context, reverse);
 		},
 	
+		/**
+		 * Iterates over the tree map starting with a key.
+		 * 
+		 * @param key key to start with
+		 * @param {object} t tree map
+		 * @param {function} callback callback function
+		 * @param {object} context optional callback context
+		 * @param {boolean} reverse optional reverse direction flag
+		 */
 		iterate_from : function(key, t, callback, context, reverse) {
 			this.__iterate_from(key, t, t.root, callback, context, reverse);
 		},
 	
+		/**
+		 * Iterates over the tree map between two keys.
+		 * 
+		 * @param from_key key to start with
+		 * @param to_key key to end with
+		 * @param {object} t tree map
+		 * @param {function} callback callback function
+		 * @param {object} context optional callback context
+		 * @param {boolean} reverse optional reverse direction flag
+		 */
 		iterate_range : function(from_key, to_key, t, callback, context, reverse) {
 			this.iterate_from(from_key, t, function(key, value) {
 				return t.compare(key, to_key) * (reverse ? -1 : 1) <= 0 && callback.call(context, key, value) !== false;
@@ -5073,6 +5606,12 @@ Scoped.define("module:Structures.TreeMap", ["module:Structures.AvlTree"], functi
 		},
 		*/
 		
+		/**
+		 * Returns and removes the smallest element from the tree.
+		 * 
+		 * @param {object} tree map
+		 * @return {object} smalles key value pair
+		 */
 		take_min: function (t) {
 			var a = AvlTree.take_min(t.root);
 			a[1] = {
@@ -5082,6 +5621,9 @@ Scoped.define("module:Structures.TreeMap", ["module:Structures.AvlTree"], functi
 			return a;
 		},
 		
+		/**
+		 * @private
+		 */
 		__treeSizeLeft: function (key, t, node) {
 			var c = t.compare(key, node.data.key);
 			if (c < 0)
@@ -5089,6 +5631,9 @@ Scoped.define("module:Structures.TreeMap", ["module:Structures.AvlTree"], functi
 			return 1 + (node.left ? node.left.length : 0) + (c > 0 ? this.__treeSizeLeft(key, t, node.right) : 0);
 		},
 		
+		/**
+		 * @private
+		 */
 		__treeSizeRight: function (key, t, node) {
 			var c = t.compare(key, node.data.key);
 			if (c > 0)
@@ -5096,6 +5641,9 @@ Scoped.define("module:Structures.TreeMap", ["module:Structures.AvlTree"], functi
 			return 1 + (node.right ? node.right.length : 0) + (c < 0 ? this.__treeSizeRight(key, t, node.left) : 0);
 		},
 		
+		/**
+		 * @private
+		 */
 		__distance: function (keyLeft, keyRight, t, node) {
 			var cLeft = t.compare(keyLeft, node.data.key);
 			var cRight = t.compare(keyRight, node.data.key);
@@ -5103,15 +5651,37 @@ Scoped.define("module:Structures.TreeMap", ["module:Structures.AvlTree"], functi
 				return this.__distance(keyLeft, keyRight, t, cLeft > 0 ? node.right : node.left);
 			return 1 + (cRight > 0 ? this.__treeSizeLeft(keyRight, t, node.right) : 0) + (cLeft < 0 ? this.__treeSizeRight(keyLeft, t, node.left) : 0);
 		},
-		
+				
+		/**
+		 * Counts the number of keys smaller than a given key.
+		 * 
+		 * @param key key
+		 * @param {object} t tree map
+		 * @return {int} number of keys smaller than given key
+		 */
 		treeSizeLeft: function (key, t) {
 			return this.__treeSizeLeft(key, t, t.root);
 		},
 		
+		/**
+		 * Counts the number of keys larger than a given key.
+		 * 
+		 * @param key key
+		 * @param {object} t tree map
+		 * @return {int} number of keys larger than given key
+		 */
 		treeSizeRight: function (key, t) {
 			return this.__treeSizeRight(key, t, t.root);
 		},
 
+		/**
+		 * Counts the number of keys between two keys.
+		 * 
+		 * @param keyLeft first key
+		 * @param keyRight second key
+		 * @param {object} t tree map
+		 * @return {int} number of keys in-between
+		 */
 		distance: function (keyLeft, keyRight, t) {
 			return t.compare(keyLeft, keyRight) < 0 ? this.__distance(keyLeft, keyRight, t, t.root) - 1 : 0;
 		}
@@ -5632,7 +6202,7 @@ Scoped.define("module:TimeFormat", ["module:Time", "module:Strings", "module:Obj
 				return ((new Date(t)).toUTCString().split(" "))[2];
 			},
 			"mm": function (t) {
-				return Strings.padZeros(Time.timeComponentGet(t, "month"), 2);
+				return Strings.padZeros(Time.timeComponentGet(t, "month") + 1, 2);
 			},
 			"m": function (t) {
 				return Time.timeComponentGet(t, "month");
@@ -5648,7 +6218,7 @@ Scoped.define("module:TimeFormat", ["module:Time", "module:Strings", "module:Obj
 				return (new Date(t)).toUTCString().substring(0,3);
 			},
 			"dd": function (t) {
-				return Strings.padZeros(Time.timeComponentGet(t, "day"), 2);
+				return Strings.padZeros(Time.timeComponentGet(t, "day") + 1, 2);
 			},
 			"d": function (t) {
 				return Time.timeComponentGet(t, "day") + 1;
@@ -5706,6 +6276,7 @@ Scoped.define("module:TimeFormat", ["module:Time", "module:Strings", "module:Obj
 		 * 
 		 */
 		format: function (timeFormat, time, timezone) {
+			time = time || Time.now();
 			var timezoneTime = Time.timeToTimezoneBasedDate(time, timezone);
 			var bias = Time.timezoneBias(timezone);
 			var result = timeFormat;
@@ -6057,7 +6628,13 @@ Scoped.define("module:Trees.TreeQueryObject", [
 					this.__result[node_id].count--;
 					if (this.__result[node_id].count <= 0) {
 						delete this.__result[node_id];
+						/**
+						 * @event BetaJS.Trees.TreeQueryObject#remove
+						 */
 						this.trigger("remove", node);
+						/**
+						 * @event BetaJS.Trees.TreeQueryObject#change
+						 */
 						this.trigger("change");
 					}
 				}
@@ -6105,7 +6682,13 @@ Scoped.define("module:Trees.TreeQueryObject", [
 									node: node,
 									count: 1
 							};
+							/**
+							 * @event BetaJS.Trees.TreeQueryObject#add
+							 */
 							this.trigger("add", node);
+							/**
+							 * @event BetaJS.Trees.TreeQueryObject#change
+							 */
 							this.trigger("change");
 						} else
 							this.__result[node_id].count++;
@@ -6123,7 +6706,13 @@ Scoped.define("module:Trees.TreeQueryObject", [
 						this.__result[node_id].count--;
 						if (this.__result[node_id].count <= 0) {
 							delete this.__result[node_id];
+							/**
+							 * @event BetaJS.Trees.TreeQueryObject#remove
+							 */
 							this.trigger("remove", node);
+							/**
+							 * @event BetaJS.Trees.TreeQueryObject#change
+							 */
 							this.trigger("change");
 						}
 					}
@@ -6408,8 +6997,12 @@ Scoped.define("module:Channels.Sender", [
 		 * @param {string} message Message string
 		 * @param data Custom message data
 		 * @param serializerInfo Custom serializer information
+		 * @fires BetaJS.Channels.Sender#send
 		 */
 		send: function (message, data, serializerInfo) {
+			/**
+			 * @event BetaJS.Channels.Sender#send
+			 */
 			this.trigger("send", message, data);
 			this._send(message, data, serializerInfo);
 		},
@@ -6445,8 +7038,12 @@ Scoped.define("module:Channels.Receiver", [
 		 * 
 		 * @param {string} message Message string
 		 * @param data Custom message data
+		 * @fires BetaJS.Channels.Receiver#receive
 		 */
 		_receive: function (message, data) {
+			/**
+			 * @event BetaJS.Channels.Receiver#receive
+			 */
 			this.trigger("receive", message, data);
 			this.trigger("receive:" + message, data);
 		}
@@ -7902,8 +8499,12 @@ Scoped.define("module:Collections.Collection", [
 			 * Set the comparison function.
 			 * 
 			 * @param {function} compare Comparison function
+			 * @fires BetaJS.Collections.Collection#set_compare
 			 */
 			set_compare: function (compare) {
+				/**
+				 * @event BetaJS.Collections.Collection#set_compare
+				 */
 				this.trigger("set_compare", compare);
 				this.__data.set_compare(compare);
 				return this;
@@ -7918,19 +8519,33 @@ Scoped.define("module:Collections.Collection", [
 				return this.__data.get_compare();
 			},
 			
+			__load_item: function (object) {
+				if ("on" in object) {
+					object.on("change", function (key, value, oldvalue) {
+						this._object_changed(object, key, value, oldvalue);
+					}, this);
+				}
+				if (this.__release_references)
+					object.increaseRef(this);
+			},
+			
 			__unload_item: function (object) {
 				if ("off" in object)
 					object.off(null, null, this);
 				if (this.__release_references)
-					object.decreaseRef();
+					object.decreaseRef(this);
 			},
 		
 			/**
 			 * @override
+			 * @fires BetaJS.Collections.Collection#destroy
 			 */
 			destroy: function () {
 				this.__data.iterate(this.__unload_item, this);
 				this.__data.destroy();
+				/**
+				 * @event BetaJS.Collections.Collection#destroy
+				 */
 				this.trigger("destroy");
 				inherited.destroy.call(this);
 			},
@@ -7949,8 +8564,12 @@ Scoped.define("module:Collections.Collection", [
 			 * 
 			 * @param {object} object Object whose index has changed
 			 * @param {int} index New index
+			 * @fires BetaJS.Collections.Collection#index
 			 */
 			_index_changed: function (object, index) {
+				/**
+				 * @event BetaJS.Collections.Collection#index
+				 */
 				this.trigger("index", object, index);
 			},
 			
@@ -7958,16 +8577,24 @@ Scoped.define("module:Collections.Collection", [
 			 * Called when the index of an object has been successfully updated.
 			 * 
 			 * @param {object} object Object whose index has been updated
+			 * @fires BetaJS.Collections.Collection#reindexed
 			 */
 			_re_indexed: function (object) {
+				/**
+				 * @event BetaJS.Collections.Collection#reindexed
+				 */
 				this.trigger("reindexed", object);
 			},
 			
 			/**
 			 * Called when the collection has been sorted.
 			 * 
+			 * @fires BetaJS.Collections.Collection#sorted
 			 */
 			_sorted: function () {
+				/**
+				 * @event BetaJS.Collections.Collection#sorted
+				 */
 				this.trigger("sorted");
 			},
 			
@@ -7977,9 +8604,17 @@ Scoped.define("module:Collections.Collection", [
 			 * @param {object} object Object whose attribute has changed
 			 * @param {string} key Key of changed attribute
 			 * @param value New value of the object
+			 * @fires BetaJS.Collections.Collection#update
+			 * @fires BetaJS.Collections.Collection#change
 			 */
 			_object_changed: function (object, key, value) {
+				/**
+				 * @event BetaJS.Collections.Collection#update
+				 */
 				this.trigger("update");
+				/**
+				 * @event BetaJS.Collections.Collection#change
+				 */
 				this.trigger("change", object, key, value);
 				this.trigger("change:" + key, object, value);
 				this.__data.re_index(this.getIndex(object));
@@ -7990,6 +8625,8 @@ Scoped.define("module:Collections.Collection", [
 			 * 
 			 * @param {object} object Object to be added
 			 * @return {string} Identifier of added object
+			 * @fires BetaJS.Collections.Collection#add
+			 * @fires BetaJS.Collections.Collection#update
 			 */
 			add: function (object) {
 				if (!Class.is_class_instance(object))
@@ -8003,12 +8640,15 @@ Scoped.define("module:Collections.Collection", [
 						entries[value] = entries[value] || {};
 						entries[value][this.get_ident(object)] = object;
 					}, this);
+					/**
+					 * @event BetaJS.Collections.Collection#add
+					 */
 					this.trigger("add", object);
+					/**
+					 * @event BetaJS.Collections.Collection#update
+					 */
 					this.trigger("update");
-					if ("on" in object)
-						object.on("change", function (key, value, oldvalue) {
-							this._object_changed(object, key, value, oldvalue);
-						}, this);
+					this.__load_item(object);
 				}
 				return ident;
 			},
@@ -8086,6 +8726,8 @@ Scoped.define("module:Collections.Collection", [
 			 * 
 			 * @param {object} object Object to be removed
 			 * @return {object} Removed object
+			 * @fires BetaJS.Collections.Collection#remove
+			 * @fires BetaJS.Collections.Collection#update
 			 */
 			remove: function (object) {
 				if (!this.exists(object))
@@ -8099,8 +8741,14 @@ Scoped.define("module:Collections.Collection", [
 					}
 				}, this);
 				var result = this.__data.remove(object);
+				/**
+				 * @event BetaJS.Collections.Collection#remove
+				 */
 				this.trigger("remove", object);
 				this.__unload_item(object);
+				/**
+				 * @event BetaJS.Collections.Collection#update
+				 */
 				this.trigger("update");
 				return result;
 			},
@@ -8499,15 +9147,23 @@ Scoped.define("module:Collections.GroupedCollection", [
 			__insertObject: function (object, group) {
 				if (this.__insertCallback)
 					this.__insertCallback.call(this.__callbackContext, object, group);
-				else
+				else {
+					/**
+					 * @event BetaJS.Collections.GroupedCollection#insert
+					 */
 					group.trigger("insert", object);
+				}
 			},
 			
 			__removeObject: function (object, group) {
 				if (this.__removeCallback)
 					this.__removeCallback.call(this.__callbackContext, object, group);
-				else
+				else {
+					/**
+					 * @event BetaJS.Collections.GroupedCollection#remove
+					 */
 					group.trigger("remove", object);
+				}
 			}
 			
 		};	
@@ -8787,8 +9443,12 @@ Scoped.define("module:Exceptions.EventExceptionThrower", [
 
 			/**
 			 * @override
+			 * @fires BetaJS.Exceptions.EventExceptionThrower#exception
 			 */
 			_throwException: function (e) {
+				/**
+				 * @event BetaJS.Exceptions.EventExceptionThrower#exception
+				 */
 				this.trigger("exception", e);
 			}
 		
@@ -10618,6 +11278,30 @@ Scoped.define("module:Iterators.Iterator", [
 	});
 });
 
+Scoped.define("module:Loggers.CallOriginLogAugment", [
+	"module:Loggers.AbstractLogAugment",
+	"module:Functions"
+], function (AbstractLogAugment, Functions, scoped) {
+	return AbstractLogAugment.extend({scoped: scoped}, function (inherited) {
+		
+		/**
+		 * Call Origin Log Augment Class
+		 * 
+		 * @class BetaJS.Loggers.CallOriginLogAugment
+		 */
+		return {
+			
+			/**
+			 * @override
+			 */
+			augmentMessage: function (source, msg, depth) {
+				var stack = Functions.getStackTrace(depth * 3 + 6);
+				return stack[0];
+			}
+			
+		};
+	});
+});
 Scoped.define("module:Loggers.ConsoleLogListener", [
 	"module:Loggers.LogListener"
 ], function (LogListener, scoped) {
@@ -10634,9 +11318,34 @@ Scoped.define("module:Loggers.ConsoleLogListener", [
 			 * @override
 			 */
 			message: function (source, msg) {
-				console[msg.type].apply(console, msg.args);
+				console[msg.type].apply(console, msg.args.concat(msg.augments));
 			}
 
+		};
+	});
+});
+Scoped.define("module:Loggers.AbstractLogAugment", [
+	"module:Class"
+], function (Class, scoped) {
+	return Class.extend({scoped: scoped}, function (inherited) {
+		
+		/**
+		 * Abstract Log Augment Class, augmenting logs
+		 * 
+		 * @class BetaJS.Loggers.AbstractLogAugment
+		 */
+		return {
+			
+			/**
+			 * Called when a log message is created.
+			 * 
+			 * @param {object} source logger source
+			 * @param {object} msg message object
+			 * @param {int} depth call depth (internal use)
+			 * @return augmentation
+			 */
+			augmentMessage: function (source, msg, depth) {}
+			
 		};
 	});
 });
@@ -10736,8 +11445,29 @@ Scoped.define("module:Loggers.Logger", [
 				inherited.constructor.call(this);
 				options = options || {};
 				this.__listeners = {};
+				this.__augments = {};
 				this.__tags = options.tags || [];
 				Objs.iter(options.listeners, this.addListener, this);
+			},
+			
+			/**
+			 * Adds a new augment to the logger.
+			 * 
+			 * @param {object} augment augment to be added
+			 */
+			addAugment: function (augment) {
+				this.__augments[augment.cid()] = augment;
+				return this;
+			},
+			
+			/**
+			 * Remove an existing augment from the logger.
+			 * 
+			 * @param {object} augment augment to be removed
+			 */
+			removeAugment: function (augment) {
+				delete this.__augments[augment.cid()];
+				return this;
 			},
 			
 			/**
@@ -10841,11 +11571,17 @@ Scoped.define("module:Loggers.Logger", [
 			 * 
 			 * @param {object} source logger source for message
 			 * @param {object} msg log message
+			 * @param {int} depth call depth (internal use)
 			 */
-			message: function (source, msg) {
+			message: function (source, msg, depth) {
+				depth = depth || 0;
+				msg.tags = this.__tags.concat(msg.tags || []);
+				msg.augments = msg.augments || [];
+				Objs.iter(this.__augments, function (augment) {
+					msg.augments.push(augment.augmentMessage(source, msg, depth));
+				}, this);
 				Objs.iter(this.__listeners, function (listener) {
-					msg.tags = this.__tags.concat(msg.tags || []);
-					listener.message(this, msg);
+					listener.message(this, msg, depth + 1);
 				}, this);
 				return this;
 			},
@@ -10935,7 +11671,7 @@ Scoped.define("module:Net.SocketReceiverChannel", ["module:Channels.Receiver"], 
 		/**
 		 * Socket Receiver Channel Class
 		 * 
-		 * @class SocketReceiverChannel
+		 * @class BetaJS.Net.SocketReceiverChannel
 		 */
 		return {
 						
@@ -11603,10 +12339,15 @@ Scoped.define("module:RMI.Server", [
 			 * @param data Data to be passed to method
 			 * 
 			 * @return Return value of method as promise. 
+			 * 
+			 * @fires BetaJS.RMI.Server#loadInstance
 			 */
 			_invoke: function (channel, instance_id, method, data) {
 				var instance = this.__instances[instance_id];
 				if (!instance) {
+					/**
+					 * @event BetaJS.RMI.Server#loadInstance
+					 */
 					this.trigger("loadInstance", channel, instance_id);
 					instance = this.__instances[instance_id];
 				}
@@ -12039,13 +12780,13 @@ Scoped.define("module:Scheduling.DefaultScheduler", [
 			run: function (limit) {
 				limit = limit || this._options.defaultLimit;
 				var endTime = Time.perfNow() + limit;
-				while (this._resources > 0) {
+				while (this._resources > 0 && this._first) {
 					var nowTime = Time.perfNow();
 					var timeLeft = endTime - nowTime;
 					if (timeLeft <= 0)
 						break;
 					var current = this._current || this._first;
-					if (current.scheduled.length >= 0) {
+					if (current.scheduled.length > 0) {
 						var resources = current.resources;
 						if (current.allocatedTime > current.usedTime)
 							resources += current.usedTime / current.allocatedTime * this._options.rewardFactor; 
@@ -12441,15 +13182,24 @@ Scoped.define("module:Router.Router", [
     		 * Navigates to a new route.
     		 * 
     		 * @param {string} route route to navigate to
+			 * @fires BetaJS.Router.Router#navigate
+			 * @fires BetaJS.Router.Router#notfound
     		 */
     		navigate : function(route) {
+				/**
+				 * @event BetaJS.Router.Router#navigate
+				 */
     			this.trigger("navigate", route);
     			this.trigger("navigate:" + route);
     			var parsed = this._routeParser.parse(route);
     			if (parsed)
     				this.dispatch(parsed.name, parsed.args, route);
-    			else
+    			else {
+    				/**
+    				 * @event BetaJS.Router.Router#notfound
+    				 */
     				this.trigger("notfound", route);
+    			}
     			return this;
     		},
 
@@ -12459,25 +13209,34 @@ Scoped.define("module:Router.Router", [
     		 * @param {string} name name of route
     		 * @param {array} args arguments of new route
     		 * @param {string} route optional route string
-    		 * 
+			 * @fires BetaJS.Router.Router#leave
+			 * @fires BetaJS.Router.Router#dispatch
+			 * @fires BetaJS.Router.Router#dispatched
     		 */
     		dispatch : function(name, args, route) {
     			if (this._current) {
     				if (this._current.name === name && Comparators.deepEqual(args, this._current.args, 2))
     					return;
-    				this.trigger("leave", this._current.name,
-    						this._current.args, this._current);
-    				this.trigger("leave:" + this._current.name,
-    						this._current.args, this._current);
+    				/**
+    				 * @event BetaJS.Router.Router#leave
+    				 */
+    				this.trigger("leave", this._current.name, this._current.args, this._current);
+    				this.trigger("leave:" + this._current.name, this._current.args, this._current);
     			}
     			var current = {
 					route : route || this.format(name, args),
 					name : name,
 					args : args
     			};
+				/**
+				 * @event BetaJS.Router.Router#dispatch
+				 */
     			this.trigger("dispatch", name, args, current);
     			this.trigger("dispatch:" + name, args, current);
     			this._current = current;
+				/**
+				 * @event BetaJS.Router.Router#dispatched
+				 */
     			this.trigger("dispatched", name, args, current);
     			this.trigger("dispatched:" + name, args, current);
     			return this;
@@ -12726,6 +13485,8 @@ Scoped.define("module:Router.RouterHistory", [
 			 * Creates a new instance.
 			 * 
 			 * @param {object} router router instance
+			 * @fires BetaJS.Router.RouterHistory#change
+			 * @fires BetaJS.Router.RouterHistory#insert
 			 */
 			constructor : function(router) {
 				inherited.constructor.call(this);
@@ -12733,7 +13494,13 @@ Scoped.define("module:Router.RouterHistory", [
 				this._history = [];
 				router.on("dispatched", function(name, args, current) {
 					this._history.push(current);
+					/**
+					 * @event BetaJS.Router.RouterHistory#change
+					 */
 					this.trigger("change", current);
+					/**
+					 * @event BetaJS.Router.RouterHistory#insert
+					 */
 					this.trigger("insert", current);
 				}, this);
 			},
@@ -12781,6 +13548,8 @@ Scoped.define("module:Router.RouterHistory", [
 			 * Goes back in history.
 			 * 
 			 * @param {int} index optional index, stating how many items to go back.
+			 * @fires BetaJS.Router.RouterHistory#remove
+			 * @fires BetaJS.Router.RouterHistory#change
 			 */
 			back : function(index) {
 				if (this.count() < 2)
@@ -12788,10 +13557,16 @@ Scoped.define("module:Router.RouterHistory", [
 				index = index || 0;
 				while (index >= 0 && this.count() > 1) {
 					var removed = this._history.pop();
+					/**
+					 * @event BetaJS.Router.RouterHistory#remove
+					 */
 					this.trigger("remove", removed);
 					--index;
 				}
 				var item = this._history.pop();
+				/**
+				 * @event BetaJS.Router.RouterHistory#change
+				 */
 				this.trigger("change", item);
 				return this._router.dispatch(item.name, item.args);
 			}
@@ -13023,8 +13798,12 @@ Scoped.define("module:States.Host", [
 			 * 
 			 * @param {object} state state in question
 			 * @param {string} s name of event
+			 * @fires BetaJS.States.Host#event
 			 */
 			_stateEvent: function (state, s) {
+				/**
+				 * @event BetaJS.States.Host#event
+				 */
 				this.trigger("event", s, state.state_name(), state.description());
 				this.trigger(s, state.state_name(), state.description());
 				this.trigger(s + ":" + state.state_name(), state.description());

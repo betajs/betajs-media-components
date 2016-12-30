@@ -1,0 +1,55 @@
+'language:bg':
+  ba-videoplayer-playbutton.tooltip: 'Кликнете, за да играят на видео.'
+  ba-videoplayer-playbutton.rerecord: ремонтирам
+  ba-videoplayer-playbutton.submit-video: Потвърждаване на видео
+  ba-videoplayer-loader.tooltip: Зареждане на видео ...
+  ba-videoplayer-controlbar.change-resolution: Промяна на разделителната способност
+  ba-videoplayer-controlbar.video-progress: прогрес видео
+  ba-videoplayer-controlbar.rerecord-video: Възстановяване на видео?
+  ba-videoplayer-controlbar.submit-video: Потвърждаване на видео
+  ba-videoplayer-controlbar.play-video: възпроизвеждане на видео
+  ba-videoplayer-controlbar.pause-video: Pause видео
+  ba-videoplayer-controlbar.elapsed-time: Elasped време
+  ba-videoplayer-controlbar.total-time: Обща дължина на видео
+  ba-videoplayer-controlbar.fullscreen-video: Въведете цял екран
+  ba-videoplayer-controlbar.volume-button: Set обем
+  ba-videoplayer-controlbar.volume-mute: Mute звук
+  ba-videoplayer-controlbar.volume-unmute: изключване на звука
+  ba-videoplayer.video-error: >-
+    Възникна грешка. Моля, опитайте отново по-късно. Кликнете, за да опитате
+    отново.
+  ba-videorecorder-chooser.record-video: Запишете вашите видео
+  ba-videorecorder-chooser.upload-video: Качи Видео
+  ba-videorecorder-controlbar.settings: Настройки
+  ba-videorecorder-controlbar.camerahealthy: Осветлението е добро
+  ba-videorecorder-controlbar.cameraunhealthy: Осветление не е оптимално
+  ba-videorecorder-controlbar.microphonehealthy: Звукът е добър
+  ba-videorecorder-controlbar.microphoneunhealthy: Не може да вземете всеки звук
+  ba-videorecorder-controlbar.record: рекорд
+  ba-videorecorder-controlbar.record-tooltip: 'Кликнете тук, за да запишете.'
+  ba-videorecorder-controlbar.rerecord: ремонтирам
+  ba-videorecorder-controlbar.rerecord-tooltip: 'Кликнете тук, за да ремонтирам.'
+  ba-videorecorder-controlbar.upload-covershot: Качи
+  ba-videorecorder-controlbar.upload-covershot-tooltip: 'Кликнете тук, за да качите потребителски покритие удар'
+  ba-videorecorder-controlbar.stop: Спри се
+  ba-videorecorder-controlbar.stop-tooltip: 'Кликнете тук, за да спре.'
+  ba-videorecorder-controlbar.skip: подскачам
+  ba-videorecorder-controlbar.skip-tooltip: 'Кликнете тук, за да пропуснете.'
+  ba-videorecorder.recorder-error: >-
+    Възникна грешка. Моля, опитайте отново по-късно. Кликнете, за да опитате
+    отново.
+  ba-videorecorder.attach-error: >-
+    Ние не може да получите достъп до интерфейса на камерата. В зависимост от
+    устройството и браузъра, може да се наложи да инсталирате Flash или достъп
+    до страницата чрез SSL.
+  ba-videorecorder.access-forbidden: 'Достъп до камерата е забранено. Кликнете, за да опитате отново.'
+  ba-videorecorder.pick-covershot: Изберете covershot.
+  ba-videorecorder.uploading: Качване
+  ba-videorecorder.uploading-failed: 'Качва се провали - кликнете тук, за да опитате отново.'
+  ba-videorecorder.verifying: Проверка
+  ba-videorecorder.verifying-failed: 'Удостоверяването се провали - кликнете тук, за да опитате отново.'
+  ba-videorecorder.rerecord-confirm: Наистина ли искате да ремонтирам видео си?
+  ba-videorecorder.video_file_too_large: >-
+    Вашият видео файл е твърде голям (%s) - кликнете тук, за да опитате отново с
+    по-малък видео файл.
+  ba-videorecorder.unsupported_video_type: 'Моля, качете: %s - кликнете тук, за да опитате отново.'

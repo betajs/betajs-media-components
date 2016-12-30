@@ -1,0 +1,50 @@
+'language:hu':
+  ba-videoplayer-playbutton.tooltip: Kattintson ide a videó lejátszásához.
+  ba-videoplayer-playbutton.rerecord: Újra
+  ba-videoplayer-playbutton.submit-video: Erősítse videó
+  ba-videoplayer-loader.tooltip: Videó betöltése ...
+  ba-videoplayer-controlbar.change-resolution: a felbontás módosítása
+  ba-videoplayer-controlbar.video-progress: videó haladás
+  ba-videoplayer-controlbar.rerecord-video: Újra videót?
+  ba-videoplayer-controlbar.submit-video: Erősítse videó
+  ba-videoplayer-controlbar.play-video: videó lejátszása
+  ba-videoplayer-controlbar.pause-video: szünet videó
+  ba-videoplayer-controlbar.elapsed-time: Eltelt idő
+  ba-videoplayer-controlbar.total-time: Teljes hossza videó
+  ba-videoplayer-controlbar.fullscreen-video: a teljes képernyős
+  ba-videoplayer-controlbar.volume-button: Állítsa be a hangerőt
+  ba-videoplayer-controlbar.volume-mute: hang elnémítása
+  ba-videoplayer-controlbar.volume-unmute: Unmute hang
+  ba-videoplayer.video-error: 'Hiba történt. Kérjük, próbálkozzon később. Kattintson ide újra.'
+  ba-videorecorder-chooser.record-video: A videó rögzítésének
+  ba-videorecorder-chooser.upload-video: Videó feltöltése
+  ba-videorecorder-controlbar.settings: Beállítások
+  ba-videorecorder-controlbar.camerahealthy: Világítás jó
+  ba-videorecorder-controlbar.cameraunhealthy: Világítás nem optimális
+  ba-videorecorder-controlbar.microphonehealthy: Hang jó
+  ba-videorecorder-controlbar.microphoneunhealthy: Nem lehet felvenni minden hang
+  ba-videorecorder-controlbar.record: Rekord
+  ba-videorecorder-controlbar.record-tooltip: 'Kattintson ide, hogy rögzíti.'
+  ba-videorecorder-controlbar.rerecord: Újra
+  ba-videorecorder-controlbar.rerecord-tooltip: 'Kattintson ide, hogy újra.'
+  ba-videorecorder-controlbar.upload-covershot: Feltöltés
+  ba-videorecorder-controlbar.upload-covershot-tooltip: Kattintson ide feltölthető egyedi fedél lövés
+  ba-videorecorder-controlbar.stop: Állj meg
+  ba-videorecorder-controlbar.stop-tooltip: 'Kattintson ide, hogy hagyja abba.'
+  ba-videorecorder-controlbar.skip: Skip
+  ba-videorecorder-controlbar.skip-tooltip: 'Kattintson ide, hogy kihagyja.'
+  ba-videorecorder.recorder-error: 'Hiba történt. Kérjük, próbálkozzon később. Kattintson ide újra.'
+  ba-videorecorder.attach-error: >-
+    Nem tudtuk elérni a kamera interface. Attól függően, hogy a készülék és a
+    böngészőben, akkor telepítenie kell a Flash vagy elérni az oldalt SSL.
+  ba-videorecorder.access-forbidden: Hozzáférés a kamera tilos volt. Kattintson ide újra.
+  ba-videorecorder.pick-covershot: Válassz egy covershot.
+  ba-videorecorder.uploading: Feltöltés
+  ba-videorecorder.uploading-failed: Feltöltés sikertelen - ide kattintva újra.
+  ba-videorecorder.verifying: ellenőrzése
+  ba-videorecorder.verifying-failed: Ellenőrzéséért sikertelen - ide kattintva újra.
+  ba-videorecorder.rerecord-confirm: Tényleg azt akarja ismételni a videó?
+  ba-videorecorder.video_file_too_large: >-
+    A videó fájl túl nagy (%s) - ide kattintva próbálkozzon újra egy kisebb video
+    fájlt.
+  ba-videorecorder.unsupported_video_type: 'Kérjük, töltsön fel: %s - ide kattintva újra.'

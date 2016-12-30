@@ -1,0 +1,50 @@
+'language:da':
+  ba-videoplayer-playbutton.tooltip: Klik for at afspille video.
+  ba-videoplayer-playbutton.rerecord: redo
+  ba-videoplayer-playbutton.submit-video: Bekræft video
+  ba-videoplayer-loader.tooltip: Indlæser video ...
+  ba-videoplayer-controlbar.change-resolution: Skift opløsning
+  ba-videoplayer-controlbar.video-progress: fremskridt Video
+  ba-videoplayer-controlbar.rerecord-video: Redo video?
+  ba-videoplayer-controlbar.submit-video: Bekræft video
+  ba-videoplayer-controlbar.play-video: Afspil video
+  ba-videoplayer-controlbar.pause-video: Pause video
+  ba-videoplayer-controlbar.elapsed-time: Elasped tid
+  ba-videoplayer-controlbar.total-time: Samlet længde af video
+  ba-videoplayer-controlbar.fullscreen-video: Indtast fullscreen
+  ba-videoplayer-controlbar.volume-button: Indstil lydstyrke
+  ba-videoplayer-controlbar.volume-mute: Slå lyden
+  ba-videoplayer-controlbar.volume-unmute: Slå lyden til
+  ba-videoplayer.video-error: Der opstod en fejl. Prøv venligst igen senere. Klik for at prøve igen.
+  ba-videorecorder-chooser.record-video: Optag din video
+  ba-videorecorder-chooser.upload-video: Upload video
+  ba-videorecorder-controlbar.settings: Indstillinger
+  ba-videorecorder-controlbar.camerahealthy: Belysning er god
+  ba-videorecorder-controlbar.cameraunhealthy: Belysning er ikke optimal
+  ba-videorecorder-controlbar.microphonehealthy: Lyden er god
+  ba-videorecorder-controlbar.microphoneunhealthy: Kan ikke afhente nogen lyd
+  ba-videorecorder-controlbar.record: Optage
+  ba-videorecorder-controlbar.record-tooltip: Klik her for at optage.
+  ba-videorecorder-controlbar.rerecord: redo
+  ba-videorecorder-controlbar.rerecord-tooltip: Klik her for at gentage.
+  ba-videorecorder-controlbar.upload-covershot: Upload
+  ba-videorecorder-controlbar.upload-covershot-tooltip: Klik her for at uploade brugerdefinerede dækning shot
+  ba-videorecorder-controlbar.stop: Stop
+  ba-videorecorder-controlbar.stop-tooltip: Klik her for at stoppe.
+  ba-videorecorder-controlbar.skip: Springe
+  ba-videorecorder-controlbar.skip-tooltip: Klik her for at springe.
+  ba-videorecorder.recorder-error: Der opstod en fejl. Prøv venligst igen senere. Klik for at prøve igen.
+  ba-videorecorder.attach-error: >-
+    Vi kunne ikke få adgang til kameraet interface. Afhængigt af enheden og
+    browseren, skal du muligvis installere Flash eller adgang til siden via SSL.
+  ba-videorecorder.access-forbidden: Adgang til kameraet var forbudt. Klik for at prøve igen.
+  ba-videorecorder.pick-covershot: Vælg en covershot.
+  ba-videorecorder.uploading: Upload
+  ba-videorecorder.uploading-failed: Upload mislykkedes - klik her for at prøve igen.
+  ba-videorecorder.verifying: Bekræftelse
+  ba-videorecorder.verifying-failed: mislykkedes verificering - klik her for at prøve igen.
+  ba-videorecorder.rerecord-confirm: Vil du virkelig ønsker at gentage din video?
+  ba-videorecorder.video_file_too_large: >-
+    Din video filen er for stor (%s) - klik her for at prøve igen med et mindre
+    videofil.
+  ba-videorecorder.unsupported_video_type: 'upload venligst: %s - klik her for at prøve igen.'

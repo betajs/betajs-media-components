@@ -7,6 +7,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
     "dynamics:Partials.ClickPartial",
     "dynamics:Partials.IfPartial"
 ], function (Class, Templates, Assets, Info, scoped) {
+		
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {
 			
@@ -17,10 +18,23 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
 				"allowrecord": true,
 				"allowupload": true,
 				"allowcustomupload": true,
+				"allowedextensions": null,
 				"primaryrecord": true
 			},
 			
+			types: {
+				"allowedextensions": "array"
+			},
+			
 			create: function () {
+				var custom_accept_string = "";
+				if (this.get("allowedextensions") && this.get("allowedextensions").length > 0) {
+					var browser_support = Info.isEdge() || Info.isChrome() || Info.isOpera() || (Info.isFirefox() && Info.firefoxVersion() >= 42) || (Info.isInternetExplorer() && Info.internetExplorerVersion() >= 10);
+					if (browser_support)
+						custom_accept_string = "." + this.get("allowedextensions").join(",.");
+				} else if (!this.get("allowcustomupload")) {
+					custom_accept_string = "video/*,video/mp4";
+				}
 				this.set("has_primary", true);
 				this.set("enable_primary_select", false);
 				this.set("primary_label", this.string(this.get("primaryrecord") && this.get("allowrecord") ? "record-video" : "upload-video"));
@@ -28,14 +42,20 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
 				if (!this.get("allowrecord") || !this.get("primaryrecord") || (Info.isMobile() && (!Info.isAndroid() || !Info.isCordova()))) {
 					this.set("enable_primary_select", true);
 					this.set("primary_select_capture", Info.isMobile() && this.get("allowrecord") && this.get("primaryrecord"));
-					this.set("primary_accept_string", Info.isMobile() && this.get("allowrecord") && this.get("primaryrecord") ? "video/*,video/mp4;capture=camcorder" : (Info.isMobile() || !this.get("allowcustomupload") ? "video/*,video/mp4" : ""));
+					if (Info.isMobile())
+						this.set("primary_accept_string", this.get("allowrecord") && this.get("primaryrecord") ? "video/*,video/mp4;capture=camcorder" : "video/*,video/mp4");
+					else
+						this.set("primary_accept_string", custom_accept_string);
 				}
 				this.set("has_secondary", this.get("allowrecord") && this.get("allowupload"));
 				this.set("enable_secondary_select", false);
 				if (this.get("primaryrecord") || (Info.isMobile() && (!Info.isAndroid() || !Info.isCordova()))) {
 					this.set("enable_secondary_select", true);
 					this.set("secondary_select_capture", Info.isMobile() && !this.get("primaryrecord"));
-					this.set("secondary_accept_string", Info.isMobile() && !this.get("primaryrecord") ? "video/*,video/mp4;capture=camcorder" : (Info.isMobile() || !this.get("allowcustomupload") ? "video/*,video/mp4" : ""));
+					if (Info.isMobile())
+						this.set("secondary_accept_string", !this.get("primaryrecord") ? "video/*,video/mp4;capture=camcorder" : "video/*,video/mp4");
+					else
+						this.set("secondary_accept_string", custom_accept_string);
 				}
 			},
 			

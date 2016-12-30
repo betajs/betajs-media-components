@@ -1,14 +1,14 @@
-Scoped.extend("module:Assets.recorderthemes", [
-    "module:Templates",
-    "browser:Info"
-], function (Templates, Info) {
-	var ie8 = Info.isInternetExplorer() && Info.internetExplorerVersion() <= 8;
+Scoped.extend("module:Assets.recorderthemes", [ "module:Templates" ], function(
+		Templates) {
 	return {
-		"space": {
-			css: "ba-videorecorder-space-theme",
-			cssmessage: "ba-videorecorder",
-			cssloader: "ba-videorecorder",
-			tmplchooser: Templates["elevate-video_recorder_chooser"]
+		"elevate" : {
+			css : "ba-videorecorder-theme-elevate",
+			cssmessage : "ba-videorecorder",
+			cssloader : "ba-videorecorder",
+			tmpltopmessage : Templates["elevate-video_recorder_topmessage"],
+			tmplcontrolbar : Templates["elevate-video_recorder_controlbar"],
+			tmplimagegallery : Templates["elevate-recorder_imagegallery"],
+			tmplmessage : Templates["elevate-video_recorder_message"]
 		}
 	};
 });

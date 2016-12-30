@@ -34,7 +34,7 @@
         </div>
 
         <div class="{{css}}-time-container">
-            <div class="{{css}}-time-value" title="{{string('elapsed-time')}}">{{position_formatted}}</div>
+            <div class="{{css}}-time-value" title="{{string('elapsed-time')}}">{{formatTime(position)}}</div>
         </div>
     </div>
 
@@ -53,7 +53,7 @@
         </div>
 
         <div class="{{css}}-time-container {{css}}-right-time-container">
-            <div class="{{css}}-time-value" title="{{string('elapsed-time')}}">{{duration_formatted}}</div>
+            <div class="{{css}}-time-value" title="{{string('elapsed-time')}}">{{formatTime(duration || position)}}</div>
         </div>
 
     </div>

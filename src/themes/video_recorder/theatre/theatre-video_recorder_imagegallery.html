@@ -1,0 +1,22 @@
+<div class="{{css}}-image-gallery-container">
+
+	<div class="{{css}}-imagegallery-leftbutton">
+		<div class="{{css}}-imagegallery-button-inner" onclick="{{left()}}">
+			<i class="ba-videorecorder-icon-left-open"></i>
+		</div>
+	</div>
+
+	<div ba-repeat="{{image::images}}" class="{{css}}-imagegallery-container" data-gallery-container>
+		<div class="{{css}}-imagegallery-image"
+			 ba-styles="{{{left: image.left + 'px', top: image.top + 'px', width: image.width + 'px', height: image.height + 'px'}}}"
+			 onclick="{{select(image)}}">
+		</div>
+	</div>
+
+	<div class="{{css}}-imagegallery-rightbutton">
+		<div class="{{css}}-imagegallery-button-inner" onclick="{{right()}}">
+			<i class="ba-videorecorder-icon-right-open"></i>
+		</div>
+	</div>
+
+</div>

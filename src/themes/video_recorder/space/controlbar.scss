@@ -1,7 +1,132 @@
-.#{$css}-green .#{$css}-button-primary {
-	background: $button_color_green;
+.#{$css}-dashboard {
+  @include absolute-align-all();
+  height: 100%;
 }
 
-.#{$css}-blue .#{$css}-button-primary {
-	background: $button_color_blue;
+.#{$css}-controlbar {
+  @include absolute-align-full-bottom();
+  height: $controlbar_footer_height;
+  padding: 0 10px;
+}
+
+.#{$css}-controlbar-right-section {
+  float: right;
+}
+
+.#{$css}-controlbar-left-section {
+  float: left;
+  .#{$css}-circle-button {
+    margin-right: 7px;
+  }
+}
+
+.#{$css}-long-rounded-button {
+  @include border-radius($controlbar_primarybutton_radius);
+  display: inline-block;
+  & > p {
+    font-family: $font_family;
+    font-size: $controlbar_primarybutton_font_size;
+    padding: $controlbar_button_padding;
+    margin: 0;
+  }
+}
+
+.#{$css}-circle-button {
+  @include background-rgba(0, 0, 0, 0.4, #999999);
+  @include border-radius($controlbar_button_border_radius);
+  color: $text_color;
+  display: inline-block; float: left;
+  height: $controlbar_button_size;
+  line-height: $controlbar_button_size;
+  text-align: center;
+  width: $controlbar_button_size;
+}
+
+.#{$css}-button-circle-selected, .#{$css}-button-inner:hover, .#{$css}-button-selected {
+  background: $controlbar_button_hover_background;
+  color: $controlbar_button_hover_color;
+  cursor: pointer;
+}
+
+.#{$css}-button-inner {
+  border: none;
+  font-size: inherit;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.#{$css}-settings-front {
+  @include absolute-align-full-bottom();
+}
+
+.#{$css}-settings {
+  bottom: 60px;
+  label {
+    font-family: $font_family;
+    font-weight: 100;
+    font-size: $settings_font_size ;
+  }
+  li {
+    padding: 0 8px;
+  } input[type=radio]:checked + span { border: 3px solid $text_color;
+  }
+  span {
+    background: $button_color;
+  }
+}
+
+.#{$css}-button-primary {
+  @include border-radius($controlbar_primarybutton_radius);
+  display: inline-block;
+  font-family: $font_family;
+  font-weight: 100;
+  margin-top: 6px;
+  min-width: $controlbar_primarybutton_min_width;
+  @include relative-align-all();
+  @include transform-translate(0, 0);
+  z-index: 10;
+}
+
+.#{$css}-settings-button {
+  background: $settings_bgcolor;
+  cursor: pointer;
+  margin: 15px 0 0 15px;
+  & > p {
+    color: $text_color_secondary;
+  }
+}
+
+.#{$css}-bubble-info {
+  @include settings_bubble_bottom_shape ( 39px, 4px, 0, 0, 0, .5, #7f7f7f, 16px );
+}
+
+.#{$css}-controlbar-center-section {
+  @include absolute-align-left();
+  text-align: center;
+  width: 100%;
+}
+
+.#{$css}-button-container {
+  display: inline-block;
+}
+
+.#{$css}-label-container {
+  float: left;
+  text-align: right;
+  width: 50%;
+  .#{$css}-button-primary {
+    color: $text_color;
+    @include background-rgba(0, 0, 0, .4, #999999);
+  }
+}
+
+.#{$css}-stop-button-container{
+  float: right;
+  text-align: left;
+  width: 50%;
+}
+
+.#{$css}-timer-container {
 }

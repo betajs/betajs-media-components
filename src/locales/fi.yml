@@ -1,0 +1,50 @@
+'language:fi':
+  ba-videoplayer-playbutton.tooltip: Toista video.
+  ba-videoplayer-playbutton.rerecord: tehdä uudelleen
+  ba-videoplayer-playbutton.submit-video: vahvista video
+  ba-videoplayer-loader.tooltip: Ladataan videota ...
+  ba-videoplayer-controlbar.change-resolution: Muuta resoluutio
+  ba-videoplayer-controlbar.video-progress: video edistyminen
+  ba-videoplayer-controlbar.rerecord-video: Tee uudelleen video?
+  ba-videoplayer-controlbar.submit-video: vahvista video
+  ba-videoplayer-controlbar.play-video: Toista video
+  ba-videoplayer-controlbar.pause-video: tauko video
+  ba-videoplayer-controlbar.elapsed-time: Elasped aika
+  ba-videoplayer-controlbar.total-time: Kokonaispituus video
+  ba-videoplayer-controlbar.fullscreen-video: Anna koko näytön
+  ba-videoplayer-controlbar.volume-button: Set tilavuus
+  ba-videoplayer-controlbar.volume-mute: äänen mykistys
+  ba-videoplayer-controlbar.volume-unmute: Poista mykistys
+  ba-videoplayer.video-error: 'Tapahtui virhe, yritä myöhemmin uudelleen. Yritä uudelleen klikkaamalla.'
+  ba-videorecorder-chooser.record-video: Tallenna videon
+  ba-videorecorder-chooser.upload-video: Lataa video
+  ba-videorecorder-controlbar.settings: Asetukset
+  ba-videorecorder-controlbar.camerahealthy: Valaistus on hyvä
+  ba-videorecorder-controlbar.cameraunhealthy: Valaistus ei ole optimaalinen
+  ba-videorecorder-controlbar.microphonehealthy: Ääni on hyvä
+  ba-videorecorder-controlbar.microphoneunhealthy: Voi poimia mitään ääntä
+  ba-videorecorder-controlbar.record: Ennätys
+  ba-videorecorder-controlbar.record-tooltip: Täältä tallentaa.
+  ba-videorecorder-controlbar.rerecord: tehdä uudelleen
+  ba-videorecorder-controlbar.rerecord-tooltip: Täältä redo.
+  ba-videorecorder-controlbar.upload-covershot: Lataa
+  ba-videorecorder-controlbar.upload-covershot-tooltip: Täältä ladata mukautettuja kansi ammuttu
+  ba-videorecorder-controlbar.stop: Stop
+  ba-videorecorder-controlbar.stop-tooltip: Täältä lopettaa.
+  ba-videorecorder-controlbar.skip: hyppiä
+  ba-videorecorder-controlbar.skip-tooltip: Täältä ohittaa.
+  ba-videorecorder.recorder-error: 'Tapahtui virhe, yritä myöhemmin uudelleen. Yritä uudelleen klikkaamalla.'
+  ba-videorecorder.attach-error: >-
+    Emme voineet käyttää Kameraliitännät. Laitteesta riippuen ja selainta, sinun
+    on ehkä asennettava Flash tai käyttää sivun kautta SSL.
+  ba-videorecorder.access-forbidden: Pääsy kameraan oli kielletty. Yritä uudelleen klikkaamalla.
+  ba-videorecorder.pick-covershot: Valitse covershot.
+  ba-videorecorder.uploading: lataaminen
+  ba-videorecorder.uploading-failed: Lataaminen epäonnistui - klikkaa tästä yritä uudelleen.
+  ba-videorecorder.verifying: Tarkistetaan
+  ba-videorecorder.verifying-failed: Varmentaa epäonnistui - klikkaa tästä yritä uudelleen.
+  ba-videorecorder.rerecord-confirm: Haluatko todella redo videon?
+  ba-videorecorder.video_file_too_large: >-
+    Videotiedosto on liian suuri (%s) - klikkaa tästä yrittää uudelleen pienemmällä
+    videotiedosto.
+  ba-videorecorder.unsupported_video_type: 'Lataa: %s - klikkaa tästä yritä uudelleen.'

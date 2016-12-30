@@ -187,8 +187,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterError", [
 
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
 	"module:VideoPlayer.Dynamics.PlayerStates.State",
-	"base:Async"
-], function (State, Async, scoped) {
+	"base:Timers.Timer"
+], function (State, Timer, scoped) {
 	return State.extend({scoped: scoped}, {
 		
 		dynamics: ["loader"],
@@ -206,8 +206,17 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
 			}, this);
 			if (this.dyn.get("skipinitial") && !this.dyn.get("autoplay"))
 				this.next("PlayVideo");
-			else
-				this.dyn.player.play();
+			else {
+				this.auto_destroy(new Timer({
+					context: this,
+					fire: function () {
+						if (!this.destroyed() && !this.dyn.destroyed() && this.dyn.player)
+							this.dyn.player.play();
+					},
+					delay: 500,
+					immediate: true
+				}));
+			}
 		}
 	
 	});

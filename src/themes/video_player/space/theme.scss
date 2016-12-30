@@ -2,13 +2,18 @@ $css: "ba-videoplayer-space-theme";
 $cssie8: "ba-videoplayer-ie8";
 $cssnoie8: "ba-videoplayer-noie8";
 $fontello_name: "bjsmc";
+$video_player: "ba-videoplayer";
 
 $loader_size: 5px;
 $loader_frame_thickness: 0.6em;
 
-$message_bgcolor: black;
+$message_bgcolor: white;
 $message_opacity: 0.75;
-$message_color: white;
+$message_color: black;
+$message_opacity: 0.75;
+$message_height: 50px;
+$message_width: 50px;
+$message_side_interval: 8px;
 
 $font_family: Arial, sans-serif;
 $topmessage_bgcolor: black;
@@ -25,10 +30,12 @@ $playbutton_transition_time: .25s;
 $playbutton_background_opacity: 0.2;
 
 $dashboard_transition: 0.5s;
-$controlbar_height: 40px;
+$controlbar_height: 100%;
+$controlbar_header_height: 32px;
+$controlbar_footer_height: 40px;
 $controlbar_background: rgba(0, 0, 0, 0.4);
 $button_fontsize: 13px;
-$button_width: 40px;
+$button_width: 30px;
 $button_color: #ffffff;
 $button_color_green: #5da894;
 $button_color_blue: #2a74eb;
@@ -46,19 +53,21 @@ $progressbar_button_overflow: #5daa96;
 $progressbar_height: 3px;
 $stream_label_bg_color: #676f76;
 $stream_label_color: #ffffff;
+$stream_label_width: 20px;
 
 
 $rerecord_text_color: white;
-$rerecord_font_family: Arial, sans-serif;
-
+$rerecord_font_family: sans-serif;
 
 $rerecord_height: 48px;
 $rerecord_opacity: 0.5;
+$rerecord_letter_spacing: 0.1em;
 $rerecord_bgcolor: black;
 $rerecord_padding: 24px;
 $rerecord_padding: 16px;
-$rerecord_primarybutton_radius: 3px;
+$rerecord_bgcolor: #5daa96;
+$rerecord_primarybutton_radius: 18px;
 $rerecord_primarybutton_padding: 8px;
 $rerecord_primarybutton_vertical_padding: 16px;
-$rerecord_primarybutton_font_weight: bold;
-$rerecord_primarybutton_font_size: 14px;
+$rerecord_primarybutton_font_weight: 100;
+$rerecord_primarybutton_font_size: 11px;

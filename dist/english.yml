@@ -45,6 +45,6 @@
   ba-videorecorder.verifying-failed: Verifying failed - click here to retry.
   ba-videorecorder.rerecord-confirm: Do you really want to redo your video?
   ba-videorecorder.video_file_too_large: >-
-    Your video file is too large - click here to try again with a smaller video
-    file.
+    Your video file is too large (%s) - click here to try again with a smaller
+    video file.
   ba-videorecorder.unsupported_video_type: 'Please upload: %s - click here to retry.'

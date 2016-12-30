@@ -1,0 +1,55 @@
+'language:pt-br':
+  ba-videoplayer-playbutton.tooltip: Clique para reproduzir vídeo.
+  ba-videoplayer-playbutton.rerecord: Refazer
+  ba-videoplayer-playbutton.submit-video: confirmar vídeo
+  ba-videoplayer-loader.tooltip: Carregando vídeo ...
+  ba-videoplayer-controlbar.change-resolution: alteração de resolução
+  ba-videoplayer-controlbar.video-progress: o progresso de vídeo
+  ba-videoplayer-controlbar.rerecord-video: Refazer vídeo?
+  ba-videoplayer-controlbar.submit-video: confirmar vídeo
+  ba-videoplayer-controlbar.play-video: reprodução de vídeo
+  ba-videoplayer-controlbar.pause-video: vídeo pausa
+  ba-videoplayer-controlbar.elapsed-time: tempo elasped
+  ba-videoplayer-controlbar.total-time: comprimento total de vídeo
+  ba-videoplayer-controlbar.fullscreen-video: Entrar em tela cheia
+  ba-videoplayer-controlbar.volume-button: volume definido
+  ba-videoplayer-controlbar.volume-mute: som Mute
+  ba-videoplayer-controlbar.volume-unmute: ativar o som
+  ba-videoplayer.video-error: >-
+    Ocorreu um erro. Por favor tente novamente mais tarde. Clique para tentar
+    novamente.
+  ba-videorecorder-chooser.record-video: Grave o seu vídeo
+  ba-videorecorder-chooser.upload-video: Upload video
+  ba-videorecorder-controlbar.settings: Configurações
+  ba-videorecorder-controlbar.camerahealthy: A iluminação é boa
+  ba-videorecorder-controlbar.cameraunhealthy: Iluminação não é o ideal
+  ba-videorecorder-controlbar.microphonehealthy: O som é bom
+  ba-videorecorder-controlbar.microphoneunhealthy: não pode pegar qualquer som
+  ba-videorecorder-controlbar.record: Registro
+  ba-videorecorder-controlbar.record-tooltip: Clique aqui para registrar.
+  ba-videorecorder-controlbar.rerecord: Refazer
+  ba-videorecorder-controlbar.rerecord-tooltip: Clique aqui para refazer.
+  ba-videorecorder-controlbar.upload-covershot: Envio
+  ba-videorecorder-controlbar.upload-covershot-tooltip: Clique aqui para enviar capa personalizada tiro
+  ba-videorecorder-controlbar.stop: Pare
+  ba-videorecorder-controlbar.stop-tooltip: Clique aqui para parar.
+  ba-videorecorder-controlbar.skip: Pular
+  ba-videorecorder-controlbar.skip-tooltip: Clique aqui para pular.
+  ba-videorecorder.recorder-error: >-
+    Ocorreu um erro. Por favor tente novamente mais tarde. Clique para tentar
+    novamente.
+  ba-videorecorder.attach-error: >-
+    Nós não poderia acessar a interface da câmera. Dependendo do dispositivo e
+    navegador, pode ser necessário instalar o Flash ou acessar a página através
+    de SSL.
+  ba-videorecorder.access-forbidden: foi proibido o acesso à câmera. Clique para tentar novamente.
+  ba-videorecorder.pick-covershot: Escolha um covershot.
+  ba-videorecorder.uploading: upload
+  ba-videorecorder.uploading-failed: Upload falhou - clique aqui para tentar novamente.
+  ba-videorecorder.verifying: Verificando
+  ba-videorecorder.verifying-failed: Verificando falhou - clique aqui para tentar novamente.
+  ba-videorecorder.rerecord-confirm: Você realmente quer refazer seu vídeo?
+  ba-videorecorder.video_file_too_large: >-
+    O arquivo de vídeo é muito grande (%s) - clique aqui para tentar novamente com um
+    arquivo de vídeo menor.
+  ba-videorecorder.unsupported_video_type: 'Faça o upload: %s - clique aqui para tentar novamente.'

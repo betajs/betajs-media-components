@@ -1,12 +1,12 @@
 
-<div
+<div itemscope itemtype="http://schema.org/VideoObject"
     class="{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}"
     ba-on:mousemove="user_activity()"
     ba-on:mousedown="user_activity()"
     ba-on:touchstart="user_activity()"
     style="{{width ? 'width:' + width + ((width + '').match(/^\d+$/g) ? 'px' : '') + ';' : ''}}{{height ? 'height:' + height + ((height + '').match(/^\d+$/g) ? 'px' : '') + ';' : ''}}"
 >
-    <video class="{{css}}-video" data-video="video"></video>
+    <video class="{{css}}-video" data-video="video" playsinline></video>
     <div class="{{css}}-overlay" data-video="ad" style="display:none"></div>
     <div class='{{css}}-overlay'>
 	    <ba-{{dyncontrolbar}}
@@ -24,6 +24,7 @@
 		    ba-volume="{{volume}}"
 		    ba-duration="{{duration}}"
 		    ba-cached="{{buffered}}"
+		    ba-title="{{title}}"
 		    ba-position="{{position}}"
 		    ba-activitydelta="{{activity_delta}}"
 		    ba-hideoninactivity="{{hideoninactivity}}"
@@ -66,5 +67,9 @@
 		    ba-show="{{topmessage}}"
 		    ba-topmessage="{{topmessage}}"
 		></ba-{{dyntopmessage}}>
+		
+		<meta itemprop="caption" content="{{title}}" />
+		<meta itemprop="thumbnailUrl" content="{{poster}}"/>
+		<meta itemprop="contentUrl" content="{{source}}"/>
     </div>
 </div>

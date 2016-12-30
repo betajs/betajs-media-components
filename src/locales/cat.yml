@@ -1,0 +1,55 @@
+'language:cat':
+  ba-videoplayer-playbutton.tooltip: Feu clic per veure el vídeo.
+  ba-videoplayer-playbutton.rerecord: refer
+  ba-videoplayer-playbutton.submit-video: confirmar vídeo
+  ba-videoplayer-loader.tooltip: Carregant vídeo ...
+  ba-videoplayer-controlbar.change-resolution: Canviar la resolució
+  ba-videoplayer-controlbar.video-progress: el progrés de vídeo
+  ba-videoplayer-controlbar.rerecord-video: Torneu a fer el vídeo?
+  ba-videoplayer-controlbar.submit-video: confirmar vídeo
+  ba-videoplayer-controlbar.play-video: reproducció de vídeo
+  ba-videoplayer-controlbar.pause-video: pausa de vídeo
+  ba-videoplayer-controlbar.elapsed-time: temps Elasped
+  ba-videoplayer-controlbar.total-time: Durada total de vídeo
+  ba-videoplayer-controlbar.fullscreen-video: Introduïu a pantalla completa
+  ba-videoplayer-controlbar.volume-button: volum de sèries
+  ba-videoplayer-controlbar.volume-mute: silenciar so
+  ba-videoplayer-controlbar.volume-unmute: activar so
+  ba-videoplayer.video-error: >-
+    Hi ha hagut un error. Siusplau, torni a intentar-ho més tard. Feu clic per
+    tornar a intentar-ho.
+  ba-videorecorder-chooser.record-video: Gravar el vídeo
+  ba-videorecorder-chooser.upload-video: Pujar vídeo
+  ba-videorecorder-controlbar.settings: ajustos
+  ba-videorecorder-controlbar.camerahealthy: La il·luminació és bona
+  ba-videorecorder-controlbar.cameraunhealthy: La il·luminació no és òptima
+  ba-videorecorder-controlbar.microphonehealthy: El so és bo
+  ba-videorecorder-controlbar.microphoneunhealthy: No es pot recollir qualsevol so
+  ba-videorecorder-controlbar.record: registre
+  ba-videorecorder-controlbar.record-tooltip: Feu clic aquí per gravar.
+  ba-videorecorder-controlbar.rerecord: refer
+  ba-videorecorder-controlbar.rerecord-tooltip: Cliqueu aquí per fer de nou.
+  ba-videorecorder-controlbar.upload-covershot: Pujar
+  ba-videorecorder-controlbar.upload-covershot-tooltip: Feu clic aquí per pujar foto de portada personalitzada
+  ba-videorecorder-controlbar.stop: aturar
+  ba-videorecorder-controlbar.stop-tooltip: Feu clic aquí per aturar.
+  ba-videorecorder-controlbar.skip: Omet
+  ba-videorecorder-controlbar.skip-tooltip: Feu clic aquí per saltar.
+  ba-videorecorder.recorder-error: >-
+    Hi ha hagut un error. Siusplau, torni a intentar-ho més tard. Feu clic per
+    tornar a intentar-ho.
+  ba-videorecorder.attach-error: >-
+    No hem pogut accedir a la interfície de la càmera. En funció del dispositiu
+    i del navegador, és possible que hagi de instal · lar Flash o accedir a la
+    pàgina a través de SSL.
+  ba-videorecorder.access-forbidden: Estava prohibit l'accés a la càmera. Feu clic per tornar a intentar-ho.
+  ba-videorecorder.pick-covershot: Tria una covershot.
+  ba-videorecorder.uploading: pujant
+  ba-videorecorder.uploading-failed: Càrrega fallat - fer clic aquí per tornar a intentar-ho.
+  ba-videorecorder.verifying: verificant
+  ba-videorecorder.verifying-failed: fallat la verificació de - fer clic aquí per tornar a intentar-ho.
+  ba-videorecorder.rerecord-confirm: De veritat vol tornar a fer el vídeo?
+  ba-videorecorder.video_file_too_large: >-
+    L'arxiu de vídeo és massa gran (%s) - fer clic aquí per tornar a intentar-ho amb
+    un arxiu de vídeo més petita.
+  ba-videorecorder.unsupported_video_type: 'Si us plau, puja: %s - fer clic aquí per tornar a intentar-ho.'

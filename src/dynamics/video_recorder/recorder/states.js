@@ -162,24 +162,24 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
 					}, this);
 					if (!found) {
 						this.next("FatalError", {
-							message: this.dyn.strings("unsupported_video_type").replace("%s", this.dyn.get("allowedextensions").join(" / ")),
+							message: this.dyn.string("unsupported_video_type").replace("%s", this.dyn.get("allowedextensions").join(" / ")),
 							retry: "Chooser"
 						});
 						return;
 					}
 				}
-				if (this.dyn.get("filesizelimit")) {
-					var f = file;
-					if (f.files && f.files.length > 0 && f.files[0].size > this.dyn.get("filesizelimit")) {
-						this.next("FatalError", {
-							message: this.dyn.strings("video_file_too_large"),
-							retry: "Chooser"
-						});
-						return;
-					}
+				if (this.dyn.get("filesizelimit") && file.files && file.files.length > 0 && file.files[0].size && file.files[0].size > this.dyn.get("filesizelimit")) {
+					var size = Math.round(file.files[0].size / 1000 / 1000);
+					var limit = Math.round(this.dyn.get("filesizelimit") / 1000 / 1000);
+					this.next("FatalError", {
+						message: this.dyn.string("video_file_too_large").replace("%s", size + "MB / " + limit + "MB"),
+						retry: "Chooser"
+					});
+					return;
 				}
 			}
 			this.dyn._prepareRecording().success(function () {
+				this.dyn.trigger("upload_selected", file);
 				this.dyn._uploadVideoFile(file);
 				this.next("Uploading");
 			}, this).error(function (s) {
@@ -348,6 +348,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
 			var limit = this.dyn.get("timelimit");
 			var current = Time.now();
 			var display = Math.max(0, limit ? (this._startTime + limit * 1000 - current) : (current - this._startTime));
+			this.dyn.trigger("recording_progress", current - this._startTime);
 			this.dyn.set("controlbarlabel", TimeFormat.format(TimeFormat.ELAPSED_MINUTES_SECONDS, display));
 			if (limit && this._startTime + limit * 1000 <= current) {
 				this._timer.stop();
@@ -458,8 +459,8 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
 				});
 			});
 			this.listenOn(uploader, "progress", function (uploaded, total) {
+				this.dyn.trigger("upload_progress", uploaded, total);
 				if (total !== 0) {
-					this.dyn.trigger("upload_progress", uploaded / total);
 					this.dyn.set("message", this.dyn.string("uploading") + ": " + Math.round(uploaded / total * 100) + "%");
 					this.dyn.set("playertopmessage", this.dyn.get("message"));
 				}

@@ -1,0 +1,51 @@
+'language:sr':
+  ba-videoplayer-playbutton.tooltip: Цлицк то плаи видео.
+  ba-videoplayer-playbutton.rerecord: преправити
+  ba-videoplayer-playbutton.submit-video: потврдити видео
+  ba-videoplayer-loader.tooltip: Лоадинг видео ...
+  ba-videoplayer-controlbar.change-resolution: Промена резолуције
+  ba-videoplayer-controlbar.video-progress: видео напредак
+  ba-videoplayer-controlbar.rerecord-video: Редо видео?
+  ba-videoplayer-controlbar.submit-video: потврдити видео
+  ba-videoplayer-controlbar.play-video: плаи видео
+  ba-videoplayer-controlbar.pause-video: пауза video
+  ba-videoplayer-controlbar.elapsed-time: Еласпед време
+  ba-videoplayer-controlbar.total-time: Укупна дужина видео
+  ba-videoplayer-controlbar.fullscreen-video: Ентер фуллсцреен
+  ba-videoplayer-controlbar.volume-button: Подешавање јачине звука
+  ba-videoplayer-controlbar.volume-mute: муте соунд
+  ba-videoplayer-controlbar.volume-unmute: Укључи звук звук
+  ba-videoplayer.video-error: 'Дошло је до грешке. Молимо, покушајте касније. Цлицк то понови.'
+  ba-videorecorder-chooser.record-video: Снимите видео
+  ba-videorecorder-chooser.upload-video: Додај видео
+  ba-videorecorder-controlbar.settings: Подешавања
+  ba-videorecorder-controlbar.camerahealthy: Осветљење је добро
+  ba-videorecorder-controlbar.cameraunhealthy: Осветљење није оптимална
+  ba-videorecorder-controlbar.microphonehealthy: Звук је добар
+  ba-videorecorder-controlbar.microphoneunhealthy: Не могу узети било који звук
+  ba-videorecorder-controlbar.record: запис
+  ba-videorecorder-controlbar.record-tooltip: Кликните овде за снимање.
+  ba-videorecorder-controlbar.rerecord: преправити
+  ba-videorecorder-controlbar.rerecord-tooltip: Кликните овде за понављање.
+  ba-videorecorder-controlbar.upload-covershot: отпремање
+  ba-videorecorder-controlbar.upload-covershot-tooltip: Кликните овде да бисте прилагођену насловну метак
+  ba-videorecorder-controlbar.stop: Зауставити
+  ba-videorecorder-controlbar.stop-tooltip: Кликните овде да се заустави.
+  ba-videorecorder-controlbar.skip: прескочити
+  ba-videorecorder-controlbar.skip-tooltip: Кликните овде да прескочите.
+  ba-videorecorder.recorder-error: 'Дошло је до грешке. Молимо, покушајте касније. Цлицк то понови.'
+  ba-videorecorder.attach-error: >-
+    Ми не може да приступи интерфејс камере. У зависности од уређаја и
+    претраживача, можда ћете морати да инсталирате Фласх или приступили страници
+    преко ССЛ.
+  ba-videorecorder.access-forbidden: Приступ камером је забрањено. Цлицк то понови.
+  ba-videorecorder.pick-covershot: Изаберите цоверсхот.
+  ba-videorecorder.uploading: уплоадинг
+  ba-videorecorder.uploading-failed: Уплоадинг фаилед - кликните овде да покуша поново.
+  ba-videorecorder.verifying: верификацију
+  ba-videorecorder.verifying-failed: Провера није успела - кликните овде да покуша поново.
+  ba-videorecorder.rerecord-confirm: Да ли заиста желите да поновите свој видео?
+  ba-videorecorder.video_file_too_large: >-
+    Ваш видео датотека је превелика (%s) - кликните овде да поново са мањом видео
+    фајл.
+  ba-videorecorder.unsupported_video_type: 'Молимо Вас да уплоад: %с - кликните овде да покуша поново.'

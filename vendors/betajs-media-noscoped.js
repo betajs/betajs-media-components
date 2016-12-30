@@ -1,5 +1,5 @@
 /*!
-betajs-media - v0.0.40 - 2016-11-14
+betajs-media - v0.0.41 - 2016-12-22
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -14,7 +14,7 @@ Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
     "guid": "8475efdb-dd7e-402e-9f50-36c76945a692",
-    "version": "73.1479154067107"
+    "version": "75.1482454576545"
 };
 });
 Scoped.assumeVersion('base:version', 502);
@@ -2135,7 +2135,7 @@ Scoped.define("module:Recorder.WebRTCVideoRecorderWrapper", [
 			
 			destroy: function () {
 				if (this._analyser)
-					this._analyser.destroy();
+					this._analyser.weakDestroy();
 				this._recorder.destroy();
 				inherited.destroy.call(this);
 			},
@@ -2176,7 +2176,7 @@ Scoped.define("module:Recorder.WebRTCVideoRecorderWrapper", [
 			
 			testSoundLevel: function (activate) {
 				if (this._analyser) {
-					this._analyser.destroy();
+					this._analyser.weakDestroy();
 					delete this._analyser;
 				}
 				if (activate)
@@ -2257,9 +2257,11 @@ Scoped.define("module:Recorder.WebRTCVideoRecorderWrapper", [
 						multiUploader.addUploader(FileUploader.create(Objs.extend({
 							source: videoBlob
 						}, options.video)));
-						multiUploader.addUploader(FileUploader.create(Objs.extend({
-							source: audioBlob
-						}, options.audio)));
+						if (audioBlob) {
+							multiUploader.addUploader(FileUploader.create(Objs.extend({
+								source: audioBlob
+							}, options.audio)));
+						}
 					}
 					promise.asyncSuccess(multiUploader);
 				}, this);

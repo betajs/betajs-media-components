@@ -31,11 +31,11 @@
 
         <div class="{{css}}-button-container {{css}}-timer-container">
             <div class="{{css}}-time-container">
-                <div class="{{css}}-time-value" title="{{string('elapsed-time')}}">{{duration_formatted}}</div>
+                <div class="{{css}}-time-value" title="{{string('elapsed-time')}}">{{formatTime(position)}}</div>
             </div>
             <p> / </p>
             <div class="{{css}}-time-container">
-                <div class="{{css}}-time-value" title="{{string('elapsed-time')}}">{{position_formatted}}</div>
+                <div class="{{css}}-time-value" title="{{string('total-time')}}">{{formatTime(duration || position)}}</div>
             </div>
         </div>
 

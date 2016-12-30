@@ -42,6 +42,6 @@
     ba-videorecorder.verifying: Verifizieren
     ba-videorecorder.verifying-failed: Verifizierung fehlgeschlagen. Hier klicken, um es noch einmal zu probieren.
     ba-videorecorder.rerecord-confirm: Möchten Sie Ihr Video wirklich noch einmal aufnehmen?
-    ba-videorecorder.video_file_too_large: Die angegebene Videodatei ist zu groß. Hier klicken, um eine kleinere Videodatei hochzuladen.
+    ba-videorecorder.video_file_too_large: Die angegebene Videodatei ist zu groß (%s). Hier klicken, um eine kleinere Videodatei hochzuladen.
     ba-videorecorder.unsupported_video_type: "Bitte laden Sie Dateien des folgenden Typs hoch: %s. Hier klicken, um es noch einmal zu probieren."        
     

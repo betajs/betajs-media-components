@@ -1,0 +1,54 @@
+'language:hr':
+  ba-videoplayer-playbutton.tooltip: Kliknite za reprodukciju video zapisa.
+  ba-videoplayer-playbutton.rerecord: preurediti
+  ba-videoplayer-playbutton.submit-video: Potvrda videa
+  ba-videoplayer-loader.tooltip: Učitavanje videa ...
+  ba-videoplayer-controlbar.change-resolution: Promjena razlučivosti
+  ba-videoplayer-controlbar.video-progress: napredak Video
+  ba-videoplayer-controlbar.rerecord-video: Ponovi video?
+  ba-videoplayer-controlbar.submit-video: Potvrda videa
+  ba-videoplayer-controlbar.play-video: Reprodukcija videozapisa
+  ba-videoplayer-controlbar.pause-video: Pauza Video
+  ba-videoplayer-controlbar.elapsed-time: Elasped vrijeme
+  ba-videoplayer-controlbar.total-time: Ukupna dužina videa
+  ba-videoplayer-controlbar.fullscreen-video: Idi na puni zaslon
+  ba-videoplayer-controlbar.volume-button: Set volumen
+  ba-videoplayer-controlbar.volume-mute: Bez zvuka
+  ba-videoplayer-controlbar.volume-unmute: Vrati zvuk
+  ba-videoplayer.video-error: >-
+    Došlo je do pogreške. Molimo pokušajte ponovno kasnije. Kliknite za ponovni
+    pokušaj.
+  ba-videorecorder-chooser.record-video: Snimanje videa
+  ba-videorecorder-chooser.upload-video: Dodaj video
+  ba-videorecorder-controlbar.settings: Postavke
+  ba-videorecorder-controlbar.camerahealthy: Rasvjeta je dobra
+  ba-videorecorder-controlbar.cameraunhealthy: Rasvjeta nije optimalno
+  ba-videorecorder-controlbar.microphonehealthy: Zvuk je dobar
+  ba-videorecorder-controlbar.microphoneunhealthy: ne može podići bilo koji zvuk
+  ba-videorecorder-controlbar.record: Snimiti
+  ba-videorecorder-controlbar.record-tooltip: Kliknite ovdje za snimanje.
+  ba-videorecorder-controlbar.rerecord: preurediti
+  ba-videorecorder-controlbar.rerecord-tooltip: Kliknite ovdje ponoviti.
+  ba-videorecorder-controlbar.upload-covershot: Postavi
+  ba-videorecorder-controlbar.upload-covershot-tooltip: Kliknite ovdje kako biste poslali prilagođene cover metak
+  ba-videorecorder-controlbar.stop: Stop
+  ba-videorecorder-controlbar.stop-tooltip: Kliknite ovdje da se zaustavi.
+  ba-videorecorder-controlbar.skip: Preskočiti
+  ba-videorecorder-controlbar.skip-tooltip: Kliknite ovdje preskočiti.
+  ba-videorecorder.recorder-error: >-
+    Došlo je do pogreške. Molimo pokušajte ponovno kasnije. Kliknite za ponovni
+    pokušaj.
+  ba-videorecorder.attach-error: >-
+    Nismo mogli pristupiti sučelju fotoaparata. Ovisno o uređaju i preglednika,
+    možda ćete morati instalirati Flash ili pristupiti stranici putem SSL-a.
+  ba-videorecorder.access-forbidden: Pristup kameri je zabranjeno. Kliknite za ponovni pokušaj.
+  ba-videorecorder.pick-covershot: Izaberite covershot.
+  ba-videorecorder.uploading: Prijenos
+  ba-videorecorder.uploading-failed: Prijenos nije uspio - kliknite ovdje za ponovni pokušaj.
+  ba-videorecorder.verifying: Potvrđivanje
+  ba-videorecorder.verifying-failed: Potvrđivanje nije uspjelo - kliknite ovdje za ponovni pokušaj.
+  ba-videorecorder.rerecord-confirm: Da li zaista želite ponoviti svoj video?
+  ba-videorecorder.video_file_too_large: >-
+    Vaš video datoteka je prevelika (%s) - kliknite ovdje kako bi pokušali ponovno s
+    manjim video datoteka.
+  ba-videorecorder.unsupported_video_type: 'Prenesite: %s - kliknite ovdje za ponovni pokušaj.'

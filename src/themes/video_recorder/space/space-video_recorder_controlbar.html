@@ -1,0 +1,137 @@
+<div class="{{css}}-dashboard">
+
+	<div class="{{css}}-settings-front">
+
+		<!-- Popup Settings Selections, initially hidden, appear when click button for settings -->
+		<div class="{{css}}-settings" ba-show="{{settingsvisible && settingsopen}}">
+			<div class="{{css}}-bubble-info">
+				<ul ba-repeat="{{camera :: cameras}}">
+					<li>
+						<input type='radio' name='camera' value="{{selectedcamera == camera.id}}" onclick="{{selectCamera(camera.id)}}" />
+						<span></span>
+						<label onclick="{{selectCamera(camera.id)}}">
+							{{camera.label}}
+						</label>
+					</li>
+				</ul>
+				<ul ba-repeat="{{microphone :: microphones}}" ba-show="{{audio}}">
+					<li onclick="{{selectMicrophone(microphone.id)}}">
+						<input type='radio' name='microphone' value="{{selectedmicrophone == microphone.id}}" />
+						<span></span>
+						<label>
+							{{microphone.label}}
+						</label>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- Control bar, footer part which holds all buttons -->
+	<div class="{{css}}-controlbar">
+
+		<div class="{{css}}-controlbar-center-section">
+
+			<div class="{{css}}-button-container" ba-show="{{rerecordvisible}}">
+				<div class="{{css}}-button-primary"
+					 onclick="{{rerecord()}}"
+					 onmouseenter="{{hover(string('rerecord-tooltip'))}}"
+					 onmouseleave="{{unhover()}}">
+					{{string('rerecord')}}
+				</div>
+			</div>
+
+		</div>
+
+		<div class="{{css}}-controlbar-left-section" ba-show="{{settingsvisible}}">
+
+            <div class="{{css}}-circle-button" ba-show="{{settingsvisible}}">
+
+				<div class="{{css}}-button-inner {{css}}-button-circle-{{settingsopen ? 'selected' : 'unselected' }}"
+					 onclick="{{settingsopen=!settingsopen}}"
+					 onmouseenter="{{hover(string('settings'))}}"
+					 onmouseleave="{{unhover()}}" >
+					<i class="{{css}}-icon-cog"></i>
+				</div>
+
+			</div>
+
+			<div class="{{css}}-circle-button" ba-show="{{!noaudio}}">
+				<div class="{{css}}-button-inner"
+					onmouseenter="{{hover(string(microphonehealthy ? 'microphonehealthy' : 'microphoneunhealthy'))}}"
+					onmouseleave="{{unhover()}}">
+					<i class="{{css}}-icon-mic {{css}}-icon-state-{{microphonehealthy ? 'good' : 'bad' }}"></i>
+				</div>
+			</div>
+
+			<div class="{{css}}-circle-button">
+				<div class="{{css}}-button-inner"
+					onmouseenter="{{hover(string(camerahealthy ? 'camerahealthy' : 'cameraunhealthy'))}}"
+					onmouseleave="{{unhover()}}">
+                    <i class="{{css}}-icon-videocam {{css}}-icon-state-{{ camerahealthy ? 'good' : 'bad' }}"></i>
+				</div>
+			</div>
+		</div>
+
+		<div class="{{css}}-controlbar-right-section">
+
+			<div class="{{css}}-rightbutton-container" ba-show="{{recordvisible}}">
+				<div class="{{css}}-button-primary"
+					 onclick="{{record()}}"
+					 onmouseenter="{{hover(string('record-tooltip'))}}"
+					 onmouseleave="{{unhover()}}">
+					{{string('record')}}
+				</div>
+			</div>
+
+		</div>
+
+		<div class="{{css}}-stop-container" ba-show="{{stopvisible}}">
+
+			<div class="{{css}}-timer-container">
+				<div class="{{css}}-label-container" ba-show="{{controlbarlabel}}">
+					<div class="{{css}}-label {{css}}-button-primary">
+						{{controlbarlabel}}
+					</div>
+				</div>
+			</div>
+
+			<div class="{{css}}-stop-button-container">
+				<div class="{{css}}-button-primary"
+					 onclick="{{stop()}}"
+					 onmouseenter="{{hover(string('stop-tooltip'))}}"
+					 onmouseleave="{{unhover()}}">
+					{{string('stop')}}
+				</div>
+			</div>
+		</div>
+
+        <div class="{{css}}-centerbutton-container" ba-show="{{skipvisible}}">
+            <div class="{{css}}-button-primary"
+                 onclick="{{skip()}}"
+                 onmouseenter="{{hover(string('skip-tooltip'))}}"
+                 onmouseleave="{{unhover()}}">
+                {{string('skip')}}
+            </div>
+        </div>
+
+
+        <div class="{{css}}-rightbutton-container" ba-if="{{uploadcovershotvisible}}">
+            <div class="{{css}}-button-primary"
+                 onmouseenter="{{hover(string('upload-covershot-tooltip'))}}"
+                 onmouseleave="{{unhover()}}">
+                <input type="file"
+                       class="{{css}}-chooser-file"
+                       style="height:100px"
+                       onchange="{{uploadCovershot(domEvent)}}"
+                       accept="{{covershot_accept_string}}" />
+                <span>
+                    {{string('upload-covershot')}}
+                </span>
+            </div>
+        </div>
+
+	</div>
+
+</div>

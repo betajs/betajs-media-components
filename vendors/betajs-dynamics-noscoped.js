@@ -1,5 +1,5 @@
 /*!
-betajs-dynamics - v0.0.72 - 2016-11-14
+betajs-dynamics - v0.0.81 - 2016-12-07
 Copyright (c) Victor Lingenthal,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -9,11 +9,10 @@ var Scoped = this.subScope();
 Scoped.binding('module', 'global:BetaJS.Dynamics');
 Scoped.binding('base', 'global:BetaJS');
 Scoped.binding('browser', 'global:BetaJS.Browser');
-Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
     "guid": "d71ebf84-e555-4e9b-b18a-11d74fdcefe2",
-    "version": "276.1479174800794"
+    "version": "284.1481131018020"
 };
 });
 Scoped.assumeVersion('base:version', 531);
@@ -476,7 +475,7 @@ Scoped.define("module:Data.Scope", [
 				this.__children = {};
 				this.__extendables = Objs.objectify(options.extendables);
 				this.__properties = options.properties || new Properties();
-				this.__properties.increaseRef();
+				this.__properties.increaseRef(this);
 				this.__properties.on("change", function (key, value, oldValue) {
 					this.trigger("change:" + key, value, oldValue);
 				}, this);
@@ -531,7 +530,7 @@ Scoped.define("module:Data.Scope", [
 				Objs.iter(this.__children, function (child) {
 					child.destroy();
 				});
-				this.__properties.decreaseRef();
+				this.__properties.decreaseRef(this);
 				if (this.__parent)
 					this.__parent.__remove(this);
 				inherited.destroy.call(this);
@@ -927,8 +926,8 @@ Scoped.define("module:Dynamic", [
     "module:Registries",
     "browser:Dom",
     "browser:Events",
-    "jquery:"
-], function (Scope, HandlerMixin, DynamicsCallException, Objs, Strings, Types, Functions, Events, Registries, Dom, DomEvents, $, scoped) {
+    "base:Class"
+], function (Scope, HandlerMixin, DynamicsCallException, Objs, Strings, Types, Functions, Events, Registries, Dom, DomEvents, Class, scoped) {
 	var Cls;
 	Cls = Scope.extend({scoped: scoped}, [HandlerMixin, function (inherited) {
    		return {
@@ -969,6 +968,18 @@ Scoped.define("module:Dynamic", [
 					}
 				}
 				inherited.constructor.call(this, options);
+				this.__references = options.references;
+				Objs.iter(this.__references, function (reference) {
+					this.on("change:" + reference, function (newReference, oldReference) {
+						if (oldReference && Class.is_class_instance(oldReference) && !oldReference.destroyed())
+							oldReference.decreaseRef(this);
+						if (newReference && Class.is_class_instance(newReference) && !newReference.destroyed())
+							newReference.increaseRef(this);
+					}, this);
+					var ref = this.get(reference);
+					if (ref && Class.is_class_instance(ref) && !ref.destroyed())
+						ref.increaseRef(this);
+				}, this);
 				this._channels.global = this.cls.__globalEvents;
 				if (options.tagName) {
 					this._tagName = options.tagName;
@@ -987,22 +998,24 @@ Scoped.define("module:Dynamic", [
 				return null;
 			},
 			
-			_afterActivate: function (activeElement) {
+			_preAfterActivate: function (activeElement) {
 				this.__domEvents.clear();
 				var self = this;
 				Objs.iter(this.domevents, function (target, event) {
 					var ev = event.split(" ");
-					var source = ev.length === 1 ? this.activeElement() : this.activeElement().find(ev[1]);
+					var source = [activeElement];
+					if (ev.length > 1)
+						source = activeElement.querySelectorAll(ev[1]);
 					var f = function (eventData) {
-						self.execute(target, eventData, $(this));
+						self.execute(target, eventData, this);
 					};
 					for (var i = 0; i < source.length; ++i) {
-						this.__domEvents.on(source.get(i), ev[0], f);
+						this.__domEvents.on(source[i], ev[0], f);
 					}
 				}, this);
 				Objs.iter(this.windowevents, function (target, event) {
 					this.__domEvents.on(window, event, function (eventData) {
-						self.execute(target, eventData, $(this));
+						self.execute(target, eventData, this);
 					});
 				}, this);
 			},
@@ -1010,6 +1023,11 @@ Scoped.define("module:Dynamic", [
 			destroy: function () {
 				if (this.free)
 					this.free();
+				Objs.iter(this.__references, function (reference) {
+					var ref = this.get(reference);
+					if (ref && Class.Class.is_class_instance(ref) && !ref.destroyed())
+						ref.decreaseRef(this);
+				}, this);
 				Objs.iter(this.__dispose, function (attr) {
 					var obj = this.get(attr);
 					this.set(attr, null);
@@ -1024,7 +1042,7 @@ Scoped.define("module:Dynamic", [
 	}], {
 		
 		__initialForward: [
-		    "functions", "attrs", "extendables", "collections", "template", "create", "scopes", "bindings", "computed", "types", "events", "dispose", "channels", "registerchannels"
+		    "functions", "attrs", "extendables", "collections", "template", "create", "scopes", "bindings", "computed", "types", "events", "dispose", "channels", "registerchannels", "references"
         ],
         
         __globalEvents: new Events(),
@@ -1104,6 +1122,9 @@ Scoped.define("module:Dynamic", [
 			},
 			dispose: function (first, second) {
 				return (first || []).concat(second || []);
+			},
+			references: function (first, second) {
+				return (first || []).concat(second || []);
 			}
 		}
 	
@@ -1128,7 +1149,6 @@ Scoped.define("module:Handlers.Attr", [
     "base:Class",
     "module:Exceptions.TagHandlerException",
     "module:Parser",
-    "jquery:",
     "base:Types",
     "base:Objs",
     "base:Strings",
@@ -1136,7 +1156,7 @@ Scoped.define("module:Handlers.Attr", [
     "module:Registries",
     "browser:Dom",
     "browser:Events"
-], function (Class, TagHandlerException, Parser, $, Types, Objs, Strings, Async, Registries, Dom, Events, scoped) {
+], function (Class, TagHandlerException, Parser, Types, Objs, Strings, Async, Registries, Dom, Events, scoped) {
 	var Cls;
 	Cls = Class.extend({scoped: scoped}, function (inherited) {
 		return {
@@ -1190,7 +1210,6 @@ Scoped.define("module:Handlers.Attr", [
 			
 			updateElement: function (element, attribute) {
 				this._element = element;
-				this._$element = $(element);
 				attribute = attribute || element.attributes[this._attrName];
 				this._attribute = attribute;
 				this.__updateAttr();
@@ -1325,13 +1344,13 @@ Scoped.define("module:Handlers.HandlerMixin", [
     "base:Strings",
     "base:Functions",
 	"base:Types",
-    "jquery:",
     "browser:Loader",
     "module:Handlers.Node",
     "module:Registries",
     "module:Handlers.HandlerNameRegistry",
-    "browser:DomMutation.NodeRemoveObserver"
-], function (Objs, Strings, Functions, Types, $, Loader, Node, Registries, HandlerNameRegistry, NodeRemoveObserver) {
+    "browser:DomMutation.NodeRemoveObserver",
+    "browser:Dom"
+], function (Objs, Strings, Functions, Types, Loader, Node, Registries, HandlerNameRegistry, NodeRemoveObserver, Dom) {
 	return {		
 		
 		_notifications: {
@@ -1380,32 +1399,36 @@ Scoped.define("module:Handlers.HandlerMixin", [
 			this.templateUrl = options.templateUrl || this.templateUrl;
 			if (this.templateUrl)
 				this.templateUrl = Strings.replaceAll(this.templateUrl, "%", Strings.last_after(this.cls.classname, ".").toLowerCase());
-			this.__element = options.element ? $(options.element) : null;
-			this.initialContent = this.__element ? this.__element.html() : $(this._parentElement).html();
-			this.__activeElement = this.__element ? this.__element : $(this._parentElement);
+			this.__elements = options.element ? [Dom.unbox(options.element)] : [];
+			this.initialContent = Dom.unbox(options.element ? options.element : this._parentElement).innerHTML;
+			this.__activeElement = options.element ? Dom.unbox(options.element) : Dom.unbox(this._parentElement);
 			if (options.remove_observe) {
-				this.__removeObserver = this.auto_destroy(NodeRemoveObserver.create(this.__activeElement.get(0)));
+				this.__removeObserver = this.auto_destroy(NodeRemoveObserver.create(this.__activeElement));
 				this.__removeObserver.on("node-removed", function () {
 					this.weakDestroy();
 				}, this);
 			}
-			this.__activeElement.get(0).dynamicshandler = this;
+			this.__activeElement.dynamicshandler = this;
 		},
 		
 		_handlerInitializeTemplate: function (template, parentElement) {
 			var compiled = Registries.templates.create(template);
-			if (this.__element) {
-				this.__activeElement = this.__element;
-				this.__element.html("");
-				this.__element.append(compiled);
+			if (this.__elements.length > 0) {
+				this.__activeElement = this.__elements[0];
+				this.__elements[0].innerHTML = "";
+				compiled.forEach(function (child) {
+					this.__elements[0].appendChild(child);
+				}, this);				
 			} else if (parentElement) {
-				this.__activeElement = $(parentElement);
-				this.__element = compiled;
-				this.__activeElement.html("");
-				this.__activeElement.append(compiled);
+				this.__activeElement = Dom.unbox(parentElement);
+				this.__elements = compiled;
+				this.__activeElement.innerHTML = "";
+				compiled.forEach(function (child) {
+					this.__activeElement.appendChild(child);
+				}, this);				
 			} else {
-				this.__element = compiled;
-				this.__activeElement = this.__element.parent();
+				this.__elements = compiled;
+				this.__activeElement = this.__elements[0].parentNode;
 			}
 		},
 		
@@ -1427,6 +1450,10 @@ Scoped.define("module:Handlers.HandlerMixin", [
 			delete this.__assocs[name];
 		},
 		
+		activated: function () {
+			return this.__activated;
+		},
+		
 		assoc: function (name) {
 			return this.byName(this.__assocs[name] || name);
 		},
@@ -1444,19 +1471,20 @@ Scoped.define("module:Handlers.HandlerMixin", [
 			return !!this._argumentAttrs[key];
 		},
 		
-		element: function () {
-			return this.__element;
-		},
-		
 		activeElement: function () {
 			return this.__activeElement;
 		},
 		
+		// Deprecated
+		element: function () {
+			return this.__elements;
+		},
+		
 		_updateActiveElement: function (activeElement) {
-			this.__activeElement = activeElement;
+			this.__activeElement = Dom.unbox(activeElement);
 			if (this.__removeObserver) {
 				this.__removeObserver.weakDestroy();
-				this.__removeObserver = this.auto_destroy(NodeRemoveObserver.create(this.__activeElement.get(0)));
+				this.__removeObserver = this.auto_destroy(NodeRemoveObserver.create(this.__activeElement));
 				this.__removeObserver.on("node-removed", function () {
 					this.weakDestroy();
 				}, this);				
@@ -1489,10 +1517,10 @@ Scoped.define("module:Handlers.HandlerMixin", [
 			
 			this._notify("_activate");
 			this.__rootNodes = [];
-			var self = this;			
-			this.__element.each(function () {
-				self.__rootNodes.push(new Node(self, null, this));
-			});
+			this.__elements.forEach(function (element) {
+				this.__rootNodes.push(new Node(this, null, element));
+			}, this);
+			this._preAfterActivate(this.__activeElement);
 			this._afterActivate(this.__activeElement);
 		},
 		
@@ -1671,13 +1699,12 @@ Scoped.define("module:Handlers.Node", [
 	    "browser:Dom",
 	    "browser:Info",
 	    "module:Parser",
-	    "jquery:",
 	    "module:Data.Mesh",
 	    "base:Objs",
 	    "base:Types",
 	    "module:Registries",
 	    "module:Handlers.Attr"
-	], function (Class, EventsMixin, Ids, Dom, Info, Parser, $, Mesh, Objs, Types, Registries, Attr, scoped) {
+	], function (Class, EventsMixin, Ids, Dom, Info, Parser, Mesh, Objs, Types, Registries, Attr, scoped) {
 	var Cls;
 	Cls = Class.extend({scoped: scoped}, [EventsMixin, function (inherited) {
 		return {
@@ -1696,7 +1723,6 @@ Scoped.define("module:Handlers.Node", [
 				this._dynTag = Parser.parseText(this._tag);
 				this._tagHandler = null;
 				
-				this._$element = $(element);
 				this._template = element.outerHTML;
 				this._innerTemplate = element.innerHTML;
 				this._locals = locals || {};
@@ -1737,7 +1763,7 @@ Scoped.define("module:Handlers.Node", [
 				this._removeChildren();
 				if (this._tagHandler && !this._tagHandler.destroyed()) {
 					if (this._tagHandler.cacheable && this._tagHandler.cls.cacheable)
-						Registries.handlerCache.suspend(this._tagHandler, this._$element);
+						Registries.handlerCache.suspend(this._tagHandler, this._element);
 					else
 						this._tagHandler.weakDestroy();
 				}
@@ -1764,10 +1790,6 @@ Scoped.define("module:Handlers.Node", [
 				return this._element;
 			},
 			
-			$element: function () {
-				return this._$element;
-			},
-		
 			__dynOff: function (dyn) {
 				this._mesh.unwatch(dyn.dependencies, dyn);
 			},
@@ -1800,7 +1822,7 @@ Scoped.define("module:Handlers.Node", [
 					}, this);
 					this.off(null, null, this._tagHandler);
 					if (this._tagHandler.cacheable && this._tagHandler.cls.cacheable)
-						Registries.handlerCache.suspend(this._tagHandler, this._$element);
+						Registries.handlerCache.suspend(this._tagHandler, this._element);
 					else
 						this._tagHandler.weakDestroy();
 					this._tagHandler = null;
@@ -1814,7 +1836,6 @@ Scoped.define("module:Handlers.Node", [
 					return;
 				if (this._dynTag && this._element.tagName.toLowerCase() != tagv.toLowerCase()) {
 					this._element = Dom.changeTag(this._element, tagv);
-					this._$element = $(this._element);
 					Objs.iter(this._attrs, function (attr) {
 						attr.updateElement(this._element);
 					}, this);
@@ -1822,14 +1843,13 @@ Scoped.define("module:Handlers.Node", [
 				if (!Registries.handler.get(tagv))
 					return false;
 				if (Info.isInternetExplorer() && Info.internetExplorerVersion() < 9) {
-					var isActiveElement = this._element === this._handler.activeElement().get(0);
+					var isActiveElement = this._element === this._handler.activeElement();
 					this._element = Dom.changeTag(this._element, tagv);
-					this._$element = $(this._element);
 					Objs.iter(this._attrs, function (attr) {
 						attr.updateElement(this._element);
 					}, this);
 					if (isActiveElement)
-						this._handler._updateActiveElement(this._$element);
+						this._handler._updateActiveElement(this._element);
 				}
 				var createArguments = {
 					parentElement: this._element,
@@ -1844,7 +1864,7 @@ Scoped.define("module:Handlers.Node", [
 				if (createArguments.ignoreTagHandler)
 					return;
 				if (createArguments.cacheable)
-					this._tagHandler = Registries.handlerCache.resume(tagv, this._$element, this._handler);
+					this._tagHandler = Registries.handlerCache.resume(tagv, this._element, this._handler);
 				if (!this._tagHandler)
 					this._tagHandler = Registries.handler.create(tagv, createArguments);
 				Objs.iter(this._attrs, function (attr) {
@@ -1870,7 +1890,7 @@ Scoped.define("module:Handlers.Node", [
 		        		this._element.innerHTML = this._innerTemplate;
 		        	this._touchedInner = true;
 		        	if (this._element.nodeType == 3) {
-		        		this._dyn = Parser.parseText(this._$element.text());
+		        		this._dyn = Parser.parseText(this._element.textContent || this._element.innerText || this._element.nodeValue);
 						if (this._dyn) {
 							this.__dynOn(this._dyn, function () {
 								this.__updateDyn();
@@ -1894,14 +1914,13 @@ Scoped.define("module:Handlers.Node", [
 				var value = this.__executeDyn(this._dyn);
 				if (force || value != this._dyn.value) {
 					this._dyn.value = value;
+					var converted = Dom.entitiesToUnicode(value === null ? "" : value);
 					if ("textContent" in this._element)
-						this._element.textContent = Dom.entitiesToUnicode(value);
-					else if (Info.isInternetExplorer() && Info.internetExplorerVersion() < 9 && ("data" in this._element))
-						this._element.data = Dom.entitiesToUnicode(value === null ? "" : value);
-					else {
-						// OF: Not clear if this is ever executed and whether it actually does something meaningful.
-						this._$element.replaceWith(value);
-					}
+						this._element.textContent = converted;
+					if ("innerText" in this._element)
+						this._element.innerText = converted;
+					if (Info.isInternetExplorer() && Info.internetExplorerVersion() < 9 && ("data" in this._element))
+						this._element.data = converted;
 				}
 			},
 				
@@ -1950,8 +1969,8 @@ Scoped.define("module:Handlers.Node", [
 Scoped.define("module:Registries", [
     "base:Classes.ClassRegistry",
     "base:Exceptions.AsyncExceptionThrower",
-    "jquery:"
-], function (ClassRegistry, AsyncExceptionThrower, $) {
+    "browser:Dom"
+], function (ClassRegistry, AsyncExceptionThrower, Dom) {
 	return {		
 		
 		handler: new ClassRegistry({}, true),
@@ -1965,16 +1984,16 @@ Scoped.define("module:Registries", [
 			create: function (template) {
 				template = template.trim();
 				var cached = this.cache[template];
-				if (cached)
-					return cached.clone();
-				var compiled;
-				try {
-					compiled = $(template);
-				} catch (e) {
-					compiled = $(document.createTextNode(template));
+				if (!cached) {
+					if (template.indexOf("<") === 0)
+						cached = Dom.elementsByTemplate(template);
+					else
+						cached = [document.createTextNode(template)];
+					this.cache[template] = cached;
 				}
-				this.cache[template] = compiled;
-				return compiled.clone();
+				return cached.map(function (element) {
+					return element.cloneNode(true);
+				});
 			}
 			
 		},
@@ -1993,25 +2012,36 @@ Scoped.define("module:Registries", [
 			cacheDom: null,
 			
 			suspend: function (handler, element) {
-				if (!this.cacheDom)
-					this.cacheDom = $("<div ba-ignore style='display:none'></div>").appendTo(document.body);
-				var cacheDom = this.cacheDom;
+				element = Dom.unbox(element);
+				if (!this.cacheDom) {
+					this.cacheDom = document.createElement("div");
+					this.cacheDom.setAttribute("ba-ignore", "");
+					this.cacheDom.style.display = "none";
+					document.body.appendChild(this.cacheDom);
+				}
 				var name = handler.data("tagname");
 				this.cache[name] = this.cache[name] || [];
+				var children = [];
+				for (var i = 0; i < element.children.length; ++i)
+					children.push(element.children[i]);
 				this.cache[name].push({
 					handler: handler,
-					elements: element.children()
+					elements: children
 				});
-				element.children().each(function () {
-					cacheDom.append(this);
-				});
+				children.forEach(function (child) {
+					this.cacheDom.appendChild(child);
+				}, this);
 			},
 			
 			resume: function (name, element, parentHandler) {
+				element = Dom.unbox(element);
 				if (!this.cache[name] || this.cache[name].length === 0)
 					return null;
 				var record = this.cache[name].shift();
-				element.html(record.elements);
+				element.innerHTML = "";
+				record.elements.forEach(function (child) {
+					element.appendChild(child);
+				});
 				record.handler._handlerInitialize({
 					parentHandler: parentHandler,
 					parentElement: element
@@ -2126,10 +2156,15 @@ Scoped.define("module:Partials.ClassPartial", ["module:Handlers.Partial"], funct
 		
 		_apply: function (value) {
 			for (var key in value) {
-				if (value[key])
-					this._node._$element.addClass(key);
-				else
-					this._node._$element.removeClass(key);
+				var className = this._node.element().className;
+				var hasClass = className.indexOf(key) >= 0;
+				if (value[key] !== hasClass) {
+					if (value[key])
+						className += " " + key;
+					else
+						className = className.replace(key, "").replace("  ", " ");
+					this._node.element().className = className.trim();
+				}
 			}
 		}
 
@@ -2408,7 +2443,7 @@ Scoped.define("module:Partials.PropPartial", [
  		return {
 			
  			_apply: function (value) {
- 				this._node.$element().prop(this._postfix, value);
+ 				this._node.element()[this._postfix] = value;
  			} 		
  		};
  	});
@@ -2427,12 +2462,12 @@ Scoped.define("module:Partials.RadioGroupPartial", [
  				inherited.constructor.apply(this, arguments);
  				var events = this.auto_destroy(new Events());
  				value = value.trim();
- 				this._node._$element.prop("checked", this._node._$element.val() === this._node.properties().get(value));
- 				events.on(this._node.element(), "change", function () {
- 					this._node.properties().set(value, this._node._$element.val());
+ 				this._node.element().checked = this._node.element().value === this._node.properties().get(value);
+ 				events.on(this._node.element(), "click change", function () {
+ 					this._node.properties().set(value, this._node.element().value);
  				}, this);
  				this._node.properties().on("change:" + value, function () {
- 					this._node._$element.prop("checked", this._node._$element.val() === this._node.properties().get(value)); 					
+ 					this._node.element().checked = this._node.element().value === this._node.properties().get(value); 					
  				}, this);
  			}
  		
@@ -2467,11 +2502,10 @@ Scoped.define("module:Partials.RepeatElementPartial", [
         "base:Collections.Collection",
         "base:Collections.FilteredCollection",
         "base:Objs",
-        "jquery:",
         "module:Parser",
         "base:Properties.Properties",
         "browser:Dom"
-	], function (Partial, Collection, FilteredCollection, Objs, $, Parser, Properties, Dom, scoped) {
+	], function (Partial, Collection, FilteredCollection, Objs, Parser, Properties, Dom, scoped) {
   /**
    * @name ba-repeat-element
    *
@@ -2497,7 +2531,9 @@ Scoped.define("module:Partials.RepeatElementPartial", [
 			
  			constructor: function (node, args, value) {
  				inherited.constructor.apply(this, arguments);
- 				this.__filteredTemplate = $(node._template).removeAttr("ba-repeat-element").get(0).outerHTML;
+ 				var temp = Dom.elementByTemplate(node._template);
+ 				temp.removeAttribute("ba-repeat-element");
+ 				this.__filteredTemplate = temp.outerHTML.trim();
  			},
  			
  			_activate: function () {
@@ -2512,11 +2548,10 @@ Scoped.define("module:Partials.RepeatElementPartial", [
  			},
  			
  			_newItemElements: function () {
- 				var template = this.__filteredTemplate.trim();
-				var element = $(template).get(0);
-				this._node._$element.after(element);
+				var element = Dom.elementByTemplate(this.__filteredTemplate);
+				this._node.element().parentNode.insertBefore(element, this._node.element().nextSibling);
  				element["ba-handled"] = true;
- 				return $(element);
+ 				return [element];
  			},
  			
  			prepareTagHandler: function (createArguments) {
@@ -2535,10 +2570,9 @@ Scoped.define("module:Partials.RepeatPartial", [
         "base:Collections.Collection",
         "base:Collections.FilteredCollection",
         "base:Objs",
-        "jquery:",
         "module:Parser",
         "module:Registries"
-	], function (Partial, Properties, Collection, FilteredCollection, Objs, $, Parser, Registries, scoped) {
+	], function (Partial, Properties, Collection, FilteredCollection, Objs, Parser, Registries, scoped) {
 	  /**
 	   * @name ba-repeat
 	   *
@@ -2582,7 +2616,7 @@ Scoped.define("module:Partials.RepeatPartial", [
  			destroy: function () {
  				this.__unregister();
  				if (this.__repeatFilter)
- 					node.mesh().unwatch(this.__repeatFilter.dependencies, this.__repeatFilter);
+ 					this._node.mesh().unwatch(this.__repeatFilter.dependencies, this.__repeatFilter);
  				inherited.destroy.call(this);
  			},
  			
@@ -2673,11 +2707,10 @@ Scoped.define("module:Partials.RepeatPartial", [
  				if (this.__repeatArg)
  					locals[this.__repeatArg] = this._isArray ? item.get("value") : item;
  				var result = [];
- 				var self = this;
  				var elements = this._newItemElements();
- 				elements.each(function () {
- 					result.push(self._node._registerChild(this, locals));
- 				});
+ 				elements.forEach(function (element) {
+ 					result.push(this._node._registerChild(element, locals));
+ 				}, this);
  				this._collectionChildren[item.cid()] = {
 					item: item,
 					nodes: result
@@ -2691,9 +2724,10 @@ Scoped.define("module:Partials.RepeatPartial", [
  				if (!this._collectionChildren[item.cid()])
  					return;
 				Objs.iter(this._collectionChildren[item.cid()].nodes, function (node) {
-					var ele = node.$element();
+					var ele = node.element();
 					node.destroy();
-					ele.remove();
+					if (ele.parentNode)
+						ele.parentNode.removeChild(ele);
 				}, this);
 				delete this._collectionChildren[item.cid()];
  			},
@@ -2708,7 +2742,7 @@ Scoped.define("module:Partials.RepeatPartial", [
  					return null;
  				var result = [];
  				Objs.iter(itemData.nodes, function (node) {
- 					result.push(node.$element());
+ 					result.push(node.element());
  				});
  				return result;
  			},
@@ -2719,7 +2753,7 @@ Scoped.define("module:Partials.RepeatPartial", [
  				if (!baseDataElements || !itemDataElements)
  					return;
  				Objs.iter(itemDataElements, function (element) {
- 					element.insertBefore(baseDataElements[0]);
+ 					element.parentNode.insertBefore(element, baseDataElements[0]);
  				});
  			},
  			
@@ -2730,13 +2764,18 @@ Scoped.define("module:Partials.RepeatPartial", [
  					return;
  				var current = baseDataElements[baseDataElements.length - 1];
  				Objs.iter(itemDataElements, function (element) {
- 					current.after(element);
+ 					current.parentNode.insertBefore(element, current.nextSibling); 
  					current = element;
  				});
  			},
  			
  			_newItemElements: function () {
- 				return Registries.templates.create(this._node._innerTemplate).appendTo(this._node._$element);
+ 				var elements = Registries.templates.create(this._node._innerTemplate);
+ 				var parent = this._node.element();
+ 				elements.forEach(function (element) {
+ 					parent.appendChild(element);
+ 				});
+ 				return elements;
  			}
  			
  		};
@@ -2950,12 +2989,12 @@ Scoped.define("module:Partials.TemplateUrlPartial",
 			constructor: function (node, args, value) {
 				inherited.constructor.apply(this, arguments);
 				node._expandChildren = false;
-				node._element.innerHTML = "";
+				node.element().innerHTML = "";
 				Loader.loadHtml(value, function (template) {
-					node._element.innerHTML = template;
-					node._$element.children().each(function () {
-	 					node._registerChild(this);
-	 				});
+					node.element().innerHTML = template;
+					var children = node.element().childNodes;
+					for (var i = 0; i < children.length; ++i)
+						node._registerChild(children[i]);
 				}, this);
 			}
 
@@ -2967,16 +3006,20 @@ Scoped.define("module:Partials.TemplateUrlPartial",
 });
 
 Scoped.define("module:Partials.TogglePartial", ["module:Handlers.Partial"], function (Partial, scoped) {
+	var mapping = {
+		readonly: "readOnly"
+	};
+	
  	var Cls = Partial.extend({scoped: scoped}, function (inherited) {
  		return {
-			
+ 			
  			constructor: function (node, args, value, postfix) {
  				inherited.constructor.apply(this, arguments);
- 				node._$element.prop(postfix, value ? postfix : null);
+ 				this._apply(value);
  			},
  			
  			_apply: function (value) {
- 				this._node._$element.prop(this._postfix, value ? this._postfix : null);
+ 				this._node.element()[mapping[this._postfix] || this._postfix] = value ? this._postfix : null;
  			}
  		
  		};

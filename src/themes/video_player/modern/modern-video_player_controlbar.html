@@ -21,7 +21,7 @@
 		</div>
 	</div>
 	<div class="{{css}}-time-container">
-		<div class="{{css}}-time-value" title="{{string('elapsed-time')}}">{{position_formatted}}/{{duration_formatted}}</div>
+		<div class="{{css}}-time-value" title="{{string('elapsed-time')}}">{{formatTime(position)}}/{{formatTime(duration || position)}}</div>
 	</div>
 	<div class="{{css}}-rightbutton-container" ba-if="{{fullscreen}}" ba-click="toggle_fullscreen()" title="{{string('fullscreen-video')}}">
 		<div class="{{css}}-button-inner">

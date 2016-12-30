@@ -18,13 +18,12 @@
 		"qunit": "",
 		"jsdom": "",
 		"js-yaml": "",
-		"express": "",
-		"multer": "",
-		"js-ffmpeg": "",
 	    "grunt-contrib-sass": "",
 	    "grunt-contrib-cssmin": "",
 	    "grunt-contrib-csslint": "",
 	    "grunt-contrib-connect": "",
+	    "@google-cloud/translate": "",
+	    "nano-media-server": "",
 		"grunt-wget": "",
 		"grunt-jsdoc": "",
 		"grunt-shell": "",
@@ -48,7 +47,8 @@
 		"badges": {
 			"codeclimate": true,
 			"travis": false,
-			"npm": false
+			"npm": false,
+			"gitter": true
 		},
 		"weakDependencies": {
 			"betajs-scoped": "https://github.com/betajs/betajs-scoped",

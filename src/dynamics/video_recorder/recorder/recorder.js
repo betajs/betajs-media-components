@@ -17,7 +17,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
     "base:Collections.Collection",
     "base:Promise",
     "module:VideoRecorder.Dynamics.RecorderStates.Initial",
-    "module:VideoRecorder.Dynamics.RecorderStates"
+    "module:VideoRecorder.Dynamics.RecorderStates",
+    "jquery:"
 ], [
     "module:VideoRecorder.Dynamics.Imagegallery",
     "module:VideoRecorder.Dynamics.Loader",
@@ -32,7 +33,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
     "dynamics:Partials.DataPartial",
     "dynamics:Partials.AttrsPartial",
     "dynamics:Partials.TemplatePartial"
-], function (Class, Templates, Assets, Info, MultiUploader, FileUploader, VideoRecorderWrapper, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Collection, Promise, InitialState, RecorderStates, scoped) {
+], function (Class, Templates, Assets, Info, MultiUploader, FileUploader, VideoRecorderWrapper, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Collection, Promise, InitialState, RecorderStates, $, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {
 			
@@ -51,9 +52,11 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				"width": "",
 				"height": "",
 				"gallerysnapshots": 3,
+
 				/* Themes */
 				"theme": "",
 				"csstheme": "",
+
 				/* Dynamics */
 				"dynimagegallery": "videorecorder-imagegallery",
 				"dynloader": "videorecorder-loader",
@@ -62,6 +65,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				"dyntopmessage": "videorecorder-topmessage",
 				"dynchooser": "videorecorder-chooser",
 				"dynvideoplayer": "videoplayer",
+
 				/* Templates */
 				"tmplimagegallery": "",
 				"tmplloader": "",
@@ -69,6 +73,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				"tmplmessage": "",
 				"tmpltopmessage": "",
 				"tmplchooser": "",
+
 				/* Attributes */
 				"autorecord": false,
 				"autoplay": false,
@@ -99,6 +104,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				"manualsubmit": false,
 				"allowedextensions": null,
 				"filesizelimit": null,
+
 				/* Configuration */
 				"forceflash": false,
 				"simulate": false,
@@ -108,6 +114,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				"localplayback": false,
 				"uploadoptions": {},
 				"playerattrs": {},
+
 				/* Options */
 				"rerecordable": true,
 				"recordings": null,
@@ -143,7 +150,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				"early-rerecord": "boolean",
 				"custom-covershots": "boolean",
 				"manualsubmit": "boolean",
-				"simulate": "boolean"
+				"simulate": "boolean",
+				"allowedextensions": "array"
 			},
 			
 			extendables: ["states"],
@@ -234,7 +242,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				this.set("hasrecorder", true);
 				this.snapshots = [];
 				this.__attachRequested = false;
-				var video = this.element().find("[data-video='video']").get(0);
+				var video = $(this.activeElement()).find("[data-video='video']").get(0);
 				this._clearError();
 				this.recorder = VideoRecorderWrapper.create({
 					element: video,
@@ -384,7 +392,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 			_showBackgroundSnapshot: function () {
 				this._hideBackgroundSnapshot();
 				this.__backgroundSnapshot = this.recorder.createSnapshot(this.get("snapshottype"));
-				var el = this.activeElement().find("[data-video]");
+				var el = $(this.activeElement()).find("[data-video]");
 				this.__backgroundSnapshotDisplay = this.recorder.createSnapshotDisplay(
 					el.get(0),
 					this.__backgroundSnapshot,
@@ -452,7 +460,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 					if (confirm(this.string("rerecord-confirm")))
 						this.host.state().rerecord();
 				},
-				
+
 				stop: function () {
 					this.host.state().stop();
 				},
@@ -520,6 +528,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 			},
 			
 			_timerFire: function () {
+				if (this.destroyed())
+					return;
 				try {
 					if (this.recorderAttached() && this.get("devicetesting")) {
 						var lightLevel = this.lightLevel();
@@ -570,7 +580,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 			},
 			
 			_updateCSSSize: function () {
-				this.set("csssize", this.element().width() > 400 ? "normal" : (this.element().width() > 300 ? "medium" : "small"));
+				this.set("csssize", $(this.activeElement()).width() > 400 ? "normal" : ($(this.activeElement()).width() > 300 ? "medium" : "small"));
 			},
 			
 			videoHeight: function () {
@@ -586,11 +596,11 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 			},
 			
 			parentWidth: function () {
-				return this.get("width") || this.activeElement().width();
+				return this.get("width") || $(this.activeElement()).width();
 			},
 			
 			parentHeight: function () {
-				return this.get("height") || this.activeElement().height();
+				return this.get("height") || $(this.activeElement()).height();
 			},
 
 			parentAspectRatio: function () {
@@ -618,9 +628,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				}
 				if (this.__currentStretch !== newStretch) {
 					if (this.__currentStretch)
-						this.activeElement().removeClass(this.get("css") + "-stretch-" + this.__currentStretch);
+						$(this.activeElement()).removeClass(this.get("css") + "-stretch-" + this.__currentStretch);
 					if (newStretch)
-						this.activeElement().addClass(this.get("css") + "-stretch-" + newStretch);
+						$(this.activeElement()).addClass(this.get("css") + "-stretch-" + newStretch);
 				}
 				this.__currentStretch = newStretch;				
 			}
@@ -644,7 +654,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
     	"verifying": "Verifying",
     	"verifying-failed": "Verifying failed - click here to retry.",
     	"rerecord-confirm": "Do you really want to redo your video?",
-    	"video_file_too_large": "Your video file is too large - click here to try again with a smaller video file.",
+    	"video_file_too_large": "Your video file is too large (%s) - click here to try again with a smaller video file.",
     	"unsupported_video_type": "Please upload: %s - click here to retry."    		
     });
 });

@@ -1,0 +1,54 @@
+'language:ro':
+  ba-videoplayer-playbutton.tooltip: Click aici pentru a reda video.
+  ba-videoplayer-playbutton.rerecord: Reface
+  ba-videoplayer-playbutton.submit-video: confirmă film
+  ba-videoplayer-loader.tooltip: Se încarcă videoclipul ...
+  ba-videoplayer-controlbar.change-resolution: Schimbați rezoluția
+  ba-videoplayer-controlbar.video-progress: progresul video
+  ba-videoplayer-controlbar.rerecord-video: Refaceți video?
+  ba-videoplayer-controlbar.submit-video: confirmă film
+  ba-videoplayer-controlbar.play-video: Rulează video
+  ba-videoplayer-controlbar.pause-video: video de pauză
+  ba-videoplayer-controlbar.elapsed-time: timp scurs
+  ba-videoplayer-controlbar.total-time: Lungimea totală a videoclipului
+  ba-videoplayer-controlbar.fullscreen-video: intra pe tot ecranul
+  ba-videoplayer-controlbar.volume-button: set de volum
+  ba-videoplayer-controlbar.volume-mute: sunet mut
+  ba-videoplayer-controlbar.volume-unmute: repornirea sunetului
+  ba-videoplayer.video-error: >-
+    A apărut o eroare, vă rugăm să încercați din nou mai târziu. Click aici
+    pentru a încerca din nou.
+  ba-videorecorder-chooser.record-video: Înregistrarea imaginilor video dvs.
+  ba-videorecorder-chooser.upload-video: Încarcă film
+  ba-videorecorder-controlbar.settings: setările
+  ba-videorecorder-controlbar.camerahealthy: De iluminat este bun
+  ba-videorecorder-controlbar.cameraunhealthy: De iluminat nu este optim
+  ba-videorecorder-controlbar.microphonehealthy: Sunetul este bun
+  ba-videorecorder-controlbar.microphoneunhealthy: Nu se poate ridica nici un sunet
+  ba-videorecorder-controlbar.record: Record
+  ba-videorecorder-controlbar.record-tooltip: Apasa aici pentru a înregistra.
+  ba-videorecorder-controlbar.rerecord: Reface
+  ba-videorecorder-controlbar.rerecord-tooltip: Apasa aici pentru a reface.
+  ba-videorecorder-controlbar.upload-covershot: Încărcați
+  ba-videorecorder-controlbar.upload-covershot-tooltip: Apasa aici pentru a încărca capac personalizat lovitură
+  ba-videorecorder-controlbar.stop: Stop
+  ba-videorecorder-controlbar.stop-tooltip: Apasa aici pentru a opri.
+  ba-videorecorder-controlbar.skip: sări
+  ba-videorecorder-controlbar.skip-tooltip: Apasa aici pentru a sări peste.
+  ba-videorecorder.recorder-error: >-
+    A apărut o eroare, vă rugăm să încercați din nou mai târziu. Click aici
+    pentru a încerca din nou.
+  ba-videorecorder.attach-error: >-
+    Nu am putut accesa interfața camerei. În funcție de dispozitiv și
+    browser-ul, poate fi necesar să instalați Flash sau accesa pagina prin SSL.
+  ba-videorecorder.access-forbidden: Accesul la camera a fost interzisă. Click aici pentru a încerca din nou.
+  ba-videorecorder.pick-covershot: Alege un covershot.
+  ba-videorecorder.uploading: Se încarcă
+  ba-videorecorder.uploading-failed: Se încarcă nu a reușit - clic aici pentru a încerca din nou.
+  ba-videorecorder.verifying: Se verifică
+  ba-videorecorder.verifying-failed: Care verifică dacă nu a reușit - clic aici pentru a încerca din nou.
+  ba-videorecorder.rerecord-confirm: Chiar vrei să refaceți videoclipul?
+  ba-videorecorder.video_file_too_large: >-
+    Fișierul dvs. video este prea mare (%s) - click aici pentru a încerca din nou cu
+    un fișier video mai mic.
+  ba-videorecorder.unsupported_video_type: 'Vă rugăm să încărcați: %s - clic aici pentru a încerca din nou.'

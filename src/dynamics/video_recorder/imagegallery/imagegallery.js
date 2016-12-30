@@ -3,11 +3,11 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
     "module:Templates",
     "base:Collections.Collection",
     "base:Properties.Properties",
-    "jquery:",
-    "base:Timers.Timer"
+    "base:Timers.Timer",
+    "jquery:"
 ], [
     "dynamics:Partials.StylesPartial"
-], function (Class, Templates, Collection, Properties, $, Timer, scoped) {
+], function (Class, Templates, Collection, Properties, Timer, $, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {
 			
@@ -107,7 +107,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
 			},
 			
 			updateContainerSize: function () {
-				var container = this.activeElement().find("[data-gallery-container]");
+				var container = $(this.activeElement()).find("[data-gallery-container]");
 				this.set("containeroffset", parseInt(container.position().left, 10));
 				this.set("containerheight", parseInt(container.height(), 10));
 				this.set("containerwidth", parseInt(container.width(), 10));
@@ -126,7 +126,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
 				var snapshots = this.parent().snapshots;
 				image.snapshot = snapshots[((snapshotindex % snapshots.length) + snapshots.length) % snapshots.length]; 
 				image.snapshotDisplay = this.parent().recorder.createSnapshotDisplay(
-					this.activeElement().get(0),
+					this.activeElement(),
 					image.snapshot,
 					image.get("left") + this.get("containeroffset"),
 					image.get("top"),

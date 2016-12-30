@@ -16,28 +16,6 @@
 
 </head>
 <body style="background: #EEE">
-<style>
-  html.ie-force-pseudo-refresh :before,
-  html.ie-force-pseudo-refresh :after {
-    content : none !important;
-  }
-</style>
-<script>
-
-  if ( window.attachEvent && !window.addEventListener ) { // <-- Poor man's IE8 detection
-    window.attachEvent( "onload", function() {
-      var
-        html = document.documentElement,
-        clss = html.className;
-
-      html.className = clss + " ie-force-pseudo-refresh";
-      setTimeout( function(){ html.className = clss; }, 0 );
-    });
-  }
-</script>
-<div class="ba-videoplayer-ie8s">
-	<i class="ba-videoplayer-icon-play"></i>
-</div>
 
 	<h3>Default</h3>
 	<ba-videoplayer ba-poster="sample-cover.png"

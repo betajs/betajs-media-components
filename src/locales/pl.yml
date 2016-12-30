@@ -1,0 +1,51 @@
+'language:pl':
+  ba-videoplayer-playbutton.tooltip: 'Kliknij, aby odtworzyć film.'
+  ba-videoplayer-playbutton.rerecord: Przerobić
+  ba-videoplayer-playbutton.submit-video: Potwierdź wideo
+  ba-videoplayer-loader.tooltip: Ładowanie wideo ...
+  ba-videoplayer-controlbar.change-resolution: zmiana rozdzielczości
+  ba-videoplayer-controlbar.video-progress: postęp wideo
+  ba-videoplayer-controlbar.rerecord-video: Redo wideo?
+  ba-videoplayer-controlbar.submit-video: Potwierdź wideo
+  ba-videoplayer-controlbar.play-video: play video
+  ba-videoplayer-controlbar.pause-video: Pauza wideo
+  ba-videoplayer-controlbar.elapsed-time: 'czas, jaki upłynął'
+  ba-videoplayer-controlbar.total-time: Całkowita długość wideo
+  ba-videoplayer-controlbar.fullscreen-video: Otworzyć w trybie pełnoekranowym
+  ba-videoplayer-controlbar.volume-button: Ustaw głośność
+  ba-videoplayer-controlbar.volume-mute: Wycisz dźwięk
+  ba-videoplayer-controlbar.volume-unmute: Włącz dźwięk
+  ba-videoplayer.video-error: 'Wystąpił błąd. Proszę spróbować później. Kliknij, aby ponowić próbę.'
+  ba-videorecorder-chooser.record-video: Nagraj wideo
+  ba-videorecorder-chooser.upload-video: Prześlij wideo
+  ba-videorecorder-controlbar.settings: Ustawienia
+  ba-videorecorder-controlbar.camerahealthy: Oświetlenie jest dobre
+  ba-videorecorder-controlbar.cameraunhealthy: Oświetlenie nie jest optymalna
+  ba-videorecorder-controlbar.microphonehealthy: Dźwięk jest dobry
+  ba-videorecorder-controlbar.microphoneunhealthy: Nie mogę odebrać żadnego dźwięku
+  ba-videorecorder-controlbar.record: Rekord
+  ba-videorecorder-controlbar.record-tooltip: 'Kliknij tutaj, aby nagrać.'
+  ba-videorecorder-controlbar.rerecord: Przerobić
+  ba-videorecorder-controlbar.rerecord-tooltip: 'Kliknij tutaj, aby ponowić.'
+  ba-videorecorder-controlbar.upload-covershot: Przekazać plik
+  ba-videorecorder-controlbar.upload-covershot-tooltip: Kliknij tu aby przesłać niestandardowy okładkę strzał
+  ba-videorecorder-controlbar.stop: Zatrzymaj się
+  ba-videorecorder-controlbar.stop-tooltip: 'Kliknij tutaj, aby zatrzymać.'
+  ba-videorecorder-controlbar.skip: Pominąć
+  ba-videorecorder-controlbar.skip-tooltip: 'Kliknij tutaj, aby przejść.'
+  ba-videorecorder.recorder-error: 'Wystąpił błąd. Proszę spróbować później. Kliknij, aby ponowić próbę.'
+  ba-videorecorder.attach-error: >-
+    Nie mogliśmy uzyskać dostęp do interfejsu aparatu. W zależności od
+    urządzenia i przeglądarki, może być konieczne zainstalowanie Flash lub wejść
+    na stronę za pośrednictwem protokołu SSL.
+  ba-videorecorder.access-forbidden: 'Dostęp do kamery było zabronione. Kliknij, aby ponowić próbę.'
+  ba-videorecorder.pick-covershot: Wybierz covershot.
+  ba-videorecorder.uploading: Przesyłanie
+  ba-videorecorder.uploading-failed: 'Przesyłanie nie powiodło się - kliknij tutaj, aby ponowić próbę.'
+  ba-videorecorder.verifying: Weryfikacja
+  ba-videorecorder.verifying-failed: 'Sprawdzanie poprawności nie powiodło się - kliknij tutaj, aby ponowić próbę.'
+  ba-videorecorder.rerecord-confirm: Czy na pewno chcesz przerobić swój film?
+  ba-videorecorder.video_file_too_large: >-
+    Plik wideo jest zbyt duża (%s) - kliknij tutaj, aby spróbować ponownie z
+    mniejszym pliku wideo.
+  ba-videorecorder.unsupported_video_type: 'Proszę przesłać: %s - kliknij tutaj, aby ponowić próbę.'

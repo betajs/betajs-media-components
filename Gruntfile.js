@@ -112,8 +112,7 @@ module.exports = function(grunt) {
       'src/themes/video_recorder/default/imagegallery.scss',
       'src/themes/video_recorder/default/controlbar.scss',
       'src/themes/video_recorder/default/settings.scss',
-      'src/themes/video_recorder/space/*.scss',
-      'src/themes/video_recorder/space/**/*.scss'
+      'src/themes/video_recorder/space/*.scss'
     ], 'dist/themes/space/style.css')
     .cssminTask('cssmin-space-theme', 'dist/themes/space/style.css', 'dist/themes/space/style.min.css')
     .cleanTask('clean-space-theme', 'dist/themes/space/space-templates.js')
@@ -264,6 +263,7 @@ module.exports = function(grunt) {
         './dist/betajs-media-components-noscoped.js'
      ], null, { jquery: true })
     .browserstackTask(null, 'tests/browserstack.html', {desktop: true, mobile: true})
+    .browserstackTask("browserstack-media", 'tests/server/browserstack.html', {desktop: true, mobile: true})
     .lintTask(null, ['./src/**/*.js', './dist/' + dist + '-noscoped.js', './dist/' + dist + '.js', './Gruntfile.js', './tests/**/*.js'])
     .csslinterTask(null, ['dist/betajs-media-components.css', 'dist/themes/modern.css', 'dist/themes/space/style.css'])
 
@@ -289,10 +289,18 @@ module.exports = function(grunt) {
     /* Documentation */
     .docsTask();
 
+
+	gruntHelper.config.shell.mediaqunit = {
+			command: [
+			    'open http://' + gruntHelper.myip() + ':5000/static/tests/server/index.html',
+			    'node node_modules/nano-media-server/server.js --staticserve .'
+			].join("&&")
+		};
+
 	grunt.initConfig(gruntHelper.config);
 
 	grunt.registerTask('default', [
-	      'package',
+        'package',
         'readme',
         'license',
         'codeclimate',
@@ -311,10 +319,10 @@ module.exports = function(grunt) {
         // Include theme generation
         "modern-theme",
         "space-theme",
-        'theatre-theme',
-        'elevate-theme',
-        'cube-theme',
-        'minimalist-theme'
+        "theatre-theme",
+        "elevate-theme",
+        "cube-theme",
+        "minimalist-theme"
     ]);
 
   // ** MODERN THEME **//
@@ -357,7 +365,7 @@ module.exports = function(grunt) {
     'clean-elevate-theme'
   ]);
 
-  // **  Elevate THEME **//
+  // **  Cube THEME **//
   grunt.registerTask('cube-theme', [
     'templates-cube-theme',
     'concat-cube-theme',
@@ -376,9 +384,65 @@ module.exports = function(grunt) {
     'cssmin-minimalist-theme',
     'clean-minimalist-theme'
   ]);
+  
+  
+  
+  var finalizeTranslation = function (sourceFile, targetFolder, targetLang) {
+	  var yaml = require("js-yaml");	  
 
+	  var loadLocale = function (filename) {
+		  var raw = yaml.safeLoad(grunt.file.read(filename));
+		  for (var key in raw) {
+			  return {
+				  language: key.split(":").pop(),
+				  dict: raw[key] || {}
+			  }
+		  }
+	  };
 
-	grunt.registerTask('check', ['csslinter', 'lint', 'browserqunit']);
+	  var targetFile = targetFolder + targetLang + ".yml";
+	  var source = loadLocale(sourceFile);
+	  var target = grunt.file.exists(targetFile) ? loadLocale(targetFile) : {language: targetLang, dict: {}};
+	
+	  var keys = [];
+	  var values = [];
+	  
+	  for (var key in source.dict) {
+		  if (!target.dict[key]) {
+			  keys.push(key);
+			  values.push(source.dict[key]);
+		  }
+	  }
+	  
+	  if (keys.length > 0) {
+		  var translate = require('@google-cloud/translate')(JSON.parse(grunt.file.read("./google-translate-creds.json")));
+		  translate.translate(values, {from: source.language, to: target.language}, function (err, translation) {
+			  if (err) {
+				  console.error(err);
+				  return;
+			  }
+			  for (var i = 0; i < keys.length; ++i)
+				  target.dict[keys[i]] = translation[i].replace("% ", " %");
+			  
+			  var result = {};
+			  result["language:" + target.language] = target.dict;
+			  grunt.file.write(targetFile, yaml.dump(result));
+		  });
+	  }
+  };
+  
+  
+  grunt.registerTask("translations", function () {
+	  var languages = ["de", "fr", "es", "nl", "pt-br", "it", "sv", "da", "no", "fi", "cat", "bg", "hu", "pl", "ro", "sr", "tr", "hr"];
+	  var sourceFile = "./dist/english.yml";
+	  var targetFolder = "./src/locales/";
+	  languages.forEach(function (targetLang) {
+		  finalizeTranslation(sourceFile, targetFolder, targetLang);
+	  });
+	  this.async();	  
+  });
+
+    grunt.registerTask('check', ['csslinter', 'lint', 'browserqunit']);
 
 	grunt.registerTask("generate-default-yml", function () {
 		var done = this.async();

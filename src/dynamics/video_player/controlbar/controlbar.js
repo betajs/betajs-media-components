@@ -43,6 +43,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 			
 			functions: {
 				
+				formatTime: function (time) {
+					time = Math.max(time || 0, 1);
+					return TimeFormat.format(TimeFormat.ELAPSED_MINUTES_SECONDS, time * 1000);
+				},
+				
 				startUpdatePosition: function (event) {
 					event[0].preventDefault();
 					this.set("_updatePosition", true);
@@ -125,12 +130,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 			},
 			
 			create: function () {
-				this.properties().compute("position_formatted", function () {
-					return TimeFormat.format(TimeFormat.ELAPSED_MINUTES_SECONDS, this.get("position") * 1000);
-				}, ['position']);
-				this.properties().compute("duration_formatted", function () {
-					return TimeFormat.format(TimeFormat.ELAPSED_MINUTES_SECONDS, this.get("duration") * 1000);
-				}, ['duration']);
 				this.set("ismobile", Info.isMobile());
 			}
 			

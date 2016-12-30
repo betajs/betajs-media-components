@@ -9,3 +9,5 @@ BrowserStackLocal
 jsdoc.conf.json
 /demos/recorder*.html
 /tests/server/temp
+/tests/server/files
+google-translate-creds.json

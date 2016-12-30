@@ -10,6 +10,7 @@
 	<script src="../vendors/betajs-dynamics-noscoped.js"></script>
 	<script src="../dist/betajs-media-components-noscoped.js"></script>
 	<link  href="../dist/betajs-media-components.css" rel="stylesheet" />
+
 	<!-- Modern Theme Assets -->
     <script src="../dist/themes/modern/script.js"></script>
     <link  href="../dist/themes/modern/style.css" rel="stylesheet" />
@@ -36,16 +37,6 @@
 
 </head>
 <body style="background: #EEE">
-
-    <h4>Minimalist</h4>
-    <ba-videoplayer ba-sources="{{[{src:'sample-video.mp4', poster: 'sample-cover.png', hd: true}, {src:'sample-video2.mp4', poster:'sample-cover2.png', hd: false}]}}"
-				ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
-				ba-theme="minimalist"
-				ba-noflash
-				ba-hideoninactivity="false"
-				ba-skipinitial="true"
-				ba-width='50%'></ba-videoplayer>
-
 
     <h4>Cube</h4>
     <ba-videoplayer ba-sources="{{[{src:'sample-video.mp4', poster: 'sample-cover.png', hd: true}, {src:'sample-video2.mp4', poster:'sample-cover2.png', hd: false}]}}"
@@ -84,6 +75,15 @@
 				ba-skipinitial="true"
 				ba-width='50%'></ba-videoplayer>
 
+	<h4>Minimalist</h4>
+    <ba-videoplayer ba-sources="{{[{src:'sample-video.mp4', poster: 'sample-cover.png', hd: true}, {src:'sample-video2.mp4', poster:'sample-cover2.png', hd: false}]}}"
+				ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
+				ba-theme="minimalist"
+				ba-noflash
+				ba-hideoninactivity="false"
+				ba-skipinitial="true"
+				ba-width='50%'></ba-videoplayer>
+
 	<h4>Modern</h4>
 	<ba-videoplayer ba-sources="{{[{src:'sample-video.mp4', poster: 'sample-cover.png', hd: true}, {src:'sample-video2.mp4', poster:'sample-cover2.png', hd: false}]}}"
 	                ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
@@ -95,8 +95,8 @@
 	                ba-width='50%'></ba-videoplayer>
 
 	<h4>Default</h4>
-	<ba-videoplayer ba-poster="sample-cover.png"
-	                ba-source="sample-video.mp4"
+	<ba-videoplayer ba-sources="{{[{src:'sample-video.mp4', poster: 'sample-cover.png', hd: true}, {src:'sample-video2.mp4', poster:'sample-cover2.png', hd: false}]}}"
+	                ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
 	                ba-theme="default"
 	                ba-noflash
 	                ba-hideoninactivity="false"

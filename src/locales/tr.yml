@@ -1,0 +1,50 @@
+'language:tr':
+  ba-videoplayer-playbutton.tooltip: video oynatmak için tıklayınız.
+  ba-videoplayer-playbutton.rerecord: yeniden yapmak
+  ba-videoplayer-playbutton.submit-video: videoyu onayla
+  ba-videoplayer-loader.tooltip: Video yükleniyor ...
+  ba-videoplayer-controlbar.change-resolution: Değişim çözünürlüğü
+  ba-videoplayer-controlbar.video-progress: Video ilerleme
+  ba-videoplayer-controlbar.rerecord-video: Videoyu Redo?
+  ba-videoplayer-controlbar.submit-video: videoyu onayla
+  ba-videoplayer-controlbar.play-video: Video oynatmak
+  ba-videoplayer-controlbar.pause-video: Pause Video
+  ba-videoplayer-controlbar.elapsed-time: Geçen süre
+  ba-videoplayer-controlbar.total-time: videonun toplam uzunluğu
+  ba-videoplayer-controlbar.fullscreen-video: Tam ekran yap
+  ba-videoplayer-controlbar.volume-button: Set hacmi
+  ba-videoplayer-controlbar.volume-mute: sesi
+  ba-videoplayer-controlbar.volume-unmute: sesi aç
+  ba-videoplayer.video-error: 'Bir hata, lütfen tekrar deneyiniz oluştu. Tekrar denemek için tıklayın.'
+  ba-videorecorder-chooser.record-video: Kişisel Video kayıt
+  ba-videorecorder-chooser.upload-video: video
+  ba-videorecorder-controlbar.settings: Ayarlar
+  ba-videorecorder-controlbar.camerahealthy: Aydınlatma iyidir
+  ba-videorecorder-controlbar.cameraunhealthy: Aydınlatma optimum değil
+  ba-videorecorder-controlbar.microphonehealthy: Ses iyidir
+  ba-videorecorder-controlbar.microphoneunhealthy: herhangi bir ses pick up olamaz
+  ba-videorecorder-controlbar.record: Kayıt
+  ba-videorecorder-controlbar.record-tooltip: kaydetmek için buraya tıklayın.
+  ba-videorecorder-controlbar.rerecord: yeniden yapmak
+  ba-videorecorder-controlbar.rerecord-tooltip: yinelemek için buraya tıklayın.
+  ba-videorecorder-controlbar.upload-covershot: yükleme
+  ba-videorecorder-controlbar.upload-covershot-tooltip: özel kapak çekimi yüklemek için buraya tıklayın
+  ba-videorecorder-controlbar.stop: Dur
+  ba-videorecorder-controlbar.stop-tooltip: durdurmak için burayı tıklayın.
+  ba-videorecorder-controlbar.skip: atlamak
+  ba-videorecorder-controlbar.skip-tooltip: atlamak için buraya tıklayın.
+  ba-videorecorder.recorder-error: 'Bir hata, lütfen tekrar deneyiniz oluştu. Tekrar denemek için tıklayın.'
+  ba-videorecorder.attach-error: >-
+    Biz kamera arayüzü erişemedi. cihaz ve tarayıcıya bağlı olarak, Flash
+    yüklemek veya SSL ile sayfaya erişmek için gerekebilir.
+  ba-videorecorder.access-forbidden: Kameraya erişim yasaklandı. Tekrar denemek için tıklayın.
+  ba-videorecorder.pick-covershot: Bir covershot seçin.
+  ba-videorecorder.uploading: Yükleme
+  ba-videorecorder.uploading-failed: Yükleme başarısız - yeniden denemek için burayı tıklayın.
+  ba-videorecorder.verifying: Doğrulama
+  ba-videorecorder.verifying-failed: Başarısız kullanıldığını doğrulamak - yeniden denemek için burayı tıklayın.
+  ba-videorecorder.rerecord-confirm: Eğer gerçekten video yinelemek istiyor musunuz?
+  ba-videorecorder.video_file_too_large: >-
+    Videonuz dosyası çok büyük (%s) - küçük bir video dosyası ile tekrar denemek için
+    burayı tıklayın.
+  ba-videorecorder.unsupported_video_type: 'yükleyin: %s - yeniden denemek için burayı tıklayın.'

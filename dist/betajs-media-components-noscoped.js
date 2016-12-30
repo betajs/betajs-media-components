@@ -16,7 +16,7 @@ Scoped.binding('jquery', 'global:jQuery');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "58.1483053033122"
+    "version": "67.1483063961405"
 };
 });
 Scoped.assumeVersion('base:version', 502);
@@ -2799,7 +2799,6 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
 				});
 			});
 			this.listenOn(uploader, "progress", function (uploaded, total) {
-				console.log("Yes", uploaded, total, "!");
 				this.dyn.trigger("upload_progress", uploaded, total);
 				if (total !== 0) {
 					this.dyn.set("message", this.dyn.string("uploading") + ": " + Math.round(uploaded / total * 100) + "%");

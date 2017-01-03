@@ -169,10 +169,16 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
 					}
 				}
 				if (this.dyn.get("filesizelimit") && file.files && file.files.length > 0 && file.files[0].size && file.files[0].size > this.dyn.get("filesizelimit")) {
-					var size = Math.round(file.files[0].size / 1000 / 1000);
-					var limit = Math.round(this.dyn.get("filesizelimit") / 1000 / 1000);
+					var fact = "KB";
+					var size = Math.round(file.files[0].size / 1000);
+					var limit = Math.round(this.dyn.get("filesizelimit") / 1000);
+					if (size > 999) {
+						fact = "MB";
+						size = Math.round(size / 1000);
+						limit = Math.round(limit / 1000);
+					}
 					this.next("FatalError", {
-						message: this.dyn.string("video_file_too_large").replace("%s", size + "MB / " + limit + "MB"),
+						message: this.dyn.string("video_file_too_large").replace("%s", size + fact + " / " + limit + fact),
 						retry: "Chooser"
 					});
 					return;
@@ -461,7 +467,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
 			this.listenOn(uploader, "progress", function (uploaded, total) {
 				this.dyn.trigger("upload_progress", uploaded, total);
 				if (total !== 0) {
-					this.dyn.set("message", this.dyn.string("uploading") + ": " + Math.round(uploaded / total * 100) + "%");
+					this.dyn.set("message", this.dyn.string("uploading") + ": " + Math.min(100, Math.round(uploaded / total * 100)) + "%");
 					this.dyn.set("playertopmessage", this.dyn.get("message"));
 				}
 			});

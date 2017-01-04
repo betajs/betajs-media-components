@@ -1,11 +1,11 @@
 
-<div id="recorder-container" ba-show="{{!player_active}}"
+<div data-selector="recorder-container" ba-show="{{!player_active}}"
      class="{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}"
      style="{{width ? 'width:' + width + ((width + '').match(/^\d+$/g) ? 'px' : '') + ';' : 'width:100%;'}}{{height ? 'height:' + height + ((height + '').match(/^\d+$/g) ? 'px' : '') + ';' : 'height:100%'}}"
 >
 
-    <video id="recorder-status" class="{{css}}-video {{css}}-{{hasrecorder ? 'hasrecorder' : 'norecorder'}}" data-video="video"></video>
-    <div id="recorder-overlay" class='{{css}}-overlay' ba-show="{{!hideoverlay}}" data-overlay="overlay">
+    <video data-selector="recorder-status" class="{{css}}-video {{css}}-{{hasrecorder ? 'hasrecorder' : 'norecorder'}}" data-video="video"></video>
+    <div data-selector="recorder-overlay" class='{{css}}-overlay' ba-show="{{!hideoverlay}}" data-overlay="overlay">
 		<ba-{{dynloader}}
 		    ba-css="{{cssloader || css}}"
 		    ba-template="{{tmplloader}}"
@@ -81,7 +81,7 @@
     </div>
 </div>
 
-<div id="recorder-player" ba-if="{{player_active}}"
+<div data-selector="recorder-player" ba-if="{{player_active}}"
      style="{{width ? 'width:' + width + ((width + '').match(/^\d+$/g) ? 'px' : '') + ';' : ''}}{{height ? 'height:' + height + ((height + '').match(/^\d+$/g) ? 'px' : '') + ';' : ''}}"
 >
 	<ba-{{dynvideoplayer}} ba-theme="{{theme || 'default'}}"

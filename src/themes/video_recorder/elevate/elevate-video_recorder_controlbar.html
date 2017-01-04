@@ -6,12 +6,12 @@
 		<div class="{{css}}-controlbar-left-section" ba-show="{{settingsvisible}}">
 
 			<!-- Popup Settings Selections, initially hidden, appear when click button for settings -->
-			<div id="recorder-settings" class="{{css}}-settings {{css}}-settings-button-container">
+			<div data-selector="recorder-settings" class="{{css}}-settings {{css}}-settings-button-container">
 
 				<div class="{{css}}-circle-button" ba-show="{{settingsvisible}}">
 
 					<div class="{{css}}-bubble-info" ba-show="{{settingsopen}}" >
-						<ul id="camera-settings" ba-repeat="{{camera :: cameras}}">
+						<ul data-selector="camera-settings" ba-repeat="{{camera :: cameras}}">
 							<li>
 								<input type='radio' name='camera' value="{{selectedcamera == camera.id}}" onclick="{{selectCamera(camera.id)}}" />
 								<span></span>
@@ -22,7 +22,7 @@
 						</ul>
 					</div>
 
-					<div id="record-button-icon-cog" class="{{css}}-button-inner {{css}}-button-circle-{{settingsopen ? 'selected' : 'unselected' }}"
+					<div data-selector="record-button-icon-cog" class="{{css}}-button-inner {{css}}-button-circle-{{settingsopen ? 'selected' : 'unselected' }}"
 						 onclick="{{settingsopen=!settingsopen}}"
 						 onmouseenter="{{hover(string('settings'))}}"
 						 onmouseleave="{{unhover()}}" >
@@ -35,7 +35,7 @@
                 <div class="{{css}}-circle-button" ba-show="{{!noaudio}}">
 
                     <div class="{{css}}-bubble-info" ba-show="{{settingsvisible && settingsopen && audio }}">
-                        <ul id="microphone-settings" ba-repeat="{{microphone :: microphones}}" ba-show="{{audio}}">
+                        <ul data-selector="microphone-settings" ba-repeat="{{microphone :: microphones}}" ba-show="{{audio}}">
                             <li onclick="{{selectMicrophone(microphone.id)}}">
                                 <input type='radio' name='microphone' value="{{selectedmicrophone == microphone.id}}" />
                                 <span></span>
@@ -46,7 +46,7 @@
                         </ul>
                     </div>
 
-                    <div id="record-button-icon-mic" class="{{css}}-button-inner"
+                    <div data-selector="record-button-icon-mic" class="{{css}}-button-inner"
                          onmouseenter="{{hover(string(microphonehealthy ? 'microphonehealthy' : 'microphoneunhealthy'))}}"
                          onmouseleave="{{unhover()}}">
                         <i class="{{css}}-icon-mic {{css}}-icon-state-{{minrophonehealthy ? 'good' : 'bad' }}"></i>
@@ -54,7 +54,7 @@
                 </div>
 
                 <div class="{{css}}-circle-button">
-                    <div id="record-button-icon-videocam" class="{{css}}-button-inner"
+                    <div data-selector="record-button-icon-videocam" class="{{css}}-button-inner"
                          onmouseenter="{{hover(string(camerahelthy ? 'camerahealthy' : 'cameraunhelathy'))}}"
                          onmouseleave="{{unhover()}}">
                         <i class="{{css}}-icon-videocam {{css}}-icon-state-{{ camerahealthy ? 'good' : 'bad' }}"></i>
@@ -70,7 +70,7 @@
 
 		<div class="{{css}}-timer-container" ba-show="{{stopvisible}}">
 			<div class="{{css}}-label-container" ba-show="{{controlbarlabel}}">
-				<div id="record-label-block" class="{{css}}-label {{css}}-button-primary">
+				<div data-selector="record-label-block" class="{{css}}-label {{css}}-button-primary">
 					{{controlbarlabel}}
 				</div>
 			</div>
@@ -79,12 +79,12 @@
 	</div>
 
 	<!-- Control bar, footer part which holds all buttons -->
-	<div id="controlbar" class="{{css}}-controlbar">
+	<div data-selector="controlbar" class="{{css}}-controlbar">
 
 		<div class="{{css}}-controlbar-center-section">
 
 			<div class="{{css}}-button-container" ba-show="{{rerecordvisible}}">
-				<div id="rerecord-primary-button" class="{{css}}-button-primary"
+				<div data-selector="rerecord-primary-button" class="{{css}}-button-primary"
 					 onclick="{{rerecord()}}"
 					 onmouseenter="{{hover(string('rerecord-tooltip'))}}"
 					 onmouseleave="{{unhover()}}">
@@ -93,7 +93,7 @@
 			</div>
 
 			<div class="{{css}}-primary-button-container" ba-show="{{recordvisible}}">
-				<div id="record-primary-button" class="{{css}}-button-primary"
+				<div data-selector="record-primary-button" class="{{css}}-button-primary"
 					 onclick="{{record()}}"
 					 onmouseenter="{{hover(string('record-tooltip'))}}"
 					 onmouseleave="{{unhover()}}">
@@ -106,7 +106,7 @@
 		<div class="{{css}}-stop-container" ba-show="{{stopvisible}}">
 
 			<div class="{{css}}-stop-button-container">
-				<div id="stop-primary-button" class="{{css}}-button-primary"
+				<div data-selector="stop-primary-button" class="{{css}}-button-primary"
 					 onclick="{{stop()}}"
 					 onmouseenter="{{hover(string('stop-tooltip'))}}"
 					 onmouseleave="{{unhover()}}">
@@ -116,7 +116,7 @@
 		</div>
 
         <div class="{{css}}-centerbutton-container" ba-show="{{skipvisible}}">
-            <div id="skip-primary-button" class="{{css}}-button-primary"
+            <div data-selector="skip-primary-button" class="{{css}}-button-primary"
                  onclick="{{skip()}}"
                  onmouseenter="{{hover(string('skip-tooltip'))}}"
                  onmouseleave="{{unhover()}}">
@@ -126,7 +126,7 @@
 
 
         <div class="{{css}}-rightbutton-container" ba-if="{{uploadcovershotvisible}}">
-            <div id="covershot-primary-button" class="{{css}}-button-primary"
+            <div data-selector="covershot-primary-button" class="{{css}}-button-primary"
                  onmouseenter="{{hover(string('upload-covershot-tooltip'))}}"
                  onmouseleave="{{unhover()}}">
                 <input type="file"

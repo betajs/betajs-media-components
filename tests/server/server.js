@@ -3,7 +3,6 @@ var FS = require("fs");
 var Multer = require("multer");
 var Ffmpeg = require("js-ffmpeg");
 
-
 //In case if require SSL based hostname, also please uncomment below code
 // var https = require('https');
 // var fs = require('fs');
@@ -22,6 +21,8 @@ var port = 6001;
 
 express.use("/static", Express["static"](__dirname + '/static'));
 express.use("/assets", Express["static"](__dirname + '/../..'));
+
+express.use("/demos", Express["static"](__dirname + '/../../demos'));
 
 express.get('/files/:filename', function (request, response) {
 	console.log("Streaming " + request.params.filename);

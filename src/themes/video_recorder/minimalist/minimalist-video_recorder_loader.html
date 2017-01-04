@@ -1,10 +1,10 @@
 <div class="{{css}}-loader-container" ba-show="{{!label}}">
-    <div id="recorder-loader-block" class="{{css}}-loader-loader" title="{{tooltip}}">
+    <div data-selector="recorder-loader-block" class="{{css}}-loader-loader" title="{{tooltip}}">
     </div>
 </div>
-<div id="recorder-loader-label-container" class="{{css}}-loader-container" ba-show="{{label}}">
+<div data-selector="recorder-loader-label-container" class="{{css}}-loader-container" ba-show="{{label}}">
     <div class="{{css}}-loader-countdown">
-        <div id="recorder-loader-label" class="{{css}}-button-primary">
+        <div data-selector="recorder-loader-label" class="{{css}}-button-primary">
             {{string('starts-in')}} {{label}}
         </div>
     </div>
@@ -12,7 +12,7 @@
 <div class="{{css}}-loader-label" ba-show="{{label}}">
     <div class="{{css}}-loader-label-container">
         <div class="{{css}}-wait-button-container">
-            <div id="recorder-loader-wait-button" class="{{css}}-button-primary"
+            <div data-selector="recorder-loader-wait-button" class="{{css}}-button-primary"
                  onclick="{{freeze()}}"
                  onmouseenter="{{hover(string('wait-tooltip'))}}"
                  onmouseleave="{{unhover()}}">

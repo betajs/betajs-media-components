@@ -7,17 +7,17 @@
 			<i class="{{css}}-icon-{{primaryrecord ? 'videocam' : 'upload'}}"></i>
 		</div>
 		<div>
-			<div id="player-submit-button" class="{{css}}-chooser-primary-button"
+			<div data-selector="player-submit-button" class="{{css}}-chooser-primary-button"
 			     ba-click="primary()"
 			     ba-if="{{has_primary}}">
-				<input id="file-input-opt1" ba-if="{{enable_primary_select && primary_select_capture}}"
+				<input data-selector="file-input-opt1" ba-if="{{enable_primary_select && primary_select_capture}}"
 				       type="file"
 				       class="{{css}}-chooser-file"
 				       style="height:100"
 				       onchange="{{primary_select(domEvent)}}"
 				       accept="{{primary_accept_string}}"
 				       capture />
-				<input id="file-input-opt2" ba-if="{{enable_primary_select && !primary_select_capture}}"
+				<input data-selector="file-input-opt2" ba-if="{{enable_primary_select && !primary_select_capture}}"
 				       type="file"
 				       class="{{css}}-chooser-file"
 				       style="height:100"
@@ -29,16 +29,16 @@
 			</div>
 		</div>
 		<div>
-			<div id="chooser-secondary-button" class="{{css}}-chooser-secondary-button"
+			<div data-selector="chooser-secondary-button" class="{{css}}-chooser-secondary-button"
 			     ba-click="secondary()"
 			     ba-if="{{has_secondary}}">
-				<input id="file-input-secondary-opt1" ba-if="{{enable_secondary_select && secondary_select_capture}}"
+				<input data-selector="file-input-secondary-opt1" ba-if="{{enable_secondary_select && secondary_select_capture}}"
 				       type="file"
 				       class="{{css}}-chooser-file"
 				       style="height:100"
 				       onchange="{{secondary_select(domEvent)}}"
 				       accept="{{secondary_accept_string}}" />
-				<input id="file-input-secondary-opt2" ba-if="{{enable_secondary_select && !secondary_select_capture}}"
+				<input data-selector="file-input-secondary-opt2" ba-if="{{enable_secondary_select && !secondary_select_capture}}"
 				       type="file"
 				       class="{{css}}-chooser-file"
 				       style="height:100"

@@ -2,25 +2,25 @@
 
     <div class="{{css}}-left-block">
 
-        <div id="submit-video-button" class="{{css}}-button-container" ba-if="{{submittable}}"  ba-click="submit()">
+        <div data-selector="submit-video-button" class="{{css}}-button-container" ba-if="{{submittable}}"  ba-click="submit()">
             <div class="{{css}}-button-inner">
                 {{string('submit-video')}}
             </div>
         </div>
 
-        <div id="button-icon-ccw" class="{{css}}-button-container" ba-if="{{rerecordable}}" ba-click="rerecord()" title="{{string('rerecord-video')}}">
+        <div data-selector="button-icon-ccw" class="{{css}}-button-container" ba-if="{{rerecordable}}" ba-click="rerecord()" title="{{string('rerecord-video')}}">
             <div class="{{css}}-button-inner">
                 <i class="{{css}}-icon-ccw"></i>
             </div>
         </div>
 
-        <div id="button-icon-play" class="{{css}}-button-container" ba-if="{{!playing}}" ba-click="play()" title="{{string('play-video')}}">
+        <div data-selector="button-icon-play" class="{{css}}-button-container" ba-if="{{!playing}}" ba-click="play()" title="{{string('play-video')}}">
             <div class="{{css}}-button-inner">
                 <i class="{{css}}-icon-play"></i>
             </div>
         </div>
 
-        <div id="button-icon-pause" class="{{css}}-button-container" ba-if="{{playing}}" ba-click="pause()" title="{{string('pause-video')}}">
+        <div data-selector="button-icon-pause" class="{{css}}-button-container" ba-if="{{playing}}" ba-click="pause()" title="{{string('pause-video')}}">
             <div class="{{css}}-button-inner">
                 <i class="{{css}}-icon-pause"></i>
             </div>
@@ -39,20 +39,20 @@
             </div>
         </div>
 
-        <div id="button-icon-volume" class="{{css}}-button-container" ba-click="toggle_volume()" title="{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}">
+        <div data-selector="button-icon-volume" class="{{css}}-button-container" ba-click="toggle_volume()" title="{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}">
             <div class="{{css}}-button-inner">
                 <i class="{{css + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}"></i>
             </div>
         </div>
 
 
-        <div id="button-stream-label" class="{{css}}-button-container" ba-if="{{streams.length > 1 && currentstream}}" ba-click="toggle_stream()" title="{{string('change-resolution')}}">
+        <div data-selector="button-stream-label" class="{{css}}-button-container" ba-if="{{streams.length > 1 && currentstream}}" ba-click="toggle_stream()" title="{{string('change-resolution')}}">
             <div class="{{css}}-button-inner {{css}}-stream-label-container">
                 <span class="{{css}}-button-text {{css}}-stream-label">{{currentstream_label}}</span>
             </div>
         </div>
 
-        <div id="button-icon-resize-full" class="{{css}}-button-container"  ba-click="toggle_fullscreen()" title="{{string('fullscreen-video')}}">
+        <div data-selector="button-icon-resize-full" class="{{css}}-button-container"  ba-click="toggle_fullscreen()" title="{{string('fullscreen-video')}}">
             <div class="{{css}}-button-inner {{css}}-full-screen-btn-inner">
                 <i class="{{css}}-icon-resize-full"></i>
             </div>
@@ -63,7 +63,7 @@
     </div>
 
     <div class="{{css}}-progressbar">
-        <div id="progress-bar-inner" class="{{css}}-progressbar-inner"
+        <div data-selector="progress-bar-inner" class="{{css}}-progressbar-inner"
              onmousedown="{{startUpdatePosition(domEvent)}}"
              onmouseup="{{stopUpdatePosition(domEvent)}}"
              onmouseleave="{{stopUpdatePosition(domEvent)}}"

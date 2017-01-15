@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.41 - 2017-01-03
+betajs-media-components - v0.0.42 - 2017-01-15
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */

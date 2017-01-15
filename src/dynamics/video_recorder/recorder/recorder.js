@@ -97,6 +97,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				"timeminlimit": null,
 				"rtmpstreamtype": "mp4",
 				"rtmpmicrophonecodec": "speex",
+				"webrtcstreaming": false,
 				"microphone-volume": 1.0,
 				"flip-camera": false,
 				"early-rerecord": false,
@@ -145,6 +146,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				"localplayback": "boolean",
 				"noaudio": "boolean",
 				"skipinitial": "boolean",
+				"webrtcstreaming": "boolean",
 				"microphone-volume": "float",
 				"flip-camera": "boolean",
 				"early-rerecord": "boolean",
@@ -256,6 +258,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 			    	flashFullSecurityDialog: !this.get("flashincognitosupport"),
 			    	rtmpStreamType: this.get("rtmpstreamtype"),
 			    	rtmpMicrophoneCodec: this.get("rtmpmicrophonecodec"),
+			    	webrtcStreaming: !!this.get("webrtcstreaming"),
 			    	framerate: this.get("framerate"),
 			    	flip: this.get("flip-camera")
 			    });
@@ -357,7 +360,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				return this.recorder.startRecord({
 					rtmp: this.get("uploadoptions").rtmp,
 					video: this.get("uploadoptions").video,
-					audio: this.get("uploadoptions").audio
+					audio: this.get("uploadoptions").audio,
+					webrtcStreaming: this.get("uploadoptions").webrtcStreaming
 				}).success(function () {
 					this.__recording = true;
 					this.__recording_start_time = Time.now();
@@ -370,7 +374,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				return this.recorder.stopRecord({
 					rtmp: this.get("uploadoptions").rtmp,
 					video: this.get("uploadoptions").video,
-					audio: this.get("uploadoptions").audio
+					audio: this.get("uploadoptions").audio,
+					webrtcStreaming: this.get("uploadoptions").webrtcStreaming
 				}).success(function (uploader) {
 					this.__recording = false;
 					uploader.upload();

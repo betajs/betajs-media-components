@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+	<meta content="utf-8" http-equiv="encoding">
 	<script src="../vendors/jquery.min.js"></script>
 		<script src="../node_modules/betajs-shims/dist/betajs-shims.js"></script>		
         <script src="../node_modules/betajs-scoped/dist/scoped.js"></script>
@@ -13,26 +15,17 @@
 	<link  href="../dist/betajs-media-components.css" rel="stylesheet" />
     <script src="../dist/themes/modern/script.js"></script>
     <link  href="../dist/themes/modern/style.css" rel="stylesheet" />
+    <script src="../dist/themes/space/script.js"></script>
+    <link  href="../dist/themes/space/style.css" rel="stylesheet" />
 </head>
-<body style="background: #EEE">
-	<ba-videoplayer ba-sources="{{[{src:'sample-video.mp4', poster: 'sample-cover.png', hd: true}, {src:'sample-video2.mp4', poster:'sample-cover2.png', hd: false}]}}"
-	                ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
-	                ba-theme="modern"
-	                ba-noflash
-	                ba-hideoninactivity="false"
-	                ba-skipinitial="true"
-	                ba-experimental="true"
-	                ba-width='50%'></ba-videoplayer>
-	
-	<ba-videoplayer ba-poster="sample-cover.png"
-	                ba-source="sample-video.mp4"
-	                ba-theme="default"
-	                ba-noflash
-	                ba-hideoninactivity="false"
-	                ba-skipinitial="true"
-	                ba-experimental="true"
-	                ba-width='50%'></ba-videoplayer>
-
+<body style="background: #999">
+	<ba-videorecorder ba-width=400 ba-height=300 ba-theme="modern" ba-playbackposter="sample-cover.png" ba-playbacksource="sample-video.mp4" ba-recordermode="{{false}}"></ba-videorecorder>
+	<!-- 
+	<ba-videorecorder ba-width=400 ba-height=300 ba-localplayback ba-theme="modern" ba-skipinitial></ba-videorecorder>
+	<ba-videorecorder ba-width=320 ba-height=240 ba-theme="modern"></ba-videorecorder>
+	<ba-videorecorder ba-width=320 ba-height=240 ba-theme="modern-blue"></ba-videorecorder>
+	<ba-videorecorder ba-width=320 ba-height=240 ba-theme="modern-green"></ba-videorecorder>
+	 -->
     <script>
         BetaJS.Flash.options = {
             flashFile: "../node_modules/betajs-flash/dist/betajs-flash.swf",

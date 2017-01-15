@@ -1,7 +1,7 @@
 module.exports = function(grunt) {
 
 	var pkg = grunt.file.readJSON('package.json');
-	var gruntHelper = require('betajs-compile/grunt.js');
+	var gruntHelper = require('betajs-compile');
 	var dist = 'betajs-media-components';
 
 	gruntHelper.init(pkg, grunt)
@@ -24,13 +24,13 @@ module.exports = function(grunt) {
 		"dynamics": "global:BetaJS.Dynamics",
 		"jquery": "global:jQuery"
     }, {
-    	"base:version": 502,
-    	"browser:version": 78,
-    	"flash:version": 33,
-    	"dynamics:version": 251,
-    	"media:version": 57
+    	"base:version": pkg.devDependencies.betajs,
+    	"browser:version": pkg.devDependencies["betajs-browser"],
+    	"flash:version": pkg.devDependencies["betajs-flash"],
+    	"dynamics:version": pkg.devDependencies["betajs-dynamics"],
+    	"media:version": pkg.devDependencies["betajs-media"]
     })
-    .concatTask('concat-scoped', ['vendors/scoped.js', 'dist/' + dist + '-noscoped.js'], 'dist/' + dist + '.js')
+    .concatTask('concat-scoped', [require.resolve("betajs-scoped"), 'dist/' + dist + '-noscoped.js'], 'dist/' + dist + '.js')
     .concatsassTask('concat-dist-css', [
         'src/themes/common/mixins.scss',
         'src/themes/common/fontello_font.scss',
@@ -254,12 +254,12 @@ module.exports = function(grunt) {
     /* Testing */
     .browserqunitTask(null, 'tests/tests.html', true)
     .closureTask(null, [
-        './vendors/scoped.js',
-        './vendors/beta-noscoped.js',
-        './vendors/betajs-browser-noscoped.js',
-        './vendors/betajs-flash-noscoped.js',
-        './vendors/betajs-media-noscoped.js',
-        './vendors/beta-dynamics-noscoped.js',
+    	require.resolve("betajs-scoped"),
+    	require.resolve("betajs"),
+    	require.resolve("betajs-browser"),
+    	require.resolve("betajs-flash"),
+    	require.resolve("betajs-media"),
+    	require.resolve("betajs-dynamics"),
         './dist/betajs-media-components-noscoped.js'
      ], null, { jquery: true })
     .browserstackTask(null, 'tests/browserstack.html', {desktop: true, mobile: true})
@@ -396,7 +396,7 @@ module.exports = function(grunt) {
 			  return {
 				  language: key.split(":").pop(),
 				  dict: raw[key] || {}
-			  }
+			  };
 		  }
 	  };
 
@@ -448,11 +448,11 @@ module.exports = function(grunt) {
 		var done = this.async();
 		require('jsdom').jsdom.env("", [
             "./vendors/jquery.min.js",
-            "./vendors/scoped.js",
-            "./vendors/beta-noscoped.js",
-            "./vendors/betajs-browser-noscoped.js",
-            "./vendors/betajs-dynamics-noscoped.js",
-            "./vendors/betajs-media-noscoped.js",
+            require.resolve("betajs-scoped"),
+        	require.resolve("betajs"),
+        	require.resolve("betajs-browser"),
+        	require.resolve("betajs-dynamics"),
+        	require.resolve("betajs-media"),
             "./dist/betajs-media-components-noscoped.js"
         ], function (err, window) {
 			var strings = window.BetaJS.MediaComponents.Assets.strings.all();

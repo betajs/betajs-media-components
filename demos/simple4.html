@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
 	<script src="../vendors/jquery.min.js"></script>
-	<script src="../vendors/scoped.js"></script>
-	<script src="../vendors/beta-noscoped.js"></script>
-	<script src="../vendors/betajs-browser-noscoped.js"></script>
-	<script src="../vendors/betajs-flash-noscoped.js"></script>
-	<script src="../vendors/betajs-media-noscoped.js"></script>
-	<script src="../vendors/betajs-dynamics-noscoped.js"></script>
+		<script src="../node_modules/betajs-shims/dist/betajs-shims.js"></script>		
+        <script src="../node_modules/betajs-scoped/dist/scoped.js"></script>
+        <script src="../node_modules/betajs/dist/beta-noscoped.js"></script>
+        <script src="../node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
+        <script src="../node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
+        <script src="../node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+        <script src="../node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
 	<script src="../dist/betajs-media-components-noscoped.js?y"></script>
 	<link  href="../dist/betajs-media-components.css" rel="stylesheet" />
     <script src="../dist/themes/modern/script.js"></script>
@@ -28,7 +29,7 @@
 
     <script>
         BetaJS.Flash.options = {
-            flashFile: "../vendors/betajs-flash.swf",
+            flashFile: "../node_modules/betajs-flash/dist/betajs-flash.swf",
             forceReload: true
         };
         BetaJS.Dynamics.Dynamic.activate();

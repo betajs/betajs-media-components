@@ -45,6 +45,9 @@
     font-size: $button_fontsize;
 }
 
+.#{$css}-button-inner {
+    @include clickable;
+}
 
 .#{$css}-time-container {
     @include float-width-height(left, $time_value_width, 100%);

@@ -4,6 +4,16 @@
     <div class='{{css}}-controlbar-header'>
         <div class="{{css}}-title">Title of the video</div>
 
+        <div class="{{css}}-volumebar">
+            <div data-selector="button-volume-bar" class="{{css}}-volumebar-inner"
+                 onmousedown="{{startUpdateVolume(domEvent)}}"
+                 onmouseup="{{stopUpdateVolume(domEvent)}}"
+                 onmouseleave="{{stopUpdateVolume(domEvent)}}"
+                 onmousemove="{{progressUpdateVolume(domEvent)}}">
+                <div class="{{css}}-volumebar-position" ba-styles="{{{width: Math.ceil(1+Math.min(99, Math.round(volume * 100))) + '%'}}}" title="{{string('volume-button')}}"></div>
+            </div>
+        </div>
+
         <div data-selector="button-icon-volume" class="{{css}}-rightbutton-container" ba-click="toggle_volume()" title="{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}">
             <div class="{{css}}-button-inner">
                 <i class="{{css + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}"></i>

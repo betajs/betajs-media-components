@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.39 - 2017-01-04
+betajs-media-components - v0.0.39 - 2017-01-18
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -626,7 +626,8 @@ Apache-2.0 Software License.
 .ba-videoplayer-elevate-theme-icon-play, .ba-videoplayer-elevate-theme-icon-pause {
   color: #5daa96; }
 
-.ba-videoplayer-elevate-theme-icon-volume-up:before, .ba-videoplayer-elevate-theme-icon-play:before, .ba-videoplayer-elevate-theme-icon-pause:before, .ba-videoplayer-elevate-theme-icon-resize-full:before {
+.ba-videoplayer-elevate-theme-icon-volume-up:before, .ba-videoplayer-elevate-theme-icon-play:before, .ba-videoplayer-elevate-theme-icon-pause:before,
+.ba-videoplayer-elevate-theme-icon-resize-full:before, .ba-videoplayer-elevate-theme-icon-volume-down:before {
   font-size: 0.7rem;
   margin: 0;
   line-height: inherit; }
@@ -651,6 +652,10 @@ Apache-2.0 Software License.
   color: #5daa96;
   font-size: 13px;
   margin-left: 3px; }
+
+.ba-videoplayer-elevate-theme-button-inner {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent; }
 
 .ba-videoplayer-elevate-theme-time-container {
   float: left;
@@ -779,9 +784,46 @@ Apache-2.0 Software License.
     font-weight: bold; }
 
 .ba-videoplayer-elevate-theme-stream-label-container .ba-videoplayer-elevate-theme-stream-label {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
   background-color: #5daa96;
   color: #ffffff;
   padding: 3px; }
+
+.ba-videoplayer-elevate-theme-left-block .ba-videoplayer-elevate-theme-volumebar {
+  float: left;
+  height: 32px;
+  padding: 0 5px;
+  width: 60px; }
+
+.ba-videoplayer-elevate-theme-volumebar-inner {
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  top: 50%;
+  position: relative;
+  text-align: center;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  background: #cee5df;
+  background: rgba(93, 170, 150, 0.3);
+  height: 6px; }
+
+.ba-videoplayer-elevate-theme-volumebar-position {
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  position: absolute;
+  left: 0;
+  background-color: #5daa96;
+  height: 100%; }
 
 .ba-videoplayer-elevate-theme-top-left-block {
   float: left; }
@@ -1647,6 +1689,7 @@ Apache-2.0 Software License.
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   color: #ffffff;
+  cursor: pointer;
   font-size: 20px;
   margin-left: 5px;
   margin-right: 5px;
@@ -1782,6 +1825,7 @@ Apache-2.0 Software License.
 
 .ba-videorecorder-theme-elevate-controlbar-middle-section .ba-videorecorder-theme-elevate-timer-container {
   display: table;
+  cursor: default;
   height: 100%;
   position: absolute;
   width: 100%; }
@@ -1835,6 +1879,7 @@ Apache-2.0 Software License.
 .ba-videorecorder-theme-elevate-button-inner {
   background: #ffffff;
   color: #333333;
+  cursor: pointer;
   border: none;
   font-size: inherit;
   margin: 0;
@@ -1902,7 +1947,7 @@ Apache-2.0 Software License.
   .ba-videorecorder-theme-elevate-bubble-info:before {
     border-bottom: 6px solid transparent;
     border-bottom: 6px solid rgba(255, 255, 255, 0);
-    border-right: 9px solid #fallabck;
+    border-right: 9px solid #ffffff;
     border-right: 9px solid white;
     border-top: 6px solid transparent;
     border-top: 6px solid rgba(255, 255, 255, 0);

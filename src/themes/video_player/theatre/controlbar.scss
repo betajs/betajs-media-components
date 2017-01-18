@@ -6,7 +6,7 @@
     height: $controlbar_height;
     left: 12.5%;
     opacity: 1;
-    overflow: hidden;
+    //overflow: hidden;
     position: absolute;
     width: $dashboard_width;
 }
@@ -69,8 +69,12 @@
     color: $button_color;
 }
 
-.#{$css}-icon-volume-up{
+.#{$css}-icon-volume-up, .#{$css}-icon-volume-down {
     color: $button_color_secondary;
+}
+
+.#{$css}-icon-volume-off {
+    color: $volume_off_color;
 }
 
 .#{$cssnoie8} .#{$css}-rightbutton-container {
@@ -100,6 +104,9 @@
     margin-left: 3px;
 }
 
+.#{$css}-button-inner {
+    @include clickable;
+}
 
 .#{$css}-time-container {
     @include float-width-height(left, $time_value_width, 100%);
@@ -128,6 +135,22 @@
     margin-right: $volume_height*2;
 }
 
+.#{$css}-volumebar {
+    @include hide-slow(0.5);
+    background: $controlbar_background;
+    bottom: 25px;
+    height: $volume_height;
+    left: $button_width - 10;
+    margin: 0 auto;
+    padding: 5px;
+    position: absolute;
+    width: auto;
+}
+
+.#{$css}-volumebar:hover, .#{$css}-volume-icon-container:hover .#{$css}-volumebar {
+    @include show-slow(0.2);
+}
+
 .#{$cssie8} .#{$css}-volumebar {
     @include float-width-height(right, $volume_width, 50%);
     margin-top: $ie8_margintop+10;
@@ -139,15 +162,15 @@
     @include border-round-edges($volume_height / 2);
     @include clickable;
     @include background-rgba(93, 170, 150, 0.3, #cee5df);
-    //background: $controls_bgcolor;
     height: $volume_height;
+    width: $volume_width;
 }
 
 .#{$css}-volumebar-position {
     @include border-round-edges($volume_height / 2);
-    @include absolute-align-left();
+    @include absolute-align-bottom();
     background-color: $button_color;
-    height: 100%;
+    width: 100%;
 }
 
 .#{$css}-progressbar{
@@ -160,7 +183,7 @@
 .#{$css}-progressbar-inner {
     @include relative-center-center;
     @include clickable;
-    height: $volume_height;
+    height: $progressbar_height;
     background: $progressbar_cache_bgcolor;
 }
 
@@ -209,6 +232,7 @@
     text-align: right;
     margin-right: 3px;
     .#{$css}-stream-label{
+        @include clickable;
         background-color: $stream_label_bg_color;
         color: $stream_label_color;
         padding: 5px;

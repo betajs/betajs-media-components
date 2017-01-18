@@ -1,9 +1,8 @@
 .#{$css}-dashboard {
   @include absolute-align-full-bottom;
   @include transition1(opacity, $dashboard_transition, ease-in-out);
-  @include background-rgba(0, 0, 0, 0.35, #b2b2b2);
+  @include background-rgba(0, 0, 0, 0.5, #666666);
   //background: $controlbar_background;
-  bottom: -1px;
   color: $text_color;
   font-size: $text_fontsize;
   height: $controlbar_height;
@@ -11,6 +10,32 @@
   overflow: hidden;
 }
 
+.#{$css}-button-inner {
+    @include clickable;
+}
+
+.#{$css}-volumebar {
+    float: left;
+    width: $volume_width;
+    height: $controlbar_height;
+    margin-right: 10px;
+}
+
+.#{$css}-volumebar-inner {
+    @include relative-center-center;
+    @include border-round-edges($volume_height / 2);
+    @include clickable;
+    @include background-rgba(93, 170, 150, 0.3, #cee5df);
+    //background: $controls_bgcolor;
+    height: $volume_height;
+}
+
+.#{$css}-volumebar-position {
+  @include border-round-edges($volume_height / 2);
+  @include absolute-align-left();
+  background-color: $progressbar_button_overflow;
+  height: 100%;
+}
 
 .#{$css}-left-block {
   float: left;
@@ -43,6 +68,7 @@
   @include background-rgba(0, 0, 0, 0.35, #b2b2b2);
   //background: $controlbar_background;
   color: $text_color;
+  cursor: default;
   letter-spacing: .1em;
   width: 84px;
   font-weight: 100;

@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.39 - 2017-01-04
+betajs-media-components - v0.0.39 - 2017-01-18
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -619,6 +619,10 @@ Apache-2.0 Software License.
   text-align: center;
   color: #eb6a74;
   font-size: 13px; }
+
+.ba-videoplayer-theme-modern-button-inner {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent; }
 
 .ba-videoplayer-theme-modern-time-container {
   float: left;
@@ -1650,6 +1654,7 @@ Apache-2.0 Software License.
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   color: white;
+  cursor: pointer;
   font-size: 20px;
   margin-left: 5px;
   margin-right: 5px;

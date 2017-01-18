@@ -29,13 +29,6 @@
   }
 }
 
-.#{$css}-title {
-  width: 100%;
-  text-align: center;
-  position: absolute;
-  top: 30px;
-}
-
 .#{$cssnoie8} .#{$css}-topmessage-message .#{$css}-button-inner {
   @include transform-translate-y(0);
 }

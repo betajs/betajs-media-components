@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.39 - 2017-01-04
+betajs-media-components - v0.0.39 - 2017-01-18
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -659,6 +659,10 @@ Apache-2.0 Software License.
 .ba-videoplayer-noie8 .ba-videoplayer-space-theme-button-inner {
   color: #ffffff;
   font-size: 13px; }
+
+.ba-videoplayer-space-theme-button-inner {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent; }
 
 .ba-videoplayer-noie8 .ba-videoplayer-space-theme-controlbar-footer .ba-videoplayer-space-theme-button-inner {
   -webkit-transform: translateY(-50%);
@@ -1782,12 +1786,13 @@ Apache-2.0 Software License.
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   color: #ffffff;
+  cursor: pointer;
   font-size: 20px;
   margin-left: 5px;
   margin-right: 5px;
   padding: 3px;
-  padding-left: 7px 15px;
-  padding-right: 7px 15px;
+  padding-left: 15px;
+  padding-right: 15px;
   border: 1px solid #ffffff;
   border-radius: 50%; }
 
@@ -1805,8 +1810,8 @@ Apache-2.0 Software License.
   margin-left: 5px;
   margin-right: 5px;
   padding: 3px;
-  padding-left: 7px 15px;
-  padding-right: 7px 15px;
+  padding-left: 15px;
+  padding-right: 15px;
   border: 1px solid #ffffff;
   border-radius: 50%; }
 
@@ -1923,7 +1928,7 @@ Apache-2.0 Software License.
   .ba-videorecorder-theme-space-long-rounded-button > p {
     font-family: sans-serif;
     font-size: 12px;
-    padding: 7px 15px;
+    padding: 15px;
     margin: 0; }
 
 .ba-videorecorder-theme-space-circle-button {
@@ -1947,6 +1952,7 @@ Apache-2.0 Software License.
 
 .ba-videorecorder-theme-space-button-inner {
   border: none;
+  cursor: pointer;
   font-size: inherit;
   height: 100%;
   margin: 0;
@@ -2047,6 +2053,9 @@ Apache-2.0 Software License.
   float: right;
   text-align: left;
   width: 50%; }
+
+.ba-videorecorder-theme-space-timer-container {
+  cursor: default; }
 
 .ba-videorecorder-theme-space-imagegallery-image, img {
   border: none;
@@ -2215,7 +2224,7 @@ Apache-2.0 Software License.
   font-family: sans-serif;
   font-size: 12px;
   font-weight: 100;
-  padding: 7px 15px;
+  padding: 15px;
   position: relative;
   margin: 15px 0 0 15px; }
 

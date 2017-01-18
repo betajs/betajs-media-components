@@ -91,7 +91,7 @@
     @include relative-center-center;
     @include clickable;
     color: $text_color;
-    font-size: $button_fontsize;        
+    font-size: $button_fontsize;
 }
 
 .#{$css}-button-text {

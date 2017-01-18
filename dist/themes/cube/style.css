@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.39 - 2017-01-04
+betajs-media-components - v0.0.39 - 2017-01-18
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -567,14 +567,52 @@ Apache-2.0 Software License.
   -moz-transition: opacity 0.5s ease-in-out;
   -webkit-transition: opacity 0.5s ease-in-out;
   -o-transition: opacity 0.5s ease-in-out;
-  background: #b2b2b2;
-  background: rgba(0, 0, 0, 0.35);
-  bottom: -1px;
+  background: #666666;
+  background: rgba(0, 0, 0, 0.5);
   color: #ffffff;
   font-size: 13px;
   height: 40px;
   opacity: 0.9;
   overflow: hidden; }
+
+.ba-videoplayer-cube-theme-button-inner {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent; }
+
+.ba-videoplayer-cube-theme-volumebar {
+  float: left;
+  width: 60px;
+  height: 40px;
+  margin-right: 10px; }
+
+.ba-videoplayer-cube-theme-volumebar-inner {
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  top: 50%;
+  position: relative;
+  text-align: center;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  background: #cee5df;
+  background: rgba(93, 170, 150, 0.3);
+  height: 6px; }
+
+.ba-videoplayer-cube-theme-volumebar-position {
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  position: absolute;
+  left: 0;
+  background-color: #5daa96;
+  height: 100%; }
 
 .ba-videoplayer-cube-theme-left-block {
   float: left; }
@@ -588,7 +626,7 @@ Apache-2.0 Software License.
 .ba-videoplayer-cube-theme-right-block {
   float: right; }
   .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-up, .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-down, .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-full {
-    color: #b0b0b0; }
+    color: #d2d2d2; }
 
 .ba-videoplayer-cube-theme-button-container {
   float: left;
@@ -601,6 +639,7 @@ Apache-2.0 Software License.
   background: #b2b2b2;
   background: rgba(0, 0, 0, 0.35);
   color: #ffffff;
+  cursor: default;
   letter-spacing: .1em;
   width: 84px;
   font-weight: 100;
@@ -1547,6 +1586,7 @@ Apache-2.0 Software License.
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   color: #ffffff;
+  cursor: pointer;
   font-size: 20px;
   margin-left: 5px;
   margin-right: 5px;
@@ -1710,6 +1750,7 @@ Apache-2.0 Software License.
 .ba-videorecorder-theme-cube-button-inner {
   border: none;
   color: white;
+  cursor: pointer;
   font-size: inherit;
   height: 100%;
   margin: 0;
@@ -1828,6 +1869,9 @@ Apache-2.0 Software License.
   position: absolute;
   right: 0;
   top: auto; }
+
+.ba-videorecorder-theme-cube-timer-container {
+  cursor: default; }
 
 .ba-videorecorder-theme-cube-imagegallery-image, img {
   border: none;

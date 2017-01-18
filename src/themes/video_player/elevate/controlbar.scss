@@ -84,8 +84,9 @@
     color: $button_color;
 }
 
-.#{$css}-icon-volume-up, .#{$css}-icon-play, .#{$css}-icon-pause, .#{$css}-icon-resize-full {
-    &:before{
+.#{$css}-icon-volume-up, .#{$css}-icon-play, .#{$css}-icon-pause,
+.#{$css}-icon-resize-full, .#{$css}-icon-volume-down {
+    &:before {
         font-size: $text_fontsize;
         margin: 0;
         line-height: inherit;
@@ -108,6 +109,10 @@
     color: $button_color;
     font-size: $button_fontsize;
     margin-left: 3px;
+}
+
+.#{$css}-button-inner {
+    @include clickable;
 }
 
 .#{$css}-time-container {
@@ -224,13 +229,37 @@
 
 .#{$css}-stream-label-container{
     .#{$css}-stream-label {
+        @include clickable;
         background-color: $stream_label_bg_color;
         color: $stream_label_color;
         padding: 3px;
     }
 }
 
-.#{$css}-top-left-block{
+.#{$css}-left-block .#{$css}-volumebar {
+    float: left;
+    height: $controlbar_bottom_height;
+    padding: 0 5px;
+    width: $volume_width;
+}
+
+.#{$css}-volumebar-inner {
+    @include relative-center-center;
+    @include border-round-edges($volume_height / 2);
+    @include clickable;
+    @include background-rgba(93, 170, 150, 0.3, #cee5df);
+    //background: $controls_bgcolor;
+    height: $volume_height;
+}
+
+.#{$css}-volumebar-position {
+    @include border-round-edges($volume_height / 2);
+    @include absolute-align-left();
+    background-color: $progressbar_button_overflow;
+    height: 100%;
+}
+
+.#{$css}-top-left-block {
     float: left;
 }
 
@@ -239,7 +268,7 @@
     padding-left: 4px;
 }
 
-.#{$css}-icon-resize-full{
+.#{$css}-icon-resize-full {
     color: $button_color_secondary;
 }
 

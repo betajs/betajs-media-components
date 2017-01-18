@@ -265,7 +265,16 @@ module.exports = function(grunt) {
     .browserstackTask(null, 'tests/tests.html', {desktop: true, mobile: false})
     .browserstackTask(null, 'tests/tests.html', {desktop: false, mobile: true})
     .lintTask(null, ['./src/**/*.js', './dist/' + dist + '-noscoped.js', './dist/' + dist + '.js', './Gruntfile.js', './tests/**/*.js'])
-    .csslinterTask(null, ['dist/betajs-media-components.css', 'dist/themes/modern.css', 'dist/themes/space/style.css'])
+    .csslinterTask(null, [
+      'dist/betajs-media-components.css',
+      'dist/themes/cube/style.css',
+      'dist/themes/modern/style.css',
+      'dist/themes/space/style.css',
+      'dist/themes/theatre/style.css',
+      'dist/themes/elevate/style.css',
+      'dist/themes/minimalist/style.css',
+      'dist/themes/theatre/style.css'
+    ])
 
     /* External Configurations */
     .codeclimateTask()
@@ -295,40 +304,40 @@ module.exports = function(grunt) {
 	grunt.initConfig(gruntHelper.config);
 
 	grunt.registerTask('default', [
-        'package',
-        'readme',
-        'license',
-        'codeclimate',
-        'templates-dist',
-        'locales',
-        'scopedclosurerevision',
-        'concat-scoped',
-        'uglify-noscoped',
-        'uglify-scoped',
-        'concat-dist-css',
-        'cssmin-dist',
-        'clean-compile',
-        'copy-fonts',
-        "generate-default-yml",
+      'package',
+      'readme',
+      'license',
+      'codeclimate',
+      'templates-dist',
+      'locales',
+      'scopedclosurerevision',
+      'concat-scoped',
+      'uglify-noscoped',
+      'uglify-scoped',
+      'concat-dist-css',
+      'cssmin-dist',
+      'clean-compile',
+      'copy-fonts',
+      "generate-default-yml",
 
-        // Include theme generation
-        "modern-theme",
-        "space-theme",
-        "theatre-theme",
-        "elevate-theme",
-        "cube-theme",
-        "minimalist-theme"
+      // Include theme generation
+      "modern-theme",
+      "space-theme",
+      "theatre-theme",
+      "elevate-theme",
+      "cube-theme",
+      "minimalist-theme"
     ]);
 
   // ** MODERN THEME **//
 	grunt.registerTask('modern-theme', [
-        'templates-modern-theme',
-        'concat-modern-theme',
-        'uglify-modern-theme',
-        'concat-modern-theme-css',
-        'cssmin-modern-theme',
-        'clean-modern-theme'
-    ]);
+      'templates-modern-theme',
+      'concat-modern-theme',
+      'uglify-modern-theme',
+      'concat-modern-theme-css',
+      'cssmin-modern-theme',
+      'clean-modern-theme'
+  ]);
 
   // **  SPACE THEME **//
   grunt.registerTask('space-theme', [

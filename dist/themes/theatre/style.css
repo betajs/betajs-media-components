@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.39 - 2017-01-04
+betajs-media-components - v0.0.39 - 2017-01-18
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -566,7 +566,6 @@ Apache-2.0 Software License.
   height: 28px;
   left: 12.5%;
   opacity: 1;
-  overflow: hidden;
   position: absolute;
   width: 75%; }
 
@@ -616,8 +615,11 @@ Apache-2.0 Software License.
 .ba-videoplayer-theatre-theme-icon-play, .ba-videoplayer-theatre-theme-icon-pause {
   color: #5daa96; }
 
-.ba-videoplayer-theatre-theme-icon-volume-up {
+.ba-videoplayer-theatre-theme-icon-volume-up, .ba-videoplayer-theatre-theme-icon-volume-down {
   color: #b0b0b0; }
+
+.ba-videoplayer-theatre-theme-icon-volume-off {
+  color: red; }
 
 .ba-videoplayer-theatre-noie8 .ba-videoplayer-theatre-theme-rightbutton-container {
   float: right;
@@ -655,6 +657,10 @@ Apache-2.0 Software License.
   font-size: 13px;
   margin-left: 3px; }
 
+.ba-videoplayer-theatre-theme-button-inner {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent; }
+
 .ba-videoplayer-theatre-theme-time-container {
   float: left;
   width: 40px;
@@ -685,16 +691,34 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-theatre-noie8 .ba-videoplayer-theatre-theme-volumebar {
   float: right;
-  width: 60px;
+  width: 7px;
   height: 100%;
-  margin-right: 20px; }
+  margin-right: 120px; }
+
+.ba-videoplayer-theatre-theme-volumebar {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s linear;
+  background: #ffffff;
+  bottom: 25px;
+  height: 60px;
+  left: 30px;
+  margin: 0 auto;
+  padding: 5px;
+  position: absolute;
+  width: auto; }
+
+.ba-videoplayer-theatre-theme-volumebar:hover, .ba-videoplayer-theatre-theme-volume-icon-container:hover .ba-videoplayer-theatre-theme-volumebar {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s, opacity 0.2s linear; }
 
 .ba-videoplayer-theatre-ie8 .ba-videoplayer-theatre-theme-volumebar {
   float: right;
-  width: 60px;
+  width: 7px;
   height: 50%;
   margin-top: 16px;
-  margin-right: 20px; }
+  margin-right: 120px; }
 
 .ba-videoplayer-theatre-theme-volumebar-inner {
   -webkit-transform: translateY(-50%);
@@ -705,25 +729,26 @@ Apache-2.0 Software License.
   top: 50%;
   position: relative;
   text-align: center;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   background: #cee5df;
   background: rgba(93, 170, 150, 0.3);
-  height: 10px; }
+  height: 60px;
+  width: 7px; }
 
 .ba-videoplayer-theatre-theme-volumebar-position {
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
   position: absolute;
-  left: 0;
+  bottom: 0;
   background-color: #5daa96;
-  height: 100%; }
+  width: 100%; }
 
 .ba-videoplayer-theatre-theme-progressbar {
   overflow: hidden;
@@ -783,6 +808,8 @@ Apache-2.0 Software License.
   text-align: right;
   margin-right: 3px; }
   .ba-videoplayer-theatre-theme-stream-label-container .ba-videoplayer-theatre-theme-stream-label {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
     background-color: #5daa96;
     color: #ffffff;
     padding: 5px; }
@@ -1681,6 +1708,7 @@ Apache-2.0 Software License.
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   color: #ffffff;
+  cursor: pointer;
   font-size: 20px;
   margin-left: 5px;
   margin-right: 5px;
@@ -1842,6 +1870,7 @@ Apache-2.0 Software License.
 
 .ba-videorecorder-theme-theatre-button-inner {
   border: none;
+  cursor: pointer;
   color: #333333;
   font-size: inherit;
   height: 100%;
@@ -1959,6 +1988,9 @@ Apache-2.0 Software License.
   position: absolute;
   right: 0;
   top: auto; }
+
+.ba-videorecorder-theme-theatre-timer-container {
+  cursor: default; }
 
 .ba-videorecorder-theme-theatre-imagegallery-image, img {
   border: none;

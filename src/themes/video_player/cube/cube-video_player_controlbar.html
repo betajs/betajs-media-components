@@ -45,6 +45,15 @@
             </div>
         </div>
 
+        <div class="{{css}}-volumebar">
+            <div data-selector="button-volume-bar" class="{{css}}-volumebar-inner"
+                 onmousedown="{{startUpdateVolume(domEvent)}}"
+                 onmouseup="{{stopUpdateVolume(domEvent)}}"
+                 onmouseleave="{{stopUpdateVolume(domEvent)}}"
+                 onmousemove="{{progressUpdateVolume(domEvent)}}">
+                <div class="{{css}}-volumebar-position" ba-styles="{{{width: Math.ceil(1+Math.min(99, Math.round(volume * 100))) + '%'}}}" title="{{string('volume-button')}}"></div>
+            </div>
+        </div>
 
         <div data-selector="button-stream-label" class="{{css}}-button-container" ba-if="{{streams.length > 1 && currentstream}}" ba-click="toggle_stream()" title="{{string('change-resolution')}}">
             <div class="{{css}}-button-inner {{css}}-stream-label-container">

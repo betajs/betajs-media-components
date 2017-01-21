@@ -80,7 +80,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
 	}).register("ba-videorecorder-chooser")
 	.attachStringTable(Assets.strings)
     .addStrings({
-    	"record-video": "Record Your Video",
+    	"record-video": "Record Video",
     	"upload-video": "Upload Video"
     });
 });

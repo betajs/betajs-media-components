@@ -323,10 +323,10 @@ module.exports = function(grunt) {
       // Include theme generation
       "modern-theme",
       "space-theme",
-      "theatre-theme",
-      "elevate-theme",
       "cube-theme",
-      "minimalist-theme"
+      "elevate-theme",
+      "minimalist-theme",
+      "theatre-theme"
     ]);
 
   // ** MODERN THEME **//

@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.39 - 2017-01-19
+betajs-media-components - v0.0.39 - 2017-01-21
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -39,6 +39,7 @@ Scoped.extend("module:Assets.recorderthemes", [
 			css: "ba-videorecorder-theme-minimalist",
 			cssmessage: "ba-videorecorder",
 			cssloader: "ba-videorecorder",
+      tmplchooser: Templates["minimalist-video_recorder_chooser"],
       tmpltopmessage: Templates["minimalist-video_recorder_topmessage"],
       tmplcontrolbar: Templates["minimalist-video_recorder_controlbar"],
       tmplimagegallery: Templates["minimalist-recorder_imagegallery"],

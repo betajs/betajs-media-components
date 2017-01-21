@@ -8,5 +8,5 @@ browserstack.json
 BrowserStackLocal
 jsdoc.conf.json
 /demos/recorder*.html
-/tests/server/temp
-/tests/server/files
+/tests/server/temp/*
+/tests/server/files/*

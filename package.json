@@ -16,7 +16,7 @@
     },
     "name": "betajs-media-components",
     "version": "0.0.42",
-    "description": "BetaJS-Media-Components is a JavaScript media UI components framework",
+    "description": "Using latest powerful technologies record, save and play your media stream on all major desktop and mobile browsers. It's using WebRTC and Flash in case if browser not supports WebRTC. It's part of open-source <a href='https://github.com/betajs' target='_blank'>BetaJS</a> project, which is containing a lot of awesome and useful Javascript framework collection.",
     "contributors": [
         "Ziggeo",
         "Oliver Friedmann"

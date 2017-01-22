@@ -306,7 +306,7 @@
     /* IE9/FF/chrome/safari supported */
     background: rgba($R, $G, $B, $opacity);
 
-    /* IE 8 suppoerted */
+    /* IE 8 supported */
     /* Here some time problem for Hover than you can use background color/image */
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$filter}, endColorstr=#{$filter})";
 

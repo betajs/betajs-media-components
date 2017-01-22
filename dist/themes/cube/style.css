@@ -575,6 +575,26 @@ Apache-2.0 Software License.
   opacity: 0.9;
   overflow: hidden; }
 
+.ba-videoplayer-ie8 .ba-videoplayer-cube-theme-video-title-block {
+  display: none; }
+
+.ba-videoplayer-noie8 .ba-videoplayer-cube-theme-video-title-block {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  background: #999999;
+  background: rgba(0, 0, 0, 0.4); }
+
+.ba-videoplayer-cube-theme-video-title {
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+  font-weight: 100;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  margin: 0;
+  padding: 10px 15px; }
+
 .ba-videoplayer-cube-theme-button-inner {
   cursor: pointer;
   -webkit-tap-highlight-color: transparent; }

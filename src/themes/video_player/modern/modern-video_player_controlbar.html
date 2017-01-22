@@ -1,3 +1,8 @@
+<div class="{{css}}-video-title-container" ba-if="{{title}}">
+    <p class="{{css}}-video-title">
+        {{string('sample-title')}}
+    </p>
+</div>
 
 <div class="{{css}}-dashboard {{activitydelta > 5000 && hideoninactivity ? (css + '-dashboard-hidden') : ''}}">
         <div data-selector="submit-video-button" class="{{css}}-leftbutton-container" ba-if="{{submittable}}"  ba-click="submit()">

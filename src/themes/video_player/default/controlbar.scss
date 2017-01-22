@@ -175,3 +175,15 @@
     height: $progressbar_height + 2 * $progressbar_button_overflow;
 }
 
+.#{$css}-video-title {
+    color: $video_title_font_color;
+    display: inline-block;
+    font-family: $video_title_font_family;
+    font-weight: $video_title_font_weight;
+    font-size: $video_title_font_size;
+    float: left;
+    letter-spacing: $video_title_letter_spacing;
+    line-height: $video_title_line_height;
+    margin: $video_title_margin;
+}
+

@@ -1,10 +1,10 @@
-<div class="{{css}}-dashboard {{activitydelta > 5000 && hideoninactivity ? (css + '-dashboard-hidden') : ''}}">
+<div data-selector="video-title-block" class="{{css}}-video-title-block" ba-if="{{title}">
+    <p class="{{css}}-video-title">
+        {{string('sample-title')}}
+    </p>
+</div>
 
-    <div data-selector="title-container" class="{{css}}-title-container" ba-if="{{title}}">
-       <div class="{{css}}-title">
-           {{string('title-text')}}
-       </div>
-    </div>
+<div class="{{css}}-dashboard {{activitydelta > 5000 && hideoninactivity ? (css + '-dashboard-hidden') : ''}}">
 
     <div class="{{css}}-left-block">
 

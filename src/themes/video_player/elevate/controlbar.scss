@@ -217,13 +217,13 @@
 
 .#{$css}-video-title-block > p {
     font-size: $text_fontsize;
-    color: $button_color_secondary;
-    margin: 0;
+    color: $controlbar_video_title_color;
     line-height: $controlbar_line_height;
+    margin: 0;
     & > span {
-        font-size: 1em;
         color: $text_color;
         font-weight: bold;
+        font-size: 1em;
     }
 }
 

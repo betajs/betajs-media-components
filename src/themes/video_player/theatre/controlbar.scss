@@ -1,7 +1,7 @@
 /* Theatre */
 .#{$css}-dashboard {
     background: $controlbar_background;
-    bottom: 15px;
+    bottom: $controlbar_distance_from_side;
     border: 1px solid $dashboard_border_color;
     height: $controlbar_height;
     left: 12.5%;
@@ -54,6 +54,25 @@
     & .#{$css}-time-value{
         text-align: left;
     }
+}
+
+.#{$cssie8} .#{$css}-video-title-container{
+   display: none;
+}
+
+.#{$css}-video-title-container{
+  @include absolute-align-full-top();
+  width: 100%;
+  & > p {
+    @include background-rgba( 255, 255, 255, 0.4, $controlbar_background);
+    @include relative-horizontally-center();
+    height: $controlbar_height;
+    line-height: $controlbar_height;
+    top: $controlbar_distance_from_side;
+    text-align: center;
+    color: $text_color;
+    width: $dashboard_width;
+  }
 }
 
 .#{$css}-leftbutton-container {

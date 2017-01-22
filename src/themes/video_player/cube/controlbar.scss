@@ -10,6 +10,25 @@
   overflow: hidden;
 }
 
+.#{$cssie8} .#{$css}-video-title-block {
+  display: none;
+}
+
+.#{$cssnoie8} .#{$css}-video-title-block {
+  @include absolute-align-full-top();
+  @include background-rgba(0, 0, 0, 0.4, #999999);
+}
+
+.#{$css}-video-title {
+  color: $title_text_color;
+  font-family: $font_family;
+  font-weight: 100;
+  font-size: $title_font_size;
+  letter-spacing: $text_letter_spacing;
+  margin: 0;
+  padding: $title_padding;
+}
+
 .#{$css}-button-inner {
     @include clickable;
 }

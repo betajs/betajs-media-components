@@ -1,5 +1,11 @@
 <div class="{{css}}-dashboard {{activitydelta > 5000 && hideoninactivity ? (css + '-dashboard-hidden') : ''}}">
 
+    <div data-selector="title-container" class="{{css}}-title-container" ba-if="{{title}}">
+       <div class="{{css}}-title">
+           {{string('title-text')}}
+       </div>
+    </div>
+
     <div class="{{css}}-left-block">
 
         <div data-selector="submit-video-button" class="{{css}}-button-container" ba-if="{{submittable}}"  ba-click="submit()">

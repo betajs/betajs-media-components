@@ -31,7 +31,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 				"streams": [],
 				"currentstream": null,
 				"fullscreen": true,
-				"activitydelta": 0
+				"activitydelta": 0,
+        "title": true
 			},
 			
 			computed: {
@@ -177,6 +178,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
     	"volume-mute": "Mute sound",
     	"volume-unmute": "Unmute sound",
     	"change-resolution": "Change resolution",
-			"share-media": "Share this media"
+			"share-media": "Share this media",
+      "sample-title": "Title of the video"
     });
 });

@@ -31,7 +31,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 				"streams": [],
 				"currentstream": null,
 				"fullscreen": true,
-				"activitydelta": 0
+				"activitydelta": 0,
+        "title": true
 			},
 			
 			computed: {
@@ -80,11 +81,35 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 					this.set("volume", (event[0].clientX - $(event[0].currentTarget).offset().left) / $(event[0].currentTarget).width());
 					this.trigger("volume", this.get("volume"));
 				},
-				
-				stopUpdateVolume: function (event) {
-					event[0].preventDefault();
-					this.set("_updateVolume", false);
-				},
+
+        stopUpdateVolume: function (event) {
+          event[0].preventDefault();
+          this.set("_updateVolume", false);
+        },
+
+				startVerticallyUpdateVolume: function (event) {
+          event[0].preventDefault();
+          this.set("_updateVolume", true);
+          this.call("progressVerticallyUpdateVolume", event);
+        },
+
+        progressVerticallyUpdateVolume: function (event) {
+          event[0].preventDefault();
+          if (!this.get("_updateVolume"))
+            return;
+
+          var position = event[0].pageY - $(event[0].currentTarget).offset().top;
+					var percentage = 1 - ( position / $(event[0].currentTarget).height() );
+
+          this.set("volume", ( percentage ) );
+          this.trigger("volume", this.get("volume"));
+        },
+
+				stopVerticallyUpdateVolume: function (event) {
+          event[0].preventDefault();
+          this.set("_updateVolume", false);
+        },
+
 
 				play: function () {
 					this.trigger("play");

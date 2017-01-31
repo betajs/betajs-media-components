@@ -37,6 +37,7 @@
 .#{$css}-button-inner {
   border: none;
   color: $controlbar_button_color;
+  cursor: pointer;
   font-size: inherit;
   height: 100%;
   margin: 0;
@@ -132,5 +133,4 @@
   @include absolute-align-right-bottom();
 }
 
-.#{$css}-timer-container {
-}
+.#{$css}-timer-container { cursor: default; }

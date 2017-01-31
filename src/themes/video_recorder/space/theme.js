@@ -8,6 +8,7 @@ Scoped.extend("module:Assets.recorderthemes", [ "module:Templates" ], function(
 			tmplcontrolbar : Templates["space-video_recorder_controlbar"],
 			tmplimagegallery : Templates["space-recorder_imagegallery"],
 			cssloader: "ba-videorecorder",
+			tmplchooser: Templates["space-video_recorder_chooser"],
 			tmplmessage : Templates["space-video_recorder_message"]
 		}
 	};

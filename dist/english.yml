@@ -16,7 +16,7 @@
   ba-videoplayer-controlbar.volume-mute: Mute sound
   ba-videoplayer-controlbar.volume-unmute: Unmute sound
   ba-videoplayer.video-error: 'An error occurred, please try again later. Click to retry.'
-  ba-videorecorder-chooser.record-video: Record Your Video
+  ba-videorecorder-chooser.record-video: Record Video
   ba-videorecorder-chooser.upload-video: Upload Video
   ba-videorecorder-controlbar.settings: Settings
   ba-videorecorder-controlbar.camerahealthy: Lighting is good

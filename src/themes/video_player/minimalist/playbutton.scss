@@ -4,7 +4,8 @@
 
 .#{$css}-playbutton-container {
     border-radius: 50%;
-    @include background-rgba( 93, 170, 150, .4, #417669 );
+    background: none;
+    border: 1px solid #b2b2b2;
 	@include transform-translate(-50%, -50%);
 	@include absolute-center-center;
 	@include transition2(border, background, $playbutton_transition_time, ease-in-out);
@@ -20,20 +21,20 @@
 }
 
 .#{$css}-playbutton-container:hover .#{$css}-playbutton-button {
-    @include border-left-rgba(3.5em, 255, 255, 255, $playbutton_hover_opacity, white);
+    @include border-left-rgba( 2em, 255, 255, 255, $playbutton_hover_opacity, white);
 }
 
 .#{$css}-playbutton-button {
-    @include border-left-rgba(3.5em, 0, 0, 0, $playbutton_default_opacity, #666666);
+    border-left: 2em solid #ffffff;
     @include transition1(border-left, $playbutton_transition_time, ease-in-out);
     position: relative;
     margin: auto;
     width: 0;
     height: 0;
-    border-top: 2em solid transparent;
-    border-bottom: 2em solid transparent;
-    left: 4px;
-    top: 17px;
+    border-top: 1.5em solid transparent;
+    border-bottom: 1.5em solid transparent;
+    left: 3px;
+    top: 16px;
 }
 
 .#{$css}-rerecord-bar {

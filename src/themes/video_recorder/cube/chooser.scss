@@ -1,23 +1,46 @@
-.#{$css}-chooser-container {
+.#{$css}-chooser-container{
 	background: $chooser_background;
 }
 
 .#{$css}-chooser-icon-container {
-	background: $chooser_background;
-	margin: 16px;
-	color: $button_color;
-	font-size: 32px;
+	color: $chooser_primary_button_bgcolor;
+	font-size: $chooser_icon_size;
+	margin: $chooser_icon_margin;
 }
 
-.#{$css}-chooser-primary-button{
-	background: $button_color;
-	border-radius: 0;
+.#{$css}-chooser-primary-button, .#{$css}-chooser-secondary-button {
+	line-height: $chooser_buttons_line_height;
+	min-width: $chooser_buttons_width;
+	padding: $chooser_primary_button_vertical_padding $chooser_primary_button_horizontal_padding;
 }
 
-.#{$css}-primary-button {
-	color: $text_color;
+.#{$css}-chooser-primary-button {
+	@include border-radius(0);
 }
 
-.#{$css}-chooser-secondary-button{
-	color: $button_color;
+.#{$css}-chooser-secondary-button {
+	@include background-rgba( 0, 0, 0, 0.6, #323232 );
+	color: $chooser_secondary_button_color;
+	line-height: 6px ;
+	margin-top: 12px;
+}
+
+.#{$css}-shape-record {
+	@include circle_shape( 6px, $button_color, 4px, #ffffff );
+	margin: 0 5px;
+	position: relative;
+	top: 3px;
+}
+
+.#{$css}-triangle-shape-border {
+	@include circle_shape( 4px, $chooser_secondary_button_color, 5px, $chooser_secondary_button_color );
+	margin: 0 5px;
+	position: relative;
+	top: 1px;
+	.#{$css}-shape-upload {
+		bottom: 4px;
+		@include triangle_up_shape( 6px, #323232 );
+		position: relative;
+		right: 1px;
+	}
 }

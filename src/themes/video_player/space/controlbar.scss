@@ -89,6 +89,10 @@
     font-size: $button_fontsize;
 }
 
+.#{$css}-button-inner {
+  @include clickable;
+}
+
 .#{$cssnoie8} .#{$css}-controlbar-footer .#{$css}-button-inner {
     @include relative-center-center;
 }

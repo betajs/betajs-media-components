@@ -55,6 +55,16 @@
     left: 0;
 }
 
+@mixin absolute-align-bottom {
+    position: absolute;
+    bottom: 0;
+}
+
+@mixin absolute-align-top {
+    position: absolute;
+    top: 0;
+}
+
 @mixin absolute-align-right-bottom {
     bottom: 0;
     left: auto;
@@ -187,6 +197,17 @@
     -o-transition: $attribute1 $time $mode, $attribute2 $time $mode;
 }
 
+@mixin hide-slow( $time ) {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity #{$time}s linear;
+}
+
+@mixin show-slow($time){
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0s, opacity #{$time}s linear;
+}
 
 @mixin clickable {
     cursor: pointer;
@@ -249,6 +270,33 @@
     zoom: 1;
 }
 
+@mixin rotate($degree) {
+    -webkit-transform: rotate($degree); /* Chrome, Safari, Opera */
+    -moz-transform: rotate($degree);
+    -o-transform: rotate($degree);
+    -ms-transform: rotate($degree); /* IE 9 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=#{$degree/30})";
+    transform: rotate($degree);
+}
+
+@mixin rotate90(){
+    -moz-transform:    rotate(90deg);
+    -o-transform:      rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform:         rotate(90deg);
+
+    /* IE8+ - must be on one line, unfortunately */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=-1.8369701987210297e-16, M12=-1, M21=1, M22=-1.8369701987210297e-16, SizingMethod='auto expand')";
+
+    /* IE6 and 7 */
+    filter: progid:DXImageTransform.Microsoft.Matrix(
+      M11=-1.8369701987210297e-16,
+      M12=-1,
+      M21=1,
+      M22=-1.8369701987210297e-16,
+      SizingMethod='auto expand');
+}
+
 
 @mixin background-rgba-ie($filter, $R, $G, $B, $opacity, $fallback) {
 
@@ -258,7 +306,7 @@
     /* IE9/FF/chrome/safari supported */
     background: rgba($R, $G, $B, $opacity);
 
-    /* IE 8 suppoerted */
+    /* IE 8 supported */
     /* Here some time problem for Hover than you can use background color/image */
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$filter}, endColorstr=#{$filter})";
 
@@ -275,6 +323,37 @@
     color: rgba($R, $G, $B, $opacity);
 
 }
+
+@mixin absolute_left_sidebar($width) {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: auto;
+    top: 0;
+    width: $width;
+}
+
+//############# SHAPES ############
+// $side_colors = transparent
+@mixin triangle_up_shape($bottom_width, $backgroung ) {
+    border-bottom: $bottom_width solid $backgroung;
+    border-left: $bottom_width / 2 solid transparent;
+    border-right: $bottom_width / 2 solid transparent;
+    display: inline-block;
+    height: 0;
+    width: 0;
+}
+
+@mixin circle_shape( $size, $backgroung, $border_width, $border_color ) {
+    background: $backgroung;
+    border: $border_width solid $border_color;
+    /* Cleaner, but slightly less support: use "50%" as value */
+    @include border-radius( $size * 4);
+    display: inline-block;
+    height: $size;
+    width: $size;
+}
+
 
 @mixin settings_bubble_bottom_shape ($h, $radius, $r, $g, $b, $o, $fallback, $left) {
     @include background-rgba($r, $g, $b, $o, $fallback);
@@ -308,7 +387,7 @@
     position: relative;
     &:before {
         @include border-bottom-rgba( 6px, $r, $g, $b, 0, transparent );
-        @include border-right-rgba( 9px, $r, $g, $b, $o, transparent );
+        @include border-right-rgba( 9px, $r, $g, $b, $o, $fallback );
         @include border-top-rgba( 6px, $r, $g, $b, 0, transparent );
         content:"";
         height: 0;
@@ -317,13 +396,4 @@
         right: 100%;
         width: 0;
     }
-}
-
-@mixin absolute_left_sidebar($width) {
-    bottom: 0;
-    left: 0;
-    position: absolute;
-    right: auto;
-    top: 0;
-    width: $width;
 }

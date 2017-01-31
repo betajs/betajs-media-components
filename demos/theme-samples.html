@@ -38,79 +38,39 @@
 
 </head>
 <body style="background: #EEE">
-
-    <h4>Cube</h4>
-    <ba-videoplayer ba-sources="{{[{src:'sample-video.mp4', poster: 'sample-cover.png', hd: true}, {src:'sample-video2.mp4', poster:'sample-cover2.png', hd: false}]}}"
-				ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
-				ba-theme="cube"
-				ba-noflash
-				ba-hideoninactivity="false"
-				ba-skipinitial="true"
-				ba-width='50%'></ba-videoplayer>
-
-
-    <h4>Elevate</h4>
-    <ba-videoplayer ba-sources="{{[{src:'sample-video.mp4', poster: 'sample-cover.png', hd: true}, {src:'sample-video2.mp4', poster:'sample-cover2.png', hd: false}]}}"
-				ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
-				ba-theme="elevate"
-				ba-noflash
-				ba-hideoninactivity="false"
-				ba-skipinitial="true"
-				ba-width='50%'></ba-videoplayer>
-
-    <h4>Theatre</h4>
-    <ba-videoplayer ba-sources="{{[{src:'sample-video.mp4', poster: 'sample-cover.png', hd: true}, {src:'sample-video2.mp4', poster:'sample-cover2.png', hd: false}]}}"
-                ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
-                ba-theme="theatre"
-                ba-noflash
-                ba-hideoninactivity="false"
-                ba-skipinitial="true"
-                ba-width='50%'></ba-videoplayer>
-
-	<h4>Space</h4>
-    <ba-videoplayer ba-sources="{{[{src:'sample-video.mp4', poster: 'sample-cover.png', hd: true}, {src:'sample-video2.mp4', poster:'sample-cover2.png', hd: false}]}}"
-				ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
-				ba-theme="space"
-				ba-noflash
-				ba-hideoninactivity="false"
-				ba-skipinitial="true"
-				ba-width='50%'></ba-videoplayer>
-
-	<h4>Minimalist</h4>
-    <ba-videoplayer ba-sources="{{[{src:'sample-video.mp4', poster: 'sample-cover.png', hd: true}, {src:'sample-video2.mp4', poster:'sample-cover2.png', hd: false}]}}"
-				ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
-				ba-theme="minimalist"
-				ba-noflash
-				ba-hideoninactivity="false"
-				ba-skipinitial="true"
-				ba-width='50%'></ba-videoplayer>
-
-	<h4>Modern</h4>
-	<ba-videoplayer ba-sources="{{[{src:'sample-video.mp4', poster: 'sample-cover.png', hd: true}, {src:'sample-video2.mp4', poster:'sample-cover2.png', hd: false}]}}"
+	<div ba-repeat="{{theme::themes}}">
+		<h4>{{theme}}</h4>
+		<ba-videoplayer ba-sources="{{[{src:'sample-video.mp4', poster: 'sample-cover.png', hd: true}, {src:'sample-video2.mp4', poster:'sample-cover2.png', hd: false}]}}"
 	                ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
-	                ba-theme="modern"
+	                ba-theme="{{theme}}"
+	                ba-title="Foobar"
 	                ba-noflash
 	                ba-hideoninactivity="false"
-	                ba-skipinitial="true"
-	                ba-experimental="true"
+	                ba-skipinitial="false"
 	                ba-width='50%'></ba-videoplayer>
-
-	<h4>Default</h4>
-	<ba-videoplayer ba-sources="{{[{src:'sample-video.mp4', poster: 'sample-cover.png', hd: true}, {src:'sample-video2.mp4', poster:'sample-cover2.png', hd: false}]}}"
-	                ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
-	                ba-theme="default"
-	                ba-noflash
-	                ba-hideoninactivity="false"
-	                ba-skipinitial="true"
-	                ba-experimental="true"
-	                ba-width='50%'></ba-videoplayer>
+	</div>
 
     <script>
         BetaJS.Flash.options = {
             flashFile: "../node_modules/betajs-flash/dist/betajs-flash.swf",
             forceReload: true
         };
-        BetaJS.Dynamics.Dynamic.activate();
+        BetaJS.Dynamics.Dynamic.activate({
+            element: document.body,
+        	attrs: {
+            	themes: [
+            		"default",
+            		"modern",
+            		"modern-blue",
+            		"modern-green",
+            		"cube",
+            		"space",
+            		"elevate",
+            		"theatre",
+            		"minimalist"
+            	]
+            }
+        });
     </script>
 </body>
 </html>

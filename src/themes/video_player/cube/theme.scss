@@ -5,6 +5,7 @@ $fontello_name: "bjsmc";
 
 $loader_size: 5px;
 $loader_frame_thickness: 0.6em;
+$text_letter_spacing: 0.1em;
 
 $message_bgcolor: black;
 $message_opacity: 0.75;
@@ -39,7 +40,7 @@ $ie8_margintop: 6px;
 $text_fontfamily: Helvetica Neue, Helvetica, Arial, sans-serif;
 $text_fontsize: 13px;
 $text_color: #ffffff;
-$button_color_secondary: #b0b0b0;
+$button_color_secondary: #d2d2d2;
 $controls_bgcolor: rgba(93, 170, 150, 0.3);
 $volume_width: 60px;
 $volume_height: 6px;
@@ -49,6 +50,9 @@ $progressbar_height: 40px;
 $stream_label_bg_color: #5daa96;
 $stream_label_color: #ffffff;
 
+$title_font_size: 13px;
+$title_padding: 10px 15px;
+$title_text_color: #ffffff;
 
 $rerecord_text_color: white;
 $rerecord_font_family: sans-serif;

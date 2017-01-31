@@ -8,6 +8,7 @@ Scoped.extend("module:Assets.recorderthemes", [ "module:Templates" ], function(
 			tmpltopmessage : Templates["elevate-video_recorder_topmessage"],
 			tmplcontrolbar : Templates["elevate-video_recorder_controlbar"],
 			tmplimagegallery : Templates["elevate-recorder_imagegallery"],
+		      tmplchooser: Templates["elevate-video_recorder_chooser"],
 			tmplmessage : Templates["elevate-video_recorder_message"]
 		}
 	};

@@ -26,9 +26,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 ], function (Class, Templates, Assets, Info, VideoPlayerWrapper, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, InitialState, PlayerStates, AdProvider, $, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {
-			
+
 			template: Templates.player,
-			
+
 			attrs: {
 				/* CSS */
 				"css": "ba-videoplayer",
@@ -91,7 +91,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 						"ignore": false,
 						"click_play": true
 					}
-				}				
+				}
 			},
 
 			types: {
@@ -110,11 +110,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"volume": "float",
 				"initialseek": "float"
 			},
-			
+
 			extendables: ["states"],
-			
+
 			remove_on_destroy: true,
-			
+
 			create: function () {
 				if (Info.isMobile()) {
 					if (Info.isiOS() && Info.iOSversion().major >= 10) {
@@ -151,7 +151,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				this.set("message", "");
 				this.set("fullscreensupport", false);
 				this.set("csssize", "normal");
-				
+
 				this.set("loader_active", false);
 				this.set("playbutton_active", false);
 				this.set("controlbar_active", false);
@@ -159,14 +159,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
 				this.set("last_activity", Time.now());
 				this.set("activity_delta", 0);
-				
+
 				this.set("playing", false);
-				
+
 				this.__attachRequested = false;
 				this.__activated = false;
 				this.__error = null;
 				this.__currentStretch = null;
-				
+
 				this.on("change:stretch", function () {
 					this._updateStretch();
 				}, this);
@@ -175,36 +175,36 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				}));
 				this.host.dynamic = this;
 				this.host.initialize(InitialState);
-				
+
 				this._timer = this.auto_destroy(new Timers.Timer({
 					context: this,
 					fire: this._timerFire,
 					delay: 100,
 					start: true
 				}));
-				
+
 				this.properties().compute("buffering", function () {
 					return this.get("playing") && this.get("buffered") < this.get("position") && this.get("last_position_change_delta") > 1000;
 				}, ["buffered", "position", "last_position_change_delta", "playing"]);
-				
+
 			},
-			
+
 			state: function () {
 				return this.host.state();
 			},
-			
+
 			videoAttached: function () {
 				return !!this.player;
 			},
-			
+
 			videoLoaded: function () {
 				return this.videoAttached() && this.player.loaded();
 			},
-			
+
 			videoError: function () {
 				return this.__error;
 			},
-			
+
 			_error: function (error_type, error_code) {
 				this.__error = {
 					error_type: error_type,
@@ -213,11 +213,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				this.trigger("error:" + error_type, error_code);
 				this.trigger("error", error_type, error_code);
 			},
-			
+
 			_clearError: function () {
 				this.__error = null;
 			},
-			
+
 			_detachVideo: function () {
 				this.set("playing", false);
 				if (this.player)
@@ -226,7 +226,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 					this._prerollAd.weakDestroy();
 				this.player = null;
 			},
-			
+
 			_attachVideo: function () {
 				if (this.videoAttached())
 					return;
@@ -257,10 +257,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 							adElement: $(this.activeElement()).find("[data-video='ad']").get(0)
 						});
 					}
-			    	this.player = instance;			    	
+			    	this.player = instance;
 					this.player.on("postererror", function () {
 				    	this._error("poster");
-					}, this);					
+					}, this);
 					this.player.on("playing", function () {
 						this.set("playing", true);
 						this.trigger("playing");
@@ -295,7 +295,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 					this._updateStretch();
 			    }, this);
 			},
-			
+
 			_getSources: function () {
 				var filter = this.get("currentstream") ? this.get("currentstream").filter : this.get("sourcefilter");
 				var poster = this.get("poster");
@@ -313,46 +313,46 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 					sources: sources
 				};
 			},
-			
+
 			_afterActivate: function (element) {
 				inherited._afterActivate.call(this, element);
 				this.__activated = true;
 				if (this.__attachRequested)
 					this._attachVideo();
 			},
-			
+
 			reattachVideo: function () {
 				this._detachVideo();
 				this._attachVideo();
 			},
 
 			object_functions: ["play", "rerecord", "pause", "stop", "seek", "set_volume"],
-			
+
 			functions: {
-				
+
 				user_activity: function () {
 					this.set("last_activity", Time.now());
 					this.set("activity_delta", 0);
 				},
-				
+
 				message_click: function () {
 					this.trigger("message:click");
 				},
-				
+
 				playbutton_click: function () {
 					this.host.state().play();
 				},
-				
+
 				play: function () {
 					this.host.state().play();
 				},
-				
+
 				rerecord: function () {
 					if (!this.get("rerecordable"))
 						return;
 					this.trigger("rerecord");
 				},
-				
+
 				submit: function () {
 					if (!this.get("submittable"))
 						return;
@@ -365,7 +365,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 					if (this.get("playing"))
 						this.player.pause();
 				},
-				
+
 				stop: function () {
 					if (!this.videoLoaded())
 						return;
@@ -373,8 +373,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 						this.player.pause();
 					this.player.setPosition(0);
 					this.trigger("stopped");
-				},			
-				
+				},
+
 				seek: function (position) {
 					if (this.videoLoaded())
 						this.player.setPosition(position);
@@ -389,19 +389,19 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 						this.player.setMuted(volume <= 0);
 					}
 				},
-				
+
 				toggle_fullscreen: function () {
 					if (this.videoLoaded())
 						this.player.enterFullscreen();
-				} 
-			
+				}
+
 			},
-			
+
 			destroy: function () {
 				this._detachVideo();
 				inherited.destroy.call(this);
 			},
-			
+
 			_timerFire: function () {
 				if (this.destroyed())
 					return;
@@ -420,27 +420,27 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				this._updateStretch();
 				this._updateCSSSize();
 			},
-			
+
 			_updateCSSSize: function () {
 				this.set("csssize", $(this.element()).width() > 400 ? "normal" : ($(this.element()).width() > 300 ? "medium" : "small"));
 			},
-			
+
 			videoHeight: function () {
 				return this.videoAttached() ? this.player.videoHeight() : NaN;
 			},
-			
+
 			videoWidth: function () {
 				return this.videoAttached() ? this.player.videoWidth() : NaN;
 			},
-			
+
 			aspectRatio: function () {
 				return this.videoWidth() / this.videoHeight();
 			},
-			
+
 			parentWidth: function () {
 				return $(this.activeElement()).parent().width();
 			},
-			
+
 			parentHeight: function () {
 				return $(this.activeElement()).parent().height();
 			},
@@ -448,7 +448,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 			parentAspectRatio: function () {
 				return this.parentWidth() / this.parentHeight();
 			},
-			
+
 			_updateStretch: function () {
 				var newStretch = null;
 				if (this.get("stretch")) {
@@ -470,16 +470,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 					if (newStretch)
 						$(this.activeElement()).addClass(this.get("css") + "-stretch-" + newStretch);
 				}
-				this.__currentStretch = newStretch;				
+				this.__currentStretch = newStretch;
 			}
 
 		};
 	}, {
-		
+
 		playerStates: function () {
 			return [PlayerStates];
 		}
-		
+
 	}).register("ba-videoplayer")
 	.attachStringTable(Assets.strings)
     .addStrings({

@@ -97,6 +97,7 @@
     @include relative-center-center;
     @include clickable;
     color: $text_color;
+	cursor: pointer;
     font-size: $controlbar_button_fontsize;
 	margin-left: $controlbar_button_margin;
 	margin-right: $controlbar_button_margin;

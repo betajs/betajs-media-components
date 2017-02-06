@@ -20,6 +20,7 @@
 .#{$css}-controlbar-middle-section {
   .#{$css}-timer-container {
     display: table;
+    cursor: default;
     height: 100%;
     position: absolute;
     width: 100%;
@@ -73,6 +74,7 @@
 
 .#{$css}-button-inner {
   border: none;
+  cursor: pointer;
   font-size: inherit;
   margin: 0;
   padding: 0;

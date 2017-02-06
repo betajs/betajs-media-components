@@ -3,6 +3,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:Templates",
     "module:Assets",
     "browser:Info",
+		"browser:Hotkeys",
     "media:Player.VideoPlayerWrapper",
     "base:Types",
     "base:Objs",
@@ -23,7 +24,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "dynamics:Partials.EventPartial",
     "dynamics:Partials.OnPartial",
     "dynamics:Partials.TemplatePartial"
-], function (Class, Templates, Assets, Info, VideoPlayerWrapper, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, InitialState, PlayerStates, AdProvider, $, scoped) {
+], function (Class, Templates, Assets, Info, Hotkeys, VideoPlayerWrapper, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, InitialState, PlayerStates, AdProvider, $, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {
 			
@@ -66,6 +67,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"volume": 1.0,
 				"title": "",
 				"initialseek": null,
+				"fullscreened": false,
+
 				/* Configuration */
 				"forceflash": false,
 				"noflash": false,
@@ -91,7 +94,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 						"ignore": false,
 						"click_play": true
 					}
-				}				
+				}
 			},
 
 			types: {
@@ -108,7 +111,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"hideoninactivity": "boolean",
 				"skipinitial": "boolean",
 				"volume": "float",
-				"initialseek": "float"
+				"initialseek": "float",
+				"fullscreened": "boolean"
 			},
 			
 			extendables: ["states"],
@@ -144,11 +148,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				}
 				if (this.get("streams") && !this.get("currentstream"))
 					this.set("currentstream", (this.get("streams"))[0]);
+
 				this.set("ie8", Info.isInternetExplorer() && Info.internetExplorerVersion() < 9);
+        this.set("firefox", Info.isFirefox());
+
 				this.set("duration", 0.0);
 				this.set("position", 0.0);
 				this.set("buffered", 0.0);
 				this.set("message", "");
+        this.set("fullscreened", false);
 				this.set("fullscreensupport", false);
 				this.set("csssize", "normal");
 				
@@ -161,7 +169,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				this.set("activity_delta", 0);
 				
 				this.set("playing", false);
-				
+
 				this.__attachRequested = false;
 				this.__activated = false;
 				this.__error = null;
@@ -182,7 +190,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 					delay: 100,
 					start: true
 				}));
-				
+
 				this.properties().compute("buffering", function () {
 					return this.get("playing") && this.get("buffered") < this.get("position") && this.get("last_position_change_delta") > 1000;
 				}, ["buffered", "position", "last_position_change_delta", "playing"]);
@@ -238,10 +246,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				var video = $(this.activeElement()).find("[data-video='video']").get(0);
 				this._clearError();
 				VideoPlayerWrapper.create(Objs.extend(this._getSources(), {
-			    	element: video,
-			    	forceflash: !!this.get("forceflash"),
-			    	noflash: !!this.get("noflash"),
-			    	preload: !!this.get("preload"),
+          element: video,
+          forceflash: !!this.get("forceflash"),
+          noflash: !!this.get("noflash"),
+          preload: !!this.get("preload"),
 					loop: !!this.get("loop"),
 					reloadonplay: !!this.get("reloadonplay")
 			    })).error(function (e) {
@@ -257,7 +265,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 							adElement: $(this.activeElement()).find("[data-video='ad']").get(0)
 						});
 					}
-			    	this.player = instance;			    	
+          this.player = instance;
 					this.player.on("postererror", function () {
 				    	this._error("poster");
 					}, this);					
@@ -268,17 +276,27 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 					this.player.on("error", function (e) {
 						this._error("video", e);
 					}, this);
-			        if (this.player.error())
-			        	this.player.trigger("error", this.player.error());
-			        this.player.on("paused", function () {
-			        	this.set("playing", false);
-			        	this.trigger("paused");
-			        }, this);
+          if (this.player.error())
+            this.player.trigger("error", this.player.error());
+          this.player.on("paused", function () {
+            this.set("playing", false);
+            this.trigger("paused");
+          }, this);
 					this.player.on("ended", function () {
 						this.set("playing", false);
 						this.trigger("ended");
 					}, this);
-			    	this.trigger("attached", instance);
+          // In case is pressed exit to exit from fullscreen
+          var self = this;
+					this.player.on("fullscreenEsc", function() {
+            window.addEventListener("keydown", function (e) {
+              if(e.keyCode === 27 && self.get("fullscreened")) {
+                self.player.exitFullscreen();
+                self.set("fullscreened", false);
+              }
+            }, false);
+					});
+          this.trigger("attached", instance);
 					this.player.once("loaded", function () {
 						var volume = Math.min(1.0, this.get("volume"));
 						this.player.setVolume(volume);
@@ -389,14 +407,30 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 						this.player.setMuted(volume <= 0);
 					}
 				},
-				
+
 				toggle_fullscreen: function () {
-					if (this.videoLoaded())
-						this.player.enterFullscreen();
-				} 
-			
+
+          if( this.get("fullscreened") ) {
+
+            this.player.exitFullscreen();
+            this.set("fullscreened", false);
+
+          } else {
+
+          	if( this.get("firefox") ) {
+              this.player.enterParentFullscreen();
+						} else {
+              this.player.enterFullscreen();
+						}
+
+            this.set("fullscreened", true );
+
+          	this.player.trigger("fullscreenEsc");
+          }
+				}
+
 			},
-			
+
 			destroy: function () {
 				this._detachVideo();
 				inherited.destroy.call(this);

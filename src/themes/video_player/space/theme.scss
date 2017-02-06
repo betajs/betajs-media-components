@@ -4,6 +4,9 @@ $cssnoie8: "ba-videoplayer-noie8";
 $fontello_name: "bjsmc";
 $video_player: "ba-videoplayer";
 
+$main_color: #5daa96;
+$text_letter_spacing: 0.1em;
+
 $loader_size: 5px;
 $loader_frame_thickness: 0.6em;
 
@@ -15,7 +18,7 @@ $message_height: 50px;
 $message_width: 50px;
 $message_side_interval: 8px;
 
-$font_family: Arial, sans-serif;
+$font_family: sans-serif;
 $topmessage_bgcolor: black;
 $topmessage_opacity: 0.3;
 $topmessage_fontsize: 15px;
@@ -34,6 +37,8 @@ $controlbar_height: 100%;
 $controlbar_header_height: 32px;
 $controlbar_footer_height: 40px;
 $controlbar_background: rgba(0, 0, 0, 0.4);
+$controlbar_video_title_font_size: 12px;
+
 $button_fontsize: 13px;
 $button_width: 30px;
 $button_color: #ffffff;
@@ -55,6 +60,7 @@ $stream_label_bg_color: #676f76;
 $stream_label_color: #ffffff;
 $stream_label_width: 20px;
 
+$full_screen_background: #b2b2b2;
 
 $rerecord_text_color: white;
 $rerecord_font_family: sans-serif;

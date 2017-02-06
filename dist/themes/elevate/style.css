@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.42 - 2017-01-30
+betajs-media-components - v0.0.42 - 2017-02-06
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -26,7 +26,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: '\e800'; }
+  content: '\e805'; }
 
 .ba-videoplayer-elevate-theme-icon-pause:before {
   font-family: "bjsmc";
@@ -51,7 +51,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: '\e801'; }
+  content: '\e806'; }
 
 .ba-videoplayer-elevate-theme-icon-volume-off:before {
   font-family: "bjsmc";
@@ -76,7 +76,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: '\e802'; }
+  content: '\e800'; }
 
 .ba-videoplayer-elevate-theme-icon-volume-down:before {
   font-family: "bjsmc";
@@ -101,7 +101,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: '\e803'; }
+  content: '\e801'; }
 
 .ba-videoplayer-elevate-theme-icon-volume-up:before {
   font-family: "bjsmc";
@@ -126,7 +126,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: '\e804'; }
+  content: '\e802'; }
 
 .ba-videoplayer-elevate-theme-icon-resize-full:before {
   font-family: "bjsmc";
@@ -151,7 +151,32 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: '\e805'; }
+  content: '\e803'; }
+
+.ba-videoplayer-elevate-theme-icon-resize-small:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e80f'; }
 
 .ba-videoplayer-elevate-theme-icon-videocam:before {
   font-family: "bjsmc";
@@ -176,7 +201,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: '\e806'; }
+  content: '\e807'; }
 
 .ba-videoplayer-elevate-theme-icon-ccw:before {
   font-family: "bjsmc";
@@ -201,7 +226,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: '\e807'; }
+  content: '\e804'; }
 
 .ba-videoplayer-elevate-theme-icon-upload:before {
   font-family: "bjsmc";
@@ -402,6 +427,31 @@ Apache-2.0 Software License.
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\f131'; }
+
+.ba-videoplayer-elevate-theme-icon-resize-minimize:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e810'; }
 
 .ba-videoplayer-elevate-theme-icon-share:before {
   font-family: "bjsmc";
@@ -616,7 +666,6 @@ Apache-2.0 Software License.
 .ba-videoplayer-elevate-theme-top-right-block {
   float: right; }
   .ba-videoplayer-elevate-theme-top-right-block .ba-videoplayer-elevate-theme-time-value {
-    color: white;
     text-align: right; }
 
 .ba-videoplayer-elevate-theme-button-container {
@@ -626,7 +675,8 @@ Apache-2.0 Software License.
 .ba-videoplayer-elevate-theme-icon-play, .ba-videoplayer-elevate-theme-icon-pause {
   color: #5daa96; }
 
-.ba-videoplayer-elevate-theme-icon-volume-up:before, .ba-videoplayer-elevate-theme-icon-play:before, .ba-videoplayer-elevate-theme-icon-pause:before, .ba-videoplayer-elevate-theme-icon-resize-full:before {
+.ba-videoplayer-elevate-theme-icon-volume-up:before, .ba-videoplayer-elevate-theme-icon-play:before, .ba-videoplayer-elevate-theme-icon-pause:before,
+.ba-videoplayer-elevate-theme-icon-resize-full:before, .ba-videoplayer-elevate-theme-icon-volume-down:before {
   font-size: 0.7rem;
   margin: 0;
   line-height: inherit; }
@@ -652,6 +702,10 @@ Apache-2.0 Software License.
   font-size: 13px;
   margin-left: 3px; }
 
+.ba-videoplayer-elevate-theme-button-inner {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent; }
+
 .ba-videoplayer-elevate-theme-time-container {
   float: left;
   width: 40px;
@@ -661,7 +715,6 @@ Apache-2.0 Software License.
   text-align: center;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 0.7rem;
-  color: #2c2c2c;
   box-sizing: content-box;
   border: none; }
 
@@ -669,6 +722,13 @@ Apache-2.0 Software License.
   margin-top: 11px; }
 
 .ba-videoplayer-elevate-theme-time-value {
+  color: #ffffff;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color=#color)";
+  /*IE 8*/
+  text-shadow: 0 0 4px #000000;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color=#000000);
+  /*IE 5.5-7*/
   -webkit-transform: translateY(-50%);
   -moz-transform: translateY(-50%);
   -o-transform: translateY(-50%);
@@ -698,7 +758,7 @@ Apache-2.0 Software License.
 .ba-videoplayer-elevate-theme-progressbar {
   overflow: hidden;
   height: 100%;
-  padding: 10px 5px 5px 0; }
+  padding: 10px 0 5px; }
 
 .ba-videoplayer-elevate-theme-progressbar-inner {
   -webkit-transform: translateY(-50%);
@@ -715,8 +775,7 @@ Apache-2.0 Software License.
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   background: #ffffff;
-  height: 8px;
-  left: -5px; }
+  height: 8px; }
 
 .ba-videoplayer-elevate-theme-progressbar-cache {
   position: absolute;
@@ -743,7 +802,7 @@ Apache-2.0 Software License.
   box-sizing: content-box;
   display: inline-block;
   position: absolute;
-  right: -5px;
+  right: -15px;
   top: -4px;
   z-index: 1;
   background-color: #5daa96;
@@ -770,18 +829,55 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-elevate-theme-video-title-block > p {
   font-size: 0.7rem;
-  color: #b0b0b0;
-  margin: 0;
-  line-height: 32px; }
+  color: #7f7f7f;
+  line-height: 32px;
+  margin: 0; }
   .ba-videoplayer-elevate-theme-video-title-block > p > span {
-    font-size: 1em;
     color: #2c2c2c;
-    font-weight: bold; }
+    font-weight: bold;
+    font-size: 1em; }
 
 .ba-videoplayer-elevate-theme-stream-label-container .ba-videoplayer-elevate-theme-stream-label {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
   background-color: #5daa96;
   color: #ffffff;
   padding: 3px; }
+
+.ba-videoplayer-elevate-theme-left-block .ba-videoplayer-elevate-theme-volumebar {
+  float: left;
+  height: 32px;
+  padding: 0 5px;
+  width: 60px; }
+
+.ba-videoplayer-elevate-theme-volumebar-inner {
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  top: 50%;
+  position: relative;
+  text-align: center;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  background: #cee5df;
+  background: rgba(93, 170, 150, 0.3);
+  height: 6px; }
+
+.ba-videoplayer-elevate-theme-volumebar-position {
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  position: absolute;
+  left: 0;
+  background-color: #5daa96;
+  height: 100%; }
 
 .ba-videoplayer-elevate-theme-top-left-block {
   float: left; }
@@ -799,13 +895,78 @@ Apache-2.0 Software License.
 .ba-videoplayer-elevate-theme-size-small .ba-videoplayer-elevate-theme-dashboard {
   width: 100%; }
 
+/* Full screen options */
+/* hide the default Chrome video player styling */
+video::-webkit-media-controls-overlay-enclosure {
+  display: none; }
+
+video::-webkit-media-controls-enclosure {
+  display: none; }
+
+video::-webkit-media-controls {
+  display: none; }
+
+/*  Needed to hide player controls in Safari Only */
+video::-webkit-media-controls-panel {
+  display: none; }
+
+video::-webkit-media-controls-play-button {
+  display: none; }
+
+video::-webkit-media-controls-current-time-display {
+  display: none; }
+
+video::-webkit-media-controls-time-remaining-display {
+  display: none; }
+
+video::-webkit-media-controls-timeline {
+  display: none; }
+
+video::-webkit-media-controls-mute-button {
+  display: none; }
+
+video::-webkit-media-controls-volume-slider {
+  display: none; }
+
+video::-webkit-media-controls-fullscreen-button {
+  display: none; }
+
+video::-internal-media-controls-download-button {
+  display: none; }
+
+/* Firefox Shadow DOM Fix */
+video::-moz-list-bullet, video::-moz-list-number {
+  display: none; }
+
+video::-moz-meter-bar {
+  display: none; }
+
+video:fullscreen:not(:root) {
+  display: none; }
+
+.ba-videoplayer-elevate-theme-fullscreen-view {
+  width: 100% !important; }
+  .ba-videoplayer-elevate-theme-fullscreen-view .ba-videoplayer-elevate-theme-dashboard {
+    bottom: 0; }
+  .ba-videoplayer-elevate-theme-fullscreen-view .ba-videoplayer-elevate-theme-video-title-block {
+    top: 0; }
+  .ba-videoplayer-elevate-theme-fullscreen-view.ba-videoplayer-elevate-theme-common-browser .ba-videoplayer-elevate-theme-overlay {
+    z-index: 2147483647; }
+  .ba-videoplayer-elevate-theme-fullscreen-view.ba-videoplayer-elevate-theme-firefox-browser .ba-videoplayer-elevate-theme-dashboard, .ba-videoplayer-elevate-theme-fullscreen-view.ba-videoplayer-elevate-theme-firefox-browser .ba-videoplayer-elevate-theme-video-title-block {
+    position: fixed;
+    z-index: 100; }
+  .ba-videoplayer-elevate-theme-fullscreen-view.ba-videoplayer-elevate-theme-firefox-browser video {
+    position: relative;
+    min-width: 100%;
+    z-index: 0; }
+
 .ba-videoplayer-elevate-theme-playbutton-container {
   border: none; }
 
 .ba-videoplayer-elevate-theme-playbutton-container {
   border-radius: 50%;
-  background: #ffffff;
-  background: white;
+  background: #b2b2b2;
+  background: rgba(255, 255, 255, 0.4);
   -webkit-transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);
   -o-transform: translate(-50%, -50%);
@@ -818,8 +979,8 @@ Apache-2.0 Software License.
   -moz-transition: border 0.25s ease-in-out, background 0.25s ease-in-out;
   -webkit-transition: border 0.25s ease-in-out, background 0.25s ease-in-out;
   -o-transition: border 0.25s ease-in-out, background 0.25s ease-in-out;
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   font-size: 7px;
   box-sizing: content-box;
   cursor: pointer; }
@@ -829,12 +990,11 @@ Apache-2.0 Software License.
   border: 0.6em solid rgba(255, 255, 255, 0.9); }
 
 .ba-videoplayer-elevate-theme-playbutton-container:hover .ba-videoplayer-elevate-theme-playbutton-button {
-  border-left: 3.5em solid #666666;
-  border-left: 3.5em solid rgba(0, 0, 0, 0.9); }
+  border-left: 2em solid #666666;
+  border-left: 2em solid rgba(0, 0, 0, 0.9); }
 
 .ba-videoplayer-elevate-theme-playbutton-button {
-  border-left: 3.5em solid #666666;
-  border-left: 3.5em solid rgba(0, 0, 0, 0.6);
+  border-left: 2em solid #ffffff;
   transition: border-left 0.25s ease-in-out;
   -moz-transition: border-left 0.25s ease-in-out;
   -webkit-transition: border-left 0.25s ease-in-out;
@@ -843,10 +1003,10 @@ Apache-2.0 Software License.
   margin: auto;
   width: 0;
   height: 0;
-  border-top: 2em solid transparent;
-  border-bottom: 2em solid transparent;
-  left: 4px;
-  top: 17px; }
+  border-top: 1.5em solid transparent;
+  border-bottom: 1.5em solid transparent;
+  left: 3px;
+  top: 16px; }
 
 .ba-videoplayer-elevate-theme-rerecord-bar {
   position: absolute;
@@ -903,7 +1063,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: '\e800'; }
+  content: '\e805'; }
 
 .ba-videorecorder-theme-elevate-icon-pause:before {
   font-family: "bjsmc";
@@ -928,7 +1088,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: '\e801'; }
+  content: '\e806'; }
 
 .ba-videorecorder-theme-elevate-icon-volume-off:before {
   font-family: "bjsmc";
@@ -953,7 +1113,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: '\e802'; }
+  content: '\e800'; }
 
 .ba-videorecorder-theme-elevate-icon-volume-down:before {
   font-family: "bjsmc";
@@ -978,7 +1138,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: '\e803'; }
+  content: '\e801'; }
 
 .ba-videorecorder-theme-elevate-icon-volume-up:before {
   font-family: "bjsmc";
@@ -1003,7 +1163,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: '\e804'; }
+  content: '\e802'; }
 
 .ba-videorecorder-theme-elevate-icon-resize-full:before {
   font-family: "bjsmc";
@@ -1028,7 +1188,32 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: '\e805'; }
+  content: '\e803'; }
+
+.ba-videorecorder-theme-elevate-icon-resize-small:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e80f'; }
 
 .ba-videorecorder-theme-elevate-icon-videocam:before {
   font-family: "bjsmc";
@@ -1053,7 +1238,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: '\e806'; }
+  content: '\e807'; }
 
 .ba-videorecorder-theme-elevate-icon-ccw:before {
   font-family: "bjsmc";
@@ -1078,7 +1263,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: '\e807'; }
+  content: '\e804'; }
 
 .ba-videorecorder-theme-elevate-icon-upload:before {
   font-family: "bjsmc";
@@ -1280,6 +1465,31 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\f131'; }
 
+.ba-videorecorder-theme-elevate-icon-resize-minimize:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e810'; }
+
 .ba-videorecorder-theme-elevate-icon-share:before {
   font-family: "bjsmc";
   font-style: normal;
@@ -1408,8 +1618,8 @@ Apache-2.0 Software License.
   background: #5daa96;
   color: #ffffff;
   padding: 12px;
-  padding-left: 32px;
-  padding-right: 32px;
+  padding-left: 20px;
+  padding-right: 20px;
   font-family: sans-serif;
   font-size: 14px;
   text-align: center;
@@ -1647,6 +1857,7 @@ Apache-2.0 Software License.
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   color: #ffffff;
+  cursor: pointer;
   font-size: 20px;
   margin-left: 5px;
   margin-right: 5px;
@@ -1749,12 +1960,66 @@ Apache-2.0 Software License.
   border: 3px solid #5daa96; }
 
 .ba-videorecorder-theme-elevate-chooser-container {
-  background: #ffffff; }
+  background: #4c4c4c; }
 
 .ba-videorecorder-theme-elevate-chooser-icon-container {
   color: #5daa96;
   font-size: 32px;
   margin: 16px; }
+
+.ba-videorecorder-theme-elevate-chooser-primary-button, .ba-videorecorder-theme-elevate-chooser-secondary-button {
+  line-height: 20px;
+  min-width: 12em;
+  padding: 12px 20px; }
+
+.ba-videorecorder-theme-elevate-chooser-primary-button {
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0; }
+
+.ba-videorecorder-theme-elevate-chooser-secondary-button {
+  background: #ffffff;
+  color: #333333;
+  line-height: 6px;
+  margin-top: 12px; }
+
+.ba-videorecorder-theme-elevate-shape-record {
+  background: #5daa96;
+  border: 4px solid #ffffff;
+  /* Cleaner, but slightly less support: use "50%" as value */
+  -moz-border-radius: 24px;
+  -webkit-border-radius: 24px;
+  border-radius: 24px;
+  display: inline-block;
+  height: 6px;
+  width: 6px;
+  margin: 0 5px;
+  position: relative;
+  top: 3px; }
+
+.ba-videorecorder-theme-elevate-triangle-shape-border {
+  background: #333333;
+  border: 5px solid #333333;
+  /* Cleaner, but slightly less support: use "50%" as value */
+  -moz-border-radius: 16px;
+  -webkit-border-radius: 16px;
+  border-radius: 16px;
+  display: inline-block;
+  height: 4px;
+  width: 4px;
+  margin: 0 5px;
+  position: relative;
+  top: 1px; }
+  .ba-videorecorder-theme-elevate-triangle-shape-border .ba-videorecorder-theme-elevate-shape-upload {
+    bottom: 4px;
+    border-bottom: 6px solid #ffffff;
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    display: inline-block;
+    height: 0;
+    width: 0;
+    position: relative;
+    right: 1px; }
 
 .ba-videorecorder-theme-elevate-dashboard {
   position: absolute;
@@ -1782,6 +2047,7 @@ Apache-2.0 Software License.
 
 .ba-videorecorder-theme-elevate-controlbar-middle-section .ba-videorecorder-theme-elevate-timer-container {
   display: table;
+  cursor: default;
   height: 100%;
   position: absolute;
   width: 100%; }
@@ -1835,6 +2101,7 @@ Apache-2.0 Software License.
 .ba-videorecorder-theme-elevate-button-inner {
   background: #ffffff;
   color: #333333;
+  cursor: pointer;
   border: none;
   font-size: inherit;
   margin: 0;
@@ -1902,7 +2169,7 @@ Apache-2.0 Software License.
   .ba-videorecorder-theme-elevate-bubble-info:before {
     border-bottom: 6px solid transparent;
     border-bottom: 6px solid rgba(255, 255, 255, 0);
-    border-right: 9px solid transparent;
+    border-right: 9px solid #ffffff;
     border-right: 9px solid white;
     border-top: 6px solid transparent;
     border-top: 6px solid rgba(255, 255, 255, 0);
@@ -1955,21 +2222,83 @@ Apache-2.0 Software License.
 .ba-videorecorder-theme-elevate-imagegallery-button-inner {
   color: #333333; }
 
-.ba-videorecorder-theme-elevate-icon-right-open:before {
+.ba-videorecorder-icon-right-open:before {
   margin-right: 0; }
 
-.ba-videorecorder-theme-elevate-icon-left-open:before {
+.ba-videorecorder-icon-left-open:before {
   margin-left: 0; }
 
-.ba-videorecorder-theme-cube-message-container {
+.ba-videorecorder-loader-label {
+  font-size: 12px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: auto;
+  -webkit-transform: translate(0, 0);
+  -moz-transform: translate(0, 0);
+  -o-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  transform: translate(0, 0); }
+
+.ba-videorecorder-loader-label-container {
+  -webkit-transform: translate(0, 0);
+  -moz-transform: translate(0, 0);
+  -o-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  transform: translate(0, 0);
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 48px;
+  text-align: center;
+  width: 100%; }
+
+.ba-videorecorder-wait-button-container {
+  display: inline-block; }
+
+.ba-videorecorder-button-primary {
+  background: #5daa96;
+  -moz-border-radius: 18px;
+  -webkit-border-radius: 18px;
+  border-radius: 18px;
+  display: inline-block;
+  font-family: sans-serif;
+  font-weight: 100;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  padding: 6px 15px;
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  -o-transform: translateY(0);
+  -ms-transform: translateY(0);
+  transform: translateY(0);
+  z-index: 10; }
+
+.ba-videorecorder-loader-countdown .ba-videorecorder-button-primary {
+  background: #ffffff;
+  color: #333333;
+  cursor: default; }
+
+.ba-videorecorder-wait-button-container {
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  -o-transform: translateY(0);
+  -ms-transform: translateY(0);
+  transform: translateY(0); }
+  .ba-videorecorder-wait-button-container .ba-videorecorder-button-primary {
+    padding: 10px 20px; }
+
+.ba-videorecorder-message-container {
   opacity: 1;
   display: table;
   height: 100%;
   width: 100%; }
-  .ba-videorecorder-theme-cube-message-container .ba-videorecorder-theme-cube-top-inner-message-container {
+  .ba-videorecorder-message-container .ba-videorecorder-top-inner-message-container {
     display: table-cell;
     vertical-align: middle; }
-    .ba-videorecorder-theme-cube-message-container .ba-videorecorder-theme-cube-top-inner-message-container .ba-videorecorder-theme-cube-first-inner-message-container {
+    .ba-videorecorder-message-container .ba-videorecorder-top-inner-message-container .ba-videorecorder-first-inner-message-container {
       background: #7f7f7f;
       background: rgba(255, 255, 255, 0.3);
       -moz-border-radius: 50%;
@@ -1980,7 +2309,7 @@ Apache-2.0 Software License.
       height: 162px;
       width: 162px;
       z-index: 4; }
-      .ba-videorecorder-theme-cube-message-container .ba-videorecorder-theme-cube-top-inner-message-container .ba-videorecorder-theme-cube-first-inner-message-container .ba-videorecorder-theme-cube-second-inner-message-container {
+      .ba-videorecorder-message-container .ba-videorecorder-top-inner-message-container .ba-videorecorder-first-inner-message-container .ba-videorecorder-second-inner-message-container {
         background: #b2b2b2;
         background: rgba(255, 255, 255, 0.5);
         -moz-border-radius: 50%;
@@ -1992,7 +2321,7 @@ Apache-2.0 Software License.
         top: 12px;
         width: 138px;
         z-index: 6; }
-        .ba-videorecorder-theme-cube-message-container .ba-videorecorder-theme-cube-top-inner-message-container .ba-videorecorder-theme-cube-first-inner-message-container .ba-videorecorder-theme-cube-second-inner-message-container .ba-videorecorder-theme-cube-third-inner-message-container {
+        .ba-videorecorder-message-container .ba-videorecorder-top-inner-message-container .ba-videorecorder-first-inner-message-container .ba-videorecorder-second-inner-message-container .ba-videorecorder-third-inner-message-container {
           background: #e5e5e5;
           background: rgba(255, 255, 255, 0.7);
           -moz-border-radius: 50%;
@@ -2004,7 +2333,7 @@ Apache-2.0 Software License.
           top: 12px;
           width: 114px;
           z-index: 8; }
-          .ba-videorecorder-theme-cube-message-container .ba-videorecorder-theme-cube-top-inner-message-container .ba-videorecorder-theme-cube-first-inner-message-container .ba-videorecorder-theme-cube-second-inner-message-container .ba-videorecorder-theme-cube-third-inner-message-container .ba-videorecorder-theme-cube-fourth-inner-message-container {
+          .ba-videorecorder-message-container .ba-videorecorder-top-inner-message-container .ba-videorecorder-first-inner-message-container .ba-videorecorder-second-inner-message-container .ba-videorecorder-third-inner-message-container .ba-videorecorder-fourth-inner-message-container {
             background: white;
             -moz-border-radius: 50%;
             -webkit-border-radius: 50%;
@@ -2019,7 +2348,7 @@ Apache-2.0 Software License.
             width: 90px;
             z-index: 10; }
 
-.ba-videorecorder-theme-cube-message-message {
+.ba-videorecorder-message-message {
   color: black;
   font-size: 15px;
   font-weight: 100;

@@ -50,6 +50,7 @@
 
 .#{$css}-button-inner {
   border: none;
+  cursor: pointer;
   font-size: inherit;
   height: 100%;
   margin: 0;
@@ -128,5 +129,4 @@
   width: 50%;
 }
 
-.#{$css}-timer-container {
-}
+.#{$css}-timer-container { cursor: default; }

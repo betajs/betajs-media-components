@@ -1,14 +1,14 @@
 
 <div itemscope itemtype="http://schema.org/VideoObject"
-    class="{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}"
+    class="{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}} {{css}}-{{ fullscreened ? 'fullscreen' : 'normal' }}-view {{css}}-{{ firefox ? 'firefox' : 'common'}}-browser "
     ba-on:mousemove="user_activity()"
     ba-on:mousedown="user_activity()"
     ba-on:touchstart="user_activity()"
     style="{{width ? 'width:' + width + ((width + '').match(/^\d+$/g) ? 'px' : '') + ';' : ''}}{{height ? 'height:' + height + ((height + '').match(/^\d+$/g) ? 'px' : '') + ';' : ''}}"
 >
-    <video class="{{css}}-video" data-video="video" playsinline></video>
+	<video class="{{css}}-video" data-video="video" playsinline></video>
     <div class="{{css}}-overlay" data-video="ad" style="display:none"></div>
-    <div class='{{css}}-overlay'>
+    <div class="{{css}}-overlay">
 	    <ba-{{dyncontrolbar}}
 		    ba-css="{{csscontrolbar || css}}"
 		    ba-template="{{tmplcontrolbar}}"
@@ -33,6 +33,7 @@
 		    ba-streams="{{streams}}"
 		    ba-currentstream="{{=currentstream}}"
 		    ba-fullscreen="{{fullscreensupport && !nofullscreen}}"
+			ba-fullscreened="{{fullscreened}}"
 		    ba-source="{{source}}"
 		></ba-{{dyncontrolbar}}>
 		

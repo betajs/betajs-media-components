@@ -70,7 +70,6 @@
 .#{$css}-top-right-block{
     float: right;
     .#{$css}-time-value{
-        color: white;
         text-align: right;
     }
 }
@@ -84,8 +83,9 @@
     color: $button_color;
 }
 
-.#{$css}-icon-volume-up, .#{$css}-icon-play, .#{$css}-icon-pause, .#{$css}-icon-resize-full {
-    &:before{
+.#{$css}-icon-volume-up, .#{$css}-icon-play, .#{$css}-icon-pause,
+.#{$css}-icon-resize-full, .#{$css}-icon-volume-down {
+    &:before {
         font-size: $text_fontsize;
         margin: 0;
         line-height: inherit;
@@ -110,6 +110,10 @@
     margin-left: 3px;
 }
 
+.#{$css}-button-inner {
+    @include clickable;
+}
+
 .#{$css}-time-container {
     @include float-width-height(left, $time_value_width, 100%);
     position: relative;
@@ -117,7 +121,6 @@
     text-align: center;
     font-family: $text_fontfamily;
     font-size: $text_fontsize;
-    color: $text_color;
 	box-sizing: content-box;
     border: none;
 }
@@ -127,6 +130,8 @@
 }
 
 .#{$css}-time-value {
+    color: #ffffff;
+    @include text-shadow(#000000, 4);
     @include relative-center-center;
     float: left;
     font-size: $text_fontsize;
@@ -148,7 +153,7 @@
 .#{$css}-progressbar {
     overflow: hidden;
     height: 100%;
-    padding: 10px 5px 5px 0;
+    padding: 10px 0 5px;
 }
 
 .#{$css}-progressbar-inner {
@@ -157,7 +162,6 @@
     @include clickable;
     background: $progressbar_cache_bgcolor;
     height: $progressbar_height;
-    left: -5px;
 }
 
 .#{$css}-progressbar-cache {
@@ -179,7 +183,7 @@
     box-sizing: content-box;
     display: inline-block;
     position: absolute;
-    right: -5px;
+    right: -15px;
     top: $progressbar_height / -2;
     z-index: 1;
     background-color: $button-color;
@@ -212,25 +216,49 @@
 
 .#{$css}-video-title-block > p {
     font-size: $text_fontsize;
-    color: $button_color_secondary;
-    margin: 0;
+    color: $controlbar_video_title_color;
     line-height: $controlbar_line_height;
+    margin: 0;
     & > span {
-        font-size: 1em;
         color: $text_color;
         font-weight: bold;
+        font-size: 1em;
     }
 }
 
 .#{$css}-stream-label-container{
     .#{$css}-stream-label {
+        @include clickable;
         background-color: $stream_label_bg_color;
         color: $stream_label_color;
         padding: 3px;
     }
 }
 
-.#{$css}-top-left-block{
+.#{$css}-left-block .#{$css}-volumebar {
+    float: left;
+    height: $controlbar_bottom_height;
+    padding: 0 5px;
+    width: $volume_width;
+}
+
+.#{$css}-volumebar-inner {
+    @include relative-center-center;
+    @include border-round-edges($volume_height / 2);
+    @include clickable;
+    @include background-rgba(93, 170, 150, 0.3, #cee5df);
+    //background: $controls_bgcolor;
+    height: $volume_height;
+}
+
+.#{$css}-volumebar-position {
+    @include border-round-edges($volume_height / 2);
+    @include absolute-align-left();
+    background-color: $progressbar_button_overflow;
+    height: 100%;
+}
+
+.#{$css}-top-left-block {
     float: left;
 }
 
@@ -239,7 +267,7 @@
     padding-left: 4px;
 }
 
-.#{$css}-icon-resize-full{
+.#{$css}-icon-resize-full {
     color: $button_color_secondary;
 }
 

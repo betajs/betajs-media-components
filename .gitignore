@@ -12,3 +12,4 @@ jsdoc.conf.json
 /tests/server/temp
 /tests/server/files
 google-translate-creds.json
+/tmp/

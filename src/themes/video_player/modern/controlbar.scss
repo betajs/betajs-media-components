@@ -45,6 +45,9 @@
     font-size: $button_fontsize;
 }
 
+.#{$css}-button-inner {
+    @include clickable;
+}
 
 .#{$css}-time-container {
     @include float-width-height(left, $time_value_width, 100%);
@@ -161,6 +164,22 @@
 }
 
 
+.#{$cssie8} .#{$css}-video-title-container{
+    display: none;
+}
+
+.#{$css}-video-title-container{
+    @include absolute-align-full-top();
+    width: 100%;
+    & > p {
+        color: $text_color;
+        @include background-rgba( 255, 255, 255, 0.7, $controlbar_background);
+        @include relative-horizontally-center();
+        height: $controlbar_height - 10;
+        line-height: $controlbar_height - 10;
+        text-align: center;
+    }
+}
 
 .#{$css}-size-small .#{$css}-time-container {
 	display: none;

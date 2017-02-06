@@ -55,6 +55,16 @@
     left: 0;
 }
 
+@mixin absolute-align-bottom {
+    position: absolute;
+    bottom: 0;
+}
+
+@mixin absolute-align-top {
+    position: absolute;
+    top: 0;
+}
+
 @mixin absolute-align-right-bottom {
     bottom: 0;
     left: auto;
@@ -187,43 +197,23 @@
     -o-transition: $attribute1 $time $mode, $attribute2 $time $mode;
 }
 
+@mixin hide-slow( $time ) {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity #{$time}s linear;
+}
+
+@mixin show-slow($time){
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0s, opacity #{$time}s linear;
+}
 
 @mixin clickable {
     cursor: pointer;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
-@mixin full-screen-display($display) {
-    :-webkit-full-screen{
-        display: $display;
-    }
-    :-moz-full-screen::backdrop{
-        display: $display;
-    }
-    :-ms-fullscreen::-ms-backdrop{
-        display: $display;
-    }
-
-    :fullscreen::backdrop{
-        display: $display;
-    }
-}
-
-@mixin full-screen-backdrop($color) {
-    :-webkit-full-screen::backdrop{
-       background-color: $color;
-    }
-    :-moz-full-screen::backdrop{
-       background-color: $color;
-    }
-    :-ms-fullscreen::-ms-backdrop{
-        background-color: $color;
-    }
-
-    :fullscreen::backdrop{
-       background-color: $color;
-    }
-}
 
 @mixin transparent($opacity) {
     /* works for IE 5+. */
@@ -249,6 +239,33 @@
     zoom: 1;
 }
 
+@mixin rotate($degree) {
+    -webkit-transform: rotate($degree); /* Chrome, Safari, Opera */
+    -moz-transform: rotate($degree);
+    -o-transform: rotate($degree);
+    -ms-transform: rotate($degree); /* IE 9 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=#{$degree/30})";
+    transform: rotate($degree);
+}
+
+@mixin rotate90() {
+    -moz-transform:    rotate(90deg);
+    -o-transform:      rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform:         rotate(90deg);
+
+    /* IE8+ - must be on one line, unfortunately */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=-1.8369701987210297e-16, M12=-1, M21=1, M22=-1.8369701987210297e-16, SizingMethod='auto expand')";
+
+    /* IE6 and 7 */
+    filter: progid:DXImageTransform.Microsoft.Matrix(
+      M11=-1.8369701987210297e-16,
+      M12=-1,
+      M21=1,
+      M22=-1.8369701987210297e-16,
+      SizingMethod='auto expand');
+}
+
 
 @mixin background-rgba-ie($filter, $R, $G, $B, $opacity, $fallback) {
 
@@ -258,7 +275,7 @@
     /* IE9/FF/chrome/safari supported */
     background: rgba($R, $G, $B, $opacity);
 
-    /* IE 8 suppoerted */
+    /* IE 8 supported */
     /* Here some time problem for Hover than you can use background color/image */
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$filter}, endColorstr=#{$filter})";
 
@@ -275,6 +292,37 @@
     color: rgba($R, $G, $B, $opacity);
 
 }
+
+@mixin absolute_left_sidebar($width) {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: auto;
+    top: 0;
+    width: $width;
+}
+
+//############# SHAPES ############
+// $side_colors = transparent
+@mixin triangle_up_shape($bottom_width, $backgroung ) {
+    border-bottom: $bottom_width solid $backgroung;
+    border-left: $bottom_width / 2 solid transparent;
+    border-right: $bottom_width / 2 solid transparent;
+    display: inline-block;
+    height: 0;
+    width: 0;
+}
+
+@mixin circle_shape( $size, $backgroung, $border_width, $border_color ) {
+    background: $backgroung;
+    border: $border_width solid $border_color;
+    /* Cleaner, but slightly less support: use "50%" as value */
+    @include border-radius( $size * 4);
+    display: inline-block;
+    height: $size;
+    width: $size;
+}
+
 
 @mixin settings_bubble_bottom_shape ($h, $radius, $r, $g, $b, $o, $fallback, $left) {
     @include background-rgba($r, $g, $b, $o, $fallback);
@@ -308,7 +356,7 @@
     position: relative;
     &:before {
         @include border-bottom-rgba( 6px, $r, $g, $b, 0, transparent );
-        @include border-right-rgba( 9px, $r, $g, $b, $o, transparent );
+        @include border-right-rgba( 9px, $r, $g, $b, $o, $fallback );
         @include border-top-rgba( 6px, $r, $g, $b, 0, transparent );
         content:"";
         height: 0;
@@ -319,11 +367,119 @@
     }
 }
 
-@mixin absolute_left_sidebar($width) {
-    bottom: 0;
-    left: 0;
-    position: absolute;
-    right: auto;
-    top: 0;
-    width: $width;
+@mixin text-shadow($color, $width) {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=#{$width}, Direction=90, Color=#{#color})";/*IE 8*/
+    text-shadow: 0 0 #{$width}px $color;/* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=#{$width}, Direction=90, Color=#{$color}); /*IE 5.5-7*/
+}
+
+
+// FULL SCREEN
+@mixin full-screen-dom-shadow-display($display) {
+    :-webkit-full-screen {
+        display: $display;
+    }
+    :-moz-full-screen::backdrop {
+        display: $display;
+    }
+    :-ms-fullscreen::-ms-backdrop {
+        display: $display;
+    }
+
+    :fullscreen::backdrop {
+        display: $display;
+    }
+}
+
+@mixin full-screen-backdrop($color) {
+    :-webkit-full-screen::backdrop {
+        background-color: $color;
+    }
+    :-moz-full-screen::backdrop {
+        background-color: $color;
+    }
+    :-ms-fullscreen::-ms-backdrop {
+        background-color: $color;
+    }
+    :fullscreen::backdrop {
+        background-color: $color;
+    }
+}
+
+// 2147483648 z-index require for visible element
+@mixin hide-dom-shadow-media-control() {
+
+    /* hide the default Chrome video player styling */
+    video::-webkit-media-controls-overlay-enclosure {
+        display:none;
+    }
+
+    video::-webkit-media-controls-enclosure {
+        display:none;
+    }
+
+    video::-webkit-media-controls {
+        display:none;
+    }
+
+    /*  Needed to hide player controls in Safari Only */
+    video::-webkit-media-controls-panel {
+        display:none;
+    }
+
+    video::-webkit-media-controls-play-button {
+        display: none;
+    }
+
+    video::-webkit-media-controls-current-time-display {
+        display: none;
+    }
+
+    video::-webkit-media-controls-time-remaining-display {
+        display: none;
+    }
+
+    video::-webkit-media-controls-timeline {
+        display: none;
+    }
+
+    video::-webkit-media-controls-mute-button {
+        display: none;
+    }
+
+    video::-webkit-media-controls-volume-slider {
+        display: none;
+    }
+
+    video::-webkit-media-controls-fullscreen-button {
+        display: none;
+    }
+
+    video::-internal-media-controls-download-button {
+        display: none;
+    }
+
+    /* Firefox Shadow DOM Fix */
+    video::-moz-list-bullet, video::-moz-list-number {
+        display:none;
+    }
+
+    video::-moz-meter-bar {
+        display:none;
+    }
+
+    video:-moz-full-screen:not(:root)::backdrop {
+        //display:none;
+    }
+
+    video:fullscreen:not(:root) {
+        display:none;
+    }
+}
+
+@mixin full-height-video() {
+    video {
+        height: 100%;
+        object-fit: fill;
+    }
 }

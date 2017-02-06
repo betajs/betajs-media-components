@@ -49,6 +49,11 @@
 .#{$css}-title {
     float: left;
     color: $text_color;
+    & > p {
+        margin: 0;
+        font-size: $controlbar_video_title_font_size;
+        font-family: $font_family;
+    }
 }
 
 .#{$cssnoie8} .#{$css}-controlbar-header .#{$css}-button-inner {
@@ -87,6 +92,10 @@
 .#{$cssnoie8} .#{$css}-button-inner {
     color: $button_color;
     font-size: $button_fontsize;
+}
+
+.#{$css}-button-inner {
+  @include clickable;
 }
 
 .#{$cssnoie8} .#{$css}-controlbar-footer .#{$css}-button-inner {

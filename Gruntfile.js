@@ -186,7 +186,7 @@ module.exports = function(grunt) {
 
     /* Compile Cube Theme */
     .betajstemplatesTask('templates-cube-theme', ['src/themes/video_player/cube/**/*.html'], 'dist/themes/cube/cube-templates.js', 'module:Templates')
-    .concatTask('concat-cube-theme', [
+    .concatTask('concat-cube-theme',[
       'src/fragments/theme-begin.js-fragment',
       'dist/themes/cube/cube-templates.js',
       'src/themes/video_player/cube/theme.js',
@@ -384,11 +384,10 @@ module.exports = function(grunt) {
     'cssmin-minimalist-theme',
     'clean-minimalist-theme'
   ]);
-  
-  
-  
+
+
   var finalizeTranslation = function (sourceFile, targetFolder, targetLang) {
-	  var yaml = require("js-yaml");	  
+	  var yaml = require("js-yaml");
 
 	  var loadLocale = function (filename) {
 		  var raw = yaml.safeLoad(grunt.file.read(filename));
@@ -403,17 +402,17 @@ module.exports = function(grunt) {
 	  var targetFile = targetFolder + targetLang + ".yml";
 	  var source = loadLocale(sourceFile);
 	  var target = grunt.file.exists(targetFile) ? loadLocale(targetFile) : {language: targetLang, dict: {}};
-	
+
 	  var keys = [];
 	  var values = [];
-	  
+
 	  for (var key in source.dict) {
 		  if (!target.dict[key]) {
 			  keys.push(key);
 			  values.push(source.dict[key]);
 		  }
 	  }
-	  
+
 	  if (keys.length > 0) {
 		  var translate = require('@google-cloud/translate')(JSON.parse(grunt.file.read("./google-translate-creds.json")));
 		  translate.translate(values, {from: source.language, to: target.language}, function (err, translation) {
@@ -423,15 +422,15 @@ module.exports = function(grunt) {
 			  }
 			  for (var i = 0; i < keys.length; ++i)
 				  target.dict[keys[i]] = translation[i].replace("% ", " %");
-			  
+
 			  var result = {};
 			  result["language:" + target.language] = target.dict;
 			  grunt.file.write(targetFile, yaml.dump(result));
 		  });
 	  }
   };
-  
-  
+
+
   grunt.registerTask("translations", function () {
 	  var languages = ["de", "fr", "es", "nl", "pt-br", "it", "sv", "da", "no", "fi", "cat", "bg", "hu", "pl", "ro", "sr", "tr", "hr"];
 	  var sourceFile = "./dist/english.yml";
@@ -439,7 +438,7 @@ module.exports = function(grunt) {
 	  languages.forEach(function (targetLang) {
 		  finalizeTranslation(sourceFile, targetFolder, targetLang);
 	  });
-	  this.async();	  
+	  this.async();
   });
 
     grunt.registerTask('check', ['csslinter', 'lint', 'browserqunit']);

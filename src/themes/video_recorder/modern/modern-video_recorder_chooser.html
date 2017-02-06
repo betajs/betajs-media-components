@@ -1,23 +1,22 @@
-
 <div class="{{css}}-chooser-container">
 
 	<div class="{{css}}-chooser-button-container">
-	
+
 		<div class="{{css}}-chooser-icon-container">
 			<i class="{{css}}-icon-{{primaryrecord ? 'videocam' : 'upload'}}"></i>
 		</div>
 		<div>
-			<div class="{{css}}-chooser-primary-button"
+			<div data-selector="chooser-primary-button" class="{{css}}-chooser-primary-button"
 			     ba-click="primary()"
 			     ba-if="{{has_primary}}">
-				<input ba-if="{{enable_primary_select && primary_select_capture}}"
+				<input data-selector="file-input-opt1" ba-if="{{enable_primary_select && primary_select_capture}}"
 				       type="file"
 				       class="{{css}}-chooser-file"
 				       style="height:100"
 				       onchange="{{primary_select(domEvent)}}"
 				       accept="{{primary_accept_string}}"
 				       capture />
-				<input ba-if="{{enable_primary_select && !primary_select_capture}}"
+				<input data-selector="file-input-opt2" ba-if="{{enable_primary_select && !primary_select_capture}}"
 				       type="file"
 				       class="{{css}}-chooser-file"
 				       style="height:100"
@@ -29,16 +28,16 @@
 			</div>
 		</div>
 		<div>
-			<div class="{{css}}-chooser-secondary-button"
+			<div data-selector="chooser-secondary-button" class="{{css}}-chooser-secondary-button"
 			     ba-click="secondary()"
 			     ba-if="{{has_secondary}}">
-				<input ba-if="{{enable_secondary_select && secondary_select_capture}}"
+				<input data-selector="file-input-secondary-opt1" ba-if="{{enable_secondary_select && secondary_select_capture}}"
 				       type="file"
 				       class="{{css}}-chooser-file"
 				       style="height:100"
 				       onchange="{{secondary_select(domEvent)}}"
 				       accept="{{secondary_accept_string}}" />
-				<input ba-if="{{enable_secondary_select && !secondary_select_capture}}"
+				<input data-selector="file-input-secondary-opt2" ba-if="{{enable_secondary_select && !secondary_select_capture}}"
 				       type="file"
 				       class="{{css}}-chooser-file"
 				       style="height:100"

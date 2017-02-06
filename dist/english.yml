@@ -16,7 +16,7 @@
   ba-videoplayer-controlbar.volume-mute: Mute sound
   ba-videoplayer-controlbar.volume-unmute: Unmute sound
   ba-videoplayer.video-error: 'An error occurred, please try again later. Click to retry.'
-  ba-videorecorder-chooser.record-video: Record Video
+  ba-videorecorder-chooser.record-video: Record Your Video
   ba-videorecorder-chooser.upload-video: Upload Video
   ba-videorecorder-controlbar.settings: Settings
   ba-videorecorder-controlbar.camerahealthy: Lighting is good
@@ -48,3 +48,8 @@
     Your video file is too large (%s) - click here to try again with a smaller
     video file.
   ba-videorecorder.unsupported_video_type: 'Please upload: %s - click here to retry.'
+  ba-videoplayer-controlbar.exit-fullscreen-video: Minimize video
+  ba-videoplayer-controlbar.share-media: Share this media
+  ba-videorecorder-loader.starts-in: 'Starts in '
+  ba-videorecorder-loader.wait: Wait
+  ba-videorecorder-loader.wait-tooltip: Wait

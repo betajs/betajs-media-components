@@ -31,42 +31,47 @@
  
 .#{$css}-icon-play:before {
     @include fontello-icon;
-    content: '\e800';
+    content: '\e805';
 }
 
 .#{$css}-icon-pause:before {
     @include fontello-icon;
-    content: '\e801';
+    content: '\e806';
 }
 
 .#{$css}-icon-volume-off:before {
     @include fontello-icon;
-    content: '\e802';
+    content: '\e800';
 }
 
 .#{$css}-icon-volume-down:before {
     @include fontello-icon;
-    content: '\e803';
+    content: '\e801';
 }
 
 .#{$css}-icon-volume-up:before {
     @include fontello-icon;
-    content: '\e804';
+    content: '\e802';
 }
 
 .#{$css}-icon-resize-full:before {
     @include fontello-icon;
-    content: '\e805';
+    content: '\e803';
+}
+
+.#{$css}-icon-resize-small:before {
+  @include fontello-icon;
+  content: '\e80f';
 }
 
 .#{$css}-icon-videocam:before {
     @include fontello-icon;
-    content: '\e806';
+    content: '\e807';
 }
 
 .#{$css}-icon-ccw:before {
     @include fontello-icon;
-    content: '\e807';
+    content: '\e804';
 }
 
 .#{$css}-icon-upload:before {
@@ -107,6 +112,11 @@
 .#{$css}-icon-full-screen:before {
   @include fontello-icon;
   content: '\f131';
+}
+
+.#{$css}-icon-resize-minimize:before {
+  @include fontello-icon;
+  content: '\e810';
 }
 
 .#{$css}-icon-share:before {

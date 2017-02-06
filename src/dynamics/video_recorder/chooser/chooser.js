@@ -64,7 +64,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
 				navigator.device.capture.captureVideo(function (mediaFiles) {
 				    var mediaFile = mediaFiles[0];
 				    self.trigger("upload", mediaFile);
-				}, function (error) {}, {limit:1, duration: this.get("timelimit") });
+				}, function (error) {}, {limit:1});
 			},
 			
 			functions: {
@@ -100,7 +100,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
 	}).register("ba-videorecorder-chooser")
 	.attachStringTable(Assets.strings)
     .addStrings({
-    	"record-video": "Record Video",
+    	"record-video": "Record Your Video",
     	"upload-video": "Upload Video"
     });
 });

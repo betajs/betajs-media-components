@@ -1,18 +1,18 @@
-<div data-selector="slider-left-button" class="{{css}}-imagegallery-leftbutton">
-	<div id="slider-left-inner-button" class="{{css}}-imagegallery-button-inner" onclick="{{left()}}">
+<div class="{{css}}-imagegallery-leftbutton">
+	<div class="{{css}}-imagegallery-button-inner" onclick="{{left()}}">
 		<i class="ba-videorecorder-icon-left-open"></i>
 	</div>
 </div>
-
-<div data-selector="images-imagegallery-container" ba-repeat="{{image::images}}" class="{{css}}-imagegallery-container" data-gallery-container>
+	
+<div ba-repeat="{{image::images}}" class="{{css}}-imagegallery-container" data-gallery-container>
      <div class="{{css}}-imagegallery-image"
           ba-styles="{{{left: image.left + 'px', top: image.top + 'px', width: image.width + 'px', height: image.height + 'px'}}}"
           onclick="{{select(image)}}">
      </div>
 </div>
-
-<div data-selector="slider-right-button" class="{{css}}-imagegallery-rightbutton">
-	<div id="slider-right-inner-button" class="{{css}}-imagegallery-button-inner" onclick="{{right()}}">
+	
+<div class="{{css}}-imagegallery-rightbutton">
+	<div class="{{css}}-imagegallery-button-inner" onclick="{{right()}}">
 		<i class="ba-videorecorder-icon-right-open"></i>
 	</div>
 </div>

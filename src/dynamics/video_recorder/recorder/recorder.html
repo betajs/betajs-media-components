@@ -1,11 +1,11 @@
 
-<div data-selector="recorder-container" ba-show="{{!player_active}}"
+<div ba-show="{{!player_active}}"
      class="{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}"
      style="{{width ? 'width:' + width + ((width + '').match(/^\d+$/g) ? 'px' : '') + ';' : 'width:100%;'}}{{height ? 'height:' + height + ((height + '').match(/^\d+$/g) ? 'px' : '') + ';' : 'height:100%'}}"
 >
-
-    <video data-selector="recorder-status" class="{{css}}-video {{css}}-{{hasrecorder ? 'hasrecorder' : 'norecorder'}}" data-video="video"></video>
-    <div data-selector="recorder-overlay" class='{{css}}-overlay' ba-show="{{!hideoverlay}}" data-overlay="overlay">
+	
+    <video class="{{css}}-video {{css}}-{{hasrecorder ? 'hasrecorder' : 'norecorder'}}" data-video="video"></video>
+    <div class='{{css}}-overlay' ba-show="{{!hideoverlay}}" data-overlay="overlay">
 		<ba-{{dynloader}}
 		    ba-css="{{cssloader || css}}"
 		    ba-template="{{tmplloader}}"
@@ -13,7 +13,7 @@
 		    ba-tooltip="{{loadertooltip}}"
 		    ba-label="{{loaderlabel}}"
 		></ba-{{dynloader}}>
-
+		
 		<ba-{{dynmessage}}
 		    ba-css="{{cssmessage || css}}"
 		    ba-template="{{tmplmessage}}"
@@ -28,7 +28,7 @@
 		    ba-show="{{topmessage_active && (topmessage || hovermessage)}}"
 		    ba-topmessage="{{hovermessage || topmessage}}"
 		></ba-{{dyntopmessage}}>
-
+		
 		<ba-{{dynchooser}}
 		    ba-css="{{csschooser || css}}"
 		    ba-template="{{tmplchooser}}"
@@ -38,11 +38,10 @@
 		    ba-allowcustomupload="{{allowcustomupload}}"
 		    ba-allowedextensions="{{allowedextensions}}"
 		    ba-primaryrecord="{{primaryrecord}}"
-		    ba-timelimit="{{timelimit}}"
 		    ba-event:record="record_video"
 		    ba-event:upload="upload_video"
 		></ba-{{dynchooser}}>
-
+		
 		<ba-{{dynimagegallery}}
 		    ba-css="{{cssimagegallery || css}}"
 		    ba-template="{{tmplimagegallery}}"
@@ -52,7 +51,7 @@
 		    ba-imagenativeheight="{{recordingheight}}"
 		    ba-event:image-selected="select_image"
 		></ba-{{dynimagegallery}}>
-
+		
 		<ba-{{dyncontrolbar}}
 		    ba-css="{{csscontrolbar || css}}"
 		    ba-template="{{tmplcontrolbar}}"
@@ -83,7 +82,7 @@
     </div>
 </div>
 
-<div data-selector="recorder-player" ba-if="{{player_active}}"
+<div ba-if="{{player_active}}"
      style="{{width ? 'width:' + width + ((width + '').match(/^\d+$/g) ? 'px' : '') + ';' : ''}}{{height ? 'height:' + height + ((height + '').match(/^\d+$/g) ? 'px' : '') + ';' : ''}}"
 >
 	<ba-{{dynvideoplayer}} ba-theme="{{theme || 'default'}}"

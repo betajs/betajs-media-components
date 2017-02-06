@@ -214,37 +214,6 @@
     -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
-@mixin full-screen-display($display) {
-    :-webkit-full-screen{
-        display: $display;
-    }
-    :-moz-full-screen::backdrop{
-        display: $display;
-    }
-    :-ms-fullscreen::-ms-backdrop{
-        display: $display;
-    }
-
-    :fullscreen::backdrop{
-        display: $display;
-    }
-}
-
-@mixin full-screen-backdrop($color) {
-    :-webkit-full-screen::backdrop{
-       background-color: $color;
-    }
-    :-moz-full-screen::backdrop{
-       background-color: $color;
-    }
-    :-ms-fullscreen::-ms-backdrop{
-        background-color: $color;
-    }
-
-    :fullscreen::backdrop{
-       background-color: $color;
-    }
-}
 
 @mixin transparent($opacity) {
     /* works for IE 5+. */
@@ -279,7 +248,7 @@
     transform: rotate($degree);
 }
 
-@mixin rotate90(){
+@mixin rotate90() {
     -moz-transform:    rotate(90deg);
     -o-transform:      rotate(90deg);
     -webkit-transform: rotate(90deg);
@@ -395,5 +364,122 @@
         position: absolute;
         right: 100%;
         width: 0;
+    }
+}
+
+@mixin text-shadow($color, $width) {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=#{$width}, Direction=90, Color=#{#color})";/*IE 8*/
+    text-shadow: 0 0 #{$width}px $color;/* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=#{$width}, Direction=90, Color=#{$color}); /*IE 5.5-7*/
+}
+
+
+// FULL SCREEN
+@mixin full-screen-dom-shadow-display($display) {
+    :-webkit-full-screen {
+        display: $display;
+    }
+    :-moz-full-screen::backdrop {
+        display: $display;
+    }
+    :-ms-fullscreen::-ms-backdrop {
+        display: $display;
+    }
+
+    :fullscreen::backdrop {
+        display: $display;
+    }
+}
+
+@mixin full-screen-backdrop($color) {
+    :-webkit-full-screen::backdrop {
+        background-color: $color;
+    }
+    :-moz-full-screen::backdrop {
+        background-color: $color;
+    }
+    :-ms-fullscreen::-ms-backdrop {
+        background-color: $color;
+    }
+    :fullscreen::backdrop {
+        background-color: $color;
+    }
+}
+
+// 2147483648 z-index require for visible element
+@mixin hide-dom-shadow-media-control() {
+
+    /* hide the default Chrome video player styling */
+    video::-webkit-media-controls-overlay-enclosure {
+        display:none;
+    }
+
+    video::-webkit-media-controls-enclosure {
+        display:none;
+    }
+
+    video::-webkit-media-controls {
+        display:none;
+    }
+
+    /*  Needed to hide player controls in Safari Only */
+    video::-webkit-media-controls-panel {
+        display:none;
+    }
+
+    video::-webkit-media-controls-play-button {
+        display: none;
+    }
+
+    video::-webkit-media-controls-current-time-display {
+        display: none;
+    }
+
+    video::-webkit-media-controls-time-remaining-display {
+        display: none;
+    }
+
+    video::-webkit-media-controls-timeline {
+        display: none;
+    }
+
+    video::-webkit-media-controls-mute-button {
+        display: none;
+    }
+
+    video::-webkit-media-controls-volume-slider {
+        display: none;
+    }
+
+    video::-webkit-media-controls-fullscreen-button {
+        display: none;
+    }
+
+    video::-internal-media-controls-download-button {
+        display: none;
+    }
+
+    /* Firefox Shadow DOM Fix */
+    video::-moz-list-bullet, video::-moz-list-number {
+        display:none;
+    }
+
+    video::-moz-meter-bar {
+        display:none;
+    }
+
+    video:-moz-full-screen:not(:root)::backdrop {
+        //display:none;
+    }
+
+    video:fullscreen:not(:root) {
+        display:none;
+    }
+}
+
+@mixin full-height-video() {
+    video {
+        height: 100%;
+        object-fit: fill;
     }
 }

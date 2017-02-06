@@ -3,10 +3,16 @@
 
     <div class="{{css}}-top-block">
 
+        <div class="{{css}}-top-left-block">
+            <div class="{{css}}-time-container {{css}}-left-time-container">
+                <div class="{{css}}-time-value" title="{{string('elapsed-time')}}">{{formatTime(position)}}</div>
+            </div>
+        </div>
+
         <div class="{{css}}-top-right-block">
 
             <div class="{{css}}-time-container {{css}}-right-time-container">
-                <div class="{{css}}-time-value" title="{{string('total-time')}}">{{formatTime(duration || position)}}</div>
+                <div class="{{css}}-time-value" title="{{string('elapsed-time')}}">{{formatTime(duration || position)}}</div>
             </div>
 
         </div>
@@ -82,7 +88,7 @@
         </div>
 
         <div class="{{css}}-center-block">
-            <div data-selector="video-title-block" class="{{css}}-video-title-block" ba-if="{{title}">
+            <div data-selector="video-title-block" class="{{css}}-video-title-block" ba-if="{{title}}">
                 <p class="{{css}}-video-title">
                     {{title}}
                 </p>
@@ -97,9 +103,10 @@
                 </div>
             </div>
 
-            <div data-selector="button-icon-resize-full" class="{{css}}-button-container"  ba-click="toggle_fullscreen()" title="{{string('fullscreen-video')}}">
+            <div data-selector="button-icon-resize-full" class="{{css}}-button-container"
+                  ba-if="{{!nofullscreen}}" ba-click="toggle_fullscreen()" title="{{ fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video') }}">
                 <div class="{{css}}-button-inner {{css}}-full-screen-btn-inner">
-                    <i class="{{css}}-icon-resize-full"></i>
+                    <i class="{{css}}-icon-resize-{{fullscreened ? 'small' : 'full'}}"></i>
                 </div>
             </div>
 

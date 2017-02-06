@@ -11,7 +11,7 @@ $message_bgcolor: black;
 $message_opacity: 0.75;
 $message_color: white;
 
-$font_family: Arial, sans-serif;
+$font_family: sans-serif;
 $topmessage_bgcolor: black;
 $topmessage_opacity: 0.3;
 $topmessage_fontsize: 15px;
@@ -26,9 +26,15 @@ $playbutton_transition_time: .25s;
 $playbutton_background_opacity: 0.2;
 
 $dashboard_transition: 0.5s;
+
 $controlbar_height: 40px;
 $controlbar_line_height: 40px;
 $controlbar_background: rgba(0, 0, 0, 0.35);
+
+$title_font_size: 12px;
+$title_padding: 10px 15px;
+$title_text_color: #ffffff;
+
 $button_fontsize: 13px;
 $button_width: 40px;
 $button_color: #ffffff;
@@ -50,10 +56,6 @@ $progressbar_height: 40px;
 $stream_label_bg_color: #5daa96;
 $stream_label_color: #ffffff;
 
-$title_font_size: 13px;
-$title_padding: 10px 15px;
-$title_text_color: #ffffff;
-
 $rerecord_text_color: white;
 $rerecord_font_family: sans-serif;
 
@@ -71,3 +73,7 @@ $rerecord_primarybutton_vertical_padding: 16px;
 $rerecord_primarybutton_font_weight: 100;
 $rerecord_primarybutton_font_size: 12px;
 $rerecord_letter_spacing: .1em;
+
+// fullscreen
+$full_screen_background: #000000;
+$full_screen_z_index: 2222222222;

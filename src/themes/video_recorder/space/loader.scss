@@ -1,0 +1,47 @@
+.#{$recorder}-loader-label {
+    font-size: $controlbar_primarybutton_font_size;
+    @include absolute-align-full-bottom();
+    top: auto;
+    @include transform-translate(0, 0);
+}
+
+.#{$recorder}-loader-label-container {
+    @include transform-translate(0, 0);
+    @include absolute-align-full-bottom();
+    height: $controlbar_height;
+    line-height: $controlbar_height/2;
+}
+
+.#{$recorder}-wait-button-container {
+    display: inline-block;
+}
+
+.#{$recorder}-button-primary {
+    background: $button_color;
+    @include border-radius($controlbar_primarybutton_radius);
+    display: inline-block;
+    font-family: $font_family;
+    font-weight: 100;
+    font-size: $controlbar_primarybutton_font_size;
+    letter-spacing: 0.1em;
+    margin: 0 7px;
+    padding: 3px 15px;
+    @include relative-align-all();
+    @include transform-translate-y(0);
+    z-index: 10;
+}
+
+.#{$recorder}-loader-countdown {
+    float: left;
+    font-size: 16px;
+    text-align: right;
+    width: 54%;
+    .#{$recorder}-button-primary {
+        @include background-rgba(0, 0, 0, .4, #999999);
+        cursor: default;
+    }
+}
+
+.#{$recorder}-wait-button-container {
+    @include transform-translate-y(0);
+}

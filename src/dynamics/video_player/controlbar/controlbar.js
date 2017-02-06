@@ -31,8 +31,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 				"streams": [],
 				"currentstream": null,
 				"fullscreen": true,
-				"activitydelta": 0,
-        "title": true
+				"fullscreened": false,
+				"activitydelta": 0
 			},
 			
 			computed: {
@@ -81,35 +81,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 					this.set("volume", (event[0].clientX - $(event[0].currentTarget).offset().left) / $(event[0].currentTarget).width());
 					this.trigger("volume", this.get("volume"));
 				},
-
-        stopUpdateVolume: function (event) {
-          event[0].preventDefault();
-          this.set("_updateVolume", false);
-        },
-
-				startVerticallyUpdateVolume: function (event) {
-          event[0].preventDefault();
-          this.set("_updateVolume", true);
-          this.call("progressVerticallyUpdateVolume", event);
-        },
-
-        progressVerticallyUpdateVolume: function (event) {
-          event[0].preventDefault();
-          if (!this.get("_updateVolume"))
-            return;
-
-          var position = event[0].pageY - $(event[0].currentTarget).offset().top;
-					var percentage = 1 - ( position / $(event[0].currentTarget).height() );
-
-          this.set("volume", ( percentage ) );
-          this.trigger("volume", this.get("volume"));
-        },
-
-				stopVerticallyUpdateVolume: function (event) {
-          event[0].preventDefault();
-          this.set("_updateVolume", false);
-        },
-
+				
+				stopUpdateVolume: function (event) {
+					event[0].preventDefault();
+					this.set("_updateVolume", false);
+				},
 
 				play: function () {
 					this.trigger("play");
@@ -127,11 +103,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 						this.set("volume", this.__oldVolume || 1);
 					this.trigger("volume", this.get("volume"));
 				},
-				
-				toggle_fullscreen: function () {
+
+        toggle_fullscreen: function () {
 					this.trigger("fullscreen");
 				},
-				
+
 				rerecord: function () {
 					this.trigger("rerecord");
 				},
@@ -150,6 +126,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 							current = i;
 					}, this);
 					this.set("currentstream", streams[(current + 1) % streams.length]);
+				},
+
+        share_media: function() {
+					console.log("Share media function");
 				}
 				
 			},
@@ -170,10 +150,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
     	"pause-video": "Pause video",
     	"elapsed-time": "Elasped time",
     	"total-time": "Total length of video",
+      "exit-fullscreen-video": "Minimize video",
     	"fullscreen-video": "Enter fullscreen",
     	"volume-button": "Set volume",
     	"volume-mute": "Mute sound",
     	"volume-unmute": "Unmute sound",
-    	"change-resolution": "Change resolution"
+    	"change-resolution": "Change resolution",
+      "share-media": "Share this media"
     });
 });

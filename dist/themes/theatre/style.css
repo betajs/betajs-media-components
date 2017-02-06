@@ -1982,7 +1982,7 @@ video:fullscreen:not(:root) {
   -webkit-border-radius: 50px;
   border-radius: 50px;
   line-height: 20px;
-  min-width: 10em;
+  min-width: 12em;
   padding: 12px 15px; }
 
 .ba-videorecorder-theme-theatre-chooser-primary-button {

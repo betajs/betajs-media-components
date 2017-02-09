@@ -49,11 +49,6 @@
 .#{$css}-title {
     float: left;
     color: $text_color;
-    & > p {
-        margin: 0;
-        font-size: $controlbar_video_title_font_size;
-        font-family: $font_family;
-    }
 }
 
 .#{$cssnoie8} .#{$css}-controlbar-header .#{$css}-button-inner {

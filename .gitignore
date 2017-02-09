@@ -1,6 +1,5 @@
 /node_modules
 /temp
-/.idea
 .DS_Store
 .sass-cache
 node_modules

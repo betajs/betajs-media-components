@@ -1,10 +1,9 @@
 Scoped.define("module:VideoRecorder.Dynamics.Loader", [
     "dynamics:Dynamic",
-    "module:Templates",
-  	"module:Assets"
+    "module:Templates"
 ], [
 	"dynamics:Partials.ShowPartial"
-], function (Class, Templates, Assets, scoped) {
+], function (Class, Templates, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {
 			
@@ -18,11 +17,5 @@ Scoped.define("module:VideoRecorder.Dynamics.Loader", [
 			}
 			
 		};
-	}).register("ba-videorecorder-loader")
-    .attachStringTable(Assets.strings)
-    .addStrings({
-      "starts-in": "Starts in ",
-      "wait": "Wait",
-      "wait-tooltip": "Wait"
-    });
+	}).register("ba-videorecorder-loader");
 });

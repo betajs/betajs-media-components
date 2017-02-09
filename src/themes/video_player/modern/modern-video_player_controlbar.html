@@ -1,7 +1,7 @@
-<div data-selector="video-title-block" class="{{css}}-video-title-container" ba-if="{{title}}">
-	<p class="{{css}}-video-title">
-		{{title}}
-	</p>
+<div class="{{css}}-video-title-container" ba-if="{{title}}">
+    <p class="{{css}}-video-title">
+        {{title}}
+    </p>
 </div>
 
 <div class="{{css}}-dashboard {{activitydelta > 5000 && hideoninactivity ? (css + '-dashboard-hidden') : ''}}">
@@ -28,15 +28,11 @@
 	<div class="{{css}}-time-container">
 		<div class="{{css}}-time-value" title="{{string('elapsed-time')}}">{{formatTime(position)}}/{{formatTime(duration || position)}}</div>
 	</div>
-
-	<div data-selector="button-icon-resize-full" class="{{css}}-rightbutton-container"
-		ba-if="{{!nofullscreen}}" ba-click="toggle_fullscreen()" title="{{ fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video') }}" >
-		<div class="{{css}}-button-inner {{css}}-full-screen-btn-inner">
-			<i class="{{css}}-icon-resize-{{fullscreened ? 'small' : 'full'}}"></i>
+	<div data-selector="button-icon-resize-full" class="{{css}}-rightbutton-container" ba-if="{{fullscreen}}" ba-click="toggle_fullscreen()" title="{{string('fullscreen-video')}}">
+		<div class="{{css}}-button-inner">
+			<i class="{{css}}-icon-resize-full"></i>
 		</div>
 	</div>
-
-
 	<div data-selector="button-stream-label" class="{{css}}-rightbutton-container" ba-if="{{streams.length > 1 && currentstream}}" ba-click="toggle_stream()" title="{{string('change-resolution')}}">
 		<div class="{{css}}-button-inner">
 			<span class="{{css}}-button-text">{{currentstream_label}}</span>

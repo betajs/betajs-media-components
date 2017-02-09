@@ -15,7 +15,7 @@
     opacity: 0;
 }
 
-.#{$css}-left-block {
+.#{$css}-left-block{
     float: left;
     padding-left: 5px;
     & > div {
@@ -28,12 +28,11 @@
         float: right;
     }
 }
-
-.#{$css}-center-block {
+.#{$css}-center-block{
     float: left;
 }
 
-.#{$css}-right-block {
+.#{$css}-right-block{
     float: right;
     padding-right: 6px;
     & > div {

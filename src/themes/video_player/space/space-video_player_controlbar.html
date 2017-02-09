@@ -1,10 +1,8 @@
 <div class="{{css}}-dashboard {{activitydelta > 5000 && hideoninactivity ? (css + '-dashboard-hidden') : ''}}">
 
 
-    <div class='{{css}}-controlbar-header'>
-        <div class="{{css}}-title" ba-if="{{title}}">
-            <p>{{title}}</p>
-        </div>
+    <div class='{{css}}-controlbar-header' ba-if="{{title}}">
+        <div class="{{css}}-title">{{title}}</div>
 
         <div class="{{css}}-volumebar">
             <div data-selector="button-volume-bar" class="{{css}}-volumebar-inner"
@@ -22,62 +20,56 @@
             </div>
         </div>
 
-        <div data-selector="button-icon-cog" class="{{css}}-rightbutton-container {{css}}-share-button-container" ba-click="share_media()" title="{{string('share-media')}}">
-            <div class="{{css}}-button-inner">
-                <i class="{{css}}-icon-share"></i>
-            </div>
-        </div>
     </div>
 
 
     <div class="{{css}}-controlbar-footer">
 
-        <div data-selector="submit-video-button" class="{{css}}-leftbutton-container" ba-if="{{submittable}}"  ba-click="submit()">
+       <div data-selector="submit-video-button" class="{{css}}-leftbutton-container" ba-if="{{submittable}}"  ba-click="submit()">
            <div class="{{css}}-button-inner">
                {{string('submit-video')}}
            </div>
-        </div>
+       </div>
 
-        <div data-selector="button-icon-ccw" class="{{css}}-leftbutton-container" ba-if="{{rerecordable}}" ba-click="rerecord()" title="{{string('rerecord-video')}}">
+       <div data-selector="button-icon-ccw" class="{{css}}-leftbutton-container" ba-if="{{rerecordable}}" ba-click="rerecord()" title="{{string('rerecord-video')}}">
            <div class="{{css}}-button-inner">
                <i class="{{css}}-icon-ccw"></i>
            </div>
-        </div>
+       </div>
 
-        <div data-selector="button-icon-play" class="{{css}}-leftbutton-container" ba-if="{{!playing}}" ba-click="play()" title="{{string('play-video')}}">
+       <div data-selector="button-icon-play" class="{{css}}-leftbutton-container" ba-if="{{!playing}}" ba-click="play()" title="{{string('play-video')}}">
            <div class="{{css}}-button-inner">
                <i class="{{css}}-icon-play"></i>
            </div>
-        </div>
+       </div>
 
-        <div data-selector="button-icon-pause" class="{{css}}-leftbutton-container" ba-if="{{playing}}" ba-click="pause()" title="{{string('pause-video')}}">
+       <div data-selector="button-icon-pause" class="{{css}}-leftbutton-container" ba-if="{{playing}}" ba-click="pause()" title="{{string('pause-video')}}">
            <div class="{{css}}-button-inner">
                <i class="{{css}}-icon-pause"></i>
            </div>
-        </div>
+       </div>
 
-        <div class="{{css}}-time-container">
+       <div class="{{css}}-time-container">
            <div class="{{css}}-time-value" title="{{string('elapsed-time')}}">{{formatTime(position)}}</div>
-        </div>
+       </div>
 
-        <div data-selector="button-icon-resize-full" class="{{css}}-rightbutton-container"
-             ba-if="{{!nofullscreen}}" ba-click="toggle_fullscreen()" title="{{ fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video') }}" >
-            <div class="{{css}}-button-inner {{css}}-full-screen-btn-inner">
-                <i class="{{css}}-icon-{{fullscreened ? 'resize-minimize' : 'full-screen'}}"></i>
-            </div>
-        </div>
+       <div data-selector="button-icon-resize-full" class="{{css}}-rightbutton-container"  ba-click="toggle_fullscreen()" title="{{string('fullscreen-video')}}">
+           <div class="{{css}}-button-inner {{css}}-full-screen-btn-inner">
+               <i class="{{css}}-icon-resize-full"></i>
+           </div>
+       </div>
 
-        <div data-selector="button-stream-label" class="{{css}}-rightbutton-container" ba-if="{{streams.length > 1 && currentstream}}" ba-click="toggle_stream()" title="{{string('change-resolution')}}">
+       <div data-selector="button-stream-label" class="{{css}}-rightbutton-container" ba-if="{{streams.length > 1 && currentstream}}" ba-click="toggle_stream()" title="{{string('change-resolution')}}">
            <div class="{{css}}-button-inner {{css}}-stream-label-container">
                <span class="{{css}}-button-text {{css}}-stream-label">{{currentstream_label}}</span>
            </div>
-        </div>
+       </div>
 
-        <div class="{{css}}-time-container {{css}}-rightbutton-container {{css}}-right-time-container">
-           <div class="{{css}}-time-value" title="{{string('elapsed-time')}}">{{formatTime(duration || position)}}</div>
-        </div>
+       <div class="{{css}}-time-container {{css}}-rightbutton-container {{css}}-right-time-container">
+           <div class="{{css}}-time-value" title="{{string('total-time')}}">{{formatTime(duration || position)}}</div>
+       </div>
 
-        <div class="{{css}}-progressbar">
+       <div class="{{css}}-progressbar">
            <div data-selector="progress-bar-inner" class="{{css}}-progressbar-inner"
                 onmousedown="{{startUpdatePosition(domEvent)}}"
                 onmouseup="{{stopUpdatePosition(domEvent)}}"
@@ -89,7 +81,7 @@
                    <div class="{{css}}-progressbar-button"></div>
                </div>
            </div>
-        </div>
+       </div>
 
     </div>
 

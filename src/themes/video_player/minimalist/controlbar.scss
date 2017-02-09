@@ -17,7 +17,6 @@
 
 /* Control Bar Header*/
 .#{$css}-controlbar-header {
-  @include background-rgba( 0,0,0, 0.3, #ddd );
   height: $controlbar_header_height;
   left: 0;
   letter-spacing: .05rem;
@@ -25,6 +24,7 @@
   padding: 0;
   position: absolute;
   text-align: left;
+  top: 15px;
   width: 100%;
   .#{$css}-right-block {
     line-height: $topmessage_height - 10px;
@@ -32,10 +32,9 @@
     right: 4%;
     z-index: 100;
   }
-}
-
-.#{$cssie8} .#{$css}-controlbar-header {
-  display: none;
+  .#{css}-rightbutton-container{
+    width: 21px;
+  }
 }
 
 .#{$css}-controlbar-header-title-block {
@@ -56,13 +55,12 @@
   h4 {
     color: $text_color;
     font-family: $font_family;
-    font-size: $controlbar_video_title_font_size;
+    font-size: 0.75rem;
     font-weight: 100;
     letter-spacing: .1em;
     line-height: $topmessage_height - 10;
     margin: 0;
-    padding: 0 0 0 15px;
-    text-align: left;
+    text-align: center;
   }
 }
 
@@ -103,6 +101,10 @@
 
 .#{$css}-right-block {
     float: right;
+}
+
+.#{$css}-icon-pause {
+    opacity: 0;
 }
 
 .#{$cssnoie8} .#{$css}-button-inner {
@@ -184,20 +186,13 @@
     bottom: 40px;
 }
 
-.#{$css}-player-rerecord {
-  position: relative;
-  top: 5px;
-}
-
 .#{$css}-time-container {
     @include color-rgba(255, 255, 255, 0.35, #b2b2b2);
+    width: $button_width * 2.2;
     float: left;
-    font-size: .8em;
+    //color: $text_secondary_color;
     letter-spacing: .1em;
-    margin-right: 15px;
-    padding: 1px 3px;
-    background: #323232;
-    width: auto;
+    font-size: .8em;
     & > div {
         float: left;
         //opacity: $text_secondary_color_opacity;
@@ -264,6 +259,15 @@
       }
     }
   }
+
+  .#{$css}-controlbar-middle-block{
+    bottom: 40px;
+  }
+
+  .#{$css}-controlbar-bottom-block{
+    bottom: 35px;
+  }
+
 }
 
 .#{$css}-size-small {

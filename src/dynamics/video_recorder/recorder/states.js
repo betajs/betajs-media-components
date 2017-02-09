@@ -184,6 +184,11 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
 					return;
 				}
 			}
+			this._uploadFile(file);
+		},
+		
+		_uploadFile: function (file) {
+			this.dyn.set("creation-type", Info.isMobile() ? "mobile" : "upload");
 			this.dyn._prepareRecording().success(function () {
 				this.dyn.trigger("upload_selected", file);
 				this.dyn._uploadVideoFile(file);
@@ -213,6 +218,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraAccess", [
 			this.dyn.set("skipvisible", false);
 			this.dyn.set("controlbarlabel", "");
 			this.listenOn(this.dyn, "bound", function () {
+				this.dyn.set("creation-type", this.dyn.isFlash() ? "flash" : "webrtc");
 				var timer = this.auto_destroy(new Timer({
 					start: true,
 					delay: 100,
@@ -376,9 +382,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
 				return;
 			this._stopping = true;
 			this.dyn._stopRecording().success(function () {
-				this.dyn._showBackgroundSnapshot();
-				this.dyn._unbindMedia();
-				this.dyn.trigger("recording_stopped");
+				this._hasStopped();
 				if (this.dyn.get("picksnapshots") && this.dyn.snapshots.length >= this.dyn.get("gallerysnapshots"))
 					this.next("CovershotSelection");
 				else
@@ -386,6 +390,13 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
 			}, this).error(function (s) {
 				this.next("FatalError", { message: s, retry: "CameraAccess" });
 			}, this);
+		},
+		
+		_hasStopped: function () {
+			this.dyn.set("duration", Time.now() - this._startTime);
+			this.dyn._showBackgroundSnapshot();
+			this.dyn._unbindMedia();
+			this.dyn.trigger("recording_stopped");
 		}
 		
 	});
@@ -412,11 +423,11 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
 			imagegallery.loadSnapshots();
 			imagegallery.updateContainerSize();
 			this.listenOn(this.dyn, "invoke-skip", function () {
-				this.next("Uploading");
+				this._nextUploading(true);
 			}, this);
 			this.listenOn(this.dyn, "select-image", function (image) {
 				this.dyn._uploadCovershot(image);
-				this.next("Uploading");
+				this._nextUploading(false);
 			}, this);
 		},
 		
@@ -430,6 +441,10 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
 		
 		uploadCovershot: function (file) {
 			this.dyn._uploadCovershotFile(file);
+			this._nextUploading(false);
+		},
+		
+		_nextUploading: function (skippedCovershot) {
 			this.next("Uploading");
 		}
 		
@@ -438,8 +453,9 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
 
 
 Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
-	"module:VideoRecorder.Dynamics.RecorderStates.State"
-], function (State, scoped) {
+	"module:VideoRecorder.Dynamics.RecorderStates.State",
+	"base:Time"
+], function (State, Time, scoped) {
 	return State.extend({scoped: scoped}, { 
 		
 		dynamics: ["loader", "message"],
@@ -454,7 +470,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
 			this.dyn.set("playertopmessage", this.dyn.get("message"));
 			var uploader = this.dyn._dataUploader;
 			this.listenOn(uploader, "success", function () {
-				this.dyn.trigger("uploaded");
+				this._finished();
 				this.next("Verifying");
 			});
 			this.listenOn(uploader, "error", function () {
@@ -482,6 +498,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
 			}
 			uploader.reset();
 			uploader.upload();
+			this.dyn.set("start-upload-time", Time.now());
 		},
 		
 		rerecord: function () {
@@ -490,6 +507,11 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
 			this.dyn.trigger("rerecord");
 			this.dyn.set("recordermode", true);
 			this.next("Initial");
+		},
+		
+		_finished: function () {
+			this.dyn.trigger("uploaded");
+			this.dyn.set("end-upload-time", Time.now());			
 		}
 		
 	});

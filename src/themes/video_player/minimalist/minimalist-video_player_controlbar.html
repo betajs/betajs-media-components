@@ -5,10 +5,9 @@
 
             <div class="{{css}}-right-block">
 
-                <div data-selector="button-icon-resize-full" class="{{css}}-button-container"
-                     ba-if="{{!nofullscreen}}" ba-click="toggle_fullscreen()" title="{{ fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video') }}">
+                <div data-selector="button-icon-resize-full" class="{{css}}-button-container"  ba-click="toggle_fullscreen()" title="{{string('fullscreen-video')}}">
                     <div class="{{css}}-button-inner {{css}}-full-screen-btn-inner">
-                        <i class="{{css}}-icon-resize-{{fullscreened ? 'small' : 'full'}}"></i>
+                        <i class="{{css}}-icon-resize-full"></i>
                     </div>
                 </div>
 
@@ -32,7 +31,6 @@
 
         </div>
 
-
         <div class="{{css}}-controlbar-header-title-block" ba-if="{{title}}">
             <div class="{{css}}-title"><h4>{{title}}</h4></div>
         </div>
@@ -45,6 +43,12 @@
             <div data-selector="submit-video-button" class="{{css}}-button-container" ba-if="{{submittable}}"  ba-click="submit()">
                 <div class="{{css}}-button-inner">
                     {{string('submit-video')}}
+                </div>
+            </div>
+
+            <div data-selector="button-icon-ccw" class="{{css}}-button-container" ba-if="{{rerecordable}}" ba-click="rerecord()" title="{{string('rerecord-video')}}">
+                <div class="{{css}}-button-inner">
+                    <i class="{{css}}-icon-ccw"></i>
                 </div>
             </div>
 
@@ -80,16 +84,10 @@
         </div>
         <div class="{{css}}-controlbar-bottom-block">
 
-            <div data-selector="button-icon-ccw" class="{{css}}-button-container {{css}}-player-rerecord" ba-if="{{rerecordable}}" ba-click="rerecord()" title="{{string('rerecord-video')}}">
-                <div class="{{css}}-button-inner">
-                    <i class="{{css}}-icon-ccw"></i>
-                </div>
-            </div>
-
             <div class="{{css}}-button-container {{css}}-time-container">
                 <div class="{{css}}-time-value" title="{{string('elapsed-time')}}">{{formatTime(position)}}</div>
                 <p> / </p>
-                <div class="{{css}}-time-value" title="{{string('elapsed-time')}}">{{formatTime(duration || position)}}</div>
+                <div class="{{css}}-time-value" title="{{string('total-time')}}">{{formatTime(duration || position)}}</div>
             </div>
 
             <div data-selector="button-stream-label" class="{{css}}-button-container" ba-if="{{streams.length > 1 && currentstream}}" ba-click="toggle_stream()" title="{{string('change-resolution')}}">

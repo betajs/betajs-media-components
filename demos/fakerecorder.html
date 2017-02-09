@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+	<meta content="utf-8" http-equiv="encoding">
+	<script src="../vendors/jquery.min.js"></script>
+		<script src="../node_modules/betajs-shims/dist/betajs-shims.js"></script>		
+        <script src="../node_modules/betajs-scoped/dist/scoped.js"></script>
+        <script src="../node_modules/betajs/dist/beta-noscoped.js"></script>
+        <script src="../node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
+        <script src="../node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
+        <script src="../node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+        <script src="../node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
+	<script src="../dist/betajs-media-components-noscoped.js"></script>
+	<link  href="../dist/betajs-media-components.css" rel="stylesheet" />
+    <script src="../dist/themes/modern/script.js"></script>
+    <link  href="../dist/themes/modern/style.css" rel="stylesheet" />
+    <script src="../dist/themes/space/script.js"></script>
+    <link  href="../dist/themes/space/style.css" rel="stylesheet" />
+</head>
+<body style="background: #999">
+	<style>
+		.foobar {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			z-index: 50;
+			background: white;
+			opacity: 0.2;
+		}
+		.foobarx {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			z-index: 55;
+		}
+		.foobarxx {
+    transform: translate(-50%,-50%);
+			background: white;
+			border: 1px solid black;
+opacity: 0.7;
+padding-left: 10px;
+padding-right: 10px;
+border-radius: 8px;
+font-size: 12px;
+top: 45%;
+left: 50%;
+transform: translateX(-50%);
+position: absolute;
+text-align: center;
+display: inline-block;
+cursor: pointer;
+		}
+		.foobarxx:hover {
+		opacity: 0.9;
+		}
+	</style>
+	<div id="container" style="width:400px"></div>
+    <script>
+    BetaJS.Flash.options = {
+            flashFile: "../node_modules/betajs-flash/dist/betajs-flash.swf",
+            forceReload: true
+        };
+    	var recorder = new BetaJS.MediaComponents.VideoRecorder.Dynamics.Recorder({
+    		element: $("#container"),
+    		attrs: {
+	    		theme: "modern",
+	    		skipinitial: true
+    		}
+    	});
+        recorder._attachRecorder = function () {
+            this.recorder = {
+                	blankLevel: function () {
+                		return 0.5;
+                	},
+                	isFlash: function () {
+                		return false;
+                	},
+                	deltaCoefficient: function () {
+                		return 0.5;
+                	}
+                };
+            var video = $(this.activeElement()).find("[data-video='video']").get(0);
+            video.autoplay = true;
+            video.loop = true;
+            video.volume = 0.0;
+            video.muted = true;
+            video.src = "sample-video.mp4";
+            var container = $(this.activeElement()).children().first();
+            container.append("<div class='foobar'></div>")
+            container.append("<div class='foobarx'><div class='foobarxx'>Click here to record yourself</div></div>");
+            container.find(".foobarx").on("click", function () {
+            	//recorder.destroy();
+            	recorder = new BetaJS.MediaComponents.VideoRecorder.Dynamics.Recorder({
+            		element: $("#container"),
+            		attrs: {
+        	    		theme: "modern",
+        	    		skipinitial: true
+            		}
+            	});
+            	recorder.activate();
+            });
+        };
+        recorder._bindMedia = function () {
+        	this.trigger("access_granted");
+        	this.trigger("bound");
+        };
+        recorder.activate();
+    </script>
+</body>
+</html>

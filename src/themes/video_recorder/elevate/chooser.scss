@@ -10,7 +10,7 @@
 
 .#{$css}-chooser-primary-button, .#{$css}-chooser-secondary-button {
 	line-height: $chooser_buttons_line_height;
-	min-width: $chooser_buttons_width;
+	min-width: $chooser_buttons_min_width;
 	padding: $chooser_primary_button_vertical_padding $chooser_primary_button_horizontal_padding;
 }
 

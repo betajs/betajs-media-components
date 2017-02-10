@@ -66,6 +66,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"volume": 1.0,
 				"title": "",
 				"initialseek": null,
+        "fullscreened": false,
+
 				/* Configuration */
 				"forceflash": false,
 				"noflash": false,
@@ -108,7 +110,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"hideoninactivity": "boolean",
 				"skipinitial": "boolean",
 				"volume": "float",
-				"initialseek": "float"
+				"initialseek": "float",
+        "fullscreened": "boolean"
 			},
 
 			extendables: ["states"],
@@ -144,7 +147,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				}
 				if (this.get("streams") && !this.get("currentstream"))
 					this.set("currentstream", (this.get("streams"))[0]);
+
 				this.set("ie8", Info.isInternetExplorer() && Info.internetExplorerVersion() < 9);
+        this.set("firefox", Info.isFirefox());
 				this.set("duration", 0.0);
 				this.set("position", 0.0);
 				this.set("buffered", 0.0);
@@ -278,7 +283,18 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 						this.set("playing", false);
 						this.trigger("ended");
 					}, this);
-			    	this.trigger("attached", instance);
+
+					var self = this;
+          this.player.on("fullscreenEsc", function() {
+            window.addEventListener("keydown", function (e) {
+              if(e.keyCode === 27 && self.get("fullscreened")) {
+                self.player.exitFullscreen();
+                self.set("fullscreened", false);
+              }
+            }, false);
+          });
+
+          this.trigger("attached", instance);
 					this.player.once("loaded", function () {
 						var volume = Math.min(1.0, this.get("volume"));
 						this.player.setVolume(volume);
@@ -391,8 +407,23 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				},
 
 				toggle_fullscreen: function () {
-					if (this.videoLoaded())
-						this.player.enterFullscreen();
+          if( this.get("fullscreened") ) {
+
+            this.player.exitFullscreen();
+            this.set("fullscreened", false);
+
+          } else {
+
+            if( this.get("firefox") ) {
+              this.player.enterParentFullscreen();
+            } else {
+              this.player.enterFullscreen();
+            }
+
+            this.set("fullscreened", true );
+
+            this.player.trigger("fullscreenEsc");
+          }
 				}
 
 			},

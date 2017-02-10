@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.42 - 2017-01-31
+betajs-media-components - v0.0.43 - 2017-02-10
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -26,7 +26,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: '\e800'; }
+  content: '\e805'; }
 
 .ba-videoplayer-theme-modern-icon-pause:before {
   font-family: "bjsmc";
@@ -51,7 +51,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: '\e801'; }
+  content: '\e806'; }
 
 .ba-videoplayer-theme-modern-icon-volume-off:before {
   font-family: "bjsmc";
@@ -76,7 +76,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: '\e802'; }
+  content: '\e800'; }
 
 .ba-videoplayer-theme-modern-icon-volume-down:before {
   font-family: "bjsmc";
@@ -101,7 +101,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: '\e803'; }
+  content: '\e801'; }
 
 .ba-videoplayer-theme-modern-icon-volume-up:before {
   font-family: "bjsmc";
@@ -126,7 +126,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: '\e804'; }
+  content: '\e802'; }
 
 .ba-videoplayer-theme-modern-icon-resize-full:before {
   font-family: "bjsmc";
@@ -151,7 +151,32 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: '\e805'; }
+  content: '\e803'; }
+
+.ba-videoplayer-theme-modern-icon-resize-small:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e80f'; }
 
 .ba-videoplayer-theme-modern-icon-videocam:before {
   font-family: "bjsmc";
@@ -176,7 +201,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: '\e806'; }
+  content: '\e807'; }
 
 .ba-videoplayer-theme-modern-icon-ccw:before {
   font-family: "bjsmc";
@@ -201,7 +226,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: '\e807'; }
+  content: '\e804'; }
 
 .ba-videoplayer-theme-modern-icon-upload:before {
   font-family: "bjsmc";
@@ -402,6 +427,31 @@ Apache-2.0 Software License.
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\f131'; }
+
+.ba-videoplayer-theme-modern-icon-resize-minimize:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e810'; }
 
 .ba-videoplayer-theme-modern-icon-share:before {
   font-family: "bjsmc";
@@ -795,6 +845,71 @@ Apache-2.0 Software License.
 .ba-videoplayer-theme-modern-size-medium .ba-videoplayer-theme-modern-volume-button-container, .ba-videoplayer-theme-modern-size-small .ba-videoplayer-theme-modern-volume-button-container {
   display: none; }
 
+/* Full screen options */
+/* hide the default Chrome video player styling */
+video::-webkit-media-controls-overlay-enclosure {
+  display: none; }
+
+video::-webkit-media-controls-enclosure {
+  display: none; }
+
+video::-webkit-media-controls {
+  display: none; }
+
+/*  Needed to hide player controls in Safari Only */
+video::-webkit-media-controls-panel {
+  display: none; }
+
+video::-webkit-media-controls-play-button {
+  display: none; }
+
+video::-webkit-media-controls-current-time-display {
+  display: none; }
+
+video::-webkit-media-controls-time-remaining-display {
+  display: none; }
+
+video::-webkit-media-controls-timeline {
+  display: none; }
+
+video::-webkit-media-controls-mute-button {
+  display: none; }
+
+video::-webkit-media-controls-volume-slider {
+  display: none; }
+
+video::-webkit-media-controls-fullscreen-button {
+  display: none; }
+
+video::-internal-media-controls-download-button {
+  display: none; }
+
+/* Firefox Shadow DOM Fix */
+video::-moz-list-bullet, video::-moz-list-number {
+  display: none; }
+
+video::-moz-meter-bar {
+  display: none; }
+
+video:fullscreen:not(:root) {
+  display: none; }
+
+.ba-videoplayer-theme-modern-fullscreen-view {
+  width: 100% !important; }
+  .ba-videoplayer-theme-modern-fullscreen-view .ba-videoplayer-theme-modern-dashboard {
+    bottom: 0; }
+  .ba-videoplayer-theme-modern-fullscreen-view .ba-videoplayer-theme-modern-video-title-block {
+    top: 0; }
+  .ba-videoplayer-theme-modern-fullscreen-view.ba-videoplayer-theme-modern-common-browser .ba-videoplayer-theme-modern-overlay {
+    z-index: 2147483647; }
+  .ba-videoplayer-theme-modern-fullscreen-view.ba-videoplayer-theme-modern-firefox-browser .ba-videoplayer-theme-modern-dashboard, .ba-videoplayer-theme-modern-fullscreen-view.ba-videoplayer-theme-modern-firefox-browser .ba-videoplayer-theme-modern-video-title-block {
+    position: fixed;
+    z-index: 100; }
+  .ba-videoplayer-theme-modern-fullscreen-view.ba-videoplayer-theme-modern-firefox-browser video {
+    position: relative;
+    min-width: 100%;
+    z-index: 0; }
+
 .ba-videoplayer-noie8 .ba-videoplayer-theme-modern-playbutton-container {
   -webkit-transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);
@@ -929,7 +1044,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: '\e800'; }
+  content: '\e805'; }
 
 .ba-videorecorder-theme-modern-icon-pause:before {
   font-family: "bjsmc";
@@ -954,7 +1069,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: '\e801'; }
+  content: '\e806'; }
 
 .ba-videorecorder-theme-modern-icon-volume-off:before {
   font-family: "bjsmc";
@@ -979,7 +1094,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: '\e802'; }
+  content: '\e800'; }
 
 .ba-videorecorder-theme-modern-icon-volume-down:before {
   font-family: "bjsmc";
@@ -1004,7 +1119,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: '\e803'; }
+  content: '\e801'; }
 
 .ba-videorecorder-theme-modern-icon-volume-up:before {
   font-family: "bjsmc";
@@ -1029,7 +1144,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: '\e804'; }
+  content: '\e802'; }
 
 .ba-videorecorder-theme-modern-icon-resize-full:before {
   font-family: "bjsmc";
@@ -1054,7 +1169,32 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: '\e805'; }
+  content: '\e803'; }
+
+.ba-videorecorder-theme-modern-icon-resize-small:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e80f'; }
 
 .ba-videorecorder-theme-modern-icon-videocam:before {
   font-family: "bjsmc";
@@ -1079,7 +1219,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: '\e806'; }
+  content: '\e807'; }
 
 .ba-videorecorder-theme-modern-icon-ccw:before {
   font-family: "bjsmc";
@@ -1104,7 +1244,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: '\e807'; }
+  content: '\e804'; }
 
 .ba-videorecorder-theme-modern-icon-upload:before {
   font-family: "bjsmc";
@@ -1305,6 +1445,31 @@ Apache-2.0 Software License.
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\f131'; }
+
+.ba-videorecorder-theme-modern-icon-resize-minimize:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e810'; }
 
 .ba-videorecorder-theme-modern-icon-share:before {
   font-family: "bjsmc";

@@ -1,3 +1,44 @@
 /* Full screen options */
-@include full-screen-display(none);
-@include full-screen-backdrop(#006);
+
+@include hide-dom-shadow-media-control();
+
+.#{$css}-fullscreen-view {
+
+  :-webkit-full-screen {  }
+
+  :-moz-full-screen {  }
+
+  :-ms-fullscreen {  }
+
+  :fullscreen {  }
+
+  width: 100% !important;
+
+  .#{$css}-dashboard {
+    bottom: 0;
+  }
+
+  .#{$css}-video-title-block {
+    top: 0;
+  }
+
+  &.#{$css}-common-browser .#{$css}-overlay {
+    z-index: 2147483647;
+  }
+
+  &.#{$css}-firefox-browser {
+
+    .#{$css}-dashboard, .#{$css}-video-title-block {
+      position: fixed;
+      z-index: 100;
+    }
+
+    video {
+      position: relative;
+      min-width: 100%;
+      z-index: 0;
+    }
+
+  }
+
+}

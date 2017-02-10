@@ -31,6 +31,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 				"streams": [],
 				"currentstream": null,
 				"fullscreen": true,
+        "fullscreened": false,
 				"activitydelta": 0,
         "title": true
 			},
@@ -150,7 +151,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 							current = i;
 					}, this);
 					this.set("currentstream", streams[(current + 1) % streams.length]);
-				}
+				},
+
+        share_media: function() {
+          console.log("Share media function");
+        }
 				
 			},
 			
@@ -174,6 +179,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
     	"volume-button": "Set volume",
     	"volume-mute": "Mute sound",
     	"volume-unmute": "Unmute sound",
-    	"change-resolution": "Change resolution"
+    	"change-resolution": "Change resolution",
+      "exit-fullscreen-video": "Minimize video",
+      "share-media": "Share this media"
     });
 });

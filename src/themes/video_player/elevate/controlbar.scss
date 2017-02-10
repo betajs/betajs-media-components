@@ -70,7 +70,6 @@
 .#{$css}-top-right-block{
     float: right;
     .#{$css}-time-value{
-        color: white;
         text-align: right;
     }
 }
@@ -122,7 +121,6 @@
     text-align: center;
     font-family: $text_fontfamily;
     font-size: $text_fontsize;
-    color: $text_color;
 	box-sizing: content-box;
     border: none;
 }
@@ -132,6 +130,8 @@
 }
 
 .#{$css}-time-value {
+    color: #ffffff;
+    @include text-shadow(#000000, 4);
     @include relative-center-center;
     float: left;
     font-size: $text_fontsize;
@@ -153,7 +153,7 @@
 .#{$css}-progressbar {
     overflow: hidden;
     height: 100%;
-    padding: 10px 5px 5px 0;
+    padding: 10px 0 5px;
 }
 
 .#{$css}-progressbar-inner {
@@ -162,7 +162,6 @@
     @include clickable;
     background: $progressbar_cache_bgcolor;
     height: $progressbar_height;
-    left: -5px;
 }
 
 .#{$css}-progressbar-cache {
@@ -184,7 +183,7 @@
     box-sizing: content-box;
     display: inline-block;
     position: absolute;
-    right: -5px;
+    right: -15px;
     top: $progressbar_height / -2;
     z-index: 1;
     background-color: $button-color;

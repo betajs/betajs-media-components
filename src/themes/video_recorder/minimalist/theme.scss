@@ -2,7 +2,7 @@ $css: "ba-videorecorder-theme-minimalist";
 $cssie8: "ba-videorecorder-ie8";
 $cssnoie8: "ba-videorecorder-noie8";
 $fontello_name: "bjsmc";
-$recorder: "ba-videorecorder-theme-minimalist";
+$recorder: "ba-videorecorder";
 
 $font_family: sans-serif;
 $recorder_bgcolor: #5daa96;
@@ -31,7 +31,7 @@ $loader_frame_thickness: 1.1em;
 $loader_label_fontsize: 40px;
 
 $chooser_background: #4c4c4c;
-$chooser_buttons_width: 10em;
+$chooser_buttons_min_width: 12em;
 $chooser_primary_button_bgcolor: $button_color;
 $chooser_primary_button_vertical_padding: 12px;
 $chooser_primary_button_horizontal_padding: 15px;

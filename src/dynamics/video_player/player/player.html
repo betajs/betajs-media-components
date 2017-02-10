@@ -1,5 +1,5 @@
 <div itemscope itemtype="http://schema.org/VideoObject"
-    class="{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}"
+    class="{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}  {{css}}-{{ fullscreened ? 'fullscreen' : 'normal' }}-view {{css}}-{{ firefox ? 'firefox' : 'common'}}-browser "
     ba-on:mousemove="user_activity()"
     ba-on:mousedown="user_activity()"
     ba-on:touchstart="user_activity()"
@@ -32,7 +32,8 @@
 		    ba-streams="{{streams}}"
 		    ba-currentstream="{{=currentstream}}"
 		    ba-fullscreen="{{fullscreensupport && !nofullscreen}}"
-		    ba-source="{{source}}"
+            ba-fullscreened="{{fullscreened}}"
+            ba-source="{{source}}"
 		></ba-{{dyncontrolbar}}>
 		
 		<ba-{{dynplaybutton}}

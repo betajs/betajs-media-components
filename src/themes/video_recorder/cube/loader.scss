@@ -10,12 +10,6 @@
 .#{$recorder}-loader-label-container {
 }
 
-.#{$recorder}-wait-button-container {
-    display: inline-block;
-    position: absolute;
-    right: 0;
-}
-
 .#{$recorder}-button-primary {
     border-radius: 0;
     background: $controlbar_primarybutton_background;
@@ -42,10 +36,14 @@
 }
 
 .#{$recorder}-wait-button-container {
-    .#{$recorder}0-button-primary {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    .#{$recorder}-button-primary {
+        bottom: 0;
         color: $rerecord_text_color;
         position: absolute;
+        left: initial;
         right: 0;
-        bottom: 0;
     }
 }

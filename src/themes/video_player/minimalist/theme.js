@@ -8,7 +8,6 @@ Scoped.extend("module:Assets.playerthemes", [
 			css: "ba-videoplayer-minimalist-theme",
 			csstheme: "ba-videoplayer-minimalist-theme",
 			tmplcontrolbar: Templates["minimalist-video_player_controlbar"],
-			//tmpltopmessage: Templates["minimalist-video_player_topmessage"],
 			cssloader: ie8 ? "ba-videoplayer" : "",
 			cssmessage: "ba-videoplayer",
 			cssplaybutton: ie8 ? "ba-videoplayer" : ""

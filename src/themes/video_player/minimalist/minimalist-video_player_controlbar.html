@@ -89,7 +89,7 @@
             <div class="{{css}}-button-container {{css}}-time-container">
                 <div class="{{css}}-time-value" title="{{string('elapsed-time')}}">{{formatTime(position)}}</div>
                 <p> / </p>
-                <div class="{{css}}-time-value" title="{{string('elapsed-time')}}">{{formatTime(duration || position)}}</div>
+                <div class="{{css}}-time-value" title="{{string('total-time')}}">{{formatTime(duration || position)}}</div>
             </div>
 
             <div data-selector="button-stream-label" class="{{css}}-button-container" ba-if="{{streams.length > 1 && currentstream}}" ba-click="toggle_stream()" title="{{string('change-resolution')}}">

@@ -19,10 +19,10 @@
     color: $text_color_secondary;
 }
 
-.ba-videorecorder-icon-right-open:before {
+.#{$css}-icon-right-open:before {
   margin-right: 0;
 }
 
-.ba-videorecorder-icon-left-open:before {
+.#{$css}-icon-left-open:before {
   margin-left: 0;
 }

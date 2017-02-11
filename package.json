@@ -51,9 +51,9 @@
         "betajs-compile": "~0.0.28",
         "betajs-shims": "~0.0.12",
         "betajs": "~1.0.96",
-        "betajs-browser": "~1.0.61",
+        "betajs-browser": "~1.0.64",
         "betajs-flash": "~0.0.18",
-        "betajs-media": "~0.0.42",
+        "betajs-media": "~0.0.43",
         "betajs-dynamics": "~0.0.83",
         "grunt-betajs-templates": "~0.1.11"
     },

@@ -50,6 +50,7 @@
   ba-videorecorder.unsupported_video_type: 'Please upload: %s - click here to retry.'
   ba-videoplayer-controlbar.exit-fullscreen-video: Minimize video
   ba-videoplayer-controlbar.share-media: Share this media
+  ba-videoplayer-share.share: Share video
   ba-videorecorder-loader.starts-in: 'Starts in '
   ba-videorecorder-loader.wait: Wait
   ba-videorecorder-loader.wait-tooltip: Wait

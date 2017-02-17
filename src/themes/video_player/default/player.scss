@@ -1,6 +1,7 @@
 .#{$css}-container {
     display: inline-block;
     position: relative;
+	overflow: hidden;
 }
 
 .#{$css}-overlay {

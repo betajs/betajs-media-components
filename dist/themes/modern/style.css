@@ -1180,6 +1180,59 @@ video:fullscreen:not(:root) {
 .ba-videoplayer-theme-modern-blue .ba-videoplayer-theme-modern-rerecord-button {
   background: #2a74eb; }
 
+.ba-videoplayer-theme-modern-share-action-container {
+  transition: all 1s ease-in-out;
+  -moz-transition: all 1s ease-in-out;
+  -webkit-transition: all 1s ease-in-out;
+  -o-transition: all 1s ease-in-out;
+  -ms-transition: all 1s ease-in-out;
+  position: absolute;
+  right: -45px;
+  top: 50px;
+  width: 90px; }
+  .ba-videoplayer-theme-modern-share-action-container .ba-videoplayer-theme-modern-button-inner {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -o-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0); }
+
+.ba-videoplayer-theme-modern-share-action-container:hover {
+  -webkit-transform: translate(-45px, 0);
+  -moz-transform: translate(-45px, 0);
+  -o-transform: translate(-45px, 0);
+  -ms-transform: translate(-45px, 0);
+  transform: translate(-45px, 0); }
+
+.ba-videoplayer-theme-modern-toggle-share-container {
+  background: #eeeeee;
+  background: rgba(0, 0, 0, 0.1);
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+  color: white;
+  float: left;
+  font-size: 14px;
+  line-height: 45px;
+  text-align: center;
+  width: 45px; }
+
+.ba-videoplayer-theme-modern-social-buttons-container {
+  float: right;
+  width: 45px; }
+
+.ba-videoplayer-theme-modern-socials-list {
+  background: #eeeeee;
+  background: rgba(0, 0, 0, 0.1);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center; }
+  .ba-videoplayer-theme-modern-socials-list > li {
+    font-size: 14px;
+    height: 45px;
+    width: 45px;
+    line-height: 45px; }
+
 .ba-videorecorder-theme-modern-icon-play:before {
   font-family: "bjsmc";
   font-style: normal;

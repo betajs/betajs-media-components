@@ -1563,7 +1563,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"title": "",
 				"initialseek": null,
         "fullscreened": false,
-				"shareVideo": false,
+				"sharevideo": false,
 				"facebookShare": "",
 				"twitterShare": "",
 
@@ -1611,7 +1611,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"volume": "float",
 				"initialseek": "float",
         "fullscreened": "boolean",
-        "shareVideo": "boolean",
+        "sharevideo": "boolean",
         "facebookShare": "string",
         "twitterShare": "string"
 			},
@@ -1663,8 +1663,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				this.set("playbutton_active", false);
 				this.set("controlbar_active", false);
 				this.set("message_active", false);
-        //this.set("share_active", false);
-        this.set("share_active", true);
+        this.set("share_active", this.get("sharevideo"));
 
 				this.set("last_activity", Time.now());
 				this.set("activity_delta", 0);

@@ -188,6 +188,7 @@
     -moz-transition: $attribute $time $mode;
     -webkit-transition: $attribute $time $mode;
     -o-transition: $attribute $time $mode;
+    -ms-transition: $attribute $time $mode;
 }
 
 @mixin transition2($attribute1, $attribute2, $time, $mode) {

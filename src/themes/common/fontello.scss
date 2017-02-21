@@ -123,3 +123,45 @@
   @include fontello-icon;
   content: '\f130';
 }
+
+
+.#{$css}-icon-facebook:before {
+  color: #3b5998;
+  content: '\f09a';
+  @include fontello-icon;
+}
+
+
+.#{$css}-icon-facebook-official:before {
+  color: #3b5998;
+  content: '\f230';
+  @include fontello-icon;
+}
+
+
+.#{$css}-icon-twitter:before {
+  color: #1da1f2;
+  content: '\f099';
+  @include fontello-icon;
+}
+
+
+.#{$css}-icon-twitter-squared:before {
+  color: #1da1f2;
+  content: '\f304';
+  @include fontello-icon;
+}
+
+
+.#{$css}-icon-gplus:before {
+  color: #dd4b39;
+  content: '\f0d5';
+  @include fontello-icon;
+}
+
+
+.#{$css}-icon-gplus-squared:before {
+  color: #dd4b39;
+  content: '\f0d4';
+  @include fontello-icon;
+}

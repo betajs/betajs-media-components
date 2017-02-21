@@ -52,6 +52,14 @@
 		    ba-template="{{tmplloader}}"
 		    ba-show="{{loader_active}}"
 		></ba-{{dynloader}}>
+
+		<ba-{{dynshare}}
+			ba-css="{{cssshare || css}}"
+			ba-template="{{tmplshare}}"
+        	ba-show="{{sharevideourl}}"
+			ba-url="{{sharevideourl}}"
+			ba-shares="{{sharevideo}}"
+		></ba-{{dynshare}}>
 		
 		<ba-{{dynmessage}}
 		    ba-css="{{cssmessage || css}}"

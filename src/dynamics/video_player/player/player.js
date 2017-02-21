@@ -19,6 +19,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 	"module:VideoPlayer.Dynamics.Playbutton",
 	"module:VideoPlayer.Dynamics.Message",
 	"module:VideoPlayer.Dynamics.Loader",
+	"module:VideoPlayer.Dynamics.Share",
 	"module:VideoPlayer.Dynamics.Controlbar",
 	"dynamics:Partials.EventPartial",
 	"dynamics:Partials.OnPartial",
@@ -49,10 +50,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"dynmessage": "videoplayer-message",
 				"dyntopmessage": "videoplayer-topmessage",
 				"dyncontrolbar": "videoplayer-controlbar",
+				"dynshare": "videoplayer-share",
 				/* Templates */
 				"tmplplaybutton": "",
 				"tmplloader": "",
 				"tmplmessage": "",
+				"tmplshare": "",
 				"tmpltopmessage": "",
 				"tmplcontrolbar": "",
 				/* Attributes */
@@ -67,6 +70,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"title": "",
 				"initialseek": null,
 				"fullscreened": false,
+				"sharevideo": [],
+				"sharevideourl": "",
 
 				/* Configuration */
 				"forceflash": false,
@@ -111,7 +116,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"skipinitial": "boolean",
 				"volume": "float",
 				"initialseek": "float",
-				"fullscreened": "boolean"
+				"fullscreened": "boolean",
+				"sharevideo": "array",
+				"sharevideourl": "string"
 			},
 
 			extendables: ["states"],

@@ -49,3 +49,4 @@
     video file.
   ba-videorecorder.unsupported_video_type: 'Please upload: %s - click here to retry.'
   ba-videoplayer-controlbar.exit-fullscreen-video: Exit fullscreen
+  ba-videoplayer-share.share: Share video

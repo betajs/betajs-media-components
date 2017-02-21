@@ -1,0 +1,16 @@
+<div class="{{css}}-share-action-container">
+    <div class="{{css}}-toggle-share-container">
+        <div class="{{css}}-button-inner" onclick="{{toggleShare()}}">
+            <i class="{{css}}-icon-share"></i>
+        </div>
+    </div>
+    <div class="{{css}}-social-buttons-container">
+        <ul class="{{css}}-socials-list" ba-repeat="{{share :: shares}}">
+            <li class="{{css}}-single-social">
+                <div class="{{css}}-button-inner">
+                    <i class="{{css}}-icon-{{share}}" onclick="{{shareMedia(share)}}"></i>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

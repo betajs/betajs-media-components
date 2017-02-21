@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.43 - 2017-02-11
+betajs-media-components - v0.0.44 - 2017-02-21
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -804,7 +804,9 @@ Apache-2.0 Software License.
   letter-spacing: .1em;
   margin-right: 15px;
   padding: 1px 3px;
-  background: #323232;
+  margin-top: -1px;
+  background: #676f76;
+  opacity: 0.75;
   width: auto; }
   .ba-videoplayer-minimalist-theme-time-container > div {
     float: left; }
@@ -820,7 +822,8 @@ Apache-2.0 Software License.
   display: inline-block;
   padding: 4px 3px 3px 4px;
   background-color: #676f76;
-  color: white; }
+  color: white;
+  opacity: 0.75; }
 
 .css-size-small .ba-videoplayer-minimalist-theme-controlbar-top-block .ba-videoplayer-minimalist-theme-button-container .ba-videoplayer-minimalist-theme-button-inner {
   font-size: 1.25em; }
@@ -1638,9 +1641,9 @@ video:fullscreen:not(:root) {
   border-radius: 50px;
   background: #5daa96;
   color: #ffffff;
-  padding: 12px;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding: 6px;
+  padding-left: 8px;
+  padding-right: 8px;
   font-family: sans-serif;
   font-size: 14px;
   text-align: center;
@@ -1981,7 +1984,7 @@ video:fullscreen:not(:root) {
   border: 3px solid #5daa96; }
 
 .ba-videorecorder-theme-minimalist-chooser-container {
-  background: #4c4c4c; }
+  background: white; }
 
 .ba-videorecorder-theme-minimalist-chooser-icon-container {
   color: #5daa96;
@@ -1993,15 +1996,14 @@ video:fullscreen:not(:root) {
   -webkit-border-radius: 50px;
   border-radius: 50px;
   line-height: 20px;
-  min-width: 12em;
-  padding: 12px 15px; }
+  min-width: 10em;
+  padding: 6px 8px; }
 
 .ba-videorecorder-theme-minimalist-chooser-secondary-button {
   background: #b2b2b2;
   background: rgba(255, 255, 255, 0.4);
-  color: #ffffff;
-  line-height: 6px;
-  margin-top: 12px; }
+  color: black;
+  margin-top: 2px; }
 
 .ba-videorecorder-theme-minimalist-shape-record {
   background: #5daa96;
@@ -2017,30 +2019,20 @@ video:fullscreen:not(:root) {
   position: relative;
   top: 3px; }
 
+/*
 .ba-videorecorder-theme-minimalist-triangle-shape-border {
-  background: #ffffff;
-  border: 5px solid #ffffff;
-  /* Cleaner, but slightly less support: use "50%" as value */
-  -moz-border-radius: 16px;
-  -webkit-border-radius: 16px;
-  border-radius: 16px;
-  display: inline-block;
-  height: 4px;
-  width: 4px;
+  @include circle_shape( 4px, #ffffff, 5px, #ffffff );
   margin: 0 5px;
   position: relative;
-  top: 1px; }
-  .ba-videorecorder-theme-minimalist-triangle-shape-border .ba-videorecorder-theme-minimalist-shape-upload {
+  top: 1px;
+  .ba-videorecorder-theme-minimalist-shape-upload {
     bottom: 4px;
-    border-bottom: 6px solid #b2b2b2;
-    border-left: 3px solid transparent;
-    border-right: 3px solid transparent;
-    display: inline-block;
-    height: 0;
-    width: 0;
+    @include triangle_up_shape( 6px, #b2b2b2 );
     position: relative;
-    right: 1px; }
-
+    right: 1px;
+  }
+}
+*/
 .ba-videorecorder-theme-minimalist-dashboard {
   position: absolute;
   left: 0;
@@ -2213,7 +2205,8 @@ video:fullscreen:not(:root) {
 .ba-videorecorder-theme-minimalist-label-container {
   float: left;
   text-align: right;
-  width: 50%; }
+  width: 50%;
+  opacity: 0.25; }
   .ba-videorecorder-theme-minimalist-label-container .ba-videorecorder-theme-minimalist-button-primary {
     color: #ffffff;
     background: #999999;
@@ -2244,68 +2237,6 @@ video:fullscreen:not(:root) {
 
 .ba-videorecorder-theme-minimalist-icon-left-open:before {
   margin-left: 0; }
-
-.ba-videorecorder-theme-minimalist-loader-label {
-  font-size: 12px;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: auto;
-  -webkit-transform: translate(0, 0);
-  -moz-transform: translate(0, 0);
-  -o-transform: translate(0, 0);
-  -ms-transform: translate(0, 0);
-  transform: translate(0, 0); }
-
-.ba-videorecorder-theme-minimalist-loader-label-container {
-  -webkit-transform: translate(0, 0);
-  -moz-transform: translate(0, 0);
-  -o-transform: translate(0, 0);
-  -ms-transform: translate(0, 0);
-  transform: translate(0, 0);
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 48px;
-  text-align: center;
-  width: 100%; }
-
-.ba-videorecorder-theme-minimalist-wait-button-container {
-  display: inline-block; }
-
-.ba-videorecorder-theme-minimalist-button-primary {
-  background: #5daa96;
-  -moz-border-radius: 18px;
-  -webkit-border-radius: 18px;
-  border-radius: 18px;
-  display: inline-block;
-  font-family: sans-serif;
-  font-weight: 100;
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  padding: 6px 15px;
-  -webkit-transform: translateY(0);
-  -moz-transform: translateY(0);
-  -o-transform: translateY(0);
-  -ms-transform: translateY(0);
-  transform: translateY(0);
-  z-index: 10; }
-
-.ba-videorecorder-theme-minimalist-loader-countdown .ba-videorecorder-theme-minimalist-button-primary {
-  background: #999999;
-  background: rgba(0, 0, 0, 0.4);
-  cursor: default; }
-
-.ba-videorecorder-theme-minimalist-wait-button-container {
-  -webkit-transform: translateY(0);
-  -moz-transform: translateY(0);
-  -o-transform: translateY(0);
-  -ms-transform: translateY(0);
-  transform: translateY(0); }
-  .ba-videorecorder-theme-minimalist-wait-button-container .ba-videorecorder-theme-minimalist-button-primary {
-    padding: 10px 20px; }
 
 .ba-videorecorder-theme-minimalist-message-container {
   opacity: 1;

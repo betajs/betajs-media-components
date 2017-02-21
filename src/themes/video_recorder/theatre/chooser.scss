@@ -18,13 +18,14 @@
 .#{$css}-chooser-primary-button {
   background: #ffffff;
   color: #333333;
+  border: 1px solid #333;
 }
 
 .#{$css}-chooser-secondary-button {
-  @include background-rgba( 0, 0, 0, 0.5, #666666 );
+  //@include background-rgba( 0, 0, 0, 0.5, #666666 );
+  border: 1px solid #999;
   color: #999999;
-  line-height: 6px;
-  margin-top: 12px;
+  margin-top: 2px;
 }
 
 .#{$css}-shape-record {
@@ -33,7 +34,7 @@
   position: relative;
   top: 3px;
 }
-
+/*
 .#{$css}-triangle-shape-border {
   @include circle_shape( 4px, #999999, 5px, #999999 );
   margin: 0 5px;
@@ -46,4 +47,4 @@
     right: 1px;
   }
 }
-
+*/

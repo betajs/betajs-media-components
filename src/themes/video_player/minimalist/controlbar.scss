@@ -196,7 +196,9 @@
     letter-spacing: .1em;
     margin-right: 15px;
     padding: 1px 3px;
-    background: #323232;
+  margin-top: -1px;
+  background: #676f76;
+  opacity: 0.75;
     width: auto;
     & > div {
         float: left;
@@ -221,6 +223,7 @@
     padding: 4px 3px 3px 4px;
     background-color: $stream_label_bg_color;
     color: $stream_label_color;
+  opacity: 0.75;
 }
 
 .#{css}-size-small  .#{$css}-controlbar-top-block {

@@ -2,11 +2,12 @@
     background: $settings_bgcolor;
     @include border-radius($controlbar_primarybutton_radius);
     color: $text_color_secondary;
+    opacity: 0.75;
     display: inline-block;
     font-family: $font_family;
     font-size: $controlbar_primarybutton_font_size;
     font-weight: 100;
-    padding: $controlbar_button_padding;
+    padding: 6;
     position: relative;
     margin: 15px 0 0 15px;
 }

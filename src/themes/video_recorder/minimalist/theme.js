@@ -7,11 +7,10 @@ Scoped.extend("module:Assets.recorderthemes", [
 			cssmessage: "ba-videorecorder",
 			cssloader: "ba-videorecorder",
 			tmplchooser: Templates["minimalist-video_recorder_chooser"],
-      tmpltopmessage: Templates["minimalist-video_recorder_topmessage"],
-      tmplcontrolbar: Templates["minimalist-video_recorder_controlbar"],
-      tmplimagegallery: Templates["minimalist-recorder_imagegallery"],
-			tmplloader: Templates["minimalist-video_recorder_loader"],
-      tmplmessage: Templates["minimalist-video_recorder_message"]
+			tmpltopmessage: Templates["minimalist-video_recorder_topmessage"],
+			tmplcontrolbar: Templates["minimalist-video_recorder_controlbar"],
+			tmplimagegallery: Templates["minimalist-recorder_imagegallery"],
+			tmplmessage: Templates["minimalist-video_recorder_message"]
 		}
 	};
 });

@@ -75,6 +75,7 @@
 .#{$css}-button-inner {
   background: $controlbar_button_background;
   color: $text_color_secondary;
+  opacity: 0.65;
   cursor: pointer;
   border: none;
   font-size: inherit;
@@ -150,6 +151,7 @@
   float: left;
   text-align: right;
   width: 50%;
+  opacity: 0.25;
   .#{$css}-button-primary {
     background: $settings_bgcolor;
     color: $text_color_secondary;

@@ -148,6 +148,7 @@
   float: left;
   text-align: right;
   width: 50%;
+  opacity: 0.25;
   .#{$css}-button-primary {
     color: $text_color;
     @include background-rgba(0, 0, 0, .4, #999999);

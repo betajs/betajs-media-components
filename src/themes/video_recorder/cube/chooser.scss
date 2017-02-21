@@ -21,8 +21,7 @@
 .#{$css}-chooser-secondary-button {
 	@include background-rgba( 0, 0, 0, 0.6, #323232 );
 	color: $chooser_secondary_button_color;
-	line-height: 6px ;
-	margin-top: 12px;
+	margin-top: 2px;
 }
 
 .#{$css}-shape-record {
@@ -31,7 +30,7 @@
 	position: relative;
 	top: 3px;
 }
-
+/*
 .#{$css}-triangle-shape-border {
 	@include circle_shape( 4px, $chooser_secondary_button_color, 5px, $chooser_secondary_button_color );
 	margin: 0 5px;
@@ -44,3 +43,4 @@
 		right: 1px;
 	}
 }
+*/

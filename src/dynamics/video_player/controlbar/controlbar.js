@@ -3,7 +3,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
     "base:TimeFormat",
     "base:Comparators",
     "module:Templates",
-    "jquery:",
+    "browser:Dom",
     "module:Assets",
     "browser:Info",
     "media:Player.Support"
@@ -12,7 +12,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
     "dynamics:Partials.ShowPartial",
     "dynamics:Partials.IfPartial",
     "dynamics:Partials.ClickPartial"
-], function (Class, TimeFormat, Comparators, Templates, $, Assets, Info, PlayerSupport, scoped) {
+], function (Class, TimeFormat, Comparators, Templates, Dom, Assets, Info, PlayerSupport, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {
 			
@@ -31,9 +31,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 				"streams": [],
 				"currentstream": null,
 				"fullscreen": true,
-        "fullscreened": false,
+				"fullscreened": false,
 				"activitydelta": 0,
-        "title": true
+				"title": ""
 			},
 			
 			computed: {
@@ -57,10 +57,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 				},
 				
 				progressUpdatePosition: function (event) {
-					event[0].preventDefault();
+					var ev = event[0];
+					ev.preventDefault();
 					if (!this.get("_updatePosition"))
 						return;
-					this.set("position", this.get("duration") * (event[0].clientX - $(event[0].currentTarget).offset().left) / $(event[0].currentTarget).width());
+					var clientX = ev.clientX;
+					var target = ev.currentTarget;
+					var offset = Dom.elementOffset(target);
+					var dimensions = Dom.elementDimensions(target);
+					this.set("position", this.get("duration") * (clientX - offset.left) / (dimensions.width || 1));
 					this.trigger("position", this.get("position"));
 				},
 				
@@ -76,40 +81,46 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 				},
 				
 				progressUpdateVolume: function (event) {
-					event[0].preventDefault();
+					var ev = event[0];
+					ev.preventDefault();
 					if (!this.get("_updateVolume"))
 						return;
-					this.set("volume", (event[0].clientX - $(event[0].currentTarget).offset().left) / $(event[0].currentTarget).width());
+					var clientX = ev.clientX;
+					var target = ev.currentTarget;
+					var offset = Dom.elementOffset(target);
+					var dimensions = Dom.elementDimensions(target);
+					this.set("volume", (clientX - offset.left) / (dimensions.width || 1));
 					this.trigger("volume", this.get("volume"));
 				},
 
-        stopUpdateVolume: function (event) {
-          event[0].preventDefault();
-          this.set("_updateVolume", false);
-        },
+				stopUpdateVolume: function (event) {
+					event[0].preventDefault();
+					this.set("_updateVolume", false);
+				},
 
 				startVerticallyUpdateVolume: function (event) {
-          event[0].preventDefault();
-          this.set("_updateVolume", true);
-          this.call("progressVerticallyUpdateVolume", event);
-        },
+					event[0].preventDefault();
+					this.set("_updateVolume", true);
+					this.call("progressVerticallyUpdateVolume", event);
+				},
 
-        progressVerticallyUpdateVolume: function (event) {
-          event[0].preventDefault();
-          if (!this.get("_updateVolume"))
-            return;
-
-          var position = event[0].pageY - $(event[0].currentTarget).offset().top;
-					var percentage = 1 - ( position / $(event[0].currentTarget).height() );
-
-          this.set("volume", ( percentage ) );
-          this.trigger("volume", this.get("volume"));
-        },
+				progressVerticallyUpdateVolume: function (event) {
+					var ev = event[0];
+					ev.preventDefault();
+					if (!this.get("_updateVolume"))
+						return;
+					var pageY = ev.pageY;
+					var target = ev.currentTarget;
+					var offset = Dom.elementOffset(target);
+					var dimensions = Dom.elementDimensions(target);
+					this.set("volume", 1 - (pageY - offset.top) / dimensions.height);
+					this.trigger("volume", this.get("volume"));
+				},
 
 				stopVerticallyUpdateVolume: function (event) {
-          event[0].preventDefault();
-          this.set("_updateVolume", false);
-        },
+					event[0].preventDefault();
+					this.set("_updateVolume", false);
+				},
 
 
 				play: function () {
@@ -151,12 +162,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 							current = i;
 					}, this);
 					this.set("currentstream", streams[(current + 1) % streams.length]);
-				},
+				}
 
-        share_media: function() {
-          console.log("Share media function");
-        }
-				
 			},
 			
 			create: function () {
@@ -180,7 +187,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
     	"volume-mute": "Mute sound",
     	"volume-unmute": "Unmute sound",
     	"change-resolution": "Change resolution",
-      "exit-fullscreen-video": "Minimize video",
-      "share-media": "Share this media"
+    	"exit-fullscreen-video": "Exit fullscreen"
     });
 });

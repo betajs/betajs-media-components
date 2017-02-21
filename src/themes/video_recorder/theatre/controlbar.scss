@@ -5,6 +5,7 @@
 .#{$css}-dashboard {
   @include absolute-align-all();
   height: 100%;
+  opacity: 0.75;
 }
 
 .#{$css}-controlbar {

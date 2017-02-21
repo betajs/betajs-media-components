@@ -16,12 +16,12 @@
 }
 
 .#{$css}-chooser-primary-button {
+  border: 1px solid $chooser_primary_button_bgcolor;
 }
 
 .#{$css}-chooser-secondary-button {
   border: 1px solid $chooser_secondary_button_color;
-  line-height: 6px ;
-  margin-top: 12px;
+  margin-top: 2px;
 }
 
 .#{$css}-shape-record {
@@ -30,7 +30,7 @@
   position: relative;
   top: 3px;
 }
-
+/*
 .#{$css}-triangle-shape-border {
   @include circle_shape( 4px, #ffffff, 5px, #ffffff );
   margin: 0 5px;
@@ -43,4 +43,4 @@
     right: 1px;
   }
 }
-
+*/

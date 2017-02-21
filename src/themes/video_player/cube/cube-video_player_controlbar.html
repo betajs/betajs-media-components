@@ -68,7 +68,7 @@
         </div>
 
         <div data-selector="button-icon-resize-full" class="{{css}}-button-container"
-             ba-if={{!nofullscreen}} ba-click="toggle_fullscreen()" title="{{ fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video') }}">
+             ba-if={{fullscreen}} ba-click="toggle_fullscreen()" title="{{ fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video') }}">
             <div class="{{css}}-button-inner {{css}}-full-screen-btn-inner">
                 <i class="{{css}}-icon-resize-{{fullscreened ? 'small' : 'full'}}"></i>
             </div>

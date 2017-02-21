@@ -134,10 +134,9 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Player", [
 
 Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
 	"module:VideoRecorder.Dynamics.RecorderStates.State",
-	"jquery:",
 	"base:Strings",
 	"browser:Info"
-], function (State, $, Strings, Info, scoped) {
+], function (State, Strings, Info, scoped) {
 	return State.extend({scoped: scoped}, {
 		
 		dynamics: ["chooser"],
@@ -154,7 +153,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
 		selectUpload: function (file) {
 			if (!(Info.isMobile() && Info.isAndroid() && Info.isCordova())) {
 				if (this.dyn.get("allowedextensions")) {
-					var filename = $(file).val().toLowerCase();
+					var filename = (file.files[0].name || "").toLowerCase();
 					var found = false;
 					this.dyn.get("allowedextensions").forEach(function (extension) {
 						if (Strings.ends_with(filename, "." + extension.toLowerCase()))
@@ -496,9 +495,9 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
 				this.dyn._hideBackgroundSnapshot();
 				this.dyn.set("player_active", true);
 			}
+			this.dyn.set("start-upload-time", Time.now());
 			uploader.reset();
 			uploader.upload();
-			this.dyn.set("start-upload-time", Time.now());
 		},
 		
 		rerecord: function () {

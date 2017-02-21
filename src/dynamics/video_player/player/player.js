@@ -1,29 +1,29 @@
 Scoped.define("module:VideoPlayer.Dynamics.Player", [
-    "dynamics:Dynamic",
-    "module:Templates",
-    "module:Assets",
-    "browser:Info",
-    "media:Player.VideoPlayerWrapper",
-    "base:Types",
-    "base:Objs",
-    "base:Strings",
-    "base:Time",
-    "base:Timers",
-    "base:States.Host",
-    "base:Classes.ClassRegistry",
-    "module:VideoPlayer.Dynamics.PlayerStates.Initial",
-    "module:VideoPlayer.Dynamics.PlayerStates",
-    "module:Ads.AbstractVideoAdProvider",
-    "jquery:"
+	"dynamics:Dynamic",
+	"module:Templates",
+	"module:Assets",
+	"browser:Info",
+	"browser:Dom",
+	"media:Player.VideoPlayerWrapper",
+	"base:Types",
+	"base:Objs",
+	"base:Strings",
+	"base:Time",
+	"base:Timers",
+	"base:States.Host",
+	"base:Classes.ClassRegistry",
+	"module:VideoPlayer.Dynamics.PlayerStates.Initial",
+	"module:VideoPlayer.Dynamics.PlayerStates",
+	"module:Ads.AbstractVideoAdProvider"
 ], [
-    "module:VideoPlayer.Dynamics.Playbutton",
-    "module:VideoPlayer.Dynamics.Message",
-    "module:VideoPlayer.Dynamics.Loader",
-    "module:VideoPlayer.Dynamics.Controlbar",
-    "dynamics:Partials.EventPartial",
-    "dynamics:Partials.OnPartial",
-    "dynamics:Partials.TemplatePartial"
-], function (Class, Templates, Assets, Info, VideoPlayerWrapper, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, InitialState, PlayerStates, AdProvider, $, scoped) {
+	"module:VideoPlayer.Dynamics.Playbutton",
+	"module:VideoPlayer.Dynamics.Message",
+	"module:VideoPlayer.Dynamics.Loader",
+	"module:VideoPlayer.Dynamics.Controlbar",
+	"dynamics:Partials.EventPartial",
+	"dynamics:Partials.OnPartial",
+	"dynamics:Partials.TemplatePartial"
+], function (Class, Templates, Assets, Info, Dom, VideoPlayerWrapper, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, InitialState, PlayerStates, AdProvider, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {
 
@@ -66,7 +66,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"volume": 1.0,
 				"title": "",
 				"initialseek": null,
-        "fullscreened": false,
+				"fullscreened": false,
 
 				/* Configuration */
 				"forceflash": false,
@@ -111,7 +111,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"skipinitial": "boolean",
 				"volume": "float",
 				"initialseek": "float",
-        "fullscreened": "boolean"
+				"fullscreened": "boolean"
 			},
 
 			extendables: ["states"],
@@ -149,7 +149,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 					this.set("currentstream", (this.get("streams"))[0]);
 
 				this.set("ie8", Info.isInternetExplorer() && Info.internetExplorerVersion() < 9);
-        this.set("firefox", Info.isFirefox());
+				this.set("firefox", Info.isFirefox());
 				this.set("duration", 0.0);
 				this.set("position", 0.0);
 				this.set("buffered", 0.0);
@@ -240,31 +240,34 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 					return;
 				}
 				this.__attachRequested = false;
-				var video = $(this.activeElement()).find("[data-video='video']").get(0);
+				var video = this.activeElement().querySelector("[data-video='video']");
 				this._clearError();
 				VideoPlayerWrapper.create(Objs.extend(this._getSources(), {
-			    	element: video,
-			    	forceflash: !!this.get("forceflash"),
-			    	noflash: !!this.get("noflash"),
-			    	preload: !!this.get("preload"),
+					element: video,
+					forceflash: !!this.get("forceflash"),
+					noflash: !!this.get("noflash"),
+					preload: !!this.get("preload"),
 					loop: !!this.get("loop"),
 					reloadonplay: !!this.get("reloadonplay")
-			    })).error(function (e) {
-			    	if (this.destroyed())
-			    		return;
-			    	this._error("attach", e);
-			    }, this).success(function (instance) {
-			    	if (this.destroyed())
-			    		return;
+				})).error(function (e) {
+					if (this.destroyed())
+						return;
+					this._error("attach", e);
+				}, this).success(function (instance) {
+					if (this.destroyed())
+						return;
 					if (this._adProvider && this.get("preroll")) {
 						this._prerollAd = this._adProvider.newPrerollAd({
-							videoElement: $(this.activeElement()).find("[data-video='video']").get(0),
-							adElement: $(this.activeElement()).find("[data-video='ad']").get(0)
+							videoElement: this.activeElement().querySelector("[data-video='video']"),
+							adElement: this.activeElement().querySelector("[data-video='ad']")
 						});
 					}
-			    	this.player = instance;
+					this.player = instance;
+					this.player.on("fullscreen-change", function (inFullscreen) {
+						this.set("fullscreened", inFullscreen);
+					}, this);
 					this.player.on("postererror", function () {
-				    	this._error("poster");
+						this._error("poster");
 					}, this);
 					this.player.on("playing", function () {
 						this.set("playing", true);
@@ -273,28 +276,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 					this.player.on("error", function (e) {
 						this._error("video", e);
 					}, this);
-			        if (this.player.error())
-			        	this.player.trigger("error", this.player.error());
-			        this.player.on("paused", function () {
-			        	this.set("playing", false);
-			        	this.trigger("paused");
-			        }, this);
+					if (this.player.error())
+						this.player.trigger("error", this.player.error());
+					this.player.on("paused", function () {
+						this.set("playing", false);
+						this.trigger("paused");
+					}, this);
 					this.player.on("ended", function () {
 						this.set("playing", false);
 						this.trigger("ended");
 					}, this);
-
-					var self = this;
-          this.player.on("fullscreenEsc", function() {
-            window.addEventListener("keydown", function (e) {
-              if(e.keyCode === 27 && self.get("fullscreened")) {
-                self.player.exitFullscreen();
-                self.set("fullscreened", false);
-              }
-            }, false);
-          });
-
-          this.trigger("attached", instance);
+					this.trigger("attached", instance);
 					this.player.once("loaded", function () {
 						var volume = Math.min(1.0, this.get("volume"));
 						this.player.setVolume(volume);
@@ -309,9 +301,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 					if (this.player.loaded())
 						this.player.trigger("loaded");
 					this._updateStretch();
-			    }, this);
+				}, this);
 			},
-
+			
 			_getSources: function () {
 				var filter = this.get("currentstream") ? this.get("currentstream").filter : this.get("sourcefilter");
 				var poster = this.get("poster");
@@ -407,25 +399,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				},
 
 				toggle_fullscreen: function () {
-          if( this.get("fullscreened") ) {
-
-            this.player.exitFullscreen();
-            this.set("fullscreened", false);
-
-          } else {
-
-            if( this.get("firefox") ) {
-              this.player.enterParentFullscreen();
-            } else {
-              this.player.enterFullscreen();
-            }
-
-            this.set("fullscreened", true );
-
-            this.player.trigger("fullscreenEsc");
-          }
+					if (this.get("fullscreened"))
+						this.player.exitFullscreen();
+					else
+						this.player.enterFullscreen();
+					this.set("fullscreened", !this.get("fullscreened"));
 				}
-
+				
 			},
 
 			destroy: function () {
@@ -446,6 +426,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 						this.set("position", new_position);
 						this.set("buffered", this.player.buffered());
 						this.set("duration", this.player.duration());
+						this.set("fullscreened", this.player.isFullscreen());
 					}
 				} catch (e) {}
 				this._updateStretch();
@@ -453,7 +434,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 			},
 
 			_updateCSSSize: function () {
-				this.set("csssize", $(this.element()).width() > 400 ? "normal" : ($(this.element()).width() > 300 ? "medium" : "small"));
+				var width = Dom.elementDimensions(this.activeElement()).width;
+				this.set("csssize", width > 400 ? "normal" : (width > 300 ? "medium" : "small"));
 			},
 
 			videoHeight: function () {
@@ -469,11 +451,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 			},
 
 			parentWidth: function () {
-				return $(this.activeElement()).parent().width();
+				return Dom.elementDimensions(this.activeElement().parentElement).width;
 			},
 
 			parentHeight: function () {
-				return $(this.activeElement()).parent().height();
+				return Dom.elementDimensions(this.activeElement().parentElement).height;
 			},
 
 			parentAspectRatio: function () {
@@ -497,9 +479,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				}
 				if (this.__currentStretch !== newStretch) {
 					if (this.__currentStretch)
-						$(this.activeElement()).removeClass(this.get("css") + "-stretch-" + this.__currentStretch);
+						Dom.elementRemoveClass(this.activeElement(), this.get("css") + "-stretch-" + this.__currentStretch);
 					if (newStretch)
-						$(this.activeElement()).addClass(this.get("css") + "-stretch-" + newStretch);
+						Dom.elementAddClass(this.activeElement(), this.get("css") + "-stretch-" + newStretch);
 				}
 				this.__currentStretch = newStretch;
 			}
@@ -513,7 +495,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
 	}).register("ba-videoplayer")
 	.attachStringTable(Assets.strings)
-    .addStrings({
-    	"video-error": "An error occurred, please try again later. Click to retry."
-    });
+	.addStrings({
+		"video-error": "An error occurred, please try again later. Click to retry."
+	});
 });

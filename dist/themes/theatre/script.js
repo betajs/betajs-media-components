@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.43 - 2017-02-11
+betajs-media-components - v0.0.44 - 2017-02-21
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -35,12 +35,11 @@ Scoped.extend("module:Assets.recorderthemes", [
 			css: "ba-videorecorder-theme-theatre",
 			cssmessage: "ba-videorecorder",
 			cssloader: "ba-videorecorder",
-      tmpltopmessage: Templates["theatre-video_recorder_topmessage"],
-      tmplcontrolbar: Templates["theatre-video_recorder_controlbar"],
-      tmplimagegallery: Templates["theatre-recorder_imagegallery"],
-			tmplloader: Templates["theatre-video_recorder_loader"],
-      tmplchooser: Templates["theatre-video_recorder_chooser"],
-      tmplmessage: Templates["theatre-video_recorder_message"]
+			tmpltopmessage: Templates["theatre-video_recorder_topmessage"],
+			tmplcontrolbar: Templates["theatre-video_recorder_controlbar"],
+			tmplimagegallery: Templates["theatre-recorder_imagegallery"],
+			tmplchooser: Templates["theatre-video_recorder_chooser"],
+			tmplmessage: Templates["theatre-video_recorder_message"]
 		}
 	};
 });

@@ -4,10 +4,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
     "base:Collections.Collection",
     "base:Properties.Properties",
     "base:Timers.Timer",
-    "jquery:"
+    "browser:Dom"
 ], [
     "dynamics:Partials.StylesPartial"
-], function (Class, Templates, Collection, Properties, Timer, $, scoped) {
+], function (Class, Templates, Collection, Properties, Timer, Dom, scoped) {
 	return Class.extend({scoped: scoped}, function (inherited) {
 		return {
 			
@@ -107,10 +107,12 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
 			},
 			
 			updateContainerSize: function () {
-				var container = $(this.activeElement()).find("[data-gallery-container]");
-				this.set("containeroffset", parseInt(container.position().left, 10));
-				this.set("containerheight", parseInt(container.height(), 10));
-				this.set("containerwidth", parseInt(container.width(), 10));
+				var container = this.activeElement().querySelector("[data-gallery-container]");
+				var offset = Dom.elementOffset(container);
+				var dimensions = Dom.elementDimensions(container);
+				this.set("containeroffset", offset.left);
+				this.set("containerheight", dimensions.height);
+				this.set("containerwidth", dimensions.width);
 			},
 			
 			_afterActivate: function (element) {

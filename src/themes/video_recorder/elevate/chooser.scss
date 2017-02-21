@@ -15,14 +15,17 @@
 }
 
 .#{$css}-chooser-primary-button {
-	@include border-radius(0);
+	@include border-radius(2px);
+	border: 1px solid $chooser_primary_button_bgcolor;
+
 }
 
 .#{$css}-chooser-secondary-button {
+	@include border-radius(2px);
 	background: $chooser_secondary_button_bgcolor;
 	color: $text_color_secondary;
-	line-height: 6px ;
-	margin-top: 12px;
+	border: 1px solid $text_color_secondary;
+	margin-top: 2px;
 }
 
 .#{$css}-shape-record {
@@ -31,7 +34,7 @@
 	position: relative;
 	top: 3px;
 }
-
+/*
 .#{$css}-triangle-shape-border {
 	@include circle_shape( 4px, $text_color_secondary, 5px, $text_color_secondary );
 	margin: 0 5px;
@@ -44,3 +47,4 @@
 		right: 1px;
 	}
 }
+*/

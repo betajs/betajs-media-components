@@ -21,8 +21,7 @@ module.exports = function(grunt) {
 		"browser": "global:BetaJS.Browser",
 		"flash": "global:BetaJS.Flash",
 		"media": "global:BetaJS.Media",
-		"dynamics": "global:BetaJS.Dynamics",
-		"jquery": "global:jQuery"
+		"dynamics": "global:BetaJS.Dynamics"
     }, {
     	"base:version": pkg.devDependencies.betajs,
     	"browser:version": pkg.devDependencies["betajs-browser"],
@@ -261,7 +260,7 @@ module.exports = function(grunt) {
     	require.resolve("betajs-media"),
     	require.resolve("betajs-dynamics"),
         './dist/betajs-media-components-noscoped.js'
-     ], null, { jquery: true })
+     ], null, { })
     .browserstackTask(null, 'tests/browserstack.html', {desktop: true, mobile: true})
     .browserstackTask("browserstack-media", 'tests/server/browserstack.html', {desktop: true, mobile: true})
     .lintTask(null, ['./src/**/*.js', './dist/' + dist + '-noscoped.js', './dist/' + dist + '.js', './Gruntfile.js', './tests/**/*.js'])
@@ -326,12 +325,16 @@ module.exports = function(grunt) {
       "generate-default-yml",
 
       // Include theme generation
-      "modern-theme",
-      "space-theme",
-      "cube-theme",
-      "elevate-theme",
-      "minimalist-theme",
-      "theatre-theme"
+        "themes"
+    ]);
+
+	grunt.registerTask("themes", [
+        "modern-theme",
+        "space-theme",
+        "cube-theme",
+        "elevate-theme",
+        "minimalist-theme",
+        "theatre-theme"
     ]);
 
   // ** MODERN THEME **//
@@ -456,7 +459,6 @@ module.exports = function(grunt) {
 	grunt.registerTask("generate-default-yml", function () {
 		var done = this.async();
 		require('jsdom').jsdom.env("", [
-            "./vendors/jquery.min.js",
             require.resolve("betajs-scoped"),
         	require.resolve("betajs"),
         	require.resolve("betajs-browser"),

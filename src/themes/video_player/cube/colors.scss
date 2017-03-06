@@ -1,0 +1,16 @@
+@each $color in red, green, blue, default {
+  $theme__color: $color;
+  $secondary_color: #000000;
+
+  @if $color == default {
+    $theme__color: #ffffff;
+  } @else if $color == red {
+    $theme__color: #eb6a74;
+  }
+
+  .#{$css}-#{$color}-color {
+    .#{$css}-dashboard, .#{$css}-timer-container, .#{$css}-video-title {
+      color: $theme__color;
+    }
+  }
+}

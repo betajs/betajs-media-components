@@ -1,16 +1,7 @@
 @each $color, $value in $colors {
-  $theme__color: $color;
-  $secondary_color: #000000;
-
-  @if $color == default {
-    $theme__color: #ffffff;
-  } @else {
-    $theme__color: $value;
-  }
-
   .#{$css}-#{$color}-color {
     .#{$css}-dashboard, .#{$css}-timer-container, .#{$css}-video-title {
-      color: $theme__color;
+      color: $value;
     }
   }
 }

@@ -1,11 +1,11 @@
-@each $color in red, green, blue, default {
+@each $color, $value in $colors {
   $theme__color: $color;
   $secondary_color: #000000;
 
   @if $color == default {
     $theme__color: #ffffff;
-  } @else if $color == red {
-    $theme__color: #eb6a74;
+  } @else {
+    $theme__color: $value;
   }
 
   .#{$css}-#{$color}-color {

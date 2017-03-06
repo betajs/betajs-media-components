@@ -768,14 +768,17 @@ Apache-2.0 Software License.
 .ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-dashboard, .ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-timer-container, .ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-video-title {
   color: #eb6a74; }
 
-.ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-dashboard, .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-timer-container, .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-video-title {
-  color: green; }
-
 .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-dashboard, .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-timer-container, .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-video-title {
   color: blue; }
 
+.ba-videoplayer-cube-theme-white-color .ba-videoplayer-cube-theme-dashboard, .ba-videoplayer-cube-theme-white-color .ba-videoplayer-cube-theme-timer-container, .ba-videoplayer-cube-theme-white-color .ba-videoplayer-cube-theme-video-title {
+  color: white; }
+
+.ba-videoplayer-cube-theme-yellow-color .ba-videoplayer-cube-theme-dashboard, .ba-videoplayer-cube-theme-yellow-color .ba-videoplayer-cube-theme-timer-container, .ba-videoplayer-cube-theme-yellow-color .ba-videoplayer-cube-theme-video-title {
+  color: yellow; }
+
 .ba-videoplayer-cube-theme-default-color .ba-videoplayer-cube-theme-dashboard, .ba-videoplayer-cube-theme-default-color .ba-videoplayer-cube-theme-timer-container, .ba-videoplayer-cube-theme-default-color .ba-videoplayer-cube-theme-video-title {
-  color: #000000; }
+  color: #ffffff; }
 
 .ba-videoplayer-cube-theme-dashboard {
   position: absolute;

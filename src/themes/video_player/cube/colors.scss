@@ -1,7 +1,22 @@
 @each $color, $value in $colors {
-  .#{$css}-#{$color}-color {
-    .#{$css}-dashboard, .#{$css}-timer-container, .#{$css}-video-title {
-      color: $value;
+  @if $color != default {
+    .#{$css}-#{$color}-color {
+
+      .#{$css}-dashboard, .#{$css}-timer-container, .#{$css}-video-title,
+      .#{$css}-right-block .#{$css}-icon-volume-up,
+      .#{$css}-right-block .#{$css}-icon-volume-down,
+      .#{$css}-right-block .#{$css}-icon-resize-full,
+      .#{$css}-right-block .#{$css}-icon-resize-small {
+        color: $value;
+      }
+
+      .#{$css}-volumebar-position, .#{$css}-stream-label, .#{$css}-progressbar-position {
+        background-color: $value;
+      }
+
+      .#{$css}-volumebar-inner {
+        background: rgba(255, 255, 255, 0.3);
+      }
     }
   }
 }

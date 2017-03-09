@@ -9,9 +9,9 @@ browserstack.json
 BrowserStackLocal
 jsdoc.conf.json
 /demos/recorder*.html
-/tests/server/temp
-/tests/server/files
+/demos/themes/temp
+/demos/themes/files
 google-translate-creds.json
-/tests/server/temp/*
-/tests/server/files/*
+/demos/themes/temp/*
+/demos/themes/files/*
 *.log

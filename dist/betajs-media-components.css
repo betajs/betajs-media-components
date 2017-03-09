@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.45 - 2017-03-07
+betajs-media-components - v0.0.45 - 2017-03-09
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -640,6 +640,34 @@ Apache-2.0 Software License.
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ }
 
+.ba-videoplayer-red-color.ba-videoplayer-noie8 .ba-videoplayer-time-container, .ba-videoplayer-red-color .ba-videoplayer-button-inner {
+  color: #eb6a74; }
+.ba-videoplayer-red-color .ba-videoplayer-volumebar-position, .ba-videoplayer-red-color .ba-videoplayer-progressbar-position {
+  background-color: #eb6a74; }
+.ba-videoplayer-red-color .ba-videoplayer-volumebar-inner {
+  background: rgba(255, 255, 255, 0.3); }
+
+.ba-videoplayer-blue-color.ba-videoplayer-noie8 .ba-videoplayer-time-container, .ba-videoplayer-blue-color .ba-videoplayer-button-inner {
+  color: #c2cff2; }
+.ba-videoplayer-blue-color .ba-videoplayer-volumebar-position, .ba-videoplayer-blue-color .ba-videoplayer-progressbar-position {
+  background-color: #c2cff2; }
+.ba-videoplayer-blue-color .ba-videoplayer-volumebar-inner {
+  background: rgba(255, 255, 255, 0.3); }
+
+.ba-videoplayer-white-color.ba-videoplayer-noie8 .ba-videoplayer-time-container, .ba-videoplayer-white-color .ba-videoplayer-button-inner {
+  color: white; }
+.ba-videoplayer-white-color .ba-videoplayer-volumebar-position, .ba-videoplayer-white-color .ba-videoplayer-progressbar-position {
+  background-color: white; }
+.ba-videoplayer-white-color .ba-videoplayer-volumebar-inner {
+  background: rgba(255, 255, 255, 0.3); }
+
+.ba-videoplayer-yellow-color.ba-videoplayer-noie8 .ba-videoplayer-time-container, .ba-videoplayer-yellow-color .ba-videoplayer-button-inner {
+  color: #ffce00; }
+.ba-videoplayer-yellow-color .ba-videoplayer-volumebar-position, .ba-videoplayer-yellow-color .ba-videoplayer-progressbar-position {
+  background-color: #ffce00; }
+.ba-videoplayer-yellow-color .ba-videoplayer-volumebar-inner {
+  background: rgba(255, 255, 255, 0.3); }
+
 .ba-videoplayer-dashboard {
   position: absolute;
   left: 0;
@@ -882,7 +910,7 @@ Apache-2.0 Software License.
   font-size: 12px;
   float: left;
   letter-spacing: 0.1em;
-  line-height: 30px;
+  line-height: 32px;
   margin: 0 0 0 10px; }
 
 /* Full screen options */

@@ -24,7 +24,7 @@ $playbutton_transition_time: .25s;
 
 $video_title_margin: 0 0 0 10px;
 $video_title_font_color: #ffffff;
-$video_title_line_height: 30px;
+$video_title_line_height: 32px;
 $video_title_font_family: sans-serif, Arial;
 $video_title_font_size: 12px;
 $video_title_font_weight: 100;
@@ -88,3 +88,13 @@ $open_share_button_z-index: 100;
 $share_icon_font_size: 14px;
 $share_icon_container_height: 45px;
 $share_icon_container_width: 45px;
+
+
+// Colors for main buttons
+$colors: (
+  'red': #eb6a74,
+  'blue': #c2cff2,
+  'white': white,
+  'yellow': #ffce00,
+  'default': #ffffff
+);

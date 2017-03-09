@@ -243,11 +243,12 @@
 	display: none;
 }
 
-.#{$css}-stream-label-container{
+.#{$css}-stream-label-container {
     background-color: $stream_label_bg_color;
     width: $stream_label_width;
     padding: 2px;
-    .#{$css}-stream-label{
+    .#{$css}-stream-label {
+        line-height: 16px;
         background-color: $stream_label_bg_color;
     }
 }

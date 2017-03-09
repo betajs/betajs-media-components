@@ -39,7 +39,7 @@
     & > div {
         float: right;
         height: $controlbar_height;
-        line-height: $controlbar_line_height - 6;
+        line-height: 25px;
         text-align: center;
     }
 
@@ -126,6 +126,8 @@
 
 .#{$css}-button-inner {
     @include clickable;
+    position: relative;
+    top: 1px;
 }
 
 .#{$css}-time-container {

@@ -2,6 +2,14 @@
     border: none;
 }
 
+.#{$css}-icon-play, .#{$css}-icon-pause, .#{$css}-icon-volume-up,
+.#{$css}-icon-volume-off, .#{$css}-icon-resize-full, .#{$css}-icon-resize-small {
+   &:before {
+       position: relative;
+       top: 2px;
+   }
+}
+
 .#{$css}-playbutton-container {
     @include background-rgba(0,0,0, 0.6, #323232 );
     border-radius: 50%;

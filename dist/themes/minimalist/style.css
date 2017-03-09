@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.45 - 2017-03-07
+betajs-media-components - v0.0.45 - 2017-03-09
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -764,6 +764,66 @@ Apache-2.0 Software License.
   width: 100%;
   height: 50px;
   position: absolute; }
+
+.ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-title h4,
+.ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-volume-up,
+.ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-volume-down,
+.ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-resize-full,
+.ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-resize-small,
+.ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-controlbar-top-block .ba-videoplayer-minimalist-theme-button-container .ba-videoplayer-minimalist-theme-button-inner {
+  color: #fd9e98; }
+.ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-volumebar-position, .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-stream-label,
+.ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-progressbar-position {
+  background-color: #fd9e98; }
+.ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-time-container, .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-progressbar-button {
+  background: #fd9e98; }
+.ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-volumebar-inner {
+  background: rgba(255, 255, 255, 0.3); }
+
+.ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-title h4,
+.ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-volume-up,
+.ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-volume-down,
+.ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-resize-full,
+.ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-resize-small,
+.ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-controlbar-top-block .ba-videoplayer-minimalist-theme-button-container .ba-videoplayer-minimalist-theme-button-inner {
+  color: #3b5998; }
+.ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-volumebar-position, .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-stream-label,
+.ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-progressbar-position {
+  background-color: #3b5998; }
+.ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-time-container, .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-progressbar-button {
+  background: #3b5998; }
+.ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-volumebar-inner {
+  background: rgba(255, 255, 255, 0.3); }
+
+.ba-videoplayer-minimalist-theme-white-color .ba-videoplayer-minimalist-theme-title h4,
+.ba-videoplayer-minimalist-theme-white-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-volume-up,
+.ba-videoplayer-minimalist-theme-white-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-volume-down,
+.ba-videoplayer-minimalist-theme-white-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-resize-full,
+.ba-videoplayer-minimalist-theme-white-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-resize-small,
+.ba-videoplayer-minimalist-theme-white-color .ba-videoplayer-minimalist-theme-controlbar-top-block .ba-videoplayer-minimalist-theme-button-container .ba-videoplayer-minimalist-theme-button-inner {
+  color: white; }
+.ba-videoplayer-minimalist-theme-white-color .ba-videoplayer-minimalist-theme-volumebar-position, .ba-videoplayer-minimalist-theme-white-color .ba-videoplayer-minimalist-theme-stream-label,
+.ba-videoplayer-minimalist-theme-white-color .ba-videoplayer-minimalist-theme-progressbar-position {
+  background-color: white; }
+.ba-videoplayer-minimalist-theme-white-color .ba-videoplayer-minimalist-theme-time-container, .ba-videoplayer-minimalist-theme-white-color .ba-videoplayer-minimalist-theme-progressbar-button {
+  background: white; }
+.ba-videoplayer-minimalist-theme-white-color .ba-videoplayer-minimalist-theme-volumebar-inner {
+  background: rgba(255, 255, 255, 0.3); }
+
+.ba-videoplayer-minimalist-theme-yellow-color .ba-videoplayer-minimalist-theme-title h4,
+.ba-videoplayer-minimalist-theme-yellow-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-volume-up,
+.ba-videoplayer-minimalist-theme-yellow-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-volume-down,
+.ba-videoplayer-minimalist-theme-yellow-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-resize-full,
+.ba-videoplayer-minimalist-theme-yellow-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-resize-small,
+.ba-videoplayer-minimalist-theme-yellow-color .ba-videoplayer-minimalist-theme-controlbar-top-block .ba-videoplayer-minimalist-theme-button-container .ba-videoplayer-minimalist-theme-button-inner {
+  color: #ffce00; }
+.ba-videoplayer-minimalist-theme-yellow-color .ba-videoplayer-minimalist-theme-volumebar-position, .ba-videoplayer-minimalist-theme-yellow-color .ba-videoplayer-minimalist-theme-stream-label,
+.ba-videoplayer-minimalist-theme-yellow-color .ba-videoplayer-minimalist-theme-progressbar-position {
+  background-color: #ffce00; }
+.ba-videoplayer-minimalist-theme-yellow-color .ba-videoplayer-minimalist-theme-time-container, .ba-videoplayer-minimalist-theme-yellow-color .ba-videoplayer-minimalist-theme-progressbar-button {
+  background: #ffce00; }
+.ba-videoplayer-minimalist-theme-yellow-color .ba-videoplayer-minimalist-theme-volumebar-inner {
+  background: rgba(255, 255, 255, 0.3); }
 
 .ba-videoplayer-minimalist-theme-dashboard {
   height: 100%;

@@ -1,0 +1,35 @@
+@each $color, $value in $colors {
+  @if $color != default {
+    .#{$css}-#{$color}-color {
+
+      .#{$css}-title > p,
+      &.#{$cssnoie8} .#{$css}-button-inner,
+      .#{$css}-right-block .#{$css}-icon-volume-up,
+      .#{$css}-right-block .#{$css}-icon-volume-down {
+        color: $value;
+      }
+
+      &.#{$cssnoie8} .#{$css}-stream-label-container {
+        color: $button_color;
+        background: $value;
+      }
+
+      .#{$css}-progressbar-button {
+        background: $value;
+      }
+
+      .#{$css}-volumebar-position, .#{$css}-progressbar-position,
+      .#{$css}-stream-label-container .#{$css}-stream-label {
+        background-color: $value;
+      }
+
+      .#{$css}-progressbar-cache {
+        background: rgba(255, 255, 255, 0.6);
+      }
+
+      .#{$css}-volumebar-inner, .#{$css}-progressbar-inner {
+        background: rgba(255, 255, 255, 0.3);
+      }
+    }
+  }
+}

@@ -106,12 +106,15 @@
 }
 
 .#{$css}-stream-label{
-  color: $stream_label_color;
   background: $stream_label_bg_color;
-  padding: 5px 3px 5px 6px;
+  color: $stream_label_color;
+  display: inline-block;
   font-weight: 100;
-  letter-spacing: .1em;
   font-size: 0.8em;
+  height: 22px;
+  letter-spacing: .1em;
+  line-height: 24px;
+  width: 25px;
 }
 
 .#{$cssnoie8} .#{$css}-progressbar {
@@ -149,3 +152,5 @@
 .#{$css}-progressbar-button {
   display: none;
 }
+
+

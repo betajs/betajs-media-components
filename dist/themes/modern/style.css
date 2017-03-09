@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.45 - 2017-02-21
+betajs-media-components - v0.0.45 - 2017-03-09
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -764,6 +764,26 @@ Apache-2.0 Software License.
   width: 100%;
   height: 32px;
   position: absolute; }
+
+.ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-video-title, .ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-icon-volume-up, .ba-videoplayer-theme-modern-red-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-button-inner {
+  color: #eb6a74; }
+.ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-progressbar-position, .ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-volumebar-position {
+  background-color: #eb6a74; }
+
+.ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-video-title, .ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-icon-volume-up, .ba-videoplayer-theme-modern-blue-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-button-inner {
+  color: #3b5998; }
+.ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-progressbar-position, .ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-volumebar-position {
+  background-color: #3b5998; }
+
+.ba-videoplayer-theme-modern-white-color .ba-videoplayer-theme-modern-video-title, .ba-videoplayer-theme-modern-white-color .ba-videoplayer-theme-modern-icon-volume-up, .ba-videoplayer-theme-modern-white-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-button-inner {
+  color: white; }
+.ba-videoplayer-theme-modern-white-color .ba-videoplayer-theme-modern-progressbar-position, .ba-videoplayer-theme-modern-white-color .ba-videoplayer-theme-modern-volumebar-position {
+  background-color: white; }
+
+.ba-videoplayer-theme-modern-yellow-color .ba-videoplayer-theme-modern-video-title, .ba-videoplayer-theme-modern-yellow-color .ba-videoplayer-theme-modern-icon-volume-up, .ba-videoplayer-theme-modern-yellow-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-button-inner {
+  color: #ffce00; }
+.ba-videoplayer-theme-modern-yellow-color .ba-videoplayer-theme-modern-progressbar-position, .ba-videoplayer-theme-modern-yellow-color .ba-videoplayer-theme-modern-volumebar-position {
+  background-color: #ffce00; }
 
 .ba-videoplayer-theme-modern-dashboard {
   position: absolute;

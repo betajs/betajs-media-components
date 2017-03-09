@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.45 - 2017-02-21
+betajs-media-components - v0.0.45 - 2017-03-09
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -765,6 +765,50 @@ Apache-2.0 Software License.
   height: 32px;
   position: absolute; }
 
+.ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-dashboard, .ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-timer-container, .ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-video-title,
+.ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-up,
+.ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-down,
+.ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-full,
+.ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-small {
+  color: #eb6a74; }
+.ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-volumebar-position, .ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-stream-label, .ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-progressbar-position {
+  background-color: #eb6a74; }
+.ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-volumebar-inner {
+  background: rgba(255, 255, 255, 0.3); }
+
+.ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-dashboard, .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-timer-container, .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-video-title,
+.ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-up,
+.ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-down,
+.ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-full,
+.ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-small {
+  color: #3b5998; }
+.ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-volumebar-position, .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-stream-label, .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-progressbar-position {
+  background-color: #3b5998; }
+.ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-volumebar-inner {
+  background: rgba(255, 255, 255, 0.3); }
+
+.ba-videoplayer-cube-theme-white-color .ba-videoplayer-cube-theme-dashboard, .ba-videoplayer-cube-theme-white-color .ba-videoplayer-cube-theme-timer-container, .ba-videoplayer-cube-theme-white-color .ba-videoplayer-cube-theme-video-title,
+.ba-videoplayer-cube-theme-white-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-up,
+.ba-videoplayer-cube-theme-white-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-down,
+.ba-videoplayer-cube-theme-white-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-full,
+.ba-videoplayer-cube-theme-white-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-small {
+  color: white; }
+.ba-videoplayer-cube-theme-white-color .ba-videoplayer-cube-theme-volumebar-position, .ba-videoplayer-cube-theme-white-color .ba-videoplayer-cube-theme-stream-label, .ba-videoplayer-cube-theme-white-color .ba-videoplayer-cube-theme-progressbar-position {
+  background-color: white; }
+.ba-videoplayer-cube-theme-white-color .ba-videoplayer-cube-theme-volumebar-inner {
+  background: rgba(255, 255, 255, 0.3); }
+
+.ba-videoplayer-cube-theme-yellow-color .ba-videoplayer-cube-theme-dashboard, .ba-videoplayer-cube-theme-yellow-color .ba-videoplayer-cube-theme-timer-container, .ba-videoplayer-cube-theme-yellow-color .ba-videoplayer-cube-theme-video-title,
+.ba-videoplayer-cube-theme-yellow-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-up,
+.ba-videoplayer-cube-theme-yellow-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-down,
+.ba-videoplayer-cube-theme-yellow-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-full,
+.ba-videoplayer-cube-theme-yellow-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-small {
+  color: #ffce00; }
+.ba-videoplayer-cube-theme-yellow-color .ba-videoplayer-cube-theme-volumebar-position, .ba-videoplayer-cube-theme-yellow-color .ba-videoplayer-cube-theme-stream-label, .ba-videoplayer-cube-theme-yellow-color .ba-videoplayer-cube-theme-progressbar-position {
+  background-color: #ffce00; }
+.ba-videoplayer-cube-theme-yellow-color .ba-videoplayer-cube-theme-volumebar-inner {
+  background: rgba(255, 255, 255, 0.3); }
+
 .ba-videoplayer-cube-theme-dashboard {
   position: absolute;
   left: 0;
@@ -882,12 +926,15 @@ Apache-2.0 Software License.
     width: 4px; }
 
 .ba-videoplayer-cube-theme-stream-label {
-  color: #ffffff;
   background: #5daa96;
-  padding: 5px 3px 5px 6px;
+  color: #ffffff;
+  display: inline-block;
   font-weight: 100;
+  font-size: 0.8em;
+  height: 22px;
   letter-spacing: .1em;
-  font-size: 0.8em; }
+  line-height: 24px;
+  width: 25px; }
 
 .ba-videoplayer-noie8 .ba-videoplayer-cube-theme-progressbar {
   overflow: hidden;
@@ -996,6 +1043,11 @@ video:fullscreen:not(:root) {
 
 .ba-videoplayer-cube-theme-playbutton-container {
   border: none; }
+
+.ba-videoplayer-cube-theme-icon-play:before, .ba-videoplayer-cube-theme-icon-pause:before, .ba-videoplayer-cube-theme-icon-volume-up:before,
+.ba-videoplayer-cube-theme-icon-volume-off:before, .ba-videoplayer-cube-theme-icon-resize-full:before, .ba-videoplayer-cube-theme-icon-resize-small:before {
+  position: relative;
+  top: 2px; }
 
 .ba-videoplayer-cube-theme-playbutton-container {
   background: #323232;

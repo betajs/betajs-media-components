@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.45 - 2017-02-21
+betajs-media-components - v0.0.45 - 2017-03-09
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -765,6 +765,50 @@ Apache-2.0 Software License.
   height: 32px;
   position: absolute; }
 
+.ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-icon-play, .ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-icon-pause,
+.ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-icon-volume-up, .ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-icon-resize-full, .ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-icon-resize-small {
+  color: #eb6a74; }
+.ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-progressbar-button,
+.ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-stream-label-container .ba-videoplayer-elevate-theme-stream-label,
+.ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-progressbar-position, .ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-volumebar-position {
+  background-color: #eb6a74; }
+.ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-volumebar-inner {
+  background: #cecece;
+  background: rgba(0, 0, 0, 0.3); }
+
+.ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-icon-play, .ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-icon-pause,
+.ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-icon-volume-up, .ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-icon-resize-full, .ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-icon-resize-small {
+  color: #3b5998; }
+.ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-progressbar-button,
+.ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-stream-label-container .ba-videoplayer-elevate-theme-stream-label,
+.ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-progressbar-position, .ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-volumebar-position {
+  background-color: #3b5998; }
+.ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-volumebar-inner {
+  background: #cecece;
+  background: rgba(0, 0, 0, 0.3); }
+
+.ba-videoplayer-elevate-theme-white-color .ba-videoplayer-elevate-theme-icon-play, .ba-videoplayer-elevate-theme-white-color .ba-videoplayer-elevate-theme-icon-pause,
+.ba-videoplayer-elevate-theme-white-color .ba-videoplayer-elevate-theme-icon-volume-up, .ba-videoplayer-elevate-theme-white-color .ba-videoplayer-elevate-theme-icon-resize-full, .ba-videoplayer-elevate-theme-white-color .ba-videoplayer-elevate-theme-icon-resize-small {
+  color: white; }
+.ba-videoplayer-elevate-theme-white-color .ba-videoplayer-elevate-theme-progressbar-button,
+.ba-videoplayer-elevate-theme-white-color .ba-videoplayer-elevate-theme-stream-label-container .ba-videoplayer-elevate-theme-stream-label,
+.ba-videoplayer-elevate-theme-white-color .ba-videoplayer-elevate-theme-progressbar-position, .ba-videoplayer-elevate-theme-white-color .ba-videoplayer-elevate-theme-volumebar-position {
+  background-color: white; }
+.ba-videoplayer-elevate-theme-white-color .ba-videoplayer-elevate-theme-volumebar-inner {
+  background: #cecece;
+  background: rgba(0, 0, 0, 0.3); }
+
+.ba-videoplayer-elevate-theme-yellow-color .ba-videoplayer-elevate-theme-icon-play, .ba-videoplayer-elevate-theme-yellow-color .ba-videoplayer-elevate-theme-icon-pause,
+.ba-videoplayer-elevate-theme-yellow-color .ba-videoplayer-elevate-theme-icon-volume-up, .ba-videoplayer-elevate-theme-yellow-color .ba-videoplayer-elevate-theme-icon-resize-full, .ba-videoplayer-elevate-theme-yellow-color .ba-videoplayer-elevate-theme-icon-resize-small {
+  color: #ffce00; }
+.ba-videoplayer-elevate-theme-yellow-color .ba-videoplayer-elevate-theme-progressbar-button,
+.ba-videoplayer-elevate-theme-yellow-color .ba-videoplayer-elevate-theme-stream-label-container .ba-videoplayer-elevate-theme-stream-label,
+.ba-videoplayer-elevate-theme-yellow-color .ba-videoplayer-elevate-theme-progressbar-position, .ba-videoplayer-elevate-theme-yellow-color .ba-videoplayer-elevate-theme-volumebar-position {
+  background-color: #ffce00; }
+.ba-videoplayer-elevate-theme-yellow-color .ba-videoplayer-elevate-theme-volumebar-inner {
+  background: #cecece;
+  background: rgba(0, 0, 0, 0.3); }
+
 /* Elevate */
 .ba-videoplayer-elevate-ie8 .ba-videoplayer-elevate-theme-overlay {
   top: 85%; }
@@ -832,11 +876,15 @@ Apache-2.0 Software License.
 .ba-videoplayer-elevate-theme-icon-play, .ba-videoplayer-elevate-theme-icon-pause {
   color: #5daa96; }
 
-.ba-videoplayer-elevate-theme-icon-volume-up:before, .ba-videoplayer-elevate-theme-icon-play:before, .ba-videoplayer-elevate-theme-icon-pause:before,
-.ba-videoplayer-elevate-theme-icon-resize-full:before, .ba-videoplayer-elevate-theme-icon-volume-down:before {
-  font-size: 0.7rem;
-  margin: 0;
-  line-height: inherit; }
+.ba-videoplayer-elevate-theme-icon-volume-up, .ba-videoplayer-elevate-theme-icon-play, .ba-videoplayer-elevate-theme-icon-pause,
+.ba-videoplayer-elevate-theme-icon-resize-full, .ba-videoplayer-elevate-theme-icon-volume-down {
+  display: inline-block;
+  padding: 1px 0 0; }
+  .ba-videoplayer-elevate-theme-icon-volume-up:before, .ba-videoplayer-elevate-theme-icon-play:before, .ba-videoplayer-elevate-theme-icon-pause:before,
+  .ba-videoplayer-elevate-theme-icon-resize-full:before, .ba-videoplayer-elevate-theme-icon-volume-down:before {
+    font-size: 0.7rem;
+    margin: 0;
+    line-height: inherit; }
 
 .ba-videoplayer-elevate-theme-icon-volume-up {
   color: #b0b0b0; }

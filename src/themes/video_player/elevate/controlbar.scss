@@ -85,6 +85,8 @@
 
 .#{$css}-icon-volume-up, .#{$css}-icon-play, .#{$css}-icon-pause,
 .#{$css}-icon-resize-full, .#{$css}-icon-volume-down {
+    display: inline-block;
+    padding: 1px 0 0;
     &:before {
         font-size: $text_fontsize;
         margin: 0;

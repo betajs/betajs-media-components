@@ -331,8 +331,9 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
 	"module:VideoRecorder.Dynamics.RecorderStates.State",
 	"base:Timers.Timer",
 	"base:Time",
-	"base:TimeFormat"
-], function (State, Timer, Time, TimeFormat, scoped) {
+	"base:TimeFormat",
+	"base:Async"
+], function (State, Timer, Time, TimeFormat, Async, scoped) {
 	return State.extend({scoped: scoped}, {
 		
 		dynamics: ["topmessage", "controlbar"],
@@ -379,15 +380,20 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
 			}
 			if (this._stopping)
 				return;
+			this.dyn.set("loader_active", true);
+            this.dyn.set("controlbar_active", false);
+            this.dyn.set("topmessage_active", false);
 			this._stopping = true;
-			this.dyn._stopRecording().success(function () {
-				this._hasStopped();
-				if (this.dyn.get("picksnapshots") && this.dyn.snapshots.length >= this.dyn.get("gallerysnapshots"))
-					this.next("CovershotSelection");
-				else
-					this.next("Uploading");
-			}, this).error(function (s) {
-				this.next("FatalError", { message: s, retry: "CameraAccess" });
+			Async.eventually(function () {
+                this.dyn._stopRecording().success(function () {
+                    this._hasStopped();
+                    if (this.dyn.get("picksnapshots") && this.dyn.snapshots.length >= this.dyn.get("gallerysnapshots"))
+                        this.next("CovershotSelection");
+                    else
+                        this.next("Uploading");
+                }, this).error(function (s) {
+                    this.next("FatalError", { message: s, retry: "CameraAccess" });
+                }, this);
 			}, this);
 		},
 		
@@ -453,8 +459,9 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
 
 Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
 	"module:VideoRecorder.Dynamics.RecorderStates.State",
-	"base:Time"
-], function (State, Time, scoped) {
+	"base:Time",
+	"base:Async"
+], function (State, Time, Async, scoped) {
 	return State.extend({scoped: scoped}, { 
 		
 		dynamics: ["loader", "message"],
@@ -469,8 +476,10 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
 			this.dyn.set("playertopmessage", this.dyn.get("message"));
 			var uploader = this.dyn._dataUploader;
 			this.listenOn(uploader, "success", function () {
-				this._finished();
-				this.next("Verifying");
+				Async.eventually(function () {
+                    this._finished();
+                    this.next("Verifying");
+				}, this);
 			});
 			this.listenOn(uploader, "error", function () {
 				this.dyn.set("player_active", false);
@@ -542,6 +551,8 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Verifying", [
 				this.dyn._detachRecorder();
 				if (this.dyn.get("recordings"))
 					this.dyn.set("recordings", this.dyn.get("recordings") - 1);
+                this.dyn.set("message", "");
+                this.dyn.set("playertopmessage", "");
 				this.next("Player");
 			}, this).error(function () {
 				this.dyn.set("player_active", false);

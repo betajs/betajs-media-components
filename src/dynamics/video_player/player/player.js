@@ -87,6 +87,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"preload": false,
 				"loop": false,
 				"nofullscreen": false,
+				"playfullscreenonmobile": false,
 				"ready": true,
 				"stretch": false,
 				"hideoninactivity": true,
@@ -118,7 +119,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"initialseek": "float",
 				"fullscreened": "boolean",
 				"sharevideo": "array",
-				"sharevideourl": "string"
+				"sharevideourl": "string",
+				"playfullscreenonmobile": "boolean"
 			},
 
 			extendables: ["states"],

@@ -5,7 +5,7 @@
     ba-on:touchstart="user_activity()"
     style="{{width ? 'width:' + width + ((width + '').match(/^\d+$/g) ? 'px' : '') + ';' : ''}}{{height ? 'height:' + height + ((height + '').match(/^\d+$/g) ? 'px' : '') + ';' : ''}}"
 >
-    <video class="{{css}}-video" data-video="video" playsinline></video>
+    <video class="{{css}}-video" data-video="video" ba-toggle:playsinline="{{!playfullscreenonmobile}}"></video>
     <div class="{{css}}-overlay" data-video="ad" style="display:none"></div>
     <div class='{{css}}-overlay'>
 	    <ba-{{dyncontrolbar}}
@@ -56,7 +56,7 @@
 		<ba-{{dynshare}}
 			ba-css="{{cssshare || css}}"
 			ba-template="{{tmplshare}}"
-        	ba-show="{{sharevideourl}}"
+        	ba-show="{{sharevideourl && sharevideo.length > 0}}"
 			ba-url="{{sharevideourl}}"
 			ba-shares="{{sharevideo}}"
 		></ba-{{dynshare}}>

@@ -277,6 +277,7 @@ module.exports = function(grunt) {
 
     /* External Configurations */
     .codeclimateTask()
+    .githookTask(null, "pre-commit", "check-node")
 
     /* Dependencies */
     .dependenciesTask(null, { github: [
@@ -311,6 +312,7 @@ module.exports = function(grunt) {
       'package',
       'readme',
       'license',
+      'githooks',
       'codeclimate',
       'templates-dist',
       'locales',
@@ -453,8 +455,8 @@ module.exports = function(grunt) {
 	  });
 	  this.async();	  
   });
-
-    grunt.registerTask('check', ['csslinter', 'lint', 'browserqunit']);
+    grunt.registerTask('check-node', ['lint']);
+    grunt.registerTask('check', ['csslinter', 'check-node', 'browserqunit']);
 
 	grunt.registerTask("generate-default-yml", function () {
 		var done = this.async();

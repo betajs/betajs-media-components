@@ -1,5 +1,6 @@
 <div itemscope itemtype="http://schema.org/VideoObject"
-    class="{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}  {{css}}-{{ fullscreened ? 'fullscreen' : 'normal' }}-view {{css}}-{{ firefox ? 'firefox' : 'common'}}-browser "
+    class="{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}  {{css}}-{{ fullscreened ? 'fullscreen' : 'normal' }}-view {{css}}-{{ firefox ? 'firefox' : 'common'}}-browser
+    {{css}}-{{themecolor}}-color"
     ba-on:mousemove="user_activity()"
     ba-on:mousedown="user_activity()"
     ba-on:touchstart="user_activity()"
@@ -10,6 +11,7 @@
     <div class='{{css}}-overlay'>
 	    <ba-{{dyncontrolbar}}
 		    ba-css="{{csscontrolbar || css}}"
+			ba-themecolor="{{themecolor}}"
 		    ba-template="{{tmplcontrolbar}}"
 		    ba-show="{{controlbar_active}}"
 		    ba-playing="{{playing}}"
@@ -38,6 +40,7 @@
 		
 		<ba-{{dynplaybutton}}
 		    ba-css="{{cssplaybutton || css}}"
+			ba-theme-color="{{themecolor}}"
 		    ba-template="{{tmplplaybutton}}"
 		    ba-show="{{playbutton_active}}"
 		    ba-rerecordable="{{rerecordable}}"
@@ -49,12 +52,14 @@
 		
 		<ba-{{dynloader}}
 		    ba-css="{{cssloader || css}}"
+			ba-theme-color="{{themecolor}}"
 		    ba-template="{{tmplloader}}"
 		    ba-show="{{loader_active}}"
 		></ba-{{dynloader}}>
 
 		<ba-{{dynshare}}
 			ba-css="{{cssshare || css}}"
+			ba-theme-color="{{themecolor}}"
 			ba-template="{{tmplshare}}"
         	ba-show="{{sharevideourl && sharevideo.length > 0}}"
 			ba-url="{{sharevideourl}}"
@@ -63,6 +68,7 @@
 		
 		<ba-{{dynmessage}}
 		    ba-css="{{cssmessage || css}}"
+			ba-theme-color="{{themecolor}}"
 		    ba-template="{{tmplmessage}}"
 		    ba-show="{{message_active}}"
 		    ba-message="{{message}}"
@@ -71,6 +77,7 @@
 
 		<ba-{{dyntopmessage}}
 		    ba-css="{{csstopmessage || css}}"
+			ba-theme-color="{{themecolor}}"
 		    ba-template="{{tmpltopmessage}}"
 		    ba-show="{{topmessage}}"
 		    ba-topmessage="{{topmessage}}"

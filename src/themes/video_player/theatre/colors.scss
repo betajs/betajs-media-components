@@ -1,0 +1,19 @@
+@each $color, $value in $colors {
+  @if $color != default {
+    .#{$css}-#{$color}-color {
+
+      .#{$css}-video-title, .#{$css}-icon-play, .#{$css}-icon-pause {
+        color: $value;
+      }
+
+      .#{$css}-stream-label-container .#{$css}-stream-label,
+      .#{$css}-progressbar-position, .#{$css}-volumebar-position {
+        background-color: $value;
+      }
+
+      .#{$css}-volumebar-inner {
+        background: rgba(255, 255, 255, 0.3);
+      }
+    }
+  }
+}

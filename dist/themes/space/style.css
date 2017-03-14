@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.47 - 2017-03-14
+betajs-media-components - v0.0.48 - 2017-03-14
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -765,6 +765,74 @@ Apache-2.0 Software License.
   height: 32px;
   position: absolute; }
 
+.ba-videoplayer-space-theme-red-color .ba-videoplayer-space-theme-title > p, .ba-videoplayer-space-theme-red-color.ba-videoplayer-noie8 .ba-videoplayer-space-theme-button-inner,
+.ba-videoplayer-space-theme-red-color .ba-videoplayer-space-theme-right-block .ba-videoplayer-space-theme-icon-volume-up,
+.ba-videoplayer-space-theme-red-color .ba-videoplayer-space-theme-right-block .ba-videoplayer-space-theme-icon-volume-down {
+  color: #eb6a74; }
+.ba-videoplayer-space-theme-red-color.ba-videoplayer-noie8 .ba-videoplayer-space-theme-stream-label-container {
+  color: #ffffff;
+  background: #eb6a74; }
+.ba-videoplayer-space-theme-red-color .ba-videoplayer-space-theme-progressbar-button {
+  background: #eb6a74; }
+.ba-videoplayer-space-theme-red-color .ba-videoplayer-space-theme-volumebar-position, .ba-videoplayer-space-theme-red-color .ba-videoplayer-space-theme-progressbar-position,
+.ba-videoplayer-space-theme-red-color .ba-videoplayer-space-theme-stream-label-container .ba-videoplayer-space-theme-stream-label {
+  background-color: #eb6a74; }
+.ba-videoplayer-space-theme-red-color .ba-videoplayer-space-theme-progressbar-cache {
+  background: rgba(255, 255, 255, 0.6); }
+.ba-videoplayer-space-theme-red-color .ba-videoplayer-space-theme-volumebar-inner, .ba-videoplayer-space-theme-red-color .ba-videoplayer-space-theme-progressbar-inner {
+  background: rgba(255, 255, 255, 0.3); }
+
+.ba-videoplayer-space-theme-blue-color .ba-videoplayer-space-theme-title > p, .ba-videoplayer-space-theme-blue-color.ba-videoplayer-noie8 .ba-videoplayer-space-theme-button-inner,
+.ba-videoplayer-space-theme-blue-color .ba-videoplayer-space-theme-right-block .ba-videoplayer-space-theme-icon-volume-up,
+.ba-videoplayer-space-theme-blue-color .ba-videoplayer-space-theme-right-block .ba-videoplayer-space-theme-icon-volume-down {
+  color: #98d7fd; }
+.ba-videoplayer-space-theme-blue-color.ba-videoplayer-noie8 .ba-videoplayer-space-theme-stream-label-container {
+  color: #ffffff;
+  background: #98d7fd; }
+.ba-videoplayer-space-theme-blue-color .ba-videoplayer-space-theme-progressbar-button {
+  background: #98d7fd; }
+.ba-videoplayer-space-theme-blue-color .ba-videoplayer-space-theme-volumebar-position, .ba-videoplayer-space-theme-blue-color .ba-videoplayer-space-theme-progressbar-position,
+.ba-videoplayer-space-theme-blue-color .ba-videoplayer-space-theme-stream-label-container .ba-videoplayer-space-theme-stream-label {
+  background-color: #98d7fd; }
+.ba-videoplayer-space-theme-blue-color .ba-videoplayer-space-theme-progressbar-cache {
+  background: rgba(255, 255, 255, 0.6); }
+.ba-videoplayer-space-theme-blue-color .ba-videoplayer-space-theme-volumebar-inner, .ba-videoplayer-space-theme-blue-color .ba-videoplayer-space-theme-progressbar-inner {
+  background: rgba(255, 255, 255, 0.3); }
+
+.ba-videoplayer-space-theme-white-color .ba-videoplayer-space-theme-title > p, .ba-videoplayer-space-theme-white-color.ba-videoplayer-noie8 .ba-videoplayer-space-theme-button-inner,
+.ba-videoplayer-space-theme-white-color .ba-videoplayer-space-theme-right-block .ba-videoplayer-space-theme-icon-volume-up,
+.ba-videoplayer-space-theme-white-color .ba-videoplayer-space-theme-right-block .ba-videoplayer-space-theme-icon-volume-down {
+  color: white; }
+.ba-videoplayer-space-theme-white-color.ba-videoplayer-noie8 .ba-videoplayer-space-theme-stream-label-container {
+  color: #ffffff;
+  background: white; }
+.ba-videoplayer-space-theme-white-color .ba-videoplayer-space-theme-progressbar-button {
+  background: white; }
+.ba-videoplayer-space-theme-white-color .ba-videoplayer-space-theme-volumebar-position, .ba-videoplayer-space-theme-white-color .ba-videoplayer-space-theme-progressbar-position,
+.ba-videoplayer-space-theme-white-color .ba-videoplayer-space-theme-stream-label-container .ba-videoplayer-space-theme-stream-label {
+  background-color: white; }
+.ba-videoplayer-space-theme-white-color .ba-videoplayer-space-theme-progressbar-cache {
+  background: rgba(255, 255, 255, 0.6); }
+.ba-videoplayer-space-theme-white-color .ba-videoplayer-space-theme-volumebar-inner, .ba-videoplayer-space-theme-white-color .ba-videoplayer-space-theme-progressbar-inner {
+  background: rgba(255, 255, 255, 0.3); }
+
+.ba-videoplayer-space-theme-yellow-color .ba-videoplayer-space-theme-title > p, .ba-videoplayer-space-theme-yellow-color.ba-videoplayer-noie8 .ba-videoplayer-space-theme-button-inner,
+.ba-videoplayer-space-theme-yellow-color .ba-videoplayer-space-theme-right-block .ba-videoplayer-space-theme-icon-volume-up,
+.ba-videoplayer-space-theme-yellow-color .ba-videoplayer-space-theme-right-block .ba-videoplayer-space-theme-icon-volume-down {
+  color: #ffce00; }
+.ba-videoplayer-space-theme-yellow-color.ba-videoplayer-noie8 .ba-videoplayer-space-theme-stream-label-container {
+  color: #ffffff;
+  background: #ffce00; }
+.ba-videoplayer-space-theme-yellow-color .ba-videoplayer-space-theme-progressbar-button {
+  background: #ffce00; }
+.ba-videoplayer-space-theme-yellow-color .ba-videoplayer-space-theme-volumebar-position, .ba-videoplayer-space-theme-yellow-color .ba-videoplayer-space-theme-progressbar-position,
+.ba-videoplayer-space-theme-yellow-color .ba-videoplayer-space-theme-stream-label-container .ba-videoplayer-space-theme-stream-label {
+  background-color: #ffce00; }
+.ba-videoplayer-space-theme-yellow-color .ba-videoplayer-space-theme-progressbar-cache {
+  background: rgba(255, 255, 255, 0.6); }
+.ba-videoplayer-space-theme-yellow-color .ba-videoplayer-space-theme-volumebar-inner, .ba-videoplayer-space-theme-yellow-color .ba-videoplayer-space-theme-progressbar-inner {
+  background: rgba(255, 255, 255, 0.3); }
+
 .ba-videoplayer-space-theme-dashboard {
   position: absolute;
   left: 0;
@@ -1060,6 +1128,7 @@ Apache-2.0 Software License.
   width: 20px;
   padding: 2px; }
   .ba-videoplayer-space-theme-stream-label-container .ba-videoplayer-space-theme-stream-label {
+    line-height: 16px;
     background-color: #676f76; }
 
 .ba-videoplayer-noie8 .ba-videoplayer-space-theme-full-screen-btn-inner {

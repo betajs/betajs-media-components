@@ -44,6 +44,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				/* Themes */
 				"theme": "",
 				"csstheme": "",
+				"themecolor": "",
 				/* Dynamics */
 				"dynplaybutton": "videoplayer-playbutton",
 				"dynloader": "videoplayer-loader",
@@ -120,7 +121,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"fullscreened": "boolean",
 				"sharevideo": "array",
 				"sharevideourl": "string",
-				"playfullscreenonmobile": "boolean"
+				"playfullscreenonmobile": "boolean",
+				"themecolor": "string"
 			},
 
 			extendables: ["states"],
@@ -143,6 +145,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 							this.set(key, value);
 					}, this);
 				}
+
+				if(!this.get("themecolor"))
+       			   this.set("themecolor", "default");
+
 				if (this.get("adprovider")) {
 					this._adProvider = this.get("adprovider");
 					if (Types.is_string(this._adProvider))

@@ -94,6 +94,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"hideoninactivity": true,
 				"skipinitial": false,
 				"topmessage": "",
+				"totalduration": null,
 				/* States */
 				"states": {
 					"poster_error": {
@@ -122,7 +123,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 				"sharevideo": "array",
 				"sharevideourl": "string",
 				"playfullscreenonmobile": "boolean",
-				"themecolor": "string"
+				"themecolor": "string",
+				"totalduration": "float"
 			},
 
 			extendables: ["states"],
@@ -165,7 +167,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
 				this.set("ie8", Info.isInternetExplorer() && Info.internetExplorerVersion() < 9);
 				this.set("firefox", Info.isFirefox());
-				this.set("duration", 0.0);
+				this.set("duration", this.get("totalduration") || 0.0);
 				this.set("position", 0.0);
 				this.set("buffered", 0.0);
 				this.set("message", "");
@@ -307,7 +309,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 						this.player.setVolume(volume);
 						this.player.setMuted(volume <= 0.0);
 						this.trigger("loaded");
-						this.set("duration", this.player.duration());
+						if (this.get("totalduration") || this.player.duration() < Infinity)
+							this.set("duration", this.get("totalduration") || this.player.duration());
 						this.set("fullscreensupport", this.player.supportsFullscreen());
 						this._updateStretch();
 						if (this.get("initialseek"))
@@ -440,7 +443,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 						this.set("last_position_change_delta", Time.now() - this.get("last_position_change"));
 						this.set("position", new_position);
 						this.set("buffered", this.player.buffered());
-						this.set("duration", this.player.duration());
+						var pld = this.player.duration();
+						if (0.0 < pld && pld < Infinity)
+							this.set("duration", this.player.duration());
+						else
+							this.set("duration", this.get("totalduration") || new_position);
 						this.set("fullscreened", this.player.isFullscreen());
 					}
 				} catch (e) {}

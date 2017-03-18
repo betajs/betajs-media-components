@@ -93,11 +93,13 @@ $share_icon_font_size: 14px;
 $share_icon_container_height: 45px;
 $share_icon_container_width: 45px;
 
-// Colors for main buttons
+// Theme Colors
+$theme_color_blue: #2a74eb;
+$theme_color_red: #eb6a74;
+$theme_color_green: #5da894;
+
 $colors: (
-  'red': #eb6a74,
-  'blue': #3b5998,
-  'white': white,
-  'yellow': #ffce00,
-  'default': #ffffff
+        'red': $theme_color_red,
+        'blue': $theme_color_blue,
+        'green': $theme_color_green
 );

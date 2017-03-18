@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.49 - 2017-03-15
+betajs-media-components - v0.0.49 - 2017-03-18
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -774,27 +774,19 @@ Apache-2.0 Software License.
   background: rgba(255, 255, 255, 0.3); }
 
 .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-video-title, .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-icon-play, .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-icon-pause {
-  color: #3b5998; }
+  color: #2a74eb; }
 .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-stream-label-container .ba-videoplayer-theatre-theme-stream-label,
 .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-progressbar-position, .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-volumebar-position {
-  background-color: #3b5998; }
+  background-color: #2a74eb; }
 .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-volumebar-inner {
   background: rgba(255, 255, 255, 0.3); }
 
-.ba-videoplayer-theatre-theme-white-color .ba-videoplayer-theatre-theme-video-title, .ba-videoplayer-theatre-theme-white-color .ba-videoplayer-theatre-theme-icon-play, .ba-videoplayer-theatre-theme-white-color .ba-videoplayer-theatre-theme-icon-pause {
-  color: white; }
-.ba-videoplayer-theatre-theme-white-color .ba-videoplayer-theatre-theme-stream-label-container .ba-videoplayer-theatre-theme-stream-label,
-.ba-videoplayer-theatre-theme-white-color .ba-videoplayer-theatre-theme-progressbar-position, .ba-videoplayer-theatre-theme-white-color .ba-videoplayer-theatre-theme-volumebar-position {
-  background-color: white; }
-.ba-videoplayer-theatre-theme-white-color .ba-videoplayer-theatre-theme-volumebar-inner {
-  background: rgba(255, 255, 255, 0.3); }
-
-.ba-videoplayer-theatre-theme-yellow-color .ba-videoplayer-theatre-theme-video-title, .ba-videoplayer-theatre-theme-yellow-color .ba-videoplayer-theatre-theme-icon-play, .ba-videoplayer-theatre-theme-yellow-color .ba-videoplayer-theatre-theme-icon-pause {
-  color: #ffce00; }
-.ba-videoplayer-theatre-theme-yellow-color .ba-videoplayer-theatre-theme-stream-label-container .ba-videoplayer-theatre-theme-stream-label,
-.ba-videoplayer-theatre-theme-yellow-color .ba-videoplayer-theatre-theme-progressbar-position, .ba-videoplayer-theatre-theme-yellow-color .ba-videoplayer-theatre-theme-volumebar-position {
-  background-color: #ffce00; }
-.ba-videoplayer-theatre-theme-yellow-color .ba-videoplayer-theatre-theme-volumebar-inner {
+.ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-video-title, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-icon-play, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-icon-pause {
+  color: #5da894; }
+.ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-stream-label-container .ba-videoplayer-theatre-theme-stream-label,
+.ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-progressbar-position, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-volumebar-position {
+  background-color: #5da894; }
+.ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-volumebar-inner {
   background: rgba(255, 255, 255, 0.3); }
 
 /* Theatre */

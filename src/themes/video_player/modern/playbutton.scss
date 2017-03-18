@@ -76,11 +76,3 @@
 	font-weight: $rerecord_primarybutton_font_weight;
 	font-size: $rerecord_primarybutton_font_size;
 }
-
-.#{$css}-green .#{$css}-rerecord-button {
-	background: $button_color_green;
-}
-
-.#{$css}-blue .#{$css}-rerecord-button {
-	background: $button_color_blue;
-}

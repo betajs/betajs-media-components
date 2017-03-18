@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.49 - 2017-03-15
+betajs-media-components - v0.0.49 - 2017-03-18
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -781,32 +781,21 @@ Apache-2.0 Software License.
 .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-down,
 .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-full,
 .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-small {
-  color: #3b5998; }
+  color: #2a74eb; }
 .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-volumebar-position, .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-stream-label, .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-progressbar-position {
-  background-color: #3b5998; }
+  background-color: #2a74eb; }
 .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-volumebar-inner {
   background: rgba(255, 255, 255, 0.3); }
 
-.ba-videoplayer-cube-theme-white-color .ba-videoplayer-cube-theme-dashboard, .ba-videoplayer-cube-theme-white-color .ba-videoplayer-cube-theme-timer-container, .ba-videoplayer-cube-theme-white-color .ba-videoplayer-cube-theme-video-title,
-.ba-videoplayer-cube-theme-white-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-up,
-.ba-videoplayer-cube-theme-white-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-down,
-.ba-videoplayer-cube-theme-white-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-full,
-.ba-videoplayer-cube-theme-white-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-small {
-  color: white; }
-.ba-videoplayer-cube-theme-white-color .ba-videoplayer-cube-theme-volumebar-position, .ba-videoplayer-cube-theme-white-color .ba-videoplayer-cube-theme-stream-label, .ba-videoplayer-cube-theme-white-color .ba-videoplayer-cube-theme-progressbar-position {
-  background-color: white; }
-.ba-videoplayer-cube-theme-white-color .ba-videoplayer-cube-theme-volumebar-inner {
-  background: rgba(255, 255, 255, 0.3); }
-
-.ba-videoplayer-cube-theme-yellow-color .ba-videoplayer-cube-theme-dashboard, .ba-videoplayer-cube-theme-yellow-color .ba-videoplayer-cube-theme-timer-container, .ba-videoplayer-cube-theme-yellow-color .ba-videoplayer-cube-theme-video-title,
-.ba-videoplayer-cube-theme-yellow-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-up,
-.ba-videoplayer-cube-theme-yellow-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-down,
-.ba-videoplayer-cube-theme-yellow-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-full,
-.ba-videoplayer-cube-theme-yellow-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-small {
-  color: #ffce00; }
-.ba-videoplayer-cube-theme-yellow-color .ba-videoplayer-cube-theme-volumebar-position, .ba-videoplayer-cube-theme-yellow-color .ba-videoplayer-cube-theme-stream-label, .ba-videoplayer-cube-theme-yellow-color .ba-videoplayer-cube-theme-progressbar-position {
-  background-color: #ffce00; }
-.ba-videoplayer-cube-theme-yellow-color .ba-videoplayer-cube-theme-volumebar-inner {
+.ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-dashboard, .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-timer-container, .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-video-title,
+.ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-up,
+.ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-down,
+.ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-full,
+.ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-small {
+  color: #5da894; }
+.ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-volumebar-position, .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-stream-label, .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-progressbar-position {
+  background-color: #5da894; }
+.ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-volumebar-inner {
   background: rgba(255, 255, 255, 0.3); }
 
 .ba-videoplayer-cube-theme-dashboard {

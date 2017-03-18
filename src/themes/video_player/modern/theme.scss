@@ -31,7 +31,7 @@ $button_fontsize: 13px;
 $button_width: 40px;
 $button_color: #eb6a74;
 $button_color_green: #5da894;
-$button_color_blue: #2a74eb; 
+$button_color_blue: #2a74eb;
 $button_border_color: #dbdbdb;
 $time_value_width: 100px;
 $ie8_margintop: 6px;
@@ -83,5 +83,6 @@ $theme_color_green: #5da894;
 $colors: (
   'red': $theme_color_red,
   'blue': $theme_color_blue,
-  'green': $theme_color_green
+  'green': $theme_color_green,
+  'default': ''
 );

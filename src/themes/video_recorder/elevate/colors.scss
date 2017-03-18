@@ -1,0 +1,15 @@
+@each $color, $value in $colors {
+  @if $color != default {
+    .#{$css}-#{$color}-color {
+
+      .#{$css}-dashboard {
+        color: $value;
+      }
+
+      .#{$css}-volumebar-position {
+        background-color: $value;
+      }
+
+    }
+  }
+}

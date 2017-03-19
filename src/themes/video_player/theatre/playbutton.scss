@@ -3,7 +3,7 @@
 }
 
 .#{$css}-playbutton-container {
-    background: #ffffff;
+    background-color: #ffffff;
     border-radius: 50%;
 	@include transform-translate(-50%, -50%);
 	@include absolute-center-center;
@@ -38,13 +38,13 @@
 
 .#{$css}-rerecord-bar {
     @include absolute-align-full-bottom;
-    background: $rerecord_bgcolor;
+    background-color: $rerecord_bgcolor;
 }
 
 .#{$css}-rerecord-backbar {
     @include absolute-align-full-bottom;
     height: $rerecord_height;
-    background: $rerecord_bgcolor;
+    background-color: $rerecord_bgcolor;
     opacity: $rerecord_opacity;
 }
 
@@ -62,7 +62,7 @@
 }
 
 .#{$css}-rerecord-button {
-    background: $rerecord_primarybutton_color;
+    background-color: $rerecord_primarybutton_color;
     border-radius: 0;
     color: $rerecord_primarybutton_text_color;
     @include clickable;

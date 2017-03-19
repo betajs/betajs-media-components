@@ -56,7 +56,7 @@
 }
 
 .#{$css}-rerecord-button {
-    background: $rerecord_primarybutton_color;
+    background-color: $rerecord_primarybutton_color;
     border-radius: $rerecord_primarybutton_radius;
     color: $rerecord_primarybutton_text_color;
     @include clickable;

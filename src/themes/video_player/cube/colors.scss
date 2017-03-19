@@ -6,7 +6,7 @@
       .#{$css}-right-block .#{$css}-icon-volume-up,
       .#{$css}-right-block .#{$css}-icon-volume-down,
       .#{$css}-right-block .#{$css}-icon-resize-full,
-      .#{$css}-right-block .#{$css}-icon-resize-small {
+      .#{$css}-right-block .#{$css}-icon-resize-small, .#{$css}-button-inner {
         color: $value;
       }
 
@@ -15,7 +15,7 @@
       }
 
       .#{$css}-volumebar-inner {
-        background: rgba(255, 255, 255, 0.3);
+        @include background-rgba(255, 255, 255, 0.3, #999999);
       }
     }
   }

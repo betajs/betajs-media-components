@@ -1,6 +1,6 @@
 .#{$css}-message-container {
 	@include absolute-align-all;
-    background: $message_bgcolor;
+    background-color: $message_bgcolor;
     opacity: $message_opacity;
 }
 

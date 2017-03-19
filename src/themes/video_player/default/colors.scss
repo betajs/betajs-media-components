@@ -11,7 +11,7 @@
       }
 
       .#{$css}-volumebar-inner {
-        background: rgba(255, 255, 255, 0.3);
+        @include background-rgba(255, 255, 255, 0.3, #7f7f7f);
       }
     }
   }

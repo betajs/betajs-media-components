@@ -1,5 +1,5 @@
 .#{$css}-topmessage-message {
-    background: $settings_bgcolor;
+    background-color: $settings_bgcolor;
     @include border-radius($controlbar_primarybutton_radius);
     color: $text_color_secondary;
     opacity: 0.75;

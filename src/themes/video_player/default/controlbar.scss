@@ -11,7 +11,7 @@
     @include clickable;
     @include transition1(height, $progressbar_transition, ease-in-out);
     height: $progressbar_height;
-    background: $progressbar_bgcolor;
+    background-color: $progressbar_bgcolor;
 }
 
 .#{$css}-progressbar-small {
@@ -43,7 +43,7 @@
 .#{$css}-progressbar-button {
     $radius: floor(($progressbar_height + 2 * $progressbar_button_overflow)/2);
     @include border-radius($radius);
-    background: $progressbar_button_bgcolor;
+    background-color: $progressbar_button_bgcolor;
     box-sizing: content-box;
     border: $progressbar_button_border solid $progressbar_button_bordercolor;
     position: absolute;
@@ -61,7 +61,7 @@
 .#{$css}-backbar {
     @include absolute-align-full-bottom;
     height: $controlbar_height;
-    background: $controlbar_bgcolor;
+    background-color: $controlbar_bgcolor;
     opacity: $controlbar_opacity;
 }
 
@@ -149,7 +149,7 @@
     @include relative-center-center;
     @include border-round-edges($volume_height / 2);
     @include clickable;
-    background: $progressbar_bgcolor;
+    background-color: $progressbar_bgcolor;
     height: $volume_height;
 }
 
@@ -164,7 +164,7 @@
     $radius: $volume_height - 2 * $progressbar_button_overflow;
     @include border-radius($radius);
     @include clickable;
-    background: $progressbar_button_bgcolor;
+    background-color: $progressbar_button_bgcolor;
     box-sizing: content-box;
     border: $progressbar_button_border solid $progressbar_button_bordercolor;
     position: absolute;

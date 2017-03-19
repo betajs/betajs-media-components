@@ -7,7 +7,7 @@
         color: $value;
       }
 
-      .#{$css}-progressbar-button,
+      .#{$css}-progressbar-button, .#{$css}-button-inner,
       .#{$css}-stream-label-container .#{$css}-stream-label,
       .#{$css}-progressbar-position, .#{$css}-volumebar-position {
         background-color: $value;

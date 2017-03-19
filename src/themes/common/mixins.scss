@@ -134,8 +134,8 @@
 }
 
 @mixin background-rgba($r, $g, $b, $o, $fallback) {
-    background: $fallback;
-    background: rgba($r, $g, $b, $o);
+    background-color: $fallback;
+    background-color: rgba($r, $g, $b, $o);
 }
 
 @mixin border-rgba($thinkness, $r, $g, $b, $o, $fallback) {
@@ -271,10 +271,10 @@
 @mixin background-rgba-ie($filter, $R, $G, $B, $opacity, $fallback) {
 
     /* Web browsers that does not support RGBa, the Fallback */
-    background: rgb($R, $G, $B);
+    background-color: rgb($R, $G, $B);
 
     /* IE9/FF/chrome/safari supported */
-    background: rgba($R, $G, $B, $opacity);
+    background-color: rgba($R, $G, $B, $opacity);
 
     /* IE 8 supported */
     /* Here some time problem for Hover than you can use background color/image */
@@ -315,7 +315,7 @@
 }
 
 @mixin circle_shape( $size, $backgroung, $border_width, $border_color ) {
-    background: $backgroung;
+    background-color: $backgroung;
     border: $border_width solid $border_color;
     /* Cleaner, but slightly less support: use "50%" as value */
     @include border-radius( $size * 4);

@@ -4,7 +4,7 @@
 
 .#{$cssnoie8} .#{$css}-playbutton-container {
     border-radius: 50%;
-    background: $main_color;
+    background-color: $main_color;
 	@include transform-translate(-50%, -50%);
 	@include absolute-center-center;
 	@include transition2(border, background, $playbutton_transition_time, ease-in-out);
@@ -43,7 +43,7 @@
 .#{$css}-rerecord-backbar {
     @include absolute-align-full-bottom;
     height: $rerecord_height;
-    background: $rerecord_bgcolor;
+    background-color: $rerecord_bgcolor;
     opacity: $rerecord_opacity;
 }
 
@@ -67,7 +67,7 @@
 }
 
 .#{$css}-rerecord-button {
-    background: $rerecord_bgcolor;
+    background-color: $rerecord_bgcolor;
     border-radius: $rerecord_primarybutton_radius;
     color: $rerecord_text_color;
     @include clickable;

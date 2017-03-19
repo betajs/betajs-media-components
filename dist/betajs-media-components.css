@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.49 - 2017-03-18
+betajs-media-components - v0.0.49 - 2017-03-19
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -645,21 +645,24 @@ Apache-2.0 Software License.
 .ba-videoplayer-red-color .ba-videoplayer-volumebar-position, .ba-videoplayer-red-color .ba-videoplayer-progressbar-position {
   background-color: #eb6a74; }
 .ba-videoplayer-red-color .ba-videoplayer-volumebar-inner {
-  background: rgba(255, 255, 255, 0.3); }
+  background-color: #7f7f7f;
+  background-color: rgba(255, 255, 255, 0.3); }
 
 .ba-videoplayer-blue-color.ba-videoplayer-noie8 .ba-videoplayer-time-container, .ba-videoplayer-blue-color .ba-videoplayer-button-inner {
   color: #2a74eb; }
 .ba-videoplayer-blue-color .ba-videoplayer-volumebar-position, .ba-videoplayer-blue-color .ba-videoplayer-progressbar-position {
   background-color: #2a74eb; }
 .ba-videoplayer-blue-color .ba-videoplayer-volumebar-inner {
-  background: rgba(255, 255, 255, 0.3); }
+  background-color: #7f7f7f;
+  background-color: rgba(255, 255, 255, 0.3); }
 
 .ba-videoplayer-green-color.ba-videoplayer-noie8 .ba-videoplayer-time-container, .ba-videoplayer-green-color .ba-videoplayer-button-inner {
   color: #5da894; }
 .ba-videoplayer-green-color .ba-videoplayer-volumebar-position, .ba-videoplayer-green-color .ba-videoplayer-progressbar-position {
   background-color: #5da894; }
 .ba-videoplayer-green-color .ba-videoplayer-volumebar-inner {
-  background: rgba(255, 255, 255, 0.3); }
+  background-color: #7f7f7f;
+  background-color: rgba(255, 255, 255, 0.3); }
 
 .ba-videoplayer-dashboard {
   position: absolute;
@@ -684,7 +687,7 @@ Apache-2.0 Software License.
   -o-transition: height 0.1s ease-in-out;
   -ms-transition: height 0.1s ease-in-out;
   height: 9px;
-  background: #999; }
+  background-color: #999; }
 
 .ba-videoplayer-progressbar-small {
   height: 3px; }
@@ -721,7 +724,7 @@ Apache-2.0 Software License.
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
-  background: #FFF;
+  background-color: #FFF;
   box-sizing: content-box;
   border: 1px solid #999;
   position: absolute;
@@ -740,7 +743,7 @@ Apache-2.0 Software License.
   right: 0;
   bottom: 0;
   height: 30px;
-  background: #000;
+  background-color: #000;
   opacity: 0.7; }
 
 .ba-videoplayer-controlbar {
@@ -866,7 +869,7 @@ Apache-2.0 Software License.
   border-top-right-radius: 4px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  background: #999;
+  background-color: #999;
   height: 8px; }
 
 .ba-videoplayer-volumebar-position {
@@ -885,7 +888,7 @@ Apache-2.0 Software License.
   border-radius: 6px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  background: #FFF;
+  background-color: #FFF;
   box-sizing: content-box;
   border: 1px solid #999;
   position: absolute;
@@ -1033,7 +1036,7 @@ video:fullscreen:not(:root) {
   right: 0;
   top: 0;
   bottom: 0;
-  background: black;
+  background-color: black;
   opacity: 0.75; }
 
 .ba-videoplayer-message-message {
@@ -1066,18 +1069,18 @@ video:fullscreen:not(:root) {
   -webkit-transition: opacity 0.25s ease-in-out;
   -o-transition: opacity 0.25s ease-in-out;
   -ms-transition: opacity 0.25s ease-in-out;
-  position: relative;
-  width: 100%;
+  background-color: transparent;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbDpzcGFjZT0icHJlc2VydmUiIHZpZXdCb3g9IjAgMCA0MCA0MCIgdmVyc2lvbj0iMS4xIiB5PSIwcHgiIHg9IjBweCIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDQwIDQwIj48Zz48cGF0aCBmaWxsPSJncmF5IiBkPSJtMzcuMyAxMGMtNS41LTkuNi0xNy43LTEyLjgtMjcuMy03LjNzLTEyLjggMTcuNy03LjMgMjcuMyAxNy44IDEyLjggMjcuMyA3LjNjOS42LTUuNSAxMi44LTE3LjcgNy4zLTI3LjN6IiAvPjxwYXRoIGZpbGw9IndoaXRlIiBkPSJtMzcuMyAxMGMtNS41LTkuNi0xNy43LTEyLjgtMjcuMy03LjNzLTEyLjggMTcuNy03LjMgMjcuMyAxNy44IDEyLjggMjcuMyA3LjNjOS42LTUuNSAxMi44LTE3LjcgNy4zLTI3LjN6bS05LjMgMjMuOWMtNy43IDQuNC0xNy40IDEuOC0yMS45LTUuOS00LjQtNy42LTEuNy0xNy40IDUuOS0yMS45IDcuNy00LjQgMTcuNC0xLjggMjEuOSA1LjkgNC40IDcuNyAxLjggMTcuNC01LjkgMjEuOXptLTAuOC0xNC43bC0xMC41LTYuMWMtMS4yLTAuNC0xLjQtMC4yLTEuNyAxbDAuMSAxMi4xYzAuMiAxLjIgMC42IDEuNCAxLjcgMWwxMC40LTZjMC45LTAuNyAwLjktMS4zIDAtMnoiLz48L2c+PC9zdmc+Cg==");
+  background-origin: padding-box;
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer;
   display: block;
+  opacity: 0.75;
   padding-top: 100%;
   /* initial ratio of 1:1*/
-  background-origin: padding-box;
-  background-size: contain;
-  opacity: 0.75;
-  cursor: pointer;
-  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbDpzcGFjZT0icHJlc2VydmUiIHZpZXdCb3g9IjAgMCA0MCA0MCIgdmVyc2lvbj0iMS4xIiB5PSIwcHgiIHg9IjBweCIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDQwIDQwIj48Zz48cGF0aCBmaWxsPSJncmF5IiBkPSJtMzcuMyAxMGMtNS41LTkuNi0xNy43LTEyLjgtMjcuMy03LjNzLTEyLjggMTcuNy03LjMgMjcuMyAxNy44IDEyLjggMjcuMyA3LjNjOS42LTUuNSAxMi44LTE3LjcgNy4zLTI3LjN6IiAvPjxwYXRoIGZpbGw9IndoaXRlIiBkPSJtMzcuMyAxMGMtNS41LTkuNi0xNy43LTEyLjgtMjcuMy03LjNzLTEyLjggMTcuNy03LjMgMjcuMyAxNy44IDEyLjggMjcuMyA3LjNjOS42LTUuNSAxMi44LTE3LjcgNy4zLTI3LjN6bS05LjMgMjMuOWMtNy43IDQuNC0xNy40IDEuOC0yMS45LTUuOS00LjQtNy42LTEuNy0xNy40IDUuOS0yMS45IDcuNy00LjQgMTcuNC0xLjggMjEuOSA1LjkgNC40IDcuNyAxLjggMTcuNC01LjkgMjEuOXptLTAuOC0xNC43bC0xMC41LTYuMWMtMS4yLTAuNC0xLjQtMC4yLTEuNyAxbDAuMSAxMi4xYzAuMiAxLjIgMC42IDEuNCAxLjcgMWwxMC40LTZjMC45LTAuNyAwLjktMS4zIDAtMnoiLz48L2c+PC9zdmc+Cg==");
-  background-repeat: no-repeat;
-  background-color: transparent; }
+  position: relative;
+  width: 100%; }
 
 .ba-videoplayer-noie8 .ba-videoplayer-playbutton-button:hover {
   opacity: 0.9; }
@@ -1088,13 +1091,13 @@ video:fullscreen:not(:root) {
   right: 0;
   top: 0;
   bottom: 0;
-  margin: auto;
-  cursor: pointer;
+  background-color: transparent;
   background-image: url("data:image/png;base64,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");
-  width: 64px;
-  height: 64px;
   background-repeat: no-repeat;
-  background-color: transparent; }
+  cursor: pointer;
+  height: 64px;
+  margin: auto;
+  width: 64px; }
 
 .ba-videoplayer-rerecord-bar {
   position: absolute;
@@ -1108,7 +1111,7 @@ video:fullscreen:not(:root) {
   right: 0;
   bottom: 0;
   height: 32px;
-  background: black;
+  background-color: black;
   opacity: 0.1; }
 
 .ba-videoplayer-rerecord-frontbar {
@@ -1147,7 +1150,7 @@ video:fullscreen:not(:root) {
   padding: 4px;
   padding-left: 8px;
   padding-right: 8px;
-  background: #8CF;
+  background-color: #8CF;
   color: white;
   font-family: Arial, sans-serif;
   font-weight: normal;
@@ -1229,8 +1232,8 @@ video:fullscreen:not(:root) {
   transform: translate(-45px, 0); }
 
 .ba-videoplayer-toggle-share-container {
-  background: #eeeeee;
-  background: rgba(0, 0, 0, 0.1);
+  background-color: #eeeeee;
+  background-color: rgba(0, 0, 0, 0.1);
   border-bottom-left-radius: 5px;
   border-top-left-radius: 5px;
   color: white;
@@ -1245,8 +1248,8 @@ video:fullscreen:not(:root) {
   width: 45px; }
 
 .ba-videoplayer-socials-list {
-  background: #eeeeee;
-  background: rgba(0, 0, 0, 0.1);
+  background-color: #eeeeee;
+  background-color: rgba(0, 0, 0, 0.1);
   list-style: none;
   margin: 0;
   padding: 0;
@@ -1276,11 +1279,11 @@ video:fullscreen:not(:root) {
   text-align: center; }
 
 .ba-videoplayer-topmessage-background {
-  background: black;
-  opacity: 0.1;
-  width: 100%;
+  background-color: black;
   height: 32px;
-  position: absolute; }
+  opacity: 0.1;
+  position: absolute;
+  width: 100%; }
 
 .ba-videorecorder-icon-play:before {
   font-family: "bjsmc";
@@ -1919,7 +1922,7 @@ video:fullscreen:not(:root) {
   right: 0;
   top: 0;
   bottom: 0;
-  background: #FDFDFD; }
+  background-color: #FDFDFD; }
 
 .ba-videorecorder-chooser-file {
   position: absolute;
@@ -1952,7 +1955,7 @@ video:fullscreen:not(:root) {
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
-  background: #8CF;
+  background-color: #8CF;
   color: white;
   padding: 12px;
   padding-left: 32px;
@@ -1976,6 +1979,21 @@ video:fullscreen:not(:root) {
   position: relative;
   white-space: nowrap; }
 
+.ba-videorecorder-red-color .ba-videorecorder-dashboard {
+  color: #eb6a74; }
+.ba-videorecorder-red-color .ba-videorecorder-volumebar-position {
+  background-color: #eb6a74; }
+
+.ba-videorecorder-blue-color .ba-videorecorder-dashboard {
+  color: #2a74eb; }
+.ba-videorecorder-blue-color .ba-videorecorder-volumebar-position {
+  background-color: #2a74eb; }
+
+.ba-videorecorder-green-color .ba-videorecorder-dashboard {
+  color: #5da894; }
+.ba-videorecorder-green-color .ba-videorecorder-volumebar-position {
+  background-color: #5da894; }
+
 .ba-videorecorder-dashboard {
   position: absolute;
   left: 0;
@@ -1988,7 +2006,7 @@ video:fullscreen:not(:root) {
   right: 0;
   bottom: 0;
   height: 32px;
-  background: black;
+  background-color: black;
   opacity: 0.1; }
 
 .ba-videorecorder-controlbar {
@@ -2091,7 +2109,7 @@ video:fullscreen:not(:root) {
   padding: 4px;
   padding-left: 8px;
   padding-right: 8px;
-  background: #8CF;
+  background-color: #8CF;
   color: white;
   font-family: Arial, sans-serif;
   font-weight: normal;
@@ -2142,7 +2160,7 @@ video:fullscreen:not(:root) {
 .ba-videorecorder-button-selected {
   border: 1px solid #8CF;
   color: #8CF;
-  background: white; }
+  background-color: white; }
 
 .ba-videorecorder-size-small .ba-videorecorder-lefticon-container {
   display: none; }
@@ -2280,7 +2298,7 @@ video:fullscreen:not(:root) {
   right: 0;
   top: 0;
   bottom: 0;
-  background: black;
+  background-color: black;
   opacity: 0.75; }
 
 .ba-videorecorder-message-message {
@@ -2299,7 +2317,7 @@ video:fullscreen:not(:root) {
 .ba-videorecorder-container {
   display: inline-block;
   position: relative;
-  background: #FDFDFD; }
+  background-color: #FDFDFD; }
 
 .ba-videorecorder-overlay {
   position: absolute;
@@ -2312,10 +2330,10 @@ video:fullscreen:not(:root) {
   width: 100%;
   height: 100%;
   display: block;
-  background: #FDFDFD; }
+  background-color: #FDFDFD; }
 
 .ba-videorecorder-norecorder {
-  background: black; }
+  background-color: black; }
 
 .ba-videorecorder-container video::-webkit-media-controls-start-playback-button {
   display: none;
@@ -2372,7 +2390,7 @@ video:fullscreen:not(:root) {
   top: 0;
   bottom: 0;
   border-radius: 4px;
-  background: black;
+  background-color: black;
   opacity: 0.25;
   border: 1px solid white; }
 
@@ -2410,7 +2428,7 @@ video:fullscreen:not(:root) {
   cursor: pointer;
   width: 4px;
   height: 4px;
-  background: white;
+  background-color: white;
   border: 3px solid white;
   border-radius: 4px;
   margin: 1px;
@@ -2441,7 +2459,7 @@ video:fullscreen:not(:root) {
   text-align: center; }
 
 .ba-videorecorder-topmessage-background {
-  background: black;
+  background-color: black;
   opacity: 0.1;
   width: 100%;
   height: 32px;

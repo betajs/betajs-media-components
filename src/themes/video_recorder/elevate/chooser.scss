@@ -1,5 +1,5 @@
 .#{$css}-chooser-container{
-	background: $chooser_background;
+	background-color: $chooser_background;
 }
 
 .#{$css}-chooser-icon-container {
@@ -22,7 +22,7 @@
 
 .#{$css}-chooser-secondary-button {
 	@include border-radius(2px);
-	background: $chooser_secondary_button_bgcolor;
+	background-color: $chooser_secondary_button_bgcolor;
 	color: $text_color_secondary;
 	border: 1px solid $text_color_secondary;
 	margin-top: 2px;

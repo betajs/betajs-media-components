@@ -2,7 +2,8 @@
   @if $color != default {
     .#{$css}-#{$color}-color {
 
-      .#{$css}-video-title, .#{$css}-icon-play, .#{$css}-icon-pause {
+      .#{$css}-video-title, .#{$css}-icon-play, .#{$css}-icon-pause,
+      .#{$css}-button-inner {
         color: $value;
       }
 
@@ -11,8 +12,12 @@
         background-color: $value;
       }
 
+      .#{$css}-playbutton-button {
+        border-left-color: $value;
+      }
+
       .#{$css}-volumebar-inner {
-        background: rgba(255, 255, 255, 0.3);
+        @include background-rgba(255, 255, 255, 0.3, #7f7f7f);
       }
     }
   }

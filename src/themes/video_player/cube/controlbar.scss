@@ -105,8 +105,8 @@
   }
 }
 
-.#{$css}-stream-label{
-  background: $stream_label_bg_color;
+.#{$css}-stream-label {
+  background-color: $stream_label_bg_color;
   color: $stream_label_color;
   display: inline-block;
   font-weight: 100;
@@ -138,7 +138,7 @@
 .#{$css}-progressbar-inner {
   @include relative-center-center;
   @include clickable;
-  background: transparent;
+  background-color: transparent;
   height: $progressbar_height;
 }
 

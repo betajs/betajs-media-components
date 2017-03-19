@@ -40,7 +40,7 @@
 .#{$css}-rerecord-backbar {
     @include absolute-align-full-bottom;
     height: $rerecord_height;
-    background: $rerecord_bgcolor;
+    background-color: $rerecord_bgcolor;
     opacity: $rerecord_opacity;
 }
 
@@ -70,7 +70,7 @@
 	padding: $rerecord_primarybutton_padding;
 	padding-left: $rerecord_primarybutton_vertical_padding;
 	padding-right: $rerecord_primarybutton_vertical_padding;
-	background: $button_color;
+	background-color: $button_color;
 	color: $rerecord_text_color;
 	font-family: $rerecord_font_family;
 	font-weight: $rerecord_primarybutton_font_weight;

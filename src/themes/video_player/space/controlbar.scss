@@ -203,7 +203,7 @@
 
 .#{$css}-progressbar-button {
     @include border-radius(50%);
-    background: $progressbar_button_overflow;
+    background-color: $progressbar_button_overflow;
     box-sizing: content-box;
     border: none;
     position: absolute;

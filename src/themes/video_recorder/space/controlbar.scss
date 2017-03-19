@@ -43,7 +43,7 @@
 }
 
 .#{$css}-button-circle-selected, .#{$css}-button-inner:hover, .#{$css}-button-selected {
-  background: $controlbar_button_hover_background;
+  background-color: $controlbar_button_hover_background;
   color: $controlbar_button_hover_color;
   cursor: pointer;
 }
@@ -74,7 +74,7 @@
   } input[type=radio]:checked + span { border: 3px solid $text_color;
   }
   span {
-    background: $button_color;
+    background-color: $button_color;
   }
 }
 
@@ -91,7 +91,7 @@
 }
 
 .#{$css}-settings-button {
-  background: $settings_bgcolor;
+  background-color: $settings_bgcolor;
   cursor: pointer;
   margin: 15px 0 0 15px;
   & > p {

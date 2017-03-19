@@ -27,7 +27,7 @@
 }
 
 .#{$css}-bottom-block {
-    background: $controlbar_background;
+    background-color: $controlbar_background;
     clear: both;
     height: $controlbar_bottom_height;
     width: 100%;
@@ -162,7 +162,7 @@
     @include relative-center-center;
     @include border-radius($progressbar_height / 4);
     @include clickable;
-    background: $progressbar_cache_bgcolor;
+    background-color: $progressbar_cache_bgcolor;
     height: $progressbar_height;
 }
 

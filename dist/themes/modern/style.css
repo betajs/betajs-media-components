@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.49 - 2017-03-18
+betajs-media-components - v0.0.49 - 2017-03-19
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -759,11 +759,11 @@ Apache-2.0 Software License.
   text-align: center; }
 
 .ba-videoplayer-theme-modern-topmessage-background {
-  background: black;
-  opacity: 0.3;
-  width: 100%;
+  background-color: black;
   height: 32px;
-  position: absolute; }
+  opacity: 0.3;
+  position: absolute;
+  width: 100%; }
 
 .ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-video-title, .ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-icon-volume-up, .ba-videoplayer-theme-modern-red-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-button-inner {
   color: #eb6a74; }
@@ -790,10 +790,10 @@ Apache-2.0 Software License.
   -webkit-transition: opacity 0.5s ease-in-out;
   -o-transition: opacity 0.5s ease-in-out;
   -ms-transition: opacity 0.5s ease-in-out;
-  opacity: 0.9;
+  background-color: #ecebed;
   height: 40px;
-  overflow: hidden;
-  background: #ecebed; }
+  opacity: 0.9;
+  overflow: hidden; }
 
 .ba-videoplayer-theme-modern-dashboard-hidden {
   opacity: 0; }
@@ -901,7 +901,7 @@ Apache-2.0 Software License.
   border-top-right-radius: 3px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  background: #878787;
+  background-color: #878787;
   height: 6px; }
 
 .ba-videoplayer-theme-modern-volumebar-position {
@@ -955,7 +955,7 @@ Apache-2.0 Software License.
   border-top-right-radius: 3px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  background: #878787;
+  background-color: #878787;
   height: 6px; }
 
 .ba-videoplayer-theme-modern-progressbar-position {
@@ -983,8 +983,8 @@ Apache-2.0 Software License.
   width: 100%; }
   .ba-videoplayer-theme-modern-video-title-container > p {
     color: #666666;
-    background: #ecebed;
-    background: rgba(255, 255, 255, 0.7);
+    background-color: #ecebed;
+    background-color: rgba(255, 255, 255, 0.7);
     position: relative;
     margin: auto;
     height: 30px;
@@ -1107,8 +1107,8 @@ video:fullscreen:not(:root) {
 .ba-videoplayer-noie8 .ba-videoplayer-theme-modern-playbutton-container:hover {
   border: 0.6em solid white;
   border: 0.6em solid rgba(255, 255, 255, 0.9);
-  background: white;
-  background: rgba(255, 255, 255, 0.2); }
+  background-color: white;
+  background-color: rgba(255, 255, 255, 0.2); }
 
 .ba-videoplayer-noie8 .ba-videoplayer-theme-modern-playbutton-container:hover .ba-videoplayer-theme-modern-playbutton-button {
   border-left: 3.5em solid white;
@@ -1126,7 +1126,7 @@ video:fullscreen:not(:root) {
   right: 0;
   bottom: 0;
   height: 48px;
-  background: black;
+  background-color: black;
   opacity: 0.5; }
 
 .ba-videoplayer-theme-modern-rerecord-frontbar {
@@ -1165,7 +1165,7 @@ video:fullscreen:not(:root) {
   padding: 8px;
   padding-left: 16px;
   padding-right: 16px;
-  background: #eb6a74;
+  background-color: #eb6a74;
   color: white;
   font-family: Arial, sans-serif;
   font-weight: bold;
@@ -1197,8 +1197,8 @@ video:fullscreen:not(:root) {
   transform: translate(-45px, 0); }
 
 .ba-videoplayer-theme-modern-toggle-share-container {
-  background: #eeeeee;
-  background: rgba(0, 0, 0, 0.1);
+  background-color: #eeeeee;
+  background-color: rgba(0, 0, 0, 0.1);
   border-bottom-left-radius: 5px;
   border-top-left-radius: 5px;
   color: white;
@@ -1213,8 +1213,8 @@ video:fullscreen:not(:root) {
   width: 45px; }
 
 .ba-videoplayer-theme-modern-socials-list {
-  background: #eeeeee;
-  background: rgba(0, 0, 0, 0.1);
+  background-color: #eeeeee;
+  background-color: rgba(0, 0, 0, 0.1);
   list-style: none;
   margin: 0;
   padding: 0;
@@ -1859,7 +1859,7 @@ video:fullscreen:not(:root) {
 .ba-videorecorder-theme-modern-container {
   display: inline-block;
   position: relative;
-  background: #FFF; }
+  background-color: #FFF; }
 
 .ba-videorecorder-theme-modern-overlay {
   position: absolute;
@@ -1872,10 +1872,10 @@ video:fullscreen:not(:root) {
   width: 100%;
   height: 100%;
   display: block;
-  background: #FFF; }
+  background-color: #FFF; }
 
 .ba-videorecorder-theme-modern-norecorder {
-  background: black; }
+  background-color: black; }
 
 .ba-videorecorder-theme-modern-container video::-webkit-media-controls-start-playback-button {
   display: none;
@@ -1923,7 +1923,7 @@ video:fullscreen:not(:root) {
   right: 0;
   top: 0;
   bottom: 0;
-  background: #FFF; }
+  background-color: #FFF; }
 
 .ba-videorecorder-theme-modern-chooser-file {
   position: absolute;
@@ -1956,7 +1956,7 @@ video:fullscreen:not(:root) {
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
-  background: #eb6a74;
+  background-color: #eb6a74;
   color: white;
   padding: 12px;
   padding-left: 32px;
@@ -1999,7 +1999,7 @@ video:fullscreen:not(:root) {
   text-align: center; }
 
 .ba-videorecorder-theme-modern-topmessage-background {
-  background: black;
+  background-color: black;
   opacity: 0.3;
   width: 100%;
   height: 32px;
@@ -2076,7 +2076,7 @@ video:fullscreen:not(:root) {
   right: 0;
   bottom: 0;
   height: 48px;
-  background: black;
+  background-color: black;
   opacity: 0.5; }
 
 .ba-videorecorder-theme-modern-controlbar {
@@ -2179,7 +2179,7 @@ video:fullscreen:not(:root) {
   padding: 8px;
   padding-left: 16px;
   padding-right: 16px;
-  background: #eb6a74;
+  background-color: #eb6a74;
   color: white;
   font-family: Arial, sans-serif;
   font-weight: bold;
@@ -2230,7 +2230,7 @@ video:fullscreen:not(:root) {
 .ba-videorecorder-theme-modern-button-selected {
   border: 1px solid #eb6a74;
   color: #eb6a74;
-  background: white; }
+  background-color: white; }
 
 .ba-videorecorder-theme-modern-size-small .ba-videorecorder-theme-modern-lefticon-container {
   display: none; }
@@ -2250,7 +2250,7 @@ video:fullscreen:not(:root) {
   top: 0;
   bottom: 0;
   border-radius: 3px;
-  background: black;
+  background-color: black;
   opacity: 0.5;
   border: none; }
 
@@ -2288,7 +2288,7 @@ video:fullscreen:not(:root) {
   cursor: pointer;
   width: 4px;
   height: 4px;
-  background: white;
+  background-color: white;
   border: 3px solid white;
   border-radius: 4px;
   margin: 1px;
@@ -2324,13 +2324,13 @@ video:fullscreen:not(:root) {
   color: #2a74eb; }
 
 .ba-videorecorder-theme-modern-green .ba-videorecorder-theme-modern-button-primary {
-  background: #5da894; }
+  background-color: #5da894; }
 
 .ba-videorecorder-theme-modern-blue .ba-videorecorder-theme-modern-button-primary {
-  background: #2a74eb; }
+  background-color: #2a74eb; }
 
 .ba-videorecorder-theme-modern-imagegallery-button-inner {
-  background: black;
+  background-color: black;
   opacity: 0.5;
   padding: 4px;
   border-radius: 3px; }

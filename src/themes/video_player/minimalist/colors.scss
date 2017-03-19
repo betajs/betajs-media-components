@@ -2,7 +2,7 @@
   @if $color != default {
     .#{$css}-#{$color}-color {
 
-      .#{$css}-title h4,
+      .#{$css}-title h4, .#{$css}-button-inner,
       .#{$css}-right-block .#{$css}-icon-volume-up,
       .#{$css}-right-block .#{$css}-icon-volume-down,
       .#{$css}-right-block .#{$css}-icon-resize-full,
@@ -12,16 +12,12 @@
       }
 
       .#{$css}-volumebar-position, .#{$css}-stream-label,
-      .#{$css}-progressbar-position {
+      .#{$css}-progressbar-position, .#{$css}-time-container, .#{$css}-progressbar-button {
         background-color: $value;
       }
 
-      .#{$css}-time-container, .#{$css}-progressbar-button {
-        background: $value;
-      }
-
       .#{$css}-volumebar-inner {
-        background: rgba(255, 255, 255, 0.3);
+        @include background-rgba(255, 255, 255, 0.3, #7f7f7f);
       }
     }
   }

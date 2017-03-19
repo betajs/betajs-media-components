@@ -69,3 +69,15 @@ $controlbar_button_padding: 3px;
 $controlbar_button_vertical_padding: 3px;
 $controlbar_button_border_radius: 2px;
 $controlbar_button_border: 1px solid $text_color;
+
+// Theme Colors
+$theme_color_blue: #2a74eb;
+$theme_color_red: #eb6a74;
+$theme_color_green: #2e544a;
+
+$colors: (
+  'red': $theme_color_red,
+  'blue': $theme_color_blue,
+  'green': $theme_color_green,
+  'default': ''
+);

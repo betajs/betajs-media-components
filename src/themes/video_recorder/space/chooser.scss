@@ -24,23 +24,11 @@
   margin-top: 2px;
 }
 
-.#{$css}-shape-record {
-  @include circle_shape( 6px, $button_color, 4px, #ffffff );
-  margin: 0 5px;
-  position: relative;
-  top: 3px;
+.#{$css}-icon-record:before {
+  font-size: .8em;
 }
-/*
-.#{$css}-triangle-shape-border {
-  @include circle_shape( 4px, #ffffff, 5px, #ffffff );
-  margin: 0 5px;
-  position: relative;
-  top: 1px;
-  .#{$css}-shape-upload {
-    bottom: 4px;
-    @include triangle_up_shape( 6px, $chooser_background );
-    position: relative;
-    right: 1px;
-  }
+
+.#{$css}-icon-chooser-upload:before {
+  font-size: .9em;
+  @include rotate-90();
 }
-*/

@@ -23,7 +23,7 @@
   float: left;
 }
 
-.#{$css}-cube-button {
+.#{$css}-button {
   background-color: white;
   border: none;
   border-right: $controlbar_button_border;
@@ -47,7 +47,7 @@
   width: 100%;
 }
 
-.#{$css}-button-cube-selected, .#{$css}-cube-inner:hover, .#{$css}-button-selected {
+.#{$css}-button-selected, .#{$css}-button-inner:hover, .#{$css}-button-selected {
   background-color: $controlbar_button_hover_background;
   color: $controlbar_button_hover_color;
 }

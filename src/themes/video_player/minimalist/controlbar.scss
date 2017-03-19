@@ -99,6 +99,38 @@
     }
 }
 
+.#{$cssnoie8} {
+  .#{$css}-overlay {
+    .#{$css}-controlbar-top-block {
+      .#{$css}-button-inner {
+        @include transition1(opacity, 0.3s, ease);
+        opacity: 0;
+      }
+    }
+    &:hover .#{$css}-controlbar-top-block {
+      .#{$css}-button-inner {
+        @include transition1(opacity, 0.2s, ease);
+        opacity: .6;
+      }
+    }
+  }
+}
+
+.#{$cssie8} {
+  .#{$css}-overlay {
+    .#{$css}-controlbar-top-block {
+      .#{$css}-button-inner {
+        @include transparent(0);
+      }
+    }
+    &:hover .#{$css}-controlbar-top-block {
+      .#{$css}-button-inner {
+        @include transparent(6);
+      }
+    }
+  }
+}
+
 .#{$css}-button-inner { @include clickable; z-index: 100; position: relative; }
 
 .#{$css}-right-block {

@@ -46,7 +46,7 @@
 
 .#{$css}-rerecord-bar {
     @include absolute-align-full-bottom;
-    @include background-rgba( 0, 0, 0, .4, #999999);
+    @include background-rgba(0, 0, 0, .4, #999999);
 }
 
 .#{$css}-rerecord-backbar {

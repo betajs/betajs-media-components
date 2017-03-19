@@ -2,15 +2,18 @@
   @if $color != default {
     .#{$css}-#{$color}-color {
 
-      .#{$css}-icon-play, .#{$css}-icon-pause,
+      .#{$css}-icon-play, .#{$css}-icon-pause, .#{$css}-button-inner,
       .#{$css}-icon-volume-up, .#{$css}-icon-resize-full, .#{$css}-icon-resize-small {
         color: $value;
       }
 
-      .#{$css}-progressbar-button, .#{$css}-button-inner,
-      .#{$css}-stream-label-container .#{$css}-stream-label,
-      .#{$css}-progressbar-position, .#{$css}-volumebar-position {
+      .#{$css}-progressbar-button, .#{$css}-stream-label-container .#{$css}-stream-label,
+      .#{$css}-progressbar-position, .#{$css}-volumebar-position, .#{$css}-rerecord-button {
         background-color: $value;
+      }
+
+      .#{$css}-playbutton-button {
+        border-left-color: $value;
       }
 
       .#{$css}-volumebar-inner {

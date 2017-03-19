@@ -2,11 +2,14 @@
   @if $color != default {
     .#{$css}-#{$color}-color {
 
-      .#{$css}-dashboard {
+
+      .#{$css}-button-circle-selected, .#{$css}-button-inner:hover,
+      .#{$css}-button-selected {
         color: $value;
       }
 
-      .#{$css}-volumebar-position {
+      .#{$css}-video, .#{$css}-chooser-primary-button, .#{$css}-button-primary,
+      .#{$css}-settings span{
         background-color: $value;
       }
 

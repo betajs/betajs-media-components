@@ -10,8 +10,13 @@
         color: $value;
       }
 
-      .#{$css}-volumebar-position, .#{$css}-stream-label, .#{$css}-progressbar-position {
+      .#{$css}-volumebar-position, .#{$css}-stream-label, .#{$css}-progressbar-position,
+      .#{$css}-rerecord-button {
         background-color: $value;
+      }
+
+      .#{$css}-playbutton-button {
+        border-left-color: $value;
       }
 
       .#{$css}-volumebar-inner {

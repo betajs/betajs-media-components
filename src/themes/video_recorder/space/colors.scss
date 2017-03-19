@@ -2,6 +2,21 @@
   @if $color != default {
     .#{$css}-#{$color}-color {
 
+      .#{$css}-chooser-icon-container, .#{$css}-chooser-secondary-button,
+      .#{$css}-button-selected, .#{$css}-button-circle-selected,
+      .#{$css}-button-inner:hover {
+        color: $value;
+      }
+
+      .#{$css}-video, .#{$css}-chooser-primary-button, .#{$css}-button-primary,
+      .#{$css}-settings span {
+        background-color: $value;
+      }
+
+      //.#{$css}-button-selected {
+      //  border-color: $value;
+      //}
+
     }
   }
 }

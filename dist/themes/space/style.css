@@ -634,6 +634,106 @@ Apache-2.0 Software License.
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ }
 
+.ba-videoplayer-space-theme-icon-record:before {
+  content: '\e811';
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ }
+
+.ba-videoplayer-space-theme-icon-record-core:before {
+  content: '\e812';
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ }
+
+.ba-videoplayer-space-theme-icon-chooser-upload:before {
+  content: '\f144';
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ }
+
+.ba-videoplayer-space-theme-icon-up-dir:before {
+  content: '\e813';
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ }
+
 .ba-videoplayer-space-theme-container {
   display: inline-block;
   position: relative;
@@ -774,7 +874,7 @@ Apache-2.0 Software License.
   background-color: #eb6a74; }
 .ba-videoplayer-space-theme-red-color .ba-videoplayer-space-theme-volumebar-position, .ba-videoplayer-space-theme-red-color .ba-videoplayer-space-theme-progressbar-position,
 .ba-videoplayer-space-theme-red-color .ba-videoplayer-space-theme-stream-label-container .ba-videoplayer-space-theme-stream-label, .ba-videoplayer-space-theme-red-color.ba-videoplayer-noie8 .ba-videoplayer-space-theme-playbutton-container, .ba-videoplayer-space-theme-red-color .ba-videoplayer-space-theme-playbutton-container,
-.ba-videoplayer-space-theme-red-color .ba-videoplayer-space-theme-progressbar-button {
+.ba-videoplayer-space-theme-red-color .ba-videoplayer-space-theme-progressbar-button, .ba-videoplayer-space-theme-red-color .ba-videoplayer-space-theme-rerecord-button {
   background-color: #eb6a74; }
 .ba-videoplayer-space-theme-red-color .ba-videoplayer-space-theme-progressbar-cache {
   background-color: #4c4c4c;
@@ -792,7 +892,7 @@ Apache-2.0 Software License.
   background-color: #2a74eb; }
 .ba-videoplayer-space-theme-blue-color .ba-videoplayer-space-theme-volumebar-position, .ba-videoplayer-space-theme-blue-color .ba-videoplayer-space-theme-progressbar-position,
 .ba-videoplayer-space-theme-blue-color .ba-videoplayer-space-theme-stream-label-container .ba-videoplayer-space-theme-stream-label, .ba-videoplayer-space-theme-blue-color.ba-videoplayer-noie8 .ba-videoplayer-space-theme-playbutton-container, .ba-videoplayer-space-theme-blue-color .ba-videoplayer-space-theme-playbutton-container,
-.ba-videoplayer-space-theme-blue-color .ba-videoplayer-space-theme-progressbar-button {
+.ba-videoplayer-space-theme-blue-color .ba-videoplayer-space-theme-progressbar-button, .ba-videoplayer-space-theme-blue-color .ba-videoplayer-space-theme-rerecord-button {
   background-color: #2a74eb; }
 .ba-videoplayer-space-theme-blue-color .ba-videoplayer-space-theme-progressbar-cache {
   background-color: #4c4c4c;
@@ -804,14 +904,14 @@ Apache-2.0 Software License.
 .ba-videoplayer-space-theme-green-color .ba-videoplayer-space-theme-title > p, .ba-videoplayer-space-theme-green-color.ba-videoplayer-noie8 .ba-videoplayer-space-theme-button-inner,
 .ba-videoplayer-space-theme-green-color .ba-videoplayer-space-theme-right-block .ba-videoplayer-space-theme-icon-volume-up,
 .ba-videoplayer-space-theme-green-color .ba-videoplayer-space-theme-right-block .ba-videoplayer-space-theme-icon-volume-down {
-  color: #5da894; }
+  color: #2e544a; }
 .ba-videoplayer-space-theme-green-color.ba-videoplayer-noie8 .ba-videoplayer-space-theme-stream-label-container {
   color: #ffffff;
-  background-color: #5da894; }
+  background-color: #2e544a; }
 .ba-videoplayer-space-theme-green-color .ba-videoplayer-space-theme-volumebar-position, .ba-videoplayer-space-theme-green-color .ba-videoplayer-space-theme-progressbar-position,
 .ba-videoplayer-space-theme-green-color .ba-videoplayer-space-theme-stream-label-container .ba-videoplayer-space-theme-stream-label, .ba-videoplayer-space-theme-green-color.ba-videoplayer-noie8 .ba-videoplayer-space-theme-playbutton-container, .ba-videoplayer-space-theme-green-color .ba-videoplayer-space-theme-playbutton-container,
-.ba-videoplayer-space-theme-green-color .ba-videoplayer-space-theme-progressbar-button {
-  background-color: #5da894; }
+.ba-videoplayer-space-theme-green-color .ba-videoplayer-space-theme-progressbar-button, .ba-videoplayer-space-theme-green-color .ba-videoplayer-space-theme-rerecord-button {
+  background-color: #2e544a; }
 .ba-videoplayer-space-theme-green-color .ba-videoplayer-space-theme-progressbar-cache {
   background-color: #4c4c4c;
   background-color: rgba(255, 255, 255, 0.6); }
@@ -2009,6 +2109,106 @@ video:fullscreen:not(:root) {
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ }
 
+.ba-videorecorder-theme-space-icon-record:before {
+  content: '\e811';
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ }
+
+.ba-videorecorder-theme-space-icon-record-core:before {
+  content: '\e812';
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ }
+
+.ba-videorecorder-theme-space-icon-chooser-upload:before {
+  content: '\f144';
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ }
+
+.ba-videorecorder-theme-space-icon-up-dir:before {
+  content: '\e813';
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ }
+
 .ba-videorecorder-theme-space-container {
   display: inline-block;
   position: relative;
@@ -2476,34 +2676,42 @@ video:fullscreen:not(:root) {
   border: 1px solid #b2b2b2;
   margin-top: 2px; }
 
-.ba-videorecorder-theme-space-shape-record {
-  background-color: #5daa96;
-  border: 4px solid #ffffff;
-  /* Cleaner, but slightly less support: use "50%" as value */
-  -moz-border-radius: 24px;
-  -webkit-border-radius: 24px;
-  border-radius: 24px;
-  display: inline-block;
-  height: 6px;
-  width: 6px;
-  margin: 0 5px;
-  position: relative;
-  top: 3px; }
+.ba-videorecorder-theme-space-icon-record:before {
+  font-size: .8em; }
 
-/*
-.ba-videorecorder-theme-space-triangle-shape-border {
-  @include circle_shape( 4px, #ffffff, 5px, #ffffff );
-  margin: 0 5px;
-  position: relative;
-  top: 1px;
-  .ba-videorecorder-theme-space-shape-upload {
-    bottom: 4px;
-    @include triangle_up_shape( 6px, $chooser_background );
-    position: relative;
-    right: 1px;
-  }
-}
-*/
+.ba-videorecorder-theme-space-icon-chooser-upload:before {
+  font-size: .9em;
+  -moz-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+  /* IE8+ - must be on one line, unfortunately */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=3.061616997868383e-16, M12=1, M21=-1, M22=3.061616997868383e-16, SizingMethod='auto expand')"; }
+
+.ba-videorecorder-theme-space-red-color .ba-videorecorder-theme-space-chooser-icon-container, .ba-videorecorder-theme-space-red-color .ba-videorecorder-theme-space-chooser-secondary-button,
+.ba-videorecorder-theme-space-red-color .ba-videorecorder-theme-space-button-selected, .ba-videorecorder-theme-space-red-color .ba-videorecorder-theme-space-button-circle-selected,
+.ba-videorecorder-theme-space-red-color .ba-videorecorder-theme-space-button-inner:hover {
+  color: #eb6a74; }
+.ba-videorecorder-theme-space-red-color .ba-videorecorder-theme-space-video, .ba-videorecorder-theme-space-red-color .ba-videorecorder-theme-space-chooser-primary-button, .ba-videorecorder-theme-space-red-color .ba-videorecorder-theme-space-button-primary,
+.ba-videorecorder-theme-space-red-color .ba-videorecorder-theme-space-settings span {
+  background-color: #eb6a74; }
+
+.ba-videorecorder-theme-space-blue-color .ba-videorecorder-theme-space-chooser-icon-container, .ba-videorecorder-theme-space-blue-color .ba-videorecorder-theme-space-chooser-secondary-button,
+.ba-videorecorder-theme-space-blue-color .ba-videorecorder-theme-space-button-selected, .ba-videorecorder-theme-space-blue-color .ba-videorecorder-theme-space-button-circle-selected,
+.ba-videorecorder-theme-space-blue-color .ba-videorecorder-theme-space-button-inner:hover {
+  color: #2a74eb; }
+.ba-videorecorder-theme-space-blue-color .ba-videorecorder-theme-space-video, .ba-videorecorder-theme-space-blue-color .ba-videorecorder-theme-space-chooser-primary-button, .ba-videorecorder-theme-space-blue-color .ba-videorecorder-theme-space-button-primary,
+.ba-videorecorder-theme-space-blue-color .ba-videorecorder-theme-space-settings span {
+  background-color: #2a74eb; }
+
+.ba-videorecorder-theme-space-green-color .ba-videorecorder-theme-space-chooser-icon-container, .ba-videorecorder-theme-space-green-color .ba-videorecorder-theme-space-chooser-secondary-button,
+.ba-videorecorder-theme-space-green-color .ba-videorecorder-theme-space-button-selected, .ba-videorecorder-theme-space-green-color .ba-videorecorder-theme-space-button-circle-selected,
+.ba-videorecorder-theme-space-green-color .ba-videorecorder-theme-space-button-inner:hover {
+  color: #2e544a; }
+.ba-videorecorder-theme-space-green-color .ba-videorecorder-theme-space-video, .ba-videorecorder-theme-space-green-color .ba-videorecorder-theme-space-chooser-primary-button, .ba-videorecorder-theme-space-green-color .ba-videorecorder-theme-space-button-primary,
+.ba-videorecorder-theme-space-green-color .ba-videorecorder-theme-space-settings span {
+  background-color: #2e544a; }
+
 .ba-videorecorder-theme-space-dashboard {
   position: absolute;
   left: 0;
@@ -2664,6 +2872,10 @@ video:fullscreen:not(:root) {
 
 .ba-videorecorder-theme-space-timer-container {
   cursor: default; }
+
+.ba-videorecorder-theme-space-icon-cog {
+  position: relative;
+  top: 1px; }
 
 .ba-videorecorder-theme-space-imagegallery-image, img {
   border: none;

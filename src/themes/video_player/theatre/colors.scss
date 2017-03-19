@@ -3,12 +3,13 @@
     .#{$css}-#{$color}-color {
 
       .#{$css}-video-title, .#{$css}-icon-play, .#{$css}-icon-pause,
-      .#{$css}-button-inner {
+      .#{$css}-button-inner, .#{$css}-icon-resize-full,
+      .#{$css}-icon-volume-up, .#{$css}-icon-volume-down {
         color: $value;
       }
 
-      .#{$css}-stream-label-container .#{$css}-stream-label,
-      .#{$css}-progressbar-position, .#{$css}-volumebar-position {
+      .#{$css}-stream-label-container .#{$css}-stream-label, .#{$css}-progressbar-position,
+      .#{$css}-volumebar-position, .#{$css}-rerecord-button  {
         background-color: $value;
       }
 

@@ -95,3 +95,15 @@ $controlbar_button_border: 1px solid $text_color;
 $controlbar_button_size: 40px;
 $controlbar_button_hover_background: #ffffff;
 $controlbar_button_hover_color: #5daa96;
+
+// Theme Colors
+$theme_color_blue: #2a74eb;
+$theme_color_red: #eb6a74;
+$theme_color_green: #2e544a;
+
+$colors: (
+  'red': $theme_color_red,
+  'blue': $theme_color_blue,
+  'green': $theme_color_green,
+  'default': ''
+);

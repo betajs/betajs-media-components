@@ -634,6 +634,106 @@ Apache-2.0 Software License.
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ }
 
+.ba-videoplayer-elevate-theme-icon-record:before {
+  content: '\e811';
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ }
+
+.ba-videoplayer-elevate-theme-icon-record-core:before {
+  content: '\e812';
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ }
+
+.ba-videoplayer-elevate-theme-icon-chooser-upload:before {
+  content: '\f144';
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ }
+
+.ba-videoplayer-elevate-theme-icon-up-dir:before {
+  content: '\e813';
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ }
+
 .ba-videoplayer-elevate-theme-container {
   display: inline-block;
   position: relative;
@@ -765,35 +865,38 @@ Apache-2.0 Software License.
   position: absolute;
   width: 100%; }
 
-.ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-icon-play, .ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-icon-pause,
+.ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-icon-play, .ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-icon-pause, .ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-button-inner,
 .ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-icon-volume-up, .ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-icon-resize-full, .ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-icon-resize-small {
   color: #eb6a74; }
-.ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-progressbar-button, .ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-button-inner,
-.ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-stream-label-container .ba-videoplayer-elevate-theme-stream-label,
-.ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-progressbar-position, .ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-volumebar-position {
+.ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-progressbar-button, .ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-stream-label-container .ba-videoplayer-elevate-theme-stream-label,
+.ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-progressbar-position, .ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-volumebar-position, .ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-rerecord-button {
   background-color: #eb6a74; }
+.ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-playbutton-button {
+  border-left-color: #eb6a74; }
 .ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-volumebar-inner {
   background-color: #cecece;
   background-color: rgba(0, 0, 0, 0.3); }
 
-.ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-icon-play, .ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-icon-pause,
+.ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-icon-play, .ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-icon-pause, .ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-button-inner,
 .ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-icon-volume-up, .ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-icon-resize-full, .ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-icon-resize-small {
   color: #2a74eb; }
-.ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-progressbar-button, .ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-button-inner,
-.ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-stream-label-container .ba-videoplayer-elevate-theme-stream-label,
-.ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-progressbar-position, .ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-volumebar-position {
+.ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-progressbar-button, .ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-stream-label-container .ba-videoplayer-elevate-theme-stream-label,
+.ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-progressbar-position, .ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-volumebar-position, .ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-rerecord-button {
   background-color: #2a74eb; }
+.ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-playbutton-button {
+  border-left-color: #2a74eb; }
 .ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-volumebar-inner {
   background-color: #cecece;
   background-color: rgba(0, 0, 0, 0.3); }
 
-.ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-icon-play, .ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-icon-pause,
+.ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-icon-play, .ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-icon-pause, .ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-button-inner,
 .ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-icon-volume-up, .ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-icon-resize-full, .ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-icon-resize-small {
-  color: #5da894; }
-.ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-progressbar-button, .ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-button-inner,
-.ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-stream-label-container .ba-videoplayer-elevate-theme-stream-label,
-.ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-progressbar-position, .ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-volumebar-position {
-  background-color: #5da894; }
+  color: #2e544a; }
+.ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-progressbar-button, .ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-stream-label-container .ba-videoplayer-elevate-theme-stream-label,
+.ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-progressbar-position, .ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-volumebar-position, .ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-rerecord-button {
+  background-color: #2e544a; }
+.ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-playbutton-button {
+  border-left-color: #2e544a; }
 .ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-volumebar-inner {
   background-color: #cecece;
   background-color: rgba(0, 0, 0, 0.3); }
@@ -1919,6 +2022,106 @@ video:fullscreen:not(:root) {
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ }
 
+.ba-videorecorder-theme-elevate-icon-record:before {
+  content: '\e811';
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ }
+
+.ba-videorecorder-theme-elevate-icon-record-core:before {
+  content: '\e812';
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ }
+
+.ba-videorecorder-theme-elevate-icon-chooser-upload:before {
+  content: '\f144';
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ }
+
+.ba-videorecorder-theme-elevate-icon-up-dir:before {
+  content: '\e813';
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ }
+
 .ba-videorecorder-theme-elevate-container {
   display: inline-block;
   position: relative;
@@ -2391,48 +2594,44 @@ video:fullscreen:not(:root) {
   border: 1px solid #333333;
   margin-top: 2px; }
 
-.ba-videorecorder-theme-elevate-shape-record {
-  background-color: #5daa96;
-  border: 4px solid #ffffff;
-  /* Cleaner, but slightly less support: use "50%" as value */
-  -moz-border-radius: 24px;
-  -webkit-border-radius: 24px;
-  border-radius: 24px;
-  display: inline-block;
-  height: 6px;
-  width: 6px;
-  margin: 0 5px;
-  position: relative;
-  top: 3px; }
+.ba-videorecorder-theme-elevate-icon-record:before {
+  font-size: .8em; }
 
-/*
-.ba-videorecorder-theme-elevate-triangle-shape-border {
-	@include circle_shape( 4px, $text_color_secondary, 5px, $text_color_secondary );
-	margin: 0 5px;
-	position: relative;
-	top: 1px;
-	.ba-videorecorder-theme-elevate-shape-upload {
-		bottom: 4px;
-		@include triangle_up_shape( 6px, $chooser_secondary_button_bgcolor );
-		position: relative;
-		right: 1px;
-	}
-}
-*/
-.ba-videorecorder-theme-elevate-red-color .ba-videorecorder-theme-elevate-dashboard {
+.ba-videorecorder-theme-elevate-icon-chooser-upload:before {
+  font-size: .9em;
+  -moz-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+  /* IE8+ - must be on one line, unfortunately */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=3.061616997868383e-16, M12=1, M21=-1, M22=3.061616997868383e-16, SizingMethod='auto expand')"; }
+
+.ba-videorecorder-theme-elevate-red-color .ba-videorecorder-theme-elevate-button-circle-selected, .ba-videorecorder-theme-elevate-red-color .ba-videorecorder-theme-elevate-button-inner:hover,
+.ba-videorecorder-theme-elevate-red-color .ba-videorecorder-theme-elevate-button-selected {
   color: #eb6a74; }
-.ba-videorecorder-theme-elevate-red-color .ba-videorecorder-theme-elevate-volumebar-position {
+.ba-videorecorder-theme-elevate-red-color .ba-videorecorder-theme-elevate-video, .ba-videorecorder-theme-elevate-red-color .ba-videorecorder-theme-elevate-button-primary, .ba-videorecorder-theme-elevate-red-color .ba-videorecorder-theme-elevate-chooser-primary-button,
+.ba-videorecorder-theme-elevate-red-color .ba-videorecorder-theme-elevate-settings span {
   background-color: #eb6a74; }
+.ba-videorecorder-theme-elevate-red-color .ba-videorecorder-theme-elevate-chooser-primary-button {
+  border-color: #eb6a74; }
 
-.ba-videorecorder-theme-elevate-blue-color .ba-videorecorder-theme-elevate-dashboard {
+.ba-videorecorder-theme-elevate-blue-color .ba-videorecorder-theme-elevate-button-circle-selected, .ba-videorecorder-theme-elevate-blue-color .ba-videorecorder-theme-elevate-button-inner:hover,
+.ba-videorecorder-theme-elevate-blue-color .ba-videorecorder-theme-elevate-button-selected {
   color: #2a74eb; }
-.ba-videorecorder-theme-elevate-blue-color .ba-videorecorder-theme-elevate-volumebar-position {
+.ba-videorecorder-theme-elevate-blue-color .ba-videorecorder-theme-elevate-video, .ba-videorecorder-theme-elevate-blue-color .ba-videorecorder-theme-elevate-button-primary, .ba-videorecorder-theme-elevate-blue-color .ba-videorecorder-theme-elevate-chooser-primary-button,
+.ba-videorecorder-theme-elevate-blue-color .ba-videorecorder-theme-elevate-settings span {
   background-color: #2a74eb; }
+.ba-videorecorder-theme-elevate-blue-color .ba-videorecorder-theme-elevate-chooser-primary-button {
+  border-color: #2a74eb; }
 
-.ba-videorecorder-theme-elevate-green-color .ba-videorecorder-theme-elevate-dashboard {
-  color: #5da894; }
-.ba-videorecorder-theme-elevate-green-color .ba-videorecorder-theme-elevate-volumebar-position {
-  background-color: #5da894; }
+.ba-videorecorder-theme-elevate-green-color .ba-videorecorder-theme-elevate-button-circle-selected, .ba-videorecorder-theme-elevate-green-color .ba-videorecorder-theme-elevate-button-inner:hover,
+.ba-videorecorder-theme-elevate-green-color .ba-videorecorder-theme-elevate-button-selected {
+  color: #2e544a; }
+.ba-videorecorder-theme-elevate-green-color .ba-videorecorder-theme-elevate-video, .ba-videorecorder-theme-elevate-green-color .ba-videorecorder-theme-elevate-button-primary, .ba-videorecorder-theme-elevate-green-color .ba-videorecorder-theme-elevate-chooser-primary-button,
+.ba-videorecorder-theme-elevate-green-color .ba-videorecorder-theme-elevate-settings span {
+  background-color: #2e544a; }
+.ba-videorecorder-theme-elevate-green-color .ba-videorecorder-theme-elevate-chooser-primary-button {
+  border-color: #2e544a; }
 
 .ba-videorecorder-theme-elevate-dashboard {
   position: absolute;

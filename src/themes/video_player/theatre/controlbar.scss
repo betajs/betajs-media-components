@@ -205,8 +205,8 @@
 .#{$css}-progressbar-inner {
     @include relative-center-center;
     @include clickable;
-    background-color: $progressbar_cache_bgcolor;
     height: $progressbar_height;
+    background: $progressbar_cache_bgcolor;
 }
 
 .#{$css}-progressbar-cache {

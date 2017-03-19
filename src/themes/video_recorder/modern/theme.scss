@@ -76,9 +76,14 @@ $controlbar_button_vertical_padding: 3px;
 $controlbar_button_border_radius: 4px;
 $controlbar_button_border: 1px solid $text_color;
 
-// Colors for main buttons
+// Theme Colors
+$theme_color_blue: #2a74eb;
+$theme_color_red: #eb6a74;
+$theme_color_green: #2e544a;
+
 $colors: (
-  'red': #eb6a74,
-  'blue': #2a74eb,
-  'green': #5da894
+  'red': $theme_color_red,
+  'blue': $theme_color_blue,
+  'green': $theme_color_green,
+  'default': ''
 );

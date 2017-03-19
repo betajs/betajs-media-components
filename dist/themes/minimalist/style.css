@@ -634,6 +634,106 @@ Apache-2.0 Software License.
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ }
 
+.ba-videoplayer-minimalist-theme-icon-record:before {
+  content: '\e811';
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ }
+
+.ba-videoplayer-minimalist-theme-icon-record-core:before {
+  content: '\e812';
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ }
+
+.ba-videoplayer-minimalist-theme-icon-chooser-upload:before {
+  content: '\f144';
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ }
+
+.ba-videoplayer-minimalist-theme-icon-up-dir:before {
+  content: '\e813';
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ }
+
 .ba-videoplayer-minimalist-theme-container {
   display: inline-block;
   position: relative;
@@ -772,8 +872,8 @@ Apache-2.0 Software License.
 .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-resize-small,
 .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-controlbar-top-block .ba-videoplayer-minimalist-theme-button-container .ba-videoplayer-minimalist-theme-button-inner {
   color: #eb6a74; }
-.ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-volumebar-position, .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-stream-label,
-.ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-progressbar-position, .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-time-container, .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-progressbar-button {
+.ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-volumebar-position, .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-stream-label, .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-progressbar-position,
+.ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-time-container, .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-progressbar-button, .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-rerecord-button {
   background-color: #eb6a74; }
 .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-volumebar-inner {
   background-color: #7f7f7f;
@@ -786,8 +886,8 @@ Apache-2.0 Software License.
 .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-resize-small,
 .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-controlbar-top-block .ba-videoplayer-minimalist-theme-button-container .ba-videoplayer-minimalist-theme-button-inner {
   color: #2a74eb; }
-.ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-volumebar-position, .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-stream-label,
-.ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-progressbar-position, .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-time-container, .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-progressbar-button {
+.ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-volumebar-position, .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-stream-label, .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-progressbar-position,
+.ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-time-container, .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-progressbar-button, .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-rerecord-button {
   background-color: #2a74eb; }
 .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-volumebar-inner {
   background-color: #7f7f7f;
@@ -799,10 +899,10 @@ Apache-2.0 Software License.
 .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-resize-full,
 .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-resize-small,
 .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-controlbar-top-block .ba-videoplayer-minimalist-theme-button-container .ba-videoplayer-minimalist-theme-button-inner {
-  color: #5da894; }
-.ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-volumebar-position, .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-stream-label,
-.ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-progressbar-position, .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-time-container, .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-progressbar-button {
-  background-color: #5da894; }
+  color: #2e544a; }
+.ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-volumebar-position, .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-stream-label, .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-progressbar-position,
+.ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-time-container, .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-progressbar-button, .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-rerecord-button {
+  background-color: #2e544a; }
 .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-volumebar-inner {
   background-color: #7f7f7f;
   background-color: rgba(255, 255, 255, 0.3); }
@@ -895,6 +995,44 @@ Apache-2.0 Software License.
       /* IE9/FF/chrome/safari supported */
       color: rgba(255, 255, 255, 0.6);
       font-size: 2.5em; }
+
+.ba-videoplayer-noie8 .ba-videoplayer-minimalist-theme-overlay .ba-videoplayer-minimalist-theme-controlbar-top-block .ba-videoplayer-minimalist-theme-button-inner {
+  transition: opacity 0.3s ease;
+  -moz-transition: opacity 0.3s ease;
+  -webkit-transition: opacity 0.3s ease;
+  -o-transition: opacity 0.3s ease;
+  -ms-transition: opacity 0.3s ease;
+  opacity: 0; }
+.ba-videoplayer-noie8 .ba-videoplayer-minimalist-theme-overlay:hover .ba-videoplayer-minimalist-theme-controlbar-top-block .ba-videoplayer-minimalist-theme-button-inner {
+  transition: opacity 0.2s ease;
+  -moz-transition: opacity 0.2s ease;
+  -webkit-transition: opacity 0.2s ease;
+  -o-transition: opacity 0.2s ease;
+  -ms-transition: opacity 0.2s ease;
+  opacity: .6; }
+
+.ba-videoplayer-ie8 .ba-videoplayer-minimalist-theme-overlay .ba-videoplayer-minimalist-theme-controlbar-top-block .ba-videoplayer-minimalist-theme-button-inner {
+  /* works for IE 5+. */
+  filter: alpha(opacity=0);
+  /* works for IE 8. */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  /* works for old school versions of the Mozilla browsers like Netscape Navigator. */
+  -moz-opacity: 0;
+  /* This is for old versions of Safari (1.x) with KHTML rendering engine */
+  -khtml-opacity: 0;
+  /* This is the "most important" one because it's the current standard in CSS. This will work in most versions of Firefox, Safari, and Opera. */
+  opacity: 0; }
+.ba-videoplayer-ie8 .ba-videoplayer-minimalist-theme-overlay:hover .ba-videoplayer-minimalist-theme-controlbar-top-block .ba-videoplayer-minimalist-theme-button-inner {
+  /* works for IE 5+. */
+  filter: alpha(opacity=60);
+  /* works for IE 8. */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
+  /* works for old school versions of the Mozilla browsers like Netscape Navigator. */
+  -moz-opacity: 6;
+  /* This is for old versions of Safari (1.x) with KHTML rendering engine */
+  -khtml-opacity: 6;
+  /* This is the "most important" one because it's the current standard in CSS. This will work in most versions of Firefox, Safari, and Opera. */
+  opacity: 6; }
 
 .ba-videoplayer-minimalist-theme-button-inner {
   cursor: pointer;
@@ -1947,6 +2085,106 @@ video:fullscreen:not(:root) {
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ }
 
+.ba-videorecorder-theme-minimalist-icon-record:before {
+  content: '\e811';
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ }
+
+.ba-videorecorder-theme-minimalist-icon-record-core:before {
+  content: '\e812';
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ }
+
+.ba-videorecorder-theme-minimalist-icon-chooser-upload:before {
+  content: '\f144';
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ }
+
+.ba-videorecorder-theme-minimalist-icon-up-dir:before {
+  content: '\e813';
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ }
+
 .ba-videorecorder-theme-minimalist-container {
   display: inline-block;
   position: relative;
@@ -2413,48 +2651,38 @@ video:fullscreen:not(:root) {
   color: black;
   margin-top: 2px; }
 
-.ba-videorecorder-theme-minimalist-shape-record {
-  background-color: #5daa96;
-  border: 4px solid #ffffff;
-  /* Cleaner, but slightly less support: use "50%" as value */
-  -moz-border-radius: 24px;
-  -webkit-border-radius: 24px;
-  border-radius: 24px;
-  display: inline-block;
-  height: 6px;
-  width: 6px;
-  margin: 0 5px;
-  position: relative;
-  top: 3px; }
+.ba-videorecorder-theme-minimalist-icon-record:before {
+  font-size: .8em; }
 
-/*
-.ba-videorecorder-theme-minimalist-triangle-shape-border {
-  @include circle_shape( 4px, #ffffff, 5px, #ffffff );
-  margin: 0 5px;
-  position: relative;
-  top: 1px;
-  .ba-videorecorder-theme-minimalist-shape-upload {
-    bottom: 4px;
-    @include triangle_up_shape( 6px, #b2b2b2 );
-    position: relative;
-    right: 1px;
-  }
-}
-*/
-.ba-videorecorder-theme-minimalist-red-color .ba-videorecorder-theme-minimalist-dashboard {
+.ba-videorecorder-theme-minimalist-icon-chooser-upload:before {
+  font-size: .9em;
+  -moz-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+  /* IE8+ - must be on one line, unfortunately */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=3.061616997868383e-16, M12=1, M21=-1, M22=3.061616997868383e-16, SizingMethod='auto expand')"; }
+
+.ba-videorecorder-theme-minimalist-red-color .ba-videorecorder-theme-minimalist-button-circle-selected, .ba-videorecorder-theme-minimalist-red-color .ba-videorecorder-theme-minimalist-button-inner:hover,
+.ba-videorecorder-theme-minimalist-red-color .ba-videorecorder-theme-minimalist-button-selected {
   color: #eb6a74; }
-.ba-videorecorder-theme-minimalist-red-color .ba-videorecorder-theme-minimalist-volumebar-position {
+.ba-videorecorder-theme-minimalist-red-color .ba-videorecorder-theme-minimalist-video, .ba-videorecorder-theme-minimalist-red-color .ba-videorecorder-theme-minimalist-chooser-primary-button, .ba-videorecorder-theme-minimalist-red-color .ba-videorecorder-theme-minimalist-button-primary,
+.ba-videorecorder-theme-minimalist-red-color .ba-videorecorder-theme-minimalist-settings span {
   background-color: #eb6a74; }
 
-.ba-videorecorder-theme-minimalist-blue-color .ba-videorecorder-theme-minimalist-dashboard {
+.ba-videorecorder-theme-minimalist-blue-color .ba-videorecorder-theme-minimalist-button-circle-selected, .ba-videorecorder-theme-minimalist-blue-color .ba-videorecorder-theme-minimalist-button-inner:hover,
+.ba-videorecorder-theme-minimalist-blue-color .ba-videorecorder-theme-minimalist-button-selected {
   color: #2a74eb; }
-.ba-videorecorder-theme-minimalist-blue-color .ba-videorecorder-theme-minimalist-volumebar-position {
+.ba-videorecorder-theme-minimalist-blue-color .ba-videorecorder-theme-minimalist-video, .ba-videorecorder-theme-minimalist-blue-color .ba-videorecorder-theme-minimalist-chooser-primary-button, .ba-videorecorder-theme-minimalist-blue-color .ba-videorecorder-theme-minimalist-button-primary,
+.ba-videorecorder-theme-minimalist-blue-color .ba-videorecorder-theme-minimalist-settings span {
   background-color: #2a74eb; }
 
-.ba-videorecorder-theme-minimalist-green-color .ba-videorecorder-theme-minimalist-dashboard {
-  color: #5da894; }
-.ba-videorecorder-theme-minimalist-green-color .ba-videorecorder-theme-minimalist-volumebar-position {
-  background-color: #5da894; }
+.ba-videorecorder-theme-minimalist-green-color .ba-videorecorder-theme-minimalist-button-circle-selected, .ba-videorecorder-theme-minimalist-green-color .ba-videorecorder-theme-minimalist-button-inner:hover,
+.ba-videorecorder-theme-minimalist-green-color .ba-videorecorder-theme-minimalist-button-selected {
+  color: #2e544a; }
+.ba-videorecorder-theme-minimalist-green-color .ba-videorecorder-theme-minimalist-video, .ba-videorecorder-theme-minimalist-green-color .ba-videorecorder-theme-minimalist-chooser-primary-button, .ba-videorecorder-theme-minimalist-green-color .ba-videorecorder-theme-minimalist-button-primary,
+.ba-videorecorder-theme-minimalist-green-color .ba-videorecorder-theme-minimalist-settings span {
+  background-color: #2e544a; }
 
 .ba-videorecorder-theme-minimalist-dashboard {
   position: absolute;

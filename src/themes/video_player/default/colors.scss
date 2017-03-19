@@ -6,7 +6,8 @@
         color: $value;
       }
 
-      .#{$css}-volumebar-position, .#{$css}-progressbar-position {
+      .#{$css}-volumebar-position, .#{$css}-progressbar-position,
+      .#{$css}-rerecord-button {
         background-color: $value;
       }
 

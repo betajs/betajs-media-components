@@ -3,7 +3,8 @@
     .#{$css}-#{$color}-color {
 
       .#{$css}-video-title, .#{$css}-icon-volume-up,
-      &.#{$cssnoie8} .#{$css}-button-inner {
+      &.#{$cssnoie8} .#{$css}-button-inner,&.#{$cssie8} .#{$css}-button-inner,
+      .#{$css}-playbutton-button::after {
         color: $value;
       }
 
@@ -11,6 +12,20 @@
         background-color: $value;
       }
 
+      .#{$css}-playbutton-button,
+      &.#{$cssnoie8} .#{$css}-playbutton-container .#{$css}-playbutton-button,
+      &.#{$cssie8} .#{$css}-playbutton-container .#{$css}-playbutton-button {
+        border-left-color: $value;
+      }
+
+      &.#{$cssie8} .#{$css}-playbutton-container,
+      &.#{$cssnoie8} .#{$css}-playbutton-container {
+        border-color: $value;
+      }
+
+      .#{$css}-playbutton-container, .#{$css}-playbutton-button {
+        @include box-shadow($value, 22);
+      }
     }
   }
 }

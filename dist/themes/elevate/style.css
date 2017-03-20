@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.49 - 2017-03-19
+betajs-media-components - v0.0.49 - 2017-03-20
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1020,7 +1020,7 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-elevate-theme-time-value {
   color: #ffffff;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color=#color)";
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color=#000000)";
   /*IE 8*/
   text-shadow: 0 0 4px #000000;
   /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */

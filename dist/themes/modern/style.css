@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.49 - 2017-03-19
+betajs-media-components - v0.0.49 - 2017-03-20
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -865,20 +865,68 @@ Apache-2.0 Software License.
   position: absolute;
   width: 100%; }
 
-.ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-video-title, .ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-icon-volume-up, .ba-videoplayer-theme-modern-red-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-button-inner {
+.ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-video-title, .ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-icon-volume-up, .ba-videoplayer-theme-modern-red-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-button-inner, .ba-videoplayer-theme-modern-red-color.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-button-inner,
+.ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-playbutton-button::after {
   color: #eb6a74; }
 .ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-progressbar-position, .ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-volumebar-position, .ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-rerecord-button {
   background-color: #eb6a74; }
+.ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-playbutton-button, .ba-videoplayer-theme-modern-red-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-playbutton-container .ba-videoplayer-theme-modern-playbutton-button, .ba-videoplayer-theme-modern-red-color.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-playbutton-container .ba-videoplayer-theme-modern-playbutton-button {
+  border-left-color: #eb6a74; }
+.ba-videoplayer-theme-modern-red-color.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-playbutton-container, .ba-videoplayer-theme-modern-red-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-playbutton-container {
+  border-color: #eb6a74; }
+.ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-playbutton-container, .ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-playbutton-button {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=22, Direction=90, Color=#eb6a74)";
+  /*IE 8*/
+  -moz-box-shadow: 0px 0px 22px #eb6a74;
+  /*FF 3.5+*/
+  -webkit-box-shadow: 0px 0px 22px #eb6a74;
+  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: 0px 0px 22px #eb6a74;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=22, Direction=90, Color=#eb6a74);
+  /*IE 5.5-7*/ }
 
-.ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-video-title, .ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-icon-volume-up, .ba-videoplayer-theme-modern-blue-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-button-inner {
+.ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-video-title, .ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-icon-volume-up, .ba-videoplayer-theme-modern-blue-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-button-inner, .ba-videoplayer-theme-modern-blue-color.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-button-inner,
+.ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-playbutton-button::after {
   color: #2a74eb; }
 .ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-progressbar-position, .ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-volumebar-position, .ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-rerecord-button {
   background-color: #2a74eb; }
+.ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-playbutton-button, .ba-videoplayer-theme-modern-blue-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-playbutton-container .ba-videoplayer-theme-modern-playbutton-button, .ba-videoplayer-theme-modern-blue-color.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-playbutton-container .ba-videoplayer-theme-modern-playbutton-button {
+  border-left-color: #2a74eb; }
+.ba-videoplayer-theme-modern-blue-color.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-playbutton-container, .ba-videoplayer-theme-modern-blue-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-playbutton-container {
+  border-color: #2a74eb; }
+.ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-playbutton-container, .ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-playbutton-button {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=22, Direction=90, Color=#2a74eb)";
+  /*IE 8*/
+  -moz-box-shadow: 0px 0px 22px #2a74eb;
+  /*FF 3.5+*/
+  -webkit-box-shadow: 0px 0px 22px #2a74eb;
+  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: 0px 0px 22px #2a74eb;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=22, Direction=90, Color=#2a74eb);
+  /*IE 5.5-7*/ }
 
-.ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-video-title, .ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-icon-volume-up, .ba-videoplayer-theme-modern-green-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-button-inner {
+.ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-video-title, .ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-icon-volume-up, .ba-videoplayer-theme-modern-green-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-button-inner, .ba-videoplayer-theme-modern-green-color.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-button-inner,
+.ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-playbutton-button::after {
   color: #2e544a; }
 .ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-progressbar-position, .ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-volumebar-position, .ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-rerecord-button {
   background-color: #2e544a; }
+.ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-playbutton-button, .ba-videoplayer-theme-modern-green-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-playbutton-container .ba-videoplayer-theme-modern-playbutton-button, .ba-videoplayer-theme-modern-green-color.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-playbutton-container .ba-videoplayer-theme-modern-playbutton-button {
+  border-left-color: #2e544a; }
+.ba-videoplayer-theme-modern-green-color.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-playbutton-container, .ba-videoplayer-theme-modern-green-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-playbutton-container {
+  border-color: #2e544a; }
+.ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-playbutton-container, .ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-playbutton-button {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=22, Direction=90, Color=#2e544a)";
+  /*IE 8*/
+  -moz-box-shadow: 0px 0px 22px #2e544a;
+  /*FF 3.5+*/
+  -webkit-box-shadow: 0px 0px 22px #2e544a;
+  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: 0px 0px 22px #2e544a;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=22, Direction=90, Color=#2e544a);
+  /*IE 5.5-7*/ }
 
 .ba-videoplayer-theme-modern-dashboard {
   position: absolute;
@@ -1188,31 +1236,60 @@ video:fullscreen:not(:root) {
   cursor: pointer; }
 
 .ba-videoplayer-noie8 .ba-videoplayer-theme-modern-playbutton-button {
-  border-left: 3.5em solid white;
-  border-left: 3.5em solid rgba(255, 255, 255, 0.6);
   transition: border-left 0.25s ease-in-out;
   -moz-transition: border-left 0.25s ease-in-out;
   -webkit-transition: border-left 0.25s ease-in-out;
   -o-transition: border-left 0.25s ease-in-out;
-  -ms-transition: border-left 0.25s ease-in-out;
-  position: relative;
-  margin: auto;
-  width: 0;
-  height: 0;
-  border-top: 2em solid transparent;
-  border-bottom: 2em solid transparent;
-  left: 0.4em;
-  top: 3.00em; }
+  -ms-transition: border-left 0.25s ease-in-out; }
 
-.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-playbutton-container:hover {
-  border: 0.6em solid white;
-  border: 0.6em solid rgba(255, 255, 255, 0.9);
-  background-color: white;
-  background-color: rgba(255, 255, 255, 0.2); }
+.ba-videoplayer-theme-modern-playbutton-container {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=22, Direction=90, Color=#000000)";
+  /*IE 8*/
+  -moz-box-shadow: 0px 0px 22px #000000;
+  /*FF 3.5+*/
+  -webkit-box-shadow: 0px 0px 22px #000000;
+  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: 0px 0px 22px #000000;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=22, Direction=90, Color=#000000);
+  /*IE 5.5-7*/
+  text-align: center; }
 
-.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-playbutton-container:hover .ba-videoplayer-theme-modern-playbutton-button {
-  border-left: 3.5em solid white;
-  border-left: 3.5em solid rgba(255, 255, 255, 0.9); }
+.ba-videoplayer-theme-modern-playbutton-button::after {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color=#000000)";
+  /*IE 8*/
+  text-shadow: 0 0 4px #000000;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color=#000000);
+  /*IE 5.5-7*/
+  content: "\e805";
+  color: #ffffff;
+  font-size: 5em;
+  line-height: 2.1em;
+  margin-left: 0.1em;
+  width: 100%; }
 
 .ba-videoplayer-theme-modern-rerecord-bar {
   position: absolute;
@@ -2505,24 +2582,6 @@ video:fullscreen:not(:root) {
   color: #eb6a74;
   font-size: 32px; }
 
-.ba-videorecorder-theme-modern-green .ba-videorecorder-theme-modern-chooser-icon-container {
-  color: #5da894; }
-
-.ba-videorecorder-theme-modern-blue .ba-videorecorder-theme-modern-chooser-icon-container {
-  color: #2a74eb; }
-
-.ba-videorecorder-theme-modern-green .ba-videorecorder-theme-modern-chooser-primary-button {
-  background-color: #5da894; }
-
-.ba-videorecorder-theme-modern-blue .ba-videorecorder-theme-modern-chooser-primary-button {
-  background-color: #2a74eb; }
-
-.ba-videorecorder-theme-modern-green .ba-videorecorder-theme-modern-chooser-secondary-button {
-  color: #5da894; }
-
-.ba-videorecorder-theme-modern-blue .ba-videorecorder-theme-modern-chooser-secondary-button {
-  color: #2a74eb; }
-
 .ba-videorecorder-theme-modern-red-color .ba-videorecorder-theme-modern-chooser-icon-container, .ba-videorecorder-theme-modern-red-color .ba-videorecorder-theme-modern-chooser-secondary-button,
 .ba-videorecorder-theme-modern-red-color .ba-videorecorder-theme-modern-button-selected {
   color: #eb6a74; }
@@ -2556,12 +2615,6 @@ video:fullscreen:not(:root) {
 .ba-videorecorder-theme-modern-green-color .ba-videorecorder-theme-modern-settings input[type=radio]:checked + span {
   border: #ffffff; }
 
-.ba-videorecorder-theme-modern-green .ba-videorecorder-theme-modern-button-primary {
-  background-color: #5da894; }
-
-.ba-videorecorder-theme-modern-blue .ba-videorecorder-theme-modern-button-primary {
-  background-color: #2a74eb; }
-
 .ba-videorecorder-theme-modern-imagegallery-button-inner {
   background-color: black;
   opacity: 0.5;
@@ -2570,9 +2623,3 @@ video:fullscreen:not(:root) {
 
 .ba-videorecorder-theme-modern-imagegallery-leftbutton .ba-videorecorder-theme-modern-imagegallery-button-inner {
   padding-left: 2px; }
-
-.ba-videorecorder-theme-modern-green .ba-videorecorder-theme-modern-settings input[type=radio]:checked + span {
-  border: 3px solid #5da894; }
-
-.ba-videorecorder-theme-modern-blue .ba-videorecorder-theme-modern-settings input[type=radio]:checked + span {
-  border: 3px solid #2a74eb; }

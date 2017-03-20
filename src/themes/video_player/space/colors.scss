@@ -3,20 +3,21 @@
     .#{$css}-#{$color}-color {
 
       .#{$css}-title > p,
-      &.#{$cssnoie8} .#{$css}-button-inner,
+      &.#{$cssnoie8} .#{$css}-button-inner, &.#{$cssie8} .#{$css}-button-inner,
       .#{$css}-right-block .#{$css}-icon-volume-up,
       .#{$css}-right-block .#{$css}-icon-volume-down {
         color: $value;
       }
 
-      &.#{$cssnoie8} .#{$css}-stream-label-container {
+      &.#{$cssnoie8} .#{$css}-stream-label-container, &.#{$cssie8} .#{$css}-stream-label-container {
         color: $button_color;
         background-color: $value;
       }
 
       .#{$css}-volumebar-position, .#{$css}-progressbar-position,
       .#{$css}-stream-label-container .#{$css}-stream-label,
-      &.#{$cssnoie8} .#{$css}-playbutton-container, .#{$css}-playbutton-container,
+      &.#{$cssnoie8} .#{$css}-playbutton-container,
+      &.#{$cssie8} .#{$css}-playbutton-container, .#{$css}-playbutton-container,
       .#{$css}-progressbar-button, .#{$css}-rerecord-button {
         background-color: $value;
       }

@@ -1,34 +1,41 @@
+
 .#{$cssnoie8} .#{$css}-playbutton-container {
-	@include transform-translate(-50%, -50%);
-	@include border-rgba($playbutton_frame_thickness, 255, 255, 255, $playbutton_default_opacity, #999);
-	@include absolute-center-center;
-	@include transition2(border, background, $playbutton_transition_time, ease-in-out);
-    border-radius: 50%;
-    width: 10em;
-    height: 10em;
-    font-size: $playbutton_size;
-    box-sizing: content-box;
-    cursor: pointer;
+  @include absolute-center-center;
+  @include border-rgba($playbutton_frame_thickness, 255, 255, 255, $playbutton_default_opacity, #999);
+  @include box-shadow($cover_playbutton_shadow, 22);
+  @include transition1(all, $playbutton_transition_time, ease-in-out);
+  @include transform-translate(-50%, -50%);
+  border-radius: 50%;
+  box-sizing: content-box;
+  cursor: pointer;
+  font-size: $playbutton_size;
+  height: 10em;
+  text-align: center;
+  width: 10em;
 }
 
-.#{$cssnoie8} .#{$css}-playbutton-button {
-    @include transition1(border-left, $playbutton_transition_time, ease-in-out);
+.#{$cssnoie8} .#{$css}-playbutton-container:hover {
+  @include box-shadow($cover_playbutton_hover_shadow, 22);
+  border-color: $cover_playbutton_border_hover_color;
+  .#{$css}-playbutton-button::after {
+    @include text-shadow($cover_playbutton_hover_shadow, 4);
+  }
 }
 
-.#{$css}-playbutton-container {
-    @include box-shadow(#000000, 22);
-    text-align: center;
+.#{$cssnoie8} .#{$css}-playbutton-button::after {
+  @include fontello-icon;
+  @include text-shadow($cover_playbutton_shadow, 4);
+  @include transition1(all, $playbutton_transition_time, ease-in-out);
+  content: "\e805";
+  color: $cover_playbutton_color;
+  font-size: 4.6em;
+  line-height: 2.3em;
+  margin-left: 0.1em;
+  width: 100%;
 }
 
-.#{$css}-playbutton-button::after {
-    @include fontello-icon;
-    @include text-shadow(#000000, 4);
-    content: "\e805";
-    color: $playbutton_color;
-    font-size: 5em;
-    line-height: 2.1em;
-    margin-left: 0.1em;
-    width: 100%;
+.#{$css}-playbutton-button:hover::after {
+  color: $cover_playbutton_hover_color;
 }
 
 .#{$css}-rerecord-bar {

@@ -6,9 +6,9 @@ $fontello_name: "bjsmc";
 $loader_size: 5px;
 $loader_frame_thickness: 0.6em;
 
-$message_bgcolor: black;
+$message_bgcolor: #000000;
 $message_opacity: 0.75;
-$message_color: white;
+$message_color: #eeeeee;
 
 $font_family: Arial, sans-serif;
 $topmessage_bgcolor: black;
@@ -17,8 +17,16 @@ $topmessage_fontsize: 15px;
 $topmessage_height: 32px;
 $topmessage_fontweight: bold;
 
+// cover
+$cover_playbutton_color: #eeeeee;
+$cover_playbutton_hover_color: #000000;
+$cover_playbutton_shadow: #000000;
+$cover_playbutton_border_color: #eeeeee;
+$cover_playbutton_border_hover_color: #000000;
+$cover_playbutton_hover_shadow: #eeeeee;
+
 $playbutton_size: 5px;
-$playbutton_color: #ffffff;
+$playbutton_color: #eeeeee;
 $playbutton_frame_thickness: 0.6em;
 $playbutton_default_opacity: 0.6;
 $playbutton_hover_opacity: 0.9;
@@ -27,24 +35,23 @@ $playbutton_background_opacity: 0.2;
 
 $dashboard_transition: 0.5s;
 $controlbar_height: 40px;
-$controlbar_background: #ecebed;
+$controlbar_background: #999999;
 $button_fontsize: 13px;
 $button_width: 40px;
-$button_color: #eb6a74;
-$button_color_green: #5da894;
-$button_color_blue: #2a74eb;
-$button_border_color: #dbdbdb;
+$button_color: #000000;
+$button_border_color: #eeeeee;
 $time_value_width: 100px;
 $ie8_margintop: 6px;
 $text_fontfamily: Helvetica Neue, Helvetica, Arial, sans-serif;
 $text_fontsize: 13px;
-$text_color: #666666;
-$controls_bgcolor: #878787;
+$text_color: #eeeeee;
+$controls_bgcolor: #eeeeee;
 $volume_width: 60px;
 $volume_height: 6px;
-$progressbar_cache_bgcolor: #BBB;
+$progressbar_cache_bgcolor: #eeeeee;
+$title_text_color: #666666;
 
-$full_screen_background: #b2b2b2;
+$full_screen_background: #666666;
 
 $rerecord_text_color: white;
 $rerecord_font_family: Arial, sans-serif;
@@ -65,7 +72,7 @@ $rerecord_primarybutton_font_size: 14px;
 $share_container_top: 50px;
 $share_container_width: 90px;
 $share_container_right: 15px;
-$open_share_button_color: #ffffff;
+$open_share_button_color: #eeeeee;
 $open_share_button_border_radius: 5px;
 $open_share_button_size: 13px;
 $open_share_button_top: 30px;
@@ -79,7 +86,7 @@ $share_icon_container_width: 45px;
 // Theme Colors
 $theme_color_blue: #2a74eb;
 $theme_color_red: #eb6a74;
-$theme_color_green: #2e544a;
+$theme_color_green: #5daa96;
 
 $colors: (
   'red': $theme_color_red,

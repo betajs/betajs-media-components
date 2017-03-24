@@ -1,14 +1,14 @@
 $css: "ba-videoplayer-elevate-theme";
-$cssie8: "ba-videoplayer-elevate-ie8";
-$cssnoie8: "ba-videoplayer-elevate-noie8";
+$cssie8: "ba-videoplayer-ie8";
+$cssnoie8: "ba-videoplayer-noie8";
 $fontello_name: "bjsmc";
 
 $loader_size: 5px;
 $loader_frame_thickness: 0.6em;
 
-$message_bgcolor: black;
+$message_bgcolor: #000000;
 $message_opacity: 0.75;
-$message_color: white;
+$message_color: #eeeeee;
 
 $font_family: sans-serif;
 $topmessage_bgcolor: black;
@@ -16,6 +16,14 @@ $topmessage_opacity: 0.3;
 $topmessage_fontsize: 15px;
 $topmessage_height: 32px;
 $topmessage_fontweight: bold;
+
+// cover
+$cover_playbutton_color: #eeeeee;
+$cover_playbutton_hover_color: #000000;
+$cover_playbutton_shadow: #000000;
+$cover_playbutton_border_color: #eeeeee;
+$cover_playbutton_border_hover_color: #000000;
+$cover_playbutton_hover_shadow: #eeeeee;
 
 $playbutton_size: 50px;
 $playbutton_frame_thickness: 0.6em;
@@ -32,49 +40,51 @@ $dashboard_border_color: rgba(0, 0, 0, 0.1);
 $controlbar_height: 52px;
 $controlbar_bottom_height: 32px;
 $controlbar_line_height: 32px;
-$controlbar_background: #ffffff;
+$controlbar_background: #eeeeee;
 $controlbar_left_block_width: 12%;
 $controlbar_center_block_width: 75%;
 $controlbar_right_block_width: 12%;
-$controlbar_video_title_color: #7f7f7f;
+$controlbar_video_title_color: #000000;
 $controlbar_video_title_font_size: 12px;
 
 $full_screen_background: #b2b2b2;
 
 $button_fontsize: 13px;
 $button_width: 40px;
-$button_color: #5daa96;
-$button_color_secondary: #b0b0b0;
-$button_border_color: #e5e5e5;
+$button_color: #000000;
+$button_color_secondary: #666666;
+$button_border_color: #666666;
 $time_value_width: 100px;
 $ie8_margintop: 6px;
 $text_fontfamily: Helvetica Neue, Helvetica, Arial, sans-serif;
 $text_fontsize: 0.7rem;
 $text_color: #2c2c2c;
-$controls_bgcolor: rgba(93, 170, 150, 0.3);
+$controls_bgcolor: rgba(0, 0, 0, 0.7);
+
 $volume_width: 60px;
 $volume_height: 6px;
+$volumebar_cache_bgcolor: #999999;
 
 $progressbar_width: 95%;
-$progressbar_cache_bgcolor: #ffffff;
-$progressbar_button_overflow: #5daa96;
+$progressbar_cache_bgcolor: #eeeeee;
+$progressbar_button_overflow: #666666;
 $progressbar_height: 8px;
-$stream_label_bg_color: #5daa96;
-$stream_label_color: #ffffff;
+$stream_label_bg_color: #000000;
+$stream_label_color: #eeeeee;
 $time_value_width: 40px;
 $aligned-buttons-container: 80px;
 
-$rerecord_text_color: white;
+$rerecord_text_color: #eeeeee;
 $rerecord_font_family: sans-serif;
 
 
 $rerecord_height: 48px;
 $rerecord_opacity: 0.5;
-$rerecord_bgcolor: black;
+$rerecord_bgcolor: #000000;
 $rerecord_padding: 24px;
 $rerecord_padding: 16px;
-$rerecord_primarybutton_color: #5daa96;
-$rerecord_primarybutton_text_color: white;
+$rerecord_primarybutton_color: #000000;
+$rerecord_primarybutton_text_color: #eeeeee;
 $rerecord_primarybutton_padding: 10px 20px;
 $rerecord_primarybutton_radius: 18px;
 $rerecord_primarybutton_vertical_padding: 16px;
@@ -86,7 +96,7 @@ $rerecord_letter_spacing: .1em;
 $share_container_top: 50px;
 $share_container_width: 90px;
 $share_container_right: 15px;
-$open_share_button_color: #ffffff;
+$open_share_button_color: #eeeeee;
 $open_share_button_border_radius: 5px;
 $open_share_button_size: 13px;
 $open_share_button_top: 30px;
@@ -100,7 +110,7 @@ $share_icon_container_width: 45px;
 // Theme Colors
 $theme_color_blue: #2a74eb;
 $theme_color_red: #eb6a74;
-$theme_color_green: #2e544a;
+$theme_color_green: #5daa96;
 
 $colors: (
   'red': $theme_color_red,

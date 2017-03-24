@@ -147,8 +147,7 @@
     @include relative-center-center;
     @include border-round-edges($volume_height / 2);
     @include clickable;
-    @include background-rgba(93, 170, 150, 0.3, #cee5df);
-    //background: $controls_bgcolor;
+    background-color: $progressbar_inner_bg;
     height: $volume_height;
 }
 
@@ -179,8 +178,7 @@
     @include absolute-align-left;
     @include border-round-edges($volume_height / 2);
     @include clickable;
-    @include background-rgba(93, 170, 150, 0.3, #cee5df);
-    //background-color: $progressbar_cache_bgcolor;
+    background-color: $progressbar_inner_bg;
     height: $progressbar_height;
 }
 
@@ -188,8 +186,7 @@
     @include relative-center-center;
     @include border-round-edges($volume_height / 2);
     @include clickable;
-    @include background-rgba(93, 170, 150, 0.3, #cee5df);
-    //background: $controls_bgcolor;
+    background-color: $progressbar_inner_bg;
     height: $progressbar_height;
 }
 

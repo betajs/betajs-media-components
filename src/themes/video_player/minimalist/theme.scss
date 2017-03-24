@@ -6,11 +6,25 @@ $fontello_name: "bjsmc";
 $loader_size: 5px;
 $loader_frame_thickness: 0.6em;
 
-$message_bgcolor: black;
+$message_bgcolor: #000000;
 $message_opacity: 0.75;
-$message_color: white;
+$message_color: #eeeeee;
 
 $font_family: sans-serif;
+$text_fontfamily: Helvetica Neue, Helvetica, Arial, sans-serif;
+$text_fontsize: 13px;
+$text_color: #eeeeee;
+$text_secondary_color: rgba(250, 254, 255, 0.35);
+
+// cover
+$cover_playbutton_color: #eeeeee;
+$cover_playbutton_hover_color: #000000;
+$cover_playbutton_shadow: #000000;
+$cover_playbutton_border_color: #eeeeee;
+$cover_playbutton_border_hover_color: #000000;
+$cover_playbutton_hover_shadow: #eeeeee;
+
+
 $topmessage_bgcolor: black;
 $topmessage_opacity: 0.3;
 $topmessage_fontsize: 12px;
@@ -18,7 +32,6 @@ $topmessage_height: 50px;
 $topmessage_fontweight: bold;
 
 $playbutton_size: 50px;
-$playbutton_color: rgba( 255, 255, 255, 0.35);
 $playbutton_frame_thickness: 0.6em;
 $playbutton_default_opacity: 0.6;
 $playbutton_hover_opacity: 0.9;
@@ -37,31 +50,26 @@ $controlbar_height: 100%;
 $controlbar_background: rgba(0, 0, 0, 0.4);
 $button_fontsize: 13px;
 $button_width: 40px;
-$button_color: #ffffff;
-$button_color_green: #5da894;
-$button_color_blue: #2a74eb;
-$button_border_color: #dbdbdb;
+$button_color: #eeeeee;
+$button_border_color: #999999;
 $time_value_width: 100px;
 $ie8_margintop: 6px;
-$text_fontfamily: Helvetica Neue, Helvetica, Arial, sans-serif;
-$text_fontsize: 13px;
-$text_color: #ffffff;
-$text_secondary_color: rgba( 250, 254, 255, 0.35 );
 $controls_bgcolor: rgba( 255, 255, 255, 0.2);
 $volume_width: 60px;
 $volume_height: 6px;
+$volumebar_inner_color: #999999;
+$volumebar_position_bg: #eeeeee;
 $progressbar_cache_bgcolor: rgba( 255, 255, 255, 0.3);
-$progressbar_cache_bgcolor_ie_hex: 30ffffff;
-$progressbar_button_overflow: #5daa96;
+$progressbar_cache_bgcolor: #eeeeee;
+$progressbar_button_overflow: #999999;
 $progressbar_container_height: 15px;
 $progressbar_height: 4px;
-$stream_label_bg_color: #676f76;
+$stream_label_bg_color: #999999;
 $stream_label_color: rgba(255, 255, 255, 1);
 
 
-$rerecord_text_color: white;
+$rerecord_text_color: #eeeeee;
 $rerecord_font_family: sans-serif;
-
 
 $rerecord_height: 48px;
 $rerecord_opacity: 0.5;
@@ -69,8 +77,8 @@ $rerecord_bgcolor: black;
 $rerecord_padding: 24px;
 $rerecord_padding: 16px;
 $rerecord_primarybutton_radius: 0;
-$rerecord_primarybutton_color: #5daa96;
-$rerecord_primarybutton_text_color: white;
+$rerecord_primarybutton_color: #000000;
+$rerecord_primarybutton_text_color: #eeeeee;
 $rerecord_primarybutton_padding: 9px 20px;
 $rerecord_primarybutton_vertical_padding: 16px;
 $rerecord_primarybutton_font_weight: 100;
@@ -95,7 +103,7 @@ $share_icon_container_width: 45px;
 // Theme Colors
 $theme_color_blue: #2a74eb;
 $theme_color_red: #eb6a74;
-$theme_color_green: #2e544a;
+$theme_color_green: #5daa96;
 
 $colors: (
   'red': $theme_color_red,

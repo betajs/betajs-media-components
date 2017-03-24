@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.49 - 2017-03-20
+betajs-media-components - v0.0.49 - 2017-03-24
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -854,12 +854,12 @@ Apache-2.0 Software License.
   font-family: sans-serif;
   font-size: 15px;
   font-weight: bold;
-  color: #ffffff;
+  color: #eeeeee;
   padding: 8.5px;
   text-align: center; }
 
 .ba-videoplayer-space-theme-topmessage-background {
-  background-color: black;
+  background-color: #000000;
   height: 32px;
   opacity: 0.3;
   position: absolute;
@@ -870,7 +870,7 @@ Apache-2.0 Software License.
 .ba-videoplayer-space-theme-red-color .ba-videoplayer-space-theme-right-block .ba-videoplayer-space-theme-icon-volume-down {
   color: #eb6a74; }
 .ba-videoplayer-space-theme-red-color.ba-videoplayer-noie8 .ba-videoplayer-space-theme-stream-label-container, .ba-videoplayer-space-theme-red-color.ba-videoplayer-ie8 .ba-videoplayer-space-theme-stream-label-container {
-  color: #ffffff;
+  color: #eeeeee;
   background-color: #eb6a74; }
 .ba-videoplayer-space-theme-red-color .ba-videoplayer-space-theme-volumebar-position, .ba-videoplayer-space-theme-red-color .ba-videoplayer-space-theme-progressbar-position,
 .ba-videoplayer-space-theme-red-color .ba-videoplayer-space-theme-stream-label-container .ba-videoplayer-space-theme-stream-label, .ba-videoplayer-space-theme-red-color.ba-videoplayer-noie8 .ba-videoplayer-space-theme-playbutton-container, .ba-videoplayer-space-theme-red-color.ba-videoplayer-ie8 .ba-videoplayer-space-theme-playbutton-container, .ba-videoplayer-space-theme-red-color .ba-videoplayer-space-theme-playbutton-container,
@@ -888,7 +888,7 @@ Apache-2.0 Software License.
 .ba-videoplayer-space-theme-blue-color .ba-videoplayer-space-theme-right-block .ba-videoplayer-space-theme-icon-volume-down {
   color: #2a74eb; }
 .ba-videoplayer-space-theme-blue-color.ba-videoplayer-noie8 .ba-videoplayer-space-theme-stream-label-container, .ba-videoplayer-space-theme-blue-color.ba-videoplayer-ie8 .ba-videoplayer-space-theme-stream-label-container {
-  color: #ffffff;
+  color: #eeeeee;
   background-color: #2a74eb; }
 .ba-videoplayer-space-theme-blue-color .ba-videoplayer-space-theme-volumebar-position, .ba-videoplayer-space-theme-blue-color .ba-videoplayer-space-theme-progressbar-position,
 .ba-videoplayer-space-theme-blue-color .ba-videoplayer-space-theme-stream-label-container .ba-videoplayer-space-theme-stream-label, .ba-videoplayer-space-theme-blue-color.ba-videoplayer-noie8 .ba-videoplayer-space-theme-playbutton-container, .ba-videoplayer-space-theme-blue-color.ba-videoplayer-ie8 .ba-videoplayer-space-theme-playbutton-container, .ba-videoplayer-space-theme-blue-color .ba-videoplayer-space-theme-playbutton-container,
@@ -904,14 +904,14 @@ Apache-2.0 Software License.
 .ba-videoplayer-space-theme-green-color .ba-videoplayer-space-theme-title > p, .ba-videoplayer-space-theme-green-color.ba-videoplayer-noie8 .ba-videoplayer-space-theme-button-inner, .ba-videoplayer-space-theme-green-color.ba-videoplayer-ie8 .ba-videoplayer-space-theme-button-inner,
 .ba-videoplayer-space-theme-green-color .ba-videoplayer-space-theme-right-block .ba-videoplayer-space-theme-icon-volume-up,
 .ba-videoplayer-space-theme-green-color .ba-videoplayer-space-theme-right-block .ba-videoplayer-space-theme-icon-volume-down {
-  color: #2e544a; }
+  color: #5daa96; }
 .ba-videoplayer-space-theme-green-color.ba-videoplayer-noie8 .ba-videoplayer-space-theme-stream-label-container, .ba-videoplayer-space-theme-green-color.ba-videoplayer-ie8 .ba-videoplayer-space-theme-stream-label-container {
-  color: #ffffff;
-  background-color: #2e544a; }
+  color: #eeeeee;
+  background-color: #5daa96; }
 .ba-videoplayer-space-theme-green-color .ba-videoplayer-space-theme-volumebar-position, .ba-videoplayer-space-theme-green-color .ba-videoplayer-space-theme-progressbar-position,
 .ba-videoplayer-space-theme-green-color .ba-videoplayer-space-theme-stream-label-container .ba-videoplayer-space-theme-stream-label, .ba-videoplayer-space-theme-green-color.ba-videoplayer-noie8 .ba-videoplayer-space-theme-playbutton-container, .ba-videoplayer-space-theme-green-color.ba-videoplayer-ie8 .ba-videoplayer-space-theme-playbutton-container, .ba-videoplayer-space-theme-green-color .ba-videoplayer-space-theme-playbutton-container,
 .ba-videoplayer-space-theme-green-color .ba-videoplayer-space-theme-progressbar-button, .ba-videoplayer-space-theme-green-color .ba-videoplayer-space-theme-rerecord-button {
-  background-color: #2e544a; }
+  background-color: #5daa96; }
 .ba-videoplayer-space-theme-green-color .ba-videoplayer-space-theme-progressbar-cache {
   background-color: #4c4c4c;
   background-color: rgba(255, 255, 255, 0.6); }
@@ -976,7 +976,7 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-space-theme-title {
   float: left;
-  color: #ffffff; }
+  color: #eeeeee; }
   .ba-videoplayer-space-theme-title > p {
     margin: 0;
     font-size: 12px;
@@ -995,7 +995,6 @@ Apache-2.0 Software License.
 .ba-videoplayer-space-theme-leftbutton-container {
   float: left;
   width: 30px;
-  height: 100%;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   box-sizing: content-box;
@@ -1004,7 +1003,6 @@ Apache-2.0 Software License.
 .ba-videoplayer-noie8 .ba-videoplayer-space-theme-rightbutton-container {
   float: right;
   width: 30px;
-  height: 100%;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   box-sizing: content-box;
@@ -1013,7 +1011,6 @@ Apache-2.0 Software License.
 .ba-videoplayer-ie8 .ba-videoplayer-space-theme-rightbutton-container {
   float: right;
   width: 30px;
-  height: 50%;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   box-sizing: content-box;
@@ -1023,7 +1020,7 @@ Apache-2.0 Software License.
   padding-right: 10px; }
 
 .ba-videoplayer-noie8 .ba-videoplayer-space-theme-button-inner {
-  color: #ffffff;
+  color: #eeeeee;
   font-size: 13px; }
 
 .ba-videoplayer-space-theme-button-inner {
@@ -1043,18 +1040,17 @@ Apache-2.0 Software License.
 .ba-videoplayer-ie8 .ba-videoplayer-space-theme-button-inner {
   margin-top: 12px;
   text-align: center;
-  color: #ffffff;
+  color: #eeeeee;
   font-size: 13px;
   margin-left: 3px; }
 
 .ba-videoplayer-space-theme-time-container {
   float: left;
   width: 100px;
-  height: 100%;
   text-align: center;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 13px;
-  color: #ffffff;
+  color: #eeeeee;
   box-sizing: content-box;
   border: none; }
 
@@ -1077,13 +1073,11 @@ Apache-2.0 Software License.
 .ba-videoplayer-noie8 .ba-videoplayer-space-theme-volumebar {
   float: right;
   width: 60px;
-  height: 100%;
   margin-right: 12px; }
 
 .ba-videoplayer-ie8 .ba-videoplayer-space-theme-volumebar {
   float: right;
   width: 60px;
-  height: 50%;
   margin-top: 16px;
   margin-right: 12px; }
 
@@ -1102,8 +1096,7 @@ Apache-2.0 Software License.
   border-top-right-radius: 3px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  background-color: #cee5df;
-  background-color: rgba(93, 170, 150, 0.3);
+  background-color: #eeeeee;
   height: 6px; }
 
 .ba-videoplayer-space-theme-volumebar-position {
@@ -1113,7 +1106,7 @@ Apache-2.0 Software License.
   border-top-right-radius: 3px;
   position: absolute;
   left: 0;
-  background-color: #ffffff;
+  background-color: #eeeeee;
   height: 100%; }
 
 .ba-videoplayer-noie8 .ba-videoplayer-space-theme-progressbar {
@@ -1139,8 +1132,7 @@ Apache-2.0 Software License.
   border-top-right-radius: 3px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  background-color: #cee5df;
-  background-color: rgba(93, 170, 150, 0.3);
+  background-color: #eeeeee;
   height: 3px; }
 
 .ba-videoplayer-space-theme-progressbar-inner {
@@ -1158,8 +1150,7 @@ Apache-2.0 Software License.
   border-top-right-radius: 3px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  background-color: #cee5df;
-  background-color: rgba(93, 170, 150, 0.3);
+  background-color: #eeeeee;
   height: 3px; }
 
 .ba-videoplayer-space-theme-progressbar-position {
@@ -1169,14 +1160,14 @@ Apache-2.0 Software License.
   border-top-right-radius: 3px;
   position: absolute;
   left: 0;
-  background-color: #5daa96;
+  background-color: #000000;
   height: 100%; }
 
 .ba-videoplayer-space-theme-progressbar-button {
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;
-  background-color: #5daa96;
+  background-color: #000000;
   box-sizing: content-box;
   border: none;
   position: absolute;
@@ -1210,12 +1201,12 @@ Apache-2.0 Software License.
   display: none; }
 
 .ba-videoplayer-space-theme-stream-label-container {
-  background-color: #676f76;
+  background-color: #999999;
   width: 20px;
   padding: 2px; }
   .ba-videoplayer-space-theme-stream-label-container .ba-videoplayer-space-theme-stream-label {
     line-height: 16px;
-    background-color: #676f76; }
+    background-color: #999999; }
 
 .ba-videoplayer-noie8 .ba-videoplayer-space-theme-full-screen-btn-inner {
   text-align: left;
@@ -1286,53 +1277,103 @@ video:fullscreen:not(:root) {
     min-width: 100%;
     z-index: 0; }
 
-.ba-videoplayer-space-theme-playbutton-container {
-  border: none; }
-
 .ba-videoplayer-noie8 .ba-videoplayer-space-theme-playbutton-container {
-  border-radius: 50%;
-  background-color: #5daa96;
   -webkit-transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);
   -o-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+  border: 0.6em solid #999;
+  border: 0.6em solid rgba(255, 255, 255, 0.6);
   position: absolute;
   top: 50%;
   left: 50%;
-  transition: border 0.25s ease-in-out, background 0.25s ease-in-out;
-  -moz-transition: border 0.25s ease-in-out, background 0.25s ease-in-out;
-  -webkit-transition: border 0.25s ease-in-out, background 0.25s ease-in-out;
-  -o-transition: border 0.25s ease-in-out, background 0.25s ease-in-out;
-  width: 10em;
-  height: 10em;
-  font-size: 5px;
+  transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  -webkit-transition: all 0.25s ease-in-out;
+  -o-transition: all 0.25s ease-in-out;
+  -ms-transition: all 0.25s ease-in-out;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=22, Direction=90, Color=#000000)";
+  /*IE 8*/
+  -moz-box-shadow: 0px 0px 22px #000000;
+  /*FF 3.5+*/
+  -webkit-box-shadow: 0px 0px 22px #000000;
+  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: 0px 0px 22px #000000;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=22, Direction=90, Color=#000000);
+  /*IE 5.5-7*/
+  border-radius: 50%;
   box-sizing: content-box;
-  cursor: pointer; }
-
-.ba-videoplayer-noie8 .ba-videoplayer-space-theme-playbutton-button {
-  border-left: 2em solid #ffffff;
-  transition: border-left 0.25s ease-in-out;
-  -moz-transition: border-left 0.25s ease-in-out;
-  -webkit-transition: border-left 0.25s ease-in-out;
-  -o-transition: border-left 0.25s ease-in-out;
-  -ms-transition: border-left 0.25s ease-in-out;
-  position: relative;
-  margin: auto;
-  width: 0;
-  height: 0;
-  border-top: 1.5em solid transparent;
-  border-bottom: 1.5em solid transparent;
-  left: 2px;
-  top: 19px; }
+  cursor: pointer;
+  font-size: 5px;
+  height: 10em;
+  text-align: center;
+  width: 10em; }
 
 .ba-videoplayer-noie8 .ba-videoplayer-space-theme-playbutton-container:hover {
-  border: 0.6em solid white;
-  border: 0.6em solid rgba(255, 255, 255, 0.9); }
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=22, Direction=90, Color=#eeeeee)";
+  /*IE 8*/
+  -moz-box-shadow: 0px 0px 22px #eeeeee;
+  /*FF 3.5+*/
+  -webkit-box-shadow: 0px 0px 22px #eeeeee;
+  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: 0px 0px 22px #eeeeee;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=22, Direction=90, Color=#eeeeee);
+  /*IE 5.5-7*/
+  border-color: #000000; }
+  .ba-videoplayer-noie8 .ba-videoplayer-space-theme-playbutton-container:hover .ba-videoplayer-space-theme-playbutton-button::after {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color=#eeeeee)";
+    /*IE 8*/
+    text-shadow: 0 0 4px #eeeeee;
+    /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color=#eeeeee);
+    /*IE 5.5-7*/ }
 
-.ba-videoplayer-noie8 .ba-videoplayer-space-theme-playbutton-container:hover .ba-videoplayer-space-theme-playbutton-button {
-  border-left: 2em solid white;
-  border-left: 2em solid rgba(255, 255, 255, 0.9); }
+.ba-videoplayer-noie8 .ba-videoplayer-space-theme-playbutton-button::after {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color=#000000)";
+  /*IE 8*/
+  text-shadow: 0 0 4px #000000;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color=#000000);
+  /*IE 5.5-7*/
+  transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  -webkit-transition: all 0.25s ease-in-out;
+  -o-transition: all 0.25s ease-in-out;
+  -ms-transition: all 0.25s ease-in-out;
+  content: "\e805";
+  color: #eeeeee;
+  font-size: 4.6em;
+  line-height: 2.3em;
+  margin-left: 0.1em;
+  width: 100%; }
+
+.ba-videoplayer-space-theme-playbutton-button:hover::after {
+  color: #000000; }
 
 .ba-videoplayer-space-theme-rerecord-bar {
   position: absolute;
@@ -1346,7 +1387,7 @@ video:fullscreen:not(:root) {
   right: 0;
   bottom: 0;
   height: 48px;
-  background-color: #5daa96;
+  background-color: #000000;
   opacity: 0.5; }
 
 .ba-videoplayer-space-theme-rerecord-frontbar {
@@ -1371,9 +1412,9 @@ video:fullscreen:not(:root) {
   transform: translateX(-50%); }
 
 .ba-videoplayer-space-theme-rerecord-button {
-  background-color: #5daa96;
+  background-color: #000000;
   border-radius: 18px;
-  color: white;
+  color: #eeeeee;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   font-family: sans-serif;
@@ -1417,8 +1458,8 @@ video:fullscreen:not(:root) {
   transform: translate(-45px, 0); }
 
 .ba-videoplayer-space-theme-toggle-share-container {
-  background-color: #eeeeee;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: #999999;
+  background-color: rgba(0, 0, 0, 0.3);
   border-bottom-left-radius: 5px;
   border-top-left-radius: 5px;
   color: white;
@@ -1433,8 +1474,8 @@ video:fullscreen:not(:root) {
   width: 45px; }
 
 .ba-videoplayer-space-theme-socials-list {
-  background-color: #eeeeee;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: #999999;
+  background-color: rgba(0, 0, 0, 0.3);
   list-style: none;
   margin: 0;
   padding: 0;

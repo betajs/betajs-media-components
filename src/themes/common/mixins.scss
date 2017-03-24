@@ -125,7 +125,7 @@
 @mixin float-width-height($float, $width, $height) {
     float: $float;
     width: $width;
-    height: $height;
+    //height: $height;
 }
 
 @mixin float-height($float, $height) {

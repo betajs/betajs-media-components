@@ -331,11 +331,11 @@ module.exports = function(grunt) {
     ]);
 
 	grunt.registerTask("themes", [
-        "modern-theme",
-        "space-theme",
         "cube-theme",
         "elevate-theme",
         "minimalist-theme",
+        "modern-theme",
+        "space-theme",
         "theatre-theme"
     ]);
 

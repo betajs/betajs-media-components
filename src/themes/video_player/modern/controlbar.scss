@@ -148,7 +148,7 @@
     @include absolute-align-full-top();
     width: 100%;
     & > p {
-        color: $text_color;
+        color: $title_text_color;
         @include background-rgba( 255, 255, 255, 0.7, $controlbar_background);
         @include relative-horizontally-center();
         height: $controlbar_height - 10;

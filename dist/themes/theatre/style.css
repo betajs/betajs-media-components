@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.49 - 2017-03-20
+betajs-media-components - v0.0.49 - 2017-03-24
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -854,12 +854,12 @@ Apache-2.0 Software License.
   font-family: Arial, sans-serif;
   font-size: 15px;
   font-weight: bold;
-  color: #2c2c2c;
+  color: #eeeeee;
   padding: 8.5px;
   text-align: center; }
 
 .ba-videoplayer-theatre-theme-topmessage-background {
-  background-color: black;
+  background-color: #000000;
   height: 32px;
   opacity: 0.3;
   position: absolute;
@@ -894,21 +894,21 @@ Apache-2.0 Software License.
 .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-video-title, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-icon-play, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-icon-pause,
 .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-button-inner, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-icon-resize-full,
 .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-icon-volume-up, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-icon-volume-down {
-  color: #2e544a; }
+  color: #5daa96; }
 .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-stream-label-container .ba-videoplayer-theatre-theme-stream-label, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-progressbar-position,
 .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-volumebar-position, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-rerecord-button {
-  background-color: #2e544a; }
+  background-color: #5daa96; }
 .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-playbutton-button {
-  border-left-color: #2e544a; }
+  border-left-color: #5daa96; }
 .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-volumebar-inner {
   background-color: #7f7f7f;
   background-color: rgba(255, 255, 255, 0.3); }
 
 /* Theatre */
 .ba-videoplayer-theatre-theme-dashboard {
-  background-color: #ffffff;
+  background-color: #eeeeee;
   bottom: 15px;
-  border: 1px solid #e5e5e5;
+  border: 1px solid #666666;
   height: 28px;
   left: 12.5%;
   opacity: 0.75;
@@ -924,7 +924,7 @@ Apache-2.0 Software License.
   .ba-videoplayer-theatre-theme-left-block > div {
     float: left;
     height: 28px;
-    line-height: 31px; }
+    line-height: 29px; }
   .ba-videoplayer-theatre-theme-left-block > div:last-child {
     float: right; }
 
@@ -947,7 +947,7 @@ Apache-2.0 Software License.
   .ba-videoplayer-theatre-theme-right-block .ba-videoplayer-theatre-theme-time-value {
     text-align: left; }
 
-.ba-videoplayer-theatre-ie8 .ba-videoplayer-theatre-theme-video-title-container {
+.ba-videoplayer-ie8 .ba-videoplayer-theatre-theme-video-title-container {
   display: none; }
 
 .ba-videoplayer-theatre-theme-video-title-container {
@@ -957,7 +957,7 @@ Apache-2.0 Software License.
   top: 0;
   width: 100%; }
   .ba-videoplayer-theatre-theme-video-title-container > p {
-    background-color: #ffffff;
+    background-color: #eeeeee;
     background-color: rgba(255, 255, 255, 0.4);
     position: relative;
     margin: auto;
@@ -965,13 +965,12 @@ Apache-2.0 Software License.
     line-height: 28px;
     top: 15px;
     text-align: center;
-    color: #2c2c2c;
+    color: #999999;
     width: 75%; }
 
 .ba-videoplayer-theatre-theme-leftbutton-container {
   float: left;
   width: 40px;
-  height: 100%;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   box-sizing: content-box;
@@ -980,68 +979,56 @@ Apache-2.0 Software License.
   line-height: 2; }
 
 .ba-videoplayer-theatre-theme-icon-play, .ba-videoplayer-theatre-theme-icon-pause {
-  color: #5daa96; }
+  color: #000000; }
 
 .ba-videoplayer-theatre-theme-icon-volume-up, .ba-videoplayer-theatre-theme-icon-volume-down {
-  color: #b0b0b0; }
+  color: #666666; }
 
 .ba-videoplayer-theatre-theme-icon-volume-off {
-  color: red; }
+  color: #000000; }
 
-.ba-videoplayer-theatre-noie8 .ba-videoplayer-theatre-theme-rightbutton-container {
+.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-rightbutton-container {
   float: right;
   width: 40px;
-  height: 100%;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   box-sizing: content-box;
   border: none; }
 
-.ba-videoplayer-theatre-ie8 .ba-videoplayer-theatre-theme-rightbutton-container {
+.ba-videoplayer-ie8 .ba-videoplayer-theatre-theme-rightbutton-container {
   float: right;
   width: 40px;
-  height: 50%;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   box-sizing: content-box;
   border: none; }
 
-.ba-videoplayer-theatre-noie8 .ba-videoplayer-theatre-theme-button-inner {
-  -webkit-transform: translateY(-50%);
-  -moz-transform: translateY(-50%);
-  -o-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-  top: 50%;
-  position: relative;
-  text-align: center;
-  color: #5daa96;
+.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-button-inner {
+  color: #000000;
   font-size: 13px; }
 
-.ba-videoplayer-theatre-ie8 .ba-videoplayer-theatre-theme-button-inner {
+.ba-videoplayer-ie8 .ba-videoplayer-theatre-theme-button-inner {
   margin-top: 12px;
-  color: #5daa96;
+  color: #000000;
   font-size: 13px;
   margin-left: 3px; }
 
 .ba-videoplayer-theatre-theme-button-inner {
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  position: relative;
-  top: 1px; }
+  position: relative; }
 
 .ba-videoplayer-theatre-theme-time-container {
   float: left;
   width: 40px;
-  height: 100%;
   text-align: center;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 0.7rem;
-  color: #2c2c2c;
+  color: #666666;
   box-sizing: content-box;
   border: none; }
 
-.ba-videoplayer-theatre-ie8 .ba-videoplayer-theatre-theme-time-container {
+.ba-videoplayer-ie8 .ba-videoplayer-theatre-theme-time-container {
   margin-top: 11px; }
 
 .ba-videoplayer-theatre-theme-time-value {
@@ -1058,20 +1045,18 @@ Apache-2.0 Software License.
   width: 40px;
   letter-spacing: 0.1em; }
 
-.ba-videoplayer-theatre-noie8 .ba-videoplayer-theatre-theme-volumebar {
+.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-volumebar {
   float: right;
   width: 7px;
-  height: 100%;
   margin-right: 120px; }
 
 .ba-videoplayer-theatre-theme-volumebar {
   visibility: hidden;
   opacity: 0;
   transition: visibility 0s, opacity 0.5s linear;
-  background-color: #ffffff;
-  bottom: 25px;
+  background-color: #eeeeee;
+  bottom: 29px;
   height: 60px;
-  left: 30px;
   margin: 0 auto;
   padding: 5px;
   position: absolute;
@@ -1082,10 +1067,9 @@ Apache-2.0 Software License.
   opacity: 1;
   transition: visibility 0s, opacity 0.2s linear; }
 
-.ba-videoplayer-theatre-ie8 .ba-videoplayer-theatre-theme-volumebar {
+.ba-videoplayer-ie8 .ba-videoplayer-theatre-theme-volumebar {
   float: right;
   width: 7px;
-  height: 50%;
   margin-top: 16px;
   margin-right: 120px; }
 
@@ -1104,8 +1088,7 @@ Apache-2.0 Software License.
   border-top-right-radius: 30px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  background-color: #cee5df;
-  background-color: rgba(93, 170, 150, 0.3);
+  background-color: #cccccc;
   height: 60px;
   width: 7px; }
 
@@ -1116,7 +1099,7 @@ Apache-2.0 Software License.
   border-top-right-radius: 30px;
   position: absolute;
   bottom: 0;
-  background-color: #5daa96;
+  background-color: #000000;
   width: 100%; }
 
 .ba-videoplayer-theatre-theme-progressbar {
@@ -1137,20 +1120,20 @@ Apache-2.0 Software License.
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   height: 10px;
-  background: #ededed; }
+  background-color: #cccccc; }
 
 .ba-videoplayer-theatre-theme-progressbar-cache {
   position: absolute;
   left: 0;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  background-color: #ededed;
+  background-color: #cccccc;
   height: 10px; }
 
 .ba-videoplayer-theatre-theme-progressbar-position {
   position: absolute;
   left: 0;
-  background-color: #5daa96;
+  background-color: #000000;
   height: 100%; }
 
 .ba-videoplayer-theatre-theme-progressbar-button {
@@ -1175,20 +1158,20 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-theatre-theme-stream-label-container {
   text-align: right;
-  margin-right: 3px; }
+  margin-right: 3px;
+  margin-top: .5px; }
   .ba-videoplayer-theatre-theme-stream-label-container .ba-videoplayer-theatre-theme-stream-label {
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
-    background-color: #5daa96;
-    color: #ffffff;
+    background-color: #000000;
+    color: #eeeeee;
     padding: 5px; }
 
-.ba-videoplayer-theatre-noie8 .ba-videoplayer-theatre-theme-full-screen-btn-inner {
-  text-align: left;
-  padding-left: 4px; }
+.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-full-screen-btn-inner {
+  text-align: left; }
 
 .ba-videoplayer-theatre-theme-icon-resize-full {
-  color: #b0b0b0; }
+  color: #666666; }
 
 /* Full screen options */
 /* hide the default Chrome video player styling */
@@ -1255,53 +1238,103 @@ video:fullscreen:not(:root) {
     min-width: 100%;
     z-index: 0; }
 
-.ba-videoplayer-theatre-theme-playbutton-container {
-  border: none; }
-
-.ba-videoplayer-theatre-theme-playbutton-container {
-  background-color: #ffffff;
-  border-radius: 50%;
+.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-playbutton-container {
   -webkit-transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);
   -o-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+  border: 0.6em solid #999;
+  border: 0.6em solid rgba(255, 255, 255, 0.6);
   position: absolute;
   top: 50%;
   left: 50%;
-  transition: border 0.25s ease-in-out, background 0.25s ease-in-out;
-  -moz-transition: border 0.25s ease-in-out, background 0.25s ease-in-out;
-  -webkit-transition: border 0.25s ease-in-out, background 0.25s ease-in-out;
-  -o-transition: border 0.25s ease-in-out, background 0.25s ease-in-out;
-  width: 10em;
-  height: 10em;
-  font-size: 5px;
+  transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  -webkit-transition: all 0.25s ease-in-out;
+  -o-transition: all 0.25s ease-in-out;
+  -ms-transition: all 0.25s ease-in-out;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=22, Direction=90, Color=#000000)";
+  /*IE 8*/
+  -moz-box-shadow: 0px 0px 22px #000000;
+  /*FF 3.5+*/
+  -webkit-box-shadow: 0px 0px 22px #000000;
+  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: 0px 0px 22px #000000;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=22, Direction=90, Color=#000000);
+  /*IE 5.5-7*/
+  border-radius: 50%;
   box-sizing: content-box;
-  cursor: pointer; }
+  cursor: pointer;
+  font-size: 5px;
+  height: 10em;
+  text-align: center;
+  width: 10em; }
 
-.ba-videoplayer-theatre-theme-playbutton-button {
-  border-left: 2em solid #5daa96;
-  transition: border-left 0.25s ease-in-out;
-  -moz-transition: border-left 0.25s ease-in-out;
-  -webkit-transition: border-left 0.25s ease-in-out;
-  -o-transition: border-left 0.25s ease-in-out;
-  -ms-transition: border-left 0.25s ease-in-out;
-  position: relative;
-  margin: auto;
-  width: 0;
-  height: 0;
-  border-top: 1.5em solid transparent;
-  border-bottom: 1.5em solid transparent;
-  left: 2px;
-  top: 19px; }
+.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-playbutton-container:hover {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=22, Direction=90, Color=#eeeeee)";
+  /*IE 8*/
+  -moz-box-shadow: 0px 0px 22px #eeeeee;
+  /*FF 3.5+*/
+  -webkit-box-shadow: 0px 0px 22px #eeeeee;
+  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: 0px 0px 22px #eeeeee;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=22, Direction=90, Color=#eeeeee);
+  /*IE 5.5-7*/
+  border-color: #000000; }
+  .ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-playbutton-container:hover .ba-videoplayer-theatre-theme-playbutton-button::after {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color=#eeeeee)";
+    /*IE 8*/
+    text-shadow: 0 0 4px #eeeeee;
+    /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color=#eeeeee);
+    /*IE 5.5-7*/ }
 
-.ba-videoplayer-theatre-theme-playbutton-container:hover {
-  border: 0.6em solid black;
-  border: 0.6em solid rgba(0, 0, 0, 0.4); }
+.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-playbutton-button::after {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color=#000000)";
+  /*IE 8*/
+  text-shadow: 0 0 4px #000000;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color=#000000);
+  /*IE 5.5-7*/
+  transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  -webkit-transition: all 0.25s ease-in-out;
+  -o-transition: all 0.25s ease-in-out;
+  -ms-transition: all 0.25s ease-in-out;
+  content: "\e805";
+  color: #eeeeee;
+  font-size: 4.6em;
+  line-height: 2.3em;
+  margin-left: 0.1em;
+  width: 100%; }
 
-.ba-videoplayer-theatre-theme-playbutton-container:hover .ba-videoplayer-theatre-theme-playbutton-button {
-  border-left: 2em solid black;
-  border-left: 2em solid rgba(0, 0, 0, 0.4); }
+.ba-videoplayer-theatre-theme-playbutton-button:hover::after {
+  color: #000000; }
 
 .ba-videoplayer-theatre-theme-rerecord-bar {
   position: absolute;
@@ -1334,9 +1367,9 @@ video:fullscreen:not(:root) {
   display: inline-block; }
 
 .ba-videoplayer-theatre-theme-rerecord-button {
-  background-color: #5daa96;
+  background-color: #000000;
   border-radius: 0;
-  color: white;
+  color: #eeeeee;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   font-family: sans-serif;
@@ -1349,7 +1382,7 @@ video:fullscreen:not(:root) {
   line-height: 50px;
   letter-spacing: 0.1em; }
 
-.ba-videoplayer-theatre-theme-share-action-container {
+.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-share-action-container {
   transition: all 1s ease-in-out;
   -moz-transition: all 1s ease-in-out;
   -webkit-transition: all 1s ease-in-out;
@@ -1359,23 +1392,22 @@ video:fullscreen:not(:root) {
   right: -45px;
   top: 50px;
   width: 90px; }
-  .ba-videoplayer-theatre-theme-share-action-container .ba-videoplayer-theatre-theme-button-inner {
+  .ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-share-action-container .ba-videoplayer-theatre-theme-button-inner {
     -webkit-transform: translateY(0);
     -moz-transform: translateY(0);
     -o-transform: translateY(0);
     -ms-transform: translateY(0);
-    transform: translateY(0); }
-
-.ba-videoplayer-theatre-theme-share-action-container:hover {
+    transform: translateY(0);
+    color: #eeeeee; }
+.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-share-action-container:hover {
   -webkit-transform: translate(-45px, 0);
   -moz-transform: translate(-45px, 0);
   -o-transform: translate(-45px, 0);
   -ms-transform: translate(-45px, 0);
   transform: translate(-45px, 0); }
-
-.ba-videoplayer-theatre-theme-toggle-share-container {
-  background-color: #eeeeee;
-  background-color: rgba(0, 0, 0, 0.1);
+.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-toggle-share-container {
+  background-color: #999999;
+  background-color: rgba(0, 0, 0, 0.3);
   border-bottom-left-radius: 5px;
   border-top-left-radius: 5px;
   color: white;
@@ -1384,21 +1416,18 @@ video:fullscreen:not(:root) {
   line-height: 45px;
   text-align: center;
   width: 45px; }
-
-.ba-videoplayer-theatre-theme-social-buttons-container {
+.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-social-buttons-container {
   float: right;
   width: 45px; }
-
-.ba-videoplayer-theatre-theme-socials-list {
-  background-color: #eeeeee;
-  background-color: rgba(0, 0, 0, 0.1);
+.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-socials-list {
+  background-color: #999999;
+  background-color: rgba(0, 0, 0, 0.3);
   list-style: none;
   margin: 0;
   padding: 0;
   text-align: center; }
-  .ba-videoplayer-theatre-theme-socials-list > li {
+  .ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-socials-list > li {
     font-size: 14px;
-    height: 45px;
     width: 45px;
     line-height: 45px; }
 
@@ -2649,7 +2678,7 @@ video:fullscreen:not(:root) {
   opacity: 0.75; }
 
 .ba-videorecorder-theme-theatre-controlbar {
-  background-color: #ffffff;
+  background-color: #eeeeee;
   position: absolute;
   left: 0;
   right: 0;

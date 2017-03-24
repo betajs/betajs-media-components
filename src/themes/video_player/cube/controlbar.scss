@@ -1,7 +1,7 @@
 .#{$css}-dashboard {
   @include absolute-align-full-bottom;
   @include transition1(opacity, $dashboard_transition, ease-in-out);
-  @include background-rgba(0, 0, 0, 0.5, #666666);
+  @include background-rgba(0, 0, 0, 0.6, #4f4f4f);
   //background: $controlbar_background;
   color: $text_color;
   font-size: $text_fontsize;
@@ -16,7 +16,7 @@
 
 .#{$cssnoie8} .#{$css}-video-title-block {
   @include absolute-align-full-top();
-  @include background-rgba(0, 0, 0, 0.4, #999999);
+  @include background-rgba(0, 0, 0, 0.6, #4f4f4f);
 }
 
 .#{$css}-video-title {
@@ -45,7 +45,6 @@
     @include border-round-edges($volume_height / 2);
     @include clickable;
     @include background-rgba(93, 170, 150, 0.3, #cee5df);
-    //background: $controls_bgcolor;
     height: $volume_height;
 }
 
@@ -114,6 +113,7 @@
   height: 22px;
   letter-spacing: .1em;
   line-height: 24px;
+  padding: 1px 3px 1px 4px;
   width: 25px;
 }
 
@@ -148,9 +148,15 @@
   height: 100%;
 }
 
-
 .#{$css}-progressbar-button {
   display: none;
 }
 
+.#{$css}-icon-play, .#{$css}-icon-pause, .#{$css}-icon-volume-up,
+.#{$css}-icon-volume-off, .#{$css}-icon-resize-full, .#{$css}-icon-resize-small {
+  &:before {
+    position: relative;
+    top: 2px;
+  }
+}
 

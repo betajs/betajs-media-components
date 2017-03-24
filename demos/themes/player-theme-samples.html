@@ -40,17 +40,16 @@
 <body style="background: #EEE">
     <div ba-repeat="{{theme::themes}}">
         <h4>{{theme}}</h4>
-        <ba-videoplayer ba-sources="{{[{src:'assets/sample-video.mp4', poster: 'assets/sample-cover.png', hd: true}, {src:'assets/sample-video2.mp4', poster:'assets/sample-cover2.png', hd: false}]}}"
-                        ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
-                        ba-theme="{{theme}}"
-                        ba-title="Foobar"
-						ba-themecolor="blue"
-                        ba-noflash
-                        ba-sharevideo="facebook,twitter,gplus"
-                        ba-sharevideourl="http://betajs.com"
-                        ba-hideoninactivity="false"
-                        ba-skipinitial="false"
-                        ba-width='100%'></ba-videoplayer>
+        <ba-videoplayer ba-sources="{{[{src:'assets/black-sample-video.mp4', poster: 'assets/white-sample-cover.png', hd: true}, {src:'assets/sample-video2.mp4', poster:'assets/sample-cover2.png', hd: false}]}}"
+            ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
+            ba-theme="{{theme}}"
+            ba-title="Foobar"
+            ba-noflash
+            ba-sharevideo="facebook,twitter,gplus"
+            ba-sharevideourl="http://betajs.com"
+            ba-hideoninactivity="false"
+            ba-skipinitial="false"
+        ba-width='100%'></ba-videoplayer>
     </div>
 
 	<script>

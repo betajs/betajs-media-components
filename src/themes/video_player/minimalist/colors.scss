@@ -2,11 +2,9 @@
   @if $color != default {
     .#{$css}-#{$color}-color {
 
-      .#{$css}-title h4, .#{$css}-button-inner,
-      .#{$css}-right-block .#{$css}-icon-volume-up,
-      .#{$css}-right-block .#{$css}-icon-volume-down,
-      .#{$css}-right-block .#{$css}-icon-resize-full,
-      .#{$css}-right-block .#{$css}-icon-resize-small,
+      .#{$css}-title h4, .#{$css}-button-inner, .#{$css}-right-block .#{$css}-icon-volume-up,
+      .#{$css}-right-block .#{$css}-icon-volume-down, .#{$css}-right-block .#{$css}-icon-resize-full,
+      .#{$css}-right-block .#{$css}-icon-resize-small, .#{$css}-playbutton-button:hover::after,
       .#{$css}-controlbar-top-block .#{$css}-button-container .#{$css}-button-inner {
         color: $value;
       }
@@ -18,6 +16,11 @@
 
       .#{$css}-volumebar-inner {
         @include background-rgba(255, 255, 255, 0.3, #7f7f7f);
+      }
+
+      &.#{$cssie8} .#{$css}-playbutton-container,
+      &.#{$cssnoie8} .#{$css}-playbutton-container {
+        border-color: $value;
       }
     }
   }

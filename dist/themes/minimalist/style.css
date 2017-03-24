@@ -865,11 +865,9 @@ Apache-2.0 Software License.
   position: absolute;
   width: 100%; }
 
-.ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-title h4, .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-button-inner,
-.ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-volume-up,
-.ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-volume-down,
-.ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-resize-full,
-.ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-resize-small,
+.ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-title h4, .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-button-inner, .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-volume-up,
+.ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-volume-down, .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-resize-full,
+.ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-resize-small, .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-playbutton-button:hover::after,
 .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-controlbar-top-block .ba-videoplayer-minimalist-theme-button-container .ba-videoplayer-minimalist-theme-button-inner {
   color: #eb6a74; }
 .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-volumebar-position, .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-stream-label, .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-progressbar-position,
@@ -878,12 +876,12 @@ Apache-2.0 Software License.
 .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-volumebar-inner {
   background-color: #7f7f7f;
   background-color: rgba(255, 255, 255, 0.3); }
+.ba-videoplayer-minimalist-theme-red-color.ba-videoplayer-ie8 .ba-videoplayer-minimalist-theme-playbutton-container, .ba-videoplayer-minimalist-theme-red-color.ba-videoplayer-noie8 .ba-videoplayer-minimalist-theme-playbutton-container {
+  border-color: #eb6a74; }
 
-.ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-title h4, .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-button-inner,
-.ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-volume-up,
-.ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-volume-down,
-.ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-resize-full,
-.ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-resize-small,
+.ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-title h4, .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-button-inner, .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-volume-up,
+.ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-volume-down, .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-resize-full,
+.ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-resize-small, .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-playbutton-button:hover::after,
 .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-controlbar-top-block .ba-videoplayer-minimalist-theme-button-container .ba-videoplayer-minimalist-theme-button-inner {
   color: #2a74eb; }
 .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-volumebar-position, .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-stream-label, .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-progressbar-position,
@@ -892,12 +890,12 @@ Apache-2.0 Software License.
 .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-volumebar-inner {
   background-color: #7f7f7f;
   background-color: rgba(255, 255, 255, 0.3); }
+.ba-videoplayer-minimalist-theme-blue-color.ba-videoplayer-ie8 .ba-videoplayer-minimalist-theme-playbutton-container, .ba-videoplayer-minimalist-theme-blue-color.ba-videoplayer-noie8 .ba-videoplayer-minimalist-theme-playbutton-container {
+  border-color: #2a74eb; }
 
-.ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-title h4, .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-button-inner,
-.ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-volume-up,
-.ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-volume-down,
-.ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-resize-full,
-.ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-resize-small,
+.ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-title h4, .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-button-inner, .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-volume-up,
+.ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-volume-down, .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-resize-full,
+.ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-resize-small, .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-playbutton-button:hover::after,
 .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-controlbar-top-block .ba-videoplayer-minimalist-theme-button-container .ba-videoplayer-minimalist-theme-button-inner {
   color: #5daa96; }
 .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-volumebar-position, .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-stream-label, .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-progressbar-position,
@@ -906,6 +904,8 @@ Apache-2.0 Software License.
 .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-volumebar-inner {
   background-color: #7f7f7f;
   background-color: rgba(255, 255, 255, 0.3); }
+.ba-videoplayer-minimalist-theme-green-color.ba-videoplayer-ie8 .ba-videoplayer-minimalist-theme-playbutton-container, .ba-videoplayer-minimalist-theme-green-color.ba-videoplayer-noie8 .ba-videoplayer-minimalist-theme-playbutton-container {
+  border-color: #5daa96; }
 
 .ba-videoplayer-minimalist-theme-dashboard {
   height: 100%;

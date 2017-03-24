@@ -867,7 +867,8 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-video-title, .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-icon-play, .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-icon-pause,
 .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-button-inner, .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-icon-resize-full,
-.ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-icon-volume-up, .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-icon-volume-down {
+.ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-icon-volume-up, .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-icon-volume-down, .ba-videoplayer-theatre-theme-red-color.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-icon-share,
+.ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-playbutton-button::after, .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-playbutton-button:hover::after {
   color: #eb6a74; }
 .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-stream-label-container .ba-videoplayer-theatre-theme-stream-label, .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-progressbar-position,
 .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-volumebar-position, .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-rerecord-button {
@@ -877,10 +878,13 @@ Apache-2.0 Software License.
 .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-volumebar-inner {
   background-color: #7f7f7f;
   background-color: rgba(255, 255, 255, 0.3); }
+.ba-videoplayer-theatre-theme-red-color.ba-videoplayer-ie8 .ba-videoplayer-theatre-theme-playbutton-container, .ba-videoplayer-theatre-theme-red-color.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-playbutton-container {
+  border-color: #eb6a74; }
 
 .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-video-title, .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-icon-play, .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-icon-pause,
 .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-button-inner, .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-icon-resize-full,
-.ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-icon-volume-up, .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-icon-volume-down {
+.ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-icon-volume-up, .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-icon-volume-down, .ba-videoplayer-theatre-theme-blue-color.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-icon-share,
+.ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-playbutton-button::after, .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-playbutton-button:hover::after {
   color: #2a74eb; }
 .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-stream-label-container .ba-videoplayer-theatre-theme-stream-label, .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-progressbar-position,
 .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-volumebar-position, .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-rerecord-button {
@@ -890,10 +894,13 @@ Apache-2.0 Software License.
 .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-volumebar-inner {
   background-color: #7f7f7f;
   background-color: rgba(255, 255, 255, 0.3); }
+.ba-videoplayer-theatre-theme-blue-color.ba-videoplayer-ie8 .ba-videoplayer-theatre-theme-playbutton-container, .ba-videoplayer-theatre-theme-blue-color.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-playbutton-container {
+  border-color: #2a74eb; }
 
 .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-video-title, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-icon-play, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-icon-pause,
 .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-button-inner, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-icon-resize-full,
-.ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-icon-volume-up, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-icon-volume-down {
+.ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-icon-volume-up, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-icon-volume-down, .ba-videoplayer-theatre-theme-green-color.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-icon-share,
+.ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-playbutton-button::after, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-playbutton-button:hover::after {
   color: #5daa96; }
 .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-stream-label-container .ba-videoplayer-theatre-theme-stream-label, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-progressbar-position,
 .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-volumebar-position, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-rerecord-button {
@@ -903,6 +910,8 @@ Apache-2.0 Software License.
 .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-volumebar-inner {
   background-color: #7f7f7f;
   background-color: rgba(255, 255, 255, 0.3); }
+.ba-videoplayer-theatre-theme-green-color.ba-videoplayer-ie8 .ba-videoplayer-theatre-theme-playbutton-container, .ba-videoplayer-theatre-theme-green-color.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-playbutton-container {
+  border-color: #5daa96; }
 
 /* Theatre */
 .ba-videoplayer-theatre-theme-dashboard {

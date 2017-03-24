@@ -866,7 +866,8 @@ Apache-2.0 Software License.
   width: 100%; }
 
 .ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-video-title, .ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-icon-volume-up, .ba-videoplayer-theme-modern-red-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-button-inner, .ba-videoplayer-theme-modern-red-color.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-button-inner,
-.ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-playbutton-button::after {
+.ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-playbutton-button::after, .ba-videoplayer-theme-modern-red-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-icon-share,
+.ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-playbutton-button:hover::after {
   color: #eb6a74; }
 .ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-progressbar-position, .ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-volumebar-position, .ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-rerecord-button {
   background-color: #eb6a74; }
@@ -874,20 +875,10 @@ Apache-2.0 Software License.
   border-left-color: #eb6a74; }
 .ba-videoplayer-theme-modern-red-color.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-playbutton-container, .ba-videoplayer-theme-modern-red-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-playbutton-container {
   border-color: #eb6a74; }
-.ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-playbutton-container, .ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-playbutton-button {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=22, Direction=90, Color=#eb6a74)";
-  /*IE 8*/
-  -moz-box-shadow: 0px 0px 22px #eb6a74;
-  /*FF 3.5+*/
-  -webkit-box-shadow: 0px 0px 22px #eb6a74;
-  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
-  box-shadow: 0px 0px 22px #eb6a74;
-  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
-  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=22, Direction=90, Color=#eb6a74);
-  /*IE 5.5-7*/ }
 
 .ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-video-title, .ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-icon-volume-up, .ba-videoplayer-theme-modern-blue-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-button-inner, .ba-videoplayer-theme-modern-blue-color.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-button-inner,
-.ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-playbutton-button::after {
+.ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-playbutton-button::after, .ba-videoplayer-theme-modern-blue-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-icon-share,
+.ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-playbutton-button:hover::after {
   color: #2a74eb; }
 .ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-progressbar-position, .ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-volumebar-position, .ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-rerecord-button {
   background-color: #2a74eb; }
@@ -895,20 +886,10 @@ Apache-2.0 Software License.
   border-left-color: #2a74eb; }
 .ba-videoplayer-theme-modern-blue-color.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-playbutton-container, .ba-videoplayer-theme-modern-blue-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-playbutton-container {
   border-color: #2a74eb; }
-.ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-playbutton-container, .ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-playbutton-button {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=22, Direction=90, Color=#2a74eb)";
-  /*IE 8*/
-  -moz-box-shadow: 0px 0px 22px #2a74eb;
-  /*FF 3.5+*/
-  -webkit-box-shadow: 0px 0px 22px #2a74eb;
-  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
-  box-shadow: 0px 0px 22px #2a74eb;
-  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
-  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=22, Direction=90, Color=#2a74eb);
-  /*IE 5.5-7*/ }
 
 .ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-video-title, .ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-icon-volume-up, .ba-videoplayer-theme-modern-green-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-button-inner, .ba-videoplayer-theme-modern-green-color.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-button-inner,
-.ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-playbutton-button::after {
+.ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-playbutton-button::after, .ba-videoplayer-theme-modern-green-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-icon-share,
+.ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-playbutton-button:hover::after {
   color: #5daa96; }
 .ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-progressbar-position, .ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-volumebar-position, .ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-rerecord-button {
   background-color: #5daa96; }
@@ -916,17 +897,6 @@ Apache-2.0 Software License.
   border-left-color: #5daa96; }
 .ba-videoplayer-theme-modern-green-color.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-playbutton-container, .ba-videoplayer-theme-modern-green-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-playbutton-container {
   border-color: #5daa96; }
-.ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-playbutton-container, .ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-playbutton-button {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=22, Direction=90, Color=#5daa96)";
-  /*IE 8*/
-  -moz-box-shadow: 0px 0px 22px #5daa96;
-  /*FF 3.5+*/
-  -webkit-box-shadow: 0px 0px 22px #5daa96;
-  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
-  box-shadow: 0px 0px 22px #5daa96;
-  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
-  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=22, Direction=90, Color=#5daa96);
-  /*IE 5.5-7*/ }
 
 .ba-videoplayer-theme-modern-dashboard {
   position: absolute;

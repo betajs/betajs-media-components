@@ -865,11 +865,10 @@ Apache-2.0 Software License.
   position: absolute;
   width: 100%; }
 
-.ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-dashboard, .ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-timer-container, .ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-video-title,
-.ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-up,
-.ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-down,
-.ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-full,
-.ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-small, .ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-button-inner {
+.ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-dashboard, .ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-video-title, .ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-up,
+.ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-down, .ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-full,
+.ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-small, .ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-button-inner,
+.ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-playbutton-button:hover::after {
   color: #eb6a74; }
 .ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-volumebar-position, .ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-stream-label, .ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-progressbar-position,
 .ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-rerecord-button {
@@ -879,12 +878,13 @@ Apache-2.0 Software License.
 .ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-volumebar-inner {
   background-color: #999999;
   background-color: rgba(255, 255, 255, 0.3); }
+.ba-videoplayer-cube-theme-red-color.ba-videoplayer-ie8 .ba-videoplayer-cube-theme-playbutton-container, .ba-videoplayer-cube-theme-red-color.ba-videoplayer-noie8 .ba-videoplayer-cube-theme-playbutton-container {
+  border-color: #eb6a74; }
 
-.ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-dashboard, .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-timer-container, .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-video-title,
-.ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-up,
-.ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-down,
-.ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-full,
-.ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-small, .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-button-inner {
+.ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-dashboard, .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-video-title, .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-up,
+.ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-down, .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-full,
+.ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-small, .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-button-inner,
+.ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-playbutton-button:hover::after {
   color: #2a74eb; }
 .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-volumebar-position, .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-stream-label, .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-progressbar-position,
 .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-rerecord-button {
@@ -894,12 +894,13 @@ Apache-2.0 Software License.
 .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-volumebar-inner {
   background-color: #999999;
   background-color: rgba(255, 255, 255, 0.3); }
+.ba-videoplayer-cube-theme-blue-color.ba-videoplayer-ie8 .ba-videoplayer-cube-theme-playbutton-container, .ba-videoplayer-cube-theme-blue-color.ba-videoplayer-noie8 .ba-videoplayer-cube-theme-playbutton-container {
+  border-color: #2a74eb; }
 
-.ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-dashboard, .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-timer-container, .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-video-title,
-.ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-up,
-.ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-down,
-.ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-full,
-.ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-small, .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-button-inner {
+.ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-dashboard, .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-video-title, .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-up,
+.ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-down, .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-full,
+.ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-small, .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-button-inner,
+.ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-playbutton-button:hover::after {
   color: #5daa96; }
 .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-volumebar-position, .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-stream-label, .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-progressbar-position,
 .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-rerecord-button {
@@ -909,6 +910,8 @@ Apache-2.0 Software License.
 .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-volumebar-inner {
   background-color: #999999;
   background-color: rgba(255, 255, 255, 0.3); }
+.ba-videoplayer-cube-theme-green-color.ba-videoplayer-ie8 .ba-videoplayer-cube-theme-playbutton-container, .ba-videoplayer-cube-theme-green-color.ba-videoplayer-noie8 .ba-videoplayer-cube-theme-playbutton-container {
+  border-color: #5daa96; }
 
 .ba-videoplayer-cube-theme-dashboard {
   position: absolute;
@@ -1078,7 +1081,7 @@ Apache-2.0 Software License.
   display: none; }
 
 .ba-videoplayer-cube-theme-icon-play:before, .ba-videoplayer-cube-theme-icon-pause:before, .ba-videoplayer-cube-theme-icon-volume-up:before, .ba-videoplayer-cube-theme-icon-volume-off:before,
-.ba-videoplayer-cube-theme-icon-volume-off:before, .ba-videoplayer-cube-theme-icon-resize-full:before, .ba-videoplayer-cube-theme-icon-resize-small:before {
+.ba-videoplayer-cube-theme-icon-volume-down:before, .ba-videoplayer-cube-theme-icon-resize-full:before, .ba-videoplayer-cube-theme-icon-resize-small:before {
   position: relative;
   top: 2px; }
 

@@ -740,8 +740,7 @@ Apache-2.0 Software License.
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ }
 
-.ba-videoplayer-red-color.ba-videoplayer-noie8 .ba-videoplayer-time-container, .ba-videoplayer-red-color.ba-videoplayer-ie8 .ba-videoplayer-time-container,
-.ba-videoplayer-red-color .ba-videoplayer-button-inner {
+.ba-videoplayer-red-color .ba-videoplayer-button-inner, .ba-videoplayer-red-color .ba-videoplayer-video-title {
   color: #eb6a74; }
 .ba-videoplayer-red-color .ba-videoplayer-volumebar-position, .ba-videoplayer-red-color .ba-videoplayer-progressbar-position,
 .ba-videoplayer-red-color .ba-videoplayer-rerecord-button {
@@ -750,8 +749,7 @@ Apache-2.0 Software License.
   background-color: #7f7f7f;
   background-color: rgba(255, 255, 255, 0.3); }
 
-.ba-videoplayer-blue-color.ba-videoplayer-noie8 .ba-videoplayer-time-container, .ba-videoplayer-blue-color.ba-videoplayer-ie8 .ba-videoplayer-time-container,
-.ba-videoplayer-blue-color .ba-videoplayer-button-inner {
+.ba-videoplayer-blue-color .ba-videoplayer-button-inner, .ba-videoplayer-blue-color .ba-videoplayer-video-title {
   color: #2a74eb; }
 .ba-videoplayer-blue-color .ba-videoplayer-volumebar-position, .ba-videoplayer-blue-color .ba-videoplayer-progressbar-position,
 .ba-videoplayer-blue-color .ba-videoplayer-rerecord-button {
@@ -760,12 +758,11 @@ Apache-2.0 Software License.
   background-color: #7f7f7f;
   background-color: rgba(255, 255, 255, 0.3); }
 
-.ba-videoplayer-green-color.ba-videoplayer-noie8 .ba-videoplayer-time-container, .ba-videoplayer-green-color.ba-videoplayer-ie8 .ba-videoplayer-time-container,
-.ba-videoplayer-green-color .ba-videoplayer-button-inner {
-  color: #2e544a; }
+.ba-videoplayer-green-color .ba-videoplayer-button-inner, .ba-videoplayer-green-color .ba-videoplayer-video-title {
+  color: #5daa96; }
 .ba-videoplayer-green-color .ba-videoplayer-volumebar-position, .ba-videoplayer-green-color .ba-videoplayer-progressbar-position,
 .ba-videoplayer-green-color .ba-videoplayer-rerecord-button {
-  background-color: #2e544a; }
+  background-color: #5daa96; }
 .ba-videoplayer-green-color .ba-videoplayer-volumebar-inner {
   background-color: #7f7f7f;
   background-color: rgba(255, 255, 255, 0.3); }

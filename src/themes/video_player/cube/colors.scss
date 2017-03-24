@@ -2,11 +2,10 @@
   @if $color != default {
     .#{$css}-#{$color}-color {
 
-      .#{$css}-dashboard, .#{$css}-timer-container, .#{$css}-video-title,
-      .#{$css}-right-block .#{$css}-icon-volume-up,
-      .#{$css}-right-block .#{$css}-icon-volume-down,
-      .#{$css}-right-block .#{$css}-icon-resize-full,
-      .#{$css}-right-block .#{$css}-icon-resize-small, .#{$css}-button-inner {
+      .#{$css}-dashboard, .#{$css}-video-title, .#{$css}-right-block .#{$css}-icon-volume-up,
+      .#{$css}-right-block .#{$css}-icon-volume-down, .#{$css}-right-block .#{$css}-icon-resize-full,
+      .#{$css}-right-block .#{$css}-icon-resize-small, .#{$css}-button-inner,
+      .#{$css}-playbutton-button:hover::after {
         color: $value;
       }
 
@@ -21,6 +20,11 @@
 
       .#{$css}-volumebar-inner {
         @include background-rgba(255, 255, 255, 0.3, #999999);
+      }
+
+      &.#{$cssie8} .#{$css}-playbutton-container,
+      &.#{$cssnoie8} .#{$css}-playbutton-container {
+        border-color: $value;
       }
     }
   }

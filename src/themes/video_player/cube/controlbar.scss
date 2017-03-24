@@ -153,7 +153,7 @@
 }
 
 .#{$css}-icon-play, .#{$css}-icon-pause, .#{$css}-icon-volume-up, .#{$css}-icon-volume-off,
-.#{$css}-icon-volume-off, .#{$css}-icon-resize-full, .#{$css}-icon-resize-small {
+.#{$css}-icon-volume-down, .#{$css}-icon-resize-full, .#{$css}-icon-resize-small {
   &:before {
     position: relative;
     top: 2px;

@@ -151,8 +151,9 @@
 }
 
 .#{$cssnoie8} .#{$css}-volumebar {
-    @include float-width-height(right, $volume_width, 100%);
+    float: left;
     margin-right: $volume_height*2;
+    widows: $volume_width;
 }
 
 .#{$css}-volumebar {

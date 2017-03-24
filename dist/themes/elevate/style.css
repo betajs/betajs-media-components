@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.49 - 2017-03-24
+betajs-media-components - v0.0.49 - 2017-03-25
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -998,6 +998,7 @@ Apache-2.0 Software License.
 .ba-videoplayer-elevate-theme-time-container {
   float: left;
   width: 40px;
+  height: 100%;
   position: relative;
   top: 8px;
   text-align: center;
@@ -1033,11 +1034,13 @@ Apache-2.0 Software License.
 .ba-videoplayer-noie8 .ba-videoplayer-elevate-theme-volumebar {
   float: right;
   width: 60px;
+  height: 100%;
   margin-right: 12px; }
 
 .ba-videoplayer-ie8 .ba-videoplayer-elevate-theme-volumebar {
   float: right;
   width: 60px;
+  height: 50%;
   margin-top: 16px;
   margin-right: 12px; }
 
@@ -1078,7 +1081,7 @@ Apache-2.0 Software License.
 .ba-videoplayer-elevate-theme-progressbar-position {
   position: absolute;
   left: 0;
-  background-color: #666666;
+  background-color: #000000;
   height: 100%; }
 
 .ba-videoplayer-elevate-theme-progressbar-button {
@@ -1151,7 +1154,7 @@ Apache-2.0 Software License.
   border-top-right-radius: 3px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  background-color: #999999;
+  background-color: #666666;
   height: 6px; }
 
 .ba-videoplayer-elevate-theme-volumebar-position {
@@ -1161,7 +1164,7 @@ Apache-2.0 Software License.
   border-top-right-radius: 3px;
   position: absolute;
   left: 0;
-  background-color: #666666;
+  background-color: #000000;
   height: 100%; }
 
 .ba-videoplayer-elevate-theme-top-left-block {

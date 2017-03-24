@@ -248,7 +248,7 @@
     @include relative-center-center;
     @include border-round-edges($volume_height / 2);
     @include clickable;
-    background-color: $progressbar_cache_bgcolor;
+    background-color: $volumebar_cache_bgcolor;
     height: $volume_height;
 }
 

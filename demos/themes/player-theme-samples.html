@@ -40,7 +40,7 @@
 <body style="background: #EEE">
     <div ba-repeat="{{theme::themes}}">
         <h4>{{theme}}</h4>
-        <ba-videoplayer ba-sources="{{[{src:'assets/black-sample-video.mp4', poster: 'assets/white-sample-cover.png', hd: true}, {src:'assets/sample-video2.mp4', poster:'assets/sample-cover2.png', hd: false}]}}"
+        <ba-videoplayer ba-sources="{{[{src:'assets/white-sample-video.mp4', poster: 'assets/black-sample-cover.png', hd: true}, {src:'assets/sample-video2.mp4', poster:'assets/sample-cover2.png', hd: false}]}}"
             ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
             ba-theme="{{theme}}"
             ba-title="Foobar"

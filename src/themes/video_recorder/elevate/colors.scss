@@ -3,16 +3,17 @@
     .#{$css}-#{$color}-color {
 
       .#{$css}-button-circle-selected, .#{$css}-button-inner:hover,
-      .#{$css}-button-selected {
+      .#{$css}-button-selected, .#{$css}-loader-label,
+      .#{$css}-message-message, .ba-videorecorder-loader-label, .ba-videorecorder-message-message {
         color: $value;
       }
 
       .#{$css}-video, .#{$css}-button-primary, .#{$css}-chooser-primary-button,
-      .#{$css}-settings span {
+      .#{$css}-settings span, .#{$css}-imagegallery-rightbutton, .#{$css}-imagegallery-leftbutton {
         background-color: $value;
       }
 
-      .#{$css}-chooser-primary-button {
+      .#{$css}-chooser-primary-button, .#{$css}-imagegallery-image:hover {
         border-color: $value;
       }
 

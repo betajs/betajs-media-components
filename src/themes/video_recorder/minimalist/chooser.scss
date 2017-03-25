@@ -20,7 +20,7 @@
 
 .#{$css}-chooser-secondary-button {
   @include background-rgba( 255, 255, 255, 0.4, #b2b2b2 );
-  color: black;
+  color: $chooser_secondary_button_color;
   margin-top: 2px;
 }
 

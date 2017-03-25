@@ -19,7 +19,7 @@
       }
 
       .#{$css}-volumebar-inner {
-        @include background-rgba(255, 255, 255, 0.3, #999999);
+        @include background-rgba(255, 255, 255, 0.3, #979797);
       }
 
       &.#{$cssie8} .#{$css}-playbutton-container,

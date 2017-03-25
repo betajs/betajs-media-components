@@ -57,7 +57,7 @@
 }
 
 .#{$css}-circle-button {
-  @include background-rgba(0, 0, 0, 0.4, #999999);
+  @include background-rgba(0, 0, 0, 0.4, #979797);
   @include border-radius($controlbar_button_border_radius);
   color: $text_color;
   display: inline-block;

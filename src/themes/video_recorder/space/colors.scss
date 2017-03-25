@@ -9,13 +9,13 @@
       }
 
       .#{$css}-video, .#{$css}-chooser-primary-button, .#{$css}-button-primary,
-      .#{$css}-settings span {
+      .#{$css}-settings span, .#{$css}-imagegallery-rightbutton, .#{$css}-imagegallery-leftbutton {
         background-color: $value;
       }
 
-      //.#{$css}-button-selected {
-      //  border-color: $value;
-      //}
+      .#{$css}-button-selected, .#{$css}-imagegallery-image:hover, .#{$css}-chooser-primary-button {
+        border-color: $value;
+      }
 
     }
   }

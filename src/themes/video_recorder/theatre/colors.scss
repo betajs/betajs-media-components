@@ -6,14 +6,24 @@
         color: $value;
       }
 
-      .#{$css}-video, .#{$css}-button-primary, .#{$css}-settings span {
+      .#{$css}-video, .#{$css}-button-primary, .#{$css}-settings span,
+      .#{$css}-imagegallery-rightbutton, .#{$css}-imagegallery-leftbutton,
+      .#{$css}-chooser-primary-button {
         background-color: $value;
       }
 
-      .#{$css}-label-container .#{$css}-button-primary {
+      .#{$css}-button-selected, .#{$css}-imagegallery-image:hover,
+      .#{$css}-chooser-primary-button {
+        border-color: $value;
+      }
+
+      .#{$css}-chooser-primary-button {
         color: #ffffff;
       }
 
+      .#{$css}-chooser-secondary-button {
+        background-color: #ffffff;
+      }
     }
   }
 }

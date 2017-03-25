@@ -2182,26 +2182,32 @@ video:fullscreen:not(:root) {
   position: relative;
   white-space: nowrap; }
 
-.ba-videorecorder-red-color .ba-videorecorder-button-inner, .ba-videorecorder-red-color .ba-videorecorder-chooser-secondary-button {
+.ba-videorecorder-red-color .ba-videorecorder-button-inner, .ba-videorecorder-red-color .ba-videorecorder-chooser-secondary-button, .ba-videorecorder-red-color .ba-videorecorder-loader-label {
   color: #eb6a74; }
-.ba-videorecorder-red-color .ba-videorecorder-video, .ba-videorecorder-red-color .ba-videorecorder-button-primary, .ba-videorecorder-red-color .ba-videorecorder-chooser-primary-button {
+.ba-videorecorder-red-color .ba-videorecorder-video, .ba-videorecorder-red-color .ba-videorecorder-button-primary, .ba-videorecorder-red-color .ba-videorecorder-chooser-primary-button,
+.ba-videorecorder-red-color .ba-videorecorder-imagegallery-rightbutton, .ba-videorecorder-red-color .ba-videorecorder-imagegallery-leftbutton {
   background-color: #eb6a74; }
-.ba-videorecorder-red-color .ba-videorecorder-settings input[type=radio]:checked + span {
+.ba-videorecorder-red-color .ba-videorecorder-settings input[type=radio]:checked + span,
+.ba-videorecorder-red-color .ba-videorecorder-imagegallery-image:hover {
   border-color: #eb6a74; }
 
-.ba-videorecorder-blue-color .ba-videorecorder-button-inner, .ba-videorecorder-blue-color .ba-videorecorder-chooser-secondary-button {
+.ba-videorecorder-blue-color .ba-videorecorder-button-inner, .ba-videorecorder-blue-color .ba-videorecorder-chooser-secondary-button, .ba-videorecorder-blue-color .ba-videorecorder-loader-label {
   color: #2a74eb; }
-.ba-videorecorder-blue-color .ba-videorecorder-video, .ba-videorecorder-blue-color .ba-videorecorder-button-primary, .ba-videorecorder-blue-color .ba-videorecorder-chooser-primary-button {
+.ba-videorecorder-blue-color .ba-videorecorder-video, .ba-videorecorder-blue-color .ba-videorecorder-button-primary, .ba-videorecorder-blue-color .ba-videorecorder-chooser-primary-button,
+.ba-videorecorder-blue-color .ba-videorecorder-imagegallery-rightbutton, .ba-videorecorder-blue-color .ba-videorecorder-imagegallery-leftbutton {
   background-color: #2a74eb; }
-.ba-videorecorder-blue-color .ba-videorecorder-settings input[type=radio]:checked + span {
+.ba-videorecorder-blue-color .ba-videorecorder-settings input[type=radio]:checked + span,
+.ba-videorecorder-blue-color .ba-videorecorder-imagegallery-image:hover {
   border-color: #2a74eb; }
 
-.ba-videorecorder-green-color .ba-videorecorder-button-inner, .ba-videorecorder-green-color .ba-videorecorder-chooser-secondary-button {
-  color: #2e544a; }
-.ba-videorecorder-green-color .ba-videorecorder-video, .ba-videorecorder-green-color .ba-videorecorder-button-primary, .ba-videorecorder-green-color .ba-videorecorder-chooser-primary-button {
-  background-color: #2e544a; }
-.ba-videorecorder-green-color .ba-videorecorder-settings input[type=radio]:checked + span {
-  border-color: #2e544a; }
+.ba-videorecorder-green-color .ba-videorecorder-button-inner, .ba-videorecorder-green-color .ba-videorecorder-chooser-secondary-button, .ba-videorecorder-green-color .ba-videorecorder-loader-label {
+  color: #5daa96; }
+.ba-videorecorder-green-color .ba-videorecorder-video, .ba-videorecorder-green-color .ba-videorecorder-button-primary, .ba-videorecorder-green-color .ba-videorecorder-chooser-primary-button,
+.ba-videorecorder-green-color .ba-videorecorder-imagegallery-rightbutton, .ba-videorecorder-green-color .ba-videorecorder-imagegallery-leftbutton {
+  background-color: #5daa96; }
+.ba-videorecorder-green-color .ba-videorecorder-settings input[type=radio]:checked + span,
+.ba-videorecorder-green-color .ba-videorecorder-imagegallery-image:hover {
+  border-color: #5daa96; }
 
 .ba-videorecorder-dashboard {
   position: absolute;

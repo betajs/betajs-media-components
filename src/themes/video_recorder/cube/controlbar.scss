@@ -8,7 +8,7 @@
 }
 
 .#{$css}-controlbar {
-  @include background-rgba( 0, 0, 0, .4, #999999);
+  @include background-rgba( 0, 0, 0, .4, #979797);
   @include absolute-align-full-bottom();
   height: $controlbar_footer_height;
   padding: 0;

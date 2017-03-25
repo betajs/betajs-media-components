@@ -5,13 +5,13 @@ $fontello_name: "bjsmc";
 $recorder: "ba-videorecorder-theme-space";
 
 $font_family: sans-serif;
-$recorder_bgcolor: #5daa96;
+$recorder_bgcolor: #000000;
 $text_color: #ffffff;
-$text_color_secondary: #373737;
+$text_color_secondary: #979797;
 
-$button_color: #5daa96;
+$button_color: #000000;
 
-$message_bgcolor: white;
+$message_bgcolor: #eeeeee;
 $message_opacity: 0.75;
 $message_color: black;
 $message_opacity: 0.75;
@@ -30,13 +30,13 @@ $loader_size: 5px;
 $loader_frame_thickness: 1.1em;
 $loader_label_fontsize: 40px;
 
-$chooser_background: white;
+$chooser_background: #eeeeee;
 $chooser_buttons_min_width: 10em;
 $chooser_primary_button_bgcolor: $button_color;
 $chooser_primary_button_vertical_padding: 6px;
 $chooser_primary_button_horizontal_padding: 8px;
 $chooser_primary_button_border_radius: 50px;
-$chooser_secondary_button_color: #b2b2b2;
+$chooser_secondary_button_color: #666666;
 $chooser_secondary_button_padding: 8px;
 $chooser_fontsize: 14px;
 $chooser_buttons_line_height: 20px;
@@ -54,13 +54,13 @@ $imagegallery_border_radius: 3px;
 $settings_margin: 4px;
 $settings_padding: 4px;	
 $settings_radius: 3px;
-$settings_bgcolor: #ffffff;
+$settings_bgcolor: #eeeeee;
 $settings_opacity: 0.5;
 $settings_border: none;
 $settings_font_size: 12px;
 $settings_horizontal_margin: 48px;
 $settings_item_padding: 8px;
-$settings_radio_color: white;
+$settings_radio_color: #eeeeee;
 $settings_radio_color_selected: $button_color;
 
 $controlbar_height: 48px;
@@ -90,13 +90,13 @@ $controlbar_button_vertical_padding: 3px;
 $controlbar_button_border_radius: 50%;
 $controlbar_button_border: 1px solid $text_color;
 $controlbar_button_size: 40px;
-$controlbar_button_hover_background: #ffffff;
-$controlbar_button_hover_color: #5daa96;
+$controlbar_button_hover_background: #eeeeee;
+$controlbar_button_hover_color: #000000;
 
 // Theme Colors
 $theme_color_blue: #2a74eb;
 $theme_color_red: #eb6a74;
-$theme_color_green: #2e544a;
+$theme_color_green: #5daa96;
 
 $colors: (
   'red': $theme_color_red,

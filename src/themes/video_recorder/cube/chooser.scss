@@ -19,7 +19,7 @@
 }
 
 .#{$css}-chooser-secondary-button {
-	@include background-rgba( 0, 0, 0, 0.6, #323232 );
+	background-color: $button_color_secondary;
 	color: $chooser_secondary_button_color;
 	margin-top: 2px;
 }

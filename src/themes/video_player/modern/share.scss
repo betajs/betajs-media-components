@@ -21,7 +21,7 @@
   }
 
   .#{$css}-toggle-share-container {
-    @include background-rgba(0, 0, 0, 0.3, #999999);
+    @include background-rgba(0, 0, 0, 0.3, #979797);
     border-bottom-left-radius: $open_share_button_border_radius;
     border-top-left-radius: $open_share_button_border_radius;
     color: white;
@@ -39,7 +39,7 @@
   }
 
   .#{$css}-socials-list {
-    @include background-rgba(0, 0, 0, 0.3, #999999);
+    @include background-rgba(0, 0, 0, 0.3, #979797);
     list-style: none;
     margin: 0;
     padding: 0;

@@ -14,10 +14,6 @@
         background-color: $value;
       }
 
-      .#{$css}-volumebar-inner {
-        @include background-rgba(255, 255, 255, 0.3, #7f7f7f);
-      }
-
       &.#{$cssie8} .#{$css}-playbutton-container,
       &.#{$cssnoie8} .#{$css}-playbutton-container {
         border-color: $value;

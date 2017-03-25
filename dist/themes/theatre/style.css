@@ -868,7 +868,7 @@ Apache-2.0 Software License.
 .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-video-title, .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-icon-play, .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-icon-pause,
 .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-button-inner, .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-icon-resize-full,
 .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-icon-volume-up, .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-icon-volume-down, .ba-videoplayer-theatre-theme-red-color.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-icon-share,
-.ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-playbutton-button::after, .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-playbutton-button:hover::after {
+.ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-playbutton-button::after, .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-playbutton-button:hover::after, .ba-videoplayer-theatre-theme-red-color.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-button-inner {
   color: #eb6a74; }
 .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-stream-label-container .ba-videoplayer-theatre-theme-stream-label, .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-progressbar-position,
 .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-volumebar-position, .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-rerecord-button {
@@ -884,7 +884,7 @@ Apache-2.0 Software License.
 .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-video-title, .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-icon-play, .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-icon-pause,
 .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-button-inner, .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-icon-resize-full,
 .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-icon-volume-up, .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-icon-volume-down, .ba-videoplayer-theatre-theme-blue-color.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-icon-share,
-.ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-playbutton-button::after, .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-playbutton-button:hover::after {
+.ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-playbutton-button::after, .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-playbutton-button:hover::after, .ba-videoplayer-theatre-theme-blue-color.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-button-inner {
   color: #2a74eb; }
 .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-stream-label-container .ba-videoplayer-theatre-theme-stream-label, .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-progressbar-position,
 .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-volumebar-position, .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-rerecord-button {
@@ -900,7 +900,7 @@ Apache-2.0 Software License.
 .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-video-title, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-icon-play, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-icon-pause,
 .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-button-inner, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-icon-resize-full,
 .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-icon-volume-up, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-icon-volume-down, .ba-videoplayer-theatre-theme-green-color.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-icon-share,
-.ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-playbutton-button::after, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-playbutton-button:hover::after {
+.ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-playbutton-button::after, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-playbutton-button:hover::after, .ba-videoplayer-theatre-theme-green-color.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-button-inner {
   color: #5daa96; }
 .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-stream-label-container .ba-videoplayer-theatre-theme-stream-label, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-progressbar-position,
 .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-volumebar-position, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-rerecord-button {
@@ -974,7 +974,7 @@ Apache-2.0 Software License.
     line-height: 28px;
     top: 15px;
     text-align: center;
-    color: #999999;
+    color: #979797;
     width: 75%; }
 
 .ba-videoplayer-theatre-theme-leftbutton-container {
@@ -1355,7 +1355,7 @@ video:fullscreen:not(:root) {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: white; }
+  background-color: #eeeeee; }
 
 .ba-videoplayer-theatre-theme-rerecord-backbar {
   position: absolute;
@@ -1363,7 +1363,7 @@ video:fullscreen:not(:root) {
   right: 0;
   bottom: 0;
   height: 50px;
-  background-color: white;
+  background-color: #eeeeee;
   opacity: 1; }
 
 .ba-videoplayer-theatre-theme-rerecord-frontbar {
@@ -1420,7 +1420,7 @@ video:fullscreen:not(:root) {
   -ms-transform: translate(-45px, 0);
   transform: translate(-45px, 0); }
 .ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-toggle-share-container {
-  background-color: #999999;
+  background-color: #979797;
   background-color: rgba(0, 0, 0, 0.3);
   border-bottom-left-radius: 5px;
   border-top-left-radius: 5px;
@@ -1434,7 +1434,7 @@ video:fullscreen:not(:root) {
   float: right;
   width: 45px; }
 .ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-socials-list {
-  background-color: #999999;
+  background-color: #979797;
   background-color: rgba(0, 0, 0, 0.3);
   list-style: none;
   margin: 0;
@@ -2179,7 +2179,7 @@ video:fullscreen:not(:root) {
 .ba-videorecorder-theme-theatre-container {
   display: inline-block;
   position: relative;
-  background-color: #5daa96; }
+  background-color: #000000; }
 
 .ba-videorecorder-theme-theatre-overlay {
   position: absolute;
@@ -2192,7 +2192,7 @@ video:fullscreen:not(:root) {
   width: 100%;
   height: 100%;
   display: block;
-  background-color: #5daa96; }
+  background-color: #000000; }
 
 .ba-videorecorder-theme-theatre-norecorder {
   background-color: black; }
@@ -2243,7 +2243,7 @@ video:fullscreen:not(:root) {
   right: 0;
   top: 0;
   bottom: 0;
-  background-color: #5daa96; }
+  background-color: #000000; }
 
 .ba-videorecorder-theme-theatre-chooser-file {
   position: absolute;
@@ -2276,8 +2276,8 @@ video:fullscreen:not(:root) {
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
   border-radius: 15px;
-  background-color: #5daa96;
-  color: #ffffff;
+  background-color: #000000;
+  color: #eeeeee;
   padding: 6px;
   padding-left: 8px;
   padding-right: 8px;
@@ -2291,7 +2291,7 @@ video:fullscreen:not(:root) {
 .ba-videorecorder-theme-theatre-chooser-secondary-button {
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  color: #5daa96;
+  color: #000000;
   font-family: sans-serif;
   font-size: 14px;
   text-align: center;
@@ -2314,7 +2314,7 @@ video:fullscreen:not(:root) {
   font-family: sans-serif;
   font-size: 15px;
   font-weight: bold;
-  color: #ffffff;
+  color: #eeeeee;
   padding: 8.5px;
   text-align: center; }
 
@@ -2381,7 +2381,7 @@ video:fullscreen:not(:root) {
   text-align: center;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  color: #ffffff;
+  color: #eeeeee;
   font-size: 13px; }
 
 .ba-videorecorder-theme-theatre-dashboard {
@@ -2429,7 +2429,7 @@ video:fullscreen:not(:root) {
   font-family: sans-serif;
   font-size: 15px;
   font-weight: bold;
-  color: #ffffff;
+  color: #eeeeee;
   padding: 15px;
   text-align: center; }
 
@@ -2499,8 +2499,8 @@ video:fullscreen:not(:root) {
   padding: 8px;
   padding-left: 16px;
   padding-right: 16px;
-  background-color: #5daa96;
-  color: #ffffff;
+  background-color: #000000;
+  color: #eeeeee;
   font-family: sans-serif;
   font-weight: bold;
   font-size: 12px;
@@ -2517,7 +2517,7 @@ video:fullscreen:not(:root) {
   text-align: center;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  color: #ffffff;
+  color: #eeeeee;
   cursor: pointer;
   font-size: 20px;
   margin-left: 5px;
@@ -2525,7 +2525,7 @@ video:fullscreen:not(:root) {
   padding: 3px;
   padding-left: 7px 15px;
   padding-right: 7px 15px;
-  border: 1px solid #e5e5e5;
+  border: 1px solid #979797;
   border-radius: 50%; }
 
 .ba-videorecorder-theme-theatre-icon-inner {
@@ -2537,20 +2537,20 @@ video:fullscreen:not(:root) {
   top: 50%;
   position: relative;
   text-align: center;
-  color: #ffffff;
+  color: #eeeeee;
   font-size: 20px;
   margin-left: 5px;
   margin-right: 5px;
   padding: 3px;
   padding-left: 7px 15px;
   padding-right: 7px 15px;
-  border: 1px solid #e5e5e5;
+  border: 1px solid #979797;
   border-radius: 50%; }
 
 .ba-videorecorder-theme-theatre-button-selected {
-  border: 1px solid #5daa96;
-  color: #5daa96;
-  background-color: #ffffff; }
+  border: 1px solid #000000;
+  color: #000000;
+  background-color: #eeeeee; }
 
 .ba-videorecorder-theme-theatre-size-small .ba-videorecorder-theme-theatre-lefticon-container {
   display: none; }
@@ -2559,7 +2559,7 @@ video:fullscreen:not(:root) {
   position: absolute;
   left: 0;
   bottom: 50px;
-  color: #ffffff;
+  color: #eeeeee;
   margin: 4px;
   padding: 4px; }
 
@@ -2570,7 +2570,7 @@ video:fullscreen:not(:root) {
   top: 0;
   bottom: 0;
   border-radius: 3px;
-  background-color: #ffffff;
+  background-color: #eeeeee;
   opacity: 0.5;
   border: none; }
 
@@ -2585,7 +2585,7 @@ video:fullscreen:not(:root) {
 
 .ba-videorecorder-theme-theatre-settings hr {
   border-top: none;
-  border-bottom-color: #ffffff;
+  border-bottom-color: #eeeeee;
   margin: 2px;
   margin-left: 48px;
   margin-right: 48px; }
@@ -2608,8 +2608,8 @@ video:fullscreen:not(:root) {
   cursor: pointer;
   width: 4px;
   height: 4px;
-  background-color: white;
-  border: 3px solid white;
+  background-color: #eeeeee;
+  border: 3px solid #eeeeee;
   border-radius: 4px;
   margin: 1px;
   box-sizing: content-box;
@@ -2618,13 +2618,13 @@ video:fullscreen:not(:root) {
   position: relative; }
 
 .ba-videorecorder-theme-theatre-settings input[type=radio]:checked + span {
-  border: 3px solid #5daa96; }
+  border: 3px solid #000000; }
 
 .ba-videorecorder-theme-theatre-chooser-container {
-  background-color: white; }
+  background-color: #eeeeee; }
 
 .ba-videorecorder-theme-theatre-chooser-icon-container {
-  color: #5daa96;
+  color: #000000;
   font-size: 32px;
   margin: 16px; }
 
@@ -2643,7 +2643,7 @@ video:fullscreen:not(:root) {
 
 .ba-videorecorder-theme-theatre-chooser-secondary-button {
   border: 1px solid #999;
-  color: #999999;
+  color: #979797;
   margin-top: 2px; }
 
 .ba-videorecorder-theme-theatre-icon-record:before {
@@ -2660,24 +2660,45 @@ video:fullscreen:not(:root) {
 
 .ba-videorecorder-theme-theatre-red-color .ba-videorecorder-theme-theatre-button-selected, .ba-videorecorder-theme-theatre-red-color .ba-videorecorder-theme-theatre-button-inner:hover, .ba-videorecorder-theme-theatre-red-color .ba-videorecorder-theme-theatre-button-selected {
   color: #eb6a74; }
-.ba-videorecorder-theme-theatre-red-color .ba-videorecorder-theme-theatre-video, .ba-videorecorder-theme-theatre-red-color .ba-videorecorder-theme-theatre-button-primary, .ba-videorecorder-theme-theatre-red-color .ba-videorecorder-theme-theatre-settings span {
+.ba-videorecorder-theme-theatre-red-color .ba-videorecorder-theme-theatre-video, .ba-videorecorder-theme-theatre-red-color .ba-videorecorder-theme-theatre-button-primary, .ba-videorecorder-theme-theatre-red-color .ba-videorecorder-theme-theatre-settings span,
+.ba-videorecorder-theme-theatre-red-color .ba-videorecorder-theme-theatre-imagegallery-rightbutton, .ba-videorecorder-theme-theatre-red-color .ba-videorecorder-theme-theatre-imagegallery-leftbutton,
+.ba-videorecorder-theme-theatre-red-color .ba-videorecorder-theme-theatre-chooser-primary-button {
   background-color: #eb6a74; }
-.ba-videorecorder-theme-theatre-red-color .ba-videorecorder-theme-theatre-label-container .ba-videorecorder-theme-theatre-button-primary {
+.ba-videorecorder-theme-theatre-red-color .ba-videorecorder-theme-theatre-button-selected, .ba-videorecorder-theme-theatre-red-color .ba-videorecorder-theme-theatre-imagegallery-image:hover,
+.ba-videorecorder-theme-theatre-red-color .ba-videorecorder-theme-theatre-chooser-primary-button {
+  border-color: #eb6a74; }
+.ba-videorecorder-theme-theatre-red-color .ba-videorecorder-theme-theatre-chooser-primary-button {
   color: #ffffff; }
+.ba-videorecorder-theme-theatre-red-color .ba-videorecorder-theme-theatre-chooser-secondary-button {
+  background-color: #ffffff; }
 
 .ba-videorecorder-theme-theatre-blue-color .ba-videorecorder-theme-theatre-button-selected, .ba-videorecorder-theme-theatre-blue-color .ba-videorecorder-theme-theatre-button-inner:hover, .ba-videorecorder-theme-theatre-blue-color .ba-videorecorder-theme-theatre-button-selected {
   color: #2a74eb; }
-.ba-videorecorder-theme-theatre-blue-color .ba-videorecorder-theme-theatre-video, .ba-videorecorder-theme-theatre-blue-color .ba-videorecorder-theme-theatre-button-primary, .ba-videorecorder-theme-theatre-blue-color .ba-videorecorder-theme-theatre-settings span {
+.ba-videorecorder-theme-theatre-blue-color .ba-videorecorder-theme-theatre-video, .ba-videorecorder-theme-theatre-blue-color .ba-videorecorder-theme-theatre-button-primary, .ba-videorecorder-theme-theatre-blue-color .ba-videorecorder-theme-theatre-settings span,
+.ba-videorecorder-theme-theatre-blue-color .ba-videorecorder-theme-theatre-imagegallery-rightbutton, .ba-videorecorder-theme-theatre-blue-color .ba-videorecorder-theme-theatre-imagegallery-leftbutton,
+.ba-videorecorder-theme-theatre-blue-color .ba-videorecorder-theme-theatre-chooser-primary-button {
   background-color: #2a74eb; }
-.ba-videorecorder-theme-theatre-blue-color .ba-videorecorder-theme-theatre-label-container .ba-videorecorder-theme-theatre-button-primary {
+.ba-videorecorder-theme-theatre-blue-color .ba-videorecorder-theme-theatre-button-selected, .ba-videorecorder-theme-theatre-blue-color .ba-videorecorder-theme-theatre-imagegallery-image:hover,
+.ba-videorecorder-theme-theatre-blue-color .ba-videorecorder-theme-theatre-chooser-primary-button {
+  border-color: #2a74eb; }
+.ba-videorecorder-theme-theatre-blue-color .ba-videorecorder-theme-theatre-chooser-primary-button {
   color: #ffffff; }
+.ba-videorecorder-theme-theatre-blue-color .ba-videorecorder-theme-theatre-chooser-secondary-button {
+  background-color: #ffffff; }
 
 .ba-videorecorder-theme-theatre-green-color .ba-videorecorder-theme-theatre-button-selected, .ba-videorecorder-theme-theatre-green-color .ba-videorecorder-theme-theatre-button-inner:hover, .ba-videorecorder-theme-theatre-green-color .ba-videorecorder-theme-theatre-button-selected {
-  color: #2e544a; }
-.ba-videorecorder-theme-theatre-green-color .ba-videorecorder-theme-theatre-video, .ba-videorecorder-theme-theatre-green-color .ba-videorecorder-theme-theatre-button-primary, .ba-videorecorder-theme-theatre-green-color .ba-videorecorder-theme-theatre-settings span {
-  background-color: #2e544a; }
-.ba-videorecorder-theme-theatre-green-color .ba-videorecorder-theme-theatre-label-container .ba-videorecorder-theme-theatre-button-primary {
+  color: #5daa96; }
+.ba-videorecorder-theme-theatre-green-color .ba-videorecorder-theme-theatre-video, .ba-videorecorder-theme-theatre-green-color .ba-videorecorder-theme-theatre-button-primary, .ba-videorecorder-theme-theatre-green-color .ba-videorecorder-theme-theatre-settings span,
+.ba-videorecorder-theme-theatre-green-color .ba-videorecorder-theme-theatre-imagegallery-rightbutton, .ba-videorecorder-theme-theatre-green-color .ba-videorecorder-theme-theatre-imagegallery-leftbutton,
+.ba-videorecorder-theme-theatre-green-color .ba-videorecorder-theme-theatre-chooser-primary-button {
+  background-color: #5daa96; }
+.ba-videorecorder-theme-theatre-green-color .ba-videorecorder-theme-theatre-button-selected, .ba-videorecorder-theme-theatre-green-color .ba-videorecorder-theme-theatre-imagegallery-image:hover,
+.ba-videorecorder-theme-theatre-green-color .ba-videorecorder-theme-theatre-chooser-primary-button {
+  border-color: #5daa96; }
+.ba-videorecorder-theme-theatre-green-color .ba-videorecorder-theme-theatre-chooser-primary-button {
   color: #ffffff; }
+.ba-videorecorder-theme-theatre-green-color .ba-videorecorder-theme-theatre-chooser-secondary-button {
+  background-color: #ffffff; }
 
 .ba-videorecorder-theme-theatre-overlay {
   top: 0; }
@@ -2709,8 +2730,8 @@ video:fullscreen:not(:root) {
 .ba-videorecorder-theme-theatre-button {
   background-color: white;
   border: none;
-  border-right: 1px solid #e5e5e5;
-  color: #ffffff;
+  border-right: 1px solid #979797;
+  color: #eeeeee;
   cursor: pointer;
   display: inline-block;
   float: left;
@@ -2722,7 +2743,7 @@ video:fullscreen:not(:root) {
 .ba-videorecorder-theme-theatre-button-inner {
   border: none;
   cursor: pointer;
-  color: #333333;
+  color: #666666;
   font-size: inherit;
   height: 100%;
   margin: 0;
@@ -2730,8 +2751,8 @@ video:fullscreen:not(:root) {
   width: 100%; }
 
 .ba-videorecorder-theme-theatre-button-selected, .ba-videorecorder-theme-theatre-button-inner:hover, .ba-videorecorder-theme-theatre-button-selected {
-  background-color: #ffffff;
-  color: #5daa96; }
+  background-color: #eeeeee;
+  color: #000000; }
 
 .ba-videorecorder-theme-theatre-rightbutton-container {
   padding: 0; }
@@ -2753,12 +2774,12 @@ video:fullscreen:not(:root) {
   .ba-videorecorder-theme-theatre-settings input[type=radio]:checked + span {
     border: 3px solid #d6d6d6; }
   .ba-videorecorder-theme-theatre-settings span {
-    background-color: #5daa96; }
+    background-color: #000000; }
 
 .ba-videorecorder-theme-theatre-button-primary {
   border: none;
   border-radius: 0;
-  color: #ffffff;
+  color: #eeeeee;
   display: inline-block;
   font-family: sans-serif;
   font-weight: 100;
@@ -2781,12 +2802,12 @@ video:fullscreen:not(:root) {
   line-height: 50px; }
 
 .ba-videorecorder-theme-theatre-settings-button {
-  background-color: #ffffff;
+  background-color: #eeeeee;
   cursor: pointer;
   margin: 15px 0 0 15px; }
 
 .ba-videorecorder-theme-theatre-settings label {
-  color: #373737; }
+  color: #979797; }
 
 .ba-videorecorder-theme-theatre-bubble-info {
   background-color: #ffffff;
@@ -2826,10 +2847,10 @@ video:fullscreen:not(:root) {
   text-align: center;
   width: 100%; }
   .ba-videorecorder-theme-theatre-label-container .ba-videorecorder-theme-theatre-button-primary {
-    background-color: none;
-    border-left: 1px solid #e5e5e5;
-    border-right: 1px solid #e5e5e5;
-    color: #373737;
+    background-color: initial;
+    border-left: 1px solid #979797;
+    border-right: 1px solid #979797;
+    color: #979797;
     cursor: default; }
 
 .ba-videorecorder-theme-theatre-stop-button-container {
@@ -2852,7 +2873,7 @@ video:fullscreen:not(:root) {
 
 .ba-videorecorder-theme-theatre-imagegallery-rightbutton, .ba-videorecorder-theme-theatre-imagegallery-leftbutton {
   border-radius: 0;
-  background-color: #999999;
+  background-color: #979797;
   background-color: rgba(0, 0, 0, 0.4);
   height: 30px;
   width: 30px;
@@ -2929,7 +2950,7 @@ video:fullscreen:not(:root) {
   letter-spacing: .1em; }
 
 .ba-videorecorder-theme-theatre-topmessage-message {
-  color: #ffffff;
+  color: #eeeeee;
   display: inline-block;
   font-family: sans-serif;
   font-size: 12px;

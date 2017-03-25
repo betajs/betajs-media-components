@@ -7,7 +7,7 @@
 
 .#{$css}-controlbar-header {
     @include absolute-align-full-top();
-    @include background-rgba(0, 0, 0, 0.4, #999999);
+    @include background-rgba(0, 0, 0, 0.4, #979797);
     font-size: 0.65rem;
     font-weight: 100;
     height: $controlbar_header_height;
@@ -19,7 +19,7 @@
 
 .#{$css}-controlbar-footer {
     @include absolute-align-full-bottom;
-    @include background-rgba(0, 0, 0, 0.4, #999999);
+    @include background-rgba(0, 0, 0, 0.4, #979797);
     @include transition1(opacity, $dashboard_transition, ease-in-out);
     height: $controlbar_footer_height;
     padding: 0 5px;

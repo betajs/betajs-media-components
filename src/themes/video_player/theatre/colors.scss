@@ -5,7 +5,8 @@
       .#{$css}-video-title, .#{$css}-icon-play, .#{$css}-icon-pause,
       .#{$css}-button-inner, .#{$css}-icon-resize-full,
       .#{$css}-icon-volume-up, .#{$css}-icon-volume-down, &.#{$cssnoie8} .#{$css}-icon-share,
-      .#{$css}-playbutton-button::after, .#{$css}-playbutton-button:hover::after {
+      .#{$css}-playbutton-button::after, .#{$css}-playbutton-button:hover::after,
+      &.#{$cssnoie8} .#{$css}-button-inner {
         color: $value;
       }
 

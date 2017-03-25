@@ -4,12 +4,10 @@ $cssnoie8: "ba-videorecorder-noie8";
 $fontello_name: "bjsmc";
 
 $font_family: Arial, sans-serif;
-$recorder_bgcolor: #FFF;
-$text_color: white;
+$recorder_bgcolor: #000000;
+$text_color: #eeeeee;
 
-$button_color: #eb6a74;
-$button_color_green: #5da894;
-$button_color_blue: #2a74eb; 
+$button_color: #979797;
 
 $message_bgcolor: black;
 $message_opacity: 0.75;
@@ -49,7 +47,7 @@ $settings_border: none;
 $settings_font_size: 12px;
 $settings_horizontal_margin: 48px;
 $settings_item_padding: 8px;
-$settings_radio_color: white;
+$settings_radio_color: #eeeeee;
 $settings_radio_color_selected: $button_color;
 
 $controlbar_height: 48px;
@@ -79,7 +77,7 @@ $controlbar_button_border: 1px solid $text_color;
 // Theme Colors
 $theme_color_blue: #2a74eb;
 $theme_color_red: #eb6a74;
-$theme_color_green: #2e544a;
+$theme_color_green: #5dbb96;
 
 $colors: (
   'red': $theme_color_red,

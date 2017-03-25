@@ -3,13 +3,17 @@
     .#{$css}-#{$color}-color {
 
       .#{$css}-button-selected, .#{$css}-button-inner:hover,
-      .#{$css}-button-selected, .#{$css}-chooser-icon-container {
+      .#{$css}-chooser-icon-container, .#{$css}-loader-label {
         color: $value;
       }
 
-      .#{$css}-video, .#{$css}-chooser-primary-button, .#{$css}-button-primary,
-      .#{$css}-settings span {
+      .#{$css}-video, .#{$css}-chooser-primary-button, .#{$css}-button-primary, .#{$css}-settings span,
+      .#{$css}-imagegallery-rightbutton, .#{$css}-imagegallery-leftbutton  {
         background-color: $value;
+      }
+
+      .#{$css}-imagegallery-image:hover {
+        border-color: $value;
       }
     }
   }

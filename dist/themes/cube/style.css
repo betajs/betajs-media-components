@@ -876,7 +876,7 @@ Apache-2.0 Software License.
 .ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-playbutton-button {
   border-left-color: #eb6a74; }
 .ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-volumebar-inner {
-  background-color: #999999;
+  background-color: #979797;
   background-color: rgba(255, 255, 255, 0.3); }
 .ba-videoplayer-cube-theme-red-color.ba-videoplayer-ie8 .ba-videoplayer-cube-theme-playbutton-container, .ba-videoplayer-cube-theme-red-color.ba-videoplayer-noie8 .ba-videoplayer-cube-theme-playbutton-container {
   border-color: #eb6a74; }
@@ -892,7 +892,7 @@ Apache-2.0 Software License.
 .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-playbutton-button {
   border-left-color: #2a74eb; }
 .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-volumebar-inner {
-  background-color: #999999;
+  background-color: #979797;
   background-color: rgba(255, 255, 255, 0.3); }
 .ba-videoplayer-cube-theme-blue-color.ba-videoplayer-ie8 .ba-videoplayer-cube-theme-playbutton-container, .ba-videoplayer-cube-theme-blue-color.ba-videoplayer-noie8 .ba-videoplayer-cube-theme-playbutton-container {
   border-color: #2a74eb; }
@@ -908,7 +908,7 @@ Apache-2.0 Software License.
 .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-playbutton-button {
   border-left-color: #5daa96; }
 .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-volumebar-inner {
-  background-color: #999999;
+  background-color: #979797;
   background-color: rgba(255, 255, 255, 0.3); }
 .ba-videoplayer-cube-theme-green-color.ba-videoplayer-ie8 .ba-videoplayer-cube-theme-playbutton-container, .ba-videoplayer-cube-theme-green-color.ba-videoplayer-noie8 .ba-videoplayer-cube-theme-playbutton-container {
   border-color: #5daa96; }
@@ -1253,7 +1253,7 @@ video:fullscreen:not(:root) {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #999999;
+  background-color: #979797;
   background-color: rgba(0, 0, 0, 0.4); }
 
 .ba-videoplayer-cube-theme-rerecord-backbar {
@@ -1317,7 +1317,7 @@ video:fullscreen:not(:root) {
   -ms-transform: translate(-45px, 0);
   transform: translate(-45px, 0); }
 .ba-videoplayer-noie8 .ba-videoplayer-cube-theme-toggle-share-container {
-  background-color: #999999;
+  background-color: #979797;
   background-color: rgba(0, 0, 0, 0.3);
   border-bottom-left-radius: 5px;
   border-top-left-radius: 5px;
@@ -1331,7 +1331,7 @@ video:fullscreen:not(:root) {
   float: right;
   width: 45px; }
 .ba-videoplayer-noie8 .ba-videoplayer-cube-theme-socials-list {
-  background-color: #999999;
+  background-color: #979797;
   background-color: rgba(0, 0, 0, 0.3);
   list-style: none;
   margin: 0;
@@ -2077,7 +2077,7 @@ video:fullscreen:not(:root) {
 .ba-videorecorder-theme-cube-container {
   display: inline-block;
   position: relative;
-  background-color: #5daa96; }
+  background-color: #000000; }
 
 .ba-videorecorder-theme-cube-overlay {
   position: absolute;
@@ -2090,7 +2090,7 @@ video:fullscreen:not(:root) {
   width: 100%;
   height: 100%;
   display: block;
-  background-color: #5daa96; }
+  background-color: #000000; }
 
 .ba-videorecorder-theme-cube-norecorder {
   background-color: black; }
@@ -2141,7 +2141,7 @@ video:fullscreen:not(:root) {
   right: 0;
   top: 0;
   bottom: 0;
-  background-color: #5daa96; }
+  background-color: #000000; }
 
 .ba-videorecorder-theme-cube-chooser-file {
   position: absolute;
@@ -2174,8 +2174,8 @@ video:fullscreen:not(:root) {
   -moz-border-radius: 1px;
   -webkit-border-radius: 1px;
   border-radius: 1px;
-  background-color: #5daa96;
-  color: #ffffff;
+  background-color: #000000;
+  color: #eeeeee;
   padding: 6px;
   padding-left: 8px;
   padding-right: 8px;
@@ -2189,7 +2189,7 @@ video:fullscreen:not(:root) {
 .ba-videorecorder-theme-cube-chooser-secondary-button {
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  color: #ffffff;
+  color: #eeeeee;
   font-family: sans-serif;
   font-size: 14px;
   text-align: center;
@@ -2212,12 +2212,12 @@ video:fullscreen:not(:root) {
   font-family: sans-serif;
   font-size: 15px;
   font-weight: bold;
-  color: #ffffff;
+  color: #eeeeee;
   padding: 8.5px;
   text-align: center; }
 
 .ba-videorecorder-theme-cube-topmessage-background {
-  background-color: black;
+  background-color: #000000;
   opacity: 0.3;
   width: 100%;
   height: 32px;
@@ -2279,7 +2279,7 @@ video:fullscreen:not(:root) {
   text-align: center;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  color: #ffffff;
+  color: #eeeeee;
   font-size: 13px; }
 
 .ba-videorecorder-theme-cube-dashboard {
@@ -2294,7 +2294,7 @@ video:fullscreen:not(:root) {
   right: 0;
   bottom: 0;
   height: 50px;
-  background-color: black;
+  background-color: #000000;
   opacity: 0.5; }
 
 .ba-videorecorder-theme-cube-controlbar {
@@ -2327,7 +2327,7 @@ video:fullscreen:not(:root) {
   font-family: sans-serif;
   font-size: 15px;
   font-weight: bold;
-  color: #ffffff;
+  color: #eeeeee;
   padding: 15px;
   text-align: center; }
 
@@ -2397,8 +2397,8 @@ video:fullscreen:not(:root) {
   padding: 8px;
   padding-left: 16px;
   padding-right: 16px;
-  background-color: #5daa96;
-  color: #ffffff;
+  background-color: #000000;
+  color: #eeeeee;
   font-family: sans-serif;
   font-weight: bold;
   font-size: 12px;
@@ -2415,7 +2415,7 @@ video:fullscreen:not(:root) {
   text-align: center;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  color: #ffffff;
+  color: #eeeeee;
   cursor: pointer;
   font-size: 20px;
   margin-left: 5px;
@@ -2423,7 +2423,7 @@ video:fullscreen:not(:root) {
   padding: 3px;
   padding-left: 7px 15px;
   padding-right: 7px 15px;
-  border: 1px solid #e5e5e5;
+  border: 1px solid #666666;
   border-radius: 50%; }
 
 .ba-videorecorder-theme-cube-icon-inner {
@@ -2435,20 +2435,20 @@ video:fullscreen:not(:root) {
   top: 50%;
   position: relative;
   text-align: center;
-  color: #ffffff;
+  color: #eeeeee;
   font-size: 20px;
   margin-left: 5px;
   margin-right: 5px;
   padding: 3px;
   padding-left: 7px 15px;
   padding-right: 7px 15px;
-  border: 1px solid #e5e5e5;
+  border: 1px solid #666666;
   border-radius: 50%; }
 
 .ba-videorecorder-theme-cube-button-selected {
-  border: 1px solid #5daa96;
-  color: #5daa96;
-  background-color: #ffffff; }
+  border: 1px solid #000000;
+  color: #000000;
+  background-color: #eeeeee; }
 
 .ba-videorecorder-theme-cube-size-small .ba-videorecorder-theme-cube-lefticon-container {
   display: none; }
@@ -2457,7 +2457,7 @@ video:fullscreen:not(:root) {
   position: absolute;
   left: 0;
   bottom: 50px;
-  color: #ffffff;
+  color: #eeeeee;
   margin: 4px;
   padding: 4px; }
 
@@ -2468,7 +2468,7 @@ video:fullscreen:not(:root) {
   top: 0;
   bottom: 0;
   border-radius: 3px;
-  background-color: #ffffff;
+  background-color: #eeeeee;
   opacity: 0.5;
   border: none; }
 
@@ -2483,7 +2483,7 @@ video:fullscreen:not(:root) {
 
 .ba-videorecorder-theme-cube-settings hr {
   border-top: none;
-  border-bottom-color: #ffffff;
+  border-bottom-color: #eeeeee;
   margin: 2px;
   margin-left: 48px;
   margin-right: 48px; }
@@ -2506,8 +2506,8 @@ video:fullscreen:not(:root) {
   cursor: pointer;
   width: 4px;
   height: 4px;
-  background-color: white;
-  border: 3px solid white;
+  background-color: #eeeeee;
+  border: 3px solid #eeeeee;
   border-radius: 4px;
   margin: 1px;
   box-sizing: content-box;
@@ -2516,13 +2516,13 @@ video:fullscreen:not(:root) {
   position: relative; }
 
 .ba-videorecorder-theme-cube-settings input[type=radio]:checked + span {
-  border: 3px solid #5daa96; }
+  border: 3px solid #000000; }
 
 .ba-videorecorder-theme-cube-chooser-container {
-  background-color: white; }
+  background-color: #eeeeee; }
 
 .ba-videorecorder-theme-cube-chooser-icon-container {
-  color: #5daa96;
+  color: #000000;
   font-size: 32px;
   margin: 16px; }
 
@@ -2537,9 +2537,8 @@ video:fullscreen:not(:root) {
   border-radius: 0; }
 
 .ba-videorecorder-theme-cube-chooser-secondary-button {
-  background-color: #323232;
-  background-color: rgba(0, 0, 0, 0.6);
-  color: #ffffff;
+  background-color: #666666;
+  color: #eeeeee;
   margin-top: 2px; }
 
 .ba-videorecorder-theme-cube-icon-record:before {
@@ -2555,25 +2554,31 @@ video:fullscreen:not(:root) {
   -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=3.061616997868383e-16, M12=1, M21=-1, M22=3.061616997868383e-16, SizingMethod='auto expand')"; }
 
 .ba-videorecorder-theme-cube-red-color .ba-videorecorder-theme-cube-button-selected, .ba-videorecorder-theme-cube-red-color .ba-videorecorder-theme-cube-button-inner:hover,
-.ba-videorecorder-theme-cube-red-color .ba-videorecorder-theme-cube-button-selected, .ba-videorecorder-theme-cube-red-color .ba-videorecorder-theme-cube-chooser-icon-container {
+.ba-videorecorder-theme-cube-red-color .ba-videorecorder-theme-cube-chooser-icon-container, .ba-videorecorder-theme-cube-red-color .ba-videorecorder-theme-cube-loader-label {
   color: #eb6a74; }
-.ba-videorecorder-theme-cube-red-color .ba-videorecorder-theme-cube-video, .ba-videorecorder-theme-cube-red-color .ba-videorecorder-theme-cube-chooser-primary-button, .ba-videorecorder-theme-cube-red-color .ba-videorecorder-theme-cube-button-primary,
-.ba-videorecorder-theme-cube-red-color .ba-videorecorder-theme-cube-settings span {
+.ba-videorecorder-theme-cube-red-color .ba-videorecorder-theme-cube-video, .ba-videorecorder-theme-cube-red-color .ba-videorecorder-theme-cube-chooser-primary-button, .ba-videorecorder-theme-cube-red-color .ba-videorecorder-theme-cube-button-primary, .ba-videorecorder-theme-cube-red-color .ba-videorecorder-theme-cube-settings span,
+.ba-videorecorder-theme-cube-red-color .ba-videorecorder-theme-cube-imagegallery-rightbutton, .ba-videorecorder-theme-cube-red-color .ba-videorecorder-theme-cube-imagegallery-leftbutton {
   background-color: #eb6a74; }
+.ba-videorecorder-theme-cube-red-color .ba-videorecorder-theme-cube-imagegallery-image:hover {
+  border-color: #eb6a74; }
 
 .ba-videorecorder-theme-cube-blue-color .ba-videorecorder-theme-cube-button-selected, .ba-videorecorder-theme-cube-blue-color .ba-videorecorder-theme-cube-button-inner:hover,
-.ba-videorecorder-theme-cube-blue-color .ba-videorecorder-theme-cube-button-selected, .ba-videorecorder-theme-cube-blue-color .ba-videorecorder-theme-cube-chooser-icon-container {
+.ba-videorecorder-theme-cube-blue-color .ba-videorecorder-theme-cube-chooser-icon-container, .ba-videorecorder-theme-cube-blue-color .ba-videorecorder-theme-cube-loader-label {
   color: #2a74eb; }
-.ba-videorecorder-theme-cube-blue-color .ba-videorecorder-theme-cube-video, .ba-videorecorder-theme-cube-blue-color .ba-videorecorder-theme-cube-chooser-primary-button, .ba-videorecorder-theme-cube-blue-color .ba-videorecorder-theme-cube-button-primary,
-.ba-videorecorder-theme-cube-blue-color .ba-videorecorder-theme-cube-settings span {
+.ba-videorecorder-theme-cube-blue-color .ba-videorecorder-theme-cube-video, .ba-videorecorder-theme-cube-blue-color .ba-videorecorder-theme-cube-chooser-primary-button, .ba-videorecorder-theme-cube-blue-color .ba-videorecorder-theme-cube-button-primary, .ba-videorecorder-theme-cube-blue-color .ba-videorecorder-theme-cube-settings span,
+.ba-videorecorder-theme-cube-blue-color .ba-videorecorder-theme-cube-imagegallery-rightbutton, .ba-videorecorder-theme-cube-blue-color .ba-videorecorder-theme-cube-imagegallery-leftbutton {
   background-color: #2a74eb; }
+.ba-videorecorder-theme-cube-blue-color .ba-videorecorder-theme-cube-imagegallery-image:hover {
+  border-color: #2a74eb; }
 
 .ba-videorecorder-theme-cube-green-color .ba-videorecorder-theme-cube-button-selected, .ba-videorecorder-theme-cube-green-color .ba-videorecorder-theme-cube-button-inner:hover,
-.ba-videorecorder-theme-cube-green-color .ba-videorecorder-theme-cube-button-selected, .ba-videorecorder-theme-cube-green-color .ba-videorecorder-theme-cube-chooser-icon-container {
-  color: #2e544a; }
-.ba-videorecorder-theme-cube-green-color .ba-videorecorder-theme-cube-video, .ba-videorecorder-theme-cube-green-color .ba-videorecorder-theme-cube-chooser-primary-button, .ba-videorecorder-theme-cube-green-color .ba-videorecorder-theme-cube-button-primary,
-.ba-videorecorder-theme-cube-green-color .ba-videorecorder-theme-cube-settings span {
-  background-color: #2e544a; }
+.ba-videorecorder-theme-cube-green-color .ba-videorecorder-theme-cube-chooser-icon-container, .ba-videorecorder-theme-cube-green-color .ba-videorecorder-theme-cube-loader-label {
+  color: #5daa96; }
+.ba-videorecorder-theme-cube-green-color .ba-videorecorder-theme-cube-video, .ba-videorecorder-theme-cube-green-color .ba-videorecorder-theme-cube-chooser-primary-button, .ba-videorecorder-theme-cube-green-color .ba-videorecorder-theme-cube-button-primary, .ba-videorecorder-theme-cube-green-color .ba-videorecorder-theme-cube-settings span,
+.ba-videorecorder-theme-cube-green-color .ba-videorecorder-theme-cube-imagegallery-rightbutton, .ba-videorecorder-theme-cube-green-color .ba-videorecorder-theme-cube-imagegallery-leftbutton {
+  background-color: #5daa96; }
+.ba-videorecorder-theme-cube-green-color .ba-videorecorder-theme-cube-imagegallery-image:hover {
+  border-color: #5daa96; }
 
 .ba-videorecorder-theme-cube-overlay {
   top: 0; }
@@ -2587,7 +2592,7 @@ video:fullscreen:not(:root) {
   height: 100%; }
 
 .ba-videorecorder-theme-cube-controlbar {
-  background-color: #999999;
+  background-color: #979797;
   background-color: rgba(0, 0, 0, 0.4);
   position: absolute;
   left: 0;
@@ -2606,7 +2611,7 @@ video:fullscreen:not(:root) {
   border: none;
   border-right: 1px solid #191919;
   border-right: 1px solid rgba(255, 255, 255, 0.1);
-  color: #ffffff;
+  color: #eeeeee;
   cursor: pointer;
   display: inline-block;
   float: left;
@@ -2617,7 +2622,7 @@ video:fullscreen:not(:root) {
 
 .ba-videorecorder-theme-cube-button-inner {
   border: none;
-  color: white;
+  color: #eeeeee;
   cursor: pointer;
   font-size: inherit;
   height: 100%;
@@ -2626,7 +2631,7 @@ video:fullscreen:not(:root) {
   width: 100%; }
 
 .ba-videorecorder-theme-cube-button-selected, .ba-videorecorder-theme-cube-button-inner:hover, .ba-videorecorder-theme-cube-button-selected {
-  color: #5daa96; }
+  color: #000000; }
 
 .ba-videorecorder-theme-cube-rightbutton-container {
   padding: 0; }
@@ -2648,12 +2653,12 @@ video:fullscreen:not(:root) {
   .ba-videorecorder-theme-cube-settings input[type=radio]:checked + span {
     border: 3px solid #d6d6d6; }
   .ba-videorecorder-theme-cube-settings span {
-    background-color: #5daa96; }
+    background-color: #000000; }
 
 .ba-videorecorder-theme-cube-button-primary {
   border: none;
   border-radius: 0;
-  color: #ffffff;
+  color: #eeeeee;
   display: inline-block;
   font-family: sans-serif;
   font-weight: 100;
@@ -2676,12 +2681,12 @@ video:fullscreen:not(:root) {
   line-height: 50px; }
 
 .ba-videorecorder-theme-cube-settings-button {
-  background-color: #ffffff;
+  background-color: #eeeeee;
   cursor: pointer;
   margin: 15px 0 0 15px; }
 
 .ba-videorecorder-theme-cube-settings label {
-  color: #ffffff; }
+  color: #eeeeee; }
 
 .ba-videorecorder-theme-cube-bubble-info {
   background-color: #ffffff;
@@ -2727,7 +2732,7 @@ video:fullscreen:not(:root) {
     border-right: 1px solid rgba(255, 255, 255, 0.1);
     border-left: 1px solid #191919;
     border-left: 1px solid rgba(255, 255, 255, 0.1);
-    color: #ffffff;
+    color: #eeeeee;
     cursor: default; }
 
 .ba-videorecorder-theme-cube-stop-button-container {
@@ -2750,7 +2755,7 @@ video:fullscreen:not(:root) {
 
 .ba-videorecorder-theme-cube-imagegallery-rightbutton, .ba-videorecorder-theme-cube-imagegallery-leftbutton {
   border-radius: 0;
-  background-color: #999999;
+  background-color: #979797;
   background-color: rgba(0, 0, 0, 0.4);
   height: 30px;
   width: 30px;
@@ -2806,7 +2811,7 @@ video:fullscreen:not(:root) {
           width: 114px;
           z-index: 8; }
           .ba-videorecorder-theme-cube-message-container .ba-videorecorder-theme-cube-top-inner-message-container .ba-videorecorder-theme-cube-first-inner-message-container .ba-videorecorder-theme-cube-second-inner-message-container .ba-videorecorder-theme-cube-third-inner-message-container .ba-videorecorder-theme-cube-fourth-inner-message-container {
-            background-color: white;
+            background-color: #eeeeee;
             -moz-border-radius: 50%;
             -webkit-border-radius: 50%;
             border-radius: 50%;
@@ -2821,13 +2826,13 @@ video:fullscreen:not(:root) {
             z-index: 10; }
 
 .ba-videorecorder-theme-cube-message-message {
-  color: black;
+  color: #000000;
   font-size: 15px;
   font-weight: 100;
   letter-spacing: .1em; }
 
 .ba-videorecorder-theme-cube-topmessage-message {
-  color: #ffffff;
+  color: #eeeeee;
   display: inline-block;
   font-family: sans-serif;
   font-size: 12px;

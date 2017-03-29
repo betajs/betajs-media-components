@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 	<script src="/static/vendors/jquery.min.js"></script>
-    <script src="/static/node_modules/betajs-shims/dist/betajs-shims.js"></script>
-    <script src="/static/node_modules/betajs-scoped/dist/scoped.js"></script>
-    <script src="/static/node_modules/betajs/dist/beta-noscoped.js"></script>
-    <script src="/static/node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
-    <script src="/static/node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
-    <script src="/static/node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
-    <script src="/static/node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
+		<script src="/static/node_modules/betajs-shims/dist/betajs-shims.js"></script>
+        <script src="/static/node_modules/betajs-scoped/dist/scoped.js"></script>
+        <script src="/static/node_modules/betajs/dist/beta-noscoped.js"></script>
+        <script src="/static/node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
+        <script src="/static/node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
+        <script src="/static/node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+        <script src="/static/node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
 	<script src="/static/dist/betajs-media-components-noscoped.js"></script>
 	<link href="/static/dist/betajs-media-components.css" rel="stylesheet" />
 
@@ -38,11 +38,11 @@
 
 </head>
 <body style="background: #EEE">
-    <div>
-        <h4>Default</h4>
+    <div ba-repeat="{{theme::themes}}">
+        <h4>{{theme}}</h4>
         <ba-videoplayer ba-sources="{{[{src:'assets/white-sample-video.mp4', poster: 'assets/black-sample-cover.png', hd: true}, {src:'assets/sample-video2.mp4', poster:'assets/sample-cover2.png', hd: false}]}}"
             ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
-            ba-theme="default"
+            ba-theme="{{theme}}"
             ba-title="Foobar"
             ba-noflash
             ba-sharevideo="facebook,twitter,gplus"

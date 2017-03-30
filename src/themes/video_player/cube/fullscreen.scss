@@ -1,8 +1,9 @@
 /* Full screen options */
 
-@include hide-dom-shadow-media-control();
 
 .#{$css}-fullscreen-view {
+
+  @include hide-dom-shadow-media-control();
 
   :-webkit-full-screen {  }
 

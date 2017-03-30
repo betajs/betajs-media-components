@@ -371,7 +371,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
 		stop: function () {
 			var minlimit = this.dyn.get("timeminlimit");
 			if (minlimit) {
-				var delta = Time.now() - this._startTime;
+				var delta = (Time.now() - this._startTime) / 1000;
 				if (delta < minlimit) {
 					var limit = this.dyn.get("timelimit");
 					if (!limit || limit > delta)

@@ -3,7 +3,7 @@
   display: table;
   height: 100%;
   width: 100%;
-  .#{$recorder}-top-inner-message-container{
+  .#{$recorder}-top-inner-message-container {
     display: table-cell;
     vertical-align: middle;
     .#{$recorder}-first-inner-message-container {
@@ -35,7 +35,6 @@
           .#{$recorder}-fourth-inner-message-container {
             background-color: $message_bgcolor;
             @include border-radius(50%);
-            @include absolute-center-center();
             position: relative;
             height: $message_height;
             left: $message_side_interval + ($message_side_interval / 2);

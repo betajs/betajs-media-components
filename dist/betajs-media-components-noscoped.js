@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.49 - 2017-04-05
+betajs-media-components - v0.0.49 - 2017-03-29
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -2842,7 +2842,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
 		stop: function () {
 			var minlimit = this.dyn.get("timeminlimit");
 			if (minlimit) {
-				var delta = Time.now() - this._startTime;
+				var delta = (Time.now() - this._startTime) / 1000;
 				if (delta < minlimit) {
 					var limit = this.dyn.get("timelimit");
 					if (!limit || limit > delta)

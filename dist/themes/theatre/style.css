@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.49 - 2017-04-05
+betajs-media-components - v0.0.49 - 2017-03-29
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1188,56 +1188,41 @@ Apache-2.0 Software License.
   color: #666666; }
 
 /* Full screen options */
-/* hide the default Chrome video player styling */
-video::-webkit-media-controls-overlay-enclosure {
-  display: none; }
-
-video::-webkit-media-controls-enclosure {
-  display: none; }
-
-video::-webkit-media-controls {
-  display: none; }
-
-/*  Needed to hide player controls in Safari Only */
-video::-webkit-media-controls-panel {
-  display: none; }
-
-video::-webkit-media-controls-play-button {
-  display: none; }
-
-video::-webkit-media-controls-current-time-display {
-  display: none; }
-
-video::-webkit-media-controls-time-remaining-display {
-  display: none; }
-
-video::-webkit-media-controls-timeline {
-  display: none; }
-
-video::-webkit-media-controls-mute-button {
-  display: none; }
-
-video::-webkit-media-controls-volume-slider {
-  display: none; }
-
-video::-webkit-media-controls-fullscreen-button {
-  display: none; }
-
-video::-internal-media-controls-download-button {
-  display: none; }
-
-/* Firefox Shadow DOM Fix */
-video::-moz-list-bullet, video::-moz-list-number {
-  display: none; }
-
-video::-moz-meter-bar {
-  display: none; }
-
-video:fullscreen:not(:root) {
-  display: none; }
-
 .ba-videoplayer-theatre-theme-fullscreen-view {
+  /* hide the default Chrome video player styling */
+  /*  Needed to hide player controls in Safari Only */
+  /* Firefox Shadow DOM Fix */
   width: 100% !important; }
+  .ba-videoplayer-theatre-theme-fullscreen-view video::-webkit-media-controls-overlay-enclosure {
+    display: none; }
+  .ba-videoplayer-theatre-theme-fullscreen-view video::-webkit-media-controls-enclosure {
+    display: none; }
+  .ba-videoplayer-theatre-theme-fullscreen-view video::-webkit-media-controls {
+    display: none; }
+  .ba-videoplayer-theatre-theme-fullscreen-view video::-webkit-media-controls-panel {
+    display: none; }
+  .ba-videoplayer-theatre-theme-fullscreen-view video::-webkit-media-controls-play-button {
+    display: none; }
+  .ba-videoplayer-theatre-theme-fullscreen-view video::-webkit-media-controls-current-time-display {
+    display: none; }
+  .ba-videoplayer-theatre-theme-fullscreen-view video::-webkit-media-controls-time-remaining-display {
+    display: none; }
+  .ba-videoplayer-theatre-theme-fullscreen-view video::-webkit-media-controls-timeline {
+    display: none; }
+  .ba-videoplayer-theatre-theme-fullscreen-view video::-webkit-media-controls-mute-button {
+    display: none; }
+  .ba-videoplayer-theatre-theme-fullscreen-view video::-webkit-media-controls-volume-slider {
+    display: none; }
+  .ba-videoplayer-theatre-theme-fullscreen-view video::-webkit-media-controls-fullscreen-button {
+    display: none; }
+  .ba-videoplayer-theatre-theme-fullscreen-view video::-internal-media-controls-download-button {
+    display: none; }
+  .ba-videoplayer-theatre-theme-fullscreen-view video::-moz-list-bullet, .ba-videoplayer-theatre-theme-fullscreen-view video::-moz-list-number {
+    display: none; }
+  .ba-videoplayer-theatre-theme-fullscreen-view video::-moz-meter-bar {
+    display: none; }
+  .ba-videoplayer-theatre-theme-fullscreen-view video:fullscreen:not(:root) {
+    display: none; }
   .ba-videoplayer-theatre-theme-fullscreen-view .ba-videoplayer-theatre-theme-dashboard {
     bottom: 0; }
   .ba-videoplayer-theatre-theme-fullscreen-view .ba-videoplayer-theatre-theme-video-title-block {

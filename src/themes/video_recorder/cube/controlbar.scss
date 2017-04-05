@@ -8,7 +8,7 @@
 }
 
 .#{$css}-controlbar {
-  @include background-rgba( 0, 0, 0, .4, #999999);
+  @include background-rgba( 0, 0, 0, .4, #979797);
   @include absolute-align-full-bottom();
   height: $controlbar_footer_height;
   padding: 0;
@@ -22,7 +22,7 @@
   float: left;
 }
 
-.#{$css}-cube-button {
+.#{$css}-button {
   border: none;
   @include border-right-rgba(1px, 255, 255, 255, 0.1, #191919);
   color: $text_color;
@@ -45,7 +45,7 @@
   width: 100%;
 }
 
-.#{$css}-button-cube-selected, .#{$css}-cube-inner:hover, .#{$css}-button-selected {
+.#{$css}-button-selected, .#{$css}-button-inner:hover, .#{$css}-button-selected {
   color: $controlbar_button_hover_color;
 }
 
@@ -69,7 +69,7 @@
   } input[type=radio]:checked + span { border: 3px solid #d6d6d6;
   }
   span {
-    background: $button_color;
+    background-color: $button_color;
   }
 }
 
@@ -92,7 +92,7 @@
 }
 
 .#{$css}-settings-button {
-  background: $settings_bgcolor;
+  background-color: $settings_bgcolor;
   cursor: pointer;
   margin: 15px 0 0 15px;
 }

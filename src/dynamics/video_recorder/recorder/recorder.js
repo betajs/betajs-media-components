@@ -55,6 +55,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
 				/* Themes */
 				"theme": "",
+        "themecolor": "",
 				"csstheme": "",
 
 				/* Dynamics */
@@ -157,7 +158,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				"custom-covershots": "boolean",
 				"manualsubmit": "boolean",
 				"simulate": "boolean",
-				"allowedextensions": "array"
+				"allowedextensions": "array",
+        "themecolor": "string"
 			},
 			
 			extendables: ["states"],
@@ -177,6 +179,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 				
 				if (Info.isMobile())
 					this.set("skipinitial", false);
+
+        if(!this.get("themecolor"))
+          this.set("themecolor", "default");
 
 				this.__attachRequested = false;
 				this.__activated = false;

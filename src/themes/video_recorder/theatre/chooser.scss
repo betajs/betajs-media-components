@@ -1,5 +1,5 @@
 .#{$css}-chooser-container{
-  background: $chooser_background;
+  background-color: $chooser_background;
 }
 
 .#{$css}-chooser-icon-container {
@@ -16,7 +16,7 @@
 }
 
 .#{$css}-chooser-primary-button {
-  background: #ffffff;
+  background-color: #ffffff;
   color: #333333;
   border: 1px solid #333;
 }
@@ -24,27 +24,15 @@
 .#{$css}-chooser-secondary-button {
   //@include background-rgba( 0, 0, 0, 0.5, #666666 );
   border: 1px solid #999;
-  color: #999999;
+  color: #979797;
   margin-top: 2px;
 }
 
-.#{$css}-shape-record {
-  @include circle_shape( 6px, #ffffff, 4px, #5daa96 );
-  margin: 0 5px;
-  position: relative;
-  top: 3px;
+.#{$css}-icon-record:before {
+  font-size: .8em;
 }
-/*
-.#{$css}-triangle-shape-border {
-  @include circle_shape( 4px, #999999, 5px, #999999 );
-  margin: 0 5px;
-  position: relative;
-  top: 1px;
-  .#{$css}-shape-upload {
-    bottom: 4px;
-    @include triangle_up_shape( 6px, #191919 );
-    position: relative;
-    right: 1px;
-  }
+
+.#{$css}-icon-chooser-upload:before {
+  font-size: .9em;
+  @include rotate-90();
 }
-*/

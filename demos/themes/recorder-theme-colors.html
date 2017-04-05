@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="/static/vendors/jquery.min.js"></script>
+    <script src="/static/node_modules/betajs-shims/dist/betajs-shims.js"></script>
+    <script src="/static/node_modules/betajs-scoped/dist/scoped.js"></script>
+    <script src="/static/node_modules/betajs/dist/beta-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
+    <script src="/static/dist/betajs-media-components-noscoped.js"></script>
+    <link href="/static/dist/betajs-media-components.css" rel="stylesheet" />
+
+    <!-- Modern Theme Assets -->
+    <script src="/static/dist/themes/modern/script.js"></script>
+    <link href="/static/dist/themes/modern/style.css" rel="stylesheet" />
+
+    <!-- Space Theme Assets -->
+    <script src="/static/dist/themes/space/script.js"></script>
+    <link href="/static/dist/themes/space/style.css" rel="stylesheet" />
+
+    <!-- Theatre Theme Assets -->
+    <script src="/static/dist/themes/theatre/script.js"></script>
+    <link href="/static/dist/themes/theatre/style.css" rel="stylesheet" />
+
+    <!-- Elevate Theme Assets -->
+    <script src="/static/dist/themes/elevate/script.js"></script>
+    <link href="/static/dist/themes/elevate/style.css" rel="stylesheet" />
+
+    <!-- Cube Theme Assets -->
+    <script src="/static/dist/themes/cube/script.js"></script>
+    <link href="/static/dist/themes/cube/style.css" rel="stylesheet" />
+
+    <!-- Minimalist Theme Assets -->
+    <script src="/static/dist/themes/minimalist/script.js"></script>
+    <link href="/static/dist/themes/minimalist/style.css" rel="stylesheet" />
+
+</head>
+
+<body style="background: #999">
+
+    <h3>Cube</h3>
+    <ba-videorecorder
+            ba-width=400
+            ba-height=300
+            ba-theme="cube"
+            ba-themecolor="green"
+            ba-noaudio>
+    </ba-videorecorder>
+
+    <h3>Default</h3>
+    <ba-videorecorder
+            ba-width=400
+            ba-height=300
+            ba-theme="default"
+            ba-themecolor="green"
+            ba-noaudio></ba-videorecorder>
+
+    <h3>Elevate</h3>
+    <ba-videorecorder
+            ba-width=400
+            ba-height=300
+            ba-theme="elevate"
+            ba-themecolor="blue"
+            ba-noaudio></ba-videorecorder>
+
+    <h3>Minimalist</h3>
+    <ba-videorecorder
+            ba-width=400
+            ba-height=300
+            ba-theme="minimalist"
+            ba-themecolor="red"
+            ba-noaudio></ba-videorecorder>
+
+    <h3>Modern</h3>
+    <ba-videorecorder
+            ba-width=400
+            ba-height=300
+            ba-theme="modern"
+            ba-themecolor="red"
+            ba-noaudio></ba-videorecorder>
+
+    <h3>Space</h3>
+    <ba-videorecorder
+            ba-width=400
+            ba-height=300
+            ba-theme="space"
+            ba-themecolor="green"
+            ba-noaudio></ba-videorecorder>
+
+    <h3>Theatre</h3>
+    <ba-videorecorder
+            ba-width=400
+            ba-height=300
+            ba-theme="theatre"
+            ba-themecolor="green"
+            ba-noaudio></ba-videorecorder>
+<script>
+  BetaJS.Flash.options = {
+    flashFile: "assets/betajs-flash.swf",
+    forceReload: true
+  };
+
+  BetaJS.Dynamics.Dynamic.activate();
+  var filename = "video-" + BetaJS.Time.now();
+  var recorder = BetaJS.Dynamics.Dynamic.findByElement($("ba-videorecorder"));
+  recorder._prepareRecording = function () {
+    recorder.set("uploadoptions", {
+      image: {url:"/files/" + filename + ".jpg"},
+      video: {url:"/files/" + filename + ".webm"},
+      audio: {url:"/files/" + filename + ".wav"}
+    });
+    recorder.set("playbacksource", "/files/" + filename + ".mp4");
+    if (recorder.recorder)
+      recorder.set("playbackposter", "/files/" + filename + ".jpg");
+    return BetaJS.Promise.value(true);
+  };
+  recorder._verifyRecording = function () {
+    return BetaJS.Ajax.Support.execute({
+      method: "POST",
+      uri: "/files/" + filename + ".webm" + "/transcode/" + filename + ".mp4" + (recorder.recorder && recorder.recorder.localPlaybackSource().audio ? "?audio=" + filename + ".wav" : "")
+    });
+  };
+
+</script>
+</body>
+</html>

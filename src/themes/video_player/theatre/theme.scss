@@ -1,18 +1,26 @@
 $css: "ba-videoplayer-theatre-theme";
-$cssie8: "ba-videoplayer-theatre-ie8";
-$cssnoie8: "ba-videoplayer-theatre-noie8";
+$cssie8: "ba-videoplayer-ie8";
+$cssnoie8: "ba-videoplayer-noie8";
 $fontello_name: "bjsmc";
 
 $loader_size: 5px;
 $loader_frame_thickness: 0.6em;
 $text_line_space: 0.1em;
 
-$message_bgcolor: black;
+// cover
+$cover_playbutton_color: #eeeeee;
+$cover_playbutton_hover_color: #000000;
+$cover_playbutton_shadow: #000000;
+$cover_playbutton_border_color: #eeeeee;
+$cover_playbutton_border_hover_color: #000000;
+$cover_playbutton_hover_shadow: #eeeeee;
+
+$message_bgcolor: #000000;
 $message_opacity: 0.75;
-$message_color: white;
+$message_color: #979797;
 
 $font_family: Arial, sans-serif;
-$topmessage_bgcolor: black;
+$topmessage_bgcolor: #000000;
 $topmessage_opacity: 0.3;
 $topmessage_fontsize: 15px;
 $topmessage_height: 32px;
@@ -27,11 +35,11 @@ $playbutton_background_opacity: 0.2;
 
 $dashboard_width: 75%;
 $dashboard_transition: 0.5s;
-$dashboard_border_color: #e5e5e5;
+$dashboard_border_color: #666666;
 
 $controlbar_height: 28px;
 $controlbar_line_height: 31px;
-$controlbar_background: #ffffff;
+$controlbar_background: #eeeeee;
 $controlbar_left_block_width: 25%;
 $controlbar_center_block_width: 47%;
 $controlbar_right_block_width: 23%;
@@ -41,38 +49,37 @@ $full_screen_background: #b2b2b2;
 
 $button_fontsize: 13px;
 $button_width: 40px;
-$button_color: #5daa96;
-$button_color_secondary: #b0b0b0;
+$button_color: #000000;
+$button_color_secondary: #666666;
 $time_value_width: 100px;
 $ie8_margintop: 6px;
 $text_fontfamily: Helvetica Neue, Helvetica, Arial, sans-serif;
 $text_fontsize: 0.7rem;
-$text_color: #2c2c2c;
+$text_color: #eeeeee;
+$text_secondary_color: #666666;
 $controls_bgcolor: rgba(93, 170, 150, 0.3);
 $volume_width: 7px;
 $volume_height: 60px;
-$volume_off_color: red;
-$progressbar_cache_bgcolor: #ededed;
-$progressbar_button_overflow: #5daa96;
+$volume_off_color: #000000;
 $progressbar_height: 10px;
-$progressbar_height: 10px;
-$stream_label_bg_color: #5daa96;
-$stream_label_color: #ffffff;
+$progressbar_cache_bgcolor: #cccccc;
+$progressbar_button_overflow: #000000;
+$stream_label_bg_color: #000000;
+$stream_label_color: #eeeeee;
 $time_value_width: 40px;
 $aligned-buttons-container: 80px;
 
-$rerecord_text_color: white;
+$rerecord_text_color: #eeeeee;
 $rerecord_font_family: sans-serif;
-
 
 $rerecord_height: 50px;
 $rerecord_opacity: 1;
-$rerecord_bgcolor: white;
+$rerecord_bgcolor: #eeeeee;
 $rerecord_padding: 24px;
 $rerecord_padding: 16px;
 $rerecord_primarybutton_radius: 3px;
-$rerecord_primarybutton_color: #5daa96;
-$rerecord_primarybutton_text_color: white;
+$rerecord_primarybutton_color: #000000;
+$rerecord_primarybutton_text_color: #eeeeee;
 $rerecord_primarybutton_padding: 0;
 $rerecord_primarybutton_vertical_padding: 16px;
 $rerecord_primarybutton_font_weight: 100;
@@ -83,7 +90,7 @@ $rerecord_letter_spacing: .1em;
 $share_container_top: 50px;
 $share_container_width: 90px;
 $share_container_right: 15px;
-$open_share_button_color: #ffffff;
+$open_share_button_color: #eeeeee;
 $open_share_button_border_radius: 5px;
 $open_share_button_size: 13px;
 $open_share_button_top: 30px;
@@ -94,11 +101,14 @@ $share_icon_font_size: 14px;
 $share_icon_container_height: 45px;
 $share_icon_container_width: 45px;
 
-// Colors for main buttons
+// Theme Colors
+$theme_color_blue: #2a74eb;
+$theme_color_red: #eb6a74;
+$theme_color_green: #5daa96;
+
 $colors: (
-  'red': #eb6a74,
-  'blue': #3b5998,
-  'white': white,
-  'yellow': #ffce00,
-  'default': #ffffff
+  'red': $theme_color_red,
+  'blue': $theme_color_blue,
+  'green': $theme_color_green,
+  'default': ''
 );

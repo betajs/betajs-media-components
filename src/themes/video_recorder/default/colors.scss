@@ -1,0 +1,21 @@
+@each $color, $value in $colors {
+  @if $color != default {
+    .#{$css}-#{$color}-color {
+
+      .#{$css}-button-inner, .#{$css}-chooser-secondary-button, .#{$css}-loader-label {
+        color: $value;
+      }
+
+      .#{$css}-video, .#{$css}-button-primary, .#{$css}-chooser-primary-button,
+      .#{$css}-imagegallery-rightbutton, .#{$css}-imagegallery-leftbutton {
+        background-color: $value;
+      }
+
+      .#{$css}-settings input[type=radio]:checked + span,
+      .#{$css}-imagegallery-image:hover {
+        border-color: $value;
+      }
+
+    }
+  }
+}

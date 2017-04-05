@@ -3,7 +3,7 @@
 }
 
 .#{$css}-topmessage-background {
-  background: transparent;
+  background-color: transparent;
   position: relative;
   height: 40px;
 }
@@ -15,10 +15,6 @@
   font-size: 0.65rem;
   letter-spacing: .05rem;
   font-weight: 100;
-}
-
-.#{$css}-topmessage-background {
-  background: none;
 }
 
 .#{$css}-topmessage-message {

@@ -57,7 +57,7 @@
 }
 
 .#{$css}-circle-button {
-  @include background-rgba(0, 0, 0, 0.4, #999999);
+  @include background-rgba(0, 0, 0, 0.4, #979797);
   @include border-radius($controlbar_button_border_radius);
   color: $text_color;
   display: inline-block;
@@ -96,7 +96,7 @@
   } input[type=radio]:checked + span { border: 3px solid $text_color;
   }
   span {
-    background: $button_color;
+    background-color: $button_color;
   }
   .#{$css}-circle-button {
     margin: 6px 0;
@@ -151,7 +151,7 @@
   opacity: 0.25;
   .#{$css}-button-primary {
     color: $text_color;
-    @include background-rgba(0, 0, 0, .4, #999999);
+    @include background-rgba(0, 0, 0, .4, #979797);
   }
 }
 

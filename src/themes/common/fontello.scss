@@ -131,13 +131,11 @@
   @include fontello-icon;
 }
 
-
 .#{$css}-icon-facebook-official:before {
   color: #3b5998;
   content: '\f230';
   @include fontello-icon;
 }
-
 
 .#{$css}-icon-twitter:before {
   color: #1da1f2;
@@ -145,13 +143,11 @@
   @include fontello-icon;
 }
 
-
 .#{$css}-icon-twitter-squared:before {
   color: #1da1f2;
   content: '\f304';
   @include fontello-icon;
 }
-
 
 .#{$css}-icon-gplus:before {
   color: #dd4b39;
@@ -159,9 +155,28 @@
   @include fontello-icon;
 }
 
-
 .#{$css}-icon-gplus-squared:before {
   color: #dd4b39;
   content: '\f0d4';
+  @include fontello-icon;
+}
+
+.#{$css}-icon-record:before {
+  content: '\e811';
+  @include fontello-icon;
+}
+
+.#{$css}-icon-record-core:before {
+  content: '\e812';
+  @include fontello-icon;
+}
+
+.#{$css}-icon-chooser-upload:before {
+  content: '\f144';
+  @include fontello-icon;
+}
+
+.#{$css}-icon-up-dir:before {
+  content: '\e813';
   @include fontello-icon;
 }

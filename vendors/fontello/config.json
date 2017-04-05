@@ -161,6 +161,30 @@
       "css": "gplus-squared",
       "code": 61652,
       "src": "fontawesome"
+    },
+    {
+      "uid": "14cab076c708524c1031b29ffd1c188f",
+      "css": "record",
+      "code": 59409,
+      "src": "elusive"
+    },
+    {
+      "uid": "6c985c88b4c460d6c5a3e34d53361286",
+      "css": "record-core",
+      "code": 59410,
+      "src": "typicons"
+    },
+    {
+      "uid": "5717236f6134afe2d2a278a5c9b3927a",
+      "css": "play-circled",
+      "code": 61764,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "80cd1022bd9ea151d554bec1fa05f2de",
+      "css": "up-dir",
+      "code": 59411,
+      "src": "fontawesome"
     }
   ]
 }

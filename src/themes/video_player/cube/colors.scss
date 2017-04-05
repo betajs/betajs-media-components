@@ -2,20 +2,29 @@
   @if $color != default {
     .#{$css}-#{$color}-color {
 
-      .#{$css}-dashboard, .#{$css}-timer-container, .#{$css}-video-title,
-      .#{$css}-right-block .#{$css}-icon-volume-up,
-      .#{$css}-right-block .#{$css}-icon-volume-down,
-      .#{$css}-right-block .#{$css}-icon-resize-full,
-      .#{$css}-right-block .#{$css}-icon-resize-small {
+      .#{$css}-dashboard, .#{$css}-video-title, .#{$css}-right-block .#{$css}-icon-volume-up,
+      .#{$css}-right-block .#{$css}-icon-volume-down, .#{$css}-right-block .#{$css}-icon-resize-full,
+      .#{$css}-right-block .#{$css}-icon-resize-small, .#{$css}-button-inner,
+      .#{$css}-playbutton-button:hover::after {
         color: $value;
       }
 
-      .#{$css}-volumebar-position, .#{$css}-stream-label, .#{$css}-progressbar-position {
+      .#{$css}-volumebar-position, .#{$css}-stream-label, .#{$css}-progressbar-position,
+      .#{$css}-rerecord-button {
         background-color: $value;
       }
 
+      .#{$css}-playbutton-button {
+        border-left-color: $value;
+      }
+
       .#{$css}-volumebar-inner {
-        background: rgba(255, 255, 255, 0.3);
+        @include background-rgba(255, 255, 255, 0.3, #979797);
+      }
+
+      &.#{$cssie8} .#{$css}-playbutton-container,
+      &.#{$cssnoie8} .#{$css}-playbutton-container {
+        border-color: $value;
       }
     }
   }

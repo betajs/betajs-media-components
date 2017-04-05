@@ -1,6 +1,6 @@
 .#{$css}-chooser-container {
 	@include absolute-align-all;
-	background: $recorder_bgcolor;
+	background-color: $recorder_bgcolor;
 }
 
 .#{$css}-chooser-file {
@@ -28,7 +28,7 @@
 .#{$css}-chooser-primary-button {
 	@include clickable;
 	@include border-radius($chooser_primary_button_border_radius);
-	background: $chooser_primary_button_bgcolor;
+	background-color: $chooser_primary_button_bgcolor;
 	color: $text_color;
 	padding: $chooser_primary_button_vertical_padding;
 	padding-left: $chooser_primary_button_horizontal_padding;

@@ -2,16 +2,18 @@
   @if $color != default {
     .#{$css}-#{$color}-color {
 
-      &.#{$cssnoie8} .#{$css}-time-container, .#{$css}-button-inner {
+
+      .#{$css}-button-inner, .#{$css}-video-title {
         color: $value;
       }
 
-      .#{$css}-volumebar-position, .#{$css}-progressbar-position {
+      .#{$css}-volumebar-position, .#{$css}-progressbar-position,
+      .#{$css}-rerecord-button {
         background-color: $value;
       }
 
       .#{$css}-volumebar-inner {
-        background: rgba(255, 255, 255, 0.3);
+        @include background-rgba(255, 255, 255, 0.3, #7f7f7f);
       }
     }
   }

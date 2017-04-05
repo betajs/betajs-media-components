@@ -1,6 +1,8 @@
 
 <div data-selector="recorder-container" ba-show="{{!player_active}}"
-     class="{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}"
+     class="{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}
+     	{{css}}-{{ fullscreened ? 'fullscreen' : 'normal' }}-view {{css}}-{{ firefox ? 'firefox' : 'common'}}-browser
+    	{{css}}-{{themecolor}}-color"
      style="{{width ? 'width:' + width + ((width + '').match(/^\d+$/g) ? 'px' : '') + ';' : 'width:100%;'}}{{height ? 'height:' + height + ((height + '').match(/^\d+$/g) ? 'px' : '') + ';' : 'height:100%'}}"
 >
 
@@ -8,6 +10,7 @@
     <div data-selector="recorder-overlay" class='{{css}}-overlay' ba-show="{{!hideoverlay}}" data-overlay="overlay">
 		<ba-{{dynloader}}
 		    ba-css="{{cssloader || css}}"
+			ba-themecolor="{{themecolor}}"
 		    ba-template="{{tmplloader}}"
 		    ba-show="{{loader_active}}"
 		    ba-tooltip="{{loadertooltip}}"
@@ -17,6 +20,7 @@
 
 		<ba-{{dynmessage}}
 		    ba-css="{{cssmessage || css}}"
+			ba-themecolor="{{themecolor}}"
 		    ba-template="{{tmplmessage}}"
 		    ba-show="{{message_active}}"
 		    ba-message="{{message}}"
@@ -25,6 +29,7 @@
 
 		<ba-{{dyntopmessage}}
 		    ba-css="{{csstopmessage || css}}"
+			ba-themecolor="{{themecolor}}"
 		    ba-template="{{tmpltopmessage}}"
 		    ba-show="{{topmessage_active && (topmessage || hovermessage)}}"
 		    ba-topmessage="{{hovermessage || topmessage}}"
@@ -32,6 +37,7 @@
 
 		<ba-{{dynchooser}}
 		    ba-css="{{csschooser || css}}"
+			ba-themecolor="{{themecolor}}"
 		    ba-template="{{tmplchooser}}"
 		    ba-show="{{chooser_active}}"
 		    ba-allowrecord="{{allowrecord}}"
@@ -46,6 +52,7 @@
 
 		<ba-{{dynimagegallery}}
 		    ba-css="{{cssimagegallery || css}}"
+			ba-themecolor="{{themecolor}}"
 		    ba-template="{{tmplimagegallery}}"
 		    ba-if="{{imagegallery_active}}"
 		    ba-imagecount="{{gallerysnapshots}}"
@@ -56,6 +63,7 @@
 
 		<ba-{{dyncontrolbar}}
 		    ba-css="{{csscontrolbar || css}}"
+			ba-themecolor="{{themecolor}}"
 		    ba-template="{{tmplcontrolbar}}"
 		    ba-show="{{controlbar_active}}"
 		    ba-cameras="{{cameras}}"
@@ -88,28 +96,29 @@
      style="{{width ? 'width:' + width + ((width + '').match(/^\d+$/g) ? 'px' : '') + ';' : ''}}{{height ? 'height:' + height + ((height + '').match(/^\d+$/g) ? 'px' : '') + ';' : ''}}"
 >
 	<ba-{{dynvideoplayer}} ba-theme="{{theme || 'default'}}"
-	                       ba-source="{{playbacksource}}"
-	                       ba-poster="{{playbackposter}}"
-	                       ba-hideoninactivity="{{false}}"
-	                       ba-forceflash="{{forceflash}}"
-	                       ba-noflash="{{noflash}}"
-	                       ba-stretch="{{stretch}}"
-	                       ba-attrs="{{playerattrs}}"
-	                       ba-data:id="player"
-	                       ba-width="{{width}}"
-	                       ba-height="{{height}}"
-	                       ba-totalduration="{{duration / 1000}}"
-	                       ba-rerecordable="{{rerecordable && (recordings === null || recordings > 0)}}"
-	                       ba-submittable="{{manualsubmit}}"
-	                       ba-reloadonplay="{{true}}"
-	                       ba-autoplay="{{autoplay}}"
-	                       ba-nofullscreen="{{nofullscreen}}"
-	                       ba-topmessage="{{playertopmessage}}"
-	                       ba-event:rerecord="rerecord"
-	                       ba-event:playing="playing"
-	                       ba-event:paused="paused"
-	                       ba-event:ended="ended"
-	                       ba-event:submit="manual_submit"
-	                       >
+        ba-themecolor="{{themecolor}}"
+        ba-source="{{playbacksource}}"
+        ba-poster="{{playbackposter}}"
+        ba-hideoninactivity="{{false}}"
+        ba-forceflash="{{forceflash}}"
+        ba-noflash="{{noflash}}"
+        ba-stretch="{{stretch}}"
+        ba-attrs="{{playerattrs}}"
+        ba-data:id="player"
+        ba-width="{{width}}"
+        ba-height="{{height}}"
+        ba-totalduration="{{duration / 1000}}"
+        ba-rerecordable="{{rerecordable && (recordings === null || recordings > 0)}}"
+        ba-submittable="{{manualsubmit}}"
+        ba-reloadonplay="{{true}}"
+        ba-autoplay="{{autoplay}}"
+        ba-nofullscreen="{{nofullscreen}}"
+        ba-topmessage="{{playertopmessage}}"
+        ba-event:rerecord="rerecord"
+        ba-event:playing="playing"
+        ba-event:paused="paused"
+        ba-event:ended="ended"
+        ba-event:submit="manual_submit"
+        >
 	</ba-{{dynvideoplayer}}>
 </div>

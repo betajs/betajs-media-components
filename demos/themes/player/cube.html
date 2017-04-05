@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../../../vendors/jquery.min.js"></script>
+    <script src="../../../vendors/es5-shim.js"></script>
+    <script src="../../../vendors/es6-shim.js"></script>
+    <script src="../../../node_modules/betajs-shims/dist/betajs-shims.js"></script>
+    <script src="../../../node_modules/betajs-scoped/dist/scoped.js"></script>
+    <script src="../../../node_modules/betajs/dist/beta-noscoped.js"></script>
+    <script src="../../../node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
+    <script src="../../../node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
+    <script src="../../../node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+    <script src="../../../node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
+    <script src="../../../dist/betajs-media-components-noscoped.js"></script>
+    <link href="../../../dist/betajs-media-components.css" rel="stylesheet" />
+
+    <!-- Cube Theme Assets -->
+    <script src="../../../dist/themes/cube/script.js"></script>
+    <link href="../../../dist/themes/cube/style.css" rel="stylesheet" />
+
+
+</head>
+<body style="background: #EEE">
+
+<h4>Cube</h4>
+<ba-videoplayer ba-sources="{{[{src:'../assets/sample-video.mp4', poster: '../assets/sample-cover.png', hd: true}, {src:'../assets/sample-video2.mp4', poster:'../assets/sample-cover2.png', hd: false}]}}"
+                ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
+                ba-theme="cube"
+                ba-themecolor="red"
+                ba-title="Some test title from html"
+                ba-noflash
+                ba-hideoninactivity="false"
+                ba-skipinitial="false"
+                ba-width='80%'></ba-videoplayer>
+<script>
+  BetaJS.Flash.options = {
+    flashFile: "/assets/vendors/betajs-flash.swf",
+    forceReload: true
+  };
+  BetaJS.Dynamics.Dynamic.activate();
+</script>
+
+</body>
+</html>

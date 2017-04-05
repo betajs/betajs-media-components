@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
 	<script src="/static/vendors/jquery.min.js"></script>
+	<script src="/static/vendors/es5-shim.js"></script>
+	<script src="/static/vendors/es6-shim.js"></script>
     <script src="/static/node_modules/betajs-shims/dist/betajs-shims.js"></script>
     <script src="/static/node_modules/betajs-scoped/dist/scoped.js"></script>
     <script src="/static/node_modules/betajs/dist/beta-noscoped.js"></script>
@@ -38,18 +40,18 @@
 
 </head>
 <body style="background: #EEE">
-    <div>
-        <h4>Default</h4>
-        <ba-videoplayer ba-sources="{{[{src:'assets/white-sample-video.mp4', poster: 'assets/black-sample-cover.png', hd: true}, {src:'assets/sample-video2.mp4', poster:'assets/sample-cover2.png', hd: false}]}}"
+    <div ba-repeat="{{theme::themes}}">
+        <h4>{{theme}}</h4>
+        <ba-videoplayer ba-sources="{{[{src:'http://clips.vorwaerts-gmbh.de/VfE_html5.mp4', poster: 'https://www.w3schools.com/css/paris.jpg', hd: true}, {src:'http://clips.vorwaerts-gmbh.de/VfE_html5.mp4', poster:'https://www.w3schools.com/css/paris.jpg', hd: false}]}}"
             ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
-            ba-theme="default"
+            ba-theme="{{theme}}"
             ba-title="Foobar"
             ba-noflash
             ba-sharevideo="facebook,twitter,gplus"
             ba-sharevideourl="http://betajs.com"
             ba-hideoninactivity="false"
             ba-skipinitial="false"
-        ba-width='100%'></ba-videoplayer>
+            ba-width='100%'></ba-videoplayer>
     </div>
 
 	<script>
@@ -61,13 +63,13 @@
         element: document.body,
         attrs: {
           themes: [
-            "cube",
-            "default",
-            "elevate",
-            "minimalist",
-            "modern",
-            "space",
-            "theatre"
+            "cube"
+			, "default"
+			, "elevate"
+			, "minimalist"
+			, "modern"
+			, "space"
+			, "theatre"
           ]
         }
       });

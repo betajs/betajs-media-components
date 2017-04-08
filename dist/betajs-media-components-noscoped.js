@@ -1684,12 +1684,15 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
 			},
 			
 			updateContainerSize: function () {
-				var container = this.activeElement().querySelector("[data-gallery-container]");
-				var offset = Dom.elementOffset(container);
-				var dimensions = Dom.elementDimensions(container);
-				this.set("containeroffset", offset.left);
-				this.set("containerheight", dimensions.height);
-				this.set("containerwidth", dimensions.width);
+        var container = this.activeElement().querySelector("[data-gallery-container]");
+        var offset = Dom.elementOffset(container);
+        var videoOffset = Dom.elementOffset(this.parent().recorder._element);
+        var left = offset.left - videoOffset.left;
+
+        var dimensions = Dom.elementDimensions(container);
+        this.set("containeroffset", left);
+        this.set("containerheight", dimensions.height);
+        this.set("containerwidth", dimensions.width);
 			},
 			
 			_afterActivate: function (element) {

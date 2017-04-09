@@ -64,7 +64,9 @@
 
         <div data-selector="button-stream-label" class="{{css}}-button-container" ba-if="{{streams.length > 1 && currentstream}}" ba-click="toggle_stream()" title="{{string('change-resolution')}}">
             <div class="{{css}}-button-inner {{css}}-stream-label-container">
-                <span class="{{css}}-button-text {{css}}-stream-label">{{currentstream_label}}</span>
+                <div class="{{css}}-button-text {{css}}-stream-label">
+                    <span>{{currentstream_label}}</span>
+                </div>
             </div>
         </div>
 

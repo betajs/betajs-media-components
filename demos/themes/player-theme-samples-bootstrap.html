@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script src="/static/vendors/jquery.min.js"></script>
+	<script src="/static/vendors/es5-shim.js"></script>
+	<script src="/static/vendors/es6-shim.js"></script>
+    <script src="/static/node_modules/betajs-shims/dist/betajs-shims.js"></script>
+    <script src="/static/node_modules/betajs-scoped/dist/scoped.js"></script>
+    <script src="/static/node_modules/betajs/dist/beta-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
+	<script src="/static/dist/betajs-media-components-noscoped.js"></script>
+	<link href="/static/dist/betajs-media-components.css" rel="stylesheet" />
+
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- Modern Theme Assets -->
+    <script src="/static/dist/themes/modern/script.js"></script>
+    <link href="/static/dist/themes/modern/style.css" rel="stylesheet" />
+
+	<!-- Space Theme Assets -->
+	<script src="/static/dist/themes/space/script.js"></script>
+	<link href="/static/dist/themes/space/style.css" rel="stylesheet" />
+
+	<!-- Theatre Theme Assets -->
+	<script src="/static/dist/themes/theatre/script.js"></script>
+	<link href="/static/dist/themes/theatre/style.css" rel="stylesheet" />
+
+	<!-- Elevate Theme Assets -->
+	<script src="/static/dist/themes/elevate/script.js"></script>
+	<link href="/static/dist/themes/elevate/style.css" rel="stylesheet" />
+
+	<!-- Cube Theme Assets -->
+	<script src="/static/dist/themes/cube/script.js"></script>
+	<link href="/static/dist/themes/cube/style.css" rel="stylesheet" />
+
+	<!-- Minimalist Theme Assets -->
+	<script src="/static/dist/themes/minimalist/script.js"></script>
+	<link href="/static/dist/themes/minimalist/style.css" rel="stylesheet" />
+
+</head>
+<body style="background: #EEE">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+				<div ba-repeat="{{theme::themes}}">
+					<h4>{{theme}}</h4>
+					<ba-videoplayer ba-sources="{{[{src:'http://clips.vorwaerts-gmbh.de/VfE_html5.mp4', poster: 'https://www.w3schools.com/css/paris.jpg', hd: true}, {src:'http://clips.vorwaerts-gmbh.de/VfE_html5.mp4', poster:'https://www.w3schools.com/css/paris.jpg', hd: false}]}}"
+									ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
+									ba-theme="{{theme}}"
+									ba-title="Foobar"
+									ba-noflash
+									ba-sharevideo="facebook,twitter,gplus"
+									ba-sharevideourl="http://betajs.com"
+									ba-hideoninactivity="false"
+									ba-skipinitial="false"
+									ba-width='100%'></ba-videoplayer>
+				</div>
+            </div>
+        </div>
+    </div>
+
+	<script>
+      BetaJS.Flash.options = {
+        flashFile: "../../node_modules/betajs-flash/dist/betajs-flash.swf",
+        forceReload: true
+      };
+      BetaJS.Dynamics.Dynamic.activate({
+        element: document.body,
+        attrs: {
+          themes: [
+            "cube"
+			, "default"
+			, "elevate"
+			, "minimalist"
+			, "modern"
+			, "space"
+			, "theatre"
+          ]
+        }
+      });
+	</script>
+</body>
+</html>

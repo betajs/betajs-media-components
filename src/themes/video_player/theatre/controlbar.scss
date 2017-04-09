@@ -249,8 +249,7 @@
 .#{$css}-stream-label-container {
     text-align: right;
     margin-right: 3px;
-    margin-top: .5px;
-    .#{$css}-stream-label{
+    .#{$css}-stream-label {
         @include clickable;
         background-color: $stream_label_bg_color;
         color: $stream_label_color;

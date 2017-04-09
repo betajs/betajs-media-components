@@ -88,7 +88,7 @@
   color: $text_color;
   cursor: default;
   letter-spacing: .1em;
-  width: 84px;
+  width: 90px;
   font-weight: 100;
   font-size: .9em;
   padding: 0 2.5px;
@@ -110,11 +110,16 @@
   display: inline-block;
   font-weight: 100;
   font-size: 0.8em;
-  height: 22px;
+  height: 25px;
   letter-spacing: .1em;
   line-height: 24px;
-  padding: 1px 3px 1px 4px;
+  text-align: center;
   width: 25px;
+  & > span {
+    display: inline-block;
+    padding-left: 2px;
+    line-height: 25px;
+  }
 }
 
 .#{$cssnoie8} .#{$css}-progressbar {

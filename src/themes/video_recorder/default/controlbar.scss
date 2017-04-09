@@ -95,15 +95,12 @@
 
 .#{$css}-button-inner {
     @include relative-center-center;
-    @include clickable;
     color: $text_color;
 	cursor: pointer;
     font-size: $controlbar_button_fontsize;
 	margin-left: $controlbar_button_margin;
 	margin-right: $controlbar_button_margin;
 	padding: $controlbar_button_vertical_padding;
-	padding-left: $controlbar_button_padding;
-	padding-right: $controlbar_button_padding;
 	border: $controlbar_button_border;
 	border-radius: $controlbar_button_border_radius;
 }

@@ -5,8 +5,7 @@
 
 .#{$css}-chooser-file {
 	position: absolute;
-	opacity: 0;
-	filter: alpha(opacity=0);
+	@include transparent(0);
 	width: 100%;
 	height: 100%;
 	cursor: pointer;

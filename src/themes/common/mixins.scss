@@ -216,7 +216,7 @@
 
 @mixin transparent($opacity) {
     /* works for IE 5+. */
-    filter:alpha(opacity= ( $opacity*10 ) );
+    //filter:alpha(opacity= ( $opacity*10 ) );
 
     /* works for IE 8. */
     -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=#{$opacity * 10})";
@@ -432,7 +432,6 @@
 // 2147483648 z-index require for visible element
 @mixin hide-dom-shadow-media-control() {
 
-    /* hide the default Chrome video player styling */
     video::-webkit-media-controls-overlay-enclosure {
         display:none;
     }
@@ -445,7 +444,6 @@
         display:none;
     }
 
-    /*  Needed to hide player controls in Safari Only */
     video::-webkit-media-controls-panel {
         display:none;
     }
@@ -482,17 +480,12 @@
         display: none;
     }
 
-    /* Firefox Shadow DOM Fix */
     video::-moz-list-bullet, video::-moz-list-number {
         display:none;
     }
 
     video::-moz-meter-bar {
         display:none;
-    }
-
-    video:-moz-full-screen:not(:root)::backdrop {
-        //display:none;
     }
 
     video:fullscreen:not(:root) {

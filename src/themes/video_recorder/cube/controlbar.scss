@@ -24,10 +24,10 @@
 
 .#{$css}-button {
   border: none;
-  @include border-right-rgba(1px, 255, 255, 255, 0.1, #191919);
+  @include right-box-shadow(#666666, 1);
   color: $text_color;
   cursor: pointer;
-  display: inline-block; float: left;
+  float: left;
   height: $controlbar_footer_height;
   line-height: $controlbar_footer_height;
   text-align: center;
@@ -103,6 +103,10 @@
 
 .#{$css}-bubble-info {
   @include settings_bubble_bottom_shape ( 39px, 4px, 0, 0, 0, 0.4, #ffffff, 10px );
+}
+
+// Avoid CSS Lint warning
+.#{$css}-bubble-info {
   border-radius: 0;
 }
 

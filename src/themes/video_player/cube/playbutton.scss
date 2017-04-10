@@ -30,6 +30,10 @@
     content: "\e805";
     color: $cover_playbutton_color;
     font-size: 4.6em;
+}
+
+// To override fontello-icons properties
+.#{$cssnoie8} .#{$css}-playbutton-button::after {
     line-height: 2.3em;
     margin-left: 0.1em;
     width: 100%;

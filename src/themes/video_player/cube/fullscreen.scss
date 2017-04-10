@@ -5,16 +5,6 @@
 
   @include hide-dom-shadow-media-control();
 
-  :-webkit-full-screen {  }
-
-  :-moz-full-screen {  }
-
-  :-ms-fullscreen {  }
-
-  :fullscreen {  }
-
-  width: 100% !important;
-
   .#{$css}-dashboard {
     bottom: 0;
   }

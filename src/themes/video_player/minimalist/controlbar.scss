@@ -53,7 +53,7 @@
 }
 
 .#{$css}-title {
-  h4 {
+  p {
     color: $text_color;
     font-family: $font_family;
     font-size: $controlbar_video_title_font_size;
@@ -126,7 +126,7 @@
     }
     &:hover .#{$css}-controlbar-top-block {
       .#{$css}-button-inner {
-        @include transparent(6);
+        @include transparent(.6);
       }
     }
   }

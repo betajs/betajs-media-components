@@ -2,7 +2,7 @@
   @if $color != default {
     .#{$css}-#{$color}-color {
 
-      .#{$css}-title h4, .#{$css}-button-inner, .#{$css}-right-block .#{$css}-icon-volume-up,
+      .#{$css}-title p, .#{$css}-button-inner, .#{$css}-right-block .#{$css}-icon-volume-up,
       .#{$css}-right-block .#{$css}-icon-volume-down, .#{$css}-right-block .#{$css}-icon-resize-full,
       .#{$css}-right-block .#{$css}-icon-resize-small, .#{$css}-playbutton-button:hover::after,
       .#{$css}-controlbar-top-block .#{$css}-button-container .#{$css}-button-inner {

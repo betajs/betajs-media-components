@@ -128,10 +128,13 @@
 .#{$css}-bubble-info {
   @include settings_bubble_left_to_right_shape( 270px, 16px, 0, 0, 0, .5, #7f7f7f, 13px );
   left: $sidebar_width + 5;
-  position: absolute;
   li {
     text-align: left;
   }
+}
+
+.#{$css}-bubble-info {
+  position: absolute;
 }
 
 .#{$css}-controlbar-center-section {

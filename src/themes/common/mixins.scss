@@ -224,7 +224,7 @@
     //filter:alpha(opacity= ( $opacity*10 ) );
 
     /* works for IE 8. */
-    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=#{$opacity * 10})";
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=#{$opacity * 100})";
 
     /* works for old school versions of the Mozilla browsers like Netscape Navigator. */
     -moz-opacity:$opacity;

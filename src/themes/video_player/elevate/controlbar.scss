@@ -37,11 +37,11 @@
 .#{$css}-left-block {
     float: left;
     & > div {
+        @include right-box-shadow($button_border_color, 1);
         float: left;
         font-size: $button_fontsize;
         color: $button_color;
         line-height: $controlbar_line_height - 1;
-        border-right: 1px solid $button_border_color;
         text-align: center;
         width: $button_width;
     }
@@ -55,7 +55,7 @@
 .#{$css}-right-block{
     float: right;
     & > div {
-        border-left: 1px solid $button_border_color;
+        @include left-box-shadow($button_border_color, 1);
         float: right;
         line-height: $controlbar_line_height - 2;
         text-align: center;
@@ -155,6 +155,9 @@
 .#{$css}-progressbar {
     overflow: hidden;
     height: 100%;
+}
+
+.#{$css}-progressbar {
     padding: 10px 0 5px;
 }
 
@@ -240,7 +243,6 @@
 .#{$css}-left-block .#{$css}-volumebar {
     float: left;
     height: $controlbar_bottom_height;
-    padding: 0 5px;
     width: $volume_width;
 }
 
@@ -250,6 +252,7 @@
     @include clickable;
     background-color: $volumebar_cache_bgcolor;
     height: $volume_height;
+    margin: 0 5px;
 }
 
 .#{$css}-volumebar-position {

@@ -27,9 +27,10 @@
   background-color: white;
   border: none;
   border-right: $controlbar_button_border;
+  box-sizing: border-box;
   color: $text_color;
   cursor: pointer;
-  display: inline-block; float: left;
+  float: left;
   height: $controlbar_footer_height;
   line-height: $controlbar_footer_height;
   text-align: center;

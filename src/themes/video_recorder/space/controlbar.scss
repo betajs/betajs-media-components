@@ -35,7 +35,7 @@
   @include background-rgba(0, 0, 0, 0.4, #979797);
   @include border-radius($controlbar_button_border_radius);
   color: $text_color;
-  display: inline-block; float: left;
+  float: left;
   height: $controlbar_button_size;
   line-height: $controlbar_button_size;
   text-align: center;

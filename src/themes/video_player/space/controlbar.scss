@@ -8,6 +8,7 @@
 .#{$css}-controlbar-header {
     @include absolute-align-full-top();
     @include background-rgba(0, 0, 0, 0.4, #979797);
+    box-sizing: border-box;
     font-size: 0.65rem;
     font-weight: 100;
     height: $controlbar_header_height;
@@ -242,6 +243,7 @@
 
 .#{$css}-stream-label-container {
     background-color: $stream_label_bg_color;
+    box-sizing: border-box;
     width: $stream_label_width;
     padding: 2px;
     .#{$css}-stream-label {

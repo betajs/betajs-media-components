@@ -1,16 +1,13 @@
-Scoped.extend("module:Assets.recorderthemes", [
-    "module:Templates"
-], function (Templates) {
-	return {
-		"cube": {
-			css: "ba-videorecorder-theme-cube",
-			cssmessage: "ba-videorecorder-theme-cube",
-			cssloader: "ba-videorecorder",
-			tmpltopmessage: Templates["cube-video_recorder_topmessage"],
-			tmplcontrolbar: Templates["cube-video_recorder_controlbar"],
-			tmplimagegallery: Templates["cube-recorder_imagegallery"],
-			tmplchooser: Templates["cube-video_recorder_chooser"],
-			tmplmessage: Templates["cube-video_recorder_message"]
-		}
-	};
+Scoped.extend("module:Assets.recorderthemes", [], function() {
+    return {
+        "cube": {
+            css: "ba-videorecorder-theme-cube",
+            cssmessage: "ba-videorecorder-theme-cube",
+            cssloader: "ba-videorecorder",
+            tmplcontrolbar: "<%= template(dirname + '/cube-video_recorder_controlbar.html') %>",
+            tmplimagegallery: "<%= template(dirname + '/cube-video_recorder_imagegallery.html') %>",
+            tmplchooser: "<%= template(dirname + '/cube-video_recorder_chooser.html') %>",
+            tmplmessage: "<%= template(dirname + '/cube-video_recorder_message.html') %>"
+        }
+    };
 });

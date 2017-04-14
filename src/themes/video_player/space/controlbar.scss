@@ -10,7 +10,7 @@
     @include background-rgba(0, 0, 0, 0.4, #979797);
     box-sizing: border-box;
     font-size: 0.65rem;
-    font-weight: 100;
+    font-weight: 300;
     height: $controlbar_header_height;
     letter-spacing: .05rem;
     line-height: $controlbar_header_height + 2;
@@ -226,7 +226,7 @@
 .#{$css}-time-value{
     width: 30px;
     letter-spacing: 0.2em;
-    font-weight: 100;
+    font-weight: 300;
 }
 
 .#{$css}-size-small .#{$css}-time-container {

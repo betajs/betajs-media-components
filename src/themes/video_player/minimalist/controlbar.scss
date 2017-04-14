@@ -9,7 +9,7 @@
 
 .#{$css}-button-container {
     font-family: $font_family;
-    font-weight: 100;
+    font-weight: 300;
     display: inline-block;
     width: $button_width;
     color: $button_color;
@@ -57,7 +57,7 @@
     color: $text_color;
     font-family: $font_family;
     font-size: $controlbar_video_title_font_size;
-    font-weight: 100;
+    font-weight: 300;
     letter-spacing: .1em;
     line-height: $topmessage_height - 10;
     margin: 0;

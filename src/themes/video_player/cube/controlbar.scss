@@ -22,7 +22,7 @@
 .#{$css}-video-title {
   color: $title_text_color;
   font-family: $font_family;
-  font-weight: 100;
+  font-weight: 300;
   font-size: $title_font_size;
   letter-spacing: $text_letter_spacing;
   margin: 0;
@@ -89,7 +89,7 @@
   cursor: default;
   letter-spacing: .1em;
   width: 90px;
-  font-weight: 100;
+  font-weight: 300;
   font-size: .9em;
   & > div:first-child { margin-left: 4px }
   & > div {
@@ -108,7 +108,7 @@
   background-color: $stream_label_bg_color;
   color: $stream_label_color;
   display: inline-block;
-  font-weight: 100;
+  font-weight: 300;
   font-size: 0.8em;
   height: 25px;
   letter-spacing: .1em;

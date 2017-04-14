@@ -66,7 +66,7 @@
   bottom: 60px;
   label {
     font-family: $font_family;
-    font-weight: 100;
+    font-weight: 300;
     font-size: $settings_font_size ;
   }
   li {
@@ -82,7 +82,7 @@
   @include border-radius($controlbar_primarybutton_radius);
   display: inline-block;
   font-family: $font_family;
-  font-weight: 100;
+  font-weight: 300;
   margin-top: 6px;
   min-width: $controlbar_primarybutton_min_width;
   @include relative-align-all();

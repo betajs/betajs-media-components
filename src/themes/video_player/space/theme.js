@@ -1,18 +1,17 @@
 Scoped.extend("module:Assets.playerthemes", [
-    "module:Templates",
     "browser:Info"
-], function (Templates, Info) {
-	var ie8 = Info.isInternetExplorer() && Info.internetExplorerVersion() <= 8;
-	return {
-		"space": {
-			css: "ba-videoplayer-space-theme",
-			csstheme: "ba-videoplayer-space-theme",
-			tmplcontrolbar: Templates["space-video_player_controlbar"],
-			tmplplaybutton: Templates["space-video_player_playbutton"],
-			tmplmessage: Templates["space-video_player_message"],
-			cssloader: ie8 ? "ba-videoplayer" : "",
-			cssmessage: "ba-videoplayer",
-			cssplaybutton: ie8 ? "ba-videoplayer" : ""
-		}
-	};
+], function(Info) {
+    var ie8 = Info.isInternetExplorer() && Info.internetExplorerVersion() <= 8;
+    return {
+        "space": {
+            css: "ba-videoplayer-space-theme",
+            csstheme: "ba-videoplayer-space-theme",
+            tmplcontrolbar: "<%= template(dirname + '/space-video_player_controlbar.html') %>",
+            tmplplaybutton: "<%= template(dirname + '/space-video_player_playbutton.html') %>",
+            tmplmessage: "<%= template(dirname + '/space-video_player_message.html') %>",
+            cssloader: ie8 ? "ba-videoplayer" : "",
+            cssmessage: "ba-videoplayer",
+            cssplaybutton: ie8 ? "ba-videoplayer" : ""
+        }
+    };
 });

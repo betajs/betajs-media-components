@@ -1,16 +1,14 @@
-Scoped.extend("module:Assets.recorderthemes", [
-    "module:Templates"
-], function (Templates) {
-	return {
-		"minimalist": {
-			css: "ba-videorecorder-theme-minimalist",
-			cssmessage: "ba-videorecorder",
-			cssloader: "ba-videorecorder",
-			tmplchooser: Templates["minimalist-video_recorder_chooser"],
-			tmpltopmessage: Templates["minimalist-video_recorder_topmessage"],
-			tmplcontrolbar: Templates["minimalist-video_recorder_controlbar"],
-			tmplimagegallery: Templates["minimalist-recorder_imagegallery"],
-			tmplmessage: Templates["minimalist-video_recorder_message"]
-		}
-	};
+Scoped.extend("module:Assets.recorderthemes", [], function() {
+    return {
+        "minimalist": {
+            css: "ba-videorecorder-theme-minimalist",
+            cssmessage: "ba-videorecorder",
+            cssloader: "ba-videorecorder",
+            tmpltopmessage: "<%= template(dirname + '/minimalist-video_recorder_topmessage.html') %>",
+            tmplcontrolbar: "<%= template(dirname + '/minimalist-video_recorder_controlbar.html') %>",
+            tmplimagegallery: "<%= template(dirname + '/minimalist-video_recorder_imagegallery.html') %>",
+            tmplchooser: "<%= template(dirname + '/minimalist-video_recorder_chooser.html') %>",
+            tmplmessage: "<%= template(dirname + '/minimalist-video_recorder_message.html') %>"
+        }
+    };
 });

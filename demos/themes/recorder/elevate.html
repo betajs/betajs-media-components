@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
 		<script src="/static/vendors/jquery.min.js"></script>
 		<script src="/static/node_modules/betajs-shims/dist/betajs-shims.js"></script>
 		<script src="/static/node_modules/betajs-scoped/dist/scoped.js"></script>
@@ -19,16 +22,45 @@
 
 	<body style="background: #999">
 
-        <!-- Elevate -->
-		<ba-videorecorder ba-width=400 ba-height=300 ba-theme="elevate" ba-noaudio></ba-videorecorder>
+        <div class="container">
+            <div class="row">
+                <div id="video-recorder-block" class="col-xs-12">
+					<!-- Elevate -->
+					<ba-videorecorder ba-width=400 ba-height=300 ba-theme="elevate" ba-themecolor="{{themeColor}}" ba-noaudio></ba-videorecorder>
+                </div>
+            </div>
+			<div id="theme-colors" class="col-xs-12 col-sm-6">
+				<ba-themecolors></ba-themecolors>
+			</div>
+        </div>
+
 
 		<script>
 	        BetaJS.Flash.options = {
-	            flashFile: "/assets/vendors/betajs-flash.swf",
+	            flashFile: "/static/demos/themes/assets/betajs-flash.swf",
 	            forceReload: true
 	        };
 
-	        BetaJS.Dynamics.Dynamic.activate();
+            var selectColor = new BetaJS.Dynamics.Dynamic({
+              templateUrl: "../templates/themecolors.html",
+              element: $('#theme-colors'),
+              attrs: {
+                themeColors: [ 'default', 'red', 'green', 'blue' ]
+              }
+            });
+
+            var recorderTheme = new BetaJS.Dynamics.Dynamic({
+              element: $('#video-recorder-block'),
+              attrs: { themeColor: "" }
+            });
+
+            $("body").on("change", "#select-color", function (el) {
+              recorderTheme.set("themeColor", el.target.value);
+            });
+
+            selectColor.activate();
+            recorderTheme.activate();
+
 	        var filename = "video-" + BetaJS.Time.now();
 	        var recorder = BetaJS.Dynamics.Dynamic.findByElement($("ba-videorecorder"));
 	        recorder._prepareRecording = function () {

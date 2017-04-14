@@ -18,9 +18,9 @@
     <script src="/static/dist/betajs-media-components-noscoped.js"></script>
     <link href="/static/dist/betajs-media-components.css" rel="stylesheet" />
 
-    <!-- Theatre Theme Assets -->
-    <script src="/static/dist/themes/theatre/script.js"></script>
-    <link href="/static/dist/themes/theatre/style.css" rel="stylesheet" />
+    <!-- Modern Theme Assets -->
+    <script src="/static/dist/themes/modern/script.js"></script>
+    <link href="/static/dist/themes/modern/style.css" rel="stylesheet" />
 
 
 </head>
@@ -29,10 +29,10 @@
     <div class="container">
         <div class="row">
             <div id="video-player-block" class="col-xs-12">
-                <h4>Theatre</h4>
+                <h4>Modern</h4>
                 <ba-videoplayer ba-sources="{{[{src:'../assets/sample-video.mp4', poster: '../assets/sample-cover.png', hd: true}, {src:'../assets/sample-video2.mp4', poster:'../assets/sample-cover2.png', hd: false}]}}"
                                 ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
-                                ba-theme="theatre"
+                                ba-theme="modern"
                                 ba-themecolor="{{themeColor}}"
                                 ba-title="Some test title from html"
                                 ba-noflash

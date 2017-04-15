@@ -1,10 +1,14 @@
 .#{$css}-dashboard {
     //@include absolute-align-full-bottom;
-    //@include transition1(opacity, $dashboard_transition, ease-in-out);
+    @include transition1(opacity, $dashboard_transition, ease-in-out);
     //opacity: 0.9;
     height: $controlbar_height;
     overflow: hidden;
     padding: 0 4%;
+}
+
+.#{$css}-dashboard-hidden {
+  opacity: 0;
 }
 
 .#{$css}-button-container {

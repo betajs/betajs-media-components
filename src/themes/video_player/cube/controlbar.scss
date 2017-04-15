@@ -10,6 +10,10 @@
   overflow: hidden;
 }
 
+.#{$css}-dashboard-hidden {
+  opacity: 0;
+}
+
 .#{$cssie8} .#{$css}-video-title-block {
   display: none;
 }
@@ -17,6 +21,7 @@
 .#{$cssnoie8} .#{$css}-video-title-block {
   @include absolute-align-full-top();
   @include background-rgba(0, 0, 0, 0.6, #4f4f4f);
+  @include transition1(opacity, $dashboard_transition, ease-in-out);
 }
 
 .#{$css}-video-title {

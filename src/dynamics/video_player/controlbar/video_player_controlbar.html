@@ -1,5 +1,5 @@
 
-<div class="{{css}}-dashboard {{activitydelta > 5000 && hideonactivity ? (css + '-dashboard-hidden') : ''}}">
+<div class="{{css}}-dashboard {{activitydelta > 5000 && hideoninactivity ? (css + '-dashboard-hidden') : ''}}">
 	<div data-selector="progress-bar-inner" class="{{css}}-progressbar {{activitydelta < 2500 || ismobile ? '' : (css + '-progressbar-small')}}"
 	     onmousedown="{{startUpdatePosition(domEvent)}}"
 	     onmouseup="{{stopUpdatePosition(domEvent)}}"

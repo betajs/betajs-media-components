@@ -1,6 +1,7 @@
 
 .#{$css}-dashboard {
     @include absolute-align-all();
+    @include transition1(opacity, $dashboard_transition, ease-in-out);
 	height: $controlbar_height;
     overflow: hidden;
 }

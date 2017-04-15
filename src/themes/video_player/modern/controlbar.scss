@@ -146,6 +146,7 @@
 
 .#{$css}-video-title-container{
     @include absolute-align-full-top();
+    @include transition1(opacity, $dashboard_transition, ease-in-out);
     width: 100%;
     & > p {
         color: $title_text_color;

@@ -8,6 +8,7 @@
 }
 
 .#{$css}-dashboard {
+    @include transition1(opacity, $dashboard_transition, ease-in-out);
     position: absolute;
     left: 2.5%;
     bottom: 10px;

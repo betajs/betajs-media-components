@@ -1,5 +1,5 @@
 
-<div data-selector="video-title-block" class="{{css}}-video-title-block" ba-if="{{title}}">
+<div data-selector="video-title-block" class="{{css}}-video-title-block {{activitydelta > 5000 && hideoninactivity ? (css + '-dashboard-hidden') : ''}}" ba-if="{{title}}">
     <p class="{{css}}-video-title">
         {{title}}
     </p>

@@ -1,5 +1,6 @@
 /* Theatre */
 .#{$css}-dashboard {
+    @include transition1(opacity, $dashboard_transition, ease-in-out);
     background-color: $controlbar_background;
     box-sizing: border-box;
     bottom: $controlbar_distance_from_side;
@@ -64,6 +65,7 @@
 
 .#{$css}-video-title-container {
     @include absolute-align-full-top();
+    @include transition1(opacity, $dashboard_transition, ease-in-out);
     width: 100%;
     & > p {
         @include background-rgba( 255, 255, 255, 0.4, $controlbar_background);

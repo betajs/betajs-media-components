@@ -107,6 +107,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "manualsubmit": false,
                     "allowedextensions": null,
                     "filesizelimit": null,
+                    "onlyaudio": false,
 
                     /* Configuration */
                     "forceflash": false,
@@ -157,7 +158,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "custom-covershots": "boolean",
                     "manualsubmit": "boolean",
                     "simulate": "boolean",
-                    "allowedextensions": "array"
+                    "allowedextensions": "array",
+                    "onlyaudio": "boolean"
                 },
 
                 extendables: ["states"],

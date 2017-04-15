@@ -1246,7 +1246,7 @@ Apache-2.0 Software License.
   position: relative;
   overflow: hidden; }
 
-.ba-videoplayer-overlay {
+.ba-videoplayer-overlay, .ba-videoplayer-player-toggle-overlay {
   position: absolute;
   left: 0;
   right: 0;

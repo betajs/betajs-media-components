@@ -739,7 +739,7 @@ Apache-2.0 Software License.
   position: relative;
   overflow: hidden; }
 
-.ba-videoplayer-space-theme-overlay {
+.ba-videoplayer-space-theme-overlay, .ba-videoplayer-space-theme-player-toggle-overlay {
   position: absolute;
   left: 0;
   right: 0;
@@ -926,18 +926,27 @@ Apache-2.0 Software License.
   position: absolute;
   left: 0;
   right: 0;
-  top: 0;
   bottom: 0;
-  height: 100%;
+  transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out;
+  -ms-transition: opacity 0.5s ease-in-out;
+  height: 40px;
   overflow: hidden; }
 
-.ba-videoplayer-space-theme-controlbar-header {
+.ba-videoplayer-space-theme-video-title-container {
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
   background-color: #979797;
   background-color: rgba(0, 0, 0, 0.4);
+  transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out;
+  -ms-transition: opacity 0.5s ease-in-out;
   box-sizing: border-box;
   font-size: 0.65rem;
   font-weight: 300;
@@ -962,7 +971,7 @@ Apache-2.0 Software License.
   height: 40px;
   padding: 0 5px; }
 
-.ba-videoplayer-ie8 .ba-videoplayer-space-theme-controlbar-header, .ba-videoplayer-ie8 .ba-videoplayer-space-theme-controlbar-footer {
+.ba-videoplayer-ie8 .ba-videoplayer-space-theme-video-title-container, .ba-videoplayer-ie8 .ba-videoplayer-space-theme-controlbar-footer {
   opacity: .8; }
 
 .ba-videoplayer-space-theme-dashboard-hidden {
@@ -971,10 +980,10 @@ Apache-2.0 Software License.
 .pull-right {
   float: right; }
 
-.ba-videoplayer-noie8 .ba-videoplayer-space-theme-controlbar-header .css-rightbutton-container {
+.ba-videoplayer-noie8 .ba-videoplayer-space-theme-video-title-container .css-rightbutton-container {
   width: 21px; }
 
-.ba-videoplayer-space-theme-controlbar-header-background {
+.ba-videoplayer-space-theme-video-title-container-background {
   position: relative;
   height: 40px; }
 
@@ -986,7 +995,7 @@ Apache-2.0 Software License.
     font-size: 12px;
     font-family: sans-serif; }
 
-.ba-videoplayer-noie8 .ba-videoplayer-space-theme-controlbar-header .ba-videoplayer-space-theme-button-inner {
+.ba-videoplayer-noie8 .ba-videoplayer-space-theme-video-title-container .ba-videoplayer-space-theme-button-inner {
   -webkit-transform: translateY(0);
   -moz-transform: translateY(0);
   -o-transform: translateY(0);

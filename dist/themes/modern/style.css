@@ -739,7 +739,7 @@ Apache-2.0 Software License.
   position: relative;
   overflow: hidden; }
 
-.ba-videoplayer-theme-modern-overlay {
+.ba-videoplayer-theme-modern-overlay, .ba-videoplayer-theme-modern-player-toggle-overlay {
   position: absolute;
   left: 0;
   right: 0;
@@ -1089,6 +1089,11 @@ Apache-2.0 Software License.
   left: 0;
   right: 0;
   top: 0;
+  transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out;
+  -ms-transition: opacity 0.5s ease-in-out;
   width: 100%; }
   .ba-videoplayer-theme-modern-video-title-container > p {
     color: #666666;

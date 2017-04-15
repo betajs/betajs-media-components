@@ -739,7 +739,7 @@ Apache-2.0 Software License.
   position: relative;
   overflow: hidden; }
 
-.ba-videoplayer-minimalist-theme-overlay {
+.ba-videoplayer-minimalist-theme-overlay, .ba-videoplayer-minimalist-theme-player-toggle-overlay {
   position: absolute;
   left: 0;
   right: 0;
@@ -896,9 +896,17 @@ Apache-2.0 Software License.
   background-color: #5daa96; }
 
 .ba-videoplayer-minimalist-theme-dashboard {
+  transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out;
+  -ms-transition: opacity 0.5s ease-in-out;
   height: 100%;
   overflow: hidden;
   padding: 0 4%; }
+
+.ba-videoplayer-minimalist-theme-dashboard-hidden {
+  opacity: 0; }
 
 .ba-videoplayer-minimalist-theme-button-container {
   font-family: sans-serif;

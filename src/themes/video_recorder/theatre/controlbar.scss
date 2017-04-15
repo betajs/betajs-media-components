@@ -123,7 +123,7 @@
   text-align: center;
   width: 100%;
   .#{$css}-button-primary {
-    background-color: initial;
+    background-color: inherit;
     border-left: $controlbar_button_border;
     border-right: $controlbar_button_border;
     color: $text_color_secondary;

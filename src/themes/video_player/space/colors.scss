@@ -16,8 +16,6 @@
 
       .#{$css}-volumebar-position, .#{$css}-progressbar-position,
       .#{$css}-stream-label-container .#{$css}-stream-label,
-      &.#{$cssnoie8} .#{$css}-playbutton-container,
-      &.#{$cssie8} .#{$css}-playbutton-container, .#{$css}-playbutton-container,
       .#{$css}-progressbar-button, .#{$css}-rerecord-button {
         background-color: $value;
       }

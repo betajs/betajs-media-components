@@ -16,7 +16,7 @@
 
 .#{$cssnoie8} .#{$css}-playbutton-container:hover {
     @include box-shadow($cover_playbutton_hover_shadow, 22);
-    border-color: $cover_playbutton_border_hover_color;
+   // border-color: $cover_playbutton_border_hover_color;
     .#{$css}-playbutton-button::after {
         @include text-shadow($cover_playbutton_hover_shadow, 4);
     }
@@ -38,7 +38,7 @@
 }
 
 .#{$css}-playbutton-button:hover::after {
-    color: $cover_playbutton_hover_color;
+   // color: $cover_playbutton_hover_color;
 }
 
 .#{$css}-rerecord-bar {

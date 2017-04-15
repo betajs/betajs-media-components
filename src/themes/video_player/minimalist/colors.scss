@@ -4,7 +4,7 @@
 
       .#{$css}-title p, .#{$css}-button-inner, .#{$css}-right-block .#{$css}-icon-volume-up,
       .#{$css}-right-block .#{$css}-icon-volume-down, .#{$css}-right-block .#{$css}-icon-resize-full,
-      .#{$css}-right-block .#{$css}-icon-resize-small, .#{$css}-playbutton-button:hover::after,
+      .#{$css}-right-block .#{$css}-icon-resize-small,
       .#{$css}-controlbar-top-block .#{$css}-button-container .#{$css}-button-inner {
         color: $value;
       }
@@ -14,10 +14,6 @@
         background-color: $value;
       }
 
-      &.#{$cssie8} .#{$css}-playbutton-container,
-      &.#{$cssnoie8} .#{$css}-playbutton-container {
-        border-color: $value;
-      }
     }
   }
 }

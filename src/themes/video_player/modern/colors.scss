@@ -4,8 +4,7 @@
 
       .#{$css}-video-title, .#{$css}-icon-volume-up,
       &.#{$cssnoie8} .#{$css}-button-inner,&.#{$cssie8} .#{$css}-button-inner,
-      .#{$css}-playbutton-button::after, &.#{$cssnoie8} .#{$css}-icon-share,
-      .#{$css}-playbutton-button:hover::after {
+      &.#{$cssnoie8} .#{$css}-icon-share {
         color: $value;
       }
 
@@ -19,10 +18,6 @@
         border-left-color: $value;
       }
 
-      &.#{$cssie8} .#{$css}-playbutton-container,
-      &.#{$cssnoie8} .#{$css}-playbutton-container {
-        border-color: $value;
-      }
     }
   }
 }

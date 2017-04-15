@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script src="/static/vendors/jquery.min.js"></script>
+    <script src="/static/node_modules/betajs-shims/dist/betajs-shims.js"></script>
+    <script src="/static/node_modules/betajs-scoped/dist/scoped.js"></script>
+    <script src="/static/node_modules/betajs/dist/beta-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
+	<script src="/static/dist/betajs-media-components-noscoped.js"></script>
+	<link href="/static/dist/betajs-media-components.css" rel="stylesheet" />
+
+	<!-- Modern Theme Assets -->
+    <script src="/static/dist/themes/modern/script.js"></script>
+    <link href="/static/dist/themes/modern/style.css" rel="stylesheet" />
+
+	<!-- Space Theme Assets -->
+	<script src="/static/dist/themes/space/script.js"></script>
+	<link href="/static/dist/themes/space/style.css" rel="stylesheet" />
+
+	<!-- Theatre Theme Assets -->
+	<script src="/static/dist/themes/theatre/script.js"></script>
+	<link href="/static/dist/themes/theatre/style.css" rel="stylesheet" />
+
+	<!-- Elevate Theme Assets -->
+	<script src="/static/dist/themes/elevate/script.js"></script>
+	<link href="/static/dist/themes/elevate/style.css" rel="stylesheet" />
+
+	<!-- Cube Theme Assets -->
+	<script src="/static/dist/themes/cube/script.js"></script>
+	<link href="/static/dist/themes/cube/style.css" rel="stylesheet" />
+
+	<!-- Minimalist Theme Assets -->
+	<script src="/static/dist/themes/minimalist/script.js"></script>
+	<link href="/static/dist/themes/minimalist/style.css" rel="stylesheet" />
+
+</head>
+<body style="background: #EEE">
+
+    <h4>Cube</h4>
+    <ba-videoplayer ba-sources="{{[{src:'assets/sample-video.mp4', poster: 'assets/sample-cover.png', hd: true}, {src:'assets/sample-video2.mp4', poster:'assets/sample-cover2.png', hd: false}]}}"
+      ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
+      ba-theme="cube"
+      ba-themecolor="red"
+      ba-noflash
+      ba-hideoninactivity="false"
+      ba-sharevideo="true"
+      ba-skipinitial="false"
+      ba-title="Test title from html"
+      ba-width='100%'></ba-videoplayer>
+
+	<h4>Default</h4>
+	<ba-videoplayer ba-sources="{{[{src:'assets/sample-video.mp4', poster: 'assets/sample-cover.png', hd: true}, {src:'assets/sample-video2.mp4', poster:'assets/sample-cover2.png', hd: false}]}}"
+      ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
+      ba-theme="default"
+      ba-themecolor="blue"
+      ba-noflash
+      ba-hideoninactivity="false"
+      ba-skipinitial="false"
+      ba-sharevideo="true"
+      ba-experimental="true"
+      ba-title="Test title from html"
+      ba-width='100%'></ba-videoplayer>
+
+	<h4>Elevate</h4>
+	<ba-videoplayer ba-sources="{{[{src:'assets/sample-video.mp4', poster: 'assets/sample-cover.png', hd: true}, {src:'assets/sample-video2.mp4', poster:'assets/sample-cover2.png', hd: false}]}}"
+					ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
+					ba-theme="elevate"
+					ba-themecolor="blue"
+					ba-noflash
+					ba-hideoninactivity="false"
+					ba-sharevideo="true"
+					ba-skipinitial="false"
+					ba-title="Test title from html"
+					ba-width='100%'></ba-videoplayer>
+
+	<h4>Minimalist</h4>
+	<ba-videoplayer ba-sources="{{[{src:'assets/sample-video.mp4', poster: 'assets/sample-cover.png', hd: true}, {src:'assets/sample-video2.mp4', poster:'assets/sample-cover2.png', hd: false}]}}"
+					ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
+					ba-theme="minimalist"
+					ba-themecolor="red"
+					ba-noflash
+					ba-hideoninactivity="false"
+					ba-sharevideo="true"
+					ba-title="Test title from html"
+					ba-skipinitial="false"
+					ba-width='100%'></ba-videoplayer>
+
+	<h4>Modern</h4>
+	<ba-videoplayer ba-sources="{{[{src:'assets/sample-video.mp4', poster: 'assets/sample-cover.png', hd: true}, {src:'assets/sample-video2.mp4', poster:'assets/sample-cover2.png', hd: false}]}}"
+					ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
+					ba-theme="modern"
+					ba-themecolor="green"
+					ba-noflash
+					ba-hideoninactivity="false"
+					ba-skipinitial="false"
+					ba-experimental="true"
+					ba-sharevideo="true"
+					ba-title="Test title from html"
+					ba-width='100%'></ba-videoplayer>
+
+	<h4>Space</h4>
+	<ba-videoplayer ba-sources="{{[{src:'assets/sample-video.mp4', poster: 'assets/sample-cover.png', hd: true}, {src:'assets/sample-video2.mp4', poster:'assets/sample-cover2.png', hd: false}]}}"
+					ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
+					ba-theme="space"
+					ba-themecolor="blue"
+					ba-noflash
+					ba-hideoninactivity="false"
+					ba-skipinitial="false"
+					ba-title="Test title from html"
+					ba-width='100%'></ba-videoplayer>
+
+	<h4>Theatre</h4>
+	<ba-videoplayer ba-sources="{{[{src:'assets/sample-video.mp4', poster: 'assets/sample-cover.png', hd: true}, {src:'assets/sample-video2.mp4', poster:'assets/sample-cover2.png', hd: false}]}}"
+					ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
+					ba-theme="theatre"
+					ba-themecolor="red"
+					ba-noflash
+					ba-hideoninactivity="false"
+					ba-sharevideo="true"
+					ba-skipinitial="false"
+					ba-title="Test title from html"
+					ba-width='100%'></ba-videoplayer>
+
+    <script>
+        BetaJS.Flash.options = {
+            flashFile: "../../node_modules/betajs-flash/dist/betajs-flash.swf",
+            forceReload: true
+        };
+        BetaJS.Dynamics.Dynamic.activate();
+    </script>
+</body>
+</html>

@@ -262,13 +262,12 @@ module.exports = function(grunt) {
     .browserstackTask("browserstack-media", 'tests/server/browserstack.html', {desktop: true, mobile: true})
     .lintTask(null, ['./src/**/*.js', './dist/' + dist + '-noscoped.js', './dist/' + dist + '.js', './Gruntfile.js', './tests/**/*.js'])
     .csslinterTask(null, [
-      'dist/betajs-media-components.css',
       'dist/themes/cube/style.css',
-      'dist/themes/modern/style.css',
-      'dist/themes/space/style.css',
-      'dist/themes/theatre/style.css',
+      'dist/betajs-media-components.css',
       'dist/themes/elevate/style.css',
       'dist/themes/minimalist/style.css',
+      'dist/themes/modern/style.css',
+      'dist/themes/space/style.css',
       'dist/themes/theatre/style.css'
     ])
 
@@ -328,11 +327,11 @@ module.exports = function(grunt) {
     ]);
 
 	grunt.registerTask("themes", [
-        "modern-theme",
-        "space-theme",
         "cube-theme",
         "elevate-theme",
         "minimalist-theme",
+        "modern-theme",
+        "space-theme",
         "theatre-theme"
     ]);
 

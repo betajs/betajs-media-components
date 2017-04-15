@@ -13,9 +13,9 @@
 }
 
 .#{$css}-topmessage-background {
-    background: $topmessage_bgcolor;
-    opacity: $topmessage_opacity;
-    width: 100%;
+    background-color: $topmessage_bgcolor;
     height: $topmessage_height;
+    opacity: $topmessage_opacity;
     position: absolute;
+    width: 100%;
 }

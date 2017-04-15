@@ -27,7 +27,7 @@ $video_title_font_color: #ffffff;
 $video_title_line_height: 32px;
 $video_title_font_family: sans-serif, Arial;
 $video_title_font_size: 12px;
-$video_title_font_weight: 100;
+$video_title_font_weight: 300;
 $video_title_letter_spacing: 0.1em;
 
 $full_screen_background: #b2b2b2;
@@ -89,12 +89,14 @@ $share_icon_font_size: 14px;
 $share_icon_container_height: 45px;
 $share_icon_container_width: 45px;
 
+// Theme Colors
+$theme_color_blue: #2a74eb;
+$theme_color_red: #eb6a74;
+$theme_color_green: #5daa96;
 
-// Colors for main buttons
 $colors: (
-  'red': #eb6a74,
-  'blue': #c2cff2,
-  'white': white,
-  'yellow': #ffce00,
-  'default': #ffffff
+  'red': $theme_color_red,
+  'blue': $theme_color_blue,
+  'green': $theme_color_green,
+  'default': ''
 );

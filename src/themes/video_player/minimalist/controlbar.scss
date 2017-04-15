@@ -9,7 +9,7 @@
 
 .#{$css}-button-container {
     font-family: $font_family;
-    font-weight: 100;
+    font-weight: 300;
     display: inline-block;
     width: $button_width;
     color: $button_color;
@@ -53,11 +53,11 @@
 }
 
 .#{$css}-title {
-  h4 {
+  p {
     color: $text_color;
     font-family: $font_family;
     font-size: $controlbar_video_title_font_size;
-    font-weight: 100;
+    font-weight: 300;
     letter-spacing: .1em;
     line-height: $topmessage_height - 10;
     margin: 0;
@@ -94,9 +94,42 @@
         width: 100%;
         .#{$css}-button-inner {
             @include color-rgba(255, 255, 255, 0.6, #e5e5e5);
+            @include text-shadow($cover_playbutton_hover_color, 4);
             font-size: $controlbar_playbutton_font_size;
         }
     }
+}
+
+.#{$cssnoie8} {
+  .#{$css}-overlay {
+    .#{$css}-controlbar-top-block {
+      .#{$css}-button-inner {
+        @include transition1(opacity, 0.3s, ease);
+        opacity: 0;
+      }
+    }
+    &:hover .#{$css}-controlbar-top-block {
+      .#{$css}-button-inner {
+        @include transition1(opacity, 0.2s, ease);
+        opacity: .6;
+      }
+    }
+  }
+}
+
+.#{$cssie8} {
+  .#{$css}-overlay {
+    .#{$css}-controlbar-top-block {
+      .#{$css}-button-inner {
+        @include transparent(0);
+      }
+    }
+    &:hover .#{$css}-controlbar-top-block {
+      .#{$css}-button-inner {
+        @include transparent(.6);
+      }
+    }
+  }
 }
 
 .#{$css}-button-inner { @include clickable; z-index: 100; position: relative; }
@@ -107,16 +140,17 @@
 
 .#{$cssnoie8} .#{$css}-button-inner {
     @include relative-center-center;
-    color: $button_color;
-    font-size: $button_fontsize;
 }
 
 .#{$cssie8} .#{$css}-button-inner {
     margin-top: $ie8_margintop + 6;
     text-align: center;
-    color: $button_color;
     font-size: $button_fontsize;
     margin-left: 3px;
+}
+.#{$css}-button-inner {
+    color: $button_color;
+    font-size: $button_fontsize;
 }
 
 .#{$css}-controlbar-middle-block {
@@ -154,8 +188,7 @@
 .#{$css}-progressbar-inner {
     @include relative-center-center;
     @include clickable;
-    @include background-rgba(255, 255, 255, .3, #b2b2b2);
-    //background: $controls_bgcolor;
+    background-color: $progressbar_cache_bgcolor;
     height: $progressbar_height;
 }
 
@@ -168,7 +201,7 @@
 
 .#{$css}-progressbar-button {
     @include border-radius(50%);
-    background: $progressbar_button_overflow;
+    background-color: $progressbar_button_overflow;
     box-sizing: content-box;
     border: none;
     position: absolute;
@@ -185,20 +218,20 @@
 }
 
 .#{$css}-player-rerecord {
-  position: relative;
-  top: 5px;
+    position: relative;
+    top: 5px;
 }
 
 .#{$css}-time-container {
-    @include color-rgba(255, 255, 255, 0.35, #b2b2b2);
+    @include color-rgba(255, 255, 255, 0.7, #b2b2b2);
+    background-color: #676f76;
     float: left;
     font-size: .8em;
     letter-spacing: .1em;
     margin-right: 15px;
     padding: 1px 3px;
-  margin-top: -1px;
-  background: #676f76;
-  opacity: 0.75;
+    margin-top: -1px;
+    opacity: 0.75;
     width: auto;
     & > div {
         float: left;
@@ -247,14 +280,14 @@
   @include relative-center-center;
   @include border-round-edges($volume_height / 2);
   @include clickable;
-  @include background-rgba(93, 170, 150, 0.3, #cee5df);
+  background-color: $volumebar_inner_color;
   height: $volume_height;
 }
 
 .#{$css}-volumebar-position {
   @include border-round-edges($volume_height / 2);
   @include absolute-align-left();
-  background-color: $progressbar_button_overflow;
+  background-color: $volumebar_position_bg;
   height: 100%;
 }
 

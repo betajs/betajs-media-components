@@ -430,6 +430,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         else
                             this.player.enterFullscreen();
                         this.set("fullscreened", !this.get("fullscreened"));
+                    },
+
+                    toggle_play: function() {
+                        if (this.get('playing'))
+                            this.pause();
+                        else
+                            this.play();
                     }
 
                 },

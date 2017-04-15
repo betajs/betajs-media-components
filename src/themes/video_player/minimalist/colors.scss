@@ -2,26 +2,21 @@
   @if $color != default {
     .#{$css}-#{$color}-color {
 
-      .#{$css}-title h4,
-      .#{$css}-right-block .#{$css}-icon-volume-up,
-      .#{$css}-right-block .#{$css}-icon-volume-down,
-      .#{$css}-right-block .#{$css}-icon-resize-full,
-      .#{$css}-right-block .#{$css}-icon-resize-small,
+      .#{$css}-title p, .#{$css}-button-inner, .#{$css}-right-block .#{$css}-icon-volume-up,
+      .#{$css}-right-block .#{$css}-icon-volume-down, .#{$css}-right-block .#{$css}-icon-resize-full,
+      .#{$css}-right-block .#{$css}-icon-resize-small, .#{$css}-playbutton-button:hover::after,
       .#{$css}-controlbar-top-block .#{$css}-button-container .#{$css}-button-inner {
         color: $value;
       }
 
-      .#{$css}-volumebar-position, .#{$css}-stream-label,
-      .#{$css}-progressbar-position {
+      .#{$css}-volumebar-position, .#{$css}-stream-label, .#{$css}-progressbar-position,
+      .#{$css}-time-container, .#{$css}-progressbar-button, .#{$css}-rerecord-button {
         background-color: $value;
       }
 
-      .#{$css}-time-container, .#{$css}-progressbar-button {
-        background: $value;
-      }
-
-      .#{$css}-volumebar-inner {
-        background: rgba(255, 255, 255, 0.3);
+      &.#{$cssie8} .#{$css}-playbutton-container,
+      &.#{$cssnoie8} .#{$css}-playbutton-container {
+        border-color: $value;
       }
     }
   }

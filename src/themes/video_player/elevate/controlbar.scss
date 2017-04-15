@@ -27,20 +27,21 @@
 }
 
 .#{$css}-bottom-block {
-    background: $controlbar_background;
+    background-color: $controlbar_background;
     clear: both;
     height: $controlbar_bottom_height;
+    overflow: hidden;
     width: 100%;
 }
 
 .#{$css}-left-block {
     float: left;
     & > div {
+        @include right-box-shadow($button_border_color, 1);
         float: left;
         font-size: $button_fontsize;
         color: $button_color;
         line-height: $controlbar_line_height - 1;
-        border-right: 1px solid $button_border_color;
         text-align: center;
         width: $button_width;
     }
@@ -54,15 +55,15 @@
 .#{$css}-right-block{
     float: right;
     & > div {
-        border-left: 1px solid $button_border_color;
+        @include left-box-shadow($button_border_color, 1);
         float: right;
-        line-height: $controlbar_line_height - 1;
+        line-height: $controlbar_line_height - 2;
         text-align: center;
     }
 
     & > div:first-child {
         float: left;
-        line-height: $controlbar_line_height - 2;
+        line-height: $controlbar_line_height - 1;
     }
 
 }
@@ -86,7 +87,6 @@
 .#{$css}-icon-volume-up, .#{$css}-icon-play, .#{$css}-icon-pause,
 .#{$css}-icon-resize-full, .#{$css}-icon-volume-down {
     display: inline-block;
-    padding: 1px 0 0;
     &:before {
         font-size: $text_fontsize;
         margin: 0;
@@ -100,7 +100,7 @@
 
 
 .#{$cssnoie8} .#{$css}-button-inner {
-    @include relative-center-center;
+    //@include relative-center-center;
     color: $button_color;
     font-size: $button_fontsize;
 }
@@ -155,6 +155,9 @@
 .#{$css}-progressbar {
     overflow: hidden;
     height: 100%;
+}
+
+.#{$css}-progressbar {
     padding: 10px 0 5px;
 }
 
@@ -162,7 +165,7 @@
     @include relative-center-center;
     @include border-radius($progressbar_height / 4);
     @include clickable;
-    background: $progressbar_cache_bgcolor;
+    background-color: $progressbar_cache_bgcolor;
     height: $progressbar_height;
 }
 
@@ -189,7 +192,7 @@
     top: $progressbar_height / -2;
     z-index: 1;
     background-color: $button-color;
-    border: ($progressbar_height / 2) solid white;
+    border: ($progressbar_height / 2) solid #666666;
     height: $progressbar_height;
     width: $progressbar_height;
 }
@@ -240,7 +243,6 @@
 .#{$css}-left-block .#{$css}-volumebar {
     float: left;
     height: $controlbar_bottom_height;
-    padding: 0 5px;
     width: $volume_width;
 }
 
@@ -248,9 +250,9 @@
     @include relative-center-center;
     @include border-round-edges($volume_height / 2);
     @include clickable;
-    @include background-rgba(93, 170, 150, 0.3, #cee5df);
-    //background: $controls_bgcolor;
+    background-color: $volumebar_cache_bgcolor;
     height: $volume_height;
+    margin: 0 5px;
 }
 
 .#{$css}-volumebar-position {
@@ -265,7 +267,6 @@
 }
 
 .#{$cssnoie8} .#{$css}-full-screen-btn-inner {
-    text-align: left;
     padding-left: 4px;
 }
 
@@ -279,4 +280,9 @@
 
 .#{$css}-size-small .#{$css}-dashboard{
     width: 100%;
+}
+
+.#{$css}-video-title-block > p, .#{$css}-left-block .#{$css}-volumebar,
+.#{$css}-button-inner {
+  padding-top: 1px;
 }

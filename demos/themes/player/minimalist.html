@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+    <script src="/static/vendors/jquery.min.js"></script>
+    <script src="/static/vendors/es5-shim.js"></script>
+    <script src="/static/vendors/es6-shim.js"></script>
+    <script src="/static/node_modules/betajs-shims/dist/betajs-shims.js"></script>
+    <script src="/static/node_modules/betajs-scoped/dist/scoped.js"></script>
+    <script src="/static/node_modules/betajs/dist/beta-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
+    <script src="/static/dist/betajs-media-components-noscoped.js"></script>
+    <link href="/static/dist/betajs-media-components.css" rel="stylesheet" />
+
+    <!-- Minimalist Theme Assets -->
+    <script src="/static/dist/themes/minimalist/script.js"></script>
+    <link href="/static/dist/themes/minimalist/style.css" rel="stylesheet" />
+
+
+</head>
+<body style="background: #EEE">
+
+    <div class="container">
+        <div class="row">
+            <div id="video-player-block" class="col-xs-12">
+                <h4>Minimalist</h4>
+                <ba-videoplayer ba-sources="{{[{src:'../assets/sample-video.mp4', poster: '../assets/sample-cover.png', hd: true}, {src:'../assets/sample-video2.mp4', poster:'../assets/sample-cover2.png', hd: false}]}}"
+                                ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
+                                ba-theme="minimalist"
+                                ba-themecolor="{{themeColor}}"
+                                ba-title="Some test title from html"
+                                ba-noflash
+                                ba-hideoninactivity="false"
+                                ba-skipinitial="false"
+                                ba-width='80%'></ba-videoplayer>
+            </div>
+            <div id="theme-colors" class="col-xs-12">
+                <ba-themecolors></ba-themecolors>
+            </div>
+        </div>
+    </div> <!-- ./container -->
+
+<script>
+  BetaJS.Flash.options = {
+    flashFile: "/assets/vendors/betajs-flash.swf",
+    forceReload: true
+  };
+
+  var selectColor = new BetaJS.Dynamics.Dynamic({
+    templateUrl: "../templates/themecolors.html",
+    element: $('#theme-colors'),
+    attrs: {
+      themeColors: [ 'default', 'red', 'green', 'blue' ]
+    }
+  });
+
+  var recorderTheme = new BetaJS.Dynamics.Dynamic({
+    element: $('#video-player-block'),
+    attrs: { themeColor: "" }
+  });
+
+  $("body").on("change", "#select-color", function (el) {
+    recorderTheme.set("themeColor", el.target.value);
+  });
+
+  selectColor.activate();
+  recorderTheme.activate();
+</script>
+
+</body>
+</html>

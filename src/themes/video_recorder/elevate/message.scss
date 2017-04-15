@@ -33,12 +33,12 @@
           width: $message_width + ( $message_side_interval * 3 );
           z-index: 8;
           .#{$recorder}-fourth-inner-message-container {
-            background: $message_bgcolor;
+            background-color: $message_bgcolor;
+            display: table;
             @include border-radius(50%);
-            @include absolute-center-center();
-            position: relative;
             height: $message_height;
             left: $message_side_interval + ($message_side_interval / 2);
+            position: relative;
             top: $message_side_interval + ($message_side_interval / 2);
             width: $message_width;
             z-index: 10;
@@ -52,8 +52,11 @@
 
 .#{$recorder}-message-message {
   color: $message_color;
+  display: table-cell;
   font-size: $topmessage_fontsize;
-  font-weight: 100;
+  font-weight: 300;
   letter-spacing: .1em;
+  text-align: center;
+  vertical-align: middle;
 }
 

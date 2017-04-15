@@ -1,0 +1,22 @@
+@each $color, $value in $colors {
+  @if $color != default {
+    .#{$css}-#{$color}-color {
+
+      .#{$css}-chooser-icon-container, .#{$css}-chooser-secondary-button,
+      .#{$css}-button-selected, .#{$css}-loader-label {
+        color: $value;
+      }
+
+      .#{$css}-video, .#{$css}-chooser-primary-button, .#{$css}-button-primary,
+      .#{$css}-settings span, .#{$css}-imagegallery-rightbutton, .#{$css}-imagegallery-leftbutton {
+        background-color: $value;
+      }
+
+      .#{$css}-button-selected, .#{$css}-imagegallery-image:hover,
+      .#{$css}-settings input[type=radio]:checked + span {
+        border-color: $value;
+      }
+
+    }
+  }
+}

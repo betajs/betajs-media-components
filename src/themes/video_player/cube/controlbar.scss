@@ -1,7 +1,7 @@
 .#{$css}-dashboard {
   @include absolute-align-full-bottom;
   @include transition1(opacity, $dashboard_transition, ease-in-out);
-  @include background-rgba(0, 0, 0, 0.5, #666666);
+  @include background-rgba(0, 0, 0, 0.6, #4f4f4f);
   //background: $controlbar_background;
   color: $text_color;
   font-size: $text_fontsize;
@@ -16,13 +16,13 @@
 
 .#{$cssnoie8} .#{$css}-video-title-block {
   @include absolute-align-full-top();
-  @include background-rgba(0, 0, 0, 0.4, #999999);
+  @include background-rgba(0, 0, 0, 0.6, #4f4f4f);
 }
 
 .#{$css}-video-title {
   color: $title_text_color;
   font-family: $font_family;
-  font-weight: 100;
+  font-weight: 300;
   font-size: $title_font_size;
   letter-spacing: $text_letter_spacing;
   margin: 0;
@@ -44,8 +44,7 @@
     @include relative-center-center;
     @include border-round-edges($volume_height / 2);
     @include clickable;
-    @include background-rgba(93, 170, 150, 0.3, #cee5df);
-    //background: $controls_bgcolor;
+    background-color: $button_color_secondary;
     height: $volume_height;
 }
 
@@ -89,10 +88,10 @@
   color: $text_color;
   cursor: default;
   letter-spacing: .1em;
-  width: 84px;
-  font-weight: 100;
+  width: 90px;
+  font-weight: 300;
   font-size: .9em;
-  padding: 0 2.5px;
+  & > div:first-child { margin-left: 4px }
   & > div {
     float: left;
     width: $button_width;
@@ -105,16 +104,22 @@
   }
 }
 
-.#{$css}-stream-label{
-  background: $stream_label_bg_color;
+.#{$css}-stream-label {
+  background-color: $stream_label_bg_color;
   color: $stream_label_color;
   display: inline-block;
-  font-weight: 100;
+  font-weight: 300;
   font-size: 0.8em;
-  height: 22px;
+  height: 25px;
   letter-spacing: .1em;
   line-height: 24px;
+  text-align: center;
   width: 25px;
+  & > span {
+    display: inline-block;
+    padding-left: 2px;
+    line-height: 25px;
+  }
 }
 
 .#{$cssnoie8} .#{$css}-progressbar {
@@ -138,7 +143,7 @@
 .#{$css}-progressbar-inner {
   @include relative-center-center;
   @include clickable;
-  background: transparent;
+  background-color: transparent;
   height: $progressbar_height;
 }
 
@@ -148,9 +153,15 @@
   height: 100%;
 }
 
-
 .#{$css}-progressbar-button {
   display: none;
 }
 
+.#{$css}-icon-play, .#{$css}-icon-pause, .#{$css}-icon-volume-up, .#{$css}-icon-volume-off,
+.#{$css}-icon-volume-down, .#{$css}-icon-resize-full, .#{$css}-icon-resize-small {
+  &:before {
+    position: relative;
+    top: 2px;
+  }
+}
 

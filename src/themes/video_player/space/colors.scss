@@ -3,32 +3,31 @@
     .#{$css}-#{$color}-color {
 
       .#{$css}-title > p,
-      &.#{$cssnoie8} .#{$css}-button-inner,
+      &.#{$cssnoie8} .#{$css}-button-inner, &.#{$cssie8} .#{$css}-button-inner,
       .#{$css}-right-block .#{$css}-icon-volume-up,
       .#{$css}-right-block .#{$css}-icon-volume-down {
         color: $value;
       }
 
-      &.#{$cssnoie8} .#{$css}-stream-label-container {
+      &.#{$cssnoie8} .#{$css}-stream-label-container, &.#{$cssie8} .#{$css}-stream-label-container {
         color: $button_color;
-        background: $value;
-      }
-
-      .#{$css}-progressbar-button {
-        background: $value;
+        background-color: $value;
       }
 
       .#{$css}-volumebar-position, .#{$css}-progressbar-position,
-      .#{$css}-stream-label-container .#{$css}-stream-label {
+      .#{$css}-stream-label-container .#{$css}-stream-label,
+      &.#{$cssnoie8} .#{$css}-playbutton-container,
+      &.#{$cssie8} .#{$css}-playbutton-container, .#{$css}-playbutton-container,
+      .#{$css}-progressbar-button, .#{$css}-rerecord-button {
         background-color: $value;
       }
 
       .#{$css}-progressbar-cache {
-        background: rgba(255, 255, 255, 0.6);
+        @include background-rgba(255, 255, 255, 0.6, #4c4c4c);
       }
 
       .#{$css}-volumebar-inner, .#{$css}-progressbar-inner {
-        background: rgba(255, 255, 255, 0.3);
+        @include background-rgba(255, 255, 255, 0.3, #7f7f7f);
       }
     }
   }

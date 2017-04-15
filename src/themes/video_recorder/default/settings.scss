@@ -10,7 +10,7 @@
 .#{$css}-settings-backbar {
     @include absolute-align-all;
 	border-radius: $settings_radius;
-    background: $settings_bgcolor;
+    background-color: $settings_bgcolor;
     opacity: $settings_opacity;
     border: $settings_border;
 }
@@ -51,7 +51,7 @@
 	cursor: pointer;
 	width: 4px;
 	height: 4px;
-	background: $settings_radio_color;
+	background-color: $settings_radio_color;
 	border: 3px solid $settings_radio_color;
 	border-radius: 4px;
 	margin: 1px;

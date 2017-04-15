@@ -5,11 +5,11 @@ $fontello_name: "bjsmc";
 $recorder: "ba-videorecorder-theme-minimalist";
 
 $font_family: sans-serif;
-$recorder_bgcolor: #5daa96;
-$text_color: #ffffff;
-$text_color_secondary: #373737;
+$recorder_bgcolor: #000000;
+$text_color: #eeeeee;
+$text_color_secondary: #979797;
 
-$button_color: #5daa96;
+$button_color: #000000;
 
 $message_bgcolor: white;
 $message_opacity: 0.75;
@@ -30,23 +30,23 @@ $loader_size: 5px;
 $loader_frame_thickness: 1.1em;
 $loader_label_fontsize: 40px;
 
-$chooser_background: white;
+$chooser_background: #eeeeee;
 $chooser_buttons_min_width: 10em;
 $chooser_primary_button_bgcolor: $button_color;
 $chooser_primary_button_vertical_padding: 6px;
 $chooser_primary_button_horizontal_padding: 8px;
 $chooser_primary_button_border_radius: 50px;
-$chooser_secondary_button_color: #b2b2b2;
+$chooser_secondary_button_color: #666666;
 $chooser_secondary_button_padding: 8px;
 $chooser_fontsize: 14px;
 $chooser_buttons_line_height: 20px;
 $chooser_icon_size: 32px;
 $chooser_icon_margin: 16px;
-$chooser_backgroung: #ffffff;
+$chooser_backgroung: #eeeeee;
 
 $imagegallery_buttonmargin: 14px;
 $imagegallery_buttonsize: 30px;
-$imagegallery_button_bgcolor: black;
+$imagegallery_button_bgcolor: #000000;
 $imagegallery_button_opacity: 0.5;
 $imagegallery_button_padding: 4px;
 $imagegallery_button_radius: 3px;
@@ -55,13 +55,13 @@ $imagegallery_border_radius: 3px;
 $settings_margin: 4px;
 $settings_padding: 4px;	
 $settings_radius: 3px;
-$settings_bgcolor: #ffffff;
+$settings_bgcolor: #eeeeee;
 $settings_opacity: 0.5;
 $settings_border: none;
 $settings_font_size: 12px;
 $settings_horizontal_margin: 48px;
 $settings_item_padding: 8px;
-$settings_radio_color: white;
+$settings_radio_color: #eeeeee;
 $settings_radio_color_selected: $button_color;
 
 $sidebar_width: 55px;
@@ -88,10 +88,22 @@ $controlbar_primarybutton_border: none;
 $controlbar_primarybutton_horizontal_margin: 5px;
 $controlbar_button_fontsize: 20px;
 $controlbar_button_margin: 5px;
-$controlbar_button_padding: 7px 15px;
+$controlbar_button_padding: 7px;
 $controlbar_button_vertical_padding: 3px;
 $controlbar_button_border_radius: 50%;
 $controlbar_button_border: 1px solid $text_color;
 $controlbar_button_size: 40px;
-$controlbar_button_hover_background: #ffffff;
-$controlbar_button_hover_color: #5daa96;
+$controlbar_button_hover_background: #666666;
+$controlbar_button_hover_color: #000000;
+
+// Theme Colors
+$theme_color_blue: #2a74eb;
+$theme_color_red: #eb6a74;
+$theme_color_green: #5daa96;
+
+$colors: (
+  'red': $theme_color_red,
+  'blue': $theme_color_blue,
+  'green': $theme_color_green,
+  'default': ''
+);

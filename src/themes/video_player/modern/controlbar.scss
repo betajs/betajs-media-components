@@ -1,10 +1,10 @@
 .#{$css}-dashboard {
     @include absolute-align-full-bottom;
     @include transition1(opacity, $dashboard_transition, ease-in-out);
-    opacity: 0.9;
+    background-color: $controlbar_background;
 	height: $controlbar_height;
+    opacity: 0.9;
     overflow: hidden;
-    background: $controlbar_background;
 }
 
 .#{$css}-dashboard-hidden {
@@ -84,7 +84,7 @@
     @include relative-center-center;
     @include border-round-edges($volume_height / 2);
     @include clickable;
-    background: $controls_bgcolor;
+    background-color: $controls_bgcolor;
     height: $volume_height;
 }
 
@@ -123,7 +123,7 @@
     @include relative-center-center;
     @include border-round-edges($volume_height / 2);
     @include clickable;
-    background: $controls_bgcolor;
+    background-color: $controls_bgcolor;
     height: $volume_height;
 }
 
@@ -132,30 +132,6 @@
     @include absolute-align-left();
     background-color: $button_color;
     height: 100%;
-}
-
-.#{$css}-green .#{$css}-volumebar-position {
-	background-color: $button_color_green;
-}
-
-.#{$css}-blue .#{$css}-volumebar-position {
-	background-color: $button_color_blue;
-}
-
-.#{$css}-green .#{$css}-progressbar-position {
-	background-color: $button_color_green;
-}
-
-.#{$css}-blue .#{$css}-progressbar-position {
-	background-color: $button_color_blue;
-}
-
-.#{$css}-green .#{$css}-button-inner {
-	color: $button_color_green;
-}
-
-.#{$css}-blue .#{$css}-button-inner {
-	color: $button_color_blue;
 }
 
 .#{$css}-button-text {
@@ -172,7 +148,7 @@
     @include absolute-align-full-top();
     width: 100%;
     & > p {
-        color: $text_color;
+        color: $title_text_color;
         @include background-rgba( 255, 255, 255, 0.7, $controlbar_background);
         @include relative-horizontally-center();
         height: $controlbar_height - 10;

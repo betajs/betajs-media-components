@@ -134,33 +134,38 @@
 }
 
 @mixin background-rgba($r, $g, $b, $o, $fallback) {
-    background: $fallback;
-    background: rgba($r, $g, $b, $o);
+    background-color: $fallback;
+    background-color: rgba($r, $g, $b, $o);
 }
 
 @mixin border-rgba($thinkness, $r, $g, $b, $o, $fallback) {
-    border: $thinkness solid $fallback;
-    border: $thinkness solid rgba($r, $g, $b, $o);
+    border: $thinkness solid;
+    border-color: $fallback;
+    border-color: rgba($r, $g, $b, $o);
 }
 
 @mixin border-top-rgba($thinkness, $r, $g, $b, $o, $fallback) {
-    border-top: $thinkness solid $fallback;
-    border-top: $thinkness solid rgba($r, $g, $b, $o);
+    border-top: $thinkness solid;
+    border-top-color: $fallback;
+    border-top-color: rgba($r, $g, $b, $o);
 }
 
 @mixin border-left-rgba($thinkness, $r, $g, $b, $o, $fallback) {
-    border-left: $thinkness solid $fallback;
-    border-left: $thinkness solid rgba($r, $g, $b, $o);
+    border-left: $thinkness solid;
+    border-left-color: $fallback;
+    border-left-color: rgba($r, $g, $b, $o);
 }
 
 @mixin border-bottom-rgba($thinkness, $r, $g, $b, $o, $fallback) {
-    border-bottom: $thinkness solid $fallback;
-    border-bottom: $thinkness solid rgba($r, $g, $b, $o);
+    border-bottom: $thinkness solid;
+    border-bottom-color: $fallback;
+    border-bottom-color: rgba($r, $g, $b, $o);
 }
 
 @mixin border-right-rgba($thinkness, $r, $g, $b, $o, $fallback) {
-    border-right: $thinkness solid $fallback;
-    border-right: $thinkness solid rgba($r, $g, $b, $o);
+    border-right: $thinkness solid;
+    border-right-color: $fallback;
+    border-right-color: rgba($r, $g, $b, $o);
 }
 
 @mixin border-round-edges($width) {
@@ -180,8 +185,6 @@
     -webkit-border-radius: $radius;
     border-radius: $radius;
 }
-
-
 
 @mixin transition1($attribute, $time, $mode) {
     transition: $attribute $time $mode;
@@ -218,10 +221,10 @@
 
 @mixin transparent($opacity) {
     /* works for IE 5+. */
-    filter:alpha(opacity= ( $opacity*10 ) );
+    //filter:alpha(opacity= ( $opacity*10 ) );
 
     /* works for IE 8. */
-    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=#{$opacity * 10})";
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=#{$opacity * 100})";
 
     /* works for old school versions of the Mozilla browsers like Netscape Navigator. */
     -moz-opacity:$opacity;
@@ -236,17 +239,17 @@
 @mixin argb($hex) {
     background: none;
     -ms-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=$hex,endColorstr=$hex);
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=$hex,endColorstr=$hex);
+    //filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=$hex,endColorstr=$hex);
     zoom: 1;
 }
 
 @mixin rotate($degree) {
-    -webkit-transform: rotate($degree); /* Chrome, Safari, Opera */
-    -moz-transform: rotate($degree);
-    -o-transform: rotate($degree);
-    -ms-transform: rotate($degree); /* IE 9 */
+    -webkit-transform: rotate($degree deg); /* Chrome, Safari, Opera */
+    -moz-transform: rotate($degree deg);
+    -o-transform: rotate($degree deg);
+    -ms-transform: rotate($degree deg); /* IE 9 */
     -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=#{$degree/30})";
-    transform: rotate($degree);
+    transform: rotate($degree deg);
 }
 
 @mixin rotate90() {
@@ -259,29 +262,39 @@
     -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=-1.8369701987210297e-16, M12=-1, M21=1, M22=-1.8369701987210297e-16, SizingMethod='auto expand')";
 
     /* IE6 and 7 */
-    filter: progid:DXImageTransform.Microsoft.Matrix(
-                    M11=-1.8369701987210297e-16,
-                    M12=-1,
-                    M21=1,
-                    M22=-1.8369701987210297e-16,
-                    SizingMethod='auto expand');
+    //filter: progid:DXImageTransform.Microsoft.Matrix(
+    //                M11=-1.8369701987210297e-16,
+    //                M12=-1,
+    //                M21=1,
+    //                M22=-1.8369701987210297e-16,
+    //                SizingMethod='auto expand');
 }
 
+@mixin rotate-90() {
+    -moz-transform:    rotate(-90deg);
+    -o-transform:      rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    -ms-transform:     rotate(-90deg);
+    transform:         rotate(-90deg);
+
+    /* IE8+ - must be on one line, unfortunately */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=3.061616997868383e-16, M12=1, M21=-1, M22=3.061616997868383e-16, SizingMethod='auto expand')";
+}
 
 @mixin background-rgba-ie($filter, $R, $G, $B, $opacity, $fallback) {
 
     /* Web browsers that does not support RGBa, the Fallback */
-    background: rgb($R, $G, $B);
+    background-color: rgb($R, $G, $B);
 
     /* IE9/FF/chrome/safari supported */
-    background: rgba($R, $G, $B, $opacity);
+    background-color: rgba($R, $G, $B, $opacity);
 
     /* IE 8 supported */
     /* Here some time problem for Hover than you can use background color/image */
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$filter}, endColorstr=#{$filter})";
 
     /* Below IE7 supported */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$filter}, endColorstr=#{$filter});
+    //filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$filter}, endColorstr=#{$filter});
 }
 
 @mixin color-rgba($R, $G, $B, $opacity, $fallback) {
@@ -315,7 +328,7 @@
 }
 
 @mixin circle_shape( $size, $backgroung, $border_width, $border_color ) {
-    background: $backgroung;
+    background-color: $backgroung;
     border: $border_width solid $border_color;
     /* Cleaner, but slightly less support: use "50%" as value */
     @include border-radius( $size * 4);
@@ -334,9 +347,9 @@
     position: relative;
 
     &:before {
-        @include border-right-rgba( 6px, $r, $g, $b, 0, transparent );
         @include border-top-rgba( 9px, $r, $g, $b, $o, $fallback);
-        @include border-left-rgba( 6px, $r, $g, $b, 0, transparent );
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
         content:"";
         height: 0;
         left: $left;
@@ -356,9 +369,9 @@
     min-width: $w;
     position: relative;
     &:before {
-        @include border-bottom-rgba( 6px, $r, $g, $b, 0, transparent );
         @include border-right-rgba( 9px, $r, $g, $b, $o, $fallback );
-        @include border-top-rgba( 6px, $r, $g, $b, 0, transparent );
+        border-bottom: 6px solid transparent;
+        border-top: 6px solid transparent;
         content:"";
         height: 0;
         top: $top;
@@ -369,11 +382,42 @@
 }
 
 @mixin text-shadow($color, $width) {
-    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=#{$width}, Direction=90, Color=#{#color})";/*IE 8*/
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=#{$width}, Direction=90, Color=#{$color})";/*IE 8*/
     text-shadow: 0 0 #{$width}px $color;/* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
-    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=#{$width}, Direction=90, Color=#{$color}); /*IE 5.5-7*/
+    //filter: progid:DXImageTransform.Microsoft.Shadow(Strength=#{$width}, Direction=90, Color=#{$color}); /*IE 5.5-7*/
 }
 
+@mixin box-shadow($color, $width) {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=#{$width}, Direction=90, Color=#{$color})";/*IE 8*/
+    -moz-box-shadow: 0 0 #{$width}px #{$color};/*FF 3.5+*/
+    -webkit-box-shadow: 0 0 #{$width}px #{$color};/*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+    box-shadow: 0 0 #{$width}px #{$color};/* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+    //filter: progid:DXImageTransform.Microsoft.Shadow(Strength=#{$width}, Direction=90, Color=#{$color}); /*IE 5.5-7*/
+}
+
+@mixin right-box-shadow($color, $width) {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=#{$width}, Direction=270, Color=#{$color})";/*IE 8*/
+    -moz-box-shadow: inset -#{$width}px 0 0 #{$color};/*FF 3.5+*/
+    -webkit-box-shadow: inset -#{$width}px 0 0 #{$css};/*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+    box-shadow: inset -#{$width}px 0 0 #{$color};/* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+    //filter: progid:DXImageTransform.Microsoft.Shadow(Strength=#{$width}, Direction=270, Color=#{$color}); /*IE 5.5-7*/
+}
+
+@mixin left-box-shadow($color, $width) {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=0, Direction=90, Color=#{$color})";/*IE 8*/
+    -moz-box-shadow: inset #{$width}px 0 0 #{$color};/*FF 3.5+*/
+    -webkit-box-shadow: inset #{$width}px 0 0 #{$color};/*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+    box-shadow: inset #{$width}px 0 0 #{$color};/* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+    //filter: progid:DXImageTransform.Microsoft.Shadow(Strength=0, Direction=90, Color=#{$color}); /*IE 5.5-7*/
+}
+
+@function bg-light-depending-color($compare-color, $dark-color, $light-color) {
+    @if (lightness($compare-color) > 50%) {
+        @return $dark-color; // Lighter backgorund, return dark color
+    } @else {
+        @return $light-color; // Darker background, return light color
+    }
+}
 
 // FULL SCREEN
 @mixin full-screen-dom-shadow-display($display) {
@@ -410,7 +454,6 @@
 // 2147483648 z-index require for visible element
 @mixin hide-dom-shadow-media-control() {
 
-    /* hide the default Chrome video player styling */
     video::-webkit-media-controls-overlay-enclosure {
         display:none;
     }
@@ -423,7 +466,6 @@
         display:none;
     }
 
-    /*  Needed to hide player controls in Safari Only */
     video::-webkit-media-controls-panel {
         display:none;
     }
@@ -460,17 +502,12 @@
         display: none;
     }
 
-    /* Firefox Shadow DOM Fix */
     video::-moz-list-bullet, video::-moz-list-number {
         display:none;
     }
 
     video::-moz-meter-bar {
         display:none;
-    }
-
-    video:-moz-full-screen:not(:root)::backdrop {
-        //display:none;
     }
 
     video:fullscreen:not(:root) {

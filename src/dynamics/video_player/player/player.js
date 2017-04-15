@@ -432,7 +432,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("fullscreened", !this.get("fullscreened"));
                     },
 
-                    toggle_play: function() {
+                    toggle_player: function() {
                         if (this.get('playing'))
                             this.pause();
                         else

@@ -1,14 +1,15 @@
 
 .#{$css}-dashboard {
-    @include absolute-align-all();
+    @include absolute-align-full-bottom;
     @include transition1(opacity, $dashboard_transition, ease-in-out);
 	height: $controlbar_height;
     overflow: hidden;
 }
 
-.#{$css}-controlbar-header {
+.#{$css}-video-title-container {
     @include absolute-align-full-top();
     @include background-rgba(0, 0, 0, 0.4, #979797);
+    @include transition1(opacity, $dashboard_transition, ease-in-out);
     box-sizing: border-box;
     font-size: 0.65rem;
     font-weight: 300;
@@ -27,7 +28,7 @@
     padding: 0 5px;
 }
 
-.#{$cssie8} .#{$css}-controlbar-header, .#{$cssie8} .#{$css}-controlbar-footer {
+.#{$cssie8} .#{$css}-video-title-container, .#{$cssie8} .#{$css}-controlbar-footer {
     opacity: .8;
 }
 
@@ -39,11 +40,11 @@
     float: right;
 }
 
-.#{$cssnoie8} .#{$css}-controlbar-header .#{css}-rightbutton-container {
+.#{$cssnoie8} .#{$css}-video-title-container .#{css}-rightbutton-container {
     width: 21px;
 }
 
-.#{$css}-controlbar-header-background {
+.#{$css}-video-title-container-background {
     position: relative;
     height: 40px;
 }
@@ -58,7 +59,7 @@
     }
 }
 
-.#{$cssnoie8} .#{$css}-controlbar-header .#{$css}-button-inner {
+.#{$cssnoie8} .#{$css}-video-title-container .#{$css}-button-inner {
     @include transform-translate-y(0);
 }
 

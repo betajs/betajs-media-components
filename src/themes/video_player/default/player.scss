@@ -4,7 +4,7 @@
 	overflow: hidden;
 }
 
-.#{$css}-overlay {
+.#{$css}-overlay, .#{$css}-player-toggle-overlay {
     position: absolute;
     left: 0;
     right: 0;

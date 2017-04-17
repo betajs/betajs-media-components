@@ -85,7 +85,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.FatalError", [
                     }
                 }));
                 if (Info.isSafari() && Info.safariVersion() >= 10)
-                    document.location.href = "//get.adobe.com/flashplayer";
+                    window.open("https://get.adobe.com/flashplayer");
             }
         }
 

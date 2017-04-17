@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.53 - 2017-04-16
+betajs-media-components - v0.0.55 - 2017-04-17
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1004,7 +1004,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.53 - 2017-04-16
+betajs-media-components - v0.0.55 - 2017-04-17
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1020,7 +1020,7 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.53"
+    "version": "0.0.55"
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -2485,12 +2485,14 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
                     this.set("has_secondary", this.get("allowrecord") && this.get("allowupload"));
                     this.set("enable_secondary_select", false);
                     if (this.get("primaryrecord") || (Info.isMobile() && (!Info.isAndroid() || !Info.isCordova()))) {
-                        this.set("enable_secondary_select", true);
-                        this.set("secondary_select_capture", Info.isMobile() && !this.get("primaryrecord"));
-                        if (Info.isMobile())
-                            this.set("secondary_accept_string", !this.get("primaryrecord") ? "video/*,video/mp4;capture=camcorder" : "video/*,video/mp4");
-                        else
-                            this.set("secondary_accept_string", custom_accept_string);
+                        if (!Info.isiOS() && !Info.isCordova()) {
+                            this.set("enable_secondary_select", true);
+                            this.set("secondary_select_capture", Info.isMobile() && !this.get("primaryrecord"));
+                            if (Info.isMobile())
+                                this.set("secondary_accept_string", !this.get("primaryrecord") ? "video/*,video/mp4;capture=camcorder" : "video/*,video/mp4");
+                            else
+                                this.set("secondary_accept_string", custom_accept_string);
+                        }
                     }
                 },
 
@@ -2502,6 +2504,20 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
                     }, function(error) {}, {
                         limit: 1,
                         duration: this.get("timelimit")
+                    });
+                },
+
+                __uploadCordova: function() {
+                    var self = this;
+                    navigator.camera.getPicture(function(url) {
+                        self.trigger("upload", {
+                            localURL: url,
+                            fullPath: url
+                        });
+                    }, function(error) {}, {
+                        destinationType: Camera.DestinationType.FILE_URI,
+                        sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+                        mediaType: Camera.MediaType.VIDEO
                     });
                 },
 
@@ -2519,6 +2535,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
                             return;
                         if (Info.isMobile() && Info.isAndroid() && Info.isCordova())
                             this.__recordCordova();
+                        else if (Info.isMobile() && Info.isiOS() && Info.isCordova())
+                            this.__uploadCordova();
                         else
                             this.trigger("record");
                     },

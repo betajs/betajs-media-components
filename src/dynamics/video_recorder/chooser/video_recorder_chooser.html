@@ -19,9 +19,9 @@
 				       style="height:100"
 				       onchange="{{primary_select(domEvent)}}"
 				       accept="{{primary_accept_string}}" />
-				<i class="{{css}}-icon-{{primaryrecord ? 'videocam' : 'upload'}}"></i>
+				<i class="{{css}}-icon-{{primaryrecord ? (!onlyaudio ? 'videocam' : 'volume-up'): 'upload'}}"></i>
 				<span>
-					{{primary_label}}
+					{{!onlyaudio ? primary_label : 'Record Audio'}}
 				</span>
 			</div>
 		</div>
@@ -42,7 +42,7 @@
 				       onchange="{{secondary_select(domEvent)}}"
 				       accept="{{secondary_accept_string}}" />
 				<span>
-					{{secondary_label}}
+					{{!onlyaudio ? secondary_label : 'Upload Audio'}}
 				</span>
 			</div>
 		</div>

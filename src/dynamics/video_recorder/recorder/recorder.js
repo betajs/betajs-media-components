@@ -107,12 +107,12 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "manualsubmit": false,
                     "allowedextensions": null,
                     "filesizelimit": null,
-                    "onlyaudio": false,
 
                     /* Configuration */
                     "forceflash": false,
                     "simulate": false,
                     "noflash": false,
+                    "onlyaudio": false,
                     "noaudio": false,
                     "flashincognitosupport": false,
                     "localplayback": false,
@@ -257,6 +257,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         simulate: this.get("simulate"),
                         forceflash: this.get("forceflash"),
                         noflash: this.get("noflash"),
+                        onlyaudio: this.get("onlyaudio"),
                         recordVideo: true,
                         recordAudio: !this.get("noaudio"),
                         recordingWidth: this.get("recordingwidth"),

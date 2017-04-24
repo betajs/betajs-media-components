@@ -24,7 +24,10 @@
             <div class="row">
 				<div id="video-recorder-block" class="col-xs-12">
 					<!-- Default -->
-					<ba-videorecorder ba-width=400 ba-height=300 ba-themecolor="{{themeColor}}" ba-onlyaudio></ba-videorecorder>
+					<ba-videorecorder
+							ba-width=400 ba-height=300 ba-themecolor="{{themeColor}}"
+							{{selectedOptions}} ba-onlyaudio="true" ba-forceflash="false"
+					></ba-videorecorder>
                 </div>
             </div>
 			<div id="theme-colors" class="col-xs-12 col-sm-6">
@@ -39,6 +42,8 @@
 	            forceReload: true
 	        };
 
+	        var body = $('body');
+
             var selectColor = new BetaJS.Dynamics.Dynamic({
               templateUrl: "/static/demos/themes/templates/themecolors.html",
               element: $('#theme-colors'),
@@ -52,7 +57,7 @@
               attrs: { themeColor: "" }
             });
 
-            $("body").on("change", "#select-color", function (el) {
+            body.on("change", "#select-color", function (el) {
               recorderTheme.set("themeColor", el.target.value);
             });
 

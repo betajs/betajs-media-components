@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.55 - 2017-04-17
+betajs-media-components - v0.0.55 - 2017-04-25
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1004,7 +1004,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.55 - 2017-04-17
+betajs-media-components - v0.0.55 - 2017-04-25
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -2485,7 +2485,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
                     this.set("has_secondary", this.get("allowrecord") && this.get("allowupload"));
                     this.set("enable_secondary_select", false);
                     if (this.get("primaryrecord") || (Info.isMobile() && (!Info.isAndroid() || !Info.isCordova()))) {
-                        if (!Info.isiOS() && !Info.isCordova()) {
+                        if (!Info.isiOS() || !Info.isCordova()) {
                             this.set("enable_secondary_select", true);
                             this.set("secondary_select_capture", Info.isMobile() && !this.get("primaryrecord"));
                             if (Info.isMobile())

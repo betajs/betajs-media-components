@@ -51,7 +51,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
                     this.set("has_secondary", this.get("allowrecord") && this.get("allowupload"));
                     this.set("enable_secondary_select", false);
                     if (this.get("primaryrecord") || (Info.isMobile() && (!Info.isAndroid() || !Info.isCordova()))) {
-                        if (!Info.isiOS() && !Info.isCordova()) {
+                        if (!Info.isiOS() || !Info.isCordova()) {
                             this.set("enable_secondary_select", true);
                             this.set("secondary_select_capture", Info.isMobile() && !this.get("primaryrecord"));
                             if (Info.isMobile())

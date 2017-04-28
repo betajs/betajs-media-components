@@ -1,6 +1,6 @@
 .#{$cssnoie8} {
   .#{$css}-share-action-container {
-    @include transition1(all, 1s, ease-in-out);
+    @include transition1(all, 0.3s, ease-in-out 0.2s);
     position: absolute;
     right: -1 * $share_container_width / 2;
     top: $share_container_top;

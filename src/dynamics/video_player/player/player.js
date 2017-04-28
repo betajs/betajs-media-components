@@ -269,7 +269,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         noflash: !!this.get("noflash"),
                         preload: !!this.get("preload"),
                         loop: !!this.get("loop"),
-                        reloadonplay: !!this.get("reloadonplay")
+                        reloadonplay: this.get('playlist') ? true : !!this.get("reloadonplay")
                     })).error(function(e) {
                         if (this.destroyed())
                             return;

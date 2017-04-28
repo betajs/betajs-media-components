@@ -76,14 +76,17 @@
     @include clickable;
 }
 
-.#{$cssnoie8} .#{$css}-rightbutton-container {
-    @include float-width-height(right, $button_width, 100%);
+.#{$css}-rightbutton-container {
     @include clickable;
+    padding: 0 8px;
+}
+
+.#{$cssnoie8} .#{$css}-rightbutton-container {
+    @include float-width-height(right, auto, 100%);
 }
 
 .#{$cssie8} .#{$css}-rightbutton-container {
-    @include float-width-height(right, $button_width, 0);
-    @include clickable;
+    @include float-width-height(right, auto, 0);
 }
 
 
@@ -133,16 +136,17 @@
 }
 
 .#{$cssnoie8} .#{$css}-volumebar {
+    margin-left: $volume_height;
+    margin-right: $volume_height + 5;
+}
+
+.#{$cssnoie8} .#{$css}-volumebar {
     @include float-width-height(right, $volume_width, 100%);
-    margin-left: $volume_height*2;
-    margin-right: $volume_height*2;
 }
 
 .#{$cssie8} .#{$css}-volumebar {
     @include float-width-height(right, $volume_width, 50%);
     margin-top: $ie8_margintop+4;
-    margin-left: $volume_height*2;
-    margin-right: $volume_height*2;
 }
 
 .#{$css}-volumebar-inner {

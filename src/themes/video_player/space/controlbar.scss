@@ -15,7 +15,7 @@
     font-weight: 300;
     height: $controlbar_header_height;
     letter-spacing: .05rem;
-    line-height: $controlbar_header_height + 2;
+    line-height: $controlbar_header_height;
     padding: 0 3px 0 12px;
     text-align: center;
 }
@@ -75,17 +75,21 @@
 }
 
 .#{$cssnoie8} .#{$css}-rightbutton-container {
-    @include float-width-height(right, $button_width, 100%);
+    @include float-width-height(right, auto, 100%);
     @include clickable;
 	box-sizing: content-box;
     border: none;
 }
 
 .#{$cssie8} .#{$css}-rightbutton-container {
-    @include float-width-height(right, $button_width, 50%);
+    @include float-width-height(right, auto, 50%);
     @include clickable;
 	box-sizing: content-box;
     border: none;
+}
+
+.#{$css}-rightbutton-container {
+    margin: 0 5px;
 }
 
 .#{$css}-right-time-container{
@@ -246,8 +250,7 @@
 .#{$css}-stream-label-container {
     background-color: $stream_label_bg_color;
     box-sizing: border-box;
-    width: $stream_label_width;
-    padding: 2px;
+    padding: 2px 4px;
     .#{$css}-stream-label {
         line-height: 16px;
         background-color: $stream_label_bg_color;

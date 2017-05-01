@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.55 - 2017-04-25
+betajs-media-components - v0.0.57 - 2017-05-01
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -952,7 +952,7 @@ Apache-2.0 Software License.
   font-weight: 300;
   height: 32px;
   letter-spacing: .05rem;
-  line-height: 34px;
+  line-height: 32px;
   padding: 0 3px 0 12px;
   text-align: center; }
 
@@ -1016,7 +1016,7 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-noie8 .ba-videoplayer-space-theme-rightbutton-container {
   float: right;
-  width: 30px;
+  width: auto;
   height: 100%;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
@@ -1025,12 +1025,15 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-ie8 .ba-videoplayer-space-theme-rightbutton-container {
   float: right;
-  width: 30px;
+  width: auto;
   height: 50%;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   box-sizing: content-box;
   border: none; }
+
+.ba-videoplayer-space-theme-rightbutton-container {
+  margin: 0 5px; }
 
 .ba-videoplayer-space-theme-right-time-container {
   padding-right: 10px; }
@@ -1222,8 +1225,7 @@ Apache-2.0 Software License.
 .ba-videoplayer-space-theme-stream-label-container {
   background-color: #979797;
   box-sizing: border-box;
-  width: 20px;
-  padding: 2px; }
+  padding: 2px 4px; }
   .ba-videoplayer-space-theme-stream-label-container .ba-videoplayer-space-theme-stream-label {
     line-height: 16px;
     background-color: #979797; }
@@ -1425,11 +1427,11 @@ Apache-2.0 Software License.
   letter-spacing: 0.1em; }
 
 .ba-videoplayer-space-theme-share-action-container {
-  transition: all 1s ease-in-out;
-  -moz-transition: all 1s ease-in-out;
-  -webkit-transition: all 1s ease-in-out;
-  -o-transition: all 1s ease-in-out;
-  -ms-transition: all 1s ease-in-out;
+  transition: all 0.3s ease-in-out 0.2s;
+  -moz-transition: all 0.3s ease-in-out 0.2s;
+  -webkit-transition: all 0.3s ease-in-out 0.2s;
+  -o-transition: all 0.3s ease-in-out 0.2s;
+  -ms-transition: all 0.3s ease-in-out 0.2s;
   position: absolute;
   right: -45px;
   top: 50px;

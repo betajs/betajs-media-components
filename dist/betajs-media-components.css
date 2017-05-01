@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.55 - 2017-04-25
+betajs-media-components - v0.0.57 - 2017-05-01
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -864,19 +864,20 @@ Apache-2.0 Software License.
   cursor: pointer;
   -webkit-tap-highlight-color: transparent; }
 
+.ba-videoplayer-rightbutton-container {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  padding: 0 8px; }
+
 .ba-videoplayer-noie8 .ba-videoplayer-rightbutton-container {
   float: right;
-  width: 50px;
-  height: 100%;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent; }
+  width: auto;
+  height: 100%; }
 
 .ba-videoplayer-ie8 .ba-videoplayer-rightbutton-container {
   float: right;
-  width: 50px;
-  height: 0;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent; }
+  width: auto;
+  height: 0; }
 
 .ba-videoplayer-button-inner {
   -webkit-transform: translateY(-50%);
@@ -943,19 +944,19 @@ Apache-2.0 Software License.
   width: 15px; }
 
 .ba-videoplayer-noie8 .ba-videoplayer-volumebar {
+  margin-left: 8px;
+  margin-right: 13px; }
+
+.ba-videoplayer-noie8 .ba-videoplayer-volumebar {
   float: right;
   width: 100px;
-  height: 100%;
-  margin-left: 16px;
-  margin-right: 16px; }
+  height: 100%; }
 
 .ba-videoplayer-ie8 .ba-videoplayer-volumebar {
   float: right;
   width: 100px;
   height: 50%;
-  margin-top: 10px;
-  margin-left: 16px;
-  margin-right: 16px; }
+  margin-top: 10px; }
 
 .ba-videoplayer-volumebar-inner {
   -webkit-transform: translateY(-50%);
@@ -1292,11 +1293,11 @@ Apache-2.0 Software License.
   width: 100%; }
 
 .ba-videoplayer-share-action-container {
-  transition: all 1s ease-in-out;
-  -moz-transition: all 1s ease-in-out;
-  -webkit-transition: all 1s ease-in-out;
-  -o-transition: all 1s ease-in-out;
-  -ms-transition: all 1s ease-in-out;
+  transition: all 0.3s ease-in-out 0.2s;
+  -moz-transition: all 0.3s ease-in-out 0.2s;
+  -webkit-transition: all 0.3s ease-in-out 0.2s;
+  -o-transition: all 0.3s ease-in-out 0.2s;
+  -ms-transition: all 0.3s ease-in-out 0.2s;
   position: absolute;
   right: -45px;
   top: 50px;

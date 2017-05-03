@@ -74,6 +74,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "fullscreened": false,
                     "sharevideo": [],
                     "sharevideourl": "",
+                    "visibilityfraction": 0.8,
 
                     /* Configuration */
                     "forceflash": false,
@@ -97,6 +98,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "skipinitial": false,
                     "topmessage": "",
                     "totalduration": null,
+                    "playwhenvisible": false,
+                    "playedonce": false,
+
+
+
                     /* States */
                     "states": {
                         "poster_error": {
@@ -126,7 +132,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "sharevideourl": "string",
                     "playfullscreenonmobile": "boolean",
                     "themecolor": "string",
-                    "totalduration": "float"
+                    "totalduration": "float",
+                    "playwhenvisible": "boolean",
+                    "playedonce": "boolean"
                 },
 
                 extendables: ["states"],
@@ -284,6 +292,26 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             });
                         }
                         this.player = instance;
+
+                        if (this.get("playwhenvisible")) {
+                            this.set("skipinitial", true);
+                            var self = this;
+                            if (Dom.isElementVisible(video, this.get("visibilityfraction"))) {
+                                this.player.play();
+                                played = true;
+                            }
+
+                            document.addEventListener('scroll', function() {
+                                if (!self.get('playedonce')) {
+                                    if(Dom.isElementVisible(video, self.get("visibilityfraction")))
+                                        self.player.play();
+                                    else
+                                        self.player.pause();
+                                }
+
+                            }, false);
+
+                        }
                         this.player.on("fullscreen-change", function(inFullscreen) {
                             this.set("fullscreened", inFullscreen);
                         }, this);
@@ -305,6 +333,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }, this);
                         this.player.on("ended", function() {
                             this.set("playing", false);
+                            this.set('playedonce', true);
                             this.trigger("ended");
                         }, this);
                         this.trigger("attached", instance);

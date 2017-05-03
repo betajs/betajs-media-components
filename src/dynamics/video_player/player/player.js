@@ -298,7 +298,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             var self = this;
                             if (Dom.isElementVisible(video, this.get("visibilityfraction"))) {
                                 this.player.play();
-                                played = true;
                             }
 
                             document.addEventListener('scroll', function() {

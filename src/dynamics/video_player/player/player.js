@@ -13,7 +13,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "base:Classes.ClassRegistry",
     "module:VideoPlayer.Dynamics.PlayerStates.Initial",
     "module:VideoPlayer.Dynamics.PlayerStates",
-    "module:Ads.AbstractVideoAdProvider"
+    "module:Ads.AbstractVideoAdProvider",
+    "browser:Events"
 ], [
     "module:VideoPlayer.Dynamics.Playbutton",
     "module:VideoPlayer.Dynamics.Message",
@@ -23,7 +24,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "dynamics:Partials.EventPartial",
     "dynamics:Partials.OnPartial",
     "dynamics:Partials.TemplatePartial"
-], function(Class, Assets, Info, Dom, VideoPlayerWrapper, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, InitialState, PlayerStates, AdProvider, scoped) {
+], function(Class, Assets, Info, Dom, VideoPlayerWrapper, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -100,8 +101,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "totalduration": null,
                     "playwhenvisible": false,
                     "playedonce": false,
-
-
+                    "manuallypaused": false,
 
                     /* States */
                     "states": {
@@ -134,7 +134,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "themecolor": "string",
                     "totalduration": "float",
                     "playwhenvisible": "boolean",
-                    "playedonce": "boolean"
+                    "playedonce": "boolean",
+                    "manuallypaused": "boolean"
                 },
 
                 extendables: ["states"],
@@ -300,15 +301,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.player.play();
                             }
 
-                            document.addEventListener('scroll', function() {
-                                if (!self.get('playedonce')) {
-                                    if(Dom.isElementVisible(video, self.get("visibilityfraction")))
+                            this._visiblityScrollEvent = this.auto_destroy(new DomEvents());
+                            this._visiblityScrollEvent.on(document, "scroll", function() {
+                                if (!self.get('playedonce') && !self.get("manuallypaused")) {
+                                    if (Dom.isElementVisible(video, self.get("visibilityfraction")))
                                         self.player.play();
                                     else
                                         self.player.pause();
                                 }
-
-                            }, false);
+                            });
 
                         }
                         this.player.on("fullscreen-change", function(inFullscreen) {
@@ -426,6 +427,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     pause: function() {
                         if (this.get("playing"))
                             this.player.pause();
+
+                        if (this.get("playwhenvisible"))
+                            this.set("manuallypaused", true);
                     },
 
                     stop: function() {
@@ -461,9 +465,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     toggle_player: function() {
-                        if (this.get('playing'))
+                        if (this.get('playing')) {
                             this.pause();
-                        else
+
+                            if (this.get("playwhenvisible"))
+                                this.set("manuallypaused", true);
+                        } else
                             this.play();
                     }
 

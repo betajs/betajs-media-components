@@ -13,7 +13,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "base:Classes.ClassRegistry",
     "module:VideoPlayer.Dynamics.PlayerStates.Initial",
     "module:VideoPlayer.Dynamics.PlayerStates",
-    "module:Ads.AbstractVideoAdProvider"
+    "module:Ads.AbstractVideoAdProvider",
+    "browser:Events"
 ], [
     "module:VideoPlayer.Dynamics.Playbutton",
     "module:VideoPlayer.Dynamics.Message",
@@ -23,7 +24,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "dynamics:Partials.EventPartial",
     "dynamics:Partials.OnPartial",
     "dynamics:Partials.TemplatePartial"
-], function(Class, Assets, Info, Dom, VideoPlayerWrapper, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, InitialState, PlayerStates, AdProvider, scoped) {
+], function(Class, Assets, Info, Dom, VideoPlayerWrapper, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -74,6 +75,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "fullscreened": false,
                     "sharevideo": [],
                     "sharevideourl": "",
+                    "visibilityfraction": 0.8,
 
                     /* Configuration */
                     "forceflash": false,
@@ -97,6 +99,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "skipinitial": false,
                     "topmessage": "",
                     "totalduration": null,
+                    "playwhenvisible": false,
+                    "playedonce": false,
+                    "manuallypaused": false,
+
                     /* States */
                     "states": {
                         "poster_error": {
@@ -126,7 +132,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "sharevideourl": "string",
                     "playfullscreenonmobile": "boolean",
                     "themecolor": "string",
-                    "totalduration": "float"
+                    "totalduration": "float",
+                    "playwhenvisible": "boolean",
+                    "playedonce": "boolean",
+                    "manuallypaused": "boolean"
                 },
 
                 extendables: ["states"],
@@ -284,6 +293,25 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             });
                         }
                         this.player = instance;
+
+                        if (this.get("playwhenvisible")) {
+                            this.set("skipinitial", true);
+                            var self = this;
+                            if (Dom.isElementVisible(video, this.get("visibilityfraction"))) {
+                                this.player.play();
+                            }
+
+                            this._visiblityScrollEvent = this.auto_destroy(new DomEvents());
+                            this._visiblityScrollEvent.on(document, "scroll", function() {
+                                if (!self.get('playedonce') && !self.get("manuallypaused")) {
+                                    if (Dom.isElementVisible(video, self.get("visibilityfraction")))
+                                        self.player.play();
+                                    else
+                                        self.player.pause();
+                                }
+                            });
+
+                        }
                         this.player.on("fullscreen-change", function(inFullscreen) {
                             this.set("fullscreened", inFullscreen);
                         }, this);
@@ -305,6 +333,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }, this);
                         this.player.on("ended", function() {
                             this.set("playing", false);
+                            this.set('playedonce', true);
                             this.trigger("ended");
                         }, this);
                         this.trigger("attached", instance);
@@ -398,6 +427,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     pause: function() {
                         if (this.get("playing"))
                             this.player.pause();
+
+                        if (this.get("playwhenvisible"))
+                            this.set("manuallypaused", true);
                     },
 
                     stop: function() {
@@ -433,9 +465,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     toggle_player: function() {
-                        if (this.get('playing'))
+                        if (this.get('playing')) {
                             this.pause();
-                        else
+
+                            if (this.get("playwhenvisible"))
+                                this.set("manuallypaused", true);
+                        } else
                             this.play();
                     }
 

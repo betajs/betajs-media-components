@@ -105,8 +105,8 @@
 
 .#{$css}-controlbar-center-section {
   @include absolute-align-left();
-  text-align: center;
-  width: 100%;
+  text-align: right;
+  width: 50%;
 }
 
 .#{$css}-button-container {

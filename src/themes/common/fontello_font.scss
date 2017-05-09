@@ -2,7 +2,7 @@ $fontello_name: "bjsmc";
 
 @font-face {
   font-family: $fontello_name;
-  src: url('bjsmc-ie8.eot?') format('eot');
+  src: url('bjsmc-ie8.eot?') format('eot') local($fontello_name);
 }
 
 @font-face {

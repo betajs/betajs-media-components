@@ -153,6 +153,10 @@
   height: $progressbar_height;
 }
 
+.#{$css}-progressbar.#{$css}-disabled {
+  &, & .#{$css}-progressbar-cache, & .#{$css}-progressbar-inner, & .#{$css}-progressbar-position {cursor: not-allowed}
+}
+
 .#{$css}-progressbar-position {
   @include absolute-align-left();
   background-color: $progressbar_button_overflow;

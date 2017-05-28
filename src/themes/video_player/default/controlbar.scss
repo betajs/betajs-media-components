@@ -14,6 +14,10 @@
     background-color: $progressbar_bgcolor;
 }
 
+.#{$css}-progressbar-inner.#{$css}-disabled {
+    & .#{$css}-progressbar-cache, .#{$css}-progressbar-position, & {cursor: not-allowed}
+}
+
 .#{$css}-progressbar-small {
     height: $progressbar_height_small;
 }

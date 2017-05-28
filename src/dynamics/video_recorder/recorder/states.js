@@ -103,15 +103,13 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Initial", [
         _started: function() {
             this.dyn.set("player_active", false);
             this.dyn._initializeUploader();
-            if (!this.dyn.get("recordermode")){
-                if(!this.dyn.get("video")) {
+            if (!this.dyn.get("recordermode")) {
+                if (!this.dyn.get("video")) {
                     console.warn("In order to set recorder mode false, video parameter with token has to be provided");
                     this.dyn.set("recordermode", true);
-                }
-                else
+                } else
                     this.next("Player");
-            }
-            else if (this.dyn.get("autorecord") || this.dyn.get("skipinitial"))
+            } else if (this.dyn.get("autorecord") || this.dyn.get("skipinitial"))
                 this.eventualNext("CameraAccess");
             else
                 this.next("Chooser");

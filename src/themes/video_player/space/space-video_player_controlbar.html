@@ -42,7 +42,8 @@
            </div>
         </div>
 
-        <div data-selector="button-icon-pause" class="{{css}}-leftbutton-container" ba-if="{{playing}}" ba-click="pause()" title="{{string('pause-video')}}">
+        <div data-selector="button-icon-pause" class="{{css}}-leftbutton-container {{disablepause ? css + '-disabled' : ''}}"
+             ba-if="{{playing}}" ba-click="pause()" title="{{disablepause ? string('pause-video-disabled') : string('pause-video')}}">
            <div class="{{css}}-button-inner">
                <i class="{{css}}-icon-pause"></i>
            </div>
@@ -69,7 +70,7 @@
            <div class="{{css}}-time-value" title="{{string('total-time')}}">{{formatTime(duration || position)}}</div>
         </div>
 
-        <div class="{{css}}-progressbar">
+        <div class="{{css}}-progressbar {{disableseeking ? css + '-disabled' : ''}}">
            <div data-selector="progress-bar-inner" class="{{css}}-progressbar-inner"
                 onmousedown="{{startUpdatePosition(domEvent)}}"
                 onmouseup="{{stopUpdatePosition(domEvent)}}"

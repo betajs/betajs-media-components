@@ -197,6 +197,10 @@
     height: $progressbar_height;
 }
 
+.#{$css}-progressbar.#{$css}-disabled {
+    & .#{$css}-progressbar-cache, & .#{$css}-progressbar-inner {cursor: not-allowed}
+}
+
 .#{$css}-progressbar-position {
     @include border-round-edges($volume_height / 2);
     @include absolute-align-left();

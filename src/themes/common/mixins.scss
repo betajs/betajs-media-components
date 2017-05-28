@@ -316,9 +316,21 @@
     width: $width;
 }
 
+@mixin disabled_element() {
+    cursor: not-allowed;
+    //pointer-events: none; // This will cause issue with cursor property
+    @include transparent(0.5);
+    &:after {
+        //content: ' ';
+        //cursor: not-allowed;
+        //position: absolute;
+        //top: 0; left: 0; width: 100%; height: 100%;
+    }
+}
+
 //############# SHAPES ############
 // $side_colors = transparent
-@mixin triangle_up_shape($bottom_width, $backgroung ) {
+@mixin triangle_up_shape($bottom_width, $backgroung) {
     border-bottom: $bottom_width solid $backgroung;
     border-left: $bottom_width / 2 solid transparent;
     border-right: $bottom_width / 2 solid transparent;
@@ -327,7 +339,7 @@
     width: 0;
 }
 
-@mixin circle_shape( $size, $backgroung, $border_width, $border_color ) {
+@mixin circle_shape( $size, $backgroung, $border_width, $border_color) {
     background-color: $backgroung;
     border: $border_width solid $border_color;
     /* Cleaner, but slightly less support: use "50%" as value */
@@ -369,7 +381,7 @@
     min-width: $w;
     position: relative;
     &:before {
-        @include border-right-rgba( 9px, $r, $g, $b, $o, $fallback );
+        @include border-right-rgba(9px, $r, $g, $b, $o, $fallback);
         border-bottom: 6px solid transparent;
         border-top: 6px solid transparent;
         content:"";

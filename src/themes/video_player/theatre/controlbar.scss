@@ -212,6 +212,10 @@
     background-color: $progressbar_cache_bgcolor;
 }
 
+.#{$css}-progressbar.#{$css}-disabled {
+    & .#{$css}-progressbar-cache, & .#{$css}-progressbar-inner {cursor: not-allowed}
+}
+
 .#{$css}-progressbar-cache {
     @include absolute-align-left;
     @include clickable;

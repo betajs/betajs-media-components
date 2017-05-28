@@ -102,6 +102,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "playwhenvisible": false,
                     "playedonce": false,
                     "manuallypaused": false,
+                    "disablepause": false,
+                    "disableseeking": false,
 
                     /* States */
                     "states": {
@@ -135,7 +137,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "totalduration": "float",
                     "playwhenvisible": "boolean",
                     "playedonce": "boolean",
-                    "manuallypaused": "boolean"
+                    "manuallypaused": "boolean",
+                    "disablepause": "boolean",
+                    "disableseeking": "boolean"
                 },
 
                 extendables: ["states"],
@@ -425,6 +429,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     pause: function() {
+
+                        if (this.get('disablepause')) return;
+
                         if (this.get("playing"))
                             this.player.pause();
 
@@ -442,6 +449,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     seek: function(position) {
+                        if (this.get('disableseeking')) return;
                         if (this.videoLoaded())
                             this.player.setPosition(position);
                         this.trigger("seek", position);
@@ -465,7 +473,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     toggle_player: function() {
-                        if (this.get('playing')) {
+                        if (this.get('playing') && !this.get("disablepause")) {
                             this.pause();
 
                             if (this.get("playwhenvisible"))

@@ -52,6 +52,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     },
 
                     startUpdatePosition: function(event) {
+                        if (this.get("disableseeking")) return;
                         event[0].preventDefault();
                         this.set("_updatePosition", true);
                         this.call("progressUpdatePosition", event);
@@ -181,6 +182,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
             "submit-video": "Confirm video",
             "play-video": "Play video",
             "pause-video": "Pause video",
+            "pause-video-disabled": "Pause video not allowed",
             "elapsed-time": "Elasped time",
             "total-time": "Total length of video",
             "fullscreen-video": "Enter fullscreen",

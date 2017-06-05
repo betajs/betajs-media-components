@@ -81,6 +81,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "forceflash": false,
                     "noflash": false,
                     "reloadonplay": false,
+                    "playonclick": true,
                     /* Ads */
                     "adprovider": null,
                     "preroll": false,
@@ -139,7 +140,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "playedonce": "boolean",
                     "manuallypaused": "boolean",
                     "disablepause": "boolean",
-                    "disableseeking": "boolean"
+                    "disableseeking": "boolean",
+                    "playonclick": "boolean"
                 },
 
                 extendables: ["states"],
@@ -473,6 +475,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     toggle_player: function() {
+                        if (!this.get("playonclick"))
+                            return;
                         if (this.get('playing') && !this.get("disablepause")) {
                             this.pause();
 

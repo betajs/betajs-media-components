@@ -428,10 +428,11 @@ module.exports = function(grunt) {
 		  });
 	  }
   };
-  
-  
-  grunt.registerTask("translations", function () {
-	  var languages = ["de", "fr", "es", "nl", "pt-br", "it", "sv", "da", "no", "fi", "cat", "bg", "hu", "pl", "ro", "sr", "tr", "hr"];
+
+
+    grunt.registerTask("translations", function () {
+	  var languages = ["de", "fr", "es", "nl", "pt-br", "it", "sv", "da", "no", "fi", "cat", "bg", "hu", "pl", "ro",
+                       "sr", "tr", "hr", "id", "hi", "az", "tl", "ar", "ru"];
 	  var sourceFile = "./dist/english.yml";
 	  var targetFolder = "./src/locales/";
 	  languages.forEach(function (targetLang) {

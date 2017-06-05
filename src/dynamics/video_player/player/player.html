@@ -9,7 +9,7 @@
     <video class="{{css}}-video" data-video="video" ba-toggle:playsinline="{{!playfullscreenonmobile}}"></video>
     <div class="{{css}}-overlay" data-video="ad" style="display:none"></div>
     <div class='{{css}}-overlay'>
-		<div class="{{css}}-player-toggle-overlay" ba-click="toggle_player()"></div>
+		<div class="{{css}}-player-toggle-overlay" ba-on:click="toggle_player()"></div>
 	    <ba-{{dyncontrolbar}}
 		    ba-css="{{csscontrolbar || css}}"
 			ba-themecolor="{{themecolor}}"

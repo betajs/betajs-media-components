@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.57 - 2017-05-01
+betajs-media-components - v0.0.57 - 2017-06-05
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -784,6 +784,20 @@ Apache-2.0 Software License.
   height: 100%;
   width: 100%; }
 
+.ba-videoplayer-theme-modern-disabled {
+  cursor: not-allowed;
+  /* works for IE 5+. */
+  /* works for IE 8. */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  /* works for old school versions of the Mozilla browsers like Netscape Navigator. */
+  -moz-opacity: 0.5;
+  /* This is for old versions of Safari (1.x) with KHTML rendering engine */
+  -khtml-opacity: 0.5;
+  /* This is the "most important" one because it's the current standard in CSS. This will work in most versions of Firefox, Safari, and Opera. */
+  opacity: 0.5; }
+  .ba-videoplayer-theme-modern-disabled * {
+    cursor: not-allowed; }
+
 .ba-videoplayer-theme-modern-loader-container {
   -webkit-transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);
@@ -1066,6 +1080,9 @@ Apache-2.0 Software License.
   -webkit-tap-highlight-color: transparent;
   background-color: #878787;
   height: 6px; }
+
+.ba-videoplayer-theme-modern-progressbar.ba-videoplayer-theme-modern-disabled, .ba-videoplayer-theme-modern-progressbar.ba-videoplayer-theme-modern-disabled .ba-videoplayer-theme-modern-progressbar-cache, .ba-videoplayer-theme-modern-progressbar.ba-videoplayer-theme-modern-disabled .ba-videoplayer-theme-modern-progressbar-inner, .ba-videoplayer-theme-modern-progressbar.ba-videoplayer-theme-modern-disabled .ba-videoplayer-theme-modern-progressbar-position {
+  cursor: not-allowed; }
 
 .ba-videoplayer-theme-modern-progressbar-position {
   border-bottom-left-radius: 3px;
@@ -2543,7 +2560,7 @@ Apache-2.0 Software License.
 .ba-videorecorder-theme-modern-red-color .ba-videorecorder-theme-modern-chooser-icon-container, .ba-videorecorder-theme-modern-red-color .ba-videorecorder-theme-modern-chooser-secondary-button,
 .ba-videorecorder-theme-modern-red-color .ba-videorecorder-theme-modern-button-selected, .ba-videorecorder-theme-modern-red-color .ba-videorecorder-theme-modern-loader-label {
   color: #eb6a74; }
-.ba-videorecorder-theme-modern-red-color .ba-videorecorder-theme-modern-video, .ba-videorecorder-theme-modern-red-color .ba-videorecorder-theme-modern-chooser-primary-button, .ba-videorecorder-theme-modern-red-color .ba-videorecorder-theme-modern-button-primary,
+.ba-videorecorder-theme-modern-red-color .ba-videorecorder-theme-modern-chooser-primary-button, .ba-videorecorder-theme-modern-red-color .ba-videorecorder-theme-modern-button-primary,
 .ba-videorecorder-theme-modern-red-color .ba-videorecorder-theme-modern-settings span, .ba-videorecorder-theme-modern-red-color .ba-videorecorder-theme-modern-imagegallery-rightbutton, .ba-videorecorder-theme-modern-red-color .ba-videorecorder-theme-modern-imagegallery-leftbutton {
   background-color: #eb6a74; }
 .ba-videorecorder-theme-modern-red-color .ba-videorecorder-theme-modern-button-selected, .ba-videorecorder-theme-modern-red-color .ba-videorecorder-theme-modern-imagegallery-image:hover,
@@ -2553,7 +2570,7 @@ Apache-2.0 Software License.
 .ba-videorecorder-theme-modern-blue-color .ba-videorecorder-theme-modern-chooser-icon-container, .ba-videorecorder-theme-modern-blue-color .ba-videorecorder-theme-modern-chooser-secondary-button,
 .ba-videorecorder-theme-modern-blue-color .ba-videorecorder-theme-modern-button-selected, .ba-videorecorder-theme-modern-blue-color .ba-videorecorder-theme-modern-loader-label {
   color: #2a74eb; }
-.ba-videorecorder-theme-modern-blue-color .ba-videorecorder-theme-modern-video, .ba-videorecorder-theme-modern-blue-color .ba-videorecorder-theme-modern-chooser-primary-button, .ba-videorecorder-theme-modern-blue-color .ba-videorecorder-theme-modern-button-primary,
+.ba-videorecorder-theme-modern-blue-color .ba-videorecorder-theme-modern-chooser-primary-button, .ba-videorecorder-theme-modern-blue-color .ba-videorecorder-theme-modern-button-primary,
 .ba-videorecorder-theme-modern-blue-color .ba-videorecorder-theme-modern-settings span, .ba-videorecorder-theme-modern-blue-color .ba-videorecorder-theme-modern-imagegallery-rightbutton, .ba-videorecorder-theme-modern-blue-color .ba-videorecorder-theme-modern-imagegallery-leftbutton {
   background-color: #2a74eb; }
 .ba-videorecorder-theme-modern-blue-color .ba-videorecorder-theme-modern-button-selected, .ba-videorecorder-theme-modern-blue-color .ba-videorecorder-theme-modern-imagegallery-image:hover,
@@ -2563,7 +2580,7 @@ Apache-2.0 Software License.
 .ba-videorecorder-theme-modern-green-color .ba-videorecorder-theme-modern-chooser-icon-container, .ba-videorecorder-theme-modern-green-color .ba-videorecorder-theme-modern-chooser-secondary-button,
 .ba-videorecorder-theme-modern-green-color .ba-videorecorder-theme-modern-button-selected, .ba-videorecorder-theme-modern-green-color .ba-videorecorder-theme-modern-loader-label {
   color: #5dbb96; }
-.ba-videorecorder-theme-modern-green-color .ba-videorecorder-theme-modern-video, .ba-videorecorder-theme-modern-green-color .ba-videorecorder-theme-modern-chooser-primary-button, .ba-videorecorder-theme-modern-green-color .ba-videorecorder-theme-modern-button-primary,
+.ba-videorecorder-theme-modern-green-color .ba-videorecorder-theme-modern-chooser-primary-button, .ba-videorecorder-theme-modern-green-color .ba-videorecorder-theme-modern-button-primary,
 .ba-videorecorder-theme-modern-green-color .ba-videorecorder-theme-modern-settings span, .ba-videorecorder-theme-modern-green-color .ba-videorecorder-theme-modern-imagegallery-rightbutton, .ba-videorecorder-theme-modern-green-color .ba-videorecorder-theme-modern-imagegallery-leftbutton {
   background-color: #5dbb96; }
 .ba-videorecorder-theme-modern-green-color .ba-videorecorder-theme-modern-button-selected, .ba-videorecorder-theme-modern-green-color .ba-videorecorder-theme-modern-imagegallery-image:hover,

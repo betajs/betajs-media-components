@@ -15,7 +15,7 @@
   ba-videoplayer-controlbar.volume-button: Réglez ou ajustez le volume
   ba-videoplayer-controlbar.volume-mute: Silencieux
   ba-videoplayer-controlbar.volume-unmute: Silencieux désactivé
-  ba-videoplayer.video-error: Une s’est produite, réessayez ultérieurement – cliquez ici pour réessayer.
+  ba-videoplayer.video-error: 'Une s’est produite, réessayez ultérieurement – cliquez ici pour réessayer.'
   ba-videorecorder-chooser.record-video: Enregistrez votre vidéo
   ba-videorecorder-chooser.upload-video: Téléchargez votre vidéo
   ba-videorecorder-controlbar.settings: Réglage ou mise à jour
@@ -33,8 +33,11 @@
   ba-videorecorder-controlbar.stop-tooltip: Cliquez ici pour arrêter.
   ba-videorecorder-controlbar.skip: Sauter
   ba-videorecorder-controlbar.skip-tooltip: Cliquez ici pour sauter.
-  ba-videorecorder.recorder-error: Une s’est produite, réessayez ultérieurement – cliquez ici pour réessayer.
-  ba-videorecorder.attach-error: Nous ne pouvons pas accéder à l’interface de l’appareil- cela dépend du système et de l’explorateur. Cela peut nécessiter d’installer flash ou une accédez à la page via SSL.
+  ba-videorecorder.recorder-error: 'Une s’est produite, réessayez ultérieurement – cliquez ici pour réessayer.'
+  ba-videorecorder.attach-error: >-
+    Nous ne pouvons pas accéder à l’interface de l’appareil- cela dépend du
+    système et de l’explorateur. Cela peut nécessiter d’installer flash ou une
+    accédez à la page via SSL.
   ba-videorecorder.access-forbidden: L’accès à l’appareil est interdit. Cliquez pour recommencer.
   ba-videorecorder.pick-covershot: Choisissez une page de couverture.
   ba-videorecorder.uploading: Téléchargez
@@ -42,5 +45,9 @@
   ba-videorecorder.verifying: Vérification
   ba-videorecorder.verifying-failed: Vérification échouée - Cliquez ici pour recommencer ou réessayer.
   ba-videorecorder.rerecord-confirm: Souhaitez vous réellement recommencer la vidéo?
-  ba-videorecorder.video_file_too_large: La taille de votre fichier est trop grande (%s). Cliquez ici pour ajuster la taille.
+  ba-videorecorder.video_file_too_large: >-
+    La taille de votre fichier est trop grande (%s). Cliquez ici pour ajuster la
+    taille.
   ba-videorecorder.unsupported_video_type: 'S''il vous plaît télécharger: %s - cliquez ici pour réessayer.'
+  ba-videoplayer-controlbar.exit-fullscreen-video: Quitter le mode plein écran
+  ba-videoplayer-share.share: Partager la vidéo

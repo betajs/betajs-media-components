@@ -101,11 +101,14 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Initial", [
     }, {
 
         _started: function() {
+            this.dyn.set("verified", false);
+            this.dyn.set("playbacksource", null);
+            this.dyn.set("playbackposter", null);
             this.dyn.set("player_active", false);
             this.dyn._initializeUploader();
             if (!this.dyn.get("recordermode")) {
                 if (!this.dyn.get("video")) {
-                    console.warn("In order to set recorder mode false, video parameter with token has to be provided");
+                    console.warn("recordermode:false requires an existing video to be present and provided.");
                     this.dyn.set("recordermode", true);
                 } else
                     this.next("Player");
@@ -512,6 +515,10 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
         dynamics: ["loader", "message"],
 
         _started: function() {
+            this.dyn.set("settingsvisible", false);
+            this.dyn.set("recordvisible", false);
+            this.dyn.set("stopvisible", false);
+            this.dyn.set("controlbarlabel", "");
             this.dyn.trigger("uploading");
             this.dyn.set("rerecordvisible", this.dyn.get("early-rerecord"));
             if (this.dyn.get("early-rerecord"))
@@ -600,6 +607,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Verifying", [
                     this.dyn.set("recordings", this.dyn.get("recordings") - 1);
                 this.dyn.set("message", "");
                 this.dyn.set("playertopmessage", "");
+                this.dyn.set("verified", true);
                 this.next("Player");
             }, this).error(function() {
                 this.dyn.set("player_active", false);

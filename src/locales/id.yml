@@ -1,0 +1,53 @@
+'language:id':
+  ba-videoplayer-playbutton.tooltip: Klik untuk memutar video.
+  ba-videoplayer-playbutton.rerecord: Mengulangi
+  ba-videoplayer-playbutton.submit-video: Konfirmasi video
+  ba-videoplayer-loader.tooltip: Memuat video ...
+  ba-videoplayer-controlbar.change-resolution: Ubah resolusi
+  ba-videoplayer-controlbar.video-progress: Kemajuan video
+  ba-videoplayer-controlbar.rerecord-video: Redo video?
+  ba-videoplayer-controlbar.submit-video: Konfirmasi video
+  ba-videoplayer-controlbar.play-video: Putar video
+  ba-videoplayer-controlbar.pause-video: Jeda video
+  ba-videoplayer-controlbar.elapsed-time: Elasped waktu
+  ba-videoplayer-controlbar.total-time: Panjang video total
+  ba-videoplayer-controlbar.fullscreen-video: Memasuki layar penuh
+  ba-videoplayer-controlbar.volume-button: Setel volume
+  ba-videoplayer-controlbar.volume-mute: Bisu terdengar
+  ba-videoplayer-controlbar.volume-unmute: Suarakan suara
+  ba-videoplayer.video-error: 'Terjadi kesalahan, coba lagi nanti. Klik untuk mencoba lagi.'
+  ba-videorecorder-chooser.record-video: Merekam video
+  ba-videorecorder-chooser.upload-video: Upload Video
+  ba-videorecorder-controlbar.settings: Pengaturan
+  ba-videorecorder-controlbar.camerahealthy: Pencahayaan itu bagus
+  ba-videorecorder-controlbar.cameraunhealthy: Pencahayaan tidak optimal
+  ba-videorecorder-controlbar.microphonehealthy: Suara bagus
+  ba-videorecorder-controlbar.microphoneunhealthy: Tidak bisa mengambil suara apapun
+  ba-videorecorder-controlbar.record: Merekam
+  ba-videorecorder-controlbar.record-tooltip: Klik di sini untuk merekam.
+  ba-videorecorder-controlbar.rerecord: Mengulangi
+  ba-videorecorder-controlbar.rerecord-tooltip: Klik di sini untuk mengulang.
+  ba-videorecorder-controlbar.upload-covershot: Upload
+  ba-videorecorder-controlbar.upload-covershot-tooltip: Klik di sini untuk mengunggah tangkapan sampul khusus
+  ba-videorecorder-controlbar.stop: Berhenti
+  ba-videorecorder-controlbar.stop-tooltip: Klik di sini untuk berhenti.
+  ba-videorecorder-controlbar.skip: Melewatkan
+  ba-videorecorder-controlbar.skip-tooltip: Klik di sini untuk melompat.
+  ba-videorecorder.recorder-error: 'Terjadi kesalahan, coba lagi nanti. Klik untuk mencoba lagi.'
+  ba-videorecorder.attach-error: >-
+    Kami tidak dapat mengakses antarmuka kamera. Bergantung pada perangkat dan
+    browser, Anda mungkin perlu menginstal Flash atau mengakses halaman melalui
+    SSL.
+  ba-videorecorder.access-forbidden: Akses ke kamera dilarang. Klik untuk mencoba lagi.
+  ba-videorecorder.pick-covershot: Pilih sebuah coverhot.
+  ba-videorecorder.uploading: Mengunggah
+  ba-videorecorder.uploading-failed: Mengunggah gagal - klik di sini untuk mencoba lagi.
+  ba-videorecorder.verifying: Memverifikasi
+  ba-videorecorder.verifying-failed: Verifikasi gagal - klik di sini untuk mencoba lagi.
+  ba-videorecorder.rerecord-confirm: Apakah Anda benar-benar ingin mengulang video Anda?
+  ba-videorecorder.video_file_too_large: >-
+    File video Anda terlalu besar ( %s) - klik di sini untuk mencoba lagi dengan
+    file video yang lebih kecil.
+  ba-videorecorder.unsupported_video_type: 'Silakan upload: %s - klik di sini untuk mencoba lagi.'
+  ba-videoplayer-controlbar.exit-fullscreen-video: Keluar dari layar penuh
+  ba-videoplayer-share.share: Berbagi video

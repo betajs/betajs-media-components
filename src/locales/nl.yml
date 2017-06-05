@@ -53,3 +53,5 @@
     Uw video bestand is te groot (%s) - klik hier om opnieuw te proberen met een
     kleinere videobestand.
   ba-videorecorder.unsupported_video_type: 'Upload: %s - klik hier om opnieuw te proberen.'
+  ba-videoplayer-controlbar.exit-fullscreen-video: Verlaat volledig scherm
+  ba-videoplayer-share.share: Deel Video

@@ -45,6 +45,8 @@
   ba-videorecorder.verifying-failed: Ellenőrzéséért sikertelen - ide kattintva újra.
   ba-videorecorder.rerecord-confirm: Tényleg azt akarja ismételni a videó?
   ba-videorecorder.video_file_too_large: >-
-    A videó fájl túl nagy (%s) - ide kattintva próbálkozzon újra egy kisebb video
-    fájlt.
+    A videó fájl túl nagy (%s) - ide kattintva próbálkozzon újra egy kisebb
+    video fájlt.
   ba-videorecorder.unsupported_video_type: 'Kérjük, töltsön fel: %s - ide kattintva újra.'
+  ba-videoplayer-controlbar.exit-fullscreen-video: Kilépés a teljes képernyős
+  ba-videoplayer-share.share: Videó megosztása

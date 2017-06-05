@@ -52,3 +52,5 @@
     Videofilen är för stor (%s) - klicka här för att försöka igen med en mindre
     videofil.
   ba-videorecorder.unsupported_video_type: 'Ladda upp: %s - klicka här för att försöka igen.'
+  ba-videoplayer-controlbar.exit-fullscreen-video: Avsluta fullskärmen
+  ba-videoplayer-share.share: Dela video

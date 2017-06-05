@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.57 - 2017-05-01
+betajs-media-components - v0.0.57 - 2017-06-05
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -784,6 +784,20 @@ Apache-2.0 Software License.
   height: 100%;
   width: 100%; }
 
+.ba-videoplayer-elevate-theme-disabled {
+  cursor: not-allowed;
+  /* works for IE 5+. */
+  /* works for IE 8. */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  /* works for old school versions of the Mozilla browsers like Netscape Navigator. */
+  -moz-opacity: 0.5;
+  /* This is for old versions of Safari (1.x) with KHTML rendering engine */
+  -khtml-opacity: 0.5;
+  /* This is the "most important" one because it's the current standard in CSS. This will work in most versions of Firefox, Safari, and Opera. */
+  opacity: 0.5; }
+  .ba-videoplayer-elevate-theme-disabled * {
+    cursor: not-allowed; }
+
 .ba-videoplayer-elevate-theme-loader-container {
   -webkit-transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);
@@ -1081,6 +1095,9 @@ Apache-2.0 Software License.
   -webkit-tap-highlight-color: transparent;
   background-color: #eeeeee;
   height: 8px; }
+
+.ba-videoplayer-elevate-theme-progressbar.ba-videoplayer-elevate-theme-disabled .ba-videoplayer-elevate-theme-progressbar-cache, .ba-videoplayer-elevate-theme-progressbar.ba-videoplayer-elevate-theme-disabled .ba-videoplayer-elevate-theme-progressbar-inner, .ba-videoplayer-elevate-theme-progressbar.ba-videoplayer-elevate-theme-disabled .ba-videoplayer-elevate-theme-progressbar-position {
+  cursor: not-allowed; }
 
 .ba-videoplayer-elevate-theme-progressbar-cache {
   position: absolute;
@@ -2640,7 +2657,7 @@ Apache-2.0 Software License.
 .ba-videorecorder-theme-elevate-red-color .ba-videorecorder-theme-elevate-button-selected, .ba-videorecorder-theme-elevate-red-color .ba-videorecorder-theme-elevate-loader-label,
 .ba-videorecorder-theme-elevate-red-color .ba-videorecorder-theme-elevate-message-message, .ba-videorecorder-theme-elevate-red-color .ba-videorecorder-loader-label, .ba-videorecorder-theme-elevate-red-color .ba-videorecorder-message-message {
   color: #eb6a74; }
-.ba-videorecorder-theme-elevate-red-color .ba-videorecorder-theme-elevate-video, .ba-videorecorder-theme-elevate-red-color .ba-videorecorder-theme-elevate-button-primary, .ba-videorecorder-theme-elevate-red-color .ba-videorecorder-theme-elevate-chooser-primary-button,
+.ba-videorecorder-theme-elevate-red-color .ba-videorecorder-theme-elevate-button-primary, .ba-videorecorder-theme-elevate-red-color .ba-videorecorder-theme-elevate-chooser-primary-button,
 .ba-videorecorder-theme-elevate-red-color .ba-videorecorder-theme-elevate-settings span, .ba-videorecorder-theme-elevate-red-color .ba-videorecorder-theme-elevate-imagegallery-rightbutton, .ba-videorecorder-theme-elevate-red-color .ba-videorecorder-theme-elevate-imagegallery-leftbutton {
   background-color: #eb6a74; }
 .ba-videorecorder-theme-elevate-red-color .ba-videorecorder-theme-elevate-chooser-primary-button, .ba-videorecorder-theme-elevate-red-color .ba-videorecorder-theme-elevate-imagegallery-image:hover {
@@ -2650,7 +2667,7 @@ Apache-2.0 Software License.
 .ba-videorecorder-theme-elevate-blue-color .ba-videorecorder-theme-elevate-button-selected, .ba-videorecorder-theme-elevate-blue-color .ba-videorecorder-theme-elevate-loader-label,
 .ba-videorecorder-theme-elevate-blue-color .ba-videorecorder-theme-elevate-message-message, .ba-videorecorder-theme-elevate-blue-color .ba-videorecorder-loader-label, .ba-videorecorder-theme-elevate-blue-color .ba-videorecorder-message-message {
   color: #2a74eb; }
-.ba-videorecorder-theme-elevate-blue-color .ba-videorecorder-theme-elevate-video, .ba-videorecorder-theme-elevate-blue-color .ba-videorecorder-theme-elevate-button-primary, .ba-videorecorder-theme-elevate-blue-color .ba-videorecorder-theme-elevate-chooser-primary-button,
+.ba-videorecorder-theme-elevate-blue-color .ba-videorecorder-theme-elevate-button-primary, .ba-videorecorder-theme-elevate-blue-color .ba-videorecorder-theme-elevate-chooser-primary-button,
 .ba-videorecorder-theme-elevate-blue-color .ba-videorecorder-theme-elevate-settings span, .ba-videorecorder-theme-elevate-blue-color .ba-videorecorder-theme-elevate-imagegallery-rightbutton, .ba-videorecorder-theme-elevate-blue-color .ba-videorecorder-theme-elevate-imagegallery-leftbutton {
   background-color: #2a74eb; }
 .ba-videorecorder-theme-elevate-blue-color .ba-videorecorder-theme-elevate-chooser-primary-button, .ba-videorecorder-theme-elevate-blue-color .ba-videorecorder-theme-elevate-imagegallery-image:hover {
@@ -2660,7 +2677,7 @@ Apache-2.0 Software License.
 .ba-videorecorder-theme-elevate-green-color .ba-videorecorder-theme-elevate-button-selected, .ba-videorecorder-theme-elevate-green-color .ba-videorecorder-theme-elevate-loader-label,
 .ba-videorecorder-theme-elevate-green-color .ba-videorecorder-theme-elevate-message-message, .ba-videorecorder-theme-elevate-green-color .ba-videorecorder-loader-label, .ba-videorecorder-theme-elevate-green-color .ba-videorecorder-message-message {
   color: #5daa96; }
-.ba-videorecorder-theme-elevate-green-color .ba-videorecorder-theme-elevate-video, .ba-videorecorder-theme-elevate-green-color .ba-videorecorder-theme-elevate-button-primary, .ba-videorecorder-theme-elevate-green-color .ba-videorecorder-theme-elevate-chooser-primary-button,
+.ba-videorecorder-theme-elevate-green-color .ba-videorecorder-theme-elevate-button-primary, .ba-videorecorder-theme-elevate-green-color .ba-videorecorder-theme-elevate-chooser-primary-button,
 .ba-videorecorder-theme-elevate-green-color .ba-videorecorder-theme-elevate-settings span, .ba-videorecorder-theme-elevate-green-color .ba-videorecorder-theme-elevate-imagegallery-rightbutton, .ba-videorecorder-theme-elevate-green-color .ba-videorecorder-theme-elevate-imagegallery-leftbutton {
   background-color: #5daa96; }
 .ba-videorecorder-theme-elevate-green-color .ba-videorecorder-theme-elevate-chooser-primary-button, .ba-videorecorder-theme-elevate-green-color .ba-videorecorder-theme-elevate-imagegallery-image:hover {

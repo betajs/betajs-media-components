@@ -50,6 +50,8 @@
   ba-videorecorder.verifying-failed: Verificando falhou - clique aqui para tentar novamente.
   ba-videorecorder.rerecord-confirm: Você realmente quer refazer seu vídeo?
   ba-videorecorder.video_file_too_large: >-
-    O arquivo de vídeo é muito grande (%s) - clique aqui para tentar novamente com um
-    arquivo de vídeo menor.
+    O arquivo de vídeo é muito grande (%s) - clique aqui para tentar novamente
+    com um arquivo de vídeo menor.
   ba-videorecorder.unsupported_video_type: 'Faça o upload: %s - clique aqui para tentar novamente.'
+  ba-videoplayer-controlbar.exit-fullscreen-video: Sair do ecrã inteiro
+  ba-videoplayer-share.share: Compartilhar video

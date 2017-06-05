@@ -50,6 +50,8 @@
   ba-videorecorder.verifying-failed: fallat la verificació de - fer clic aquí per tornar a intentar-ho.
   ba-videorecorder.rerecord-confirm: De veritat vol tornar a fer el vídeo?
   ba-videorecorder.video_file_too_large: >-
-    L'arxiu de vídeo és massa gran (%s) - fer clic aquí per tornar a intentar-ho amb
-    un arxiu de vídeo més petita.
+    L'arxiu de vídeo és massa gran (%s) - fer clic aquí per tornar a intentar-ho
+    amb un arxiu de vídeo més petita.
   ba-videorecorder.unsupported_video_type: 'Si us plau, puja: %s - fer clic aquí per tornar a intentar-ho.'
+  ba-videoplayer-controlbar.exit-fullscreen-video: Surt de la pantalla completa
+  ba-videoplayer-share.share: compartir vídeo

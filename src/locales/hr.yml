@@ -49,6 +49,8 @@
   ba-videorecorder.verifying-failed: Potvrđivanje nije uspjelo - kliknite ovdje za ponovni pokušaj.
   ba-videorecorder.rerecord-confirm: Da li zaista želite ponoviti svoj video?
   ba-videorecorder.video_file_too_large: >-
-    Vaš video datoteka je prevelika (%s) - kliknite ovdje kako bi pokušali ponovno s
-    manjim video datoteka.
+    Vaš video datoteka je prevelika (%s) - kliknite ovdje kako bi pokušali
+    ponovno s manjim video datoteka.
   ba-videorecorder.unsupported_video_type: 'Prenesite: %s - kliknite ovdje za ponovni pokušaj.'
+  ba-videoplayer-controlbar.exit-fullscreen-video: Izađite iz cijelog zaslona
+  ba-videoplayer-share.share: Dijeljenje videozapisa

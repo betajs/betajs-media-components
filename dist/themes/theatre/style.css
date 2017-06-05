@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.57 - 2017-05-01
+betajs-media-components - v0.0.57 - 2017-06-05
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -784,6 +784,20 @@ Apache-2.0 Software License.
   height: 100%;
   width: 100%; }
 
+.ba-videoplayer-theatre-theme-disabled {
+  cursor: not-allowed;
+  /* works for IE 5+. */
+  /* works for IE 8. */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  /* works for old school versions of the Mozilla browsers like Netscape Navigator. */
+  -moz-opacity: 0.5;
+  /* This is for old versions of Safari (1.x) with KHTML rendering engine */
+  -khtml-opacity: 0.5;
+  /* This is the "most important" one because it's the current standard in CSS. This will work in most versions of Firefox, Safari, and Opera. */
+  opacity: 0.5; }
+  .ba-videoplayer-theatre-theme-disabled * {
+    cursor: not-allowed; }
+
 .ba-videoplayer-theatre-theme-loader-container {
   -webkit-transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);
@@ -1136,6 +1150,9 @@ Apache-2.0 Software License.
   -webkit-tap-highlight-color: transparent;
   height: 10px;
   background-color: #cccccc; }
+
+.ba-videoplayer-theatre-theme-progressbar.ba-videoplayer-theatre-theme-disabled .ba-videoplayer-theatre-theme-progressbar-cache, .ba-videoplayer-theatre-theme-progressbar.ba-videoplayer-theatre-theme-disabled .ba-videoplayer-theatre-theme-progressbar-inner {
+  cursor: not-allowed; }
 
 .ba-videoplayer-theatre-theme-progressbar-cache {
   position: absolute;
@@ -2635,7 +2652,7 @@ Apache-2.0 Software License.
 
 .ba-videorecorder-theme-theatre-red-color .ba-videorecorder-theme-theatre-button-selected, .ba-videorecorder-theme-theatre-red-color .ba-videorecorder-theme-theatre-button-inner:hover, .ba-videorecorder-theme-theatre-red-color .ba-videorecorder-theme-theatre-button-selected {
   color: #eb6a74; }
-.ba-videorecorder-theme-theatre-red-color .ba-videorecorder-theme-theatre-video, .ba-videorecorder-theme-theatre-red-color .ba-videorecorder-theme-theatre-button-primary, .ba-videorecorder-theme-theatre-red-color .ba-videorecorder-theme-theatre-settings span,
+.ba-videorecorder-theme-theatre-red-color .ba-videorecorder-theme-theatre-button-primary, .ba-videorecorder-theme-theatre-red-color .ba-videorecorder-theme-theatre-settings span,
 .ba-videorecorder-theme-theatre-red-color .ba-videorecorder-theme-theatre-imagegallery-rightbutton, .ba-videorecorder-theme-theatre-red-color .ba-videorecorder-theme-theatre-imagegallery-leftbutton,
 .ba-videorecorder-theme-theatre-red-color .ba-videorecorder-theme-theatre-chooser-primary-button {
   background-color: #eb6a74; }
@@ -2649,7 +2666,7 @@ Apache-2.0 Software License.
 
 .ba-videorecorder-theme-theatre-blue-color .ba-videorecorder-theme-theatre-button-selected, .ba-videorecorder-theme-theatre-blue-color .ba-videorecorder-theme-theatre-button-inner:hover, .ba-videorecorder-theme-theatre-blue-color .ba-videorecorder-theme-theatre-button-selected {
   color: #2a74eb; }
-.ba-videorecorder-theme-theatre-blue-color .ba-videorecorder-theme-theatre-video, .ba-videorecorder-theme-theatre-blue-color .ba-videorecorder-theme-theatre-button-primary, .ba-videorecorder-theme-theatre-blue-color .ba-videorecorder-theme-theatre-settings span,
+.ba-videorecorder-theme-theatre-blue-color .ba-videorecorder-theme-theatre-button-primary, .ba-videorecorder-theme-theatre-blue-color .ba-videorecorder-theme-theatre-settings span,
 .ba-videorecorder-theme-theatre-blue-color .ba-videorecorder-theme-theatre-imagegallery-rightbutton, .ba-videorecorder-theme-theatre-blue-color .ba-videorecorder-theme-theatre-imagegallery-leftbutton,
 .ba-videorecorder-theme-theatre-blue-color .ba-videorecorder-theme-theatre-chooser-primary-button {
   background-color: #2a74eb; }
@@ -2663,7 +2680,7 @@ Apache-2.0 Software License.
 
 .ba-videorecorder-theme-theatre-green-color .ba-videorecorder-theme-theatre-button-selected, .ba-videorecorder-theme-theatre-green-color .ba-videorecorder-theme-theatre-button-inner:hover, .ba-videorecorder-theme-theatre-green-color .ba-videorecorder-theme-theatre-button-selected {
   color: #5daa96; }
-.ba-videorecorder-theme-theatre-green-color .ba-videorecorder-theme-theatre-video, .ba-videorecorder-theme-theatre-green-color .ba-videorecorder-theme-theatre-button-primary, .ba-videorecorder-theme-theatre-green-color .ba-videorecorder-theme-theatre-settings span,
+.ba-videorecorder-theme-theatre-green-color .ba-videorecorder-theme-theatre-button-primary, .ba-videorecorder-theme-theatre-green-color .ba-videorecorder-theme-theatre-settings span,
 .ba-videorecorder-theme-theatre-green-color .ba-videorecorder-theme-theatre-imagegallery-rightbutton, .ba-videorecorder-theme-theatre-green-color .ba-videorecorder-theme-theatre-imagegallery-leftbutton,
 .ba-videorecorder-theme-theatre-green-color .ba-videorecorder-theme-theatre-chooser-primary-button {
   background-color: #5daa96; }

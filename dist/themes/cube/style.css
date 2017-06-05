@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.57 - 2017-05-01
+betajs-media-components - v0.0.57 - 2017-06-05
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -784,6 +784,20 @@ Apache-2.0 Software License.
   height: 100%;
   width: 100%; }
 
+.ba-videoplayer-cube-theme-disabled {
+  cursor: not-allowed;
+  /* works for IE 5+. */
+  /* works for IE 8. */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  /* works for old school versions of the Mozilla browsers like Netscape Navigator. */
+  -moz-opacity: 0.5;
+  /* This is for old versions of Safari (1.x) with KHTML rendering engine */
+  -khtml-opacity: 0.5;
+  /* This is the "most important" one because it's the current standard in CSS. This will work in most versions of Firefox, Safari, and Opera. */
+  opacity: 0.5; }
+  .ba-videoplayer-cube-theme-disabled * {
+    cursor: not-allowed; }
+
 .ba-videoplayer-cube-theme-loader-container {
   -webkit-transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);
@@ -1078,6 +1092,9 @@ Apache-2.0 Software License.
   -webkit-tap-highlight-color: transparent;
   background-color: transparent;
   height: 40px; }
+
+.ba-videoplayer-cube-theme-progressbar.ba-videoplayer-cube-theme-disabled, .ba-videoplayer-cube-theme-progressbar.ba-videoplayer-cube-theme-disabled .ba-videoplayer-cube-theme-progressbar-cache, .ba-videoplayer-cube-theme-progressbar.ba-videoplayer-cube-theme-disabled .ba-videoplayer-cube-theme-progressbar-inner, .ba-videoplayer-cube-theme-progressbar.ba-videoplayer-cube-theme-disabled .ba-videoplayer-cube-theme-progressbar-position {
+  cursor: not-allowed; }
 
 .ba-videoplayer-cube-theme-progressbar-position {
   position: absolute;
@@ -2534,7 +2551,7 @@ Apache-2.0 Software License.
 .ba-videorecorder-theme-cube-red-color .ba-videorecorder-theme-cube-button-selected, .ba-videorecorder-theme-cube-red-color .ba-videorecorder-theme-cube-button-inner:hover,
 .ba-videorecorder-theme-cube-red-color .ba-videorecorder-theme-cube-chooser-icon-container, .ba-videorecorder-theme-cube-red-color .ba-videorecorder-theme-cube-loader-label {
   color: #eb6a74; }
-.ba-videorecorder-theme-cube-red-color .ba-videorecorder-theme-cube-video, .ba-videorecorder-theme-cube-red-color .ba-videorecorder-theme-cube-chooser-primary-button, .ba-videorecorder-theme-cube-red-color .ba-videorecorder-theme-cube-button-primary, .ba-videorecorder-theme-cube-red-color .ba-videorecorder-theme-cube-settings span,
+.ba-videorecorder-theme-cube-red-color .ba-videorecorder-theme-cube-chooser-primary-button, .ba-videorecorder-theme-cube-red-color .ba-videorecorder-theme-cube-button-primary, .ba-videorecorder-theme-cube-red-color .ba-videorecorder-theme-cube-settings span,
 .ba-videorecorder-theme-cube-red-color .ba-videorecorder-theme-cube-imagegallery-rightbutton, .ba-videorecorder-theme-cube-red-color .ba-videorecorder-theme-cube-imagegallery-leftbutton {
   background-color: #eb6a74; }
 .ba-videorecorder-theme-cube-red-color .ba-videorecorder-theme-cube-imagegallery-image:hover {
@@ -2543,7 +2560,7 @@ Apache-2.0 Software License.
 .ba-videorecorder-theme-cube-blue-color .ba-videorecorder-theme-cube-button-selected, .ba-videorecorder-theme-cube-blue-color .ba-videorecorder-theme-cube-button-inner:hover,
 .ba-videorecorder-theme-cube-blue-color .ba-videorecorder-theme-cube-chooser-icon-container, .ba-videorecorder-theme-cube-blue-color .ba-videorecorder-theme-cube-loader-label {
   color: #2a74eb; }
-.ba-videorecorder-theme-cube-blue-color .ba-videorecorder-theme-cube-video, .ba-videorecorder-theme-cube-blue-color .ba-videorecorder-theme-cube-chooser-primary-button, .ba-videorecorder-theme-cube-blue-color .ba-videorecorder-theme-cube-button-primary, .ba-videorecorder-theme-cube-blue-color .ba-videorecorder-theme-cube-settings span,
+.ba-videorecorder-theme-cube-blue-color .ba-videorecorder-theme-cube-chooser-primary-button, .ba-videorecorder-theme-cube-blue-color .ba-videorecorder-theme-cube-button-primary, .ba-videorecorder-theme-cube-blue-color .ba-videorecorder-theme-cube-settings span,
 .ba-videorecorder-theme-cube-blue-color .ba-videorecorder-theme-cube-imagegallery-rightbutton, .ba-videorecorder-theme-cube-blue-color .ba-videorecorder-theme-cube-imagegallery-leftbutton {
   background-color: #2a74eb; }
 .ba-videorecorder-theme-cube-blue-color .ba-videorecorder-theme-cube-imagegallery-image:hover {
@@ -2552,7 +2569,7 @@ Apache-2.0 Software License.
 .ba-videorecorder-theme-cube-green-color .ba-videorecorder-theme-cube-button-selected, .ba-videorecorder-theme-cube-green-color .ba-videorecorder-theme-cube-button-inner:hover,
 .ba-videorecorder-theme-cube-green-color .ba-videorecorder-theme-cube-chooser-icon-container, .ba-videorecorder-theme-cube-green-color .ba-videorecorder-theme-cube-loader-label {
   color: #5daa96; }
-.ba-videorecorder-theme-cube-green-color .ba-videorecorder-theme-cube-video, .ba-videorecorder-theme-cube-green-color .ba-videorecorder-theme-cube-chooser-primary-button, .ba-videorecorder-theme-cube-green-color .ba-videorecorder-theme-cube-button-primary, .ba-videorecorder-theme-cube-green-color .ba-videorecorder-theme-cube-settings span,
+.ba-videorecorder-theme-cube-green-color .ba-videorecorder-theme-cube-chooser-primary-button, .ba-videorecorder-theme-cube-green-color .ba-videorecorder-theme-cube-button-primary, .ba-videorecorder-theme-cube-green-color .ba-videorecorder-theme-cube-settings span,
 .ba-videorecorder-theme-cube-green-color .ba-videorecorder-theme-cube-imagegallery-rightbutton, .ba-videorecorder-theme-cube-green-color .ba-videorecorder-theme-cube-imagegallery-leftbutton {
   background-color: #5daa96; }
 .ba-videorecorder-theme-cube-green-color .ba-videorecorder-theme-cube-imagegallery-image:hover {

@@ -49,3 +49,5 @@
     Plik wideo jest zbyt duża (%s) - kliknij tutaj, aby spróbować ponownie z
     mniejszym pliku wideo.
   ba-videorecorder.unsupported_video_type: 'Proszę przesłać: %s - kliknij tutaj, aby ponowić próbę.'
+  ba-videoplayer-controlbar.exit-fullscreen-video: Zamknij pełny ekran
+  ba-videoplayer-share.share: Udostępnij film

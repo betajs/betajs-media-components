@@ -45,6 +45,8 @@
   ba-videorecorder.verifying-failed: Varmentaa epäonnistui - klikkaa tästä yritä uudelleen.
   ba-videorecorder.rerecord-confirm: Haluatko todella redo videon?
   ba-videorecorder.video_file_too_large: >-
-    Videotiedosto on liian suuri (%s) - klikkaa tästä yrittää uudelleen pienemmällä
-    videotiedosto.
+    Videotiedosto on liian suuri (%s) - klikkaa tästä yrittää uudelleen
+    pienemmällä videotiedosto.
   ba-videorecorder.unsupported_video_type: 'Lataa: %s - klikkaa tästä yritä uudelleen.'
+  ba-videoplayer-controlbar.exit-fullscreen-video: exit fullscreen
+  ba-videoplayer-share.share: Jaa video

@@ -1,0 +1,52 @@
+'language:ar':
+  ba-videoplayer-playbutton.tooltip: انقر لتشغيل الفيديو.
+  ba-videoplayer-playbutton.rerecord: اعد المحاولة
+  ba-videoplayer-playbutton.submit-video: تأكيد الفيديو
+  ba-videoplayer-loader.tooltip: جار تحميل الفيديو ...
+  ba-videoplayer-controlbar.change-resolution: تغيير الدقة
+  ba-videoplayer-controlbar.video-progress: تقدم الفيديو
+  ba-videoplayer-controlbar.rerecord-video: إعادة الفيديو؟
+  ba-videoplayer-controlbar.submit-video: تأكيد الفيديو
+  ba-videoplayer-controlbar.play-video: شغل الفيديو
+  ba-videoplayer-controlbar.pause-video: إيقاف الفيديو مؤقتا
+  ba-videoplayer-controlbar.elapsed-time: الوقت المنقضي
+  ba-videoplayer-controlbar.total-time: طول الفيديو الكلي
+  ba-videoplayer-controlbar.fullscreen-video: عرض ملء الشاشة
+  ba-videoplayer-controlbar.volume-button: تعيين مستوى الصوت
+  ba-videoplayer-controlbar.volume-mute: كتم الصوت
+  ba-videoplayer-controlbar.volume-unmute: إلغاء كتم الصوت
+  ba-videoplayer.video-error: لقد حدث خطأ، رجاء أعد المحاولة لاحقا. انقر لإعادة المحاولة.
+  ba-videorecorder-chooser.record-video: تسجيل الفيديو
+  ba-videorecorder-chooser.upload-video: رفع فيديو
+  ba-videorecorder-controlbar.settings: إعدادات
+  ba-videorecorder-controlbar.camerahealthy: الإضاءة جيدة
+  ba-videorecorder-controlbar.cameraunhealthy: الإضاءة ليست الأمثل
+  ba-videorecorder-controlbar.microphonehealthy: الصوت جيد
+  ba-videorecorder-controlbar.microphoneunhealthy: لا يمكن التقاط أي صوت
+  ba-videorecorder-controlbar.record: سجل
+  ba-videorecorder-controlbar.record-tooltip: انقر هنا للتسجيل.
+  ba-videorecorder-controlbar.rerecord: اعد المحاولة
+  ba-videorecorder-controlbar.rerecord-tooltip: انقر هنا للإعادة.
+  ba-videorecorder-controlbar.upload-covershot: رفع صورة الواجهة.
+  ba-videorecorder-controlbar.upload-covershot-tooltip: انقر هنا لتحميل لقطة مخصصة المحاولة.
+  ba-videorecorder-controlbar.stop: توقف
+  ba-videorecorder-controlbar.stop-tooltip: انقر هنا للتوقف.
+  ba-videorecorder-controlbar.skip: تخطى
+  ba-videorecorder-controlbar.skip-tooltip: انقر هنا للتخطي.
+  ba-videorecorder.recorder-error: لقد حدث خطأ، رجاء أعد المحاولة لاحقا. انقر لإعادة المحاولة.
+  ba-videorecorder.attach-error: >-
+    لم نتمكن من الوصول إلى واجهة الكاميرا. اعتمادا على الجهاز والمتصفح، قد تحتاج
+    إلى تثبيت فلاش أو الوصول إلى الصفحة عبر متصفح اخر.
+  ba-videorecorder.access-forbidden: تم حظر الدخول إلى الكاميرا. انقر لإعادة المحاولة
+  ba-videorecorder.pick-covershot: اختيار صورة الواجهة.
+  ba-videorecorder.uploading: جاري الرفع
+  ba-videorecorder.uploading-failed: فشل في الرفع - انقر هنا لإعادة المحاولة.
+  ba-videorecorder.verifying: جاري التحقق
+  ba-videorecorder.verifying-failed: فشل عملية التحقق - انقر هنا لإعادة المحاولة.
+  ba-videorecorder.rerecord-confirm: تآكيد اعادة الفيديو؟
+  ba-videorecorder.video_file_too_large: >-
+    ملف الفيديو كبير جدا (٪ s) - انقر هنا لإعادة المحاولة باستخدام ملف فيديو
+    أصغر.
+  ba-videorecorder.unsupported_video_type: 'صيغة الفيديو غير مدعومة :٪ s - انقر هنا لإعادة المحاولة.'
+  ba-videoplayer-controlbar.exit-fullscreen-video: الخروج من الشاشة الكاملة
+  ba-videoplayer-share.share: شارك الفيديو

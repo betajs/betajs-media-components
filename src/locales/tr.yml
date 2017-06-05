@@ -45,6 +45,8 @@
   ba-videorecorder.verifying-failed: Başarısız kullanıldığını doğrulamak - yeniden denemek için burayı tıklayın.
   ba-videorecorder.rerecord-confirm: Eğer gerçekten video yinelemek istiyor musunuz?
   ba-videorecorder.video_file_too_large: >-
-    Videonuz dosyası çok büyük (%s) - küçük bir video dosyası ile tekrar denemek için
-    burayı tıklayın.
+    Videonuz dosyası çok büyük (%s) - küçük bir video dosyası ile tekrar denemek
+    için burayı tıklayın.
   ba-videorecorder.unsupported_video_type: 'yükleyin: %s - yeniden denemek için burayı tıklayın.'
+  ba-videoplayer-controlbar.exit-fullscreen-video: Tam ekrandan çık
+  ba-videoplayer-share.share: Video paylaş

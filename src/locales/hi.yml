@@ -1,0 +1,54 @@
+'language:hi':
+  ba-videoplayer-playbutton.tooltip: वीडियो चलाने के लिए क्लिक करें
+  ba-videoplayer-playbutton.rerecord: फवीडियो पुनः रिकॉिड कि
+  ba-videoplayer-playbutton.submit-video: वीडियो जमा कि
+  ba-videoplayer-loader.tooltip: वीडियो लोड हो रहा है ...
+  ba-videoplayer-controlbar.change-resolution: वीडियो - िेसोलुशन बदलो
+  ba-videoplayer-controlbar.video-progress: वीडियो बढ़ िहा ह
+  ba-videoplayer-controlbar.rerecord-video: वीडियो पुनः रिकॉिड कि
+  ba-videoplayer-controlbar.submit-video: वीडियो जमा कि
+  ba-videoplayer-controlbar.play-video: वीडियो चलाएं
+  ba-videoplayer-controlbar.pause-video: वीडियो रोकें
+  ba-videoplayer-controlbar.elapsed-time: बीता  आ समय
+  ba-videoplayer-controlbar.total-time: वीडियो की कुल लंबाई
+  ba-videoplayer-controlbar.fullscreen-video: पूर्ण स्क्रीन दर्ज करें
+  ba-videoplayer-controlbar.volume-button: मात्रा सेट करें
+  ba-videoplayer-controlbar.volume-mute: ध्वनि म्यूट करें
+  ba-videoplayer-controlbar.volume-unmute: ध्वनि को अनम्यूट करें
+  ba-videoplayer.video-error: अ ात  ुडि | पुनः  यास किने के डलए  िक कि
+  ba-videorecorder-chooser.record-video: वीडियो रिकॉर्ड करो
+  ba-videorecorder-chooser.upload-video: वीडियो अपलोड करें
+  ba-videorecorder-controlbar.settings: सेटिंग्स
+  ba-videorecorder-controlbar.camerahealthy: प्रकाश अच्छा है
+  ba-videorecorder-controlbar.cameraunhealthy: प्रकाश इष्टतम नहीं है
+  ba-videorecorder-controlbar.microphonehealthy: ध्वनि अच्छी है
+  ba-videorecorder-controlbar.microphoneunhealthy: कोई भी आवाज नहीं उठा सकता
+  ba-videorecorder-controlbar.record: रिकॉिड
+  ba-videorecorder-controlbar.record-tooltip: रिकॉर्ड करने के लिए यहां क्लिक करें।
+  ba-videorecorder-controlbar.rerecord: वीडियो पुनः रिकॉिड कि
+  ba-videorecorder-controlbar.rerecord-tooltip: फिर से करें करने के लिए यहां क्लिक करें।
+  ba-videorecorder-controlbar.upload-covershot: अपलोड
+  ba-videorecorder-controlbar.upload-covershot-tooltip: कस्टम कवर शॉट अपलोड करने के लिए यहां क्लिक करें
+  ba-videorecorder-controlbar.stop: रुकें
+  ba-videorecorder-controlbar.stop-tooltip: रोकने के लिए यहां क्लिक करें
+  ba-videorecorder-controlbar.skip: छोड़ें
+  ba-videorecorder-controlbar.skip-tooltip: छोड़ने के लिए यहां क्लिक करें।
+  ba-videorecorder.recorder-error: >-
+    एक त्रुटि घटित हुई है, कृपया बाद में पुन: प्रयास करें। पुनः प्रयास करने के
+    लिए क्लिक करें
+  ba-videorecorder.attach-error: >-
+    हम कैमरे के इंटरफ़ेस तक पहुंच नहीं सके। डिवाइस और ब्राउज़र के आधार पर, आपको
+    फ्लैश इंस्टॉल करना या पृष्ठ पर एसएसएल के माध्यम से प्रवेश करना पड़ सकता है
+  ba-videorecorder.access-forbidden: कैमरे तक पहुंच मनाई गई थी पुनः प्रयास करने के लिए क्लिक करें
+  ba-videorecorder.pick-covershot: शॉिडकि का चुनाव कीडजए
+  ba-videorecorder.uploading: अपलोड हो रहा है
+  ba-videorecorder.uploading-failed: अपलोड करना विफल - पुनः प्रयास करने के लिए यहां क्लिक करें।
+  ba-videorecorder.verifying: जा च जािी है
+  ba-videorecorder.verifying-failed: सत्यापन विफल - पुनः प्रयास करने के लिए यहां क्लिक करें।
+  ba-videorecorder.rerecord-confirm: क्या आप वास्तव में अपने वीडियो को फिर से करना चाहते हैं?
+  ba-videorecorder.video_file_too_large: >-
+    आपकी वीडियो फ़ाइल बहुत बड़ी है ( %s) - एक छोटे वीडियो फ़ाइल के साथ फिर से
+    प्रयास करने के लिए यहां क्लिक करें
+  ba-videorecorder.unsupported_video_type: 'कृपया अपलोड करें: %s - पुनः प्रयास करने के लिए यहां क्लिक करें।'
+  ba-videoplayer-controlbar.exit-fullscreen-video: पूर्ण स्क्रीन से बाहर निकलें
+  ba-videoplayer-share.share: वीडियो शेयर करें

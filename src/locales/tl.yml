@@ -1,0 +1,57 @@
+'language:tl':
+  ba-videoplayer-playbutton.tooltip: I-click upang i-play ang video.
+  ba-videoplayer-playbutton.rerecord: I-redo
+  ba-videoplayer-playbutton.submit-video: Kumpirmahin ang video
+  ba-videoplayer-loader.tooltip: Nilo-load ang video ...
+  ba-videoplayer-controlbar.change-resolution: Baguhin ang resolution
+  ba-videoplayer-controlbar.video-progress: pag-usad Video
+  ba-videoplayer-controlbar.rerecord-video: Gawing muli ang video?
+  ba-videoplayer-controlbar.submit-video: Kumpirmahin ang video
+  ba-videoplayer-controlbar.play-video: I-Play ang video
+  ba-videoplayer-controlbar.pause-video: I-pause ang video
+  ba-videoplayer-controlbar.elapsed-time: Elasped oras
+  ba-videoplayer-controlbar.total-time: Kabuuang haba ng video
+  ba-videoplayer-controlbar.fullscreen-video: Ipasok fullscreen
+  ba-videoplayer-controlbar.volume-button: Itakda ang lakas ng tunog
+  ba-videoplayer-controlbar.volume-mute: I-mute ang tunog
+  ba-videoplayer-controlbar.volume-unmute: I-unmute ang tunog
+  ba-videoplayer.video-error: >-
+    May naganap na error. Mangyaring subukan muli sa ibang pagkakataon. I-click
+    upang subukang muli.
+  ba-videorecorder-chooser.record-video: Kumuha ng video
+  ba-videorecorder-chooser.upload-video: Mag-upload ng Video
+  ba-videorecorder-controlbar.settings: Mga Setting
+  ba-videorecorder-controlbar.camerahealthy: Pag-iilaw ay mabuti
+  ba-videorecorder-controlbar.cameraunhealthy: Pag-iilaw ay hindi optimal
+  ba-videorecorder-controlbar.microphonehealthy: Sound ay mabuti
+  ba-videorecorder-controlbar.microphoneunhealthy: Hindi kunin ang anumang tunog
+  ba-videorecorder-controlbar.record: Rekord
+  ba-videorecorder-controlbar.record-tooltip: Mag-click dito upang i-record.
+  ba-videorecorder-controlbar.rerecord: I-redo
+  ba-videorecorder-controlbar.rerecord-tooltip: Mag-click dito upang gawing muli.
+  ba-videorecorder-controlbar.upload-covershot: Upload
+  ba-videorecorder-controlbar.upload-covershot-tooltip: Mag-click dito upang mag-upload ng mga pasadyang pabalat shot
+  ba-videorecorder-controlbar.stop: Itigil
+  ba-videorecorder-controlbar.stop-tooltip: Mag-click dito upang itigil.
+  ba-videorecorder-controlbar.skip: Laktawan
+  ba-videorecorder-controlbar.skip-tooltip: Mag-click dito upang laktawan.
+  ba-videorecorder.recorder-error: >-
+    May naganap na error. Mangyaring subukan muli sa ibang pagkakataon. I-click
+    upang subukang muli.
+  ba-videorecorder.attach-error: >-
+    Hindi namin mai-access ang interface ng camera. Depende sa device at
+    browser, maaaring kailangan mong i-install ng Flash o ma-access ang pahina
+    sa pamamagitan ng SSL.
+  ba-videorecorder.access-forbidden: Access sa camera ay ipinagbabawal. I-click upang subukang muli.
+  ba-videorecorder.pick-covershot: Pumili ng isang covershot.
+  ba-videorecorder.uploading: Pag-upload
+  ba-videorecorder.uploading-failed: Ina-upload ang mali - i-click dito upang subukang muli.
+  ba-videorecorder.verifying: Bine-verify
+  ba-videorecorder.verifying-failed: Ang pag-verify nabigo - i-click dito upang subukang muli.
+  ba-videorecorder.rerecord-confirm: Nais mo ba talagang nais na gawing muli ang iyong video?
+  ba-videorecorder.video_file_too_large: >-
+    Ang iyong video file ay masyadong malaki (%s) - i-click dito upang subukang
+    muli gamit ang mas maliit na file na video.
+  ba-videorecorder.unsupported_video_type: 'Mangyaring i-upload: %s - i-click dito upang subukang muli.'
+  ba-videoplayer-controlbar.exit-fullscreen-video: Lumabas sa fullscreen
+  ba-videoplayer-share.share: Ibahagi ang video

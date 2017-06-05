@@ -46,6 +46,8 @@
   ba-videorecorder.verifying-failed: Verifica non riuscita - clicca qui per riprovare.
   ba-videorecorder.rerecord-confirm: Vuoi davvero di rifare il video?
   ba-videorecorder.video_file_too_large: >-
-    Il file video è troppo grande (%s) - clicca qui per provare di nuovo con un file
-    video più piccolo.
+    Il file video è troppo grande (%s) - clicca qui per provare di nuovo con un
+    file video più piccolo.
   ba-videorecorder.unsupported_video_type: 'Si prega di caricare: %s - clicca qui per riprovare.'
+  ba-videoplayer-controlbar.exit-fullscreen-video: Uscire da schermo intero
+  ba-videoplayer-share.share: Condividi il Video

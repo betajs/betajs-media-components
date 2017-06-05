@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.57 - 2017-05-01
+betajs-media-components - v0.0.57 - 2017-06-05
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -784,6 +784,20 @@ Apache-2.0 Software License.
   height: 100%;
   width: 100%; }
 
+.ba-videoplayer-space-theme-disabled {
+  cursor: not-allowed;
+  /* works for IE 5+. */
+  /* works for IE 8. */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  /* works for old school versions of the Mozilla browsers like Netscape Navigator. */
+  -moz-opacity: 0.5;
+  /* This is for old versions of Safari (1.x) with KHTML rendering engine */
+  -khtml-opacity: 0.5;
+  /* This is the "most important" one because it's the current standard in CSS. This will work in most versions of Firefox, Safari, and Opera. */
+  opacity: 0.5; }
+  .ba-videoplayer-space-theme-disabled * {
+    cursor: not-allowed; }
+
 .ba-videoplayer-space-theme-loader-container {
   -webkit-transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);
@@ -1174,6 +1188,9 @@ Apache-2.0 Software License.
   -webkit-tap-highlight-color: transparent;
   background-color: #eeeeee;
   height: 3px; }
+
+.ba-videoplayer-space-theme-progressbar.ba-videoplayer-space-theme-disabled .ba-videoplayer-space-theme-progressbar-cache, .ba-videoplayer-space-theme-progressbar.ba-videoplayer-space-theme-disabled .ba-videoplayer-space-theme-progressbar-inner {
+  cursor: not-allowed; }
 
 .ba-videoplayer-space-theme-progressbar-position {
   border-bottom-left-radius: 3px;
@@ -2730,7 +2747,7 @@ Apache-2.0 Software License.
 .ba-videorecorder-theme-space-red-color .ba-videorecorder-theme-space-button-selected, .ba-videorecorder-theme-space-red-color .ba-videorecorder-theme-space-button-circle-selected,
 .ba-videorecorder-theme-space-red-color .ba-videorecorder-theme-space-button-inner:hover {
   color: #eb6a74; }
-.ba-videorecorder-theme-space-red-color .ba-videorecorder-theme-space-video, .ba-videorecorder-theme-space-red-color .ba-videorecorder-theme-space-chooser-primary-button, .ba-videorecorder-theme-space-red-color .ba-videorecorder-theme-space-button-primary,
+.ba-videorecorder-theme-space-red-color .ba-videorecorder-theme-space-chooser-primary-button, .ba-videorecorder-theme-space-red-color .ba-videorecorder-theme-space-button-primary,
 .ba-videorecorder-theme-space-red-color .ba-videorecorder-theme-space-settings span, .ba-videorecorder-theme-space-red-color .ba-videorecorder-theme-space-imagegallery-rightbutton, .ba-videorecorder-theme-space-red-color .ba-videorecorder-theme-space-imagegallery-leftbutton {
   background-color: #eb6a74; }
 .ba-videorecorder-theme-space-red-color .ba-videorecorder-theme-space-button-selected, .ba-videorecorder-theme-space-red-color .ba-videorecorder-theme-space-imagegallery-image:hover, .ba-videorecorder-theme-space-red-color .ba-videorecorder-theme-space-chooser-primary-button {
@@ -2740,7 +2757,7 @@ Apache-2.0 Software License.
 .ba-videorecorder-theme-space-blue-color .ba-videorecorder-theme-space-button-selected, .ba-videorecorder-theme-space-blue-color .ba-videorecorder-theme-space-button-circle-selected,
 .ba-videorecorder-theme-space-blue-color .ba-videorecorder-theme-space-button-inner:hover {
   color: #2a74eb; }
-.ba-videorecorder-theme-space-blue-color .ba-videorecorder-theme-space-video, .ba-videorecorder-theme-space-blue-color .ba-videorecorder-theme-space-chooser-primary-button, .ba-videorecorder-theme-space-blue-color .ba-videorecorder-theme-space-button-primary,
+.ba-videorecorder-theme-space-blue-color .ba-videorecorder-theme-space-chooser-primary-button, .ba-videorecorder-theme-space-blue-color .ba-videorecorder-theme-space-button-primary,
 .ba-videorecorder-theme-space-blue-color .ba-videorecorder-theme-space-settings span, .ba-videorecorder-theme-space-blue-color .ba-videorecorder-theme-space-imagegallery-rightbutton, .ba-videorecorder-theme-space-blue-color .ba-videorecorder-theme-space-imagegallery-leftbutton {
   background-color: #2a74eb; }
 .ba-videorecorder-theme-space-blue-color .ba-videorecorder-theme-space-button-selected, .ba-videorecorder-theme-space-blue-color .ba-videorecorder-theme-space-imagegallery-image:hover, .ba-videorecorder-theme-space-blue-color .ba-videorecorder-theme-space-chooser-primary-button {
@@ -2750,7 +2767,7 @@ Apache-2.0 Software License.
 .ba-videorecorder-theme-space-green-color .ba-videorecorder-theme-space-button-selected, .ba-videorecorder-theme-space-green-color .ba-videorecorder-theme-space-button-circle-selected,
 .ba-videorecorder-theme-space-green-color .ba-videorecorder-theme-space-button-inner:hover {
   color: #5daa96; }
-.ba-videorecorder-theme-space-green-color .ba-videorecorder-theme-space-video, .ba-videorecorder-theme-space-green-color .ba-videorecorder-theme-space-chooser-primary-button, .ba-videorecorder-theme-space-green-color .ba-videorecorder-theme-space-button-primary,
+.ba-videorecorder-theme-space-green-color .ba-videorecorder-theme-space-chooser-primary-button, .ba-videorecorder-theme-space-green-color .ba-videorecorder-theme-space-button-primary,
 .ba-videorecorder-theme-space-green-color .ba-videorecorder-theme-space-settings span, .ba-videorecorder-theme-space-green-color .ba-videorecorder-theme-space-imagegallery-rightbutton, .ba-videorecorder-theme-space-green-color .ba-videorecorder-theme-space-imagegallery-leftbutton {
   background-color: #5daa96; }
 .ba-videorecorder-theme-space-green-color .ba-videorecorder-theme-space-button-selected, .ba-videorecorder-theme-space-green-color .ba-videorecorder-theme-space-imagegallery-image:hover, .ba-videorecorder-theme-space-green-color .ba-videorecorder-theme-space-chooser-primary-button {
@@ -2892,8 +2909,8 @@ Apache-2.0 Software License.
 .ba-videorecorder-theme-space-controlbar-center-section {
   position: absolute;
   left: 0;
-  text-align: center;
-  width: 100%; }
+  text-align: right;
+  width: 50%; }
 
 .ba-videorecorder-theme-space-button-container {
   display: inline-block; }

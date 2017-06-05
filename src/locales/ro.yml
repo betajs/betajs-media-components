@@ -49,6 +49,8 @@
   ba-videorecorder.verifying-failed: Care verifică dacă nu a reușit - clic aici pentru a încerca din nou.
   ba-videorecorder.rerecord-confirm: Chiar vrei să refaceți videoclipul?
   ba-videorecorder.video_file_too_large: >-
-    Fișierul dvs. video este prea mare (%s) - click aici pentru a încerca din nou cu
-    un fișier video mai mic.
+    Fișierul dvs. video este prea mare (%s) - click aici pentru a încerca din
+    nou cu un fișier video mai mic.
   ba-videorecorder.unsupported_video_type: 'Vă rugăm să încărcați: %s - clic aici pentru a încerca din nou.'
+  ba-videoplayer-controlbar.exit-fullscreen-video: Ieșiți din ecranul complet
+  ba-videoplayer-share.share: Distribuiți videoclipul

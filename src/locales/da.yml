@@ -48,3 +48,5 @@
     Din video filen er for stor (%s) - klik her for at prøve igen med et mindre
     videofil.
   ba-videorecorder.unsupported_video_type: 'upload venligst: %s - klik her for at prøve igen.'
+  ba-videoplayer-controlbar.exit-fullscreen-video: Afslut fuldskærm
+  ba-videoplayer-share.share: Del video

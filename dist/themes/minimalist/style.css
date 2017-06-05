@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.57 - 2017-05-01
+betajs-media-components - v0.0.57 - 2017-06-05
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -784,6 +784,20 @@ Apache-2.0 Software License.
   height: 100%;
   width: 100%; }
 
+.ba-videoplayer-minimalist-theme-disabled {
+  cursor: not-allowed;
+  /* works for IE 5+. */
+  /* works for IE 8. */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  /* works for old school versions of the Mozilla browsers like Netscape Navigator. */
+  -moz-opacity: 0.5;
+  /* This is for old versions of Safari (1.x) with KHTML rendering engine */
+  -khtml-opacity: 0.5;
+  /* This is the "most important" one because it's the current standard in CSS. This will work in most versions of Firefox, Safari, and Opera. */
+  opacity: 0.5; }
+  .ba-videoplayer-minimalist-theme-disabled * {
+    cursor: not-allowed; }
+
 .ba-videoplayer-minimalist-theme-loader-container {
   -webkit-transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);
@@ -1100,6 +1114,9 @@ Apache-2.0 Software License.
   -webkit-tap-highlight-color: transparent;
   background-color: #eeeeee;
   height: 4px; }
+
+.ba-videoplayer-minimalist-theme-progressbar.ba-videoplayer-minimalist-theme-disabled .ba-videoplayer-minimalist-theme-progressbar-cache, .ba-videoplayer-minimalist-theme-progressbar.ba-videoplayer-minimalist-theme-disabled .ba-videoplayer-minimalist-theme-progressbar-inner, .ba-videoplayer-minimalist-theme-progressbar.ba-videoplayer-minimalist-theme-disabled .ba-videoplayer-minimalist-theme-progressbar-position {
+  cursor: not-allowed; }
 
 .ba-videoplayer-minimalist-theme-progressbar-position {
   position: absolute;
@@ -2686,7 +2703,7 @@ Apache-2.0 Software License.
 .ba-videorecorder-theme-minimalist-red-color .ba-videorecorder-theme-minimalist-button-circle-selected, .ba-videorecorder-theme-minimalist-red-color .ba-videorecorder-theme-minimalist-button-inner:hover,
 .ba-videorecorder-theme-minimalist-red-color .ba-videorecorder-theme-minimalist-button-selected, .ba-videorecorder-theme-minimalist-red-color .ba-videorecorder-theme-minimalist-loader-label {
   color: #eb6a74; }
-.ba-videorecorder-theme-minimalist-red-color .ba-videorecorder-theme-minimalist-video, .ba-videorecorder-theme-minimalist-red-color .ba-videorecorder-theme-minimalist-chooser-primary-button, .ba-videorecorder-theme-minimalist-red-color .ba-videorecorder-theme-minimalist-button-primary,
+.ba-videorecorder-theme-minimalist-red-color .ba-videorecorder-theme-minimalist-chooser-primary-button, .ba-videorecorder-theme-minimalist-red-color .ba-videorecorder-theme-minimalist-button-primary,
 .ba-videorecorder-theme-minimalist-red-color .ba-videorecorder-theme-minimalist-settings span, .ba-videorecorder-theme-minimalist-red-color .ba-videorecorder-theme-minimalist-imagegallery-rightbutton, .ba-videorecorder-theme-minimalist-red-color .ba-videorecorder-theme-minimalist-imagegallery-leftbutton {
   background-color: #eb6a74; }
 .ba-videorecorder-theme-minimalist-red-color .ba-videorecorder-theme-minimalist-imagegallery-image:hover {
@@ -2695,7 +2712,7 @@ Apache-2.0 Software License.
 .ba-videorecorder-theme-minimalist-blue-color .ba-videorecorder-theme-minimalist-button-circle-selected, .ba-videorecorder-theme-minimalist-blue-color .ba-videorecorder-theme-minimalist-button-inner:hover,
 .ba-videorecorder-theme-minimalist-blue-color .ba-videorecorder-theme-minimalist-button-selected, .ba-videorecorder-theme-minimalist-blue-color .ba-videorecorder-theme-minimalist-loader-label {
   color: #2a74eb; }
-.ba-videorecorder-theme-minimalist-blue-color .ba-videorecorder-theme-minimalist-video, .ba-videorecorder-theme-minimalist-blue-color .ba-videorecorder-theme-minimalist-chooser-primary-button, .ba-videorecorder-theme-minimalist-blue-color .ba-videorecorder-theme-minimalist-button-primary,
+.ba-videorecorder-theme-minimalist-blue-color .ba-videorecorder-theme-minimalist-chooser-primary-button, .ba-videorecorder-theme-minimalist-blue-color .ba-videorecorder-theme-minimalist-button-primary,
 .ba-videorecorder-theme-minimalist-blue-color .ba-videorecorder-theme-minimalist-settings span, .ba-videorecorder-theme-minimalist-blue-color .ba-videorecorder-theme-minimalist-imagegallery-rightbutton, .ba-videorecorder-theme-minimalist-blue-color .ba-videorecorder-theme-minimalist-imagegallery-leftbutton {
   background-color: #2a74eb; }
 .ba-videorecorder-theme-minimalist-blue-color .ba-videorecorder-theme-minimalist-imagegallery-image:hover {
@@ -2704,7 +2721,7 @@ Apache-2.0 Software License.
 .ba-videorecorder-theme-minimalist-green-color .ba-videorecorder-theme-minimalist-button-circle-selected, .ba-videorecorder-theme-minimalist-green-color .ba-videorecorder-theme-minimalist-button-inner:hover,
 .ba-videorecorder-theme-minimalist-green-color .ba-videorecorder-theme-minimalist-button-selected, .ba-videorecorder-theme-minimalist-green-color .ba-videorecorder-theme-minimalist-loader-label {
   color: #5daa96; }
-.ba-videorecorder-theme-minimalist-green-color .ba-videorecorder-theme-minimalist-video, .ba-videorecorder-theme-minimalist-green-color .ba-videorecorder-theme-minimalist-chooser-primary-button, .ba-videorecorder-theme-minimalist-green-color .ba-videorecorder-theme-minimalist-button-primary,
+.ba-videorecorder-theme-minimalist-green-color .ba-videorecorder-theme-minimalist-chooser-primary-button, .ba-videorecorder-theme-minimalist-green-color .ba-videorecorder-theme-minimalist-button-primary,
 .ba-videorecorder-theme-minimalist-green-color .ba-videorecorder-theme-minimalist-settings span, .ba-videorecorder-theme-minimalist-green-color .ba-videorecorder-theme-minimalist-imagegallery-rightbutton, .ba-videorecorder-theme-minimalist-green-color .ba-videorecorder-theme-minimalist-imagegallery-leftbutton {
   background-color: #5daa96; }
 .ba-videorecorder-theme-minimalist-green-color .ba-videorecorder-theme-minimalist-imagegallery-image:hover {

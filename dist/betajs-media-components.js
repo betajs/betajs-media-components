@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.57 - 2017-06-05
+betajs-media-components - v0.0.58 - 2017-06-06
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1004,7 +1004,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.57 - 2017-06-05
+betajs-media-components - v0.0.58 - 2017-06-06
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1020,7 +1020,7 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.57"
+    "version": "0.0.58"
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -4141,8 +4141,11 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
             this.listenOn(uploader, "progress", function(uploaded, total) {
                 this.dyn.trigger("upload_progress", uploaded, total);
                 if (total !== 0) {
-                    this.dyn.set("message", this.dyn.string("uploading") + ": " + Math.min(100, Math.round(uploaded / total * 100)) + "%");
-                    this.dyn.set("playertopmessage", this.dyn.get("message"));
+                    var up = Math.min(100, Math.round(uploaded / total * 100));
+                    if (!isNaN(up)) {
+                        this.dyn.set("message", this.dyn.string("uploading") + ": " + up + "%");
+                        this.dyn.set("playertopmessage", this.dyn.get("message"));
+                    }
                 }
             });
             if (this.dyn.get("localplayback") && this.dyn.recorder && this.dyn.recorder.supportsLocalPlayback()) {

@@ -543,8 +543,11 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
             this.listenOn(uploader, "progress", function(uploaded, total) {
                 this.dyn.trigger("upload_progress", uploaded, total);
                 if (total !== 0) {
-                    this.dyn.set("message", this.dyn.string("uploading") + ": " + Math.min(100, Math.round(uploaded / total * 100)) + "%");
-                    this.dyn.set("playertopmessage", this.dyn.get("message"));
+                    var up = Math.min(100, Math.round(uploaded / total * 100));
+                    if (!isNaN(up)) {
+                        this.dyn.set("message", this.dyn.string("uploading") + ": " + up + "%");
+                        this.dyn.set("playertopmessage", this.dyn.get("message"));
+                    }
                 }
             });
             if (this.dyn.get("localplayback") && this.dyn.recorder && this.dyn.recorder.supportsLocalPlayback()) {

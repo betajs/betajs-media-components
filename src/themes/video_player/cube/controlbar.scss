@@ -53,6 +53,10 @@
     height: $volume_height;
 }
 
+.#{$cssie8} .#{$css}-volumebar-inner {
+  margin-top: -2px;
+}
+
 .#{$css}-volumebar-position {
   @include border-round-edges($volume_height / 2);
   @include absolute-align-left();
@@ -135,8 +139,6 @@
 
 .#{$cssie8} .#{$css}-progressbar {
   overflow: hidden;
-  height: 50%;
-  margin-top: $ie8_margintop;
 }
 
 .#{$css}-progressbar-cache {

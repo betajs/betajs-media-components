@@ -387,6 +387,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 reattachVideo: function() {
+                    this.set("reloadonplay", true);
                     this._detachVideo();
                     this._attachVideo();
                 },

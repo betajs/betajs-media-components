@@ -8,7 +8,7 @@
 
 .#{$css}-video-title-container {
     @include absolute-align-full-top();
-    @include background-rgba(0, 0, 0, 0.4, #979797);
+    @include background-rgba(0, 0, 0, 0.2, #cecece);
     @include transition1(opacity, $dashboard_transition, ease-in-out);
     box-sizing: border-box;
     font-size: 0.65rem;
@@ -20,9 +20,15 @@
     text-align: center;
 }
 
+.#{$cssie8} .#{$css}-video-title-container {
+    .#{$css}-button-inner {
+        margin-top: 0;
+    };
+}
+
 .#{$css}-controlbar-footer {
     @include absolute-align-full-bottom;
-    @include background-rgba(0, 0, 0, 0.4, #979797);
+    @include background-rgba(0, 0, 0, 0.4, #cecece);
     @include transition1(opacity, $dashboard_transition, ease-in-out);
     height: $controlbar_footer_height;
     padding: 0 5px;
@@ -72,6 +78,7 @@
     @include clickable;
 	box-sizing: content-box;
     border: none;
+    margin-right: 10px;
 }
 
 .#{$cssnoie8} .#{$css}-rightbutton-container {
@@ -110,11 +117,12 @@
 }
 
 .#{$cssie8} .#{$css}-button-inner {
-    margin-top: $ie8_margintop + 6;
-    text-align: center;
     color: $button_color;
     font-size: $button_fontsize;
+    height: auto;
+    margin-top: $ie8_margintop + 8;
     margin-left: 3px;
+    text-align: center;
 }
 
 
@@ -129,7 +137,8 @@
 }
 
 .#{$cssie8} .#{$css}-time-container {
-    margin-top: $ie8_margintop + 5;
+    height: auto;
+    margin-top: $ie8_margintop + 9;
 }
 
 .#{$css}-time-value {
@@ -141,13 +150,13 @@
 
 .#{$cssnoie8} .#{$css}-volumebar {
     @include float-width-height(right, $volume_width, 100%);
-    margin-right: $volume_height*2;
+    margin-right: $volume_height * 2;
 }
 
 .#{$cssie8} .#{$css}-volumebar {
     @include float-width-height(right, $volume_width, 50%);
-    margin-top: $ie8_margintop+10;
-    margin-right: $volume_height*2;
+    margin-top: $ie8_margintop + 8;
+    margin-right: $volume_height * 2;
 }
 
 .#{$css}-volumebar-inner {
@@ -175,10 +184,10 @@
 .#{$cssie8} .#{$css}-progressbar {
     overflow: hidden;
     height: 50%;
-    padding-left: $volume_height*2;
-    padding-right: $volume_height*2;
+    padding-left: $volume_height * 2;
+    padding-right: $volume_height * 2;
     margin-right: $button_width;
-    margin-top: $ie8_margintop;
+    margin-top: $ie8_margintop + 4;
 }
 
 .#{$css}-progressbar-cache {

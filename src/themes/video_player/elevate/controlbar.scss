@@ -47,7 +47,7 @@
 
 .#{$cssie8} .#{$css}-left-block {
     & > div {
-        filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)";
+        //filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)";
         -ms-filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)"
     }
 }

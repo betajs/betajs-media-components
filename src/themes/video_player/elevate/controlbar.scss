@@ -1,12 +1,4 @@
 /* Elevate */
-.#{$cssie8} .#{$css}-overlay {
-   top: 85%;
-}
-
-.#{$cssie8} .#{$css}-dashboard {
-   position: relative;
-}
-
 .#{$css}-dashboard {
     @include transition1(opacity, $dashboard_transition, ease-in-out);
     position: absolute;
@@ -27,6 +19,11 @@
     clear: both;
 }
 
+.#{$cssie8} .#{$css}-top-block {
+    padding-top: 0;
+    padding-bottom: 5px;
+}
+
 .#{$css}-bottom-block {
     background-color: $controlbar_background;
     clear: both;
@@ -45,6 +42,13 @@
         line-height: $controlbar_line_height - 1;
         text-align: center;
         width: $button_width;
+    }
+}
+
+.#{$cssie8} .#{$css}-left-block {
+    & > div {
+        filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)";
+        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)"
     }
 }
 
@@ -95,6 +99,12 @@
     }
 }
 
+.#{$cssie8} .#{$css}-icon-volume-down {
+    &:before {
+        font-size: $text_fontsize + 1;
+    }
+}
+
 .#{$css}-icon-volume-up {
     color: $button_color_secondary;
 }
@@ -107,7 +117,6 @@
 }
 
 .#{$cssie8} .#{$css}-button-inner {
-    margin-top: $ie8_margintop + 6;
     color: $button_color;
     font-size: $button_fontsize;
     margin-left: 3px;
@@ -120,7 +129,7 @@
 .#{$css}-time-container {
     @include float-width-height(left, $time_value_width, 100%);
     position: relative;
-    top: $progressbar_height;
+    top: $progressbar_height + 2;
     text-align: center;
     font-family: $text_fontfamily;
     font-size: $text_fontsize;
@@ -129,7 +138,7 @@
 }
 
 .#{$cssie8} .#{$css}-time-container {
-    margin-top: $ie8_margintop + 5;
+   top: $progressbar_height - 1;
 }
 
 .#{$css}-time-value {
@@ -149,8 +158,6 @@
 
 .#{$cssie8} .#{$css}-volumebar {
     @include float-width-height(right, $volume_width, 50%);
-    margin-top: $ie8_margintop+10;
-    margin-right: $volume_height*2;
 }
 
 .#{$css}-progressbar {
@@ -258,6 +265,10 @@
     background-color: $volumebar_cache_bgcolor;
     height: $volume_height;
     margin: 0 5px;
+}
+
+.#{$cssie8} .#{$css}-volumebar-inner {
+    margin-top: -3px;
 }
 
 .#{$css}-volumebar-position {

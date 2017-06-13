@@ -31,6 +31,12 @@
     }
 }
 
+.#{$cssie8} .#{$css}-left-block {
+    & > div {
+        line-height: $controlbar_line_height - 3;
+    }
+}
+
 .#{$css}-center-block {
     float: left;
 }
@@ -59,9 +65,6 @@
     }
 }
 
-.#{$cssie8} .#{$css}-video-title-container {
-    display: none;
-}
 
 .#{$css}-video-title-container {
     @include absolute-align-full-top();
@@ -120,7 +123,6 @@
 }
 
 .#{$cssie8} .#{$css}-button-inner {
-    margin-top: $ie8_margintop + 6;
     color: $button_color;
     font-size: $button_fontsize;
     margin-left: 3px;
@@ -141,16 +143,15 @@
     border: none;
 }
 
-.#{$cssie8} .#{$css}-time-container {
-    margin-top: $ie8_margintop + 5;
-}
-
 .#{$css}-time-value {
-    @include relative-center-center;
     float: left;
     font-size: $text_fontsize;
     width: $time_value_width;
     letter-spacing: 0.1em;
+}
+
+.#{$cssnoie8} .#{$css}-time-value {
+    @include relative-center-center;
 }
 
 .#{$cssnoie8} .#{$css}-volumebar {
@@ -177,8 +178,7 @@
 
 .#{$cssie8} .#{$css}-volumebar {
     @include float-width-height(right, $volume_width, 50%);
-    margin-top: $ie8_margintop+10;
-    margin-right: $volume_height*2;
+    margin-right: $volume_height * 2;
 }
 
 .#{$css}-volumebar-inner {
@@ -206,10 +206,21 @@
 }
 
 .#{$css}-progressbar-inner {
-    @include relative-center-center;
     @include clickable;
     height: $progressbar_height;
     background-color: $progressbar_cache_bgcolor;
+}
+
+.#{$cssnoie8} .#{$css}-progressbar-inner {
+    @include relative-center-center;
+}
+
+.#{$cssie8} .#{$css}-progressbar-inner {
+    margin-top: 9px;
+}
+
+.#{$cssie8} .#{$css}-progressbar-position {
+    height: $progressbar_height;
 }
 
 .#{$css}-progressbar.#{$css}-disabled {
@@ -243,7 +254,7 @@
     display: none;
 }
 
-.#{$css}-size-medium .#{$css}-volumebar, .#{$css}-size-small .#{$css}-volumebar {
+.#{$cssie8} .#{$css}-volumebar, .#{$css}-size-medium .#{$css}-volumebar, .#{$css}-size-small .#{$css}-volumebar {
     display: none;
 }
 

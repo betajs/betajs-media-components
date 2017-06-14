@@ -104,6 +104,13 @@
     }
 }
 
+.#{$cssie8} .#{$css}-controlbar-top-block {
+    height: 100%;
+    .#{$css}-button-container {
+        top: 45%;
+    }
+}
+
 .#{$cssnoie8} {
   .#{$css}-overlay {
     .#{$css}-controlbar-top-block {
@@ -123,6 +130,7 @@
 
 .#{$cssie8} {
   .#{$css}-overlay {
+    height: 100%;
     .#{$css}-controlbar-top-block {
       .#{$css}-button-inner {
         @include transparent(0);
@@ -163,19 +171,8 @@
 }
 
 .#{$css}-progressbar {
+    overflow: hidden;
     height: $progressbar_container_height;
-}
-
-.#{$cssnoie8} .#{$css}-progressbar {
-    overflow: hidden;
-}
-
-.#{$cssie8} .#{$css}-progressbar {
-    overflow: hidden;
-    padding-left: $volume_height*2;
-    padding-right: $volume_height*2;
-    margin-right: $button_width;
-    margin-top: $ie8_margintop;
 }
 
 .#{$css}-progressbar-cache {
@@ -186,8 +183,6 @@
     height: $progressbar_height;
     //@include ie_supported_rgba(#ffffff, 255, 255, 255, 0.3);
 }
-
-//.#{$cssie8}-progressbar-cache{}
 
 .#{$css}-progressbar-inner {
     @include relative-center-center;

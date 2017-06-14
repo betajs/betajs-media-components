@@ -1,12 +1,4 @@
 /* Elevate */
-.#{$cssie8} .#{$css}-overlay {
-   top: 85%;
-}
-
-.#{$cssie8} .#{$css}-dashboard {
-   position: relative;
-}
-
 .#{$css}-dashboard {
     @include transition1(opacity, $dashboard_transition, ease-in-out);
     position: absolute;
@@ -25,6 +17,11 @@
     padding-top: 15px;
     width: 100%;
     clear: both;
+}
+
+.#{$cssie8} .#{$css}-top-block {
+    padding-top: 0;
+    padding-bottom: 5px;
 }
 
 .#{$css}-bottom-block {
@@ -48,12 +45,19 @@
     }
 }
 
+.#{$cssie8} .#{$css}-left-block {
+    & > div {
+        //filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)";
+        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)"
+    }
+}
+
 .#{$css}-center-block {
     float: left;
     padding: 0 10px;
 }
 
-.#{$css}-right-block{
+.#{$css}-right-block {
     float: right;
     & > div {
         @include left-box-shadow($button_border_color, 1);
@@ -69,7 +73,7 @@
 
 }
 
-.#{$css}-top-right-block{
+.#{$css}-top-right-block {
     float: right;
     .#{$css}-time-value{
         text-align: right;
@@ -81,7 +85,7 @@
     text-align: center;
 }
 
-.#{$css}-icon-play, .#{$css}-icon-pause{
+.#{$css}-icon-play, .#{$css}-icon-pause {
     color: $button_color;
 }
 
@@ -92,6 +96,12 @@
         font-size: $text_fontsize;
         margin: 0;
         line-height: inherit;
+    }
+}
+
+.#{$cssie8} .#{$css}-icon-volume-down {
+    &:before {
+        font-size: $text_fontsize + 1;
     }
 }
 
@@ -107,7 +117,6 @@
 }
 
 .#{$cssie8} .#{$css}-button-inner {
-    margin-top: $ie8_margintop + 6;
     color: $button_color;
     font-size: $button_fontsize;
     margin-left: 3px;
@@ -120,7 +129,7 @@
 .#{$css}-time-container {
     @include float-width-height(left, $time_value_width, 100%);
     position: relative;
-    top: $progressbar_height;
+    top: $progressbar_height + 2;
     text-align: center;
     font-family: $text_fontfamily;
     font-size: $text_fontsize;
@@ -129,7 +138,7 @@
 }
 
 .#{$cssie8} .#{$css}-time-container {
-    margin-top: $ie8_margintop + 5;
+   top: $progressbar_height - 1;
 }
 
 .#{$css}-time-value {
@@ -149,8 +158,6 @@
 
 .#{$cssie8} .#{$css}-volumebar {
     @include float-width-height(right, $volume_width, 50%);
-    margin-top: $ie8_margintop+10;
-    margin-right: $volume_height*2;
 }
 
 .#{$css}-progressbar {
@@ -258,6 +265,10 @@
     background-color: $volumebar_cache_bgcolor;
     height: $volume_height;
     margin: 0 5px;
+}
+
+.#{$cssie8} .#{$css}-volumebar-inner {
+    margin-top: -3px;
 }
 
 .#{$css}-volumebar-position {

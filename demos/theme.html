@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="es5-shim.js"></script>
+<script src="../vendors/jquery.min.js"></script>
+	<script src="/static/vendors/es5-shim.js"></script>
+	<script src="/static/vendors/es6-shim.js"></script>
+		<script src="../node_modules/betajs-shims/dist/betajs-shims.js"></script>
+        <script src="../node_modules/betajs-scoped/dist/scoped.js"></script>
+        <script src="../node_modules/betajs/dist/beta-noscoped.js"></script>
+        <script src="../node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
+        <script src="../node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
+        <script src="../node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+        <script src="../node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
+<script src="../dist/betajs-media-components-noscoped.js"></script>
+<link href="../dist/betajs-media-components.css" rel="stylesheet" />
+
+  <!-- Modern Theme Assets -->
+  <script src="../dist/themes/modern/script.js"></script>
+  <link  href="../dist/themes/modern/style.css" rel="stylesheet" />
+
+  <!-- Space Theme Assets -->
+  <script src="../dist/themes/space/script.js"></script>
+  <link href="../dist/themes/space/style.css" rel="stylesheet" />
+
+  <!-- Theatre Theme Assets -->
+  <script src="../dist/themes/theatre/script.js"></script>
+  <link href="../dist/themes/theatre/style.css" rel="stylesheet" />
+
+  <!-- Elevate Theme Assets -->
+  <script src="../dist/themes/elevate/script.js"></script>
+  <link href="../dist/themes/elevate/style.css" rel="stylesheet" />
+
+  <!-- Cube Theme Assets -->
+  <script src="../dist/themes/cube/script.js"></script>
+  <link href="../dist/themes/cube/style.css" rel="stylesheet" />
+
+  <!-- Minimalist Theme Assets -->
+  <script src="../dist/themes/minimalist/script.js"></script>
+  <link href="../dist/themes/minimalist/style.css" rel="stylesheet" />
+
+
+</head>
+<body style="background: #EEE">
+
+  <h3>Theme</h3>
+  <ba-videoplayer
+            ba-poster="sample-cover.png" ba-source="sample-video.mp4"
+            ba-theme="theatre" ba-themecolor="default" ba-hideoninactivity="false"
+            ba-title="Some title of the video"
+  ></ba-videoplayer>
+
+<script>
+  BetaJS.Flash.options = {
+    flashFile : "../node_modules/betajs-flash/dist/betajs-flash.swf",
+      forceReload : true
+    };
+  BetaJS.Dynamics.Dynamic.activate();
+</script>
+</body>
+</html>

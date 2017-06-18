@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.58 - 2017-06-06
+betajs-media-components - v0.0.61 - 2017-06-18
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -882,7 +882,7 @@ Apache-2.0 Software License.
   position: absolute;
   width: 100%; }
 
-.ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-icon-play, .ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-icon-pause, .ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-button-inner,
+.ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-icon-play, .ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-icon-pause, .ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-button-inner, .ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-icon-volume-down,
 .ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-icon-volume-up, .ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-icon-resize-full, .ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-icon-resize-small, .ba-videoplayer-elevate-theme-red-color.ba-videoplayer-noie8 .ba-videoplayer-elevate-theme-share-action-container .ba-videoplayer-elevate-theme-button-inner, .ba-videoplayer-elevate-theme-red-color.ba-videoplayer-noie8 .ba-videoplayer-elevate-theme-button-inner {
   color: #eb6a74; }
 .ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-progressbar-button, .ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-stream-label-container .ba-videoplayer-elevate-theme-stream-label,
@@ -892,7 +892,7 @@ Apache-2.0 Software License.
   background-color: #cecece;
   background-color: rgba(0, 0, 0, 0.3); }
 
-.ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-icon-play, .ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-icon-pause, .ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-button-inner,
+.ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-icon-play, .ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-icon-pause, .ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-button-inner, .ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-icon-volume-down,
 .ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-icon-volume-up, .ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-icon-resize-full, .ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-icon-resize-small, .ba-videoplayer-elevate-theme-blue-color.ba-videoplayer-noie8 .ba-videoplayer-elevate-theme-share-action-container .ba-videoplayer-elevate-theme-button-inner, .ba-videoplayer-elevate-theme-blue-color.ba-videoplayer-noie8 .ba-videoplayer-elevate-theme-button-inner {
   color: #2a74eb; }
 .ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-progressbar-button, .ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-stream-label-container .ba-videoplayer-elevate-theme-stream-label,
@@ -902,7 +902,7 @@ Apache-2.0 Software License.
   background-color: #cecece;
   background-color: rgba(0, 0, 0, 0.3); }
 
-.ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-icon-play, .ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-icon-pause, .ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-button-inner,
+.ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-icon-play, .ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-icon-pause, .ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-button-inner, .ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-icon-volume-down,
 .ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-icon-volume-up, .ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-icon-resize-full, .ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-icon-resize-small, .ba-videoplayer-elevate-theme-green-color.ba-videoplayer-noie8 .ba-videoplayer-elevate-theme-share-action-container .ba-videoplayer-elevate-theme-button-inner, .ba-videoplayer-elevate-theme-green-color.ba-videoplayer-noie8 .ba-videoplayer-elevate-theme-button-inner {
   color: #5daa96; }
 .ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-progressbar-button, .ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-stream-label-container .ba-videoplayer-elevate-theme-stream-label,
@@ -913,12 +913,6 @@ Apache-2.0 Software License.
   background-color: rgba(0, 0, 0, 0.3); }
 
 /* Elevate */
-.ba-videoplayer-ie8 .ba-videoplayer-elevate-theme-overlay {
-  top: 85%; }
-
-.ba-videoplayer-ie8 .ba-videoplayer-elevate-theme-dashboard {
-  position: relative; }
-
 .ba-videoplayer-elevate-theme-dashboard {
   transition: opacity 0.5s ease-in-out;
   -moz-transition: opacity 0.5s ease-in-out;
@@ -939,6 +933,10 @@ Apache-2.0 Software License.
   padding-top: 15px;
   width: 100%;
   clear: both; }
+
+.ba-videoplayer-ie8 .ba-videoplayer-elevate-theme-top-block {
+  padding-top: 0;
+  padding-bottom: 5px; }
 
 .ba-videoplayer-elevate-theme-bottom-block {
   background-color: #eeeeee;
@@ -964,6 +962,9 @@ Apache-2.0 Software License.
     line-height: 31px;
     text-align: center;
     width: 40px; }
+
+.ba-videoplayer-ie8 .ba-videoplayer-elevate-theme-left-block > div {
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)"; }
 
 .ba-videoplayer-elevate-theme-center-block {
   float: left;
@@ -1008,6 +1009,9 @@ Apache-2.0 Software License.
     margin: 0;
     line-height: inherit; }
 
+.ba-videoplayer-ie8 .ba-videoplayer-elevate-theme-icon-volume-down:before {
+  font-size: 12px; }
+
 .ba-videoplayer-elevate-theme-icon-volume-up {
   color: #666666; }
 
@@ -1016,7 +1020,6 @@ Apache-2.0 Software License.
   font-size: 13px; }
 
 .ba-videoplayer-ie8 .ba-videoplayer-elevate-theme-button-inner {
-  margin-top: 12px;
   color: #000000;
   font-size: 13px;
   margin-left: 3px; }
@@ -1030,7 +1033,7 @@ Apache-2.0 Software License.
   width: 40px;
   height: 100%;
   position: relative;
-  top: 8px;
+  top: 10px;
   text-align: center;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 11px;
@@ -1038,7 +1041,7 @@ Apache-2.0 Software License.
   border: none; }
 
 .ba-videoplayer-ie8 .ba-videoplayer-elevate-theme-time-container {
-  margin-top: 11px; }
+  top: 7px; }
 
 .ba-videoplayer-elevate-theme-time-value {
   color: #ffffff;
@@ -1068,9 +1071,7 @@ Apache-2.0 Software License.
 .ba-videoplayer-ie8 .ba-videoplayer-elevate-theme-volumebar {
   float: right;
   width: 60px;
-  height: 50%;
-  margin-top: 16px;
-  margin-right: 12px; }
+  height: 50%; }
 
 .ba-videoplayer-elevate-theme-progressbar {
   overflow: hidden;
@@ -1189,6 +1190,9 @@ Apache-2.0 Software License.
   background-color: #666666;
   height: 6px;
   margin: 0 5px; }
+
+.ba-videoplayer-ie8 .ba-videoplayer-elevate-theme-volumebar-inner {
+  margin-top: -3px; }
 
 .ba-videoplayer-elevate-theme-volumebar-position {
   border-bottom-left-radius: 3px;

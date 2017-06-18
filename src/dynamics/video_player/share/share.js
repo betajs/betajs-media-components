@@ -40,6 +40,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Share", [
         }).register("ba-videoplayer-share")
         .attachStringTable(Assets.strings)
         .addStrings({
-            "share": "Share video"
+            "share": "Share media"
         });
 });

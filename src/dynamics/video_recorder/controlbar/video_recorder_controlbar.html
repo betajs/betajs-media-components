@@ -3,7 +3,7 @@
 	<div data-selector="recorder-settings" class="{{css}}-settings" ba-show="{{settingsvisible && settingsopen}}">
 		<div class="{{css}}-settings-backbar"></div>
 		<div data-selector="settings-list-front" class="{{css}}-settings-front">
-			<ul data-selector="camera-settings" ba-repeat="{{camera :: cameras}}">
+			<ul data-selector="camera-settings" ba-repeat="{{camera :: cameras}}" ba-show="{{!novideo}}">
 				<li>
 					<input type='radio' name='camera' value="{{selectedcamera == camera.id}}" onclick="{{selectCamera(camera.id)}}" />
 					<span></span>
@@ -12,7 +12,7 @@
 					</label>
 				 </li>
 			</ul>
-			<hr ba-show="{{!noaudio}}"/>
+			<hr ba-show="{{!noaudio && !novideo}}"/>
 			<ul data-selector="microphone-settings" ba-repeat="{{microphone :: microphones}}" ba-show="{{!noaudio}}">
 				<li onclick="{{selectMicrophone(microphone.id)}}">
 					<input type='radio' name='microphone' value="{{selectedmicrophone == microphone.id}}" />
@@ -33,7 +33,7 @@
                 <i class="{{css}}-icon-cog"></i>
             </div>
         </div>
-        <div class="{{css}}-lefticon-container" ba-show="{{settingsvisible}}">
+        <div class="{{css}}-lefticon-container" ba-show="{{settingsvisible && !novideo}}">
             <div data-selector="record-button-icon-videocam" class="{{css}}-icon-inner"
                  onmouseenter="{{hover(string(camerahealthy ? 'camerahealthy' : 'cameraunhealthy'))}}"
                  onmouseleave="{{unhover()}}">

@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.58 - 2017-06-06
+betajs-media-components - v0.0.61 - 2017-06-18
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -945,6 +945,9 @@ Apache-2.0 Software License.
   .ba-videoplayer-theatre-theme-left-block > div:last-child {
     float: right; }
 
+.ba-videoplayer-ie8 .ba-videoplayer-theatre-theme-left-block > div {
+  line-height: 28px; }
+
 .ba-videoplayer-theatre-theme-center-block {
   float: left; }
 
@@ -963,9 +966,6 @@ Apache-2.0 Software License.
     line-height: 31px; }
   .ba-videoplayer-theatre-theme-right-block .ba-videoplayer-theatre-theme-time-value {
     text-align: left; }
-
-.ba-videoplayer-ie8 .ba-videoplayer-theatre-theme-video-title-container {
-  display: none; }
 
 .ba-videoplayer-theatre-theme-video-title-container {
   position: absolute;
@@ -1033,7 +1033,6 @@ Apache-2.0 Software License.
   font-size: 13px; }
 
 .ba-videoplayer-ie8 .ba-videoplayer-theatre-theme-button-inner {
-  margin-top: 12px;
   color: #000000;
   font-size: 13px;
   margin-left: 3px; }
@@ -1054,10 +1053,13 @@ Apache-2.0 Software License.
   box-sizing: content-box;
   border: none; }
 
-.ba-videoplayer-ie8 .ba-videoplayer-theatre-theme-time-container {
-  margin-top: 11px; }
-
 .ba-videoplayer-theatre-theme-time-value {
+  float: left;
+  font-size: 11px;
+  width: 40px;
+  letter-spacing: 0.1em; }
+
+.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-time-value {
   -webkit-transform: translateY(-50%);
   -moz-transform: translateY(-50%);
   -o-transform: translateY(-50%);
@@ -1065,11 +1067,7 @@ Apache-2.0 Software License.
   transform: translateY(-50%);
   top: 50%;
   position: relative;
-  text-align: center;
-  float: left;
-  font-size: 11px;
-  width: 40px;
-  letter-spacing: 0.1em; }
+  text-align: center; }
 
 .ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-volumebar {
   float: left;
@@ -1098,7 +1096,6 @@ Apache-2.0 Software License.
   float: right;
   width: 7px;
   height: 50%;
-  margin-top: 16px;
   margin-right: 120px; }
 
 .ba-videoplayer-theatre-theme-volumebar-inner {
@@ -1138,6 +1135,12 @@ Apache-2.0 Software License.
   padding: 0 13px 0 6px; }
 
 .ba-videoplayer-theatre-theme-progressbar-inner {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  height: 10px;
+  background-color: #cccccc; }
+
+.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-progressbar-inner {
   -webkit-transform: translateY(-50%);
   -moz-transform: translateY(-50%);
   -o-transform: translateY(-50%);
@@ -1145,11 +1148,13 @@ Apache-2.0 Software License.
   transform: translateY(-50%);
   top: 50%;
   position: relative;
-  text-align: center;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  height: 10px;
-  background-color: #cccccc; }
+  text-align: center; }
+
+.ba-videoplayer-ie8 .ba-videoplayer-theatre-theme-progressbar-inner {
+  margin-top: 9px; }
+
+.ba-videoplayer-ie8 .ba-videoplayer-theatre-theme-progressbar-position {
+  height: 10px; }
 
 .ba-videoplayer-theatre-theme-progressbar.ba-videoplayer-theatre-theme-disabled .ba-videoplayer-theatre-theme-progressbar-cache, .ba-videoplayer-theatre-theme-progressbar.ba-videoplayer-theatre-theme-disabled .ba-videoplayer-theatre-theme-progressbar-inner {
   cursor: not-allowed; }
@@ -1179,7 +1184,7 @@ Apache-2.0 Software License.
 .ba-videoplayer-theatre-theme-size-small .ba-videoplayer-theatre-theme-time-container {
   display: none; }
 
-.ba-videoplayer-theatre-theme-size-medium .ba-videoplayer-theatre-theme-volumebar, .ba-videoplayer-theatre-theme-size-small .ba-videoplayer-theatre-theme-volumebar {
+.ba-videoplayer-ie8 .ba-videoplayer-theatre-theme-volumebar, .ba-videoplayer-theatre-theme-size-medium .ba-videoplayer-theatre-theme-volumebar, .ba-videoplayer-theatre-theme-size-small .ba-videoplayer-theatre-theme-volumebar {
   display: none; }
 
 .ba-videoplayer-theatre-theme-size-medium .ba-videoplayer-theatre-theme-volume-button-container, .ba-videoplayer-theatre-theme-size-small .ba-videoplayer-theatre-theme-volume-button-container {

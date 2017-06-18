@@ -112,6 +112,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "forceflash": false,
                     "simulate": false,
                     "noflash": false,
+                    "onlyaudio": false,
                     "noaudio": false,
                     "flashincognitosupport": false,
                     "localplayback": false,
@@ -157,7 +158,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "custom-covershots": "boolean",
                     "manualsubmit": "boolean",
                     "simulate": "boolean",
-                    "allowedextensions": "array"
+                    "allowedextensions": "array",
+                    "onlyaudio": "boolean"
                 },
 
                 extendables: ["states"],
@@ -203,6 +205,11 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
                     this.__cameraResponsive = true;
                     this.__cameraSignal = true;
+
+                    if (this.get("onlyaudio")) {
+                        this.set("picksnapshots", false);
+                        this.set("allowupload", false);
+                    }
 
                 },
 
@@ -255,7 +262,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         simulate: this.get("simulate"),
                         forceflash: this.get("forceflash"),
                         noflash: this.get("noflash"),
-                        recordVideo: true,
+                        recordVideo: !this.get("onlyaudio"),
                         recordAudio: !this.get("noaudio"),
                         recordingWidth: this.get("recordingwidth"),
                         recordingHeight: this.get("recordingheight"),
@@ -405,6 +412,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 },
 
                 _showBackgroundSnapshot: function() {
+                    if (this.get("onlyaudio"))
+                        return;
                     this._hideBackgroundSnapshot();
                     this.__backgroundSnapshot = this.recorder.createSnapshot(this.get("snapshottype"));
                     var el = this.activeElement().querySelector("[data-video]");
@@ -413,6 +422,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 },
 
                 _hideBackgroundSnapshot: function() {
+                    if (this.get("onlyaudio"))
+                        return;
                     if (this.__backgroundSnapshotDisplay)
                         this.recorder.removeSnapshotDisplay(this.__backgroundSnapshotDisplay);
                     delete this.__backgroundSnapshotDisplay;
@@ -554,17 +565,19 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         }
                     } catch (e) {}
 
-                    if (this.__recording && this.__recording_start_time + 500 < Time.now()) {
-                        var p = this.snapshots.length < this.get("snapshotmax") ? 0.25 : 0.05;
-                        if (Math.random() <= p) {
-                            var snap = this.recorder.createSnapshot(this.get("snapshottype"));
-                            if (snap) {
-                                if (this.snapshots.length < this.get("snapshotmax")) {
-                                    this.snapshots.push(snap);
-                                } else {
-                                    var i = Math.floor(Math.random() * this.get("snapshotmax"));
-                                    this.recorder.removeSnapshot(this.snapshots[i]);
-                                    this.snapshots[i] = snap;
+                    if (!this.get("onlyaudio")) {
+                        if (this.__recording && this.__recording_start_time + 500 < Time.now()) {
+                            var p = this.snapshots.length < this.get("snapshotmax") ? 0.25 : 0.05;
+                            if (Math.random() <= p) {
+                                var snap = this.recorder.createSnapshot(this.get("snapshottype"));
+                                if (snap) {
+                                    if (this.snapshots.length < this.get("snapshotmax")) {
+                                        this.snapshots.push(snap);
+                                    } else {
+                                        var i = Math.floor(Math.random() * this.get("snapshotmax"));
+                                        this.recorder.removeSnapshot(this.snapshots[i]);
+                                        this.snapshots[i] = snap;
+                                    }
                                 }
                             }
                         }

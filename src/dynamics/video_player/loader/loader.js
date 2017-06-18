@@ -18,6 +18,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Loader", [
         .register("ba-videoplayer-loader")
         .attachStringTable(Assets.strings)
         .addStrings({
-            "tooltip": "Loading video..."
+            "tooltip": "Loading..."
         });
 });

@@ -20,7 +20,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
                     "allowupload": true,
                     "allowcustomupload": true,
                     "allowedextensions": null,
-                    "primaryrecord": true
+                    "primaryrecord": true,
+                    "onlyaudio": false
                 },
 
                 types: {
@@ -36,10 +37,11 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
                     } else if (!this.get("allowcustomupload")) {
                         custom_accept_string = "video/*,video/mp4";
                     }
+                    var recordVideoLabel = this.get("onlyaudio") ? "record-audio" : "record-video";
                     this.set("has_primary", true);
                     this.set("enable_primary_select", false);
-                    this.set("primary_label", this.string(this.get("primaryrecord") && this.get("allowrecord") ? "record-video" : "upload-video"));
-                    this.set("secondary_label", this.string(this.get("primaryrecord") ? "upload-video" : "record-video"));
+                    this.set("primary_label", this.string(this.get("primaryrecord") && this.get("allowrecord") ? recordVideoLabel : "upload-video"));
+                    this.set("secondary_label", this.string(this.get("primaryrecord") ? "upload-video" : recordVideoLabel));
                     if (!this.get("allowrecord") || !this.get("primaryrecord") || (Info.isMobile() && (!Info.isAndroid() || !Info.isCordova()))) {
                         this.set("enable_primary_select", true);
                         this.set("primary_select_capture", Info.isMobile() && this.get("allowrecord") && this.get("primaryrecord"));
@@ -123,6 +125,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
         .attachStringTable(Assets.strings)
         .addStrings({
             "record-video": "Record Video",
+            "record-audio": "Record Audio",
             "upload-video": "Upload Video"
         });
 });

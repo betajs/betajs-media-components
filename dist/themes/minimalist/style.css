@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.58 - 2017-06-06
+betajs-media-components - v0.0.61 - 2017-06-18
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1010,6 +1010,11 @@ Apache-2.0 Software License.
       /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
       font-size: 2.5em; }
 
+.ba-videoplayer-ie8 .ba-videoplayer-minimalist-theme-controlbar-top-block {
+  height: 100%; }
+  .ba-videoplayer-ie8 .ba-videoplayer-minimalist-theme-controlbar-top-block .ba-videoplayer-minimalist-theme-button-container {
+    top: 45%; }
+
 .ba-videoplayer-noie8 .ba-videoplayer-minimalist-theme-overlay .ba-videoplayer-minimalist-theme-controlbar-top-block .ba-videoplayer-minimalist-theme-button-inner {
   transition: opacity 0.3s ease;
   -moz-transition: opacity 0.3s ease;
@@ -1025,26 +1030,28 @@ Apache-2.0 Software License.
   -ms-transition: opacity 0.2s ease;
   opacity: .6; }
 
-.ba-videoplayer-ie8 .ba-videoplayer-minimalist-theme-overlay .ba-videoplayer-minimalist-theme-controlbar-top-block .ba-videoplayer-minimalist-theme-button-inner {
-  /* works for IE 5+. */
-  /* works for IE 8. */
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-  /* works for old school versions of the Mozilla browsers like Netscape Navigator. */
-  -moz-opacity: 0;
-  /* This is for old versions of Safari (1.x) with KHTML rendering engine */
-  -khtml-opacity: 0;
-  /* This is the "most important" one because it's the current standard in CSS. This will work in most versions of Firefox, Safari, and Opera. */
-  opacity: 0; }
-.ba-videoplayer-ie8 .ba-videoplayer-minimalist-theme-overlay:hover .ba-videoplayer-minimalist-theme-controlbar-top-block .ba-videoplayer-minimalist-theme-button-inner {
-  /* works for IE 5+. */
-  /* works for IE 8. */
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
-  /* works for old school versions of the Mozilla browsers like Netscape Navigator. */
-  -moz-opacity: 0.6;
-  /* This is for old versions of Safari (1.x) with KHTML rendering engine */
-  -khtml-opacity: 0.6;
-  /* This is the "most important" one because it's the current standard in CSS. This will work in most versions of Firefox, Safari, and Opera. */
-  opacity: 0.6; }
+.ba-videoplayer-ie8 .ba-videoplayer-minimalist-theme-overlay {
+  height: 100%; }
+  .ba-videoplayer-ie8 .ba-videoplayer-minimalist-theme-overlay .ba-videoplayer-minimalist-theme-controlbar-top-block .ba-videoplayer-minimalist-theme-button-inner {
+    /* works for IE 5+. */
+    /* works for IE 8. */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    /* works for old school versions of the Mozilla browsers like Netscape Navigator. */
+    -moz-opacity: 0;
+    /* This is for old versions of Safari (1.x) with KHTML rendering engine */
+    -khtml-opacity: 0;
+    /* This is the "most important" one because it's the current standard in CSS. This will work in most versions of Firefox, Safari, and Opera. */
+    opacity: 0; }
+  .ba-videoplayer-ie8 .ba-videoplayer-minimalist-theme-overlay:hover .ba-videoplayer-minimalist-theme-controlbar-top-block .ba-videoplayer-minimalist-theme-button-inner {
+    /* works for IE 5+. */
+    /* works for IE 8. */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
+    /* works for old school versions of the Mozilla browsers like Netscape Navigator. */
+    -moz-opacity: 0.6;
+    /* This is for old versions of Safari (1.x) with KHTML rendering engine */
+    -khtml-opacity: 0.6;
+    /* This is the "most important" one because it's the current standard in CSS. This will work in most versions of Firefox, Safari, and Opera. */
+    opacity: 0.6; }
 
 .ba-videoplayer-minimalist-theme-button-inner {
   cursor: pointer;
@@ -1080,17 +1087,8 @@ Apache-2.0 Software License.
   bottom: 45px; }
 
 .ba-videoplayer-minimalist-theme-progressbar {
-  height: 15px; }
-
-.ba-videoplayer-noie8 .ba-videoplayer-minimalist-theme-progressbar {
-  overflow: hidden; }
-
-.ba-videoplayer-ie8 .ba-videoplayer-minimalist-theme-progressbar {
   overflow: hidden;
-  padding-left: 12px;
-  padding-right: 12px;
-  margin-right: 40px;
-  margin-top: 6px; }
+  height: 15px; }
 
 .ba-videoplayer-minimalist-theme-progressbar-cache {
   position: absolute;

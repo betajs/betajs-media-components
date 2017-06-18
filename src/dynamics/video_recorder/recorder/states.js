@@ -240,6 +240,10 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraAccess", [
             this.dyn.set("controlbarlabel", "");
             this.listenOn(this.dyn, "bound", function() {
                 this.dyn.set("creation-type", this.dyn.isFlash() ? "flash" : "webrtc");
+                if (this.dyn.get("onlyaudio")) {
+                    this.next("CameraHasAccess");
+                    return;
+                }
                 var timer = this.auto_destroy(new Timer({
                     start: true,
                     delay: 100,

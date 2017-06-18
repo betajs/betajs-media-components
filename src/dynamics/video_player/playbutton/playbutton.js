@@ -40,7 +40,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Playbutton", [
         .register("ba-videoplayer-playbutton")
         .attachStringTable(Assets.strings)
         .addStrings({
-            "tooltip": "Click to play video.",
+            "tooltip": "Click to play.",
             "rerecord": "Redo",
             "submit-video": "Confirm video"
         });

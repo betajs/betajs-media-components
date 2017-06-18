@@ -36,6 +36,7 @@
 		></ba-{{dyntopmessage}}>
 
 		<ba-{{dynchooser}}
+			ba-onlyaudio="{{onlyaudio}}"
 		    ba-css="{{csschooser || css}}"
 			ba-themecolor="{{themecolor}}"
 		    ba-template="{{tmplchooser}}"
@@ -69,6 +70,7 @@
 		    ba-cameras="{{cameras}}"
 		    ba-microphones="{{microphones}}"
 		    ba-noaudio="{{noaudio}}"
+			ba-novideo="{{onlyaudio}}"
 		    ba-selectedcamera="{{selectedcamera || 0}}"
 		    ba-selectedmicrophone="{{selectedmicrophone || 0}}"
 		    ba-camerahealthy="{{camerahealthy}}"
@@ -103,6 +105,7 @@
         ba-forceflash="{{forceflash}}"
         ba-noflash="{{noflash}}"
         ba-stretch="{{stretch}}"
+		ba-onlyaudio="{{onlyaudio}}"
         ba-attrs="{{playerattrs}}"
         ba-data:id="player"
         ba-width="{{width}}"

@@ -21,7 +21,7 @@
 				       onchange="{{primary_select(domEvent)}}"
 				       accept="{{primary_accept_string}}" />
 				<span>
-					{{primary_label}}
+					{{!onlyaudio ? primary_label : 'Record Audio'}}
 				</span>
 				<i class="{{css}}-icon-{{primaryrecord ? 'record' : 'chooser-upload'}}"></i>
 			</div>
@@ -43,7 +43,7 @@
 				       onchange="{{secondary_select(domEvent)}}"
 				       accept="{{secondary_accept_string}}" />
 				<span>
-					{{secondary_label}}
+					{{!onlyaudio ? secondary_label : 'Upload Audio'}}
 				</span>
 				<i class="{{css}}-icon-chooser-upload"></i>
 			</div>

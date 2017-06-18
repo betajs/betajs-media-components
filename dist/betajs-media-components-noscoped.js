@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.58 - 2017-06-11
+betajs-media-components - v0.0.61 - 2017-06-18
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -15,7 +15,7 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.58"
+    "version": "0.0.61"
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -379,14 +379,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
         .register("ba-videoplayer-controlbar")
         .attachStringTable(Assets.strings)
         .addStrings({
-            "video-progress": "Video progress",
-            "rerecord-video": "Redo video?",
-            "submit-video": "Confirm video",
-            "play-video": "Play video",
-            "pause-video": "Pause video",
-            "pause-video-disabled": "Pause video not allowed",
+            "video-progress": "Progress",
+            "rerecord-video": "Redo?",
+            "submit-video": "Confirm",
+            "play-video": "Play",
+            "pause-video": "Pause",
+            "pause-video-disabled": "Pause not supported",
             "elapsed-time": "Elasped time",
-            "total-time": "Total length of video",
+            "total-time": "Total length of",
             "fullscreen-video": "Enter fullscreen",
             "volume-button": "Set volume",
             "volume-mute": "Mute sound",
@@ -415,7 +415,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Loader", [
         .register("ba-videoplayer-loader")
         .attachStringTable(Assets.strings)
         .addStrings({
-            "tooltip": "Loading video..."
+            "tooltip": "Loading..."
         });
 });
 Scoped.define("module:VideoPlayer.Dynamics.Message", [
@@ -488,7 +488,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Playbutton", [
         .register("ba-videoplayer-playbutton")
         .attachStringTable(Assets.strings)
         .addStrings({
-            "tooltip": "Click to play video.",
+            "tooltip": "Click to play.",
             "rerecord": "Redo",
             "submit-video": "Confirm video"
         });
@@ -646,7 +646,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 create: function() {
                     if (Info.isMobile()) {
                         if (Info.isiOS() && Info.iOSversion().major >= 10) {
-                            if (this.get("autoplay")) {
+                            if (this.get("autoplay") || this.get("playwhenvisible")) {
                                 this.set("volume", 0.0);
                                 this.set("volumeafterinteraction", true);
                             }
@@ -706,23 +706,22 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.on("change:stretch", function() {
                         this._updateStretch();
                     }, this);
-                    this.host = this.auto_destroy(new Host({
+                    this.host = new Host({
                         stateRegistry: new ClassRegistry(this.cls.playerStates())
-                    }));
+                    });
                     this.host.dynamic = this;
                     this.host.initialize(InitialState);
 
-                    this._timer = this.auto_destroy(new Timers.Timer({
+                    this._timer = new Timers.Timer({
                         context: this,
                         fire: this._timerFire,
                         delay: 100,
                         start: true
-                    }));
+                    });
 
                     this.properties().compute("buffering", function() {
                         return this.get("playing") && this.get("buffered") < this.get("position") && this.get("last_position_change_delta") > 1000;
                     }, ["buffered", "position", "last_position_change_delta", "playing"]);
-
                 },
 
                 state: function() {
@@ -985,6 +984,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 destroy: function() {
+                    this._timer.destroy();
+                    this.host.destroy();
                     this._detachVideo();
                     inherited.destroy.call(this);
                 },
@@ -1009,8 +1010,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.set("fullscreened", this.player.isFullscreen());
                         }
                     } catch (e) {}
-                    this._updateStretch();
-                    this._updateCSSSize();
+                    try {
+                        this._updateStretch();
+                    } catch (e) {}
+                    try {
+                        this._updateCSSSize();
+                    } catch (e) {}
                 },
 
                 _updateCSSSize: function() {
@@ -1456,7 +1461,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Share", [
         }).register("ba-videoplayer-share")
         .attachStringTable(Assets.strings)
         .addStrings({
-            "share": "Share video"
+            "share": "Share media"
         });
 });
 Scoped.define("module:VideoPlayer.Dynamics.Topmessage", [
@@ -1491,7 +1496,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
         }, function(inherited) {
             return {
 
-                template: "\n<div class=\"{{css}}-chooser-container\">\n\n\t<div class=\"{{css}}-chooser-button-container\">\n\t\t<div>\n\t\t\t<div data-selector=\"chooser-primary-button\" class=\"{{css}}-chooser-primary-button\"\n\t\t\t     ba-click=\"primary()\"\n\t\t\t     ba-if=\"{{has_primary}}\">\n\t\t\t\t<input data-selector=\"file-input-opt1\" ba-if=\"{{enable_primary_select && primary_select_capture}}\"\n\t\t\t\t       type=\"file\"\n\t\t\t\t       class=\"{{css}}-chooser-file\"\n\t\t\t\t       style=\"height:100\"\n\t\t\t\t       onchange=\"{{primary_select(domEvent)}}\"\n\t\t\t\t       accept=\"{{primary_accept_string}}\"\n\t\t\t\t       capture />\n\t\t\t\t<input data-selector=\"file-input-opt2\" ba-if=\"{{enable_primary_select && !primary_select_capture}}\"\n\t\t\t\t       type=\"file\"\n\t\t\t\t       class=\"{{css}}-chooser-file\"\n\t\t\t\t       style=\"height:100\"\n\t\t\t\t       onchange=\"{{primary_select(domEvent)}}\"\n\t\t\t\t       accept=\"{{primary_accept_string}}\" />\n\t\t\t\t<i class=\"{{css}}-icon-{{primaryrecord ? 'videocam' : 'upload'}}\"></i>\n\t\t\t\t<span>\n\t\t\t\t\t{{primary_label}}\n\t\t\t\t</span>\n\t\t\t</div>\n\t\t</div>\n\t\t<div>\n\t\t\t<div data-selector=\"chooser-secondary-button\" class=\"{{css}}-chooser-secondary-button\"\n\t\t\t     ba-click=\"secondary()\"\n\t\t\t     ba-if=\"{{has_secondary}}\">\n\t\t\t\t<input data-selector=\"file-input-secondary-opt1\" ba-if=\"{{enable_secondary_select && secondary_select_capture}}\"\n\t\t\t\t       type=\"file\"\n\t\t\t\t       class=\"{{css}}-chooser-file\"\n\t\t\t\t       style=\"height:100\"\n\t\t\t\t       onchange=\"{{secondary_select(domEvent)}}\"\n\t\t\t\t       accept=\"{{secondary_accept_string}}\" />\n\t\t\t\t<input data-selector=\"file-input-secondary-opt2\" ba-if=\"{{enable_secondary_select && !secondary_select_capture}}\"\n\t\t\t\t       type=\"file\"\n\t\t\t\t       class=\"{{css}}-chooser-file\"\n\t\t\t\t       style=\"height:100\"\n\t\t\t\t       onchange=\"{{secondary_select(domEvent)}}\"\n\t\t\t\t       accept=\"{{secondary_accept_string}}\" />\n\t\t\t\t<span>\n\t\t\t\t\t{{secondary_label}}\n\t\t\t\t</span>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>\n",
+                template: "\n<div class=\"{{css}}-chooser-container\">\n\n\t<div class=\"{{css}}-chooser-button-container\">\n\t\t<div>\n\t\t\t<div data-selector=\"chooser-primary-button\" class=\"{{css}}-chooser-primary-button\"\n\t\t\t     ba-click=\"primary()\"\n\t\t\t     ba-if=\"{{has_primary}}\">\n\t\t\t\t<input data-selector=\"file-input-opt1\" ba-if=\"{{enable_primary_select && primary_select_capture}}\"\n\t\t\t\t       type=\"file\"\n\t\t\t\t       class=\"{{css}}-chooser-file\"\n\t\t\t\t       style=\"height:100\"\n\t\t\t\t       onchange=\"{{primary_select(domEvent)}}\"\n\t\t\t\t       accept=\"{{primary_accept_string}}\"\n\t\t\t\t       capture />\n\t\t\t\t<input data-selector=\"file-input-opt2\" ba-if=\"{{enable_primary_select && !primary_select_capture}}\"\n\t\t\t\t       type=\"file\"\n\t\t\t\t       class=\"{{css}}-chooser-file\"\n\t\t\t\t       style=\"height:100\"\n\t\t\t\t       onchange=\"{{primary_select(domEvent)}}\"\n\t\t\t\t       accept=\"{{primary_accept_string}}\" />\n\t\t\t\t<i class=\"{{css}}-icon-{{primaryrecord ? (!onlyaudio ? 'videocam' : 'volume-up'): 'upload'}}\"></i>\n\t\t\t\t<span>\n\t\t\t\t\t{{!onlyaudio ? primary_label : 'Record Audio'}}\n\t\t\t\t</span>\n\t\t\t</div>\n\t\t</div>\n\t\t<div>\n\t\t\t<div data-selector=\"chooser-secondary-button\" class=\"{{css}}-chooser-secondary-button\"\n\t\t\t     ba-click=\"secondary()\"\n\t\t\t     ba-if=\"{{has_secondary}}\">\n\t\t\t\t<input data-selector=\"file-input-secondary-opt1\" ba-if=\"{{enable_secondary_select && secondary_select_capture}}\"\n\t\t\t\t       type=\"file\"\n\t\t\t\t       class=\"{{css}}-chooser-file\"\n\t\t\t\t       style=\"height:100\"\n\t\t\t\t       onchange=\"{{secondary_select(domEvent)}}\"\n\t\t\t\t       accept=\"{{secondary_accept_string}}\" />\n\t\t\t\t<input data-selector=\"file-input-secondary-opt2\" ba-if=\"{{enable_secondary_select && !secondary_select_capture}}\"\n\t\t\t\t       type=\"file\"\n\t\t\t\t       class=\"{{css}}-chooser-file\"\n\t\t\t\t       style=\"height:100\"\n\t\t\t\t       onchange=\"{{secondary_select(domEvent)}}\"\n\t\t\t\t       accept=\"{{secondary_accept_string}}\" />\n\t\t\t\t<span>\n\t\t\t\t\t{{!onlyaudio ? secondary_label : 'Upload Audio'}}\n\t\t\t\t</span>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>\n",
 
                 attrs: {
                     "css": "ba-videorecorder",
@@ -1499,7 +1504,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
                     "allowupload": true,
                     "allowcustomupload": true,
                     "allowedextensions": null,
-                    "primaryrecord": true
+                    "primaryrecord": true,
+                    "onlyaudio": false
                 },
 
                 types: {
@@ -1515,10 +1521,11 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
                     } else if (!this.get("allowcustomupload")) {
                         custom_accept_string = "video/*,video/mp4";
                     }
+                    var recordVideoLabel = this.get("onlyaudio") ? "record-audio" : "record-video";
                     this.set("has_primary", true);
                     this.set("enable_primary_select", false);
-                    this.set("primary_label", this.string(this.get("primaryrecord") && this.get("allowrecord") ? "record-video" : "upload-video"));
-                    this.set("secondary_label", this.string(this.get("primaryrecord") ? "upload-video" : "record-video"));
+                    this.set("primary_label", this.string(this.get("primaryrecord") && this.get("allowrecord") ? recordVideoLabel : "upload-video"));
+                    this.set("secondary_label", this.string(this.get("primaryrecord") ? "upload-video" : recordVideoLabel));
                     if (!this.get("allowrecord") || !this.get("primaryrecord") || (Info.isMobile() && (!Info.isAndroid() || !Info.isCordova()))) {
                         this.set("enable_primary_select", true);
                         this.set("primary_select_capture", Info.isMobile() && this.get("allowrecord") && this.get("primaryrecord"));
@@ -1602,6 +1609,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
         .attachStringTable(Assets.strings)
         .addStrings({
             "record-video": "Record Video",
+            "record-audio": "Record Audio",
             "upload-video": "Upload Video"
         });
 });
@@ -1618,7 +1626,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Controlbar", [
         }, function(inherited) {
             return {
 
-                template: "<div class=\"{{css}}-dashboard\">\n\t<div class=\"{{css}}-backbar\"></div>\n\t<div data-selector=\"recorder-settings\" class=\"{{css}}-settings\" ba-show=\"{{settingsvisible && settingsopen}}\">\n\t\t<div class=\"{{css}}-settings-backbar\"></div>\n\t\t<div data-selector=\"settings-list-front\" class=\"{{css}}-settings-front\">\n\t\t\t<ul data-selector=\"camera-settings\" ba-repeat=\"{{camera :: cameras}}\">\n\t\t\t\t<li>\n\t\t\t\t\t<input type='radio' name='camera' value=\"{{selectedcamera == camera.id}}\" onclick=\"{{selectCamera(camera.id)}}\" />\n\t\t\t\t\t<span></span>\n\t\t\t\t\t<label onclick=\"{{selectCamera(camera.id)}}\">\n\t\t\t\t\t\t{{camera.label}}\n\t\t\t\t\t</label>\n\t\t\t\t </li>\n\t\t\t</ul>\n\t\t\t<hr ba-show=\"{{!noaudio}}\"/>\n\t\t\t<ul data-selector=\"microphone-settings\" ba-repeat=\"{{microphone :: microphones}}\" ba-show=\"{{!noaudio}}\">\n\t\t\t\t<li onclick=\"{{selectMicrophone(microphone.id)}}\">\n\t\t\t\t\t<input type='radio' name='microphone' value=\"{{selectedmicrophone == microphone.id}}\" />\n\t\t\t\t\t<span></span>\n\t\t\t\t\t<label>\n\t\t\t\t\t\t{{microphone.label}}\n\t\t\t\t\t</label>\n\t\t\t\t </li>\n\t\t\t</ul>\n\t\t</div>\n\t</div>\n\t<div data-selector=\"controlbar\" class=\"{{css}}-controlbar\">\n        <div class=\"{{css}}-leftbutton-container\" ba-show=\"{{settingsvisible}}\">\n            <div data-selector=\"record-button-icon-cog\" class=\"{{css}}-button-inner {{css}}-button-{{settingsopen ? 'selected' : 'unselected'}}\"\n                 onclick=\"{{settingsopen=!settingsopen}}\"\n                 onmouseenter=\"{{hover(string('settings'))}}\"\n                 onmouseleave=\"{{unhover()}}\">\n                <i class=\"{{css}}-icon-cog\"></i>\n            </div>\n        </div>\n        <div class=\"{{css}}-lefticon-container\" ba-show=\"{{settingsvisible}}\">\n            <div data-selector=\"record-button-icon-videocam\" class=\"{{css}}-icon-inner\"\n                 onmouseenter=\"{{hover(string(camerahealthy ? 'camerahealthy' : 'cameraunhealthy'))}}\"\n                 onmouseleave=\"{{unhover()}}\">\n                <i class=\"{{css}}-icon-videocam {{css}}-icon-state-{{camerahealthy ? 'good' : 'bad' }}\"></i>\n            </div>\n        </div>\n        <div class=\"{{css}}-lefticon-container\" ba-show=\"{{settingsvisible && !noaudio}}\">\n            <div data-selector=\"record-button-icon-mic\" class=\"{{css}}-icon-inner\"\n                 onmouseenter=\"{{hover(string(microphonehealthy ? 'microphonehealthy' : 'microphoneunhealthy'))}}\"\n                 onmouseleave=\"{{unhover()}}\">\n                <i class=\"{{css}}-icon-mic {{css}}-icon-state-{{microphonehealthy ? 'good' : 'bad' }}\"></i>\n            </div>\n        </div>\n        <div class=\"{{css}}-lefticon-container\" ba-show=\"{{stopvisible && recordingindication}}\">\n            <div data-selector=\"recording-indicator\" class=\"{{css}}-recording-indication\">\n            </div>\n        </div>\n        <div class=\"{{css}}-label-container\" ba-show=\"{{controlbarlabel}}\">\n        \t<div data-selector=\"record-label-block\" class=\"{{css}}-label-label\">\n        \t\t{{controlbarlabel}}\n        \t</div>\n        </div>\n        <div class=\"{{css}}-rightbutton-container\" ba-show=\"{{recordvisible}}\">\n        \t<div data-selector=\"record-primary-button\" class=\"{{css}}-button-primary\"\n                 onclick=\"{{record()}}\"\n                 onmouseenter=\"{{hover(string('record-tooltip'))}}\"\n                 onmouseleave=\"{{unhover()}}\">\n        \t\t{{string('record')}}\n        \t</div>\n        </div>\n        <div class=\"{{css}}-rightbutton-container\" ba-if=\"{{uploadcovershotvisible}}\">\n        \t<div data-selector=\"covershot-primary-button\" class=\"{{css}}-button-primary\"\n                 onmouseenter=\"{{hover(string('upload-covershot-tooltip'))}}\"\n                 onmouseleave=\"{{unhover()}}\">\n                 <input type=\"file\"\n\t\t\t\t       class=\"{{css}}-chooser-file\"\n\t\t\t\t       style=\"height:100\"\n\t\t\t\t       onchange=\"{{uploadCovershot(domEvent)}}\"\n\t\t\t\t       accept=\"{{covershot_accept_string}}\" />\n                 <span>\n        \t\t\t{{string('upload-covershot')}}\n        \t\t</span>\n        \t</div>\n        </div>\n        <div class=\"{{css}}-rightbutton-container\" ba-show=\"{{rerecordvisible}}\">\n        \t<div data-selector=\"rerecord-primary-button\" class=\"{{css}}-button-primary\"\n                 onclick=\"{{rerecord()}}\"\n                 onmouseenter=\"{{hover(string('rerecord-tooltip'))}}\"\n                 onmouseleave=\"{{unhover()}}\">\n        \t\t{{string('rerecord')}}\n        \t</div>\n        </div>\n        <div class=\"{{css}}-rightbutton-container\" ba-show=\"{{stopvisible}}\">\n        \t<div data-selector=\"stop-primary-button\" class=\"{{css}}-button-primary\"\n                 onclick=\"{{stop()}}\"\n                 onmouseenter=\"{{hover(string('stop-tooltip'))}}\"\n                 onmouseleave=\"{{unhover()}}\">\n        \t\t{{string('stop')}}\n        \t</div>\n        </div>\n        <div class=\"{{css}}-centerbutton-container\" ba-show=\"{{skipvisible}}\">\n        \t<div data-selector=\"skip-primary-button\" class=\"{{css}}-button-primary\"\n                 onclick=\"{{skip()}}\"\n                 onmouseenter=\"{{hover(string('skip-tooltip'))}}\"\n                 onmouseleave=\"{{unhover()}}\">\n        \t\t{{string('skip')}}\n        \t</div>\n        </div>\n\t</div>\n</div>\n",
+                template: "<div class=\"{{css}}-dashboard\">\n\t<div class=\"{{css}}-backbar\"></div>\n\t<div data-selector=\"recorder-settings\" class=\"{{css}}-settings\" ba-show=\"{{settingsvisible && settingsopen}}\">\n\t\t<div class=\"{{css}}-settings-backbar\"></div>\n\t\t<div data-selector=\"settings-list-front\" class=\"{{css}}-settings-front\">\n\t\t\t<ul data-selector=\"camera-settings\" ba-repeat=\"{{camera :: cameras}}\" ba-show=\"{{!novideo}}\">\n\t\t\t\t<li>\n\t\t\t\t\t<input type='radio' name='camera' value=\"{{selectedcamera == camera.id}}\" onclick=\"{{selectCamera(camera.id)}}\" />\n\t\t\t\t\t<span></span>\n\t\t\t\t\t<label onclick=\"{{selectCamera(camera.id)}}\">\n\t\t\t\t\t\t{{camera.label}}\n\t\t\t\t\t</label>\n\t\t\t\t </li>\n\t\t\t</ul>\n\t\t\t<hr ba-show=\"{{!noaudio && !novideo}}\"/>\n\t\t\t<ul data-selector=\"microphone-settings\" ba-repeat=\"{{microphone :: microphones}}\" ba-show=\"{{!noaudio}}\">\n\t\t\t\t<li onclick=\"{{selectMicrophone(microphone.id)}}\">\n\t\t\t\t\t<input type='radio' name='microphone' value=\"{{selectedmicrophone == microphone.id}}\" />\n\t\t\t\t\t<span></span>\n\t\t\t\t\t<label>\n\t\t\t\t\t\t{{microphone.label}}\n\t\t\t\t\t</label>\n\t\t\t\t </li>\n\t\t\t</ul>\n\t\t</div>\n\t</div>\n\t<div data-selector=\"controlbar\" class=\"{{css}}-controlbar\">\n        <div class=\"{{css}}-leftbutton-container\" ba-show=\"{{settingsvisible}}\">\n            <div data-selector=\"record-button-icon-cog\" class=\"{{css}}-button-inner {{css}}-button-{{settingsopen ? 'selected' : 'unselected'}}\"\n                 onclick=\"{{settingsopen=!settingsopen}}\"\n                 onmouseenter=\"{{hover(string('settings'))}}\"\n                 onmouseleave=\"{{unhover()}}\">\n                <i class=\"{{css}}-icon-cog\"></i>\n            </div>\n        </div>\n        <div class=\"{{css}}-lefticon-container\" ba-show=\"{{settingsvisible && !novideo}}\">\n            <div data-selector=\"record-button-icon-videocam\" class=\"{{css}}-icon-inner\"\n                 onmouseenter=\"{{hover(string(camerahealthy ? 'camerahealthy' : 'cameraunhealthy'))}}\"\n                 onmouseleave=\"{{unhover()}}\">\n                <i class=\"{{css}}-icon-videocam {{css}}-icon-state-{{camerahealthy ? 'good' : 'bad' }}\"></i>\n            </div>\n        </div>\n        <div class=\"{{css}}-lefticon-container\" ba-show=\"{{settingsvisible && !noaudio}}\">\n            <div data-selector=\"record-button-icon-mic\" class=\"{{css}}-icon-inner\"\n                 onmouseenter=\"{{hover(string(microphonehealthy ? 'microphonehealthy' : 'microphoneunhealthy'))}}\"\n                 onmouseleave=\"{{unhover()}}\">\n                <i class=\"{{css}}-icon-mic {{css}}-icon-state-{{microphonehealthy ? 'good' : 'bad' }}\"></i>\n            </div>\n        </div>\n        <div class=\"{{css}}-lefticon-container\" ba-show=\"{{stopvisible && recordingindication}}\">\n            <div data-selector=\"recording-indicator\" class=\"{{css}}-recording-indication\">\n            </div>\n        </div>\n        <div class=\"{{css}}-label-container\" ba-show=\"{{controlbarlabel}}\">\n        \t<div data-selector=\"record-label-block\" class=\"{{css}}-label-label\">\n        \t\t{{controlbarlabel}}\n        \t</div>\n        </div>\n        <div class=\"{{css}}-rightbutton-container\" ba-show=\"{{recordvisible}}\">\n        \t<div data-selector=\"record-primary-button\" class=\"{{css}}-button-primary\"\n                 onclick=\"{{record()}}\"\n                 onmouseenter=\"{{hover(string('record-tooltip'))}}\"\n                 onmouseleave=\"{{unhover()}}\">\n        \t\t{{string('record')}}\n        \t</div>\n        </div>\n        <div class=\"{{css}}-rightbutton-container\" ba-if=\"{{uploadcovershotvisible}}\">\n        \t<div data-selector=\"covershot-primary-button\" class=\"{{css}}-button-primary\"\n                 onmouseenter=\"{{hover(string('upload-covershot-tooltip'))}}\"\n                 onmouseleave=\"{{unhover()}}\">\n                 <input type=\"file\"\n\t\t\t\t       class=\"{{css}}-chooser-file\"\n\t\t\t\t       style=\"height:100\"\n\t\t\t\t       onchange=\"{{uploadCovershot(domEvent)}}\"\n\t\t\t\t       accept=\"{{covershot_accept_string}}\" />\n                 <span>\n        \t\t\t{{string('upload-covershot')}}\n        \t\t</span>\n        \t</div>\n        </div>\n        <div class=\"{{css}}-rightbutton-container\" ba-show=\"{{rerecordvisible}}\">\n        \t<div data-selector=\"rerecord-primary-button\" class=\"{{css}}-button-primary\"\n                 onclick=\"{{rerecord()}}\"\n                 onmouseenter=\"{{hover(string('rerecord-tooltip'))}}\"\n                 onmouseleave=\"{{unhover()}}\">\n        \t\t{{string('rerecord')}}\n        \t</div>\n        </div>\n        <div class=\"{{css}}-rightbutton-container\" ba-show=\"{{stopvisible}}\">\n        \t<div data-selector=\"stop-primary-button\" class=\"{{css}}-button-primary\"\n                 onclick=\"{{stop()}}\"\n                 onmouseenter=\"{{hover(string('stop-tooltip'))}}\"\n                 onmouseleave=\"{{unhover()}}\">\n        \t\t{{string('stop')}}\n        \t</div>\n        </div>\n        <div class=\"{{css}}-centerbutton-container\" ba-show=\"{{skipvisible}}\">\n        \t<div data-selector=\"skip-primary-button\" class=\"{{css}}-button-primary\"\n                 onclick=\"{{skip()}}\"\n                 onmouseenter=\"{{hover(string('skip-tooltip'))}}\"\n                 onmouseleave=\"{{unhover()}}\">\n        \t\t{{string('skip')}}\n        \t</div>\n        </div>\n\t</div>\n</div>\n",
 
                 attrs: {
                     "css": "ba-videorecorder",
@@ -1957,7 +1965,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
         }, function(inherited) {
             return {
 
-                template: "\n<div data-selector=\"recorder-container\" ba-show=\"{{!player_active}}\"\n     class=\"{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}\n     \t{{css}}-{{ fullscreened ? 'fullscreen' : 'normal' }}-view {{css}}-{{ firefox ? 'firefox' : 'common'}}-browser\n    \t{{css}}-{{themecolor}}-color\"\n     style=\"{{width ? 'width:' + width + ((width + '').match(/^\\d+$/g) ? 'px' : '') + ';' : 'width:100%;'}}{{height ? 'height:' + height + ((height + '').match(/^\\d+$/g) ? 'px' : '') + ';' : 'height:100%'}}\"\n>\n\n    <video data-selector=\"recorder-status\" class=\"{{css}}-video {{css}}-{{hasrecorder ? 'hasrecorder' : 'norecorder'}}\" data-video=\"video\"></video>\n    <div data-selector=\"recorder-overlay\" class='{{css}}-overlay' ba-show=\"{{!hideoverlay}}\" data-overlay=\"overlay\">\n\t\t<ba-{{dynloader}}\n\t\t    ba-css=\"{{cssloader || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplloader}}\"\n\t\t    ba-show=\"{{loader_active}}\"\n\t\t    ba-tooltip=\"{{loadertooltip}}\"\n\t\t\tba-hovermessage=\"{{=hovermessage}}\"\n\t\t    ba-label=\"{{loaderlabel}}\"\n\t\t></ba-{{dynloader}}>\n\n\t\t<ba-{{dynmessage}}\n\t\t    ba-css=\"{{cssmessage || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplmessage}}\"\n\t\t    ba-show=\"{{message_active}}\"\n\t\t    ba-message=\"{{message}}\"\n\t\t    ba-event:click=\"message_click\"\n\t\t></ba-{{dynmessage}}>\n\n\t\t<ba-{{dyntopmessage}}\n\t\t    ba-css=\"{{csstopmessage || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmpltopmessage}}\"\n\t\t    ba-show=\"{{topmessage_active && (topmessage || hovermessage)}}\"\n\t\t    ba-topmessage=\"{{hovermessage || topmessage}}\"\n\t\t></ba-{{dyntopmessage}}>\n\n\t\t<ba-{{dynchooser}}\n\t\t    ba-css=\"{{csschooser || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplchooser}}\"\n\t\t    ba-show=\"{{chooser_active}}\"\n\t\t    ba-allowrecord=\"{{allowrecord}}\"\n\t\t    ba-allowupload=\"{{allowupload}}\"\n\t\t    ba-allowcustomupload=\"{{allowcustomupload}}\"\n\t\t    ba-allowedextensions=\"{{allowedextensions}}\"\n\t\t    ba-primaryrecord=\"{{primaryrecord}}\"\n\t\t    ba-timelimit=\"{{timelimit}}\"\n\t\t    ba-event:record=\"record_video\"\n\t\t    ba-event:upload=\"upload_video\"\n\t\t></ba-{{dynchooser}}>\n\n\t\t<ba-{{dynimagegallery}}\n\t\t    ba-css=\"{{cssimagegallery || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplimagegallery}}\"\n\t\t    ba-if=\"{{imagegallery_active}}\"\n\t\t    ba-imagecount=\"{{gallerysnapshots}}\"\n\t\t    ba-imagenativewidth=\"{{recordingwidth}}\"\n\t\t    ba-imagenativeheight=\"{{recordingheight}}\"\n\t\t    ba-event:image-selected=\"select_image\"\n\t\t></ba-{{dynimagegallery}}>\n\n\t\t<ba-{{dyncontrolbar}}\n\t\t    ba-css=\"{{csscontrolbar || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplcontrolbar}}\"\n\t\t    ba-show=\"{{controlbar_active}}\"\n\t\t    ba-cameras=\"{{cameras}}\"\n\t\t    ba-microphones=\"{{microphones}}\"\n\t\t    ba-noaudio=\"{{noaudio}}\"\n\t\t    ba-selectedcamera=\"{{selectedcamera || 0}}\"\n\t\t    ba-selectedmicrophone=\"{{selectedmicrophone || 0}}\"\n\t\t    ba-camerahealthy=\"{{camerahealthy}}\"\n\t\t    ba-microphonehealthy=\"{{microphonehealthy}}\"\n\t\t    ba-hovermessage=\"{{=hovermessage}}\"\n\t\t    ba-settingsvisible=\"{{settingsvisible}}\"\n\t\t    ba-recordvisible=\"{{recordvisible}}\"\n\t\t    ba-uploadcovershotvisible=\"{{uploadcovershotvisible}}\"\n\t\t    ba-rerecordvisible=\"{{rerecordvisible}}\"\n\t\t    ba-stopvisible=\"{{stopvisible}}\"\n\t\t    ba-skipvisible=\"{{skipvisible}}\"\n\t\t    ba-controlbarlabel=\"{{controlbarlabel}}\"\n\t\t    ba-event:select-camera=\"select_camera\"\n\t\t    ba-event:select-microphone=\"select_microphone\"\n\t\t    ba-event:invoke-record=\"record\"\n\t\t    ba-event:invoke-rerecord=\"rerecord\"\n\t\t    ba-event:invoke-stop=\"stop\"\n\t\t    ba-event:invoke-skip=\"invoke_skip\"\n\t\t    ba-event:upload-covershot=\"upload_covershot\"\n\t\t></ba-{{dyncontrolbar}}>\n    </div>\n</div>\n\n<div data-selector=\"recorder-player\" ba-if=\"{{player_active}}\"\n     style=\"{{width ? 'width:' + width + ((width + '').match(/^\\d+$/g) ? 'px' : '') + ';' : ''}}{{height ? 'height:' + height + ((height + '').match(/^\\d+$/g) ? 'px' : '') + ';' : ''}}\"\n>\n\t<ba-{{dynvideoplayer}} ba-theme=\"{{theme || 'default'}}\"\n        ba-themecolor=\"{{themecolor}}\"\n        ba-source=\"{{playbacksource}}\"\n        ba-poster=\"{{playbackposter}}\"\n        ba-hideoninactivity=\"{{false}}\"\n        ba-forceflash=\"{{forceflash}}\"\n        ba-noflash=\"{{noflash}}\"\n        ba-stretch=\"{{stretch}}\"\n        ba-attrs=\"{{playerattrs}}\"\n        ba-data:id=\"player\"\n        ba-width=\"{{width}}\"\n        ba-height=\"{{height}}\"\n        ba-totalduration=\"{{duration / 1000}}\"\n        ba-rerecordable=\"{{rerecordable && (recordings === null || recordings > 0)}}\"\n        ba-submittable=\"{{manualsubmit && verified}}\"\n        ba-reloadonplay=\"{{true}}\"\n        ba-autoplay=\"{{autoplay}}\"\n        ba-nofullscreen=\"{{nofullscreen}}\"\n        ba-topmessage=\"{{playertopmessage}}\"\n        ba-event:rerecord=\"rerecord\"\n        ba-event:playing=\"playing\"\n        ba-event:paused=\"paused\"\n        ba-event:ended=\"ended\"\n        ba-event:submit=\"manual_submit\"\n        >\n\t</ba-{{dynvideoplayer}}>\n</div>\n",
+                template: "\n<div data-selector=\"recorder-container\" ba-show=\"{{!player_active}}\"\n     class=\"{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}\n     \t{{css}}-{{ fullscreened ? 'fullscreen' : 'normal' }}-view {{css}}-{{ firefox ? 'firefox' : 'common'}}-browser\n    \t{{css}}-{{themecolor}}-color\"\n     style=\"{{width ? 'width:' + width + ((width + '').match(/^\\d+$/g) ? 'px' : '') + ';' : 'width:100%;'}}{{height ? 'height:' + height + ((height + '').match(/^\\d+$/g) ? 'px' : '') + ';' : 'height:100%'}}\"\n>\n\n    <video data-selector=\"recorder-status\" class=\"{{css}}-video {{css}}-{{hasrecorder ? 'hasrecorder' : 'norecorder'}}\" data-video=\"video\"></video>\n    <div data-selector=\"recorder-overlay\" class='{{css}}-overlay' ba-show=\"{{!hideoverlay}}\" data-overlay=\"overlay\">\n\t\t<ba-{{dynloader}}\n\t\t    ba-css=\"{{cssloader || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplloader}}\"\n\t\t    ba-show=\"{{loader_active}}\"\n\t\t    ba-tooltip=\"{{loadertooltip}}\"\n\t\t\tba-hovermessage=\"{{=hovermessage}}\"\n\t\t    ba-label=\"{{loaderlabel}}\"\n\t\t></ba-{{dynloader}}>\n\n\t\t<ba-{{dynmessage}}\n\t\t    ba-css=\"{{cssmessage || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplmessage}}\"\n\t\t    ba-show=\"{{message_active}}\"\n\t\t    ba-message=\"{{message}}\"\n\t\t    ba-event:click=\"message_click\"\n\t\t></ba-{{dynmessage}}>\n\n\t\t<ba-{{dyntopmessage}}\n\t\t    ba-css=\"{{csstopmessage || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmpltopmessage}}\"\n\t\t    ba-show=\"{{topmessage_active && (topmessage || hovermessage)}}\"\n\t\t    ba-topmessage=\"{{hovermessage || topmessage}}\"\n\t\t></ba-{{dyntopmessage}}>\n\n\t\t<ba-{{dynchooser}}\n\t\t\tba-onlyaudio=\"{{onlyaudio}}\"\n\t\t    ba-css=\"{{csschooser || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplchooser}}\"\n\t\t    ba-show=\"{{chooser_active}}\"\n\t\t    ba-allowrecord=\"{{allowrecord}}\"\n\t\t    ba-allowupload=\"{{allowupload}}\"\n\t\t    ba-allowcustomupload=\"{{allowcustomupload}}\"\n\t\t    ba-allowedextensions=\"{{allowedextensions}}\"\n\t\t    ba-primaryrecord=\"{{primaryrecord}}\"\n\t\t    ba-timelimit=\"{{timelimit}}\"\n\t\t    ba-event:record=\"record_video\"\n\t\t    ba-event:upload=\"upload_video\"\n\t\t></ba-{{dynchooser}}>\n\n\t\t<ba-{{dynimagegallery}}\n\t\t    ba-css=\"{{cssimagegallery || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplimagegallery}}\"\n\t\t    ba-if=\"{{imagegallery_active}}\"\n\t\t    ba-imagecount=\"{{gallerysnapshots}}\"\n\t\t    ba-imagenativewidth=\"{{recordingwidth}}\"\n\t\t    ba-imagenativeheight=\"{{recordingheight}}\"\n\t\t    ba-event:image-selected=\"select_image\"\n\t\t></ba-{{dynimagegallery}}>\n\n\t\t<ba-{{dyncontrolbar}}\n\t\t    ba-css=\"{{csscontrolbar || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplcontrolbar}}\"\n\t\t    ba-show=\"{{controlbar_active}}\"\n\t\t    ba-cameras=\"{{cameras}}\"\n\t\t    ba-microphones=\"{{microphones}}\"\n\t\t    ba-noaudio=\"{{noaudio}}\"\n\t\t\tba-novideo=\"{{onlyaudio}}\"\n\t\t    ba-selectedcamera=\"{{selectedcamera || 0}}\"\n\t\t    ba-selectedmicrophone=\"{{selectedmicrophone || 0}}\"\n\t\t    ba-camerahealthy=\"{{camerahealthy}}\"\n\t\t    ba-microphonehealthy=\"{{microphonehealthy}}\"\n\t\t    ba-hovermessage=\"{{=hovermessage}}\"\n\t\t    ba-settingsvisible=\"{{settingsvisible}}\"\n\t\t    ba-recordvisible=\"{{recordvisible}}\"\n\t\t    ba-uploadcovershotvisible=\"{{uploadcovershotvisible}}\"\n\t\t    ba-rerecordvisible=\"{{rerecordvisible}}\"\n\t\t    ba-stopvisible=\"{{stopvisible}}\"\n\t\t    ba-skipvisible=\"{{skipvisible}}\"\n\t\t    ba-controlbarlabel=\"{{controlbarlabel}}\"\n\t\t    ba-event:select-camera=\"select_camera\"\n\t\t    ba-event:select-microphone=\"select_microphone\"\n\t\t    ba-event:invoke-record=\"record\"\n\t\t    ba-event:invoke-rerecord=\"rerecord\"\n\t\t    ba-event:invoke-stop=\"stop\"\n\t\t    ba-event:invoke-skip=\"invoke_skip\"\n\t\t    ba-event:upload-covershot=\"upload_covershot\"\n\t\t></ba-{{dyncontrolbar}}>\n    </div>\n</div>\n\n<div data-selector=\"recorder-player\" ba-if=\"{{player_active}}\"\n     style=\"{{width ? 'width:' + width + ((width + '').match(/^\\d+$/g) ? 'px' : '') + ';' : ''}}{{height ? 'height:' + height + ((height + '').match(/^\\d+$/g) ? 'px' : '') + ';' : ''}}\"\n>\n\t<ba-{{dynvideoplayer}} ba-theme=\"{{theme || 'default'}}\"\n        ba-themecolor=\"{{themecolor}}\"\n        ba-source=\"{{playbacksource}}\"\n        ba-poster=\"{{playbackposter}}\"\n        ba-hideoninactivity=\"{{false}}\"\n        ba-forceflash=\"{{forceflash}}\"\n        ba-noflash=\"{{noflash}}\"\n        ba-stretch=\"{{stretch}}\"\n\t\tba-onlyaudio=\"{{onlyaudio}}\"\n        ba-attrs=\"{{playerattrs}}\"\n        ba-data:id=\"player\"\n        ba-width=\"{{width}}\"\n        ba-height=\"{{height}}\"\n        ba-totalduration=\"{{duration / 1000}}\"\n        ba-rerecordable=\"{{rerecordable && (recordings === null || recordings > 0)}}\"\n        ba-submittable=\"{{manualsubmit && verified}}\"\n        ba-reloadonplay=\"{{true}}\"\n        ba-autoplay=\"{{autoplay}}\"\n        ba-nofullscreen=\"{{nofullscreen}}\"\n        ba-topmessage=\"{{playertopmessage}}\"\n        ba-event:rerecord=\"rerecord\"\n        ba-event:playing=\"playing\"\n        ba-event:paused=\"paused\"\n        ba-event:ended=\"ended\"\n        ba-event:submit=\"manual_submit\"\n        >\n\t</ba-{{dynvideoplayer}}>\n</div>\n",
 
                 attrs: {
                     /* CSS */
@@ -2032,6 +2040,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "forceflash": false,
                     "simulate": false,
                     "noflash": false,
+                    "onlyaudio": false,
                     "noaudio": false,
                     "flashincognitosupport": false,
                     "localplayback": false,
@@ -2077,7 +2086,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "custom-covershots": "boolean",
                     "manualsubmit": "boolean",
                     "simulate": "boolean",
-                    "allowedextensions": "array"
+                    "allowedextensions": "array",
+                    "onlyaudio": "boolean"
                 },
 
                 extendables: ["states"],
@@ -2123,6 +2133,11 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
                     this.__cameraResponsive = true;
                     this.__cameraSignal = true;
+
+                    if (this.get("onlyaudio")) {
+                        this.set("picksnapshots", false);
+                        this.set("allowupload", false);
+                    }
 
                 },
 
@@ -2175,7 +2190,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         simulate: this.get("simulate"),
                         forceflash: this.get("forceflash"),
                         noflash: this.get("noflash"),
-                        recordVideo: true,
+                        recordVideo: !this.get("onlyaudio"),
                         recordAudio: !this.get("noaudio"),
                         recordingWidth: this.get("recordingwidth"),
                         recordingHeight: this.get("recordingheight"),
@@ -2325,6 +2340,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 },
 
                 _showBackgroundSnapshot: function() {
+                    if (this.get("onlyaudio"))
+                        return;
                     this._hideBackgroundSnapshot();
                     this.__backgroundSnapshot = this.recorder.createSnapshot(this.get("snapshottype"));
                     var el = this.activeElement().querySelector("[data-video]");
@@ -2333,6 +2350,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 },
 
                 _hideBackgroundSnapshot: function() {
+                    if (this.get("onlyaudio"))
+                        return;
                     if (this.__backgroundSnapshotDisplay)
                         this.recorder.removeSnapshotDisplay(this.__backgroundSnapshotDisplay);
                     delete this.__backgroundSnapshotDisplay;
@@ -2474,17 +2493,19 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         }
                     } catch (e) {}
 
-                    if (this.__recording && this.__recording_start_time + 500 < Time.now()) {
-                        var p = this.snapshots.length < this.get("snapshotmax") ? 0.25 : 0.05;
-                        if (Math.random() <= p) {
-                            var snap = this.recorder.createSnapshot(this.get("snapshottype"));
-                            if (snap) {
-                                if (this.snapshots.length < this.get("snapshotmax")) {
-                                    this.snapshots.push(snap);
-                                } else {
-                                    var i = Math.floor(Math.random() * this.get("snapshotmax"));
-                                    this.recorder.removeSnapshot(this.snapshots[i]);
-                                    this.snapshots[i] = snap;
+                    if (!this.get("onlyaudio")) {
+                        if (this.__recording && this.__recording_start_time + 500 < Time.now()) {
+                            var p = this.snapshots.length < this.get("snapshotmax") ? 0.25 : 0.05;
+                            if (Math.random() <= p) {
+                                var snap = this.recorder.createSnapshot(this.get("snapshottype"));
+                                if (snap) {
+                                    if (this.snapshots.length < this.get("snapshotmax")) {
+                                        this.snapshots.push(snap);
+                                    } else {
+                                        var i = Math.floor(Math.random() * this.get("snapshotmax"));
+                                        this.recorder.removeSnapshot(this.snapshots[i]);
+                                        this.snapshots[i] = snap;
+                                    }
                                 }
                             }
                         }
@@ -2834,6 +2855,10 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraAccess", [
             this.dyn.set("controlbarlabel", "");
             this.listenOn(this.dyn, "bound", function() {
                 this.dyn.set("creation-type", this.dyn.isFlash() ? "flash" : "webrtc");
+                if (this.dyn.get("onlyaudio")) {
+                    this.next("CameraHasAccess");
+                    return;
+                }
                 var timer = this.auto_destroy(new Timer({
                     start: true,
                     delay: 100,

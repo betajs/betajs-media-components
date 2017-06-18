@@ -177,14 +177,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
         .register("ba-videoplayer-controlbar")
         .attachStringTable(Assets.strings)
         .addStrings({
-            "video-progress": "Video progress",
-            "rerecord-video": "Redo video?",
-            "submit-video": "Confirm video",
-            "play-video": "Play video",
-            "pause-video": "Pause video",
-            "pause-video-disabled": "Pause video not allowed",
+            "video-progress": "Progress",
+            "rerecord-video": "Redo?",
+            "submit-video": "Confirm",
+            "play-video": "Play",
+            "pause-video": "Pause",
+            "pause-video-disabled": "Pause not supported",
             "elapsed-time": "Elasped time",
-            "total-time": "Total length of video",
+            "total-time": "Total length of",
             "fullscreen-video": "Enter fullscreen",
             "volume-button": "Set volume",
             "volume-mute": "Mute sound",

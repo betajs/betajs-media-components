@@ -151,7 +151,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 create: function() {
                     if (Info.isMobile()) {
                         if (Info.isiOS() && Info.iOSversion().major >= 10) {
-                            if (this.get("autoplay")) {
+                            if (this.get("autoplay") || this.get("playwhenvisible")) {
                                 this.set("volume", 0.0);
                                 this.set("volumeafterinteraction", true);
                             }
@@ -211,23 +211,22 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.on("change:stretch", function() {
                         this._updateStretch();
                     }, this);
-                    this.host = this.auto_destroy(new Host({
+                    this.host = new Host({
                         stateRegistry: new ClassRegistry(this.cls.playerStates())
-                    }));
+                    });
                     this.host.dynamic = this;
                     this.host.initialize(InitialState);
 
-                    this._timer = this.auto_destroy(new Timers.Timer({
+                    this._timer = new Timers.Timer({
                         context: this,
                         fire: this._timerFire,
                         delay: 100,
                         start: true
-                    }));
+                    });
 
                     this.properties().compute("buffering", function() {
                         return this.get("playing") && this.get("buffered") < this.get("position") && this.get("last_position_change_delta") > 1000;
                     }, ["buffered", "position", "last_position_change_delta", "playing"]);
-
                 },
 
                 state: function() {
@@ -490,6 +489,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 destroy: function() {
+                    this._timer.destroy();
+                    this.host.destroy();
                     this._detachVideo();
                     inherited.destroy.call(this);
                 },
@@ -514,8 +515,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.set("fullscreened", this.player.isFullscreen());
                         }
                     } catch (e) {}
-                    this._updateStretch();
-                    this._updateCSSSize();
+                    try {
+                        this._updateStretch();
+                    } catch (e) {}
+                    try {
+                        this._updateCSSSize();
+                    } catch (e) {}
                 },
 
                 _updateCSSSize: function() {

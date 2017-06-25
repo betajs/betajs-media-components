@@ -4,6 +4,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "browser:Info",
     "browser:Dom",
     "media:Player.VideoPlayerWrapper",
+    "media:Player.Broadcasting",
     "base:Types",
     "base:Objs",
     "base:Strings",
@@ -24,7 +25,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "dynamics:Partials.EventPartial",
     "dynamics:Partials.OnPartial",
     "dynamics:Partials.TemplatePartial"
-], function(Class, Assets, Info, Dom, VideoPlayerWrapper, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
+], function(Class, Assets, Info, Dom, VideoPlayerWrapper, Broadcasting, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -105,6 +106,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "manuallypaused": false,
                     "disablepause": false,
                     "disableseeking": false,
+                    "airplay": false,
+                    "airplaybuttonvisible": false,
+                    "airplaydevicesavailable": false,
+                    "chromecast": false,
+                    "castbuttonvisble": false,
 
                     /* States */
                     "states": {
@@ -141,7 +147,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "manuallypaused": "boolean",
                     "disablepause": "boolean",
                     "disableseeking": "boolean",
-                    "playonclick": "boolean"
+                    "playonclick": "boolean",
+                    "airplay": "boolean",
+                    "airplaybuttonvisible": "boolean",
+                    "chromecast": "boolean",
+                    "castbuttonvisble": "boolean"
                 },
 
                 extendables: ["states"],
@@ -299,6 +309,74 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         this.player = instance;
 
+                        if (this.get("chromecast") || this.get("aiplay")) {
+                            if (!this.get("skipinitial")) this.set("skipinitial", true);
+                            this._broadcasting = new Broadcasting({
+                                player: instance,
+                                commonOptions: {
+                                    title: this.get("title") || 'Ziggeo',
+                                    poster: this.player._element.poster,
+                                    currentPosition: this.get("position")
+                                },
+                                castOptions: {
+                                    canControlVolume: true,
+                                    canPause: !this.get("disablepause"),
+                                    canSeek: !this.get("disableseeking"),
+                                    displayName: this.get("title") || "Ziggeo",
+                                    //displayStatus: "Please wait connecting",
+                                    duration: this.get("duration"),
+                                    imageUrl: this.player._element.poster,
+                                    isConnected: this.player._broadcastingState.googleCastConnected,
+                                    isMuted: false,
+                                    isPaused: !this.get("playing")
+                                },
+                                airplayOptions: {}
+                            });
+                            if (Info.isChrome() && this.get("chromecast")) {
+                                this._broadcasting.attachGoggleCast();
+                                this.player.on("cast-available", function(isCastDeviceAvailable) {
+                                    this.set("castbuttonvisble", isCastDeviceAvailable);
+                                }, this);
+                                this.player.on("cast-loaded", function(castRemotePlayer, castRemotePlayerController) {
+                                    //castRemotePlayer.currentMediaDuration = this.player;
+
+                                    // If player already start to play
+                                    if (this.get("position") > 0) {
+                                        this._broadcasting.options.currentPosition = this.get("position");
+                                    }
+
+                                    //If local player playing stop it before
+                                    if (this.get('playing')) this.stop();
+
+                                    // Intial play button state
+                                    if (!castRemotePlayer.isPaused) this.set('playing', true);
+
+                                }, this);
+
+                                this.player.on("cast-playpause", function(castPaused) {
+                                    this.set("playing", !castPaused);
+                                }, this);
+
+                                this.player.on("cast-time-changed", function(currentTime, totalMediaDuration) {
+                                    var position = Math.round(currentTime / totalMediaDuration * 100);
+                                    this.set("buffered", totalMediaDuration);
+                                    this.set("cahched", totalMediaDuration);
+                                    this.set("duration", totalMediaDuration || 0.0);
+                                    this.set("position", currentTime);
+                                }, this);
+
+                                this.player.on("proceed-when-ending-googlecast", function(position) {
+                                    this.player._broadcastingState.googleCastConnected = false;
+                                    this.set('playing', false);
+                                }, this);
+
+                            }
+                            if (Info.isSafari() && Info.safariVersion() >= 9 && window.WebKitPlaybackTargetAvailabilityEvent && this.get("airplay")) {
+                                this.set("airplaybuttonvisible", true);
+                                this._broadcasting.attachAirplayEvent.call(this, video);
+                            }
+                        }
+
                         if (this.get("playwhenvisible")) {
                             this.set("skipinitial", true);
                             var self = this;
@@ -413,6 +491,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     play: function() {
+                        if (this.player._broadcastingState.googleCastConnected) {
+                            this._broadcasting.player.trigger("play-google-cast");
+                            return;
+                        }
                         this.host.state().play();
                     },
 
@@ -434,8 +516,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                         if (this.get('disablepause')) return;
 
-                        if (this.get("playing"))
+                        if (this.get("playing")) {
+                            if (this.player._broadcastingState.googleCastConnected) {
+                                this._broadcasting.player.trigger("pause-google-cast");
+                                return;
+                            }
                             this.player.pause();
+                        }
 
                         if (this.get("playwhenvisible"))
                             this.set("manuallypaused", true);
@@ -459,6 +546,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     set_volume: function(volume) {
                         volume = Math.min(1.0, volume);
+
+                        if (this.player._broadcastingState.googleCastConnected) {
+                            this._broadcasting.player.trigger("change-google-cast-volume", volume);
+                        }
+
                         this.set("volume", volume);
                         if (this.videoLoaded()) {
                             this.player.setVolume(volume);

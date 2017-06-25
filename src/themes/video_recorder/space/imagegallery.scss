@@ -1,4 +1,4 @@
-.#{$css}-imagegallery-image, img {
+.#{$css}-imagegallery-image, .#{$css}-overlay img {
   border: none;
   @include border-radius($imagegallery_border_radius);
 }

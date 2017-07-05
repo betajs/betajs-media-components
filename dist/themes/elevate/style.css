@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.62 - 2017-07-04
+betajs-media-components - v0.0.62 - 2017-07-05
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -2872,7 +2872,7 @@ Apache-2.0 Software License.
 .ba-videorecorder-theme-elevate-stop-button-container {
   text-align: center; }
 
-.ba-videorecorder-theme-elevate-imagegallery-image, img {
+.ba-videorecorder-theme-elevate-imagegallery-image, .ba-videorecorder-theme-elevate-overlay img {
   border: none;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;

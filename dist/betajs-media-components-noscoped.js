@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.61 - 2017-06-18
+betajs-media-components - v0.0.62 - 2017-07-04
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -15,7 +15,7 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.61"
+    "version": "0.0.62"
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -2203,7 +2203,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         framerate: this.get("framerate"),
                         flip: this.get("flip-camera")
                     });
-                    if (!this.recorder)
+                    if (this.recorder)
+                        this.trigger("attached");
+                    else
                         this._error("attach");
                 },
 

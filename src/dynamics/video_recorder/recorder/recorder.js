@@ -275,7 +275,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         framerate: this.get("framerate"),
                         flip: this.get("flip-camera")
                     });
-                    if (!this.recorder)
+                    if (this.recorder)
+                        this.trigger("attached");
+                    else
                         this._error("attach");
                 },
 

@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.62 - 2017-07-05
+betajs-media-components - v0.0.63 - 2017-07-07
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -881,6 +881,28 @@ Apache-2.0 Software License.
   float: right;
   width: auto;
   height: 0; }
+
+.ba-videoplayer-noie8 .ba-videoplayer-cast-button-container {
+  line-height: 40px;
+  width: auto; }
+
+.ba-videoplayer-noie8 .ba-videoplayer-cast-button-container button {
+  --connected-color: #00cc00;
+  --disconnected-color: #cecece;
+  /* works for IE 5+. */
+  /* works for IE 8. */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+  /* works for old school versions of the Mozilla browsers like Netscape Navigator. */
+  -moz-opacity: 0.7;
+  /* This is for old versions of Safari (1.x) with KHTML rendering engine */
+  -khtml-opacity: 0.7;
+  /* This is the "most important" one because it's the current standard in CSS. This will work in most versions of Firefox, Safari, and Opera. */
+  opacity: 0.7;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  width: 32px; }
 
 .ba-videoplayer-button-inner {
   -webkit-transform: translateY(-50%);

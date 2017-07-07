@@ -314,7 +314,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this._broadcasting = new Broadcasting({
                                 player: instance,
                                 commonOptions: {
-                                    title: this.get("title") || 'Ziggeo',
+                                    title: this.get("title"),
                                     poster: this.player._element.poster,
                                     currentPosition: this.get("position")
                                 },
@@ -322,7 +322,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     canControlVolume: true,
                                     canPause: !this.get("disablepause"),
                                     canSeek: !this.get("disableseeking"),
-                                    displayName: this.get("title") || "Ziggeo",
+                                    displayName: this.get("title"),
                                     //displayStatus: "Please wait connecting",
                                     duration: this.get("duration"),
                                     imageUrl: this.player._element.poster,

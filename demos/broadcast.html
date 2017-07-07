@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="/static/vendors/jquery.min.js"></script>
-    <script src="/static/vendors/es5-shim.js"></script>
-    <script src="/static/vendors/es6-shim.js"></script>
-    <script src="/static/node_modules/betajs-shims/dist/betajs-shims.js"></script>
-    <script src="/static/node_modules/betajs-scoped/dist/scoped.js"></script>
-    <script src="/static/node_modules/betajs/dist/beta-noscoped.js"></script>
-    <script src="/static/node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
-    <script src="/static/node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
-    <script src="/static/node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
-    <script src="/static/node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
-    <script src="/static/dist/betajs-media-components-noscoped.js"></script>
-    <link href="/static/dist/betajs-media-components.css" rel="stylesheet" />
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <script src="../vendors/jquery.min.js"></script>
+    <script src="../node_modules/betajs-shims/dist/betajs-shims.js"></script>
+    <script src="../node_modules/betajs-scoped/dist/scoped.js"></script>
+    <script src="../node_modules/betajs/dist/beta-noscoped.js"></script>
+    <script src="../node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
+    <script src="../node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
+    <script src="../node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+    <script src="../node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
+    <script src="../dist/betajs-media-components-noscoped.js"></script>
+    <link  href="../dist/betajs-media-components.css" rel="stylesheet" />
+    <script src="../dist/themes/modern/script.js"></script>
+    <link  href="../dist/themes/modern/style.css" rel="stylesheet" />
+    <script src="../dist/themes/space/script.js"></script>
+    <link  href="../dist/themes/space/style.css" rel="stylesheet" />
 
 </head>
 <body style="background: #EEE">
@@ -21,10 +25,11 @@
     <div class="row">
         <div id="video-player-block" class="col-xs-12">
             <h4>Default</h4>
-            <ba-videoplayer ba-sources="{{[{src:'/static/demos/sample-video.mp4', poster: '/static/demos/sample-cover.png', hd: true}, {src:'/static/demos/sample-video2.mp4', poster:'/static/demos/sample-cover2.png', hd: false}]}}"
+            <ba-videoplayer ba-sources="{{[{src:'sample-video.mp4', poster: 'sample-cover.png', hd: true}, {src:'sample-video2.mp4', poster:'sample-cover2.png', hd: false}]}}"
                             ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
                             ba-airplay="true"
                             ba-chromecast="true"
+                            ba-theme="default"
                             ba-title="Some test title from html"
                             ba-noflash
                             ba-hideoninactivity="false"

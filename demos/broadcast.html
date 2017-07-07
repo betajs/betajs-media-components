@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="/static/vendors/jquery.min.js"></script>
+    <script src="/static/vendors/es5-shim.js"></script>
+    <script src="/static/vendors/es6-shim.js"></script>
+    <script src="/static/node_modules/betajs-shims/dist/betajs-shims.js"></script>
+    <script src="/static/node_modules/betajs-scoped/dist/scoped.js"></script>
+    <script src="/static/node_modules/betajs/dist/beta-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
+    <script src="/static/dist/betajs-media-components-noscoped.js"></script>
+    <link href="/static/dist/betajs-media-components.css" rel="stylesheet" />
+
+</head>
+<body style="background: #EEE">
+
+<div class="container">
+    <div class="row">
+        <div id="video-player-block" class="col-xs-12">
+            <h4>Default</h4>
+            <ba-videoplayer ba-sources="{{[{src:'/static/demos/sample-video.mp4', poster: '/static/demos/sample-cover.png', hd: true}, {src:'/static/demos/sample-video2.mp4', poster:'/static/demos/sample-cover2.png', hd: false}]}}"
+                            ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
+                            ba-airplay="true"
+                            ba-chromecast="true"
+                            ba-title="Some test title from html"
+                            ba-noflash
+                            ba-hideoninactivity="false"
+                            ba-skipinitial="true"
+                            ba-width="80%"
+            ></ba-videoplayer>
+        </div>
+    </div>
+</div> <!-- ./container -->
+
+<script>
+
+  BetaJS.Flash.options = {
+    flashFile : "../node_modules/betajs-flash/dist/betajs-flash.swf",
+    forceReload : true
+  };
+  BetaJS.Dynamics.Dynamic.activate();
+</script>
+
+
+</body>
+</html>

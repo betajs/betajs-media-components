@@ -68,6 +68,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         var offset = Dom.elementOffset(target);
                         var dimensions = Dom.elementDimensions(target);
                         this.set("position", this.get("duration") * (clientX - offset.left) / (dimensions.width || 1));
+
+                        var player = this.__parent.player;
+                        if (player._broadcastingState.googleCastConnected) {
+                            player.trigger('google-cast-seeking', this.get("position"));
+                            return;
+                        }
+
                         this.trigger("position", this.get("position"));
                     },
 
@@ -164,6 +171,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                                 current = i;
                         }, this);
                         this.set("currentstream", streams[(current + 1) % streams.length]);
+                    },
+
+                    show_airplay_devices: function() {
+                        var dynamic = this.__parent;
+                        if (dynamic.player._broadcastingState.airplayConnected) {
+                            dynamic._broadcasting.lookForAirplayDevices(dynamic.player._element);
+                        }
                     }
 
                 },

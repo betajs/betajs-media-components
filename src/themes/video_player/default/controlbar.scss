@@ -93,6 +93,21 @@
     @include float-width-height(right, auto, 0);
 }
 
+.#{$cssnoie8} .#{$css}-cast-button-container {
+    line-height: 40px;
+    width: auto;
+}
+
+.#{$cssnoie8} .#{$css}-cast-button-container button {
+    --connected-color: #00cc00;
+    --disconnected-color: #cecece;
+    @include transparent(0.7);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    width: 32px;
+}
 
 .#{$css}-button-inner {
     @include relative-center-center;

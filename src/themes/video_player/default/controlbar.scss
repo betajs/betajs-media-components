@@ -98,7 +98,7 @@
     width: auto;
 }
 
-.#{$cssnoie8} .#{$css}-cast-button-container button {
+.#{$css}-cast-button-container button {
     --connected-color: #00cc00;
     --disconnected-color: #cecece;
     @include transparent(0.7);
@@ -109,7 +109,7 @@
     width: 32px;
 }
 
-.#{$css}-button-inner {
+.#{$css}-button-inner, .#{$css}-airplay-container {
     @include relative-center-center;
     @include clickable;
     color: $text_color;
@@ -208,5 +208,12 @@
     letter-spacing: $video_title_letter_spacing;
     line-height: 30px;
     margin: $video_title_margin;
+}
+
+.#{$css}-airplay-container {
+    padding-top: 4px;
+    svg path {
+        fill: #ffffff;
+    }
 }
 

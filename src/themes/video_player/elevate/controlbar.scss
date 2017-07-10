@@ -302,3 +302,22 @@
 .#{$css}-button-inner {
   padding-top: 1px;
 }
+
+.#{$css}-cast-button-container button {
+    --connected-color: #00cc00;
+    --disconnected-color: #cecece;
+    @include transparent(0.7);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    padding-top: 7px;
+    width: 32px;
+}
+
+.#{$css}-airplay-container {
+    padding-top: 2px;
+    svg path {
+        fill: #ffffff;
+    }
+}

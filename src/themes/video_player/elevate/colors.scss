@@ -17,6 +17,14 @@
         @include background-rgba(0, 0, 0, .3, #cecece);
       }
 
+      .#{$css}-cast-button-container button {
+        --disconnected-color: $value;
+      }
+
+      .#{$css}-airplay-container svg path {
+        fill: $value;
+      }
+
     }
   }
 }

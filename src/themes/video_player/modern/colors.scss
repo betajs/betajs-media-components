@@ -18,6 +18,14 @@
         border-left-color: $value;
       }
 
+      .#{$css}-cast-button-container button {
+        --disconnected-color: $value;
+      }
+
+      &.#{$cssnoie8} .#{$css}-rightbutton-container.#{$css}-airplay-container svg path {
+        fill: $value;
+      }
+
     }
   }
 }

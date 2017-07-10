@@ -274,3 +274,26 @@
     text-align: left;
     padding-left: 4px;
 }
+
+.#{$cssnoie8} .#{$css}-cast-button-container {
+    margin: 0;
+    button {
+        --connected-color: #00cc00;
+        --disconnected-color: #cecece;
+        @include transparent(0.7);
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        outline: none;
+        padding: 11px 2px 0 10px;
+        width: 32px;
+    }
+}
+
+.#{$css}-airplay-container {
+    @include clickable();
+    padding: 12px 0 0 6px;
+    svg path {
+        fill: #ffffff;
+    }
+}

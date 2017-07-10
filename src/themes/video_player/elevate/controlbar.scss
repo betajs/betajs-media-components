@@ -305,7 +305,7 @@
 
 .#{$css}-cast-button-container button {
     --connected-color: #00cc00;
-    --disconnected-color: #cecece;
+    --disconnected-color: #000000;
     @include transparent(0.7);
     background: transparent;
     border: none;
@@ -319,6 +319,6 @@
     @include clickable();
     padding-top: 2px;
     svg path {
-        fill: #ffffff;
+        fill: #000000;
     }
 }

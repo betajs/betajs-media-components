@@ -174,3 +174,23 @@
 	display: none;
 }
 
+.#{$css}-cast-button-container button {
+    --connected-color: #00cc00;
+    --disconnected-color: #000000;
+    @include transparent(0.7);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    padding: 11px 10px 0 10px;
+}
+
+.#{$cssnoie8} .#{$css}-rightbutton-container.#{$css}-airplay-container {
+    @include clickable();
+    height: 28px;
+    padding: 12px 10px 0 10px;
+    width: auto;
+    svg path {
+        fill: #000000;
+    }
+}

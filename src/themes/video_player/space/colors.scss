@@ -27,6 +27,14 @@
       .#{$css}-volumebar-inner, .#{$css}-progressbar-inner {
         @include background-rgba(255, 255, 255, 0.3, #7f7f7f);
       }
+
+      &.#{$cssnoie8} .#{$css}-cast-button-container button {
+        --disconnected-color: $value;
+      }
+
+      .#{$css}-airplay-container svg path {
+        fill: $value;
+      }
     }
   }
 }

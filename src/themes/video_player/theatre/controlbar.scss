@@ -284,3 +284,23 @@
 .#{$css}-icon-resize-full{
     color: $button_color_secondary;
 }
+
+.#{$css}-cast-button-container button {
+    --connected-color: #00cc00;
+    --disconnected-color: #666666;
+    @include transparent(0.7);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    padding-top: 4px;
+    width: 32px;
+}
+
+.#{$css}-airplay-container {
+    @include clickable();
+    padding: 2px 7px 0 3px;
+    svg path {
+        fill: #666666;
+    }
+}

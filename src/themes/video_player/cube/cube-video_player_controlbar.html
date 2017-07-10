@@ -66,9 +66,25 @@
         <div data-selector="button-stream-label" class="{{css}}-button-container" ba-if="{{streams.length > 1 && currentstream}}" ba-click="toggle_stream()" title="{{string('change-resolution')}}">
             <div class="{{css}}-button-inner {{css}}-stream-label-container">
                 <div class="{{css}}-button-text {{css}}-stream-label">
-                    <span>{{currentstream_label}}
+                    <span>{{currentstream_label}}</span>
                 </div>
             </div>
+        </div>
+
+        <div data-selector="button-airplay" class="{{css}}-button-container {{css}}-airplay-container" ba-show="{{airplaybuttonvisible}}" ba-click="show_airplay_devices()">
+            <svg width="16px" height="11px" viewBox="0 0 16 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <!-- Generator: Sketch 3.3.2 (12043) - http://www.bohemiancoding.com/sketch -->
+                <title>Airplay</title>
+                <desc>Airplay icon.</desc>
+                <defs></defs>
+                <g id="Page-1" stroke="none" stroke-width="1" fill-rule="evenodd" sketch:type="MSPage">
+                    <path d="M4,11 L12,11 L8,7 L4,11 Z M14.5454545,0 L1.45454545,0 C0.654545455,0 0,0.5625 0,1.25 L0,8.75 C0,9.4375 0.654545455,10 1.45454545,10 L4.36363636,10 L4.36363636,8.75 L1.45454545,8.75 L1.45454545,1.25 L14.5454545,1.25 L14.5454545,8.75 L11.6363636,8.75 L11.6363636,10 L14.5454545,10 C15.3454545,10 16,9.4375 16,8.75 L16,1.25 C16,0.5625 15.3454545,0 14.5454545,0 L14.5454545,0 Z" id="Shape" sketch:type="MSShapeGroup"></path>
+                </g>
+            </svg>
+        </div>
+
+        <div data-selector="button-chromecast" class="{{css}}-button-container {{css}}-cast-button-container" ba-show="{{castbuttonvisble}}">
+            <button class="{{css}}-gcast-button" is="google-cast-button"></button>
         </div>
 
         <div data-selector="button-icon-resize-full" class="{{css}}-button-container"

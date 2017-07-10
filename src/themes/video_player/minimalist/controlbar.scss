@@ -259,7 +259,7 @@
     padding: 4px 3px 3px 4px;
     background-color: $stream_label_bg_color;
     color: $stream_label_color;
-  opacity: 0.75;
+    opacity: 0.75;
 }
 
 .#{css}-size-small  .#{$css}-controlbar-top-block {
@@ -333,4 +333,30 @@
   .#{$css}-time-container{
     font-size: .7em;
   }
+}
+
+.#{$css}-cast-button-container button {
+    --connected-color: #00cc00;
+    --disconnected-color: #cecece;
+    @include transparent(0.7);
+    background: transparent;
+    border: none;
+    bottom: 9px;
+    cursor: pointer;
+    left: 5px;
+    outline: none;
+    padding: 0;
+    position: relative;
+    width: 20px;
+}
+
+.#{$css}-airplay-container {
+    @include clickable();
+    bottom: 13px;
+    left: 5px;
+    padding-top: 2px;
+    position: relative ;
+    svg path {
+        fill: #ffffff;
+    }
 }

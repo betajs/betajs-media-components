@@ -182,6 +182,7 @@
 }
 
 .#{$css}-airplay-container {
+  @include clickable();
   padding-top: 2px;
   svg path {
     fill: #ffffff;

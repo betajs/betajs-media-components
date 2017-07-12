@@ -29,7 +29,7 @@
       }
 
       &.#{$cssnoie8} .#{$css}-cast-button-container button {
-        --disconnected-color: $value;
+        --disconnected-color: #{$value};
       }
 
       .#{$css}-airplay-container svg path {

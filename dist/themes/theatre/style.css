@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.63 - 2017-07-07
+betajs-media-components - v0.0.64 - 2017-07-14
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -892,6 +892,8 @@ Apache-2.0 Software License.
 .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-volumebar-inner {
   background-color: #7f7f7f;
   background-color: rgba(255, 255, 255, 0.3); }
+.ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-airplay-container svg path {
+  fill: #eb6a74; }
 
 .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-video-title, .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-icon-play, .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-icon-pause,
 .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-button-inner, .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-icon-resize-full,
@@ -903,6 +905,8 @@ Apache-2.0 Software License.
 .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-volumebar-inner {
   background-color: #7f7f7f;
   background-color: rgba(255, 255, 255, 0.3); }
+.ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-airplay-container svg path {
+  fill: #2a74eb; }
 
 .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-video-title, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-icon-play, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-icon-pause,
 .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-button-inner, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-icon-resize-full,
@@ -914,6 +918,8 @@ Apache-2.0 Software License.
 .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-volumebar-inner {
   background-color: #7f7f7f;
   background-color: rgba(255, 255, 255, 0.3); }
+.ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-airplay-container svg path {
+  fill: #5daa96; }
 
 /* Theatre */
 .ba-videoplayer-theatre-theme-dashboard {
@@ -1208,6 +1214,29 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-theatre-theme-icon-resize-full {
   color: #666666; }
+
+.ba-videoplayer-theatre-theme-cast-button-container button {
+  /* works for IE 5+. */
+  /* works for IE 8. */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+  /* works for old school versions of the Mozilla browsers like Netscape Navigator. */
+  -moz-opacity: 0.7;
+  /* This is for old versions of Safari (1.x) with KHTML rendering engine */
+  -khtml-opacity: 0.7;
+  /* This is the "most important" one because it's the current standard in CSS. This will work in most versions of Firefox, Safari, and Opera. */
+  opacity: 0.7;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding-top: 4px;
+  width: 32px; }
+
+.ba-videoplayer-theatre-theme-airplay-container {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  padding: 2px 7px 0 3px; }
+  .ba-videoplayer-theatre-theme-airplay-container svg path {
+    fill: #666666; }
 
 /* Full screen options */
 .ba-videoplayer-theatre-theme-fullscreen-view video::-webkit-media-controls-overlay-enclosure {

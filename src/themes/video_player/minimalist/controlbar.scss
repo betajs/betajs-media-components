@@ -336,8 +336,8 @@
 }
 
 .#{$css}-cast-button-container button {
-    --connected-color: #00cc00;
-    --disconnected-color: #1f1f1f;
+    //--connected-color: #00cc00;
+    //--disconnected-color: #1f1f1f;
     text-shadow: 0 0 4px #000000;
     @include transparent(0.7);
     background: transparent;
@@ -345,7 +345,7 @@
     bottom: 9px;
     cursor: pointer;
     left: 5px;
-    outline: none;
+    //outline: none;
     padding: 0;
     position: relative;
     width: 20px;

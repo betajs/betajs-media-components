@@ -304,13 +304,13 @@
 }
 
 .#{$css}-cast-button-container button {
-    --connected-color: #00cc00;
-    --disconnected-color: #000000;
+    //--connected-color: #00cc00;
+    //--disconnected-color: #000000;
     @include transparent(0.7);
     background: transparent;
     border: none;
     cursor: pointer;
-    outline: none;
+    //outline: none;
     padding-top: 7px;
     width: 32px;
 }

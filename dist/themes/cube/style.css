@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.63 - 2017-07-07
+betajs-media-components - v0.0.64 - 2017-07-14
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -894,6 +894,8 @@ Apache-2.0 Software License.
 .ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-volumebar-inner {
   background-color: #979797;
   background-color: rgba(255, 255, 255, 0.3); }
+.ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-airplay-container svg path {
+  fill: #eb6a74; }
 
 .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-dashboard, .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-video-title, .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-up,
 .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-down, .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-full,
@@ -907,6 +909,8 @@ Apache-2.0 Software License.
 .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-volumebar-inner {
   background-color: #979797;
   background-color: rgba(255, 255, 255, 0.3); }
+.ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-airplay-container svg path {
+  fill: #2a74eb; }
 
 .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-dashboard, .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-video-title, .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-up,
 .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-down, .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-full,
@@ -920,6 +924,8 @@ Apache-2.0 Software License.
 .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-volumebar-inner {
   background-color: #979797;
   background-color: rgba(255, 255, 255, 0.3); }
+.ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-airplay-container svg path {
+  fill: #5daa96; }
 
 .ba-videoplayer-cube-theme-dashboard {
   position: absolute;
@@ -1105,6 +1111,30 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-cube-theme-progressbar-button {
   display: none; }
+
+.ba-videoplayer-cube-theme-cast-button-container button {
+  /* works for IE 5+. */
+  /* works for IE 8. */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+  /* works for old school versions of the Mozilla browsers like Netscape Navigator. */
+  -moz-opacity: 0.7;
+  /* This is for old versions of Safari (1.x) with KHTML rendering engine */
+  -khtml-opacity: 0.7;
+  /* This is the "most important" one because it's the current standard in CSS. This will work in most versions of Firefox, Safari, and Opera. */
+  opacity: 0.7;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  padding: 11px 6px 0 5px;
+  width: 32px; }
+
+.ba-videoplayer-cube-theme-airplay-container {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  padding-top: 2px; }
+  .ba-videoplayer-cube-theme-airplay-container svg path {
+    fill: #ffffff; }
 
 /* Full screen options */
 .ba-videoplayer-cube-theme-fullscreen-view video::-webkit-media-controls-overlay-enclosure {

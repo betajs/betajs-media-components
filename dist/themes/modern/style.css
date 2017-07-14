@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.63 - 2017-07-07
+betajs-media-components - v0.0.64 - 2017-07-14
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -888,6 +888,8 @@ Apache-2.0 Software License.
   background-color: #eb6a74; }
 .ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-playbutton-button, .ba-videoplayer-theme-modern-red-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-playbutton-container .ba-videoplayer-theme-modern-playbutton-button, .ba-videoplayer-theme-modern-red-color.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-playbutton-container .ba-videoplayer-theme-modern-playbutton-button {
   border-left-color: #eb6a74; }
+.ba-videoplayer-theme-modern-red-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-rightbutton-container.ba-videoplayer-theme-modern-airplay-container svg path {
+  fill: #eb6a74; }
 
 .ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-video-title, .ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-icon-volume-up, .ba-videoplayer-theme-modern-blue-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-button-inner, .ba-videoplayer-theme-modern-blue-color.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-button-inner, .ba-videoplayer-theme-modern-blue-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-icon-share {
   color: #2a74eb; }
@@ -895,6 +897,8 @@ Apache-2.0 Software License.
   background-color: #2a74eb; }
 .ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-playbutton-button, .ba-videoplayer-theme-modern-blue-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-playbutton-container .ba-videoplayer-theme-modern-playbutton-button, .ba-videoplayer-theme-modern-blue-color.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-playbutton-container .ba-videoplayer-theme-modern-playbutton-button {
   border-left-color: #2a74eb; }
+.ba-videoplayer-theme-modern-blue-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-rightbutton-container.ba-videoplayer-theme-modern-airplay-container svg path {
+  fill: #2a74eb; }
 
 .ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-video-title, .ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-icon-volume-up, .ba-videoplayer-theme-modern-green-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-button-inner, .ba-videoplayer-theme-modern-green-color.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-button-inner, .ba-videoplayer-theme-modern-green-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-icon-share {
   color: #5da894; }
@@ -902,6 +906,8 @@ Apache-2.0 Software License.
   background-color: #5da894; }
 .ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-playbutton-button, .ba-videoplayer-theme-modern-green-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-playbutton-container .ba-videoplayer-theme-modern-playbutton-button, .ba-videoplayer-theme-modern-green-color.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-playbutton-container .ba-videoplayer-theme-modern-playbutton-button {
   border-left-color: #5da894; }
+.ba-videoplayer-theme-modern-green-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-rightbutton-container.ba-videoplayer-theme-modern-airplay-container svg path {
+  fill: #5da894; }
 
 .ba-videoplayer-theme-modern-dashboard {
   position: absolute;
@@ -1130,6 +1136,31 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-theme-modern-size-medium .ba-videoplayer-theme-modern-volume-button-container, .ba-videoplayer-theme-modern-size-small .ba-videoplayer-theme-modern-volume-button-container {
   display: none; }
+
+.ba-videoplayer-theme-modern-cast-button-container button {
+  /* works for IE 5+. */
+  /* works for IE 8. */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+  /* works for old school versions of the Mozilla browsers like Netscape Navigator. */
+  -moz-opacity: 0.7;
+  /* This is for old versions of Safari (1.x) with KHTML rendering engine */
+  -khtml-opacity: 0.7;
+  /* This is the "most important" one because it's the current standard in CSS. This will work in most versions of Firefox, Safari, and Opera. */
+  opacity: 0.7;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 11px 10px 0 10px; }
+
+.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-rightbutton-container.ba-videoplayer-theme-modern-airplay-container {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  height: 28px;
+  padding: 12px 10px 0 10px;
+  width: auto;
+  box-sizing: border-box; }
+  .ba-videoplayer-noie8 .ba-videoplayer-theme-modern-rightbutton-container.ba-videoplayer-theme-modern-airplay-container svg path {
+    fill: #000000; }
 
 /* Full screen options */
 .ba-videoplayer-theme-modern-fullscreen-view video::-webkit-media-controls-overlay-enclosure {

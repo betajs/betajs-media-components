@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.63 - 2017-07-07
+betajs-media-components - v0.0.64 - 2017-07-14
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -899,6 +899,8 @@ Apache-2.0 Software License.
 .ba-videoplayer-space-theme-red-color .ba-videoplayer-space-theme-volumebar-inner, .ba-videoplayer-space-theme-red-color .ba-videoplayer-space-theme-progressbar-inner {
   background-color: #7f7f7f;
   background-color: rgba(255, 255, 255, 0.3); }
+.ba-videoplayer-space-theme-red-color .ba-videoplayer-space-theme-airplay-container svg path {
+  fill: #eb6a74; }
 
 .ba-videoplayer-space-theme-blue-color .ba-videoplayer-space-theme-title > p, .ba-videoplayer-space-theme-blue-color.ba-videoplayer-noie8 .ba-videoplayer-space-theme-button-inner, .ba-videoplayer-space-theme-blue-color.ba-videoplayer-ie8 .ba-videoplayer-space-theme-button-inner,
 .ba-videoplayer-space-theme-blue-color .ba-videoplayer-space-theme-right-block .ba-videoplayer-space-theme-icon-volume-up,
@@ -917,6 +919,8 @@ Apache-2.0 Software License.
 .ba-videoplayer-space-theme-blue-color .ba-videoplayer-space-theme-volumebar-inner, .ba-videoplayer-space-theme-blue-color .ba-videoplayer-space-theme-progressbar-inner {
   background-color: #7f7f7f;
   background-color: rgba(255, 255, 255, 0.3); }
+.ba-videoplayer-space-theme-blue-color .ba-videoplayer-space-theme-airplay-container svg path {
+  fill: #2a74eb; }
 
 .ba-videoplayer-space-theme-green-color .ba-videoplayer-space-theme-title > p, .ba-videoplayer-space-theme-green-color.ba-videoplayer-noie8 .ba-videoplayer-space-theme-button-inner, .ba-videoplayer-space-theme-green-color.ba-videoplayer-ie8 .ba-videoplayer-space-theme-button-inner,
 .ba-videoplayer-space-theme-green-color .ba-videoplayer-space-theme-right-block .ba-videoplayer-space-theme-icon-volume-up,
@@ -935,6 +939,8 @@ Apache-2.0 Software License.
 .ba-videoplayer-space-theme-green-color .ba-videoplayer-space-theme-volumebar-inner, .ba-videoplayer-space-theme-green-color .ba-videoplayer-space-theme-progressbar-inner {
   background-color: #7f7f7f;
   background-color: rgba(255, 255, 255, 0.3); }
+.ba-videoplayer-space-theme-green-color .ba-videoplayer-space-theme-airplay-container svg path {
+  fill: #5daa96; }
 
 .ba-videoplayer-space-theme-dashboard {
   position: absolute;
@@ -1256,6 +1262,32 @@ Apache-2.0 Software License.
 .ba-videoplayer-noie8 .ba-videoplayer-space-theme-full-screen-btn-inner {
   text-align: left;
   padding-left: 4px; }
+
+.ba-videoplayer-noie8 .ba-videoplayer-space-theme-cast-button-container {
+  margin: 0; }
+  .ba-videoplayer-noie8 .ba-videoplayer-space-theme-cast-button-container button {
+    /* works for IE 5+. */
+    /* works for IE 8. */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+    /* works for old school versions of the Mozilla browsers like Netscape Navigator. */
+    -moz-opacity: 0.7;
+    /* This is for old versions of Safari (1.x) with KHTML rendering engine */
+    -khtml-opacity: 0.7;
+    /* This is the "most important" one because it's the current standard in CSS. This will work in most versions of Firefox, Safari, and Opera. */
+    opacity: 0.7;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    padding: 11px 2px 0 10px;
+    width: 32px; }
+
+.ba-videoplayer-space-theme-airplay-container {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  padding: 12px 0 0 6px; }
+  .ba-videoplayer-space-theme-airplay-container svg path {
+    fill: #ffffff; }
 
 /* Full screen options */
 .ba-videoplayer-space-theme-fullscreen-view video::-webkit-media-controls-overlay-enclosure {

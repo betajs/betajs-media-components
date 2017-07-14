@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.63 - 2017-07-07
+betajs-media-components - v0.0.64 - 2017-07-14
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -890,6 +890,8 @@ Apache-2.0 Software License.
 .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-volumebar-position, .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-stream-label, .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-progressbar-position,
 .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-time-container, .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-progressbar-button, .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-rerecord-button {
   background-color: #eb6a74; }
+.ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-airplay-container svg path {
+  fill: #eb6a74; }
 
 .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-title p, .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-button-inner, .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-volume-up,
 .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-volume-down, .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-resize-full,
@@ -899,6 +901,8 @@ Apache-2.0 Software License.
 .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-volumebar-position, .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-stream-label, .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-progressbar-position,
 .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-time-container, .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-progressbar-button, .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-rerecord-button {
   background-color: #2a74eb; }
+.ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-airplay-container svg path {
+  fill: #2a74eb; }
 
 .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-title p, .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-button-inner, .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-volume-up,
 .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-volume-down, .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-resize-full,
@@ -908,6 +912,8 @@ Apache-2.0 Software License.
 .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-volumebar-position, .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-stream-label, .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-progressbar-position,
 .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-time-container, .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-progressbar-button, .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-rerecord-button {
   background-color: #5daa96; }
+.ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-airplay-container svg path {
+  fill: #5daa96; }
 
 .ba-videoplayer-minimalist-theme-dashboard {
   transition: opacity 0.5s ease-in-out;
@@ -1229,6 +1235,37 @@ Apache-2.0 Software License.
   bottom: 38px; }
 .ba-videoplayer-minimalist-theme-size-small .ba-videoplayer-minimalist-theme-time-container {
   font-size: .7em; }
+
+.ba-videoplayer-minimalist-theme-cast-button-container button {
+  text-shadow: 0 0 4px #000000;
+  /* works for IE 5+. */
+  /* works for IE 8. */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+  /* works for old school versions of the Mozilla browsers like Netscape Navigator. */
+  -moz-opacity: 0.7;
+  /* This is for old versions of Safari (1.x) with KHTML rendering engine */
+  -khtml-opacity: 0.7;
+  /* This is the "most important" one because it's the current standard in CSS. This will work in most versions of Firefox, Safari, and Opera. */
+  opacity: 0.7;
+  background: transparent;
+  border: none;
+  bottom: 9px;
+  cursor: pointer;
+  left: 5px;
+  padding: 0;
+  position: relative;
+  width: 20px; }
+
+.ba-videoplayer-minimalist-theme-airplay-container {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  bottom: 13px;
+  left: 5px;
+  padding-top: 2px;
+  position: relative; }
+  .ba-videoplayer-minimalist-theme-airplay-container svg path {
+    fill: #ffffff;
+    text-shadow: 0 0 4px #000000; }
 
 /* Full screen options */
 .ba-videoplayer-minimalist-theme-fullscreen-view video::-webkit-media-controls-overlay-enclosure {

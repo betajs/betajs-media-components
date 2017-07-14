@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.63 - 2017-07-07
+betajs-media-components - v0.0.64 - 2017-07-14
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -891,6 +891,8 @@ Apache-2.0 Software License.
 .ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-volumebar-inner {
   background-color: #cecece;
   background-color: rgba(0, 0, 0, 0.3); }
+.ba-videoplayer-elevate-theme-red-color .ba-videoplayer-elevate-theme-airplay-container svg path {
+  fill: #eb6a74; }
 
 .ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-icon-play, .ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-icon-pause, .ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-button-inner, .ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-icon-volume-down,
 .ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-icon-volume-up, .ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-icon-resize-full, .ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-icon-resize-small, .ba-videoplayer-elevate-theme-blue-color.ba-videoplayer-noie8 .ba-videoplayer-elevate-theme-share-action-container .ba-videoplayer-elevate-theme-button-inner, .ba-videoplayer-elevate-theme-blue-color.ba-videoplayer-noie8 .ba-videoplayer-elevate-theme-button-inner {
@@ -901,6 +903,8 @@ Apache-2.0 Software License.
 .ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-volumebar-inner {
   background-color: #cecece;
   background-color: rgba(0, 0, 0, 0.3); }
+.ba-videoplayer-elevate-theme-blue-color .ba-videoplayer-elevate-theme-airplay-container svg path {
+  fill: #2a74eb; }
 
 .ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-icon-play, .ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-icon-pause, .ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-button-inner, .ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-icon-volume-down,
 .ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-icon-volume-up, .ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-icon-resize-full, .ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-icon-resize-small, .ba-videoplayer-elevate-theme-green-color.ba-videoplayer-noie8 .ba-videoplayer-elevate-theme-share-action-container .ba-videoplayer-elevate-theme-button-inner, .ba-videoplayer-elevate-theme-green-color.ba-videoplayer-noie8 .ba-videoplayer-elevate-theme-button-inner {
@@ -911,6 +915,8 @@ Apache-2.0 Software License.
 .ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-volumebar-inner {
   background-color: #cecece;
   background-color: rgba(0, 0, 0, 0.3); }
+.ba-videoplayer-elevate-theme-green-color .ba-videoplayer-elevate-theme-airplay-container svg path {
+  fill: #5daa96; }
 
 /* Elevate */
 .ba-videoplayer-elevate-theme-dashboard {
@@ -1222,6 +1228,29 @@ Apache-2.0 Software License.
 .ba-videoplayer-elevate-theme-video-title-block > p, .ba-videoplayer-elevate-theme-left-block .ba-videoplayer-elevate-theme-volumebar,
 .ba-videoplayer-elevate-theme-button-inner {
   padding-top: 1px; }
+
+.ba-videoplayer-elevate-theme-cast-button-container button {
+  /* works for IE 5+. */
+  /* works for IE 8. */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+  /* works for old school versions of the Mozilla browsers like Netscape Navigator. */
+  -moz-opacity: 0.7;
+  /* This is for old versions of Safari (1.x) with KHTML rendering engine */
+  -khtml-opacity: 0.7;
+  /* This is the "most important" one because it's the current standard in CSS. This will work in most versions of Firefox, Safari, and Opera. */
+  opacity: 0.7;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding-top: 7px;
+  width: 32px; }
+
+.ba-videoplayer-elevate-theme-airplay-container {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  padding-top: 2px; }
+  .ba-videoplayer-elevate-theme-airplay-container svg path {
+    fill: #000000; }
 
 /* Full screen options */
 .ba-videoplayer-elevate-theme-fullscreen-view video::-webkit-media-controls-overlay-enclosure {

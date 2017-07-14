@@ -323,7 +323,10 @@ module.exports = function(grunt) {
       "generate-default-yml",
 
       // Include theme generation
-        "themes"
+        "themes",
+
+        "lint",
+        "csslint"
     ]);
 
 	grunt.registerTask("themes", [

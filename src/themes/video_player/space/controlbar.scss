@@ -278,13 +278,14 @@
 .#{$cssnoie8} .#{$css}-cast-button-container {
     margin: 0;
     button {
-        --connected-color: #00cc00;
-        --disconnected-color: #cecece;
+        //--connected-color: #00cc00;
+        //--disconnected-color: #cecece;
         @include transparent(0.7);
         background: transparent;
         border: none;
         cursor: pointer;
-        outline: none;
+        //outline: none;
+        box-sizing: border-box;
         padding: 11px 2px 0 10px;
         width: 32px;
     }

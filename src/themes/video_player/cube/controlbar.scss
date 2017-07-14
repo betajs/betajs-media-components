@@ -170,13 +170,14 @@
 }
 
 .#{$css}-cast-button-container button {
-    --connected-color: #00cc00;
-    --disconnected-color: #cecece;
+    //--connected-color: #00cc00;
+    //--disconnected-color: #cecece;
     @include transparent(0.7);
     background: transparent;
     border: none;
     cursor: pointer;
-    outline: none;
+    //outline: none;
+    box-sizing: border-box;
     padding: 11px 6px 0 5px;
     width: 32px;
 }

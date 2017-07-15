@@ -79,6 +79,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Controlbar", [
             "stop": "Stop",
             "stop-tooltip": "Click here to stop.",
             "skip": "Skip",
-            "skip-tooltip": "Click here to skip."
+            "skip-tooltip": "Click here to skip.",
+            "stop-available-after": "Minimum recording time is %d seconds"
         });
 });

@@ -123,7 +123,12 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "rerecordable": true,
                     "recordings": null,
                     "ready": true,
-                    "stretch": false
+                    "stretch": false,
+
+                    /* Functional variables */
+                    "mintimeindicator": false,
+                    "canstopafter": 0
+
                 },
 
                 scopes: {
@@ -209,6 +214,11 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     if (this.get("onlyaudio")) {
                         this.set("picksnapshots", false);
                         this.set("allowupload", false);
+                    }
+
+                    if (this.get("timeminlimit")) {
+                        this.set("mintimeindicator", true);
+                        this.set("canstopafter", this.get("timeminlimit"));
                     }
 
                 },

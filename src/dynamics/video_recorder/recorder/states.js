@@ -407,6 +407,16 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
             var display = Math.max(0, limit ? (this._startTime + limit * 1000 - current) : (current - this._startTime));
             this.dyn.trigger("recording_progress", current - this._startTime);
             this.dyn.set("controlbarlabel", TimeFormat.format(TimeFormat.ELAPSED_MINUTES_SECONDS, display));
+
+            if (this.dyn.get("mintimeindicator")) {
+                var minLimit = Number(this.dyn.get("timeminlimit"));
+                var currentSecond = Number(Math.round(display / 1000));
+                if (this.dyn.get("canstopafter") > 0)
+                    this.dyn.set("canstopafter", minLimit - currentSecond);
+                else
+                    this.dyn.set("mintimeindicator", false);
+            }
+
             if (limit && this._startTime + limit * 1000 <= current) {
                 this._timer.stop();
                 this.stop();

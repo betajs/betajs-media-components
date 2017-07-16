@@ -98,9 +98,10 @@
 			</div>
 
 			<div class="{{css}}-stop-button-container">
-				<div data-selector="stop-primary-button" class="{{css}}-button-primary"
+				<div data-selector="stop-primary-button" class="{{css}}-button-primary {{mintimeindicator ? css + '-disabled': ''}}"
+					 title="{{mintimeindicator ? string('stop-available-after').replace('%d', timeminlimit) : string('stop-tooltip')}}"
 					 onclick="{{stop()}}"
-					 onmouseenter="{{hover(string('stop-tooltip'))}}"
+					 onmouseenter="{{hover(mintimeindicator ? string('stop-available-after').replace('%d', timeminlimit) : string('stop-tooltip'))}}"
 					 onmouseleave="{{unhover()}}">
 					{{string('stop')}}
 				</div>

@@ -95,6 +95,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "playbackposter": "",
                     "recordermode": true,
                     "skipinitial": false,
+                    "skipinitialonrerecord": false,
                     "timelimit": null,
                     "timeminlimit": null,
                     "rtmpstreamtype": "mp4",
@@ -123,11 +124,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "rerecordable": true,
                     "recordings": null,
                     "ready": true,
-                    "stretch": false,
-
-                    /* Functional variables */
-                    "mintimeindicator": false,
-                    "canstopafter": 0
+                    "stretch": false
 
                 },
 
@@ -150,6 +147,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "flashincognitosupport": "boolean",
                     "recordermode": "boolean",
                     "nofullscreen": "boolean",
+                    "skipinitialonrerecord": "boolean",
                     "picksnapshots": "boolean",
                     "localplayback": "boolean",
                     "noaudio": "boolean",
@@ -182,8 +180,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     this.set("ie8", Info.isInternetExplorer() && Info.internetExplorerVersion() < 9);
                     this.set("hideoverlay", false);
 
-                    if (Info.isMobile())
+                    if (Info.isMobile()) {
                         this.set("skipinitial", false);
+                        this.set("skipinitialonrerecord", false);
+                    }
 
                     this.__attachRequested = false;
                     this.__activated = false;
@@ -214,11 +214,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     if (this.get("onlyaudio")) {
                         this.set("picksnapshots", false);
                         this.set("allowupload", false);
-                    }
-
-                    if (this.get("timeminlimit")) {
-                        this.set("mintimeindicator", true);
-                        this.set("canstopafter", this.get("timeminlimit"));
                     }
 
                 },

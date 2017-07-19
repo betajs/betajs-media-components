@@ -52,3 +52,4 @@
   ba-videoplayer-share.share: Share media
   ba-videoplayer-controlbar.pause-video-disabled: Pause not supported
   ba-videorecorder-chooser.record-audio: Record Audio
+  ba-videorecorder-controlbar.stop-available-after: Minimum recording time is %d seconds

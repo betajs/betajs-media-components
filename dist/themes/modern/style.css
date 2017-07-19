@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.64 - 2017-07-14
+betajs-media-components - v0.0.65 - 2017-07-18
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -2196,6 +2196,20 @@ Apache-2.0 Software License.
   display: block;
   width: 100%;
   height: 100%; }
+
+div.ba-videorecorder-theme-modern-disabled {
+  cursor: not-allowed;
+  /* works for IE 5+. */
+  /* works for IE 8. */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  /* works for old school versions of the Mozilla browsers like Netscape Navigator. */
+  -moz-opacity: 0.5;
+  /* This is for old versions of Safari (1.x) with KHTML rendering engine */
+  -khtml-opacity: 0.5;
+  /* This is the "most important" one because it's the current standard in CSS. This will work in most versions of Firefox, Safari, and Opera. */
+  opacity: 0.5; }
+  div.ba-videorecorder-theme-modern-disabled * {
+    cursor: not-allowed; }
 
 .ba-videorecorder-theme-modern-chooser-container {
   position: absolute;

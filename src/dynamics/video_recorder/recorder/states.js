@@ -408,14 +408,8 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
             this.dyn.trigger("recording_progress", current - this._startTime);
             this.dyn.set("controlbarlabel", TimeFormat.format(TimeFormat.ELAPSED_MINUTES_SECONDS, display));
 
-            if (this.dyn.get("mintimeindicator")) {
-                var minLimit = Number(this.dyn.get("timeminlimit"));
-                var currentSecond = Number(Math.round(display / 1000));
-                if (this.dyn.get("canstopafter") > 0)
-                    this.dyn.set("canstopafter", minLimit - currentSecond);
-                else
-                    this.dyn.set("mintimeindicator", false);
-            }
+            if (this.dyn.get("timeminlimit"))
+                this.dyn.set("mintimeindicator", (Time.now() - this._startTime) / 1000 <= this.dyn.get("timeminlimit"));
 
             if (limit && this._startTime + limit * 1000 <= current) {
                 this._timer.stop();
@@ -529,6 +523,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
         dynamics: ["loader", "message"],
 
         _started: function() {
+            this.dyn.set("skipinitial", this.dyn.get("skipinitial") || this.dyn.get("skipinitialonrerecord"));
             this.dyn.set("settingsvisible", false);
             this.dyn.set("recordvisible", false);
             this.dyn.set("stopvisible", false);

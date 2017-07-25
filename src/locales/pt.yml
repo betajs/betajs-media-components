@@ -1,0 +1,53 @@
+'language:pt':
+  ba-videoplayer-playbutton.tooltip: Clique para ver
+  ba-videoplayer-playbutton.rerecord: Repetir
+  ba-videoplayer-playbutton.submit-video: Enviar vídeo
+  ba-videoplayer-loader.tooltip: A Carregar...
+  ba-videoplayer-controlbar.change-resolution: Alterar resolução
+  ba-videoplayer-controlbar.video-progress: Progressão
+  ba-videoplayer-controlbar.rerecord-video: Repetir?
+  ba-videoplayer-controlbar.submit-video: Confirmar
+  ba-videoplayer-controlbar.play-video: Ver Vídeo
+  ba-videoplayer-controlbar.pause-video: Pausa
+  ba-videoplayer-controlbar.elapsed-time: Tempo decorrido
+  ba-videoplayer-controlbar.total-time: Tempo Total
+  ba-videoplayer-controlbar.fullscreen-video: Modo ecrã inteiro
+  ba-videoplayer-controlbar.volume-button: Definir volume
+  ba-videoplayer-controlbar.volume-mute: Som silencioso
+  ba-videoplayer-controlbar.volume-unmute: Aumentar Som
+  ba-videoplayer.video-error: 'Ocorreu um erro. Por favor tente de novo mais tarde. Clique para tentar novamente.'
+  ba-videorecorder-chooser.record-video: Gravar Vídeo
+  ba-videorecorder-chooser.upload-video: Enviar Vídeo
+  ba-videorecorder-controlbar.settings: Configurações
+  ba-videorecorder-controlbar.camerahealthy: A iluminação é boa
+  ba-videorecorder-controlbar.cameraunhealthy: A iluminação não é a ideal
+  ba-videorecorder-controlbar.microphonehealthy: O som está bom
+  ba-videorecorder-controlbar.microphoneunhealthy: Não foi possível ouvir nenhum som
+  ba-videorecorder-controlbar.record: Gravar
+  ba-videorecorder-controlbar.record-tooltip: Clique aqui para gravar
+  ba-videorecorder-controlbar.rerecord: Repetir
+  ba-videorecorder-controlbar.rerecord-tooltip: Clique aqui para repetir
+  ba-videorecorder-controlbar.upload-covershot: Enviar
+  ba-videorecorder-controlbar.upload-covershot-tooltip: Clique aqui para enviar a captura de capa personalizada
+  ba-videorecorder-controlbar.stop: Parar
+  ba-videorecorder-controlbar.stop-tooltip: Clique aqui para parar
+  ba-videorecorder-controlbar.skip: Ignorar
+  ba-videorecorder-controlbar.skip-tooltip: Clique aqui para ignorar
+  ba-videorecorder.recorder-error: 'Ocorreu um erro. Por favor tente novamente mais tarde. Clique para tentar novamente.'
+  ba-videorecorder.attach-error: >-
+     Não conseguimos aceder à câmara. Dependendo do dispositivo e do
+     navegador, pode ser necessário instalar o Flash ou aceder à página via SSL.
+  ba-videorecorder.access-forbidden: O acesso à câmara foi proíbido. Clique para tentar novamente.
+  ba-videorecorder.pick-covershot: Escolha uma capa personalizada
+  ba-videorecorder.uploading: A enviar
+  ba-videorecorder.uploading-failed: O envio falhou - clique para tentar de novo
+  ba-videorecorder.verifying: A verificar
+  ba-videorecorder.verifying-failed: A verificação falhou - clique para tentar de novo
+  ba-videorecorder.rerecord-confirm: Quer mesmo repetir o seu vídeo?
+  ba-videorecorder.video_file_too_large: >-
+    O seu vídeo é demasiado grande (%s) - clique para tentar de novo com um vídeo mais pequeno.
+  ba-videorecorder.unsupported_video_type: 'Please upload: %s - clique para tentar de novo.'
+  ba-videoplayer-controlbar.exit-fullscreen-video: Sair do modo ecrã inteiro
+  ba-videoplayer-share.share: Partilhar a gravação
+  ba-videoplayer-controlbar.pause-video-disabled: A pausa não é suportada
+  ba-videorecorder-chooser.record-audio: Gravar Audio

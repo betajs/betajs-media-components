@@ -86,6 +86,14 @@
         		{{string('rerecord')}}
         	</div>
         </div>
+		<div class="{{css}}-rightbutton-container" ba-show="{{cancelvisible}}">
+			<div data-selector="cancel-primary-button" class="{{css}}-button-primary"
+				 onclick="{{cancel()}}"
+				 onmouseenter="{{hover(string('cancel-tooltip'))}}"
+				 onmouseleave="{{unhover()}}">
+				{{string('cancel')}}
+			</div>
+		</div>
         <div class="{{css}}-rightbutton-container" ba-show="{{stopvisible}}">
         	<div data-selector="stop-primary-button" class="{{css}}-button-primary {{mintimeindicator ? css + '-disabled': ''}}"
 				 title="{{mintimeindicator ? string('stop-available-after').replace('%d', timeminlimit) : string('stop-tooltip')}}"

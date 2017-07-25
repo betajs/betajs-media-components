@@ -53,3 +53,6 @@
   ba-videoplayer-controlbar.pause-video-disabled: Pause not supported
   ba-videorecorder-chooser.record-audio: Record Audio
   ba-videorecorder-controlbar.stop-available-after: Minimum recording time is %d seconds
+  ba-videorecorder-controlbar.cancel: Cancel
+  ba-videorecorder-controlbar.cancel-tooltip: Click here to cancel.
+  ba-videorecorder.cancel-confirm: Do you really want to cancel your video upload?

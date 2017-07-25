@@ -42,6 +42,15 @@
 				</div>
 			</div>
 
+			<div class="{{css}}-button-container" ba-show="{{cancelvisible}}">
+				<div data-selector="cancel-primary-button" class="{{css}}-button-primary"
+					 onclick="{{cancel()}}"
+					 onmouseenter="{{hover(string('cancel-tooltip'))}}"
+					 onmouseleave="{{unhover()}}">
+					{{string('cancel')}}
+				</div>
+			</div>
+
 		</div>
 
 		<div class="{{css}}-controlbar-left-section" ba-show="{{settingsvisible}}">

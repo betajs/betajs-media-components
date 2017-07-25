@@ -92,6 +92,15 @@
 				</div>
 			</div>
 
+			<div class="{{css}}-button-container" ba-show="{{cancelvisible}}">
+				<div data-selector="cancel-primary-button" class="{{css}}-button-primary"
+					 onclick="{{cancel()}}"
+					 onmouseenter="{{hover(string('cancel-tooltip'))}}"
+					 onmouseleave="{{unhover()}}">
+					{{string('cancel')}}
+				</div>
+			</div>
+
 			<div class="{{css}}-primary-button-container" ba-show="{{recordvisible}}">
 				<div data-selector="record-primary-button" class="{{css}}-button-primary"
 					 onclick="{{record()}}"

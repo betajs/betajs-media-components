@@ -122,6 +122,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
                     /* Options */
                     "rerecordable": true,
+                    "allowcancel": false,
                     "recordings": null,
                     "ready": true,
                     "stretch": false
@@ -162,7 +163,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "manualsubmit": "boolean",
                     "simulate": "boolean",
                     "allowedextensions": "array",
-                    "onlyaudio": "boolean"
+                    "onlyaudio": "boolean",
+                    "allowcancel": "boolean"
                 },
 
                 extendables: ["states"],
@@ -443,6 +445,11 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
                 functions: {
 
+                    cancel: function() {
+                        if (confirm(this.string("cancel-confirm")))
+                            this.execute("reset");
+                    },
+
                     record: function() {
                         this.host.state().record();
                     },
@@ -522,6 +529,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
                     reset: function() {
                         this._stopRecording().callback(function() {
+                            this._unbindMedia();
                             this._detachRecorder();
                             this.host.state().next("Initial");
                         }, this);
@@ -688,6 +696,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
             "verifying": "Verifying",
             "verifying-failed": "Verifying failed - click here to retry.",
             "rerecord-confirm": "Do you really want to redo your video?",
+            "cancel-confirm": "Do you really want to cancel your video upload?",
             "video_file_too_large": "Your video file is too large (%s) - click here to try again with a smaller video file.",
             "unsupported_video_type": "Please upload: %s - click here to retry."
         });

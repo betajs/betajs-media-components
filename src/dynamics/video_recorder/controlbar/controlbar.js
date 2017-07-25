@@ -55,6 +55,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Controlbar", [
                     skip: function() {
                         this.trigger("invoke-skip");
                     },
+                    cancel: function() {
+                        this.trigger("invoke-cancel");
+                    },
                     uploadCovershot: function(domEvent) {
                         this.trigger("upload-covershot", domEvent[0].target);
                     }
@@ -80,6 +83,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Controlbar", [
             "stop-tooltip": "Click here to stop.",
             "skip": "Skip",
             "skip-tooltip": "Click here to skip.",
-            "stop-available-after": "Minimum recording time is %d seconds"
+            "stop-available-after": "Minimum recording time is %d seconds",
+            "cancel": "Cancel",
+            "cancel-tooltip": "Click here to cancel."
         });
 });

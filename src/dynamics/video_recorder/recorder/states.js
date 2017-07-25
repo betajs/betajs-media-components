@@ -523,6 +523,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
         dynamics: ["loader", "message"],
 
         _started: function() {
+            this.dyn.set("cancancel", true);
             this.dyn.set("skipinitial", this.dyn.get("skipinitial") || this.dyn.get("skipinitialonrerecord"));
             this.dyn.set("settingsvisible", false);
             this.dyn.set("recordvisible", false);
@@ -582,6 +583,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
         },
 
         _finished: function() {
+            this.dyn.set("cancancel", false);
             this.dyn.trigger("uploaded");
             this.dyn.set("end-upload-time", Time.now());
         }

@@ -446,7 +446,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 functions: {
 
                     cancel: function() {
-                        if (confirm(this.string("cancel-confirm")))
+                        if (confirm(this.stringUnicode("cancel-confirm")))
                             this.execute("reset");
                     },
 
@@ -495,7 +495,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     },
 
                     rerecord: function() {
-                        if (confirm(this.string("rerecord-confirm")))
+                        if (confirm(this.stringUnicode("rerecord-confirm")))
                             this.host.state().rerecord();
                     },
 

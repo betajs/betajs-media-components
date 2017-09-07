@@ -1,0 +1,52 @@
+'language:zh-tw':
+  ba-videoplayer-playbutton.tooltip: 點選播放
+  ba-videoplayer-playbutton.rerecord: 重試
+  ba-videoplayer-playbutton.submit-video: 確認
+  ba-videoplayer-loader.tooltip: 讀取中...
+  ba-videoplayer-controlbar.change-resolution: 變更解析度
+  ba-videoplayer-controlbar.video-progress: 進度
+  ba-videoplayer-controlbar.rerecord-video: 重試?
+  ba-videoplayer-controlbar.submit-video: 確認
+  ba-videoplayer-controlbar.play-video: 播放
+  ba-videoplayer-controlbar.pause-video: 暫停
+  ba-videoplayer-controlbar.elapsed-time: 經過時間 
+  ba-videoplayer-controlbar.total-time: 總長度
+  ba-videoplayer-controlbar.fullscreen-video: 進入全螢幕
+  ba-videoplayer-controlbar.volume-button: 調整音量
+  ba-videoplayer-controlbar.volume-mute: 靜音
+  ba-videoplayer-controlbar.volume-unmute: 解除靜音
+  ba-videoplayer.video-error: '錯誤發生，請稍後再試(點我)'
+  ba-videorecorder-chooser.record-video: 錄製影片
+  ba-videorecorder-chooser.upload-video: 上傳影片
+  ba-videorecorder-controlbar.settings: 設定值
+  ba-videorecorder-controlbar.camerahealthy: 光線良好
+  ba-videorecorder-controlbar.cameraunhealthy: 光源不佳
+  ba-videorecorder-controlbar.microphonehealthy: 收音良好
+  ba-videorecorder-controlbar.microphoneunhealthy: 收音不良
+  ba-videorecorder-controlbar.record: 錄影
+  ba-videorecorder-controlbar.record-tooltip: 點我錄影
+  ba-videorecorder-controlbar.rerecord: 重試
+  ba-videorecorder-controlbar.rerecord-tooltip: 點我重試
+  ba-videorecorder-controlbar.upload-covershot: 上傳
+  ba-videorecorder-controlbar.upload-covershot-tooltip: 點我上傳自訂的封面
+  ba-videorecorder-controlbar.stop: 停止
+  ba-videorecorder-controlbar.stop-tooltip: 點我停止
+  ba-videorecorder-controlbar.skip: 略過
+  ba-videorecorder-controlbar.skip-tooltip: 點我略過
+  ba-videorecorder.recorder-error: '錯誤發生，請稍後再試(點我)'
+  ba-videorecorder.attach-error: >-
+    無法存取攝影機，可能是瀏覽器或是裝置的限制，請嘗試安裝 Flash 外掛程式或透過安全連線來使用。
+  ba-videorecorder.access-forbidden: 無法存取攝影機，請點我重試。
+  ba-videorecorder.pick-covershot: 請挑選一張封面
+  ba-videorecorder.uploading: 上傳中
+  ba-videorecorder.uploading-failed: 上傳失敗，請點我重試
+  ba-videorecorder.verifying: 驗證中
+  ba-videorecorder.verifying-failed: 驗證失敗，請點我重試
+  ba-videorecorder.rerecord-confirm: 確定要重新錄製您的影片?
+  ba-videorecorder.video_file_too_large: >-
+    您的影片過大 (%s) 請點我重新選擇小一點影片再試一次。
+  ba-videorecorder.unsupported_video_type: '請使用影片格式: %s - 點我重試'
+  ba-videoplayer-controlbar.exit-fullscreen-video: 結束全螢幕
+  ba-videoplayer-share.share: 分享
+  ba-videoplayer-controlbar.pause-video-disabled: 無法暫停
+  ba-videorecorder-chooser.record-audio: 錄音

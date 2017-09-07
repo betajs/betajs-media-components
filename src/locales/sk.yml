@@ -1,0 +1,56 @@
+'language:sk':
+  ba-videoplayer-playbutton.tooltip: Pre prehratie videa kliknite.
+  ba-videoplayer-playbutton.rerecord: Znovu nahrať
+  ba-videoplayer-playbutton.submit-video: Potvrďte video
+  ba-videoplayer-loader.tooltip: Nahrávanie...
+  ba-videoplayer-controlbar.change-resolution: Zmeňte rozlíšenie
+  ba-videoplayer-controlbar.video-progress: Progres
+  ba-videoplayer-controlbar.rerecord-video: Nahrať znovu?
+  ba-videoplayer-controlbar.submit-video: Potvrdiť
+  ba-videoplayer-controlbar.play-video: Prehrať
+  ba-videoplayer-controlbar.pause-video: Pozastaviť
+  ba-videoplayer-controlbar.elapsed-time: Uplynutý čas
+  ba-videoplayer-controlbar.total-time: Celková dĺžka
+  ba-videoplayer-controlbar.fullscreen-video: Zobraziť na celú obrazovku
+  ba-videoplayer-controlbar.volume-button: Nastaviť hlasitosť
+  ba-videoplayer-controlbar.volume-mute: Vypnúť zvuk
+  ba-videoplayer-controlbar.volume-unmute: Zapnúť zvuk
+  ba-videoplayer.video-error: 'Vyskytla sa chyba. Skúste to znova.'
+  ba-videorecorder-chooser.record-video: Nahrať nové video
+  ba-videorecorder-chooser.upload-video:  Priložiť existujúce video
+  ba-videorecorder-controlbar.settings: Nastavenia
+  ba-videorecorder-controlbar.camerahealthy: Osvetlenie vyzerá dobre
+  ba-videorecorder-controlbar.cameraunhealthy: Osvetlenie nie je optimálne
+  ba-videorecorder-controlbar.microphonehealthy: Zvuk je v poriadku
+  ba-videorecorder-controlbar.microphoneunhealthy: Nepodarilo sa zachytiť žiaden zvuk
+  ba-videorecorder-controlbar.record: Nahrať
+  ba-videorecorder-controlbar.record-tooltip: Kliknite sem pre nahrávanie.
+  ba-videorecorder-controlbar.rerecord: Znovu nahrať
+  ba-videorecorder-controlbar.rerecord-tooltip: Kliknite sem pre zopakovanie nahrávania.
+  ba-videorecorder-controlbar.upload-covershot: Priložiť
+  ba-videorecorder-controlbar.upload-covershot-tooltip: Kliknite sem pre nahratie vlastnej úvodnej snímky
+  ba-videorecorder-controlbar.stop: Zastaviť
+  ba-videorecorder-controlbar.stop-tooltip: Kliknite sem pre zastavenie.
+  ba-videorecorder-controlbar.skip: Preskočiť
+  ba-videorecorder-controlbar.skip-tooltip: Kliknite sem pre preskočenie.
+  ba-videorecorder.recorder-error: 'Vyskytla sa chyba. Kliknutím skúste znova.'
+  ba-videorecorder.attach-error: >-
+    Nepodarilo sa nám získať prístup k rozhraniu fotoaparátu. V závislosti od zariadenia a prehliadača budete možno musieť nainštalovať Flash alebo pristupovať na stránku cez protokol SSL.
+  ba-videorecorder.access-forbidden: Prístup ku kamere bol zakázaný. Kliknutím skúste znova.
+  ba-videorecorder.pick-covershot: Vyberte si úvodnú snímku.
+  ba-videorecorder.uploading: Nahrávanie
+  ba-videorecorder.uploading-failed: Nahrávanie zlyhalo - kliknite sem pre zopakovanie.
+  ba-videorecorder.verifying: Overovanie
+  ba-videorecorder.verifying-failed: Overovanie zlyhalo - kliknite sem pre zopakovanie.
+  ba-videorecorder.rerecord-confirm: Skutočne chcete toto video prerobiť?
+  ba-videorecorder.video_file_too_large: >-
+    Vaše video je príliš dlhé (%s) - kliknite sem pre zopakovanie s menším videosúborom.
+  ba-videorecorder.unsupported_video_type: 'Prosím nahrajte: %s - kliknite sem pre zopakovanie.'
+  ba-videoplayer-controlbar.exit-fullscreen-video: Zrušiť zobrazenie na celú obrazovku
+  ba-videoplayer-share.share: Zdieľať
+  ba-videoplayer-controlbar.pause-video-disabled: Pozastavenie nie je možné
+  ba-videorecorder-chooser.record-audio: Nahrať zvuk
+  ba-videorecorder-controlbar.stop-available-after: Minimum nahrávacieho času je %d sekúnd
+  ba-videorecorder-controlbar.cancel: Zrušiť
+  ba-videorecorder-controlbar.cancel-tooltip: Kliknite sem pre zrušenie.
+  ba-videorecorder.cancel-confirm: Naozaj chcete zrušiť nahrávanie videa?

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript" src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+    <script src="../vendors/jquery.min.js"></script>
+    <script src="../node_modules/betajs-shims/dist/betajs-shims.js"></script>
+    <script src="../node_modules/betajs-scoped/dist/scoped.js"></script>
+    <script src="../node_modules/betajs/dist/beta-noscoped.js"></script>
+    <script src="../node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
+    <script src="../node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
+    <script src="../node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+    <script src="../node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
+    <script src="../dist/betajs-media-components-noscoped.js"></script>
+    <link  href="../dist/betajs-media-components.css" rel="stylesheet" />
+    <script src="../dist/themes/modern/script.js"></script>
+    <link  href="../dist/themes/modern/style.css" rel="stylesheet" />
+</head>
+<body style="background: #EEE">
+    <script>
+        var adsense = new BetaJS.MediaComponents.Ads.AdSenseVideoAdProvider({
+            adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator='
+        });
+        adsense.register("adsense");
+    </script>
+
+    <ba-videoplayer
+        ba-sources="{{[{src:'sample-video.mp4', poster: 'sample-cover.png', hd: true}, {src:'sample-video2.mp4', poster:'sample-cover2.png', hd: false}]}}"
+        ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
+        ba-theme="modern"
+        ba-noflash
+        ba-width="480"
+        ba-height="320"
+        ba-hideoninactivity="false"
+        ba-skipinitial="true"
+        ba-experimental="true"
+        ba-adprovider='adsense'
+        ba-preroll
+    ></ba-videoplayer>
+
+    <script>
+        BetaJS.Flash.options = {
+            flashFile: "../node_modules/betajs-flash/dist/betajs-flash.swf",
+            forceReload: true
+        };
+        BetaJS.Dynamics.Dynamic.activate();
+    </script>
+</body>
+</html>

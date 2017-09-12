@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.66 - 2017-07-25
+betajs-media-components - v0.0.67 - 2017-09-12
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -740,6 +740,144 @@ Apache-2.0 Software License.
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ }
 
+.ba-videoplayer-adslot {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  position: absolute; }
+
+.ba-videoplayer-dashboard {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out;
+  -ms-transition: opacity 0.5s ease-in-out;
+  background-color: #ecebed;
+  height: 40px;
+  opacity: 0.9;
+  overflow: hidden; }
+
+.ba-videoplayer-leftbutton-container {
+  float: left;
+  width: 40px;
+  height: 100%;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: content-box;
+  border-right: 1px solid #dbdbdb; }
+
+.ba-videoplayer-noie8 .ba-videoplayer-rightbutton-container {
+  float: right;
+  width: 40px;
+  height: 100%;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: content-box;
+  border-left: 1px solid #dbdbdb; }
+
+.ba-videoplayer-ie8 .ba-videoplayer-rightbutton-container {
+  float: right;
+  width: 40px;
+  height: 50%;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: content-box;
+  border-left: 1px solid #dbdbdb; }
+
+.ba-videoplayer-noie8 .ba-videoplayer-button-inner {
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  top: 50%;
+  position: relative;
+  text-align: center;
+  color: #000000;
+  font-size: 13px; }
+
+.ba-videoplayer-ie8 .ba-videoplayer-button-inner {
+  margin-top: 12px;
+  text-align: center;
+  color: #000000;
+  font-size: 13px; }
+
+.ba-videoplayer-button-inner {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent; }
+
+.ba-videoplayer-time-container {
+  float: left;
+  width: 100px;
+  height: 100%;
+  text-align: center;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  color: #666;
+  box-sizing: content-box;
+  border-right: 1px solid #dbdbdb; }
+
+.ba-videoplayer-ie8 .ba-videoplayer-time-container {
+  margin-top: 11px; }
+
+.ba-videoplayer-time-value {
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  top: 50%;
+  position: relative;
+  text-align: center;
+  float: left;
+  width: 100px; }
+
+.ba-videoplayer-noie8 .ba-videoplayer-volumebar {
+  float: right;
+  width: 60px;
+  height: 100%;
+  margin-right: 12px; }
+
+.ba-videoplayer-ie8 .ba-videoplayer-volumebar {
+  float: right;
+  width: 60px;
+  height: 50%;
+  margin-top: 16px;
+  margin-right: 12px; }
+
+.ba-videoplayer-volumebar-inner {
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  top: 50%;
+  position: relative;
+  text-align: center;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  background-color: #878787;
+  height: 6px; }
+
+.ba-videoplayer-volumebar-position {
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  position: absolute;
+  left: 0;
+  background-color: #000000;
+  height: 100%; }
+
 .ba-videoplayer-red-color .ba-videoplayer-button-inner, .ba-videoplayer-red-color .ba-videoplayer-video-title {
   color: #eb6a74; }
 .ba-videoplayer-red-color .ba-videoplayer-volumebar-position, .ba-videoplayer-red-color .ba-videoplayer-progressbar-position,
@@ -1282,6 +1420,9 @@ Apache-2.0 Software License.
   display: inline-block;
   position: relative;
   overflow: hidden; }
+
+.ba-videoplayer-overlay.ba-videoplayer-adplaying {
+  display: none; }
 
 .ba-videoplayer-overlay, .ba-videoplayer-player-toggle-overlay {
   position: absolute;

@@ -15,7 +15,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
                 "loader": false,
                 "message": false,
                 "playbutton": false,
-                "controlbar": false
+                "controlbar": false,
+                "adslot": false
             }, Objs.objectify(this.dynamics)), function(value, key) {
                 this.dyn.set(key + "_active", value);
             }, this);
@@ -30,7 +31,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
 
     }]);
 });
-
 
 
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.FatalError", [
@@ -49,10 +49,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.FatalError", [
 
     });
 });
-
-
-
-
 
 
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Initial", [
@@ -167,6 +163,10 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Preroll", [
                 this.dyn._prerollAd.once("finished", function() {
                     this.next("LoadVideo");
                 }, this);
+                this.dyn._prerollAd.once("adskipped", function() {
+                    this.next("LoadVideo");
+                }, this);
+                // TODO: video height and width return NaN before ad start even when ba-width/ba-height are provided
                 this.dyn._prerollAd.executeAd({
                     width: this.dyn.videoWidth(),
                     height: this.dyn.videoHeight()
@@ -294,8 +294,11 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
         },
 
         play: function() {
-            if (!this.dyn.get("playing"))
+            if (!this.dyn.get("playing") && !this.dyn._vast) {
                 this.dyn.player.play();
+            } else {
+                this.dyn._vast.trigger("adfire");
+            }
         }
 
     });

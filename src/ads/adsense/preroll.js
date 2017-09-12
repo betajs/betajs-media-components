@@ -85,6 +85,11 @@ Scoped.define("module:Ads.AdSensePrerollAd", [
                 this._adsManager.addEventListener(google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED, function() {
                     self._adFinished();
                 });
+
+                //this._adsManager.addEventListener(google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED, function () {});
+                this._adsManager.addEventListener(google.ima.AdEvent.Type.SKIPPED, function() {
+                    self._adSkipped();
+                });
             }
 
         };

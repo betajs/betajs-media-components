@@ -4,6 +4,10 @@
 	overflow: hidden;
 }
 
+.#{$css}-overlay.#{$css}-adplaying {
+  display: none;
+}
+
 .#{$css}-overlay, .#{$css}-player-toggle-overlay {
     position: absolute;
     left: 0;

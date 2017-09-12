@@ -1,0 +1,65 @@
+<div class="{{css}}-ad-dashboard">
+    <div class="{{css}}-ad-click-tracker" ba-click="{{ad_clicked()}}"></div>
+    <div data-selector="ad-title" class="{{css}}-ad-title">
+        <p>{{adtitle}}</p>
+    </div>
+    <div class="{{css}}-skipbutton-container">
+        <a class="{{css}}-skipbutton" ba-show="{{skipbuttonvisible}}" ba-click="skip_linear_ad()">Skip ad in {{lefttillskip}} seconds</a>
+    </div>
+
+    <div class="{{css}}-companion-ad-container" ba-show="{{companionadvisible}}">
+        <div class="{{css}}-close-companion-ad" ba-click="skip_companion_ad()">X</div>
+        <img class="{{css}}-companion-ad" src=""/>
+    </div>
+
+    <div class="{{css}}-controlbar">
+
+        <div data-selector="button-icon-play" class="{{css}}-leftbutton-container"
+             ba-show="{{canpause}}" ba-if="{{!adplaying}}" ba-click="play_ad()" title="{{string('play-video')}}">
+            <div class="{{css}}-button-inner">
+                <i class="{{css}}-icon-play"></i>
+            </div>
+        </div>
+        <div data-selector="button-icon-pause" class="{{css}}-leftbutton-container"
+             ba-if="{{adplaying}}" ba-click="pause_ad()" ba-show="{{canpause}}" title="{{string('pause-video')}}">
+            <div class="{{css}}-button-inner">
+                <i class="{{css}}-icon-pause"></i>
+            </div>
+        </div>
+        <div class="{{css}}-time-container">
+            <div class="{{css}}-time-value" title="{{string('elapsed-time')}}">{{formatTime(adduration)}}</div>
+        </div>
+
+        <div data-selector="video-title-block" class="{{css}}-video-title-container" ba-if="{{title}}">
+            <p class="{{css}}-video-title">
+                {{title}}
+            </p>
+        </div>
+
+        <div data-selector="button-icon-resize-full" class="{{css}}-rightbutton-container"
+             ba-if="{{fullscreen}}" ba-click="toggle_ad_fullscreen()" title="{{ fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video') }}">
+            <div class="{{css}}-button-inner">
+                <i class="{{css}}-icon-resize-{{fullscreened ? 'small' : 'full'}}"></i>
+            </div>
+        </div>
+
+        <div class="{{css}}-volumebar">
+            <div data-selector="button-volume-bar" class="{{css}}-volumebar-inner"
+                 onmousedown="{{startUpdateAdVolume(domEvent)}}"
+                 onmouseup="{{stopUpdateAdVolume(domEvent)}}"
+                 onmouseleave="{{stopUpdateAdVolume(domEvent)}}"
+                 onmousemove="{{progressUpdateAdVolume(domEvent)}}">
+                <div class="{{css}}-volumebar-position" ba-styles="{{{width: Math.min(100, Math.round(volume * 100)) + '%'}}}">
+                    <div class="{{css}}-volumebar-button" title="{{string('volume-button')}}"></div>
+                </div>
+            </div>
+        </div>
+
+        <div data-selector="button-icon-volume" class="{{css}}-rightbutton-container" ba-click="toggle_ad_volume()" title="{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}">
+            <div class="{{css}}-button-inner">
+                <i class="{{css + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}"></i>
+            </div>
+        </div>
+
+    </div>
+</div>

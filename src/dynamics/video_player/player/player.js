@@ -15,6 +15,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.PlayerStates.Initial",
     "module:VideoPlayer.Dynamics.PlayerStates",
     "module:Ads.AbstractVideoAdProvider",
+    "module:Ads.VAST.VAST",
     "browser:Events"
 ], [
     "module:VideoPlayer.Dynamics.Playbutton",
@@ -22,10 +23,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.Loader",
     "module:VideoPlayer.Dynamics.Share",
     "module:VideoPlayer.Dynamics.Controlbar",
+    "module:VideoPlayer.Dynamics.Adplayer",
     "dynamics:Partials.EventPartial",
     "dynamics:Partials.OnPartial",
     "dynamics:Partials.TemplatePartial"
-], function(Class, Assets, Info, Dom, VideoPlayerWrapper, Broadcasting, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
+], function(Class, Assets, Info, Dom, VideoPlayerWrapper, Broadcasting, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, InitialState, PlayerStates, AdProvider, VAST, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -42,6 +44,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "cssmessage": "",
                     "csstopmessage": "",
                     "csscontrolbar": "",
+                    "cssadslot": "",
                     "width": "",
                     "height": "",
                     /* Themes */
@@ -55,6 +58,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "dyntopmessage": "videoplayer-topmessage",
                     "dyncontrolbar": "videoplayer-controlbar",
                     "dynshare": "videoplayer-share",
+                    "dynadslot": "videoplayer-adslot",
                     /* Templates */
                     "tmplplaybutton": "",
                     "tmplloader": "",
@@ -62,6 +66,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "tmplshare": "",
                     "tmpltopmessage": "",
                     "tmplcontrolbar": "",
+                    "tmpladslot": "",
                     /* Attributes */
                     "poster": "",
                     "source": "",
@@ -86,6 +91,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     /* Ads */
                     "adprovider": null,
                     "preroll": false,
+                    "vast": [],
+                    "adpodplaying": false,
                     /* Options */
                     "rerecordable": false,
                     "submittable": false,
@@ -185,6 +192,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (Types.is_string(this._adProvider))
                             this._adProvider = AdProvider.registry[this._adProvider];
                     }
+                    if (this.get('vast')) {
+                        this._vast = new VAST(this.get('vast'));
+
+                        this._vast.once("adresponseerror", function(err) {
+                            // some error actions, no respond from ad server
+                        }, this);
+                    }
                     if (this.get("playlist")) {
                         var pl0 = (this.get("playlist"))[0];
                         this.set("poster", pl0.poster);
@@ -207,6 +221,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("playbutton_active", false);
                     this.set("controlbar_active", false);
                     this.set("message_active", false);
+                    this.set("adslot_active", false);
 
                     this.set("last_activity", Time.now());
                     this.set("activity_delta", 0);

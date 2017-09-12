@@ -1,0 +1,97 @@
+.#{$css}-adslot {
+    @include align-all();
+    position: absolute;
+}
+
+.#{$css}-dashboard {
+    @include absolute-align-full-bottom;
+    @include transition1(opacity, 0.5s, ease-in-out);
+    background-color: #ecebed;
+    height: 40px;
+    opacity: 0.9;
+    overflow: hidden;
+}
+
+.#{$css}-leftbutton-container {
+    @include float-width-height(left, 40px, 100%);
+    @include clickable;
+    box-sizing: content-box;
+    border-right: 1px solid #dbdbdb;
+}
+
+.#{$cssnoie8} .#{$css}-rightbutton-container {
+    @include float-width-height(right, 40px, 100%);
+    @include clickable;
+    box-sizing: content-box;
+    border-left: 1px solid #dbdbdb;
+}
+
+.#{$cssie8} .#{$css}-rightbutton-container {
+    @include float-width-height(right, 40px, 50%);
+    @include clickable;
+    box-sizing: content-box;
+    border-left: 1px solid #dbdbdb;
+}
+
+.#{$cssnoie8} .#{$css}-button-inner {
+    @include relative-center-center;
+    color: #000000;
+    font-size: 13px;
+}
+
+.#{$cssie8} .#{$css}-button-inner {
+    margin-top: 6px + 6;
+    text-align: center;
+    color: #000000;
+    font-size: 13px;
+}
+
+.#{$css}-button-inner {
+    @include clickable;
+}
+
+.#{$css}-time-container {
+    @include float-width-height(left, 100px, 100%);
+    text-align: center;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    color: #666;
+    box-sizing: content-box;
+    border-right: 1px solid #dbdbdb;
+}
+
+.#{$cssie8} .#{$css}-time-container {
+    margin-top: 6px + 5;
+}
+
+.#{$css}-time-value {
+    @include relative-center-center;
+    float: left;
+    width: 100px;
+}
+
+.#{$cssnoie8} .#{$css}-volumebar {
+    @include float-width-height(right, 60px, 100%);
+    margin-right: 6px*2;
+}
+
+.#{$cssie8} .#{$css}-volumebar {
+    @include float-width-height(right, 60px, 50%);
+    margin-top: 6px+10;
+    margin-right: 6px*2;
+}
+
+.#{$css}-volumebar-inner {
+    @include relative-center-center;
+    @include border-round-edges(6px / 2);
+    @include clickable;
+    background-color: #878787;
+    height: 6px;
+}
+
+.#{$css}-volumebar-position {
+    @include border-round-edges(6px / 2);
+    @include absolute-align-left();
+    background-color: #000000;
+    height: 100%;
+}

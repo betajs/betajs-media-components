@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.66 - 2017-07-25
+betajs-media-components - v0.0.67 - 2017-09-12
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -15,7 +15,7 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.66"
+    "version": "0.0.67"
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -117,6 +117,11 @@ Scoped.define("module:Ads.AdSensePrerollAd", [
                 this._adsManager.addEventListener(google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED, function() {
                     self._adFinished();
                 });
+
+                //this._adsManager.addEventListener(google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED, function () {});
+                this._adsManager.addEventListener(google.ima.AdEvent.Type.SKIPPED, function() {
+                    self._adSkipped();
+                });
             }
 
         };
@@ -177,10 +182,1892 @@ Scoped.define("module:Ads.AbstractPrerollAd", ["base:Class", "base:Events.Events
             _adFinished: function() {
                 this._options.adElement.style.display = "none";
                 this.trigger("finished");
+            },
+
+            _adSkipped: function() {
+                this._options.adElement.style.display = "none";
+                this.trigger("adskipped");
             }
 
         };
     }]);
+});
+Scoped.define("module:Ads.VAST.Ad", ["base:Class", "base:Objs", "base:Events.EventsMixin"], function(Class, Objs, EventsMixin, scoped) {
+    return Class.extend({
+        scoped: scoped
+    }, [EventsMixin, function(inherited) {
+        return {
+            constructor: function() {
+                inherited.constructor.call(this);
+                this.id = null;
+                this.sequence = null;
+                this.system = null;
+                this.title = null;
+                this.description = null;
+                this.advertiser = null;
+                this.pricing = null;
+                this.survey = null;
+                this.errorURLTemplates = [];
+                this.impressionURLTemplates = [];
+                this.creatives = [];
+                this.extensions = [];
+
+                this.trackingEvents = {};
+                this.availableTrackingEvents = ['creativeView', 'start', 'firstQuartile', 'midpoint', 'thirdQuartile', 'complete', 'rewind', 'skip', 'closeLinear', 'close', 'mute', 'unmute', 'pause', 'resume', 'playerExpand', 'playerCollapse', 'acceptInvitationLinear', 'timeSpentViewing', 'otherAdInteraction', 'progress', 'acceptInvitation', 'adExpand', 'adCollapse', 'minimize', 'overlayViewDuration', 'fullscreen', 'exitFullscreen', 'clickthrough'];
+
+                Objs.iter(this.availableTrackingEvents, function(_event) {
+                    this.trackingEvents[_event] = null;
+                }, this);
+
+            }
+        };
+    }], {
+        isNumeric: function(n) {
+            return !isNaN(parseFloat(n)) && isFinite(n);
+        },
+
+        trackAd: function(URLTemplates, variables) {
+            var URL, URLs, i, j, len, results;
+            URLs = this.resolveURLTemplates(URLTemplates, variables);
+            results = [];
+            for (j = 0, len = URLs.length; j < len; j++) {
+                URL = URLs[j];
+                if (typeof window !== "undefined" && window !== null) {
+                    i = new Image();
+                    results.push(i.src = URL);
+                } else {
+
+                }
+            }
+            return results;
+        },
+
+        resolveURLTemplates: function(URLTemplates, variables) {
+            var URLTemplate, URLs, j, key, len, macro1, macro2, resolveURL, value;
+            if (!variables) {
+                variables = {};
+            }
+            URLs = [];
+            if (variables.ASSETURI) {
+                variables.ASSETURI = this.encodeURIComponentRFC3986(variables.ASSETURI);
+            }
+            if (variables.CONTENTPLAYHEAD) {
+                variables.CONTENTPLAYHEAD = this.encodeURIComponentRFC3986(variables.CONTENTPLAYHEAD);
+            }
+            if ((variables.ERRORCODE) && !/^[0-9]{3}$/.test(variables.ERRORCODE)) {
+                variables.ERRORCODE = 900;
+            }
+            variables.CACHEBUSTING = this.leftpad(Math.round(Math.random() * 1.0e+8).toString());
+            variables.TIMESTAMP = this.encodeURIComponentRFC3986((new Date()).toISOString());
+            variables.RANDOM = variables.random = variables.CACHEBUSTING;
+            for (j = 0, len = URLTemplates.length; j < len; j++) {
+                URLTemplate = URLTemplates[j];
+                resolveURL = URLTemplate;
+                if (!resolveURL) {
+                    continue;
+                }
+                for (key in variables) {
+                    value = variables[key];
+                    macro1 = "[" + key + "]";
+                    macro2 = "%%" + key + "%%";
+                    resolveURL = resolveURL.replace(macro1, value);
+                    resolveURL = resolveURL.replace(macro2, value);
+                }
+                URLs.push(resolveURL);
+            }
+            return URLs;
+        },
+
+        leftpad: function(str) {
+            if (str.length < 8) {
+                return ((function() {
+                    var j, ref, results;
+                    results = [];
+                    for (j = 0, ref = 8 - str.length; 0 <= ref ? j < ref : j > ref; 0 <= ref ? j++ : j--) {
+                        results.push('0');
+                    }
+                    return results;
+                })()).join('') + str;
+            } else {
+                return str;
+            }
+        },
+
+        encodeURIComponentRFC3986: function(str) {
+            return encodeURIComponent(str).replace(/[!'()*]/g, function(c) {
+                return '%' + c.charCodeAt(0).toString(16);
+            });
+        },
+
+        storage: (function() {
+            var data, isDisabled, storage, storageError;
+            try {
+                storage = typeof window !== "undefined" && window !== null ? window.localStorage || window.sessionStorage : null;
+            } catch (error) {
+                storageError = error;
+                storage = null;
+            }
+            isDisabled = function(store) {
+                var e, testValue;
+                try {
+                    testValue = '__VAST__';
+                    store.setItem(testValue, testValue);
+                    if (store.getItem(testValue) !== testValue) {
+                        return true;
+                    }
+                } catch (error) {
+                    e = error;
+                    return true;
+                }
+                return false;
+            };
+            if ((storage === null) || isDisabled(storage)) {
+                data = {};
+                storage = {
+                    length: 0,
+                    getItem: function(key) {
+                        return data[key];
+                    },
+                    setItem: function(key, value) {
+                        data[key] = value;
+                        this.length = Object.keys(data).length;
+                    },
+                    removeItem: function(key) {
+                        delete data[key];
+                        this.length = Object.keys(data).length;
+                    },
+                    clear: function() {
+                        data = {};
+                        this.length = 0;
+                    }
+                };
+            }
+            return storage;
+        })()
+    });
+});
+Scoped.define("module:Ads.VAST.Client", [
+    "module:Ads.VAST.Ad", "module:Ads.VAST.Parser", "base:Objs"
+], function(VASTAd, VASTParser, Objs, scoped) {
+    return VASTAd.extend({
+        scoped: scoped
+    }, function(inherited) {
+        return {
+            constructor: function(parameters) {
+                inherited.constructor.call(this);
+                var defineProperty;
+                this.cappingFreeLunch = 0;
+                this.cappingMinimumTimeInterval = 60 * 1000; // don't allow ad request before 1 minute
+                this.lastSuccessfullAd = +new Date();
+                this.options = {
+                    withCredentials: false,
+                    timeout: 1000
+                };
+
+                defineProperty = Object.defineProperty;
+
+                Objs.iter(['lastSuccessfullAd', 'totalCalls', 'totalCallsTimeout'], function(property) {
+                    defineProperty(this, property, {
+                        get: function() {
+                            return VASTAd.storage.getItem(property);
+                        },
+                        set: function(value) {
+                            return VASTAd.storage.setItem(property, value);
+                        },
+                        configurable: false,
+                        enumerable: true
+                    });
+                }, this);
+
+                if (this.lastSuccessfullAd === null)
+                    this.lastSuccessfullAd = 0;
+
+                if (this.totalCalls === null)
+                    this.totalCalls = 0;
+
+                if (this.totalCallsTimeout === null)
+                    this.totalCallsTimeout = 0;
+
+            },
+
+            getAd: function(url, opts, cb) {
+                var now, options, timeSinceLastCall;
+                now = +new Date();
+
+                if (!cb)
+                    if (typeof opts === 'function')
+                        cb = opts;
+                options = {};
+
+                options = Objs.extend(this.options, opts);
+
+                var parser = new VASTParser();
+
+                if (this.totalCallsTimeout < now) {
+                    this.totalCalls = 1;
+                    this.totalCallsTimeout = now + (60 * 60 * 1000);
+                } else {
+                    this.totalCalls++;
+                }
+
+                if (this.cappingFreeLunch >= this.totalCalls) {
+                    cb(new Error("VAST call canceled - FreeLunch capping not reached yet " + this.totalCalls), null);
+                    return;
+                }
+
+                timeSinceLastCall = now - this.lastSuccessfullAd;
+                if (timeSinceLastCall < 0) {
+                    this.lastSuccessfullAd = 0;
+                } else if (now - this.lastSuccessfullAd < this.cappingMinimumTimeInterval) {
+                    cb(new Error("VAST call cancelled - (" + this.cappingMinimumTimeInterval + ")ms minimum interval reached"), null);
+                    return;
+                }
+
+                return parser.parse(url, options, (function(_this) {
+                    return function(err, response) {
+                        if (err)
+                            cb(err, null);
+                        else {
+                            return cb(null, response);
+                        }
+                    };
+                })(this));
+            }
+        };
+    });
+});
+Scoped.define("module:Ads.VAST.Parser", [
+        "module:Ads.VAST.Ad",
+        "module:Ads.VAST.URLHandler",
+        "module:Ads.VAST.Response",
+        "module:Ads.VAST.CreativeLinear",
+        "module:Ads.VAST.MediaFile",
+        "module:Ads.VAST.CreativeCompanion",
+        "module:Ads.VAST.CreativeNonLinear",
+        "module:Ads.VAST.CompanionAd",
+        "module:Ads.VAST.AdExtension",
+        "module:Ads.VAST.AdExtensionChild",
+        "module:Ads.VAST.NonLinear"
+    ],
+    function(VASTAd, URLHandler, VASTResponse, VASTCreativeLinear, VASTMediaFile, VASTCreativeCompanion, VASTCreativeNonLinear, VASTCompanionAd, VASTAdExtension, VASTAdExtensionChild, VASTNonLinear, scoped) {
+        return VASTAd.extend({
+            scoped: scoped
+        }, function(inherited) {
+            return {
+                constructor: function() {
+                    inherited.constructor.call(this);
+                    this.URLTemplateFilters = [];
+                },
+
+                _indexOf: function(item) {
+                    for (var i = 0, l = this.length; i < l; i++) {
+                        if (i in this && this[i] === item) return i;
+                    }
+                    return -1;
+                },
+
+                addURLTemplateFilter: function(func) {
+                    if (typeof func === 'function') {
+                        URLTemplateFilters.push(func);
+                    }
+                },
+
+                removeURLTemplateFilter: function() {
+                    return URLTemplateFilters.pop();
+                },
+
+                countURLTemplateFilters: function() {
+                    return URLTemplateFilters.length;
+                },
+
+                clearUrlTemplateFilters: function() {
+                    URLTemplateFilters = [];
+                    return URLTemplateFilters;
+                },
+
+                parse: function(url, options, cb) {
+                    if (!cb) {
+                        if (typeof options === 'function') {
+                            cb = options;
+                        }
+                        options = {};
+                    }
+                    return this._parse(url, null, options, function(err, response) {
+                        return cb(err, response);
+                    });
+                },
+
+                track: function(templates, errorCode) {
+                    // TODO: remove after development
+                    //this.trigger('VAST-error', errorCode);
+                    console.warn('Error code related vast video:', errorCode);
+                    return this.trackAd(templates, errorCode);
+                },
+
+                _parse: function(url, parentURLs, options, cb) {
+                    var filter, i, len, urlHandler;
+                    urlHandler = new URLHandler();
+
+                    if (!cb) {
+                        if (typeof options === 'function') {
+                            cb = options;
+                        }
+                        options = {};
+                    }
+
+                    for (i = 0, len = this.URLTemplateFilters.length; i < len; i++) {
+                        filter = URLTemplateFilters[i];
+                        url = filter(url);
+                    }
+
+                    if (parentURLs === null) {
+                        parentURLs = [];
+                    }
+                    parentURLs.push(url);
+
+                    return urlHandler.get(url, options, (function(_this) {
+                        return function(err, xml) {
+                            if (err !== null) {
+                                return cb(err, null);
+                            }
+                            return _this.parseXmlDocument(url, parentURLs, options, xml, cb);
+                        };
+                    })(this));
+                },
+
+                __indexOf: [].indexOf || function(item) {
+                    for (var i = 0, l = this.length; i < l; i++) {
+                        if (i in this && this[i] === item) return i;
+                    }
+                    return -1;
+                },
+
+                parseXmlDocument: function(url, parentURLs, options, xml, cb) {
+                    var ad, complete, i, j, len, len1, loopIndex, node, ref, ref1, response, _self;
+                    _self = this;
+                    response = new VASTResponse();
+                    if (!(((xml !== null ? xml.documentElement : void 0) !== null) && xml.documentElement.nodeName === "VAST")) {
+                        return cb(new Error('Invalid VAST XMLDocument'));
+                    }
+
+                    ref = xml.documentElement.childNodes;
+                    for (i = 0, len = ref.length; i < len; i++) {
+                        node = ref[i];
+                        if (node.nodeName === 'Error') {
+                            response.errorURLTemplates.push(this.parseNodeText(node));
+                        }
+                    }
+
+                    ref1 = xml.documentElement.childNodes;
+                    for (j = 0, len1 = ref1.length; j < len1; j++) {
+                        node = ref1[j];
+                        if (node.nodeName === 'Ad') {
+                            ad = this.parseAdElement(node);
+                            if (ad !== null) {
+                                response.ads.push(ad);
+                            } else {
+                                this.track(response.errorURLTemplates, {
+                                    ERRORCODE: 101,
+                                    ERRORMESSAGE: 'VAST schema validation error.'
+                                });
+                            }
+                        }
+                    }
+
+                    complete = function(error, errorAlreadyRaised) {
+                        var k, len2, noCreatives, ref2;
+                        if (error === null) {
+                            error = null;
+                        }
+                        if (errorAlreadyRaised === null) {
+                            errorAlreadyRaised = false;
+                        }
+                        if (!response) {
+                            return;
+                        }
+                        noCreatives = true;
+                        ref2 = response.ads;
+                        for (k = 0, len2 = ref2.length; k < len2; k++) {
+                            ad = ref2[k];
+                            if (ad.nextWrapperURL) {
+                                return;
+                            }
+                            if (ad.creatives.length > 0) {
+                                noCreatives = false;
+                            }
+                        }
+                        if (noCreatives) {
+                            if (!errorAlreadyRaised) {
+                                _self.track(response.errorURLTemplates, {
+                                    ERRORCODE: 303,
+                                    ERRORMESSAGE: 'No VAST response after one or more Wrappers (No creatives)'
+                                });
+                            }
+                        }
+                        if (response.ads.length === 0) {
+                            response = null;
+                        }
+                        return cb(error, response);
+                    };
+
+                    loopIndex = response.ads.length;
+                    while (loopIndex--) {
+                        ad = response.ads[loopIndex];
+                        if (!ad.nextWrapperURL) {
+                            continue;
+                        }
+                        this._handleComplete.call(this, ad, url, response, parentURLs, options, complete);
+                    }
+                    return complete();
+                },
+
+
+                _handleComplete: function(ad, url, response, parentURLs, options, complete) {
+                    var _ref2;
+                    if (parentURLs.length > (options.wrapperLimit ? options.wrapperLimit : 9) || (_ref2 = ad.nextWrapperURL, this.__indexOf.call(parentURLs, _ref2) >= 0)) {
+                        this.track(ad.errorURLTemplates, {
+                            ERRORCODE: 302,
+                            ERRORMESSAGE: 'Wrapper limit reached, as defined by the video player. Too many Wrapper responses have been received with no InLine response.'
+                        });
+                        response.ads.splice(response.ads.indexOf(ad), 1);
+                        complete(new Error("Wrapper limit reached, as defined by the video player"));
+                        return;
+                    }
+
+                    if (url) {
+                        ad.nextWrapperURL = this.resolveVastAdTagURI(ad.nextWrapperURL, url);
+                    }
+
+                    return this._parse(ad.nextWrapperURL, parentURLs, options, function(err, wrappedResponse) {
+                        var _errorAlreadyRaised, _index, _k, _len2, _ref3, _wrappedAd;
+                        _errorAlreadyRaised = false;
+                        if (err) {
+                            this.track(ad.errorURLTemplates, {
+                                ERRORCODE: 301,
+                                ERRORMESSAGE: 'Timeout of VAST URI provided in Wrapper element, or of VAST URI provided in a subsequent Wrapper element. (URI was either unavailable or reached a timeout as defined by the video player.)'
+                            });
+                            response.ads.splice(response.ads.indexOf(ad), 1);
+                            _errorAlreadyRaised = true;
+                        } else if (!wrappedResponse) {
+                            this.track(ad.errorURLTemplates, {
+                                ERRORCODE: 303,
+                                ERRORMESSAGE: 'No VAST response after one or more Wrappers'
+                            });
+                            response.ads.splice(response.ads.indexOf(ad), 1);
+                            _errorAlreadyRaised = true;
+                        } else {
+                            response.errorURLTemplates = response.errorURLTemplates.concat(wrappedResponse.errorURLTemplates);
+                            _index = response.ads.indexOf(ad);
+                            response.ads.splice(_index, 1);
+                            _ref3 = wrappedResponse.ads;
+                            for (_k = 0, _len2 = _ref3.length; _k < _len2; _k++) {
+                                _wrappedAd = _ref3[_k];
+                                this.mergeWrapperAdData(_wrappedAd, ad);
+                                response.ads.splice(++_index, 0, _wrappedAd);
+                            }
+                        }
+                        delete ad.nextWrapperURL;
+                        return complete(err, _errorAlreadyRaised);
+                    });
+                },
+
+                resolveVastAdTagURI: function(vastAdTagUrl, originalUrl) {
+                    var baseURL, protocol;
+                    if (vastAdTagUrl.indexOf('//') === 0) {
+                        protocol = location.protocol;
+                        return "" + protocol + vastAdTagUrl;
+                    }
+                    if (vastAdTagUrl.indexOf('://') === -1) {
+                        baseURL = originalUrl.slice(0, originalUrl.lastIndexOf('/'));
+                        return baseURL + "/" + vastAdTagUrl;
+                    }
+                    return vastAdTagUrl;
+                },
+
+                mergeWrapperAdData: function(wrappedAd, ad) {
+                    var base, creative, eventName, i, j, k, l, len, len1, len2, len3, ref, ref1, ref2, ref3, ref4, ref5, ref6, ref7, results, urls;
+                    wrappedAd.errorURLTemplates = ad.errorURLTemplates.concat(wrappedAd.errorURLTemplates);
+                    wrappedAd.impressionURLTemplates = ad.impressionURLTemplates.concat(wrappedAd.impressionURLTemplates);
+                    wrappedAd.extensions = ad.extensions.concat(wrappedAd.extensions);
+                    ref = wrappedAd.creatives;
+                    for (i = 0, len = ref.length; i < len; i++) {
+                        creative = ref[i];
+                        if (((ref1 = ad.trackingEvents) !== null ? ref1[creative.type] : void 0) !== null) {
+                            ref2 = ad.trackingEvents[creative.type];
+                            for (eventName in ref2) {
+                                urls = ref2[eventName];
+                                if (creative.trackingEvents[eventName]) {
+                                    base[eventName] = creative.trackingEvents[eventName];
+                                } else {
+                                    base[eventName] = [];
+                                }
+                                creative.trackingEvents[eventName] = creative.trackingEvents[eventName].concat(urls);
+                            }
+                        }
+                    }
+                    if ((ref3 = ad.videoClickTrackingURLTemplates) !== null ? ref3.length : void 0) {
+                        ref4 = wrappedAd.creatives;
+                        for (j = 0, len1 = ref4.length; j < len1; j++) {
+                            creative = ref4[j];
+                            if (creative.type === 'linear') {
+                                creative.videoClickTrackingURLTemplates = creative.videoClickTrackingURLTemplates.concat(ad.videoClickTrackingURLTemplates);
+                            }
+                        }
+                    }
+                    if ((ref5 = ad.videoCustomClickURLTemplates) ? ref5.length : void 0) {
+                        ref6 = wrappedAd.creatives;
+                        for (k = 0, len2 = ref6.length; k < len2; k++) {
+                            creative = ref6[k];
+                            if (creative.type === 'linear') {
+                                creative.videoCustomClickURLTemplates = creative.videoCustomClickURLTemplates.concat(ad.videoCustomClickURLTemplates);
+                            }
+                        }
+                    }
+                    if (ad.videoClickThroughURLTemplate) {
+                        ref7 = wrappedAd.creatives;
+                        results = [];
+                        for (l = 0, len3 = ref7.length; l < len3; l++) {
+                            creative = ref7[l];
+                            if (creative.type === 'linear' && (creative.videoClickThroughURLTemplate === null)) {
+                                results.push(creative.videoClickThroughURLTemplate = ad.videoClickThroughURLTemplate);
+                            } else {
+                                results.push(void 0);
+                            }
+                        }
+                        return results;
+                    }
+                },
+
+                childByName: function(node, name) {
+                    var child, i, len, ref;
+                    ref = node.childNodes;
+                    for (i = 0, len = ref.length; i < len; i++) {
+                        child = ref[i];
+                        if (child.nodeName === name) {
+                            return child;
+                        }
+                    }
+                },
+
+                childsByName: function(node, name) {
+                    var child, childs, i, len, ref;
+                    childs = [];
+                    ref = node.childNodes;
+                    for (i = 0, len = ref.length; i < len; i++) {
+                        child = ref[i];
+                        if (child.nodeName === name) {
+                            childs.push(child);
+                        }
+                    }
+                    return childs;
+                },
+
+                parseAdElement: function(adElement) {
+                    var adTypeElement, i, len, ref, ref1;
+                    ref = adElement.childNodes;
+                    for (i = 0, len = ref.length; i < len; i++) {
+                        adTypeElement = ref[i];
+                        if ((ref1 = adTypeElement.nodeName) !== "Wrapper" && ref1 !== "InLine") {
+                            continue;
+                        }
+                        this.copyNodeAttribute("id", adElement, adTypeElement);
+                        this.copyNodeAttribute("sequence", adElement, adTypeElement);
+                        if (adTypeElement.nodeName === "Wrapper") {
+                            return this.parseWrapperElement(adTypeElement);
+                        } else if (adTypeElement.nodeName === "InLine") {
+                            return this.parseInLineElement(adTypeElement);
+                        }
+                    }
+                },
+
+                parseWrapperElement: function(wrapperElement) {
+                    var ad, base, base1, eventName, i, item, j, k, l, len, len1, len2, len3, name1, ref, ref1, ref2, ref3, ref4, url, urls, wrapperCreativeElement, wrapperURLElement;
+                    ad = this.parseInLineElement(wrapperElement);
+                    wrapperURLElement = this.childByName(wrapperElement, "VASTAdTagURI");
+                    if (wrapperURLElement) {
+                        ad.nextWrapperURL = this.parseNodeText(wrapperURLElement);
+                    } else {
+                        wrapperURLElement = this.childByName(wrapperElement, "VASTAdTagURL");
+                        if (wrapperURLElement) {
+                            ad.nextWrapperURL = this.parseNodeText(this.childByName(wrapperURLElement, "URL"));
+                        }
+                    }
+                    ref = ad.creatives;
+                    for (i = 0, len = ref.length; i < len; i++) {
+                        wrapperCreativeElement = ref[i];
+                        if ((ref1 = wrapperCreativeElement.type) === 'linear' || ref1 === 'nonlinear') {
+                            if (wrapperCreativeElement.trackingEvents) {
+                                ad.trackingEvents = ad.trackingEvents ? ad.trackingEvents : {};
+                                name1 = wrapperCreativeElement.type;
+                                base[name1] = ad.trackingEvents[name1] ? ad.trackingEvents[name1] : {};
+                                ref2 = wrapperCreativeElement.trackingEvents;
+                                for (eventName in ref2) {
+                                    urls = ref2[eventName];
+                                    if (urls !== null) {
+                                        base1[eventName] = ad.trackingEvents[wrapperCreativeElement.type][eventName] ? ad.trackingEvents[wrapperCreativeElement.type][eventName] : [];
+                                        for (j = 0, len1 = urls.length; j < len1; j++) {
+                                            url = urls[j];
+                                            ad.trackingEvents[wrapperCreativeElement.type][eventName].push(url);
+                                        }
+                                    }
+                                }
+                            }
+                            if (wrapperCreativeElement.videoClickTrackingURLTemplates) {
+                                ad.videoClickTrackingURLTemplates = ad.videoClickTrackingURLTemplates || [];
+                                ref3 = wrapperCreativeElement.videoClickTrackingURLTemplates;
+                                for (k = 0, len2 = ref3.length; k < len2; k++) {
+                                    item = ref3[k];
+                                    ad.videoClickTrackingURLTemplates.push(item);
+                                }
+                            }
+                            if (wrapperCreativeElement.videoClickThroughURLTemplate) {
+                                ad.videoClickThroughURLTemplate = wrapperCreativeElement.videoClickThroughURLTemplate;
+                            }
+                            if (wrapperCreativeElement.videoCustomClickURLTemplates) {
+                                ad.videoCustomClickURLTemplates = ad.videoCustomClickURLTemplates || [];
+                                ref4 = wrapperCreativeElement.videoCustomClickURLTemplates;
+                                for (l = 0, len3 = ref4.length; l < len3; l++) {
+                                    item = ref4[l];
+                                    ad.videoCustomClickURLTemplates.push(item);
+                                }
+                            }
+                        }
+                    }
+                    if (ad.nextWrapperURL) {
+                        return ad;
+                    }
+                },
+
+                parseInLineElement: function(inLineElement) {
+                    var ad, creative, creativeAttributes, creativeElement, creativeTypeElement, i, j, k, len, len1, len2, node, ref, ref1, ref2;
+                    ad = new VASTAd();
+                    ad.id = inLineElement.getAttribute("id") || null;
+                    ad.sequence = inLineElement.getAttribute("sequence") || null;
+                    ref = inLineElement.childNodes;
+                    for (i = 0, len = ref.length; i < len; i++) {
+                        node = ref[i];
+                        switch (node.nodeName) {
+                            case "Error":
+                                ad.errorURLTemplates.push(this.parseNodeText(node));
+                                break;
+                            case "Impression":
+                                ad.impressionURLTemplates.push(this.parseNodeText(node));
+                                break;
+                            case "Creatives":
+                                ref1 = this.childsByName(node, "Creative");
+                                for (j = 0, len1 = ref1.length; j < len1; j++) {
+                                    creativeElement = ref1[j];
+                                    creativeAttributes = {
+                                        id: creativeElement.getAttribute('id') || null,
+                                        adId: this.parseCreativeAdIdAttribute(creativeElement),
+                                        sequence: creativeElement.getAttribute('sequence') || null,
+                                        apiFramework: creativeElement.getAttribute('apiFramework') || null
+                                    };
+                                    ref2 = creativeElement.childNodes;
+                                    for (k = 0, len2 = ref2.length; k < len2; k++) {
+                                        creativeTypeElement = ref2[k];
+                                        switch (creativeTypeElement.nodeName) {
+                                            case "Linear":
+                                                creative = this.parseCreativeLinearElement(creativeTypeElement, creativeAttributes);
+                                                if (creative) {
+                                                    ad.creatives.push(creative);
+                                                }
+                                                break;
+                                            case "NonLinearAds":
+                                                creative = this.parseNonLinear(creativeTypeElement, creativeAttributes);
+                                                if (creative) {
+                                                    ad.creatives.push(creative);
+                                                }
+                                                break;
+                                            case "CompanionAds":
+                                                creative = this.parseCompanionAd(creativeTypeElement, creativeAttributes);
+                                                if (creative) {
+                                                    ad.creatives.push(creative);
+                                                }
+                                        }
+                                    }
+                                }
+                                break;
+                            case "Extensions":
+                                this.parseExtension(ad.extensions, this.childsByName(node, "Extension"));
+                                break;
+                            case "AdSystem":
+                                ad.system = {
+                                    value: this.parseNodeText(node),
+                                    version: node.getAttribute("version") || null
+                                };
+                                break;
+                            case "AdTitle":
+                                ad.title = this.parseNodeText(node);
+                                break;
+                            case "Description":
+                                ad.description = this.parseNodeText(node);
+                                break;
+                            case "Advertiser":
+                                ad.advertiser = this.parseNodeText(node);
+                                break;
+                            case "Pricing":
+                                ad.pricing = {
+                                    value: this.parseNodeText(node),
+                                    model: node.getAttribute("model") || null,
+                                    currency: node.getAttribute("currency") || null
+                                };
+                                break;
+                            case "Survey":
+                                ad.survey = this.parseNodeText(node);
+                        }
+                    }
+                    return ad;
+                },
+
+                parseExtension: function(collection, extensions) {
+                    var childNode, ext, extChild, extChildNodeAttr, extNode, extNodeAttr, i, j, k, l, len, len1, len2, len3, ref, ref1, ref2, results, txt;
+                    results = [];
+                    for (i = 0, len = extensions.length; i < len; i++) {
+                        extNode = extensions[i];
+                        ext = new VASTAdExtension();
+                        if (extNode.attributes) {
+                            ref = extNode.attributes;
+                            for (j = 0, len1 = ref.length; j < len1; j++) {
+                                extNodeAttr = ref[j];
+                                ext.attributes[extNodeAttr.nodeName] = extNodeAttr.nodeValue;
+                            }
+                        }
+                        ref1 = extNode.childNodes;
+                        for (k = 0, len2 = ref1.length; k < len2; k++) {
+                            childNode = ref1[k];
+                            txt = this.parseNodeText(childNode);
+                            if (childNode.nodeName !== '#comment' && txt !== '') {
+                                extChild = new VASTAdExtensionChild();
+                                extChild.name = childNode.nodeName;
+                                extChild.value = txt;
+                                if (childNode.attributes) {
+                                    ref2 = childNode.attributes;
+                                    for (l = 0, len3 = ref2.length; l < len3; l++) {
+                                        extChildNodeAttr = ref2[l];
+                                        extChild.attributes[extChildNodeAttr.nodeName] = extChildNodeAttr.nodeValue;
+                                    }
+                                }
+                                ext.children.push(extChild);
+                            }
+                        }
+                        results.push(collection.push(ext));
+                    }
+                    return results;
+                },
+
+                parseCreativeLinearElement: function(creativeElement, creativeAttributes) {
+                    var adParamsElement, base, clickTrackingElement, creative, customClickElement, eventName, htmlElement, i, icon, iconClickTrackingElement, iconClicksElement, iconElement, iconsElement, iframeElement, j, k, l, len, len1, len10, len2, len3, len4, len5, len6, len7, len8, len9, m, maintainAspectRatio, mediaFile, mediaFileElement, mediaFilesElement, n, o, offset, p, percent, q, r, ref, ref1, ref10, ref2, ref3, ref4, ref5, ref6, ref7, ref8, ref9, s, scalable, skipOffset, staticElement, trackingElement, trackingEventsElement, trackingURLTemplate, videoClicksElement;
+                    creative = new VASTCreativeLinear(creativeAttributes);
+                    creative.duration = this.parseDuration(this.parseNodeText(this.childByName(creativeElement, "Duration")));
+                    if (creative.duration === -1 && creativeElement.parentNode.parentNode.parentNode.nodeName !== 'Wrapper') {
+                        return null;
+                    }
+                    skipOffset = creativeElement.getAttribute("skipoffset");
+                    if (skipOffset === null) {
+                        creative.skipDelay = null;
+                    } else if (skipOffset.charAt(skipOffset.length - 1) === "%") {
+                        percent = parseInt(skipOffset, 10);
+                        creative.skipDelay = creative.duration * (percent / 100);
+                    } else {
+                        creative.skipDelay = this.parseDuration(skipOffset);
+                    }
+                    videoClicksElement = this.childByName(creativeElement, "VideoClicks");
+                    if (videoClicksElement) {
+                        creative.videoClickThroughURLTemplate = this.parseNodeText(this.childByName(videoClicksElement, "ClickThrough"));
+                        ref = this.childsByName(videoClicksElement, "ClickTracking");
+                        for (i = 0, len = ref.length; i < len; i++) {
+                            clickTrackingElement = ref[i];
+                            creative.videoClickTrackingURLTemplates.push(this.parseNodeText(clickTrackingElement));
+                        }
+                        ref1 = this.childsByName(videoClicksElement, "CustomClick");
+                        for (j = 0, len1 = ref1.length; j < len1; j++) {
+                            customClickElement = ref1[j];
+                            creative.videoCustomClickURLTemplates.push(this.parseNodeText(customClickElement));
+                        }
+                    }
+                    adParamsElement = this.childByName(creativeElement, "AdParameters");
+                    if (adParamsElement) {
+                        creative.adParameters = this.parseNodeText(adParamsElement);
+                    }
+                    ref2 = this.childsByName(creativeElement, "TrackingEvents");
+                    for (k = 0, len2 = ref2.length; k < len2; k++) {
+                        trackingEventsElement = ref2[k];
+                        ref3 = this.childsByName(trackingEventsElement, "Tracking");
+                        for (l = 0, len3 = ref3.length; l < len3; l++) {
+                            trackingElement = ref3[l];
+                            eventName = trackingElement.getAttribute("event");
+                            trackingURLTemplate = this.parseNodeText(trackingElement);
+                            if (eventName && trackingURLTemplate) {
+                                if (eventName === "progress") {
+                                    offset = trackingElement.getAttribute("offset");
+                                    if (!offset) {
+                                        continue;
+                                    }
+                                    if (offset.charAt(offset.length - 1) === '%') {
+                                        eventName = "progress-" + offset;
+                                    } else {
+                                        eventName = "progress-" + (Math.round(this.parseDuration(offset)));
+                                    }
+                                }
+                                if ((base = creative.trackingEvents)[eventName] === null) {
+                                    base[eventName] = [];
+                                }
+
+                                if (creative.trackingEvents[eventName]) {
+                                    creative.trackingEvents[eventName].push(trackingURLTemplate);
+                                }
+
+                            }
+                        }
+                    }
+                    ref4 = this.childsByName(creativeElement, "MediaFiles");
+                    for (m = 0, len4 = ref4.length; m < len4; m++) {
+                        mediaFilesElement = ref4[m];
+                        ref5 = this.childsByName(mediaFilesElement, "MediaFile");
+                        for (n = 0, len5 = ref5.length; n < len5; n++) {
+                            mediaFileElement = ref5[n];
+                            mediaFile = new VASTMediaFile();
+                            mediaFile.id = mediaFileElement.getAttribute("id");
+                            mediaFile.fileURL = this.parseNodeText(mediaFileElement);
+                            mediaFile.deliveryType = mediaFileElement.getAttribute("delivery");
+                            mediaFile.codec = mediaFileElement.getAttribute("codec");
+                            mediaFile.mimeType = mediaFileElement.getAttribute("type");
+                            mediaFile.apiFramework = mediaFileElement.getAttribute("apiFramework");
+                            mediaFile.bitrate = parseInt(mediaFileElement.getAttribute("bitrate") || 0, 10);
+                            mediaFile.minBitrate = parseInt(mediaFileElement.getAttribute("minBitrate") || 0, 10);
+                            mediaFile.maxBitrate = parseInt(mediaFileElement.getAttribute("maxBitrate") || 0, 10);
+                            mediaFile.width = parseInt(mediaFileElement.getAttribute("width") || 0, 10);
+                            mediaFile.height = parseInt(mediaFileElement.getAttribute("height") || 0, 10);
+                            scalable = mediaFileElement.getAttribute("scalable");
+                            if (scalable && typeof scalable === "string") {
+                                scalable = scalable.toLowerCase();
+                                if (scalable === "true") {
+                                    mediaFile.scalable = true;
+                                } else if (scalable === "false") {
+                                    mediaFile.scalable = false;
+                                }
+                            }
+                            maintainAspectRatio = mediaFileElement.getAttribute("maintainAspectRatio");
+                            if (maintainAspectRatio && typeof maintainAspectRatio === "string") {
+                                maintainAspectRatio = maintainAspectRatio.toLowerCase();
+                                if (maintainAspectRatio === "true") {
+                                    mediaFile.maintainAspectRatio = true;
+                                } else if (maintainAspectRatio === "false") {
+                                    mediaFile.maintainAspectRatio = false;
+                                }
+                            }
+                            creative.mediaFiles.push(mediaFile);
+                        }
+                    }
+                    iconsElement = this.childByName(creativeElement, "Icons");
+                    if (iconsElement) {
+                        ref6 = this.childsByName(iconsElement, "Icon");
+                        for (o = 0, len6 = ref6.length; o < len6; o++) {
+                            iconElement = ref6[o];
+                            icon = new VASTIcon();
+                            icon.program = iconElement.getAttribute("program");
+                            icon.height = parseInt(iconElement.getAttribute("height") || 0, 10);
+                            icon.width = parseInt(iconElement.getAttribute("width") || 0, 10);
+                            icon.xPosition = this.parseXPosition(iconElement.getAttribute("xPosition"));
+                            icon.yPosition = this.parseYPosition(iconElement.getAttribute("yPosition"));
+                            icon.apiFramework = iconElement.getAttribute("apiFramework");
+                            icon.offset = this.parseDuration(iconElement.getAttribute("offset"));
+                            icon.duration = this.parseDuration(iconElement.getAttribute("duration"));
+                            ref7 = this.childsByName(iconElement, "HTMLResource");
+                            for (p = 0, len7 = ref7.length; p < len7; p++) {
+                                htmlElement = ref7[p];
+                                icon.type = htmlElement.getAttribute("creativeType") || 'text/html';
+                                icon.htmlResource = this.parseNodeText(htmlElement);
+                            }
+                            ref8 = this.childsByName(iconElement, "IFrameResource");
+                            for (q = 0, len8 = ref8.length; q < len8; q++) {
+                                iframeElement = ref8[q];
+                                icon.type = iframeElement.getAttribute("creativeType") || 0;
+                                icon.iframeResource = this.parseNodeText(iframeElement);
+                            }
+                            ref9 = this.childsByName(iconElement, "StaticResource");
+                            for (r = 0, len9 = ref9.length; r < len9; r++) {
+                                staticElement = ref9[r];
+                                icon.type = staticElement.getAttribute("creativeType") || 0;
+                                icon.staticResource = this.parseNodeText(staticElement);
+                            }
+                            iconClicksElement = this.childByName(iconElement, "IconClicks");
+                            if (iconClicksElement) {
+                                icon.iconClickThroughURLTemplate = this.parseNodeText(this.childByName(iconClicksElement, "IconClickThrough"));
+                                ref10 = this.childsByName(iconClicksElement, "IconClickTracking");
+                                for (s = 0, len10 = ref10.length; s < len10; s++) {
+                                    iconClickTrackingElement = ref10[s];
+                                    icon.iconClickTrackingURLTemplates.push(this.parseNodeText(iconClickTrackingElement));
+                                }
+                            }
+                            icon.iconViewTrackingURLTemplate = this.parseNodeText(this.childByName(iconElement, "IconViewTracking"));
+                            creative.icons.push(icon);
+                        }
+                    }
+                    return creative;
+                },
+
+                parseNonLinear: function(creativeElement, creativeAttributes) {
+                    var adParamsElement, base, clickTrackingElement, creative, eventName, htmlElement, i, iframeElement, j, k, l, len, len1, len2, len3, len4, len5, len6, m, n, nonlinearAd, nonlinearResource, o, ref, ref1, ref2, ref3, ref4, ref5, ref6, staticElement, trackingElement, trackingEventsElement, trackingURLTemplate;
+                    creative = new VASTCreativeNonLinear(creativeAttributes);
+                    ref = this.childsByName(creativeElement, "TrackingEvents");
+                    for (i = 0, len = ref.length; i < len; i++) {
+                        trackingEventsElement = ref[i];
+                        ref1 = this.childsByName(trackingEventsElement, "Tracking");
+                        for (j = 0, len1 = ref1.length; j < len1; j++) {
+                            trackingElement = ref1[j];
+                            eventName = trackingElement.getAttribute("event");
+                            trackingURLTemplate = this.parseNodeText(trackingElement);
+                            if (eventName && trackingURLTemplate) {
+                                if ((base = creative.trackingEvents)[eventName] === null) {
+                                    base[eventName] = [];
+                                }
+
+                                if (creative.trackingEvents[eventName] && trackingURLTemplate !== null) {
+                                    creative.trackingEvents[eventName].push(trackingURLTemplate);
+                                }
+                            }
+                        }
+                    }
+                    ref2 = this.childsByName(creativeElement, "NonLinear");
+                    for (k = 0, len2 = ref2.length; k < len2; k++) {
+                        nonlinearResource = ref2[k];
+                        nonlinearAd = new VASTNonLinear();
+                        nonlinearAd.id = nonlinearResource.getAttribute("id") || null;
+                        nonlinearAd.width = nonlinearResource.getAttribute("width");
+                        nonlinearAd.height = nonlinearResource.getAttribute("height");
+                        nonlinearAd.expandedWidth = nonlinearResource.getAttribute("expandedWidth");
+                        nonlinearAd.expandedHeight = nonlinearResource.getAttribute("expandedHeight");
+                        nonlinearAd.scalable = this.parseBoolean(nonlinearResource.getAttribute("scalable"));
+                        nonlinearAd.maintainAspectRatio = this.parseBoolean(nonlinearResource.getAttribute("maintainAspectRatio"));
+                        nonlinearAd.minSuggestedDuration = this.parseDuration(nonlinearResource.getAttribute("minSuggestedDuration"));
+                        nonlinearAd.apiFramework = nonlinearResource.getAttribute("apiFramework");
+                        ref3 = this.childsByName(nonlinearResource, "HTMLResource");
+                        for (l = 0, len3 = ref3.length; l < len3; l++) {
+                            htmlElement = ref3[l];
+                            nonlinearAd.type = htmlElement.getAttribute("creativeType") || 'text/html';
+                            nonlinearAd.htmlResource = this.parseNodeText(htmlElement);
+                        }
+                        ref4 = this.childsByName(nonlinearResource, "IFrameResource");
+                        for (m = 0, len4 = ref4.length; m < len4; m++) {
+                            iframeElement = ref4[m];
+                            nonlinearAd.type = iframeElement.getAttribute("creativeType") || 0;
+                            nonlinearAd.iframeResource = this.parseNodeText(iframeElement);
+                        }
+                        ref5 = this.childsByName(nonlinearResource, "StaticResource");
+                        for (n = 0, len5 = ref5.length; n < len5; n++) {
+                            staticElement = ref5[n];
+                            nonlinearAd.type = staticElement.getAttribute("creativeType") || 0;
+                            nonlinearAd.staticResource = this.parseNodeText(staticElement);
+                        }
+                        adParamsElement = this.childByName(nonlinearResource, "AdParameters");
+                        if (adParamsElement) {
+                            nonlinearAd.adParameters = this.parseNodeText(adParamsElement);
+                        }
+                        nonlinearAd.nonlinearClickThroughURLTemplate = this.parseNodeText(this.childByName(nonlinearResource, "NonLinearClickThrough"));
+                        ref6 = this.childsByName(nonlinearResource, "NonLinearClickTracking");
+                        for (o = 0, len6 = ref6.length; o < len6; o++) {
+                            clickTrackingElement = ref6[o];
+                            nonlinearAd.nonlinearClickTrackingURLTemplates.push(this.parseNodeText(clickTrackingElement));
+                        }
+                        creative.variations.push(nonlinearAd);
+                    }
+                    return creative;
+                },
+
+                parseCompanionAd: function(creativeElement, creativeAttributes) {
+                    var base, child, clickTrackingElement, companionAd, companionResource, creative, eventName, htmlElement, i, iframeElement, j, k, l, len, len1, len2, len3, len4, len5, len6, len7, m, n, o, p, ref, ref1, ref2, ref3, ref4, ref5, ref6, ref7, staticElement, trackingElement, trackingEventsElement, trackingURLTemplate;
+                    creative = new VASTCreativeCompanion(creativeAttributes);
+                    ref = this.childsByName(creativeElement, "Companion");
+                    for (i = 0, len = ref.length; i < len; i++) {
+                        companionResource = ref[i];
+                        companionAd = new VASTCompanionAd();
+                        companionAd.id = companionResource.getAttribute("id") || null;
+                        companionAd.width = companionResource.getAttribute("width");
+                        companionAd.height = companionResource.getAttribute("height");
+                        companionAd.companionClickTrackingURLTemplates = [];
+                        ref1 = this.childsByName(companionResource, "HTMLResource");
+                        for (j = 0, len1 = ref1.length; j < len1; j++) {
+                            htmlElement = ref1[j];
+                            companionAd.type = htmlElement.getAttribute("creativeType") || 'text/html';
+                            companionAd.htmlResource = this.parseNodeText(htmlElement);
+                        }
+                        ref2 = this.childsByName(companionResource, "IFrameResource");
+                        for (k = 0, len2 = ref2.length; k < len2; k++) {
+                            iframeElement = ref2[k];
+                            companionAd.type = iframeElement.getAttribute("creativeType") || 0;
+                            companionAd.iframeResource = this.parseNodeText(iframeElement);
+                        }
+                        ref3 = this.childsByName(companionResource, "StaticResource");
+                        for (l = 0, len3 = ref3.length; l < len3; l++) {
+                            staticElement = ref3[l];
+                            companionAd.type = staticElement.getAttribute("creativeType") || 0;
+                            ref4 = this.childsByName(companionResource, "AltText");
+                            for (m = 0, len4 = ref4.length; m < len4; m++) {
+                                child = ref4[m];
+                                companionAd.altText = this.parseNodeText(child);
+                            }
+                            companionAd.staticResource = this.parseNodeText(staticElement);
+                        }
+                        ref5 = this.childsByName(companionResource, "TrackingEvents");
+                        for (n = 0, len5 = ref5.length; n < len5; n++) {
+                            trackingEventsElement = ref5[n];
+                            ref6 = this.childsByName(trackingEventsElement, "Tracking");
+                            for (o = 0, len6 = ref6.length; o < len6; o++) {
+                                trackingElement = ref6[o];
+                                eventName = trackingElement.getAttribute("event");
+                                trackingURLTemplate = this.parseNodeText(trackingElement);
+                                if (eventName && trackingURLTemplate) {
+                                    if ((base = companionAd.trackingEvents)[eventName] === null) {
+                                        base[eventName] = [];
+                                    }
+                                    companionAd.trackingEvents[eventName].push(trackingURLTemplate);
+                                }
+                            }
+                        }
+                        ref7 = this.childsByName(companionResource, "CompanionClickTracking");
+                        for (p = 0, len7 = ref7.length; p < len7; p++) {
+                            clickTrackingElement = ref7[p];
+                            companionAd.companionClickTrackingURLTemplates.push(this.parseNodeText(clickTrackingElement));
+                        }
+                        companionAd.companionClickThroughURLTemplate = this.parseNodeText(this.childByName(companionResource, "CompanionClickThrough"));
+                        companionAd.companionClickTrackingURLTemplate = this.parseNodeText(this.childByName(companionResource, "CompanionClickTracking"));
+                        creative.variations.push(companionAd);
+                    }
+                    return creative;
+                },
+
+                parseDuration: function(durationString) {
+                    var durationComponents, hours, minutes, seconds, secondsAndMS;
+                    if (!(durationString)) {
+                        return -1;
+                    }
+                    if (VASTAd.isNumeric(durationString)) {
+                        return parseInt(durationString, 10);
+                    }
+                    durationComponents = durationString.split(":");
+                    if (durationComponents.length !== 3) {
+                        return -1;
+                    }
+                    secondsAndMS = durationComponents[2].split(".");
+                    seconds = parseInt(secondsAndMS[0], 10);
+                    if (secondsAndMS.length === 2) {
+                        seconds += parseFloat("0." + secondsAndMS[1]);
+                    }
+                    minutes = parseInt(durationComponents[1] * 60, 10);
+                    hours = parseInt(durationComponents[0] * 60 * 60, 10);
+                    if (isNaN(hours) || isNaN(minutes) || isNaN(seconds) || minutes > 60 * 60 || seconds > 60) {
+                        return -1;
+                    }
+                    return hours + minutes + seconds;
+                },
+
+                parseXPosition: function(xPosition) {
+                    if (xPosition === "left" || xPosition === "right") {
+                        return xPosition;
+                    }
+                    return parseInt(xPosition || 0, 10);
+                },
+
+                parseYPosition: function(yPosition) {
+                    if (yPosition === "top" || yPosition === "bottom") {
+                        return yPosition;
+                    }
+                    return parseInt(yPosition || 0, 10);
+                },
+
+                parseBoolean: function(booleanString) {
+                    return booleanString === 'true' || booleanString === 'TRUE' || booleanString === '1';
+                },
+
+                parseNodeText: function(node) {
+                    return node && (node.textContent || node.text || '').trim();
+                },
+
+                copyNodeAttribute: function(attributeName, nodeSource, nodeDestination) {
+                    var attributeValue;
+                    attributeValue = nodeSource.getAttribute(attributeName);
+                    if (attributeValue) {
+                        return nodeDestination.setAttribute(attributeName, attributeValue);
+                    }
+                },
+
+                parseCreativeAdIdAttribute: function(creativeElement) {
+                    return creativeElement.getAttribute('AdID') || creativeElement.getAttribute('adID') || creativeElement.getAttribute('adId') || null;
+                }
+            };
+        });
+    });
+Scoped.define("module:Ads.VAST.Tracker", [
+        "module:Ads.VAST.Ad",
+        "module:Ads.VAST.CreativeLinear",
+        "module:Ads.VAST.NonLinear",
+        "module:Ads.VAST.CompanionAd",
+        "module:Ads.VAST.Client",
+        "base:Events.ListenMixin"
+    ],
+    function(VASTAd, VASTCreativeLinear, VASTNonLinear, VASTCompanionAd, VASTClient, ListenMixin, scoped) {
+        return VASTAd.extend({
+            scoped: scoped
+        }, [ListenMixin, function(inherited) {
+            return {
+                constructor: function(ad, creative, variation) {
+                    inherited.constructor.call(this, ad, creative, variation);
+                    var eventName, events, trackingEvents;
+                    this.ad = ad;
+                    this.creative = creative;
+                    this.variation = variation || null;
+                    this.muted = false;
+                    this.impressed = false;
+                    this.skipable = false;
+                    this.skipDelayDefault = -1;
+
+                    this.emitAlwaysEvents = this.availableTrackingEvents;
+                    trackingEvents = creative ? creative.trackingEvents : {};
+
+                    for (eventName in trackingEvents) {
+                        events = trackingEvents[eventName];
+                        if (events)
+                            this.trackingEvents[eventName] = events.slice(0);
+                    }
+
+                    if (creative instanceof VASTCreativeLinear) {
+                        this.setAdDuration(this.creative.duration);
+                        this.skipDelay = creative.skipDelay;
+                        this.linear = true;
+                        this.clickThroughURLTemplate = creative.videoClickThroughURLTemplate;
+                        this.clickTrackingURLTemplate = creative.videoClickTrackingURLTemplate;
+                    } else {
+                        this.skipDelay = -1;
+                        this.linear = false;
+                        if (this.variation) {
+                            if (this.variation instanceof VASTNonLinear) {
+                                this.clickThroughURLTemplate = this.variation.nonlinearClickThroughURLTemplate;
+                                this.clickTrackingURLTemplates = this.variation.nonlinearClickTrackingURLTemplates;
+                            } else if (this.variation instanceof VASTCompanionAd) {
+                                this.clickThroughURLTemplate = this.variation.companionClickThroughURLTemplate;
+                                this.clickTrackingURLTemplates = this.variation.companionClickTrackingURLTemplates;
+                            }
+                        }
+                    }
+
+                    this.on('adstart', function() {
+                        VASTClient.lastSuccessfullAd = +new Date();
+                    });
+
+
+                },
+
+                setAdDuration: function(duration) {
+                    this.assetDuration = duration;
+                    this.quartiles = {
+                        'firstQuartile': Math.round(25 * this.assetDuration) / 100,
+                        'midpoint': Math.round(50 * this.assetDuration) / 100,
+                        'thirdQuartile': Math.round(75 * this.assetDuration) / 100
+                    };
+                    return this.quartiles;
+                },
+
+                setAdProgress: function(progress) {
+                    var eventName, events, i, len, percent, quartile, ref, skipDelay, time;
+                    skipDelay = this.skipDelay === null ? this.skipDelayDefault : this.skipDelay;
+                    if (skipDelay !== -1 && !this.skipable) {
+                        if (skipDelay > progress) {
+                            this.trigger('adskip-countdown', skipDelay - progress);
+                        } else {
+                            this.skipable = true;
+                            this.trigger('adskip-countdown', 0);
+                        }
+                    }
+                    if (this.linear && this.assetDuration > 0) {
+                        events = [];
+                        if (progress > 0) {
+                            events.push("start");
+                            percent = Math.round(progress / this.assetDuration * 100);
+                            events.push("progress-" + percent + "%");
+                            events.push("progress-" + (Math.round(progress)));
+                            ref = this.quartiles;
+                            for (quartile in ref) {
+                                time = ref[quartile];
+                                if ((time <= progress && progress <= (time + 1))) {
+                                    events.push(quartile);
+                                }
+                            }
+                        }
+                        for (i = 0, len = events.length; i < len; i++) {
+                            eventName = events[i];
+                            if (eventName !== null)
+                                this.track(eventName, true);
+                        }
+                        if (progress < this.progress) {
+                            this.track("rewind");
+                        }
+                    }
+                    this.progress = progress;
+                    return progress;
+                },
+
+                setAdMuted: function(muted) {
+                    if (this.muted !== muted) {
+                        this.track(muted ? "mute" : "unmute");
+                    }
+                    this.muted = muted;
+                    return muted;
+                },
+
+                setAdPaused: function(paused) {
+                    if (this.paused !== paused) {
+                        this.track(paused ? "pause" : "resume");
+                    }
+                    this.paused = paused;
+                    return paused;
+                },
+
+                setAdFullscreen: function(fullscreen) {
+                    if (this.fullscreen !== fullscreen) {
+                        this.track(fullscreen ? "fullscreen" : "exitFullscreen");
+                    }
+                    this.fullscreen = fullscreen;
+                    return fullscreen;
+                },
+
+                setAdExpand: function(expanded) {
+                    if (this.expanded !== expanded) {
+                        this.track(expanded ? "expand" : "collapse");
+                    }
+                    this.expanded = expanded;
+                    return expanded;
+                },
+
+                setAdSkipDelay: function(duration) {
+                    if (typeof duration === 'number') {
+                        this.skipDelay = duration;
+                        return duration;
+                    }
+                },
+
+                loadAd: function() {
+                    if (!this.impressed) {
+                        this.impressed = true;
+                        this.trackAdURLs(this.ad.impressionURLTemplates);
+                        return this.track("creativeView");
+                    }
+                },
+
+                errorAdWithCode: function(errorCode) {
+                    return this.trackAdURLs(this.ad.errorURLTemplates, {
+                        ERRORCODE: errorCode
+                    });
+                },
+
+                errorAdWithCodeAndMessage: function(errorCode, errorMessage) {
+                    return this.trackAdURLs(this.ad.errorURLTemplates, {
+                        ERRORCODE: errorCode,
+                        ERRORMESSAGE: errorMessage
+                    });
+                },
+
+                completeAd: function() {
+                    return this.track("completeAd");
+                },
+
+                closeAd: function() {
+                    return this.track(this.linear ? "closeLinear" : "close");
+                },
+
+                stopAd: function() {},
+
+                skipAd: function() {
+                    this.track("skip");
+                    this.trackingEvents = [];
+                    return this.trackingEvents;
+                },
+
+                clickAd: function() {
+                    var clickThroughURL, ref, variables;
+                    if ((ref = this.clickTrackingURLTemplates) !== null ? ref.length : void 0) {
+                        this.trackAdURLs(this.clickTrackingURLTemplates);
+                    }
+                    if (this.clickThroughURLTemplate !== null) {
+                        if (this.linear) {
+                            variables = {
+                                CONTENTPLAYHEAD: this.adProgressFormated()
+                            };
+                        }
+                        clickThroughURL = VASTAd.resolveURLTemplates([this.clickThroughURLTemplate], variables)[0];
+                        return this.trigger("clickthrough", clickThroughURL);
+                    }
+                },
+
+                track: function(eventName, once) {
+                    var idx, trackingURLTemplates;
+                    if (!once) {
+                        once = false;
+                    }
+                    if (eventName === 'closeLinear' && ((!this.trackingEvents[eventName]) && (this.trackingEvents.close))) {
+                        eventName = 'close';
+                    }
+                    trackingURLTemplates = this.trackingEvents[eventName];
+                    idx = this.emitAlwaysEvents.indexOf(eventName);
+                    if (trackingURLTemplates !== null) {
+                        this.trigger(eventName, '');
+                        this.trackAdURLs(trackingURLTemplates);
+                    } else if (idx !== -1) {
+                        this.trigger(eventName, '');
+                    }
+                    if (once === true) {
+                        delete this.trackingEvents[eventName];
+                        delete this.trackingEvents[eventName];
+                        if (idx > -1) {
+                            this.emitAlwaysEvents.splice(idx, 1);
+                        }
+                    }
+                },
+
+                trackAdURLs: function(URLTemplates, variables) {
+                    var _ref;
+                    if (!variables) {
+                        variables = {};
+                    }
+                    if (this.linear) {
+                        if (((_ref = this.creative.mediaFiles[0]) !== null ? _ref.fileURL : void 0) !== null) {
+                            variables.ASSETURI = this.creative.mediaFiles[0].fileURL;
+                        }
+                        variables.CONTENTPLAYHEAD = this.adProgressFormated();
+                    }
+                    return VASTAd.track(URLTemplates, variables);
+                },
+
+                adProgressFormated: function() {
+                    var h, m, ms, s, seconds;
+                    seconds = parseInt(this.progress, 10);
+                    h = seconds / (60 * 60);
+                    if (h.length < 2) {
+                        h = "0" + h;
+                    }
+                    m = seconds / 60 % 60;
+                    if (m.length < 2) {
+                        m = "0" + m;
+                    }
+                    s = seconds % 60;
+                    if (s.length < 2) {
+                        s = "0" + m;
+                    }
+                    ms = parseInt((this.progress - seconds) * 100, 10);
+                    return h + ":" + m + ":" + s + "." + ms;
+                }
+            };
+        }]);
+    });
+Scoped.define("module:Ads.VAST.URLHandler", ["base:Class"], function(Class, scoped) {
+    return Class.extend({
+        scoped: scoped
+    }, function(inherited) {
+        return {
+
+            xhr: function() {
+                if (window.XMLHttpRequest) {
+                    return new XMLHttpRequest();
+                } else if (window.ActiveXObject) {
+                    return new ActiveXObject("Microsoft.XMLHTTP");
+                } else {
+                    return false;
+                }
+            },
+
+            supportedXHR: function() {
+                return !!this.xhr();
+            },
+
+            getXHR: function(url, options, cb) {
+                var xhr;
+                if (window.location.protocol === 'https:' && url.indexOf('http://') === 0) {
+                    return cb(new Error('XHRURLHandler: Cannot go from HTTPS to HTTP.'));
+                }
+
+                try {
+                    xhr = this.xhr();
+                    xhr.open('GET', url);
+                    xhr.timeout = options.timeout || 0;
+                    xhr.withCredentials = options.withCredentials || false;
+                    xhr.overrideMimeType('application/xml');
+                    //xhr.overrideMimeType('application/xml') && xhr.overrideMimeType('text/xml');
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState === 4) {
+                            if (xhr.status === 200) {
+                                return cb(null, xhr.responseXML);
+                            } else {
+                                return cb(new Error("XHRURLHandler: " + xhr.statusText));
+                            }
+                        }
+                    };
+                    return xhr.send();
+                } catch (error) {
+                    return cb(new Error('XHRURLHandler: Unexpected error'));
+                }
+            },
+
+            xdr: function() {
+                if (window.XDomainRequest) {
+                    return new XDomainRequest();
+                } else
+                    return false;
+            },
+
+            supportedXDR: function() {
+                return !!this.xdr();
+            },
+
+            getXDR: function(url, options, cb) {
+                var xdr, xmlDocument;
+                xmlDocument = (typeof window.ActiveXObject === "function") ? new window.ActiveXObject("Microsoft.XMLDOM") : void 0;
+                if (xmlDocument) {
+                    xmlDocument.async = false;
+                } else {
+                    return cb(new Error('FlashURLHandler: Microsoft.XMLDOM format not supported'), null);
+                }
+                xdr = this.xdr();
+                xdr.open('GET', url);
+                xdr.timeout = options.timeout || 0;
+                xdr.withCredentials = options.withCredentials || false;
+                xdr.send();
+                xdr.onprogress = function() {};
+                xdr.onload = function() {
+                    xmlDocument.loadXML(xdr.responseText);
+                    return cb(null, xmlDocument);
+                };
+                return xdr.onload;
+            },
+
+            get: function(url, options, cb) {
+                var response;
+                if (!cb) {
+                    if (typeof options === 'function') {
+                        cb = options;
+                    }
+                    options = {};
+                }
+
+                if (options.response) {
+                    response = options.response;
+                    delete options.response;
+                    return cb(null, response);
+                } else if (this.supportedXHR()) {
+                    return this.getXHR(url, options, cb);
+                } else if (this.supportedXDR()) {
+                    return this.getXDR(url, options, cb);
+                } else {
+                    return cb(new Error('Current context is not supported by any of the default URLHandlers. Please provide a custom URLHandler'));
+                }
+            }
+        };
+    });
+});
+Scoped.define("module:Ads.VAST.VAST", [
+        "base:Class",
+        "module:Ads.VAST.Client",
+        "module:Ads.VAST.Tracker",
+        "module:Ads.VAST.Ad",
+        "base:Objs",
+        "base:Promise",
+        "base:Events.EventsMixin"
+    ],
+    function(Class, VASTClient, VASTTracker, VASTAd, Objs, Promise, EventsMixin, scoped) {
+        return Class.extend({
+            scoped: scoped
+        }, [EventsMixin, function(inherited) {
+            return {
+                constructor: function(options, requestOptions) {
+                    inherited.constructor.call(this);
+                    var vastClient, _promise, _self;
+                    this.vastServerResponses = [];
+                    this.timeout = 5000;
+                    this.adPodTimeout = 100;
+                    this.companion = undefined;
+                    this.sources = [];
+                    this.companion = {};
+
+                    _self = this;
+                    _promise = Promise.create();
+
+                    vastClient = new VASTClient(options);
+
+                    Objs.iter(options, function(vast) {
+                        if (vast.adServer) {
+                            vastClient.getAd(vast.adServer, requestOptions, function(err, response) {
+                                if (err) {
+                                    var _errorMessage = 'Error occurred during loading provided link. ' + err;
+                                    _promise.asyncError({
+                                        message: _errorMessage
+                                    });
+                                } else {
+                                    _self.vastServerResponses.push(response);
+                                    _promise.asyncSuccess(_self.vastServerResponses);
+                                }
+                            });
+                        } else {
+                            _promise.asyncError({
+                                message: 'Video Ad options are not correct, asServer are required'
+                            });
+                        }
+                    }, this);
+
+                    _promise.success(function(responses) {
+                        this.executeAd(responses[0]);
+                    }, this);
+
+                    _promise.error(function(error) {
+                        this.trigger("adresponseerror", error);
+                    }, this);
+                },
+
+                executeAd: function(response) {
+                    var _ad, _adIds, _crIds, _creative, _foundCreative, _foundCompanion, _self;
+                    _self = this;
+
+                    for (_adIds = 0; _adIds < response.ads.length; _adIds++) {
+                        _ad = response.ads[_adIds];
+                        for (_crIds = 0; _crIds < _ad.creatives.length; _crIds++) {
+                            _creative = _ad.creatives[_crIds];
+                            _foundCreative = false;
+                            _foundCompanion = false;
+
+                            if (_creative.type === 'linear' && !_foundCreative) {
+                                if (_creative.mediaFiles.length) {
+                                    this.sources = this.createSourceObjects(_creative.mediaFiles);
+
+                                    if (!this.sources.length) {
+                                        _self.trigger("adcanceled");
+                                        return;
+                                    }
+
+                                    this.vastTracker = new VASTTracker(_ad, _creative);
+                                    _foundCreative = true;
+                                }
+                            }
+
+                            if (_creative.type === 'companion' && !_foundCompanion) {
+                                this.companion = _creative;
+                                _foundCompanion = true;
+                            }
+                        }
+                        if (this.vastTracker) {
+                            _self.trigger("vastready");
+                            break;
+                        } else {
+                            VASTAd.trackAd(_ad.errorURLTemplates, {
+                                ERRORCODE: 403
+                            });
+                        }
+                    }
+
+                    if (!this.vastTracker) {
+                        this.trigger("adcanceled");
+                    }
+                },
+
+                createSourceObjects: function(mediaFiles) {
+                    var _sources, _mediaFile, _source;
+                    _sources = [];
+                    for (var i = 0, j = mediaFiles.length; i < j; i++) {
+                        _mediaFile = mediaFiles[i];
+                        _source = {
+                            type: _mediaFile.mimeType,
+                            src: _mediaFile.fileURL
+                        };
+
+                        if (this._canPlaySource(_source)) {
+                            _sources[i] = ({
+                                type: _mediaFile.mimeType,
+                                src: _mediaFile.fileURL,
+                                width: _mediaFile.width,
+                                height: _mediaFile.height
+                            });
+                        }
+                    }
+
+                    return _sources;
+                },
+
+                _canPlaySource: function(source) {
+                    var _ext, _mimeType, _allowedMimeTypes;
+                    _allowedMimeTypes = [
+                        "application/vnd.apple.mpegurl",
+                        "video/3gpp",
+                        "video/mp4",
+                        "video/mpeg",
+                        "video/ogg",
+                        "video/quicktime",
+                        "video/webm",
+                        "video/x-m4v",
+                        "video/ms-asf",
+                        "video/x-ms-wmv",
+                        "video/x-msvideo"
+                    ];
+
+                    if (source.type) {
+                        _mimeType = source.type;
+                    } else if (source.src) {
+                        _ext = this._ext(source.src);
+                        _mimeType = 'video/' + _ext;
+                    } else {
+                        return false;
+                    }
+
+                    return Objs.contains_value(_allowedMimeTypes, _mimeType);
+                },
+
+                _ext: function(url) {
+                    return (url = url.substr(1 + url.lastIndexOf("/")).split('?')[0]).split('#')[0].substr(url.lastIndexOf("."));
+                },
+
+                /**
+                 * Runs the callback at the next available opportunity.
+                 * @see https://developer.mozilla.org/en-US/docs/Web/API/window.setImmediate
+                 */
+                setImmediate: function(cb) {
+                    return (
+                        window.setImmediate ||
+                        window.requestAnimationFrame ||
+                        window.mozRequestAnimationFrame ||
+                        window.webkitRequestAnimationFrame ||
+                        window.setTimeout
+                    )(cb, 0);
+                },
+
+                /**
+                 * Clears a callback previously registered with `setImmediate`.
+                 * @param {id} id The identifier of the callback to abort
+                 */
+                clearImmediate: function(id) {
+                    return (window.clearImmediate ||
+                        window.cancelAnimationFrame ||
+                        window.webkitCancelAnimationFrame ||
+                        window.mozCancelAnimationFrame ||
+                        window.clearTimeout)(id);
+                }
+            };
+        }]);
+    }
+);
+
+Scoped.define("module:Ads.VAST.Response", ["module:Ads.VAST.Ad"], function(VASTAd, scoped) {
+    return VASTAd.extend({
+        scoped: scoped
+    }, function(inherited) {
+        return {
+            constructor: function() {
+                this.ads = [];
+                this.errorURLTemplates = [];
+            }
+        };
+    });
+});
+
+Scoped.define("module:Ads.VAST.CompanionAd", ["module:Ads.VAST.Ad"], function(VASTAd, scoped) {
+    return VASTAd.extend({
+        scoped: scoped
+    }, function(inherited) {
+        return {
+            constructor: function() {
+                inherited.constructor.call(this);
+                this.id = null;
+                this.width = 0;
+                this.height = 0;
+                this.type = null;
+                this.staticResource = null;
+                this.htmlRecource = null;
+                this.iframeResource = null;
+                this.altText = null;
+                this.companionClickThroughURLTemplate = null;
+                this.companionClickTrackingURLTemplates = [];
+            }
+        };
+    });
+});
+
+Scoped.define("module:Ads.VAST.Creative", ["module:Ads.VAST.Ad"], function(VASTAd, scoped) {
+    return VASTAd.extend({
+        scoped: scoped
+    }, function(inherited) {
+        return {
+            constructor: function(creativeAttributes) {
+                inherited.constructor.call(this);
+
+                if (creativeAttributes === null) {
+                    creativeAttributes = {};
+                }
+
+                this.id = creativeAttributes.id || null;
+                this.adId = creativeAttributes.adId || null;
+                this.sequence = creativeAttributes.sequence || null;
+                this.apiFramework = creativeAttributes.apiFramework || null;
+
+            }
+        };
+    });
+});
+
+Scoped.define("module:Ads.VAST.CreativeLinear", ["module:Ads.VAST.Ad"], function(VASTAd, scoped) {
+    return VASTAd.extend({
+        scoped: scoped
+    }, function(inherited) {
+        return {
+            constructor: function() {
+                inherited.constructor.call(this);
+                this.type = "linear";
+                this.duration = 0;
+                this.skipDelay = null;
+                this.mediaFiles = [];
+                this.videoClickThroughURLTemplate = null;
+                this.videoClickTrackingURLTemplates = [];
+                this.videoCustomClickURLTemplates = [];
+                this.adParameters = null;
+                this.icons = [];
+            }
+        };
+    });
+});
+
+Scoped.define("module:Ads.VAST.CreativeNonLinear", ["module:Ads.VAST.Ad"], function(VASTAd, scoped) {
+    return VASTAd.extend({
+        scoped: scoped
+    }, function(inherited) {
+        return {
+            constructor: function() {
+                inherited.constructor.call(this);
+                this.type = "nonlinear";
+                this.variations = [];
+
+            }
+        };
+    });
+});
+
+Scoped.define("module:Ads.VAST.AdExtension", ["module:Ads.VAST.Ad"], function(VASTAd, scoped) {
+    return VASTAd.extend({
+        scoped: scoped
+    }, function(inherited) {
+        return {
+            constructor: function() {
+                inherited.constructor.call(this);
+                this.attributes = {};
+                this.children = [];
+            }
+        };
+    });
+});
+
+
+Scoped.define("module:Ads.VAST.AdExtensionChild", ["module:Ads.VAST.Ad"], function(VASTAd, scoped) {
+    return VASTAd.extend({
+        scoped: scoped
+    }, function(inherited) {
+        return {
+            constructor: function() {
+                inherited.constructor.call(this);
+                this.name = null;
+                this.value = null;
+                this.attributes = {};
+            }
+        };
+    });
+});
+
+
+Scoped.define("module:Ads.VAST.Icon", ["module:Ads.VAST.Ad"], function(VASTAd, scoped) {
+    return VASTAd.extend({
+        scoped: scoped
+    }, function(inherited) {
+        return {
+            constructor: function() {
+                inherited.constructor.call(this);
+                this.program = null;
+                this.height = 0;
+                this.width = 0;
+                this.xPosition = 0;
+                this.yPosition = 0;
+                this.apiFramework = null;
+                this.offset = null;
+                this.duration = 0;
+                this.type = null;
+                this.staticResource = null;
+                this.htmlResource = null;
+                this.iframeResource = null;
+                this.iconClickThroughURLTemplate = null;
+                this.iconClickTrackingURLTemplates = [];
+                this.iconViewTrackingURLTemplate = null;
+            }
+        };
+    });
+});
+
+Scoped.define("module:Ads.VAST.MediaFile", ["module:Ads.VAST.Ad"], function(VASTAd, scoped) {
+    return VASTAd.extend({
+        scoped: scoped
+    }, function(inherited) {
+        return {
+            constructor: function(inherited) {
+                this.id = null;
+                this.fileURL = null;
+                this.deliveryType = "progressive";
+                this.mimeType = null;
+                this.codec = null;
+                this.bitrate = 0;
+                this.minBitrate = 0;
+                this.maxBitrate = 0;
+                this.width = 0;
+                this.height = 0;
+                this.apiFramework = null;
+                this.scalable = null;
+                this.maintainAspectRatio = null;
+            }
+        };
+    });
+});
+
+Scoped.define("module:Ads.VAST.CreativeCompanion", ["module:Ads.VAST.Ad"], function(VASTAd, scoped) {
+    return VASTAd.extend({
+        scoped: scoped
+    }, function(inherited) {
+        return {
+            constructor: function(inherited) {
+                inherited.constructor.call(this);
+                this.type = "companion";
+                this.variations = [];
+
+            }
+        };
+    });
+});
+
+Scoped.define("module:Ads.VAST.NonLinear", ["module:Ads.VAST.Ad"], function(VASTAd, scoped) {
+    return VASTAd.extend({
+        scoped: scoped
+    }, function(inherited) {
+        return {
+            constructor: function() {
+                inherited.constructor.call(this);
+                this.id = null;
+                this.width = 0;
+                this.height = 0;
+                this.expandedWidth = 0;
+                this.expandedHeight = 0;
+                this.scalable = true;
+                this.maintainAspectRatio = true;
+                this.minSuggestedDuration = 0;
+                this.apiFramework = "static";
+                this.type = null;
+                this.staticResource = null;
+                this.htmlResource = null;
+                this.iframeResource = null;
+                this.nonlinearClickThroughURLTemplate = null;
+                this.nonlinearClickTrackingURLTemplates = [];
+                this.adParameters = null;
+            }
+        };
+    });
 });
 Scoped.define("module:Assets", [
     "base:Classes.LocaleTable",
@@ -199,6 +2086,221 @@ Scoped.define("module:Assets", [
         recorderthemes: {}
 
     };
+});
+Scoped.define("module:VideoPlayer.Dynamics.Adplayer", [
+    "dynamics:Dynamic",
+    "base:TimeFormat",
+    "base:Comparators",
+    "base:Timers",
+    "browser:Dom",
+    "browser:Info",
+    "browser:Events",
+    "media:Player.VideoPlayerWrapper",
+    "media:Player.Support",
+    "module:Assets"
+], [
+    "dynamics:Partials.StylesPartial",
+    "dynamics:Partials.ShowPartial",
+    "dynamics:Partials.IfPartial",
+    "dynamics:Partials.ClickPartial",
+    "dynamics:Partials.EventPartial",
+    "dynamics:Partials.OnPartial"
+], function(Class, TimeFormat, Comparators, Timers, Dom, Info, DOMEvents, VideoPlayerWrapper, PlayerSupport, Assets, scoped) {
+    return Class.extend({
+            scoped: scoped
+        }, function(inherited) {
+            return {
+
+                template: "<div class=\"{{css}}-ad-dashboard\">\n    <div class=\"{{css}}-ad-click-tracker\" ba-click=\"{{ad_clicked()}}\"></div>\n    <div data-selector=\"ad-title\" class=\"{{css}}-ad-title\">\n        <p>{{adtitle}}</p>\n    </div>\n    <div class=\"{{css}}-skipbutton-container\">\n        <a class=\"{{css}}-skipbutton\" ba-show=\"{{skipbuttonvisible}}\" ba-click=\"skip_linear_ad()\">Skip ad in {{lefttillskip}} seconds</a>\n    </div>\n\n    <div class=\"{{css}}-companion-ad-container\" ba-show=\"{{companionadvisible}}\">\n        <div class=\"{{css}}-close-companion-ad\" ba-click=\"skip_companion_ad()\">X</div>\n        <img class=\"{{css}}-companion-ad\" src=\"\"/>\n    </div>\n\n    <div class=\"{{css}}-controlbar\">\n\n        <div data-selector=\"button-icon-play\" class=\"{{css}}-leftbutton-container\"\n             ba-show=\"{{canpause}}\" ba-if=\"{{!adplaying}}\" ba-click=\"play_ad()\" title=\"{{string('play-video')}}\">\n            <div class=\"{{css}}-button-inner\">\n                <i class=\"{{css}}-icon-play\"></i>\n            </div>\n        </div>\n        <div data-selector=\"button-icon-pause\" class=\"{{css}}-leftbutton-container\"\n             ba-if=\"{{adplaying}}\" ba-click=\"pause_ad()\" ba-show=\"{{canpause}}\" title=\"{{string('pause-video')}}\">\n            <div class=\"{{css}}-button-inner\">\n                <i class=\"{{css}}-icon-pause\"></i>\n            </div>\n        </div>\n        <div class=\"{{css}}-time-container\">\n            <div class=\"{{css}}-time-value\" title=\"{{string('elapsed-time')}}\">{{formatTime(adduration)}}</div>\n        </div>\n\n        <div data-selector=\"video-title-block\" class=\"{{css}}-video-title-container\" ba-if=\"{{title}}\">\n            <p class=\"{{css}}-video-title\">\n                {{title}}\n            </p>\n        </div>\n\n        <div data-selector=\"button-icon-resize-full\" class=\"{{css}}-rightbutton-container\"\n             ba-if=\"{{fullscreen}}\" ba-click=\"toggle_ad_fullscreen()\" title=\"{{ fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video') }}\">\n            <div class=\"{{css}}-button-inner\">\n                <i class=\"{{css}}-icon-resize-{{fullscreened ? 'small' : 'full'}}\"></i>\n            </div>\n        </div>\n\n        <div class=\"{{css}}-volumebar\">\n            <div data-selector=\"button-volume-bar\" class=\"{{css}}-volumebar-inner\"\n                 onmousedown=\"{{startUpdateAdVolume(domEvent)}}\"\n                 onmouseup=\"{{stopUpdateAdVolume(domEvent)}}\"\n                 onmouseleave=\"{{stopUpdateAdVolume(domEvent)}}\"\n                 onmousemove=\"{{progressUpdateAdVolume(domEvent)}}\">\n                <div class=\"{{css}}-volumebar-position\" ba-styles=\"{{{width: Math.min(100, Math.round(volume * 100)) + '%'}}}\">\n                    <div class=\"{{css}}-volumebar-button\" title=\"{{string('volume-button')}}\"></div>\n                </div>\n            </div>\n        </div>\n\n        <div data-selector=\"button-icon-volume\" class=\"{{css}}-rightbutton-container\" ba-click=\"toggle_ad_volume()\" title=\"{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}\">\n            <div class=\"{{css}}-button-inner\">\n                <i class=\"{{css + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}\"></i>\n            </div>\n        </div>\n\n    </div>\n</div>\n",
+
+                attrs: {
+                    "css": "ba-videoadplayer",
+                    "lefttillskip": 0,
+                    "adduration": 0,
+                    "duration": 0,
+                    "advolume": 1.0,
+                    "adplaying": false,
+                    "companionadvisible": false,
+                    "skipbuttonvisible": false,
+                    "canpause": false,
+                    "fullscreen": true,
+                    "fullscreened": false,
+                    "disablepause": false,
+                    "title": ""
+                },
+
+                functions: {
+
+                    formatTime: function(time) {
+                        time = Math.max(time || 0, 1);
+                        return TimeFormat.format(TimeFormat.ELAPSED_MINUTES_SECONDS, time * 1000);
+                    },
+
+                    startUpdateAdVolume: function(event) {
+                        event[0].preventDefault();
+                        this.set("_updateAdVolume", true);
+                        this.call("progressUpdateAdVolume", event);
+                    },
+
+                    progressUpdateAdVolume: function(event) {
+                        var ev = event[0];
+                        ev.preventDefault();
+                        if (!this.get("_updateAdVolume"))
+                            return;
+                        var clientX = ev.clientX;
+                        var target = ev.currentTarget;
+                        var offset = Dom.elementOffset(target);
+                        var dimensions = Dom.elementDimensions(target);
+                        this.set("advolume", (clientX - offset.left) / (dimensions.width || 1));
+                        this.trigger("advolume", this.get("advolume"));
+                    },
+
+                    stopUpdateAdVolume: function(event) {
+                        event[0].preventDefault();
+                        this.set("_updateVolume", false);
+                    },
+
+                    play_ad: function() {
+                        this.trigger("play");
+                    },
+
+                    pause_ad: function() {
+                        this._pauseLinearAd();
+                    },
+
+                    skip_ad: function() {
+                        this.trigger("adskipped");
+                    },
+
+                    toggle_ad_volume: function() {
+                        if (this.get("advolume") > 0) {
+                            this.__oldVolume = this.get("advolume");
+                            this.set("advolume", 0);
+                        } else
+                            this.set("advolume", this.__oldVolume || 1);
+                        this.trigger("advolume", this.get("advolume"));
+                    },
+
+                    toggle_ad_fullscreen: function() {
+                        this.trigger("fullscreen");
+                    },
+
+                    skip_linear_ad: function() {
+                        this._stopLinearAd();
+                    },
+
+                    skip_companion_ad: function() {
+
+                    },
+
+                    ad_clicked: function() {
+
+                    }
+                },
+
+                create: function() {
+                    var _adElementHolder, _source, _duration, _adBlock;
+
+                    this._dyn = this.parent();
+                    _adBlock = this._dyn.activeElement().querySelector("[data-video='ad']");
+
+                    _adBlock.style.display = 'none';
+                    this._dyn._vast.once("adfire", function() {
+                        _adElementHolder = this._dyn.activeElement().querySelector("[data-video='ad-video']");
+                        _duration = this._dyn._vast.vastTracker.assetDuration;
+                        _source = this._dyn._vast.sources[0];
+
+                        this._attachLinearAd(_adElementHolder, _source, _duration);
+                    }, this);
+
+                    this._dyn._vast.on("adplaying", function() {
+                        _adBlock.style.display = 'block';
+                        if (this._dyn.get("playing")) {
+                            this._dyn.player.pause();
+                            this._dyn.set("playing", false);
+                        }
+                    }, this);
+
+                    this._dyn._vast.on("resumeplayer", function() {
+                        _adBlock.style.display = 'none';
+                        this._dyn.activeElement().querySelector("[data-video='ad-video']").style.display = "none";
+                        this._dyn.player.play();
+
+                        this._dyn.set("adpodplaying", false);
+                        this._dyn.set("adslot_active", false);
+                        this._dyn.set("controlbar_active", true);
+
+                        this._dyn.set("playing", true);
+                    }, this);
+                },
+
+                _attachLinearAd: function(element, source, duration) {
+                    VideoPlayerWrapper.create({
+                        element: element,
+                        source: source.src,
+                        type: source.type
+                    }).error(function(err) {
+                        // trigger error related to loading video content
+                        this._dyn._vast.trigger("resumeplayer");
+                    }, this).success(function(instance) {
+                        this.__adPlayer = instance;
+                        this.set("adduration", duration * 1000);
+
+                        this._dyn.set("controlbar_active", false);
+                        this._dyn.set("adslot_active", true);
+                        this._dyn.set("adpodplaying", true);
+
+                        this._playLinearAd();
+                        this._timer = new Timers.Timer({
+                            context: this,
+                            fire: this._timerFire,
+                            delay: 1000,
+                            start: true
+                        });
+                    }, this);
+                },
+
+                _timerFire: function() {
+                    var timeLeft = this.get("adduration");
+                    this.set("adduration", timeLeft - 1000);
+                    if (this.get("adduration") === 0) {
+                        this._dyn._vast.trigger("resumeplayer");
+                        this._timer.destroy();
+                    }
+                },
+
+                _playLinearAd: function() {
+                    this.__adPlayer.play();
+                    this.set("adplaying", true);
+                    this._dyn._vast.trigger("adplaying");
+                },
+
+                _pauseLinearAd: function() {
+                    if (this.__adPlayer.playing) {
+                        this.__adPlayer.pause();
+                        this._dyn._vast.trigger("adpaused");
+                    }
+                },
+
+                _stopLinearAd: function() {
+                    this.__adPlayer.stop();
+                    this._dyn._vast.trigger("resumeplayer");
+                }
+            };
+        })
+        .register("ba-videoplayer-adslot")
+        .attachStringTable(Assets.strings)
+        .addStrings({
+            "play-video": "Play",
+            "pause-video": "Pause",
+            "pause-video-disabled": "Pause not supported",
+            "elapsed-time": "Elasped time",
+            "fullscreen-video": "Enter fullscreen",
+            "exit-fullscreen-video": "Exit fullscreen",
+            "volume-button": "Set volume",
+            "volume-mute": "Mute sound",
+            "volume-unmute": "Unmute sound"
+        });
 });
 Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
     "dynamics:Dynamic",
@@ -524,6 +2626,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.PlayerStates.Initial",
     "module:VideoPlayer.Dynamics.PlayerStates",
     "module:Ads.AbstractVideoAdProvider",
+    "module:Ads.VAST.VAST",
     "browser:Events"
 ], [
     "module:VideoPlayer.Dynamics.Playbutton",
@@ -531,16 +2634,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.Loader",
     "module:VideoPlayer.Dynamics.Share",
     "module:VideoPlayer.Dynamics.Controlbar",
+    "module:VideoPlayer.Dynamics.Adplayer",
     "dynamics:Partials.EventPartial",
     "dynamics:Partials.OnPartial",
     "dynamics:Partials.TemplatePartial"
-], function(Class, Assets, Info, Dom, VideoPlayerWrapper, Broadcasting, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
+], function(Class, Assets, Info, Dom, VideoPlayerWrapper, Broadcasting, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, InitialState, PlayerStates, AdProvider, VAST, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
             return {
 
-                template: "<div itemscope itemtype=\"http://schema.org/VideoObject\"\n    class=\"{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}} {{css}}-{{ fullscreened ? 'fullscreen' : 'normal' }}-view {{css}}-{{ firefox ? 'firefox' : 'common'}}-browser\n    {{css}}-{{themecolor}}-color\"\n    ba-on:mousemove=\"user_activity()\"\n    ba-on:mousedown=\"user_activity(true)\"\n    ba-on:touchstart=\"user_activity(true)\"\n    style=\"{{width ? 'width:' + width + ((width + '').match(/^\\d+$/g) ? 'px' : '') + ';' : ''}}{{height ? 'height:' + height + ((height + '').match(/^\\d+$/g) ? 'px' : '') + ';' : ''}}\"\n>\n    <video class=\"{{css}}-video\" data-video=\"video\" ba-toggle:playsinline=\"{{!playfullscreenonmobile}}\"></video>\n    <div class=\"{{css}}-overlay\" data-video=\"ad\" style=\"display:none\"></div>\n    <div class='{{css}}-overlay'>\n\t\t<div class=\"{{css}}-player-toggle-overlay\" ba-on:click=\"toggle_player()\"></div>\n\t    <ba-{{dyncontrolbar}}\n\t\t    ba-css=\"{{csscontrolbar || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplcontrolbar}}\"\n\t\t    ba-show=\"{{controlbar_active}}\"\n\t\t    ba-playing=\"{{playing}}\"\n\t\t\tba-playwhenvisible=\"{{playwhenvisible}}\"\n            ba-airplay=\"{{airplay}}\"\n\t\t\tba-airplaybuttonvisible=\"{{airplaybuttonvisible}}\"\n            ba-chromecast=\"{{chromecast}}\"\n            ba-castbuttonvisble=\"{{castbuttonvisble}}\"\n\t\t    ba-event:rerecord=\"rerecord\"\n\t\t    ba-event:submit=\"submit\"\n\t\t    ba-event:play=\"play\"\n\t\t    ba-event:pause=\"pause\"\n\t\t    ba-event:position=\"seek\"\n\t\t    ba-event:volume=\"set_volume\"\n\t\t    ba-event:fullscreen=\"toggle_fullscreen\"\n\t\t    ba-volume=\"{{volume}}\"\n\t\t    ba-duration=\"{{duration}}\"\n\t\t    ba-cached=\"{{buffered}}\"\n\t\t    ba-title=\"{{title}}\"\n\t\t    ba-position=\"{{position}}\"\n\t\t    ba-activitydelta=\"{{activity_delta}}\"\n\t\t    ba-hideoninactivity=\"{{hideoninactivity}}\"\n\t\t    ba-rerecordable=\"{{rerecordable}}\"\n\t\t    ba-submittable=\"{{submittable}}\"\n\t\t    ba-streams=\"{{streams}}\"\n\t\t    ba-currentstream=\"{{=currentstream}}\"\n\t\t    ba-fullscreen=\"{{fullscreensupport && !nofullscreen}}\"\n            ba-fullscreened=\"{{fullscreened}}\"\n            ba-source=\"{{source}}\"\n\t\t\tba-disablepause=\"{{disablepause}}\"\n\t\t\tba-disableseeking=\"{{disableseeking}}\"\n\t\t></ba-{{dyncontrolbar}}>\n\t\t\n\t\t<ba-{{dynplaybutton}}\n\t\t    ba-css=\"{{cssplaybutton || css}}\"\n\t\t\tba-theme-color=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplplaybutton}}\"\n\t\t    ba-show=\"{{playbutton_active}}\"\n\t\t    ba-rerecordable=\"{{rerecordable}}\"\n\t\t    ba-submittable=\"{{submittable}}\"\n\t\t    ba-event:play=\"playbutton_click\"\n\t\t    ba-event:rerecord=\"rerecord\"\n\t\t    ba-event:submit=\"submit\"\n\t\t></ba-{{dynplaybutton}}>\n\t\t\n\t\t<ba-{{dynloader}}\n\t\t    ba-css=\"{{cssloader || css}}\"\n\t\t\tba-theme-color=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplloader}}\"\n\t\t\tba-playwhenvisible=\"{{playwhenvisible}}\"\n\t\t    ba-show=\"{{loader_active}}\"\n\t\t></ba-{{dynloader}}>\n\n\t\t<ba-{{dynshare}}\n\t\t\tba-css=\"{{cssshare || css}}\"\n\t\t\tba-theme-color=\"{{themecolor}}\"\n\t\t\tba-template=\"{{tmplshare}}\"\n        \tba-show=\"{{sharevideourl && sharevideo.length > 0}}\"\n\t\t\tba-url=\"{{sharevideourl}}\"\n\t\t\tba-shares=\"{{sharevideo}}\"\n\t\t></ba-{{dynshare}}>\n\t\t\n\t\t<ba-{{dynmessage}}\n\t\t    ba-css=\"{{cssmessage || css}}\"\n\t\t\tba-theme-color=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplmessage}}\"\n\t\t    ba-show=\"{{message_active}}\"\n\t\t    ba-message=\"{{message}}\"\n\t\t    ba-event:click=\"message_click\"\n\t\t></ba-{{dynmessage}}>\n\n\t\t<ba-{{dyntopmessage}}\n\t\t    ba-css=\"{{csstopmessage || css}}\"\n\t\t\tba-theme-color=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmpltopmessage}}\"\n\t\t    ba-show=\"{{topmessage}}\"\n\t\t    ba-topmessage=\"{{topmessage}}\"\n\t\t></ba-{{dyntopmessage}}>\n\t\t\n\t\t<meta itemprop=\"caption\" content=\"{{title}}\" />\n\t\t<meta itemprop=\"thumbnailUrl\" content=\"{{poster}}\"/>\n\t\t<meta itemprop=\"contentUrl\" content=\"{{source}}\"/>\n    </div>\n</div>\n",
+                template: "<div itemscope itemtype=\"http://schema.org/VideoObject\"\n    class=\"{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}} {{css}}-{{ fullscreened ? 'fullscreen' : 'normal' }}-view {{css}}-{{ firefox ? 'firefox' : 'common'}}-browser\n    {{css}}-{{themecolor}}-color\"\n    ba-on:mousemove=\"user_activity()\"\n    ba-on:mousedown=\"user_activity(true)\"\n    ba-on:touchstart=\"user_activity(true)\"\n    style=\"{{width ? 'width:' + width + ((width + '').match(/^\\d+$/g) ? 'px' : '') + ';' : ''}}{{height ? 'height:' + height + ((height + '').match(/^\\d+$/g) ? 'px' : '') + ';' : ''}}\"\n>\n    <video class=\"{{css}}-video\" data-video=\"video\" ba-show=\"{{!adpodplaying}}\" ba-toggle:playsinline=\"{{!playfullscreenonmobile}}\"></video>\n    <div class=\"{{css}}-adslot\"  ba-show=\"{{adpodplaying}}\" data-video=\"ad\">\n\t\t<div class=\"{{css}}-ad-video\" data-video=\"ad-video\" ba-toggle:playsinline=\"{{!playfullscreenonmobile}}\" style=\"width: 100%\"></div>\n\t\t<ba-{{dynadslot}}\n\t\t\tba-css=\"{{cssadslot || css}}\"\n\t\t\tba-template=\"{{tmpladslot}}\"\n\t\t\tba-show=\"{{adslot_active}}\"\n\t\t\tba-fullscreened=\"{{fullscreened}}\">\n\t\t</ba-{{dynadslot}}>\n\t</div>\n    <div class=\"{{css}}-overlay {{css}}{{adplaying ? '-adplaying' : ''}}\" ba-show=\"{{!adpodplaying}}\">\n\t\t<div class=\"{{css}}-player-toggle-overlay\" ba-on:click=\"toggle_player()\"></div>\n\t    <ba-{{dyncontrolbar}}\n\t\t    ba-css=\"{{csscontrolbar || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplcontrolbar}}\"\n\t\t    ba-show=\"{{controlbar_active}}\"\n\t\t    ba-playing=\"{{playing}}\"\n\t\t\tba-playwhenvisible=\"{{playwhenvisible}}\"\n            ba-airplay=\"{{airplay}}\"\n\t\t\tba-airplaybuttonvisible=\"{{airplaybuttonvisible}}\"\n            ba-chromecast=\"{{chromecast}}\"\n            ba-castbuttonvisble=\"{{castbuttonvisble}}\"\n\t\t    ba-event:rerecord=\"rerecord\"\n\t\t    ba-event:submit=\"submit\"\n\t\t    ba-event:play=\"play\"\n\t\t    ba-event:pause=\"pause\"\n\t\t    ba-event:position=\"seek\"\n\t\t    ba-event:volume=\"set_volume\"\n\t\t    ba-event:fullscreen=\"toggle_fullscreen\"\n\t\t    ba-volume=\"{{volume}}\"\n\t\t    ba-duration=\"{{duration}}\"\n\t\t    ba-cached=\"{{buffered}}\"\n\t\t    ba-title=\"{{title}}\"\n\t\t    ba-position=\"{{position}}\"\n\t\t    ba-activitydelta=\"{{activity_delta}}\"\n\t\t    ba-hideoninactivity=\"{{hideoninactivity}}\"\n\t\t    ba-rerecordable=\"{{rerecordable}}\"\n\t\t    ba-submittable=\"{{submittable}}\"\n\t\t    ba-streams=\"{{streams}}\"\n\t\t    ba-currentstream=\"{{=currentstream}}\"\n\t\t    ba-fullscreen=\"{{fullscreensupport && !nofullscreen}}\"\n            ba-fullscreened=\"{{fullscreened}}\"\n            ba-source=\"{{source}}\"\n\t\t\tba-disablepause=\"{{disablepause}}\"\n\t\t\tba-disableseeking=\"{{disableseeking}}\"\n\t\t></ba-{{dyncontrolbar}}>\n\t\t\n\t\t<ba-{{dynplaybutton}}\n\t\t    ba-css=\"{{cssplaybutton || css}}\"\n\t\t\tba-theme-color=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplplaybutton}}\"\n\t\t    ba-show=\"{{playbutton_active}}\"\n\t\t    ba-rerecordable=\"{{rerecordable}}\"\n\t\t    ba-submittable=\"{{submittable}}\"\n\t\t    ba-event:play=\"playbutton_click\"\n\t\t    ba-event:rerecord=\"rerecord\"\n\t\t    ba-event:submit=\"submit\"\n\t\t></ba-{{dynplaybutton}}>\n\t\t\n\t\t<ba-{{dynloader}}\n\t\t    ba-css=\"{{cssloader || css}}\"\n\t\t\tba-theme-color=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplloader}}\"\n\t\t\tba-playwhenvisible=\"{{playwhenvisible}}\"\n\t\t    ba-show=\"{{loader_active}}\"\n\t\t></ba-{{dynloader}}>\n\n\t\t<ba-{{dynshare}}\n\t\t\tba-css=\"{{cssshare || css}}\"\n\t\t\tba-theme-color=\"{{themecolor}}\"\n\t\t\tba-template=\"{{tmplshare}}\"\n        \tba-show=\"{{sharevideourl && sharevideo.length > 0}}\"\n\t\t\tba-url=\"{{sharevideourl}}\"\n\t\t\tba-shares=\"{{sharevideo}}\"\n\t\t></ba-{{dynshare}}>\n\t\t\n\t\t<ba-{{dynmessage}}\n\t\t    ba-css=\"{{cssmessage || css}}\"\n\t\t\tba-theme-color=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplmessage}}\"\n\t\t    ba-show=\"{{message_active}}\"\n\t\t    ba-message=\"{{message}}\"\n\t\t    ba-event:click=\"message_click\"\n\t\t></ba-{{dynmessage}}>\n\n\t\t<ba-{{dyntopmessage}}\n\t\t    ba-css=\"{{csstopmessage || css}}\"\n\t\t\tba-theme-color=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmpltopmessage}}\"\n\t\t    ba-show=\"{{topmessage}}\"\n\t\t    ba-topmessage=\"{{topmessage}}\"\n\t\t></ba-{{dyntopmessage}}>\n\t\t\n\t\t<meta itemprop=\"caption\" content=\"{{title}}\" />\n\t\t<meta itemprop=\"thumbnailUrl\" content=\"{{poster}}\"/>\n\t\t<meta itemprop=\"contentUrl\" content=\"{{source}}\"/>\n    </div>\n</div>\n",
 
                 attrs: {
                     /* CSS */
@@ -551,6 +2655,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "cssmessage": "",
                     "csstopmessage": "",
                     "csscontrolbar": "",
+                    "cssadslot": "",
                     "width": "",
                     "height": "",
                     /* Themes */
@@ -564,6 +2669,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "dyntopmessage": "videoplayer-topmessage",
                     "dyncontrolbar": "videoplayer-controlbar",
                     "dynshare": "videoplayer-share",
+                    "dynadslot": "videoplayer-adslot",
                     /* Templates */
                     "tmplplaybutton": "",
                     "tmplloader": "",
@@ -571,6 +2677,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "tmplshare": "",
                     "tmpltopmessage": "",
                     "tmplcontrolbar": "",
+                    "tmpladslot": "",
                     /* Attributes */
                     "poster": "",
                     "source": "",
@@ -595,6 +2702,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     /* Ads */
                     "adprovider": null,
                     "preroll": false,
+                    "vast": [],
+                    "adpodplaying": false,
                     /* Options */
                     "rerecordable": false,
                     "submittable": false,
@@ -694,6 +2803,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (Types.is_string(this._adProvider))
                             this._adProvider = AdProvider.registry[this._adProvider];
                     }
+                    if (this.get('vast')) {
+                        this._vast = new VAST(this.get('vast'));
+
+                        this._vast.once("adresponseerror", function(err) {
+                            // some error actions, no respond from ad server
+                        }, this);
+                    }
                     if (this.get("playlist")) {
                         var pl0 = (this.get("playlist"))[0];
                         this.set("poster", pl0.poster);
@@ -716,6 +2832,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("playbutton_active", false);
                     this.set("controlbar_active", false);
                     this.set("message_active", false);
+                    this.set("adslot_active", false);
 
                     this.set("last_activity", Time.now());
                     this.set("activity_delta", 0);
@@ -1207,7 +3324,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
                 "loader": false,
                 "message": false,
                 "playbutton": false,
-                "controlbar": false
+                "controlbar": false,
+                "adslot": false
             }, Objs.objectify(this.dynamics)), function(value, key) {
                 this.dyn.set(key + "_active", value);
             }, this);
@@ -1222,7 +3340,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
 
     }]);
 });
-
 
 
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.FatalError", [
@@ -1241,10 +3358,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.FatalError", [
 
     });
 });
-
-
-
-
 
 
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Initial", [
@@ -1359,6 +3472,10 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Preroll", [
                 this.dyn._prerollAd.once("finished", function() {
                     this.next("LoadVideo");
                 }, this);
+                this.dyn._prerollAd.once("adskipped", function() {
+                    this.next("LoadVideo");
+                }, this);
+                // TODO: video height and width return NaN before ad start even when ba-width/ba-height are provided
                 this.dyn._prerollAd.executeAd({
                     width: this.dyn.videoWidth(),
                     height: this.dyn.videoHeight()
@@ -1486,8 +3603,11 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
         },
 
         play: function() {
-            if (!this.dyn.get("playing"))
+            if (!this.dyn.get("playing") && !this.dyn._vast) {
                 this.dyn.player.play();
+            } else {
+                this.dyn._vast.trigger("adfire");
+            }
         }
 
     });

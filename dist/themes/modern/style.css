@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.66 - 2017-07-25
+betajs-media-components - v0.0.67 - 2017-09-12
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -738,6 +738,9 @@ Apache-2.0 Software License.
   display: inline-block;
   position: relative;
   overflow: hidden; }
+
+.ba-videoplayer-theme-modern-overlay.ba-videoplayer-theme-modern-adplaying {
+  display: none; }
 
 .ba-videoplayer-theme-modern-overlay, .ba-videoplayer-theme-modern-player-toggle-overlay {
   position: absolute;

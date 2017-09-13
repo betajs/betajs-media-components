@@ -63,7 +63,7 @@ Scoped.define("module:Ads.VAST.Parser", [
                     // TODO: remove after development
                     //this.trigger('VAST-error', errorCode);
                     console.warn('Error code related vast video:', errorCode);
-                    return this.trackAd(templates, errorCode);
+                    return VASTAd.trackAd(templates, errorCode);
                 },
 
                 _parse: function(url, parentURLs, options, cb) {

@@ -21,7 +21,6 @@ Scoped.define("module:Ads.VAST.VAST", [
                     this.companion = undefined;
                     this.sources = [];
                     this.companion = {};
-                    this.skipAdAfter = null;
 
                     _self = this;
                     _promise = Promise.create();
@@ -64,41 +63,46 @@ Scoped.define("module:Ads.VAST.VAST", [
                     var _ad, _adIds, _crIds, _creative, _foundCreative, _foundCompanion, _self;
                     _self = this;
 
-                    for (_adIds = 0; _adIds < response.ads.length; _adIds++) {
-                        _ad = response.ads[_adIds];
-                        for (_crIds = 0; _crIds < _ad.creatives.length; _crIds++) {
-                            _creative = _ad.creatives[_crIds];
-                            _foundCreative = false;
-                            _foundCompanion = false;
+                    if (response)
+                        for (_adIds = 0; _adIds < response.ads.length; _adIds++) {
+                            _ad = response.ads[_adIds];
+                            for (_crIds = 0; _crIds < _ad.creatives.length; _crIds++) {
+                                _creative = _ad.creatives[_crIds];
+                                _foundCreative = false;
+                                _foundCompanion = false;
 
-                            if (_creative.type === 'linear' && !_foundCreative) {
-                                if (_creative.mediaFiles.length) {
-                                    this.sources = this.createSourceObjects(_creative.mediaFiles);
+                                if (_creative.type === 'linear' && !_foundCreative) {
+                                    if (_creative.skipDelay > 0)
+                                        this.skipAdAfter = _creative.skipDelay;
 
-                                    if (!this.sources.length) {
-                                        _self.trigger("adcanceled");
-                                        return;
+                                    if (_creative.mediaFiles.length) {
+
+                                        this.sources = this.createSourceObjects(_creative.mediaFiles);
+
+                                        if (!this.sources.length) {
+                                            _self.trigger("adcanceled");
+                                            return;
+                                        }
+
+                                        this.vastTracker = new VASTTracker(_ad, _creative);
+                                        _foundCreative = true;
                                     }
+                                }
 
-                                    this.vastTracker = new VASTTracker(_ad, _creative);
-                                    _foundCreative = true;
+                                if (_creative.type === 'companion' && !_foundCompanion) {
+                                    this.companion = _creative;
+                                    _foundCompanion = true;
                                 }
                             }
-
-                            if (_creative.type === 'companion' && !_foundCompanion) {
-                                this.companion = _creative;
-                                _foundCompanion = true;
+                            if (this.vastTracker) {
+                                _self.trigger("vastready");
+                                break;
+                            } else {
+                                VASTAd.trackAd(_ad.errorURLTemplates, {
+                                    ERRORCODE: 403
+                                });
                             }
                         }
-                        if (this.vastTracker) {
-                            _self.trigger("vastready");
-                            break;
-                        } else {
-                            VASTAd.trackAd(_ad.errorURLTemplates, {
-                                ERRORCODE: 403
-                            });
-                        }
-                    }
 
                     if (!this.vastTracker) {
                         this.trigger("adcanceled");

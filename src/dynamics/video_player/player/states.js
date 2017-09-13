@@ -294,10 +294,15 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
         },
 
         play: function() {
-            if (!this.dyn.get("playing") && !this.dyn._vast) {
-                this.dyn.player.play();
-            } else {
-                this.dyn._vast.trigger("adfire");
+            if (!this.dyn.get("playing")) {
+                if (!this.dyn.get("adfired") && this.dyn._vast.vastTracker) {
+                    if (this.dyn.get("playing")) {
+                        this.dyn.player.pause();
+                    }
+                    this.dyn.set("adfired", true);
+                    this.dyn._vast.trigger("adfire");
+                } else
+                    this.dyn.player.play();
             }
         }
 

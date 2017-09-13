@@ -22,7 +22,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Adplayer", [
 
                 attrs: {
                     "css": "ba-adplayer",
-                    "lefttillskip": 5,
+                    "lefttillskip": -1,
                     "adduration": 0,
                     "duration": 0,
                     "advolume": 1.0,
@@ -107,12 +107,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Adplayer", [
 
                     this._dyn = this.parent();
                     _adBlock = this._dyn.activeElement().querySelector("[data-video='ad']");
-
                     _adBlock.style.display = 'none';
+
                     this._dyn._vast.once("adfire", function() {
                         _adElementHolder = this._dyn.activeElement().querySelector("[data-video='ad-video']");
                         _duration = this._dyn._vast.vastTracker.assetDuration;
                         _source = this._dyn._vast.sources[0];
+
+                        if (this._dyn._vast.skipAdAfter && this._dyn._vast.skipAdAfter > 0) {
+                            this.set("skipbuttonvisible", true);
+                            this.set("lefttillskip", this._dyn._vast.skipAdAfter);
+                        }
 
                         this._attachLinearAd(_adElementHolder, _source, _duration);
                     }, this);
@@ -197,18 +202,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Adplayer", [
                 _timerFire: function() {
                     var _timeLeft, _leftTillSkip;
                     _timeLeft = this.get("adduration");
-                    _leftTillSkip = this.get("lefttillskip");
+                    _leftTillSkip = this.get("lefttillskip") || -1;
 
                     this.set("adduration", --_timeLeft);
 
                     if (_leftTillSkip >= 0) {
-                        if (!this.get("skipbuttonvisible"))
-                            this.set("skipbuttonvisible", true);
+                        this.set("skipbuttonvisible", true);
+                        this.set("lefttillskip", --_leftTillSkip);
 
                         if (_leftTillSkip === 0)
                             this.set("canskip", true);
-
-                        this.set("lefttillskip", --_leftTillSkip);
                     }
 
                     if (this.get("adduration") === 0) {

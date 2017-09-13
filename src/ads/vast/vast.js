@@ -21,6 +21,7 @@ Scoped.define("module:Ads.VAST.VAST", [
                     this.companion = undefined;
                     this.sources = [];
                     this.companion = {};
+                    this.skipAdAfter = null;
 
                     _self = this;
                     _promise = Promise.create();
@@ -29,6 +30,9 @@ Scoped.define("module:Ads.VAST.VAST", [
 
                     Objs.iter(options, function(vast) {
                         if (vast.adServer) {
+                            if (vast.skipAfter) {
+                                _self.skipAdAfter = vast.skipAfter;
+                            }
                             vastClient.getAd(vast.adServer, requestOptions, function(err, response) {
                                 if (err) {
                                     var _errorMessage = 'Error occurred during loading provided link. ' + err;

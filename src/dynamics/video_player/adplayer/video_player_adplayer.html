@@ -3,8 +3,8 @@
     <div data-selector="ad-title" class="{{css}}-ad-title">
         <p>{{adtitle}}</p>
     </div>
-    <div class="{{css}}-skipbutton-container" ba-click="skip_linear_ad()">
-        <p class="{{css}}-skipbutton" ba-show="{{skipbuttonvisible}}">{{lefttillskip > 0 ? string('can-skip-after').replace('%d', lefttillskip) : string('skip-ad')}}</p>
+    <div class="{{css}}-skipbutton-container" ba-click="skip_linear_ad()"  ba-show="{{skipbuttonvisible}}">
+        <p class="{{css}}-skipbutton">{{lefttillskip > 0 ? string('can-skip-after').replace('%d', lefttillskip) : string('skip-ad')}}</p>
     </div>
 
     <div class="{{css}}-companion-ad-container" ba-show="{{companionadvisible}}">

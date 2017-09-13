@@ -93,6 +93,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "preroll": false,
                     "vast": [],
                     "adpodplaying": false,
+                    "adfired": false,
                     /* Options */
                     "rerecordable": false,
                     "submittable": false,

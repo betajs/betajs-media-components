@@ -1,13 +1,9 @@
 Scoped.define("module:VideoPlayer.Dynamics.Adplayer", [
     "dynamics:Dynamic",
     "base:TimeFormat",
-    "base:Comparators",
     "base:Timers",
     "browser:Dom",
-    "browser:Info",
-    "browser:Events",
     "media:Player.VideoPlayerWrapper",
-    "media:Player.Support",
     "module:Assets"
 ], [
     "dynamics:Partials.StylesPartial",
@@ -16,7 +12,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Adplayer", [
     "dynamics:Partials.ClickPartial",
     "dynamics:Partials.EventPartial",
     "dynamics:Partials.OnPartial"
-], function(Class, TimeFormat, Comparators, Timers, Dom, Info, DOMEvents, VideoPlayerWrapper, PlayerSupport, Assets, scoped) {
+], function(Class, TimeFormat, Timers, Dom, VideoPlayerWrapper, Assets, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -25,15 +21,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Adplayer", [
                 template: "<%= template(dirname + '/video_player_adplayer.html') %>",
 
                 attrs: {
-                    "css": "ba-videoadplayer",
-                    "lefttillskip": 0,
+                    "css": "ba-adplayer",
+                    "lefttillskip": 5,
                     "adduration": 0,
                     "duration": 0,
                     "advolume": 1.0,
                     "adplaying": false,
                     "companionadvisible": false,
                     "skipbuttonvisible": false,
+                    "canskip": false,
                     "canpause": false,
+                    "enablefullscreen": false,
                     "fullscreen": true,
                     "fullscreened": false,
                     "disablepause": false,
@@ -72,15 +70,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Adplayer", [
                     },
 
                     play_ad: function() {
-                        this.trigger("play");
+                        this.trigger("playad");
                     },
 
                     pause_ad: function() {
+                        this.trigger("pausead");
                         this._pauseLinearAd();
-                    },
-
-                    skip_ad: function() {
-                        this.trigger("adskipped");
                     },
 
                     toggle_ad_volume: function() {
@@ -97,20 +92,18 @@ Scoped.define("module:VideoPlayer.Dynamics.Adplayer", [
                     },
 
                     skip_linear_ad: function() {
-                        this._stopLinearAd();
+                        if (!this.get("canskip") && this._dyn._vast)
+                            return;
+                        this._dyn._vast.trigger("resumeplayer");
                     },
 
-                    skip_companion_ad: function() {
+                    skip_companion_ad: function() {},
 
-                    },
-
-                    ad_clicked: function() {
-
-                    }
+                    ad_clicked: function() {}
                 },
 
                 create: function() {
-                    var _adElementHolder, _source, _duration, _adBlock;
+                    var _adElementHolder, _source, _duration, _adBlock, _volume;
 
                     this._dyn = this.parent();
                     _adBlock = this._dyn.activeElement().querySelector("[data-video='ad']");
@@ -135,7 +128,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Adplayer", [
                     this._dyn._vast.on("resumeplayer", function() {
                         _adBlock.style.display = 'none';
                         this._dyn.activeElement().querySelector("[data-video='ad-video']").style.display = "none";
+
+                        this._stopLinearAd();
+
                         this._dyn.player.play();
+
+                        this._timer.weakDestroy();
 
                         this._dyn.set("adpodplaying", false);
                         this._dyn.set("adslot_active", false);
@@ -143,6 +141,31 @@ Scoped.define("module:VideoPlayer.Dynamics.Adplayer", [
 
                         this._dyn.set("playing", true);
                     }, this);
+
+                    this.on("pausead", function() {
+                        if (!this._timer || !this.__adPlayer)
+                            return;
+                        this._timer.stop();
+                        this.__adPlayer.pause();
+                        this.set("adplaying", false);
+                    });
+
+                    this.on("playad", function() {
+                        if (!this._timer || !this.__adPlayer)
+                            return;
+                        this._timer.start();
+                        this.__adPlayer.play();
+                        this.set("adplaying", true);
+                    });
+
+                    this.on("advolume", function() {
+                        if (!this.__adPlayer)
+                            return;
+                        _volume = Math.min(1.0, this.get("advolume"));
+                        this.__adPlayer.setVolume(_volume);
+                        this.__adPlayer.setMuted(_volume <= 0.0);
+                    });
+
                 },
 
                 _attachLinearAd: function(element, source, duration) {
@@ -155,7 +178,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Adplayer", [
                         this._dyn._vast.trigger("resumeplayer");
                     }, this).success(function(instance) {
                         this.__adPlayer = instance;
-                        this.set("adduration", duration * 1000);
+                        this.set("adduration", duration);
 
                         this._dyn.set("controlbar_active", false);
                         this._dyn.set("adslot_active", true);
@@ -172,11 +195,24 @@ Scoped.define("module:VideoPlayer.Dynamics.Adplayer", [
                 },
 
                 _timerFire: function() {
-                    var timeLeft = this.get("adduration");
-                    this.set("adduration", timeLeft - 1000);
+                    var _timeLeft, _leftTillSkip;
+                    _timeLeft = this.get("adduration");
+                    _leftTillSkip = this.get("lefttillskip");
+
+                    this.set("adduration", --_timeLeft);
+
+                    if (_leftTillSkip >= 0) {
+                        if (!this.get("skipbuttonvisible"))
+                            this.set("skipbuttonvisible", true);
+
+                        if (_leftTillSkip === 0)
+                            this.set("canskip", true);
+
+                        this.set("lefttillskip", --_leftTillSkip);
+                    }
+
                     if (this.get("adduration") === 0) {
                         this._dyn._vast.trigger("resumeplayer");
-                        this._timer.destroy();
                     }
                 },
 
@@ -194,8 +230,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Adplayer", [
                 },
 
                 _stopLinearAd: function() {
-                    this.__adPlayer.stop();
-                    this._dyn._vast.trigger("resumeplayer");
+                    if (this.__adPlayer && this.get("adplaying")) {
+                        this.__adPlayer.pause();
+                        this.set("adplaying", false);
+                    }
+                },
+
+                skip_ad: function() {
+                    if (this.__adPlayer)
+                        this.trigger("resumeplayer");
                 }
             };
         })
@@ -210,6 +253,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Adplayer", [
             "exit-fullscreen-video": "Exit fullscreen",
             "volume-button": "Set volume",
             "volume-mute": "Mute sound",
-            "volume-unmute": "Unmute sound"
+            "volume-unmute": "Unmute sound",
+            "ad-will-end-after": "Ad will end after %s",
+            "can-skip-after": "Skip after %d",
+            "skip-ad": "Skip ad"
         });
 });

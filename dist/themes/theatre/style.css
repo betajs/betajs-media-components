@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.67 - 2017-09-12
+betajs-media-components - v0.0.67 - 2017-09-13
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -800,6 +800,189 @@ Apache-2.0 Software License.
   opacity: 0.5; }
   .ba-videoplayer-theatre-theme-disabled * {
     cursor: not-allowed; }
+
+.ba-videoplayer-theatre-theme-adslot {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: #333333;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #ffffff;
+  position: absolute; }
+
+.ba-videoplayer-theatre-theme-ad-dashboard {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out;
+  -ms-transition: opacity 0.5s ease-in-out;
+  height: 100%;
+  opacity: 0.9;
+  overflow: hidden; }
+
+.ba-videoplayer-theatre-theme-ad-controlbar {
+  background-color: #333333;
+  background-color: rgba(0, 0, 0, 0.8);
+  position: absolute;
+  bottom: 0;
+  height: 40px;
+  width: 100%; }
+
+.ba-videoplayer-theatre-theme-ad-leftbutton-container {
+  float: left;
+  width: 40px;
+  height: 100%;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: content-box; }
+
+.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-ad-rightbutton-container {
+  float: right;
+  width: 40px;
+  height: 100%;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: content-box; }
+
+.ba-videoplayer-ie8 .ba-videoplayer-theatre-theme-ad-rightbutton-container {
+  float: right;
+  width: 40px;
+  height: 50%;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: content-box; }
+
+.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-ad-button-inner {
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  top: 50%;
+  position: relative;
+  text-align: center;
+  color: #ffffff;
+  font-size: 13px; }
+
+.ba-videoplayer-ie8 .ba-videoplayer-theatre-theme-ad-button-inner {
+  margin-top: 12px;
+  text-align: center;
+  color: #ffffff;
+  font-size: 13px; }
+
+.ba-videoplayer-theatre-theme-ad-button-inner {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent; }
+
+.ba-videoplayer-theatre-theme-ad-time-container {
+  float: left;
+  width: auto;
+  height: 100%;
+  text-align: center;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  color: #ffffff;
+  box-sizing: content-box; }
+
+.ba-videoplayer-ie8 .ba-videoplayer-theatre-theme-ad-time-container {
+  margin-top: 11px; }
+
+.ba-videoplayer-theatre-theme-ad-time-value {
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  top: 50%;
+  position: relative;
+  text-align: center;
+  float: left;
+  width: auto;
+  padding: 0 15px; }
+
+.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-ad-volumebar {
+  float: right;
+  width: 60px;
+  height: 100%;
+  margin-right: 12px; }
+
+.ba-videoplayer-ie8 .ba-videoplayer-theatre-theme-ad-volumebar {
+  float: right;
+  width: 60px;
+  height: 50%;
+  margin-top: 16px;
+  margin-right: 12px; }
+
+.ba-videoplayer-theatre-theme-ad-volumebar-inner {
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  top: 50%;
+  position: relative;
+  text-align: center;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  background-color: #878787;
+  height: 6px; }
+
+.ba-videoplayer-theatre-theme-ad-volumebar-position {
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  position: absolute;
+  left: 0;
+  background-color: #ffffff;
+  height: 100%; }
+
+.ba-videoplayer-theatre-theme-skipbutton-container {
+  /* works for IE 5+. */
+  /* works for IE 8. */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+  /* works for old school versions of the Mozilla browsers like Netscape Navigator. */
+  -moz-opacity: 0.4;
+  /* This is for old versions of Safari (1.x) with KHTML rendering engine */
+  -khtml-opacity: 0.4;
+  /* This is the "most important" one because it's the current standard in CSS. This will work in most versions of Firefox, Safari, and Opera. */
+  opacity: 0.4;
+  background: #020202;
+  font-size: 12px;
+  bottom: 80px;
+  color: #ececec;
+  cursor: pointer;
+  overflow: hidden;
+  position: absolute;
+  padding: 10px 0;
+  right: 0;
+  text-align: center;
+  min-width: 100px; }
+
+.ba-videoplayer-theatre-theme-skipbutton {
+  text-align: center;
+  margin: 0;
+  padding: 0; }
+
+.ba-videoplayer-theatre-theme-skipbutton-container:hover {
+  /* works for IE 5+. */
+  /* works for IE 8. */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+  /* works for old school versions of the Mozilla browsers like Netscape Navigator. */
+  -moz-opacity: 0.7;
+  /* This is for old versions of Safari (1.x) with KHTML rendering engine */
+  -khtml-opacity: 0.7;
+  /* This is the "most important" one because it's the current standard in CSS. This will work in most versions of Firefox, Safari, and Opera. */
+  opacity: 0.7; }
 
 .ba-videoplayer-theatre-theme-loader-container {
   -webkit-transform: translate(-50%, -50%);

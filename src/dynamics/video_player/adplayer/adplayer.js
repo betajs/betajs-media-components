@@ -241,7 +241,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Adplayer", [
                 },
 
                 _pauseLinearAd: function() {
-                    if (this.set("adplaying", true)) {
+                    if (this.get("adplaying")) {
                         this.__adPlayer.pause();
                         this.set("adplaying", false);
                         this._dyn._vast.vastTracker.setAdPaused(true);

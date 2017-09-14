@@ -71,6 +71,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.FatalError", [
 
         _started: function() {
             this.dyn.set("message", this._message || this.dyn.string("recorder-error"));
+            this.dyn.set("shortMessage", this.dyn.get("message").length < 30);
             this.listenOn(this.dyn, "message-click", function() {
                 if (this._retry)
                     this.next(this._retry);

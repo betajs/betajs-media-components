@@ -119,6 +119,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "localplayback": false,
                     "uploadoptions": {},
                     "playerattrs": {},
+                    "shortMessage": true,
 
                     /* Options */
                     "rerecordable": true,

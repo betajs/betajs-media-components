@@ -30,6 +30,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Adplayer", [
                     "companionadvisible": false,
                     "skipbuttonvisible": false,
                     "canskip": false,
+                    "adskiped": false,
                     "canpause": false,
                     "enablefullscreen": false,
                     "fullscreen": true,
@@ -94,12 +95,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Adplayer", [
                     skip_linear_ad: function() {
                         if (!this.get("canskip") && this._dyn._vast)
                             return;
+                        this.set("adskiped", true);
                         this._dyn._vast.trigger("resumeplayer");
                     },
 
                     skip_companion_ad: function() {},
 
-                    ad_clicked: function() {}
+                    ad_clicked: function() {
+                        if (this._dyn._vast.vastTracker) {
+                            this._dyn._vast.vastTracker.clickAd();
+                        }
+                    }
                 },
 
                 create: function() {
@@ -139,6 +145,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Adplayer", [
                         this._dyn.player.play();
 
                         this._timer.weakDestroy();
+
+                        if (this.get("adskiped")) {
+                            this._dyn._vast.vastTracker.skipAd();
+                        } else {
+                            this._dyn._vast.vastTracker.completeAd();
+                        }
 
                         this._dyn.set("adpodplaying", false);
                         this._dyn.set("adslot_active", false);
@@ -183,6 +195,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Adplayer", [
                         this._dyn._vast.trigger("resumeplayer");
                     }, this).success(function(instance) {
                         this.__adPlayer = instance;
+                        duration = isNaN(duration) ? this.get("maxadduration") : duration;
                         this.set("adduration", duration);
 
                         this._dyn.set("controlbar_active", false);
@@ -214,6 +227,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Adplayer", [
                             this.set("canskip", true);
                     }
 
+                    this._dyn._vast.vastTracker.setAdProgress(_timeLeft);
+
                     if (this.get("adduration") === 0) {
                         this._dyn._vast.trigger("resumeplayer");
                     }
@@ -226,9 +241,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Adplayer", [
                 },
 
                 _pauseLinearAd: function() {
-                    if (this.__adPlayer.playing) {
+                    if (this.set("adplaying", true)) {
                         this.__adPlayer.pause();
+                        this.set("adplaying", false);
+                        this._dyn._vast.vastTracker.setAdPaused(true);
                         this._dyn._vast.trigger("adpaused");
+                        this._dyn._vast.once("playad", function() {
+                            this._dyn._vast.vastTracker.setAdPaused(false);
+                        }, this);
                     }
                 },
 

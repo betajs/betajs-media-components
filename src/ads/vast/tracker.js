@@ -22,7 +22,7 @@ Scoped.define("module:Ads.VAST.Tracker", [
                     this.skipable = false;
                     this.skipDelayDefault = -1;
 
-                    this.emitAlwaysEvents = this.availableTrackingEvents;
+                    this.emitAlwaysEvents = ['creativeView', 'start', 'firstQuartile', 'midpoint', 'thirdQuartile', 'complete', 'rewind', 'skip', 'closeLinear', 'close'];
                     trackingEvents = creative ? creative.trackingEvents : {};
 
                     for (eventName in trackingEvents) {
@@ -209,7 +209,7 @@ Scoped.define("module:Ads.VAST.Tracker", [
                     }
                     trackingURLTemplates = this.trackingEvents[eventName];
                     idx = this.emitAlwaysEvents.indexOf(eventName);
-                    if (trackingURLTemplates !== null) {
+                    if (trackingURLTemplates) {
                         this.trigger(eventName, '');
                         this.trackAdURLs(trackingURLTemplates);
                     } else if (idx !== -1) {
@@ -235,7 +235,7 @@ Scoped.define("module:Ads.VAST.Tracker", [
                         }
                         variables.CONTENTPLAYHEAD = this.adProgressFormated();
                     }
-                    return VASTAd.track(URLTemplates, variables);
+                    return VASTAd.trackAd(URLTemplates, variables);
                 },
 
                 adProgressFormated: function() {

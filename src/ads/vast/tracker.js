@@ -168,7 +168,7 @@ Scoped.define("module:Ads.VAST.Tracker", [
                 },
 
                 completeAd: function() {
-                    return this.track("completeAd");
+                    return this.track("complete");
                 },
 
                 closeAd: function() {

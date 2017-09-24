@@ -166,7 +166,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.set("autoplay", false);
                             this.set("loop", false);
                         }
-
                     }
 
                     if (this.get("theme") in Assets.playerthemes) {
@@ -378,8 +377,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                         if (this.get("playwhenvisible")) {
                             var _self;
-                            this.set("skipinitial", true);
                             _self = this;
+                            this.set("skipinitial", true);
                             if (Dom.isElementVisible(video, this.get("visibilityfraction"))) {
                                 this.player.play();
                             }
@@ -387,10 +386,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this._visiblityScrollEvent = this.auto_destroy(new DomEvents());
                             this._visiblityScrollEvent.on(document, "scroll", function() {
                                 if (!_self.get('playedonce') && !_self.get("manuallypaused")) {
-                                    if (Dom.isElementVisible(video, _self.get("visibilityfraction")))
+                                    if (Dom.isElementVisible(video, _self.get("visibilityfraction"))) {
                                         _self.player.play();
-                                    else
+                                    } else if (_self.get("playing")) {
                                         _self.player.pause();
+                                    }
+                                } else if (_self.get("playing") && !Dom.isElementVisible(video, _self.get("visibilityfraction"))) {
+                                    _self.player.pause();
                                 }
                             });
                         }
@@ -461,6 +463,34 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.__attachRequested)
                         this._attachVideo();
                 },
+
+                /* In the feature if require to use promise player, Supports >Chrome50, >FireFox53
+                _playWithPromise: function(dyn) {
+                    var _player, _promise, _autoplayAllowed;
+                    _player = dyn.player;
+                    _autoplayAllowed = true;
+                    if (_player._element)
+                        _promise = _player._element.play();
+                    else
+                        _player.play();
+
+                    if (_promise !== 'undefined' && !Info.isInternetExplorer()) {
+                        _promise["catch"](function(err) {
+                            // here can add some interaction like inform user to change settings in chrome://flags disable-gesture-requirement-for-media-playback
+                            if (err.name === 'NotAllowedError')
+                                _autoplayAllowed = false;
+                            // Will try to run play anyway
+                            _player.play();
+                        });
+                        _promise.then(function() {
+                            if(_autoplayAllowed) {
+                                // Inform user with UI that device is not allowed to play without interaction
+                            }
+                        });
+                    } else if (!dyn.get("playing")) {
+                        _player.play();
+                    }
+                }, */
 
                 reattachVideo: function() {
                     this.set("reloadonplay", true);

@@ -15,7 +15,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.PlayerStates.Initial",
     "module:VideoPlayer.Dynamics.PlayerStates",
     "module:Ads.AbstractVideoAdProvider",
-    "module:Ads.VAST.VAST",
     "browser:Events"
 ], [
     "module:VideoPlayer.Dynamics.Playbutton",
@@ -23,7 +22,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.Loader",
     "module:VideoPlayer.Dynamics.Share",
     "module:VideoPlayer.Dynamics.Controlbar",
-    "module:VideoPlayer.Dynamics.Adplayer",
     "dynamics:Partials.EventPartial",
     "dynamics:Partials.OnPartial",
     "dynamics:Partials.TemplatePartial"
@@ -44,7 +42,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "cssmessage": "",
                     "csstopmessage": "",
                     "csscontrolbar": "",
-                    "cssadslot": "",
                     "width": "",
                     "height": "",
                     /* Themes */
@@ -66,7 +63,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "tmplshare": "",
                     "tmpltopmessage": "",
                     "tmplcontrolbar": "",
-                    "tmpladslot": "",
                     /* Attributes */
                     "poster": "",
                     "source": "",
@@ -194,7 +190,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this._adProvider = AdProvider.registry[this._adProvider];
                     }
                     if (this.get('vast')) {
-                        this._vast = new VAST(this.get('vast'));
+                        this._vast = AdProvider.newVastAd(this.get('vast'), {}, this);
 
                         this._vast.once("adresponseerror", function(err) {
                             // some error actions, no respond from ad server

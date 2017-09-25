@@ -1,5 +1,5 @@
-Scoped.define("module:Ads.AbstractVideoAdProvider", ["base:Class"], function(
-    Class, scoped) {
+Scoped.define("module:Ads.AbstractVideoAdProvider", ["base:Class", "module:Ads.VAST.VAST"], function(
+    Class, VAST, scoped) {
     return Class.extend({
         scoped: scoped
     }, function(inherited) {
@@ -26,6 +26,9 @@ Scoped.define("module:Ads.AbstractVideoAdProvider", ["base:Class"], function(
 
         };
     }, {
+        newVastAd: function(vastOptions, networkOptions, parentDynamic) {
+            return new VAST(vastOptions, networkOptions, parentDynamic);
+        },
 
         registry: {}
 

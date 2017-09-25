@@ -12,7 +12,7 @@ Scoped.define("module:Ads.VAST.VAST", [
             scoped: scoped
         }, [EventsMixin, function(inherited) {
             return {
-                constructor: function(options, requestOptions) {
+                constructor: function(options, requestOptions, parentDynamic) {
                     inherited.constructor.call(this);
                     var vastClient, _promise, _self;
                     this.vastServerResponses = [];
@@ -21,6 +21,7 @@ Scoped.define("module:Ads.VAST.VAST", [
                     this.companion = undefined;
                     this.sources = [];
                     this.companion = {};
+                    this.parentDynamic = parentDynamic;
 
                     _self = this;
                     _promise = Promise.create();
@@ -95,7 +96,7 @@ Scoped.define("module:Ads.VAST.VAST", [
                                 }
                             }
                             if (this.vastTracker) {
-                                _self.trigger("vastready");
+                                this.parentDynamic.trigger("vastready");
                                 break;
                             } else {
                                 VASTAd.trackAd(_ad.errorURLTemplates, {

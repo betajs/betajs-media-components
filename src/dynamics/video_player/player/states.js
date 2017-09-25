@@ -15,8 +15,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
                 "loader": false,
                 "message": false,
                 "playbutton": false,
-                "controlbar": false,
-                "adslot": false
+                "controlbar": false
             }, Objs.objectify(this.dynamics)), function(value, key) {
                 this.dyn.set(key + "_active", value);
             }, this);

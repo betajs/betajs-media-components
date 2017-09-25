@@ -5,13 +5,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Adplayer", [
     "browser:Dom",
     "media:Player.VideoPlayerWrapper",
     "module:Assets"
-], [
-    "dynamics:Partials.StylesPartial",
-    "dynamics:Partials.ShowPartial",
-    "dynamics:Partials.IfPartial",
-    "dynamics:Partials.ClickPartial",
-    "dynamics:Partials.EventPartial",
-    "dynamics:Partials.OnPartial"
 ], function(Class, TimeFormat, Timers, Dom, VideoPlayerWrapper, Assets, scoped) {
     return Class.extend({
             scoped: scoped
@@ -109,9 +102,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Adplayer", [
                 },
 
                 create: function() {
+                    this._dyn = this.parent();
+                    this._dyn.once("vastready", function() {
+                        this._adBehaviour();
+                    }, this);
+                },
+
+                _adBehaviour: function() {
                     var _adElementHolder, _source, _duration, _adBlock, _volume;
 
-                    this._dyn = this.parent();
                     _adBlock = this._dyn.activeElement().querySelector("[data-video='ad']");
                     _adBlock.style.display = 'none';
 
@@ -182,7 +181,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Adplayer", [
                         this.__adPlayer.setVolume(_volume);
                         this.__adPlayer.setMuted(_volume <= 0.0);
                     });
-
                 },
 
                 _attachLinearAd: function(element, source, duration) {
@@ -241,7 +239,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Adplayer", [
                 },
 
                 _pauseLinearAd: function() {
-                    if (this.get("adplaying")) {
+                    if (!this.get("adplaying")) {
                         this.__adPlayer.pause();
                         this.set("adplaying", false);
                         this._dyn._vast.vastTracker.setAdPaused(true);

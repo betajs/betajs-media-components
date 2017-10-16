@@ -13,6 +13,8 @@
 	<link  href="../dist/betajs-media-components.css" rel="stylesheet" />
     <script src="../dist/themes/modern/script.js"></script>
     <link  href="../dist/themes/modern/style.css" rel="stylesheet" />
+    <script src="../dist/themes/cube/script.js"></script>
+    <link  href="../dist/themes/cube/style.css" rel="stylesheet" />
 
     <style>
         .margin-400 {
@@ -34,7 +36,7 @@
         <ba-videoplayer ba-noflash
                         ba-sources="{{[{src:'sample-video2.mp4', poster: 'sample-cover2.png', hd: true}, {src:'sample-video.mp4', poster:'sample-cover.png', hd: false}]}}"
                         ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
-                        ba-theme="minimalist"
+                        ba-theme="modern"
                         ba-playwhenvisible="true"
                         ba-skipinitial="true"
         ></ba-videoplayer>
@@ -44,8 +46,9 @@
         <ba-videoplayer ba-noflash
                         ba-sources="{{[{src:'sample-video.mp4', poster: 'sample-cover.png', hd: true}, {src:'sample-video2.mp4', poster:'sample-cover2.png', hd: false}]}}"
                         ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
-                        ba-theme="cube"
+                        ba-skipinitial="true"
                         ba-playwhenvisible="true"
+                        ba-theme="default"
         ></ba-videoplayer>
     </div>
 

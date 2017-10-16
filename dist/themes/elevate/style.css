@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.67 - 2017-09-05
+betajs-media-components - v0.0.68 - 2017-10-16
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1032,7 +1032,7 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-elevate-theme-button-inner {
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent; }
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
 
 .ba-videoplayer-elevate-theme-time-container {
   float: left;
@@ -1099,7 +1099,7 @@ Apache-2.0 Software License.
   -webkit-border-radius: 2px;
   border-radius: 2px;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   background-color: #eeeeee;
   height: 8px; }
 
@@ -1114,7 +1114,7 @@ Apache-2.0 Software License.
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   background-color: #eeeeee;
   height: 8px; }
 
@@ -1168,7 +1168,7 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-elevate-theme-stream-label-container .ba-videoplayer-elevate-theme-stream-label {
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   background-color: #000000;
   color: #eeeeee;
   padding: 3px; }
@@ -1192,7 +1192,7 @@ Apache-2.0 Software License.
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   background-color: #666666;
   height: 6px;
   margin: 0 5px; }
@@ -1247,7 +1247,7 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-elevate-theme-airplay-container {
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   padding-top: 2px; }
   .ba-videoplayer-elevate-theme-airplay-container svg path {
     fill: #000000; }
@@ -1411,7 +1411,7 @@ Apache-2.0 Software License.
   border-radius: 18px;
   color: #eeeeee;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   font-family: sans-serif;
   font-weight: 300;
   font-size: 12px;
@@ -2315,7 +2315,7 @@ div.ba-videorecorder-theme-elevate-disabled {
 
 .ba-videorecorder-theme-elevate-chooser-primary-button {
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
@@ -2333,7 +2333,7 @@ div.ba-videorecorder-theme-elevate-disabled {
 
 .ba-videorecorder-theme-elevate-chooser-secondary-button {
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   color: #000000;
   font-family: sans-serif;
   font-size: 14px;
@@ -2423,7 +2423,7 @@ div.ba-videorecorder-theme-elevate-disabled {
   position: relative;
   text-align: center;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   color: #eeeeee;
   font-size: 13px; }
 
@@ -2496,7 +2496,7 @@ div.ba-videorecorder-theme-elevate-disabled {
   float: right;
   height: 100%;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   padding-left: 8px;
   padding-right: 8px; }
 
@@ -2507,7 +2507,7 @@ div.ba-videorecorder-theme-elevate-disabled {
   -ms-transform: translateX(-50%);
   transform: translateX(-50%);
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   display: inline-block;
   position: relative;
   left: 50%;
@@ -2523,7 +2523,7 @@ div.ba-videorecorder-theme-elevate-disabled {
   float: left;
   height: 100%;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent; }
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
 
 .ba-videorecorder-theme-elevate-button-primary {
   -webkit-transform: translateY(-50%);
@@ -2535,7 +2535,7 @@ div.ba-videorecorder-theme-elevate-disabled {
   position: relative;
   text-align: center;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   border-radius: 18px;
   margin-left: 5px;
   margin-right: 5px;
@@ -2948,7 +2948,7 @@ div.ba-videorecorder-theme-elevate-disabled {
   .ba-videorecorder-theme-elevate-message-container .ba-videorecorder-theme-elevate-top-inner-message-container {
     display: table-cell;
     vertical-align: middle; }
-    .ba-videorecorder-theme-elevate-message-container .ba-videorecorder-theme-elevate-top-inner-message-container .ba-videorecorder-theme-elevate-first-inner-message-container {
+    .ba-videorecorder-theme-elevate-message-container .ba-videorecorder-theme-elevate-top-inner-message-container.ba-videorecorder-theme-elevate-short-message .ba-videorecorder-theme-elevate-first-inner-message-container {
       background-color: #7f7f7f;
       background-color: rgba(255, 255, 255, 0.3);
       -moz-border-radius: 50%;
@@ -2959,7 +2959,7 @@ div.ba-videorecorder-theme-elevate-disabled {
       height: 162px;
       width: 162px;
       z-index: 4; }
-      .ba-videorecorder-theme-elevate-message-container .ba-videorecorder-theme-elevate-top-inner-message-container .ba-videorecorder-theme-elevate-first-inner-message-container .ba-videorecorder-theme-elevate-second-inner-message-container {
+      .ba-videorecorder-theme-elevate-message-container .ba-videorecorder-theme-elevate-top-inner-message-container.ba-videorecorder-theme-elevate-short-message .ba-videorecorder-theme-elevate-first-inner-message-container .ba-videorecorder-theme-elevate-second-inner-message-container {
         background-color: #b2b2b2;
         background-color: rgba(255, 255, 255, 0.5);
         -moz-border-radius: 50%;
@@ -2971,7 +2971,7 @@ div.ba-videorecorder-theme-elevate-disabled {
         top: 12px;
         width: 138px;
         z-index: 6; }
-        .ba-videorecorder-theme-elevate-message-container .ba-videorecorder-theme-elevate-top-inner-message-container .ba-videorecorder-theme-elevate-first-inner-message-container .ba-videorecorder-theme-elevate-second-inner-message-container .ba-videorecorder-theme-elevate-third-inner-message-container {
+        .ba-videorecorder-theme-elevate-message-container .ba-videorecorder-theme-elevate-top-inner-message-container.ba-videorecorder-theme-elevate-short-message .ba-videorecorder-theme-elevate-first-inner-message-container .ba-videorecorder-theme-elevate-second-inner-message-container .ba-videorecorder-theme-elevate-third-inner-message-container {
           background-color: #e5e5e5;
           background-color: rgba(255, 255, 255, 0.7);
           -moz-border-radius: 50%;
@@ -2983,7 +2983,7 @@ div.ba-videorecorder-theme-elevate-disabled {
           top: 12px;
           width: 114px;
           z-index: 8; }
-          .ba-videorecorder-theme-elevate-message-container .ba-videorecorder-theme-elevate-top-inner-message-container .ba-videorecorder-theme-elevate-first-inner-message-container .ba-videorecorder-theme-elevate-second-inner-message-container .ba-videorecorder-theme-elevate-third-inner-message-container .ba-videorecorder-theme-elevate-fourth-inner-message-container {
+          .ba-videorecorder-theme-elevate-message-container .ba-videorecorder-theme-elevate-top-inner-message-container.ba-videorecorder-theme-elevate-short-message .ba-videorecorder-theme-elevate-first-inner-message-container .ba-videorecorder-theme-elevate-second-inner-message-container .ba-videorecorder-theme-elevate-third-inner-message-container .ba-videorecorder-theme-elevate-fourth-inner-message-container {
             background-color: #eeeeee;
             display: table;
             -moz-border-radius: 50%;
@@ -2995,6 +2995,15 @@ div.ba-videorecorder-theme-elevate-disabled {
             top: 12px;
             width: 90px;
             z-index: 10; }
+    .ba-videorecorder-theme-elevate-message-container .ba-videorecorder-theme-elevate-top-inner-message-container.ba-videorecorder-theme-elevate-long-message .ba-videorecorder-theme-elevate-first-inner-message-container {
+      background-color: #ffffff;
+      background-color: rgba(255, 255, 255, 0.9);
+      box-sizing: border-box;
+      padding: 5px;
+      position: relative;
+      margin: 0 auto;
+      width: 80%;
+      overflow: hidden; }
 
 .ba-videorecorder-theme-elevate-message-message {
   color: #000000;

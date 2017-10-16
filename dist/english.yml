@@ -27,7 +27,7 @@
   ba-videorecorder-controlbar.record-tooltip: Click here to record.
   ba-videorecorder-controlbar.rerecord: Redo
   ba-videorecorder-controlbar.rerecord-tooltip: Click here to redo.
-  ba-videorecorder-controlbar.upload-covershot: Upload
+  ba-videorecorder-controlbar.upload-covershot: Upload Cover
   ba-videorecorder-controlbar.upload-covershot-tooltip: Click here to upload custom cover shot
   ba-videorecorder-controlbar.stop: Stop
   ba-videorecorder-controlbar.stop-tooltip: Click here to stop.

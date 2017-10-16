@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.67 - 2017-09-05
+betajs-media-components - v0.0.68 - 2017-10-16
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1001,7 +1001,7 @@ Apache-2.0 Software License.
   width: 40px;
   height: 100%;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   box-sizing: content-box;
   border: none;
   text-align: center;
@@ -1021,7 +1021,7 @@ Apache-2.0 Software License.
   width: 40px;
   height: 100%;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   box-sizing: content-box;
   border: none; }
 
@@ -1030,7 +1030,7 @@ Apache-2.0 Software License.
   width: 40px;
   height: 50%;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   box-sizing: content-box;
   border: none; }
 
@@ -1045,7 +1045,7 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-theatre-theme-button-inner {
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   position: relative; }
 
 .ba-videoplayer-theatre-theme-time-container {
@@ -1118,7 +1118,7 @@ Apache-2.0 Software License.
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   background-color: #cccccc;
   height: 60px;
   width: 7px; }
@@ -1142,7 +1142,7 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-theatre-theme-progressbar-inner {
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   height: 10px;
   background-color: #cccccc; }
 
@@ -1169,7 +1169,7 @@ Apache-2.0 Software License.
   position: absolute;
   left: 0;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   background-color: #cccccc;
   height: 10px; }
 
@@ -1204,7 +1204,7 @@ Apache-2.0 Software License.
   margin-right: 3px; }
   .ba-videoplayer-theatre-theme-stream-label-container .ba-videoplayer-theatre-theme-stream-label {
     cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     background-color: #000000;
     color: #eeeeee;
     padding: 5px; }
@@ -1233,7 +1233,7 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-theatre-theme-airplay-container {
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   padding: 2px 7px 0 3px; }
   .ba-videoplayer-theatre-theme-airplay-container svg path {
     fill: #666666; }
@@ -1407,7 +1407,7 @@ Apache-2.0 Software License.
   border-radius: 0;
   color: #eeeeee;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   font-family: sans-serif;
   font-weight: 300;
   font-size: 12px;
@@ -2315,7 +2315,7 @@ div.ba-videorecorder-theme-theatre-disabled {
 
 .ba-videorecorder-theme-theatre-chooser-primary-button {
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
   border-radius: 15px;
@@ -2333,7 +2333,7 @@ div.ba-videorecorder-theme-theatre-disabled {
 
 .ba-videorecorder-theme-theatre-chooser-secondary-button {
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   color: #000000;
   font-family: sans-serif;
   font-size: 14px;
@@ -2423,7 +2423,7 @@ div.ba-videorecorder-theme-theatre-disabled {
   position: relative;
   text-align: center;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   color: #eeeeee;
   font-size: 13px; }
 
@@ -2496,7 +2496,7 @@ div.ba-videorecorder-theme-theatre-disabled {
   float: right;
   height: 100%;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   padding-left: 8px;
   padding-right: 8px; }
 
@@ -2507,7 +2507,7 @@ div.ba-videorecorder-theme-theatre-disabled {
   -ms-transform: translateX(-50%);
   transform: translateX(-50%);
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   display: inline-block;
   position: relative;
   left: 50%;
@@ -2523,7 +2523,7 @@ div.ba-videorecorder-theme-theatre-disabled {
   float: left;
   height: 100%;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent; }
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
 
 .ba-videorecorder-theme-theatre-button-primary {
   -webkit-transform: translateY(-50%);
@@ -2535,7 +2535,7 @@ div.ba-videorecorder-theme-theatre-disabled {
   position: relative;
   text-align: center;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   border-radius: 18px;
   margin-left: 5px;
   margin-right: 5px;
@@ -2932,7 +2932,7 @@ div.ba-videorecorder-theme-theatre-disabled {
   .ba-videorecorder-theme-theatre-message-container .ba-videorecorder-theme-theatre-top-inner-message-container {
     display: table-cell;
     vertical-align: middle; }
-    .ba-videorecorder-theme-theatre-message-container .ba-videorecorder-theme-theatre-top-inner-message-container .ba-videorecorder-theme-theatre-first-inner-message-container {
+    .ba-videorecorder-theme-theatre-message-container .ba-videorecorder-theme-theatre-top-inner-message-container.ba-videorecorder-theme-theatre-short-message .ba-videorecorder-theme-theatre-first-inner-message-container {
       background-color: #7f7f7f;
       background-color: rgba(255, 255, 255, 0.3);
       -moz-border-radius: 50%;
@@ -2943,7 +2943,7 @@ div.ba-videorecorder-theme-theatre-disabled {
       height: 162px;
       width: 162px;
       z-index: 4; }
-      .ba-videorecorder-theme-theatre-message-container .ba-videorecorder-theme-theatre-top-inner-message-container .ba-videorecorder-theme-theatre-first-inner-message-container .ba-videorecorder-theme-theatre-second-inner-message-container {
+      .ba-videorecorder-theme-theatre-message-container .ba-videorecorder-theme-theatre-top-inner-message-container.ba-videorecorder-theme-theatre-short-message .ba-videorecorder-theme-theatre-first-inner-message-container .ba-videorecorder-theme-theatre-second-inner-message-container {
         background-color: #b2b2b2;
         background-color: rgba(255, 255, 255, 0.5);
         -moz-border-radius: 50%;
@@ -2955,7 +2955,7 @@ div.ba-videorecorder-theme-theatre-disabled {
         top: 12px;
         width: 138px;
         z-index: 6; }
-        .ba-videorecorder-theme-theatre-message-container .ba-videorecorder-theme-theatre-top-inner-message-container .ba-videorecorder-theme-theatre-first-inner-message-container .ba-videorecorder-theme-theatre-second-inner-message-container .ba-videorecorder-theme-theatre-third-inner-message-container {
+        .ba-videorecorder-theme-theatre-message-container .ba-videorecorder-theme-theatre-top-inner-message-container.ba-videorecorder-theme-theatre-short-message .ba-videorecorder-theme-theatre-first-inner-message-container .ba-videorecorder-theme-theatre-second-inner-message-container .ba-videorecorder-theme-theatre-third-inner-message-container {
           background-color: #e5e5e5;
           background-color: rgba(255, 255, 255, 0.7);
           -moz-border-radius: 50%;
@@ -2967,7 +2967,7 @@ div.ba-videorecorder-theme-theatre-disabled {
           top: 12px;
           width: 114px;
           z-index: 8; }
-          .ba-videorecorder-theme-theatre-message-container .ba-videorecorder-theme-theatre-top-inner-message-container .ba-videorecorder-theme-theatre-first-inner-message-container .ba-videorecorder-theme-theatre-second-inner-message-container .ba-videorecorder-theme-theatre-third-inner-message-container .ba-videorecorder-theme-theatre-fourth-inner-message-container {
+          .ba-videorecorder-theme-theatre-message-container .ba-videorecorder-theme-theatre-top-inner-message-container.ba-videorecorder-theme-theatre-short-message .ba-videorecorder-theme-theatre-first-inner-message-container .ba-videorecorder-theme-theatre-second-inner-message-container .ba-videorecorder-theme-theatre-third-inner-message-container .ba-videorecorder-theme-theatre-fourth-inner-message-container {
             background-color: white;
             display: table;
             -moz-border-radius: 50%;
@@ -2979,6 +2979,15 @@ div.ba-videorecorder-theme-theatre-disabled {
             top: 12px;
             width: 90px;
             z-index: 10; }
+    .ba-videorecorder-theme-theatre-message-container .ba-videorecorder-theme-theatre-top-inner-message-container.ba-videorecorder-theme-theatre-long-message .ba-videorecorder-theme-theatre-first-inner-message-container {
+      background-color: #ffffff;
+      background-color: rgba(255, 255, 255, 0.9);
+      box-sizing: border-box;
+      padding: 5px;
+      position: relative;
+      margin: 0 auto;
+      width: 80%;
+      overflow: hidden; }
 
 .ba-videorecorder-theme-theatre-message-message {
   color: black;

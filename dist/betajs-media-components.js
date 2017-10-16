@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.67 - 2017-09-05
+betajs-media-components - v0.0.68 - 2017-10-16
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1007,7 +1007,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.67 - 2017-09-05
+betajs-media-components - v0.0.68 - 2017-10-16
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1023,7 +1023,7 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.67"
+    "version": "0.0.68"
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -1676,17 +1676,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 remove_on_destroy: true,
 
                 create: function() {
-                    if (Info.isMobile()) {
-                        if (Info.isiOS() && Info.iOSversion().major >= 10) {
-                            if (this.get("autoplay") || this.get("playwhenvisible")) {
-                                this.set("volume", 0.0);
-                                this.set("volumeafterinteraction", true);
-                            }
-                        } else {
+                    if (Info.isMobile() && (this.get("autoplay") || this.get("playwhenvisible"))) {
+                        this.set("volume", 0.0);
+                        this.set("volumeafterinteraction", true);
+                        if (!(Info.isiOS() && Info.iOSversion().major >= 10)) {
                             this.set("autoplay", false);
                             this.set("loop", false);
                         }
                     }
+
                     if (this.get("theme") in Assets.playerthemes) {
                         Objs.iter(Assets.playerthemes[this.get("theme")], function(value, key) {
                             if (!this.isArgumentAttr(key))
@@ -1895,22 +1893,25 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
 
                         if (this.get("playwhenvisible")) {
+                            var _self;
+                            _self = this;
                             this.set("skipinitial", true);
-                            var self = this;
                             if (Dom.isElementVisible(video, this.get("visibilityfraction"))) {
                                 this.player.play();
                             }
 
                             this._visiblityScrollEvent = this.auto_destroy(new DomEvents());
                             this._visiblityScrollEvent.on(document, "scroll", function() {
-                                if (!self.get('playedonce') && !self.get("manuallypaused")) {
-                                    if (Dom.isElementVisible(video, self.get("visibilityfraction")))
-                                        self.player.play();
-                                    else
-                                        self.player.pause();
+                                if (!_self.get('playedonce') && !_self.get("manuallypaused")) {
+                                    if (Dom.isElementVisible(video, _self.get("visibilityfraction"))) {
+                                        _self.player.play();
+                                    } else if (_self.get("playing")) {
+                                        _self.player.pause();
+                                    }
+                                } else if (_self.get("playing") && !Dom.isElementVisible(video, _self.get("visibilityfraction"))) {
+                                    _self.player.pause();
                                 }
                             });
-
                         }
                         this.player.on("fullscreen-change", function(inFullscreen) {
                             this.set("fullscreened", inFullscreen);
@@ -1980,6 +1981,34 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this._attachVideo();
                 },
 
+                /* In the feature if require to use promise player, Supports >Chrome50, >FireFox53
+                _playWithPromise: function(dyn) {
+                    var _player, _promise, _autoplayAllowed;
+                    _player = dyn.player;
+                    _autoplayAllowed = true;
+                    if (_player._element)
+                        _promise = _player._element.play();
+                    else
+                        _player.play();
+
+                    if (_promise !== 'undefined' && !Info.isInternetExplorer()) {
+                        _promise["catch"](function(err) {
+                            // here can add some interaction like inform user to change settings in chrome://flags disable-gesture-requirement-for-media-playback
+                            if (err.name === 'NotAllowedError')
+                                _autoplayAllowed = false;
+                            // Will try to run play anyway
+                            _player.play();
+                        });
+                        _promise.then(function() {
+                            if(_autoplayAllowed) {
+                                // Inform user with UI that device is not allowed to play without interaction
+                            }
+                        });
+                    } else if (!dyn.get("playing")) {
+                        _player.play();
+                    }
+                }, */
+
                 reattachVideo: function() {
                     this.set("reloadonplay", true);
                     this._detachVideo();
@@ -1994,8 +2023,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("last_activity", Time.now());
                         this.set("activity_delta", 0);
                         if (strong && this.get("volumeafterinteraction")) {
-                            this.set("volumeafterinteraction", false);
-                            this.set("volume", 1.0);
+                            this.set_volume(1.0);
                         }
                     },
 
@@ -2087,7 +2115,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (!this.get("playonclick"))
                             return;
                         if (this.get('playing') && !this.get("disablepause")) {
-                            this.pause();
+                            if (!this.get("volumeafterinteraction"))
+                                this.pause();
+                            else
+                                this.set("volumeafterinteraction", false);
 
                             if (this.get("playwhenvisible"))
                                 this.set("manuallypaused", true);
@@ -2806,7 +2837,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Controlbar", [
             "record-tooltip": "Click here to record.",
             "rerecord": "Redo",
             "rerecord-tooltip": "Click here to redo.",
-            "upload-covershot": "Upload",
+            "upload-covershot": "Upload Cover",
             "upload-covershot-tooltip": "Click here to upload custom cover shot",
             "stop": "Stop",
             "stop-tooltip": "Click here to stop.",
@@ -3167,6 +3198,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "localplayback": false,
                     "uploadoptions": {},
                     "playerattrs": {},
+                    "shortMessage": true,
 
                     /* Options */
                     "rerecordable": true,
@@ -3822,6 +3854,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.FatalError", [
 
         _started: function() {
             this.dyn.set("message", this._message || this.dyn.string("recorder-error"));
+            this.dyn.set("shortMessage", this.dyn.get("message").length < 30);
             this.listenOn(this.dyn, "message-click", function() {
                 if (this._retry)
                     this.next(this._retry);

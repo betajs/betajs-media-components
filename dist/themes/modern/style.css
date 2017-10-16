@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.67 - 2017-09-05
+betajs-media-components - v0.0.68 - 2017-10-16
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -932,7 +932,7 @@ Apache-2.0 Software License.
   width: 40px;
   height: 100%;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   box-sizing: content-box;
   border-right: 1px solid #dbdbdb; }
 
@@ -941,7 +941,7 @@ Apache-2.0 Software License.
   width: 40px;
   height: 100%;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   box-sizing: content-box;
   border-left: 1px solid #dbdbdb; }
 
@@ -950,7 +950,7 @@ Apache-2.0 Software License.
   width: 40px;
   height: 50%;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   box-sizing: content-box;
   border-left: 1px solid #dbdbdb; }
 
@@ -974,7 +974,7 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-theme-modern-button-inner {
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent; }
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
 
 .ba-videoplayer-theme-modern-time-container {
   float: left;
@@ -1029,7 +1029,7 @@ Apache-2.0 Software License.
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   background-color: #878787;
   height: 6px; }
 
@@ -1065,7 +1065,7 @@ Apache-2.0 Software License.
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   background-color: #BBB;
   height: 6px; }
 
@@ -1083,7 +1083,7 @@ Apache-2.0 Software License.
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   background-color: #878787;
   height: 6px; }
 
@@ -1154,7 +1154,7 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-noie8 .ba-videoplayer-theme-modern-rightbutton-container.ba-videoplayer-theme-modern-airplay-container {
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   height: 28px;
   padding: 12px 10px 0 10px;
   width: auto;
@@ -1324,7 +1324,7 @@ Apache-2.0 Software License.
 .ba-videoplayer-theme-modern-rerecord-button-container {
   height: 100%;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   padding-left: 8px;
   padding-right: 8px;
   display: inline-block;
@@ -1342,7 +1342,7 @@ Apache-2.0 Software License.
   position: relative;
   text-align: center;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   border-radius: 3px;
   padding: 8px;
   padding-left: 16px;
@@ -2253,7 +2253,7 @@ div.ba-videorecorder-theme-modern-disabled {
 
 .ba-videorecorder-theme-modern-chooser-primary-button {
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
@@ -2271,7 +2271,7 @@ div.ba-videorecorder-theme-modern-disabled {
 
 .ba-videorecorder-theme-modern-chooser-secondary-button {
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   color: #979797;
   font-family: Arial, sans-serif;
   font-size: 14px;
@@ -2361,7 +2361,7 @@ div.ba-videorecorder-theme-modern-disabled {
   position: relative;
   text-align: center;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   color: white;
   font-size: 13px; }
 
@@ -2434,7 +2434,7 @@ div.ba-videorecorder-theme-modern-disabled {
   float: right;
   height: 100%;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   padding-left: 8px;
   padding-right: 8px; }
 
@@ -2445,7 +2445,7 @@ div.ba-videorecorder-theme-modern-disabled {
   -ms-transform: translateX(-50%);
   transform: translateX(-50%);
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   display: inline-block;
   position: relative;
   left: 50%;
@@ -2461,7 +2461,7 @@ div.ba-videorecorder-theme-modern-disabled {
   float: left;
   height: 100%;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent; }
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
 
 .ba-videorecorder-theme-modern-button-primary {
   -webkit-transform: translateY(-50%);
@@ -2473,7 +2473,7 @@ div.ba-videorecorder-theme-modern-disabled {
   position: relative;
   text-align: center;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   border-radius: 3px;
   margin-left: 5px;
   margin-right: 5px;

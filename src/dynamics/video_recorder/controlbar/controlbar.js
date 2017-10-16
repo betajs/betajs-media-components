@@ -77,7 +77,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Controlbar", [
             "record-tooltip": "Click here to record.",
             "rerecord": "Redo",
             "rerecord-tooltip": "Click here to redo.",
-            "upload-covershot": "Upload",
+            "upload-covershot": "Upload Cover",
             "upload-covershot-tooltip": "Click here to upload custom cover shot",
             "stop": "Stop",
             "stop-tooltip": "Click here to stop.",

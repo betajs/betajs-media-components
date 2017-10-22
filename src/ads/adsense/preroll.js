@@ -1,5 +1,6 @@
 Scoped.define("module:Ads.AdSenseVideoAdProvider", [
-        "module:Ads.AbstractVideoAdProvider", "module:Ads.AdSensePrerollAd"
+        "module:Ads.AbstractVideoAdProvider",
+        "module:Ads.AdSensePrerollAd"
     ],
     function(AbstractVideoAdProvider, AdSensePrerollAd, scoped) {
         return AbstractVideoAdProvider.extend({
@@ -84,6 +85,11 @@ Scoped.define("module:Ads.AdSensePrerollAd", [
                 //this._adsManager.addEventListener(google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED, function () {});
                 this._adsManager.addEventListener(google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED, function() {
                     self._adFinished();
+                });
+
+                //this._adsManager.addEventListener(google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED, function () {});
+                this._adsManager.addEventListener(google.ima.AdEvent.Type.SKIPPED, function() {
+                    self._adSkipped();
                 });
             }
 

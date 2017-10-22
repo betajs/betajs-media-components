@@ -1,4 +1,4 @@
-# betajs-media-components 0.0.68
+# betajs-media-components 0.0.69
 [![Code Climate](https://codeclimate.com/github/betajs/betajs-media-components/badges/gpa.svg)](https://codeclimate.com/github/betajs/betajs-media-components)
 [![NPM](https://img.shields.io/npm/v/betajs-media-components.svg?style=flat)](https://www.npmjs.com/package/betajs-media-components)
 [![Gitter Chat](https://badges.gitter.im/betajs/betajs-media-components.svg)](https://gitter.im/betajs/betajs-media-components)
@@ -122,6 +122,10 @@ You can use the library in the browser and compile it as well.
 Apache-2.0
 
 
+## Credits
+
+This software may include modified and unmodified portions of:
+- VAST Client, (c) Olivier Poitrey, MIT License, https://github.com/dailymotion/vast-client-js
 
 
 

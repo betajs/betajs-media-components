@@ -53,6 +53,11 @@ Scoped.define("module:Ads.AbstractPrerollAd", ["base:Class", "base:Events.Events
             _adFinished: function() {
                 this._options.adElement.style.display = "none";
                 this.trigger("finished");
+            },
+
+            _adSkipped: function() {
+                this._options.adElement.style.display = "none";
+                this.trigger("adskipped");
             }
 
         };

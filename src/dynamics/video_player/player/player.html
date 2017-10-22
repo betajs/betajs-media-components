@@ -7,8 +7,7 @@
     style="{{width ? 'width:' + width + ((width + '').match(/^\d+$/g) ? 'px' : '') + ';' : ''}}{{height ? 'height:' + height + ((height + '').match(/^\d+$/g) ? 'px' : '') + ';' : ''}}"
 >
     <video class="{{css}}-video" data-video="video" ba-toggle:playsinline="{{!playfullscreenonmobile}}"></video>
-    <div class="{{css}}-overlay" data-video="ad" style="display:none"></div>
-    <div class='{{css}}-overlay'>
+    <div class="{{css}}-overlay">
 		<div class="{{css}}-player-toggle-overlay" ba-on:click="toggle_player()"></div>
 	    <ba-{{dyncontrolbar}}
 		    ba-css="{{csscontrolbar || css}}"
@@ -96,4 +95,5 @@
 		<meta itemprop="thumbnailUrl" content="{{poster}}"/>
 		<meta itemprop="contentUrl" content="{{source}}"/>
     </div>
+	<div class="{{css}}-overlay" data-video="ad" style="display:none"></div>
 </div>

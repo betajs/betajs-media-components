@@ -56,3 +56,10 @@
   ba-videorecorder-controlbar.cancel: Cancel
   ba-videorecorder-controlbar.cancel-tooltip: Click here to cancel.
   ba-videorecorder.cancel-confirm: Do you really want to cancel your video upload?
+  ba-videoplayer-adslot.elapsed-time: Elasped time
+  ba-videoplayer-adslot.volume-button: Set volume
+  ba-videoplayer-adslot.volume-mute: Mute sound
+  ba-videoplayer-adslot.volume-unmute: Unmute sound
+  ba-videoplayer-adslot.ad-will-end-after: Ad will end after %s
+  ba-videoplayer-adslot.can-skip-after: Skip after %d
+  ba-videoplayer-adslot.skip-ad: Skip ad

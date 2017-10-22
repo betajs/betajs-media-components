@@ -32,7 +32,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
 });
 
 
-
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.FatalError", [
     "module:VideoPlayer.Dynamics.PlayerStates.State"
 ], function(State, scoped) {
@@ -49,10 +48,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.FatalError", [
 
     });
 });
-
-
-
-
 
 
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Initial", [
@@ -167,6 +162,10 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Preroll", [
                 this.dyn._prerollAd.once("finished", function() {
                     this.next("LoadVideo");
                 }, this);
+                this.dyn._prerollAd.once("adskipped", function() {
+                    this.next("LoadVideo");
+                }, this);
+                // TODO: video height and width return NaN before ad start even when ba-width/ba-height are provided
                 this.dyn._prerollAd.executeAd({
                     width: this.dyn.videoWidth(),
                     height: this.dyn.videoHeight()

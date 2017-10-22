@@ -302,7 +302,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this._adProvider && this.get("preroll")) {
                             this._prerollAd = this._adProvider.newPrerollAd({
                                 videoElement: this.activeElement().querySelector("[data-video='video']"),
-                                adElement: this.activeElement().querySelector("[data-video='ad']")
+                                adElement: this.activeElement().querySelector("[data-video='ad']"),
+                                dynamic: this
                             });
                         }
                         this.player = instance;

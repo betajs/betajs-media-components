@@ -1,6 +1,6 @@
 {
 	"name": "betajs-media-components",
-	"version": "0.0.68",
+	"version": "0.0.69",
 	"description": "BetaJS-Media-Components is a JavaScript media UI components framework",
 	"contributors": ["Ziggeo", "Oliver Friedmann"],
 	"devDependencies": {
@@ -57,6 +57,9 @@
 			"npm": true,
 			"gitter": true
 		},
+		"credits": [
+			"VAST Client, (c) Olivier Poitrey, MIT License, https://github.com/dailymotion/vast-client-js"
+		],
 		"weakDependencies": {
 			"betajs-scoped": "https://github.com/betajs/betajs-scoped",
 			"betajs-shims": "https://github.com/betajs/betajs-shims"

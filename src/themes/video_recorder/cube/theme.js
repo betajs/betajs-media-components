@@ -1,4 +1,10 @@
-Scoped.extend("module:Assets.recorderthemes", [], function() {
+Scoped.extend("module:Assets.recorderthemes", [
+    "dynamics:Parser"
+], function(Parser) {
+    Parser.registerFunctions({ /*<%= template_function_cache(dirname + '/cube-video_recorder_controlbar.html') %>*/ });
+    Parser.registerFunctions({ /*<%= template_function_cache(dirname + '/cube-video_recorder_imagegallery.html') %>*/ });
+    Parser.registerFunctions({ /*<%= template_function_cache(dirname + '/cube-video_recorder_chooser.html') %>*/ });
+    Parser.registerFunctions({ /*<%= template_function_cache(dirname + '/cube-video_recorder_message.html') %>*/ });
     return {
         "cube": {
             css: "ba-videorecorder-theme-cube",

@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.69 - 2017-10-22
+betajs-media-components - v0.0.72 - 2017-10-30
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -15,7 +15,7 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.69"
+    "version": "0.0.72"
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -2324,6 +2324,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Adplayer", [
             };
         })
         .register("ba-videoplayer-adslot")
+        .registerFunctions({ /**/"css": function (obj) { with (obj) { return css; } }, "skipbuttonvisible": function (obj) { with (obj) { return skipbuttonvisible; } }, "lefttillskip > 0 ? string('can-skip-after').replace('%d', lefttillskip) : string('skip-ad')": function (obj) { with (obj) { return lefttillskip > 0 ? string('can-skip-after').replace('%d', lefttillskip) : string('skip-ad'); } }, "companionadvisible": function (obj) { with (obj) { return companionadvisible; } }, "string('elapsed-time')": function (obj) { with (obj) { return string('elapsed-time'); } }, "string('ad-will-end-after').replace('%s', formatTime(adduration))": function (obj) { with (obj) { return string('ad-will-end-after').replace('%s', formatTime(adduration)); } }, "startUpdateAdVolume(domEvent)": function (obj) { with (obj) { return startUpdateAdVolume(domEvent); } }, "stopUpdateAdVolume(domEvent)": function (obj) { with (obj) { return stopUpdateAdVolume(domEvent); } }, "progressUpdateAdVolume(domEvent)": function (obj) { with (obj) { return progressUpdateAdVolume(domEvent); } }, "{width: Math.min(100, Math.round(advolume * 100)) + '%'}": function (obj) { with (obj) { return {width: Math.min(100, Math.round(advolume * 100)) + '%'}; } }, "string('volume-button')": function (obj) { with (obj) { return string('volume-button'); } }, "string(advolume > 0 ? 'volume-mute' : 'volume-unmute')": function (obj) { with (obj) { return string(advolume > 0 ? 'volume-mute' : 'volume-unmute'); } }, "css + '-icon-volume-' + (advolume >= 0.5 ? 'up' : (advolume > 0 ? 'down' : 'off'))": function (obj) { with (obj) { return css + '-icon-volume-' + (advolume >= 0.5 ? 'up' : (advolume > 0 ? 'down' : 'off')); } }, "ad_clicked()": function (obj) { with (obj) { return ad_clicked(); } }, "skip_linear_ad()": function (obj) { with (obj) { return skip_linear_ad(); } }, "skip_companion_ad()": function (obj) { with (obj) { return skip_companion_ad(); } }, "toggle_ad_volume()": function (obj) { with (obj) { return toggle_ad_volume(); } }/**/ })
         .attachStringTable(Assets.strings)
         .addStrings({
             "elapsed-time": "Elasped time",
@@ -2526,6 +2527,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
             };
         })
         .register("ba-videoplayer-controlbar")
+        .registerFunctions({ /**/"css": function (obj) { with (obj) { return css; } }, "activitydelta > 5000 && hideoninactivity ? (css + '-dashboard-hidden') : ''": function (obj) { with (obj) { return activitydelta > 5000 && hideoninactivity ? (css + '-dashboard-hidden') : ''; } }, "activitydelta < 2500 || ismobile ? '' : (css + '-progressbar-small')": function (obj) { with (obj) { return activitydelta < 2500 || ismobile ? '' : (css + '-progressbar-small'); } }, "disableseeking ? css + '-disabled' : ''": function (obj) { with (obj) { return disableseeking ? css + '-disabled' : ''; } }, "startUpdatePosition(domEvent)": function (obj) { with (obj) { return startUpdatePosition(domEvent); } }, "stopUpdatePosition(domEvent)": function (obj) { with (obj) { return stopUpdatePosition(domEvent); } }, "progressUpdatePosition(domEvent)": function (obj) { with (obj) { return progressUpdatePosition(domEvent); } }, "{width: Math.round(duration ? cached / duration * 100 : 0) + '%'}": function (obj) { with (obj) { return {width: Math.round(duration ? cached / duration * 100 : 0) + '%'}; } }, "{width: Math.round(duration ? position / duration * 100 : 0) + '%'}": function (obj) { with (obj) { return {width: Math.round(duration ? position / duration * 100 : 0) + '%'}; } }, "string('video-progress')": function (obj) { with (obj) { return string('video-progress'); } }, "submittable": function (obj) { with (obj) { return submittable; } }, "string('submit-video')": function (obj) { with (obj) { return string('submit-video'); } }, "rerecordable": function (obj) { with (obj) { return rerecordable; } }, "string('rerecord-video')": function (obj) { with (obj) { return string('rerecord-video'); } }, "!playing": function (obj) { with (obj) { return !playing; } }, "string('play-video')": function (obj) { with (obj) { return string('play-video'); } }, "disablepause ? css + '-disabled' : ''": function (obj) { with (obj) { return disablepause ? css + '-disabled' : ''; } }, "playing": function (obj) { with (obj) { return playing; } }, "disablepause ? string('pause-video-disabled') : string('pause-video')": function (obj) { with (obj) { return disablepause ? string('pause-video-disabled') : string('pause-video'); } }, "string('elapsed-time')": function (obj) { with (obj) { return string('elapsed-time'); } }, "formatTime(position)": function (obj) { with (obj) { return formatTime(position); } }, "string('total-time')": function (obj) { with (obj) { return string('total-time'); } }, "formatTime(duration || position)": function (obj) { with (obj) { return formatTime(duration || position); } }, "title": function (obj) { with (obj) { return title; } }, "fullscreen": function (obj) { with (obj) { return fullscreen; } }, "fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video')": function (obj) { with (obj) { return fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video'); } }, "fullscreened ? 'small' : 'full'": function (obj) { with (obj) { return fullscreened ? 'small' : 'full'; } }, "airplaybuttonvisible": function (obj) { with (obj) { return airplaybuttonvisible; } }, "castbuttonvisble": function (obj) { with (obj) { return castbuttonvisble; } }, "streams.length > 1 && currentstream": function (obj) { with (obj) { return streams.length > 1 && currentstream; } }, "string('change-resolution')": function (obj) { with (obj) { return string('change-resolution'); } }, "currentstream_label": function (obj) { with (obj) { return currentstream_label; } }, "startUpdateVolume(domEvent)": function (obj) { with (obj) { return startUpdateVolume(domEvent); } }, "stopUpdateVolume(domEvent)": function (obj) { with (obj) { return stopUpdateVolume(domEvent); } }, "progressUpdateVolume(domEvent)": function (obj) { with (obj) { return progressUpdateVolume(domEvent); } }, "{width: Math.min(100, Math.round(volume * 100)) + '%'}": function (obj) { with (obj) { return {width: Math.min(100, Math.round(volume * 100)) + '%'}; } }, "string('volume-button')": function (obj) { with (obj) { return string('volume-button'); } }, "string(volume > 0 ? 'volume-mute' : 'volume-unmute')": function (obj) { with (obj) { return string(volume > 0 ? 'volume-mute' : 'volume-unmute'); } }, "css + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off'))": function (obj) { with (obj) { return css + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')); } }, "submit()": function (obj) { with (obj) { return submit(); } }, "rerecord()": function (obj) { with (obj) { return rerecord(); } }, "play()": function (obj) { with (obj) { return play(); } }, "pause()": function (obj) { with (obj) { return pause(); } }, "toggle_fullscreen()": function (obj) { with (obj) { return toggle_fullscreen(); } }, "show_airplay_devices()": function (obj) { with (obj) { return show_airplay_devices(); } }, "toggle_stream()": function (obj) { with (obj) { return toggle_stream(); } }, "toggle_volume()": function (obj) { with (obj) { return toggle_volume(); } }/**/ })
         .attachStringTable(Assets.strings)
         .addStrings({
             "video-progress": "Progress",
@@ -2562,6 +2564,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Loader", [
             };
         })
         .register("ba-videoplayer-loader")
+        .registerFunctions({ /**/"css": function (obj) { with (obj) { return css; } }, "string('tooltip')": function (obj) { with (obj) { return string('tooltip'); } }/**/ })
         .attachStringTable(Assets.strings)
         .addStrings({
             "tooltip": "Loading..."
@@ -2573,27 +2576,29 @@ Scoped.define("module:VideoPlayer.Dynamics.Message", [
     "dynamics:Partials.ClickPartial"
 ], function(Class, scoped) {
     return Class.extend({
-        scoped: scoped
-    }, function(inherited) {
-        return {
+            scoped: scoped
+        }, function(inherited) {
+            return {
 
-            template: "\n<div class=\"{{css}}-message-container\" ba-click=\"click()\">\n    <div data-selector=\"message-block\" class='{{css}}-message-message'>\n        {{message}}\n    </div>\n</div>\n",
+                template: "\n<div class=\"{{css}}-message-container\" ba-click=\"click()\">\n    <div data-selector=\"message-block\" class='{{css}}-message-message'>\n        {{message}}\n    </div>\n</div>\n",
 
-            attrs: {
-                "css": "ba-videoplayer",
-                "message": ''
-            },
+                attrs: {
+                    "css": "ba-videoplayer",
+                    "message": ''
+                },
 
-            functions: {
+                functions: {
 
-                click: function() {
-                    this.trigger("click");
+                    click: function() {
+                        this.trigger("click");
+                    }
+
                 }
 
-            }
-
-        };
-    }).register("ba-videoplayer-message");
+            };
+        })
+        .registerFunctions({ /**/"css": function (obj) { with (obj) { return css; } }, "message": function (obj) { with (obj) { return message; } }, "click()": function (obj) { with (obj) { return click(); } }/**/ })
+        .register("ba-videoplayer-message");
 });
 Scoped.define("module:VideoPlayer.Dynamics.Playbutton", [
     "dynamics:Dynamic",
@@ -2635,6 +2640,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Playbutton", [
             };
         })
         .register("ba-videoplayer-playbutton")
+        .registerFunctions({ /**/"css": function (obj) { with (obj) { return css; } }, "string('tooltip')": function (obj) { with (obj) { return string('tooltip'); } }, "rerecordable || submittable": function (obj) { with (obj) { return rerecordable || submittable; } }, "submittable": function (obj) { with (obj) { return submittable; } }, "submit()": function (obj) { with (obj) { return submit(); } }, "string('submit-video')": function (obj) { with (obj) { return string('submit-video'); } }, "rerecordable": function (obj) { with (obj) { return rerecordable; } }, "rerecord()": function (obj) { with (obj) { return rerecord(); } }, "string('rerecord')": function (obj) { with (obj) { return string('rerecord'); } }, "play()": function (obj) { with (obj) { return play(); } }/**/ })
         .attachStringTable(Assets.strings)
         .addStrings({
             "tooltip": "Click to play.",
@@ -3352,6 +3358,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
             }
 
         }).register("ba-videoplayer")
+        .registerFunctions({ /**/"css": function (obj) { with (obj) { return css; } }, "csssize": function (obj) { with (obj) { return csssize; } }, "iecss": function (obj) { with (obj) { return iecss; } }, "ie8 ? 'ie8' : 'noie8'": function (obj) { with (obj) { return ie8 ? 'ie8' : 'noie8'; } }, "csstheme": function (obj) { with (obj) { return csstheme; } }, "fullscreened ? 'fullscreen' : 'normal'": function (obj) { with (obj) { return fullscreened ? 'fullscreen' : 'normal'; } }, "firefox ? 'firefox' : 'common'": function (obj) { with (obj) { return firefox ? 'firefox' : 'common'; } }, "themecolor": function (obj) { with (obj) { return themecolor; } }, "width ? 'width:' + width + ((width + '').match(/^\\d+$/g) ? 'px' : '') + ';' : ''": function (obj) { with (obj) { return width ? 'width:' + width + ((width + '').match(/^\d+$/g) ? 'px' : '') + ';' : ''; } }, "height ? 'height:' + height + ((height + '').match(/^\\d+$/g) ? 'px' : '') + ';' : ''": function (obj) { with (obj) { return height ? 'height:' + height + ((height + '').match(/^\d+$/g) ? 'px' : '') + ';' : ''; } }, "!playfullscreenonmobile": function (obj) { with (obj) { return !playfullscreenonmobile; } }, "dyncontrolbar": function (obj) { with (obj) { return dyncontrolbar; } }, "csscontrolbar || css": function (obj) { with (obj) { return csscontrolbar || css; } }, "tmplcontrolbar": function (obj) { with (obj) { return tmplcontrolbar; } }, "controlbar_active": function (obj) { with (obj) { return controlbar_active; } }, "playing": function (obj) { with (obj) { return playing; } }, "playwhenvisible": function (obj) { with (obj) { return playwhenvisible; } }, "airplay": function (obj) { with (obj) { return airplay; } }, "airplaybuttonvisible": function (obj) { with (obj) { return airplaybuttonvisible; } }, "chromecast": function (obj) { with (obj) { return chromecast; } }, "castbuttonvisble": function (obj) { with (obj) { return castbuttonvisble; } }, "volume": function (obj) { with (obj) { return volume; } }, "duration": function (obj) { with (obj) { return duration; } }, "buffered": function (obj) { with (obj) { return buffered; } }, "title": function (obj) { with (obj) { return title; } }, "position": function (obj) { with (obj) { return position; } }, "activity_delta": function (obj) { with (obj) { return activity_delta; } }, "hideoninactivity": function (obj) { with (obj) { return hideoninactivity; } }, "rerecordable": function (obj) { with (obj) { return rerecordable; } }, "submittable": function (obj) { with (obj) { return submittable; } }, "streams": function (obj) { with (obj) { return streams; } }, "currentstream": function (obj) { with (obj) { return currentstream; } }, "fullscreensupport && !nofullscreen": function (obj) { with (obj) { return fullscreensupport && !nofullscreen; } }, "fullscreened": function (obj) { with (obj) { return fullscreened; } }, "source": function (obj) { with (obj) { return source; } }, "disablepause": function (obj) { with (obj) { return disablepause; } }, "disableseeking": function (obj) { with (obj) { return disableseeking; } }, "dynplaybutton": function (obj) { with (obj) { return dynplaybutton; } }, "cssplaybutton || css": function (obj) { with (obj) { return cssplaybutton || css; } }, "tmplplaybutton": function (obj) { with (obj) { return tmplplaybutton; } }, "playbutton_active": function (obj) { with (obj) { return playbutton_active; } }, "dynloader": function (obj) { with (obj) { return dynloader; } }, "cssloader || css": function (obj) { with (obj) { return cssloader || css; } }, "tmplloader": function (obj) { with (obj) { return tmplloader; } }, "loader_active": function (obj) { with (obj) { return loader_active; } }, "dynshare": function (obj) { with (obj) { return dynshare; } }, "cssshare || css": function (obj) { with (obj) { return cssshare || css; } }, "tmplshare": function (obj) { with (obj) { return tmplshare; } }, "sharevideourl && sharevideo.length > 0": function (obj) { with (obj) { return sharevideourl && sharevideo.length > 0; } }, "sharevideourl": function (obj) { with (obj) { return sharevideourl; } }, "sharevideo": function (obj) { with (obj) { return sharevideo; } }, "dynmessage": function (obj) { with (obj) { return dynmessage; } }, "cssmessage || css": function (obj) { with (obj) { return cssmessage || css; } }, "tmplmessage": function (obj) { with (obj) { return tmplmessage; } }, "message_active": function (obj) { with (obj) { return message_active; } }, "message": function (obj) { with (obj) { return message; } }, "dyntopmessage": function (obj) { with (obj) { return dyntopmessage; } }, "csstopmessage || css": function (obj) { with (obj) { return csstopmessage || css; } }, "tmpltopmessage": function (obj) { with (obj) { return tmpltopmessage; } }, "topmessage": function (obj) { with (obj) { return topmessage; } }, "poster": function (obj) { with (obj) { return poster; } }, "user_activity()": function (obj) { with (obj) { return user_activity(); } }, "user_activity(true)": function (obj) { with (obj) { return user_activity(true); } }, "toggle_player()": function (obj) { with (obj) { return toggle_player(); } }/**/ })
         .attachStringTable(Assets.strings)
         .addStrings({
             "video-error": "An error occurred, please try again later. Click to retry."
@@ -3731,6 +3738,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Share", [
                 }
             };
         }).register("ba-videoplayer-share")
+        .registerFunctions({ /**/"css": function (obj) { with (obj) { return css; } }, "toggleShare()": function (obj) { with (obj) { return toggleShare(); } }, "shares": function (obj) { with (obj) { return shares; } }, "share": function (obj) { with (obj) { return share; } }, "shareMedia(share)": function (obj) { with (obj) { return shareMedia(share); } }/**/ })
         .attachStringTable(Assets.strings)
         .addStrings({
             "share": "Share media"
@@ -3740,19 +3748,21 @@ Scoped.define("module:VideoPlayer.Dynamics.Topmessage", [
     "dynamics:Dynamic"
 ], function(Class, scoped) {
     return Class.extend({
-        scoped: scoped
-    }, function(inherited) {
-        return {
+            scoped: scoped
+        }, function(inherited) {
+            return {
 
-            template: "\n<div class=\"{{css}}-topmessage-container\">\n    <div class='{{css}}-topmessage-background'>\n    </div>\n    <div data-selector=\"topmessage-message-block\" class='{{css}}-topmessage-message'>\n        {{topmessage}}\n    </div>\n</div>\n",
+                template: "\n<div class=\"{{css}}-topmessage-container\">\n    <div class='{{css}}-topmessage-background'>\n    </div>\n    <div data-selector=\"topmessage-message-block\" class='{{css}}-topmessage-message'>\n        {{topmessage}}\n    </div>\n</div>\n",
 
-            attrs: {
-                "css": "ba-videoplayer",
-                "topmessage": ''
-            }
+                attrs: {
+                    "css": "ba-videoplayer",
+                    "topmessage": ''
+                }
 
-        };
-    }).register("ba-videoplayer-topmessage");
+            };
+        })
+        .registerFunctions({ /**/"css": function (obj) { with (obj) { return css; } }, "topmessage": function (obj) { with (obj) { return topmessage; } }/**/ })
+        .register("ba-videoplayer-topmessage");
 });
 Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
     "dynamics:Dynamic",
@@ -3877,7 +3887,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
                 }
 
             };
-        }).register("ba-videorecorder-chooser")
+        })
+        .registerFunctions({ /**/"css": function (obj) { with (obj) { return css; } }, "has_primary": function (obj) { with (obj) { return has_primary; } }, "enable_primary_select && primary_select_capture": function (obj) { with (obj) { return enable_primary_select && primary_select_capture; } }, "primary_select(domEvent)": function (obj) { with (obj) { return primary_select(domEvent); } }, "primary_accept_string": function (obj) { with (obj) { return primary_accept_string; } }, "enable_primary_select && !primary_select_capture": function (obj) { with (obj) { return enable_primary_select && !primary_select_capture; } }, "primaryrecord ? (!onlyaudio ? 'videocam' : 'volume-up'): 'upload'": function (obj) { with (obj) { return primaryrecord ? (!onlyaudio ? 'videocam' : 'volume-up'): 'upload'; } }, "!onlyaudio ? primary_label : 'Record Audio'": function (obj) { with (obj) { return !onlyaudio ? primary_label : 'Record Audio'; } }, "has_secondary": function (obj) { with (obj) { return has_secondary; } }, "enable_secondary_select && secondary_select_capture": function (obj) { with (obj) { return enable_secondary_select && secondary_select_capture; } }, "secondary_select(domEvent)": function (obj) { with (obj) { return secondary_select(domEvent); } }, "secondary_accept_string": function (obj) { with (obj) { return secondary_accept_string; } }, "enable_secondary_select && !secondary_select_capture": function (obj) { with (obj) { return enable_secondary_select && !secondary_select_capture; } }, "!onlyaudio ? secondary_label : 'Upload Audio'": function (obj) { with (obj) { return !onlyaudio ? secondary_label : 'Upload Audio'; } }, "primary()": function (obj) { with (obj) { return primary(); } }, "secondary()": function (obj) { with (obj) { return secondary(); } }/**/ })
+        .register("ba-videorecorder-chooser")
         .attachStringTable(Assets.strings)
         .addStrings({
             "record-video": "Record Video",
@@ -3953,6 +3965,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Controlbar", [
             };
         })
         .register("ba-videorecorder-controlbar")
+        .registerFunctions({ /**/"css": function (obj) { with (obj) { return css; } }, "settingsvisible && settingsopen": function (obj) { with (obj) { return settingsvisible && settingsopen; } }, "cameras": function (obj) { with (obj) { return cameras; } }, "!novideo": function (obj) { with (obj) { return !novideo; } }, "selectedcamera == camera.id": function (obj) { with (obj) { return selectedcamera == camera.id; } }, "selectCamera(camera.id)": function (obj) { with (obj) { return selectCamera(camera.id); } }, "camera.label": function (obj) { with (obj) { return camera.label; } }, "!noaudio && !novideo": function (obj) { with (obj) { return !noaudio && !novideo; } }, "microphones": function (obj) { with (obj) { return microphones; } }, "!noaudio": function (obj) { with (obj) { return !noaudio; } }, "selectMicrophone(microphone.id)": function (obj) { with (obj) { return selectMicrophone(microphone.id); } }, "selectedmicrophone == microphone.id": function (obj) { with (obj) { return selectedmicrophone == microphone.id; } }, "microphone.label": function (obj) { with (obj) { return microphone.label; } }, "settingsvisible": function (obj) { with (obj) { return settingsvisible; } }, "settingsopen ? 'selected' : 'unselected'": function (obj) { with (obj) { return settingsopen ? 'selected' : 'unselected'; } }, "settingsopen=!settingsopen": function (obj) { with (obj) { return settingsopen=!settingsopen; } }, "hover(string('settings'))": function (obj) { with (obj) { return hover(string('settings')); } }, "unhover()": function (obj) { with (obj) { return unhover(); } }, "settingsvisible && !novideo": function (obj) { with (obj) { return settingsvisible && !novideo; } }, "hover(string(camerahealthy ? 'camerahealthy' : 'cameraunhealthy'))": function (obj) { with (obj) { return hover(string(camerahealthy ? 'camerahealthy' : 'cameraunhealthy')); } }, "camerahealthy ? 'good' : 'bad'": function (obj) { with (obj) { return camerahealthy ? 'good' : 'bad'; } }, "settingsvisible && !noaudio": function (obj) { with (obj) { return settingsvisible && !noaudio; } }, "hover(string(microphonehealthy ? 'microphonehealthy' : 'microphoneunhealthy'))": function (obj) { with (obj) { return hover(string(microphonehealthy ? 'microphonehealthy' : 'microphoneunhealthy')); } }, "microphonehealthy ? 'good' : 'bad'": function (obj) { with (obj) { return microphonehealthy ? 'good' : 'bad'; } }, "stopvisible && recordingindication": function (obj) { with (obj) { return stopvisible && recordingindication; } }, "controlbarlabel": function (obj) { with (obj) { return controlbarlabel; } }, "recordvisible": function (obj) { with (obj) { return recordvisible; } }, "record()": function (obj) { with (obj) { return record(); } }, "hover(string('record-tooltip'))": function (obj) { with (obj) { return hover(string('record-tooltip')); } }, "string('record')": function (obj) { with (obj) { return string('record'); } }, "uploadcovershotvisible": function (obj) { with (obj) { return uploadcovershotvisible; } }, "hover(string('upload-covershot-tooltip'))": function (obj) { with (obj) { return hover(string('upload-covershot-tooltip')); } }, "uploadCovershot(domEvent)": function (obj) { with (obj) { return uploadCovershot(domEvent); } }, "covershot_accept_string": function (obj) { with (obj) { return covershot_accept_string; } }, "string('upload-covershot')": function (obj) { with (obj) { return string('upload-covershot'); } }, "rerecordvisible": function (obj) { with (obj) { return rerecordvisible; } }, "rerecord()": function (obj) { with (obj) { return rerecord(); } }, "hover(string('rerecord-tooltip'))": function (obj) { with (obj) { return hover(string('rerecord-tooltip')); } }, "string('rerecord')": function (obj) { with (obj) { return string('rerecord'); } }, "cancelvisible": function (obj) { with (obj) { return cancelvisible; } }, "cancel()": function (obj) { with (obj) { return cancel(); } }, "hover(string('cancel-tooltip'))": function (obj) { with (obj) { return hover(string('cancel-tooltip')); } }, "string('cancel')": function (obj) { with (obj) { return string('cancel'); } }, "stopvisible": function (obj) { with (obj) { return stopvisible; } }, "mintimeindicator ? css + '-disabled': ''": function (obj) { with (obj) { return mintimeindicator ? css + '-disabled': ''; } }, "mintimeindicator ? string('stop-available-after').replace('%d', timeminlimit) : string('stop-tooltip')": function (obj) { with (obj) { return mintimeindicator ? string('stop-available-after').replace('%d', timeminlimit) : string('stop-tooltip'); } }, "stop()": function (obj) { with (obj) { return stop(); } }, "hover( mintimeindicator ? string('stop-available-after').replace('%d', timeminlimit) : string('stop-tooltip'))": function (obj) { with (obj) { return hover( mintimeindicator ? string('stop-available-after').replace('%d', timeminlimit) : string('stop-tooltip')); } }, "string('stop')": function (obj) { with (obj) { return string('stop'); } }, "skipvisible": function (obj) { with (obj) { return skipvisible; } }, "skip()": function (obj) { with (obj) { return skip(); } }, "hover(string('skip-tooltip'))": function (obj) { with (obj) { return hover(string('skip-tooltip')); } }, "string('skip')": function (obj) { with (obj) { return string('skip'); } }/**/ })
         .attachStringTable(Assets.strings)
         .addStrings({
             "settings": "Settings",
@@ -3975,180 +3988,199 @@ Scoped.define("module:VideoRecorder.Dynamics.Controlbar", [
             "cancel-tooltip": "Click here to cancel."
         });
 });
+Scoped.define("module:VideoRecorder.Dynamics.Faceoutline", [
+    "dynamics:Dynamic"
+], function(Class, scoped) {
+    return Class.extend({
+            scoped: scoped
+        }, function(inherited) {
+            return {
+
+                template: "<svg viewBox=\"0 0 301 171\" style=\"width:100%; height:100%\">\n    <g>\n        <path fill=\"none\" stroke=\"white\" stroke-width=\"2\" stroke-miterlimit=\"10\" stroke-dasharray=\"3.0228,3.0228\" d=\"M198.5,79.831c0,40.542-22.752,78.579-47.5,78.579c-24.749,0-47.5-38.036-47.5-78.579c0-40.543,17.028-68.24,47.5-68.24C185.057,11.591,198.5,39.288,198.5,79.831z\"></path>\n    </g>\n</svg>"
+
+            };
+        })
+        .registerFunctions({ /**//**/ })
+        .register("ba-recorderfaceoutline");
+});
 Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
     "dynamics:Dynamic",
     "base:Collections.Collection",
     "base:Properties.Properties",
     "base:Timers.Timer",
-    "browser:Dom"
+    "browser:Dom",
+    "browser:Info"
 ], [
     "dynamics:Partials.StylesPartial"
-], function(Class, Collection, Properties, Timer, Dom, scoped) {
+], function(Class, Collection, Properties, Timer, Dom, Info, scoped) {
     return Class.extend({
-        scoped: scoped
-    }, function(inherited) {
-        return {
+            scoped: scoped
+        }, function(inherited) {
+            return {
 
-            template: "<div data-selector=\"slider-left-button\" class=\"{{css}}-imagegallery-leftbutton\">\n\t<div data-selector=\"slider-left-inner-button\" class=\"{{css}}-imagegallery-button-inner\" onclick=\"{{left()}}\">\n\t\t<i class=\"{{css}}-icon-left-open\"></i>\n\t</div>\n</div>\n\n<div data-selector=\"images-imagegallery-container\" ba-repeat=\"{{image::images}}\" class=\"{{css}}-imagegallery-container\" data-gallery-container>\n     <div class=\"{{css}}-imagegallery-image\"\n          ba-styles=\"{{{left: image.left + 'px', top: image.top + 'px', width: image.width + 'px', height: image.height + 'px'}}}\"\n          onclick=\"{{select(image)}}\">\n     </div>\n</div>\n\n<div data-selector=\"slider-right-button\" class=\"{{css}}-imagegallery-rightbutton\">\n\t<div data-selector=\"slider-right-inner-button\" class=\"{{css}}-imagegallery-button-inner\" onclick=\"{{right()}}\">\n\t\t<i class=\"{{css}}-icon-right-open\"></i>\n\t</div>\n</div>\n",
+                template: "<div data-selector=\"slider-left-button\" class=\"{{css}}-imagegallery-leftbutton\">\n\t<div data-selector=\"slider-left-inner-button\" class=\"{{css}}-imagegallery-button-inner\" onclick=\"{{left()}}\">\n\t\t<i class=\"{{css}}-icon-left-open\"></i>\n\t</div>\n</div>\n\n<div data-selector=\"images-imagegallery-container\" ba-repeat=\"{{image::images}}\" class=\"{{css}}-imagegallery-container\" data-gallery-container>\n     <div class=\"{{css}}-imagegallery-image\"\n          ba-styles=\"{{{left: image.left + 'px', top: image.top + 'px', width: image.width + 'px', height: image.height + 'px'}}}\"\n          onclick=\"{{select(image)}}\">\n\t\t <div class=\"{{css}}-imagegallery-image-compat\" ba-show=\"{{ie10below}}\"></div>\n     </div>\n</div>\n\n<div data-selector=\"slider-right-button\" class=\"{{css}}-imagegallery-rightbutton\">\n\t<div data-selector=\"slider-right-inner-button\" class=\"{{css}}-imagegallery-button-inner\" onclick=\"{{right()}}\">\n\t\t<i class=\"{{css}}-icon-right-open\"></i>\n\t</div>\n</div>\n",
 
-            attrs: {
-                "css": "ba-videorecorder",
-                "imagecount": 3,
-                "imagenativewidth": 0,
-                "imagenativeheight": 0,
-                "containerwidth": 0,
-                "containerheight": 0,
-                "containeroffset": 0,
-                "deltafrac": 1 / 8
-            },
-
-            computed: {
-                "imagewidth:imagecount,containerwidth,deltafrac": function() {
-                    if (this.get("imagecount") <= 0)
-                        return 0.0;
-                    return this.get("containerwidth") * (1 - this.get("deltafrac")) / this.get("imagecount");
+                attrs: {
+                    "css": "ba-videorecorder",
+                    "imagecount": 3,
+                    "imagenativewidth": 0,
+                    "imagenativeheight": 0,
+                    "containerwidth": 0,
+                    "containerheight": 0,
+                    "containeroffset": 0,
+                    "deltafrac": 1 / 8
                 },
-                "imagedelta:imagecount,containerwidth,deltafrac": function() {
-                    if (this.get("imagecount") <= 1)
-                        return 0.0;
-                    return this.get("containerwidth") * (this.get("deltafrac")) / (this.get("imagecount") - 1);
-                },
-                "imageheight:imagewidth,imagenativewidth,imagenativeheight": function() {
-                    return this.get("imagenativeheight") * this.get("imagewidth") / this.get("imagenativewidth");
-                }
-            },
 
-            create: function() {
-                var images = this.auto_destroy(new Collection());
-                this.set("images", images);
-                this.snapshotindex = 0;
-                this._updateImageCount();
-                this.on("change:imagecount", this._updateImageCount, this);
-                this.on("change:imagewidth change:imageheight change:imagedelta", this._recomputeImageBoxes, this);
-                this.auto_destroy(new Timer({
-                    context: this,
-                    delay: 1000,
-                    fire: function() {
-                        this.updateContainerSize();
+                computed: {
+                    "imagewidth:imagecount,containerwidth,deltafrac": function() {
+                        if (this.get("imagecount") <= 0)
+                            return 0.0;
+                        return this.get("containerwidth") * (1 - this.get("deltafrac")) / this.get("imagecount");
+                    },
+                    "imagedelta:imagecount,containerwidth,deltafrac": function() {
+                        if (this.get("imagecount") <= 1)
+                            return 0.0;
+                        return this.get("containerwidth") * (this.get("deltafrac")) / (this.get("imagecount") - 1);
+                    },
+                    "imageheight:imagewidth,imagenativewidth,imagenativeheight": function() {
+                        return this.get("imagenativeheight") * this.get("imagewidth") / this.get("imagenativewidth");
                     }
-                }));
-            },
+                },
 
-            destroy: function() {
-                this.get("images").iterate(function(image) {
-                    if (image.snapshotDisplay && this.parent().recorder)
+                create: function() {
+                    this.set("ie10below", Info.isInternetExplorer() && Info.internetExplorerVersion() <= 10);
+                    var images = this.auto_destroy(new Collection());
+                    this.set("images", images);
+                    this.snapshotindex = 0;
+                    this._updateImageCount();
+                    this.on("change:imagecount", this._updateImageCount, this);
+                    this.on("change:imagewidth change:imageheight change:imagedelta", this._recomputeImageBoxes, this);
+                    this.auto_destroy(new Timer({
+                        context: this,
+                        delay: 1000,
+                        fire: function() {
+                            this.updateContainerSize();
+                        }
+                    }));
+                },
+
+                destroy: function() {
+                    this.get("images").iterate(function(image) {
+                        if (image.snapshotDisplay && this.parent().recorder)
+                            this.parent().recorder.removeSnapshotDisplay(image.snapshotDisplay);
+                    }, this);
+                    inherited.destroy.call(this);
+                },
+
+                _updateImageCount: function() {
+                    var images = this.get("images");
+                    var n = this.get("imagecount");
+                    while (images.count() < n) {
+                        var image = new Properties({
+                            index: images.count()
+                        });
+                        this._recomputeImageBox(image);
+                        images.add(image);
+                    }
+                    while (images.count() > n)
+                        images.remove(images.getByIndex(images.count() - 1));
+                },
+
+                _recomputeImageBoxes: function() {
+                    this.get("images").iterate(function(image) {
+                        this._recomputeImageBox(image);
+                    }, this);
+                },
+
+                _recomputeImageBox: function(image) {
+                    if (!this.parent().recorder)
+                        return;
+                    var i = image.get("index");
+                    var iw = this.get("imagewidth");
+                    var ih = this.get("imageheight");
+                    var id = this.get("imagedelta");
+                    var h = this.get("containerheight");
+                    image.set("left", 1 + Math.round(i * (iw + id)));
+                    image.set("top", 1 + Math.round((h - ih) / 2));
+                    image.set("width", 1 + Math.round(iw));
+                    image.set("height", 1 + Math.round(ih));
+                    if (image.snapshot && image.snapshotDisplay) {
+                        this.parent().recorder.updateSnapshotDisplay(
+                            image.snapshot,
+                            image.snapshotDisplay,
+                            image.get("left") + this.get("containeroffset"),
+                            image.get("top"),
+                            image.get("width"),
+                            image.get("height")
+                        );
+                    }
+                },
+
+                updateContainerSize: function() {
+                    var container = this.activeElement().querySelector("[data-gallery-container]");
+                    var offset = Dom.elementOffset(container);
+                    var videoOffset = Dom.elementOffset(this.parent().recorder._element);
+                    var left = offset.left - videoOffset.left;
+                    var dimensions = Dom.elementDimensions(container);
+                    this.set("containeroffset", left);
+                    this.set("containerheight", dimensions.height);
+                    this.set("containerwidth", dimensions.width);
+                },
+
+                _afterActivate: function(element) {
+                    inherited._afterActivate.apply(this, arguments);
+                    this.updateContainerSize();
+                },
+
+                loadImageSnapshot: function(image, snapshotindex) {
+                    if (image.snapshotDisplay) {
                         this.parent().recorder.removeSnapshotDisplay(image.snapshotDisplay);
-                }, this);
-                inherited.destroy.call(this);
-            },
-
-            _updateImageCount: function() {
-                var images = this.get("images");
-                var n = this.get("imagecount");
-                while (images.count() < n) {
-                    var image = new Properties({
-                        index: images.count()
-                    });
-                    this._recomputeImageBox(image);
-                    images.add(image);
-                }
-                while (images.count() > n)
-                    images.remove(images.getByIndex(images.count() - 1));
-            },
-
-            _recomputeImageBoxes: function() {
-                this.get("images").iterate(function(image) {
-                    this._recomputeImageBox(image);
-                }, this);
-            },
-
-            _recomputeImageBox: function(image) {
-                if (!this.parent().recorder)
-                    return;
-                var i = image.get("index");
-                var iw = this.get("imagewidth");
-                var ih = this.get("imageheight");
-                var id = this.get("imagedelta");
-                var h = this.get("containerheight");
-                image.set("left", 1 + Math.round(i * (iw + id)));
-                image.set("top", 1 + Math.round((h - ih) / 2));
-                image.set("width", 1 + Math.round(iw));
-                image.set("height", 1 + Math.round(ih));
-                if (image.snapshot && image.snapshotDisplay) {
-                    this.parent().recorder.updateSnapshotDisplay(
+                        image.snapshotDisplay = null;
+                    }
+                    var snapshots = this.parent().snapshots;
+                    image.snapshot = snapshots[((snapshotindex % snapshots.length) + snapshots.length) % snapshots.length];
+                    image.snapshotDisplay = this.parent().recorder.createSnapshotDisplay(
+                        this.activeElement(),
                         image.snapshot,
-                        image.snapshotDisplay,
                         image.get("left") + this.get("containeroffset"),
                         image.get("top"),
                         image.get("width"),
                         image.get("height")
                     );
-                }
-            },
-
-            updateContainerSize: function() {
-                var container = this.activeElement().querySelector("[data-gallery-container]");
-                var offset = Dom.elementOffset(container);
-                var videoOffset = Dom.elementOffset(this.parent().recorder._element);
-                var left = offset.left - videoOffset.left;
-                var dimensions = Dom.elementDimensions(container);
-                this.set("containeroffset", left);
-                this.set("containerheight", dimensions.height);
-                this.set("containerwidth", dimensions.width);
-            },
-
-            _afterActivate: function(element) {
-                inherited._afterActivate.apply(this, arguments);
-                this.updateContainerSize();
-            },
-
-            loadImageSnapshot: function(image, snapshotindex) {
-                if (image.snapshotDisplay) {
-                    this.parent().recorder.removeSnapshotDisplay(image.snapshotDisplay);
-                    image.snapshotDisplay = null;
-                }
-                var snapshots = this.parent().snapshots;
-                image.snapshot = snapshots[((snapshotindex % snapshots.length) + snapshots.length) % snapshots.length];
-                image.snapshotDisplay = this.parent().recorder.createSnapshotDisplay(
-                    this.activeElement(),
-                    image.snapshot,
-                    image.get("left") + this.get("containeroffset"),
-                    image.get("top"),
-                    image.get("width"),
-                    image.get("height")
-                );
-            },
-
-            loadSnapshots: function() {
-                this.get("images").iterate(function(image) {
-                    this.loadImageSnapshot(image, this.snapshotindex + image.get("index"));
-                }, this);
-            },
-
-            nextSnapshots: function() {
-                this.snapshotindex += this.get("imagecount");
-                this.loadSnapshots();
-            },
-
-            prevSnapshots: function() {
-                this.snapshotindex -= this.get("imagecount");
-                this.loadSnapshots();
-            },
-
-            functions: {
-                left: function() {
-                    this.prevSnapshots();
                 },
-                right: function() {
-                    this.nextSnapshots();
-                },
-                select: function(image) {
-                    this.trigger("image-selected", image.snapshot);
-                }
-            }
 
-        };
-    }).register("ba-videorecorder-imagegallery");
+                loadSnapshots: function() {
+                    this.get("images").iterate(function(image) {
+                        this.loadImageSnapshot(image, this.snapshotindex + image.get("index"));
+                    }, this);
+                },
+
+                nextSnapshots: function() {
+                    this.snapshotindex += this.get("imagecount");
+                    this.loadSnapshots();
+                },
+
+                prevSnapshots: function() {
+                    this.snapshotindex -= this.get("imagecount");
+                    this.loadSnapshots();
+                },
+
+                functions: {
+                    left: function() {
+                        this.prevSnapshots();
+                    },
+                    right: function() {
+                        this.nextSnapshots();
+                    },
+                    select: function(image) {
+                        this.trigger("image-selected", image.snapshot);
+                    }
+                }
+
+            };
+        })
+        .registerFunctions({ /**/"css": function (obj) { with (obj) { return css; } }, "left()": function (obj) { with (obj) { return left(); } }, "images": function (obj) { with (obj) { return images; } }, "{left: image.left + 'px', top: image.top + 'px', width: image.width + 'px', height: image.height + 'px'}": function (obj) { with (obj) { return {left: image.left + 'px', top: image.top + 'px', width: image.width + 'px', height: image.height + 'px'}; } }, "select(image)": function (obj) { with (obj) { return select(image); } }, "ie10below": function (obj) { with (obj) { return ie10below; } }, "right()": function (obj) { with (obj) { return right(); } }/**/ })
+        .register("ba-videorecorder-imagegallery");
 });
 Scoped.define("module:VideoRecorder.Dynamics.Loader", [
     "dynamics:Dynamic",
@@ -4161,7 +4193,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Loader", [
         }, function(inherited) {
             return {
 
-                template: "\n<div class=\"{{css}}-loader-container\">\n    <div data-selector=\"recorder-loader-block\" class=\"{{css}}-loader-loader\" title=\"{{tooltip}}\">\n    </div>\n</div>\n<div data-selector=\"recorder-loader-label-container\" class=\"{{css}}-loader-label\" ba-show=\"{{label}}\">\n\t{{label}}\n</div>\n",
+                template: "\n<div class=\"{{css}}-loader-container\">\n    <div data-selector=\"recorder-loader-block\" class=\"{{css}}-loader-loader\" title=\"{{tooltip || ''}}\">\n    </div>\n</div>\n<div data-selector=\"recorder-loader-label-container\" class=\"{{css}}-loader-label\" ba-show=\"{{label}}\">\n\t{{label}}\n</div>\n",
 
                 attrs: {
                     "css": "ba-videorecorder",
@@ -4172,7 +4204,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Loader", [
                 }
 
             };
-        }).register("ba-videorecorder-loader")
+        })
+        .registerFunctions({ /**/"css": function (obj) { with (obj) { return css; } }, "tooltip || ''": function (obj) { with (obj) { return tooltip || ''; } }, "label": function (obj) { with (obj) { return label; } }/**/ })
+        .register("ba-videorecorder-loader")
         .attachStringTable(Assets.strings)
         .addStrings({});
 });
@@ -4182,27 +4216,29 @@ Scoped.define("module:VideoRecorder.Dynamics.Message", [
     "dynamics:Partials.ClickPartial"
 ], function(Class, Templates, scoped) {
     return Class.extend({
-        scoped: scoped
-    }, function(inherited) {
-        return {
+            scoped: scoped
+        }, function(inherited) {
+            return {
 
-            template: "\n<div data-selector=\"recorder-message-container\" class=\"{{css}}-message-container\" ba-click=\"click()\">\n    <div data-selector=\"recorder-message-block\" class='{{css}}-message-message'>\n        {{message || \"\"}}\n    </div>\n</div>\n",
+                template: "\n<div data-selector=\"recorder-message-container\" class=\"{{css}}-message-container\" ba-click=\"click()\">\n    <div data-selector=\"recorder-message-block\" class='{{css}}-message-message'>\n        {{message || \"\"}}\n    </div>\n</div>\n",
 
-            attrs: {
-                "css": "ba-videorecorder",
-                "message": ''
-            },
+                attrs: {
+                    "css": "ba-videorecorder",
+                    "message": ''
+                },
 
-            functions: {
+                functions: {
 
-                click: function() {
-                    this.trigger("click");
+                    click: function() {
+                        this.trigger("click");
+                    }
+
                 }
 
-            }
-
-        };
-    }).register("ba-videorecorder-message");
+            };
+        })
+        .registerFunctions({ /**/"css": function (obj) { with (obj) { return css; } }, "message || \"\"": function (obj) { with (obj) { return message || ""; } }, "click()": function (obj) { with (obj) { return click(); } }/**/ })
+        .register("ba-videorecorder-message");
 });
 Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
     "dynamics:Dynamic",
@@ -4230,6 +4266,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
     "module:VideoRecorder.Dynamics.Message",
     "module:VideoRecorder.Dynamics.Topmessage",
     "module:VideoRecorder.Dynamics.Chooser",
+    "module:VideoRecorder.Dynamics.Faceoutline",
     "dynamics:Partials.ShowPartial",
     "dynamics:Partials.IfPartial",
     "dynamics:Partials.EventPartial",
@@ -4243,7 +4280,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
         }, function(inherited) {
             return {
 
-                template: "\n<div data-selector=\"recorder-container\" ba-show=\"{{!player_active}}\"\n     class=\"{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}\n     \t{{css}}-{{ fullscreened ? 'fullscreen' : 'normal' }}-view {{css}}-{{ firefox ? 'firefox' : 'common'}}-browser\n    \t{{css}}-{{themecolor}}-color\"\n     style=\"{{width ? 'width:' + width + ((width + '').match(/^\\d+$/g) ? 'px' : '') + ';' : 'width:100%;'}}{{height ? 'height:' + height + ((height + '').match(/^\\d+$/g) ? 'px' : '') + ';' : 'height:100%'}}\"\n>\n\n    <video data-selector=\"recorder-status\" class=\"{{css}}-video {{css}}-{{hasrecorder ? 'hasrecorder' : 'norecorder'}}\" data-video=\"video\"></video>\n    <div data-selector=\"recorder-overlay\" class='{{css}}-overlay' ba-show=\"{{!hideoverlay}}\" data-overlay=\"overlay\">\n\t\t<ba-{{dynloader}}\n\t\t    ba-css=\"{{cssloader || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplloader}}\"\n\t\t    ba-show=\"{{loader_active}}\"\n\t\t    ba-tooltip=\"{{loadertooltip}}\"\n\t\t\tba-hovermessage=\"{{=hovermessage}}\"\n\t\t    ba-label=\"{{loaderlabel}}\"\n\t\t></ba-{{dynloader}}>\n\n\t\t<ba-{{dynmessage}}\n\t\t    ba-css=\"{{cssmessage || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplmessage}}\"\n\t\t    ba-show=\"{{message_active}}\"\n\t\t    ba-message=\"{{message}}\"\n\t\t    ba-event:click=\"message_click\"\n\t\t></ba-{{dynmessage}}>\n\n\t\t<ba-{{dyntopmessage}}\n\t\t    ba-css=\"{{csstopmessage || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmpltopmessage}}\"\n\t\t    ba-show=\"{{topmessage_active && (topmessage || hovermessage)}}\"\n\t\t    ba-topmessage=\"{{hovermessage || topmessage}}\"\n\t\t></ba-{{dyntopmessage}}>\n\n\t\t<ba-{{dynchooser}}\n\t\t\tba-onlyaudio=\"{{onlyaudio}}\"\n\t\t    ba-css=\"{{csschooser || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplchooser}}\"\n\t\t    ba-show=\"{{chooser_active}}\"\n\t\t    ba-allowrecord=\"{{allowrecord}}\"\n\t\t    ba-allowupload=\"{{allowupload}}\"\n\t\t    ba-allowcustomupload=\"{{allowcustomupload}}\"\n\t\t    ba-allowedextensions=\"{{allowedextensions}}\"\n\t\t    ba-primaryrecord=\"{{primaryrecord}}\"\n\t\t    ba-timelimit=\"{{timelimit}}\"\n\t\t    ba-event:record=\"record_video\"\n\t\t    ba-event:upload=\"upload_video\"\n\t\t></ba-{{dynchooser}}>\n\n\t\t<ba-{{dynimagegallery}}\n\t\t    ba-css=\"{{cssimagegallery || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplimagegallery}}\"\n\t\t    ba-if=\"{{imagegallery_active}}\"\n\t\t    ba-imagecount=\"{{gallerysnapshots}}\"\n\t\t    ba-imagenativewidth=\"{{recordingwidth}}\"\n\t\t    ba-imagenativeheight=\"{{recordingheight}}\"\n\t\t    ba-event:image-selected=\"select_image\"\n\t\t></ba-{{dynimagegallery}}>\n\n\t\t<ba-{{dyncontrolbar}}\n\t\t    ba-css=\"{{csscontrolbar || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplcontrolbar}}\"\n\t\t    ba-show=\"{{controlbar_active}}\"\n\t\t    ba-cameras=\"{{cameras}}\"\n\t\t    ba-microphones=\"{{microphones}}\"\n\t\t    ba-noaudio=\"{{noaudio}}\"\n\t\t\tba-novideo=\"{{onlyaudio}}\"\n\t\t    ba-selectedcamera=\"{{selectedcamera || 0}}\"\n\t\t    ba-selectedmicrophone=\"{{selectedmicrophone || 0}}\"\n\t\t    ba-camerahealthy=\"{{camerahealthy}}\"\n\t\t    ba-microphonehealthy=\"{{microphonehealthy}}\"\n\t\t    ba-hovermessage=\"{{=hovermessage}}\"\n\t\t    ba-settingsvisible=\"{{settingsvisible}}\"\n\t\t    ba-recordvisible=\"{{recordvisible}}\"\n\t\t\tba-cancelvisible=\"{{allowcancel && cancancel}}\"\n\t\t    ba-uploadcovershotvisible=\"{{uploadcovershotvisible}}\"\n\t\t    ba-rerecordvisible=\"{{rerecordvisible}}\"\n\t\t    ba-stopvisible=\"{{stopvisible}}\"\n\t\t    ba-skipvisible=\"{{skipvisible}}\"\n\t\t    ba-controlbarlabel=\"{{controlbarlabel}}\"\n\t\t\tba-mintimeindicator=\"{{mintimeindicator}}\"\n\t\t\tba-timeminlimit=\"{{timeminlimit}}\"\n\t\t    ba-event:select-camera=\"select_camera\"\n\t\t    ba-event:select-microphone=\"select_microphone\"\n\t\t    ba-event:invoke-record=\"record\"\n\t\t    ba-event:invoke-rerecord=\"rerecord\"\n\t\t    ba-event:invoke-stop=\"stop\"\n\t\t    ba-event:invoke-skip=\"invoke_skip\"\n\t\t    ba-event:upload-covershot=\"upload_covershot\"\n\t\t></ba-{{dyncontrolbar}}>\n    </div>\n</div>\n\n<div data-selector=\"recorder-player\" ba-if=\"{{player_active}}\"\n     style=\"{{width ? 'width:' + width + ((width + '').match(/^\\d+$/g) ? 'px' : '') + ';' : ''}}{{height ? 'height:' + height + ((height + '').match(/^\\d+$/g) ? 'px' : '') + ';' : ''}}\"\n>\n\t<ba-{{dynvideoplayer}} ba-theme=\"{{theme || 'default'}}\"\n        ba-themecolor=\"{{themecolor}}\"\n        ba-source=\"{{playbacksource}}\"\n        ba-poster=\"{{playbackposter}}\"\n        ba-hideoninactivity=\"{{false}}\"\n        ba-forceflash=\"{{forceflash}}\"\n        ba-noflash=\"{{noflash}}\"\n        ba-stretch=\"{{stretch}}\"\n\t\tba-onlyaudio=\"{{onlyaudio}}\"\n        ba-attrs=\"{{playerattrs}}\"\n        ba-data:id=\"player\"\n        ba-width=\"{{width}}\"\n        ba-height=\"{{height}}\"\n        ba-totalduration=\"{{duration / 1000}}\"\n        ba-rerecordable=\"{{rerecordable && (recordings === null || recordings > 0)}}\"\n        ba-submittable=\"{{manualsubmit && verified}}\"\n        ba-reloadonplay=\"{{true}}\"\n        ba-autoplay=\"{{autoplay}}\"\n        ba-nofullscreen=\"{{nofullscreen}}\"\n        ba-topmessage=\"{{playertopmessage}}\"\n        ba-event:rerecord=\"rerecord\"\n        ba-event:playing=\"playing\"\n        ba-event:paused=\"paused\"\n        ba-event:ended=\"ended\"\n        ba-event:submit=\"manual_submit\"\n        >\n\t</ba-{{dynvideoplayer}}>\n</div>\n",
+                template: "\n<div data-selector=\"recorder-container\" ba-show=\"{{!player_active}}\"\n     class=\"{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}\n     \t{{css}}-{{ fullscreened ? 'fullscreen' : 'normal' }}-view {{css}}-{{ firefox ? 'firefox' : 'common'}}-browser\n    \t{{css}}-{{themecolor}}-color\"\n     style=\"{{width ? 'width:' + width + ((width + '').match(/^\\d+$/g) ? 'px' : '') + ';' : 'width:100%;'}}{{height ? 'height:' + height + ((height + '').match(/^\\d+$/g) ? 'px' : '') + ';' : 'height:100%'}}\"\n>\n\n    <video data-selector=\"recorder-status\" class=\"{{css}}-video {{css}}-{{hasrecorder ? 'hasrecorder' : 'norecorder'}}\" data-video=\"video\"></video>\n\t<ba-recorderfaceoutline class=\"{{css}}-overlay\" ba-if=\"{{faceoutline && hasrecorder}}\">\n\t</ba-recorderfaceoutline>\n    <div data-selector=\"recorder-overlay\" class='{{css}}-overlay' ba-show=\"{{!hideoverlay}}\" data-overlay=\"overlay\">\n\t\t<ba-{{dynloader}}\n\t\t    ba-css=\"{{cssloader || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplloader}}\"\n\t\t    ba-show=\"{{loader_active}}\"\n\t\t    ba-tooltip=\"{{loadertooltip}}\"\n\t\t\tba-hovermessage=\"{{=hovermessage}}\"\n\t\t    ba-label=\"{{loaderlabel}}\"\n\t\t></ba-{{dynloader}}>\n\n\t\t<ba-{{dynmessage}}\n\t\t    ba-css=\"{{cssmessage || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplmessage}}\"\n\t\t    ba-show=\"{{message_active}}\"\n\t\t    ba-message=\"{{message}}\"\n\t\t    ba-event:click=\"message_click\"\n\t\t></ba-{{dynmessage}}>\n\n\t\t<ba-{{dyntopmessage}}\n\t\t    ba-css=\"{{csstopmessage || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmpltopmessage}}\"\n\t\t    ba-show=\"{{topmessage_active && (topmessage || hovermessage)}}\"\n\t\t    ba-topmessage=\"{{hovermessage || topmessage}}\"\n\t\t></ba-{{dyntopmessage}}>\n\n\t\t<ba-{{dynchooser}}\n\t\t\tba-onlyaudio=\"{{onlyaudio}}\"\n\t\t    ba-css=\"{{csschooser || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplchooser}}\"\n\t\t    ba-show=\"{{chooser_active}}\"\n\t\t\tba-if=\"{{!is_initial_state}}\"\n\t\t    ba-allowrecord=\"{{allowrecord}}\"\n\t\t    ba-allowupload=\"{{allowupload}}\"\n\t\t    ba-allowcustomupload=\"{{allowcustomupload}}\"\n\t\t    ba-allowedextensions=\"{{allowedextensions}}\"\n\t\t    ba-primaryrecord=\"{{primaryrecord}}\"\n\t\t    ba-timelimit=\"{{timelimit}}\"\n\t\t    ba-event:record=\"record_video\"\n\t\t    ba-event:upload=\"upload_video\"\n\t\t></ba-{{dynchooser}}>\n\n\t\t<ba-{{dynimagegallery}}\n\t\t    ba-css=\"{{cssimagegallery || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplimagegallery}}\"\n\t\t    ba-if=\"{{imagegallery_active}}\"\n\t\t    ba-imagecount=\"{{gallerysnapshots}}\"\n\t\t    ba-imagenativewidth=\"{{recordingwidth}}\"\n\t\t    ba-imagenativeheight=\"{{recordingheight}}\"\n\t\t    ba-event:image-selected=\"select_image\"\n\t\t></ba-{{dynimagegallery}}>\n\n\t\t<ba-{{dyncontrolbar}}\n\t\t    ba-css=\"{{csscontrolbar || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplcontrolbar}}\"\n\t\t    ba-show=\"{{controlbar_active}}\"\n\t\t    ba-cameras=\"{{cameras}}\"\n\t\t    ba-microphones=\"{{microphones}}\"\n\t\t    ba-noaudio=\"{{noaudio}}\"\n\t\t\tba-novideo=\"{{onlyaudio}}\"\n\t\t    ba-selectedcamera=\"{{selectedcamera || 0}}\"\n\t\t    ba-selectedmicrophone=\"{{selectedmicrophone || 0}}\"\n\t\t    ba-camerahealthy=\"{{camerahealthy}}\"\n\t\t    ba-microphonehealthy=\"{{microphonehealthy}}\"\n\t\t    ba-hovermessage=\"{{=hovermessage}}\"\n\t\t    ba-settingsvisible=\"{{settingsvisible}}\"\n\t\t    ba-recordvisible=\"{{recordvisible}}\"\n\t\t\tba-cancelvisible=\"{{allowcancel && cancancel}}\"\n\t\t    ba-uploadcovershotvisible=\"{{uploadcovershotvisible}}\"\n\t\t    ba-rerecordvisible=\"{{rerecordvisible}}\"\n\t\t    ba-stopvisible=\"{{stopvisible}}\"\n\t\t    ba-skipvisible=\"{{skipvisible}}\"\n\t\t    ba-controlbarlabel=\"{{controlbarlabel}}\"\n\t\t\tba-mintimeindicator=\"{{mintimeindicator}}\"\n\t\t\tba-timeminlimit=\"{{timeminlimit}}\"\n\t\t    ba-event:select-camera=\"select_camera\"\n\t\t    ba-event:select-microphone=\"select_microphone\"\n\t\t    ba-event:invoke-record=\"record\"\n\t\t    ba-event:invoke-rerecord=\"rerecord\"\n\t\t    ba-event:invoke-stop=\"stop\"\n\t\t    ba-event:invoke-skip=\"invoke_skip\"\n\t\t    ba-event:upload-covershot=\"upload_covershot\"\n\t\t></ba-{{dyncontrolbar}}>\n    </div>\n</div>\n\n<div data-selector=\"recorder-player\" ba-if=\"{{player_active}}\"\n     style=\"{{width ? 'width:' + width + ((width + '').match(/^\\d+$/g) ? 'px' : '') + ';' : ''}}{{height ? 'height:' + height + ((height + '').match(/^\\d+$/g) ? 'px' : '') + ';' : ''}}\"\n>\n\t<ba-{{dynvideoplayer}} ba-theme=\"{{theme || 'default'}}\"\n        ba-themecolor=\"{{themecolor}}\"\n        ba-source=\"{{playbacksource}}\"\n        ba-poster=\"{{playbackposter}}\"\n        ba-hideoninactivity=\"{{false}}\"\n        ba-forceflash=\"{{forceflash}}\"\n        ba-noflash=\"{{noflash}}\"\n        ba-stretch=\"{{stretch}}\"\n\t\tba-onlyaudio=\"{{onlyaudio}}\"\n        ba-attrs=\"{{playerattrs}}\"\n        ba-data:id=\"player\"\n        ba-width=\"{{width}}\"\n        ba-height=\"{{height}}\"\n        ba-totalduration=\"{{duration / 1000}}\"\n        ba-rerecordable=\"{{rerecordable && (recordings === null || recordings > 0)}}\"\n        ba-submittable=\"{{manualsubmit && verified}}\"\n        ba-reloadonplay=\"{{true}}\"\n        ba-autoplay=\"{{autoplay}}\"\n        ba-nofullscreen=\"{{nofullscreen}}\"\n        ba-topmessage=\"{{playertopmessage}}\"\n        ba-event:rerecord=\"rerecord\"\n        ba-event:playing=\"playing\"\n        ba-event:paused=\"paused\"\n        ba-event:ended=\"ended\"\n        ba-event:submit=\"manual_submit\"\n        >\n\t</ba-{{dynvideoplayer}}>\n</div>\n",
 
                 attrs: {
                     /* CSS */
@@ -4314,6 +4351,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "manualsubmit": false,
                     "allowedextensions": null,
                     "filesizelimit": null,
+                    "faceoutline": false,
 
                     /* Configuration */
                     "forceflash": false,
@@ -4365,6 +4403,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "audiobitrate": "int",
                     "videobitrate": "int",
                     "flip-camera": "boolean",
+                    "faceoutline": "boolean",
                     "early-rerecord": "boolean",
                     "custom-covershots": "boolean",
                     "manualsubmit": "boolean",
@@ -4737,6 +4776,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     reset: function() {
                         this._stopRecording().callback(function() {
                             this._unbindMedia();
+                            this._hideBackgroundSnapshot();
                             this._detachRecorder();
                             this.host.state().next("Initial");
                         }, this);
@@ -4891,7 +4931,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 return [RecorderStates];
             }
 
-        }).register("ba-videorecorder")
+        })
+        .register("ba-videorecorder")
+        .registerFunctions({ /**/"!player_active": function (obj) { with (obj) { return !player_active; } }, "css": function (obj) { with (obj) { return css; } }, "csssize": function (obj) { with (obj) { return csssize; } }, "iecss": function (obj) { with (obj) { return iecss; } }, "ie8 ? 'ie8' : 'noie8'": function (obj) { with (obj) { return ie8 ? 'ie8' : 'noie8'; } }, "csstheme": function (obj) { with (obj) { return csstheme; } }, "fullscreened ? 'fullscreen' : 'normal'": function (obj) { with (obj) { return fullscreened ? 'fullscreen' : 'normal'; } }, "firefox ? 'firefox' : 'common'": function (obj) { with (obj) { return firefox ? 'firefox' : 'common'; } }, "themecolor": function (obj) { with (obj) { return themecolor; } }, "width ? 'width:' + width + ((width + '').match(/^\\d+$/g) ? 'px' : '') + ';' : 'width:100%;'": function (obj) { with (obj) { return width ? 'width:' + width + ((width + '').match(/^\d+$/g) ? 'px' : '') + ';' : 'width:100%;'; } }, "height ? 'height:' + height + ((height + '').match(/^\\d+$/g) ? 'px' : '') + ';' : 'height:100%'": function (obj) { with (obj) { return height ? 'height:' + height + ((height + '').match(/^\d+$/g) ? 'px' : '') + ';' : 'height:100%'; } }, "hasrecorder ? 'hasrecorder' : 'norecorder'": function (obj) { with (obj) { return hasrecorder ? 'hasrecorder' : 'norecorder'; } }, "faceoutline && hasrecorder": function (obj) { with (obj) { return faceoutline && hasrecorder; } }, "!hideoverlay": function (obj) { with (obj) { return !hideoverlay; } }, "dynloader": function (obj) { with (obj) { return dynloader; } }, "cssloader || css": function (obj) { with (obj) { return cssloader || css; } }, "tmplloader": function (obj) { with (obj) { return tmplloader; } }, "loader_active": function (obj) { with (obj) { return loader_active; } }, "loadertooltip": function (obj) { with (obj) { return loadertooltip; } }, "hovermessage": function (obj) { with (obj) { return hovermessage; } }, "loaderlabel": function (obj) { with (obj) { return loaderlabel; } }, "dynmessage": function (obj) { with (obj) { return dynmessage; } }, "cssmessage || css": function (obj) { with (obj) { return cssmessage || css; } }, "tmplmessage": function (obj) { with (obj) { return tmplmessage; } }, "message_active": function (obj) { with (obj) { return message_active; } }, "message": function (obj) { with (obj) { return message; } }, "dyntopmessage": function (obj) { with (obj) { return dyntopmessage; } }, "csstopmessage || css": function (obj) { with (obj) { return csstopmessage || css; } }, "tmpltopmessage": function (obj) { with (obj) { return tmpltopmessage; } }, "topmessage_active && (topmessage || hovermessage)": function (obj) { with (obj) { return topmessage_active && (topmessage || hovermessage); } }, "hovermessage || topmessage": function (obj) { with (obj) { return hovermessage || topmessage; } }, "dynchooser": function (obj) { with (obj) { return dynchooser; } }, "onlyaudio": function (obj) { with (obj) { return onlyaudio; } }, "csschooser || css": function (obj) { with (obj) { return csschooser || css; } }, "tmplchooser": function (obj) { with (obj) { return tmplchooser; } }, "chooser_active": function (obj) { with (obj) { return chooser_active; } }, "!is_initial_state": function (obj) { with (obj) { return !is_initial_state; } }, "allowrecord": function (obj) { with (obj) { return allowrecord; } }, "allowupload": function (obj) { with (obj) { return allowupload; } }, "allowcustomupload": function (obj) { with (obj) { return allowcustomupload; } }, "allowedextensions": function (obj) { with (obj) { return allowedextensions; } }, "primaryrecord": function (obj) { with (obj) { return primaryrecord; } }, "timelimit": function (obj) { with (obj) { return timelimit; } }, "dynimagegallery": function (obj) { with (obj) { return dynimagegallery; } }, "cssimagegallery || css": function (obj) { with (obj) { return cssimagegallery || css; } }, "tmplimagegallery": function (obj) { with (obj) { return tmplimagegallery; } }, "imagegallery_active": function (obj) { with (obj) { return imagegallery_active; } }, "gallerysnapshots": function (obj) { with (obj) { return gallerysnapshots; } }, "recordingwidth": function (obj) { with (obj) { return recordingwidth; } }, "recordingheight": function (obj) { with (obj) { return recordingheight; } }, "dyncontrolbar": function (obj) { with (obj) { return dyncontrolbar; } }, "csscontrolbar || css": function (obj) { with (obj) { return csscontrolbar || css; } }, "tmplcontrolbar": function (obj) { with (obj) { return tmplcontrolbar; } }, "controlbar_active": function (obj) { with (obj) { return controlbar_active; } }, "cameras": function (obj) { with (obj) { return cameras; } }, "microphones": function (obj) { with (obj) { return microphones; } }, "noaudio": function (obj) { with (obj) { return noaudio; } }, "selectedcamera || 0": function (obj) { with (obj) { return selectedcamera || 0; } }, "selectedmicrophone || 0": function (obj) { with (obj) { return selectedmicrophone || 0; } }, "camerahealthy": function (obj) { with (obj) { return camerahealthy; } }, "microphonehealthy": function (obj) { with (obj) { return microphonehealthy; } }, "settingsvisible": function (obj) { with (obj) { return settingsvisible; } }, "recordvisible": function (obj) { with (obj) { return recordvisible; } }, "allowcancel && cancancel": function (obj) { with (obj) { return allowcancel && cancancel; } }, "uploadcovershotvisible": function (obj) { with (obj) { return uploadcovershotvisible; } }, "rerecordvisible": function (obj) { with (obj) { return rerecordvisible; } }, "stopvisible": function (obj) { with (obj) { return stopvisible; } }, "skipvisible": function (obj) { with (obj) { return skipvisible; } }, "controlbarlabel": function (obj) { with (obj) { return controlbarlabel; } }, "mintimeindicator": function (obj) { with (obj) { return mintimeindicator; } }, "timeminlimit": function (obj) { with (obj) { return timeminlimit; } }, "player_active": function (obj) { with (obj) { return player_active; } }, "width ? 'width:' + width + ((width + '').match(/^\\d+$/g) ? 'px' : '') + ';' : ''": function (obj) { with (obj) { return width ? 'width:' + width + ((width + '').match(/^\d+$/g) ? 'px' : '') + ';' : ''; } }, "height ? 'height:' + height + ((height + '').match(/^\\d+$/g) ? 'px' : '') + ';' : ''": function (obj) { with (obj) { return height ? 'height:' + height + ((height + '').match(/^\d+$/g) ? 'px' : '') + ';' : ''; } }, "dynvideoplayer": function (obj) { with (obj) { return dynvideoplayer; } }, "theme || 'default'": function (obj) { with (obj) { return theme || 'default'; } }, "playbacksource": function (obj) { with (obj) { return playbacksource; } }, "playbackposter": function (obj) { with (obj) { return playbackposter; } }, "false": function (obj) { with (obj) { return false; } }, "forceflash": function (obj) { with (obj) { return forceflash; } }, "noflash": function (obj) { with (obj) { return noflash; } }, "stretch": function (obj) { with (obj) { return stretch; } }, "playerattrs": function (obj) { with (obj) { return playerattrs; } }, "width": function (obj) { with (obj) { return width; } }, "height": function (obj) { with (obj) { return height; } }, "duration / 1000": function (obj) { with (obj) { return duration / 1000; } }, "rerecordable && (recordings === null || recordings > 0)": function (obj) { with (obj) { return rerecordable && (recordings === null || recordings > 0); } }, "manualsubmit && verified": function (obj) { with (obj) { return manualsubmit && verified; } }, "true": function (obj) { with (obj) { return true; } }, "autoplay": function (obj) { with (obj) { return autoplay; } }, "nofullscreen": function (obj) { with (obj) { return nofullscreen; } }, "playertopmessage": function (obj) { with (obj) { return playertopmessage; } }/**/ })
         .attachStringTable(Assets.strings)
         .addStrings({
             "recorder-error": "An error occurred, please try again later. Click to retry.",
@@ -5012,6 +5054,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Initial", [
     }, {
 
         _started: function() {
+            this.dyn.set("is_initial_state", true);
             this.dyn.set("verified", false);
             this.dyn.set("playbacksource", null);
             this.dyn.set("playbackposter", null);
@@ -5027,6 +5070,10 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Initial", [
                 this.eventualNext("CameraAccess");
             else
                 this.next("Chooser");
+        },
+
+        _end: function() {
+            this.dyn.set("is_initial_state", false);
         }
 
     });
@@ -5557,18 +5604,20 @@ Scoped.define("module:VideoRecorder.Dynamics.Topmessage", [
     "dynamics:Dynamic"
 ], function(Class, scoped) {
     return Class.extend({
-        scoped: scoped
-    }, function(inherited) {
-        return {
+            scoped: scoped
+        }, function(inherited) {
+            return {
 
-            template: "\n<div class=\"{{css}}-topmessage-container\">\n    <div class='{{css}}-topmessage-background'>\n    </div>\n    <div data-selector=\"recorder-topmessage-block\" class='{{css}}-topmessage-message'>\n        {{topmessage}}\n    </div>\n</div>\n",
+                template: "\n<div class=\"{{css}}-topmessage-container\">\n    <div class='{{css}}-topmessage-background'>\n    </div>\n    <div data-selector=\"recorder-topmessage-block\" class='{{css}}-topmessage-message'>\n        {{topmessage}}\n    </div>\n</div>\n",
 
-            attrs: {
-                "css": "ba-videorecorder",
-                "topmessage": ''
-            }
+                attrs: {
+                    "css": "ba-videorecorder",
+                    "topmessage": ''
+                }
 
-        };
-    }).register("ba-videorecorder-topmessage");
+            };
+        })
+        .registerFunctions({ /**/"css": function (obj) { with (obj) { return css; } }, "topmessage": function (obj) { with (obj) { return topmessage; } }/**/ })
+        .register("ba-videorecorder-topmessage");
 });
 }).call(Scoped);

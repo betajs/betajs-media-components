@@ -7,6 +7,8 @@
 >
 
     <video data-selector="recorder-status" class="{{css}}-video {{css}}-{{hasrecorder ? 'hasrecorder' : 'norecorder'}}" data-video="video"></video>
+	<ba-recorderfaceoutline class="{{css}}-overlay" ba-if="{{faceoutline && hasrecorder}}">
+	</ba-recorderfaceoutline>
     <div data-selector="recorder-overlay" class='{{css}}-overlay' ba-show="{{!hideoverlay}}" data-overlay="overlay">
 		<ba-{{dynloader}}
 		    ba-css="{{cssloader || css}}"
@@ -41,6 +43,7 @@
 			ba-themecolor="{{themecolor}}"
 		    ba-template="{{tmplchooser}}"
 		    ba-show="{{chooser_active}}"
+			ba-if="{{!is_initial_state}}"
 		    ba-allowrecord="{{allowrecord}}"
 		    ba-allowupload="{{allowupload}}"
 		    ba-allowcustomupload="{{allowcustomupload}}"

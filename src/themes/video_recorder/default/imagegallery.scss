@@ -33,11 +33,19 @@
     position: absolute;
     box-sizing: border-box;
     cursor:pointer;
-	border: 2px solid gray;
+  border: 2px solid gray;
 }
 
 .#{$css}-imagegallery-image:hover {
 	border: 2px solid white;
+}
+
+.#{$css}-imagegallery-image-compat {
+  cursor:pointer;
+  background: white;
+  opacity: 0.01;
+  width:100%;
+  height: 100%;
 }
 
 .#{$css}-imagegallery-button-inner {

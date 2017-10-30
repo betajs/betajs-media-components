@@ -234,6 +234,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Adplayer", [
             };
         })
         .register("ba-videoplayer-adslot")
+        .registerFunctions({ /*<%= template_function_cache(dirname + '/video_player_adplayer.html') %>*/ })
         .attachStringTable(Assets.strings)
         .addStrings({
             "elapsed-time": "Elasped time",

@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.69 - 2017-10-22
+betajs-media-components - v0.0.72 - 2017-10-30
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -2611,6 +2611,13 @@ div.ba-videorecorder-theme-theatre-disabled {
 
 .ba-videorecorder-theme-theatre-imagegallery-image:hover {
   border: 2px solid white; }
+
+.ba-videorecorder-theme-theatre-imagegallery-image-compat {
+  cursor: pointer;
+  background: white;
+  opacity: 0.01;
+  width: 100%;
+  height: 100%; }
 
 .ba-videorecorder-theme-theatre-imagegallery-button-inner {
   -webkit-transform: translateY(-50%);

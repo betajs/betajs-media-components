@@ -3,4 +3,5 @@
 var Scoped = this.subScope();
 
 Scoped.binding("browser", "global:BetaJS.Browser");
+Scoped.binding("dynamics", "global:BetaJS.Dynamics");
 Scoped.binding("module", "global:BetaJS.MediaComponents");

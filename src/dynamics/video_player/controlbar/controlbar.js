@@ -189,6 +189,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
             };
         })
         .register("ba-videoplayer-controlbar")
+        .registerFunctions({ /*<%= template_function_cache(dirname + '/video_player_controlbar.html') %>*/ })
         .attachStringTable(Assets.strings)
         .addStrings({
             "video-progress": "Progress",

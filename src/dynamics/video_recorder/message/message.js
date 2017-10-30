@@ -4,25 +4,27 @@ Scoped.define("module:VideoRecorder.Dynamics.Message", [
     "dynamics:Partials.ClickPartial"
 ], function(Class, Templates, scoped) {
     return Class.extend({
-        scoped: scoped
-    }, function(inherited) {
-        return {
+            scoped: scoped
+        }, function(inherited) {
+            return {
 
-            template: "<%= template(dirname + '/video_recorder_message.html') %>",
+                template: "<%= template(dirname + '/video_recorder_message.html') %>",
 
-            attrs: {
-                "css": "ba-videorecorder",
-                "message": ''
-            },
+                attrs: {
+                    "css": "ba-videorecorder",
+                    "message": ''
+                },
 
-            functions: {
+                functions: {
 
-                click: function() {
-                    this.trigger("click");
+                    click: function() {
+                        this.trigger("click");
+                    }
+
                 }
 
-            }
-
-        };
-    }).register("ba-videorecorder-message");
+            };
+        })
+        .registerFunctions({ /*<%= template_function_cache(dirname + '/video_recorder_message.html') %>*/ })
+        .register("ba-videorecorder-message");
 });

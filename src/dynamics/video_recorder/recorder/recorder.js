@@ -24,6 +24,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
     "module:VideoRecorder.Dynamics.Message",
     "module:VideoRecorder.Dynamics.Topmessage",
     "module:VideoRecorder.Dynamics.Chooser",
+    "module:VideoRecorder.Dynamics.Faceoutline",
     "dynamics:Partials.ShowPartial",
     "dynamics:Partials.IfPartial",
     "dynamics:Partials.EventPartial",
@@ -108,6 +109,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "manualsubmit": false,
                     "allowedextensions": null,
                     "filesizelimit": null,
+                    "faceoutline": false,
 
                     /* Configuration */
                     "forceflash": false,
@@ -159,6 +161,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "audiobitrate": "int",
                     "videobitrate": "int",
                     "flip-camera": "boolean",
+                    "faceoutline": "boolean",
                     "early-rerecord": "boolean",
                     "custom-covershots": "boolean",
                     "manualsubmit": "boolean",
@@ -531,6 +534,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     reset: function() {
                         this._stopRecording().callback(function() {
                             this._unbindMedia();
+                            this._hideBackgroundSnapshot();
                             this._detachRecorder();
                             this.host.state().next("Initial");
                         }, this);
@@ -685,7 +689,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 return [RecorderStates];
             }
 
-        }).register("ba-videorecorder")
+        })
+        .register("ba-videorecorder")
+        .registerFunctions({ /*<%= template_function_cache(dirname + '/recorder.html') %>*/ })
         .attachStringTable(Assets.strings)
         .addStrings({
             "recorder-error": "An error occurred, please try again later. Click to retry.",

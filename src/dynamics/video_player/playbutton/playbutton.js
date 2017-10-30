@@ -38,6 +38,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Playbutton", [
             };
         })
         .register("ba-videoplayer-playbutton")
+        .registerFunctions({ /*<%= template_function_cache(dirname + '/playbutton.html') %>*/ })
         .attachStringTable(Assets.strings)
         .addStrings({
             "tooltip": "Click to play.",

@@ -708,6 +708,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
             }
 
         }).register("ba-videoplayer")
+        .registerFunctions({ /*<%= template_function_cache(dirname + '/player.html') %>*/ })
         .attachStringTable(Assets.strings)
         .addStrings({
             "video-error": "An error occurred, please try again later. Click to retry."

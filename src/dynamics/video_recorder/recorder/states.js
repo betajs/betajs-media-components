@@ -102,6 +102,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Initial", [
     }, {
 
         _started: function() {
+            this.dyn.set("is_initial_state", true);
             this.dyn.set("verified", false);
             this.dyn.set("playbacksource", null);
             this.dyn.set("playbackposter", null);
@@ -117,6 +118,10 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Initial", [
                 this.eventualNext("CameraAccess");
             else
                 this.next("Chooser");
+        },
+
+        _end: function() {
+            this.dyn.set("is_initial_state", false);
         }
 
     });

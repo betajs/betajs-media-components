@@ -1,7 +1,9 @@
 Scoped.extend("module:Assets.playerthemes", [
-    "browser:Info"
-], function(Info) {
+    "browser:Info",
+    "dynamics:Parser"
+], function(Info, Parser) {
     var ie8 = Info.isInternetExplorer() && Info.internetExplorerVersion() <= 8;
+    Parser.registerFunctions({ /*<%= template_function_cache(dirname + '/theatre-video_player_controlbar.html') %>*/ });
     return {
         "theatre": {
             css: "ba-videoplayer-theatre-theme",

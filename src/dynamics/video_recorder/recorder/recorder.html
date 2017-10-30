@@ -103,7 +103,9 @@
 <div data-selector="recorder-player" ba-if="{{player_active}}"
      style="{{width ? 'width:' + width + ((width + '').match(/^\d+$/g) ? 'px' : '') + ';' : ''}}{{height ? 'height:' + height + ((height + '').match(/^\d+$/g) ? 'px' : '') + ';' : ''}}"
 >
-	<ba-{{dynvideoplayer}} ba-theme="{{theme || 'default'}}"
+	<span ba-show="{{ie8}}">&nbsp;</span>
+	<ba-{{dynvideoplayer}}
+	    ba-theme="{{theme || 'default'}}"
         ba-themecolor="{{themecolor}}"
         ba-source="{{playbacksource}}"
         ba-poster="{{playbackposter}}"
@@ -128,6 +130,6 @@
         ba-event:paused="paused"
         ba-event:ended="ended"
         ba-event:submit="manual_submit"
-        >
+	>
 	</ba-{{dynvideoplayer}}>
 </div>

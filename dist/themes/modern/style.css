@@ -2553,6 +2553,7 @@ div.ba-videorecorder-theme-modern-disabled {
 .ba-videorecorder-theme-modern-imagegallery-image-compat {
   cursor: pointer;
   background: white;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=1)";
   opacity: 0.01;
   width: 100%;
   height: 100%; }

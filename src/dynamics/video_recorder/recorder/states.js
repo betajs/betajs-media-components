@@ -558,7 +558,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
             });
             this.listenOn(uploader, "progress", function(uploaded, total) {
                 this.dyn.trigger("upload_progress", uploaded, total);
-                if (total !== 0) {
+                if (total !== 0 && total > 0 && uploaded >= 0) {
                     var up = Math.min(100, Math.round(uploaded / total * 100));
                     if (!isNaN(up)) {
                         this.dyn.set("message", this.dyn.string("uploading") + ": " + up + "%");

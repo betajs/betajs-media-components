@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.76 - 2017-11-02
+betajs-media-components - v0.0.77 - 2017-11-02
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1009,7 +1009,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.76 - 2017-11-02
+betajs-media-components - v0.0.77 - 2017-11-02
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1025,7 +1025,7 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.76"
+    "version": "0.0.77"
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -6210,6 +6210,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraAccess", [
             this.dyn.set("stopvisible", false);
             this.dyn.set("skipvisible", false);
             this.dyn.set("controlbarlabel", "");
+            this.dyn.set("loaderlabel", "");
             this.listenOn(this.dyn, "bound", function() {
                 this.dyn.set("creation-type", this.dyn.isFlash() ? "flash" : "webrtc");
                 if (this.dyn.get("onlyaudio")) {
@@ -6260,6 +6261,8 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraHasAccess", [
         dynamics: ["topmessage", "controlbar"],
 
         _started: function() {
+            this.dyn.set("hovermessage", "");
+            this.dyn.set("topmessage", "");
             this.dyn.set("settingsvisible", true);
             this.dyn.set("recordvisible", true);
             this.dyn.set("rerecordvisible", false);
@@ -6294,6 +6297,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.RecordPrepare", [
             this.dyn._accessing_camera = true;
             this._promise = this.dyn._prepareRecording();
             this.dyn.set("message", "");
+            this.dyn.set("loaderlabel", "");
             if (this.dyn.get("countdown")) {
                 this.dyn.set("loaderlabel", this.dyn.get("countdown"));
                 var endTime = Time.now() + this.dyn.get("countdown") * 1000;
@@ -6356,6 +6360,8 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
         dynamics: ["topmessage", "controlbar"],
 
         _started: function() {
+            this.dyn.set("hovermessage", "");
+            this.dyn.set("topmessage", "");
             this.dyn._accessing_camera = true;
             this.dyn.trigger("recording");
             this.dyn.set("settingsvisible", false);
@@ -6449,6 +6455,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
             this.dyn.set("controlbarlabel", "");
             this.dyn.set("rerecordvisible", this.dyn.get("early-rerecord"));
             this.dyn.set("uploadcovershotvisible", this.dyn.get("custom-covershots"));
+            this.dyn.set("hovermessage", "");
             this.dyn.set("topmessage", this.dyn.string('pick-covershot'));
             var imagegallery = this.dyn.scope(">[tagname='ba-videorecorder-imagegallery']").materialize(true);
             imagegallery.loadSnapshots();
@@ -6500,17 +6507,21 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
             this.dyn.set("settingsvisible", false);
             this.dyn.set("recordvisible", false);
             this.dyn.set("stopvisible", false);
+            this.dyn.set("loadlabel", "");
             this.dyn.set("controlbarlabel", "");
             this.dyn.trigger("uploading");
             this.dyn.set("rerecordvisible", this.dyn.get("early-rerecord"));
             if (this.dyn.get("early-rerecord"))
                 this.dyn.set("controlbar_active", true);
+            this.dyn.set("hovermessage", "");
             this.dyn.set("topmessage", "");
             this.dyn.set("message", this.dyn.string("uploading"));
             this.dyn.set("playertopmessage", this.dyn.get("message"));
             var uploader = this.dyn._dataUploader;
             this.listenOn(uploader, "success", function() {
                 Async.eventually(function() {
+                    if (this.destroyed())
+                        return;
                     this._finished();
                     this.next("Verifying");
                 }, this);
@@ -6574,6 +6585,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Verifying", [
         dynamics: ["loader", "message"],
 
         _started: function() {
+            this.dyn.set("loadlabel", "");
             this.dyn.trigger("verifying");
             this.dyn.set("message", this.dyn.string("verifying") + "...");
             this.dyn.set("playertopmessage", this.dyn.get("message"));

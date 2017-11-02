@@ -544,6 +544,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         this.set("rerecordable", false);
                         this.set("manualsubmit", false);
                         this.trigger("manually_submitted");
+                    },
+
+                    ready_to_play: function() {
+                        this.trigger("ready_to_play");
                     }
 
                 },

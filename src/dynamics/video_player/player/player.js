@@ -608,10 +608,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.set("manuallypaused", true);
                         } else
                             this.play();
-                    },
-
-                    ready_to_play: function() {
-                        this.trigger("ready_to_play");
                     }
 
                 },

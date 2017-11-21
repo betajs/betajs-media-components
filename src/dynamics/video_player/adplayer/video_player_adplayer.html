@@ -1,12 +1,12 @@
 <video class="{{css}}-video" data-video="video"></video>
 <div class="{{css}}-ad-dashboard">
-    <div class="{{css}}-ad-click-tracker" ba-click="ad_clicked()"></div>
-    <div class="{{css}}-skipbutton-container" ba-click="skip_linear_ad()"  ba-show="{{skipbuttonvisible}}">
+    <div class="{{css}}-ad-click-tracker" ba-click="{{ad_clicked()}}"></div>
+    <div class="{{css}}-skipbutton-container" ba-click="{{skip_linear_ad()}}"  ba-show="{{skipbuttonvisible}}">
         <p class="{{css}}-skipbutton">{{lefttillskip > 0 ? string('can-skip-after').replace('%d', lefttillskip) : string('skip-ad')}}</p>
     </div>
 
     <div class="{{css}}-companion-ad-container" ba-show="{{companionadvisible}}">
-        <div class="{{css}}-close-companion-ad" ba-click="skip_companion_ad()">X</div>
+        <div class="{{css}}-close-companion-ad" ba-click="{{skip_companion_ad()}}">X</div>
         <img class="{{css}}-companion-ad" src=""/>
     </div>
 
@@ -28,7 +28,7 @@
             </div>
         </div>
 
-        <div data-selector="button-icon-volume" class="{{css}}-ad-rightbutton-container" ba-click="toggle_ad_volume()" title="{{string(advolume > 0 ? 'volume-mute' : 'volume-unmute')}}">
+        <div data-selector="button-icon-volume" class="{{css}}-ad-rightbutton-container" ba-click="{{toggle_ad_volume()}}" title="{{string(advolume > 0 ? 'volume-mute' : 'volume-unmute')}}">
             <div class="{{css}}-ad-button-inner">
                 <i class="{{css + '-icon-volume-' + (advolume >= 0.5 ? 'up' : (advolume > 0 ? 'down' : 'off')) }}"></i>
             </div>

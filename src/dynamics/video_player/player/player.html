@@ -1,14 +1,14 @@
 <div itemscope itemtype="http://schema.org/VideoObject"
     class="{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}} {{css}}-{{ fullscreened ? 'fullscreen' : 'normal' }}-view {{css}}-{{ firefox ? 'firefox' : 'common'}}-browser
     {{css}}-{{themecolor}}-color"
-    ba-on:mousemove="user_activity()"
-    ba-on:mousedown="user_activity(true)"
-    ba-on:touchstart="user_activity(true)"
+    ba-on:mousemove="{{user_activity()}}"
+    ba-on:mousedown="{{user_activity(true)}}"
+    ba-on:touchstart="{{user_activity(true)}}"
     style="{{width ? 'width:' + width + ((width + '').match(/^\d+$/g) ? 'px' : '') + ';' : ''}}{{height ? 'height:' + height + ((height + '').match(/^\d+$/g) ? 'px' : '') + ';' : ''}}"
 >
     <video class="{{css}}-video" data-video="video" ba-toggle:playsinline="{{!playfullscreenonmobile}}"></video>
     <div class="{{css}}-overlay">
-		<div class="{{css}}-player-toggle-overlay" ba-on:click="toggle_player()"></div>
+		<div class="{{css}}-player-toggle-overlay" ba-on:click="{{toggle_player()}}"></div>
 	    <ba-{{dyncontrolbar}}
 		    ba-css="{{csscontrolbar || css}}"
 			ba-themecolor="{{themecolor}}"

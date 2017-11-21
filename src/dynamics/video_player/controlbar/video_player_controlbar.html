@@ -12,23 +12,23 @@
 	</div>
 	<div class="{{css}}-backbar"></div>
 	<div class="{{css}}-controlbar">
-        <div data-selector="submit-video-button" class="{{css}}-leftbutton-container" ba-if="{{submittable}}"  ba-click="submit()">
+        <div data-selector="submit-video-button" class="{{css}}-leftbutton-container" ba-if="{{submittable}}"  ba-click="{{submit()}}">
             <div class="{{css}}-button-inner">
                 {{string('submit-video')}}
             </div>
         </div>
-        <div data-selector="button-icon-ccw" class="{{css}}-leftbutton-container" ba-if="{{rerecordable}}"  ba-click="rerecord()" title="{{string('rerecord-video')}}">
+        <div data-selector="button-icon-ccw" class="{{css}}-leftbutton-container" ba-if="{{rerecordable}}"  ba-click="{{rerecord()}}" title="{{string('rerecord-video')}}">
             <div class="{{css}}-button-inner">
                 <i class="{{css}}-icon-ccw"></i>
             </div>
         </div>
-		<div data-selector="button-icon-play" class="{{css}}-leftbutton-container" ba-if="{{!playing}}" ba-click="play()" title="{{string('play-video')}}">
+		<div data-selector="button-icon-play" class="{{css}}-leftbutton-container" ba-if="{{!playing}}" ba-click="{{play()}}" title="{{string('play-video')}}">
 			<div class="{{css}}-button-inner">
 				<i class="{{css}}-icon-play"></i>
 			</div>
 		</div>
 		<div data-selector="button-icon-pause" class="{{css}}-leftbutton-container {{disablepause ? css + '-disabled' : ''}}"
-			 ba-if="{{playing}}" ba-click="pause()" title="{{disablepause ? string('pause-video-disabled') : string('pause-video')}}">
+			 ba-if="{{playing}}" ba-click="{{pause()}}" title="{{disablepause ? string('pause-video-disabled') : string('pause-video')}}">
             <div class="{{css}}-button-inner">
                 <i class="{{css}}-icon-pause"></i>
             </div>
@@ -46,13 +46,13 @@
 		</div>
 
 		<div data-selector="button-icon-resize-full" class="{{css}}-rightbutton-container"
-			 ba-if="{{fullscreen}}" ba-click="toggle_fullscreen()" title="{{ fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video') }}">
+			 ba-if="{{fullscreen}}" ba-click="{{toggle_fullscreen()}}" title="{{ fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video') }}">
 			<div class="{{css}}-button-inner">
 				<i class="{{css}}-icon-resize-{{fullscreened ? 'small' : 'full'}}"></i>
 			</div>
 		</div>
 
-        <div data-selector="button-airplay" class="{{css}}-rightbutton-container" ba-show="{{airplaybuttonvisible}}" ba-click="show_airplay_devices()">
+        <div data-selector="button-airplay" class="{{css}}-rightbutton-container" ba-show="{{airplaybuttonvisible}}" ba-click="{{show_airplay_devices()}}">
             <div class="{{css}}-airplay-container">
                 <svg width="16px" height="11px" viewBox="0 0 16 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <!-- Generator: Sketch 3.3.2 (12043) - http://www.bohemiancoding.com/sketch -->
@@ -70,7 +70,7 @@
             <button class="{{css}}-gcast-button" is="google-cast-button"></button>
         </div>
 
-        <div data-selector="button-stream-label" class="{{css}}-rightbutton-container" ba-if="{{streams.length > 1 && currentstream}}" ba-click="toggle_stream()" title="{{string('change-resolution')}}">
+        <div data-selector="button-stream-label" class="{{css}}-rightbutton-container" ba-if="{{streams.length > 1 && currentstream}}" ba-click="{{toggle_stream()}}" title="{{string('change-resolution')}}">
 			<div class="{{css}}-button-inner">
 				<span class="{{css}}-button-text">{{currentstream_label}}</span>
 			</div>
@@ -86,7 +86,7 @@
 				</div>
 			</div>
 		</div>
-		<div data-selector="button-icon-volume" class="{{css}}-rightbutton-container" ba-click="toggle_volume()" title="{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}">
+		<div data-selector="button-icon-volume" class="{{css}}-rightbutton-container" ba-click="{{toggle_volume()}}" title="{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}">
 			<div class="{{css}}-button-inner">
 				<i class="{{css + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}"></i>
 			</div>

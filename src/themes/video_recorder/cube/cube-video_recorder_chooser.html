@@ -5,7 +5,7 @@
 
 		<div>
 			<div data-selector="player-submit-button" class="{{css}}-chooser-primary-button"
-			     ba-click="primary()"
+			     ba-click="{{primary()}}"
 			     ba-if="{{has_primary}}">
 				<input data-selector="file-input-opt1" ba-if="{{enable_primary_select && primary_select_capture}}"
 				       type="file"
@@ -28,7 +28,7 @@
 		</div>
 		<div>
 			<div data-selector="chooser-secondary-button" class="{{css}}-chooser-secondary-button"
-			     ba-click="secondary()"
+			     ba-click="{{secondary()}}"
 			     ba-if="{{has_secondary}}">
 				<input data-selector="file-input-secondary-opt1" ba-if="{{enable_secondary_select && secondary_select_capture}}"
 				       type="file"

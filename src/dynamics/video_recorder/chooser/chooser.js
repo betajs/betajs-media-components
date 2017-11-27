@@ -21,7 +21,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
                     "allowcustomupload": true,
                     "allowedextensions": null,
                     "primaryrecord": true,
-                    "onlyaudio": false
+                    "onlyaudio": false,
+                    "screen": false
                 },
 
                 types: {
@@ -37,7 +38,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
                     } else if (!this.get("allowcustomupload")) {
                         custom_accept_string = "video/*,video/mp4";
                     }
-                    var recordVideoLabel = this.get("onlyaudio") ? "record-audio" : "record-video";
+                    var recordVideoLabel = this.get("screen") ? "record-screen" : (this.get("onlyaudio") ? "record-audio" : "record-video");
                     this.set("has_primary", true);
                     this.set("enable_primary_select", false);
                     this.set("primary_label", this.string(this.get("primaryrecord") && this.get("allowrecord") ? recordVideoLabel : "upload-video"));
@@ -128,6 +129,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
         .addStrings({
             "record-video": "Record Video",
             "record-audio": "Record Audio",
+            "record-screen": "Record Screen",
             "upload-video": "Upload Video"
         });
 });

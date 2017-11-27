@@ -50,6 +50,7 @@
   ba-videorecorder.unsupported_video_type: 'Please upload: %s - click here to retry.'
   ba-videoplayer-controlbar.exit-fullscreen-video: Exit fullscreen
   ba-videoplayer-share.share: Share media
+  ba-videorecorder-chooser.record-screen: Record Screen
   ba-videoplayer-controlbar.pause-video-disabled: Pause not supported
   ba-videorecorder-chooser.record-audio: Record Audio
   ba-videorecorder-controlbar.stop-available-after: Minimum recording time is %d seconds

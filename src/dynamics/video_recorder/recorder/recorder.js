@@ -82,6 +82,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "allowupload": true,
                     "allowcustomupload": true,
                     "primaryrecord": true,
+                    "screen": false,
                     "nofullscreen": false,
                     "recordingwidth": 640,
                     "recordingheight": 480,
@@ -137,6 +138,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 },
 
                 types: {
+                    "screen": "boolean",
                     "forceflash": "boolean",
                     "noflash": "boolean",
                     "rerecordable": "boolean",

@@ -54,3 +54,23 @@
   ba-videorecorder.unsupported_video_type: 'Vă rugăm să încărcați: %s - clic aici pentru a încerca din nou.'
   ba-videoplayer-controlbar.exit-fullscreen-video: Ieșiți din ecranul complet
   ba-videoplayer-share.share: Distribuiți videoclipul
+  ba-videorecorder-chooser.record-screen: Ecranul de înregistrare
+  ba-videoplayer-controlbar.pause-video-disabled: Întreruperea nu este acceptată
+  ba-videorecorder-chooser.record-audio: Înregistrează audio
+  ba-videorecorder-controlbar.stop-available-after: Durata minimă de înregistrare este %d secunde
+  ba-videorecorder-controlbar.cancel: Anulare
+  ba-videorecorder-controlbar.cancel-tooltip: Faceți clic aici pentru a anula.
+  ba-videorecorder.cancel-confirm: Chiar vrei să anulezi încărcarea videoclipului?
+  ba-videoplayer-adslot.elapsed-time: Elased timp
+  ba-videoplayer-adslot.volume-button: Setați volumul
+  ba-videoplayer-adslot.volume-mute: Opriți sunetul
+  ba-videoplayer-adslot.volume-unmute: Repetați sunetul
+  ba-videoplayer-adslot.ad-will-end-after: Anunțul se va încheia după %s
+  ba-videoplayer-adslot.can-skip-after: Săriți după %d
+  ba-videoplayer-adslot.skip-ad: Ștergeți anunțul
+  ba-videorecorder.software-required: >-
+    Faceți clic mai jos pentru a instala / activa următoarele cerințe pentru a
+    continua.
+  ba-videorecorder.software-waiting: >-
+    Se așteaptă ca cerințele să fie instalate / activate. Poate fi necesar să
+    actualizați pagina după finalizare.

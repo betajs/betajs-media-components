@@ -50,3 +50,21 @@
   ba-videorecorder.unsupported_video_type: 'upload venligst: %s - klik her for at prøve igen.'
   ba-videoplayer-controlbar.exit-fullscreen-video: Afslut fuldskærm
   ba-videoplayer-share.share: Del video
+  ba-videorecorder-chooser.record-screen: Optagelsesskærm
+  ba-videoplayer-controlbar.pause-video-disabled: Pause ikke understøttet
+  ba-videorecorder-chooser.record-audio: Optag lyd
+  ba-videorecorder-controlbar.stop-available-after: Mindste optagetid er %d sekunder
+  ba-videorecorder-controlbar.cancel: Afbestille
+  ba-videorecorder-controlbar.cancel-tooltip: Klik her for at annullere.
+  ba-videorecorder.cancel-confirm: Vil du virkelig annullere din video upload?
+  ba-videoplayer-adslot.elapsed-time: Elasped tid
+  ba-videoplayer-adslot.volume-button: Indstil lydstyrke
+  ba-videoplayer-adslot.volume-mute: Dæmp lyd
+  ba-videoplayer-adslot.volume-unmute: Sluk lyden
+  ba-videoplayer-adslot.ad-will-end-after: Annoncen slutter efter %s
+  ba-videoplayer-adslot.can-skip-after: Spring over efter %d
+  ba-videoplayer-adslot.skip-ad: Spring annoncen over
+  ba-videorecorder.software-required: Klik nedenfor for at installere / aktivere følgende krav for at fortsætte.
+  ba-videorecorder.software-waiting: >-
+    Venter på de krav, der skal installeres / aktiveres. Du skal måske opdatere
+    siden efter færdiggørelsen.

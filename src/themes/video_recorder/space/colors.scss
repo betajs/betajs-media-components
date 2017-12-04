@@ -2,21 +2,24 @@
   @if $color != default {
     .#{$css}-#{$color}-color {
 
-      .#{$css}-chooser-icon-container, .#{$css}-chooser-secondary-button,
+      .#{$css}-chooser-icon-container, .#{$css}-chooser-button-1, .#{$css}-chooser-button-2,
       .#{$css}-button-selected, .#{$css}-button-circle-selected,
       .#{$css}-button-inner:hover {
         color: $value;
       }
 
-      .#{$css}-chooser-primary-button, .#{$css}-button-primary,
+      .#{$css}-chooser-button-0, .#{$css}-button-primary,
       .#{$css}-settings span, .#{$css}-imagegallery-rightbutton, .#{$css}-imagegallery-leftbutton {
         background-color: $value;
       }
 
-      .#{$css}-button-selected, .#{$css}-imagegallery-image:hover, .#{$css}-chooser-primary-button {
+      .#{$css}-button-selected, .#{$css}-imagegallery-image:hover, .#{$css}-chooser-button-0 {
         border-color: $value;
       }
 
+      .#{$css}-message-message a {
+        color: $value;
+      }
     }
   }
 }

@@ -1,50 +1,77 @@
 'language:ru':
-  ba-videoplayer-playbutton.tooltip: "Нажмите, чтобы воспроизвести видео."
-  ba-videoplayer-playbutton.rerecord: "Перезаписать"
-  ba-videoplayer-loader.tooltip: "Загрузка видео ..."
-  ba-videoplayer-controlbar.change-resolution: "Изменить разрешение"
-  ba-videoplayer-controlbar.video-progress: "Ход видео"
-  ba-videoplayer-controlbar.rerecord-video: "Перезаписать видео?"
-  ba-videoplayer-controlbar.play-video: "Проиграть видео"
-  ba-videoplayer-controlbar.pause-video: "Приостановить видео"
-  ba-videoplayer-controlbar.elapsed-time: "Пройденное время"
-  ba-videoplayer-controlbar.total-time: "Общая длина видео"
-  ba-videoplayer-controlbar.fullscreen-video: "Полноэкранный режим"
-  ba-videoplayer-controlbar.volume-button: "Громкость"
-  ba-videoplayer-controlbar.volume-mute: "Отключить звук"
-  ba-videoplayer-controlbar.volume-unmute: "Включить звук"
-  ba-videoplayer.video-error: "Произошла ошибка. Пожалуйста, повторите попытку позже. Нажмите, чтобы повторить попытку."
-  ba-videorecorder-chooser.record-video: "Запишите свое видео"
-  ba-videorecorder-chooser.upload-video: "Загрузить видео"
-  ba-videorecorder-controlbar.settings: "Настройки"
-  ba-videorecorder-controlbar.camerahealthy: "Освещение хорошее"
-  ba-videorecorder-controlbar.cameraunhealthy: "Слабое освещение"
-  ba-videorecorder-controlbar.microphonehealthy: "Звук хороший"
-  ba-videorecorder-controlbar.microphoneunhealthy: "Невозможно получить звук"
-  ba-videorecorder-controlbar.record: "Запись"
-  ba-videorecorder-controlbar.record-tooltip: "Нажмите здесь, чтобы записать."
-  ba-videorecorder-controlbar.stop: "Стоп"
-  ba-videorecorder-controlbar.stop-tooltip: "Нажмите здесь, чтобы остановить."
-  ba-videorecorder-controlbar.skip: "Пропустить"
-  ba-videorecorder-controlbar.skip-tooltip: "Нажмите здесь, чтобы пропустить."
-  ba-videorecorder.recorder-error: "Произошла ошибка. Пожалуйста, повторите попытку позже. Нажмите, чтобы повторить попытку."
-  ba-videorecorder.access-forbidden: "Доступ к камере был запрещен. Нажмите, чтобы повторить попытку."
-  ba-videorecorder.pick-covershot: "Выберите снимок."
-  ba-videorecorder.uploading: "Загрузка"
-  ba-videorecorder.uploading-failed: "Ошибка загрузки: нажмите здесь, чтобы повторить попытку."
-  ba-videorecorder.verifying: "Проверка"
-  ba-videorecorder.verifying-failed: "Ошибка подтверждения. Нажмите здесь, чтобы повторить попытку."
-  ba-videorecorder.rerecord-confirm: "Вы действительно хотите перезаписать видео?"
-  ba-videorecorder.video_file_too_large: "Слишком большой видеофайл. Нажмите здесь, чтобы повторить попытку с меньшим видеофайлом."
-  ba-videorecorder.unsupported_video_type: "Пожалуйста загрузите: %s - нажмите здесь, чтобы повторить попытку."
-  ba-videoplayer-playbutton.submit-video: "Подтвердить видео"
-  ba-videoplayer-controlbar.submit-video: "Подтвердить видео"
-  ba-videorecorder-controlbar.rerecord: "Переделать"
-  ba-videorecorder-controlbar.rerecord-tooltip: "Нажмите чтобы перезаписать"
-  ba-videorecorder-controlbar.upload-covershot: "Загрузить"
-  ba-videorecorder-controlbar.upload-covershot-tooltip: "Нажмите здесь, чтобы загрузить личную обложку"
+  ba-videoplayer-playbutton.tooltip: 'Нажмите, чтобы воспроизвести видео.'
+  ba-videoplayer-playbutton.rerecord: Перезаписать
+  ba-videoplayer-loader.tooltip: Загрузка видео ...
+  ba-videoplayer-controlbar.change-resolution: Изменить разрешение
+  ba-videoplayer-controlbar.video-progress: Ход видео
+  ba-videoplayer-controlbar.rerecord-video: Перезаписать видео?
+  ba-videoplayer-controlbar.play-video: Проиграть видео
+  ba-videoplayer-controlbar.pause-video: Приостановить видео
+  ba-videoplayer-controlbar.elapsed-time: Пройденное время
+  ba-videoplayer-controlbar.total-time: Общая длина видео
+  ba-videoplayer-controlbar.fullscreen-video: Полноэкранный режим
+  ba-videoplayer-controlbar.volume-button: Громкость
+  ba-videoplayer-controlbar.volume-mute: Отключить звук
+  ba-videoplayer-controlbar.volume-unmute: Включить звук
+  ba-videoplayer.video-error: >-
+    Произошла ошибка. Пожалуйста, повторите попытку позже. Нажмите, чтобы
+    повторить попытку.
+  ba-videorecorder-chooser.record-video: Запишите свое видео
+  ba-videorecorder-chooser.upload-video: Загрузить видео
+  ba-videorecorder-controlbar.settings: Настройки
+  ba-videorecorder-controlbar.camerahealthy: Освещение хорошее
+  ba-videorecorder-controlbar.cameraunhealthy: Слабое освещение
+  ba-videorecorder-controlbar.microphonehealthy: Звук хороший
+  ba-videorecorder-controlbar.microphoneunhealthy: Невозможно получить звук
+  ba-videorecorder-controlbar.record: Запись
+  ba-videorecorder-controlbar.record-tooltip: 'Нажмите здесь, чтобы записать.'
+  ba-videorecorder-controlbar.stop: Стоп
+  ba-videorecorder-controlbar.stop-tooltip: 'Нажмите здесь, чтобы остановить.'
+  ba-videorecorder-controlbar.skip: Пропустить
+  ba-videorecorder-controlbar.skip-tooltip: 'Нажмите здесь, чтобы пропустить.'
+  ba-videorecorder.recorder-error: >-
+    Произошла ошибка. Пожалуйста, повторите попытку позже. Нажмите, чтобы
+    повторить попытку.
+  ba-videorecorder.access-forbidden: 'Доступ к камере был запрещен. Нажмите, чтобы повторить попытку.'
+  ba-videorecorder.pick-covershot: Выберите снимок.
+  ba-videorecorder.uploading: Загрузка
+  ba-videorecorder.uploading-failed: 'Ошибка загрузки: нажмите здесь, чтобы повторить попытку.'
+  ba-videorecorder.verifying: Проверка
+  ba-videorecorder.verifying-failed: 'Ошибка подтверждения. Нажмите здесь, чтобы повторить попытку.'
+  ba-videorecorder.rerecord-confirm: Вы действительно хотите перезаписать видео?
+  ba-videorecorder.video_file_too_large: >-
+    Слишком большой видеофайл. Нажмите здесь, чтобы повторить попытку с меньшим
+    видеофайлом.
+  ba-videorecorder.unsupported_video_type: 'Пожалуйста загрузите: %s - нажмите здесь, чтобы повторить попытку.'
+  ba-videoplayer-playbutton.submit-video: Подтвердить видео
+  ba-videoplayer-controlbar.submit-video: Подтвердить видео
+  ba-videorecorder-controlbar.rerecord: Переделать
+  ba-videorecorder-controlbar.rerecord-tooltip: Нажмите чтобы перезаписать
+  ba-videorecorder-controlbar.upload-covershot: Загрузить
+  ba-videorecorder-controlbar.upload-covershot-tooltip: 'Нажмите здесь, чтобы загрузить личную обложку'
   ba-videorecorder.attach-error: >-
-    "Не удалось получить доступ к камере. В зависимости от устройства или браузера,
-    вам может понадобиться установить Flash или получить доступ к сайту через SSL."
-  ba-videoplayer-controlbar.exit-fullscreen-video: "Выйти из режима полного окна"
-  ba-videoplayer-share.share: "Поделиться с видео"
+    "Не удалось получить доступ к камере. В зависимости от устройства или
+    браузера, вам может понадобиться установить Flash или получить доступ к
+    сайту через SSL."
+  ba-videoplayer-controlbar.exit-fullscreen-video: Выйти из режима полного окна
+  ba-videoplayer-share.share: Поделиться с видео
+  ba-videorecorder-chooser.record-screen: Экран записи
+  ba-videoplayer-controlbar.pause-video-disabled: Пауза не поддерживается
+  ba-videorecorder-chooser.record-audio: Запись аудио
+  ba-videorecorder-controlbar.stop-available-after: 'Минимальное время записи: %d секунд'
+  ba-videorecorder-controlbar.cancel: Отмена
+  ba-videorecorder-controlbar.cancel-tooltip: 'Нажмите здесь, чтобы отменить.'
+  ba-videorecorder.cancel-confirm: Вы действительно хотите отменить загрузку видео?
+  ba-videoplayer-adslot.elapsed-time: Укороченное время
+  ba-videoplayer-adslot.volume-button: Установить громкость
+  ba-videoplayer-adslot.volume-mute: Отключить звук
+  ba-videoplayer-adslot.volume-unmute: Включить звук
+  ba-videoplayer-adslot.ad-will-end-after: Объявление будет завершено после %s
+  ba-videoplayer-adslot.can-skip-after: Пропустить после %d
+  ba-videoplayer-adslot.skip-ad: Пропустить рекламу
+  ba-videorecorder.software-required: >-
+    Пожалуйста, нажмите ниже, чтобы установить / активировать следующие
+    требования, чтобы продолжить.
+  ba-videorecorder.software-waiting: >-
+    Ожидание требований к установке / активации. Возможно, вам придется обновить
+    страницу после завершения.

@@ -8,20 +8,20 @@
   margin: $chooser_icon_margin;
 }
 
-.#{$css}-chooser-primary-button, .#{$css}-chooser-secondary-button {
+.#{$css}-chooser-button-0, .#{$css}-chooser-button-1, .#{$css}-chooser-button-2 {
   @include border-radius( $chooser_primary_button_border_radius );
   line-height: $chooser_buttons_line_height;
   min-width: $chooser_buttons_min_width;
   padding: $chooser_primary_button_vertical_padding $chooser_primary_button_horizontal_padding;
 }
 
-.#{$css}-chooser-primary-button {
+.#{$css}-chooser-button-0 {
   background-color: #ffffff;
   color: #333333;
   border: 1px solid #333;
 }
 
-.#{$css}-chooser-secondary-button {
+.#{$css}-chooser-button-1, .#{$css}-chooser-button-1 {
   //@include background-rgba( 0, 0, 0, 0.5, #666666 );
   border: 1px solid #999;
   color: #979797;
@@ -32,7 +32,6 @@
   font-size: .8em;
 }
 
-.#{$css}-icon-chooser-upload:before {
+.#{$css}-icon-upload:before {
   font-size: .9em;
-  @include rotate-90();
 }

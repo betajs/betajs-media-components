@@ -8,15 +8,18 @@
         color: $value;
       }
 
-      .#{$css}-button-primary, .#{$css}-chooser-primary-button,
+      .#{$css}-button-primary, .#{$css}-chooser-button-0,
       .#{$css}-settings span, .#{$css}-imagegallery-rightbutton, .#{$css}-imagegallery-leftbutton {
         background-color: $value;
       }
 
-      .#{$css}-chooser-primary-button, .#{$css}-imagegallery-image:hover {
+      .#{$css}-chooser-button-0, .#{$css}-imagegallery-image:hover {
         border-color: $value;
       }
 
+      .#{$css}-message-message a {
+        color: $value;
+      }
     }
   }
 }

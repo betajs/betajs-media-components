@@ -18,16 +18,21 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
                     "css": "ba-videorecorder",
                     "allowrecord": true,
                     "allowupload": true,
+                    "allowscreen": false,
+
+                    "primaryrecord": true,
+
                     "allowcustomupload": true,
                     "allowedextensions": null,
-                    "primaryrecord": true,
-                    "onlyaudio": false,
-                    "screen": false
+                    "onlyaudio": false
+
                 },
 
                 types: {
                     "allowedextensions": "array"
                 },
+
+                collections: ["actions"],
 
                 create: function() {
                     var custom_accept_string = "";
@@ -38,87 +43,98 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
                     } else if (!this.get("allowcustomupload")) {
                         custom_accept_string = "video/*,video/mp4";
                     }
-                    var recordVideoLabel = this.get("screen") ? "record-screen" : (this.get("onlyaudio") ? "record-audio" : "record-video");
-                    this.set("has_primary", true);
-                    this.set("enable_primary_select", false);
-                    this.set("primary_label", this.string(this.get("primaryrecord") && this.get("allowrecord") ? recordVideoLabel : "upload-video"));
-                    this.set("secondary_label", this.string(this.get("primaryrecord") ? "upload-video" : recordVideoLabel));
-                    if (!this.get("allowrecord") || !this.get("primaryrecord") || (Info.isMobile() && (!Info.isAndroid() || !Info.isCordova()))) {
-                        this.set("enable_primary_select", true);
-                        this.set("primary_select_capture", Info.isMobile() && this.get("allowrecord") && this.get("primaryrecord"));
-                        if (Info.isMobile())
-                            this.set("primary_accept_string", this.get("allowrecord") && this.get("primaryrecord") ? "video/*,video/mp4;capture=camcorder" : "video/*,video/mp4");
-                        else
-                            this.set("primary_accept_string", custom_accept_string);
+                    var order = [];
+                    if (this.get("primaryrecord")) {
+                        if (this.get("allowrecord"))
+                            order.push("record");
+                        if (this.get("allowscreen"))
+                            order.push("screen");
+                        if (this.get("allowupload"))
+                            order.push("upload");
+                    } else {
+                        if (this.get("allowscreen"))
+                            order.push("screen");
+                        if (this.get("allowupload"))
+                            order.push("upload");
+                        if (this.get("allowrecord"))
+                            order.push("record");
                     }
-                    this.set("has_secondary", this.get("allowrecord") && this.get("allowupload"));
-                    this.set("enable_secondary_select", false);
-                    if (this.get("primaryrecord") || (Info.isMobile() && (!Info.isAndroid() || !Info.isCordova()))) {
-                        if (!Info.isiOS() || !Info.isCordova()) {
-                            this.set("enable_secondary_select", true);
-                            this.set("secondary_select_capture", Info.isMobile() && !this.get("primaryrecord"));
-                            if (Info.isMobile())
-                                this.set("secondary_accept_string", !this.get("primaryrecord") ? "video/*,video/mp4;capture=camcorder" : "video/*,video/mp4");
-                            else
-                                this.set("secondary_accept_string", custom_accept_string);
+                    var actions = this.get("actions");
+                    order.forEach(function(act, index) {
+                        switch (act) {
+                            case "record":
+                                actions.add({
+                                    type: "record",
+                                    index: index,
+                                    icon: !this.get("onlyaudio") ? 'videocam' : 'volume-up',
+                                    label: this.string(this.get("onlyaudio") ? "record-audio" : "record-video"),
+                                    select: Info.isMobile() && !(Info.isAndroid() && Info.isCordova()),
+                                    capture: true,
+                                    accept: "video/*,video/mp4;capture=camcorder"
+                                });
+                                break;
+                            case "upload":
+                                actions.add({
+                                    type: "upload",
+                                    index: index,
+                                    icon: "upload",
+                                    label: this.string("upload-video"),
+                                    select: !(Info.isiOS() && Info.isCordova()),
+                                    accept: Info.isMobile() ? "video/*,video/mp4" : custom_accept_string
+                                });
+                                break;
+                            case "screen":
+                                actions.add({
+                                    type: "screen",
+                                    index: index,
+                                    icon: "television",
+                                    label: this.string("record-screen")
+                                });
+                                break;
                         }
-                    }
-                },
-
-                __recordCordova: function() {
-                    var self = this;
-                    navigator.device.capture.captureVideo(function(mediaFiles) {
-                        var mediaFile = mediaFiles[0];
-                        self.trigger("upload", mediaFile);
-                    }, function(error) {}, {
-                        limit: 1,
-                        duration: this.get("timelimit")
-                    });
-                },
-
-                __uploadCordova: function() {
-                    var self = this;
-                    navigator.camera.getPicture(function(url) {
-                        self.trigger("upload", {
-                            localURL: url,
-                            fullPath: url
-                        });
-                    }, function(error) {}, {
-                        destinationType: Camera.DestinationType.FILE_URI,
-                        sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-                        mediaType: Camera.MediaType.VIDEO
-                    });
+                    }, this);
                 },
 
                 functions: {
-                    primary: function() {
-                        if (this.get("enable_primary_select"))
+
+                    click_action: function(action) {
+                        if (action.get("select"))
                             return;
-                        if (Info.isMobile() && Info.isAndroid() && Info.isCordova())
-                            this.__recordCordova();
-                        else
+                        if (action.get("type") === "screen") {
+                            this.trigger("record-screen");
+                            return;
+                        }
+                        if (Info.isMobile() && Info.isCordova()) {
+                            var self = this;
+                            if (Info.isAndroid()) {
+                                navigator.device.capture.captureVideo(function(mediaFiles) {
+                                    self.trigger("upload", mediaFiles[0]);
+                                }, function(error) {}, {
+                                    limit: 1,
+                                    duration: this.get("timelimit")
+                                });
+                            } else if (Info.isIOS()) {
+                                navigator.camera.getPicture(function(url) {
+                                    self.trigger("upload", {
+                                        localURL: url,
+                                        fullPath: url
+                                    });
+                                }, function(error) {}, {
+                                    destinationType: Camera.DestinationType.FILE_URI,
+                                    sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+                                    mediaType: Camera.MediaType.VIDEO
+                                });
+                            }
+                        } else
                             this.trigger("record");
                     },
-                    secondary: function() {
-                        if (this.get("enable_secondary_select"))
-                            return;
-                        if (Info.isMobile() && Info.isAndroid() && Info.isCordova())
-                            this.__recordCordova();
-                        else if (Info.isMobile() && Info.isiOS() && Info.isCordova())
-                            this.__uploadCordova();
-                        else
-                            this.trigger("record");
-                    },
-                    primary_select: function(domEvent) {
-                        if (!this.get("enable_primary_select"))
-                            return;
-                        this.trigger("upload", domEvent[0].target);
-                    },
-                    secondary_select: function(domEvent) {
-                        if (!this.get("enable_secondary_select"))
+
+                    select_file_action: function(action, domEvent) {
+                        if (!action.get("select"))
                             return;
                         this.trigger("upload", domEvent[0].target);
                     }
+
                 }
 
             };

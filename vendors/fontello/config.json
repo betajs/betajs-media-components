@@ -185,6 +185,12 @@
       "css": "up-dir",
       "code": 59411,
       "src": "fontawesome"
+    },
+    {
+      "uid": "cfb6e143c0650c485536374f2a2f88fb",
+      "css": "television",
+      "code": 62060,
+      "src": "fontawesome"
     }
   ]
 }

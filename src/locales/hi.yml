@@ -52,3 +52,23 @@
   ba-videorecorder.unsupported_video_type: 'कृपया अपलोड करें: %s - पुनः प्रयास करने के लिए यहां क्लिक करें।'
   ba-videoplayer-controlbar.exit-fullscreen-video: पूर्ण स्क्रीन से बाहर निकलें
   ba-videoplayer-share.share: वीडियो शेयर करें
+  ba-videorecorder-chooser.record-screen: रिकॉर्ड स्क्रीन
+  ba-videoplayer-controlbar.pause-video-disabled: रोकें समर्थित नहीं है
+  ba-videorecorder-chooser.record-audio: ध्वनि रिकॉर्ड करें
+  ba-videorecorder-controlbar.stop-available-after: न्यूनतम रिकॉर्डिंग समय %d सेकंड है
+  ba-videorecorder-controlbar.cancel: रद्द करना
+  ba-videorecorder-controlbar.cancel-tooltip: रद्द करने के लिए यहां क्लिक करें
+  ba-videorecorder.cancel-confirm: क्या आप वाकई अपना वीडियो अपलोड रद्द करना चाहते हैं?
+  ba-videoplayer-adslot.elapsed-time: Elasped समय
+  ba-videoplayer-adslot.volume-button: मात्रा सेट करें
+  ba-videoplayer-adslot.volume-mute: ध्वनि म्यूट करें
+  ba-videoplayer-adslot.volume-unmute: ध्वनि को अनम्यूट करें
+  ba-videoplayer-adslot.ad-will-end-after: विज्ञापन %s के बाद समाप्त हो जाएगा
+  ba-videoplayer-adslot.can-skip-after: ' %D के बाद छोड़ें'
+  ba-videoplayer-adslot.skip-ad: विज्ञापन से आगे बढ़ें
+  ba-videorecorder.software-required: >-
+    आगे बढ़ने के लिए कृपया निम्नलिखित आवश्यकताओं को स्थापित / सक्रिय करने के लिए
+    नीचे क्लिक करें।
+  ba-videorecorder.software-waiting: >-
+    आवश्यकताओं को स्थापित / सक्रिय करने की प्रतीक्षा कर रहा है आपको पूरा होने के
+    बाद पृष्ठ को रीफ़्रेश करना पड़ सकता है

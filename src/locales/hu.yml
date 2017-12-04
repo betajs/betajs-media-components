@@ -50,3 +50,23 @@
   ba-videorecorder.unsupported_video_type: 'Kérjük, töltsön fel: %s - ide kattintva újra.'
   ba-videoplayer-controlbar.exit-fullscreen-video: Kilépés a teljes képernyős
   ba-videoplayer-share.share: Videó megosztása
+  ba-videorecorder-chooser.record-screen: Felvétel képernyő
+  ba-videoplayer-controlbar.pause-video-disabled: A szüneteltetés nem támogatott
+  ba-videorecorder-chooser.record-audio: Hang rögzítése
+  ba-videorecorder-controlbar.stop-available-after: A minimális felvételi idő %d másodperc
+  ba-videorecorder-controlbar.cancel: Megszünteti
+  ba-videorecorder-controlbar.cancel-tooltip: Kattintson ide a lemondáshoz.
+  ba-videorecorder.cancel-confirm: Tényleg törölni szeretné a videó feltöltését?
+  ba-videoplayer-adslot.elapsed-time: Elkelt idő
+  ba-videoplayer-adslot.volume-button: Állítsa be a hangerőt
+  ba-videoplayer-adslot.volume-mute: Elnémítja a hangot
+  ba-videoplayer-adslot.volume-unmute: Csengessen a hang
+  ba-videoplayer-adslot.ad-will-end-after: A hirdetés a %s után befejeződik
+  ba-videoplayer-adslot.can-skip-after: Ugrás a %d után
+  ba-videoplayer-adslot.skip-ad: Hirdetés átugrása
+  ba-videorecorder.software-required: >-
+    Kérjük, kattintson az alábbi gombra a következő követelmények telepítéséhez
+    / aktiválásához a folytatáshoz.
+  ba-videorecorder.software-waiting: >-
+    Várakozás a telepítés / aktiválás követelményeire. Lehet, hogy frissítenie
+    kell az oldalt befejezése után.

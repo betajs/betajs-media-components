@@ -5,7 +5,16 @@
                 <div class="{{css}}-third-inner-message-container">
                     <div class="{{css}}-fourth-inner-message-container">
                         <div data-selector="recorder-message-block" class='{{css}}-message-message'>
-                            {{message || ""}}
+                            <p>
+                                {{message || ""}}
+                            </p>
+                            <ul ba-if="{{links && links.length > 0}}" ba-repeat="{{link :: links}}">
+                                <li>
+                                    <a href="javascript:;" ba-click="{{linkClick(link)}}">
+                                        {{link.title}}
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>

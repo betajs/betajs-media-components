@@ -55,3 +55,23 @@
   ba-videorecorder.unsupported_video_type: 'Upload: %s - klik hier om opnieuw te proberen.'
   ba-videoplayer-controlbar.exit-fullscreen-video: Verlaat volledig scherm
   ba-videoplayer-share.share: Deel Video
+  ba-videorecorder-chooser.record-screen: Record scherm
+  ba-videoplayer-controlbar.pause-video-disabled: Pauzeren niet ondersteund
+  ba-videorecorder-chooser.record-audio: Geluid opnemen
+  ba-videorecorder-controlbar.stop-available-after: Minimale opnametijd is %d seconden
+  ba-videorecorder-controlbar.cancel: Annuleer
+  ba-videorecorder-controlbar.cancel-tooltip: Klik hier om te annuleren.
+  ba-videorecorder.cancel-confirm: Wil je je video-upload echt annuleren?
+  ba-videoplayer-adslot.elapsed-time: Elasped tijd
+  ba-videoplayer-adslot.volume-button: Volume instellen
+  ba-videoplayer-adslot.volume-mute: Geluid dempen
+  ba-videoplayer-adslot.volume-unmute: Geluid dempen
+  ba-videoplayer-adslot.ad-will-end-after: Advertentie eindigt na %s
+  ba-videoplayer-adslot.can-skip-after: Skip na %d
+  ba-videoplayer-adslot.skip-ad: Advertentie overslaan
+  ba-videorecorder.software-required: >-
+    Klik hieronder om de volgende vereisten te installeren / activeren om door
+    te gaan.
+  ba-videorecorder.software-waiting: >-
+    Wacht tot de vereisten zijn geïnstalleerd / geactiveerd. Mogelijk moet u de
+    pagina na voltooiing vernieuwen.

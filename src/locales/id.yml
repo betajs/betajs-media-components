@@ -51,3 +51,23 @@
   ba-videorecorder.unsupported_video_type: 'Silakan upload: %s - klik di sini untuk mencoba lagi.'
   ba-videoplayer-controlbar.exit-fullscreen-video: Keluar dari layar penuh
   ba-videoplayer-share.share: Berbagi video
+  ba-videorecorder-chooser.record-screen: Layar rekam
+  ba-videoplayer-controlbar.pause-video-disabled: Jeda tidak didukung
+  ba-videorecorder-chooser.record-audio: Suara rekaman
+  ba-videorecorder-controlbar.stop-available-after: Waktu perekaman minimum adalah %d detik
+  ba-videorecorder-controlbar.cancel: Membatalkan
+  ba-videorecorder-controlbar.cancel-tooltip: Klik disini untuk membatalkan
+  ba-videorecorder.cancel-confirm: Apakah Anda benar-benar ingin membatalkan upload video Anda?
+  ba-videoplayer-adslot.elapsed-time: Elasped waktu
+  ba-videoplayer-adslot.volume-button: Setel volume
+  ba-videoplayer-adslot.volume-mute: Bisu terdengar
+  ba-videoplayer-adslot.volume-unmute: Suarakan suara
+  ba-videoplayer-adslot.ad-will-end-after: Iklan akan berakhir setelah %s
+  ba-videoplayer-adslot.can-skip-after: Lewati setelah %d
+  ba-videoplayer-adslot.skip-ad: Melewatkan iklan
+  ba-videorecorder.software-required: >-
+    Silahkan klik di bawah ini untuk menginstal / mengaktifkan persyaratan
+    berikut agar bisa melanjutkan.
+  ba-videorecorder.software-waiting: >-
+    Menunggu persyaratan untuk dipasang / diaktifkan. Anda mungkin perlu
+    menyegarkan halaman setelah selesai.

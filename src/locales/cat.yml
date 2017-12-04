@@ -55,3 +55,23 @@
   ba-videorecorder.unsupported_video_type: 'Si us plau, puja: %s - fer clic aquí per tornar a intentar-ho.'
   ba-videoplayer-controlbar.exit-fullscreen-video: Surt de la pantalla completa
   ba-videoplayer-share.share: compartir vídeo
+  ba-videorecorder-chooser.record-screen: Pantalla de registre
+  ba-videoplayer-controlbar.pause-video-disabled: Pausa no és compatible
+  ba-videorecorder-chooser.record-audio: Enregistrament d'àudio
+  ba-videorecorder-controlbar.stop-available-after: El temps d'enregistrament mínim és %d segons
+  ba-videorecorder-controlbar.cancel: Cancel · lar
+  ba-videorecorder-controlbar.cancel-tooltip: Feu clic aquí per cancel·lar.
+  ba-videorecorder.cancel-confirm: Realment vols cancel·lar la càrrega del teu vídeo?
+  ba-videoplayer-adslot.elapsed-time: Elasped temps
+  ba-videoplayer-adslot.volume-button: Estableix el volum
+  ba-videoplayer-adslot.volume-mute: Silenciar el so
+  ba-videoplayer-adslot.volume-unmute: Silenciar el so
+  ba-videoplayer-adslot.ad-will-end-after: L'anunci finalitzarà després de %s
+  ba-videoplayer-adslot.can-skip-after: Passa després de %d
+  ba-videoplayer-adslot.skip-ad: Saltar anunci
+  ba-videorecorder.software-required: >-
+    Feu clic a sota per instal·lar / activar els requisits següents per
+    continuar.
+  ba-videorecorder.software-waiting: >-
+    Esperant que s'instal·lin / activin els requisits. És possible que hàgiu
+    d'actualitzar la pàgina una vegada finalitzada.

@@ -1,50 +1,27 @@
-
 <div class="{{css}}-chooser-container">
 
 	<div class="{{css}}-chooser-button-container">
-		<div>
-			<div data-selector="chooser-primary-button" class="{{css}}-chooser-primary-button"
-			     ba-click="{{primary()}}"
-			     ba-if="{{has_primary}}">
-				<input data-selector="file-input-opt1" ba-if="{{enable_primary_select && primary_select_capture}}"
-				       type="file"
-				       class="{{css}}-chooser-file"
-				       style="height:100"
-				       onchange="{{primary_select(domEvent)}}"
-				       accept="{{primary_accept_string}}"
-				       capture />
-				<input data-selector="file-input-opt2" ba-if="{{enable_primary_select && !primary_select_capture}}"
-				       type="file"
-				       class="{{css}}-chooser-file"
-				       style="height:100"
-				       onchange="{{primary_select(domEvent)}}"
-				       accept="{{primary_accept_string}}" />
+
+		<div ba-repeat="{{action :: actions}}">
+			<div class="{{css}}-chooser-button-{{action.index}}"
+				 ba-click="{{click_action(action)}}">
+				<input ba-if="{{action.select && action.capture}}"
+					   type="file"
+					   class="{{css}}-chooser-file"
+					   onchange="{{select_file_action(action, domEvent)}}"
+					   accept="{{action.accept}}"
+					   capture />
+				<input ba-if="{{action.select && !action.capture}}"
+					   type="file"
+					   class="{{css}}-chooser-file"
+					   onchange="{{select_file_action(action, domEvent)}}"
+					   accept="{{action.accept}}"
+				/>
 				<span>
-					{{primary_label}}
+					{{action.label}}
 				</span>
-				<i class="{{css}}-icon-{{primaryrecord ? 'record' : 'chooser-upload'}}"></i>
-			</div>
-		</div>
-		<div>
-			<div data-selector="chooser-secondary-button" class="{{css}}-chooser-secondary-button"
-			     ba-click="{{secondary()}}"
-			     ba-if="{{has_secondary}}">
-				<input data-selector="file-input-secondary-opt1" ba-if="{{enable_secondary_select && secondary_select_capture}}"
-				       type="file"
-				       class="{{css}}-chooser-file"
-				       style="height:100"
-				       onchange="{{secondary_select(domEvent)}}"
-				       accept="{{secondary_accept_string}}" />
-				<input data-selector="file-input-secondary-opt2" ba-if="{{enable_secondary_select && !secondary_select_capture}}"
-				       type="file"
-				       class="{{css}}-chooser-file"
-				       style="height:100"
-				       onchange="{{secondary_select(domEvent)}}"
-				       accept="{{secondary_accept_string}}" />
-				<span>
-					{{secondary_label}}
-				</span>
-				<i class="{{css}}-icon-chooser-upload"></i>
+				<i class="{{css}}-icon-{{action.icon}}"
+				   ba-if="{{action.icon}}"></i>
 			</div>
 		</div>
 	</div>

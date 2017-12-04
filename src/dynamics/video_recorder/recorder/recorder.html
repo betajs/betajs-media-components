@@ -26,7 +26,9 @@
 		    ba-template="{{tmplmessage}}"
 		    ba-show="{{message_active}}"
 		    ba-message="{{message}}"
+			ba-links="{{message_links}}"
 		    ba-event:click="message_click"
+			ba-event:link="message_link_click"
 		></ba-{{dynmessage}}>
 
 		<ba-{{dyntopmessage}}
@@ -42,7 +44,7 @@
 		    ba-css="{{csschooser || css}}"
 			ba-themecolor="{{themecolor}}"
 		    ba-template="{{tmplchooser}}"
-			ba-screen="{{screen}}"
+			ba-allowscreen="{{allowscreen}}"
 		    ba-if="{{chooser_active && !is_initial_state}}"
 		    ba-allowrecord="{{allowrecord}}"
 		    ba-allowupload="{{allowupload}}"
@@ -51,6 +53,7 @@
 		    ba-primaryrecord="{{primaryrecord}}"
 		    ba-timelimit="{{timelimit}}"
 		    ba-event:record="record_video"
+			ba-event:record-screen="record_screen"
 		    ba-event:upload="upload_video"
 		></ba-{{dynchooser}}>
 
@@ -74,7 +77,7 @@
 		    ba-microphones="{{microphones}}"
 		    ba-noaudio="{{noaudio}}"
 			ba-novideo="{{onlyaudio}}"
-			ba-screen="{{screen}}"
+			ba-allowscreen="{{record_media==='screen'}}"
 		    ba-selectedcamera="{{selectedcamera || 0}}"
 		    ba-selectedmicrophone="{{selectedmicrophone || 0}}"
 		    ba-camerahealthy="{{camerahealthy}}"

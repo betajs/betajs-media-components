@@ -24,7 +24,7 @@
 	text-align: center;	
 }
 
-.#{$css}-chooser-primary-button {
+.#{$css}-chooser-button-0 {
 	@include clickable;
 	@include border-radius($chooser_primary_button_border_radius);
 	background-color: $chooser_primary_button_bgcolor;
@@ -35,18 +35,16 @@
 	font-family: $font_family;
 	font-size: $chooser_fontsize;
 	text-align: center;
-	display: inline-block;
 	position: relative;
 	white-space: nowrap;
 }
 
-.#{$css}-chooser-secondary-button {
+.#{$css}-chooser-button-1, .#{$css}-chooser-button-2 {
 	@include clickable;
 	color: $chooser_secondary_button_color;
 	font-family: $font_family;
 	font-size: $chooser_fontsize;
 	text-align: center;
-	display: inline-block;
 	padding: $chooser_secondary_button_padding;
 	position: relative;
 	white-space: nowrap;

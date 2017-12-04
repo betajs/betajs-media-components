@@ -50,3 +50,23 @@
   ba-videorecorder.unsupported_video_type: 'yükleyin: %s - yeniden denemek için burayı tıklayın.'
   ba-videoplayer-controlbar.exit-fullscreen-video: Tam ekrandan çık
   ba-videoplayer-share.share: Video paylaş
+  ba-videorecorder-chooser.record-screen: Kayıt Ekranı
+  ba-videoplayer-controlbar.pause-video-disabled: Duraklat desteklenmiyor
+  ba-videorecorder-chooser.record-audio: Ses kaydı
+  ba-videorecorder-controlbar.stop-available-after: Minimum kayıt süresi %d saniye
+  ba-videorecorder-controlbar.cancel: İptal etmek
+  ba-videorecorder-controlbar.cancel-tooltip: İptal etmek için buraya tıklayın.
+  ba-videorecorder.cancel-confirm: Video yüklemenizi gerçekten iptal etmek istiyor musunuz?
+  ba-videoplayer-adslot.elapsed-time: Kazanılan zaman
+  ba-videoplayer-adslot.volume-button: Sesi ayarla
+  ba-videoplayer-adslot.volume-mute: Sesi kapat
+  ba-videoplayer-adslot.volume-unmute: Sesi açma
+  ba-videoplayer-adslot.ad-will-end-after: 'Reklam, %s sonra sona erecek'
+  ba-videoplayer-adslot.can-skip-after: ' %D sonra atla'
+  ba-videoplayer-adslot.skip-ad: Reklamı geç
+  ba-videorecorder.software-required: >-
+    Devam etmek için aşağıdaki gereksinimleri yüklemek / etkinleştirmek için
+    lütfen aşağıya tıklayın.
+  ba-videorecorder.software-waiting: >-
+    Gereksinimlerin kurulması / etkinleştirilmesi için bekleniyor.
+    Tamamlandıktan sonra sayfayı yenilemeniz gerekebilir.

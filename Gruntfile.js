@@ -33,13 +33,17 @@ module.exports = function(grunt) {
     .concatTask('concat-scoped', [require.resolve("betajs-scoped"), 'dist/' + dist + '-noscoped.js'], 'dist/' + dist + '.js')
     .concatsassTask('concat-dist-css', [
         'src/themes/common/mixins.scss',
-        'src/themes/common/fontello_font.scss',
+        'src/themes/common/fontello_font_generated.scss',
         'src/themes/video_player/default/theme.scss',
-        'src/themes/common/fontello.scss',
+        'src/themes/common/fontello_icon.scss',
+        'src/themes/common/fontello_icons_generated.scss',
+        'src/themes/common/fontello_icons_color.scss',
         'src/themes/video_player/default/*.scss',
 
         'src/themes/video_recorder/default/theme.scss',
-        'src/../src/themes/common/fontello.scss',
+        'src/../src/themes/common/fontello_icon.scss',
+        'src/../src/themes/common/fontello_icons_generated.scss',
+        'src/../src/themes/common/fontello_icons_color.scss',
         'src/themes/video_recorder/default/*.scss'
      ], 'dist/betajs-media-components.css')
     .uglifyTask('uglify-noscoped', 'dist/' + dist + '-noscoped.js', 'dist/' + dist + '-noscoped.min.js')
@@ -68,7 +72,9 @@ module.exports = function(grunt) {
     .concatsassTask('concat-modern-theme-css', [
       'src/themes/common/mixins.scss',
 	    'src/themes/video_player/modern/theme.scss',
-        'src/themes/common/fontello.scss',
+        'src/themes/common/fontello_icon.scss',
+        'src/themes/common/fontello_icons_generated.scss',
+        'src/themes/common/fontello_icons_color.scss',
 	    'src/themes/video_player/default/player.scss',
         'src/themes/video_player/default/adplayer.scss',
 	    'src/themes/video_player/default/loader.scss',
@@ -76,9 +82,12 @@ module.exports = function(grunt) {
 	    'src/themes/video_player/modern/*.scss',
 
 	    'src/themes/video_recorder/modern/theme.scss',
-      'src/../src/themes/common/fontello.scss',
+        'src/../src/themes/common/fontello_icon.scss',
+        'src/../src/themes/common/fontello_icons_generated.scss',
+        'src/../src/themes/common/fontello_icons_color.scss',
 	    'src/themes/video_recorder/default/recorder.scss',
 	    'src/themes/video_recorder/default/chooser.scss',
+        'src/themes/video_recorder/default/message.scss',
 	    'src/themes/video_recorder/default/topmessage.scss',
 	    'src/themes/video_recorder/default/imagegallery.scss',
 	    'src/themes/video_recorder/default/controlbar.scss',
@@ -100,7 +109,9 @@ module.exports = function(grunt) {
     .concatsassTask('concat-space-theme-css', [
       'src/themes/common/mixins.scss',
       'src/themes/video_player/space/theme.scss',
-      'src/themes/common/fontello.scss',
+        'src/themes/common/fontello_icon.scss',
+        'src/themes/common/fontello_icons_generated.scss',
+        'src/themes/common/fontello_icons_color.scss',
       'src/themes/video_player/default/player.scss',
         'src/themes/video_player/default/adplayer.scss',
       'src/themes/video_player/default/loader.scss',
@@ -108,7 +119,9 @@ module.exports = function(grunt) {
       'src/themes/video_player/space/*.scss',
 
       'src/themes/video_recorder/space/theme.scss',
-      'src/../src/themes/common/fontello.scss',
+        'src/../src/themes/common/fontello_icon.scss',
+        'src/../src/themes/common/fontello_icons_generated.scss',
+        'src/../src/themes/common/fontello_icons_color.scss',
       'src/themes/video_recorder/default/recorder.scss',
       'src/themes/video_recorder/default/chooser.scss',
       'src/themes/video_recorder/default/topmessage.scss',
@@ -132,7 +145,9 @@ module.exports = function(grunt) {
     .concatsassTask('concat-theatre-theme-css', [
       'src/themes/common/mixins.scss',
       'src/themes/video_player/theatre/theme.scss',
-      'src/themes/common/fontello.scss',
+        'src/themes/common/fontello_icon.scss',
+        'src/themes/common/fontello_icons_generated.scss',
+        'src/themes/common/fontello_icons_color.scss',
       'src/themes/video_player/default/player.scss',
         'src/themes/video_player/default/adplayer.scss',
       'src/themes/video_player/default/loader.scss',
@@ -140,7 +155,9 @@ module.exports = function(grunt) {
       'src/themes/video_player/theatre/*.scss',
 
       'src/themes/video_recorder/theatre/theme.scss',
-      'src/../src/themes/common/fontello.scss',
+        'src/../src/themes/common/fontello_icon.scss',
+        'src/../src/themes/common/fontello_icons_generated.scss',
+        'src/../src/themes/common/fontello_icons_color.scss',
       'src/themes/video_recorder/default/recorder.scss',
       'src/themes/video_recorder/default/chooser.scss',
       'src/themes/video_recorder/default/topmessage.scss',
@@ -166,7 +183,9 @@ module.exports = function(grunt) {
     .concatsassTask('concat-elevate-theme-css', [
       'src/themes/common/mixins.scss',
       'src/themes/video_player/elevate/theme.scss',
-      'src/themes/common/fontello.scss',
+        'src/themes/common/fontello_icon.scss',
+        'src/themes/common/fontello_icons_generated.scss',
+        'src/themes/common/fontello_icons_color.scss',
       'src/themes/video_player/default/player.scss',
         'src/themes/video_player/default/adplayer.scss',
       'src/themes/video_player/default/loader.scss',
@@ -174,7 +193,9 @@ module.exports = function(grunt) {
       'src/themes/video_player/elevate/*.scss',
 
       'src/themes/video_recorder/elevate/theme.scss',
-      'src/../src/themes/common/fontello.scss',
+        'src/../src/themes/common/fontello_icon.scss',
+        'src/../src/themes/common/fontello_icons_generated.scss',
+        'src/../src/themes/common/fontello_icons_color.scss',
       'src/themes/video_recorder/default/recorder.scss',
       'src/themes/video_recorder/default/chooser.scss',
       'src/themes/video_recorder/default/topmessage.scss',
@@ -199,7 +220,9 @@ module.exports = function(grunt) {
     .concatsassTask('concat-cube-theme-css', [
       'src/themes/common/mixins.scss',
       'src/themes/video_player/cube/theme.scss',
-      'src/themes/common/fontello.scss',
+        'src/themes/common/fontello_icon.scss',
+        'src/themes/common/fontello_icons_generated.scss',
+        'src/themes/common/fontello_icons_color.scss',
       'src/themes/video_player/default/player.scss',
         'src/themes/video_player/default/adplayer.scss',
       'src/themes/video_player/default/loader.scss',
@@ -207,7 +230,9 @@ module.exports = function(grunt) {
       'src/themes/video_player/cube/*.scss',
 
       'src/themes/video_recorder/cube/theme.scss',
-      'src/../src/themes/common/fontello.scss',
+        'src/../src/themes/common/fontello_icon.scss',
+        'src/../src/themes/common/fontello_icons_generated.scss',
+        'src/../src/themes/common/fontello_icons_color.scss',
       'src/themes/video_recorder/default/recorder.scss',
       'src/themes/video_recorder/default/chooser.scss',
       'src/themes/video_recorder/default/topmessage.scss',
@@ -233,7 +258,9 @@ module.exports = function(grunt) {
     .concatsassTask('concat-minimalist-theme-css', [
       'src/themes/common/mixins.scss',
       'src/themes/video_player/minimalist/theme.scss',
-      'src/themes/common/fontello.scss',
+        'src/themes/common/fontello_icon.scss',
+        'src/themes/common/fontello_icons_generated.scss',
+        'src/themes/common/fontello_icons_color.scss',
       'src/themes/video_player/default/player.scss',
       'src/themes/video_player/default/adplayer.scss',
       'src/themes/video_player/default/loader.scss',
@@ -241,7 +268,9 @@ module.exports = function(grunt) {
       'src/themes/video_player/minimalist/*.scss',
 
       'src/themes/video_recorder/minimalist/theme.scss',
-      'src/../src/themes/common/fontello.scss',
+        'src/../src/themes/common/fontello_icon.scss',
+        'src/../src/themes/common/fontello_icons_generated.scss',
+        'src/../src/themes/common/fontello_icons_color.scss',
       'src/themes/video_recorder/default/recorder.scss',
       'src/themes/video_recorder/default/chooser.scss',
       'src/themes/video_recorder/default/topmessage.scss',
@@ -302,11 +331,43 @@ module.exports = function(grunt) {
 
 
 	gruntHelper.config.shell.mediaqunit = {
-			command: [
-			    'open http://' + gruntHelper.myip() + ':5000/static/tests/server/index.html',
-			    'node node_modules/nano-media-server/server.js --staticserve .'
-			].join("&&")
-		};
+        command: [
+            'open http://' + gruntHelper.myip() + ':5000/static/tests/server/index.html',
+            'node node_modules/nano-media-server/server.js --staticserve .'
+        ].join("&&")
+    };
+
+	gruntHelper.config.template.fontello_font = {
+        options: {
+            data: {
+                eot_base64: require("fs").readFileSync("vendors/fontello/font/fontello.eot").toString('base64'),
+                woff_base64: require("fs").readFileSync("vendors/fontello/font/fontello.woff").toString('base64'),
+                truetype_base64: require("fs").readFileSync("vendors/fontello/font/fontello.ttf").toString('base64')
+            }
+        },
+        files: [{
+            src: "src/fragments/fontello_font.tpl",
+            dest: "src/themes/common/fontello_font_generated.scss"
+        }]
+    };
+    gruntHelper.config.template.fontello_icons = {
+        options: {
+            data: {
+                icons: grunt.file.read("vendors/fontello/css/fontello-codes.css").trim().split("\n").map(function (icon) {
+                    var regex = /\.([^:]+):before\s*{\s*content\s*:\s*'([^']+)'\s*;\s*}\s* \/\*[^*]+\*\//g;
+                    var match = regex.exec(icon);
+                    return {
+                        ident: match[1],
+                        content: match[2]
+                    };
+                })
+            }
+        },
+        files: [{
+            src: "src/fragments/fontello_icons.tpl",
+            dest: "src/themes/common/fontello_icons_generated.scss"
+        }]
+    };
 
 	grunt.initConfig(gruntHelper.config);
 
@@ -322,6 +383,8 @@ module.exports = function(grunt) {
       'concat-scoped',
       'uglify-noscoped',
       'uglify-scoped',
+      'template:fontello_font',
+    'template:fontello_icons',
       'concat-dist-css',
       'cssmin-dist',
       'clean-compile',
@@ -440,8 +503,10 @@ module.exports = function(grunt) {
 
 
     grunt.registerTask("translations", function () {
-	  var languages = ["de", "fr", "es", "nl", "pt-br", "it", "sv", "da", "no", "fi", "cat", "bg", "hu", "pl", "ro",
-                       "sr", "tr", "hr", "id", "hi", "az", "tl", "ar", "ru"];
+        var languages = [];
+        grunt.file.recurse("./src/locales", function (abspath, rootdir, subdir, filename) {
+            languages.push(filename.substring(0, filename.indexOf(".")));
+        });
 	  var sourceFile = "./dist/english.yml";
 	  var targetFolder = "./src/locales/";
 	  languages.forEach(function (targetLang) {

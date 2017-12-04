@@ -7,7 +7,7 @@
         color: $value;
       }
 
-      .#{$css}-chooser-primary-button, .#{$css}-button-primary, .#{$css}-settings span,
+      .#{$css}-chooser-button-0, .#{$css}-button-primary, .#{$css}-settings span,
       .#{$css}-imagegallery-rightbutton, .#{$css}-imagegallery-leftbutton  {
         background-color: $value;
       }
@@ -15,6 +15,11 @@
       .#{$css}-imagegallery-image:hover {
         border-color: $value;
       }
+
+      .#{$css}-message-message a {
+        color: $value;
+      }
+
     }
   }
 }

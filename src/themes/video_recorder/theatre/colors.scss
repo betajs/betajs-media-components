@@ -8,21 +8,25 @@
 
       .#{$css}-button-primary, .#{$css}-settings span,
       .#{$css}-imagegallery-rightbutton, .#{$css}-imagegallery-leftbutton,
-      .#{$css}-chooser-primary-button {
+      .#{$css}-chooser-button-0 {
         background-color: $value;
       }
 
       .#{$css}-button-selected, .#{$css}-imagegallery-image:hover,
-      .#{$css}-chooser-primary-button {
+      .#{$css}-chooser-button-0 {
         border-color: $value;
       }
 
-      .#{$css}-chooser-primary-button {
+      .#{$css}-chooser-button-0 {
         color: #ffffff;
       }
 
-      .#{$css}-chooser-secondary-button {
+      .#{$css}-chooser-button-1, .#{$css}-chooser-button-2 {
         background-color: #ffffff;
+      }
+
+      .#{$css}-message-message a {
+        color: $value;
       }
     }
   }

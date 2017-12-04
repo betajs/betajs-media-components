@@ -8,7 +8,7 @@
         color: $value;
       }
 
-      .#{$css}-chooser-primary-button, .#{$css}-button-primary,
+      .#{$css}-chooser-button-0, .#{$css}-button-primary,
       .#{$css}-settings span, .#{$css}-imagegallery-rightbutton, .#{$css}-imagegallery-leftbutton {
         background-color: $value;
       }
@@ -17,6 +17,9 @@
         border-color: $value;
       }
 
+      .#{$css}-message-message a {
+        color: $value;
+      }
     }
   }
 }

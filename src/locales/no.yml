@@ -51,3 +51,23 @@
   ba-videorecorder.unsupported_video_type: 'Last opp: %s - klikk her for å prøve på nytt.'
   ba-videoplayer-controlbar.exit-fullscreen-video: Avslutt fullskjerm
   ba-videoplayer-share.share: Del video
+  ba-videorecorder-chooser.record-screen: Opptaksskjerm
+  ba-videoplayer-controlbar.pause-video-disabled: Pause ikke støttet
+  ba-videorecorder-chooser.record-audio: Ta opp lyd
+  ba-videorecorder-controlbar.stop-available-after: Minimum opptakstid er %d sekunder
+  ba-videorecorder-controlbar.cancel: Avbryt
+  ba-videorecorder-controlbar.cancel-tooltip: Klikk her for å avbryte.
+  ba-videorecorder.cancel-confirm: Vil du virkelig slette videoopplasting?
+  ba-videoplayer-adslot.elapsed-time: Elasped tid
+  ba-videoplayer-adslot.volume-button: Angi volum
+  ba-videoplayer-adslot.volume-mute: Dempe lyd
+  ba-videoplayer-adslot.volume-unmute: Slå av lyden
+  ba-videoplayer-adslot.ad-will-end-after: Annonsen slutter etter %s
+  ba-videoplayer-adslot.can-skip-after: Hopp over etter %d
+  ba-videoplayer-adslot.skip-ad: Hopp over annonse
+  ba-videorecorder.software-required: >-
+    Vennligst klikk nedenfor for å installere / aktivere følgende krav for å
+    fortsette.
+  ba-videorecorder.software-waiting: >-
+    Venter på kravene som skal installeres / aktiveres. Du må kanskje oppdatere
+    siden etter ferdigstillelse.

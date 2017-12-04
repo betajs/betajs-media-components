@@ -22,6 +22,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.State", [
                 this.dyn.set(key + "_active", value);
             }, this);
             this.dyn.set("playertopmessage", "");
+            this.dyn.set("message_links", null);
             this.dyn._accessing_camera = false;
             this._started();
         },
@@ -48,6 +49,8 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.State", [
 
         selectRecord: function() {},
 
+        selectRecordScreen: function() {},
+
         selectUpload: function(file) {},
 
         uploadCovershot: function(file) {}
@@ -67,7 +70,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.FatalError", [
     }, {
 
         dynamics: ["message"],
-        _locals: ["message", "retry", "flashtest"],
+        _locals: ["message", "retry"],
 
         _started: function() {
             this.dyn.set("message", this._message || this.dyn.string("recorder-error"));
@@ -76,18 +79,6 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.FatalError", [
                 if (this._retry)
                     this.next(this._retry);
             });
-            if (this._flashtest && !Info.isMobile() && Info.flash().supported() && !Info.flash().installed()) {
-                this.auto_destroy(new Timer({
-                    delay: 500,
-                    context: this,
-                    fire: function() {
-                        if (Info.flash(true).installed())
-                            this.next(this._retry);
-                    }
-                }));
-                if ((Info.isSafari() && Info.safariVersion() >= 10) || Info.isEdge())
-                    window.open("https://get.adobe.com/flashplayer");
-            }
         }
 
     });
@@ -115,7 +106,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Initial", [
                 } else
                     this.next("Player");
             } else if (this.dyn.get("autorecord") || this.dyn.get("skipinitial"))
-                this.eventualNext("CameraAccess");
+                this.eventualNext("RequiredSoftwareCheck");
             else
                 this.next("Chooser");
         },
@@ -169,8 +160,14 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
             this.selectRecord();
         },
 
+        selectRecordScreen: function() {
+            this.dyn.set("record_media", "screen");
+            this.next("RequiredSoftwareCheck");
+        },
+
         selectRecord: function() {
-            this.next("CameraAccess");
+            this.dyn.set("record_media", "camera");
+            this.next("RequiredSoftwareCheck");
         },
 
         selectUpload: function(file) {
@@ -227,6 +224,89 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
 });
 
 
+Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.RequiredSoftwareCheck", [
+    "module:VideoRecorder.Dynamics.RecorderStates.State"
+], function(State, scoped) {
+    return State.extend({
+        scoped: scoped
+    }, {
+
+        dynamics: ["loader"],
+
+        _started: function() {
+            this.dyn.set("settingsvisible", false);
+            this.dyn.set("recordvisible", false);
+            this.dyn.set("rerecordvisible", false);
+            this.dyn.set("stopvisible", false);
+            this.dyn.set("skipvisible", false);
+            this.dyn.set("controlbarlabel", "");
+            this.dyn.set("loaderlabel", "");
+            this.listenOn(this.dyn, "error", function(s) {
+                this.next("FatalError", {
+                    message: this.dyn.string("attach-error"),
+                    retry: "Initial"
+                });
+            }, this);
+            this.dyn._attachRecorder();
+            if (this.dyn) {
+                this.dyn.on("message-link-click", function(link) {
+                    link.execute();
+                    this.next("RequiredSoftwareWait");
+                }, this);
+                this.dyn._softwareDependencies().error(function(dependencies) {
+                    this.dyn.set("message_links", dependencies);
+                    this.dyn.set("loader_active", false);
+                    this.dyn.set("message_active", true);
+                    this.dyn.set("message", this.dyn.string("software-required"));
+                }, this).success(function() {
+                    this.next("CameraAccess");
+                }, this);
+            }
+        }
+
+    });
+});
+
+
+Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.RequiredSoftwareWait", [
+    "module:VideoRecorder.Dynamics.RecorderStates.State",
+    "base:Promise",
+    "browser:Dom"
+], function(State, Promise, Dom, scoped) {
+    return State.extend({
+        scoped: scoped
+    }, {
+
+        dynamics: ["message"],
+
+        _started: function() {
+            this.dyn.set("settingsvisible", false);
+            this.dyn.set("recordvisible", false);
+            this.dyn.set("rerecordvisible", false);
+            this.dyn.set("stopvisible", false);
+            this.dyn.set("skipvisible", false);
+            this.dyn.set("controlbarlabel", "");
+            this.dyn.set("loaderlabel", "");
+            this.dyn.set("message", this.dyn.string("software-waiting"));
+            Promise.resilience(function() {
+                if (Dom.isTabHidden())
+                    return Promise.error("Not ready");
+                return this.dyn._softwareDependencies();
+            }, this, 120, [], 1000).success(function() {
+                this.next("CameraAccess");
+            }, this).error(function() {
+                this.next("RequiredSoftwareCheck");
+            }, this);
+            this.dyn.on("message-click", function() {
+                this.next("RequiredSoftwareCheck");
+            }, this);
+        }
+
+    });
+});
+
+
+
 Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraAccess", [
     "module:VideoRecorder.Dynamics.RecorderStates.State",
     "base:Timers.Timer"
@@ -247,7 +327,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraAccess", [
             this.dyn.set("loaderlabel", "");
             this.listenOn(this.dyn, "bound", function() {
                 this.dyn.set("creation-type", this.dyn.isFlash() ? "flash" : "webrtc");
-                if (this.dyn.get("onlyaudio")) {
+                if (this.dyn.get("onlyaudio") || this.dyn.get("record_media") === "screen") {
                     this.next("CameraHasAccess");
                     return;
                 }
@@ -256,7 +336,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraAccess", [
                     delay: 100,
                     context: this,
                     fire: function() {
-                        if (this.dyn.recorder.blankLevel() >= 0.01 && this.dyn.recorder.deltaCoefficient() >= 0.01) {
+                        if (this.dyn.blankLevel() >= 0.01 && this.dyn.deltaCoefficient() >= 0.01) {
                             timer.stop();
                             this.next("CameraHasAccess");
                         }
@@ -266,8 +346,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraAccess", [
             this.listenOn(this.dyn, "error", function(s) {
                 this.next("FatalError", {
                     message: this.dyn.string("attach-error"),
-                    retry: "Initial",
-                    flashtest: true
+                    retry: "Initial"
                 });
             }, this);
             this.listenOn(this.dyn, "access_forbidden", function() {
@@ -276,9 +355,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraAccess", [
                     retry: "Initial"
                 });
             }, this);
-            this.dyn._attachRecorder();
-            if (this.dyn)
-                this.dyn._bindMedia();
+            this.dyn._bindMedia();
         }
 
     });
@@ -365,13 +442,13 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.RecordPrepare", [
                 }, this).error(function(s) {
                     this.next("FatalError", {
                         message: s,
-                        retry: "CameraAccess"
+                        retry: "RequiredSoftwareCheck"
                     });
                 }, this);
             }, this).error(function(s) {
                 this.next("FatalError", {
                     message: s,
-                    retry: "CameraAccess"
+                    retry: "RequiredSoftwareCheck"
                 });
             }, this);
         }
@@ -455,7 +532,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
                 }, this).error(function(s) {
                     this.next("FatalError", {
                         message: s,
-                        retry: "CameraAccess"
+                        retry: "RequiredSoftwareCheck"
                     });
                 }, this);
             }, this);

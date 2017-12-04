@@ -15,9 +15,9 @@
   ba-videoplayer-controlbar.volume-button: Nastaviť hlasitosť
   ba-videoplayer-controlbar.volume-mute: Vypnúť zvuk
   ba-videoplayer-controlbar.volume-unmute: Zapnúť zvuk
-  ba-videoplayer.video-error: 'Vyskytla sa chyba. Skúste to znova.'
+  ba-videoplayer.video-error: Vyskytla sa chyba. Skúste to znova.
   ba-videorecorder-chooser.record-video: Nahrať nové video
-  ba-videorecorder-chooser.upload-video:  Priložiť existujúce video
+  ba-videorecorder-chooser.upload-video: Priložiť existujúce video
   ba-videorecorder-controlbar.settings: Nastavenia
   ba-videorecorder-controlbar.camerahealthy: Osvetlenie vyzerá dobre
   ba-videorecorder-controlbar.cameraunhealthy: Osvetlenie nie je optimálne
@@ -33,9 +33,11 @@
   ba-videorecorder-controlbar.stop-tooltip: Kliknite sem pre zastavenie.
   ba-videorecorder-controlbar.skip: Preskočiť
   ba-videorecorder-controlbar.skip-tooltip: Kliknite sem pre preskočenie.
-  ba-videorecorder.recorder-error: 'Vyskytla sa chyba. Kliknutím skúste znova.'
+  ba-videorecorder.recorder-error: Vyskytla sa chyba. Kliknutím skúste znova.
   ba-videorecorder.attach-error: >-
-    Nepodarilo sa nám získať prístup k rozhraniu fotoaparátu. V závislosti od zariadenia a prehliadača budete možno musieť nainštalovať Flash alebo pristupovať na stránku cez protokol SSL.
+    Nepodarilo sa nám získať prístup k rozhraniu fotoaparátu. V závislosti od
+    zariadenia a prehliadača budete možno musieť nainštalovať Flash alebo
+    pristupovať na stránku cez protokol SSL.
   ba-videorecorder.access-forbidden: Prístup ku kamere bol zakázaný. Kliknutím skúste znova.
   ba-videorecorder.pick-covershot: Vyberte si úvodnú snímku.
   ba-videorecorder.uploading: Nahrávanie
@@ -44,7 +46,8 @@
   ba-videorecorder.verifying-failed: Overovanie zlyhalo - kliknite sem pre zopakovanie.
   ba-videorecorder.rerecord-confirm: Skutočne chcete toto video prerobiť?
   ba-videorecorder.video_file_too_large: >-
-    Vaše video je príliš dlhé (%s) - kliknite sem pre zopakovanie s menším videosúborom.
+    Vaše video je príliš dlhé (%s) - kliknite sem pre zopakovanie s menším
+    videosúborom.
   ba-videorecorder.unsupported_video_type: 'Prosím nahrajte: %s - kliknite sem pre zopakovanie.'
   ba-videoplayer-controlbar.exit-fullscreen-video: Zrušiť zobrazenie na celú obrazovku
   ba-videoplayer-share.share: Zdieľať
@@ -54,3 +57,17 @@
   ba-videorecorder-controlbar.cancel: Zrušiť
   ba-videorecorder-controlbar.cancel-tooltip: Kliknite sem pre zrušenie.
   ba-videorecorder.cancel-confirm: Naozaj chcete zrušiť nahrávanie videa?
+  ba-videorecorder-chooser.record-screen: Obrazovka nahrávania
+  ba-videoplayer-adslot.elapsed-time: Elasped čas
+  ba-videoplayer-adslot.volume-button: Nastavte hlasitosť
+  ba-videoplayer-adslot.volume-mute: Stlmenie zvuku
+  ba-videoplayer-adslot.volume-unmute: Zrušiť zvuk
+  ba-videoplayer-adslot.ad-will-end-after: Reklama sa skončí po %s
+  ba-videoplayer-adslot.can-skip-after: Preskočiť za %d
+  ba-videoplayer-adslot.skip-ad: Preskočiť reklamu
+  ba-videorecorder.software-required: >-
+    Ak chcete pokračovať, kliknite na nižšie a nainštalujte / aktivujte
+    nasledujúce požiadavky.
+  ba-videorecorder.software-waiting: >-
+    Čaká sa na požiadavky na inštaláciu / aktiváciu. Po skončení stránky možno
+    budete musieť obnoviť stránku.

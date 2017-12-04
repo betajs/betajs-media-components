@@ -1,54 +1,77 @@
 'language:az':
-   ba-videoplayer-playbutton.tooltip: Videoya baxmaq üçün basın.
-   ba-videoplayer-playbutton.rerecord: Yenidən yazmaq
-   ba-videoplayer-playbutton.submit-video: Videonu təsdiq et
-   ba-videoplayer-loader.tooltip: Video yüklənir ...
-   ba-videoplayer-controlbar.change-resolution: Görüntünün keyfiyyətini dəyiş
-   ba-videoplayer-controlbar.video-progress: Videonun davamiyyəti
-   ba-videoplayer-controlbar.rerecord-video: Video yenidən yazılsın?
-   ba-videoplayer-controlbar.submit-video: Videonu təsdiq et
-   ba-videoplayer-controlbar.play-video: Videonu göstər
-   ba-videoplayer-controlbar.pause-video: Videonu dayandır
-   ba-videoplayer-controlbar.elapsed-time: Göstərilmiş vaxt
-   ba-videoplayer-controlbar.total-time: Videonu tam uzunluğu
-   ba-videoplayer-controlbar.fullscreen-video: Tam ekran edin
-   ba-videoplayer-controlbar.volume-button: Səs düyməsi
-   ba-videoplayer-controlbar.volume-mute: Səssiz et
-   ba-videoplayer-controlbar.volume-unmute: Səsli et
-   ba-videoplayer.video-error: >-
-     Xəta baş vermişdir. Xahiş edirik bir az sonra yenidən cəhd edin. Yenidən yoxlamaq üçün basın.
-   ba-videorecorder-chooser.record-video: Videonu yaz
-   ba-videorecorder-chooser.upload-video: Videonu yüklə
-   ba-videorecorder-controlbar.settings: Ayarlar
-   ba-videorecorder-controlbar.camerahealthy: İşıqlandırma yaxşıdır
-   ba-videorecorder-controlbar.cameraunhealthy: İşıqlandırma optimal deyil
-   ba-videorecorder-controlbar.microphonehealthy: Səs yaxşı eşidilir
-   ba-videorecorder-controlbar.microphoneunhealthy: Mikrofonun səsi eşidilmir
-   ba-videorecorder-controlbar.record: Yazmaq
-   ba-videorecorder-controlbar.record-tooltip: Videonu yazmaq üçün basın
-   ba-videorecorder-controlbar.rerecord: Videonu yenidən yaz
-   ba-videorecorder-controlbar.rerecord-tooltip: Yenidən yazmaq üçün basın.
-   ba-videorecorder-controlbar.upload-covershot: Yüklə
-   ba-videorecorder-controlbar.upload-covershot-tooltip: Üzlük şəkli yükləmək üçün basın
-   ba-videorecorder-controlbar.stop: Dayandırmaq
-   ba-videorecorder-controlbar.stop-tooltip: Dayandırmaq üçün basın.
-   ba-videorecorder-controlbar.skip: Nəzərə alma
-   ba-videorecorder-controlbar.skip-tooltip: Nəzərə almadan keçmək üçün basın.
-   ba-videorecorder.recorder-error: >-
-     Xəta baş verdi. Xahiş edirik bir az sonra yenidən cəhd edin. Yenidən yoxlamaq üçün basın.
-   ba-videorecorder.attach-error: >-
-     Kamera görüntüsünü əldə etmək mümkün olmadı. Sizin istifadə etdiyiniz cihazdan və
-     brauzerdən asılı olaraq siz ya Flash proqramı yüklənməli və ya veb səhifəyə SSL ilə daxil olmalısız.
-   ba-videorecorder.access-forbidden: Kamera görüntüsünə icazə verilmədi. Yenidən yoxlamaq üçün basın.
-   ba-videorecorder.pick-covershot: Üzlük şəklini seçin.
-   ba-videorecorder.uploading: Yüklənir
-   ba-videorecorder.uploading-failed: Yüklənmə zamanı xəta baş verdi, təkrar etmək üçün buraya basın.
-   ba-videorecorder.verifying: Yoxlama
-   ba-videorecorder.verifying-failed: Yoxlama uğursuzluqla bitdi - təkrar üçün buraya basın.
-   ba-videorecorder.rerecord-confirm: 'Siz, həqiqətən, videonu yenidən yazmaq istəyirsiniz?'
-   ba-videorecorder.video_file_too_large: >-
-     Sizin video faylın həcmi (%s) çox böyükdür - kiçik həcmli video fayl ilə yenidən cəhd üçün
-     buraya basın.
-   ba-videorecorder.unsupported_video_type: 'Yükləyin: %s - yenidən yoxlamaq üçün buraya basın.'
-   ba-videoplayer-controlbar.exit-fullscreen-video: Tam ekran rejimindən çıxış
-   ba-videoplayer-share.share: Videonu paylaş
+  ba-videoplayer-playbutton.tooltip: Videoya baxmaq üçün basın.
+  ba-videoplayer-playbutton.rerecord: Yenidən yazmaq
+  ba-videoplayer-playbutton.submit-video: Videonu təsdiq et
+  ba-videoplayer-loader.tooltip: Video yüklənir ...
+  ba-videoplayer-controlbar.change-resolution: Görüntünün keyfiyyətini dəyiş
+  ba-videoplayer-controlbar.video-progress: Videonun davamiyyəti
+  ba-videoplayer-controlbar.rerecord-video: Video yenidən yazılsın?
+  ba-videoplayer-controlbar.submit-video: Videonu təsdiq et
+  ba-videoplayer-controlbar.play-video: Videonu göstər
+  ba-videoplayer-controlbar.pause-video: Videonu dayandır
+  ba-videoplayer-controlbar.elapsed-time: Göstərilmiş vaxt
+  ba-videoplayer-controlbar.total-time: Videonu tam uzunluğu
+  ba-videoplayer-controlbar.fullscreen-video: Tam ekran edin
+  ba-videoplayer-controlbar.volume-button: Səs düyməsi
+  ba-videoplayer-controlbar.volume-mute: Səssiz et
+  ba-videoplayer-controlbar.volume-unmute: Səsli et
+  ba-videoplayer.video-error: >-
+    Xəta baş vermişdir. Xahiş edirik bir az sonra yenidən cəhd edin. Yenidən
+    yoxlamaq üçün basın.
+  ba-videorecorder-chooser.record-video: Videonu yaz
+  ba-videorecorder-chooser.upload-video: Videonu yüklə
+  ba-videorecorder-controlbar.settings: Ayarlar
+  ba-videorecorder-controlbar.camerahealthy: İşıqlandırma yaxşıdır
+  ba-videorecorder-controlbar.cameraunhealthy: İşıqlandırma optimal deyil
+  ba-videorecorder-controlbar.microphonehealthy: Səs yaxşı eşidilir
+  ba-videorecorder-controlbar.microphoneunhealthy: Mikrofonun səsi eşidilmir
+  ba-videorecorder-controlbar.record: Yazmaq
+  ba-videorecorder-controlbar.record-tooltip: Videonu yazmaq üçün basın
+  ba-videorecorder-controlbar.rerecord: Videonu yenidən yaz
+  ba-videorecorder-controlbar.rerecord-tooltip: Yenidən yazmaq üçün basın.
+  ba-videorecorder-controlbar.upload-covershot: Yüklə
+  ba-videorecorder-controlbar.upload-covershot-tooltip: Üzlük şəkli yükləmək üçün basın
+  ba-videorecorder-controlbar.stop: Dayandırmaq
+  ba-videorecorder-controlbar.stop-tooltip: Dayandırmaq üçün basın.
+  ba-videorecorder-controlbar.skip: Nəzərə alma
+  ba-videorecorder-controlbar.skip-tooltip: Nəzərə almadan keçmək üçün basın.
+  ba-videorecorder.recorder-error: >-
+    Xəta baş verdi. Xahiş edirik bir az sonra yenidən cəhd edin. Yenidən
+    yoxlamaq üçün basın.
+  ba-videorecorder.attach-error: >-
+    Kamera görüntüsünü əldə etmək mümkün olmadı. Sizin istifadə etdiyiniz
+    cihazdan və brauzerdən asılı olaraq siz ya Flash proqramı yüklənməli və ya
+    veb səhifəyə SSL ilə daxil olmalısız.
+  ba-videorecorder.access-forbidden: Kamera görüntüsünə icazə verilmədi. Yenidən yoxlamaq üçün basın.
+  ba-videorecorder.pick-covershot: Üzlük şəklini seçin.
+  ba-videorecorder.uploading: Yüklənir
+  ba-videorecorder.uploading-failed: 'Yüklənmə zamanı xəta baş verdi, təkrar etmək üçün buraya basın.'
+  ba-videorecorder.verifying: Yoxlama
+  ba-videorecorder.verifying-failed: Yoxlama uğursuzluqla bitdi - təkrar üçün buraya basın.
+  ba-videorecorder.rerecord-confirm: 'Siz, həqiqətən, videonu yenidən yazmaq istəyirsiniz?'
+  ba-videorecorder.video_file_too_large: >-
+    Sizin video faylın həcmi (%s) çox böyükdür - kiçik həcmli video fayl ilə
+    yenidən cəhd üçün buraya basın.
+  ba-videorecorder.unsupported_video_type: 'Yükləyin: %s - yenidən yoxlamaq üçün buraya basın.'
+  ba-videoplayer-controlbar.exit-fullscreen-video: Tam ekran rejimindən çıxış
+  ba-videoplayer-share.share: Videonu paylaş
+  ba-videorecorder-chooser.record-screen: Səs ekranı
+  ba-videoplayer-controlbar.pause-video-disabled: Pauza dəstəklənmir
+  ba-videorecorder-chooser.record-audio: Record Audio
+  ba-videorecorder-controlbar.stop-available-after: Minimum qeydiyyatdan keçmə müddəti %d saniyədir
+  ba-videorecorder-controlbar.cancel: Ləğv et
+  ba-videorecorder-controlbar.cancel-tooltip: Ləğv etmək üçün buraya basın.
+  ba-videorecorder.cancel-confirm: Video yükləməyini həqiqətən ləğv etmək istəyirsiniz?
+  ba-videoplayer-adslot.elapsed-time: Elasped vaxt
+  ba-videoplayer-adslot.volume-button: Həcmi seçin
+  ba-videoplayer-adslot.volume-mute: Səs səsi
+  ba-videoplayer-adslot.volume-unmute: Səsin səsləndirilməsi
+  ba-videoplayer-adslot.ad-will-end-after: Reklam %s sonra sona çatacaq
+  ba-videoplayer-adslot.can-skip-after: ' %D sonra atlayın'
+  ba-videoplayer-adslot.skip-ad: Reklamı atlayın
+  ba-videorecorder.software-required: >-
+    Davam etmək üçün aşağıdakı tələbləri qurmaq / aktivləşdirmək üçün aşağıya
+    basın.
+  ba-videorecorder.software-waiting: >-
+    Qurulacaq / aktivləşdiriləcək tələbləri gözləyirəm. Tamamlandıqdan sonra
+    səhifəni yeniləmək lazımdır.

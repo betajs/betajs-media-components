@@ -54,3 +54,23 @@
   ba-videorecorder.unsupported_video_type: 'Prenesite: %s - kliknite ovdje za ponovni pokušaj.'
   ba-videoplayer-controlbar.exit-fullscreen-video: Izađite iz cijelog zaslona
   ba-videoplayer-share.share: Dijeljenje videozapisa
+  ba-videorecorder-chooser.record-screen: Zaslon za snimanje
+  ba-videoplayer-controlbar.pause-video-disabled: Pauza nije podržana
+  ba-videorecorder-chooser.record-audio: Snimanje zvuka
+  ba-videorecorder-controlbar.stop-available-after: Minimalno vrijeme snimanja je %d sekundi
+  ba-videorecorder-controlbar.cancel: Otkazati
+  ba-videorecorder-controlbar.cancel-tooltip: Kliknite ovdje kako biste odustali.
+  ba-videorecorder.cancel-confirm: Želite li zaista odustati od prijenosa videozapisa?
+  ba-videoplayer-adslot.elapsed-time: Otpremljeno vrijeme
+  ba-videoplayer-adslot.volume-button: Postavite glasnoću
+  ba-videoplayer-adslot.volume-mute: Isključite zvuk
+  ba-videoplayer-adslot.volume-unmute: Uključi zvuk
+  ba-videoplayer-adslot.ad-will-end-after: Oglas završava nakon %s
+  ba-videoplayer-adslot.can-skip-after: Preskoči nakon %d
+  ba-videoplayer-adslot.skip-ad: Preskočite oglas
+  ba-videorecorder.software-required: >-
+    Kliknite dolje da biste instalirali / aktivirali sljedeće uvjete kako biste
+    nastavili.
+  ba-videorecorder.software-waiting: >-
+    Čeka se postavljanje / aktiviranje zahtjeva. Možda ćete morati osvježiti
+    stranicu nakon završetka.

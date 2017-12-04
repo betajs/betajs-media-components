@@ -50,3 +50,23 @@
   ba-videorecorder.unsupported_video_type: 'Lataa: %s - klikkaa tästä yritä uudelleen.'
   ba-videoplayer-controlbar.exit-fullscreen-video: exit fullscreen
   ba-videoplayer-share.share: Jaa video
+  ba-videorecorder-chooser.record-screen: Tallennusnäyttö
+  ba-videoplayer-controlbar.pause-video-disabled: Tauko ei ole tuettu
+  ba-videorecorder-chooser.record-audio: Äänitä ääntä
+  ba-videorecorder-controlbar.stop-available-after: Minimi tallennusaika on %d sekuntia
+  ba-videorecorder-controlbar.cancel: Peruuttaa
+  ba-videorecorder-controlbar.cancel-tooltip: Peruuta napsauttamalla tätä.
+  ba-videorecorder.cancel-confirm: Haluatko todella peruuttaa videon lähettämisen?
+  ba-videoplayer-adslot.elapsed-time: Elpytty aika
+  ba-videoplayer-adslot.volume-button: Aseta äänen voimakkuus
+  ba-videoplayer-adslot.volume-mute: Mykistä ääni
+  ba-videoplayer-adslot.volume-unmute: Sammuta ääni
+  ba-videoplayer-adslot.ad-will-end-after: 'Mainos päättyy %s: n jälkeen'
+  ba-videoplayer-adslot.can-skip-after: Ohita %d jälkeen
+  ba-videoplayer-adslot.skip-ad: Ohita mainos
+  ba-videorecorder.software-required: >-
+    Napsauta alla olevaa asentaaksesi / aktivoi seuraavat vaatimukset
+    jatkaaksesi.
+  ba-videorecorder.software-waiting: >-
+    Odottaa, että vaatimukset asennetaan / aktivoidaan. Sinun on ehkä
+    päivitettävä sivusi valmiiksi.

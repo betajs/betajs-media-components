@@ -54,3 +54,23 @@
   ba-videorecorder.unsupported_video_type: 'Ladda upp: %s - klicka här för att försöka igen.'
   ba-videoplayer-controlbar.exit-fullscreen-video: Avsluta fullskärmen
   ba-videoplayer-share.share: Dela video
+  ba-videorecorder-chooser.record-screen: Inspelningsskärm
+  ba-videoplayer-controlbar.pause-video-disabled: Paus stöds inte
+  ba-videorecorder-chooser.record-audio: Spela in ljud
+  ba-videorecorder-controlbar.stop-available-after: Minsta inspelningstid är %d sekunder
+  ba-videorecorder-controlbar.cancel: Annullera
+  ba-videorecorder-controlbar.cancel-tooltip: Klicka här för att avbryta.
+  ba-videorecorder.cancel-confirm: Vill du verkligen avbryta din videouppladdning?
+  ba-videoplayer-adslot.elapsed-time: Elasped tid
+  ba-videoplayer-adslot.volume-button: Ange volym
+  ba-videoplayer-adslot.volume-mute: Stäng ljudet
+  ba-videoplayer-adslot.volume-unmute: Slå av ljudet
+  ba-videoplayer-adslot.ad-will-end-after: Annonsen slutar efter %s
+  ba-videoplayer-adslot.can-skip-after: Hoppa över efter %d
+  ba-videoplayer-adslot.skip-ad: Hoppa över annonsen
+  ba-videorecorder.software-required: >-
+    Vänligen klicka nedan för att installera / aktivera följande krav för att
+    fortsätta.
+  ba-videorecorder.software-waiting: >-
+    Väntar på att kraven ska installeras / aktiveras. Det kan hända att du
+    behöver uppdatera sidan efter slutförandet.

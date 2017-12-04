@@ -55,3 +55,23 @@
   ba-videorecorder.unsupported_video_type: 'Mangyaring i-upload: %s - i-click dito upang subukang muli.'
   ba-videoplayer-controlbar.exit-fullscreen-video: Lumabas sa fullscreen
   ba-videoplayer-share.share: Ibahagi ang video
+  ba-videorecorder-chooser.record-screen: Mag-record ng Screen
+  ba-videoplayer-controlbar.pause-video-disabled: I-pause ang hindi suportado
+  ba-videorecorder-chooser.record-audio: Mag-record Audio
+  ba-videorecorder-controlbar.stop-available-after: Ang minimum na oras ng pag-record ay %d segundo
+  ba-videorecorder-controlbar.cancel: Kanselahin
+  ba-videorecorder-controlbar.cancel-tooltip: Mag-click dito upang kanselahin.
+  ba-videorecorder.cancel-confirm: Nais mo bang kanselahin ang iyong pag-upload ng video?
+  ba-videoplayer-adslot.elapsed-time: Tiyak na oras
+  ba-videoplayer-adslot.volume-button: Itakda ang lakas ng tunog
+  ba-videoplayer-adslot.volume-mute: I-mute ang tunog
+  ba-videoplayer-adslot.volume-unmute: I-unmute ang tunog
+  ba-videoplayer-adslot.ad-will-end-after: Magwawakas ang ad matapos ang %s
+  ba-videoplayer-adslot.can-skip-after: Laktawan pagkatapos %d
+  ba-videoplayer-adslot.skip-ad: Laktawan ang ad
+  ba-videorecorder.software-required: >-
+    Mangyaring mag-click sa ibaba upang i-install / i-activate ang mga sumusunod
+    na kinakailangan upang magpatuloy.
+  ba-videorecorder.software-waiting: >-
+    Naghihintay ng mga kinakailangan na mai-install / isinaaktibo. Maaaring
+    kailanganin mong i-refresh ang pahina pagkatapos makumpleto.

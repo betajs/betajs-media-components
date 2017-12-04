@@ -19,3 +19,14 @@ You can use the library in the browser and compile it as well.
 	npm install
 	grunt
 ```
+
+#### Fontello
+
+The icons in this library depend on Fontello. In order to update the icons / add icons:
+
+1. Go to [Fontello](https://fontello.com).
+2. Drag and Drop `./vendors/fontello/config.json` into the website.
+3. Make your selections.
+4. Download the new webfont.
+5. Overwrite `fontello` folder in `vendors` with downloaded font.
+6. Run `grunt`

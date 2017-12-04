@@ -55,3 +55,23 @@
   ba-videorecorder.unsupported_video_type: 'Моля, качете: %s - кликнете тук, за да опитате отново.'
   ba-videoplayer-controlbar.exit-fullscreen-video: Излизане от цял ​​екран
   ba-videoplayer-share.share: Споделяне на видеоклип
+  ba-videorecorder-chooser.record-screen: Екран за запис
+  ba-videoplayer-controlbar.pause-video-disabled: Паузата не се поддържа
+  ba-videorecorder-chooser.record-audio: Записване на аудио
+  ba-videorecorder-controlbar.stop-available-after: Минималното време за запис е %d секунди
+  ba-videorecorder-controlbar.cancel: Отказ
+  ba-videorecorder-controlbar.cancel-tooltip: 'Кликнете тук, за да отмените.'
+  ba-videorecorder.cancel-confirm: Наистина ли искате да анулирате качването на видеоклипа си?
+  ba-videoplayer-adslot.elapsed-time: Изглади времето
+  ba-videoplayer-adslot.volume-button: Задайте сила на звука
+  ba-videoplayer-adslot.volume-mute: Спиране на звука
+  ba-videoplayer-adslot.volume-unmute: Заглушаване на звука
+  ba-videoplayer-adslot.ad-will-end-after: Рекламата ще приключи след %s
+  ba-videoplayer-adslot.can-skip-after: Пропуснете след %d
+  ba-videoplayer-adslot.skip-ad: Пропуснете обява
+  ba-videorecorder.software-required: >-
+    Моля, кликнете по-долу, за да инсталирате / активирате следните изисквания,
+    за да продължите.
+  ba-videorecorder.software-waiting: >-
+    Изчакване за инсталиране / активиране на изискванията. Може да се наложи да
+    опресните страницата след завършване.

@@ -66,7 +66,7 @@
 
 			</div>
 
-			<div class="{{css}}-circle-button" ba-show="{{!noaudio}}">
+			<div class="{{css}}-circle-button" ba-show="{{!noaudio && !allowscreen}}">
 				<div data-selector="record-button-icon-mic" class="{{css}}-button-inner"
 					onmouseenter="{{hover(string(microphonehealthy ? 'microphonehealthy' : 'microphoneunhealthy'))}}"
 					onmouseleave="{{unhover()}}">
@@ -74,7 +74,7 @@
 				</div>
 			</div>
 
-			<div class="{{css}}-circle-button" ba-show="{{!novideo}}">
+			<div class="{{css}}-circle-button" ba-show="{{!novideo && !allowscreen}}">
 				<div data-selector="record-button-icon-videocam" class="{{css}}-button-inner"
 					onmouseenter="{{hover(string(camerahealthy ? 'camerahealthy' : 'cameraunhealthy'))}}"
 					onmouseleave="{{unhover()}}">

@@ -55,3 +55,23 @@
   ba-videorecorder.unsupported_video_type: 'Por favor, sube: %s - hacer clic aquí para volver a intentarlo.'
   ba-videoplayer-controlbar.exit-fullscreen-video: Salir de pantalla completa
   ba-videoplayer-share.share: Compartir video
+  ba-videorecorder-chooser.record-screen: Pantalla de registro
+  ba-videoplayer-controlbar.pause-video-disabled: Pausa no admitida
+  ba-videorecorder-chooser.record-audio: Grabar audio
+  ba-videorecorder-controlbar.stop-available-after: El tiempo de grabación mínimo es %d segundos
+  ba-videorecorder-controlbar.cancel: Cancelar
+  ba-videorecorder-controlbar.cancel-tooltip: Haga clic aquí para cancelar.
+  ba-videorecorder.cancel-confirm: ¿Realmente quieres cancelar tu carga de video?
+  ba-videoplayer-adslot.elapsed-time: Tiempo Elasped
+  ba-videoplayer-adslot.volume-button: Establecer el volumen
+  ba-videoplayer-adslot.volume-mute: Sin sonido
+  ba-videoplayer-adslot.volume-unmute: Dejar de silenciar el sonido
+  ba-videoplayer-adslot.ad-will-end-after: El anuncio finalizará después de %s
+  ba-videoplayer-adslot.can-skip-after: Omitir después de %d
+  ba-videoplayer-adslot.skip-ad: Omitir aviso publicitario
+  ba-videorecorder.software-required: >-
+    Haga clic a continuación para instalar / activar los siguientes requisitos
+    para continuar.
+  ba-videorecorder.software-waiting: >-
+    Esperando a que se instalen / activen los requisitos. Es posible que deba
+    actualizar la página después de la finalización.

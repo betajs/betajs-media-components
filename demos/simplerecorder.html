@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+	<meta content="utf-8" http-equiv="encoding">
+	<script src="../vendors/jquery.min.js"></script>
+		<script src="../node_modules/betajs-shims/dist/betajs-shims.js"></script>		
+        <script src="../node_modules/betajs-scoped/dist/scoped.js"></script>
+        <script src="../node_modules/betajs/dist/beta-noscoped.js"></script>
+        <script src="../node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
+        <script src="../node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
+        <script src="../node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+        <script src="../node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
+	<script src="../dist/betajs-media-components-noscoped.js"></script>
+	<link  href="../dist/betajs-media-components.css" rel="stylesheet" />
+    <script src="../dist/themes/modern/script.js"></script>
+    <link  href="../dist/themes/modern/style.css" rel="stylesheet" />
+    <script src="../dist/themes/space/script.js"></script>
+    <link  href="../dist/themes/space/style.css" rel="stylesheet" />
+    <script src="../dist/themes/theatre/script.js"></script>
+    <link  href="../dist/themes/theatre/style.css" rel="stylesheet" />
+    <script src="../dist/themes/cube/script.js"></script>
+    <link  href="../dist/themes/cube/style.css" rel="stylesheet" />
+    <script src="../dist/themes/elevate/script.js"></script>
+    <link  href="../dist/themes/elevate/style.css" rel="stylesheet" />
+    <script src="../dist/themes/minimalist/script.js"></script>
+    <link  href="../dist/themes/minimalist/style.css" rel="stylesheet" />
+</head>
+<body style="background: #999">
+	<ba-videorecorder ba-width=400 ba-height=300 ba-theme="default"></ba-videorecorder>
+    <ba-videorecorder ba-width=400 ba-height=300 ba-theme="minimalist" ba-primaryrecord="false"></ba-videorecorder>
+    <ba-videorecorder ba-width=400 ba-height=300 ba-theme="minimalist" ba-allowscreen></ba-videorecorder>
+    <ba-videorecorder ba-width=400 ba-height=300 ba-theme="minimalist" ba-allowscreen ba-allowrecord="false"></ba-videorecorder>
+    <script>
+        BetaJS.Flash.options = {
+            flashFile: "../node_modules/betajs-flash/dist/betajs-flash.swf",
+            forceReload: true
+        };
+        BetaJS.Dynamics.Dynamic.activate();
+    </script>
+</body>
+</html>

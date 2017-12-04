@@ -51,3 +51,23 @@
   ba-videorecorder.unsupported_video_type: 'S''il vous plaît télécharger: %s - cliquez ici pour réessayer.'
   ba-videoplayer-controlbar.exit-fullscreen-video: Quitter le mode plein écran
   ba-videoplayer-share.share: Partager la vidéo
+  ba-videorecorder-chooser.record-screen: Écran d'enregistrement
+  ba-videoplayer-controlbar.pause-video-disabled: Pause non prise en charge
+  ba-videorecorder-chooser.record-audio: Enregistrement audio
+  ba-videorecorder-controlbar.stop-available-after: La durée d'enregistrement minimale est de %d secondes
+  ba-videorecorder-controlbar.cancel: Annuler
+  ba-videorecorder-controlbar.cancel-tooltip: Cliquez ici pour annuler
+  ba-videorecorder.cancel-confirm: Voulez-vous vraiment annuler votre téléchargement de vidéo?
+  ba-videoplayer-adslot.elapsed-time: Temps élasped
+  ba-videoplayer-adslot.volume-button: Définir le volume
+  ba-videoplayer-adslot.volume-mute: Son muet
+  ba-videoplayer-adslot.volume-unmute: Activer le son
+  ba-videoplayer-adslot.ad-will-end-after: L'annonce se termine après %s
+  ba-videoplayer-adslot.can-skip-after: Passer après %d
+  ba-videoplayer-adslot.skip-ad: Passer la pub
+  ba-videorecorder.software-required: >-
+    Veuillez cliquer ci-dessous pour installer / activer les conditions
+    suivantes afin de continuer.
+  ba-videorecorder.software-waiting: >-
+    Attendre que les exigences soient installées / activées. Vous devrez
+    peut-être actualiser la page après l'achèvement.

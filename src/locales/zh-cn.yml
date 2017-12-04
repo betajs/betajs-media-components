@@ -9,13 +9,13 @@
   ba-videoplayer-controlbar.submit-video: 确认
   ba-videoplayer-controlbar.play-video: 播放
   ba-videoplayer-controlbar.pause-video: 暂停
-  ba-videoplayer-controlbar.elapsed-time: 经过时间 
+  ba-videoplayer-controlbar.elapsed-time: 经过时间
   ba-videoplayer-controlbar.total-time: 总长度
   ba-videoplayer-controlbar.fullscreen-video: 进入全屏
   ba-videoplayer-controlbar.volume-button: 调整音量
   ba-videoplayer-controlbar.volume-mute: 静音
   ba-videoplayer-controlbar.volume-unmute: 解除静音
-  ba-videoplayer.video-error: '错误发生，请稍后再试(点我)'
+  ba-videoplayer.video-error: 错误发生，请稍后再试(点我)
   ba-videorecorder-chooser.record-video: 录制影片
   ba-videorecorder-chooser.upload-video: 上传影片
   ba-videorecorder-controlbar.settings: 设置
@@ -33,9 +33,8 @@
   ba-videorecorder-controlbar.stop-tooltip: 点我停止
   ba-videorecorder-controlbar.skip: 略过
   ba-videorecorder-controlbar.skip-tooltip: 点我略过
-  ba-videorecorder.recorder-error: '错误发生，请稍后再试(点我)'
-  ba-videorecorder.attach-error: >-
-    无法存取摄像头，可能是浏览器或是设备的限制，请尝试安装 Flash 外挂程序或透过安全连线来使用。
+  ba-videorecorder.recorder-error: 错误发生，请稍后再试(点我)
+  ba-videorecorder.attach-error: 无法存取摄像头，可能是浏览器或是设备的限制，请尝试安装 Flash 外挂程序或透过安全连线来使用。
   ba-videorecorder.access-forbidden: 无法存取摄像头，请点我重试。
   ba-videorecorder.pick-covershot: 请挑选一张封面
   ba-videorecorder.uploading: 上传中
@@ -43,10 +42,23 @@
   ba-videorecorder.verifying: 验证中
   ba-videorecorder.verifying-failed: 验证失败，请点我重试
   ba-videorecorder.rerecord-confirm: 确定要重新录制您的影片?
-  ba-videorecorder.video_file_too_large: >-
-    您的影片过大 (%s) 请点我重新选择小一点影片再试一次。
+  ba-videorecorder.video_file_too_large: 您的影片过大 (%s) 请点我重新选择小一点影片再试一次。
   ba-videorecorder.unsupported_video_type: '请使用影片格式: %s - 点我重试'
   ba-videoplayer-controlbar.exit-fullscreen-video: 结束全屏播放
   ba-videoplayer-share.share: 分享
   ba-videoplayer-controlbar.pause-video-disabled: 无法暂停
   ba-videorecorder-chooser.record-audio: 录音
+  ba-videorecorder-chooser.record-screen: 记录屏幕
+  ba-videorecorder-controlbar.stop-available-after: 最短记录时间是％d秒
+  ba-videorecorder-controlbar.cancel: 取消
+  ba-videorecorder-controlbar.cancel-tooltip: 点击这里取消。
+  ba-videorecorder.cancel-confirm: 你真的想取消你的视频上传？
+  ba-videoplayer-adslot.elapsed-time: 呃时间
+  ba-videoplayer-adslot.volume-button: 设置音量
+  ba-videoplayer-adslot.volume-mute: 静音
+  ba-videoplayer-adslot.volume-unmute: 取消静音
+  ba-videoplayer-adslot.ad-will-end-after: 广告将在％s之后结束
+  ba-videoplayer-adslot.can-skip-after: 在％d之后跳过
+  ba-videoplayer-adslot.skip-ad: 跳过广告
+  ba-videorecorder.software-required: 请点击下面的安装/激活以下要求才能继续。
+  ba-videorecorder.software-waiting: 等待要求安装/激活。完成后可能需要刷新页面。

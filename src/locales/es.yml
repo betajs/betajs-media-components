@@ -4,11 +4,11 @@
   ba-videoplayer-playbutton.submit-video: Confirmar vídeo
   ba-videoplayer-loader.tooltip: Cargando vídeo ...
   ba-videoplayer-controlbar.change-resolution: Cambiar la resolución
-  ba-videoplayer-controlbar.video-progress: El progreso de vídeo
-  ba-videoplayer-controlbar.rerecord-video: Regrab el vídeo?
+  ba-videoplayer-controlbar.video-progress: Progreso de vídeo
+  ba-videoplayer-controlbar.rerecord-video: Regrabar vídeo?
   ba-videoplayer-controlbar.submit-video: Confirmar vídeo
-  ba-videoplayer-controlbar.play-video: Reproduzca el video
-  ba-videoplayer-controlbar.pause-video: Pausa de vídeo
+  ba-videoplayer-controlbar.play-video: Reproducir video
+  ba-videoplayer-controlbar.pause-video: Pausar vídeo
   ba-videoplayer-controlbar.elapsed-time: Tiempo transcurrido
   ba-videoplayer-controlbar.total-time: Duración total de video
   ba-videoplayer-controlbar.fullscreen-video: Ingrese a pantalla completa
@@ -18,9 +18,9 @@
   ba-videoplayer.video-error: >-
     Se produjo un error, por favor intente de nuevo más tarde. Haga clic para
     volver a intentarlo.
-  ba-videorecorder-chooser.record-video: Grabar el vídeo
+  ba-videorecorder-chooser.record-video: Grabar vídeo
   ba-videorecorder-chooser.upload-video: Subir vídeo
-  ba-videorecorder-controlbar.settings: ajustes
+  ba-videorecorder-controlbar.settings: Ajustes
   ba-videorecorder-controlbar.camerahealthy: La iluminación es buena
   ba-videorecorder-controlbar.cameraunhealthy: La iluminación no es óptima
   ba-videorecorder-controlbar.microphonehealthy: El sonido es bueno
@@ -43,26 +43,26 @@
     dispositivo y del navegador, es posible que tenga que instalar Flash o
     acceder a la página a través de SSL.
   ba-videorecorder.access-forbidden: Acceso denegado a la cámara. Haga clic para volver a intentarlo.
-  ba-videorecorder.pick-covershot: Elige una foto de cubierta.
+  ba-videorecorder.pick-covershot: Elige una foto de portada.
   ba-videorecorder.uploading: Subiendo
-  ba-videorecorder.uploading-failed: Carga fallada - hacer clic aquí para volver a intentarlo.
-  ba-videorecorder.verifying: verificando
-  ba-videorecorder.verifying-failed: fal la verificación - hacer clic aquí para volver a intentarlo.
-  ba-videorecorder.rerecord-confirm: ¿De verdad quiere volver a hacer el vídeo?
+  ba-videorecorder.uploading-failed: La subida ha fallado - hacer clic aquí para volver a intentarlo.
+  ba-videorecorder.verifying: Verificando
+  ba-videorecorder.verifying-failed: Falló la verificación - hacer clic aquí para volver a intentarlo.
+  ba-videorecorder.rerecord-confirm: ¿Está seguro quiere volver a hacer el vídeo?
   ba-videorecorder.video_file_too_large: >-
     El archivo de vídeo es demasiado grande (%s) - hacer clic aquí para volver a
     intentarlo con un archivo de vídeo más pequeño.
-  ba-videorecorder.unsupported_video_type: 'Por favor, sube: %s - hacer clic aquí para volver a intentarlo.'
+  ba-videorecorder.unsupported_video_type: 'Por favor, sube: %s - haz clic aquí para volver a intentarlo.'
   ba-videoplayer-controlbar.exit-fullscreen-video: Salir de pantalla completa
   ba-videoplayer-share.share: Compartir video
-  ba-videorecorder-chooser.record-screen: Pantalla de registro
+  ba-videorecorder-chooser.record-screen: Grabar pantalla
   ba-videoplayer-controlbar.pause-video-disabled: Pausa no admitida
   ba-videorecorder-chooser.record-audio: Grabar audio
   ba-videorecorder-controlbar.stop-available-after: El tiempo de grabación mínimo es %d segundos
   ba-videorecorder-controlbar.cancel: Cancelar
   ba-videorecorder-controlbar.cancel-tooltip: Haga clic aquí para cancelar.
   ba-videorecorder.cancel-confirm: ¿Realmente quieres cancelar tu carga de video?
-  ba-videoplayer-adslot.elapsed-time: Tiempo Elasped
+  ba-videoplayer-adslot.elapsed-time: Tiempo Transcurrido
   ba-videoplayer-adslot.volume-button: Establecer el volumen
   ba-videoplayer-adslot.volume-mute: Sin sonido
   ba-videoplayer-adslot.volume-unmute: Dejar de silenciar el sonido
@@ -70,8 +70,8 @@
   ba-videoplayer-adslot.can-skip-after: Omitir después de %d
   ba-videoplayer-adslot.skip-ad: Omitir aviso publicitario
   ba-videorecorder.software-required: >-
-    Haga clic a continuación para instalar / activar los siguientes requisitos
-    para continuar.
+    Haga click a continuación para instalar / activar los siguientes requisitos
+    y así poder continuar.
   ba-videorecorder.software-waiting: >-
     Esperando a que se instalen / activen los requisitos. Es posible que deba
-    actualizar la página después de la finalización.
+    actualizar la página después de finalizar.

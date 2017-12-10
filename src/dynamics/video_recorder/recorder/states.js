@@ -405,8 +405,13 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.RecordPrepare", [
         dynamics: ["loader"],
 
         _started: function() {
+            var startedRecording = false;
+            var delay = 0;
             this.dyn._accessing_camera = true;
             this._promise = this.dyn._prepareRecording();
+            this._promise.success(function() {
+                delay = this.dyn.recorder.recordDelay(this.dyn.get("uploadoptions"));
+            }, this);
             this.dyn.set("message", "");
             this.dyn.set("loaderlabel", "");
             if (this.dyn.get("countdown")) {
@@ -422,6 +427,9 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.RecordPrepare", [
                         if (endTime <= Time.now()) {
                             this.dyn.set("loaderlabel", "");
                             timer.stop();
+                        }
+                        if ((time_left <= delay) && !startedRecording) {
+                            startedRecording = true;
                             this._startRecording();
                         }
                     }

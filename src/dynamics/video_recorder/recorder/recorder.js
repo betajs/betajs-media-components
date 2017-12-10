@@ -84,8 +84,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "primaryrecord": true,
                     "allowscreen": false,
                     "nofullscreen": false,
-                    "recordingwidth": 640,
-                    "recordingheight": 480,
+                    "recordingwidth": undefined,
+                    "recordingheight": undefined,
                     "countdown": 3,
                     "snapshotmax": 15,
                     "framerate": null,
@@ -132,6 +132,15 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "ready": true,
                     "stretch": false
 
+                },
+
+                computed: {
+                    "nativeRecordingWidth:recordingwidth,record_media": function() {
+                        return this.get("recordingwidth") || (this.get("record_media") !== "screen" ? 640 : (window.innerWidth || document.body.clientWidth));
+                    },
+                    "nativeRecordingHeight:recordingheight,record_media": function() {
+                        return this.get("recordingheight") || (this.get("record_media") !== "screen" ? 480 : (window.innerHeight || document.body.clientHeight));
+                    }
                 },
 
                 scopes: {
@@ -279,8 +288,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         noflash: this.get("noflash"),
                         recordVideo: !this.get("onlyaudio"),
                         recordAudio: !this.get("noaudio"),
-                        recordingWidth: this.get("recordingwidth"),
-                        recordingHeight: this.get("recordingheight"),
+                        recordingWidth: this.get("nativeRecordingWidth"),
+                        recordingHeight: this.get("nativeRecordingHeight"),
                         audioBitrate: this.get("audiobitrate"),
                         videoBitrate: this.get("videobitrate"),
                         flashFullSecurityDialog: !this.get("flashincognitosupport"),

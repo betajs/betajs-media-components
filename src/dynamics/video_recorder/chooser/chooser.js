@@ -80,7 +80,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
                                     icon: "upload",
                                     label: this.string("upload-video"),
                                     select: !(Info.isiOS() && Info.isCordova()),
-                                    accept: Info.isMobile() ? "video/*,video/mp4" : custom_accept_string
+                                    accept: Info.isMobile() && !(Info.isAndroid() && Info.isCordova()) ? "video/*,video/mp4" : custom_accept_string
                                 });
                                 break;
                             case "screen":
@@ -113,7 +113,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
                                     limit: 1,
                                     duration: this.get("timelimit")
                                 });
-                            } else if (Info.isIOS()) {
+                            } else if (Info.isiOS()) {
                                 navigator.camera.getPicture(function(url) {
                                     self.trigger("upload", {
                                         localURL: url,

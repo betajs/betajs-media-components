@@ -372,6 +372,9 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraHasAccess", [
         dynamics: ["topmessage", "controlbar"],
 
         _started: function() {
+            this._preparePromise = null;
+            if (this.dyn.get("countdown") > 0 && this.dyn.recorder && this.dyn.recorder.recordDelay(this.dyn.get("uploadoptions")) > this.dyn.get("countdown") * 1000)
+                this._preparePromise = this.dyn._prepareRecording();
             this.dyn.set("hovermessage", "");
             this.dyn.set("topmessage", "");
             this.dyn.set("settingsvisible", true);
@@ -381,12 +384,16 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraHasAccess", [
             this.dyn.set("skipvisible", false);
             this.dyn.set("controlbarlabel", "");
             if (this.dyn.get("autorecord"))
-                this.next("RecordPrepare");
+                this.next("RecordPrepare", {
+                    preparePromise: this._preparePromise
+                });
         },
 
         record: function() {
             if (!this.dyn.get("autorecord"))
-                this.next("RecordPrepare");
+                this.next("RecordPrepare", {
+                    preparePromise: this._preparePromise
+                });
         }
 
     });
@@ -403,28 +410,37 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.RecordPrepare", [
     }, {
 
         dynamics: ["loader"],
+        _locals: ["preparePromise"],
 
         _started: function() {
-            var startedRecording = false;
-            var delay = 0;
-            this.dyn._accessing_camera = true;
-            this._promise = this.dyn._prepareRecording();
-            this._promise.success(function() {
-                delay = this.dyn.recorder.recordDelay(this.dyn.get("uploadoptions"));
-            }, this);
             this.dyn.set("message", "");
             this.dyn.set("loaderlabel", "");
-            if (this.dyn.get("countdown")) {
-                this.dyn.set("loaderlabel", this.dyn.get("countdown"));
-                var endTime = Time.now() + this.dyn.get("countdown") * 1000;
+            var startedRecording = false;
+            this.dyn._accessing_camera = true;
+            this._preparePromise = this._preparePromise || this.dyn._prepareRecording();
+            var countdown = this.dyn.get("countdown") ? this.dyn.get("countdown") * 1000 : 0;
+            var delay = this.dyn.recorder.recordDelay(this.dyn.get("uploadoptions")) || 0;
+            if (countdown) {
+                var displayDenominator = 1000;
+                var silentTime = 0;
+                var startTime = Time.now();
+                var endTime = startTime + Math.max(delay, countdown);
+                if (delay > countdown) {
+                    silentTime = Math.min(500, delay - countdown);
+                    displayDenominator = (delay - silentTime) / countdown * 1000;
+                } else
+                    this.dyn.set("loaderlabel", this.dyn.get("countdown"));
                 var timer = new Timer({
                     context: this,
-                    delay: 100,
+                    delay: 50,
                     fire: function() {
-                        var time_left = Math.max(0, endTime - Time.now());
-                        this.dyn.set("loaderlabel", "" + Math.round(time_left / 1000));
-                        this.dyn.trigger("countdown", time_left);
-                        if (endTime <= Time.now()) {
+                        var now = Time.now();
+                        var time_left = Math.max(0, endTime - now);
+                        if (now > silentTime + startTime) {
+                            this.dyn.set("loaderlabel", "" + Math.ceil((time_left - silentTime) / displayDenominator));
+                            this.dyn.trigger("countdown", Math.round((time_left - silentTime) / displayDenominator * 1000));
+                        }
+                        if (endTime <= now) {
                             this.dyn.set("loaderlabel", "");
                             timer.stop();
                         }
@@ -444,7 +460,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.RecordPrepare", [
         },
 
         _startRecording: function() {
-            this._promise.success(function() {
+            this._preparePromise.success(function() {
                 this.dyn._startRecording().success(function() {
                     this.next("Recording");
                 }, this).error(function(s) {

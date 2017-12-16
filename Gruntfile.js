@@ -55,6 +55,7 @@ module.exports = function(grunt) {
     .cleanTask('clean-compile', ['dist/betajs-media-components-locales.js'])
     .simplecopyTask('copy-fonts', {'dist/bjsmc-ie8.eot': 'vendors/fontello/font/fontello.eot'})
     .packageTask()
+    .autoincreasepackageTask(null, "package-source.json")
     .jsbeautifyTask("beautify1", "src/**/*.js")
     .jsbeautifyTask("beautify2", "src/**/**/*.js")
     .jsbeautifyTask("beautify3", "src/**/**/**/*.js")
@@ -372,6 +373,7 @@ module.exports = function(grunt) {
 	grunt.initConfig(gruntHelper.config);
 
 	grunt.registerTask('default', [
+	    'autoincreasepackage',
       'package',
       'readme',
       'license',

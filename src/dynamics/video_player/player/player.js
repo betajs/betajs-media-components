@@ -24,6 +24,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.Controlbar",
     "dynamics:Partials.EventPartial",
     "dynamics:Partials.OnPartial",
+    "dynamics:Partials.StylesPartial",
     "dynamics:Partials.TemplatePartial"
 ], function(Class, Assets, Info, Dom, VideoPlayerWrapper, Broadcasting, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
     return Class.extend({
@@ -156,6 +157,22 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 extendables: ["states"],
 
+                computed: {
+                    "widthHeightStyles:width,height": function() {
+                        var result = {};
+                        var width = this.get("width");
+                        var height = this.get("height");
+                        if (width)
+                            result.width = width + ((width + '').match(/^\d+$/g) ? 'px' : '');
+                        if (height)
+                            result.height = height + ((height + '').match(/^\d+$/g) ? 'px' : '');
+                        return result;
+                    },
+                    "buffering:buffered,position,last_position_change_delta,playing": function() {
+                        return this.get("playing") && this.get("buffered") < this.get("position") && this.get("last_position_change_delta") > 1000;
+                    }
+                },
+
                 remove_on_destroy: true,
 
                 create: function() {
@@ -231,10 +248,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         delay: 100,
                         start: true
                     });
-
-                    this.properties().compute("buffering", function() {
-                        return this.get("playing") && this.get("buffered") < this.get("position") && this.get("last_position_change_delta") > 1000;
-                    }, ["buffered", "position", "last_position_change_delta", "playing"]);
                 },
 
                 state: function() {

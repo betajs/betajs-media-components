@@ -3,7 +3,7 @@
      class="{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}
      	{{css}}-{{ fullscreened ? 'fullscreen' : 'normal' }}-view {{css}}-{{ firefox ? 'firefox' : 'common'}}-browser
     	{{css}}-{{themecolor}}-color"
-     style="{{width ? 'width:' + width + ((width + '').match(/^\d+$/g) ? 'px' : '') + ';' : 'width:100%;'}}{{height ? 'height:' + height + ((height + '').match(/^\d+$/g) ? 'px' : '') + ';' : 'height:100%'}}"
+     ba-styles="{{widthHeightStyles}}"
 >
 
     <video data-selector="recorder-status" class="{{css}}-video {{css}}-{{hasrecorder ? 'hasrecorder' : 'norecorder'}}" data-video="video"></video>
@@ -104,9 +104,7 @@
     </div>
 </div>
 
-<div data-selector="recorder-player" ba-if="{{player_active}}"
-     style="{{width ? 'width:' + width + ((width + '').match(/^\d+$/g) ? 'px' : '') + ';' : ''}}{{height ? 'height:' + height + ((height + '').match(/^\d+$/g) ? 'px' : '') + ';' : ''}}"
->
+<div data-selector="recorder-player" ba-if="{{player_active}}" ba-styles="{{widthHeightStyles}}">
 	<span ba-show="{{ie8}}">&nbsp;</span>
 	<ba-{{dynvideoplayer}}
 	    ba-theme="{{theme || 'default'}}"

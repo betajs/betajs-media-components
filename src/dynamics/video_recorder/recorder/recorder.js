@@ -31,6 +31,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
     "dynamics:Partials.OnPartial",
     "dynamics:Partials.DataPartial",
     "dynamics:Partials.AttrsPartial",
+    "dynamics:Partials.StylesPartial",
     "dynamics:Partials.TemplatePartial"
 ], function(Class, Assets, Info, Dom, MultiUploader, FileUploader, VideoRecorderWrapper, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Collection, Promise, InitialState, RecorderStates, scoped) {
     return Class.extend({
@@ -140,6 +141,16 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     },
                     "nativeRecordingHeight:recordingheight,record_media": function() {
                         return this.get("recordingheight") || (this.get("record_media") !== "screen" ? 480 : (window.innerHeight || document.body.clientHeight));
+                    },
+                    "widthHeightStyles:width,height": function() {
+                        var result = {};
+                        var width = this.get("width");
+                        var height = this.get("height");
+                        if (width)
+                            result.width = width + ((width + '').match(/^\d+$/g) ? 'px' : '');
+                        if (height)
+                            result.height = height + ((height + '').match(/^\d+$/g) ? 'px' : '');
+                        return result;
                     }
                 },
 

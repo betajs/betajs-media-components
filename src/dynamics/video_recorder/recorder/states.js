@@ -545,6 +545,8 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
             this.dyn.set("loader_active", true);
             this.dyn.set("controlbar_active", false);
             this.dyn.set("topmessage_active", false);
+            this.dyn.set("message_active", true);
+            this.dyn.set("message", "");
             this._stopping = true;
             Async.eventually(function() {
                 this.dyn._stopRecording().success(function() {

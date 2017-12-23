@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.84 - 2017-12-16
+betajs-media-components - v0.0.85 - 2017-12-23
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1009,7 +1009,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.84 - 2017-12-16
+betajs-media-components - v0.0.85 - 2017-12-23
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1025,7 +1025,7 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.84"
+    "version": "0.0.85"
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -6588,6 +6588,8 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
             this.dyn.set("loader_active", true);
             this.dyn.set("controlbar_active", false);
             this.dyn.set("topmessage_active", false);
+            this.dyn.set("message_active", true);
+            this.dyn.set("message", "");
             this._stopping = true;
             Async.eventually(function() {
                 this.dyn._stopRecording().success(function() {

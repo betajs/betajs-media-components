@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.85 - 2017-12-23
+betajs-media-components - v0.0.86 - 2018-01-16
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1009,7 +1009,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.85 - 2017-12-23
+betajs-media-components - v0.0.86 - 2018-01-16
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1025,7 +1025,7 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.85"
+    "version": "0.0.86"
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -3684,6 +3684,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.Controlbar",
     "dynamics:Partials.EventPartial",
     "dynamics:Partials.OnPartial",
+    "dynamics:Partials.TogglePartial",
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.TemplatePartial"
 ], function(Class, Assets, Info, Dom, VideoPlayerWrapper, Broadcasting, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
@@ -4193,7 +4194,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     play: function() {
-                        if (this.player._broadcastingState.googleCastConnected) {
+                        if (this.player && this.player._broadcastingState && this.player._broadcastingState.googleCastConnected) {
                             this._broadcasting.player.trigger("play-google-cast");
                             return;
                         }
@@ -4219,7 +4220,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.get('disablepause')) return;
 
                         if (this.get("playing")) {
-                            if (this.player._broadcastingState.googleCastConnected) {
+                            if (this.player && this.player._broadcastingState && this.player._broadcastingState.googleCastConnected) {
                                 this._broadcasting.player.trigger("pause-google-cast");
                                 return;
                             }
@@ -4249,7 +4250,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     set_volume: function(volume) {
                         volume = Math.min(1.0, volume);
 
-                        if (this.player._broadcastingState.googleCastConnected) {
+                        if (this.player && this.player._broadcastingState && this.player._broadcastingState.googleCastConnected) {
                             this._broadcasting.player.trigger("change-google-cast-volume", volume);
                         }
 

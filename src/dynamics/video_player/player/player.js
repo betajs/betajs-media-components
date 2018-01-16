@@ -24,6 +24,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.Controlbar",
     "dynamics:Partials.EventPartial",
     "dynamics:Partials.OnPartial",
+    "dynamics:Partials.TogglePartial",
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.TemplatePartial"
 ], function(Class, Assets, Info, Dom, VideoPlayerWrapper, Broadcasting, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
@@ -533,7 +534,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     play: function() {
-                        if (this.player._broadcastingState.googleCastConnected) {
+                        if (this.player && this.player._broadcastingState && this.player._broadcastingState.googleCastConnected) {
                             this._broadcasting.player.trigger("play-google-cast");
                             return;
                         }
@@ -559,7 +560,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.get('disablepause')) return;
 
                         if (this.get("playing")) {
-                            if (this.player._broadcastingState.googleCastConnected) {
+                            if (this.player && this.player._broadcastingState && this.player._broadcastingState.googleCastConnected) {
                                 this._broadcasting.player.trigger("pause-google-cast");
                                 return;
                             }
@@ -589,7 +590,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     set_volume: function(volume) {
                         volume = Math.min(1.0, volume);
 
-                        if (this.player._broadcastingState.googleCastConnected) {
+                        if (this.player && this.player._broadcastingState && this.player._broadcastingState.googleCastConnected) {
                             this._broadcasting.player.trigger("change-google-cast-volume", volume);
                         }
 

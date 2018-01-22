@@ -224,13 +224,17 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
             if (this.dyn.get("skipinitial") && !this.dyn.get("autoplay"))
                 this.next("PlayVideo");
             else {
+                var counter = 10;
                 this.auto_destroy(new Timer({
                     context: this,
                     fire: function() {
                         if (!this.destroyed() && !this.dyn.destroyed() && this.dyn.player)
                             this.dyn.player.play();
+                        counter--;
+                        if (counter === 0)
+                            this.next("PlayVideo");
                     },
-                    delay: 500,
+                    delay: 200,
                     immediate: true
                 }));
             }

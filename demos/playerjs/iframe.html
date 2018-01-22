@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../../node_modules/betajs-shims/dist/betajs-shims.js"></script>
+    <script src="../../node_modules/betajs-scoped/dist/scoped.js"></script>
+    <script src="../../node_modules/betajs/dist/beta-noscoped.js"></script>
+    <script src="../../node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
+    <script src="../../node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
+    <script src="../../node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+    <script src="../../node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
+    <script src="../../dist/betajs-media-components-noscoped.js"></script>
+    <link  href="../../dist/betajs-media-components.css" rel="stylesheet" />
+    <script src="../../dist/themes/modern/script.js"></script>
+    <link  href="../../dist/themes/modern/style.css" rel="stylesheet" />
+
+    <script src="player-0.1.0.js"></script>
+    <script src="betajs-adapter.js"></script>
+</head>
+<body>
+<ba-videoplayer ba-poster="sample-cover.png" ba-source="sample-video.mp4" ba-theme="modern"></ba-videoplayer>
+<script>
+    BetaJS.Dynamics.Dynamic.activate();
+    const adapter = new playerjs.BetaJSAdapter(document.querySelector("ba-videoplayer").dynamicshandler);
+    adapter.ready();
+</script>
+</body>
+</html>

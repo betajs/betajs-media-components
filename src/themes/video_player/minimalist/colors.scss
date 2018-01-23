@@ -2,11 +2,6 @@
   @if $color != default {
     .#{$css}-#{$color}-color {
 
-      .#{$css}-overlay div[tabindex]:focus {
-        @include box-shadow($color, 2);
-        outline: 1px dotted $color;
-      }
-
       .#{$css}-title p, .#{$css}-button-inner, .#{$css}-right-block .#{$css}-icon-volume-up,
       .#{$css}-right-block .#{$css}-icon-volume-down, .#{$css}-right-block .#{$css}-icon-resize-full,
       .#{$css}-right-block .#{$css}-icon-resize-small,

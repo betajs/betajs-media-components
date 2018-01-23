@@ -4,8 +4,13 @@
 }
 
 .#{$css}-overlay div[tabindex]:focus {
-    @include inner-box-shadow(#1b7fcc, 10);
-    outline: 1px dotted #1b7fcc;
+    @include inner-box-shadow($focus_button_color, 10);
+    outline: 1px dotted $focus_button_color;
+}
+
+.#{$css}-overlay div.#{$css}-player-toggle-overlay:focus {
+    @include inner-box-shadow($focus_overlay_color, 1);
+    outline: none;
 }
 
 .#{$css}-dashboard {

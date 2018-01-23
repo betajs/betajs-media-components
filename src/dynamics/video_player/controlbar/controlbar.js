@@ -157,6 +157,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         this.trigger("rerecord");
                     },
 
+                    seek: function(position) {
+                        this.trigger("seek", position);
+                    },
+
+                    set_volume: function(volume) {
+                        this.trigger("set_volume", volume);
+                    },
+
                     submit: function() {
                         this.set("submittable", false);
                         this.set("rerecordable", false);

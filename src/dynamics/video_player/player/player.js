@@ -113,6 +113,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "airplaydevicesavailable": false,
                     "chromecast": false,
                     "castbuttonvisble": false,
+                    "skipseconds": 5,
 
                     /* States */
                     "states": {
@@ -153,7 +154,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "airplay": "boolean",
                     "airplaybuttonvisible": "boolean",
                     "chromecast": "boolean",
-                    "castbuttonvisble": "boolean"
+                    "castbuttonvisble": "boolean",
+                    "skipseconds": "integer"
                 },
 
                 extendables: ["states"],

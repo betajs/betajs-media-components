@@ -6,9 +6,9 @@
     ba-on:touchstart="{{user_activity(true)}}"
 	ba-styles="{{widthHeightStyles}}"
 >
-    <video class="{{css}}-video" data-video="video" ba-toggle:playsinline="{{!playfullscreenonmobile}}"></video>
+    <video tabindex="-1" class="{{css}}-video" data-video="video" ba-toggle:playsinline="{{!playfullscreenonmobile}}"></video>
     <div class="{{css}}-overlay">
-		<div class="{{css}}-player-toggle-overlay" ba-on:click="{{toggle_player()}}"></div>
+		<div tabindex="0" class="{{css}}-player-toggle-overlay" ba-on:click="{{toggle_player()}}"></div>
 	    <ba-{{dyncontrolbar}}
 		    ba-css="{{csscontrolbar || css}}"
 			ba-themecolor="{{themecolor}}"

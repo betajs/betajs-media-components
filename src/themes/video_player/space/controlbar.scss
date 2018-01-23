@@ -1,3 +1,11 @@
+.#{$css}-overlay div[tabindex] {
+    @include transition1(all, 0.30s, ease-in-out);
+}
+
+.#{$css}-overlay div[tabindex]:focus {
+    @include box-shadow(#1b7fcc, 2);
+    outline: 1px dotted #1b7fcc;
+}
 
 .#{$css}-dashboard {
     @include absolute-align-full-bottom;

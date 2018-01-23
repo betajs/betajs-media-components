@@ -1,20 +1,20 @@
 <div data-selector="image-gallery" class="{{css}}-image-gallery-container">
 
 	<div data-selector="slider-left-button" class="{{css}}-imagegallery-leftbutton">
-		<div data-selector="slider-left-inner-button" class="{{css}}-imagegallery-button-inner" onclick="{{left()}}">
+		<div tabindex="0" data-selector="slider-left-inner-button" class="{{css}}-imagegallery-button-inner" onclick="{{left()}}">
 			<i class="{{css}}-icon-left-open"></i>
 		</div>
 	</div>
 
 	<div data-selector="images-imagegallery-container" ba-repeat="{{image::images}}" class="{{css}}-imagegallery-container" data-gallery-container>
-		<div class="{{css}}-imagegallery-image"
+		<div tabindex="0" class="{{css}}-imagegallery-image"
 			 ba-styles="{{{left: image.left + 'px', top: image.top + 'px', width: image.width + 'px', height: image.height + 'px'}}}"
 			 onclick="{{select(image)}}">
 		</div>
 	</div>
 
 	<div data-selector="slider-right-button" class="{{css}}-imagegallery-rightbutton">
-		<div data-selector="slider-right-inner-button" class="{{css}}-imagegallery-button-inner" onclick="{{right()}}">
+		<div tabindex="0" data-selector="slider-right-inner-button" class="{{css}}-imagegallery-button-inner" onclick="{{right()}}">
 			<i class="{{css}}-icon-right-open"></i>
 		</div>
 	</div>

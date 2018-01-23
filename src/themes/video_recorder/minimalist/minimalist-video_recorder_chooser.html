@@ -3,7 +3,7 @@
 	<div class="{{css}}-chooser-button-container">
 
 		<div ba-repeat="{{action :: actions}}">
-			<div class="{{css}}-chooser-button-{{action.index}}"
+			<div tabindex="0" class="{{css}}-chooser-button-{{action.index}}"
 				 ba-click="{{click_action(action)}}">
 				<input ba-if="{{action.select && action.capture}}"
 					   type="file"

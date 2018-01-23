@@ -7,7 +7,8 @@
 			<div class="{{css}}-bubble-info">
 				<ul data-selector="camera-settings" ba-repeat="{{camera :: cameras}}">
 					<li>
-						<input type='radio' name='camera' value="{{selectedcamera == camera.id}}" onclick="{{selectCamera(camera.id)}}" />
+						<input tabindex="0" type='radio' name='camera' value="{{selectedcamera == camera.id}}"
+							   onclick="{{selectCamera(camera.id)}}" />
 						<span></span>
 						<label onclick="{{selectCamera(camera.id)}}">
 							{{camera.label}}
@@ -15,7 +16,7 @@
 					</li>
 				</ul>
 				<ul data-selector="record-button-icon-cog" ba-repeat="{{microphone :: microphones}}" ba-show="{{audio}}">
-					<li onclick="{{selectMicrophone(microphone.id)}}">
+					<li tabindex="0" onclick="{{selectMicrophone(microphone.id)}}">
 						<input type='radio' name='microphone' value="{{selectedmicrophone == microphone.id}}" />
 						<span></span>
 						<label>
@@ -34,7 +35,7 @@
 		<div class="{{css}}-controlbar-center-section">
 
 			<div data-selector="rerecord-primary-button" class="{{css}}-button-container" ba-show="{{rerecordvisible}}">
-				<div class="{{css}}-button-primary"
+				<div tabindex="0" class="{{css}}-button-primary"
 					 onclick="{{rerecord()}}"
 					 onmouseenter="{{hover(string('rerecord-tooltip'))}}"
 					 onmouseleave="{{unhover()}}">
@@ -43,7 +44,7 @@
 			</div>
 
 			<div data-selector="cancel-primary-button" class="{{css}}-button-container" ba-show="{{cancelvisible}}">
-				<div class="{{css}}-button-primary"
+				<div tabindex="0" class="{{css}}-button-primary"
 					 onclick="{{cancel()}}"
 					 onmouseenter="{{hover(string('cancel-tooltip'))}}"
 					 onmouseleave="{{unhover()}}">
@@ -57,7 +58,7 @@
 
             <div class="{{css}}-circle-button" ba-show="{{settingsvisible}}">
 
-				<div data-selector="record-button-icon-cog" class="{{css}}-button-inner {{css}}-button-circle-{{settingsopen ? 'selected' : 'unselected' }}"
+				<div tabindex="0" data-selector="record-button-icon-cog" class="{{css}}-button-inner {{css}}-button-circle-{{settingsopen ? 'selected' : 'unselected' }}"
 					 onclick="{{settingsopen=!settingsopen}}"
 					 onmouseenter="{{hover(string('settings'))}}"
 					 onmouseleave="{{unhover()}}" >
@@ -86,7 +87,7 @@
 		<div class="{{css}}-controlbar-right-section">
 
 			<div class="{{css}}-rightbutton-container" ba-show="{{recordvisible}}">
-				<div data-selector="record-primary-button" class="{{css}}-button-primary"
+				<div tabindex="0" data-selector="record-primary-button" class="{{css}}-button-primary"
 					 onclick="{{record()}}"
 					 onmouseenter="{{hover(string('record-tooltip'))}}"
 					 onmouseleave="{{unhover()}}">
@@ -107,7 +108,8 @@
 			</div>
 
 			<div class="{{css}}-stop-button-container">
-				<div data-selector="stop-primary-button" class="{{css}}-button-primary {{mintimeindicator ? css + '-disabled': ''}}"
+				<div tabindex="0" data-selector="stop-primary-button"
+					 class="{{css}}-button-primary {{mintimeindicator ? css + '-disabled': ''}}"
 					 title="{{mintimeindicator ? string('stop-available-after').replace('%d', timeminlimit) : string('stop-tooltip')}}"
 					 onclick="{{stop()}}"
 					 onmouseenter="{{hover(mintimeindicator ? string('stop-available-after').replace('%d', timeminlimit) : string('stop-tooltip'))}}"
@@ -118,7 +120,7 @@
 		</div>
 
         <div class="{{css}}-centerbutton-container" ba-show="{{skipvisible}}">
-            <div data-selector="skip-primary-button" class="{{css}}-button-primary"
+            <div tabindex="0" data-selector="skip-primary-button" class="{{css}}-button-primary"
                  onclick="{{skip()}}"
                  onmouseenter="{{hover(string('skip-tooltip'))}}"
                  onmouseleave="{{unhover()}}">

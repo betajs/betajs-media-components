@@ -2,7 +2,7 @@
     @include transition1(all, 0.30s, ease-in-out);
 }
 
-.#{$css}-overlay div[tabindex]:focus {
+.#{$css}-overlay div[tabindex]:focus, .#{$css}-overlay span[tabindex]:focus {
     @include inner-box-shadow($focus_button_color, 10);
     outline: 1px dotted $focus_button_color;
 }

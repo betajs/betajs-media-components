@@ -11,7 +11,9 @@
     <div class="{{css}}-overlay">
 		<div tabindex="0" class="{{css}}-player-toggle-overlay"
 			 ba-hotkey:right="{{seek(position + skipseconds)}}" ba-hotkey:left="{{seek(position - skipseconds)}}"
-			 ba-hotkey:space="play(toggle_player())" ba-on:click="{{toggle_player()}}">
+			 ba-hotkey:up="{{set_volume(volume + 0.1)}}" ba-hotkey:down="{{set_volume(volume - 0.1)}}"
+			 ba-hotkey:space^enter="{{toggle_player()}}"
+			 ba-on:click="{{toggle_player()}}">
 		</div>
 	    <ba-{{dyncontrolbar}}
 		    ba-css="{{csscontrolbar || css}}"
@@ -31,6 +33,7 @@
 		    ba-event:position="seek"
 		    ba-event:volume="set_volume"
 		    ba-event:fullscreen="toggle_fullscreen"
+			ba-event:toggle_player="toggle_player"
 			ba-event:seek="seek"
 			ba-event:set_volume="set_volume"
 		    ba-volume="{{volume}}"

@@ -15,3 +15,4 @@ google-translate-creds.json
 /demos/themes/temp/*
 /demos/themes/files/*
 *.log
+.package-lock.json

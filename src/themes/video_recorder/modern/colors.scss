@@ -2,11 +2,6 @@
   @if $color != default {
     .#{$css}-#{$color}-color {
 
-      .#{$css}-overlay div[tabindex]:focus {
-        @include inner-box-shadow($color, 10);
-        outline: 1px dotted $color;
-      }
-
       .#{$css}-chooser-icon-container, .#{$css}-chooser-button-1, .#{$css}-chooser-button-2,
       .#{$css}-button-selected, .#{$css}-loader-label {
         color: $value;

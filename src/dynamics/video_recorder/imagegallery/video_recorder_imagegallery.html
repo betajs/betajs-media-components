@@ -9,8 +9,7 @@
 <div data-selector="images-imagegallery-container" ba-repeat="{{image::images}}"
 	 class="{{css}}-imagegallery-container" data-gallery-container>
      <div tabindex="0" class="{{css}}-imagegallery-image"
-		  ba-hotkey:space="{{select()}}" ba-hotkey:enter="{{select()}}"
-		  ba-hotkey:left="{{left()}}" ba-hotkey:right="{{right()}}"
+		  ba-hotkey:space^enter="{{select(image)}}"
           ba-styles="{{{left: image.left + 'px', top: image.top + 'px', width: image.width + 'px', height: image.height + 'px'}}}"
           onclick="{{select(image)}}">
 		 <div class="{{css}}-imagegallery-image-compat" ba-show="{{ie10below}}"></div>

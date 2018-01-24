@@ -1,5 +1,5 @@
 
-<div tabindex="0" ba-hotkey:space="{{play()}}" data-selector="play-button"
+<div tabindex="0" ba-hotkey:space^enter="{{play()}}" data-selector="play-button"
      class="{{css}}-playbutton-container" ba-click="{{play()}}" title="{{string('tooltip')}}">
 	<div class="{{css}}-playbutton-button"></div>
 </div>
@@ -8,12 +8,14 @@
 	<div class="{{css}}-rerecord-backbar"></div>
 	<div class="{{css}}-rerecord-frontbar">
         <div class="{{css}}-rerecord-button-container" ba-if="{{submittable}}">
-            <div tabindex="0" ba-hotkey:space="{{submit()}}" data-selector="player-submit-button" class="{{css}}-rerecord-button" onclick="{{submit()}}">
+            <div tabindex="0" ba-hotkey:space^enter="{{submit()}}" data-selector="player-submit-button"
+                 class="{{css}}-rerecord-button" onclick="{{submit()}}">
                 {{string('submit-video')}}
             </div>
         </div>
         <div class="{{css}}-rerecord-button-container" ba-if="{{rerecordable}}">
-        	<div tabindex="0" ba-hotkey:space="{{rerecord()}}" data-selector="player-rerecord-button" class="{{css}}-rerecord-button" onclick="{{rerecord()}}">
+        	<div tabindex="0" ba-hotkey:space^enter="{{rerecord()}}" data-selector="player-rerecord-button"
+                 class="{{css}}-rerecord-button" onclick="{{rerecord()}}">
         		{{string('rerecord')}}
         	</div>
         </div>

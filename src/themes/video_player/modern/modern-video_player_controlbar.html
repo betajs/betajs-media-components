@@ -6,7 +6,7 @@
 
 <div class="{{css}}-dashboard {{activitydelta > 5000 && hideoninactivity ? (css + '-dashboard-hidden') : ''}}">
 
-    <div tabindex="0" ba-hotkey:space="{{submit()}}"
+    <div tabindex="0" ba-hotkey:space^enter="{{submit()}}"
 		 data-selector="submit-video-button" class="{{css}}-leftbutton-container"
 		 ba-if="{{submittable}}" ba-click="{{submit()}}">
         <div class="{{css}}-button-inner">
@@ -14,7 +14,7 @@
         </div>
     </div>
 
-    <div tabindex="0" ba-hotkey:space="{{rerecord()}}"
+    <div tabindex="0" ba-hotkey:space^enter="{{rerecord()}}"
 		 data-selector="button-icon-ccw" class="{{css}}-leftbutton-container"
 		 ba-if="{{rerecordable}}" ba-click="{{rerecord()}}" title="{{string('rerecord-video')}}">
     	<div class="{{css}}-button-inner">
@@ -22,7 +22,7 @@
     	</div>
     </div>
 
-	<div tabindex="0" ba-hotkey:space="{{play()}}"
+	<div tabindex="0" ba-hotkey:space^enter="{{play()}}"
 		 data-selector="button-icon-play" class="{{css}}-leftbutton-container"
 		 ba-if="{{!playing}}" ba-click="{{play()}}" title="{{string('play-video')}}">
 		<div class="{{css}}-button-inner">
@@ -30,7 +30,7 @@
 		</div>
 	</div>
 
-	<div tabindex="0" ba-hotkey:space="{{pause()}}"
+	<div tabindex="0" ba-hotkey:space^enter="{{pause()}}"
 		 data-selector="button-icon-pause" class="{{css}}-leftbutton-container {{disablepause ? css + '-disabled' : ''}}"
 		 ba-if="{{playing}}" ba-click="{{pause()}}" title="{{disablepause ? string('pause-video-disabled') : string('pause-video')}}">
 		<div class="{{css}}-button-inner">
@@ -41,7 +41,7 @@
 		<div class="{{css}}-time-value" title="{{string('elapsed-time')}}">{{formatTime(position)}}/{{formatTime(duration || position)}}</div>
 	</div>
 
-	<div tabindex="0" ba-hotkey:space="{{toggle_fullscreen()}}"
+	<div tabindex="0" ba-hotkey:space^enter="{{toggle_fullscreen()}}"
 		 data-selector="button-icon-resize-full" class="{{css}}-rightbutton-container"
 		ba-if="{{fullscreen}}" ba-click="{{toggle_fullscreen()}}" title="{{ fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video') }}" >
 		<div class="{{css}}-button-inner {{css}}-full-screen-btn-inner">
@@ -49,7 +49,7 @@
 		</div>
 	</div>
 
-	<div tabindex="0" ba-hotkey:space="{{show_airplay_devices()}}"
+	<div tabindex="0" ba-hotkey:space^enter="{{show_airplay_devices()}}"
 		 data-selector="button-airplay" class="{{css}}-rightbutton-container {{css}}-airplay-container" ba-show="{{airplaybuttonvisible}}"
 		 ba-click="{{show_airplay_devices()}}">
 		<svg width="16px" height="11px" viewBox="0 0 16 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -86,7 +86,7 @@
 		</div>
 	</div>
 
-	<div tabindex="0" ba-hotkey:space="{{toggle_volume()}}"
+	<div tabindex="0" ba-hotkey:space^enter="{{toggle_volume()}}"
 		 data-selector="button-icon-volume" class="{{css}}-rightbutton-container {{css}}-volume-button-container"
 		 ba-click="{{toggle_volume()}}" title="{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}">
 		<div class="{{css}}-button-inner">

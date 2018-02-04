@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.87 - 2018-01-22
+betajs-media-components - v0.0.88 - 2018-02-04
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1009,7 +1009,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.87 - 2018-01-22
+betajs-media-components - v0.0.88 - 2018-02-04
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1025,7 +1025,7 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.87"
+    "version": "0.0.88"
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -4101,6 +4101,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.player.setVolume(volume);
                             this.player.setMuted(volume <= 0.0);
                             this.trigger("loaded");
+                            this.trigger("ready_to_play");
                             if (this.get("totalduration") || this.player.duration() < Infinity)
                                 this.set("duration", this.get("totalduration") || this.player.duration());
                             this.set("fullscreensupport", this.player.supportsFullscreen());

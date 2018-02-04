@@ -441,6 +441,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.player.setVolume(volume);
                             this.player.setMuted(volume <= 0.0);
                             this.trigger("loaded");
+                            this.trigger("ready_to_play");
                             if (this.get("totalduration") || this.player.duration() < Infinity)
                                 this.set("duration", this.get("totalduration") || this.player.duration());
                             this.set("fullscreensupport", this.player.supportsFullscreen());

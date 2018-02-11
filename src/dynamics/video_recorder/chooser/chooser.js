@@ -20,6 +20,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
                     "allowupload": true,
                     "allowscreen": false,
 
+                    "termsaccepted": true,
+                    "termsmessage": null,
+
                     "primaryrecord": true,
 
                     "allowcustomupload": true,
@@ -43,6 +46,12 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
                     } else if (!this.get("allowcustomupload")) {
                         custom_accept_string = "video/*,video/mp4";
                     }
+
+                    if (this.get("restrictportraitrecord")) {
+                        this.set("termsaccepted", false);
+                        this.set("termsmessage", this.string("portrait-terms-message"));
+                    }
+
                     var order = [];
                     if (this.get("primaryrecord")) {
                         if (this.get("allowrecord"))
@@ -97,6 +106,11 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
 
                 functions: {
 
+                    accept_term: function() {
+                        this.set("termsaccepted", true);
+                        this.set("termsmessage", this.string("rotate-screen"));
+                    },
+
                     click_action: function(action) {
                         if (action.get("select"))
                             return;
@@ -146,6 +160,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
             "record-video": "Record Video",
             "record-audio": "Record Audio",
             "record-screen": "Record Screen",
-            "upload-video": "Upload Video"
+            "upload-video": "Upload Video",
+            "accept-term": "I've been informed",
+            "portrait-terms-message": "When you record video or upload be sure that it is in landscape resolution, other case it will not be recorded",
+            "rotate-screen": "Please rotate your screen be able record video"
         });
 });

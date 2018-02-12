@@ -240,7 +240,6 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CheckVideoDimensions
         _started: function() {
             var uploader = this.dyn._dataUploader;
             if (this._recorder) {
-                console.log('herer');
                 if (window.DeviceOrientationEvent) {
                     window.addEventListener('deviceorientation', this._deviceOrientationHandler, false);
                     document.getElementById("doeSupported").innerText = "Supported!";
@@ -252,7 +251,6 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CheckVideoDimensions
         },
 
         _checkUploadRecursively: function(uploader) {
-            console.log('--:: --', uploader);
             Objs.iter(uploader._uploaders, function(key) {
                 if (typeof key === 'object' && key._uploaders) {
                     this._checkUploadRecursively(key);
@@ -265,9 +263,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CheckVideoDimensions
             }, this);
         },
 
-        _deviceOrientationHandler: function() {
-            console.log('--- ??', window.DeviceOrientationEvent);
-        },
+        _deviceOrientationHandler: function() {},
 
         _checkVideoDimension: function(url, uploader) {
             var promise = uploader.videoDimensions(url);

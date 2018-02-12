@@ -33,8 +33,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
     "dynamics:Partials.DataPartial",
     "dynamics:Partials.AttrsPartial",
     "dynamics:Partials.StylesPartial",
-    "dynamics:Partials.TemplatePartial",
-    "browser:Events"
+    "dynamics:Partials.TemplatePartial"
 ], function(Class, Assets, Info, Dom, MultiUploader, FileUploader, VideoRecorderWrapper, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Collection, Promise, InitialState, RecorderStates, Events, scoped) {
     return Class.extend({
             scoped: scoped

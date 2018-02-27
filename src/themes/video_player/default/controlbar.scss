@@ -218,3 +218,47 @@
     }
 }
 
+.#{$css}-cc-button-container {
+    height: 100%;
+}
+
+.#{$css}-track-options {
+    padding: 0;
+    right: 0;
+    margin: 0;
+    position: absolute;
+    min-width: 100px;
+    bottom: 45px;
+    & > li {
+        padding: 5px 0;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+.#{$css}-cc-inactive {
+    background-color: transparent;
+    .#{$css}-icon-subtitle {
+        color: #ffffff;
+    }
+    &:hover {
+        background: #000000;
+        .#{$css}-icon-subtitle {
+            color: #979797;
+        }
+    }
+}
+
+.#{$css}-cc-active {
+    background: #000000;
+    .#{$css}-icon-subtitle {
+        color: #979797;
+    }
+    &:hover {
+        background-color: transparent;
+        .#{$css}-icon-subtitle {
+            color: #ffffff;
+        }
+    }
+}

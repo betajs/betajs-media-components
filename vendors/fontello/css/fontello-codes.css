@@ -19,6 +19,7 @@
 .icon-record:before { content: '\e811'; } /* '' */
 .icon-record-core:before { content: '\e812'; } /* '' */
 .icon-up-dir:before { content: '\e813'; } /* '' */
+.icon-cc:before { content: '\e815'; } /* '' */
 .icon-twitter:before { content: '\f099'; } /* '' */
 .icon-facebook:before { content: '\f09a'; } /* '' */
 .icon-gplus-squared:before { content: '\f0d4'; } /* '' */
@@ -27,6 +28,7 @@
 .icon-share:before { content: '\f130'; } /* '' */
 .icon-resize-full-alt:before { content: '\f131'; } /* '' */
 .icon-play-circled:before { content: '\f144'; } /* '' */
+.icon-subtitle:before { content: '\f20a'; } /* '' */
 .icon-facebook-official:before { content: '\f230'; } /* '' */
 .icon-television:before { content: '\f26c'; } /* '' */
 .icon-twitter-squared:before { content: '\f304'; } /* '' */

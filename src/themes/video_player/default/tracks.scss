@@ -1,0 +1,46 @@
+.#{$css}-tracks-tags-overlay {
+    @include absolute-align-full-bottom;
+}
+
+.#{$css}-tracks-tags-overlay {
+    @include absolute-align-full-bottom-above-control-bar($controlbar_height + $progressbar_height);
+}
+
+.#{$css}-cue-content {
+    @include relative-horizontally-center();
+    background: #2c2c2c;
+    color: #999999;
+    text-align: center;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    width: 60%;
+}
+
+.#{$css}-tracks-selector-list {
+    bottom: 0;
+    margin: 0;
+    position: absolute;
+    right: 20px;
+    list-style: none;
+}
+
+.#{$css}-tracks-selector {
+    padding: 5px 20px;
+    background: #020202;
+    color: #eeeeee;
+    cursor: pointer;
+}
+
+.#{$css}-tracks-selector-list-open {
+    @include transition1(display, .25s, ease-in-out);
+    display: block;
+    .#{$css}-tracks-selector-list:hover {
+        background-color: #4c4c4c;
+        color: #FDFDFD;
+    }
+}
+
+.#{$css}-tracks-selector-list-closed {
+    @include transition1(display, .25s, ease-in-out);
+    display: none;
+}

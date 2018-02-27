@@ -99,6 +99,11 @@
     content: '\e813';
 }
 
+.#{$css}-icon-cc:before {
+    @include fontello-icon;
+    content: '\e815';
+}
+
 .#{$css}-icon-twitter:before {
     @include fontello-icon;
     content: '\f099';
@@ -137,6 +142,11 @@
 .#{$css}-icon-play-circled:before {
     @include fontello-icon;
     content: '\f144';
+}
+
+.#{$css}-icon-subtitle:before {
+    @include fontello-icon;
+    content: '\f20a';
 }
 
 .#{$css}-icon-facebook-official:before {

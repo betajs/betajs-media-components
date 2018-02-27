@@ -10,7 +10,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.ShowPartial",
     "dynamics:Partials.IfPartial",
-    "dynamics:Partials.ClickPartial"
+    "dynamics:Partials.ClickPartial",
+    "dynamics:Partials.RepeatPartial"
 ], function(Class, TimeFormat, Comparators, Dom, Assets, Info, PlayerSupport, scoped) {
     return Class.extend({
             scoped: scoped
@@ -34,7 +35,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     "fullscreen": true,
                     "fullscreened": false,
                     "activitydelta": 0,
-                    "title": ""
+                    "title": "",
+                    "tracktextvisible": false, // Is subtitles are visible
+                    "showtracksbutton": false, // Show track button in case if there according options
+                    "showtrackselection": true, // Show track selection options
+                    "selectedtracktag": null
                 },
 
                 computed: {
@@ -178,8 +183,18 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         if (dynamic.player._broadcastingState.airplayConnected) {
                             dynamic._broadcasting.lookForAirplayDevices(dynamic.player._element);
                         }
-                    }
+                    },
 
+                    toggle_tracks: function() {
+                        var _dyn = this.__parent;
+                        var video = _dyn.player._element;
+                        return this.get('tracktextvisible') ? _dyn.toggleTrackTags(false, video) : _dyn.toggleTrackTags(true, video);
+                    },
+
+                    hover_cc: function(hover) {
+                        var _dyn = this.__parent;
+                        return hover ? _dyn.set("tracksshowselection", hover) : _dyn.set("tracksshowselection", hover);
+                    }
                 },
 
                 create: function() {
@@ -205,6 +220,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
             "volume-mute": "Mute sound",
             "volume-unmute": "Unmute sound",
             "change-resolution": "Change resolution",
-            "exit-fullscreen-video": "Exit fullscreen"
+            "exit-fullscreen-video": "Exit fullscreen",
+            "close-tracks": "Close CC",
+            "show-tracks": "Show CC"
         });
 });

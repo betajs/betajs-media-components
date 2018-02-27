@@ -52,6 +52,18 @@
 			</div>
 		</div>
 
+		<div data-selector="cc-button-container" ba-if="{{tracktags.length > 0 && tracktagssupport}}"
+			 class="{{css}}-rightbutton-container  {{css}}-cc-{{tracktextvisible ? 'active' : 'inactive'}}"
+			 ba-click="{{toggle_tracks()}}"
+			 onmouseover="{{hover_cc(true)}}"
+			 onmouseleave="{{hover_cc(false)}}"
+		>
+            <div class="{{css}}-button-inner">
+                <i class="{{css}}-icon-subtitle"></i>
+            </div>
+		</div>
+
+
         <div data-selector="button-airplay" class="{{css}}-rightbutton-container" ba-show="{{airplaybuttonvisible}}" ba-click="{{show_airplay_devices()}}">
             <div class="{{css}}-airplay-container">
                 <svg width="16px" height="11px" viewBox="0 0 16 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

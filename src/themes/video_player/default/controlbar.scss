@@ -242,23 +242,11 @@
     .#{$css}-icon-subtitle {
         color: #ffffff;
     }
-    &:hover {
-        background: #000000;
-        .#{$css}-icon-subtitle {
-            color: #979797;
-        }
-    }
 }
 
 .#{$css}-cc-active {
     background: #000000;
     .#{$css}-icon-subtitle {
         color: #979797;
-    }
-    &:hover {
-        background-color: transparent;
-        .#{$css}-icon-subtitle {
-            color: #ffffff;
-        }
     }
 }

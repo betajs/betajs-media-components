@@ -54,6 +54,7 @@
 
 		<div data-selector="cc-button-container" ba-if="{{tracktags.length > 0 && tracktagssupport}}"
 			 class="{{css}}-rightbutton-container  {{css}}-cc-{{tracktextvisible ? 'active' : 'inactive'}}"
+			 title="{{ tracktextvisible ? string('close-tracks') : string('show-tracks')}}"
 			 ba-click="{{toggle_tracks()}}"
 			 onmouseover="{{hover_cc(true)}}"
 			 onmouseleave="{{hover_cc(false)}}"

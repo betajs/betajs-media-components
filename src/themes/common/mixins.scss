@@ -214,7 +214,7 @@
     transition: visibility 0s, opacity #{$time}s linear;
 }
 
-@mixin show-slow($time){
+@mixin show-slow($time) {
     visibility: visible;
     opacity: 1;
     transition: visibility 0s, opacity #{$time}s linear;

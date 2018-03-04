@@ -20,6 +20,7 @@
     bottom: 0;
     margin: 0;
     position: absolute;
+    padding: 0;
     right: 20px;
     list-style: none;
 }
@@ -32,15 +33,9 @@
 }
 
 .#{$css}-tracks-selector-list-open {
-    @include transition1(display, .25s, ease-in-out);
-    display: block;
-    .#{$css}-tracks-selector-list:hover {
-        background-color: #4c4c4c;
-        color: #FDFDFD;
-    }
+    @include show-slow(0.2);
 }
 
 .#{$css}-tracks-selector-list-closed {
-    @include transition1(display, .25s, ease-in-out);
-    display: none;
+    @include hide-slow(0.2);
 }

@@ -36,10 +36,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     "fullscreened": false,
                     "activitydelta": 0,
                     "title": "",
-                    "tracktextvisible": false, // Is subtitles are visible
-                    "showtracksbutton": false, // Show track button in case if there according options
-                    "showtrackselection": true, // Show track selection options
-                    "selectedtracktag": null
+                    "tracktextvisible": false // Is subtitles are visible
                 },
 
                 computed: {
@@ -193,7 +190,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 
                     hover_cc: function(hover) {
                         var _dyn = this.__parent;
-                        return hover ? _dyn.set("tracksshowselection", hover) : _dyn.set("tracksshowselection", hover);
+
+                        setTimeout(function() {
+                            return hover ? _dyn.set("tracksshowselection", hover) : _dyn.set("tracksshowselection", hover);
+                        }, 300);
                     }
                 },
 

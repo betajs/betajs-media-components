@@ -2,7 +2,7 @@
     <div data-selector="cue-content" ba-show="{{tracktagsstyled && trackcuetext}}" class="{{css}}-cue-content">
         {{trackcuetext}}
     </div>
-    <ul data-selector="tracks-selector-list" class="{{css}}-tracks-selector-list {{css}}-tracks-selector-list-{{tracksshowselection ? 'open' : 'closed'}}"
+    <ul data-selector="tracks-selector-list" class="{{css}}-tracks-selector-list {{css}}-tracks-selector-list-{{tracksshowselection || trackselectorhovered ? 'open' : 'closed'}}"
         ba-repeat="{{track :: tracktags}}"
         onmouseover="{{hover_cc(true)}}"
         onmouseleave="{{hover_cc(false)}}"

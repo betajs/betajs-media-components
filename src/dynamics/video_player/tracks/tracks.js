@@ -13,17 +13,19 @@ Scoped.define("module:VideoPlayer.Dynamics.Tracks", [
 
                 attrs: {
                     "css": "ba-videoplayer",
-                    "showtrackselection": false
+                    "trackcuetext": null,
+                    "trackselectorhovered": false
                 },
 
                 functions: {
-                    select_track: function(track) {},
+                    select_track: function(track) {
+                        this.__parent.trigger("switch-track", track);
+                    },
 
                     hover_cc: function(hover) {
                         var _dyn = this.__parent;
-                        return hover ? _dyn.set("tracksshowselection", hover) : _dyn.set("tracksshowselection", hover);
+                        return hover ? _dyn.set("trackselectorhovered", hover) : _dyn.set("trackselectorhovered", hover);
                     }
-
                 }
 
             };

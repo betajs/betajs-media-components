@@ -117,11 +117,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "chromecast": false,
                     "castbuttonvisble": false,
                     "tracktags": null,
-                    "tracktextvisible": false, // Is subtitles are visible
                     "tracktagssupport": false,
                     "tracktagsstyled": true,
                     "tracktaglang": 'en',
-                    "trackcuetext": null,
                     "tracksshowselection": false,
 
                     /* States */
@@ -246,14 +244,26 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.__error = null;
                     this.__currentStretch = null;
 
+
                     if (this.get("tracktags")) {
                         this.set("tracktagssupport", 'track' in document.createElement('track'));
                         // Add captions if exists
-                        this.on("create-track-tags", function(video, trackTags) {
+                        this.on("create-track-tags", function(video, trackTags, player) {
+
                             this._loadTrackTags(video, trackTags, this);
+                            // To be able play default subtitle in with custom style
+                            if (this.get("tracktagsstyled"))
+                                this._setDefaultTrackOnPlay(video, trackTags, player);
+
+                            if (this.get("tracktags").length > 1) {
+                                this.on("switch-track", function(selectedTrack) {
+                                    this.set("tracktextvisible", true);
+                                    this.set("trackcuetext", null);
+                                    this._setSelectedTag(video, selectedTrack);
+                                });
+                            }
                         }, this);
 
-                        this.on("selecttracktag", function(track) {});
                     }
 
                     this.on("change:stretch", function() {
@@ -275,14 +285,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 state: function() {
                     return this.host.state();
-                },
-
-                videoAttached: function() {
-                    return !!this.player;
-                },
-
-                videoLoaded: function() {
-                    return this.videoAttached() && this.player.loaded();
                 },
 
 
@@ -314,43 +316,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 video.textTracks[index].mode = "hidden"; // Firefox
                             }
                         });
-                        if (this.get("tracktagsstyled")) this._showTracksInCustomElement(_trackTag, this.get("tracktaglang"));
                         video.appendChild(_trackTag);
                     }, ctx);
                 },
 
-                toggleTrackTags: function(status, video) {
-                    var _lang = this.get("tracktaglang");
-                    var _customStyled = this.get("tracktagsstyled");
-                    var _status = status ? 'showing' : 'disabled';
-                    _status = (status && _customStyled) ? 'hidden' : _status;
-
-                    Objs.iter(video.textTracks, function(track, index) {
-                        if (typeof video.textTracks[index] === 'object' && video.textTracks[index]) {
-                            var _track = video.textTracks[index];
-                            var _flag = true;
-                            var _self = this;
-                            // If set custom style to true show cue text in our element
-                            if (_track.language === _lang) {
-                                _track.mode = _status;
-                                this.set("tracktextvisible", status);
-
-                                // Fixed issue when unable switch directly to showing from disabled
-                                _track.oncuechange = function(ev) {
-                                    _track.mode = _status;
-                                    if (_flag) {
-                                        if (_customStyled) _self._showTracksInCustomElement(_track, _lang);
-                                        _flag = false;
-                                    }
-                                };
-                            }
-                        }
-                    }, this);
-
-                },
-
                 _showTracksInCustomElement: function(track, lang) {
-                    var _cueHolder = this.activeElement().querySelector("[data-selector='cue-content']");
                     var _lang = lang || this.get("tracktaglang");
                     var _self = this;
                     if (track.language === _lang) {
@@ -367,6 +337,71 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }
                         }, this);
                     }
+                },
+
+                toggleTrackTags: function(status, video) {
+                    var _lang = this.get("tracktaglang");
+                    var _customStyled = this.get("tracktagsstyled");
+                    var _status = status ? 'showing' : 'disabled';
+                    _status = (status && _customStyled) ? 'hidden' : _status;
+                    if (!status && this.get("tracktagsstyled"))
+                        this.set("trackcuetext", null);
+
+                    Objs.iter(video.textTracks, function(track, index) {
+                        if (typeof video.textTracks[index] === 'object' && video.textTracks[index]) {
+                            var _track = video.textTracks[index];
+                            var _self = this;
+                            // If set custom style to true show cue text in our element
+                            if (_track.language === _lang) {
+                                _track.mode = _status;
+                                this.set("tracktextvisible", status);
+                                this._triggerTrackChange(_track, _status, _lang);
+                            }
+                        }
+                    }, this);
+                },
+
+                _setDefaultTrackOnPlay: function(video, trackTags, player) {
+                    player.on("playing", function() {
+                        Objs.iter(trackTags, function(track, index) {
+                            var _track = video.textTracks[index];
+                            if (typeof _track === 'object' && _track) {
+                                if (_track.mode === 'showing')
+                                    this._showTracksInCustomElement(_track, _track.language);
+                            }
+                        }, this);
+                    }, this);
+                },
+
+                _setSelectedTag: function(video, selectedTrack) {
+                    var _status = null;
+                    var _track = null;
+                    Objs.iter(video.textTracks, function(track, index) {
+                        _track = video.textTracks[index];
+                        if (typeof _track === 'object' && _track) {
+                            _status = _track.language === selectedTrack.lang ? (this.get("tracktagsstyled") ? 'hidden' : 'showing') : 'disabled';
+                            _track.mode = _status;
+                            this._triggerTrackChange(_track, status, selectedTrack.lang);
+                        }
+                    }, this);
+                },
+
+                _triggerTrackChange: function(track, status, lang) {
+                    var _self = this;
+                    // Fixed issue when unable switch directly to showing from disabled
+                    track.oncuechange = function(ev) {
+                        track.mode = status;
+                        if (_self.get("tracktagsstyled"))
+                            _self._showTracksInCustomElement(track, lang);
+                    };
+                },
+
+                videoAttached: function() {
+                    return !!this.player;
+                },
+
+                videoLoaded: function() {
+                    return this.videoAttached() && this.player.loaded();
                 },
 
                 videoError: function() {
@@ -428,7 +463,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
 
                         if (this.get("tracktags")) {
-                            this.trigger("create-track-tags", video, this.get("tracktags"));
+                            this.trigger("create-track-tags", video, this.get("tracktags"), instance);
                         }
 
                         this.player = instance;

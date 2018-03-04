@@ -10,8 +10,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.ShowPartial",
     "dynamics:Partials.IfPartial",
-    "dynamics:Partials.ClickPartial",
-    "dynamics:Partials.RepeatPartial"
+    "dynamics:Partials.ClickPartial"
 ], function(Class, TimeFormat, Comparators, Dom, Assets, Info, PlayerSupport, scoped) {
     return Class.extend({
             scoped: scoped

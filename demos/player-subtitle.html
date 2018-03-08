@@ -13,13 +13,41 @@
 	<link  href="../dist/betajs-media-components.css" rel="stylesheet" />
     <script src="../dist/themes/modern/script.js"></script>
     <link  href="../dist/themes/modern/style.css" rel="stylesheet" />
+
+
+    <!-- Cube Theme Assets -->
+    <script src="/static/dist/themes/cube/script.js"></script>
+    <link href="/static/dist/themes/cube/style.css" rel="stylesheet" />
+
+    <!-- Elevate Theme Assets -->
+    <script src="/static/dist/themes/elevate/script.js"></script>
+    <link href="/static/dist/themes/elevate/style.css" rel="stylesheet" />
+
+    <!-- Minimalist Theme Assets -->
+    <script src="/static/dist/themes/minimalist/script.js"></script>
+    <link href="/static/dist/themes/minimalist/style.css" rel="stylesheet" />
+
+    <!-- Minimalist Theme Assets -->
+    <script src="/static/dist/themes/modern/script.js"></script>
+    <link href="/static/dist/themes/modern/style.css" rel="stylesheet" />
+
+    <!-- Space Theme Assets -->
+    <script src="/static/dist/themes/space/script.js"></script>
+    <link href="/static/dist/themes/space/style.css" rel="stylesheet" />
+
+    <!-- Theatre Theme Assets -->
+    <script src="/static/dist/themes/theatre/script.js"></script>
+    <link href="/static/dist/themes/theatre/style.css" rel="stylesheet" />
+
 </head>
 <body style="background: #EEE">
 	<ba-videoplayer
+        ba-theme="theatre"
+        ba-skipinitial="true"
         ba-hideoninactivity="false"
         ba-sources="{{[{src:'sample-video.mp4', poster: 'sample-cover.png', hd: true}, {src:'sample-video2.mp4', poster:'sample-cover2.png', hd: false}]}}"
         ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
-        ba-tracktagsstyled="false"
+        ba-tracktagsstyled="true"
         ba-tracktags="{{
             [
                 {

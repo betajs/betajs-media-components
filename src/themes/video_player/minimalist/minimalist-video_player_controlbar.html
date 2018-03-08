@@ -113,6 +113,19 @@
             <div data-selector="button-chromecast" class="{{css}}-button-container {{css}}-cast-button-container" ba-show="{{castbuttonvisble}}">
                 <button class="{{css}}-gcast-button" is="google-cast-button"></button>
             </div>
+
+            <div data-selector="cc-button-container" ba-if="{{tracktags.length > 0 && tracktagssupport}}"
+                 class="{{css}}-cc-button-container {{css}}-cc-{{tracktextvisible ? 'active' : 'inactive'}}"
+                 title="{{ tracktextvisible ? string('close-tracks') : string('show-tracks')}}"
+                 ba-click="{{toggle_tracks()}}"
+                 onmouseover="{{hover_cc(true)}}"
+                 onmouseleave="{{hover_cc(false)}}"
+            >
+                <div class="{{css}}-subtitle-button-inner">
+                    <i class="{{css}}-icon-subtitle"></i>
+                </div>
+            </div>
+
         </div>
     </div>
 

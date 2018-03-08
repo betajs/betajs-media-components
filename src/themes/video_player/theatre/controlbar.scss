@@ -46,13 +46,13 @@
     padding-right: 6px;
     & > div {
         float: right;
-        height: $controlbar_height;
+        height: $controlbar_height - 3;
         line-height: 25px;
         text-align: center;
     }
 
     & > div:first-child {
-        line-height: $controlbar_line_height;
+        line-height: $controlbar_line_height - 2;
     }
 
     & > div:last-child {
@@ -302,5 +302,27 @@
     padding: 2px 7px 0 3px;
     svg path {
         fill: #666666;
+    }
+}
+
+.#{$cssnoie8} .#{$css}-cc-button-container {
+    width: 30px;
+}
+
+.#{$css}-cc-button-container {
+    padding: 1px 1px 0 0;
+}
+
+.#{$css}-cc-inactive {
+    background-color: transparent;
+    .#{$css}-icon-subtitle {
+        color: $button_color_secondary;
+    }
+}
+
+.#{$css}-cc-active {
+    background: #000000;
+    .#{$css}-icon-subtitle {
+        color: #eeeeee;
     }
 }

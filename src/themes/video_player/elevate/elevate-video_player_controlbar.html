@@ -104,6 +104,18 @@
                 </div>
             </div>
 
+            <div data-selector="cc-button-container" ba-if="{{tracktags.length > 0 && tracktagssupport}}"
+                 class="{{css}}-button-container  {{css}}-cc-{{tracktextvisible ? 'active' : 'inactive'}}"
+                 title="{{ tracktextvisible ? string('close-tracks') : string('show-tracks')}}"
+                 ba-click="{{toggle_tracks()}}"
+                 onmouseover="{{hover_cc(true)}}"
+                 onmouseleave="{{hover_cc(false)}}"
+            >
+                <div class="{{css}}-button-inner {{css}}-subtitle-button-inner">
+                    <i class="{{css}}-icon-subtitle"></i>
+                </div>
+            </div>
+
             <div data-selector="button-airplay" class="{{css}}-button-container {{css}}-airplay-container" ba-show="{{airplaybuttonvisible}}" ba-click="{{show_airplay_devices()}}">
                 <svg width="16px" height="11px" viewBox="0 0 16 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <!-- Generator: Sketch 3.3.2 (12043) - http://www.bohemiancoding.com/sketch -->

@@ -7,6 +7,7 @@
     width: $dashboard_width;
     opacity: 0.75;
     overflow: hidden;
+    z-index: 1;
 }
 
 .#{$css}-dashboard-hidden {
@@ -320,5 +321,22 @@
     padding-top: 2px;
     svg path {
         fill: #000000;
+    }
+}
+
+.#{$css}-cc-inactive {
+    background-color: transparent;
+    .#{$css}-icon-subtitle {
+        color: #666666;
+    }
+}
+
+.#{$css}-cc-active {
+    background: #000000;
+    .#{$css}-button-inner {
+        padding-top: 2px;
+    }
+    .#{$css}-icon-subtitle {
+        color: #eeeeee;
     }
 }

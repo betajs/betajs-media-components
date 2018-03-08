@@ -387,18 +387,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 // Fixed issue when unable switch directly to showing from disabled
                 _triggerTrackChange: function(video, track, status, lang) {
                     var _self = this;
-                    var _trackElement = document.getElementById(track.id);
+                    var _trackElement = video.querySelector("#" + track.id);
                     var _flag = true;
-                    // Fixed issue when unable switch directly to showing from disabled
                     if (track.oncuechange !== undefined && !((Info.isInternetExplorer() || Info.isEdge()) && this.get("tracktagsstyled"))) {
                         track.oncuechange = function(ev) {
                             if (_flag) {
                                 if (status.length) track.mode = status;
                                 if (_self.get("tracktagsstyled"))
                                     _self._showTracksInCustomElement(track, lang);
-                                else if(_trackElement) {
+                                else if (_trackElement) {
                                     _trackElement.mode = status;
-                                    _trackElement.setAttribute('default', '');
+                                    // _trackElement.setAttribute('default', '');
                                 }
                                 _flag = false;
                             }

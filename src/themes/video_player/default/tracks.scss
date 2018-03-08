@@ -9,7 +9,7 @@
 .#{$css}-cue-content {
     @include relative-horizontally-center();
     background: #2c2c2c;
-    color: #999999;
+    color: #eeeeee;
     text-align: center;
     padding-top: 7px;
     padding-bottom: 7px;
@@ -17,12 +17,11 @@
 }
 
 .#{$css}-tracks-selector-list {
-    bottom: 0;
+    @include absolute-align-right-bottom;
     margin: 0;
-    position: absolute;
     padding: 0;
-    right: 20px;
     list-style: none;
+    z-index: 1;
 }
 
 .#{$css}-tracks-selector {

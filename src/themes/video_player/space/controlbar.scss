@@ -298,3 +298,22 @@
         fill: #ffffff;
     }
 }
+
+.#{$css}-cc-button-container {
+    padding: 0 10px;
+    margin: 0;
+}
+
+.#{$css}-cc-inactive {
+    background-color: transparent;
+    .#{$css}-icon-subtitle {
+        color: #eeeeee;
+    }
+}
+
+.#{$css}-cc-active {
+    background: #000000;
+    .#{$css}-icon-subtitle {
+        color: #eeeeee;
+    }
+}

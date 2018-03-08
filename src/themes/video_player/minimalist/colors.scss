@@ -5,12 +5,14 @@
       .#{$css}-title p, .#{$css}-button-inner, .#{$css}-right-block .#{$css}-icon-volume-up,
       .#{$css}-right-block .#{$css}-icon-volume-down, .#{$css}-right-block .#{$css}-icon-resize-full,
       .#{$css}-right-block .#{$css}-icon-resize-small,
-      .#{$css}-controlbar-top-block .#{$css}-button-container .#{$css}-button-inner {
+      .#{$css}-controlbar-top-block .#{$css}-button-container .#{$css}-button-inner,
+      .#{$css}-cc-active .#{$css}-icon-subtitle {
         color: $value;
       }
 
       .#{$css}-volumebar-position, .#{$css}-stream-label, .#{$css}-progressbar-position,
-      .#{$css}-time-container, .#{$css}-progressbar-button, .#{$css}-rerecord-button {
+      .#{$css}-time-container, .#{$css}-progressbar-button, .#{$css}-rerecord-button,
+      .#{$css}-cc-inactive {
         background-color: $value;
       }
 

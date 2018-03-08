@@ -29,6 +29,10 @@
     background: #020202;
     color: #eeeeee;
     cursor: pointer;
+    &:hover {
+        background-color: #4c4c4c;
+        color: #ffffff;
+    }
 }
 
 .#{$css}-tracks-selector-list-open {

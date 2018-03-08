@@ -3,7 +3,7 @@
 }
 
 .#{$css}-tracks-tags-overlay {
-    @include absolute-align-full-bottom-above-control-bar(40px);
+    @include absolute-align-full-bottom-above-control-bar(43px);
 }
 
 .#{$css}-cue-content {
@@ -22,11 +22,6 @@
     padding: 0;
     list-style: none;
     z-index: 1;
-}
-
-.#{$css}-tracks-selector-list {
-    bottom: 3px;
-    right: 12.5%;
 }
 
 .#{$css}-tracks-selector {

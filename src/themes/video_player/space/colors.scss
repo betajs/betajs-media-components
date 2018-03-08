@@ -9,7 +9,8 @@
         color: $value;
       }
 
-      &.#{$cssnoie8} .#{$css}-stream-label-container, &.#{$cssie8} .#{$css}-stream-label-container {
+      &.#{$cssnoie8} .#{$css}-stream-label-container, &.#{$cssie8} .#{$css}-stream-label-container,
+      .#{$css}-cc-active {
         color: $button_color;
         background-color: $value;
       }

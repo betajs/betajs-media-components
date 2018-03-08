@@ -45,6 +45,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "cssmessage": "",
                     "csstopmessage": "",
                     "csscontrolbar": "",
+                    "csstracks": "",
                     "width": "",
                     "height": "",
                     /* Themes */

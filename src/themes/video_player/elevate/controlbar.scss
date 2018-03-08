@@ -63,7 +63,7 @@
     & > div {
         @include left-box-shadow($button_border_color, 1);
         float: right;
-        line-height: $controlbar_line_height - 2;
+        line-height: $controlbar_line_height;
         text-align: center;
     }
 

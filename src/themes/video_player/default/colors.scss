@@ -3,12 +3,12 @@
     .#{$css}-#{$color}-color {
 
 
-      .#{$css}-button-inner, .#{$css}-video-title {
+      .#{$css}-button-inner, .#{$css}-video-title, .#{$css}-cc-inactive .#{$css}-icon-subtitle {
         color: $value;
       }
 
       .#{$css}-volumebar-position, .#{$css}-progressbar-position,
-      .#{$css}-rerecord-button {
+      .#{$css}-rerecord-button, .#{$css}-cc-active {
         background-color: $value;
       }
 

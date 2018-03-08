@@ -19,7 +19,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Tracks", [
 
                 functions: {
                     select_track: function(track) {
-                        this.__parent.trigger("switch-track", track);
+                        var _dyn = this.__parent;
+                        _dyn.set("trackselectorhovered", false);
+                        _dyn.trigger("switch-track", track);
                     },
 
                     hover_cc: function(hover) {

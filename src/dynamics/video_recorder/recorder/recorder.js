@@ -16,7 +16,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
     "base:Collections.Collection",
     "base:Promise",
     "module:VideoRecorder.Dynamics.RecorderStates.Initial",
-    "module:VideoRecorder.Dynamics.RecorderStates"
+    "module:VideoRecorder.Dynamics.RecorderStates",
+    "browser:Events"
 ], [
     "module:VideoRecorder.Dynamics.Imagegallery",
     "module:VideoRecorder.Dynamics.Loader",
@@ -33,7 +34,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
     "dynamics:Partials.AttrsPartial",
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.TemplatePartial"
-], function(Class, Assets, Info, Dom, MultiUploader, FileUploader, VideoRecorderWrapper, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Collection, Promise, InitialState, RecorderStates, scoped) {
+], function(Class, Assets, Info, Dom, MultiUploader, FileUploader, VideoRecorderWrapper, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Collection, Promise, InitialState, RecorderStates, Events, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -113,6 +114,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "allowedextensions": null,
                     "filesizelimit": null,
                     "faceoutline": false,
+                    "isportrait": false,
+                    "restrictionmessage": null,
 
                     /* Configuration */
                     "forceflash": false,
@@ -131,6 +134,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "allowcancel": false,
                     "recordings": null,
                     "ready": true,
+                    "restrictportraitrecord": false,
                     "stretch": false
 
                 },
@@ -163,6 +167,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "forceflash": "boolean",
                     "noflash": "boolean",
                     "rerecordable": "boolean",
+                    "isportrait": "boolean",
                     "ready": "boolean",
                     "stretch": "boolean",
                     "autorecord": "boolean",
@@ -191,6 +196,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "simulate": "boolean",
                     "allowedextensions": "array",
                     "onlyaudio": "boolean",
+                    "restrictportraitrecord": "boolean",
                     "allowcancel": "boolean"
                 },
 
@@ -246,6 +252,23 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         this.set("allowupload", false);
                     }
 
+                    if (this.get("restrictportraitrecord") && !this.get("onlyaudio") && Info.isMobile()) {
+                        var events_instance = new Events();
+                        var events = events_instance.auto_destroy(new Events());
+
+                        this._portraitModeCheck();
+
+                        if (window.DeviceOrientationEvent) {
+                            events.on(window, "deviceorientation", function(event) {
+                                this._portraitModeCheck();
+                            }, this);
+                        } else {
+                            events.on(window, 'resize', function(event) {
+                                this._portraitModeCheck();
+                            }, this);
+                        }
+                    }
+
                 },
 
                 state: function() {
@@ -258,6 +281,17 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
                 videoError: function() {
                     return this.__error;
+                },
+
+                _portraitModeCheck: function() {
+                    if (Info.isMobilePortrait()) {
+                        this.set("isportrait", true);
+                        this.set("restrictionmessage", this.string("only-portrait-mode-allowed"));
+                        this.trigger("only_portrait");
+                    } else {
+                        this.set("isportrait", false);
+                        this.set("restrictionmessage", null);
+                    }
                 },
 
                 _error: function(error_type, error_code) {
@@ -750,6 +784,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
             "rerecord-confirm": "Do you really want to redo your video?",
             "cancel-confirm": "Do you really want to cancel your video upload?",
             "video_file_too_large": "Your video file is too large (%s) - click here to try again with a smaller video file.",
-            "unsupported_video_type": "Please upload: %s - click here to retry."
+            "unsupported_video_type": "Please upload: %s - click here to retry.",
+            "only-portrait-mode-allowed": "You can record only in portrait mode"
         });
 });

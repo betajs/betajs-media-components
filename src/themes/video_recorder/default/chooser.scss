@@ -18,13 +18,14 @@
 	cursor: pointer;
 }
 
-.#{$css}-chooser-button-container {
+.#{$css}-chooser-button-container, .#{$css}-accept-term-container,
+.#{$css}-restriction-message-container {
 	@include absolute-center-center;
 	@include transform-translate(-50%, -50%);
 	text-align: center;	
 }
 
-.#{$css}-chooser-button-0 {
+.#{$css}-chooser-button-0, .#{$css}-accept-terms-button {
 	@include clickable;
 	@include border-radius($chooser_primary_button_border_radius);
 	background-color: $chooser_primary_button_bgcolor;
@@ -48,4 +49,15 @@
 	padding: $chooser_secondary_button_padding;
 	position: relative;
 	white-space: nowrap;
+}
+
+.#{$css}-restriction-message, .#{$css}-terms-message {
+	color: $chooser_secondary_button_color;
+	font-family: $font_family;
+	padding-bottom: 10px;
+	font-size: 16px;
+}
+
+.#{$css}-terms-message {
+	font-size: 13px;
 }

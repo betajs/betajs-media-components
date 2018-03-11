@@ -211,7 +211,11 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
             this.dyn._prepareRecording().success(function() {
                 this.dyn.trigger("upload_selected", file);
                 this.dyn._uploadVideoFile(file);
-                this.next("Uploading");
+                if (this.dyn.get("restrictportraitrecord")) {
+                    this.next("CheckVideoDimensions");
+                } else {
+                    this.next("Uploading");
+                }
             }, this).error(function(s) {
                 this.next("FatalError", {
                     message: s,
@@ -220,6 +224,73 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
             }, this);
         }
 
+    });
+});
+
+Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CheckVideoDimensions", [
+    "module:VideoRecorder.Dynamics.RecorderStates.State",
+    "base:Objs"
+], function(State, Objs, scoped) {
+    return State.extend({
+        scoped: scoped
+    }, {
+        dynamics: ["loader", "message"],
+        _locals: ['_recorder'],
+
+        _started: function() {
+            var uploader = this.dyn._dataUploader;
+            if (this._recorder) {
+                if (window.DeviceOrientationEvent) {
+                    window.addEventListener('deviceorientation', this._deviceOrientationHandler, false);
+                    document.getElementById("doeSupported").innerText = "Supported!";
+                }
+                this.next("CameraAccess");
+            } else {
+                this._checkUploadRecursively(uploader);
+            }
+        },
+
+        _checkUploadRecursively: function(uploader) {
+            Objs.iter(uploader._uploaders, function(key) {
+                if (typeof key === 'object' && key._uploaders) {
+                    this._checkUploadRecursively(key);
+                } else {
+                    if (typeof key === 'object' && key._options) {
+                        var url = key._options.url;
+                        this._checkVideoDimension(url, uploader);
+                    }
+                }
+            }, this);
+        },
+
+        _deviceOrientationHandler: function() {},
+
+        _checkVideoDimension: function(url, uploader) {
+            var promise = uploader.videoDimensions(url);
+
+            promise.success(function(dimensions) {
+                // TODO: replace statement during real implementation
+                if (dimensions.width < dimensions.height) {
+                    this.next("FatalError", {
+                        message: 'Sorry your upload file not meet require dimensions, it has to be in portrait mode',
+                        retry: "Chooser"
+                    });
+                } else {
+                    this.next("Uploading");
+                }
+            }, this);
+
+            promise.error(function(err) {
+                this.next("FatalError", {
+                    message: 'Not possible to check video dimentions, please try again with correct recorder ratio.',
+                    retry: "Chooser"
+                });
+            });
+        },
+
+        _checkRecorderResolution: function() {
+
+        }
     });
 });
 
@@ -355,6 +426,14 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraAccess", [
                     retry: "Initial"
                 });
             }, this);
+            if (this.dyn.get("restrictportraitrecord")) {
+                this.listenOn(this.dyn, "only_portrait", function(message) {
+                    this.next("FatalError", {
+                        message: message,
+                        retry: "Initial"
+                    });
+                });
+            }
             this.dyn._bindMedia();
         }
 
@@ -486,8 +565,9 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
     "base:Timers.Timer",
     "base:Time",
     "base:TimeFormat",
-    "base:Async"
-], function(State, Timer, Time, TimeFormat, Async, scoped) {
+    "base:Async",
+    "browser:Info"
+], function(State, Timer, Time, TimeFormat, Async, Info, scoped) {
     return State.extend({
         scoped: scoped
     }, {
@@ -528,6 +608,15 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
                 this._timer.stop();
                 this.stop();
             }
+
+            if (this.dyn.get("restrictportraitrecord") && this.dyn.get("isportrait")) {
+                this.next("FatalError", {
+                    message: this.dyn.string("only-portrait-mode-allowed"),
+                    retry: "RequiredSoftwareCheck"
+                });
+                this._timer.stop();
+                this.stop();
+            }
         },
 
         stop: function() {
@@ -553,8 +642,13 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
                     this._hasStopped();
                     if (this.dyn.get("picksnapshots") && this.dyn.snapshots.length >= this.dyn.get("gallerysnapshots"))
                         this.next("CovershotSelection");
-                    else
-                        this.next("Uploading");
+                    else {
+                        if (this.dyn.get("restrictportraitrecord")) {
+                            this.next("CheckVideoDimensions");
+                        } else {
+                            this.next("Uploading");
+                        }
+                    }
                 }, this).error(function(s) {
                     this.next("FatalError", {
                         message: s,
@@ -660,7 +754,11 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
                     if (this.destroyed())
                         return;
                     this._finished();
-                    this.next("Verifying");
+                    if (!this.dyn.get("restrictportraitrecord")) {
+                        this.next("CheckVideoDimensions");
+                    } else {
+                        this.next("Verifying");
+                    }
                 }, this);
             });
             this.listenOn(uploader, "error", function() {

@@ -6,7 +6,7 @@
         color: $value;
       }
 
-      .#{$css}-button-primary, .#{$css}-chooser-button-0,
+      .#{$css}-button-primary, .#{$css}-chooser-button-0, .#{$css}-accept-terms-button,
       .#{$css}-imagegallery-rightbutton, .#{$css}-imagegallery-leftbutton {
         background-color: $value;
       }

@@ -37,12 +37,6 @@
       "src": "fontawesome"
     },
     {
-      "uid": "f9c3205df26e7778abac86183aefdc99",
-      "css": "ccw",
-      "code": 59396,
-      "src": "fontawesome"
-    },
-    {
       "uid": "ce06b5805120d0c2f8d60cd3f1a4fdb5",
       "css": "play",
       "code": 59397,
@@ -190,6 +184,24 @@
       "uid": "cfb6e143c0650c485536374f2a2f88fb",
       "css": "television",
       "code": 62060,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "f9c3205df26e7778abac86183aefdc99",
+      "css": "ccw",
+      "code": 59396,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "959c9a2360ed00ec9c0a75562d30edc4",
+      "css": "cc",
+      "code": 59413,
+      "src": "zocial"
+    },
+    {
+      "uid": "66faf6c4e3b0e4e33f06171e30253e26",
+      "css": "subtitle",
+      "code": 61962,
       "src": "fontawesome"
     }
   ]

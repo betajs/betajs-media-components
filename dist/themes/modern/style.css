@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.90 - 2018-03-11
+betajs-media-components - v0.0.91 - 2018-03-12
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -503,6 +503,31 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e813'; }
 
+.ba-videoplayer-theme-modern-icon-cc:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e815'; }
+
 .ba-videoplayer-theme-modern-icon-twitter:before {
   font-family: "bjsmc";
   font-style: normal;
@@ -702,6 +727,31 @@ Apache-2.0 Software License.
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\f144'; }
+
+.ba-videoplayer-theme-modern-icon-subtitle:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f20a'; }
 
 .ba-videoplayer-theme-modern-icon-facebook-official:before {
   font-family: "bjsmc";
@@ -1125,27 +1175,30 @@ Apache-2.0 Software License.
   position: absolute;
   width: 100%; }
 
-.ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-video-title, .ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-icon-volume-up, .ba-videoplayer-theme-modern-red-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-button-inner, .ba-videoplayer-theme-modern-red-color.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-button-inner, .ba-videoplayer-theme-modern-red-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-icon-share {
+.ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-video-title, .ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-icon-volume-up, .ba-videoplayer-theme-modern-red-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-button-inner, .ba-videoplayer-theme-modern-red-color.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-button-inner, .ba-videoplayer-theme-modern-red-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-icon-share, .ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-cc-inactive .ba-videoplayer-theme-modern-icon-subtitle {
   color: #eb6a74; }
-.ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-progressbar-position, .ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-volumebar-position, .ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-rerecord-button {
+.ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-progressbar-position, .ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-volumebar-position, .ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-rerecord-button,
+.ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-cc-active {
   background-color: #eb6a74; }
 .ba-videoplayer-theme-modern-red-color .ba-videoplayer-theme-modern-playbutton-button, .ba-videoplayer-theme-modern-red-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-playbutton-container .ba-videoplayer-theme-modern-playbutton-button, .ba-videoplayer-theme-modern-red-color.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-playbutton-container .ba-videoplayer-theme-modern-playbutton-button {
   border-left-color: #eb6a74; }
 .ba-videoplayer-theme-modern-red-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-rightbutton-container.ba-videoplayer-theme-modern-airplay-container svg path {
   fill: #eb6a74; }
 
-.ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-video-title, .ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-icon-volume-up, .ba-videoplayer-theme-modern-blue-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-button-inner, .ba-videoplayer-theme-modern-blue-color.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-button-inner, .ba-videoplayer-theme-modern-blue-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-icon-share {
+.ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-video-title, .ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-icon-volume-up, .ba-videoplayer-theme-modern-blue-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-button-inner, .ba-videoplayer-theme-modern-blue-color.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-button-inner, .ba-videoplayer-theme-modern-blue-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-icon-share, .ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-cc-inactive .ba-videoplayer-theme-modern-icon-subtitle {
   color: #2a74eb; }
-.ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-progressbar-position, .ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-volumebar-position, .ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-rerecord-button {
+.ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-progressbar-position, .ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-volumebar-position, .ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-rerecord-button,
+.ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-cc-active {
   background-color: #2a74eb; }
 .ba-videoplayer-theme-modern-blue-color .ba-videoplayer-theme-modern-playbutton-button, .ba-videoplayer-theme-modern-blue-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-playbutton-container .ba-videoplayer-theme-modern-playbutton-button, .ba-videoplayer-theme-modern-blue-color.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-playbutton-container .ba-videoplayer-theme-modern-playbutton-button {
   border-left-color: #2a74eb; }
 .ba-videoplayer-theme-modern-blue-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-rightbutton-container.ba-videoplayer-theme-modern-airplay-container svg path {
   fill: #2a74eb; }
 
-.ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-video-title, .ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-icon-volume-up, .ba-videoplayer-theme-modern-green-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-button-inner, .ba-videoplayer-theme-modern-green-color.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-button-inner, .ba-videoplayer-theme-modern-green-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-icon-share {
+.ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-video-title, .ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-icon-volume-up, .ba-videoplayer-theme-modern-green-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-button-inner, .ba-videoplayer-theme-modern-green-color.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-button-inner, .ba-videoplayer-theme-modern-green-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-icon-share, .ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-cc-inactive .ba-videoplayer-theme-modern-icon-subtitle {
   color: #5da894; }
-.ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-progressbar-position, .ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-volumebar-position, .ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-rerecord-button {
+.ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-progressbar-position, .ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-volumebar-position, .ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-rerecord-button,
+.ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-cc-active {
   background-color: #5da894; }
 .ba-videoplayer-theme-modern-green-color .ba-videoplayer-theme-modern-playbutton-button, .ba-videoplayer-theme-modern-green-color.ba-videoplayer-noie8 .ba-videoplayer-theme-modern-playbutton-container .ba-videoplayer-theme-modern-playbutton-button, .ba-videoplayer-theme-modern-green-color.ba-videoplayer-ie8 .ba-videoplayer-theme-modern-playbutton-container .ba-videoplayer-theme-modern-playbutton-button {
   border-left-color: #5da894; }
@@ -1434,6 +1487,16 @@ Apache-2.0 Software License.
   .ba-videoplayer-noie8 .ba-videoplayer-theme-modern-rightbutton-container.ba-videoplayer-theme-modern-airplay-container svg path {
     fill: #000000; }
 
+.ba-videoplayer-theme-modern-cc-inactive {
+  background-color: transparent; }
+  .ba-videoplayer-theme-modern-cc-inactive .ba-videoplayer-theme-modern-icon-subtitle {
+    color: #000000; }
+
+.ba-videoplayer-theme-modern-cc-active {
+  background: #000000; }
+  .ba-videoplayer-theme-modern-cc-active .ba-videoplayer-theme-modern-icon-subtitle {
+    color: #eeeeee; }
+
 /* Full screen options */
 .ba-videoplayer-theme-modern-fullscreen-view video::-webkit-media-controls-overlay-enclosure {
   display: none; }
@@ -1676,6 +1739,58 @@ Apache-2.0 Software License.
     height: 45px;
     width: 45px;
     line-height: 45px; }
+
+.ba-videoplayer-theme-modern-tracks-tags-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0; }
+
+.ba-videoplayer-theme-modern-tracks-tags-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 40px; }
+
+.ba-videoplayer-theme-modern-cue-content {
+  position: relative;
+  margin: auto;
+  background: #2c2c2c;
+  color: #eeeeee;
+  text-align: center;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  width: 60%; }
+
+.ba-videoplayer-theme-modern-tracks-selector-list {
+  bottom: 0;
+  left: auto;
+  position: absolute;
+  right: 0;
+  top: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  z-index: 1; }
+
+.ba-videoplayer-theme-modern-tracks-selector {
+  padding: 5px 20px;
+  background: #020202;
+  color: #eeeeee;
+  cursor: pointer; }
+  .ba-videoplayer-theme-modern-tracks-selector:hover {
+    background-color: #4c4c4c;
+    color: #ffffff; }
+
+.ba-videoplayer-theme-modern-tracks-selector-list-open {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s, opacity 0.2s linear; }
+
+.ba-videoplayer-theme-modern-tracks-selector-list-closed {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.2s linear; }
 
 .ba-videorecorder-theme-modern-icon-volume-off:before {
   font-family: "bjsmc";
@@ -2177,6 +2292,31 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e813'; }
 
+.ba-videorecorder-theme-modern-icon-cc:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e815'; }
+
 .ba-videorecorder-theme-modern-icon-twitter:before {
   font-family: "bjsmc";
   font-style: normal;
@@ -2376,6 +2516,31 @@ Apache-2.0 Software License.
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\f144'; }
+
+.ba-videorecorder-theme-modern-icon-subtitle:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f20a'; }
 
 .ba-videorecorder-theme-modern-icon-facebook-official:before {
   font-family: "bjsmc";

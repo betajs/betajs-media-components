@@ -4,11 +4,12 @@
 
       .#{$css}-video-title, .#{$css}-icon-volume-up,
       &.#{$cssnoie8} .#{$css}-button-inner,&.#{$cssie8} .#{$css}-button-inner,
-      &.#{$cssnoie8} .#{$css}-icon-share {
+      &.#{$cssnoie8} .#{$css}-icon-share, .#{$css}-cc-inactive .#{$css}-icon-subtitle {
         color: $value;
       }
 
-      .#{$css}-progressbar-position, .#{$css}-volumebar-position, .#{$css}-rerecord-button {
+      .#{$css}-progressbar-position, .#{$css}-volumebar-position, .#{$css}-rerecord-button,
+      .#{$css}-cc-active {
         background-color: $value;
       }
 

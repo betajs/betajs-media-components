@@ -4,12 +4,14 @@
 
       .#{$css}-icon-play, .#{$css}-icon-pause, .#{$css}-button-inner, .#{$css}-icon-volume-down,
       .#{$css}-icon-volume-up, .#{$css}-icon-resize-full, .#{$css}-icon-resize-small,
-      &.#{$cssnoie8} .#{$css}-share-action-container .#{$css}-button-inner, &.#{$cssnoie8} .#{$css}-button-inner  {
+      &.#{$cssnoie8} .#{$css}-share-action-container .#{$css}-button-inner, &.#{$cssnoie8} .#{$css}-button-inner,
+      .#{$css}-cc-inactive .#{$css}-icon-subtitle {
         color: $value;
       }
 
       .#{$css}-progressbar-button, .#{$css}-stream-label-container .#{$css}-stream-label,
-      .#{$css}-progressbar-position, .#{$css}-volumebar-position, .#{$css}-rerecord-button {
+      .#{$css}-progressbar-position, .#{$css}-volumebar-position, .#{$css}-rerecord-button,
+      .#{$css}-cc-active {
         background-color: $value;
       }
 

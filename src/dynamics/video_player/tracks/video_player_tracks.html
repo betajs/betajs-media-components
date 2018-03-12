@@ -1,0 +1,14 @@
+<div data-selector="tracks-tags-overlay" class="{{css}}-tracks-tags-overlay">
+    <div data-selector="cue-content" ba-show="{{tracktagsstyled && trackcuetext}}" class="{{css}}-cue-content">
+        {{trackcuetext}}
+    </div>
+    <ul data-selector="tracks-selector-list" class="{{css}}-tracks-selector-list {{css}}-tracks-selector-list-{{tracksshowselection || trackselectorhovered ? 'open' : 'closed'}}"
+        ba-repeat="{{track :: tracktags}}"
+        onmouseover="{{hover_cc(true)}}"
+        onmouseleave="{{hover_cc(false)}}"
+    >
+        <li class="{{css}}-tracks-selector" ba-click="{{select_track(track)}}">
+            {{track.label}}
+        </li>
+    </ul>
+</div>

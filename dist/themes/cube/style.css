@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.90 - 2018-03-11
+betajs-media-components - v0.0.91 - 2018-03-12
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -503,6 +503,31 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e813'; }
 
+.ba-videoplayer-cube-theme-icon-cc:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e815'; }
+
 .ba-videoplayer-cube-theme-icon-twitter:before {
   font-family: "bjsmc";
   font-style: normal;
@@ -702,6 +727,31 @@ Apache-2.0 Software License.
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\f144'; }
+
+.ba-videoplayer-cube-theme-icon-subtitle:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f20a'; }
 
 .ba-videoplayer-cube-theme-icon-facebook-official:before {
   font-family: "bjsmc";
@@ -1127,10 +1177,11 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-dashboard, .ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-video-title, .ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-up,
 .ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-down, .ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-full,
-.ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-small, .ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-button-inner {
+.ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-small, .ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-button-inner,
+.ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-cc-inactive .ba-videoplayer-cube-theme-icon-subtitle {
   color: #eb6a74; }
 .ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-volumebar-position, .ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-stream-label, .ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-progressbar-position,
-.ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-rerecord-button {
+.ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-rerecord-button, .ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-cc-active {
   background-color: #eb6a74; }
 .ba-videoplayer-cube-theme-red-color .ba-videoplayer-cube-theme-playbutton-button {
   border-left-color: #eb6a74; }
@@ -1142,10 +1193,11 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-dashboard, .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-video-title, .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-up,
 .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-down, .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-full,
-.ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-small, .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-button-inner {
+.ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-small, .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-button-inner,
+.ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-cc-inactive .ba-videoplayer-cube-theme-icon-subtitle {
   color: #2a74eb; }
 .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-volumebar-position, .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-stream-label, .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-progressbar-position,
-.ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-rerecord-button {
+.ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-rerecord-button, .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-cc-active {
   background-color: #2a74eb; }
 .ba-videoplayer-cube-theme-blue-color .ba-videoplayer-cube-theme-playbutton-button {
   border-left-color: #2a74eb; }
@@ -1157,10 +1209,11 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-dashboard, .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-video-title, .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-up,
 .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-volume-down, .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-full,
-.ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-small, .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-button-inner {
+.ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-right-block .ba-videoplayer-cube-theme-icon-resize-small, .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-button-inner,
+.ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-cc-inactive .ba-videoplayer-cube-theme-icon-subtitle {
   color: #5daa96; }
 .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-volumebar-position, .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-stream-label, .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-progressbar-position,
-.ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-rerecord-button {
+.ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-rerecord-button, .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-cc-active {
   background-color: #5daa96; }
 .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-playbutton-button {
   border-left-color: #5daa96; }
@@ -1408,6 +1461,16 @@ Apache-2.0 Software License.
   .ba-videoplayer-cube-theme-airplay-container svg path {
     fill: #ffffff; }
 
+.ba-videoplayer-cube-theme-cc-inactive {
+  background-color: transparent; }
+  .ba-videoplayer-cube-theme-cc-inactive .ba-videoplayer-cube-theme-icon-subtitle {
+    color: #ffffff; }
+
+.ba-videoplayer-cube-theme-cc-active {
+  background: #000000; }
+  .ba-videoplayer-cube-theme-cc-active .ba-videoplayer-cube-theme-icon-subtitle {
+    color: #eeeeee; }
+
 /* Full screen options */
 .ba-videoplayer-cube-theme-fullscreen-view video::-webkit-media-controls-overlay-enclosure {
   display: none; }
@@ -1636,6 +1699,58 @@ Apache-2.0 Software License.
     height: 45px;
     width: 45px;
     line-height: 45px; }
+
+.ba-videoplayer-cube-theme-tracks-tags-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0; }
+
+.ba-videoplayer-cube-theme-tracks-tags-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 40px; }
+
+.ba-videoplayer-cube-theme-cue-content {
+  position: relative;
+  margin: auto;
+  background: #2c2c2c;
+  color: #eeeeee;
+  text-align: center;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  width: 60%; }
+
+.ba-videoplayer-cube-theme-tracks-selector-list {
+  bottom: 0;
+  left: auto;
+  position: absolute;
+  right: 0;
+  top: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  z-index: 1; }
+
+.ba-videoplayer-cube-theme-tracks-selector {
+  padding: 5px 20px;
+  background: #020202;
+  color: #eeeeee;
+  cursor: pointer; }
+  .ba-videoplayer-cube-theme-tracks-selector:hover {
+    background-color: #4c4c4c;
+    color: #ffffff; }
+
+.ba-videoplayer-cube-theme-tracks-selector-list-open {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s, opacity 0.2s linear; }
+
+.ba-videoplayer-cube-theme-tracks-selector-list-closed {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.2s linear; }
 
 .ba-videorecorder-theme-cube-icon-volume-off:before {
   font-family: "bjsmc";
@@ -2137,6 +2252,31 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e813'; }
 
+.ba-videorecorder-theme-cube-icon-cc:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e815'; }
+
 .ba-videorecorder-theme-cube-icon-twitter:before {
   font-family: "bjsmc";
   font-style: normal;
@@ -2336,6 +2476,31 @@ Apache-2.0 Software License.
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\f144'; }
+
+.ba-videorecorder-theme-cube-icon-subtitle:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f20a'; }
 
 .ba-videorecorder-theme-cube-icon-facebook-official:before {
   font-family: "bjsmc";

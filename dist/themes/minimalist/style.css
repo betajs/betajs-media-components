@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.90 - 2018-03-11
+betajs-media-components - v0.0.91 - 2018-03-12
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -503,6 +503,31 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e813'; }
 
+.ba-videoplayer-minimalist-theme-icon-cc:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e815'; }
+
 .ba-videoplayer-minimalist-theme-icon-twitter:before {
   font-family: "bjsmc";
   font-style: normal;
@@ -702,6 +727,31 @@ Apache-2.0 Software License.
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\f144'; }
+
+.ba-videoplayer-minimalist-theme-icon-subtitle:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f20a'; }
 
 .ba-videoplayer-minimalist-theme-icon-facebook-official:before {
   font-family: "bjsmc";
@@ -1128,10 +1178,12 @@ Apache-2.0 Software License.
 .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-title p, .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-button-inner, .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-volume-up,
 .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-volume-down, .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-resize-full,
 .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-resize-small,
-.ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-controlbar-top-block .ba-videoplayer-minimalist-theme-button-container .ba-videoplayer-minimalist-theme-button-inner {
+.ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-controlbar-top-block .ba-videoplayer-minimalist-theme-button-container .ba-videoplayer-minimalist-theme-button-inner,
+.ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-cc-active .ba-videoplayer-minimalist-theme-icon-subtitle {
   color: #eb6a74; }
 .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-volumebar-position, .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-stream-label, .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-progressbar-position,
-.ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-time-container, .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-progressbar-button, .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-rerecord-button {
+.ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-time-container, .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-progressbar-button, .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-rerecord-button,
+.ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-cc-inactive {
   background-color: #eb6a74; }
 .ba-videoplayer-minimalist-theme-red-color .ba-videoplayer-minimalist-theme-airplay-container svg path {
   fill: #eb6a74; }
@@ -1139,10 +1191,12 @@ Apache-2.0 Software License.
 .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-title p, .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-button-inner, .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-volume-up,
 .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-volume-down, .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-resize-full,
 .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-resize-small,
-.ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-controlbar-top-block .ba-videoplayer-minimalist-theme-button-container .ba-videoplayer-minimalist-theme-button-inner {
+.ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-controlbar-top-block .ba-videoplayer-minimalist-theme-button-container .ba-videoplayer-minimalist-theme-button-inner,
+.ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-cc-active .ba-videoplayer-minimalist-theme-icon-subtitle {
   color: #2a74eb; }
 .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-volumebar-position, .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-stream-label, .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-progressbar-position,
-.ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-time-container, .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-progressbar-button, .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-rerecord-button {
+.ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-time-container, .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-progressbar-button, .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-rerecord-button,
+.ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-cc-inactive {
   background-color: #2a74eb; }
 .ba-videoplayer-minimalist-theme-blue-color .ba-videoplayer-minimalist-theme-airplay-container svg path {
   fill: #2a74eb; }
@@ -1150,10 +1204,12 @@ Apache-2.0 Software License.
 .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-title p, .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-button-inner, .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-volume-up,
 .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-volume-down, .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-resize-full,
 .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-right-block .ba-videoplayer-minimalist-theme-icon-resize-small,
-.ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-controlbar-top-block .ba-videoplayer-minimalist-theme-button-container .ba-videoplayer-minimalist-theme-button-inner {
+.ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-controlbar-top-block .ba-videoplayer-minimalist-theme-button-container .ba-videoplayer-minimalist-theme-button-inner,
+.ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-cc-active .ba-videoplayer-minimalist-theme-icon-subtitle {
   color: #5daa96; }
 .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-volumebar-position, .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-stream-label, .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-progressbar-position,
-.ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-time-container, .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-progressbar-button, .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-rerecord-button {
+.ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-time-container, .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-progressbar-button, .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-rerecord-button,
+.ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-cc-inactive {
   background-color: #5daa96; }
 .ba-videoplayer-minimalist-theme-green-color .ba-videoplayer-minimalist-theme-airplay-container svg path {
   fill: #5daa96; }
@@ -1446,7 +1502,7 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-minimalist-theme-stream-label {
   margin-top: 15px;
-  font-size: .7em;
+  font-size: 0.7em;
   display: inline-block;
   padding: 4px 3px 3px 4px;
   background-color: #979797;
@@ -1538,6 +1594,30 @@ Apache-2.0 Software License.
   .ba-videoplayer-minimalist-theme-airplay-container svg path {
     fill: #ffffff;
     text-shadow: 0 0 4px #000000; }
+
+.ba-videoplayer-minimalist-theme-cc-button-container {
+  cursor: pointer;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  bottom: 4px;
+  float: right;
+  padding: 0 5px 2px 3px;
+  position: relative; }
+  .ba-videoplayer-minimalist-theme-cc-button-container .ba-videoplayer-minimalist-theme-button-inner {
+    line-height: 40px;
+    height: 40px;
+    width: 40px; }
+  .ba-videoplayer-minimalist-theme-cc-button-container .ba-videoplayer-minimalist-theme-icon-subtitle {
+    font-size: 0.7em; }
+
+.ba-videoplayer-minimalist-theme-cc-inactive {
+  background-color: #979797; }
+  .ba-videoplayer-minimalist-theme-cc-inactive .ba-videoplayer-minimalist-theme-icon-subtitle {
+    color: #ffffff; }
+
+.ba-videoplayer-minimalist-theme-cc-active {
+  background: #000000; }
+  .ba-videoplayer-minimalist-theme-cc-active .ba-videoplayer-minimalist-theme-icon-subtitle {
+    color: #eeeeee; }
 
 /* Full screen options */
 .ba-videoplayer-minimalist-theme-fullscreen-view video::-webkit-media-controls-overlay-enclosure {
@@ -1793,6 +1873,58 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-minimalist-theme-topmessage-message .ba-videoplayer-minimalist-theme-button-container {
   width: 20px; }
+
+.ba-videoplayer-minimalist-theme-tracks-tags-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0; }
+
+.ba-videoplayer-minimalist-theme-tracks-tags-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 43px; }
+
+.ba-videoplayer-minimalist-theme-cue-content {
+  position: relative;
+  margin: auto;
+  background: #2c2c2c;
+  color: #eeeeee;
+  text-align: center;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  width: 60%; }
+
+.ba-videoplayer-minimalist-theme-tracks-selector-list {
+  bottom: 0;
+  left: auto;
+  position: absolute;
+  right: 0;
+  top: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  z-index: 1; }
+
+.ba-videoplayer-minimalist-theme-tracks-selector {
+  padding: 5px 20px;
+  background: #020202;
+  color: #eeeeee;
+  cursor: pointer; }
+  .ba-videoplayer-minimalist-theme-tracks-selector:hover {
+    background-color: #4c4c4c;
+    color: #ffffff; }
+
+.ba-videoplayer-minimalist-theme-tracks-selector-list-open {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s, opacity 0.2s linear; }
+
+.ba-videoplayer-minimalist-theme-tracks-selector-list-closed {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.2s linear; }
 
 .ba-videorecorder-theme-minimalist-icon-volume-off:before {
   font-family: "bjsmc";
@@ -2294,6 +2426,31 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e813'; }
 
+.ba-videorecorder-theme-minimalist-icon-cc:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e815'; }
+
 .ba-videorecorder-theme-minimalist-icon-twitter:before {
   font-family: "bjsmc";
   font-style: normal;
@@ -2493,6 +2650,31 @@ Apache-2.0 Software License.
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\f144'; }
+
+.ba-videorecorder-theme-minimalist-icon-subtitle:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f20a'; }
 
 .ba-videorecorder-theme-minimalist-icon-facebook-official:before {
   font-family: "bjsmc";

@@ -5,12 +5,12 @@
       .#{$css}-video-title, .#{$css}-icon-play, .#{$css}-icon-pause,
       .#{$css}-button-inner, .#{$css}-icon-resize-full,
       .#{$css}-icon-volume-up, .#{$css}-icon-volume-down, &.#{$cssnoie8} .#{$css}-icon-share,
-      &.#{$cssnoie8} .#{$css}-button-inner {
+      &.#{$cssnoie8} .#{$css}-button-inner, .#{$css}-cc-inactive .#{$css}-icon-subtitle {
         color: $value;
       }
 
       .#{$css}-stream-label-container .#{$css}-stream-label, .#{$css}-progressbar-position,
-      .#{$css}-volumebar-position, .#{$css}-rerecord-button  {
+      .#{$css}-volumebar-position, .#{$css}-rerecord-button, .#{$css}-cc-active {
         background-color: $value;
       }
 
@@ -24,6 +24,10 @@
 
       .#{$css}-airplay-container svg path {
         fill: $value;
+      }
+
+      .#{$css}-cc-active .#{$css}-icon-subtitle {
+        color: #eeeeee;
       }
 
     }

@@ -36,6 +36,9 @@
 			ba-event:toggle_player="toggle_player"
 			ba-event:seek="seek"
 			ba-event:set_volume="set_volume"
+			ba-tracktextvisible="{{tracktextvisible}}"
+			ba-tracktags="{{tracktags}}"
+			ba-tracktagssupport="{{tracktagssupport}}"
 		    ba-volume="{{volume}}"
 		    ba-duration="{{duration}}"
 		    ba-cached="{{buffered}}"
@@ -54,6 +57,16 @@
 			ba-disableseeking="{{disableseeking}}"
 			ba-skipseconds="{{skipseconds}}"
 		></ba-{{dyncontrolbar}}>
+
+		<ba-{{dyntracks}}
+			ba-css="{{csstracks || css}}"
+			ba-show="{{tracktagssupport}}"
+			ba-tracksshowselection="{{tracksshowselection}}"
+			ba-trackselectorhovered="{{trackselectorhovered}}"
+			ba-tracktags="{{tracktags}}"
+			ba-tracktagsstyled="{{tracktagsstyled}}"
+			ba-trackcuetext="{{trackcuetext}}"
+		></ba-{{dyntracks}}>
 		
 		<ba-{{dynplaybutton}}
 		    ba-css="{{cssplaybutton || css}}"

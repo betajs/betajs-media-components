@@ -70,5 +70,7 @@
   ba-videorecorder.software-waiting: >-
     Waiting for the requirements to be installed / activated. You might need to
     refresh the page after completion.
+  ba-videoplayer-controlbar.close-tracks: Close CC
+  ba-videoplayer-controlbar.show-tracks: Show CC
   ba-videorecorder.orientation-portrait-required: Please rotate your device to record in portrait mode.
   ba-videorecorder.orientation-landscape-required: Please rotate your device to record in landscape mode.

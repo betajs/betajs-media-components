@@ -88,6 +88,13 @@
     @include align-full-bottom();
 }
 
+@mixin absolute-align-full-bottom-above-control-bar($ctrlbar_height) {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: $ctrlbar_height;
+}
+
 @mixin absolute-align-full-top() {
     position: absolute;
     @include align-full-top();
@@ -207,7 +214,7 @@
     transition: visibility 0s, opacity #{$time}s linear;
 }
 
-@mixin show-slow($time){
+@mixin show-slow($time) {
     visibility: visible;
     opacity: 1;
     transition: visibility 0s, opacity #{$time}s linear;

@@ -5,13 +5,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
     "browser:Dom",
     "module:Assets",
     "browser:Info",
-    "media:Player.Support"
+    "media:Player.Support",
+    "base:Async"
 ], [
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.ShowPartial",
     "dynamics:Partials.IfPartial",
     "dynamics:Partials.ClickPartial"
-], function(Class, TimeFormat, Comparators, Dom, Assets, Info, PlayerSupport, scoped) {
+], function(Class, TimeFormat, Comparators, Dom, Assets, Info, PlayerSupport, Async, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -34,7 +35,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     "fullscreen": true,
                     "fullscreened": false,
                     "activitydelta": 0,
-                    "title": ""
+                    "title": "",
+                    "tracktextvisible": false // Are subtitles visible?
                 },
 
                 computed: {
@@ -190,8 +192,18 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         if (dynamic.player._broadcastingState.airplayConnected) {
                             dynamic._broadcasting.lookForAirplayDevices(dynamic.player._element);
                         }
-                    }
+                    },
 
+                    toggle_tracks: function() {
+                        return this.parent().toggleTrackTags(!this.get('tracktextvisible'), this.parent().player._element);
+                    },
+
+                    hover_cc: function(hover) {
+                        Async.eventually(function() {
+                            this.parent().set("tracksshowselection", hover);
+                        }, this, 300);
+                        var _dyn = this.__parent;
+                    }
                 },
 
                 create: function() {
@@ -217,6 +229,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
             "volume-mute": "Mute sound",
             "volume-unmute": "Unmute sound",
             "change-resolution": "Change resolution",
-            "exit-fullscreen-video": "Exit fullscreen"
+            "exit-fullscreen-video": "Exit fullscreen",
+            "close-tracks": "Close CC",
+            "show-tracks": "Show CC"
         });
 });

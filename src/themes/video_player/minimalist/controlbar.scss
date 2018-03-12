@@ -268,7 +268,7 @@
 
 .#{$css}-stream-label {
     margin-top: 15px;
-    font-size: .7em;
+    font-size: $icon_size;
     display: inline-block;
     padding: 4px 3px 3px 4px;
     background-color: $stream_label_bg_color;
@@ -374,5 +374,35 @@
     svg path {
         fill: #ffffff;
         text-shadow: 0 0 4px #000000;
+    }
+}
+
+.#{$css}-cc-button-container {
+    @include clickable();
+    bottom: 4px;
+    float: right;
+    padding: 0 5px 2px 3px;
+    position: relative;
+    .#{$css}-button-inner {
+        line-height: $button_width;
+        height: $button_width;
+        width: $button_width;
+    }
+    .#{$css}-icon-subtitle {
+        font-size: $icon_size;
+    }
+}
+
+.#{$css}-cc-inactive {
+    background-color: #979797;
+    .#{$css}-icon-subtitle {
+        color: #ffffff;
+    }
+}
+
+.#{$css}-cc-active {
+    background: #000000;
+    .#{$css}-icon-subtitle {
+        color: #eeeeee;
     }
 }

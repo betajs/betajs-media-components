@@ -233,3 +233,16 @@
     }
 }
 
+.#{$css}-cc-inactive {
+    background-color: transparent;
+    .#{$css}-icon-subtitle {
+        color: #ffffff;
+    }
+}
+
+.#{$css}-cc-active {
+    background: #000000;
+    .#{$css}-icon-subtitle {
+        color: #eeeeee;
+    }
+}

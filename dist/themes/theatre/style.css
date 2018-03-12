@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.90 - 2018-03-11
+betajs-media-components - v0.0.91 - 2018-03-12
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -503,6 +503,31 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e813'; }
 
+.ba-videoplayer-theatre-theme-icon-cc:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e815'; }
+
 .ba-videoplayer-theatre-theme-icon-twitter:before {
   font-family: "bjsmc";
   font-style: normal;
@@ -702,6 +727,31 @@ Apache-2.0 Software License.
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\f144'; }
+
+.ba-videoplayer-theatre-theme-icon-subtitle:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f20a'; }
 
 .ba-videoplayer-theatre-theme-icon-facebook-official:before {
   font-family: "bjsmc";
@@ -1127,42 +1177,48 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-video-title, .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-icon-play, .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-icon-pause,
 .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-button-inner, .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-icon-resize-full,
-.ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-icon-volume-up, .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-icon-volume-down, .ba-videoplayer-theatre-theme-red-color.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-icon-share, .ba-videoplayer-theatre-theme-red-color.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-button-inner {
+.ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-icon-volume-up, .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-icon-volume-down, .ba-videoplayer-theatre-theme-red-color.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-icon-share, .ba-videoplayer-theatre-theme-red-color.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-button-inner, .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-cc-inactive .ba-videoplayer-theatre-theme-icon-subtitle {
   color: #eb6a74; }
 .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-stream-label-container .ba-videoplayer-theatre-theme-stream-label, .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-progressbar-position,
-.ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-volumebar-position, .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-rerecord-button {
+.ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-volumebar-position, .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-rerecord-button, .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-cc-active {
   background-color: #eb6a74; }
 .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-volumebar-inner {
   background-color: #7f7f7f;
   background-color: rgba(255, 255, 255, 0.3); }
 .ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-airplay-container svg path {
   fill: #eb6a74; }
+.ba-videoplayer-theatre-theme-red-color .ba-videoplayer-theatre-theme-cc-active .ba-videoplayer-theatre-theme-icon-subtitle {
+  color: #eeeeee; }
 
 .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-video-title, .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-icon-play, .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-icon-pause,
 .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-button-inner, .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-icon-resize-full,
-.ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-icon-volume-up, .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-icon-volume-down, .ba-videoplayer-theatre-theme-blue-color.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-icon-share, .ba-videoplayer-theatre-theme-blue-color.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-button-inner {
+.ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-icon-volume-up, .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-icon-volume-down, .ba-videoplayer-theatre-theme-blue-color.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-icon-share, .ba-videoplayer-theatre-theme-blue-color.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-button-inner, .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-cc-inactive .ba-videoplayer-theatre-theme-icon-subtitle {
   color: #2a74eb; }
 .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-stream-label-container .ba-videoplayer-theatre-theme-stream-label, .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-progressbar-position,
-.ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-volumebar-position, .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-rerecord-button {
+.ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-volumebar-position, .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-rerecord-button, .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-cc-active {
   background-color: #2a74eb; }
 .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-volumebar-inner {
   background-color: #7f7f7f;
   background-color: rgba(255, 255, 255, 0.3); }
 .ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-airplay-container svg path {
   fill: #2a74eb; }
+.ba-videoplayer-theatre-theme-blue-color .ba-videoplayer-theatre-theme-cc-active .ba-videoplayer-theatre-theme-icon-subtitle {
+  color: #eeeeee; }
 
 .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-video-title, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-icon-play, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-icon-pause,
 .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-button-inner, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-icon-resize-full,
-.ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-icon-volume-up, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-icon-volume-down, .ba-videoplayer-theatre-theme-green-color.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-icon-share, .ba-videoplayer-theatre-theme-green-color.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-button-inner {
+.ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-icon-volume-up, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-icon-volume-down, .ba-videoplayer-theatre-theme-green-color.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-icon-share, .ba-videoplayer-theatre-theme-green-color.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-button-inner, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-cc-inactive .ba-videoplayer-theatre-theme-icon-subtitle {
   color: #5daa96; }
 .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-stream-label-container .ba-videoplayer-theatre-theme-stream-label, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-progressbar-position,
-.ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-volumebar-position, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-rerecord-button {
+.ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-volumebar-position, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-rerecord-button, .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-cc-active {
   background-color: #5daa96; }
 .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-volumebar-inner {
   background-color: #7f7f7f;
   background-color: rgba(255, 255, 255, 0.3); }
 .ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-airplay-container svg path {
   fill: #5daa96; }
+.ba-videoplayer-theatre-theme-green-color .ba-videoplayer-theatre-theme-cc-active .ba-videoplayer-theatre-theme-icon-subtitle {
+  color: #eeeeee; }
 
 /* Theatre */
 .ba-videoplayer-theatre-theme-overlay div[tabindex] {
@@ -1234,7 +1290,7 @@ Apache-2.0 Software License.
   padding-right: 6px; }
   .ba-videoplayer-theatre-theme-right-block > div {
     float: right;
-    height: 28px;
+    height: 25px;
     line-height: 25px;
     text-align: center; }
   .ba-videoplayer-theatre-theme-right-block > div:first-child {
@@ -1510,6 +1566,22 @@ Apache-2.0 Software License.
   .ba-videoplayer-theatre-theme-airplay-container svg path {
     fill: #666666; }
 
+.ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-cc-button-container {
+  width: 30px; }
+
+.ba-videoplayer-theatre-theme-cc-button-container {
+  padding: 1px 1px 0 0; }
+
+.ba-videoplayer-theatre-theme-cc-inactive {
+  background-color: transparent; }
+  .ba-videoplayer-theatre-theme-cc-inactive .ba-videoplayer-theatre-theme-icon-subtitle {
+    color: #666666; }
+
+.ba-videoplayer-theatre-theme-cc-active {
+  background: #000000; }
+  .ba-videoplayer-theatre-theme-cc-active .ba-videoplayer-theatre-theme-icon-subtitle {
+    color: #eeeeee; }
+
 /* Full screen options */
 .ba-videoplayer-theatre-theme-fullscreen-view video::-webkit-media-controls-overlay-enclosure {
   display: none; }
@@ -1738,6 +1810,62 @@ Apache-2.0 Software License.
     font-size: 14px;
     width: 45px;
     line-height: 45px; }
+
+.ba-videoplayer-theatre-theme-tracks-tags-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0; }
+
+.ba-videoplayer-theatre-theme-tracks-tags-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 40px; }
+
+.ba-videoplayer-theatre-theme-cue-content {
+  position: relative;
+  margin: auto;
+  background: #2c2c2c;
+  color: #eeeeee;
+  text-align: center;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  width: 60%; }
+
+.ba-videoplayer-theatre-theme-tracks-selector-list {
+  bottom: 0;
+  left: auto;
+  position: absolute;
+  right: 0;
+  top: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  z-index: 1; }
+
+.ba-videoplayer-theatre-theme-tracks-selector-list {
+  bottom: 3px;
+  right: 12.5%; }
+
+.ba-videoplayer-theatre-theme-tracks-selector {
+  padding: 5px 20px;
+  background: #020202;
+  color: #eeeeee;
+  cursor: pointer; }
+  .ba-videoplayer-theatre-theme-tracks-selector:hover {
+    background-color: #4c4c4c;
+    color: #ffffff; }
+
+.ba-videoplayer-theatre-theme-tracks-selector-list-open {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s, opacity 0.2s linear; }
+
+.ba-videoplayer-theatre-theme-tracks-selector-list-closed {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.2s linear; }
 
 .ba-videorecorder-theme-theatre-icon-volume-off:before {
   font-family: "bjsmc";
@@ -2239,6 +2367,31 @@ Apache-2.0 Software License.
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\e813'; }
 
+.ba-videorecorder-theme-theatre-icon-cc:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e815'; }
+
 .ba-videorecorder-theme-theatre-icon-twitter:before {
   font-family: "bjsmc";
   font-style: normal;
@@ -2438,6 +2591,31 @@ Apache-2.0 Software License.
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   content: '\f144'; }
+
+.ba-videorecorder-theme-theatre-icon-subtitle:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f20a'; }
 
 .ba-videorecorder-theme-theatre-icon-facebook-official:before {
   font-family: "bjsmc";

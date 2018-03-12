@@ -1,30 +1,5 @@
 <div class="{{css}}-chooser-container">
-
-    <div ba-show="{{isportrait && termsaccepted}}"
-		 data-selector="{{css}}-restriction-message-container"
-		 class="{{css}}-restriction-message-container"
-	>
-        <div ba-show="{{restrictionmessage}}" class="{{css}}-restriction-message">
-            {{restrictionmessage}}
-        </div>
-    </div>
-
-	<div ba-show="{{!termsaccepted}}" class="{{css}}-accept-term-container">
-		<div class="{{css}}-term-message-container">
-			<div data-selector="term-message-container"
-				 ba-show="{{termsmessage}}"
-				 class="{{css}}-terms-message">
-				{{termsmessage}}
-			</div>
-			<div data-selector="accept-terms-button"
-				 ba-click="{{accept_term()}}"
-				 class="{{css}}-accept-terms-button">
-				{{string('accept-term')}}
-			</div>
-		</div>
-	</div>
-
-	<div ba-show="{{termsaccepted && !isportrait}}" class="{{css}}-chooser-button-container" >
+	<div class="{{css}}-chooser-button-container">
 		<div ba-repeat="{{action :: actions}}">
 			<div class="{{css}}-chooser-button-{{action.index}}"
 			     ba-click="{{click_action(action)}}">

@@ -1,10 +1,10 @@
 /*!
-betajs-media-components - v0.0.88 - 2018-02-04
+betajs-media-components - v0.0.89 - 2018-03-11
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
 /** @flow **//*!
-betajs-scoped - v0.0.17 - 2017-10-22
+betajs-scoped - v0.0.17 - 2018-02-17
 Copyright (c) Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -476,7 +476,7 @@ function newNamespace (opts/* : {tree ?: boolean, global ?: boolean, root ?: Obj
 	function nodeUnresolvedWatchers(node/* : Node */, base, result) {
 		node = node || nsRoot;
 		result = result || [];
-		if (!node.ready)
+		if (!node.ready && node.lazy.length === 0 && node.watchers.length > 0)
 			result.push(base);
 		for (var k in node.children) {
 			var c = node.children[k];
@@ -1009,7 +1009,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.88 - 2018-02-04
+betajs-media-components - v0.0.89 - 2018-03-11
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1025,7 +1025,7 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.88"
+    "version": "0.0.89"
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -4807,7 +4807,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
         }, function(inherited) {
             return {
 
-                template: "\n<div class=\"{{css}}-chooser-container\">\n\t<div class=\"{{css}}-chooser-button-container\">\n\t\t<div ba-repeat=\"{{action :: actions}}\">\n\t\t\t<div class=\"{{css}}-chooser-button-{{action.index}}\"\n\t\t\t     ba-click=\"{{click_action(action)}}\">\n\t\t\t\t<input ba-if=\"{{action.select && action.capture}}\"\n\t\t\t\t\t   type=\"file\"\n\t\t\t\t\t   class=\"{{css}}-chooser-file\"\n\t\t\t\t\t   onchange=\"{{select_file_action(action, domEvent)}}\"\n\t\t\t\t\t   accept=\"{{action.accept}}\"\n\t\t\t\t\t   capture />\n\t\t\t\t<input ba-if=\"{{action.select && !action.capture}}\"\n\t\t\t\t\t   type=\"file\"\n\t\t\t\t\t   class=\"{{css}}-chooser-file\"\n\t\t\t\t\t   onchange=\"{{select_file_action(action, domEvent)}}\"\n\t\t\t\t\t   accept=\"{{action.accept}}\"\n\t\t\t\t\t   />\n\t\t\t\t<i class=\"{{css}}-icon-{{action.icon}}\"\n\t\t\t\t   ba-if=\"{{action.icon}}\"></i>\n\t\t\t\t<span>\n\t\t\t\t\t{{action.label}}\n\t\t\t\t</span>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>\n",
+                template: "<div class=\"{{css}}-chooser-container\">\n\t<div class=\"{{css}}-chooser-button-container\">\n\t\t<div ba-repeat=\"{{action :: actions}}\">\n\t\t\t<div class=\"{{css}}-chooser-button-{{action.index}}\"\n\t\t\t     ba-click=\"{{click_action(action)}}\">\n\t\t\t\t<input ba-if=\"{{action.select && action.capture}}\"\n\t\t\t\t\t   type=\"file\"\n\t\t\t\t\t   class=\"{{css}}-chooser-file\"\n\t\t\t\t\t   onchange=\"{{select_file_action(action, domEvent)}}\"\n\t\t\t\t\t   accept=\"{{action.accept}}\"\n\t\t\t\t\t   capture />\n\t\t\t\t<input ba-if=\"{{action.select && !action.capture}}\"\n\t\t\t\t\t   type=\"file\"\n\t\t\t\t\t   class=\"{{css}}-chooser-file\"\n\t\t\t\t\t   onchange=\"{{select_file_action(action, domEvent)}}\"\n\t\t\t\t\t   accept=\"{{action.accept}}\"\n\t\t\t\t\t   />\n\t\t\t\t<i class=\"{{css}}-icon-{{action.icon}}\"\n\t\t\t\t   ba-if=\"{{action.icon}}\"></i>\n\t\t\t\t<span>\n\t\t\t\t\t{{action.label}}\n\t\t\t\t</span>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>\n",
 
                 attrs: {
                     "css": "ba-videorecorder",
@@ -4838,6 +4838,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
                     } else if (!this.get("allowcustomupload")) {
                         custom_accept_string = "video/*,video/mp4";
                     }
+
                     var order = [];
                     if (this.get("primaryrecord")) {
                         if (this.get("allowrecord"))
@@ -5425,6 +5426,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "allowcancel": false,
                     "recordings": null,
                     "ready": true,
+                    "orientation": false,
                     "stretch": false
 
                 },
@@ -5493,7 +5495,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 remove_on_destroy: true,
 
                 create: function() {
-
                     if (this.get("theme") in Assets.recorderthemes) {
                         Objs.iter(Assets.recorderthemes[this.get("theme")], function(value, key) {
                             if (!this.isArgumentAttr(key))
@@ -5538,8 +5539,11 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     if (this.get("onlyaudio")) {
                         this.set("picksnapshots", false);
                         this.set("allowupload", false);
+                        this.set("orientation", false);
                     }
-
+                    if (!Info.isMobile())
+                        this.set("orientation", false);
+                    this.set("currentorientation", window.innerHeight > window.innerWidth ? "portrait" : "landscape");
                 },
 
                 state: function() {
@@ -5911,6 +5915,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 _timerFire: function() {
                     if (this.destroyed())
                         return;
+                    this.set("currentorientation", window.innerHeight > window.innerWidth ? "portrait" : "landscape");
                     try {
                         if (this.recorderAttached() && this.get("devicetesting")) {
                             var lightLevel = this.lightLevel();
@@ -6044,7 +6049,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
             "rerecord-confirm": "Do you really want to redo your video?",
             "cancel-confirm": "Do you really want to cancel your video upload?",
             "video_file_too_large": "Your video file is too large (%s) - click here to try again with a smaller video file.",
-            "unsupported_video_type": "Please upload: %s - click here to retry."
+            "unsupported_video_type": "Please upload: %s - click here to retry.",
+            "orientation-portrait-required": "Please rotate your device to record in portrait mode.",
+            "orientation-landscape-required": "Please rotate your device to record in landscape mode."
         });
 });
 Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.State", [
@@ -6203,6 +6210,20 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
     }, {
 
         dynamics: ["chooser"],
+
+        _started: function() {
+            this.listenOn(this.dyn, "change:orientation change:currentorientation", function() {
+                var orientation = this.dyn.get("orientation");
+                var currentorientation = this.dyn.get("currentorientation");
+                var result = orientation && orientation !== currentorientation;
+                if (result)
+                    this.dyn.set("message", this.dyn.string("orientation-" + orientation + "-required"));
+                this.dyn.set("message_active", result);
+                this.dyn.set("chooser_active", !result);
+            }, this, {
+                initcall: true
+            });
+        },
 
         record: function() {
             this.dyn.set("autorecord", true);
@@ -6577,6 +6598,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
                 this._timer.stop();
                 this.stop();
             }
+
         },
 
         stop: function() {

@@ -2,7 +2,6 @@
   @if $color != default {
     .#{$css}-#{$color}-color {
 
-
       .#{$css}-button-circle-selected, .#{$css}-button-inner:hover,
       .#{$css}-button-selected, .#{$css}-loader-label {
         color: $value;

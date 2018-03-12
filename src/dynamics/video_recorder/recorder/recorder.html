@@ -6,7 +6,7 @@
      ba-styles="{{widthHeightStyles}}"
 >
 
-    <video data-selector="recorder-status" class="{{css}}-video {{css}}-{{hasrecorder ? 'hasrecorder' : 'norecorder'}}" data-video="video"></video>
+    <video tabindex="-1" data-selector="recorder-status" class="{{css}}-video {{css}}-{{hasrecorder ? 'hasrecorder' : 'norecorder'}}" data-video="video"></video>
 	<ba-recorderfaceoutline class="{{css}}-overlay" ba-if="{{faceoutline && hasrecorder}}">
 	</ba-recorderfaceoutline>
     <div data-selector="recorder-overlay" class='{{css}}-overlay' ba-show="{{!hideoverlay}}" data-overlay="overlay">

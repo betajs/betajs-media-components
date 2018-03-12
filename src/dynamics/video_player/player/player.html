@@ -6,9 +6,15 @@
     ba-on:touchstart="{{user_activity(true)}}"
 	ba-styles="{{widthHeightStyles}}"
 >
-    <video class="{{css}}-video" data-video="video" ba-toggle:playsinline="{{!playfullscreenonmobile}}"></video>
+    <video tabindex="-1" class="{{css}}-video" data-video="video"
+		   ba-toggle:playsinline="{{!playfullscreenonmobile}}"></video>
     <div class="{{css}}-overlay">
-		<div class="{{css}}-player-toggle-overlay" ba-on:click="{{toggle_player()}}"></div>
+		<div tabindex="0" class="{{css}}-player-toggle-overlay"
+			 ba-hotkey:right="{{seek(position + skipseconds)}}" ba-hotkey:left="{{seek(position - skipseconds)}}"
+			 ba-hotkey:up="{{set_volume(volume + 0.1)}}" ba-hotkey:down="{{set_volume(volume - 0.1)}}"
+			 ba-hotkey:space^enter="{{toggle_player()}}"
+			 ba-on:click="{{toggle_player()}}">
+		</div>
 	    <ba-{{dyncontrolbar}}
 		    ba-css="{{csscontrolbar || css}}"
 			ba-themecolor="{{themecolor}}"
@@ -27,6 +33,9 @@
 		    ba-event:position="seek"
 		    ba-event:volume="set_volume"
 		    ba-event:fullscreen="toggle_fullscreen"
+			ba-event:toggle_player="toggle_player"
+			ba-event:seek="seek"
+			ba-event:set_volume="set_volume"
 		    ba-volume="{{volume}}"
 		    ba-duration="{{duration}}"
 		    ba-cached="{{buffered}}"
@@ -43,6 +52,7 @@
             ba-source="{{source}}"
 			ba-disablepause="{{disablepause}}"
 			ba-disableseeking="{{disableseeking}}"
+			ba-skipseconds="{{skipseconds}}"
 		></ba-{{dyncontrolbar}}>
 		
 		<ba-{{dynplaybutton}}

@@ -26,7 +26,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "dynamics:Partials.OnPartial",
     "dynamics:Partials.TogglePartial",
     "dynamics:Partials.StylesPartial",
-    "dynamics:Partials.TemplatePartial"
+    "dynamics:Partials.TemplatePartial",
+    "dynamics:Partials.HotkeyPartial"
 ], function(Class, Assets, Info, Dom, VideoPlayerWrapper, Broadcasting, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
@@ -113,6 +114,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "airplaydevicesavailable": false,
                     "chromecast": false,
                     "castbuttonvisble": false,
+                    "skipseconds": 5,
 
                     /* States */
                     "states": {
@@ -153,7 +155,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "airplay": "boolean",
                     "airplaybuttonvisible": "boolean",
                     "chromecast": "boolean",
-                    "castbuttonvisble": "boolean"
+                    "castbuttonvisble": "boolean",
+                    "skipseconds": "integer"
                 },
 
                 extendables: ["states"],

@@ -311,18 +311,6 @@ module.exports = function(grunt) {
     .codeclimateTask()
     .githookTask(null, "pre-commit", "check-node")
 
-    /* Dependencies */
-    .dependenciesTask(null, { github: [
-        'betajs/betajs-scoped/dist/scoped.js',
-        'betajs/betajs/dist/beta-noscoped.js',
-        'betajs/betajs-browser/dist/betajs-browser-noscoped.js',
-        'betajs/betajs-flash/dist/betajs-flash-noscoped.js',
-        'betajs/betajs-flash/dist/betajs-flash.swf',
-        'betajs/betajs-media/dist/betajs-media-noscoped.js',
-        'betajs/betajs-dynamics/dist/betajs-dynamics-noscoped.js',
-        'betajs/betajs-shims/dist/betajs-shims.js'
-     ] })
-
     /* Markdown Files */
 	.readmeTask()
     .licenseTask()

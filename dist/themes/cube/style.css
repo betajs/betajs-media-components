@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.89 - 2018-03-11
+betajs-media-components - v0.0.90 - 2018-03-11
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1169,6 +1169,35 @@ Apache-2.0 Software License.
   background-color: rgba(255, 255, 255, 0.3); }
 .ba-videoplayer-cube-theme-green-color .ba-videoplayer-cube-theme-airplay-container svg path {
   fill: #5daa96; }
+
+.ba-videoplayer-cube-theme-overlay div[tabindex] {
+  transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out; }
+
+.ba-videoplayer-cube-theme-overlay div[tabindex]:focus {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=12, Direction=90, Color=#1b7fcc)";
+  /*IE 8*/
+  -moz-box-shadow: inset 0 0 10px #1b7fcc;
+  /*FF 3.5+*/
+  -webkit-box-shadow: inset 0 0 10px #1b7fcc;
+  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: inset 0 0 10px #1b7fcc;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  outline: 1px dotted #1b7fcc; }
+
+.ba-videoplayer-cube-theme-overlay div.ba-videoplayer-cube-theme-player-toggle-overlay:focus {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=12, Direction=90, Color=#000000)";
+  /*IE 8*/
+  -moz-box-shadow: inset 0 0 1px #000000;
+  /*FF 3.5+*/
+  -webkit-box-shadow: inset 0 0 1px #000000;
+  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: inset 0 0 1px #000000;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  outline: none; }
 
 .ba-videoplayer-cube-theme-dashboard {
   position: absolute;
@@ -2618,6 +2647,24 @@ div.ba-videorecorder-theme-cube-disabled {
   color: #eeeeee;
   font-size: 13px; }
 
+.ba-videorecorder-theme-cube-overlay div[tabindex] {
+  transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out; }
+
+.ba-videorecorder-theme-cube-overlay div[tabindex]:focus {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=12, Direction=90, Color=#1b7fcc)";
+  /*IE 8*/
+  -moz-box-shadow: inset 0 0 10px #1b7fcc;
+  /*FF 3.5+*/
+  -webkit-box-shadow: inset 0 0 10px #1b7fcc;
+  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: inset 0 0 10px #1b7fcc;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  outline: 1px dotted #1b7fcc; }
+
 .ba-videorecorder-theme-cube-dashboard {
   position: absolute;
   left: 0;
@@ -2914,6 +2961,24 @@ div.ba-videorecorder-theme-cube-disabled {
 
 .ba-videorecorder-theme-cube-overlay {
   top: 0; }
+
+.ba-videorecorder-theme-cube-overlay div[tabindex] {
+  transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out; }
+
+.ba-videorecorder-theme-cube-overlay div[tabindex]:focus {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=12, Direction=90, Color=#1b7fcc)";
+  /*IE 8*/
+  -moz-box-shadow: inset 0 0 10px #1b7fcc;
+  /*FF 3.5+*/
+  -webkit-box-shadow: inset 0 0 10px #1b7fcc;
+  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: inset 0 0 10px #1b7fcc;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  outline: 1px dotted #1b7fcc; }
 
 .ba-videorecorder-theme-cube-dashboard {
   position: absolute;

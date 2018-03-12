@@ -6,7 +6,8 @@
 			<i class="{{css}}-icon-{{actions.first().get('icon')}}"></i>
 		</div>
 		<div ba-repeat="{{action :: actions}}">
-			<div class="{{css}}-chooser-button-{{action.index}}"
+			<div tabindex="0" ba-hotkey:space^enter="{{click_action(action)}}"
+				 class="{{css}}-chooser-button-{{action.index}}"
 				 ba-click="{{click_action(action)}}">
 				<input ba-if="{{action.select && action.capture}}"
 					   type="file"

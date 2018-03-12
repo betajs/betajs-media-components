@@ -140,6 +140,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         this.trigger("pause");
                     },
 
+                    toggle_player: function() {
+                        this.trigger("toggle_player");
+                    },
+
                     toggle_volume: function() {
                         if (this.get("volume") > 0) {
                             this.__oldVolume = this.get("volume");
@@ -155,6 +159,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 
                     rerecord: function() {
                         this.trigger("rerecord");
+                    },
+
+                    seek: function(position) {
+                        this.trigger("seek", position);
+                    },
+
+                    set_volume: function(volume) {
+                        this.trigger("set_volume", volume);
                     },
 
                     submit: function() {

@@ -195,7 +195,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     },
 
                     toggle_tracks: function() {
-                        return this.parent().toggleTrackTags(!this.get('tracktextvisible'), this.parent().player._element);
+                        return this.parent().toggleTrackTags(!this.get('tracktextvisible'));
                     },
 
                     hover_cc: function(hover) {

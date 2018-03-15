@@ -9,7 +9,7 @@
     <video tabindex="-1" class="{{css}}-video" data-video="video"
 		   ba-toggle:playsinline="{{!playfullscreenonmobile}}"></video>
     <div class="{{css}}-overlay">
-		<div tabindex="0" class="{{css}}-player-toggle-overlay"
+		<div tabindex="-1" class="{{css}}-player-toggle-overlay"
 			 ba-hotkey:right="{{seek(position + skipseconds)}}" ba-hotkey:left="{{seek(position - skipseconds)}}"
 			 ba-hotkey:up="{{set_volume(volume + 0.1)}}" ba-hotkey:down="{{set_volume(volume - 0.1)}}"
 			 ba-hotkey:space^enter="{{toggle_player()}}"

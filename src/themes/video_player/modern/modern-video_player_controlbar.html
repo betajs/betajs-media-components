@@ -80,7 +80,10 @@
 		<button tabindex="0" class="{{css}}-gcast-button" is="google-cast-button"></button>
 	</div>
 
-	<div data-selector="button-stream-label" class="{{css}}-rightbutton-container" ba-if="{{streams.length > 1 && currentstream}}" ba-click="{{toggle_stream()}}" title="{{string('change-resolution')}}">
+	<div tabindex="0" ba-hotkey:space^enter="{{toggle_stream()}}"  data-selector="button-stream-label"
+		 class="{{css}}-rightbutton-container" ba-if="{{streams.length > 1 && currentstream}}"
+		 ba-click="{{toggle_stream()}}" title="{{string('change-resolution')}}"
+	>
 		<div class="{{css}}-button-inner">
 			<span class="{{css}}-button-text">{{currentstream_label}}</span>
 		</div>

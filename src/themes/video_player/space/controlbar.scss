@@ -2,16 +2,6 @@
     @include transition1(all, 0.30s, ease-in-out);
 }
 
-.#{$css}-overlay div[tabindex]:focus {
-    @include inner-box-shadow($focus_button_color, 10);
-    outline: 1px dotted $focus_button_color;
-}
-
-.#{$css}-overlay div.#{$css}-player-toggle-overlay:focus {
-    @include inner-box-shadow($focus_overlay_color, 1);
-    outline: none;
-}
-
 .#{$css}-video-title-container {
     @include absolute-align-full-top();
     @include background-rgba(0, 0, 0, 0.2, #cecece);

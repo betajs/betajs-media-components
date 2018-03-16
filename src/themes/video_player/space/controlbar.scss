@@ -2,6 +2,10 @@
     @include transition1(all, 0.30s, ease-in-out);
 }
 
+.#{$css}-overlay div[tabindex]:hover:focus {
+    @include remove-outline;
+}
+
 .#{$css}-video-title-container {
     @include absolute-align-full-top();
     @include background-rgba(0, 0, 0, 0.2, #cecece);

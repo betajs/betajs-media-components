@@ -3,6 +3,10 @@
     @include transition1(all, 0.30s, ease-in-out);
 }
 
+.#{$css}-overlay div[tabindex]:hover:focus {
+    @include remove-outline;
+}
+
 .#{$css}-dashboard {
     @include transition1(opacity, $dashboard_transition, ease-in-out);
     position: absolute;

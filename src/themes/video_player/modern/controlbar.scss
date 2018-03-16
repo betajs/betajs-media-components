@@ -1,6 +1,9 @@
 .#{$css}-overlay div[tabindex] {
     @include transition1(all, 0.30s, ease-in-out);
 }
+.#{$css}-overlay div[tabindex]:hover:focus {
+    @include remove-outline;
+}
 
 .#{$css}-dashboard {
     @include absolute-align-full-bottom;

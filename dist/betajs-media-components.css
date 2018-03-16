@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.92 - 2018-03-13
+betajs-media-components - v0.0.93 - 2018-03-16
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1072,28 +1072,6 @@ Apache-2.0 Software License.
   -webkit-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
   -ms-transition: all 0.3s ease-in-out; }
-
-.ba-videoplayer-overlay div[tabindex]:focus, .ba-videoplayer-overlay span[tabindex]:focus {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=12, Direction=90, Color=#1b7fcc)";
-  /*IE 8*/
-  -moz-box-shadow: inset 0 0 10px #1b7fcc;
-  /*FF 3.5+*/
-  -webkit-box-shadow: inset 0 0 10px #1b7fcc;
-  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
-  box-shadow: inset 0 0 10px #1b7fcc;
-  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
-  outline: 1px dotted #1b7fcc; }
-
-.ba-videoplayer-overlay div.ba-videoplayer-player-toggle-overlay:focus {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=12, Direction=90, Color=#000000)";
-  /*IE 8*/
-  -moz-box-shadow: inset 0 0 1px #000000;
-  /*FF 3.5+*/
-  -webkit-box-shadow: inset 0 0 1px #000000;
-  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
-  box-shadow: inset 0 0 1px #000000;
-  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
-  outline: none; }
 
 .ba-videoplayer-dashboard {
   position: absolute;
@@ -2737,17 +2715,6 @@ Apache-2.0 Software License.
   -webkit-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
   -ms-transition: all 0.3s ease-in-out; }
-
-.ba-videorecorder-overlay div[tabindex]:focus {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=12, Direction=90, Color=#1b7fcc)";
-  /*IE 8*/
-  -moz-box-shadow: inset 0 0 10px #1b7fcc;
-  /*FF 3.5+*/
-  -webkit-box-shadow: inset 0 0 10px #1b7fcc;
-  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
-  box-shadow: inset 0 0 10px #1b7fcc;
-  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
-  outline: 1px dotted #1b7fcc; }
 
 .ba-videorecorder-dashboard {
   position: absolute;

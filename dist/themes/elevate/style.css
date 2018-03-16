@@ -1225,6 +1225,11 @@ Apache-2.0 Software License.
   -o-transition: all 0.3s ease-in-out;
   -ms-transition: all 0.3s ease-in-out; }
 
+.ba-videoplayer-elevate-theme-overlay div[tabindex]:hover:focus {
+  outline: 0;
+  border: none;
+  -moz-outline-style: none; }
+
 .ba-videoplayer-elevate-theme-dashboard {
   transition: opacity 0.5s ease-in-out;
   -moz-transition: opacity 0.5s ease-in-out;
@@ -2905,6 +2910,11 @@ div.ba-videorecorder-theme-elevate-disabled {
   -o-transition: all 0.3s ease-in-out;
   -ms-transition: all 0.3s ease-in-out; }
 
+.ba-videorecorder-theme-elevate-overlay div[tabindex]:hover:focus {
+  outline: 0;
+  border: none;
+  -moz-outline-style: none; }
+
 .ba-videorecorder-theme-elevate-dashboard {
   position: absolute;
   left: 0;
@@ -3213,6 +3223,11 @@ div.ba-videorecorder-theme-elevate-disabled {
   -webkit-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
   -ms-transition: all 0.3s ease-in-out; }
+
+.ba-videorecorder-theme-elevate-overlay div[tabindex]:hover:focus {
+  outline: 0;
+  border: none;
+  -moz-outline-style: none; }
 
 .ba-videorecorder-theme-elevate-dashboard {
   position: absolute;

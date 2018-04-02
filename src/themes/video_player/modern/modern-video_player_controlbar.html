@@ -22,7 +22,8 @@
     	</div>
     </div>
 
-	<div tabindex="0" ba-hotkey:space^enter="{{play()}}"
+	<div tabindex="{{skipinitial ? 0 : 1}}" ba-hotkey:space^enter="{{play()}}"
+		 onkeydown="{{tab_index_move(domEvent, null, 'button-icon-pause')}}"
 		 data-selector="button-icon-play" class="{{css}}-leftbutton-container"
 		 ba-if="{{!playing}}" ba-click="{{play()}}" title="{{string('play-video')}}">
 		<div class="{{css}}-button-inner">
@@ -30,7 +31,8 @@
 		</div>
 	</div>
 
-	<div tabindex="0" ba-hotkey:space^enter="{{pause()}}"
+	<div tabindex="{{skipinitial ? 0 : 1}}" ba-hotkey:space^enter="{{pause()}}"
+		 onkeydown="{{tab_index_move(domEvent, null, 'button-icon-play')}}"
 		 data-selector="button-icon-pause" class="{{css}}-leftbutton-container {{disablepause ? css + '-disabled' : ''}}"
 		 ba-if="{{playing}}" ba-click="{{pause()}}" title="{{disablepause ? string('pause-video-disabled') : string('pause-video')}}">
 		<div class="{{css}}-button-inner">
@@ -41,7 +43,8 @@
 		<div class="{{css}}-time-value" title="{{string('elapsed-time')}}">{{formatTime(position)}}/{{formatTime(duration || position)}}</div>
 	</div>
 
-	<div data-selector="cc-button-container" ba-if="{{tracktags.length > 0 && tracktagssupport}}"
+	<div tabindex="9" data-selector="cc-button-container"
+		 ba-if="{{tracktags.length > 0 && tracktagssupport}}"
 		 class="{{css}}-rightbutton-container  {{css}}-cc-{{tracktextvisible ? 'active' : 'inactive'}}"
 		 title="{{ tracktextvisible ? string('close-tracks') : string('show-tracks')}}"
 		 ba-click="{{toggle_tracks()}}"
@@ -54,7 +57,8 @@
 	</div>
 
 
-	<div tabindex="0" ba-hotkey:space^enter="{{toggle_fullscreen()}}"
+	<div tabindex="8" ba-hotkey:space^enter="{{toggle_fullscreen()}}"
+		 onkeydown="{{tab_index_move(domEvent)}}"
 		 data-selector="button-icon-resize-full" class="{{css}}-rightbutton-container"
 		ba-if="{{fullscreen}}" ba-click="{{toggle_fullscreen()}}" title="{{ fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video') }}" >
 		<div class="{{css}}-button-inner {{css}}-full-screen-btn-inner">
@@ -62,7 +66,7 @@
 		</div>
 	</div>
 
-	<div tabindex="0" ba-hotkey:space^enter="{{show_airplay_devices()}}"
+	<div tabindex="7" ba-hotkey:space^enter="{{show_airplay_devices()}}"
 		 data-selector="button-airplay" class="{{css}}-rightbutton-container {{css}}-airplay-container" ba-show="{{airplaybuttonvisible}}"
 		 ba-click="{{show_airplay_devices()}}">
 		<svg width="16px" height="11px" viewBox="0 0 16 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -77,10 +81,10 @@
 	</div>
 
 	<div data-selector="button-chromecast" class="{{css}}-rightbutton-container {{css}}-cast-button-container" ba-show="{{castbuttonvisble}}">
-		<button tabindex="0" class="{{css}}-gcast-button" is="google-cast-button"></button>
+		<button tabindex="6" class="{{css}}-gcast-button" is="google-cast-button"></button>
 	</div>
 
-	<div tabindex="0" ba-hotkey:space^enter="{{toggle_stream()}}"  data-selector="button-stream-label"
+	<div tabindex="5" ba-hotkey:space^enter="{{toggle_stream()}}"  data-selector="button-stream-label"
 		 class="{{css}}-rightbutton-container" ba-if="{{streams.length > 1 && currentstream}}"
 		 ba-click="{{toggle_stream()}}" title="{{string('change-resolution')}}"
 	>
@@ -90,7 +94,7 @@
 	</div>
 
 	<div class="{{css}}-volumebar">
-		<div tabindex="0"
+		<div tabindex="4"
 			 ba-hotkey:right="{{set_volume(volume + 0.1)}}"
 			 ba-hotkey:left="{{set_volume(volume - 0.1)}}"
 			 data-selector="button-volume-bar" class="{{css}}-volumebar-inner"
@@ -102,7 +106,7 @@
 		</div>
 	</div>
 
-	<div tabindex="0" ba-hotkey:space^enter="{{toggle_volume()}}"
+	<div tabindex="3" ba-hotkey:space^enter="{{toggle_volume()}}"
 		 data-selector="button-icon-volume" class="{{css}}-rightbutton-container {{css}}-volume-button-container"
 		 ba-click="{{toggle_volume()}}" title="{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}">
 		<div class="{{css}}-button-inner">
@@ -111,7 +115,7 @@
 	</div>
 
 	<div class="{{css}}-progressbar {{disableseeking ? css + '-disabled' : ''}}">
-		<div tabindex="0"
+		<div tabindex="2"
 			 ba-hotkey:right="{{seek(position + skipseconds)}}"
 			 ba-hotkey:left="{{seek(position - skipseconds)}}"
 			 data-selector="progress-bar-inner" class="{{css}}-progressbar-inner"

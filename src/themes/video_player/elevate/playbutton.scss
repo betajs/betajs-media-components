@@ -1,17 +1,26 @@
 
 .#{$cssnoie8} .#{$css}-playbutton-container {
-  @include absolute-center-center;
-  @include border-rgba($playbutton_frame_thickness, 255, 255, 255, $playbutton_default_opacity, #999);
-  @include box-shadow($cover_playbutton_shadow, 22);
-  @include transition1(all, $playbutton_transition_time, ease-in-out);
-  @include transform-translate(-50%, -50%);
-  border-radius: 50%;
-  box-sizing: content-box;
-  cursor: pointer;
-  font-size: $playbutton_font_size;
-  height: 10em;
-  text-align: center;
-  width: 10em;
+    @include absolute-center-center;
+    @include border-rgba($playbutton_frame_thickness, 255, 255, 255, $playbutton_default_opacity, #999);
+    @include box-shadow($cover_playbutton_shadow, 22);
+    @include transition1(all, $playbutton_transition_time, ease-in-out);
+    @include transform-translate(-50%, -50%);
+    border-radius: 50%;
+    box-sizing: content-box;
+    cursor: pointer;
+    font-size: $playbutton_font_size;
+    height: 10em;
+    text-align: center;
+    width: 10em;
+    &:focus {
+        outline: none;
+        border-radius: 50%;
+        border-color: #8BC2F9;
+        @include box-shadow(#8BC2F9, 25);
+        &:hover, &:active {
+            border: none;
+        }
+    }
 }
 
 .#{$cssnoie8} .#{$css}-playbutton-container:hover {

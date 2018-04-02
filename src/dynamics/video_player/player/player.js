@@ -12,6 +12,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "base:Timers",
     "base:States.Host",
     "base:Classes.ClassRegistry",
+    "base:Async",
     "module:VideoPlayer.Dynamics.PlayerStates.Initial",
     "module:VideoPlayer.Dynamics.PlayerStates",
     "module:Ads.AbstractVideoAdProvider",
@@ -29,7 +30,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.TemplatePartial",
     "dynamics:Partials.HotkeyPartial"
-], function(Class, Assets, Info, Dom, VideoPlayerWrapper, Broadcasting, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
+], function(Class, Assets, Info, Dom, VideoPlayerWrapper, Broadcasting, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -128,6 +129,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "tracktagsstyled": true,
                     "tracktaglang": 'en',
                     "tracksshowselection": false,
+                    "initialoptions": {
+                        "hideoninactivity": null
+                    },
 
                     /* States */
                     "states": {
@@ -256,6 +260,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.__error = null;
                     this.__currentStretch = null;
 
+                    // Set initial options for further help actions
+                    this.set("initialoptions", {
+                        hideoninactivity: this.get("hideoninactivity")
+                    });
+                    this.activeElement().onkeydown = this._keyDownActivity.bind(this, this.activeElement());
+
                     this.on("change:tracktags", this.__initializeTrackTags);
 
                     this.on("change:stretch", function() {
@@ -323,11 +333,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (subtitle.enabled && _flag) {
                                 // 0 (TextTrack.OFF in spec, TextTrack.DISABLED in Chrome), 1 (TextTrack.HIDDEN) or 2 (TextTrack.SHOWING)
                                 this.mode = "showing";
-                                this.__video.textTracks[index].mode = "showing"; // Firefox
+                                if (this.__video)
+                                    this.__video.textTracks[index].mode = "showing"; // Firefox
                                 _flag = false;
                             } else {
                                 this.mode = "hidden";
-                                this.__video.textTracks[index].mode = "hidden"; // Firefox
+                                if (this.__video)
+                                    this.__video.textTracks[index].mode = "hidden"; // Firefox
                             }
                         });
                         this.__video.appendChild(_trackTag);
@@ -591,6 +603,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         this.player.on("fullscreen-change", function(inFullscreen) {
                             this.set("fullscreened", inFullscreen);
+                            if (!inFullscreen && (this.get('hideoninactivity') !== this.get("initialoptions").hideoninactivity)) {
+                                this.set("hideoninactivity", this.get("initialoptions").hideoninactivity);
+                            }
                         }, this);
                         this.player.on("postererror", function() {
                             this._error("poster");
@@ -692,6 +707,79 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this._attachVideo();
                 },
 
+                _keyDownActivity: function(element, ev) {
+                    var _keyCode = ev.which || ev.keyCode;
+                    // Prevent whitespace browser center scroll and arrow buttons behaviours
+                    if (_keyCode === 32 || _keyCode === 37 || _keyCode === 38 || _keyCode === 39 || _keyCode === 40) ev.preventDefault();
+
+                    if (_keyCode === 32 || _keyCode === 13 || _keyCode === 9) {
+                        this._resetActivity();
+                        if (this.get("fullscreened") && this.get("hideoninactivity")) this.set("hideoninactivity", false);
+                    }
+
+                    if (_keyCode === 9 && ev.shiftKey) {
+                        this._resetActivity();
+                        this._findNextTabStop(element, ev, function(target, index) {
+                            target.focus();
+                        }, -1);
+                    } else if (_keyCode === 9) {
+                        this._resetActivity();
+                        this._findNextTabStop(element, ev, function(target, index) {
+                            target.focus();
+                        });
+                    }
+                },
+
+                _findNextTabStop: function(parentElement, ev, callback, direction) {
+                    var _currentIndex, _direction, _tabIndexes, _tabIndexesArray, _maxIndex, _minIndex, _looked, _tabIndex, _delta, _element, _videoPlayersCount;
+                    _maxIndex = _minIndex = 0;
+                    _direction = direction || 1;
+                    _element = ev.target;
+                    _currentIndex = _element.tabIndex;
+                    _tabIndexes = parentElement.querySelectorAll('[tabindex]');
+                    _tabIndexesArray = Array.prototype.slice.call(_tabIndexes, 0);
+                    _tabIndexes = _tabIndexesArray
+                        .filter(function(element) {
+                            if ((element.clientWidth > 0 || element.clientHeight > 0) && (element.tabIndex !== -1)) {
+                                if (_maxIndex <= element.tabIndex) _maxIndex = element.tabIndex;
+                                if (_minIndex >= element.tabIndex) _minIndex = element.tabIndex;
+                                return true;
+                            } else return false;
+                        });
+
+                    if ((_direction === 1 && _currentIndex === _maxIndex) || (direction === -1 && _currentIndex === _minIndex) || _maxIndex === 0) {
+                        _videoPlayersCount = document.querySelectorAll('ba-videoplayer').length;
+                        if (_videoPlayersCount > 1) {
+                            if (this.get("playing")) this.player.pause();
+                            parentElement.tabIndex = -1;
+                            parentElement.blur();
+                        }
+                        return;
+                    }
+
+                    for (var i = 0; i < _tabIndexes.length; i++) {
+                        if (!_tabIndexes[i])
+                            continue;
+                        _tabIndex = _tabIndexes[i].tabIndex;
+                        _delta = _tabIndex - _currentIndex;
+                        if (_tabIndex < _minIndex || _tabIndex > _maxIndex || Math.sign(_delta) !== _direction)
+                            continue;
+
+                        if (!_looked || Math.abs(_delta) < Math.abs(_looked.tabIndex - _currentIndex))
+                            _looked = _tabIndexes[i];
+                    }
+
+                    if (_looked) {
+                        ev.preventDefault();
+                        callback(_looked, _looked.tabIndex);
+                    }
+                },
+
+                _resetActivity: function() {
+                    this.set("last_activity", Time.now());
+                    this.set("activity_delta", 0);
+                },
+
                 object_functions: ["play", "rerecord", "pause", "stop", "seek", "set_volume"],
 
                 functions: {
@@ -785,9 +873,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             return;
                         }
                         if (this.get('disableseeking')) return;
-                        if (this.videoLoaded())
-                            this.player.setPosition(position);
-                        this.trigger("seek", position);
+                        if (this.videoLoaded()) {
+                            if (position > this.player.duration())
+                                this.player.setPosition(this.player.duration() - this.get("skipseconds"));
+                            else {
+                                this.player.setPosition(position);
+                                this.trigger("seek", position);
+                            }
+                        }
                     },
 
                     set_volume: function(volume) {
@@ -796,6 +889,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             return;
                         }
                         volume = Math.min(1.0, volume);
+                        volume = volume <= 0 ? 0 : volume; // Don't allow negative value
 
                         if (this.player && this.player._broadcastingState && this.player._broadcastingState.googleCastConnected) {
                             this._broadcasting.player.trigger("change-google-cast-volume", volume);
@@ -837,6 +931,45 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.set("manuallypaused", true);
                         } else
                             this.play();
+                    },
+
+                    tab_index_move: function(ev, nextSelector, focusingSelector) {
+                        var _targetElement, _activeElement, _selector, _keyCode;
+                        _keyCode = ev.which || ev.keyCode;
+                        _activeElement = this.activeElement();
+                        if (_keyCode === 13 || _keyCode === 32) {
+                            if (focusingSelector) {
+                                _selector = "[data-selector='" + focusingSelector + "']";
+                                _targetElement = _activeElement.querySelector(_selector);
+                                if (_targetElement)
+                                    Async.eventually(function() {
+                                        this.trigger("keyboardusecase", _activeElement);
+                                        _targetElement.focus({
+                                            preventScroll: false
+                                        });
+                                    }, this, 100);
+                            } else {
+                                _selector = '[data-video="video"]';
+                                _targetElement = _activeElement.querySelector(_selector);
+                                Async.eventually(function() {
+                                    this.trigger("keyboardusecase", _activeElement);
+                                    _targetElement.focus({
+                                        preventScroll: true
+                                    });
+                                }, this, 100);
+                            }
+                        } else if (_keyCode === 9 && nextSelector) {
+                            _selector = "[data-selector='" + nextSelector + "']";
+                            _targetElement = _activeElement.querySelector(_selector);
+                            if (_targetElement)
+                                Async.eventually(function() {
+                                    this.trigger("keyboardusecase", _activeElement);
+                                    _targetElement.focus({
+                                        preventScroll: false
+                                    });
+                                }, this, 100);
+
+                        }
                     }
                 },
 

@@ -14,6 +14,7 @@ module.exports = function(grunt) {
 		'dist/betajs-media-components-locales.js',
 		'src/ads/**/*.js',
 		'src/dynamics/common/*.js',
+        'src/dynamics/popup_helper/*.js',
 		'src/dynamics/video_player/**/*.js',
 		'src/dynamics/video_recorder/**/*.js'
      ], "dist/" + dist + "-noscoped.js", {
@@ -44,7 +45,9 @@ module.exports = function(grunt) {
         'src/../src/themes/common/fontello_icon.scss',
         'src/../src/themes/common/fontello_icons_generated.scss',
         'src/../src/themes/common/fontello_icons_color.scss',
-        'src/themes/video_recorder/default/*.scss'
+        'src/themes/video_recorder/default/*.scss',
+
+        'src/dynamics/popup_helper/*.scss'
      ], 'dist/betajs-media-components.css')
     .uglifyTask('uglify-noscoped', 'dist/' + dist + '-noscoped.js', 'dist/' + dist + '-noscoped.min.js')
     .uglifyTask('uglify-scoped', 'dist/' + dist + '.js', 'dist/' + dist + '.min.js')

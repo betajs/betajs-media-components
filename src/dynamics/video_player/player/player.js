@@ -49,6 +49,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "csstracks": "",
                     "width": "",
                     "height": "",
+                    "popup-width": "",
+                    "popup-height": "",
                     /* Themes */
                     "theme": "",
                     "csstheme": "",
@@ -99,10 +101,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "autoplay": false,
                     "preload": false,
                     "loop": false,
+                    "popup": false,
                     "nofullscreen": false,
                     "playfullscreenonmobile": false,
                     "ready": true,
                     "stretch": false,
+                    "popup-stretch": false,
                     "volumeafterinteraction": false,
                     "hideoninactivity": true,
                     "skipinitial": false,
@@ -148,6 +152,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "hideoninactivity": "boolean",
                     "skipinitial": "boolean",
                     "volume": "float",
+                    "popup": "boolean",
+                    "popup-stretch": "boolean",
+                    "popup-width": "int",
+                    "popup-height": "int",
                     "initialseek": "float",
                     "fullscreened": "boolean",
                     "sharevideo": "array",
@@ -705,6 +713,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     play: function() {
+                        if (this._delegatedPlayer) {
+                            this._delegatedPlayer.execute("play");
+                            return;
+                        }
                         if (this.player && this.player._broadcastingState && this.player._broadcastingState.googleCastConnected) {
                             this._broadcasting.player.trigger("play-google-cast");
                             return;
@@ -713,12 +725,20 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     rerecord: function() {
+                        if (this._delegatedPlayer) {
+                            this._delegatedPlayer.execute("rerecord");
+                            return;
+                        }
                         if (!this.get("rerecordable"))
                             return;
                         this.trigger("rerecord");
                     },
 
                     submit: function() {
+                        if (this._delegatedPlayer) {
+                            this._delegatedPlayer.execute("submit");
+                            return;
+                        }
                         if (!this.get("submittable"))
                             return;
                         this.trigger("submit");
@@ -727,6 +747,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     pause: function() {
+                        if (this._delegatedPlayer) {
+                            this._delegatedPlayer.execute("pause");
+                            return;
+                        }
 
                         if (this.get('disablepause')) return;
 
@@ -743,6 +767,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     stop: function() {
+                        if (this._delegatedPlayer) {
+                            this._delegatedPlayer.execute("stop");
+                            return;
+                        }
                         if (!this.videoLoaded())
                             return;
                         if (this.get("playing"))
@@ -752,6 +780,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     seek: function(position) {
+                        if (this._delegatedPlayer) {
+                            this._delegatedPlayer.execute("seek", position);
+                            return;
+                        }
                         if (this.get('disableseeking')) return;
                         if (this.videoLoaded())
                             this.player.setPosition(position);
@@ -759,6 +791,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     set_volume: function(volume) {
+                        if (this._delegatedPlayer) {
+                            this._delegatedPlayer.execute("set_volume", volume);
+                            return;
+                        }
                         volume = Math.min(1.0, volume);
 
                         if (this.player && this.player._broadcastingState && this.player._broadcastingState.googleCastConnected) {
@@ -773,6 +809,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     toggle_fullscreen: function() {
+                        if (this._delegatedPlayer) {
+                            this._delegatedPlayer.execute("toggle_fullscreen");
+                            return;
+                        }
                         if (this.get("fullscreened"))
                             this.player.exitFullscreen();
                         else
@@ -781,6 +821,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     toggle_player: function() {
+                        if (this._delegatedPlayer) {
+                            this._delegatedPlayer.execute("toggle_player");
+                            return;
+                        }
                         if (!this.get("playonclick"))
                             return;
                         if (this.get('playing') && !this.get("disablepause")) {
@@ -882,6 +926,22 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             Dom.elementAddClass(this.activeElement(), this.get("css") + "-stretch-" + newStretch);
                     }
                     this.__currentStretch = newStretch;
+                },
+
+                cloneAttrs: function() {
+                    return Objs.map(this.attrs, function(value, key) {
+                        return this.get(key);
+                    }, this);
+                },
+
+                popupAttrs: function() {
+                    return {
+                        autoplay: true,
+                        popup: false,
+                        width: this.get("popup-width"),
+                        height: this.get("popup-height"),
+                        stretch: this.get("popup-stretch")
+                    };
                 }
 
             };

@@ -122,8 +122,10 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadError", [
 
 
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
-    "module:VideoPlayer.Dynamics.PlayerStates.State"
-], function(State, scoped) {
+    "module:VideoPlayer.Dynamics.PlayerStates.State",
+    "module:PopupHelper",
+    "base:Objs"
+], function(State, PopupHelper, Objs, scoped) {
     return State.extend({
         scoped: scoped
     }, {
@@ -140,7 +142,24 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
         },
 
         play: function() {
-            this.next("Preroll");
+            if (!this.dyn.get("popup")) {
+                this.next("Preroll");
+                return;
+            }
+            var popup = this.auto_destroy(new PopupHelper());
+            var dynamic = this.auto_destroy(new this.dyn.cls({
+                element: popup.containerInner,
+                attrs: Objs.extend(this.dyn.cloneAttrs(), this.dyn.popupAttrs())
+            }));
+            this._delegatedPlayer = dynamic;
+            this.dyn.delegateEvents(null, dynamic);
+            popup.on("hide", function() {
+                this._delegatedPlayer = null;
+                dynamic.destroy();
+                popup.destroy();
+            }, this);
+            popup.show();
+            dynamic.activate();
         }
 
     });

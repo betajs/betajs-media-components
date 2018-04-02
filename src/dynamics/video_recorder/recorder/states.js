@@ -386,6 +386,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraHasAccess", [
         dynamics: ["topmessage", "controlbar"],
 
         _started: function() {
+            this.dyn.trigger("ready_to_record");
             this._preparePromise = null;
             if (this.dyn.get("countdown") > 0 && this.dyn.recorder && this.dyn.recorder.recordDelay(this.dyn.get("uploadoptions")) > this.dyn.get("countdown") * 1000)
                 this._preparePromise = this.dyn._prepareRecording();
@@ -404,10 +405,13 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraHasAccess", [
         },
 
         record: function() {
-            if (!this.dyn.get("autorecord"))
-                this.next("RecordPrepare", {
-                    preparePromise: this._preparePromise
-                });
+            if (this.dyn.get("autorecord"))
+                return;
+            if (this.dyn.get("audio-test-mandatory") && !this.dyn.get("microphonehealthy") && !this._preparePromise)
+                return;
+            this.next("RecordPrepare", {
+                preparePromise: this._preparePromise
+            });
         }
 
     });
@@ -526,6 +530,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
                 context: this,
                 fire: this._timerFire
             }));
+            this._framerateWarning = false;
         },
 
         _timerFire: function() {
@@ -533,7 +538,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
             var current = Time.now();
             var display = Math.max(0, limit ? (this._startTime + limit * 1000 - current) : (current - this._startTime));
             this.dyn.trigger("recording_progress", current - this._startTime);
-            this.dyn.set("controlbarlabel", TimeFormat.format(TimeFormat.ELAPSED_MINUTES_SECONDS, display));
+            this.dyn.set("controlbarlabel", this.dyn.get("display-timer") ? TimeFormat.format(TimeFormat.ELAPSED_MINUTES_SECONDS, display) : "");
 
             if (this.dyn.get("timeminlimit"))
                 this.dyn.set("mintimeindicator", (Time.now() - this._startTime) / 1000 <= this.dyn.get("timeminlimit"));
@@ -543,6 +548,17 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
                 this.stop();
             }
 
+
+            if (this.dyn.get("framerate-warning") && this.dyn.averageFrameRate()) {
+                var framerateWarning = this.dyn.averageFrameRate() < this.dyn.get("framerate-warning");
+                if (framerateWarning != this._framerateWarning) {
+                    this._framerateWarning = framerateWarning;
+                    if (framerateWarning)
+                        this.dyn.set("hovermessage", this.dyn.string("framerate-warning"));
+                    else
+                        this.dyn.set("hovermessage", "");
+                }
+            }
         },
 
         stop: function() {

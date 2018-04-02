@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.93 - 2018-03-16
+betajs-media-components - v0.0.95 - 2018-04-02
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1009,7 +1009,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.93 - 2018-03-16
+betajs-media-components - v0.0.95 - 2018-04-02
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1025,7 +1025,7 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.93"
+    "version": "0.0.95"
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -3098,6 +3098,85 @@ Scoped.define("module:Assets", [
 
     };
 });
+Scoped.define("module:PopupHelper", [
+    "base:Class",
+    "base:Events.EventsMixin",
+    "browser:Dom",
+    "browser:Events"
+], function(Class, EventsMixin, Dom, DomEvents, scoped) {
+
+    var PopupHelper = Class.extend({
+        scoped: scoped
+    }, [EventsMixin, function(inherited) {
+        return {
+
+            constructor: function(options) {
+                inherited.constructor.call(this);
+
+                this.popupContainer = document.createElement("div");
+                this.backgroundContainer = document.createElement("div");
+                this.backgroundContainer.className = "ba-popup-helper-overlay-background";
+                this.popupContainer.appendChild(this.backgroundContainer);
+                this.overlayContainer = document.createElement("div");
+                this.overlayContainer.className = "ba-popup-helper-overlay";
+                this.popupContainer.appendChild(this.overlayContainer);
+                this.containerInner = document.createElement("div");
+                this.containerInner.className = "ba-popup-helper-overlay-inner";
+                this.overlayContainer.appendChild(this.containerInner);
+
+                this.domEvents = this.auto_destroy(new DomEvents());
+                this.domEvents.on(this.backgroundContainer, "click touchstart", function() {
+                    this.hide();
+                }, this);
+                this.domEvents.on(this.containerInner, "click touchstart", function(event) {
+                    event.stopPropagation();
+                });
+            },
+
+            show: function() {
+                Dom.elementAddClass(document.body, "ba-popup-helper-overlay-body");
+                document.body.appendChild(this.popupContainer);
+                this.trigger("show");
+            },
+
+            hide: function() {
+                var popupContainer = this.popupContainer;
+                this.trigger("hide");
+                document.body.removeChild(popupContainer);
+                Dom.elementRemoveClass(document.body, "ba-popup-helper-overlay-body");
+            }
+
+        };
+    }], {
+
+        mixin: function(inherited) {
+            return {
+
+                constructor: function(options) {
+                    options = options || {};
+                    this.__popup = new PopupHelper(options.popup);
+                    this.__popup.on("hide", this.destroy, this);
+                    options.element = this.__popup.containerInner;
+                    inherited.constructor.call(this, options);
+                },
+
+                activate: function() {
+                    this.__popup.show();
+                    inherited.activate.call(this);
+                },
+
+                destroy: function() {
+                    this.__popup.destroy();
+                    inherited.destroy.call(this);
+                }
+
+            };
+        }
+
+    });
+
+    return PopupHelper;
+});
 Scoped.define("module:VideoPlayer.Dynamics.Adplayer", [
     "dynamics:Dynamic",
     "base:TimeFormat",
@@ -3735,6 +3814,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "csstracks": "",
                     "width": "",
                     "height": "",
+                    "popup-width": "",
+                    "popup-height": "",
                     /* Themes */
                     "theme": "",
                     "csstheme": "",
@@ -3785,10 +3866,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "autoplay": false,
                     "preload": false,
                     "loop": false,
+                    "popup": false,
                     "nofullscreen": false,
                     "playfullscreenonmobile": false,
                     "ready": true,
                     "stretch": false,
+                    "popup-stretch": false,
                     "volumeafterinteraction": false,
                     "hideoninactivity": true,
                     "skipinitial": false,
@@ -3834,6 +3917,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "hideoninactivity": "boolean",
                     "skipinitial": "boolean",
                     "volume": "float",
+                    "popup": "boolean",
+                    "popup-stretch": "boolean",
+                    "popup-width": "int",
+                    "popup-height": "int",
                     "initialseek": "float",
                     "fullscreened": "boolean",
                     "sharevideo": "array",
@@ -4391,6 +4478,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     play: function() {
+                        if (this._delegatedPlayer) {
+                            this._delegatedPlayer.execute("play");
+                            return;
+                        }
                         if (this.player && this.player._broadcastingState && this.player._broadcastingState.googleCastConnected) {
                             this._broadcasting.player.trigger("play-google-cast");
                             return;
@@ -4399,12 +4490,20 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     rerecord: function() {
+                        if (this._delegatedPlayer) {
+                            this._delegatedPlayer.execute("rerecord");
+                            return;
+                        }
                         if (!this.get("rerecordable"))
                             return;
                         this.trigger("rerecord");
                     },
 
                     submit: function() {
+                        if (this._delegatedPlayer) {
+                            this._delegatedPlayer.execute("submit");
+                            return;
+                        }
                         if (!this.get("submittable"))
                             return;
                         this.trigger("submit");
@@ -4413,6 +4512,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     pause: function() {
+                        if (this._delegatedPlayer) {
+                            this._delegatedPlayer.execute("pause");
+                            return;
+                        }
 
                         if (this.get('disablepause')) return;
 
@@ -4429,6 +4532,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     stop: function() {
+                        if (this._delegatedPlayer) {
+                            this._delegatedPlayer.execute("stop");
+                            return;
+                        }
                         if (!this.videoLoaded())
                             return;
                         if (this.get("playing"))
@@ -4438,6 +4545,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     seek: function(position) {
+                        if (this._delegatedPlayer) {
+                            this._delegatedPlayer.execute("seek", position);
+                            return;
+                        }
                         if (this.get('disableseeking')) return;
                         if (this.videoLoaded())
                             this.player.setPosition(position);
@@ -4445,6 +4556,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     set_volume: function(volume) {
+                        if (this._delegatedPlayer) {
+                            this._delegatedPlayer.execute("set_volume", volume);
+                            return;
+                        }
                         volume = Math.min(1.0, volume);
 
                         if (this.player && this.player._broadcastingState && this.player._broadcastingState.googleCastConnected) {
@@ -4459,6 +4574,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     toggle_fullscreen: function() {
+                        if (this._delegatedPlayer) {
+                            this._delegatedPlayer.execute("toggle_fullscreen");
+                            return;
+                        }
                         if (this.get("fullscreened"))
                             this.player.exitFullscreen();
                         else
@@ -4467,6 +4586,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     toggle_player: function() {
+                        if (this._delegatedPlayer) {
+                            this._delegatedPlayer.execute("toggle_player");
+                            return;
+                        }
                         if (!this.get("playonclick"))
                             return;
                         if (this.get('playing') && !this.get("disablepause")) {
@@ -4568,6 +4691,22 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             Dom.elementAddClass(this.activeElement(), this.get("css") + "-stretch-" + newStretch);
                     }
                     this.__currentStretch = newStretch;
+                },
+
+                cloneAttrs: function() {
+                    return Objs.map(this.attrs, function(value, key) {
+                        return this.get(key);
+                    }, this);
+                },
+
+                popupAttrs: function() {
+                    return {
+                        autoplay: true,
+                        popup: false,
+                        width: this.get("popup-width"),
+                        height: this.get("popup-height"),
+                        stretch: this.get("popup-stretch")
+                    };
                 }
 
             };
@@ -4708,8 +4847,10 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadError", [
 
 
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
-    "module:VideoPlayer.Dynamics.PlayerStates.State"
-], function(State, scoped) {
+    "module:VideoPlayer.Dynamics.PlayerStates.State",
+    "module:PopupHelper",
+    "base:Objs"
+], function(State, PopupHelper, Objs, scoped) {
     return State.extend({
         scoped: scoped
     }, {
@@ -4726,7 +4867,24 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
         },
 
         play: function() {
-            this.next("Preroll");
+            if (!this.dyn.get("popup")) {
+                this.next("Preroll");
+                return;
+            }
+            var popup = this.auto_destroy(new PopupHelper());
+            var dynamic = this.auto_destroy(new this.dyn.cls({
+                element: popup.containerInner,
+                attrs: Objs.extend(this.dyn.cloneAttrs(), this.dyn.popupAttrs())
+            }));
+            this._delegatedPlayer = dynamic;
+            this.dyn.delegateEvents(null, dynamic);
+            popup.on("hide", function() {
+                this._delegatedPlayer = null;
+                dynamic.destroy();
+                popup.destroy();
+            }, this);
+            popup.show();
+            dynamic.activate();
         }
 
     });
@@ -5615,6 +5773,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "recordingheight": undefined,
                     "countdown": 3,
                     "snapshotmax": 15,
+                    "framerate-warning": null,
                     "framerate": null,
                     "audiobitrate": null,
                     "videobitrate": null,
@@ -5639,6 +5798,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "allowedextensions": null,
                     "filesizelimit": null,
                     "faceoutline": false,
+                    "display-timer": true,
 
                     /* Configuration */
                     "forceflash": false,
@@ -5658,7 +5818,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "recordings": null,
                     "ready": true,
                     "orientation": false,
-                    "stretch": false
+                    "stretch": false,
+                    "audio-test-mandatory": false
 
                 },
 
@@ -5710,6 +5871,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "microphone-volume": "float",
                     "audiobitrate": "int",
                     "videobitrate": "int",
+                    "framerate-warning": "int",
                     "flip-camera": "boolean",
                     "faceoutline": "boolean",
                     "early-rerecord": "boolean",
@@ -5718,7 +5880,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "simulate": "boolean",
                     "allowedextensions": "array",
                     "onlyaudio": "boolean",
-                    "allowcancel": "boolean"
+                    "allowcancel": "boolean",
+                    "display-timer": "boolean",
+                    "audio-test-mandatory": "boolean"
                 },
 
                 extendables: ["states"],
@@ -5739,6 +5903,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         this.set("skipinitial", false);
                         this.set("skipinitialonrerecord", false);
                         this.set("allowscreen", false);
+                        this.set("autorecord", false);
                     }
 
                     this.__attachRequested = false;
@@ -5971,6 +6136,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         uploader.upload();
                         this._dataUploader.addUploader(uploader);
                     }, this);
+                },
+
+                isRecording: function() {
+                    return this.__recording;
                 },
 
                 _verifyRecording: function() {
@@ -6273,6 +6442,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
             "software-waiting": "Waiting for the requirements to be installed / activated. You might need to refresh the page after completion.",
             "access-forbidden": "Access to the media was forbidden. Click to retry.",
             "pick-covershot": "Pick a covershot.",
+            "framerate-warning": "The video frame rate is very low. We recommend closing all other programs and browser tabs or to use a faster computer.",
             "uploading": "Uploading",
             "uploading-failed": "Uploading failed - click here to retry.",
             "verifying": "Verifying",
@@ -6673,6 +6843,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraHasAccess", [
         dynamics: ["topmessage", "controlbar"],
 
         _started: function() {
+            this.dyn.trigger("ready_to_record");
             this._preparePromise = null;
             if (this.dyn.get("countdown") > 0 && this.dyn.recorder && this.dyn.recorder.recordDelay(this.dyn.get("uploadoptions")) > this.dyn.get("countdown") * 1000)
                 this._preparePromise = this.dyn._prepareRecording();
@@ -6691,10 +6862,13 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraHasAccess", [
         },
 
         record: function() {
-            if (!this.dyn.get("autorecord"))
-                this.next("RecordPrepare", {
-                    preparePromise: this._preparePromise
-                });
+            if (this.dyn.get("autorecord"))
+                return;
+            if (this.dyn.get("audio-test-mandatory") && !this.dyn.get("microphonehealthy") && !this._preparePromise)
+                return;
+            this.next("RecordPrepare", {
+                preparePromise: this._preparePromise
+            });
         }
 
     });
@@ -6813,6 +6987,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
                 context: this,
                 fire: this._timerFire
             }));
+            this._framerateWarning = false;
         },
 
         _timerFire: function() {
@@ -6820,7 +6995,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
             var current = Time.now();
             var display = Math.max(0, limit ? (this._startTime + limit * 1000 - current) : (current - this._startTime));
             this.dyn.trigger("recording_progress", current - this._startTime);
-            this.dyn.set("controlbarlabel", TimeFormat.format(TimeFormat.ELAPSED_MINUTES_SECONDS, display));
+            this.dyn.set("controlbarlabel", this.dyn.get("display-timer") ? TimeFormat.format(TimeFormat.ELAPSED_MINUTES_SECONDS, display) : "");
 
             if (this.dyn.get("timeminlimit"))
                 this.dyn.set("mintimeindicator", (Time.now() - this._startTime) / 1000 <= this.dyn.get("timeminlimit"));
@@ -6830,6 +7005,17 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
                 this.stop();
             }
 
+
+            if (this.dyn.get("framerate-warning") && this.dyn.averageFrameRate()) {
+                var framerateWarning = this.dyn.averageFrameRate() < this.dyn.get("framerate-warning");
+                if (framerateWarning != this._framerateWarning) {
+                    this._framerateWarning = framerateWarning;
+                    if (framerateWarning)
+                        this.dyn.set("hovermessage", this.dyn.string("framerate-warning"));
+                    else
+                        this.dyn.set("hovermessage", "");
+                }
+            }
         },
 
         stop: function() {

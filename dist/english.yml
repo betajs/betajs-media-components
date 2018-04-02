@@ -72,5 +72,8 @@
     refresh the page after completion.
   ba-videoplayer-controlbar.close-tracks: Close CC
   ba-videoplayer-controlbar.show-tracks: Show CC
+  ba-videorecorder.framerate-warning: >-
+    The video frame rate is very low. We recommend closing all other programs
+    and browser tabs or to use a faster computer.
   ba-videorecorder.orientation-portrait-required: Please rotate your device to record in portrait mode.
   ba-videorecorder.orientation-landscape-required: Please rotate your device to record in landscape mode.

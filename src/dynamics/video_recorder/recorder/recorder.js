@@ -90,6 +90,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "recordingheight": undefined,
                     "countdown": 3,
                     "snapshotmax": 15,
+                    "framerate-warning": null,
                     "framerate": null,
                     "audiobitrate": null,
                     "videobitrate": null,
@@ -114,6 +115,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "allowedextensions": null,
                     "filesizelimit": null,
                     "faceoutline": false,
+                    "display-timer": true,
 
                     /* Configuration */
                     "forceflash": false,
@@ -133,7 +135,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "recordings": null,
                     "ready": true,
                     "orientation": false,
-                    "stretch": false
+                    "stretch": false,
+                    "audio-test-mandatory": false
 
                 },
 
@@ -185,6 +188,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "microphone-volume": "float",
                     "audiobitrate": "int",
                     "videobitrate": "int",
+                    "framerate-warning": "int",
                     "flip-camera": "boolean",
                     "faceoutline": "boolean",
                     "early-rerecord": "boolean",
@@ -193,7 +197,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "simulate": "boolean",
                     "allowedextensions": "array",
                     "onlyaudio": "boolean",
-                    "allowcancel": "boolean"
+                    "allowcancel": "boolean",
+                    "display-timer": "boolean",
+                    "audio-test-mandatory": "boolean"
                 },
 
                 extendables: ["states"],
@@ -214,6 +220,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         this.set("skipinitial", false);
                         this.set("skipinitialonrerecord", false);
                         this.set("allowscreen", false);
+                        this.set("autorecord", false);
                     }
 
                     this.__attachRequested = false;
@@ -446,6 +453,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         uploader.upload();
                         this._dataUploader.addUploader(uploader);
                     }, this);
+                },
+
+                isRecording: function() {
+                    return this.__recording;
                 },
 
                 _verifyRecording: function() {
@@ -748,6 +759,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
             "software-waiting": "Waiting for the requirements to be installed / activated. You might need to refresh the page after completion.",
             "access-forbidden": "Access to the media was forbidden. Click to retry.",
             "pick-covershot": "Pick a covershot.",
+            "framerate-warning": "The video frame rate is very low. We recommend closing all other programs and browser tabs or to use a faster computer.",
             "uploading": "Uploading",
             "uploading-failed": "Uploading failed - click here to retry.",
             "verifying": "Verifying",

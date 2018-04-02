@@ -12,6 +12,15 @@
     height: 10em;
     text-align: center;
     width: 10em;
+    &:focus {
+        outline: none;
+        border-radius: 50%;
+        border-color: #8BC2F9;
+        @include box-shadow(#8BC2F9, 25);
+        &:hover {
+            border: none;
+        }
+    }
 }
 
 .#{$cssnoie8} .#{$css}-playbutton-container:hover {

@@ -9,8 +9,9 @@
     <video tabindex="-1" class="{{css}}-video" data-video="video"
 		   ba-toggle:playsinline="{{!playfullscreenonmobile}}"></video>
     <div class="{{css}}-overlay">
-		<div tabindex="-1" class="{{css}}-player-toggle-overlay"
+		<div tabindex="-1" class="{{css}}-player-toggle-overlay" data-selector="player-toggle-overlay"
 			 ba-hotkey:right="{{seek(position + skipseconds)}}" ba-hotkey:left="{{seek(position - skipseconds)}}"
+			 ba-hotkey:alt+right="{{seek(position + skipseconds * 3)}}" ba-hotkey:alt+left="{{seek(position - skipseconds * 3)}}"
 			 ba-hotkey:up="{{set_volume(volume + 0.1)}}" ba-hotkey:down="{{set_volume(volume - 0.1)}}"
 			 ba-hotkey:space^enter="{{toggle_player()}}"
 			 ba-on:click="{{toggle_player()}}">
@@ -34,8 +35,10 @@
 		    ba-event:volume="set_volume"
 		    ba-event:fullscreen="toggle_fullscreen"
 			ba-event:toggle_player="toggle_player"
+			ba-event:tab_index_move="tab_index_move"
 			ba-event:seek="seek"
 			ba-event:set_volume="set_volume"
+			ba-tabindex="{{tabindex}}"
 			ba-tracktextvisible="{{tracktextvisible}}"
 			ba-tracktags="{{tracktags}}"
 			ba-tracktagssupport="{{tracktagssupport}}"
@@ -56,6 +59,7 @@
 			ba-disablepause="{{disablepause}}"
 			ba-disableseeking="{{disableseeking}}"
 			ba-skipseconds="{{skipseconds}}"
+            ba-skipinitial="{{skipinitial}}"
 		></ba-{{dyncontrolbar}}>
 
 		<ba-{{dyntracks}}
@@ -78,6 +82,7 @@
 		    ba-event:play="playbutton_click"
 		    ba-event:rerecord="rerecord"
 		    ba-event:submit="submit"
+			ba-event:tab_index_move="tab_index_move"
 		></ba-{{dynplaybutton}}>
 		
 		<ba-{{dynloader}}

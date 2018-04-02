@@ -1,5 +1,6 @@
 
 <div tabindex="0" ba-hotkey:space^enter="{{play()}}" data-selector="play-button"
+     onkeydown="{{tab_index_move(domEvent, null, 'player-toggle-overlay')}}"
      class="{{css}}-playbutton-container" ba-click="{{play()}}" title="{{string('tooltip')}}">
 	<div class="{{css}}-playbutton-button"></div>
 </div>

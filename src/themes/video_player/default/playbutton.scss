@@ -2,6 +2,15 @@
     @include absolute-center-center;
     @include transform-translate(-50%, -50%);
     width: $playbutton_size;
+    &:focus {
+        outline: none;
+        border-radius: 50%;
+        border-color: #8BC2F9;
+        @include box-shadow(#8BC2F9, 25);
+        &:hover, &:active {
+            border: none;
+        }
+    }
 }
 
 .#{$cssnoie8} .#{$css}-playbutton-button {

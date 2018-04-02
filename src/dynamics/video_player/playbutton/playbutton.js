@@ -31,10 +31,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Playbutton", [
 
                     rerecord: function() {
                         this.trigger("rerecord");
+                    },
+
+                    tab_index_move: function(ev, nextSelector, focusingSelector) {
+                        this.trigger("tab_index_move", ev[0], nextSelector, focusingSelector);
                     }
-
                 }
-
             };
         })
         .register("ba-videoplayer-playbutton")

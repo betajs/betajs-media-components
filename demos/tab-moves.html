@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="es5-shim.js"></script>
+<script src="../vendors/jquery.min.js"></script>
+		<script src="../node_modules/betajs-shims/dist/betajs-shims.js"></script>		
+        <script src="../node_modules/betajs-scoped/dist/scoped.js"></script>
+        <script src="../node_modules/betajs/dist/beta-noscoped.js"></script>
+        <script src="../node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
+        <script src="../node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
+        <script src="../node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+        <script src="../node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
+	<script>
+		BetaJS.Dynamics.Parser.secureMode = true;
+	</script>
+    <script src="../dist/betajs-media-components-noscoped.js"></script>
+    <link href="../dist/betajs-media-components.css" rel="stylesheet" />
+	<script src="../dist/themes/cube/script.js"></script>
+	<link  href="../dist/themes/cube/style.css" rel="stylesheet" />
+    <script src="../dist/themes/modern/script.js"></script>
+    <link  href="../dist/themes/modern/style.css" rel="stylesheet" />
+	<script src="../dist/themes/elevate/script.js"></script>
+	<link  href="../dist/themes/elevate/style.css" rel="stylesheet" />
+	<script src="../dist/themes/minimalist/script.js"></script>
+	<link  href="../dist/themes/minimalist/style.css" rel="stylesheet" />
+	<script src="../dist/themes/space/script.js"></script>
+	<link  href="../dist/themes/space/style.css" rel="stylesheet" />
+	<script src="../dist/themes/theatre/script.js"></script>
+	<link  href="../dist/themes/theatre/style.css" rel="stylesheet" />
+
+</head>
+<body style="background: #EEE">
+
+	<h3>Cube</h3>
+	<ba-videoplayer
+		ba-theme="cube"
+		ba-hideoninactivity="{{hideoninactivity}}"
+		ba-skipinitial="{{skipinitial}}"
+		ba-poster="sample-cover.png" ba-source="sample-video.mp4"
+	></ba-videoplayer>
+	<h3>Default</h3>
+	<ba-videoplayer
+		ba-hideoninactivity="{{hideoninactivity}}"
+		ba-skipinitial="{{skipinitial}}"
+		ba-poster="sample-cover.png" ba-source="sample-video.mp4"
+	></ba-videoplayer>
+	<h3>Elevate</h3>
+	<ba-videoplayer
+		ba-theme="elevate"
+		ba-hideoninactivity="{{hideoninactivity}}"
+		ba-skipinitial="{{skipinitial}}"
+		ba-poster="sample-cover.png" ba-source="sample-video.mp4"
+	></ba-videoplayer>
+	<h3>Minimalist</h3>
+	<ba-videoplayer
+		ba-theme="minimalist"
+		ba-hideoninactivity="{{hideoninactivity}}"
+		ba-skipinitial="{{skipinitial}}"
+		ba-poster="themes/assets/black-sample-cover.png" ba-source="sample-video.mp4"
+	></ba-videoplayer>
+	<h3>Modern</h3>
+	<ba-videoplayer
+		ba-theme="modern"
+		ba-hideoninactivity="{{hideoninactivity}}"
+		ba-skipinitial="{{skipinitial}}"
+		ba-poster="themes/assets/black-sample-cover.png" ba-source="sample-video.mp4"
+	></ba-videoplayer>
+	<h3>Modern</h3>
+	<ba-videoplayer
+		ba-theme="modern"
+		ba-themecolor="blue"
+		ba-hideoninactivity="{{hideoninactivity}}"
+		ba-skipinitial="{{skipinitial}}"
+		ba-poster="sample-cover.png" ba-source="sample-video.mp4"
+	></ba-videoplayer>
+	<h3>Space</h3>
+	<ba-videoplayer
+		ba-theme="space"
+		ba-themecolor="green"
+		ba-hideoninactivity="{{hideoninactivity}}"
+		ba-skipinitial="{{skipinitial}}"
+		ba-poster="sample-cover.png" ba-source="sample-video.mp4"
+	></ba-videoplayer>
+	<h3>Theatre</h3>
+	<ba-videoplayer
+		ba-theme="theatre"
+		ba-themecolor="red"
+		ba-hideoninactivity="{{hideoninactivity}}"
+		ba-skipinitial="{{skipinitial}}"
+		ba-poster="sample-cover.png" ba-source="sample-video.mp4"
+	></ba-videoplayer>
+
+	<a>Testing focus</a>
+	<button>Testing focus button</button>
+	<input type="text" placeholder="Test white space" style="min-width: 320px; padding: 5px 10px">
+
+	<script>
+		BetaJS.Flash.options = {
+			flashFile : "../node_modules/betajs-flash/dist/betajs-flash.swf",
+			forceReload : true
+		};
+		BetaJS.Dynamics.Dynamic.activate({
+            element: document.body,
+            attrs: {
+                'hideoninactivity': true,
+				'skipinitial': false,
+				'sametheme': true,
+				'samethemename': 'space'
+            }
+        });
+	</script>
+</body>
+</html>

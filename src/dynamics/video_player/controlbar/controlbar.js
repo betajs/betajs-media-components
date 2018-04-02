@@ -203,13 +203,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                             this.parent().set("tracksshowselection", hover);
                         }, this, 300);
                         var _dyn = this.__parent;
+                    },
+
+                    tab_index_move: function(ev, nextSelector, focusingSelector) {
+                        this.trigger("tab_index_move", ev[0], nextSelector, focusingSelector);
                     }
                 },
 
                 create: function() {
                     this.set("ismobile", Info.isMobile());
                 }
-
             };
         })
         .register("ba-videoplayer-controlbar")

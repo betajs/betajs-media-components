@@ -32,3 +32,13 @@
   }
 
 }
+/* Chrome specific fullscreen CSS */
+:-webkit-full-screen-ancestor:not(iframe) ba-videoplayer, :-webkit-full-screen-ancestor:not(iframe) ba-videoplayer > div {
+    min-width: 100%;
+    min-height: 100%;
+    max-width: auto;
+    max-height: auto;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+}

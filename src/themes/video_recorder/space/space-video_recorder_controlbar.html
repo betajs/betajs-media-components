@@ -7,9 +7,11 @@
 			<div class="{{css}}-bubble-info">
 				<ul data-selector="camera-settings" ba-repeat="{{camera :: cameras}}">
 					<li>
-						<input tabindex="0" ba-hotkey:space^enter="{{selectCamera(camera.id)}}"
+						<input tabindex="0"
+							   ba-hotkey:space^enter="{{selectCamera(camera.id)}}" onmouseout="this.blur()"
 							   type='radio' name='camera' value="{{selectedcamera == camera.id}}"
-							   onclick="{{selectCamera(camera.id)}}" />
+							   onclick="{{selectCamera(camera.id)}}"
+						/>
 						<span></span>
 						<label onclick="{{selectCamera(camera.id)}}" ba-hotkey:space^enter="{{selectCamera(camera.id)}}">
 							{{camera.label}}
@@ -17,8 +19,10 @@
 					</li>
 				</ul>
 				<ul data-selector="record-button-icon-cog" ba-repeat="{{microphone :: microphones}}" ba-show="{{audio}}">
-					<li tabindex="0" ba-hotkey:space^enter="{{selectMicrophone(microphone.id)}}"
-						onclick="{{selectMicrophone(microphone.id)}}">
+					<li tabindex="0"
+						ba-hotkey:space^enter="{{selectMicrophone(microphone.id)}}" onmouseout="this.blur()"
+						onclick="{{selectMicrophone(microphone.id)}}"
+					>
 						<input type='radio' name='microphone' value="{{selectedmicrophone == microphone.id}}" />
 						<span></span>
 						<label>
@@ -37,20 +41,24 @@
 		<div class="{{css}}-controlbar-center-section">
 
 			<div data-selector="rerecord-primary-button" class="{{css}}-button-container" ba-show="{{rerecordvisible}}">
-				<div tabindex="0" ba-hotkey:space^enter="{{rerecord()}}"
+				<div tabindex="0"
+					 ba-hotkey:space^enter="{{rerecord()}}" onmouseout="this.blur()"
 					 class="{{css}}-button-primary"
 					 onclick="{{rerecord()}}"
 					 onmouseenter="{{hover(string('rerecord-tooltip'))}}"
-					 onmouseleave="{{unhover()}}">
+					 onmouseleave="{{unhover()}}"
+				>
 					{{string('rerecord')}}
 				</div>
 			</div>
 
 			<div data-selector="cancel-primary-button" class="{{css}}-button-container" ba-show="{{cancelvisible}}">
-				<div tabindex="0" ba-hotkey:space^enter="{{cancel()}}"
+				<div tabindex="0"
+					 ba-hotkey:space^enter="{{cancel()}}" onmouseout="this.blur()"
 					 class="{{css}}-button-primary" onclick="{{cancel()}}"
 					 onmouseenter="{{hover(string('cancel-tooltip'))}}"
-					 onmouseleave="{{unhover()}}">
+					 onmouseleave="{{unhover()}}"
+				>
 					{{string('cancel')}}
 				</div>
 			</div>
@@ -61,11 +69,13 @@
 
             <div class="{{css}}-circle-button" ba-show="{{settingsvisible}}">
 
-				<div tabindex="0" ba-hotkey:space^enter="{{settingsopen=!settingsopen}}"
+				<div tabindex="0"
+					 ba-hotkey:space^enter="{{settingsopen=!settingsopen}}" onmouseout="this.blur()"
 					 data-selector="record-button-icon-cog" class="{{css}}-button-inner {{css}}-button-circle-{{settingsopen ? 'selected' : 'unselected' }}"
 					 onclick="{{settingsopen=!settingsopen}}"
 					 onmouseenter="{{hover(string('settings'))}}"
-					 onmouseleave="{{unhover()}}" >
+					 onmouseleave="{{unhover()}}"
+				>
 					<i class="{{css}}-icon-cog"></i>
 				</div>
 
@@ -91,11 +101,13 @@
 		<div class="{{css}}-controlbar-right-section">
 
 			<div class="{{css}}-rightbutton-container" ba-show="{{recordvisible}}">
-				<div tabindex="0" ba-hotkey:space^enter="{{record()}}"
+				<div tabindex="0"
+					 ba-hotkey:space^enter="{{record()}}" onmouseout="this.blur()"
 					 data-selector="record-primary-button" class="{{css}}-button-primary"
 					 onclick="{{record()}}"
 					 onmouseenter="{{hover(string('record-tooltip'))}}"
-					 onmouseleave="{{unhover()}}">
+					 onmouseleave="{{unhover()}}"
+				>
 					{{string('record')}}
 				</div>
 			</div>
@@ -113,24 +125,28 @@
 			</div>
 
 			<div class="{{css}}-stop-button-container">
-				<div tabindex="0" ba-hotkey:space^enter="{{stop()}}"
+				<div tabindex="0"
+					 ba-hotkey:space^enter="{{stop()}}" onmouseout="this.blur()"
 					 data-selector="stop-primary-button"
 					 class="{{css}}-button-primary {{mintimeindicator ? css + '-disabled': ''}}"
 					 title="{{mintimeindicator ? string('stop-available-after').replace('%d', timeminlimit) : string('stop-tooltip')}}"
 					 onclick="{{stop()}}"
 					 onmouseenter="{{hover(mintimeindicator ? string('stop-available-after').replace('%d', timeminlimit) : string('stop-tooltip'))}}"
-					 onmouseleave="{{unhover()}}">
+					 onmouseleave="{{unhover()}}"
+				>
 					{{string('stop')}}
 				</div>
 			</div>
 		</div>
 
         <div class="{{css}}-centerbutton-container" ba-show="{{skipvisible}}">
-            <div tabindex="0" ba-hotkey:space^enter="{{skip()}}"
+            <div tabindex="0"
+				 ba-hotkey:space^enter="{{skip()}}" onmouseout="this.blur()"
 				 data-selector="skip-primary-button" class="{{css}}-button-primary"
                  onclick="{{skip()}}"
                  onmouseenter="{{hover(string('skip-tooltip'))}}"
-                 onmouseleave="{{unhover()}}">
+                 onmouseleave="{{unhover()}}"
+			>
                 {{string('skip')}}
             </divi>
         </div>

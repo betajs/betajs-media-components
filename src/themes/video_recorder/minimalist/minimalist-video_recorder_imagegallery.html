@@ -1,23 +1,31 @@
 <div data-selector="image-gallery" class="{{css}}-image-gallery-container">
 
 	<div data-selector="slider-left-button" class="{{css}}-imagegallery-leftbutton">
-		<div tabindex="0" ba-hotkey:space^enter^left="{{left()}}"
-			 data-selector="slider-left-inner-button" class="{{css}}-imagegallery-button-inner" onclick="{{left()}}">
+		<div tabindex="0"
+			 ba-hotkey:space^enter^left="{{left()}}" onmouseout="this.blur()"
+			 data-selector="slider-left-inner-button" class="{{css}}-imagegallery-button-inner"
+			 onclick="{{left()}}"
+		>
 			<i class="{{css}}-icon-left-open"></i>
 		</div>
 	</div>
 
 	<div data-selector="images-imagegallery-container" ba-repeat="{{image::images}}" class="{{css}}-imagegallery-container" data-gallery-container>
-		<div tabindex="0" ba-hotkey:space^enter="{{select(image)}}"
+		<div tabindex="0"
+			 ba-hotkey:space^enter="{{select(image)}}" onmouseout="this.blur()"
 			 class="{{css}}-imagegallery-image"
 			 ba-styles="{{{left: image.left + 'px', top: image.top + 'px', width: image.width + 'px', height: image.height + 'px'}}}"
-			 onclick="{{select(image)}}">
+			 onclick="{{select(image)}}"
+		>
 		</div>
 	</div>
 
 	<div data-selector="slider-right-button" class="{{css}}-imagegallery-rightbutton">
-		<div tabindex="0" ba-hotkey:space^enter^right="{{right()}}"
-			 data-selector="slider-right-inner-button" class="{{css}}-imagegallery-button-inner" onclick="{{right()}}">
+		<div tabindex="0"
+			 ba-hotkey:space^enter^right="{{right()}}" onmouseout="this.blur()"
+			 data-selector="slider-right-inner-button" class="{{css}}-imagegallery-button-inner"
+			 onclick="{{right()}}"
+		>
 			<i class="{{css}}-icon-right-open"></i>
 		</div>
 	</div>

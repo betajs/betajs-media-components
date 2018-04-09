@@ -5,17 +5,25 @@
 		<div data-selector="settings-list-front" class="{{css}}-settings-front">
 			<ul data-selector="camera-settings" ba-repeat="{{camera :: cameras}}" ba-show="{{!novideo && !allowscreen}}">
 				<li>
-					<input tabindex="0" ba-hotkey:space^enter="{{selectCamera(camera.id)}}"
-						   type='radio' name='camera' value="{{selectedcamera == camera.id}}" onclick="{{selectCamera(camera.id)}}" />
+					<input tabindex="0"
+						   ba-hotkey:space^enter="{{selectCamera(camera.id)}}" onmouseout="this.blur()"
+						   type='radio' name='camera' value="{{selectedcamera == camera.id}}" onclick="{{selectCamera(camera.id)}}"
+					/>
 					<span></span>
-					<label tabindex="0" ba-hotkey:space^enter="{{selectCamera(camera.id)}}" onclick="{{selectCamera(camera.id)}}">
+					<label tabindex="0"
+						   ba-hotkey:space^enter="{{selectCamera(camera.id)}}" onmouseout="this.blur()"
+						   onclick="{{selectCamera(camera.id)}}"
+					>
 						{{camera.label}}
 					</label>
 				 </li>
 			</ul>
 			<hr ba-show="{{(!noaudio && !novideo) || !allowscreen}}"/>
 			<ul data-selector="microphone-settings" ba-repeat="{{microphone :: microphones}}" ba-show="{{!noaudio && !allowscreen}}">
-				<li tabindex="0" ba-hotkey:space^enter="{{selectMicrophone(microphone.id)}}" onclick="{{selectMicrophone(microphone.id)}}">
+				<li tabindex="0"
+					ba-hotkey:space^enter="{{selectMicrophone(microphone.id)}}" onmouseout="this.blur()"
+					onclick="{{selectMicrophone(microphone.id)}}"
+				>
 					<input type='radio' name='microphone' value="{{selectedmicrophone == microphone.id}}" />
 					<span></span>
 					<label>
@@ -28,11 +36,13 @@
 	<div data-selector="controlbar" class="{{css}}-controlbar">
 
         <div class="{{css}}-leftbutton-container" ba-show="{{settingsvisible}}">
-            <div tabindex="0" ba-hotkey:space^enter="{{settingsopen=!settingsopen}}"
+            <div tabindex="0"
+				 ba-hotkey:space^enter="{{settingsopen=!settingsopen}}" onmouseout="this.blur()"
 				 data-selector="record-button-icon-cog" class="{{css}}-button-inner {{css}}-button-{{settingsopen ? 'selected' : 'unselected'}}"
                  onclick="{{settingsopen=!settingsopen}}"
                  onmouseenter="{{hover(string('settings'))}}"
-                 onmouseleave="{{unhover()}}">
+                 onmouseleave="{{unhover()}}"
+			>
                 <i class="{{css}}-icon-cog"></i>
             </div>
         </div>
@@ -40,7 +50,8 @@
         <div class="{{css}}-lefticon-container" ba-show="{{settingsvisible && !novideo && !allowscreen}}">
             <div data-selector="record-button-icon-videocam" class="{{css}}-icon-inner"
                  onmouseenter="{{hover(string(camerahealthy ? 'camerahealthy' : 'cameraunhealthy'))}}"
-                 onmouseleave="{{unhover()}}">
+                 onmouseleave="{{unhover()}}"
+			>
                 <i class="{{css}}-icon-videocam {{css}}-icon-state-{{camerahealthy ? 'good' : 'bad' }}"></i>
             </div>
         </div>
@@ -48,7 +59,8 @@
         <div class="{{css}}-lefticon-container" ba-show="{{settingsvisible && !noaudio && !allowscreen}}">
             <div data-selector="record-button-icon-mic" class="{{css}}-icon-inner"
                  onmouseenter="{{hover(string(microphonehealthy ? 'microphonehealthy' : 'microphoneunhealthy'))}}"
-                 onmouseleave="{{unhover()}}">
+                 onmouseleave="{{unhover()}}"
+			>
                 <i class="{{css}}-icon-mic {{css}}-icon-state-{{microphonehealthy ? 'good' : 'bad' }}"></i>
             </div>
         </div>
@@ -65,11 +77,13 @@
         </div>
 
         <div class="{{css}}-rightbutton-container" ba-show="{{recordvisible}}">
-        	<div tabindex="0" ba-hotkey:space^enter="{{record()}}"
+        	<div tabindex="0"
+				 ba-hotkey:space^enter="{{record()}}" onmouseout="this.blur()"
 				 data-selector="record-primary-button" class="{{css}}-button-primary"
                  onclick="{{record()}}"
                  onmouseenter="{{hover(string('record-tooltip'))}}"
-                 onmouseleave="{{unhover()}}">
+                 onmouseleave="{{unhover()}}"
+			>
         		{{string('record')}}
         	</div>
         </div>
@@ -82,7 +96,8 @@
 				       class="{{css}}-chooser-file"
 				       style="height:100"
 				       onchange="{{uploadCovershot(domEvent)}}"
-				       accept="{{covershot_accept_string}}" />
+				       accept="{{covershot_accept_string}}"
+				 />
                  <span>
         			{{string('upload-covershot')}}
         		</span>
@@ -90,42 +105,50 @@
         </div>
 
         <div class="{{css}}-rightbutton-container" ba-show="{{rerecordvisible}}">
-        	<div tabindex="0" ba-hotkey:space^enter="{{rerecord()}}"
+        	<div tabindex="0"
+				 ba-hotkey:space^enter="{{rerecord()}}" onmouseout="this.blur()"
 				 data-selector="rerecord-primary-button" class="{{css}}-button-primary"
                  onclick="{{rerecord()}}"
                  onmouseenter="{{hover(string('rerecord-tooltip'))}}"
-                 onmouseleave="{{unhover()}}">
+                 onmouseleave="{{unhover()}}"
+			>
         		{{string('rerecord')}}
         	</div>
         </div>
 
 		<div class="{{css}}-rightbutton-container" ba-show="{{cancelvisible}}">
-			<div tabindex="0" ba-hotkey:space^enter="{{cancel()}}"
+			<div tabindex="0"
+				 ba-hotkey:space^enter="{{cancel()}}" onmouseout="this.blur()"
 				 data-selector="cancel-primary-button" class="{{css}}-button-primary"
 				 onclick="{{cancel()}}"
 				 onmouseenter="{{hover(string('cancel-tooltip'))}}"
-				 onmouseleave="{{unhover()}}">
+				 onmouseleave="{{unhover()}}"
+			>
 				{{string('cancel')}}
 			</div>
 		</div>
 
         <div class="{{css}}-rightbutton-container" ba-show="{{stopvisible}}">
-        	<div tabindex="0" ba-hotkey:space^enter="{{stop()}}"
+        	<div tabindex="0"
+				 ba-hotkey:space^enter="{{stop()}}" onmouseout="this.blur()"
 				 data-selector="stop-primary-button" class="{{css}}-button-primary {{mintimeindicator ? css + '-disabled': ''}}"
 				 title="{{mintimeindicator ? string('stop-available-after').replace('%d', timeminlimit) : string('stop-tooltip')}}"
                  onclick="{{stop()}}"
                  onmouseenter="{{hover( mintimeindicator ? string('stop-available-after').replace('%d', timeminlimit) : string('stop-tooltip'))}}"
-                 onmouseleave="{{unhover()}}">
+                 onmouseleave="{{unhover()}}"
+			>
         		{{string('stop')}}
         	</div>
         </div>
 
         <div class="{{css}}-centerbutton-container" ba-show="{{skipvisible}}">
-        	<div tabindex="0" ba-hotkey:space^enter="{{skip()}}"
+        	<div tabindex="0"
+				 ba-hotkey:space^enter="{{skip()}}"  onmouseout="this.blur()"
 				 data-selector="skip-primary-button" class="{{css}}-button-primary"
                  onclick="{{skip()}}"
                  onmouseenter="{{hover(string('skip-tooltip'))}}"
-                 onmouseleave="{{unhover()}}">
+                 onmouseleave="{{unhover()}}"
+			>
         		{{string('skip')}}
         	</div>
         </div>

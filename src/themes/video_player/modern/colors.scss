@@ -19,6 +19,12 @@
         border-left-color: $value;
       }
 
+      &.#{$cssnoie8} .#{$css}-share-action-container {
+        .#{$css}-button-inner {
+          color: $value;
+        }
+      }
+
       .#{$css}-cast-button-container button {
         //--disconnected-color: #{$value};
       }

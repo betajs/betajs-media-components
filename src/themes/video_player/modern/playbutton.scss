@@ -15,8 +15,8 @@
     &:focus {
         outline: none;
         border-radius: 50%;
-        border-color: #8BC2F9;
-        @include box-shadow(#8BC2F9, 25);
+        border-color: #1b8fcc;
+        @include box-outline-shadow(#1b8fcc, 2px);
         &:hover, &:active {
             border: none;
         }

@@ -1,9 +1,15 @@
+
 .#{$css}-overlay div[tabindex] {
   @include transition1(all, 0.30s, ease-in-out);
 }
 
-.#{$css}-overlay div[tabindex]:hover:focus {
+.#{$css}-overlay div[tabindex]:focus {
+  @include box-outline-shadow(#1b8fcc, 2px);
   @include remove-outline;
+}
+
+.#{$css}-overlay div[tabindex]:hover, .#{$css}-overlay div[tabindex]:focus:hover {
+  box-shadow: none;
 }
 
 .#{$css}-dashboard {
@@ -42,8 +48,11 @@
   padding: $title_padding;
 }
 
-.#{$css}-button-inner {
-    @include clickable;
+.#{$css}-button-inner, .#{$css}-airplay-container {
+  @include relative-center-center;
+  @include clickable;
+  color: $text_color;
+  font-size: $button_fontsize;
 }
 
 .#{$css}-volumebar {

@@ -45,11 +45,11 @@
 	                ba-theme="{{theme}}"
 	                ba-title="Foobar"
 	                ba-noflash
-						ba-themecolor="blue"
+                    ba-themecolor="{{themecolor}}"
 					ba-sharevideo="facebook,twitter,gplus"
 					ba-sharevideourl="http://betajs.com"
-	                ba-hideoninactivity="true"
-
+	                ba-hideoninactivity="{{hideoninactivity}}"
+                    ba-skipinitial="{{skipinitial}}"
 	                ba-width='50%'></ba-videoplayer>
 	</div>
 
@@ -61,15 +61,20 @@
         BetaJS.Dynamics.Dynamic.activate({
             element: document.body,
         	attrs: {
-            	themes: [
-            		"default",
-            		"modern",
-            		"cube",
-            		"space",
-            		"elevate",
-            		"theatre",
-            		"minimalist"
-            	]
+                themes: [
+                    "default",
+                    "modern",
+                    "cube",
+                    "space",
+                    "elevate",
+                    "theatre",
+                    "minimalist",
+                ],
+				'themecolor': 'default', // 'red', 'blue', 'green'
+                'hideoninactivity': true,
+                'skipinitial': true,
+                'sametheme': true,
+                'samethemename': 'space'
             }
         });
     </script>

@@ -8,6 +8,7 @@
     width: $share_container_width;
     .#{$css}-button-inner {
       @include transform-translate-y(0);
+      color: #eeeeee;
       top: 0;
     }
   }
@@ -17,7 +18,7 @@
   }
 
   .#{$css}-icon-share {
-    color: $text_color;
+    color: #eeeeee;
   }
 
   .#{$css}-toggle-share-container {

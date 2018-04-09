@@ -6,8 +6,13 @@
   @include transition1(all, 0.30s, ease-in-out);
 }
 
-.#{$css}-overlay div[tabindex]:hover:focus {
+.#{$css}-overlay div[tabindex]:focus {
+  @include box-outline-shadow(#1b8fcc, 2px);
   @include remove-outline;
+}
+
+.#{$css}-overlay div[tabindex]:hover, .#{$css}-overlay div[tabindex]:focus:hover {
+    box-shadow: none;
 }
 
 .#{$css}-dashboard {

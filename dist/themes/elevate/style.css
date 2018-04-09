@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.95 - 2018-04-02
+betajs-media-components - v0.0.96 - 2018-04-08
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1653,6 +1653,20 @@ Apache-2.0 Software License.
   height: 10em;
   text-align: center;
   width: 10em; }
+  .ba-videoplayer-noie8 .ba-videoplayer-elevate-theme-playbutton-container:focus {
+    outline: none;
+    border-radius: 50%;
+    border-color: #8BC2F9;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=25, Direction=90, Color=#8BC2F9)";
+    /*IE 8*/
+    -moz-box-shadow: 0 0 25px #8BC2F9;
+    /*FF 3.5+*/
+    -webkit-box-shadow: 0 0 25px #8BC2F9;
+    /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+    box-shadow: 0 0 25px #8BC2F9;
+    /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */ }
+    .ba-videoplayer-noie8 .ba-videoplayer-elevate-theme-playbutton-container:focus:hover, .ba-videoplayer-noie8 .ba-videoplayer-elevate-theme-playbutton-container:focus:active {
+      border: none; }
 
 .ba-videoplayer-noie8 .ba-videoplayer-elevate-theme-playbutton-container:hover {
   -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=22, Direction=90, Color=#eeeeee)";

@@ -98,6 +98,9 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Initial", [
             this.dyn.set("playbacksource", null);
             this.dyn.set("playbackposter", null);
             this.dyn.set("player_active", false);
+            this.dyn._videoFileName = null;
+            this.dyn._videoFile = null;
+            this.dyn._videoFilePlaybackable = false;
             this.dyn._initializeUploader();
             if (!this.dyn.get("recordermode")) {
                 if (!this.dyn.get("video")) {
@@ -147,8 +150,9 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Player", [
 Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
     "module:VideoRecorder.Dynamics.RecorderStates.State",
     "base:Strings",
-    "browser:Info"
-], function(State, Strings, Info, scoped) {
+    "browser:Info",
+    "media:Player.Support"
+], function(State, Strings, Info, PlayerSupport, scoped) {
     return State.extend({
         scoped: scoped
     }, {
@@ -217,11 +221,43 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
                     return;
                 }
             }
-            this._uploadFile(file);
+            try {
+                PlayerSupport.videoFileInfo(file.files[0]).success(function(data) {
+                    if (data.duration && this.dyn.get("enforce-duration")) {
+                        if ((this.dyn.get("timeminlimit") && data.duration < this.dyn.get("timeminlimit")) || (this.dyn.get("timelimit") && data.duration > this.dyn.get("timelimit"))) {
+                            this.next("FatalError", {
+                                message: this.dyn.string("upload-error-duration"),
+                                retry: "Chooser"
+                            });
+                            return;
+                        }
+                    }
+                    if ((data.width && this.dyn.get("minuploadingwidth") && this.dyn.get("minuploadingwidth") > data.width) ||
+                        (data.width && this.dyn.get("maxuploadingwidth") && this.dyn.get("maxuploadingwidth") < data.width) ||
+                        (data.height && this.dyn.get("minuploadingheight") && this.dyn.get("minuploadingheight") > data.height) ||
+                        (data.height && this.dyn.get("maxuploadingheight") && this.dyn.get("maxuploadingheight") < data.height)) {
+                        this.next("FatalError", {
+                            message: this.dyn.string("resolution-constraint-error"),
+                            retry: "Chooser"
+                        });
+                        return;
+                    }
+                    this.dyn._videoFilePlaybackable = true;
+                    this._uploadFile(file);
+                }, this).error(function() {
+                    this._uploadFile(file);
+                }, this);
+            } catch (e) {
+                this._uploadFile(file);
+            }
         },
 
         _uploadFile: function(file) {
             this.dyn.set("creation-type", Info.isMobile() ? "mobile" : "upload");
+            try {
+                this.dyn._videoFileName = file.files[0].name;
+                this.dyn._videoFile = file.files[0];
+            } catch (e) {}
             this.dyn._prepareRecording().success(function() {
                 this.dyn.trigger("upload_selected", file);
                 this.dyn._uploadVideoFile(file);
@@ -661,8 +697,9 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
 Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
     "module:VideoRecorder.Dynamics.RecorderStates.State",
     "base:Time",
-    "base:Async"
-], function(State, Time, Async, scoped) {
+    "base:Async",
+    "base:Objs"
+], function(State, Time, Async, Objs, scoped) {
     return State.extend({
         scoped: scoped
     }, {
@@ -694,10 +731,18 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
                     this.next("Verifying");
                 }, this);
             });
-            this.listenOn(uploader, "error", function() {
+            this.listenOn(uploader, "error", function(e) {
+                var bestError = this.dyn.string("uploading-failed");
+                try {
+                    e.forEach(function(ee) {
+                        for (var key in ee)
+                            if (this.dyn.string("upload-error-" + key))
+                                bestError = this.dyn.string("upload-error-" + key);
+                    }, this);
+                } catch (err) {}
                 this.dyn.set("player_active", false);
                 this.next("FatalError", {
-                    message: this.dyn.string("uploading-failed"),
+                    message: bestError,
                     retry: this.dyn.recorderAttached() ? "Uploading" : "Initial"
                 });
             });
@@ -711,9 +756,12 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
                     }
                 }
             });
-            if (this.dyn.get("localplayback") && this.dyn.recorder && this.dyn.recorder.supportsLocalPlayback()) {
-                this.dyn.set("playbacksource", this.dyn.recorder.localPlaybackSource());
-                if (this.dyn.__lastCovershotUpload)
+            if (this.dyn.get("localplayback") && ((this.dyn.recorder && this.dyn.recorder.supportsLocalPlayback()) || this.dyn._videoFilePlaybackable)) {
+                if (this.dyn.recorder && this.dyn.recorder.supportsLocalPlayback())
+                    this.dyn.set("playbacksource", this.dyn.recorder.localPlaybackSource());
+                else
+                    this.dyn.set("playbacksource", (window.URL || window.webkitURL).createObjectURL(this.dyn._videoFile));
+                if (this.dyn.__lastCovershotUpload && this.dyn.recorder)
                     this.dyn.set("playbackposter", this.dyn.recorder.snapshotToLocalPoster(this.dyn.__lastCovershotUpload));
                 this.dyn.set("loader_active", false);
                 this.dyn.set("message_active", false);
@@ -757,7 +805,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Verifying", [
             this.dyn.trigger("verifying");
             this.dyn.set("message", this.dyn.string("verifying") + "...");
             this.dyn.set("playertopmessage", this.dyn.get("message"));
-            if (this.dyn.get("localplayback") && this.dyn.recorder && this.dyn.recorder.supportsLocalPlayback()) {
+            if (this.dyn.get("localplayback") && ((this.dyn.recorder && this.dyn.recorder.supportsLocalPlayback()) || this.dyn._videoFilePlaybackable)) {
                 this.dyn.set("loader_active", false);
                 this.dyn.set("message_active", false);
             } else {

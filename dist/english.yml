@@ -75,5 +75,11 @@
   ba-videorecorder.framerate-warning: >-
     The video frame rate is very low. We recommend closing all other programs
     and browser tabs or to use a faster computer.
+  ba-videorecorder.upload-error-duration: >-
+    Length of the uploaded video does not meet the requirements - click here to
+    retry.
+  ba-videorecorder.resolution-constraint-error: >-
+    The file you've selected does not match the required resolution - click here
+    to retry.
   ba-videorecorder.orientation-portrait-required: Please rotate your device to record in portrait mode.
   ba-videorecorder.orientation-landscape-required: Please rotate your device to record in landscape mode.

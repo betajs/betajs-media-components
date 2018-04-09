@@ -26,7 +26,7 @@
     width: $button_width;
     color: $button_color;
     &[data-selector='button-icon-play']:focus, &[data-selector='button-icon-pause']:focus {
-        outline: none;
+        //outline: none;
         i.#{$css}-icon-play {
             outline: 1px solid #8BC2F9;
             &:hover, &:active {

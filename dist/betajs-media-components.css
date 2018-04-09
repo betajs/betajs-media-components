@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.95 - 2018-04-02
+betajs-media-components - v0.0.96 - 2018-04-08
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1408,6 +1408,16 @@ Apache-2.0 Software License.
   min-width: 100%;
   z-index: 0; }
 
+/* Chrome specific fullscreen CSS */
+:-webkit-full-screen-ancestor:not(iframe) .ba-videoplayer-fullscreen-view {
+  min-width: 100%;
+  min-height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  position: fixed;
+  top: 0;
+  bottom: 0; }
+
 .ba-videoplayer-loader-container {
   -webkit-transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);
@@ -1499,6 +1509,20 @@ Apache-2.0 Software License.
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   width: 15%; }
+  .ba-videoplayer-noie8 .ba-videoplayer-playbutton-container:focus {
+    outline: none;
+    border-radius: 50%;
+    border-color: #8BC2F9;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=25, Direction=90, Color=#8BC2F9)";
+    /*IE 8*/
+    -moz-box-shadow: 0 0 25px #8BC2F9;
+    /*FF 3.5+*/
+    -webkit-box-shadow: 0 0 25px #8BC2F9;
+    /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+    box-shadow: 0 0 25px #8BC2F9;
+    /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */ }
+    .ba-videoplayer-noie8 .ba-videoplayer-playbutton-container:focus:hover, .ba-videoplayer-noie8 .ba-videoplayer-playbutton-container:focus:active {
+      border: none; }
 
 .ba-videoplayer-noie8 .ba-videoplayer-playbutton-button {
   transition: opacity 0.25s ease-in-out;

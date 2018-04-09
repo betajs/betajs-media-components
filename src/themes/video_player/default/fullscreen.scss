@@ -32,12 +32,13 @@
   }
 
 }
+
 /* Chrome specific fullscreen CSS */
-:-webkit-full-screen-ancestor:not(iframe) ba-videoplayer, :-webkit-full-screen-ancestor:not(iframe) ba-videoplayer > div {
+:-webkit-full-screen-ancestor:not(iframe) .#{$css}-fullscreen-view {
     min-width: 100%;
     min-height: 100%;
-    max-width: auto;
-    max-height: auto;
+    max-width: 100%;
+    max-height: 100%;
     position: fixed;
     top: 0;
     bottom: 0;

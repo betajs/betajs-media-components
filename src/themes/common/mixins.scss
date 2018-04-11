@@ -555,6 +555,5 @@
 
 @mixin remove-outline() {
     outline: 0;
-    border: none;
-    -moz-outline-style: none
+    -moz-outline-style: none;
 }

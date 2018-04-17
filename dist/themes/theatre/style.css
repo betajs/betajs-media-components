@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.96 - 2018-04-08
+betajs-media-components - v0.0.98 - 2018-04-16
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -935,7 +935,6 @@ Apache-2.0 Software License.
   width: 40px;
   height: 100%;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   box-sizing: content-box; }
 
 .ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-ad-rightbutton-container {
@@ -943,7 +942,6 @@ Apache-2.0 Software License.
   width: 40px;
   height: 100%;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   box-sizing: content-box; }
 
 .ba-videoplayer-ie8 .ba-videoplayer-theatre-theme-ad-rightbutton-container {
@@ -951,7 +949,6 @@ Apache-2.0 Software License.
   width: 40px;
   height: 50%;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   box-sizing: content-box; }
 
 .ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-ad-button-inner {
@@ -973,8 +970,7 @@ Apache-2.0 Software License.
   font-size: 13px; }
 
 .ba-videoplayer-theatre-theme-ad-button-inner {
-  cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+  cursor: pointer; }
 
 .ba-videoplayer-theatre-theme-ad-time-container {
   float: left;
@@ -1029,7 +1025,6 @@ Apache-2.0 Software License.
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   background-color: #878787;
   height: 6px; }
 
@@ -1228,10 +1223,20 @@ Apache-2.0 Software License.
   -o-transition: all 0.3s ease-in-out;
   -ms-transition: all 0.3s ease-in-out; }
 
-.ba-videoplayer-theatre-theme-overlay div[tabindex]:hover:focus {
+.ba-videoplayer-theatre-theme-overlay div[tabindex]:focus {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2px, Direction=90, Color=#1b8fcc)";
+  /*IE 8*/
+  -moz-box-shadow: 0 0 0 2px #1b8fcc;
+  /*FF 3.5+*/
+  -webkit-box-shadow: 0 0 0 2px #1b8fcc;
+  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: 0 0 0 2px #1b8fcc;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
   outline: 0;
-  border: none;
   -moz-outline-style: none; }
+
+.ba-videoplayer-theatre-theme-overlay div[tabindex]:hover, .ba-videoplayer-theatre-theme-overlay div[tabindex]:focus:hover {
+  box-shadow: none; }
 
 .ba-videoplayer-theatre-theme-dashboard {
   transition: opacity 0.5s ease-in-out;
@@ -1312,7 +1317,6 @@ Apache-2.0 Software License.
   width: 40px;
   height: 100%;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   box-sizing: content-box;
   border: none;
   text-align: center;
@@ -1332,7 +1336,6 @@ Apache-2.0 Software License.
   width: 40px;
   height: 100%;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   box-sizing: content-box;
   border: none; }
 
@@ -1341,7 +1344,6 @@ Apache-2.0 Software License.
   width: 40px;
   height: 50%;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   box-sizing: content-box;
   border: none; }
 
@@ -1356,7 +1358,6 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-theatre-theme-button-inner {
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   position: relative; }
 
 .ba-videoplayer-theatre-theme-time-container {
@@ -1429,7 +1430,6 @@ Apache-2.0 Software License.
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   background-color: #cccccc;
   height: 60px;
   width: 7px; }
@@ -1453,7 +1453,6 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-theatre-theme-progressbar-inner {
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   height: 10px;
   background-color: #cccccc; }
 
@@ -1480,7 +1479,6 @@ Apache-2.0 Software License.
   position: absolute;
   left: 0;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   background-color: #cccccc;
   height: 10px; }
 
@@ -1515,7 +1513,6 @@ Apache-2.0 Software License.
   margin-right: 3px; }
   .ba-videoplayer-theatre-theme-stream-label-container .ba-videoplayer-theatre-theme-stream-label {
     cursor: pointer;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     background-color: #000000;
     color: #eeeeee;
     padding: 5px; }
@@ -1544,7 +1541,6 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-theatre-theme-airplay-container {
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   padding: 2px 7px 0 3px; }
   .ba-videoplayer-theatre-theme-airplay-container svg path {
     fill: #666666; }
@@ -1645,14 +1641,14 @@ Apache-2.0 Software License.
   .ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-playbutton-container:focus {
     outline: none;
     border-radius: 50%;
-    border-color: #8BC2F9;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=25, Direction=90, Color=#8BC2F9)";
+    border-color: #1b8fcc;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2px, Direction=90, Color=#1b8fcc)";
     /*IE 8*/
-    -moz-box-shadow: 0 0 25px #8BC2F9;
+    -moz-box-shadow: 0 0 0 2px #1b8fcc;
     /*FF 3.5+*/
-    -webkit-box-shadow: 0 0 25px #8BC2F9;
+    -webkit-box-shadow: 0 0 0 2px #1b8fcc;
     /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
-    box-shadow: 0 0 25px #8BC2F9;
+    box-shadow: 0 0 0 2px #1b8fcc;
     /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */ }
     .ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-playbutton-container:focus:hover, .ba-videoplayer-noie8 .ba-videoplayer-theatre-theme-playbutton-container:focus:active {
       border: none; }
@@ -1748,7 +1744,6 @@ Apache-2.0 Software License.
   border-radius: 0;
   color: #eeeeee;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   font-family: sans-serif;
   font-weight: 300;
   font-size: 12px;
@@ -2806,7 +2801,6 @@ div.ba-videorecorder-theme-theatre-disabled {
 
 .ba-videorecorder-theme-theatre-chooser-button-0 {
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
   border-radius: 15px;
@@ -2823,7 +2817,6 @@ div.ba-videorecorder-theme-theatre-disabled {
 
 .ba-videorecorder-theme-theatre-chooser-button-1, .ba-videorecorder-theme-theatre-chooser-button-2 {
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   color: #000000;
   font-family: sans-serif;
   font-size: 14px;
@@ -2920,7 +2913,6 @@ div.ba-videorecorder-theme-theatre-disabled {
   position: relative;
   text-align: center;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   color: #eeeeee;
   font-size: 13px; }
 
@@ -2931,10 +2923,20 @@ div.ba-videorecorder-theme-theatre-disabled {
   -o-transition: all 0.3s ease-in-out;
   -ms-transition: all 0.3s ease-in-out; }
 
-.ba-videorecorder-theme-theatre-overlay div[tabindex]:hover:focus {
+.ba-videorecorder-theme-theatre-overlay div[tabindex]:focus {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2px, Direction=90, Color=#1b8fcc)";
+  /*IE 8*/
+  -moz-box-shadow: 0 0 0 2px #1b8fcc;
+  /*FF 3.5+*/
+  -webkit-box-shadow: 0 0 0 2px #1b8fcc;
+  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: 0 0 0 2px #1b8fcc;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
   outline: 0;
-  border: none;
   -moz-outline-style: none; }
+
+.ba-videorecorder-theme-theatre-overlay div[tabindex]:hover, .ba-videorecorder-theme-theatre-overlay div[tabindex]:focus:hover {
+  box-shadow: none; }
 
 .ba-videorecorder-theme-theatre-dashboard {
   position: absolute;
@@ -3005,7 +3007,6 @@ div.ba-videorecorder-theme-theatre-disabled {
   float: right;
   height: 100%;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   padding-left: 8px;
   padding-right: 8px; }
 
@@ -3016,7 +3017,6 @@ div.ba-videorecorder-theme-theatre-disabled {
   -ms-transform: translateX(-50%);
   transform: translateX(-50%);
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   display: inline-block;
   position: relative;
   left: 50%;
@@ -3031,8 +3031,7 @@ div.ba-videorecorder-theme-theatre-disabled {
 .ba-videorecorder-theme-theatre-leftbutton-container {
   float: left;
   height: 100%;
-  cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+  cursor: pointer; }
 
 .ba-videorecorder-theme-theatre-button-primary {
   -webkit-transform: translateY(-50%);
@@ -3044,7 +3043,6 @@ div.ba-videorecorder-theme-theatre-disabled {
   position: relative;
   text-align: center;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   border-radius: 18px;
   margin-left: 5px;
   margin-right: 5px;
@@ -3258,10 +3256,20 @@ div.ba-videorecorder-theme-theatre-disabled {
   -o-transition: all 0.3s ease-in-out;
   -ms-transition: all 0.3s ease-in-out; }
 
-.ba-videorecorder-theme-theatre-overlay div[tabindex]:hover:focus {
+.ba-videorecorder-theme-theatre-overlay div[tabindex]:focus {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2px, Direction=90, Color=#1b8fcc)";
+  /*IE 8*/
+  -moz-box-shadow: 0 0 0 2px #1b8fcc;
+  /*FF 3.5+*/
+  -webkit-box-shadow: 0 0 0 2px #1b8fcc;
+  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: 0 0 0 2px #1b8fcc;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
   outline: 0;
-  border: none;
   -moz-outline-style: none; }
+
+.ba-videorecorder-theme-theatre-overlay div[tabindex]:hover, .ba-videorecorder-theme-theatre-overlay div[tabindex]:focus:hover {
+  box-shadow: none; }
 
 .ba-videorecorder-theme-theatre-dashboard {
   position: absolute;

@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.96 - 2018-04-08
+betajs-media-components - v0.0.98 - 2018-04-16
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -935,7 +935,6 @@ Apache-2.0 Software License.
   width: 40px;
   height: 100%;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   box-sizing: content-box; }
 
 .ba-videoplayer-noie8 .ba-videoplayer-elevate-theme-ad-rightbutton-container {
@@ -943,7 +942,6 @@ Apache-2.0 Software License.
   width: 40px;
   height: 100%;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   box-sizing: content-box; }
 
 .ba-videoplayer-ie8 .ba-videoplayer-elevate-theme-ad-rightbutton-container {
@@ -951,7 +949,6 @@ Apache-2.0 Software License.
   width: 40px;
   height: 50%;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   box-sizing: content-box; }
 
 .ba-videoplayer-noie8 .ba-videoplayer-elevate-theme-ad-button-inner {
@@ -973,8 +970,7 @@ Apache-2.0 Software License.
   font-size: 13px; }
 
 .ba-videoplayer-elevate-theme-ad-button-inner {
-  cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+  cursor: pointer; }
 
 .ba-videoplayer-elevate-theme-ad-time-container {
   float: left;
@@ -1029,7 +1025,6 @@ Apache-2.0 Software License.
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   background-color: #878787;
   height: 6px; }
 
@@ -1225,10 +1220,20 @@ Apache-2.0 Software License.
   -o-transition: all 0.3s ease-in-out;
   -ms-transition: all 0.3s ease-in-out; }
 
-.ba-videoplayer-elevate-theme-overlay div[tabindex]:hover:focus {
+.ba-videoplayer-elevate-theme-overlay div[tabindex]:focus {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2px, Direction=90, Color=#1b8fcc)";
+  /*IE 8*/
+  -moz-box-shadow: 0 0 0 2px #1b8fcc;
+  /*FF 3.5+*/
+  -webkit-box-shadow: 0 0 0 2px #1b8fcc;
+  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: 0 0 0 2px #1b8fcc;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
   outline: 0;
-  border: none;
   -moz-outline-style: none; }
+
+.ba-videoplayer-elevate-theme-overlay div[tabindex]:hover, .ba-videoplayer-elevate-theme-overlay div[tabindex]:focus:hover {
+  box-shadow: none; }
 
 .ba-videoplayer-elevate-theme-dashboard {
   transition: opacity 0.5s ease-in-out;
@@ -1343,8 +1348,7 @@ Apache-2.0 Software License.
   margin-left: 3px; }
 
 .ba-videoplayer-elevate-theme-button-inner {
-  cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+  cursor: pointer; }
 
 .ba-videoplayer-elevate-theme-time-container {
   float: left;
@@ -1411,7 +1415,6 @@ Apache-2.0 Software License.
   -webkit-border-radius: 2px;
   border-radius: 2px;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   background-color: #eeeeee;
   height: 8px; }
 
@@ -1426,7 +1429,6 @@ Apache-2.0 Software License.
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   background-color: #eeeeee;
   height: 8px; }
 
@@ -1480,7 +1482,6 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-elevate-theme-stream-label-container .ba-videoplayer-elevate-theme-stream-label {
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   background-color: #000000;
   color: #eeeeee;
   padding: 3px; }
@@ -1504,7 +1505,6 @@ Apache-2.0 Software License.
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   background-color: #666666;
   height: 6px;
   margin: 0 5px; }
@@ -1559,7 +1559,6 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-elevate-theme-airplay-container {
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   padding-top: 2px; }
   .ba-videoplayer-elevate-theme-airplay-container svg path {
     fill: #000000; }
@@ -1656,14 +1655,14 @@ Apache-2.0 Software License.
   .ba-videoplayer-noie8 .ba-videoplayer-elevate-theme-playbutton-container:focus {
     outline: none;
     border-radius: 50%;
-    border-color: #8BC2F9;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=25, Direction=90, Color=#8BC2F9)";
+    border-color: #1b8fcc;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2px, Direction=90, Color=#1b8fcc)";
     /*IE 8*/
-    -moz-box-shadow: 0 0 25px #8BC2F9;
+    -moz-box-shadow: 0 0 0 2px #1b8fcc;
     /*FF 3.5+*/
-    -webkit-box-shadow: 0 0 25px #8BC2F9;
+    -webkit-box-shadow: 0 0 0 2px #1b8fcc;
     /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
-    box-shadow: 0 0 25px #8BC2F9;
+    box-shadow: 0 0 0 2px #1b8fcc;
     /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */ }
     .ba-videoplayer-noie8 .ba-videoplayer-elevate-theme-playbutton-container:focus:hover, .ba-videoplayer-noie8 .ba-videoplayer-elevate-theme-playbutton-container:focus:active {
       border: none; }
@@ -1749,7 +1748,6 @@ Apache-2.0 Software License.
   border-radius: 18px;
   color: #eeeeee;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   font-family: sans-serif;
   font-weight: 300;
   font-size: 12px;
@@ -2799,7 +2797,6 @@ div.ba-videorecorder-theme-elevate-disabled {
 
 .ba-videorecorder-theme-elevate-chooser-button-0 {
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
@@ -2816,7 +2813,6 @@ div.ba-videorecorder-theme-elevate-disabled {
 
 .ba-videorecorder-theme-elevate-chooser-button-1, .ba-videorecorder-theme-elevate-chooser-button-2 {
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   color: #000000;
   font-family: sans-serif;
   font-size: 14px;
@@ -2913,7 +2909,6 @@ div.ba-videorecorder-theme-elevate-disabled {
   position: relative;
   text-align: center;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   color: #eeeeee;
   font-size: 13px; }
 
@@ -2924,10 +2919,20 @@ div.ba-videorecorder-theme-elevate-disabled {
   -o-transition: all 0.3s ease-in-out;
   -ms-transition: all 0.3s ease-in-out; }
 
-.ba-videorecorder-theme-elevate-overlay div[tabindex]:hover:focus {
+.ba-videorecorder-theme-elevate-overlay div[tabindex]:focus {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2px, Direction=90, Color=#1b8fcc)";
+  /*IE 8*/
+  -moz-box-shadow: 0 0 0 2px #1b8fcc;
+  /*FF 3.5+*/
+  -webkit-box-shadow: 0 0 0 2px #1b8fcc;
+  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: 0 0 0 2px #1b8fcc;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
   outline: 0;
-  border: none;
   -moz-outline-style: none; }
+
+.ba-videorecorder-theme-elevate-overlay div[tabindex]:hover, .ba-videorecorder-theme-elevate-overlay div[tabindex]:focus:hover {
+  box-shadow: none; }
 
 .ba-videorecorder-theme-elevate-dashboard {
   position: absolute;
@@ -2998,7 +3003,6 @@ div.ba-videorecorder-theme-elevate-disabled {
   float: right;
   height: 100%;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   padding-left: 8px;
   padding-right: 8px; }
 
@@ -3009,7 +3013,6 @@ div.ba-videorecorder-theme-elevate-disabled {
   -ms-transform: translateX(-50%);
   transform: translateX(-50%);
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   display: inline-block;
   position: relative;
   left: 50%;
@@ -3024,8 +3027,7 @@ div.ba-videorecorder-theme-elevate-disabled {
 .ba-videorecorder-theme-elevate-leftbutton-container {
   float: left;
   height: 100%;
-  cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+  cursor: pointer; }
 
 .ba-videorecorder-theme-elevate-button-primary {
   -webkit-transform: translateY(-50%);
@@ -3037,7 +3039,6 @@ div.ba-videorecorder-theme-elevate-disabled {
   position: relative;
   text-align: center;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   border-radius: 18px;
   margin-left: 5px;
   margin-right: 5px;
@@ -3238,10 +3239,20 @@ div.ba-videorecorder-theme-elevate-disabled {
   -o-transition: all 0.3s ease-in-out;
   -ms-transition: all 0.3s ease-in-out; }
 
-.ba-videorecorder-theme-elevate-overlay div[tabindex]:hover:focus {
+.ba-videorecorder-theme-elevate-overlay div[tabindex]:focus {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2px, Direction=90, Color=#1b8fcc)";
+  /*IE 8*/
+  -moz-box-shadow: 0 0 0 2px #1b8fcc;
+  /*FF 3.5+*/
+  -webkit-box-shadow: 0 0 0 2px #1b8fcc;
+  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: 0 0 0 2px #1b8fcc;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
   outline: 0;
-  border: none;
   -moz-outline-style: none; }
+
+.ba-videorecorder-theme-elevate-overlay div[tabindex]:hover, .ba-videorecorder-theme-elevate-overlay div[tabindex]:focus:hover {
+  box-shadow: none; }
 
 .ba-videorecorder-theme-elevate-dashboard {
   position: absolute;

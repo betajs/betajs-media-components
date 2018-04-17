@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.96 - 2018-04-08
+betajs-media-components - v0.0.98 - 2018-04-16
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -877,7 +877,6 @@ Apache-2.0 Software License.
   width: 40px;
   height: 100%;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   box-sizing: content-box; }
 
 .ba-videoplayer-noie8 .ba-videoplayer-ad-rightbutton-container {
@@ -885,7 +884,6 @@ Apache-2.0 Software License.
   width: 40px;
   height: 100%;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   box-sizing: content-box; }
 
 .ba-videoplayer-ie8 .ba-videoplayer-ad-rightbutton-container {
@@ -893,7 +891,6 @@ Apache-2.0 Software License.
   width: 40px;
   height: 50%;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   box-sizing: content-box; }
 
 .ba-videoplayer-noie8 .ba-videoplayer-ad-button-inner {
@@ -915,8 +912,7 @@ Apache-2.0 Software License.
   font-size: 13px; }
 
 .ba-videoplayer-ad-button-inner {
-  cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+  cursor: pointer; }
 
 .ba-videoplayer-ad-time-container {
   float: left;
@@ -971,7 +967,6 @@ Apache-2.0 Software License.
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   background-color: #878787;
   height: 6px; }
 
@@ -1073,10 +1068,20 @@ Apache-2.0 Software License.
   -o-transition: all 0.3s ease-in-out;
   -ms-transition: all 0.3s ease-in-out; }
 
-.ba-videoplayer-overlay div[tabindex]:hover:focus {
+.ba-videoplayer-overlay div[tabindex]:focus {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2px, Direction=90, Color=#1b8fcc)";
+  /*IE 8*/
+  -moz-box-shadow: 0 0 0 2px #1b8fcc;
+  /*FF 3.5+*/
+  -webkit-box-shadow: 0 0 0 2px #1b8fcc;
+  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: 0 0 0 2px #1b8fcc;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
   outline: 0;
-  border: none;
   -moz-outline-style: none; }
+
+.ba-videoplayer-overlay div[tabindex]:hover, .ba-videoplayer-overlay div[tabindex]:focus:hover {
+  box-shadow: none; }
 
 .ba-videoplayer-dashboard {
   position: absolute;
@@ -1094,7 +1099,6 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-progressbar {
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   transition: height 0.1s ease-in-out;
   -moz-transition: height 0.1s ease-in-out;
   -webkit-transition: height 0.1s ease-in-out;
@@ -1175,12 +1179,10 @@ Apache-2.0 Software License.
   float: left;
   width: 50px;
   height: 100%;
-  cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+  cursor: pointer; }
 
 .ba-videoplayer-rightbutton-container {
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   padding: 0 8px; }
 
 .ba-videoplayer-noie8 .ba-videoplayer-rightbutton-container {
@@ -1222,7 +1224,6 @@ Apache-2.0 Software License.
   position: relative;
   text-align: center;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   color: #FFF;
   font-size: 14px; }
 
@@ -1306,7 +1307,6 @@ Apache-2.0 Software License.
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   background-color: #999;
   height: 8px; }
 
@@ -1325,7 +1325,6 @@ Apache-2.0 Software License.
   -webkit-border-radius: 6px;
   border-radius: 6px;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   background-color: #FFF;
   box-sizing: content-box;
   border: 1px solid #999;
@@ -1348,7 +1347,6 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-airplay-container {
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   padding-top: 4px; }
   .ba-videoplayer-airplay-container svg path {
     fill: #ffffff; }
@@ -1512,14 +1510,14 @@ Apache-2.0 Software License.
   .ba-videoplayer-noie8 .ba-videoplayer-playbutton-container:focus {
     outline: none;
     border-radius: 50%;
-    border-color: #8BC2F9;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=25, Direction=90, Color=#8BC2F9)";
+    border-color: #1b8fcc;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2px, Direction=90, Color=#1b8fcc)";
     /*IE 8*/
-    -moz-box-shadow: 0 0 25px #8BC2F9;
+    -moz-box-shadow: 0 0 0 2px #1b8fcc;
     /*FF 3.5+*/
-    -webkit-box-shadow: 0 0 25px #8BC2F9;
+    -webkit-box-shadow: 0 0 0 2px #1b8fcc;
     /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
-    box-shadow: 0 0 25px #8BC2F9;
+    box-shadow: 0 0 0 2px #1b8fcc;
     /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */ }
     .ba-videoplayer-noie8 .ba-videoplayer-playbutton-container:focus:hover, .ba-videoplayer-noie8 .ba-videoplayer-playbutton-container:focus:active {
       border: none; }
@@ -1588,7 +1586,6 @@ Apache-2.0 Software License.
 .ba-videoplayer-rerecord-button-container {
   height: 100%;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   padding-left: 8px;
   padding-right: 8px;
   display: inline-block;
@@ -1606,7 +1603,6 @@ Apache-2.0 Software License.
   position: relative;
   text-align: center;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   border-radius: 2px;
   padding: 4px;
   padding-left: 8px;
@@ -2679,7 +2675,6 @@ Apache-2.0 Software License.
 
 .ba-videorecorder-chooser-button-0 {
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
@@ -2696,7 +2691,6 @@ Apache-2.0 Software License.
 
 .ba-videorecorder-chooser-button-1, .ba-videorecorder-chooser-button-2 {
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   color: #8CF;
   font-family: Arial, sans-serif;
   font-size: 14px;
@@ -2745,10 +2739,20 @@ Apache-2.0 Software License.
   -o-transition: all 0.3s ease-in-out;
   -ms-transition: all 0.3s ease-in-out; }
 
-.ba-videorecorder-overlay div[tabindex]:hover:focus {
+.ba-videorecorder-overlay div[tabindex]:focus {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2px, Direction=90, Color=#1b8fcc)";
+  /*IE 8*/
+  -moz-box-shadow: 0 0 0 2px #1b8fcc;
+  /*FF 3.5+*/
+  -webkit-box-shadow: 0 0 0 2px #1b8fcc;
+  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: 0 0 0 2px #1b8fcc;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
   outline: 0;
-  border: none;
   -moz-outline-style: none; }
+
+.ba-videorecorder-overlay div[tabindex]:hover, .ba-videorecorder-overlay div[tabindex]:focus:hover {
+  box-shadow: none; }
 
 .ba-videorecorder-dashboard {
   position: absolute;
@@ -2819,7 +2823,6 @@ Apache-2.0 Software License.
   float: right;
   height: 100%;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   padding-left: 8px;
   padding-right: 8px; }
 
@@ -2830,7 +2833,6 @@ Apache-2.0 Software License.
   -ms-transform: translateX(-50%);
   transform: translateX(-50%);
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   display: inline-block;
   position: relative;
   left: 50%;
@@ -2845,8 +2847,7 @@ Apache-2.0 Software License.
 .ba-videorecorder-leftbutton-container {
   float: left;
   height: 100%;
-  cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+  cursor: pointer; }
 
 .ba-videorecorder-button-primary {
   -webkit-transform: translateY(-50%);
@@ -2858,7 +2859,6 @@ Apache-2.0 Software License.
   position: relative;
   text-align: center;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   border-radius: 2px;
   margin-left: 10px;
   margin-right: 10px;
@@ -2980,7 +2980,6 @@ Apache-2.0 Software License.
   position: relative;
   text-align: center;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   color: white;
   font-size: 14px; }
 

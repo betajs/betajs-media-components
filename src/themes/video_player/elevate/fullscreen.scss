@@ -5,6 +5,7 @@
   @include hide-dom-shadow-media-control();
 
   .#{$css}-dashboard {
+    width: $dashboard_width;
     bottom: 0;
   }
 
@@ -31,4 +32,14 @@
 
   }
 
+}
+
+// Fix Chromium related fullscreen issue
+.#{$css}-container {
+  &.#{$css}-fullscreen-view {
+    min-width: 100%; position: absolute;
+    & > .#{$css}-overlay {
+      position: fixed;
+    }
+  }
 }

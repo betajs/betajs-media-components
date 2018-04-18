@@ -33,13 +33,12 @@
 
 }
 
-/* Chrome specific fullscreen CSS */
-:-webkit-full-screen-ancestor:not(iframe) .#{$css}-fullscreen-view {
-    min-width: 100%;
-    min-height: 100%;
-    max-width: 100%;
-    max-height: 100%;
-    position: fixed;
-    top: 0;
-    bottom: 0;
+// Fix Chromium related fullscreen issue
+.#{$css}-container {
+  &.#{$css}-fullscreen-view {
+    min-width: 100%; position: absolute;
+    & > .#{$css}-overlay {
+      position: fixed;
+    }
+  }
 }

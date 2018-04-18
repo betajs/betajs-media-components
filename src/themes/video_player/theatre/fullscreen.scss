@@ -36,7 +36,15 @@
       min-width: 100%;
       z-index: 0;
     }
-
   }
+}
 
+// Fix Chromium related fullscreen issue
+.#{$css}-container {
+  &.#{$css}-fullscreen-view {
+    min-width: 100%; position: absolute;
+    & > .#{$css}-overlay {
+      position: fixed;
+    }
+  }
 }

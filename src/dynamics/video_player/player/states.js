@@ -26,9 +26,119 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
 
         play: function() {
             this.dyn.set("autoplay", true);
-        }
+        },
 
+        uploadTextTrack: function(file) {
+            try {
+                this.next('TextTrackUploading', {
+                    file: file
+                });
+            } catch (e) {
+                console.warn("Error switch to text track uploading state. Message: ", e);
+                this.nextPlayer();
+            }
+        },
+
+        nextPlayer: function() {
+            var _recorder = this.dyn.parent();
+            if (typeof _recorder.record === 'function')
+                _recorder.host.state().next("Player");
+            else
+                this.next("LoadPlayer");
+        }
     }]);
+});
+
+Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.TextTrackUploading", [
+    "module:VideoPlayer.Dynamics.PlayerStates.State",
+    "browser:Upload.FileUploader",
+    "browser:Upload.MultiUploader",
+    "base:Async",
+    "base:Objs"
+], function(State, FileUploader, MultiUploader, Async, Objs, scoped) {
+    return State.extend({
+        scoped: scoped
+    }, {
+
+        _locals: ["file"],
+        dynamics: ['text-tracks', 'loading'],
+
+        _started: function() {
+            this.uploadTextTrackFile(this._file);
+        },
+
+        uploadTextTrackFile: function(file) {
+            var _dynamics, _dataUploader, _uploader, _tracks, _player;
+            _dynamics = this.dyn.parent();
+
+            // Check either recoder or player dynamics
+            if (typeof _dynamics.record !== 'function') {
+                _dynamics = this.dyn;
+            }
+            // Set player
+            // _player = _dynamics.player || this.dyn.player;
+
+            // Get file url
+            if (_dynamics.get("uploadoptions")) {
+                filename = _dynamics.get("uploadoptions").textTracks;
+                _dataUploader = _dynamics._dataUploader;
+            } else {
+                filename = "/text-track/" + file.value.split(/(\\|\/)/g).pop();
+                _dataUploader = new MultiUploader();
+            }
+
+            try {
+                _uploader = FileUploader.create(Objs.extend({
+                    source: file
+                }, filename));
+                _uploader.upload();
+                //_dataUploader.addUploader(_uploader);
+
+                _uploader.on("success", function(response) {
+                    Async.eventually(function() {
+                        _tracks = _dynamics.get("tracktags") || [];
+                        response = response.length > 0 ? JSON.parse(response) : {
+                            lang: 'en',
+                            label: 'English'
+                        };
+                        _tracks.push({
+                            lang: response.lang,
+                            label: response.label,
+                            enabled: true,
+                            src: _uploader._options.url
+                        });
+                        _dynamics.set("tracktags", _tracks);
+
+                        this.nextPlayer();
+
+                    }, this);
+                }, this);
+
+                _uploader.on("error", function(e) {
+                    var bestError = _dynamics.string("uploading-failed");
+                    try {
+                        e.forEach(function(ee) {
+                            for (var key in ee)
+                                if (_dynamics.string("upload-error-" + key))
+                                    bestError = this.dyn.string("upload-error-" + key);
+                        }, this);
+                    } catch (err) {}
+                    _dynamics.set("player_active", false);
+                    this.next("FatalError", {
+                        message: bestError,
+                        retry: "Player"
+                    });
+                }, this);
+
+                _uploader.on("progress", function(uploaded, total) {
+
+                }, this);
+
+            } catch (e) {
+                console.warn('Error occurred during uploading text track files. Message: ', e);
+            }
+        }
+    });
 });
 
 

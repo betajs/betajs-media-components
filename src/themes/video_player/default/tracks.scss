@@ -6,6 +6,39 @@
     @include absolute-align-full-bottom-above-control-bar($controlbar_height + $progressbar_height);
 }
 
+.#{$css}-track-text-download-button-container {
+    @include absolute-align-left;
+    background-color: #020202;
+    bottom: 5px;
+    padding: 5px 10px;
+}
+
+.#{$css}-track-text-file {
+    position: absolute;
+    @include transparent(0);
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    left: 0;
+    bottom: 0;
+    z-index: 100;
+}
+
+.#{$css}-track-text-file::-webkit-file-upload-button {
+    cursor: pointer;
+}
+
+.#{$css}-track-text-download-button {
+    @include clickable;
+    color: #eeeeee;
+    font-family: $font_family;
+    font-size: $button_fontsize;
+    text-align: center;
+    padding: $rerecord_primarybutton_padding;
+    position: relative;
+    white-space: nowrap;
+}
+
 .#{$css}-cue-content {
     @include relative-horizontally-center();
     background: #2c2c2c;

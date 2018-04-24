@@ -124,7 +124,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "chromecast": false,
                     "castbuttonvisble": false,
                     "skipseconds": 5,
-                    "tracktags": null,
+                    "tracktags": [],
                     "tracktagssupport": false,
                     "tracktagsstyled": true,
                     "tracktaglang": 'en',
@@ -132,6 +132,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "initialoptions": {
                         "hideoninactivity": null
                     },
+                    "allowtexttrackupload": false,
+                    "uploadtexttracksvisible": true,
+                    "acceptedtracktexts": null,
 
                     /* States */
                     "states": {
@@ -179,7 +182,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "castbuttonvisble": "boolean",
                     "skipseconds": "integer",
                     "tracktags": "array",
-                    "tracktagsstyled": "boolean"
+                    "tracktagsstyled": "boolean",
+                    "allowtexttrackupload": "boolean",
+                    "uploadtexttracksvisible": "boolean",
+                    "acceptedtracktexts": "string"
                 },
 
                 extendables: ["states"],
@@ -970,6 +976,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 }, this, 100);
 
                         }
+                    },
+
+                    // Text tracks recorder related function
+                    upload_text_tracks: function(file) {
+                        return this.host.state().uploadTextTrack(file);
                     }
                 },
 

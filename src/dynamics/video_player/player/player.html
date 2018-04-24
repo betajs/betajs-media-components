@@ -64,12 +64,16 @@
 
 		<ba-{{dyntracks}}
 			ba-css="{{csstracks || css}}"
-			ba-show="{{tracktagssupport}}"
+			ba-show="{{tracktagssupport || uploadtexttracksvisible}}"
 			ba-tracksshowselection="{{tracksshowselection}}"
 			ba-trackselectorhovered="{{trackselectorhovered}}"
 			ba-tracktags="{{tracktags}}"
 			ba-tracktagsstyled="{{tracktagsstyled}}"
 			ba-trackcuetext="{{trackcuetext}}"
+            ba-allowtexttrackupload="{{allowtexttrackupload}}"
+            ba-uploadtexttracksvisible="{{uploadtexttracksvisible}}"
+            ba-acceptedtracktexts="{{acceptedtracktexts}}"
+            ba-event:upload-text-tracks="upload_text_tracks"
 		></ba-{{dyntracks}}>
 		
 		<ba-{{dynplaybutton}}

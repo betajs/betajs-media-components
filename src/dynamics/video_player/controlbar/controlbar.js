@@ -36,6 +36,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     "fullscreened": false,
                     "activitydelta": 0,
                     "title": "",
+                    "allowtexttrackupload": false,
                     "tracktextvisible": false // Are subtitles visible?
                 },
 

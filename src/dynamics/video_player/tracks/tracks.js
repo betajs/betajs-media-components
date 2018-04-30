@@ -1,10 +1,13 @@
 Scoped.define("module:VideoPlayer.Dynamics.Tracks", [
     "dynamics:Dynamic",
+    "browser:Dom",
+    "base:Objs",
     "module:Assets"
 ], [
     "dynamics:Partials.ClickPartial",
-    "dynamics:Partials.RepeatPartial"
-], function(Class, Assets, scoped) {
+    "dynamics:Partials.RepeatPartial",
+    "dynamics:Partials.RepeatElementPartial"
+], function(Class, Dom, Objs, Assets, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -16,7 +19,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Tracks", [
                     "css": "ba-videoplayer",
                     "trackcuetext": null,
                     "acceptedtracktexts": "text/vtt,application/ttml+xml,type/subtype",
-                    "trackselectorhovered": false
+                    "trackselectorhovered": false,
+                    "uploadtexttracksvisible": false,
+                    "uploadlocales": [],
+                    "chosenoption": null
                 },
 
                 functions: {
@@ -29,8 +35,27 @@ Scoped.define("module:VideoPlayer.Dynamics.Tracks", [
                         return this.parent().set("trackselectorhovered", hover);
                     },
 
-                    select_text_track: function(domEvent) {
-                        this.trigger("upload-text-tracks", domEvent[0].target);
+                    selected_label_value: function(select) {
+                        var _options, _chosen;
+                        _options = select[0].target.options;
+                        _chosen = _options[_options.selectedIndex];
+
+                        if (_chosen.value) {
+                            this.set("chosenoption", {
+                                lang: _chosen.value,
+                                label: _chosen.text
+                            });
+                        } else {
+                            this.set("chosenoption", null);
+                        }
+                    },
+
+                    upload_text_track: function(domEvent, label) {
+                        if (this.get('chosenoption'))
+                            this.trigger("upload-text-tracks", domEvent[0].target, label);
+                        else {
+                            console.warn('can not send empty label');
+                        }
                     }
                 }
 
@@ -40,6 +65,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Tracks", [
         .registerFunctions({ /*<%= template_function_cache(dirname + '/video_player_tracks.html') %>*/ })
         .attachStringTable(Assets.strings)
         .addStrings({
-            "upload-video-track-text": "Upload track text files"
+            "upload-text-tracks": "Upload track text files",
+            "select-text-track-language": "Subtitle Language",
+            "select-text-track-file": "Select Subtitle File",
+            "back": "Back"
         });
 });

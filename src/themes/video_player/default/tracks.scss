@@ -6,37 +6,40 @@
     @include absolute-align-full-bottom-above-control-bar($controlbar_height + $progressbar_height);
 }
 
-.#{$css}-track-text-download-button-container {
-    @include absolute-align-left;
-    background-color: #020202;
-    bottom: 5px;
-    padding: 5px 10px;
+.#{$css}-side-box-hidden {
+    display: none;
 }
 
-.#{$css}-track-text-file {
-    position: absolute;
-    @include transparent(0);
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-    left: 0;
-    bottom: 0;
-    z-index: 100;
-}
-
-.#{$css}-track-text-file::-webkit-file-upload-button {
-    cursor: pointer;
-}
-
-.#{$css}-track-text-download-button {
-    @include clickable;
+.#{$css}-side-box-visible {
+    @include absolute-align-right-bottom();
+    @include background-rgba(0, 0, 0, 0.7, #555555);
+    box-sizing: border-box;
     color: #eeeeee;
-    font-family: $font_family;
-    font-size: $button_fontsize;
-    text-align: center;
-    padding: $rerecord_primarybutton_padding;
-    position: relative;
-    white-space: nowrap;
+    padding: 12px;
+    min-width: 140px;
+    width: 180px;
+    &.#{$css}-button {
+        background-color: #979797;
+        color: #eeeeee;
+        margin-top: 5px;
+    }
+}
+
+.#{$css}-back-arrow-pointer {
+    cursor: pointer;
+    font-size: 12px;
+    margin: 0 0 10px;
+}
+
+.#{$css}-form{
+    .#{$css}-form-input {
+        &.#{$css}-select-field {
+            color: #eeeeee;
+            &:after {
+
+            }
+        }
+    }
 }
 
 .#{$css}-cue-content {

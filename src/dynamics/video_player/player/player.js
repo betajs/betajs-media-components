@@ -135,6 +135,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "allowtexttrackupload": false,
                     "uploadtexttracksvisible": true,
                     "acceptedtracktexts": null,
+                    "uploadlocales": [{
+                        lang: 'en',
+                        label: 'English'
+                    }],
+                    "ttuploadervisible": false,
 
                     /* States */
                     "states": {
@@ -185,7 +190,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "tracktagsstyled": "boolean",
                     "allowtexttrackupload": "boolean",
                     "uploadtexttracksvisible": "boolean",
-                    "acceptedtracktexts": "string"
+                    "acceptedtracktexts": "string",
+                    "uploadlocales": "array"
                 },
 
                 extendables: ["states"],
@@ -978,10 +984,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     },
 
-                    // Text tracks recorder related function
                     upload_text_tracks: function(file) {
                         return this.host.state().uploadTextTrack(file);
                     }
+
                 },
 
                 destroy: function() {

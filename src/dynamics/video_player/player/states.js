@@ -68,23 +68,21 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.TextTrackUploading", [
         },
 
         uploadTextTrackFile: function(file) {
-            var _dynamics, _dataUploader, _uploader, _tracks, _player;
+            var _dynamics, _uploader, _tracks;
             _dynamics = this.dyn.parent();
 
             // Check either recoder or player dynamics
             if (typeof _dynamics.record !== 'function') {
                 _dynamics = this.dyn;
             }
-            // Set player
-            // _player = _dynamics.player || this.dyn.player;
 
             // Get file url
             if (_dynamics.get("uploadoptions")) {
                 filename = _dynamics.get("uploadoptions").textTracks;
-                _dataUploader = _dynamics._dataUploader;
             } else {
-                filename = "/text-track/" + file.value.split(/(\\|\/)/g).pop();
-                _dataUploader = new MultiUploader();
+                filename = {
+                    url: "/text-track/" + file.value.split(/(\\|\/)/g).pop()
+                };
             }
 
             try {
@@ -92,7 +90,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.TextTrackUploading", [
                     source: file
                 }, filename));
                 _uploader.upload();
-                //_dataUploader.addUploader(_uploader);
 
                 _uploader.on("success", function(response) {
                     Async.eventually(function() {

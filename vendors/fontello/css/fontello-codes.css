@@ -24,6 +24,8 @@
 .icon-facebook:before { content: '\f09a'; } /* '' */
 .icon-gplus-squared:before { content: '\f0d4'; } /* '' */
 .icon-gplus:before { content: '\f0d5'; } /* '' */
+.icon-angle-up:before { content: '\f106'; } /* '' */
+.icon-angle-down:before { content: '\f107'; } /* '' */
 .icon-crop:before { content: '\f125'; } /* '' */
 .icon-share:before { content: '\f130'; } /* '' */
 .icon-resize-full-alt:before { content: '\f131'; } /* '' */

@@ -1,0 +1,79 @@
+.#{$css}-full-width { width: 100%;}
+.#{$css}-half-width {width: 50%;}
+.#{$css}-text-center {text-align: center;}
+.#{$css}-text-right {text-align: right;}
+.#{$css}-text-left {text-align: left;}
+.#{$css}-pull-right {float: right;}
+.#{$css}-button {
+    color: #333;
+    background-color: #fff;
+    border-radius: 0;
+    padding: 5px 10px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+}
+.#{$css}-form {
+    .#{$css}-form-input {
+        &.#{$css}-select-field {
+            //background: #fafafa url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAlklEQVQ4T+3SMQ5BQRDG8d+7hVLrEhqJ4h1ANCqFE0g0CuVzBJ2SAygkKqfQ6pyCbLISWdYWrxNTznzzn8w3U2kZVct+PwjYY4lLxpseVhg966kHfWwwxDWBdHHEFOccIORrrDHALQo7OGGOwys4d4VxFAdI0ITmBrt0tW9nnGESAdu42ps1pT9Y4B6nf/S1BCg+6h/AA/hvEhFscWXpAAAAAElFTkSuQmCC") no-repeat 95% 50%;
+            border: 1px solid #cccccc;
+            cursor: pointer;
+            min-width: 120px;
+            min-height: 25px;
+            overflow: hidden;
+            select {
+                background: transparent;
+                border: none;
+                box-sizing: border-box;
+                box-shadow: none;
+                cursor: pointer;
+                padding: 5px 8px;
+                position: relative;
+                width: 103%;
+                z-index: 1;
+                -moz-appearance: none;
+                -webkit-appearance: none;
+            }
+            select:focus {
+                outline: none;
+            }
+            &:after {
+                @include fontello-icon;
+                @include transform-translate-y(-50%);
+                content: '\f107';
+                color: #eeeeee;
+                position: absolute;
+                right: 15px;
+                top: 50%;
+            }
+        }
+
+        input[type='file'] {
+            @include transparent(0);
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            z-index: 100;
+            &::-webkit-file-upload-button {
+                cursor: pointer;
+            }
+        }
+        &.#{$css}-error {
+            border: 1px solid #dd4b39;
+        }
+        input[type='submit'] {
+            background: #2c2c2c;
+            color: #cccccc;
+        }
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 5px 10px;
+        }
+
+    }
+}

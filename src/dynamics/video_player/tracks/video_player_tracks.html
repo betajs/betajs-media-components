@@ -1,23 +1,10 @@
 <div data-selector="tracks-tags-overlay" class="{{css}}-tracks-tags-overlay">
 
-    <div data-selector="track-text-download-button-container" class="{{css}}-track-text-download-button-container"
-         ba-if="{{allowtexttrackupload}}" title="{{string('upload-video-track-text')}}"
-    >
-        <div class="{{css}}-track-text-download-button" ba-show="{{uploadtexttracksvisible}}">
-            <input type="file"
-                   class="{{css}}-track-text-file"
-                   onchange="{{select_text_track(domEvent)}}"
-                   accept="{{acceptedtracktexts}}"
-            />
-            <i class="{{css}}-icon-subtitle"></i>
-            <i class="{{css}}-icon-upload"></i>
-        </div>
-    </div>
-
     <div data-selector="cue-content" ba-show="{{tracktagsstyled && trackcuetext}}" class="{{css}}-cue-content">
         {{trackcuetext}}
     </div>
-    <ul data-selector="tracks-selector-list" class="{{css}}-tracks-selector-list {{css}}-tracks-selector-list-{{tracksshowselection || trackselectorhovered ? 'open' : 'closed'}}"
+    <ul data-selector="tracks-selector-list"
+        class="{{css}}-tracks-selector-list {{css}}-tracks-selector-list-{{tracksshowselection || trackselectorhovered ? 'open' : 'closed'}}"
         ba-repeat="{{track :: tracktags}}"
         onmouseover="{{hover_cc(true)}}"
         onmouseleave="{{hover_cc(false)}}"
@@ -25,5 +12,49 @@
         <li class="{{css}}-tracks-selector" ba-click="{{select_track(track)}}">
             {{track.label}}
         </li>
+        <li data-selector="text-tracks-download-button-container"
+            class="{{css}}-text-tracks-download-button-container"
+            ba-if="{{allowtexttrackupload}}" title="{{string('upload-text-tracks')}}"
+            ba-click="{{toggle_upload_text_track_form()}}"
+        >
+           {{string('upload-text-tracks')}} &rarr;
+        </li>
+        <div data-selector="text-tracks-uploader-form" ba-if="{{allowtexttrackupload}}"
+             class="{{css}}-side-box-{{uploadtexttracksvisible ? 'visible' : 'hidden' }}"
+        >
+            <div
+                title="{{string('back')}}"
+                class="{{css}}-full-width {{css}}-text-left {{css}}-back-arrow-pointer-container"
+            >
+                <span
+                    data-selector="close-text-tracks-upload-form"
+                    class="{{css}}-back-arrow-pointer"
+                    ba-click="{{toggle_upload_text_track_form()}}"
+                > &larr; {{string('back')}}</span>
+            </div>
+            <form class="{{css}}-form {{css}}-text-tracks-upload-form" ba-if="{{uploadtexttracksvisible}}">
+                <div class="{{css}}-form-input {{css}}-select-field {{css}}-direction-pointer">
+                    <select data-selector="select-text-tracks-label"
+                            class="{{css}}-form-input {{css}}-text-tracks-label-input"
+                            name="{{css}}-text-tracks-label-select" required
+                            onchange="{{selected_label_value(domEvent)}}"
+                    >
+                        <option disabled selected value>
+                            {{string('select-text-track-language')}}
+                        </option>
+                        <option ba-repeat-element="{{locale :: uploadlocales}}" value="{{locale.lang}}">
+                            {{locale.label}}
+                        </option>
+                    </select>
+                </div>
+                <div class="{{css}}-form-input {{css}}-button">
+                    <input type="file" data-selector="select-text-tracks-file"
+                           onchange="{{upload_text_track(domEvent)}}"
+                           class="{{css}}-text-tracks-file" accept="{{acceptedtracktexts}}"
+                    />
+                    {{string('select-text-track-file')}}
+                </div>
+            </form>
+        </div>
     </ul>
 </div>

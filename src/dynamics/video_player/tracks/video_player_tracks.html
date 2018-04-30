@@ -4,12 +4,12 @@
         {{trackcuetext}}
     </div>
     <ul data-selector="tracks-selector-list"
-        class="{{css}}-tracks-selector-list {{css}}-tracks-selector-list-{{tracksshowselection || trackselectorhovered ? 'open' : 'closed'}}"
-        ba-repeat="{{track :: tracktags}}"
+        class="{{css}}-tracks-selector-list
+        {{css}}-tracks-selector-list-{{tracksshowselection || trackselectorhovered ? 'open' : 'closed'}}"
         onmouseover="{{hover_cc(true)}}"
         onmouseleave="{{hover_cc(false)}}"
     >
-        <li class="{{css}}-tracks-selector" ba-click="{{select_track(track)}}">
+        <li ba-repeat-element="{{track :: tracktags}}" class="{{css}}-tracks-selector" ba-click="{{select_track(track)}}">
             {{track.label}}
         </li>
         <li data-selector="text-tracks-download-button-container"
@@ -47,12 +47,14 @@
                         </option>
                     </select>
                 </div>
-                <div class="{{css}}-form-input {{css}}-button">
+                <div class="{{css}}-form-input {{css}}-button {{chosenoption ? '' : css + '-disabled'}}">
                     <input type="file" data-selector="select-text-tracks-file"
+                           title="{{chosenoption ? string('select-text-track-file') : string('info-select-locale-first')}}"
                            onchange="{{upload_text_track(domEvent)}}"
-                           class="{{css}}-text-tracks-file" accept="{{acceptedtracktexts}}"
+                           class="{{css}}-text-tracks-file"
+                           accept="{{acceptedtracktexts}}"
                     />
-                    {{string('select-text-track-file')}}
+                    {{chosenoption ? string('select-text-track-file') : string('info-select-locale-first')}}
                 </div>
             </form>
         </div>

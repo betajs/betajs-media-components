@@ -203,7 +203,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         Async.eventually(function() {
                             this.parent().set("tracksshowselection", hover);
                         }, this, 300);
-                        var _dyn = this.__parent;
                     },
 
                     tab_index_move: function(ev, nextSelector, focusingSelector) {

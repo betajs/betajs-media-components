@@ -128,7 +128,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "tracktagssupport": false,
                     "tracktagsstyled": true,
                     "tracktaglang": 'en',
-                    "tracksshowselection": false,
+                    "tracksshowselection": true,
                     "initialoptions": {
                         "hideoninactivity": null
                     },
@@ -984,8 +984,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     },
 
-                    upload_text_tracks: function(file) {
-                        return this.host.state().uploadTextTrack(file);
+                    upload_text_tracks: function(file, locale) {
+                        return this.host.state().uploadTextTrack(file, locale);
                     }
 
                 },

@@ -5,7 +5,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Tracks", [
     "module:Assets"
 ], [
     "dynamics:Partials.ClickPartial",
-    "dynamics:Partials.RepeatPartial",
     "dynamics:Partials.RepeatElementPartial"
 ], function(Class, Dom, Objs, Assets, scoped) {
     return Class.extend({
@@ -50,9 +49,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Tracks", [
                         }
                     },
 
-                    upload_text_track: function(domEvent, label) {
+                    upload_text_track: function(domEvent) {
                         if (this.get('chosenoption'))
-                            this.trigger("upload-text-tracks", domEvent[0].target, label);
+                            this.trigger("upload-text-tracks", domEvent[0].target, this.get('chosenoption'));
                         else {
                             console.warn('can not send empty label');
                         }
@@ -67,7 +66,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Tracks", [
         .addStrings({
             "upload-text-tracks": "Upload track text files",
             "select-text-track-language": "Subtitle Language",
-            "select-text-track-file": "Select Subtitle File",
-            "back": "Back"
+            "info-select-locale-first": "First select locale",
+            "select-text-track-file": "Click to select file",
+            "back": "back"
         });
 });

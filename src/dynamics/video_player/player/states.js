@@ -28,10 +28,11 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
             this.dyn.set("autoplay", true);
         },
 
-        uploadTextTrack: function(file) {
+        uploadTextTrack: function(file, locale) {
             try {
                 this.next('TextTrackUploading', {
-                    file: file
+                    file: file,
+                    locale: locale
                 });
             } catch (e) {
                 console.warn("Error switch to text track uploading state. Message: ", e);
@@ -60,14 +61,14 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.TextTrackUploading", [
         scoped: scoped
     }, {
 
-        _locals: ["file"],
+        _locals: ["file", "locale"],
         dynamics: ['text-tracks', 'loading'],
 
         _started: function() {
-            this.uploadTextTrackFile(this._file);
+            this.uploadTextTrackFile(this._file, this._locale);
         },
 
-        uploadTextTrackFile: function(file) {
+        uploadTextTrackFile: function(file, locale) {
             var _dynamics, _uploader, _tracks;
             _dynamics = this.dyn.parent();
 
@@ -81,7 +82,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.TextTrackUploading", [
                 filename = _dynamics.get("uploadoptions").textTracks;
             } else {
                 filename = {
-                    url: "/text-track/" + file.value.split(/(\\|\/)/g).pop()
+                    url: "/text-track/" + file.value.split(/(\\|\/)/g).pop() + "/lang/" + locale.lang + "/label/" + locale.label
                 };
             }
 

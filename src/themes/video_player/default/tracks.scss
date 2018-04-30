@@ -15,7 +15,7 @@
     @include background-rgba(0, 0, 0, 0.7, #555555);
     box-sizing: border-box;
     color: #eeeeee;
-    padding: 12px;
+    padding: 5px 10px 10px;
     min-width: 140px;
     width: 180px;
     &.#{$css}-button {
@@ -25,18 +25,31 @@
     }
 }
 
-.#{$css}-back-arrow-pointer {
-    cursor: pointer;
-    font-size: 12px;
-    margin: 0 0 10px;
+.#{$css}-back-arrow-pointer-container {
+    margin-bottom: 5px;
+    .#{$css}-back-arrow-pointer {
+        cursor: pointer;
+        font-size: 12px;
+        margin: 0 0 10px;
+    }
 }
 
-.#{$css}-form{
-    .#{$css}-form-input {
-        &.#{$css}-select-field {
-            color: #eeeeee;
-            &:after {
 
+.#{$css}-form {
+    .#{$css}-form-input {
+        &.#{$css}-disabled {
+            input {
+                @include disabled_element();
+            }
+            input[type='file'] { @include transparent(0); }
+        }
+        &.#{$css}-select-field {
+            margin-bottom: 7px;
+            select {
+                color: #eeeeee;
+            }
+            &:after {
+                top: 41%;
             }
         }
     }

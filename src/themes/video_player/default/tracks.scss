@@ -1,28 +1,9 @@
-.#{$css}-tracks-tags-overlay {
+.#{$css}-text-tracks-overlay {
     @include absolute-align-full-bottom;
 }
 
-.#{$css}-tracks-tags-overlay {
+.#{$css}-text-tracks-overlay {
     @include absolute-align-full-bottom-above-control-bar($controlbar_height + $progressbar_height);
-}
-
-.#{$css}-side-box-hidden {
-    display: none;
-}
-
-.#{$css}-side-box-visible {
-    @include absolute-align-right-bottom();
-    @include background-rgba(0, 0, 0, 0.7, #555555);
-    box-sizing: border-box;
-    color: #eeeeee;
-    padding: 5px 10px 10px;
-    min-width: 140px;
-    width: 180px;
-    &.#{$css}-button {
-        background-color: #979797;
-        color: #eeeeee;
-        margin-top: 5px;
-    }
 }
 
 .#{$css}-back-arrow-pointer-container {
@@ -49,7 +30,7 @@
                 color: #eeeeee;
             }
             &:after {
-                top: 41%;
+                top: 46%;
             }
         }
     }
@@ -65,29 +46,10 @@
     width: 60%;
 }
 
-.#{$css}-tracks-selector-list {
-    @include absolute-align-right-bottom;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    z-index: 1;
-}
-
-.#{$css}-tracks-selector {
-    padding: 5px 20px;
-    background: #020202;
-    color: #eeeeee;
-    cursor: pointer;
-    &:hover {
-        background-color: #4c4c4c;
-        color: #ffffff;
-    }
-}
-
-.#{$css}-tracks-selector-list-open {
+.#{$css}-tracks-selector-list-visible {
     @include show-slow(0.2);
 }
 
-.#{$css}-tracks-selector-list-closed {
+.#{$css}-tracks-selector-list-hidden {
     @include hide-slow(0.2);
 }

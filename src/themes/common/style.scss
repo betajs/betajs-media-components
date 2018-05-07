@@ -7,6 +7,32 @@
 .#{$css}-disabled, .#{$css}-disabled * { @include disabled_element() }
 .#{$css}-text-info { color: #5dbb96 }
 .#{$css}-text-error { color: #dd4b39}
+.#{$css}-open-next, .#{$css}-open-previous {
+    & > .#{$css}-inner-icon {
+        @include fontello-icon;
+        color: #eeeeee;
+        font-size: 120%;
+        position: relative;
+    }
+}
+.#{$css}-open-next {
+    & > .#{$css}-inner-icon {
+        &:after {
+            content: '\f105';
+            left: 5px;
+        }
+    }
+}
+.#{$css}-open-previous {
+    & > .#{$css}-inner-icon {
+        float: left;
+        &:before {
+            content: '\f104';
+            right: 5px;
+        }
+    }
+}
+
 .#{$css}-button {
     color: #333;
     background-color: #fff;
@@ -80,3 +106,66 @@
 
     }
 }
+
+.#{$css}-options-popup {
+    @include background-rgba(0, 0, 0, 0.7, #555555);
+    @include transition1(opacity, .2s, ease-in-out);
+    box-sizing: border-box;
+    bottom: 3px;
+    min-width: 140px;
+    overflow: hidden;
+    position: absolute;
+    right: 5px;
+    z-index: 10;
+    .#{$css}-options-list {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        .#{$css}-options-list-item {
+            @include remove-outline();
+            cursor: pointer;
+            color: #eeeeee;
+            display: inline-block;
+            box-sizing: border-box;
+            padding: 5px 10px;
+            white-space: nowrap;
+            width: 100%;
+            & > .#{$css}-inner-text {
+                font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+                font-size: 14px;
+                float: left;
+            }
+            &.#{$css}-inner-icon {
+                margin: 0;
+                padding: 5px 0 5px 10px
+            }
+        }
+        .#{$css}-options-list-item:hover {
+            @include background-rgba(255, 255, 255, .1, #555555);
+        }
+    }
+}
+
+.#{$css}-options-list-visible {
+    @include show-slow(.5);
+    position: relative;
+    right: 0;
+    &.#{$css}-button {
+        background-color: #979797;
+        color: #eeeeee;
+        margin-top: 5px;
+    }
+}
+
+.#{$css}-options-list-hidden {
+    @include hide-slow(.5);
+    position: relative;
+    right: -180px;
+    display: none;
+    &.#{$css}-button {
+        background-color: #979797;
+        color: #eeeeee;
+        margin-top: 5px;
+    }
+}
+

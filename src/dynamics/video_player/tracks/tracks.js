@@ -55,9 +55,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Tracks", [
                         else {
                             console.warn('can not send empty label');
                         }
+                    },
+
+                    move_to_option: function(domEvent, classSelector) {
+                        this.trigger("move_to_option", domEvent[0].target, classSelector);
                     }
                 }
-
             };
         })
         .register("ba-videoplayer-tracks")

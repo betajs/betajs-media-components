@@ -1,8 +1,8 @@
-.#{$css}-tracks-tags-overlay {
+.#{$css}-text-tracks-overlay {
     @include absolute-align-full-bottom;
 }
 
-.#{$css}-tracks-tags-overlay {
+.#{$css}-text-tracks-overlay {
     @include absolute-align-full-bottom-above-control-bar(40px);
 }
 

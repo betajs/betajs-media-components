@@ -4,8 +4,8 @@
         {{trackcuetext}}
     </div>
     <div class="{{css}}-options-popup {{css}}-tracks-selector-list-{{tracksshowselection || trackselectorhovered ? 'visible' : 'hidden'}}">
-        <div ba-show="{{tracksshowselection || trackselectorhovered}}"
-             onmouseover="{{hover_cc(true)}}" onmouseleave="{{hover_cc(false)}}"
+        <div ba-show="{{tracksshowselection || trackselectorhovered}}" tabindex="-1"
+             onmouseover="{{hover_cc(domEvent, true)}}" onmouseleave="{{hover_cc(domEvent, false)}}"
         >
             <div data-selector="tracks-selector-list"
                  class="{{css}}-initial-options-list {{css}}-tracks-selector-list {{css}}-options-list-visible {{css}}-options-list"

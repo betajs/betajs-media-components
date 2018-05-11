@@ -380,6 +380,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 toggleTrackTags: function(status) {
+                    // toggle popup tracks menu in case it it's open
+                    this.set("trackselectorhovered", !this.get("trackselectorhovered"));
                     var _lang = this.get("tracktaglang");
                     var _customStyled = this.get("tracktagsstyled");
                     var _status = status ? 'showing' : 'disabled';
@@ -1000,6 +1002,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         _hiddenOptionsSelector = _classPrefix + 'options-list-hidden';
                         _visibleOptionsSelector = _classPrefix + 'options-list-visible';
                         _targetElement = this.activeElement().querySelector(_moveToSelector);
+
                         // Look if target element is hidden
                         if (Dom.elementHasClass(_targetElement, _hiddenOptionsSelector)) {
                             // Search for visible closest parent element

@@ -2,11 +2,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Tracks", [
     "dynamics:Dynamic",
     "browser:Dom",
     "base:Objs",
+    "base:Async",
     "module:Assets"
 ], [
     "dynamics:Partials.ClickPartial",
     "dynamics:Partials.RepeatElementPartial"
-], function(Class, Dom, Objs, Assets, scoped) {
+], function(Class, Dom, Objs, Async, Assets, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -30,7 +31,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Tracks", [
                         this.parent().trigger("switch-track", track);
                     },
 
-                    hover_cc: function(hover) {
+                    hover_cc: function(ev, hover) {
+                        if (!hover && ev[0].target === document.activeElement)
+                            return;
                         return this.parent().set("trackselectorhovered", hover);
                     },
 
@@ -38,6 +41,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Tracks", [
                         var _options, _chosen;
                         _options = select[0].target.options;
                         _chosen = _options[_options.selectedIndex];
+
+                        // Keep popup menu be open
+                        this.parent().set("trackselectorhovered", true);
 
                         if (_chosen.value) {
                             this.set("chosenoption", {

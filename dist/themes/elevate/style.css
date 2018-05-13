@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.99 - 2018-04-18
+betajs-media-components - v0.0.101 - 2018-05-13
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -3573,3 +3573,2435 @@ div.ba-videorecorder-theme-elevate-disabled {
 
 .ba-videorecorder-theme-elevate-topmessage-background {
   background: none; }
+
+.ba-imageviewer-elevate-theme-icon-volume-off:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e800'; }
+
+.ba-imageviewer-elevate-theme-icon-volume-down:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e801'; }
+
+.ba-imageviewer-elevate-theme-icon-volume-up:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e802'; }
+
+.ba-imageviewer-elevate-theme-icon-resize-full:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e803'; }
+
+.ba-imageviewer-elevate-theme-icon-ccw:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e804'; }
+
+.ba-imageviewer-elevate-theme-icon-play:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e805'; }
+
+.ba-imageviewer-elevate-theme-icon-pause:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e806'; }
+
+.ba-imageviewer-elevate-theme-icon-videocam:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e807'; }
+
+.ba-imageviewer-elevate-theme-icon-upload:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e808'; }
+
+.ba-imageviewer-elevate-theme-icon-left-open:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e809'; }
+
+.ba-imageviewer-elevate-theme-icon-right-open:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e80a'; }
+
+.ba-imageviewer-elevate-theme-icon-cog:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e80b'; }
+
+.ba-imageviewer-elevate-theme-icon-mic:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e80c'; }
+
+.ba-imageviewer-elevate-theme-icon-mute:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e80d'; }
+
+.ba-imageviewer-elevate-theme-icon-lightbulb:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e80e'; }
+
+.ba-imageviewer-elevate-theme-icon-resize-small:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e80f'; }
+
+.ba-imageviewer-elevate-theme-icon-resize-minimize:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e810'; }
+
+.ba-imageviewer-elevate-theme-icon-record:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e811'; }
+
+.ba-imageviewer-elevate-theme-icon-record-core:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e812'; }
+
+.ba-imageviewer-elevate-theme-icon-up-dir:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e813'; }
+
+.ba-imageviewer-elevate-theme-icon-cc:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e815'; }
+
+.ba-imageviewer-elevate-theme-icon-twitter:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f099'; }
+
+.ba-imageviewer-elevate-theme-icon-facebook:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f09a'; }
+
+.ba-imageviewer-elevate-theme-icon-gplus-squared:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f0d4'; }
+
+.ba-imageviewer-elevate-theme-icon-gplus:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f0d5'; }
+
+.ba-imageviewer-elevate-theme-icon-crop:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f125'; }
+
+.ba-imageviewer-elevate-theme-icon-share:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f130'; }
+
+.ba-imageviewer-elevate-theme-icon-resize-full-alt:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f131'; }
+
+.ba-imageviewer-elevate-theme-icon-play-circled:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f144'; }
+
+.ba-imageviewer-elevate-theme-icon-subtitle:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f20a'; }
+
+.ba-imageviewer-elevate-theme-icon-facebook-official:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f230'; }
+
+.ba-imageviewer-elevate-theme-icon-television:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f26c'; }
+
+.ba-imageviewer-elevate-theme-icon-twitter-squared:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f304'; }
+
+.ba-imageviewer-elevate-theme-container {
+  display: inline-block;
+  position: relative;
+  overflow: hidden; }
+
+.ba-imageviewer-elevate-theme-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0; }
+
+.ba-imageviewer-elevate-theme-image {
+  width: 100%;
+  display: block; }
+
+.ba-imageviewer-elevate-theme-stretch-height .ba-imageviewer-elevate-theme-container, .ba-imageviewer-elevate-theme-stretch-width .ba-imageviewer-elevate-theme-container {
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%; }
+
+.ba-imageviewer-elevate-theme-stretch-height .ba-imageviewer-elevate-theme-image {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  min-width: 100%; }
+
+.ba-imageviewer-elevate-theme-stretch-width .ba-imageviewer-elevate-theme-image {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  max-height: 100%;
+  height: 100%;
+  width: 10000px; }
+
+.ba-imageviewer-elevate-theme-stretch-width, .ba-imageviewer-elevate-theme-stretch-height {
+  display: inline-block;
+  height: 100%;
+  width: 100%; }
+
+.ba-imageviewer-elevate-theme-disabled {
+  cursor: not-allowed;
+  /* works for IE 5+. */
+  /* works for IE 8. */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  /* works for old school versions of the Mozilla browsers like Netscape Navigator. */
+  -moz-opacity: 0.5;
+  /* This is for old versions of Safari (1.x) with KHTML rendering engine */
+  -khtml-opacity: 0.5;
+  /* This is the "most important" one because it's the current standard in CSS. This will work in most versions of Firefox, Safari, and Opera. */
+  opacity: 0.5; }
+  .ba-imageviewer-elevate-theme-disabled * {
+    cursor: not-allowed; }
+
+.ba-imageviewer-elevate-theme-topmessage-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0; }
+
+.ba-imageviewer-elevate-theme-topmessage-message {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  font-family: sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  color: #2c2c2c;
+  padding: 8.5px;
+  text-align: center; }
+
+.ba-imageviewer-elevate-theme-topmessage-background {
+  background-color: black;
+  height: 32px;
+  opacity: 0.3;
+  position: absolute;
+  width: 100%; }
+
+.ba-imageviewer-elevate-theme-red-color .ba-imageviewer-elevate-theme-button-inner, .ba-imageviewer-elevate-theme-red-color .ba-imageviewer-elevate-theme-icon-resize-full, .ba-imageviewer-elevate-theme-red-color .ba-imageviewer-elevate-theme-icon-resize-small, .ba-imageviewer-elevate-theme-red-color.ba-imageviewer-noie8 .ba-imageviewer-elevate-theme-button-inner {
+  color: #eb6a74; }
+.ba-imageviewer-elevate-theme-red-color .ba-imageviewer-elevate-theme-rerecord-button {
+  background-color: #eb6a74; }
+
+.ba-imageviewer-elevate-theme-blue-color .ba-imageviewer-elevate-theme-button-inner, .ba-imageviewer-elevate-theme-blue-color .ba-imageviewer-elevate-theme-icon-resize-full, .ba-imageviewer-elevate-theme-blue-color .ba-imageviewer-elevate-theme-icon-resize-small, .ba-imageviewer-elevate-theme-blue-color.ba-imageviewer-noie8 .ba-imageviewer-elevate-theme-button-inner {
+  color: #2a74eb; }
+.ba-imageviewer-elevate-theme-blue-color .ba-imageviewer-elevate-theme-rerecord-button {
+  background-color: #2a74eb; }
+
+.ba-imageviewer-elevate-theme-green-color .ba-imageviewer-elevate-theme-button-inner, .ba-imageviewer-elevate-theme-green-color .ba-imageviewer-elevate-theme-icon-resize-full, .ba-imageviewer-elevate-theme-green-color .ba-imageviewer-elevate-theme-icon-resize-small, .ba-imageviewer-elevate-theme-green-color.ba-imageviewer-noie8 .ba-imageviewer-elevate-theme-button-inner {
+  color: #5daa96; }
+.ba-imageviewer-elevate-theme-green-color .ba-imageviewer-elevate-theme-rerecord-button {
+  background-color: #5daa96; }
+
+/* Elevate */
+.ba-imageviewer-elevate-theme-overlay div[tabindex] {
+  transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out; }
+
+.ba-imageviewer-elevate-theme-overlay div[tabindex]:focus {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2px, Direction=90, Color=#1b8fcc)";
+  /*IE 8*/
+  -moz-box-shadow: 0 0 0 2px #1b8fcc;
+  /*FF 3.5+*/
+  -webkit-box-shadow: 0 0 0 2px #1b8fcc;
+  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: 0 0 0 2px #1b8fcc;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  outline: 0;
+  -moz-outline-style: none; }
+
+.ba-imageviewer-elevate-theme-overlay div[tabindex]:hover, .ba-imageviewer-elevate-theme-overlay div[tabindex]:focus:hover {
+  box-shadow: none; }
+
+.ba-imageviewer-elevate-theme-dashboard {
+  transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out;
+  -ms-transition: opacity 0.5s ease-in-out;
+  position: absolute;
+  left: 2.5%;
+  bottom: 10px;
+  width: 95%;
+  opacity: 0.75;
+  overflow: hidden;
+  z-index: 1; }
+
+.ba-imageviewer-elevate-theme-dashboard-hidden {
+  opacity: 0; }
+
+.ba-imageviewer-elevate-theme-top-block {
+  padding-top: 15px;
+  width: 100%;
+  clear: both; }
+
+.ba-imageviewer-ie8 .ba-imageviewer-elevate-theme-top-block {
+  padding-top: 0;
+  padding-bottom: 5px; }
+
+.ba-imageviewer-elevate-theme-bottom-block {
+  background-color: #eeeeee;
+  clear: both;
+  height: 32px;
+  overflow: hidden;
+  width: 100%; }
+
+.ba-imageviewer-elevate-theme-left-block {
+  float: left; }
+  .ba-imageviewer-elevate-theme-left-block > div {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=270, Color=#666666)";
+    /*IE 8*/
+    -moz-box-shadow: inset -1px 0 0 #666666;
+    /*FF 3.5+*/
+    -webkit-box-shadow: inset -1px 0 0 ba-imageviewer-elevate-theme;
+    /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+    box-shadow: inset -1px 0 0 #666666;
+    /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+    float: left;
+    font-size: 13px;
+    color: #000000;
+    line-height: 31px;
+    text-align: center;
+    width: 40px; }
+
+.ba-imageviewer-ie8 .ba-imageviewer-elevate-theme-left-block > div {
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)"; }
+
+.ba-imageviewer-elevate-theme-center-block {
+  float: left;
+  padding: 0 10px; }
+
+.ba-imageviewer-elevate-theme-right-block {
+  float: right; }
+  .ba-imageviewer-elevate-theme-right-block > div {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=0, Direction=90, Color=#666666)";
+    /*IE 8*/
+    -moz-box-shadow: inset 1px 0 0 #666666;
+    /*FF 3.5+*/
+    -webkit-box-shadow: inset 1px 0 0 #666666;
+    /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+    box-shadow: inset 1px 0 0 #666666;
+    /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+    float: right;
+    line-height: 32px;
+    text-align: center; }
+  .ba-imageviewer-elevate-theme-right-block > div:first-child {
+    float: left;
+    line-height: 31px; }
+
+.ba-imageviewer-elevate-theme-top-right-block {
+  float: right; }
+  .ba-imageviewer-elevate-theme-top-right-block .ba-imageviewer-elevate-theme-time-value {
+    text-align: right; }
+
+.ba-imageviewer-elevate-theme-button-container {
+  width: 40px;
+  text-align: center; }
+
+.ba-imageviewer-elevate-theme-icon-resize-full {
+  display: inline-block; }
+  .ba-imageviewer-elevate-theme-icon-resize-full:before {
+    font-size: 11px;
+    margin: 0;
+    line-height: inherit; }
+
+.ba-imageviewer-noie8 .ba-imageviewer-elevate-theme-button-inner {
+  color: #000000;
+  font-size: 13px; }
+
+.ba-imageviewer-ie8 .ba-imageviewer-elevate-theme-button-inner {
+  color: #000000;
+  font-size: 13px;
+  margin-left: 3px; }
+
+.ba-imageviewer-elevate-theme-button-inner {
+  cursor: pointer; }
+
+.ba-imageviewer-elevate-theme-button-text {
+  font-family: sans-serif;
+  font-weight: normal;
+  font-size: 10px; }
+
+.ba-imageviewer-elevate-theme-size-small .ba-imageviewer-elevate-theme-center-block {
+  display: none; }
+
+.ba-imageviewer-elevate-theme-image-title-block > p {
+  font-size: 11px;
+  color: #000000;
+  line-height: 32px;
+  margin: 0; }
+  .ba-imageviewer-elevate-theme-image-title-block > p > span {
+    color: #2c2c2c;
+    font-weight: bold;
+    font-size: 1em; }
+
+.ba-imageviewer-elevate-theme-top-left-block {
+  float: left; }
+
+.ba-imageviewer-noie8 .ba-imageviewer-elevate-theme-full-screen-btn-inner {
+  padding-left: 4px; }
+
+.ba-imageviewer-elevate-theme-icon-resize-full {
+  color: #666666; }
+
+.ba-imageviewer-elevate-theme-size-small .ba-imageviewer-elevate-theme-dashboard {
+  width: 100%; }
+
+.ba-imageviewer-elevate-theme-image-title-block > p,
+.ba-imageviewer-elevate-theme-button-inner {
+  padding-top: 1px; }
+
+/* Full screen options */
+.ba-imageviewer-elevate-theme-fullscreen-view video::-webkit-media-controls-overlay-enclosure {
+  display: none; }
+.ba-imageviewer-elevate-theme-fullscreen-view video::-webkit-media-controls-enclosure {
+  display: none; }
+.ba-imageviewer-elevate-theme-fullscreen-view video::-webkit-media-controls {
+  display: none; }
+.ba-imageviewer-elevate-theme-fullscreen-view video::-webkit-media-controls-panel {
+  display: none; }
+.ba-imageviewer-elevate-theme-fullscreen-view video::-webkit-media-controls-play-button {
+  display: none; }
+.ba-imageviewer-elevate-theme-fullscreen-view video::-webkit-media-controls-current-time-display {
+  display: none; }
+.ba-imageviewer-elevate-theme-fullscreen-view video::-webkit-media-controls-time-remaining-display {
+  display: none; }
+.ba-imageviewer-elevate-theme-fullscreen-view video::-webkit-media-controls-timeline {
+  display: none; }
+.ba-imageviewer-elevate-theme-fullscreen-view video::-webkit-media-controls-mute-button {
+  display: none; }
+.ba-imageviewer-elevate-theme-fullscreen-view video::-webkit-media-controls-volume-slider {
+  display: none; }
+.ba-imageviewer-elevate-theme-fullscreen-view video::-webkit-media-controls-fullscreen-button {
+  display: none; }
+.ba-imageviewer-elevate-theme-fullscreen-view video::-internal-media-controls-download-button {
+  display: none; }
+.ba-imageviewer-elevate-theme-fullscreen-view video::-moz-list-bullet, .ba-imageviewer-elevate-theme-fullscreen-view video::-moz-list-number {
+  display: none; }
+.ba-imageviewer-elevate-theme-fullscreen-view video::-moz-meter-bar {
+  display: none; }
+.ba-imageviewer-elevate-theme-fullscreen-view video:fullscreen:not(:root) {
+  display: none; }
+.ba-imageviewer-elevate-theme-fullscreen-view .ba-imageviewer-elevate-theme-dashboard {
+  width: 95%;
+  bottom: 0; }
+.ba-imageviewer-elevate-theme-fullscreen-view .ba-imageviewer-elevate-theme-image-title-block {
+  top: 0; }
+.ba-imageviewer-elevate-theme-fullscreen-view.ba-imageviewer-elevate-theme-common-browser .ba-imageviewer-elevate-theme-overlay {
+  z-index: 2147483647; }
+.ba-imageviewer-elevate-theme-fullscreen-view.ba-imageviewer-elevate-theme-firefox-browser .ba-imageviewer-elevate-theme-dashboard, .ba-imageviewer-elevate-theme-fullscreen-view.ba-imageviewer-elevate-theme-firefox-browser .ba-imageviewer-elevate-theme-image-title-block {
+  position: fixed;
+  z-index: 100; }
+.ba-imageviewer-elevate-theme-fullscreen-view.ba-imageviewer-elevate-theme-firefox-browser img {
+  position: relative;
+  min-width: 100%;
+  z-index: 0; }
+
+.ba-imageviewer-elevate-theme-container.ba-imageviewer-elevate-theme-fullscreen-view {
+  min-width: 100%;
+  position: absolute; }
+  .ba-imageviewer-elevate-theme-container.ba-imageviewer-elevate-theme-fullscreen-view > .ba-imageviewer-elevate-theme-overlay {
+    position: fixed; }
+
+.ba-audioplayer-elevate-theme-icon-volume-off:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e800'; }
+
+.ba-audioplayer-elevate-theme-icon-volume-down:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e801'; }
+
+.ba-audioplayer-elevate-theme-icon-volume-up:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e802'; }
+
+.ba-audioplayer-elevate-theme-icon-resize-full:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e803'; }
+
+.ba-audioplayer-elevate-theme-icon-ccw:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e804'; }
+
+.ba-audioplayer-elevate-theme-icon-play:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e805'; }
+
+.ba-audioplayer-elevate-theme-icon-pause:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e806'; }
+
+.ba-audioplayer-elevate-theme-icon-videocam:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e807'; }
+
+.ba-audioplayer-elevate-theme-icon-upload:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e808'; }
+
+.ba-audioplayer-elevate-theme-icon-left-open:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e809'; }
+
+.ba-audioplayer-elevate-theme-icon-right-open:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e80a'; }
+
+.ba-audioplayer-elevate-theme-icon-cog:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e80b'; }
+
+.ba-audioplayer-elevate-theme-icon-mic:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e80c'; }
+
+.ba-audioplayer-elevate-theme-icon-mute:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e80d'; }
+
+.ba-audioplayer-elevate-theme-icon-lightbulb:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e80e'; }
+
+.ba-audioplayer-elevate-theme-icon-resize-small:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e80f'; }
+
+.ba-audioplayer-elevate-theme-icon-resize-minimize:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e810'; }
+
+.ba-audioplayer-elevate-theme-icon-record:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e811'; }
+
+.ba-audioplayer-elevate-theme-icon-record-core:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e812'; }
+
+.ba-audioplayer-elevate-theme-icon-up-dir:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e813'; }
+
+.ba-audioplayer-elevate-theme-icon-cc:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e815'; }
+
+.ba-audioplayer-elevate-theme-icon-twitter:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f099'; }
+
+.ba-audioplayer-elevate-theme-icon-facebook:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f09a'; }
+
+.ba-audioplayer-elevate-theme-icon-gplus-squared:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f0d4'; }
+
+.ba-audioplayer-elevate-theme-icon-gplus:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f0d5'; }
+
+.ba-audioplayer-elevate-theme-icon-crop:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f125'; }
+
+.ba-audioplayer-elevate-theme-icon-share:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f130'; }
+
+.ba-audioplayer-elevate-theme-icon-resize-full-alt:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f131'; }
+
+.ba-audioplayer-elevate-theme-icon-play-circled:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f144'; }
+
+.ba-audioplayer-elevate-theme-icon-subtitle:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f20a'; }
+
+.ba-audioplayer-elevate-theme-icon-facebook-official:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f230'; }
+
+.ba-audioplayer-elevate-theme-icon-television:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f26c'; }
+
+.ba-audioplayer-elevate-theme-icon-twitter-squared:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f304'; }
+
+.ba-audioplayer-elevate-theme-container {
+  display: inline-block;
+  position: relative;
+  overflow: hidden; }
+
+.ba-audioplayer-elevate-theme-overlay, .ba-audioplayer-elevate-theme-player-toggle-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0; }
+
+.ba-audioplayer-elevate-theme-audio {
+  width: 100%;
+  display: block; }
+
+.ba-audioplayer-elevate-theme-container audio::-webkit-media-controls-start-playback-button {
+  display: none;
+  -webkit-appearance: none;
+  -moz-appearance: none; }
+
+.ba-audioplayer-elevate-theme-stretch-height .ba-audioplayer-elevate-theme-container, .ba-audioplayer-elevate-theme-stretch-width .ba-audioplayer-elevate-theme-container {
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%; }
+
+.ba-audioplayer-elevate-theme-stretch-height .ba-audioplayer-elevate-theme-audio {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  min-width: 100%; }
+
+.ba-audioplayer-elevate-theme-stretch-width .ba-audioplayer-elevate-theme-audio {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  max-height: 100%;
+  height: 100%;
+  width: 10000px; }
+
+.ba-audioplayer-elevate-theme-stretch-width, .ba-audioplayer-elevate-theme-stretch-height {
+  display: inline-block;
+  height: 100%;
+  width: 100%; }
+
+.ba-audioplayer-elevate-theme-disabled {
+  cursor: not-allowed;
+  /* works for IE 5+. */
+  /* works for IE 8. */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  /* works for old school versions of the Mozilla browsers like Netscape Navigator. */
+  -moz-opacity: 0.5;
+  /* This is for old versions of Safari (1.x) with KHTML rendering engine */
+  -khtml-opacity: 0.5;
+  /* This is the "most important" one because it's the current standard in CSS. This will work in most versions of Firefox, Safari, and Opera. */
+  opacity: 0.5; }
+  .ba-audioplayer-elevate-theme-disabled * {
+    cursor: not-allowed; }
+
+.ba-audioplayer-elevate-theme-loader-container {
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%; }
+
+.ba-audioplayer-elevate-theme-loader-loader:before {
+  content: "";
+  display: block;
+  padding-top: 100%;
+  /* initial ratio of 1:1*/ }
+
+.ba-audioplayer-elevate-theme-loader-loader {
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  position: relative;
+  width: 100%;
+  font-size: 5px;
+  box-sizing: content-box;
+  border-top: 0.6em solid;
+  border-top-color: #999;
+  border-top-color: rgba(255, 255, 255, 0.2);
+  border-right: 0.6em solid;
+  border-right-color: #999;
+  border-right-color: rgba(255, 255, 255, 0.2);
+  border-bottom: 0.6em solid;
+  border-bottom-color: #999;
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+  border-left: 0.6em solid #ffffff;
+  -webkit-animation: ba-audioplayer-elevate-theme-loader-load8 1.1s infinite linear;
+  -moz-animation: ba-audioplayer-elevate-theme-loader-load8 1.1s infinite linear;
+  animation: ba-audioplayer-elevate-theme-loader-load8 1.1s infinite linear; }
+
+.ba-audioplayer-elevate-theme-loader-loader, .ba-audioplayer-elevate-theme-loader-loader:after {
+  border-radius: 50%;
+  width: 10em;
+  height: 10em; }
+
+@-webkit-keyframes ba-audioplayer-elevate-theme-loader-load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+@keyframes ba-audioplayer-elevate-theme-loader-load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+.ba-audioplayer-elevate-theme-red-color .ba-audioplayer-elevate-theme-icon-play, .ba-audioplayer-elevate-theme-red-color .ba-audioplayer-elevate-theme-icon-pause, .ba-audioplayer-elevate-theme-red-color .ba-audioplayer-elevate-theme-button-inner, .ba-audioplayer-elevate-theme-red-color .ba-audioplayer-elevate-theme-icon-volume-down,
+.ba-audioplayer-elevate-theme-red-color .ba-audioplayer-elevate-theme-icon-volume-up, .ba-audioplayer-elevate-theme-red-color.ba-audioplayer-noie8 .ba-audioplayer-elevate-theme-button-inner {
+  color: #eb6a74; }
+.ba-audioplayer-elevate-theme-red-color .ba-audioplayer-elevate-theme-progressbar-button,
+.ba-audioplayer-elevate-theme-red-color .ba-audioplayer-elevate-theme-progressbar-position, .ba-audioplayer-elevate-theme-red-color .ba-audioplayer-elevate-theme-volumebar-position, .ba-audioplayer-elevate-theme-red-color .ba-audioplayer-elevate-theme-rerecord-button {
+  background-color: #eb6a74; }
+.ba-audioplayer-elevate-theme-red-color .ba-audioplayer-elevate-theme-volumebar-inner {
+  background-color: #cecece;
+  background-color: rgba(0, 0, 0, 0.3); }
+
+.ba-audioplayer-elevate-theme-blue-color .ba-audioplayer-elevate-theme-icon-play, .ba-audioplayer-elevate-theme-blue-color .ba-audioplayer-elevate-theme-icon-pause, .ba-audioplayer-elevate-theme-blue-color .ba-audioplayer-elevate-theme-button-inner, .ba-audioplayer-elevate-theme-blue-color .ba-audioplayer-elevate-theme-icon-volume-down,
+.ba-audioplayer-elevate-theme-blue-color .ba-audioplayer-elevate-theme-icon-volume-up, .ba-audioplayer-elevate-theme-blue-color.ba-audioplayer-noie8 .ba-audioplayer-elevate-theme-button-inner {
+  color: #2a74eb; }
+.ba-audioplayer-elevate-theme-blue-color .ba-audioplayer-elevate-theme-progressbar-button,
+.ba-audioplayer-elevate-theme-blue-color .ba-audioplayer-elevate-theme-progressbar-position, .ba-audioplayer-elevate-theme-blue-color .ba-audioplayer-elevate-theme-volumebar-position, .ba-audioplayer-elevate-theme-blue-color .ba-audioplayer-elevate-theme-rerecord-button {
+  background-color: #2a74eb; }
+.ba-audioplayer-elevate-theme-blue-color .ba-audioplayer-elevate-theme-volumebar-inner {
+  background-color: #cecece;
+  background-color: rgba(0, 0, 0, 0.3); }
+
+.ba-audioplayer-elevate-theme-green-color .ba-audioplayer-elevate-theme-icon-play, .ba-audioplayer-elevate-theme-green-color .ba-audioplayer-elevate-theme-icon-pause, .ba-audioplayer-elevate-theme-green-color .ba-audioplayer-elevate-theme-button-inner, .ba-audioplayer-elevate-theme-green-color .ba-audioplayer-elevate-theme-icon-volume-down,
+.ba-audioplayer-elevate-theme-green-color .ba-audioplayer-elevate-theme-icon-volume-up, .ba-audioplayer-elevate-theme-green-color.ba-audioplayer-noie8 .ba-audioplayer-elevate-theme-button-inner {
+  color: #5daa96; }
+.ba-audioplayer-elevate-theme-green-color .ba-audioplayer-elevate-theme-progressbar-button,
+.ba-audioplayer-elevate-theme-green-color .ba-audioplayer-elevate-theme-progressbar-position, .ba-audioplayer-elevate-theme-green-color .ba-audioplayer-elevate-theme-volumebar-position, .ba-audioplayer-elevate-theme-green-color .ba-audioplayer-elevate-theme-rerecord-button {
+  background-color: #5daa96; }
+.ba-audioplayer-elevate-theme-green-color .ba-audioplayer-elevate-theme-volumebar-inner {
+  background-color: #cecece;
+  background-color: rgba(0, 0, 0, 0.3); }
+
+/* Elevate */
+.ba-audioplayer-elevate-theme-overlay div[tabindex] {
+  transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out; }
+
+.ba-audioplayer-elevate-theme-overlay div[tabindex]:focus {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2px, Direction=90, Color=#1b8fcc)";
+  /*IE 8*/
+  -moz-box-shadow: 0 0 0 2px #1b8fcc;
+  /*FF 3.5+*/
+  -webkit-box-shadow: 0 0 0 2px #1b8fcc;
+  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: 0 0 0 2px #1b8fcc;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  outline: 0;
+  -moz-outline-style: none; }
+
+.ba-audioplayer-elevate-theme-overlay div[tabindex]:hover, .ba-audioplayer-elevate-theme-overlay div[tabindex]:focus:hover {
+  box-shadow: none; }
+
+.ba-audioplayer-elevate-theme-dashboard {
+  transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out;
+  -ms-transition: opacity 0.5s ease-in-out;
+  position: absolute;
+  left: 2.5%;
+  bottom: 10px;
+  width: 95%;
+  opacity: 0.75;
+  overflow: hidden;
+  z-index: 1; }
+
+.ba-audioplayer-elevate-theme-dashboard-hidden {
+  opacity: 0; }
+
+.ba-audioplayer-elevate-theme-top-block {
+  padding-top: 15px;
+  width: 100%;
+  clear: both; }
+
+.ba-audioplayer-ie8 .ba-audioplayer-elevate-theme-top-block {
+  padding-top: 0;
+  padding-bottom: 5px; }
+
+.ba-audioplayer-elevate-theme-bottom-block {
+  background-color: #eeeeee;
+  clear: both;
+  height: 32px;
+  overflow: hidden;
+  width: 100%; }
+
+.ba-audioplayer-elevate-theme-left-block {
+  float: left; }
+  .ba-audioplayer-elevate-theme-left-block > div {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=270, Color=#666666)";
+    /*IE 8*/
+    -moz-box-shadow: inset -1px 0 0 #666666;
+    /*FF 3.5+*/
+    -webkit-box-shadow: inset -1px 0 0 ba-audioplayer-elevate-theme;
+    /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+    box-shadow: inset -1px 0 0 #666666;
+    /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+    float: left;
+    font-size: 13px;
+    color: #000000;
+    line-height: 31px;
+    text-align: center;
+    width: 40px; }
+
+.ba-audioplayer-ie8 .ba-audioplayer-elevate-theme-left-block > div {
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)"; }
+
+.ba-audioplayer-elevate-theme-center-block {
+  float: left;
+  padding: 0 10px; }
+
+.ba-audioplayer-elevate-theme-right-block {
+  float: right; }
+  .ba-audioplayer-elevate-theme-right-block > div {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=0, Direction=90, Color=#666666)";
+    /*IE 8*/
+    -moz-box-shadow: inset 1px 0 0 #666666;
+    /*FF 3.5+*/
+    -webkit-box-shadow: inset 1px 0 0 #666666;
+    /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+    box-shadow: inset 1px 0 0 #666666;
+    /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+    float: right;
+    line-height: 32px;
+    text-align: center; }
+  .ba-audioplayer-elevate-theme-right-block > div:first-child {
+    float: left;
+    line-height: 31px; }
+
+.ba-audioplayer-elevate-theme-top-right-block {
+  float: right; }
+  .ba-audioplayer-elevate-theme-top-right-block .ba-audioplayer-elevate-theme-time-value {
+    text-align: right; }
+
+.ba-audioplayer-elevate-theme-button-container {
+  width: 40px;
+  text-align: center; }
+
+.ba-audioplayer-elevate-theme-icon-play, .ba-audioplayer-elevate-theme-icon-pause {
+  color: #000000; }
+
+.ba-audioplayer-elevate-theme-icon-volume-up, .ba-audioplayer-elevate-theme-icon-play, .ba-audioplayer-elevate-theme-icon-pause,
+.ba-audioplayer-elevate-theme-icon-volume-down {
+  display: inline-block; }
+  .ba-audioplayer-elevate-theme-icon-volume-up:before, .ba-audioplayer-elevate-theme-icon-play:before, .ba-audioplayer-elevate-theme-icon-pause:before,
+  .ba-audioplayer-elevate-theme-icon-volume-down:before {
+    font-size: 11px;
+    margin: 0;
+    line-height: inherit; }
+
+.ba-audioplayer-ie8 .ba-audioplayer-elevate-theme-icon-volume-down:before {
+  font-size: 12px; }
+
+.ba-audioplayer-elevate-theme-icon-volume-up {
+  color: #666666; }
+
+.ba-audioplayer-noie8 .ba-audioplayer-elevate-theme-button-inner {
+  color: #000000;
+  font-size: 13px; }
+
+.ba-audioplayer-ie8 .ba-audioplayer-elevate-theme-button-inner {
+  color: #000000;
+  font-size: 13px;
+  margin-left: 3px; }
+
+.ba-audioplayer-elevate-theme-button-inner {
+  cursor: pointer; }
+
+.ba-audioplayer-elevate-theme-time-container {
+  float: left;
+  width: 40px;
+  height: 100%;
+  position: relative;
+  top: 10px;
+  text-align: center;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 11px;
+  box-sizing: content-box;
+  border: none; }
+
+.ba-audioplayer-ie8 .ba-audioplayer-elevate-theme-time-container {
+  top: 7px; }
+
+.ba-audioplayer-elevate-theme-time-value {
+  color: #ffffff;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color=#000000)";
+  /*IE 8*/
+  text-shadow: 0 0 4px #000000;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  top: 50%;
+  position: relative;
+  text-align: center;
+  float: left;
+  font-size: 11px;
+  width: 40px;
+  letter-spacing: 0.1em; }
+
+.ba-audioplayer-noie8 .ba-audioplayer-elevate-theme-volumebar {
+  float: right;
+  width: 60px;
+  height: 100%;
+  margin-right: 12px; }
+
+.ba-audioplayer-ie8 .ba-audioplayer-elevate-theme-volumebar {
+  float: right;
+  width: 60px;
+  height: 50%; }
+
+.ba-audioplayer-elevate-theme-progressbar {
+  overflow: hidden;
+  height: 100%; }
+
+.ba-audioplayer-elevate-theme-progressbar {
+  padding: 10px 0 5px; }
+
+.ba-audioplayer-elevate-theme-progressbar-inner {
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  top: 50%;
+  position: relative;
+  text-align: center;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  cursor: pointer;
+  background-color: #eeeeee;
+  height: 8px; }
+
+.ba-audioplayer-elevate-theme-progressbar.ba-audioplayer-elevate-theme-disabled .ba-audioplayer-elevate-theme-progressbar-cache, .ba-audioplayer-elevate-theme-progressbar.ba-audioplayer-elevate-theme-disabled .ba-audioplayer-elevate-theme-progressbar-inner, .ba-audioplayer-elevate-theme-progressbar.ba-audioplayer-elevate-theme-disabled .ba-audioplayer-elevate-theme-progressbar-position {
+  cursor: not-allowed; }
+
+.ba-audioplayer-elevate-theme-progressbar-cache {
+  position: absolute;
+  left: 0;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  cursor: pointer;
+  background-color: #eeeeee;
+  height: 8px; }
+
+.ba-audioplayer-elevate-theme-progressbar-position {
+  position: absolute;
+  left: 0;
+  background-color: #000000;
+  height: 100%; }
+
+.ba-audioplayer-elevate-theme-progressbar-button {
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  box-sizing: content-box;
+  display: inline-block;
+  position: absolute;
+  right: -15px;
+  top: -4px;
+  z-index: 1;
+  background-color: #000000;
+  border: 4px solid #666666;
+  height: 8px;
+  width: 8px; }
+
+.ba-audioplayer-elevate-theme-button-text {
+  font-family: sans-serif;
+  font-weight: normal;
+  font-size: 10px; }
+
+.ba-audioplayer-elevate-theme-size-small .ba-audioplayer-elevate-theme-time-container, .ba-audioplayer-elevate-theme-size-small .ba-audioplayer-elevate-theme-center-block {
+  display: none; }
+
+.ba-audioplayer-elevate-theme-size-medium .ba-audioplayer-elevate-theme-volumebar {
+  display: none; }
+
+.ba-audioplayer-elevate-theme-size-medium .ba-audioplayer-elevate-theme-volume-button-container, .ba-audioplayer-elevate-theme-size-small .ba-audioplayer-elevate-theme-volume-button-container {
+  display: none; }
+
+.ba-audioplayer-elevate-theme-size-medium .ba-audioplayer-elevate-theme-right-time-container {
+  display: none; }
+
+.ba-audioplayer-elevate-theme-audio-title-block > p {
+  font-size: 11px;
+  color: #000000;
+  line-height: 32px;
+  margin: 0; }
+  .ba-audioplayer-elevate-theme-audio-title-block > p > span {
+    color: #2c2c2c;
+    font-weight: bold;
+    font-size: 1em; }
+
+.ba-audioplayer-elevate-theme-left-block .ba-audioplayer-elevate-theme-volumebar {
+  float: left;
+  height: 32px;
+  width: 60px; }
+
+.ba-audioplayer-elevate-theme-volumebar-inner {
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  top: 50%;
+  position: relative;
+  text-align: center;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  cursor: pointer;
+  background-color: #666666;
+  height: 6px;
+  margin: 0 5px; }
+
+.ba-audioplayer-ie8 .ba-audioplayer-elevate-theme-volumebar-inner {
+  margin-top: -3px; }
+
+.ba-audioplayer-elevate-theme-volumebar-position {
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  position: absolute;
+  left: 0;
+  background-color: #000000;
+  height: 100%; }
+
+.ba-audioplayer-elevate-theme-top-left-block {
+  float: left; }
+
+.ba-audioplayer-elevate-theme-size-small .ba-audioplayer-elevate-theme-volumebar {
+  display: none; }
+
+.ba-audioplayer-elevate-theme-size-small .ba-audioplayer-elevate-theme-dashboard {
+  width: 100%; }
+
+.ba-audioplayer-elevate-theme-audio-title-block > p, .ba-audioplayer-elevate-theme-left-block .ba-audioplayer-elevate-theme-volumebar,
+.ba-audioplayer-elevate-theme-button-inner {
+  padding-top: 1px; }

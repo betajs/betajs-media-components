@@ -83,3 +83,21 @@
     to retry.
   ba-videorecorder.orientation-portrait-required: Please rotate your device to record in portrait mode.
   ba-videorecorder.orientation-landscape-required: Please rotate your device to record in landscape mode.
+  ba-imageviewer-controlbar.rerecord-image: Redo?
+  ba-imageviewer-controlbar.submit-image: Confirm
+  ba-imageviewer-controlbar.fullscreen-image: Enter fullscreen
+  ba-imageviewer-controlbar.exit-fullscreen-image: Exit fullscreen
+  ba-imageviewer.image-error: 'An error occurred, please try again later. Click to retry.'
+  ba-audioplayer-controlbar.audio-progress: Progress
+  ba-audioplayer-controlbar.rerecord-audio: Redo?
+  ba-audioplayer-controlbar.submit-audio: Confirm
+  ba-audioplayer-controlbar.play-audio: Play
+  ba-audioplayer-controlbar.pause-audio: Pause
+  ba-audioplayer-controlbar.pause-audio-disabled: Pause not supported
+  ba-audioplayer-controlbar.elapsed-time: Elasped time
+  ba-audioplayer-controlbar.total-time: Total length of
+  ba-audioplayer-controlbar.volume-button: Set volume
+  ba-audioplayer-controlbar.volume-mute: Mute sound
+  ba-audioplayer-controlbar.volume-unmute: Unmute sound
+  ba-audioplayer-loader.tooltip: Loading...
+  ba-audioplayer.audio-error: 'An error occurred, please try again later. Click to retry.'

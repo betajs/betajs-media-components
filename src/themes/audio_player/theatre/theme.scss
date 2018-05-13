@@ -1,0 +1,79 @@
+$css: "ba-audioplayer-theatre-theme";
+$cssmessage: "ba-audioplayer";
+$cssie8: "ba-audioplayer-ie8";
+$cssnoie8: "ba-audioplayer-noie8";
+$fontello_name: "bjsmc";
+
+$loader_size: 5px;
+$loader_frame_thickness: 0.6em;
+$text_line_space: 0.1em;
+
+$message_bgcolor: #000000;
+$message_opacity: 0.75;
+$message_color: #979797;
+
+$font_family: Arial, sans-serif;
+
+$focus_button_color: #1b7fcc;
+$focus_overlay_color: #000000;
+
+$dashboard_width: 75%;
+$dashboard_transition: 0.5s;
+$dashboard_border_color: #666666;
+
+$controlbar_height: 28px;
+$controlbar_line_height: 31px;
+$controlbar_background: #eeeeee;
+$controlbar_left_block_width: 25%;
+$controlbar_center_block_width: 47%;
+$controlbar_right_block_width: 23%;
+$controlbar_distance_from_side: 15px;
+
+$button_fontsize: 13px;
+$button_width: 40px;
+$button_color: #000000;
+$button_color_secondary: #666666;
+$time_value_width: 100px;
+$ie8_margintop: 6px;
+$text_fontfamily: Helvetica Neue, Helvetica, Arial, sans-serif;
+$text_fontsize: 11px;
+$text_color: #eeeeee;
+$text_secondary_color: #666666;
+$controls_bgcolor: rgba(93, 170, 150, 0.3);
+$volume_width: 7px;
+$volume_height: 60px;
+$volume_off_color: #000000;
+$progressbar_height: 10px;
+$progressbar_cache_bgcolor: #cccccc;
+$progressbar_button_overflow: #000000;
+$time_value_width: 40px;
+$aligned-buttons-container: 80px;
+
+$rerecord_text_color: #eeeeee;
+$rerecord_font_family: sans-serif;
+
+$rerecord_height: 50px;
+$rerecord_opacity: 1;
+$rerecord_bgcolor: #eeeeee;
+$rerecord_padding: 24px;
+$rerecord_padding: 16px;
+$rerecord_primarybutton_radius: 3px;
+$rerecord_primarybutton_color: #000000;
+$rerecord_primarybutton_text_color: #eeeeee;
+$rerecord_primarybutton_padding: 0;
+$rerecord_primarybutton_vertical_padding: 16px;
+$rerecord_primarybutton_font_weight: 300;
+$rerecord_primarybutton_font_size: 12px;
+$rerecord_letter_spacing: .1em;
+
+// Theme Colors
+$theme_color_blue: #2a74eb;
+$theme_color_red: #eb6a74;
+$theme_color_green: #5daa96;
+
+$colors: (
+  'red': $theme_color_red,
+  'blue': $theme_color_blue,
+  'green': $theme_color_green,
+  'default': ''
+);

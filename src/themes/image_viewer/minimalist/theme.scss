@@ -1,0 +1,71 @@
+$css: "ba-imageviewer-minimalist-theme";
+$cssie8: "ba-imageviewer-ie8";
+$cssnoie8: "ba-imageviewer-noie8";
+$fontello_name: "bjsmc";
+
+$message_bgcolor: #000000;
+$message_opacity: 0.75;
+$message_color: #eeeeee;
+
+$font_family: sans-serif;
+$text_fontfamily: Helvetica Neue, Helvetica, Arial, sans-serif;
+$text_fontsize: 13px;
+$text_color: #eeeeee;
+$text_secondary_color: rgba(250, 254, 255, 0.35);
+
+$topmessage_bgcolor: black;
+$topmessage_opacity: 0.3;
+$topmessage_fontsize: 12px;
+$topmessage_height: 50px;
+$topmessage_fontweight: bold;
+
+$focus_button_color: #1b7fcc;
+$focus_overlay_color: #000000;
+
+$controlbar_header_height: 40px;
+$controlbar_image_title_font_size: 12px;
+$controlbar_button_padding: 7px;
+
+$full_screen_background: #b2b2b2;
+
+$dashboard_transition: 0.5s;
+$controlbar_height: 100%;
+$controlbar_background: rgba(0, 0, 0, 0.4);
+$button_fontsize: 13px;
+$button_width: 40px;
+$button_color: #eeeeee;
+$button_border_color: #979797;
+$ie8_margintop: 6px;
+$controls_bgcolor: rgba( 255, 255, 255, 0.2);
+$icon_size: 0.7em;
+
+
+$rerecord_text_color: #eeeeee;
+$rerecord_font_family: sans-serif;
+
+$rerecord_height: 48px;
+$rerecord_opacity: 0.5;
+$rerecord_bgcolor: black;
+$rerecord_padding: 24px;
+$rerecord_padding: 16px;
+$rerecord_primarybutton_radius: 0;
+$rerecord_primarybutton_color: #000000;
+$rerecord_primarybutton_text_color: #eeeeee;
+$rerecord_primarybutton_padding: 9px 20px;
+$rerecord_primarybutton_vertical_padding: 16px;
+$rerecord_primarybutton_font_weight: 100;
+$rerecord_primarybutton_font_size: 12px;
+$rerecord_letter_spacing: .1em;
+
+
+// Theme Colors
+$theme_color_blue: #2a74eb;
+$theme_color_red: #eb6a74;
+$theme_color_green: #5daa96;
+
+$colors: (
+  'red': $theme_color_red,
+  'blue': $theme_color_blue,
+  'green': $theme_color_green,
+  'default': ''
+);

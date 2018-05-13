@@ -16,7 +16,9 @@ module.exports = function(grunt) {
 		'src/dynamics/common/*.js',
         'src/dynamics/popup_helper/*.js',
 		'src/dynamics/video_player/**/*.js',
-		'src/dynamics/video_recorder/**/*.js'
+		'src/dynamics/video_recorder/**/*.js',
+        'src/dynamics/image_viewer/**/*.js',
+        'src/dynamics/audio_player/**/*.js'
      ], "dist/" + dist + "-noscoped.js", {
 		"module": "global:BetaJS.MediaComponents",
 		"base": "global:BetaJS",
@@ -35,6 +37,7 @@ module.exports = function(grunt) {
     .concatsassTask('concat-dist-css', [
         'src/themes/common/mixins.scss',
         'src/themes/common/fontello_font_generated.scss',
+
         'src/themes/video_player/default/theme.scss',
         'src/themes/common/fontello_icon.scss',
         'src/themes/common/fontello_icons_generated.scss',
@@ -46,6 +49,18 @@ module.exports = function(grunt) {
         'src/../src/themes/common/fontello_icons_generated.scss',
         'src/../src/themes/common/fontello_icons_color.scss',
         'src/themes/video_recorder/default/*.scss',
+
+        'src/themes/image_viewer/default/theme.scss',
+        'src/../src/../src/themes/common/fontello_icon.scss',
+        'src/../src/../src/themes/common/fontello_icons_generated.scss',
+        'src/../src/../src/themes/common/fontello_icons_color.scss',
+        'src/themes/image_viewer/default/*.scss',
+
+        'src/themes/audio_player/default/theme.scss',
+        'src/../src/../src/../src/themes/common/fontello_icon.scss',
+        'src/../src/../src/../src/themes/common/fontello_icons_generated.scss',
+        'src/../src/../src/../src/themes/common/fontello_icons_color.scss',
+        'src/themes/audio_player/default/*.scss',
 
         'src/dynamics/popup_helper/*.scss'
      ], 'dist/betajs-media-components.css')
@@ -68,13 +83,15 @@ module.exports = function(grunt) {
 	    'src/fragments/theme-begin.js-fragment',
 	    'src/themes/video_player/modern/theme.js',
 	    'src/themes/video_recorder/modern/theme.js',
+        'src/themes/image_viewer/modern/theme.js',
+        'src/themes/audio_player/modern/theme.js',
 	    'src/fragments/end.js-fragment'
     ], 'dist/themes/modern/script.js', {
         process: betajsTemplates.concatProcess(grunt)
     })
     .uglifyTask('uglify-modern-theme', 'dist/themes/modern/script.js', 'dist/themes/modern/script.min.js')
     .concatsassTask('concat-modern-theme-css', [
-      'src/themes/common/mixins.scss',
+        'src/themes/common/mixins.scss',
 	    'src/themes/video_player/modern/theme.scss',
         'src/themes/common/fontello_icon.scss',
         'src/themes/common/fontello_icons_generated.scss',
@@ -96,7 +113,24 @@ module.exports = function(grunt) {
 	    'src/themes/video_recorder/default/imagegallery.scss',
 	    'src/themes/video_recorder/default/controlbar.scss',
 	    'src/themes/video_recorder/default/settings.scss',
-	    'src/themes/video_recorder/modern/*.scss'
+	    'src/themes/video_recorder/modern/*.scss',
+
+        'src/themes/image_viewer/modern/theme.scss',
+        'src/../src/../src/themes/common/fontello_icon.scss',
+        'src/../src/../src/themes/common/fontello_icons_generated.scss',
+        'src/../src/../src/themes/common/fontello_icons_color.scss',
+        'src/themes/image_viewer/default/viewer.scss',
+        'src/themes/image_viewer/default/topmessage.scss',
+        'src/themes/image_viewer/modern/*.scss',
+
+        'src/themes/audio_player/modern/theme.scss',
+        'src/../src/../src/../src/themes/common/fontello_icon.scss',
+        'src/../src/../src/../src/themes/common/fontello_icons_generated.scss',
+        'src/../src/../src/../src/themes/common/fontello_icons_color.scss',
+        'src/themes/audio_player/default/player.scss',
+        'src/themes/video_player/default/loader.scss',
+        'src/themes/video_player/modern/*.scss'
+
     ], 'dist/themes/modern/style.css')
     .cssminTask('cssmin-modern-theme', 'dist/themes/modern/style.css', 'dist/themes/modern/style.min.css')
 
@@ -105,6 +139,8 @@ module.exports = function(grunt) {
       'src/fragments/theme-begin.js-fragment',
       'src/themes/video_player/space/theme.js',
       'src/themes/video_recorder/space/theme.js',
+      'src/themes/image_viewer/space/theme.js',
+      'src/themes/audio_player/space/theme.js',
       'src/fragments/end.js-fragment'
     ], 'dist/themes/space/script.js', {
         process: betajsTemplates.concatProcess(grunt)
@@ -132,7 +168,24 @@ module.exports = function(grunt) {
       'src/themes/video_recorder/default/imagegallery.scss',
       'src/themes/video_recorder/default/controlbar.scss',
       'src/themes/video_recorder/default/settings.scss',
-      'src/themes/video_recorder/space/*.scss'
+      'src/themes/video_recorder/space/*.scss',
+
+        'src/themes/image_viewer/space/theme.scss',
+        'src/../src/../src/themes/common/fontello_icon.scss',
+        'src/../src/../src/themes/common/fontello_icons_generated.scss',
+        'src/../src/../src/themes/common/fontello_icons_color.scss',
+        'src/themes/image_viewer/default/viewer.scss',
+        'src/themes/image_viewer/default/topmessage.scss',
+        'src/themes/image_viewer/space/*.scss',
+
+        'src/themes/audio_player/space/theme.scss',
+        'src/../src/../src/../src/themes/common/fontello_icon.scss',
+        'src/../src/../src/../src/themes/common/fontello_icons_generated.scss',
+        'src/../src/../src/../src/themes/common/fontello_icons_color.scss',
+        'src/themes/audio_player/default/player.scss',
+        'src/themes/audio_player/default/loader.scss',
+        'src/themes/audio_player/space/*.scss'
+
     ], 'dist/themes/space/style.css')
     .cssminTask('cssmin-space-theme', 'dist/themes/space/style.css', 'dist/themes/space/style.min.css')
 
@@ -141,6 +194,8 @@ module.exports = function(grunt) {
       'src/fragments/theme-begin.js-fragment',
       'src/themes/video_player/theatre/theme.js',
       'src/themes/video_recorder/theatre/theme.js',
+      'src/themes/image_viewer/theatre/theme.js',
+        'src/themes/audio_player/theatre/theme.js',
       'src/fragments/end.js-fragment'
     ], 'dist/themes/theatre/script.js', {
         process: betajsTemplates.concatProcess(grunt)
@@ -169,7 +224,24 @@ module.exports = function(grunt) {
       'src/themes/video_recorder/default/controlbar.scss',
       'src/themes/video_recorder/default/settings.scss',
       'src/themes/video_recorder/theatre/*.scss',
-      'src/themes/video_recorder/theatre/**/*.scss'
+      'src/themes/video_recorder/theatre/**/*.scss',
+
+        'src/themes/image_viewer/theatre/theme.scss',
+        'src/../src/../src/themes/common/fontello_icon.scss',
+        'src/../src/../src/themes/common/fontello_icons_generated.scss',
+        'src/../src/../src/themes/common/fontello_icons_color.scss',
+        'src/themes/image_viewer/default/viewer.scss',
+        'src/themes/image_viewer/default/topmessage.scss',
+        'src/themes/image_viewer/theatre/*.scss',
+
+        'src/themes/audio_player/theatre/theme.scss',
+        'src/../src/../src/../src/themes/common/fontello_icon.scss',
+        'src/../src/../src/../src/themes/common/fontello_icons_generated.scss',
+        'src/../src/../src/../src/themes/common/fontello_icons_color.scss',
+        'src/themes/audio_player/default/player.scss',
+        'src/themes/audio_player/default/loader.scss',
+        'src/themes/audio_player/theatre/*.scss'
+
     ], 'dist/themes/theatre/style.css')
     .cssminTask('cssmin-theatre-theme', 'dist/themes/theatre/style.css', 'dist/themes/theatre/style.min.css')
 
@@ -179,6 +251,8 @@ module.exports = function(grunt) {
       'src/fragments/theme-begin.js-fragment',
       'src/themes/video_player/elevate/theme.js',
       'src/themes/video_recorder/elevate/theme.js',
+        'src/themes/image_viewer/elevate/theme.js',
+        'src/themes/audio_player/elevate/theme.js',
       'src/fragments/end.js-fragment'
     ], 'dist/themes/elevate/script.js', {
         process: betajsTemplates.concatProcess(grunt)
@@ -207,7 +281,24 @@ module.exports = function(grunt) {
       'src/themes/video_recorder/default/controlbar.scss',
       'src/themes/video_recorder/default/settings.scss',
       'src/themes/video_recorder/elevate/*.scss',
-      'src/themes/video_recorder/elevate/**/*.scss'
+      'src/themes/video_recorder/elevate/**/*.scss',
+
+        'src/themes/image_viewer/elevate/theme.scss',
+        'src/../src/../src/themes/common/fontello_icon.scss',
+        'src/../src/../src/themes/common/fontello_icons_generated.scss',
+        'src/../src/../src/themes/common/fontello_icons_color.scss',
+        'src/themes/image_viewer/default/viewer.scss',
+        'src/themes/image_viewer/default/topmessage.scss',
+        'src/themes/image_viewer/elevate/*.scss',
+
+        'src/themes/audio_player/elevate/theme.scss',
+        'src/../src/../src/../src/themes/common/fontello_icon.scss',
+        'src/../src/../src/../src/themes/common/fontello_icons_generated.scss',
+        'src/../src/../src/../src/themes/common/fontello_icons_color.scss',
+        'src/themes/audio_player/default/player.scss',
+        'src/themes/audio_player/default/loader.scss',
+        'src/themes/audio_player/elevate/*.scss'
+
     ], 'dist/themes/elevate/style.css')
     .cssminTask('cssmin-elevate-theme', 'dist/themes/elevate/style.css', 'dist/themes/elevate/style.min.css')
 
@@ -216,6 +307,8 @@ module.exports = function(grunt) {
       'src/fragments/theme-begin.js-fragment',
       'src/themes/video_player/cube/theme.js',
       'src/themes/video_recorder/cube/theme.js',
+        'src/themes/image_viewer/cube/theme.js',
+        'src/themes/audio_player/cube/theme.js',
       'src/fragments/end.js-fragment'
     ], 'dist/themes/cube/script.js', {
         process: betajsTemplates.concatProcess(grunt)
@@ -244,7 +337,23 @@ module.exports = function(grunt) {
       'src/themes/video_recorder/default/controlbar.scss',
       'src/themes/video_recorder/default/settings.scss',
       'src/themes/video_recorder/cube/*.scss',
-      'src/themes/video_recorder/cube/**/*.scss'
+      'src/themes/video_recorder/cube/**/*.scss',
+
+        'src/themes/image_viewer/cube/theme.scss',
+        'src/../src/../src/themes/common/fontello_icon.scss',
+        'src/../src/../src/themes/common/fontello_icons_generated.scss',
+        'src/../src/../src/themes/common/fontello_icons_color.scss',
+        'src/themes/image_viewer/default/viewer.scss',
+        'src/themes/image_viewer/default/topmessage.scss',
+        'src/themes/image_viewer/cube/*.scss',
+
+        'src/themes/audio_player/cube/theme.scss',
+        'src/themes/common/fontello_icon.scss',
+        'src/themes/common/fontello_icons_generated.scss',
+        'src/themes/common/fontello_icons_color.scss',
+        'src/themes/audio_player/default/player.scss',
+        'src/themes/audio_player/default/loader.scss',
+        'src/themes/audio_player/cube/*.scss'
     ], 'dist/themes/cube/style.css')
     .cssminTask('cssmin-cube-theme', 'dist/themes/cube/style.css', 'dist/themes/cube/style.min.css')
 
@@ -254,6 +363,8 @@ module.exports = function(grunt) {
       'src/fragments/theme-begin.js-fragment',
       'src/themes/video_player/minimalist/theme.js',
       'src/themes/video_recorder/minimalist/theme.js',
+        'src/themes/image_viewer/minimalist/theme.js',
+        'src/themes/audio_player/minimalist/theme.js',
       'src/fragments/end.js-fragment'
     ], 'dist/themes/minimalist/script.js', {
         process: betajsTemplates.concatProcess(grunt)
@@ -282,7 +393,24 @@ module.exports = function(grunt) {
       'src/themes/video_recorder/default/controlbar.scss',
       'src/themes/video_recorder/default/settings.scss',
       'src/themes/video_recorder/minimalist/*.scss',
-      'src/themes/video_recorder/minimalist/**/*.scss'
+      'src/themes/video_recorder/minimalist/**/*.scss',
+
+        'src/themes/image_viewer/minimalist/theme.scss',
+        'src/../src/../src/themes/common/fontello_icon.scss',
+        'src/../src/../src/themes/common/fontello_icons_generated.scss',
+        'src/../src/../src/themes/common/fontello_icons_color.scss',
+        'src/themes/image_viewer/default/viewer.scss',
+        'src/themes/image_viewer/default/topmessage.scss',
+        'src/themes/image_viewer/minimalist/*.scss',
+
+        'src/themes/audio_player/minimalist/theme.scss',
+        'src/../src/../src/../src/themes/common/fontello_icon.scss',
+        'src/../src/../src/../src/themes/common/fontello_icons_generated.scss',
+        'src/../src/../src/../src/themes/common/fontello_icons_color.scss',
+        'src/themes/audio_player/default/player.scss',
+        'src/themes/audio_player/default/loader.scss',
+        'src/themes/audio_player/minimalist/*.scss'
+
     ], 'dist/themes/minimalist/style.css')
     .cssminTask('cssmin-minimalist-theme', 'dist/themes/minimalist/style.css', 'dist/themes/minimalist/style.min.css')
 

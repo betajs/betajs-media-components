@@ -1,0 +1,123 @@
+
+<div class="{{css}}-dashboard ">
+
+    <div class="{{css}}-top-block">
+
+        <div class="{{css}}-top-left-block">
+            <div class="{{css}}-time-container {{css}}-left-time-container">
+                <div class="{{css}}-time-value" title="{{string('elapsed-time')}}">{{formatTime(position)}}</div>
+            </div>
+        </div>
+
+        <div class="{{css}}-top-right-block">
+
+            <div class="{{css}}-time-container {{css}}-right-time-container">
+                <div class="{{css}}-time-value" title="{{string('total-time')}}">{{formatTime(duration || position)}}</div>
+            </div>
+
+        </div>
+
+        <div class="{{css}}-progressbar {{disableseeking ? css + '-disabled' : ''}}">
+            <div tabindex="2"
+                 ba-hotkey:right="{{seek(position + skipseconds)}}"
+                 ba-hotkey:left="{{seek(position - skipseconds)}}"
+                 onmouseout="this.blur()"
+                 data-selector="progress-bar-inner" class="{{css}}-progressbar-inner"
+                 onmousedown="{{startUpdatePosition(domEvent)}}"
+                 onmouseup="{{stopUpdatePosition(domEvent)}}"
+                 onmouseleave="{{stopUpdatePosition(domEvent)}}"
+                 onmousemove="{{progressUpdatePosition(domEvent)}}"
+            >
+
+                <div class="{{css}}-progressbar-cache" ba-styles="{{{width: Math.round(duration ? cached / duration * 100 : 0) + '%'}}}"></div>
+                <div class="{{css}}-progressbar-position" ba-styles="{{{width: Math.round(duration ? position / duration * 100 : 0) + '%'}}}" title="{{string('audio-progress')}}">
+                    <div class="{{css}}-progressbar-button-description" style="display: none">
+                        <div class="{{css}}-time-container">
+                            <div class="{{css}}-time-value" title="{{string('elapsed-time')}}">{{formatTime(position)}}</div>
+                        </div>
+                    </div>
+                    <div class="{{css}}-progressbar-button"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="{{css}}-bottom-block">
+
+        <div class="{{css}}-left-block">
+
+            <div tabindex="0" ba-hotkey:space^enter="{{submit()}}" onmouseout="this.blur()"
+                 data-selector="submit-audio-button" class="{{css}}-leftbutton-container"
+                 ba-if="{{submittable}}"  ba-click="{{submit()}}"
+            >
+                <div class="{{css}}-button-inner">
+                    {{string('submit-audio')}}
+                </div>
+            </div>
+
+            <div tabindex="0" ba-hotkey:space^enter="{{rerecord()}}" onmouseout="this.blur()"
+                 data-selector="button-icon-ccw" class="{{css}}-leftbutton-container"
+                 ba-if="{{rerecordable}}" ba-click="{{rerecord()}}" title="{{string('rerecord-audio')}}"
+            >
+                <div class="{{css}}-button-inner">
+                    <i class="{{css}}-icon-ccw"></i>
+                </div>
+            </div>
+
+            <div tabindex="0" ba-hotkey:space^enter="{{play()}}" onmouseout="this.blur()"
+                 onkeydown="{{tab_index_move(domEvent, null, 'button-icon-pause')}}"
+                 data-selector="button-icon-play" class="{{css}}-button-container"
+                 ba-if="{{!playing}}" ba-click="{{play()}}" title="{{string('play-audio')}}"
+            >
+                <div class="{{css}}-button-inner">
+                    <i class="{{css}}-icon-play"></i>
+                </div>
+            </div>
+
+            <div tabindex="0" ba-hotkey:space^enter="{{pause()}}" onmouseout="this.blur()"
+                 onkeydown="{{tab_index_move(domEvent, null, 'button-icon-play')}}"
+                 data-selector="button-icon-pause" class="{{css}}-button-container {{disablepause ? css + '-disabled' : ''}}"
+                 ba-if="{{playing}}" ba-click="{{pause()}}" title="{{disablepause ? string('pause-audio-disabled') : string('pause-audio')}}"
+            >
+                <div class="{{css}}-button-inner">
+                    <i class="{{css}}-icon-pause"></i>
+                </div>
+            </div>
+
+            <div tabindex="3" ba-hotkey:space^enter="{{toggle_volume()}}" onmouseout="this.blur()"
+                 data-selector="button-icon-volume" class="{{css}}-button-container"
+                 ba-click="{{toggle_volume()}}" title="{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}"
+            >
+                <div class="{{css}}-button-inner">
+                    <i class="{{css + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}"></i>
+                </div>
+            </div>
+
+            <div class="{{css}}-volumebar">
+                <div tabindex="4"
+                     ba-hotkey:right="{{set_volume(volume + 0.1)}}"
+                     ba-hotkey:left="{{set_volume(volume - 0.1)}}"
+                     onmouseout="this.blur()"
+                     data-selector="button-volume-bar" class="{{css}}-volumebar-inner"
+                     onmousedown="{{startUpdateVolume(domEvent)}}"
+                     onmouseup="{{stopUpdateVolume(domEvent)}}"
+                     onmouseleave="{{stopUpdateVolume(domEvent)}}"
+                     onmousemove="{{progressUpdateVolume(domEvent)}}"
+                >
+                    <div class="{{css}}-volumebar-position" ba-styles="{{{width: Math.ceil(1+Math.min(99, Math.round(volume * 100))) + '%'}}}" title="{{string('volume-button')}}"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="{{css}}-center-block">
+            <div data-selector="audio-title-block" class="{{css}}-audio-title-block" ba-if="{{title}}">
+                <p class="{{css}}-audio-title">
+                    {{title}}
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>

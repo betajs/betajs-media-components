@@ -512,7 +512,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.__video = video;
                         this.__initializeTrackTags();
 
-                        if (this.get("chromecast") || this.get("aiplay")) {
+                        if (this.get("chromecast")) {
                             if (!this.get("skipinitial")) this.set("skipinitial", true);
                             this._broadcasting = new Broadcasting({
                                 player: instance,

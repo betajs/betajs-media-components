@@ -1,0 +1,85 @@
+$css: "ba-audioplayer-minimalist-theme";
+$cssie8: "ba-audioplayer-ie8";
+$cssnoie8: "ba-audioplayer-noie8";
+$fontello_name: "bjsmc";
+
+$loader_size: 5px;
+$loader_frame_thickness: 0.6em;
+
+$message_bgcolor: #000000;
+$message_opacity: 0.75;
+$message_color: #eeeeee;
+
+$font_family: sans-serif;
+$text_fontfamily: Helvetica Neue, Helvetica, Arial, sans-serif;
+$text_fontsize: 13px;
+$text_color: #eeeeee;
+$text_secondary_color: rgba(250, 254, 255, 0.35);
+
+// cover
+$cover_playbutton_hover_color: #000000;
+
+
+$topmessage_height: 50px;
+
+$focus_button_color: #1b7fcc;
+$focus_overlay_color: #000000;
+
+$playbutton_font_size: 7px;
+
+$controlbar_playbutton_font_size: 2.5em;
+$controlbar_header_height: 40px;
+$controlbar_audio_title_font_size: 12px;
+$controlbar_button_padding: 7px;
+
+$dashboard_transition: 0.5s;
+$controlbar_height: 100%;
+$controlbar_background: rgba(0, 0, 0, 0.4);
+$button_fontsize: 13px;
+$button_width: 40px;
+$button_color: #eeeeee;
+$button_border_color: #979797;
+$time_value_width: 100px;
+$ie8_margintop: 6px;
+$controls_bgcolor: rgba( 255, 255, 255, 0.2);
+$volume_width: 60px;
+$volume_height: 6px;
+$volumebar_inner_color: #979797;
+$volumebar_position_bg: #eeeeee;
+$progressbar_cache_bgcolor: rgba( 255, 255, 255, 0.3);
+$progressbar_cache_bgcolor: #eeeeee;
+$progressbar_button_overflow: #979797;
+$progressbar_container_height: 15px;
+$progressbar_height: 4px;
+
+$icon_size: 0.7em;
+
+
+$rerecord_text_color: #eeeeee;
+$rerecord_font_family: sans-serif;
+
+$rerecord_height: 48px;
+$rerecord_opacity: 0.5;
+$rerecord_bgcolor: black;
+$rerecord_padding: 24px;
+$rerecord_padding: 16px;
+$rerecord_primarybutton_radius: 0;
+$rerecord_primarybutton_color: #000000;
+$rerecord_primarybutton_text_color: #eeeeee;
+$rerecord_primarybutton_padding: 9px 20px;
+$rerecord_primarybutton_vertical_padding: 16px;
+$rerecord_primarybutton_font_weight: 100;
+$rerecord_primarybutton_font_size: 12px;
+$rerecord_letter_spacing: .1em;
+
+// Theme Colors
+$theme_color_blue: #2a74eb;
+$theme_color_red: #eb6a74;
+$theme_color_green: #5daa96;
+
+$colors: (
+  'red': $theme_color_red,
+  'blue': $theme_color_blue,
+  'green': $theme_color_green,
+  'default': ''
+);

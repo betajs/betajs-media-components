@@ -1,5 +1,6 @@
 $css: "ba-videoplayer";
 $cssie8: "ba-videoplayer-ie8";
+$csscommon: "ba-commoncss";
 $cssnoie8: "ba-videoplayer-noie8";
 $fontello_name: "bjsmc";
 
@@ -23,7 +24,7 @@ $focus_overlay_color: #000000;
 $playbutton_size: 15%;
 $playbutton_opacity: 0.75;
 $playbutton_hover_opacity: 0.9;
-$playbutton_transition_time: .25s;
+$playbutton_transition_time: .25;
 
 $video_title_margin: 0 0 0 10px;
 $video_title_font_color: #ffffff;

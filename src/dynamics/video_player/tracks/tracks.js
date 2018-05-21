@@ -1,13 +1,11 @@
 Scoped.define("module:VideoPlayer.Dynamics.Tracks", [
     "dynamics:Dynamic",
-    "browser:Dom",
-    "base:Objs",
     "base:Async",
     "module:Assets"
 ], [
     "dynamics:Partials.ClickPartial",
     "dynamics:Partials.RepeatElementPartial"
-], function(Class, Dom, Objs, Async, Assets, scoped) {
+], function(Class, Async, Assets, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -17,6 +15,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Tracks", [
 
                 attrs: {
                     "css": "ba-videoplayer",
+                    "csscommon": "ba-commoncss",
                     "trackcuetext": null,
                     "acceptedtracktexts": "text/vtt,application/ttml+xml,type/subtype",
                     "trackselectorhovered": false,
@@ -32,18 +31,33 @@ Scoped.define("module:VideoPlayer.Dynamics.Tracks", [
                     },
 
                     hover_cc: function(ev, hover) {
-                        if (!hover && ev[0].target === document.activeElement)
+                        // Don't lose focus on clicking move between sliders
+                        // After if element has an focus not close it till next mouseover/mouseleave
+                        if (!hover && ev[0].target === document.activeElement) {
+                            Async.eventually(function() {
+                                ev[0].target.blur();
+                            }, this, 500);
                             return;
+                        }
+
+                        // Show or hide overlay element on mouse out
                         return this.parent().set("trackselectorhovered", hover);
+                    },
+
+                    prevent_un_hover: function(ev) {
+                        ev[0].target.blur();
+                        var _parentSelector, _parentElement;
+                        _parentSelector = "." + this.parent().get('csscommon') + '-options-popup';
+                        _parentElement = document.querySelector(_parentSelector);
+                        if (_parentElement)
+                            _parentElement.focus();
+                        return this.parent().set("trackselectorhovered", true);
                     },
 
                     selected_label_value: function(select) {
                         var _options, _chosen;
                         _options = select[0].target.options;
                         _chosen = _options[_options.selectedIndex];
-
-                        // Keep popup menu be open
-                        this.parent().set("trackselectorhovered", true);
 
                         if (_chosen.value) {
                             this.set("chosenoption", {

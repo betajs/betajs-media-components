@@ -4,6 +4,9 @@
 
 .#{$css}-text-tracks-overlay {
     @include absolute-align-full-bottom-above-control-bar(43px);
+    .#{$csscommon}-options-popup {
+        right: 4%;
+    }
 }
 
 .#{$css}-cue-content {

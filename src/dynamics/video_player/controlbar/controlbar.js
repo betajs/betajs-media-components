@@ -22,6 +22,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 
                 attrs: {
                     "css": "ba-videoplayer",
+                    "csscommon": "ba-commoncss",
                     "duration": 0,
                     "position": 0,
                     "cached": 0,

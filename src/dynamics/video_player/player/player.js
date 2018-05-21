@@ -41,6 +41,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 attrs: {
                     /* CSS */
                     "css": "ba-videoplayer",
+                    "csscommon": "ba-commoncss",
                     "iecss": "ba-videoplayer",
                     "cssplaybutton": "",
                     "cssloader": "",
@@ -380,8 +381,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 toggleTrackTags: function(status) {
-                    // toggle popup tracks menu in case it it's open
-                    this.set("trackselectorhovered", !this.get("trackselectorhovered"));
                     var _lang = this.get("tracktaglang");
                     var _customStyled = this.get("tracktagsstyled");
                     var _status = status ? 'showing' : 'disabled';
@@ -994,54 +993,34 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     // TODO: add textContent IE8 polyfill if not exists already
                     // https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent
                     move_to_option: function(currentElement, nextSelector) {
-                        var _classPrefix, _hiddenOptionsSelector, _visibleOptionsSelector, _moveToSelector, _currentOptionText, _targetElement, _previousTriggerElement, _previousTriggerText, _currentElementParent;
+                        var _classPrefix, _hiddenOptionsSelector, _visibleOptionsSelector, _moveToSelector,
+                            _targetElement, _currentElementParent, _topParent;
                         nextSelector = nextSelector || 'initial-options-list'; // If next element is empty return to main options
-                        _currentOptionText = currentElement.innerText || currentElement.textContent;
-                        _classPrefix = this.get('css') + "-";
+                        _classPrefix = this.get('csscommon') + "-";
                         _moveToSelector = "." + _classPrefix + nextSelector;
                         _hiddenOptionsSelector = _classPrefix + 'options-list-hidden';
                         _visibleOptionsSelector = _classPrefix + 'options-list-visible';
                         _targetElement = this.activeElement().querySelector(_moveToSelector);
+                        _topParent = this.activeElement().querySelector(_classPrefix + 'text-tracks-overlay');
 
                         // Look if target element is hidden
                         if (Dom.elementHasClass(_targetElement, _hiddenOptionsSelector)) {
                             // Search for visible closest parent element
-                            _currentElementParent = this._closest(currentElement, _visibleOptionsSelector, _classPrefix + 'text-tracks-overlay');
+                            _currentElementParent = Dom.elementFindClosestParent(currentElement, _visibleOptionsSelector, _classPrefix + 'text-tracks-overlay');
                             // We should have parent element with visible class
                             if (Dom.elementHasClass(_currentElementParent, _visibleOptionsSelector)) {
-                                this._replaceClasses(_targetElement, _hiddenOptionsSelector, _visibleOptionsSelector);
-                                this._replaceClasses(_currentElementParent, _visibleOptionsSelector, _hiddenOptionsSelector);
-
-                                if (Dom.elementHasClass(_targetElement, _classPrefix + 'open-previous')) {
-                                    _previousTriggerElement = _targetElement.querySelector(_classPrefix + 'open-previous');
-                                    _previousTriggerText = currentElement.innerText || currentElement.textContent;
-                                    _previousTriggerText = _currentOptionText;
-                                }
+                                Dom.elementReplaceClasses(_targetElement, _hiddenOptionsSelector, _visibleOptionsSelector);
+                                Dom.elementReplaceClasses(_currentElementParent, _visibleOptionsSelector, _hiddenOptionsSelector);
                             }
+                            if (_topParent)
+                                _topParent.focus({
+                                    preventScroll: true
+                                });
+                            else
+                                _currentElementParent.focus({
+                                    preventScroll: true
+                                });
                         }
-                    }
-                },
-
-                // TODO: add to DOM module
-                _closest: function(el, selector, stopSelector) {
-                    var _returnVal = null;
-                    while (el) {
-                        if (el.className.indexOf(selector) > -1) {
-                            _returnVal = el;
-                            break;
-                        } else if (stopSelector && el.className.indexOf(stopSelector) > -1) {
-                            break;
-                        }
-                        el = el.parentElement;
-                    }
-                    return _returnVal;
-                },
-
-                // TODO: also add to Dom module
-                _replaceClasses: function(element, replaceClass, replaceWith) {
-                    if (Dom.elementHasClass(element, replaceClass)) {
-                        Dom.elementRemoveClass(element, replaceClass);
-                        Dom.elementAddClass(element, replaceWith);
                     }
                 },
 

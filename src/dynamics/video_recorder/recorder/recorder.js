@@ -45,6 +45,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 attrs: {
                     /* CSS */
                     "css": "ba-videorecorder",
+                    "csscommon": "ba-commoncss",
                     "iecss": "ba-videorecorder",
                     "cssimagegallery": "",
                     "cssloader": "",

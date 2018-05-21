@@ -1,4 +1,5 @@
 $css: "ba-videoplayer-elevate-theme";
+$csscommon: "ba-commoncss";
 $cssie8: "ba-videoplayer-ie8";
 $cssnoie8: "ba-videoplayer-noie8";
 $fontello_name: "bjsmc";
@@ -49,6 +50,7 @@ $controlbar_center_block_width: 75%;
 $controlbar_right_block_width: 12%;
 $controlbar_video_title_color: #000000;
 $controlbar_video_title_font_size: 12px;
+$controlbar_side_padding: 2.5%;
 
 $full_screen_background: #b2b2b2;
 
@@ -79,7 +81,6 @@ $aligned-buttons-container: 80px;
 
 $rerecord_text_color: #eeeeee;
 $rerecord_font_family: sans-serif;
-
 
 $rerecord_height: 48px;
 $rerecord_opacity: 0.5;

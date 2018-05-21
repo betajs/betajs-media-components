@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<script src="../vendors/jquery.min.js"></script>
     <script src="../node_modules/betajs-shims/dist/betajs-shims.js"></script>
     <script src="../node_modules/betajs-scoped/dist/scoped.js"></script>
     <script src="../node_modules/betajs/dist/beta-noscoped.js"></script>
@@ -45,7 +44,7 @@
 </head>
 <body style="background: #EEE">
 	<ba-videoplayer
-        ba-theme="default"
+        ba-theme="cube"
         ba-themecolor="red"
         ba-hideoninactivity="false"
         ba-skipinitial="true"
@@ -54,6 +53,26 @@
         ba-uploadlocales="{{[{lang: 'en', label: 'English'}, {lang: 'de', label: 'Deutsch'}]}}"
         ba-tracktagsstyled="true"
         ba-allowtexttrackupload="true"
+        ba-tracktagsstyled="true"
+        ba-tracktags="{{
+            [
+                {
+                    lang: 'en',
+                    kind: 'subtitles',
+                    label: 'English',
+                    //enabled: true,
+                    src: 'assets/bunny-en.vtt'
+                },
+                {
+                    lang: 'de',
+                    kind: 'subtitles',
+                    label: 'Deutsch',
+                    //enabled: true,
+                    src: './assets/bunny-de.vtt'
+                }
+
+            ]
+        }}"
 	></ba-videoplayer>
 
     <script>

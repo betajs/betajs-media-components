@@ -69,13 +69,14 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.TextTrackUploading", [
         },
 
         uploadTextTrackFile: function(file, locale) {
-            var _dynamics, _uploader, _tracks;
+            var _dynamics, _uploader, _initialTracks, _counter;
             _dynamics = this.dyn.parent();
 
-            // Check either recoder or player dynamics
+            // Check either recorder or player dynamics
             if (typeof _dynamics.record !== 'function') {
                 _dynamics = this.dyn;
             }
+            _initialTracks = _dynamics.get('tracktags');
 
             // Get file url
             if (_dynamics.get("uploadoptions")) {
@@ -93,21 +94,28 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.TextTrackUploading", [
                 _uploader.upload();
 
                 _uploader.on("success", function(response) {
+                    _counter = 1;
+                    _dynamics.set("tracktags", null);
                     Async.eventually(function() {
-                        _tracks = _dynamics.get("tracktags") || [];
                         response = response.length > 0 ? JSON.parse(response) : {
                             lang: 'en',
                             label: 'English'
                         };
-                        _tracks.push({
+
+                        _initialTracks.push({
                             lang: response.lang,
                             label: response.label,
                             enabled: true,
                             src: _uploader._options.url
                         });
-                        _dynamics.set("tracktags", _tracks);
 
-                        this.nextPlayer();
+                        Objs.iter(_initialTracks, function(value) {
+                            if (_counter === _initialTracks.length) {
+                                _dynamics.set("tracktags", _initialTracks);
+                                this.nextPlayer();
+                            }
+                            _counter++;
+                        }, this);
 
                     }, this);
                 }, this);

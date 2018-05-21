@@ -15,27 +15,6 @@
     }
 }
 
-
-.#{$css}-form {
-    .#{$css}-form-input {
-        &.#{$css}-disabled {
-            input {
-                @include disabled_element();
-            }
-            input[type='file'] { @include transparent(0); }
-        }
-        &.#{$css}-select-field {
-            margin-bottom: 7px;
-            select {
-                color: #eeeeee;
-            }
-            &:after {
-                top: 46%;
-            }
-        }
-    }
-}
-
 .#{$css}-cue-content {
     @include relative-horizontally-center();
     background: #2c2c2c;

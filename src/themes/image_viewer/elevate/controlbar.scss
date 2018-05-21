@@ -1,0 +1,168 @@
+/* Elevate */
+.#{$css}-overlay div[tabindex] {
+    @include transition1(all, 0.30s, ease-in-out);
+}
+
+.#{$css}-overlay div[tabindex]:focus {
+    @include box-outline-shadow(#1b8fcc, 2px);
+    @include remove-outline;
+}
+
+.#{$css}-overlay div[tabindex]:hover, .#{$css}-overlay div[tabindex]:focus:hover {
+    box-shadow: none;
+}
+
+.#{$css}-dashboard {
+    @include transition1(opacity, $dashboard_transition, ease-in-out);
+    position: absolute;
+    left: 2.5%;
+    bottom: 10px;
+    width: $dashboard_width;
+    opacity: 0.75;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.#{$css}-dashboard-hidden {
+    opacity: 0;
+}
+
+.#{$css}-top-block {
+    padding-top: 15px;
+    width: 100%;
+    clear: both;
+}
+
+.#{$cssie8} .#{$css}-top-block {
+    padding-top: 0;
+    padding-bottom: 5px;
+}
+
+.#{$css}-bottom-block {
+    background-color: $controlbar_background;
+    clear: both;
+    height: $controlbar_bottom_height;
+    overflow: hidden;
+    width: 100%;
+}
+
+.#{$css}-left-block {
+    float: left;
+    & > div {
+        @include right-box-shadow($button_border_color, 1);
+        float: left;
+        font-size: $button_fontsize;
+        color: $button_color;
+        line-height: $controlbar_line_height - 1;
+        text-align: center;
+        width: $button_width;
+    }
+}
+
+.#{$cssie8} .#{$css}-left-block {
+    & > div {
+        //filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)";
+        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)"
+    }
+}
+
+.#{$css}-center-block {
+    float: left;
+    padding: 0 10px;
+}
+
+.#{$css}-right-block {
+    float: right;
+    & > div {
+        @include left-box-shadow($button_border_color, 1);
+        float: right;
+        line-height: $controlbar_line_height;
+        text-align: center;
+    }
+
+    & > div:first-child {
+        float: left;
+        line-height: $controlbar_line_height - 1;
+    }
+
+}
+
+.#{$css}-top-right-block {
+    float: right;
+    .#{$css}-time-value{
+        text-align: right;
+    }
+}
+
+.#{$css}-button-container {
+    width: $button_width;
+    text-align: center;
+}
+.#{$css}-icon-resize-full {
+    display: inline-block;
+    &:before {
+        font-size: $text_fontsize;
+        margin: 0;
+        line-height: inherit;
+    }
+}
+
+.#{$cssnoie8} .#{$css}-button-inner {
+    //@include relative-center-center;
+    color: $button_color;
+    font-size: $button_fontsize;
+}
+
+.#{$cssie8} .#{$css}-button-inner {
+    color: $button_color;
+    font-size: $button_fontsize;
+    margin-left: 3px;
+}
+
+.#{$css}-button-inner {
+    @include clickable;
+}
+
+.#{$css}-button-text {
+	font-family: sans-serif;
+    font-weight: normal;
+    font-size: 10px;
+}
+
+.#{$css}-size-small .#{$css}-center-block {
+	display: none;
+}
+
+.#{$css}-image-title-block > p {
+    font-size: $text_fontsize;
+    color: $controlbar_image_title_color;
+    line-height: $controlbar_line_height;
+    margin: 0;
+    & > span {
+        color: $text_color;
+        font-weight: bold;
+        font-size: 1em;
+    }
+}
+
+.#{$css}-top-left-block {
+    float: left;
+}
+
+.#{$cssnoie8} .#{$css}-full-screen-btn-inner {
+    padding-left: 4px;
+}
+
+.#{$css}-icon-resize-full {
+    color: $button_color_secondary;
+}
+
+
+.#{$css}-size-small .#{$css}-dashboard{
+    width: 100%;
+}
+
+.#{$css}-image-title-block > p,
+.#{$css}-button-inner {
+  padding-top: 1px;
+}

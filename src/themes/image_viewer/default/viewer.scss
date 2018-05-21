@@ -1,0 +1,56 @@
+.#{$css}-container {
+    display: inline-block;
+    position: relative;
+	overflow: hidden;
+}
+
+.#{$css}-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.#{$css}-image {
+    width: 100%;
+    display: block;
+}
+
+.#{$css}-stretch-height .#{$css}-container, .#{$css}-stretch-width .#{$css}-container {
+	height:100%;
+	overflow: hidden;
+	position:relative;
+	max-width: 100%;
+	max-height: 100%;
+	width: 100%;
+}
+
+.#{$css}-stretch-height .#{$css}-image {
+	position: absolute;
+	transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
+	min-width: 100%;
+}
+
+.#{$css}-stretch-width .#{$css}-image {
+	position: absolute;
+	transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
+	max-height: 100%;
+	height:100%;
+	width: 10000px;
+}
+
+.#{$css}-stretch-width, .#{$css}-stretch-height {
+	display: inline-block;
+	height:100%;
+	width:100%;
+}
+
+.#{$css}-disabled {
+	@include disabled_element();
+	& * {cursor: not-allowed}
+}

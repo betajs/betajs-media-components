@@ -1,0 +1,52 @@
+<div itemscope itemtype="http://schema.org/ImageObject"
+    class="{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}} {{css}}-{{ fullscreened ? 'fullscreen' : 'normal' }}-view {{css}}-{{ firefox ? 'firefox' : 'common'}}-browser
+    {{css}}-{{themecolor}}-color"
+    ba-on:mousemove="{{user_activity()}}"
+    ba-on:mousedown="{{user_activity(true)}}"
+    ba-on:touchstart="{{user_activity(true)}}"
+	ba-styles="{{widthHeightStyles}}"
+>
+    <img tabindex="-1" class="{{css}}-image" data-image="image" />
+    <div class="{{css}}-overlay">
+	    <ba-{{dyncontrolbar}}
+		    ba-css="{{csscontrolbar || css}}"
+			ba-themecolor="{{themecolor}}"
+		    ba-template="{{tmplcontrolbar}}"
+		    ba-show="{{controlbar_active}}"
+		    ba-event:rerecord="rerecord"
+		    ba-event:submit="submit"
+		    ba-event:fullscreen="toggle_fullscreen"
+			ba-event:tab_index_move="tab_index_move"
+			ba-tabindex="{{tabindex}}"
+		    ba-title="{{title}}"
+		    ba-activitydelta="{{activity_delta}}"
+		    ba-hideoninactivity="{{hideoninactivity}}"
+		    ba-rerecordable="{{rerecordable}}"
+		    ba-submittable="{{submittable}}"
+		    ba-fullscreen="{{fullscreensupport && !nofullscreen}}"
+            ba-fullscreened="{{fullscreened}}"
+            ba-source="{{source}}"
+		></ba-{{dyncontrolbar}}>
+
+		<ba-{{dynmessage}}
+		    ba-css="{{cssmessage || css}}"
+			ba-theme-color="{{themecolor}}"
+		    ba-template="{{tmplmessage}}"
+		    ba-show="{{message_active}}"
+		    ba-message="{{message}}"
+		    ba-event:click="message_click"
+		></ba-{{dynmessage}}>
+
+		<ba-{{dyntopmessage}}
+		    ba-css="{{csstopmessage || css}}"
+			ba-theme-color="{{themecolor}}"
+		    ba-template="{{tmpltopmessage}}"
+		    ba-show="{{topmessage}}"
+		    ba-topmessage="{{topmessage}}"
+		></ba-{{dyntopmessage}}>
+		
+		<meta itemprop="caption" content="{{title}}" />
+		<meta itemprop="thumbnailUrl" content="{{poster}}"/>
+		<meta itemprop="contentUrl" content="{{source}}"/>
+    </div>
+</div>

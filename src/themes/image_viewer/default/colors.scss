@@ -1,0 +1,15 @@
+@each $color, $value in $colors {
+  @if $color != default {
+    .#{$css}-#{$color}-color {
+
+      .#{$css}-button-inner, .#{$css}-image-title {
+        color: $value;
+      }
+
+      .#{$css}-rerecord-button {
+        background-color: $value;
+      }
+
+    }
+  }
+}

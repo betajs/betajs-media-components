@@ -1,0 +1,43 @@
+
+<div class="{{css}}-dashboard {{activitydelta > 5000 && hideoninactivity ? (css + '-dashboard-hidden') : ''}}">
+	<div class="{{css}}-backbar"></div>
+
+	<div class="{{css}}-controlbar">
+
+        <div tabindex="0" data-selector="submit-image-button"
+			 ba-hotkey:space^enter="{{submit()}}" onmouseout="this.blur()"
+			 class="{{css}}-leftbutton-container"
+			 ba-if="{{submittable}}" ba-click="{{submit()}}">
+            <div class="{{css}}-button-inner">
+                {{string('submit-image')}}
+            </div>
+        </div>
+
+        <div tabindex="0" data-selector="button-icon-ccw"
+			 ba-hotkey:space^enter="{{rerecord()}}" onmouseout="this.blur()"
+			 class="{{css}}-leftbutton-container" ba-if="{{rerecordable}}"
+			 ba-click="{{rerecord()}}" title="{{string('rerecord-image')}}"
+		>
+            <div class="{{css}}-button-inner">
+                <i class="{{css}}-icon-ccw"></i>
+            </div>
+        </div>
+
+		<div data-selector="image-title-block" class="{{css}}-image-title-container" ba-if="{{title}}">
+			<p class="{{css}}-image-title">
+				{{title}}
+			</p>
+		</div>
+
+		<div tabindex="8" data-selector="button-icon-resize-full"
+			 ba-hotkey:space^enter="{{toggle_fullscreen()}}" onmouseout="this.blur()"
+			 class="{{css}}-rightbutton-container"
+			 onkeydown="{{tab_index_move(domEvent)}}" ba-if="{{fullscreen}}"
+			 ba-click="{{toggle_fullscreen()}}" title="{{ fullscreened ? string('exit-fullscreen-image') : string('fullscreen-image') }}">
+			<div class="{{css}}-button-inner">
+				<i class="{{css}}-icon-resize-{{fullscreened ? 'small' : 'full'}}"></i>
+			</div>
+		</div>
+
+	</div>
+</div>

@@ -1,0 +1,57 @@
+<div class="{{css}}-dashboard {{activitydelta > 5000 && hideoninactivity ? (css + '-dashboard-hidden') : ''}}">
+
+    <div class='{{css}}-controlbar-header'>
+        <div class="{{css}}-controlbar-header-icons-block">
+
+            <div class="{{css}}-right-block">
+
+                <div tabindex="1" data-selector="button-icon-resize-full"
+                     ba-hotkey:space^enter="{{toggle_fullscreen()}}" onmouseout="this.blur()"
+                     onkeydown="{{tab_index_move(domEvent)}}"
+                     class="{{css}}-button-container"
+                     ba-if="{{fullscreen}}" ba-click="{{toggle_fullscreen()}}" title="{{ fullscreened ? string('exit-fullscreen-image') : string('fullscreen-image') }}"
+                >
+                    <div class="{{css}}-button-inner {{css}}-full-screen-btn-inner">
+                        <i class="{{css}}-icon-resize-{{fullscreened ? 'small' : 'full'}}"></i>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="{{css}}-controlbar-header-title-block" ba-if="{{title}}">
+            <div class="{{css}}-title"><p>{{title}}</p></div>
+        </div>
+    </div>
+
+    <div class="{{css}}-controlbar-footer">
+
+        <div class="{{css}}-controlbar-top-block">
+
+            <div tabindex="0" data-selector="submit-image-button"
+                 ba-hotkey:space^enter="{{submit()}}" onmouseout="this.blur()"
+                 class="{{css}}-button-container" ba-if="{{submittable}}"  ba-click="{{submit()}}"
+            >
+                <div class="{{css}}-button-inner">
+                    {{string('submit-image')}}
+                </div>
+            </div>
+
+        </div>
+        <div class="{{css}}-controlbar-bottom-block">
+            <div tabindex="0" data-selector="button-icon-ccw"
+                 ba-hotkey:space^enter="{{rerecord()}}" onmouseout="this.blur()"
+                 class="{{css}}-button-container {{css}}-player-rerecord"
+                 ba-if="{{rerecordable}}" ba-click="{{rerecord()}}" title="{{string('rerecord-image')}}"
+            >
+                <div class="{{css}}-button-inner">
+                    <i class="{{css}}-icon-ccw"></i>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,38 @@
+.#{$cssnoie8} .#{$css}-topmessage-message .#{css}-rightbutton-container {
+  width: 21px;
+}
+
+.#{$css}-topmessage-background {
+  background-color: transparent;
+  position: relative;
+  height: 40px;
+}
+
+.#{$css}-topmessage-message {
+  line-height: $topmessage_height / 2;
+  padding: 0;
+  text-align: left;
+  font-size: 0.65rem;
+  letter-spacing: .05rem;
+  font-weight: 300;
+}
+
+.#{$css}-topmessage-message {
+  margin: 0 2.5%;
+  .#{$css}-right-block {
+    height: $topmessage_height;
+    line-height: $topmessage_height;
+  }
+}
+
+.#{$cssnoie8} .#{$css}-topmessage-message .#{$css}-button-inner {
+  @include transform-translate-y(0);
+}
+
+.#{$cssnoie8} .#{$css}-topmessage-container .#{$css}-rightbutton-container {
+  width: 25px;
+}
+
+.#{$css}-topmessage-message .#{$css}-button-container {
+    width: 20px;
+}

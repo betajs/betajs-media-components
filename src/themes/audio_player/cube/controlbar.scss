@@ -1,0 +1,169 @@
+
+.#{$css}-overlay div[tabindex] {
+  @include transition1(all, 0.30s, ease-in-out);
+}
+
+.#{$css}-overlay div[tabindex]:focus {
+  @include box-outline-shadow(#1b8fcc, 2px);
+  @include remove-outline;
+}
+
+.#{$css}-overlay div[tabindex]:hover, .#{$css}-overlay div[tabindex]:focus:hover {
+  box-shadow: none;
+}
+
+.#{$css}-dashboard {
+  @include absolute-align-full-bottom;
+  @include transition1(opacity, $dashboard_transition, ease-in-out);
+  @include background-rgba(0, 0, 0, 0.6, #4f4f4f);
+  //background: $controlbar_background;
+  color: $text_color;
+  font-size: $text_fontsize;
+  height: $controlbar_height;
+  opacity: 0.9;
+  overflow: hidden;
+}
+
+.#{$css}-dashboard-hidden {
+  opacity: 0;
+}
+
+.#{$cssie8} .#{$css}-audio-title-block {
+  display: none;
+}
+
+.#{$cssnoie8} .#{$css}-audio-title-block {
+  @include absolute-align-full-top();
+  @include background-rgba(0, 0, 0, 0.6, #4f4f4f);
+  @include transition1(opacity, $dashboard_transition, ease-in-out);
+}
+
+.#{$css}-audio-title {
+  color: $title_text_color;
+  font-family: $font_family;
+  font-weight: 300;
+  font-size: $title_font_size;
+  letter-spacing: $text_letter_spacing;
+  margin: 0;
+  padding: $title_padding;
+}
+
+.#{$css}-button-inner {
+  @include relative-center-center;
+  @include clickable;
+  color: $text_color;
+  font-size: $button_fontsize;
+}
+
+.#{$css}-volumebar {
+    float: left;
+    width: $volume_width;
+    height: $controlbar_height;
+    margin-right: 10px;
+}
+
+.#{$css}-volumebar-inner {
+    @include relative-center-center;
+    @include border-round-edges($volume_height / 2);
+    @include clickable;
+    background-color: $button_color_secondary;
+    height: $volume_height;
+}
+
+.#{$cssie8} .#{$css}-volumebar-inner {
+  margin-top: -2px;
+}
+
+.#{$css}-volumebar-position {
+  @include border-round-edges($volume_height / 2);
+  @include absolute-align-left();
+  background-color: $progressbar_button_overflow;
+  height: 100%;
+}
+
+.#{$css}-left-block {
+  float: left;
+}
+
+.#{$css}-center-block {
+  float: left;
+  .#{$css}-progress-bar-container {
+    position: absolute;
+    width: 100%;
+  }
+}
+
+.#{$css}-right-block {
+  float: right;
+  .#{$css}-icon-volume-up, .#{$css}-icon-volume-down {
+    color: $button_color_secondary;
+  }
+}
+
+.#{$css}-button-container {
+  float: left;
+  width: $button-width;
+  height: $controlbar_height;
+  line-height: $controlbar_line_height;
+  text-align: center;
+}
+
+.#{$css}-timer-container {
+  @include background-rgba(0, 0, 0, 0.35, #b2b2b2);
+  //background: $controlbar_background;
+  color: $text_color;
+  cursor: default;
+  letter-spacing: .1em;
+  width: 90px;
+  font-weight: 300;
+  font-size: .9em;
+  & > div:first-child { margin-left: 4px }
+  & > div {
+    float: left;
+    width: $button_width;
+  }
+
+  & > p {
+    float: left;
+    margin: 0;
+    width: 4px;
+  }
+}
+
+.#{$cssnoie8} .#{$css}-progressbar {
+  overflow: hidden;
+  height: 100%;
+}
+
+.#{$cssie8} .#{$css}-progressbar {
+  overflow: hidden;
+}
+
+.#{$css}-progressbar-cache {
+  @include absolute-align-left;
+  @include clickable;
+  background-color: transparent;
+  height: $progressbar_height;
+}
+
+.#{$css}-progressbar-inner {
+  @include relative-center-center;
+  @include clickable;
+  background-color: transparent;
+  height: $progressbar_height;
+}
+
+.#{$css}-progressbar.#{$css}-disabled {
+  &, & .#{$css}-progressbar-cache, & .#{$css}-progressbar-inner, & .#{$css}-progressbar-position {cursor: not-allowed}
+}
+
+.#{$css}-progressbar-position {
+  @include absolute-align-left();
+  background-color: $progressbar_button_overflow;
+  height: 100%;
+}
+
+.#{$css}-progressbar-button {
+  display: none;
+}
+

@@ -1,0 +1,16 @@
+@each $color, $value in $colors {
+  @if $color != default {
+    .#{$css}-#{$color}-color {
+
+      .#{$css}-button-inner, .#{$css}-icon-resize-full, .#{$css}-icon-resize-small,
+      &.#{$cssnoie8} .#{$css}-button-inner {
+        color: $value;
+      }
+
+     .#{$css}-rerecord-button {
+        background-color: $value;
+      }
+
+    }
+  }
+}

@@ -1,0 +1,62 @@
+$css: "ba-audioplayer-theme-modern";
+$cssie8: "ba-audioplayer-ie8";
+$cssnoie8: "ba-audioplayer-noie8";
+$fontello_name: "bjsmc";
+
+$loader_size: 5px;
+$loader_frame_thickness: 0.6em;
+
+$message_bgcolor: #000000;
+$message_opacity: 0.75;
+$message_color: #eeeeee;
+
+$font_family: Arial, sans-serif;
+
+$focus_button_color: #1b7fcc;
+$focus_overlay_color: #000000;
+
+$dashboard_transition: 0.5s;
+$controlbar_height: 40px;
+$controlbar_background: #ecebed;
+$button_fontsize: 13px;
+$button_width: 40px;
+$button_color: #000000;
+$button_border_color: #dbdbdb;
+$time_value_width: 100px;
+$ie8_margintop: 6px;
+$text_fontfamily: Helvetica Neue, Helvetica, Arial, sans-serif;
+$text_fontsize: 13px;
+$text_color: #666666;
+$controls_bgcolor: #878787;
+$volume_width: 60px;
+$volume_height: 6px;
+$progressbar_cache_bgcolor: #BBB;
+$title_text_color: #666666;
+
+$rerecord_text_color: white;
+$rerecord_font_family: Arial, sans-serif;
+
+
+$rerecord_height: 48px;
+$rerecord_opacity: 0.5;
+$rerecord_bgcolor: black;
+$rerecord_padding: 24px;
+$rerecord_padding: 16px;
+$rerecord_primarybutton_radius: 3px;
+$rerecord_primarybutton_padding: 8px;
+$rerecord_primarybutton_vertical_padding: 16px;
+$rerecord_primarybutton_font_weight: bold;
+$rerecord_primarybutton_font_size: 14px;
+
+
+// Theme Colors
+$theme_color_blue: #2a74eb;
+$theme_color_red: #eb6a74;
+$theme_color_green: #5da894;
+
+$colors: (
+  'red': $theme_color_red,
+  'blue': $theme_color_blue,
+  'green': $theme_color_green,
+  'default': ''
+);

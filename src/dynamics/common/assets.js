@@ -12,7 +12,11 @@ Scoped.define("module:Assets", [
 
         playerthemes: {},
 
-        recorderthemes: {}
+        recorderthemes: {},
+
+        imageviewerthemes: {},
+
+        audioplayerthemes: {}
 
     };
 });

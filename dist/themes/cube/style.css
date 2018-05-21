@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.99 - 2018-04-18
+betajs-media-components - v0.0.101 - 2018-05-13
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -3449,3 +3449,1451 @@ div.ba-videorecorder-theme-cube-disabled {
 
 .ba-videorecorder-theme-cube-topmessage-background {
   background: none; }
+
+.ba-imageviewer-cube-theme-icon-volume-off:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e800'; }
+
+.ba-imageviewer-cube-theme-icon-volume-down:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e801'; }
+
+.ba-imageviewer-cube-theme-icon-volume-up:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e802'; }
+
+.ba-imageviewer-cube-theme-icon-resize-full:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e803'; }
+
+.ba-imageviewer-cube-theme-icon-ccw:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e804'; }
+
+.ba-imageviewer-cube-theme-icon-play:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e805'; }
+
+.ba-imageviewer-cube-theme-icon-pause:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e806'; }
+
+.ba-imageviewer-cube-theme-icon-videocam:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e807'; }
+
+.ba-imageviewer-cube-theme-icon-upload:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e808'; }
+
+.ba-imageviewer-cube-theme-icon-left-open:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e809'; }
+
+.ba-imageviewer-cube-theme-icon-right-open:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e80a'; }
+
+.ba-imageviewer-cube-theme-icon-cog:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e80b'; }
+
+.ba-imageviewer-cube-theme-icon-mic:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e80c'; }
+
+.ba-imageviewer-cube-theme-icon-mute:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e80d'; }
+
+.ba-imageviewer-cube-theme-icon-lightbulb:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e80e'; }
+
+.ba-imageviewer-cube-theme-icon-resize-small:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e80f'; }
+
+.ba-imageviewer-cube-theme-icon-resize-minimize:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e810'; }
+
+.ba-imageviewer-cube-theme-icon-record:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e811'; }
+
+.ba-imageviewer-cube-theme-icon-record-core:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e812'; }
+
+.ba-imageviewer-cube-theme-icon-up-dir:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e813'; }
+
+.ba-imageviewer-cube-theme-icon-cc:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\e815'; }
+
+.ba-imageviewer-cube-theme-icon-twitter:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f099'; }
+
+.ba-imageviewer-cube-theme-icon-facebook:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f09a'; }
+
+.ba-imageviewer-cube-theme-icon-gplus-squared:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f0d4'; }
+
+.ba-imageviewer-cube-theme-icon-gplus:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f0d5'; }
+
+.ba-imageviewer-cube-theme-icon-crop:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f125'; }
+
+.ba-imageviewer-cube-theme-icon-share:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f130'; }
+
+.ba-imageviewer-cube-theme-icon-resize-full-alt:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f131'; }
+
+.ba-imageviewer-cube-theme-icon-play-circled:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f144'; }
+
+.ba-imageviewer-cube-theme-icon-subtitle:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f20a'; }
+
+.ba-imageviewer-cube-theme-icon-facebook-official:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f230'; }
+
+.ba-imageviewer-cube-theme-icon-television:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f26c'; }
+
+.ba-imageviewer-cube-theme-icon-twitter-squared:before {
+  font-family: "bjsmc";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  content: '\f304'; }
+
+.ba-imageviewer-cube-theme-container {
+  display: inline-block;
+  position: relative;
+  overflow: hidden; }
+
+.ba-imageviewer-cube-theme-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0; }
+
+.ba-imageviewer-cube-theme-image {
+  width: 100%;
+  display: block; }
+
+.ba-imageviewer-cube-theme-stretch-height .ba-imageviewer-cube-theme-container, .ba-imageviewer-cube-theme-stretch-width .ba-imageviewer-cube-theme-container {
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%; }
+
+.ba-imageviewer-cube-theme-stretch-height .ba-imageviewer-cube-theme-image {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  min-width: 100%; }
+
+.ba-imageviewer-cube-theme-stretch-width .ba-imageviewer-cube-theme-image {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  max-height: 100%;
+  height: 100%;
+  width: 10000px; }
+
+.ba-imageviewer-cube-theme-stretch-width, .ba-imageviewer-cube-theme-stretch-height {
+  display: inline-block;
+  height: 100%;
+  width: 100%; }
+
+.ba-imageviewer-cube-theme-disabled {
+  cursor: not-allowed;
+  /* works for IE 5+. */
+  /* works for IE 8. */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  /* works for old school versions of the Mozilla browsers like Netscape Navigator. */
+  -moz-opacity: 0.5;
+  /* This is for old versions of Safari (1.x) with KHTML rendering engine */
+  -khtml-opacity: 0.5;
+  /* This is the "most important" one because it's the current standard in CSS. This will work in most versions of Firefox, Safari, and Opera. */
+  opacity: 0.5; }
+  .ba-imageviewer-cube-theme-disabled * {
+    cursor: not-allowed; }
+
+.ba-imageviewer-cube-theme-topmessage-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0; }
+
+.ba-imageviewer-cube-theme-topmessage-message {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  font-family: sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  color: #eeeeee;
+  padding: 8.5px;
+  text-align: center; }
+
+.ba-imageviewer-cube-theme-topmessage-background {
+  background-color: black;
+  height: 32px;
+  opacity: 0.3;
+  position: absolute;
+  width: 100%; }
+
+.ba-imageviewer-cube-theme-red-color .ba-imageviewer-cube-theme-dashboard, .ba-imageviewer-cube-theme-red-color .ba-imageviewer-cube-theme-image-title, .ba-imageviewer-cube-theme-red-color .ba-imageviewer-cube-theme-right-block .ba-imageviewer-cube-theme-icon-resize-full,
+.ba-imageviewer-cube-theme-red-color .ba-imageviewer-cube-theme-right-block .ba-imageviewer-cube-theme-icon-resize-small, .ba-imageviewer-cube-theme-red-color .ba-imageviewer-cube-theme-button-inner {
+  color: #eb6a74; }
+.ba-imageviewer-cube-theme-red-color .ba-imageviewer-cube-theme-rerecord-button {
+  background-color: #eb6a74; }
+
+.ba-imageviewer-cube-theme-blue-color .ba-imageviewer-cube-theme-dashboard, .ba-imageviewer-cube-theme-blue-color .ba-imageviewer-cube-theme-image-title, .ba-imageviewer-cube-theme-blue-color .ba-imageviewer-cube-theme-right-block .ba-imageviewer-cube-theme-icon-resize-full,
+.ba-imageviewer-cube-theme-blue-color .ba-imageviewer-cube-theme-right-block .ba-imageviewer-cube-theme-icon-resize-small, .ba-imageviewer-cube-theme-blue-color .ba-imageviewer-cube-theme-button-inner {
+  color: #2a74eb; }
+.ba-imageviewer-cube-theme-blue-color .ba-imageviewer-cube-theme-rerecord-button {
+  background-color: #2a74eb; }
+
+.ba-imageviewer-cube-theme-green-color .ba-imageviewer-cube-theme-dashboard, .ba-imageviewer-cube-theme-green-color .ba-imageviewer-cube-theme-image-title, .ba-imageviewer-cube-theme-green-color .ba-imageviewer-cube-theme-right-block .ba-imageviewer-cube-theme-icon-resize-full,
+.ba-imageviewer-cube-theme-green-color .ba-imageviewer-cube-theme-right-block .ba-imageviewer-cube-theme-icon-resize-small, .ba-imageviewer-cube-theme-green-color .ba-imageviewer-cube-theme-button-inner {
+  color: #5daa96; }
+.ba-imageviewer-cube-theme-green-color .ba-imageviewer-cube-theme-rerecord-button {
+  background-color: #5daa96; }
+
+.ba-imageviewer-cube-theme-overlay div[tabindex] {
+  transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out; }
+
+.ba-imageviewer-cube-theme-overlay div[tabindex]:focus {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2px, Direction=90, Color=#1b8fcc)";
+  /*IE 8*/
+  -moz-box-shadow: 0 0 0 2px #1b8fcc;
+  /*FF 3.5+*/
+  -webkit-box-shadow: 0 0 0 2px #1b8fcc;
+  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: 0 0 0 2px #1b8fcc;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  outline: 0;
+  -moz-outline-style: none; }
+
+.ba-imageviewer-cube-theme-overlay div[tabindex]:hover, .ba-imageviewer-cube-theme-overlay div[tabindex]:focus:hover {
+  box-shadow: none; }
+
+.ba-imageviewer-cube-theme-dashboard {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out;
+  -ms-transition: opacity 0.5s ease-in-out;
+  background-color: #4f4f4f;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #eeeeee;
+  font-size: 13px;
+  height: 40px;
+  opacity: 0.9;
+  overflow: hidden; }
+
+.ba-imageviewer-cube-theme-dashboard-hidden {
+  opacity: 0; }
+
+.ba-imageviewer-ie8 .ba-imageviewer-cube-theme-image-title-block {
+  display: none; }
+
+.ba-imageviewer-noie8 .ba-imageviewer-cube-theme-image-title-block {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  background-color: #4f4f4f;
+  background-color: rgba(0, 0, 0, 0.6);
+  transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out;
+  -ms-transition: opacity 0.5s ease-in-out; }
+
+.ba-imageviewer-cube-theme-image-title {
+  color: #eeeeee;
+  font-family: sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  margin: 0;
+  padding: 10px 15px; }
+
+.ba-imageviewer-cube-theme-button-inner {
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  top: 50%;
+  position: relative;
+  text-align: center;
+  cursor: pointer;
+  color: #eeeeee;
+  font-size: 13px; }
+
+.ba-imageviewer-cube-theme-left-block {
+  float: left; }
+
+.ba-imageviewer-cube-theme-center-block {
+  float: left; }
+
+.ba-imageviewer-cube-theme-right-block {
+  float: right; }
+  .ba-imageviewer-cube-theme-right-block .ba-imageviewer-cube-theme-icon-resize-full {
+    color: #979797; }
+
+.ba-imageviewer-cube-theme-button-container {
+  float: left;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center; }
+
+.ba-imageviewer-cube-theme-timer-container {
+  background-color: #b2b2b2;
+  background-color: rgba(0, 0, 0, 0.35);
+  color: #eeeeee;
+  cursor: default;
+  letter-spacing: .1em;
+  width: 90px;
+  font-weight: 300;
+  font-size: .9em; }
+  .ba-imageviewer-cube-theme-timer-container > div:first-child {
+    margin-left: 4px; }
+  .ba-imageviewer-cube-theme-timer-container > div {
+    float: left;
+    width: 40px; }
+  .ba-imageviewer-cube-theme-timer-container > p {
+    float: left;
+    margin: 0;
+    width: 4px; }
+
+/* Full screen options */
+.ba-imageviewer-cube-theme-fullscreen-view video::-webkit-media-controls-overlay-enclosure {
+  display: none; }
+.ba-imageviewer-cube-theme-fullscreen-view video::-webkit-media-controls-enclosure {
+  display: none; }
+.ba-imageviewer-cube-theme-fullscreen-view video::-webkit-media-controls {
+  display: none; }
+.ba-imageviewer-cube-theme-fullscreen-view video::-webkit-media-controls-panel {
+  display: none; }
+.ba-imageviewer-cube-theme-fullscreen-view video::-webkit-media-controls-play-button {
+  display: none; }
+.ba-imageviewer-cube-theme-fullscreen-view video::-webkit-media-controls-current-time-display {
+  display: none; }
+.ba-imageviewer-cube-theme-fullscreen-view video::-webkit-media-controls-time-remaining-display {
+  display: none; }
+.ba-imageviewer-cube-theme-fullscreen-view video::-webkit-media-controls-timeline {
+  display: none; }
+.ba-imageviewer-cube-theme-fullscreen-view video::-webkit-media-controls-mute-button {
+  display: none; }
+.ba-imageviewer-cube-theme-fullscreen-view video::-webkit-media-controls-volume-slider {
+  display: none; }
+.ba-imageviewer-cube-theme-fullscreen-view video::-webkit-media-controls-fullscreen-button {
+  display: none; }
+.ba-imageviewer-cube-theme-fullscreen-view video::-internal-media-controls-download-button {
+  display: none; }
+.ba-imageviewer-cube-theme-fullscreen-view video::-moz-list-bullet, .ba-imageviewer-cube-theme-fullscreen-view video::-moz-list-number {
+  display: none; }
+.ba-imageviewer-cube-theme-fullscreen-view video::-moz-meter-bar {
+  display: none; }
+.ba-imageviewer-cube-theme-fullscreen-view video:fullscreen:not(:root) {
+  display: none; }
+.ba-imageviewer-cube-theme-fullscreen-view .ba-imageviewer-cube-theme-dashboard {
+  bottom: 0; }
+.ba-imageviewer-cube-theme-fullscreen-view .ba-imageviewer-cube-theme-image-title-block {
+  top: 0; }
+.ba-imageviewer-cube-theme-fullscreen-view.ba-imageviewer-cube-theme-common-browser .ba-imageviewer-cube-theme-overlay {
+  z-index: 2147483647; }
+.ba-imageviewer-cube-theme-fullscreen-view.ba-imageviewer-cube-theme-firefox-browser .ba-imageviewer-cube-theme-dashboard, .ba-imageviewer-cube-theme-fullscreen-view.ba-imageviewer-cube-theme-firefox-browser .ba-imageviewer-cube-theme-image-title-block {
+  position: fixed;
+  z-index: 100; }
+.ba-imageviewer-cube-theme-fullscreen-view.ba-imageviewer-cube-theme-firefox-browser img {
+  position: relative;
+  min-width: 100%;
+  z-index: 0; }
+
+.ba-imageviewer-cube-theme-container.ba-imageviewer-cube-theme-fullscreen-view {
+  min-width: 100%;
+  position: absolute; }
+  .ba-imageviewer-cube-theme-container.ba-imageviewer-cube-theme-fullscreen-view > .ba-imageviewer-cube-theme-overlay {
+    position: fixed; }
+
+.ba-audioplayer-cube-theme-container {
+  display: inline-block;
+  position: relative;
+  overflow: hidden; }
+
+.ba-audioplayer-cube-theme-overlay, .ba-audioplayer-cube-theme-player-toggle-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0; }
+
+.ba-audioplayer-cube-theme-audio {
+  width: 100%;
+  display: block; }
+
+.ba-audioplayer-cube-theme-container audio::-webkit-media-controls-start-playback-button {
+  display: none;
+  -webkit-appearance: none;
+  -moz-appearance: none; }
+
+.ba-audioplayer-cube-theme-stretch-height .ba-audioplayer-cube-theme-container, .ba-audioplayer-cube-theme-stretch-width .ba-audioplayer-cube-theme-container {
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%; }
+
+.ba-audioplayer-cube-theme-stretch-height .ba-audioplayer-cube-theme-audio {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  min-width: 100%; }
+
+.ba-audioplayer-cube-theme-stretch-width .ba-audioplayer-cube-theme-audio {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  max-height: 100%;
+  height: 100%;
+  width: 10000px; }
+
+.ba-audioplayer-cube-theme-stretch-width, .ba-audioplayer-cube-theme-stretch-height {
+  display: inline-block;
+  height: 100%;
+  width: 100%; }
+
+.ba-audioplayer-cube-theme-disabled {
+  cursor: not-allowed;
+  /* works for IE 5+. */
+  /* works for IE 8. */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  /* works for old school versions of the Mozilla browsers like Netscape Navigator. */
+  -moz-opacity: 0.5;
+  /* This is for old versions of Safari (1.x) with KHTML rendering engine */
+  -khtml-opacity: 0.5;
+  /* This is the "most important" one because it's the current standard in CSS. This will work in most versions of Firefox, Safari, and Opera. */
+  opacity: 0.5; }
+  .ba-audioplayer-cube-theme-disabled * {
+    cursor: not-allowed; }
+
+.ba-audioplayer-cube-theme-loader-container {
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%; }
+
+.ba-audioplayer-cube-theme-loader-loader:before {
+  content: "";
+  display: block;
+  padding-top: 100%;
+  /* initial ratio of 1:1*/ }
+
+.ba-audioplayer-cube-theme-loader-loader {
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  position: relative;
+  width: 100%;
+  font-size: 5px;
+  box-sizing: content-box;
+  border-top: 0.6em solid;
+  border-top-color: #999;
+  border-top-color: rgba(255, 255, 255, 0.2);
+  border-right: 0.6em solid;
+  border-right-color: #999;
+  border-right-color: rgba(255, 255, 255, 0.2);
+  border-bottom: 0.6em solid;
+  border-bottom-color: #999;
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+  border-left: 0.6em solid #ffffff;
+  -webkit-animation: ba-audioplayer-cube-theme-loader-load8 1.1s infinite linear;
+  -moz-animation: ba-audioplayer-cube-theme-loader-load8 1.1s infinite linear;
+  animation: ba-audioplayer-cube-theme-loader-load8 1.1s infinite linear; }
+
+.ba-audioplayer-cube-theme-loader-loader, .ba-audioplayer-cube-theme-loader-loader:after {
+  border-radius: 50%;
+  width: 10em;
+  height: 10em; }
+
+@-webkit-keyframes ba-audioplayer-cube-theme-loader-load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+@keyframes ba-audioplayer-cube-theme-loader-load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+.ba-audioplayer-cube-theme-red-color .ba-audioplayer-cube-theme-dashboard, .ba-audioplayer-cube-theme-red-color .ba-audioplayer-cube-theme-audio-title, .ba-audioplayer-cube-theme-red-color .ba-audioplayer-cube-theme-right-block .ba-audioplayer-cube-theme-icon-volume-up,
+.ba-audioplayer-cube-theme-red-color .ba-audioplayer-cube-theme-right-block .ba-audioplayer-cube-theme-icon-volume-down,
+.ba-audioplayer-cube-theme-red-color .ba-audioplayer-cube-theme-button-inner {
+  color: #eb6a74; }
+.ba-audioplayer-cube-theme-red-color .ba-audioplayer-cube-theme-volumebar-position, .ba-audioplayer-cube-theme-red-color .ba-audioplayer-cube-theme-progressbar-position,
+.ba-audioplayer-cube-theme-red-color .ba-audioplayer-cube-theme-rerecord-button {
+  background-color: #eb6a74; }
+.ba-audioplayer-cube-theme-red-color .ba-audioplayer-cube-theme-volumebar-inner {
+  background-color: #979797;
+  background-color: rgba(255, 255, 255, 0.3); }
+
+.ba-audioplayer-cube-theme-blue-color .ba-audioplayer-cube-theme-dashboard, .ba-audioplayer-cube-theme-blue-color .ba-audioplayer-cube-theme-audio-title, .ba-audioplayer-cube-theme-blue-color .ba-audioplayer-cube-theme-right-block .ba-audioplayer-cube-theme-icon-volume-up,
+.ba-audioplayer-cube-theme-blue-color .ba-audioplayer-cube-theme-right-block .ba-audioplayer-cube-theme-icon-volume-down,
+.ba-audioplayer-cube-theme-blue-color .ba-audioplayer-cube-theme-button-inner {
+  color: #2a74eb; }
+.ba-audioplayer-cube-theme-blue-color .ba-audioplayer-cube-theme-volumebar-position, .ba-audioplayer-cube-theme-blue-color .ba-audioplayer-cube-theme-progressbar-position,
+.ba-audioplayer-cube-theme-blue-color .ba-audioplayer-cube-theme-rerecord-button {
+  background-color: #2a74eb; }
+.ba-audioplayer-cube-theme-blue-color .ba-audioplayer-cube-theme-volumebar-inner {
+  background-color: #979797;
+  background-color: rgba(255, 255, 255, 0.3); }
+
+.ba-audioplayer-cube-theme-green-color .ba-audioplayer-cube-theme-dashboard, .ba-audioplayer-cube-theme-green-color .ba-audioplayer-cube-theme-audio-title, .ba-audioplayer-cube-theme-green-color .ba-audioplayer-cube-theme-right-block .ba-audioplayer-cube-theme-icon-volume-up,
+.ba-audioplayer-cube-theme-green-color .ba-audioplayer-cube-theme-right-block .ba-audioplayer-cube-theme-icon-volume-down,
+.ba-audioplayer-cube-theme-green-color .ba-audioplayer-cube-theme-button-inner {
+  color: #5daa96; }
+.ba-audioplayer-cube-theme-green-color .ba-audioplayer-cube-theme-volumebar-position, .ba-audioplayer-cube-theme-green-color .ba-audioplayer-cube-theme-progressbar-position,
+.ba-audioplayer-cube-theme-green-color .ba-audioplayer-cube-theme-rerecord-button {
+  background-color: #5daa96; }
+.ba-audioplayer-cube-theme-green-color .ba-audioplayer-cube-theme-volumebar-inner {
+  background-color: #979797;
+  background-color: rgba(255, 255, 255, 0.3); }
+
+.ba-audioplayer-cube-theme-overlay div[tabindex] {
+  transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out; }
+
+.ba-audioplayer-cube-theme-overlay div[tabindex]:focus {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2px, Direction=90, Color=#1b8fcc)";
+  /*IE 8*/
+  -moz-box-shadow: 0 0 0 2px #1b8fcc;
+  /*FF 3.5+*/
+  -webkit-box-shadow: 0 0 0 2px #1b8fcc;
+  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: 0 0 0 2px #1b8fcc;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  outline: 0;
+  -moz-outline-style: none; }
+
+.ba-audioplayer-cube-theme-overlay div[tabindex]:hover, .ba-audioplayer-cube-theme-overlay div[tabindex]:focus:hover {
+  box-shadow: none; }
+
+.ba-audioplayer-cube-theme-dashboard {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out;
+  -ms-transition: opacity 0.5s ease-in-out;
+  background-color: #4f4f4f;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #eeeeee;
+  font-size: 13px;
+  height: 40px;
+  opacity: 0.9;
+  overflow: hidden; }
+
+.ba-audioplayer-cube-theme-dashboard-hidden {
+  opacity: 0; }
+
+.ba-audioplayer-ie8 .ba-audioplayer-cube-theme-audio-title-block {
+  display: none; }
+
+.ba-audioplayer-noie8 .ba-audioplayer-cube-theme-audio-title-block {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  background-color: #4f4f4f;
+  background-color: rgba(0, 0, 0, 0.6);
+  transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out;
+  -ms-transition: opacity 0.5s ease-in-out; }
+
+.ba-audioplayer-cube-theme-audio-title {
+  color: #eeeeee;
+  font-family: sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  margin: 0;
+  padding: 10px 15px; }
+
+.ba-audioplayer-cube-theme-button-inner {
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  top: 50%;
+  position: relative;
+  text-align: center;
+  cursor: pointer;
+  color: #eeeeee;
+  font-size: 13px; }
+
+.ba-audioplayer-cube-theme-volumebar {
+  float: left;
+  width: 60px;
+  height: 40px;
+  margin-right: 10px; }
+
+.ba-audioplayer-cube-theme-volumebar-inner {
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  top: 50%;
+  position: relative;
+  text-align: center;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  cursor: pointer;
+  background-color: #979797;
+  height: 6px; }
+
+.ba-audioplayer-ie8 .ba-audioplayer-cube-theme-volumebar-inner {
+  margin-top: -2px; }
+
+.ba-audioplayer-cube-theme-volumebar-position {
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  position: absolute;
+  left: 0;
+  background-color: #eeeeee;
+  height: 100%; }
+
+.ba-audioplayer-cube-theme-left-block {
+  float: left; }
+
+.ba-audioplayer-cube-theme-center-block {
+  float: left; }
+  .ba-audioplayer-cube-theme-center-block .ba-audioplayer-cube-theme-progress-bar-container {
+    position: absolute;
+    width: 100%; }
+
+.ba-audioplayer-cube-theme-right-block {
+  float: right; }
+  .ba-audioplayer-cube-theme-right-block .ba-audioplayer-cube-theme-icon-volume-up, .ba-audioplayer-cube-theme-right-block .ba-audioplayer-cube-theme-icon-volume-down {
+    color: #979797; }
+
+.ba-audioplayer-cube-theme-button-container {
+  float: left;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center; }
+
+.ba-audioplayer-cube-theme-timer-container {
+  background-color: #b2b2b2;
+  background-color: rgba(0, 0, 0, 0.35);
+  color: #eeeeee;
+  cursor: default;
+  letter-spacing: .1em;
+  width: 90px;
+  font-weight: 300;
+  font-size: .9em; }
+  .ba-audioplayer-cube-theme-timer-container > div:first-child {
+    margin-left: 4px; }
+  .ba-audioplayer-cube-theme-timer-container > div {
+    float: left;
+    width: 40px; }
+  .ba-audioplayer-cube-theme-timer-container > p {
+    float: left;
+    margin: 0;
+    width: 4px; }
+
+.ba-audioplayer-noie8 .ba-audioplayer-cube-theme-progressbar {
+  overflow: hidden;
+  height: 100%; }
+
+.ba-audioplayer-ie8 .ba-audioplayer-cube-theme-progressbar {
+  overflow: hidden; }
+
+.ba-audioplayer-cube-theme-progressbar-cache {
+  position: absolute;
+  left: 0;
+  cursor: pointer;
+  background-color: transparent;
+  height: 40px; }
+
+.ba-audioplayer-cube-theme-progressbar-inner {
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  top: 50%;
+  position: relative;
+  text-align: center;
+  cursor: pointer;
+  background-color: transparent;
+  height: 40px; }
+
+.ba-audioplayer-cube-theme-progressbar.ba-audioplayer-cube-theme-disabled, .ba-audioplayer-cube-theme-progressbar.ba-audioplayer-cube-theme-disabled .ba-audioplayer-cube-theme-progressbar-cache, .ba-audioplayer-cube-theme-progressbar.ba-audioplayer-cube-theme-disabled .ba-audioplayer-cube-theme-progressbar-inner, .ba-audioplayer-cube-theme-progressbar.ba-audioplayer-cube-theme-disabled .ba-audioplayer-cube-theme-progressbar-position {
+  cursor: not-allowed; }
+
+.ba-audioplayer-cube-theme-progressbar-position {
+  position: absolute;
+  left: 0;
+  background-color: #eeeeee;
+  height: 100%; }
+
+.ba-audioplayer-cube-theme-progressbar-button {
+  display: none; }

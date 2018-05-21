@@ -1,0 +1,241 @@
+
+.#{$css}-overlay div[tabindex] {
+    @include transition1(all, 0.30s, ease-in-out);
+}
+
+.#{$css}-overlay div[tabindex]:focus {
+    @include box-outline-shadow(#1b8fcc, 2px);
+    @include remove-outline;
+}
+
+.#{$css}-overlay div[tabindex]:hover, .#{$css}-overlay div[tabindex]:focus:hover {
+    box-shadow: none;
+}
+
+.#{$css}-dashboard {
+    //@include absolute-align-full-bottom;
+    @include transition1(opacity, $dashboard_transition, ease-in-out);
+    //opacity: 0.9;
+    height: $controlbar_height;
+    overflow: hidden;
+    padding: 0 4%;
+}
+
+.#{$css}-dashboard-hidden {
+  opacity: 0;
+}
+
+.#{$css}-button-container {
+    font-family: $font_family;
+    font-weight: 300;
+    display: inline-block;
+    width: $button_width;
+    color: $button_color;
+}
+
+/* Control Bar Header*/
+.#{$css}-controlbar-header {
+  @include background-rgba( 0,0,0, 0.3, #ddd );
+  height: $controlbar_header_height;
+  left: 0;
+  letter-spacing: .05rem;
+  line-height: $topmessage_height / 2;
+  padding: 0;
+  position: absolute;
+  text-align: left;
+  width: 100%;
+  .#{$css}-right-block {
+    line-height: $topmessage_height - 10px;
+    position: absolute;
+    right: 4%;
+    z-index: 100;
+  }
+}
+
+.#{$cssie8} .#{$css}-controlbar-header {
+  display: none;
+}
+
+.#{$css}-controlbar-header-title-block {
+  position: relative;
+  width: 100%;
+  z-index: 10;
+}
+
+.#{$cssie8} .#{$css}-controlbar-header .#{$css}-right-block {
+  position: relative;
+}
+
+.#{$cssie8} .#{$css}-controlbar-header-title-block {
+  left: 50px;
+}
+
+.#{$css}-title {
+  p {
+    color: $text_color;
+    font-family: $font_family;
+    font-size: $controlbar_image_title_font_size;
+    font-weight: 300;
+    letter-spacing: .1em;
+    line-height: $topmessage_height - 10;
+    margin: 0;
+    padding: 0 0 0 15px;
+    text-align: left;
+  }
+}
+
+.#{$cssnoie8} .#{$css}-controlbar-header .#{$css}-button-inner {
+  text-align: right;
+  @include transform-translate-y(0);
+}
+
+.#{$cssnoie8} .#{$css}-topmessage-container .#{$css}-rightbutton-container {
+  width: 25px; padding-top: 5px;
+}
+
+.#{$css}-controlbar-header .#{$css}-button-container {
+    width: 20px;
+}
+
+/* Control Bar Footer*/
+.#{$css}-controlbar-footer {
+  position:relative;
+  height: 100%;
+}
+
+.#{$css}-controlbar-top-block {
+    height: 100%;
+    .#{$css}-button-container {
+        position: relative;
+        margin: 0 auto;
+        height: 100%;
+        width: 100%;
+        .#{$css}-button-inner {
+            @include color-rgba(255, 255, 255, 0.6, #e5e5e5);
+            @include text-shadow($cover_playbutton_hover_color, 4);
+            font-size: $controlbar_playbutton_font_size;
+        }
+    }
+}
+
+.#{$cssie8} .#{$css}-controlbar-top-block {
+    height: 100%;
+    .#{$css}-button-container {
+        top: 45%;
+    }
+}
+
+.#{$cssnoie8} {
+  .#{$css}-overlay {
+    .#{$css}-controlbar-top-block {
+      .#{$css}-button-inner {
+        @include transition1(opacity, 0.3s, ease);
+        opacity: 0;
+      }
+    }
+    &:hover .#{$css}-controlbar-top-block {
+      .#{$css}-button-inner {
+        @include transition1(opacity, 0.2s, ease);
+        opacity: .6;
+      }
+    }
+  }
+}
+
+.#{$cssie8} {
+  .#{$css}-overlay {
+    height: 100%;
+    .#{$css}-controlbar-top-block {
+      .#{$css}-button-inner {
+        @include transparent(0);
+      }
+    }
+    &:hover .#{$css}-controlbar-top-block {
+      .#{$css}-button-inner {
+        @include transparent(.6);
+      }
+    }
+  }
+}
+
+.#{$css}-button-inner { @include clickable; z-index: 100; position: relative; }
+
+.#{$css}-right-block {
+    float: right;
+}
+
+.#{$cssnoie8} .#{$css}-button-inner {
+    @include relative-center-center;
+}
+
+.#{$cssie8} .#{$css}-button-inner {
+    margin-top: $ie8_margintop + 6;
+    text-align: center;
+    font-size: $button_fontsize;
+    margin-left: 3px;
+}
+.#{$css}-button-inner {
+    color: $button_color;
+    font-size: $button_fontsize;
+}
+
+.#{$css}-controlbar-middle-block {
+    position: relative;
+    bottom: 45px;
+}
+
+.#{$css}-controlbar-bottom-block{
+    position: relative;
+    bottom: 40px;
+}
+
+.#{$css}-player-rerecord {
+    position: relative;
+    top: 5px;
+}
+
+.#{css}-size-small  .#{$css}-controlbar-top-block {
+    .#{$css}-button-container {
+        .#{$css}-button-inner {
+            font-size: $controlbar_playbutton_font_size / 2;
+        }
+    }
+}
+
+.#{$css}-size-medium {
+
+  .#{$css}-controlbar-top-block {
+    .#{$css}-button-container {
+      .#{$css}-button-inner {
+        font-size: $controlbar_playbutton_font_size - .5;
+      }
+    }
+  }
+}
+
+.#{$css}-size-small {
+
+  .#{$css}-controlbar-header {
+    top: 7px;
+  }
+
+  .#{$css}-controlbar-top-block {
+    .#{$css}-button-container {
+      .#{$css}-button-inner {
+        font-size: $controlbar_playbutton_font_size - .7;
+      }
+    }
+  }
+
+  .#{$css}-controlbar-middle-block {
+    bottom: 40px;
+  }
+
+  .#{$css}-controlbar-bottom-block {
+    bottom: 38px;
+  }
+
+  .#{$css}-time-container{
+    font-size: .7em;
+  }
+}

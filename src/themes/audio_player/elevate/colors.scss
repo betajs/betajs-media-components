@@ -1,0 +1,22 @@
+@each $color, $value in $colors {
+  @if $color != default {
+    .#{$css}-#{$color}-color {
+
+      .#{$css}-icon-play, .#{$css}-icon-pause, .#{$css}-button-inner, .#{$css}-icon-volume-down,
+      .#{$css}-icon-volume-up,
+      &.#{$cssnoie8} .#{$css}-button-inner {
+        color: $value;
+      }
+
+      .#{$css}-progressbar-button,
+      .#{$css}-progressbar-position, .#{$css}-volumebar-position, .#{$css}-rerecord-button {
+        background-color: $value;
+      }
+
+      .#{$css}-volumebar-inner {
+        @include background-rgba(0, 0, 0, .3, #cecece);
+      }
+
+    }
+  }
+}

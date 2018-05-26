@@ -99,6 +99,11 @@
     content: '\e813';
 }
 
+.#{$css}-icon-cancel:before {
+    @include fontello-icon;
+    content: '\e814';
+}
+
 .#{$css}-icon-cc:before {
     @include fontello-icon;
     content: '\e815';

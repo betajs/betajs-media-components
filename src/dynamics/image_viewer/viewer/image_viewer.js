@@ -29,6 +29,7 @@ Scoped.define("module:ImageViewer.Dynamics.ImageViewer", [
                 attrs: {
                     /* CSS */
                     "css": "ba-imageviewer",
+                    "csscommon": "ba-commoncss",
                     "iecss": "ba-imageviewer",
                     "cssmessage": "",
                     "csstopmessage": "",
@@ -131,6 +132,7 @@ Scoped.define("module:ImageViewer.Dynamics.ImageViewer", [
                     this.set("activity_delta", 0);
 
                     this.__currentStretch = null;
+                    this.__imageViewer = {};
 
                     // Set initial options for further help actions
                     this.set("initialoptions", {
@@ -246,20 +248,20 @@ Scoped.define("module:ImageViewer.Dynamics.ImageViewer", [
                         this.trigger("rerecord");
                     },
 
+                    toggle_fullscreen: function() {
+                        if (this.get("fullscreened")) {
+                            this._close_image();
+                        } else {
+                            this._open_image();
+                        }
+                    },
+
                     submit: function() {
                         if (!this.get("submittable"))
                             return;
                         this.trigger("submit");
                         this.set("submittable", false);
                         this.set("rerecordable", false);
-                    },
-
-                    toggle_fullscreen: function() {
-                        if (this.get("fullscreened"))
-                            Dom.elementExitFullscreen(this.activeElement());
-                        else
-                            Dom.elementEnterFullscreen(this.activeElement());
-                        this.set("fullscreened", !this.get("fullscreened"));
                     },
 
                     tab_index_move: function(ev, nextSelector, focusingSelector) {
@@ -306,6 +308,105 @@ Scoped.define("module:ImageViewer.Dynamics.ImageViewer", [
                     this._timer.destroy();
                     this.host.destroy();
                     inherited.destroy.call(this);
+                },
+
+                _open_image: function(sourceFile) {
+                    this.__imageViewer.counter = 0;
+                    // Main container
+                    this.__imageViewer.imageViewer = document.createElement('div');
+
+                    // Wrapper
+                    this.__imageViewer.imageWrapper = document.createElement('div');
+                    this.__imageViewer.imageWrapper.className = this.get('csscommon') + '-image-viewer-wrapper';
+
+                    // image viewer overlay
+                    this.__imageViewer.overlayElement = document.createElement('div');
+                    this.__imageViewer.overlayElement.className = this.get('csscommon') + '-image-viewer-overlay';
+
+                    this.__imageViewer.image = document.createElement('img');
+                    this.__imageViewer.image.className = this.get('csscommon') + '-image-viewer-expanded';
+                    this.__imageViewer.image.src = sourceFile || this.get('source');
+
+                    // Show title on the image, if require could be added as a future
+                    // var _titleText;
+                    // this.__imageViewer.title = document.createElement('div');
+                    // this.__imageViewer.title.className = this.get('csscommon') + '-image-viewer-title';
+                    // _titleText = document.createTextNode(this.get('title'));
+                    // this.__imageViewer.title.appendChild(_titleText);
+
+                    // -image-viewer-close-button
+                    this.__imageViewer.closeButton = document.createElement('div');
+                    this.__imageViewer.closeButton.className = this.get('csscommon') + '-image-viewer-close-button';
+                    this.__imageViewer.closeButton.tabIndex = 0;
+                    this.__imageViewer.closeButton.onkeydown = this._close_image();
+
+                    this.__imageViewer.bodyOverlay = document.querySelector('ba-imageviewer');
+
+                    this.__imageViewer.imageViewer.appendChild(this.__imageViewer.overlayElement);
+                    this.__imageViewer.imageViewer.appendChild(this.__imageViewer.image);
+                    // this.__imageViewer.imageViewer.appendChild(this.__imageViewer.title);
+                    this.__imageViewer.imageViewer.appendChild(this.__imageViewer.closeButton);
+
+                    // Append child
+                    this.__imageViewer.bodyOverlay.parentNode.insertBefore(this.__imageViewer.imageWrapper, this.__imageViewer.bodyOverlay);
+
+                    this.__imageViewer.imageViewer.style.opacity = 0;
+                    this.__imageViewer.imageWrapper.appendChild(this.__imageViewer.imageViewer);
+
+                    // Start fadIn process
+                    this.__imageViewer.fadeInCounter = new Timers.Timer({
+                        context: this,
+                        fire: this.__fadeIn,
+                        delay: 40,
+                        start: true
+                    });
+
+                    // Listen event on close button
+                    this.__imageViewer.clickEvent = this.auto_destroy(new DomEvents());
+                    this.__imageViewer.clickEvent.on(this.__imageViewer.closeButton, "click", function() {
+                        this._close_image();
+                    }, this);
+                    this.__imageViewer.clickEvent.on(this.__imageViewer.closeButton, "keydown", function() {
+                        this._close_image();
+                    }, this);
+
+                    this.set("hideoninactivity", false);
+                    this.set("fullscreened", true);
+                },
+
+                _close_image: function() {
+                    this.set("fullscreened", false);
+                    this.set("hideoninactivity", this.get("initialoptions").hideoninactivity);
+                    this.__imageViewer.fadeInCounter = new Timers.Timer({
+                        context: this,
+                        fire: this.__fadeOut,
+                        delay: 20,
+                        start: true
+                    });
+                },
+
+                __fadeIn: function() {
+                    if (!this.__imageViewer.fadeInCounter) return;
+                    if (this.__imageViewer.fadeInCounter.destroyed()) return;
+                    if (this.__imageViewer.counter < 1.05) {
+                        this.__imageViewer.imageViewer.style.opacity = this.__imageViewer.counter;
+                        this.__imageViewer.counter += 0.05;
+                    } else {
+                        this.__imageViewer.imageViewer.opacity = 1.00;
+                        this.__imageViewer.fadeInCounter.stop();
+                    }
+                },
+
+                __fadeOut: function() {
+                    if (!this.__imageViewer.fadeInCounter) return;
+                    if (this.__imageViewer.fadeInCounter.destroyed()) return;
+                    if (this.__imageViewer.counter > 0) {
+                        this.__imageViewer.imageViewer.style.opacity = this.__imageViewer.counter;
+                        this.__imageViewer.counter -= 0.05;
+                    } else {
+                        this.__imageViewer.fadeInCounter.stop();
+                        this.__imageViewer.bodyOverlay.parentNode.removeChild(this.__imageViewer.imageWrapper);
+                    }
                 },
 
                 _timerFire: function() {

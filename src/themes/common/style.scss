@@ -197,4 +197,53 @@
     }
 }
 
+.#{$csscommon}-image-viewer-wrapper {
+    @include absolute-max-max();
+    z-index: 1005;
+}
 
+.#{$csscommon}-image-viewer-expanded {
+    @include transform-translate(-50%, -50%);
+    left: 50%;
+    position: fixed;
+    top: 50%;
+    width: 100%;
+    z-index: 1003;
+}
+
+.#{$csscommon}-image-viewer-title, .#{$csscommon}-image-viewer-close-button {
+    @include background-rgba(0, 0, 0, .7, #777777);
+    @include transform-translate-x(-50%);
+    box-sizing: content-box;
+    color: #eeeeee;
+    padding: 8px;
+    position: fixed;
+    z-index: 99999;
+}
+
+.#{$csscommon}-image-viewer-title {
+    bottom: 3%;
+    left:50%;
+}
+
+.#{$csscommon}-image-viewer-close-button {
+    @include border-radius(50%);
+    cursor: pointer;
+    font-size: 22px;
+    right: 3%;
+    &:before {
+        @include fontello-icon;
+        content: '\e814';
+    }
+}
+
+.#{$csscommon}-image-viewer-overlay {
+    background-color: #000000;
+    bottom:0;
+    height: 100%;
+    opacity: 0.90;
+    position:fixed;
+    top:0;
+    width: 100%;
+    z-index: 1001;
+}

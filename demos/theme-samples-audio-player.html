@@ -40,11 +40,13 @@
 <body style="background: #EEE">
 	<div ba-repeat="{{theme::themes}}">
 		<h4>{{theme}}</h4>
-		<ba-audioplayer ba-source="audio.mp3"
-	                ba-theme="{{theme}}"
-	                ba-title="Foobar"
-                    ba-themecolor="{{themecolor}}"
-	                ba-width='400' ba-height="64"></ba-audioplayer>
+		<ba-audioplayer
+			ba-source="audio.mp3"
+            ba-theme="{{theme}}"
+            ba-title="Foobar"
+            ba-themecolor="{{themecolor}}"
+            ba-width='400' ba-height="64"
+		></ba-audioplayer>
 	</div>
 
     <script>

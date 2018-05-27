@@ -66,6 +66,8 @@ Scoped.define("module:ImageViewer.Dynamics.ImageViewer", [
                     "popup-stretch": false,
                     "hideoninactivity": true,
                     "topmessage": "",
+                    "closebuttonvisible": false,
+                    "customcaptionvisible": false,
                     "initialoptions": {
                         "hideoninactivity": null
                     }
@@ -82,7 +84,9 @@ Scoped.define("module:ImageViewer.Dynamics.ImageViewer", [
                     "popup-width": "int",
                     "popup-height": "int",
                     "fullscreened": "boolean",
-                    "themecolor": "string"
+                    "themecolor": "string",
+                    "closebuttonvisible": "boolean",
+                    "customcaptionvisible": "boolean"
                 },
 
                 computed: {
@@ -249,7 +253,7 @@ Scoped.define("module:ImageViewer.Dynamics.ImageViewer", [
                     },
 
                     toggle_fullscreen: function() {
-                        if (this.get("fullscreened")) {
+                        if (this.get("fullscreened") && this.__imageViewer.imageWrapper) {
                             this._close_image();
                         } else {
                             this._open_image();
@@ -327,25 +331,44 @@ Scoped.define("module:ImageViewer.Dynamics.ImageViewer", [
                     this.__imageViewer.image.className = this.get('csscommon') + '-image-viewer-expanded';
                     this.__imageViewer.image.src = sourceFile || this.get('source');
 
-                    // Show title on the image, if require could be added as a future
-                    // var _titleText;
-                    // this.__imageViewer.title = document.createElement('div');
-                    // this.__imageViewer.title.className = this.get('csscommon') + '-image-viewer-title';
-                    // _titleText = document.createTextNode(this.get('title'));
-                    // this.__imageViewer.title.appendChild(_titleText);
+                    // Will show caption in the middle bottom side
+                    if (this.get("customcaptionvisible")) {
+                        var _titleText;
+                        this.__imageViewer.title = document.createElement('div');
+                        this.__imageViewer.title.className = this.get('csscommon') + '-image-viewer-title';
+                        _titleText = document.createTextNode(this.get('title'));
+                        this.__imageViewer.title.appendChild(_titleText);
+                    }
 
-                    // -image-viewer-close-button
-                    this.__imageViewer.closeButton = document.createElement('div');
-                    this.__imageViewer.closeButton.className = this.get('csscommon') + '-image-viewer-close-button';
-                    this.__imageViewer.closeButton.tabIndex = 0;
-                    this.__imageViewer.closeButton.onkeydown = this._close_image();
+                    // Show close button on the top right corner
+                    if (this.get("closebuttonvisible")) {
+                        this.__imageViewer.closeButton = document.createElement('div');
+                        this.__imageViewer.closeButton.className = this.get('csscommon') + '-image-viewer-close-button';
+                        this.__imageViewer.closeButton.tabIndex = 0;
+
+                        // Listen event on close button
+                        this.__imageViewer.clickEvent = this.auto_destroy(new DomEvents());
+                        this.__imageViewer.clickEvent.on(this.__imageViewer.closeButton, "click", function() {
+                            this._close_image();
+                        }, this);
+                        this.__imageViewer.clickEvent.on(this.__imageViewer.closeButton, "keydown", function() {
+                            this._close_image();
+                        }, this);
+                    }
+
+
+                    // Show title on the image, if require could be added as a future
+
 
                     this.__imageViewer.bodyOverlay = document.querySelector('ba-imageviewer');
 
                     this.__imageViewer.imageViewer.appendChild(this.__imageViewer.overlayElement);
                     this.__imageViewer.imageViewer.appendChild(this.__imageViewer.image);
-                    // this.__imageViewer.imageViewer.appendChild(this.__imageViewer.title);
-                    this.__imageViewer.imageViewer.appendChild(this.__imageViewer.closeButton);
+
+                    if (this.get("customcaptionvisible"))
+                        this.__imageViewer.imageViewer.appendChild(this.__imageViewer.title);
+                    if (this.get("closebuttonvisible"))
+                        this.__imageViewer.imageViewer.appendChild(this.__imageViewer.closeButton);
 
                     // Append child
                     this.__imageViewer.bodyOverlay.parentNode.insertBefore(this.__imageViewer.imageWrapper, this.__imageViewer.bodyOverlay);
@@ -360,15 +383,6 @@ Scoped.define("module:ImageViewer.Dynamics.ImageViewer", [
                         delay: 40,
                         start: true
                     });
-
-                    // Listen event on close button
-                    this.__imageViewer.clickEvent = this.auto_destroy(new DomEvents());
-                    this.__imageViewer.clickEvent.on(this.__imageViewer.closeButton, "click", function() {
-                        this._close_image();
-                    }, this);
-                    this.__imageViewer.clickEvent.on(this.__imageViewer.closeButton, "keydown", function() {
-                        this._close_image();
-                    }, this);
 
                     this.set("hideoninactivity", false);
                     this.set("fullscreened", true);

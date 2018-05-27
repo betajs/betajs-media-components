@@ -2,44 +2,12 @@
 
 .#{$css}-fullscreen-view {
 
-  @include hide-dom-shadow-media-control();
-
   .#{$css}-dashboard {
-    width: $dashboard_width;
     bottom: 0;
+    position: fixed;
+    right: (100% - $dashboard_width) / 2;
+    width: $dashboard_width;
+    z-index: 1010;
   }
 
-  .#{$css}-image-title-block {
-    top: 0;
-  }
-
-  &.#{$css}-common-browser .#{$css}-overlay {
-    z-index: 2147483647;
-  }
-
-  &.#{$css}-firefox-browser {
-
-    .#{$css}-dashboard, .#{$css}-image-title-block {
-      position: fixed;
-      z-index: 100;
-    }
-
-    img {
-      position: relative;
-      min-width: 100%;
-      z-index: 0;
-    }
-
-  }
-
-}
-
-// Fix Chromium related fullscreen issue
-.#{$css}-container {
-  &.#{$css}-fullscreen-view {
-    min-width: 100%; position: absolute;
-    & > .#{$css}-overlay {
-      position: fixed;
-    }
-  }
 }

@@ -1,4 +1,11 @@
 /* Theatre */
+.#{$css}-container {
+    box-sizing: border-box;
+    border: 1px solid #eeeeee;
+    height: 58px;
+    min-height: 58px;
+}
+
 .#{$css}-overlay div[tabindex] {
     @include transition1(all, 0.30s, ease-in-out);
 }
@@ -15,15 +22,11 @@
 .#{$css}-dashboard {
     @include transition1(opacity, $dashboard_transition, ease-in-out);
     background-color: $controlbar_background;
-    box-sizing: border-box;
-    bottom: $controlbar_distance_from_side;
-    border: 1px solid $dashboard_border_color;
+    bottom: 0;
     height: $controlbar_height;
-    left: 12.5%;
-    opacity: 0.75;
     //overflow: hidden;
     position: absolute;
-    width: $dashboard_width;
+    width: 100%;
 }
 
 .#{$css}-dashboard-hidden {
@@ -88,10 +91,8 @@
         @include relative-horizontally-center();
         height: $controlbar_height;
         line-height: $controlbar_height;
-        top: $controlbar_distance_from_side;
         text-align: center;
         color: $message_color;
-        width: $dashboard_width;
     }
 }
 

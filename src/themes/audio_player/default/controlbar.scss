@@ -1,3 +1,10 @@
+.#{$css}-container {
+    box-sizing: border-box;
+    border: 1px solid #eeeeee;
+    height: 45px;
+    min-height: 45px;
+}
+
 .#{$css}-overlay div[tabindex] {
     @include transition1(all, 0.30s, ease-in-out);
 }

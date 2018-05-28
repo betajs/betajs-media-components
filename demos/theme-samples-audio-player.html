@@ -37,7 +37,7 @@
 	<link href="../dist/themes/minimalist/style.css" rel="stylesheet" />
 
 </head>
-<body style="background: #EEE">
+<body style="background-color: rgba(0, 0, 0, 0.4)">
 	<div ba-repeat="{{theme::themes}}">
 		<h4>{{theme}}</h4>
 		<ba-audioplayer
@@ -45,7 +45,8 @@
             ba-theme="{{theme}}"
             ba-title="Foobar"
             ba-themecolor="{{themecolor}}"
-            ba-width='400' ba-height="64"
+            ba-width='400'
+			ba-height="64"
 		></ba-audioplayer>
 	</div>
 
@@ -54,13 +55,13 @@
             element: document.body,
         	attrs: {
                 themes: [
-                    "default",
-                    "modern",
                     "cube",
-                    "space",
+                    "default",
                     "elevate",
-                    "theatre",
-                    "minimalist"
+                    "minimalist",
+                    "modern",
+                    "space",
+                    "theatre"
                 ],
 				'themecolor': 'default' // 'red', 'blue', 'green'
             }

@@ -1,3 +1,11 @@
+.#{$css}-normal-view {
+  background-color: #020202;
+  border: 1px solid $title_text_color;
+  box-sizing: border-box;
+  min-height: $controlbar_height + $topmessage_height;
+  height: $controlbar_height + $topmessage_height;
+}
+
 
 .#{$css}-overlay div[tabindex] {
   @include transition1(all, 0.30s, ease-in-out);
@@ -36,6 +44,7 @@
   @include absolute-align-full-top();
   @include background-rgba(0, 0, 0, 0.6, #4f4f4f);
   @include transition1(opacity, $dashboard_transition, ease-in-out);
+  min-height: $topmessage_height;
 }
 
 .#{$css}-audio-title {

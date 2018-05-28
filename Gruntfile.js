@@ -349,9 +349,9 @@ module.exports = function(grunt) {
         'src/themes/image_viewer/cube/*.scss',
 
         'src/themes/audio_player/cube/theme.scss',
-        'src/themes/common/fontello_icon.scss',
-        'src/themes/common/fontello_icons_generated.scss',
-        'src/themes/common/fontello_icons_color.scss',
+        'src/../src/../src/../src/themes/common/fontello_icon.scss',
+        'src/../src/../src/../src/themes/common/fontello_icons_generated.scss',
+        'src/../src/../src/../src/themes/common/fontello_icons_color.scss',
         'src/themes/audio_player/default/player.scss',
         'src/themes/audio_player/default/loader.scss',
         'src/themes/audio_player/cube/*.scss'

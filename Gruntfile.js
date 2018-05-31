@@ -129,8 +129,8 @@ module.exports = function(grunt) {
         'src/../src/../src/../src/themes/common/fontello_icons_generated.scss',
         'src/../src/../src/../src/themes/common/fontello_icons_color.scss',
         'src/themes/audio_player/default/player.scss',
-        'src/themes/video_player/default/loader.scss',
-        'src/themes/video_player/modern/*.scss'
+        'src/themes/audio_player/default/loader.scss',
+        'src/themes/audio_player/modern/*.scss'
 
     ], 'dist/themes/modern/style.css')
     .cssminTask('cssmin-modern-theme', 'dist/themes/modern/style.css', 'dist/themes/modern/style.min.css')

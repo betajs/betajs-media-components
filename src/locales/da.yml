@@ -23,7 +23,7 @@
   ba-videorecorder-controlbar.cameraunhealthy: Belysning er ikke optimal
   ba-videorecorder-controlbar.microphonehealthy: Lyden er god
   ba-videorecorder-controlbar.microphoneunhealthy: Kan ikke afhente nogen lyd
-  ba-videorecorder-controlbar.record: Optage
+  ba-videorecorder-controlbar.record: Optag
   ba-videorecorder-controlbar.record-tooltip: Klik her for at optage.
   ba-videorecorder-controlbar.rerecord: redo
   ba-videorecorder-controlbar.rerecord-tooltip: Klik her for at gentage.
@@ -31,7 +31,7 @@
   ba-videorecorder-controlbar.upload-covershot-tooltip: Klik her for at uploade brugerdefinerede dækning shot
   ba-videorecorder-controlbar.stop: Stop
   ba-videorecorder-controlbar.stop-tooltip: Klik her for at stoppe.
-  ba-videorecorder-controlbar.skip: Springe
+  ba-videorecorder-controlbar.skip: Spring over
   ba-videorecorder-controlbar.skip-tooltip: Klik her for at springe.
   ba-videorecorder.recorder-error: Der opstod en fejl. Prøv venligst igen senere. Klik for at prøve igen.
   ba-videorecorder.attach-error: >-
@@ -43,7 +43,7 @@
   ba-videorecorder.uploading-failed: Upload mislykkedes - klik her for at prøve igen.
   ba-videorecorder.verifying: Bekræftelse
   ba-videorecorder.verifying-failed: mislykkedes verificering - klik her for at prøve igen.
-  ba-videorecorder.rerecord-confirm: Vil du virkelig ønsker at gentage din video?
+  ba-videorecorder.rerecord-confirm: Ønsker du virkelig at optage en ny video?
   ba-videorecorder.video_file_too_large: >-
     Din video filen er for stor (%s) - klik her for at prøve igen med et mindre
     videofil.

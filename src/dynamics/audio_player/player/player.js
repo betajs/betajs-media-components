@@ -86,6 +86,8 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     "disableseeking": false,
                     "postervisible": false,
                     "visualeffectvisible": false,
+                    "visualeffectsupported": false,
+                    "visualeffectheight": 120,
                     "skipseconds": 5
                 },
 
@@ -108,7 +110,9 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     "disablepause": "boolean",
                     "disableseeking": "boolean",
                     "playonclick": "boolean",
-                    "skipseconds": "integer"
+                    "skipseconds": "integer",
+                    "visualeffectvisible": "boolean",
+                    "visualeffectheight": "integer"
                 },
 
                 extendables: ["states"],
@@ -149,6 +153,10 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
 
                     if (!this.get("themecolor"))
                         this.set("themecolor", "default");
+
+                    if (this.get("visualeffectvisible")) {
+                        this.createVisualisationCanvas(this.get('visualeffectheight'));
+                    }
 
                     if (this.get("playlist")) {
                         var pl0 = (this.get("playlist"))[0];
@@ -205,6 +213,111 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     return this.__error;
                 },
 
+
+                createVisualisationCanvas: function(height) {
+                    this._audioVisualization = {};
+                    var _height, _activeElement, _containerElement;
+                    _height = height || 120;
+
+                    _activeElement = this.activeElement();
+                    _containerElement = (_activeElement.firstElementChild || _activeElement.firstChild);
+                    _containerElement.style.minHeight = _height + 'px';
+
+                    this._audioVisualization.canvas = _containerElement.querySelector('canvas');
+                    this._audioVisualization.canvas.style.display = 'block';
+                    this._audioVisualization.canvas.width = parseFloat(window.getComputedStyle(_containerElement).width);
+                    this._audioVisualization.canvas.height = _height;
+
+                    this._audioVisualization.canvasContext = this._audioVisualization.canvas.getContext("2d");
+
+                },
+
+                initializeVisualEffect: function() {
+
+                    try {
+                        var _audioContext, _source;
+
+                        window.AudioContext = window.AudioContext || window.webkitAudioContext;
+                        _audioContext = new AudioContext();
+
+                        _source = _audioContext.createMediaElementSource(this.__audio);
+                        this._audioVisualization.analyzer = _audioContext.createAnalyser();
+
+                        _source.connect(this._audioVisualization.analyzer);
+                        this._audioVisualization.analyzer.connect(_audioContext.destination);
+
+                        this._audioVisualization.analyzer.fftSize = 256;
+
+                        this._audioVisualization.bufferLength = this._audioVisualization.analyzer.frequencyBinCount;
+
+                        this._audioVisualization.dataArray = new Uint8Array(this._audioVisualization.bufferLength);
+
+                        this._audioVisualization.canvasWidth = this._audioVisualization.canvas.width;
+                        this._audioVisualization.canvasHeigth = this._audioVisualization.canvas.height;
+
+                        this._audioVisualization.barWidth = (this._audioVisualization.canvasWidth / this._audioVisualization.bufferLength) * 2.5;
+
+                        this._audioVisualization.barHeight = 0;
+                        this._audioVisualization.x = 0;
+                        this._audioVisualization.renderFrame = this.renderFrame;
+
+                        // If requestAnimationFrame is missing
+                        if (!window.requestAnimationFrame || !window.cancelAnimationFrame) {
+                            window.requestAnimationFrame = (function() {
+                                return window.webkitRequestAnimationFrame ||
+                                    window.mozRequestAnimationFrame ||
+                                    window.oRequestAnimationFrame ||
+                                    window.msRequestAnimationFrame ||
+                                    function( /* function FrameRequestCallback */ callback, /* DOMElement Element */ element) {
+                                        window.setTimeout(callback, 1000 / 60);
+                                    };
+                            })();
+
+                            window.cancelAnimationFrame = window.cancelAnimationFrame ||
+                                window.mozCancelAnimationFrame ||
+                                function(requestID) {
+                                    clearTimeout(requestID);
+                                }; //fall back
+                        }
+                        this.set('visualeffectsupported', true);
+
+                    } catch (e) {
+                        this.set('visualeffectsupported', false);
+                        console.warn('Web Audio API not supported', e);
+                    }
+                },
+
+                renderFrame: function() {
+                    // requestAnimationFrame(this.renderFrame.bind(this));
+                    var _self = this;
+                    this._audioVisualization.frameID = requestAnimationFrame(function() {
+                        _self.renderFrame();
+                    });
+                    this._audioVisualization.x = 0;
+                    this._audioVisualization.analyzer.getByteFrequencyData(this._audioVisualization.dataArray);
+
+                    this._audioVisualization.canvasContext.fillStyle = "#000";
+                    this._audioVisualization.canvasContext.fillRect(0, 0, this._audioVisualization.canvasWidth, this._audioVisualization.canvasHeigth);
+
+                    for (var i = 0; i < this._audioVisualization.bufferLength; i++) {
+                        this._audioVisualization.barHeight = this._audioVisualization.dataArray[i] / 2;
+
+                        var r = this._audioVisualization.barHeight + (25 * (i / this._audioVisualization.bufferLength));
+                        var g = 250 * (i / this._audioVisualization.bufferLength);
+                        var b = 50;
+
+                        this._audioVisualization.canvasContext.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
+                        this._audioVisualization.canvasContext.fillRect(this._audioVisualization.x, this._audioVisualization.canvasHeigth - this._audioVisualization.barHeight, this._audioVisualization.barWidth, this._audioVisualization.barHeight);
+
+                        this._audioVisualization.x += this._audioVisualization.barWidth + 1;
+                    }
+                },
+
+                cancelFrame: function(ID) {
+                    var _ID = ID || this._audioVisualization.renderFrame;
+                    cancelAnimationFrame(_ID);
+                },
+
                 _error: function(error_type, error_code) {
                     this.__error = {
                         error_type: error_type,
@@ -253,6 +366,10 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
 
                         this.player = instance;
                         this.__audio = audio;
+
+                        if (this.get("visualeffectvisible")) {
+                            this.initializeVisualEffect();
+                        }
 
                         if (this.get("playwhenvisible")) {
                             var _self;
@@ -411,6 +528,9 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
 
                     play: function() {
                         this.host.state().play();
+                        // Draw visual effect
+                        if (this.get('visualeffectsupported'))
+                            this.renderFrame();
                     },
 
                     rerecord: function() {
@@ -433,6 +553,10 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                         if (this.get("playing")) {
                             this.player.pause();
                         }
+
+                        if ("visualeffectsupported" && this._audioVisualization)
+                            if (this._audioVisualization.frameID)
+                                this.cancelFrame(this._audioVisualization.frameID);
 
                         if (this.get("playwhenvisible"))
                             this.set("manuallypaused", true);

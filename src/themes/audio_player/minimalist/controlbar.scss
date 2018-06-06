@@ -32,6 +32,20 @@
   opacity: 0;
 }
 
+.#{$css}-audio-canvas {
+    display: none;
+    position: absolute;
+    z-index: 1;
+}
+
+.#{$css}-visual-effect-applied .#{$css}-overlay {
+    background: #000000;
+}
+
+.#{$css}-visual-effect-applied .#{$css}-controlbar-middle-block {
+    z-index: 10;
+}
+
 .#{$css}-button-container {
     font-family: $font_family;
     font-weight: 300;

@@ -27,6 +27,22 @@
     z-index: 1;
 }
 
+.#{$css}-visual-effect-applied .#{$css}-dashboard {
+    position: absolute;
+    bottom: 0;
+    width: $dashboard_width;
+}
+
+.#{$css}-audio-canvas {
+    display: none;
+    position: absolute;
+    z-index: 1;
+}
+
+.#{$css}-visual-effect-applied .#{$css}-overlay {
+    background: #000000;
+}
+
 .#{$css}-dashboard-hidden {
     opacity: 0;
 }

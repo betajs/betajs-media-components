@@ -103,7 +103,8 @@
 }
 
 .#{$cssie8} .#{$css}-rightbutton-container {
-    @include float-width-height(right, auto, 0);
+    // NOTE: fix IE8, don't set height argument to 0, will
+    @include float-width-height(right, auto, 1px);
 }
 
 .#{$cssnoie8} .#{$css}-cast-button-container {

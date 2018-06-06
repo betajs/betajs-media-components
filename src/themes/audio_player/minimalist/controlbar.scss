@@ -1,4 +1,11 @@
 
+.#{$css}-container {
+    box-sizing: border-box;
+    border: 1px solid #eeeeee;
+    height: 140px;
+    min-height: 140px;
+}
+
 .#{$css}-overlay div[tabindex] {
     @include transition1(all, 0.30s, ease-in-out);
 }
@@ -23,6 +30,20 @@
 
 .#{$css}-dashboard-hidden {
   opacity: 0;
+}
+
+.#{$css}-audio-canvas {
+    display: none;
+    position: absolute;
+    z-index: 1;
+}
+
+.#{$css}-visual-effect-applied .#{$css}-overlay {
+    background: #000000;
+}
+
+.#{$css}-visual-effect-applied .#{$css}-controlbar-middle-block {
+    z-index: 10;
 }
 
 .#{$css}-button-container {
@@ -135,13 +156,7 @@
     .#{$css}-controlbar-top-block {
       .#{$css}-button-inner {
         @include transition1(opacity, 0.3s, ease);
-        opacity: 0;
-      }
-    }
-    &:hover .#{$css}-controlbar-top-block {
-      .#{$css}-button-inner {
-        @include transition1(opacity, 0.2s, ease);
-        opacity: .6;
+        opacity: 1;
       }
     }
   }
@@ -207,6 +222,8 @@
     @include relative-center-center;
     @include clickable;
     background-color: $progressbar_cache_bgcolor;
+    border: 1px solid #020202;
+    box-sizing: border-box;
     height: $progressbar_height;
 }
 
@@ -317,10 +334,6 @@
 .#{$css}-size-small {
   .#{$css}-volumebar {
     display: none;
-  }
-
-  .#{$css}-controlbar-header {
-    top: 7px;
   }
 
   .#{$css}-controlbar-top-block {

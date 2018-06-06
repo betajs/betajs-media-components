@@ -19,11 +19,16 @@
 .icon-record:before { content: '\e811'; } /* '' */
 .icon-record-core:before { content: '\e812'; } /* '' */
 .icon-up-dir:before { content: '\e813'; } /* '' */
+.icon-cancel:before { content: '\e814'; } /* '' */
 .icon-cc:before { content: '\e815'; } /* '' */
 .icon-twitter:before { content: '\f099'; } /* '' */
 .icon-facebook:before { content: '\f09a'; } /* '' */
 .icon-gplus-squared:before { content: '\f0d4'; } /* '' */
 .icon-gplus:before { content: '\f0d5'; } /* '' */
+.icon-angle-left:before { content: '\f104'; } /* '' */
+.icon-angle-right:before { content: '\f105'; } /* '' */
+.icon-angle-up:before { content: '\f106'; } /* '' */
+.icon-angle-down:before { content: '\f107'; } /* '' */
 .icon-crop:before { content: '\f125'; } /* '' */
 .icon-share:before { content: '\f130'; } /* '' */
 .icon-resize-full-alt:before { content: '\f131'; } /* '' */

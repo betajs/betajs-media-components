@@ -1,4 +1,11 @@
 
+.#{$css}-container {
+    box-sizing: border-box;
+    border: 1px solid #eeeeee;
+    height: 73px;
+    min-height: 73px;
+}
+
 .#{$css}-overlay div[tabindex] {
     @include transition1(all, 0.30s, ease-in-out);
 }
@@ -218,7 +225,7 @@
 
 .#{$css}-progressbar-button {
     @include border-radius(50%);
-    background-color: $progressbar_button_overflow;
+    background-color: #eeeeee;
     box-sizing: content-box;
     border: none;
     position: absolute;

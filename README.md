@@ -1,4 +1,4 @@
-# betajs-media-components 0.0.101
+# betajs-media-components 0.0.107
 [![Code Climate](https://codeclimate.com/github/betajs/betajs-media-components/badges/gpa.svg)](https://codeclimate.com/github/betajs/betajs-media-components)
 [![NPM](https://img.shields.io/npm/v/betajs-media-components.svg?style=flat)](https://www.npmjs.com/package/betajs-media-components)
 [![Gitter Chat](https://badges.gitter.im/betajs/betajs-media-components.svg)](https://gitter.im/betajs/betajs-media-components)
@@ -69,11 +69,11 @@ The icons in this library depend on Fontello. In order to update the icons / add
 ## Links
 | Resource   | URL |
 | :--------- | --: |
-| Homepage   | [http://betajs.com](http://betajs.com) |
+| Homepage   | [https://betajs.com](https://betajs.com) |
 | Git        | [git://github.com/betajs/betajs-media-components.git](git://github.com/betajs/betajs-media-components.git) |
 | Repository | [https://github.com/betajs/betajs-media-components](https://github.com/betajs/betajs-media-components) |
-| Blog       | [http://blog.betajs.com](http://blog.betajs.com) | 
-| Twitter    | [http://twitter.com/thebetajs](http://twitter.com/thebetajs) | 
+| Blog       | [https://blog.betajs.com](https://blog.betajs.com) | 
+| Twitter    | [https://twitter.com/thebetajs](https://twitter.com/thebetajs) | 
 | Gitter     | [https://gitter.im/betajs/betajs-media-components](https://gitter.im/betajs/betajs-media-components) | 
 
 

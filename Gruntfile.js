@@ -42,6 +42,7 @@ module.exports = function(grunt) {
         'src/themes/common/fontello_icon.scss',
         'src/themes/common/fontello_icons_generated.scss',
         'src/themes/common/fontello_icons_color.scss',
+        'src/themes/common/style.scss',
         'src/themes/video_player/default/*.scss',
 
         'src/themes/video_recorder/default/theme.scss',
@@ -128,8 +129,8 @@ module.exports = function(grunt) {
         'src/../src/../src/../src/themes/common/fontello_icons_generated.scss',
         'src/../src/../src/../src/themes/common/fontello_icons_color.scss',
         'src/themes/audio_player/default/player.scss',
-        'src/themes/video_player/default/loader.scss',
-        'src/themes/video_player/modern/*.scss'
+        'src/themes/audio_player/default/loader.scss',
+        'src/themes/audio_player/modern/*.scss'
 
     ], 'dist/themes/modern/style.css')
     .cssminTask('cssmin-modern-theme', 'dist/themes/modern/style.css', 'dist/themes/modern/style.min.css')
@@ -348,9 +349,9 @@ module.exports = function(grunt) {
         'src/themes/image_viewer/cube/*.scss',
 
         'src/themes/audio_player/cube/theme.scss',
-        'src/themes/common/fontello_icon.scss',
-        'src/themes/common/fontello_icons_generated.scss',
-        'src/themes/common/fontello_icons_color.scss',
+        'src/../src/../src/../src/themes/common/fontello_icon.scss',
+        'src/../src/../src/../src/themes/common/fontello_icons_generated.scss',
+        'src/../src/../src/../src/themes/common/fontello_icons_color.scss',
         'src/themes/audio_player/default/player.scss',
         'src/themes/audio_player/default/loader.scss',
         'src/themes/audio_player/cube/*.scss'

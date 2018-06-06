@@ -1,9 +1,18 @@
-.#{$css}-tracks-tags-overlay {
+.#{$css}-text-tracks-overlay {
     @include absolute-align-full-bottom;
 }
 
-.#{$css}-tracks-tags-overlay {
+.#{$css}-text-tracks-overlay {
     @include absolute-align-full-bottom-above-control-bar($controlbar_height + $progressbar_height);
+}
+
+.#{$css}-back-arrow-pointer-container {
+    margin-bottom: 5px;
+    .#{$css}-back-arrow-pointer {
+        cursor: pointer;
+        font-size: 12px;
+        margin: 0 0 10px;
+    }
 }
 
 .#{$css}-cue-content {
@@ -16,29 +25,10 @@
     width: 60%;
 }
 
-.#{$css}-tracks-selector-list {
-    @include absolute-align-right-bottom;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    z-index: 1;
-}
-
-.#{$css}-tracks-selector {
-    padding: 5px 20px;
-    background: #020202;
-    color: #eeeeee;
-    cursor: pointer;
-    &:hover {
-        background-color: #4c4c4c;
-        color: #ffffff;
-    }
-}
-
-.#{$css}-tracks-selector-list-open {
+.#{$css}-tracks-selector-list-visible {
     @include show-slow(0.2);
 }
 
-.#{$css}-tracks-selector-list-closed {
+.#{$css}-tracks-selector-list-hidden {
     @include hide-slow(0.2);
 }

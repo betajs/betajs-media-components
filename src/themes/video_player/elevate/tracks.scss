@@ -1,9 +1,13 @@
-.#{$css}-tracks-tags-overlay {
+.#{$css}-text-tracks-overlay {
     @include absolute-align-full-bottom;
 }
 
-.#{$css}-tracks-tags-overlay {
+.#{$css}-text-tracks-overlay {
     @include absolute-align-full-bottom-above-control-bar(40px);
+    .#{$csscommon}-options-popup {
+        bottom: 5px;
+        right: $controlbar_side_padding;
+    }
 }
 
 .#{$css}-cue-content {

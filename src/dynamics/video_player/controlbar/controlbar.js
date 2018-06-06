@@ -22,6 +22,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 
                 attrs: {
                     "css": "ba-videoplayer",
+                    "csscommon": "ba-commoncss",
                     "duration": 0,
                     "position": 0,
                     "cached": 0,
@@ -36,6 +37,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     "fullscreened": false,
                     "activitydelta": 0,
                     "title": "",
+                    "allowtexttrackupload": false,
                     "tracktextvisible": false // Are subtitles visible?
                 },
 
@@ -202,7 +204,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         Async.eventually(function() {
                             this.parent().set("tracksshowselection", hover);
                         }, this, 300);
-                        var _dyn = this.__parent;
                     },
 
                     tab_index_move: function(ev, nextSelector, focusingSelector) {

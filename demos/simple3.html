@@ -27,8 +27,11 @@
 <body style="background: #EEE">
 	<ba-videoplayer ba-sources="{{[{src:'sample-video.mp4', poster: 'sample-cover.png', hd: true}, {src:'sample-video2.mp4', poster:'sample-cover2.png', hd: false}]}}"
 	                ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
-	                ba-theme="cube"
-	                ba-hideoninactivity="false"
+	                ba-theme="minimalist"
+	                ba-hideoninactivity="true"
+                    ba-skipinitial="true"
+                    ba-height="321"
+                    ba-width="570"
 	                ba-title="foobar"
 	                ba-width='50%'></ba-videoplayer>
 	

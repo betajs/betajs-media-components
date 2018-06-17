@@ -35,6 +35,7 @@
 .#{$css}-container {
   &.#{$css}-fullscreen-view {
     min-width: 100%; position: absolute;
+    min-height: fit-content; // Supports only with Chrome and fix Chrome only related issue
     & > .#{$css}-overlay {
       position: fixed;
     }

@@ -26,6 +26,9 @@
 
 .#{$css}-dashboard-hidden {
   opacity: 0;
+  & * {
+    cursor: none;
+  }
 }
 
 .#{$cssie8} .#{$css}-video-title-block {

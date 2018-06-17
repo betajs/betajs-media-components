@@ -18,6 +18,9 @@
 
 .#{$css}-dashboard-hidden {
     opacity: 0;
+    & * {
+        cursor: none;
+    }
 }
 
 .#{$css}-progressbar {

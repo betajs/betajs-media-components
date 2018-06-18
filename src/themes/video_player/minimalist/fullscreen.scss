@@ -19,14 +19,23 @@
   &.#{$css}-firefox-browser {
 
     .#{$css}-dashboard, .#{$css}-video-title-block {
-      position: fixed;
       z-index: 100;
     }
 
     video {
       position: relative;
+      min-height: 100%;
       min-width: 100%;
       z-index: 0;
+    }
+  }
+
+  &.#{$css}-size-small {
+    .#{$css}-controlbar-header {
+      top: 0;
+    }
+    .#{$css}-volumebar {
+      display: block;
     }
   }
 }

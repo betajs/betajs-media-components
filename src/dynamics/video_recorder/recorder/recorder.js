@@ -216,6 +216,15 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
                 remove_on_destroy: true,
 
+                events: {
+                    "change:camerahealthy": function(value) {
+                        this.trigger("camerahealth", value);
+                    },
+                    "change:microphonehealthy": function(value) {
+                        this.trigger("microphonehealth", value);
+                    }
+                },
+
                 create: function() {
                     if (this.get("theme") in Assets.recorderthemes) {
                         Objs.iter(Assets.recorderthemes[this.get("theme")], function(value, key) {

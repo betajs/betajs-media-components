@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.101 - 2018-05-13
+betajs-media-components - v0.0.103 - 2018-06-19
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1608,7 +1608,8 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-theatre-theme-container.ba-videoplayer-theatre-theme-fullscreen-view {
   min-width: 100%;
-  position: absolute; }
+  position: absolute;
+  min-height: fit-content; }
   .ba-videoplayer-theatre-theme-container.ba-videoplayer-theatre-theme-fullscreen-view > .ba-videoplayer-theatre-theme-overlay {
     position: fixed; }
 
@@ -4679,7 +4680,8 @@ div.ba-videorecorder-theme-theatre-disabled {
 
 .ba-imageviewer-theatre-theme-container.ba-imageviewer-theatre-theme-fullscreen-view {
   min-width: 100%;
-  position: absolute; }
+  position: absolute;
+  min-height: fit-content; }
   .ba-imageviewer-theatre-theme-container.ba-imageviewer-theatre-theme-fullscreen-view > .ba-imageviewer-theatre-theme-overlay {
     position: fixed; }
 

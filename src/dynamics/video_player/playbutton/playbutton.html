@@ -2,25 +2,25 @@
 <div tabindex="0" data-selector="play-button"
      ba-hotkey:space^enter="{{play()}}" onmouseout="this.blur()"
      onkeydown="{{tab_index_move(domEvent, null, 'player-toggle-overlay')}}"
-     class="{{css}}-playbutton-container" ba-click="{{play()}}" title="{{string('tooltip')}}"
+     class="{{cssplaybutton}}-container" ba-click="{{play()}}" title="{{string('tooltip')}}"
 >
-	<div class="{{css}}-playbutton-button"></div>
+	<div class="{{cssplaybutton}}-button"></div>
 </div>
 
-<div class="{{css}}-rerecord-bar" ba-if="{{rerecordable || submittable}}">
-	<div class="{{css}}-rerecord-backbar"></div>
-	<div class="{{css}}-rerecord-frontbar">
-        <div class="{{css}}-rerecord-button-container" ba-if="{{submittable}}">
+<div class="{{cssplaybutton}}-rerecord-bar" ba-if="{{rerecordable || submittable}}">
+	<div class="{{cssplaybutton}}-rerecord-backbar"></div>
+	<div class="{{cssplaybutton}}-rerecord-frontbar">
+        <div class="{{cssplaybutton}}-rerecord-button-container" ba-if="{{submittable}}">
             <div tabindex="0" data-selector="player-submit-button"
                  ba-hotkey:space^enter="{{submit()}}" onmouseout="this.blur()"
-                 class="{{css}}-rerecord-button" onclick="{{submit()}}">
+                 class="{{cssplaybutton}}-rerecord-button" onclick="{{submit()}}">
                 {{string('submit-video')}}
             </div>
         </div>
-        <div class="{{css}}-rerecord-button-container" ba-if="{{rerecordable}}">
+        <div class="{{cssplaybutton}}-rerecord-button-container" ba-if="{{rerecordable}}">
         	<div tabindex="0" data-selector="player-rerecord-button"
                  ba-hotkey:space^enter="{{rerecord()}}" onmouseout="this.blur()"
-                 class="{{css}}-rerecord-button" onclick="{{rerecord()}}">
+                 class="{{cssplaybutton}}-rerecord-button" onclick="{{rerecord()}}">
         		{{string('rerecord')}}
         	</div>
         </div>

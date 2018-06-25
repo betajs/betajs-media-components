@@ -4,49 +4,27 @@
 
   @include hide-dom-shadow-media-control();
 
-  .#{$css}-dashboard {
+  .#{$csstheme}-dashboard {
     bottom: 0;
   }
 
-  .#{$css}-video-title-block {
+  .#{$csstheme}-video-title-block {
     top: 0;
-  }
-
-  &.#{$css}-common-browser .#{$css}-overlay {
-    z-index: 2147483647;
   }
 
   &.#{$css}-firefox-browser {
 
-    .#{$css}-dashboard, .#{$css}-video-title-block {
+    .#{$csstheme}-dashboard, .#{$csstheme}-video-title-block {
       z-index: 100;
-    }
-
-    video {
-      position: relative;
-      min-height: 100%;
-      min-width: 100%;
-      z-index: 0;
     }
   }
 
   &.#{$css}-size-small {
-    .#{$css}-controlbar-header {
+    .#{$csstheme}-controlbar-header {
       top: 0;
     }
-    .#{$css}-volumebar {
+    .#{$csstheme}-volumebar {
       display: block;
-    }
-  }
-}
-
-// Fix Chromium related fullscreen issue
-.#{$css}-container {
-  &.#{$css}-fullscreen-view {
-    min-width: 100%; position: absolute;
-    min-height: fit-content; // Supports only with Chrome and fix Chrome only related issue
-    & > .#{$css}-overlay {
-      position: fixed;
     }
   }
 }

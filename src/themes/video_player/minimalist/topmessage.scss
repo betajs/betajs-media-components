@@ -1,14 +1,14 @@
-.#{$cssnoie8} .#{$css}-topmessage-message .#{css}-rightbutton-container {
+.#{$cssnoie8} .#{$csstheme}-topmessage-message .#{css}-rightbutton-container {
   width: 21px;
 }
 
-.#{$css}-topmessage-background {
+.#{$csstheme}-topmessage-background {
   background-color: transparent;
   position: relative;
   height: 40px;
 }
 
-.#{$css}-topmessage-message {
+.#{$csstheme}-topmessage-message {
   line-height: $topmessage_height / 2;
   padding: 0;
   text-align: left;
@@ -17,22 +17,22 @@
   font-weight: 300;
 }
 
-.#{$css}-topmessage-message {
+.#{$csstheme}-topmessage-message {
   margin: 0 2.5%;
-  .#{$css}-right-block {
+  .#{$csstheme}-right-block {
     height: $topmessage_height;
     line-height: $topmessage_height;
   }
 }
 
-.#{$cssnoie8} .#{$css}-topmessage-message .#{$css}-button-inner {
+.#{$cssnoie8} .#{$csstheme}-topmessage-message .#{$csstheme}-button-inner {
   @include transform-translate-y(0);
 }
 
-.#{$cssnoie8} .#{$css}-topmessage-container .#{$css}-rightbutton-container {
+.#{$cssnoie8} .#{$csstheme}-topmessage-container .#{$csstheme}-rightbutton-container {
   width: 25px;
 }
 
-.#{$css}-topmessage-message .#{$css}-button-container {
+.#{$csstheme}-topmessage-message .#{$csstheme}-button-container {
     width: 20px;
 }

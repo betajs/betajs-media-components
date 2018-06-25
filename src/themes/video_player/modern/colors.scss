@@ -2,34 +2,34 @@
   @if $color != default {
     .#{$css}-#{$color}-color {
 
-      .#{$css}-video-title, .#{$css}-icon-volume-up,
-      &.#{$cssnoie8} .#{$css}-button-inner,&.#{$cssie8} .#{$css}-button-inner,
-      &.#{$cssnoie8} .#{$css}-icon-share, .#{$css}-cc-inactive .#{$css}-icon-subtitle {
+      .#{$csstheme}-video-title, .#{$css}-icon-volume-up,
+      &.#{$cssnoie8} .#{$csstheme}-button-inner,&.#{$cssie8} .#{$csstheme}-button-inner,
+      &.#{$cssnoie8} .#{$css}-icon-share, .#{$csstheme}-cc-inactive .#{$css}-icon-subtitle {
         color: $value;
       }
 
-      .#{$css}-progressbar-position, .#{$css}-volumebar-position, .#{$css}-rerecord-button,
-      .#{$css}-cc-active {
+      .#{$csstheme}-progressbar-position, .#{$csstheme}-volumebar-position, .#{$csstheme}-rerecord-button,
+      .#{$csstheme}-cc-active {
         background-color: $value;
       }
 
-      .#{$css}-playbutton-button,
-      &.#{$cssnoie8} .#{$css}-playbutton-container .#{$css}-playbutton-button,
-      &.#{$cssie8} .#{$css}-playbutton-container .#{$css}-playbutton-button {
+      .#{$csstheme}-playbutton-button,
+      &.#{$cssnoie8} .#{$csstheme}-playbutton-container .#{$csstheme}-playbutton-button,
+      &.#{$cssie8} .#{$csstheme}-playbutton-container .#{$csstheme}-playbutton-button {
         border-left-color: $value;
       }
 
-      &.#{$cssnoie8} .#{$css}-share-action-container {
-        .#{$css}-button-inner {
+      &.#{$cssnoie8} .#{$csstheme}-share-action-container {
+        .#{$csstheme}-button-inner {
           color: $value;
         }
       }
 
-      .#{$css}-cast-button-container button {
-        //--disconnected-color: #{$value};
-      }
+      //.#{$csstheme}-cast-button-container button {
+      //  //--disconnected-color: #{$value};
+      //}
 
-      &.#{$cssnoie8} .#{$css}-rightbutton-container.#{$css}-airplay-container svg path {
+      &.#{$cssnoie8} .#{$csstheme}-rightbutton-container.#{$csstheme}-airplay-container svg path {
         fill: $value;
       }
 

@@ -1,13 +1,13 @@
-.#{$cssnoie8} .#{$css}-topmessage-message .#{css}-rightbutton-container {
+.#{$cssnoie8} .#{$csstheme}-topmessage-message .#{css}-rightbutton-container {
   width: 21px;
 }
 
-.#{$css}-topmessage-background{
+.#{$csstheme}-topmessage-background{
   position: relative;
   height: 40px;
 }
 
-.#{$css}-topmessage-message {
+.#{$csstheme}-topmessage-message {
   padding: 0;
   padding-left: 20px;
   padding-right: 15px;
@@ -18,18 +18,18 @@
   font-weight: 300;
 }
 
-.#{$css}-title {
+.#{$csstheme}-title {
   float: left;
 }
 
-.#{$cssnoie8} .#{$css}-topmessage-message .#{$css}-button-inner {
+.#{$cssnoie8} .#{$csstheme}-topmessage-message .#{$csstheme}-button-inner {
   @include transform-translate-y(0);
 }
 
-.#{$cssnoie8} .#{$css}-topmessage-container .#{$css}-rightbutton-container {
+.#{$cssnoie8} .#{$csstheme}-topmessage-container .#{$csstheme}-rightbutton-container {
   width: 25px;
 }
 
-.#{$css}-share-button-container{
+.#{$csstheme}-share-button-container{
   margin-right: 5px;
 }

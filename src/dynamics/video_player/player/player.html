@@ -18,6 +18,7 @@
 		</div>
 	    <ba-{{dyncontrolbar}}
 		    ba-css="{{csscontrolbar || css}}"
+			ba-csstheme="{{csstheme || css}}"
 			ba-themecolor="{{themecolor}}"
 		    ba-template="{{tmplcontrolbar}}"
 		    ba-show="{{controlbar_active}}"
@@ -73,7 +74,9 @@
 		></ba-{{dyntracks}}>
 		
 		<ba-{{dynplaybutton}}
-		    ba-css="{{cssplaybutton || css}}"
+		    ba-css="{{css || cssplaybutton}}"
+			ba-csstheme="{{csstheme || cssplaybutton}}"
+			ba-cssplaybutton="{{cssplaybutton || css}}"
 			ba-theme-color="{{themecolor}}"
 		    ba-template="{{tmplplaybutton}}"
 		    ba-show="{{playbutton_active}}"
@@ -87,6 +90,7 @@
 		
 		<ba-{{dynloader}}
 		    ba-css="{{cssloader || css}}"
+			ba-csstheme="{{csstheme || css}}"
 			ba-theme-color="{{themecolor}}"
 		    ba-template="{{tmplloader}}"
 			ba-playwhenvisible="{{playwhenvisible}}"
@@ -104,6 +108,7 @@
 		
 		<ba-{{dynmessage}}
 		    ba-css="{{cssmessage || css}}"
+			ba-csstheme="{{csstheme || css}}"
 			ba-theme-color="{{themecolor}}"
 		    ba-template="{{tmplmessage}}"
 		    ba-show="{{message_active}}"
@@ -112,6 +117,7 @@
 		></ba-{{dynmessage}}>
 
 		<ba-{{dyntopmessage}}
+			ba-csstheme="{{csstheme || css}}"
 		    ba-css="{{csstopmessage || css}}"
 			ba-theme-color="{{themecolor}}"
 		    ba-template="{{tmpltopmessage}}"

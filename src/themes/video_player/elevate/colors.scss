@@ -2,31 +2,30 @@
   @if $color != default {
     .#{$css}-#{$color}-color {
 
-      .#{$css}-icon-play, .#{$css}-icon-pause, .#{$css}-button-inner, .#{$css}-icon-volume-down,
+      .#{$css}-icon-play, .#{$css}-icon-pause, .#{$csstheme}-button-inner, .#{$css}-icon-volume-down,
       .#{$css}-icon-volume-up, .#{$css}-icon-resize-full, .#{$css}-icon-resize-small,
-      &.#{$cssnoie8} .#{$css}-share-action-container .#{$css}-button-inner, &.#{$cssnoie8} .#{$css}-button-inner,
-      .#{$css}-cc-inactive .#{$css}-icon-subtitle {
+      &.#{$cssnoie8} .#{$csstheme}-share-action-container .#{$csstheme}-button-inner, &.#{$cssnoie8} .#{$csstheme}-button-inner,
+      .#{$csstheme}-cc-inactive .#{$css}-icon-subtitle {
         color: $value;
       }
 
-      .#{$css}-progressbar-button, .#{$css}-stream-label-container .#{$css}-stream-label,
-      .#{$css}-progressbar-position, .#{$css}-volumebar-position, .#{$css}-rerecord-button,
-      .#{$css}-cc-active {
+      .#{$csstheme}-progressbar-button, .#{$csstheme}-stream-label-container .#{$csstheme}-stream-label,
+      .#{$csstheme}-progressbar-position, .#{$csstheme}-volumebar-position, .#{$csstheme}-rerecord-button,
+      .#{$csstheme}-cc-active {
         background-color: $value;
       }
 
-      .#{$css}-volumebar-inner {
+      .#{$csstheme}-volumebar-inner {
         @include background-rgba(0, 0, 0, .3, #cecece);
       }
 
-      .#{$css}-cast-button-container button {
-        //--disconnected-color: #{$value};
-      }
+      //.#{$csstheme}-cast-button-container button {
+      //  --disconnected-color: #{$value};
+      //}
 
-      .#{$css}-airplay-container svg path {
+      .#{$csstheme}-airplay-container svg path {
         fill: $value;
       }
-
     }
   }
 }

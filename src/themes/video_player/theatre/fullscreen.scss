@@ -2,50 +2,18 @@
 
 .#{$css}-fullscreen-view {
 
-  @include hide-dom-shadow-media-control();
-
-  :-webkit-full-screen {  }
-
-  :-moz-full-screen {  }
-
-  :-ms-fullscreen {  }
-
-  :fullscreen {  }
-
-  .#{$css}-dashboard {
+  .#{$csstheme}-dashboard {
     bottom: 0;
   }
 
-  .#{$css}-video-title-block {
+  .#{$csstheme}-video-title-block {
     top: 0;
   }
 
-  &.#{$css}-common-browser .#{$css}-overlay {
-    z-index: 2147483647;
-  }
-
   &.#{$css}-firefox-browser {
-
-    .#{$css}-dashboard, .#{$css}-video-title-block {
+    .#{$csstheme}-dashboard, .#{$csstheme}-video-title-block {
       position: fixed;
       z-index: 100;
-    }
-
-    video {
-      position: relative;
-      min-width: 100%;
-      z-index: 0;
-    }
-  }
-}
-
-// Fix Chromium related fullscreen issue
-.#{$css}-container {
-  &.#{$css}-fullscreen-view {
-    min-width: 100%; position: absolute;
-    min-height: fit-content; // Supports only with Chrome and fix Chrome only related issue
-    & > .#{$css}-overlay {
-      position: fixed;
     }
   }
 }

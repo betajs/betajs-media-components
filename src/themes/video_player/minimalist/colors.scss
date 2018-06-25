@@ -2,25 +2,25 @@
   @if $color != default {
     .#{$css}-#{$color}-color {
 
-      .#{$css}-title p, .#{$css}-button-inner, .#{$css}-right-block .#{$css}-icon-volume-up,
-      .#{$css}-right-block .#{$css}-icon-volume-down, .#{$css}-right-block .#{$css}-icon-resize-full,
-      .#{$css}-right-block .#{$css}-icon-resize-small,
-      .#{$css}-controlbar-top-block .#{$css}-button-container .#{$css}-button-inner,
-      .#{$css}-cc-active .#{$css}-icon-subtitle {
+      .#{$csstheme}-title p, .#{$csstheme}-button-inner, .#{$csstheme}-right-block .#{$css}-icon-volume-up,
+      .#{$csstheme}-right-block .#{$css}-icon-volume-down, .#{$csstheme}-right-block .#{$css}-icon-resize-full,
+      .#{$csstheme}-right-block .#{$css}-icon-resize-small,
+      .#{$csstheme}-controlbar-top-block .#{$csstheme}-button-container .#{$csstheme}-button-inner,
+      .#{$csstheme}-cc-active .#{$css}-icon-subtitle {
         color: $value;
       }
 
-      .#{$css}-volumebar-position, .#{$css}-stream-label, .#{$css}-progressbar-position,
-      .#{$css}-time-container, .#{$css}-progressbar-button, .#{$css}-rerecord-button,
+      .#{$csstheme}-volumebar-position, .#{$csstheme}-stream-label, .#{$csstheme}-progressbar-position,
+      .#{$csstheme}-time-container, .#{$csstheme}-progressbar-button, .#{$csstheme}-rerecord-button,
       .#{$css}-cc-inactive {
         background-color: $value;
       }
 
-      .#{$css}-cast-button-container button {
-        //--disconnected-color: #{$value};
-      }
+      //.#{$csstheme}-cast-button-container button {
+      //  --disconnected-color: #{$value};
+      //}
 
-      .#{$css}-airplay-container svg path {
+      .#{$csstheme}-airplay-container svg path {
         fill: $value;
       }
 

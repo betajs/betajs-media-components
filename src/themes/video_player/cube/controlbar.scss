@@ -1,18 +1,5 @@
 
-.#{$css}-overlay div[tabindex] {
-  @include transition1(all, 0.30s, ease-in-out);
-}
-
-.#{$css}-overlay div[tabindex]:focus {
-  @include box-outline-shadow(#1b8fcc, 2px);
-  @include remove-outline;
-}
-
-.#{$css}-overlay div[tabindex]:hover, .#{$css}-overlay div[tabindex]:focus:hover {
-  box-shadow: none;
-}
-
-.#{$css}-dashboard {
+.#{$csstheme}-dashboard {
   @include absolute-align-full-bottom;
   @include transition1(opacity, $dashboard_transition, ease-in-out);
   @include background-rgba(0, 0, 0, 0.6, #4f4f4f);
@@ -24,21 +11,21 @@
   overflow: hidden;
 }
 
-.#{$css}-dashboard-hidden {
+.#{$csstheme}-dashboard-hidden {
   opacity: 0;
 }
 
-.#{$cssie8} .#{$css}-video-title-block {
+.#{$cssie8} .#{$csstheme}-video-title-block {
   display: none;
 }
 
-.#{$cssnoie8} .#{$css}-video-title-block {
+.#{$cssnoie8} .#{$csstheme}-video-title-block {
   @include absolute-align-full-top();
   @include background-rgba(0, 0, 0, 0.6, #4f4f4f);
   @include transition1(opacity, $dashboard_transition, ease-in-out);
 }
 
-.#{$css}-video-title {
+.#{$csstheme}-video-title {
   color: $title_text_color;
   font-family: $font_family;
   font-weight: 300;
@@ -48,21 +35,21 @@
   padding: $title_padding;
 }
 
-.#{$css}-button-inner, .#{$css}-airplay-container {
+.#{$csstheme}-button-inner, .#{$csstheme}-airplay-container {
   @include relative-center-center;
   @include clickable;
   color: $text_color;
   font-size: $button_fontsize;
 }
 
-.#{$css}-volumebar {
+.#{$csstheme}-volumebar {
     float: left;
     width: $volume_width;
     height: $controlbar_height;
     margin-right: 10px;
 }
 
-.#{$css}-volumebar-inner {
+.#{$csstheme}-volumebar-inner {
     @include relative-center-center;
     @include border-round-edges($volume_height / 2);
     @include clickable;
@@ -70,37 +57,37 @@
     height: $volume_height;
 }
 
-.#{$cssie8} .#{$css}-volumebar-inner {
+.#{$cssie8} .#{$csstheme}-volumebar-inner {
   margin-top: -2px;
 }
 
-.#{$css}-volumebar-position {
+.#{$csstheme}-volumebar-position {
   @include border-round-edges($volume_height / 2);
   @include absolute-align-left();
   background-color: $progressbar_button_overflow;
   height: 100%;
 }
 
-.#{$css}-left-block {
+.#{$csstheme}-left-block {
   float: left;
 }
 
-.#{$css}-center-block {
+.#{$csstheme}-center-block {
   float: left;
-  .#{$css}-progress-bar-container {
+  .#{$csstheme}-progress-bar-container {
     position: absolute;
     width: 100%;
   }
 }
 
-.#{$css}-right-block {
+.#{$csstheme}-right-block {
   float: right;
   .#{$css}-icon-volume-up, .#{$css}-icon-volume-down, .#{$css}-icon-resize-full {
     color: $button_color_secondary;
   }
 }
 
-.#{$css}-button-container {
+.#{$csstheme}-button-container {
   float: left;
   width: $button-width;
   height: $controlbar_height;
@@ -108,7 +95,7 @@
   text-align: center;
 }
 
-.#{$css}-timer-container {
+.#{$csstheme}-timer-container {
   @include background-rgba(0, 0, 0, 0.35, #b2b2b2);
   //background: $controlbar_background;
   color: $text_color;
@@ -130,7 +117,7 @@
   }
 }
 
-.#{$css}-stream-label {
+.#{$csstheme}-stream-label {
   background-color: $stream_label_bg_color;
   color: $stream_label_color;
   display: inline-block;
@@ -149,44 +136,44 @@
   }
 }
 
-.#{$cssnoie8} .#{$css}-progressbar {
+.#{$cssnoie8} .#{$csstheme}-progressbar {
   overflow: hidden;
   height: 100%;
 }
 
-.#{$cssie8} .#{$css}-progressbar {
+.#{$cssie8} .#{$csstheme}-progressbar {
   overflow: hidden;
 }
 
-.#{$css}-progressbar-cache {
+.#{$csstheme}-progressbar-cache {
   @include absolute-align-left;
   @include clickable;
   background-color: transparent;
   height: $progressbar_height;
 }
 
-.#{$css}-progressbar-inner {
+.#{$csstheme}-progressbar-inner {
   @include relative-center-center;
   @include clickable;
   background-color: transparent;
   height: $progressbar_height;
 }
 
-.#{$css}-progressbar.#{$css}-disabled {
-  &, & .#{$css}-progressbar-cache, & .#{$css}-progressbar-inner, & .#{$css}-progressbar-position {cursor: not-allowed}
+.#{$csstheme}-progressbar.#{$csstheme}-disabled {
+  &, & .#{$csstheme}-progressbar-cache, & .#{$csstheme}-progressbar-inner, & .#{$csstheme}-progressbar-position {cursor: not-allowed}
 }
 
-.#{$css}-progressbar-position {
+.#{$csstheme}-progressbar-position {
   @include absolute-align-left();
   background-color: $progressbar_button_overflow;
   height: 100%;
 }
 
-.#{$css}-progressbar-button {
+.#{$csstheme}-progressbar-button {
   display: none;
 }
 
-.#{$css}-cast-button-container button {
+.#{$csstheme}-cast-button-container button {
     //--connected-color: #00cc00;
     //--disconnected-color: #cecece;
     @include transparent(0.7);
@@ -199,7 +186,7 @@
     width: 32px;
 }
 
-.#{$css}-airplay-container {
+.#{$csstheme}-airplay-container {
   @include clickable();
   padding-top: 2px;
   svg path {
@@ -207,14 +194,14 @@
   }
 }
 
-.#{$css}-cc-inactive {
+.#{$csstheme}-cc-inactive {
   background-color: transparent;
   .#{$css}-icon-subtitle {
     color: #ffffff;
   }
 }
 
-.#{$css}-cc-active {
+.#{$csstheme}-cc-active {
   background: #000000;
   .#{$css}-icon-subtitle {
     color: #eeeeee;

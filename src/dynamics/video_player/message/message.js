@@ -12,6 +12,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Message", [
 
                 attrs: {
                     "css": "ba-videoplayer",
+                    "csstheme": "ba-videoplayer",
                     "message": ''
                 },
 

@@ -41,16 +41,16 @@
 	<div ba-repeat="{{theme::themes}}">
 		<h4>{{theme}}</h4>
 		<ba-videoplayer ba-sources="{{[{src:'sample-video.mp4', poster: 'sample-cover.png', hd: true}, {src:'sample-video2.mp4', poster:'sample-cover2.png', hd: false}]}}"
-	                ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
-	                ba-theme="{{theme}}"
-	                ba-title="Foobar"
-	                ba-noflash
-                    ba-themecolor="{{themecolor}}"
-					ba-sharevideo="facebook,twitter,gplus"
-					ba-sharevideourl="http://betajs.com"
-	                ba-hideoninactivity="{{hideoninactivity}}"
-                    ba-skipinitial="{{skipinitial}}"
-	                ba-width='50%'></ba-videoplayer>
+                ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
+                ba-theme="{{theme}}"
+                ba-title="Foobar"
+                ba-noflash
+                ba-themecolor="{{themecolor}}"
+                ba-sharevideo="facebook,twitter,gplus"
+                ba-sharevideourl="http://betajs.com"
+                ba-hideoninactivity="{{hideoninactivity}}"
+                ba-skipinitial="{{skipinitial}}"
+                ba-width='80%'></ba-videoplayer>
 	</div>
 
     <script>
@@ -68,13 +68,13 @@
                     "space",
                     "elevate",
                     "theatre",
-                    "minimalist",
+                    "minimalist"
                 ],
 				'themecolor': 'default', // 'red', 'blue', 'green'
-                'hideoninactivity': true,
-                'skipinitial': true,
-                'sametheme': true,
-                'samethemename': 'space'
+                'hideoninactivity': false,
+                'skipinitial': true
+                // 'sametheme': true,
+                // 'samethemename': 'space'
             }
         });
     </script>

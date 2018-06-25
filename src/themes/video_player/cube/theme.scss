@@ -1,4 +1,6 @@
-$css: "ba-videoplayer-cube-theme";
+$css: "ba-videoplayer";
+$csstheme: "ba-videoplayer-cube-theme";
+$cssplaybutton: "ba-videoplayer-playbutton-alt";
 $cssie8: "ba-videoplayer-ie8";
 $cssnoie8: "ba-videoplayer-noie8";
 $fontello_name: "bjsmc";
@@ -29,6 +31,7 @@ $cover_playbutton_border_color: #eeeeee;
 $cover_playbutton_border_hover_color: #000000;
 $cover_playbutton_hover_shadow: #eeeeee;
 
+$playbutton_initial: false !default;
 $playbutton_size: 5px;
 $playbutton_frame_thickness: 0.6em;
 $playbutton_default_opacity: 0.6;
@@ -70,7 +73,7 @@ $rerecord_height: 48px;
 $rerecord_opacity: 0.5;
 $rerecord_bgcolor: #666666;
 $rerecord_padding: 24px;
-$rerecord_padding: 16px;
+//$rerecord_padding: 16px;
 $rerecord_primarybutton_radius: 0;
 $rerecord_primarybutton_color: #000000;
 $rerecord_primarybutton_text_color: #eeeeee;

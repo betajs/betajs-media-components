@@ -21,6 +21,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
                     "allowscreen": false,
 
                     "primaryrecord": true,
+                    "recordviafilecapture": false,
 
                     "allowcustomupload": true,
                     "allowedextensions": null,
@@ -29,7 +30,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
                 },
 
                 types: {
-                    "allowedextensions": "array"
+                    "allowedextensions": "array",
+                    "recordviafilecapture": "boolean"
                 },
 
                 collections: ["actions"],
@@ -69,7 +71,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
                                     index: index,
                                     icon: !this.get("onlyaudio") ? 'videocam' : 'volume-up',
                                     label: this.string(this.get("onlyaudio") ? "record-audio" : "record-video"),
-                                    select: Info.isMobile() && !(Info.isAndroid() && Info.isCordova()),
+                                    select: Info.isMobile() && !(Info.isAndroid() && Info.isCordova()) && this.get("recordviafilecapture"),
                                     capture: true,
                                     accept: "video/*,video/mp4;capture=camcorder"
                                 });

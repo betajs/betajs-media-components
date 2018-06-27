@@ -83,6 +83,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "allowrecord": true,
                     "allowupload": true,
                     "allowcustomupload": true,
+                    "camerafacefront": false,
                     "primaryrecord": true,
                     "allowscreen": false,
                     "nofullscreen": false,
@@ -111,6 +112,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "rtmpstreamtype": "mp4",
                     "rtmpmicrophonecodec": "speex",
                     "webrtcstreaming": false,
+                    "webrtconmobile": false,
+                    "webrtcstreamingifnecessary": false,
                     "microphone-volume": 1.0,
                     "flip-camera": false,
                     "early-rerecord": false,
@@ -161,6 +164,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         if (height)
                             result.height = height + ((height + '').match(/^\d+$/g) ? 'px' : '');
                         return result;
+                    },
+                    "canswitchcamera:recordviafilecapture": function() {
+                        return !this.get("recordviafilecapture") && Info.isMobile();
                     }
                 },
 
@@ -187,10 +193,13 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "skipinitialonrerecord": "boolean",
                     "picksnapshots": "boolean",
                     "localplayback": "boolean",
+                    "camerafacefront": "boolean",
                     "noaudio": "boolean",
                     "skipinitial": "boolean",
                     "enforce-duration": "bool",
                     "webrtcstreaming": "boolean",
+                    "webrtconmobile": "boolean",
+                    "webrtcstreamingifnecessary": "boolean",
                     "microphone-volume": "float",
                     "audiobitrate": "int",
                     "videobitrate": "int",
@@ -222,6 +231,17 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     },
                     "change:microphonehealthy": function(value) {
                         this.trigger("microphonehealth", value);
+                    },
+                    "change:webrtconmobile": function() {
+                        this.set("recordviafilecapture", Info.isMobile() && (!this.get("webrtconmobile") || !VideoRecorderWrapper.anySupport(this._videoRecorderWrapperOptions())));
+                    },
+                    "change:recordviafilecapture": function() {
+                        if (this.get("recordviafilecapture")) {
+                            this.set("skipinitial", false);
+                            this.set("skipinitialonrerecord", false);
+                            this.set("allowscreen", false);
+                            this.set("autorecord", false);
+                        }
                     }
                 },
 
@@ -235,7 +255,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     this.set("ie8", Info.isInternetExplorer() && Info.internetExplorerVersion() < 9);
                     this.set("hideoverlay", false);
 
-                    if (Info.isMobile()) {
+                    this.set("canswitchcamera", false);
+                    this.set("recordviafilecapture", Info.isMobile() && (!this.get("webrtconmobile") || !VideoRecorderWrapper.anySupport(this._videoRecorderWrapperOptions())));
+
+                    if (this.get("recordviafilecapture")) {
                         this.set("skipinitial", false);
                         this.set("skipinitialonrerecord", false);
                         this.set("allowscreen", false);
@@ -310,20 +333,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     this.set("hasrecorder", false);
                 },
 
-                _attachRecorder: function() {
-                    if (this.recorderAttached())
-                        return;
-                    if (!this.__activated) {
-                        this.__attachRequested = true;
-                        return;
-                    }
-                    this.set("hasrecorder", true);
-                    this.snapshots = [];
-                    this.__attachRequested = false;
-                    var video = this.activeElement().querySelector("[data-video='video']");
-                    this._clearError();
-                    this.recorder = VideoRecorderWrapper.create({
-                        element: video,
+                _videoRecorderWrapperOptions: function() {
+                    return {
                         simulate: this.get("simulate"),
                         forceflash: this.get("forceflash"),
                         noflash: this.get("noflash"),
@@ -337,11 +348,30 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         rtmpStreamType: this.get("rtmpstreamtype"),
                         rtmpMicrophoneCodec: this.get("rtmpmicrophonecodec"),
                         webrtcStreaming: !!this.get("webrtcstreaming"),
+                        webrtcStreamingIfNecessary: !!this.get("webrtcstreamingifnecessary"),
+                        // webrtcOnMobile: !!this.get("webrtconmobile"),
                         localPlaybackRequested: this.get("localplayback"),
                         screen: this.get("allowscreen") && this.get("record_media") === "screen" ? this.get("screen") : null,
                         framerate: this.get("framerate"),
                         flip: this.get("flip-camera")
-                    });
+                    };
+                },
+
+                _attachRecorder: function() {
+                    if (this.recorderAttached())
+                        return;
+                    if (!this.__activated) {
+                        this.__attachRequested = true;
+                        return;
+                    }
+                    this.set("hasrecorder", true);
+                    this.snapshots = [];
+                    this.__attachRequested = false;
+                    var video = this.activeElement().querySelector("[data-video='video']");
+                    this._clearError();
+                    this.recorder = VideoRecorderWrapper.create(Objs.extend({
+                        element: video
+                    }, this._videoRecorderWrapperOptions()));
                     if (this.recorder)
                         this.trigger("attached");
                     else
@@ -558,6 +588,13 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                             this.set("selectedmicrophone", microphone_id);
                         }
                         this.set("microphonehealthy", false);
+                    },
+
+                    select_camera_face: function(faceFront) {
+                        if (this.recorder) {
+                            this.recorder.setCameraFace(faceFront);
+                            this.set("camerafacefront", faceFront);
+                        }
                     },
 
                     invoke_skip: function() {

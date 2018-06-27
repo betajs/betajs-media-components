@@ -427,7 +427,7 @@ module.exports = function(grunt) {
      ], null, { })
     .browserstackTask(null, 'tests/browserstack.html', {desktop: true, mobile: true})
     .browserstackTask("browserstack-media", 'tests/server/browserstack.html', {desktop: true, mobile: true})
-    .lintTask(null, ['./src/**/*.js', './dist/' + dist + '-noscoped.js', './dist/' + dist + '.js', './Gruntfile.js', './tests/**/*.js'])
+    .lintTask(null, ['./src/**/*.js', './Gruntfile.js', './tests/**/*.js'])
     .csslinterTask(null, [
       'dist/themes/cube/style.css',
       'dist/betajs-media-components.css',

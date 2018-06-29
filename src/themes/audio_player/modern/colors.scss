@@ -3,8 +3,7 @@
     .#{$css}-#{$color}-color {
 
       .#{$css}-audio-title, .#{$css}-icon-volume-up,
-      &.#{$cssnoie8} .#{$css}-button-inner,&.#{$cssie8} .#{$css}-button-inner
-       {
+      &.#{$cssnoie8} .#{$css}-button-inner,&.#{$cssie8} .#{$css}-button-inner {
         color: $value;
       }
 

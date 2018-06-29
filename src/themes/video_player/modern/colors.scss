@@ -3,7 +3,7 @@
     .#{$css}-#{$color}-color {
 
       .#{$csstheme}-video-title, .#{$css}-icon-volume-up,
-      &.#{$cssnoie8} .#{$csstheme}-button-inner,&.#{$cssie8} .#{$csstheme}-button-inner,
+      &.#{$cssnoie8} .#{$csstheme}-button-inner, &.#{$cssie8} .#{$csstheme}-button-inner,
       &.#{$cssnoie8} .#{$css}-icon-share, .#{$csstheme}-cc-inactive .#{$css}-icon-subtitle {
         color: $value;
       }

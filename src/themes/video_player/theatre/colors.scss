@@ -2,9 +2,10 @@
   @if $color != default {
     .#{$css}-#{$color}-color {
 
-      .#{$csstheme}-video-title, .#{$css}-icon-play, .#{$css}-icon-pause,
-      .#{$csstheme}-button-inner, .#{$css}-icon-resize-full,
-      .#{$css}-icon-volume-up, .#{$css}-icon-volume-down, &.#{$cssnoie8} .#{$css}-icon-share,
+      .#{$csstheme}-video-title, .#{$csstheme}-dashboard  .#{$css}-icon-play,
+      .#{$csstheme}-dashboard .#{$css}-icon-pause, .#{$csstheme}-dashboard .#{$csstheme}-button-inner,
+      .#{$csstheme}-dashboard .#{$css}-icon-resize-full, .#{$csstheme}-dashboard .#{$css}-icon-volume-up,
+      .#{$csstheme}-dashboard .#{$css}-icon-volume-down, &.#{$cssnoie8} .#{$css}-icon-share,
       &.#{$cssnoie8} .#{$csstheme}-button-inner, .#{$csstheme}-cc-inactive .#{$css}-icon-subtitle {
         color: $value;
       }

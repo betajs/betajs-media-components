@@ -1,4 +1,7 @@
 $css: "ba-videoplayer";
+$csstheme: "ba-videoplayer";
+$cssplaybutton: "ba-videoplayer-playbutton";
+$cssplaybuttonalt: "ba-videoplayer-playbutton-alt";
 $cssie8: "ba-videoplayer-ie8";
 $cssnoie8: "ba-videoplayer-noie8";
 $fontello_name: "bjsmc";
@@ -21,9 +24,21 @@ $focus_button_color: #1b7fcc;
 $focus_overlay_color: #000000;
 
 $playbutton_size: 15%;
+$playbutton_alt_button_size: 5px;
 $playbutton_opacity: 0.75;
 $playbutton_hover_opacity: 0.9;
 $playbutton_transition_time: .25s;
+$playbutton_default_opacity: 0.6;
+$playbutton_background_opacity: 0.2;
+
+// alternative player options
+$playbutton_frame_thickness: 0.6em;
+$cover_playbutton_color: #eeeeee;
+$cover_playbutton_hover_color: #000000;
+$cover_playbutton_shadow: #000000;
+$cover_playbutton_border_color: #eeeeee;
+$cover_playbutton_border_hover_color: #000000;
+$cover_playbutton_hover_shadow: #eeeeee;
 
 $video_title_margin: 0 0 0 10px;
 $video_title_font_color: #ffffff;
@@ -71,11 +86,17 @@ $rerecord_height: 32px;
 $rerecord_opacity: 0.1;
 $rerecord_bgcolor: black;
 $rerecord_padding: 16px;
-$rerecord_primarybutton_radius: 2px;
-$rerecord_primarybutton_padding: 4px;
-$rerecord_primarybutton_vertical_padding: 8px;
+$rerecord_primarybutton_color: #8CF;
 $rerecord_primarybutton_font_weight: normal;
 $rerecord_primarybutton_font_size: 14px;
+$rerecord_primarybutton_padding: 4px;
+$rerecord_primarybutton_radius: 2px;
+$rerecord_primarybutton_vertical_padding: 8px;
+
+
+// alternative player options
+$rerecord_primarybutton_text_color: #eeeeee;
+$rerecord_letter_spacing: .1em;
 
 // Sidebar share
 $share_container_top: 50px;

@@ -10,6 +10,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Topmessage", [
 
                 attrs: {
                     "css": "ba-videoplayer",
+                    "csstheme": "ba-videoplayer",
                     "topmessage": ''
                 }
 

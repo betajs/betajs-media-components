@@ -1,18 +1,5 @@
 
-.#{$css}-overlay div[tabindex] {
-    @include transition1(all, 0.30s, ease-in-out);
-}
-
-.#{$css}-overlay div[tabindex]:focus {
-    @include box-outline-shadow(#1b8fcc, 2px);
-    @include remove-outline;
-}
-
-.#{$css}-overlay div[tabindex]:hover, .#{$css}-overlay div[tabindex]:focus:hover {
-    box-shadow: none;
-}
-
-.#{$css}-video-title-container {
+.#{$csstheme}-video-title-container {
     @include absolute-align-full-top();
     @include background-rgba(0, 0, 0, 0.2, #cecece);
     @include transition1(opacity, $dashboard_transition, ease-in-out);
@@ -26,13 +13,13 @@
     text-align: center;
 }
 
-.#{$cssie8} .#{$css}-video-title-container {
-    .#{$css}-button-inner {
+.#{$cssie8} .#{$csstheme}-video-title-container {
+    .#{$csstheme}-button-inner {
         margin-top: 0;
     };
 }
 
-.#{$css}-controlbar-footer {
+.#{$csstheme}-controlbar-footer {
     @include absolute-align-full-bottom;
     @include background-rgba(0, 0, 0, 0.4, #cecece);
     @include transition1(opacity, $dashboard_transition, ease-in-out);
@@ -40,24 +27,24 @@
     padding: 0 5px;
 }
 
-.#{$cssie8} .#{$css}-video-title-container, .#{$cssie8} .#{$css}-controlbar-footer {
+.#{$cssie8} .#{$csstheme}-video-title-container, .#{$cssie8} .#{$csstheme}-controlbar-footer {
     opacity: .8;
 }
 
-.#{$css}-dashboard-hidden {
+.#{$csstheme}-dashboard-hidden {
     opacity: 0;
 }
 
-.#{$cssnoie8} .#{$css}-video-title-container .#{css}-rightbutton-container {
+.#{$cssnoie8} .#{$csstheme}-video-title-container .#{css}-rightbutton-container {
     width: 21px;
 }
 
-.#{$css}-video-title-container-background {
+.#{$csstheme}-video-title-container-background {
     position: relative;
     height: 40px;
 }
 
-.#{$css}-title {
+.#{$csstheme}-title {
     float: left;
     color: $text_color;
     & > p {
@@ -67,15 +54,15 @@
     }
 }
 
-.#{$cssnoie8} .#{$css}-video-title-container .#{$css}-button-inner {
+.#{$cssnoie8} .#{$csstheme}-video-title-container .#{$csstheme}-button-inner {
     @include transform-translate-y(0);
 }
 
-.#{$cssnoie8} .#{$css}-topmessage-container .#{$css}-rightbutton-container {
+.#{$cssnoie8} .#{$csstheme}-topmessage-container .#{$csstheme}-rightbutton-container {
     width: 25px;
 }
 
-.#{$css}-leftbutton-container {
+.#{$csstheme}-leftbutton-container {
     @include float-width-height(left, $button_width, 100%);
     @include clickable;
 	box-sizing: content-box;
@@ -83,42 +70,42 @@
     margin-right: 10px;
 }
 
-.#{$cssnoie8} .#{$css}-rightbutton-container {
+.#{$cssnoie8} .#{$csstheme}-rightbutton-container {
     @include float-width-height(right, auto, 100%);
     @include clickable;
 	box-sizing: content-box;
     border: none;
 }
 
-.#{$cssie8} .#{$css}-rightbutton-container {
+.#{$cssie8} .#{$csstheme}-rightbutton-container {
     @include float-width-height(right, auto, 50%);
     @include clickable;
 	box-sizing: content-box;
     border: none;
 }
 
-.#{$css}-rightbutton-container {
+.#{$csstheme}-rightbutton-container {
     margin: 0 5px;
 }
 
-.#{$css}-right-time-container{
+.#{$csstheme}-right-time-container{
     padding-right: 10px;
 }
 
-.#{$cssnoie8} .#{$css}-button-inner {
+.#{$cssnoie8} .#{$csstheme}-button-inner {
     color: $button_color;
     font-size: $button_fontsize;
 }
 
-.#{$css}-button-inner {
+.#{$csstheme}-button-inner {
   @include clickable;
 }
 
-.#{$cssnoie8} .#{$css}-controlbar-footer .#{$css}-button-inner {
+.#{$cssnoie8} .#{$csstheme}-controlbar-footer .#{$csstheme}-button-inner {
     @include relative-center-center;
 }
 
-.#{$cssie8} .#{$css}-button-inner {
+.#{$cssie8} .#{$csstheme}-button-inner {
     color: $button_color;
     font-size: $button_fontsize;
     height: auto;
@@ -128,7 +115,7 @@
 }
 
 
-.#{$css}-time-container {
+.#{$csstheme}-time-container {
     @include float-width-height(left, $time_value_width, 100%);
     text-align: center;
     font-family: $text_fontfamily;
@@ -138,30 +125,30 @@
     border: none;
 }
 
-.#{$cssie8} .#{$css}-time-container {
+.#{$cssie8} .#{$csstheme}-time-container {
     height: auto;
     margin-top: $ie8_margintop + 9;
 }
 
-.#{$css}-time-value {
+.#{$csstheme}-time-value {
     @include relative-center-center;
     float: left;
     width: $time_value_width;
     font-size: 10px;
 }
 
-.#{$cssnoie8} .#{$css}-volumebar {
+.#{$cssnoie8} .#{$csstheme}-volumebar {
     @include float-width-height(right, $volume_width, 100%);
     margin-right: $volume_height * 2;
 }
 
-.#{$cssie8} .#{$css}-volumebar {
+.#{$cssie8} .#{$csstheme}-volumebar {
     @include float-width-height(right, $volume_width, 50%);
     margin-top: $ie8_margintop + 8;
     margin-right: $volume_height * 2;
 }
 
-.#{$css}-volumebar-inner {
+.#{$csstheme}-volumebar-inner {
     @include relative-center-center;
     @include border-round-edges($volume_height / 2);
     @include clickable;
@@ -169,21 +156,21 @@
     height: $volume_height;
 }
 
-.#{$css}-volumebar-position {
+.#{$csstheme}-volumebar-position {
     @include border-round-edges($volume_height / 2);
     @include absolute-align-left();
     background-color: $button_color;
     height: 100%;
 }
 
-.#{$cssnoie8} .#{$css}-progressbar {
+.#{$cssnoie8} .#{$csstheme}-progressbar {
     overflow: hidden;
     height: 100%;
     padding-left: $volume_height;
     padding-right: $volume_height;
 }
 
-.#{$cssie8} .#{$css}-progressbar {
+.#{$cssie8} .#{$csstheme}-progressbar {
     overflow: hidden;
     height: 50%;
     padding-left: $volume_height * 2;
@@ -192,7 +179,7 @@
     margin-top: $ie8_margintop + 4;
 }
 
-.#{$css}-progressbar-cache {
+.#{$csstheme}-progressbar-cache {
     @include absolute-align-left;
     @include border-round-edges($volume_height / 2);
     @include clickable;
@@ -200,7 +187,7 @@
     height: $progressbar_height;
 }
 
-.#{$css}-progressbar-inner {
+.#{$csstheme}-progressbar-inner {
     @include relative-center-center;
     @include border-round-edges($volume_height / 2);
     @include clickable;
@@ -208,11 +195,11 @@
     height: $progressbar_height;
 }
 
-.#{$css}-progressbar.#{$css}-disabled {
-    & .#{$css}-progressbar-cache, & .#{$css}-progressbar-inner {cursor: not-allowed}
+.#{$csstheme}-progressbar.#{$csstheme}-disabled {
+    & .#{$csstheme}-progressbar-cache, & .#{$csstheme}-progressbar-inner {cursor: not-allowed}
 }
 
-.#{$css}-progressbar-position {
+.#{$csstheme}-progressbar-position {
     @include border-round-edges($volume_height / 2);
     @include absolute-align-left();
     background-color: $progressbar_button_overflow;
@@ -220,7 +207,7 @@
 }
 
 
-.#{$css}-progressbar-button {
+.#{$csstheme}-progressbar-button {
     @include border-radius(50%);
     background-color: $progressbar_button_overflow;
     box-sizing: content-box;
@@ -233,51 +220,51 @@
     height: 8px;
 }
 
-.#{$css}-button-text {
+.#{$csstheme}-button-text {
 	font-family: Arial;
     font-weight: normal;
     font-size: 10px;
 }
 
-.#{$css}-time-container{
+.#{$csstheme}-time-container {
     font-size: 0.7rem;
     width: 30px;
 }
 
-.#{$css}-time-value{
+.#{$csstheme}-time-value {
     width: 30px;
     letter-spacing: 0.2em;
     font-weight: 300;
 }
 
-.#{$css}-size-small .#{$css}-time-container {
+.#{$css}-size-small .#{$csstheme}-time-container {
 	display: none;
 }
 
-.#{$css}-size-medium .#{$css}-volumebar, .#{$css}-size-small .#{$css}-volumebar {
+.#{$css}-size-medium .#{$csstheme}-volumebar, .#{$css}-size-small .#{$csstheme}-volumebar {
 	display: none;
 }
 
-.#{$css}-size-medium .#{$css}-volume-button-container, .#{$css}-size-small .#{$css}-volume-button-container {
+.#{$css}-size-medium .#{$csstheme}-volume-button-container, .#{$css}-size-small .#{$csstheme}-volume-button-container {
 	display: none;
 }
 
-.#{$css}-stream-label-container {
+.#{$csstheme}-stream-label-container {
     background-color: $stream_label_bg_color;
     box-sizing: border-box;
     padding: 2px 4px;
-    .#{$css}-stream-label {
+    .#{$csstheme}-stream-label {
         line-height: 16px;
         background-color: $stream_label_bg_color;
     }
 }
 
-.#{$cssnoie8} .#{$css}-full-screen-btn-inner {
+.#{$cssnoie8} .#{$csstheme}-full-screen-btn-inner {
     text-align: left;
     padding-left: 4px;
 }
 
-.#{$cssnoie8} .#{$css}-cast-button-container {
+.#{$cssnoie8} .#{$csstheme}-cast-button-container {
     margin: 0;
     button {
         //--connected-color: #00cc00;
@@ -293,7 +280,7 @@
     }
 }
 
-.#{$css}-airplay-container {
+.#{$csstheme}-airplay-container {
     @include clickable();
     padding: 12px 0 0 6px;
     svg path {
@@ -301,16 +288,16 @@
     }
 }
 
-.#{$css}-cc-button-container {
+.#{$csstheme}-cc-button-container {
     padding: 0 10px;
     margin: 0;
 }
 
-.#{$css}-cc-inactive {
+.#{$csstheme}-cc-inactive {
     background-color: transparent;
 }
 
-.#{$css}-cc-active {
+.#{$csstheme}-cc-active {
     background: #000000;
     .#{$css}-icon-subtitle {
         color: #eeeeee;

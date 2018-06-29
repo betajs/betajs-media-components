@@ -1,18 +1,5 @@
 
-.#{$css}-overlay div[tabindex] {
-    @include transition1(all, 0.30s, ease-in-out);
-}
-
-.#{$css}-overlay div[tabindex]:focus {
-    @include box-outline-shadow(#1b8fcc, 2px);
-    @include remove-outline;
-}
-
-.#{$css}-overlay div[tabindex]:hover, .#{$css}-overlay div[tabindex]:focus:hover {
-    box-shadow: none;
-}
-
-.#{$css}-dashboard {
+.#{$csstheme}-dashboard {
     //@include absolute-align-full-bottom;
     @include transition1(opacity, $dashboard_transition, ease-in-out);
     //opacity: 0.9;
@@ -21,11 +8,11 @@
     padding: 0 4%;
 }
 
-.#{$css}-dashboard-hidden {
+.#{$csstheme}-dashboard-hidden {
   opacity: 0;
 }
 
-.#{$css}-button-container {
+.#{$csstheme}-button-container {
     font-family: $font_family;
     font-weight: 300;
     display: inline-block;
@@ -43,7 +30,7 @@
 }
 
 /* Control Bar Header*/
-.#{$css}-controlbar-header {
+.#{$csstheme}-controlbar-header {
   @include background-rgba( 0,0,0, 0.3, #ddd );
   height: $controlbar_header_height;
   left: 0;
@@ -53,7 +40,7 @@
   position: absolute;
   text-align: left;
   width: 100%;
-  .#{$css}-right-block {
+  .#{$csstheme}-right-block {
     line-height: $topmessage_height - 10px;
     position: absolute;
     right: 4%;
@@ -61,25 +48,25 @@
   }
 }
 
-.#{$cssie8} .#{$css}-controlbar-header {
+.#{$cssie8} .#{$csstheme}-controlbar-header {
   display: none;
 }
 
-.#{$css}-controlbar-header-title-block {
+.#{$csstheme}-controlbar-header-title-block {
   position: relative;
   width: 100%;
   z-index: 10;
 }
 
-.#{$cssie8} .#{$css}-controlbar-header .#{$css}-right-block {
+.#{$cssie8} .#{$csstheme}-controlbar-header .#{$csstheme}-right-block {
   position: relative;
 }
 
-.#{$cssie8} .#{$css}-controlbar-header-title-block {
+.#{$cssie8} .#{$csstheme}-controlbar-header-title-block {
   left: 50px;
 }
 
-.#{$css}-title {
+.#{$csstheme}-title {
   p {
     color: $text_color;
     font-family: $font_family;
@@ -93,33 +80,33 @@
   }
 }
 
-.#{$cssnoie8} .#{$css}-controlbar-header .#{$css}-button-inner {
+.#{$cssnoie8} .#{$csstheme}-controlbar-header .#{$csstheme}-button-inner {
   text-align: right;
   @include transform-translate-y(0);
 }
 
-.#{$cssnoie8} .#{$css}-topmessage-container .#{$css}-rightbutton-container {
+.#{$cssnoie8} .#{$csstheme}-topmessage-container .#{$csstheme}-rightbutton-container {
   width: 25px; padding-top: 5px;
 }
 
-.#{$css}-controlbar-header .#{$css}-button-container {
+.#{$csstheme}-controlbar-header .#{$csstheme}-button-container {
     width: 20px;
 }
 
 /* Control Bar Footer*/
-.#{$css}-controlbar-footer {
+.#{$csstheme}-controlbar-footer {
   position:relative;
   height: 100%;
 }
 
-.#{$css}-controlbar-top-block {
+.#{$csstheme}-controlbar-top-block {
     height: 100%;
-    .#{$css}-button-container {
+    .#{$csstheme}-button-container {
         position: relative;
         margin: 0 auto;
         height: 100%;
         width: 100%;
-        .#{$css}-button-inner {
+        .#{$csstheme}-button-inner {
             @include color-rgba(255, 255, 255, 0.6, #e5e5e5);
             @include text-shadow($cover_playbutton_hover_color, 4);
             font-size: $controlbar_playbutton_font_size;
@@ -127,23 +114,23 @@
     }
 }
 
-.#{$cssie8} .#{$css}-controlbar-top-block {
+.#{$cssie8} .#{$csstheme}-controlbar-top-block {
     height: 100%;
-    .#{$css}-button-container {
+    .#{$csstheme}-button-container {
         top: 45%;
     }
 }
 
 .#{$cssnoie8} {
   .#{$css}-overlay {
-    .#{$css}-controlbar-top-block {
-      .#{$css}-button-inner {
+    .#{$csstheme}-controlbar-top-block {
+      .#{$csstheme}-button-inner {
         @include transition1(opacity, 0.3s, ease);
         opacity: 0;
       }
     }
-    &:hover .#{$css}-controlbar-top-block {
-      .#{$css}-button-inner {
+    &:hover .#{$csstheme}-controlbar-top-block {
+      .#{$csstheme}-button-inner {
         @include transition1(opacity, 0.2s, ease);
         opacity: .6;
       }
@@ -154,51 +141,51 @@
 .#{$cssie8} {
   .#{$css}-overlay {
     height: 100%;
-    .#{$css}-controlbar-top-block {
-      .#{$css}-button-inner {
+    .#{$csstheme}-controlbar-top-block {
+      .#{$csstheme}-button-inner {
         @include transparent(0);
       }
     }
-    &:hover .#{$css}-controlbar-top-block {
-      .#{$css}-button-inner {
+    &:hover .#{$csstheme}-controlbar-top-block {
+      .#{$csstheme}-button-inner {
         @include transparent(.6);
       }
     }
   }
 }
 
-.#{$css}-button-inner { @include clickable; z-index: 100; position: relative; }
+.#{$csstheme}-button-inner { @include clickable; z-index: 100; position: relative; }
 
-.#{$css}-right-block {
+.#{$csstheme}-right-block {
     float: right;
 }
 
-.#{$cssnoie8} .#{$css}-button-inner {
+.#{$cssnoie8} .#{$csstheme}-button-inner {
     @include relative-center-center;
 }
 
-.#{$cssie8} .#{$css}-button-inner {
+.#{$cssie8} .#{$csstheme}-button-inner {
     margin-top: $ie8_margintop + 6;
     text-align: center;
     font-size: $button_fontsize;
     margin-left: 3px;
 }
-.#{$css}-button-inner {
+.#{$csstheme}-button-inner {
     color: $button_color;
     font-size: $button_fontsize;
 }
 
-.#{$css}-controlbar-middle-block {
+.#{$csstheme}-controlbar-middle-block {
     position: relative;
     bottom: 45px;
 }
 
-.#{$css}-progressbar {
+.#{$csstheme}-progressbar {
     overflow: hidden;
     height: $progressbar_container_height;
 }
 
-.#{$css}-progressbar-cache {
+.#{$csstheme}-progressbar-cache {
     @include absolute-align-left;
     @include clickable;
     @include background-rgba(255, 255, 255, .3, #b2b2b2);
@@ -207,25 +194,25 @@
     //@include ie_supported_rgba(#ffffff, 255, 255, 255, 0.3);
 }
 
-.#{$css}-progressbar-inner {
+.#{$csstheme}-progressbar-inner {
     @include relative-center-center;
     @include clickable;
     background-color: $progressbar_cache_bgcolor;
     height: $progressbar_height;
 }
 
-.#{$css}-progressbar.#{$css}-disabled {
-  & .#{$css}-progressbar-cache, & .#{$css}-progressbar-inner, & .#{$css}-progressbar-position {cursor: not-allowed}
+.#{$csstheme}-progressbar.#{$csstheme}-disabled {
+  & .#{$csstheme}-progressbar-cache, & .#{$csstheme}-progressbar-inner, & .#{$csstheme}-progressbar-position {cursor: not-allowed}
 }
 
-.#{$css}-progressbar-position {
+.#{$csstheme}-progressbar-position {
     @include absolute-align-left();
     background-color: $progressbar_button_overflow;
     height: 100%;
 }
 
 
-.#{$css}-progressbar-button {
+.#{$csstheme}-progressbar-button {
     @include border-radius(50%);
     background-color: $progressbar_button_overflow;
     box-sizing: content-box;
@@ -238,17 +225,17 @@
     height: 8px;
 }
 
-.#{$css}-controlbar-bottom-block{
+.#{$csstheme}-controlbar-bottom-block{
     position: relative;
     bottom: 40px;
 }
 
-.#{$css}-player-rerecord {
+.#{$csstheme}-player-rerecord {
     position: relative;
     top: 5px;
 }
 
-.#{$css}-time-container {
+.#{$csstheme}-time-container {
     @include color-rgba(255, 255, 255, 0.7, #b2b2b2);
     background-color: #676f76;
     float: left;
@@ -275,7 +262,7 @@
     }
 }
 
-.#{$css}-stream-label {
+.#{$csstheme}-stream-label {
     margin-top: 15px;
     font-size: $icon_size;
     display: inline-block;
@@ -285,15 +272,15 @@
     opacity: 0.75;
 }
 
-.#{css}-size-small  .#{$css}-controlbar-top-block {
-    .#{$css}-button-container {
-        .#{$css}-button-inner {
+.#{css}-size-small  .#{$csstheme}-controlbar-top-block {
+    .#{$csstheme}-button-container {
+        .#{$csstheme}-button-inner {
             font-size: $controlbar_playbutton_font_size / 2;
         }
     }
 }
 
-.#{$css}-volumebar {
+.#{$csstheme}-volumebar {
   float: right;
   height: $controlbar_header_height;
   margin-left: 10px;
@@ -302,7 +289,7 @@
   z-index: 10;
 }
 
-.#{$css}-volumebar-inner {
+.#{$csstheme}-volumebar-inner {
   @include relative-center-center;
   @include border-round-edges($volume_height / 2);
   @include clickable;
@@ -310,7 +297,7 @@
   height: $volume_height;
 }
 
-.#{$css}-volumebar-position {
+.#{$csstheme}-volumebar-position {
   @include border-round-edges($volume_height / 2);
   @include absolute-align-left();
   background-color: $volumebar_position_bg;
@@ -319,9 +306,9 @@
 
 .#{$css}-size-medium {
 
-  .#{$css}-controlbar-top-block {
-    .#{$css}-button-container {
-      .#{$css}-button-inner {
+  .#{$csstheme}-controlbar-top-block {
+    .#{$csstheme}-button-container {
+      .#{$csstheme}-button-inner {
         font-size: $controlbar_playbutton_font_size - .5;
       }
     }
@@ -329,36 +316,36 @@
 }
 
 .#{$css}-size-small {
-  .#{$css}-volumebar {
+  .#{$csstheme}-volumebar {
     display: none;
   }
 
-  .#{$css}-controlbar-header {
+  .#{$csstheme}-controlbar-header {
     top: 7px;
   }
 
-  .#{$css}-controlbar-top-block {
-    .#{$css}-button-container {
-      .#{$css}-button-inner {
+  .#{$csstheme}-controlbar-top-block {
+    .#{$csstheme}-button-container {
+      .#{$csstheme}-button-inner {
         font-size: $controlbar_playbutton_font_size - .7;
       }
     }
   }
 
-  .#{$css}-controlbar-middle-block {
+  .#{$csstheme}-controlbar-middle-block {
     bottom: 40px;
   }
 
-  .#{$css}-controlbar-bottom-block {
+  .#{$csstheme}-controlbar-bottom-block {
     bottom: 38px;
   }
 
-  .#{$css}-time-container{
+  .#{$csstheme}-time-container{
     font-size: .7em;
   }
 }
 
-.#{$css}-cast-button-container button {
+.#{$csstheme}-cast-button-container button {
     //--connected-color: #00cc00;
     //--disconnected-color: #1f1f1f;
     text-shadow: 0 0 4px #000000;
@@ -374,7 +361,7 @@
     width: 20px;
 }
 
-.#{$css}-airplay-container {
+.#{$csstheme}-airplay-container {
     @include clickable();
     bottom: 13px;
     left: 5px;
@@ -386,13 +373,13 @@
     }
 }
 
-.#{$css}-cc-button-container {
+.#{$csstheme}-cc-button-container {
     @include clickable();
     bottom: 4px;
     float: right;
     padding: 0 5px 2px 3px;
     position: relative;
-    .#{$css}-button-inner {
+    .#{$csstheme}-button-inner {
         line-height: $button_width;
         height: $button_width;
         width: $button_width;
@@ -402,14 +389,14 @@
     }
 }
 
-.#{$css}-cc-inactive {
+.#{$csstheme}-cc-inactive {
     background-color: #979797;
     .#{$css}-icon-subtitle {
         color: #ffffff;
     }
 }
 
-.#{$css}-cc-active {
+.#{$csstheme}-cc-active {
     background: #000000;
     .#{$css}-icon-subtitle {
         color: #eeeeee;

@@ -18,6 +18,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Share", [
 
                 attrs: {
                     css: "ba-videoplayer",
+                    csstheme: "ba-videoplayer",
                     url: "",
                     shares: []
                 },

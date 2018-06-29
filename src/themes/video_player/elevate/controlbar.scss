@@ -1,18 +1,5 @@
 /* Elevate */
-.#{$css}-overlay div[tabindex] {
-    @include transition1(all, 0.30s, ease-in-out);
-}
-
-.#{$css}-overlay div[tabindex]:focus {
-    @include box-outline-shadow(#1b8fcc, 2px);
-    @include remove-outline;
-}
-
-.#{$css}-overlay div[tabindex]:hover, .#{$css}-overlay div[tabindex]:focus:hover {
-    box-shadow: none;
-}
-
-.#{$css}-dashboard {
+.#{$csstheme}-dashboard {
     @include transition1(opacity, $dashboard_transition, ease-in-out);
     position: absolute;
     left: 2.5%;
@@ -23,22 +10,22 @@
     z-index: 1;
 }
 
-.#{$css}-dashboard-hidden {
+.#{$csstheme}-dashboard-hidden {
     opacity: 0;
 }
 
-.#{$css}-top-block {
+.#{$csstheme}-top-block {
     padding-top: 15px;
     width: 100%;
     clear: both;
 }
 
-.#{$cssie8} .#{$css}-top-block {
+.#{$cssie8} .#{$csstheme}-top-block {
     padding-top: 0;
     padding-bottom: 5px;
 }
 
-.#{$css}-bottom-block {
+.#{$csstheme}-bottom-block {
     background-color: $controlbar_background;
     clear: both;
     height: $controlbar_bottom_height;
@@ -46,7 +33,7 @@
     width: 100%;
 }
 
-.#{$css}-left-block {
+.#{$csstheme}-left-block {
     float: left;
     & > div {
         @include right-box-shadow($button_border_color, 1);
@@ -59,19 +46,19 @@
     }
 }
 
-.#{$cssie8} .#{$css}-left-block {
+.#{$cssie8} .#{$csstheme}-left-block {
     & > div {
         //filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)";
         -ms-filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)"
     }
 }
 
-.#{$css}-center-block {
+.#{$csstheme}-center-block {
     float: left;
     padding: 0 10px;
 }
 
-.#{$css}-right-block {
+.#{$csstheme}-right-block {
     float: right;
     & > div {
         @include left-box-shadow($button_border_color, 1);
@@ -87,60 +74,62 @@
 
 }
 
-.#{$css}-top-right-block {
+.#{$csstheme}-top-right-block {
     float: right;
-    .#{$css}-time-value{
+    .#{$csstheme}-time-value {
         text-align: right;
     }
 }
 
-.#{$css}-button-container {
+.#{$csstheme}-button-container {
     width: $button_width;
     text-align: center;
 }
 
-.#{$css}-icon-play, .#{$css}-icon-pause {
-    color: $button_color;
-}
+.#{$csstheme}-dashboard {
+    .#{$css}-icon-play, .#{$css}-icon-pause {
+        color: $button_color;
+    }
 
-.#{$css}-icon-volume-up, .#{$css}-icon-play, .#{$css}-icon-pause,
-.#{$css}-icon-resize-full, .#{$css}-icon-volume-down {
-    display: inline-block;
-    &:before {
-        font-size: $text_fontsize;
-        margin: 0;
-        line-height: inherit;
+    .#{$css}-icon-volume-up, .#{$css}-icon-play, .#{$css}-icon-pause,
+    .#{$css}-icon-resize-full, .#{$css}-icon-volume-down {
+        display: inline-block;
+        &:before {
+            font-size: $text_fontsize;
+            margin: 0;
+            line-height: inherit;
+        }
+    }
+
+    .#{$cssie8} .#{$css}-icon-volume-down {
+        &:before {
+            font-size: $text_fontsize + 1;
+        }
+    }
+
+    .#{$css}-icon-volume-up {
+        color: $button_color_secondary;
     }
 }
 
-.#{$cssie8} .#{$css}-icon-volume-down {
-    &:before {
-        font-size: $text_fontsize + 1;
-    }
-}
 
-.#{$css}-icon-volume-up {
-    color: $button_color_secondary;
-}
-
-
-.#{$cssnoie8} .#{$css}-button-inner {
+.#{$cssnoie8} .#{$csstheme}-button-inner {
     //@include relative-center-center;
     color: $button_color;
     font-size: $button_fontsize;
 }
 
-.#{$cssie8} .#{$css}-button-inner {
+.#{$cssie8} .#{$csstheme}-button-inner {
     color: $button_color;
     font-size: $button_fontsize;
     margin-left: 3px;
 }
 
-.#{$css}-button-inner {
+.#{$csstheme}-button-inner {
     @include clickable;
 }
 
-.#{$css}-time-container {
+.#{$csstheme}-time-container {
     @include float-width-height(left, $time_value_width, 100%);
     position: relative;
     top: $progressbar_height + 2;
@@ -151,11 +140,11 @@
     border: none;
 }
 
-.#{$cssie8} .#{$css}-time-container {
+.#{$cssie8} .#{$csstheme}-time-container {
    top: $progressbar_height - 1;
 }
 
-.#{$css}-time-value {
+.#{$csstheme}-time-value {
     color: #ffffff;
     @include text-shadow(#000000, 4);
     @include relative-center-center;
@@ -165,25 +154,25 @@
     letter-spacing: 0.1em;
 }
 
-.#{$cssnoie8} .#{$css}-volumebar {
+.#{$cssnoie8} .#{$csstheme}-volumebar {
     @include float-width-height(right, $volume_width, 100%);
     margin-right: $volume_height*2;
 }
 
-.#{$cssie8} .#{$css}-volumebar {
+.#{$cssie8} .#{$csstheme}-volumebar {
     @include float-width-height(right, $volume_width, 50%);
 }
 
-.#{$css}-progressbar {
+.#{$csstheme}-progressbar {
     overflow: hidden;
     height: 100%;
 }
 
-.#{$css}-progressbar {
+.#{$csstheme}-progressbar {
     padding: 10px 0 5px;
 }
 
-.#{$css}-progressbar-inner {
+.#{$csstheme}-progressbar-inner {
     @include relative-center-center;
     @include border-radius($progressbar_height / 4);
     @include clickable;
@@ -191,11 +180,11 @@
     height: $progressbar_height;
 }
 
-.#{$css}-progressbar.#{$css}-disabled {
-    & .#{$css}-progressbar-cache, & .#{$css}-progressbar-inner, & .#{$css}-progressbar-position {cursor: not-allowed}
+.#{$csstheme}-progressbar.#{$csstheme}-disabled {
+    & .#{$csstheme}-progressbar-cache, & .#{$csstheme}-progressbar-inner, & .#{$csstheme}-progressbar-position {cursor: not-allowed}
 }
 
-.#{$css}-progressbar-cache {
+.#{$csstheme}-progressbar-cache {
     @include absolute-align-left;
     @include border-round-edges($volume_height / 2);
     @include clickable;
@@ -203,13 +192,13 @@
     height: $progressbar_height;
 }
 
-.#{$css}-progressbar-position {
+.#{$csstheme}-progressbar-position {
     @include absolute-align-left();
     background-color: $progressbar_button_overflow;
     height: 100%;
 }
 
-.#{$css}-progressbar-button {
+.#{$csstheme}-progressbar-button {
     @include border-radius(50%);
     box-sizing: content-box;
     display: inline-block;
@@ -223,29 +212,29 @@
     width: $progressbar_height;
 }
 
-.#{$css}-button-text {
+.#{$csstheme}-button-text {
 	font-family: sans-serif;
     font-weight: normal;
     font-size: 10px;
 }
 
-.#{$css}-size-small .#{$css}-time-container, .#{$css}-size-small .#{$css}-center-block {
+.#{$css}-size-small .#{$csstheme}-time-container, .#{$css}-size-small .#{$csstheme}-center-block {
 	display: none;
 }
 
-.#{$css}-size-medium .#{$css}-volumebar {
+.#{$css}-size-medium .#{$csstheme}-volumebar {
 	display: none;
 }
 
-.#{$css}-size-medium .#{$css}-volume-button-container, .#{$css}-size-small .#{$css}-volume-button-container {
+.#{$css}-size-medium .#{$csstheme}-volume-button-container, .#{$css}-size-small .#{$csstheme}-volume-button-container {
 	display: none;
 }
 
-.#{$css}-size-medium .#{$css}-right-time-container{
+.#{$css}-size-medium .#{$csstheme}-right-time-container{
     display: none;
 }
 
-.#{$css}-video-title-block > p {
+.#{$csstheme}-video-title-block > p {
     font-size: $text_fontsize;
     color: $controlbar_video_title_color;
     line-height: $controlbar_line_height;
@@ -257,8 +246,8 @@
     }
 }
 
-.#{$css}-stream-label-container{
-    .#{$css}-stream-label {
+.#{$csstheme}-stream-label-container {
+    .#{$csstheme}-stream-label {
         @include clickable;
         background-color: $stream_label_bg_color;
         color: $stream_label_color;
@@ -266,13 +255,13 @@
     }
 }
 
-.#{$css}-left-block .#{$css}-volumebar {
+.#{$csstheme}-left-block .#{$csstheme}-volumebar {
     float: left;
     height: $controlbar_bottom_height;
     width: $volume_width;
 }
 
-.#{$css}-volumebar-inner {
+.#{$csstheme}-volumebar-inner {
     @include relative-center-center;
     @include border-round-edges($volume_height / 2);
     @include clickable;
@@ -281,43 +270,43 @@
     margin: 0 5px;
 }
 
-.#{$cssie8} .#{$css}-volumebar-inner {
+.#{$cssie8} .#{$csstheme}-volumebar-inner {
     margin-top: -3px;
 }
 
-.#{$css}-volumebar-position {
+.#{$csstheme}-volumebar-position {
     @include border-round-edges($volume_height / 2);
     @include absolute-align-left();
     background-color: $progressbar_button_overflow;
     height: 100%;
 }
 
-.#{$css}-top-left-block {
+.#{$csstheme}-top-left-block {
     float: left;
 }
 
-.#{$cssnoie8} .#{$css}-full-screen-btn-inner {
+.#{$cssnoie8} .#{$csstheme}-full-screen-btn-inner {
     padding-left: 4px;
 }
 
-.#{$css}-icon-resize-full {
+.#{$csstheme}-dashboard .#{$css}-icon-resize-full {
     color: $button_color_secondary;
 }
 
-.#{$css}-size-small .#{$css}-volumebar {
+.#{$css}-size-small .#{$csstheme}-volumebar {
     display: none;
 }
 
-.#{$css}-size-small .#{$css}-dashboard{
+.#{$css}-size-small .#{$csstheme}-dashboard {
     width: 100%;
 }
 
-.#{$css}-video-title-block > p, .#{$css}-left-block .#{$css}-volumebar,
-.#{$css}-button-inner {
+.#{$csstheme}-video-title-block > p, .#{$csstheme}-left-block .#{$csstheme}-volumebar,
+.#{$csstheme}-button-inner {
   padding-top: 1px;
 }
 
-.#{$css}-cast-button-container button {
+.#{$csstheme}-cast-button-container button {
     //--connected-color: #00cc00;
     //--disconnected-color: #000000;
     @include transparent(0.7);
@@ -329,7 +318,7 @@
     width: 32px;
 }
 
-.#{$css}-airplay-container {
+.#{$csstheme}-airplay-container {
     @include clickable();
     padding-top: 2px;
     svg path {
@@ -337,19 +326,50 @@
     }
 }
 
-.#{$css}-cc-inactive {
+.#{$csstheme}-cc-inactive {
     background-color: transparent;
     .#{$css}-icon-subtitle {
         color: #666666;
     }
 }
 
-.#{$css}-cc-active {
+.#{$csstheme}-cc-active {
     background: #000000;
-    .#{$css}-button-inner {
+    .#{$csstheme}-button-inner {
         padding-top: 2px;
     }
     .#{$css}-icon-subtitle {
         color: #eeeeee;
     }
+}
+
+.#{$csstheme}-rerecord-bar {
+    @include absolute-align-full-bottom;
+}
+
+.#{$csstheme}-rerecord-backbar {  }
+
+.#{$csstheme}-rerecord-frontbar {
+    @include relative-align-full-bottom;
+    height: $rerecord_height;
+    overflow: hidden;
+    padding-left: $rerecord_padding;
+    padding-right: $rerecord_padding;
+    text-align: center;
+}
+
+.#{$csstheme}-rerecord-button-container {
+    display: inline-block;
+}
+
+.#{$csstheme}-rerecord-button {
+    background-color: $rerecord_primarybutton_color;
+    border-radius: $rerecord_primarybutton_radius;
+    color: $rerecord_primarybutton_text_color;
+    @include clickable;
+    font-family: $rerecord_font_family;
+    font-weight: $rerecord_primarybutton_font_weight;
+    font-size: $rerecord_primarybutton_font_size;
+    padding: $rerecord_primarybutton_padding;
+    letter-spacing: $rerecord_letter_spacing;
 }

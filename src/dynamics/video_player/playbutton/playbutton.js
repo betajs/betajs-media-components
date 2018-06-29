@@ -13,6 +13,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Playbutton", [
 
                 attrs: {
                     "css": "ba-videoplayer",
+                    "csstheme": "ba-videoplayer",
+                    "cssplaybutton": "ba-videoplayer-playbutton",
                     "rerecordable": false,
                     "submittable": false
                 },

@@ -1,4 +1,6 @@
-$css: "ba-videoplayer-elevate-theme";
+$css: "ba-videoplayer";
+$csstheme: "ba-videoplayer-elevate-theme";
+$cssplaybutton: "ba-videoplayer-playbutton-alt";
 $cssie8: "ba-videoplayer-ie8";
 $cssnoie8: "ba-videoplayer-noie8";
 $fontello_name: "bjsmc";
@@ -28,6 +30,7 @@ $cover_playbutton_border_color: #eeeeee;
 $cover_playbutton_border_hover_color: #000000;
 $cover_playbutton_hover_shadow: #eeeeee;
 
+$playbutton_initial: false !default;
 $playbutton_size: 50px;
 $playbutton_frame_thickness: 0.6em;
 $playbutton_default_opacity: 0.6;

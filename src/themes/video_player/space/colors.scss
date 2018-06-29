@@ -2,38 +2,38 @@
   @if $color != default {
     .#{$css}-#{$color}-color {
 
-      .#{$css}-title > p,
-      &.#{$cssnoie8} .#{$css}-button-inner, &.#{$cssie8} .#{$css}-button-inner,
-      .#{$css}-right-block .#{$css}-icon-volume-up,
-      .#{$css}-right-block .#{$css}-icon-volume-down {
+      .#{$csstheme}-title > p,
+      &.#{$cssnoie8} .#{$csstheme}-button-inner, &.#{$cssie8} .#{$csstheme}-button-inner,
+      .#{$csstheme}-right-block .#{$css}-icon-volume-up,
+      .#{$csstheme}-right-block .#{$css}-icon-volume-down {
         color: $value;
       }
 
-      &.#{$cssnoie8} .#{$css}-stream-label-container, &.#{$cssie8} .#{$css}-stream-label-container,
-      .#{$css}-cc-active {
+      &.#{$cssnoie8} .#{$csstheme}-stream-label-container, &.#{$cssie8} .#{$csstheme}-stream-label-container,
+      .#{$csstheme}-cc-active {
         color: $button_color;
         background-color: $value;
       }
 
-      .#{$css}-volumebar-position, .#{$css}-progressbar-position,
-      .#{$css}-stream-label-container .#{$css}-stream-label,
-      .#{$css}-progressbar-button, .#{$css}-rerecord-button {
+      .#{$csstheme}-volumebar-position, .#{$csstheme}-progressbar-position,
+      .#{$csstheme}-stream-label-container .#{$csstheme}-stream-label,
+      .#{$csstheme}-progressbar-button, .#{$csstheme}-rerecord-button {
         background-color: $value;
       }
 
-      .#{$css}-progressbar-cache {
+      .#{$csstheme}-progressbar-cache {
         @include background-rgba(255, 255, 255, 0.6, #4c4c4c);
       }
 
-      .#{$css}-volumebar-inner, .#{$css}-progressbar-inner {
+      .#{$csstheme}-volumebar-inner, .#{$csstheme}-progressbar-inner {
         @include background-rgba(255, 255, 255, 0.3, #7f7f7f);
       }
 
-      &.#{$cssnoie8} .#{$css}-cast-button-container button {
-        //--disconnected-color: #{$value};
-      }
+      //&.#{$cssnoie8} .#{$csstheme}-cast-button-container button {
+      //  --disconnected-color: #{$value};
+      //}
 
-      .#{$css}-airplay-container svg path {
+      .#{$csstheme}-airplay-container svg path {
         fill: $value;
       }
     }

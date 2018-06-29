@@ -1,13 +1,12 @@
 module.exports = function(grunt) {
 
-	var pkg = grunt.file.readJSON('package.json');
-	var gruntHelper = require('betajs-compile');
-	var dist = 'betajs-media-components';
+    var pkg = grunt.file.readJSON('package.json');
+    var gruntHelper = require('betajs-compile');
+    var dist = 'betajs-media-components';
 
-	var betajsTemplates = require("grunt-betajs-templates");
+    var betajsTemplates = require("grunt-betajs-templates");
 
-	gruntHelper.init(pkg, grunt)
-
+    gruntHelper.init(pkg, grunt)
 
     /* Compilation */
 	.scopedclosurerevisionTask(null, [
@@ -93,13 +92,6 @@ module.exports = function(grunt) {
     .concatsassTask('concat-modern-theme-css', [
         'src/themes/common/mixins.scss',
 	    'src/themes/video_player/modern/theme.scss',
-        'src/themes/common/fontello_icon.scss',
-        'src/themes/common/fontello_icons_generated.scss',
-        'src/themes/common/fontello_icons_color.scss',
-	    'src/themes/video_player/default/player.scss',
-        'src/themes/video_player/default/adplayer.scss',
-	    'src/themes/video_player/default/loader.scss',
-	    'src/themes/video_player/default/topmessage.scss',
 	    'src/themes/video_player/modern/*.scss',
 
 	    'src/themes/video_recorder/modern/theme.scss',
@@ -149,13 +141,6 @@ module.exports = function(grunt) {
     .concatsassTask('concat-space-theme-css', [
       'src/themes/common/mixins.scss',
       'src/themes/video_player/space/theme.scss',
-        'src/themes/common/fontello_icon.scss',
-        'src/themes/common/fontello_icons_generated.scss',
-        'src/themes/common/fontello_icons_color.scss',
-      'src/themes/video_player/default/player.scss',
-        'src/themes/video_player/default/adplayer.scss',
-      'src/themes/video_player/default/loader.scss',
-      'src/themes/video_player/default/topmessage.scss',
       'src/themes/video_player/space/*.scss',
 
       'src/themes/video_recorder/space/theme.scss',
@@ -204,13 +189,6 @@ module.exports = function(grunt) {
     .concatsassTask('concat-theatre-theme-css', [
       'src/themes/common/mixins.scss',
       'src/themes/video_player/theatre/theme.scss',
-        'src/themes/common/fontello_icon.scss',
-        'src/themes/common/fontello_icons_generated.scss',
-        'src/themes/common/fontello_icons_color.scss',
-      'src/themes/video_player/default/player.scss',
-        'src/themes/video_player/default/adplayer.scss',
-      'src/themes/video_player/default/loader.scss',
-      'src/themes/video_player/default/topmessage.scss',
       'src/themes/video_player/theatre/*.scss',
 
       'src/themes/video_recorder/theatre/theme.scss',
@@ -261,13 +239,6 @@ module.exports = function(grunt) {
     .concatsassTask('concat-elevate-theme-css', [
       'src/themes/common/mixins.scss',
       'src/themes/video_player/elevate/theme.scss',
-        'src/themes/common/fontello_icon.scss',
-        'src/themes/common/fontello_icons_generated.scss',
-        'src/themes/common/fontello_icons_color.scss',
-      'src/themes/video_player/default/player.scss',
-        'src/themes/video_player/default/adplayer.scss',
-      'src/themes/video_player/default/loader.scss',
-      'src/themes/video_player/default/topmessage.scss',
       'src/themes/video_player/elevate/*.scss',
 
       'src/themes/video_recorder/elevate/theme.scss',
@@ -317,13 +288,6 @@ module.exports = function(grunt) {
     .concatsassTask('concat-cube-theme-css', [
       'src/themes/common/mixins.scss',
       'src/themes/video_player/cube/theme.scss',
-        'src/themes/common/fontello_icon.scss',
-        'src/themes/common/fontello_icons_generated.scss',
-        'src/themes/common/fontello_icons_color.scss',
-      'src/themes/video_player/default/player.scss',
-        'src/themes/video_player/default/adplayer.scss',
-      'src/themes/video_player/default/loader.scss',
-      'src/themes/video_player/default/topmessage.scss',
       'src/themes/video_player/cube/*.scss',
 
       'src/themes/video_recorder/cube/theme.scss',
@@ -373,13 +337,6 @@ module.exports = function(grunt) {
     .concatsassTask('concat-minimalist-theme-css', [
       'src/themes/common/mixins.scss',
       'src/themes/video_player/minimalist/theme.scss',
-        'src/themes/common/fontello_icon.scss',
-        'src/themes/common/fontello_icons_generated.scss',
-        'src/themes/common/fontello_icons_color.scss',
-      'src/themes/video_player/default/player.scss',
-      'src/themes/video_player/default/adplayer.scss',
-      'src/themes/video_player/default/loader.scss',
-      'src/themes/video_player/default/topmessage.scss',
       'src/themes/video_player/minimalist/*.scss',
 
       'src/themes/video_recorder/minimalist/theme.scss',
@@ -449,7 +406,6 @@ module.exports = function(grunt) {
     /* Documentation */
     .docsTask();
 
-
 	gruntHelper.config.shell.mediaqunit = {
         command: [
             'open http://' + gruntHelper.myip() + ':5000/static/tests/server/index.html',
@@ -457,7 +413,7 @@ module.exports = function(grunt) {
         ].join("&&")
     };
 
-	gruntHelper.config.template.fontello_font = {
+    gruntHelper.config.template.fontello_font = {
         options: {
             data: {
                 eot_base64: require("fs").readFileSync("vendors/fontello/font/fontello.eot").toString('base64'),
@@ -489,37 +445,37 @@ module.exports = function(grunt) {
         }]
     };
 
-	grunt.initConfig(gruntHelper.config);
+    grunt.initConfig(gruntHelper.config);
 
-	grunt.registerTask('default', [
-	    'autoincreasepackage',
-      'package',
-      'readme',
-      'license',
-      'githooks',
-      'codeclimate',
-      'locales',
-      'beautify1', 'beautify2', 'beautify3',
-      'scopedclosurerevision',
-      'concat-scoped',
-      'uglify-noscoped',
-      'uglify-scoped',
-      'template:fontello_font',
-    'template:fontello_icons',
-      'concat-dist-css',
-      'cssmin-dist',
-      'clean-compile',
-      'copy-fonts',
-      "generate-default-yml",
+    grunt.registerTask('default', [
+        'autoincreasepackage',
+        'package',
+        'readme',
+        'license',
+        'githooks',
+        'codeclimate',
+        'locales',
+        'beautify1', 'beautify2', 'beautify3',
+        'scopedclosurerevision',
+        'concat-scoped',
+        'uglify-noscoped',
+        'uglify-scoped',
+        'template:fontello_font',
+        'template:fontello_icons',
+        'concat-dist-css',
+        'cssmin-dist',
+        'clean-compile',
+        'copy-fonts',
+        "generate-default-yml",
 
-      // Include theme generation
+        // Include theme generation
         "themes",
 
         "lint",
         "csslint"
     ]);
 
-	grunt.registerTask("themes", [
+    grunt.registerTask("themes", [
         "cube-theme",
         "elevate-theme",
         "minimalist-theme",
@@ -528,99 +484,99 @@ module.exports = function(grunt) {
         "theatre-theme"
     ]);
 
-  // ** MODERN THEME **//
-	grunt.registerTask('modern-theme', [
-      'concat-modern-theme',
-      'uglify-modern-theme',
-      'concat-modern-theme-css',
-      'cssmin-modern-theme'
-  ]);
+    // ** MODERN THEME **//
+    grunt.registerTask('modern-theme', [
+        'concat-modern-theme',
+        'uglify-modern-theme',
+        'concat-modern-theme-css',
+        'cssmin-modern-theme'
+    ]);
 
-  // **  SPACE THEME **//
-  grunt.registerTask('space-theme', [
-    'concat-space-theme',
-    'uglify-space-theme',
-    'concat-space-theme-css',
-    'cssmin-space-theme'
-  ]);
+    // **  SPACE THEME **//
+    grunt.registerTask('space-theme', [
+        'concat-space-theme',
+        'uglify-space-theme',
+        'concat-space-theme-css',
+        'cssmin-space-theme'
+    ]);
 
-  // **  Theatre THEME **//
-  grunt.registerTask('theatre-theme', [
-    'concat-theatre-theme',
-    'uglify-theatre-theme',
-    'concat-theatre-theme-css',
-    'cssmin-theatre-theme'
-  ]);
+    // **  Theatre THEME **//
+    grunt.registerTask('theatre-theme', [
+        'concat-theatre-theme',
+        'uglify-theatre-theme',
+        'concat-theatre-theme-css',
+        'cssmin-theatre-theme'
+    ]);
 
-  // **  Elevate THEME **//
-  grunt.registerTask('elevate-theme', [
-    'concat-elevate-theme',
-    'uglify-elevate-theme',
-    'concat-elevate-theme-css',
-    'cssmin-elevate-theme'
-  ]);
+    // **  Elevate THEME **//
+    grunt.registerTask('elevate-theme', [
+        'concat-elevate-theme',
+        'uglify-elevate-theme',
+        'concat-elevate-theme-css',
+        'cssmin-elevate-theme'
+    ]);
 
-  // **  Cube THEME **//
-  grunt.registerTask('cube-theme', [
-    'concat-cube-theme',
-    'uglify-cube-theme',
-    'concat-cube-theme-css',
-    'cssmin-cube-theme'
-  ]);
+    // **  Cube THEME **//
+    grunt.registerTask('cube-theme', [
+        'concat-cube-theme',
+        'uglify-cube-theme',
+        'concat-cube-theme-css',
+        'cssmin-cube-theme'
+    ]);
 
-  // **  Minimalist THEME **//
-  grunt.registerTask('minimalist-theme', [
-    'concat-minimalist-theme',
-    'uglify-minimalist-theme',
-    'concat-minimalist-theme-css',
-    'cssmin-minimalist-theme'
-  ]);
-  
-  
-  
-  var finalizeTranslation = function (sourceFile, targetFolder, targetLang) {
-	  var yaml = require("js-yaml");	  
+    // **  Minimalist THEME **//
+    grunt.registerTask('minimalist-theme', [
+        'concat-minimalist-theme',
+        'uglify-minimalist-theme',
+        'concat-minimalist-theme-css',
+        'cssmin-minimalist-theme'
+    ]);
 
-	  var loadLocale = function (filename) {
-		  var raw = yaml.safeLoad(grunt.file.read(filename));
-		  for (var key in raw) {
-			  return {
-				  language: key.split(":").pop(),
-				  dict: raw[key] || {}
-			  };
-		  }
-	  };
 
-	  var targetFile = targetFolder + targetLang + ".yml";
-	  var source = loadLocale(sourceFile);
-	  var target = grunt.file.exists(targetFile) ? loadLocale(targetFile) : {language: targetLang, dict: {}};
-	
-	  var keys = [];
-	  var values = [];
-	  
-	  for (var key in source.dict) {
-		  if (!target.dict[key]) {
-			  keys.push(key);
-			  values.push(source.dict[key]);
-		  }
-	  }
-	  
-	  if (keys.length > 0) {
-		  var translate = require('@google-cloud/translate')(JSON.parse(grunt.file.read("./google-translate-creds.json")));
-		  translate.translate(values, {from: source.language, to: target.language}, function (err, translation) {
-			  if (err) {
-				  console.error(err);
-				  return;
-			  }
-			  for (var i = 0; i < keys.length; ++i)
-				  target.dict[keys[i]] = translation[i].replace("% ", " %");
-			  
-			  var result = {};
-			  result["language:" + target.language] = target.dict;
-			  grunt.file.write(targetFile, yaml.dump(result));
-		  });
-	  }
-  };
+
+    var finalizeTranslation = function (sourceFile, targetFolder, targetLang) {
+        var yaml = require("js-yaml");
+
+        var loadLocale = function (filename) {
+            var raw = yaml.safeLoad(grunt.file.read(filename));
+            for (var key in raw) {
+                return {
+                    language: key.split(":").pop(),
+                    dict: raw[key] || {}
+                };
+            }
+        };
+
+        var targetFile = targetFolder + targetLang + ".yml";
+        var source = loadLocale(sourceFile);
+        var target = grunt.file.exists(targetFile) ? loadLocale(targetFile) : {language: targetLang, dict: {}};
+
+        var keys = [];
+        var values = [];
+
+        for (var key in source.dict) {
+            if (!target.dict[key]) {
+                keys.push(key);
+                values.push(source.dict[key]);
+            }
+        }
+
+        if (keys.length > 0) {
+            var translate = require('@google-cloud/translate')(JSON.parse(grunt.file.read("./google-translate-creds.json")));
+            translate.translate(values, {from: source.language, to: target.language}, function (err, translation) {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+                for (var i = 0; i < keys.length; ++i)
+                    target.dict[keys[i]] = translation[i].replace("% ", " %");
+
+                var result = {};
+                result["language:" + target.language] = target.dict;
+                grunt.file.write(targetFile, yaml.dump(result));
+            });
+        }
+    };
 
 
     grunt.registerTask("translations", function () {
@@ -628,34 +584,34 @@ module.exports = function(grunt) {
         grunt.file.recurse("./src/locales", function (abspath, rootdir, subdir, filename) {
             languages.push(filename.substring(0, filename.indexOf(".")));
         });
-	  var sourceFile = "./dist/english.yml";
-	  var targetFolder = "./src/locales/";
-	  languages.forEach(function (targetLang) {
-		  finalizeTranslation(sourceFile, targetFolder, targetLang);
-	  });
-	  this.async();	  
-  });
+        var sourceFile = "./dist/english.yml";
+        var targetFolder = "./src/locales/";
+        languages.forEach(function (targetLang) {
+            finalizeTranslation(sourceFile, targetFolder, targetLang);
+        });
+        this.async();
+    });
     grunt.registerTask('check-node', ['lint']);
     grunt.registerTask('check', ['csslinter', 'check-node', 'browserqunit']);
 
-	grunt.registerTask("generate-default-yml", function () {
-		var done = this.async();
-		require('jsdom').jsdom.env("", [
+    grunt.registerTask("generate-default-yml", function () {
+        var done = this.async();
+        require('jsdom').jsdom.env("", [
             require.resolve("betajs-scoped"),
-        	require.resolve("betajs"),
-        	require.resolve("betajs-browser"),
-        	require.resolve("betajs-dynamics"),
-        	require.resolve("betajs-media"),
+            require.resolve("betajs"),
+            require.resolve("betajs-browser"),
+            require.resolve("betajs-dynamics"),
+            require.resolve("betajs-media"),
             "./dist/betajs-media-components-noscoped.js"
         ], function (err, window) {
-			var strings = window.BetaJS.MediaComponents.Assets.strings.all();
-			var lang = {
-				"language:en": strings
-			};
-			var yml = require("js-yaml").dump(lang);
-			grunt.file.write("./dist/english.yml", yml);
-			done();
+            var strings = window.BetaJS.MediaComponents.Assets.strings.all();
+            var lang = {
+                "language:en": strings
+            };
+            var yml = require("js-yaml").dump(lang);
+            grunt.file.write("./dist/english.yml", yml);
+            done();
         });
-	});
+    });
 
 };

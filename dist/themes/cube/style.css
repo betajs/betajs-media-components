@@ -1360,6 +1360,8 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-cube-theme-dashboard-hidden {
   opacity: 0; }
+  .ba-videoplayer-cube-theme-dashboard-hidden * {
+    cursor: none; }
 
 .ba-videoplayer-ie8 .ba-videoplayer-cube-theme-video-title-block {
   display: none; }

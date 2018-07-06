@@ -111,6 +111,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "popup-stretch": false,
                     "volumeafterinteraction": false,
                     "hideoninactivity": true,
+                    "hidebarafter": 5000,
+                    "preventinteraction": true,
+                    "preventinteractionstatus": false, // need to prevent `Unexpected token: punc (()` Uglification issue
                     "skipinitial": false,
                     "topmessage": "",
                     "totalduration": null,
@@ -163,6 +166,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "stretch": "boolean",
                     "preroll": "boolean",
                     "hideoninactivity": "boolean",
+                    "hidebarafter": "integer",
+                    "preventinteraction": "boolean",
                     "skipinitial": "boolean",
                     "volume": "float",
                     "popup": "boolean",
@@ -249,6 +254,18 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.get("streams") && !this.get("currentstream"))
                         this.set("currentstream", (this.get("streams"))[0]);
 
+                    if (this.get("preventinteraction") && !this.get("hideoninactivity")) {
+                        this.set("hideoninactivity", true);
+                        this.set("initialoptions", {
+                            hideoninactivity: true
+                        });
+                    } else {
+                        // Set initial options for further help actions
+                        this.set("initialoptions", {
+                            hideoninactivity: this.get("hideoninactivity")
+                        });
+                    }
+
                     this.set("ie8", Info.isInternetExplorer() && Info.internetExplorerVersion() < 9);
                     this.set("firefox", Info.isFirefox());
                     this.set("duration", this.get("totalduration") || 0.0);
@@ -265,6 +282,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     this.set("last_activity", Time.now());
                     this.set("activity_delta", 0);
+                    this.set("passed_after_play", 0);
 
                     this.set("playing", false);
 
@@ -722,6 +740,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 _keyDownActivity: function(element, ev) {
+                    if (this.get("preventinteractionstatus")) return;
                     var _keyCode = ev.which || ev.keyCode;
                     // Prevent whitespace browser center scroll and arrow buttons behaviours
                     if (_keyCode === 32 || _keyCode === 37 || _keyCode === 38 || _keyCode === 39 || _keyCode === 40) ev.preventDefault();
@@ -789,8 +808,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }
                 },
 
+                // Couldn't use for uglification issue `Unexpected token: punc (()`
+                // _preventInteraction() {
+                //      if(this.get('preventinteraction') && (this.get('hidebarafter') < (Time.now() - this.get("last_activity"))) && this.get('playing'));
+                // },
+
                 _resetActivity: function() {
-                    this.set("last_activity", Time.now());
+                    if (!this.get('preventinteractionstatus')) {
+                        this.set("last_activity", Time.now());
+                    }
                     this.set("activity_delta", 0);
                 },
 
@@ -799,11 +825,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 functions: {
 
                     user_activity: function(strong) {
-                        this.set("last_activity", Time.now());
-                        this.set("activity_delta", 0);
                         if (strong && this.get("volumeafterinteraction")) {
                             this.set_volume(1.0);
                         }
+                        if (this.get('preventinteractionstatus')) return;
+                        this._resetActivity();
                     },
 
                     message_click: function() {
@@ -849,6 +875,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     pause: function() {
+                        if (this.get("preventinteractionstatus")) return;
                         if (this._delegatedPlayer) {
                             this._delegatedPlayer.execute("pause");
                             return;
@@ -869,6 +896,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     stop: function() {
+                        if (this.get("preventinteractionstatus")) return;
                         if (this._delegatedPlayer) {
                             this._delegatedPlayer.execute("stop");
                             return;
@@ -882,6 +910,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     seek: function(position) {
+                        if (this.get("preventinteractionstatus")) return;
                         if (this._delegatedPlayer) {
                             this._delegatedPlayer.execute("seek", position);
                             return;
@@ -898,6 +927,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     set_volume: function(volume) {
+                        if (this.get("preventinteractionstatus")) return;
                         if (this._delegatedPlayer) {
                             this._delegatedPlayer.execute("set_volume", volume);
                             return;
@@ -917,6 +947,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     toggle_fullscreen: function() {
+                        if (this.get("preventinteractionstatus")) return;
                         if (this._delegatedPlayer) {
                             this._delegatedPlayer.execute("toggle_fullscreen");
                             return;
@@ -929,6 +960,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     toggle_player: function() {
+                        if (this.get('playing'))
+                            if (this.get("preventinteractionstatus")) return;
                         if (this._delegatedPlayer) {
                             this._delegatedPlayer.execute("toggle_player");
                             return;
@@ -948,6 +981,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     tab_index_move: function(ev, nextSelector, focusingSelector) {
+                        if (this.get("preventinteractionstatus")) return;
                         var _targetElement, _activeElement, _selector, _keyCode;
                         _keyCode = ev.which || ev.keyCode;
                         _activeElement = this.activeElement();
@@ -1019,7 +1053,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     preventScroll: true
                                 });
                         }
+                    },
+
+                    toggle_interaction_option: function(turn_switch) {
+                        if (typeof turn_switch === 'boolean') {
+                            this.set("preventinteractionstatus", turn_switch);
+                        } else {
+                            this.set("preventinteractionstatus", !this.get("preventinteractionstatus"));
+                        }
                     }
+
                 },
 
                 destroy: function() {
@@ -1034,11 +1077,28 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         return;
                     try {
                         if (this.videoLoaded()) {
-                            this.set("activity_delta", Time.now() - this.get("last_activity"));
+                            var _now = Time.now();
+                            this.set("activity_delta", _now - this.get("last_activity"));
                             var new_position = this.player.position();
                             if (new_position != this.get("position") || this.get("last_position_change"))
-                                this.set("last_position_change", Time.now());
-                            this.set("last_position_change_delta", Time.now() - this.get("last_position_change"));
+                                this.set("last_position_change", _now);
+                            // In case if prevent interaction with controller set to true
+                            if (this.get('preventinteraction')) {
+                                // set timer since player started to play
+                                if (this.get("passed_after_play") < 0.001) {
+                                    this.set("passed_after_play", _now);
+                                } else {
+                                    var _passed = _now - this.get("passed_after_play");
+                                    if (_passed > _now - 1000) {
+                                        this.set("passed_after_play", _passed);
+                                    }
+                                    if ((this.get('hidebarafter') < _passed) && this.get('playing') && !this.get("preventinteractionstatus")) {
+                                        this.set('preventinteractionstatus', true);
+                                    }
+                                }
+
+                            }
+                            this.set("last_position_change_delta", _now - this.get("last_position_change"));
                             this.set("position", new_position);
                             this.set("buffered", this.player.buffered());
                             var pld = this.player.duration();

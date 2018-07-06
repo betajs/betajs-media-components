@@ -1457,6 +1457,8 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-dashboard-hidden {
   opacity: 0; }
+  .ba-videoplayer-dashboard-hidden * {
+    cursor: none; }
 
 .ba-videoplayer-progressbar {
   cursor: pointer;

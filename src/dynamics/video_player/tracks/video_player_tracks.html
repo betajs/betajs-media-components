@@ -1,14 +1,80 @@
-<div data-selector="tracks-tags-overlay" class="{{css}}-tracks-tags-overlay">
+<div data-selector="text-tracks-overlay" class="{{css}}-text-tracks-overlay">
+
     <div data-selector="cue-content" ba-show="{{tracktagsstyled && trackcuetext}}" class="{{css}}-cue-content">
         {{trackcuetext}}
     </div>
-    <ul data-selector="tracks-selector-list" class="{{css}}-tracks-selector-list {{css}}-tracks-selector-list-{{tracksshowselection || trackselectorhovered ? 'open' : 'closed'}}"
-        ba-repeat="{{track :: tracktags}}"
-        onmouseover="{{hover_cc(true)}}"
-        onmouseleave="{{hover_cc(false)}}"
-    >
-        <li class="{{css}}-tracks-selector" ba-click="{{select_track(track)}}">
-            {{track.label}}
-        </li>
-    </ul>
+    <div class="{{csscommon}}-options-popup {{csscommon}}-options-list-{{tracksshowselection || trackselectorhovered ? 'visible' : 'hidden'}}">
+        <div ba-show="{{tracksshowselection || trackselectorhovered}}" tabindex="-1"
+             onmouseenter="{{hover_cc(domEvent, true)}}" onmouseover="{{hover_cc(domEvent, true)}}" onmouseleave="{{hover_cc(domEvent, false)}}"
+        >
+            <div data-selector="tracks-selector-list"
+                 class="{{csscommon}}-initial-options-list {{csscommon}}-tracks-selector-list {{csscommon}}-options-list-visible {{csscommon}}-options-list"
+                 ba-if="{{tracktags}}"
+            >
+                <div ba-repeat-element="{{track :: tracktags}}"
+                     class="{{csscommon}}-tracks-selector {{csscommon}}-options-list-item"
+                     ba-click="{{select_track(track)}}"
+                >
+                    <div class="{{csscommon}}-inner-text">
+                        {{track.label}}
+                    </div>
+                </div>
+                <div data-selector="text-tracks-open-form-button"
+                     class="{{csscommon}}-options-list-item {{csscommon}}-open-next"
+                     ba-if="{{allowtexttrackupload}}" title="{{string('upload-text-tracks')}}"
+                     onclick="{{move_to_option(domEvent, 'text-tracks-uploader-form')}}"
+                >
+                    <div class="{{csscommon}}-inner-text">{{string('upload-text-tracks')}}</div>
+                    <div class="{{csscommon}}-inner-icon"></div>
+                </div>
+            </div>
+
+            <div data-selector="text-tracks-uploader-form"
+                 class="{{csscommon}}-options-list-hidden {{csscommon}}-options-list {{csscommon}}-text-tracks-uploader-form"
+                 ba-if="{{allowtexttrackupload}}"
+            >
+                <div class="{{csscommon}}-full-width {{csscommon}}-options-list-item">
+                    <div data-selector="close-text-tracks-upload-form"
+                         title="{{string('back')}}"
+                         class="{{csscommon}}-open-previous {{csscommon}}-text-left"
+                         onclick="{{move_to_option(domEvent)}}"
+                    >
+                        <div class="{{csscommon}}-inner-icon"></div>
+                        <div class="{{csscommon}}-inner-text">{{string('back')}}</div>
+                    </div>
+                </div>
+
+                <div class="{{csscommon}}-full-width {{csscommon}}-options-list-item">
+                    <form class="{{csscommon}}-form {{csscommon}}-text-tracks-upload-form">
+                        <div class="{{csscommon}}-form-input {{csscommon}}-select-field {{csscommon}}-direction-pointer">
+                            <select data-selector="select-text-tracks-label" tabindex="-1"
+                                    class="{{csscommon}}-form-input {{csscommon}}-text-tracks-label-input"
+                                    name="{{csscommon}}-text-tracks-label-select"
+                                    onmousedown="{{prevent_un_hover(domEvent)}}"
+                                    onmousemove="{{prevent_un_hover(domEvent)}}"
+                                    onchange="{{selected_label_value(domEvent)}}"
+                            >
+                                <option disabled value selected>
+                                    {{string('select-text-track-language')}}
+                                </option>
+                                <option ba-repeat-element="{{locale :: uploadlocales}}" value="{{locale.lang}}">
+                                    {{locale.label}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="{{csscommon}}-form-input {{csscommon}}-button" ba-show="{{chosenoption}}">
+                            <input type="file" data-selector="select-text-tracks-file"
+                                   title="{{chosenoption ? string('select-text-track-file') : string('info-select-locale-first')}}"
+                                   onchange="{{upload_text_track(domEvent)}}"
+                                   class="{{csscommon}}-text-tracks-file"
+                                   accept="{{acceptedtracktexts}}"
+                            />
+                            {{chosenoption ? string('select-text-track-file') : string('info-select-locale-first')}}
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

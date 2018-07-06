@@ -72,6 +72,11 @@
     refresh the page after completion.
   ba-videoplayer-controlbar.close-tracks: Close CC
   ba-videoplayer-controlbar.show-tracks: Show CC
+  ba-videoplayer-tracks.upload-text-tracks: Upload track text files
+  ba-videoplayer-tracks.select-text-track-language: Subtitle Language
+  ba-videoplayer-tracks.info-select-locale-first: First select locale
+  ba-videoplayer-tracks.select-text-track-file: Click to select file
+  ba-videoplayer-tracks.back: back
   ba-videorecorder.framerate-warning: >-
     The video frame rate is very low. We recommend closing all other programs
     and browser tabs or to use a faster computer.

@@ -45,6 +45,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 attrs: {
                     /* CSS */
                     "css": "ba-videorecorder",
+                    "csscommon": "ba-commoncss",
                     "iecss": "ba-videorecorder",
                     "cssimagegallery": "",
                     "cssloader": "",
@@ -144,7 +145,14 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "ready": true,
                     "orientation": false,
                     "stretch": false,
-                    "audio-test-mandatory": false
+                    "audio-test-mandatory": false,
+
+                    "allowtexttrackupload": false,
+                    "uploadlocales": [{
+                        lang: 'en',
+                        label: 'English'
+                    }]
+
 
                 },
 
@@ -218,7 +226,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "onlyaudio": "boolean",
                     "allowcancel": "boolean",
                     "display-timer": "boolean",
-                    "audio-test-mandatory": "boolean"
+                    "audio-test-mandatory": "boolean",
+                    "allowtexttrackupload": "boolean",
+                    "uploadlocales": "array"
                 },
 
                 extendables: ["states"],

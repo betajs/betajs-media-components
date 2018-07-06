@@ -18,7 +18,7 @@
     //opacity: 0.9;
     height: $controlbar_height;
     overflow: hidden;
-    padding: 0 4%;
+    padding: 0 $controlbar_side_padding;
 }
 
 .#{$css}-dashboard-hidden {
@@ -56,7 +56,7 @@
   .#{$css}-right-block {
     line-height: $topmessage_height - 10px;
     position: absolute;
-    right: 4%;
+    right: $controlbar_side_padding;
     z-index: 100;
   }
 }

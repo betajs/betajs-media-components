@@ -1,127 +1,137 @@
 <div itemscope itemtype="http://schema.org/VideoObject"
-    class="{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}} {{css}}-{{ fullscreened ? 'fullscreen' : 'normal' }}-view {{css}}-{{ firefox ? 'firefox' : 'common'}}-browser
+     class="{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}} {{css}}-{{ fullscreened ? 'fullscreen' : 'normal' }}-view {{css}}-{{ firefox ? 'firefox' : 'common'}}-browser
     {{css}}-{{themecolor}}-color"
-    ba-on:mousemove="{{user_activity()}}"
-    ba-on:mousedown="{{user_activity(true)}}"
-    ba-on:touchstart="{{user_activity(true)}}"
-	ba-styles="{{widthHeightStyles}}"
+     ba-on:mousemove="{{user_activity()}}"
+     ba-on:mousedown="{{user_activity(true)}}"
+     ba-on:touchstart="{{user_activity(true)}}"
+     ba-styles="{{widthHeightStyles}}"
 >
     <video tabindex="-1" class="{{css}}-video" data-video="video"
-		   ba-toggle:playsinline="{{!playfullscreenonmobile}}"></video>
+           ba-toggle:playsinline="{{!playfullscreenonmobile}}"
+    ></video>
     <div class="{{css}}-overlay">
-		<div tabindex="-1" class="{{css}}-player-toggle-overlay" data-selector="player-toggle-overlay"
-			 ba-hotkey:right="{{seek(position + skipseconds)}}" ba-hotkey:left="{{seek(position - skipseconds)}}"
-			 ba-hotkey:alt+right="{{seek(position + skipseconds * 3)}}" ba-hotkey:alt+left="{{seek(position - skipseconds * 3)}}"
-			 ba-hotkey:up="{{set_volume(volume + 0.1)}}" ba-hotkey:down="{{set_volume(volume - 0.1)}}"
-			 ba-hotkey:space^enter="{{toggle_player()}}"
-			 ba-on:click="{{toggle_player()}}">
-		</div>
-	    <ba-{{dyncontrolbar}}
-		    ba-css="{{csscontrolbar || css}}"
-			ba-themecolor="{{themecolor}}"
-		    ba-template="{{tmplcontrolbar}}"
-		    ba-show="{{controlbar_active}}"
-		    ba-playing="{{playing}}"
-			ba-playwhenvisible="{{playwhenvisible}}"
+        <div tabindex="-1" class="{{css}}-player-toggle-overlay" data-selector="player-toggle-overlay"
+             ba-hotkey:right="{{seek(position + skipseconds)}}" ba-hotkey:left="{{seek(position - skipseconds)}}"
+             ba-hotkey:alt+right="{{seek(position + skipseconds * 3)}}" ba-hotkey:alt+left="{{seek(position - skipseconds * 3)}}"
+             ba-hotkey:up="{{set_volume(volume + 0.1)}}" ba-hotkey:down="{{set_volume(volume - 0.1)}}"
+             ba-hotkey:space^enter="{{toggle_player()}}"
+             ba-on:click="{{toggle_player()}}"
+        ></div>
+        <ba-{{dyncontrolbar}}
+            ba-css="{{csscontrolbar || css}}"
+            ba-themecolor="{{themecolor}}"
+            ba-template="{{tmplcontrolbar}}"
+            ba-show="{{controlbar_active}}"
+            ba-playing="{{playing}}"
+            ba-playwhenvisible="{{playwhenvisible}}"
             ba-airplay="{{airplay}}"
-			ba-airplaybuttonvisible="{{airplaybuttonvisible}}"
+            ba-airplaybuttonvisible="{{airplaybuttonvisible}}"
             ba-chromecast="{{chromecast}}"
             ba-castbuttonvisble="{{castbuttonvisble}}"
-		    ba-event:rerecord="rerecord"
-		    ba-event:submit="submit"
-		    ba-event:play="play"
-		    ba-event:pause="pause"
-		    ba-event:position="seek"
-		    ba-event:volume="set_volume"
-		    ba-event:fullscreen="toggle_fullscreen"
-			ba-event:toggle_player="toggle_player"
-			ba-event:tab_index_move="tab_index_move"
-			ba-event:seek="seek"
-			ba-event:set_volume="set_volume"
-			ba-tabindex="{{tabindex}}"
-			ba-tracktextvisible="{{tracktextvisible}}"
-			ba-tracktags="{{tracktags}}"
-			ba-tracktagssupport="{{tracktagssupport}}"
-		    ba-volume="{{volume}}"
-		    ba-duration="{{duration}}"
-		    ba-cached="{{buffered}}"
-		    ba-title="{{title}}"
-		    ba-position="{{position}}"
-		    ba-activitydelta="{{activity_delta}}"
-		    ba-hideoninactivity="{{hideoninactivity}}"
-		    ba-rerecordable="{{rerecordable}}"
-		    ba-submittable="{{submittable}}"
-		    ba-streams="{{streams}}"
-		    ba-currentstream="{{=currentstream}}"
-		    ba-fullscreen="{{fullscreensupport && !nofullscreen}}"
+            ba-event:rerecord="rerecord"
+            ba-event:submit="submit"
+            ba-event:play="play"
+            ba-event:pause="pause"
+            ba-event:position="seek"
+            ba-event:volume="set_volume"
+            ba-event:fullscreen="toggle_fullscreen"
+            ba-event:toggle_player="toggle_player"
+            ba-event:tab_index_move="tab_index_move"
+            ba-event:seek="seek"
+            ba-event:set_volume="set_volume"
+            ba-tabindex="{{tabindex}}"
+            ba-tracktextvisible="{{tracktextvisible}}"
+            ba-tracktags="{{tracktags}}"
+            ba-tracktagssupport="{{tracktagssupport}}"
+            ba-allowtexttrackupload="{{allowtexttrackupload}}"
+            ba-tracksshowselection="{{tracksshowselection}}"
+            ba-volume="{{volume}}"
+            ba-duration="{{duration}}"
+            ba-cached="{{buffered}}"
+            ba-title="{{title}}"
+            ba-position="{{position}}"
+            ba-activitydelta="{{activity_delta}}"
+            ba-hideoninactivity="{{hideoninactivity}}"
+            ba-rerecordable="{{rerecordable}}"
+            ba-submittable="{{submittable}}"
+            ba-streams="{{streams}}"
+            ba-currentstream="{{=currentstream}}"
+            ba-fullscreen="{{fullscreensupport && !nofullscreen}}"
             ba-fullscreened="{{fullscreened}}"
             ba-source="{{source}}"
-			ba-disablepause="{{disablepause}}"
-			ba-disableseeking="{{disableseeking}}"
-			ba-skipseconds="{{skipseconds}}"
+            ba-disablepause="{{disablepause}}"
+            ba-disableseeking="{{disableseeking}}"
+            ba-skipseconds="{{skipseconds}}"
             ba-skipinitial="{{skipinitial}}"
-		></ba-{{dyncontrolbar}}>
+        ></ba-{{dyncontrolbar}}>
 
-		<ba-{{dyntracks}}
-			ba-css="{{csstracks || css}}"
-			ba-show="{{tracktagssupport}}"
-			ba-tracksshowselection="{{tracksshowselection}}"
-			ba-trackselectorhovered="{{trackselectorhovered}}"
-			ba-tracktags="{{tracktags}}"
-			ba-tracktagsstyled="{{tracktagsstyled}}"
-			ba-trackcuetext="{{trackcuetext}}"
-		></ba-{{dyntracks}}>
-		
-		<ba-{{dynplaybutton}}
-		    ba-css="{{cssplaybutton || css}}"
-			ba-theme-color="{{themecolor}}"
-		    ba-template="{{tmplplaybutton}}"
-		    ba-show="{{playbutton_active}}"
-		    ba-rerecordable="{{rerecordable}}"
-		    ba-submittable="{{submittable}}"
-		    ba-event:play="playbutton_click"
-		    ba-event:rerecord="rerecord"
-		    ba-event:submit="submit"
-			ba-event:tab_index_move="tab_index_move"
-		></ba-{{dynplaybutton}}>
-		
-		<ba-{{dynloader}}
-		    ba-css="{{cssloader || css}}"
-			ba-theme-color="{{themecolor}}"
-		    ba-template="{{tmplloader}}"
-			ba-playwhenvisible="{{playwhenvisible}}"
-		    ba-show="{{loader_active}}"
-		></ba-{{dynloader}}>
+        <ba-{{dyntracks}}
+            ba-css="{{csstracks || css}}"
+            ba-show="{{tracktagssupport || allowtexttrackupload}}"
+            ba-tracksshowselection="{{tracksshowselection}}"
+            ba-trackselectorhovered="{{trackselectorhovered}}"
+            ba-tracktags="{{tracktags}}"
+            ba-tracktagsstyled="{{tracktagsstyled}}"
+            ba-trackcuetext="{{trackcuetext}}"
+            ba-allowtexttrackupload="{{allowtexttrackupload}}"
+            ba-uploadtexttracksvisible="{{uploadtexttracksvisible}}"
+            ba-acceptedtracktexts="{{acceptedtracktexts}}"
+            ba-uploadlocales="{{uploadlocales}}"
+            ba-event:selected_label_value="selected_label_value"
+            ba-event:upload-text-tracks="upload_text_tracks"
+            ba-event:move_to_option="move_to_option"
+        ></ba-{{dyntracks}}>
 
-		<ba-{{dynshare}}
-			ba-css="{{cssshare || css}}"
-			ba-theme-color="{{themecolor}}"
-			ba-template="{{tmplshare}}"
-        	ba-show="{{sharevideourl && sharevideo.length > 0}}"
-			ba-url="{{sharevideourl}}"
-			ba-shares="{{sharevideo}}"
-		></ba-{{dynshare}}>
-		
-		<ba-{{dynmessage}}
-		    ba-css="{{cssmessage || css}}"
-			ba-theme-color="{{themecolor}}"
-		    ba-template="{{tmplmessage}}"
-		    ba-show="{{message_active}}"
-		    ba-message="{{message}}"
-		    ba-event:click="message_click"
-		></ba-{{dynmessage}}>
+        <ba-{{dynplaybutton}}
+            ba-css="{{cssplaybutton || css}}"
+            ba-theme-color="{{themecolor}}"
+            ba-template="{{tmplplaybutton}}"
+            ba-show="{{playbutton_active}}"
+            ba-rerecordable="{{rerecordable}}"
+            ba-submittable="{{submittable}}"
+            ba-event:play="playbutton_click"
+            ba-event:rerecord="rerecord"
+            ba-event:submit="submit"
+            ba-event:tab_index_move="tab_index_move"
+        ></ba-{{dynplaybutton}}>
 
-		<ba-{{dyntopmessage}}
-		    ba-css="{{csstopmessage || css}}"
-			ba-theme-color="{{themecolor}}"
-		    ba-template="{{tmpltopmessage}}"
-		    ba-show="{{topmessage}}"
-		    ba-topmessage="{{topmessage}}"
-		></ba-{{dyntopmessage}}>
-		
-		<meta itemprop="caption" content="{{title}}" />
-		<meta itemprop="thumbnailUrl" content="{{poster}}"/>
-		<meta itemprop="contentUrl" content="{{source}}"/>
+        <ba-{{dynloader}}
+            ba-css="{{cssloader || css}}"
+            ba-theme-color="{{themecolor}}"
+            ba-template="{{tmplloader}}"
+            ba-playwhenvisible="{{playwhenvisible}}"
+            ba-show="{{loader_active}}"
+        ></ba-{{dynloader}}>
+
+        <ba-{{dynshare}}
+            ba-css="{{cssshare || css}}"
+            ba-theme-color="{{themecolor}}"
+            ba-template="{{tmplshare}}"
+            ba-show="{{sharevideourl && sharevideo.length > 0}}"
+            ba-url="{{sharevideourl}}"
+            ba-shares="{{sharevideo}}"
+        ></ba-{{dynshare}}>
+
+        <ba-{{dynmessage}}
+            ba-css="{{cssmessage || css}}"
+            ba-theme-color="{{themecolor}}"
+            ba-template="{{tmplmessage}}"
+            ba-show="{{message_active}}"
+            ba-message="{{message}}"
+            ba-event:click="message_click"
+        ></ba-{{dynmessage}}>
+
+        <ba-{{dyntopmessage}}
+            ba-css="{{csstopmessage || css}}"
+            ba-theme-color="{{themecolor}}"
+            ba-template="{{tmpltopmessage}}"
+            ba-show="{{topmessage}}"
+            ba-topmessage="{{topmessage}}"
+        ></ba-{{dyntopmessage}}>
+
+        <meta itemprop="caption" content="{{title}}" />
+        <meta itemprop="thumbnailUrl" content="{{poster}}"/>
+        <meta itemprop="contentUrl" content="{{source}}"/>
     </div>
-	<div class="{{css}}-overlay" data-video="ad" style="display:none"></div>
+    <div class="{{css}}-overlay" data-video="ad" style="display:none"></div>
 </div>

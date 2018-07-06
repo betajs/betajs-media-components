@@ -41,6 +41,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 attrs: {
                     /* CSS */
                     "css": "ba-videoplayer",
+                    "csscommon": "ba-commoncss",
                     "iecss": "ba-videoplayer",
                     "cssplaybutton": "",
                     "cssloader": "",
@@ -124,7 +125,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "chromecast": false,
                     "castbuttonvisble": false,
                     "skipseconds": 5,
-                    "tracktags": null,
+                    "tracktags": [],
                     "tracktagssupport": false,
                     "tracktagsstyled": true,
                     "tracktaglang": 'en',
@@ -132,6 +133,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "initialoptions": {
                         "hideoninactivity": null
                     },
+                    "allowtexttrackupload": false,
+                    "uploadtexttracksvisible": false,
+                    "acceptedtracktexts": null,
+                    "uploadlocales": [{
+                        lang: 'en',
+                        label: 'English'
+                    }],
+                    "ttuploadervisible": false,
 
                     /* States */
                     "states": {
@@ -179,7 +188,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "castbuttonvisble": "boolean",
                     "skipseconds": "integer",
                     "tracktags": "array",
-                    "tracktagsstyled": "boolean"
+                    "tracktagsstyled": "boolean",
+                    "allowtexttrackupload": "boolean",
+                    "uploadtexttracksvisible": "boolean",
+                    "acceptedtracktexts": "string",
+                    "uploadlocales": "array"
                 },
 
                 extendables: ["states"],
@@ -264,7 +277,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("initialoptions", {
                         hideoninactivity: this.get("hideoninactivity")
                     });
-                    this.activeElement().onkeydown = this._keyDownActivity.bind(this, this.activeElement());
+                    if (this.activeElement().onkeydown)
+                        this.activeElement().onkeydown = this._keyDownActivity.bind(this, this.activeElement());
 
                     this.on("change:tracktags", this.__initializeTrackTags);
 
@@ -969,6 +983,41 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     });
                                 }, this, 100);
 
+                        }
+                    },
+
+                    upload_text_tracks: function(file, locale) {
+                        return this.host.state().uploadTextTrack(file, locale);
+                    },
+
+                    move_to_option: function(currentElement, nextSelector) {
+                        var _classPrefix, _hiddenOptionsSelector, _visibleOptionsSelector, _moveToSelector,
+                            _targetElement, _currentElementParent, _topParent;
+                        nextSelector = nextSelector || 'initial-options-list'; // If next element is empty return to main options
+                        _classPrefix = this.get('csscommon') + "-";
+                        _moveToSelector = "." + _classPrefix + nextSelector;
+                        _hiddenOptionsSelector = _classPrefix + 'options-list-hidden';
+                        _visibleOptionsSelector = _classPrefix + 'options-list-visible';
+                        _targetElement = this.activeElement().querySelector(_moveToSelector);
+                        _topParent = this.activeElement().querySelector(_classPrefix + 'text-tracks-overlay');
+
+                        // Look if target element is hidden
+                        if (Dom.elementHasClass(_targetElement, _hiddenOptionsSelector)) {
+                            // Search for visible closest parent element
+                            _currentElementParent = Dom.elementFindClosestParent(currentElement, _visibleOptionsSelector, _classPrefix + 'text-tracks-overlay');
+                            // We should have parent element with visible class
+                            if (Dom.elementHasClass(_currentElementParent, _visibleOptionsSelector)) {
+                                Dom.elementReplaceClasses(_targetElement, _hiddenOptionsSelector, _visibleOptionsSelector);
+                                Dom.elementReplaceClasses(_currentElementParent, _visibleOptionsSelector, _hiddenOptionsSelector);
+                            }
+                            if (_topParent)
+                                _topParent.focus({
+                                    preventScroll: true
+                                });
+                            else
+                                _currentElementParent.focus({
+                                    preventScroll: true
+                                });
                         }
                     }
                 },

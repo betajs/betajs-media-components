@@ -137,10 +137,13 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Player", [
 
         _started: function() {
             this.dyn.set("player_active", true);
+            if (this.dyn.get("allowtexttrackupload"))
+                this.dyn.set("uploadtexttracksvisible", true);
         },
 
         _end: function() {
             this.dyn.set("player_active", false);
+            this.dyn.set("uploadtexttracksvisible", false);
         }
 
     });

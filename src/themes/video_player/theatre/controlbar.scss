@@ -19,7 +19,7 @@
     bottom: $controlbar_distance_from_side;
     border: 1px solid $dashboard_border_color;
     height: $controlbar_height;
-    left: 12.5%;
+    left: $controlbar_side_padding;
     opacity: 0.75;
     //overflow: hidden;
     position: absolute;

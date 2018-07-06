@@ -124,6 +124,26 @@
     content: '\f0d5';
 }
 
+.#{$css}-icon-angle-left:before {
+    @include fontello-icon;
+    content: '\f104';
+}
+
+.#{$css}-icon-angle-right:before {
+    @include fontello-icon;
+    content: '\f105';
+}
+
+.#{$css}-icon-angle-up:before {
+    @include fontello-icon;
+    content: '\f106';
+}
+
+.#{$css}-icon-angle-down:before {
+    @include fontello-icon;
+    content: '\f107';
+}
+
 .#{$css}-icon-crop:before {
     @include fontello-icon;
     content: '\f125';

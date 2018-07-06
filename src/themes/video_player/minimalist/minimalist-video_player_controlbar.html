@@ -155,7 +155,8 @@
 
             <div tabindex="8" data-selector="cc-button-container"
                  ba-hotkey:space^enter="{{toggle_tracks()}}" onmouseout="this.blur()"
-                 ba-if="{{tracktags.length > 0 && tracktagssupport}}" ba-click="{{toggle_tracks()}}"
+                 ba-if="{{(tracktags.length > 0 && tracktagssupport) || allowtexttrackupload}}"
+                 ba-click="{{toggle_tracks()}}"
                  class="{{css}}-cc-button-container {{css}}-cc-{{tracktextvisible ? 'active' : 'inactive'}}"
                  title="{{ tracktextvisible ? string('close-tracks') : string('show-tracks')}}"
                  onmouseover="{{hover_cc(true)}}" onmouseleave="{{hover_cc(false)}}"

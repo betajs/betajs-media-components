@@ -42,6 +42,7 @@ module.exports = function(grunt) {
         'src/themes/common/fontello_icon.scss',
         'src/themes/common/fontello_icons_generated.scss',
         'src/themes/common/fontello_icons_color.scss',
+        'src/themes/common/style.scss',
         'src/themes/video_player/default/*.scss',
 
         'src/themes/video_recorder/default/theme.scss',

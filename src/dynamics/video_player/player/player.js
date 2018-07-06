@@ -112,7 +112,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "volumeafterinteraction": false,
                     "hideoninactivity": true,
                     "hidebarafter": 5000,
-                    "preventinteraction": true,
+                    "preventinteraction": false,
                     "preventinteractionstatus": false, // need to prevent `Unexpected token: punc (()` Uglification issue
                     "skipinitial": false,
                     "topmessage": "",

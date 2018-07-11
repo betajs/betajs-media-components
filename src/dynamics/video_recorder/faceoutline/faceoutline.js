@@ -6,10 +6,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Faceoutline", [
         }, function(inherited) {
             return {
 
-                template: "<%= template(dirname + '/faceoutline.html') %>"
+                template: "<%= template(dirname + '/video_recorder_faceoutline.html') %>"
 
             };
         })
-        .registerFunctions({ /*<%= template_function_cache(dirname + '/faceoutline.html') %>*/ })
-        .register("ba-recorderfaceoutline");
+        .registerFunctions({ /*<%= template_function_cache(dirname + '/video_recorder_faceoutline.html') %>*/ })
+        .register("ba-videorecorder-faceoutline");
 });

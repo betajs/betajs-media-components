@@ -1,0 +1,97 @@
+
+<div data-selector="capture-container" ba-show="{{!player_active}}"
+     class="{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}
+     	{{css}}-{{ fullscreened ? 'fullscreen' : 'normal' }}-view {{css}}-{{ firefox ? 'firefox' : 'common'}}-browser
+    	{{css}}-{{themecolor}}-color"
+     ba-styles="{{widthHeightStyles}}"
+>
+
+    <img tabindex="-1" data-selector="recorder-status" class="{{css}}-video {{css}}-{{hasrecorder ? 'hasrecorder' : 'norecorder'}}" data-image="image" />
+	<ba-imagecapture-faceoutline class="{{css}}-overlay" ba-if="{{faceoutline && hasrecorder}}">
+	</ba-imagecapture-faceoutline>
+    <div data-selector="recorder-overlay" class='{{css}}-overlay' ba-show="{{!hideoverlay}}" data-overlay="overlay">
+		<ba-{{dynloader}}
+		    ba-css="{{cssloader || css}}"
+			ba-themecolor="{{themecolor}}"
+		    ba-template="{{tmplloader}}"
+		    ba-show="{{loader_active}}"
+		    ba-tooltip="{{loadertooltip}}"
+			ba-hovermessage="{{=hovermessage}}"
+		    ba-label="{{loaderlabel}}"
+		></ba-{{dynloader}}>
+
+		<ba-{{dynmessage}}
+		    ba-css="{{cssmessage || css}}"
+			ba-themecolor="{{themecolor}}"
+		    ba-template="{{tmplmessage}}"
+		    ba-show="{{message_active}}"
+		    ba-message="{{message}}"
+			ba-links="{{message_links}}"
+		    ba-event:click="message_click"
+			ba-event:link="message_link_click"
+		></ba-{{dynmessage}}>
+
+		<ba-{{dyntopmessage}}
+		    ba-css="{{csstopmessage || css}}"
+			ba-themecolor="{{themecolor}}"
+		    ba-template="{{tmpltopmessage}}"
+		    ba-show="{{topmessage_active && (topmessage || hovermessage)}}"
+		    ba-topmessage="{{hovermessage || topmessage}}"
+		></ba-{{dyntopmessage}}>
+
+		<ba-{{dynchooser}}
+			ba-recordviafilecapture="{{recordviafilecapture}}"
+		    ba-css="{{csschooser || css}}"
+			ba-themecolor="{{themecolor}}"
+		    ba-template="{{tmplchooser}}"
+		    ba-if="{{chooser_active && !is_initial_state}}"
+		    ba-allowrecord="{{allowrecord}}"
+		    ba-allowupload="{{allowupload}}"
+		    ba-allowcustomupload="{{allowcustomupload}}"
+		    ba-allowedextensions="{{allowedextensions}}"
+		    ba-primaryrecord="{{primaryrecord}}"
+		    ba-event:record="capture_image"
+		    ba-event:upload="upload_image"
+		></ba-{{dynchooser}}>
+
+		<ba-{{dyncontrolbar}}
+		    ba-css="{{csscontrolbar || css}}"
+			ba-themecolor="{{themecolor}}"
+		    ba-template="{{tmplcontrolbar}}"
+		    ba-show="{{controlbar_active}}"
+		    ba-cameras="{{cameras}}"
+		    ba-selectedcamera="{{selectedcamera || 0}}"
+		    ba-camerahealthy="{{camerahealthy}}"
+		    ba-hovermessage="{{=hovermessage}}"
+		    ba-settingsvisible="{{settingsvisible}}"
+		    ba-recordvisible="{{recordvisible}}"
+			ba-cancelvisible="{{allowcancel && cancancel}}"
+		    ba-rerecordvisible="{{rerecordvisible}}"
+		    ba-controlbarlabel="{{controlbarlabel}}"
+		    ba-event:select-camera="select_camera"
+		    ba-event:invoke-record="record"
+		    ba-event:invoke-rerecord="rerecord"
+		></ba-{{dyncontrolbar}}>
+    </div>
+</div>
+
+<div data-selector="recorder-player" ba-if="{{player_active}}" ba-styles="{{widthHeightStyles}}">
+	<span ba-show="{{ie8}}">&nbsp;</span>
+	<ba-{{dynimageviewer}}
+	    ba-theme="{{theme || 'default'}}"
+        ba-themecolor="{{themecolor}}"
+        ba-source="{{playbacksource}}"
+        ba-hideoninactivity="{{false}}"
+        ba-stretch="{{stretch}}"
+        ba-attrs="{{playerattrs}}"
+        ba-data:id="player"
+        ba-width="{{width}}"
+        ba-height="{{height}}"
+        ba-rerecordable="{{rerecordable && (recordings === null || recordings > 0)}}"
+        ba-submittable="{{manualsubmit && verified}}"
+        ba-nofullscreen="{{nofullscreen}}"
+        ba-event:rerecord="rerecord"
+        ba-event:submit="manual_submit"
+	>
+	</ba-{{dynimageviewer}}>
+</div>

@@ -1,0 +1,100 @@
+
+<div data-selector="recorder-container" ba-show="{{!player_active}}"
+     class="{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}
+     	{{css}}-{{ firefox ? 'firefox' : 'common'}}-browser
+    	{{css}}-{{themecolor}}-color"
+     ba-styles="{{widthHeightStyles}}"
+>
+
+    <audio tabindex="-1" data-selector="recorder-status" class="{{css}}-audio {{css}}-{{hasrecorder ? 'hasrecorder' : 'norecorder'}}" data-audio="audio" playsinline></audio>
+    <div data-selector="recorder-overlay" class='{{css}}-overlay' ba-show="{{!hideoverlay}}" data-overlay="overlay">
+		<ba-{{dynloader}}
+		    ba-css="{{cssloader || css}}"
+			ba-themecolor="{{themecolor}}"
+		    ba-template="{{tmplloader}}"
+		    ba-show="{{loader_active}}"
+		    ba-tooltip="{{loadertooltip}}"
+			ba-hovermessage="{{=hovermessage}}"
+		    ba-label="{{loaderlabel}}"
+		></ba-{{dynloader}}>
+
+		<ba-{{dynmessage}}
+		    ba-css="{{cssmessage || css}}"
+			ba-themecolor="{{themecolor}}"
+		    ba-template="{{tmplmessage}}"
+		    ba-show="{{message_active}}"
+		    ba-message="{{message}}"
+			ba-links="{{message_links}}"
+		    ba-event:click="message_click"
+			ba-event:link="message_link_click"
+		></ba-{{dynmessage}}>
+
+		<ba-{{dynchooser}}
+			ba-recordviafilecapture="{{recordviafilecapture}}"
+		    ba-css="{{csschooser || css}}"
+			ba-themecolor="{{themecolor}}"
+		    ba-template="{{tmplchooser}}"
+		    ba-if="{{chooser_active && !is_initial_state}}"
+		    ba-allowrecord="{{allowrecord}}"
+		    ba-allowupload="{{allowupload}}"
+		    ba-allowcustomupload="{{allowcustomupload}}"
+		    ba-allowedextensions="{{allowedextensions}}"
+		    ba-primaryrecord="{{primaryrecord}}"
+		    ba-timelimit="{{timelimit}}"
+		    ba-event:record="record_audio"
+		    ba-event:upload="upload_audio"
+		></ba-{{dynchooser}}>
+
+		<ba-{{dyncontrolbar}}
+		    ba-css="{{csscontrolbar || css}}"
+			ba-themecolor="{{themecolor}}"
+		    ba-template="{{tmplcontrolbar}}"
+		    ba-show="{{controlbar_active}}"
+		    ba-microphones="{{microphones}}"
+		    ba-selectedmicrophone="{{selectedmicrophone || 0}}"
+		    ba-microphonehealthy="{{microphonehealthy}}"
+		    ba-hovermessage="{{=hovermessage}}"
+		    ba-settingsvisible="{{settingsvisible}}"
+		    ba-recordvisible="{{recordvisible}}"
+			ba-cancelvisible="{{allowcancel && cancancel}}"
+		    ba-rerecordvisible="{{rerecordvisible}}"
+		    ba-stopvisible="{{stopvisible}}"
+		    ba-controlbarlabel="{{controlbarlabel}}"
+			ba-mintimeindicator="{{mintimeindicator}}"
+			ba-timeminlimit="{{timeminlimit}}"
+		    ba-event:select-microphone="select_microphone"
+		    ba-event:invoke-record="record"
+		    ba-event:invoke-rerecord="rerecord"
+		    ba-event:invoke-stop="stop"
+		></ba-{{dyncontrolbar}}>
+    </div>
+</div>
+
+<div data-selector="recorder-player" ba-if="{{player_active}}" ba-styles="{{widthHeightStyles}}">
+	<span ba-show="{{ie8}}">&nbsp;</span>
+	<ba-{{dynaudioplayer}}
+	    ba-theme="{{theme || 'default'}}"
+        ba-themecolor="{{themecolor}}"
+        ba-source="{{playbacksource}}"
+        ba-hideoninactivity="{{false}}"
+        ba-forceflash="{{forceflash}}"
+        ba-noflash="{{noflash}}"
+        ba-stretch="{{stretch}}"
+        ba-attrs="{{playerattrs}}"
+        ba-data:id="player"
+        ba-width="{{width}}"
+        ba-height="{{height}}"
+        ba-totalduration="{{duration / 1000}}"
+        ba-rerecordable="{{rerecordable && (recordings === null || recordings > 0)}}"
+        ba-submittable="{{manualsubmit && verified}}"
+        ba-reloadonplay="{{true}}"
+        ba-autoplay="{{autoplay}}"
+		ba-event:loaded="ready_to_play"
+        ba-event:rerecord="rerecord"
+        ba-event:playing="playing"
+        ba-event:paused="paused"
+        ba-event:ended="ended"
+        ba-event:submit="manual_submit"
+	>
+	</ba-{{dynaudioplayer}}>
+</div>

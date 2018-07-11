@@ -93,16 +93,14 @@
   ba-imageviewer-controlbar.fullscreen-image: Enter fullscreen
   ba-imageviewer-controlbar.exit-fullscreen-image: Exit fullscreen
   ba-imageviewer.image-error: 'An error occurred, please try again later. Click to retry.'
-  ba-audioplayer-controlbar.audio-progress: Progress
-  ba-audioplayer-controlbar.rerecord-audio: Redo?
-  ba-audioplayer-controlbar.submit-audio: Confirm
-  ba-audioplayer-controlbar.play-audio: Play
-  ba-audioplayer-controlbar.pause-audio: Pause
-  ba-audioplayer-controlbar.pause-audio-disabled: Pause not supported
-  ba-audioplayer-controlbar.elapsed-time: Elasped time
-  ba-audioplayer-controlbar.total-time: Total length of
-  ba-audioplayer-controlbar.volume-button: Set volume
-  ba-audioplayer-controlbar.volume-mute: Mute sound
-  ba-audioplayer-controlbar.volume-unmute: Unmute sound
-  ba-audioplayer-loader.tooltip: Loading...
-  ba-audioplayer.audio-error: 'An error occurred, please try again later. Click to retry.'
+  ba-imagecapture-chooser.image-capture: Capture Image
+  ba-imagecapture-chooser.upload-image: Upload Image
+  ba-imagecapture-controlbar.settings: Settings
+  ba-imagecapture-controlbar.camerahealthy: Lighting is good
+  ba-imagecapture-controlbar.cameraunhealthy: Lighting is not optimal
+  ba-imagecapture-controlbar.record: Capture
+  ba-imagecapture-controlbar.record-tooltip: Click here to capture.
+  ba-imagecapture-controlbar.rerecord: Redo
+  ba-imagecapture-controlbar.rerecord-tooltip: Click here to redo.
+  ba-imagecapture-controlbar.cancel: Cancel
+  ba-imagecapture-controlbar.cancel-tooltip: Click here to cancel.

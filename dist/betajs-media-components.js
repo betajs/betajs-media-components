@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.109 - 2018-07-10
+betajs-media-components - v0.0.109 - 2018-07-13
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1006,7 +1006,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.109 - 2018-07-10
+betajs-media-components - v0.0.109 - 2018-07-13
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -9815,7 +9815,7 @@ Scoped.define("module:ImageCapture.Dynamics.Faceoutline", [
         .registerFunctions({ /**//**/ })
         .register("ba-imagecapture-faceoutline");
 });
-Scoped.define("module:VideoRecorder.Dynamics.Loader", [
+Scoped.define("module:ImageCapture.Dynamics.Loader", [
     "dynamics:Dynamic",
     "module:Assets"
 ], [

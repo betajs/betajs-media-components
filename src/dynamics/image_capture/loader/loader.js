@@ -1,4 +1,4 @@
-Scoped.define("module:VideoRecorder.Dynamics.Loader", [
+Scoped.define("module:ImageCapture.Dynamics.Loader", [
     "dynamics:Dynamic",
     "module:Assets"
 ], [

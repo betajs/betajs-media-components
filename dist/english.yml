@@ -104,3 +104,30 @@
   ba-imagecapture-controlbar.rerecord-tooltip: Click here to redo.
   ba-imagecapture-controlbar.cancel: Cancel
   ba-imagecapture-controlbar.cancel-tooltip: Click here to cancel.
+  ba-audioplayer-controlbar.audio-progress: Progress
+  ba-audioplayer-controlbar.rerecord-audio: Redo?
+  ba-audioplayer-controlbar.submit-audio: Confirm
+  ba-audioplayer-controlbar.play-audio: Play
+  ba-audioplayer-controlbar.pause-audio: Pause
+  ba-audioplayer-controlbar.pause-audio-disabled: Pause not supported
+  ba-audioplayer-controlbar.elapsed-time: Elasped time
+  ba-audioplayer-controlbar.total-time: Total length of
+  ba-audioplayer-controlbar.volume-button: Set volume
+  ba-audioplayer-controlbar.volume-mute: Mute sound
+  ba-audioplayer-controlbar.volume-unmute: Unmute sound
+  ba-audioplayer-loader.tooltip: Loading...
+  ba-audioplayer.audio-error: 'An error occurred, please try again later. Click to retry.'
+  ba-audiorecorder-chooser.record-audio: Record Audio
+  ba-audiorecorder-chooser.upload-audio: Upload Audio
+  ba-audiorecorder-controlbar.settings: Settings
+  ba-audiorecorder-controlbar.microphonehealthy: Sound is good
+  ba-audiorecorder-controlbar.microphoneunhealthy: Cannot pick up any sound
+  ba-audiorecorder-controlbar.record: Record
+  ba-audiorecorder-controlbar.record-tooltip: Click here to record.
+  ba-audiorecorder-controlbar.rerecord: Redo
+  ba-audiorecorder-controlbar.rerecord-tooltip: Click here to redo.
+  ba-audiorecorder-controlbar.stop: Stop
+  ba-audiorecorder-controlbar.stop-tooltip: Click here to stop.
+  ba-audiorecorder-controlbar.stop-available-after: Minimum recording time is %d seconds
+  ba-audiorecorder-controlbar.cancel: Cancel
+  ba-audiorecorder-controlbar.cancel-tooltip: Click here to cancel.

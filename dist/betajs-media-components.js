@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.109 - 2018-07-13
+betajs-media-components - v0.0.111 - 2018-07-21
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1006,7 +1006,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.109 - 2018-07-13
+betajs-media-components - v0.0.111 - 2018-07-21
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1022,7 +1022,7 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.109"
+    "version": "0.0.111"
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -3999,13 +3999,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 remove_on_destroy: true,
 
                 create: function() {
-                    if (Info.isMobile() && (this.get("autoplay") || this.get("playwhenvisible"))) {
+                    if ( /*Info.isMobile() && */ (this.get("autoplay") || this.get("playwhenvisible"))) {
                         this.set("volume", 0.0);
                         this.set("volumeafterinteraction", true);
-                        if (!(Info.isiOS() && Info.iOSversion().major >= 10)) {
-                            this.set("autoplay", false);
-                            this.set("loop", false);
-                        }
+                        //if (!(Info.isiOS() && Info.iOSversion().major >= 10)) {
+                        //this.set("autoplay", false);
+                        //this.set("loop", false);
+                        //}
                     }
 
                     if (this.get("theme") in Assets.playerthemes) {

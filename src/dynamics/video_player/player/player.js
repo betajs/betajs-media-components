@@ -221,13 +221,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 remove_on_destroy: true,
 
                 create: function() {
-                    if (Info.isMobile() && (this.get("autoplay") || this.get("playwhenvisible"))) {
+                    if ( /*Info.isMobile() && */ (this.get("autoplay") || this.get("playwhenvisible"))) {
                         this.set("volume", 0.0);
                         this.set("volumeafterinteraction", true);
-                        if (!(Info.isiOS() && Info.iOSversion().major >= 10)) {
-                            this.set("autoplay", false);
-                            this.set("loop", false);
-                        }
+                        //if (!(Info.isiOS() && Info.iOSversion().major >= 10)) {
+                        //this.set("autoplay", false);
+                        //this.set("loop", false);
+                        //}
                     }
 
                     if (this.get("theme") in Assets.playerthemes) {

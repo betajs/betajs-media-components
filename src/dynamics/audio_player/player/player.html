@@ -1,8 +1,9 @@
 <div itemscope itemtype="http://schema.org/AudioObject"
     class="{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}} {{css}}-normal-view {{css}}-common-browser
-    {{css}}-{{themecolor}}-color {{stretch ? css + '-stretch' : ''}}"
+    {{css}}-{{themecolor}}-color {{stretch ? css + '-stretch' : ''}} {{css}}-{{title ? 'has-title' : 'no-title'}} {{visualeffectvisible ? css + '-visual-effect-applied' : ''}}"
 	ba-styles="{{widthHeightStyles}}"
 >
+	<canvas data-selector="audio-visualisation" class="{{css}}-audio-canvas"></canvas>
     <audio tabindex="-1" class="{{css}}-audio" data-audio="audio"></audio>
     <div class="{{css}}-overlay">
 		<div tabindex="-1" class="{{css}}-player-toggle-overlay" data-selector="player-toggle-overlay"

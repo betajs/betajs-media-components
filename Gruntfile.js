@@ -145,8 +145,8 @@ module.exports = function(grunt) {
         'src/../src/../src/../src/themes/common/fontello_icons_generated.scss',
         'src/../src/../src/../src/themes/common/fontello_icons_color.scss',
         'src/themes/audio_player/default/player.scss',
-        'src/themes/video_player/default/loader.scss',
-        'src/themes/video_player/modern/*.scss',
+        'src/themes/audio_player/default/loader.scss',
+        'src/themes/audio_player/modern/*.scss',
 
         'src/themes/image_capture/modern/theme.scss',
         'src/../src/../src/../src/../src/themes/common/fontello_icon.scss',

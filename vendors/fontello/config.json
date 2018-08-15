@@ -227,6 +227,18 @@
       "css": "angle-left",
       "code": 61700,
       "src": "fontawesome"
+    },
+    {
+      "uid": "8663320a860b00f26e94d3d15c9ba99a",
+      "css": "clock",
+      "code": 59414,
+      "src": "entypo"
+    },
+    {
+      "uid": "5211af474d3a9848f67f945e2ccaf143",
+      "css": "cancel",
+      "code": 59412,
+      "src": "fontawesome"
     }
   ]
 }

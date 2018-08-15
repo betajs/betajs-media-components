@@ -2,19 +2,19 @@
 <html lang="en">
 <head>
 	<script src="../vendors/jquery.min.js"></script>
-    <script src="../node_modules/betajs-shims/dist/betajs-shims.js"></script>
-    <script src="../node_modules/betajs-scoped/dist/scoped.js"></script>
-    <script src="../node_modules/betajs/dist/beta-noscoped.js"></script>
-    <script src="../node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
-    <script src="../node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
-    <script src="../node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
-    <script src="../node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
+	<script src="../node_modules/betajs-shims/dist/betajs-shims.js"></script>
+	<script src="../node_modules/betajs-scoped/dist/scoped.js"></script>
+	<script src="../node_modules/betajs/dist/beta-noscoped.js"></script>
+	<script src="../node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
+	<script src="../node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
+	<script src="../node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+	<script src="../node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
 	<script src="../dist/betajs-media-components-noscoped.js"></script>
 	<link  href="../dist/betajs-media-components.css" rel="stylesheet" />
 
 	<!-- Modern Theme Assets -->
-    <script src="../dist/themes/modern/script.js"></script>
-    <link  href="../dist/themes/modern/style.css" rel="stylesheet" />
+	<script src="../dist/themes/modern/script.js"></script>
+	<link  href="../dist/themes/modern/style.css" rel="stylesheet" />
 
 	<!-- Space Theme Assets -->
 	<script src="../dist/themes/space/script.js"></script>
@@ -38,35 +38,37 @@
 
 </head>
 <body style="background: #EEE">
-	<div ba-repeat="{{theme::themes}}">
-		<h4>{{theme}}</h4>
-		<ba-imageviewer ba-source="sample-cover.png"
-	                ba-theme="{{theme}}"
-	                ba-title="Foobar"
-                    ba-themecolor="{{themecolor}}"
-	                ba-hideoninactivity="{{hideoninactivity}}"
-	                ba-width='50%'></ba-imageviewer>
-	</div>
+<div ba-repeat="{{theme::themes}}">
+	<h4>{{theme}}</h4>
+	<ba-imageviewer ba-source="sample-cover.png"
+        ba-theme="{{theme}}"
+        ba-title="Foobar"
+        ba-themecolor="{{themecolor}}"
+        ba-hideoninactivity="{{hideoninactivity}}"
+        ba-closebuttonvisible="{{true}}"
+        ba-width='70%'
+	></ba-imageviewer>
+</div>
 
-    <script>
-        BetaJS.Dynamics.Dynamic.activate({
-            element: document.body,
-        	attrs: {
-                themes: [
-                    "default",
-                    "modern",
-                    "cube",
-                    "space",
-                    "elevate",
-                    "theatre",
-                    "minimalist"
-                ],
-				'themecolor': 'default', // 'red', 'blue', 'green'
-                'hideoninactivity': true,
-                'sametheme': true,
-                'samethemename': 'space'
-            }
-        });
-    </script>
+<script>
+    BetaJS.Dynamics.Dynamic.activate({
+        element: document.body,
+        attrs: {
+            themes: [
+                "default",
+                "modern",
+                "cube",
+                "space",
+                "elevate",
+                "theatre",
+                "minimalist"
+            ],
+            'themecolor': 'default', // 'red', 'blue', 'green'
+            'hideoninactivity': true,
+            'sametheme': false,
+            'samethemename': 'space'
+        }
+    });
+</script>
 </body>
 </html>

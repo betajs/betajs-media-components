@@ -99,9 +99,19 @@
     content: '\e813';
 }
 
+.#{$css}-icon-cancel:before {
+    @include fontello-icon;
+    content: '\e814';
+}
+
 .#{$css}-icon-cc:before {
     @include fontello-icon;
     content: '\e815';
+}
+
+.#{$css}-icon-clock:before {
+    @include fontello-icon;
+    content: '\e816';
 }
 
 .#{$css}-icon-twitter:before {

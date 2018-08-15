@@ -6,6 +6,8 @@
 
   .#{$css}-dashboard {
     bottom: 0;
+    height: $controlbar_height;
+    background-color: $controlbar_bgcolor;
   }
 
   .#{$css}-video-title-block {

@@ -2,19 +2,19 @@
 <html lang="en">
 <head>
 	<script src="../vendors/jquery.min.js"></script>
-    <script src="../node_modules/betajs-shims/dist/betajs-shims.js"></script>
-    <script src="../node_modules/betajs-scoped/dist/scoped.js"></script>
-    <script src="../node_modules/betajs/dist/beta-noscoped.js"></script>
-    <script src="../node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
-    <script src="../node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
-    <script src="../node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
-    <script src="../node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
+	<script src="../node_modules/betajs-shims/dist/betajs-shims.js"></script>
+	<script src="../node_modules/betajs-scoped/dist/scoped.js"></script>
+	<script src="../node_modules/betajs/dist/beta-noscoped.js"></script>
+	<script src="../node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
+	<script src="../node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
+	<script src="../node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+	<script src="../node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
 	<script src="../dist/betajs-media-components-noscoped.js"></script>
 	<link  href="../dist/betajs-media-components.css" rel="stylesheet" />
 
 	<!-- Modern Theme Assets -->
-    <script src="../dist/themes/modern/script.js"></script>
-    <link  href="../dist/themes/modern/style.css" rel="stylesheet" />
+	<script src="../dist/themes/modern/script.js"></script>
+	<link  href="../dist/themes/modern/style.css" rel="stylesheet" />
 
 	<!-- Space Theme Assets -->
 	<script src="../dist/themes/space/script.js"></script>
@@ -37,32 +37,37 @@
 	<link href="../dist/themes/minimalist/style.css" rel="stylesheet" />
 
 </head>
-<body style="background: #EEE">
-	<div ba-repeat="{{theme::themes}}">
-		<h4>{{theme}}</h4>
-		<ba-audioplayer ba-source="audio.mp3"
-	                ba-theme="{{theme}}"
-	                ba-title="Foobar"
-                    ba-themecolor="{{themecolor}}"
-	                ba-width='400' ba-height="64"></ba-audioplayer>
-	</div>
+<body style="background-color: rgba(0, 0, 0, 0.4)">
+<div ba-repeat="{{theme::themes}}">
+	<h4>{{theme}}</h4>
+	<ba-audioplayer
+		ba-source="audio.mp3"
+		ba-theme="{{theme}}"
+		ba-title="Foobar"
+		ba-themecolor="{{themecolor}}"
+        ba-width='100%'
+        ba-height="140"
+		ba-visualeffectvisible="{{true}}"
+		ba-visualeffectheight="{{260}}"
+	></ba-audioplayer>
+</div>
 
-    <script>
-        BetaJS.Dynamics.Dynamic.activate({
-            element: document.body,
-        	attrs: {
-                themes: [
-                    "default",
-                    "modern",
-                    "cube",
-                    "space",
-                    "elevate",
-                    "theatre",
-                    "minimalist"
-                ],
-				'themecolor': 'default' // 'red', 'blue', 'green'
-            }
-        });
-    </script>
+<script>
+    BetaJS.Dynamics.Dynamic.activate({
+        element: document.body,
+        attrs: {
+            themes: [
+                "cube",
+                "default",
+                "elevate",
+                "minimalist",
+                "modern",
+                "space",
+                "theatre"
+            ],
+            'themecolor': 'default' // 'red', 'blue', 'green'
+        }
+    });
+</script>
 </body>
 </html>

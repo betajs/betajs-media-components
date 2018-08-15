@@ -1,3 +1,16 @@
+.#{$css}-container {
+    box-sizing: border-box;
+    height: 45px;
+    min-height: 45px;
+    min-width: 320px;
+}
+
+.#{$css}-audio-canvas {
+    display: none;
+    position: absolute;
+    bottom: $controlbar_height;
+}
+
 .#{$css}-overlay div[tabindex] {
     @include transition1(all, 0.30s, ease-in-out);
 }

@@ -1,4 +1,15 @@
 
+.#{$css}-container {
+    box-sizing: border-box;
+    min-width: 320px;
+    &.#{$css}-has-title {
+        min-height: $controlbar_height + 30;
+    }
+    &.#{$css}-no-title {
+        min-height: $controlbar_height;
+    }
+}
+
 .#{$css}-overlay div[tabindex] {
     @include transition1(all, 0.30s, ease-in-out);
 }
@@ -16,6 +27,8 @@
     @include absolute-align-full-bottom;
     @include transition1(opacity, $dashboard_transition, ease-in-out);
     background-color: $controlbar_background;
+    border-top: 1px solid $button_border_color;
+    box-sizing: content-box;
 	height: $controlbar_height;
     opacity: 0.9;
     overflow: hidden;
@@ -158,11 +171,11 @@
 }
 
 
-.#{$cssie8} .#{$css}-audio-title-container{
+.#{$cssie8} .#{$css}-title-container {
     display: none;
 }
 
-.#{$css}-audio-title-container{
+.#{$css}-title-container {
     @include absolute-align-full-top();
     @include transition1(opacity, $dashboard_transition, ease-in-out);
     width: 100%;

@@ -1,3 +1,10 @@
+.#{$css}-container {
+    box-sizing: border-box;
+    border: 1px solid #eeeeee;
+    height: 140px;
+    min-height: 140px;
+    min-width: 320px;
+}
 
 .#{$css}-overlay div[tabindex] {
     @include transition1(all, 0.30s, ease-in-out);
@@ -22,7 +29,21 @@
 }
 
 .#{$css}-dashboard-hidden {
-  opacity: 0;
+    opacity: 0;
+}
+
+.#{$css}-audio-canvas {
+    display: none;
+    position: absolute;
+    z-index: 1;
+}
+
+.#{$css}-visual-effect-applied .#{$css}-overlay {
+    background: #000000;
+}
+
+.#{$css}-visual-effect-applied .#{$css}-controlbar-middle-block {
+    z-index: 10;
 }
 
 .#{$css}-button-container {
@@ -44,58 +65,58 @@
 
 /* Control Bar Header*/
 .#{$css}-controlbar-header {
-  @include background-rgba( 0,0,0, 0.3, #ddd );
-  height: $controlbar_header_height;
-  left: 0;
-  letter-spacing: .05rem;
-  line-height: $topmessage_height / 2;
-  padding: 0;
-  position: absolute;
-  text-align: left;
-  width: 100%;
-  .#{$css}-right-block {
-    line-height: $topmessage_height - 10px;
+    @include background-rgba( 0,0,0, 0.3, #ddd );
+    height: $controlbar_header_height;
+    left: 0;
+    letter-spacing: .05rem;
+    line-height: $topmessage_height / 2;
+    padding: 0;
     position: absolute;
-    right: 4%;
-    z-index: 100;
-  }
+    text-align: left;
+    width: 100%;
+    .#{$css}-right-block {
+        line-height: $topmessage_height - 10px;
+        position: absolute;
+        right: 4%;
+        z-index: 100;
+    }
 }
 
 .#{$cssie8} .#{$css}-controlbar-header {
-  display: none;
+    display: none;
 }
 
 .#{$css}-controlbar-header-title-block {
-  position: relative;
-  width: 100%;
-  z-index: 10;
+    position: relative;
+    width: 100%;
+    z-index: 10;
 }
 
 .#{$cssie8} .#{$css}-controlbar-header .#{$css}-right-block {
-  position: relative;
+    position: relative;
 }
 
 .#{$cssie8} .#{$css}-controlbar-header-title-block {
-  left: 50px;
+    left: 50px;
 }
 
 .#{$css}-title {
-  p {
-    color: $text_color;
-    font-family: $font_family;
-    font-size: $controlbar_audio_title_font_size;
-    font-weight: 300;
-    letter-spacing: .1em;
-    line-height: $topmessage_height - 10;
-    margin: 0;
-    padding: 0 0 0 15px;
-    text-align: left;
-  }
+    p {
+        color: $text_color;
+        font-family: $font_family;
+        font-size: $controlbar_audio_title_font_size;
+        font-weight: 300;
+        letter-spacing: .1em;
+        line-height: $topmessage_height - 10;
+        margin: 0;
+        padding: 0 0 0 15px;
+        text-align: left;
+    }
 }
 
 .#{$cssnoie8} .#{$css}-controlbar-header .#{$css}-button-inner {
-  text-align: right;
-  @include transform-translate-y(0);
+    text-align: right;
+    @include transform-translate-y(0);
 }
 
 .#{$css}-controlbar-header .#{$css}-button-container {
@@ -104,8 +125,8 @@
 
 /* Control Bar Footer*/
 .#{$css}-controlbar-footer {
-  position:relative;
-  height: 100%;
+    position:relative;
+    height: 100%;
 }
 
 .#{$css}-controlbar-top-block {
@@ -131,36 +152,30 @@
 }
 
 .#{$cssnoie8} {
-  .#{$css}-overlay {
-    .#{$css}-controlbar-top-block {
-      .#{$css}-button-inner {
-        @include transition1(opacity, 0.3s, ease);
-        opacity: 0;
-      }
+    .#{$css}-overlay {
+        .#{$css}-controlbar-top-block {
+            .#{$css}-button-inner {
+                @include transition1(opacity, 0.3s, ease);
+                opacity: 1;
+            }
+        }
     }
-    &:hover .#{$css}-controlbar-top-block {
-      .#{$css}-button-inner {
-        @include transition1(opacity, 0.2s, ease);
-        opacity: .6;
-      }
-    }
-  }
 }
 
 .#{$cssie8} {
-  .#{$css}-overlay {
-    height: 100%;
-    .#{$css}-controlbar-top-block {
-      .#{$css}-button-inner {
-        @include transparent(0);
-      }
+    .#{$css}-overlay {
+        height: 100%;
+        .#{$css}-controlbar-top-block {
+            .#{$css}-button-inner {
+                @include transparent(0);
+            }
+        }
+        &:hover .#{$css}-controlbar-top-block {
+            .#{$css}-button-inner {
+                @include transparent(.6);
+            }
+        }
     }
-    &:hover .#{$css}-controlbar-top-block {
-      .#{$css}-button-inner {
-        @include transparent(.6);
-      }
-    }
-  }
 }
 
 .#{$css}-button-inner { @include clickable; z-index: 100; position: relative; }
@@ -207,11 +222,13 @@
     @include relative-center-center;
     @include clickable;
     background-color: $progressbar_cache_bgcolor;
+    border: 1px solid #020202;
+    box-sizing: border-box;
     height: $progressbar_height;
 }
 
 .#{$css}-progressbar.#{$css}-disabled {
-  & .#{$css}-progressbar-cache, & .#{$css}-progressbar-inner, & .#{$css}-progressbar-position {cursor: not-allowed}
+    & .#{$css}-progressbar-cache, & .#{$css}-progressbar-inner, & .#{$css}-progressbar-position {cursor: not-allowed}
 }
 
 .#{$css}-progressbar-position {
@@ -223,12 +240,12 @@
 
 .#{$css}-progressbar-button {
     @include border-radius(50%);
-    background-color: $progressbar_button_overflow;
+    background-color: #000000;
     box-sizing: content-box;
     border: none;
     position: absolute;
     right: -7px;
-    top: $progressbar_height / -2;
+    top: -3px;
     z-index: 1;
     width: 8px;
     height: 8px;
@@ -263,7 +280,7 @@
         }
     }
     & > div:first-child{
-      //opacity: 1;
+        //opacity: 1;
     }
     & > p {
         float: left;
@@ -280,67 +297,63 @@
 }
 
 .#{$css}-volumebar {
-  float: right;
-  height: $controlbar_header_height;
-  margin-left: 10px;
-  position: relative;
-  width: $volume_width;
-  z-index: 10;
+    float: right;
+    height: $controlbar_header_height;
+    margin-left: 10px;
+    position: relative;
+    width: $volume_width;
+    z-index: 10;
 }
 
 .#{$css}-volumebar-inner {
-  @include relative-center-center;
-  @include border-round-edges($volume_height / 2);
-  @include clickable;
-  background-color: $volumebar_inner_color;
-  height: $volume_height;
+    @include relative-center-center;
+    @include border-round-edges($volume_height / 2);
+    @include clickable;
+    background-color: $volumebar_inner_color;
+    height: $volume_height;
 }
 
 .#{$css}-volumebar-position {
-  @include border-round-edges($volume_height / 2);
-  @include absolute-align-left();
-  background-color: $volumebar_position_bg;
-  height: 100%;
+    @include border-round-edges($volume_height / 2);
+    @include absolute-align-left();
+    background-color: $volumebar_position_bg;
+    height: 100%;
 }
 
 .#{$css}-size-medium {
 
-  .#{$css}-controlbar-top-block {
-    .#{$css}-button-container {
-      .#{$css}-button-inner {
-        font-size: $controlbar_playbutton_font_size - .5;
-      }
+    .#{$css}-controlbar-top-block {
+        .#{$css}-button-container {
+            .#{$css}-button-inner {
+                font-size: $controlbar_playbutton_font_size - .5;
+            }
+        }
     }
-  }
 }
 
 .#{$css}-size-small {
-  .#{$css}-volumebar {
-    display: none;
-  }
-
-  .#{$css}-controlbar-header {
-    top: 7px;
-  }
-
-  .#{$css}-controlbar-top-block {
-    .#{$css}-button-container {
-      .#{$css}-button-inner {
-        font-size: $controlbar_playbutton_font_size - .7;
-      }
+    .#{$css}-volumebar {
+        display: none;
     }
-  }
 
-  .#{$css}-controlbar-middle-block {
-    bottom: 40px;
-  }
+    .#{$css}-controlbar-top-block {
+        .#{$css}-button-container {
+            .#{$css}-button-inner {
+                font-size: $controlbar_playbutton_font_size - .7;
+            }
+        }
+    }
 
-  .#{$css}-controlbar-bottom-block {
-    bottom: 38px;
-  }
+    .#{$css}-controlbar-middle-block {
+        bottom: 40px;
+    }
 
-  .#{$css}-time-container{
-    font-size: .7em;
-  }
+    .#{$css}-controlbar-bottom-block {
+        bottom: 38px;
+    }
+
+    .#{$css}-time-container{
+        font-size: .7em;
+    }
 }
 

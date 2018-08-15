@@ -19,7 +19,9 @@
 .icon-record:before { content: '\e811'; } /* '' */
 .icon-record-core:before { content: '\e812'; } /* '' */
 .icon-up-dir:before { content: '\e813'; } /* '' */
+.icon-cancel:before { content: '\e814'; } /* '' */
 .icon-cc:before { content: '\e815'; } /* '' */
+.icon-clock:before { content: '\e816'; } /* '' */
 .icon-twitter:before { content: '\f099'; } /* '' */
 .icon-facebook:before { content: '\f09a'; } /* '' */
 .icon-gplus-squared:before { content: '\f0d4'; } /* '' */

@@ -1,4 +1,10 @@
 /* Elevate */
+.#{$css}-normal-view {
+    @include border-rgba(1px, 0, 0, 0, 0, #555555);
+    min-height: 80px;
+    min-width: 320px;
+}
+
 .#{$css}-overlay div[tabindex] {
     @include transition1(all, 0.30s, ease-in-out);
 }
@@ -14,13 +20,26 @@
 
 .#{$css}-dashboard {
     @include transition1(opacity, $dashboard_transition, ease-in-out);
-    position: absolute;
+    box-sizing: border-box;
+    padding: 3px;
     left: 2.5%;
-    bottom: 10px;
-    width: $dashboard_width;
     opacity: 0.75;
     overflow: hidden;
     z-index: 1;
+}
+
+.#{$css}-visual-effect-applied .#{$css}-dashboard {
+    position: absolute;
+    bottom: 0;
+    width: $dashboard_width;
+}
+.#{$css}-audio-canvas {
+    display: none;
+    position: absolute;
+    z-index: 1;
+}
+.#{$css}-visual-effect-applied .#{$css}-overlay {
+    background: #000000;
 }
 
 .#{$css}-dashboard-hidden {
@@ -28,7 +47,7 @@
 }
 
 .#{$css}-top-block {
-    padding-top: 15px;
+    padding-top: 8px;
     width: 100%;
     clear: both;
 }
@@ -39,6 +58,8 @@
 }
 
 .#{$css}-bottom-block {
+    @include border-rgba(1px, 0, 0, 0, 0.8, #555555);
+    box-sizing: content-box;
     background-color: $controlbar_background;
     clear: both;
     height: $controlbar_bottom_height;
@@ -89,7 +110,7 @@
 
 .#{$css}-top-right-block {
     float: right;
-    .#{$css}-time-value{
+    .#{$css}-time-value {
         text-align: right;
     }
 }
@@ -188,6 +209,7 @@
     @include border-radius($progressbar_height / 4);
     @include clickable;
     background-color: $progressbar_cache_bgcolor;
+    box-sizing: border-box;
     height: $progressbar_height;
 }
 
@@ -289,10 +311,6 @@
 
 .#{$css}-size-small .#{$css}-volumebar {
     display: none;
-}
-
-.#{$css}-size-small .#{$css}-dashboard{
-    width: 100%;
 }
 
 .#{$css}-audio-title-block > p, .#{$css}-left-block .#{$css}-volumebar,

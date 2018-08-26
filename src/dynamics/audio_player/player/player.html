@@ -4,7 +4,7 @@
     {{cssplayer}}-{{title ? 'has-title' : 'no-title'}} {{visualeffectvisible ? cssplayer + '-visual-effect-applied' : ''}}"
 	ba-styles="{{widthHeightStyles}}"
 >
-	<canvas data-selector="audio-visualisation" class="{{css}}-audio-canvas"></canvas>
+	<canvas data-selector="audio-canvas" class="{{csstheme}}-audio-canvas"></canvas>
     <audio tabindex="-1" class="{{css}}-audio" data-audio="audio"></audio>
     <div class="{{cssplayer}}-overlay">
 		<div tabindex="-1" class="{{cssplayer}}-player-toggle-overlay" data-selector="player-toggle-overlay"
@@ -17,6 +17,7 @@
 		    ba-css="{{csscontrolbar || css}}"
 			ba-cssplayer="{{cssplayer || css}}"
 			ba-csscommon="{{csscommon || css}}"
+			ba-csstheme="{{csstheme || css}}"
 			ba-themecolor="{{themecolor}}"
 		    ba-template="{{tmplcontrolbar}}"
 		    ba-show="{{controlbar_active}}"

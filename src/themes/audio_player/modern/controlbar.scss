@@ -2,28 +2,16 @@
 .#{$css}-container {
     box-sizing: border-box;
     min-width: 320px;
-    &.#{$css}-has-title {
+    &.#{$cssplayer}-has-title {
         min-height: $controlbar_height + 30;
     }
-    &.#{$css}-no-title {
+    &.#{$cssplayer}-no-title {
         min-height: $controlbar_height;
     }
 }
 
-.#{$cssplayer}-overlay div[tabindex] {
-    @include transition1(all, 0.30s, ease-in-out);
-}
 
-.#{$cssplayer}-overlay div[tabindex]:focus {
-    @include box-outline-shadow(#1b8fcc, 2px);
-    @include remove-outline;
-}
-
-.#{$cssplayer}-overlay div[tabindex]:hover, .#{$cssplayer}-overlay div[tabindex]:focus:hover {
-    box-shadow: none;
-}
-
-.#{$css}-dashboard {
+.#{$csstheme}-dashboard {
     @include absolute-align-full-bottom;
     @include transition1(opacity, $dashboard_transition, ease-in-out);
     background-color: $controlbar_background;
@@ -34,49 +22,45 @@
     overflow: hidden;
 }
 
-.#{$css}-dashboard-hidden {
-    opacity: 0;
-}
-
-.#{$css}-leftbutton-container {
+.#{$csstheme}-leftbutton-container {
     @include float-width-height(left, $button_width, 100%);
     @include clickable;
 	box-sizing: content-box;
     border-right: 1px solid $button_border_color;
 }
 
-.#{$cssnoie8} .#{$css}-rightbutton-container {
+.#{$cssnoie8} .#{$csstheme}-rightbutton-container {
     @include float-width-height(right, $button_width, 100%);
     @include clickable;
 	box-sizing: content-box;
     border-left: 1px solid $button_border_color;
 }
 
-.#{$cssie8} .#{$css}-rightbutton-container {
+.#{$cssie8} .#{$csstheme}-rightbutton-container {
     @include float-width-height(right, $button_width, 50%);
     @include clickable;
 	box-sizing: content-box;
     border-left: 1px solid $button_border_color;
 }
 
-.#{$cssnoie8} .#{$css}-button-inner {
+.#{$cssnoie8} .#{$csstheme}-button-inner {
     @include relative-center-center;
     color: $button_color;
     font-size: $button_fontsize;
 }
 
-.#{$cssie8} .#{$css}-button-inner {
+.#{$cssie8} .#{$csstheme}-button-inner {
     margin-top: $ie8_margintop + 6;
     text-align: center;
     color: $button_color;
     font-size: $button_fontsize;
 }
 
-.#{$css}-button-inner {
+.#{$csstheme}-button-inner {
     @include clickable;
 }
 
-.#{$css}-time-container {
+.#{$csstheme}-time-container {
     @include float-width-height(left, $time_value_width, 100%);
     text-align: center;
     font-family: $text_fontfamily;
@@ -86,28 +70,28 @@
     border-right: 1px solid $button_border_color;
 }
 
-.#{$cssie8} .#{$css}-time-container {
+.#{$cssie8} .#{$csstheme}-time-container {
     margin-top: $ie8_margintop + 5;
 }
 
-.#{$css}-time-value {
+.#{$csstheme}-time-value {
     @include relative-center-center;
     float: left;
     width: $time_value_width;
 }
 
-.#{$cssnoie8} .#{$css}-volumebar {
+.#{$cssnoie8} .#{$csstheme}-volumebar {
     @include float-width-height(right, $volume_width, 100%);
     margin-right: $volume_height*2;
 }
 
-.#{$cssie8} .#{$css}-volumebar {
+.#{$cssie8} .#{$csstheme}-volumebar {
     @include float-width-height(right, $volume_width, 50%);
     margin-top: $ie8_margintop+10;
     margin-right: $volume_height*2;
 }
 
-.#{$css}-volumebar-inner {
+.#{$csstheme}-volumebar-inner {
     @include relative-center-center;
     @include border-round-edges($volume_height / 2);
     @include clickable;
@@ -115,21 +99,21 @@
     height: $volume_height;
 }
 
-.#{$css}-volumebar-position {
+.#{$csstheme}-volumebar-position {
     @include border-round-edges($volume_height / 2);
     @include absolute-align-left();
     background-color: $button_color;
     height: 100%;
 }
 
-.#{$cssnoie8} .#{$css}-progressbar {
+.#{$cssnoie8} .#{$csstheme}-progressbar {
     overflow: hidden;
     height: 100%;
     padding-left: $volume_height*2;
     padding-right: $volume_height*2;
 }
 
-.#{$cssie8} .#{$css}-progressbar {
+.#{$cssie8} .#{$csstheme}-progressbar {
     overflow: hidden;
     height: 50%;
     padding-left: $volume_height*2;
@@ -138,7 +122,7 @@
     margin-top: $ie8_margintop;
 }
 
-.#{$css}-progressbar-cache {
+.#{$csstheme}-progressbar-cache {
     @include absolute-align-left;
     @include border-round-edges($volume_height / 2);
     @include clickable;
@@ -146,7 +130,7 @@
     height: $volume_height;
 }
 
-.#{$css}-progressbar-inner {
+.#{$csstheme}-progressbar-inner {
     @include relative-center-center;
     @include border-round-edges($volume_height / 2);
     @include clickable;
@@ -154,28 +138,28 @@
     height: $volume_height;
 }
 
-.#{$css}-progressbar.#{$css}-disabled {
-    &, & .#{$css}-progressbar-cache, & .#{$css}-progressbar-inner, & .#{$css}-progressbar-position {cursor: not-allowed}
+.#{$csstheme}-progressbar.#{$csstheme}-disabled {
+    &, & .#{$csstheme}-progressbar-cache, & .#{$csstheme}-progressbar-inner, & .#{$csstheme}-progressbar-position {cursor: not-allowed}
 }
 
-.#{$css}-progressbar-position {
+.#{$csstheme}-progressbar-position {
     @include border-round-edges($volume_height / 2);
     @include absolute-align-left();
     background-color: $button_color;
     height: 100%;
 }
 
-.#{$css}-button-text {
+.#{$csstheme}-button-text {
 	font-family: Arial;
     font-weight: bold;
 }
 
 
-.#{$cssie8} .#{$css}-title-container {
+.#{$cssie8} .#{$csstheme}-title-container {
     display: none;
 }
 
-.#{$css}-title-container {
+.#{$csstheme}-title-container {
     @include absolute-align-full-top();
     @include transition1(opacity, $dashboard_transition, ease-in-out);
     width: 100%;
@@ -189,15 +173,15 @@
     }
 }
 
-.#{$cssplayer}-size-small .#{$css}-time-container {
+.#{$cssplayer}-size-small .#{$csstheme}-time-container {
 	display: none;
 }
 
-.#{$cssplayer}-size-medium .#{$css}-volumebar, .#{$cssplayer}-size-small .#{$css}-volumebar {
+.#{$cssplayer}-size-medium .#{$csstheme}-volumebar, .#{$cssplayer}-size-small .#{$csstheme}-volumebar {
 	display: none;
 }
 
-.#{$cssplayer}-size-medium .#{$css}-volume-button-container, .#{$cssplayer}-size-small .#{$css}-volume-button-container {
+.#{$cssplayer}-size-medium .#{$csstheme}-volume-button-container, .#{$cssplayer}-size-small .#{$csstheme}-volume-button-container {
 	display: none;
 }
 

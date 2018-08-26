@@ -45,7 +45,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     "width": "",
                     "height": "",
                     /* Themes */
-                    "theme": "",
+                    "theme": "ba-audiooplayer-default-theme",
                     "csstheme": "",
                     "themecolor": "",
                     /* Dynamics */
@@ -441,17 +441,12 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     // Prevent whitespace browser center scroll and arrow buttons behaviours
                     if (_keyCode === 32 || _keyCode === 37 || _keyCode === 38 || _keyCode === 39 || _keyCode === 40) ev.preventDefault();
 
-                    if (_keyCode === 32 || _keyCode === 13 || _keyCode === 9) {
-                        this._resetActivity();
-                    }
 
                     if (_keyCode === 9 && ev.shiftKey) {
-                        this._resetActivity();
                         this._findNextTabStop(element, ev, function(target, index) {
                             target.focus();
                         }, -1);
                     } else if (_keyCode === 9) {
-                        this._resetActivity();
                         this._findNextTabStop(element, ev, function(target, index) {
                             target.focus();
                         });

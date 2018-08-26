@@ -16,31 +16,29 @@
 		<script src="/static/dist/betajs-media-components-noscoped.js"></script>
 		<link  href="/static/dist/betajs-media-components.css" rel="stylesheet" />
 
-		<!-- Cube Theme Assets -->
-		<script src="/static/dist/themes/cube/script.js"></script>
-		<link href="/static/dist/themes/cube/style.css" rel="stylesheet" />
-
-
 	</head>
 
 	<body style="background: #999">
 
         <div class="container">
             <div class="row">
-				<div id="audio-recorder-block" class="col-xs-12">
+				<div id="audio-player-block" class="col-xs-12">
 					<!-- Default -->
-					<ba-audiorecorder
-						ba-theme="{{themeName}}"
-					></ba-audiorecorder>
+					<ba-audioplayer
+						ba-source="../../assets/audio.mp3"
+						ba-title="Foobar"
+						ba-themecolor="{{themeColor}}"
+						ba-width='100%'
+						ba-height="140"
+						ba-visualeffectvisible="{{true}}"
+						ba-visualeffectheight="{{260}}"
+					></ba-audioplayer>
                 </div>
             </div>
 			<div id="theme-colors" class="col-xs-12 col-sm-6">
 				<ba-themecolors></ba-themecolors>
 			</div>
 
-			<div id="theme-names" class="col-xs-12 col-sm-6">
-				<ba-themecolors></ba-themecolors>
-			</div>
         </div>
 
 
@@ -60,16 +58,8 @@
               }
             });
 
-            var selectNames = new BetaJS.Dynamics.Dynamic({
-                templateUrl: "/static/demos/themes/templates/themenames.html",
-                element: $('#theme-names'),
-                attrs: {
-                    themeColors: [ 'default', 'cube' ]
-                }
-            });
-
             var recorderTheme = new BetaJS.Dynamics.Dynamic({
-              element: $('#audio-recorder-block'),
+              element: $('#audio-player-block'),
               attrs: { themeColor: "" }
             });
 
@@ -77,33 +67,9 @@
               recorderTheme.set("themeColor", el.target.value);
             });
 
-            body.on("change", "#select-theme", function (el) {
-                recorderTheme.set("themeName", el.target.value);
-            });
 
             selectColor.activate();
-            selectNames.activate();
             recorderTheme.activate();
-
-	        var filename = "audio-" + BetaJS.Time.now();
-	        var recorder = BetaJS.Dynamics.Dynamic.findByElement($("ba-audiorecorder"));
-	        recorder._prepareRecording = function () {
-	    		recorder.set("uploadoptions", {
-	    			image: {url:"/files/" + filename + ".jpg"},
-	    			video: {url:"/files/" + filename + ".webm"},
-	    			audio: {url:"/files/" + filename + ".wav"}
-	    		});
-		        recorder.set("playbacksource", "/files/" + filename + ".mp4");
-		        if (recorder.recorder)
-		        	recorder.set("playbackposter", "/files/" + filename + ".jpg");
-	        	return BetaJS.Promise.value(true);
-	        };
-	        recorder._verifyRecording = function () {
-	        	return BetaJS.Ajax.Support.execute({
-	        		method: "POST",
-	        		uri: "/files/" + filename + ".webm" + "/transcode/" + filename + ".mp4" + (recorder.recorder && recorder.recorder.localPlaybackSource().audio ? "?audio=" + filename + ".wav" : "")
-	        	});
-			};
 
 		</script>
 	</body>

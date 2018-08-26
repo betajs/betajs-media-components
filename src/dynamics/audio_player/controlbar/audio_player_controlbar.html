@@ -1,6 +1,6 @@
 
 <div class="{{css}}-dashboard">
-	<div tabindex="2" data-selector="progress-bar-inner" class="{{css}}-progressbar {{disableseeking ? css + '-disabled' : ''}}"
+	<div tabindex="2" data-selector="progress-bar-inner" class="{{css}}-progressbar {{disableseeking ? cssplayer + '-disabled' : ''}}"
 		 ba-hotkey:right="{{seek(position + skipseconds)}}"
 		 ba-hotkey:left="{{seek(position - skipseconds)}}"
          ba-hotkey:alt+right="{{seek(position + skipseconds * 3)}}"
@@ -94,7 +94,7 @@
 			 class="{{css}}-rightbutton-container"
 			 ba-click="{{toggle_volume()}}" title="{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}">
 			<div class="{{css}}-button-inner">
-				<i class="{{css + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}"></i>
+				<i class="{{csscommon + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}"></i>
 			</div>
 		</div>
 

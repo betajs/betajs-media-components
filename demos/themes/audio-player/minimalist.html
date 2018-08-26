@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+		<script src="/static/vendors/jquery.min.js"></script>
+		<script src="/static/node_modules/betajs-shims/dist/betajs-shims.js"></script>
+		<script src="/static/node_modules/betajs-scoped/dist/scoped.js"></script>
+		<script src="/static/node_modules/betajs/dist/beta-noscoped.js"></script>
+		<script src="/static/node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
+		<script src="/static/node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
+		<script src="/static/node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+		<script src="/static/node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
+		<script src="/static/dist/betajs-media-components-noscoped.js"></script>
+		<link  href="/static/dist/betajs-media-components.css" rel="stylesheet" />
+
+		<!-- minimalist Theme Assets -->
+		<script src="/static/dist/themes/minimalist/script.js"></script>
+		<link href="/static/dist/themes/minimalist/style.css" rel="stylesheet" />
+
+	</head>
+
+	<body style="background: #999">
+
+        <div class="container">
+            <div class="row">
+				<div id="audio-player-block" class="col-xs-12">
+					<!-- Default -->
+					<ba-audioplayer
+						ba-source="../../assets/audio.mp3"
+						ba-theme="minimalist"
+						ba-title="Foobar"
+						ba-themecolor="{{themeColor}}"
+						ba-width='100%'
+						ba-height="140"
+						ba-visualeffectvisible="{{true}}"
+						ba-visualeffectheight="{{260}}"
+					></ba-audioplayer>
+                </div>
+            </div>
+			<div id="theme-colors" class="col-xs-12 col-sm-6">
+				<ba-themecolors></ba-themecolors>
+			</div>
+
+        </div>
+
+
+		<script>
+
+	        var body = $('body');
+
+            var selectColor = new BetaJS.Dynamics.Dynamic({
+                templateUrl: "../templates/themecolors.html",
+                element: $('#theme-colors'),
+                attrs: {
+                    themeColors: [ 'default', 'red', 'green', 'blue' ]
+                }
+            });
+
+            var playerTheme = new BetaJS.Dynamics.Dynamic({
+              element: $('#audio-player-block'),
+              attrs: { themeColor: "" }
+            });
+
+            body.on("change", "#select-color", function (el) {
+              playerTheme.set("themeColor", el.target.value);
+            });
+
+            selectColor.activate();
+            playerTheme.activate();
+
+		</script>
+	</body>
+</html>

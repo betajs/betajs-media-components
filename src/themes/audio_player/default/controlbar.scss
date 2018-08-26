@@ -11,26 +11,9 @@
     bottom: $controlbar_height;
 }
 
-.#{$cssplayer}-overlay div[tabindex] {
-    @include transition1(all, 0.30s, ease-in-out);
-}
-
-.#{$cssplayer}-overlay div[tabindex]:focus {
-    @include box-outline-shadow(#1b8fcc, 2px);
-    @include remove-outline;
-}
-
-.#{$cssplayer}-overlay div[tabindex]:hover, .#{$cssplayer}-overlay div[tabindex]:focus:hover {
-    box-shadow: none;
-}
-
 .#{$css}-dashboard {
     @include absolute-align-full-bottom;
     @include transition1(opacity, $dashboard_transition, ease-in-out);
-}
-
-.#{$css}-dashboard-hidden {
-    opacity: 0;
 }
 
 .#{$css}-progressbar {

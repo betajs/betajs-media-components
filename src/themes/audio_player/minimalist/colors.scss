@@ -1,15 +1,14 @@
 @each $color, $value in $colors {
   @if $color != default {
-    .#{$css}-#{$color}-color {
+    .#{$cssplayer}-#{$color}-color {
 
-      .#{$css}-title p, .#{$css}-button-inner, .#{$css}-right-block .#{$csscommon}-icon-volume-up,
-      .#{$css}-right-block .#{$csscommon}-icon-volume-down,
-      .#{$css}-controlbar-top-block .#{$css}-button-container .#{$css}-button-inner {
+      .#{$csstheme}-title p, .#{$csstheme}-button-inner,
+      .#{$csstheme}-button-container .#{$csstheme}-button-inner i {
         color: $value;
       }
 
-      .#{$css}-volumebar-position, .#{$css}-progressbar-position,
-      .#{$css}-time-container, .#{$css}-progressbar-button, .#{$css}-rerecord-button {
+      .#{$csstheme}-volumebar-position, .#{$csstheme}-progressbar-position,
+      .#{$csstheme}-time-container, .#{$csstheme}-progressbar-button, .#{$csstheme}-rerecord-button {
         background-color: $value;
       }
 

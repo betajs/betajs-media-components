@@ -1,4 +1,7 @@
-$css: "ba-audioplayer-minimalist-theme";
+$css: "ba-audioplayer";
+$csstheme: "ba-audioplayer-minimalist-theme";
+$cssplayer: "ba-player";
+$csscommon: "ba-commoncss";
 $cssie8: "ba-audioplayer-ie8";
 $cssnoie8: "ba-audioplayer-noie8";
 $fontello_name: "bjsmc";
@@ -16,6 +19,7 @@ $text_secondary_color: rgba(250, 254, 255, 0.35);
 // cover
 $cover_playbutton_hover_color: #000000;
 
+$overlay_side_padding: 4%;
 
 $topmessage_height: 50px;
 

@@ -1,5 +1,38 @@
 /* Elevate */
 
+.#{$csstheme} {
+    
+    .#{$csscommon}-icon-play, .#{$csscommon}-icon-pause {
+        color: $button_color;
+    }
+
+    .#{$csscommon}-icon-volume-up, .#{$csscommon}-icon-play, .#{$csscommon}-icon-pause,
+    .#{$csscommon}-icon-resize-full, .#{$csscommon}-icon-volume-down {
+        display: inline-block;
+        &:before {
+            font-size: $text_fontsize;
+            margin: 0;
+            line-height: inherit;
+        }
+    }
+
+    &.#{$cssie8} .#{$csscommon}-icon-volume-down {
+        &:before {
+            font-size: $text_fontsize + 1;
+        }
+    }
+
+    .#{$csscommon}-icon-volume-up {
+        color: $button_color_secondary;
+    }
+
+    .#{$csscommon}-icon-resize-full {
+        color: $button_color_secondary;
+    }
+
+
+}
+
 .#{$csstheme}-dashboard {
     @include transition1(opacity, $dashboard_transition, ease-in-out);
     position: absolute;
@@ -96,31 +129,6 @@
     width: $button_width;
     text-align: center;
 }
-
-.#{$csscommon}-icon-play, .#{$csscommon}-icon-pause {
-    color: $button_color;
-}
-
-.#{$csscommon}-icon-volume-up, .#{$csscommon}-icon-play, .#{$csscommon}-icon-pause,
-.#{$csscommon}-icon-resize-full, .#{$csscommon}-icon-volume-down {
-    display: inline-block;
-    &:before {
-        font-size: $text_fontsize;
-        margin: 0;
-        line-height: inherit;
-    }
-}
-
-.#{$cssie8} .#{$csscommon}-icon-volume-down {
-    &:before {
-        font-size: $text_fontsize + 1;
-    }
-}
-
-.#{$csscommon}-icon-volume-up {
-    color: $button_color_secondary;
-}
-
 
 .#{$cssnoie8} .#{$csstheme}-button-inner {
     //@include relative-center-center;
@@ -296,10 +304,6 @@
 
 .#{$cssnoie8} .#{$csstheme}-full-screen-btn-inner {
     padding-left: 4px;
-}
-
-.#{$csscommon}-icon-resize-full {
-    color: $button_color_secondary;
 }
 
 .#{$cssplayer}-size-small .#{$csstheme}-volumebar {

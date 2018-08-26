@@ -6,7 +6,8 @@ Scoped.extend("module:Assets.audioplayerthemes", [
     Parser.registerFunctions({ /*<%= template_function_cache(dirname + '/modern-audio_player_controlbar.html') %>*/ });
     return {
         "modern": {
-            css: "ba-audioplayer-theme-modern",
+            css: "ba-audioplayer",
+            csstheme: "ba-audioplayer-theme-modern",
             tmplcontrolbar: "<%= template(dirname + '/modern-audio_player_controlbar.html') %>",
             cssloader: ie8 ? "ba-audioplayer" : "",
             cssmessage: "ba-audioplayer",

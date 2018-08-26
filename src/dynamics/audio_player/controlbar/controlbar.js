@@ -19,6 +19,9 @@ Scoped.define("module:AudioPlayer.Dynamics.Controlbar", [
 
                 attrs: {
                     "css": "ba-audioplayer",
+                    "csscommon": "ba-commoncss",
+                    "cssplayer": "ba-player",
+                    "csstheme": "ba-audiooplayer-default-theme",
                     "duration": 0,
                     "position": 0,
                     "cached": 0,

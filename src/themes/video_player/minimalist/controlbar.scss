@@ -389,7 +389,12 @@
         height: $button_width;
         width: $button_width;
     }
+}
+
+.#{$csstheme} .#{$csstheme}-cc-button-container {
+
     .#{$csscommon}-icon-subtitle {
         font-size: $icon_size;
     }
+
 }

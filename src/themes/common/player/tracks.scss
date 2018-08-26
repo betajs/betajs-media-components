@@ -1,0 +1,31 @@
+.#{$cssplayer}-text-tracks-overlay {
+    @include absolute-align-full-bottom-above-control-bar($player_controlbar_height + $player_progressbar_height);
+    @include transition1(bottom, $player_dashboard_transition, ease-in-out);
+}
+
+.#{$cssplayer}-back-arrow-pointer-container {
+    margin-bottom: 5px;
+    .#{$cssplayer}-back-arrow-pointer {
+        cursor: pointer;
+        font-size: 12px;
+        margin: 0 0 10px;
+    }
+}
+
+.#{$cssplayer}-cue-content {
+    @include relative-horizontally-center();
+    background: #2c2c2c;
+    color: #eeeeee;
+    text-align: center;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    width: 60%;
+}
+
+.#{$cssplayer}-tracks-selector-list-visible {
+    @include show-slow(0.2);
+}
+
+.#{$cssplayer}-tracks-selector-list-hidden {
+    @include hide-slow(0.2);
+}

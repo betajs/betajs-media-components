@@ -1,0 +1,45 @@
+$csscommon: "ba-commoncss";
+$cssrecorder: "ba-recorder";
+$cssplayer: "ba-player";
+$cssimageviewer: "ba-imageviewer";
+$cssimagecapture: "ba-imagecapture";
+$cssie8: "ba-videoplayer-ie8";
+$cssnoie8: "ba-videoplayer-noie8";
+$fontello_name: "bjsmc";
+
+// Sidebar share
+$share_container_top: 50px;
+$share_container_width: 90px;
+$share_container_right: 15px;
+$open_share_button_color: #eeeeee;
+$open_share_button_border_radius: 5px;
+$open_share_button_size: 13px;
+$open_share_button_top: 30px;
+$open_share_button_box_size: 45px;
+$open_share_button_font_size: 14px;
+$open_share_button_z-index: 100;
+$share_icon_font_size: 14px;
+$share_icon_container_height: 45px;
+$share_icon_container_width: 45px;
+
+$loader_size: 5px;
+$recorder_loader_frame_thickness: 1.1em;
+$player_loader_frame_thickness: 0.6em;
+$loader_label_fontsize: 40px;
+
+$player_controlbar_height: 30px;
+$player_progressbar_height: 3px;
+
+$player_dashboard_transition: 0.5s;
+
+// Theme Colors
+$theme_color_blue: #2a74eb;
+$theme_color_red: #eb6a74;
+$theme_color_green: #5daa96;
+
+$colors: (
+  'red': $theme_color_red,
+  'blue': $theme_color_blue,
+  'green': $theme_color_green,
+  'default': ''
+);

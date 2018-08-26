@@ -1,0 +1,85 @@
+$css: "ba-videorecorder-theme-modern";
+$csscommon: "ba-commoncss";
+$cssie8: "ba-videorecorder-ie8";
+$cssnoie8: "ba-videorecorder-noie8";
+$fontello_name: "bjsmc";
+
+$font_family: Arial, sans-serif;
+$recorder_bgcolor: white;
+$text_color: white;
+
+$button_color: #979797;
+
+$message_bgcolor: black;
+$message_opacity: 0.75;
+
+$topmessage_bgcolor: black;
+$topmessage_opacity: 0.3;
+$topmessage_fontsize: 15px;
+$topmessage_height: 32px;
+$topmessage_fontweight: bold;
+
+
+$chooser_primary_button_bgcolor: $button_color;
+$chooser_buttons_min_width: 12em;
+$chooser_primary_button_vertical_padding: 12px;
+$chooser_primary_button_horizontal_padding: 32px;
+$chooser_primary_button_border_radius: 4px;
+$chooser_secondary_button_color: $chooser_primary_button_bgcolor;
+$chooser_secondary_button_padding: 8px;
+$chooser_fontsize: 14px;
+
+$imagegallery_buttonmargin: 14px;
+$imagegallery_buttonsize: 24px;
+$imagegallery_button_bgcolor: black;
+$imagegallery_button_opacity: 0.5;
+$imagegallery_button_padding: 4px;
+$imagegallery_button_radius: 3px;
+
+$settings_margin: 4px;
+$settings_padding: 4px;	
+$settings_radius: 3px;
+$settings_bgcolor: black;
+$settings_opacity: 0.5;
+$settings_border: none;
+$settings_font_size: 12px;
+$settings_horizontal_margin: 48px;
+$settings_item_padding: 8px;
+$settings_radio_color: white;
+$settings_radio_color_selected: $button_color;
+
+$controlbar_height: 48px;
+$controlbar_opacity: 0.5;
+$controlbar_bgcolor: black;
+$controlbar_padding: 16px;
+$controlbar_icon_good: #9F9;
+$controlbar_icon_bad: #F99;
+$controlbar_label_padding: 15px;
+$controlbar_recording_indication_color: red;
+$controlbar_recording_indication_size: 12px;
+$controlbar_button_horizontal_padding: 8px;
+$controlbar_primarybutton_radius: 3px;
+$controlbar_primarybutton_padding: 8px;
+$controlbar_primarybutton_vertical_padding: 16px;
+$controlbar_primarybutton_font_weight: bold;
+$controlbar_primarybutton_font_size: 14px;
+$controlbar_primarybutton_border: none;
+$controlbar_primarybutton_horizontal_margin: 5px;
+$controlbar_button_fontsize: 20px;
+$controlbar_button_margin: 5px;
+$controlbar_button_padding: 6px;
+$controlbar_button_vertical_padding: 3px;
+$controlbar_button_border_radius: 4px;
+$controlbar_button_border: 1px solid $text_color;
+
+// Theme Colors
+$theme_color_blue: #2a74eb;
+$theme_color_red: #eb6a74;
+$theme_color_green: #5dbb96;
+
+$colors: (
+  'red': $theme_color_red,
+  'blue': $theme_color_blue,
+  'green': $theme_color_green,
+  'default': ''
+);

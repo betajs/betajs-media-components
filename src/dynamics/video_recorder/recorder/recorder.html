@@ -1,8 +1,8 @@
 
 <div data-selector="recorder-container" ba-show="{{!player_active}}"
-     class="{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}
-     	{{css}}-{{ fullscreened ? 'fullscreen' : 'normal' }}-view {{css}}-{{ firefox ? 'firefox' : 'common'}}-browser
-    	{{css}}-{{themecolor}}-color"
+     class="{{cssrecorder}}-container {{cssrecorder}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}
+     	{{cssrecorder}}-{{ fullscreened ? 'fullscreen' : 'normal' }}-view {{cssrecorder}}-{{ firefox ? 'firefox' : 'common'}}-browser
+    	{{cssrecorder}}-{{themecolor}}-color"
      ba-styles="{{widthHeightStyles}}"
 >
 
@@ -13,6 +13,7 @@
 		<ba-{{dynloader}}
 		    ba-css="{{cssloader || css}}"
 			ba-themecolor="{{themecolor}}"
+			ba-cssrecorder="{{cssrecorder || css}}"
 		    ba-template="{{tmplloader}}"
 		    ba-show="{{loader_active}}"
 		    ba-tooltip="{{loadertooltip}}"
@@ -23,6 +24,7 @@
 		<ba-{{dynmessage}}
 		    ba-css="{{cssmessage || css}}"
 			ba-themecolor="{{themecolor}}"
+			ba-cssrecorder="{{cssrecorder || css}}"
 		    ba-template="{{tmplmessage}}"
 		    ba-show="{{message_active}}"
 		    ba-message="{{message}}"
@@ -34,6 +36,7 @@
 		<ba-{{dyntopmessage}}
 		    ba-css="{{csstopmessage || css}}"
 			ba-themecolor="{{themecolor}}"
+			ba-cssrecorder="{{cssrecorder || css}}"
 		    ba-template="{{tmpltopmessage}}"
 		    ba-show="{{topmessage_active && (topmessage || hovermessage)}}"
 		    ba-topmessage="{{hovermessage || topmessage}}"
@@ -44,6 +47,7 @@
 			ba-recordviafilecapture="{{recordviafilecapture}}"
 		    ba-css="{{csschooser || css}}"
 			ba-themecolor="{{themecolor}}"
+			ba-cssrecorder="{{cssrecorder || css}}"
 		    ba-template="{{tmplchooser}}"
 			ba-allowscreen="{{allowscreen}}"
 		    ba-if="{{chooser_active && !is_initial_state}}"
@@ -61,6 +65,7 @@
 		<ba-{{dynimagegallery}}
 		    ba-css="{{cssimagegallery || css}}"
 			ba-themecolor="{{themecolor}}"
+			ba-cssrecorder="{{cssrecorder || css}}"
 		    ba-template="{{tmplimagegallery}}"
 		    ba-if="{{imagegallery_active}}"
 		    ba-imagecount="{{gallerysnapshots}}"
@@ -71,6 +76,7 @@
 
 		<ba-{{dyncontrolbar}}
 		    ba-css="{{csscontrolbar || css}}"
+			ba-cssrecorder="{{cssrecorder || css}}"
 			ba-themecolor="{{themecolor}}"
 		    ba-template="{{tmplcontrolbar}}"
 		    ba-show="{{controlbar_active}}"
@@ -110,6 +116,7 @@
 	<ba-{{dynvideoplayer}}
 	    ba-theme="{{theme || 'default'}}"
         ba-themecolor="{{themecolor}}"
+		ba-cssrecorder="{{cssrecorder || css}}"
         ba-source="{{playbacksource}}"
         ba-poster="{{playbackposter}}"
         ba-hideoninactivity="{{false}}"

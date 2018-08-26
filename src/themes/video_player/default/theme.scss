@@ -1,11 +1,11 @@
 $css: "ba-videoplayer";
-$cssie8: "ba-videoplayer-ie8";
+$csstheme: "ba-videoplayer";
+$cssplayer: "ba-player";
 $csscommon: "ba-commoncss";
+$cssie8: "ba-videoplayer-ie8";
 $cssnoie8: "ba-videoplayer-noie8";
 $fontello_name: "bjsmc";
 
-$loader_size: 5px;
-$loader_frame_thickness: 1.1em;
 
 $message_bgcolor: black;
 $message_opacity: 0.75;
@@ -63,7 +63,6 @@ $progressbar_button_bordercolor: #999;
 $controlbar_bgcolor: #000;
 $text_color: #FFF;
 
-
 $rerecord_text_color: white;
 $rerecord_button_color: #8CF;
 $rerecord_font_family: Arial, sans-serif;
@@ -77,30 +76,3 @@ $rerecord_primarybutton_padding: 4px;
 $rerecord_primarybutton_vertical_padding: 8px;
 $rerecord_primarybutton_font_weight: normal;
 $rerecord_primarybutton_font_size: 14px;
-
-// Sidebar share
-$share_container_top: 50px;
-$share_container_width: 90px;
-$share_container_right: 15px;
-$open_share_button_color: #ffffff;
-$open_share_button_border_radius: 5px;
-$open_share_button_size: 13px;
-$open_share_button_top: 30px;
-$open_share_button_box_size: 45px;
-$open_share_button_font_size: 14px;
-$open_share_button_z-index: 100;
-$share_icon_font_size: 14px;
-$share_icon_container_height: 45px;
-$share_icon_container_width: 45px;
-
-// Theme Colors
-$theme_color_blue: #2a74eb;
-$theme_color_red: #eb6a74;
-$theme_color_green: #5daa96;
-
-$colors: (
-  'red': $theme_color_red,
-  'blue': $theme_color_blue,
-  'green': $theme_color_green,
-  'default': ''
-);

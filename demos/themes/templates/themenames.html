@@ -1,0 +1,10 @@
+<div class="row">
+    <div class="col-xs-4 col-sm-3 col-md-2 col-lg-1">
+        <strong>Themes: </strong>
+    </div>
+    <div class="col-xs-8 col-sm-9 col-md-4">
+        <select id="select-theme" ba-repeat="{{theme::themeNames}}" class="form-control">
+            <option value="{{theme == 'default' ? '' : theme}}" {{theme == 'default' ? 'selected' : '' }}>{{theme}}</option>
+        </select>
+    </div>
+</div>

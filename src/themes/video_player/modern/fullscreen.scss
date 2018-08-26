@@ -1,6 +1,6 @@
 /* Full screen options */
 
-.#{$css}-fullscreen-view {
+.#{$cssplayer}-fullscreen-view {
 
   @include hide-dom-shadow-media-control();
 
@@ -12,32 +12,22 @@
     top: 0;
   }
 
-  &.#{$css}-common-browser .#{$css}-overlay {
-    z-index: 2147483647;
-  }
-
-  &.#{$css}-firefox-browser {
+  &.#{$cssplayer}-firefox-browser {
 
     .#{$css}-dashboard, .#{$css}-video-title-block {
       position: fixed;
       z-index: 100;
     }
 
-    video {
-      position: relative;
-      min-height: 100%;
-      min-width: 100%;
-      z-index: 0;
-    }
   }
 }
 
 // Fix Chromium related fullscreen issue
 .#{$css}-container {
-  &.#{$css}-fullscreen-view {
+  &.#{$cssplayer}-fullscreen-view {
     min-width: 100%; position: absolute;
     min-height: fit-content; // Supports only with Chrome and fix Chrome only related issue
-    & > .#{$css}-overlay {
+    & > .#{$cssplayer}-overlay {
       position: fixed;
     }
   }

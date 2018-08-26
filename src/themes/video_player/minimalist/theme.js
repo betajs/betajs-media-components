@@ -6,8 +6,9 @@ Scoped.extend("module:Assets.playerthemes", [
     Parser.registerFunctions({ /*<%= template_function_cache(dirname + '/minimalist-video_player_controlbar.html') %>*/ });
     return {
         "minimalist": {
-            css: "ba-videoplayer-minimalist-theme",
+            css: "ba-videoplayer",
             csstheme: "ba-videoplayer-minimalist-theme",
+            cssplayer: "ba-player",
             tmplcontrolbar: "<%= template(dirname + '/minimalist-video_player_controlbar.html') %>",
             cssloader: ie8 ? "ba-videoplayer" : "",
             cssmessage: "ba-videoplayer",

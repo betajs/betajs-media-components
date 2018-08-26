@@ -5,7 +5,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
     "browser:Dom",
     "browser:Upload.MultiUploader",
     "browser:Upload.FileUploader",
-    "media:Recorder.AudioRecorderWrapper",
+    "media:AudioRecorder.AudioRecorderWrapper",
     "base:Types",
     "base:Objs",
     "base:Strings",
@@ -42,6 +42,8 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                 attrs: {
                     /* CSS */
                     "css": "ba-audiorecorder",
+                    "cssrecorder": "ba-recorder",
+                    "cssvideorecorder": "ba-videorecorder",
                     "csscommon": "ba-commoncss",
                     "iecss": "ba-audiorecorder",
                     "cssimagegallery": "",

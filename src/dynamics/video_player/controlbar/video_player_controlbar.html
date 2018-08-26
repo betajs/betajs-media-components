@@ -1,5 +1,5 @@
 
-<div class="{{css}}-dashboard {{activitydelta > hidebarafter && hideoninactivity ? (css + '-dashboard-hidden') : ''}}">
+<div class="{{css}}-dashboard {{activitydelta > hidebarafter && hideoninactivity ? (cssplayer + '-dashboard-hidden') : ''}}">
 	<div tabindex="{{skipinitial ? 2 : 1}}" data-selector="progress-bar-inner" class="{{css}}-progressbar {{activitydelta < 2500 || ismobile ? '' : (css + '-progressbar-small')}} {{disableseeking ? css + '-disabled' : ''}}"
 		 ba-hotkey:right="{{seek(position + skipseconds)}}"
 		 ba-hotkey:left="{{seek(position - skipseconds)}}"
@@ -35,7 +35,7 @@
 			 ba-click="{{rerecord()}}" title="{{string('rerecord-video')}}"
 		>
             <div class="{{css}}-button-inner">
-                <i class="{{css}}-icon-ccw"></i>
+                <i class="{{csscommon}}-icon-ccw"></i>
             </div>
         </div>
 
@@ -45,7 +45,7 @@
 			 onkeydown="{{tab_index_move(domEvent, null, 'button-icon-pause')}}" ba-if="{{!playing}}" ba-click="{{play()}}"
 		>
             <div class="{{css}}-button-inner">
-                <i class="{{css}}-icon-play"></i>
+                <i class="{{csscommon}}-icon-play"></i>
             </div>
         </div>
 
@@ -56,7 +56,7 @@
 			 title="{{disablepause ? string('pause-video-disabled') : string('pause-video')}}"
 		>
             <div class="{{css}}-button-inner">
-                <i class="{{css}}-icon-pause"></i>
+                <i class="{{csscommon}}-icon-pause"></i>
             </div>
         </div>
 
@@ -75,14 +75,14 @@
 		<div tabindex="9" data-selector="cc-button-container"
 			 ba-hotkey:space^enter="{{toggle_tracks()}}" onmouseout="this.blur()"
 			 ba-if="{{(tracktags.length > 0 && tracktagssupport) || allowtexttrackupload}}"
-			 class="{{css}}-rightbutton-container  {{css}}-cc-{{tracktextvisible ? 'active' : 'inactive'}}"
+			 class="{{css}}-rightbutton-container  {{cssplayer}}-cc-{{tracktextvisible ? 'active' : 'inactive'}}"
 			 title="{{ tracktextvisible ? string('close-tracks') : string('show-tracks')}}"
 			 ba-click="{{toggle_tracks()}}"
 			 onmouseover="{{hover_cc(true)}}"
 			 onmouseleave="{{hover_cc(false)}}"
 		>
 			<div class="{{css}}-button-inner">
-				<i class="{{css}}-icon-subtitle"></i>
+				<i class="{{csscommon}}-icon-subtitle"></i>
 			</div>
 		</div>
 
@@ -92,7 +92,7 @@
 			 onkeydown="{{tab_index_move(domEvent)}}" ba-if="{{fullscreen}}"
 			 ba-click="{{toggle_fullscreen()}}" title="{{ fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video') }}">
 			<div class="{{css}}-button-inner">
-				<i class="{{css}}-icon-resize-{{fullscreened ? 'small' : 'full'}}"></i>
+				<i class="{{csscommon}}-icon-resize-{{fullscreened ? 'small' : 'full'}}"></i>
 			</div>
 		</div>
 
@@ -100,7 +100,7 @@
 			 ba-hotkey:space^enter="{{show_airplay_devices()}}" onmouseout="this.blur()"
 			 class="{{css}}-rightbutton-container"
 			 ba-show="{{airplaybuttonvisible}}" ba-click="{{show_airplay_devices()}}">
-            <div class="{{css}}-airplay-container">
+            <div class="{{cssplayer}}-airplay-container">
                 <svg width="16px" height="11px" viewBox="0 0 16 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <!-- Generator: Sketch 3.3.2 (12043) - http://www.bohemiancoding.com/sketch -->
                     <title>Airplay</title>

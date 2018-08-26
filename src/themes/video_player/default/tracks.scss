@@ -1,34 +1,18 @@
-.#{$css}-text-tracks-overlay {
-    @include absolute-align-full-bottom;
-}
+.#{$css}-container {
 
-.#{$css}-text-tracks-overlay {
-    @include absolute-align-full-bottom-above-control-bar($controlbar_height + $progressbar_height);
-}
-
-.#{$css}-back-arrow-pointer-container {
-    margin-bottom: 5px;
-    .#{$css}-back-arrow-pointer {
-        cursor: pointer;
-        font-size: 12px;
-        margin: 0 0 10px;
+    .#{$cssplayer}-text-tracks-overlay {
+        @include absolute-align-full-bottom-above-control-bar($controlbar_height + 9);
+        @include transition1(bottom, $player_dashboard_transition, ease-in-out);
+        .#{$csscommon}-options-popup {
+            bottom: 2px;
+            right: 0;
+        }
     }
-}
 
-.#{$css}-cue-content {
-    @include relative-horizontally-center();
-    background: #2c2c2c;
-    color: #eeeeee;
-    text-align: center;
-    padding-top: 7px;
-    padding-bottom: 7px;
-    width: 60%;
-}
+    .#{$cssplayer}-track-dashboard-hidden {
+        &.#{$cssplayer}-text-tracks-overlay {
+            bottom: 5px;
+        }
+    }
 
-.#{$css}-tracks-selector-list-visible {
-    @include show-slow(0.2);
-}
-
-.#{$css}-tracks-selector-list-hidden {
-    @include hide-slow(0.2);
 }

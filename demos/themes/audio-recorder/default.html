@@ -22,12 +22,9 @@
 
         <div class="container">
             <div class="row">
-				<div id="video-recorder-block" class="col-xs-12">
+				<div id="audio-recorder-block" class="col-xs-12">
 					<!-- Default -->
-					<ba-videorecorder
-							ba-width=400 ba-height=300 ba-themecolor="{{themeColor}}"
-							{{selectedOptions}} ba-onlyaudio="true" ba-forceflash="false"
-					></ba-videorecorder>
+					<ba-audiorecorder></ba-audiorecorder>
                 </div>
             </div>
 			<div id="theme-colors" class="col-xs-12 col-sm-6">
@@ -53,7 +50,7 @@
             });
 
             var recorderTheme = new BetaJS.Dynamics.Dynamic({
-              element: $('#video-recorder-block'),
+              element: $('#audio-recorder-block'),
               attrs: { themeColor: "" }
             });
 
@@ -64,8 +61,8 @@
             selectColor.activate();
             recorderTheme.activate();
 
-	        var filename = "video-" + BetaJS.Time.now();
-	        var recorder = BetaJS.Dynamics.Dynamic.findByElement($("ba-videorecorder"));
+	        var filename = "audio-" + BetaJS.Time.now();
+	        var recorder = BetaJS.Dynamics.Dynamic.findByElement($("ba-audiorecorder"));
 	        recorder._prepareRecording = function () {
 	    		recorder.set("uploadoptions", {
 	    			image: {url:"/files/" + filename + ".jpg"},

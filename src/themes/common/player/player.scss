@@ -1,0 +1,50 @@
+.#{$cssplayer}-overlay {
+    div[tabindex] {
+        @include transition1(all, 0.30s, ease-in-out);
+    }
+    div[tabindex]:focus {
+        @include box-outline-shadow(#1b8fcc, 2px);
+        @include remove-outline;
+    }
+    div[tabindex]:hover, div[tabindex]:focus:hover {
+        box-shadow: none;
+    }
+
+    .#{$cssplayer}-dashboard-hidden {
+        opacity: 0;
+        & * {
+            cursor: none;
+        }
+    }
+}
+
+.#{$cssplayer}-overlay, .#{$cssplayer}-player-toggle-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.#{$cssplayer}-airplay-container {
+    @include clickable();
+    padding-top: 4px;
+    svg path {
+        fill: #ffffff;
+    }
+}
+
+.#{$cssplayer}-cc-inactive {
+    background-color: transparent;
+    .#{$csscommon}-icon-subtitle {
+        color: #ffffff;
+    }
+}
+
+.#{$cssplayer}-cc-active {
+    background: #000000;
+    .#{$csscommon}-icon-subtitle {
+        color: #eeeeee;
+    }
+}
+

@@ -1,26 +1,6 @@
-.#{$css}-overlay div[tabindex] {
-    @include transition1(all, 0.30s, ease-in-out);
-}
-
-.#{$css}-overlay div[tabindex]:focus {
-    @include box-outline-shadow(#1b8fcc, 2px);
-    @include remove-outline;
-}
-
-.#{$css}-overlay div[tabindex]:hover, .#{$css}-overlay div[tabindex]:focus:hover {
-    box-shadow: none;
-}
-
 .#{$css}-dashboard {
     @include absolute-align-full-bottom;
     @include transition1(opacity, $dashboard_transition, ease-in-out);
-}
-
-.#{$css}-dashboard-hidden {
-    opacity: 0;
-    & * {
-        cursor: none;
-    }
 }
 
 .#{$css}-progressbar {
@@ -30,8 +10,12 @@
     background-color: $progressbar_bgcolor;
 }
 
-.#{$css}-progressbar-inner.#{$css}-disabled {
-    & .#{$css}-progressbar-cache, .#{$css}-progressbar-position, & {cursor: not-allowed}
+.#{$csstheme}-progressbar.#{$css}-disabled {
+    &, & .#{$csstheme}-progressbar-cache,
+    & .#{$csstheme}-progressbar-inner,
+    & .#{$csstheme}-progressbar-position {
+        cursor: not-allowed
+    }
 }
 
 .#{$css}-progressbar-small {
@@ -126,7 +110,7 @@
     width: 32px;
 }
 
-.#{$css}-button-inner, .#{$css}-airplay-container {
+.#{$css}-button-inner, .#{$cssplayer}-airplay-container {
     @include relative-center-center;
     @include clickable;
     color: $text_color;
@@ -225,26 +209,4 @@
     letter-spacing: $video_title_letter_spacing;
     line-height: 30px;
     margin: $video_title_margin;
-}
-
-.#{$css}-airplay-container {
-    @include clickable();
-    padding-top: 4px;
-    svg path {
-        fill: #ffffff;
-    }
-}
-
-.#{$css}-cc-inactive {
-    background-color: transparent;
-    .#{$css}-icon-subtitle {
-        color: #ffffff;
-    }
-}
-
-.#{$css}-cc-active {
-    background: #000000;
-    .#{$css}-icon-subtitle {
-        color: #eeeeee;
-    }
 }

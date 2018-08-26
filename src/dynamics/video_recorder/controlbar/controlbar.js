@@ -15,6 +15,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Controlbar", [
 
                 attrs: {
                     "css": "ba-videorecorder",
+                    "csscommon": "ba-commoncss",
+                    "cssrecorder": "ba-recorder",
                     "hovermessage": "",
                     "recordingindication": true,
                     "covershot_accept_string": "image/*,image/png,image/jpg,image/jpeg"

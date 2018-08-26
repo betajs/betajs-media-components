@@ -1,0 +1,90 @@
+.#{$recorder}-message-container {
+  opacity: 1;
+  display: table;
+  height: 100%;
+  width: 100%;
+  .#{$recorder}-top-inner-message-container {
+    display: table-cell;
+    vertical-align: middle;
+    &.#{$css}-short-message {
+      .#{$recorder}-first-inner-message-container {
+        @include background-rgba( 255, 255, 255, .3, #7f7f7f );
+        @include border-radius(50%);
+        position: relative;
+        margin: 0 auto;
+        height: $message_height + ( $message_side_interval * 9 );
+        width: $message_width + ( $message_side_interval * 9 );
+        z-index: 4;
+        .#{$recorder}-second-inner-message-container {
+          @include background-rgba( 255, 255, 255, .5, #b2b2b2 );
+          @include border-radius(50%);
+          height: $message_height + ( $message_side_interval * 6 );
+          position: relative;
+          left: $message_side_interval + ($message_side_interval / 2);
+          top: $message_side_interval + ($message_side_interval / 2);
+          width: $message_width + ( $message_side_interval * 6 );
+          z-index: 6;
+          .#{$recorder}-third-inner-message-container {
+            @include background-rgba( 255, 255, 255, .7, #e5e5e5 );
+            @include border-radius(50%);
+            height: $message_height + ( $message_side_interval * 3 );
+            position: relative;
+            left: $message_side_interval + ($message_side_interval / 2);
+            top: $message_side_interval + ($message_side_interval / 2);
+            width: $message_width + ( $message_side_interval * 3 );
+            z-index: 8;
+            .#{$recorder}-fourth-inner-message-container {
+              background-color: $message_bgcolor;
+              display: table;
+              @include border-radius(50%);
+              height: $message_height;
+              left: $message_side_interval + ($message_side_interval / 2);
+              position: relative;
+              top: $message_side_interval + ($message_side_interval / 2);
+              width: $message_width;
+              z-index: 10;
+            }
+          }
+        }
+      }
+    }
+    &.#{$css}-long-message {
+      .#{$recorder}-first-inner-message-container {
+        @include background-rgba(255, 255, 255, .9, #ffffff);
+        box-sizing: border-box;
+        padding: 5px;
+        position: relative;
+        margin: 0 auto;
+        width: 80%;
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+.#{$recorder}-message-message {
+  color: $message_color;
+  display: table-cell;
+  font-size: $topmessage_fontsize;
+  font-weight: 300;
+  letter-spacing: .1em;
+  text-align: center;
+  vertical-align: middle;
+}
+
+
+.#{$css}-message-message ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.#{$css}-message-message a {
+  border-bottom-style: dashed;
+  border-bottom-width: 1px;
+  color: black;
+  text-decoration:none;
+}
+
+.#{$css}-message-message a:hover {
+  border-bottom-style: solid;
+}

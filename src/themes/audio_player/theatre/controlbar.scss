@@ -7,16 +7,16 @@
     min-width: 320px;
 }
 
-.#{$css}-overlay div[tabindex] {
+.#{$cssplayer}-overlay div[tabindex] {
     @include transition1(all, 0.30s, ease-in-out);
 }
 
-.#{$css}-overlay div[tabindex]:focus {
+.#{$cssplayer}-overlay div[tabindex]:focus {
     @include box-outline-shadow(#1b8fcc, 2px);
     @include remove-outline;
 }
 
-.#{$css}-overlay div[tabindex]:hover, .#{$css}-overlay div[tabindex]:focus:hover {
+.#{$cssplayer}-overlay div[tabindex]:hover, .#{$cssplayer}-overlay div[tabindex]:focus:hover {
     box-shadow: none;
 }
 
@@ -105,15 +105,15 @@
     line-height: 2;
 }
 
-.#{$css}-icon-play, .#{$css}-icon-pause {
+.#{$csscommon}-icon-play, .#{$csscommon}-icon-pause {
     color: $button_color;
 }
 
-.#{$css}-icon-volume-up, .#{$css}-icon-volume-down {
+.#{$csscommon}-icon-volume-up, .#{$csscommon}-icon-volume-down {
     color: $button_color_secondary;
 }
 
-.#{$css}-icon-volume-off {
+.#{$csscommon}-icon-volume-off {
     color: $volume_off_color;
 }
 
@@ -264,18 +264,18 @@
     font-size: 10px;
 }
 
-.#{$css}-size-small .#{$css}-time-container {
+.#{$cssplayer}-size-small .#{$css}-time-container {
     display: none;
 }
 
-.#{$cssie8} .#{$css}-volumebar, .#{$css}-size-medium .#{$css}-volumebar, .#{$css}-size-small .#{$css}-volumebar {
+.#{$cssie8} .#{$css}-volumebar, .#{$cssplayer}-size-medium .#{$css}-volumebar, .#{$cssplayer}-size-small .#{$css}-volumebar {
     display: none;
 }
 
-.#{$css}-size-medium .#{$css}-volume-button-container, .#{$css}-size-small .#{$css}-volume-button-container {
+.#{$cssplayer}-size-medium .#{$css}-volume-button-container, .#{$cssplayer}-size-small .#{$css}-volume-button-container {
     display: none;
 }
 
-.#{$css}-size-medium .#{$css}-right-time-container {
+.#{$cssplayer}-size-medium .#{$css}-right-time-container {
     display: none;
 }

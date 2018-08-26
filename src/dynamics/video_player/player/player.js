@@ -42,6 +42,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     /* CSS */
                     "css": "ba-videoplayer",
                     "csscommon": "ba-commoncss",
+                    "cssplayer": "ba-player",
                     "iecss": "ba-videoplayer",
                     "cssplaybutton": "",
                     "cssloader": "",
@@ -54,7 +55,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "popup-width": "",
                     "popup-height": "",
                     /* Themes */
-                    "theme": "",
+                    "theme": "ba-videoplayer-default-theme",
                     "csstheme": "",
                     "themecolor": "",
                     /* Dynamics */

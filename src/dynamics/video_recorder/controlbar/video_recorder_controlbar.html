@@ -43,25 +43,25 @@
                  onmouseenter="{{hover(string('settings'))}}"
                  onmouseleave="{{unhover()}}"
 			>
-                <i class="{{css}}-icon-cog"></i>
+                <i class="{{csscommon}}-icon-cog"></i>
             </div>
         </div>
 
         <div class="{{css}}-lefticon-container" ba-show="{{settingsvisible && !novideo && !allowscreen}}">
-            <div data-selector="record-button-icon-videocam" class="{{css}}-icon-inner"
+            <div data-selector="record-button-icon-videocam" class="{{csscommon}}-icon-inner"
                  onmouseenter="{{hover(string(camerahealthy ? 'camerahealthy' : 'cameraunhealthy'))}}"
                  onmouseleave="{{unhover()}}"
 			>
-                <i class="{{css}}-icon-videocam {{css}}-icon-state-{{camerahealthy ? 'good' : 'bad' }}"></i>
+                <i class="{{csscommon}}-icon-videocam {{csscommon}}-icon-state-{{camerahealthy ? 'good' : 'bad' }}"></i>
             </div>
         </div>
 
         <div class="{{css}}-lefticon-container" ba-show="{{settingsvisible && !noaudio && !allowscreen}}">
-            <div data-selector="record-button-icon-mic" class="{{css}}-icon-inner"
+            <div data-selector="record-button-icon-mic" class="{{csscommon}}-icon-inner"
                  onmouseenter="{{hover(string(microphonehealthy ? 'microphonehealthy' : 'microphoneunhealthy'))}}"
                  onmouseleave="{{unhover()}}"
 			>
-                <i class="{{css}}-icon-mic {{css}}-icon-state-{{microphonehealthy ? 'good' : 'bad' }}"></i>
+                <i class="{{csscommon}}-icon-mic {{csscommon}}-icon-state-{{microphonehealthy ? 'good' : 'bad' }}"></i>
             </div>
         </div>
 

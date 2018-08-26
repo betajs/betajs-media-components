@@ -6,8 +6,10 @@ Scoped.extend("module:Assets.playerthemes", [
     Parser.registerFunctions({ /*<%= template_function_cache(dirname + '/theatre-video_player_controlbar.html') %>*/ });
     return {
         "theatre": {
-            css: "ba-videoplayer-theatre-theme",
+            css: "ba-videoplayer",
             csstheme: "ba-videoplayer-theatre-theme",
+            csscommon: "ba-commoncss",
+            cssplayer: "ba-player",
             tmplcontrolbar: "<%= template(dirname + '/theatre-video_player_controlbar.html') %>",
             cssloader: ie8 ? "ba-videoplayer" : "",
             cssmessage: "ba-videoplayer",

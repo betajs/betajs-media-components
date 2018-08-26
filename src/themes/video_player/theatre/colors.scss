@@ -1,32 +1,31 @@
 @each $color, $value in $colors {
   @if $color != default {
-    .#{$css}-#{$color}-color {
+    .#{$cssplayer}-#{$color}-color {
 
-      .#{$css}-video-title, .#{$css}-icon-play, .#{$css}-icon-pause,
-      .#{$css}-button-inner, .#{$css}-icon-resize-full,
-      .#{$css}-icon-volume-up, .#{$css}-icon-volume-down, &.#{$cssnoie8} .#{$css}-icon-share,
-      &.#{$cssnoie8} .#{$css}-button-inner, .#{$css}-cc-inactive .#{$css}-icon-subtitle {
+      .#{$csstheme}-video-title, .#{$csstheme}-button-inner {
         color: $value;
       }
 
-      .#{$css}-stream-label-container .#{$css}-stream-label, .#{$css}-progressbar-position,
-      .#{$css}-volumebar-position, .#{$css}-rerecord-button, .#{$css}-cc-active {
+      .#{$csstheme}-stream-label-container .#{$csstheme}-stream-label, .#{$csstheme}-progressbar-position,
+      .#{$csstheme}-volumebar-position, .#{$csstheme}-rerecord-button, .#{$cssplayer}-cc-active {
         background-color: $value;
       }
 
-      .#{$css}-volumebar-inner {
+      // Main play button
+      &.#{$cssnoie8} {
+        .#{$csstheme}-playbutton-container {
+          border-color: $value;
+        }
+        .#{$csstheme}-playbutton-button::after {
+          color: $value;
+        }
+      }
+
+      .#{$csstheme}-volumebar-inner {
         @include background-rgba(255, 255, 255, 0.3, #7f7f7f);
       }
 
-      .#{$css}-cast-button-container button {
-        //--disconnected-color: #{$value};
-      }
-
-      .#{$css}-airplay-container svg path {
-        fill: $value;
-      }
-
-      .#{$css}-cc-active .#{$css}-icon-subtitle {
+      .#{$cssplayer}-cc-active .#{$csscommon}-icon-subtitle {
         color: #eeeeee;
       }
 

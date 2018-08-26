@@ -10,7 +10,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Loader", [
                 template: "<%= template(dirname + '/video_player_loader.html') %>",
 
                 attrs: {
-                    "css": "ba-videoplayer"
+                    "css": "ba-videoplayer",
+                    "csscommon": "ba-commoncss",
+                    "cssplayer": "ba-player"
                 }
 
             };

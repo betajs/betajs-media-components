@@ -1,5 +1,6 @@
 $css: "ba-videorecorder";
 $csscommon: "ba-commoncss";
+$cssrecorder: "ba-recorder";
 $cssie8: "ba-videorecorder-ie8";
 $cssnoie8: "ba-videorecorder-noie8";
 $fontello_name: "bjsmc";
@@ -18,10 +19,6 @@ $topmessage_opacity: 0.1;
 $topmessage_fontsize: 16px;
 $topmessage_height: 32px;
 $topmessage_fontweight: normal;
-
-$loader_size: 5px;
-$loader_frame_thickness: 1.1em;
-$loader_label_fontsize: 40px;
 
 $chooser_fontsize: 14px;
 $chooser_buttons_min_width: 12em;

@@ -1,5 +1,5 @@
 <% icons.forEach(function (icon) { %>
-.#{$css}-<%= icon.ident %>:before {
+.#{$csscommon}-<%= icon.ident %>:before {
     @include fontello-icon;
     content: '<%= icon.content %>';
 }

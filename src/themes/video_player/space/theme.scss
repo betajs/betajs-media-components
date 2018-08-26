@@ -1,4 +1,6 @@
-$css: "ba-videoplayer-space-theme";
+$css: "ba-videoplayer";
+$csstheme: "ba-videoplayer-space-theme";
+$cssplayer: "ba-player";
 $csscommon: "ba-commoncss";
 $cssie8: "ba-videoplayer-ie8";
 $cssnoie8: "ba-videoplayer-noie8";
@@ -16,8 +18,6 @@ $cover_playbutton_border_color: #eeeeee;
 $cover_playbutton_border_hover_color: #000000;
 $cover_playbutton_hover_shadow: #eeeeee;
 
-$loader_size: 5px;
-$loader_frame_thickness: 0.6em;
 
 $message_bgcolor: #eeeeee;
 $message_opacity: 0.75;

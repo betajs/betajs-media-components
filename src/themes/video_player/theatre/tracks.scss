@@ -1,53 +1,17 @@
-.#{$css}-text-tracks-overlay {
-    @include absolute-align-full-bottom;
-}
+.#{$csstheme}.#{$css}-container {
 
-.#{$css}-text-tracks-overlay {
-    @include absolute-align-full-bottom-above-control-bar(40px);
-    .#{$csscommon}-options-popup {
-        bottom: 5px;
-        right: $controlbar_side_padding;
+    .#{$cssplayer}-text-tracks-overlay {
+        @include absolute-align-full-bottom-above-control-bar(45px);
+        @include transition1(bottom, $player_dashboard_transition, ease-in-out);
+        .#{$csscommon}-options-popup {
+            bottom: 0;
+            right: $controlbar_side_padding;
+        }
     }
-}
 
-.#{$css}-cue-content {
-    @include relative-horizontally-center();
-    background: #2c2c2c;
-    color: #eeeeee;
-    text-align: center;
-    padding-top: 7px;
-    padding-bottom: 7px;
-    width: 60%;
-}
-
-.#{$css}-tracks-selector-list {
-    @include absolute-align-right-bottom;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    z-index: 1;
-}
-
-.#{$css}-tracks-selector-list {
-    bottom: 3px;
-    right: 12.5%;
-}
-
-.#{$css}-tracks-selector {
-    padding: 5px 20px;
-    background: #020202;
-    color: #eeeeee;
-    cursor: pointer;
-    &:hover {
-        background-color: #4c4c4c;
-        color: #ffffff;
+    .#{$cssplayer}-track-dashboard-hidden {
+        &.#{$cssplayer}-text-tracks-overlay {
+            bottom: 5px;
+        }
     }
-}
-
-.#{$css}-tracks-selector-list-open {
-    @include show-slow(0.2);
-}
-
-.#{$css}-tracks-selector-list-closed {
-    @include hide-slow(0.2);
 }

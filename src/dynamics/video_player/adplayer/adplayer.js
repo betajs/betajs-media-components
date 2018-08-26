@@ -15,6 +15,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Adplayer", [
 
                 attrs: {
                     "css": "ba-adplayer",
+                    "csscommon": "ba-commoncss",
+                    "cssplayer": "ba-player",
                     "lefttillskip": -1,
                     "adduration": 0,
                     "duration": 0,

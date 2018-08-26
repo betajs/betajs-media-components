@@ -6,16 +6,16 @@
     min-width: 320px;
 }
 
-.#{$css}-overlay div[tabindex] {
+.#{$cssplayer}-overlay div[tabindex] {
     @include transition1(all, 0.30s, ease-in-out);
 }
 
-.#{$css}-overlay div[tabindex]:focus {
+.#{$cssplayer}-overlay div[tabindex]:focus {
     @include box-outline-shadow(#1b8fcc, 2px);
     @include remove-outline;
 }
 
-.#{$css}-overlay div[tabindex]:hover, .#{$css}-overlay div[tabindex]:focus:hover {
+.#{$cssplayer}-overlay div[tabindex]:hover, .#{$cssplayer}-overlay div[tabindex]:focus:hover {
     box-shadow: none;
 }
 
@@ -38,7 +38,7 @@
     z-index: 1;
 }
 
-.#{$css}-visual-effect-applied .#{$css}-overlay {
+.#{$css}-visual-effect-applied .#{$cssplayer}-overlay {
     background: #000000;
 }
 
@@ -54,7 +54,7 @@
     color: $button_color;
     &[data-selector='button-icon-play']:focus, &[data-selector='button-icon-pause']:focus {
         //outline: none;
-        i.#{$css}-icon-play {
+        i.#{$csscommon}-icon-play {
             outline: 1px solid #8BC2F9;
             &:hover, &:active {
                 border: none;
@@ -152,7 +152,7 @@
 }
 
 .#{$cssnoie8} {
-    .#{$css}-overlay {
+    .#{$cssplayer}-overlay {
         .#{$css}-controlbar-top-block {
             .#{$css}-button-inner {
                 @include transition1(opacity, 0.3s, ease);
@@ -163,7 +163,7 @@
 }
 
 .#{$cssie8} {
-    .#{$css}-overlay {
+    .#{$cssplayer}-overlay {
         height: 100%;
         .#{$css}-controlbar-top-block {
             .#{$css}-button-inner {
@@ -320,7 +320,7 @@
     height: 100%;
 }
 
-.#{$css}-size-medium {
+.#{$cssplayer}-size-medium {
 
     .#{$css}-controlbar-top-block {
         .#{$css}-button-container {
@@ -331,7 +331,7 @@
     }
 }
 
-.#{$css}-size-small {
+.#{$cssplayer}-size-small {
     .#{$css}-volumebar {
         display: none;
     }

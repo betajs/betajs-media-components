@@ -15,6 +15,8 @@ Scoped.define("module:AudioRecorder.Dynamics.Controlbar", [
 
                 attrs: {
                     "css": "ba-audiorecorder",
+                    "csscommon": "ba-commoncss",
+                    "cssrecorder": "ba-recorder",
                     "hovermessage": "",
                     "recordingindication": true
                 },

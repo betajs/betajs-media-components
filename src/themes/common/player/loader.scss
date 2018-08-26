@@ -1,0 +1,52 @@
+.#{$cssplayer}-loader-container {
+	@include transform-translate(-50%, -50%);
+	@include absolute-center-center;
+}
+
+.#{$cssplayer}-loader-loader:before {
+    content: "";
+    display: block;
+    padding-top: 100%; /* initial ratio of 1:1*/
+}
+
+.#{$cssplayer}-loader-loader {
+	@include transform-translate-z(0);
+    position: relative;
+    width: 100%;
+    font-size: $loader_size;
+    box-sizing: content-box;
+    @include border-top-rgba($player_loader_frame_thickness, 255, 255, 255, 0.2, #999);
+    @include border-right-rgba($player_loader_frame_thickness, 255, 255, 255, 0.2, #999);
+    @include border-bottom-rgba($player_loader_frame_thickness, 255, 255, 255, 0.2, #999);
+    border-left: $player_loader_frame_thickness solid #ffffff;    
+    -webkit-animation: #{$cssplayer}-loader-load8 1.1s infinite linear;
+    -moz-animation: #{$cssplayer}-loader-load8 1.1s infinite linear;
+    animation: #{$cssplayer}-loader-load8 1.1s infinite linear;
+}
+
+.#{$cssplayer}-loader-loader, .#{$cssplayer}-loader-loader:after {
+    border-radius: 50%;
+    width: 10em;
+    height: 10em;
+}
+
+@-webkit-keyframes #{$cssplayer}-loader-load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes #{$cssplayer}-loader-load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}

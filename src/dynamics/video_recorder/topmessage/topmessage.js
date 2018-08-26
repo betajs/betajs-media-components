@@ -10,6 +10,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Topmessage", [
 
                 attrs: {
                     "css": "ba-videorecorder",
+                    "csscommon": "ba-commoncss",
+                    "cssrecorder": "ba-recorder",
                     "topmessage": ''
                 }
 

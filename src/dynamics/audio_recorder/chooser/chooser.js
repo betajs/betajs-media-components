@@ -16,6 +16,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Chooser", [
 
                 attrs: {
                     "css": "ba-audiorecorder",
+                    "cssrecorder": "ba-recorder",
                     "allowrecord": true,
                     "allowupload": true,
 

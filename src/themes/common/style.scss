@@ -1,12 +1,21 @@
 .#{$csscommon}-full-width { width: 100%;}
+
 .#{$csscommon}-half-width {width: 50%;}
+
 .#{$csscommon}-text-center {text-align: center;}
+
 .#{$csscommon}-text-right {text-align: right;}
+
 .#{$csscommon}-text-left {text-align: left;}
+
 .#{$csscommon}-pull-right {float: right;}
+
 .#{$csscommon}-disabled, .#{$csscommon}-disabled * { @include disabled_element() }
+
 .#{$csscommon}-text-info { color: #5dbb96 }
+
 .#{$csscommon}-text-error { color: #dd4b39}
+
 .#{$csscommon}-open-next, .#{$csscommon}-open-previous {
     & > .#{$csscommon}-inner-icon, & > .#{$csscommon}-inner-text {
         font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -23,6 +32,7 @@
     & > .#{$csscommon}-inner-text {
     }
 }
+
 .#{$csscommon}-open-next {
     & > .#{$csscommon}-inner-icon {
         &:after {
@@ -31,6 +41,7 @@
         }
     }
 }
+
 .#{$csscommon}-open-previous {
     & > .#{$csscommon}-inner-icon {
         float: left;
@@ -53,6 +64,7 @@
     white-space: nowrap;
     cursor: pointer;
 }
+
 .#{$csscommon}-form {
     .#{$csscommon}-form-input {
         &.#{$csscommon}-select-field {
@@ -201,6 +213,7 @@
     @include absolute-max-max();
     z-index: 1005;
 }
+
 .#{$csscommon}-image-viewer-expanded {
     @include transform-translate(-50%, -50%);
     left: 50%;
@@ -209,6 +222,7 @@
     width: 100%;
     z-index: 1003;
 }
+
 .#{$csscommon}-image-viewer-title, .#{$csscommon}-image-viewer-close-button {
     @include background-rgba(0, 0, 0, .7, #777777);
     @include transform-translate-x(-50%);
@@ -218,10 +232,12 @@
     position: fixed;
     z-index: 99999;
 }
+
 .#{$csscommon}-image-viewer-title {
     bottom: 3%;
     left:50%;
 }
+
 .#{$csscommon}-image-viewer-close-button {
     @include border-radius(50%);
     cursor: pointer;
@@ -232,6 +248,7 @@
         content: '\e814';
     }
 }
+
 .#{$csscommon}-image-viewer-overlay {
     background-color: #000000;
     bottom:0;

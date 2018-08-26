@@ -2,8 +2,8 @@
   @if $color != default {
     .#{$css}-#{$color}-color {
 
-      .#{$css}-dashboard, .#{$css}-audio-title, .#{$css}-right-block .#{$css}-icon-volume-up,
-      .#{$css}-right-block .#{$css}-icon-volume-down,
+      .#{$css}-dashboard, .#{$css}-audio-title, .#{$css}-right-block .#{$csscommon}-icon-volume-up,
+      .#{$css}-right-block .#{$csscommon}-icon-volume-down,
       .#{$css}-button-inner {
         color: $value;
       }

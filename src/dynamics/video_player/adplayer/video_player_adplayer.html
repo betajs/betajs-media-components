@@ -1,8 +1,8 @@
 <video class="{{css}}-video" data-video="video"></video>
-<div class="{{css}}-ad-dashboard">
-    <div class="{{css}}-ad-click-tracker" ba-click="{{ad_clicked()}}"></div>
-    <div class="{{css}}-skipbutton-container" ba-click="{{skip_linear_ad()}}"  ba-show="{{skipbuttonvisible}}">
-        <p class="{{css}}-skipbutton">{{lefttillskip > 0 ? string('can-skip-after').replace('%d', lefttillskip) : string('skip-ad')}}</p>
+<div class="{{cssplayer}}-ad-dashboard">
+    <div class="{{cssplayer}}-ad-click-tracker" ba-click="{{ad_clicked()}}"></div>
+    <div class="{{cssplayer}}-skipbutton-container" ba-click="{{skip_linear_ad()}}"  ba-show="{{skipbuttonvisible}}">
+        <p class="{{cssplayer}}-skipbutton">{{lefttillskip > 0 ? string('can-skip-after').replace('%d', lefttillskip) : string('skip-ad')}}</p>
     </div>
 
     <div class="{{css}}-companion-ad-container" ba-show="{{companionadvisible}}">
@@ -10,26 +10,26 @@
         <img class="{{css}}-companion-ad" src=""/>
     </div>
 
-    <div class="{{css}}-ad-controlbar">
+    <div class="{{cssplayer}}-ad-controlbar">
 
-        <div class="{{css}}-ad-time-container">
-            <div class="{{css}}-ad-time-value" title="{{string('elapsed-time')}}">{{string('ad-will-end-after').replace('%s', formatTime(adduration))}}</div>
+        <div class="{{cssplayer}}-ad-time-container">
+            <div class="{{cssplayer}}-ad-time-value" title="{{string('elapsed-time')}}">{{string('ad-will-end-after').replace('%s', formatTime(adduration))}}</div>
         </div>
 
-        <div class="{{css}}-ad-volumebar">
-            <div data-selector="button-volume-bar" class="{{css}}-ad-volumebar-inner"
+        <div class="{{cssplayer}}-ad-volumebar">
+            <div data-selector="button-volume-bar" class="{{cssplayer}}-ad-volumebar-inner"
                  onmousedown="{{startUpdateAdVolume(domEvent)}}"
                  onmouseup="{{stopUpdateAdVolume(domEvent)}}"
                  onmouseleave="{{stopUpdateAdVolume(domEvent)}}"
                  onmousemove="{{progressUpdateAdVolume(domEvent)}}">
-                <div class="{{css}}-ad-volumebar-position" ba-styles="{{{width: Math.min(100, Math.round(advolume * 100)) + '%'}}}">
-                    <div class="{{css}}-ad-volumebar-button" title="{{string('volume-button')}}"></div>
+                <div class="{{cssplayer}}-ad-volumebar-position" ba-styles="{{{width: Math.min(100, Math.round(advolume * 100)) + '%'}}}">
+                    <div class="{{cssplayer}}-ad-volumebar-button" title="{{string('volume-button')}}"></div>
                 </div>
             </div>
         </div>
 
-        <div data-selector="button-icon-volume" class="{{css}}-ad-rightbutton-container" ba-click="{{toggle_ad_volume()}}" title="{{string(advolume > 0 ? 'volume-mute' : 'volume-unmute')}}">
-            <div class="{{css}}-ad-button-inner">
+        <div data-selector="button-icon-volume" class="{{cssplayer}}-ad-rightbutton-container" ba-click="{{toggle_ad_volume()}}" title="{{string(advolume > 0 ? 'volume-mute' : 'volume-unmute')}}">
+            <div class="{{cssplayer}}-ad-button-inner">
                 <i class="{{css + '-icon-volume-' + (advolume >= 0.5 ? 'up' : (advolume > 0 ? 'down' : 'off')) }}"></i>
             </div>
         </div>

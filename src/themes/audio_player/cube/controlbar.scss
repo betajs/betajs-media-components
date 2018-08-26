@@ -1,29 +1,8 @@
-.#{$css}-normal-view {
-  background-color: #020202;
-  border: 1px solid $title_text_color;
-  box-sizing: border-box;
-  min-height: $controlbar_height + $topmessage_height;
-  min-width: 320px;
-  height: $controlbar_height + $topmessage_height;
-}
 
 .#{$css}-audio-canvas {
   display: none;
   position: absolute;
   bottom: $controlbar_height;
-}
-
-.#{$css}-overlay div[tabindex] {
-  @include transition1(all, 0.30s, ease-in-out);
-}
-
-.#{$css}-overlay div[tabindex]:focus {
-  @include box-outline-shadow(#1b8fcc, 2px);
-  @include remove-outline;
-}
-
-.#{$css}-overlay div[tabindex]:hover, .#{$css}-overlay div[tabindex]:focus:hover {
-  box-shadow: none;
 }
 
 .#{$css}-dashboard {
@@ -36,6 +15,15 @@
   height: $controlbar_height;
   opacity: 0.9;
   overflow: hidden;
+
+  .#{$cssplayer}-normal-view {
+    background-color: #020202;
+    border: 1px solid $title_text_color;
+    box-sizing: border-box;
+    min-height: $controlbar_height + $topmessage_height;
+    min-width: 320px;
+    height: $controlbar_height + $topmessage_height;
+  }
 }
 
 .#{$css}-dashboard-hidden {
@@ -110,7 +98,7 @@
 
 .#{$css}-right-block {
   float: right;
-  .#{$css}-icon-volume-up, .#{$css}-icon-volume-down {
+  .#{$csscommon}-icon-volume-up, .#{$csscommon}-icon-volume-down {
     color: $button_color_secondary;
   }
 }

@@ -1,10 +1,10 @@
-.#{$css}-container {
+.#{$cssrecorder}-container {
     display: inline-block;
     position: relative;
     background-color: $recorder_bgcolor;
 }
 
-.#{$css}-overlay {
+.#{$cssrecorder}-overlay {
     position: absolute;
     left: 0;
     right: 0;
@@ -23,7 +23,7 @@
     background-color: black;
 }
 
-.#{$css}-container video::-webkit-media-controls-start-playback-button {
+.#{$cssrecorder}-container video::-webkit-media-controls-start-playback-button {
   display: none;
   -webkit-appearance: none;
   -moz-appearance: none;

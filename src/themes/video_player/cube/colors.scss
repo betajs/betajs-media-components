@@ -1,35 +1,39 @@
 @each $color, $value in $colors {
   @if $color != default {
-    .#{$css}-#{$color}-color {
+    .#{$cssplayer}-#{$color}-color {
 
-      .#{$css}-dashboard, .#{$css}-video-title, .#{$css}-right-block .#{$css}-icon-volume-up,
-      .#{$css}-right-block .#{$css}-icon-volume-down, .#{$css}-right-block .#{$css}-icon-resize-full,
-      .#{$css}-right-block .#{$css}-icon-resize-small, .#{$css}-button-inner,
-      .#{$css}-cc-inactive .#{$css}-icon-subtitle {
+      .#{$csstheme}-dashboard, .#{$csstheme}-video-title, .#{$csstheme}-button-inner,
+      .#{$csstheme}-button-inner > i {
         color: $value;
       }
 
-      .#{$css}-volumebar-position, .#{$css}-stream-label, .#{$css}-progressbar-position,
-      .#{$css}-rerecord-button, .#{$css}-cc-active {
+      .#{$cssplayer}-cc-active .#{$csstheme}-button-inner > i {
+        color: $stream_label_color;
+      }
+
+      // Main play button
+      &.#{$cssnoie8} {
+        .#{$csstheme}-playbutton-container {
+          border-color: $value;
+        }
+        .#{$csstheme}-playbutton-button::after {
+          color: $value;
+        }
+      }
+
+      .#{$csstheme}-volumebar-position, .#{$csstheme}-stream-label,
+      .#{$csstheme}-progressbar-position,
+      .#{$csstheme}-rerecord-button, .#{$cssplayer}-cc-active {
         background-color: $value;
       }
 
-      .#{$css}-playbutton-button {
+      .#{$csstheme}-playbutton-button {
         border-left-color: $value;
       }
 
-      .#{$css}-volumebar-inner {
+      .#{$csstheme}-volumebar-inner {
         @include background-rgba(255, 255, 255, 0.3, #979797);
       }
-
-      //.#{$css}-cast-button-container button {
-      //  --disconnected-color: #{$value};
-      //}
-
-      .#{$css}-airplay-container svg path {
-        fill: $value;
-      }
-
     }
   }
 }

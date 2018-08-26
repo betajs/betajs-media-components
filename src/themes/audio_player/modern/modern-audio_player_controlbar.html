@@ -22,7 +22,7 @@
 		 ba-if="{{rerecordable}}" ba-click="{{rerecord()}}" title="{{string('rerecord-audio')}}"
 	>
     	<div class="{{css}}-button-inner">
-    		<i class="{{css}}-icon-ccw"></i>
+    		<i class="{{csscommon}}-icon-ccw"></i>
     	</div>
     </div>
 
@@ -33,7 +33,7 @@
 		 ba-if="{{!playing}}" ba-click="{{play()}}" title="{{string('play-audio')}}"
 	>
 		<div class="{{css}}-button-inner">
-			<i class="{{css}}-icon-play"></i>
+			<i class="{{csscommon}}-icon-play"></i>
 		</div>
 	</div>
 
@@ -44,7 +44,7 @@
 		 ba-if="{{playing}}" ba-click="{{pause()}}" title="{{disablepause ? string('pause-audio-disabled') : string('pause-audio')}}"
 	>
 		<div class="{{css}}-button-inner">
-			<i class="{{css}}-icon-pause"></i>
+			<i class="{{csscommon}}-icon-pause"></i>
 		</div>
 	</div>
 	<div class="{{css}}-time-container">

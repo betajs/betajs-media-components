@@ -1,0 +1,22 @@
+/* Full screen options */
+
+.#{$cssplayer}-fullscreen-view {
+
+  @include hide-dom-shadow-media-control();
+
+  &.#{$cssplayer}-common-browser .#{$cssplayer}-overlay {
+    z-index: 2147483647;
+  }
+
+  &.#{$cssplayer}-firefox-browser {
+
+    video {
+      position: relative;
+      min-height: 100%; // TODO: check cube, theatre and default themes capability
+      min-width: 100%;
+      z-index: 0;
+    }
+
+  }
+
+}

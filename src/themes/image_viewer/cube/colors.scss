@@ -2,8 +2,8 @@
   @if $color != default {
     .#{$css}-#{$color}-color {
 
-      .#{$css}-dashboard, .#{$css}-image-title, .#{$css}-right-block .#{$css}-icon-resize-full,
-      .#{$css}-right-block .#{$css}-icon-resize-small, .#{$css}-button-inner {
+      .#{$css}-dashboard, .#{$css}-image-title, .#{$css}-right-block .#{$csscommon}-icon-resize-full,
+      .#{$css}-right-block .#{$csscommon}-icon-resize-small, .#{$css}-button-inner {
         color: $value;
       }
 

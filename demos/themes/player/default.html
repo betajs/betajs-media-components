@@ -25,18 +25,39 @@
             <div id="video-player-block" class="col-xs-12">
                 <h4>Default</h4>
                 <ba-videoplayer ba-sources="{{[{src:'../assets/sample-video.mp4', poster: '../assets/sample-cover.png', hd: true}, {src:'../assets/sample-video2.mp4', poster:'../assets/sample-cover2.png', hd: false}]}}"
-                                ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
-                                ba-themecolor="{{themeColor}}"
-                                ba-sharevideo="facebook,twitter,gplus"
-                                ba-sharevideourl="http://betajs.com"
-                                ba-title="Some test title from html"
-                                ba-noflash
-                                ba-skipseconds="10"
-                                ba-disableseeking="false"
-                                ba-disablepause="false"
-                                ba-hideoninactivity="false"
-                                ba-skipinitial="true"
-                                ba-width='80%'></ba-videoplayer>
+                    ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
+                    ba-themecolor="{{themeColor}}"
+                    ba-sharevideo="facebook,twitter,gplus"
+                    ba-sharevideourl="http://betajs.com"
+                    ba-title="Some test title from html"
+                    ba-noflash
+                    ba-skipseconds="10"
+                    ba-disableseeking="false"
+                    ba-disablepause="false"
+                    ba-hideoninactivity="true"
+                    ba-skipinitial="false"
+                    ba-width='80%'
+                    ba-tracktagsstyled="true"
+                    ba-tracktags="{{
+                        [
+                            {
+                                lang: 'en',
+                                kind: 'subtitles',
+                                label: 'English',
+                                //enabled: true,
+                                src: '../../assets/bunny-en.vtt'
+                            },
+                            {
+                                lang: 'de',
+                                kind: 'subtitles',
+                                label: 'Deutsch',
+                                //enabled: true,
+                                src: '../../assets/bunny-de.vtt'
+                            }
+
+                        ]
+                    }}"
+                ></ba-videoplayer>
             </div>
             <div id="theme-colors" class="col-xs-12">
                 <ba-themecolors></ba-themecolors>

@@ -1,22 +1,4 @@
 /* Elevate */
-.#{$css}-normal-view {
-    @include border-rgba(1px, 0, 0, 0, 0, #555555);
-    min-height: 80px;
-    min-width: 320px;
-}
-
-.#{$css}-overlay div[tabindex] {
-    @include transition1(all, 0.30s, ease-in-out);
-}
-
-.#{$css}-overlay div[tabindex]:focus {
-    @include box-outline-shadow(#1b8fcc, 2px);
-    @include remove-outline;
-}
-
-.#{$css}-overlay div[tabindex]:hover, .#{$css}-overlay div[tabindex]:focus:hover {
-    box-shadow: none;
-}
 
 .#{$css}-dashboard {
     @include transition1(opacity, $dashboard_transition, ease-in-out);
@@ -26,6 +8,12 @@
     opacity: 0.75;
     overflow: hidden;
     z-index: 1;
+
+    .#{$cssplayer}-normal-view {
+        @include border-rgba(1px, 0, 0, 0, 0, #555555);
+        min-height: 80px;
+        min-width: 320px;
+    }
 }
 
 .#{$css}-visual-effect-applied .#{$css}-dashboard {
@@ -38,7 +26,7 @@
     position: absolute;
     z-index: 1;
 }
-.#{$css}-visual-effect-applied .#{$css}-overlay {
+.#{$css}-visual-effect-applied .#{$cssplayer}-overlay {
     background: #000000;
 }
 
@@ -120,12 +108,12 @@
     text-align: center;
 }
 
-.#{$css}-icon-play, .#{$css}-icon-pause {
+.#{$csscommon}-icon-play, .#{$csscommon}-icon-pause {
     color: $button_color;
 }
 
-.#{$css}-icon-volume-up, .#{$css}-icon-play, .#{$css}-icon-pause,
-.#{$css}-icon-volume-down {
+.#{$csscommon}-icon-volume-up, .#{$csscommon}-icon-play, .#{$csscommon}-icon-pause,
+.#{$csscommon}-icon-volume-down {
     display: inline-block;
     &:before {
         font-size: $text_fontsize;
@@ -134,13 +122,13 @@
     }
 }
 
-.#{$cssie8} .#{$css}-icon-volume-down {
+.#{$cssie8} .#{$csscommon}-icon-volume-down {
     &:before {
         font-size: $text_fontsize + 1;
     }
 }
 
-.#{$css}-icon-volume-up {
+.#{$csscommon}-icon-volume-up {
     color: $button_color_secondary;
 }
 
@@ -251,19 +239,19 @@
     font-size: 10px;
 }
 
-.#{$css}-size-small .#{$css}-time-container, .#{$css}-size-small .#{$css}-center-block {
+.#{$cssplayer}-size-small .#{$css}-time-container, .#{$cssplayer}-size-small .#{$css}-center-block {
 	display: none;
 }
 
-.#{$css}-size-medium .#{$css}-volumebar {
+.#{$cssplayer}-size-medium .#{$css}-volumebar {
 	display: none;
 }
 
-.#{$css}-size-medium .#{$css}-volume-button-container, .#{$css}-size-small .#{$css}-volume-button-container {
+.#{$cssplayer}-size-medium .#{$css}-volume-button-container, .#{$cssplayer}-size-small .#{$css}-volume-button-container {
 	display: none;
 }
 
-.#{$css}-size-medium .#{$css}-right-time-container{
+.#{$cssplayer}-size-medium .#{$css}-right-time-container{
     display: none;
 }
 
@@ -309,7 +297,7 @@
     float: left;
 }
 
-.#{$css}-size-small .#{$css}-volumebar {
+.#{$cssplayer}-size-small .#{$css}-volumebar {
     display: none;
 }
 

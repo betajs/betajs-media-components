@@ -13,6 +13,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Loader", [
 
                 attrs: {
                     "css": "ba-videorecorder",
+                    "csscommon": "ba-commoncss",
+                    "cssrecorder": "ba-recorder",
                     "tooltip": "",
                     "label": "",
                     "message": "",

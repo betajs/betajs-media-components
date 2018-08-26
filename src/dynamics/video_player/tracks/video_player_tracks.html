@@ -1,6 +1,9 @@
-<div data-selector="text-tracks-overlay" class="{{css}}-text-tracks-overlay">
+<div data-selector="text-tracks-overlay"
+     class="{{cssplayer}}-text-tracks-overlay
+     {{activitydelta > 5000 && hideoninactivity ? (cssplayer + '-track-dashboard-hidden') : ''}}
+">
 
-    <div data-selector="cue-content" ba-show="{{tracktagsstyled && trackcuetext}}" class="{{css}}-cue-content">
+    <div data-selector="cue-content" ba-show="{{tracktagsstyled && trackcuetext}}" class="{{cssplayer}}-cue-content">
         {{trackcuetext}}
     </div>
     <div class="{{csscommon}}-options-popup {{csscommon}}-options-list-{{tracksshowselection || trackselectorhovered ? 'visible' : 'hidden'}}">

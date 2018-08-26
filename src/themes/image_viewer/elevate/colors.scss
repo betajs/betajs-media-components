@@ -2,7 +2,7 @@
   @if $color != default {
     .#{$css}-#{$color}-color {
 
-      .#{$css}-button-inner, .#{$css}-icon-resize-full, .#{$css}-icon-resize-small,
+      .#{$css}-button-inner, .#{$csscommon}-icon-resize-full, .#{$csscommon}-icon-resize-small,
       &.#{$cssnoie8} .#{$css}-button-inner {
         color: $value;
       }

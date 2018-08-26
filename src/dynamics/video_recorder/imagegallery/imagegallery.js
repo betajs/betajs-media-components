@@ -17,6 +17,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
 
                 attrs: {
                     "css": "ba-videorecorder",
+                    "csscommon": "ba-commoncss",
+                    "cssrecorder": "ba-recorder",
                     "imagecount": 3,
                     "imagenativewidth": 0,
                     "imagenativeheight": 0,

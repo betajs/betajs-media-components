@@ -2,8 +2,8 @@
   @if $color != default {
     .#{$css}-#{$color}-color {
 
-      .#{$css}-title p, .#{$css}-button-inner, .#{$css}-right-block .#{$css}-icon-resize-full,
-      .#{$css}-right-block .#{$css}-icon-resize-small,
+      .#{$css}-title p, .#{$css}-button-inner, .#{$css}-right-block .#{$csscommon}-icon-resize-full,
+      .#{$css}-right-block .#{$csscommon}-icon-resize-small,
       .#{$css}-controlbar-top-block .#{$css}-button-container .#{$css}-button-inner {
         color: $value;
       }

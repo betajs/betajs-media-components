@@ -16,6 +16,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Tracks", [
                 attrs: {
                     "css": "ba-videoplayer",
                     "csscommon": "ba-commoncss",
+                    "cssplayer": "ba-player",
                     "trackcuetext": null,
                     "acceptedtracktexts": "text/vtt,application/ttml+xml,type/subtype",
                     "trackselectorhovered": false,

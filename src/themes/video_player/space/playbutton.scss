@@ -1,5 +1,5 @@
 
-.#{$cssnoie8} .#{$css}-playbutton-container {
+.#{$cssnoie8} .#{$csstheme}-playbutton-container {
     @include transform-translate(-50%, -50%);
     @include border-rgba($playbutton_frame_thickness, 255, 255, 255, $playbutton_default_opacity, #999);
     @include absolute-center-center;
@@ -23,16 +23,16 @@
     }
 }
 
-.#{$cssnoie8} .#{$css}-playbutton-container:hover {
+.#{$cssnoie8} .#{$csstheme}-playbutton-container:hover {
     @include box-shadow($cover_playbutton_hover_shadow, 22);
     //border-color: $cover_playbutton_border_hover_color;
-    .#{$css}-playbutton-button::after {
+    .#{$csstheme}-playbutton-button::after {
         @include text-shadow($cover_playbutton_hover_shadow, 4);
     }
 }
 
 
-.#{$cssnoie8} .#{$css}-playbutton-button::after {
+.#{$cssnoie8} .#{$csstheme}-playbutton-button::after {
     @include fontello-icon;
     @include text-shadow($cover_playbutton_shadow, 4);
     @include transition1(all, $playbutton_transition_time, ease-in-out);
@@ -41,28 +41,28 @@
     font-size: 4.6em;
 }
 
-.#{$cssnoie8} .#{$css}-playbutton-button::after {
+.#{$cssnoie8} .#{$csstheme}-playbutton-button::after {
     line-height: 2.3em;
     margin-left: 0.1em;
     width: 100%;
 }
 
-.#{$css}-playbutton-button:hover::after {
+.#{$csstheme}-playbutton-button:hover::after {
     //color: $cover_playbutton_hover_color;
 }
 
-.#{$css}-rerecord-bar {
+.#{$csstheme}-rerecord-bar {
     @include absolute-align-full-bottom;
 }
 
-.#{$css}-rerecord-backbar {
+.#{$csstheme}-rerecord-backbar {
     @include absolute-align-full-bottom;
     height: $rerecord_height;
     background-color: $rerecord_bgcolor;
     opacity: $rerecord_opacity;
 }
 
-.#{$css}-rerecord-frontbar {
+.#{$csstheme}-rerecord-frontbar {
     @include relative-align-full-bottom;
     height: $rerecord_height;
     overflow: hidden;
@@ -70,7 +70,7 @@
     padding-right: $rerecord_padding;
 }
 
-.#{$css}-rerecord-button-container {
+.#{$csstheme}-rerecord-button-container {
 	height: 100%;
     @include clickable;
     padding-left: 8px;
@@ -81,7 +81,7 @@
     transform:translateX(-50%);
 }
 
-.#{$css}-rerecord-button {
+.#{$csstheme}-rerecord-button {
     background-color: $rerecord_bgcolor;
     border-radius: $rerecord_primarybutton_radius;
     color: $rerecord_text_color;

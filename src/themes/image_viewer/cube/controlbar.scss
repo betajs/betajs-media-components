@@ -65,7 +65,7 @@
 
 .#{$css}-right-block {
   float: right;
-  .#{$css}-icon-resize-full {
+  .#{$csscommon}-icon-resize-full {
     color: $button_color_secondary;
   }
 }

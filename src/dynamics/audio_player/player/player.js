@@ -37,6 +37,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     /* CSS */
                     "css": "ba-audioplayer",
                     "csscommon": "ba-commoncss",
+                    "cssplayer": "ba-player",
                     "iecss": "ba-audioplayer",
                     "cssloader": "",
                     "cssmessage": "",

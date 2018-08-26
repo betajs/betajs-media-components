@@ -6,7 +6,9 @@ Scoped.extend("module:Assets.playerthemes", [
     Parser.registerFunctions({ /*<%= template_function_cache(dirname + '/modern-video_player_controlbar.html') %>*/ });
     return {
         "modern": {
-            css: "ba-videoplayer-theme-modern",
+            css: "ba-videoplayer",
+            csstheme: "ba-videoplayer-theme-modern",
+            cssplayer: "ba-player",
             tmplcontrolbar: "<%= template(dirname + '/modern-video_player_controlbar.html') %>",
             cssloader: ie8 ? "ba-videoplayer" : "",
             cssmessage: "ba-videoplayer",

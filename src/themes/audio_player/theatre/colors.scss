@@ -2,9 +2,9 @@
   @if $color != default {
     .#{$css}-#{$color}-color {
 
-      .#{$css}-audio-title, .#{$css}-icon-play, .#{$css}-icon-pause,
+      .#{$css}-audio-title, .#{$csscommon}-icon-play, .#{$csscommon}-icon-pause,
       .#{$css}-button-inner,
-      .#{$css}-icon-volume-up, .#{$css}-icon-volume-down,
+      .#{$csscommon}-icon-volume-up, .#{$csscommon}-icon-volume-down,
       &.#{$cssnoie8} .#{$css}-button-inner {
         color: $value;
       }

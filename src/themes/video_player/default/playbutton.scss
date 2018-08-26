@@ -1,4 +1,4 @@
-.#{$cssnoie8} .#{$css}-playbutton-container {
+.#{$cssnoie8} .#{$csstheme}-playbutton-container {
     @include absolute-center-center;
     @include transform-translate(-50%, -50%);
     width: $playbutton_size;
@@ -13,7 +13,7 @@
     }
 }
 
-.#{$cssnoie8} .#{$css}-playbutton-button {
+.#{$cssnoie8} .#{$csstheme}-playbutton-button {
     @include transition1(opacity, $playbutton_transition_time, ease-in-out);
     background-color: transparent;
     background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbDpzcGFjZT0icHJlc2VydmUiIHZpZXdCb3g9IjAgMCA0MCA0MCIgdmVyc2lvbj0iMS4xIiB5PSIwcHgiIHg9IjBweCIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDQwIDQwIj48Zz48cGF0aCBmaWxsPSJncmF5IiBkPSJtMzcuMyAxMGMtNS41LTkuNi0xNy43LTEyLjgtMjcuMy03LjNzLTEyLjggMTcuNy03LjMgMjcuMyAxNy44IDEyLjggMjcuMyA3LjNjOS42LTUuNSAxMi44LTE3LjcgNy4zLTI3LjN6IiAvPjxwYXRoIGZpbGw9IndoaXRlIiBkPSJtMzcuMyAxMGMtNS41LTkuNi0xNy43LTEyLjgtMjcuMy03LjNzLTEyLjggMTcuNy03LjMgMjcuMyAxNy44IDEyLjggMjcuMyA3LjNjOS42LTUuNSAxMi44LTE3LjcgNy4zLTI3LjN6bS05LjMgMjMuOWMtNy43IDQuNC0xNy40IDEuOC0yMS45LTUuOS00LjQtNy42LTEuNy0xNy40IDUuOS0yMS45IDcuNy00LjQgMTcuNC0xLjggMjEuOSA1LjkgNC40IDcuNyAxLjggMTcuNC01LjkgMjEuOXptLTAuOC0xNC43bC0xMC41LTYuMWMtMS4yLTAuNC0xLjQtMC4yLTEuNyAxbDAuMSAxMi4xYzAuMiAxLjIgMC42IDEuNCAxLjcgMWwxMC40LTZjMC45LTAuNyAwLjktMS4zIDAtMnoiLz48L2c+PC9zdmc+Cg==');
@@ -28,13 +28,13 @@
     width: 100%;
 }
 
-.#{$cssnoie8} .#{$css}-playbutton-button:hover {
+.#{$cssnoie8} .#{$csstheme}-playbutton-button:hover {
     opacity: $playbutton_hover_opacity;
 }
 
-.#{$cssie8} .#{$css}-playbutton-container {}
+.#{$cssie8} .#{$csstheme}-playbutton-container {}
 
-.#{$cssie8} .#{$css}-playbutton-button {
+.#{$cssie8} .#{$csstheme}-playbutton-button {
     @include absolute-align-all();
     background-color: transparent;
     background-image: url("data:image/png;base64,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");
@@ -45,18 +45,18 @@
     width: 64px;
 }
 
-.#{$css}-rerecord-bar {
+.#{$csstheme}-rerecord-bar {
     @include absolute-align-full-bottom;
 }
 
-.#{$css}-rerecord-backbar {
+.#{$csstheme}-rerecord-backbar {
     @include absolute-align-full-bottom;
     height: $rerecord_height;
     background-color: $rerecord_bgcolor;
     opacity: $rerecord_opacity;
 }
 
-.#{$css}-rerecord-frontbar {
+.#{$csstheme}-rerecord-frontbar {
     @include relative-align-full-bottom;
     height: $rerecord_height;
     overflow: hidden;
@@ -64,7 +64,7 @@
     padding-right: $rerecord_padding;
 }
 
-.#{$css}-rerecord-button-container {
+.#{$csstheme}-rerecord-button-container {
     height: 100%;
     @include clickable;
     padding-left: 8px;
@@ -75,7 +75,7 @@
     transform:translateX(-50%);
 }
 
-.#{$css}-rerecord-button {
+.#{$csstheme}-rerecord-button {
     @include relative-center-center;
     @include clickable;
     border-radius: $rerecord_primarybutton_radius;

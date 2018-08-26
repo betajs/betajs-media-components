@@ -1,0 +1,22 @@
+@each $color, $value in $colors {
+  @if $color != default {
+    .#{$cssplayer}-#{$color}-color {
+
+      .#{$cssplayer}-cc-inactive .#{$csscommon}-icon-subtitle,
+      .#{$csscommon}-icon-share:before, .#{$csscommon}-icon-play, .#{$csscommon}-icon-pause,
+      .#{$csscommon}-icon-resize-full, .#{$csscommon}-icon-volume-up, .#{$csscommon}-icon-volume-down,
+      .#{$csscommon}-icon-resize-small, .#{$cssplayer}-toggle-share-container,
+      .#{$cssplayer}-socials-list .#{$cssplayer}-button-inner {
+        color: $value;
+      }
+
+      .#{$cssplayer}-cc-active {
+        background-color: $value;
+      }
+
+      .#{$cssplayer}-airplay-container svg path {
+        fill: $value;
+      }
+    }
+  }
+}

@@ -11,16 +11,16 @@
     bottom: $controlbar_height;
 }
 
-.#{$css}-overlay div[tabindex] {
+.#{$cssplayer}-overlay div[tabindex] {
     @include transition1(all, 0.30s, ease-in-out);
 }
 
-.#{$css}-overlay div[tabindex]:focus {
+.#{$cssplayer}-overlay div[tabindex]:focus {
     @include box-outline-shadow(#1b8fcc, 2px);
     @include remove-outline;
 }
 
-.#{$css}-overlay div[tabindex]:hover, .#{$css}-overlay div[tabindex]:focus:hover {
+.#{$cssplayer}-overlay div[tabindex]:hover, .#{$cssplayer}-overlay div[tabindex]:focus:hover {
     box-shadow: none;
 }
 

@@ -30,7 +30,6 @@
         color: $button_color_secondary;
     }
 
-
 }
 
 .#{$csstheme}-dashboard {
@@ -194,10 +193,11 @@
     @include border-radius($progressbar_height / 4);
     @include clickable;
     background-color: $progressbar_cache_bgcolor;
+    box-sizing: border-box;
     height: $progressbar_height;
 }
 
-.#{$csstheme}-progressbar.#{$csstheme}-disabled {
+.#{$csstheme}-progressbar.#{$cssplayer}-disabled {
     & .#{$csstheme}-progressbar-cache, & .#{$csstheme}-progressbar-inner, & .#{$csstheme}-progressbar-position {cursor: not-allowed}
 }
 
@@ -251,7 +251,7 @@
     display: none;
 }
 
-.#{$csstheme}-video-title-block > p {
+.#{$csstheme}-title-block > p {
     font-size: $text_fontsize;
     color: $controlbar_video_title_color;
     line-height: $controlbar_line_height;
@@ -314,7 +314,7 @@
     width: 100%;
 }
 
-.#{$csstheme}-video-title-block > p, .#{$csstheme}-left-block .#{$csstheme}-volumebar,
+.#{$csstheme}-title-block > p, .#{$csstheme}-left-block .#{$csstheme}-volumebar,
 .#{$csstheme}-button-inner {
   padding-top: 1px;
 }

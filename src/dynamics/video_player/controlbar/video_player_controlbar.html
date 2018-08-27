@@ -1,6 +1,6 @@
 
 <div class="{{css}}-dashboard {{activitydelta > hidebarafter && hideoninactivity ? (cssplayer + '-dashboard-hidden') : ''}}">
-	<div tabindex="{{skipinitial ? 2 : 1}}" data-selector="progress-bar-inner" class="{{css}}-progressbar {{activitydelta < 2500 || ismobile ? '' : (css + '-progressbar-small')}} {{disableseeking ? css + '-disabled' : ''}}"
+	<div tabindex="{{skipinitial ? 2 : 1}}" data-selector="progress-bar-inner" class="{{css}}-progressbar {{activitydelta < 2500 || ismobile ? '' : (css + '-progressbar-small')}} {{disableseeking ? cssplayer + '-disabled' : ''}}"
 		 ba-hotkey:right="{{seek(position + skipseconds)}}"
 		 ba-hotkey:left="{{seek(position - skipseconds)}}"
          ba-hotkey:alt+right="{{seek(position + skipseconds * 3)}}"
@@ -51,7 +51,7 @@
 
         <div tabindex="{{skipinitial ? 0 : 2}}" data-selector="button-icon-pause"
 			 ba-hotkey:space^enter="{{toggle_player()}}" onmouseout="this.blur()"
-			 class="{{css}}-leftbutton-container {{disablepause ? css + '-disabled' : ''}}"
+			 class="{{css}}-leftbutton-container {{disablepause ? cssplayer + '-disabled' : ''}}"
 			 onkeydown="{{tab_index_move(domEvent, null, 'button-icon-play')}}" ba-if="{{playing}}" ba-click="{{pause()}}"
 			 title="{{disablepause ? string('pause-video-disabled') : string('pause-video')}}"
 		>
@@ -66,8 +66,8 @@
 			<div class="{{css}}-time-value" title="{{string('total-time')}}">{{formatTime(duration || position)}}</div>
 		</div>
 
-		<div data-selector="video-title-block" class="{{css}}-video-title-container" ba-if="{{title}}">
-			<p class="{{css}}-video-title">
+		<div data-selector="video-title-block" class="{{css}}-title-container" ba-if="{{title}}">
+			<p class="{{css}}-title">
 				{{title}}
 			</p>
 		</div>

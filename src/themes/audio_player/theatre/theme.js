@@ -7,7 +7,7 @@ Scoped.extend("module:Assets.audioplayerthemes", [
     return {
         "theatre": {
             css: "ba-audioplayer",
-            csstheme: "ba-audioplayer-theatre-theme",
+            csstheme: "ba-player-theatre-theme",
             tmplcontrolbar: "<%= template(dirname + '/theatre-audio_player_controlbar.html') %>",
             cssloader: ie8 ? "ba-audioplayer" : "",
             cssmessage: "ba-audioplayer",

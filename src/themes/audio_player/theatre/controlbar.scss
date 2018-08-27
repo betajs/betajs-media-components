@@ -1,5 +1,5 @@
 /* Theatre */
-.#{$css}-container {
+.#{$css}-container.#{$csstheme} {
     box-sizing: border-box;
     border: 1px solid #eeeeee;
     height: 58px;
@@ -9,48 +9,34 @@
         height: $controlbar_height + 2;
         min-height: $controlbar_height + 2;
     }
-}
 
-.#{$csstheme} {
-
-    .#{$csscommon}-icon-play, .#{$csscommon}-icon-pause {
-        color: $button_color;
-    }
-
-    .#{$csscommon}-icon-volume-up, .#{$csscommon}-icon-volume-down {
-        color: $button_color_secondary;
-    }
-
-    .#{$csscommon}-icon-volume-off {
-        color: $volume_off_color;
-    }
-
-}
-
-.#{$csstheme}-dashboard {
-    @include transition1(opacity, $dashboard_transition, ease-in-out);
-    background-color: $controlbar_background;
-    bottom: 0;
-    height: $controlbar_height;
-    position: absolute;
-    width: 100%;
-}
-
-.#{$csstheme}-dashboard-hidden {
-    opacity: 0;
-}
-
-.#{$csstheme}-left-block {
-    float: left;
-    padding-left: 5px;
-    & > div {
-        float: left;
+    .#{$csstheme}-dashboard {
+        @include transition1(opacity, $dashboard_transition, ease-in-out);
+        background-color: $controlbar_background;
+        bottom: 0;
         height: $controlbar_height;
-        line-height: $controlbar_line_height - 2;
+        position: absolute;
+        width: 100%;
     }
 
-    & > div:last-child{
-        float: right;
+
+    &.#{$cssplayer}-size-small .#{$csstheme}-time-container {
+        display: block;
+    }
+
+    &.#{$cssie8} .#{$csstheme}-volumebar,
+    &.#{$cssplayer}-size-medium .#{$csstheme}-volumebar,
+    &.#{$cssplayer}-size-small .#{$csstheme}-volumebar {
+        display: block;
+    }
+
+    &.#{$cssplayer}-size-medium .#{$csstheme}-volume-button-container,
+    &.#{$cssplayer}-size-small .#{$csstheme}-volume-button-container {
+        display: block;
+    }
+
+    &.#{$cssplayer}-size-medium .#{$csstheme}-right-time-container {
+        display: block;
     }
 }
 
@@ -60,36 +46,8 @@
     }
 }
 
-.#{$csstheme}-center-block {
-    float: left;
-}
 
-.#{$csstheme}-right-block {
-    float: right;
-    padding-right: 6px;
-    & > div {
-        float: right;
-        height: $controlbar_height - 3;
-        line-height: 25px;
-        text-align: center;
-    }
-
-    & > div:first-child {
-        line-height: $controlbar_line_height - 3;
-    }
-
-    & > div:last-child {
-        float: left;
-        line-height: $controlbar_line_height;
-    }
-
-    & .#{$csstheme}-time-value {
-        text-align: left;
-    }
-}
-
-
-.#{$csstheme}-audio-title-container {
+.#{$csstheme}-title-container {
     @include absolute-align-full-top();
     @include transition1(opacity, $dashboard_transition, ease-in-out);
     width: 100%;
@@ -101,15 +59,6 @@
         text-align: center;
         color: $message_color;
     }
-}
-
-.#{$csstheme}-leftbutton-container {
-    @include float-width-height(left, $button_width, 100%);
-    @include clickable;
-    box-sizing: content-box;
-    border: none;
-    text-align: center;
-    line-height: 2;
 }
 
 .#{$cssnoie8} .#{$csstheme}-rightbutton-container {
@@ -137,28 +86,6 @@
     margin-left: 3px;
 }
 
-.#{$csstheme}-button-inner {
-    @include clickable;
-    position: relative;
-}
-
-.#{$csstheme}-time-container {
-    @include float-width-height(left, $time_value_width, 100%);
-    text-align: center;
-    font-family: $text_fontfamily;
-    font-size: $text_fontsize;
-    color: $text_secondary_color;
-    box-sizing: content-box;
-    border: none;
-}
-
-.#{$csstheme}-time-value {
-    float: left;
-    font-size: $text_fontsize;
-    width: $time_value_width;
-    letter-spacing: 0.1em;
-}
-
 .#{$cssnoie8} .#{$csstheme}-time-value {
     @include relative-center-center;
 }
@@ -169,55 +96,10 @@
     width: $volume_width;
 }
 
-.#{$csstheme}-volumebar {
-    @include hide-slow(0.5);
-    background-color: $controlbar_background;
-    box-sizing: content-box;
-    bottom: 27px;
-    height: $volume_height;
-    margin: 0 auto;
-    padding: 5px;
-    position: absolute;
-    width: auto;
-}
-
-.#{$csstheme}-volumebar:hover, .#{$csstheme}-volume-icon-container:hover .#{$csstheme}-volumebar {
-    @include show-slow(0.2);
-}
 
 .#{$cssie8} .#{$csstheme}-volumebar {
     @include float-width-height(right, $volume_width, 50%);
     margin-right: $volume_height * 2;
-}
-
-.#{$csstheme}-volumebar-inner {
-    @include relative-center-center;
-    @include border-round-edges($volume_height / 2);
-    @include clickable;
-    background-color: $progressbar_cache_bgcolor;
-    height: $volume_height;
-    width: $volume_width;
-}
-
-.#{$csstheme}-volumebar-position {
-    @include border-round-edges($volume_height / 2);
-    @include absolute-align-bottom();
-    background-color: $button_color;
-    width: 100%;
-}
-
-.#{$csstheme}-progressbar {
-    box-sizing: border-box;
-    height: 100%;
-    overflow: hidden;
-    position: relative;
-    padding: 0 13px 0 6px;
-}
-
-.#{$csstheme}-progressbar-inner {
-    @include clickable;
-    height: $progressbar_height;
-    background-color: $progressbar_cache_bgcolor;
 }
 
 .#{$cssnoie8} .#{$csstheme}-progressbar-inner {
@@ -230,47 +112,4 @@
 
 .#{$cssie8} .#{$csstheme}-progressbar-position {
     height: $progressbar_height;
-}
-
-.#{$csstheme}-progressbar.#{$csstheme}-disabled {
-    & .#{$csstheme}-progressbar-cache, & .#{$csstheme}-progressbar-inner {cursor: not-allowed}
-}
-
-.#{$csstheme}-progressbar-cache {
-    @include absolute-align-left;
-    @include clickable;
-    background-color: $progressbar_cache_bgcolor;
-    height: $progressbar_height;
-}
-
-.#{$csstheme}-progressbar-position {
-    @include absolute-align-left();
-    background-color: $progressbar_button_overflow;
-    height: 100%;
-}
-
-.#{$csstheme}-progressbar-button {
-    display: none;
-}
-
-.#{$csstheme}-button-text {
-    font-family: $font_family;
-    font-weight: normal;
-    font-size: 10px;
-}
-
-.#{$cssplayer}-size-small .#{$csstheme}-time-container {
-    display: none;
-}
-
-.#{$cssie8} .#{$csstheme}-volumebar, .#{$cssplayer}-size-medium .#{$csstheme}-volumebar, .#{$cssplayer}-size-small .#{$csstheme}-volumebar {
-    display: none;
-}
-
-.#{$cssplayer}-size-medium .#{$csstheme}-volume-button-container, .#{$cssplayer}-size-small .#{$csstheme}-volume-button-container {
-    display: none;
-}
-
-.#{$cssplayer}-size-medium .#{$csstheme}-right-time-container {
-    display: none;
 }

@@ -134,7 +134,7 @@
     height: $volume_height;
 }
 
-.#{$csstheme}-progressbar.#{$css}-disabled {
+.#{$csstheme}-progressbar.#{$cssplayer}-disabled {
     &, & .#{$csstheme}-progressbar-cache, & .#{$csstheme}-progressbar-inner, & .#{$csstheme}-progressbar-position {cursor: not-allowed}
 }
 
@@ -151,11 +151,11 @@
 }
 
 
-.#{$cssie8} .#{$csstheme}-video-title-container{
+.#{$cssie8} .#{$csstheme}-title-container{
     display: none;
 }
 
-.#{$csstheme}-video-title-container{
+.#{$csstheme}-title-container{
     @include absolute-align-full-top();
     @include transition1(opacity, $dashboard_transition, ease-in-out);
     width: 100%;

@@ -10,7 +10,7 @@
     background-color: $progressbar_bgcolor;
 }
 
-.#{$csstheme}-progressbar.#{$css}-disabled {
+.#{$csstheme}-progressbar.#{$cssplayer}-disabled {
     &, & .#{$csstheme}-progressbar-cache,
     & .#{$csstheme}-progressbar-inner,
     & .#{$csstheme}-progressbar-position {
@@ -200,7 +200,7 @@
     height: $progressbar_height + 2 * $progressbar_button_overflow;
 }
 
-.#{$css}-video-title {
+.#{$css}-title {
     color: $video_title_font_color;
     font-family: $video_title_font_family;
     font-weight: $video_title_font_weight;

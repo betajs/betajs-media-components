@@ -51,7 +51,7 @@
 
         <div tabindex="0" data-selector="button-icon-pause"
 			 onmouseout="this.blur()"
-			 class="{{css}}-leftbutton-container {{disablepause ? css + '-disabled' : ''}}"
+			 class="{{css}}-leftbutton-container {{disablepause ? cssplayer + '-disabled' : ''}}"
 			 onkeydown="{{tab_index_move(domEvent, null, 'button-icon-play')}}" ba-if="{{playing}}" ba-click="{{pause()}}"
 			 title="{{disablepause ? string('pause-audio-disabled') : string('pause-audio')}}"
 		>
@@ -66,8 +66,8 @@
 			<div class="{{css}}-time-value" title="{{string('total-time')}}">{{formatTime(duration || position)}}</div>
 		</div>
 
-		<div data-selector="audio-title-block" class="{{css}}-audio-title-container" ba-if="{{title}}">
-			<p class="{{css}}-audio-title">
+		<div data-selector="audio-title-block" class="{{css}}-title-container" ba-if="{{title}}">
+			<p class="{{css}}-title">
 				{{title}}
 			</p>
 		</div>

@@ -6,10 +6,57 @@
     min-width: 320px;
 }
 
-.#{$csstheme} {
+.#{$csstheme}.#{$css}-container {
     .#{$cssplayer}-overlay {
         z-index: 10;
     }
+
+    .#{$css}-size-small  .#{$csstheme}-controlbar-top-block {
+        .#{$csstheme}-button-container {
+            .#{$csstheme}-button-inner {
+                font-size: $controlbar_playbutton_font_size / 2;
+            }
+        }
+    }
+
+
+    .#{$cssplayer}-size-medium {
+
+        .#{$csstheme}-controlbar-top-block {
+            .#{$csstheme}-button-container {
+                .#{$csstheme}-button-inner {
+                    font-size: $controlbar_playbutton_font_size - .5;
+                }
+            }
+        }
+    }
+
+    .#{$cssplayer}-size-small {
+        .#{$csstheme}-volumebar {
+            display: none;
+        }
+
+        .#{$csstheme}-controlbar-top-block {
+            .#{$csstheme}-button-container {
+                .#{$csstheme}-button-inner {
+                    font-size: $controlbar_playbutton_font_size - .7;
+                }
+            }
+        }
+
+        .#{$csstheme}-controlbar-middle-block {
+            bottom: 40px;
+        }
+
+        .#{$csstheme}-controlbar-bottom-block {
+            bottom: 38px;
+        }
+
+        .#{$csstheme}-time-container{
+            font-size: .7em;
+        }
+    }
+
 }
 
 .#{$csstheme}-dashboard {
@@ -35,102 +82,9 @@
     z-index: 10;
 }
 
-.#{$csstheme}-button-container {
-    font-family: $font_family;
-    font-weight: 300;
-    display: inline-block;
-    width: $button_width;
-    color: $button_color;
-    &[data-selector='button-icon-play']:focus, &[data-selector='button-icon-pause']:focus {
-        //outline: none;
-        i.#{$csscommon}-icon-play {
-            outline: 1px solid #8BC2F9;
-            &:hover, &:active {
-                border: none;
-            }
-        }
-    }
-}
-
-/* Control Bar Header*/
-.#{$csstheme}-controlbar-header {
-    @include background-rgba( 0,0,0, 0.3, #ddd );
-    height: $controlbar_header_height;
-    left: 0;
-    letter-spacing: .05rem;
-    line-height: $topmessage_height / 2;
-    padding: 0;
-    position: absolute;
-    text-align: left;
-    width: 100%;
-    .#{$csstheme}-right-block {
-        line-height: $topmessage_height - 10px;
-        position: absolute;
-        right: $overlay_side_padding;
-        z-index: 100;
-    }
-}
-
-.#{$cssie8} .#{$csstheme}-controlbar-header {
-    display: none;
-}
-
-.#{$csstheme}-controlbar-header-title-block {
-    position: relative;
-    width: 100%;
-    z-index: 10;
-}
-
-.#{$cssie8} .#{$csstheme}-controlbar-header .#{$csstheme}-right-block {
-    position: relative;
-}
-
-.#{$cssie8} .#{$csstheme}-controlbar-header-title-block {
-    left: 50px;
-}
-
-.#{$csstheme}-title {
-    p {
-        color: $text_color;
-        font-family: $font_family;
-        font-size: $controlbar_audio_title_font_size;
-        font-weight: 300;
-        letter-spacing: .1em;
-        line-height: $topmessage_height - 10;
-        margin: 0;
-        padding: 0 0 0 $overlay_side_padding;
-        text-align: left;
-    }
-}
-
 .#{$cssnoie8} .#{$csstheme}-controlbar-header .#{$csstheme}-button-inner {
     text-align: right;
     @include transform-translate-y(0);
-}
-
-.#{$csstheme}-controlbar-header .#{$csstheme}-button-container {
-    width: 20px;
-}
-
-/* Control Bar Footer*/
-.#{$csstheme}-controlbar-footer {
-    position:relative;
-    height: 100%;
-}
-
-.#{$csstheme}-controlbar-top-block {
-    height: 100%;
-    .#{$csstheme}-button-container {
-        position: relative;
-        margin: 0 auto;
-        height: 100%;
-        width: 100%;
-        .#{$csstheme}-button-inner {
-            @include color-rgba(255, 255, 255, 0.6, #e5e5e5);
-            @include text-shadow($cover_playbutton_hover_color, 4);
-            font-size: $controlbar_playbutton_font_size;
-        }
-    }
 }
 
 .#{$cssie8} .#{$csstheme}-controlbar-top-block {
@@ -167,12 +121,6 @@
     }
 }
 
-.#{$csstheme}-button-inner { @include clickable; z-index: 100; position: relative; }
-
-.#{$csstheme}-right-block {
-    float: right;
-}
-
 .#{$cssnoie8} .#{$csstheme}-button-inner {
     @include relative-center-center;
 }
@@ -183,6 +131,7 @@
     font-size: $button_fontsize;
     margin-left: 3px;
 }
+
 .#{$csstheme}-button-inner {
     color: $button_color;
     font-size: $button_fontsize;
@@ -191,53 +140,6 @@
 .#{$csstheme}-controlbar-middle-block {
     position: relative;
     bottom: 45px;
-}
-
-.#{$csstheme}-progressbar {
-    overflow: hidden;
-    height: $progressbar_container_height;
-}
-
-.#{$csstheme}-progressbar-cache {
-    @include absolute-align-left;
-    @include clickable;
-    @include background-rgba(255, 255, 255, .3, #b2b2b2);
-    //background-color: $progressbar_cache_bgcolor;
-    height: $progressbar_height;
-    //@include ie_supported_rgba(#ffffff, 255, 255, 255, 0.3);
-}
-
-.#{$csstheme}-progressbar-inner {
-    @include relative-center-center;
-    @include clickable;
-    background-color: $progressbar_cache_bgcolor;
-    border: 1px solid #020202;
-    box-sizing: border-box;
-    height: $progressbar_height;
-}
-
-.#{$csstheme}-progressbar.#{$csstheme}-disabled {
-    & .#{$csstheme}-progressbar-cache, & .#{$csstheme}-progressbar-inner, & .#{$csstheme}-progressbar-position {cursor: not-allowed}
-}
-
-.#{$csstheme}-progressbar-position {
-    @include absolute-align-left();
-    background-color: $progressbar_button_overflow;
-    height: 100%;
-}
-
-
-.#{$csstheme}-progressbar-button {
-    @include border-radius(50%);
-    background-color: #000000;
-    box-sizing: content-box;
-    border: none;
-    position: absolute;
-    right: -7px;
-    top: -3px;
-    z-index: 1;
-    width: 8px;
-    height: 8px;
 }
 
 .#{$csstheme}-controlbar-bottom-block{
@@ -249,100 +151,3 @@
     position: relative;
     top: 5px;
 }
-
-.#{$csstheme}-time-container {
-    @include color-rgba(255, 255, 255, 0.7, #b2b2b2);
-    background-color: #676f76;
-    float: left;
-    font-size: .8em;
-    letter-spacing: .1em;
-    margin-right: 15px;
-    padding: 1px 3px;
-    margin-top: -1px;
-    opacity: 0.75;
-    width: auto;
-    & > div {
-        float: left;
-        //opacity: $text_secondary_color_opacity;
-        &:first-child{
-            color: $text_color;
-        }
-    }
-    & > div:first-child{
-        //opacity: 1;
-    }
-    & > p {
-        float: left;
-        margin: 0 3px;
-    }
-}
-
-.#{css}-size-small  .#{$csstheme}-controlbar-top-block {
-    .#{$csstheme}-button-container {
-        .#{$csstheme}-button-inner {
-            font-size: $controlbar_playbutton_font_size / 2;
-        }
-    }
-}
-
-.#{$csstheme}-volumebar {
-    float: right;
-    height: $controlbar_header_height;
-    margin-left: 10px;
-    position: relative;
-    width: $volume_width;
-    z-index: 10;
-}
-
-.#{$csstheme}-volumebar-inner {
-    @include relative-center-center;
-    @include border-round-edges($volume_height / 2);
-    @include clickable;
-    background-color: $volumebar_inner_color;
-    height: $volume_height;
-}
-
-.#{$csstheme}-volumebar-position {
-    @include border-round-edges($volume_height / 2);
-    @include absolute-align-left();
-    background-color: $volumebar_position_bg;
-    height: 100%;
-}
-
-.#{$cssplayer}-size-medium {
-
-    .#{$csstheme}-controlbar-top-block {
-        .#{$csstheme}-button-container {
-            .#{$csstheme}-button-inner {
-                font-size: $controlbar_playbutton_font_size - .5;
-            }
-        }
-    }
-}
-
-.#{$cssplayer}-size-small {
-    .#{$csstheme}-volumebar {
-        display: none;
-    }
-
-    .#{$csstheme}-controlbar-top-block {
-        .#{$csstheme}-button-container {
-            .#{$csstheme}-button-inner {
-                font-size: $controlbar_playbutton_font_size - .7;
-            }
-        }
-    }
-
-    .#{$csstheme}-controlbar-middle-block {
-        bottom: 40px;
-    }
-
-    .#{$csstheme}-controlbar-bottom-block {
-        bottom: 38px;
-    }
-
-    .#{$csstheme}-time-container{
-        font-size: .7em;
-    }
-}
-

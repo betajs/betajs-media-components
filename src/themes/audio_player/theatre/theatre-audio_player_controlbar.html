@@ -1,5 +1,5 @@
-<div data-selector="audio-title-block" class="{{csstheme}}-audio-title-container "  ba-if="{{title}}">
-    <p class="{{csstheme}}-audio-title">
+<div data-selector="audio-title-block" class="{{csstheme}}-title-container "  ba-if="{{title}}">
+    <p class="{{csstheme}}-title">
         {{title}}
     </p>
 </div>
@@ -42,7 +42,7 @@
         <div tabindex="0" data-selector="button-icon-pause"
              ba-hotkey:space^enter="{{pause()}}" onmouseout="this.blur()"
              onkeydown="{{tab_index_move(domEvent, null, 'button-icon-play')}}"
-             class="{{csstheme}}-button-container {{disablepause ? css + '-disabled' : ''}}"
+             class="{{csstheme}}-button-container {{disablepause ? cssplayer + '-disabled' : ''}}"
              ba-if="{{playing}}" ba-click="{{pause()}}" title="{{disablepause ? string('pause-audio-disabled') : string('pause-audio')}}"
         >
             <div class="{{csstheme}}-button-inner">
@@ -91,7 +91,7 @@
 
     </div>
 
-    <div class="{{csstheme}}-progressbar {{disableseeking ? css + '-disabled' : ''}}">
+    <div class="{{csstheme}}-progressbar {{disableseeking ? cssplayer + '-disabled' : ''}}">
         <div tabindex="4" data-selector="progress-bar-inner"
              ba-hotkey:right="{{seek(position + skipseconds)}}"
              ba-hotkey:left="{{seek(position - skipseconds)}}"

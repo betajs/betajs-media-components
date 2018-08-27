@@ -8,7 +8,7 @@ Scoped.extend("module:Assets.playerthemes", [
     return {
         "space": {
             css: "ba-videoplayer",
-            csstheme: "ba-videoplayer-space-theme",
+            csstheme: "ba-player-space-theme",
             cssplayer: "ba-player",
             tmplcontrolbar: "<%= template(dirname + '/space-video_player_controlbar.html') %>",
             tmplmessage: "<%= template(dirname + '/space-video_player_message.html') %>",

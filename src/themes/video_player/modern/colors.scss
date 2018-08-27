@@ -2,7 +2,7 @@
   @if $color != default {
     .#{$cssplayer}-#{$color}-color {
 
-      .#{$csstheme}-video-title, .#{$csstheme}-button-inner {
+      .#{$csstheme}-title, .#{$csstheme}-button-inner {
         color: $value;
       }
 

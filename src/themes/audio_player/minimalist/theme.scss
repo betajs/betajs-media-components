@@ -1,5 +1,5 @@
 $css: "ba-audioplayer";
-$csstheme: "ba-audioplayer-minimalist-theme";
+$csstheme: "ba-player-minimalist-theme";
 $cssplayer: "ba-player";
 $csscommon: "ba-commoncss";
 $cssie8: "ba-audioplayer-ie8";
@@ -19,8 +19,6 @@ $text_secondary_color: rgba(250, 254, 255, 0.35);
 // cover
 $cover_playbutton_hover_color: #000000;
 
-$overlay_side_padding: 4%;
-
 $topmessage_height: 50px;
 
 $focus_button_color: #1b7fcc;
@@ -32,6 +30,7 @@ $controlbar_playbutton_font_size: 2.5em;
 $controlbar_header_height: 40px;
 $controlbar_audio_title_font_size: 12px;
 $controlbar_button_padding: 7px;
+$controlbar_side_padding: 4%;
 
 $dashboard_transition: 0.5s;
 $controlbar_height: 100%;

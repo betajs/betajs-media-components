@@ -23,7 +23,7 @@
     background-color: $progressbar_bgcolor;
 }
 
-.#{$css}-progressbar-inner.#{$css}-disabled {
+.#{$css}-progressbar-inner.#{$cssplayer}-disabled {
     & .#{$css}-progressbar-cache, .#{$css}-progressbar-position, & {cursor: not-allowed}
 }
 
@@ -192,7 +192,7 @@
     height: $progressbar_height + 2 * $progressbar_button_overflow;
 }
 
-.#{$css}-audio-title {
+.#{$css}-title {
     color: $audio_title_font_color;
     font-family: $audio_title_font_family;
     font-weight: $audio_title_font_weight;

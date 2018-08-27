@@ -8,13 +8,13 @@
     bottom: 0;
   }
 
-  .#{$css}-video-title-block {
+  .#{$css}-title-block {
     top: 0;
   }
 
   &.#{$cssplayer}-firefox-browser {
 
-    .#{$css}-dashboard, .#{$css}-video-title-block {
+    .#{$css}-dashboard, .#{$css}-title-block {
       position: fixed;
       z-index: 100;
     }

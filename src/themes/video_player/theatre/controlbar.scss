@@ -14,7 +14,7 @@
         color: $volume_off_color;
     }
 
-    .#{$csscommon}-icon-resize-full{
+    .#{$csscommon}-icon-resize-full {
         color: $button_color_secondary;
     }
 
@@ -23,24 +23,31 @@
     }
 }
 
-.#{$csstheme}-dashboard {
-    @include transition1(opacity, $dashboard_transition, ease-in-out);
-    background-color: $controlbar_background;
-    box-sizing: border-box;
-    bottom: $controlbar_distance_from_side;
-    border: 1px solid $dashboard_border_color;
-    height: $controlbar_height;
-    left: $controlbar_side_padding;
-    opacity: 0.75;
-    //overflow: hidden;
-    position: absolute;
-    width: $dashboard_width;
+.#{$css}-container {
 
-    .#{$cssplayer}-airplay-container {
-        padding: 2px 7px 0 3px;
-        svg path {
-            fill: #666666;
+    .#{$csstheme}-dashboard {
+        @include transition1(opacity, $dashboard_transition, ease-in-out);
+        background-color: $controlbar_background;
+        box-sizing: border-box;
+        bottom: $controlbar_distance_from_side;
+        border: 1px solid $dashboard_border_color;
+        height: $controlbar_height;
+        left: $controlbar_side_padding;
+        opacity: 0.75;
+        //overflow: hidden;
+        position: absolute;
+        width: $dashboard_width;
+
+        .#{$cssplayer}-airplay-container {
+            padding: 2px 7px 0 3px;
+            svg path {
+                fill: #666666;
+            }
         }
+    }
+
+    .#{$cssplayer}-dashboard-hidden {
+        opacity: 0;
     }
 }
 
@@ -91,7 +98,7 @@
     }
 }
 
-.#{$csstheme}-video-title-container {
+.#{$csstheme}-title-container {
     @include absolute-align-full-top();
     @include transition1(opacity, $dashboard_transition, ease-in-out);
     width: 100%;
@@ -240,7 +247,7 @@
     height: $progressbar_height;
 }
 
-.#{$csstheme}-progressbar.#{$css}-disabled {
+.#{$csstheme}-progressbar.#{$cssplayer}-disabled {
     & .#{$csstheme}-progressbar-cache, & .#{$csstheme}-progressbar-inner {cursor: not-allowed}
 }
 

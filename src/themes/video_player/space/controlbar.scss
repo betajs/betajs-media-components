@@ -6,7 +6,7 @@
     }
 }
 
-.#{$csstheme}-video-title-container {
+.#{$csstheme}-title-container {
     @include absolute-align-full-top();
     @include background-rgba(0, 0, 0, 0.2, #cecece);
     @include transition1(opacity, $dashboard_transition, ease-in-out);
@@ -20,7 +20,7 @@
     text-align: center;
 }
 
-.#{$cssie8} .#{$csstheme}-video-title-container {
+.#{$cssie8} .#{$csstheme}-title-container {
     .#{$csstheme}-button-inner {
         margin-top: 0;
     };
@@ -35,15 +35,15 @@
     padding: 0 5px;
 }
 
-.#{$cssie8} .#{$csstheme}-video-title-container, .#{$cssie8} .#{$csstheme}-controlbar-footer {
+.#{$cssie8} .#{$csstheme}-title-container, .#{$cssie8} .#{$csstheme}-controlbar-footer {
     opacity: .8;
 }
 
-.#{$cssnoie8} .#{$csstheme}-video-title-container .#{css}-rightbutton-container {
+.#{$cssnoie8} .#{$csstheme}-title-container .#{css}-rightbutton-container {
     width: 21px;
 }
 
-.#{$csstheme}-video-title-container-background {
+.#{$csstheme}-title-container-background {
     position: relative;
     height: 40px;
 }
@@ -53,12 +53,12 @@
     color: $text_color;
     & > p {
         margin: 0;
-        font-size: $controlbar_video_title_font_size;
+        font-size: $controlbar_title_font_size;
         font-family: $font_family;
     }
 }
 
-.#{$cssnoie8} .#{$csstheme}-video-title-container .#{$csstheme}-button-inner {
+.#{$cssnoie8} .#{$csstheme}-title-container .#{$csstheme}-button-inner {
     @include transform-translate-y(0);
 }
 
@@ -194,7 +194,7 @@
     height: $progressbar_height;
 }
 
-.#{$csstheme}-progressbar.#{$css}-disabled {
+.#{$csstheme}-progressbar.#{$cssplayer}-disabled {
     & .#{$csstheme}-progressbar-cache, & .#{$csstheme}-progressbar-inner {cursor: not-allowed}
 }
 
@@ -240,11 +240,8 @@
 	display: none;
 }
 
-.#{$cssplayer}-size-medium .#{$csstheme}-volumebar, .#{$cssplayer}-size-small .#{$csstheme}-volumebar {
-	display: none;
-}
-
-.#{$cssplayer}-size-medium .#{$csstheme}-volume-button-container, .#{$cssplayer}-size-small .#{$csstheme}-volume-button-container {
+.#{$cssplayer}-size-medium .#{$csstheme}-volumebar,
+.#{$cssplayer}-size-small .#{$csstheme}-volumebar {
 	display: none;
 }
 

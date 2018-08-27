@@ -1,4 +1,18 @@
 /* Elevate */
+.#{$css}-container.#{$csstheme} {
+
+    .#{$csscommon}-icon-resize-full {
+        color: $button_color_secondary;
+        display: inline-block;
+        &:before {
+            font-size: $text_fontsize;
+            margin: 0;
+            line-height: inherit;
+        }
+    }
+
+
+}
 .#{$css}-overlay div[tabindex] {
     @include transition1(all, 0.30s, ease-in-out);
 }
@@ -98,14 +112,6 @@
     width: $button_width;
     text-align: center;
 }
-.#{$csscommon}-icon-resize-full {
-    display: inline-block;
-    &:before {
-        font-size: $text_fontsize;
-        margin: 0;
-        line-height: inherit;
-    }
-}
 
 .#{$cssnoie8} .#{$css}-button-inner {
     //@include relative-center-center;
@@ -152,11 +158,6 @@
 .#{$cssnoie8} .#{$css}-full-screen-btn-inner {
     padding-left: 4px;
 }
-
-.#{$csscommon}-icon-resize-full {
-    color: $button_color_secondary;
-}
-
 
 .#{$cssplayer}-size-small .#{$css}-dashboard{
     width: 100%;

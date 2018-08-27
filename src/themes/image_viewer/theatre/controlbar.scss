@@ -1,4 +1,12 @@
 /* Theatre */
+.#{$css}-container.#{$csstheme} {
+
+    .#{$csscommon}-icon-resize-full {
+        color: $button_color_secondary;
+    }
+
+}
+
 .#{$css}-overlay div[tabindex] {
     @include transition1(all, 0.30s, ease-in-out);
 }
@@ -144,6 +152,3 @@
     text-align: left;
 }
 
-.#{$csscommon}-icon-resize-full{
-    color: $button_color_secondary;
-}

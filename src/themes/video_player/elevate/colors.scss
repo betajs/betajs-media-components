@@ -2,9 +2,13 @@
   @if $color != default {
     .#{$cssplayer}-#{$color}-color {
 
-      .#{$csstheme}-button-inner, &.#{$cssnoie8} .#{$csstheme}-button-inner,
-      .#{$csstheme}-dashboard .#{$cssplayer}-cc-inactive .#{$csscommon}-icon-subtitle {
+      .#{$csstheme}-dashboard .#{$cssplayer}-cc-inactive .#{$csscommon}-icon-subtitle,
+      .#{$csstheme}-button-inner i {
         color: $value;
+      }
+
+      .#{$csstheme}-dashboard .#{$cssplayer}-cc-active .#{$csscommon}-icon-subtitle {
+        color: $stream_label_color;
       }
 
       .#{$csstheme}-progressbar-button, .#{$csstheme}-stream-label-container .#{$csstheme}-stream-label,

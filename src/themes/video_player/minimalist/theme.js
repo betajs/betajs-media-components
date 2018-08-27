@@ -7,7 +7,7 @@ Scoped.extend("module:Assets.playerthemes", [
     return {
         "minimalist": {
             css: "ba-videoplayer",
-            csstheme: "ba-videoplayer-minimalist-theme",
+            csstheme: "ba-player-minimalist-theme",
             cssplayer: "ba-player",
             tmplcontrolbar: "<%= template(dirname + '/minimalist-video_player_controlbar.html') %>",
             cssloader: ie8 ? "ba-videoplayer" : "",

@@ -1,6 +1,6 @@
 
-<div data-selector="video-title-block" class="{{csstheme}}-video-title-block {{activitydelta > 5000 && hideoninactivity ? (cssplayer + '-dashboard-hidden') : ''}}" ba-if="{{title}}">
-    <p class="{{csstheme}}-video-title">
+<div data-selector="video-title-block" class="{{csstheme}}-title-block {{activitydelta > 5000 && hideoninactivity ? (cssplayer + '-dashboard-hidden') : ''}}" ba-if="{{title}}">
+    <p class="{{csstheme}}-title">
         {{title}}
     </p>
 </div>
@@ -41,7 +41,7 @@
 
         <div tabindex="{{skipinitial ? 0 : 1 }}" data-selector="button-icon-pause"
              ba-hotkey:space^enter="{{pause()}}" onmouseout="this.blur()"
-             class="{{csstheme}}-button-container {{disablepause ? css + '-disabled' : ''}}"
+             class="{{csstheme}}-button-container {{disablepause ? cssplayer + '-disabled' : ''}}"
              ba-if="{{playing}}" ba-click="{{pause()}}" title="{{disablepause ? string('pause-video-disabled') : string('pause-video')}}"
              onkeydown="{{tab_index_move(domEvent, null, 'button-icon-play')}}"
         >
@@ -143,7 +143,7 @@
 
     </div>
 
-    <div class="{{csstheme}}-progressbar {{disableseeking ? css + '-disabled' : ''}}">
+    <div class="{{csstheme}}-progressbar {{disableseeking ? cssplayer + '-disabled' : ''}}">
         <div tabindex="2" data-selector="progress-bar-inner"
              ba-hotkey:right="{{seek(position + skipseconds)}}"
              ba-hotkey:left="{{seek(position - skipseconds)}}"

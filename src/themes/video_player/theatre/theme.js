@@ -7,7 +7,7 @@ Scoped.extend("module:Assets.playerthemes", [
     return {
         "theatre": {
             css: "ba-videoplayer",
-            csstheme: "ba-videoplayer-theatre-theme",
+            csstheme: "ba-player-theatre-theme",
             csscommon: "ba-commoncss",
             cssplayer: "ba-player",
             tmplcontrolbar: "<%= template(dirname + '/theatre-video_player_controlbar.html') %>",

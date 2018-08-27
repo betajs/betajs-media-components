@@ -2,9 +2,7 @@
   @if $color != default {
     .#{$cssplayer}-#{$color}-color {
 
-      .#{$csstheme}-dashboard, .#{$csstheme}-audio-title,
-      //.#{$csstheme}-right-block .#{$csscommon}-icon-volume-up,
-      //.#{$csstheme}-right-block .#{$csscommon}-icon-volume-down,
+      .#{$csstheme}-dashboard, .#{$csstheme}-title,
       .#{$csstheme}-button-inner > i {
         color: $value;
       }

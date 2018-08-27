@@ -55,7 +55,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "popup-width": "",
                     "popup-height": "",
                     /* Themes */
-                    "theme": "ba-videoplayer-default-theme",
+                    "theme": "",
                     "csstheme": "",
                     "themecolor": "",
                     /* Dynamics */

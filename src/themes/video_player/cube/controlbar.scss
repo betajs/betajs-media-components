@@ -15,17 +15,17 @@
   }
 }
 
-.#{$cssie8} .#{$csstheme}-video-title-block {
+.#{$cssie8} .#{$csstheme}-title-block {
   display: none;
 }
 
-.#{$cssnoie8} .#{$csstheme}-video-title-block {
+.#{$cssnoie8} .#{$csstheme}-title-block {
   @include absolute-align-full-top();
   @include background-rgba(0, 0, 0, 0.6, #4f4f4f);
   @include transition1(opacity, $dashboard_transition, ease-in-out);
 }
 
-.#{$csstheme}-video-title {
+.#{$csstheme}-title {
   color: $title_text_color;
   font-family: $font_family;
   font-weight: 300;
@@ -155,7 +155,7 @@
   height: $progressbar_height;
 }
 
-.#{$csstheme}-progressbar.#{$css}-disabled {
+.#{$csstheme}-progressbar.#{$cssplayer}-disabled {
   &, & .#{$csstheme}-progressbar-cache,
   & .#{$csstheme}-progressbar-inner,
   & .#{$csstheme}-progressbar-position {

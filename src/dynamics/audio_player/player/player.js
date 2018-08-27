@@ -45,7 +45,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     "width": "",
                     "height": "",
                     /* Themes */
-                    "theme": "ba-audiooplayer-default-theme",
+                    "theme": "",
                     "csstheme": "",
                     "themecolor": "",
                     /* Dynamics */

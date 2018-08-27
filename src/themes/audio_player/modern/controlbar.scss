@@ -8,6 +8,22 @@
     &.#{$cssplayer}-no-title {
         min-height: $controlbar_height;
     }
+
+    &.#{$csstheme} {
+
+        &.#{$cssplayer}-size-small .#{$csstheme}-time-container {
+            display: block;
+        }
+
+        &.#{$cssplayer}-size-medium .#{$csstheme}-volumebar, .#{$cssplayer}-size-small .#{$csstheme}-volumebar {
+            display: block;
+        }
+
+        &.#{$cssplayer}-size-medium .#{$csstheme}-volume-button-container, .#{$cssplayer}-size-small .#{$csstheme}-volume-button-container {
+            display: block;
+        }
+
+    }
 }
 
 
@@ -20,13 +36,6 @@
 	height: $controlbar_height;
     opacity: 0.9;
     overflow: hidden;
-}
-
-.#{$csstheme}-leftbutton-container {
-    @include float-width-height(left, $button_width, 100%);
-    @include clickable;
-	box-sizing: content-box;
-    border-right: 1px solid $button_border_color;
 }
 
 .#{$cssnoie8} .#{$csstheme}-rightbutton-container {
@@ -56,28 +65,8 @@
     font-size: $button_fontsize;
 }
 
-.#{$csstheme}-button-inner {
-    @include clickable;
-}
-
-.#{$csstheme}-time-container {
-    @include float-width-height(left, $time_value_width, 100%);
-    text-align: center;
-    font-family: $text_fontfamily;
-    font-size: $text_fontsize;
-    color: $text_color;
-	box-sizing: content-box;
-    border-right: 1px solid $button_border_color;
-}
-
 .#{$cssie8} .#{$csstheme}-time-container {
     margin-top: $ie8_margintop + 5;
-}
-
-.#{$csstheme}-time-value {
-    @include relative-center-center;
-    float: left;
-    width: $time_value_width;
 }
 
 .#{$cssnoie8} .#{$csstheme}-volumebar {
@@ -89,21 +78,6 @@
     @include float-width-height(right, $volume_width, 50%);
     margin-top: $ie8_margintop+10;
     margin-right: $volume_height*2;
-}
-
-.#{$csstheme}-volumebar-inner {
-    @include relative-center-center;
-    @include border-round-edges($volume_height / 2);
-    @include clickable;
-    background-color: $controls_bgcolor;
-    height: $volume_height;
-}
-
-.#{$csstheme}-volumebar-position {
-    @include border-round-edges($volume_height / 2);
-    @include absolute-align-left();
-    background-color: $button_color;
-    height: 100%;
 }
 
 .#{$cssnoie8} .#{$csstheme}-progressbar {
@@ -122,66 +96,7 @@
     margin-top: $ie8_margintop;
 }
 
-.#{$csstheme}-progressbar-cache {
-    @include absolute-align-left;
-    @include border-round-edges($volume_height / 2);
-    @include clickable;
-    background-color: $progressbar_cache_bgcolor;
-    height: $volume_height;
-}
-
-.#{$csstheme}-progressbar-inner {
-    @include relative-center-center;
-    @include border-round-edges($volume_height / 2);
-    @include clickable;
-    background-color: $controls_bgcolor;
-    height: $volume_height;
-}
-
-.#{$csstheme}-progressbar.#{$csstheme}-disabled {
-    &, & .#{$csstheme}-progressbar-cache, & .#{$csstheme}-progressbar-inner, & .#{$csstheme}-progressbar-position {cursor: not-allowed}
-}
-
-.#{$csstheme}-progressbar-position {
-    @include border-round-edges($volume_height / 2);
-    @include absolute-align-left();
-    background-color: $button_color;
-    height: 100%;
-}
-
-.#{$csstheme}-button-text {
-	font-family: Arial;
-    font-weight: bold;
-}
-
-
 .#{$cssie8} .#{$csstheme}-title-container {
     display: none;
-}
-
-.#{$csstheme}-title-container {
-    @include absolute-align-full-top();
-    @include transition1(opacity, $dashboard_transition, ease-in-out);
-    width: 100%;
-    & > p {
-        color: $title_text_color;
-        @include background-rgba( 255, 255, 255, 0.7, $controlbar_background);
-        @include relative-horizontally-center();
-        height: $controlbar_height - 10;
-        line-height: $controlbar_height - 10;
-        text-align: center;
-    }
-}
-
-.#{$cssplayer}-size-small .#{$csstheme}-time-container {
-	display: none;
-}
-
-.#{$cssplayer}-size-medium .#{$csstheme}-volumebar, .#{$cssplayer}-size-small .#{$csstheme}-volumebar {
-	display: none;
-}
-
-.#{$cssplayer}-size-medium .#{$csstheme}-volume-button-container, .#{$cssplayer}-size-small .#{$csstheme}-volume-button-container {
-	display: none;
 }
 

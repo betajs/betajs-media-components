@@ -1,7 +1,7 @@
 .#{$csstheme}.#{$css}-container {
 
     .#{$cssplayer}-text-tracks-overlay {
-        @include absolute-align-full-bottom-above-control-bar($controlbar_height + 5);
+        @include absolute-align-full-bottom-above-control-bar($controlbar_height + 12);
         @include transition1(bottom, $player_dashboard_transition, ease-in-out);
         .#{$csscommon}-options-popup {
             bottom: 5px;

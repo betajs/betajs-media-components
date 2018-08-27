@@ -7,7 +7,7 @@ Scoped.extend("module:Assets.audioplayerthemes", [
     return {
         "cube": {
             css: "ba-audioplayer",
-            csstheme: "ba-audioplayer-cube-theme",
+            csstheme: "ba-player-cube-theme",
             tmplcontrolbar: "<%= template(dirname + '/cube-audio_player_controlbar.html') %>",
             cssloader: ie8 ? "ba-audioplayer" : "",
             cssmessage: "ba-audioplayer",

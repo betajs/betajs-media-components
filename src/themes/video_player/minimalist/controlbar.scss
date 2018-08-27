@@ -81,7 +81,7 @@
     letter-spacing: .1em;
     line-height: $topmessage_height - 10;
     margin: 0;
-    padding: 0 0 0 15px;
+    padding: 0 0 0 $controlbar_side_padding;
     text-align: left;
   }
 }
@@ -207,7 +207,7 @@
     height: $progressbar_height;
 }
 
-.#{$csstheme}-progressbar.#{$css}-disabled {
+.#{$csstheme}-progressbar.#{$cssplayer}-disabled {
   & .#{$csstheme}-progressbar-cache, & .#{$csstheme}-progressbar-inner, & .#{$csstheme}-progressbar-position {cursor: not-allowed}
 }
 

@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.114 - 2018-08-27
+betajs-media-components - v0.0.115 - 2018-08-30
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -15,7 +15,7 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.114"
+    "version": "0.0.115"
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -5120,6 +5120,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
     "browser:Upload.MultiUploader",
     "browser:Upload.FileUploader",
     "media:Recorder.VideoRecorderWrapper",
+    "media:WebRTC.Support",
     "base:Types",
     "base:Objs",
     "base:Strings",
@@ -5148,7 +5149,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.TemplatePartial",
     "dynamics:Partials.HotkeyPartial"
-], function(Class, Assets, Info, Dom, MultiUploader, FileUploader, VideoRecorderWrapper, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Collection, Promise, InitialState, RecorderStates, scoped) {
+], function(Class, Assets, Info, Dom, MultiUploader, FileUploader, VideoRecorderWrapper, WebRTCSupport, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Collection, Promise, InitialState, RecorderStates, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -5372,6 +5373,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 },
 
                 create: function() {
+                    // Init Audio Context
+                    WebRTCSupport.globals();
                     if (this.get("theme") in Assets.recorderthemes) {
                         Objs.iter(Assets.recorderthemes[this.get("theme")], function(value, key) {
                             if (!this.isArgumentAttr(key))

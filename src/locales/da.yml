@@ -68,3 +68,64 @@
   ba-videorecorder.software-waiting: >-
     Venter på de krav, der skal installeres / aktiveres. Du skal måske opdatere
     siden efter færdiggørelsen.
+  ba-videoplayer-controlbar.close-tracks: Luk CC
+  ba-videoplayer-controlbar.show-tracks: Vis CC
+  ba-videoplayer-tracks.upload-text-tracks: Upload spor tekstfiler
+  ba-videoplayer-tracks.select-text-track-language: Undertekstsprog
+  ba-videoplayer-tracks.info-select-locale-first: Vælg først lokalitet
+  ba-videoplayer-tracks.select-text-track-file: Klik for at vælge fil
+  ba-videoplayer-tracks.back: tilbage
+  ba-videorecorder.framerate-warning: >-
+    Videorammerhastigheden er meget lav. Vi anbefaler at lukke alle andre
+    programmer og browser faner eller at bruge en hurtigere computer.
+  ba-videorecorder.upload-error-duration: >-
+    Længden på den uploadede video opfylder ikke kravene - klik her for at prøve
+    igen.
+  ba-videorecorder.resolution-constraint-error: >-
+    Filen du har valgt stemmer ikke overens med den krævede opløsning - klik her
+    for at prøve igen.
+  ba-videorecorder.orientation-portrait-required: Venligst drej din enhed for at optage i stående tilstand.
+  ba-videorecorder.orientation-landscape-required: Venligst drej din enhed for at optage i liggende tilstand.
+  ba-imageviewer-controlbar.rerecord-image: Redo?
+  ba-imageviewer-controlbar.submit-image: Bekræfte
+  ba-imageviewer-controlbar.fullscreen-image: Indtast fuldskærm
+  ba-imageviewer-controlbar.exit-fullscreen-image: Afslut fuldskærm
+  ba-imageviewer.image-error: Der opstod en fejl. Prøv venligst igen senere. Klik for at prøve igen.
+  ba-imagecapture-chooser.image-capture: Capture Image
+  ba-imagecapture-chooser.upload-image: Upload billede
+  ba-imagecapture-controlbar.settings: Indstillinger
+  ba-imagecapture-controlbar.camerahealthy: Belysning er god
+  ba-imagecapture-controlbar.cameraunhealthy: Belysning er ikke optimal
+  ba-imagecapture-controlbar.record: Fange
+  ba-imagecapture-controlbar.record-tooltip: Klik her for at fange.
+  ba-imagecapture-controlbar.rerecord: redo
+  ba-imagecapture-controlbar.rerecord-tooltip: Klik her for at gentage.
+  ba-imagecapture-controlbar.cancel: Afbestille
+  ba-imagecapture-controlbar.cancel-tooltip: Klik her for at annullere.
+  ba-audioplayer-controlbar.audio-progress: Fremskridt
+  ba-audioplayer-controlbar.rerecord-audio: Redo?
+  ba-audioplayer-controlbar.submit-audio: Bekræfte
+  ba-audioplayer-controlbar.play-audio: Spille
+  ba-audioplayer-controlbar.pause-audio: Pause
+  ba-audioplayer-controlbar.pause-audio-disabled: Pause ikke understøttet
+  ba-audioplayer-controlbar.elapsed-time: Elasped tid
+  ba-audioplayer-controlbar.total-time: Total længde på
+  ba-audioplayer-controlbar.volume-button: Indstil lydstyrke
+  ba-audioplayer-controlbar.volume-mute: Dæmp lyd
+  ba-audioplayer-controlbar.volume-unmute: Sluk lyden
+  ba-audioplayer-loader.tooltip: Indlæser...
+  ba-audioplayer.audio-error: Der opstod en fejl. Prøv venligst igen senere. Klik for at prøve igen.
+  ba-audiorecorder-chooser.record-audio: Optag lyd
+  ba-audiorecorder-chooser.upload-audio: Upload lyd
+  ba-audiorecorder-controlbar.settings: Indstillinger
+  ba-audiorecorder-controlbar.microphonehealthy: Lyden er god
+  ba-audiorecorder-controlbar.microphoneunhealthy: Kan ikke hente nogen lyd
+  ba-audiorecorder-controlbar.record: Optage
+  ba-audiorecorder-controlbar.record-tooltip: Klik her for at optage.
+  ba-audiorecorder-controlbar.rerecord: redo
+  ba-audiorecorder-controlbar.rerecord-tooltip: Klik her for at gentage.
+  ba-audiorecorder-controlbar.stop: Hold op
+  ba-audiorecorder-controlbar.stop-tooltip: Klik her for at stoppe.
+  ba-audiorecorder-controlbar.stop-available-after: Mindste optagetid er %d sekunder
+  ba-audiorecorder-controlbar.cancel: Afbestille
+  ba-audiorecorder-controlbar.cancel-tooltip: Klik her for at annullere.

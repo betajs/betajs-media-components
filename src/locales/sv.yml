@@ -74,3 +74,68 @@
   ba-videorecorder.software-waiting: >-
     Väntar på att kraven ska installeras / aktiveras. Det kan hända att du
     behöver uppdatera sidan efter slutförandet.
+  ba-videoplayer-controlbar.close-tracks: Stäng CC
+  ba-videoplayer-controlbar.show-tracks: Visa CC
+  ba-videoplayer-tracks.upload-text-tracks: Ladda upp spår textfiler
+  ba-videoplayer-tracks.select-text-track-language: Textningsspråk
+  ba-videoplayer-tracks.info-select-locale-first: Välj först platsen
+  ba-videoplayer-tracks.select-text-track-file: Klicka för att välja fil
+  ba-videoplayer-tracks.back: tillbaka
+  ba-videorecorder.framerate-warning: >-
+    Videorammen är mycket låga. Vi rekommenderar att du stänger alla andra
+    program och webbläsarflikar eller använder en snabbare dator.
+  ba-videorecorder.upload-error-duration: >-
+    Längd på den uppladdade videon uppfyller inte kraven - klicka här för att
+    försöka igen.
+  ba-videorecorder.resolution-constraint-error: >-
+    Filen du har valt matchar inte den önskade upplösningen - klicka här för att
+    försöka igen.
+  ba-videorecorder.orientation-portrait-required: Vänligen rotera enheten för att spela in i stående läge.
+  ba-videorecorder.orientation-landscape-required: Vänligen rotera enheten för att spela in i liggande läge.
+  ba-imageviewer-controlbar.rerecord-image: Göra om?
+  ba-imageviewer-controlbar.submit-image: Bekräfta
+  ba-imageviewer-controlbar.fullscreen-image: Ange fullskärm
+  ba-imageviewer-controlbar.exit-fullscreen-image: Avsluta fullskärmen
+  ba-imageviewer.image-error: >-
+    Ett fel har inträffat. Vänligen försök igen senare. Klicka för att försöka
+    igen.
+  ba-imagecapture-chooser.image-capture: Capture Image
+  ba-imagecapture-chooser.upload-image: Ladda upp bild
+  ba-imagecapture-controlbar.settings: inställningar
+  ba-imagecapture-controlbar.camerahealthy: Belysning är bra
+  ba-imagecapture-controlbar.cameraunhealthy: Belysning är inte optimal
+  ba-imagecapture-controlbar.record: Fånga
+  ba-imagecapture-controlbar.record-tooltip: Klicka här för att fånga.
+  ba-imagecapture-controlbar.rerecord: Göra om
+  ba-imagecapture-controlbar.rerecord-tooltip: Klicka här för att göra om.
+  ba-imagecapture-controlbar.cancel: Annullera
+  ba-imagecapture-controlbar.cancel-tooltip: Klicka här för att avbryta.
+  ba-audioplayer-controlbar.audio-progress: Framsteg
+  ba-audioplayer-controlbar.rerecord-audio: Göra om?
+  ba-audioplayer-controlbar.submit-audio: Bekräfta
+  ba-audioplayer-controlbar.play-audio: Spela
+  ba-audioplayer-controlbar.pause-audio: Paus
+  ba-audioplayer-controlbar.pause-audio-disabled: Paus stöds inte
+  ba-audioplayer-controlbar.elapsed-time: Elasped tid
+  ba-audioplayer-controlbar.total-time: Total längd på
+  ba-audioplayer-controlbar.volume-button: Ange volym
+  ba-audioplayer-controlbar.volume-mute: Stäng ljudet
+  ba-audioplayer-controlbar.volume-unmute: Slå av ljudet
+  ba-audioplayer-loader.tooltip: Läser in...
+  ba-audioplayer.audio-error: >-
+    Ett fel har inträffat. Vänligen försök igen senare. Klicka för att försöka
+    igen.
+  ba-audiorecorder-chooser.record-audio: Spela in ljud
+  ba-audiorecorder-chooser.upload-audio: Ladda upp ljud
+  ba-audiorecorder-controlbar.settings: inställningar
+  ba-audiorecorder-controlbar.microphonehealthy: Ljudet är bra
+  ba-audiorecorder-controlbar.microphoneunhealthy: Kan inte hämta något ljud
+  ba-audiorecorder-controlbar.record: Spela in
+  ba-audiorecorder-controlbar.record-tooltip: Klicka här för att spela in.
+  ba-audiorecorder-controlbar.rerecord: Göra om
+  ba-audiorecorder-controlbar.rerecord-tooltip: Klicka här för att göra om.
+  ba-audiorecorder-controlbar.stop: Sluta
+  ba-audiorecorder-controlbar.stop-tooltip: Klicka här för att sluta.
+  ba-audiorecorder-controlbar.stop-available-after: Minsta inspelningstid är %d sekunder
+  ba-audiorecorder-controlbar.cancel: Annullera
+  ba-audiorecorder-controlbar.cancel-tooltip: Klicka här för att avbryta.

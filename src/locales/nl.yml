@@ -75,3 +75,68 @@
   ba-videorecorder.software-waiting: >-
     Wacht tot de vereisten zijn geïnstalleerd / geactiveerd. Mogelijk moet u de
     pagina na voltooiing vernieuwen.
+  ba-videoplayer-controlbar.close-tracks: Sluit CC
+  ba-videoplayer-controlbar.show-tracks: Toon CC
+  ba-videoplayer-tracks.upload-text-tracks: Uploadtekstbestanden uploaden
+  ba-videoplayer-tracks.select-text-track-language: Taal ondertitels
+  ba-videoplayer-tracks.info-select-locale-first: Selecteer eerst locale
+  ba-videoplayer-tracks.select-text-track-file: Klik om bestand te selecteren
+  ba-videoplayer-tracks.back: terug
+  ba-videorecorder.framerate-warning: >-
+    De videoframesnelheid is erg laag. We raden aan om alle andere programma's
+    en browsertabs te sluiten of om een ​​snellere computer te gebruiken.
+  ba-videorecorder.upload-error-duration: >-
+    De lengte van de geüploade video voldoet niet aan de vereisten. Klik hier om
+    opnieuw te proberen.
+  ba-videorecorder.resolution-constraint-error: >-
+    Het bestand dat je hebt geselecteerd komt niet overeen met de vereiste
+    resolutie - klik hier om het opnieuw te proberen.
+  ba-videorecorder.orientation-portrait-required: Draai uw apparaat om op te nemen in staande modus.
+  ba-videorecorder.orientation-landscape-required: Draai je apparaat om in de liggende modus op te nemen.
+  ba-imageviewer-controlbar.rerecord-image: Opnieuw doen?
+  ba-imageviewer-controlbar.submit-image: Bevestigen
+  ba-imageviewer-controlbar.fullscreen-image: Voer het volledige scherm in
+  ba-imageviewer-controlbar.exit-fullscreen-image: Verlaat volledig scherm
+  ba-imageviewer.image-error: >-
+    Er is een fout opgetreden. Probeer het later opnieuw. Klik om opnieuw te
+    proberen.
+  ba-imagecapture-chooser.image-capture: Capture Image
+  ba-imagecapture-chooser.upload-image: Afbeelding uploaden
+  ba-imagecapture-controlbar.settings: instellingen
+  ba-imagecapture-controlbar.camerahealthy: Verlichting is goed
+  ba-imagecapture-controlbar.cameraunhealthy: Verlichting is niet optimaal
+  ba-imagecapture-controlbar.record: Gevangen nemen
+  ba-imagecapture-controlbar.record-tooltip: Klik hier om vast te leggen.
+  ba-imagecapture-controlbar.rerecord: Opnieuw doen
+  ba-imagecapture-controlbar.rerecord-tooltip: Klik hier om opnieuw te doen.
+  ba-imagecapture-controlbar.cancel: Annuleer
+  ba-imagecapture-controlbar.cancel-tooltip: Klik hier om te annuleren.
+  ba-audioplayer-controlbar.audio-progress: Vooruitgang
+  ba-audioplayer-controlbar.rerecord-audio: Opnieuw doen?
+  ba-audioplayer-controlbar.submit-audio: Bevestigen
+  ba-audioplayer-controlbar.play-audio: Spelen
+  ba-audioplayer-controlbar.pause-audio: Pauze
+  ba-audioplayer-controlbar.pause-audio-disabled: Pauzeren niet ondersteund
+  ba-audioplayer-controlbar.elapsed-time: Elasped tijd
+  ba-audioplayer-controlbar.total-time: Totale lengte van
+  ba-audioplayer-controlbar.volume-button: Volume instellen
+  ba-audioplayer-controlbar.volume-mute: Geluid dempen
+  ba-audioplayer-controlbar.volume-unmute: Geluid dempen
+  ba-audioplayer-loader.tooltip: Bezig met laden...
+  ba-audioplayer.audio-error: >-
+    Er is een fout opgetreden. Probeer het later opnieuw. Klik om opnieuw te
+    proberen.
+  ba-audiorecorder-chooser.record-audio: Geluid opnemen
+  ba-audiorecorder-chooser.upload-audio: Upload audio
+  ba-audiorecorder-controlbar.settings: instellingen
+  ba-audiorecorder-controlbar.microphonehealthy: Geluid is goed
+  ba-audiorecorder-controlbar.microphoneunhealthy: Kan geen geluid oppikken
+  ba-audiorecorder-controlbar.record: Record
+  ba-audiorecorder-controlbar.record-tooltip: Klik hier om op te nemen.
+  ba-audiorecorder-controlbar.rerecord: Opnieuw doen
+  ba-audiorecorder-controlbar.rerecord-tooltip: Klik hier om opnieuw te doen.
+  ba-audiorecorder-controlbar.stop: Hou op
+  ba-audiorecorder-controlbar.stop-tooltip: Klik hier om te stoppen.
+  ba-audiorecorder-controlbar.stop-available-after: Minimale opnametijd is %d seconden
+  ba-audiorecorder-controlbar.cancel: Annuleer
+  ba-audiorecorder-controlbar.cancel-tooltip: Klik hier om te annuleren.

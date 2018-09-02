@@ -71,3 +71,69 @@
   ba-videorecorder.software-waiting: >-
     Attendre que les exigences soient installées / activées. Vous devrez
     peut-être actualiser la page après l'achèvement.
+  ba-videoplayer-controlbar.close-tracks: Fermer CC
+  ba-videoplayer-controlbar.show-tracks: Montrer CC
+  ba-videoplayer-tracks.upload-text-tracks: Télécharger des fichiers texte de piste
+  ba-videoplayer-tracks.select-text-track-language: Langue des sous-titres
+  ba-videoplayer-tracks.info-select-locale-first: Sélectionnez d'abord les paramètres régionaux
+  ba-videoplayer-tracks.select-text-track-file: Cliquez pour sélectionner un fichier
+  ba-videoplayer-tracks.back: arrière
+  ba-videorecorder.framerate-warning: >-
+    Le taux de trame vidéo est très faible. Nous vous recommandons de fermer
+    tous les autres programmes et les onglets du navigateur ou d'utiliser un
+    ordinateur plus rapide.
+  ba-videorecorder.upload-error-duration: >-
+    La longueur de la vidéo téléchargée ne répond pas aux exigences - cliquez
+    ici pour réessayer.
+  ba-videorecorder.resolution-constraint-error: >-
+    Le fichier que vous avez sélectionné ne correspond pas à la résolution
+    requise - cliquez ici pour réessayer.
+  ba-videorecorder.orientation-portrait-required: Veuillez faire pivoter votre appareil pour enregistrer en mode portrait.
+  ba-videorecorder.orientation-landscape-required: Veuillez faire pivoter votre appareil pour enregistrer en mode paysage.
+  ba-imageviewer-controlbar.rerecord-image: Refaire?
+  ba-imageviewer-controlbar.submit-image: Confirmer
+  ba-imageviewer-controlbar.fullscreen-image: Passer en mode plein écran
+  ba-imageviewer-controlbar.exit-fullscreen-image: Quitter le mode plein écran
+  ba-imageviewer.image-error: >-
+    Une erreur est survenue, veuillez réessayer plus tard. Cliquez pour
+    réessayer.
+  ba-imagecapture-chooser.image-capture: Capture d'image
+  ba-imagecapture-chooser.upload-image: Télécharger une image
+  ba-imagecapture-controlbar.settings: Paramètres
+  ba-imagecapture-controlbar.camerahealthy: L'éclairage est bon
+  ba-imagecapture-controlbar.cameraunhealthy: L'éclairage n'est pas optimal
+  ba-imagecapture-controlbar.record: Capturer
+  ba-imagecapture-controlbar.record-tooltip: Cliquez ici pour capturer.
+  ba-imagecapture-controlbar.rerecord: Refaire
+  ba-imagecapture-controlbar.rerecord-tooltip: Cliquez ici pour refaire
+  ba-imagecapture-controlbar.cancel: Annuler
+  ba-imagecapture-controlbar.cancel-tooltip: Cliquez ici pour annuler.
+  ba-audioplayer-controlbar.audio-progress: Le progrès
+  ba-audioplayer-controlbar.rerecord-audio: Refaire?
+  ba-audioplayer-controlbar.submit-audio: Confirmer
+  ba-audioplayer-controlbar.play-audio: Jouer
+  ba-audioplayer-controlbar.pause-audio: Pause
+  ba-audioplayer-controlbar.pause-audio-disabled: Pause non supportée
+  ba-audioplayer-controlbar.elapsed-time: Temps écoulé
+  ba-audioplayer-controlbar.total-time: Longueur totale de
+  ba-audioplayer-controlbar.volume-button: Régler le volume
+  ba-audioplayer-controlbar.volume-mute: Son muet
+  ba-audioplayer-controlbar.volume-unmute: Activer le son
+  ba-audioplayer-loader.tooltip: Chargement...
+  ba-audioplayer.audio-error: >-
+    Une erreur est survenue, veuillez réessayer plus tard. Cliquez pour
+    réessayer.
+  ba-audiorecorder-chooser.record-audio: Enregistrement audio
+  ba-audiorecorder-chooser.upload-audio: Télécharger l'audio
+  ba-audiorecorder-controlbar.settings: Paramètres
+  ba-audiorecorder-controlbar.microphonehealthy: Le son est bon
+  ba-audiorecorder-controlbar.microphoneunhealthy: Impossible de capter un son
+  ba-audiorecorder-controlbar.record: Record
+  ba-audiorecorder-controlbar.record-tooltip: Cliquez ici pour enregistrer.
+  ba-audiorecorder-controlbar.rerecord: Refaire
+  ba-audiorecorder-controlbar.rerecord-tooltip: Cliquez ici pour refaire
+  ba-audiorecorder-controlbar.stop: Arrêtez
+  ba-audiorecorder-controlbar.stop-tooltip: Cliquez ici pour arrêter.
+  ba-audiorecorder-controlbar.stop-available-after: La durée d'enregistrement minimale est de %d secondes
+  ba-audiorecorder-controlbar.cancel: Annuler
+  ba-audiorecorder-controlbar.cancel-tooltip: Cliquez ici pour annuler.

@@ -1,0 +1,15 @@
+
+<div data-selector="recorder-message-container" class="{{css}}-message-container" ba-click="{{click()}}">
+    <div data-selector="recorder-message-block" class='{{css}}-message-message'>
+        <p>
+            {{message || ""}}
+        </p>
+        <ul ba-if="{{links && links.length > 0}}" ba-repeat="{{link :: links}}">
+            <li>
+                <a href="javascript:;" ba-click="{{linkClick(link)}}">
+                    {{link.title}}
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

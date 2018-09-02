@@ -70,3 +70,64 @@
   ba-videorecorder.software-waiting: >-
     Gereksinimlerin kurulması / etkinleştirilmesi için bekleniyor.
     Tamamlandıktan sonra sayfayı yenilemeniz gerekebilir.
+  ba-videoplayer-controlbar.close-tracks: CC'yi kapat
+  ba-videoplayer-controlbar.show-tracks: CC göster
+  ba-videoplayer-tracks.upload-text-tracks: Parça metni dosyalarını yükle
+  ba-videoplayer-tracks.select-text-track-language: Altyazı Dili
+  ba-videoplayer-tracks.info-select-locale-first: İlk yerel seç
+  ba-videoplayer-tracks.select-text-track-file: Dosya seçmek için tıklayın
+  ba-videoplayer-tracks.back: geri
+  ba-videorecorder.framerate-warning: >-
+    Video kare hızı çok düşük. Diğer tüm programları ve tarayıcı sekmelerini
+    kapatmanızı veya daha hızlı bir bilgisayar kullanmanızı öneririz.
+  ba-videorecorder.upload-error-duration: >-
+    Yüklenen videonun uzunluğu gereksinimleri karşılamıyor. Yeniden denemek için
+    burayı tıklayın.
+  ba-videorecorder.resolution-constraint-error: >-
+    Seçtiğiniz dosya gerekli çözünürlükle eşleşmiyor. Yeniden denemek için
+    burayı tıklayın.
+  ba-videorecorder.orientation-portrait-required: Lütfen portre modunda kayıt yapmak için cihazınızı döndürün.
+  ba-videorecorder.orientation-landscape-required: Lütfen yatay modda kayıt yapmak için cihazınızı döndürün.
+  ba-imageviewer-controlbar.rerecord-image: Yeniden yap?
+  ba-imageviewer-controlbar.submit-image: Onaylamak
+  ba-imageviewer-controlbar.fullscreen-image: Tam ekran yap
+  ba-imageviewer-controlbar.exit-fullscreen-image: Tam ekrandan çık
+  ba-imageviewer.image-error: 'Bir hata oluştu, daha sonra tekrar deneyin. Yeniden denemek için tıklayın.'
+  ba-imagecapture-chooser.image-capture: Görüntüyü yakala
+  ba-imagecapture-chooser.upload-image: Fotoğraf yükleniyor
+  ba-imagecapture-controlbar.settings: Ayarlar
+  ba-imagecapture-controlbar.camerahealthy: Aydınlatma iyidir
+  ba-imagecapture-controlbar.cameraunhealthy: Aydınlatma optimal değil
+  ba-imagecapture-controlbar.record: Ele geçirmek
+  ba-imagecapture-controlbar.record-tooltip: Yakalamak için buraya tıklayın.
+  ba-imagecapture-controlbar.rerecord: yeniden yapmak
+  ba-imagecapture-controlbar.rerecord-tooltip: Yeniden yapmak için buraya tıklayın.
+  ba-imagecapture-controlbar.cancel: İptal etmek
+  ba-imagecapture-controlbar.cancel-tooltip: İptal etmek için buraya tıklayın.
+  ba-audioplayer-controlbar.audio-progress: İlerleme
+  ba-audioplayer-controlbar.rerecord-audio: Yeniden yap?
+  ba-audioplayer-controlbar.submit-audio: Onaylamak
+  ba-audioplayer-controlbar.play-audio: Oyun
+  ba-audioplayer-controlbar.pause-audio: Duraklat
+  ba-audioplayer-controlbar.pause-audio-disabled: Duraklat desteklenmiyor
+  ba-audioplayer-controlbar.elapsed-time: Elasped zaman
+  ba-audioplayer-controlbar.total-time: Toplam uzunluğu
+  ba-audioplayer-controlbar.volume-button: Sesi ayarla
+  ba-audioplayer-controlbar.volume-mute: Sesi kapat
+  ba-audioplayer-controlbar.volume-unmute: Sesi aç ses
+  ba-audioplayer-loader.tooltip: Yükleniyor...
+  ba-audioplayer.audio-error: 'Bir hata oluştu, daha sonra tekrar deneyin. Yeniden denemek için tıklayın.'
+  ba-audiorecorder-chooser.record-audio: Ses kaydı
+  ba-audiorecorder-chooser.upload-audio: Ses yükle
+  ba-audiorecorder-controlbar.settings: Ayarlar
+  ba-audiorecorder-controlbar.microphonehealthy: Ses iyi
+  ba-audiorecorder-controlbar.microphoneunhealthy: Ses alınamıyor
+  ba-audiorecorder-controlbar.record: Kayıt
+  ba-audiorecorder-controlbar.record-tooltip: Kayıt için buraya tıklayın.
+  ba-audiorecorder-controlbar.rerecord: yeniden yapmak
+  ba-audiorecorder-controlbar.rerecord-tooltip: Yeniden yapmak için buraya tıklayın.
+  ba-audiorecorder-controlbar.stop: durdurmak
+  ba-audiorecorder-controlbar.stop-tooltip: Durdurmak için buraya tıklayın.
+  ba-audiorecorder-controlbar.stop-available-after: Minimum kayıt süresi %d saniyedir
+  ba-audiorecorder-controlbar.cancel: İptal etmek
+  ba-audiorecorder-controlbar.cancel-tooltip: İptal etmek için buraya tıklayın.

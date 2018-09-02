@@ -93,6 +93,17 @@
   ba-imageviewer-controlbar.fullscreen-image: Enter fullscreen
   ba-imageviewer-controlbar.exit-fullscreen-image: Exit fullscreen
   ba-imageviewer.image-error: 'An error occurred, please try again later. Click to retry.'
+  ba-imagecapture-chooser.image-capture: Capture Image
+  ba-imagecapture-chooser.upload-image: Upload Image
+  ba-imagecapture-controlbar.settings: Settings
+  ba-imagecapture-controlbar.camerahealthy: Lighting is good
+  ba-imagecapture-controlbar.cameraunhealthy: Lighting is not optimal
+  ba-imagecapture-controlbar.record: Capture
+  ba-imagecapture-controlbar.record-tooltip: Click here to capture.
+  ba-imagecapture-controlbar.rerecord: Redo
+  ba-imagecapture-controlbar.rerecord-tooltip: Click here to redo.
+  ba-imagecapture-controlbar.cancel: Cancel
+  ba-imagecapture-controlbar.cancel-tooltip: Click here to cancel.
   ba-audioplayer-controlbar.audio-progress: Progress
   ba-audioplayer-controlbar.rerecord-audio: Redo?
   ba-audioplayer-controlbar.submit-audio: Confirm
@@ -106,3 +117,17 @@
   ba-audioplayer-controlbar.volume-unmute: Unmute sound
   ba-audioplayer-loader.tooltip: Loading...
   ba-audioplayer.audio-error: 'An error occurred, please try again later. Click to retry.'
+  ba-audiorecorder-chooser.record-audio: Record Audio
+  ba-audiorecorder-chooser.upload-audio: Upload Audio
+  ba-audiorecorder-controlbar.settings: Settings
+  ba-audiorecorder-controlbar.microphonehealthy: Sound is good
+  ba-audiorecorder-controlbar.microphoneunhealthy: Cannot pick up any sound
+  ba-audiorecorder-controlbar.record: Record
+  ba-audiorecorder-controlbar.record-tooltip: Click here to record.
+  ba-audiorecorder-controlbar.rerecord: Redo
+  ba-audiorecorder-controlbar.rerecord-tooltip: Click here to redo.
+  ba-audiorecorder-controlbar.stop: Stop
+  ba-audiorecorder-controlbar.stop-tooltip: Click here to stop.
+  ba-audiorecorder-controlbar.stop-available-after: Minimum recording time is %d seconds
+  ba-audiorecorder-controlbar.cancel: Cancel
+  ba-audiorecorder-controlbar.cancel-tooltip: Click here to cancel.

@@ -71,3 +71,65 @@
   ba-videorecorder.software-waiting: >-
     Aspettando che i requisiti siano installati / attivati. Potrebbe essere
     necessario aggiornare la pagina dopo il completamento.
+  ba-videoplayer-controlbar.close-tracks: Chiudi CC
+  ba-videoplayer-controlbar.show-tracks: Mostra CC
+  ba-videoplayer-tracks.upload-text-tracks: Carica file di testo traccia
+  ba-videoplayer-tracks.select-text-track-language: Lingua sottotitoli
+  ba-videoplayer-tracks.info-select-locale-first: Prima seleziona la locale
+  ba-videoplayer-tracks.select-text-track-file: Clicca per selezionare il file
+  ba-videoplayer-tracks.back: indietro
+  ba-videorecorder.framerate-warning: >-
+    Il frame rate video è molto basso. Ti consigliamo di chiudere tutti gli
+    altri programmi e le schede del browser o di utilizzare un computer più
+    veloce.
+  ba-videorecorder.upload-error-duration: >-
+    La lunghezza del video caricato non soddisfa i requisiti: fai clic qui per
+    riprovare.
+  ba-videorecorder.resolution-constraint-error: >-
+    Il file che hai selezionato non corrisponde alla risoluzione richiesta: fai
+    clic qui per riprovare.
+  ba-videorecorder.orientation-portrait-required: Si prega di ruotare il dispositivo per registrare in modalità verticale.
+  ba-videorecorder.orientation-landscape-required: Si prega di ruotare il dispositivo per registrare in modalità orizzontale.
+  ba-imageviewer-controlbar.rerecord-image: Rifare?
+  ba-imageviewer-controlbar.submit-image: Confermare
+  ba-imageviewer-controlbar.fullscreen-image: Entra a schermo intero
+  ba-imageviewer-controlbar.exit-fullscreen-image: Esci dalla modalità schermo intero
+  ba-imageviewer.image-error: 'Si è verificato un errore, riprova più tardi. Clicca per riprovare.'
+  ba-imagecapture-chooser.image-capture: Cattura immagine
+  ba-imagecapture-chooser.upload-image: Carica immagine
+  ba-imagecapture-controlbar.settings: impostazioni
+  ba-imagecapture-controlbar.camerahealthy: L'illuminazione è buona
+  ba-imagecapture-controlbar.cameraunhealthy: L'illuminazione non è ottimale
+  ba-imagecapture-controlbar.record: Catturare
+  ba-imagecapture-controlbar.record-tooltip: Clicca qui per catturare.
+  ba-imagecapture-controlbar.rerecord: Rifare
+  ba-imagecapture-controlbar.rerecord-tooltip: Clicca qui per rifare.
+  ba-imagecapture-controlbar.cancel: Annulla
+  ba-imagecapture-controlbar.cancel-tooltip: Clicca qui per cancellare.
+  ba-audioplayer-controlbar.audio-progress: Progresso
+  ba-audioplayer-controlbar.rerecord-audio: Rifare?
+  ba-audioplayer-controlbar.submit-audio: Confermare
+  ba-audioplayer-controlbar.play-audio: Giocare
+  ba-audioplayer-controlbar.pause-audio: Pausa
+  ba-audioplayer-controlbar.pause-audio-disabled: Pausa non supportata
+  ba-audioplayer-controlbar.elapsed-time: Tempo trascorso
+  ba-audioplayer-controlbar.total-time: Lunghezza totale di
+  ba-audioplayer-controlbar.volume-button: Imposta il volume
+  ba-audioplayer-controlbar.volume-mute: Suono muto
+  ba-audioplayer-controlbar.volume-unmute: Riattiva il suono
+  ba-audioplayer-loader.tooltip: Caricamento in corso...
+  ba-audioplayer.audio-error: 'Si è verificato un errore, riprova più tardi. Clicca per riprovare.'
+  ba-audiorecorder-chooser.record-audio: Registra audio
+  ba-audiorecorder-chooser.upload-audio: Carica audio
+  ba-audiorecorder-controlbar.settings: impostazioni
+  ba-audiorecorder-controlbar.microphonehealthy: Il suono è buono
+  ba-audiorecorder-controlbar.microphoneunhealthy: Non posso sentire alcun suono
+  ba-audiorecorder-controlbar.record: Disco
+  ba-audiorecorder-controlbar.record-tooltip: Clicca qui per registrare.
+  ba-audiorecorder-controlbar.rerecord: Rifare
+  ba-audiorecorder-controlbar.rerecord-tooltip: Clicca qui per rifare.
+  ba-audiorecorder-controlbar.stop: Stop
+  ba-audiorecorder-controlbar.stop-tooltip: Clicca qui per interrompere.
+  ba-audiorecorder-controlbar.stop-available-after: Il tempo di registrazione minimo è %d secondi
+  ba-audiorecorder-controlbar.cancel: Annulla
+  ba-audiorecorder-controlbar.cancel-tooltip: Clicca qui per cancellare.

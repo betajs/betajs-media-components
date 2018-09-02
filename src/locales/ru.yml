@@ -75,3 +75,68 @@
   ba-videorecorder.software-waiting: >-
     Ожидание требований к установке / активации. Возможно, вам придется обновить
     страницу после завершения.
+  ba-videoplayer-controlbar.close-tracks: Закрыть CC
+  ba-videoplayer-controlbar.show-tracks: Показать CC
+  ba-videoplayer-tracks.upload-text-tracks: Загрузить дорожки
+  ba-videoplayer-tracks.select-text-track-language: Язык субтитров
+  ba-videoplayer-tracks.info-select-locale-first: Сначала выберите язык
+  ba-videoplayer-tracks.select-text-track-file: 'Нажмите, чтобы выбрать файл'
+  ba-videoplayer-tracks.back: назад
+  ba-videorecorder.framerate-warning: >-
+    Частота кадров видео очень низкая. Мы рекомендуем закрыть все другие
+    программы и вкладки браузера или использовать более быстрый компьютер.
+  ba-videorecorder.upload-error-duration: >-
+    Длина загруженного видео не соответствует требованиям - нажмите здесь, чтобы
+    повторить попытку.
+  ba-videorecorder.resolution-constraint-error: >-
+    Выбранный файл не соответствует требуемому разрешению - нажмите здесь, чтобы
+    повторить попытку.
+  ba-videorecorder.orientation-portrait-required: Поверните устройство для записи в портретном режиме.
+  ba-videorecorder.orientation-landscape-required: Поверните устройство для записи в альбомном режиме.
+  ba-imageviewer-controlbar.rerecord-image: Повторить?
+  ba-imageviewer-controlbar.submit-image: подтвердить
+  ba-imageviewer-controlbar.fullscreen-image: Войти в полноэкранный режим
+  ba-imageviewer-controlbar.exit-fullscreen-image: Выход из полноэкранного режима
+  ba-imageviewer.image-error: >-
+    Произошла ошибка. Пожалуйста, повторите попытку позже. Нажмите, чтобы
+    повторить попытку.
+  ba-imagecapture-chooser.image-capture: Захват изображения
+  ba-imagecapture-chooser.upload-image: Загрузить изображение
+  ba-imagecapture-controlbar.settings: настройки
+  ba-imagecapture-controlbar.camerahealthy: Освещение хорошее
+  ba-imagecapture-controlbar.cameraunhealthy: Освещение не является оптимальным
+  ba-imagecapture-controlbar.record: Захватить
+  ba-imagecapture-controlbar.record-tooltip: 'Нажмите здесь, чтобы сделать снимок.'
+  ba-imagecapture-controlbar.rerecord: переделывать
+  ba-imagecapture-controlbar.rerecord-tooltip: 'Нажмите здесь, чтобы повторить.'
+  ba-imagecapture-controlbar.cancel: Отмена
+  ba-imagecapture-controlbar.cancel-tooltip: 'Нажмите здесь, чтобы отменить.'
+  ba-audioplayer-controlbar.audio-progress: Прогресс
+  ba-audioplayer-controlbar.rerecord-audio: Повторить?
+  ba-audioplayer-controlbar.submit-audio: подтвердить
+  ba-audioplayer-controlbar.play-audio: Играть
+  ba-audioplayer-controlbar.pause-audio: Пауза
+  ba-audioplayer-controlbar.pause-audio-disabled: Пауза не поддерживается
+  ba-audioplayer-controlbar.elapsed-time: Укороченное время
+  ba-audioplayer-controlbar.total-time: Общая длина
+  ba-audioplayer-controlbar.volume-button: Установить громкость
+  ba-audioplayer-controlbar.volume-mute: Отключить звук
+  ba-audioplayer-controlbar.volume-unmute: Включить звук
+  ba-audioplayer-loader.tooltip: Loading ...
+  ba-audioplayer.audio-error: >-
+    Произошла ошибка. Пожалуйста, повторите попытку позже. Нажмите, чтобы
+    повторить попытку.
+  ba-audiorecorder-chooser.record-audio: Запись аудио
+  ba-audiorecorder-chooser.upload-audio: Загрузить аудио
+  ba-audiorecorder-controlbar.settings: настройки
+  ba-audiorecorder-controlbar.microphonehealthy: Звук хорош
+  ba-audiorecorder-controlbar.microphoneunhealthy: Невозможно подобрать звук
+  ba-audiorecorder-controlbar.record: запись
+  ba-audiorecorder-controlbar.record-tooltip: 'Нажмите здесь, чтобы записать.'
+  ba-audiorecorder-controlbar.rerecord: переделывать
+  ba-audiorecorder-controlbar.rerecord-tooltip: 'Нажмите здесь, чтобы повторить.'
+  ba-audiorecorder-controlbar.stop: Стоп
+  ba-audiorecorder-controlbar.stop-tooltip: 'Нажмите здесь, чтобы остановиться.'
+  ba-audiorecorder-controlbar.stop-available-after: 'Минимальное время записи: %d секунд'
+  ba-audiorecorder-controlbar.cancel: Отмена
+  ba-audiorecorder-controlbar.cancel-tooltip: 'Нажмите здесь, чтобы отменить.'

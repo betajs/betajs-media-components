@@ -70,3 +70,62 @@
   ba-videorecorder.software-waiting: >-
     Odottaa, että vaatimukset asennetaan / aktivoidaan. Sinun on ehkä
     päivitettävä sivusi valmiiksi.
+  ba-videoplayer-controlbar.close-tracks: Sulje CC
+  ba-videoplayer-controlbar.show-tracks: Näytä CC
+  ba-videoplayer-tracks.upload-text-tracks: Lataa tekstitiedostoja
+  ba-videoplayer-tracks.select-text-track-language: Tekstityskieli
+  ba-videoplayer-tracks.info-select-locale-first: Valitse ensin locale
+  ba-videoplayer-tracks.select-text-track-file: Valitse tiedosto valitsemalla
+  ba-videoplayer-tracks.back: takaisin
+  ba-videorecorder.framerate-warning: >-
+    Videokuvan nopeus on hyvin alhainen. Suosittelemme kaikkien muiden ohjelmien
+    ja selausvälilehtien sulkemista tai nopeamman tietokoneen käyttöä.
+  ba-videorecorder.upload-error-duration: Lähetetyn videon pituus ei täytä vaatimuksia - klikkaa tästä uudelleen.
+  ba-videorecorder.resolution-constraint-error: >-
+    Valitsemasi tiedosto ei vastaa vaadittua tarkkuutta - napsauta tätä
+    uudelleen yrittämiseen.
+  ba-videorecorder.orientation-portrait-required: Kierrä laitetta pystyasennossa pystyasennossa.
+  ba-videorecorder.orientation-landscape-required: Kierrä laitetta ottaaksesi kuva vaakasuunnassa.
+  ba-imageviewer-controlbar.rerecord-image: Toista?
+  ba-imageviewer-controlbar.submit-image: Vahvistaa
+  ba-imageviewer-controlbar.fullscreen-image: Syötä koko näyttö
+  ba-imageviewer-controlbar.exit-fullscreen-image: Poistu koko näytöstä
+  ba-imageviewer.image-error: Tapahtui virhe. Yritä myöhemmin uudelleen. Napsauta uudelleen.
+  ba-imagecapture-chooser.image-capture: Kuvan kaappaus
+  ba-imagecapture-chooser.upload-image: Lataa kuva
+  ba-imagecapture-controlbar.settings: asetukset
+  ba-imagecapture-controlbar.camerahealthy: Valaistus on hyvä
+  ba-imagecapture-controlbar.cameraunhealthy: Valaistus ei ole optimaalinen
+  ba-imagecapture-controlbar.record: Kaapata
+  ba-imagecapture-controlbar.record-tooltip: Napsauta tästä kaapata.
+  ba-imagecapture-controlbar.rerecord: tehdä uudelleen
+  ba-imagecapture-controlbar.rerecord-tooltip: Napsauta tätä uudelleen.
+  ba-imagecapture-controlbar.cancel: Peruuttaa
+  ba-imagecapture-controlbar.cancel-tooltip: Peruuta napsauttamalla tätä.
+  ba-audioplayer-controlbar.audio-progress: edistyminen
+  ba-audioplayer-controlbar.rerecord-audio: Toista?
+  ba-audioplayer-controlbar.submit-audio: Vahvistaa
+  ba-audioplayer-controlbar.play-audio: pelata
+  ba-audioplayer-controlbar.pause-audio: Tauko
+  ba-audioplayer-controlbar.pause-audio-disabled: Tauko ei ole tuettu
+  ba-audioplayer-controlbar.elapsed-time: Elpytty aika
+  ba-audioplayer-controlbar.total-time: Kokonaispituus
+  ba-audioplayer-controlbar.volume-button: Aseta äänen voimakkuus
+  ba-audioplayer-controlbar.volume-mute: Mykistä ääni
+  ba-audioplayer-controlbar.volume-unmute: Sammuta ääni
+  ba-audioplayer-loader.tooltip: Ladataan...
+  ba-audioplayer.audio-error: Tapahtui virhe. Yritä myöhemmin uudelleen. Napsauta uudelleen.
+  ba-audiorecorder-chooser.record-audio: Äänitä ääntä
+  ba-audiorecorder-chooser.upload-audio: Lähetä ääni
+  ba-audiorecorder-controlbar.settings: asetukset
+  ba-audiorecorder-controlbar.microphonehealthy: Ääni on hyvä
+  ba-audiorecorder-controlbar.microphoneunhealthy: Ei voi herättää ääntä
+  ba-audiorecorder-controlbar.record: Ennätys
+  ba-audiorecorder-controlbar.record-tooltip: Napsauta tätä.
+  ba-audiorecorder-controlbar.rerecord: tehdä uudelleen
+  ba-audiorecorder-controlbar.rerecord-tooltip: Napsauta tätä uudelleen.
+  ba-audiorecorder-controlbar.stop: Stop
+  ba-audiorecorder-controlbar.stop-tooltip: Napsauta tästä lopettaaksesi.
+  ba-audiorecorder-controlbar.stop-available-after: Minimi tallennusaika on %d sekuntia
+  ba-audiorecorder-controlbar.cancel: Peruuttaa
+  ba-audiorecorder-controlbar.cancel-tooltip: Peruuta napsauttamalla tätä.

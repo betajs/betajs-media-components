@@ -75,3 +75,69 @@
   ba-videorecorder.software-waiting: >-
     Naghihintay ng mga kinakailangan na mai-install / isinaaktibo. Maaaring
     kailanganin mong i-refresh ang pahina pagkatapos makumpleto.
+  ba-videoplayer-controlbar.close-tracks: Isara CC
+  ba-videoplayer-controlbar.show-tracks: Ipakita ang CC
+  ba-videoplayer-tracks.upload-text-tracks: Mag-upload ng mga track text file
+  ba-videoplayer-tracks.select-text-track-language: Wika ng Subtitle
+  ba-videoplayer-tracks.info-select-locale-first: Unang piliin ang locale
+  ba-videoplayer-tracks.select-text-track-file: I-click upang piliin ang file
+  ba-videoplayer-tracks.back: bumalik
+  ba-videorecorder.framerate-warning: >-
+    Napakababa ang rate ng video frame. Inirerekumenda namin ang pagsasara ng
+    lahat ng iba pang mga programa at mga tab ng browser o upang gumamit ng mas
+    mabilis na computer.
+  ba-videorecorder.upload-error-duration: >-
+    Ang haba ng na-upload na video ay hindi nakakatugon sa mga kinakailangan -
+    mag-click dito upang subukang muli.
+  ba-videorecorder.resolution-constraint-error: >-
+    Ang file na napili mo ay hindi tumutugma sa kinakailangang resolution -
+    mag-click dito upang subukang muli.
+  ba-videorecorder.orientation-portrait-required: Mangyaring i-rotate ang iyong aparato upang i-record sa portrait mode.
+  ba-videorecorder.orientation-landscape-required: Mangyaring i-rotate ang iyong device upang i-record sa landscape mode.
+  ba-imageviewer-controlbar.rerecord-image: I-redo?
+  ba-imageviewer-controlbar.submit-image: Kumpirmahin
+  ba-imageviewer-controlbar.fullscreen-image: Ipasok ang fullscreen
+  ba-imageviewer-controlbar.exit-fullscreen-image: Lumabas sa fullscreen
+  ba-imageviewer.image-error: >-
+    May naganap na error. Mangyaring subukan muli sa ibang pagkakataon. I-click
+    upang muling subukan.
+  ba-imagecapture-chooser.image-capture: Makunan ang Imahe
+  ba-imagecapture-chooser.upload-image: Mag-upload ng Larawan
+  ba-imagecapture-controlbar.settings: Mga Setting
+  ba-imagecapture-controlbar.camerahealthy: Ang pag-iilaw ay mabuti
+  ba-imagecapture-controlbar.cameraunhealthy: Ang pag-iilaw ay hindi sulit
+  ba-imagecapture-controlbar.record: Kumuha
+  ba-imagecapture-controlbar.record-tooltip: Mag-click dito upang makuha.
+  ba-imagecapture-controlbar.rerecord: I-redo
+  ba-imagecapture-controlbar.rerecord-tooltip: Mag-click dito upang gawing muli.
+  ba-imagecapture-controlbar.cancel: Kanselahin
+  ba-imagecapture-controlbar.cancel-tooltip: Mag-click dito upang kanselahin.
+  ba-audioplayer-controlbar.audio-progress: Isinasagawa
+  ba-audioplayer-controlbar.rerecord-audio: I-redo?
+  ba-audioplayer-controlbar.submit-audio: Kumpirmahin
+  ba-audioplayer-controlbar.play-audio: Maglaro
+  ba-audioplayer-controlbar.pause-audio: I-pause
+  ba-audioplayer-controlbar.pause-audio-disabled: I-pause ang hindi suportado
+  ba-audioplayer-controlbar.elapsed-time: Tiyak na oras
+  ba-audioplayer-controlbar.total-time: Kabuuang haba ng
+  ba-audioplayer-controlbar.volume-button: Itakda ang lakas ng tunog
+  ba-audioplayer-controlbar.volume-mute: I-mute ang tunog
+  ba-audioplayer-controlbar.volume-unmute: I-unmute ang tunog
+  ba-audioplayer-loader.tooltip: Naglo-load ...
+  ba-audioplayer.audio-error: >-
+    May naganap na error. Mangyaring subukan muli sa ibang pagkakataon. I-click
+    upang muling subukan.
+  ba-audiorecorder-chooser.record-audio: Mag-record Audio
+  ba-audiorecorder-chooser.upload-audio: Mag-upload ng Audio
+  ba-audiorecorder-controlbar.settings: Mga Setting
+  ba-audiorecorder-controlbar.microphonehealthy: Ang tunog ay mabuti
+  ba-audiorecorder-controlbar.microphoneunhealthy: Hindi makukuha ang anumang tunog
+  ba-audiorecorder-controlbar.record: Mag-record
+  ba-audiorecorder-controlbar.record-tooltip: Mag-click dito upang mag-record.
+  ba-audiorecorder-controlbar.rerecord: I-redo
+  ba-audiorecorder-controlbar.rerecord-tooltip: Mag-click dito upang gawing muli.
+  ba-audiorecorder-controlbar.stop: Itigil
+  ba-audiorecorder-controlbar.stop-tooltip: Mag-click dito upang huminto.
+  ba-audiorecorder-controlbar.stop-available-after: Ang minimum na oras ng pag-record ay %d segundo
+  ba-audiorecorder-controlbar.cancel: Kanselahin
+  ba-audiorecorder-controlbar.cancel-tooltip: Mag-click dito upang kanselahin.

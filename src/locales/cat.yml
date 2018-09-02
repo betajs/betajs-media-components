@@ -75,3 +75,69 @@
   ba-videorecorder.software-waiting: >-
     Esperant que s'instal·lin / activin els requisits. És possible que hàgiu
     d'actualitzar la pàgina una vegada finalitzada.
+  ba-videoplayer-controlbar.close-tracks: Tanca CC
+  ba-videoplayer-controlbar.show-tracks: Mostra CC
+  ba-videoplayer-tracks.upload-text-tracks: Penja fitxers de text de la pista
+  ba-videoplayer-tracks.select-text-track-language: Llenguatge de subtítols
+  ba-videoplayer-tracks.info-select-locale-first: Primer seleccioneu la configuració regional
+  ba-videoplayer-tracks.select-text-track-file: Feu clic per seleccionar el fitxer
+  ba-videoplayer-tracks.back: esquena
+  ba-videorecorder.framerate-warning: >-
+    La velocitat de marc de vídeo és molt baixa. Recomanem tancar tots els
+    altres programes i pestanyes del navegador o utilitzar una computadora més
+    ràpida.
+  ba-videorecorder.upload-error-duration: >-
+    La durada del vídeo carregat no compleix els requisits: feu clic aquí per
+    tornar-ho a provar.
+  ba-videorecorder.resolution-constraint-error: >-
+    El fitxer que heu seleccionat no coincideix amb la resolució necessària: feu
+    clic aquí per tornar-ho a provar.
+  ba-videorecorder.orientation-portrait-required: Gireu el dispositiu per gravar en mode vertical.
+  ba-videorecorder.orientation-landscape-required: Gireu el dispositiu per gravar en mode horitzontal.
+  ba-imageviewer-controlbar.rerecord-image: Redo?
+  ba-imageviewer-controlbar.submit-image: Confirma
+  ba-imageviewer-controlbar.fullscreen-image: Introduïu la pantalla completa
+  ba-imageviewer-controlbar.exit-fullscreen-image: Sortir de pantalla completa
+  ba-imageviewer.image-error: >-
+    Hi ha hagut un error. Siusplau, torni a intentar-ho més tard. Feu clic per
+    tornar-ho a intentar.
+  ba-imagecapture-chooser.image-capture: Imatge de captura
+  ba-imagecapture-chooser.upload-image: Penja la imatge
+  ba-imagecapture-controlbar.settings: Configuració
+  ba-imagecapture-controlbar.camerahealthy: La il·luminació és bona
+  ba-imagecapture-controlbar.cameraunhealthy: La il·luminació no és òptima
+  ba-imagecapture-controlbar.record: Captura
+  ba-imagecapture-controlbar.record-tooltip: Feu clic aquí per capturar.
+  ba-imagecapture-controlbar.rerecord: Redo
+  ba-imagecapture-controlbar.rerecord-tooltip: Feu clic aquí per tornar a fer-ho.
+  ba-imagecapture-controlbar.cancel: Cancel · lar
+  ba-imagecapture-controlbar.cancel-tooltip: Feu clic aquí per cancel·lar.
+  ba-audioplayer-controlbar.audio-progress: 'Progrés, progressar'
+  ba-audioplayer-controlbar.rerecord-audio: Redo?
+  ba-audioplayer-controlbar.submit-audio: Confirma
+  ba-audioplayer-controlbar.play-audio: Jugar
+  ba-audioplayer-controlbar.pause-audio: Pausa
+  ba-audioplayer-controlbar.pause-audio-disabled: Pausa no és compatible
+  ba-audioplayer-controlbar.elapsed-time: Elasped temps
+  ba-audioplayer-controlbar.total-time: Durada total de
+  ba-audioplayer-controlbar.volume-button: Estableix el volum
+  ba-audioplayer-controlbar.volume-mute: Silenciar el so
+  ba-audioplayer-controlbar.volume-unmute: Silenciar el so
+  ba-audioplayer-loader.tooltip: S'està carregant ...
+  ba-audioplayer.audio-error: >-
+    Hi ha hagut un error. Siusplau, torni a intentar-ho més tard. Feu clic per
+    tornar-ho a intentar.
+  ba-audiorecorder-chooser.record-audio: Enregistrament d'àudio
+  ba-audiorecorder-chooser.upload-audio: Penja l'àudio
+  ba-audiorecorder-controlbar.settings: Configuració
+  ba-audiorecorder-controlbar.microphonehealthy: El so és bo
+  ba-audiorecorder-controlbar.microphoneunhealthy: No es pot recuperar cap so
+  ba-audiorecorder-controlbar.record: Registre
+  ba-audiorecorder-controlbar.record-tooltip: Feu clic aquí per registrar.
+  ba-audiorecorder-controlbar.rerecord: Redo
+  ba-audiorecorder-controlbar.rerecord-tooltip: Feu clic aquí per tornar a fer-ho.
+  ba-audiorecorder-controlbar.stop: Aturar
+  ba-audiorecorder-controlbar.stop-tooltip: Feu clic aquí per aturar.
+  ba-audiorecorder-controlbar.stop-available-after: El temps d'enregistrament mínim és %d segons
+  ba-audiorecorder-controlbar.cancel: Cancel · lar
+  ba-audiorecorder-controlbar.cancel-tooltip: Feu clic aquí per cancel·lar.

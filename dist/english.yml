@@ -131,3 +131,55 @@
   ba-audiorecorder-controlbar.stop-available-after: Minimum recording time is %d seconds
   ba-audiorecorder-controlbar.cancel: Cancel
   ba-audiorecorder-controlbar.cancel-tooltip: Click here to cancel.
+  ba-imagecapture.recorder-error: 'An error occurred, please try again later. Click to retry.'
+  ba-imagecapture.attach-error: >-
+    We could not access the media interface. Depending on the device and
+    browser, you might need to install Flash or access the page via SSL.
+  ba-imagecapture.software-required: >-
+    Please click below to install / activate the following requirements in order
+    to proceed.
+  ba-imagecapture.software-waiting: >-
+    Waiting for the requirements to be installed / activated. You might need to
+    refresh the page after completion.
+  ba-imagecapture.access-forbidden: Access to the media was forbidden. Click to retry.
+  ba-imagecapture.uploading: Uploading
+  ba-imagecapture.uploading-failed: Uploading failed - click here to retry.
+  ba-imagecapture.upload-error-duration: >-
+    Length of the uploaded image does not meet the requirements - click here to
+    retry.
+  ba-imagecapture.resolution-constraint-error: >-
+    The file you've selected does not match the required resolution - click here
+    to retry.
+  ba-imagecapture.verifying: Verifying
+  ba-imagecapture.verifying-failed: Verifying failed - click here to retry.
+  ba-imagecapture.rerecord-confirm: Do you really want to retake your image?
+  ba-imagecapture.image_file_too_large: >-
+    Your image file is too large (%s) - click here to try again with a smaller
+    image file.
+  ba-imagecapture.unsupported_image_type: 'Please upload: %s - click here to retry.'
+  ba-imagecapture.orientation-portrait-required: Please rotate your device to record in portrait mode.
+  ba-imagecapture.orientation-landscape-required: Please rotate your device to record in landscape mode.
+  ba-audiorecorder.recorder-error: 'An error occurred, please try again later. Click to retry.'
+  ba-audiorecorder.attach-error: >-
+    We could not access the media interface. Depending on the device and
+    browser, you might need to install Flash or access the page via SSL.
+  ba-audiorecorder.software-required: >-
+    Please click below to install / activate the following requirements in order
+    to proceed.
+  ba-audiorecorder.software-waiting: >-
+    Waiting for the requirements to be installed / activated. You might need to
+    refresh the page after completion.
+  ba-audiorecorder.access-forbidden: Access to the media was forbidden. Click to retry.
+  ba-audiorecorder.uploading: Uploading
+  ba-audiorecorder.uploading-failed: Uploading failed - click here to retry.
+  ba-audiorecorder.upload-error-duration: >-
+    Length of the uploaded audio does not meet the requirements - click here to
+    retry.
+  ba-audiorecorder.verifying: Verifying
+  ba-audiorecorder.verifying-failed: Verifying failed - click here to retry.
+  ba-audiorecorder.rerecord-confirm: Do you really want to redo your audio?
+  ba-audiorecorder.cancel-confirm: Do you really want to cancel your audio upload?
+  ba-audiorecorder.audio_file_too_large: >-
+    Your audio file is too large (%s) - click here to try again with a smaller
+    audio file.
+  ba-audiorecorder.unsupported_audio_type: 'Please upload: %s - click here to retry.'

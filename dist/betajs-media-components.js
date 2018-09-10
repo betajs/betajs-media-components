@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.116 - 2018-09-02
+betajs-media-components - v0.0.117 - 2018-09-09
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1006,7 +1006,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.116 - 2018-09-02
+betajs-media-components - v0.0.117 - 2018-09-09
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1022,7 +1022,7 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.116"
+    "version": "0.0.117"
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -8364,14 +8364,14 @@ Scoped.define("module:ImageViewer.Dynamics.ImageViewer", [
             "image-error": "An error occurred, please try again later. Click to retry."
         });
 });
-Scoped.define("module:ImageRecorder.Dynamics.Recorder", [
+Scoped.define("module:ImageCapture.Dynamics.Recorder", [
     "dynamics:Dynamic",
     "module:Assets",
     "browser:Info",
     "browser:Dom",
     "browser:Upload.MultiUploader",
     "browser:Upload.FileUploader",
-    "media:Recorder.ImageRecorderWrapper",
+    "media:ImageRecorder.ImageRecorderWrapper",
     "base:Types",
     "base:Objs",
     "base:Strings",
@@ -8381,15 +8381,15 @@ Scoped.define("module:ImageRecorder.Dynamics.Recorder", [
     "base:Classes.ClassRegistry",
     "base:Collections.Collection",
     "base:Promise",
-    "module:ImageRecorder.Dynamics.RecorderStates.Initial",
-    "module:ImageRecorder.Dynamics.RecorderStates"
+    "module:ImageCapture.Dynamics.RecorderStates.Initial",
+    "module:ImageCapture.Dynamics.RecorderStates"
 ], [
-    "module:ImageRecorder.Dynamics.Loader",
-    "module:ImageRecorder.Dynamics.Controlbar",
-    "module:ImageRecorder.Dynamics.Message",
-    "module:ImageRecorder.Dynamics.Topmessage",
-    "module:ImageRecorder.Dynamics.Chooser",
-    "module:ImageRecorder.Dynamics.Faceoutline",
+    "module:ImageCapture.Dynamics.Loader",
+    "module:ImageCapture.Dynamics.Controlbar",
+    "module:ImageCapture.Dynamics.Message",
+    "module:ImageCapture.Dynamics.Topmessage",
+    "module:ImageCapture.Dynamics.Chooser",
+    "module:ImageCapture.Dynamics.Faceoutline",
     "dynamics:Partials.ShowPartial",
     "dynamics:Partials.IfPartial",
     "dynamics:Partials.EventPartial",
@@ -11235,7 +11235,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
     "browser:Dom",
     "browser:Upload.MultiUploader",
     "browser:Upload.FileUploader",
-    "media:Recorder.AudioRecorderWrapper",
+    "media:AudioRecorder.AudioRecorderWrapper",
     "base:Types",
     "base:Objs",
     "base:Strings",

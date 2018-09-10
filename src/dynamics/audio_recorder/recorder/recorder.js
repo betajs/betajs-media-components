@@ -5,7 +5,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
     "browser:Dom",
     "browser:Upload.MultiUploader",
     "browser:Upload.FileUploader",
-    "media:Recorder.AudioRecorderWrapper",
+    "media:AudioRecorder.AudioRecorderWrapper",
     "base:Types",
     "base:Objs",
     "base:Strings",

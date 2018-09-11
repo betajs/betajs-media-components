@@ -71,3 +71,64 @@
   ba-videorecorder.software-waiting: >-
     Menunggu persyaratan untuk dipasang / diaktifkan. Anda mungkin perlu
     menyegarkan halaman setelah selesai.
+  ba-videoplayer-controlbar.close-tracks: Tutup CC
+  ba-videoplayer-controlbar.show-tracks: Tampilkan CC
+  ba-videoplayer-tracks.upload-text-tracks: Unggah file teks lagu
+  ba-videoplayer-tracks.select-text-track-language: Bahasa Subtitle
+  ba-videoplayer-tracks.info-select-locale-first: Pertama pilih lokal
+  ba-videoplayer-tracks.select-text-track-file: Klik untuk memilih file
+  ba-videoplayer-tracks.back: kembali
+  ba-videorecorder.framerate-warning: >-
+    Kecepatan frame video sangat rendah. Kami sarankan untuk menutup semua
+    program lain dan tab browser atau menggunakan komputer yang lebih cepat.
+  ba-videorecorder.upload-error-duration: >-
+    Panjang video yang diunggah tidak memenuhi persyaratan - klik di sini untuk
+    mencoba lagi.
+  ba-videorecorder.resolution-constraint-error: >-
+    File yang Anda pilih tidak sesuai dengan resolusi yang diperlukan - klik di
+    sini untuk mencoba lagi.
+  ba-videorecorder.orientation-portrait-required: Silakan putar perangkat Anda untuk merekam dalam mode potret.
+  ba-videorecorder.orientation-landscape-required: Silakan putar perangkat Anda untuk merekam dalam mode lansekap.
+  ba-imageviewer-controlbar.rerecord-image: Mengulangi?
+  ba-imageviewer-controlbar.submit-image: Memastikan
+  ba-imageviewer-controlbar.fullscreen-image: Memasuki layar penuh
+  ba-imageviewer-controlbar.exit-fullscreen-image: Keluar dari layar penuh
+  ba-imageviewer.image-error: 'Terjadi kesalahan, coba lagi nanti. Klik untuk mencoba lagi.'
+  ba-imagecapture-chooser.image-capture: Capture Image
+  ba-imagecapture-chooser.upload-image: Unggah Gambar
+  ba-imagecapture-controlbar.settings: Pengaturan
+  ba-imagecapture-controlbar.camerahealthy: Pencahayaan bagus
+  ba-imagecapture-controlbar.cameraunhealthy: Pencahayaan tidak optimal
+  ba-imagecapture-controlbar.record: Menangkap
+  ba-imagecapture-controlbar.record-tooltip: Klik di sini untuk menangkap.
+  ba-imagecapture-controlbar.rerecord: Mengulangi
+  ba-imagecapture-controlbar.rerecord-tooltip: Klik di sini untuk mengulang.
+  ba-imagecapture-controlbar.cancel: Membatalkan
+  ba-imagecapture-controlbar.cancel-tooltip: Klik di sini untuk membatalkan.
+  ba-audioplayer-controlbar.audio-progress: Kemajuan
+  ba-audioplayer-controlbar.rerecord-audio: Mengulangi?
+  ba-audioplayer-controlbar.submit-audio: Memastikan
+  ba-audioplayer-controlbar.play-audio: Bermain
+  ba-audioplayer-controlbar.pause-audio: Berhenti sebentar
+  ba-audioplayer-controlbar.pause-audio-disabled: Jeda tidak didukung
+  ba-audioplayer-controlbar.elapsed-time: Waktu Elasped
+  ba-audioplayer-controlbar.total-time: Panjang total
+  ba-audioplayer-controlbar.volume-button: Setel volume
+  ba-audioplayer-controlbar.volume-mute: Bungkam suara
+  ba-audioplayer-controlbar.volume-unmute: Bunyikan suara
+  ba-audioplayer-loader.tooltip: Pemuatan...
+  ba-audioplayer.audio-error: 'Terjadi kesalahan, coba lagi nanti. Klik untuk mencoba lagi.'
+  ba-audiorecorder-chooser.record-audio: Suara rekaman
+  ba-audiorecorder-chooser.upload-audio: Unggah Audio
+  ba-audiorecorder-controlbar.settings: Pengaturan
+  ba-audiorecorder-controlbar.microphonehealthy: Suara itu bagus
+  ba-audiorecorder-controlbar.microphoneunhealthy: Tidak dapat mengambil suara apa pun
+  ba-audiorecorder-controlbar.record: Merekam
+  ba-audiorecorder-controlbar.record-tooltip: Klik di sini untuk merekam.
+  ba-audiorecorder-controlbar.rerecord: Mengulangi
+  ba-audiorecorder-controlbar.rerecord-tooltip: Klik di sini untuk mengulang.
+  ba-audiorecorder-controlbar.stop: Berhenti
+  ba-audiorecorder-controlbar.stop-tooltip: Klik di sini untuk berhenti.
+  ba-audiorecorder-controlbar.stop-available-after: Waktu perekaman minimum adalah %d detik
+  ba-audiorecorder-controlbar.cancel: Membatalkan
+  ba-audiorecorder-controlbar.cancel-tooltip: Klik di sini untuk membatalkan.

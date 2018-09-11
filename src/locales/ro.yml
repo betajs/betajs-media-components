@@ -74,3 +74,69 @@
   ba-videorecorder.software-waiting: >-
     Se așteaptă ca cerințele să fie instalate / activate. Poate fi necesar să
     actualizați pagina după finalizare.
+  ba-videoplayer-controlbar.close-tracks: Închideți CC
+  ba-videoplayer-controlbar.show-tracks: Arătați CC
+  ba-videoplayer-tracks.upload-text-tracks: Încărcați fișiere text
+  ba-videoplayer-tracks.select-text-track-language: Limba pentru subtitrare
+  ba-videoplayer-tracks.info-select-locale-first: Mai întâi selectați localizarea
+  ba-videoplayer-tracks.select-text-track-file: Faceți clic pentru a selecta fișierul
+  ba-videoplayer-tracks.back: înapoi
+  ba-videorecorder.framerate-warning: >-
+    Rata cadrelor video este foarte scăzută. Vă recomandăm să închideți toate
+    celelalte programe și filele browserului sau să utilizați un computer mai
+    rapid.
+  ba-videorecorder.upload-error-duration: >-
+    Durata videoclipului încărcat nu îndeplinește cerințele - faceți clic aici
+    pentru a încerca din nou.
+  ba-videorecorder.resolution-constraint-error: >-
+    Fișierul pe care l-ați selectat nu corespunde rezoluției cerute - faceți
+    clic aici pentru a încerca din nou.
+  ba-videorecorder.orientation-portrait-required: Vă rotește dispozitivul să înregistreze în modul portret.
+  ba-videorecorder.orientation-landscape-required: Roteți dispozitivul să înregistreze în modul peisaj.
+  ba-imageviewer-controlbar.rerecord-image: A reface?
+  ba-imageviewer-controlbar.submit-image: A confirma
+  ba-imageviewer-controlbar.fullscreen-image: Introduceți ecranul complet
+  ba-imageviewer-controlbar.exit-fullscreen-image: Ieșiți de pe ecranul complet
+  ba-imageviewer.image-error: >-
+    A apărut o eroare, încercați din nou mai târziu. Faceți clic pentru a
+    reîncerca.
+  ba-imagecapture-chooser.image-capture: Capturați imaginea
+  ba-imagecapture-chooser.upload-image: Incarca imaginea
+  ba-imagecapture-controlbar.settings: Setări
+  ba-imagecapture-controlbar.camerahealthy: Lumina este bună
+  ba-imagecapture-controlbar.cameraunhealthy: Lumina nu este optimă
+  ba-imagecapture-controlbar.record: Captură
+  ba-imagecapture-controlbar.record-tooltip: Faceți clic aici pentru a captura.
+  ba-imagecapture-controlbar.rerecord: A reface
+  ba-imagecapture-controlbar.rerecord-tooltip: Faceți clic aici pentru a reveni.
+  ba-imagecapture-controlbar.cancel: Anulare
+  ba-imagecapture-controlbar.cancel-tooltip: Faceți clic aici pentru a anula.
+  ba-audioplayer-controlbar.audio-progress: progres
+  ba-audioplayer-controlbar.rerecord-audio: A reface?
+  ba-audioplayer-controlbar.submit-audio: A confirma
+  ba-audioplayer-controlbar.play-audio: Joaca
+  ba-audioplayer-controlbar.pause-audio: Pauză
+  ba-audioplayer-controlbar.pause-audio-disabled: Întreruperea nu este acceptată
+  ba-audioplayer-controlbar.elapsed-time: Elased timp
+  ba-audioplayer-controlbar.total-time: Lungimea totală
+  ba-audioplayer-controlbar.volume-button: Setați volumul
+  ba-audioplayer-controlbar.volume-mute: Opriți sunetul
+  ba-audioplayer-controlbar.volume-unmute: Repetați sunetul
+  ba-audioplayer-loader.tooltip: Se incarca...
+  ba-audioplayer.audio-error: >-
+    A apărut o eroare, încercați din nou mai târziu. Faceți clic pentru a
+    reîncerca.
+  ba-audiorecorder-chooser.record-audio: Înregistrează audio
+  ba-audiorecorder-chooser.upload-audio: Încărcați audio
+  ba-audiorecorder-controlbar.settings: Setări
+  ba-audiorecorder-controlbar.microphonehealthy: Sunetul este bun
+  ba-audiorecorder-controlbar.microphoneunhealthy: Nu pot lua niciun sunet
+  ba-audiorecorder-controlbar.record: Record
+  ba-audiorecorder-controlbar.record-tooltip: Faceți clic aici pentru a înregistra.
+  ba-audiorecorder-controlbar.rerecord: A reface
+  ba-audiorecorder-controlbar.rerecord-tooltip: Faceți clic aici pentru a reveni.
+  ba-audiorecorder-controlbar.stop: Stop
+  ba-audiorecorder-controlbar.stop-tooltip: Faceți clic aici pentru a opri.
+  ba-audiorecorder-controlbar.stop-available-after: Durata minimă de înregistrare este %d secunde
+  ba-audiorecorder-controlbar.cancel: Anulare
+  ba-audiorecorder-controlbar.cancel-tooltip: Faceți clic aici pentru a anula.

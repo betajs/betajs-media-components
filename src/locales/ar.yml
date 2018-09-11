@@ -68,3 +68,62 @@
   ba-videorecorder.software-waiting: >-
     في انتظار المتطلبات ليتم تثبيتها / تفعيلها. قد تحتاج إلى تحديث الصفحة بعد
     الانتهاء.
+  ba-videoplayer-controlbar.close-tracks: إغلاق CC
+  ba-videoplayer-controlbar.show-tracks: عرض CC
+  ba-videoplayer-tracks.upload-text-tracks: تحميل ملفات النص المسار
+  ba-videoplayer-tracks.select-text-track-language: لغة الترجمة
+  ba-videoplayer-tracks.info-select-locale-first: حدد أولاً اللغة
+  ba-videoplayer-tracks.select-text-track-file: انقر لتحديد الملف
+  ba-videoplayer-tracks.back: الى الخلف
+  ba-videorecorder.framerate-warning: >-
+    معدل عرض الفيديو منخفض جدًا. نوصي بإغلاق جميع البرامج الأخرى وعلامات تبويب
+    المتصفح أو استخدام جهاز كمبيوتر أسرع.
+  ba-videorecorder.upload-error-duration: >-
+    لا يتوافق طول الفيديو الذي تم تحميله مع المتطلبات - انقر هنا لإعادة
+    المحاولة.
+  ba-videorecorder.resolution-constraint-error: الملف الذي حددته لا يتطابق مع الدقة المطلوبة - انقر هنا لإعادة المحاولة.
+  ba-videorecorder.orientation-portrait-required: يرجى تدوير جهازك للتسجيل في الوضع الرأسي.
+  ba-videorecorder.orientation-landscape-required: يرجى تدوير جهازك للتسجيل في الوضع الأفقي.
+  ba-imageviewer-controlbar.rerecord-image: إعادة؟
+  ba-imageviewer-controlbar.submit-image: تؤكد
+  ba-imageviewer-controlbar.fullscreen-image: أدخل ملء الشاشة
+  ba-imageviewer-controlbar.exit-fullscreen-image: الخروج من الشاشة الكاملة
+  ba-imageviewer.image-error: لقد حدث خطأ، رجاء أعد المحاولة لاحقا. انقر لإعادة المحاولة.
+  ba-imagecapture-chooser.image-capture: التقاط الصورة
+  ba-imagecapture-chooser.upload-image: تحميل الصور
+  ba-imagecapture-controlbar.settings: إعدادات
+  ba-imagecapture-controlbar.camerahealthy: الإضاءة جيدة
+  ba-imagecapture-controlbar.cameraunhealthy: الإضاءة ليست الأمثل
+  ba-imagecapture-controlbar.record: أسر
+  ba-imagecapture-controlbar.record-tooltip: انقر هنا لالتقاط.
+  ba-imagecapture-controlbar.rerecord: فعل ثانية
+  ba-imagecapture-controlbar.rerecord-tooltip: انقر هنا للإعادة.
+  ba-imagecapture-controlbar.cancel: إلغاء
+  ba-imagecapture-controlbar.cancel-tooltip: انقر هنا للإلغاء.
+  ba-audioplayer-controlbar.audio-progress: تقدم
+  ba-audioplayer-controlbar.rerecord-audio: إعادة؟
+  ba-audioplayer-controlbar.submit-audio: تؤكد
+  ba-audioplayer-controlbar.play-audio: لعب
+  ba-audioplayer-controlbar.pause-audio: وقفة
+  ba-audioplayer-controlbar.pause-audio-disabled: وقفة غير معتمد
+  ba-audioplayer-controlbar.elapsed-time: الوقت Elasped
+  ba-audioplayer-controlbar.total-time: الطول الكلي
+  ba-audioplayer-controlbar.volume-button: ضبط الحجم
+  ba-audioplayer-controlbar.volume-mute: صوت منخفض
+  ba-audioplayer-controlbar.volume-unmute: صوت غير صوتي
+  ba-audioplayer-loader.tooltip: جار التحميل...
+  ba-audioplayer.audio-error: لقد حدث خطأ، رجاء أعد المحاولة لاحقا. انقر لإعادة المحاولة.
+  ba-audiorecorder-chooser.record-audio: تسجيل صوتي
+  ba-audiorecorder-chooser.upload-audio: تحميل الصوت
+  ba-audiorecorder-controlbar.settings: إعدادات
+  ba-audiorecorder-controlbar.microphonehealthy: الصوت جيد
+  ba-audiorecorder-controlbar.microphoneunhealthy: لا يمكن التقاط أي صوت
+  ba-audiorecorder-controlbar.record: سجل
+  ba-audiorecorder-controlbar.record-tooltip: انقر هنا للتسجيل.
+  ba-audiorecorder-controlbar.rerecord: فعل ثانية
+  ba-audiorecorder-controlbar.rerecord-tooltip: انقر هنا للإعادة.
+  ba-audiorecorder-controlbar.stop: توقف
+  ba-audiorecorder-controlbar.stop-tooltip: انقر هنا للتوقف.
+  ba-audiorecorder-controlbar.stop-available-after: الحد الأدنى لمدة التسجيل هو٪ d ثانية
+  ba-audiorecorder-controlbar.cancel: إلغاء
+  ba-audiorecorder-controlbar.cancel-tooltip: انقر هنا للإلغاء.

@@ -75,3 +75,68 @@
   ba-videorecorder.software-waiting: >-
     Изчакване за инсталиране / активиране на изискванията. Може да се наложи да
     опресните страницата след завършване.
+  ba-videoplayer-controlbar.close-tracks: Затворете CC
+  ba-videoplayer-controlbar.show-tracks: Покажете CC
+  ba-videoplayer-tracks.upload-text-tracks: Качване на текстови файлове на текстове
+  ba-videoplayer-tracks.select-text-track-language: Език на субтитрите
+  ba-videoplayer-tracks.info-select-locale-first: Първо изберете локал
+  ba-videoplayer-tracks.select-text-track-file: 'Кликнете, за да изберете файл'
+  ba-videoplayer-tracks.back: обратно
+  ba-videorecorder.framerate-warning: >-
+    Скоростта на видеокамерата е много ниска. Препоръчваме да затворите всички
+    други програми и раздели в браузъра или да използвате по-бърз компютър.
+  ba-videorecorder.upload-error-duration: >-
+    Продължителността на качения видеоклип не отговаря на изискванията -
+    кликнете тук, за да опитате отново.
+  ba-videorecorder.resolution-constraint-error: >-
+    Избраният от вас файл не съответства на изискваната резолюция - кликнете
+    тук, за да опитате отново.
+  ba-videorecorder.orientation-portrait-required: 'Моля, завъртете устройството си, за да го запишете в портретен режим.'
+  ba-videorecorder.orientation-landscape-required: 'Моля, завъртете устройството си, за да го запишете в режим на пейзаж.'
+  ba-imageviewer-controlbar.rerecord-image: Възстановяване?
+  ba-imageviewer-controlbar.submit-image: потвърждавам
+  ba-imageviewer-controlbar.fullscreen-image: Въведете целия екран
+  ba-imageviewer-controlbar.exit-fullscreen-image: Излизане от цял ​​екран
+  ba-imageviewer.image-error: >-
+    Възникна грешка. Моля, опитайте отново по-късно. Кликнете, за да опитате
+    отново.
+  ba-imagecapture-chooser.image-capture: Заснемане на изображение
+  ba-imagecapture-chooser.upload-image: Качи изображение
+  ba-imagecapture-controlbar.settings: Настройки
+  ba-imagecapture-controlbar.camerahealthy: Осветлението е добро
+  ba-imagecapture-controlbar.cameraunhealthy: Осветлението не е оптимално
+  ba-imagecapture-controlbar.record: Улавяне
+  ba-imagecapture-controlbar.record-tooltip: 'Кликнете тук, за да заснемете.'
+  ba-imagecapture-controlbar.rerecord: ремонтирам
+  ba-imagecapture-controlbar.rerecord-tooltip: 'Кликнете тук, за да повторите.'
+  ba-imagecapture-controlbar.cancel: Отказ
+  ba-imagecapture-controlbar.cancel-tooltip: 'Кликнете тук, за да отмените.'
+  ba-audioplayer-controlbar.audio-progress: прогрес
+  ba-audioplayer-controlbar.rerecord-audio: Възстановяване?
+  ba-audioplayer-controlbar.submit-audio: потвърждавам
+  ba-audioplayer-controlbar.play-audio: играя
+  ba-audioplayer-controlbar.pause-audio: пауза
+  ba-audioplayer-controlbar.pause-audio-disabled: Паузата не се поддържа
+  ba-audioplayer-controlbar.elapsed-time: Изглади времето
+  ba-audioplayer-controlbar.total-time: Обща дължина
+  ba-audioplayer-controlbar.volume-button: Задайте сила на звука
+  ba-audioplayer-controlbar.volume-mute: Спиране на звука
+  ba-audioplayer-controlbar.volume-unmute: Заглушаване на звука
+  ba-audioplayer-loader.tooltip: Зареждане...
+  ba-audioplayer.audio-error: >-
+    Възникна грешка. Моля, опитайте отново по-късно. Кликнете, за да опитате
+    отново.
+  ba-audiorecorder-chooser.record-audio: Записване на аудио
+  ba-audiorecorder-chooser.upload-audio: Качете аудио
+  ba-audiorecorder-controlbar.settings: Настройки
+  ba-audiorecorder-controlbar.microphonehealthy: Звукът е добър
+  ba-audiorecorder-controlbar.microphoneunhealthy: Не може да се чуе звук
+  ba-audiorecorder-controlbar.record: рекорд
+  ba-audiorecorder-controlbar.record-tooltip: 'Кликнете тук, за да запишете.'
+  ba-audiorecorder-controlbar.rerecord: ремонтирам
+  ba-audiorecorder-controlbar.rerecord-tooltip: 'Кликнете тук, за да повторите.'
+  ba-audiorecorder-controlbar.stop: Спри се
+  ba-audiorecorder-controlbar.stop-tooltip: 'Кликнете тук, за да спрете.'
+  ba-audiorecorder-controlbar.stop-available-after: Минималното време за запис е %d секунди
+  ba-audiorecorder-controlbar.cancel: Отказ
+  ba-audiorecorder-controlbar.cancel-tooltip: 'Кликнете тук, за да отмените.'

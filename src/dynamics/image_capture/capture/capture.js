@@ -1,11 +1,11 @@
-Scoped.define("module:ImageRecorder.Dynamics.Recorder", [
+Scoped.define("module:ImageCapture.Dynamics.Recorder", [
     "dynamics:Dynamic",
     "module:Assets",
     "browser:Info",
     "browser:Dom",
     "browser:Upload.MultiUploader",
     "browser:Upload.FileUploader",
-    "media:Recorder.ImageRecorderWrapper",
+    "media:ImageRecorder.ImageRecorderWrapper",
     "base:Types",
     "base:Objs",
     "base:Strings",
@@ -15,15 +15,15 @@ Scoped.define("module:ImageRecorder.Dynamics.Recorder", [
     "base:Classes.ClassRegistry",
     "base:Collections.Collection",
     "base:Promise",
-    "module:ImageRecorder.Dynamics.RecorderStates.Initial",
-    "module:ImageRecorder.Dynamics.RecorderStates"
+    "module:ImageCapture.Dynamics.RecorderStates.Initial",
+    "module:ImageCapture.Dynamics.RecorderStates"
 ], [
-    "module:ImageRecorder.Dynamics.Loader",
-    "module:ImageRecorder.Dynamics.Controlbar",
-    "module:ImageRecorder.Dynamics.Message",
-    "module:ImageRecorder.Dynamics.Topmessage",
-    "module:ImageRecorder.Dynamics.Chooser",
-    "module:ImageRecorder.Dynamics.Faceoutline",
+    "module:ImageCapture.Dynamics.Loader",
+    "module:ImageCapture.Dynamics.Controlbar",
+    "module:ImageCapture.Dynamics.Message",
+    "module:ImageCapture.Dynamics.Topmessage",
+    "module:ImageCapture.Dynamics.Chooser",
+    "module:ImageCapture.Dynamics.Faceoutline",
     "dynamics:Partials.ShowPartial",
     "dynamics:Partials.IfPartial",
     "dynamics:Partials.EventPartial",

@@ -72,3 +72,68 @@
   ba-videorecorder.software-waiting: >-
     आवश्यकताओं को स्थापित / सक्रिय करने की प्रतीक्षा कर रहा है आपको पूरा होने के
     बाद पृष्ठ को रीफ़्रेश करना पड़ सकता है
+  ba-videoplayer-controlbar.close-tracks: सीसी बंद करें
+  ba-videoplayer-controlbar.show-tracks: सीसी दिखाओ
+  ba-videoplayer-tracks.upload-text-tracks: ट्रैक टेक्स्ट फाइल अपलोड करें
+  ba-videoplayer-tracks.select-text-track-language: उपशीर्षक भाषा
+  ba-videoplayer-tracks.info-select-locale-first: पहले लोकेल का चयन करें
+  ba-videoplayer-tracks.select-text-track-file: फ़ाइल का चयन करने के लिए क्लिक करें
+  ba-videoplayer-tracks.back: वापस
+  ba-videorecorder.framerate-warning: >-
+    वीडियो फ्रेम दर बहुत कम है। हम सभी अन्य कार्यक्रमों और ब्राउज़र टैब को बंद
+    करने या एक तेज़ कंप्यूटर का उपयोग करने की सलाह देते हैं।
+  ba-videorecorder.upload-error-duration: >-
+    अपलोड किए गए वीडियो की लंबाई आवश्यकताओं को पूरा नहीं करती है - पुनः प्रयास
+    करने के लिए यहां क्लिक करें।
+  ba-videorecorder.resolution-constraint-error: >-
+    आपके द्वारा चुनी गई फ़ाइल आवश्यक संकल्प से मेल नहीं खाती है - पुनः प्रयास
+    करने के लिए यहां क्लिक करें।
+  ba-videorecorder.orientation-portrait-required: पोर्ट्रेट मोड में रिकॉर्ड करने के लिए कृपया अपने डिवाइस को घुमाएं।
+  ba-videorecorder.orientation-landscape-required: लैंडस्केप मोड में रिकॉर्ड करने के लिए कृपया अपने डिवाइस को घुमाएं।
+  ba-imageviewer-controlbar.rerecord-image: फिर से करें?
+  ba-imageviewer-controlbar.submit-image: की पुष्टि करें
+  ba-imageviewer-controlbar.fullscreen-image: पूर्ण स्क्रीन दर्ज करें
+  ba-imageviewer-controlbar.exit-fullscreen-image: पूर्ण स्क्रीन से बाहर निकलें
+  ba-imageviewer.image-error: >-
+    एक त्रुटि घटित हुई है, कृपया बाद में पुन: प्रयास करें। पुनः प्रयास करने के
+    लिए क्लिक करें।
+  ba-imagecapture-chooser.image-capture: छवि कैप्चर करें
+  ba-imagecapture-chooser.upload-image: तस्वीर डालिये
+  ba-imagecapture-controlbar.settings: सेटिंग्स
+  ba-imagecapture-controlbar.camerahealthy: प्रकाश अच्छा है
+  ba-imagecapture-controlbar.cameraunhealthy: प्रकाश इष्टतम नहीं है
+  ba-imagecapture-controlbar.record: कब्जा
+  ba-imagecapture-controlbar.record-tooltip: कब्जा करने के लिए यहां क्लिक करें।
+  ba-imagecapture-controlbar.rerecord: फिर से करना
+  ba-imagecapture-controlbar.rerecord-tooltip: फिर से करने के लिए यहां क्लिक करें।
+  ba-imagecapture-controlbar.cancel: रद्द करना
+  ba-imagecapture-controlbar.cancel-tooltip: रद्द करने के लिए यहां क्लिक करें।
+  ba-audioplayer-controlbar.audio-progress: प्रगति
+  ba-audioplayer-controlbar.rerecord-audio: फिर से करें?
+  ba-audioplayer-controlbar.submit-audio: की पुष्टि करें
+  ba-audioplayer-controlbar.play-audio: प्ले
+  ba-audioplayer-controlbar.pause-audio: ठहराव
+  ba-audioplayer-controlbar.pause-audio-disabled: रोकें समर्थित नहीं है
+  ba-audioplayer-controlbar.elapsed-time: Elasped समय
+  ba-audioplayer-controlbar.total-time: की कुल लंबाई
+  ba-audioplayer-controlbar.volume-button: वॉल्यूम सेट करें
+  ba-audioplayer-controlbar.volume-mute: ध्वनि म्यूट करें
+  ba-audioplayer-controlbar.volume-unmute: ध्वनि अनम्यूट करें
+  ba-audioplayer-loader.tooltip: लोड हो रहा है...
+  ba-audioplayer.audio-error: >-
+    एक त्रुटि घटित हुई है, कृपया बाद में पुन: प्रयास करें। पुनः प्रयास करने के
+    लिए क्लिक करें।
+  ba-audiorecorder-chooser.record-audio: ध्वनि रिकॉर्ड करें
+  ba-audiorecorder-chooser.upload-audio: ऑडियो अपलोड करें
+  ba-audiorecorder-controlbar.settings: सेटिंग्स
+  ba-audiorecorder-controlbar.microphonehealthy: ध्वनि अच्छी हैं
+  ba-audiorecorder-controlbar.microphoneunhealthy: कोई आवाज नहीं उठा सकते हैं
+  ba-audiorecorder-controlbar.record: अभिलेख
+  ba-audiorecorder-controlbar.record-tooltip: रिकॉर्ड करने के लिए यहां क्लिक करें।
+  ba-audiorecorder-controlbar.rerecord: फिर से करना
+  ba-audiorecorder-controlbar.rerecord-tooltip: फिर से करने के लिए यहां क्लिक करें।
+  ba-audiorecorder-controlbar.stop: रुकें
+  ba-audiorecorder-controlbar.stop-tooltip: रोकने के लिए यहां क्लिक करें।
+  ba-audiorecorder-controlbar.stop-available-after: न्यूनतम रिकॉर्डिंग समय %d सेकेंड है
+  ba-audiorecorder-controlbar.cancel: रद्द करना
+  ba-audiorecorder-controlbar.cancel-tooltip: रद्द करने के लिए यहां क्लिक करें।

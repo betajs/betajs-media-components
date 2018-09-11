@@ -1,71 +1,71 @@
 'language:nl':
   ba-videoplayer-playbutton.tooltip: Klik om video af te spelen.
-  ba-videoplayer-playbutton.rerecord: opnieuw
-  ba-videoplayer-playbutton.submit-video: Bevestig video
-  ba-videoplayer-loader.tooltip: Loading video ...
-  ba-videoplayer-controlbar.change-resolution: resolutie Change
-  ba-videoplayer-controlbar.video-progress: video vooruitgang
-  ba-videoplayer-controlbar.rerecord-video: Opnieuw video?
-  ba-videoplayer-controlbar.submit-video: Bevestig video
-  ba-videoplayer-controlbar.play-video: Video afspelen
-  ba-videoplayer-controlbar.pause-video: pauze video
+  ba-videoplayer-playbutton.rerecord: Opnieuw
+  ba-videoplayer-playbutton.submit-video: Bevestigen
+  ba-videoplayer-loader.tooltip: Laden...
+  ba-videoplayer-controlbar.change-resolution: Resolutie veranderen
+  ba-videoplayer-controlbar.video-progress: Vooruitgang
+  ba-videoplayer-controlbar.rerecord-video: Opnieuw opnemen?
+  ba-videoplayer-controlbar.submit-video: Bevestigen
+  ba-videoplayer-controlbar.play-video: Afspelen
+  ba-videoplayer-controlbar.pause-video: Pauze
   ba-videoplayer-controlbar.elapsed-time: Verstreken tijd
   ba-videoplayer-controlbar.total-time: De totale lengte van de video
-  ba-videoplayer-controlbar.fullscreen-video: Voer fullscreen
+  ba-videoplayer-controlbar.fullscreen-video: Volledig scherm
   ba-videoplayer-controlbar.volume-button: Volume instellen
-  ba-videoplayer-controlbar.volume-mute: geluid uitschakelen
-  ba-videoplayer-controlbar.volume-unmute: geluid vrijgeven
+  ba-videoplayer-controlbar.volume-mute: Geluid dempen
+  ba-videoplayer-controlbar.volume-unmute: Geluid inschakelen
   ba-videoplayer.video-error: >-
     Er is een fout opgetreden, probeer het later opnieuw. Klik hier om opnieuw
     te proberen.
-  ba-videorecorder-chooser.record-video: Neem uw video
-  ba-videorecorder-chooser.upload-video: Upload Video
-  ba-videorecorder-controlbar.settings: instellingen
+  ba-videorecorder-chooser.record-video: Video opnemen
+  ba-videorecorder-chooser.upload-video: Video uploaden
+  ba-videorecorder-controlbar.settings: Instellingen
   ba-videorecorder-controlbar.camerahealthy: Verlichting is goed
   ba-videorecorder-controlbar.cameraunhealthy: Verlichting is niet optimaal
   ba-videorecorder-controlbar.microphonehealthy: Het geluid is goed
-  ba-videorecorder-controlbar.microphoneunhealthy: Kan niet pikken elk geluid
-  ba-videorecorder-controlbar.record: Record
+  ba-videorecorder-controlbar.microphoneunhealthy: Geluid is niet optimaal
+  ba-videorecorder-controlbar.record: Opnemen
   ba-videorecorder-controlbar.record-tooltip: Klik hier om te registreren.
-  ba-videorecorder-controlbar.rerecord: opnieuw
-  ba-videorecorder-controlbar.rerecord-tooltip: Klik hier om opnieuw te doen.
-  ba-videorecorder-controlbar.upload-covershot: Uploaden
-  ba-videorecorder-controlbar.upload-covershot-tooltip: Klik hier om te uploaden aangepaste hoes schot
+  ba-videorecorder-controlbar.rerecord: Opnieuw opnemen
+  ba-videorecorder-controlbar.rerecord-tooltip: Opnieuw opnemen
+  ba-videorecorder-controlbar.upload-covershot: Video uploaden
+  ba-videorecorder-controlbar.upload-covershot-tooltip: Klik hier om je aangepaste cover te uploaden
   ba-videorecorder-controlbar.stop: Stop
   ba-videorecorder-controlbar.stop-tooltip: Klik hier om te stoppen.
-  ba-videorecorder-controlbar.skip: Overspringen
+  ba-videorecorder-controlbar.skip: Overslaan
   ba-videorecorder-controlbar.skip-tooltip: Klik hier om over te slaan.
   ba-videorecorder.recorder-error: >-
     Er is een fout opgetreden, probeer het later opnieuw. Klik hier om opnieuw
     te proberen.
   ba-videorecorder.attach-error: >-
-    We konden geen toegang tot de camera-interface. Afhankelijk van het apparaat
+    We konden geen toegang krijgen tot de camera. Afhankelijk van het apparaat
     en de browser, moet u misschien Flash installeren of toegang tot de pagina
     via SSL.
   ba-videorecorder.access-forbidden: De toegang tot de camera was verboden. Klik hier om opnieuw te proberen.
   ba-videorecorder.pick-covershot: Kies een covershot.
-  ba-videorecorder.uploading: uploaden
+  ba-videorecorder.uploading: Uploaden
   ba-videorecorder.uploading-failed: Uploaden mislukt - klik hier om opnieuw te proberen.
-  ba-videorecorder.verifying: Het verifiëren
-  ba-videorecorder.verifying-failed: Verifying mislukt - klik hier om opnieuw te proberen.
-  ba-videorecorder.rerecord-confirm: Wil je echt wilt uw video opnieuw te doen?
+  ba-videorecorder.verifying: Verifiëren
+  ba-videorecorder.verifying-failed: Verificatie mislukt - klik hier om opnieuw te proberen.
+  ba-videorecorder.rerecord-confirm: Wil je echt je video opnieuw opnemen?
   ba-videorecorder.video_file_too_large: >-
     Uw video bestand is te groot (%s) - klik hier om opnieuw te proberen met een
-    kleinere videobestand.
+    kleiner bestand.
   ba-videorecorder.unsupported_video_type: 'Upload: %s - klik hier om opnieuw te proberen.'
   ba-videoplayer-controlbar.exit-fullscreen-video: Verlaat volledig scherm
-  ba-videoplayer-share.share: Deel Video
-  ba-videorecorder-chooser.record-screen: Record scherm
+  ba-videoplayer-share.share: Video Helen
+  ba-videorecorder-chooser.record-screen: Scherm opnemen
   ba-videoplayer-controlbar.pause-video-disabled: Pauzeren niet ondersteund
   ba-videorecorder-chooser.record-audio: Geluid opnemen
   ba-videorecorder-controlbar.stop-available-after: Minimale opnametijd is %d seconden
-  ba-videorecorder-controlbar.cancel: Annuleer
+  ba-videorecorder-controlbar.cancel: Annuleren
   ba-videorecorder-controlbar.cancel-tooltip: Klik hier om te annuleren.
-  ba-videorecorder.cancel-confirm: Wil je je video-upload echt annuleren?
-  ba-videoplayer-adslot.elapsed-time: Elasped tijd
-  ba-videoplayer-adslot.volume-button: Volume instellen
+  ba-videorecorder.cancel-confirm: Wil je je upload echt annuleren?
+  ba-videoplayer-adslot.elapsed-time: Verstreken tijd
+  ba-videoplayer-adslot.volume-button: Volume
   ba-videoplayer-adslot.volume-mute: Geluid dempen
-  ba-videoplayer-adslot.volume-unmute: Geluid dempen
+  ba-videoplayer-adslot.volume-unmute: Geluid inschakelen
   ba-videoplayer-adslot.ad-will-end-after: Advertentie eindigt na %s
   ba-videoplayer-adslot.can-skip-after: Skip na %d
   ba-videoplayer-adslot.skip-ad: Advertentie overslaan
@@ -75,3 +75,68 @@
   ba-videorecorder.software-waiting: >-
     Wacht tot de vereisten zijn geïnstalleerd / geactiveerd. Mogelijk moet u de
     pagina na voltooiing vernieuwen.
+  ba-videoplayer-controlbar.close-tracks: Sluit CC
+  ba-videoplayer-controlbar.show-tracks: Toon CC
+  ba-videoplayer-tracks.upload-text-tracks: Uploadtekstbestanden uploaden
+  ba-videoplayer-tracks.select-text-track-language: Taal ondertitels
+  ba-videoplayer-tracks.info-select-locale-first: Selecteer eerst locale
+  ba-videoplayer-tracks.select-text-track-file: Klik om bestand te selecteren
+  ba-videoplayer-tracks.back: terug
+  ba-videorecorder.framerate-warning: >-
+    De videoframesnelheid is erg laag. We raden aan om alle andere programma's
+    en browsertabs te sluiten of om een ​​snellere computer te gebruiken.
+  ba-videorecorder.upload-error-duration: >-
+    De lengte van de geüploade video voldoet niet aan de vereisten. Klik hier om
+    opnieuw te proberen.
+  ba-videorecorder.resolution-constraint-error: >-
+    Het bestand dat je hebt geselecteerd komt niet overeen met de vereiste
+    resolutie - klik hier om het opnieuw te proberen.
+  ba-videorecorder.orientation-portrait-required: Draai uw apparaat om op te nemen in staande modus.
+  ba-videorecorder.orientation-landscape-required: Draai je apparaat om in de liggende modus op te nemen.
+  ba-imageviewer-controlbar.rerecord-image: Opnieuw doen?
+  ba-imageviewer-controlbar.submit-image: Bevestigen
+  ba-imageviewer-controlbar.fullscreen-image: Voer het volledige scherm in
+  ba-imageviewer-controlbar.exit-fullscreen-image: Verlaat volledig scherm
+  ba-imageviewer.image-error: >-
+    Er is een fout opgetreden. Probeer het later opnieuw. Klik om opnieuw te
+    proberen.
+  ba-imagecapture-chooser.image-capture: Capture Image
+  ba-imagecapture-chooser.upload-image: Afbeelding uploaden
+  ba-imagecapture-controlbar.settings: instellingen
+  ba-imagecapture-controlbar.camerahealthy: Verlichting is goed
+  ba-imagecapture-controlbar.cameraunhealthy: Verlichting is niet optimaal
+  ba-imagecapture-controlbar.record: Gevangen nemen
+  ba-imagecapture-controlbar.record-tooltip: Klik hier om vast te leggen.
+  ba-imagecapture-controlbar.rerecord: Opnieuw doen
+  ba-imagecapture-controlbar.rerecord-tooltip: Klik hier om opnieuw te doen.
+  ba-imagecapture-controlbar.cancel: Annuleer
+  ba-imagecapture-controlbar.cancel-tooltip: Klik hier om te annuleren.
+  ba-audioplayer-controlbar.audio-progress: Vooruitgang
+  ba-audioplayer-controlbar.rerecord-audio: Opnieuw doen?
+  ba-audioplayer-controlbar.submit-audio: Bevestigen
+  ba-audioplayer-controlbar.play-audio: Spelen
+  ba-audioplayer-controlbar.pause-audio: Pauze
+  ba-audioplayer-controlbar.pause-audio-disabled: Pauzeren niet ondersteund
+  ba-audioplayer-controlbar.elapsed-time: Elasped tijd
+  ba-audioplayer-controlbar.total-time: Totale lengte van
+  ba-audioplayer-controlbar.volume-button: Volume instellen
+  ba-audioplayer-controlbar.volume-mute: Geluid dempen
+  ba-audioplayer-controlbar.volume-unmute: Geluid dempen
+  ba-audioplayer-loader.tooltip: Bezig met laden...
+  ba-audioplayer.audio-error: >-
+    Er is een fout opgetreden. Probeer het later opnieuw. Klik om opnieuw te
+    proberen.
+  ba-audiorecorder-chooser.record-audio: Geluid opnemen
+  ba-audiorecorder-chooser.upload-audio: Upload audio
+  ba-audiorecorder-controlbar.settings: instellingen
+  ba-audiorecorder-controlbar.microphonehealthy: Geluid is goed
+  ba-audiorecorder-controlbar.microphoneunhealthy: Kan geen geluid oppikken
+  ba-audiorecorder-controlbar.record: Record
+  ba-audiorecorder-controlbar.record-tooltip: Klik hier om op te nemen.
+  ba-audiorecorder-controlbar.rerecord: Opnieuw doen
+  ba-audiorecorder-controlbar.rerecord-tooltip: Klik hier om opnieuw te doen.
+  ba-audiorecorder-controlbar.stop: Hou op
+  ba-audiorecorder-controlbar.stop-tooltip: Klik hier om te stoppen.
+  ba-audiorecorder-controlbar.stop-available-after: Minimale opnametijd is %d seconden
+  ba-audiorecorder-controlbar.cancel: Annuleer
+  ba-audiorecorder-controlbar.cancel-tooltip: Klik hier om te annuleren.

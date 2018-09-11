@@ -62,3 +62,58 @@
   ba-videoplayer-adslot.skip-ad: 跳过广告
   ba-videorecorder.software-required: 请点击下面的安装/激活以下要求才能继续。
   ba-videorecorder.software-waiting: 等待要求安装/激活。完成后可能需要刷新页面。
+  ba-videoplayer-controlbar.close-tracks: 关闭CC
+  ba-videoplayer-controlbar.show-tracks: 显示CC
+  ba-videoplayer-tracks.upload-text-tracks: 上传曲目文本文件
+  ba-videoplayer-tracks.select-text-track-language: 字幕语言
+  ba-videoplayer-tracks.info-select-locale-first: 首先选择区域设置
+  ba-videoplayer-tracks.select-text-track-file: 单击以选中文件
+  ba-videoplayer-tracks.back: 背部
+  ba-videorecorder.framerate-warning: 视频帧率非常低。我们建议关闭所有其他程序和浏览器选项卡或使用更快的计算机。
+  ba-videorecorder.upload-error-duration: 上传视频的长度不符合要求 - 点击此处重试。
+  ba-videorecorder.resolution-constraint-error: 您选择的文件与所需的分辨率不匹配 - 单击此处重试。
+  ba-videorecorder.orientation-portrait-required: 请旋转设备以纵向模式录制。
+  ba-videorecorder.orientation-landscape-required: 请旋转设备以横向模式录制。
+  ba-imageviewer-controlbar.rerecord-image: 重做？
+  ba-imageviewer-controlbar.submit-image: 确认
+  ba-imageviewer-controlbar.fullscreen-image: 输入全屏
+  ba-imageviewer-controlbar.exit-fullscreen-image: 退出全屏
+  ba-imageviewer.image-error: 发生了一个错误。请稍后重试。点击重试。
+  ba-imagecapture-chooser.image-capture: 捕获图像
+  ba-imagecapture-chooser.upload-image: 上传图片
+  ba-imagecapture-controlbar.settings: 设置
+  ba-imagecapture-controlbar.camerahealthy: 照明很好
+  ba-imagecapture-controlbar.cameraunhealthy: 照明不是最佳的
+  ba-imagecapture-controlbar.record: 捕获
+  ba-imagecapture-controlbar.record-tooltip: 点击此处捕捉。
+  ba-imagecapture-controlbar.rerecord: 重做
+  ba-imagecapture-controlbar.rerecord-tooltip: 点击这里重做。
+  ba-imagecapture-controlbar.cancel: 取消
+  ba-imagecapture-controlbar.cancel-tooltip: 点击这里取消。
+  ba-audioplayer-controlbar.audio-progress: 进展
+  ba-audioplayer-controlbar.rerecord-audio: 重做？
+  ba-audioplayer-controlbar.submit-audio: 确认
+  ba-audioplayer-controlbar.play-audio: 玩
+  ba-audioplayer-controlbar.pause-audio: 暂停
+  ba-audioplayer-controlbar.pause-audio-disabled: 暂停不受支持
+  ba-audioplayer-controlbar.elapsed-time: 节省时间
+  ba-audioplayer-controlbar.total-time: 总长度
+  ba-audioplayer-controlbar.volume-button: 设定音量
+  ba-audioplayer-controlbar.volume-mute: 静音
+  ba-audioplayer-controlbar.volume-unmute: 取消静音
+  ba-audioplayer-loader.tooltip: 载入中...
+  ba-audioplayer.audio-error: 发生了一个错误。请稍后重试。点击重试。
+  ba-audiorecorder-chooser.record-audio: 录制音频
+  ba-audiorecorder-chooser.upload-audio: 上传音频
+  ba-audiorecorder-controlbar.settings: 设置
+  ba-audiorecorder-controlbar.microphonehealthy: 声音很好
+  ba-audiorecorder-controlbar.microphoneunhealthy: 无法接听任何声音
+  ba-audiorecorder-controlbar.record: 记录
+  ba-audiorecorder-controlbar.record-tooltip: 点击这里记录。
+  ba-audiorecorder-controlbar.rerecord: 重做
+  ba-audiorecorder-controlbar.rerecord-tooltip: 点击这里重做。
+  ba-audiorecorder-controlbar.stop: 停止
+  ba-audiorecorder-controlbar.stop-tooltip: 点击此处停止。
+  ba-audiorecorder-controlbar.stop-available-after: 最短录制时间为％d秒
+  ba-audiorecorder-controlbar.cancel: 取消
+  ba-audiorecorder-controlbar.cancel-tooltip: 点击这里取消。

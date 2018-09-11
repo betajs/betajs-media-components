@@ -71,3 +71,64 @@
   ba-videorecorder.software-waiting: >-
     Oczekiwanie na zainstalowanie / aktywację wymagań. Po zakończeniu może być
     konieczne odświeżenie strony.
+  ba-videoplayer-controlbar.close-tracks: Zamknij CC
+  ba-videoplayer-controlbar.show-tracks: Pokaż CC
+  ba-videoplayer-tracks.upload-text-tracks: Prześlij pliki tekstowe śladu
+  ba-videoplayer-tracks.select-text-track-language: Język napisów
+  ba-videoplayer-tracks.info-select-locale-first: Najpierw wybierz ustawienia regionalne
+  ba-videoplayer-tracks.select-text-track-file: 'Kliknij, aby wybrać plik'
+  ba-videoplayer-tracks.back: plecy
+  ba-videorecorder.framerate-warning: >-
+    Szybkość klatek wideo jest bardzo niska. Zalecamy zamknięcie wszystkich
+    innych programów i kart przeglądarki lub użycie szybszego komputera.
+  ba-videorecorder.upload-error-duration: >-
+    Długość przesłanego filmu nie spełnia wymagań - kliknij tutaj, aby spróbować
+    ponownie.
+  ba-videorecorder.resolution-constraint-error: >-
+    Wybrany plik nie pasuje do wymaganej rozdzielczości - kliknij tutaj, aby
+    spróbować ponownie.
+  ba-videorecorder.orientation-portrait-required: 'Obróć urządzenie, aby nagrywać w trybie portretu.'
+  ba-videorecorder.orientation-landscape-required: 'Obróć urządzenie, aby nagrywać w trybie poziomym.'
+  ba-imageviewer-controlbar.rerecord-image: Przerobić?
+  ba-imageviewer-controlbar.submit-image: Potwierdzać
+  ba-imageviewer-controlbar.fullscreen-image: Wejdź na pełny ekran
+  ba-imageviewer-controlbar.exit-fullscreen-image: Wyłączyć tryb pełnoekranowy
+  ba-imageviewer.image-error: 'Wystąpił błąd. Proszę spróbować później. Kliknij, aby spróbować jeszcze raz.'
+  ba-imagecapture-chooser.image-capture: Zrób zdjęcie
+  ba-imagecapture-chooser.upload-image: Załaduj obrazek
+  ba-imagecapture-controlbar.settings: Ustawienia
+  ba-imagecapture-controlbar.camerahealthy: Oświetlenie jest dobre
+  ba-imagecapture-controlbar.cameraunhealthy: Oświetlenie nie jest optymalne
+  ba-imagecapture-controlbar.record: Zdobyć
+  ba-imagecapture-controlbar.record-tooltip: 'Kliknij tutaj, aby uchwycić.'
+  ba-imagecapture-controlbar.rerecord: Przerobić
+  ba-imagecapture-controlbar.rerecord-tooltip: 'Kliknij tutaj, aby przerobić.'
+  ba-imagecapture-controlbar.cancel: Anuluj
+  ba-imagecapture-controlbar.cancel-tooltip: 'Kliknij tutaj, aby anulować.'
+  ba-audioplayer-controlbar.audio-progress: Postęp
+  ba-audioplayer-controlbar.rerecord-audio: Przerobić?
+  ba-audioplayer-controlbar.submit-audio: Potwierdzać
+  ba-audioplayer-controlbar.play-audio: Grać
+  ba-audioplayer-controlbar.pause-audio: Pauza
+  ba-audioplayer-controlbar.pause-audio-disabled: Wstrzymanie nie jest obsługiwane
+  ba-audioplayer-controlbar.elapsed-time: Wydłużony czas
+  ba-audioplayer-controlbar.total-time: Całkowita długość
+  ba-audioplayer-controlbar.volume-button: Ustaw głośność
+  ba-audioplayer-controlbar.volume-mute: Wycisz dźwięk
+  ba-audioplayer-controlbar.volume-unmute: Włącz dźwięk
+  ba-audioplayer-loader.tooltip: Ładuję...
+  ba-audioplayer.audio-error: 'Wystąpił błąd. Proszę spróbować później. Kliknij, aby spróbować jeszcze raz.'
+  ba-audiorecorder-chooser.record-audio: Nagrać dźwięk
+  ba-audiorecorder-chooser.upload-audio: Prześlij audio
+  ba-audiorecorder-controlbar.settings: Ustawienia
+  ba-audiorecorder-controlbar.microphonehealthy: Dźwięk jest dobry
+  ba-audiorecorder-controlbar.microphoneunhealthy: Nie można odebrać żadnego dźwięku
+  ba-audiorecorder-controlbar.record: Rekord
+  ba-audiorecorder-controlbar.record-tooltip: 'Kliknij tutaj, aby nagrać.'
+  ba-audiorecorder-controlbar.rerecord: Przerobić
+  ba-audiorecorder-controlbar.rerecord-tooltip: 'Kliknij tutaj, aby przerobić.'
+  ba-audiorecorder-controlbar.stop: Zatrzymać
+  ba-audiorecorder-controlbar.stop-tooltip: 'Kliknij tutaj, aby zatrzymać.'
+  ba-audiorecorder-controlbar.stop-available-after: Minimalny czas nagrywania to %d sekund
+  ba-audiorecorder-controlbar.cancel: Anuluj
+  ba-audiorecorder-controlbar.cancel-tooltip: 'Kliknij tutaj, aby anulować.'

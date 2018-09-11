@@ -75,3 +75,69 @@
   ba-videorecorder.software-waiting: >-
     Qurulacaq / aktivləşdiriləcək tələbləri gözləyirəm. Tamamlandıqdan sonra
     səhifəni yeniləmək lazımdır.
+  ba-videoplayer-controlbar.close-tracks: CC'yi bağlayın
+  ba-videoplayer-controlbar.show-tracks: CC göstər
+  ba-videoplayer-tracks.upload-text-tracks: Track mətn fayllarını yükləyin
+  ba-videoplayer-tracks.select-text-track-language: Altyazı dili
+  ba-videoplayer-tracks.info-select-locale-first: Əvvəlcədən yerli seçin
+  ba-videoplayer-tracks.select-text-track-file: Fayl seçmək üçün basın
+  ba-videoplayer-tracks.back: geri
+  ba-videorecorder.framerate-warning: >-
+    Video çərçivəsi dərəcəsi çox aşağıdır. Bütün digər proqramları və brauzer
+    nişanlarını bağlamaq və ya daha sürətli bir kompüter istifadə etmək üçün
+    gəlir.
+  ba-videorecorder.upload-error-duration: >-
+    Yüklənmiş videonun uzunluğu tələblərə cavab vermir - yenidən cəhd etmək üçün
+    buraya vurun.
+  ba-videorecorder.resolution-constraint-error: >-
+    Seçdiyiniz fayl lazımi qətnaməyə uyğun deyil - yenidən cəhd etmək üçün
+    buraya vurun.
+  ba-videorecorder.orientation-portrait-required: Portret rejimində qeyd etmək üçün cihazınızı döndərin.
+  ba-videorecorder.orientation-landscape-required: Landşaft rejimində qeyd etmək üçün cihazınızı döndərin.
+  ba-imageviewer-controlbar.rerecord-image: Redo?
+  ba-imageviewer-controlbar.submit-image: Təsdiq edin
+  ba-imageviewer-controlbar.fullscreen-image: Tam ekrana daxil olun
+  ba-imageviewer-controlbar.exit-fullscreen-image: Tam ekrandan çıxın
+  ba-imageviewer.image-error: >-
+    Xəta baş verdi. Xahiş edirik bir az sonra yenidən cəhd edin. Yenidən cəhd
+    etmək üçün basın.
+  ba-imagecapture-chooser.image-capture: Şəkil çəkin
+  ba-imagecapture-chooser.upload-image: Şəkil yükləyin
+  ba-imagecapture-controlbar.settings: Ayarlar
+  ba-imagecapture-controlbar.camerahealthy: İşıqlandırma yaxşıdır
+  ba-imagecapture-controlbar.cameraunhealthy: İşıqlandırma optimal deyil
+  ba-imagecapture-controlbar.record: Capture
+  ba-imagecapture-controlbar.record-tooltip: Tutmaq üçün bura vurun.
+  ba-imagecapture-controlbar.rerecord: Redo
+  ba-imagecapture-controlbar.rerecord-tooltip: Yenidən yerinə yetirmək üçün buraya basın.
+  ba-imagecapture-controlbar.cancel: Ləğv et
+  ba-imagecapture-controlbar.cancel-tooltip: Ləğv etmək üçün buraya basın.
+  ba-audioplayer-controlbar.audio-progress: Tərəqqi
+  ba-audioplayer-controlbar.rerecord-audio: Redo?
+  ba-audioplayer-controlbar.submit-audio: Təsdiq edin
+  ba-audioplayer-controlbar.play-audio: Oynamaq
+  ba-audioplayer-controlbar.pause-audio: Pauza
+  ba-audioplayer-controlbar.pause-audio-disabled: Pauza dəstəklənmir
+  ba-audioplayer-controlbar.elapsed-time: Elasped vaxt
+  ba-audioplayer-controlbar.total-time: Ümumi uzunluğu
+  ba-audioplayer-controlbar.volume-button: Həcmi seçin
+  ba-audioplayer-controlbar.volume-mute: Səs səsi
+  ba-audioplayer-controlbar.volume-unmute: Səsin səsləndirilməsi
+  ba-audioplayer-loader.tooltip: Yüklənir ...
+  ba-audioplayer.audio-error: >-
+    Xəta baş verdi. Xahiş edirik bir az sonra yenidən cəhd edin. Yenidən cəhd
+    etmək üçün basın.
+  ba-audiorecorder-chooser.record-audio: Record Audio
+  ba-audiorecorder-chooser.upload-audio: Audio yüklə
+  ba-audiorecorder-controlbar.settings: Ayarlar
+  ba-audiorecorder-controlbar.microphonehealthy: Səs yaxşıdır
+  ba-audiorecorder-controlbar.microphoneunhealthy: Heç bir səs ala bilmir
+  ba-audiorecorder-controlbar.record: Record
+  ba-audiorecorder-controlbar.record-tooltip: Qeyd etmək üçün buraya vurun.
+  ba-audiorecorder-controlbar.rerecord: Redo
+  ba-audiorecorder-controlbar.rerecord-tooltip: Yenidən yerinə yetirmək üçün buraya basın.
+  ba-audiorecorder-controlbar.stop: Dur
+  ba-audiorecorder-controlbar.stop-tooltip: Durmaq üçün bura vurun.
+  ba-audiorecorder-controlbar.stop-available-after: Minimum qeydiyyatdan keçmə müddəti %d saniyədir
+  ba-audiorecorder-controlbar.cancel: Ləğv et
+  ba-audiorecorder-controlbar.cancel-tooltip: Ləğv etmək üçün buraya basın.

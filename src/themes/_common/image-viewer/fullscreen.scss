@@ -1,0 +1,11 @@
+/* Full screen options */
+
+.#{$css}-fullscreen-view.#{$csstheme} {
+  .#{$css}-dashboard {
+    bottom: 0;
+    position: fixed;
+    right: (100% - $dashboard_width) / 2;
+    width: $dashboard_width;
+    z-index: 1010;
+  }
+}

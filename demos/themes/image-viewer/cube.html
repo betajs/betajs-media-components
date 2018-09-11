@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+    <script src="/static/vendors/jquery.min.js"></script>
+    <script src="/static/node_modules/betajs-shims/dist/betajs-shims.js"></script>
+    <script src="/static/node_modules/betajs-scoped/dist/scoped.js"></script>
+    <script src="/static/node_modules/betajs/dist/beta-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
+    <script src="/static/dist/betajs-media-components-noscoped.js"></script>
+    <link href="/static/dist/betajs-media-components.css" rel="stylesheet" />
+
+    <!-- Cube Theme Assets -->
+    <script src="/static/dist/themes/cube/script.js"></script>
+    <link href="/static/dist/themes/cube/style.css" rel="stylesheet" />
+
+
+</head>
+<body style="background: #EEE">
+
+    <div class="container">
+
+        <div class="row">
+            <div id="video-player-block" class="col-xs-12">
+                <h4>Cube</h4>
+                <ba-videoplayer ba-sources="{{[{src:'../assets/sample-video.mp4', poster: '../assets/sample-cover.png', hd: true}, {src:'../assets/sample-video2.mp4', poster:'../assets/sample-cover2.png', hd: false}]}}"
+                    ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
+                    ba-theme="cube"
+                    ba-sharevideo="facebook,twitter,gplus"
+                    ba-sharevideourl="http://betajs.com"
+                    ba-themecolor="{{themeColor}}"
+                    ba-title="Some test title from html"
+                    ba-noflash
+                    ba-hideoninactivity="true"
+                    ba-disableseeking="false"
+                    ba-disablepause="false"
+                    ba-skipinitial="false"
+                    ba-sharevideo="facebook,twitter,gplus"
+                    ba-sharevideourl="http://betajs.com"
+                    ba-width='80%'
+                    ba-tracktagsstyled="true"
+                    ba-tracktags="{{
+                        [
+                            {
+                                lang: 'en',
+                                kind: 'subtitles',
+                                label: 'English',
+                                //enabled: true,
+                                src: '../../assets/bunny-en.vtt'
+                            },
+                            {
+                                lang: 'de',
+                                kind: 'subtitles',
+                                label: 'Deutsch',
+                                //enabled: true,
+                                src: '../../assets/bunny-de.vtt'
+                            }
+
+                        ]
+                    }}"
+                ></ba-videoplayer>
+            </div>
+            <div id="theme-colors" class="col-xs-12">
+                <ba-themecolors></ba-themecolors>
+            </div>
+        </div>
+    </div> <!-- ./container -->
+
+<script>
+
+  var selectColor = new BetaJS.Dynamics.Dynamic({
+    templateUrl: "../templates/themecolors.html",
+    element: $('#theme-colors'),
+    attrs: {
+      themeColors: [ 'default', 'red', 'green', 'blue' ]
+    }
+  });
+
+  var recorderTheme = new BetaJS.Dynamics.Dynamic({
+    element: $('#video-player-block'),
+    attrs: { themeColor: "" }
+  });
+
+  $("body").on("change", "#select-color", function (el) {
+    recorderTheme.set("themeColor", el.target.value);
+  });
+
+  selectColor.activate();
+  recorderTheme.activate();
+</script>
+
+</body>
+</html>

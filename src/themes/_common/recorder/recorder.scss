@@ -1,0 +1,12 @@
+.#{$cssrecorder}-overlay {
+    div[tabindex] {
+        @include transition1(all, 0.30s, ease-in-out);
+    }
+    div[tabindex]:focus {
+        @include box-outline-shadow(#1b8fcc, 2px);
+        @include remove-outline;
+    }
+    div[tabindex]:hover, div[tabindex]:focus:hover {
+        box-shadow: none;
+    }
+}

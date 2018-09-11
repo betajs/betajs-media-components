@@ -1,0 +1,24 @@
+<div data-selector="recorder-message-container" class="{{cssrecorder}}-message-container" ba-click="{{click()}}">
+    <div class="{{cssrecorder}}-top-inner-message-container {{cssrecorder}}-{{shortMessage ? 'short-message' : 'long-message'}}">
+        <div class="{{cssrecorder}}-first-inner-message-container">
+            <div class="{{cssrecorder}}-second-inner-message-container">
+                <div class="{{cssrecorder}}-third-inner-message-container">
+                    <div class="{{cssrecorder}}-fourth-inner-message-container">
+                        <div data-selector="recorder-message-block" class='{{cssrecorder}}-message-message'>
+                            <p>
+                                {{message || ""}}
+                            </p>
+                            <ul ba-if="{{links && links.length > 0}}" ba-repeat="{{link :: links}}">
+                                <li>
+                                    <a href="javascript:;" ba-click="{{linkClick(link)}}">
+                                        {{link.title}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

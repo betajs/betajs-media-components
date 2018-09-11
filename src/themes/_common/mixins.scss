@@ -422,7 +422,7 @@
 @mixin right-box-shadow($color, $width) {
     -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=#{$width}, Direction=270, Color=#{$color})";/*IE 8*/
     -moz-box-shadow: inset -#{$width}px 0 0 #{$color};/*FF 3.5+*/
-    -webkit-box-shadow: inset -#{$width}px 0 0 #{$csscommon};/*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+    -webkit-box-shadow: inset -#{$width}px 0 0 #{$color};/*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
     box-shadow: inset -#{$width}px 0 0 #{$color};/* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
     //filter: progid:DXImageTransform.Microsoft.Shadow(Strength=#{$width}, Direction=270, Color=#{$color}); /*IE 5.5-7*/
 }

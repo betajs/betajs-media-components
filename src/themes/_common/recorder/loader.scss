@@ -1,0 +1,59 @@
+.#{$cssrecorder}-loader-container {
+	@include transform-translate(-50%, -50%);
+	@include absolute-center-center;
+}
+
+.#{$cssrecorder}-loader-loader:before {
+	content: "";
+	display: block;
+	padding-top: 100%; /* initial ratio of 1:1*/
+}
+
+.#{$cssrecorder}-loader-loader {
+	@include transform-translate-z(0);
+	position: relative;
+	width: 100%;
+	font-size: $loader_size;
+	box-sizing: content-box;
+	@include border-top-rgba($recorder_loader_frame_thickness, 225, 225, 225, 0.2, #999);
+	@include border-right-rgba($recorder_loader_frame_thickness, 225, 225, 225, 0.2, #999);
+	@include border-bottom-rgba($recorder_loader_frame_thickness, 225, 225, 225, 0.2, #999);
+	border-left: $recorder_loader_frame_thickness solid #ddd;
+	-webkit-animation: #{$cssrecorder}-loader-load8 1.1s infinite linear;
+	-moz-animation: #{$cssrecorder}-loader-load8 1.1s infinite linear;
+	animation: #{$cssrecorder}-loader-load8 1.1s infinite linear;
+}
+
+.#{$cssrecorder}-loader-loader, .#{$cssrecorder}-loader-loader:after {
+	border-radius: 50%;
+	width: 10em;
+	height: 10em;
+}
+
+.#{$cssrecorder}-loader-label {
+	@include transform-translate(-50%, -50%);
+	@include absolute-center-center;
+	font-size: $loader_label_fontsize;
+	color: white;
+}
+
+@-webkit-keyframes #{$cssrecorder}-loader-load8 {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}
+@keyframes #{$cssrecorder}-loader-load8 {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}

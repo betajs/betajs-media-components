@@ -260,3 +260,11 @@
     z-index: 1001;
 }
 
+/* Recorder image gallery right left icons */
+.#{$csscommon}-icon-right-open:before {
+    margin-right: 0;
+}
+
+.#{$csscommon}-icon-left-open:before {
+    margin-left: 0;
+}

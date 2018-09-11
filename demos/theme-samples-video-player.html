@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script src="../vendors/jquery.min.js"></script>
+    <script src="../node_modules/betajs-shims/dist/betajs-shims.js"></script>
+    <script src="../node_modules/betajs-scoped/dist/scoped.js"></script>
+    <script src="../node_modules/betajs/dist/beta-noscoped.js"></script>
+    <script src="../node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
+    <script src="../node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
+    <script src="../node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+    <script src="../node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
+	<script src="../dist/betajs-media-components-noscoped.js"></script>
+	<link  href="../dist/betajs-media-components.css" rel="stylesheet" />
+
+	<!-- Modern Theme Assets -->
+    <script src="../dist/themes/modern/script.js"></script>
+    <link  href="../dist/themes/modern/style.css" rel="stylesheet" />
+
+	<!-- Space Theme Assets -->
+	<script src="../dist/themes/space/script.js"></script>
+	<link href="../dist/themes/space/style.css" rel="stylesheet" />
+
+	<!-- Theatre Theme Assets -->
+	<script src="../dist/themes/theatre/script.js"></script>
+	<link href="../dist/themes/theatre/style.css" rel="stylesheet" />
+
+	<!-- Elevate Theme Assets -->
+	<script src="../dist/themes/elevate/script.js"></script>
+	<link href="../dist/themes/elevate/style.css" rel="stylesheet" />
+
+	<!-- Cube Theme Assets -->
+	<script src="../dist/themes/cube/script.js"></script>
+	<link href="../dist/themes/cube/style.css" rel="stylesheet" />
+
+	<!-- Minimalist Theme Assets -->
+	<script src="../dist/themes/minimalist/script.js"></script>
+	<link href="../dist/themes/minimalist/style.css" rel="stylesheet" />
+
+</head>
+<body style="background: #EEE">
+    <div style="display: block; position: fixed; top: 0; padding: 20px; z-index: 9999; background-color: #2c2c2c; width: 100%; color: #eeeeee">
+		<div style="width: 50%; float: left">
+			<div id="theme-colors" class="col-xs-12">
+				<ba-themecolors></ba-themecolors>
+			</div>
+		</div>
+		<div style="width: 50%; float: right">
+			<div id="player-options" class="col-xs-12 col-sm-6">
+				<ba-playeroptions></ba-playeroptions>
+			</div>
+		</div>
+
+        <hr style="margin-bottom: 20px; width: 100%; display: block; clear: both"/>
+    </div>
+
+	<div style="margin-top: 200px">
+		<div ba-repeat="{{theme::themes}}">
+			<h4>{{theme}}</h4>
+			<ba-videoplayer
+				ba-sources="{{[{src:'sample-video.mp4', poster: 'sample-cover.png', hd: true}, {src:'sample-video2.mp4', poster:'sample-cover2.png', hd: false}]}}"
+				ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
+				ba-theme="{{theme}}"
+				ba-themecolor="{{themeColor}}"
+				ba-title="Foobar"
+				ba-noflash
+				ba-themecolor="{{themecolor}}"
+				ba-sharevideo="facebook,twitter,gplus"
+				ba-sharevideourl="http://betajs.com"
+				ba-hideoninactivity="{{hideOnInactivity}}"
+				ba-skipinitial="{{skipinitial}}"
+				ba-disableseeking="{{disableSeeking}}"
+				ba-disablepause="{{disablePause}}"
+				ba-width='90%'
+				ba-tracktagsstyled="{{trackTagsStyled}}"
+				ba-tracktags="{{
+                [
+                    {
+                        lang: 'en',
+                        kind: 'subtitles',
+                        label: 'English',
+                        //enabled: true,
+                        src: './assets/bunny-en.vtt'
+                    },
+                    {
+                        lang: 'de',
+                        kind: 'subtitles',
+                        label: 'Deutsch',
+                        //enabled: true,
+                        src: './assets/bunny-de.vtt'
+                    }
+
+                ]
+            }}"
+			></ba-videoplayer>
+		</div>
+	</div>
+
+
+    <script>
+
+        var body = $("body");
+
+        BetaJS.Flash.options = {
+            flashFile: "../node_modules/betajs-flash/dist/betajs-flash.swf",
+            forceReload: true
+        };
+
+        var selectColor = new BetaJS.Dynamics.Dynamic({
+            templateUrl: "./themes/templates/themecolors.html",
+            element: $('#theme-colors'),
+            attrs: {
+                themeColors: [ 'default', 'red', 'green', 'blue' ]
+            }
+        });
+
+        var playerOptions = new BetaJS.Dynamics.Dynamic({
+            templateUrl: "./themes/templates/player-options.html",
+            element: $('#player-options'),
+            attrs: {
+                playerSettings: [
+                    { setting: 'hideOnInactivity', title: 'Hide control bar', checked: true},
+                    { setting: 'disablePause', title: 'Disable pause', checked: false},
+                    { setting: 'disableSeeking', title: 'Disable seeking', checked: false},
+                    { setting: 'trackTagsStyled', title: 'Custom track style', checked: false}
+                ]
+            }
+        });
+
+        var playerTheme = new BetaJS.Dynamics.Dynamic({
+            element: document.body,
+        	attrs: {
+                themes: [
+                    "default",
+                    "modern",
+                    "cube",
+                    "space",
+                    "elevate",
+                    "theatre",
+                    "minimalist"
+                ],
+				themeColor: 'default', // 'red', 'blue', 'green'
+                skipinitial: false,
+                disablePause: false,
+                disableSeeking: false,
+                hideOnInactivity: true,
+                trackTagsStyled: true
+            }
+        });
+
+        body.on("change", "#select-color", function (el) {
+            playerTheme.set("themeColor", el.target.value);
+        });
+
+        body.on("change", "#select-options", function (el) {
+            playerTheme.set(el.target.value, el.target.checked);
+        });
+
+        selectColor.activate();
+        playerOptions.activate();
+        playerTheme.activate();
+
+    </script>
+</body>
+</html>

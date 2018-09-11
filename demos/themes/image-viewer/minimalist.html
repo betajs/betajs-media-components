@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+    <script src="/static/vendors/jquery.min.js"></script>
+    <script src="/static/node_modules/betajs-shims/dist/betajs-shims.js"></script>
+    <script src="/static/node_modules/betajs-scoped/dist/scoped.js"></script>
+    <script src="/static/node_modules/betajs/dist/beta-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
+    <script src="/static/dist/betajs-media-components-noscoped.js"></script>
+    <link href="/static/dist/betajs-media-components.css" rel="stylesheet" />
+
+    <!-- elevate Theme Assets -->
+    <script src="/static/dist/themes/elevate/script.js"></script>
+    <link href="/static/dist/themes/elevate/style.css" rel="stylesheet" />
+
+
+</head>
+<body style="background: #EEE">
+
+    <div class="container">
+
+        <div class="row">
+            <div id="image-viewer-block" class="col-xs-12">
+                <h4>Elevate</h4>
+                <ba-imageviewer
+                    ba-source="../../assets/sample-cover.png"
+                    ba-theme="elevate"
+                    ba-title="Foobar"
+                    ba-themecolor="{{themecolor}}"
+                    ba-hideoninactivity="true"
+                    ba-closebuttonvisible="{{true}}"
+                    ba-width='70%'
+                ></ba-imageviewer>
+            </div>
+            <div id="theme-colors" class="col-xs-12">
+                <ba-themecolors></ba-themecolors>
+            </div>
+        </div>
+    </div> <!-- ./container -->
+
+<script>
+
+  var selectColor = new BetaJS.Dynamics.Dynamic({
+    templateUrl: "../templates/themecolors.html",
+    element: $('#theme-colors'),
+    attrs: {
+      themeColors: [ 'default', 'red', 'green', 'blue' ]
+    }
+  });
+
+  var recorderTheme = new BetaJS.Dynamics.Dynamic({
+    element: $('#image-viewer-block'),
+    attrs: { themeColor: "" }
+  });
+
+  $("body").on("change", "#select-color", function (el) {
+    recorderTheme.set("themeColor", el.target.value);
+  });
+
+  selectColor.activate();
+  recorderTheme.activate();
+</script>
+
+</body>
+</html>

@@ -7,13 +7,13 @@
 			>
 				<input ba-if="{{action.select && action.capture}}"
 					   type="file"
-					   class="{{cssrecorder}}-chooser-file"
+					   class="{{css}}-chooser-file"
 					   onchange="{{select_file_action(action, domEvent)}}"
 					   accept="{{action.accept}}"
 					   capture />
 				<input ba-if="{{action.select && !action.capture}}"
 					   type="file"
-					   class="{{cssrecorder}}-chooser-file"
+					   class="{{css}}-chooser-file"
 					   onchange="{{select_file_action(action, domEvent)}}"
 					   accept="{{action.accept}}"
 					   />

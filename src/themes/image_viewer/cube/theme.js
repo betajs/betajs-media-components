@@ -6,7 +6,7 @@ Scoped.extend("module:Assets.imageviewerthemes", [
     Parser.registerFunctions({ /*<%= template_function_cache(dirname + '/cube-image_viewer_controlbar.html') %>*/ });
     return {
         "cube": {
-            css: "ba-imageviewer-cube-theme",
+            css: "ba-imageviewer",
             csstheme: "ba-imageviewer-cube-theme",
             tmplcontrolbar: "<%= template(dirname + '/cube-image_viewer_controlbar.html') %>",
             cssloader: ie8 ? "ba-imageviewer" : "",

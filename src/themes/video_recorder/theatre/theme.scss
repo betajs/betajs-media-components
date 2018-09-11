@@ -1,4 +1,5 @@
-$css: "ba-videorecorder-theme-theatre";
+$css: "ba-videorecorder";
+$csstheme: "ba-recorder-theme-theatre";
 $csscommon: "ba-commoncss";
 $cssrecorder: "ba-recorder";
 $cssie8: "ba-videorecorder-ie8";
@@ -13,7 +14,6 @@ $text_color_secondary: #979797;
 $button_color: #000000;
 
 $message_bgcolor: white;
-$topmessage_fontsize: 12px;
 $message_opacity: 0.75;
 $message_color: black;
 $message_opacity: 0.75;
@@ -60,7 +60,7 @@ $settings_border: none;
 $settings_font_size: 12px;
 $settings_horizontal_margin: 48px;
 $settings_item_padding: 8px;
-$settings_radio_color: #eeeeee;
+$settings_radio_color: #979797;
 $settings_radio_color_selected: $button_color;
 
 

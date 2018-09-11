@@ -13,7 +13,7 @@ module.exports = function(grunt) {
         .scopedclosurerevisionTask(null, [
             'dist/betajs-media-components-locales.js',
             'src/ads/**/*.js',
-            'src/dynamics/common/*.js',
+            'src/dynamics/_common/*.js',
             'src/dynamics/popup_helper/*.js',
             'src/dynamics/video_player/**/*.js',
             'src/dynamics/video_recorder/**/*.js',
@@ -38,15 +38,16 @@ module.exports = function(grunt) {
         .concatTask('concat-scoped', [require.resolve("betajs-scoped"), 'dist/' + dist + '-noscoped.js'], 'dist/' + dist + '.js')
         .concatsassTask('concat-dist-css', [
             // mixins
-            'src/themes/common/variables.scss',
-            'src/themes/common/mixins.scss',
-            'src/themes/common/fontello_icon.scss',
+            'src/themes/_common/variables.scss',
+            'src/themes/_common/mixins.scss',
+            'src/themes/_common/fontello_icon.scss',
 
-            'src/themes/common/fontello_font_generated.scss',
-            'src/themes/common/fontello_icons_generated.scss',
-            'src/themes/common/fontello_icons_color.scss',
-            'src/themes/common/player/*.scss',
-            'src/themes/common/style.scss',
+            'src/themes/_common/fontello_font_generated.scss',
+            'src/themes/_common/fontello_icons_generated.scss',
+            'src/themes/_common/fontello_icons_color.scss',
+            'src/themes/_common/**/*.scss',
+            'src/themes/_common/**/*.scss',
+            'src/themes/_common/style.scss',
 
             'src/themes/video_player/default/theme.scss',
             'src/themes/video_player/default/*.scss',
@@ -98,9 +99,9 @@ module.exports = function(grunt) {
         .uglifyTask('uglify-modern-theme', 'dist/themes/modern/script.js', 'dist/themes/modern/script.min.js')
         .concatsassTask('concat-modern-theme-css', [
             // mixins
-            'src/themes/common/variables.scss',
-            'src/themes/common/mixins.scss',
-            'src/themes/common/fontello_icon.scss',
+            'src/themes/_common/variables.scss',
+            'src/themes/_common/mixins.scss',
+            'src/themes/_common/fontello_icon.scss',
 
             'src/themes/video_player/modern/theme.scss',
             'src/themes/video_player/modern/*.scss',
@@ -139,9 +140,9 @@ module.exports = function(grunt) {
         .uglifyTask('uglify-space-theme', 'dist/themes/space/script.js', 'dist/themes/space/script.min.js')
         .concatsassTask('concat-space-theme-css', [
             // mixins
-            'src/themes/common/variables.scss',
-            'src/themes/common/mixins.scss',
-            'src/themes/common/fontello_icon.scss',
+            'src/themes/_common/variables.scss',
+            'src/themes/_common/mixins.scss',
+            'src/themes/_common/fontello_icon.scss',
 
             'src/themes/video_player/space/theme.scss',
             'src/themes/video_player/space/*.scss',
@@ -180,9 +181,9 @@ module.exports = function(grunt) {
         .uglifyTask('uglify-theatre-theme', 'dist/themes/theatre/script.js', 'dist/themes/theatre/script.min.js')
         .concatsassTask('concat-theatre-theme-css', [
             // mixins
-            'src/themes/common/variables.scss',
-            'src/themes/common/mixins.scss',
-            'src/themes/common/fontello_icon.scss',
+            'src/themes/_common/variables.scss',
+            'src/themes/_common/mixins.scss',
+            'src/themes/_common/fontello_icon.scss',
 
             'src/themes/video_player/theatre/theme.scss',
             'src/themes/video_player/theatre/*.scss',
@@ -223,9 +224,9 @@ module.exports = function(grunt) {
         .uglifyTask('uglify-elevate-theme', 'dist/themes/elevate/script.js', 'dist/themes/elevate/script.min.js')
         .concatsassTask('concat-elevate-theme-css', [
             // mixins
-            'src/themes/common/variables.scss',
-            'src/themes/common/mixins.scss',
-            'src/themes/common/fontello_icon.scss',
+            'src/themes/_common/variables.scss',
+            'src/themes/_common/mixins.scss',
+            'src/themes/_common/fontello_icon.scss',
 
             'src/themes/video_player/elevate/theme.scss',
             'src/themes/video_player/elevate/*.scss',
@@ -265,9 +266,9 @@ module.exports = function(grunt) {
         .uglifyTask('uglify-cube-theme', 'dist/themes/cube/script.js', 'dist/themes/cube/script.min.js')
         .concatsassTask('concat-cube-theme-css', [
             // mixins
-            'src/themes/common/variables.scss',
-            'src/themes/common/mixins.scss',
-            'src/themes/common/fontello_icon.scss',
+            'src/themes/_common/variables.scss',
+            'src/themes/_common/mixins.scss',
+            'src/themes/_common/fontello_icon.scss',
 
             'src/themes/video_player/cube/theme.scss',
             'src/themes/video_player/cube/*.scss',
@@ -308,9 +309,9 @@ module.exports = function(grunt) {
         .uglifyTask('uglify-minimalist-theme', 'dist/themes/minimalist/script.js', 'dist/themes/minimalist/script.min.js')
         .concatsassTask('concat-minimalist-theme-css', [
             // mixins
-            'src/themes/common/variables.scss',
-            'src/themes/common/mixins.scss',
-            'src/themes/common/fontello_icon.scss',
+            'src/themes/_common/variables.scss',
+            'src/themes/_common/mixins.scss',
+            'src/themes/_common/fontello_icon.scss',
 
             'src/themes/video_player/minimalist/theme.scss',
             'src/themes/video_player/minimalist/*.scss',
@@ -387,7 +388,7 @@ module.exports = function(grunt) {
         },
         files: [{
             src: "src/fragments/fontello_font.tpl",
-            dest: "src/themes/common/fontello_font_generated.scss"
+            dest: "src/themes/_common/fontello_font_generated.scss"
         }]
     };
     gruntHelper.config.template.fontello_icons = {
@@ -405,7 +406,7 @@ module.exports = function(grunt) {
         },
         files: [{
             src: "src/fragments/fontello_icons.tpl",
-            dest: "src/themes/common/fontello_icons_generated.scss"
+            dest: "src/themes/_common/fontello_icons_generated.scss"
         }]
     };
 

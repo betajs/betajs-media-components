@@ -321,21 +321,21 @@ Scoped.define("module:ImageViewer.Dynamics.ImageViewer", [
 
                     // Wrapper
                     this.__imageViewer.imageWrapper = document.createElement('div');
-                    this.__imageViewer.imageWrapper.className = this.get('csscommon') + '-image-viewer-wrapper';
+                    this.__imageViewer.imageWrapper.className = this.get('css') + '-image-viewer-wrapper';
 
                     // image viewer overlay
                     this.__imageViewer.overlayElement = document.createElement('div');
-                    this.__imageViewer.overlayElement.className = this.get('csscommon') + '-image-viewer-overlay';
+                    this.__imageViewer.overlayElement.className = this.get('css') + '-image-viewer-overlay';
 
                     this.__imageViewer.image = document.createElement('img');
-                    this.__imageViewer.image.className = this.get('csscommon') + '-image-viewer-expanded';
+                    this.__imageViewer.image.className = this.get('css') + '-image-viewer-expanded';
                     this.__imageViewer.image.src = sourceFile || this.get('source');
 
                     // Will show caption in the middle bottom side
                     if (this.get("customcaptionvisible")) {
                         var _titleText;
                         this.__imageViewer.title = document.createElement('div');
-                        this.__imageViewer.title.className = this.get('csscommon') + '-image-viewer-title';
+                        this.__imageViewer.title.className = this.get('css') + '-image-viewer-title';
                         _titleText = document.createTextNode(this.get('title'));
                         this.__imageViewer.title.appendChild(_titleText);
                     }
@@ -343,7 +343,7 @@ Scoped.define("module:ImageViewer.Dynamics.ImageViewer", [
                     // Show close button on the top right corner
                     if (this.get("closebuttonvisible")) {
                         this.__imageViewer.closeButton = document.createElement('div');
-                        this.__imageViewer.closeButton.className = this.get('csscommon') + '-image-viewer-close-button';
+                        this.__imageViewer.closeButton.className = this.get('css') + '-close-button';
                         this.__imageViewer.closeButton.tabIndex = 0;
 
                         // Listen event on close button

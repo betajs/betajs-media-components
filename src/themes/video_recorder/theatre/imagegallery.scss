@@ -1,3 +1,11 @@
+.#{$csstheme}.#{$css}-container {
+
+    .#{$css}-imagegallery-container {
+        left: 50px;
+        right: 50px;
+    }
+}
+
 .#{$css}-imagegallery-image img {
   border: none;
   border-radius: 0;
@@ -13,12 +21,4 @@
     height: $imagegallery_buttonsize;
     width: $imagegallery_buttonsize;
     z-index: 10;
-}
-
-.#{$csscommon}-icon-right-open:before {
-  margin-right: 0;
-}
-
-.#{$csscommon}-icon-left-open:before {
-  margin-left: 0;
 }

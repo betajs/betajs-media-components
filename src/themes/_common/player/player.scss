@@ -1,4 +1,4 @@
-.#{$cssplayer}-overlay {
+.#{$cssvideoplayer}-overlay {
     div[tabindex] {
         @include transition1(all, 0.30s, ease-in-out);
     }
@@ -10,15 +10,31 @@
         box-shadow: none;
     }
 
-    .#{$cssplayer}-dashboard-hidden {
-        opacity: 0;
-        & * {
-            cursor: none;
+}
+
+.#{$cssvideoplayer}-container {
+    .#{$cssvideoplayer}-overlay {
+        .#{$cssplayer}-dashboard-hidden {
+            opacity: 0;
+            & * {
+                cursor: none;
+            }
         }
     }
 }
 
-.#{$cssplayer}-overlay, .#{$cssplayer}-player-toggle-overlay {
+.#{$cssaudioplayer}-container {
+    .#{$cssaudioplayer}-overlay {
+        .#{$cssplayer}-dashboard-hidden {
+            opacity: 0;
+            & * {
+                cursor: none;
+            }
+        }
+    }
+}
+
+.#{$cssvideoplayer}-overlay, .#{$cssvideoplayer}-player-toggle-overlay {
     position: absolute;
     left: 0;
     right: 0;

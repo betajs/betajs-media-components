@@ -4,7 +4,7 @@
 
   @include hide-dom-shadow-media-control();
 
-  &.#{$cssplayer}-common-browser .#{$cssplayer}-overlay {
+  &.#{$cssplayer}-common-browser .#{$cssvideoplayer}-overlay {
     z-index: 2147483647;
   }
 

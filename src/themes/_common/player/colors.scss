@@ -17,6 +17,16 @@
       .#{$cssplayer}-airplay-container svg path {
         fill: $value;
       }
+
+      // Main play button
+      &.#{$cssnoie8} {
+        .#{$cssplayer}-playbutton-container {
+          border-color: $value;
+        }
+        .#{$cssplayer}-playbutton-button::after {
+          color: $value;
+        }
+      }
     }
   }
 }

@@ -1,13 +1,15 @@
-Scoped.extend("module:Assets.recorderthemes", [
+Scoped.extend("module:Assets.audiorecorderthemes", [
     "dynamics:Parser"
 ], function(Parser) {
-    Parser.registerFunctions({ /*<%= template_function_cache(dirname + '/modern-video_recorder_chooser.html') %>*/ });
+    Parser.registerFunctions({ /*<%= template_function_cache(dirname + '/modern-audio_recorder_chooser.html') %>*/ });
     return {
         "modern": {
-            css: "ba-videorecorder-theme-modern",
-            //            cssmessage: "ba-videorecorder",
-            cssloader: "ba-videorecorder",
-            tmplchooser: "<%= template(dirname + '/modern-video_recorder_chooser.html') %>"
+            css: "ba-audiorecorder",
+            csstheme: "ba-audiorecorder-theme-modern",
+            cssrecorder: "ba-recorder",
+            //            cssmessage: "ba-audiorecorder",
+            cssloader: "ba-audiorecorder",
+            tmplchooser: "<%= template(dirname + '/modern-audio_recorder_chooser.html') %>"
         }
     };
 });

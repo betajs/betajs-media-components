@@ -1,9 +1,9 @@
 @each $color, $value in $colors {
   @if $color != default {
-    .#{$css}-#{$color}-color {
+    .#{$csstheme}-#{$color}-color {
 
-      .#{$css}-title > p,
-      &.#{$cssnoie8} .#{$css}-button-inner, &.#{$cssie8} .#{$css}-button-inner {
+      .#{$css}-title > p, &.#{$cssnoie8} .#{$css}-button-inner,
+      &.#{$cssie8} .#{$css}-button-inner {
         color: $value;
       }
 

@@ -40,17 +40,13 @@
 <body style="background: #EEE">
 	<div ba-repeat="{{theme::themes}}">
 		<h4>{{theme}}</h4>
-		<ba-videoplayer ba-sources="{{[{src:'sample-video.mp4', poster: 'sample-cover.png', hd: true}, {src:'sample-video2.mp4', poster:'sample-cover2.png', hd: false}]}}"
-	                ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
-	                ba-theme="{{theme}}"
-	                ba-title="Foobar"
-	                ba-noflash
-                    ba-themecolor="{{themecolor}}"
-					ba-sharevideo="facebook,twitter,gplus"
-					ba-sharevideourl="http://betajs.com"
-	                ba-hideoninactivity="{{hideoninactivity}}"
-                    ba-skipinitial="{{skipinitial}}"
-	                ba-width='90%'></ba-videoplayer>
+		<ba-videorecorder
+            ba-theme="{{theme}}"
+            ba-themecolor="{{themecolor}}"
+            ba-sharevideo="facebook,twitter,gplus"
+            ba-sharevideourl="http://betajs.com"
+            ba-width='400'
+		></ba-videorecorder>
 	</div>
 
     <script>
@@ -62,21 +58,41 @@
             element: document.body,
         	attrs: {
                 themes: [
-                    "default",
-                    "modern",
                     "cube",
-                    "space",
+                    "default",
                     "elevate",
-                    "theatre",
                     "minimalist",
+                    "modern",
+                    "space",
+                    "theatre"
                 ],
-				'themecolor': 'default', // 'red', 'blue', 'green'
+				'themecolor': 'green', // 'red', 'blue', 'green'
                 'hideoninactivity': true,
                 'skipinitial': true,
                 'sametheme': true,
                 'samethemename': 'space'
             }
         });
+
+        var filename = "video-" + BetaJS.Time.now();
+        var recorder = BetaJS.Dynamics.Dynamic.findByElement($("ba-videorecorder"));
+        recorder._prepareRecording = function () {
+            recorder.set("uploadoptions", {
+                image: {url:"/files/" + filename + ".jpg"},
+                video: {url:"/files/" + filename + ".webm"},
+                audio: {url:"/files/" + filename + ".wav"}
+            });
+            recorder.set("playbacksource", "/files/" + filename + ".mp4");
+            if (recorder.recorder)
+                recorder.set("playbackposter", "/files/" + filename + ".jpg");
+            return BetaJS.Promise.value(true);
+        };
+        recorder._verifyRecording = function () {
+            return BetaJS.Ajax.Support.execute({
+                method: "POST",
+                uri: "/files/" + filename + ".webm" + "/transcode/" + filename + ".mp4" + (recorder.recorder && recorder.recorder.localPlaybackSource().audio ? "?audio=" + filename + ".wav" : "")
+            });
+        };
     </script>
 </body>
 </html>

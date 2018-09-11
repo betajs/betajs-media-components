@@ -28,7 +28,7 @@
   &.#{$cssplayer}-fullscreen-view {
     min-width: 100%; position: absolute;
     min-height: fit-content; // Supports only with Chrome and fix Chrome only related issue
-    & > .#{$cssplayer}-overlay {
+    & > .#{$css}-overlay {
       position: fixed;
     }
   }

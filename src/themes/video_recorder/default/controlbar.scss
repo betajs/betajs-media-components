@@ -1,18 +1,13 @@
-.#{$css}-overlay div[tabindex] {
-	@include transition1(all, 0.30s, ease-in-out);
-}
-
-.#{$css}-overlay div[tabindex]:focus {
-	@include box-outline-shadow(#1b8fcc, 2px);
-	@include remove-outline;
-}
-
-.#{$css}-overlay div[tabindex]:hover, .#{$css}-overlay div[tabindex]:focus:hover {
-    box-shadow: none;
-}
-
 .#{$css}-dashboard {
     @include absolute-align-full-bottom;
+
+	.#{$csscommon}-icon-state-good {
+		color: $controlbar_icon_good;
+	}
+
+	.#{$csscommon}-icon-state-bad {
+		color: $controlbar_icon_bad;
+	}
 }
 
 .#{$css}-backbar {
@@ -28,14 +23,6 @@
     overflow: hidden;
     padding-left: $controlbar_padding;
     padding-right: $controlbar_padding;
-}
-
-.#{$csscommon}-icon-state-good {
-	color: $controlbar_icon_good;
-}
-
-.#{$csscommon}-icon-state-bad {
-	color: $controlbar_icon_bad;
 }
 
 .#{$css}-label-container {
@@ -137,6 +124,7 @@
     background-color: $text_color;
 }
 
+/* Media styles */
 .#{$cssplayer}-size-small .#{$css}-lefticon-container {
 	display: none;
 }

@@ -1,23 +1,23 @@
-<div class="{{cssrecorder}}-chooser-container">
-	<div class="{{cssrecorder}}-chooser-button-container">
+<div class="{{css}}-chooser-container">
+	<div class="{{css}}-chooser-button-container">
 		<div ba-repeat="{{action :: actions}}">
 			<div ba-hotkey:space^enter="{{click_action(action)}}" onmouseout="this.blur()"
-				 tabindex="0" class="{{cssrecorder}}-chooser-button-{{action.index}}"
+				 tabindex="0" class="{{css}}-chooser-button-{{action.index}}"
 			     ba-click="{{click_action(action)}}"
 			>
 				<input ba-if="{{action.select && action.capture}}"
 					   type="file"
-					   class="{{cssrecorder}}-chooser-file"
+					   class="{{css}}-chooser-file"
 					   onchange="{{select_file_action(action, domEvent)}}"
 					   accept="{{action.accept}}"
 					   capture />
 				<input ba-if="{{action.select && !action.capture}}"
 					   type="file"
-					   class="{{cssrecorder}}-chooser-file"
+					   class="{{css}}-chooser-file"
 					   onchange="{{select_file_action(action, domEvent)}}"
 					   accept="{{action.accept}}"
 					   />
-				<i class="{{cssrecorder}}-icon-{{action.icon}}"
+				<i class="{{csscommon}}-icon-{{action.icon}}"
 				   ba-if="{{action.icon}}"></i>
 				<span>
 					{{action.label}}

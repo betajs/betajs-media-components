@@ -59,9 +59,17 @@
                 }
             });
 
+            var playerOptions = new BetaJS.Dynamics.Dynamic({
+                templateUrl: "../templates/player-options.html",
+                element: $('#player-options'),
+                attrs: {
+                    themeColors: [ 'default', 'red', 'green', 'blue' ]
+                }
+            });
+
             var playerTheme = new BetaJS.Dynamics.Dynamic({
               element: $('#audio-player-block'),
-              attrs: { themeColor: "" }
+              attrs: { options: "" }
             });
 
             body.on("change", "#select-color", function (el) {

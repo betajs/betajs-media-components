@@ -1,6 +1,6 @@
 /* Full screen options */
 
-.#{$css}-fullscreen-view {
+.#{$css}-fullscreen-view.#{$csstheme} {
 
   .#{$css}-dashboard, .#{$css}-image-title-container {
     position: fixed;

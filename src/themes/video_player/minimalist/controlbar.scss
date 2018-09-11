@@ -128,7 +128,7 @@
 }
 
 .#{$cssnoie8} {
-  .#{$cssplayer}-overlay {
+  .#{$css}-overlay {
     .#{$csstheme}-controlbar-top-block {
       .#{$csstheme}-button-inner {
         @include transition1(opacity, 0.3s, ease);
@@ -145,7 +145,7 @@
 }
 
 .#{$cssie8} {
-  .#{$cssplayer}-overlay {
+  .#{$css}-overlay {
     height: 100%;
     .#{$csstheme}-controlbar-top-block {
       .#{$csstheme}-button-inner {

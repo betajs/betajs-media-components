@@ -1,21 +1,21 @@
-.#{$css}-topmessage-container {
-    @include absolute-align-full-top;
-}
+.#{$csstheme} {
 
-.#{$css}-topmessage-message {
-    @include absolute-align-full-top;
-	font-family: $font_family;
-	font-size: $topmessage_fontsize;
-	font-weight: $topmessage_fontweight;
-	color: $text_color;
-	padding: ($topmessage_height - $topmessage_fontsize) / 2;
-    text-align: center;
-}
+    .#{$css}-topmessage-message {
+        @include absolute-align-full-top;
+        font-family: $font_family;
+        font-size: $topmessage_fontsize;
+        font-weight: $topmessage_fontweight;
+        color: $text_color;
+        padding: ($topmessage_height - $topmessage_fontsize) / 2;
+        text-align: center;
+    }
 
-.#{$css}-topmessage-background {
-    background-color: $topmessage_bgcolor;
-    opacity: $topmessage_opacity;
-    width: 100%;
-    height: $topmessage_height;
-    position: absolute;
+    .#{$css}-topmessage-background {
+        background-color: $topmessage_bgcolor;
+        opacity: $topmessage_opacity;
+        width: 100%;
+        height: $topmessage_height;
+        position: absolute;
+    }
+
 }

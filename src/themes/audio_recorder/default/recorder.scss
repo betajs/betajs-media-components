@@ -4,7 +4,7 @@
     background-color: $recorder_bgcolor;
 }
 
-.#{$css}-overlay {
+.#{$cssrecorder}-overlay {
     position: absolute;
     left: 0;
     right: 0;
@@ -12,7 +12,7 @@
     bottom: 0;
 }
 
-.#{$css}-video {
+.#{$css}-audio {
     width: 100%;
     height: 100%;
     display: block;
@@ -23,7 +23,7 @@
     background-color: black;
 }
 
-.#{$css}-container video::-webkit-media-controls-start-playback-button {
+.#{$css}-container audio::-webkit-media-controls-start-playback-button {
   display: none;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -38,7 +38,7 @@
 	width: 100%;
 }
 
-.#{$css}-stretch-height .#{$css}-video {
+.#{$css}-stretch-height .#{$css}-audio {
 	position: absolute;
 	transform: translate(-50%, -50%);
 	top: 50%;
@@ -47,7 +47,7 @@
 	min-width: 100%;
 }
 
-.#{$css}-stretch-width .#{$css}-video {
+.#{$css}-stretch-width .#{$css}-audio {
 	position: absolute;
 	transform: translate(-50%, -50%);
 	top: 50%;
@@ -63,7 +63,7 @@
 	width:100%;
 }
 
-.#{$css}-videorecorder-player {
+.#{$css}-audiorecorder-player {
 	display: block;
 	width: 100%;
 	height: 100%;

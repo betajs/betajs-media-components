@@ -1,19 +1,20 @@
 
-<div data-selector="recorder-container" ba-show="{{!player_active}}"
-     class="{{cssrecorder}}-container {{cssrecorder}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}
-     	{{cssrecorder}}-{{ fullscreened ? 'fullscreen' : 'normal' }}-view {{cssrecorder}}-{{ firefox ? 'firefox' : 'common'}}-browser
-    	{{cssrecorder}}-{{themecolor}}-color"
+<div data-selector="video-recorder-container" ba-show="{{!player_active}}"
+     class="{{css}}-container {{csstheme}} {{css}}-size-{{csssize}}
+     {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{css}}-{{ fullscreened ? 'fullscreen' : 'normal' }}-view
+     {{cssrecorder}}-{{ firefox ? 'firefox' : 'common'}}-browser
+     {{cssrecorder}}-{{themecolor}}-color"
      ba-styles="{{widthHeightStyles}}"
 >
 
     <video tabindex="-1" data-selector="recorder-status" class="{{css}}-video {{css}}-{{hasrecorder ? 'hasrecorder' : 'norecorder'}}" data-video="video" playsinline></video>
 	<ba-videorecorder-faceoutline class="{{css}}-overlay" ba-if="{{faceoutline && hasrecorder}}">
 	</ba-videorecorder-faceoutline>
-    <div data-selector="recorder-overlay" class='{{css}}-overlay' ba-show="{{!hideoverlay}}" data-overlay="overlay">
+    <div data-selector="recorder-overlay" class='{{cssrecorder}}-overlay' ba-show="{{!hideoverlay}}" data-overlay="overlay">
 		<ba-{{dynloader}}
 		    ba-css="{{cssloader || css}}"
-			ba-themecolor="{{themecolor}}"
 			ba-cssrecorder="{{cssrecorder || css}}"
+			ba-themecolor="{{themecolor}}"
 		    ba-template="{{tmplloader}}"
 		    ba-show="{{loader_active}}"
 		    ba-tooltip="{{loadertooltip}}"
@@ -77,6 +78,7 @@
 		<ba-{{dyncontrolbar}}
 		    ba-css="{{csscontrolbar || css}}"
 			ba-cssrecorder="{{cssrecorder || css}}"
+			ba-csstheme="{{csstheme || css}}"
 			ba-themecolor="{{themecolor}}"
 		    ba-template="{{tmplcontrolbar}}"
 		    ba-show="{{controlbar_active}}"

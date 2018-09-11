@@ -15,9 +15,9 @@
     <script src="/static/dist/betajs-media-components-noscoped.js"></script>
     <link href="/static/dist/betajs-media-components.css" rel="stylesheet" />
 
-    <!-- space Theme Assets -->
-    <script src="/static/dist/themes/space/script.js"></script>
-    <link href="/static/dist/themes/space/style.css" rel="stylesheet" />
+    <!-- theatre Theme Assets -->
+    <script src="/static/dist/themes/theatre/script.js"></script>
+    <link href="/static/dist/themes/theatre/style.css" rel="stylesheet" />
 
 
 </head>
@@ -27,11 +27,11 @@
 
     <div class="row">
         <div id="video-player-block" class="col-xs-12">
-            <h4>Space</h4>
+            <h4>Theatre</h4>
             <ba-videoplayer
                 ba-sources="{{[{src:'../assets/sample-video.mp4', poster: '../assets/sample-cover.png', hd: true}, {src:'../assets/sample-video2.mp4', poster:'../assets/sample-cover2.png', hd: false}]}}"
                 ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
-                ba-theme="space"
+                ba-theme="theatre"
                 ba-sharevideo="facebook,twitter,gplus"
                 ba-sharevideourl="http://betajs.com"
                 ba-themecolor="{{themeColor}}"

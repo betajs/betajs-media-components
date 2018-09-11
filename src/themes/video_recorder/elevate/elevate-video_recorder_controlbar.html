@@ -1,7 +1,11 @@
-<div class="{{css}}-dashboard">
+<div class="{{csstheme}}-dashboard">
 
 	<!-- Sidebar Settings -->
 	<div class="{{css}}-settings-left-sidebar">
+
+		<div class="{{css}}-indicator-container" ba-show="{{stopvisible && recordingindication}}">
+			<div data-selector="recording-indicator" class="{{css}}-recording-indication"></div>
+		</div>
 
 		<div class="{{css}}-controlbar-left-section" ba-show="{{settingsvisible}}">
 
@@ -27,6 +31,19 @@
 								</label>
 							</li>
 						</ul>
+						<hr ba-show="{{(!noaudio && !novideo) || !allowscreen}}"/>
+						<ul data-selector="microphone-settings" ba-repeat="{{microphone :: microphones}}" ba-show="{{!noaudio && !allowscreen}}">
+							<li tabindex="0"
+								ba-hotkey:space^enter="{{selectMicrophone(microphone.id)}}" onmouseout="this.blur()"
+								onclick="{{selectMicrophone(microphone.id)}}"
+							>
+								<input type='radio' name='microphone' value="{{selectedmicrophone == microphone.id}}" />
+								<span></span>
+								<label>
+									{{microphone.label}}
+								</label>
+							</li>
+						</ul>
 					</div>
 
 					<div tabindex="0"
@@ -42,23 +59,7 @@
 
 				</div>
 
-
                 <div class="{{css}}-circle-button" ba-show="{{!noaudio && !allowscreen}}">
-
-                    <div class="{{css}}-bubble-info" ba-show="{{settingsvisible && settingsopen && audio }}">
-                        <ul data-selector="microphone-settings" ba-repeat="{{microphone :: microphones}}" ba-show="{{audio}}">
-                            <li tabindex="0"
-								ba-hotkey:space^enter="{{selectMicrophone(microphone.id)}}" onmouseout="this.blur()"
-								onclick="{{selectMicrophone(microphone.id)}}"
-							>
-                                <input type='radio' name='microphone' value="{{selectedmicrophone == microphone.id}}" />
-                                <span></span>
-                                <label>
-                                    {{microphone.label}}
-                                </label>
-                            </li>
-                        </ul>
-                    </div>
 
                     <div data-selector="record-button-icon-mic" class="{{css}}-button-inner"
                          onmouseenter="{{hover(string(microphonehealthy ? 'microphonehealthy' : 'microphoneunhealthy'))}}"

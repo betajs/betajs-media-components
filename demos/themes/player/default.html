@@ -15,10 +15,6 @@
     <script src="/static/dist/betajs-media-components-noscoped.js"></script>
     <link href="/static/dist/betajs-media-components.css" rel="stylesheet" />
 
-    <!-- Cube Theme Assets -->
-    <script src="/static/dist/themes/cube/script.js"></script>
-    <link href="/static/dist/themes/cube/style.css" rel="stylesheet" />
-
 
 </head>
 <body style="background: #EEE">
@@ -27,11 +23,10 @@
 
     <div class="row">
         <div id="video-player-block" class="col-xs-12">
-            <h4>Cube</h4>
+            <h4>Default</h4>
             <ba-videoplayer
                 ba-sources="{{[{src:'../assets/sample-video.mp4', poster: '../assets/sample-cover.png', hd: true}, {src:'../assets/sample-video2.mp4', poster:'../assets/sample-cover2.png', hd: false}]}}"
                 ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
-                ba-theme="cube"
                 ba-sharevideo="facebook,twitter,gplus"
                 ba-sharevideourl="http://betajs.com"
                 ba-themecolor="{{themeColor}}"

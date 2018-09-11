@@ -1,3 +1,5 @@
+
+
 .#{$cssrecorder}-controlbar-right-section {
   float: right;
 }
@@ -5,4 +7,30 @@
 .#{$cssrecorder}-controlbar-left-section {
   float: left;
 }
+
+// Apply to all recorder themes except default
+.#{$cssrecorder}-overlay {
+
+  .#{$csscommon}-icon-state-good {
+    color: $controlbar_icon_good;
+  }
+
+  .#{$csscommon}-icon-state-bad {
+    color: $controlbar_icon_bad;
+  }
+
+  .#{$cssvideorecorder}-settings {
+    li {
+      padding: 5px 8px;
+      &:last-child {
+        padding-bottom: 0;
+      }
+    }
+  }
+
+}
+
+/* Apply to all VIDEO RECORDER themes */
+.#{$cssvideorecorder}-timer-container { cursor: default; }
+
 

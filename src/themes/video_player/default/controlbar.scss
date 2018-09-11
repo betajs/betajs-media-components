@@ -1,4 +1,4 @@
-.#{$css}-dashboard {
+.#{$cssplayer}-dashboard {
     @include absolute-align-full-bottom;
     @include transition1(opacity, $dashboard_transition, ease-in-out);
 }

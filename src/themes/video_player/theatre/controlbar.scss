@@ -274,19 +274,19 @@
     font-size: 10px;
 }
 
+.#{$cssie8} .#{$csstheme}-volumebar {
+    display: none;
+}
+
 .#{$cssplayer}-size-small .#{$csstheme}-time-container {
     display: none;
 }
 
-.#{$cssie8} .#{$csstheme}-volumebar, .#{$cssplayer}-size-medium .#{$csstheme}-volumebar, .#{$cssplayer}-size-small .#{$csstheme}-volumebar {
+.#{$cssplayer}-size-small .#{$csstheme}-volume-button-container {
     display: none;
 }
 
-.#{$cssplayer}-size-medium .#{$csstheme}-volume-button-container, .#{$cssplayer}-size-small .#{$csstheme}-volume-button-container {
-    display: none;
-}
-
-.#{$cssplayer}-size-medium .#{$csstheme}-right-time-container {
+.#{$cssplayer}-size-small .#{$csstheme}-right-time-container {
     display: none;
 }
 

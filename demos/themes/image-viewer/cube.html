@@ -26,44 +26,17 @@
     <div class="container">
 
         <div class="row">
-            <div id="video-player-block" class="col-xs-12">
+            <div id="image-viewer-block" class="col-xs-12">
                 <h4>Cube</h4>
-                <ba-videoplayer ba-sources="{{[{src:'../assets/sample-video.mp4', poster: '../assets/sample-cover.png', hd: true}, {src:'../assets/sample-video2.mp4', poster:'../assets/sample-cover2.png', hd: false}]}}"
-                    ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
+                <ba-imageviewer
+                    ba-source="../../assets/sample-cover.png"
                     ba-theme="cube"
-                    ba-sharevideo="facebook,twitter,gplus"
-                    ba-sharevideourl="http://betajs.com"
-                    ba-themecolor="{{themeColor}}"
-                    ba-title="Some test title from html"
-                    ba-noflash
-                    ba-hideoninactivity="true"
-                    ba-disableseeking="false"
-                    ba-disablepause="false"
-                    ba-skipinitial="false"
-                    ba-sharevideo="facebook,twitter,gplus"
-                    ba-sharevideourl="http://betajs.com"
-                    ba-width='80%'
-                    ba-tracktagsstyled="true"
-                    ba-tracktags="{{
-                        [
-                            {
-                                lang: 'en',
-                                kind: 'subtitles',
-                                label: 'English',
-                                //enabled: true,
-                                src: '../../assets/bunny-en.vtt'
-                            },
-                            {
-                                lang: 'de',
-                                kind: 'subtitles',
-                                label: 'Deutsch',
-                                //enabled: true,
-                                src: '../../assets/bunny-de.vtt'
-                            }
-
-                        ]
-                    }}"
-                ></ba-videoplayer>
+                    ba-title="Foobar"
+                    ba-themecolor="{{themecolor}}"
+                    ba-hideoninactivity="{{true}}"
+                    ba-closebuttonvisible="{{true}}"
+                    ba-width='70%'
+                ></ba-imageviewer>
             </div>
             <div id="theme-colors" class="col-xs-12">
                 <ba-themecolors></ba-themecolors>
@@ -82,7 +55,7 @@
   });
 
   var recorderTheme = new BetaJS.Dynamics.Dynamic({
-    element: $('#video-player-block'),
+    element: $('#image-viewer-block'),
     attrs: { themeColor: "" }
   });
 

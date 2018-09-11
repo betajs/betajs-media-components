@@ -1,14 +1,16 @@
-.#{$css}-topmessage-message {
-    color: $text_color;
-    display: inline-block;
-    font-family: $font_family;
-    font-size: $controlbar_primarybutton_font_size;
-    font-weight: 300;
-    padding: $topmessage_padding;
-    position: relative;
-    margin: 15px 0 3px;
-}
+.#{$csstheme} {
+    .#{$css}-topmessage-message {
+        color: $text_color;
+        display: inline-block;
+        font-family: $font_family;
+        font-size: $controlbar_primarybutton_font_size;
+        font-weight: 300;
+        padding: $topmessage_padding;
+        position: relative;
+        margin: 15px 0 3px;
+    }
 
-.#{$css}-topmessage-background{
-    background: none;
+    .#{$css}-topmessage-background {
+        background: none;
+    }
 }

@@ -1,21 +1,21 @@
 /* Full screen options */
 
-.#{$css}-fullscreen-view {
+.#{$css}-fullscreen-view.#{$csstheme} {
 
-  .#{$css}-dashboard, .#{$css}-image-title-container {
-    position: fixed;
-    right: (100% - $dashboard_width) / 2;
-    z-index: 1005;
-  }
+    .#{$css}-dashboard, .#{$css}-image-title-container {
+      position: fixed;
+      right: (100% - $dashboard_width) / 2;
+      z-index: 1005;
+    }
 
-  .#{$css}-dashboard {
-    bottom: 0;
-    width: $dashboard_width;
-  }
+    .#{$css}-dashboard {
+      bottom: 0;
+      width: $dashboard_width;
+    }
 
-  .#{$css}-image-title-container {
-    top: 0;
-  }
+    .#{$css}-image-title-container {
+      top: 0;
+    }
 
 }
 

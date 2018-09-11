@@ -1,140 +1,129 @@
+.#{$csstheme} {
 
-.#{$css}-overlay div[tabindex] {
-    @include transition1(all, 0.30s, ease-in-out);
-}
-
-.#{$css}-overlay div[tabindex]:focus {
-    @include box-outline-shadow(#1b8fcc, 2px);
-    @include remove-outline;
-}
-
-.#{$css}-overlay div[tabindex]:hover, .#{$css}-overlay div[tabindex]:focus:hover {
-    box-shadow: none;
-}
-
-.#{$css}-image-title-container {
-    @include absolute-align-full-top();
-    @include background-rgba(0, 0, 0, 0.2, #cecece);
-    @include transition1(opacity, $dashboard_transition, ease-in-out);
-    box-sizing: border-box;
-    font-size: 0.65rem;
-    font-weight: 300;
-    height: $controlbar_header_height;
-    letter-spacing: .05rem;
-    line-height: $controlbar_header_height;
-    padding: 0 3px 0 12px;
-    text-align: center;
-}
-
-.#{$cssie8} .#{$css}-image-title-container {
-    .#{$css}-button-inner {
-        margin-top: 0;
-    };
-}
-
-.#{$css}-controlbar-footer {
-    @include absolute-align-full-bottom;
-    @include background-rgba(0, 0, 0, 0.4, #cecece);
-    @include transition1(opacity, $dashboard_transition, ease-in-out);
-    height: $controlbar_footer_height;
-    padding: 0 5px;
-}
-
-.#{$cssie8} .#{$css}-image-title-container, .#{$cssie8} .#{$css}-controlbar-footer {
-    opacity: .8;
-}
-
-.#{$css}-dashboard-hidden {
-    opacity: 0;
-}
-
-.#{$cssnoie8} .#{$css}-image-title-container .#{css}-rightbutton-container {
-    width: 21px;
-}
-
-.#{$css}-image-title-container-background {
-    position: relative;
-    height: 40px;
-}
-
-.#{$css}-title {
-    float: left;
-    color: $text_color;
-    & > p {
-        margin: 0;
-        font-size: $controlbar_image_title_font_size;
-        font-family: $font_family;
+    .#{$css}-image-title-container {
+        @include absolute-align-full-top();
+        @include background-rgba(0, 0, 0, 0.2, #cecece);
+        @include transition1(opacity, $dashboard_transition, ease-in-out);
+        box-sizing: border-box;
+        font-size: 0.65rem;
+        font-weight: 300;
+        height: $controlbar_header_height;
+        letter-spacing: .05rem;
+        line-height: $controlbar_header_height;
+        padding: 0 3px 0 12px;
+        text-align: center;
     }
-}
 
-.#{$cssnoie8} .#{$css}-image-title-container .#{$css}-button-inner {
-    @include transform-translate-y(0);
-}
+    &.#{$cssie8} .#{$css}-image-title-container {
+        .#{$css}-button-inner {
+            margin-top: 0;
+        };
+    }
 
-.#{$cssnoie8} .#{$css}-topmessage-container .#{$css}-rightbutton-container {
-    width: 25px;
-}
+    .#{$css}-controlbar-footer {
+        @include absolute-align-full-bottom;
+        @include background-rgba(0, 0, 0, 0.4, #cecece);
+        @include transition1(opacity, $dashboard_transition, ease-in-out);
+        height: $controlbar_footer_height;
+        padding: 0 5px;
+    }
 
-.#{$css}-leftbutton-container {
-    @include float-width-height(left, $button_width, 100%);
-    @include clickable;
-	box-sizing: content-box;
-    border: none;
-    margin-right: 10px;
-}
+    &.#{$cssie8} .#{$css}-image-title-container, &.#{$cssie8} .#{$css}-controlbar-footer {
+        opacity: .8;
+    }
 
-.#{$cssnoie8} .#{$css}-rightbutton-container {
-    @include float-width-height(right, auto, 100%);
-    @include clickable;
-	box-sizing: content-box;
-    border: none;
-}
+    .#{$css}-dashboard-hidden {
+        opacity: 0;
+    }
 
-.#{$cssie8} .#{$css}-rightbutton-container {
-    @include float-width-height(right, auto, 50%);
-    @include clickable;
-	box-sizing: content-box;
-    border: none;
-}
+    &.#{$cssnoie8} .#{$css}-image-title-container .#{css}-rightbutton-container {
+        width: 21px;
+    }
 
-.#{$css}-rightbutton-container {
-    margin: 0 5px;
-}
+    .#{$css}-image-title-container-background {
+        position: relative;
+        height: 40px;
+    }
 
-.#{$css}-right-time-container{
-    padding-right: 10px;
-}
+    .#{$css}-title {
+        float: left;
+        color: $text_color;
+        & > p {
+            margin: 0;
+            font-size: $controlbar_image_title_font_size;
+            font-family: $font_family;
+        }
+    }
 
-.#{$cssnoie8} .#{$css}-button-inner {
-    color: $button_color;
-    font-size: $button_fontsize;
-}
+    &.#{$cssnoie8} .#{$css}-image-title-container .#{$css}-button-inner {
+        @include transform-translate-y(0);
+    }
 
-.#{$css}-button-inner {
-  @include clickable;
-}
+    &.#{$cssnoie8} .#{$css}-topmessage-container .#{$css}-rightbutton-container {
+        width: 25px;
+    }
 
-.#{$cssnoie8} .#{$css}-controlbar-footer .#{$css}-button-inner {
-    @include relative-center-center;
-}
+    .#{$css}-leftbutton-container {
+        @include float-width-height(left, $button_width, 100%);
+        @include clickable;
+        box-sizing: content-box;
+        border: none;
+        margin-right: 10px;
+    }
 
-.#{$cssie8} .#{$css}-button-inner {
-    color: $button_color;
-    font-size: $button_fontsize;
-    height: auto;
-    margin-top: $ie8_margintop + 8;
-    margin-left: 3px;
-    text-align: center;
-}
+    &.#{$cssnoie8} .#{$css}-rightbutton-container {
+        @include float-width-height(right, auto, 100%);
+        @include clickable;
+        box-sizing: content-box;
+        border: none;
+    }
 
-.#{$css}-button-text {
-	font-family: Arial;
-    font-weight: normal;
-    font-size: 10px;
-}
+    &.#{$cssie8} .#{$css}-rightbutton-container {
+        @include float-width-height(right, auto, 50%);
+        @include clickable;
+        box-sizing: content-box;
+        border: none;
+    }
+
+    .#{$css}-rightbutton-container {
+        margin: 0 5px;
+    }
+
+    .#{$css}-right-time-container{
+        padding-right: 10px;
+    }
+
+    &.#{$cssnoie8} .#{$css}-button-inner {
+        color: $button_color;
+        font-size: $button_fontsize;
+    }
+
+    .#{$css}-button-inner {
+        @include clickable;
+    }
+
+    &.#{$cssnoie8} .#{$css}-controlbar-footer .#{$css}-button-inner {
+        @include relative-center-center;
+    }
+
+    &.#{$cssie8} .#{$css}-button-inner {
+        color: $button_color;
+        font-size: $button_fontsize;
+        height: auto;
+        margin-top: $ie8_margintop + 8;
+        margin-left: 3px;
+        text-align: center;
+    }
+
+    .#{$css}-button-text {
+        font-family: Arial, sans-serif;
+        font-weight: normal;
+        font-size: 10px;
+    }
 
 
-.#{$cssnoie8} .#{$css}-full-screen-btn-inner {
-    text-align: left;
-    padding-left: 4px;
+    &.#{$cssnoie8} .#{$css}-full-screen-btn-inner {
+        text-align: left;
+        padding-left: 4px;
+    }
 }

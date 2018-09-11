@@ -1,6 +1,10 @@
 $csscommon: "ba-commoncss";
 $cssrecorder: "ba-recorder";
 $cssplayer: "ba-player";
+$cssvideoplayer: "ba-videoplayer";
+$cssvideorecorder: "ba-videorecorder";
+$cssaudioplayer: "ba-audioplayer";
+$cssaudiorecorder: "ba-audiorecorder";
 $cssimageviewer: "ba-imageviewer";
 $cssimagecapture: "ba-imagecapture";
 $cssie8: "ba-videoplayer-ie8";
@@ -22,6 +26,38 @@ $share_icon_font_size: 14px;
 $share_icon_container_height: 45px;
 $share_icon_container_width: 45px;
 
+// Player play button
+$cover_playbutton_color: #eeeeee;
+$cover_playbutton_hover_color: #000000;
+$cover_playbutton_shadow: #000000;
+$cover_playbutton_border_color: #eeeeee;
+$cover_playbutton_border_hover_color: #000000;
+$cover_playbutton_hover_shadow: #eeeeee;
+
+$playbutton_size: 5px;
+$playbutton_frame_thickness: 0.6em;
+$playbutton_default_opacity: 0.6;
+$playbutton_hover_opacity: 0.9;
+$playbutton_transition_time: .25s;
+$playbutton_background_opacity: 0.2;
+
+$rerecord_height: 48px;
+$rerecord_opacity: 0.5;
+$rerecord_bgcolor: #666666;
+$rerecord_padding: 24px;
+$rerecord_padding: 16px;
+$rerecord_primarybutton_radius: 0;
+$rerecord_primarybutton_color: #000000;
+$rerecord_primarybutton_text_color: #eeeeee;
+$rerecord_primarybutton_padding: 0;
+$rerecord_primarybutton_vertical_padding: 16px;
+$rerecord_primarybutton_font_weight: 300;
+$rerecord_primarybutton_font_size: 12px;
+$rerecord_letter_spacing: .1em;
+$rerecord_text_color: #eeeeee;
+$rerecord_font_family: sans-serif;
+
+
 // Recorder message
 $message_bgcolor: #eeeeee;
 $message_opacity: 0.75;
@@ -36,6 +72,10 @@ $loader_size: 5px;
 $recorder_loader_frame_thickness: 1.1em;
 $player_loader_frame_thickness: 0.6em;
 $loader_label_fontsize: 40px;
+
+// Recorder mic and video status colors
+$controlbar_icon_good: #9F9;
+$controlbar_icon_bad: #F99;
 
 $player_controlbar_height: 30px;
 $player_progressbar_height: 3px;

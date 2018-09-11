@@ -5,150 +5,137 @@
         color: $button_color_secondary;
     }
 
-}
-
-.#{$css}-overlay div[tabindex] {
-    @include transition1(all, 0.30s, ease-in-out);
-}
-
-.#{$css}-overlay div[tabindex]:focus {
-    @include box-outline-shadow(#1b8fcc, 2px);
-    @include remove-outline;
-}
-
-.#{$css}-overlay div[tabindex]:hover, .#{$css}-overlay div[tabindex]:focus:hover {
-    box-shadow: none;
-}
-
-.#{$css}-dashboard {
-    @include transition1(opacity, $dashboard_transition, ease-in-out);
-    background-color: $controlbar_background;
-    box-sizing: border-box;
-    bottom: $controlbar_distance_from_side;
-    border: 1px solid $dashboard_border_color;
-    height: $controlbar_height;
-    left: 12.5%;
-    opacity: 0.75;
-    //overflow: hidden;
-    position: absolute;
-    width: $dashboard_width;
-}
-
-.#{$css}-dashboard-hidden {
-    opacity: 0;
-}
-
-.#{$css}-left-block {
-    float: left;
-    padding-left: 5px;
-    & > div {
-        float: left;
+    .#{$css}-dashboard {
+        @include transition1(opacity, $dashboard_transition, ease-in-out);
+        background-color: $controlbar_background;
+        box-sizing: border-box;
+        bottom: $controlbar_distance_from_side;
+        border: 1px solid $dashboard_border_color;
         height: $controlbar_height;
-        line-height: $controlbar_line_height - 2;
-    }
-
-    & > div:last-child{
-        float: right;
-    }
-}
-
-.#{$cssie8} .#{$css}-left-block {
-    & > div {
-        line-height: $controlbar_line_height - 3;
-    }
-}
-
-.#{$css}-center-block {
-    float: left;
-}
-
-.#{$css}-right-block {
-    float: right;
-    padding-right: 6px;
-    & > div {
-        float: right;
-        height: $controlbar_height - 3;
-        line-height: 25px;
-        text-align: center;
-    }
-
-    & > div:first-child {
-        line-height: $controlbar_line_height - 3;
-    }
-
-    & > div:last-child {
-        float: left;
-        line-height: $controlbar_line_height;
-    }
-
-    & .#{$css}-time-value {
-        text-align: left;
-    }
-}
-
-
-.#{$css}-image-title-container {
-    @include absolute-align-full-top();
-    @include transition1(opacity, $dashboard_transition, ease-in-out);
-    width: 100%;
-    & > p {
-        @include background-rgba( 255, 255, 255, 0.4, $controlbar_background);
-        @include relative-horizontally-center();
-        height: $controlbar_height;
-        line-height: $controlbar_height;
-        top: $controlbar_distance_from_side;
-        text-align: center;
-        color: $message_color;
+        left: 12.5%;
+        opacity: 0.75;
+        //overflow: hidden;
+        position: absolute;
         width: $dashboard_width;
     }
-}
 
-.#{$css}-leftbutton-container {
-    @include float-width-height(left, $button_width, 100%);
-    @include clickable;
-    box-sizing: content-box;
-    border: none;
-    text-align: center;
-    line-height: 2;
-}
+    .#{$css}-dashboard-hidden {
+        opacity: 0;
+    }
 
-.#{$cssnoie8} .#{$css}-rightbutton-container {
-    @include float-width-height(right, $button_width, 100%);
-    @include clickable;
-    box-sizing: content-box;
-    border: none;
-}
+    .#{$css}-left-block {
+        float: left;
+        padding-left: 5px;
+        & > div {
+            float: left;
+            height: $controlbar_height;
+            line-height: $controlbar_line_height - 2;
+        }
 
-.#{$cssie8} .#{$css}-rightbutton-container {
-    @include float-width-height(right, $button_width, 50%);
-    @include clickable;
-    box-sizing: content-box;
-    border: none;
-}
+        & > div:last-child{
+            float: right;
+        }
+    }
 
-.#{$cssnoie8} .#{$css}-button-inner {
-    color: $button_color;
-    font-size: $button_fontsize;
-}
+    &.#{$cssie8} .#{$css}-left-block {
+        & > div {
+            line-height: $controlbar_line_height - 3;
+        }
+    }
 
-.#{$cssie8} .#{$css}-button-inner {
-    color: $button_color;
-    font-size: $button_fontsize;
-    margin-left: 3px;
-}
+    .#{$css}-center-block {
+        float: left;
+    }
 
-.#{$css}-button-inner {
-    @include clickable;
-    position: relative;
-}
+    .#{$css}-right-block {
+        float: right;
+        padding-right: 6px;
+        & > div {
+            float: right;
+            height: $controlbar_height - 3;
+            line-height: 25px;
+            text-align: center;
+        }
 
-.#{$css}-button-text {
-    font-family: $font_family;
-    font-weight: normal;
-    font-size: 10px;
-}
+        & > div:first-child {
+            line-height: $controlbar_line_height - 3;
+        }
 
-.#{$cssnoie8} .#{$css}-full-screen-btn-inner {
-    text-align: left;
+        & > div:last-child {
+            float: left;
+            line-height: $controlbar_line_height;
+        }
+
+        & .#{$css}-time-value {
+            text-align: left;
+        }
+    }
+
+
+    .#{$css}-image-title-container {
+        @include absolute-align-full-top();
+        @include transition1(opacity, $dashboard_transition, ease-in-out);
+        width: 100%;
+        & > p {
+            @include background-rgba( 255, 255, 255, 0.4, $controlbar_background);
+            @include relative-horizontally-center();
+            height: $controlbar_height;
+            line-height: $controlbar_height;
+            top: $controlbar_distance_from_side;
+            text-align: center;
+            color: $message_color;
+            width: $dashboard_width;
+        }
+    }
+
+    .#{$css}-leftbutton-container {
+        @include float-width-height(left, $button_width, 100%);
+        @include clickable;
+        box-sizing: content-box;
+        border: none;
+        text-align: center;
+        line-height: 2;
+    }
+
+    &.#{$cssnoie8} .#{$css}-rightbutton-container {
+        @include float-width-height(right, $button_width, 100%);
+        @include clickable;
+        box-sizing: content-box;
+        border: none;
+    }
+
+    &.#{$cssie8} .#{$css}-rightbutton-container {
+        @include float-width-height(right, $button_width, 50%);
+        @include clickable;
+        box-sizing: content-box;
+        border: none;
+    }
+
+    &.#{$cssnoie8} .#{$css}-button-inner {
+        color: $button_color;
+        font-size: $button_fontsize;
+    }
+
+    &.#{$cssie8} .#{$css}-button-inner {
+        color: $button_color;
+        font-size: $button_fontsize;
+        margin-left: 3px;
+    }
+
+    .#{$css}-button-inner {
+        @include clickable;
+        position: relative;
+    }
+
+    .#{$css}-button-text {
+        font-family: $font_family;
+        font-weight: normal;
+        font-size: 10px;
+    }
+
+    &.#{$cssnoie8} .#{$css}-full-screen-btn-inner {
+        text-align: left;
+    }
+
 }
 

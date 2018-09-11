@@ -1,4 +1,4 @@
-<div class="{{css}}-dashboard">
+<div class="{{csstheme}}-dashboard">
 
 	<div class="{{css}}-settings-front">
 
@@ -20,7 +20,8 @@
 						</label>
 					</li>
 				</ul>
-				<ul data-selector="microphone-settings" ba-repeat="{{microphone :: microphones}}" ba-show="{{audio}}">
+				<hr ba-show="{{(!noaudio && !novideo) || !allowscreen}}"/>
+				<ul data-selector="microphone-settings" ba-repeat="{{microphone :: microphones}}" ba-show="{{!noaudio && !allowscreen}}">
 					<li tabindex="0"
 						ba-hotkey:space^enter="{{selectMicrophone(microphone.id)}}" onmouseout="this.blur()"
 						onclick="{{selectMicrophone(microphone.id)}}"
@@ -67,38 +68,46 @@
 
 		</div>
 
-		<div class="{{css}}-controlbar-left-section" ba-show="{{settingsvisible}}">
+		<div class="{{css}}-controlbar-left-section">
 
-            <div class="{{css}}-button" ba-show="{{settingsvisible}}">
-
-				<div tabindex="0" ba-hotkey:space^enter="{{settingsopen=!settingsopen}}"
-					 data-selector="record-button-icon-cog" class="{{css}}-button-inner {{css}}-button-{{settingsopen ? 'selected' : 'unselected' }}"
-					 onclick="{{settingsopen=!settingsopen}}"
-					 onmouseenter="{{hover(string('settings'))}}"
-					 onmouseleave="{{unhover()}}" >
-					<i class="{{csscommon}}-icon-cog"></i>
-				</div>
-
+			<div class="{{css}}-indicator-container" ba-show="{{stopvisible && recordingindication}}">
+				<div data-selector="recording-indicator" class="{{css}}-recording-indication"></div>
 			</div>
 
-			<div class="{{css}}-button" ba-show="{{!noaudio && !allowscreen}}">
-				<div data-selector="record-button-icon-mic" class="{{css}}-button-inner"
-					onmouseenter="{{hover(string(microphonehealthy ? 'microphonehealthy' : 'microphoneunhealthy'))}}"
-					onmouseleave="{{unhover()}}">
-					<i class="{{csscommon}}-icon-mic {{csscommon}}-icon-state-{{microphonehealthy ? 'good' : 'bad' }}"></i>
-				</div>
-			</div>
+			<div ba-show="{{settingsvisible}}">
 
-			<div class="{{css}}-button" ba-show="{{!novideo && !allowscreen}}">
-				<div data-selector="record-button-icon-videocam" class="{{css}}-button-inner"
-					onmouseenter="{{hover(string(camerahealthy ? 'camerahealthy' : 'cameraunhealthy'))}}"
-					onmouseleave="{{unhover()}}">
-                    <i class="{{csscommon}}-icon-videocam {{csscommon}}-icon-state-{{ camerahealthy ? 'good' : 'bad' }}"></i>
+				<div class="{{css}}-button">
+
+					<div tabindex="0" ba-hotkey:space^enter="{{settingsopen=!settingsopen}}"
+						 data-selector="record-button-icon-cog" class="{{css}}-button-inner {{css}}-button-{{settingsopen ? 'selected' : 'unselected' }}"
+						 onmouseout="this.blur()"
+						 onclick="{{settingsopen=!settingsopen}}"
+						 onmouseenter="{{hover(string('settings'))}}"
+						 onmouseleave="{{unhover()}}" >
+						<i class="{{csscommon}}-icon-cog"></i>
+					</div>
+
+				</div>
+
+				<div class="{{css}}-button" ba-show="{{!noaudio && !allowscreen}}">
+					<div data-selector="record-button-icon-mic" class="{{css}}-button-inner"
+						 onmouseenter="{{hover(string(microphonehealthy ? 'microphonehealthy' : 'microphoneunhealthy'))}}"
+						 onmouseleave="{{unhover()}}">
+						<i class="{{csscommon}}-icon-mic {{csscommon}}-icon-state-{{microphonehealthy ? 'good' : 'bad' }}"></i>
+					</div>
+				</div>
+
+				<div class="{{css}}-button" ba-show="{{!novideo && !allowscreen}}">
+					<div data-selector="record-button-icon-videocam" class="{{css}}-button-inner"
+						 onmouseenter="{{hover(string(camerahealthy ? 'camerahealthy' : 'cameraunhealthy'))}}"
+						 onmouseleave="{{unhover()}}">
+						<i class="{{csscommon}}-icon-videocam {{csscommon}}-icon-state-{{ camerahealthy ? 'good' : 'bad' }}"></i>
+					</div>
 				</div>
 			</div>
 		</div>
 
-		<div class="{{css}}-controlbar-right-section">
+		<div class="{{cssrecorder}}-controlbar-right-section">
 
 			<div class="{{css}}-rightbutton-container" ba-show="{{recordvisible}}">
 				<div tabindex="0" data-selector="record-primary-button"

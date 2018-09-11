@@ -1,176 +1,78 @@
-.#{$csstheme}.#{$css}-container {
 
-  .#{$css}-video {
-    background-color: $recorder_bgcolor;
-  }
+.#{$csstheme} {
 
-}
-
-
-.#{$csstheme}-dashboard {
-  @include absolute-align-all();
-  height: 100%;
-
-  .#{$css}-settings-left-sidebar {
-    display: table;
-    height: 100%;
-    text-align: center;
-    @include absolute_left_sidebar($sidebar_width);
-    .#{$css}-controlbar-left-section {
-      display: table-cell;
-      vertical-align: middle;
-      .#{$css}-circle-button-container{
-        margin: 2px auto;
-      }
+    .#{$css}-backbar {
+        @include absolute-align-full-bottom;
+        height: $controlbar_height;
+        background-color: $controlbar_bgcolor;
+        opacity: $controlbar_opacity;
     }
-  }
 
-  .#{$css}-controlbar-middle-section {
-    .#{$css}-timer-container {
-      display: table;
-      cursor: default;
-      height: 100%;
-      position: absolute;
-      width: 100%;
-      .#{$css}-label-container {
-        display: table-cell;
-        float: none;
-        position: relative;
+    .#{$css}-controlbar {
+        @include relative-align-full-bottom;
+        height: $controlbar_height;
+        overflow: hidden;
+        padding-left: $controlbar_padding;
+        padding-right: $controlbar_padding;
+    }
+
+    .#{$css}-label-label {
+        @include absolute-align-full-top;
+        font-family: $font_family;
+        font-size: $topmessage_fontsize;
+        font-weight: $topmessage_fontweight;
+        color: $text_color;
+        padding: $controlbar_label_padding;
         text-align: center;
-        vertical-align: middle;
-        width: auto;
-        .#{$css}-button-primary{
-          margin: 0;
-          padding: 7px 16px;
-        }
-      }
     }
-  }
 
-  .#{$css}-controlbar {
-    @include absolute-align-full-bottom();
-    height: $controlbar_footer_height;
-    padding: 0 10px;
-  }
-
-  .#{$css}-long-rounded-button {
-    @include border-radius($controlbar_primarybutton_radius);
-    display: inline-block;
-    & > p {
-      font-family: $font_family;
-      font-size: $controlbar_primarybutton_font_size;
-      padding: $controlbar_button_padding;
-      margin: 0;
-    }
-  }
-
-  .#{$css}-circle-button {
-    @include background-rgba(0, 0, 0, 0.4, #979797);
-    @include border-radius($controlbar_button_border_radius);
-    color: $text_color;
-    display: inline-block;
-    height: $controlbar_button_size;
-    line-height: $controlbar_button_size;
-    text-align: center;
-    width: $controlbar_button_size;
-  }
-
-  .#{$css}-button-circle-selected, .#{$css}-button-inner:hover, .#{$css}-button-selected {
-    color: $controlbar_button_hover_color;
-    cursor: pointer;
-  }
-
-  .#{$css}-button-inner {
-    border: none;
-    cursor: pointer;
-    font-size: inherit;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    i:before {
-      line-height: inherit;
-    }
-  }
-
-  .#{$css}-settings {
-    position: inherit;
-    label {
-      font-family: $font_family;
-      font-weight: 300;
-      font-size: $settings_font_size ;
-    }
-    li {
-      padding: 0 8px;
-    }
-    input[type=radio]:checked + span {
-      border: 3px solid $text_color;
-    }
-    span {
-      background-color: $button_color;
-    }
-    .#{$css}-circle-button {
-      margin: 6px 0;
-    }
-  }
-
-  .#{$css}-button-primary {
-    @include border-radius($controlbar_primarybutton_radius);
-    background-color: $chooser_primary_button_bgcolor;
-    display: inline-block;
-    font-family: $font_family;
-    font-weight: 300;
-    margin-top: 6px;
-    min-width: $controlbar_primarybutton_min_width;
-    padding: 10px 16px;
-    @include relative-align-all();
-    @include transform-translate(0, 0);
-    z-index: 10;
-  }
-
-  .#{$css}-settings-button {
-    background: $settings_bgcolor;
-    cursor: pointer;
-    margin: 15px 0 0 15px;
-    & > p {
-      color: $text_color_secondary;
-    }
-  }
-
-  .#{$css}-bubble-info {
-    @include settings_bubble_left_to_right_shape( 270px, 16px, 0, 0, 0, .5, #7f7f7f, 13px );
-    left: $sidebar_width + 5;
-    li {
-      text-align: left;
-    }
-  }
-
-  .#{$css}-bubble-info {
-    position: absolute;
-  }
-
-  .#{$css}-controlbar-center-section {
-    @include absolute-align-left();
-    text-align: center;
-    width: 100%;
-  }
-
-  .#{$css}-button-container {
-    display: inline-block;
-  }
-
-  .#{$css}-label-container {
-    float: left;
-    text-align: right;
-    width: 50%;
-    opacity: 0.25;
     .#{$css}-button-primary {
-      color: $text_color;
-      @include background-rgba(0, 0, 0, .4, #979797);
+        @include relative-center-center;
+        @include clickable;
+        border-radius: $controlbar_primarybutton_radius;
+        margin-left: $controlbar_primarybutton_horizontal_margin;
+        margin-right: $controlbar_primarybutton_horizontal_margin;
+        padding: $controlbar_primarybutton_padding;
+        padding-left: $controlbar_primarybutton_vertical_padding;
+        padding-right: $controlbar_primarybutton_vertical_padding;
+        background-color: $button_color;
+        color: $text_color;
+        font-family: $font_family;
+        font-weight: $controlbar_primarybutton_font_weight;
+        font-size: $controlbar_primarybutton_font_size;
+        border: $controlbar_primarybutton_border;
     }
-  }
 
-  .#{$css}-stop-button-container {
-    text-align: center;
-  }
+    .#{$css}-button-inner {
+        @include relative-center-center;
+        color: $text_color;
+        cursor: pointer;
+        font-size: $controlbar_button_fontsize;
+        margin-left: $controlbar_button_margin;
+        margin-right: $controlbar_button_margin;
+        padding: $controlbar_button_vertical_padding;
+        border: $controlbar_button_border;
+        border-radius: $controlbar_button_border_radius;
+    }
+
+    .#{$csscommon}-icon-inner {
+        @include relative-center-center;
+        color: $text_color;
+        font-size: $controlbar_button_fontsize;
+        margin-left: $controlbar_button_margin;
+        margin-right: $controlbar_button_margin;
+        padding: $controlbar_button_vertical_padding;
+        padding-left: $controlbar_button_padding;
+        padding-right: $controlbar_button_padding;
+        border: $controlbar_button_border;
+        border-radius: $controlbar_button_border_radius;
+    }
+
+    .#{$css}-button-selected {
+        border: 1px solid $button_color;
+        color: $button_color;
+        background-color: $text_color;
+
+    }
 }
 

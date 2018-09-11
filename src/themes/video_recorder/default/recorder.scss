@@ -1,4 +1,4 @@
-.#{$cssrecorder}-container {
+.#{$css}-container {
     display: inline-block;
     position: relative;
     background-color: $recorder_bgcolor;
@@ -23,7 +23,7 @@
     background-color: black;
 }
 
-.#{$cssrecorder}-container video::-webkit-media-controls-start-playback-button {
+.#{$css}-container video::-webkit-media-controls-start-playback-button {
   display: none;
   -webkit-appearance: none;
   -moz-appearance: none;

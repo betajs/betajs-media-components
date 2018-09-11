@@ -96,7 +96,7 @@ Scoped.define("module:AudioRecorder.Dynamics.RecorderStates.Initial", [
             this.dyn._initializeUploader();
             if (!this.dyn.get("recordermode")) {
                 if (!this.dyn.get("audio")) {
-                    console.warn("recordermode:false requires an existing video to be present and provided.");
+                    console.warn("recordermode:false requires an existing audio to be present and provided.");
                     this.dyn.set("recordermode", true);
                 } else
                     this.next("Player");

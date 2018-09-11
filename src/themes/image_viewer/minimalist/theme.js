@@ -6,7 +6,7 @@ Scoped.extend("module:Assets.imageviewerthemes", [
     Parser.registerFunctions({ /*<%= template_function_cache(dirname + '/minimalist-image_viewer_controlbar.html') %>*/ });
     return {
         "minimalist": {
-            css: "ba-imageviewer-minimalist-theme",
+            css: "ba-imageviewer",
             csstheme: "ba-imageviewer-minimalist-theme",
             tmplcontrolbar: "<%= template(dirname + '/minimalist-image_viewer_controlbar.html') %>",
             cssloader: ie8 ? "ba-imageviewer" : "",

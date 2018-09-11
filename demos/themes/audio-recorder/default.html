@@ -29,9 +29,7 @@
             <div class="row">
 				<div id="audio-recorder-block" class="col-xs-12">
 					<!-- Default -->
-					<ba-audiorecorder
-						ba-theme="{{themeName}}"
-					></ba-audiorecorder>
+					<ba-audiorecorder ba-width=400 ba-height=300 ></ba-audiorecorder>
                 </div>
             </div>
 			<div id="theme-colors" class="col-xs-12 col-sm-6">
@@ -89,19 +87,17 @@
 	        var recorder = BetaJS.Dynamics.Dynamic.findByElement($("ba-audiorecorder"));
 	        recorder._prepareRecording = function () {
 	    		recorder.set("uploadoptions", {
-	    			image: {url:"/files/" + filename + ".jpg"},
-	    			video: {url:"/files/" + filename + ".webm"},
-	    			audio: {url:"/files/" + filename + ".wav"}
+	    			audio: {url:"/files/" + filename + ".mp3"}
 	    		});
-		        recorder.set("playbacksource", "/files/" + filename + ".mp4");
-		        if (recorder.recorder)
-		        	recorder.set("playbackposter", "/files/" + filename + ".jpg");
+		        recorder.set("playbacksource", "/files/" + filename + ".mp3");
+		        // if (recorder.recorder)
+		        // 	recorder.set("playbackposter", "/files/" + filename + ".jpg");
 	        	return BetaJS.Promise.value(true);
 	        };
 	        recorder._verifyRecording = function () {
 	        	return BetaJS.Ajax.Support.execute({
 	        		method: "POST",
-	        		uri: "/files/" + filename + ".webm" + "/transcode/" + filename + ".mp4" + (recorder.recorder && recorder.recorder.localPlaybackSource().audio ? "?audio=" + filename + ".wav" : "")
+	        		uri: "/files/" + filename + ".mp3" + "/transcode/" + filename + ".mp3" + (recorder.recorder && recorder.recorder.localPlaybackSource().audio ? "?audio=" + filename + ".mp3" : "")
 	        	});
 			};
 

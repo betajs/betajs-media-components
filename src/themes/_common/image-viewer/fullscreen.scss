@@ -1,11 +1,15 @@
 /* Full screen options */
 
-.#{$css}-fullscreen-view.#{$csstheme} {
-  .#{$css}-dashboard {
-    bottom: 0;
-    position: fixed;
-    right: (100% - $dashboard_width) / 2;
-    width: $dashboard_width;
-    z-index: 1010;
-  }
+.#{$cssimageviewer}-fullscreen-view {
+
+    .#{$cssimageviewer}-overlay {
+        background-color: #000000;
+        bottom:0;
+        height: 100%;
+        position:fixed;
+        top:0;
+        width: 100%;
+        z-index: 1001;
+    }
+
 }

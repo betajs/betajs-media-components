@@ -1,6 +1,7 @@
-$css: "ba-videorecorder-theme-minimalist";
-$csscommon: "ba-commoncss";
+$css: "ba-videorecorder";
+$csstheme: "ba-recorder-theme-minimalist";
 $cssrecorder: "ba-recorder";
+$csscommon: "ba-commoncss";
 $cssie8: "ba-videorecorder-ie8";
 $cssnoie8: "ba-videorecorder-noie8";
 $fontello_name: "bjsmc";
@@ -22,7 +23,6 @@ $message_width: 90px;
 $message_side_interval: 8px;
 
 $topmessage_bgcolor: black;
-$topmessage_fontsize: 12px;
 $topmessage_opacity: 0.3;
 $topmessage_fontsize: 15px;
 $topmessage_height: 32px;

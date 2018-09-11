@@ -3,8 +3,7 @@
     .#{$cssplayer}-#{$color}-color {
 
       .#{$csstheme}-title p, .#{$csstheme}-button-inner,
-      .#{$csstheme}-controlbar-top-block .#{$csstheme}-button-container .#{$csstheme}-button-inner,
-      .#{$cssplayer}-cc-active .#{$csscommon}-icon-subtitle {
+      .#{$csstheme}-controlbar-top-block .#{$csstheme}-button-container .#{$csstheme}-button-inner {
         color: $value;
       }
 
@@ -18,9 +17,17 @@
         }
       }
 
+      &.#{$csstheme} {
+        .#{$cssplayer}-cc-active .#{$csscommon}-icon-subtitle {
+          color: $value;
+        }
+        .#{$cssplayer}-cc-inactive {
+          background-color: $value;
+        }
+      }
+
       .#{$csstheme}-volumebar-position, .#{$csstheme}-stream-label, .#{$csstheme}-progressbar-position,
-      .#{$csstheme}-time-container, .#{$csstheme}-progressbar-button, .#{$csstheme}-rerecord-button,
-      .#{$cssplayer}-cc-inactive {
+      .#{$csstheme}-time-container, .#{$csstheme}-progressbar-button, .#{$csstheme}-rerecord-button {
         background-color: $value;
       }
       

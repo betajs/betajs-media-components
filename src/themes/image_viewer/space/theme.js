@@ -7,7 +7,7 @@ Scoped.extend("module:Assets.imageviewerthemes", [
     Parser.registerFunctions({ /*<%= template_function_cache(dirname + '/space-image_viewer_message.html') %>*/ });
     return {
         "space": {
-            css: "ba-imageviewer-space-theme",
+            css: "ba-imageviewer",
             csstheme: "ba-imageviewer-space-theme",
             tmplcontrolbar: "<%= template(dirname + '/space-image_viewer_controlbar.html') %>",
             tmplmessage: "<%= template(dirname + '/space-image_viewer_message.html') %>",

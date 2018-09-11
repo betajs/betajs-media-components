@@ -1,18 +1,20 @@
-.#{$css}-topmessage-container {
-    text-align: center;
-}
+.#{$csstheme} {
+    .#{$css}-topmessage-container {
+        text-align: center;
+    }
 
-.#{$css}-topmessage-message {
-    color: $text_color;
-    display: inline-block;
-    font-family: $font_family;
-    font-size: $controlbar_primarybutton_font_size;
-    font-weight: 300;
-    padding: $controlbar_button_padding;
-    position: relative;
-    top: 12px;
-}
+    .#{$css}-topmessage-message {
+        color: $text_color;
+        display: inline-block;
+        font-family: $font_family;
+        font-size: $controlbar_primarybutton_font_size;
+        font-weight: 300;
+        padding: $controlbar_button_padding;
+        position: relative;
+        top: 12px;
+    }
 
-.#{$css}-topmessage-background {
-    background: none;
+    .#{$css}-topmessage-background {
+        background: none;
+    }
 }

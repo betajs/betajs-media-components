@@ -22,10 +22,10 @@
     width: 60%;
 }
 
-.#{$cssplayer}-tracks-selector-list-visible {
+.#{$csscommon}-tracks-selector-list-visible {
     @include show-slow(0.2);
 }
 
-.#{$cssplayer}-tracks-selector-list-hidden {
+.#{$csscommon}-tracks-selector-list-hidden {
     @include hide-slow(0.2);
 }

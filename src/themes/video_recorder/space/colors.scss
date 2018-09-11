@@ -1,19 +1,38 @@
 @each $color, $value in $colors {
   @if $color != default {
-    .#{$css}-#{$color}-color {
+    .#{$cssrecorder}-#{$color}-color {
+
+
+      .#{$csstheme}-dashboard {
+
+        .#{$css}-button-inner:hover, .#{$css}-button-selected {
+          color: $value;
+        }
+        .#{$css}-button-primary {
+          background-color: $value;
+        }
+        .#{$css}-button-selected {
+          border-color: $value;
+        }
+
+        .#{$css}-settings input[type=radio]:checked + span {
+          background-color: $value;
+          border-color: $value;
+        }
+
+      }
 
       .#{$css}-chooser-icon-container, .#{$css}-chooser-button-1, .#{$css}-chooser-button-2,
-      .#{$css}-button-selected, .#{$css}-button-circle-selected,
-      .#{$css}-button-inner:hover {
+      .#{$css}-button-circle-selected, .#{$css}-button-inner:hover,
+      .#{$cssrecorder}-loader-label {
         color: $value;
       }
 
-      .#{$css}-chooser-button-0, .#{$css}-button-primary,
-      .#{$css}-settings span, .#{$css}-imagegallery-rightbutton, .#{$css}-imagegallery-leftbutton {
+      .#{$css}-chooser-button-0, .#{$css}-imagegallery-rightbutton, .#{$css}-imagegallery-leftbutton {
         background-color: $value;
       }
 
-      .#{$css}-button-selected, .#{$css}-imagegallery-image:hover, .#{$css}-chooser-button-0 {
+      .#{$css}-imagegallery-image:hover, .#{$css}-chooser-button-0 {
         border-color: $value;
       }
 

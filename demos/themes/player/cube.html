@@ -23,75 +23,108 @@
 </head>
 <body style="background: #EEE">
 
-    <div class="container">
+<div class="container">
 
-        <div class="row">
-            <div id="video-player-block" class="col-xs-12">
-                <h4>Cube</h4>
-                <ba-videoplayer ba-sources="{{[{src:'../assets/sample-video.mp4', poster: '../assets/sample-cover.png', hd: true}, {src:'../assets/sample-video2.mp4', poster:'../assets/sample-cover2.png', hd: false}]}}"
-                    ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
-                    ba-theme="cube"
-                    ba-sharevideo="facebook,twitter,gplus"
-                    ba-sharevideourl="http://betajs.com"
-                    ba-themecolor="{{themeColor}}"
-                    ba-title="Some test title from html"
-                    ba-noflash
-                    ba-hideoninactivity="true"
-                    ba-disableseeking="false"
-                    ba-disablepause="false"
-                    ba-skipinitial="false"
-                    ba-sharevideo="facebook,twitter,gplus"
-                    ba-sharevideourl="http://betajs.com"
-                    ba-width='80%'
-                    ba-tracktagsstyled="true"
-                    ba-tracktags="{{
-                        [
-                            {
-                                lang: 'en',
-                                kind: 'subtitles',
-                                label: 'English',
-                                //enabled: true,
-                                src: '../../assets/bunny-en.vtt'
-                            },
-                            {
-                                lang: 'de',
-                                kind: 'subtitles',
-                                label: 'Deutsch',
-                                //enabled: true,
-                                src: '../../assets/bunny-de.vtt'
-                            }
+    <div class="row">
+        <div id="video-player-block" class="col-xs-12">
+            <h4>Cube</h4>
+            <ba-videoplayer
+                ba-sources="{{[{src:'../assets/sample-video.mp4', poster: '../assets/sample-cover.png', hd: true}, {src:'../assets/sample-video2.mp4', poster:'../assets/sample-cover2.png', hd: false}]}}"
+                ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
+                ba-theme="cube"
+                ba-sharevideo="facebook,twitter,gplus"
+                ba-sharevideourl="http://betajs.com"
+                ba-themecolor="{{themeColor}}"
+                ba-title="Some test title from html"
+                ba-noflash
+                ba-hideoninactivity="{{hideOnInactivity}}"
+                ba-disableseeking="{{disableSeeking}}"
+                ba-disablepause="{{disablePause}}"
+                ba-skipinitial="false"
+                ba-sharevideo="facebook,twitter,gplus"
+                ba-sharevideourl="http://betajs.com"
+                ba-width='80%'
+                ba-tracktagsstyled="{{trackTagsStyled}}"
+                ba-tracktags="{{
+                    [
+                        {
+                            lang: 'en',
+                            kind: 'subtitles',
+                            label: 'English',
+                            //enabled: true,
+                            src: '../../assets/bunny-en.vtt'
+                        },
+                        {
+                            lang: 'de',
+                            kind: 'subtitles',
+                            label: 'Deutsch',
+                            //enabled: true,
+                            src: '../../assets/bunny-de.vtt'
+                        }
 
-                        ]
-                    }}"
-                ></ba-videoplayer>
-            </div>
-            <div id="theme-colors" class="col-xs-12">
-                <ba-themecolors></ba-themecolors>
-            </div>
+                    ]
+                }}"
+            ></ba-videoplayer>
         </div>
-    </div> <!-- ./container -->
+        <div id="theme-colors" class="col-xs-12">
+            <ba-themecolors></ba-themecolors>
+        </div>
+        <div id="player-options" class="col-xs-12 col-sm-6">
+            <ba-playeroptions></ba-playeroptions>
+        </div>
+    </div>
+</div> <!-- ./container -->
 
 <script>
 
-  var selectColor = new BetaJS.Dynamics.Dynamic({
-    templateUrl: "../templates/themecolors.html",
-    element: $('#theme-colors'),
-    attrs: {
-      themeColors: [ 'default', 'red', 'green', 'blue' ]
-    }
-  });
+    var body = $("body");
 
-  var recorderTheme = new BetaJS.Dynamics.Dynamic({
-    element: $('#video-player-block'),
-    attrs: { themeColor: "" }
-  });
+    var selectColor = new BetaJS.Dynamics.Dynamic({
+        templateUrl: "../templates/themecolors.html",
+        element: $('#theme-colors'),
+        attrs: {
+            themeColors: [ 'default', 'red', 'green', 'blue' ]
+        }
+    });
 
-  $("body").on("change", "#select-color", function (el) {
-    recorderTheme.set("themeColor", el.target.value);
-  });
+    var playerOptions = new BetaJS.Dynamics.Dynamic({
+        templateUrl: "../templates/player-options.html",
+        element: $('#player-options'),
+        attrs: {
+            playerSettings: [
+                { setting: 'hideOnInactivity', title: 'Hide control bar', checked: true},
+                { setting: 'disablePause', title: 'Disable pause', checked: false},
+                { setting: 'disableSeeking', title: 'Disable seeking', checked: false},
+                { setting: 'trackTagsStyled', title: 'Custom track style', checked: false}
+            ]
+        }
+    });
 
-  selectColor.activate();
-  recorderTheme.activate();
+    var playerTheme = new BetaJS.Dynamics.Dynamic({
+        element: $('#video-player-block'),
+        attrs: {
+            themeColor: "",
+            disablePause: false,
+            disableSeeking: false,
+            hideOnInactivity: true,
+            trackTagsStyled: true
+        }
+    });
+
+
+    body.on("change", "#select-color", function (el) {
+        playerTheme.set("themeColor", el.target.value);
+    });
+
+    body.on("change", "#select-options", function (el) {
+        playerTheme.set(el.target.value, el.target.checked);
+    });
+
+    selectColor.activate();
+    playerOptions.activate();
+    playerTheme.activate();
+
+
 </script>
 
 </body>

@@ -43,7 +43,6 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     /* CSS */
                     "css": "ba-audiorecorder",
                     "cssrecorder": "ba-recorder",
-                    "cssvideorecorder": "ba-videorecorder",
                     "csscommon": "ba-commoncss",
                     "iecss": "ba-audiorecorder",
                     "cssimagegallery": "",
@@ -122,6 +121,19 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
 
                 scopes: {
                     player: ">[id='player']"
+                },
+
+                computed: {
+                    "widthHeightStyles:width,height": function() {
+                        var result = {};
+                        var width = this.get("width");
+                        var height = this.get("height");
+                        if (width)
+                            result.width = width + ((width + '').match(/^\d+$/g) ? 'px' : '');
+                        if (height)
+                            result.height = height + ((height + '').match(/^\d+$/g) ? 'px' : '');
+                        return result;
+                    }
                 },
 
                 types: {

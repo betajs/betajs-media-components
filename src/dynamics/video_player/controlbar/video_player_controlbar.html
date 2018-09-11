@@ -1,5 +1,5 @@
 
-<div class="{{css}}-dashboard {{activitydelta > hidebarafter && hideoninactivity ? (cssplayer + '-dashboard-hidden') : ''}}">
+<div class="{{cssplayer}}-dashboard {{activitydelta > hidebarafter && hideoninactivity ? (cssplayer + '-dashboard-hidden') : ''}}">
 	<div tabindex="{{skipinitial ? 2 : 1}}" data-selector="progress-bar-inner" class="{{css}}-progressbar {{activitydelta < 2500 || ismobile ? '' : (css + '-progressbar-small')}} {{disableseeking ? cssplayer + '-disabled' : ''}}"
 		 ba-hotkey:right="{{seek(position + skipseconds)}}"
 		 ba-hotkey:left="{{seek(position - skipseconds)}}"
@@ -100,7 +100,7 @@
 			 ba-hotkey:space^enter="{{show_airplay_devices()}}" onmouseout="this.blur()"
 			 class="{{css}}-rightbutton-container"
 			 ba-show="{{airplaybuttonvisible}}" ba-click="{{show_airplay_devices()}}">
-            <div class="{{cssplayer}}-airplay-container">
+            <div class="{{css}}-airplay-container">
                 <svg width="16px" height="11px" viewBox="0 0 16 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <!-- Generator: Sketch 3.3.2 (12043) - http://www.bohemiancoding.com/sketch -->
                     <title>Airplay</title>
@@ -150,7 +150,7 @@
 			 class="{{css}}-rightbutton-container"
 			 ba-click="{{toggle_volume()}}" title="{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}">
 			<div class="{{css}}-button-inner">
-				<i class="{{css + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}"></i>
+				<i class="{{csscommon + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}"></i>
 			</div>
 		</div>
 

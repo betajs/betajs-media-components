@@ -7,18 +7,9 @@
 }
 
 .#{$csstheme}.#{$css}-container {
-    .#{$cssplayer}-overlay {
+    .#{$css}-overlay {
         z-index: 10;
     }
-
-    .#{$css}-size-small  .#{$csstheme}-controlbar-top-block {
-        .#{$csstheme}-button-container {
-            .#{$csstheme}-button-inner {
-                font-size: $controlbar_playbutton_font_size / 2;
-            }
-        }
-    }
-
 
     .#{$cssplayer}-size-medium {
 
@@ -32,6 +23,14 @@
     }
 
     .#{$cssplayer}-size-small {
+        .#{$csstheme}-controlbar-top-block {
+            .#{$csstheme}-button-container {
+                .#{$csstheme}-button-inner {
+                    font-size: $controlbar_playbutton_font_size / 2;
+                }
+            }
+        }
+
         .#{$csstheme}-volumebar {
             display: none;
         }
@@ -60,9 +59,9 @@
 }
 
 .#{$csstheme}-dashboard {
-    //@include absolute-align-full-bottom;
+    @include absolute-align-full-bottom;
     @include transition1(opacity, $dashboard_transition, ease-in-out);
-    //opacity: 0.9;
+    opacity: 0.9;
     height: $controlbar_height;
     overflow: hidden;
     padding: 0 $overlay_side_padding;
@@ -71,10 +70,10 @@
 .#{$csstheme}-audio-canvas {
     display: none;
     position: absolute;
-    z-index: 1;
+    //z-index: 1;
 }
 
-.#{$csstheme}-visual-effect-applied .#{$cssplayer}-overlay {
+.#{$csstheme}-visual-effect-applied .#{$css}-overlay {
     background: #000000;
 }
 
@@ -95,7 +94,7 @@
 }
 
 .#{$cssnoie8} {
-    .#{$cssplayer}-overlay {
+    .#{$css}-overlay {
         .#{$csstheme}-controlbar-top-block {
             .#{$csstheme}-button-inner {
                 @include transition1(opacity, 0.3s, ease);
@@ -106,7 +105,7 @@
 }
 
 .#{$cssie8} {
-    .#{$cssplayer}-overlay {
+    .#{$css}-overlay {
         height: 100%;
         .#{$csstheme}-controlbar-top-block {
             .#{$csstheme}-button-inner {

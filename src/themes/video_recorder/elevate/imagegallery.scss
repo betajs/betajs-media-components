@@ -1,4 +1,13 @@
-.#{$css}-imagegallery-image, .#{$css}-overlay img {
+.#{$csstheme}.#{$css}-container {
+
+    .#{$css}-imagegallery-container {
+        left: 50px;
+        right: 50px;
+    }
+}
+
+
+.#{$css}-imagegallery-image, .#{$cssrecorder}-overlay img {
   border: none;
   @include border-radius($imagegallery_border_radius);
 }
@@ -17,12 +26,4 @@
 
 .#{$css}-imagegallery-button-inner{
     color: $text_color_secondary;
-}
-
-.#{$csscommon}-icon-right-open:before {
-  margin-right: 0;
-}
-
-.#{$csscommon}-icon-left-open:before {
-  margin-left: 0;
 }

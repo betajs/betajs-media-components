@@ -1,6 +1,6 @@
 @each $color, $value in $colors {
   @if $color != default {
-    .#{$css}-#{$color}-color {
+    .#{$csstheme}-#{$color}-color {
 
       .#{$css}-dashboard, .#{$css}-image-title, .#{$css}-right-block .#{$csscommon}-icon-resize-full,
       .#{$css}-right-block .#{$csscommon}-icon-resize-small, .#{$css}-button-inner {

@@ -1,8 +1,8 @@
 @each $color, $value in $colors {
   @if $color != default {
-    .#{$css}-#{$color}-color {
+    .#{$cssrecorder}-#{$color}-color {
 
-      .#{$css}-button-inner, .#{$css}-chooser-button-1, .#{$css}-chooser-button-2, .#{$cssrecorder}-loader-label {
+      .#{$css}-button-inner, .#{$css}-chooser-button-1,.#{$css}-chooser-button-2, .#{$css}-loader-label {
         color: $value;
       }
 
@@ -19,6 +19,13 @@
       .#{$css}-message-message a {
         color: $value;
       }
+
+      .#{$css}-imagegallery-button-inner {
+        color: #ffffff;
+      }
+
+      // Applied to all other recorders
+
 
     }
   }

@@ -1,13 +1,15 @@
-.#{$css}-overlay div[tabindex] {
-	@include transition1(all, 0.30s, ease-in-out);
-}
+.#{$csstheme} {
+    .#{$css}-chooser-icon-container {
+        margin: 16px;
+        color: $chooser_primary_button_bgcolor;
+        font-size: 32px;
+    }
 
-.#{$css}-overlay div[tabindex]:hover:focus {
-	@include remove-outline;
-}
+    .#{$css}-chooser-button-0 {
+        background-color: $button_color;
+    }
 
-.#{$css}-chooser-icon-container {
-	margin: 16px;
-	color: $chooser_primary_button_bgcolor;
-	font-size: 32px;
+    .#{$css}-chooser-button-1, .#{$css}-chooser-button-2 {
+        color: $button_color;
+    }
 }

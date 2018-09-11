@@ -1,88 +1,78 @@
+.#{$csstheme} {
 
-.#{$css}-overlay div[tabindex] {
-    @include transition1(all, 0.30s, ease-in-out);
-}
-
-.#{$css}-overlay div[tabindex]:focus {
-    @include box-outline-shadow(#1b8fcc, 2px);
-    @include remove-outline;
-}
-
-.#{$css}-overlay div[tabindex]:hover, .#{$css}-overlay div[tabindex]:focus:hover {
-    box-shadow: none;
-}
-
-.#{$css}-dashboard {
-    @include absolute-align-full-bottom;
-    @include transition1(opacity, $dashboard_transition, ease-in-out);
-    background-color: $controlbar_background;
-	height: $controlbar_height;
-    opacity: 0.9;
-    overflow: hidden;
-}
-
-.#{$css}-dashboard-hidden {
-    opacity: 0;
-}
-
-.#{$css}-leftbutton-container {
-    @include float-width-height(left, $button_width, 100%);
-    @include clickable;
-	box-sizing: content-box;
-    border-right: 1px solid $button_border_color;
-}
-
-.#{$cssnoie8} .#{$css}-rightbutton-container {
-    @include float-width-height(right, $button_width, 100%);
-    @include clickable;
-	box-sizing: content-box;
-    border-left: 1px solid $button_border_color;
-}
-
-.#{$cssie8} .#{$css}-rightbutton-container {
-    @include float-width-height(right, $button_width, 50%);
-    @include clickable;
-	box-sizing: content-box;
-    border-left: 1px solid $button_border_color;
-}
-
-.#{$cssnoie8} .#{$css}-button-inner {
-    @include relative-center-center;
-    color: $button_color;
-    font-size: $button_fontsize;
-}
-
-.#{$cssie8} .#{$css}-button-inner {
-    margin-top: $ie8_margintop + 6;
-    text-align: center;
-    color: $button_color;
-    font-size: $button_fontsize;
-}
-
-.#{$css}-button-inner {
-    @include clickable;
-}
-
-.#{$css}-button-text {
-	font-family: Arial;
-    font-weight: bold;
-}
-
-
-.#{$cssie8} .#{$css}-image-title-container{
-    display: none;
-}
-
-.#{$css}-image-title-container{
-    @include absolute-align-full-top();
-    @include transition1(opacity, $dashboard_transition, ease-in-out);
-    width: 100%;
-    & > p {
-        color: $title_text_color;
-        @include background-rgba( 255, 255, 255, 0.7, $controlbar_background);
-        @include relative-horizontally-center();
-        height: $controlbar_height - 10;
-        line-height: $controlbar_height - 10;
-        text-align: center;
+    .#{$css}-dashboard {
+        @include absolute-align-full-bottom;
+        @include transition1(opacity, $dashboard_transition, ease-in-out);
+        background-color: $controlbar_background;
+        height: $controlbar_height;
+        opacity: 0.9;
+        overflow: hidden;
     }
+
+    .#{$css}-dashboard-hidden {
+        opacity: 0;
+    }
+
+    .#{$css}-leftbutton-container {
+        @include float-width-height(left, $button_width, 100%);
+        @include clickable;
+        box-sizing: content-box;
+        border-right: 1px solid $button_border_color;
+    }
+
+    &.#{$cssnoie8} .#{$css}-rightbutton-container {
+        @include float-width-height(right, $button_width, 100%);
+        @include clickable;
+        box-sizing: content-box;
+        border-left: 1px solid $button_border_color;
+    }
+
+    &.#{$cssie8} .#{$css}-rightbutton-container {
+        @include float-width-height(right, $button_width, 50%);
+        @include clickable;
+        box-sizing: content-box;
+        border-left: 1px solid $button_border_color;
+    }
+
+    &.#{$cssnoie8} .#{$css}-button-inner {
+        @include relative-center-center;
+        color: $button_color;
+        font-size: $button_fontsize;
+    }
+
+    &.#{$cssie8} .#{$css}-button-inner {
+        margin-top: $ie8_margintop + 6;
+        text-align: center;
+        color: $button_color;
+        font-size: $button_fontsize;
+    }
+
+    .#{$css}-button-inner {
+        @include clickable;
+    }
+
+    .#{$css}-button-text {
+        font-family: Arial;
+        font-weight: bold;
+    }
+
+
+    &.#{$cssie8} .#{$css}-image-title-container{
+        display: none;
+    }
+
+    .#{$css}-image-title-container{
+        @include absolute-align-full-top();
+        @include transition1(opacity, $dashboard_transition, ease-in-out);
+        width: 100%;
+        & > p {
+            color: $title_text_color;
+            @include background-rgba( 255, 255, 255, 0.7, $controlbar_background);
+            @include relative-horizontally-center();
+            height: $controlbar_height - 10;
+            line-height: $controlbar_height - 10;
+            text-align: center;
+        }
+    }
+
 }

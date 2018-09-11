@@ -38,22 +38,67 @@
 
 </head>
 <body style="background-color: rgba(0, 0, 0, 0.4)">
-<div ba-repeat="{{theme::themes}}">
-	<h4>{{theme}}</h4>
-	<ba-audioplayer
-		ba-source="audio.mp3"
-		ba-theme="{{theme}}"
-		ba-title="Foobar"
-		ba-themecolor="{{themecolor}}"
-        ba-width='100%'
-        ba-height="140"
-		ba-visualeffectvisible="{{true}}"
-		ba-visualeffectheight="{{260}}"
-	></ba-audioplayer>
-</div>
+    <div style="margin-bottom: 200px">
+        <div ba-repeat="{{theme::themes}}">
+            <h4>{{theme}}</h4>
+            <ba-audioplayer
+                ba-source="audio.mp3"
+                ba-theme="{{theme}}"
+                ba-title="Foobar"
+                ba-themeColor="{{themeColor}}"
+                ba-disableseeking="{{disableSeeking}}"
+                ba-disablepause="{{disablePause}}"
+                ba-width='560'
+                ba-height="140"
+                ba-visualeffectvisible="{{true}}"
+                ba-visualeffectheight="{{260}}"
+            ></ba-audioplayer>
+        </div>
+    </div>
 
+	<div style="display: block; position: fixed; bottom: 0; padding: 10px 20px 20px; z-index: 9999; background-color: #2c2c2c; width: 100%; color: #eeeeee">
+		<div style="width: 50%; float: left">
+			<div id="theme-colors" class="col-xs-12">
+				<ba-themeColors></ba-themeColors>
+			</div>
+		</div>
+		<div style="width: 50%; float: right">
+			<div id="player-options" class="col-xs-12 col-sm-6">
+				<ba-playeroptions></ba-playeroptions>
+			</div>
+		</div>
+	</div>
 <script>
-    BetaJS.Dynamics.Dynamic.activate({
+
+    var body = $("body");
+
+    BetaJS.Flash.options = {
+        flashFile: "../node_modules/betajs-flash/dist/betajs-flash.swf",
+        forceReload: true
+    };
+
+    var selectColor = new BetaJS.Dynamics.Dynamic({
+        templateUrl: "./themes/templates/themeColors.html",
+        element: $('#theme-colors'),
+        attrs: {
+            themeColors: [ 'default', 'red', 'green', 'blue' ]
+        }
+    });
+
+    var playerOptions = new BetaJS.Dynamics.Dynamic({
+        templateUrl: "./themes/templates/player-options.html",
+        element: $('#player-options'),
+        attrs: {
+            playerSettings: [
+                { setting: 'hideOnInactivity', title: 'Hide control bar', checked: true},
+                { setting: 'disablePause', title: 'Disable pause', checked: false},
+                { setting: 'disableSeeking', title: 'Disable seeking', checked: false},
+                { setting: 'trackTagsStyled', title: 'Custom track style', checked: false}
+            ]
+        }
+    });
+
+    var playerTheme = new BetaJS.Dynamics.Dynamic({
         element: document.body,
         attrs: {
             themes: [
@@ -65,9 +110,24 @@
                 "space",
                 "theatre"
             ],
-            'themecolor': 'default' // 'red', 'blue', 'green'
+            themeColor: 'default', // 'red', 'blue', 'green'
+            disablePause: false,
+            disableSeeking: false,
+            trackTagsStyled: true
         }
     });
+
+    body.on("change", "#select-color", function (el) {
+        playerTheme.set("themeColor", el.target.value);
+    });
+
+    body.on("change", "#select-options", function (el) {
+        playerTheme.set(el.target.value, el.target.checked);
+    });
+
+    selectColor.activate();
+    playerOptions.activate();
+    playerTheme.activate();
 </script>
 </body>
 </html>

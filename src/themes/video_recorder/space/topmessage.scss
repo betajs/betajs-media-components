@@ -1,17 +1,21 @@
-.#{$css}-topmessage-message {
-    background-color: $settings_bgcolor;
-    @include border-radius($controlbar_primarybutton_radius);
-    color: $text_color_secondary;
-    opacity: 0.75;
-    display: inline-block;
-    font-family: $font_family;
-    font-size: $controlbar_primarybutton_font_size;
-    font-weight: 300;
-    padding: 6px;
-    position: relative;
-    margin: 15px 0 0 15px;
-}
+.#{$csstheme} {
 
-.#{$css}-topmessage-background{
-    background: none;
+    .#{$css}-topmessage-message {
+        background-color: $settings_bgcolor;
+        @include border-radius($controlbar_primarybutton_radius);
+        color: $text_color_secondary;
+        opacity: 0.75;
+        display: inline-block;
+        font-family: $font_family;
+        font-size: $controlbar_primarybutton_font_size;
+        font-weight: 300;
+        padding: 6px;
+        position: relative;
+        margin: 15px 0 0 15px;
+    }
+
+    .#{$css}-topmessage-background {
+        background: none;
+    }
+
 }

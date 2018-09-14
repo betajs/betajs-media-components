@@ -32,7 +32,7 @@
     @include transition1(opacity, $dashboard_transition, ease-in-out);
     box-sizing: content-box;
     height: $controlbar_footer_height;
-    padding: 0 5px;
+    padding: 0 0 0 5px;
 }
 
 .#{$cssie8} .#{$csstheme}-title-container, .#{$cssie8} .#{$csstheme}-controlbar-footer {
@@ -275,7 +275,11 @@
     }
 }
 
-.#{$csstheme}-cc-button-container {
+.#{$csstheme}-cc-button-container, .#{$csstheme}-settings-button-container {
     padding: 0 10px;
     margin: 0;
+}
+
+.ba-settings-overlay-inner {
+    bottom: 40px;
 }

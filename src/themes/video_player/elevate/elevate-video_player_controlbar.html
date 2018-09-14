@@ -153,6 +153,18 @@
                 <button tabindex="7" class="{{csstheme}}-gcast-button" is="google-cast-button"></button>
             </div>
 
+            <div tabindex="10" data-selector="button-icon-settings"
+                 ba-hotkey:space^enter="{{toggle_settings()}}" onmouseout="this.blur()"
+                 class="{{csstheme}}-button-container {{cssplayer}}-settings-{{settingsoptionsvisible ? 'visible' : 'hidden'}}"
+                 ba-if="{{settings}}" ba-click="{{toggle_settings()}}"
+                 title="{{string('settings')}}"
+                 onkeydown="{{tab_index_move(domEvent)}}"
+            >
+                <div class="{{csstheme}}-button-inner  {{csstheme}}-settings-button">
+                    <i class="{{csscommon}}-icon-cog"></i>
+                </div>
+            </div>
+
             <div tabindex="8" data-selector="button-icon-resize-full"
                  ba-hotkey:space^enter="{{toggle_fullscreen()}}" onmouseout="this.blur()"
                  class="{{csstheme}}-button-container"
@@ -167,7 +179,7 @@
                  ba-hotkey:space^enter="{{toggle_tracks()}}" onmouseout="this.blur()"
                  ba-if="{{(tracktags.length > 0 && tracktagssupport) || allowtexttrackupload}}"
                  class="{{csstheme}}-button-container  {{cssplayer}}-cc-{{tracktextvisible ? 'active' : 'inactive'}}"
-                 title="{{ tracktextvisible ? string('close-tracks') : string('show-tracks')}}"
+                 title="{{tracktextvisible ? string('close-tracks') : string('show-tracks')}}"
                  ba-click="{{toggle_tracks()}}"
                  onmouseover="{{hover_cc(true)}}"
                  onmouseleave="{{hover_cc(false)}}"

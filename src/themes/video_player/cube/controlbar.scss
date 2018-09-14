@@ -1,4 +1,8 @@
 
+.#{$csstheme} {
+  .ba-settings-overlay-inner {bottom: $controlbar_height;}
+}
+
 .#{$csstheme}-dashboard {
   @include absolute-align-full-bottom;
   @include transition1(opacity, $dashboard_transition, ease-in-out);

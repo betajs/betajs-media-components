@@ -27,6 +27,8 @@
             ba-show="{{controlbar_active}}"
             ba-playing="{{playing}}"
             ba-playwhenvisible="{{playwhenvisible}}"
+            ba-playerspeeds="{{playerspeeds}}"
+            ba-playercurrentspeed="{{playercurrentspeed}}"
             ba-airplay="{{airplay}}"
             ba-airplaybuttonvisible="{{airplaybuttonvisible}}"
             ba-chromecast="{{chromecast}}"
@@ -37,6 +39,8 @@
             ba-event:pause="pause"
             ba-event:position="seek"
             ba-event:volume="set_volume"
+            ba-event:set_speed="set_speed"
+            ba-event:toggle_settings="toggle_settings"
             ba-event:fullscreen="toggle_fullscreen"
             ba-event:toggle_player="toggle_player"
             ba-event:tab_index_move="tab_index_move"
@@ -67,6 +71,8 @@
             ba-disableseeking="{{disableseeking}}"
             ba-skipseconds="{{skipseconds}}"
             ba-skipinitial="{{skipinitial}}"
+            ba-showsettings="{{showsettings}}"
+            ba-settingsoptionsvisible="{{settingsoptionsvisible}}"
         ></ba-{{dyncontrolbar}}>
 
         <ba-{{dyntracks}}

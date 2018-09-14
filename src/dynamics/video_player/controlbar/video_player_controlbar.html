@@ -72,7 +72,18 @@
 			</p>
 		</div>
 
-		<div tabindex="9" data-selector="cc-button-container"
+		<div tabindex="11" data-selector="button-icon-settings"
+			 ba-hotkey:space^enter="{{toggle_settings()}}" onmouseout="this.blur()"
+			 class="{{css}}-rightbutton-container {{cssplayer}}-settings-{{settingsoptionsvisible ? 'visible' : 'hidden'}}"
+			 onkeydown="{{tab_index_move(domEvent)}}"
+			 ba-if="{{settings}}" ba-click="{{toggle_settings()}}"
+			 title="{{string('settings')}}">
+			<div class="{{css}}-button-inner {{css}}-settings-button">
+				<i class="{{csscommon}}-icon-cog"></i>
+			</div>
+		</div>
+
+		<div tabindex="10" data-selector="cc-button-container"
 			 ba-hotkey:space^enter="{{toggle_tracks()}}" onmouseout="this.blur()"
 			 ba-if="{{(tracktags.length > 0 && tracktagssupport) || allowtexttrackupload}}"
 			 class="{{css}}-rightbutton-container  {{cssplayer}}-cc-{{tracktextvisible ? 'active' : 'inactive'}}"
@@ -86,7 +97,7 @@
 			</div>
 		</div>
 
-		<div tabindex="8" data-selector="button-icon-resize-full"
+		<div tabindex=9 data-selector="button-icon-resize-full"
 			 ba-hotkey:space^enter="{{toggle_fullscreen()}}" onmouseout="this.blur()"
 			 class="{{css}}-rightbutton-container"
 			 onkeydown="{{tab_index_move(domEvent)}}" ba-if="{{fullscreen}}"

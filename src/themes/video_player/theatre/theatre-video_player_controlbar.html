@@ -85,18 +85,19 @@
 
     <div class="{{csstheme}}-right-block">
 
-        <div tabindex="8" data-selector="button-icon-resize-full"
-             ba-hotkey:space^enter="{{toggle_fullscreen()}}" onmouseout="this.blur()"
+        <div tabindex="9" data-selector="button-icon-settings"
+             ba-hotkey:space^enter="{{toggle_settings()}}" onmouseout="this.blur()"
+             class="{{csstheme}}-rightbutton-container {{csstheme}}-settings-button-container {{cssplayer}}-settings-{{settingsoptionsvisible ? 'visible' : 'hidden'}}"
+             ba-if="{{settings}}" ba-click="{{toggle_settings()}}"
+             title="{{string('settings')}}"
              onkeydown="{{tab_index_move(domEvent)}}"
-             class="{{csstheme}}-button-container {{csstheme}}-fullscreen-icon-container"
-             ba-if="{{fullscreen}}" ba-click="{{toggle_fullscreen()}}" title="{{ fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video') }}"
         >
-            <div class="{{csstheme}}-button-inner {{csstheme}}-full-screen-btn-inner">
-                <i class="{{csscommon}}-icon-resize-{{fullscreened ? 'small' : 'full'}}"></i>
+            <div class="{{csstheme}}-button-inner {{csstheme}}-settings-button-inner">
+                <i class="{{csscommon}}-icon-cog"></i>
             </div>
         </div>
 
-        <div tabindex="7" data-selector="cc-button-container"
+        <div tabindex="8" data-selector="cc-button-container"
              ba-hotkey:space^enter="{{toggle_tracks()}}" onmouseout="this.blur()"
              ba-if="{{(tracktags.length > 0 && tracktagssupport) || allowtexttrackupload}}"
              class="{{csstheme}}-rightbutton-container {{csstheme}}-cc-button-container {{cssplayer}}-cc-{{tracktextvisible ? 'active' : 'inactive'}}"
@@ -107,6 +108,17 @@
         >
             <div class="{{csstheme}}-button-inner {{csstheme}}-subtitle-button-inner">
                 <i class="{{csscommon}}-icon-subtitle"></i>
+            </div>
+        </div>
+
+        <div tabindex="7" data-selector="button-icon-resize-full"
+             ba-hotkey:space^enter="{{toggle_fullscreen()}}" onmouseout="this.blur()"
+             onkeydown="{{tab_index_move(domEvent)}}"
+             class="{{csstheme}}-button-container {{csstheme}}-fullscreen-icon-container"
+             ba-if="{{fullscreen}}" ba-click="{{toggle_fullscreen()}}" title="{{ fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video') }}"
+        >
+            <div class="{{csstheme}}-button-inner {{csstheme}}-full-screen-btn-inner">
+                <i class="{{csscommon}}-icon-resize-{{fullscreened ? 'small' : 'full'}}"></i>
             </div>
         </div>
 

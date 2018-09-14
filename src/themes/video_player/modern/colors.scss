@@ -2,6 +2,16 @@
   @if $color != default {
     .#{$cssplayer}-#{$color}-color {
 
+      &.#{$csstheme} {
+        .#{$cssplayer}-cc-inactive .#{$csscommon}-icon-subtitle {
+          color: $value;
+          background-color: transparent;
+        }
+        .#{$csstheme}-rightbutton-container.#{$cssplayer}-settings-visible {
+          background-color: $value;
+        }
+      }
+
       .#{$csstheme}-title, .#{$csstheme}-button-inner {
         color: $value;
       }
@@ -14,11 +24,6 @@
         .#{$csstheme}-playbutton-container {
           border-color: $value;
         }
-      }
-
-      &.#{$csstheme} .#{$cssplayer}-cc-inactive .#{$csscommon}-icon-subtitle {
-        color: $value;
-        background-color: transparent;
       }
 
       .#{$csstheme}-progressbar-position, .#{$csstheme}-volumebar-position,

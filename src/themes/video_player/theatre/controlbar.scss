@@ -18,7 +18,7 @@
         color: $button_color_secondary;
     }
 
-    .#{$cssplayer}-cc-inactive .#{$csscommon}-icon-subtitle {
+    .#{$cssplayer}-cc-inactive i, .#{$cssplayer}-settings-hidden i {
         color: $button_color_secondary;
     }
 }
@@ -85,7 +85,8 @@
     }
 
     & > div:first-child {
-        line-height: $controlbar_line_height - 3;
+        line-height: $controlbar_line_height - 6;
+        width: 30px;
     }
 
     & > div:last-child {
@@ -322,7 +323,16 @@
     width: 30px;
 }
 
-.#{$csstheme}-cc-button-container {
+.#{$cssplayer}-settings-visible .#{$csstheme}-settings-button-inner {
+    color: $controlbar_background;
+}
+
+.#{$csstheme}-cc-button-container, .#{$csstheme}-settings-button-container {
     padding: 1px 1px 0 0;
+}
+
+.ba-settings-overlay-inner {
+    bottom: 45px;
+    right: $controlbar_side_padding;
 }
 

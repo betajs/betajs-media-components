@@ -13,6 +13,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "base:States.Host",
     "base:Classes.ClassRegistry",
     "base:Async",
+    "module:Settings",
     "module:VideoPlayer.Dynamics.PlayerStates.Initial",
     "module:VideoPlayer.Dynamics.PlayerStates",
     "module:Ads.AbstractVideoAdProvider",
@@ -30,7 +31,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.TemplatePartial",
     "dynamics:Partials.HotkeyPartial"
-], function(Class, Assets, Info, Dom, VideoPlayerWrapper, Broadcasting, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
+], function(Class, Assets, Info, Dom, VideoPlayerWrapper, Broadcasting, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Async, Settings, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -137,6 +138,66 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "initialoptions": {
                         "hideoninactivity": null
                     },
+                    "showsettings": true,
+                    "settingsoptionsvisible": false, // If settings are open and visible
+                    "settingsoptions": [{
+                            id: 'playerspeeds',
+                            label: 'player-speed',
+                            defaultValue: 1.0,
+                            visible: 'media-all',
+                            flashSupport: false,
+                            mobileSupport: true,
+                            className: 'player-speed',
+                            options: [{
+                                    label: 0.50,
+                                    value: 0.50
+                                },
+                                {
+                                    label: 0.75,
+                                    value: 0.75
+                                },
+                                {
+                                    label: 1.00,
+                                    value: 1.00
+                                },
+                                {
+                                    label: 1.25,
+                                    value: 1.25
+                                },
+                                {
+                                    label: 1.50,
+                                    value: 1.50
+                                },
+                                {
+                                    label: 1.75,
+                                    value: 1.75
+                                },
+                                {
+                                    label: 2.00,
+                                    value: 2.00
+                                }
+                            ],
+                            events: [{
+                                type: 'click touchstart',
+                                method: 'set_speed',
+                                argument: true
+                            }]
+                        }
+                        // INFO: left here just as an example
+                        // ,{
+                        //     id: 'fullscreen',
+                        //     label: '<i class="ba-commoncss-icon-resize-full"></i>',
+                        //     visible: 'media-all',
+                        //     flashSupport: true,
+                        //     mobileSupport: true,
+                        //     className: 'full-screen',
+                        //     events: [{
+                        //         type: 'click touchstart',
+                        //         method: 'toggle_fullscreen',
+                        //         argument: false
+                        //     }]
+                        // }
+                    ],
                     "allowtexttrackupload": false,
                     "uploadtexttracksvisible": false,
                     "acceptedtracktexts": null,
@@ -198,7 +259,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "allowtexttrackupload": "boolean",
                     "uploadtexttracksvisible": "boolean",
                     "acceptedtracktexts": "string",
-                    "uploadlocales": "array"
+                    "uploadlocales": "array",
+                    "playerspeeds": "array",
+                    "playercurrentspeed": "float",
+                    "showsettings": "boolean"
                 },
 
                 extendables: ["states"],
@@ -296,7 +360,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("initialoptions", {
                         hideoninactivity: this.get("hideoninactivity")
                     });
-                    if (this.activeElement().onkeydown)
+
+                    if (document.onkeydown)
                         this.activeElement().onkeydown = this._keyDownActivity.bind(this, this.activeElement());
 
                     this.on("change:tracktags", this.__initializeTrackTags);
@@ -706,7 +771,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this._attachVideo();
                 },
 
-                /* In the feature if require to use promise player, Supports >Chrome50, >FireFox53
+                /* In the future if require to use promise player, Supports >Chrome50, >FireFox53
                 _playWithPromise: function(dyn) {
                     var _player, _promise, _autoplayAllowed;
                     _player = dyn.player;
@@ -927,6 +992,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     },
 
+                    set_speed: function(speed) {
+                        this.player.setSpeed(speed);
+                    },
+
                     set_volume: function(volume) {
                         if (this.get("preventinteractionstatus")) return;
                         if (this._delegatedPlayer) {
@@ -944,6 +1013,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.videoLoaded()) {
                             this.player.setVolume(volume);
                             this.player.setMuted(volume <= 0);
+                        }
+                    },
+
+                    toggle_settings: function() {
+                        if (this.get('settingsoptions')) {
+                            if (!this.settings)
+                                this.settings = new Settings(this.get('settingsoptions'), this);
+                            this.settings.toggle_settings_block();
                         }
                     },
 
@@ -1198,6 +1275,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
         .registerFunctions({ /*<%= template_function_cache(dirname + '/player.html') %>*/ })
         .attachStringTable(Assets.strings)
         .addStrings({
-            "video-error": "An error occurred, please try again later. Click to retry."
+            "video-error": "An error occurred, please try again later. Click to retry.",
+            "all-settings": "All settings",
+            "player-speed": "Player speed",
+            "full-screen": "Full screen"
         });
 });

@@ -15,6 +15,10 @@
             fill: #000000;
         }
     }
+
+    .#{$cssplayer}-settings-visible .#{$csstheme}-button-inner {
+        color: $controlbar_background;
+    }
 }
 
 .#{$csstheme}-leftbutton-container {
@@ -40,20 +44,18 @@
 
 .#{$cssnoie8} .#{$csstheme}-button-inner,
 .#{$csstheme} .#{$cssplayer}-cc-inactive .#{$csscommon}-icon-subtitle {
+    @include clickable;
     @include relative-center-center;
     color: $button_color;
     font-size: $button_fontsize;
 }
 
 .#{$cssie8} .#{$csstheme}-button-inner {
+    @include clickable;
     margin-top: $ie8_margintop + 6;
     text-align: center;
     color: $button_color;
     font-size: $button_fontsize;
-}
-
-.#{$csstheme}-button-inner {
-    @include clickable;
 }
 
 .#{$csstheme}-time-container {
@@ -192,4 +194,8 @@
     cursor: pointer;
     //outline: none;
     padding: 11px 10px 0 10px;
+}
+
+.ba-settings-overlay-inner {
+    bottom: $controlbar_height + 1;
 }

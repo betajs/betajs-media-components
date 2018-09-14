@@ -22,6 +22,17 @@
         }
     }
 
+    .ba-settings-overlay-inner {
+        bottom: 50px;
+        right: $controlbar_side_padding;
+    }
+
+    .#{$cssplayer}-settings-visible {
+        .#{$csstheme}-button-inner {
+            color: $controlbar_background;
+        }
+    }
+
     .#{$csscommon}-icon-volume-up {
         color: $button_color_secondary;
     }

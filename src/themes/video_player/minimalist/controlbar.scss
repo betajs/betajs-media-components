@@ -1,4 +1,12 @@
 
+.#{$csstheme} {
+
+    .ba-settings-overlay-inner {
+        right: $controlbar_side_padding;
+    }
+
+}
+
 .#{$csstheme}-dashboard {
     //@include absolute-align-full-bottom;
     @include transition1(opacity, $dashboard_transition, ease-in-out);
@@ -367,34 +375,28 @@
     width: 20px;
 }
 
-.#{$csstheme} .#{$csstheme}-cc-button-container.#{$cssplayer}-cc-active {
-    background-color: $cc_active_label_bg_color;
-}
-
-.#{$csstheme}-cc-button-container.#{$cssplayer}-cc-inactive .#{$csscommon}-icon-subtitle {
-    color: $cc_label_text_color;
-}
-
-.#{$csstheme}-cc-button-container {
+.#{$csstheme}-right-button-container {
     @include clickable();
     bottom: 4px;
     float: right;
-    padding: 0 5px 2px 3px;
+    padding: 1px 4px 2px;
     position: relative;
-    &.#{$csstheme}-cc-inactive {
-        background-color: $cc_label_bg_color;
-    }
+    margin-left: 7px;
     .#{$csstheme}-button-inner {
         line-height: $button_width;
         height: $button_width;
         width: $button_width;
     }
-}
-
-.#{$csstheme} .#{$csstheme}-cc-button-container {
-
-    .#{$csscommon}-icon-subtitle {
-        font-size: $icon_size;
+    .#{$csscommon}-icon-subtitle, .#{$csscommon}-icon-cog {
+        color: $cc_label_text_color;
+        font-size: 0.8em;
     }
-
+    &.#{$cssplayer}-cc-active, &.#{$cssplayer}-settings-visible {
+        background-color: $cc_active_label_bg_color;
+        opacity: 0.75;
+    }
+    &.#{$cssplayer}-settings-hidden, &.#{$cssplayer}-cc-inactive {
+        background-color: $cc_label_bg_color;
+        opacity: 0.75;
+    }
 }

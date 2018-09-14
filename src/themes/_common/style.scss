@@ -144,10 +144,11 @@
         width: 100%;
         .#{$csscommon}-options-list-item {
             @include remove-outline();
+            box-sizing: border-box;
             cursor: pointer;
             color: #eeeeee;
-            box-sizing: border-box;
             display: list-item;
+            font-weight: 200;
             letter-spacing: 0.03em;
             padding: 5px 10px;
             white-space: nowrap;

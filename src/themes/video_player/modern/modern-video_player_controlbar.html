@@ -51,6 +51,18 @@
 		<div class="{{csstheme}}-time-value" title="{{string('elapsed-time')}}">{{formatTime(position)}}/{{formatTime(duration || position)}}</div>
 	</div>
 
+	<div tabindex="10" data-selector="button-icon-settings"
+		 ba-hotkey:space^enter="{{toggle_settings()}}" onmouseout="this.blur()"
+		 class="{{csstheme}}-rightbutton-container {{cssplayer}}-settings-{{settingsoptionsvisible ? 'visible' : 'hidden'}}"
+		 ba-if="{{settings}}" ba-click="{{toggle_settings()}}"
+		 title="{{string('settings')}}"
+		 onkeydown="{{tab_index_move(domEvent)}}"
+	>
+		<div class="{{csstheme}}-button-inner {{csstheme}}-settings-button">
+			<i class="{{csscommon}}-icon-cog"></i>
+		</div>
+	</div>
+
 	<div tabindex="9" data-selector="cc-button-container"
 		 ba-hotkey:space^enter="{{toggle_tracks()}}" onmouseout="this.blur()"
 		 ba-if="{{(tracktags.length > 0 && tracktagssupport) || allowtexttrackupload}}"

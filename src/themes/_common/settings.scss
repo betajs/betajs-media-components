@@ -1,0 +1,42 @@
+.ba-settings-overlay {
+  & ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.ba-settings-overlay-inner {
+  @include background-rgba(0, 0, 0, 0.75, #555555);
+  bottom: 39px;
+  color: #ffffff;
+  //min-width: 65px;
+  position: absolute;
+  right: 0;
+  z-index: 100;
+  & li {
+    cursor: pointer;
+    font-weight: 200;
+    letter-spacing: 0.03em;
+    padding: 7px 5px 7px 20px;
+    text-align: left;
+  }
+  & li:hover {
+    @include background-rgba(0, 0, 0, 0.9, #222222);
+  }
+  .ba-settings-back-to-settings {
+    padding: 5px 10px 5px 5px;
+  }
+  .ba-player-speed-list-item {
+    padding: 5px 0 5px 8px;
+  }
+}
+
+.ba-settings-label-icon {
+  min-width: 1em;
+  display: inline-block;
+}
+
+.#{$cssplayer}-settings-visible {
+  background-color: #000000;
+}

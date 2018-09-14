@@ -2,6 +2,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
     "dynamics:Dynamic",
     "base:TimeFormat",
     "base:Comparators",
+    "base:Objs",
     "browser:Dom",
     "module:Assets",
     "browser:Info",
@@ -11,8 +12,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.ShowPartial",
     "dynamics:Partials.IfPartial",
-    "dynamics:Partials.ClickPartial"
-], function(Class, TimeFormat, Comparators, Dom, Assets, Info, PlayerSupport, Async, scoped) {
+    "dynamics:Partials.ClickPartial",
+    "dynamics:Partials.RepeatElementPartial"
+], function(Class, TimeFormat, Comparators, Objs, Dom, Assets, Info, PlayerSupport, Async, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -40,6 +42,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     "hidebarafter": 5000,
                     "preventinteraction": false,
                     "title": "",
+                    "settings": false,
+                    "hoveredblock": false, // Set true when mouse hovered
                     "allowtexttrackupload": false,
                     "tracktextvisible": false // Are subtitles visible?
                 },
@@ -199,23 +203,57 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         }
                     },
 
+                    // Start ro stop showing CC content
                     toggle_tracks: function() {
                         return this.parent().toggleTrackTags(!this.get('tracktextvisible'));
                     },
 
+                    // Hover on CC button in controller
                     hover_cc: function(hover) {
+                        // Not show CC on hover during settings block is open
+                        // Reason why use parent not local settingsoptionsvisible,
+                        // is that settings model also has to be aware it's state. So we need as a global variable
+                        if (this.parent().get("settingsoptionsvisible")) return;
                         Async.eventually(function() {
                             this.parent().set("tracksshowselection", hover);
                         }, this, 300);
                     },
 
+                    // Move between elements which has tabIndex attribute
                     tab_index_move: function(ev, nextSelector, focusingSelector) {
                         this.trigger("tab_index_move", ev[0], nextSelector, focusingSelector);
+                    },
+
+                    // Hover on block
+                    hover_block: function(hover) {
+                        Async.eventually(function() {
+                            this.parent().set("hoveredblock", hover);
+                        }, this, 300);
+                    },
+
+                    toggle_settings: function() {
+                        this.parent().set("settingsoptionsvisible", !this.parent().get("settingsoptionsvisible"));
+                        this.trigger("toggle_settings");
                     }
                 },
 
                 create: function() {
+                    var dynamic = this.__parent;
                     this.set("ismobile", Info.isMobile());
+                    if (dynamic.get("showsettings")) {
+                        this.set("isflash", dynamic.get('forceflash') && !dynamic.get('noflash'));
+                        Objs.iter(dynamic.get('settingsoptions'), function(setting) {
+                            if (this.get())
+                                if (this.get("isflash")) {
+                                    if (setting.flashSupport)
+                                        this.set("settings", true);
+                                } else if (this.get("ismobile")) {
+                                if (setting.mobileSupport)
+                                    this.set("settings", true);
+                            } else
+                                this.set("settings", true);
+                        }, this);
+                    }
                 }
             };
         })
@@ -238,6 +276,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
             "change-resolution": "Change resolution",
             "exit-fullscreen-video": "Exit fullscreen",
             "close-tracks": "Close CC",
-            "show-tracks": "Show CC"
+            "show-tracks": "Show CC",
+            "player-speed": "Player speed",
+            "settings": "Settings"
         });
 });

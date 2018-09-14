@@ -6,7 +6,8 @@
       .#{$csscommon}-icon-share:before, .#{$csscommon}-icon-play, .#{$csscommon}-icon-pause,
       .#{$csscommon}-icon-resize-full, .#{$csscommon}-icon-volume-up, .#{$csscommon}-icon-volume-down,
       .#{$csscommon}-icon-resize-small, .#{$cssplayer}-toggle-share-container,
-      .#{$cssplayer}-socials-list .#{$cssplayer}-button-inner {
+      .#{$cssplayer}-socials-list .#{$cssplayer}-button-inner, .ba-settings-overlay-inner,
+      .#{$cssplayer}-cue-content, .#{$csscommon}-options-popup .#{$csscommon}-options-list .#{$csscommon}-options-list-item {
         color: $value;
       }
 

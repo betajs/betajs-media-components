@@ -17,12 +17,17 @@
         }
       }
 
-      &.#{$csstheme} {
-        .#{$cssplayer}-cc-active .#{$csscommon}-icon-subtitle {
+      .#{$csstheme}-right-button-container {
+        &.#{$cssplayer}-cc-active .#{$csscommon}-icon-subtitle,
+        &.#{$cssplayer}-settings-visible .#{$csscommon}-icon-cog {
           color: $value;
         }
-        .#{$cssplayer}-cc-inactive {
+        &.#{$cssplayer}-cc-inactive, &.#{$cssplayer}-settings-hidden {
           background-color: $value;
+        }
+
+        &.#{$cssplayer}-cc-inactive .#{$csscommon}-icon-subtitle {
+          color: $cc_label_text_color;
         }
       }
 
@@ -30,7 +35,7 @@
       .#{$csstheme}-time-container, .#{$csstheme}-progressbar-button, .#{$csstheme}-rerecord-button {
         background-color: $value;
       }
-      
+
     }
   }
 }

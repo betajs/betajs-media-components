@@ -1,6 +1,6 @@
 {
     "name": "betajs-media-components",
-    "version": "0.0.120",
+    "version": "0.0.121",
     "description": "BetaJS-Media-Components is a JavaScript media UI components framework",
     "contributors": [
         "Ziggeo",
@@ -50,7 +50,7 @@
         "url": "git://github.com/betajs/betajs-media-components.git"
     },
     "scripts": {
-        "relink": "npm link betajs && npm link betajs-compile && npm link betajs-scoped && npm link betajs-shims && npm link betajs-browser && npm link betajs-flash && npm link betajs-dynamics && npm link betajs-media"
+        "relink": "npm link betajs && npm link betajs-compile && npm link betajs-scoped && npm link betajs-shims && npm link betajs-browser && npm link betajs-flash && npm link betajs-dynamics && npm link betajs-media && npm link grunt-betajs-docs-compile && npm link grunt-betajs-templates"
     },
     "meta": {
         "sponsors": [

@@ -331,7 +331,7 @@
     padding: 1px 1px 0 0;
 }
 
-.ba-settings-overlay-inner {
+.#{$csstheme} .ba-settings-overlay-inner {
     bottom: 45px;
     right: $controlbar_side_padding;
 }

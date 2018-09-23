@@ -58,6 +58,9 @@
   var filename = "video-" + BetaJS.Time.now();
   var recorder = BetaJS.Dynamics.Dynamic.findByElement($("ba-videorecorder"));
   recorder._prepareRecording = function () {
+    recorder.on("rerecord", function() {
+      filename = "video-" + BetaJS.Time.now();
+    }, recorder);
     recorder.set("uploadoptions", {
       image: {url:"/files/" + filename + ".jpg"},
       video: {url:"/files/" + filename + ".webm"},

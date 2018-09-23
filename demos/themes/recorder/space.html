@@ -64,11 +64,14 @@
             var filename = "video-" + BetaJS.Time.now();
 	        var recorder = BetaJS.Dynamics.Dynamic.findByElement($("ba-videorecorder"));
 	        recorder._prepareRecording = function () {
-	    		recorder.set("uploadoptions", {
-	    			image: {url:"/files/" + filename + ".jpg"},
-	    			video: {url:"/files/" + filename + ".webm"},
-	    			audio: {url:"/files/" + filename + ".wav"}
-	    		});
+						recorder.on("rerecord", function() {
+							filename = "video-" + BetaJS.Time.now();
+						}, recorder);
+						recorder.set("uploadoptions", {
+							image: {url:"/files/" + filename + ".jpg"},
+							video: {url:"/files/" + filename + ".webm"},
+							audio: {url:"/files/" + filename + ".wav"}
+						});
 		        recorder.set("playbacksource", "/files/" + filename + ".mp4");
 		        if (recorder.recorder)
 		        	recorder.set("playbackposter", "/files/" + filename + ".jpg");

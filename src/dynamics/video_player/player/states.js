@@ -248,8 +248,10 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadError", [
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
     "module:VideoPlayer.Dynamics.PlayerStates.State",
     "module:PopupHelper",
+    "browser:Info",
+    "browser:Dom",
     "base:Objs"
-], function(State, PopupHelper, Objs, scoped) {
+], function(State, PopupHelper, Info, Dom, Objs, scoped) {
     return State.extend({
         scoped: scoped
     }, {
@@ -262,7 +264,16 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
                     this.next("PosterError");
             }, this);
             if (this.dyn.get("autoplay") || this.dyn.get("skipinitial"))
-                this.play();
+                // Mute audio to reference Chrome policy changes after October 2018
+                if (Info.isChromiumBased) {
+                    var video = this.dyn.__video;
+                    video.isMuted = true;
+                    Dom.userInteraction(function() {
+                        this.play();
+                        video.isMuted = false;
+                    }, this);
+                } else
+                    this.play();
         },
 
         play: function() {

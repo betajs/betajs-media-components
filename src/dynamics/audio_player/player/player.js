@@ -65,6 +65,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     "title": "",
                     "initialseek": null,
                     "visibilityfraction": 0.8,
+                    "unmuted": false, // Reference to Chrome renewed policy, we have to setup mute for auto plyed players.
 
                     /* Configuration */
                     "forceflash": false,
@@ -355,26 +356,16 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                                 this.initializeVisualEffect();
                             }, this, 100);
                         }
-
                         if (this.get("playwhenvisible")) {
-                            var _self;
-                            _self = this;
-                            if (Dom.isElementVisible(audio, this.get("visibilityfraction"))) {
-                                this.player.play();
-                            }
-
-                            this._visiblityScrollEvent = this.auto_destroy(new DomEvents());
-                            this._visiblityScrollEvent.on(document, "scroll", function() {
-                                if (!_self.get('playedonce') && !_self.get("manuallypaused")) {
-                                    if (Dom.isElementVisible(audio, _self.get("visibilityfraction"))) {
-                                        _self.player.play();
-                                    } else if (_self.get("playing")) {
-                                        _self.player.pause();
-                                    }
-                                } else if (_self.get("playing") && !Dom.isElementVisible(audio, _self.get("visibilityfraction"))) {
-                                    _self.player.pause();
-                                }
-                            });
+                            if (Info.isChromiumBased && !this.get("unmuted")) {
+                                audio.isMuted = true;
+                                Dom.userInteraction(function() {
+                                    audio.isMuted = false;
+                                    this.set("unmuted", true);
+                                    this._playWhenVisible(audio);
+                                });
+                            } else
+                                this._playWhenVisible(audio);
                         }
                         this.player.on("playing", function() {
                             this.set("playing", true);
@@ -428,6 +419,28 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     this.__activated = true;
                     if (this.__attachRequested)
                         this._attachAudio();
+                },
+
+                _playWhenVisible: function(audio) {
+                    var _self = this;
+
+                    if (Dom.isElementVisible(audio, this.get("visibilityfraction"))) {
+                        this.player.play();
+                    }
+
+                    this._visiblityScrollEvent = this.auto_destroy(new DomEvents());
+                    this._visiblityScrollEvent.on(document, "scroll", function() {
+                        if (!_self.get('playedonce') && !_self.get("manuallypaused")) {
+                            if (Dom.isElementVisible(audio, _self.get("visibilityfraction"))) {
+                                _self.player.play();
+                            } else if (_self.get("playing")) {
+                                _self.player.pause();
+                            }
+                        } else if (_self.get("playing") && !Dom.isElementVisible(audio, _self.get("visibilityfraction"))) {
+                            _self.player.pause();
+                        }
+                    });
+
                 },
 
                 reattachAudio: function() {

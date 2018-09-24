@@ -120,8 +120,10 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.LoadError", [
 
 Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.LoadAudio", [
     "module:AudioPlayer.Dynamics.PlayerStates.State",
+    "browser:Info",
+    "browser:Dom",
     "base:Timers.Timer"
-], function(State, Timer, scoped) {
+], function(State, Info, Dom, Timer, scoped) {
     return State.extend({
         scoped: scoped
     }, {
@@ -142,20 +144,34 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.LoadAudio", [
             if (!this.dyn.get("autoplay"))
                 this.next("PlayAudio");
             else {
-                var counter = 10;
-                this.auto_destroy(new Timer({
-                    context: this,
-                    fire: function() {
-                        if (!this.destroyed() && !this.dyn.destroyed() && this.dyn.player)
-                            this.dyn.player.play();
-                        counter--;
-                        if (counter === 0)
-                            this.next("PlayAudio");
-                    },
-                    delay: 200,
-                    immediate: true
-                }));
+                // Mute audio to reference Chrome policy changes after October 2018
+                if (Info.isChromiumBased) {
+                    var audio = this.dyn.__audio;
+                    audio.isMuted = true;
+                    Dom.userInteraction(function() {
+                        audio.isMuted = false;
+                        this._runTimer();
+                    }, this);
+                } else {
+                    this._runTimer();
+                }
             }
+        },
+
+        _runTimer: function() {
+            var counter = 10;
+            this.auto_destroy(new Timer({
+                context: this,
+                fire: function() {
+                    if (!this.destroyed() && !this.dyn.destroyed() && this.dyn.player)
+                        this.dyn.player.play();
+                    counter--;
+                    if (counter === 0)
+                        this.next("PlayAudio");
+                },
+                delay: 200,
+                immediate: true
+            })); 
         }
 
     });

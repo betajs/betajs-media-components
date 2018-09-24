@@ -90,6 +90,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "sharevideo": [],
                     "sharevideourl": "",
                     "visibilityfraction": 0.8,
+                    "unmuted": false, // Reference to Chrome renewed policy, we have to setup mute for auto plyed players.
 
                     /* Configuration */
                     "forceflash": false,
@@ -679,25 +680,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
 
                         if (this.get("playwhenvisible")) {
-                            var _self;
-                            _self = this;
                             this.set("skipinitial", true);
-                            if (Dom.isElementVisible(video, this.get("visibilityfraction"))) {
-                                this.player.play();
+                            if (Info.isChromiumBased && !this.get("unmuted")) {
+                                video.isMuted = true;
+                                Dom.userInteraction(function() {
+                                    video.isMuted = true;
+                                    this.set("unmuted", true);
+                                    this._playWhenVisible(video);
+                                }, this);
+                            } else {
+                                this._playWhenVisible(video);
                             }
-
-                            this._visiblityScrollEvent = this.auto_destroy(new DomEvents());
-                            this._visiblityScrollEvent.on(document, "scroll", function() {
-                                if (!_self.get('playedonce') && !_self.get("manuallypaused")) {
-                                    if (Dom.isElementVisible(video, _self.get("visibilityfraction"))) {
-                                        _self.player.play();
-                                    } else if (_self.get("playing")) {
-                                        _self.player.pause();
-                                    }
-                                } else if (_self.get("playing") && !Dom.isElementVisible(video, _self.get("visibilityfraction"))) {
-                                    _self.player.pause();
-                                }
-                            });
                         }
                         this.player.on("fullscreen-change", function(inFullscreen) {
                             this.set("fullscreened", inFullscreen);
@@ -769,6 +762,28 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.__activated = true;
                     if (this.__attachRequested)
                         this._attachVideo();
+                },
+
+                _playWhenVisible: function(video) {
+                    var _self = this;
+
+                    if (Dom.isElementVisible(video, this.get("visibilityfraction"))) {
+                        this.player.play();
+                    }
+
+                    this._visiblityScrollEvent = this.auto_destroy(new DomEvents());
+                    this._visiblityScrollEvent.on(document, "scroll", function() {
+                        if (!_self.get('playedonce') && !_self.get("manuallypaused")) {
+                            if (Dom.isElementVisible(video, _self.get("visibilityfraction"))) {
+                                _self.player.play();
+                            } else if (_self.get("playing")) {
+                                _self.player.pause();
+                            }
+                        } else if (_self.get("playing") && !Dom.isElementVisible(video, _self.get("visibilityfraction"))) {
+                            _self.player.pause();
+                        }
+                    });
+
                 },
 
                 /* In the future if require to use promise player, Supports >Chrome50, >FireFox53

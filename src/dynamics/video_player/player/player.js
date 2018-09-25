@@ -681,7 +681,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                         if (this.get("playwhenvisible")) {
                             this.set("skipinitial", true);
-                            if (Info.isChromiumBased && !this.get("unmuted")) {
+                            if (Info.isChromiumBased() && !this.get("unmuted")) {
                                 video.isMuted = true;
                                 Dom.userInteraction(function() {
                                     video.isMuted = true;

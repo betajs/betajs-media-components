@@ -777,10 +777,6 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
                     this.dyn.set("playbacksource", this.dyn.recorder.localPlaybackSource());
                 else
                     this.dyn.set("playbacksource", (window.URL || window.webkitURL).createObjectURL(this.dyn._videoFile));
-                console.log('00>', this.dyn.__lastCovershotUpload);
-                setTimeout(function() {
-                    console.log('00>1000', this.dyn.__lastCovershotUpload);
-                }, 1000);
                 if (this.dyn.__lastCovershotUpload && this.dyn.recorder)
                     this.dyn.set("playbackposter", this.dyn.recorder.snapshotToLocalPoster(this.dyn.__lastCovershotUpload));
                 this.dyn.set("loader_active", false);

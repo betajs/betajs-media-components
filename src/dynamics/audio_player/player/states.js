@@ -171,7 +171,7 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.LoadAudio", [
                 },
                 delay: 200,
                 immediate: true
-            })); 
+            }));
         }
 
     });

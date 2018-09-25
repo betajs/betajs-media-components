@@ -357,7 +357,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                             }, this, 100);
                         }
                         if (this.get("playwhenvisible")) {
-                            if (Info.isChromiumBased && !this.get("unmuted")) {
+                            if (Info.isChromiumBased() && !this.get("unmuted")) {
                                 audio.isMuted = true;
                                 Dom.userInteraction(function() {
                                     audio.isMuted = false;

@@ -265,7 +265,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
             }, this);
             if (this.dyn.get("autoplay") || this.dyn.get("skipinitial"))
                 // Mute audio to reference Chrome policy changes after October 2018
-                if (Info.isChromiumBased) {
+                if (Info.isChromiumBased()) {
                     var video = this.dyn.__video;
                     video.isMuted = true;
                     Dom.userInteraction(function() {

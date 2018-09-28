@@ -372,30 +372,28 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
                 if (Info.isChromiumBased() && !this.dyn.get("skipinitial")) {
                     var video = this.dyn.__video;
                     video.isMuted = true;
-                    this._startToPlay();
                     Dom.userInteraction(function() {
                         video.isMuted = false;
                     }, this);
-                } else
-                    this._startToPlay();
+                }
+
+                var counter = 10;
+                this.auto_destroy(new Timer({
+                    context: this,
+                    fire: function() {
+                        if (!this.destroyed() && !this.dyn.destroyed() && this.dyn.player)
+                            this.dyn.player.play();
+                        counter--;
+                        if (counter === 0)
+                            this.next("PlayVideo");
+                    },
+                    delay: 200,
+                    immediate: true
+                }));
             }
         },
 
-        _startToPlay: function() {
-            var counter = 10;
-            this.auto_destroy(new Timer({
-                context: this,
-                fire: function() {
-                    if (!this.destroyed() && !this.dyn.destroyed() && this.dyn.player)
-                        this.dyn.player.play();
-                    counter--;
-                    if (counter === 0)
-                        this.next("PlayVideo");
-                },
-                delay: 200,
-                immediate: true
-            }));
-        }
+        _startToPlay: function() {}
 
     });
 });

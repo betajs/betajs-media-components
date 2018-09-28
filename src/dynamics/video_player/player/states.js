@@ -248,10 +248,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadError", [
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
     "module:VideoPlayer.Dynamics.PlayerStates.State",
     "module:PopupHelper",
-    "browser:Info",
-    "browser:Dom",
     "base:Objs"
-], function(State, PopupHelper, Info, Dom, Objs, scoped) {
+], function(State, PopupHelper, Objs, scoped) {
     return State.extend({
         scoped: scoped
     }, {
@@ -264,16 +262,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
                     this.next("PosterError");
             }, this);
             if (this.dyn.get("autoplay") || this.dyn.get("skipinitial"))
-                // Mute audio to reference Chrome policy changes after October 2018
-                if (Info.isChromiumBased()) {
-                    var video = this.dyn.__video;
-                    video.isMuted = true;
-                    Dom.userInteraction(function() {
-                        this.play();
-                        video.isMuted = false;
-                    }, this);
-                } else
-                    this.play();
+                this.play();
         },
 
         play: function() {
@@ -356,8 +345,10 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterError", [
 
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
     "module:VideoPlayer.Dynamics.PlayerStates.State",
+    "browser:Info",
+    "browser:Dom",
     "base:Timers.Timer"
-], function(State, Timer, scoped) {
+], function(State, Info, Dom, Timer, scoped) {
     return State.extend({
         scoped: scoped
     }, {
@@ -378,20 +369,32 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
             if (this.dyn.get("skipinitial") && !this.dyn.get("autoplay"))
                 this.next("PlayVideo");
             else {
-                var counter = 10;
-                this.auto_destroy(new Timer({
-                    context: this,
-                    fire: function() {
-                        if (!this.destroyed() && !this.dyn.destroyed() && this.dyn.player)
-                            this.dyn.player.play();
-                        counter--;
-                        if (counter === 0)
-                            this.next("PlayVideo");
-                    },
-                    delay: 200,
-                    immediate: true
-                }));
+                if (Info.isChromiumBased() && !this.dyn.get("skipinitial")) {
+                    var video = this.dyn.__video;
+                    video.isMuted = true;
+                    this._startToPlay();
+                    Dom.userInteraction(function() {
+                        video.isMuted = false;
+                    }, this);
+                } else
+                    this._startToPlay();
             }
+        },
+
+        _startToPlay: function() {
+            var counter = 10;
+            this.auto_destroy(new Timer({
+                context: this,
+                fire: function() {
+                    if (!this.destroyed() && !this.dyn.destroyed() && this.dyn.player)
+                        this.dyn.player.play();
+                    counter--;
+                    if (counter === 0)
+                        this.next("PlayVideo");
+                },
+                delay: 200,
+                immediate: true
+            }));
         }
 
     });

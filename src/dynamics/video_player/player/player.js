@@ -686,6 +686,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 Dom.userInteraction(function() {
                                     video.isMuted = true;
                                     this.set("unmuted", true);
+                                    this.set("volumeafterinteraction", false);
                                     this._playWhenVisible(video);
                                 }, this);
                             } else {
@@ -908,6 +909,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     user_activity: function(strong) {
                         if (strong && this.get("volumeafterinteraction")) {
                             this.set_volume(1.0);
+                            this.set("volumeafterinteraction", false);
                         }
                         if (this.get('preventinteractionstatus')) return;
                         this._resetActivity();
@@ -1018,7 +1020,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             return;
                         }
                         volume = Math.min(1.0, volume);
-                        volume = volume <= 0 ? 0 : volume; // Don't allow negative value
+
+                        if (!this.get("volumeafterinteraction"))
+                            volume = volume <= 0 ? 0 : volume; // Don't allow negative value
+                        else {
+                            this.set("volumeafterinteraction", false);
+                            volume = 0;
+                        }
 
                         if (this.player && this.player._broadcastingState && this.player._broadcastingState.googleCastConnected) {
                             this._broadcasting.player.trigger("change-google-cast-volume", volume);

@@ -391,10 +391,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
                     immediate: true
                 }));
             }
-        },
-
-        _startToPlay: function() {}
-
+        }
     });
 });
 

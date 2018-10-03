@@ -1,57 +1,14 @@
-<form id="recorder-options-form">
-    <div class="row">
-        <div class="col-xs-12">
-            <p class="page-header text-center">Options: </p>
-        </div>
-        <div class="col-xs-12">
-            <div id="select-option" ba-repeat="{{item::recorderSettings}}">
-                <div class="checkbox col-xs-6 col-sm-4">
-                    <label>
-                        <input type="checkbox" value="{{item.setting}}" {{item.selectedOption == true ? 'checked' : ''}}>{{item.title}}
-                    </label>
-                </div>
+<div class="row">
+    <div class="col-xs-12">
+        <h5 class="text-left">Recorder Options: </h5>
+    </div>
+    <div class="col-xs-12">
+        <div id="select-options" ba-repeat="{{item::recorderSettings}}">
+            <div class="checkbox col-xs-12">
+                <label>
+                    <input type="checkbox" value="{{item.setting}}" {{item.checked ? 'checked' : ''}} /> {{item.title}}
+                </label>
             </div>
         </div>
     </div>
-</form>
-
-<script>
-
-  var body = $('body');
-
-  var recorderOptions = new BetaJS.Dynamics.Dynamic({
-    templateUrl: "/static/demos/themes/templates/recorder-options.html",
-    element: $('#recorder-options'),
-    attrs: { selectedOptions: "" },
-    collections: {
-      recorderSettings: [
-        { setting: 'ba-hideoninactivity', title: 'Hide controlbar during inactivity', selectedOption: false},
-        { setting: 'ba-hideoverlay', title: 'Hide overlay', selectedOption: false},
-        { setting: 'ba-autoplay', title: 'Auto Play', selectedOption: true},
-        { setting: 'ba-reloadonplay', title: 'Reload On Play', selectedOption: false},
-        { setting: 'ba-nofullscreen', title: 'No full screen', selectedOption: false},
-        { setting: 'ba-forceflash', title: 'Force Flash', selectedOption: false},
-        { setting: 'ba-submittable', title: 'Manual submit', selectedOption: false},
-        { setting: 'ba-noflash', title: 'No Flash', selectedOption: false},
-        { setting: 'ba-stretch', title: 'Stretch', selectedOption: true},
-        { setting: 'ba-noaudio', title: 'No Audio', selectedOption: true}
-      ]
-    }
-  });
-
-  body.on("change", "#recorder-options-form", function (el) {
-    el.preventDefault();
-    var target = el.target;
-    var status = target.checked ? true : false;
-    var setting = target.value;
-
-    var currentSettings = recorderOptions.get("selectedOptions");
-    var reg = new RegExp(setting + "='" + !status + "'", 'g');
-
-    var leftSettings = currentSettings.replace(reg, '');
-    recorderOptions.set("selectedOptions", leftSettings + " " + setting + "='" + status + "'");
-
-  });
-
-  recorderOptions.activate();
-</script>
+</div>

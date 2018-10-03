@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="/static/vendors/jquery.min.js"></script>
+    <script src="/static/node_modules/betajs-shims/dist/betajs-shims.js"></script>
+    <script src="/static/node_modules/betajs-scoped/dist/scoped.js"></script>
+    <script src="/static/node_modules/betajs/dist/beta-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
+    <script src="/static/dist/betajs-media-components-noscoped.js"></script>
+    <link  href="/static/dist/betajs-media-components.css" rel="stylesheet" />
+
+    <!-- Modern style assests -->
+    <script src="/static/dist/themes/cube/script.js"></script>
+    <link  href="/static/dist/themes/cube/style.css" rel="stylesheet" />
+
+</head>
+
+<body style="background: #999">
+<!-- Modern -->
+<ba-videorecorder
+    ba-onlyaudio="true"
+></ba-videorecorder>
+
+<script>
+  BetaJS.Flash.options = {
+    flashFile: "./assets/betajs-flash.swf",
+    forceReload: true
+  };
+
+  BetaJS.Dynamics.Dynamic.activate();
+  var filename = "audio-" + BetaJS.Time.now();
+  var recorder = BetaJS.Dynamics.Dynamic.findByElement($("ba-videorecorder"));
+  recorder._prepareRecording = function () {
+    recorder.set("uploadoptions", {
+      audio: {url:"/files/" + filename + ".wav"}
+    });
+    recorder.set("playbacksource", "/files/" + filename + ".mp4");
+    return BetaJS.Promise.value(true);
+  };
+  recorder._verifyRecording = function () {
+    return BetaJS.Ajax.Support.execute({
+      method: "POST",
+      uri: "/files/" + filename + ".webm" + "/transcode/" + filename + ".mp4" + (recorder.recorder && recorder.recorder.localPlaybackSource().audio ? "?audio=" + filename + ".wav" : "")
+    });
+  };
+
+</script>
+</body>
+</html>

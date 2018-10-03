@@ -1,7 +1,7 @@
 
 <div data-selector="audio-recorder-container" ba-show="{{!player_active}}"
-     class="{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}}{{csstheme}}
-     	{{cssrecorder}}-{{ firefox ? 'firefox' : 'common'}}-browser
+     class="{{css}}-container {{csstheme}} {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}}
+     	{{cssrecorder}}-{{ firefox ? 'firefox' : 'common'}}-browser {{cssaudio}}
     	{{cssrecorder}}-{{themecolor}}-color"
      ba-styles="{{widthHeightStyles}}"
 >
@@ -12,6 +12,7 @@
 		<ba-{{dynloader}}
 		    ba-css="{{cssloader || css}}"
 			ba-themecolor="{{themecolor}}"
+			ba-cssrecorder="{{cssrecorder || css}}"
 			ba-cssrecorder="{{cssrecorder || css}}"
 		    ba-template="{{tmplloader}}"
 		    ba-show="{{loader_active}}"
@@ -51,6 +52,7 @@
 
 		<ba-{{dyncontrolbar}}
 		    ba-css="{{csscontrolbar || css}}"
+			ba-csstheme="{{csstheme || css}}"
 			ba-themecolor="{{themecolor}}"
 			ba-cssrecorder="{{cssrecorder || css}}"
 		    ba-template="{{tmplcontrolbar}}"
@@ -94,6 +96,7 @@
         ba-submittable="{{manualsubmit && verified}}"
         ba-reloadonplay="{{true}}"
         ba-autoplay="{{autoplay}}"
+		ba-visualeffectvisible="{{visualeffectvisible}}"
 		ba-event:loaded="ready_to_play"
         ba-event:rerecord="rerecord"
         ba-event:playing="playing"

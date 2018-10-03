@@ -1,11 +1,13 @@
 Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
     "dynamics:Dynamic",
     "module:Assets",
+    "module:AudioVisualisation",
     "browser:Info",
     "browser:Dom",
     "browser:Upload.MultiUploader",
     "browser:Upload.FileUploader",
     "media:AudioRecorder.AudioRecorderWrapper",
+    "media:WebRTC.Support",
     "base:Types",
     "base:Objs",
     "base:Strings",
@@ -31,7 +33,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.TemplatePartial",
     "dynamics:Partials.HotkeyPartial"
-], function(Class, Assets, Info, Dom, MultiUploader, FileUploader, AudioRecorderWrapper, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Collection, Promise, InitialState, RecorderStates, scoped) {
+], function(Class, Assets, AudioVisualisation, Info, Dom, MultiUploader, FileUploader, AudioRecorderWrapper, WebRTCSupport, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Collection, Promise, InitialState, RecorderStates, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -41,7 +43,8 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
 
                 attrs: {
                     /* CSS */
-                    "css": "ba-audiorecorder",
+                    "css": "ba-videorecorder", // inherit from video recorder
+                    "cssaudio": "ba-audiorecorder",
                     "cssrecorder": "ba-recorder",
                     "csscommon": "ba-commoncss",
                     "iecss": "ba-audiorecorder",
@@ -97,6 +100,8 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     "allowedextensions": null,
                     "filesizelimit": null,
                     "display-timer": true,
+                    "visualeffectvisible": true,
+                    "visualeffectsupported": false,
 
                     /* Configuration */
                     "forceflash": false,
@@ -185,10 +190,22 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                             this.set("skipinitialonrerecord", false);
                             this.set("autorecord", false);
                         }
+                    },
+                    "change:visualeffectsupported": function(value) {
+                        if (!value) {
+                            // If after checking we found that AudioAnalyzer not supported we should remove canvas
+                            if (this.audioVisualisation) {
+                                if (this.audioVisualisation.canvas)
+                                    this.audioVisualisation.canvas.remove();
+                                this.audioVisualisation.destroy();
+                            }
+                        }
                     }
                 },
 
                 create: function() {
+                    // Initialize AudioContext
+                    WebRTCSupport.globals();
                     if (this.get("theme") in Assets.recorderthemes) {
                         Objs.iter(Assets.recorderthemes[this.get("theme")], function(value, key) {
                             if (!this.isArgumentAttr(key))
@@ -292,6 +309,15 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     this.recorder = AudioRecorderWrapper.create(Objs.extend({
                         element: audio
                     }, this._audioRecorderWrapperOptions()));
+                    // Draw visualisation effect for the audio player
+                    // if (this.get("visualeffectvisible") && AudioVisualisation.supported()) {
+                    //     this.audioVisualisation = new AudioVisualisation(audio, {
+                    //         recorder: this.recorder,
+                    //         globalAudioContext: WebRTCSupport.globals().audioContext,
+                    //         height: this.recorder._recorder._options.recordResolution.height || 120,
+                    //         element: this.activeElement()
+                    //     });
+                    // }
                     if (this.recorder)
                         this.trigger("attached");
                     else
@@ -383,6 +409,9 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                 _stopRecording: function() {
                     if (!this.__recording)
                         return Promise.error(true);
+                    // Destroy audio visualisation effect for the recorder
+                    // if (this.audioVisualisation)
+                    //     this.audioVisualisation.cancelFrame(this.audioVisualisation.frameID);
                     return this.recorder.stopRecord({
                         rtmp: this.get("uploadoptions").rtmp,
                         audio: this.get("uploadoptions").audio,

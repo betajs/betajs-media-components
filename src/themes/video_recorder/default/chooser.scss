@@ -1,6 +1,6 @@
 .#{$css}-chooser-container {
 	@include absolute-align-all;
-	background-color: $recorder_bgcolor;
+	background-color: $chooser_background;
 }
 
 .#{$css}-chooser-file {

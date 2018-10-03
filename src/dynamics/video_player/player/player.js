@@ -565,6 +565,28 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.__error = null;
                 },
 
+                _detachImage: function() {
+                    this.set("imageelement_active", false);
+                },
+
+                _attachImage: function() {
+                    if (!this.get("poster")) {
+                        this.trigger("error:poster");
+                        return;
+                    }
+                    var img = this.activeElement().querySelector("[data-image='image']");
+                    this._clearError();
+                    var self = this;
+                    img.onerror = function() {
+                        self.trigger("error:poster");
+                    };
+                    img.onload = function() {
+                        self.set("imageelement_active", true);
+                        self.trigger("image-attached");
+                    };
+                    img.src = this.get("poster");
+                },
+
                 _detachVideo: function() {
                     this.set("playing", false);
                     if (this.player)
@@ -573,6 +595,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this._prerollAd.weakDestroy();
                     this.player = null;
                     this.__video = null;
+                    this.set("videoelement_active", false);
                 },
 
                 _attachVideo: function() {
@@ -583,6 +606,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         return;
                     }
                     this.__attachRequested = false;
+                    this.set("videoelement_active", true);
                     var video = this.activeElement().querySelector("[data-video='video']");
                     this._clearError();
                     VideoPlayerWrapper.create(Objs.extend(this._getSources(), {
@@ -819,6 +843,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("reloadonplay", true);
                     this._detachVideo();
                     this._attachVideo();
+                },
+
+                reattachImage: function() {
+                    this._detachImage();
+                    this._attachImage();
                 },
 
                 _keyDownActivity: function(element, ev) {

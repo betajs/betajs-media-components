@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.126 - 2018-10-03
+betajs-media-components - v0.0.127 - 2018-10-03
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1006,7 +1006,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.126 - 2018-10-03
+betajs-media-components - v0.0.127 - 2018-10-03
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1022,8 +1022,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.126",
-    "datetime": 1538581175069
+    "version": "0.0.127",
+    "datetime": 1538588871233
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -3103,6 +3103,216 @@ Scoped.define("module:Assets", [
         audiorecorderthemes: {}
 
     };
+});
+Scoped.define("module:AudioVisualisation", [
+    "base:Class",
+    "browser:Dom"
+], function(Class, Dom, scoped) {
+    return Class.extend({
+        scoped: scoped
+    }, function(inherited) {
+        return {
+            /**
+             * @param stream  // Audio stream
+             * @param {object} options // additional options like height and active element
+             */
+            constructor: function(stream, options) {
+                inherited.constructor.call(this);
+                this.stream = stream;
+                if (options.recorder) {
+                    this.audioContext = options.globalAudioContext;
+
+                    // Commented for the future use in audio recorder
+                    // var recorder = options.recorder;
+                    // this._analyser = recorder._analyser;
+                    // this._audioContext = this._analyser._audioContext;
+                    // this.audioContext = this._analyser._audioContext;
+                    // this._analyserNode = this._analyser._analyserNode;
+                    // this._audioInput = this._analyser._audioInput;
+                } else {
+                    var AudioContext = window.AudioContext || window.webkitAudioContext;
+                    this.audioContext = new AudioContext();
+                }
+                this.audioBufferSourceNode = this.audioContext.createBufferSource();
+                this.createVisualisationCanvas(options.height, options.element);
+                this.frameID = null;
+            },
+
+            createVisualisationCanvas: function(height, element) {
+                var _height, _containerElement;
+                _height = height || 120;
+                _containerElement = (element.firstElementChild || element.firstChild);
+                _containerElement.style.minHeight = _height + 'px';
+                this.canvas = _containerElement.querySelector('canvas');
+                this.canvas.style.display = 'block';
+                this.canvas.width = parseFloat(window.getComputedStyle(_containerElement).width);
+                this.canvas.height = _height;
+                this.canvasContext = this.canvas.getContext("2d");
+            },
+
+            initializeVisualEffect: function() {
+                try {
+                    var _source;
+                    if (this.audioContext || this.stream) {
+                        this.analyser = this._analyser || this.audioContext.createAnalyser();
+                        this.audioBufferSourceNode.connect(this.analyser);
+                        _source = this.audioContext.createMediaElementSource(this.stream);
+                        _source.connect(this.analyser);
+                        if (this.audioContext.state === 'suspended') {
+                            Dom.userInteraction(function() {
+                                this.audioContext.resume();
+                            }, this);
+                        }
+                        this.analyser.connect(this.audioContext.destination);
+                        this.analyser.fftSize = 256;
+                        this.bufferLength = this.analyser.frequencyBinCount;
+                        this.dataArray = new Uint8Array(this.bufferLength);
+                        // this.dataArray = new Float32Array( this.analyser.fftSize);
+                        this.canvasWidth = this.canvas.width;
+                        this.canvasHeigth = this.canvas.height;
+                        this.barWidth = (this.canvasWidth / this.bufferLength) * 2.5;
+                        this.barHeight = 0;
+                        this.x = 0;
+                        //this.renderFrame = this._renderFrame;
+                        // If requestAnimationFrame is missing
+                        if (!window.requestAnimationFrame) {
+                            window.requestAnimationFrame = (function() {
+                                return window.webkitRequestAnimationFrame ||
+                                    window.mozRequestAnimationFrame ||
+                                    window.oRequestAnimationFrame ||
+                                    window.msRequestAnimationFrame ||
+                                    function( /* function FrameRequestCallback */ callback, /* DOMElement Element */ element) {
+                                        window.setTimeout(callback, 1000 / 60);
+                                    };
+                            })();
+                            window.cancelAnimationFrame = window.cancelAnimationFrame ||
+                                window.mozCancelAnimationFrame ||
+                                function(requestID) {
+                                    clearTimeout(requestID);
+                                }; //fall back
+                        }
+                    } else {
+                        console.warn('Seems there is limitation by browser to create AudioContext instance');
+                    }
+                } catch (e) {
+                    //this.set('visualeffectsupported', false);
+                    console.warn('Web Audio API not supported', e);
+                }
+            },
+
+            renderFrame: function() {
+                // requestAnimationFrame(this.renderFrame.bind(this));
+                var _self = this;
+                this.frameID = requestAnimationFrame(function() {
+                    _self.renderFrame();
+                });
+                this.dataArray = new Uint8Array(this.analyser.frequencyBinCount);
+                this.analyser.getByteFrequencyData(this.dataArray);
+                // this.dataArray = new Float32Array( this.analyser.fftSize);
+                // this.analyser.getFloatTimeDomainData(this.dataArray);
+                setTimeout(function() {
+                    //debugger;
+                }, 2000);
+                this._drawBigBalloon();
+            },
+
+            cancelFrame: function(ID) {
+                var _ID = ID || this.renderFrame;
+                cancelAnimationFrame(_ID);
+            },
+
+            _drawRedBars: function() {
+                this.x = 0;
+                this.canvasContext.fillStyle = "#000";
+                this.canvasContext.fillRect(0, 0, this.canvasWidth, this.canvasHeigth);
+                for (var i = 0; i < this.bufferLength; i++) {
+                    this.barHeight = this.dataArray[i] / 2;
+                    var r = this.barHeight + (25 * (i / this.bufferLength));
+                    var g = 250 * (i / this.bufferLength);
+                    var b = 50;
+                    this.canvasContext.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
+                    this.canvasContext.fillRect(this.x, this.canvasHeigth - this.barHeight, this.barWidth, this.barHeight);
+                    this.x += this.barWidth + 1;
+                }
+            },
+
+            _drawBigBalloon: function() {
+                this.__canvasBackground(235);
+                this.canvasContext.fillStyle = "#000";
+                var s = this.__getRMS();
+                this.canvasContext.fillStyle = this.__rgb(s * 2);
+                this.__HfillEllipse(this.canvasWidth / 2, this.canvasHeigth / 2, s * 5, s * 5);
+            },
+
+            __getRMS: function() {
+                var rms = 0;
+                for (var i = 0; i < this.bufferLength; i++) {
+                    rms += this.dataArray[i] * this.dataArray[i];
+                }
+                rms /= this.dataArray.length;
+                rms = Math.sqrt(rms);
+                return rms;
+            },
+
+            __canvasBackground: function(r, g, b, a) {
+                if (typeof g === 'undefined') {
+                    this.canvasContext.fillStyle = this.__rgb(r, r, r);
+                } else if (typeof b === 'undefined' && typeof a === 'undefined') {
+                    this.canvasContext.fillStyle = rgba(r, r, r, g);
+                } else if (typeof a === 'undefined') {
+                    this.canvasContext.fillStyle = this.__rgb(r, g, b);
+                } else {
+                    this.canvasContext.fillStyle = this.__rgba(r, g, b, a);
+                }
+                this.canvasContext.fillRect(0, 0, this.canvasWidth, this.canvasHeigth);
+            },
+
+            __HfillEllipse: function(x, y, width, height) {
+                if (typeof height === 'undefined') height = width;
+                this.__Hellipse(x, y, width, height);
+                this.canvasContext.fill();
+                this.canvasContext.beginPath();
+            },
+
+            __Hellipse: function(x, y, width, height) {
+                'use strict';
+                if (typeof height === 'undefined') height = width;
+                this.canvasContext.beginPath();
+                for (var i = 0; i < Math.PI * 2; i += Math.PI / 64) {
+                    this.canvasContext.lineTo(x + (Math.cos(i) * width / 2), y + (Math.sin(i) * height / 2));
+                }
+                this.canvasContext.closePath();
+            },
+
+            __rgb: function(r, g, b) {
+
+                if (typeof g === 'undefined') g = r;
+                if (typeof b === 'undefined') b = r;
+                return 'rgb(' + this.__clamp(Math.round(r), 0, 255) + ', ' + this.__clamp(Math.round(g), 0, 255) + ', ' + this.__clamp(Math.round(b), 0, 255) + ')';
+
+            },
+
+            __rgba: function(r, g, b, a) {
+                if (typeof g === 'undefined') {
+                    return 'rgb(' + this.__clamp(Math.round(r), 0, 255) + ', ' + this.__clamp(Math.round(r), 0, 255) + ', ' + this.__clamp(Math.round(r), 0, 255) + ')';
+                } else if (typeof b === 'undefined') {
+                    return 'rgba(' + this.__clamp(Math.round(r), 0, 255) + ', ' + this.__clamp(Math.round(r), 0, 255) + ', ' + this.__clamp(Math.round(r), 0, 255) + ', ' + this.__clamp(g, 0, 1) + ')';
+                } else if (typeof a === 'undefined') {
+                    return 'rgba(' + this.__clamp(Math.round(r), 0, 255) + ', ' + this.__clamp(Math.round(g), 0, 255) + ', ' + this.__clamp(Math.round(b), 0, 255) + ', 1)';
+                } else {
+                    return 'rgba(' + this.__clamp(Math.round(r), 0, 255) + ', ' + this.__clamp(Math.round(g), 0, 255) + ', ' + this.__clamp(Math.round(b), 0, 255) + ', ' + this.__clamp(a, 0, 1) + ')';
+                }
+            },
+
+            __clamp: function(value, min, max) {
+                return Math.min(Math.max(value, Math.min(min, max)), Math.max(min, max));
+            }
+        };
+    }, {
+        supported: function() {
+            return !!(window.AudioContext || window.webkitAudioContext);
+        }
+    });
 });
 Scoped.define("module:Settings", [
     "base:Class",
@@ -10772,6 +10982,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Message", [
 Scoped.define("module:AudioPlayer.Dynamics.Player", [
     "dynamics:Dynamic",
     "module:Assets",
+    "module:AudioVisualisation",
     "browser:Info",
     "browser:Dom",
     "media:AudioPlayer.AudioPlayerWrapper",
@@ -10796,7 +11007,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.TemplatePartial",
     "dynamics:Partials.HotkeyPartial"
-], function(Class, Assets, Info, Dom, AudioPlayerWrapper, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Async, InitialState, PlayerStates, DomEvents, scoped) {
+], function(Class, Assets, AudioVisualisation, Info, Dom, AudioPlayerWrapper, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Async, InitialState, PlayerStates, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -10906,6 +11117,18 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     }
                 },
 
+                events: {
+                    "change:visualeffectsupported": function(value) {
+                        if (!value) {
+                            // If after checking we found that AudioAnalyzer not supported we should remove canvas
+                            if (this.audioVisualisation) {
+                                this.audioVisualisation.destroy();
+                                this.audioVisualisation.canvas.remove();
+                            }
+                        }
+                    }
+                },
+
                 remove_on_destroy: true,
 
                 create: function() {
@@ -10982,95 +11205,6 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     return this.__error;
                 },
 
-                createVisualisationCanvas: function(height) {
-                    this._audioVisualization = {};
-                    var _height, _activeElement, _containerElement;
-                    _height = height || 120;
-                    _activeElement = this.activeElement();
-                    _containerElement = (_activeElement.firstElementChild || _activeElement.firstChild);
-                    _containerElement.style.minHeight = _height + 'px';
-                    this._audioVisualization.canvas = _containerElement.querySelector('canvas');
-                    this._audioVisualization.canvas.style.display = 'block';
-                    this._audioVisualization.canvas.width = parseFloat(window.getComputedStyle(_containerElement).width);
-                    this._audioVisualization.canvas.height = _height;
-                    this._audioVisualization.canvasContext = this._audioVisualization.canvas.getContext("2d");
-                },
-
-                initializeVisualEffect: function() {
-                    try {
-                        var _audioContext, _source, _audio;
-                        var AudioContext = window.AudioContext || window.webkitAudioContext;
-                        _audioContext = new AudioContext();
-                        _audio = this.__audio; // this line is fixing "Edge  WEBAUDIO17027: Invalid HTMLMediaElement"
-                        if (_audioContext || _audio) {
-                            _source = _audioContext.createMediaElementSource(_audio);
-                            this._audioVisualization.analyzer = _audioContext.createAnalyser();
-                            _source.connect(this._audioVisualization.analyzer);
-                            this._audioVisualization.analyzer.connect(_audioContext.destination);
-                            this._audioVisualization.analyzer.fftSize = 256;
-                            this._audioVisualization.bufferLength = this._audioVisualization.analyzer.frequencyBinCount;
-                            this._audioVisualization.dataArray = new Uint8Array(this._audioVisualization.bufferLength);
-                            this._audioVisualization.canvasWidth = this._audioVisualization.canvas.width;
-                            this._audioVisualization.canvasHeigth = this._audioVisualization.canvas.height;
-                            this._audioVisualization.barWidth = (this._audioVisualization.canvasWidth / this._audioVisualization.bufferLength) * 2.5;
-                            this._audioVisualization.barHeight = 0;
-                            this._audioVisualization.x = 0;
-                            this._audioVisualization.renderFrame = this.renderFrame;
-                            // If requestAnimationFrame is missing
-                            if (!window.requestAnimationFrame) {
-                                window.requestAnimationFrame = (function() {
-                                    return window.webkitRequestAnimationFrame ||
-                                        window.mozRequestAnimationFrame ||
-                                        window.oRequestAnimationFrame ||
-                                        window.msRequestAnimationFrame ||
-                                        function( /* function FrameRequestCallback */ callback, /* DOMElement Element */ element) {
-                                            window.setTimeout(callback, 1000 / 60);
-                                        };
-                                })();
-                                window.cancelAnimationFrame = window.cancelAnimationFrame ||
-                                    window.mozCancelAnimationFrame ||
-                                    function(requestID) {
-                                        clearTimeout(requestID);
-                                    }; //fall back
-                            }
-
-                            this.set('visualeffectsupported', true);
-
-                        } else {
-                            console.warn('Seems there is limitation by browser to create AudioContext instance');
-                        }
-                    } catch (e) {
-                        this.set('visualeffectsupported', false);
-                        console.warn('Web Audio API not supported', e);
-                    }
-                },
-
-                renderFrame: function() {
-                    // requestAnimationFrame(this.renderFrame.bind(this));
-                    var _self = this;
-                    this._audioVisualization.frameID = requestAnimationFrame(function() {
-                        _self.renderFrame();
-                    });
-                    this._audioVisualization.x = 0;
-                    this._audioVisualization.analyzer.getByteFrequencyData(this._audioVisualization.dataArray);
-                    this._audioVisualization.canvasContext.fillStyle = "#000";
-                    this._audioVisualization.canvasContext.fillRect(0, 0, this._audioVisualization.canvasWidth, this._audioVisualization.canvasHeigth);
-                    for (var i = 0; i < this._audioVisualization.bufferLength; i++) {
-                        this._audioVisualization.barHeight = this._audioVisualization.dataArray[i] / 2;
-                        var r = this._audioVisualization.barHeight + (25 * (i / this._audioVisualization.bufferLength));
-                        var g = 250 * (i / this._audioVisualization.bufferLength);
-                        var b = 50;
-                        this._audioVisualization.canvasContext.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
-                        this._audioVisualization.canvasContext.fillRect(this._audioVisualization.x, this._audioVisualization.canvasHeigth - this._audioVisualization.barHeight, this._audioVisualization.barWidth, this._audioVisualization.barHeight);
-                        this._audioVisualization.x += this._audioVisualization.barWidth + 1;
-                    }
-                },
-
-                cancelFrame: function(ID) {
-                    var _ID = ID || this._audioVisualization.renderFrame;
-                    cancelAnimationFrame(_ID);
-                },
-
                 _error: function(error_type, error_code) {
                     this.__error = {
                         error_type: error_type,
@@ -11119,12 +11253,22 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
 
                         this.player = instance;
                         this.__audio = audio;
+                        // Draw audio visualisation effect
+                        if (this.get("visualeffectvisible") && AudioVisualisation.supported()) {
+                            this.audioVisualisation = new AudioVisualisation(audio, {
+                                height: this.get('visualeffectheight'),
+                                element: this.activeElement()
+                            });
 
-                        if (this.get("visualeffectvisible")) {
-                            this.createVisualisationCanvas(this.get('visualeffectheight'));
                             // To be able set width of the canvas element
                             Async.eventually(function() {
-                                this.initializeVisualEffect();
+                                try {
+                                    this.audioVisualisation.initializeVisualEffect();
+                                    this.set("visualeffectsupported", true);
+                                } catch (e) {
+                                    this.set("visualeffectsupported", false);
+                                    console.warn(e);
+                                }
                             }, this, 100);
                         }
                         if (this.get("playwhenvisible")) {
@@ -11294,7 +11438,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                         this.host.state().play();
                         // Draw visual effect
                         if (this.get('visualeffectsupported'))
-                            this.renderFrame();
+                            this.audioVisualisation.renderFrame();
                     },
 
                     rerecord: function() {
@@ -11318,9 +11462,11 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                             this.player.pause();
                         }
 
-                        if (this.get("visualeffectsupported") && this._audioVisualization) {
-                            if (this._audioVisualization.frameID)
-                                this.cancelFrame(this._audioVisualization.frameID);
+                        if (this.get("visualeffectsupported") && this.audioVisualisation) {
+                            if (this.audioVisualisation.frameID)
+                                this.audioVisualisation.cancelFrame(this.audioVisualisation.frameID);
+                            else
+                                this.set("visualeffectsupported", false);
                         }
 
                         if (this.get("playwhenvisible"))
@@ -11942,7 +12088,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Loader", [
         }, function(inherited) {
             return {
 
-                template: "\n<div class=\"{{css}}-loader-container\">\n    <div data-selector=\"recorder-loader-block\" class=\"{{css}}-loader-loader\" title=\"{{tooltip || ''}}\">\n    </div>\n</div>\n<div data-selector=\"recorder-loader-label-container\" class=\"{{css}}-loader-label\" ba-show=\"{{label}}\">\n\t{{label}}\n</div>\n",
+                template: "\n<div class=\"{{cssrecorder}}-loader-container\">\n    <div data-selector=\"recorder-loader-block\" class=\"{{cssrecorder}}-loader-loader\" title=\"{{tooltip || ''}}\">\n    </div>\n</div>\n<div data-selector=\"recorder-loader-label-container\" class=\"{{cssrecorder}}-loader-label\" ba-show=\"{{label}}\">\n\t{{label}}\n</div>\n",
 
                 attrs: {
                     "css": "ba-audiorecorder",
@@ -11954,7 +12100,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Loader", [
 
             };
         })
-        .registerFunctions({ /**/"css": function (obj) { with (obj) { return css; } }, "tooltip || ''": function (obj) { with (obj) { return tooltip || ''; } }, "label": function (obj) { with (obj) { return label; } }/**/ })
+        .registerFunctions({ /**/"cssrecorder": function (obj) { with (obj) { return cssrecorder; } }, "tooltip || ''": function (obj) { with (obj) { return tooltip || ''; } }, "label": function (obj) { with (obj) { return label; } }/**/ })
         .register("ba-audiorecorder-loader")
         .attachStringTable(Assets.strings)
         .addStrings({});
@@ -11997,11 +12143,13 @@ Scoped.define("module:AudioRecorder.Dynamics.Message", [
 Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
     "dynamics:Dynamic",
     "module:Assets",
+    "module:AudioVisualisation",
     "browser:Info",
     "browser:Dom",
     "browser:Upload.MultiUploader",
     "browser:Upload.FileUploader",
     "media:AudioRecorder.AudioRecorderWrapper",
+    "media:WebRTC.Support",
     "base:Types",
     "base:Objs",
     "base:Strings",
@@ -12027,17 +12175,18 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.TemplatePartial",
     "dynamics:Partials.HotkeyPartial"
-], function(Class, Assets, Info, Dom, MultiUploader, FileUploader, AudioRecorderWrapper, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Collection, Promise, InitialState, RecorderStates, scoped) {
+], function(Class, Assets, AudioVisualisation, Info, Dom, MultiUploader, FileUploader, AudioRecorderWrapper, WebRTCSupport, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Collection, Promise, InitialState, RecorderStates, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
             return {
 
-                template: "\n<div data-selector=\"audio-recorder-container\" ba-show=\"{{!player_active}}\"\n     class=\"{{css}}-container {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}}{{csstheme}}\n     \t{{cssrecorder}}-{{ firefox ? 'firefox' : 'common'}}-browser\n    \t{{cssrecorder}}-{{themecolor}}-color\"\n     ba-styles=\"{{widthHeightStyles}}\"\n>\n\n\t<canvas data-selector=\"visualisation-canvas\" class=\"{{css}}-visualisation-canvas\"></canvas>\n    <audio tabindex=\"-1\" data-selector=\"recorder-status\" class=\"{{css}}-audio {{css}}-{{hasrecorder ? 'hasrecorder' : 'norecorder'}}\" data-audio=\"audio\" playsinline></audio>\n    <div data-selector=\"audio-recorder-overlay\" class='{{cssrecorder}}-overlay' ba-show=\"{{!hideoverlay}}\" data-overlay=\"overlay\">\n\t\t<ba-{{dynloader}}\n\t\t    ba-css=\"{{cssloader || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t    ba-template=\"{{tmplloader}}\"\n\t\t    ba-show=\"{{loader_active}}\"\n\t\t    ba-tooltip=\"{{loadertooltip}}\"\n\t\t\tba-hovermessage=\"{{=hovermessage}}\"\n\t\t    ba-label=\"{{loaderlabel}}\"\n\t\t></ba-{{dynloader}}>\n\n\t\t<ba-{{dynmessage}}\n\t\t    ba-css=\"{{cssmessage || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t    ba-template=\"{{tmplmessage}}\"\n\t\t    ba-show=\"{{message_active}}\"\n\t\t    ba-message=\"{{message}}\"\n\t\t\tba-links=\"{{message_links}}\"\n\t\t    ba-event:click=\"message_click\"\n\t\t\tba-event:link=\"message_link_click\"\n\t\t></ba-{{dynmessage}}>\n\n\t\t<ba-{{dynchooser}}\n\t\t\tba-recordviafilecapture=\"{{recordviafilecapture}}\"\n\t\t    ba-css=\"{{csschooser || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t    ba-template=\"{{tmplchooser}}\"\n\t\t    ba-if=\"{{chooser_active && !is_initial_state}}\"\n\t\t    ba-allowrecord=\"{{allowrecord}}\"\n\t\t    ba-allowupload=\"{{allowupload}}\"\n\t\t    ba-allowcustomupload=\"{{allowcustomupload}}\"\n\t\t    ba-allowedextensions=\"{{allowedextensions}}\"\n\t\t    ba-primaryrecord=\"{{primaryrecord}}\"\n\t\t    ba-timelimit=\"{{timelimit}}\"\n\t\t    ba-event:record=\"record_audio\"\n\t\t    ba-event:upload=\"upload_audio\"\n\t\t></ba-{{dynchooser}}>\n\n\t\t<ba-{{dyncontrolbar}}\n\t\t    ba-css=\"{{csscontrolbar || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t    ba-template=\"{{tmplcontrolbar}}\"\n\t\t    ba-show=\"{{controlbar_active}}\"\n\t\t    ba-microphones=\"{{microphones}}\"\n\t\t    ba-selectedmicrophone=\"{{selectedmicrophone || 0}}\"\n\t\t    ba-microphonehealthy=\"{{microphonehealthy}}\"\n\t\t    ba-hovermessage=\"{{=hovermessage}}\"\n\t\t    ba-settingsvisible=\"{{settingsvisible}}\"\n\t\t    ba-recordvisible=\"{{recordvisible}}\"\n\t\t\tba-cancelvisible=\"{{allowcancel && cancancel}}\"\n\t\t    ba-rerecordvisible=\"{{rerecordvisible}}\"\n\t\t    ba-stopvisible=\"{{stopvisible}}\"\n\t\t    ba-controlbarlabel=\"{{controlbarlabel}}\"\n\t\t\tba-mintimeindicator=\"{{mintimeindicator}}\"\n\t\t\tba-timeminlimit=\"{{timeminlimit}}\"\n\t\t    ba-event:select-microphone=\"select_microphone\"\n\t\t    ba-event:invoke-record=\"record\"\n\t\t    ba-event:invoke-rerecord=\"rerecord\"\n\t\t    ba-event:invoke-stop=\"stop\"\n\t\t></ba-{{dyncontrolbar}}>\n    </div>\n</div>\n\n<div data-selector=\"recorder-player\" ba-if=\"{{player_active}}\" ba-styles=\"{{widthHeightStyles}}\">\n\t<span ba-show=\"{{ie8}}\">&nbsp;</span>\n\t<ba-{{dynaudioplayer}}\n\t    ba-theme=\"{{theme || 'default'}}\"\n        ba-themecolor=\"{{themecolor}}\"\n        ba-source=\"{{playbacksource}}\"\n        ba-hideoninactivity=\"{{false}}\"\n        ba-forceflash=\"{{forceflash}}\"\n        ba-noflash=\"{{noflash}}\"\n        ba-stretch=\"{{stretch}}\"\n        ba-attrs=\"{{playerattrs}}\"\n        ba-data:id=\"player\"\n        ba-width=\"{{width}}\"\n        ba-height=\"{{height}}\"\n        ba-totalduration=\"{{duration / 1000}}\"\n        ba-rerecordable=\"{{rerecordable && (recordings === null || recordings > 0)}}\"\n        ba-submittable=\"{{manualsubmit && verified}}\"\n        ba-reloadonplay=\"{{true}}\"\n        ba-autoplay=\"{{autoplay}}\"\n\t\tba-event:loaded=\"ready_to_play\"\n        ba-event:rerecord=\"rerecord\"\n        ba-event:playing=\"playing\"\n        ba-event:paused=\"paused\"\n        ba-event:ended=\"ended\"\n        ba-event:submit=\"manual_submit\"\n\t>\n\t</ba-{{dynaudioplayer}}>\n</div>\n",
+                template: "\n<div data-selector=\"audio-recorder-container\" ba-show=\"{{!player_active}}\"\n     class=\"{{css}}-container {{csstheme}} {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}}\n     \t{{cssrecorder}}-{{ firefox ? 'firefox' : 'common'}}-browser {{cssaudio}}\n    \t{{cssrecorder}}-{{themecolor}}-color\"\n     ba-styles=\"{{widthHeightStyles}}\"\n>\n\n\t<canvas data-selector=\"visualisation-canvas\" class=\"{{css}}-visualisation-canvas\"></canvas>\n    <audio tabindex=\"-1\" data-selector=\"recorder-status\" class=\"{{css}}-audio {{css}}-{{hasrecorder ? 'hasrecorder' : 'norecorder'}}\" data-audio=\"audio\" playsinline></audio>\n    <div data-selector=\"audio-recorder-overlay\" class='{{cssrecorder}}-overlay' ba-show=\"{{!hideoverlay}}\" data-overlay=\"overlay\">\n\t\t<ba-{{dynloader}}\n\t\t    ba-css=\"{{cssloader || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t    ba-template=\"{{tmplloader}}\"\n\t\t    ba-show=\"{{loader_active}}\"\n\t\t    ba-tooltip=\"{{loadertooltip}}\"\n\t\t\tba-hovermessage=\"{{=hovermessage}}\"\n\t\t    ba-label=\"{{loaderlabel}}\"\n\t\t></ba-{{dynloader}}>\n\n\t\t<ba-{{dynmessage}}\n\t\t    ba-css=\"{{cssmessage || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t    ba-template=\"{{tmplmessage}}\"\n\t\t    ba-show=\"{{message_active}}\"\n\t\t    ba-message=\"{{message}}\"\n\t\t\tba-links=\"{{message_links}}\"\n\t\t    ba-event:click=\"message_click\"\n\t\t\tba-event:link=\"message_link_click\"\n\t\t></ba-{{dynmessage}}>\n\n\t\t<ba-{{dynchooser}}\n\t\t\tba-recordviafilecapture=\"{{recordviafilecapture}}\"\n\t\t    ba-css=\"{{csschooser || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t    ba-template=\"{{tmplchooser}}\"\n\t\t    ba-if=\"{{chooser_active && !is_initial_state}}\"\n\t\t    ba-allowrecord=\"{{allowrecord}}\"\n\t\t    ba-allowupload=\"{{allowupload}}\"\n\t\t    ba-allowcustomupload=\"{{allowcustomupload}}\"\n\t\t    ba-allowedextensions=\"{{allowedextensions}}\"\n\t\t    ba-primaryrecord=\"{{primaryrecord}}\"\n\t\t    ba-timelimit=\"{{timelimit}}\"\n\t\t    ba-event:record=\"record_audio\"\n\t\t    ba-event:upload=\"upload_audio\"\n\t\t></ba-{{dynchooser}}>\n\n\t\t<ba-{{dyncontrolbar}}\n\t\t    ba-css=\"{{csscontrolbar || css}}\"\n\t\t\tba-csstheme=\"{{csstheme || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t    ba-template=\"{{tmplcontrolbar}}\"\n\t\t    ba-show=\"{{controlbar_active}}\"\n\t\t    ba-microphones=\"{{microphones}}\"\n\t\t    ba-selectedmicrophone=\"{{selectedmicrophone || 0}}\"\n\t\t    ba-microphonehealthy=\"{{microphonehealthy}}\"\n\t\t    ba-hovermessage=\"{{=hovermessage}}\"\n\t\t    ba-settingsvisible=\"{{settingsvisible}}\"\n\t\t    ba-recordvisible=\"{{recordvisible}}\"\n\t\t\tba-cancelvisible=\"{{allowcancel && cancancel}}\"\n\t\t    ba-rerecordvisible=\"{{rerecordvisible}}\"\n\t\t    ba-stopvisible=\"{{stopvisible}}\"\n\t\t    ba-controlbarlabel=\"{{controlbarlabel}}\"\n\t\t\tba-mintimeindicator=\"{{mintimeindicator}}\"\n\t\t\tba-timeminlimit=\"{{timeminlimit}}\"\n\t\t    ba-event:select-microphone=\"select_microphone\"\n\t\t    ba-event:invoke-record=\"record\"\n\t\t    ba-event:invoke-rerecord=\"rerecord\"\n\t\t    ba-event:invoke-stop=\"stop\"\n\t\t></ba-{{dyncontrolbar}}>\n    </div>\n</div>\n\n<div data-selector=\"recorder-player\" ba-if=\"{{player_active}}\" ba-styles=\"{{widthHeightStyles}}\">\n\t<span ba-show=\"{{ie8}}\">&nbsp;</span>\n\t<ba-{{dynaudioplayer}}\n\t    ba-theme=\"{{theme || 'default'}}\"\n        ba-themecolor=\"{{themecolor}}\"\n        ba-source=\"{{playbacksource}}\"\n        ba-hideoninactivity=\"{{false}}\"\n        ba-forceflash=\"{{forceflash}}\"\n        ba-noflash=\"{{noflash}}\"\n        ba-stretch=\"{{stretch}}\"\n        ba-attrs=\"{{playerattrs}}\"\n        ba-data:id=\"player\"\n        ba-width=\"{{width}}\"\n        ba-height=\"{{height}}\"\n        ba-totalduration=\"{{duration / 1000}}\"\n        ba-rerecordable=\"{{rerecordable && (recordings === null || recordings > 0)}}\"\n        ba-submittable=\"{{manualsubmit && verified}}\"\n        ba-reloadonplay=\"{{true}}\"\n        ba-autoplay=\"{{autoplay}}\"\n\t\tba-visualeffectvisible=\"{{visualeffectvisible}}\"\n\t\tba-event:loaded=\"ready_to_play\"\n        ba-event:rerecord=\"rerecord\"\n        ba-event:playing=\"playing\"\n        ba-event:paused=\"paused\"\n        ba-event:ended=\"ended\"\n        ba-event:submit=\"manual_submit\"\n\t>\n\t</ba-{{dynaudioplayer}}>\n</div>\n",
 
                 attrs: {
                     /* CSS */
-                    "css": "ba-audiorecorder",
+                    "css": "ba-videorecorder", // inherit from video recorder
+                    "cssaudio": "ba-audiorecorder",
                     "cssrecorder": "ba-recorder",
                     "csscommon": "ba-commoncss",
                     "iecss": "ba-audiorecorder",
@@ -12093,6 +12242,8 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     "allowedextensions": null,
                     "filesizelimit": null,
                     "display-timer": true,
+                    "visualeffectvisible": true,
+                    "visualeffectsupported": false,
 
                     /* Configuration */
                     "forceflash": false,
@@ -12181,10 +12332,22 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                             this.set("skipinitialonrerecord", false);
                             this.set("autorecord", false);
                         }
+                    },
+                    "change:visualeffectsupported": function(value) {
+                        if (!value) {
+                            // If after checking we found that AudioAnalyzer not supported we should remove canvas
+                            if (this.audioVisualisation) {
+                                if (this.audioVisualisation.canvas)
+                                    this.audioVisualisation.canvas.remove();
+                                this.audioVisualisation.destroy();
+                            }
+                        }
                     }
                 },
 
                 create: function() {
+                    // Initialize AudioContext
+                    WebRTCSupport.globals();
                     if (this.get("theme") in Assets.recorderthemes) {
                         Objs.iter(Assets.recorderthemes[this.get("theme")], function(value, key) {
                             if (!this.isArgumentAttr(key))
@@ -12288,6 +12451,15 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     this.recorder = AudioRecorderWrapper.create(Objs.extend({
                         element: audio
                     }, this._audioRecorderWrapperOptions()));
+                    // Draw visualisation effect for the audio player
+                    // if (this.get("visualeffectvisible") && AudioVisualisation.supported()) {
+                    //     this.audioVisualisation = new AudioVisualisation(audio, {
+                    //         recorder: this.recorder,
+                    //         globalAudioContext: WebRTCSupport.globals().audioContext,
+                    //         height: this.recorder._recorder._options.recordResolution.height || 120,
+                    //         element: this.activeElement()
+                    //     });
+                    // }
                     if (this.recorder)
                         this.trigger("attached");
                     else
@@ -12379,6 +12551,9 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                 _stopRecording: function() {
                     if (!this.__recording)
                         return Promise.error(true);
+                    // Destroy audio visualisation effect for the recorder
+                    // if (this.audioVisualisation)
+                    //     this.audioVisualisation.cancelFrame(this.audioVisualisation.frameID);
                     return this.recorder.stopRecord({
                         rtmp: this.get("uploadoptions").rtmp,
                         audio: this.get("uploadoptions").audio,
@@ -12583,7 +12758,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
 
         })
         .register("ba-audiorecorder")
-        .registerFunctions({ /**/"!player_active": function (obj) { with (obj) { return !player_active; } }, "css": function (obj) { with (obj) { return css; } }, "csssize": function (obj) { with (obj) { return csssize; } }, "iecss": function (obj) { with (obj) { return iecss; } }, "ie8 ? 'ie8' : 'noie8'": function (obj) { with (obj) { return ie8 ? 'ie8' : 'noie8'; } }, "csstheme": function (obj) { with (obj) { return csstheme; } }, "cssrecorder": function (obj) { with (obj) { return cssrecorder; } }, "firefox ? 'firefox' : 'common'": function (obj) { with (obj) { return firefox ? 'firefox' : 'common'; } }, "themecolor": function (obj) { with (obj) { return themecolor; } }, "widthHeightStyles": function (obj) { with (obj) { return widthHeightStyles; } }, "hasrecorder ? 'hasrecorder' : 'norecorder'": function (obj) { with (obj) { return hasrecorder ? 'hasrecorder' : 'norecorder'; } }, "!hideoverlay": function (obj) { with (obj) { return !hideoverlay; } }, "dynloader": function (obj) { with (obj) { return dynloader; } }, "cssloader || css": function (obj) { with (obj) { return cssloader || css; } }, "cssrecorder || css": function (obj) { with (obj) { return cssrecorder || css; } }, "tmplloader": function (obj) { with (obj) { return tmplloader; } }, "loader_active": function (obj) { with (obj) { return loader_active; } }, "loadertooltip": function (obj) { with (obj) { return loadertooltip; } }, "hovermessage": function (obj) { with (obj) { return hovermessage; } }, "loaderlabel": function (obj) { with (obj) { return loaderlabel; } }, "dynmessage": function (obj) { with (obj) { return dynmessage; } }, "cssmessage || css": function (obj) { with (obj) { return cssmessage || css; } }, "tmplmessage": function (obj) { with (obj) { return tmplmessage; } }, "message_active": function (obj) { with (obj) { return message_active; } }, "message": function (obj) { with (obj) { return message; } }, "message_links": function (obj) { with (obj) { return message_links; } }, "dynchooser": function (obj) { with (obj) { return dynchooser; } }, "recordviafilecapture": function (obj) { with (obj) { return recordviafilecapture; } }, "csschooser || css": function (obj) { with (obj) { return csschooser || css; } }, "tmplchooser": function (obj) { with (obj) { return tmplchooser; } }, "chooser_active && !is_initial_state": function (obj) { with (obj) { return chooser_active && !is_initial_state; } }, "allowrecord": function (obj) { with (obj) { return allowrecord; } }, "allowupload": function (obj) { with (obj) { return allowupload; } }, "allowcustomupload": function (obj) { with (obj) { return allowcustomupload; } }, "allowedextensions": function (obj) { with (obj) { return allowedextensions; } }, "primaryrecord": function (obj) { with (obj) { return primaryrecord; } }, "timelimit": function (obj) { with (obj) { return timelimit; } }, "dyncontrolbar": function (obj) { with (obj) { return dyncontrolbar; } }, "csscontrolbar || css": function (obj) { with (obj) { return csscontrolbar || css; } }, "tmplcontrolbar": function (obj) { with (obj) { return tmplcontrolbar; } }, "controlbar_active": function (obj) { with (obj) { return controlbar_active; } }, "microphones": function (obj) { with (obj) { return microphones; } }, "selectedmicrophone || 0": function (obj) { with (obj) { return selectedmicrophone || 0; } }, "microphonehealthy": function (obj) { with (obj) { return microphonehealthy; } }, "settingsvisible": function (obj) { with (obj) { return settingsvisible; } }, "recordvisible": function (obj) { with (obj) { return recordvisible; } }, "allowcancel && cancancel": function (obj) { with (obj) { return allowcancel && cancancel; } }, "rerecordvisible": function (obj) { with (obj) { return rerecordvisible; } }, "stopvisible": function (obj) { with (obj) { return stopvisible; } }, "controlbarlabel": function (obj) { with (obj) { return controlbarlabel; } }, "mintimeindicator": function (obj) { with (obj) { return mintimeindicator; } }, "timeminlimit": function (obj) { with (obj) { return timeminlimit; } }, "player_active": function (obj) { with (obj) { return player_active; } }, "ie8": function (obj) { with (obj) { return ie8; } }, "dynaudioplayer": function (obj) { with (obj) { return dynaudioplayer; } }, "theme || 'default'": function (obj) { with (obj) { return theme || 'default'; } }, "playbacksource": function (obj) { with (obj) { return playbacksource; } }, "false": function (obj) { with (obj) { return false; } }, "forceflash": function (obj) { with (obj) { return forceflash; } }, "noflash": function (obj) { with (obj) { return noflash; } }, "stretch": function (obj) { with (obj) { return stretch; } }, "playerattrs": function (obj) { with (obj) { return playerattrs; } }, "width": function (obj) { with (obj) { return width; } }, "height": function (obj) { with (obj) { return height; } }, "duration / 1000": function (obj) { with (obj) { return duration / 1000; } }, "rerecordable && (recordings === null || recordings > 0)": function (obj) { with (obj) { return rerecordable && (recordings === null || recordings > 0); } }, "manualsubmit && verified": function (obj) { with (obj) { return manualsubmit && verified; } }, "true": function (obj) { with (obj) { return true; } }, "autoplay": function (obj) { with (obj) { return autoplay; } }/**/ })
+        .registerFunctions({ /**/"!player_active": function (obj) { with (obj) { return !player_active; } }, "css": function (obj) { with (obj) { return css; } }, "csstheme": function (obj) { with (obj) { return csstheme; } }, "csssize": function (obj) { with (obj) { return csssize; } }, "iecss": function (obj) { with (obj) { return iecss; } }, "ie8 ? 'ie8' : 'noie8'": function (obj) { with (obj) { return ie8 ? 'ie8' : 'noie8'; } }, "cssrecorder": function (obj) { with (obj) { return cssrecorder; } }, "firefox ? 'firefox' : 'common'": function (obj) { with (obj) { return firefox ? 'firefox' : 'common'; } }, "cssaudio": function (obj) { with (obj) { return cssaudio; } }, "themecolor": function (obj) { with (obj) { return themecolor; } }, "widthHeightStyles": function (obj) { with (obj) { return widthHeightStyles; } }, "hasrecorder ? 'hasrecorder' : 'norecorder'": function (obj) { with (obj) { return hasrecorder ? 'hasrecorder' : 'norecorder'; } }, "!hideoverlay": function (obj) { with (obj) { return !hideoverlay; } }, "dynloader": function (obj) { with (obj) { return dynloader; } }, "cssloader || css": function (obj) { with (obj) { return cssloader || css; } }, "cssrecorder || css": function (obj) { with (obj) { return cssrecorder || css; } }, "tmplloader": function (obj) { with (obj) { return tmplloader; } }, "loader_active": function (obj) { with (obj) { return loader_active; } }, "loadertooltip": function (obj) { with (obj) { return loadertooltip; } }, "hovermessage": function (obj) { with (obj) { return hovermessage; } }, "loaderlabel": function (obj) { with (obj) { return loaderlabel; } }, "dynmessage": function (obj) { with (obj) { return dynmessage; } }, "cssmessage || css": function (obj) { with (obj) { return cssmessage || css; } }, "tmplmessage": function (obj) { with (obj) { return tmplmessage; } }, "message_active": function (obj) { with (obj) { return message_active; } }, "message": function (obj) { with (obj) { return message; } }, "message_links": function (obj) { with (obj) { return message_links; } }, "dynchooser": function (obj) { with (obj) { return dynchooser; } }, "recordviafilecapture": function (obj) { with (obj) { return recordviafilecapture; } }, "csschooser || css": function (obj) { with (obj) { return csschooser || css; } }, "tmplchooser": function (obj) { with (obj) { return tmplchooser; } }, "chooser_active && !is_initial_state": function (obj) { with (obj) { return chooser_active && !is_initial_state; } }, "allowrecord": function (obj) { with (obj) { return allowrecord; } }, "allowupload": function (obj) { with (obj) { return allowupload; } }, "allowcustomupload": function (obj) { with (obj) { return allowcustomupload; } }, "allowedextensions": function (obj) { with (obj) { return allowedextensions; } }, "primaryrecord": function (obj) { with (obj) { return primaryrecord; } }, "timelimit": function (obj) { with (obj) { return timelimit; } }, "dyncontrolbar": function (obj) { with (obj) { return dyncontrolbar; } }, "csscontrolbar || css": function (obj) { with (obj) { return csscontrolbar || css; } }, "csstheme || css": function (obj) { with (obj) { return csstheme || css; } }, "tmplcontrolbar": function (obj) { with (obj) { return tmplcontrolbar; } }, "controlbar_active": function (obj) { with (obj) { return controlbar_active; } }, "microphones": function (obj) { with (obj) { return microphones; } }, "selectedmicrophone || 0": function (obj) { with (obj) { return selectedmicrophone || 0; } }, "microphonehealthy": function (obj) { with (obj) { return microphonehealthy; } }, "settingsvisible": function (obj) { with (obj) { return settingsvisible; } }, "recordvisible": function (obj) { with (obj) { return recordvisible; } }, "allowcancel && cancancel": function (obj) { with (obj) { return allowcancel && cancancel; } }, "rerecordvisible": function (obj) { with (obj) { return rerecordvisible; } }, "stopvisible": function (obj) { with (obj) { return stopvisible; } }, "controlbarlabel": function (obj) { with (obj) { return controlbarlabel; } }, "mintimeindicator": function (obj) { with (obj) { return mintimeindicator; } }, "timeminlimit": function (obj) { with (obj) { return timeminlimit; } }, "player_active": function (obj) { with (obj) { return player_active; } }, "ie8": function (obj) { with (obj) { return ie8; } }, "dynaudioplayer": function (obj) { with (obj) { return dynaudioplayer; } }, "theme || 'default'": function (obj) { with (obj) { return theme || 'default'; } }, "playbacksource": function (obj) { with (obj) { return playbacksource; } }, "false": function (obj) { with (obj) { return false; } }, "forceflash": function (obj) { with (obj) { return forceflash; } }, "noflash": function (obj) { with (obj) { return noflash; } }, "stretch": function (obj) { with (obj) { return stretch; } }, "playerattrs": function (obj) { with (obj) { return playerattrs; } }, "width": function (obj) { with (obj) { return width; } }, "height": function (obj) { with (obj) { return height; } }, "duration / 1000": function (obj) { with (obj) { return duration / 1000; } }, "rerecordable && (recordings === null || recordings > 0)": function (obj) { with (obj) { return rerecordable && (recordings === null || recordings > 0); } }, "manualsubmit && verified": function (obj) { with (obj) { return manualsubmit && verified; } }, "true": function (obj) { with (obj) { return true; } }, "autoplay": function (obj) { with (obj) { return autoplay; } }, "visualeffectvisible": function (obj) { with (obj) { return visualeffectvisible; } }/**/ })
         .attachStringTable(Assets.strings)
         .addStrings({
             "recorder-error": "An error occurred, please try again later. Click to retry.",

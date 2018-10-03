@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.126 - 2018-10-03
+betajs-media-components - v0.0.127 - 2018-10-03
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -819,64 +819,3 @@ Apache-2.0 Software License.
 
 .ba-audioplayer-ie8 .ba-player-theme-modern-title-container {
   display: none; }
-
-.ba-audiorecorder-overlay div[tabindex] {
-  transition: all 0.3s ease-in-out;
-  -moz-transition: all 0.3s ease-in-out;
-  -webkit-transition: all 0.3s ease-in-out;
-  -o-transition: all 0.3s ease-in-out;
-  -ms-transition: all 0.3s ease-in-out; }
-
-.ba-audiorecorder-overlay div[tabindex]:hover:focus {
-  outline: 0;
-  -moz-outline-style: none; }
-
-.ba-audiorecorder-chooser-icon-container {
-  margin: 16px;
-  color: #979797;
-  font-size: 32px; }
-
-.ba-audiorecorder-red-color .ba-audiorecorder-chooser-icon-container, .ba-audiorecorder-red-color .ba-audiorecorder-chooser-button-1, .ba-audiorecorder-red-color .ba-audiorecorder-chooser-button-2,
-.ba-audiorecorder-red-color .ba-audiorecorder-button-selected, .ba-audiorecorder-red-color .ba-recorder-loader-label {
-  color: #eb6a74; }
-.ba-audiorecorder-red-color .ba-audiorecorder-chooser-button-0, .ba-audiorecorder-red-color .ba-audiorecorder-button-primary,
-.ba-audiorecorder-red-color .ba-audiorecorder-settings span, .ba-audiorecorder-red-color .ba-audiorecorder-imagegallery-rightbutton, .ba-audiorecorder-red-color .ba-audiorecorder-imagegallery-leftbutton {
-  background-color: #eb6a74; }
-.ba-audiorecorder-red-color .ba-audiorecorder-button-selected, .ba-audiorecorder-red-color .ba-audiorecorder-imagegallery-image:hover,
-.ba-audiorecorder-red-color .ba-audiorecorder-settings input[type=radio]:checked + span {
-  border-color: #eb6a74; }
-.ba-audiorecorder-red-color .ba-audiorecorder-message-message a {
-  color: #eb6a74; }
-
-.ba-audiorecorder-blue-color .ba-audiorecorder-chooser-icon-container, .ba-audiorecorder-blue-color .ba-audiorecorder-chooser-button-1, .ba-audiorecorder-blue-color .ba-audiorecorder-chooser-button-2,
-.ba-audiorecorder-blue-color .ba-audiorecorder-button-selected, .ba-audiorecorder-blue-color .ba-recorder-loader-label {
-  color: #2a74eb; }
-.ba-audiorecorder-blue-color .ba-audiorecorder-chooser-button-0, .ba-audiorecorder-blue-color .ba-audiorecorder-button-primary,
-.ba-audiorecorder-blue-color .ba-audiorecorder-settings span, .ba-audiorecorder-blue-color .ba-audiorecorder-imagegallery-rightbutton, .ba-audiorecorder-blue-color .ba-audiorecorder-imagegallery-leftbutton {
-  background-color: #2a74eb; }
-.ba-audiorecorder-blue-color .ba-audiorecorder-button-selected, .ba-audiorecorder-blue-color .ba-audiorecorder-imagegallery-image:hover,
-.ba-audiorecorder-blue-color .ba-audiorecorder-settings input[type=radio]:checked + span {
-  border-color: #2a74eb; }
-.ba-audiorecorder-blue-color .ba-audiorecorder-message-message a {
-  color: #2a74eb; }
-
-.ba-audiorecorder-green-color .ba-audiorecorder-chooser-icon-container, .ba-audiorecorder-green-color .ba-audiorecorder-chooser-button-1, .ba-audiorecorder-green-color .ba-audiorecorder-chooser-button-2,
-.ba-audiorecorder-green-color .ba-audiorecorder-button-selected, .ba-audiorecorder-green-color .ba-recorder-loader-label {
-  color: #5dbb96; }
-.ba-audiorecorder-green-color .ba-audiorecorder-chooser-button-0, .ba-audiorecorder-green-color .ba-audiorecorder-button-primary,
-.ba-audiorecorder-green-color .ba-audiorecorder-settings span, .ba-audiorecorder-green-color .ba-audiorecorder-imagegallery-rightbutton, .ba-audiorecorder-green-color .ba-audiorecorder-imagegallery-leftbutton {
-  background-color: #5dbb96; }
-.ba-audiorecorder-green-color .ba-audiorecorder-button-selected, .ba-audiorecorder-green-color .ba-audiorecorder-imagegallery-image:hover,
-.ba-audiorecorder-green-color .ba-audiorecorder-settings input[type=radio]:checked + span {
-  border-color: #5dbb96; }
-.ba-audiorecorder-green-color .ba-audiorecorder-message-message a {
-  color: #5dbb96; }
-
-.ba-audiorecorder-imagegallery-button-inner {
-  background-color: black;
-  opacity: 0.5;
-  padding: 4px;
-  border-radius: 3px; }
-
-.ba-audiorecorder-imagegallery-leftbutton .ba-audiorecorder-imagegallery-button-inner {
-  padding-left: 2px; }

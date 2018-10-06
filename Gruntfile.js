@@ -15,6 +15,7 @@ module.exports = function(grunt) {
             'src/ads/**/*.js',
             'src/dynamics/_common/*.js',
             'src/dynamics/popup_helper/*.js',
+            'src/dynamics/iframe_helper/*.js',
             'src/dynamics/video_player/**/*.js',
             'src/dynamics/video_recorder/**/*.js',
             'src/dynamics/image_viewer/**/*.js',

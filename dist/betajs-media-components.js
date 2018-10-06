@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.127 - 2018-10-03
+betajs-media-components - v0.0.129 - 2018-10-06
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1006,7 +1006,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.127 - 2018-10-03
+betajs-media-components - v0.0.129 - 2018-10-06
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1022,8 +1022,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.127",
-    "datetime": 1538588871233
+    "version": "0.0.129",
+    "datetime": 1538845028652
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -3628,6 +3628,60 @@ Scoped.define("module:PopupHelper", [
     });
 
     return PopupHelper;
+});
+Scoped.define("module:IframeHelper", [
+    "dynamics:Dynamic",
+    "base:Objs",
+    "base:Types",
+    "base:Net.Uri"
+], function(Dynamic, Objs, Types, Uri, scoped) {
+    return Dynamic.extend({
+        scoped: scoped
+    }, function(inherited) {
+        return {
+
+            template: "<iframe src=\"{{computeSrc()}}\" style=\"width:100%;height:100%\" allow=\"{{computeAllow()}}\" scrolling=\"no\" frameborder=\"0\"></iframe>",
+
+            getAllowModifiers: function() {
+                return [];
+            },
+
+            getSrc: function() {
+                return "";
+            },
+
+            filteredAttrs: function() {
+                return Objs.filter(this.properties().getAll(), function(value, key) {
+                    return !Types.is_object(value) && !Types.is_array(value);
+                }, this);
+            },
+
+            functions: {
+                computeSrc: function() {
+                    return Uri.appendUriParams(this.getSrc(), this.filteredAttrs());
+                },
+
+                computeAllow: function() {
+                    return this.getAllowModifiers().map(function(modifier) {
+                        return modifier + " *";
+                    }).join("; ");
+                }
+            },
+
+            iframe: function() {
+                return this.activeElement().querySelector("iframe");
+            },
+
+            _afterActivate: function() {
+                inherited._afterActivate.apply(this, arguments);
+                var iframe = this.iframe();
+                this.getAllowModifiers().forEach(function(modifier) {
+                    iframe["allow" + modifier] = "allow" + modifier;
+                });
+            }
+
+        };
+    }).registerFunctions({ /**/"computeSrc()": function (obj) { with (obj) { return computeSrc(); } }, "computeAllow()": function (obj) { with (obj) { return computeAllow(); } }/**/ });
 });
 Scoped.define("module:VideoPlayer.Dynamics.Adplayer", [
     "dynamics:Dynamic",

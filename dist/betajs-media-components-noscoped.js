@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.129 - 2018-10-06
+betajs-media-components - v0.0.129 - 2018-10-07
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -16,7 +16,7 @@ Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
     "version": "0.0.129",
-    "datetime": 1538845028652
+    "datetime": 1538930888456
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -4871,7 +4871,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadPlayer", [
 
         _started: function() {
             this.listenOn(this.dyn, "error:poster", function() {
-                this.next("LoaderPlayerDirectly");
+                this.next("LoadPlayerDirectly");
             }, this);
             this.listenOn(this.dyn, "image-attached", function() {
                 this.next("PosterReady");

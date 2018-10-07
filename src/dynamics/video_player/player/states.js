@@ -209,7 +209,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadPlayer", [
 
         _started: function() {
             this.listenOn(this.dyn, "error:poster", function() {
-                this.next("LoaderPlayerDirectly");
+                this.next("LoadPlayerDirectly");
             }, this);
             this.listenOn(this.dyn, "image-attached", function() {
                 this.next("PosterReady");

@@ -444,6 +444,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     return this.recorder && this.recorder.isFlash();
                 },
 
+                isWebrtcStreaming: function() {
+                    return this.recorder && this.recorder.isWebrtcStreaming();
+                },
+
                 _initializeUploader: function() {
                     if (this._dataUploader)
                         this._dataUploader.weakDestroy();

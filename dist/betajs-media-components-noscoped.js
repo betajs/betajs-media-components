@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.129 - 2018-10-06
+betajs-media-components - v0.0.131 - 2018-10-09
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -15,8 +15,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.129",
-    "datetime": 1538845028652
+    "version": "0.0.131",
+    "datetime": 1539059850829
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -4537,7 +4537,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             var _now = Time.now();
                             this.set("activity_delta", _now - this.get("last_activity"));
                             var new_position = this.player.position();
-                            if (new_position != this.get("position") || this.get("last_position_change"))
+                            if (new_position !== this.get("position") || this.get("last_position_change"))
                                 this.set("last_position_change", _now);
                             // In case if prevent interaction with controller set to true
                             if (this.get('preventinteraction')) {
@@ -4580,11 +4580,21 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 videoHeight: function() {
-                    return this.videoAttached() ? this.player.videoHeight() : NaN;
+                    if (this.videoAttached())
+                        return this.player.videoHeight();
+                    var img = this.activeElement().querySelector("img");
+                    if (img && img.height)
+                        return img.height;
+                    return NaN;
                 },
 
                 videoWidth: function() {
-                    return this.videoAttached() ? this.player.videoWidth() : NaN;
+                    if (this.videoAttached())
+                        return this.player.videoWidth();
+                    var img = this.activeElement().querySelector("img");
+                    if (img && img.width)
+                        return img.width;
+                    return NaN;
                 },
 
                 aspectRatio: function() {
@@ -4871,7 +4881,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadPlayer", [
 
         _started: function() {
             this.listenOn(this.dyn, "error:poster", function() {
-                this.next("LoaderPlayerDirectly");
+                this.next("LoadPlayerDirectly");
             }, this);
             this.listenOn(this.dyn, "image-attached", function() {
                 this.next("PosterReady");

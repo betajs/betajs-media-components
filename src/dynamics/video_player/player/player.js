@@ -1210,7 +1210,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             var _now = Time.now();
                             this.set("activity_delta", _now - this.get("last_activity"));
                             var new_position = this.player.position();
-                            if (new_position != this.get("position") || this.get("last_position_change"))
+                            if (new_position !== this.get("position") || this.get("last_position_change"))
                                 this.set("last_position_change", _now);
                             // In case if prevent interaction with controller set to true
                             if (this.get('preventinteraction')) {
@@ -1253,11 +1253,21 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 videoHeight: function() {
-                    return this.videoAttached() ? this.player.videoHeight() : NaN;
+                    if (this.videoAttached())
+                        return this.player.videoHeight();
+                    var img = this.activeElement().querySelector("img");
+                    if (img && img.height)
+                        return img.height;
+                    return NaN;
                 },
 
                 videoWidth: function() {
-                    return this.videoAttached() ? this.player.videoWidth() : NaN;
+                    if (this.videoAttached())
+                        return this.player.videoWidth();
+                    var img = this.activeElement().querySelector("img");
+                    if (img && img.width)
+                        return img.width;
+                    return NaN;
                 },
 
                 aspectRatio: function() {

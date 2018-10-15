@@ -19,6 +19,13 @@
         width: 100%;
     }
 
+    .#{$csstheme}-right-block {
+        & > div  {
+            height: $controlbar_line_height;
+            line-height: $controlbar_line_height;
+            width: $button_width;
+        }
+    }
 
     &.#{$cssplayer}-size-small .#{$csstheme}-time-container {
         display: block;
@@ -42,7 +49,7 @@
 
 .#{$cssie8} .#{$csstheme}-left-block {
     & > div {
-        line-height: $controlbar_line_height - 3;
+        line-height: $controlbar_height;
     }
 }
 

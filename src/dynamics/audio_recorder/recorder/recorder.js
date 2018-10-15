@@ -102,6 +102,9 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     "display-timer": true,
                     "visualeffectvisible": true,
                     "visualeffectsupported": false,
+                    "visualeffectheight": null,
+                    "visualeffectminheight": 120,
+                    "visualeffecttheme": "balloon", // types: `balloon`, 'red-bars'
 
                     /* Configuration */
                     "forceflash": false,
@@ -199,6 +202,8 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                                     this.audioVisualisation.canvas.remove();
                                 this.audioVisualisation.destroy();
                             }
+                        } else if (this.audioVisualisation) {
+                            this.audioVisualisation.renderFrame();
                         }
                     }
                 },
@@ -347,6 +352,39 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                             this.recorder.setVolumeGain(this.get("microphone-volume"));
                             this.set("hideoverlay", false);
                             this.off("require_display", null, this);
+                            // Draw visualisation effect for the audio player
+                            if (this.get("visualeffectvisible") && AudioVisualisation.supported()) {
+                                if (this.get("height") && this.get("height") > this.get("visualeffectminheight")) {
+                                    this.set('visualeffectheight', this.get("height"));
+                                } else if (this.get("visualeffectheight") < this.get("visualeffectminheight")) {
+                                    this.set('visualeffectheight', this.get("visualeffectminheight"));
+                                }
+                                this.audioVisualisation = new AudioVisualisation(this.recorder._recorder.stream(), {
+                                    element: this.activeElement(),
+                                    recorder: this.recorder,
+                                    height: this.get("visualeffectheight"),
+                                    theme: this.get("visualeffecttheme")
+                                });
+                                // To be able set width of the canvas element
+                                var waitAnalyser = new Timers.Timer({
+                                    context: this,
+                                    immediate: true,
+                                    delay: 50,
+                                    fire: function() {
+                                        if (this.recorder._analyser) {
+                                            try {
+                                                this.audioVisualisation.initializeVisualEffect();
+                                                this.set("visualeffectsupported", true);
+                                            } catch (ex) {
+                                                this.set("visualeffectsupported", false);
+                                                console.warn(ex);
+                                            }
+                                            waitAnalyser.stop();
+                                        }
+                                    }
+                                });
+                                this.auto_destroy(waitAnalyser);
+                            }
                             this.recorder.enumerateDevices().success(function(devices) {
                                 var selected = this.recorder.currentDevices();
                                 this.set("selectedmicrophone", selected.audio);
@@ -410,8 +448,8 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     if (!this.__recording)
                         return Promise.error(true);
                     // Destroy audio visualisation effect for the recorder
-                    // if (this.audioVisualisation)
-                    //     this.audioVisualisation.cancelFrame(this.audioVisualisation.frameID);
+                    if (this.audioVisualisation)
+                        this.audioVisualisation.cancelFrame(this.audioVisualisation.frameID);
                     return this.recorder.stopRecord({
                         rtmp: this.get("uploadoptions").rtmp,
                         audio: this.get("uploadoptions").audio,

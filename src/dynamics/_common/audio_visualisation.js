@@ -13,21 +13,14 @@ Scoped.define("module:AudioVisualisation", [
             constructor: function(stream, options) {
                 inherited.constructor.call(this);
                 this.stream = stream;
+                this.recorder = null;
+                this.theme = options.theme;
                 if (options.recorder) {
-                    this.audioContext = options.globalAudioContext;
-
-                    // Commented for the future use in audio recorder
-                    // var recorder = options.recorder;
-                    // this._analyser = recorder._analyser;
-                    // this._audioContext = this._analyser._audioContext;
-                    // this.audioContext = this._analyser._audioContext;
-                    // this._analyserNode = this._analyser._analyserNode;
-                    // this._audioInput = this._analyser._audioInput;
+                    this.recorder = options.recorder;
                 } else {
                     var AudioContext = window.AudioContext || window.webkitAudioContext;
                     this.audioContext = new AudioContext();
                 }
-                this.audioBufferSourceNode = this.audioContext.createBufferSource();
                 this.createVisualisationCanvas(options.height, options.element);
                 this.frameID = null;
             },
@@ -47,21 +40,36 @@ Scoped.define("module:AudioVisualisation", [
             initializeVisualEffect: function() {
                 try {
                     var _source;
+                    if (this.recorder) {
+                        this._analyser = this.recorder._analyser;
+                        this.analyser = this._analyser._analyserNode;
+                        this.audioContext = this._analyser._audioContext;
+                        this.analyser.fftSize = 256;
+                        //_source = this.audioContext.createMediaStreamSource(this.stream)
+                    }
+
                     if (this.audioContext || this.stream) {
-                        this.analyser = this._analyser || this.audioContext.createAnalyser();
-                        this.audioBufferSourceNode.connect(this.analyser);
-                        _source = this.audioContext.createMediaElementSource(this.stream);
-                        _source.connect(this.analyser);
                         if (this.audioContext.state === 'suspended') {
                             Dom.userInteraction(function() {
                                 this.audioContext.resume();
                             }, this);
                         }
+
+                        if (this.stream instanceof HTMLElement) {
+                            _source = this.audioContext.createMediaElementSource(this.stream);
+                            this.analyser = this._analyser || this.audioContext.createAnalyser();
+                            _source.connect(this.analyser);
+                            this.analyser.fftSize = 256;
+                            this.analyser.connect(this.audioContext.destination);
+                        }
+
                         this.analyser.connect(this.audioContext.destination);
-                        this.analyser.fftSize = 256;
+                        this.audioBufferSourceNode = this.audioContext.createBufferSource();
+                        this.audioBufferSourceNode.connect(this.analyser);
                         this.bufferLength = this.analyser.frequencyBinCount;
-                        this.dataArray = new Uint8Array(this.bufferLength);
-                        // this.dataArray = new Float32Array( this.analyser.fftSize);
+                        // this.dataArray = new Uint8Array(this.analyser.fftSize);
+                        this.dataArray = new Uint8Array(this.analyser.frequencyBinCount);
+                        // this.dataArray = new Float32Array(this.analyser.fftSize);
                         this.canvasWidth = this.canvas.width;
                         this.canvasHeigth = this.canvas.height;
                         this.barWidth = (this.canvasWidth / this.bufferLength) * 2.5;
@@ -104,10 +112,15 @@ Scoped.define("module:AudioVisualisation", [
                 this.analyser.getByteFrequencyData(this.dataArray);
                 // this.dataArray = new Float32Array( this.analyser.fftSize);
                 // this.analyser.getFloatTimeDomainData(this.dataArray);
-                setTimeout(function() {
-                    //debugger;
-                }, 2000);
-                this._drawBigBalloon();
+                // this._drawRedBars();
+                switch (this.theme) {
+                    case "red-bars":
+                        this._drawRedBars();
+                        break;
+                    default:
+                        this._drawBigBalloon();
+                        break;
+                }
             },
 
             cancelFrame: function(ID) {

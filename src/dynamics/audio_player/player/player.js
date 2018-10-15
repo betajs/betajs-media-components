@@ -90,7 +90,9 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     "postervisible": false,
                     "visualeffectvisible": false,
                     "visualeffectsupported": false,
-                    "visualeffectheight": 120,
+                    "visualeffectheight": null,
+                    "visualeffectminheight": 120,
+                    "visualeffecttheme": "balloon", // types: `balloon`, 'red-bars'
                     "skipseconds": 5
                 },
 
@@ -115,6 +117,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     "playonclick": "boolean",
                     "skipseconds": "integer",
                     "visualeffectvisible": "boolean",
+                    "visualeffectmode": "string",
                     "visualeffectheight": "integer"
                 },
 
@@ -273,10 +276,16 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                         this.player = instance;
                         this.__audio = audio;
                         // Draw audio visualisation effect
-                        if (this.get("visualeffectvisible") && AudioVisualisation.supported()) {
+                        if (this.get("visualeffectvisible") && AudioVisualisation.supported() && !this.audioVisualisation) {
+                            if (this.get("height") && this.get("height") > this.get("visualeffectminheight")) {
+                                this.set('visualeffectheight', this.get("height"));
+                            } else if (this.get("visualeffectheight") < this.get("visualeffectminheight")) {
+                                this.set('visualeffectheight', this.get("visualeffectminheight"));
+                            }
                             this.audioVisualisation = new AudioVisualisation(audio, {
                                 height: this.get('visualeffectheight'),
-                                element: this.activeElement()
+                                element: this.activeElement(),
+                                theme: this.get("visualeffecttheme")
                             });
 
                             // To be able set width of the canvas element

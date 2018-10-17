@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.132 - 2018-10-14
+betajs-media-components - v0.0.133 - 2018-10-16
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1006,7 +1006,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.132 - 2018-10-14
+betajs-media-components - v0.0.133 - 2018-10-16
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1022,8 +1022,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.132",
-    "datetime": 1539551744135
+    "version": "0.0.133",
+    "datetime": 1539740901170
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -3119,21 +3119,14 @@ Scoped.define("module:AudioVisualisation", [
             constructor: function(stream, options) {
                 inherited.constructor.call(this);
                 this.stream = stream;
+                this.recorder = null;
+                this.theme = options.theme;
                 if (options.recorder) {
-                    this.audioContext = options.globalAudioContext;
-
-                    // Commented for the future use in audio recorder
-                    // var recorder = options.recorder;
-                    // this._analyser = recorder._analyser;
-                    // this._audioContext = this._analyser._audioContext;
-                    // this.audioContext = this._analyser._audioContext;
-                    // this._analyserNode = this._analyser._analyserNode;
-                    // this._audioInput = this._analyser._audioInput;
+                    this.recorder = options.recorder;
                 } else {
                     var AudioContext = window.AudioContext || window.webkitAudioContext;
                     this.audioContext = new AudioContext();
                 }
-                this.audioBufferSourceNode = this.audioContext.createBufferSource();
                 this.createVisualisationCanvas(options.height, options.element);
                 this.frameID = null;
             },
@@ -3153,21 +3146,36 @@ Scoped.define("module:AudioVisualisation", [
             initializeVisualEffect: function() {
                 try {
                     var _source;
+                    if (this.recorder) {
+                        this._analyser = this.recorder._analyser;
+                        this.analyser = this._analyser._analyserNode;
+                        this.audioContext = this._analyser._audioContext;
+                        this.analyser.fftSize = 256;
+                        //_source = this.audioContext.createMediaStreamSource(this.stream)
+                    }
+
                     if (this.audioContext || this.stream) {
-                        this.analyser = this._analyser || this.audioContext.createAnalyser();
-                        this.audioBufferSourceNode.connect(this.analyser);
-                        _source = this.audioContext.createMediaElementSource(this.stream);
-                        _source.connect(this.analyser);
                         if (this.audioContext.state === 'suspended') {
                             Dom.userInteraction(function() {
                                 this.audioContext.resume();
                             }, this);
                         }
+
+                        if (this.stream instanceof HTMLElement) {
+                            _source = this.audioContext.createMediaElementSource(this.stream);
+                            this.analyser = this._analyser || this.audioContext.createAnalyser();
+                            _source.connect(this.analyser);
+                            this.analyser.fftSize = 256;
+                            this.analyser.connect(this.audioContext.destination);
+                        }
+
                         this.analyser.connect(this.audioContext.destination);
-                        this.analyser.fftSize = 256;
+                        this.audioBufferSourceNode = this.audioContext.createBufferSource();
+                        this.audioBufferSourceNode.connect(this.analyser);
                         this.bufferLength = this.analyser.frequencyBinCount;
-                        this.dataArray = new Uint8Array(this.bufferLength);
-                        // this.dataArray = new Float32Array( this.analyser.fftSize);
+                        // this.dataArray = new Uint8Array(this.analyser.fftSize);
+                        this.dataArray = new Uint8Array(this.analyser.frequencyBinCount);
+                        // this.dataArray = new Float32Array(this.analyser.fftSize);
                         this.canvasWidth = this.canvas.width;
                         this.canvasHeigth = this.canvas.height;
                         this.barWidth = (this.canvasWidth / this.bufferLength) * 2.5;
@@ -3210,10 +3218,15 @@ Scoped.define("module:AudioVisualisation", [
                 this.analyser.getByteFrequencyData(this.dataArray);
                 // this.dataArray = new Float32Array( this.analyser.fftSize);
                 // this.analyser.getFloatTimeDomainData(this.dataArray);
-                setTimeout(function() {
-                    //debugger;
-                }, 2000);
-                this._drawBigBalloon();
+                // this._drawRedBars();
+                switch (this.theme) {
+                    case "red-bars":
+                        this._drawRedBars();
+                        break;
+                    default:
+                        this._drawBigBalloon();
+                        break;
+                }
             },
 
             cancelFrame: function(ID) {
@@ -8008,6 +8021,9 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
         },
 
         _uploadFile: function(file) {
+            if (this.__blocked)
+                return;
+            this.__blocked = true;
             this.dyn.set("creation-type", Info.isMobile() ? "mobile" : "upload");
             try {
                 this.dyn._videoFileName = file.files[0].name;
@@ -8017,9 +8033,11 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
                 this.dyn.trigger("upload_selected", file);
                 this.dyn._uploadVideoFile(file);
                 this._setValueToEmpty(file);
+                this.__blocked = false;
                 this.next("Uploading");
             }, this).error(function(s) {
                 this._setValueToEmpty(file);
+                this.__blocked = false;
                 this.next("FatalError", {
                     message: s,
                     retry: "Chooser"
@@ -11139,7 +11157,9 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     "postervisible": false,
                     "visualeffectvisible": false,
                     "visualeffectsupported": false,
-                    "visualeffectheight": 120,
+                    "visualeffectheight": null,
+                    "visualeffectminheight": 120,
+                    "visualeffecttheme": "balloon", // types: `balloon`, 'red-bars'
                     "skipseconds": 5
                 },
 
@@ -11164,6 +11184,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     "playonclick": "boolean",
                     "skipseconds": "integer",
                     "visualeffectvisible": "boolean",
+                    "visualeffectmode": "string",
                     "visualeffectheight": "integer"
                 },
 
@@ -11322,10 +11343,16 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                         this.player = instance;
                         this.__audio = audio;
                         // Draw audio visualisation effect
-                        if (this.get("visualeffectvisible") && AudioVisualisation.supported()) {
+                        if (this.get("visualeffectvisible") && AudioVisualisation.supported() && !this.audioVisualisation) {
+                            if (this.get("height") && this.get("height") > this.get("visualeffectminheight")) {
+                                this.set('visualeffectheight', this.get("height"));
+                            } else if (this.get("visualeffectheight") < this.get("visualeffectminheight")) {
+                                this.set('visualeffectheight', this.get("visualeffectminheight"));
+                            }
                             this.audioVisualisation = new AudioVisualisation(audio, {
                                 height: this.get('visualeffectheight'),
-                                element: this.activeElement()
+                                element: this.activeElement(),
+                                theme: this.get("visualeffecttheme")
                             });
 
                             // To be able set width of the canvas element
@@ -11868,9 +11895,6 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.ErrorAudio", [
     });
 });
 
-
-
-
 Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.PlayAudio", [
     "module:AudioPlayer.Dynamics.PlayerStates.State"
 ], function(State, scoped) {
@@ -12249,7 +12273,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
         }, function(inherited) {
             return {
 
-                template: "\n<div data-selector=\"audio-recorder-container\" ba-show=\"{{!player_active}}\"\n     class=\"{{css}}-container {{csstheme}} {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}}\n     \t{{cssrecorder}}-{{ firefox ? 'firefox' : 'common'}}-browser {{cssaudio}}\n    \t{{cssrecorder}}-{{themecolor}}-color\"\n     ba-styles=\"{{widthHeightStyles}}\"\n>\n\n\t<canvas data-selector=\"visualisation-canvas\" class=\"{{css}}-visualisation-canvas\"></canvas>\n    <audio tabindex=\"-1\" data-selector=\"recorder-status\" class=\"{{css}}-audio {{css}}-{{hasrecorder ? 'hasrecorder' : 'norecorder'}}\" data-audio=\"audio\" playsinline></audio>\n    <div data-selector=\"audio-recorder-overlay\" class='{{cssrecorder}}-overlay' ba-show=\"{{!hideoverlay}}\" data-overlay=\"overlay\">\n\t\t<ba-{{dynloader}}\n\t\t    ba-css=\"{{cssloader || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t    ba-template=\"{{tmplloader}}\"\n\t\t    ba-show=\"{{loader_active}}\"\n\t\t    ba-tooltip=\"{{loadertooltip}}\"\n\t\t\tba-hovermessage=\"{{=hovermessage}}\"\n\t\t    ba-label=\"{{loaderlabel}}\"\n\t\t></ba-{{dynloader}}>\n\n\t\t<ba-{{dynmessage}}\n\t\t    ba-css=\"{{cssmessage || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t    ba-template=\"{{tmplmessage}}\"\n\t\t    ba-show=\"{{message_active}}\"\n\t\t    ba-message=\"{{message}}\"\n\t\t\tba-links=\"{{message_links}}\"\n\t\t    ba-event:click=\"message_click\"\n\t\t\tba-event:link=\"message_link_click\"\n\t\t></ba-{{dynmessage}}>\n\n\t\t<ba-{{dynchooser}}\n\t\t\tba-recordviafilecapture=\"{{recordviafilecapture}}\"\n\t\t    ba-css=\"{{csschooser || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t    ba-template=\"{{tmplchooser}}\"\n\t\t    ba-if=\"{{chooser_active && !is_initial_state}}\"\n\t\t    ba-allowrecord=\"{{allowrecord}}\"\n\t\t    ba-allowupload=\"{{allowupload}}\"\n\t\t    ba-allowcustomupload=\"{{allowcustomupload}}\"\n\t\t    ba-allowedextensions=\"{{allowedextensions}}\"\n\t\t    ba-primaryrecord=\"{{primaryrecord}}\"\n\t\t    ba-timelimit=\"{{timelimit}}\"\n\t\t    ba-event:record=\"record_audio\"\n\t\t    ba-event:upload=\"upload_audio\"\n\t\t></ba-{{dynchooser}}>\n\n\t\t<ba-{{dyncontrolbar}}\n\t\t    ba-css=\"{{csscontrolbar || css}}\"\n\t\t\tba-csstheme=\"{{csstheme || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t    ba-template=\"{{tmplcontrolbar}}\"\n\t\t    ba-show=\"{{controlbar_active}}\"\n\t\t    ba-microphones=\"{{microphones}}\"\n\t\t    ba-selectedmicrophone=\"{{selectedmicrophone || 0}}\"\n\t\t    ba-microphonehealthy=\"{{microphonehealthy}}\"\n\t\t    ba-hovermessage=\"{{=hovermessage}}\"\n\t\t    ba-settingsvisible=\"{{settingsvisible}}\"\n\t\t    ba-recordvisible=\"{{recordvisible}}\"\n\t\t\tba-cancelvisible=\"{{allowcancel && cancancel}}\"\n\t\t    ba-rerecordvisible=\"{{rerecordvisible}}\"\n\t\t    ba-stopvisible=\"{{stopvisible}}\"\n\t\t    ba-controlbarlabel=\"{{controlbarlabel}}\"\n\t\t\tba-mintimeindicator=\"{{mintimeindicator}}\"\n\t\t\tba-timeminlimit=\"{{timeminlimit}}\"\n\t\t    ba-event:select-microphone=\"select_microphone\"\n\t\t    ba-event:invoke-record=\"record\"\n\t\t    ba-event:invoke-rerecord=\"rerecord\"\n\t\t    ba-event:invoke-stop=\"stop\"\n\t\t></ba-{{dyncontrolbar}}>\n    </div>\n</div>\n\n<div data-selector=\"recorder-player\" ba-if=\"{{player_active}}\" ba-styles=\"{{widthHeightStyles}}\">\n\t<span ba-show=\"{{ie8}}\">&nbsp;</span>\n\t<ba-{{dynaudioplayer}}\n\t    ba-theme=\"{{theme || 'default'}}\"\n        ba-themecolor=\"{{themecolor}}\"\n        ba-source=\"{{playbacksource}}\"\n        ba-hideoninactivity=\"{{false}}\"\n        ba-forceflash=\"{{forceflash}}\"\n        ba-noflash=\"{{noflash}}\"\n        ba-stretch=\"{{stretch}}\"\n        ba-attrs=\"{{playerattrs}}\"\n        ba-data:id=\"player\"\n        ba-width=\"{{width}}\"\n        ba-height=\"{{height}}\"\n        ba-totalduration=\"{{duration / 1000}}\"\n        ba-rerecordable=\"{{rerecordable && (recordings === null || recordings > 0)}}\"\n        ba-submittable=\"{{manualsubmit && verified}}\"\n        ba-reloadonplay=\"{{true}}\"\n        ba-autoplay=\"{{autoplay}}\"\n\t\tba-visualeffectvisible=\"{{visualeffectvisible}}\"\n\t\tba-event:loaded=\"ready_to_play\"\n        ba-event:rerecord=\"rerecord\"\n        ba-event:playing=\"playing\"\n        ba-event:paused=\"paused\"\n        ba-event:ended=\"ended\"\n        ba-event:submit=\"manual_submit\"\n\t>\n\t</ba-{{dynaudioplayer}}>\n</div>\n",
+                template: "\n<div data-selector=\"audio-recorder-container\" ba-show=\"{{!player_active}}\"\n     class=\"{{css}}-container {{csstheme}} {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}}\n     \t{{cssrecorder}}-{{ firefox ? 'firefox' : 'common'}}-browser {{cssaudio}}\n    \t{{cssrecorder}}-{{themecolor}}-color\"\n     ba-styles=\"{{widthHeightStyles}}\"\n>\n\n\t<canvas data-selector=\"visualisation-canvas\" class=\"{{css}}-visualisation-canvas\"></canvas>\n    <audio tabindex=\"-1\" data-selector=\"recorder-status\" class=\"{{css}}-audio {{css}}-{{hasrecorder ? 'hasrecorder' : 'norecorder'}}\" data-audio=\"audio\" playsinline></audio>\n    <div data-selector=\"audio-recorder-overlay\" class='{{cssrecorder}}-overlay' ba-show=\"{{!hideoverlay}}\" data-overlay=\"overlay\">\n\t\t<ba-{{dynloader}}\n\t\t    ba-css=\"{{cssloader || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t    ba-template=\"{{tmplloader}}\"\n\t\t    ba-show=\"{{loader_active}}\"\n\t\t    ba-tooltip=\"{{loadertooltip}}\"\n\t\t\tba-hovermessage=\"{{=hovermessage}}\"\n\t\t    ba-label=\"{{loaderlabel}}\"\n\t\t></ba-{{dynloader}}>\n\n\t\t<ba-{{dynmessage}}\n\t\t    ba-css=\"{{cssmessage || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t    ba-template=\"{{tmplmessage}}\"\n\t\t    ba-show=\"{{message_active}}\"\n\t\t    ba-message=\"{{message}}\"\n\t\t\tba-links=\"{{message_links}}\"\n\t\t    ba-event:click=\"message_click\"\n\t\t\tba-event:link=\"message_link_click\"\n\t\t></ba-{{dynmessage}}>\n\n\t\t<ba-{{dynchooser}}\n\t\t\tba-recordviafilecapture=\"{{recordviafilecapture}}\"\n\t\t    ba-css=\"{{csschooser || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t    ba-template=\"{{tmplchooser}}\"\n\t\t    ba-if=\"{{chooser_active && !is_initial_state}}\"\n\t\t    ba-allowrecord=\"{{allowrecord}}\"\n\t\t    ba-allowupload=\"{{allowupload}}\"\n\t\t    ba-allowcustomupload=\"{{allowcustomupload}}\"\n\t\t    ba-allowedextensions=\"{{allowedextensions}}\"\n\t\t    ba-primaryrecord=\"{{primaryrecord}}\"\n\t\t    ba-timelimit=\"{{timelimit}}\"\n\t\t    ba-event:record=\"record_audio\"\n\t\t    ba-event:upload=\"upload_audio\"\n\t\t></ba-{{dynchooser}}>\n\n\t\t<ba-{{dyncontrolbar}}\n\t\t    ba-css=\"{{csscontrolbar || css}}\"\n\t\t\tba-csstheme=\"{{csstheme || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t    ba-template=\"{{tmplcontrolbar}}\"\n\t\t    ba-show=\"{{controlbar_active}}\"\n\t\t    ba-microphones=\"{{microphones}}\"\n\t\t    ba-selectedmicrophone=\"{{selectedmicrophone || 0}}\"\n\t\t    ba-microphonehealthy=\"{{microphonehealthy}}\"\n\t\t    ba-hovermessage=\"{{=hovermessage}}\"\n\t\t    ba-settingsvisible=\"{{settingsvisible}}\"\n\t\t    ba-recordvisible=\"{{recordvisible}}\"\n\t\t\tba-cancelvisible=\"{{allowcancel && cancancel}}\"\n\t\t    ba-rerecordvisible=\"{{rerecordvisible}}\"\n\t\t    ba-stopvisible=\"{{stopvisible}}\"\n\t\t    ba-controlbarlabel=\"{{controlbarlabel}}\"\n\t\t\tba-mintimeindicator=\"{{mintimeindicator}}\"\n\t\t\tba-timeminlimit=\"{{timeminlimit}}\"\n\t\t    ba-event:select-microphone=\"select_microphone\"\n\t\t    ba-event:invoke-record=\"record\"\n\t\t    ba-event:invoke-rerecord=\"rerecord\"\n\t\t    ba-event:invoke-stop=\"stop\"\n\t\t></ba-{{dyncontrolbar}}>\n    </div>\n</div>\n\n<div data-selector=\"recorder-player\" ba-if=\"{{player_active}}\" ba-styles=\"{{widthHeightStyles}}\">\n\t<span ba-show=\"{{ie8}}\">&nbsp;</span>\n\t<ba-{{dynaudioplayer}}\n\t    ba-theme=\"{{theme || 'default'}}\"\n        ba-themecolor=\"{{themecolor}}\"\n        ba-source=\"{{playbacksource}}\"\n        ba-hideoninactivity=\"{{false}}\"\n        ba-forceflash=\"{{forceflash}}\"\n        ba-noflash=\"{{noflash}}\"\n\t\tba-visualeffectheight=\"{{visualeffectheight}}\"\n\t\tba-visualeffecttheme=\"{{visualeffecttheme}}\"\n        ba-stretch=\"{{stretch}}\"\n        ba-attrs=\"{{playerattrs}}\"\n        ba-data:id=\"player\"\n        ba-width=\"{{width}}\"\n        ba-height=\"{{height}}\"\n        ba-totalduration=\"{{duration / 1000}}\"\n        ba-rerecordable=\"{{rerecordable && (recordings === null || recordings > 0)}}\"\n        ba-submittable=\"{{manualsubmit && verified}}\"\n        ba-reloadonplay=\"{{true}}\"\n        ba-autoplay=\"{{autoplay}}\"\n\t\tba-visualeffectvisible=\"{{visualeffectvisible}}\"\n\t\tba-event:loaded=\"ready_to_play\"\n        ba-event:rerecord=\"rerecord\"\n        ba-event:playing=\"playing\"\n        ba-event:paused=\"paused\"\n        ba-event:ended=\"ended\"\n        ba-event:submit=\"manual_submit\"\n\t>\n\t</ba-{{dynaudioplayer}}>\n</div>\n",
 
                 attrs: {
                     /* CSS */
@@ -12312,6 +12336,9 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     "display-timer": true,
                     "visualeffectvisible": true,
                     "visualeffectsupported": false,
+                    "visualeffectheight": null,
+                    "visualeffectminheight": 120,
+                    "visualeffecttheme": "balloon", // types: `balloon`, 'red-bars'
 
                     /* Configuration */
                     "forceflash": false,
@@ -12409,6 +12436,8 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                                     this.audioVisualisation.canvas.remove();
                                 this.audioVisualisation.destroy();
                             }
+                        } else if (this.audioVisualisation) {
+                            this.audioVisualisation.renderFrame();
                         }
                     }
                 },
@@ -12557,6 +12586,39 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                             this.recorder.setVolumeGain(this.get("microphone-volume"));
                             this.set("hideoverlay", false);
                             this.off("require_display", null, this);
+                            // Draw visualisation effect for the audio player
+                            if (this.get("visualeffectvisible") && AudioVisualisation.supported()) {
+                                if (this.get("height") && this.get("height") > this.get("visualeffectminheight")) {
+                                    this.set('visualeffectheight', this.get("height"));
+                                } else if (this.get("visualeffectheight") < this.get("visualeffectminheight")) {
+                                    this.set('visualeffectheight', this.get("visualeffectminheight"));
+                                }
+                                this.audioVisualisation = new AudioVisualisation(this.recorder._recorder.stream(), {
+                                    element: this.activeElement(),
+                                    recorder: this.recorder,
+                                    height: this.get("visualeffectheight"),
+                                    theme: this.get("visualeffecttheme")
+                                });
+                                // To be able set width of the canvas element
+                                var waitAnalyser = new Timers.Timer({
+                                    context: this,
+                                    immediate: true,
+                                    delay: 50,
+                                    fire: function() {
+                                        if (this.recorder._analyser) {
+                                            try {
+                                                this.audioVisualisation.initializeVisualEffect();
+                                                this.set("visualeffectsupported", true);
+                                            } catch (ex) {
+                                                this.set("visualeffectsupported", false);
+                                                console.warn(ex);
+                                            }
+                                            waitAnalyser.stop();
+                                        }
+                                    }
+                                });
+                                this.auto_destroy(waitAnalyser);
+                            }
                             this.recorder.enumerateDevices().success(function(devices) {
                                 var selected = this.recorder.currentDevices();
                                 this.set("selectedmicrophone", selected.audio);
@@ -12624,8 +12686,8 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     if (!this.__recording)
                         return Promise.error(true);
                     // Destroy audio visualisation effect for the recorder
-                    // if (this.audioVisualisation)
-                    //     this.audioVisualisation.cancelFrame(this.audioVisualisation.frameID);
+                    if (this.audioVisualisation)
+                        this.audioVisualisation.cancelFrame(this.audioVisualisation.frameID);
                     return this.recorder.stopRecord({
                         rtmp: this.get("uploadoptions").rtmp,
                         audio: this.get("uploadoptions").audio,
@@ -12830,7 +12892,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
 
         })
         .register("ba-audiorecorder")
-        .registerFunctions({ /**/"!player_active": function (obj) { with (obj) { return !player_active; } }, "css": function (obj) { with (obj) { return css; } }, "csstheme": function (obj) { with (obj) { return csstheme; } }, "csssize": function (obj) { with (obj) { return csssize; } }, "iecss": function (obj) { with (obj) { return iecss; } }, "ie8 ? 'ie8' : 'noie8'": function (obj) { with (obj) { return ie8 ? 'ie8' : 'noie8'; } }, "cssrecorder": function (obj) { with (obj) { return cssrecorder; } }, "firefox ? 'firefox' : 'common'": function (obj) { with (obj) { return firefox ? 'firefox' : 'common'; } }, "cssaudio": function (obj) { with (obj) { return cssaudio; } }, "themecolor": function (obj) { with (obj) { return themecolor; } }, "widthHeightStyles": function (obj) { with (obj) { return widthHeightStyles; } }, "hasrecorder ? 'hasrecorder' : 'norecorder'": function (obj) { with (obj) { return hasrecorder ? 'hasrecorder' : 'norecorder'; } }, "!hideoverlay": function (obj) { with (obj) { return !hideoverlay; } }, "dynloader": function (obj) { with (obj) { return dynloader; } }, "cssloader || css": function (obj) { with (obj) { return cssloader || css; } }, "cssrecorder || css": function (obj) { with (obj) { return cssrecorder || css; } }, "tmplloader": function (obj) { with (obj) { return tmplloader; } }, "loader_active": function (obj) { with (obj) { return loader_active; } }, "loadertooltip": function (obj) { with (obj) { return loadertooltip; } }, "hovermessage": function (obj) { with (obj) { return hovermessage; } }, "loaderlabel": function (obj) { with (obj) { return loaderlabel; } }, "dynmessage": function (obj) { with (obj) { return dynmessage; } }, "cssmessage || css": function (obj) { with (obj) { return cssmessage || css; } }, "tmplmessage": function (obj) { with (obj) { return tmplmessage; } }, "message_active": function (obj) { with (obj) { return message_active; } }, "message": function (obj) { with (obj) { return message; } }, "message_links": function (obj) { with (obj) { return message_links; } }, "dynchooser": function (obj) { with (obj) { return dynchooser; } }, "recordviafilecapture": function (obj) { with (obj) { return recordviafilecapture; } }, "csschooser || css": function (obj) { with (obj) { return csschooser || css; } }, "tmplchooser": function (obj) { with (obj) { return tmplchooser; } }, "chooser_active && !is_initial_state": function (obj) { with (obj) { return chooser_active && !is_initial_state; } }, "allowrecord": function (obj) { with (obj) { return allowrecord; } }, "allowupload": function (obj) { with (obj) { return allowupload; } }, "allowcustomupload": function (obj) { with (obj) { return allowcustomupload; } }, "allowedextensions": function (obj) { with (obj) { return allowedextensions; } }, "primaryrecord": function (obj) { with (obj) { return primaryrecord; } }, "timelimit": function (obj) { with (obj) { return timelimit; } }, "dyncontrolbar": function (obj) { with (obj) { return dyncontrolbar; } }, "csscontrolbar || css": function (obj) { with (obj) { return csscontrolbar || css; } }, "csstheme || css": function (obj) { with (obj) { return csstheme || css; } }, "tmplcontrolbar": function (obj) { with (obj) { return tmplcontrolbar; } }, "controlbar_active": function (obj) { with (obj) { return controlbar_active; } }, "microphones": function (obj) { with (obj) { return microphones; } }, "selectedmicrophone || 0": function (obj) { with (obj) { return selectedmicrophone || 0; } }, "microphonehealthy": function (obj) { with (obj) { return microphonehealthy; } }, "settingsvisible": function (obj) { with (obj) { return settingsvisible; } }, "recordvisible": function (obj) { with (obj) { return recordvisible; } }, "allowcancel && cancancel": function (obj) { with (obj) { return allowcancel && cancancel; } }, "rerecordvisible": function (obj) { with (obj) { return rerecordvisible; } }, "stopvisible": function (obj) { with (obj) { return stopvisible; } }, "controlbarlabel": function (obj) { with (obj) { return controlbarlabel; } }, "mintimeindicator": function (obj) { with (obj) { return mintimeindicator; } }, "timeminlimit": function (obj) { with (obj) { return timeminlimit; } }, "player_active": function (obj) { with (obj) { return player_active; } }, "ie8": function (obj) { with (obj) { return ie8; } }, "dynaudioplayer": function (obj) { with (obj) { return dynaudioplayer; } }, "theme || 'default'": function (obj) { with (obj) { return theme || 'default'; } }, "playbacksource": function (obj) { with (obj) { return playbacksource; } }, "false": function (obj) { with (obj) { return false; } }, "forceflash": function (obj) { with (obj) { return forceflash; } }, "noflash": function (obj) { with (obj) { return noflash; } }, "stretch": function (obj) { with (obj) { return stretch; } }, "playerattrs": function (obj) { with (obj) { return playerattrs; } }, "width": function (obj) { with (obj) { return width; } }, "height": function (obj) { with (obj) { return height; } }, "duration / 1000": function (obj) { with (obj) { return duration / 1000; } }, "rerecordable && (recordings === null || recordings > 0)": function (obj) { with (obj) { return rerecordable && (recordings === null || recordings > 0); } }, "manualsubmit && verified": function (obj) { with (obj) { return manualsubmit && verified; } }, "true": function (obj) { with (obj) { return true; } }, "autoplay": function (obj) { with (obj) { return autoplay; } }, "visualeffectvisible": function (obj) { with (obj) { return visualeffectvisible; } }/**/ })
+        .registerFunctions({ /**/"!player_active": function (obj) { with (obj) { return !player_active; } }, "css": function (obj) { with (obj) { return css; } }, "csstheme": function (obj) { with (obj) { return csstheme; } }, "csssize": function (obj) { with (obj) { return csssize; } }, "iecss": function (obj) { with (obj) { return iecss; } }, "ie8 ? 'ie8' : 'noie8'": function (obj) { with (obj) { return ie8 ? 'ie8' : 'noie8'; } }, "cssrecorder": function (obj) { with (obj) { return cssrecorder; } }, "firefox ? 'firefox' : 'common'": function (obj) { with (obj) { return firefox ? 'firefox' : 'common'; } }, "cssaudio": function (obj) { with (obj) { return cssaudio; } }, "themecolor": function (obj) { with (obj) { return themecolor; } }, "widthHeightStyles": function (obj) { with (obj) { return widthHeightStyles; } }, "hasrecorder ? 'hasrecorder' : 'norecorder'": function (obj) { with (obj) { return hasrecorder ? 'hasrecorder' : 'norecorder'; } }, "!hideoverlay": function (obj) { with (obj) { return !hideoverlay; } }, "dynloader": function (obj) { with (obj) { return dynloader; } }, "cssloader || css": function (obj) { with (obj) { return cssloader || css; } }, "cssrecorder || css": function (obj) { with (obj) { return cssrecorder || css; } }, "tmplloader": function (obj) { with (obj) { return tmplloader; } }, "loader_active": function (obj) { with (obj) { return loader_active; } }, "loadertooltip": function (obj) { with (obj) { return loadertooltip; } }, "hovermessage": function (obj) { with (obj) { return hovermessage; } }, "loaderlabel": function (obj) { with (obj) { return loaderlabel; } }, "dynmessage": function (obj) { with (obj) { return dynmessage; } }, "cssmessage || css": function (obj) { with (obj) { return cssmessage || css; } }, "tmplmessage": function (obj) { with (obj) { return tmplmessage; } }, "message_active": function (obj) { with (obj) { return message_active; } }, "message": function (obj) { with (obj) { return message; } }, "message_links": function (obj) { with (obj) { return message_links; } }, "dynchooser": function (obj) { with (obj) { return dynchooser; } }, "recordviafilecapture": function (obj) { with (obj) { return recordviafilecapture; } }, "csschooser || css": function (obj) { with (obj) { return csschooser || css; } }, "tmplchooser": function (obj) { with (obj) { return tmplchooser; } }, "chooser_active && !is_initial_state": function (obj) { with (obj) { return chooser_active && !is_initial_state; } }, "allowrecord": function (obj) { with (obj) { return allowrecord; } }, "allowupload": function (obj) { with (obj) { return allowupload; } }, "allowcustomupload": function (obj) { with (obj) { return allowcustomupload; } }, "allowedextensions": function (obj) { with (obj) { return allowedextensions; } }, "primaryrecord": function (obj) { with (obj) { return primaryrecord; } }, "timelimit": function (obj) { with (obj) { return timelimit; } }, "dyncontrolbar": function (obj) { with (obj) { return dyncontrolbar; } }, "csscontrolbar || css": function (obj) { with (obj) { return csscontrolbar || css; } }, "csstheme || css": function (obj) { with (obj) { return csstheme || css; } }, "tmplcontrolbar": function (obj) { with (obj) { return tmplcontrolbar; } }, "controlbar_active": function (obj) { with (obj) { return controlbar_active; } }, "microphones": function (obj) { with (obj) { return microphones; } }, "selectedmicrophone || 0": function (obj) { with (obj) { return selectedmicrophone || 0; } }, "microphonehealthy": function (obj) { with (obj) { return microphonehealthy; } }, "settingsvisible": function (obj) { with (obj) { return settingsvisible; } }, "recordvisible": function (obj) { with (obj) { return recordvisible; } }, "allowcancel && cancancel": function (obj) { with (obj) { return allowcancel && cancancel; } }, "rerecordvisible": function (obj) { with (obj) { return rerecordvisible; } }, "stopvisible": function (obj) { with (obj) { return stopvisible; } }, "controlbarlabel": function (obj) { with (obj) { return controlbarlabel; } }, "mintimeindicator": function (obj) { with (obj) { return mintimeindicator; } }, "timeminlimit": function (obj) { with (obj) { return timeminlimit; } }, "player_active": function (obj) { with (obj) { return player_active; } }, "ie8": function (obj) { with (obj) { return ie8; } }, "dynaudioplayer": function (obj) { with (obj) { return dynaudioplayer; } }, "theme || 'default'": function (obj) { with (obj) { return theme || 'default'; } }, "playbacksource": function (obj) { with (obj) { return playbacksource; } }, "false": function (obj) { with (obj) { return false; } }, "forceflash": function (obj) { with (obj) { return forceflash; } }, "noflash": function (obj) { with (obj) { return noflash; } }, "visualeffectheight": function (obj) { with (obj) { return visualeffectheight; } }, "visualeffecttheme": function (obj) { with (obj) { return visualeffecttheme; } }, "stretch": function (obj) { with (obj) { return stretch; } }, "playerattrs": function (obj) { with (obj) { return playerattrs; } }, "width": function (obj) { with (obj) { return width; } }, "height": function (obj) { with (obj) { return height; } }, "duration / 1000": function (obj) { with (obj) { return duration / 1000; } }, "rerecordable && (recordings === null || recordings > 0)": function (obj) { with (obj) { return rerecordable && (recordings === null || recordings > 0); } }, "manualsubmit && verified": function (obj) { with (obj) { return manualsubmit && verified; } }, "true": function (obj) { with (obj) { return true; } }, "autoplay": function (obj) { with (obj) { return autoplay; } }, "visualeffectvisible": function (obj) { with (obj) { return visualeffectvisible; } }/**/ })
         .attachStringTable(Assets.strings)
         .addStrings({
             "recorder-error": "An error occurred, please try again later. Click to retry.",

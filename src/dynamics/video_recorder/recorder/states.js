@@ -256,6 +256,9 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
         },
 
         _uploadFile: function(file) {
+            if (this.__blocked)
+                return;
+            this.__blocked = true;
             this.dyn.set("creation-type", Info.isMobile() ? "mobile" : "upload");
             try {
                 this.dyn._videoFileName = file.files[0].name;
@@ -265,9 +268,11 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
                 this.dyn.trigger("upload_selected", file);
                 this.dyn._uploadVideoFile(file);
                 this._setValueToEmpty(file);
+                this.__blocked = false;
                 this.next("Uploading");
             }, this).error(function(s) {
                 this._setValueToEmpty(file);
+                this.__blocked = false;
                 this.next("FatalError", {
                     message: s,
                     retry: "Chooser"

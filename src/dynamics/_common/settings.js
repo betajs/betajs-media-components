@@ -58,6 +58,16 @@ Scoped.define("module:Settings", [
             },
 
             /**
+             * Hide settings
+             */
+            hide_settings: function() {
+                if (this.containerInner) {
+                    this._removeSettingsContent();
+                    return;
+                }
+            },
+
+            /**
              * If exists remove old inner container and create a new one
              * @private
              */

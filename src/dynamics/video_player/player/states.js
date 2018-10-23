@@ -411,10 +411,12 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
             else {
                 if (Info.isChromiumBased() && !this.dyn.get("skipinitial")) {
                     var video = this.dyn.__video;
-                    video.isMuted = true;
-                    Dom.userInteraction(function() {
-                        video.isMuted = false;
-                    }, this);
+                    if (video) {
+                        video.isMuted = true;
+                        Dom.userInteraction(function() {
+                            video.isMuted = false;
+                        }, this);
+                    }
                 }
 
                 var counter = 10;

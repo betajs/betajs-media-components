@@ -326,6 +326,8 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                         this.player.on("ended", function() {
                             this.set("playing", false);
                             this.set('playedonce', true);
+                            if (this.settings)
+                                this.settings.hide_settings();
                             this.trigger("ended");
                         }, this);
                         this.trigger("attached", instance);

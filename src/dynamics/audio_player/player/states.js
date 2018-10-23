@@ -147,11 +147,13 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.LoadAudio", [
                 // Mute audio to reference Chrome policy changes after October 2018
                 if (Info.isChromiumBased) {
                     var audio = this.dyn.__audio;
-                    audio.isMuted = true;
-                    Dom.userInteraction(function() {
-                        audio.isMuted = false;
-                        this._runTimer();
-                    }, this);
+                    if (audio) {
+                        audio.isMuted = true;
+                        Dom.userInteraction(function() {
+                            audio.isMuted = false;
+                            this._runTimer();
+                        }, this);
+                    }
                 } else {
                     this._runTimer();
                 }

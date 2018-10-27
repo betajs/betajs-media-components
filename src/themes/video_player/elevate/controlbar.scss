@@ -254,7 +254,7 @@
 	display: none;
 }
 
-.#{$cssplayer}-size-medium .#{$csstheme}-volume-button-container, .#{$cssplayer}-size-small .#{$csstheme}-volume-button-container {
+.#{$cssplayer}-size-medium .#{$csstheme}-volume-button-container, .#{$cssplayer}-size-small .#{$csstheme}-volumebar {
 	display: none;
 }
 
@@ -321,7 +321,7 @@
     display: none;
 }
 
-.#{$cssplayer}-size-small .#{$csstheme}-dashboard{
+.#{$cssplayer}-size-small .#{$csstheme}-dashboard {
     width: 100%;
 }
 

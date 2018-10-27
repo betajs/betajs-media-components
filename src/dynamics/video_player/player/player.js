@@ -86,12 +86,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "volume": 1.0,
                     "title": "",
                     "initialseek": null,
-                    "fullscreened": false,
                     "sharevideo": [],
                     "sharevideourl": "",
                     "visibilityfraction": 0.8,
-                    "unmuted": false, // Reference to Chrome renewed policy, we have to setup mute for auto plyed players.
-
+                    "unmuted": false, // Reference to Chrome renewed policy, we have to setup mute for auto-playing players.
                     /* Configuration */
                     "forceflash": false,
                     "noflash": false,
@@ -109,38 +107,26 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "popup": false,
                     "nofullscreen": false,
                     "playfullscreenonmobile": false,
-                    "ready": true,
                     "stretch": false,
                     "popup-stretch": false,
-                    "volumeafterinteraction": false,
                     "hideoninactivity": true,
                     "hidebarafter": 5000,
                     "preventinteraction": false,
-                    "preventinteractionstatus": false, // need to prevent `Unexpected token: punc (()` Uglification issue
                     "skipinitial": false,
                     "topmessage": "",
                     "totalduration": null,
                     "playwhenvisible": false,
-                    "playedonce": false,
-                    "manuallypaused": false,
                     "disablepause": false,
                     "disableseeking": false,
                     "airplay": false,
-                    "airplaybuttonvisible": false,
                     "airplaydevicesavailable": false,
                     "chromecast": false,
-                    "castbuttonvisble": false,
                     "skipseconds": 5,
                     "tracktags": [],
-                    "tracktagssupport": false,
                     "tracktagsstyled": true,
                     "tracktaglang": 'en',
                     "tracksshowselection": false,
-                    "initialoptions": {
-                        "hideoninactivity": null
-                    },
                     "showsettings": true,
-                    "settingsoptionsvisible": false, // If settings are open and visible
                     "settingsoptions": [{
                             id: 'playerspeeds',
                             label: 'player-speed',
@@ -208,13 +194,26 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }],
                     "ttuploadervisible": false,
 
-                    /* States */
+                    /* States (helper variables which are controlled by application itself not set by user) */
+                    "airplaybuttonvisible": false,
+                    "castbuttonvisble": false,
+                    "fullscreened": false,
+                    "initialoptions": {
+                        "hideoninactivity": null
+                    },
+                    "manuallypaused": false,
+                    "playedonce": false,
+                    "preventinteractionstatus": false, // need to prevent `Unexpected token: punc (()` Uglification issue
+                    "ready": true,
+                    "tracktagssupport": false,
+                    "settingsoptionsvisible": false, // If settings are open and visible
                     "states": {
                         "poster_error": {
                             "ignore": false,
                             "click_play": true
                         }
-                    }
+                    },
+                    "volumeafterinteraction": false // When volume was set, if it was set after user interact with video
                 },
 
                 types: {
@@ -253,7 +252,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "airplay": "boolean",
                     "airplaybuttonvisible": "boolean",
                     "chromecast": "boolean",
-                    "castbuttonvisble": "boolean",
                     "skipseconds": "integer",
                     "tracktags": "array",
                     "tracktagsstyled": "boolean",
@@ -287,7 +285,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 remove_on_destroy: true,
 
                 create: function() {
-                    if ( /*Info.isMobile() && */ (this.get("autoplay") || this.get("playwhenvisible"))) {
+                    if ( (Info.isMobile() || Info.isChromiumBased()) && (this.get("autoplay") || this.get("playwhenvisible"))) {
                         this.set("volume", 0.0);
                         this.set("volumeafterinteraction", true);
                         //if (!(Info.isiOS() && Info.iOSversion().major >= 10)) {

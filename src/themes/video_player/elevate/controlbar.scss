@@ -250,6 +250,10 @@
 	display: none;
 }
 
+.#{$cssplayer}-size-medium .#{$csstheme}-volumebar {
+	display: none;
+}
+
 .#{$cssplayer}-size-medium .#{$csstheme}-right-time-container {
     display: none;
 }

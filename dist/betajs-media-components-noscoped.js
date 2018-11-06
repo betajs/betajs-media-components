@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.133 - 2018-10-16
+betajs-media-components - v0.0.135 - 2018-11-06
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -15,8 +15,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.133",
-    "datetime": 1539740901170
+    "version": "0.0.135",
+    "datetime": 1541525801472
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -2380,6 +2380,16 @@ Scoped.define("module:Settings", [
             },
 
             /**
+             * Hide settings
+             */
+            hide_settings: function() {
+                if (this.containerInner) {
+                    this._removeSettingsContent();
+                    return;
+                }
+            },
+
+            /**
              * If exists remove old inner container and create a new one
              * @private
              */
@@ -3627,7 +3637,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 remove_on_destroy: true,
 
                 create: function() {
-                    if ( /*Info.isMobile() && */ (this.get("autoplay") || this.get("playwhenvisible"))) {
+                    if ((Info.isMobile() || Info.isChromiumBased()) && (this.get("autoplay") || this.get("playwhenvisible"))) {
                         this.set("volume", 0.0);
                         this.set("volumeafterinteraction", true);
                         //if (!(Info.isiOS() && Info.iOSversion().major >= 10)) {
@@ -4082,6 +4092,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.player.on("ended", function() {
                             this.set("playing", false);
                             this.set('playedonce', true);
+                            if (this.settings)
+                                this.settings.hide_settings();
                             this.trigger("ended");
                         }, this);
                         this.trigger("attached", instance);
@@ -5096,10 +5108,12 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
             else {
                 if (Info.isChromiumBased() && !this.dyn.get("skipinitial")) {
                     var video = this.dyn.__video;
-                    video.isMuted = true;
-                    Dom.userInteraction(function() {
-                        video.isMuted = false;
-                    }, this);
+                    if (video) {
+                        video.isMuted = true;
+                        Dom.userInteraction(function() {
+                            video.isMuted = false;
+                        }, this);
+                    }
                 }
 
                 var counter = 10;
@@ -10386,6 +10400,8 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                         this.player.on("ended", function() {
                             this.set("playing", false);
                             this.set('playedonce', true);
+                            if (this.settings)
+                                this.settings.hide_settings();
                             this.trigger("ended");
                         }, this);
                         this.trigger("attached", instance);
@@ -10837,11 +10853,13 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.LoadAudio", [
                 // Mute audio to reference Chrome policy changes after October 2018
                 if (Info.isChromiumBased) {
                     var audio = this.dyn.__audio;
-                    audio.isMuted = true;
-                    Dom.userInteraction(function() {
-                        audio.isMuted = false;
-                        this._runTimer();
-                    }, this);
+                    if (audio) {
+                        audio.isMuted = true;
+                        Dom.userInteraction(function() {
+                            audio.isMuted = false;
+                            this._runTimer();
+                        }, this);
+                    }
                 } else {
                     this._runTimer();
                 }

@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.133 - 2018-10-16
+betajs-media-components - v0.0.135 - 2018-11-06
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -286,10 +286,6 @@ Apache-2.0 Software License.
 
 .ba-player-size-medium .ba-player-theme-modern-volumebar,
 .ba-player-size-small .ba-player-theme-modern-volumebar {
-  display: none; }
-
-.ba-player-size-medium .ba-player-theme-modern-volume-button-container,
-.ba-player-size-small .ba-player-theme-modern-volume-button-container {
   display: none; }
 
 .ba-player-theme-modern-cast-button-container button {

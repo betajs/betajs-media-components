@@ -66,6 +66,7 @@ Scoped.define("module:PopupHelper", [
                 },
 
                 destroy: function() {
+                    this.__popup.hide();
                     this.__popup.destroy();
                     inherited.destroy.call(this);
                 }

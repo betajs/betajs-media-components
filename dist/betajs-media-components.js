@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.135 - 2018-11-06
+betajs-media-components - v0.0.136 - 2018-11-07
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1006,7 +1006,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.135 - 2018-11-06
+betajs-media-components - v0.0.136 - 2018-11-07
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1022,8 +1022,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.135",
-    "datetime": 1541525801472
+    "version": "0.0.136",
+    "datetime": 1541611383641
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -3641,6 +3641,7 @@ Scoped.define("module:PopupHelper", [
                 },
 
                 destroy: function() {
+                    this.__popup.hide();
                     this.__popup.destroy();
                     inherited.destroy.call(this);
                 }

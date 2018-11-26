@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.136 - 2018-11-07
+betajs-media-components - v0.0.138 - 2018-11-24
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1006,7 +1006,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.136 - 2018-11-07
+betajs-media-components - v0.0.138 - 2018-11-24
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1022,8 +1022,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.136",
-    "datetime": 1541611383641
+    "version": "0.0.138",
+    "datetime": 1543083466798
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -5109,8 +5109,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             var volume = Math.min(1.0, this.get("volume"));
                             this.player.setVolume(volume);
                             this.player.setMuted(volume <= 0.0);
-                            this.trigger("loaded");
-                            this.trigger("ready_to_play");
                             if (this.get("totalduration") || this.player.duration() < Infinity)
                                 this.set("duration", this.get("totalduration") || this.player.duration());
                             this.set("fullscreensupport", this.player.supportsFullscreen());
@@ -5985,6 +5983,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
         dynamics: ["playbutton"],
 
         _started: function() {
+            this.dyn.trigger("ready_to_play");
+            this.dyn.trigger("loaded");
             this.listenOn(this.dyn, "error:poster", function() {
                 if (!this.dyn.get("states").poster_error.ignore)
                     this.next("PosterError");

@@ -280,6 +280,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
         dynamics: ["playbutton"],
 
         _started: function() {
+            this.dyn.trigger("ready_to_play");
+            this.dyn.trigger("loaded");
             this.listenOn(this.dyn, "error:poster", function() {
                 if (!this.dyn.get("states").poster_error.ignore)
                     this.next("PosterError");

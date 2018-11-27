@@ -1,6 +1,6 @@
 <div data-selector="text-tracks-overlay"
      class="{{cssplayer}}-text-tracks-overlay
-     {{activitydelta > 5000 && hideoninactivity ? (cssplayer + '-track-dashboard-hidden') : ''}}
+     {{activitydelta > hidebarafter && hideoninactivity ? (cssplayer + '-track-dashboard-hidden') : ''}}
 ">
 
     <div data-selector="cue-content" ba-show="{{tracktagsstyled && trackcuetext}}" class="{{cssplayer}}-cue-content">

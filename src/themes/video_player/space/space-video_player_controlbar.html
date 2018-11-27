@@ -1,4 +1,4 @@
-<div class="{{csstheme}}-title-container {{activitydelta > 5000 && hideoninactivity ? (cssplayer + '-dashboard-hidden') : ''}}">
+<div class="{{csstheme}}-title-container {{activitydelta > hidebarafter && hideoninactivity ? (cssplayer + '-dashboard-hidden') : ''}}">
     <div class="{{csstheme}}-title" ba-if="{{title}}">
         <p>{{title}}</p>
     </div>
@@ -29,7 +29,7 @@
     </div>
 </div>
 
-<div class="{{csstheme}}-dashboard {{activitydelta > 5000 && hideoninactivity ? (cssplayer + '-dashboard-hidden') : ''}}">
+<div class="{{csstheme}}-dashboard {{activitydelta > hidebarafter && hideoninactivity ? (cssplayer + '-dashboard-hidden') : ''}}">
 
     <div class="{{csstheme}}-controlbar-footer">
         <div tabindex="0" data-selector="submit-video-button"

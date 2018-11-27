@@ -1,11 +1,11 @@
 
-<div data-selector="video-title-block" class="{{csstheme}}-title-block {{activitydelta > 5000 && hideoninactivity ? (cssplayer + '-dashboard-hidden') : ''}}" ba-if="{{title}}">
+<div data-selector="video-title-block" class="{{csstheme}}-title-block {{activitydelta > hidebarafter && hideoninactivity ? (cssplayer + '-dashboard-hidden') : ''}}" ba-if="{{title}}">
     <p class="{{csstheme}}-title">
         {{title}}
     </p>
 </div>
 
-<div class="{{csstheme}}-dashboard {{activitydelta > 5000 && hideoninactivity ? (cssplayer + '-dashboard-hidden') : ''}}">
+<div class="{{csstheme}}-dashboard {{activitydelta > hidebarafter && hideoninactivity ? (cssplayer + '-dashboard-hidden') : ''}}">
 
     <div class="{{csstheme}}-left-block">
 

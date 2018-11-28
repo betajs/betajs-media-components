@@ -1,0 +1,190 @@
+'language:en':
+  ba-videoplayer-playbutton.tooltip: Click to play.
+  ba-videoplayer-playbutton.rerecord: Redo
+  ba-videoplayer-playbutton.submit-video: Confirm video
+  ba-videoplayer-loader.tooltip: Loading...
+  ba-videoplayer-controlbar.change-resolution: Change resolution
+  ba-videoplayer-controlbar.video-progress: Progress
+  ba-videoplayer-controlbar.rerecord-video: Redo?
+  ba-videoplayer-controlbar.submit-video: Confirm
+  ba-videoplayer-controlbar.play-video: Play
+  ba-videoplayer-controlbar.pause-video: Pause
+  ba-videoplayer-controlbar.elapsed-time: Elasped time
+  ba-videoplayer-controlbar.total-time: Total length of
+  ba-videoplayer-controlbar.fullscreen-video: Enter fullscreen
+  ba-videoplayer-controlbar.volume-button: Set volume
+  ba-videoplayer-controlbar.volume-mute: Mute sound
+  ba-videoplayer-controlbar.volume-unmute: Unmute sound
+  ba-videoplayer.video-error: 'An error occurred, please try again later. Click to retry.'
+  ba-videorecorder-chooser.record-video: Record Video
+  ba-videorecorder-chooser.upload-video: Upload Video
+  ba-videorecorder-controlbar.settings: Settings
+  ba-videorecorder-controlbar.camerahealthy: Lighting is good
+  ba-videorecorder-controlbar.cameraunhealthy: Lighting is not optimal
+  ba-videorecorder-controlbar.microphonehealthy: Sound is good
+  ba-videorecorder-controlbar.microphoneunhealthy: Cannot pick up any sound
+  ba-videorecorder-controlbar.record: Record
+  ba-videorecorder-controlbar.record-tooltip: Click here to record.
+  ba-videorecorder-controlbar.rerecord: Redo
+  ba-videorecorder-controlbar.rerecord-tooltip: Click here to redo.
+  ba-videorecorder-controlbar.upload-covershot: Upload Cover
+  ba-videorecorder-controlbar.upload-covershot-tooltip: Click here to upload custom cover shot
+  ba-videorecorder-controlbar.stop: Stop
+  ba-videorecorder-controlbar.stop-tooltip: Click here to stop.
+  ba-videorecorder-controlbar.skip: Skip
+  ba-videorecorder-controlbar.skip-tooltip: Click here to skip.
+  ba-videorecorder.recorder-error: 'An error occurred, please try again later. Click to retry.'
+  ba-videorecorder.attach-error: >-
+    We could not access the media interface. Depending on the device and
+    browser, you might need to install Flash or access the page via SSL.
+  ba-videorecorder.access-forbidden: Access to the media was forbidden. Click to retry.
+  ba-videorecorder.pick-covershot: Pick a covershot.
+  ba-videorecorder.uploading: Uploading
+  ba-videorecorder.uploading-failed: Uploading failed - click here to retry.
+  ba-videorecorder.verifying: Verifying
+  ba-videorecorder.verifying-failed: Verifying failed - click here to retry.
+  ba-videorecorder.rerecord-confirm: Do you really want to redo your video?
+  ba-videorecorder.video_file_too_large: >-
+    Your video file is too large (%s) - click here to try again with a smaller
+    video file.
+  ba-videorecorder.unsupported_video_type: 'Please upload: %s - click here to retry.'
+  ba-videoplayer-controlbar.exit-fullscreen-video: Exit fullscreen
+  ba-videoplayer-share.share: Share media
+  ba-videorecorder-chooser.record-screen: Record Screen
+  ba-videoplayer-controlbar.pause-video-disabled: Pause not supported
+  ba-videorecorder-chooser.record-audio: Record Audio
+  ba-videorecorder-controlbar.stop-available-after: Minimum recording time is %d seconds
+  ba-videorecorder-controlbar.cancel: Cancel
+  ba-videorecorder-controlbar.cancel-tooltip: Click here to cancel.
+  ba-videorecorder.cancel-confirm: Do you really want to cancel your video upload?
+  ba-videoplayer-adslot.elapsed-time: Elasped time
+  ba-videoplayer-adslot.volume-button: Set volume
+  ba-videoplayer-adslot.volume-mute: Mute sound
+  ba-videoplayer-adslot.volume-unmute: Unmute sound
+  ba-videoplayer-adslot.ad-will-end-after: Ad will end after %s
+  ba-videoplayer-adslot.can-skip-after: Skip after %d
+  ba-videoplayer-adslot.skip-ad: Skip ad
+  ba-videorecorder.software-required: >-
+    Please click below to install / activate the following requirements in order
+    to proceed.
+  ba-videorecorder.software-waiting: >-
+    Waiting for the requirements to be installed / activated. You might need to
+    refresh the page after completion.
+  ba-videoplayer-controlbar.close-tracks: Close CC
+  ba-videoplayer-controlbar.show-tracks: Show CC
+  ba-videoplayer-tracks.upload-text-tracks: Upload track text files
+  ba-videoplayer-tracks.select-text-track-language: Subtitle Language
+  ba-videoplayer-tracks.info-select-locale-first: First select locale
+  ba-videoplayer-tracks.select-text-track-file: Click to select file
+  ba-videoplayer-tracks.back: back
+  ba-videorecorder.framerate-warning: >-
+    The video frame rate is very low. We recommend closing all other programs
+    and browser tabs or to use a faster computer.
+  ba-videorecorder.upload-error-duration: >-
+    Length of the uploaded video does not meet the requirements - click here to
+    retry.
+  ba-videorecorder.resolution-constraint-error: >-
+    The file you've selected does not match the required resolution - click here
+    to retry.
+  ba-videorecorder.orientation-portrait-required: Please rotate your device to record in portrait mode.
+  ba-videorecorder.orientation-landscape-required: Please rotate your device to record in landscape mode.
+  ba-imageviewer-controlbar.rerecord-image: Redo?
+  ba-imageviewer-controlbar.submit-image: Confirm
+  ba-imageviewer-controlbar.fullscreen-image: Enter fullscreen
+  ba-imageviewer-controlbar.exit-fullscreen-image: Exit fullscreen
+  ba-imageviewer.image-error: 'An error occurred, please try again later. Click to retry.'
+  ba-imagecapture-chooser.image-capture: Capture Image
+  ba-imagecapture-chooser.upload-image: Upload Image
+  ba-imagecapture-controlbar.settings: Settings
+  ba-imagecapture-controlbar.camerahealthy: Lighting is good
+  ba-imagecapture-controlbar.cameraunhealthy: Lighting is not optimal
+  ba-imagecapture-controlbar.record: Capture
+  ba-imagecapture-controlbar.record-tooltip: Click here to capture.
+  ba-imagecapture-controlbar.rerecord: Redo
+  ba-imagecapture-controlbar.rerecord-tooltip: Click here to redo.
+  ba-imagecapture-controlbar.cancel: Cancel
+  ba-imagecapture-controlbar.cancel-tooltip: Click here to cancel.
+  ba-audioplayer-controlbar.audio-progress: Progress
+  ba-audioplayer-controlbar.rerecord-audio: Redo?
+  ba-audioplayer-controlbar.submit-audio: Confirm
+  ba-audioplayer-controlbar.play-audio: Play
+  ba-audioplayer-controlbar.pause-audio: Pause
+  ba-audioplayer-controlbar.pause-audio-disabled: Pause not supported
+  ba-audioplayer-controlbar.elapsed-time: Elasped time
+  ba-audioplayer-controlbar.total-time: Total length of
+  ba-audioplayer-controlbar.volume-button: Set volume
+  ba-audioplayer-controlbar.volume-mute: Mute sound
+  ba-audioplayer-controlbar.volume-unmute: Unmute sound
+  ba-audioplayer-loader.tooltip: Loading...
+  ba-audioplayer.audio-error: 'An error occurred, please try again later. Click to retry.'
+  ba-audiorecorder-chooser.record-audio: Record Audio
+  ba-audiorecorder-chooser.upload-audio: Upload Audio
+  ba-audiorecorder-controlbar.settings: Settings
+  ba-audiorecorder-controlbar.microphonehealthy: Sound is good
+  ba-audiorecorder-controlbar.microphoneunhealthy: Cannot pick up any sound
+  ba-audiorecorder-controlbar.record: Record
+  ba-audiorecorder-controlbar.record-tooltip: Click here to record.
+  ba-audiorecorder-controlbar.rerecord: Redo
+  ba-audiorecorder-controlbar.rerecord-tooltip: Click here to redo.
+  ba-audiorecorder-controlbar.stop: Stop
+  ba-audiorecorder-controlbar.stop-tooltip: Click here to stop.
+  ba-audiorecorder-controlbar.stop-available-after: Minimum recording time is %d seconds
+  ba-audiorecorder-controlbar.cancel: Cancel
+  ba-audiorecorder-controlbar.cancel-tooltip: Click here to cancel.
+  ba-videoplayer-controlbar.player-speed: Player speed
+  ba-videoplayer-controlbar.settings: Settings
+  ba-videoplayer.all-settings: All settings
+  ba-videoplayer.player-speed: Player speed
+  ba-videoplayer.full-screen: Full screen
+  ba-imagecapture.recorder-error: 'An error occurred, please try again later. Click to retry.'
+  ba-imagecapture.attach-error: >-
+    We could not access the media interface. Depending on the device and
+    browser, you might need to install Flash or access the page via SSL.
+  ba-imagecapture.software-required: >-
+    Please click below to install / activate the following requirements in order
+    to proceed.
+  ba-imagecapture.software-waiting: >-
+    Waiting for the requirements to be installed / activated. You might need to
+    refresh the page after completion.
+  ba-imagecapture.access-forbidden: Access to the media was forbidden. Click to retry.
+  ba-imagecapture.uploading: Uploading
+  ba-imagecapture.uploading-failed: Uploading failed - click here to retry.
+  ba-imagecapture.upload-error-duration: >-
+    Length of the uploaded image does not meet the requirements - click here to
+    retry.
+  ba-imagecapture.resolution-constraint-error: >-
+    The file you've selected does not match the required resolution - click here
+    to retry.
+  ba-imagecapture.verifying: Verifying
+  ba-imagecapture.verifying-failed: Verifying failed - click here to retry.
+  ba-imagecapture.rerecord-confirm: Do you really want to retake your image?
+  ba-imagecapture.image_file_too_large: >-
+    Your image file is too large (%s) - click here to try again with a smaller
+    image file.
+  ba-imagecapture.unsupported_image_type: 'Please upload: %s - click here to retry.'
+  ba-imagecapture.orientation-portrait-required: Please rotate your device to record in portrait mode.
+  ba-imagecapture.orientation-landscape-required: Please rotate your device to record in landscape mode.
+  ba-audiorecorder.recorder-error: 'An error occurred, please try again later. Click to retry.'
+  ba-audiorecorder.attach-error: >-
+    We could not access the media interface. Depending on the device and
+    browser, you might need to install Flash or access the page via SSL.
+  ba-audiorecorder.software-required: >-
+    Please click below to install / activate the following requirements in order
+    to proceed.
+  ba-audiorecorder.software-waiting: >-
+    Waiting for the requirements to be installed / activated. You might need to
+    refresh the page after completion.
+  ba-audiorecorder.access-forbidden: Access to the media was forbidden. Click to retry.
+  ba-audiorecorder.uploading: Uploading
+  ba-audiorecorder.uploading-failed: Uploading failed - click here to retry.
+  ba-audiorecorder.upload-error-duration: >-
+    Length of the uploaded audio does not meet the requirements - click here to
+    retry.
+  ba-audiorecorder.verifying: Verifying
+  ba-audiorecorder.verifying-failed: Verifying failed - click here to retry.
+  ba-audiorecorder.rerecord-confirm: Do you really want to redo your audio?
+  ba-audiorecorder.cancel-confirm: Do you really want to cancel your audio upload?
+  ba-audiorecorder.audio_file_too_large: >-
+    Your audio file is too large (%s) - click here to try again with a smaller
+    audio file.
+  ba-audiorecorder.unsupported_audio_type: 'Please upload: %s - click here to retry.'

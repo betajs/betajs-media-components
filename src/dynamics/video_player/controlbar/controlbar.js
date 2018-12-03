@@ -156,14 +156,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     },
 
                     toggle_volume: function() {
-                        if (this.get("volume") > 0 && !this.parent().get("volumeafterinteraction")) {
+                        if (this.get("volume") > 0) {
                             this.__oldVolume = this.get("volume");
                             this.set("volume", 0);
                         } else {
                             this.set("volume", this.__oldVolume || 1);
-
-                            if (this.parent().get("volumeafterinteraction"))
-                                this.parent().set("volumeafterinteraction", false);
                         }
 
                         this.trigger("volume", this.get("volume"));

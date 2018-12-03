@@ -89,7 +89,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "sharevideo": [],
                     "sharevideourl": "",
                     "visibilityfraction": 0.8,
-                    "unmuted": false, // Reference to Chrome renewed policy, we have to setup mute for auto-playing players.
                     /* Configuration */
                     "forceflash": false,
                     "noflash": false,
@@ -199,21 +198,27 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "castbuttonvisble": false,
                     "fullscreened": false,
                     "initialoptions": {
-                        "hideoninactivity": null
+                        "hideoninactivity": null,
+                        "volumelevel": null
                     },
                     "manuallypaused": false,
                     "playedonce": false,
                     "preventinteractionstatus": false, // need to prevent `Unexpected token: punc (()` Uglification issue
                     "ready": true,
                     "tracktagssupport": false,
-                    "settingsoptionsvisible": false, // If settings are open and visible
+                    // If settings are open and visible
+                    "settingsoptionsvisible": false,
                     "states": {
                         "poster_error": {
                             "ignore": false,
                             "click_play": true
                         }
                     },
-                    "volumeafterinteraction": false // When volume was set, if it was set after user interact with video
+                    // Reference to Chrome renewed policy, we have to setup mute for auto-playing players.
+                    // If we do it forcibly then will set as true
+                    "forciblymuted": false,
+                    // When volume was un muted, by user himself, not automatically
+                    "volumeafterinteraction": false
                 },
 
                 types: {
@@ -285,9 +290,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 remove_on_destroy: true,
 
                 create: function() {
+                    // Will set volume initial state
+                    this.set("initialoptions", Objs.tree_merge(this.get("initialoptions"), {
+                        volumelevel: this.get("volume")
+                    }));
+
                     if ((Info.isMobile() || Info.isChromiumBased()) && (this.get("autoplay") || this.get("playwhenvisible"))) {
                         this.set("volume", 0.0);
-                        this.set("volumeafterinteraction", true);
+                        this.set("forciblymuted", true);
+
                         //if (!(Info.isiOS() && Info.iOSversion().major >= 10)) {
                         //this.set("autoplay", false);
                         //this.set("loop", false);
@@ -318,16 +329,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.get("streams") && !this.get("currentstream"))
                         this.set("currentstream", (this.get("streams"))[0]);
 
+                    // Set `hideoninactivity` initial options for further help actions
                     if (this.get("preventinteraction") && !this.get("hideoninactivity")) {
                         this.set("hideoninactivity", true);
-                        this.set("initialoptions", {
+                        this.set("initialoptions", Objs.tree_merge(this.get("initialoptions"), {
                             hideoninactivity: true
-                        });
+                        }));
                     } else {
                         // Set initial options for further help actions
-                        this.set("initialoptions", {
+                        this.set("initialoptions", Objs.tree_merge(this.get("initialoptions"), {
                             hideoninactivity: this.get("hideoninactivity")
-                        });
+                        }));
                     }
 
                     this.set("ie8", Info.isInternetExplorer() && Info.internetExplorerVersion() < 9);
@@ -354,11 +366,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.__activated = false;
                     this.__error = null;
                     this.__currentStretch = null;
-
-                    // Set initial options for further help actions
-                    this.set("initialoptions", {
-                        hideoninactivity: this.get("hideoninactivity")
-                    });
 
                     if (document.onkeydown)
                         this.activeElement().onkeydown = this._keyDownActivity.bind(this, this.activeElement());
@@ -703,17 +710,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                         if (this.get("playwhenvisible")) {
                             this.set("skipinitial", true);
-                            if (Info.isChromiumBased() && !this.get("unmuted")) {
-                                video.isMuted = true;
-                                Dom.userInteraction(function() {
-                                    video.isMuted = true;
-                                    this.set("unmuted", true);
-                                    this.set("volumeafterinteraction", false);
-                                    this._playWhenVisible(video);
-                                }, this);
-                            } else {
-                                this._playWhenVisible(video);
-                            }
+                            this._playWhenVisible(video);
                         }
                         this.player.on("fullscreen-change", function(inFullscreen) {
                             this.set("fullscreened", inFullscreen);
@@ -721,6 +718,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.set("hideoninactivity", this.get("initialoptions").hideoninactivity);
                             }
                         }, this);
+                        // If browser is Chrome, and we have manually forcibly muted player
+                        if (Info.isChromiumBased() && this.get("forciblymuted")) {
+                            video.isMuted = true;
+                            Dom.userInteraction(function() {
+                                this.set_volume(this.get("initialoptions").volumelevel);
+                                if (this.get("volume") > 0.00)
+                                    video.isMuted = false;
+                                this.set("forciblymuted", false);
+                            }, this);
+                        }
                         this.player.on("postererror", function() {
                             this._error("poster");
                         }, this);
@@ -934,9 +941,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 functions: {
 
                     user_activity: function(strong) {
-                        if (strong && this.get("volumeafterinteraction")) {
-                            this.set_volume(1.0);
-                            this.set("volumeafterinteraction", false);
+                        if (strong && !this.get("volumeafterinteraction")) {
+                            // User interacted with player, and set player's volume level/un-mute
+                            // So we will play voice as soon as player visible for user
+                            this.set_volume(this.get("initialoptions").volumelevel);
+                            this.set("volumeafterinteraction", true);
+                            if (this.get("forciblymuted")) this.set("forciblymuted", false);
                         }
                         if (this.get('preventinteractionstatus')) return;
                         this._resetActivity();
@@ -1048,13 +1058,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         volume = Math.min(1.0, volume);
 
-                        if (!this.get("volumeafterinteraction"))
-                            volume = volume <= 0 ? 0 : volume; // Don't allow negative value
-                        else {
-                            this.set("volumeafterinteraction", false);
-                            volume = 0;
-                        }
-
                         if (this.player && this.player._broadcastingState && this.player._broadcastingState.googleCastConnected) {
                             this._broadcasting.player.trigger("change-google-cast-volume", volume);
                         }
@@ -1102,6 +1105,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             else
                                 this.set("volumeafterinteraction", false);
 
+                            // If user paused the video and don't like player will auto-played
+                            // so, no need to play each time when user see video
                             if (this.get("playwhenvisible"))
                                 this.set("manuallypaused", true);
                         } else
@@ -1144,7 +1149,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                         preventScroll: false
                                     });
                                 }, this, 100);
-
                         }
                     },
 

@@ -94,7 +94,6 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.LoadPlayer", [
 });
 
 
-
 Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.LoadError", [
     "module:AudioPlayer.Dynamics.PlayerStates.State"
 ], function(State, scoped) {
@@ -113,9 +112,6 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.LoadError", [
 
     });
 });
-
-
-
 
 
 Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.LoadAudio", [
@@ -144,19 +140,7 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.LoadAudio", [
             if (!this.dyn.get("autoplay"))
                 this.next("PlayAudio");
             else {
-                // Mute audio to reference Chrome policy changes after October 2018
-                if (Info.isChromiumBased) {
-                    var audio = this.dyn.__audio;
-                    if (audio) {
-                        audio.isMuted = true;
-                        Dom.userInteraction(function() {
-                            audio.isMuted = false;
-                            this._runTimer();
-                        }, this);
-                    }
-                } else {
-                    this._runTimer();
-                }
+                this._runTimer();
             }
         },
 

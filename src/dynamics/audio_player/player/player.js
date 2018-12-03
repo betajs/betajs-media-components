@@ -93,7 +93,17 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     "visualeffectheight": null,
                     "visualeffectminheight": 120,
                     "visualeffecttheme": "balloon", // types: `balloon`, 'red-bars'
-                    "skipseconds": 5
+                    "skipseconds": 5,
+
+                    /* States (helper variables which are controlled by application itself not set by user) */
+                    "initialoptions": {
+                        "volumelevel": null
+                    },
+                    // Reference to Chrome renewed policy, we have to setup mute for auto-playing players.
+                    // If we do it forcibly then will set as true
+                    "forciblymuted": false,
+                    // When volume was un muted, by user himself, not automatically
+                    "volumeafterinteraction": false
                 },
 
                 types: {
@@ -154,12 +164,19 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                 remove_on_destroy: true,
 
                 create: function() {
-                    if (Info.isMobile() && (this.get("autoplay") || this.get("playwhenvisible"))) {
+                    // Will set volume initial state
+                    this.set("initialoptions", Objs.tree_merge(this.get("initialoptions"), {
+                        volumelevel: this.get("volume")
+                    }));
+
+                    if ((Info.isMobile() || Info.isChromiumBased()) && (this.get("autoplay") || this.get("playwhenvisible"))) {
                         this.set("volume", 0.0);
-                        if (!(Info.isiOS() && Info.iOSversion().major >= 10)) {
-                            this.set("autoplay", false);
-                            this.set("loop", false);
-                        }
+                        this.set("forciblymuted", true);
+
+                        //if (!(Info.isiOS() && Info.iOSversion().major >= 10)) {
+                        //this.set("autoplay", false);
+                        //this.set("loop", false);
+                        //}
                     }
 
                     if (this.get("theme") in Assets.audioplayerthemes) {
@@ -299,16 +316,19 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                                 }
                             }, this, 100);
                         }
+
                         if (this.get("playwhenvisible")) {
-                            if (Info.isChromiumBased() && !this.get("unmuted")) {
-                                audio.isMuted = true;
-                                Dom.userInteraction(function() {
+                            this._playWhenVisible(audio);
+                        }
+                        // If browser is Chrome, and we have manually forcibly muted player
+                        if (Info.isChromiumBased() && this.get("forciblymuted")) {
+                            audio.isMuted = true;
+                            Dom.userInteraction(function() {
+                                this.set_volume(this.get("initialoptions").volumelevel);
+                                if (this.get("volume") > 0.00)
                                     audio.isMuted = false;
-                                    this.set("unmuted", true);
-                                    this._playWhenVisible(audio);
-                                });
-                            } else
-                                this._playWhenVisible(audio);
+                                this.set("forciblymuted", false);
+                            }, this);
                         }
                         this.player.on("playing", function() {
                             this.set("playing", true);

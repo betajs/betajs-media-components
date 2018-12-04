@@ -1258,8 +1258,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.videoAttached())
                         return this.player.videoHeight();
                     var img = this.activeElement().querySelector("img");
-                    if (img && img.height)
+                    if (img && img.height) {
+                        var clientHeight = document.body.clientHeight;
+                        if (img.height > clientHeight)
+                            return clientHeight;
                         return img.height;
+                    }
                     return NaN;
                 },
 
@@ -1267,13 +1271,21 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.videoAttached())
                         return this.player.videoWidth();
                     var img = this.activeElement().querySelector("img");
-                    if (img && img.width)
+                    if (img && img.width) {
+                        var clientWidth = document.body.clientWidth;
+                        if (img.width > clientWidth)
+                            return clientWidth;
                         return img.width;
+                    }
                     return NaN;
                 },
 
                 aspectRatio: function() {
-                    return this.videoWidth() / this.videoHeight();
+                    // Don't use shortcut way of getting aspect ratio, will act as not expected.
+                    var height = this.videoWidth();
+                    var width = this.videoHeight();
+
+                    return width / height;
                 },
 
                 parentWidth: function() {

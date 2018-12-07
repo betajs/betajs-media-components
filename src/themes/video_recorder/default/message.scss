@@ -4,6 +4,10 @@
     opacity: $message_opacity;
 }
 
+ba-videorecorder-message[ba-message=""], ba-videorecorder-message[ba-message="null"] {
+    display: none;
+}
+
 .#{$css}-message-message {
 	@include transform-translate-y(-50%);
     color: $text_color;

@@ -411,16 +411,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
             if (this.dyn.get("skipinitial") && !this.dyn.get("autoplay"))
                 this.next("PlayVideo");
             else {
-                if (Info.isChromiumBased() && !this.dyn.get("skipinitial")) {
-                    var video = this.dyn.__video;
-                    if (video) {
-                        video.isMuted = true;
-                        Dom.userInteraction(function() {
-                            video.isMuted = false;
-                        }, this);
-                    }
-                }
-
                 var counter = 10;
                 this.auto_destroy(new Timer({
                     context: this,

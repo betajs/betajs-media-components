@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.139 - 2018-11-27
+betajs-media-components - v0.0.142 - 2018-12-08
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -15,8 +15,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.139",
-    "datetime": 1543371933870
+    "version": "0.0.142",
+    "datetime": 1544287346564
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -2099,8 +2099,9 @@ Scoped.define("module:Assets", [
 });
 Scoped.define("module:AudioVisualisation", [
     "base:Class",
-    "browser:Dom"
-], function(Class, Dom, scoped) {
+    "browser:Dom",
+    "browser:Info"
+], function(Class, Dom, Info, scoped) {
     return Class.extend({
         scoped: scoped
     }, function(inherited) {
@@ -2118,7 +2119,13 @@ Scoped.define("module:AudioVisualisation", [
                     this.recorder = options.recorder;
                 } else {
                     var AudioContext = window.AudioContext || window.webkitAudioContext;
-                    this.audioContext = new AudioContext();
+                    if (Info.isChromiumBased()) {
+                        Dom.userInteraction(function() {
+                            this.audioContext = new AudioContext();
+                        }, this);
+                    } else {
+                        this.audioContext = new AudioContext();
+                    }
                 }
                 this.createVisualisationCanvas(options.height, options.element);
                 this.frameID = null;
@@ -2149,9 +2156,7 @@ Scoped.define("module:AudioVisualisation", [
 
                     if (this.audioContext || this.stream) {
                         if (this.audioContext.state === 'suspended') {
-                            Dom.userInteraction(function() {
-                                this.audioContext.resume();
-                            }, this);
+                            this.audioContext.resume();
                         }
 
                         if (this.stream instanceof HTMLElement) {
@@ -3108,14 +3113,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     },
 
                     toggle_volume: function() {
-                        if (this.get("volume") > 0 && !this.parent().get("volumeafterinteraction")) {
+                        if (this.get("volume") > 0) {
                             this.__oldVolume = this.get("volume");
                             this.set("volume", 0);
                         } else {
                             this.set("volume", this.__oldVolume || 1);
-
-                            if (this.parent().get("volumeafterinteraction"))
-                                this.parent().set("volumeafterinteraction", false);
                         }
 
                         this.trigger("volume", this.get("volume"));
@@ -3388,7 +3390,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
         }, function(inherited) {
             return {
 
-                template: "<div itemscope itemtype=\"http://schema.org/VideoObject\"\n     class=\"{{css}}-container {{cssplayer}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}\n     {{cssplayer}}-{{ fullscreened ? 'fullscreen' : 'normal' }}-view {{cssplayer}}-{{ firefox ? 'firefox' : 'common'}}-browser\n     {{cssplayer}}-{{themecolor}}-color\"\n     ba-on:mousemove=\"{{user_activity()}}\"\n     ba-on:mousedown=\"{{user_activity(true)}}\"\n     ba-on:touchstart=\"{{user_activity(true)}}\"\n     ba-styles=\"{{widthHeightStyles}}\"\n>\n    <div ba-show=\"{{videoelement_active}}\">\n        <video tabindex=\"-1\" class=\"{{css}}-video\" data-video=\"video\"\n               ba-toggle:playsinline=\"{{!playfullscreenonmobile}}\"\n        ></video>\n    </div>\n    <div ba-show=\"{{imageelement_active && !videoelement_active}}\">\n        <img tabindex=\"-1\" class=\"{{css}}-video\" data-image=\"image\" />\n    </div>\n    <div class=\"{{css}}-overlay\">\n        <div tabindex=\"-1\" class=\"{{css}}-player-toggle-overlay\" data-selector=\"player-toggle-overlay\"\n             ba-hotkey:right=\"{{seek(position + skipseconds)}}\" ba-hotkey:left=\"{{seek(position - skipseconds)}}\"\n             ba-hotkey:alt+right=\"{{seek(position + skipseconds * 3)}}\" ba-hotkey:alt+left=\"{{seek(position - skipseconds * 3)}}\"\n             ba-hotkey:up=\"{{set_volume(volume + 0.1)}}\" ba-hotkey:down=\"{{set_volume(volume - 0.1)}}\"\n             ba-hotkey:space^enter=\"{{toggle_player()}}\"\n             ba-on:click=\"{{toggle_player()}}\"\n        ></div>\n        <ba-{{dyncontrolbar}}\n            ba-css=\"{{csscontrolbar || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-themecolor=\"{{themecolor}}\"\n            ba-template=\"{{tmplcontrolbar}}\"\n            ba-show=\"{{controlbar_active}}\"\n            ba-playing=\"{{playing}}\"\n            ba-playwhenvisible=\"{{playwhenvisible}}\"\n            ba-playerspeeds=\"{{playerspeeds}}\"\n            ba-playercurrentspeed=\"{{playercurrentspeed}}\"\n            ba-airplay=\"{{airplay}}\"\n            ba-airplaybuttonvisible=\"{{airplaybuttonvisible}}\"\n            ba-chromecast=\"{{chromecast}}\"\n            ba-castbuttonvisble=\"{{castbuttonvisble}}\"\n            ba-event:rerecord=\"rerecord\"\n            ba-event:submit=\"submit\"\n            ba-event:play=\"play\"\n            ba-event:pause=\"pause\"\n            ba-event:position=\"seek\"\n            ba-event:volume=\"set_volume\"\n            ba-event:set_speed=\"set_speed\"\n            ba-event:toggle_settings=\"toggle_settings\"\n            ba-event:fullscreen=\"toggle_fullscreen\"\n            ba-event:toggle_player=\"toggle_player\"\n            ba-event:tab_index_move=\"tab_index_move\"\n            ba-event:seek=\"seek\"\n            ba-event:set_volume=\"set_volume\"\n            ba-tabindex=\"{{tabindex}}\"\n            ba-tracktextvisible=\"{{tracktextvisible}}\"\n            ba-tracktags=\"{{tracktags}}\"\n            ba-tracktagssupport=\"{{tracktagssupport}}\"\n            ba-allowtexttrackupload=\"{{allowtexttrackupload}}\"\n            ba-tracksshowselection=\"{{tracksshowselection}}\"\n            ba-volume=\"{{volume}}\"\n            ba-duration=\"{{duration}}\"\n            ba-cached=\"{{buffered}}\"\n            ba-title=\"{{title}}\"\n            ba-position=\"{{position}}\"\n            ba-activitydelta=\"{{activity_delta}}\"\n            ba-hideoninactivity=\"{{hideoninactivity}}\"\n            ba-hidebarafter=\"{{hidebarafter}}\"\n            ba-rerecordable=\"{{rerecordable}}\"\n            ba-submittable=\"{{submittable}}\"\n            ba-streams=\"{{streams}}\"\n            ba-currentstream=\"{{=currentstream}}\"\n            ba-fullscreen=\"{{fullscreensupport && !nofullscreen}}\"\n            ba-fullscreened=\"{{fullscreened}}\"\n            ba-source=\"{{source}}\"\n            ba-disablepause=\"{{disablepause}}\"\n            ba-disableseeking=\"{{disableseeking}}\"\n            ba-skipseconds=\"{{skipseconds}}\"\n            ba-skipinitial=\"{{skipinitial}}\"\n            ba-showsettings=\"{{showsettings}}\"\n            ba-settingsoptionsvisible=\"{{settingsoptionsvisible}}\"\n        ></ba-{{dyncontrolbar}}>\n\n        <ba-{{dyntracks}}\n            ba-css=\"{{csstracks || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-show=\"{{tracktagssupport || allowtexttrackupload}}\"\n            ba-tracksshowselection=\"{{tracksshowselection}}\"\n            ba-trackselectorhovered=\"{{trackselectorhovered}}\"\n            ba-tracktags=\"{{tracktags}}\"\n            ba-tracktagsstyled=\"{{tracktagsstyled}}\"\n            ba-trackcuetext=\"{{trackcuetext}}\"\n            ba-allowtexttrackupload=\"{{allowtexttrackupload}}\"\n            ba-uploadtexttracksvisible=\"{{uploadtexttracksvisible}}\"\n            ba-acceptedtracktexts=\"{{acceptedtracktexts}}\"\n            ba-uploadlocales=\"{{uploadlocales}}\"\n            ba-activitydelta=\"{{activity_delta}}\"\n            ba-hideoninactivity=\"{{hideoninactivity}}\"\n            ba-event:selected_label_value=\"selected_label_value\"\n            ba-event:upload-text-tracks=\"upload_text_tracks\"\n            ba-event:move_to_option=\"move_to_option\"\n        ></ba-{{dyntracks}}>\n\n        <ba-{{dynplaybutton}}\n            ba-css=\"{{cssplaybutton || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplplaybutton}}\"\n            ba-show=\"{{playbutton_active}}\"\n            ba-rerecordable=\"{{rerecordable}}\"\n            ba-submittable=\"{{submittable}}\"\n            ba-event:play=\"playbutton_click\"\n            ba-event:rerecord=\"rerecord\"\n            ba-event:submit=\"submit\"\n            ba-event:tab_index_move=\"tab_index_move\"\n        ></ba-{{dynplaybutton}}>\n\n        <ba-{{dynloader}}\n            ba-css=\"{{cssloader || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplloader}}\"\n            ba-playwhenvisible=\"{{playwhenvisible}}\"\n            ba-show=\"{{loader_active}}\"\n        ></ba-{{dynloader}}>\n\n        <ba-{{dynshare}}\n            ba-css=\"{{cssshare || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplshare}}\"\n            ba-show=\"{{sharevideourl && sharevideo.length > 0}}\"\n            ba-url=\"{{sharevideourl}}\"\n            ba-shares=\"{{sharevideo}}\"\n        ></ba-{{dynshare}}>\n\n        <ba-{{dynmessage}}\n            ba-css=\"{{cssmessage || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplmessage}}\"\n            ba-show=\"{{message_active}}\"\n            ba-message=\"{{message}}\"\n            ba-event:click=\"message_click\"\n        ></ba-{{dynmessage}}>\n\n        <ba-{{dyntopmessage}}\n            ba-css=\"{{csstopmessage || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmpltopmessage}}\"\n            ba-show=\"{{topmessage}}\"\n            ba-topmessage=\"{{topmessage}}\"\n        ></ba-{{dyntopmessage}}>\n\n        <meta itemprop=\"caption\" content=\"{{title}}\" />\n        <meta itemprop=\"thumbnailUrl\" content=\"{{poster}}\"/>\n        <meta itemprop=\"contentUrl\" content=\"{{source}}\"/>\n    </div>\n    <div class=\"{{cssplayer}}-overlay\" data-video=\"ad\" style=\"display:none\"></div>\n</div>\n",
+                template: "<div itemscope itemtype=\"http://schema.org/VideoObject\"\n     class=\"{{css}}-container {{cssplayer}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}\n     {{cssplayer}}-{{ fullscreened ? 'fullscreen' : 'normal' }}-view {{cssplayer}}-{{ firefox ? 'firefox' : 'common'}}-browser\n     {{cssplayer}}-{{themecolor}}-color\"\n     ba-on:mousemove=\"{{user_activity()}}\"\n     ba-on:mousedown=\"{{user_activity(true)}}\"\n     ba-on:touchstart=\"{{user_activity(true)}}\"\n     ba-styles=\"{{widthHeightStyles}}\"\n>\n    <div ba-show=\"{{videoelement_active}}\">\n        <video tabindex=\"-1\" class=\"{{css}}-video\" data-video=\"video\"\n               ba-toggle:playsinline=\"{{!playfullscreenonmobile}}\"\n        ></video>\n    </div>\n    <div ba-show=\"{{imageelement_active && !videoelement_active}}\">\n        <img tabindex=\"-1\" class=\"{{css}}-video\" data-image=\"image\" />\n    </div>\n    <div class=\"{{css}}-overlay\">\n        <div tabindex=\"-1\" class=\"{{css}}-player-toggle-overlay\" data-selector=\"player-toggle-overlay\"\n             ba-hotkey:right=\"{{seek(position + skipseconds)}}\" ba-hotkey:left=\"{{seek(position - skipseconds)}}\"\n             ba-hotkey:alt+right=\"{{seek(position + skipseconds * 3)}}\" ba-hotkey:alt+left=\"{{seek(position - skipseconds * 3)}}\"\n             ba-hotkey:up=\"{{set_volume(volume + 0.1)}}\" ba-hotkey:down=\"{{set_volume(volume - 0.1)}}\"\n             ba-hotkey:space^enter=\"{{toggle_player()}}\"\n             ba-on:click=\"{{toggle_player()}}\"\n        ></div>\n        <ba-{{dyncontrolbar}}\n            ba-css=\"{{csscontrolbar || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-themecolor=\"{{themecolor}}\"\n            ba-template=\"{{tmplcontrolbar}}\"\n            ba-show=\"{{controlbar_active}}\"\n            ba-playing=\"{{playing}}\"\n            ba-playwhenvisible=\"{{playwhenvisible}}\"\n            ba-playerspeeds=\"{{playerspeeds}}\"\n            ba-playercurrentspeed=\"{{playercurrentspeed}}\"\n            ba-airplay=\"{{airplay}}\"\n            ba-airplaybuttonvisible=\"{{airplaybuttonvisible}}\"\n            ba-chromecast=\"{{chromecast}}\"\n            ba-castbuttonvisble=\"{{castbuttonvisble}}\"\n            ba-event:rerecord=\"rerecord\"\n            ba-event:submit=\"submit\"\n            ba-event:play=\"play\"\n            ba-event:pause=\"pause\"\n            ba-event:position=\"seek\"\n            ba-event:volume=\"set_volume\"\n            ba-event:set_speed=\"set_speed\"\n            ba-event:toggle_settings=\"toggle_settings\"\n            ba-event:fullscreen=\"toggle_fullscreen\"\n            ba-event:toggle_player=\"toggle_player\"\n            ba-event:tab_index_move=\"tab_index_move\"\n            ba-event:seek=\"seek\"\n            ba-event:set_volume=\"set_volume\"\n            ba-tabindex=\"{{tabindex}}\"\n            ba-tracktextvisible=\"{{tracktextvisible}}\"\n            ba-tracktags=\"{{tracktags}}\"\n            ba-tracktagssupport=\"{{tracktagssupport}}\"\n            ba-allowtexttrackupload=\"{{allowtexttrackupload}}\"\n            ba-tracksshowselection=\"{{tracksshowselection}}\"\n            ba-volume=\"{{volume}}\"\n            ba-duration=\"{{duration}}\"\n            ba-cached=\"{{buffered}}\"\n            ba-title=\"{{title}}\"\n            ba-position=\"{{position}}\"\n            ba-activitydelta=\"{{activity_delta}}\"\n            ba-hideoninactivity=\"{{hideoninactivity}}\"\n            ba-hidebarafter=\"{{hidebarafter}}\"\n            ba-rerecordable=\"{{rerecordable}}\"\n            ba-submittable=\"{{submittable}}\"\n            ba-streams=\"{{streams}}\"\n            ba-currentstream=\"{{=currentstream}}\"\n            ba-fullscreen=\"{{fullscreensupport && !nofullscreen}}\"\n            ba-fullscreened=\"{{fullscreened}}\"\n            ba-source=\"{{source}}\"\n            ba-disablepause=\"{{disablepause}}\"\n            ba-disableseeking=\"{{disableseeking}}\"\n            ba-skipseconds=\"{{skipseconds}}\"\n            ba-skipinitial=\"{{skipinitial}}\"\n            ba-showsettings=\"{{showsettings}}\"\n            ba-settingsoptionsvisible=\"{{settingsoptionsvisible}}\"\n        ></ba-{{dyncontrolbar}}>\n\n        <ba-{{dyntracks}}\n            ba-css=\"{{csstracks || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-show=\"{{tracktagssupport || allowtexttrackupload}}\"\n            ba-tracksshowselection=\"{{tracksshowselection}}\"\n            ba-trackselectorhovered=\"{{trackselectorhovered}}\"\n            ba-tracktags=\"{{tracktags}}\"\n            ba-hidebarafter=\"{{hidebarafter}}\"\n            ba-tracktagsstyled=\"{{tracktagsstyled}}\"\n            ba-trackcuetext=\"{{trackcuetext}}\"\n            ba-allowtexttrackupload=\"{{allowtexttrackupload}}\"\n            ba-uploadtexttracksvisible=\"{{uploadtexttracksvisible}}\"\n            ba-acceptedtracktexts=\"{{acceptedtracktexts}}\"\n            ba-uploadlocales=\"{{uploadlocales}}\"\n            ba-activitydelta=\"{{activity_delta}}\"\n            ba-hideoninactivity=\"{{hideoninactivity}}\"\n            ba-event:selected_label_value=\"selected_label_value\"\n            ba-event:upload-text-tracks=\"upload_text_tracks\"\n            ba-event:move_to_option=\"move_to_option\"\n        ></ba-{{dyntracks}}>\n\n        <ba-{{dynplaybutton}}\n            ba-css=\"{{cssplaybutton || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplplaybutton}}\"\n            ba-show=\"{{playbutton_active}}\"\n            ba-rerecordable=\"{{rerecordable}}\"\n            ba-submittable=\"{{submittable}}\"\n            ba-event:play=\"playbutton_click\"\n            ba-event:rerecord=\"rerecord\"\n            ba-event:submit=\"submit\"\n            ba-event:tab_index_move=\"tab_index_move\"\n        ></ba-{{dynplaybutton}}>\n\n        <ba-{{dynloader}}\n            ba-css=\"{{cssloader || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplloader}}\"\n            ba-playwhenvisible=\"{{playwhenvisible}}\"\n            ba-show=\"{{loader_active}}\"\n        ></ba-{{dynloader}}>\n\n        <ba-{{dynshare}}\n            ba-css=\"{{cssshare || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplshare}}\"\n            ba-show=\"{{sharevideourl && sharevideo.length > 0}}\"\n            ba-url=\"{{sharevideourl}}\"\n            ba-shares=\"{{sharevideo}}\"\n        ></ba-{{dynshare}}>\n\n        <ba-{{dynmessage}}\n            ba-css=\"{{cssmessage || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplmessage}}\"\n            ba-show=\"{{message_active}}\"\n            ba-message=\"{{message}}\"\n            ba-event:click=\"message_click\"\n        ></ba-{{dynmessage}}>\n\n        <ba-{{dyntopmessage}}\n            ba-css=\"{{csstopmessage || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmpltopmessage}}\"\n            ba-show=\"{{topmessage}}\"\n            ba-topmessage=\"{{topmessage}}\"\n        ></ba-{{dyntopmessage}}>\n\n        <meta itemprop=\"caption\" content=\"{{title}}\" />\n        <meta itemprop=\"thumbnailUrl\" content=\"{{poster}}\"/>\n        <meta itemprop=\"contentUrl\" content=\"{{source}}\"/>\n    </div>\n    <div class=\"{{cssplayer}}-overlay\" data-video=\"ad\" style=\"display:none\"></div>\n</div>\n",
 
                 attrs: {
                     /* CSS */
@@ -3440,7 +3442,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "sharevideo": [],
                     "sharevideourl": "",
                     "visibilityfraction": 0.8,
-                    "unmuted": false, // Reference to Chrome renewed policy, we have to setup mute for auto-playing players.
                     /* Configuration */
                     "forceflash": false,
                     "noflash": false,
@@ -3550,21 +3551,27 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "castbuttonvisble": false,
                     "fullscreened": false,
                     "initialoptions": {
-                        "hideoninactivity": null
+                        "hideoninactivity": null,
+                        "volumelevel": null
                     },
                     "manuallypaused": false,
                     "playedonce": false,
                     "preventinteractionstatus": false, // need to prevent `Unexpected token: punc (()` Uglification issue
                     "ready": true,
                     "tracktagssupport": false,
-                    "settingsoptionsvisible": false, // If settings are open and visible
+                    // If settings are open and visible
+                    "settingsoptionsvisible": false,
                     "states": {
                         "poster_error": {
                             "ignore": false,
                             "click_play": true
                         }
                     },
-                    "volumeafterinteraction": false // When volume was set, if it was set after user interact with video
+                    // Reference to Chrome renewed policy, we have to setup mute for auto-playing players.
+                    // If we do it forcibly then will set as true
+                    "forciblymuted": false,
+                    // When volume was un muted, by user himself, not automatically
+                    "volumeafterinteraction": false
                 },
 
                 types: {
@@ -3636,9 +3643,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 remove_on_destroy: true,
 
                 create: function() {
+                    // Will set volume initial state
+                    this.set("initialoptions", Objs.tree_merge(this.get("initialoptions"), {
+                        volumelevel: this.get("volume")
+                    }));
+
                     if ((Info.isMobile() || Info.isChromiumBased()) && (this.get("autoplay") || this.get("playwhenvisible"))) {
                         this.set("volume", 0.0);
-                        this.set("volumeafterinteraction", true);
+                        this.set("forciblymuted", true);
+
                         //if (!(Info.isiOS() && Info.iOSversion().major >= 10)) {
                         //this.set("autoplay", false);
                         //this.set("loop", false);
@@ -3669,16 +3682,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.get("streams") && !this.get("currentstream"))
                         this.set("currentstream", (this.get("streams"))[0]);
 
+                    // Set `hideoninactivity` initial options for further help actions
                     if (this.get("preventinteraction") && !this.get("hideoninactivity")) {
                         this.set("hideoninactivity", true);
-                        this.set("initialoptions", {
+                        this.set("initialoptions", Objs.tree_merge(this.get("initialoptions"), {
                             hideoninactivity: true
-                        });
+                        }));
                     } else {
                         // Set initial options for further help actions
-                        this.set("initialoptions", {
+                        this.set("initialoptions", Objs.tree_merge(this.get("initialoptions"), {
                             hideoninactivity: this.get("hideoninactivity")
-                        });
+                        }));
                     }
 
                     this.set("ie8", Info.isInternetExplorer() && Info.internetExplorerVersion() < 9);
@@ -3705,11 +3719,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.__activated = false;
                     this.__error = null;
                     this.__currentStretch = null;
-
-                    // Set initial options for further help actions
-                    this.set("initialoptions", {
-                        hideoninactivity: this.get("hideoninactivity")
-                    });
 
                     if (document.onkeydown)
                         this.activeElement().onkeydown = this._keyDownActivity.bind(this, this.activeElement());
@@ -4054,17 +4063,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                         if (this.get("playwhenvisible")) {
                             this.set("skipinitial", true);
-                            if (Info.isChromiumBased() && !this.get("unmuted")) {
-                                video.isMuted = true;
-                                Dom.userInteraction(function() {
-                                    video.isMuted = true;
-                                    this.set("unmuted", true);
-                                    this.set("volumeafterinteraction", false);
-                                    this._playWhenVisible(video);
-                                }, this);
-                            } else {
-                                this._playWhenVisible(video);
-                            }
+                            this._playWhenVisible(video);
                         }
                         this.player.on("fullscreen-change", function(inFullscreen) {
                             this.set("fullscreened", inFullscreen);
@@ -4072,6 +4071,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.set("hideoninactivity", this.get("initialoptions").hideoninactivity);
                             }
                         }, this);
+                        // If browser is Chrome, and we have manually forcibly muted player
+                        if (Info.isChromiumBased() && this.get("forciblymuted")) {
+                            video.isMuted = true;
+                            Dom.userInteraction(function() {
+                                this.set_volume(this.get("initialoptions").volumelevel);
+                                if (this.get("volume") > 0.00)
+                                    video.isMuted = false;
+                                this.set("forciblymuted", false);
+                            }, this);
+                        }
                         this.player.on("postererror", function() {
                             this._error("poster");
                         }, this);
@@ -4285,9 +4294,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 functions: {
 
                     user_activity: function(strong) {
-                        if (strong && this.get("volumeafterinteraction")) {
-                            this.set_volume(1.0);
-                            this.set("volumeafterinteraction", false);
+                        if (strong && !this.get("volumeafterinteraction")) {
+                            // User interacted with player, and set player's volume level/un-mute
+                            // So we will play voice as soon as player visible for user
+                            this.set_volume(this.get("initialoptions").volumelevel);
+                            this.set("volumeafterinteraction", true);
+                            if (this.get("forciblymuted")) this.set("forciblymuted", false);
                         }
                         if (this.get('preventinteractionstatus')) return;
                         this._resetActivity();
@@ -4399,13 +4411,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         volume = Math.min(1.0, volume);
 
-                        if (!this.get("volumeafterinteraction"))
-                            volume = volume <= 0 ? 0 : volume; // Don't allow negative value
-                        else {
-                            this.set("volumeafterinteraction", false);
-                            volume = 0;
-                        }
-
                         if (this.player && this.player._broadcastingState && this.player._broadcastingState.googleCastConnected) {
                             this._broadcasting.player.trigger("change-google-cast-volume", volume);
                         }
@@ -4453,6 +4458,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             else
                                 this.set("volumeafterinteraction", false);
 
+                            // If user paused the video and don't like player will auto-played
+                            // so, no need to play each time when user see video
                             if (this.get("playwhenvisible"))
                                 this.set("manuallypaused", true);
                         } else
@@ -4495,7 +4502,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                         preventScroll: false
                                     });
                                 }, this, 100);
-
                         }
                     },
 
@@ -4605,8 +4611,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.videoAttached())
                         return this.player.videoHeight();
                     var img = this.activeElement().querySelector("img");
-                    if (img && img.height)
+                    if (img && img.height) {
+                        var clientHeight = document.body.clientHeight;
+                        if (img.height > clientHeight)
+                            return clientHeight;
                         return img.height;
+                    }
                     return NaN;
                 },
 
@@ -4614,13 +4624,21 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.videoAttached())
                         return this.player.videoWidth();
                     var img = this.activeElement().querySelector("img");
-                    if (img && img.width)
+                    if (img && img.width) {
+                        var clientWidth = document.body.clientWidth;
+                        if (img.width > clientWidth)
+                            return clientWidth;
                         return img.width;
+                    }
                     return NaN;
                 },
 
                 aspectRatio: function() {
-                    return this.videoWidth() / this.videoHeight();
+                    // Don't use shortcut way of getting aspect ratio, will act as not expected.
+                    var height = this.videoWidth();
+                    var width = this.videoHeight();
+
+                    return width / height;
                 },
 
                 parentWidth: function() {
@@ -5105,16 +5123,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
             if (this.dyn.get("skipinitial") && !this.dyn.get("autoplay"))
                 this.next("PlayVideo");
             else {
-                if (Info.isChromiumBased() && !this.dyn.get("skipinitial")) {
-                    var video = this.dyn.__video;
-                    if (video) {
-                        video.isMuted = true;
-                        Dom.userInteraction(function() {
-                            video.isMuted = false;
-                        }, this);
-                    }
-                }
-
                 var counter = 10;
                 this.auto_destroy(new Timer({
                     context: this,
@@ -5309,7 +5317,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Tracks", [
         }, function(inherited) {
             return {
 
-                template: "<div data-selector=\"text-tracks-overlay\"\n     class=\"{{cssplayer}}-text-tracks-overlay\n     {{activitydelta > hidebarafter && hideoninactivity ? (cssplayer + '-track-dashboard-hidden') : ''}}\n\">\n\n    <div data-selector=\"cue-content\" ba-show=\"{{tracktagsstyled && trackcuetext}}\" class=\"{{cssplayer}}-cue-content\">\n        {{trackcuetext}}\n    </div>\n    <div class=\"{{csscommon}}-options-popup {{csscommon}}-options-list-{{tracksshowselection || trackselectorhovered ? 'visible' : 'hidden'}}\">\n        <div ba-show=\"{{tracksshowselection || trackselectorhovered}}\" tabindex=\"-1\"\n             onmouseenter=\"{{hover_cc(domEvent, true)}}\" onmouseover=\"{{hover_cc(domEvent, true)}}\" onmouseleave=\"{{hover_cc(domEvent, false)}}\"\n        >\n            <div data-selector=\"tracks-selector-list\"\n                 class=\"{{csscommon}}-initial-options-list {{csscommon}}-tracks-selector-list {{csscommon}}-options-list-visible {{csscommon}}-options-list\"\n                 ba-if=\"{{tracktags}}\"\n            >\n                <div ba-repeat-element=\"{{track :: tracktags}}\"\n                     class=\"{{csscommon}}-tracks-selector {{csscommon}}-options-list-item\"\n                     ba-click=\"{{select_track(track)}}\"\n                >\n                    <div class=\"{{csscommon}}-inner-text\">\n                        {{track.label}}\n                    </div>\n                </div>\n                <div data-selector=\"text-tracks-open-form-button\"\n                     class=\"{{csscommon}}-options-list-item {{csscommon}}-open-next\"\n                     ba-if=\"{{allowtexttrackupload}}\" title=\"{{string('upload-text-tracks')}}\"\n                     onclick=\"{{move_to_option(domEvent, 'text-tracks-uploader-form')}}\"\n                >\n                    <div class=\"{{csscommon}}-inner-text\">{{string('upload-text-tracks')}}</div>\n                    <div class=\"{{csscommon}}-inner-icon\"></div>\n                </div>\n            </div>\n\n            <div data-selector=\"text-tracks-uploader-form\"\n                 class=\"{{csscommon}}-options-list-hidden {{csscommon}}-options-list {{csscommon}}-text-tracks-uploader-form\"\n                 ba-if=\"{{allowtexttrackupload}}\"\n            >\n                <div class=\"{{csscommon}}-full-width {{csscommon}}-options-list-item\">\n                    <div data-selector=\"close-text-tracks-upload-form\"\n                         title=\"{{string('back')}}\"\n                         class=\"{{csscommon}}-open-previous {{csscommon}}-text-left\"\n                         onclick=\"{{move_to_option(domEvent)}}\"\n                    >\n                        <div class=\"{{csscommon}}-inner-icon\"></div>\n                        <div class=\"{{csscommon}}-inner-text\">{{string('back')}}</div>\n                    </div>\n                </div>\n\n                <div class=\"{{csscommon}}-full-width {{csscommon}}-options-list-item\">\n                    <form class=\"{{csscommon}}-form {{csscommon}}-text-tracks-upload-form\">\n                        <div class=\"{{csscommon}}-form-input {{csscommon}}-select-field {{csscommon}}-direction-pointer\">\n                            <select data-selector=\"select-text-tracks-label\" tabindex=\"-1\"\n                                    class=\"{{csscommon}}-form-input {{csscommon}}-text-tracks-label-input\"\n                                    name=\"{{csscommon}}-text-tracks-label-select\"\n                                    onmousedown=\"{{prevent_un_hover(domEvent)}}\"\n                                    onmousemove=\"{{prevent_un_hover(domEvent)}}\"\n                                    onchange=\"{{selected_label_value(domEvent)}}\"\n                            >\n                                <option disabled value selected>\n                                    {{string('select-text-track-language')}}\n                                </option>\n                                <option ba-repeat-element=\"{{locale :: uploadlocales}}\" value=\"{{locale.lang}}\">\n                                    {{locale.label}}\n                                </option>\n                            </select>\n                        </div>\n                        <div class=\"{{csscommon}}-form-input {{csscommon}}-button\" ba-show=\"{{chosenoption}}\">\n                            <input type=\"file\" data-selector=\"select-text-tracks-file\"\n                                   title=\"{{chosenoption ? string('select-text-track-file') : string('info-select-locale-first')}}\"\n                                   onchange=\"{{upload_text_track(domEvent)}}\"\n                                   class=\"{{csscommon}}-text-tracks-file\"\n                                   accept=\"{{acceptedtracktexts}}\"\n                            />\n                            {{chosenoption ? string('select-text-track-file') : string('info-select-locale-first')}}\n                        </div>\n                    </form>\n\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n",
+                template: "<div data-selector=\"text-tracks-overlay\"\n     class=\"{{cssplayer}}-text-tracks-overlay\n     {{activitydelta > hidebarafter && hideoninactivity ? (cssplayer + '-track-dashboard-hidden') : ''}}\n\">\n\n    <div data-selector=\"cue-content\" ba-show=\"{{tracktagsstyled && trackcuetext}}\" class=\"{{cssplayer}}-cue-content\">\n        {{trackcuetext}}\n    </div>\n    <div class=\"{{csscommon}}-options-popup {{csscommon}}-options-list-{{tracksshowselection || trackselectorhovered ? 'visible' : 'hidden'}}\">\n        <div ba-show=\"{{tracksshowselection || trackselectorhovered}}\" tabindex=\"-1\"\n             onmouseenter=\"{{hover_cc(domEvent, true)}}\" onmouseover=\"{{hover_cc(domEvent, true)}}\" onmouseleave=\"{{hover_cc(domEvent, false)}}\"\n        >\n            <div data-selector=\"tracks-selector-list\"\n                 class=\"{{csscommon}}-initial-options-list {{csscommon}}-tracks-selector-list {{csscommon}}-options-list-visible {{csscommon}}-options-list\"\n                 ba-if=\"{{tracktags}}\"\n            >\n                <div ba-repeat-element=\"{{track :: tracktags}}\"\n                     class=\"{{csscommon}}-tracks-selector {{csscommon}}-options-list-item\"\n                     ba-click=\"{{select_track(track)}}\"\n                >\n                    <div class=\"{{csscommon}}-inner-text\">\n                        {{track.label}}\n                    </div>\n                </div>\n                <div data-selector=\"text-tracks-open-form-button\"\n                     class=\"{{csscommon}}-options-list-item {{csscommon}}-open-next\"\n                     ba-if=\"{{allowtexttrackupload}}\" title=\"{{string('upload-text-tracks')}}\"\n                     onclick=\"{{move_to_option(domEvent, 'text-tracks-uploader-form')}}\"\n                >\n                    <div class=\"{{csscommon}}-inner-text\">{{string('upload-text-tracks')}}</div>\n                    <div class=\"{{csscommon}}-inner-icon\"></div>\n                </div>\n            </div>\n\n            <div data-selector=\"text-tracks-uploader-form\"\n                 class=\"{{csscommon}}-options-list-hidden {{csscommon}}-options-list {{csscommon}}-text-tracks-uploader-form\"\n                 ba-if=\"{{allowtexttrackupload}}\"\n            >\n                <div class=\"{{csscommon}}-full-width {{csscommon}}-options-list-item\">\n                    <div data-selector=\"close-text-tracks-upload-form\"\n                         title=\"{{string('back')}}\"\n                         class=\"{{csscommon}}-open-previous {{csscommon}}-text-left\"\n                         onclick=\"{{move_to_option(domEvent)}}\"\n                    >\n                        <div class=\"{{csscommon}}-inner-icon\"></div>\n                        <div class=\"{{csscommon}}-inner-text\">{{string('back')}}</div>\n                    </div>\n                </div>\n\n                <div class=\"{{csscommon}}-full-width {{csscommon}}-options-list-item\">\n                    <form class=\"{{csscommon}}-form {{csscommon}}-text-tracks-upload-form\">\n                        <div class=\"{{csscommon}}-form-input {{csscommon}}-select-field {{csscommon}}-direction-pointer\">\n                            <select data-selector=\"select-text-tracks-label\" tabindex=\"-1\"\n                                    class=\"{{csscommon}}-form-input {{csscommon}}-text-tracks-label-input\"\n                                    name=\"{{csscommon}}-text-tracks-label-select\"\n                                    onmousedown=\"{{prevent_un_hover(domEvent)}}\"\n                                    onmousemove=\"{{prevent_un_hover(domEvent)}}\"\n                                    onchange=\"{{selected_label_value(domEvent)}}\"\n                            >\n                                <option disabled value selected>\n                                    {{string('select-text-track-language')}}\n                                </option>\n                                <option ba-repeat-element=\"{{locale :: uploadlocales}}\" value=\"{{locale.lang}}\">\n                                    {{locale.label}}\n                                </option>\n                            </select>\n                        </div>\n                        <div class=\"{{csscommon}}-form-input {{csscommon}}-button\" ba-show=\"{{chosenoption}}\">\n                            <input type=\"file\" data-selector=\"select-text-tracks-file\"\n                                   title=\"{{chosenoption ? string('select-text-track-file') : string('info-select-locale-first')}}\"\n                                   onchange=\"{{upload_text_track(domEvent)}}\"\n                                   class=\"{{csscommon}}-text-tracks-file\"\n                                   accept=\"{{acceptedtracktexts}}\"\n                            />\n                            {{chosenoption ? string('select-text-track-file') : string('info-select-locale-first')}}\n                        </div>\n                    </form>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n",
 
                 attrs: {
                     "css": "ba-videoplayer",
@@ -10166,7 +10174,17 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     "visualeffectheight": null,
                     "visualeffectminheight": 120,
                     "visualeffecttheme": "balloon", // types: `balloon`, 'red-bars'
-                    "skipseconds": 5
+                    "skipseconds": 5,
+
+                    /* States (helper variables which are controlled by application itself not set by user) */
+                    "initialoptions": {
+                        "volumelevel": null
+                    },
+                    // Reference to Chrome renewed policy, we have to setup mute for auto-playing players.
+                    // If we do it forcibly then will set as true
+                    "forciblymuted": false,
+                    // When volume was un muted, by user himself, not automatically
+                    "volumeafterinteraction": false
                 },
 
                 types: {
@@ -10227,12 +10245,19 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                 remove_on_destroy: true,
 
                 create: function() {
-                    if (Info.isMobile() && (this.get("autoplay") || this.get("playwhenvisible"))) {
+                    // Will set volume initial state
+                    this.set("initialoptions", Objs.tree_merge(this.get("initialoptions"), {
+                        volumelevel: this.get("volume")
+                    }));
+
+                    if ((Info.isMobile() || Info.isChromiumBased()) && (this.get("autoplay") || this.get("playwhenvisible"))) {
                         this.set("volume", 0.0);
-                        if (!(Info.isiOS() && Info.iOSversion().major >= 10)) {
-                            this.set("autoplay", false);
-                            this.set("loop", false);
-                        }
+                        this.set("forciblymuted", true);
+
+                        //if (!(Info.isiOS() && Info.iOSversion().major >= 10)) {
+                        //this.set("autoplay", false);
+                        //this.set("loop", false);
+                        //}
                     }
 
                     if (this.get("theme") in Assets.audioplayerthemes) {
@@ -10372,16 +10397,19 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                                 }
                             }, this, 100);
                         }
+
                         if (this.get("playwhenvisible")) {
-                            if (Info.isChromiumBased() && !this.get("unmuted")) {
-                                audio.isMuted = true;
-                                Dom.userInteraction(function() {
+                            this._playWhenVisible(audio);
+                        }
+                        // If browser is Chrome, and we have manually forcibly muted player
+                        if (Info.isChromiumBased() && this.get("forciblymuted")) {
+                            audio.isMuted = true;
+                            Dom.userInteraction(function() {
+                                this.set_volume(this.get("initialoptions").volumelevel);
+                                if (this.get("volume") > 0.00)
                                     audio.isMuted = false;
-                                    this.set("unmuted", true);
-                                    this._playWhenVisible(audio);
-                                });
-                            } else
-                                this._playWhenVisible(audio);
+                                this.set("forciblymuted", false);
+                            }, this);
                         }
                         this.player.on("playing", function() {
                             this.set("playing", true);
@@ -10799,7 +10827,6 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.LoadPlayer", [
 });
 
 
-
 Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.LoadError", [
     "module:AudioPlayer.Dynamics.PlayerStates.State"
 ], function(State, scoped) {
@@ -10818,9 +10845,6 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.LoadError", [
 
     });
 });
-
-
-
 
 
 Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.LoadAudio", [
@@ -10849,19 +10873,7 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.LoadAudio", [
             if (!this.dyn.get("autoplay"))
                 this.next("PlayAudio");
             else {
-                // Mute audio to reference Chrome policy changes after October 2018
-                if (Info.isChromiumBased) {
-                    var audio = this.dyn.__audio;
-                    if (audio) {
-                        audio.isMuted = true;
-                        Dom.userInteraction(function() {
-                            audio.isMuted = false;
-                            this._runTimer();
-                        }, this);
-                    }
-                } else {
-                    this._runTimer();
-                }
+                this._runTimer();
             }
         },
 

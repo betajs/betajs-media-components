@@ -1,7 +1,8 @@
 Scoped.define("module:AudioVisualisation", [
     "base:Class",
-    "browser:Dom"
-], function(Class, Dom, scoped) {
+    "browser:Dom",
+    "browser:Info"
+], function(Class, Dom, Info, scoped) {
     return Class.extend({
         scoped: scoped
     }, function(inherited) {
@@ -19,7 +20,13 @@ Scoped.define("module:AudioVisualisation", [
                     this.recorder = options.recorder;
                 } else {
                     var AudioContext = window.AudioContext || window.webkitAudioContext;
-                    this.audioContext = new AudioContext();
+                    if (Info.isChromiumBased()) {
+                        Dom.userInteraction(function() {
+                            this.audioContext = new AudioContext();
+                        }, this);
+                    } else {
+                        this.audioContext = new AudioContext();
+                    }
                 }
                 this.createVisualisationCanvas(options.height, options.element);
                 this.frameID = null;
@@ -50,9 +57,7 @@ Scoped.define("module:AudioVisualisation", [
 
                     if (this.audioContext || this.stream) {
                         if (this.audioContext.state === 'suspended') {
-                            Dom.userInteraction(function() {
-                                this.audioContext.resume();
-                            }, this);
+                            this.audioContext.resume();
                         }
 
                         if (this.stream instanceof HTMLElement) {

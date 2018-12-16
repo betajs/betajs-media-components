@@ -8,10 +8,10 @@
 				<input ba-if="{{action.select && action.capture}}"
 					   type="file"
 					   class="{{css}}-chooser-file"
-						 onchange="{{select_file_action(action, domEvent)}}"
-						 onclick="this.value=''"
+					   onchange="{{select_file_action(action, domEvent)}}"
+					   onclick="this.value=''"
 					   accept="{{action.accept}}"
-					   capture />
+					   capture="{{action.switchcamera}}" />
 				<input ba-if="{{action.select && !action.capture}}"
 					   type="file"
 					   class="{{css}}-chooser-file"

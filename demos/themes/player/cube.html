@@ -48,6 +48,36 @@
                 ba-sharevideourl="http://betajs.com"
                 ba-width='80%'
                 ba-tracktagsstyled="{{trackTagsStyled}}"
+                ba-settingsoptions = "{{
+                [{
+                    id: 'playerspeeds',
+                    label: 'player-speed',
+                    defaultValue: 1.0,
+                    visible: 'media-all',
+                    flashSupport: false,
+                    mobileSupport: true,
+                    className: 'player-speed',
+                    options: [
+                        {
+                            label: 0.75,
+                            value: 0.75
+                        },
+                        {
+                            label: 1.0,
+                            value: 1.0
+                        },
+                        {
+                            label: 1.75,
+                            value: 1.75
+                        }
+                    ],
+                    events: [{
+                        type: 'click touchstart',
+                        method: 'set_speed',
+                        argument: true
+                    }]
+                }]
+                }}"
                 ba-tracktags="{{
                     [
                         {

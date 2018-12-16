@@ -236,7 +236,7 @@ Scoped.define("module:Settings", [
                                 _timer.destroy();
                             }
                         },
-                        delay: 30,
+                        delay: 10,
                         immediate: true
                     }));
                 }, this, 100);

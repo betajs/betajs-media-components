@@ -447,15 +447,29 @@ Scoped.define("module:ImageViewer.Dynamics.ImageViewer", [
                 },
 
                 imageHeight: function() {
-                    return this.image().height;
+                    var _height = this.image().height;
+                    var _clientHeight = (window.innerHeight || document.body.clientHeight);
+                    if (!this._image())
+                        return _clientHeight;
+                    else
+                        return _height > _clientHeight ? _clientHeight : _height;
                 },
 
                 imageWidth: function() {
-                    return this.image().width;
+                    var _clientWidth = (window.innerWidth || document.body.clientWidth);
+                    var _width = this.image().width;
+                    if (!this._image())
+                        return _clientWidth;
+                    else
+                        return _width > _clientWidth ? _clientWidth : _width;
                 },
 
                 aspectRatio: function() {
-                    return this.imageWidth() / this.imageHeight();
+                    // Don't use shortcut way of getting aspect ratio, will act as not expected.
+                    var height = this.imageHeight();
+                    var width = this.imageWidth();
+
+                    return width / height;
                 },
 
                 parentWidth: function() {

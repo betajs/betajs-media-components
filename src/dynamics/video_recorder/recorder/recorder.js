@@ -775,15 +775,29 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 },
 
                 videoHeight: function() {
-                    return this.recorderAttached() ? this.recorder.cameraHeight() : NaN;
+                    var _clientHeight = (window.innerHeight || document.body.clientHeight);
+                    if (!this.recorderAttached())
+                        return _clientHeight;
+                    else {
+                        var _height = this.recorder.cameraHeight();
+                        return _height > _clientHeight ? _clientHeight : _height;
+                    }
                 },
 
                 videoWidth: function() {
-                    return this.recorderAttached() ? this.recorder.cameraWidth() : NaN;
+                    var _clientWidth = (window.innerWidth || document.body.clientWidth);
+                    if (!this.recorderAttached())
+                        return _clientWidth;
+                    else {
+                        var _width = this.recorder.cameraWidth();
+                        return _width > _clientWidth ? _clientWidth : _width;
+                    }
                 },
 
                 aspectRatio: function() {
-                    return this.videoWidth() / this.videoHeight();
+                    var width = this.videoWidth();
+                    var height = this.videoHeight();
+                    return width / height;
                 },
 
                 parentWidth: function() {

@@ -21,6 +21,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
                     "allowrecord": true,
                     "allowupload": true,
                     "allowscreen": false,
+                    "facecamera": true,
 
                     "primaryrecord": true,
                     "recordviafilecapture": false,
@@ -33,7 +34,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
 
                 types: {
                     "allowedextensions": "array",
-                    "recordviafilecapture": "boolean"
+                    "recordviafilecapture": "boolean",
+                    "facecamera": "boolean"
                 },
 
                 collections: ["actions"],
@@ -75,7 +77,11 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
                                     label: this.string(this.get("onlyaudio") ? "record-audio" : "record-video"),
                                     select: Info.isMobile() && !(Info.isAndroid() && Info.isCordova()) && this.get("recordviafilecapture"),
                                     capture: true,
-                                    accept: "video/*,video/mp4;capture=camcorder"
+                                    accept: "video/*,video/mp4;capture=camcorder",
+                                    // capture attribute value
+                                    // If this attribute is missing, the user agent is free to decide on its own what to do.
+                                    // If the requested facing mode isn't available, the user agent may fall back to its preferred default mode
+                                    switchcamera: this.get("facecamera") ? "user" : "environment"
                                 });
                                 break;
                             case "upload":

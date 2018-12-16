@@ -31,7 +31,9 @@
 	transform: translate(-50%, -50%);
 	top: 50%;
 	left: 50%;
+	min-height: 100%;
 	min-width: 100%;
+	width: auto;
 }
 
 .#{$css}-stretch-width .#{$css}-image {
@@ -39,9 +41,12 @@
 	transform: translate(-50%, -50%);
 	top: 50%;
 	left: 50%;
-	max-height: 100%;
-	height:100%;
-	width: 10000px;
+	//max-height: 100%;
+	//height:100%;
+	//width: 10000px;
+	min-height: 100%;
+	min-width: 100%;
+	width: auto;
 }
 
 .#{$css}-stretch-width, .#{$css}-stretch-height {

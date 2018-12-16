@@ -1259,7 +1259,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         return this.player.videoHeight();
                     var img = this.activeElement().querySelector("img");
                     if (img && img.height) {
-                        var clientHeight = document.body.clientHeight;
+                        var clientHeight = (window.innerHeight || document.body.clientHeight);
                         if (img.height > clientHeight)
                             return clientHeight;
                         return img.height;
@@ -1272,7 +1272,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         return this.player.videoWidth();
                     var img = this.activeElement().querySelector("img");
                     if (img && img.width) {
-                        var clientWidth = document.body.clientWidth;
+                        var clientWidth = (window.innerWidth || document.body.clientWidth);
                         if (img.width > clientWidth)
                             return clientWidth;
                         return img.width;
@@ -1282,8 +1282,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 aspectRatio: function() {
                     // Don't use shortcut way of getting aspect ratio, will act as not expected.
-                    var height = this.videoWidth();
-                    var width = this.videoHeight();
+                    var height = this.videoHeight();
+                    var width = this.videoWidth();
 
                     return width / height;
                 },

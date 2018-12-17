@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.142 - 2018-12-08
+betajs-media-components - v0.0.144 - 2018-12-16
 Copyright (c) Ziggeo,Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -397,11 +397,6 @@ Apache-2.0 Software License.
 .ba-recorder-green-color .ba-videorecorder-message-message a {
   color: #5daa96; }
 
-.ba-recorder-theme-cube.ba-videorecorder-container .ba-videorecorder-video {
-  width: 100%;
-  height: 100%;
-  display: block;
-  background-color: #000000; }
 .ba-recorder-theme-cube.ba-videorecorder-container .ba-recorder-overlay {
   top: 0; }
 

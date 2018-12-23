@@ -163,7 +163,9 @@ Scoped.define("module:AudioPlayer.Dynamics.Controlbar", [
             };
         })
         .register("ba-audioplayer-controlbar")
-        .registerFunctions({ /*<%= template_function_cache(dirname + '/audio_player_controlbar.html') %>*/ })
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/audio_player_controlbar.html') %>*/
+        })
         .attachStringTable(Assets.strings)
         .addStrings({
             "audio-progress": "Progress",

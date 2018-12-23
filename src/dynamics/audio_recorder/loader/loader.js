@@ -21,7 +21,9 @@ Scoped.define("module:AudioRecorder.Dynamics.Loader", [
 
             };
         })
-        .registerFunctions({ /*<%= template_function_cache(dirname + '/audio_recorder_loader.html') %>*/ })
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/audio_recorder_loader.html') %>*/
+        })
         .register("ba-audiorecorder-loader")
         .attachStringTable(Assets.strings)
         .addStrings({});

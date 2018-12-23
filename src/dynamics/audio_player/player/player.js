@@ -644,7 +644,9 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
             }
 
         }).register("ba-audioplayer")
-        .registerFunctions({ /*<%= template_function_cache(dirname + '/player.html') %>*/ })
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/player.html') %>*/
+        })
         .attachStringTable(Assets.strings)
         .addStrings({
             "audio-error": "An error occurred, please try again later. Click to retry."

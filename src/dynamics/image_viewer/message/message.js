@@ -25,6 +25,8 @@ Scoped.define("module:ImageViewer.Dynamics.Message", [
 
             };
         })
-        .registerFunctions({ /*<%= template_function_cache(dirname + '/image_viewer_message.html') %>*/ })
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/image_viewer_message.html') %>*/
+        })
         .register("ba-imageviewer-message");
 });

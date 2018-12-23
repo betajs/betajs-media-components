@@ -40,7 +40,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Share", [
                 }
             };
         }).register("ba-videoplayer-share")
-        .registerFunctions({ /*<%= template_function_cache(dirname + '/video_player_share.html') %>*/ })
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/video_player_share.html') %>*/
+        })
         .attachStringTable(Assets.strings)
         .addStrings({
             "share": "Share media"

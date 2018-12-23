@@ -15,6 +15,8 @@ Scoped.define("module:ImageCapture.Dynamics.Topmessage", [
 
             };
         })
-        .registerFunctions({ /*<%= template_function_cache(dirname + '/image_capture_topmessage.html') %>*/ })
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/image_capture_topmessage.html') %>*/
+        })
         .register("ba-imagecapture-topmessage");
 });

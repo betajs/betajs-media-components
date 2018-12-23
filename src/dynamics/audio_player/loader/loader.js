@@ -16,7 +16,9 @@ Scoped.define("module:AudioPlayer.Dynamics.Loader", [
             };
         })
         .register("ba-audioplayer-loader")
-        .registerFunctions({ /*<%= template_function_cache(dirname + '/audio_player_loader.html') %>*/ })
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/audio_player_loader.html') %>*/
+        })
         .attachStringTable(Assets.strings)
         .addStrings({
             "tooltip": "Loading..."

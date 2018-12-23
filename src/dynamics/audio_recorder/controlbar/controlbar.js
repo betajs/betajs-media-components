@@ -58,7 +58,9 @@ Scoped.define("module:AudioRecorder.Dynamics.Controlbar", [
             };
         })
         .register("ba-audiorecorder-controlbar")
-        .registerFunctions({ /*<%= template_function_cache(dirname + '/audio_recorder_controlbar.html') %>*/ })
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/audio_recorder_controlbar.html') %>*/
+        })
         .attachStringTable(Assets.strings)
         .addStrings({
             "settings": "Settings",

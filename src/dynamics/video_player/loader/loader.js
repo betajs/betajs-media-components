@@ -18,7 +18,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Loader", [
             };
         })
         .register("ba-videoplayer-loader")
-        .registerFunctions({ /*<%= template_function_cache(dirname + '/video_player_loader.html') %>*/ })
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/video_player_loader.html') %>*/
+        })
         .attachStringTable(Assets.strings)
         .addStrings({
             "tooltip": "Loading..."

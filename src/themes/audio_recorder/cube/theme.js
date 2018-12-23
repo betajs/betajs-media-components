@@ -1,9 +1,15 @@
 Scoped.extend("module:Assets.audiorecorderthemes", [
     "dynamics:Parser"
 ], function(Parser) {
-    Parser.registerFunctions({ /*<%= template_function_cache(dirname + '/cube-audio_recorder_controlbar.html') %>*/ });
-    Parser.registerFunctions({ /*<%= template_function_cache(parentdirname + '/_templates/audio_recorder_chooser.html') %>*/ });
-    Parser.registerFunctions({ /*<%= template_function_cache(parentdirname + '/_templates/audio_recorder_message.html') %>*/ });
+    Parser.registerFunctions({
+        /*<%= template_function_cache(dirname + '/cube-audio_recorder_controlbar.html') %>*/
+    });
+    Parser.registerFunctions({
+        /*<%= template_function_cache(parentdirname + '/_templates/audio_recorder_chooser.html') %>*/
+    });
+    Parser.registerFunctions({
+        /*<%= template_function_cache(parentdirname + '/_templates/audio_recorder_message.html') %>*/
+    });
     return {
         "cube": {
             css: "ba-audiorecorder",

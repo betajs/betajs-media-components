@@ -42,7 +42,9 @@ Scoped.define("module:ImageCapture.Dynamics.Controlbar", [
             };
         })
         .register("ba-imagecapture-controlbar")
-        .registerFunctions({ /*<%= template_function_cache(dirname + '/image_capture_controlbar.html') %>*/ })
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/image_capture_controlbar.html') %>*/
+        })
         .attachStringTable(Assets.strings)
         .addStrings({
             "settings": "Settings",

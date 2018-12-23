@@ -123,7 +123,9 @@ Scoped.define("module:ImageCapture.Dynamics.Chooser", [
 
             };
         })
-        .registerFunctions({ /*<%= template_function_cache(dirname + '/image_capture_chooser.html') %>*/ })
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/image_capture_chooser.html') %>*/
+        })
         .register("ba-imagecapture-chooser")
         .attachStringTable(Assets.strings)
         .addStrings({

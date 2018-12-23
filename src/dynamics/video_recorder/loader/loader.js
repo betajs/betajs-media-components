@@ -23,7 +23,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Loader", [
 
             };
         })
-        .registerFunctions({ /*<%= template_function_cache(dirname + '/video_recorder_loader.html') %>*/ })
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/video_recorder_loader.html') %>*/
+        })
         .register("ba-videorecorder-loader")
         .attachStringTable(Assets.strings)
         .addStrings({});

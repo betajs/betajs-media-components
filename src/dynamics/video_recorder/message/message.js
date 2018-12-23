@@ -32,6 +32,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Message", [
 
             };
         })
-        .registerFunctions({ /*<%= template_function_cache(dirname + '/video_recorder_message.html') %>*/ })
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/video_recorder_message.html') %>*/
+        })
         .register("ba-videorecorder-message");
 });

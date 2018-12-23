@@ -15,6 +15,8 @@ Scoped.define("module:ImageViewer.Dynamics.Topmessage", [
 
             };
         })
-        .registerFunctions({ /*<%= template_function_cache(dirname + '/image_viewer_topmessage.html') %>*/ })
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/image_viewer_topmessage.html') %>*/
+        })
         .register("ba-imageviewer-topmessage");
 });

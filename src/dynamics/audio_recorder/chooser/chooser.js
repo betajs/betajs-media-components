@@ -125,7 +125,9 @@ Scoped.define("module:AudioRecorder.Dynamics.Chooser", [
 
             };
         })
-        .registerFunctions({ /*<%= template_function_cache(dirname + '/audio_recorder_chooser.html') %>*/ })
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/audio_recorder_chooser.html') %>*/
+        })
         .register("ba-audiorecorder-chooser")
         .attachStringTable(Assets.strings)
         .addStrings({

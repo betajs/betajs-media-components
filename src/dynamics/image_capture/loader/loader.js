@@ -21,7 +21,9 @@ Scoped.define("module:ImageCapture.Dynamics.Loader", [
 
             };
         })
-        .registerFunctions({ /*<%= template_function_cache(dirname + '/image_capture_loader.html') %>*/ })
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/image_capture_loader.html') %>*/
+        })
         .register("ba-imagecapture-loader")
         .attachStringTable(Assets.strings)
         .addStrings({});

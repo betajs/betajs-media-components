@@ -17,6 +17,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Topmessage", [
 
             };
         })
-        .registerFunctions({ /*<%= template_function_cache(dirname + '/video_player_topmessage.html') %>*/ })
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/video_player_topmessage.html') %>*/
+        })
         .register("ba-videoplayer-topmessage");
 });

@@ -176,6 +176,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
 
             };
         })
-        .registerFunctions({ /*<%= template_function_cache(dirname + '/video_recorder_imagegallery.html') %>*/ })
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/video_recorder_imagegallery.html') %>*/
+        })
         .register("ba-videorecorder-imagegallery");
 });

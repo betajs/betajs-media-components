@@ -25,6 +25,8 @@ Scoped.define("module:AudioPlayer.Dynamics.Message", [
 
             };
         })
-        .registerFunctions({ /*<%= template_function_cache(dirname + '/audio_player_message.html') %>*/ })
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/audio_player_message.html') %>*/
+        })
         .register("ba-audioplayer-message");
 });

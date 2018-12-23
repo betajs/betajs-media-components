@@ -30,6 +30,8 @@ Scoped.define("module:ImageCapture.Dynamics.Message", [
 
             };
         })
-        .registerFunctions({ /*<%= template_function_cache(dirname + '/image_capture_message.html') %>*/ })
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/image_capture_message.html') %>*/
+        })
         .register("ba-imagecapture-message");
 });

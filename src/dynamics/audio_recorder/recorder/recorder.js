@@ -658,7 +658,9 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
 
         })
         .register("ba-audiorecorder")
-        .registerFunctions({ /*<%= template_function_cache(dirname + '/recorder.html') %>*/ })
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/recorder.html') %>*/
+        })
         .attachStringTable(Assets.strings)
         .addStrings({
             "recorder-error": "An error occurred, please try again later. Click to retry.",

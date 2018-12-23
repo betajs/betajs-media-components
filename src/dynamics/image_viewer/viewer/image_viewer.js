@@ -527,7 +527,9 @@ Scoped.define("module:ImageViewer.Dynamics.ImageViewer", [
         }, {
 
         }).register("ba-imageviewer")
-        .registerFunctions({ /*<%= template_function_cache(dirname + '/image_viewer.html') %>*/ })
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/image_viewer.html') %>*/
+        })
         .attachStringTable(Assets.strings)
         .addStrings({
             "image-error": "An error occurred, please try again later. Click to retry."

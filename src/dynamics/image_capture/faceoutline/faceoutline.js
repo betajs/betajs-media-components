@@ -10,6 +10,8 @@ Scoped.define("module:ImageCapture.Dynamics.Faceoutline", [
 
             };
         })
-        .registerFunctions({ /*<%= template_function_cache(dirname + '/image_capture_faceoutline.html') %>*/ })
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/image_capture_faceoutline.html') %>*/
+        })
         .register("ba-imagecapture-faceoutline");
 });

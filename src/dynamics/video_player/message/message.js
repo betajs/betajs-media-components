@@ -27,6 +27,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Message", [
 
             };
         })
-        .registerFunctions({ /*<%= template_function_cache(dirname + '/video_player_message.html') %>*/ })
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/video_player_message.html') %>*/
+        })
         .register("ba-videoplayer-message");
 });

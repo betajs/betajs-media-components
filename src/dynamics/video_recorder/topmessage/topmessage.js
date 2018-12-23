@@ -17,6 +17,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Topmessage", [
 
             };
         })
-        .registerFunctions({ /*<%= template_function_cache(dirname + '/video_recorder_topmessage.html') %>*/ })
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/video_recorder_topmessage.html') %>*/
+        })
         .register("ba-videorecorder-topmessage");
 });

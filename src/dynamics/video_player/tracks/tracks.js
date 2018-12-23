@@ -88,7 +88,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Tracks", [
             };
         })
         .register("ba-videoplayer-tracks")
-        .registerFunctions({ /*<%= template_function_cache(dirname + '/video_player_tracks.html') %>*/ })
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/video_player_tracks.html') %>*/
+        })
         .attachStringTable(Assets.strings)
         .addStrings({
             "upload-text-tracks": "Upload track text files",

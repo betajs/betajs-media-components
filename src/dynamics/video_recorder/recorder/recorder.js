@@ -849,7 +849,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
         })
         .register("ba-videorecorder")
-        .registerFunctions({ /*<%= template_function_cache(dirname + '/recorder.html') %>*/ })
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/recorder.html') %>*/
+        })
         .attachStringTable(Assets.strings)
         .addStrings({
             "recorder-error": "An error occurred, please try again later. Click to retry.",

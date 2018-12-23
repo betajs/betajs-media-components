@@ -30,6 +30,8 @@ Scoped.define("module:AudioRecorder.Dynamics.Message", [
 
             };
         })
-        .registerFunctions({ /*<%= template_function_cache(dirname + '/audio_recorder_message.html') %>*/ })
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/audio_recorder_message.html') %>*/
+        })
         .register("ba-audiorecorder-message");
 });

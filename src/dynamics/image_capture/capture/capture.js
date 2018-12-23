@@ -583,7 +583,9 @@ Scoped.define("module:ImageCapture.Dynamics.Recorder", [
 
         })
         .register("ba-imagecapture")
-        .registerFunctions({ /*<%= template_function_cache(dirname + '/capture.html') %>*/ })
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/capture.html') %>*/
+        })
         .attachStringTable(Assets.strings)
         .addStrings({
             "recorder-error": "An error occurred, please try again later. Click to retry.",

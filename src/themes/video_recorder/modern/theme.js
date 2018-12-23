@@ -1,7 +1,9 @@
 Scoped.extend("module:Assets.recorderthemes", [
     "dynamics:Parser"
 ], function(Parser) {
-    Parser.registerFunctions({ /*<%= template_function_cache(dirname + '/modern-video_recorder_chooser.html') %>*/ });
+    Parser.registerFunctions({
+        /*<%= template_function_cache(dirname + '/modern-video_recorder_chooser.html') %>*/
+    });
     return {
         "modern": {
             css: "ba-videorecorder",

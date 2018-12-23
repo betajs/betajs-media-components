@@ -68,7 +68,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Controlbar", [
             };
         })
         .register("ba-videorecorder-controlbar")
-        .registerFunctions({ /*<%= template_function_cache(dirname + '/video_recorder_controlbar.html') %>*/ })
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/video_recorder_controlbar.html') %>*/
+        })
         .attachStringTable(Assets.strings)
         .addStrings({
             "settings": "Settings",

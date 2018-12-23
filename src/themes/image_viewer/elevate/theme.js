@@ -3,7 +3,9 @@ Scoped.extend("module:Assets.imageviewerthemes", [
     "dynamics:Parser"
 ], function(Info, Parser) {
     var ie8 = Info.isInternetExplorer() && Info.internetExplorerVersion() <= 8;
-    Parser.registerFunctions({ /*<%= template_function_cache(dirname + '/elevate-image_viewer_controlbar.html') %>*/ });
+    Parser.registerFunctions({
+        /*<%= template_function_cache(dirname + '/elevate-image_viewer_controlbar.html') %>*/
+    });
     return {
         "elevate": {
             css: "ba-imageviewer",

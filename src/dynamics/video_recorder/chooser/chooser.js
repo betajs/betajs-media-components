@@ -150,7 +150,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
 
             };
         })
-        .registerFunctions({ /*<%= template_function_cache(dirname + '/video_recorder_chooser.html') %>*/ })
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/video_recorder_chooser.html') %>*/
+        })
         .register("ba-videorecorder-chooser")
         .attachStringTable(Assets.strings)
         .addStrings({

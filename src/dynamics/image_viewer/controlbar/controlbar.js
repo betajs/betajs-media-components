@@ -51,7 +51,9 @@ Scoped.define("module:ImageViewer.Dynamics.Controlbar", [
             };
         })
         .register("ba-imageviewer-controlbar")
-        .registerFunctions({ /*<%= template_function_cache(dirname + '/image_viewer_controlbar.html') %>*/ })
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/image_viewer_controlbar.html') %>*/
+        })
         .attachStringTable(Assets.strings)
         .addStrings({
             "rerecord-image": "Redo?",

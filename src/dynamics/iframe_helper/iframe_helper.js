@@ -50,5 +50,7 @@ Scoped.define("module:IframeHelper", [
             }
 
         };
-    }).registerFunctions({ /*<%= template_function_cache(dirname + '/iframe_helper.html') %>*/ });
+    }).registerFunctions({
+        /*<%= template_function_cache(dirname + '/iframe_helper.html') %>*/
+    });
 });

@@ -3,7 +3,9 @@ Scoped.extend("module:Assets.audioplayerthemes", [
     "dynamics:Parser"
 ], function(Info, Parser) {
     var ie8 = Info.isInternetExplorer() && Info.internetExplorerVersion() <= 8;
-    Parser.registerFunctions({ /*<%= template_function_cache(dirname + '/elevate-audio_player_controlbar.html') %>*/ });
+    Parser.registerFunctions({
+        /*<%= template_function_cache(dirname + '/elevate-audio_player_controlbar.html') %>*/
+    });
     return {
         "elevate": {
             css: "ba-audioplayer",

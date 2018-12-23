@@ -1,17 +1,18 @@
 {
     "name": "betajs-media-components",
-    "version": "0.0.144",
+    "version": "0.0.145",
     "description": "BetaJS-Media-Components is a JavaScript media UI components framework",
     "contributors": [
         "Ziggeo",
-        "Oliver Friedmann"
+        "Oliver Friedmann",
+        "Rashad Aliyev"
     ],
     "devDependencies": {
         "lodash": "",
         "grunt": "",
         "grunt-contrib-jshint": "",
         "grunt-contrib-concat": "",
-        "grunt-contrib-uglify": "~2.3.0",
+        "grunt-contrib-uglify": "~4.0.0",
         "grunt-contrib-clean": "",
         "grunt-contrib-copy": "",
         "grunt-preprocess": "",
@@ -50,7 +51,8 @@
         "url": "git://github.com/betajs/betajs-media-components.git"
     },
     "scripts": {
-        "relink": "npm link betajs && npm link betajs-compile && npm link betajs-scoped && npm link betajs-shims && npm link betajs-browser && npm link betajs-flash && npm link betajs-dynamics && npm link betajs-media && npm link grunt-betajs-docs-compile && npm link grunt-betajs-templates"
+        "relink": "npm link betajs && npm link betajs-compile && npm link betajs-scoped && npm link betajs-shims && npm link betajs-browser && npm link betajs-flash && npm link betajs-dynamics && npm link betajs-media && npm link grunt-betajs-docs-compile && npm link grunt-betajs-templates",
+        "reinstall": "rm -f package-lock.json && rm -rf node_modules && npm i && npm run relink"
     },
     "meta": {
         "sponsors": [

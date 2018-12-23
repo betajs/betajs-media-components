@@ -1,11 +1,21 @@
 Scoped.extend("module:Assets.recorderthemes", [
     "dynamics:Parser"
 ], function(Parser) {
-    Parser.registerFunctions({ /*<%= template_function_cache(dirname + '/minimalist-video_recorder_topmessage.html') %>*/ });
-    Parser.registerFunctions({ /*<%= template_function_cache(dirname + '/minimalist-video_recorder_controlbar.html') %>*/ });
-    Parser.registerFunctions({ /*<%= template_function_cache(parentdirname + '/_templates/video_recorder_imagegallery.html') %>*/ });
-    Parser.registerFunctions({ /*<%= template_function_cache(parentdirname + '/_templates/video_recorder_chooser.html') %>*/ });
-    Parser.registerFunctions({ /*<%= template_function_cache(parentdirname + '/_templates/video_recorder_message.html') %>*/ });
+    Parser.registerFunctions({
+        /*<%= template_function_cache(dirname + '/minimalist-video_recorder_topmessage.html') %>*/
+    });
+    Parser.registerFunctions({
+        /*<%= template_function_cache(dirname + '/minimalist-video_recorder_controlbar.html') %>*/
+    });
+    Parser.registerFunctions({
+        /*<%= template_function_cache(parentdirname + '/_templates/video_recorder_imagegallery.html') %>*/
+    });
+    Parser.registerFunctions({
+        /*<%= template_function_cache(parentdirname + '/_templates/video_recorder_chooser.html') %>*/
+    });
+    Parser.registerFunctions({
+        /*<%= template_function_cache(parentdirname + '/_templates/video_recorder_message.html') %>*/
+    });
     return {
         "minimalist": {
             css: "ba-videorecorder",

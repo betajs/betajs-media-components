@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.145 - 2018-12-23
+betajs-media-components - v0.0.147 - 2018-12-30
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1006,7 +1006,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.145 - 2018-12-23
+betajs-media-components - v0.0.147 - 2018-12-30
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1022,8 +1022,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.145",
-    "datetime": 1545594471338
+    "version": "0.0.147",
+    "datetime": 1546197719769
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -5130,7 +5130,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.player.setMuted(volume <= 0.0);
                             if (this.get("totalduration") || this.player.duration() < Infinity)
                                 this.set("duration", this.get("totalduration") || this.player.duration());
-                            this.set("fullscreensupport", this.player.supportsFullscreen());
+                            this.set("fullscreensupport", this.player.supportsFullscreen(this.activeElement().childNodes[0]));
                             this._updateStretch();
                             if (this.get("initialseek"))
                                 this.player.setPosition(this.get("initialseek"));
@@ -5458,7 +5458,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.get("fullscreened"))
                             this.player.exitFullscreen();
                         else
-                            this.player.enterFullscreen();
+                            this.player.enterFullscreen(this.activeElement().childNodes[0]);
                         this.set("fullscreened", !this.get("fullscreened"));
                     },
 
@@ -5610,7 +5610,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.set("duration", this.player.duration());
                             else
                                 this.set("duration", this.get("totalduration") || new_position);
-                            this.set("fullscreened", this.player.isFullscreen());
+                            this.set("fullscreened", this.player.isFullscreen(this.activeElement().childNodes[0]));
                         }
                     } catch (e) {}
                     try {

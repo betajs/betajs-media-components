@@ -13,12 +13,10 @@
 
 
   &.#{$cssplayer}-firefox-browser {
-
     .#{$css}-dashboard, .#{$css}-title-block {
       position: fixed;
       z-index: 100;
     }
-
   }
 
 }

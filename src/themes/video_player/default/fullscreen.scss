@@ -4,6 +4,10 @@
 
   @include hide-dom-shadow-media-control();
 
+  & > div, video {
+    height: 100%;
+  }
+
   .#{$css}-dashboard {
     bottom: 0;
   }

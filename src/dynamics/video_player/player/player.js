@@ -758,7 +758,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.player.setMuted(volume <= 0.0);
                             if (this.get("totalduration") || this.player.duration() < Infinity)
                                 this.set("duration", this.get("totalduration") || this.player.duration());
-                            this.set("fullscreensupport", this.player.supportsFullscreen());
+                            this.set("fullscreensupport", this.player.supportsFullscreen(this.activeElement().childNodes[0]));
                             this._updateStretch();
                             if (this.get("initialseek"))
                                 this.player.setPosition(this.get("initialseek"));
@@ -1086,7 +1086,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.get("fullscreened"))
                             this.player.exitFullscreen();
                         else
-                            this.player.enterFullscreen();
+                            this.player.enterFullscreen(this.activeElement().childNodes[0]);
                         this.set("fullscreened", !this.get("fullscreened"));
                     },
 
@@ -1238,7 +1238,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.set("duration", this.player.duration());
                             else
                                 this.set("duration", this.get("totalduration") || new_position);
-                            this.set("fullscreened", this.player.isFullscreen());
+                            this.set("fullscreened", this.player.isFullscreen(this.activeElement().childNodes[0]));
                         }
                     } catch (e) {}
                     try {

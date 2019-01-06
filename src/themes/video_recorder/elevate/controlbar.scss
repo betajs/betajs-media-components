@@ -147,7 +147,9 @@
   }
 
   .#{$css}-bubble-info {
-    @include settings_bubble_left_to_right_shape( 270px, 16px, 255, 255, 255, 1, #ffffff, 13px );
+    @include settings_bubble_left_to_right_shape(280px, 16px, 255, 255, 255, 1, #ffffff, 13px);
+    max-height: 10em;
+    overflow: scroll;
     left: $sidebar_width + 5;
     li {
       color: $text_color_secondary;

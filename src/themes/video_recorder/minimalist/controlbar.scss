@@ -132,17 +132,24 @@
     }
   }
 
-  .#{$css}-bubble-info {
-    @include settings_bubble_left_to_right_shape( 270px, 16px, 0, 0, 0, .5, #7f7f7f, 13px );
+  .#{$css}-bubble-info-container {
+    @include settings_bubble_left_to_right_shape(280px, 16px, 0, 0, 0, .5, #7f7f7f, 13px);
     left: $sidebar_width + 5;
+  }
+
+  /* Require rewrite position in other selector to prevent eslint error */
+  .#{$css}-bubble-info-container {
+    position: absolute;
+  }
+
+  .#{$css}-bubble-info {
+    max-height: 10em;
+    overflow: scroll;
     li {
       text-align: left;
     }
   }
 
-  .#{$css}-bubble-info {
-    position: absolute;
-  }
 
   .#{$css}-controlbar-center-section {
     @include absolute-align-left();

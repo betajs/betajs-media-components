@@ -19,6 +19,8 @@
     @include relative-align-all;
     font-family: $font_family;
 	font-size: $settings_font_size;
+	max-height: 14em;
+	overflow: scroll;
 }
 
 .#{$css}-settings hr {

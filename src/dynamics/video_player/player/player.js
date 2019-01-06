@@ -1239,6 +1239,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             else
                                 this.set("duration", this.get("totalduration") || new_position);
                             this.set("fullscreened", this.player.isFullscreen(this.activeElement().childNodes[0]));
+                            // If settings pop-up is open hide it together with control-bar if hideOnInactivity is true
+                            if (
+                                this.settings && this.get('hideoninactivity') &&
+                                (this.get('activity_delta') > this.get('hidebarafter'))
+                            ) {
+                                this.settings.hide_settings();
+                            }
                         }
                     } catch (e) {}
                     try {

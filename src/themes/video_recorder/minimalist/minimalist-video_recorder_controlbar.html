@@ -16,31 +16,34 @@
 
 					<div data-selector="settings-list-front" class="{{css}}-circle-button" ba-show="{{settingsvisible}}">
 
-						<div class="{{css}}-bubble-info" ba-show="{{settingsopen}}" >
-							<ul data-selector="camera-settings" ba-repeat="{{camera :: cameras}}">
-								<li>
-									<input tabindex="0" onmouseout="this.blur()"
-										   type='radio' name='camera' value="{{selectedcamera == camera.id}}" onclick="{{selectCamera(camera.id)}}"
-									/>
-									<span></span>
-									<label tabindex="0" onmouseout="this.blur()" onclick="{{selectCamera(camera.id)}}">
-										{{camera.label}}
-									</label>
-								</li>
-							</ul>
-							<hr ba-show="{{(!noaudio && !novideo) || !allowscreen}}"/>
-							<ul data-selector="microphone-settings" ba-repeat="{{microphone :: microphones}}" ba-show="{{!noaudio && !allowscreen}}">
-								<li tabindex="0"
-									ba-hotkey:space^enter="{{selectMicrophone(microphone.id)}}" onmouseout="this.blur()"
-									onclick="{{selectMicrophone(microphone.id)}}"
-								>
-									<input type='radio' name='microphone' value="{{selectedmicrophone == microphone.id}}" />
-									<span></span>
-									<label>
-										{{microphone.label}}
-									</label>
-								</li>
-							</ul>
+						<div class="{{css}}-bubble-info-container" ba-show="{{settingsopen}}">
+							<div class="{{css}}-bubble-info" >
+								<ul data-selector="camera-settings" ba-repeat="{{camera :: cameras}}">
+									<li>
+										<input tabindex="0" onmouseout="this.blur()"
+											   type='radio' name='camera' value="{{selectedcamera == camera.id}}" onclick="{{selectCamera(camera.id)}}"
+										/>
+										<span></span>
+										<label tabindex="0" onmouseout="this.blur()" onclick="{{selectCamera(camera.id)}}">
+											{{camera.label}}
+										</label>
+									</li>
+								</ul>
+								<hr ba-show="{{(!noaudio && !novideo) || !allowscreen}}"/>
+								<ul data-selector="microphone-settings" ba-repeat="{{microphone :: microphones}}" ba-show="{{!noaudio && !allowscreen}}">
+									<li tabindex="0"
+										ba-hotkey:space^enter="{{selectMicrophone(microphone.id)}}" onmouseout="this.blur()"
+										onclick="{{selectMicrophone(microphone.id)}}"
+									>
+										<input type='radio' name='microphone' value="{{selectedmicrophone == microphone.id}}" />
+										<span></span>
+										<label>
+											{{microphone.label}}
+										</label>
+									</li>
+								</ul>
+							</div>
+
 						</div>
 
 						<div tabindex="0"

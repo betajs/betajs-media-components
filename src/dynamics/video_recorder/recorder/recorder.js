@@ -418,9 +418,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                             this.set("hideoverlay", false);
                             this.off("require_display", null, this);
                             this.recorder.enumerateDevices().success(function(devices) {
-                                var selected = this.recorder.currentDevices();
-                                this.set("selectedcamera", selected.video);
-                                this.set("selectedmicrophone", selected.audio);
+                                this.recorder.once("currentdevicesdetected", function(currentDevices) {
+                                    this.set("selectedcamera", currentDevices.video);
+                                    this.set("selectedmicrophone", currentDevices.audio);
+                                }, this);
                                 this.set("cameras", new Collection(Objs.values(devices.video)));
                                 this.set("microphones", new Collection(Objs.values(devices.audio)));
                                 this.trigger(Types.is_empty(devices.video) ? "no_camera" : "has_camera");

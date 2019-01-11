@@ -19,9 +19,30 @@
 		<script src="/static/dist/betajs-media-components-noscoped.js"></script>
 		<link  href="/static/dist/betajs-media-components.css" rel="stylesheet" />
 
-		<!-- Cube style assests -->
+		<!-- Cube style assets -->
 		<script src="/static/dist/themes/cube/script.js"></script>
 		<link  href="/static/dist/themes/cube/style.css" rel="stylesheet" />
+
+		<!-- Elevate style assets -->
+		<script src="/static/dist/themes/elevate/script.js"></script>
+		<link  href="/static/dist/themes/elevate/style.css" rel="stylesheet" />
+
+		<!-- Minimalist style assets -->
+		<script src="/static/dist/themes/minimalist/script.js"></script>
+		<link  href="/static/dist/themes/minimalist/style.css" rel="stylesheet" />
+
+		<!-- Modern style assets -->
+		<script src="/static/dist/themes/modern/script.js"></script>
+		<link  href="/static/dist/themes/modern/style.css" rel="stylesheet" />
+
+		<!-- Space style assets -->
+		<script src="/static/dist/themes/space/script.js"></script>
+		<link  href="/static/dist/themes/space/style.css" rel="stylesheet" />
+
+		<!-- Theatre style assets -->
+		<script src="/static/dist/themes/theatre/script.js"></script>
+		<link  href="/static/dist/themes/theatre/style.css" rel="stylesheet" />
+
 	</head>
 
 	<body style="background: #999">
@@ -31,6 +52,8 @@
                 <div id="video-recorder-block" class="col-xs-12">
 					<!--ba-width=300 ba-height=420 ba-theme="cube"-->
 					<ba-videorecorder
+						ba-theme="theatre"
+						ba-themecolor="red"
 						ba-stretch="true"
 						ba-facecamera="true"
 						ba-webrtconmobile="true"
@@ -59,7 +82,17 @@
 	    		recorder.set("uploadoptions", {
 	    			image: {url:"/files/" + filename + ".jpg"},
 	    			video: {url:"/files/" + filename + ".webm"},
-	    			audio: {url:"/files/" + filename + ".wav"}
+	    			audio: {url:"/files/" + filename + ".wav"},
+					webrtcStreaming: {
+						wssUrl: 'wss://',
+						streamInfo: {
+							applicationName: "webrtc",
+							streamName: "myStream",
+							sessionId: "[empty]"
+						},
+						delay: 4000,
+						stopDelay: 2500
+					}
 	    		});
 		        recorder.set("playbacksource", "/files/" + filename + ".mp4");
 		        if (recorder.recorder)

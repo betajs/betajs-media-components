@@ -1,11 +1,12 @@
 Scoped.define("module:VideoRecorder.Dynamics.Controlbar", [
     "dynamics:Dynamic",
     "module:Assets",
-    "base:Timers.Timer"
+    "base:Timers.Timer",
+    "browser:Info"
 ], [
     "dynamics:Partials.ShowPartial",
     "dynamics:Partials.RepeatPartial"
-], function(Class, Assets, Timer, scoped) {
+], function(Class, Assets, Timer, Info, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -18,11 +19,13 @@ Scoped.define("module:VideoRecorder.Dynamics.Controlbar", [
                     "csscommon": "ba-commoncss",
                     "cssrecorder": "ba-recorder",
                     "hovermessage": "",
+                    "ismobile": false,
                     "recordingindication": true,
                     "covershot_accept_string": "image/*,image/png,image/jpg,image/jpeg"
                 },
 
                 create: function() {
+                    this.set("ismobile", Info.isMobile());
                     this.auto_destroy(new Timer({
                         context: this,
                         fire: function() {
@@ -38,6 +41,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Controlbar", [
                     },
                     selectMicrophone: function(microphoneId) {
                         this.trigger("select-microphone", microphoneId);
+                    },
+                    toggleFaceMode: function() {
+                        this.trigger("toggle-face-mode");
                     },
                     hover: function(text) {
                         this.set("hovermessage", text);

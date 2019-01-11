@@ -3,7 +3,7 @@
 	<div data-selector="recorder-settings" class="{{css}}-settings" ba-show="{{settingsvisible && settingsopen}}">
 		<div class="{{css}}-settings-backbar"></div>
 		<div data-selector="settings-list-front" class="{{css}}-settings-front">
-			<ul data-selector="camera-settings" ba-repeat="{{camera :: cameras}}" ba-show="{{!novideo && !allowscreen}}">
+			<ul data-selector="camera-settings" ba-repeat="{{camera :: cameras}}" ba-show="{{!novideo && !allowscreen && !ismobile}}">
 				<li>
 					<input tabindex="0"
 						   ba-hotkey:space^enter="{{selectCamera(camera.id)}}" onmouseout="this.blur()"
@@ -35,6 +35,15 @@
 		</div>
 	</div>
 	<div data-selector="controlbar" class="{{css}}-controlbar">
+
+		<div class="{{css}}-leftbutton-container" ba-show="{{settingsvisible && ismobile}}">
+			<div data-selector="face-mode-toggle-icon" class="{{css}}-mobile-camera-switcher {{css}}-button-inner"
+				 onclick="{{toggleFaceMode()}}"
+				 onmouseenter="{{hover(string('switch-camera'))}}"
+			>
+				<i class="{{csscommon}}-icon-arrows-cw"></i>
+			</div>
+		</div>
 
         <div class="{{css}}-leftbutton-container" ba-show="{{settingsvisible}}">
             <div tabindex="0"

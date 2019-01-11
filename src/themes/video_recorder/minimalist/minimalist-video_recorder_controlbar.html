@@ -14,11 +14,21 @@
 				<!-- Popup Settings Selections, initially hidden, appear when click button for settings -->
 				<div data-selector="recorder-settings" class="{{css}}-settings {{css}}-settings-button-container">
 
+					<div class="{{css}}-circle-button" ba-show="{{ismobile}}">
+						<div data-selector="face-mode-toggle-icon"
+							 class="{{css}}-mobile-camera-switcher {{css}}-button-inner {{css}}-button-circle-unselected"
+							 onclick="{{toggleFaceMode()}}"
+							 onmouseenter="{{hover(string('switch-camera'))}}"
+						>
+							<i class="{{csscommon}}-icon-arrows-cw"></i>
+						</div>
+					</div>
+
 					<div data-selector="settings-list-front" class="{{css}}-circle-button" ba-show="{{settingsvisible}}">
 
 						<div class="{{css}}-bubble-info-container" ba-show="{{settingsopen}}">
 							<div class="{{css}}-bubble-info" >
-								<ul data-selector="camera-settings" ba-repeat="{{camera :: cameras}}">
+								<ul data-selector="camera-settings" ba-repeat="{{camera :: cameras}}" ba-show="{{!novideo && !allowscreen && !ismobile}}">
 									<li>
 										<input tabindex="0" onmouseout="this.blur()"
 											   type='radio' name='camera' value="{{selectedcamera == camera.id}}" onclick="{{selectCamera(camera.id)}}"
@@ -43,7 +53,6 @@
 									</li>
 								</ul>
 							</div>
-
 						</div>
 
 						<div tabindex="0"
@@ -57,7 +66,6 @@
 							<i class="{{csscommon}}-icon-cog"></i>
 						</div>
 					</div>
-
 
 					<div class="{{css}}-circle-button" ba-show="{{!noaudio && !allowscreen}}">
 						<div data-selector="record-button-icon-mic" class="{{css}}-button-inner"

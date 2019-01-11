@@ -245,6 +245,12 @@
       "css": "check",
       "code": 59415,
       "src": "entypo"
+    },
+    {
+      "uid": "d5fabfa46384953ae055fceacb2229a7",
+      "css": "arrows-cw",
+      "code": 59416,
+      "src": "elusive"
     }
   ]
 }

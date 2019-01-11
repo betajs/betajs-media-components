@@ -5,7 +5,7 @@
 		<!-- Popup Settings Selections, initially hidden, appear when click button for settings -->
 		<div data-selector="recorder-settings" class="{{css}}-settings" ba-show="{{settingsvisible && settingsopen}}">
 			<div class="{{css}}-bubble-info">
-				<ul data-selector="camera-settings" ba-repeat="{{camera :: cameras}}">
+				<ul data-selector="camera-settings" ba-repeat="{{camera :: cameras}}" ba-show="{{!novideo && !allowscreen && !ismobile}}">
 					<li>
 						<input tabindex="0"
 							   ba-hotkey:space^enter="{{selectCamera(camera.id)}}" onmouseout="this.blur()"
@@ -78,6 +78,16 @@
 			</div>
 
 			<div ba-show="{{settingsvisible}}">
+
+				<div class="{{css}}-button" ba-show="{{ismobile}}">
+                    <div data-selector="face-mode-toggle-icon"
+                         class="{{css}}-button-inner {{css}}-button-circle-unselected"
+                         onclick="{{toggleFaceMode()}}"
+                         onmouseenter="{{hover(string('switch-camera'))}}"
+                    >
+                        <i class="{{csscommon}}-icon-arrows-cw"></i>
+                    </div>
+				</div>
 
 				<div class="{{css}}-button">
 

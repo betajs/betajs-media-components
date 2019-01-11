@@ -619,10 +619,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         this.set("microphonehealthy", false);
                     },
 
-                    select_camera_face: function(faceFront) {
+                    toggle_face_mode: function() {
                         if (this.recorder) {
-                            this.recorder.setCameraFace(faceFront);
-                            this.set("camerafacefront", faceFront);
+                            this.recorder.setCameraFace(this.get("camerafacefront"));
+                            this.set("camerafacefront", !this.get("camerafacefront"));
                         }
                     },
 
@@ -680,6 +680,11 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         }, this);
                     },
 
+                    toggle_facemode: function() {
+                        this._toggleFaceMode();
+
+                    },
+
                     manual_submit: function() {
                         this.set("rerecordable", false);
                         this.set("manualsubmit", false);
@@ -713,6 +718,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
                 soundLevel: function() {
                     return this.recorderAttached() ? this.recorder.soundLevel() : null;
+                },
+
+                _toggleFaceMode: function() {
+                    this.set("camerafacefront", !!this.get("camerafacefront"));
                 },
 
                 _timerFire: function() {
@@ -873,6 +882,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
             "video_file_too_large": "Your video file is too large (%s) - click here to try again with a smaller video file.",
             "unsupported_video_type": "Please upload: %s - click here to retry.",
             "orientation-portrait-required": "Please rotate your device to record in portrait mode.",
-            "orientation-landscape-required": "Please rotate your device to record in landscape mode."
+            "orientation-landscape-required": "Please rotate your device to record in landscape mode.",
+            "switch-camera": "Switch camera"
         });
 });

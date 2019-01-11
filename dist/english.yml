@@ -136,6 +136,7 @@
   ba-videoplayer.all-settings: All settings
   ba-videoplayer.player-speed: Player speed
   ba-videoplayer.full-screen: Full screen
+  ba-videorecorder.switch-camera: Switch camera
   ba-imagecapture.recorder-error: 'An error occurred, please try again later. Click to retry.'
   ba-imagecapture.attach-error: >-
     We could not access the media interface. Depending on the device and

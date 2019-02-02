@@ -47,7 +47,7 @@
 				});
 			}
     	    var testasset = function (s) {
-    	    	return (window.BrowserStack ? "http://files.betajs.com/" : (BetaJS.Strings.splitLast(document.location.href, "/").head + "/tests/")) + s;
+    	    	return (window.BrowserStack ? "http://betajs.com/" : (BetaJS.Strings.splitLast(document.location.href, "/").head + "/tests/")) + s;
     	    };
     	    var haveSelenium = !window.BrowserStack;
     	    function mytest(name, callback, opts) {

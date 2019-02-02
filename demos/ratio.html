@@ -15,21 +15,26 @@
     <link  href="../dist/themes/modern/style.css" rel="stylesheet" />
 </head>
 <body>
-	<style>
-		body {
-			position:absolute;
-			top: 0px;
-			left: 0px;
-			right: 0px;
-			bottom: 0px;
-		}		
-	</style>
+
+<style>
+    .container {
+        width: 800px;
+        background:blue;
+        border: 4px solid purple;
+    }
+</style>
+
+
+    <div class="container">
 
 	<ba-videoplayer
         ba-poster="sample-cover.png"
-        ba-source="sample-video.mp4" ba-stretch ba-theme="modern"
-        ba-width="480" ba-height="680"
+        ba-source="sample-video.mp4"
+        ba-theme="modern"
+        style="display:inline-block;min-width:800px;width:800px;min-width:800px"
     ></ba-videoplayer>
+
+    </div>
 
     <script>
         BetaJS.Flash.options = {

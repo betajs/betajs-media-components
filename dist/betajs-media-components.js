@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.150 - 2019-01-11
+betajs-media-components - v0.0.152 - 2019-02-02
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1006,7 +1006,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.150 - 2019-01-11
+betajs-media-components - v0.0.152 - 2019-02-02
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1022,8 +1022,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.150",
-    "datetime": 1547241451262
+    "version": "0.0.152",
+    "datetime": 1549139833866
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -7540,7 +7540,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     delete this.__backgroundSnapshot;
                 },
 
-                object_functions: ["record", "rerecord", "stop", "play", "pause", "reset"],
+                object_functions: ["record", "rerecord", "screen_record", "stop", "play", "pause", "reset"],
 
                 functions: {
 

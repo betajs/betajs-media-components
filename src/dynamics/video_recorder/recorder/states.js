@@ -255,6 +255,10 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
             }
         },
 
+        /**
+         * @param {File} file
+         * @private
+         */
         _uploadFile: function(file) {
             if (this.__blocked)
                 return;
@@ -269,7 +273,11 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
                 this.dyn._uploadVideoFile(file);
                 this._setValueToEmpty(file);
                 this.__blocked = false;
-                this.next("Uploading");
+                if ((Info.isMobile && this.dyn.get("recordviafilecapture") || this.dyn.get("snapshotfromuploader")) && !this.dyn.get("onlyaudio") && this.dyn.get("picksnapshots")) {
+                    this.dyn.snapshots = [];
+                    this.next("CreateUploadCovershot");
+                } else
+                    this.next("Uploading");
             }, this).error(function(s) {
                 this._setValueToEmpty(file);
                 this.__blocked = false;
@@ -294,6 +302,128 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
     });
 });
 
+Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CreateUploadCovershot", [
+    "module:VideoRecorder.Dynamics.RecorderStates.State",
+    "media:Recorder.Support",
+    "base:Timers.Timer",
+    "browser:Events",
+    "browser:Info",
+    "base:Async"
+], function(State, RecorderSupport, Timer, DomEvents, Info, Async, scoped) {
+    return State.extend({
+        scoped: scoped
+    }, {
+
+        dynamics: ["loader", "message"],
+
+        _started: function() {
+            this.dyn.set("loader_active", true);
+            this.dyn.set("loaderlabel", this.dyn.string("prepare-covershot"));
+            this.dyn.set("topmessage", this.dyn.string('please-wait'));
+
+            try {
+                this.dyn.set("player_active", false);
+                this.dyn.set("ghost_player", true);
+
+
+                // this.dyn._videoFilePlaybackable only for browsers
+                if (this.dyn._videoFile)
+                    this.dyn.set("playbacksource", (window.URL || window.webkitURL).createObjectURL(this.dyn._videoFile));
+                else
+                    throw ('Could not find source file to be able start player');
+
+                var _video = this.dyn.activeElement().querySelector("video");
+                var _currentTime = 0;
+                var _totalDuration = 0;
+                var _seekPeriod = 1;
+                _video.src = this.dyn.get("playbacksource");
+                _video.setAttribute('preload', 'metadata');
+                _video.volume = 0;
+                _video.muted = true;
+
+                var _playerLoadedData = this.auto_destroy(new DomEvents());
+
+                // Note that loadeddata event will not fire in mobile/tablet devices if data-saver is on in browser settings
+                // So using loadedmetadata ( or canplaythrough) to be available both desktop and mobile
+                // readyState is newly equal to HAVE_ENOUGH_DATA
+                // HAVE_NOTHING == 0; HAVE_METADATA == 1; HAVE_CURRENT_DATA == 2; HAVE_FUTURE_DATA == 3; HAVE_ENOUGH_DATA == 4
+                _playerLoadedData.on(_video, "loadedmetadata", function(ev) {
+                    _totalDuration = _video.duration;
+                    _seekPeriod = this._calculateSeekPeriod(_totalDuration);
+                    if (_video.videoWidth > 0 && _video.videoHeight > 0) {
+                        this.__videoSeekTimer = new Timer({
+                            context: this,
+                            fire: function() {
+                                if (_video.volume < 0.1 || _video.muted) {
+                                    _video.currentTime = _currentTime;
+                                } else _video.volume = 0;
+                                _currentTime = _currentTime + _seekPeriod;
+                            },
+                            destroy_on_stop: true,
+                            delay: 500,
+                            start: true
+                        });
+                    } else {
+                        throw 'Could not find video dimentions information to be able create covershot';
+                    }
+
+                }, this);
+
+                _playerLoadedData.on(_video, "seeked", function(ev) {
+                    var __snap = RecorderSupport.createSnapshot(this.dyn.get("snapshottype"), _video);
+                    if (__snap) {
+                        if (this.dyn.snapshots.length < this.dyn.get("snapshotmax")) {
+                            this.dyn.snapshots.push(__snap);
+                        } else {
+                            var i = Math.floor(Math.random() * this.dyn.get("snapshotmax"));
+                            RecorderSupport.removeSnapshot(this.dy.snapshots[i]);
+                            this.dyn.snapshots[i] = __snap;
+                        }
+                    }
+
+                    // Should trigger ended event
+                    if ((_video.currentTime + _seekPeriod) >= _totalDuration) {
+                        _video.currentTime = _video.currentTime + _seekPeriod;
+                    }
+                }, this);
+
+                _playerLoadedData.on(_video, "ended", function(ev) {
+                    this.__videoSeekTimer.stop();
+                    _video.removeAttribute('src');
+                    if (this.dyn.snapshots.length >= this.dyn.get("gallerysnapshots"))
+                        this.next("CovershotSelection");
+                    else
+                        this.next("Uploading");
+                }, this);
+
+            } catch (exe) {
+                console.warn(exe);
+                this.next("Uploading");
+            }
+        },
+
+        stop: function() {
+            this.dyn.set("ghost_player", false);
+            this.dyn.set("loader_active", false);
+            this.dyn.set("loaderlabel", "");
+            this.dyn.set("topmessage", "");
+        },
+
+        /**
+         * @param {number} duration
+         * @return {number}
+         * @private
+         */
+        _calculateSeekPeriod: function(duration) {
+            if (duration < 15)
+                return 1;
+            if (duration >= 10 && duration < 40)
+                return 3;
+            else
+                return Math.floor(duration / 15);
+        }
+    });
+});
 
 Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.RequiredSoftwareCheck", [
     "module:VideoRecorder.Dynamics.RecorderStates.State"

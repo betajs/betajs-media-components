@@ -6,6 +6,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
     "browser:Upload.MultiUploader",
     "browser:Upload.FileUploader",
     "media:Recorder.VideoRecorderWrapper",
+    "media:Recorder.Support",
     "media:WebRTC.Support",
     "base:Types",
     "base:Objs",
@@ -35,7 +36,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.TemplatePartial",
     "dynamics:Partials.HotkeyPartial"
-], function(Class, Assets, Info, Dom, MultiUploader, FileUploader, VideoRecorderWrapper, WebRTCSupport, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Collection, Promise, InitialState, RecorderStates, scoped) {
+], function(Class, Assets, Info, Dom, MultiUploader, FileUploader, VideoRecorderWrapper, RecorderSupport, WebRTCSupport, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Collection, Promise, InitialState, RecorderStates, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -149,14 +150,22 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "orientation": false,
                     "stretch": false,
                     "audio-test-mandatory": false,
+                    "snapshotfromplayer": false,
+                    "snapshotfromuploader": true,
 
                     "allowtexttrackupload": false,
                     "uploadlocales": [{
                         lang: 'en',
                         label: 'English'
-                    }]
-
-
+                    }],
+                    "videometadata": {
+                        "actualHeight": null,
+                        "actualWidth": null,
+                        "actualRatio": null,
+                        "croppedHeight": null,
+                        "croppedWidth": null,
+                        "croppedRatio": null
+                    }
                 },
 
                 computed: {
@@ -307,6 +316,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     this.__cameraResponsive = true;
                     this.__cameraSignal = true;
 
+                    this.snapshots = [];
+
                     if (this.get("onlyaudio")) {
                         this.set("picksnapshots", false);
                         this.set("allowupload", false);
@@ -381,7 +392,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         return;
                     }
                     this.set("hasrecorder", true);
-                    this.snapshots = [];
                     this.__attachRequested = false;
                     var video = this.activeElement().querySelector("[data-video='video']");
                     this._clearError();
@@ -466,7 +476,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     if (this.get("simulate"))
                         return;
                     this.__lastCovershotUpload = image;
-                    var uploader = this.recorder.createSnapshotUploader(image, this.get("snapshottype"), this.get("uploadoptions").image);
+                    var uploader = this.recorder ?
+                        this.recorder.createSnapshotUploader(image, this.get("snapshottype"), this.get("uploadoptions").image) :
+                        RecorderSupport.createSnapshotUploader(this.isFlash(), image, this.get("snapshottype"), this.get("uploadoptions").image);
                     uploader.upload();
                     this._dataUploader.addUploader(uploader);
                 },
@@ -883,6 +895,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
             "unsupported_video_type": "Please upload: %s - click here to retry.",
             "orientation-portrait-required": "Please rotate your device to record in portrait mode.",
             "orientation-landscape-required": "Please rotate your device to record in landscape mode.",
-            "switch-camera": "Switch camera"
+            "switch-camera": "Switch camera",
+            "prepare-covershot": "Preparing covershots"
         });
 });

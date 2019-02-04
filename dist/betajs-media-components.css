@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.150 - 2019-01-11
+betajs-media-components - v0.0.152 - 2019-02-04
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -3233,12 +3233,20 @@ ba-videorecorder-message[ba-message=""], ba-videorecorder-message[ba-message="nu
   position: relative;
   background-color: #000000; }
 
+.ba-videorecorder-ghost-player canvas {
+  opacity: 0;
+  position: absolute;
+  z-index: -1; }
+
 .ba-recorder-overlay {
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
   bottom: 0; }
+
+.ba-videorecorder-ghost-player .ba-recorder-overlay {
+  background: #000000; }
 
 .ba-videorecorder-video {
   width: 100%;

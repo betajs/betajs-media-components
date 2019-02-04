@@ -3,6 +3,7 @@
 /.idea
 .DS_Store
 .sass-cache
+.eslintrc.js
 node_modules
 /docs
 browserstack.json

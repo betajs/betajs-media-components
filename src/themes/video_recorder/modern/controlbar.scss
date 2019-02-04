@@ -74,5 +74,19 @@
         background-color: $text_color;
 
     }
+
+    &.#{$css}-size-small .#{$css}-leftbutton-container {
+        width: 40px;
+        .#{$css}-button-inner {
+            font-size: 17px;
+        }
+    }
+
+    &.#{$css}-size-small .#{$css}-lefticon-container {
+        width: 45px;
+        .#{$csscommon}-icon-inner {
+            font-size: 17px;
+        }
+    }
 }
 

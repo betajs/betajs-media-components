@@ -33,21 +33,67 @@
   ba-videorecorder-controlbar.stop-tooltip: Click here to stop.
   ba-videorecorder-controlbar.skip: Skip
   ba-videorecorder-controlbar.skip-tooltip: Click here to skip.
-  ba-videorecorder.recorder-error: 'An error occurred, please try again later. Click to retry.'
+  ba-videorecorder.recorder-error: >-
+    &#x644;&#x642;&#x62F; &#x62D;&#x62F;&#x62B; &#x62E;&#x637;&#x623;&#x60C;
+    &#x631;&#x62C;&#x627;&#x621; &#x623;&#x639;&#x62F;
+    &#x627;&#x644;&#x645;&#x62D;&#x627;&#x648;&#x644;&#x629;
+    &#x644;&#x627;&#x62D;&#x642;&#x627;. &#x627;&#x646;&#x642;&#x631;
+    &#x644;&#x625;&#x639;&#x627;&#x62F;&#x629;
+    &#x627;&#x644;&#x645;&#x62D;&#x627;&#x648;&#x644;&#x629;.
   ba-videorecorder.attach-error: >-
-    We could not access the media interface. Depending on the device and
-    browser, you might need to install Flash or access the page via SSL.
-  ba-videorecorder.access-forbidden: Access to the media was forbidden. Click to retry.
-  ba-videorecorder.pick-covershot: Pick a covershot.
-  ba-videorecorder.uploading: Uploading
-  ba-videorecorder.uploading-failed: Uploading failed - click here to retry.
-  ba-videorecorder.verifying: Verifying
-  ba-videorecorder.verifying-failed: Verifying failed - click here to retry.
-  ba-videorecorder.rerecord-confirm: Do you really want to redo your video?
+    &#x644;&#x645; &#x646;&#x62A;&#x645;&#x643;&#x646; &#x645;&#x646;
+    &#x627;&#x644;&#x648;&#x635;&#x648;&#x644; &#x625;&#x644;&#x649;
+    &#x648;&#x627;&#x62C;&#x647;&#x629;
+    &#x627;&#x644;&#x643;&#x627;&#x645;&#x64A;&#x631;&#x627;.
+    &#x627;&#x639;&#x62A;&#x645;&#x627;&#x62F;&#x627; &#x639;&#x644;&#x649;
+    &#x627;&#x644;&#x62C;&#x647;&#x627;&#x632;
+    &#x648;&#x627;&#x644;&#x645;&#x62A;&#x635;&#x641;&#x62D;&#x60C;
+    &#x642;&#x62F; &#x62A;&#x62D;&#x62A;&#x627;&#x62C; &#x625;&#x644;&#x649;
+    &#x62A;&#x62B;&#x628;&#x64A;&#x62A; &#x641;&#x644;&#x627;&#x634;
+    &#x623;&#x648; &#x627;&#x644;&#x648;&#x635;&#x648;&#x644;
+    &#x625;&#x644;&#x649; &#x627;&#x644;&#x635;&#x641;&#x62D;&#x629;
+    &#x639;&#x628;&#x631; &#x645;&#x62A;&#x635;&#x641;&#x62D;
+    &#x627;&#x62E;&#x631;.
+  ba-videorecorder.access-forbidden: >-
+    &#x62A;&#x645; &#x62D;&#x638;&#x631;
+    &#x627;&#x644;&#x62F;&#x62E;&#x648;&#x644; &#x625;&#x644;&#x649;
+    &#x627;&#x644;&#x643;&#x627;&#x645;&#x64A;&#x631;&#x627;.
+    &#x627;&#x646;&#x642;&#x631; &#x644;&#x625;&#x639;&#x627;&#x62F;&#x629;
+    &#x627;&#x644;&#x645;&#x62D;&#x627;&#x648;&#x644;&#x629;
+  ba-videorecorder.pick-covershot: >-
+    &#x627;&#x62E;&#x62A;&#x64A;&#x627;&#x631; &#x635;&#x648;&#x631;&#x629;
+    &#x627;&#x644;&#x648;&#x627;&#x62C;&#x647;&#x629;.
+  ba-videorecorder.uploading: '&#x62C;&#x627;&#x631;&#x64A; &#x627;&#x644;&#x631;&#x641;&#x639;'
+  ba-videorecorder.uploading-failed: >-
+    &#x641;&#x634;&#x644; &#x641;&#x64A; &#x627;&#x644;&#x631;&#x641;&#x639; -
+    &#x627;&#x646;&#x642;&#x631; &#x647;&#x646;&#x627;
+    &#x644;&#x625;&#x639;&#x627;&#x62F;&#x629;
+    &#x627;&#x644;&#x645;&#x62D;&#x627;&#x648;&#x644;&#x629;.
+  ba-videorecorder.verifying: '&#x62C;&#x627;&#x631;&#x64A; &#x627;&#x644;&#x62A;&#x62D;&#x642;&#x642;'
+  ba-videorecorder.verifying-failed: >-
+    &#x641;&#x634;&#x644; &#x639;&#x645;&#x644;&#x64A;&#x629;
+    &#x627;&#x644;&#x62A;&#x62D;&#x642;&#x642; - &#x627;&#x646;&#x642;&#x631;
+    &#x647;&#x646;&#x627; &#x644;&#x625;&#x639;&#x627;&#x62F;&#x629;
+    &#x627;&#x644;&#x645;&#x62D;&#x627;&#x648;&#x644;&#x629;.
+  ba-videorecorder.rerecord-confirm: >-
+    &#x62A;&#x622;&#x643;&#x64A;&#x62F; &#x627;&#x639;&#x627;&#x62F;&#x629;
+    &#x627;&#x644;&#x641;&#x64A;&#x62F;&#x64A;&#x648;&#x61F;
   ba-videorecorder.video_file_too_large: >-
-    Your video file is too large (%s) - click here to try again with a smaller
-    video file.
-  ba-videorecorder.unsupported_video_type: 'Please upload: %s - click here to retry.'
+    &#x645;&#x644;&#x641; &#x627;&#x644;&#x641;&#x64A;&#x62F;&#x64A;&#x648;
+    &#x643;&#x628;&#x64A;&#x631; &#x62C;&#x62F;&#x627; (&#x66A; s) -
+    &#x627;&#x646;&#x642;&#x631; &#x647;&#x646;&#x627;
+    &#x644;&#x625;&#x639;&#x627;&#x62F;&#x629;
+    &#x627;&#x644;&#x645;&#x62D;&#x627;&#x648;&#x644;&#x629;
+    &#x628;&#x627;&#x633;&#x62A;&#x62E;&#x62F;&#x627;&#x645;
+    &#x645;&#x644;&#x641; &#x641;&#x64A;&#x62F;&#x64A;&#x648;
+    &#x623;&#x635;&#x63A;&#x631;.
+  ba-videorecorder.unsupported_video_type: >-
+    &#x635;&#x64A;&#x63A;&#x629;
+    &#x627;&#x644;&#x641;&#x64A;&#x62F;&#x64A;&#x648; &#x63A;&#x64A;&#x631;
+    &#x645;&#x62F;&#x639;&#x648;&#x645;&#x629; :&#x66A; s -
+    &#x627;&#x646;&#x642;&#x631; &#x647;&#x646;&#x627;
+    &#x644;&#x625;&#x639;&#x627;&#x62F;&#x629;
+    &#x627;&#x644;&#x645;&#x62D;&#x627;&#x648;&#x644;&#x629;.
   ba-videoplayer-controlbar.exit-fullscreen-video: Exit fullscreen
   ba-videoplayer-share.share: Share media
   ba-videorecorder-chooser.record-screen: Record Screen
@@ -56,7 +102,10 @@
   ba-videorecorder-controlbar.stop-available-after: Minimum recording time is %d seconds
   ba-videorecorder-controlbar.cancel: Cancel
   ba-videorecorder-controlbar.cancel-tooltip: Click here to cancel.
-  ba-videorecorder.cancel-confirm: Do you really want to cancel your video upload?
+  ba-videorecorder.cancel-confirm: >-
+    &#x647;&#x644; &#x62A;&#x631;&#x64A;&#x62F; &#x62D;&#x642;&#x627;
+    &#x625;&#x644;&#x63A;&#x627;&#x621; &#x62A;&#x62D;&#x645;&#x64A;&#x644;
+    &#x627;&#x644;&#x641;&#x64A;&#x62F;&#x64A;&#x648;&#x61F;
   ba-videoplayer-adslot.elapsed-time: Elasped time
   ba-videoplayer-adslot.volume-button: Set volume
   ba-videoplayer-adslot.volume-mute: Mute sound
@@ -65,11 +114,24 @@
   ba-videoplayer-adslot.can-skip-after: Skip after %d
   ba-videoplayer-adslot.skip-ad: Skip ad
   ba-videorecorder.software-required: >-
-    Please click below to install / activate the following requirements in order
-    to proceed.
+    &#x64A;&#x631;&#x62C;&#x649; &#x627;&#x644;&#x646;&#x642;&#x631;
+    &#x623;&#x62F;&#x646;&#x627;&#x647;
+    &#x644;&#x62A;&#x62B;&#x628;&#x64A;&#x62A; /
+    &#x62A;&#x641;&#x639;&#x64A;&#x644;
+    &#x627;&#x644;&#x645;&#x62A;&#x637;&#x644;&#x628;&#x627;&#x62A;
+    &#x627;&#x644;&#x62A;&#x627;&#x644;&#x64A;&#x629; &#x645;&#x646;
+    &#x623;&#x62C;&#x644; &#x627;&#x644;&#x645;&#x636;&#x64A;
+    &#x642;&#x62F;&#x645;&#x627;.
   ba-videorecorder.software-waiting: >-
-    Waiting for the requirements to be installed / activated. You might need to
-    refresh the page after completion.
+    &#x641;&#x64A; &#x627;&#x646;&#x62A;&#x638;&#x627;&#x631;
+    &#x627;&#x644;&#x645;&#x62A;&#x637;&#x644;&#x628;&#x627;&#x62A;
+    &#x644;&#x64A;&#x62A;&#x645;
+    &#x62A;&#x62B;&#x628;&#x64A;&#x62A;&#x647;&#x627; /
+    &#x62A;&#x641;&#x639;&#x64A;&#x644;&#x647;&#x627;. &#x642;&#x62F;
+    &#x62A;&#x62D;&#x62A;&#x627;&#x62C; &#x625;&#x644;&#x649;
+    &#x62A;&#x62D;&#x62F;&#x64A;&#x62B;
+    &#x627;&#x644;&#x635;&#x641;&#x62D;&#x629; &#x628;&#x639;&#x62F;
+    &#x627;&#x644;&#x627;&#x646;&#x62A;&#x647;&#x627;&#x621;.
   ba-videoplayer-controlbar.close-tracks: Close CC
   ba-videoplayer-controlbar.show-tracks: Show CC
   ba-videoplayer-tracks.upload-text-tracks: Upload track text files
@@ -78,16 +140,50 @@
   ba-videoplayer-tracks.select-text-track-file: Click to select file
   ba-videoplayer-tracks.back: back
   ba-videorecorder.framerate-warning: >-
-    The video frame rate is very low. We recommend closing all other programs
-    and browser tabs or to use a faster computer.
+    &#x645;&#x639;&#x62F;&#x644; &#x639;&#x631;&#x636;
+    &#x627;&#x644;&#x641;&#x64A;&#x62F;&#x64A;&#x648;
+    &#x645;&#x646;&#x62E;&#x641;&#x636; &#x62C;&#x62F;&#x64B;&#x627;.
+    &#x646;&#x648;&#x635;&#x64A; &#x628;&#x625;&#x63A;&#x644;&#x627;&#x642;
+    &#x62C;&#x645;&#x64A;&#x639;
+    &#x627;&#x644;&#x628;&#x631;&#x627;&#x645;&#x62C;
+    &#x627;&#x644;&#x623;&#x62E;&#x631;&#x649;
+    &#x648;&#x639;&#x644;&#x627;&#x645;&#x627;&#x62A;
+    &#x62A;&#x628;&#x648;&#x64A;&#x628;
+    &#x627;&#x644;&#x645;&#x62A;&#x635;&#x641;&#x62D; &#x623;&#x648;
+    &#x627;&#x633;&#x62A;&#x62E;&#x62F;&#x627;&#x645;
+    &#x62C;&#x647;&#x627;&#x632;
+    &#x643;&#x645;&#x628;&#x64A;&#x648;&#x62A;&#x631;
+    &#x623;&#x633;&#x631;&#x639;.
   ba-videorecorder.upload-error-duration: >-
-    Length of the uploaded video does not meet the requirements - click here to
-    retry.
+    &#x644;&#x627; &#x64A;&#x62A;&#x648;&#x627;&#x641;&#x642;
+    &#x637;&#x648;&#x644; &#x627;&#x644;&#x641;&#x64A;&#x62F;&#x64A;&#x648;
+    &#x627;&#x644;&#x630;&#x64A; &#x62A;&#x645;
+    &#x62A;&#x62D;&#x645;&#x64A;&#x644;&#x647; &#x645;&#x639;
+    &#x627;&#x644;&#x645;&#x62A;&#x637;&#x644;&#x628;&#x627;&#x62A; -
+    &#x627;&#x646;&#x642;&#x631; &#x647;&#x646;&#x627;
+    &#x644;&#x625;&#x639;&#x627;&#x62F;&#x629;
+    &#x627;&#x644;&#x645;&#x62D;&#x627;&#x648;&#x644;&#x629;.
   ba-videorecorder.resolution-constraint-error: >-
-    The file you've selected does not match the required resolution - click here
-    to retry.
-  ba-videorecorder.orientation-portrait-required: Please rotate your device to record in portrait mode.
-  ba-videorecorder.orientation-landscape-required: Please rotate your device to record in landscape mode.
+    &#x627;&#x644;&#x645;&#x644;&#x641; &#x627;&#x644;&#x630;&#x64A;
+    &#x62D;&#x62F;&#x62F;&#x62A;&#x647; &#x644;&#x627;
+    &#x64A;&#x62A;&#x637;&#x627;&#x628;&#x642; &#x645;&#x639;
+    &#x627;&#x644;&#x62F;&#x642;&#x629;
+    &#x627;&#x644;&#x645;&#x637;&#x644;&#x648;&#x628;&#x629; -
+    &#x627;&#x646;&#x642;&#x631; &#x647;&#x646;&#x627;
+    &#x644;&#x625;&#x639;&#x627;&#x62F;&#x629;
+    &#x627;&#x644;&#x645;&#x62D;&#x627;&#x648;&#x644;&#x629;.
+  ba-videorecorder.orientation-portrait-required: >-
+    &#x64A;&#x631;&#x62C;&#x649; &#x62A;&#x62F;&#x648;&#x64A;&#x631;
+    &#x62C;&#x647;&#x627;&#x632;&#x643;
+    &#x644;&#x644;&#x62A;&#x633;&#x62C;&#x64A;&#x644; &#x641;&#x64A;
+    &#x627;&#x644;&#x648;&#x636;&#x639;
+    &#x627;&#x644;&#x631;&#x623;&#x633;&#x64A;.
+  ba-videorecorder.orientation-landscape-required: >-
+    &#x64A;&#x631;&#x62C;&#x649; &#x62A;&#x62F;&#x648;&#x64A;&#x631;
+    &#x62C;&#x647;&#x627;&#x632;&#x643;
+    &#x644;&#x644;&#x62A;&#x633;&#x62C;&#x64A;&#x644; &#x641;&#x64A;
+    &#x627;&#x644;&#x648;&#x636;&#x639;
+    &#x627;&#x644;&#x623;&#x641;&#x642;&#x64A;.
   ba-imageviewer-controlbar.rerecord-image: Redo?
   ba-imageviewer-controlbar.submit-image: Confirm
   ba-imageviewer-controlbar.fullscreen-image: Enter fullscreen
@@ -136,7 +232,6 @@
   ba-videoplayer.all-settings: All settings
   ba-videoplayer.player-speed: Player speed
   ba-videoplayer.full-screen: Full screen
-  ba-videorecorder.switch-camera: Switch camera
   ba-imagecapture.recorder-error: 'An error occurred, please try again later. Click to retry.'
   ba-imagecapture.attach-error: >-
     We could not access the media interface. Depending on the device and

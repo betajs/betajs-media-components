@@ -91,7 +91,7 @@ cursor: pointer;
             video.muted = true;
             video.src = "sample-video.mp4";
             var container = $(this.activeElement()).children().first();
-            container.append("<div class='foobar'></div>")
+            container.append("<div class='foobar'></div>");
             container.append("<div class='foobarx'><div class='foobarxx'>Click here to record yourself</div></div>");
             container.find(".foobarx").on("click", function () {
             	//recorder.destroy();

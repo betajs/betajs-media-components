@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.150 - 2019-01-11
+betajs-media-components - v0.0.152 - 2019-02-04
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -512,6 +512,14 @@ Apache-2.0 Software License.
   border: 1px solid #979797;
   color: #979797;
   background-color: white; }
+.ba-recorder-theme-modern.ba-videorecorder-size-small .ba-videorecorder-leftbutton-container {
+  width: 40px; }
+  .ba-recorder-theme-modern.ba-videorecorder-size-small .ba-videorecorder-leftbutton-container .ba-videorecorder-button-inner {
+    font-size: 17px; }
+.ba-recorder-theme-modern.ba-videorecorder-size-small .ba-videorecorder-lefticon-container {
+  width: 45px; }
+  .ba-recorder-theme-modern.ba-videorecorder-size-small .ba-videorecorder-lefticon-container .ba-commoncss-icon-inner {
+    font-size: 17px; }
 
 .ba-recorder-theme-modern .ba-videorecorder-imagegallery-button-inner {
   -webkit-transform: translateY(-50%);

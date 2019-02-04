@@ -8,6 +8,6 @@ If you want to use Flash, make sure to initialize the Flash bridging framework o
 
 ```javascript
 	BetaJS.Flash.options = {
-	    flashFile: "http://files.betajs.com/betajs-flash.swf" // location of your flash file
+	    flashFile: "http://betajs.com/betajs-flash.swf" // location of your flash file
 	};
 ```

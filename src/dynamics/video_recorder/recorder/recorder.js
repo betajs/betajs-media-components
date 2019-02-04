@@ -576,7 +576,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     delete this.__backgroundSnapshot;
                 },
 
-                object_functions: ["record", "rerecord", "stop", "play", "pause", "reset"],
+                object_functions: ["record", "rerecord", "screen_record", "stop", "play", "pause", "reset"],
 
                 functions: {
 

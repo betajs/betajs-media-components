@@ -17,7 +17,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Playbutton", [
                     "csscommon": "ba-commoncss",
                     "cssplayer": "ba-player",
                     "rerecordable": false,
-                    "submittable": false
+                    "submittable": false,
+                    "showduration": false
                 },
 
                 functions: {

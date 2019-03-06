@@ -6,7 +6,7 @@
 >
 	<div class="{{css}}-playbutton-button"></div>
 </div>
-<div ba-show="{{showduration && (duration != 0 && duration != undefined)}}" class="{{css}}-playbutton-duration" style="background:black; color:white; float:right; margin:5px; padding: 2px">
+<div ba-show="{{showduration && (duration != 0 && duration != undefined)}}" class="{{css}}-playbutton-duration">
 	{{formatTime(duration)}}
 </div>
 <div class="{{css}}-rerecord-bar" ba-if="{{rerecordable || submittable}}">

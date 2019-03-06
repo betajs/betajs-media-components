@@ -44,7 +44,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Playbutton", [
 
                     formatTime: function(time) {
                         time = Math.max(time || 0, 1);
-                        return TimeFormat.format(TimeFormat.ELAPSED_MINUTES_SECONDS, time * 1000);
+                        if (time > 3600) {
+                            return TimeFormat.format(TimeFormat.ELAPSED_HOURS_MINUTES_SECONDS, time * 1000);
+                        } else {
+                            return TimeFormat.format(TimeFormat.ELAPSED_MINUTES_SECONDS, time * 1000);
+                        }
                     }
                 }
             };

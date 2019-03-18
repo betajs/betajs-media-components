@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.152 - 2019-02-02
+betajs-media-components - v0.0.152 - 2019-03-18
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -2290,7 +2290,7 @@ Apache-2.0 Software License.
 .ba-player-red-color .ba-videoplayer-button-inner, .ba-player-red-color .ba-videoplayer-title {
   color: #eb6a74; }
 .ba-player-red-color .ba-videoplayer-volumebar-position, .ba-player-red-color .ba-videoplayer-progressbar-position,
-.ba-player-red-color .ba-videoplayer-rerecord-button {
+.ba-player-red-color .ba-videoplayer-rerecord-button, .ba-player-red-color .ba-videoplayer-playbutton-duration {
   background-color: #eb6a74; }
 .ba-player-red-color .ba-videoplayer-volumebar-inner {
   background-color: #7f7f7f;
@@ -2299,7 +2299,7 @@ Apache-2.0 Software License.
 .ba-player-blue-color .ba-videoplayer-button-inner, .ba-player-blue-color .ba-videoplayer-title {
   color: #2a74eb; }
 .ba-player-blue-color .ba-videoplayer-volumebar-position, .ba-player-blue-color .ba-videoplayer-progressbar-position,
-.ba-player-blue-color .ba-videoplayer-rerecord-button {
+.ba-player-blue-color .ba-videoplayer-rerecord-button, .ba-player-blue-color .ba-videoplayer-playbutton-duration {
   background-color: #2a74eb; }
 .ba-player-blue-color .ba-videoplayer-volumebar-inner {
   background-color: #7f7f7f;
@@ -2308,7 +2308,7 @@ Apache-2.0 Software License.
 .ba-player-green-color .ba-videoplayer-button-inner, .ba-player-green-color .ba-videoplayer-title {
   color: #5daa96; }
 .ba-player-green-color .ba-videoplayer-volumebar-position, .ba-player-green-color .ba-videoplayer-progressbar-position,
-.ba-player-green-color .ba-videoplayer-rerecord-button {
+.ba-player-green-color .ba-videoplayer-rerecord-button, .ba-player-green-color .ba-videoplayer-playbutton-duration {
   background-color: #5daa96; }
 .ba-player-green-color .ba-videoplayer-volumebar-inner {
   background-color: #7f7f7f;
@@ -2758,6 +2758,16 @@ Apache-2.0 Software License.
   font-family: Arial, sans-serif;
   font-weight: normal;
   font-size: 14px; }
+
+.ba-videoplayer-playbutton-duration {
+  background-color: #8CF;
+  color: white;
+  font-family: Arial, sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+  float: right;
+  margin: 5px;
+  padding: 2px; }
 
 .ba-videoplayer-container {
   display: inline-block;

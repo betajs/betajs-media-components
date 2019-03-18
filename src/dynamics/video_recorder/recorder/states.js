@@ -305,11 +305,12 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
 Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CreateUploadCovershot", [
     "module:VideoRecorder.Dynamics.RecorderStates.State",
     "media:Recorder.Support",
+    "base:Objs",
     "base:Timers.Timer",
     "browser:Events",
     "browser:Info",
     "base:Async"
-], function(State, RecorderSupport, Timer, DomEvents, Info, Async, scoped) {
+], function(State, RecorderSupport, Objs, Timer, DomEvents, Info, Async, scoped) {
     return State.extend({
         scoped: scoped
     }, {
@@ -318,8 +319,8 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CreateUploadCoversho
 
         _started: function() {
             this.dyn.set("loader_active", true);
-            this.dyn.set("loaderlabel", this.dyn.string("prepare-covershot"));
             this.dyn.set("topmessage", this.dyn.string('please-wait'));
+            this.dyn.set("message", this.dyn.string("prepare-covershot"));
 
             try {
                 this.dyn.set("player_active", false);
@@ -351,6 +352,16 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CreateUploadCoversho
                     _totalDuration = _video.duration;
                     _seekPeriod = this._calculateSeekPeriod(_totalDuration);
                     if (_video.videoWidth > 0 && _video.videoHeight > 0) {
+                        var _thumbWidth = _video.videoWidth > _video.videoHeight ? 80 : 23;
+                        this.dyn.set("videometadata", Objs.tree_merge(this.dyn.get("videometadata"), {
+                            height: _video.videoHeight,
+                            width: _video.videoWidth,
+                            ratio: +(_video.videoWidth / _video.videoHeight).toFixed(2),
+                            "thumbnails": {
+                                width: _thumbWidth,
+                                height: Math.floor(_thumbWidth / _video.videoWidth * _video.videoHeight)
+                            }
+                        }));
                         this.__videoSeekTimer = new Timer({
                             context: this,
                             fire: function() {
@@ -366,17 +377,23 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CreateUploadCoversho
                     } else {
                         throw 'Could not find video dimentions information to be able create covershot';
                     }
-
                 }, this);
 
                 _playerLoadedData.on(_video, "seeked", function(ev) {
                     var __snap = RecorderSupport.createSnapshot(this.dyn.get("snapshottype"), _video);
                     if (__snap) {
+                        // Will add snap images as thumbnails
+                        if (this.dyn.get("createthumbnails")) {
+                            this.dyn.get("videometadata").thumbnails.images.push({
+                                time: _video.currentTime,
+                                snap: __snap
+                            });
+                        }
                         if (this.dyn.snapshots.length < this.dyn.get("snapshotmax")) {
                             this.dyn.snapshots.push(__snap);
                         } else {
                             var i = Math.floor(Math.random() * this.dyn.get("snapshotmax"));
-                            RecorderSupport.removeSnapshot(this.dy.snapshots[i]);
+                            RecorderSupport.removeSnapshot(this.dyn.snapshots[i]);
                             this.dyn.snapshots[i] = __snap;
                         }
                     }
@@ -419,8 +436,10 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CreateUploadCoversho
                 return 1;
             if (duration >= 10 && duration < 40)
                 return 3;
+            if (duration >= 40 && duration < 100)
+                return 4;
             else
-                return Math.floor(duration / 15);
+                return Math.floor(duration / 5);
         }
     });
 });
@@ -558,7 +577,6 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraAccess", [
             }, this);
             this.dyn._bindMedia();
         }
-
     });
 });
 
@@ -600,7 +618,6 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraHasAccess", [
                 preparePromise: this._preparePromise
             });
         }
-
     });
 });
 
@@ -838,12 +855,135 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
         },
 
         _nextUploading: function(skippedCovershot) {
+            if (this.dyn.get("videometadata").thumbnails.images.length > 3)
+                this.next("UploadThumbnails");
             this.next("Uploading");
         }
 
     });
 });
 
+Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.UploadThumbnails", [
+    "module:VideoRecorder.Dynamics.RecorderStates.State",
+    "base:Objs",
+    "base:Promise",
+    "base:Time",
+    "base:TimeFormat",
+    "media:WebRTC.Support",
+    "browser:Events"
+], function(State, Objs, Promise, Time, TimeFormat, Support, Events, scoped) {
+    return State.extend({
+        scoped: scoped
+    }, {
+
+        dynamics: ["loader"],
+
+        _started: function() {
+            this.dyn.set("loader_active", true);
+            this.dyn.set("loadlabel", "Thumbnails");
+            this.dyn.set("message", this.dyn.string("prepare-thumbnails"));
+            this.dyn.set("hovermessage", "");
+            this.dyn.set("topmessage", "");
+
+            this._drawIntoCanvas(this.dyn.get("videometadata").thumbnails)
+                .success(function(canvas) {
+                    this.dyn._uploadThumbnails(Support.dataURItoBlob(canvas.toDataURL('image/jpg')));
+                    this.dyn._uploadThumbnailTracks(new Blob(this._vttDescripitions, {
+                        type: "text/vtt"
+                    }));
+                    this.next("Uploading");
+                }, this)
+                .error(function(err) {
+                    console.warn(err);
+                    this.next("Uploading");
+                }, this);
+        },
+
+        _drawIntoCanvas: function(thumbnails) {
+            var promise = Promise.create();
+            var w = thumbnails.width;
+            var h = thumbnails.height;
+            var imagesCount = thumbnails.images.length;
+            var columnsCount = thumbnails.images.length > 10 ? Math.ceil(imagesCount / 10) : 1;
+            var canvas = document.createElement('canvas');
+            canvas.width = columnsCount > 1 ? w * 10 : w * imagesCount;
+            canvas.height = columnsCount * h;
+            this._vttDescripitions = [];
+            this._vttDescripitions.push('WEBVTT \n\n');
+            var ctx = canvas.getContext('2d');
+            var index = 0;
+            try {
+                if (typeof thumbnails.images[index] !== 'undefined') {
+                    this._imageEvent = this.auto_destroy(new Events());
+                    var image = image || new Image();
+                    image.width = w;
+                    image.height = h;
+                    image.src = (window.URL || window.webkitURL).createObjectURL(thumbnails.images[index].snap);
+
+                    this._imageEvent.on(image, "load", function() {
+                        this._recursivelyDrawImage(canvas, thumbnails, ctx, w, h, image, index, promise);
+                    }, this);
+
+                    this._imageEvent.on(image, "error", function(err) {
+                        throw "Error with loading thumbnail image. ".err;
+                    }, this);
+                }
+            } catch (err) {
+                promise.asyncError(err);
+            }
+            return promise;
+        },
+
+        _recursivelyDrawImage: function(canvas, thumbnails, ctx, w, h, image, index, promise, column, row) {
+            column = column || 0;
+            row = row || 0;
+            index = index || 0;
+            ctx.drawImage(image, column * w, row * h, w, h);
+            index++;
+            if (index > 0 && (index % 10 === 0)) {
+                row++;
+                column = 0;
+            } else column++;
+            if (typeof thumbnails.images[index] !== 'undefined' && thumbnails.images.length >= index) {
+                var _image, _prevIndex, _nextIndex, _startTime, _endTime, _formattedStartTime, _formattedEndTime;
+                _prevIndex = index - 1;
+                _nextIndex = index + 1;
+
+                _startTime = thumbnails.images[_prevIndex].time;
+                _endTime = thumbnails.images[index].time;
+
+                _formattedStartTime = _startTime === 0 ? '00:00:00' : TimeFormat.format('HH:MM:ss', _startTime * 1000);
+                _formattedEndTime = _endTime === 0 ? '00:00:00' : TimeFormat.format('HH:MM:ss', _endTime * 1000);
+
+                // If we have have next index
+                if (typeof thumbnails.images[_nextIndex] !== 'undefined') {
+                    this._vttDescripitions.push(
+                        _formattedStartTime + ".000" + " --> " + _formattedEndTime + ".000" + "\n" + this.dyn.get("uploadoptions").thumbnail.url + "#xywh=" + (column * w) + "," + (row * h) + "," + w + "," + h + "\n\n"
+                    );
+                }
+
+                _image = new Image();
+                _image.width = w;
+                _image.height = h;
+                _image.src = (window.URL || window.webkitURL).createObjectURL(thumbnails.images[index].snap);
+
+                this._imageEvent.on(_image, "load", function() {
+                    this._recursivelyDrawImage(canvas, thumbnails, ctx, w, h, _image, index, promise, column, row);
+                }, this);
+
+                this._imageEvent.on(_image, "error", function(err) {
+                    throw "Error with loading thumbnail image. ".err;
+                }, this);
+            } else {
+                if (thumbnails.images.length <= index) {
+                    promise.asyncSuccess(canvas);
+                } else {
+                    throw "Could not draw all images";
+                }
+            }
+        }
+    });
+});
 
 Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
     "module:VideoRecorder.Dynamics.RecorderStates.State",

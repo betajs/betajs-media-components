@@ -6,7 +6,7 @@ Scoped.define("module:Settings", [
     "base:Timers.Timer",
     "browser:Dom",
     "browser:Events"
-], function(Class, Objs, EventsMixin, Async, Timer, Dom, DomEvents, Info, scoped) {
+], function(Class, Objs, EventsMixin, Async, Timer, Dom, DomEvents, scoped) {
 
     return Class.extend({
         scoped: scoped

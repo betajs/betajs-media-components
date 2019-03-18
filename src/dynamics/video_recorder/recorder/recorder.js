@@ -158,13 +158,21 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         lang: 'en',
                         label: 'English'
                     }],
+                    "tracktags": [],
+                    "createthumbnails": true, //TODO: Move to options
                     "videometadata": {
-                        "actualHeight": null,
-                        "actualWidth": null,
-                        "actualRatio": null,
-                        "croppedHeight": null,
-                        "croppedWidth": null,
-                        "croppedRatio": null
+                        "height": null,
+                        "width": null,
+                        "ratio": null,
+                        "thumbnails": {
+                            "mainimage": null,
+                            "images": []
+                        },
+                        "copping": {
+                            "croppedeight": null,
+                            "croppedwidth": null,
+                            "croppedratio": null
+                        }
                     }
                 },
 
@@ -494,6 +502,48 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     this._dataUploader.addUploader(uploader);
                 },
 
+                /**
+                 * Upload single image Blob file with thumbnails to the server
+                 * @param {Blob} file
+                 * @private
+                 */
+                _uploadThumbnails: function(file) {
+                    if (this.get("simulate"))
+                        return;
+                    this.set("videometadata", Objs.tree_merge(this.get("videometadata"), {
+                        thumbnails: {
+                            mainimage: file
+                        }
+                    }));
+                    var uploader = FileUploader.create(Objs.extend({
+                        source: file
+                    }, this.get("uploadoptions").thumbnail));
+                    uploader.upload();
+                    this._dataUploader.addUploader(uploader);
+                },
+
+                /**
+                 * Upload VTT Blob file to the server with all details about thumbnails
+                 * @param {Blob} file
+                 * @private
+                 */
+                _uploadThumbnailTracks: function(file) {
+                    if (this.get("simulate"))
+                        return;
+                    var uploader = FileUploader.create(Objs.extend({
+                        source: file
+                    }, this.get("uploadoptions").tracks));
+                    // Add Thumbnails as Track element to the player
+                    if (this.get("uploadoptions").tracks.url) {
+                        this.get("tracktags").push({
+                            kind: 'thumbnails',
+                            src: this.get("uploadoptions").tracks.url
+                        });
+                    }
+                    uploader.upload();
+                    this._dataUploader.addUploader(uploader);
+                },
+
                 _uploadVideoFile: function(file) {
                     if (this.get("simulate"))
                         return;
@@ -757,6 +807,11 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                             if (Math.random() <= p) {
                                 var snap = this.recorder.createSnapshot(this.get("snapshottype"));
                                 if (snap) {
+                                    if (!this.get('videometadata').height && typeof Image !== 'undefined') {
+                                        RecorderSupport.snapshotMetaData(snap).success(function(data) {
+                                            this.set("videometadata", Objs.tree_merge(this.get("videometadata"), data));
+                                        }, this);
+                                    }
                                     if (this.snapshots.length < this.get("snapshotmax")) {
                                         this.snapshots.push(snap);
                                     } else {
@@ -896,6 +951,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
             "orientation-portrait-required": "Please rotate your device to record in portrait mode.",
             "orientation-landscape-required": "Please rotate your device to record in landscape mode.",
             "switch-camera": "Switch camera",
-            "prepare-covershot": "Preparing covershots"
+            "prepare-covershot": "Preparing covershots",
+            "prepare-thumbnails": "Preparing seeking thumbnails"
         });
 });

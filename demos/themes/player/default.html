@@ -10,7 +10,7 @@
     <script src="/static/node_modules/betajs/dist/beta-noscoped.js"></script>
     <script src="/static/node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
     <script src="/static/node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
-    <script src="/static/node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-media/dist/betajs-media-noscoped.min.js"></script>
     <script src="/static/node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
     <script src="/static/dist/betajs-media-components-noscoped.js"></script>
     <link href="/static/dist/betajs-media-components.css" rel="stylesheet" />
@@ -31,7 +31,7 @@
                 ba-sharevideourl="http://betajs.com"
                 ba-themecolor="{{themeColor}}"
                 ba-hidebarafter="3000"
-                ba-title="Some test title from html"
+                ba-title={{false}}
                 ba-noflash
                 ba-hideoninactivity="{{hideOnInactivity}}"
                 ba-disableseeking="{{disableSeeking}}"
@@ -40,7 +40,7 @@
                 ba-sharevideo="facebook,twitter,gplus"
                 ba-sharevideourl="http://betajs.com"
                 ba-width='80%'
-                ba-autoplay="true"
+                ba-autoplay="false"
                 ba-tracktagsstyled="true"
                 ba-tracktags="{{
                     [

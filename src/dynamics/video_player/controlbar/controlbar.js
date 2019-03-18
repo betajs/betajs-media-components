@@ -45,6 +45,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     "settings": false,
                     "hoveredblock": false, // Set true when mouse hovered
                     "allowtexttrackupload": false,
+                    'thumbisvisible': false,
                     "tracktextvisible": false // Are subtitles visible?
                 },
 
@@ -72,26 +73,43 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     progressUpdatePosition: function(event) {
                         var ev = event[0];
                         ev.preventDefault();
-                        if (!this.get("_updatePosition"))
+
+                        if (!this.get("_updatePosition") && !this.__parent.__trackTags.hasThumbs)
                             return;
+
                         var clientX = ev.clientX;
                         var target = ev.currentTarget;
                         var offset = Dom.elementOffset(target);
                         var dimensions = Dom.elementDimensions(target);
-                        this.set("position", this.get("duration") * (clientX - offset.left) / (dimensions.width || 1));
+                        var onDuration = this.get("duration") * (clientX - offset.left) / (dimensions.width || 1);
 
                         var player = this.__parent.player;
-                        if (player._broadcastingState.googleCastConnected) {
-                            player.trigger('google-cast-seeking', this.get("position"));
-                            return;
+
+                        if (this.__parent.__trackTags.hasThumbs) {
+                            var _trackTags = this.__parent.__trackTags;
+                            this.set("thumbisvisible", true);
+                            target.appendChild(_trackTags.thumbContainer);
                         }
 
-                        this.trigger("position", this.get("position"));
+                        if (this.get("_updatePosition")) {
+                            this.set("position", onDuration);
+
+                            if (player._broadcastingState.googleCastConnected) {
+                                player.trigger('google-cast-seeking', this.get("position"));
+                                return;
+                            }
+                            this.trigger("position", this.get("position"));
+                        }
                     },
 
                     stopUpdatePosition: function(event) {
-                        event[0].preventDefault();
+                        var ev = event[0];
+                        ev.preventDefault();
                         this.set("_updatePosition", false);
+                        if (this.__parent.__trackTags.hasThumbs && this.get("thumbisvisible")) {
+                            this.set("thumbisvisible", false);
+                            ev.currentTarget.removeChild(this.__parent.__trackTags.thumbContainer);
+                        }
                     },
 
                     startUpdateVolume: function(event) {

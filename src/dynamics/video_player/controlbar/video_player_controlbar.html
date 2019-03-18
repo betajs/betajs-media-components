@@ -9,7 +9,7 @@
 	     onmousedown="{{startUpdatePosition(domEvent)}}"
 	     onmouseup="{{stopUpdatePosition(domEvent)}}"
 	     onmouseleave="{{stopUpdatePosition(domEvent)}}"
-	     onmousemove="{{progressUpdatePosition(domEvent)}}">
+	     onmousemove="{{progressUpdatePosition(domEvent, true)}}">
 		<div class="{{css}}-progressbar-cache" ba-styles="{{{width: Math.round(duration ? cached / duration * 100 : 0) + '%'}}}"></div>
 		<div class="{{css}}-progressbar-position" ba-styles="{{{width: Math.round(duration ? position / duration * 100 : 0) + '%'}}}" title="{{string('video-progress')}}">
 			<div class="{{css}}-progressbar-button"></div>
@@ -100,8 +100,7 @@
 		<div tabindex=9 data-selector="button-icon-resize-full"
 			 ba-hotkey:space^enter="{{toggle_fullscreen()}}" onmouseout="this.blur()"
 			 class="{{css}}-rightbutton-container"
-			 onkeydown="{{tab_index_move(domEvent)}}" ba-if="{{fullscreen}}"
-			 ba-click="{{toggle_fullscreen()}}" title="{{ fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video') }}">
+			 onkeydown="{{tab_index_move(domEvent)}}" ba-if="{{fullscreen}}" ba-click="{{toggle_fullscreen()}}" title="{{ fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video') }}">
 			<div class="{{css}}-button-inner">
 				<i class="{{csscommon}}-icon-resize-{{fullscreened ? 'small' : 'full'}}"></i>
 			</div>

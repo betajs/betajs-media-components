@@ -210,3 +210,9 @@
     line-height: 30px;
     margin: $video_title_margin;
 }
+
+.#{$css}-seeking-thumb-container {
+    position: absolute;
+    bottom: 20px;
+    left: 10px;
+}

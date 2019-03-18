@@ -26,6 +26,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
                     "containerwidth": 0,
                     "containerheight": 0,
                     "containeroffset": 0,
+                    "images": {},
                     "deltafrac": 1 / 8
                 },
 
@@ -90,41 +91,59 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
                     }, this);
                 },
 
+                /**
+                 * @param {Object} image
+                 * @private
+                 */
                 _recomputeImageBox: function(image) {
                     if (!this.parent().recorder && this.parent().snapshots.length < 1)
                         return;
+                    // Will fix portrait covershot bug, will not show stretched box
+                    var _maxHeight;
+                    if (this.parent().get('videometadata').ratio) {
+                        _maxHeight = Math.floor(this.get("imagewidth") / this.parent().get('videometadata').ratio);
+                        if (this.get("containerheight") < _maxHeight && _maxHeight > 0.00) {
+                            _maxHeight = Math.floor(this.get("containerheight") * 0.9);
+                        }
+                    }
                     var i = image.get("index");
+                    var ih = _maxHeight || this.get("imageheight");
                     var iw = this.get("imagewidth");
-                    var ih = this.get("imageheight");
                     var id = this.get("imagedelta");
                     var h = this.get("containerheight");
-                    image.set("left", 1 + Math.round(i * (iw + id)));
-                    image.set("top", 1 + Math.round((h - ih) / 2));
-                    image.set("width", 1 + Math.round(iw));
-                    image.set("height", 1 + Math.round(ih));
-                    if (image.snapshot && image.snapshotDisplay) {
-                        if (this.parent().recorder) {
-                            this.parent().recorder.updateSnapshotDisplay(
-                                image.snapshot,
-                                image.snapshotDisplay,
-                                image.get("left") + this.get("containeroffset"),
-                                image.get("top"),
-                                image.get("width"),
-                                image.get("height")
-                            );
-                        } else {
-                            RecorderSupport.updateSnapshotDisplay(
-                                image.snapshot,
-                                image.snapshotDisplay,
-                                image.get("left") + this.get("containeroffset"),
-                                image.get("top"),
-                                image.get("width"),
-                                image.get("height")
-                            );
+                    if (ih > 1.00) {
+                        image.set("left", 1 + Math.round(i * (iw + id)));
+                        image.set("top", 1 + Math.round((h - ih) / 2));
+                        image.set("width", 1 + Math.round(iw));
+                        image.set("height", 1 + Math.round(ih));
+                        if (image.snapshot && image.snapshotDisplay) {
+                            if (this.parent().recorder) {
+                                this.parent().recorder.updateSnapshotDisplay(
+                                    image.snapshot,
+                                    image.snapshotDisplay,
+                                    image.get("left") + this.get("containeroffset"),
+                                    image.get("top"),
+                                    image.get("width"),
+                                    image.get("height")
+                                );
+                            } else {
+                                RecorderSupport.updateSnapshotDisplay(
+                                    image.snapshot,
+                                    image.snapshotDisplay,
+                                    image.get("left") + this.get("containeroffset"),
+                                    image.get("top"),
+                                    image.get("width"),
+                                    image.get("height")
+                                );
+                            }
                         }
                     }
                 },
 
+                /**
+                 * NOTE: Runs's each second, offset is {top:0 , left is padding from left},
+                 * dimension is correctly calculate box
+                 */
                 updateContainerSize: function() {
                     var container = this.activeElement().querySelector("[data-gallery-container]");
                     var offset = Dom.elementOffset(container);

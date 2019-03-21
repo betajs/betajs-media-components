@@ -129,6 +129,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "thumbimage": {},
                     "thumbcuelist": [],
                     "showsettings": true,
+                    "showduration": false,
                     "settingsoptions": [{
                             id: 'playerspeeds',
                             label: 'player-speed',
@@ -269,7 +270,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "uploadlocales": "array",
                     "playerspeeds": "array",
                     "playercurrentspeed": "float",
-                    "showsettings": "boolean"
+                    "showsettings": "boolean",
+                    "showduration": "boolean"
                 },
 
                 extendables: ["states"],

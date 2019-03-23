@@ -213,6 +213,13 @@
 
 .#{$css}-seeking-thumb-container {
     position: absolute;
-    bottom: 20px;
-    left: 10px;
+    padding: 3px 4px;
+    background-color: #ffffff;
+    bottom: 45px;
+    left: 5px;
+    text-align: center;
+    & > span {
+        font-size: 0.6em;
+        color: #2c2c2c;
+    }
 }

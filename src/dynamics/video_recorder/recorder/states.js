@@ -352,7 +352,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CreateUploadCoversho
                     _totalDuration = _video.duration;
                     _seekPeriod = this._calculateSeekPeriod(_totalDuration);
                     if (_video.videoWidth > 0 && _video.videoHeight > 0) {
-                        var _thumbWidth = _video.videoWidth > _video.videoHeight ? 80 : 23;
+                        var _thumbWidth = _video.videoWidth > _video.videoHeight ? 80 : 35;
                         this.dyn.set("videometadata", Objs.tree_merge(this.dyn.get("videometadata"), {
                             height: _video.videoHeight,
                             width: _video.videoWidth,
@@ -375,7 +375,8 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CreateUploadCoversho
                             start: true
                         });
                     } else {
-                        throw 'Could not find video dimentions information to be able create covershot';
+                        console.warn('Could not find video dimensions information to be able create covershot');
+                        this.next("Uploading");
                     }
                 }, this);
 
@@ -432,14 +433,11 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CreateUploadCoversho
          * @private
          */
         _calculateSeekPeriod: function(duration) {
-            if (duration < 15)
-                return 1;
-            if (duration >= 10 && duration < 40)
-                return 3;
-            if (duration >= 40 && duration < 100)
-                return 4;
+            if (duration < 15) return 1;
+            if (duration < 40) return 3;
+            if (duration < 100) return 4;
             else
-                return Math.floor(duration / 5);
+                return Math.floor(duration / 100) + 4;
         }
     });
 });
@@ -788,6 +786,8 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
                     this._hasStopped();
                     if (this.dyn.get("picksnapshots") && this.dyn.snapshots.length >= this.dyn.get("gallerysnapshots"))
                         this.next("CovershotSelection");
+                    else if (this.dyn.get("videometadata").thumbnails.images.length > 3 && this.dyn.get("createthumbnails"))
+                        this.next("UploadThumbnails");
                     else
                         this.next("Uploading");
                 }, this).error(function(s) {
@@ -855,7 +855,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
         },
 
         _nextUploading: function(skippedCovershot) {
-            if (this.dyn.get("videometadata").thumbnails.images.length > 3)
+            if (this.dyn.get("videometadata").thumbnails.images.length > 3 && this.dyn.get("createthumbnails"))
                 this.next("UploadThumbnails");
             this.next("Uploading");
         }
@@ -939,11 +939,11 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.UploadThumbnails", [
             row = row || 0;
             index = index || 0;
             ctx.drawImage(image, column * w, row * h, w, h);
-            index++;
-            if (index > 0 && (index % 10 === 0)) {
+            if ((index > 0 && (index % 10 === 0))) {
                 row++;
                 column = 0;
-            } else column++;
+            } else if (index !== 0) column++;
+            index++;
             if (typeof thumbnails.images[index] !== 'undefined' && thumbnails.images.length >= index) {
                 var _image, _prevIndex, _nextIndex, _startTime, _endTime, _formattedStartTime, _formattedEndTime;
                 _prevIndex = index - 1;
@@ -972,8 +972,9 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.UploadThumbnails", [
                 }, this);
 
                 this._imageEvent.on(_image, "error", function(err) {
-                    throw "Error with loading thumbnail image. ".err;
+                    throw "Error with loading thumbnail image. Error: ".err;
                 }, this);
+
             } else {
                 if (thumbnails.images.length <= index) {
                     promise.asyncSuccess(canvas);

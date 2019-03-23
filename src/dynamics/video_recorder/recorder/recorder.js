@@ -89,6 +89,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "allowcustomupload": true,
                     "manual-upload": false,
                     "camerafacefront": false,
+                    "createthumbnails": true,
                     "primaryrecord": true,
                     "allowscreen": false,
                     "nofullscreen": false,
@@ -159,7 +160,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         label: 'English'
                     }],
                     "tracktags": [],
-                    "createthumbnails": true, //TODO: Move to options
                     "videometadata": {
                         "height": null,
                         "width": null,
@@ -325,6 +325,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     this.__cameraSignal = true;
 
                     this.snapshots = [];
+                    this.thumbnails = [];
 
                     if (this.get("onlyaudio")) {
                         this.set("picksnapshots", false);
@@ -809,7 +810,14 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                                 if (snap) {
                                     if (!this.get('videometadata').height && typeof Image !== 'undefined') {
                                         RecorderSupport.snapshotMetaData(snap).success(function(data) {
+                                            var _thumbWidth = data.orientation === 'landscape' ? 80 : 35;
                                             this.set("videometadata", Objs.tree_merge(this.get("videometadata"), data));
+                                            this.set("videometadata", Objs.tree_merge(this.get("videometadata"), {
+                                                "thumbnails": {
+                                                    width: _thumbWidth,
+                                                    height: Math.floor(_thumbWidth / data.width * data.height)
+                                                }
+                                            }));
                                         }, this);
                                     }
                                     if (this.snapshots.length < this.get("snapshotmax")) {
@@ -818,6 +826,27 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                                         var i = Math.floor(Math.random() * this.get("snapshotmax"));
                                         this.recorder.removeSnapshot(this.snapshots[i]);
                                         this.snapshots[i] = snap;
+                                    }
+
+                                    if (this.get("createthumbnails")) {
+                                        var _currentRecordingSecond = Math.floor((Time.now() - this.__recording_start_time) / 1000);
+                                        var _thumbLatestIndex = this.get("videometadata").thumbnails.images.length > 1 ? this.get("videometadata").thumbnails.images.length - 1 : 0;
+                                        var _latestThumb = this.get("videometadata").thumbnails.images[_thumbLatestIndex];
+
+                                        // Add thumb each 2 seconds
+                                        if (typeof _latestThumb !== 'undefined') {
+                                            if (_currentRecordingSecond > _latestThumb.time + 1) {
+                                                this.get("videometadata").thumbnails.images.push({
+                                                    time: _currentRecordingSecond,
+                                                    snap: snap
+                                                });
+                                            }
+                                        } else {
+                                            this.get("videometadata").thumbnails.images.push({
+                                                time: _currentRecordingSecond,
+                                                snap: snap
+                                            });
+                                        }
                                     }
                                 }
                             }

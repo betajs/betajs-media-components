@@ -3,10 +3,11 @@ Scoped.define("module:TrackTags", [
     "base:Objs",
     "base:Events.EventsMixin",
     "base:Async",
+    "base:TimeFormat",
     "browser:Dom",
     "browser:Info",
     "browser:Events"
-], function(Class, Objs, EventsMixin, Async, Dom, Info, DomEvents, scoped) {
+], function(Class, Objs, EventsMixin, Async, TimeFormat, Dom, Info, DomEvents, scoped) {
     return Class.extend({
         scoped: scoped
     }, [EventsMixin, function(inherited) {
@@ -33,6 +34,34 @@ Scoped.define("module:TrackTags", [
                 Async.eventually(function() {
                     this._loadMetaTrackTags();
                 }, this);
+            },
+
+            /**
+             * Will show thumb on duration
+             * @param {int} index
+             * @param {int} fromLeft
+             * @param {int} currentDuration
+             */
+            showDurationThumb: function(index, fromLeft, currentDuration) {
+                if (this._dyn.get("thumbcuelist")[index]) {
+                    var _cue = this._dyn.get("thumbcuelist")[index];
+                    var _time = currentDuration || (_cue.startTime + Math.round((_cue.startTime - _cue.endTime) / 2));
+                    var _thumbContainer = this.thumbContainer;
+                    var _thumbImage = _thumbContainer.querySelector('div');
+                    var _timeContainer = _thumbContainer.querySelector('span');
+                    _thumbContainer.style.opacity = '1.00';
+                    _thumbContainer.style.left = fromLeft - Math.round(_cue.thumbWidth / 1.5) + "px";
+                    _thumbImage.style.backgroundPositionX = "-" + _cue.positionX + "px";
+                    _thumbImage.style.backgroundPositionY = "-" + _cue.positionY + "px";
+                    _timeContainer.innerText = _time > 0 ? TimeFormat.format(TimeFormat.ELAPSED_MINUTES_SECONDS, _time * 1000) : '0:00';
+                }
+            },
+
+            /**
+             * Will hide thumbnail container
+             */
+            hideDurationThumb: function() {
+                this.thumbContainer.style.opacity = '0.00';
             },
 
             /**
@@ -140,6 +169,7 @@ Scoped.define("module:TrackTags", [
 
                             Dom.elementAddClass(_thumbContainer, this._dyn.get('css') + '-seeking-thumb-container');
 
+                            _thumbContainer.style.opacity = '0.00';
                             _thumbImageContainer.style.height = +(_dimensions[3]) + 'px';
                             _thumbImageContainer.style.width = +(_dimensions[2]) + 'px';
                             _thumbImageContainer.style.backgroundImage = "url('" + thumbLink + "')";
@@ -173,10 +203,15 @@ Scoped.define("module:TrackTags", [
                 Objs.iter(track.cues, function(cue, index) {
                     if (typeof cue === 'object') {
                         var _lineSplit = cue.text.trim().split('#xywh=')[1];
+                        var _coordinates = _lineSplit.split(',');
+                        // this here is main DYN instance
                         this.get("thumbcuelist").push({
                             startTime: cue.startTime,
                             endTime: cue.endTime,
-                            text: _lineSplit
+                            positionX: _coordinates[0],
+                            positionY: _coordinates[1],
+                            thumbWidth: _coordinates[2],
+                            thumbHeight: _coordinates[3]
                         });
                     }
                 }, this._dyn);

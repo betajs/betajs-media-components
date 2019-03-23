@@ -81,14 +81,34 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         var target = ev.currentTarget;
                         var offset = Dom.elementOffset(target);
                         var dimensions = Dom.elementDimensions(target);
-                        var onDuration = this.get("duration") * (clientX - offset.left) / (dimensions.width || 1);
+                        var percentageFromStart = (clientX - offset.left) / (dimensions.width || 1);
+                        var onDuration = this.get("duration") * percentageFromStart;
 
                         var player = this.__parent.player;
 
                         if (this.__parent.__trackTags.hasThumbs) {
-                            var _trackTags = this.__parent.__trackTags;
+                            var _index;
+                            var _dyn = this.__parent;
+                            var _trackTags = _dyn.__trackTags;
+                            var _cuesCount = _dyn.get("thumbcuelist").length;
+                            if (onDuration > 0) {
+                                _index = Math.floor(_cuesCount * percentageFromStart);
+                                for (var i = _index - 2; i < _cuesCount; i++) {
+                                    if (_dyn.get("thumbcuelist")[i]) {
+                                        var _cue = _dyn.get("thumbcuelist")[i];
+                                        if (_cue.startTime < onDuration && _cue.endTime > onDuration) {
+                                            _trackTags.showDurationThumb(i, clientX, onDuration);
+                                            break;
+                                        }
+                                    }
+                                }
+                            } else {
+                                _index = Math.floor(_cuesCount * percentageFromStart);
+                                _trackTags.showDurationThumb(_index, clientX);
+                            }
+
                             this.set("thumbisvisible", true);
-                            target.appendChild(_trackTags.thumbContainer);
+                            this.activeElement().appendChild(_trackTags.thumbContainer);
                         }
 
                         if (this.get("_updatePosition")) {
@@ -108,7 +128,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         this.set("_updatePosition", false);
                         if (this.__parent.__trackTags.hasThumbs && this.get("thumbisvisible")) {
                             this.set("thumbisvisible", false);
-                            ev.currentTarget.removeChild(this.__parent.__trackTags.thumbContainer);
+                            this.__parent.__trackTags.hideDurationThumb();
                         }
                     },
 
@@ -300,6 +320,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
             "close-tracks": "Close CC",
             "show-tracks": "Show CC",
             "player-speed": "Player speed",
-            "settings": "Settings"
+            "settings": "Settings",
+            "airplay": "Airplay",
+            "airplay-icon": "Airplay icon."
         });
 });

@@ -728,7 +728,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     Objs.iter(this.__video.textTracks, function(track, index) {
                         if (typeof this.__video.textTracks[index] === 'object' && this.__video.textTracks[index]) {
                             var _track = this.__video.textTracks[index];
-                            // Rashad's changes
                             // If set custom style to true show cue text in our element
                             if (_track.kind !== 'metadata') {
                                 if (_track.language === _lang) {

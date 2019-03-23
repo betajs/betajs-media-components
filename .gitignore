@@ -1,6 +1,7 @@
 /node_modules
 /temp
 /.idea
+/.eslintrc.js
 .DS_Store
 .sass-cache
 node_modules

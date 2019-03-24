@@ -2,53 +2,53 @@
   ba-videoplayer-playbutton.tooltip: Cliquez ici pour voir la vidéo.
   ba-videoplayer-playbutton.rerecord: Revoir
   ba-videoplayer-playbutton.submit-video: Confirmer vidéo
-  ba-videoplayer-loader.tooltip: Téléchargez votre vidéo...
-  ba-videoplayer-controlbar.change-resolution: Modifiez la résolution d’écran
+  ba-videoplayer-loader.tooltip: Télécharger votre vidéo
+  ba-videoplayer-controlbar.change-resolution: Modifier la résolution
   ba-videoplayer-controlbar.video-progress: Vidéo en cours de chargement
   ba-videoplayer-controlbar.rerecord-video: Revoir la vidéo?
-  ba-videoplayer-controlbar.submit-video: Validez la vidéo
+  ba-videoplayer-controlbar.submit-video: Valider la vidéo
   ba-videoplayer-controlbar.play-video: Lire la vidéo
-  ba-videoplayer-controlbar.pause-video: Pause vidéo
+  ba-videoplayer-controlbar.pause-video: Passer la vidéo
   ba-videoplayer-controlbar.elapsed-time: Temps écoulé ou expiré
-  ba-videoplayer-controlbar.total-time: Durée total de la vidéo
-  ba-videoplayer-controlbar.fullscreen-video: Sélectionnez le mode plein écran
-  ba-videoplayer-controlbar.volume-button: Réglez ou ajustez le volume
+  ba-videoplayer-controlbar.total-time: Durée totale de la vidéo
+  ba-videoplayer-controlbar.fullscreen-video: Sélectionner le mode plein écran
+  ba-videoplayer-controlbar.volume-button: Régler ou ajuster le volume
   ba-videoplayer-controlbar.volume-mute: Silencieux
   ba-videoplayer-controlbar.volume-unmute: Silencieux désactivé
-  ba-videoplayer.video-error: 'Une s’est produite, réessayez ultérieurement – cliquez ici pour réessayer.'
-  ba-videorecorder-chooser.record-video: Enregistrez votre vidéo
+  ba-videoplayer.video-error: 'Une erreur s’est produite, réessayez ultérieurement – cliquez ici pour réessayer.'
+  ba-videorecorder-chooser.record-video: Enregistrer votre vidéo
   ba-videorecorder-chooser.upload-video: Téléchargez votre vidéo
   ba-videorecorder-controlbar.settings: Réglage ou mise à jour
   ba-videorecorder-controlbar.camerahealthy: Bon éclairage
   ba-videorecorder-controlbar.cameraunhealthy: L’éclairage n’est pas ideal
   ba-videorecorder-controlbar.microphonehealthy: Bonne acoustique
-  ba-videorecorder-controlbar.microphoneunhealthy: Acoustique n'est pas ideal
+  ba-videorecorder-controlbar.microphoneunhealthy: L’acoustique n'est pas idéale
   ba-videorecorder-controlbar.record: Enregistrer
-  ba-videorecorder-controlbar.record-tooltip: Cliquez ici pour enregistrez.
+  ba-videorecorder-controlbar.record-tooltip: Cliquez ici pour enregistrer.
   ba-videorecorder-controlbar.rerecord: Revoir
   ba-videorecorder-controlbar.rerecord-tooltip: Cliquez ici pour recommencer.
-  ba-videorecorder-controlbar.upload-covershot: Téléchargez
+  ba-videorecorder-controlbar.upload-covershot: Télécharger
   ba-videorecorder-controlbar.upload-covershot-tooltip: Cliquez ici pour télécharger une couverture personnalisée.
   ba-videorecorder-controlbar.stop: Arrêter
   ba-videorecorder-controlbar.stop-tooltip: Cliquez ici pour arrêter.
   ba-videorecorder-controlbar.skip: Sauter
   ba-videorecorder-controlbar.skip-tooltip: Cliquez ici pour sauter.
-  ba-videorecorder.recorder-error: 'Une s’est produite, réessayez ultérieurement – cliquez ici pour réessayer.'
+  ba-videorecorder.recorder-error: 'Une erreur s’est produite, réessayez ultérieurement – cliquez ici pour réessayer.'
   ba-videorecorder.attach-error: >-
     Nous ne pouvons pas accéder à l’interface de l’appareil- cela dépend du
     système et de l’explorateur. Cela peut nécessiter d’installer flash ou une
     accédez à la page via SSL.
   ba-videorecorder.access-forbidden: L’accès à l’appareil est interdit. Cliquez pour recommencer.
   ba-videorecorder.pick-covershot: Choisissez une page de couverture.
-  ba-videorecorder.uploading: Téléchargez
-  ba-videorecorder.uploading-failed: Téléchargement échoué- Cliquez ici pour recommencer ou réessayer.
+  ba-videorecorder.uploading: Télécharger
+  ba-videorecorder.uploading-failed: Echec du Téléchargement- Cliquez ici pour recommencer ou réessayer.
   ba-videorecorder.verifying: Vérification
   ba-videorecorder.verifying-failed: Vérification échouée - Cliquez ici pour recommencer ou réessayer.
   ba-videorecorder.rerecord-confirm: Souhaitez vous réellement recommencer la vidéo?
   ba-videorecorder.video_file_too_large: >-
     La taille de votre fichier est trop grande (%s). Cliquez ici pour ajuster la
     taille.
-  ba-videorecorder.unsupported_video_type: 'S''il vous plaît télécharger: %s - cliquez ici pour réessayer.'
+  ba-videorecorder.unsupported_video_type: 'S’il vous plaît téléchargez %s - cliquez ici pour réessayer.'
   ba-videoplayer-controlbar.exit-fullscreen-video: Quitter le mode plein écran
   ba-videoplayer-share.share: Partager la vidéo
   ba-videorecorder-chooser.record-screen: Écran d'enregistrement
@@ -108,7 +108,7 @@
   ba-imagecapture-controlbar.rerecord-tooltip: Cliquez ici pour refaire
   ba-imagecapture-controlbar.cancel: Annuler
   ba-imagecapture-controlbar.cancel-tooltip: Cliquez ici pour annuler.
-  ba-audioplayer-controlbar.audio-progress: Le progrès
+  ba-audioplayer-controlbar.audio-progress: Progression
   ba-audioplayer-controlbar.rerecord-audio: Refaire?
   ba-audioplayer-controlbar.submit-audio: Confirmer
   ba-audioplayer-controlbar.play-audio: Jouer
@@ -132,8 +132,9 @@
   ba-audiorecorder-controlbar.record-tooltip: Cliquez ici pour enregistrer.
   ba-audiorecorder-controlbar.rerecord: Refaire
   ba-audiorecorder-controlbar.rerecord-tooltip: Cliquez ici pour refaire
-  ba-audiorecorder-controlbar.stop: Arrêtez
+  ba-audiorecorder-controlbar.stop: Arrêter
   ba-audiorecorder-controlbar.stop-tooltip: Cliquez ici pour arrêter.
   ba-audiorecorder-controlbar.stop-available-after: La durée d'enregistrement minimale est de %d secondes
   ba-audiorecorder-controlbar.cancel: Annuler
   ba-audiorecorder-controlbar.cancel-tooltip: Cliquez ici pour annuler.
+  

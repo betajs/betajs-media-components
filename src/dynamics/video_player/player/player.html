@@ -1,7 +1,7 @@
 <div itemscope itemtype="http://schema.org/VideoObject"
      class="{{css}}-container {{cssplayer}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}
      {{cssplayer}}-{{ fullscreened ? 'fullscreen' : 'normal' }}-view {{cssplayer}}-{{ firefox ? 'firefox' : 'common'}}-browser
-     {{cssplayer}}-{{themecolor}}-color"
+     {{cssplayer}}-{{themecolor}}-color {{cssplayer}}-device-type-{{ mobileview ? 'mobile' : 'desktop'}}"
      ba-on:mousemove="{{user_activity()}}"
      ba-on:mousedown="{{user_activity(true)}}"
      ba-on:touchstart="{{user_activity(true)}}"
@@ -77,6 +77,7 @@
             ba-skipseconds="{{skipseconds}}"
             ba-skipinitial="{{skipinitial}}"
             ba-showsettings="{{showsettings}}"
+            ba-hidevolumebar="{{hidevolumebar}}"
             ba-settingsoptionsvisible="{{settingsoptionsvisible}}"
         ></ba-{{dyncontrolbar}}>
 

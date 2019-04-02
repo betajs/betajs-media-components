@@ -130,6 +130,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "thumbcuelist": [],
                     "showsettings": true,
                     "showduration": false,
+                    "hidevolumebar": false,
                     "settingsoptions": [{
                             id: 'playerspeeds',
                             label: 'player-speed',
@@ -349,6 +350,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     this.set("ie8", Info.isInternetExplorer() && Info.internetExplorerVersion() < 9);
                     this.set("firefox", Info.isFirefox());
+                    this.set("mobileview", Info.isMobile());
+                    // For Apple it's very important that their users always remain in control of the volume of the sounds their devices emit
+                    this.set("hidevolumebar", (Info.isMobile() && Info.isiOS()));
                     this.set("duration", this.get("totalduration") || 0.0);
                     this.set("position", 0.0);
                     this.set("buffered", 0.0);
@@ -444,7 +448,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         self.set("imageelement_active", true);
                         self.trigger("image-attached");
                     };
-                    img.src = this.get("poster");
+                    img.src = (typeof this.get("poster") === 'object') ? (window.URL || window.webkitURL).createObjectURL(this.get("poster")) : this.get("poster");
                 },
 
                 _detachVideo: function() {
@@ -1143,7 +1147,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 _updateCSSSize: function() {
                     var width = Dom.elementDimensions(this.activeElement()).width;
-                    this.set("csssize", width > 400 ? "normal" : (width > 300 ? "medium" : "small"));
+                    this.set("csssize", width > 400 ? "normal" : (width > 320 ? "medium" : "small"));
+                    this.set("mobileview", width < 560);
                 },
 
                 videoHeight: function() {

@@ -66,6 +66,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     startUpdatePosition: function(event) {
                         if (this.get("disableseeking")) return;
                         event[0].preventDefault();
+                        if (!this.__parent.get("playing") && this.__parent.player) this.__parent.player.play();
                         this.set("_updatePosition", true);
                         this.call("progressUpdatePosition", event);
                     },
@@ -73,22 +74,23 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     progressUpdatePosition: function(event) {
                         var ev = event[0];
                         ev.preventDefault();
+                        var _dyn = this.__parent;
 
-                        if (!this.get("_updatePosition") && !this.__parent.__trackTags.hasThumbs)
-                            return;
-
-                        var clientX = ev.clientX;
+                        // Mouse or Touch Event
+                        var clientX = ev.clientX || ev.targetTouches[0].clientX;
                         var target = ev.currentTarget;
                         var offset = Dom.elementOffset(target);
                         var dimensions = Dom.elementDimensions(target);
                         var percentageFromStart = (clientX - offset.left) / (dimensions.width || 1);
                         var onDuration = this.get("duration") * percentageFromStart;
 
-                        var player = this.__parent.player;
+                        if (!this.get("_updatePosition") && !_dyn.__trackTags.hasThumbs)
+                            return;
+
+                        var player = _dyn.player;
 
                         if (this.__parent.__trackTags.hasThumbs) {
                             var _index;
-                            var _dyn = this.__parent;
                             var _trackTags = _dyn.__trackTags;
                             var _cuesCount = _dyn.get("thumbcuelist").length;
                             if (onDuration > 0) {
@@ -143,11 +145,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         ev.preventDefault();
                         if (!this.get("_updateVolume"))
                             return;
-                        var clientX = ev.clientX;
+                        var clientX = ev.clientX || ev.targetTouches[0].clientX;
                         var target = ev.currentTarget;
                         var offset = Dom.elementOffset(target);
                         var dimensions = Dom.elementDimensions(target);
-                        this.set("volume", (clientX - offset.left) / (dimensions.width || 1));
+                        var _position = (clientX - offset.left) / (dimensions.width || 1);
+                        var _test = Dom.getRelativeCoordinates(target, event[0]);
+                        console.log('000 ', _test, clientX, offset, dimensions);
+                        // Will fix bug (is outside the range [0, 1]) which cause mobile bug also
+                        _position = _position > 1.00 ? 1.00 : (_position < 0.00 ? 0.00 : _position);
+                        this.set("volume", _position);
                         this.trigger("volume", this.get("volume"));
                     },
 
@@ -167,11 +174,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         ev.preventDefault();
                         if (!this.get("_updateVolume"))
                             return;
-                        var pageY = ev.pageY;
+                        var clientY = ev.clientY || ev.targetTouches[0].clientY;
                         var target = ev.currentTarget;
                         var offset = Dom.elementOffset(target);
                         var dimensions = Dom.elementDimensions(target);
-                        this.set("volume", 1 - (pageY - offset.top) / dimensions.height);
+                        var _position = 1 - (clientY - offset.top) / (dimensions.height || 1);
+                        // Will fix bug (is outside the range [0, 1]) which cause mobile bug also
+                        _position = _position > 1.00 ? 1.00 : (_position < 0.00 ? 0.00 : _position);
+                        this.set("volume", _position);
                         this.trigger("volume", this.get("volume"));
                     },
 
@@ -179,7 +189,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         event[0].preventDefault();
                         this.set("_updateVolume", false);
                     },
-
 
                     play: function() {
                         this.trigger("play");

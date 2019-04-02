@@ -156,13 +156,13 @@
 }
 
 .#{$cssnoie8} .#{$css}-volumebar {
+    @include float-width-height(right, $volume_width, 100%);
     margin-left: $volume_height;
     margin-right: $volume_height + 5;
 }
 
-.#{$cssnoie8} .#{$css}-volumebar {
-    @include float-width-height(right, $volume_width, 100%);
-}
+//.#{$cssnoie8} .#{$css}-volumebar {
+//}
 
 .#{$cssie8} .#{$css}-volumebar {
     @include float-width-height(right, $volume_width, 50%);
@@ -221,5 +221,35 @@
     & > span {
         font-size: 0.6em;
         color: #2c2c2c;
+    }
+}
+
+// Apply for mobile no need ie8 selectors
+.#{$cssplayer}-device-type-mobile {
+    .#{$csstheme}-leftbutton-container {
+        @include float-width-height(left, $mobile_leftbutton-container_width, 100%);
+    }
+}
+.#{$cssplayer}-size-medium {
+    .#{$csstheme}-time-sep {
+        width: $mobile_time-sep_width;
+    }
+    &.#{$cssnoie8} .#{$csstheme}-time-container {
+        @include float-width-height(left, $mobile_time-container_width, 100%);
+    }
+    &.#{$cssnoie8} .#{$csstheme}-volumebar {
+        @include float-width-height(right, $mobile_volumebar_width, 100%);
+    }
+}
+
+.#{$cssplayer}-size-small {
+    &.#{$cssnoie8} .#{$csstheme}-time-container {
+        @include float-width-height(left, $time_value_width, 100%);
+    }
+    .#{$csstheme}-time-total-duration, .#{$csstheme}-time-sep {
+        display: none;
+    }
+    &.#{$cssnoie8} .#{$csstheme}-volumebar {
+        @include float-width-height(right, $mobile_small_volumebar_width, 100%);
     }
 }

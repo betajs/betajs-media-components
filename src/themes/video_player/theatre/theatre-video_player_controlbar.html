@@ -62,12 +62,15 @@
                 </div>
             </div>
 
-            <div class="{{csstheme}}-volumebar">
+            <div class="{{csstheme}}-volumebar" ba-show="{{!hidevolumebar}}">
                 <div tabindex="-1" data-selector="button-volume-bar"
                      ba-hotkey:up="{{set_volume(volume + 0.1)}}"
                      ba-hotkey:down="{{set_volume(volume - 0.1)}}"
                      onmouseout="this.blur()"
                      class="{{csstheme}}-volumebar-inner"
+                     ontouchstart="{{startVerticallyUpdateVolume(domEvent)}}"
+                     ontouchmove="{{progressVerticallyUpdateVolume(domEvent)}}"
+                     ontouchend="{{stopVerticallyUpdateVolume(domEvent); this.blur()}};"
                      onmousedown="{{startVerticallyUpdateVolume(domEvent)}}"
                      onmouseup="{{stopVerticallyUpdateVolume(domEvent)}}"
                      onmouseleave="{{stopVerticallyUpdateVolume(domEvent)}}"
@@ -164,6 +167,9 @@
              ba-hotkey:left="{{seek(position - skipseconds)}}"
              onmouseout="this.blur()"
              class="{{csstheme}}-progressbar-inner"
+             ontouchstart="{{startUpdatePosition(domEvent)}}"
+             ontouchmove="{{progressUpdatePosition(domEvent)}}"
+             ontouchend="{{stopUpdatePosition(domEvent); this.blur()}}"
              onmousedown="{{startUpdatePosition(domEvent)}}"
              onmouseup="{{stopUpdatePosition(domEvent)}}"
              onmouseleave="{{stopUpdatePosition(domEvent)}}"

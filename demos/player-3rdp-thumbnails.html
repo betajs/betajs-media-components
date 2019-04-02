@@ -42,12 +42,10 @@
 </head>
 <body style="background: #EEE">
 	<ba-videoplayer
-        ba-theme="default"
-        ba-width="80%"
         ba-themecolor="red"
         ba-hideoninactivity="false"
         ba-skipinitial="true"
-        ba-sources="{{[{src:'sample-video.mp4', poster: 'sample-cover.png', hd: true}, {src:'sample-video2.mp4', poster:'sample-cover2.png', hd: false}]}}"
+        ba-sources="{{[{src:'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/MI201109210084_mpeg-4_hd_high_1080p25_10mbits.mp4', poster: 'https://bitmovin-a.akamaihd.net/content/art-of-motion_drm/art-of-motion_poster.jpg', hd: true}, {src:'sample-video2.mp4', poster:'sample-cover2.png', hd: false}]}}"
         ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
         ba-tracktagsstyled="true"
         ba-tracktags="{{
@@ -68,7 +66,7 @@
                 },
                 {
                     kind: 'thumbnails',
-                    src: '/static/demos/assets/video-bgbb.vtt'
+                    src: '/static/demos/assets/example-3rdp.vtt'
                 }
             ]
         }}"

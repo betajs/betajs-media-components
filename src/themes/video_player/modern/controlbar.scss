@@ -193,3 +193,14 @@
 .ba-settings-overlay-inner {
     bottom: $controlbar_height + 1;
 }
+
+// Apply for mobile no need ie8 selectors
+.#{$cssplayer}-size-medium {
+    .#{$csstheme}-time-value > span, &.#{$cssnoie8} .#{$csstheme}-volumebar {
+        display: none;
+    }
+
+    .#{$csstheme}-time-value, .#{$csstheme}-time-container {
+        width: $time_value_width / 2;
+    }
+}

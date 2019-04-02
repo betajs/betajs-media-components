@@ -332,3 +332,15 @@
     right: $controlbar_side_padding;
 }
 
+// Mobile view
+.#{$cssplayer}-device-type-mobile {
+    &.#{$css}-container {
+        .#{$csstheme}-dashboard {
+            left: $controlbar_mobile_side_padding;
+            width: $dashboard_mobile_width;
+        }
+    }
+    &.#{$csstheme} .ba-settings-overlay-inner {
+        right: $controlbar_mobile_side_padding;
+    }
+}

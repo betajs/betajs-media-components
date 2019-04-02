@@ -48,7 +48,9 @@
 		</div>
 	</div>
 	<div class="{{csstheme}}-time-container">
-		<div class="{{csstheme}}-time-value" title="{{string('elapsed-time')}}">{{formatTime(position)}}/{{formatTime(duration || position)}}</div>
+		<div class="{{csstheme}}-time-value" title="{{string('elapsed-time')}}">
+			<span class="{{csstheme}}-time-position">{{formatTime(position)}}/</span>{{formatTime(duration || position)}}
+		</div>
 	</div>
 
 	<div tabindex="10" data-selector="button-icon-settings"
@@ -119,12 +121,15 @@
 		</div>
 	</div>
 
-	<div class="{{csstheme}}-volumebar">
+	<div class="{{csstheme}}-volumebar" ba-show="{{!hidevolumebar}}">
 		<div tabindex="4" data-selector="button-volume-bar"
 			 ba-hotkey:right="{{set_volume(volume + 0.1)}}"
 			 ba-hotkey:left="{{set_volume(volume - 0.1)}}"
 			 onmouseout="this.blur()"
 			 class="{{csstheme}}-volumebar-inner"
+			 ontouchstart="{{startUpdateVolume(domEvent)}}"
+			 ontouchmove="{{progressUpdateVolume(domEvent)}}"
+			 ontouchend="{{stopUpdateVolume(domEvent); this.blur()}};"
 			 onmousedown="{{startUpdateVolume(domEvent)}}"
 			 onmouseup="{{stopUpdateVolume(domEvent)}}"
 			 onmouseleave="{{stopUpdateVolume(domEvent)}}"
@@ -150,6 +155,9 @@
 			 ba-hotkey:left="{{seek(position - skipseconds)}}"
 			 onmouseout="this.blur()"
 			 class="{{csstheme}}-progressbar-inner"
+			 ontouchstart="{{startUpdatePosition(domEvent)}}"
+			 ontouchmove="{{progressUpdatePosition(domEvent)}}"
+			 ontouchend="{{stopUpdatePosition(domEvent); this.blur()}}"
 		     onmousedown="{{startUpdatePosition(domEvent)}}"
 		     onmouseup="{{stopUpdatePosition(domEvent)}}"
 		     onmouseleave="{{stopUpdatePosition(domEvent)}}"

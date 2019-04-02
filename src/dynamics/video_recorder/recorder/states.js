@@ -904,10 +904,10 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.UploadThumbnails", [
             var w = thumbnails.width;
             var h = thumbnails.height;
             var imagesCount = thumbnails.images.length;
-            var columnsCount = thumbnails.images.length > 10 ? Math.ceil(imagesCount / 10) : 1;
+            var rowsCount = thumbnails.images.length > 10 ? Math.ceil(imagesCount / 10) : 1;
             var canvas = document.createElement('canvas');
-            canvas.width = columnsCount > 1 ? w * 10 : w * imagesCount;
-            canvas.height = columnsCount * h;
+            canvas.width = rowsCount > 1 ? w * 10 : w * imagesCount;
+            canvas.height = rowsCount * h;
             this._vttDescripitions = [];
             this._vttDescripitions.push('WEBVTT \n\n');
             var ctx = canvas.getContext('2d');
@@ -945,12 +945,15 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.UploadThumbnails", [
             } else if (index !== 0) column++;
             index++;
             if (typeof thumbnails.images[index] !== 'undefined' && thumbnails.images.length >= index) {
-                var _image, _prevIndex, _nextIndex, _startTime, _endTime, _formattedStartTime, _formattedEndTime;
+                var _image, _prevIndex, _nextIndex, _startTime, _endTime, _averageSecond, _formattedStartTime, _formattedEndTime;
                 _prevIndex = index - 1;
                 _nextIndex = index + 1;
 
-                _startTime = thumbnails.images[_prevIndex].time;
-                _endTime = thumbnails.images[index].time;
+                _averageSecond = Math.round((thumbnails.images[index].time - thumbnails.images[_prevIndex].time) / 2);
+                _startTime = thumbnails.images[_prevIndex].time + _averageSecond;
+                // For the latest thumb no need add average time
+                if (!thumbnails.images[_nextIndex + 1]) _averageSecond = 0;
+                _endTime = thumbnails.images[index].time + _averageSecond;
 
                 _formattedStartTime = _startTime === 0 ? '00:00:00' : TimeFormat.format('HH:MM:ss', _startTime * 1000);
                 _formattedEndTime = _endTime === 0 ? '00:00:00' : TimeFormat.format('HH:MM:ss', _endTime * 1000);

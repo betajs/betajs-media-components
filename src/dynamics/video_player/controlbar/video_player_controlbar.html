@@ -6,10 +6,14 @@
          ba-hotkey:alt+right="{{seek(position + skipseconds * 3)}}"
          ba-hotkey:alt+left="{{seek(position - skipseconds * 3)}}"
 		 onmouseout="this.blur()"
+		 ontouchstart="{{startUpdatePosition(domEvent)}}"
+		 ontouchmove="{{progressUpdatePosition(domEvent)}}"
+		 ontouchend="{{stopUpdatePosition(domEvent); this.blur()}}"
 	     onmousedown="{{startUpdatePosition(domEvent)}}"
 	     onmouseup="{{stopUpdatePosition(domEvent)}}"
 	     onmouseleave="{{stopUpdatePosition(domEvent)}}"
-	     onmousemove="{{progressUpdatePosition(domEvent, true)}}">
+	     onmousemove="{{progressUpdatePosition(domEvent)}}"
+	>
 		<div class="{{css}}-progressbar-cache" ba-styles="{{{width: Math.round(duration ? cached / duration * 100 : 0) + '%'}}}"></div>
 		<div class="{{css}}-progressbar-position" ba-styles="{{{width: Math.round(duration ? position / duration * 100 : 0) + '%'}}}" title="{{string('video-progress')}}">
 			<div class="{{css}}-progressbar-button"></div>
@@ -63,7 +67,7 @@
 		<div class="{{css}}-time-container">
 			<div class="{{css}}-time-value" title="{{string('elapsed-time')}}">{{formatTime(position)}}</div>
 			<div class="{{css}}-time-sep">/</div>
-			<div class="{{css}}-time-value" title="{{string('total-time')}}">{{formatTime(duration || position)}}</div>
+			<div class="{{css}}-time-value {{css}}-time-total-duration" title="{{string('total-time')}}">{{formatTime(duration || position)}}</div>
 		</div>
 
 		<div data-selector="video-title-block" class="{{css}}-title-container" ba-if="{{title}}">
@@ -138,12 +142,15 @@
 			</div>
 		</div>
 
-		<div class="{{css}}-volumebar">
+		<div class="{{css}}-volumebar" ba-show="{{!hidevolumebar}}">
 			<div tabindex="5" data-selector="button-volume-bar"
 				 ba-hotkey:right="{{set_volume(volume + 0.1)}}" ba-hotkey:left="{{set_volume(volume - 0.1)}}"
 				 ba-hotkey:up="{{set_volume(1)}}" ba-hotkey:down="{{set_volume(0)}}"
 				 onmouseout="this.blur()"
 				 class="{{css}}-volumebar-inner"
+				 ontouchstart="{{startUpdateVolume(domEvent)}}"
+				 ontouchmove="{{progressUpdateVolume(domEvent)}}"
+				 ontouchend="{{stopUpdateVolume(domEvent); this.blur()}};"
 			     onmousedown="{{startUpdateVolume(domEvent)}}"
                  onmouseup="{{stopUpdateVolume(domEvent)}}"
                  onmouseleave="{{stopUpdateVolume(domEvent)}}"

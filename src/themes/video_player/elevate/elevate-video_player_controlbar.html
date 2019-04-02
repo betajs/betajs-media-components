@@ -23,6 +23,9 @@
                  ba-hotkey:left="{{seek(position - skipseconds)}}"
                  onmouseout="this.blur()"
                  data-selector="progress-bar-inner" class="{{csstheme}}-progressbar-inner"
+                 ontouchstart="{{startUpdatePosition(domEvent)}}"
+                 ontouchmove="{{progressUpdatePosition(domEvent)}}"
+                 ontouchend="{{stopUpdatePosition(domEvent); this.blur()}}"
                  onmousedown="{{startUpdatePosition(domEvent)}}"
                  onmouseup="{{stopUpdatePosition(domEvent)}}"
                  onmouseleave="{{stopUpdatePosition(domEvent)}}"
@@ -97,12 +100,15 @@
                 </div>
             </div>
 
-            <div class="{{csstheme}}-volumebar">
+            <div class="{{csstheme}}-volumebar" ba-show="{{!hidevolumebar}}">
                 <div tabindex="4"
                      ba-hotkey:right="{{set_volume(volume + 0.1)}}"
                      ba-hotkey:left="{{set_volume(volume - 0.1)}}"
                      onmouseout="this.blur()"
                      data-selector="button-volume-bar" class="{{csstheme}}-volumebar-inner"
+                     ontouchstart="{{startUpdateVolume(domEvent)}}"
+                     ontouchmove="{{progressUpdateVolume(domEvent)}}"
+                     ontouchend="{{stopUpdateVolume(domEvent); this.blur()}};"
                      onmousedown="{{startUpdateVolume(domEvent)}}"
                      onmouseup="{{stopUpdateVolume(domEvent)}}"
                      onmouseleave="{{stopUpdateVolume(domEvent)}}"

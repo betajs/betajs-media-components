@@ -49,8 +49,9 @@ Scoped.define("module:TrackTags", [
                     var _thumbContainer = this.thumbContainer;
                     var _thumbImage = _thumbContainer.querySelector('div');
                     var _timeContainer = _thumbContainer.querySelector('span');
-                    _thumbContainer.style.opacity = '1.00';
-                    _thumbContainer.style.left = fromLeft - Math.round(_cue.thumbWidth / 1.5) + "px";
+                    var _left = fromLeft - Math.round(_cue.thumbWidth / 1.5) <= 0 ? 5 : fromLeft - Math.round(_cue.thumbWidth / 1.5);
+                    _thumbContainer.style.opacity = '0.85';
+                    _thumbContainer.style.left = _left + "px";
                     _thumbImage.style.backgroundPositionX = "-" + _cue.positionX + "px";
                     _thumbImage.style.backgroundPositionY = "-" + _cue.positionY + "px";
                     _timeContainer.innerText = _time > 0 ? TimeFormat.format(TimeFormat.ELAPSED_MINUTES_SECONDS, _time * 1000) : '0:00';

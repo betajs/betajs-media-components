@@ -1,10 +1,10 @@
 /node_modules
 /temp
 /.idea
+/.eslintrc.js
 /.vscode
 .DS_Store
 .sass-cache
-.eslintrc.js
 node_modules
 /docs
 browserstack.json

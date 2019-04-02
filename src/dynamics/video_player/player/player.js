@@ -477,7 +477,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     //video.controls = false;
                     VideoPlayerWrapper.create(Objs.extend(this._getSources(), {
                         element: video,
-                        onlyaudio: this.get("onlyaudio"),
+                        onlyaudio: this.get("onlyaudio"), // Will fix only audio local playback bug
                         forceflash: !!this.get("forceflash"),
                         noflash: !!this.get("noflash"),
                         preload: !!this.get("preload"),

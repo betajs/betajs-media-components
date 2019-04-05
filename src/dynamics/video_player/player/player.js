@@ -448,6 +448,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         self.set("imageelement_active", true);
                         self.trigger("image-attached");
                     };
+                    // If type of source of image is Blob object, convert it to URL
                     img.src = (typeof this.get("poster") === 'object') ? (window.URL || window.webkitURL).createObjectURL(this.get("poster")) : this.get("poster");
                 },
 

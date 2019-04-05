@@ -160,20 +160,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         label: 'English'
                     }],
                     "tracktags": [],
-                    "videometadata": {
-                        "height": null,
-                        "width": null,
-                        "ratio": null,
-                        "thumbnails": {
-                            "mainimage": null,
-                            "images": []
-                        },
-                        "copping": {
-                            "croppedeight": null,
-                            "croppedwidth": null,
-                            "croppedratio": null
-                        }
-                    }
+                    "videometadata": {}
                 },
 
                 computed: {
@@ -324,8 +311,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     this.__cameraResponsive = true;
                     this.__cameraSignal = true;
 
-                    this.snapshots = [];
-                    this.thumbnails = [];
+                    this._initSettings();
 
                     if (this.get("onlyaudio")) {
                         this.set("picksnapshots", false);
@@ -466,6 +452,27 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
                 isWebrtcStreaming: function() {
                     return this.recorder && this.recorder.isWebrtcStreaming();
+                },
+
+                _initSettings: function() {
+                    // Without below line re-recorder will not lunch
+                    this.snapshots = [];
+                    this.thumbnails = [];
+                    this.set("ghost_player", false);
+                    this.set("videometadata", {
+                        "height": null,
+                        "width": null,
+                        "ratio": null,
+                        "thumbnails": {
+                            "mainimage": null,
+                            "images": []
+                        },
+                        "copping": {
+                            "croppedeight": null,
+                            "croppedwidth": null,
+                            "croppedratio": null
+                        }
+                    });
                 },
 
                 _initializeUploader: function() {
@@ -698,8 +705,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     },
 
                     rerecord: function() {
-                        if (confirm(this.stringUnicode("rerecord-confirm")))
+                        if (confirm(this.stringUnicode("rerecord-confirm"))) {
                             this.host.state().rerecord();
+                            this._initSettings();
+                        }
                     },
 
                     stop: function() {

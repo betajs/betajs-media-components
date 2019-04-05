@@ -11,10 +11,10 @@ browserstack.json
 BrowserStackLocal
 jsdoc.conf.json
 /demos/recorder*.html
-/demos/themes/temp
 /demos/themes/files
 google-translate-creds.json
 /demos/themes/temp/*
 /demos/themes/files/*
+/demos/tmp/
 *.log
 package-lock.json

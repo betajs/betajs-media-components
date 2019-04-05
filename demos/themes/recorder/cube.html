@@ -22,12 +22,13 @@
 
 	<body style="background: #999">
 
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div id="video-recorder-block" class="col-xs-12">
 					<!-- Cube -->
 					<ba-videorecorder
-						ba-localplayback="true"
+						ba-width="640px"
+						early-rerecord="true"
 						ba-theme="cube"
 						ba-themecolor="{{themeColor}}"
 					></ba-videorecorder>

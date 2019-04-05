@@ -857,7 +857,8 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
         _nextUploading: function(skippedCovershot) {
             if (this.dyn.get("videometadata").thumbnails.images.length > 3 && this.dyn.get("createthumbnails"))
                 this.next("UploadThumbnails");
-            this.next("Uploading");
+            else
+                this.next("Uploading");
         }
 
     });

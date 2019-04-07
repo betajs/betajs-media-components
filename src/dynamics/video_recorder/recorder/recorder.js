@@ -160,6 +160,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         label: 'English'
                     }],
                     "tracktags": [],
+                    "hassubtitles": false,
                     "videometadata": {}
                 },
 

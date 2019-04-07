@@ -183,7 +183,7 @@
 
             <div tabindex="9" data-selector="cc-button-container"
                  ba-hotkey:space^enter="{{toggle_tracks()}}" onmouseout="this.blur()"
-                 ba-if="{{(tracktags.length > 0 && tracktagssupport) || allowtexttrackupload}}"
+                 ba-if="{{(tracktags.length > 0 && showsubtitlebutton) || allowtexttrackupload}}"
                  class="{{csstheme}}-button-container  {{cssplayer}}-cc-{{tracktextvisible ? 'active' : 'inactive'}}"
                  title="{{tracktextvisible ? string('close-tracks') : string('show-tracks')}}"
                  ba-click="{{toggle_tracks()}}"

@@ -151,7 +151,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         var dimensions = Dom.elementDimensions(target);
                         var _position = (clientX - offset.left) / (dimensions.width || 1);
                         var _test = Dom.getRelativeCoordinates(target, event[0]);
-                        console.log('000 ', _test, clientX, offset, dimensions);
                         // Will fix bug (is outside the range [0, 1]) which cause mobile bug also
                         _position = _position > 1.00 ? 1.00 : (_position < 0.00 ? 0.00 : _position);
                         this.set("volume", _position);

@@ -97,6 +97,7 @@ Scoped.define("module:TrackTags", [
                             _trackTag.label = subtitle.label || 'English';
                             _trackTag.srclang = subtitle.lang || 'en';
                             _trackTag.src = subtitle.src || null;
+                            this._dyn.set("hassubtitles", true);
                             this.__appendTextTrackTags(subtitle, index, _trackTag, _flag, _domEvent);
                             if (this._trackTags.length > 1) {
                                 this._dyn.on("switch-track", function(selectedTrack) {

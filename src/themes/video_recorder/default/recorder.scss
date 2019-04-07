@@ -4,22 +4,12 @@
     background-color: $recorder_bgcolor;
 }
 
-.#{$css}-ghost-player canvas {
-	opacity: 0;
-	position: absolute;
-	z-index: -1;
-}
-
 .#{$cssrecorder}-overlay {
     position: absolute;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
-}
-
-.#{$css}-ghost-player .#{$cssrecorder}-overlay {
-	background: #000000;
 }
 
 .#{$css}-video {

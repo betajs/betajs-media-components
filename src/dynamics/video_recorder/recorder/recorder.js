@@ -458,7 +458,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     // Without below line re-recorder will not lunch
                     this.snapshots = [];
                     this.thumbnails = [];
-                    this.set("ghost_player", false);
                     this.set("videometadata", {
                         "height": null,
                         "width": null,
@@ -466,11 +465,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         "thumbnails": {
                             "mainimage": null,
                             "images": []
-                        },
-                        "copping": {
-                            "croppedeight": null,
-                            "croppedwidth": null,
-                            "croppedratio": null
                         }
                     });
                 },

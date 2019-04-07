@@ -324,7 +324,6 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CreateUploadCoversho
 
             try {
                 this.dyn.set("player_active", false);
-                this.dyn.set("ghost_player", true);
 
 
                 // this.dyn._videoFilePlaybackable only for browsers
@@ -333,7 +332,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CreateUploadCoversho
                 else
                     throw ('Could not find source file to be able start player');
 
-                var _video = this.dyn.activeElement().querySelector("video");
+                var _video = document.createElement('video');
                 var _currentTime = 0;
                 var _totalDuration = 0;
                 var _seekPeriod = 1;
@@ -350,6 +349,10 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CreateUploadCoversho
                 // HAVE_NOTHING == 0; HAVE_METADATA == 1; HAVE_CURRENT_DATA == 2; HAVE_FUTURE_DATA == 3; HAVE_ENOUGH_DATA == 4
                 _playerLoadedData.on(_video, "loadedmetadata", function(ev) {
                     _totalDuration = _video.duration;
+                    if (_totalDuration === Infinity) {
+                        console.warn('Could not generate video covershots from uploaded file');
+                        this.next("Uploading");
+                    }
                     _seekPeriod = this._calculateSeekPeriod(_totalDuration);
                     if (_video.videoWidth > 0 && _video.videoHeight > 0) {
                         var _thumbWidth = _video.videoWidth > _video.videoHeight ? 80 : 35;
@@ -407,7 +410,10 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CreateUploadCoversho
 
                 _playerLoadedData.on(_video, "ended", function(ev) {
                     this.__videoSeekTimer.stop();
-                    _video.removeAttribute('src');
+                    if (typeof _video.remove === 'function')
+                        _video.remove();
+                    else
+                        _video.style.display = 'none';
                     if (this.dyn.snapshots.length >= this.dyn.get("gallerysnapshots"))
                         this.next("CovershotSelection");
                     else
@@ -421,7 +427,6 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CreateUploadCoversho
         },
 
         stop: function() {
-            this.dyn.set("ghost_player", false);
             this.dyn.set("loader_active", false);
             this.dyn.set("loaderlabel", "");
             this.dyn.set("topmessage", "");

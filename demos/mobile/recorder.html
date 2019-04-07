@@ -7,7 +7,7 @@
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 
-		<script src="https://192.168.1.6:1337/vorlon.js"></script>
+<!--		<script src="https://192.168.1.6:1337/vorlon.js"></script>-->
 		<script src="/static/vendors/jquery.min.js"></script>
 		<script src="/static/node_modules/betajs-shims/dist/betajs-shims.js"></script>
 		<script src="/static/node_modules/betajs-scoped/dist/scoped.js"></script>
@@ -96,7 +96,9 @@
 					BetaJS.Objs.tree_merge(recorder.get("uploadoptions"), {
                         image: {url:"/files/" + filename + ".jpg"},
                         video: {url:"/files/" + filename + ".webm"},
-                        audio: {url:"/files/" + filename + ".wav"}
+                        audio: {url:"/files/" + filename + ".wav"},
+						thumbnail: {url:"/files/" + filename + "-thumbnails.jpg"},
+						tracks: {url:"/files/" + filename + ".vtt"}
                     })
 				);
 	    		// recorder.set("uploadoptions", {

@@ -3,12 +3,11 @@
      class="{{css}}-container {{csstheme}} {{css}}-size-{{csssize}}
      {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{css}}-{{ fullscreened ? 'fullscreen' : 'normal' }}-view
      {{cssrecorder}}-{{ firefox ? 'firefox' : 'common'}}-browser
-     {{cssrecorder}}-{{themecolor}}-color {{ghost_player ? css + '-ghost-player' : ''}}"
+     {{cssrecorder}}-{{themecolor}}-color
      ba-styles="{{widthHeightStyles}}"
 >
 
     <video tabindex="-1" data-selector="recorder-status" class="{{css}}-video {{css}}-{{hasrecorder ? 'hasrecorder' : 'norecorder'}}" data-video="video" playsinline></video>
-	<div ba-if="{{ghost_player}}" class="{{css}}-ghost-player-cover"></div>
 	<ba-videorecorder-faceoutline class="{{css}}-overlay" ba-if="{{faceoutline && hasrecorder}}"></ba-videorecorder-faceoutline>
     <div data-selector="recorder-overlay" class='{{cssrecorder}}-overlay' ba-show="{{!hideoverlay}}" data-overlay="overlay">
 		<ba-{{dynloader}}

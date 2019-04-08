@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<script src="../vendors/jquery.min.js"></script>
     <script src="../node_modules/betajs-shims/dist/betajs-shims.js"></script>
     <script src="../node_modules/betajs-scoped/dist/scoped.js"></script>
     <script src="../node_modules/betajs/dist/beta-noscoped.js"></script>
@@ -12,9 +13,6 @@
 	<link  href="../dist/betajs-media-components.css" rel="stylesheet" />
     <script src="../dist/themes/modern/script.js"></script>
     <link  href="../dist/themes/modern/style.css" rel="stylesheet" />
-
-    <!-- Fix IE8 testing env -->
-    <meta content="Content-Type: text/html; charset=utf-8">
 
 
     <!-- Cube Theme Assets -->
@@ -44,15 +42,13 @@
 </head>
 <body style="background: #EEE">
 	<ba-videoplayer
-        ba-theme="cube"
+        ba-theme="theatre"
+        ba-width="80%"
         ba-themecolor="red"
         ba-hideoninactivity="false"
         ba-skipinitial="true"
         ba-sources="{{[{src:'sample-video.mp4', poster: 'sample-cover.png', hd: true}, {src:'sample-video2.mp4', poster:'sample-cover2.png', hd: false}]}}"
         ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
-        ba-uploadlocales="{{[{lang: 'en', label: 'English'}, {lang: 'de', label: 'Deutsch'}]}}"
-        ba-tracktagsstyled="true"
-        ba-allowtexttrackupload="true"
         ba-tracktagsstyled="true"
         ba-tracktags="{{
             [
@@ -68,13 +64,12 @@
                     kind: 'subtitles',
                     label: 'Deutsch',
                     //enabled: true,
-                    src: './assets/bunny-de.vtt'
+                    src: 'assets/bunny-de.vtt'
                 },
                 {
                     kind: 'thumbnails',
-                    src: '/static/demos/assets/video-bgbb.vtt'
+                    src: 'assets/video-bgbb.vtt'
                 }
-
             ]
         }}"
 	></ba-videoplayer>

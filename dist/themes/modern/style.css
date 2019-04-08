@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.154 - 2019-04-08
+betajs-media-components - v0.0.159 - 2019-04-08
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -305,6 +305,11 @@ Apache-2.0 Software License.
 .ba-settings-overlay-inner {
   bottom: 41px; }
 
+.ba-player-size-medium .ba-player-theme-modern-time-value > span, .ba-player-size-medium.ba-videoplayer-noie8 .ba-player-theme-modern-volumebar {
+  display: none; }
+.ba-player-size-medium .ba-player-theme-modern-time-value, .ba-player-size-medium .ba-player-theme-modern-time-container {
+  width: 50px; }
+
 /* Full screen options */
 .ba-player-fullscreen-view video::-webkit-media-controls-overlay-enclosure {
   display: none; }
@@ -512,6 +517,14 @@ Apache-2.0 Software License.
   border: 1px solid #979797;
   color: #979797;
   background-color: white; }
+.ba-recorder-theme-modern.ba-videorecorder-size-small .ba-videorecorder-leftbutton-container {
+  width: 40px; }
+  .ba-recorder-theme-modern.ba-videorecorder-size-small .ba-videorecorder-leftbutton-container .ba-videorecorder-button-inner {
+    font-size: 17px; }
+.ba-recorder-theme-modern.ba-videorecorder-size-small .ba-videorecorder-lefticon-container {
+  width: 45px; }
+  .ba-recorder-theme-modern.ba-videorecorder-size-small .ba-videorecorder-lefticon-container .ba-commoncss-icon-inner {
+    font-size: 17px; }
 
 .ba-recorder-theme-modern .ba-videorecorder-imagegallery-button-inner {
   -webkit-transform: translateY(-50%);

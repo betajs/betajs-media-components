@@ -41,6 +41,10 @@
         color: $button_color_secondary;
     }
 
+    .#{$css}-seeking-thumb-container {
+        bottom: 70px;
+    }
+
 }
 
 .#{$csstheme}-dashboard {

@@ -45,6 +45,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     "settings": false,
                     "hoveredblock": false, // Set true when mouse hovered
                     "allowtexttrackupload": false,
+                    'thumbisvisible': false,
                     "tracktextvisible": false // Are subtitles visible?
                 },
 
@@ -65,6 +66,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     startUpdatePosition: function(event) {
                         if (this.get("disableseeking")) return;
                         event[0].preventDefault();
+                        if (!this.__parent.get("playing") && this.__parent.player) this.__parent.player.play();
                         this.set("_updatePosition", true);
                         this.call("progressUpdatePosition", event);
                     },
@@ -72,26 +74,64 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     progressUpdatePosition: function(event) {
                         var ev = event[0];
                         ev.preventDefault();
-                        if (!this.get("_updatePosition"))
-                            return;
-                        var clientX = ev.clientX;
+                        var _dyn = this.__parent;
+
+                        // Mouse or Touch Event
+                        var clientX = ev.clientX || ev.targetTouches[0].clientX;
                         var target = ev.currentTarget;
                         var offset = Dom.elementOffset(target);
                         var dimensions = Dom.elementDimensions(target);
-                        this.set("position", this.get("duration") * (clientX - offset.left) / (dimensions.width || 1));
+                        var percentageFromStart = (clientX - offset.left) / (dimensions.width || 1);
+                        var onDuration = this.get("duration") * percentageFromStart;
 
-                        var player = this.__parent.player;
-                        if (player._broadcastingState.googleCastConnected) {
-                            player.trigger('google-cast-seeking', this.get("position"));
+                        if (!this.get("_updatePosition") && !_dyn.__trackTags.hasThumbs)
                             return;
+
+                        var player = _dyn.player;
+
+                        if (this.__parent.__trackTags.hasThumbs) {
+                            var _index;
+                            var _trackTags = _dyn.__trackTags;
+                            var _cuesCount = _dyn.get("thumbcuelist").length;
+                            if (onDuration > 0) {
+                                _index = Math.floor(_cuesCount * percentageFromStart);
+                                for (var i = _index - 2; i < _cuesCount; i++) {
+                                    if (_dyn.get("thumbcuelist")[i]) {
+                                        var _cue = _dyn.get("thumbcuelist")[i];
+                                        if (_cue.startTime < onDuration && _cue.endTime > onDuration) {
+                                            _trackTags.showDurationThumb(i, clientX, onDuration);
+                                            break;
+                                        }
+                                    }
+                                }
+                            } else {
+                                _index = Math.floor(_cuesCount * percentageFromStart);
+                                _trackTags.showDurationThumb(_index, clientX);
+                            }
+
+                            this.set("thumbisvisible", true);
+                            this.activeElement().appendChild(_trackTags.thumbContainer);
                         }
 
-                        this.trigger("position", this.get("position"));
+                        if (this.get("_updatePosition")) {
+                            this.set("position", onDuration);
+
+                            if (player._broadcastingState.googleCastConnected) {
+                                player.trigger('google-cast-seeking', this.get("position"));
+                                return;
+                            }
+                            this.trigger("position", this.get("position"));
+                        }
                     },
 
                     stopUpdatePosition: function(event) {
-                        event[0].preventDefault();
+                        var ev = event[0];
+                        ev.preventDefault();
                         this.set("_updatePosition", false);
+                        if (this.__parent.__trackTags.hasThumbs && this.get("thumbisvisible")) {
+                            this.set("thumbisvisible", false);
+                            this.__parent.__trackTags.hideDurationThumb();
+                        }
                     },
 
                     startUpdateVolume: function(event) {
@@ -105,11 +145,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         ev.preventDefault();
                         if (!this.get("_updateVolume"))
                             return;
-                        var clientX = ev.clientX;
+                        var clientX = ev.clientX || ev.targetTouches[0].clientX;
                         var target = ev.currentTarget;
                         var offset = Dom.elementOffset(target);
                         var dimensions = Dom.elementDimensions(target);
-                        this.set("volume", (clientX - offset.left) / (dimensions.width || 1));
+                        var _position = (clientX - offset.left) / (dimensions.width || 1);
+                        var _test = Dom.getRelativeCoordinates(target, event[0]);
+                        // Will fix bug (is outside the range [0, 1]) which cause mobile bug also
+                        _position = _position > 1.00 ? 1.00 : (_position < 0.00 ? 0.00 : _position);
+                        this.set("volume", _position);
                         this.trigger("volume", this.get("volume"));
                     },
 
@@ -129,11 +173,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         ev.preventDefault();
                         if (!this.get("_updateVolume"))
                             return;
-                        var pageY = ev.pageY;
+                        var clientY = ev.clientY || ev.targetTouches[0].clientY;
                         var target = ev.currentTarget;
                         var offset = Dom.elementOffset(target);
                         var dimensions = Dom.elementDimensions(target);
-                        this.set("volume", 1 - (pageY - offset.top) / dimensions.height);
+                        var _position = 1 - (clientY - offset.top) / (dimensions.height || 1);
+                        // Will fix bug (is outside the range [0, 1]) which cause mobile bug also
+                        _position = _position > 1.00 ? 1.00 : (_position < 0.00 ? 0.00 : _position);
+                        this.set("volume", _position);
                         this.trigger("volume", this.get("volume"));
                     },
 
@@ -141,7 +188,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         event[0].preventDefault();
                         this.set("_updateVolume", false);
                     },
-
 
                     play: function() {
                         this.trigger("play");
@@ -282,6 +328,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
             "close-tracks": "Close CC",
             "show-tracks": "Show CC",
             "player-speed": "Player speed",
-            "settings": "Settings"
+            "settings": "Settings",
+            "airplay": "Airplay",
+            "airplay-icon": "Airplay icon."
         });
 });

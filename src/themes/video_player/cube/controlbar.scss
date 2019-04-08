@@ -190,3 +190,19 @@
     width: 32px;
 }
 
+.#{$cssplayer}-size-small {
+  .#{$csstheme}-button-container {
+    width: $button-width_mobile;
+  }
+}
+
+// Don't change place with small, it more higher priority selectors
+.#{$cssplayer}-device-type-mobile {
+  .#{$csstheme}-timer-container {
+    width: $time_indicator-width_mobile;
+  }
+  .#{$csstheme}-volumebar {
+    width: $volume_width_mobile;
+  }
+}
+

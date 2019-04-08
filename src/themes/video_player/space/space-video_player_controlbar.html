@@ -3,12 +3,15 @@
         <p>{{title}}</p>
     </div>
 
-    <div class="{{csstheme}}-volumebar">
+    <div class="{{csstheme}}-volumebar" ba-show="{{!hidevolumebar}}">
         <div tabindex="2" data-selector="button-volume-bar"
              ba-hotkey:right="{{set_volume(volume + 0.1)}}"
              ba-hotkey:left="{{set_volume(volume - 0.1)}}"
              onmouseout="this.blur()"
              class="{{csstheme}}-volumebar-inner"
+             ontouchstart="{{startUpdateVolume(domEvent)}}"
+             ontouchmove="{{progressUpdateVolume(domEvent)}}"
+             ontouchend="{{stopUpdateVolume(domEvent); this.blur()}};"
              onmousedown="{{startUpdateVolume(domEvent)}}"
              onmouseup="{{stopUpdateVolume(domEvent)}}"
              onmouseleave="{{stopUpdateVolume(domEvent)}}"
@@ -90,7 +93,7 @@
 
         <div tabindex="9" data-selector="cc-button-container"
              ba-hotkey:space^enter="{{toggle_tracks()}}" onmouseout="this.blur()"
-             ba-if="{{(tracktags.length > 0 && tracktagssupport) || allowtexttrackupload}}"
+             ba-if="{{(tracktags.length > 0 && showsubtitlebutton) || allowtexttrackupload}}"
              class="{{csstheme}}-rightbutton-container {{csstheme}}-cc-button-container {{cssplayer}}-cc-{{tracktextvisible ? 'active' : 'inactive'}}"
              title="{{ tracktextvisible ? string('close-tracks') : string('show-tracks')}}"
              ba-click="{{toggle_tracks()}}"
@@ -153,6 +156,9 @@
                 ba-hotkey:left="{{seek(position - skipseconds)}}"
                 onmouseout="this.blur()"
                 class="{{csstheme}}-progressbar-inner"
+                ontouchstart="{{startUpdatePosition(domEvent)}}"
+                ontouchmove="{{progressUpdatePosition(domEvent)}}"
+                ontouchend="{{stopUpdatePosition(domEvent); this.blur()}}"
                 onmousedown="{{startUpdatePosition(domEvent)}}"
                 onmouseup="{{stopUpdatePosition(domEvent)}}"
                 onmouseleave="{{stopUpdatePosition(domEvent)}}"

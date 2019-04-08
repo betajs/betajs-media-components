@@ -1,6 +1,7 @@
 Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "dynamics:Dynamic",
     "module:Assets",
+    "module:TrackTags",
     "browser:Info",
     "browser:Dom",
     "media:Player.VideoPlayerWrapper",
@@ -31,7 +32,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.TemplatePartial",
     "dynamics:Partials.HotkeyPartial"
-], function(Class, Assets, Info, Dom, VideoPlayerWrapper, Broadcasting, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Async, Settings, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
+], function(Class, Assets, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Async, Settings, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -125,8 +126,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "tracktagsstyled": true,
                     "tracktaglang": 'en',
                     "tracksshowselection": false,
+                    "thumbimage": {},
+                    "thumbcuelist": [],
                     "showsettings": true,
                     "showduration": false,
+                    "hidevolumebar": false,
                     "settingsoptions": [{
                             id: 'playerspeeds',
                             label: 'player-speed',
@@ -346,6 +350,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     this.set("ie8", Info.isInternetExplorer() && Info.internetExplorerVersion() < 9);
                     this.set("firefox", Info.isFirefox());
+                    this.set("mobileview", Info.isMobile());
+                    // For Apple it's very important that their users always remain in control of the volume of the sounds their devices emit
+                    this.set("hidevolumebar", (Info.isMobile() && Info.isiOS()));
                     this.set("duration", this.get("totalduration") || 0.0);
                     this.set("position", 0.0);
                     this.set("buffered", 0.0);
@@ -372,7 +379,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (document.onkeydown)
                         this.activeElement().onkeydown = this._keyDownActivity.bind(this, this.activeElement());
 
-                    this.on("change:tracktags", this.__initializeTrackTags);
+                    this.on("change:tracktags", function() {
+                        this.__trackTags = new TrackTags({}, this);
+                    }, this);
 
                     this.on("change:stretch", function() {
                         this._updateStretch();
@@ -393,158 +402,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 state: function() {
                     return this.host.state();
-                },
-
-                __initializeTrackTags: function() {
-                    this.set("tracktagssupport", this.get("tracktags") && this.get("tracktags").length > 0 && ('track' in document.createElement('track')));
-                    if (!this.__video || !this.get("tracktags") || this.get("tracktags").length === 0)
-                        return;
-                    this._loadTrackTags();
-                    // To be able play default subtitle in with custom style
-                    if (this.get("tracktagsstyled"))
-                        this._setDefaultTrackOnPlay();
-
-                    if (this.get("tracktags").length > 1) {
-                        this.on("switch-track", function(selectedTrack) {
-                            this.set("tracktextvisible", true);
-                            this.set("trackcuetext", null);
-                            this._setSelectedTag(selectedTrack);
-                        });
-                    }
-                },
-
-                _loadTrackTags: function() {
-                    if (!this.get("tracktagssupport")) return;
-                    var _flag = true;
-                    Objs.iter(this.get("tracktags"), function(subtitle, index) {
-                        var _trackTag = document.createElement("track");
-                        _trackTag.id = 'tack' + index;
-                        _trackTag.kind = subtitle.kind || 'subtitles';
-                        _trackTag.label = subtitle.label || 'English';
-                        _trackTag.srclang = subtitle.lang || 'en';
-                        _trackTag.src = subtitle.src || null;
-                        try {
-                            if (subtitle.content && !subtitle.src)
-                                _trackTag.src = URL.createObjectURL(new Blob([subtitle.content], {
-                                    type: 'text/plain'
-                                }));
-                        } catch (e) {}
-                        if (subtitle.enabled && _flag) {
-                            _trackTag.setAttribute('default', '');
-                            this.set("tracktaglang", subtitle.lang);
-                            this.set("tracktextvisible", true);
-                        }
-                        _trackTag.setAttribute('data-selector', 'track-tag');
-                        _trackTag.addEventListener("load", function() {
-                            if (subtitle.enabled && _flag) {
-                                // 0 (TextTrack.OFF in spec, TextTrack.DISABLED in Chrome), 1 (TextTrack.HIDDEN) or 2 (TextTrack.SHOWING)
-                                this.mode = "showing";
-                                if (this.__video)
-                                    this.__video.textTracks[index].mode = "showing"; // Firefox
-                                _flag = false;
-                            } else {
-                                this.mode = "hidden";
-                                if (this.__video)
-                                    this.__video.textTracks[index].mode = "hidden"; // Firefox
-                            }
-                        });
-                        this.__video.appendChild(_trackTag);
-                    }, this);
-                },
-
-                _showTracksInCustomElement: function(track, lang) {
-                    var _lang = lang || this.get("tracktaglang");
-                    var _self = this;
-                    if (track.language === _lang) {
-                        var _cues = track.cues;
-                        Objs.iter(_cues, function(cue, index) {
-                            if (typeof _cues[index] === 'object' && _cues[index]) {
-                                cue.onenter = function(ev) {
-                                    track.mode = 'hidden';
-                                    if (_self.get("tracktextvisible"))
-                                        _self.set("trackcuetext", this.text);
-                                };
-                                cue.onexit = function(ev) {
-                                    _self.set("trackcuetext", null);
-                                };
-                            }
-                        }, this);
-                    }
-                },
-
-                toggleTrackTags: function(status) {
-                    var _lang = this.get("tracktaglang");
-                    var _customStyled = this.get("tracktagsstyled");
-                    var _status = status ? 'showing' : 'disabled';
-                    _status = (status && _customStyled) ? 'hidden' : _status;
-                    if (!status && this.get("tracktagsstyled"))
-                        this.set("trackcuetext", null);
-
-                    Objs.iter(this.__video.textTracks, function(track, index) {
-                        if (typeof this.__video.textTracks[index] === 'object' && this.__video.textTracks[index]) {
-                            var _track = this.__video.textTracks[index];
-                            // If set custom style to true show cue text in our element
-                            if (_track.language === _lang) {
-                                _track.mode = _status;
-                                this.set("tracktextvisible", status);
-                                this._triggerTrackChange(this.__video, _track, _status, _lang);
-                            }
-                        }
-                    }, this);
-                },
-
-                _setDefaultTrackOnPlay: function() {
-                    this.player.once("playing", function() {
-                        Objs.iter(this.get("tracktags"), function(track, index) {
-                            var _track = this.__video.textTracks[index];
-                            if (typeof _track === 'object' && _track) {
-                                if (_track.mode === 'showing')
-                                    this._showTracksInCustomElement(_track, _track.language);
-                            }
-                        }, this);
-                    }, this);
-                },
-
-                _setSelectedTag: function(selectedTrack) {
-                    var _status = null;
-                    var _track = null;
-                    Objs.iter(this.__video.textTracks, function(track, index) {
-                        _track = this.__video.textTracks[index];
-                        if (typeof _track === 'object' && _track) {
-                            _status = _track.language === selectedTrack.lang ? (this.get("tracktagsstyled") ? 'hidden' : 'showing') : 'disabled';
-                            if (!this.get("tracktextvisible")) _status = 'disabled';
-                            _track.mode = _status;
-                            if (_track.language === selectedTrack.lang)
-                                this._triggerTrackChange(this.__video, _track, _status, selectedTrack.lang);
-                        }
-                    }, this);
-                },
-
-                // Fixed issue when unable switch directly to showing from disabled
-                _triggerTrackChange: function(video, track, status, lang) {
-                    var _self = this;
-                    var _trackElement = video.querySelector("#" + track.id);
-                    var _flag = true;
-                    if (track.oncuechange !== undefined && !((Info.isInternetExplorer() || Info.isEdge()) && this.get("tracktagsstyled"))) {
-                        track.oncuechange = function(ev) {
-                            if (_flag) {
-                                if (status.length) track.mode = status;
-                                if (_self.get("tracktagsstyled"))
-                                    _self._showTracksInCustomElement(track, lang);
-                                else if (_trackElement) {
-                                    _trackElement.mode = status;
-                                    // _trackElement.setAttribute('default', '');
-                                }
-                                _flag = false;
-                            }
-                        };
-                    } else {
-                        video.ontimeupdate = function(ev) {
-                            if (status.length) track.mode = status;
-                            if (_self.get("tracktagsstyled"))
-                                _self._showTracksInCustomElement(track, lang);
-                        };
-                    }
                 },
 
                 videoAttached: function() {
@@ -617,6 +474,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("videoelement_active", true);
                     var video = this.activeElement().querySelector("[data-video='video']");
                     this._clearError();
+                    // Just in case be sure that player's controllers will be hidden
+                    //video.controls = false;
                     VideoPlayerWrapper.create(Objs.extend(this._getSources(), {
                         element: video,
                         onlyaudio: this.get("onlyaudio"), // Will fix only audio local playback bug
@@ -642,7 +501,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                         this.player = instance;
                         this.__video = video;
-                        this.__initializeTrackTags();
+                        this.__trackTags = new TrackTags({}, this);
 
                         if (this.get("chromecast")) {
                             if (!this.get("skipinitial")) this.set("skipinitial", true);
@@ -857,6 +716,33 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 reattachImage: function() {
                     this._detachImage();
                     this._attachImage();
+                },
+
+                /**
+                 * Click CC buttons will trigger
+                 * @param status
+                 */
+                toggleTrackTags: function(status) {
+                    if (!this.__trackTags) return;
+                    var _lang = this.get("tracktaglang"),
+                        _customStyled = this.get("tracktagsstyled"),
+                        _status = status ? 'showing' : 'disabled';
+                    _status = (status && _customStyled) ? 'hidden' : _status;
+                    if (!status && this.get("tracktagsstyled")) this.set("trackcuetext", null);
+
+                    Objs.iter(this.__video.textTracks, function(track, index) {
+                        if (typeof this.__video.textTracks[index] === 'object' && this.__video.textTracks[index]) {
+                            var _track = this.__video.textTracks[index];
+                            // If set custom style to true show cue text in our element
+                            if (_track.kind !== 'metadata') {
+                                if (_track.language === _lang) {
+                                    _track.mode = _status;
+                                    this.set("tracktextvisible", status);
+                                    this.__trackTags._triggerTrackChange(this.__video, _track, _status, _lang);
+                                }
+                            }
+                        }
+                    }, this);
                 },
 
                 _keyDownActivity: function(element, ev) {
@@ -1262,7 +1148,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 _updateCSSSize: function() {
                     var width = Dom.elementDimensions(this.activeElement()).width;
-                    this.set("csssize", width > 400 ? "normal" : (width > 300 ? "medium" : "small"));
+                    this.set("csssize", width > 400 ? "normal" : (width > 320 ? "medium" : "small"));
+                    this.set("mobileview", width < 560);
                 },
 
                 videoHeight: function() {

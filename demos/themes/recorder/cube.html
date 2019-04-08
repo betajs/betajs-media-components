@@ -22,15 +22,27 @@
 
 	<body style="background: #999">
 
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div id="video-recorder-block" class="col-xs-12">
 					<!-- Cube -->
-					<ba-videorecorder ba-width=400 ba-height=300 ba-theme="cube" ba-themecolor="{{themeColor}}"></ba-videorecorder>
+					<ba-videorecorder
+						ba-width="640px"
+						early-rerecord="true"
+						ba-theme="cube"
+						ba-themecolor="{{themeColor}}"
+					></ba-videorecorder>
+					<!--ba-snapshotfromuploader="true"-->
                 </div>
 				<div id="theme-colors" class="col-xs-12 col-sm-6">
 					<ba-themecolors></ba-themecolors>
 				</div>
+				<div class="clearfix"></div>
+				<hr/>
+				<div style="background: black; height: 50px; width: 67px;"></div>
+				<div class="clearfix"></div>
+				<hr/>
+				<div id="canvas-container"></div>
             </div>
         </div>
 
@@ -70,7 +82,9 @@
 	    		recorder.set("uploadoptions", {
 	    			image: {url:"/files/" + filename + ".jpg"},
 	    			video: {url:"/files/" + filename + ".webm"},
-	    			audio: {url:"/files/" + filename + ".wav"}
+	    			audio: {url:"/files/" + filename + ".wav"},
+					thumbnail: {url:"/files/" + filename + "-thumbnails.jpg"},
+					tracks: {url:"/files/" + filename + ".vtt"}
 	    		});
 		        recorder.set("playbacksource", "/files/" + filename + ".mp4");
 		        if (recorder.recorder)

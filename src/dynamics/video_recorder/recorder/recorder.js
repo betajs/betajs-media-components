@@ -6,6 +6,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
     "browser:Upload.MultiUploader",
     "browser:Upload.FileUploader",
     "media:Recorder.VideoRecorderWrapper",
+    "media:Recorder.Support",
     "media:WebRTC.Support",
     "base:Types",
     "base:Objs",
@@ -35,7 +36,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.TemplatePartial",
     "dynamics:Partials.HotkeyPartial"
-], function(Class, Assets, Info, Dom, MultiUploader, FileUploader, VideoRecorderWrapper, WebRTCSupport, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Collection, Promise, InitialState, RecorderStates, scoped) {
+], function(Class, Assets, Info, Dom, MultiUploader, FileUploader, VideoRecorderWrapper, RecorderSupport, WebRTCSupport, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Collection, Promise, InitialState, RecorderStates, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -88,6 +89,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "allowcustomupload": true,
                     "manual-upload": false,
                     "camerafacefront": false,
+                    "createthumbnails": false,
                     "primaryrecord": true,
                     "allowscreen": false,
                     "nofullscreen": false,
@@ -149,14 +151,16 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "orientation": false,
                     "stretch": false,
                     "audio-test-mandatory": false,
+                    "snapshotfromuploader": true,
 
                     "allowtexttrackupload": false,
                     "uploadlocales": [{
                         lang: 'en',
                         label: 'English'
-                    }]
-
-
+                    }],
+                    "tracktags": [],
+                    "hassubtitles": false,
+                    "videometadata": {}
                 },
 
                 computed: {
@@ -307,6 +311,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     this.__cameraResponsive = true;
                     this.__cameraSignal = true;
 
+                    this._initSettings();
+
                     if (this.get("onlyaudio")) {
                         this.set("picksnapshots", false);
                         this.set("allowupload", false);
@@ -381,7 +387,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         return;
                     }
                     this.set("hasrecorder", true);
-                    this.snapshots = [];
                     this.__attachRequested = false;
                     var video = this.activeElement().querySelector("[data-video='video']");
                     this._clearError();
@@ -449,6 +454,21 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     return this.recorder && this.recorder.isWebrtcStreaming();
                 },
 
+                _initSettings: function() {
+                    // Without below line re-recorder will not lunch
+                    this.snapshots = [];
+                    this.thumbnails = [];
+                    this.set("videometadata", {
+                        "height": null,
+                        "width": null,
+                        "ratio": null,
+                        "thumbnails": {
+                            "mainimage": null,
+                            "images": []
+                        }
+                    });
+                },
+
                 _initializeUploader: function() {
                     if (this._dataUploader)
                         this._dataUploader.weakDestroy();
@@ -466,7 +486,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     if (this.get("simulate"))
                         return;
                     this.__lastCovershotUpload = image;
-                    var uploader = this.recorder.createSnapshotUploader(image, this.get("snapshottype"), this.get("uploadoptions").image);
+                    var uploader = this.recorder ?
+                        this.recorder.createSnapshotUploader(image, this.get("snapshottype"), this.get("uploadoptions").image) :
+                        RecorderSupport.createSnapshotUploader(this.isFlash(), image, this.get("snapshottype"), this.get("uploadoptions").image);
                     uploader.upload();
                     this._dataUploader.addUploader(uploader);
                 },
@@ -478,6 +500,48 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     var uploader = FileUploader.create(Objs.extend({
                         source: file
                     }, this.get("uploadoptions").image));
+                    uploader.upload();
+                    this._dataUploader.addUploader(uploader);
+                },
+
+                /**
+                 * Upload single image Blob file with thumbnails to the server
+                 * @param {Blob} file
+                 * @private
+                 */
+                _uploadThumbnails: function(file) {
+                    if (this.get("simulate"))
+                        return;
+                    this.set("videometadata", Objs.tree_merge(this.get("videometadata"), {
+                        thumbnails: {
+                            mainimage: file
+                        }
+                    }));
+                    var uploader = FileUploader.create(Objs.extend({
+                        source: file
+                    }, this.get("uploadoptions").thumbnail));
+                    uploader.upload();
+                    this._dataUploader.addUploader(uploader);
+                },
+
+                /**
+                 * Upload VTT Blob file to the server with all details about thumbnails
+                 * @param {Blob} file
+                 * @private
+                 */
+                _uploadThumbnailTracks: function(file) {
+                    if (this.get("simulate"))
+                        return;
+                    var uploader = FileUploader.create(Objs.extend({
+                        source: file
+                    }, this.get("uploadoptions").tracks));
+                    // Add Thumbnails as Track element to the player
+                    if (this.get("uploadoptions").tracks.url) {
+                        this.get("tracktags").push({
+                            kind: 'thumbnails',
+                            src: this.get("uploadoptions").tracks.url
+                        });
+                    }
                     uploader.upload();
                     this._dataUploader.addUploader(uploader);
                 },
@@ -635,8 +699,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     },
 
                     rerecord: function() {
-                        if (confirm(this.stringUnicode("rerecord-confirm")))
+                        if (confirm(this.stringUnicode("rerecord-confirm"))) {
                             this.host.state().rerecord();
+                            this._initSettings();
+                        }
                     },
 
                     stop: function() {
@@ -745,12 +811,45 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                             if (Math.random() <= p) {
                                 var snap = this.recorder.createSnapshot(this.get("snapshottype"));
                                 if (snap) {
+                                    if (!this.get('videometadata').height && typeof Image !== 'undefined') {
+                                        RecorderSupport.snapshotMetaData(snap).success(function(data) {
+                                            var _thumbWidth = data.orientation === 'landscape' ? 80 : 35;
+                                            this.set("videometadata", Objs.tree_merge(this.get("videometadata"), data));
+                                            this.set("videometadata", Objs.tree_merge(this.get("videometadata"), {
+                                                "thumbnails": {
+                                                    width: _thumbWidth,
+                                                    height: Math.floor(_thumbWidth / data.width * data.height)
+                                                }
+                                            }));
+                                        }, this);
+                                    }
                                     if (this.snapshots.length < this.get("snapshotmax")) {
                                         this.snapshots.push(snap);
                                     } else {
                                         var i = Math.floor(Math.random() * this.get("snapshotmax"));
                                         this.recorder.removeSnapshot(this.snapshots[i]);
                                         this.snapshots[i] = snap;
+                                    }
+
+                                    if (this.get("createthumbnails")) {
+                                        var _currentRecordingSecond = Math.floor((Time.now() - this.__recording_start_time) / 1000);
+                                        var _thumbLatestIndex = this.get("videometadata").thumbnails.images.length > 1 ? this.get("videometadata").thumbnails.images.length - 1 : 0;
+                                        var _latestThumb = this.get("videometadata").thumbnails.images[_thumbLatestIndex];
+
+                                        // Add thumb each 2 seconds
+                                        if (typeof _latestThumb !== 'undefined') {
+                                            if (_currentRecordingSecond > _latestThumb.time + 1) {
+                                                this.get("videometadata").thumbnails.images.push({
+                                                    time: _currentRecordingSecond,
+                                                    snap: snap
+                                                });
+                                            }
+                                        } else {
+                                            this.get("videometadata").thumbnails.images.push({
+                                                time: _currentRecordingSecond,
+                                                snap: snap
+                                            });
+                                        }
                                     }
                                 }
                             }
@@ -883,6 +982,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
             "unsupported_video_type": "Please upload: %s - click here to retry.",
             "orientation-portrait-required": "Please rotate your device to record in portrait mode.",
             "orientation-landscape-required": "Please rotate your device to record in landscape mode.",
-            "switch-camera": "Switch camera"
+            "switch-camera": "Switch camera",
+            "prepare-covershot": "Preparing covershots",
+            "prepare-thumbnails": "Preparing seeking thumbnails"
         });
 });

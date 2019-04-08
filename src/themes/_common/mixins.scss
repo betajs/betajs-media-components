@@ -151,6 +151,12 @@
     border-color: rgba($r, $g, $b, $o);
 }
 
+@mixin border-rgba-with-type($thinkness, $type, $r, $g, $b, $o, $fallback) {
+    border: $thinkness $type;
+    border-color: $fallback;
+    border-color: rgba($r, $g, $b, $o);
+}
+
 @mixin border-top-rgba($thinkness, $r, $g, $b, $o, $fallback) {
     border-top: $thinkness solid;
     border-top-color: $fallback;

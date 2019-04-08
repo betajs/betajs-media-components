@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.154 - 2019-04-08
+betajs-media-components - v0.0.159 - 2019-04-08
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1006,7 +1006,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.154 - 2019-04-08
+betajs-media-components - v0.0.159 - 2019-04-08
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1022,8 +1022,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.154",
-    "datetime": 1554743083434
+    "version": "0.0.159",
+    "datetime": 1554745287847
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -3340,7 +3340,7 @@ Scoped.define("module:Settings", [
     "base:Timers.Timer",
     "browser:Dom",
     "browser:Events"
-], function(Class, Objs, EventsMixin, Async, Timer, Dom, DomEvents, Info, scoped) {
+], function(Class, Objs, EventsMixin, Async, Timer, Dom, DomEvents, scoped) {
 
     return Class.extend({
         scoped: scoped
@@ -3574,6 +3574,333 @@ Scoped.define("module:Settings", [
                         immediate: true
                     }));
                 }, this, 100);
+            }
+        };
+    }]);
+});
+Scoped.define("module:TrackTags", [
+    "base:Class",
+    "base:Objs",
+    "base:Events.EventsMixin",
+    "base:Async",
+    "base:TimeFormat",
+    "browser:Dom",
+    "browser:Info",
+    "browser:Events"
+], function(Class, Objs, EventsMixin, Async, TimeFormat, Dom, Info, DomEvents, scoped) {
+    return Class.extend({
+        scoped: scoped
+    }, [EventsMixin, function(inherited) {
+        return {
+
+            /**
+             * @param {Object} options
+             * @param {Object} dynamics
+             */
+            constructor: function(options, dynamics) {
+                this._dyn = dynamics;
+                this._trackTags = dynamics.get("tracktags");
+                this._video = dynamics.__video;
+                this.hasThumbs = false;
+                dynamics.set("tracktagssupport", this._trackTags && this._trackTags.length > 0 &&
+                    ('track' in document.createElement('track')));
+                if (!this._video || !this._trackTags || this._trackTags.length === 0)
+                    return;
+                this._loadTrackTags();
+                // To be able play default subtitle in with custom style
+                if (dynamics.get("tracktagsstyled")) this._setDefaultTrackOnPlay();
+
+                // Will trigger meta tag on-load event
+                Async.eventually(function() {
+                    this._loadMetaTrackTags();
+                }, this);
+            },
+
+            /**
+             * Will show thumb on duration
+             * @param {int} index
+             * @param {int} fromLeft
+             * @param {int} currentDuration
+             */
+            showDurationThumb: function(index, fromLeft, currentDuration) {
+                if (this._dyn.get("thumbcuelist")[index]) {
+                    var _cue = this._dyn.get("thumbcuelist")[index];
+                    var _time = currentDuration || (_cue.startTime + Math.round((_cue.startTime - _cue.endTime) / 2));
+                    var _thumbContainer = this.thumbContainer;
+                    var _thumbImage = _thumbContainer.querySelector('div');
+                    var _timeContainer = _thumbContainer.querySelector('span');
+                    var _left = fromLeft - Math.round(_cue.thumbWidth / 1.5) <= 0 ? 5 : fromLeft - Math.round(_cue.thumbWidth / 1.5);
+                    _thumbContainer.style.opacity = '0.85';
+                    _thumbContainer.style.left = _left + "px";
+                    _thumbImage.style.backgroundPositionX = "-" + _cue.positionX + "px";
+                    _thumbImage.style.backgroundPositionY = "-" + _cue.positionY + "px";
+                    _timeContainer.innerText = _time > 0 ? TimeFormat.format(TimeFormat.ELAPSED_MINUTES_SECONDS, _time * 1000) : '0:00';
+                }
+            },
+
+            /**
+             * Will hide thumbnail container
+             */
+            hideDurationThumb: function() {
+                this.thumbContainer.style.opacity = '0.00';
+            },
+
+            /**
+             * Appear track elements inside video element
+             * @private
+             */
+            _loadTrackTags: function() {
+                if (!this._dyn.get("tracktagssupport")) return;
+                var _flag = true;
+                Objs.iter(this._trackTags, function(subtitle, index) {
+                    var _trackTag = document.createElement("track");
+                    var _domEvent = this.auto_destroy(new DomEvents());
+
+                    /** kind could be on of the: subtitles, captions, descriptions, chapters, metadata */
+                    try {
+                        if (subtitle.content && !subtitle.src)
+                            _trackTag.src = URL.createObjectURL(new Blob([subtitle.content], {
+                                type: 'text/plain'
+                            }));
+                    } catch (e) {}
+                    switch (subtitle.kind) {
+                        case 'thumbnails':
+                            _trackTag.id = this._dyn.get("css") + '-track-thumbnails';
+                            _trackTag.kind = 'metadata';
+                            _trackTag.src = subtitle.src;
+                            _trackTag.mode = 'hidden';
+                            this.__appendThumbnailTrackTags(subtitle, index, _trackTag, _domEvent);
+                            break;
+                        default: // Will be subtitles, as mostly it's using for this purpose
+                            _trackTag.id = this._dyn.get("css") + '-tack-' + index;
+                            _trackTag.kind = subtitle.kind || 'subtitles';
+                            _trackTag.label = subtitle.label || 'English';
+                            _trackTag.srclang = subtitle.lang || 'en';
+                            _trackTag.src = subtitle.src || null;
+                            this._dyn.set("hassubtitles", true);
+                            this.__appendTextTrackTags(subtitle, index, _trackTag, _flag, _domEvent);
+                            if (this._trackTags.length > 1) {
+                                this._dyn.on("switch-track", function(selectedTrack) {
+                                    this._dyn.set("tracktextvisible", true);
+                                    this._dyn.set("trackcuetext", null);
+                                    this._setSelectedTag(selectedTrack);
+                                }, this);
+                            }
+                            break;
+                    }
+                    this._video.appendChild(_trackTag);
+                }, this);
+            },
+
+            /**
+             *
+             * @param {Object} subtitle
+             * @param {Integer} index
+             * @param {HTMLElement} trackTag
+             * @param {Boolean} flag
+             * @param {EventListenerOrEventListenerObject} domEvent
+             * @private
+             */
+            __appendTextTrackTags: function(subtitle, index, trackTag, flag, domEvent) {
+                if (subtitle.enabled && flag) {
+                    trackTag.setAttribute('default', '');
+                    this._dyn.set("tracktaglang", subtitle.lang);
+                    this._dyn.set("tracktextvisible", true);
+                }
+                trackTag.setAttribute('data-selector', 'track-tag');
+                domEvent.on(trackTag, "load", function() {
+                    if (subtitle.enabled && flag) {
+                        this.mode = "showing";
+                        if (this._video) this._video.textTracks[index].mode = "showing"; // Firefox
+                        flag = false;
+                    } else {
+                        this.mode = "hidden";
+                        if (this._video) this._video.textTracks[index].mode = "hidden"; // Firefox
+                    }
+                }, this);
+            },
+
+            /**
+             *
+             * @param {Object} subtitle
+             * @param {Integer} index
+             * @param {HTMLElement} trackTag
+             * @param {EventListenerOrEventListenerObject} domEvent
+             * @private
+             */
+            __appendThumbnailTrackTags: function(subtitle, index, trackTag, domEvent) {
+                var _self = this,
+                    _track, _image, _splitText, _dimensions, thumbLink;
+                trackTag.setAttribute('data-selector', 'thumb-track-tag');
+                domEvent.on(trackTag, "load", function(ev) {
+                    _track = this.track;
+                    if (_track.cues[0].text) {
+                        _splitText = _track.cues[0].text.split('#xywh=');
+                        thumbLink = _splitText[0];
+                        _dimensions = _track.cues[0].text.split('#xywh=')[1].split(',');
+
+                        _image = new Image();
+                        _image.src = thumbLink;
+
+                        domEvent.on(_image, "load", function() {
+                            this.hasThumbs = true;
+
+                            var _thumbContainer = document.createElement('div');
+                            var _thumbImageContainer = document.createElement('div');
+                            var _timeContainer = document.createElement('span');
+
+                            Dom.elementAddClass(_thumbContainer, this._dyn.get('css') + '-seeking-thumb-container');
+
+                            _thumbContainer.style.opacity = '0.00';
+                            _thumbImageContainer.style.height = +(_dimensions[3]) + 'px';
+                            _thumbImageContainer.style.width = +(_dimensions[2]) + 'px';
+                            _thumbImageContainer.style.backgroundImage = "url('" + thumbLink + "')";
+                            _thumbImageContainer.style.backgroundRepeat = 'no-repeat';
+                            _thumbImageContainer.style.backgroundAttachment = 'background-attachment';
+
+                            _thumbContainer.appendChild(_thumbImageContainer);
+                            _thumbContainer.appendChild(_timeContainer);
+
+                            this._dyn.set("thumbimage", {
+                                image: _image,
+                                url: _image.src,
+                                height: _image.naturalHeight || _image.height,
+                                width: _image.naturalWidth || _image.width,
+                                thumbWidth: Number(_dimensions[2]),
+                                thumbHeight: Number(_dimensions[3])
+                            });
+                            this.thumbContainer = _thumbContainer;
+                            this.__generateThumbnails(_track);
+                        }, _self);
+                    }
+                });
+            },
+
+            /**
+             * Generate
+             * @param {Object} track
+             * @private
+             */
+            __generateThumbnails: function(track) {
+                Objs.iter(track.cues, function(cue, index) {
+                    if (typeof cue === 'object') {
+                        var _lineSplit = cue.text.trim().split('#xywh=')[1];
+                        var _coordinates = _lineSplit.split(',');
+                        // this here is main DYN instance
+                        this.get("thumbcuelist").push({
+                            startTime: cue.startTime,
+                            endTime: cue.endTime,
+                            positionX: _coordinates[0],
+                            positionY: _coordinates[1],
+                            thumbWidth: _coordinates[2],
+                            thumbHeight: _coordinates[3]
+                        });
+                    }
+                }, this._dyn);
+            },
+
+            /**
+             * If custom styled text track selected
+             * @param {Object} track
+             * @param {String} lang
+             * @private
+             */
+            _showTracksInCustomElement: function(track, lang) {
+                var _lang = lang || this._dyn.get("tracktaglang");
+                var _dyn = this._dyn;
+                if (track.language === _lang) {
+                    var _cues = track.cues;
+                    Objs.iter(_cues, function(cue, index) {
+                        if (typeof _cues[index] === 'object' && _cues[index]) {
+                            cue.onenter = function(ev) {
+                                track.mode = 'hidden';
+                                if (_dyn.get("tracktextvisible"))
+                                    _dyn.set("trackcuetext", this.text);
+                            };
+                            cue.onexit = function(ev) {
+                                _dyn.set("trackcuetext", null);
+                            };
+                        }
+                    }, this);
+                }
+            },
+
+            /**
+             * Load meta data kind Track Elements
+             * @private
+             */
+            _loadMetaTrackTags: function() {
+                if (this._video)
+                    Objs.iter(this._video.textTracks, function(track, index) {
+                        if (typeof this._video.textTracks[index] === 'object' && this._video.textTracks[index]) {
+                            var _track = this._video.textTracks[index];
+                            // If set custom style to true show cue text in our element
+                            if (_track.kind === 'metadata') _track.mode = 'hidden';
+                        }
+                    }, this);
+            },
+
+            /**
+             * Will set default language text track
+             * @private
+             */
+            _setDefaultTrackOnPlay: function() {
+                this._dyn.player.once("playing", function() {
+                    Objs.iter(this._trackTags, function(track, index) {
+                        var _track = this._video.textTracks[index];
+                        if (typeof _track === 'object' && _track) {
+                            if (_track.mode === 'showing')
+                                this._showTracksInCustomElement(_track, _track.language);
+                        }
+                    }, this);
+                }, this);
+            },
+
+            /**
+             * When user select other language or different text track
+             * @param {Object} selectedTrack
+             * @private
+             */
+            _setSelectedTag: function(selectedTrack) {
+                var _status = null;
+                var _track = null;
+                Objs.iter(this._video.textTracks, function(track, index) {
+                    _track = this._video.textTracks[index];
+                    if (typeof _track === 'object' && _track) {
+                        _status = _track.language === selectedTrack.lang ? (this._dyn.get("tracktagsstyled") ? 'hidden' : 'showing') : 'disabled';
+                        if (!this._dyn.get("tracktextvisible")) _status = 'disabled';
+                        _track.mode = _status;
+                        if (_track.language === selectedTrack.lang)
+                            this._triggerTrackChange(this._video, _track, _status, selectedTrack.lang);
+                    }
+                }, this);
+            },
+
+            // Fixed issue when unable switch directly to showing from disabled
+            _triggerTrackChange: function(video, track, status, lang) {
+                var _trackElement = video.querySelector("#" + track.id);
+                var _flag = true;
+                var onTrackEvent = this.auto_destroy(new DomEvents());
+                if (track.oncuechange !== undefined && !((Info.isInternetExplorer() || Info.isEdge()) && this._dyn.get("tracktagsstyled"))) {
+                    onTrackEvent.on(track, "cuechange", function() {
+                        if (_flag) {
+                            if (status.length) track.mode = status;
+                            if (this._dyn.get("tracktagsstyled"))
+                                this._showTracksInCustomElement(track, lang);
+                            else if (_trackElement) {
+                                _trackElement.mode = status;
+                                // _trackElement.setAttribute('default', '');
+                            }
+                            _flag = false;
+                        }
+                    }, this);
+                } else {
+                    onTrackEvent(video, "timeupdate", function() {
+                        if (status.length) track.mode = status;
+                        if (this._dyn.get("tracktagsstyled"))
+                            this._showTracksInCustomElement(track, lang);
+                    }, this);
+                }
             }
         };
     }]);
@@ -3988,7 +4315,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
         }, function(inherited) {
             return {
 
-                template: "\n<div class=\"{{cssplayer}}-dashboard {{activitydelta > hidebarafter && hideoninactivity ? (cssplayer + '-dashboard-hidden') : ''}}\">\n\t<div tabindex=\"{{skipinitial ? 2 : 1}}\" data-selector=\"progress-bar-inner\" class=\"{{css}}-progressbar {{activitydelta < 2500 || ismobile ? '' : (css + '-progressbar-small')}} {{disableseeking ? cssplayer + '-disabled' : ''}}\"\n\t\t ba-hotkey:right=\"{{seek(position + skipseconds)}}\"\n\t\t ba-hotkey:left=\"{{seek(position - skipseconds)}}\"\n         ba-hotkey:alt+right=\"{{seek(position + skipseconds * 3)}}\"\n         ba-hotkey:alt+left=\"{{seek(position - skipseconds * 3)}}\"\n\t\t onmouseout=\"this.blur()\"\n\t     onmousedown=\"{{startUpdatePosition(domEvent)}}\"\n\t     onmouseup=\"{{stopUpdatePosition(domEvent)}}\"\n\t     onmouseleave=\"{{stopUpdatePosition(domEvent)}}\"\n\t     onmousemove=\"{{progressUpdatePosition(domEvent)}}\">\n\t\t<div class=\"{{css}}-progressbar-cache\" ba-styles=\"{{{width: Math.round(duration ? cached / duration * 100 : 0) + '%'}}}\"></div>\n\t\t<div class=\"{{css}}-progressbar-position\" ba-styles=\"{{{width: Math.round(duration ? position / duration * 100 : 0) + '%'}}}\" title=\"{{string('video-progress')}}\">\n\t\t\t<div class=\"{{css}}-progressbar-button\"></div>\n\t\t</div>\n\t</div>\n\n\t<div class=\"{{css}}-backbar\"></div>\n\n\t<div class=\"{{css}}-controlbar\">\n\n        <div tabindex=\"0\" data-selector=\"submit-video-button\"\n\t\t\t ba-hotkey:space^enter=\"{{submit()}}\" onmouseout=\"this.blur()\"\n\t\t\t class=\"{{css}}-leftbutton-container\"\n\t\t\t ba-if=\"{{submittable}}\" ba-click=\"{{submit()}}\">\n            <div class=\"{{css}}-button-inner\">\n                {{string('submit-video')}}\n            </div>\n        </div>\n\n        <div tabindex=\"0\" data-selector=\"button-icon-ccw\"\n\t\t\t ba-hotkey:space^enter=\"{{rerecord()}}\" onmouseout=\"this.blur()\"\n\t\t\t class=\"{{css}}-leftbutton-container\" ba-if=\"{{rerecordable}}\"\n\t\t\t ba-click=\"{{rerecord()}}\" title=\"{{string('rerecord-video')}}\"\n\t\t>\n            <div class=\"{{css}}-button-inner\">\n                <i class=\"{{csscommon}}-icon-ccw\"></i>\n            </div>\n        </div>\n\n        <div tabindex=\"{{skipinitial ? 0 : 2}}\" data-selector=\"button-icon-play\"\n\t\t\t ba-hotkey:space^enter=\"{{toggle_player()}}\" onmouseout=\"this.blur()\"\n\t\t\t class=\"{{css}}-leftbutton-container\" title=\"{{string('play-video')}}\"\n\t\t\t onkeydown=\"{{tab_index_move(domEvent, null, 'button-icon-pause')}}\" ba-if=\"{{!playing}}\" ba-click=\"{{play()}}\"\n\t\t>\n            <div class=\"{{css}}-button-inner\">\n                <i class=\"{{csscommon}}-icon-play\"></i>\n            </div>\n        </div>\n\n        <div tabindex=\"{{skipinitial ? 0 : 2}}\" data-selector=\"button-icon-pause\"\n\t\t\t ba-hotkey:space^enter=\"{{toggle_player()}}\" onmouseout=\"this.blur()\"\n\t\t\t class=\"{{css}}-leftbutton-container {{disablepause ? cssplayer + '-disabled' : ''}}\"\n\t\t\t onkeydown=\"{{tab_index_move(domEvent, null, 'button-icon-play')}}\" ba-if=\"{{playing}}\" ba-click=\"{{pause()}}\"\n\t\t\t title=\"{{disablepause ? string('pause-video-disabled') : string('pause-video')}}\"\n\t\t>\n            <div class=\"{{css}}-button-inner\">\n                <i class=\"{{csscommon}}-icon-pause\"></i>\n            </div>\n        </div>\n\n\t\t<div class=\"{{css}}-time-container\">\n\t\t\t<div class=\"{{css}}-time-value\" title=\"{{string('elapsed-time')}}\">{{formatTime(position)}}</div>\n\t\t\t<div class=\"{{css}}-time-sep\">/</div>\n\t\t\t<div class=\"{{css}}-time-value\" title=\"{{string('total-time')}}\">{{formatTime(duration || position)}}</div>\n\t\t</div>\n\n\t\t<div data-selector=\"video-title-block\" class=\"{{css}}-title-container\" ba-if=\"{{title}}\">\n\t\t\t<p class=\"{{css}}-title\">\n\t\t\t\t{{title}}\n\t\t\t</p>\n\t\t</div>\n\n\t\t<div tabindex=\"11\" data-selector=\"button-icon-settings\"\n\t\t\t ba-hotkey:space^enter=\"{{toggle_settings()}}\" onmouseout=\"this.blur()\"\n\t\t\t class=\"{{css}}-rightbutton-container {{cssplayer}}-settings-{{settingsoptionsvisible ? 'visible' : 'hidden'}}\"\n\t\t\t onkeydown=\"{{tab_index_move(domEvent)}}\"\n\t\t\t ba-if=\"{{settings}}\" ba-click=\"{{toggle_settings()}}\"\n\t\t\t title=\"{{string('settings')}}\">\n\t\t\t<div class=\"{{css}}-button-inner {{css}}-settings-button\">\n\t\t\t\t<i class=\"{{csscommon}}-icon-cog\"></i>\n\t\t\t</div>\n\t\t</div>\n\n\t\t<div tabindex=\"10\" data-selector=\"cc-button-container\"\n\t\t\t ba-hotkey:space^enter=\"{{toggle_tracks()}}\" onmouseout=\"this.blur()\"\n\t\t\t ba-if=\"{{(tracktags.length > 0 && tracktagssupport) || allowtexttrackupload}}\"\n\t\t\t class=\"{{css}}-rightbutton-container  {{cssplayer}}-cc-{{tracktextvisible ? 'active' : 'inactive'}}\"\n\t\t\t title=\"{{ tracktextvisible ? string('close-tracks') : string('show-tracks')}}\"\n\t\t\t ba-click=\"{{toggle_tracks()}}\"\n\t\t\t onmouseover=\"{{hover_cc(true)}}\"\n\t\t\t onmouseleave=\"{{hover_cc(false)}}\"\n\t\t>\n\t\t\t<div class=\"{{css}}-button-inner\">\n\t\t\t\t<i class=\"{{csscommon}}-icon-subtitle\"></i>\n\t\t\t</div>\n\t\t</div>\n\n\t\t<div tabindex=9 data-selector=\"button-icon-resize-full\"\n\t\t\t ba-hotkey:space^enter=\"{{toggle_fullscreen()}}\" onmouseout=\"this.blur()\"\n\t\t\t class=\"{{css}}-rightbutton-container\"\n\t\t\t onkeydown=\"{{tab_index_move(domEvent)}}\" ba-if=\"{{fullscreen}}\"\n\t\t\t ba-click=\"{{toggle_fullscreen()}}\" title=\"{{ fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video') }}\">\n\t\t\t<div class=\"{{css}}-button-inner\">\n\t\t\t\t<i class=\"{{csscommon}}-icon-resize-{{fullscreened ? 'small' : 'full'}}\"></i>\n\t\t\t</div>\n\t\t</div>\n\n        <div tabindex=\"7\" data-selector=\"button-airplay\"\n\t\t\t ba-hotkey:space^enter=\"{{show_airplay_devices()}}\" onmouseout=\"this.blur()\"\n\t\t\t class=\"{{css}}-rightbutton-container\"\n\t\t\t ba-show=\"{{airplaybuttonvisible}}\" ba-click=\"{{show_airplay_devices()}}\">\n            <div class=\"{{css}}-airplay-container\">\n                <svg width=\"16px\" height=\"11px\" viewBox=\"0 0 16 11\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n                    \n                    <title>Airplay</title>\n                    <desc>Airplay icon.</desc>\n                    <defs></defs>\n                    <g stroke=\"none\" stroke-width=\"1\" fill-rule=\"evenodd\" sketch:type=\"MSPage\">\n                        <path d=\"M4,11 L12,11 L8,7 L4,11 Z M14.5454545,0 L1.45454545,0 C0.654545455,0 0,0.5625 0,1.25 L0,8.75 C0,9.4375 0.654545455,10 1.45454545,10 L4.36363636,10 L4.36363636,8.75 L1.45454545,8.75 L1.45454545,1.25 L14.5454545,1.25 L14.5454545,8.75 L11.6363636,8.75 L11.6363636,10 L14.5454545,10 C15.3454545,10 16,9.4375 16,8.75 L16,1.25 C16,0.5625 15.3454545,0 14.5454545,0 L14.5454545,0 Z\" sketch:type=\"MSShapeGroup\"></path>\n                    </g>\n                </svg>\n            </div>\n        </div>\n\n        <div data-selector=\"button-chromecast\" class=\"{{css}}-rightbutton-container {{css}}-cast-button-container\" ba-show=\"{{castbuttonvisble}}\">\n            <button tabindex=\"0\" class=\"{{css}}-gcast-button\" is=\"google-cast-button\"></button>\n        </div>\n\n        <div tabindex=\"6\" data-selector=\"button-stream-label\"\n\t\t\t ba-hotkey:space^enter=\"{{toggle_stream()}}\" onmouseout=\"this.blur()\"\n\t\t\t class=\"{{css}}-rightbutton-container\"\n\t\t\t ba-if=\"{{streams.length > 1 && currentstream}}\" ba-click=\"{{toggle_stream()}}\"\n\t\t\t title=\"{{string('change-resolution')}}\"\n\t\t>\n\t\t\t<div class=\"{{css}}-button-inner\">\n\t\t\t\t<span class=\"{{css}}-button-text\">{{currentstream_label}}</span>\n\t\t\t</div>\n\t\t</div>\n\n\t\t<div class=\"{{css}}-volumebar\">\n\t\t\t<div tabindex=\"5\" data-selector=\"button-volume-bar\"\n\t\t\t\t ba-hotkey:right=\"{{set_volume(volume + 0.1)}}\" ba-hotkey:left=\"{{set_volume(volume - 0.1)}}\"\n\t\t\t\t ba-hotkey:up=\"{{set_volume(1)}}\" ba-hotkey:down=\"{{set_volume(0)}}\"\n\t\t\t\t onmouseout=\"this.blur()\"\n\t\t\t\t class=\"{{css}}-volumebar-inner\"\n\t\t\t     onmousedown=\"{{startUpdateVolume(domEvent)}}\"\n                 onmouseup=\"{{stopUpdateVolume(domEvent)}}\"\n                 onmouseleave=\"{{stopUpdateVolume(domEvent)}}\"\n                 onmousemove=\"{{progressUpdateVolume(domEvent)}}\"\n\t\t\t>\n\t\t\t\t<div class=\"{{css}}-volumebar-position\" ba-styles=\"{{{width: Math.min(100, Math.round(volume * 100)) + '%'}}}\">\n\t\t\t\t    <div class=\"{{css}}-volumebar-button\" title=\"{{string('volume-button')}}\"></div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\n\t\t<div tabindex=\"4\" data-selector=\"button-icon-volume\"\n\t\t\t ba-hotkey:space^enter=\"{{toggle_volume()}}\" onmouseout=\"this.blur()\"\n\t\t\t class=\"{{css}}-rightbutton-container\"\n\t\t\t ba-click=\"{{toggle_volume()}}\" title=\"{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}\">\n\t\t\t<div class=\"{{css}}-button-inner\">\n\t\t\t\t<i class=\"{{csscommon + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}\"></i>\n\t\t\t</div>\n\t\t</div>\n\n\t</div>\n</div>\n",
+                template: "\n<div class=\"{{cssplayer}}-dashboard {{activitydelta > hidebarafter && hideoninactivity ? (cssplayer + '-dashboard-hidden') : ''}}\">\n\t<div tabindex=\"{{skipinitial ? 2 : 1}}\" data-selector=\"progress-bar-inner\" class=\"{{css}}-progressbar {{activitydelta < 2500 || ismobile ? '' : (css + '-progressbar-small')}} {{disableseeking ? cssplayer + '-disabled' : ''}}\"\n\t\t ba-hotkey:right=\"{{seek(position + skipseconds)}}\"\n\t\t ba-hotkey:left=\"{{seek(position - skipseconds)}}\"\n         ba-hotkey:alt+right=\"{{seek(position + skipseconds * 3)}}\"\n         ba-hotkey:alt+left=\"{{seek(position - skipseconds * 3)}}\"\n\t\t onmouseout=\"this.blur()\"\n\t\t ontouchstart=\"{{startUpdatePosition(domEvent)}}\"\n\t\t ontouchmove=\"{{progressUpdatePosition(domEvent)}}\"\n\t\t ontouchend=\"{{stopUpdatePosition(domEvent); this.blur()}}\"\n\t     onmousedown=\"{{startUpdatePosition(domEvent)}}\"\n\t     onmouseup=\"{{stopUpdatePosition(domEvent)}}\"\n\t     onmouseleave=\"{{stopUpdatePosition(domEvent)}}\"\n\t     onmousemove=\"{{progressUpdatePosition(domEvent)}}\"\n\t>\n\t\t<div class=\"{{css}}-progressbar-cache\" ba-styles=\"{{{width: Math.round(duration ? cached / duration * 100 : 0) + '%'}}}\"></div>\n\t\t<div class=\"{{css}}-progressbar-position\" ba-styles=\"{{{width: Math.round(duration ? position / duration * 100 : 0) + '%'}}}\" title=\"{{string('video-progress')}}\">\n\t\t\t<div class=\"{{css}}-progressbar-button\"></div>\n\t\t</div>\n\t</div>\n\n\t<div class=\"{{css}}-backbar\"></div>\n\n\t<div class=\"{{css}}-controlbar\">\n\n        <div tabindex=\"0\" data-selector=\"submit-video-button\"\n\t\t\t ba-hotkey:space^enter=\"{{submit()}}\" onmouseout=\"this.blur()\"\n\t\t\t class=\"{{css}}-leftbutton-container\"\n\t\t\t ba-if=\"{{submittable}}\" ba-click=\"{{submit()}}\">\n            <div class=\"{{css}}-button-inner\">\n                {{string('submit-video')}}\n            </div>\n        </div>\n\n        <div tabindex=\"0\" data-selector=\"button-icon-ccw\"\n\t\t\t ba-hotkey:space^enter=\"{{rerecord()}}\" onmouseout=\"this.blur()\"\n\t\t\t class=\"{{css}}-leftbutton-container\" ba-if=\"{{rerecordable}}\"\n\t\t\t ba-click=\"{{rerecord()}}\" title=\"{{string('rerecord-video')}}\"\n\t\t>\n            <div class=\"{{css}}-button-inner\">\n                <i class=\"{{csscommon}}-icon-ccw\"></i>\n            </div>\n        </div>\n\n        <div tabindex=\"{{skipinitial ? 0 : 2}}\" data-selector=\"button-icon-play\"\n\t\t\t ba-hotkey:space^enter=\"{{toggle_player()}}\" onmouseout=\"this.blur()\"\n\t\t\t class=\"{{css}}-leftbutton-container\" title=\"{{string('play-video')}}\"\n\t\t\t onkeydown=\"{{tab_index_move(domEvent, null, 'button-icon-pause')}}\" ba-if=\"{{!playing}}\" ba-click=\"{{play()}}\"\n\t\t>\n            <div class=\"{{css}}-button-inner\">\n                <i class=\"{{csscommon}}-icon-play\"></i>\n            </div>\n        </div>\n\n        <div tabindex=\"{{skipinitial ? 0 : 2}}\" data-selector=\"button-icon-pause\"\n\t\t\t ba-hotkey:space^enter=\"{{toggle_player()}}\" onmouseout=\"this.blur()\"\n\t\t\t class=\"{{css}}-leftbutton-container {{disablepause ? cssplayer + '-disabled' : ''}}\"\n\t\t\t onkeydown=\"{{tab_index_move(domEvent, null, 'button-icon-play')}}\" ba-if=\"{{playing}}\" ba-click=\"{{pause()}}\"\n\t\t\t title=\"{{disablepause ? string('pause-video-disabled') : string('pause-video')}}\"\n\t\t>\n            <div class=\"{{css}}-button-inner\">\n                <i class=\"{{csscommon}}-icon-pause\"></i>\n            </div>\n        </div>\n\n\t\t<div class=\"{{css}}-time-container\">\n\t\t\t<div class=\"{{css}}-time-value\" title=\"{{string('elapsed-time')}}\">{{formatTime(position)}}</div>\n\t\t\t<div class=\"{{css}}-time-sep\">/</div>\n\t\t\t<div class=\"{{css}}-time-value {{css}}-time-total-duration\" title=\"{{string('total-time')}}\">{{formatTime(duration || position)}}</div>\n\t\t</div>\n\n\t\t<div data-selector=\"video-title-block\" class=\"{{css}}-title-container\" ba-if=\"{{title}}\">\n\t\t\t<p class=\"{{css}}-title\">\n\t\t\t\t{{title}}\n\t\t\t</p>\n\t\t</div>\n\n\t\t<div tabindex=\"11\" data-selector=\"button-icon-settings\"\n\t\t\t ba-hotkey:space^enter=\"{{toggle_settings()}}\" onmouseout=\"this.blur()\"\n\t\t\t class=\"{{css}}-rightbutton-container {{cssplayer}}-settings-{{settingsoptionsvisible ? 'visible' : 'hidden'}}\"\n\t\t\t onkeydown=\"{{tab_index_move(domEvent)}}\"\n\t\t\t ba-if=\"{{settings}}\" ba-click=\"{{toggle_settings()}}\"\n\t\t\t title=\"{{string('settings')}}\">\n\t\t\t<div class=\"{{css}}-button-inner {{css}}-settings-button\">\n\t\t\t\t<i class=\"{{csscommon}}-icon-cog\"></i>\n\t\t\t</div>\n\t\t</div>\n\n\t\t<div tabindex=\"10\" data-selector=\"cc-button-container\"\n\t\t\t ba-hotkey:space^enter=\"{{toggle_tracks()}}\" onmouseout=\"this.blur()\"\n\t\t\t ba-if=\"{{(tracktags.length > 0 && showsubtitlebutton) || allowtexttrackupload}}\"\n\t\t\t class=\"{{css}}-rightbutton-container  {{cssplayer}}-cc-{{tracktextvisible ? 'active' : 'inactive'}}\"\n\t\t\t title=\"{{ tracktextvisible ? string('close-tracks') : string('show-tracks')}}\"\n\t\t\t ba-click=\"{{toggle_tracks()}}\"\n\t\t\t onmouseover=\"{{hover_cc(true)}}\"\n\t\t\t onmouseleave=\"{{hover_cc(false)}}\"\n\t\t>\n\t\t\t<div class=\"{{css}}-button-inner\">\n\t\t\t\t<i class=\"{{csscommon}}-icon-subtitle\"></i>\n\t\t\t</div>\n\t\t</div>\n\n\t\t<div tabindex=9 data-selector=\"button-icon-resize-full\"\n\t\t\t ba-hotkey:space^enter=\"{{toggle_fullscreen()}}\" onmouseout=\"this.blur()\"\n\t\t\t class=\"{{css}}-rightbutton-container\"\n\t\t\t onkeydown=\"{{tab_index_move(domEvent)}}\" ba-if=\"{{fullscreen}}\" ba-click=\"{{toggle_fullscreen()}}\" title=\"{{ fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video') }}\">\n\t\t\t<div class=\"{{css}}-button-inner\">\n\t\t\t\t<i class=\"{{csscommon}}-icon-resize-{{fullscreened ? 'small' : 'full'}}\"></i>\n\t\t\t</div>\n\t\t</div>\n\n        <div tabindex=\"7\" data-selector=\"button-airplay\"\n\t\t\t ba-hotkey:space^enter=\"{{show_airplay_devices()}}\" onmouseout=\"this.blur()\"\n\t\t\t class=\"{{css}}-rightbutton-container\"\n\t\t\t ba-show=\"{{airplaybuttonvisible}}\" ba-click=\"{{show_airplay_devices()}}\">\n            <div class=\"{{css}}-airplay-container\">\n                <svg width=\"16px\" height=\"11px\" viewBox=\"0 0 16 11\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n                    \n                    <title>{{string('airplay')}}</title>\n                    <desc>{{string('airplay-icon')}}</desc>\n                    <defs></defs>\n                    <g stroke=\"none\" stroke-width=\"1\" fill-rule=\"evenodd\" sketch:type=\"MSPage\">\n                        <path d=\"M4,11 L12,11 L8,7 L4,11 Z M14.5454545,0 L1.45454545,0 C0.654545455,0 0,0.5625 0,1.25 L0,8.75 C0,9.4375 0.654545455,10 1.45454545,10 L4.36363636,10 L4.36363636,8.75 L1.45454545,8.75 L1.45454545,1.25 L14.5454545,1.25 L14.5454545,8.75 L11.6363636,8.75 L11.6363636,10 L14.5454545,10 C15.3454545,10 16,9.4375 16,8.75 L16,1.25 C16,0.5625 15.3454545,0 14.5454545,0 L14.5454545,0 Z\" sketch:type=\"MSShapeGroup\"></path>\n                    </g>\n                </svg>\n            </div>\n        </div>\n\n        <div data-selector=\"button-chromecast\" class=\"{{css}}-rightbutton-container {{css}}-cast-button-container\" ba-show=\"{{castbuttonvisble}}\">\n            <button tabindex=\"0\" class=\"{{css}}-gcast-button\" is=\"google-cast-button\"></button>\n        </div>\n\n        <div tabindex=\"6\" data-selector=\"button-stream-label\"\n\t\t\t ba-hotkey:space^enter=\"{{toggle_stream()}}\" onmouseout=\"this.blur()\"\n\t\t\t class=\"{{css}}-rightbutton-container\"\n\t\t\t ba-if=\"{{streams.length > 1 && currentstream}}\" ba-click=\"{{toggle_stream()}}\"\n\t\t\t title=\"{{string('change-resolution')}}\"\n\t\t>\n\t\t\t<div class=\"{{css}}-button-inner\">\n\t\t\t\t<span class=\"{{css}}-button-text\">{{currentstream_label}}</span>\n\t\t\t</div>\n\t\t</div>\n\n\t\t<div class=\"{{css}}-volumebar\" ba-show=\"{{!hidevolumebar}}\">\n\t\t\t<div tabindex=\"5\" data-selector=\"button-volume-bar\"\n\t\t\t\t ba-hotkey:right=\"{{set_volume(volume + 0.1)}}\" ba-hotkey:left=\"{{set_volume(volume - 0.1)}}\"\n\t\t\t\t ba-hotkey:up=\"{{set_volume(1)}}\" ba-hotkey:down=\"{{set_volume(0)}}\"\n\t\t\t\t onmouseout=\"this.blur()\"\n\t\t\t\t class=\"{{css}}-volumebar-inner\"\n\t\t\t\t ontouchstart=\"{{startUpdateVolume(domEvent)}}\"\n\t\t\t\t ontouchmove=\"{{progressUpdateVolume(domEvent)}}\"\n\t\t\t\t ontouchend=\"{{stopUpdateVolume(domEvent); this.blur()}};\"\n\t\t\t     onmousedown=\"{{startUpdateVolume(domEvent)}}\"\n                 onmouseup=\"{{stopUpdateVolume(domEvent)}}\"\n                 onmouseleave=\"{{stopUpdateVolume(domEvent)}}\"\n                 onmousemove=\"{{progressUpdateVolume(domEvent)}}\"\n\t\t\t>\n\t\t\t\t<div class=\"{{css}}-volumebar-position\" ba-styles=\"{{{width: Math.min(100, Math.round(volume * 100)) + '%'}}}\">\n\t\t\t\t    <div class=\"{{css}}-volumebar-button\" title=\"{{string('volume-button')}}\"></div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\n\t\t<div tabindex=\"4\" data-selector=\"button-icon-volume\"\n\t\t\t ba-hotkey:space^enter=\"{{toggle_volume()}}\" onmouseout=\"this.blur()\"\n\t\t\t class=\"{{css}}-rightbutton-container\"\n\t\t\t ba-click=\"{{toggle_volume()}}\" title=\"{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}\">\n\t\t\t<div class=\"{{css}}-button-inner\">\n\t\t\t\t<i class=\"{{csscommon + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}\"></i>\n\t\t\t</div>\n\t\t</div>\n\n\t</div>\n</div>\n",
 
                 attrs: {
                     "css": "ba-videoplayer",
@@ -4013,6 +4340,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     "settings": false,
                     "hoveredblock": false, // Set true when mouse hovered
                     "allowtexttrackupload": false,
+                    'thumbisvisible': false,
                     "tracktextvisible": false // Are subtitles visible?
                 },
 
@@ -4033,6 +4361,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     startUpdatePosition: function(event) {
                         if (this.get("disableseeking")) return;
                         event[0].preventDefault();
+                        if (!this.__parent.get("playing") && this.__parent.player) this.__parent.player.play();
                         this.set("_updatePosition", true);
                         this.call("progressUpdatePosition", event);
                     },
@@ -4040,26 +4369,64 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     progressUpdatePosition: function(event) {
                         var ev = event[0];
                         ev.preventDefault();
-                        if (!this.get("_updatePosition"))
-                            return;
-                        var clientX = ev.clientX;
+                        var _dyn = this.__parent;
+
+                        // Mouse or Touch Event
+                        var clientX = ev.clientX || ev.targetTouches[0].clientX;
                         var target = ev.currentTarget;
                         var offset = Dom.elementOffset(target);
                         var dimensions = Dom.elementDimensions(target);
-                        this.set("position", this.get("duration") * (clientX - offset.left) / (dimensions.width || 1));
+                        var percentageFromStart = (clientX - offset.left) / (dimensions.width || 1);
+                        var onDuration = this.get("duration") * percentageFromStart;
 
-                        var player = this.__parent.player;
-                        if (player._broadcastingState.googleCastConnected) {
-                            player.trigger('google-cast-seeking', this.get("position"));
+                        if (!this.get("_updatePosition") && !_dyn.__trackTags.hasThumbs)
                             return;
+
+                        var player = _dyn.player;
+
+                        if (this.__parent.__trackTags.hasThumbs) {
+                            var _index;
+                            var _trackTags = _dyn.__trackTags;
+                            var _cuesCount = _dyn.get("thumbcuelist").length;
+                            if (onDuration > 0) {
+                                _index = Math.floor(_cuesCount * percentageFromStart);
+                                for (var i = _index - 2; i < _cuesCount; i++) {
+                                    if (_dyn.get("thumbcuelist")[i]) {
+                                        var _cue = _dyn.get("thumbcuelist")[i];
+                                        if (_cue.startTime < onDuration && _cue.endTime > onDuration) {
+                                            _trackTags.showDurationThumb(i, clientX, onDuration);
+                                            break;
+                                        }
+                                    }
+                                }
+                            } else {
+                                _index = Math.floor(_cuesCount * percentageFromStart);
+                                _trackTags.showDurationThumb(_index, clientX);
+                            }
+
+                            this.set("thumbisvisible", true);
+                            this.activeElement().appendChild(_trackTags.thumbContainer);
                         }
 
-                        this.trigger("position", this.get("position"));
+                        if (this.get("_updatePosition")) {
+                            this.set("position", onDuration);
+
+                            if (player._broadcastingState.googleCastConnected) {
+                                player.trigger('google-cast-seeking', this.get("position"));
+                                return;
+                            }
+                            this.trigger("position", this.get("position"));
+                        }
                     },
 
                     stopUpdatePosition: function(event) {
-                        event[0].preventDefault();
+                        var ev = event[0];
+                        ev.preventDefault();
                         this.set("_updatePosition", false);
+                        if (this.__parent.__trackTags.hasThumbs && this.get("thumbisvisible")) {
+                            this.set("thumbisvisible", false);
+                            this.__parent.__trackTags.hideDurationThumb();
+                        }
                     },
 
                     startUpdateVolume: function(event) {
@@ -4073,11 +4440,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         ev.preventDefault();
                         if (!this.get("_updateVolume"))
                             return;
-                        var clientX = ev.clientX;
+                        var clientX = ev.clientX || ev.targetTouches[0].clientX;
                         var target = ev.currentTarget;
                         var offset = Dom.elementOffset(target);
                         var dimensions = Dom.elementDimensions(target);
-                        this.set("volume", (clientX - offset.left) / (dimensions.width || 1));
+                        var _position = (clientX - offset.left) / (dimensions.width || 1);
+                        var _test = Dom.getRelativeCoordinates(target, event[0]);
+                        // Will fix bug (is outside the range [0, 1]) which cause mobile bug also
+                        _position = _position > 1.00 ? 1.00 : (_position < 0.00 ? 0.00 : _position);
+                        this.set("volume", _position);
                         this.trigger("volume", this.get("volume"));
                     },
 
@@ -4097,11 +4468,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         ev.preventDefault();
                         if (!this.get("_updateVolume"))
                             return;
-                        var pageY = ev.pageY;
+                        var clientY = ev.clientY || ev.targetTouches[0].clientY;
                         var target = ev.currentTarget;
                         var offset = Dom.elementOffset(target);
                         var dimensions = Dom.elementDimensions(target);
-                        this.set("volume", 1 - (pageY - offset.top) / dimensions.height);
+                        var _position = 1 - (clientY - offset.top) / (dimensions.height || 1);
+                        // Will fix bug (is outside the range [0, 1]) which cause mobile bug also
+                        _position = _position > 1.00 ? 1.00 : (_position < 0.00 ? 0.00 : _position);
+                        this.set("volume", _position);
                         this.trigger("volume", this.get("volume"));
                     },
 
@@ -4109,7 +4483,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         event[0].preventDefault();
                         this.set("_updateVolume", false);
                     },
-
 
                     play: function() {
                         this.trigger("play");
@@ -4229,7 +4602,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
         })
         .register("ba-videoplayer-controlbar")
         .registerFunctions({
-            /**/"cssplayer": function (obj) { with (obj) { return cssplayer; } }, "activitydelta > hidebarafter && hideoninactivity ? (cssplayer + '-dashboard-hidden') : ''": function (obj) { with (obj) { return activitydelta > hidebarafter && hideoninactivity ? (cssplayer + '-dashboard-hidden') : ''; } }, "skipinitial ? 2 : 1": function (obj) { with (obj) { return skipinitial ? 2 : 1; } }, "css": function (obj) { with (obj) { return css; } }, "activitydelta < 2500 || ismobile ? '' : (css + '-progressbar-small')": function (obj) { with (obj) { return activitydelta < 2500 || ismobile ? '' : (css + '-progressbar-small'); } }, "disableseeking ? cssplayer + '-disabled' : ''": function (obj) { with (obj) { return disableseeking ? cssplayer + '-disabled' : ''; } }, "seek(position + skipseconds)": function (obj) { with (obj) { return seek(position + skipseconds); } }, "seek(position - skipseconds)": function (obj) { with (obj) { return seek(position - skipseconds); } }, "seek(position + skipseconds * 3)": function (obj) { with (obj) { return seek(position + skipseconds * 3); } }, "seek(position - skipseconds * 3)": function (obj) { with (obj) { return seek(position - skipseconds * 3); } }, "startUpdatePosition(domEvent)": function (obj) { with (obj) { return startUpdatePosition(domEvent); } }, "stopUpdatePosition(domEvent)": function (obj) { with (obj) { return stopUpdatePosition(domEvent); } }, "progressUpdatePosition(domEvent)": function (obj) { with (obj) { return progressUpdatePosition(domEvent); } }, "{width: Math.round(duration ? cached / duration * 100 : 0) + '%'}": function (obj) { with (obj) { return {width: Math.round(duration ? cached / duration * 100 : 0) + '%'}; } }, "{width: Math.round(duration ? position / duration * 100 : 0) + '%'}": function (obj) { with (obj) { return {width: Math.round(duration ? position / duration * 100 : 0) + '%'}; } }, "string('video-progress')": function (obj) { with (obj) { return string('video-progress'); } }, "submit()": function (obj) { with (obj) { return submit(); } }, "submittable": function (obj) { with (obj) { return submittable; } }, "string('submit-video')": function (obj) { with (obj) { return string('submit-video'); } }, "rerecord()": function (obj) { with (obj) { return rerecord(); } }, "rerecordable": function (obj) { with (obj) { return rerecordable; } }, "string('rerecord-video')": function (obj) { with (obj) { return string('rerecord-video'); } }, "csscommon": function (obj) { with (obj) { return csscommon; } }, "skipinitial ? 0 : 2": function (obj) { with (obj) { return skipinitial ? 0 : 2; } }, "toggle_player()": function (obj) { with (obj) { return toggle_player(); } }, "string('play-video')": function (obj) { with (obj) { return string('play-video'); } }, "tab_index_move(domEvent, null, 'button-icon-pause')": function (obj) { with (obj) { return tab_index_move(domEvent, null, 'button-icon-pause'); } }, "!playing": function (obj) { with (obj) { return !playing; } }, "play()": function (obj) { with (obj) { return play(); } }, "disablepause ? cssplayer + '-disabled' : ''": function (obj) { with (obj) { return disablepause ? cssplayer + '-disabled' : ''; } }, "tab_index_move(domEvent, null, 'button-icon-play')": function (obj) { with (obj) { return tab_index_move(domEvent, null, 'button-icon-play'); } }, "playing": function (obj) { with (obj) { return playing; } }, "pause()": function (obj) { with (obj) { return pause(); } }, "disablepause ? string('pause-video-disabled') : string('pause-video')": function (obj) { with (obj) { return disablepause ? string('pause-video-disabled') : string('pause-video'); } }, "string('elapsed-time')": function (obj) { with (obj) { return string('elapsed-time'); } }, "formatTime(position)": function (obj) { with (obj) { return formatTime(position); } }, "string('total-time')": function (obj) { with (obj) { return string('total-time'); } }, "formatTime(duration || position)": function (obj) { with (obj) { return formatTime(duration || position); } }, "title": function (obj) { with (obj) { return title; } }, "toggle_settings()": function (obj) { with (obj) { return toggle_settings(); } }, "settingsoptionsvisible ? 'visible' : 'hidden'": function (obj) { with (obj) { return settingsoptionsvisible ? 'visible' : 'hidden'; } }, "tab_index_move(domEvent)": function (obj) { with (obj) { return tab_index_move(domEvent); } }, "settings": function (obj) { with (obj) { return settings; } }, "string('settings')": function (obj) { with (obj) { return string('settings'); } }, "toggle_tracks()": function (obj) { with (obj) { return toggle_tracks(); } }, "(tracktags.length > 0 && tracktagssupport) || allowtexttrackupload": function (obj) { with (obj) { return (tracktags.length > 0 && tracktagssupport) || allowtexttrackupload; } }, "tracktextvisible ? 'active' : 'inactive'": function (obj) { with (obj) { return tracktextvisible ? 'active' : 'inactive'; } }, "tracktextvisible ? string('close-tracks') : string('show-tracks')": function (obj) { with (obj) { return tracktextvisible ? string('close-tracks') : string('show-tracks'); } }, "hover_cc(true)": function (obj) { with (obj) { return hover_cc(true); } }, "hover_cc(false)": function (obj) { with (obj) { return hover_cc(false); } }, "toggle_fullscreen()": function (obj) { with (obj) { return toggle_fullscreen(); } }, "fullscreen": function (obj) { with (obj) { return fullscreen; } }, "fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video')": function (obj) { with (obj) { return fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video'); } }, "fullscreened ? 'small' : 'full'": function (obj) { with (obj) { return fullscreened ? 'small' : 'full'; } }, "show_airplay_devices()": function (obj) { with (obj) { return show_airplay_devices(); } }, "airplaybuttonvisible": function (obj) { with (obj) { return airplaybuttonvisible; } }, "castbuttonvisble": function (obj) { with (obj) { return castbuttonvisble; } }, "toggle_stream()": function (obj) { with (obj) { return toggle_stream(); } }, "streams.length > 1 && currentstream": function (obj) { with (obj) { return streams.length > 1 && currentstream; } }, "string('change-resolution')": function (obj) { with (obj) { return string('change-resolution'); } }, "currentstream_label": function (obj) { with (obj) { return currentstream_label; } }, "set_volume(volume + 0.1)": function (obj) { with (obj) { return set_volume(volume + 0.1); } }, "set_volume(volume - 0.1)": function (obj) { with (obj) { return set_volume(volume - 0.1); } }, "set_volume(1)": function (obj) { with (obj) { return set_volume(1); } }, "set_volume(0)": function (obj) { with (obj) { return set_volume(0); } }, "startUpdateVolume(domEvent)": function (obj) { with (obj) { return startUpdateVolume(domEvent); } }, "stopUpdateVolume(domEvent)": function (obj) { with (obj) { return stopUpdateVolume(domEvent); } }, "progressUpdateVolume(domEvent)": function (obj) { with (obj) { return progressUpdateVolume(domEvent); } }, "{width: Math.min(100, Math.round(volume * 100)) + '%'}": function (obj) { with (obj) { return {width: Math.min(100, Math.round(volume * 100)) + '%'}; } }, "string('volume-button')": function (obj) { with (obj) { return string('volume-button'); } }, "toggle_volume()": function (obj) { with (obj) { return toggle_volume(); } }, "string(volume > 0 ? 'volume-mute' : 'volume-unmute')": function (obj) { with (obj) { return string(volume > 0 ? 'volume-mute' : 'volume-unmute'); } }, "csscommon + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off'))": function (obj) { with (obj) { return csscommon + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')); } }/**/
+            /**/"cssplayer": function (obj) { with (obj) { return cssplayer; } }, "activitydelta > hidebarafter && hideoninactivity ? (cssplayer + '-dashboard-hidden') : ''": function (obj) { with (obj) { return activitydelta > hidebarafter && hideoninactivity ? (cssplayer + '-dashboard-hidden') : ''; } }, "skipinitial ? 2 : 1": function (obj) { with (obj) { return skipinitial ? 2 : 1; } }, "css": function (obj) { with (obj) { return css; } }, "activitydelta < 2500 || ismobile ? '' : (css + '-progressbar-small')": function (obj) { with (obj) { return activitydelta < 2500 || ismobile ? '' : (css + '-progressbar-small'); } }, "disableseeking ? cssplayer + '-disabled' : ''": function (obj) { with (obj) { return disableseeking ? cssplayer + '-disabled' : ''; } }, "seek(position + skipseconds)": function (obj) { with (obj) { return seek(position + skipseconds); } }, "seek(position - skipseconds)": function (obj) { with (obj) { return seek(position - skipseconds); } }, "seek(position + skipseconds * 3)": function (obj) { with (obj) { return seek(position + skipseconds * 3); } }, "seek(position - skipseconds * 3)": function (obj) { with (obj) { return seek(position - skipseconds * 3); } }, "startUpdatePosition(domEvent)": function (obj) { with (obj) { return startUpdatePosition(domEvent); } }, "progressUpdatePosition(domEvent)": function (obj) { with (obj) { return progressUpdatePosition(domEvent); } }, "stopUpdatePosition(domEvent); this.blur()": function (obj) { with (obj) { return stopUpdatePosition(domEvent); this.blur(); } }, "stopUpdatePosition(domEvent)": function (obj) { with (obj) { return stopUpdatePosition(domEvent); } }, "{width: Math.round(duration ? cached / duration * 100 : 0) + '%'}": function (obj) { with (obj) { return {width: Math.round(duration ? cached / duration * 100 : 0) + '%'}; } }, "{width: Math.round(duration ? position / duration * 100 : 0) + '%'}": function (obj) { with (obj) { return {width: Math.round(duration ? position / duration * 100 : 0) + '%'}; } }, "string('video-progress')": function (obj) { with (obj) { return string('video-progress'); } }, "submit()": function (obj) { with (obj) { return submit(); } }, "submittable": function (obj) { with (obj) { return submittable; } }, "string('submit-video')": function (obj) { with (obj) { return string('submit-video'); } }, "rerecord()": function (obj) { with (obj) { return rerecord(); } }, "rerecordable": function (obj) { with (obj) { return rerecordable; } }, "string('rerecord-video')": function (obj) { with (obj) { return string('rerecord-video'); } }, "csscommon": function (obj) { with (obj) { return csscommon; } }, "skipinitial ? 0 : 2": function (obj) { with (obj) { return skipinitial ? 0 : 2; } }, "toggle_player()": function (obj) { with (obj) { return toggle_player(); } }, "string('play-video')": function (obj) { with (obj) { return string('play-video'); } }, "tab_index_move(domEvent, null, 'button-icon-pause')": function (obj) { with (obj) { return tab_index_move(domEvent, null, 'button-icon-pause'); } }, "!playing": function (obj) { with (obj) { return !playing; } }, "play()": function (obj) { with (obj) { return play(); } }, "disablepause ? cssplayer + '-disabled' : ''": function (obj) { with (obj) { return disablepause ? cssplayer + '-disabled' : ''; } }, "tab_index_move(domEvent, null, 'button-icon-play')": function (obj) { with (obj) { return tab_index_move(domEvent, null, 'button-icon-play'); } }, "playing": function (obj) { with (obj) { return playing; } }, "pause()": function (obj) { with (obj) { return pause(); } }, "disablepause ? string('pause-video-disabled') : string('pause-video')": function (obj) { with (obj) { return disablepause ? string('pause-video-disabled') : string('pause-video'); } }, "string('elapsed-time')": function (obj) { with (obj) { return string('elapsed-time'); } }, "formatTime(position)": function (obj) { with (obj) { return formatTime(position); } }, "string('total-time')": function (obj) { with (obj) { return string('total-time'); } }, "formatTime(duration || position)": function (obj) { with (obj) { return formatTime(duration || position); } }, "title": function (obj) { with (obj) { return title; } }, "toggle_settings()": function (obj) { with (obj) { return toggle_settings(); } }, "settingsoptionsvisible ? 'visible' : 'hidden'": function (obj) { with (obj) { return settingsoptionsvisible ? 'visible' : 'hidden'; } }, "tab_index_move(domEvent)": function (obj) { with (obj) { return tab_index_move(domEvent); } }, "settings": function (obj) { with (obj) { return settings; } }, "string('settings')": function (obj) { with (obj) { return string('settings'); } }, "toggle_tracks()": function (obj) { with (obj) { return toggle_tracks(); } }, "(tracktags.length > 0 && showsubtitlebutton) || allowtexttrackupload": function (obj) { with (obj) { return (tracktags.length > 0 && showsubtitlebutton) || allowtexttrackupload; } }, "tracktextvisible ? 'active' : 'inactive'": function (obj) { with (obj) { return tracktextvisible ? 'active' : 'inactive'; } }, "tracktextvisible ? string('close-tracks') : string('show-tracks')": function (obj) { with (obj) { return tracktextvisible ? string('close-tracks') : string('show-tracks'); } }, "hover_cc(true)": function (obj) { with (obj) { return hover_cc(true); } }, "hover_cc(false)": function (obj) { with (obj) { return hover_cc(false); } }, "toggle_fullscreen()": function (obj) { with (obj) { return toggle_fullscreen(); } }, "fullscreen": function (obj) { with (obj) { return fullscreen; } }, "fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video')": function (obj) { with (obj) { return fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video'); } }, "fullscreened ? 'small' : 'full'": function (obj) { with (obj) { return fullscreened ? 'small' : 'full'; } }, "show_airplay_devices()": function (obj) { with (obj) { return show_airplay_devices(); } }, "airplaybuttonvisible": function (obj) { with (obj) { return airplaybuttonvisible; } }, "string('airplay')": function (obj) { with (obj) { return string('airplay'); } }, "string('airplay-icon')": function (obj) { with (obj) { return string('airplay-icon'); } }, "castbuttonvisble": function (obj) { with (obj) { return castbuttonvisble; } }, "toggle_stream()": function (obj) { with (obj) { return toggle_stream(); } }, "streams.length > 1 && currentstream": function (obj) { with (obj) { return streams.length > 1 && currentstream; } }, "string('change-resolution')": function (obj) { with (obj) { return string('change-resolution'); } }, "currentstream_label": function (obj) { with (obj) { return currentstream_label; } }, "!hidevolumebar": function (obj) { with (obj) { return !hidevolumebar; } }, "set_volume(volume + 0.1)": function (obj) { with (obj) { return set_volume(volume + 0.1); } }, "set_volume(volume - 0.1)": function (obj) { with (obj) { return set_volume(volume - 0.1); } }, "set_volume(1)": function (obj) { with (obj) { return set_volume(1); } }, "set_volume(0)": function (obj) { with (obj) { return set_volume(0); } }, "startUpdateVolume(domEvent)": function (obj) { with (obj) { return startUpdateVolume(domEvent); } }, "progressUpdateVolume(domEvent)": function (obj) { with (obj) { return progressUpdateVolume(domEvent); } }, "stopUpdateVolume(domEvent); this.blur()": function (obj) { with (obj) { return stopUpdateVolume(domEvent); this.blur(); } }, "stopUpdateVolume(domEvent)": function (obj) { with (obj) { return stopUpdateVolume(domEvent); } }, "{width: Math.min(100, Math.round(volume * 100)) + '%'}": function (obj) { with (obj) { return {width: Math.min(100, Math.round(volume * 100)) + '%'}; } }, "string('volume-button')": function (obj) { with (obj) { return string('volume-button'); } }, "toggle_volume()": function (obj) { with (obj) { return toggle_volume(); } }, "string(volume > 0 ? 'volume-mute' : 'volume-unmute')": function (obj) { with (obj) { return string(volume > 0 ? 'volume-mute' : 'volume-unmute'); } }, "csscommon + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off'))": function (obj) { with (obj) { return csscommon + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')); } }/**/
         })
         .attachStringTable(Assets.strings)
         .addStrings({
@@ -4250,7 +4623,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
             "close-tracks": "Close CC",
             "show-tracks": "Show CC",
             "player-speed": "Player speed",
-            "settings": "Settings"
+            "settings": "Settings",
+            "airplay": "Airplay",
+            "airplay-icon": "Airplay icon."
         });
 });
 Scoped.define("module:VideoPlayer.Dynamics.Loader", [
@@ -4384,6 +4759,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Playbutton", [
 Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "dynamics:Dynamic",
     "module:Assets",
+    "module:TrackTags",
     "browser:Info",
     "browser:Dom",
     "media:Player.VideoPlayerWrapper",
@@ -4414,13 +4790,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.TemplatePartial",
     "dynamics:Partials.HotkeyPartial"
-], function(Class, Assets, Info, Dom, VideoPlayerWrapper, Broadcasting, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Async, Settings, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
+], function(Class, Assets, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Async, Settings, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
             return {
 
-                template: "<div itemscope itemtype=\"http://schema.org/VideoObject\"\n     class=\"{{css}}-container {{cssplayer}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}\n     {{cssplayer}}-{{ fullscreened ? 'fullscreen' : 'normal' }}-view {{cssplayer}}-{{ firefox ? 'firefox' : 'common'}}-browser\n     {{cssplayer}}-{{themecolor}}-color\"\n     ba-on:mousemove=\"{{user_activity()}}\"\n     ba-on:mousedown=\"{{user_activity(true)}}\"\n     ba-on:touchstart=\"{{user_activity(true)}}\"\n     ba-styles=\"{{widthHeightStyles}}\"\n>\n    <div ba-show=\"{{videoelement_active}}\">\n        <video tabindex=\"-1\" class=\"{{css}}-video\" data-video=\"video\"\n               ba-toggle:playsinline=\"{{!playfullscreenonmobile}}\"\n        ></video>\n    </div>\n    <div ba-show=\"{{imageelement_active && !videoelement_active}}\">\n        <img tabindex=\"-1\" class=\"{{css}}-video\" data-image=\"image\" />\n    </div>\n    <div class=\"{{css}}-overlay\">\n        <div tabindex=\"-1\" class=\"{{css}}-player-toggle-overlay\" data-selector=\"player-toggle-overlay\"\n             ba-hotkey:right=\"{{seek(position + skipseconds)}}\" ba-hotkey:left=\"{{seek(position - skipseconds)}}\"\n             ba-hotkey:alt+right=\"{{seek(position + skipseconds * 3)}}\" ba-hotkey:alt+left=\"{{seek(position - skipseconds * 3)}}\"\n             ba-hotkey:up=\"{{set_volume(volume + 0.1)}}\" ba-hotkey:down=\"{{set_volume(volume - 0.1)}}\"\n             ba-hotkey:space^enter=\"{{toggle_player()}}\"\n             ba-on:click=\"{{toggle_player()}}\"\n        ></div>\n        <ba-{{dyncontrolbar}}\n            ba-css=\"{{csscontrolbar || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-themecolor=\"{{themecolor}}\"\n            ba-template=\"{{tmplcontrolbar}}\"\n            ba-show=\"{{controlbar_active}}\"\n            ba-playing=\"{{playing}}\"\n            ba-playwhenvisible=\"{{playwhenvisible}}\"\n            ba-playerspeeds=\"{{playerspeeds}}\"\n            ba-playercurrentspeed=\"{{playercurrentspeed}}\"\n            ba-airplay=\"{{airplay}}\"\n            ba-airplaybuttonvisible=\"{{airplaybuttonvisible}}\"\n            ba-chromecast=\"{{chromecast}}\"\n            ba-castbuttonvisble=\"{{castbuttonvisble}}\"\n            ba-event:rerecord=\"rerecord\"\n            ba-event:submit=\"submit\"\n            ba-event:play=\"play\"\n            ba-event:pause=\"pause\"\n            ba-event:position=\"seek\"\n            ba-event:volume=\"set_volume\"\n            ba-event:set_speed=\"set_speed\"\n            ba-event:toggle_settings=\"toggle_settings\"\n            ba-event:fullscreen=\"toggle_fullscreen\"\n            ba-event:toggle_player=\"toggle_player\"\n            ba-event:tab_index_move=\"tab_index_move\"\n            ba-event:seek=\"seek\"\n            ba-event:set_volume=\"set_volume\"\n            ba-tabindex=\"{{tabindex}}\"\n            ba-tracktextvisible=\"{{tracktextvisible}}\"\n            ba-tracktags=\"{{tracktags}}\"\n            ba-tracktagssupport=\"{{tracktagssupport}}\"\n            ba-allowtexttrackupload=\"{{allowtexttrackupload}}\"\n            ba-tracksshowselection=\"{{tracksshowselection}}\"\n            ba-volume=\"{{volume}}\"\n            ba-duration=\"{{duration}}\"\n            ba-cached=\"{{buffered}}\"\n            ba-title=\"{{title}}\"\n            ba-position=\"{{position}}\"\n            ba-activitydelta=\"{{activity_delta}}\"\n            ba-hideoninactivity=\"{{hideoninactivity}}\"\n            ba-hidebarafter=\"{{hidebarafter}}\"\n            ba-rerecordable=\"{{rerecordable}}\"\n            ba-submittable=\"{{submittable}}\"\n            ba-streams=\"{{streams}}\"\n            ba-currentstream=\"{{=currentstream}}\"\n            ba-fullscreen=\"{{fullscreensupport && !nofullscreen}}\"\n            ba-fullscreened=\"{{fullscreened}}\"\n            ba-source=\"{{source}}\"\n            ba-disablepause=\"{{disablepause}}\"\n            ba-disableseeking=\"{{disableseeking}}\"\n            ba-skipseconds=\"{{skipseconds}}\"\n            ba-skipinitial=\"{{skipinitial}}\"\n            ba-showsettings=\"{{showsettings}}\"\n            ba-settingsoptionsvisible=\"{{settingsoptionsvisible}}\"\n        ></ba-{{dyncontrolbar}}>\n\n        <ba-{{dyntracks}}\n            ba-css=\"{{csstracks || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-show=\"{{tracktagssupport || allowtexttrackupload}}\"\n            ba-tracksshowselection=\"{{tracksshowselection}}\"\n            ba-trackselectorhovered=\"{{trackselectorhovered}}\"\n            ba-tracktags=\"{{tracktags}}\"\n            ba-hidebarafter=\"{{hidebarafter}}\"\n            ba-tracktagsstyled=\"{{tracktagsstyled}}\"\n            ba-trackcuetext=\"{{trackcuetext}}\"\n            ba-allowtexttrackupload=\"{{allowtexttrackupload}}\"\n            ba-uploadtexttracksvisible=\"{{uploadtexttracksvisible}}\"\n            ba-acceptedtracktexts=\"{{acceptedtracktexts}}\"\n            ba-uploadlocales=\"{{uploadlocales}}\"\n            ba-activitydelta=\"{{activity_delta}}\"\n            ba-hideoninactivity=\"{{hideoninactivity}}\"\n            ba-event:selected_label_value=\"selected_label_value\"\n            ba-event:upload-text-tracks=\"upload_text_tracks\"\n            ba-event:move_to_option=\"move_to_option\"\n        ></ba-{{dyntracks}}>\n\n        <ba-{{dynplaybutton}}\n            ba-css=\"{{cssplaybutton || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplplaybutton}}\"\n            ba-show=\"{{playbutton_active}}\"\n            ba-rerecordable=\"{{rerecordable}}\"\n\t\t\tba-submittable=\"{{submittable}}\"\n\t\t\tba-showduration=\"{{showduration}}\"\n\t\t\tba-duration=\"{{duration}}\"\n            ba-event:play=\"playbutton_click\"\n            ba-event:rerecord=\"rerecord\"\n            ba-event:submit=\"submit\"\n            ba-event:tab_index_move=\"tab_index_move\"\n        ></ba-{{dynplaybutton}}>\n\n        <ba-{{dynloader}}\n            ba-css=\"{{cssloader || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplloader}}\"\n            ba-playwhenvisible=\"{{playwhenvisible}}\"\n            ba-show=\"{{loader_active}}\"\n        ></ba-{{dynloader}}>\n\n        <ba-{{dynshare}}\n            ba-css=\"{{cssshare || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplshare}}\"\n            ba-show=\"{{sharevideourl && sharevideo.length > 0}}\"\n            ba-url=\"{{sharevideourl}}\"\n            ba-shares=\"{{sharevideo}}\"\n        ></ba-{{dynshare}}>\n\n        <ba-{{dynmessage}}\n            ba-css=\"{{cssmessage || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplmessage}}\"\n            ba-show=\"{{message_active}}\"\n            ba-message=\"{{message}}\"\n            ba-event:click=\"message_click\"\n        ></ba-{{dynmessage}}>\n\n        <ba-{{dyntopmessage}}\n            ba-css=\"{{csstopmessage || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmpltopmessage}}\"\n            ba-show=\"{{topmessage}}\"\n            ba-topmessage=\"{{topmessage}}\"\n        ></ba-{{dyntopmessage}}>\n\n        <meta itemprop=\"caption\" content=\"{{title}}\" />\n        <meta itemprop=\"thumbnailUrl\" content=\"{{poster}}\"/>\n        <meta itemprop=\"contentUrl\" content=\"{{source}}\"/>\n    </div>\n    <div class=\"{{cssplayer}}-overlay\" data-video=\"ad\" style=\"display:none\"></div>\n</div>\n",
+                template: "<div itemscope itemtype=\"http://schema.org/VideoObject\"\n     class=\"{{css}}-container {{cssplayer}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}\n     {{cssplayer}}-{{ fullscreened ? 'fullscreen' : 'normal' }}-view {{cssplayer}}-{{ firefox ? 'firefox' : 'common'}}-browser\n     {{cssplayer}}-{{themecolor}}-color {{cssplayer}}-device-type-{{ mobileview ? 'mobile' : 'desktop'}}\"\n     ba-on:mousemove=\"{{user_activity()}}\"\n     ba-on:mousedown=\"{{user_activity(true)}}\"\n     ba-on:touchstart=\"{{user_activity(true)}}\"\n     ba-styles=\"{{widthHeightStyles}}\"\n>\n    <div ba-show=\"{{videoelement_active}}\">\n        <video tabindex=\"-1\" class=\"{{css}}-video\" data-video=\"video\"\n               ba-toggle:playsinline=\"{{!playfullscreenonmobile}}\"\n        ></video>\n    </div>\n    <div ba-show=\"{{imageelement_active && !videoelement_active}}\">\n        <img tabindex=\"-1\" class=\"{{css}}-video\" data-image=\"image\" />\n    </div>\n    <div class=\"{{css}}-overlay\">\n        <div tabindex=\"-1\" class=\"{{css}}-player-toggle-overlay\" data-selector=\"player-toggle-overlay\"\n             ba-hotkey:right=\"{{seek(position + skipseconds)}}\" ba-hotkey:left=\"{{seek(position - skipseconds)}}\"\n             ba-hotkey:alt+right=\"{{seek(position + skipseconds * 3)}}\" ba-hotkey:alt+left=\"{{seek(position - skipseconds * 3)}}\"\n             ba-hotkey:up=\"{{set_volume(volume + 0.1)}}\" ba-hotkey:down=\"{{set_volume(volume - 0.1)}}\"\n             ba-hotkey:space^enter=\"{{toggle_player()}}\"\n             ba-on:click=\"{{toggle_player()}}\"\n        ></div>\n        <ba-{{dyncontrolbar}}\n            ba-css=\"{{csscontrolbar || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-themecolor=\"{{themecolor}}\"\n            ba-template=\"{{tmplcontrolbar}}\"\n            ba-show=\"{{controlbar_active}}\"\n            ba-playing=\"{{playing}}\"\n            ba-playwhenvisible=\"{{playwhenvisible}}\"\n            ba-playerspeeds=\"{{playerspeeds}}\"\n            ba-playercurrentspeed=\"{{playercurrentspeed}}\"\n            ba-airplay=\"{{airplay}}\"\n            ba-airplaybuttonvisible=\"{{airplaybuttonvisible}}\"\n            ba-chromecast=\"{{chromecast}}\"\n            ba-castbuttonvisble=\"{{castbuttonvisble}}\"\n            ba-event:rerecord=\"rerecord\"\n            ba-event:submit=\"submit\"\n            ba-event:play=\"play\"\n            ba-event:pause=\"pause\"\n            ba-event:position=\"seek\"\n            ba-event:volume=\"set_volume\"\n            ba-event:set_speed=\"set_speed\"\n            ba-event:toggle_settings=\"toggle_settings\"\n            ba-event:fullscreen=\"toggle_fullscreen\"\n            ba-event:toggle_player=\"toggle_player\"\n            ba-event:tab_index_move=\"tab_index_move\"\n            ba-event:seek=\"seek\"\n            ba-event:set_volume=\"set_volume\"\n            ba-tabindex=\"{{tabindex}}\"\n            ba-tracktextvisible=\"{{tracktextvisible}}\"\n            ba-tracktags=\"{{tracktags}}\"\n            ba-showsubtitlebutton=\"{{hassubtitles && tracktagssupport}}\"\n            ba-allowtexttrackupload=\"{{allowtexttrackupload}}\"\n            ba-tracksshowselection=\"{{tracksshowselection}}\"\n            ba-volume=\"{{volume}}\"\n            ba-duration=\"{{duration}}\"\n            ba-cached=\"{{buffered}}\"\n            ba-title=\"{{title}}\"\n            ba-position=\"{{position}}\"\n            ba-activitydelta=\"{{activity_delta}}\"\n            ba-hideoninactivity=\"{{hideoninactivity}}\"\n            ba-hidebarafter=\"{{hidebarafter}}\"\n            ba-rerecordable=\"{{rerecordable}}\"\n            ba-submittable=\"{{submittable}}\"\n            ba-streams=\"{{streams}}\"\n            ba-currentstream=\"{{=currentstream}}\"\n            ba-fullscreen=\"{{fullscreensupport && !nofullscreen}}\"\n            ba-fullscreened=\"{{fullscreened}}\"\n            ba-source=\"{{source}}\"\n            ba-disablepause=\"{{disablepause}}\"\n            ba-disableseeking=\"{{disableseeking}}\"\n            ba-skipseconds=\"{{skipseconds}}\"\n            ba-skipinitial=\"{{skipinitial}}\"\n            ba-showsettings=\"{{showsettings}}\"\n            ba-hidevolumebar=\"{{hidevolumebar}}\"\n            ba-settingsoptionsvisible=\"{{settingsoptionsvisible}}\"\n        ></ba-{{dyncontrolbar}}>\n\n        <ba-{{dyntracks}}\n            ba-css=\"{{csstracks || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-show=\"{{tracktagssupport || allowtexttrackupload}}\"\n            ba-tracksshowselection=\"{{tracksshowselection}}\"\n            ba-trackselectorhovered=\"{{trackselectorhovered}}\"\n            ba-tracktags=\"{{tracktags}}\"\n            ba-hidebarafter=\"{{hidebarafter}}\"\n            ba-tracktagsstyled=\"{{tracktagsstyled}}\"\n            ba-trackcuetext=\"{{trackcuetext}}\"\n            ba-allowtexttrackupload=\"{{allowtexttrackupload}}\"\n            ba-uploadtexttracksvisible=\"{{uploadtexttracksvisible}}\"\n            ba-acceptedtracktexts=\"{{acceptedtracktexts}}\"\n            ba-uploadlocales=\"{{uploadlocales}}\"\n            ba-activitydelta=\"{{activity_delta}}\"\n            ba-hideoninactivity=\"{{hideoninactivity}}\"\n            ba-event:selected_label_value=\"selected_label_value\"\n            ba-event:upload-text-tracks=\"upload_text_tracks\"\n            ba-event:move_to_option=\"move_to_option\"\n        ></ba-{{dyntracks}}>\n\n        <ba-{{dynplaybutton}}\n            ba-css=\"{{cssplaybutton || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplplaybutton}}\"\n            ba-show=\"{{playbutton_active}}\"\n            ba-rerecordable=\"{{rerecordable}}\"\n\t\t\tba-submittable=\"{{submittable}}\"\n\t\t\tba-showduration=\"{{showduration}}\"\n\t\t\tba-duration=\"{{duration}}\"\n            ba-event:play=\"playbutton_click\"\n            ba-event:rerecord=\"rerecord\"\n            ba-event:submit=\"submit\"\n            ba-event:tab_index_move=\"tab_index_move\"\n        ></ba-{{dynplaybutton}}>\n\n        <ba-{{dynloader}}\n            ba-css=\"{{cssloader || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplloader}}\"\n            ba-playwhenvisible=\"{{playwhenvisible}}\"\n            ba-show=\"{{loader_active}}\"\n        ></ba-{{dynloader}}>\n\n        <ba-{{dynshare}}\n            ba-css=\"{{cssshare || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplshare}}\"\n            ba-show=\"{{sharevideourl && sharevideo.length > 0}}\"\n            ba-url=\"{{sharevideourl}}\"\n            ba-shares=\"{{sharevideo}}\"\n        ></ba-{{dynshare}}>\n\n        <ba-{{dynmessage}}\n            ba-css=\"{{cssmessage || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplmessage}}\"\n            ba-show=\"{{message_active}}\"\n            ba-message=\"{{message}}\"\n            ba-event:click=\"message_click\"\n        ></ba-{{dynmessage}}>\n\n        <ba-{{dyntopmessage}}\n            ba-css=\"{{csstopmessage || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmpltopmessage}}\"\n            ba-show=\"{{topmessage}}\"\n            ba-topmessage=\"{{topmessage}}\"\n        ></ba-{{dyntopmessage}}>\n\n        <meta itemprop=\"caption\" content=\"{{title}}\" />\n        <meta itemprop=\"thumbnailUrl\" content=\"{{poster}}\"/>\n        <meta itemprop=\"contentUrl\" content=\"{{source}}\"/>\n    </div>\n    <div class=\"{{cssplayer}}-overlay\" data-video=\"ad\" style=\"display:none\"></div>\n</div>\n",
 
                 attrs: {
                     /* CSS */
@@ -4508,8 +4884,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "tracktagsstyled": true,
                     "tracktaglang": 'en',
                     "tracksshowselection": false,
+                    "thumbimage": {},
+                    "thumbcuelist": [],
                     "showsettings": true,
                     "showduration": false,
+                    "hidevolumebar": false,
                     "settingsoptions": [{
                             id: 'playerspeeds',
                             label: 'player-speed',
@@ -4729,6 +5108,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     this.set("ie8", Info.isInternetExplorer() && Info.internetExplorerVersion() < 9);
                     this.set("firefox", Info.isFirefox());
+                    this.set("mobileview", Info.isMobile());
+                    // For Apple it's very important that their users always remain in control of the volume of the sounds their devices emit
+                    this.set("hidevolumebar", (Info.isMobile() && Info.isiOS()));
                     this.set("duration", this.get("totalduration") || 0.0);
                     this.set("position", 0.0);
                     this.set("buffered", 0.0);
@@ -4755,7 +5137,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (document.onkeydown)
                         this.activeElement().onkeydown = this._keyDownActivity.bind(this, this.activeElement());
 
-                    this.on("change:tracktags", this.__initializeTrackTags);
+                    this.on("change:tracktags", function() {
+                        this.__trackTags = new TrackTags({}, this);
+                    }, this);
 
                     this.on("change:stretch", function() {
                         this._updateStretch();
@@ -4776,158 +5160,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 state: function() {
                     return this.host.state();
-                },
-
-                __initializeTrackTags: function() {
-                    this.set("tracktagssupport", this.get("tracktags") && this.get("tracktags").length > 0 && ('track' in document.createElement('track')));
-                    if (!this.__video || !this.get("tracktags") || this.get("tracktags").length === 0)
-                        return;
-                    this._loadTrackTags();
-                    // To be able play default subtitle in with custom style
-                    if (this.get("tracktagsstyled"))
-                        this._setDefaultTrackOnPlay();
-
-                    if (this.get("tracktags").length > 1) {
-                        this.on("switch-track", function(selectedTrack) {
-                            this.set("tracktextvisible", true);
-                            this.set("trackcuetext", null);
-                            this._setSelectedTag(selectedTrack);
-                        });
-                    }
-                },
-
-                _loadTrackTags: function() {
-                    if (!this.get("tracktagssupport")) return;
-                    var _flag = true;
-                    Objs.iter(this.get("tracktags"), function(subtitle, index) {
-                        var _trackTag = document.createElement("track");
-                        _trackTag.id = 'tack' + index;
-                        _trackTag.kind = subtitle.kind || 'subtitles';
-                        _trackTag.label = subtitle.label || 'English';
-                        _trackTag.srclang = subtitle.lang || 'en';
-                        _trackTag.src = subtitle.src || null;
-                        try {
-                            if (subtitle.content && !subtitle.src)
-                                _trackTag.src = URL.createObjectURL(new Blob([subtitle.content], {
-                                    type: 'text/plain'
-                                }));
-                        } catch (e) {}
-                        if (subtitle.enabled && _flag) {
-                            _trackTag.setAttribute('default', '');
-                            this.set("tracktaglang", subtitle.lang);
-                            this.set("tracktextvisible", true);
-                        }
-                        _trackTag.setAttribute('data-selector', 'track-tag');
-                        _trackTag.addEventListener("load", function() {
-                            if (subtitle.enabled && _flag) {
-                                // 0 (TextTrack.OFF in spec, TextTrack.DISABLED in Chrome), 1 (TextTrack.HIDDEN) or 2 (TextTrack.SHOWING)
-                                this.mode = "showing";
-                                if (this.__video)
-                                    this.__video.textTracks[index].mode = "showing"; // Firefox
-                                _flag = false;
-                            } else {
-                                this.mode = "hidden";
-                                if (this.__video)
-                                    this.__video.textTracks[index].mode = "hidden"; // Firefox
-                            }
-                        });
-                        this.__video.appendChild(_trackTag);
-                    }, this);
-                },
-
-                _showTracksInCustomElement: function(track, lang) {
-                    var _lang = lang || this.get("tracktaglang");
-                    var _self = this;
-                    if (track.language === _lang) {
-                        var _cues = track.cues;
-                        Objs.iter(_cues, function(cue, index) {
-                            if (typeof _cues[index] === 'object' && _cues[index]) {
-                                cue.onenter = function(ev) {
-                                    track.mode = 'hidden';
-                                    if (_self.get("tracktextvisible"))
-                                        _self.set("trackcuetext", this.text);
-                                };
-                                cue.onexit = function(ev) {
-                                    _self.set("trackcuetext", null);
-                                };
-                            }
-                        }, this);
-                    }
-                },
-
-                toggleTrackTags: function(status) {
-                    var _lang = this.get("tracktaglang");
-                    var _customStyled = this.get("tracktagsstyled");
-                    var _status = status ? 'showing' : 'disabled';
-                    _status = (status && _customStyled) ? 'hidden' : _status;
-                    if (!status && this.get("tracktagsstyled"))
-                        this.set("trackcuetext", null);
-
-                    Objs.iter(this.__video.textTracks, function(track, index) {
-                        if (typeof this.__video.textTracks[index] === 'object' && this.__video.textTracks[index]) {
-                            var _track = this.__video.textTracks[index];
-                            // If set custom style to true show cue text in our element
-                            if (_track.language === _lang) {
-                                _track.mode = _status;
-                                this.set("tracktextvisible", status);
-                                this._triggerTrackChange(this.__video, _track, _status, _lang);
-                            }
-                        }
-                    }, this);
-                },
-
-                _setDefaultTrackOnPlay: function() {
-                    this.player.once("playing", function() {
-                        Objs.iter(this.get("tracktags"), function(track, index) {
-                            var _track = this.__video.textTracks[index];
-                            if (typeof _track === 'object' && _track) {
-                                if (_track.mode === 'showing')
-                                    this._showTracksInCustomElement(_track, _track.language);
-                            }
-                        }, this);
-                    }, this);
-                },
-
-                _setSelectedTag: function(selectedTrack) {
-                    var _status = null;
-                    var _track = null;
-                    Objs.iter(this.__video.textTracks, function(track, index) {
-                        _track = this.__video.textTracks[index];
-                        if (typeof _track === 'object' && _track) {
-                            _status = _track.language === selectedTrack.lang ? (this.get("tracktagsstyled") ? 'hidden' : 'showing') : 'disabled';
-                            if (!this.get("tracktextvisible")) _status = 'disabled';
-                            _track.mode = _status;
-                            if (_track.language === selectedTrack.lang)
-                                this._triggerTrackChange(this.__video, _track, _status, selectedTrack.lang);
-                        }
-                    }, this);
-                },
-
-                // Fixed issue when unable switch directly to showing from disabled
-                _triggerTrackChange: function(video, track, status, lang) {
-                    var _self = this;
-                    var _trackElement = video.querySelector("#" + track.id);
-                    var _flag = true;
-                    if (track.oncuechange !== undefined && !((Info.isInternetExplorer() || Info.isEdge()) && this.get("tracktagsstyled"))) {
-                        track.oncuechange = function(ev) {
-                            if (_flag) {
-                                if (status.length) track.mode = status;
-                                if (_self.get("tracktagsstyled"))
-                                    _self._showTracksInCustomElement(track, lang);
-                                else if (_trackElement) {
-                                    _trackElement.mode = status;
-                                    // _trackElement.setAttribute('default', '');
-                                }
-                                _flag = false;
-                            }
-                        };
-                    } else {
-                        video.ontimeupdate = function(ev) {
-                            if (status.length) track.mode = status;
-                            if (_self.get("tracktagsstyled"))
-                                _self._showTracksInCustomElement(track, lang);
-                        };
-                    }
                 },
 
                 videoAttached: function() {
@@ -5000,6 +5232,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("videoelement_active", true);
                     var video = this.activeElement().querySelector("[data-video='video']");
                     this._clearError();
+                    // Just in case be sure that player's controllers will be hidden
+                    //video.controls = false;
                     VideoPlayerWrapper.create(Objs.extend(this._getSources(), {
                         element: video,
                         onlyaudio: this.get("onlyaudio"), // Will fix only audio local playback bug
@@ -5025,7 +5259,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                         this.player = instance;
                         this.__video = video;
-                        this.__initializeTrackTags();
+                        this.__trackTags = new TrackTags({}, this);
 
                         if (this.get("chromecast")) {
                             if (!this.get("skipinitial")) this.set("skipinitial", true);
@@ -5240,6 +5474,33 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 reattachImage: function() {
                     this._detachImage();
                     this._attachImage();
+                },
+
+                /**
+                 * Click CC buttons will trigger
+                 * @param status
+                 */
+                toggleTrackTags: function(status) {
+                    if (!this.__trackTags) return;
+                    var _lang = this.get("tracktaglang"),
+                        _customStyled = this.get("tracktagsstyled"),
+                        _status = status ? 'showing' : 'disabled';
+                    _status = (status && _customStyled) ? 'hidden' : _status;
+                    if (!status && this.get("tracktagsstyled")) this.set("trackcuetext", null);
+
+                    Objs.iter(this.__video.textTracks, function(track, index) {
+                        if (typeof this.__video.textTracks[index] === 'object' && this.__video.textTracks[index]) {
+                            var _track = this.__video.textTracks[index];
+                            // If set custom style to true show cue text in our element
+                            if (_track.kind !== 'metadata') {
+                                if (_track.language === _lang) {
+                                    _track.mode = _status;
+                                    this.set("tracktextvisible", status);
+                                    this.__trackTags._triggerTrackChange(this.__video, _track, _status, _lang);
+                                }
+                            }
+                        }
+                    }, this);
                 },
 
                 _keyDownActivity: function(element, ev) {
@@ -5645,7 +5906,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 _updateCSSSize: function() {
                     var width = Dom.elementDimensions(this.activeElement()).width;
-                    this.set("csssize", width > 400 ? "normal" : (width > 300 ? "medium" : "small"));
+                    this.set("csssize", width > 400 ? "normal" : (width > 320 ? "medium" : "small"));
+                    this.set("mobileview", width < 560);
                 },
 
                 videoHeight: function() {
@@ -5743,7 +6005,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
         }).register("ba-videoplayer")
         .registerFunctions({
-            /**/"css": function (obj) { with (obj) { return css; } }, "cssplayer": function (obj) { with (obj) { return cssplayer; } }, "csssize": function (obj) { with (obj) { return csssize; } }, "iecss": function (obj) { with (obj) { return iecss; } }, "ie8 ? 'ie8' : 'noie8'": function (obj) { with (obj) { return ie8 ? 'ie8' : 'noie8'; } }, "csstheme": function (obj) { with (obj) { return csstheme; } }, "fullscreened ? 'fullscreen' : 'normal'": function (obj) { with (obj) { return fullscreened ? 'fullscreen' : 'normal'; } }, "firefox ? 'firefox' : 'common'": function (obj) { with (obj) { return firefox ? 'firefox' : 'common'; } }, "themecolor": function (obj) { with (obj) { return themecolor; } }, "user_activity()": function (obj) { with (obj) { return user_activity(); } }, "user_activity(true)": function (obj) { with (obj) { return user_activity(true); } }, "widthHeightStyles": function (obj) { with (obj) { return widthHeightStyles; } }, "videoelement_active": function (obj) { with (obj) { return videoelement_active; } }, "!playfullscreenonmobile": function (obj) { with (obj) { return !playfullscreenonmobile; } }, "imageelement_active && !videoelement_active": function (obj) { with (obj) { return imageelement_active && !videoelement_active; } }, "seek(position + skipseconds)": function (obj) { with (obj) { return seek(position + skipseconds); } }, "seek(position - skipseconds)": function (obj) { with (obj) { return seek(position - skipseconds); } }, "seek(position + skipseconds * 3)": function (obj) { with (obj) { return seek(position + skipseconds * 3); } }, "seek(position - skipseconds * 3)": function (obj) { with (obj) { return seek(position - skipseconds * 3); } }, "set_volume(volume + 0.1)": function (obj) { with (obj) { return set_volume(volume + 0.1); } }, "set_volume(volume - 0.1)": function (obj) { with (obj) { return set_volume(volume - 0.1); } }, "toggle_player()": function (obj) { with (obj) { return toggle_player(); } }, "dyncontrolbar": function (obj) { with (obj) { return dyncontrolbar; } }, "csscontrolbar || css": function (obj) { with (obj) { return csscontrolbar || css; } }, "cssplayer || css": function (obj) { with (obj) { return cssplayer || css; } }, "csstheme || css": function (obj) { with (obj) { return csstheme || css; } }, "tmplcontrolbar": function (obj) { with (obj) { return tmplcontrolbar; } }, "controlbar_active": function (obj) { with (obj) { return controlbar_active; } }, "playing": function (obj) { with (obj) { return playing; } }, "playwhenvisible": function (obj) { with (obj) { return playwhenvisible; } }, "playerspeeds": function (obj) { with (obj) { return playerspeeds; } }, "playercurrentspeed": function (obj) { with (obj) { return playercurrentspeed; } }, "airplay": function (obj) { with (obj) { return airplay; } }, "airplaybuttonvisible": function (obj) { with (obj) { return airplaybuttonvisible; } }, "chromecast": function (obj) { with (obj) { return chromecast; } }, "castbuttonvisble": function (obj) { with (obj) { return castbuttonvisble; } }, "tabindex": function (obj) { with (obj) { return tabindex; } }, "tracktextvisible": function (obj) { with (obj) { return tracktextvisible; } }, "tracktags": function (obj) { with (obj) { return tracktags; } }, "tracktagssupport": function (obj) { with (obj) { return tracktagssupport; } }, "allowtexttrackupload": function (obj) { with (obj) { return allowtexttrackupload; } }, "tracksshowselection": function (obj) { with (obj) { return tracksshowselection; } }, "volume": function (obj) { with (obj) { return volume; } }, "duration": function (obj) { with (obj) { return duration; } }, "buffered": function (obj) { with (obj) { return buffered; } }, "title": function (obj) { with (obj) { return title; } }, "position": function (obj) { with (obj) { return position; } }, "activity_delta": function (obj) { with (obj) { return activity_delta; } }, "hideoninactivity": function (obj) { with (obj) { return hideoninactivity; } }, "hidebarafter": function (obj) { with (obj) { return hidebarafter; } }, "rerecordable": function (obj) { with (obj) { return rerecordable; } }, "submittable": function (obj) { with (obj) { return submittable; } }, "streams": function (obj) { with (obj) { return streams; } }, "currentstream": function (obj) { with (obj) { return currentstream; } }, "fullscreensupport && !nofullscreen": function (obj) { with (obj) { return fullscreensupport && !nofullscreen; } }, "fullscreened": function (obj) { with (obj) { return fullscreened; } }, "source": function (obj) { with (obj) { return source; } }, "disablepause": function (obj) { with (obj) { return disablepause; } }, "disableseeking": function (obj) { with (obj) { return disableseeking; } }, "skipseconds": function (obj) { with (obj) { return skipseconds; } }, "skipinitial": function (obj) { with (obj) { return skipinitial; } }, "showsettings": function (obj) { with (obj) { return showsettings; } }, "settingsoptionsvisible": function (obj) { with (obj) { return settingsoptionsvisible; } }, "dyntracks": function (obj) { with (obj) { return dyntracks; } }, "csstracks || css": function (obj) { with (obj) { return csstracks || css; } }, "tracktagssupport || allowtexttrackupload": function (obj) { with (obj) { return tracktagssupport || allowtexttrackupload; } }, "trackselectorhovered": function (obj) { with (obj) { return trackselectorhovered; } }, "tracktagsstyled": function (obj) { with (obj) { return tracktagsstyled; } }, "trackcuetext": function (obj) { with (obj) { return trackcuetext; } }, "uploadtexttracksvisible": function (obj) { with (obj) { return uploadtexttracksvisible; } }, "acceptedtracktexts": function (obj) { with (obj) { return acceptedtracktexts; } }, "uploadlocales": function (obj) { with (obj) { return uploadlocales; } }, "dynplaybutton": function (obj) { with (obj) { return dynplaybutton; } }, "cssplaybutton || css": function (obj) { with (obj) { return cssplaybutton || css; } }, "tmplplaybutton": function (obj) { with (obj) { return tmplplaybutton; } }, "playbutton_active": function (obj) { with (obj) { return playbutton_active; } }, "showduration": function (obj) { with (obj) { return showduration; } }, "dynloader": function (obj) { with (obj) { return dynloader; } }, "cssloader || css": function (obj) { with (obj) { return cssloader || css; } }, "tmplloader": function (obj) { with (obj) { return tmplloader; } }, "loader_active": function (obj) { with (obj) { return loader_active; } }, "dynshare": function (obj) { with (obj) { return dynshare; } }, "cssshare || css": function (obj) { with (obj) { return cssshare || css; } }, "tmplshare": function (obj) { with (obj) { return tmplshare; } }, "sharevideourl && sharevideo.length > 0": function (obj) { with (obj) { return sharevideourl && sharevideo.length > 0; } }, "sharevideourl": function (obj) { with (obj) { return sharevideourl; } }, "sharevideo": function (obj) { with (obj) { return sharevideo; } }, "dynmessage": function (obj) { with (obj) { return dynmessage; } }, "cssmessage || css": function (obj) { with (obj) { return cssmessage || css; } }, "tmplmessage": function (obj) { with (obj) { return tmplmessage; } }, "message_active": function (obj) { with (obj) { return message_active; } }, "message": function (obj) { with (obj) { return message; } }, "dyntopmessage": function (obj) { with (obj) { return dyntopmessage; } }, "csstopmessage || css": function (obj) { with (obj) { return csstopmessage || css; } }, "tmpltopmessage": function (obj) { with (obj) { return tmpltopmessage; } }, "topmessage": function (obj) { with (obj) { return topmessage; } }, "poster": function (obj) { with (obj) { return poster; } }/**/
+            /**/"css": function (obj) { with (obj) { return css; } }, "cssplayer": function (obj) { with (obj) { return cssplayer; } }, "csssize": function (obj) { with (obj) { return csssize; } }, "iecss": function (obj) { with (obj) { return iecss; } }, "ie8 ? 'ie8' : 'noie8'": function (obj) { with (obj) { return ie8 ? 'ie8' : 'noie8'; } }, "csstheme": function (obj) { with (obj) { return csstheme; } }, "fullscreened ? 'fullscreen' : 'normal'": function (obj) { with (obj) { return fullscreened ? 'fullscreen' : 'normal'; } }, "firefox ? 'firefox' : 'common'": function (obj) { with (obj) { return firefox ? 'firefox' : 'common'; } }, "themecolor": function (obj) { with (obj) { return themecolor; } }, "mobileview ? 'mobile' : 'desktop'": function (obj) { with (obj) { return mobileview ? 'mobile' : 'desktop'; } }, "user_activity()": function (obj) { with (obj) { return user_activity(); } }, "user_activity(true)": function (obj) { with (obj) { return user_activity(true); } }, "widthHeightStyles": function (obj) { with (obj) { return widthHeightStyles; } }, "videoelement_active": function (obj) { with (obj) { return videoelement_active; } }, "!playfullscreenonmobile": function (obj) { with (obj) { return !playfullscreenonmobile; } }, "imageelement_active && !videoelement_active": function (obj) { with (obj) { return imageelement_active && !videoelement_active; } }, "seek(position + skipseconds)": function (obj) { with (obj) { return seek(position + skipseconds); } }, "seek(position - skipseconds)": function (obj) { with (obj) { return seek(position - skipseconds); } }, "seek(position + skipseconds * 3)": function (obj) { with (obj) { return seek(position + skipseconds * 3); } }, "seek(position - skipseconds * 3)": function (obj) { with (obj) { return seek(position - skipseconds * 3); } }, "set_volume(volume + 0.1)": function (obj) { with (obj) { return set_volume(volume + 0.1); } }, "set_volume(volume - 0.1)": function (obj) { with (obj) { return set_volume(volume - 0.1); } }, "toggle_player()": function (obj) { with (obj) { return toggle_player(); } }, "dyncontrolbar": function (obj) { with (obj) { return dyncontrolbar; } }, "csscontrolbar || css": function (obj) { with (obj) { return csscontrolbar || css; } }, "cssplayer || css": function (obj) { with (obj) { return cssplayer || css; } }, "csstheme || css": function (obj) { with (obj) { return csstheme || css; } }, "tmplcontrolbar": function (obj) { with (obj) { return tmplcontrolbar; } }, "controlbar_active": function (obj) { with (obj) { return controlbar_active; } }, "playing": function (obj) { with (obj) { return playing; } }, "playwhenvisible": function (obj) { with (obj) { return playwhenvisible; } }, "playerspeeds": function (obj) { with (obj) { return playerspeeds; } }, "playercurrentspeed": function (obj) { with (obj) { return playercurrentspeed; } }, "airplay": function (obj) { with (obj) { return airplay; } }, "airplaybuttonvisible": function (obj) { with (obj) { return airplaybuttonvisible; } }, "chromecast": function (obj) { with (obj) { return chromecast; } }, "castbuttonvisble": function (obj) { with (obj) { return castbuttonvisble; } }, "tabindex": function (obj) { with (obj) { return tabindex; } }, "tracktextvisible": function (obj) { with (obj) { return tracktextvisible; } }, "tracktags": function (obj) { with (obj) { return tracktags; } }, "hassubtitles && tracktagssupport": function (obj) { with (obj) { return hassubtitles && tracktagssupport; } }, "allowtexttrackupload": function (obj) { with (obj) { return allowtexttrackupload; } }, "tracksshowselection": function (obj) { with (obj) { return tracksshowselection; } }, "volume": function (obj) { with (obj) { return volume; } }, "duration": function (obj) { with (obj) { return duration; } }, "buffered": function (obj) { with (obj) { return buffered; } }, "title": function (obj) { with (obj) { return title; } }, "position": function (obj) { with (obj) { return position; } }, "activity_delta": function (obj) { with (obj) { return activity_delta; } }, "hideoninactivity": function (obj) { with (obj) { return hideoninactivity; } }, "hidebarafter": function (obj) { with (obj) { return hidebarafter; } }, "rerecordable": function (obj) { with (obj) { return rerecordable; } }, "submittable": function (obj) { with (obj) { return submittable; } }, "streams": function (obj) { with (obj) { return streams; } }, "currentstream": function (obj) { with (obj) { return currentstream; } }, "fullscreensupport && !nofullscreen": function (obj) { with (obj) { return fullscreensupport && !nofullscreen; } }, "fullscreened": function (obj) { with (obj) { return fullscreened; } }, "source": function (obj) { with (obj) { return source; } }, "disablepause": function (obj) { with (obj) { return disablepause; } }, "disableseeking": function (obj) { with (obj) { return disableseeking; } }, "skipseconds": function (obj) { with (obj) { return skipseconds; } }, "skipinitial": function (obj) { with (obj) { return skipinitial; } }, "showsettings": function (obj) { with (obj) { return showsettings; } }, "hidevolumebar": function (obj) { with (obj) { return hidevolumebar; } }, "settingsoptionsvisible": function (obj) { with (obj) { return settingsoptionsvisible; } }, "dyntracks": function (obj) { with (obj) { return dyntracks; } }, "csstracks || css": function (obj) { with (obj) { return csstracks || css; } }, "tracktagssupport || allowtexttrackupload": function (obj) { with (obj) { return tracktagssupport || allowtexttrackupload; } }, "trackselectorhovered": function (obj) { with (obj) { return trackselectorhovered; } }, "tracktagsstyled": function (obj) { with (obj) { return tracktagsstyled; } }, "trackcuetext": function (obj) { with (obj) { return trackcuetext; } }, "uploadtexttracksvisible": function (obj) { with (obj) { return uploadtexttracksvisible; } }, "acceptedtracktexts": function (obj) { with (obj) { return acceptedtracktexts; } }, "uploadlocales": function (obj) { with (obj) { return uploadlocales; } }, "dynplaybutton": function (obj) { with (obj) { return dynplaybutton; } }, "cssplaybutton || css": function (obj) { with (obj) { return cssplaybutton || css; } }, "tmplplaybutton": function (obj) { with (obj) { return tmplplaybutton; } }, "playbutton_active": function (obj) { with (obj) { return playbutton_active; } }, "showduration": function (obj) { with (obj) { return showduration; } }, "dynloader": function (obj) { with (obj) { return dynloader; } }, "cssloader || css": function (obj) { with (obj) { return cssloader || css; } }, "tmplloader": function (obj) { with (obj) { return tmplloader; } }, "loader_active": function (obj) { with (obj) { return loader_active; } }, "dynshare": function (obj) { with (obj) { return dynshare; } }, "cssshare || css": function (obj) { with (obj) { return cssshare || css; } }, "tmplshare": function (obj) { with (obj) { return tmplshare; } }, "sharevideourl && sharevideo.length > 0": function (obj) { with (obj) { return sharevideourl && sharevideo.length > 0; } }, "sharevideourl": function (obj) { with (obj) { return sharevideourl; } }, "sharevideo": function (obj) { with (obj) { return sharevideo; } }, "dynmessage": function (obj) { with (obj) { return dynmessage; } }, "cssmessage || css": function (obj) { with (obj) { return cssmessage || css; } }, "tmplmessage": function (obj) { with (obj) { return tmplmessage; } }, "message_active": function (obj) { with (obj) { return message_active; } }, "message": function (obj) { with (obj) { return message; } }, "dyntopmessage": function (obj) { with (obj) { return dyntopmessage; } }, "csstopmessage || css": function (obj) { with (obj) { return csstopmessage || css; } }, "tmpltopmessage": function (obj) { with (obj) { return tmpltopmessage; } }, "topmessage": function (obj) { with (obj) { return topmessage; } }, "poster": function (obj) { with (obj) { return poster; } }/**/
         })
         .attachStringTable(Assets.strings)
         .addStrings({
@@ -6364,7 +6626,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Tracks", [
         }, function(inherited) {
             return {
 
-                template: "<div data-selector=\"text-tracks-overlay\"\n     class=\"{{cssplayer}}-text-tracks-overlay\n     {{activitydelta > hidebarafter && hideoninactivity ? (cssplayer + '-track-dashboard-hidden') : ''}}\n\">\n\n    <div data-selector=\"cue-content\" ba-show=\"{{tracktagsstyled && trackcuetext}}\" class=\"{{cssplayer}}-cue-content\">\n        {{trackcuetext}}\n    </div>\n    <div class=\"{{csscommon}}-options-popup {{csscommon}}-options-list-{{tracksshowselection || trackselectorhovered ? 'visible' : 'hidden'}}\">\n        <div ba-show=\"{{tracksshowselection || trackselectorhovered}}\" tabindex=\"-1\"\n             onmouseenter=\"{{hover_cc(domEvent, true)}}\" onmouseover=\"{{hover_cc(domEvent, true)}}\" onmouseleave=\"{{hover_cc(domEvent, false)}}\"\n        >\n            <div data-selector=\"tracks-selector-list\"\n                 class=\"{{csscommon}}-initial-options-list {{csscommon}}-tracks-selector-list {{csscommon}}-options-list-visible {{csscommon}}-options-list\"\n                 ba-if=\"{{tracktags}}\"\n            >\n                <div ba-repeat-element=\"{{track :: tracktags}}\"\n                     class=\"{{csscommon}}-tracks-selector {{csscommon}}-options-list-item\"\n                     ba-click=\"{{select_track(track)}}\"\n                >\n                    <div class=\"{{csscommon}}-inner-text\">\n                        {{track.label}}\n                    </div>\n                </div>\n                <div data-selector=\"text-tracks-open-form-button\"\n                     class=\"{{csscommon}}-options-list-item {{csscommon}}-open-next\"\n                     ba-if=\"{{allowtexttrackupload}}\" title=\"{{string('upload-text-tracks')}}\"\n                     onclick=\"{{move_to_option(domEvent, 'text-tracks-uploader-form')}}\"\n                >\n                    <div class=\"{{csscommon}}-inner-text\">{{string('upload-text-tracks')}}</div>\n                    <div class=\"{{csscommon}}-inner-icon\"></div>\n                </div>\n            </div>\n\n            <div data-selector=\"text-tracks-uploader-form\"\n                 class=\"{{csscommon}}-options-list-hidden {{csscommon}}-options-list {{csscommon}}-text-tracks-uploader-form\"\n                 ba-if=\"{{allowtexttrackupload}}\"\n            >\n                <div class=\"{{csscommon}}-full-width {{csscommon}}-options-list-item\">\n                    <div data-selector=\"close-text-tracks-upload-form\"\n                         title=\"{{string('back')}}\"\n                         class=\"{{csscommon}}-open-previous {{csscommon}}-text-left\"\n                         onclick=\"{{move_to_option(domEvent)}}\"\n                    >\n                        <div class=\"{{csscommon}}-inner-icon\"></div>\n                        <div class=\"{{csscommon}}-inner-text\">{{string('back')}}</div>\n                    </div>\n                </div>\n\n                <div class=\"{{csscommon}}-full-width {{csscommon}}-options-list-item\">\n                    <form class=\"{{csscommon}}-form {{csscommon}}-text-tracks-upload-form\">\n                        <div class=\"{{csscommon}}-form-input {{csscommon}}-select-field {{csscommon}}-direction-pointer\">\n                            <select data-selector=\"select-text-tracks-label\" tabindex=\"-1\"\n                                    class=\"{{csscommon}}-form-input {{csscommon}}-text-tracks-label-input\"\n                                    name=\"{{csscommon}}-text-tracks-label-select\"\n                                    onmousedown=\"{{prevent_un_hover(domEvent)}}\"\n                                    onmousemove=\"{{prevent_un_hover(domEvent)}}\"\n                                    onchange=\"{{selected_label_value(domEvent)}}\"\n                            >\n                                <option disabled value selected>\n                                    {{string('select-text-track-language')}}\n                                </option>\n                                <option ba-repeat-element=\"{{locale :: uploadlocales}}\" value=\"{{locale.lang}}\">\n                                    {{locale.label}}\n                                </option>\n                            </select>\n                        </div>\n                        <div class=\"{{csscommon}}-form-input {{csscommon}}-button\" ba-show=\"{{chosenoption}}\">\n                            <input type=\"file\" data-selector=\"select-text-tracks-file\"\n                                   title=\"{{chosenoption ? string('select-text-track-file') : string('info-select-locale-first')}}\"\n                                   onchange=\"{{upload_text_track(domEvent)}}\"\n                                   class=\"{{csscommon}}-text-tracks-file\"\n                                   accept=\"{{acceptedtracktexts}}\"\n                            />\n                            {{chosenoption ? string('select-text-track-file') : string('info-select-locale-first')}}\n                        </div>\n                    </form>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n",
+                template: "<div data-selector=\"text-tracks-overlay\"\n     class=\"{{cssplayer}}-text-tracks-overlay\n     {{activitydelta > hidebarafter && hideoninactivity ? (cssplayer + '-track-dashboard-hidden') : ''}}\n\">\n\n    <div data-selector=\"cue-content\" ba-show=\"{{tracktagsstyled && trackcuetext}}\" class=\"{{cssplayer}}-cue-content\">\n        {{trackcuetext}}\n    </div>\n    <div class=\"{{csscommon}}-options-popup {{csscommon}}-options-list-{{tracksshowselection || trackselectorhovered ? 'visible' : 'hidden'}}\">\n        <div ba-show=\"{{tracksshowselection || trackselectorhovered}}\" tabindex=\"-1\"\n             onmouseenter=\"{{hover_cc(domEvent, true)}}\" onmouseover=\"{{hover_cc(domEvent, true)}}\" onmouseleave=\"{{hover_cc(domEvent, false)}}\"\n        >\n            <div data-selector=\"tracks-selector-list\"\n                 class=\"{{csscommon}}-initial-options-list {{csscommon}}-tracks-selector-list {{csscommon}}-options-list-visible {{csscommon}}-options-list\"\n                 ba-if=\"{{tracktags}}\"\n            >\n                <div ba-repeat-element=\"{{track :: tracktags}}\"\n                     class=\"{{csscommon}}-tracks-selector {{csscommon}}-options-list-item\"\n                     ba-click=\"{{select_track(track)}}\"\n                     ba-show=\"{{track.label}}\"\n                >\n                    <div class=\"{{csscommon}}-inner-text\">\n                        {{track.label}}\n                    </div>\n                </div>\n                <div data-selector=\"text-tracks-open-form-button\"\n                     class=\"{{csscommon}}-options-list-item {{csscommon}}-open-next\"\n                     ba-if=\"{{allowtexttrackupload}}\" title=\"{{string('upload-text-tracks')}}\"\n                     onclick=\"{{move_to_option(domEvent, 'text-tracks-uploader-form')}}\"\n                >\n                    <div class=\"{{csscommon}}-inner-text\">{{string('upload-text-tracks')}}</div>\n                    <div class=\"{{csscommon}}-inner-icon\"></div>\n                </div>\n            </div>\n\n            <div data-selector=\"text-tracks-uploader-form\"\n                 class=\"{{csscommon}}-options-list-hidden {{csscommon}}-options-list {{csscommon}}-text-tracks-uploader-form\"\n                 ba-if=\"{{allowtexttrackupload}}\"\n            >\n                <div class=\"{{csscommon}}-full-width {{csscommon}}-options-list-item\">\n                    <div data-selector=\"close-text-tracks-upload-form\"\n                         title=\"{{string('back')}}\"\n                         class=\"{{csscommon}}-open-previous {{csscommon}}-text-left\"\n                         onclick=\"{{move_to_option(domEvent)}}\"\n                    >\n                        <div class=\"{{csscommon}}-inner-icon\"></div>\n                        <div class=\"{{csscommon}}-inner-text\">{{string('back')}}</div>\n                    </div>\n                </div>\n\n                <div class=\"{{csscommon}}-full-width {{csscommon}}-options-list-item\">\n                    <form class=\"{{csscommon}}-form {{csscommon}}-text-tracks-upload-form\">\n                        <div class=\"{{csscommon}}-form-input {{csscommon}}-select-field {{csscommon}}-direction-pointer\">\n                            <select data-selector=\"select-text-tracks-label\" tabindex=\"-1\"\n                                    class=\"{{csscommon}}-form-input {{csscommon}}-text-tracks-label-input\"\n                                    name=\"{{csscommon}}-text-tracks-label-select\"\n                                    onmousedown=\"{{prevent_un_hover(domEvent)}}\"\n                                    onmousemove=\"{{prevent_un_hover(domEvent)}}\"\n                                    onchange=\"{{selected_label_value(domEvent)}}\"\n                            >\n                                <option disabled value selected>\n                                    {{string('select-text-track-language')}}\n                                </option>\n                                <option ba-repeat-element=\"{{locale :: uploadlocales}}\" value=\"{{locale.lang}}\">\n                                    {{locale.label}}\n                                </option>\n                            </select>\n                        </div>\n                        <div class=\"{{csscommon}}-form-input {{csscommon}}-button\" ba-show=\"{{chosenoption}}\">\n                            <input type=\"file\" data-selector=\"select-text-tracks-file\"\n                                   title=\"{{chosenoption ? string('select-text-track-file') : string('info-select-locale-first')}}\"\n                                   onchange=\"{{upload_text_track(domEvent)}}\"\n                                   class=\"{{csscommon}}-text-tracks-file\"\n                                   accept=\"{{acceptedtracktexts}}\"\n                            />\n                            {{chosenoption ? string('select-text-track-file') : string('info-select-locale-first')}}\n                        </div>\n                    </form>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n",
 
                 attrs: {
                     "css": "ba-videoplayer",
@@ -6737,6 +6999,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Faceoutline", [
 });
 Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
     "dynamics:Dynamic",
+    "media:Recorder.Support",
     "base:Collections.Collection",
     "base:Properties.Properties",
     "base:Timers.Timer",
@@ -6744,7 +7007,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
     "browser:Info"
 ], [
     "dynamics:Partials.StylesPartial"
-], function(Class, Collection, Properties, Timer, Dom, Info, scoped) {
+], function(Class, RecorderSupport, Collection, Properties, Timer, Dom, Info, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -6762,6 +7025,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
                     "containerwidth": 0,
                     "containerheight": 0,
                     "containeroffset": 0,
+                    "images": {},
                     "deltafrac": 1 / 8
                 },
 
@@ -6826,34 +7090,70 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
                     }, this);
                 },
 
+                /**
+                 * @param {Object} image
+                 * @private
+                 */
                 _recomputeImageBox: function(image) {
-                    if (!this.parent().recorder)
+                    if (!this.parent().recorder && this.parent().snapshots.length < 1)
                         return;
+                    // Will fix portrait covershot bug, will not show stretched box
+                    var _maxHeight;
+                    if (this.parent().get('videometadata').ratio) {
+                        _maxHeight = Math.floor(this.get("imagewidth") / this.parent().get('videometadata').ratio);
+                        if (this.get("containerheight") < _maxHeight && _maxHeight > 0.00) {
+                            _maxHeight = Math.floor(this.get("containerheight") * 0.9);
+                        }
+                    }
                     var i = image.get("index");
+                    var ih = _maxHeight || this.get("imageheight");
                     var iw = this.get("imagewidth");
-                    var ih = this.get("imageheight");
                     var id = this.get("imagedelta");
                     var h = this.get("containerheight");
-                    image.set("left", 1 + Math.round(i * (iw + id)));
-                    image.set("top", 1 + Math.round((h - ih) / 2));
-                    image.set("width", 1 + Math.round(iw));
-                    image.set("height", 1 + Math.round(ih));
-                    if (image.snapshot && image.snapshotDisplay) {
-                        this.parent().recorder.updateSnapshotDisplay(
-                            image.snapshot,
-                            image.snapshotDisplay,
-                            image.get("left") + this.get("containeroffset"),
-                            image.get("top"),
-                            image.get("width"),
-                            image.get("height")
-                        );
+                    if (ih > 1.00) {
+                        image.set("left", 1 + Math.round(i * (iw + id)));
+                        image.set("top", 1 + Math.round((h - ih) / 2));
+                        image.set("width", 1 + Math.round(iw));
+                        image.set("height", 1 + Math.round(ih));
+                        if (image.snapshot && image.snapshotDisplay) {
+                            if (this.parent().recorder) {
+                                this.parent().recorder.updateSnapshotDisplay(
+                                    image.snapshot,
+                                    image.snapshotDisplay,
+                                    image.get("left") + this.get("containeroffset"),
+                                    image.get("top"),
+                                    image.get("width"),
+                                    image.get("height")
+                                );
+                            } else {
+                                RecorderSupport.updateSnapshotDisplay(
+                                    image.snapshot,
+                                    image.snapshotDisplay,
+                                    image.get("left") + this.get("containeroffset"),
+                                    image.get("top"),
+                                    image.get("width"),
+                                    image.get("height")
+                                );
+                            }
+                        }
                     }
                 },
 
+                /**
+                 * NOTE: Runs's each second, offset is {top:0 , left is padding from left},
+                 * dimension is correctly calculate box
+                 */
                 updateContainerSize: function() {
                     var container = this.activeElement().querySelector("[data-gallery-container]");
                     var offset = Dom.elementOffset(container);
-                    var videoOffset = Dom.elementOffset(this.parent().recorder._element);
+                    var videoOffset = offset;
+                    if (this.parent().recorder) {
+                        videoOffset = Dom.elementOffset(this.parent().recorder._element);
+                    } else {
+                        var _video = this.parent().activeElement().querySelector("video");
+                        if (_video)
+                            videoOffset = Dom.elementOffset(_video);
+                    }
                     var left = offset.left - videoOffset.left;
                     var dimensions = Dom.elementDimensions(container);
                     this.set("containeroffset", left);
@@ -6868,19 +7168,31 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
 
                 loadImageSnapshot: function(image, snapshotindex) {
                     if (image.snapshotDisplay) {
-                        this.parent().recorder.removeSnapshotDisplay(image.snapshotDisplay);
+                        if (this.parent().recorder)
+                            this.parent().recorder.removeSnapshotDisplay(image.snapshotDisplay);
+                        else
+                            RecorderSupport.removeSnapshotDisplay(image.snapshotDisplay);
                         image.snapshotDisplay = null;
                     }
                     var snapshots = this.parent().snapshots;
                     image.snapshot = snapshots[((snapshotindex % snapshots.length) + snapshots.length) % snapshots.length];
-                    image.snapshotDisplay = this.parent().recorder.createSnapshotDisplay(
-                        this.activeElement(),
-                        image.snapshot,
-                        image.get("left") + this.get("containeroffset"),
-                        image.get("top"),
-                        image.get("width"),
-                        image.get("height")
-                    );
+                    image.snapshotDisplay = this.parent().recorder ?
+                        this.parent().recorder.createSnapshotDisplay(
+                            this.activeElement(),
+                            image.snapshot,
+                            image.get("left") + this.get("containeroffset"),
+                            image.get("top"),
+                            image.get("width"),
+                            image.get("height")
+                        ) :
+                        RecorderSupport.createSnapshotDisplay(
+                            this.activeElement(),
+                            image.snapshot,
+                            image.get("left") + this.get("containeroffset"),
+                            image.get("top"),
+                            image.get("width"),
+                            image.get("height")
+                        );
                 },
 
                 loadSnapshots: function() {
@@ -6997,6 +7309,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
     "browser:Upload.MultiUploader",
     "browser:Upload.FileUploader",
     "media:Recorder.VideoRecorderWrapper",
+    "media:Recorder.Support",
     "media:WebRTC.Support",
     "base:Types",
     "base:Objs",
@@ -7026,13 +7339,13 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.TemplatePartial",
     "dynamics:Partials.HotkeyPartial"
-], function(Class, Assets, Info, Dom, MultiUploader, FileUploader, VideoRecorderWrapper, WebRTCSupport, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Collection, Promise, InitialState, RecorderStates, scoped) {
+], function(Class, Assets, Info, Dom, MultiUploader, FileUploader, VideoRecorderWrapper, RecorderSupport, WebRTCSupport, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Collection, Promise, InitialState, RecorderStates, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
             return {
 
-                template: "\n<div data-selector=\"video-recorder-container\" ba-show=\"{{!player_active}}\"\n     class=\"{{css}}-container {{csstheme}} {{css}}-size-{{csssize}}\n     {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{css}}-{{ fullscreened ? 'fullscreen' : 'normal' }}-view\n     {{cssrecorder}}-{{ firefox ? 'firefox' : 'common'}}-browser\n     {{cssrecorder}}-{{themecolor}}-color\"\n     ba-styles=\"{{widthHeightStyles}}\"\n>\n\n    <video tabindex=\"-1\" data-selector=\"recorder-status\" class=\"{{css}}-video {{css}}-{{hasrecorder ? 'hasrecorder' : 'norecorder'}}\" data-video=\"video\" playsinline></video>\n\t<ba-videorecorder-faceoutline class=\"{{css}}-overlay\" ba-if=\"{{faceoutline && hasrecorder}}\">\n\t</ba-videorecorder-faceoutline>\n    <div data-selector=\"recorder-overlay\" class='{{cssrecorder}}-overlay' ba-show=\"{{!hideoverlay}}\" data-overlay=\"overlay\">\n\t\t<ba-{{dynloader}}\n\t\t    ba-css=\"{{cssloader || css}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplloader}}\"\n\t\t    ba-show=\"{{loader_active}}\"\n\t\t    ba-tooltip=\"{{loadertooltip}}\"\n\t\t\tba-hovermessage=\"{{=hovermessage}}\"\n\t\t    ba-label=\"{{loaderlabel}}\"\n\t\t></ba-{{dynloader}}>\n\n\t\t<ba-{{dynmessage}}\n\t\t    ba-css=\"{{cssmessage || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t    ba-template=\"{{tmplmessage}}\"\n\t\t    ba-show=\"{{message_active}}\"\n\t\t    ba-message=\"{{message}}\"\n\t\t\tba-links=\"{{message_links}}\"\n\t\t    ba-event:click=\"message_click\"\n\t\t\tba-event:link=\"message_link_click\"\n\t\t></ba-{{dynmessage}}>\n\n\t\t<ba-{{dyntopmessage}}\n\t\t    ba-css=\"{{csstopmessage || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t    ba-template=\"{{tmpltopmessage}}\"\n\t\t    ba-show=\"{{topmessage_active && (topmessage || hovermessage)}}\"\n\t\t    ba-topmessage=\"{{hovermessage || topmessage}}\"\n\t\t></ba-{{dyntopmessage}}>\n\n\t\t<ba-{{dynchooser}}\n\t\t\tba-onlyaudio=\"{{onlyaudio}}\"\n\t\t\tba-facecamera=\"{{facecamera}}\"\n\t\t\tba-recordviafilecapture=\"{{recordviafilecapture}}\"\n\t\t    ba-css=\"{{csschooser || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t    ba-template=\"{{tmplchooser}}\"\n\t\t\tba-allowscreen=\"{{allowscreen}}\"\n\t\t    ba-if=\"{{chooser_active && !is_initial_state}}\"\n\t\t    ba-allowrecord=\"{{allowrecord}}\"\n\t\t    ba-allowupload=\"{{allowupload}}\"\n\t\t    ba-allowcustomupload=\"{{allowcustomupload}}\"\n\t\t    ba-allowedextensions=\"{{allowedextensions}}\"\n\t\t    ba-primaryrecord=\"{{primaryrecord}}\"\n\t\t    ba-timelimit=\"{{timelimit}}\"\n\t\t    ba-event:record=\"record_video\"\n\t\t\tba-event:record-screen=\"record_screen\"\n\t\t    ba-event:upload=\"video_file_selected\"\n\t\t></ba-{{dynchooser}}>\n\n\t\t<ba-{{dynimagegallery}}\n\t\t    ba-css=\"{{cssimagegallery || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t    ba-template=\"{{tmplimagegallery}}\"\n\t\t    ba-if=\"{{imagegallery_active}}\"\n\t\t    ba-imagecount=\"{{gallerysnapshots}}\"\n\t\t    ba-imagenativewidth=\"{{nativeRecordingWidth}}\"\n\t\t    ba-imagenativeheight=\"{{nativeRecordingHeight}}\"\n\t\t    ba-event:image-selected=\"select_image\"\n\t\t></ba-{{dynimagegallery}}>\n\n\t\t<ba-{{dyncontrolbar}}\n\t\t    ba-css=\"{{csscontrolbar || css}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t\tba-csstheme=\"{{csstheme || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplcontrolbar}}\"\n\t\t    ba-show=\"{{controlbar_active}}\"\n\t\t    ba-cameras=\"{{cameras}}\"\n\t\t    ba-microphones=\"{{microphones}}\"\n\t\t    ba-noaudio=\"{{noaudio}}\"\n\t\t\tba-novideo=\"{{onlyaudio}}\"\n\t\t\tba-allowscreen=\"{{record_media==='screen'}}\"\n\t\t    ba-selectedcamera=\"{{selectedcamera || 0}}\"\n\t\t    ba-selectedmicrophone=\"{{selectedmicrophone || 0}}\"\n\t\t    ba-camerahealthy=\"{{camerahealthy}}\"\n\t\t    ba-microphonehealthy=\"{{microphonehealthy}}\"\n\t\t    ba-hovermessage=\"{{=hovermessage}}\"\n\t\t    ba-settingsvisible=\"{{settingsvisible}}\"\n\t\t    ba-recordvisible=\"{{recordvisible}}\"\n\t\t\tba-cancelvisible=\"{{allowcancel && cancancel}}\"\n\t\t    ba-uploadcovershotvisible=\"{{uploadcovershotvisible}}\"\n\t\t    ba-rerecordvisible=\"{{rerecordvisible}}\"\n\t\t    ba-stopvisible=\"{{stopvisible}}\"\n\t\t    ba-skipvisible=\"{{skipvisible}}\"\n\t\t    ba-controlbarlabel=\"{{controlbarlabel}}\"\n\t\t\tba-mintimeindicator=\"{{mintimeindicator}}\"\n\t\t\tba-timeminlimit=\"{{timeminlimit}}\"\n\t\t    ba-event:select-camera=\"select_camera\"\n\t\t    ba-event:select-microphone=\"select_microphone\"\n\t\t    ba-event:invoke-record=\"record\"\n\t\t    ba-event:invoke-rerecord=\"rerecord\"\n\t\t    ba-event:invoke-stop=\"stop\"\n\t\t    ba-event:invoke-skip=\"invoke_skip\"\n\t\t\tba-event:upload-covershot=\"upload_covershot\"\n\t\t    ba-event:toggle-face-mode=\"toggle_face_mode\"\n\t\t></ba-{{dyncontrolbar}}>\n    </div>\n</div>\n\n<div data-selector=\"recorder-player\" ba-if=\"{{player_active}}\" ba-styles=\"{{widthHeightStyles}}\">\n\t<span ba-show=\"{{ie8}}\">&nbsp;</span>\n\t<ba-{{dynvideoplayer}}\n\t    ba-theme=\"{{theme || 'default'}}\"\n        ba-themecolor=\"{{themecolor}}\"\n\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n        ba-source=\"{{playbacksource}}\"\n        ba-poster=\"{{playbackposter}}\"\n        ba-hideoninactivity=\"{{false}}\"\n        ba-forceflash=\"{{forceflash}}\"\n        ba-noflash=\"{{noflash}}\"\n        ba-stretch=\"{{stretch}}\"\n\t\tba-onlyaudio=\"{{onlyaudio}}\"\n        ba-attrs=\"{{playerattrs}}\"\n        ba-data:id=\"player\"\n        ba-width=\"{{width}}\"\n        ba-height=\"{{height}}\"\n        ba-totalduration=\"{{duration / 1000}}\"\n        ba-rerecordable=\"{{rerecordable && (recordings === null || recordings > 0)}}\"\n        ba-submittable=\"{{manualsubmit && verified}}\"\n        ba-reloadonplay=\"{{true}}\"\n        ba-autoplay=\"{{autoplay}}\"\n        ba-nofullscreen=\"{{nofullscreen}}\"\n        ba-topmessage=\"{{playertopmessage}}\"\n        ba-allowtexttrackupload=\"{{allowtexttrackupload}}\"\n        ba-uploadtexttracksvisible=\"{{uploadtexttracksvisible}}\"\n        ba-tracktags=\"{{tracktags}}\"\n        ba-tracktagsstyled=\"{{tracktagsstyled}}\"\n        ba-trackcuetext=\"{{trackcuetext}}\"\n        ba-acceptedtracktexts=\"{{acceptedtracktexts}}\"\n\t\tba-event:loaded=\"ready_to_play\"\n        ba-event:rerecord=\"rerecord\"\n        ba-event:playing=\"playing\"\n        ba-event:paused=\"paused\"\n        ba-event:ended=\"ended\"\n        ba-event:submit=\"manual_submit\"\n        ba-event:upload-text-tracks=\"upload_text_tracks\"\n\t\tba-tracksshowselection=\"{{tracksshowselection}}\"\n\t\tba-trackselectorhovered=\"{{trackselectorhovered}}\"\n\t\tba-uploadlocales=\"{{uploadlocales}}\"\n\t\tba-event:selected_label_value=\"selected_label_value\"\n\t\tba-event:move_to_option=\"move_to_option\"\n\t>\n\t</ba-{{dynvideoplayer}}>\n</div>\n",
+                template: "\n<div data-selector=\"video-recorder-container\" ba-show=\"{{!player_active}}\"\n     class=\"{{css}}-container {{csstheme}} {{css}}-size-{{csssize}}\n     {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{css}}-{{ fullscreened ? 'fullscreen' : 'normal' }}-view\n     {{cssrecorder}}-{{ firefox ? 'firefox' : 'common'}}-browser\n     {{cssrecorder}}-{{themecolor}}-color\n     ba-styles=\"{{widthHeightStyles}}\"\n>\n\n    <video tabindex=\"-1\" data-selector=\"recorder-status\" class=\"{{css}}-video {{css}}-{{hasrecorder ? 'hasrecorder' : 'norecorder'}}\" data-video=\"video\" playsinline></video>\n\t<ba-videorecorder-faceoutline class=\"{{css}}-overlay\" ba-if=\"{{faceoutline && hasrecorder}}\"></ba-videorecorder-faceoutline>\n    <div data-selector=\"recorder-overlay\" class='{{cssrecorder}}-overlay' ba-show=\"{{!hideoverlay}}\" data-overlay=\"overlay\">\n\t\t<ba-{{dynloader}}\n\t\t    ba-css=\"{{cssloader || css}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplloader}}\"\n\t\t    ba-show=\"{{loader_active}}\"\n\t\t    ba-tooltip=\"{{loadertooltip}}\"\n\t\t\tba-hovermessage=\"{{=hovermessage}}\"\n\t\t    ba-label=\"{{loaderlabel}}\"\n\t\t></ba-{{dynloader}}>\n\n\t\t<ba-{{dynmessage}}\n\t\t    ba-css=\"{{cssmessage || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t    ba-template=\"{{tmplmessage}}\"\n\t\t    ba-show=\"{{message_active}}\"\n\t\t    ba-message=\"{{message}}\"\n\t\t\tba-links=\"{{message_links}}\"\n\t\t    ba-event:click=\"message_click\"\n\t\t\tba-event:link=\"message_link_click\"\n\t\t></ba-{{dynmessage}}>\n\n\t\t<ba-{{dyntopmessage}}\n\t\t    ba-css=\"{{csstopmessage || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t    ba-template=\"{{tmpltopmessage}}\"\n\t\t    ba-show=\"{{topmessage_active && (topmessage || hovermessage)}}\"\n\t\t    ba-topmessage=\"{{hovermessage || topmessage}}\"\n\t\t></ba-{{dyntopmessage}}>\n\n\t\t<ba-{{dynchooser}}\n\t\t\tba-onlyaudio=\"{{onlyaudio}}\"\n\t\t\tba-facecamera=\"{{facecamera}}\"\n\t\t\tba-recordviafilecapture=\"{{recordviafilecapture}}\"\n\t\t    ba-css=\"{{csschooser || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t    ba-template=\"{{tmplchooser}}\"\n\t\t\tba-allowscreen=\"{{allowscreen}}\"\n\t\t    ba-if=\"{{chooser_active && !is_initial_state}}\"\n\t\t    ba-allowrecord=\"{{allowrecord}}\"\n\t\t    ba-allowupload=\"{{allowupload}}\"\n\t\t    ba-allowcustomupload=\"{{allowcustomupload}}\"\n\t\t    ba-allowedextensions=\"{{allowedextensions}}\"\n\t\t    ba-primaryrecord=\"{{primaryrecord}}\"\n\t\t    ba-timelimit=\"{{timelimit}}\"\n\t\t    ba-event:record=\"record_video\"\n\t\t\tba-event:record-screen=\"record_screen\"\n\t\t    ba-event:upload=\"video_file_selected\"\n\t\t></ba-{{dynchooser}}>\n\n\t\t<ba-{{dynimagegallery}}\n\t\t    ba-css=\"{{cssimagegallery || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t    ba-template=\"{{tmplimagegallery}}\"\n\t\t    ba-if=\"{{imagegallery_active}}\"\n\t\t    ba-imagecount=\"{{gallerysnapshots}}\"\n\t\t    ba-imagenativewidth=\"{{nativeRecordingWidth}}\"\n\t\t    ba-imagenativeheight=\"{{nativeRecordingHeight}}\"\n\t\t    ba-event:image-selected=\"select_image\"\n\t\t></ba-{{dynimagegallery}}>\n\n\t\t<ba-{{dyncontrolbar}}\n\t\t    ba-css=\"{{csscontrolbar || css}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t\tba-csstheme=\"{{csstheme || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplcontrolbar}}\"\n\t\t    ba-show=\"{{controlbar_active}}\"\n\t\t    ba-cameras=\"{{cameras}}\"\n\t\t    ba-microphones=\"{{microphones}}\"\n\t\t    ba-noaudio=\"{{noaudio}}\"\n\t\t\tba-novideo=\"{{onlyaudio}}\"\n\t\t\tba-allowscreen=\"{{record_media==='screen'}}\"\n\t\t    ba-selectedcamera=\"{{selectedcamera || 0}}\"\n\t\t    ba-selectedmicrophone=\"{{selectedmicrophone || 0}}\"\n\t\t    ba-camerahealthy=\"{{camerahealthy}}\"\n\t\t    ba-microphonehealthy=\"{{microphonehealthy}}\"\n\t\t    ba-hovermessage=\"{{=hovermessage}}\"\n\t\t    ba-settingsvisible=\"{{settingsvisible}}\"\n\t\t    ba-recordvisible=\"{{recordvisible}}\"\n\t\t\tba-cancelvisible=\"{{allowcancel && cancancel}}\"\n\t\t    ba-uploadcovershotvisible=\"{{uploadcovershotvisible}}\"\n\t\t    ba-rerecordvisible=\"{{rerecordvisible}}\"\n\t\t    ba-stopvisible=\"{{stopvisible}}\"\n\t\t    ba-skipvisible=\"{{skipvisible}}\"\n\t\t    ba-controlbarlabel=\"{{controlbarlabel}}\"\n\t\t\tba-mintimeindicator=\"{{mintimeindicator}}\"\n\t\t\tba-timeminlimit=\"{{timeminlimit}}\"\n\t\t    ba-event:select-camera=\"select_camera\"\n\t\t    ba-event:select-microphone=\"select_microphone\"\n\t\t    ba-event:invoke-record=\"record\"\n\t\t    ba-event:invoke-rerecord=\"rerecord\"\n\t\t    ba-event:invoke-stop=\"stop\"\n\t\t    ba-event:invoke-skip=\"invoke_skip\"\n\t\t\tba-event:upload-covershot=\"upload_covershot\"\n\t\t    ba-event:toggle-face-mode=\"toggle_face_mode\"\n\t\t></ba-{{dyncontrolbar}}>\n    </div>\n</div>\n\n\n<div data-selector=\"recorder-player\" ba-if=\"{{player_active}}\" ba-styles=\"{{widthHeightStyles}}\">\n\t<span ba-show=\"{{ie8}}\">&nbsp;</span>\n\t<ba-{{dynvideoplayer}}\n\t    ba-theme=\"{{theme || 'default'}}\"\n        ba-themecolor=\"{{themecolor}}\"\n\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n        ba-source=\"{{playbacksource}}\"\n        ba-poster=\"{{playbackposter}}\"\n        ba-hideoninactivity=\"{{false}}\"\n        ba-forceflash=\"{{forceflash}}\"\n        ba-noflash=\"{{noflash}}\"\n        ba-stretch=\"{{stretch}}\"\n\t\tba-onlyaudio=\"{{onlyaudio}}\"\n        ba-attrs=\"{{playerattrs}}\"\n        ba-data:id=\"player\"\n        ba-width=\"{{width}}\"\n        ba-height=\"{{height}}\"\n        ba-totalduration=\"{{duration / 1000}}\"\n        ba-rerecordable=\"{{rerecordable && (recordings === null || recordings > 0)}}\"\n        ba-submittable=\"{{manualsubmit && verified}}\"\n        ba-reloadonplay=\"{{true}}\"\n        ba-autoplay=\"{{autoplay}}\"\n        ba-nofullscreen=\"{{nofullscreen}}\"\n        ba-topmessage=\"{{playertopmessage}}\"\n        ba-allowtexttrackupload=\"{{allowtexttrackupload}}\"\n        ba-uploadtexttracksvisible=\"{{uploadtexttracksvisible}}\"\n        ba-tracktags=\"{{tracktags}}\"\n        ba-tracktagsstyled=\"{{tracktagsstyled}}\"\n        ba-trackcuetext=\"{{trackcuetext}}\"\n        ba-acceptedtracktexts=\"{{acceptedtracktexts}}\"\n\t\tba-event:loaded=\"ready_to_play\"\n        ba-event:rerecord=\"rerecord\"\n        ba-event:playing=\"playing\"\n        ba-event:paused=\"paused\"\n        ba-event:ended=\"ended\"\n        ba-event:submit=\"manual_submit\"\n        ba-event:upload-text-tracks=\"upload_text_tracks\"\n\t\tba-tracksshowselection=\"{{tracksshowselection}}\"\n\t\tba-trackselectorhovered=\"{{trackselectorhovered}}\"\n\t\tba-uploadlocales=\"{{uploadlocales}}\"\n\t\tba-event:selected_label_value=\"selected_label_value\"\n\t\tba-event:move_to_option=\"move_to_option\"\n\t>\n\t</ba-{{dynvideoplayer}}>\n</div>\n",
 
                 attrs: {
                     /* CSS */
@@ -7079,6 +7392,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "allowcustomupload": true,
                     "manual-upload": false,
                     "camerafacefront": false,
+                    "createthumbnails": false,
                     "primaryrecord": true,
                     "allowscreen": false,
                     "nofullscreen": false,
@@ -7140,14 +7454,16 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "orientation": false,
                     "stretch": false,
                     "audio-test-mandatory": false,
+                    "snapshotfromuploader": true,
 
                     "allowtexttrackupload": false,
                     "uploadlocales": [{
                         lang: 'en',
                         label: 'English'
-                    }]
-
-
+                    }],
+                    "tracktags": [],
+                    "hassubtitles": false,
+                    "videometadata": {}
                 },
 
                 computed: {
@@ -7298,6 +7614,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     this.__cameraResponsive = true;
                     this.__cameraSignal = true;
 
+                    this._initSettings();
+
                     if (this.get("onlyaudio")) {
                         this.set("picksnapshots", false);
                         this.set("allowupload", false);
@@ -7372,7 +7690,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         return;
                     }
                     this.set("hasrecorder", true);
-                    this.snapshots = [];
                     this.__attachRequested = false;
                     var video = this.activeElement().querySelector("[data-video='video']");
                     this._clearError();
@@ -7440,6 +7757,21 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     return this.recorder && this.recorder.isWebrtcStreaming();
                 },
 
+                _initSettings: function() {
+                    // Without below line re-recorder will not lunch
+                    this.snapshots = [];
+                    this.thumbnails = [];
+                    this.set("videometadata", {
+                        "height": null,
+                        "width": null,
+                        "ratio": null,
+                        "thumbnails": {
+                            "mainimage": null,
+                            "images": []
+                        }
+                    });
+                },
+
                 _initializeUploader: function() {
                     if (this._dataUploader)
                         this._dataUploader.weakDestroy();
@@ -7457,7 +7789,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     if (this.get("simulate"))
                         return;
                     this.__lastCovershotUpload = image;
-                    var uploader = this.recorder.createSnapshotUploader(image, this.get("snapshottype"), this.get("uploadoptions").image);
+                    var uploader = this.recorder ?
+                        this.recorder.createSnapshotUploader(image, this.get("snapshottype"), this.get("uploadoptions").image) :
+                        RecorderSupport.createSnapshotUploader(this.isFlash(), image, this.get("snapshottype"), this.get("uploadoptions").image);
                     uploader.upload();
                     this._dataUploader.addUploader(uploader);
                 },
@@ -7469,6 +7803,48 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     var uploader = FileUploader.create(Objs.extend({
                         source: file
                     }, this.get("uploadoptions").image));
+                    uploader.upload();
+                    this._dataUploader.addUploader(uploader);
+                },
+
+                /**
+                 * Upload single image Blob file with thumbnails to the server
+                 * @param {Blob} file
+                 * @private
+                 */
+                _uploadThumbnails: function(file) {
+                    if (this.get("simulate"))
+                        return;
+                    this.set("videometadata", Objs.tree_merge(this.get("videometadata"), {
+                        thumbnails: {
+                            mainimage: file
+                        }
+                    }));
+                    var uploader = FileUploader.create(Objs.extend({
+                        source: file
+                    }, this.get("uploadoptions").thumbnail));
+                    uploader.upload();
+                    this._dataUploader.addUploader(uploader);
+                },
+
+                /**
+                 * Upload VTT Blob file to the server with all details about thumbnails
+                 * @param {Blob} file
+                 * @private
+                 */
+                _uploadThumbnailTracks: function(file) {
+                    if (this.get("simulate"))
+                        return;
+                    var uploader = FileUploader.create(Objs.extend({
+                        source: file
+                    }, this.get("uploadoptions").tracks));
+                    // Add Thumbnails as Track element to the player
+                    if (this.get("uploadoptions").tracks.url) {
+                        this.get("tracktags").push({
+                            kind: 'thumbnails',
+                            src: this.get("uploadoptions").tracks.url
+                        });
+                    }
                     uploader.upload();
                     this._dataUploader.addUploader(uploader);
                 },
@@ -7626,8 +8002,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     },
 
                     rerecord: function() {
-                        if (confirm(this.stringUnicode("rerecord-confirm")))
+                        if (confirm(this.stringUnicode("rerecord-confirm"))) {
                             this.host.state().rerecord();
+                            this._initSettings();
+                        }
                     },
 
                     stop: function() {
@@ -7736,12 +8114,45 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                             if (Math.random() <= p) {
                                 var snap = this.recorder.createSnapshot(this.get("snapshottype"));
                                 if (snap) {
+                                    if (!this.get('videometadata').height && typeof Image !== 'undefined') {
+                                        RecorderSupport.snapshotMetaData(snap).success(function(data) {
+                                            var _thumbWidth = data.orientation === 'landscape' ? 80 : 35;
+                                            this.set("videometadata", Objs.tree_merge(this.get("videometadata"), data));
+                                            this.set("videometadata", Objs.tree_merge(this.get("videometadata"), {
+                                                "thumbnails": {
+                                                    width: _thumbWidth,
+                                                    height: Math.floor(_thumbWidth / data.width * data.height)
+                                                }
+                                            }));
+                                        }, this);
+                                    }
                                     if (this.snapshots.length < this.get("snapshotmax")) {
                                         this.snapshots.push(snap);
                                     } else {
                                         var i = Math.floor(Math.random() * this.get("snapshotmax"));
                                         this.recorder.removeSnapshot(this.snapshots[i]);
                                         this.snapshots[i] = snap;
+                                    }
+
+                                    if (this.get("createthumbnails")) {
+                                        var _currentRecordingSecond = Math.floor((Time.now() - this.__recording_start_time) / 1000);
+                                        var _thumbLatestIndex = this.get("videometadata").thumbnails.images.length > 1 ? this.get("videometadata").thumbnails.images.length - 1 : 0;
+                                        var _latestThumb = this.get("videometadata").thumbnails.images[_thumbLatestIndex];
+
+                                        // Add thumb each 2 seconds
+                                        if (typeof _latestThumb !== 'undefined') {
+                                            if (_currentRecordingSecond > _latestThumb.time + 1) {
+                                                this.get("videometadata").thumbnails.images.push({
+                                                    time: _currentRecordingSecond,
+                                                    snap: snap
+                                                });
+                                            }
+                                        } else {
+                                            this.get("videometadata").thumbnails.images.push({
+                                                time: _currentRecordingSecond,
+                                                snap: snap
+                                            });
+                                        }
                                     }
                                 }
                             }
@@ -7874,7 +8285,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
             "unsupported_video_type": "Please upload: %s - click here to retry.",
             "orientation-portrait-required": "Please rotate your device to record in portrait mode.",
             "orientation-landscape-required": "Please rotate your device to record in landscape mode.",
-            "switch-camera": "Switch camera"
+            "switch-camera": "Switch camera",
+            "prepare-covershot": "Preparing covershots",
+            "prepare-thumbnails": "Preparing seeking thumbnails"
         });
 });
 Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.State", [
@@ -8134,6 +8547,10 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
             }
         },
 
+        /**
+         * @param {File} file
+         * @private
+         */
         _uploadFile: function(file) {
             if (this.__blocked)
                 return;
@@ -8148,7 +8565,11 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
                 this.dyn._uploadVideoFile(file);
                 this._setValueToEmpty(file);
                 this.__blocked = false;
-                this.next("Uploading");
+                if ((Info.isMobile && this.dyn.get("recordviafilecapture") || this.dyn.get("snapshotfromuploader")) && !this.dyn.get("onlyaudio") && this.dyn.get("picksnapshots")) {
+                    this.dyn.snapshots = [];
+                    this.next("CreateUploadCovershot");
+                } else
+                    this.next("Uploading");
             }, this).error(function(s) {
                 this._setValueToEmpty(file);
                 this.__blocked = false;
@@ -8173,6 +8594,150 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
     });
 });
 
+Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CreateUploadCovershot", [
+    "module:VideoRecorder.Dynamics.RecorderStates.State",
+    "media:Recorder.Support",
+    "base:Objs",
+    "base:Timers.Timer",
+    "browser:Events",
+    "browser:Info",
+    "base:Async"
+], function(State, RecorderSupport, Objs, Timer, DomEvents, Info, Async, scoped) {
+    return State.extend({
+        scoped: scoped
+    }, {
+
+        dynamics: ["loader", "message"],
+
+        _started: function() {
+            this.dyn.set("loader_active", true);
+            this.dyn.set("topmessage", this.dyn.string('please-wait'));
+            this.dyn.set("message", this.dyn.string("prepare-covershot"));
+
+            try {
+                this.dyn.set("player_active", false);
+
+
+                // this.dyn._videoFilePlaybackable only for browsers
+                if (this.dyn._videoFile)
+                    this.dyn.set("playbacksource", (window.URL || window.webkitURL).createObjectURL(this.dyn._videoFile));
+                else
+                    throw ('Could not find source file to be able start player');
+
+                var _video = document.createElement('video');
+                var _currentTime = 0;
+                var _totalDuration = 0;
+                var _seekPeriod = 1;
+                _video.src = this.dyn.get("playbacksource");
+                _video.setAttribute('preload', 'metadata');
+                _video.volume = 0;
+                _video.muted = true;
+
+                var _playerLoadedData = this.auto_destroy(new DomEvents());
+
+                // Note that loadeddata event will not fire in mobile/tablet devices if data-saver is on in browser settings
+                // So using loadedmetadata ( or canplaythrough) to be available both desktop and mobile
+                // readyState is newly equal to HAVE_ENOUGH_DATA
+                // HAVE_NOTHING == 0; HAVE_METADATA == 1; HAVE_CURRENT_DATA == 2; HAVE_FUTURE_DATA == 3; HAVE_ENOUGH_DATA == 4
+                _playerLoadedData.on(_video, "loadedmetadata", function(ev) {
+                    _totalDuration = _video.duration;
+                    if (_totalDuration === Infinity) {
+                        console.warn('Could not generate video covershots from uploaded file');
+                        this.next("Uploading");
+                    }
+                    _seekPeriod = this._calculateSeekPeriod(_totalDuration);
+                    if (_video.videoWidth > 0 && _video.videoHeight > 0) {
+                        var _thumbWidth = _video.videoWidth > _video.videoHeight ? 80 : 35;
+                        this.dyn.set("videometadata", Objs.tree_merge(this.dyn.get("videometadata"), {
+                            height: _video.videoHeight,
+                            width: _video.videoWidth,
+                            ratio: +(_video.videoWidth / _video.videoHeight).toFixed(2),
+                            "thumbnails": {
+                                width: _thumbWidth,
+                                height: Math.floor(_thumbWidth / _video.videoWidth * _video.videoHeight)
+                            }
+                        }));
+                        this.__videoSeekTimer = new Timer({
+                            context: this,
+                            fire: function() {
+                                if (_video.volume < 0.1 || _video.muted) {
+                                    _video.currentTime = _currentTime;
+                                } else _video.volume = 0;
+                                _currentTime = _currentTime + _seekPeriod;
+                            },
+                            destroy_on_stop: true,
+                            delay: 500,
+                            start: true
+                        });
+                    } else {
+                        console.warn('Could not find video dimensions information to be able create covershot');
+                        this.next("Uploading");
+                    }
+                }, this);
+
+                _playerLoadedData.on(_video, "seeked", function(ev) {
+                    var __snap = RecorderSupport.createSnapshot(this.dyn.get("snapshottype"), _video);
+                    if (__snap) {
+                        // Will add snap images as thumbnails
+                        if (this.dyn.get("createthumbnails")) {
+                            this.dyn.get("videometadata").thumbnails.images.push({
+                                time: _video.currentTime,
+                                snap: __snap
+                            });
+                        }
+                        if (this.dyn.snapshots.length < this.dyn.get("snapshotmax")) {
+                            this.dyn.snapshots.push(__snap);
+                        } else {
+                            var i = Math.floor(Math.random() * this.dyn.get("snapshotmax"));
+                            RecorderSupport.removeSnapshot(this.dyn.snapshots[i]);
+                            this.dyn.snapshots[i] = __snap;
+                        }
+                    }
+
+                    // Should trigger ended event
+                    if ((_video.currentTime + _seekPeriod) >= _totalDuration) {
+                        _video.currentTime = _video.currentTime + _seekPeriod;
+                    }
+                }, this);
+
+                _playerLoadedData.on(_video, "ended", function(ev) {
+                    this.__videoSeekTimer.stop();
+                    if (typeof _video.remove === 'function')
+                        _video.remove();
+                    else
+                        _video.style.display = 'none';
+                    if (this.dyn.snapshots.length >= this.dyn.get("gallerysnapshots"))
+                        this.next("CovershotSelection");
+                    else
+                        this.next("Uploading");
+                }, this);
+
+            } catch (exe) {
+                console.warn(exe);
+                this.next("Uploading");
+            }
+        },
+
+        stop: function() {
+            this.dyn.set("loader_active", false);
+            this.dyn.set("loaderlabel", "");
+            this.dyn.set("topmessage", "");
+        },
+
+        /**
+         * @param {number} duration
+         * @return {number}
+         * @private
+         */
+        _calculateSeekPeriod: function(duration) {
+            if (duration < 15) return 1;
+            if (duration < 40) return 3;
+            if (duration < 100) return 4;
+            else
+                return Math.floor(duration / 100) + 4;
+        }
+    });
+});
 
 Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.RequiredSoftwareCheck", [
     "module:VideoRecorder.Dynamics.RecorderStates.State"
@@ -8307,7 +8872,6 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraAccess", [
             }, this);
             this.dyn._bindMedia();
         }
-
     });
 });
 
@@ -8349,7 +8913,6 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraHasAccess", [
                 preparePromise: this._preparePromise
             });
         }
-
     });
 });
 
@@ -8520,6 +9083,8 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
                     this._hasStopped();
                     if (this.dyn.get("picksnapshots") && this.dyn.snapshots.length >= this.dyn.get("gallerysnapshots"))
                         this.next("CovershotSelection");
+                    else if (this.dyn.get("videometadata").thumbnails.images.length > 3 && this.dyn.get("createthumbnails"))
+                        this.next("UploadThumbnails");
                     else
                         this.next("Uploading");
                 }, this).error(function(s) {
@@ -8587,12 +9152,140 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
         },
 
         _nextUploading: function(skippedCovershot) {
-            this.next("Uploading");
+            if (this.dyn.get("videometadata").thumbnails.images.length > 3 && this.dyn.get("createthumbnails"))
+                this.next("UploadThumbnails");
+            else
+                this.next("Uploading");
         }
 
     });
 });
 
+Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.UploadThumbnails", [
+    "module:VideoRecorder.Dynamics.RecorderStates.State",
+    "base:Objs",
+    "base:Promise",
+    "base:Time",
+    "base:TimeFormat",
+    "media:WebRTC.Support",
+    "browser:Events"
+], function(State, Objs, Promise, Time, TimeFormat, Support, Events, scoped) {
+    return State.extend({
+        scoped: scoped
+    }, {
+
+        dynamics: ["loader"],
+
+        _started: function() {
+            this.dyn.set("loader_active", true);
+            this.dyn.set("loadlabel", "Thumbnails");
+            this.dyn.set("message", this.dyn.string("prepare-thumbnails"));
+            this.dyn.set("hovermessage", "");
+            this.dyn.set("topmessage", "");
+
+            this._drawIntoCanvas(this.dyn.get("videometadata").thumbnails)
+                .success(function(canvas) {
+                    this.dyn._uploadThumbnails(Support.dataURItoBlob(canvas.toDataURL('image/jpg')));
+                    this.dyn._uploadThumbnailTracks(new Blob(this._vttDescripitions, {
+                        type: "text/vtt"
+                    }));
+                    this.next("Uploading");
+                }, this)
+                .error(function(err) {
+                    console.warn(err);
+                    this.next("Uploading");
+                }, this);
+        },
+
+        _drawIntoCanvas: function(thumbnails) {
+            var promise = Promise.create();
+            var w = thumbnails.width;
+            var h = thumbnails.height;
+            var imagesCount = thumbnails.images.length;
+            var rowsCount = thumbnails.images.length > 10 ? Math.ceil(imagesCount / 10) : 1;
+            var canvas = document.createElement('canvas');
+            canvas.width = rowsCount > 1 ? w * 10 : w * imagesCount;
+            canvas.height = rowsCount * h;
+            this._vttDescripitions = [];
+            this._vttDescripitions.push('WEBVTT \n\n');
+            var ctx = canvas.getContext('2d');
+            var index = 0;
+            try {
+                if (typeof thumbnails.images[index] !== 'undefined') {
+                    this._imageEvent = this.auto_destroy(new Events());
+                    var image = image || new Image();
+                    image.width = w;
+                    image.height = h;
+                    image.src = (window.URL || window.webkitURL).createObjectURL(thumbnails.images[index].snap);
+
+                    this._imageEvent.on(image, "load", function() {
+                        this._recursivelyDrawImage(canvas, thumbnails, ctx, w, h, image, index, promise);
+                    }, this);
+
+                    this._imageEvent.on(image, "error", function(err) {
+                        throw "Error with loading thumbnail image. ".err;
+                    }, this);
+                }
+            } catch (err) {
+                promise.asyncError(err);
+            }
+            return promise;
+        },
+
+        _recursivelyDrawImage: function(canvas, thumbnails, ctx, w, h, image, index, promise, column, row) {
+            column = column || 0;
+            row = row || 0;
+            index = index || 0;
+            ctx.drawImage(image, column * w, row * h, w, h);
+            if ((index > 0 && (index % 10 === 0))) {
+                row++;
+                column = 0;
+            } else if (index !== 0) column++;
+            index++;
+            if (typeof thumbnails.images[index] !== 'undefined' && thumbnails.images.length >= index) {
+                var _image, _prevIndex, _nextIndex, _startTime, _endTime, _averageSecond, _formattedStartTime, _formattedEndTime;
+                _prevIndex = index - 1;
+                _nextIndex = index + 1;
+
+                _averageSecond = Math.round((thumbnails.images[index].time - thumbnails.images[_prevIndex].time) / 2);
+                _startTime = thumbnails.images[_prevIndex].time + _averageSecond;
+                // For the latest thumb no need add average time
+                if (!thumbnails.images[_nextIndex + 1]) _averageSecond = 0;
+                _endTime = thumbnails.images[index].time + _averageSecond;
+
+                _formattedStartTime = _startTime === 0 ? '00:00:00' : TimeFormat.format('HH:MM:ss', _startTime * 1000);
+                _formattedEndTime = _endTime === 0 ? '00:00:00' : TimeFormat.format('HH:MM:ss', _endTime * 1000);
+
+                // If we have have next index
+                if (typeof thumbnails.images[_nextIndex] !== 'undefined') {
+                    this._vttDescripitions.push(
+                        _formattedStartTime + ".000" + " --> " + _formattedEndTime + ".000" + "\n" + this.dyn.get("uploadoptions").thumbnail.url + "#xywh=" + (column * w) + "," + (row * h) + "," + w + "," + h + "\n\n"
+                    );
+                }
+
+                _image = new Image();
+                _image.width = w;
+                _image.height = h;
+                _image.src = (window.URL || window.webkitURL).createObjectURL(thumbnails.images[index].snap);
+
+                this._imageEvent.on(_image, "load", function() {
+                    this._recursivelyDrawImage(canvas, thumbnails, ctx, w, h, _image, index, promise, column, row);
+                }, this);
+
+                this._imageEvent.on(_image, "error", function(err) {
+                    throw "Error with loading thumbnail image. Error: ".err;
+                }, this);
+
+            } else {
+                if (thumbnails.images.length <= index) {
+                    promise.asyncSuccess(canvas);
+                } else {
+                    throw "Could not draw all images";
+                }
+            }
+        }
+    });
+});
 
 Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
     "module:VideoRecorder.Dynamics.RecorderStates.State",

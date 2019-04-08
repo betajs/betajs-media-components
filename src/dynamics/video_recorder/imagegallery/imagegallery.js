@@ -1,5 +1,6 @@
 Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
     "dynamics:Dynamic",
+    "media:Recorder.Support",
     "base:Collections.Collection",
     "base:Properties.Properties",
     "base:Timers.Timer",
@@ -7,7 +8,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
     "browser:Info"
 ], [
     "dynamics:Partials.StylesPartial"
-], function(Class, Collection, Properties, Timer, Dom, Info, scoped) {
+], function(Class, RecorderSupport, Collection, Properties, Timer, Dom, Info, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -25,6 +26,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
                     "containerwidth": 0,
                     "containerheight": 0,
                     "containeroffset": 0,
+                    "images": {},
                     "deltafrac": 1 / 8
                 },
 
@@ -89,34 +91,70 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
                     }, this);
                 },
 
+                /**
+                 * @param {Object} image
+                 * @private
+                 */
                 _recomputeImageBox: function(image) {
-                    if (!this.parent().recorder)
+                    if (!this.parent().recorder && this.parent().snapshots.length < 1)
                         return;
+                    // Will fix portrait covershot bug, will not show stretched box
+                    var _maxHeight;
+                    if (this.parent().get('videometadata').ratio) {
+                        _maxHeight = Math.floor(this.get("imagewidth") / this.parent().get('videometadata').ratio);
+                        if (this.get("containerheight") < _maxHeight && _maxHeight > 0.00) {
+                            _maxHeight = Math.floor(this.get("containerheight") * 0.9);
+                        }
+                    }
                     var i = image.get("index");
+                    var ih = _maxHeight || this.get("imageheight");
                     var iw = this.get("imagewidth");
-                    var ih = this.get("imageheight");
                     var id = this.get("imagedelta");
                     var h = this.get("containerheight");
-                    image.set("left", 1 + Math.round(i * (iw + id)));
-                    image.set("top", 1 + Math.round((h - ih) / 2));
-                    image.set("width", 1 + Math.round(iw));
-                    image.set("height", 1 + Math.round(ih));
-                    if (image.snapshot && image.snapshotDisplay) {
-                        this.parent().recorder.updateSnapshotDisplay(
-                            image.snapshot,
-                            image.snapshotDisplay,
-                            image.get("left") + this.get("containeroffset"),
-                            image.get("top"),
-                            image.get("width"),
-                            image.get("height")
-                        );
+                    if (ih > 1.00) {
+                        image.set("left", 1 + Math.round(i * (iw + id)));
+                        image.set("top", 1 + Math.round((h - ih) / 2));
+                        image.set("width", 1 + Math.round(iw));
+                        image.set("height", 1 + Math.round(ih));
+                        if (image.snapshot && image.snapshotDisplay) {
+                            if (this.parent().recorder) {
+                                this.parent().recorder.updateSnapshotDisplay(
+                                    image.snapshot,
+                                    image.snapshotDisplay,
+                                    image.get("left") + this.get("containeroffset"),
+                                    image.get("top"),
+                                    image.get("width"),
+                                    image.get("height")
+                                );
+                            } else {
+                                RecorderSupport.updateSnapshotDisplay(
+                                    image.snapshot,
+                                    image.snapshotDisplay,
+                                    image.get("left") + this.get("containeroffset"),
+                                    image.get("top"),
+                                    image.get("width"),
+                                    image.get("height")
+                                );
+                            }
+                        }
                     }
                 },
 
+                /**
+                 * NOTE: Runs's each second, offset is {top:0 , left is padding from left},
+                 * dimension is correctly calculate box
+                 */
                 updateContainerSize: function() {
                     var container = this.activeElement().querySelector("[data-gallery-container]");
                     var offset = Dom.elementOffset(container);
-                    var videoOffset = Dom.elementOffset(this.parent().recorder._element);
+                    var videoOffset = offset;
+                    if (this.parent().recorder) {
+                        videoOffset = Dom.elementOffset(this.parent().recorder._element);
+                    } else {
+                        var _video = this.parent().activeElement().querySelector("video");
+                        if (_video)
+                            videoOffset = Dom.elementOffset(_video);
+                    }
                     var left = offset.left - videoOffset.left;
                     var dimensions = Dom.elementDimensions(container);
                     this.set("containeroffset", left);
@@ -131,19 +169,31 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
 
                 loadImageSnapshot: function(image, snapshotindex) {
                     if (image.snapshotDisplay) {
-                        this.parent().recorder.removeSnapshotDisplay(image.snapshotDisplay);
+                        if (this.parent().recorder)
+                            this.parent().recorder.removeSnapshotDisplay(image.snapshotDisplay);
+                        else
+                            RecorderSupport.removeSnapshotDisplay(image.snapshotDisplay);
                         image.snapshotDisplay = null;
                     }
                     var snapshots = this.parent().snapshots;
                     image.snapshot = snapshots[((snapshotindex % snapshots.length) + snapshots.length) % snapshots.length];
-                    image.snapshotDisplay = this.parent().recorder.createSnapshotDisplay(
-                        this.activeElement(),
-                        image.snapshot,
-                        image.get("left") + this.get("containeroffset"),
-                        image.get("top"),
-                        image.get("width"),
-                        image.get("height")
-                    );
+                    image.snapshotDisplay = this.parent().recorder ?
+                        this.parent().recorder.createSnapshotDisplay(
+                            this.activeElement(),
+                            image.snapshot,
+                            image.get("left") + this.get("containeroffset"),
+                            image.get("top"),
+                            image.get("width"),
+                            image.get("height")
+                        ) :
+                        RecorderSupport.createSnapshotDisplay(
+                            this.activeElement(),
+                            image.snapshot,
+                            image.get("left") + this.get("containeroffset"),
+                            image.get("top"),
+                            image.get("width"),
+                            image.get("height")
+                        );
                 },
 
                 loadSnapshots: function() {

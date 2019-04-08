@@ -23,7 +23,7 @@
 </head>
 <body style="background: #EEE">
 
-<div class="container">
+<div class="container-fluid">
 
     <div class="row">
         <div id="video-player-block" class="col-xs-12">
@@ -35,7 +35,7 @@
                 ba-sharevideo="facebook,twitter,gplus"
                 ba-sharevideourl="http://betajs.com"
                 ba-themecolor="{{themeColor}}"
-                ba-hidebarafter="3000"
+                ba-hidebarafter="20000"
                 ba-title="Some test title from html"
                 ba-noflash
                 ba-hideoninactivity="{{hideOnInactivity}}"
@@ -61,6 +61,10 @@
                             label: 'Deutsch',
                             //enabled: true,
                             src: '../../assets/bunny-de.vtt'
+                        },
+                        {
+                            kind: 'thumbnails',
+                            src: '/static/demos/assets/video-bgbb.vtt'
                         }
 
                     ]

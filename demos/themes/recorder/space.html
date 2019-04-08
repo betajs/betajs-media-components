@@ -72,7 +72,9 @@
 						recorder.set("uploadoptions", {
 							image: {url:"/files/" + filename + ".jpg"},
 							video: {url:"/files/" + filename + ".webm"},
-							audio: {url:"/files/" + filename + ".wav"}
+							audio: {url:"/files/" + filename + ".wav"},
+							thumbnail: {url:"/files/" + filename + "-thumbnails.jpg"},
+							tracks: {url:"/files/" + filename + ".vtt"}
 						});
 		        recorder.set("playbacksource", "/files/" + filename + ".mp4");
 		        if (recorder.recorder)

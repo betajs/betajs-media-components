@@ -133,10 +133,14 @@
   ba-audiorecorder-controlbar.cancel-tooltip: Click here to cancel.
   ba-videoplayer-controlbar.player-speed: Player speed
   ba-videoplayer-controlbar.settings: Settings
+  ba-videoplayer-controlbar.airplay: Airplay
+  ba-videoplayer-controlbar.airplay-icon: Airplay icon.
   ba-videoplayer.all-settings: All settings
   ba-videoplayer.player-speed: Player speed
   ba-videoplayer.full-screen: Full screen
   ba-videorecorder.switch-camera: Switch camera
+  ba-videorecorder.prepare-covershot: Preparing covershots
+  ba-videorecorder.prepare-thumbnails: Preparing seeking thumbnails
   ba-imagecapture.recorder-error: 'An error occurred, please try again later. Click to retry.'
   ba-imagecapture.attach-error: >-
     We could not access the media interface. Depending on the device and

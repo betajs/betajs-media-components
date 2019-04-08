@@ -24,8 +24,9 @@
 }
 
 .#{$css}-settings hr {
-	border-top: none;
-	border-bottom-color: $text_color;
+    background-color: #ffffff;
+	border: none;
+	height: 1px;
 	margin: 2px;
 	margin-left: $settings_horizontal_margin;
 	margin-right: $settings_horizontal_margin;
@@ -39,6 +40,7 @@
 .#{$css}-settings li {
 	list-style-type: none;
 	padding: $settings_item_padding;
+	text-align: left;
 }
 
 .#{$css}-settings label {

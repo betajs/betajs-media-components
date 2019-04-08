@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.154 - 2019-04-08
+betajs-media-components - v0.0.159 - 2019-04-08
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -2506,13 +2506,11 @@ Apache-2.0 Software License.
   width: 15px; }
 
 .ba-videoplayer-noie8 .ba-videoplayer-volumebar {
-  margin-left: 8px;
-  margin-right: 13px; }
-
-.ba-videoplayer-noie8 .ba-videoplayer-volumebar {
   float: right;
   width: 100px;
-  height: 100%; }
+  height: 100%;
+  margin-left: 8px;
+  margin-right: 13px; }
 
 .ba-videoplayer-ie8 .ba-videoplayer-volumebar {
   float: right;
@@ -2572,6 +2570,44 @@ Apache-2.0 Software License.
   letter-spacing: 0.1em;
   line-height: 30px;
   margin: 0 0 0 10px; }
+
+.ba-videoplayer-seeking-thumb-container {
+  position: absolute;
+  padding: 3px 4px;
+  background-color: #ffffff;
+  bottom: 45px;
+  left: 5px;
+  text-align: center; }
+  .ba-videoplayer-seeking-thumb-container > span {
+    font-size: 0.6em;
+    color: #2c2c2c; }
+
+.ba-player-device-type-mobile .ba-videoplayer-leftbutton-container {
+  float: left;
+  width: 40px;
+  height: 100%; }
+
+.ba-player-size-medium .ba-videoplayer-time-sep {
+  width: 5px; }
+.ba-player-size-medium.ba-videoplayer-noie8 .ba-videoplayer-time-container {
+  float: left;
+  width: 85px;
+  height: 100%; }
+.ba-player-size-medium.ba-videoplayer-noie8 .ba-videoplayer-volumebar {
+  float: right;
+  width: 60px;
+  height: 100%; }
+
+.ba-player-size-small.ba-videoplayer-noie8 .ba-videoplayer-time-container {
+  float: left;
+  width: 40px;
+  height: 100%; }
+.ba-player-size-small .ba-videoplayer-time-total-duration, .ba-player-size-small .ba-videoplayer-time-sep {
+  display: none; }
+.ba-player-size-small.ba-videoplayer-noie8 .ba-videoplayer-volumebar {
+  float: right;
+  width: 45px;
+  height: 100%; }
 
 /* Full screen options */
 .ba-player-fullscreen-view video::-webkit-media-controls-overlay-enclosure {
@@ -3344,8 +3380,9 @@ div.ba-videorecorder-disabled {
   overflow: scroll; }
 
 .ba-videorecorder-settings hr {
-  border-top: none;
-  border-bottom-color: white;
+  background-color: #ffffff;
+  border: none;
+  height: 1px;
   margin: 2px;
   margin-left: 8px;
   margin-right: 8px; }
@@ -3356,7 +3393,8 @@ div.ba-videorecorder-disabled {
 
 .ba-videorecorder-settings li {
   list-style-type: none;
-  padding: 2px; }
+  padding: 2px;
+  text-align: left; }
 
 .ba-videorecorder-settings label {
   cursor: pointer; }

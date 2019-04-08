@@ -17,6 +17,7 @@
                 <div ba-repeat-element="{{track :: tracktags}}"
                      class="{{csscommon}}-tracks-selector {{csscommon}}-options-list-item"
                      ba-click="{{select_track(track)}}"
+                     ba-show="{{track.label}}"
                 >
                     <div class="{{csscommon}}-inner-text">
                         {{track.label}}

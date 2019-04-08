@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Video Thumnail Player With Vorlon Mobile Debugger</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!--    <script src="https://192.168.1.13:1337/vorlon.js"></script>-->
+
+    <script src="../../node_modules/betajs-shims/dist/betajs-shims.js"></script>
+    <script src="../../node_modules/betajs-scoped/dist/scoped.js"></script>
+    <script src="../../node_modules/betajs/dist/beta-noscoped.js"></script>
+    <script src="../../node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
+    <script src="../../node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
+    <script src="../../node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+    <script src="../../node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
+	<script src="../../dist/betajs-media-components-noscoped.js"></script>
+	<link  href="../../dist/betajs-media-components.css" rel="stylesheet" />
+    <script src="../../dist/themes/modern/script.js"></script>
+    <link  href="../../dist/themes/modern/style.css" rel="stylesheet" />
+
+
+    <!-- Cube Theme Assets -->
+    <script src="/static/dist/themes/cube/script.js"></script>
+    <link href="/static/dist/themes/cube/style.css" rel="stylesheet" />
+
+    <!-- Elevate Theme Assets -->
+    <script src="/static/dist/themes/elevate/script.js"></script>
+    <link href="/static/dist/themes/elevate/style.css" rel="stylesheet" />
+
+    <!-- Minimalist Theme Assets -->
+    <script src="/static/dist/themes/minimalist/script.js"></script>
+    <link href="/static/dist/themes/minimalist/style.css" rel="stylesheet" />
+
+    <!-- Minimalist Theme Assets -->
+    <script src="/static/dist/themes/modern/script.js"></script>
+    <link href="/static/dist/themes/modern/style.css" rel="stylesheet" />
+
+    <!-- Space Theme Assets -->
+    <script src="/static/dist/themes/space/script.js"></script>
+    <link href="/static/dist/themes/space/style.css" rel="stylesheet" />
+
+    <!-- Theatre Theme Assets -->
+    <script src="/static/dist/themes/theatre/script.js"></script>
+    <link href="/static/dist/themes/theatre/style.css" rel="stylesheet" />
+
+</head>
+<body style="background: #EEE">
+    <div id="container">
+<!--        <ba-videoplayer-->
+<!--            ba-themecolor="red"-->
+<!--            ba-hideoninactivity="false"-->
+<!--            ba-skipinitial="true"-->
+<!--            ba-sources="{{[{src:'../sample-video.mp4', poster: '../sample-cover.png', hd: true}, {src:'../sample-video2.mp4', poster:'../sample-cover2.png', hd: false}]}}"-->
+<!--            ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"-->
+<!--            ba-tracktagsstyled="true"-->
+<!--            ba-tracktags="{{-->
+<!--            [-->
+<!--                {-->
+<!--                    lang: 'en',-->
+<!--                    kind: 'subtitles',-->
+<!--                    label: 'English',-->
+<!--                    //enabled: true,-->
+<!--                    src: '/static/demos/assets/bunny-en.vtt'-->
+<!--                },-->
+<!--                {-->
+<!--                    lang: 'de',-->
+<!--                    kind: 'subtitles',-->
+<!--                    label: 'Deutsch',-->
+<!--                    //enabled: true,-->
+<!--                    src: '/static/demos/assets/bunny-de.vtt'-->
+<!--                },-->
+<!--                {-->
+<!--                    kind: 'thumbnails',-->
+<!--                    src: '/static/demos/assets/video-bgbb.vtt'-->
+<!--                }-->
+<!--            ]-->
+<!--        }}"-->
+<!--        ></ba-videoplayer>-->
+        <div id="player"></div>
+        <div id="console">{{ consoles }}</div>
+    </div>
+
+    <style>
+        #console {border: 1px solid firebrick; padding: 5px}
+    </style>
+    <script>
+        BetaJS.Flash.options = {
+            flashFile: "../../node_modules/betajs-flash/dist/betajs-flash.swf",
+            forceReload: true
+        };
+        var container = document.getElementById("container");
+        var player = document.getElementById("player");
+        var dyn = new BetaJS.Dynamics.Dynamic({
+            element: container
+        });
+        dyn.activate();
+
+        var player = new BetaJS.MediaComponents.VideoPlayer.Dynamics.Player({
+            element: player,
+            attrs: {
+                theme: "theatre",
+                themecolor: "red",
+                hidevolumebar: true,
+                sources: [
+                    {
+                        src:'/static/demos/sample-video.mp4',
+                        poster: '/static/demos/sample-cover.png', hd: true
+                    }, {
+                        src:'/static/demos/sample-video2.mp4',
+                        poster:'/static/demos/sample-cover2.png', hd: false
+                    }
+                ],
+                streams: [{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }],
+                skipinitial: true,
+                hideoninactivity: true,
+                tracktagsstyled: true,
+                tracktags: [
+                    {
+                        lang: 'en',
+                        kind: 'subtitles',
+                        label: 'English',
+                        //enabled: true,
+                        src: '/static/demos/assets/bunny-en.vtt'
+                    },
+                    {
+                        lang: 'de',
+                        kind: 'subtitles',
+                        label: 'Deutsch',
+                        //enabled: true,
+                        src: '/static/demos/assets/bunny-de.vtt'
+                    },
+                    {
+                        kind: 'thumbnails',
+                        src: '/static/demos/assets/video-bgbb.vtt'
+                    }
+                ]
+            }
+        });
+        player.activate();
+        setTimeout(function () {
+            dyn.set("consoles", player.get('consoles'));
+        }, 4000);
+    </script>
+</body>
+</html>

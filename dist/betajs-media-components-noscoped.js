@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.159 - 2019-04-08
+betajs-media-components - v0.0.160 - 2019-04-08
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -15,8 +15,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.159",
-    "datetime": 1554745287847
+    "version": "0.0.160",
+    "datetime": 1554776482236
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -2934,16 +2934,20 @@ Scoped.define("module:PopupHelper", [
             },
 
             show: function() {
-                Dom.elementAddClass(document.body, "ba-popup-helper-overlay-body");
-                document.body.appendChild(this.popupContainer);
-                this.trigger("show");
+                return this.recursionProtection("show", function() {
+                    Dom.elementAddClass(document.body, "ba-popup-helper-overlay-body");
+                    document.body.appendChild(this.popupContainer);
+                    this.trigger("show");
+                });
             },
 
             hide: function() {
-                var popupContainer = this.popupContainer;
-                this.trigger("hide");
-                document.body.removeChild(popupContainer);
-                Dom.elementRemoveClass(document.body, "ba-popup-helper-overlay-body");
+                return this.recursionProtection("hide", function() {
+                    var popupContainer = this.popupContainer;
+                    this.trigger("hide");
+                    document.body.removeChild(popupContainer);
+                    Dom.elementRemoveClass(document.body, "ba-popup-helper-overlay-body");
+                });
             }
 
         };
@@ -7107,7 +7111,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                             if (Math.random() <= p) {
                                 var snap = this.recorder.createSnapshot(this.get("snapshottype"));
                                 if (snap) {
-                                    if (!this.get('videometadata').height && typeof Image !== 'undefined') {
+                                    if (!this.get('videometadata').height && typeof Image !== 'undefined' && this.get("createthumbnails")) {
                                         RecorderSupport.snapshotMetaData(snap).success(function(data) {
                                             var _thumbWidth = data.orientation === 'landscape' ? 80 : 35;
                                             this.set("videometadata", Objs.tree_merge(this.get("videometadata"), data));
@@ -7371,8 +7375,9 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.FatalError", [
 
 
 Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Initial", [
-    "module:VideoRecorder.Dynamics.RecorderStates.State"
-], function(State, scoped) {
+    "module:VideoRecorder.Dynamics.RecorderStates.State",
+    "browser:Dom"
+], function(State, Dom, scoped) {
     return State.extend({
         scoped: scoped
     }, {
@@ -7394,7 +7399,9 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Initial", [
                 } else
                     this.next("Player");
             } else if (this.dyn.get("autorecord") || this.dyn.get("skipinitial"))
-                this.eventualNext("RequiredSoftwareCheck");
+                Dom.userInteraction(function() {
+                    this.eventualNext("RequiredSoftwareCheck");
+                }, this);
             else
                 this.next("Chooser");
         },

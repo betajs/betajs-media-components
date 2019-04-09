@@ -811,7 +811,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                             if (Math.random() <= p) {
                                 var snap = this.recorder.createSnapshot(this.get("snapshottype"));
                                 if (snap) {
-                                    if (!this.get('videometadata').height && typeof Image !== 'undefined') {
+                                    if (!this.get('videometadata').height && typeof Image !== 'undefined' && this.get("createthumbnails")) {
                                         RecorderSupport.snapshotMetaData(snap).success(function(data) {
                                             var _thumbWidth = data.orientation === 'landscape' ? 80 : 35;
                                             this.set("videometadata", Objs.tree_merge(this.get("videometadata"), data));

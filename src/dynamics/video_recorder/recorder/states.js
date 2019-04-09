@@ -86,8 +86,9 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.FatalError", [
 
 
 Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Initial", [
-    "module:VideoRecorder.Dynamics.RecorderStates.State"
-], function(State, scoped) {
+    "module:VideoRecorder.Dynamics.RecorderStates.State",
+    "browser:Dom"
+], function(State, Dom, scoped) {
     return State.extend({
         scoped: scoped
     }, {
@@ -109,7 +110,9 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Initial", [
                 } else
                     this.next("Player");
             } else if (this.dyn.get("autorecord") || this.dyn.get("skipinitial"))
-                this.eventualNext("RequiredSoftwareCheck");
+                Dom.userInteraction(function() {
+                    this.eventualNext("RequiredSoftwareCheck");
+                }, this);
             else
                 this.next("Chooser");
         },

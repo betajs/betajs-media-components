@@ -34,16 +34,20 @@ Scoped.define("module:PopupHelper", [
             },
 
             show: function() {
-                Dom.elementAddClass(document.body, "ba-popup-helper-overlay-body");
-                document.body.appendChild(this.popupContainer);
-                this.trigger("show");
+                return this.recursionProtection("show", function() {
+                    Dom.elementAddClass(document.body, "ba-popup-helper-overlay-body");
+                    document.body.appendChild(this.popupContainer);
+                    this.trigger("show");
+                });
             },
 
             hide: function() {
-                var popupContainer = this.popupContainer;
-                this.trigger("hide");
-                document.body.removeChild(popupContainer);
-                Dom.elementRemoveClass(document.body, "ba-popup-helper-overlay-body");
+                return this.recursionProtection("hide", function() {
+                    var popupContainer = this.popupContainer;
+                    this.trigger("hide");
+                    document.body.removeChild(popupContainer);
+                    Dom.elementRemoveClass(document.body, "ba-popup-helper-overlay-body");
+                });
             }
 
         };

@@ -27,7 +27,7 @@
       }
 
       .#{$csstheme}-progressbar-position, .#{$csstheme}-volumebar-position,
-      .#{$csstheme}-rerecord-button, .#{$cssplayer}-cc-active {
+      .#{$csstheme}-rerecord-button, .#{$cssplayer}-cc-active, .#{$csstheme}-playbutton-duration {
         background-color: $value;
       }
 

@@ -9,7 +9,7 @@
 
       .#{$csstheme}-stream-label-container .#{$csstheme}-stream-label, .#{$csstheme}-progressbar-position,
       .#{$csstheme}-volumebar-position, .#{$csstheme}-rerecord-button, .#{$cssplayer}-cc-active,
-      .#{$cssplayer}-settings-visible {
+      .#{$cssplayer}-settings-visible, .#{$csstheme}-playbutton-duration {
         background-color: $value;
       }
 

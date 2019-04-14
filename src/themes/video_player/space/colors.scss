@@ -16,7 +16,7 @@
 
       .#{$csstheme}-volumebar-position, .#{$csstheme}-progressbar-position,
       .#{$csstheme}-stream-label-container .#{$csstheme}-stream-label,
-      .#{$csstheme}-progressbar-button, .#{$csstheme}-rerecord-button {
+      .#{$csstheme}-progressbar-button, .#{$csstheme}-rerecord-button, .#{$csstheme}-playbutton-duration {
         background-color: $value;
       }
 

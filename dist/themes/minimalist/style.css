@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.160 - 2019-04-08
+betajs-media-components - v0.0.162 - 2019-04-14
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -17,7 +17,7 @@ Apache-2.0 Software License.
 .ba-player-red-color .ba-player-minimalist-theme-right-button-container.ba-player-cc-inactive .ba-commoncss-icon-subtitle {
   color: #eeeeee; }
 .ba-player-red-color .ba-player-minimalist-theme-volumebar-position, .ba-player-red-color .ba-player-minimalist-theme-stream-label, .ba-player-red-color .ba-player-minimalist-theme-progressbar-position,
-.ba-player-red-color .ba-player-minimalist-theme-time-container, .ba-player-red-color .ba-player-minimalist-theme-progressbar-button, .ba-player-red-color .ba-player-minimalist-theme-rerecord-button {
+.ba-player-red-color .ba-player-minimalist-theme-time-container, .ba-player-red-color .ba-player-minimalist-theme-progressbar-button, .ba-player-red-color .ba-player-minimalist-theme-rerecord-button, .ba-player-red-color .ba-player-minimalist-theme-playbutton-duration {
   background-color: #eb6a74; }
 
 .ba-player-blue-color .ba-player-minimalist-theme-title p, .ba-player-blue-color .ba-player-minimalist-theme-button-inner,
@@ -34,7 +34,7 @@ Apache-2.0 Software License.
 .ba-player-blue-color .ba-player-minimalist-theme-right-button-container.ba-player-cc-inactive .ba-commoncss-icon-subtitle {
   color: #eeeeee; }
 .ba-player-blue-color .ba-player-minimalist-theme-volumebar-position, .ba-player-blue-color .ba-player-minimalist-theme-stream-label, .ba-player-blue-color .ba-player-minimalist-theme-progressbar-position,
-.ba-player-blue-color .ba-player-minimalist-theme-time-container, .ba-player-blue-color .ba-player-minimalist-theme-progressbar-button, .ba-player-blue-color .ba-player-minimalist-theme-rerecord-button {
+.ba-player-blue-color .ba-player-minimalist-theme-time-container, .ba-player-blue-color .ba-player-minimalist-theme-progressbar-button, .ba-player-blue-color .ba-player-minimalist-theme-rerecord-button, .ba-player-blue-color .ba-player-minimalist-theme-playbutton-duration {
   background-color: #2a74eb; }
 
 .ba-player-green-color .ba-player-minimalist-theme-title p, .ba-player-green-color .ba-player-minimalist-theme-button-inner,
@@ -51,7 +51,7 @@ Apache-2.0 Software License.
 .ba-player-green-color .ba-player-minimalist-theme-right-button-container.ba-player-cc-inactive .ba-commoncss-icon-subtitle {
   color: #eeeeee; }
 .ba-player-green-color .ba-player-minimalist-theme-volumebar-position, .ba-player-green-color .ba-player-minimalist-theme-stream-label, .ba-player-green-color .ba-player-minimalist-theme-progressbar-position,
-.ba-player-green-color .ba-player-minimalist-theme-time-container, .ba-player-green-color .ba-player-minimalist-theme-progressbar-button, .ba-player-green-color .ba-player-minimalist-theme-rerecord-button {
+.ba-player-green-color .ba-player-minimalist-theme-time-container, .ba-player-green-color .ba-player-minimalist-theme-progressbar-button, .ba-player-green-color .ba-player-minimalist-theme-rerecord-button, .ba-player-green-color .ba-player-minimalist-theme-playbutton-duration {
   background-color: #5daa96; }
 
 .ba-player-minimalist-theme .ba-settings-overlay-inner {

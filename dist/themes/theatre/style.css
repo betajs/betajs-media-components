@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.160 - 2019-04-08
+betajs-media-components - v0.0.162 - 2019-04-14
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -7,7 +7,7 @@ Apache-2.0 Software License.
   color: #eb6a74; }
 .ba-player-red-color .ba-player-theatre-theme-stream-label-container .ba-player-theatre-theme-stream-label, .ba-player-red-color .ba-player-theatre-theme-progressbar-position,
 .ba-player-red-color .ba-player-theatre-theme-volumebar-position, .ba-player-red-color .ba-player-theatre-theme-rerecord-button, .ba-player-red-color .ba-player-cc-active,
-.ba-player-red-color .ba-player-settings-visible {
+.ba-player-red-color .ba-player-settings-visible, .ba-player-red-color .ba-player-theatre-theme-playbutton-duration {
   background-color: #eb6a74; }
 .ba-player-red-color.ba-videoplayer-noie8 .ba-player-theatre-theme-playbutton-container {
   border-color: #eb6a74; }
@@ -23,7 +23,7 @@ Apache-2.0 Software License.
   color: #2a74eb; }
 .ba-player-blue-color .ba-player-theatre-theme-stream-label-container .ba-player-theatre-theme-stream-label, .ba-player-blue-color .ba-player-theatre-theme-progressbar-position,
 .ba-player-blue-color .ba-player-theatre-theme-volumebar-position, .ba-player-blue-color .ba-player-theatre-theme-rerecord-button, .ba-player-blue-color .ba-player-cc-active,
-.ba-player-blue-color .ba-player-settings-visible {
+.ba-player-blue-color .ba-player-settings-visible, .ba-player-blue-color .ba-player-theatre-theme-playbutton-duration {
   background-color: #2a74eb; }
 .ba-player-blue-color.ba-videoplayer-noie8 .ba-player-theatre-theme-playbutton-container {
   border-color: #2a74eb; }
@@ -39,7 +39,7 @@ Apache-2.0 Software License.
   color: #5daa96; }
 .ba-player-green-color .ba-player-theatre-theme-stream-label-container .ba-player-theatre-theme-stream-label, .ba-player-green-color .ba-player-theatre-theme-progressbar-position,
 .ba-player-green-color .ba-player-theatre-theme-volumebar-position, .ba-player-green-color .ba-player-theatre-theme-rerecord-button, .ba-player-green-color .ba-player-cc-active,
-.ba-player-green-color .ba-player-settings-visible {
+.ba-player-green-color .ba-player-settings-visible, .ba-player-green-color .ba-player-theatre-theme-playbutton-duration {
   background-color: #5daa96; }
 .ba-player-green-color.ba-videoplayer-noie8 .ba-player-theatre-theme-playbutton-container {
   border-color: #5daa96; }

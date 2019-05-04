@@ -455,7 +455,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 },
 
                 _initSettings: function() {
-                    // Without below line re-recorder will not lunch
+                    // Without below line re-recorder will not launch
                     this.snapshots = [];
                     this.thumbnails = [];
                     this.set("videometadata", {
@@ -742,6 +742,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                             this._unbindMedia();
                             this._hideBackgroundSnapshot();
                             this._detachRecorder();
+                            this._initSettings();
                             this.host.state().next("Initial");
                         }, this);
                     },

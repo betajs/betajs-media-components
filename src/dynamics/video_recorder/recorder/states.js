@@ -844,7 +844,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
 
         _hasStopped: function() {
             this.dyn.set("duration", Time.now() - this._startTime);
-            if (this.dyn.snapshots.length > 1)
+            if (this.dyn.snapshots.length > 0)
                 this.dyn._showBackgroundSnapshot();
             this.dyn._unbindMedia();
             this.dyn.trigger("recording_stopped");

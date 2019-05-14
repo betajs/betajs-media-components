@@ -422,7 +422,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CreateUploadCoversho
                 }, this);
 
                 _playerLoadedData.on(_video, "seeked", function(ev) {
-                    var __snap = RecorderSupport.createSnapshot(this.dyn.get("snapshottype"), _video);
+                    var __snap = RecorderSupport.createSnapshot(this.dyn.get("snapshottype"), _video, true);
                     if (__snap) {
                         // Will add snap images as thumbnails
                         if (this.dyn.get("createthumbnails")) {
@@ -844,7 +844,8 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
 
         _hasStopped: function() {
             this.dyn.set("duration", Time.now() - this._startTime);
-            this.dyn._showBackgroundSnapshot();
+            if (this.dyn.snapshots.length > 1)
+                this.dyn._showBackgroundSnapshot();
             this.dyn._unbindMedia();
             this.dyn.trigger("recording_stopped");
         }

@@ -52,6 +52,7 @@
                 <div id="video-recorder-block" class="col-xs-12">
 					<!--ba-width=300 ba-height=420 ba-theme="cube"-->
 					<ba-videorecorder
+						ba-width="100%"
 						ba-theme="modern"
 						ba-localplayback="true"
 						ba-themecolor="green"
@@ -59,6 +60,9 @@
 						ba-width="320px"
 						ba-stretch="true"
 						ba-facecamera="false"
+						ba-webrtcstreaming="true"
+						ba-webrtconmobile="true"
+						ba-webrtcstreamingifnecessary="true"
 					></ba-videorecorder>
                 </div>
             </div>
@@ -77,7 +81,7 @@
 
 	        recorder.set("uploadoptions", {
 				webrtcStreaming: {
-					wssUrl: 'wss://0.0.0.0:8444',
+                    wssUrl: 'wss://0.0.0.0:8444',
 					streamInfo: {
 						applicationName: "webrtconmobile",
 						streamName: "myStream",

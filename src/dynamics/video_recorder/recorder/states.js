@@ -156,9 +156,11 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Player", [
 Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
     "module:VideoRecorder.Dynamics.RecorderStates.State",
     "base:Strings",
+    "base:Objs",
     "browser:Info",
+    "module:PopupHelper",
     "media:Player.Support"
-], function(State, Strings, Info, PlayerSupport, scoped) {
+], function(State, Strings, Objs, Info, PopupHelper, PlayerSupport, scoped) {
     return State.extend({
         scoped: scoped
     }, {
@@ -179,22 +181,55 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
             });
         },
 
+        _popup: function() {
+            var popup = this.auto_destroy(new PopupHelper());
+            var dynamic = this.auto_destroy(new this.dyn.cls({
+                element: popup.containerInner,
+                attrs: Objs.extend(this.dyn.cloneAttrs(), this.dyn.popupAttrs())
+            }));
+            this._delegatedRecorder = dynamic;
+            this.dyn.delegateEvents(null, dynamic);
+            popup.on("hide", function() {
+                this._delegatedRecorder = null;
+                dynamic.destroy();
+                popup.destroy();
+            }, this);
+            popup.show();
+            dynamic.activate();
+        },
+
         record: function() {
+            if (this.dyn.get("popup")) {
+                this._popup();
+                return;
+            }
             this.dyn.set("autorecord", true);
             this.selectRecord();
         },
 
         selectRecordScreen: function() {
+            if (this.dyn.get("popup")) {
+                this._popup();
+                return;
+            }
             this.dyn.set("record_media", "screen");
             this.next("RequiredSoftwareCheck");
         },
 
         selectRecord: function() {
+            if (this.dyn.get("popup")) {
+                this._popup();
+                return;
+            }
             this.dyn.set("record_media", "camera");
             this.next("RequiredSoftwareCheck");
         },
 
         selectUpload: function(file) {
+            if (this.dyn.get("popup")) {
+                this._popup();
+                return;
+            }
             if (!(Info.isMobile() && Info.isAndroid() && Info.isCordova())) {
                 if (this.dyn.get("allowedextensions")) {
                     var filename = (file.files[0].name || "").toLowerCase();

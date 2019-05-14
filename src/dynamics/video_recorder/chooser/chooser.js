@@ -28,14 +28,16 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
 
                     "allowcustomupload": true,
                     "allowedextensions": null,
-                    "onlyaudio": false
+                    "onlyaudio": false,
+                    "parentpopup": false
 
                 },
 
                 types: {
                     "allowedextensions": "array",
                     "recordviafilecapture": "boolean",
-                    "facecamera": "boolean"
+                    "facecamera": "boolean",
+                    "parentpopup": "boolean"
                 },
 
                 collections: ["actions"],
@@ -90,7 +92,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
                                     index: index,
                                     icon: "upload",
                                     label: this.string("upload-video"),
-                                    select: !(Info.isiOS() && Info.isCordova()),
+                                    select: !(Info.isiOS() && Info.isCordova()) && !this.get("parentpopup"),
                                     accept: Info.isMobile() && !(Info.isAndroid() && Info.isCordova()) ? "video/*,video/mp4" : custom_accept_string
                                 });
                                 break;

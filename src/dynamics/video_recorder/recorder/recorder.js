@@ -59,10 +59,13 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "width": "",
                     "height": "",
                     "gallerysnapshots": 3,
+                    "popup-width": "",
+                    "popup-height": "",
 
                     /* Themes */
                     "theme": "",
                     "csstheme": "",
+                    "themecolor": "",
 
                     /* Dynamics */
                     "dynimagegallery": "videorecorder-imagegallery",
@@ -149,6 +152,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "recordings": null,
                     "ready": true,
                     "orientation": false,
+                    "popup": false,
+                    "popup-stretch": false,
                     "stretch": false,
                     "audio-test-mandatory": false,
                     "snapshotfromuploader": true,
@@ -211,8 +216,13 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "camerafacefront": "boolean",
                     "noaudio": "boolean",
                     "skipinitial": "boolean",
+                    "popup": "boolean",
+                    "popup-stretch": "boolean",
+                    "popup-width": "int",
+                    "popup-height": "int",
                     "enforce-duration": "bool",
                     "webrtcstreaming": "boolean",
+                    "themecolor": "string",
                     "webrtconmobile": "boolean",
                     "manual-upload": "boolean",
                     "webrtcstreamingifnecessary": "boolean",
@@ -266,12 +276,16 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 create: function() {
                     // Init Audio Context
                     WebRTCSupport.globals();
+
                     if (this.get("theme") in Assets.recorderthemes) {
                         Objs.iter(Assets.recorderthemes[this.get("theme")], function(value, key) {
                             if (!this.isArgumentAttr(key))
                                 this.set(key, value);
                         }, this);
                     }
+                    if (!this.get("themecolor"))
+                        this.set("themecolor", "default");
+
                     this.set("ie8", Info.isInternetExplorer() && Info.internetExplorerVersion() < 9);
                     this.set("hideoverlay", false);
 
@@ -629,7 +643,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     delete this.__backgroundSnapshot;
                 },
 
-                object_functions: ["record", "rerecord", "screen_record", "stop", "play", "pause", "reset"],
+                object_functions: ["record", "rerecord", "record_screen", "stop", "play", "pause", "reset"],
 
                 functions: {
 
@@ -639,6 +653,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     },
 
                     record: function() {
+                        if (this._delegatedRecorder) {
+                            this._delegatedRecorder.execute("record");
+                            return;
+                        }
                         this.host.state().record();
                     },
 
@@ -647,6 +665,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     },
 
                     record_screen: function() {
+                        if (this._delegatedRecorder) {
+                            this._delegatedRecorder.execute("record_screen");
+                            return;
+                        }
                         this.host.state().selectRecordScreen();
                     },
 
@@ -700,6 +722,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     },
 
                     rerecord: function() {
+                        if (this._delegatedRecorder) {
+                            this._delegatedRecorder.execute("rerecord");
+                            return;
+                        }
                         if (confirm(this.stringUnicode("rerecord-confirm"))) {
                             this.host.state().rerecord();
                             this._initSettings();
@@ -707,14 +733,26 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     },
 
                     stop: function() {
+                        if (this._delegatedRecorder) {
+                            this._delegatedRecorder.execute("stop");
+                            return;
+                        }
                         this.host.state().stop();
                     },
 
                     play: function() {
+                        if (this._delegatedRecorder) {
+                            this._delegatedRecorder.execute("play");
+                            return;
+                        }
                         this.host.state().play();
                     },
 
                     pause: function() {
+                        if (this._delegatedRecorder) {
+                            this._delegatedRecorder.execute("pause");
+                            return;
+                        }
                         this.host.state().pause();
                     },
 
@@ -739,6 +777,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     },
 
                     reset: function() {
+                        if (this._delegatedRecorder) {
+                            this._delegatedRecorder.execute("reset");
+                            return;
+                        }
                         this._stopRecording().callback(function() {
                             this._unbindMedia();
                             this._hideBackgroundSnapshot();
@@ -949,6 +991,21 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                             Dom.elementAddClass(this.activeElement(), this.get("css") + "-stretch-" + newStretch);
                     }
                     this.__currentStretch = newStretch;
+                },
+
+                cloneAttrs: function() {
+                    return Objs.map(this.attrs, function(value, key) {
+                        return this.get(key);
+                    }, this);
+                },
+
+                popupAttrs: function() {
+                    return {
+                        popup: false,
+                        width: this.get("popup-width"),
+                        height: this.get("popup-height"),
+                        stretch: this.get("popup-stretch")
+                    };
                 }
 
             };

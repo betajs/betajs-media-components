@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.165 - 2019-05-14
+betajs-media-components - v0.0.166 - 2019-05-20
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1006,7 +1006,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.165 - 2019-05-14
+betajs-media-components - v0.0.166 - 2019-05-20
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1022,8 +1022,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.165",
-    "datetime": 1557867162470
+    "version": "0.0.166",
+    "datetime": 1558382286221
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -8702,10 +8702,11 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CreateUploadCoversho
     "media:Recorder.Support",
     "base:Objs",
     "base:Timers.Timer",
+    "browser:Dom",
     "browser:Events",
     "browser:Info",
     "base:Async"
-], function(State, RecorderSupport, Objs, Timer, DomEvents, Info, Async, scoped) {
+], function(State, RecorderSupport, Objs, Timer, Dom, DomEvents, Info, Async, scoped) {
     return State.extend({
         scoped: scoped
     }, {
@@ -8721,11 +8722,13 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CreateUploadCoversho
                 this.dyn.set("player_active", false);
 
 
-                // this.dyn._videoFilePlaybackable only for browsers
+                // this.dyn._videoFile only for playback able browsers
                 if (this.dyn._videoFile)
                     this.dyn.set("playbacksource", (window.URL || window.webkitURL).createObjectURL(this.dyn._videoFile));
-                else
-                    throw ('Could not find source file to be able start player');
+                else {
+                    console.warn('Could not find source file to be able start player');
+                    return this.next("Uploading");
+                }
 
                 var _video = document.createElement('video');
                 var _currentTime = 0;
@@ -8736,6 +8739,15 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CreateUploadCoversho
                 _video.volume = 0;
                 _video.muted = true;
 
+                // Wait for 5 seconds before checking if any video data was be able loaded, if not proceed
+                Async.eventually(function() {
+                    // Have no metadata
+                    if (_video.readyState < 1) {
+                        console.warn('Could not be able load video metadata');
+                        return this.next("Uploading");
+                    }
+                }, this, 5000);
+
                 var _playerLoadedData = this.auto_destroy(new DomEvents());
 
                 // Note that loadeddata event will not fire in mobile/tablet devices if data-saver is on in browser settings
@@ -8744,9 +8756,9 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CreateUploadCoversho
                 // HAVE_NOTHING == 0; HAVE_METADATA == 1; HAVE_CURRENT_DATA == 2; HAVE_FUTURE_DATA == 3; HAVE_ENOUGH_DATA == 4
                 _playerLoadedData.on(_video, "loadedmetadata", function(ev) {
                     _totalDuration = _video.duration;
-                    if (_totalDuration === Infinity) {
+                    if (_totalDuration === Infinity || !_totalDuration) {
                         console.warn('Could not generate video covershots from uploaded file');
-                        this.next("Uploading");
+                        return this.next("Uploading");
                     }
                     _seekPeriod = this._calculateSeekPeriod(_totalDuration);
                     if (_video.videoWidth > 0 && _video.videoHeight > 0) {
@@ -8774,7 +8786,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CreateUploadCoversho
                         });
                     } else {
                         console.warn('Could not find video dimensions information to be able create covershot');
-                        this.next("Uploading");
+                        return this.next("Uploading");
                     }
                 }, this);
 
@@ -8800,6 +8812,10 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CreateUploadCoversho
                     // Should trigger ended event
                     if ((_video.currentTime + _seekPeriod) >= _totalDuration) {
                         _video.currentTime = _video.currentTime + _seekPeriod;
+                        // Will fire ended event if not fired already, fixes IE/Edge related bug
+                        if (!_video.ended) {
+                            Dom.triggerDomEvent(_video, "ended");
+                        }
                     }
                 }, this);
 

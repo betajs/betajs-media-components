@@ -500,25 +500,48 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
 
         _started: function() {
             if (this.dyn.get("playlist")) {
+                var pl0, initialPlaylist;
                 var list = this.dyn.get("playlist");
                 var head = list.shift();
-                if (this.dyn.get("loop"))
-                    list.push(head);
+                this.dyn.get("initialoptions").playlist.push(head);
                 this.dyn.set("playlist", list);
                 if (list.length > 0) {
-                    var pl0 = list[0];
+                    pl0 = list[0];
                     this.dyn.set("poster", pl0.poster);
                     this.dyn.set("source", pl0.source);
                     this.dyn.set("sources", pl0.sources);
-                    this.dyn.trigger("playlist-next", pl0);
-                    this.dyn.reattachVideo();
-                    this.dyn.set("autoplay", true);
-                    this.next("LoadPlayer");
-                    return;
+                    return this._playNext(pl0);
+                } else {
+                    // Current Changes
+                    initialPlaylist = this.dyn.get("initialoptions").playlist;
+                    this.dyn.set("lastplaylistitem", true);
+                    this.dyn.trigger("last-playlist-item");
+                    this.dyn.set("playlist", initialPlaylist);
+                    this.dyn.get("initialoptions").playlist = [];
+
+                    pl0 = initialPlaylist[0];
+                    this.dyn.set("poster", pl0.poster);
+                    this.dyn.set("source", pl0.source);
+                    this.dyn.set("sources", pl0.sources);
+                    if (this.dyn.get("loop"))
+                        return this._playNext(pl0);
+                    else
+                        this.dyn.reattachVideo();
                 }
             }
             this.next("PosterReady");
-        }
+        },
 
+        /**
+         * Will start auto play the next play list element
+         * @param {object} pl
+         * @private
+         */
+        _playNext: function(pl) {
+            this.dyn.trigger("playlist-next", pl);
+            this.dyn.reattachVideo();
+            this.dyn.set("autoplay", true);
+            this.next("LoadPlayer");
+        }
     });
 });

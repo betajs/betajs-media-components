@@ -104,6 +104,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "autoplay": false,
                     "preload": false,
                     "loop": false,
+                    "singleloop": false,
                     "popup": false,
                     "nofullscreen": false,
                     "playfullscreenonmobile": false,
@@ -204,8 +205,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "fullscreened": false,
                     "initialoptions": {
                         "hideoninactivity": null,
-                        "volumelevel": null
+                        "volumelevel": null,
+                        "playlist": []
                     },
+                    "lastplaylistitem": false,
                     "manuallypaused": false,
                     "playedonce": false,
                     "preventinteractionstatus": false, // need to prevent `Unexpected token: punc (()` Uglification issue
@@ -231,6 +234,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "noflash": "boolean",
                     "rerecordable": "boolean",
                     "loop": "boolean",
+                    "singleloop": "boolean",
                     "autoplay": "boolean",
                     "preload": "boolean",
                     "ready": "boolean",
@@ -331,7 +335,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("poster", pl0.poster);
                         this.set("source", pl0.source);
                         this.set("sources", pl0.sources);
-                    }
+                    } else if (this.get("loop"))
+                        this.set("singleloop", true);
                     if (this.get("streams") && !this.get("currentstream"))
                         this.set("currentstream", (this.get("streams"))[0]);
 
@@ -482,7 +487,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         forceflash: !!this.get("forceflash"),
                         noflash: !!this.get("noflash"),
                         preload: !!this.get("preload"),
-                        loop: !!this.get("loop"),
+                        loop: !!this.get("singleloop"),
                         reloadonplay: this.get('playlist') ? true : !!this.get("reloadonplay")
                     })).error(function(e) {
                         if (this.destroyed())

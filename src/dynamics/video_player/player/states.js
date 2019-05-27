@@ -524,6 +524,13 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
                     else
                         this.dyn.reattachVideo();
                 }
+            } else {
+                // If user will set loopall as true, single video also will be played
+                if (this.dyn.get("loopall")) {
+                    this.dyn.set("loop", true);
+                    this.dyn.set("autoplay", true);
+                    this.dyn.reattachVideo();
+                }
             }
             this.next("PosterReady");
         },

@@ -451,8 +451,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.ErrorVideo", [
 });
 
 
-
-
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
     "module:VideoPlayer.Dynamics.PlayerStates.State"
 ], function(State, scoped) {
@@ -504,7 +502,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
                 var list = this.dyn.get("playlist");
                 var head = list.shift();
                 this.dyn.get("initialoptions").playlist.push(head);
-                this.dyn.set("playlist", list);
                 if (list.length > 0) {
                     pl0 = list[0];
                     this.dyn.set("poster", pl0.poster);
@@ -512,7 +509,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
                     this.dyn.set("sources", pl0.sources);
                     return this._playNext(pl0);
                 } else {
-                    // Current Changes
                     initialPlaylist = this.dyn.get("initialoptions").playlist;
                     this.dyn.set("lastplaylistitem", true);
                     this.dyn.trigger("last-playlist-item");
@@ -523,7 +519,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
                     this.dyn.set("poster", pl0.poster);
                     this.dyn.set("source", pl0.source);
                     this.dyn.set("sources", pl0.sources);
-                    if (this.dyn.get("loop"))
+                    if (this.dyn.get("loopall"))
                         return this._playNext(pl0);
                     else
                         this.dyn.reattachVideo();

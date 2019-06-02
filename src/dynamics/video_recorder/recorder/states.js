@@ -110,9 +110,13 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Initial", [
                 } else
                     this.next("Player");
             } else if (this.dyn.get("autorecord") || this.dyn.get("skipinitial"))
-                Dom.userInteraction(function() {
+                if (this.dyn.get("onlyaudio")) {
+                    Dom.userInteraction(function() {
+                        this.eventualNext("RequiredSoftwareCheck");
+                    }, this);
+                } else {
                     this.eventualNext("RequiredSoftwareCheck");
-                }, this);
+                }
             else
                 this.next("Chooser");
         },

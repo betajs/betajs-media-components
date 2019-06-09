@@ -660,6 +660,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraHasAccess", [
             this.dyn.set("stopvisible", false);
             this.dyn.set("skipvisible", false);
             this.dyn.set("controlbarlabel", "");
+            this.dyn.set("isrecorderready", true);
             if (this.dyn.get("autorecord"))
                 this.next("RecordPrepare", {
                     preparePromise: this._preparePromise

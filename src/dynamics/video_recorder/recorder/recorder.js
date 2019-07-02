@@ -447,9 +447,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                                 this.set("microphones", new Collection(Objs.values(devices.audio)));
                                 this.trigger(Types.is_empty(devices.video) ? "no_camera" : "has_camera");
                                 this.trigger(Types.is_empty(devices.audio) ? "no_microphone" : "has_microphone");
-                                if (this.get("allowmultistreams") && (this.get("cameras").count() > 1 || this.get("cameras").count() >= 1 && this.get("record_media") === "screen")) {
-                                    this.set("showaddstreambutton", true);
-                                }
+                                this.set("showaddstreambutton", this._showAddStreamButton());
                             }, this);
                             if (!this.get("noaudio"))
                                 this.recorder.testSoundLevel(true);
@@ -471,6 +469,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
                 isWebrtcStreaming: function() {
                     return this.recorder && this.recorder.isWebrtcStreaming();
+                },
+
+                _showAddStreamButton: function() {
+                    return this.get("allowmultistreams") && (this.get("cameras").count() > 1 || this.get("cameras").count() >= 1 && this.get("record_media") === "screen");
                 },
 
                 _initSettings: function() {
@@ -696,6 +698,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                             this.recorder.setCurrentDevices({
                                 video: camera_id
                             });
+                            this.set("showaddstreambutton", this._showAddStreamButton());
                             this.set("selectedcamera", camera_id);
                         }
                     },

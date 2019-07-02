@@ -110,9 +110,13 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Initial", [
                 } else
                     this.next("Player");
             } else if (this.dyn.get("autorecord") || this.dyn.get("skipinitial"))
-                Dom.userInteraction(function() {
+                if (this.dyn.get("onlyaudio")) {
+                    Dom.userInteraction(function() {
+                        this.eventualNext("RequiredSoftwareCheck");
+                    }, this);
+                } else {
                     this.eventualNext("RequiredSoftwareCheck");
-                }, this);
+                }
             else
                 this.next("Chooser");
         },
@@ -660,6 +664,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraHasAccess", [
             this.dyn.set("stopvisible", false);
             this.dyn.set("skipvisible", false);
             this.dyn.set("controlbarlabel", "");
+            this.dyn.set("isrecorderready", true);
             if (this.dyn.get("autorecord"))
                 this.next("RecordPrepare", {
                     preparePromise: this._preparePromise
@@ -889,6 +894,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
             this.dyn.set("uploadcovershotvisible", this.dyn.get("custom-covershots"));
             this.dyn.set("hovermessage", "");
             this.dyn.set("topmessage", this.dyn.string('pick-covershot'));
+            this.dyn.set("isrecorderready", false);
             var imagegallery = this.dyn.scope(">[tagname='ba-videorecorder-imagegallery']").materialize(true);
             imagegallery.loadSnapshots();
             imagegallery.updateContainerSize();
@@ -1070,6 +1076,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
             this.dyn.set("stopvisible", false);
             this.dyn.set("loadlabel", "");
             this.dyn.set("controlbarlabel", "");
+            this.dyn.set("isrecorderready", false);
             this.dyn.trigger("uploading");
             this.dyn.set("rerecordvisible", this.dyn.get("early-rerecord"));
             if (this.dyn.get("early-rerecord"))

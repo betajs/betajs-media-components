@@ -159,6 +159,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "snapshotfromuploader": true,
                     "allowmultistreams": false,
                     "showaddstreambutton": false,
+                    "addstreampositionx": 5,
+                    "addstreampositiony": 5,
 
                     "allowtexttrackupload": false,
                     "uploadlocales": [{
@@ -1029,8 +1031,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         var _videoDevice = videoDevice.data();
                         if (!_selected && deviceId === _videoDevice.id) {
                             this.recorder.addMultiStream(_videoDevice, {
-                                positionX: 5,
-                                positionY: 5
+                                positionX: this.get("addstreampositionx"),
+                                positionY: this.get("addstreampositiony")
                             }, _currentTracks).success(function() {
                                 this.set("showaddstreambutton", false);
                             }, this).error('SOME ERROR', function(message) {

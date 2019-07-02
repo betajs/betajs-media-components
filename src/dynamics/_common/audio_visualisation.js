@@ -76,7 +76,7 @@ Scoped.define("module:AudioVisualisation", [
                         this.dataArray = new Uint8Array(this.analyser.frequencyBinCount);
                         // this.dataArray = new Float32Array(this.analyser.fftSize);
                         this.canvasWidth = this.canvas.width;
-                        this.canvasHeigth = this.canvas.height;
+                        this.canvasHeight = this.canvas.height;
                         this.barWidth = (this.canvasWidth / this.bufferLength) * 2.5;
                         this.barHeight = 0;
                         this.x = 0;
@@ -136,14 +136,14 @@ Scoped.define("module:AudioVisualisation", [
             _drawRedBars: function() {
                 this.x = 0;
                 this.canvasContext.fillStyle = "#000";
-                this.canvasContext.fillRect(0, 0, this.canvasWidth, this.canvasHeigth);
+                this.canvasContext.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
                 for (var i = 0; i < this.bufferLength; i++) {
                     this.barHeight = this.dataArray[i] / 2;
                     var r = this.barHeight + (25 * (i / this.bufferLength));
                     var g = 250 * (i / this.bufferLength);
                     var b = 50;
                     this.canvasContext.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
-                    this.canvasContext.fillRect(this.x, this.canvasHeigth - this.barHeight, this.barWidth, this.barHeight);
+                    this.canvasContext.fillRect(this.x, this.canvasHeight - this.barHeight, this.barWidth, this.barHeight);
                     this.x += this.barWidth + 1;
                 }
             },
@@ -153,7 +153,7 @@ Scoped.define("module:AudioVisualisation", [
                 this.canvasContext.fillStyle = "#000";
                 var s = this.__getRMS();
                 this.canvasContext.fillStyle = this.__rgb(s * 2);
-                this.__HfillEllipse(this.canvasWidth / 2, this.canvasHeigth / 2, s * 5, s * 5);
+                this.__HfillEllipse(this.canvasWidth / 2, this.canvasHeight / 2, s * 5, s * 5);
             },
 
             __getRMS: function() {
@@ -176,7 +176,7 @@ Scoped.define("module:AudioVisualisation", [
                 } else {
                     this.canvasContext.fillStyle = this.__rgba(r, g, b, a);
                 }
-                this.canvasContext.fillRect(0, 0, this.canvasWidth, this.canvasHeigth);
+                this.canvasContext.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
             },
 
             __HfillEllipse: function(x, y, width, height) {

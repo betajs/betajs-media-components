@@ -157,6 +157,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "stretch": false,
                     "audio-test-mandatory": false,
                     "snapshotfromuploader": true,
+                    "allowmultistreams": false,
+                    "showaddstreambutton": false,
 
                     "allowtexttrackupload": false,
                     "uploadlocales": [{
@@ -445,6 +447,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                                 this.set("microphones", new Collection(Objs.values(devices.audio)));
                                 this.trigger(Types.is_empty(devices.video) ? "no_camera" : "has_camera");
                                 this.trigger(Types.is_empty(devices.audio) ? "no_microphone" : "has_microphone");
+                                if (this.get("allowmultistreams") && (this.get("cameras").count() > 1 || this.get("cameras").count() >= 1 && this.get("record_media") === "screen")) {
+                                    this.set("showaddstreambutton", true);
+                                }
                             }, this);
                             if (!this.get("noaudio"))
                                 this.recorder.testSoundLevel(true);
@@ -713,6 +718,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         }
                     },
 
+                    add_new_stream: function(deviceId) {
+                        this._add_new_stream(deviceId);
+                    },
+
                     invoke_skip: function() {
                         this.trigger("invoke-skip");
                     },
@@ -792,7 +801,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
                     toggle_facemode: function() {
                         this._toggleFaceMode();
-
                     },
 
                     manual_submit: function() {
@@ -804,7 +812,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     ready_to_play: function() {
                         this.trigger("ready_to_play");
                     }
-
                 },
 
                 destroy: function() {
@@ -1006,6 +1013,57 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         height: this.get("popup-height"),
                         stretch: this.get("popup-stretch")
                     };
+                },
+
+                /**
+                 * Will add new stream based on provided ID
+                 * @param deviceId
+                 */
+                _add_new_stream: function(deviceId) {
+                    var _selected;
+                    var _currentTracks = this.recorder._recorder.stream().getTracks();
+                    this.get("cameras").iterate(function(videoDevice) {
+                        var _videoDevice = videoDevice.data();
+                        if (!_selected && deviceId === _videoDevice.id) {
+                            this.recorder.addMultiStream(_videoDevice, {
+                                positionX: 5,
+                                positionY: 5
+                            }, _currentTracks).success(function() {
+                                this.set("showaddstreambutton", false);
+                            }, this).error('SOME ERROR', function(message) {
+                                console.warn(message);
+                            }, this);
+                            _selected = true;
+                        }
+                    }, this);
+                    // if (typeof this.recorder._recorder !== 'undefined') {
+                    //     var _currentTracks = this.recorder._recorder.stream().getTracks();
+                    //     if (_currentTracks.length > 0) {
+                    //         Objs.iter(_currentTracks, function (track) {
+                    //             if (id !== track.id) {
+                    //                 this.recorder.addMultiStream(_videoDevice, {});
+                    //             }
+                    //         });
+                    //     }
+                    // }
+                    // var _currentVideo = this.recorder._currentVideo;
+                    // // this.recorder.currentVideoStreams.push(id);
+                    // var capturedStream = this.__multiStreamCanvas.captureStream() || this.__multiStreamCanvas.mozCaptureStream();
+                    // Objs.iterate(capturedStream.getTracks(), function (track) {
+                    //     if (track.kind === 'video') {
+                    //         // This has to be new MediaStream
+                    //         this.recorder.multiVideoStream.addTrack(track);
+                    //     }
+                    // }, this);
+                    // this.canvas.stream = videoStream;
+                    // return videoStream;
+                    // if (!id || id !== this.recorder._currentVideo)
+                    // this.get("cameras").iterate(function(camera, index) {
+                    //     var _data = camera.data();
+                    //     if (_data.id !== this.recorder._currentVideo) {
+                    //         this.recorder.
+                    //     }
+                    // }, this);
                 }
 
             };

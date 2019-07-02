@@ -45,6 +45,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Controlbar", [
                     toggleFaceMode: function() {
                         this.trigger("toggle-face-mode");
                     },
+                    addNewStream: function(deviceId) {
+                        this.trigger("add-new-stream", deviceId);
+                    },
                     hover: function(text) {
                         this.set("hovermessage", text);
                     },
@@ -96,6 +99,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Controlbar", [
             "skip-tooltip": "Click here to skip.",
             "stop-available-after": "Minimum recording time is %d seconds",
             "cancel": "Cancel",
+            "add-stream": "Add Stream",
             "cancel-tooltip": "Click here to cancel."
         });
 });

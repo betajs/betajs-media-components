@@ -4,13 +4,13 @@
 	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 	<meta content="utf-8" http-equiv="encoding">
 	<script src="../vendors/jquery.min.js"></script>
-		<script src="../node_modules/betajs-shims/dist/betajs-shims.js"></script>		
-        <script src="../node_modules/betajs-scoped/dist/scoped.js"></script>
-        <script src="../node_modules/betajs/dist/beta-noscoped.js"></script>
-        <script src="../node_modules/betajs-browser/dist/betajs-browser-noscoped.js?asdf"></script>
-        <script src="../node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
-        <script src="../node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
-        <script src="../node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
+    <script src="../node_modules/betajs-shims/dist/betajs-shims.js"></script>
+    <script src="../node_modules/betajs-scoped/dist/scoped.js"></script>
+    <script src="../node_modules/betajs/dist/beta-noscoped.js"></script>
+    <script src="../node_modules/betajs-browser/dist/betajs-browser-noscoped.js?asdf"></script>
+    <script src="../node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
+    <script src="../node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+    <script src="../node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
 	<script src="../dist/betajs-media-components-noscoped.js"></script>
 	<link  href="../dist/betajs-media-components.css?sfdkhjgdsfg" rel="stylesheet" />
     <script src="../dist/themes/modern/script.js"></script>
@@ -28,7 +28,11 @@
     <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/meoefjkcilgjlkibnjjlfdgphacbeglk">
 </head>
 <body style="background: #999">
-    <ba-videorecorder ba-width=400 ba-height=300 ba-theme="cube" ba-allowscreen ba-allowrecord="false" ba-allowupload="false" ba-themecolor="red"></ba-videorecorder>
+    <ba-videorecorder
+        ba-allowmultistreams="true"
+        ba-height="360" ba-width="480"
+        ba-allowscreen ba-allowrecord="false" ba-allowupload="false" ba-themecolor="red"
+    ></ba-videorecorder>
     <script>
         BetaJS.Dynamics.Dynamic.activate();
         var videoRecorder = document.querySelector("ba-videorecorder").dynamicshandler;

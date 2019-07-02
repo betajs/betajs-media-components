@@ -89,6 +89,7 @@
 			ba-allowscreen="{{record_media==='screen'}}"
 		    ba-selectedcamera="{{selectedcamera || 0}}"
 		    ba-selectedmicrophone="{{selectedmicrophone || 0}}"
+			ba-showaddstreambutton="{{showaddstreambutton}}"
 		    ba-camerahealthy="{{camerahealthy}}"
 		    ba-microphonehealthy="{{microphonehealthy}}"
 		    ba-hovermessage="{{=hovermessage}}"
@@ -110,6 +111,7 @@
 		    ba-event:invoke-skip="invoke_skip"
 			ba-event:upload-covershot="upload_covershot"
 		    ba-event:toggle-face-mode="toggle_face_mode"
+			ba-event:add-new-stream="add_new_stream"
 		></ba-{{dyncontrolbar}}>
     </div>
 </div>

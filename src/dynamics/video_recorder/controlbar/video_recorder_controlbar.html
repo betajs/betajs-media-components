@@ -3,6 +3,18 @@
 	<div data-selector="recorder-settings" class="{{css}}-settings" ba-show="{{settingsvisible && settingsopen}}">
 		<div class="{{css}}-settings-backbar"></div>
 		<div data-selector="settings-list-front" class="{{css}}-settings-front">
+			<ul ba-show="{{showaddstreambutton}}" ba-repeat="{{camera :: cameras}}">
+				<li ba-show="{{camera.id !== selectedcamera.id}}">
+					<div data-selector="additional-stream-toggle-icon"
+						 class="{{css}}-add-stream"
+						 onclick="{{addNewStream(camera.id)}}"
+						 onmouseenter="{{hover(string('add-stream'))}}"
+					>
+						<i class="{{csscommon}}-icon-plus"></i> {{camera.label}}
+					</div>
+				</li>
+			</ul>
+			<hr ba-show="{{showaddstreambutton}}"/>
 			<ul data-selector="camera-settings" ba-repeat="{{camera :: cameras}}" ba-show="{{!novideo && !allowscreen && !ismobile}}">
 				<li>
 					<input tabindex="0"
@@ -123,6 +135,7 @@
                  onmouseleave="{{unhover()}}"
 			>
         		{{string('rerecord')}}
+				{{allowmultistreams}}
         	</div>
         </div>
 

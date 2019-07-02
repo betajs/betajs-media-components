@@ -124,6 +124,11 @@
     content: '\e818';
 }
 
+.#{$csscommon}-icon-plus:before {
+    @include fontello-icon;
+    content: '\e819';
+}
+
 .#{$csscommon}-icon-twitter:before {
     @include fontello-icon;
     content: '\f099';

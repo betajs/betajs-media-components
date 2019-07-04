@@ -6,8 +6,20 @@
 		<div data-selector="recorder-settings" class="{{css}}-settings" ba-show="{{settingsvisible && settingsopen}}">
 			<div class="{{css}}-bubble-info">
 
-				<ul data-selector="add-new-stream" ba-show="{{showaddstreambutton}}" ba-repeat="{{camera :: cameras}}">
-					<li ba-show="{{camera.id !== selectedcamera}}">
+				<ul data-selector="add-new-stream" ba-show="{{showaddstreambutton && firefox && allowscreen}}">
+					<li>
+						<div data-selector="single-camera-stream"
+							 class="{{css}}-add-stream"
+							 onclick="{{addNewStream()}}"
+							 onmouseenter="{{hover(string('add-stream'))}}"
+						>
+							<i class="{{csscommon}}-icon-plus"></i> {{string('add-stream')}}
+						</div>
+					</li>
+				</ul>
+
+				<ul data-selector="add-new-stream" ba-show="{{showaddstreambutton && !firefox}}" ba-repeat="{{camera :: cameras}}">
+					<li ba-show="{{(camera.id !== selectedcamera) || allowscreen}}">
 						<div data-selector="single-camera-stream"
 							 class="{{css}}-add-stream"
 							 onclick="{{addNewStream(camera.id)}}"
@@ -17,7 +29,8 @@
 						</div>
 					</li>
 				</ul>
-				<hr ba-show="{{showaddstreambutton}}"/>
+
+				<hr ba-show="{{(showaddstreambutton && !firefox) || (firefox && allowscreen)}}"/>
 
 				<ul data-selector="camera-settings" ba-repeat="{{camera :: cameras}}" ba-show="{{!novideo && !allowscreen && !ismobile}}">
 					<li onmouseenter="{{hover(string('select-camera'))}}">

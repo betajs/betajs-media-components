@@ -294,6 +294,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
                     this.set("ie8", Info.isInternetExplorer() && Info.internetExplorerVersion() < 9);
                     this.set("hideoverlay", false);
+                    this.set("firefox", Info.isFirefox());
 
                     this.set("canswitchcamera", false);
                     this.set("recordviafilecapture", Info.isMobile() && (!this.get("webrtconmobile") || !VideoRecorderWrapper.anySupport(this._videoRecorderWrapperOptions())));
@@ -1031,6 +1032,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     var _currentTracks = this.recorder._recorder.stream().getTracks();
                     this.get("cameras").iterate(function(videoDevice) {
                         var _videoDevice = videoDevice.data();
+                        deviceId = deviceId || _videoDevice.id; // In case if argument is empty take any video source
                         if (!_selected && deviceId === _videoDevice.id) {
                             this.set("loadlabel", this.string("adding-new-stream"));
                             this.set("loader_active", true);

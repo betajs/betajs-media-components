@@ -5,8 +5,22 @@
 		<!-- Popup Settings Selections, initially hidden, appear when click button for settings -->
 		<div data-selector="recorder-settings" class="{{css}}-settings" ba-show="{{settingsvisible && settingsopen}}">
 			<div class="{{css}}-bubble-info">
+
+				<ul data-selector="add-new-stream" ba-show="{{showaddstreambutton}}" ba-repeat="{{camera :: cameras}}">
+					<li ba-show="{{camera.id !== selectedcamera}}">
+						<div data-selector="single-camera-stream"
+							 class="{{css}}-add-stream"
+							 onclick="{{addNewStream(camera.id)}}"
+							 onmouseenter="{{hover(string('add-stream'))}}"
+						>
+							<i class="{{csscommon}}-icon-plus"></i> {{camera.label}}
+						</div>
+					</li>
+				</ul>
+				<hr ba-show="{{showaddstreambutton}}"/>
+
 				<ul data-selector="camera-settings" ba-repeat="{{camera :: cameras}}" ba-show="{{!novideo && !allowscreen && !ismobile}}">
-					<li>
+					<li onmouseenter="{{hover(string('select-camera'))}}">
 						<input tabindex="0"
 							   ba-hotkey:space^enter="{{selectCamera(camera.id)}}" onmouseout="this.blur()"
 							   type='radio' name='camera' value="{{selectedcamera == camera.id}}"
@@ -22,6 +36,7 @@
 				<ul data-selector="microphone-settings" ba-repeat="{{microphone :: microphones}}" ba-show="{{!noaudio && !allowscreen}}">
 					<li tabindex="0"
 						ba-hotkey:space^enter="{{selectMicrophone(microphone.id)}}" onmouseout="this.blur()"
+						onmouseenter="{{hover(string('select-audio-input'))}}"
 						onclick="{{selectMicrophone(microphone.id)}}"
 					>
 						<input type='radio' name='microphone' value="{{selectedmicrophone == microphone.id}}" />
@@ -74,8 +89,8 @@
 
 			<div ba-show="{{settingsvisible}}">
 
-				<div class="{{css}}-circle-button">
-					<div data-selector="face-mode-toggle-icon"  ba-show="{{ismobile}}"
+				<div class="{{css}}-circle-button"  ba-show="{{ismobile}}">
+					<div data-selector="face-mode-toggle-icon"
 						 class="{{css}}-mobile-camera-switcher {{css}}-button-inner {{css}}-button-circle-unselected"
 						 onclick="{{toggleFaceMode()}}"
 						 onmouseenter="{{hover(string('switch-camera'))}}"

@@ -27,9 +27,23 @@
 					<div data-selector="settings-list-front" class="{{css}}-circle-button" ba-show="{{settingsvisible}}">
 
 						<div class="{{css}}-bubble-info-container" ba-show="{{settingsopen}}">
-							<div class="{{css}}-bubble-info" >
+							<div class="{{css}}-bubble-info">
+
+								<ul data-selector="add-new-stream" ba-show="{{showaddstreambutton}}" ba-repeat="{{camera :: cameras}}">
+									<li ba-show="{{camera.id !== selectedcamera}}">
+										<div data-selector="single-camera-stream"
+											 class="{{css}}-add-stream"
+											 onclick="{{addNewStream(camera.id)}}"
+											 onmouseenter="{{hover(string('add-stream'))}}"
+										>
+											<i class="{{csscommon}}-icon-plus"></i> {{camera.label}}
+										</div>
+									</li>
+								</ul>
+								<hr ba-show="{{showaddstreambutton}}"/>
+
 								<ul data-selector="camera-settings" ba-repeat="{{camera :: cameras}}" ba-show="{{!novideo && !allowscreen && !ismobile}}">
-									<li>
+									<li onmouseenter="{{hover(string('select-camera'))}}">
 										<input tabindex="0" onmouseout="this.blur()"
 											   type='radio' name='camera' value="{{selectedcamera == camera.id}}" onclick="{{selectCamera(camera.id)}}"
 										/>
@@ -43,6 +57,7 @@
 								<ul data-selector="microphone-settings" ba-repeat="{{microphone :: microphones}}" ba-show="{{!noaudio && !allowscreen}}">
 									<li tabindex="0"
 										ba-hotkey:space^enter="{{selectMicrophone(microphone.id)}}" onmouseout="this.blur()"
+										onmouseenter="{{hover(string('select-audio-input'))}}"
 										onclick="{{selectMicrophone(microphone.id)}}"
 									>
 										<input type='radio' name='microphone' value="{{selectedmicrophone == microphone.id}}" />

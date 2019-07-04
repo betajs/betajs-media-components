@@ -161,6 +161,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "showaddstreambutton": false,
                     "addstreampositionx": 5,
                     "addstreampositiony": 5,
+                    "addstreampositionwidth": 120,
+                    "addstreampositionheight": 95,
 
                     "allowtexttrackupload": false,
                     "uploadlocales": [{
@@ -1030,15 +1032,23 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     this.get("cameras").iterate(function(videoDevice) {
                         var _videoDevice = videoDevice.data();
                         if (!_selected && deviceId === _videoDevice.id) {
+                            this.set("loadlabel", this.string("adding-new-stream"));
+                            this.set("loader_active", true);
                             this.recorder.addMultiStream(_videoDevice, {
                                 positionX: this.get("addstreampositionx"),
-                                positionY: this.get("addstreampositiony")
+                                positionY: this.get("addstreampositiony"),
+                                width: this.get("addstreampositionwidth"),
+                                height: this.get("addstreampositionheight")
                             }, _currentTracks).success(function() {
+                                _selected = true;
+                                this.set("loadlabel", "");
+                                this.set("loader_active", false);
                                 this.set("showaddstreambutton", false);
                             }, this).error('SOME ERROR', function(message) {
                                 console.warn(message);
+                                this.set("loadlabel", message);
+                                this.set("loader_active", false);
                             }, this);
-                            _selected = true;
                         }
                     }, this);
                     // if (typeof this.recorder._recorder !== 'undefined') {
@@ -1106,6 +1116,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
             "orientation-landscape-required": "Please rotate your device to record in landscape mode.",
             "switch-camera": "Switch camera",
             "prepare-covershot": "Preparing covershots",
-            "prepare-thumbnails": "Preparing seeking thumbnails"
+            "prepare-thumbnails": "Preparing seeking thumbnails",
+            "adding-new-stream": "Adding New Stream"
         });
 });

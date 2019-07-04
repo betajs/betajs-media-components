@@ -80,7 +80,7 @@
     overflow: scroll;
     margin: 5px;
     padding: 0;
-    label {
+    label, .#{$cssvideorecorder}-add-stream {
       font-family: $font_family;
       font-weight: 300;
       font-size: $settings_font_size ;

@@ -1046,7 +1046,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                                 this.set("loadlabel", "");
                                 this.set("loader_active", false);
                                 this.set("showaddstreambutton", false);
-                            }, this).error('SOME ERROR', function(message) {
+                            }, this).error(function(message) {
                                 console.warn(message);
                                 this.set("loadlabel", message);
                                 this.set("loader_active", false);

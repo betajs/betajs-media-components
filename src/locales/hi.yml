@@ -137,3 +137,73 @@
   ba-audiorecorder-controlbar.stop-available-after: न्यूनतम रिकॉर्डिंग समय %d सेकेंड है
   ba-audiorecorder-controlbar.cancel: रद्द करना
   ba-audiorecorder-controlbar.cancel-tooltip: रद्द करने के लिए यहां क्लिक करें।
+  ba-videoplayer-controlbar.player-speed: खिलाड़ी की गति
+  ba-videoplayer-controlbar.settings: सेटिंग्स
+  ba-videoplayer-controlbar.airplay: एयरप्ले
+  ba-videoplayer-controlbar.airplay-icon: एयरप्ले आइकन।
+  ba-videoplayer.all-settings: सभी सेटिंग्स
+  ba-videoplayer.player-speed: खिलाड़ी की गति
+  ba-videoplayer.full-screen: पूर्ण स्क्रीन
+  ba-videorecorder-controlbar.add-stream: स्ट्रीम जोड़ें
+  ba-videorecorder.switch-camera: कैमरा स्विच करें
+  ba-videorecorder.prepare-covershot: कवरशॉट तैयार करना
+  ba-videorecorder.prepare-thumbnails: थम्बिंग की तैयारी करना
+  ba-videorecorder.adding-new-stream: नई स्ट्रीम जोड़ना
+  ba-imagecapture.recorder-error: >-
+    एक त्रुटि घटित हुई है, कृपया बाद में पुन: प्रयास करें। पुनः प्रयास करने के
+    लिए क्लिक करें।
+  ba-imagecapture.attach-error: >-
+    हम मीडिया इंटरफ़ेस का उपयोग नहीं कर सके। डिवाइस और ब्राउज़र के आधार पर, आपको
+    एसएसएल के माध्यम से फ्लैश स्थापित करने या पृष्ठ तक पहुंचने की आवश्यकता हो
+    सकती है।
+  ba-imagecapture.software-required: >-
+    आगे बढ़ने के लिए कृपया निम्न आवश्यकताओं को स्थापित / सक्रिय करने के लिए नीचे
+    क्लिक करें।
+  ba-imagecapture.software-waiting: >-
+    स्थापित / सक्रिय होने के लिए आवश्यकताओं की प्रतीक्षा कर रहा है। पूरा होने के
+    बाद आपको पृष्ठ को रिफ्रेश करने की आवश्यकता हो सकती है।
+  ba-imagecapture.access-forbidden: मीडिया तक पहुंच की मनाही थी। पुनः प्रयास करने के लिए क्लिक करें।
+  ba-imagecapture.uploading: अपलोड हो रहा है
+  ba-imagecapture.uploading-failed: 'अपलोड करना विफल - पुन: प्रयास करने के लिए यहां क्लिक करें।'
+  ba-imagecapture.upload-error-duration: >-
+    अपलोड की गई छवि की लंबाई आवश्यकताओं को पूरा नहीं करती है - पुन: प्रयास करने
+    के लिए यहां क्लिक करें।
+  ba-imagecapture.resolution-constraint-error: >-
+    आपके द्वारा चयनित फ़ाइल आवश्यक रिज़ॉल्यूशन से मेल नहीं खाती है - फिर से
+    प्रयास करने के लिए यहां क्लिक करें।
+  ba-imagecapture.verifying: सत्यापित किया जा रहा
+  ba-imagecapture.verifying-failed: 'सत्यापित करना विफल - पुन: प्रयास करने के लिए यहां क्लिक करें।'
+  ba-imagecapture.rerecord-confirm: क्या आप वास्तव में अपनी छवि को फिर से बनाना चाहते हैं?
+  ba-imagecapture.image_file_too_large: >-
+    आपकी छवि फ़ाइल बहुत बड़ी है ( %s) - एक छोटी छवि फ़ाइल के साथ फिर से प्रयास
+    करने के लिए यहां क्लिक करें।
+  ba-imagecapture.unsupported_image_type: 'कृपया अपलोड करें: %s - पुन: प्रयास करने के लिए यहां क्लिक करें।'
+  ba-imagecapture.orientation-portrait-required: कृपया पोर्ट्रेट मोड में रिकॉर्ड करने के लिए अपने डिवाइस को घुमाएं।
+  ba-imagecapture.orientation-landscape-required: कृपया अपने डिवाइस को लैंडस्केप मोड में रिकॉर्ड करने के लिए घुमाएं।
+  ba-audiorecorder.recorder-error: >-
+    एक त्रुटि घटित हुई है, कृपया बाद में पुन: प्रयास करें। पुनः प्रयास करने के
+    लिए क्लिक करें।
+  ba-audiorecorder.attach-error: >-
+    हम मीडिया इंटरफ़ेस का उपयोग नहीं कर सके। डिवाइस और ब्राउज़र के आधार पर, आपको
+    एसएसएल के माध्यम से फ्लैश स्थापित करने या पृष्ठ तक पहुंचने की आवश्यकता हो
+    सकती है।
+  ba-audiorecorder.software-required: >-
+    आगे बढ़ने के लिए कृपया निम्न आवश्यकताओं को स्थापित / सक्रिय करने के लिए नीचे
+    क्लिक करें।
+  ba-audiorecorder.software-waiting: >-
+    स्थापित / सक्रिय होने के लिए आवश्यकताओं की प्रतीक्षा कर रहा है। पूरा होने के
+    बाद आपको पृष्ठ को रिफ्रेश करने की आवश्यकता हो सकती है।
+  ba-audiorecorder.access-forbidden: मीडिया तक पहुंच की मनाही थी। पुनः प्रयास करने के लिए क्लिक करें।
+  ba-audiorecorder.uploading: अपलोड हो रहा है
+  ba-audiorecorder.uploading-failed: 'अपलोड करना विफल - पुन: प्रयास करने के लिए यहां क्लिक करें।'
+  ba-audiorecorder.upload-error-duration: >-
+    अपलोड किए गए ऑडियो की लंबाई आवश्यकताओं को पूरा नहीं करती है - पुन: प्रयास
+    करने के लिए यहां क्लिक करें।
+  ba-audiorecorder.verifying: सत्यापित किया जा रहा
+  ba-audiorecorder.verifying-failed: 'सत्यापित करना विफल - पुन: प्रयास करने के लिए यहां क्लिक करें।'
+  ba-audiorecorder.rerecord-confirm: क्या आप वास्तव में अपने ऑडियो को फिर से करना चाहते हैं?
+  ba-audiorecorder.cancel-confirm: क्या आप वास्तव में अपने ऑडियो अपलोड को रद्द करना चाहते हैं?
+  ba-audiorecorder.audio_file_too_large: >-
+    आपकी ऑडियो फ़ाइल बहुत बड़ी है ( %s) - एक छोटी ऑडियो फ़ाइल के साथ पुन: प्रयास
+    करने के लिए यहां क्लिक करें।
+  ba-audiorecorder.unsupported_audio_type: 'कृपया अपलोड करें: %s - पुन: प्रयास करने के लिए यहां क्लिक करें।'

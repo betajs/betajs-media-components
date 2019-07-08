@@ -141,3 +141,77 @@
   ba-audiorecorder-controlbar.stop-available-after: El tiempo de grabación mínimo es %d segundos
   ba-audiorecorder-controlbar.cancel: Cancelar
   ba-audiorecorder-controlbar.cancel-tooltip: Haga clic aquí para cancelar.
+  ba-videoplayer-controlbar.player-speed: Velocidad del jugador
+  ba-videoplayer-controlbar.settings: Ajustes
+  ba-videoplayer-controlbar.airplay: Salida en antena
+  ba-videoplayer-controlbar.airplay-icon: Icono de airplay
+  ba-videoplayer.all-settings: Todos los ajustes
+  ba-videoplayer.player-speed: Velocidad del jugador
+  ba-videoplayer.full-screen: Pantalla completa
+  ba-videorecorder-controlbar.add-stream: Añadir Stream
+  ba-videorecorder.switch-camera: Cambiar de camara
+  ba-videorecorder.prepare-covershot: Preparando covershots
+  ba-videorecorder.prepare-thumbnails: Preparando la búsqueda de miniaturas
+  ba-videorecorder.adding-new-stream: Añadiendo nueva secuencia
+  ba-imagecapture.recorder-error: >-
+    Ha ocurrido un error, por favor intente de nuevo más tarde. Haga clic para
+    volver a intentarlo.
+  ba-imagecapture.attach-error: >-
+    No pudimos acceder a la interfaz multimedia. Según el dispositivo y el
+    navegador, es posible que deba instalar Flash o acceder a la página a través
+    de SSL.
+  ba-imagecapture.software-required: >-
+    Haga clic a continuación para instalar / activar los siguientes requisitos
+    para continuar.
+  ba-imagecapture.software-waiting: >-
+    Esperando a que los requisitos sean instalados / activados. Es posible que
+    necesite actualizar la página después de la finalización.
+  ba-imagecapture.access-forbidden: >-
+    El acceso a los medios de comunicación estaba prohibido. Haga clic para
+    volver a intentarlo.
+  ba-imagecapture.uploading: Subiendo
+  ba-imagecapture.uploading-failed: Falló la carga - haga clic aquí para volver a intentarlo.
+  ba-imagecapture.upload-error-duration: >-
+    La longitud de la imagen cargada no cumple con los requisitos; haga clic
+    aquí para volver a intentarlo.
+  ba-imagecapture.resolution-constraint-error: >-
+    El archivo que ha seleccionado no coincide con la resolución requerida: haga
+    clic aquí para volver a intentarlo.
+  ba-imagecapture.verifying: Verificando
+  ba-imagecapture.verifying-failed: 'Verificación fallida: haga clic aquí para volver a intentarlo.'
+  ba-imagecapture.rerecord-confirm: ¿De verdad quieres volver a tomar tu imagen?
+  ba-imagecapture.image_file_too_large: >-
+    Su archivo de imagen es demasiado grande ( %s): haga clic aquí para volver a
+    intentarlo con un archivo de imagen más pequeño.
+  ba-imagecapture.unsupported_image_type: 'Por favor suba: %s - haga clic aquí para volver a intentarlo.'
+  ba-imagecapture.orientation-portrait-required: 'Por favor, gire su dispositivo para grabar en modo retrato.'
+  ba-imagecapture.orientation-landscape-required: 'Por favor, gire su dispositivo para grabar en modo horizontal.'
+  ba-audiorecorder.recorder-error: >-
+    Ha ocurrido un error, por favor intente de nuevo más tarde. Haga clic para
+    volver a intentarlo.
+  ba-audiorecorder.attach-error: >-
+    No pudimos acceder a la interfaz multimedia. Según el dispositivo y el
+    navegador, es posible que deba instalar Flash o acceder a la página a través
+    de SSL.
+  ba-audiorecorder.software-required: >-
+    Haga clic a continuación para instalar / activar los siguientes requisitos
+    para continuar.
+  ba-audiorecorder.software-waiting: >-
+    Esperando a que los requisitos sean instalados / activados. Es posible que
+    necesite actualizar la página después de la finalización.
+  ba-audiorecorder.access-forbidden: >-
+    El acceso a los medios de comunicación estaba prohibido. Haga clic para
+    volver a intentarlo.
+  ba-audiorecorder.uploading: Subiendo
+  ba-audiorecorder.uploading-failed: Falló la carga - haga clic aquí para volver a intentarlo.
+  ba-audiorecorder.upload-error-duration: >-
+    La duración del audio cargado no cumple con los requisitos; haga clic aquí
+    para volver a intentarlo.
+  ba-audiorecorder.verifying: Verificando
+  ba-audiorecorder.verifying-failed: 'Verificación fallida: haga clic aquí para volver a intentarlo.'
+  ba-audiorecorder.rerecord-confirm: ¿Realmente quieres rehacer tu audio?
+  ba-audiorecorder.cancel-confirm: ¿Realmente quieres cancelar tu carga de audio?
+  ba-audiorecorder.audio_file_too_large: >-
+    Su archivo de audio es demasiado grande ( %s): haga clic aquí para volver a
+    intentarlo con un archivo de audio más pequeño.
+  ba-audiorecorder.unsupported_audio_type: 'Por favor suba: %s - haga clic aquí para volver a intentarlo.'

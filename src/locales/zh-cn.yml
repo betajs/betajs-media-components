@@ -117,3 +117,45 @@
   ba-audiorecorder-controlbar.stop-available-after: 最短录制时间为％d秒
   ba-audiorecorder-controlbar.cancel: 取消
   ba-audiorecorder-controlbar.cancel-tooltip: 点击这里取消。
+  ba-videoplayer-controlbar.player-speed: 球员速度
+  ba-videoplayer-controlbar.settings: 设置
+  ba-videoplayer-controlbar.airplay: 的Airplay
+  ba-videoplayer-controlbar.airplay-icon: Airplay图标。
+  ba-videoplayer.all-settings: 所有设置
+  ba-videoplayer.player-speed: 球员速度
+  ba-videoplayer.full-screen: 全屏
+  ba-videorecorder-controlbar.add-stream: 添加流
+  ba-videorecorder.switch-camera: 切换相机
+  ba-videorecorder.prepare-covershot: 准备炮弹
+  ba-videorecorder.prepare-thumbnails: 准备寻找缩略图
+  ba-videorecorder.adding-new-stream: 添加新流
+  ba-imagecapture.recorder-error: 发生了一个错误。请稍后重试。点击重试。
+  ba-imagecapture.attach-error: 我们无法访问媒体界面。您可能需要安装Flash或通过SSL访问该页面，具体取决于设备和浏览器。
+  ba-imagecapture.software-required: 请单击下方以安装/激活以下要求以继续。
+  ba-imagecapture.software-waiting: 等待安装/激活要求。您可能需要在完成后刷新页面。
+  ba-imagecapture.access-forbidden: 禁止访问媒体。点击重试。
+  ba-imagecapture.uploading: 上传
+  ba-imagecapture.uploading-failed: 上传失败 - 点击此处重试。
+  ba-imagecapture.upload-error-duration: 上传图片的长度不符合要求 - 点击此处重试。
+  ba-imagecapture.resolution-constraint-error: 您选择的文件与所需的分辨率不匹配 - 点击此处重试。
+  ba-imagecapture.verifying: 验证
+  ba-imagecapture.verifying-failed: 验证失败 - 单击此处重试。
+  ba-imagecapture.rerecord-confirm: 你真的想重拍你的形象吗？
+  ba-imagecapture.image_file_too_large: 您的图片文件太大（％s） - 点击此处再次尝试使用较小的图片文件。
+  ba-imagecapture.unsupported_image_type: 请上传：％s  - 点击此处重试。
+  ba-imagecapture.orientation-portrait-required: 请旋转设备以纵向模式录制。
+  ba-imagecapture.orientation-landscape-required: 请旋转您的设备以横向模式录制。
+  ba-audiorecorder.recorder-error: 发生了一个错误。请稍后重试。点击重试。
+  ba-audiorecorder.attach-error: 我们无法访问媒体界面。您可能需要安装Flash或通过SSL访问该页面，具体取决于设备和浏览器。
+  ba-audiorecorder.software-required: 请单击下方以安装/激活以下要求以继续。
+  ba-audiorecorder.software-waiting: 等待安装/激活要求。您可能需要在完成后刷新页面。
+  ba-audiorecorder.access-forbidden: 禁止访问媒体。点击重试。
+  ba-audiorecorder.uploading: 上传
+  ba-audiorecorder.uploading-failed: 上传失败 - 点击此处重试。
+  ba-audiorecorder.upload-error-duration: 上传的音频长度不符合要求 - 点击此处重试。
+  ba-audiorecorder.verifying: 验证
+  ba-audiorecorder.verifying-failed: 验证失败 - 单击此处重试。
+  ba-audiorecorder.rerecord-confirm: 你真的想要重做你的音频吗？
+  ba-audiorecorder.cancel-confirm: 你真的想取消音频上传吗？
+  ba-audiorecorder.audio_file_too_large: 您的音频文件太大（％s） - 点击此处再次尝试使用较小的音频文件。
+  ba-audiorecorder.unsupported_audio_type: 请上传：％s  - 点击此处重试。

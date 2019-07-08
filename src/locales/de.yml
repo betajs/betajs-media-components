@@ -144,3 +144,77 @@
   ba-audiorecorder-controlbar.stop-available-after: Die minimale Aufnahmezeit ist %d Sekunden
   ba-audiorecorder-controlbar.cancel: Stornieren
   ba-audiorecorder-controlbar.cancel-tooltip: 'Klicken Sie hier, um abzubrechen.'
+  ba-videoplayer-controlbar.player-speed: Wiedergabegeschwindigkeit
+  ba-videoplayer-controlbar.settings: Einstellungen
+  ba-videoplayer-controlbar.airplay: Airplay
+  ba-videoplayer-controlbar.airplay-icon: Airplay-Symbol
+  ba-videoplayer.all-settings: Einstellungen
+  ba-videoplayer.player-speed: Wiedergabegeschwindigkeit
+  ba-videoplayer.full-screen: Vollbild
+  ba-videorecorder-controlbar.add-stream: Quelle hinzufügen
+  ba-videorecorder.switch-camera: Kamera wechseln
+  ba-videorecorder.prepare-covershot: Covershots vorbereiten
+  ba-videorecorder.prepare-thumbnails: Thumbnails vorbereiten
+  ba-videorecorder.adding-new-stream: Neue Quelle hinzufügen
+  ba-imagecapture.recorder-error: >-
+    Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut. Klicken
+    Sie hier, um es erneut zu versuchen.
+  ba-imagecapture.attach-error: >-
+    Wir konnten nicht auf die Medienschnittstelle zugreifen. Je nach Gerät und
+    Browser müssen Sie möglicherweise Flash installieren oder über SSL auf die
+    Seite zugreifen.
+  ba-imagecapture.software-required: >-
+    Klicken Sie unten, um die folgenden Voraussetzungen zu installieren /
+    aktivieren, um fortzufahren.
+  ba-imagecapture.software-waiting: >-
+    Warten auf die Installation / Aktivierung der Anforderungen. Möglicherweise
+    müssen Sie die Seite nach Abschluss aktualisieren.
+  ba-imagecapture.access-forbidden: >-
+    Der Zugang zu den Medien war verboten. Klicken Sie hier, um es erneut zu
+    versuchen.
+  ba-imagecapture.uploading: Hochladen
+  ba-imagecapture.uploading-failed: 'Hochladen fehlgeschlagen - Klicken Sie hier, um es erneut zu versuchen.'
+  ba-imagecapture.upload-error-duration: >-
+    Die Länge des hochgeladenen Bildes entspricht nicht den Anforderungen.
+    Klicken Sie hier, um es erneut zu versuchen.
+  ba-imagecapture.resolution-constraint-error: >-
+    Die ausgewählte Datei entspricht nicht der erforderlichen Auflösung. Klicken
+    Sie hier, um es erneut zu versuchen.
+  ba-imagecapture.verifying: Überprüfung
+  ba-imagecapture.verifying-failed: 'Überprüfung fehlgeschlagen - Klicken Sie hier, um es erneut zu versuchen.'
+  ba-imagecapture.rerecord-confirm: Möchten Sie Ihr Bild wirklich neu aufnehmen?
+  ba-imagecapture.image_file_too_large: >-
+    Ihre Bilddatei ist zu groß ( %s). Klicken Sie hier, um es mit einer
+    kleineren Bilddatei erneut zu versuchen.
+  ba-imagecapture.unsupported_image_type: 'Bitte hochladen: %s - Klicken Sie hier, um es erneut zu versuchen.'
+  ba-imagecapture.orientation-portrait-required: 'Bitte drehen Sie Ihr Gerät, um im Hochformat aufzunehmen.'
+  ba-imagecapture.orientation-landscape-required: 'Bitte drehen Sie Ihr Gerät, um im Querformat aufzunehmen.'
+  ba-audiorecorder.recorder-error: >-
+    Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut. Klicken
+    Sie hier, um es erneut zu versuchen.
+  ba-audiorecorder.attach-error: >-
+    Wir konnten nicht auf die Medienschnittstelle zugreifen. Je nach Gerät und
+    Browser müssen Sie möglicherweise Flash installieren oder über SSL auf die
+    Seite zugreifen.
+  ba-audiorecorder.software-required: >-
+    Klicken Sie unten, um die folgenden Voraussetzungen zu installieren /
+    aktivieren, um fortzufahren.
+  ba-audiorecorder.software-waiting: >-
+    Warten auf die Installation / Aktivierung der Anforderungen. Möglicherweise
+    müssen Sie die Seite nach Abschluss aktualisieren.
+  ba-audiorecorder.access-forbidden: >-
+    Der Zugang zu den Medien war verboten. Klicken Sie hier, um es erneut zu
+    versuchen.
+  ba-audiorecorder.uploading: Hochladen
+  ba-audiorecorder.uploading-failed: 'Hochladen fehlgeschlagen - Klicken Sie hier, um es erneut zu versuchen.'
+  ba-audiorecorder.upload-error-duration: >-
+    Die Länge des hochgeladenen Audios entspricht nicht den Anforderungen.
+    Klicken Sie hier, um es erneut zu versuchen.
+  ba-audiorecorder.verifying: Überprüfung
+  ba-audiorecorder.verifying-failed: 'Überprüfung fehlgeschlagen - Klicken Sie hier, um es erneut zu versuchen.'
+  ba-audiorecorder.rerecord-confirm: Möchten Sie Ihr Audio wirklich wiederholen?
+  ba-audiorecorder.cancel-confirm: Möchten Sie Ihren Audio-Upload wirklich abbrechen?
+  ba-audiorecorder.audio_file_too_large: >-
+    Ihre Audiodatei ist zu groß ( %s) - Klicken Sie hier, um es mit einer
+    kleineren Audiodatei erneut zu versuchen.
+  ba-audiorecorder.unsupported_audio_type: 'Bitte hochladen: %s - Klicken Sie hier, um es erneut zu versuchen.'

@@ -141,3 +141,77 @@
   ba-audiorecorder-controlbar.stop-available-after: El temps d'enregistrament mínim és %d segons
   ba-audiorecorder-controlbar.cancel: Cancel · lar
   ba-audiorecorder-controlbar.cancel-tooltip: Feu clic aquí per cancel·lar.
+  ba-videoplayer-controlbar.player-speed: Velocitat del jugador
+  ba-videoplayer-controlbar.settings: Configuració
+  ba-videoplayer-controlbar.airplay: Airplay
+  ba-videoplayer-controlbar.airplay-icon: Icona Airplay.
+  ba-videoplayer.all-settings: Tots els paràmetres
+  ba-videoplayer.player-speed: Velocitat del jugador
+  ba-videoplayer.full-screen: Pantalla completa
+  ba-videorecorder-controlbar.add-stream: Afegeix corrent
+  ba-videorecorder.switch-camera: Canvia la càmera
+  ba-videorecorder.prepare-covershot: Preparació de captures de pantalla
+  ba-videorecorder.prepare-thumbnails: Preparant la cerca de miniatures
+  ba-videorecorder.adding-new-stream: Addició de corrent nova
+  ba-imagecapture.recorder-error: >-
+    Hi ha hagut un error. Siusplau, torni a intentar-ho més tard. Feu clic per
+    tornar a provar.
+  ba-imagecapture.attach-error: >-
+    No hem pogut accedir a la interfície multimèdia. Depenent del dispositiu i
+    del navegador, és possible que hagueu d'instal·lar Flash o accedir a la
+    pàgina mitjançant SSL.
+  ba-imagecapture.software-required: >-
+    Per continuar, feu clic a continuació per instal·lar / activar els següents
+    requisits.
+  ba-imagecapture.software-waiting: >-
+    S’espera que s’instal·lin / activin els requisits. Potser haureu
+    d’actualitzar la pàgina un cop finalitzada.
+  ba-imagecapture.access-forbidden: >-
+    L’accés als mitjans de comunicació estava prohibit. Feu clic per tornar a
+    provar.
+  ba-imagecapture.uploading: Càrrega
+  ba-imagecapture.uploading-failed: 'Ha fallat la càrrega: feu clic aquí per tornar-ho a provar.'
+  ba-imagecapture.upload-error-duration: >-
+    La longitud de la imatge carregada no compleix els requisits: feu clic aquí
+    per tornar-ho a provar.
+  ba-imagecapture.resolution-constraint-error: >-
+    El fitxer que heu seleccionat no coincideix amb la resolució necessària: feu
+    clic aquí per tornar-ho a provar.
+  ba-imagecapture.verifying: Verificació
+  ba-imagecapture.verifying-failed: 'Verificació fallida: feu clic aquí per tornar-ho a provar.'
+  ba-imagecapture.rerecord-confirm: Segur que voleu reprendre la vostra imatge?
+  ba-imagecapture.image_file_too_large: >-
+    El vostre fitxer d'imatge és massa gran ( %s): feu clic aquí per tornar-ho a
+    provar amb un fitxer d'imatge més petit.
+  ba-imagecapture.unsupported_image_type: 'Pengeu: %s: feu clic aquí per tornar-ho a provar.'
+  ba-imagecapture.orientation-portrait-required: Gireu el dispositiu per gravar en mode vertical.
+  ba-imagecapture.orientation-landscape-required: Gireu el dispositiu per gravar en mode horitzontal.
+  ba-audiorecorder.recorder-error: >-
+    Hi ha hagut un error. Siusplau, torni a intentar-ho més tard. Feu clic per
+    tornar a provar.
+  ba-audiorecorder.attach-error: >-
+    No hem pogut accedir a la interfície multimèdia. Depenent del dispositiu i
+    del navegador, és possible que hagueu d'instal·lar Flash o accedir a la
+    pàgina mitjançant SSL.
+  ba-audiorecorder.software-required: >-
+    Per continuar, feu clic a continuació per instal·lar / activar els següents
+    requisits.
+  ba-audiorecorder.software-waiting: >-
+    S’espera que s’instal·lin / activin els requisits. Potser haureu
+    d’actualitzar la pàgina un cop finalitzada.
+  ba-audiorecorder.access-forbidden: >-
+    L’accés als mitjans de comunicació estava prohibit. Feu clic per tornar a
+    provar.
+  ba-audiorecorder.uploading: Càrrega
+  ba-audiorecorder.uploading-failed: 'Ha fallat la càrrega: feu clic aquí per tornar-ho a provar.'
+  ba-audiorecorder.upload-error-duration: >-
+    La durada de l’àudio carregat no compleix els requisits: feu clic aquí per
+    tornar-ho a provar.
+  ba-audiorecorder.verifying: Verificació
+  ba-audiorecorder.verifying-failed: 'Verificació fallida: feu clic aquí per tornar-ho a provar.'
+  ba-audiorecorder.rerecord-confirm: Esteu segur que voleu referir l’àudio?
+  ba-audiorecorder.cancel-confirm: Segur que voleu cancel·lar la càrrega d’àudio?
+  ba-audiorecorder.audio_file_too_large: >-
+    El vostre fitxer d’àudio és massa gran ( %s): feu clic aquí per tornar-ho a
+    provar amb un fitxer d’àudio més petit.
+  ba-audiorecorder.unsupported_audio_type: 'Pengeu: %s: feu clic aquí per tornar-ho a provar.'

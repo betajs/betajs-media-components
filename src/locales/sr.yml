@@ -136,3 +136,73 @@
   ba-audiorecorder-controlbar.stop-available-after: Минимално време снимања је %д секунди
   ba-audiorecorder-controlbar.cancel: 'Поништити, отказати'
   ba-audiorecorder-controlbar.cancel-tooltip: Кликните овде да бисте отказали.
+  ba-videoplayer-controlbar.player-speed: Брзина играча
+  ba-videoplayer-controlbar.settings: Подешавања
+  ba-videoplayer-controlbar.airplay: Аирплаи
+  ba-videoplayer-controlbar.airplay-icon: Аирплаи ицон.
+  ba-videoplayer.all-settings: Сва подешавања
+  ba-videoplayer.player-speed: Брзина играча
+  ba-videoplayer.full-screen: Цео екран
+  ba-videorecorder-controlbar.add-stream: Адд Стреам
+  ba-videorecorder.switch-camera: Свитцх цамера
+  ba-videorecorder.prepare-covershot: Припрема снимака
+  ba-videorecorder.prepare-thumbnails: Припрема за тражење сличица
+  ba-videorecorder.adding-new-stream: Додавање новог тока
+  ba-imagecapture.recorder-error: >-
+    Дошло је до грешке. Молимо, покушајте касније. Кликните да бисте покушали
+    поново.
+  ba-imagecapture.attach-error: >-
+    Нисмо могли да приступимо интерфејсу медија. У зависности од уређаја и
+    претраживача, можда ћете морати да инсталирате Фласх или да приступите
+    страници преко ССЛ-а.
+  ba-imagecapture.software-required: >-
+    Кликните испод да бисте инсталирали / активирали следеће захтеве како бисте
+    наставили.
+  ba-imagecapture.software-waiting: >-
+    Чекање да се захтјеви инсталирају / активирају. Можда ћете морати да
+    освежите страницу након завршетка.
+  ba-imagecapture.access-forbidden: Приступ медијима био је забрањен. Кликните да бисте покушали поново.
+  ba-imagecapture.uploading: Уплоадинг
+  ba-imagecapture.uploading-failed: Отпремање није успело - кликните овде да бисте покушали поново.
+  ba-imagecapture.upload-error-duration: >-
+    Дужина учитане слике не испуњава захтеве - кликните овде да бисте покушали
+    поново.
+  ba-imagecapture.resolution-constraint-error: >-
+    Датотека коју сте изабрали не одговара захтеваној резолуцији - кликните овде
+    да бисте покушали поново.
+  ba-imagecapture.verifying: Верификовање
+  ba-imagecapture.verifying-failed: Верификација није успела - кликните овде да бисте покушали поново.
+  ba-imagecapture.rerecord-confirm: Да ли заиста желите да поново преузмете слику?
+  ba-imagecapture.image_file_too_large: >-
+    Датотека слике је превелика ( %с) - кликните овде да бисте покушали поново
+    са мањом сликом.
+  ba-imagecapture.unsupported_image_type: 'Учитајте: %с - кликните овде да бисте покушали поново.'
+  ba-imagecapture.orientation-portrait-required: Ротирајте уређај да бисте снимали у портретном режиму.
+  ba-imagecapture.orientation-landscape-required: Ротирајте уређај да бисте снимали у пејзажном режиму.
+  ba-audiorecorder.recorder-error: >-
+    Дошло је до грешке. Молимо, покушајте касније. Кликните да бисте покушали
+    поново.
+  ba-audiorecorder.attach-error: >-
+    Нисмо могли да приступимо интерфејсу медија. У зависности од уређаја и
+    претраживача, можда ћете морати да инсталирате Фласх или да приступите
+    страници преко ССЛ-а.
+  ba-audiorecorder.software-required: >-
+    Кликните испод да бисте инсталирали / активирали следеће захтеве како бисте
+    наставили.
+  ba-audiorecorder.software-waiting: >-
+    Чекање да се захтјеви инсталирају / активирају. Можда ћете морати да
+    освежите страницу након завршетка.
+  ba-audiorecorder.access-forbidden: Приступ медијима био је забрањен. Кликните да бисте покушали поново.
+  ba-audiorecorder.uploading: Уплоадинг
+  ba-audiorecorder.uploading-failed: Отпремање није успело - кликните овде да бисте покушали поново.
+  ba-audiorecorder.upload-error-duration: >-
+    Дужина пренесеног звука не испуњава захтеве - кликните овде да бисте
+    покушали поново.
+  ba-audiorecorder.verifying: Верификовање
+  ba-audiorecorder.verifying-failed: Верификација није успела - кликните овде да бисте покушали поново.
+  ba-audiorecorder.rerecord-confirm: Да ли заиста желите да поновите звук?
+  ba-audiorecorder.cancel-confirm: Да ли заиста желите да откажете учитавање звука?
+  ba-audiorecorder.audio_file_too_large: >-
+    Ваша аудио датотека је превелика ( %с) - кликните овде да бисте покушали
+    поново са мањим аудио фајлом.
+  ba-audiorecorder.unsupported_audio_type: 'Учитајте: %с - кликните овде да бисте покушали поново.'

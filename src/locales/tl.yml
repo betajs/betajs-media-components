@@ -141,3 +141,73 @@
   ba-audiorecorder-controlbar.stop-available-after: Ang minimum na oras ng pag-record ay %d segundo
   ba-audiorecorder-controlbar.cancel: Kanselahin
   ba-audiorecorder-controlbar.cancel-tooltip: Mag-click dito upang kanselahin.
+  ba-videoplayer-controlbar.player-speed: Bilis ng Player
+  ba-videoplayer-controlbar.settings: Mga Setting
+  ba-videoplayer-controlbar.airplay: Airplay
+  ba-videoplayer-controlbar.airplay-icon: Icon ng Airplay.
+  ba-videoplayer.all-settings: Lahat ng mga setting
+  ba-videoplayer.player-speed: Bilis ng Player
+  ba-videoplayer.full-screen: Buong screen
+  ba-videorecorder-controlbar.add-stream: Magdagdag ng Stream
+  ba-videorecorder.switch-camera: Lumipat ng camera
+  ba-videorecorder.prepare-covershot: Paghahanda ng mga coverhots
+  ba-videorecorder.prepare-thumbnails: Paghahanda ng mga naghahanap ng mga thumbnail
+  ba-videorecorder.adding-new-stream: Pagdaragdag ng Bagong Stream
+  ba-imagecapture.recorder-error: >-
+    May naganap na error. Mangyaring subukan muli sa ibang pagkakataon. I-click
+    upang muling subukan.
+  ba-imagecapture.attach-error: >-
+    Hindi namin ma-access ang media interface. Depende sa device at browser,
+    maaaring kailangan mong i-install ang Flash o i-access ang pahina sa
+    pamamagitan ng SSL.
+  ba-imagecapture.software-required: >-
+    Mangyaring mag-click sa ibaba upang i-install / i-activate ang mga sumusunod
+    na kinakailangan upang magpatuloy.
+  ba-imagecapture.software-waiting: >-
+    Naghihintay para sa mga kinakailangan na mai-install / activate. Maaaring
+    kailanganin mong i-refresh ang pahina pagkatapos makumpleto.
+  ba-imagecapture.access-forbidden: Ipinagbabawal ang pag-access sa media. I-click upang muling subukan.
+  ba-imagecapture.uploading: Pag-upload
+  ba-imagecapture.uploading-failed: Nabigo ang pag-upload - mag-click dito upang subukang muli.
+  ba-imagecapture.upload-error-duration: >-
+    Ang haba ng na-upload na imahe ay hindi nakakatugon sa mga kinakailangan -
+    mag-click dito upang subukang muli.
+  ba-imagecapture.resolution-constraint-error: >-
+    Ang file na napili mo ay hindi tumutugma sa kinakailangang resolution -
+    mag-click dito upang subukang muli.
+  ba-imagecapture.verifying: Pag-verify
+  ba-imagecapture.verifying-failed: Nabigo ang pag-verify - mag-click dito upang subukang muli.
+  ba-imagecapture.rerecord-confirm: Gusto mo ba talagang muling kunin ang iyong larawan?
+  ba-imagecapture.image_file_too_large: >-
+    Masyadong malaki ang file ng iyong larawan ( %s) - mag-click dito upang
+    subukang muli gamit ang isang mas maliit na file ng imahe.
+  ba-imagecapture.unsupported_image_type: 'Mangyaring mag-upload: %s - mag-click dito upang subukang muli.'
+  ba-imagecapture.orientation-portrait-required: Mangyaring i-rotate ang iyong aparato upang i-record sa portrait mode.
+  ba-imagecapture.orientation-landscape-required: Mangyaring i-rotate ang iyong aparato upang i-record sa landscape mode.
+  ba-audiorecorder.recorder-error: >-
+    May naganap na error. Mangyaring subukan muli sa ibang pagkakataon. I-click
+    upang muling subukan.
+  ba-audiorecorder.attach-error: >-
+    Hindi namin ma-access ang media interface. Depende sa device at browser,
+    maaaring kailangan mong i-install ang Flash o i-access ang pahina sa
+    pamamagitan ng SSL.
+  ba-audiorecorder.software-required: >-
+    Mangyaring mag-click sa ibaba upang i-install / i-activate ang mga sumusunod
+    na kinakailangan upang magpatuloy.
+  ba-audiorecorder.software-waiting: >-
+    Naghihintay para sa mga kinakailangan na mai-install / activate. Maaaring
+    kailanganin mong i-refresh ang pahina pagkatapos makumpleto.
+  ba-audiorecorder.access-forbidden: Ipinagbabawal ang pag-access sa media. I-click upang muling subukan.
+  ba-audiorecorder.uploading: Pag-upload
+  ba-audiorecorder.uploading-failed: Nabigo ang pag-upload - mag-click dito upang subukang muli.
+  ba-audiorecorder.upload-error-duration: >-
+    Ang haba ng na-upload na audio ay hindi nakakatugon sa mga kinakailangan -
+    mag-click dito upang subukang muli.
+  ba-audiorecorder.verifying: Pag-verify
+  ba-audiorecorder.verifying-failed: Nabigo ang pag-verify - mag-click dito upang subukang muli.
+  ba-audiorecorder.rerecord-confirm: Gusto mo bang gawing muli ang iyong audio?
+  ba-audiorecorder.cancel-confirm: Nais mo bang kanselahin ang iyong pag-upload ng audio?
+  ba-audiorecorder.audio_file_too_large: >-
+    Ang iyong audio file ay masyadong malaki ( %s) - mag-click dito upang
+    subukang muli gamit ang isang mas maliit na audio file.
+  ba-audiorecorder.unsupported_audio_type: 'Mangyaring mag-upload: %s - mag-click dito upang subukang muli.'

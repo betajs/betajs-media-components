@@ -135,3 +135,69 @@
   ba-audiorecorder-controlbar.stop-available-after: A minimális felvételi idő %d másodperc
   ba-audiorecorder-controlbar.cancel: Megszünteti
   ba-audiorecorder-controlbar.cancel-tooltip: Kattintson ide a lemondáshoz.
+  ba-videoplayer-controlbar.player-speed: Játékos sebessége
+  ba-videoplayer-controlbar.settings: Beállítások
+  ba-videoplayer-controlbar.airplay: Airplay
+  ba-videoplayer-controlbar.airplay-icon: Airplay ikonra.
+  ba-videoplayer.all-settings: Minden beállítás
+  ba-videoplayer.player-speed: Játékos sebessége
+  ba-videoplayer.full-screen: Teljes képernyő
+  ba-videorecorder-controlbar.add-stream: Adja hozzá az adatfolyamot
+  ba-videorecorder.switch-camera: Kapcsolja be a kamerát
+  ba-videorecorder.prepare-covershot: Coverhots készítése
+  ba-videorecorder.prepare-thumbnails: A miniatűrök keresésének előkészítése
+  ba-videorecorder.adding-new-stream: Új adatfolyam hozzáadása
+  ba-imagecapture.recorder-error: Hiba történt. Próbálja újra később. Kattintson az újrapróbálkozásra.
+  ba-imagecapture.attach-error: >-
+    Nem tudtuk elérni a média interfészt. Az eszköztől és a böngészőtől függően
+    előfordulhat, hogy telepítenie kell a Flash-et vagy az SSL-en keresztül az
+    oldalt.
+  ba-imagecapture.software-required: >-
+    Az alábbi követelmények telepítéséhez / aktiválásához kattintson az alábbi
+    gombra.
+  ba-imagecapture.software-waiting: >-
+    Várakozás a követelmények telepítésére / aktiválására. Lehet, hogy a
+    befejezés után frissítenie kell az oldalt.
+  ba-imagecapture.access-forbidden: Tilos a médiához való hozzáférés. Kattintson az újrapróbálkozásra.
+  ba-imagecapture.uploading: Feltöltés
+  ba-imagecapture.uploading-failed: 'A feltöltés sikertelen - kattintson ide, hogy újra próbálkozzon.'
+  ba-imagecapture.upload-error-duration: >-
+    A feltöltött kép hossza nem felel meg a követelményeknek - kattintson ide az
+    újrapróbálkozáshoz.
+  ba-imagecapture.resolution-constraint-error: >-
+    A kiválasztott fájl nem egyezik meg a szükséges felbontással - kattintson
+    ide, hogy újra próbálkozzon.
+  ba-imagecapture.verifying: ellenőrzése
+  ba-imagecapture.verifying-failed: 'Sikertelen ellenőrzés - kattintson ide, hogy újra próbálkozzon.'
+  ba-imagecapture.rerecord-confirm: Tényleg meg akarja ismételni a képet?
+  ba-imagecapture.image_file_too_large: >-
+    A képfájl túl nagy ( %s) - kattintson ide, ha megpróbál egy kisebb képfájl
+    használatával.
+  ba-imagecapture.unsupported_image_type: 'Kérjük, töltse fel: %s - kattintson ide, hogy újra próbálkozzon.'
+  ba-imagecapture.orientation-portrait-required: 'Kérjük, forgassa el a készüléket, hogy portré módban rögzítse.'
+  ba-imagecapture.orientation-landscape-required: 'Kérjük, forgassa el a készüléket, hogy tájolást készítsen.'
+  ba-audiorecorder.recorder-error: Hiba történt. Próbálja újra később. Kattintson az újrapróbálkozásra.
+  ba-audiorecorder.attach-error: >-
+    Nem tudtuk elérni a média interfészt. Az eszköztől és a böngészőtől függően
+    előfordulhat, hogy telepítenie kell a Flash-et vagy az SSL-en keresztül az
+    oldalt.
+  ba-audiorecorder.software-required: >-
+    Az alábbi követelmények telepítéséhez / aktiválásához kattintson az alábbi
+    gombra.
+  ba-audiorecorder.software-waiting: >-
+    Várakozás a követelmények telepítésére / aktiválására. Lehet, hogy a
+    befejezés után frissítenie kell az oldalt.
+  ba-audiorecorder.access-forbidden: Tilos a médiához való hozzáférés. Kattintson az újrapróbálkozásra.
+  ba-audiorecorder.uploading: Feltöltés
+  ba-audiorecorder.uploading-failed: 'A feltöltés sikertelen - kattintson ide, hogy újra próbálkozzon.'
+  ba-audiorecorder.upload-error-duration: >-
+    A feltöltött hang hossza nem felel meg a követelményeknek - kattintson ide
+    az újrapróbálkozáshoz.
+  ba-audiorecorder.verifying: ellenőrzése
+  ba-audiorecorder.verifying-failed: 'Sikertelen ellenőrzés - kattintson ide, hogy újra próbálkozzon.'
+  ba-audiorecorder.rerecord-confirm: Tényleg meg szeretné újítani a hangját?
+  ba-audiorecorder.cancel-confirm: Tényleg törölni szeretné a hangfelvételét?
+  ba-audiorecorder.audio_file_too_large: >-
+    A hangfájl túl nagy ( %s) - kattints ide, ha megpróbálsz újra egy kisebb
+    hangfájl segítségével.
+  ba-audiorecorder.unsupported_audio_type: 'Kérjük, töltse fel: %s - kattintson ide, hogy újra próbálkozzon.'

@@ -132,3 +132,69 @@
   ba-audiorecorder-controlbar.stop-available-after: Waktu perekaman minimum adalah %d detik
   ba-audiorecorder-controlbar.cancel: Membatalkan
   ba-audiorecorder-controlbar.cancel-tooltip: Klik di sini untuk membatalkan.
+  ba-videoplayer-controlbar.player-speed: Kecepatan pemain
+  ba-videoplayer-controlbar.settings: Pengaturan
+  ba-videoplayer-controlbar.airplay: Diputar
+  ba-videoplayer-controlbar.airplay-icon: Ikon Airplay.
+  ba-videoplayer.all-settings: Semua pengaturan
+  ba-videoplayer.player-speed: Kecepatan pemain
+  ba-videoplayer.full-screen: Layar penuh
+  ba-videorecorder-controlbar.add-stream: Tambahkan Stream
+  ba-videorecorder.switch-camera: Ganti kamera
+  ba-videorecorder.prepare-covershot: Mempersiapkan tangkapan layar
+  ba-videorecorder.prepare-thumbnails: Mempersiapkan thumbnail pencarian
+  ba-videorecorder.adding-new-stream: Menambahkan Stream Baru
+  ba-imagecapture.recorder-error: 'Terjadi kesalahan, coba lagi nanti. Klik untuk mencoba lagi.'
+  ba-imagecapture.attach-error: >-
+    Kami tidak dapat mengakses antarmuka media. Bergantung pada perangkat dan
+    browser, Anda mungkin perlu menginstal Flash atau mengakses halaman melalui
+    SSL.
+  ba-imagecapture.software-required: >-
+    Silakan klik di bawah ini untuk menginstal / mengaktifkan persyaratan
+    berikut untuk melanjutkan.
+  ba-imagecapture.software-waiting: >-
+    Menunggu persyaratan untuk diinstal / diaktifkan. Anda mungkin perlu
+    menyegarkan halaman setelah selesai.
+  ba-imagecapture.access-forbidden: Akses ke media dilarang. Klik untuk mencoba lagi.
+  ba-imagecapture.uploading: Mengunggah
+  ba-imagecapture.uploading-failed: Gagal mengunggah - klik di sini untuk mencoba lagi.
+  ba-imagecapture.upload-error-duration: >-
+    Panjang gambar yang diunggah tidak memenuhi persyaratan - klik di sini untuk
+    mencoba lagi.
+  ba-imagecapture.resolution-constraint-error: >-
+    File yang Anda pilih tidak cocok dengan resolusi yang diperlukan - klik di
+    sini untuk mencoba lagi.
+  ba-imagecapture.verifying: Memverifikasi
+  ba-imagecapture.verifying-failed: Verifikasi gagal - klik di sini untuk mencoba lagi.
+  ba-imagecapture.rerecord-confirm: Apakah Anda benar-benar ingin mengambil kembali gambar Anda?
+  ba-imagecapture.image_file_too_large: >-
+    File gambar Anda terlalu besar ( %s) - klik di sini untuk mencoba lagi
+    dengan file gambar yang lebih kecil.
+  ba-imagecapture.unsupported_image_type: 'Harap unggah: %s - klik di sini untuk mencoba lagi.'
+  ba-imagecapture.orientation-portrait-required: Harap putar perangkat Anda untuk merekam dalam mode potret.
+  ba-imagecapture.orientation-landscape-required: Harap putar perangkat Anda untuk merekam dalam mode lansekap.
+  ba-audiorecorder.recorder-error: 'Terjadi kesalahan, coba lagi nanti. Klik untuk mencoba lagi.'
+  ba-audiorecorder.attach-error: >-
+    Kami tidak dapat mengakses antarmuka media. Bergantung pada perangkat dan
+    browser, Anda mungkin perlu menginstal Flash atau mengakses halaman melalui
+    SSL.
+  ba-audiorecorder.software-required: >-
+    Silakan klik di bawah ini untuk menginstal / mengaktifkan persyaratan
+    berikut untuk melanjutkan.
+  ba-audiorecorder.software-waiting: >-
+    Menunggu persyaratan untuk diinstal / diaktifkan. Anda mungkin perlu
+    menyegarkan halaman setelah selesai.
+  ba-audiorecorder.access-forbidden: Akses ke media dilarang. Klik untuk mencoba lagi.
+  ba-audiorecorder.uploading: Mengunggah
+  ba-audiorecorder.uploading-failed: Gagal mengunggah - klik di sini untuk mencoba lagi.
+  ba-audiorecorder.upload-error-duration: >-
+    Panjang audio yang diunggah tidak memenuhi persyaratan - klik di sini untuk
+    mencoba lagi.
+  ba-audiorecorder.verifying: Memverifikasi
+  ba-audiorecorder.verifying-failed: Verifikasi gagal - klik di sini untuk mencoba lagi.
+  ba-audiorecorder.rerecord-confirm: Apakah Anda benar-benar ingin mengulang audio Anda?
+  ba-audiorecorder.cancel-confirm: Apakah Anda benar-benar ingin membatalkan upload audio Anda?
+  ba-audiorecorder.audio_file_too_large: >-
+    File audio Anda terlalu besar ( %s) - klik di sini untuk mencoba lagi dengan
+    file audio yang lebih kecil.
+  ba-audiorecorder.unsupported_audio_type: 'Harap unggah: %s - klik di sini untuk mencoba lagi.'

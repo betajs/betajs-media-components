@@ -252,7 +252,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "display-timer": "boolean",
                     "audio-test-mandatory": "boolean",
                     "allowtexttrackupload": "boolean",
-                    "uploadlocales": "array"
+					"uploadlocales": "array",
+					"allowmultistreams": "boolean"
                 },
 
                 extendables: ["states"],

@@ -683,6 +683,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 },
 
+                toggleFullscreen: function() {
+                    this.call("toggle_fullscreen");
+                },
+
                 /* In the future if require to use promise player, Supports >Chrome50, >FireFox53
                 _playWithPromise: function(dyn) {
                     var _player, _promise, _autoplayAllowed;

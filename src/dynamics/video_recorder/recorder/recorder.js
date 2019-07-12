@@ -132,6 +132,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "filesizelimit": null,
                     "faceoutline": false,
                     "display-timer": true,
+                    "pausable": true,
 
                     /* Configuration */
                     "forceflash": false,
@@ -246,7 +247,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "display-timer": "boolean",
                     "audio-test-mandatory": "boolean",
                     "allowtexttrackupload": "boolean",
-                    "uploadlocales": "array"
+                    "uploadlocales": "array",
+                    "pauseable": "boolean"
                 },
 
                 extendables: ["states"],
@@ -285,6 +287,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     }
                     if (!this.get("themecolor"))
                         this.set("themecolor", "default");
+
+                    if (this.get("pausable"))
+                        this.set("resumevisible", false);
 
                     this.set("ie8", Info.isInternetExplorer() && Info.internetExplorerVersion() < 9);
                     this.set("hideoverlay", false);
@@ -672,6 +677,27 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         this.host.state().selectRecordScreen();
                     },
 
+                    pause_recorder: function() {
+                        if (this._delegatedRecorder) {
+                            this._delegatedRecorder.execute("pause_recorder");
+                            return;
+                        }
+                        this.__paused = true;
+                        this.__recording = false;
+                        this.recorder.pauseRecord();
+                        this.recorder._recorder.once("paused", function(ev) {
+                            this.set("resumevisible", true);
+                        }, this);
+                    },
+
+                    resume: function() {
+                        if (this._delegatedRecorder) {
+                            this._delegatedRecorder.execute("resume");
+                            return;
+                        }
+                        this._resume();
+                    },
+
                     video_file_selected: function(file) {
                         this.__selected_video_file = file;
                         if (!this.get("manual-upload"))
@@ -737,6 +763,12 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                             this._delegatedRecorder.execute("stop");
                             return;
                         }
+
+                        // If recorder is paused need resume first,
+                        // setting this._recording to true also could be enough
+                        if (this.__paused)
+                            this._resume();
+
                         this.host.state().stop();
                     },
 
@@ -804,7 +836,15 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     ready_to_play: function() {
                         this.trigger("ready_to_play");
                     }
+                },
 
+                _resume: function() {
+                    this.__paused = false;
+                    this.__recording = true;
+                    this.recorder.resumeRecord();
+                    this.recorder._recorder.once("resumed", function() {
+                        this.set("resumevisible", false);
+                    }, this);
                 },
 
                 destroy: function() {

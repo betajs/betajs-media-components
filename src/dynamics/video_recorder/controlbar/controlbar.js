@@ -60,6 +60,12 @@ Scoped.define("module:VideoRecorder.Dynamics.Controlbar", [
                     stop: function() {
                         this.trigger("invoke-stop");
                     },
+                    pause: function() {
+                        this.trigger("invoke-pause");
+                    },
+                    resume: function() {
+                        this.trigger("invoke-resume");
+                    },
                     skip: function() {
                         this.trigger("invoke-skip");
                     },
@@ -96,6 +102,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Controlbar", [
             "skip-tooltip": "Click here to skip.",
             "stop-available-after": "Minimum recording time is %d seconds",
             "cancel": "Cancel",
-            "cancel-tooltip": "Click here to cancel."
+            "cancel-tooltip": "Click here to cancel.",
+            "pause-recorder": "Pause Recorder",
+            "resume-recorder": "Resume Recorder"
         });
 });

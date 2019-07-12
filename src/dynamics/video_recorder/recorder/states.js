@@ -656,6 +656,9 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraHasAccess", [
             this._preparePromise = null;
             if (this.dyn.get("countdown") > 0 && this.dyn.recorder && this.dyn.recorder.recordDelay(this.dyn.get("uploadoptions")) > this.dyn.get("countdown") * 1000)
                 this._preparePromise = this.dyn._prepareRecording();
+            //  For now available for WebRTC only
+            if (this.dyn.get("pausable") && this.dyn.recorder.isFlash())
+                this.dyn.set("pausable", false);
             this.dyn.set("hovermessage", "");
             this.dyn.set("topmessage", "");
             this.dyn.set("settingsvisible", true);
@@ -805,6 +808,10 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
             var display = Math.max(0, limit ? (this._startTime + limit * 1000 - current) : (current - this._startTime));
             this.dyn.trigger("recording_progress", current - this._startTime);
             this.dyn.set("controlbarlabel", this.dyn.get("display-timer") ? TimeFormat.format(TimeFormat.ELAPSED_MINUTES_SECONDS, display) : "");
+
+            // If recorder paused will slips starting second
+            if (this.dyn.__paused)
+                this._startTime += 10;
 
             if (this.dyn.get("timeminlimit"))
                 this.dyn.set("mintimeindicator", (Time.now() - this._startTime) / 1000 <= this.dyn.get("timeminlimit"));

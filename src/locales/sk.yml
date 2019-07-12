@@ -130,3 +130,69 @@
   ba-audiorecorder-controlbar.stop-available-after: Minimálny čas nahrávania je %d sekundy
   ba-audiorecorder-controlbar.cancel: Zrušiť
   ba-audiorecorder-controlbar.cancel-tooltip: Kliknutím tu zrušíte.
+  ba-videoplayer-controlbar.player-speed: Rýchlosť prehrávača
+  ba-videoplayer-controlbar.settings: nastavenie
+  ba-videoplayer-controlbar.airplay: Airplay
+  ba-videoplayer-controlbar.airplay-icon: Ikona Airplay.
+  ba-videoplayer.all-settings: Všetky nastavenia
+  ba-videoplayer.player-speed: Rýchlosť prehrávača
+  ba-videoplayer.full-screen: Celá obrazovka
+  ba-videorecorder-controlbar.add-stream: Pridať Stream
+  ba-videorecorder.switch-camera: Prepnite fotoaparát
+  ba-videorecorder.prepare-covershot: Príprava pokrýva
+  ba-videorecorder.prepare-thumbnails: Príprava vyhľadávania miniatúr
+  ba-videorecorder.adding-new-stream: Pridanie nového toku
+  ba-imagecapture.recorder-error: >-
+    Vyskytla sa chyba. Skúste to znovu neskôr prosím. Kliknite, ak chcete
+    opakovať pokus.
+  ba-imagecapture.attach-error: >-
+    Nemôžeme získať prístup k rozhraniu médií. V závislosti od zariadenia a
+    prehliadača možno budete musieť nainštalovať Flash alebo pristupovať na
+    stránku cez SSL.
+  ba-imagecapture.software-required: >-
+    Ak chcete pokračovať, kliknite nižšie a nainštalujte / aktivujte nasledujúce
+    požiadavky.
+  ba-imagecapture.software-waiting: >-
+    Čakanie na inštaláciu / aktiváciu požiadaviek. Po dokončení môžete
+    potrebovať obnoviť stránku.
+  ba-imagecapture.access-forbidden: 'Prístup k médiám bol zakázaný. Kliknite, ak chcete opakovať pokus.'
+  ba-imagecapture.uploading: nahrávanie
+  ba-imagecapture.uploading-failed: Nahrávanie zlyhalo - kliknutím sem zopakujte pokus.
+  ba-imagecapture.upload-error-duration: Dĺžka nahraného obrázka nespĺňa požiadavky - kliknite sem a skúste to znova.
+  ba-imagecapture.resolution-constraint-error: >-
+    Vybraný súbor nezodpovedá požadovanému rozlíšeniu - kliknutím sem zopakujte
+    pokus.
+  ba-imagecapture.verifying: overenie
+  ba-imagecapture.verifying-failed: Overenie zlyhalo - kliknutím sem zopakujte pokus.
+  ba-imagecapture.rerecord-confirm: Naozaj chcete znova nasnímať svoj obrázok?
+  ba-imagecapture.image_file_too_large: >-
+    Váš obrazový súbor je príliš veľký ( %s) - kliknutím sem skúste znova s
+    menším obrázkovým súborom.
+  ba-imagecapture.unsupported_image_type: 'Nahrajte: %s - kliknite sem a skúste to znova.'
+  ba-imagecapture.orientation-portrait-required: 'Ak chcete nahrávať v režime na výšku, otočte zariadenie.'
+  ba-imagecapture.orientation-landscape-required: 'Ak chcete nahrávať v režime na šírku, otočte zariadenie.'
+  ba-audiorecorder.recorder-error: >-
+    Vyskytla sa chyba. Skúste to znovu neskôr prosím. Kliknite, ak chcete
+    opakovať pokus.
+  ba-audiorecorder.attach-error: >-
+    Nemôžeme získať prístup k rozhraniu médií. V závislosti od zariadenia a
+    prehliadača možno budete musieť nainštalovať Flash alebo pristupovať na
+    stránku cez SSL.
+  ba-audiorecorder.software-required: >-
+    Ak chcete pokračovať, kliknite nižšie a nainštalujte / aktivujte nasledujúce
+    požiadavky.
+  ba-audiorecorder.software-waiting: >-
+    Čakanie na inštaláciu / aktiváciu požiadaviek. Po dokončení môžete
+    potrebovať obnoviť stránku.
+  ba-audiorecorder.access-forbidden: 'Prístup k médiám bol zakázaný. Kliknite, ak chcete opakovať pokus.'
+  ba-audiorecorder.uploading: nahrávanie
+  ba-audiorecorder.uploading-failed: Nahrávanie zlyhalo - kliknutím sem zopakujte pokus.
+  ba-audiorecorder.upload-error-duration: Dĺžka nahraného zvuku nespĺňa požiadavky - kliknite sem a skúste to znova.
+  ba-audiorecorder.verifying: overenie
+  ba-audiorecorder.verifying-failed: 'Overenie zlyhalo - ak chcete pokus zopakovať, kliknite sem.'
+  ba-audiorecorder.rerecord-confirm: Naozaj chcete prepracovať zvuk?
+  ba-audiorecorder.cancel-confirm: Naozaj chcete zrušiť nahrávanie zvuku?
+  ba-audiorecorder.audio_file_too_large: >-
+    Váš zvukový súbor je príliš veľký ( %s) - kliknite sem a skúste znova s
+    menším zvukovým súborom.
+  ba-audiorecorder.unsupported_audio_type: 'Nahrajte: %s - kliknite sem a skúste to znova.'

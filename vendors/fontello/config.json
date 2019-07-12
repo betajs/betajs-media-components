@@ -251,6 +251,12 @@
       "css": "arrows-cw",
       "code": 59416,
       "src": "elusive"
+    },
+    {
+      "uid": "dbd39eb5a1d67beb54cfcb535e840e0f",
+      "css": "plus",
+      "code": 59417,
+      "src": "iconic"
     }
   ]
 }

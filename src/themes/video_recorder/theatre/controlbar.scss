@@ -80,13 +80,15 @@
     overflow: scroll;
     margin: 5px;
     padding: 0;
-    label {
+    label, .#{$cssvideorecorder}-add-stream {
       font-family: $font_family;
       font-weight: 300;
-      font-size: $settings_font_size ;
+      font-size: $settings_font_size;
+      color: $text_color_secondary;
     }
     hr {
-      border-color: $settings_radio_color;
+      background-color: $settings_radio_color;
+      height: 2px;
     }
     input[type=radio]:checked + span {
       border: 3px solid $settings_radio_color;

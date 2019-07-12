@@ -139,3 +139,71 @@
   ba-audiorecorder-controlbar.stop-available-after: Minimalno vrijeme snimanja je %d sekundi
   ba-audiorecorder-controlbar.cancel: Otkazati
   ba-audiorecorder-controlbar.cancel-tooltip: Kliknite ovdje kako biste odustali.
+  ba-videoplayer-controlbar.player-speed: Brzina igrača
+  ba-videoplayer-controlbar.settings: postavke
+  ba-videoplayer-controlbar.airplay: Airplay
+  ba-videoplayer-controlbar.airplay-icon: Ikona Airplay.
+  ba-videoplayer.all-settings: Sve postavke
+  ba-videoplayer.player-speed: Brzina igrača
+  ba-videoplayer.full-screen: Puni zaslon
+  ba-videorecorder-controlbar.add-stream: Dodaj tok
+  ba-videorecorder.switch-camera: Promijenite kameru
+  ba-videorecorder.prepare-covershot: Priprema snimke
+  ba-videorecorder.prepare-thumbnails: Priprema za traženje sličica
+  ba-videorecorder.adding-new-stream: Dodavanje novog toka
+  ba-imagecapture.recorder-error: >-
+    Došlo je do pogreške. Molimo pokušajte ponovno kasnije. Kliknite za ponovni
+    pokušaj.
+  ba-imagecapture.attach-error: >-
+    Nismo mogli pristupiti sučelju medija. Ovisno o uređaju i pregledniku, možda
+    ćete morati instalirati Flash ili pristupiti stranici putem SSL-a.
+  ba-imagecapture.software-required: >-
+    Da biste nastavili, kliknite ispod kako biste instalirali / aktivirali
+    sljedeće zahtjeve.
+  ba-imagecapture.software-waiting: >-
+    Čeka se instaliranje / aktiviranje zahtjeva. Možda ćete morati osvježiti
+    stranicu nakon dovršetka.
+  ba-imagecapture.access-forbidden: Pristup medijima bio je zabranjen. Kliknite za ponovni pokušaj.
+  ba-imagecapture.uploading: Prijenos
+  ba-imagecapture.uploading-failed: Učitavanje nije uspjelo - kliknite ovdje za ponovni pokušaj.
+  ba-imagecapture.upload-error-duration: >-
+    Duljina prenesene slike ne ispunjava uvjete - kliknite ovdje za ponovni
+    pokušaj.
+  ba-imagecapture.resolution-constraint-error: >-
+    Odabrana datoteka ne odgovara traženoj razlučivosti - kliknite ovdje za
+    ponovni pokušaj.
+  ba-imagecapture.verifying: Provjera
+  ba-imagecapture.verifying-failed: Potvrđivanje nije uspjelo - kliknite ovdje za ponovni pokušaj.
+  ba-imagecapture.rerecord-confirm: Želite li doista ponovno uzeti sliku?
+  ba-imagecapture.image_file_too_large: >-
+    Vaša je slikovna datoteka prevelika ( %s) - kliknite ovdje da biste pokušali
+    ponovno s manjom slikovnom datotekom.
+  ba-imagecapture.unsupported_image_type: 'Prenesite: %s - kliknite ovdje za ponovni pokušaj.'
+  ba-imagecapture.orientation-portrait-required: Okrećite uređaj da biste snimali u portretnom načinu.
+  ba-imagecapture.orientation-landscape-required: Rotirajte uređaj da biste snimali u pejzažnom načinu.
+  ba-audiorecorder.recorder-error: >-
+    Došlo je do pogreške. Molimo pokušajte ponovno kasnije. Kliknite za ponovni
+    pokušaj.
+  ba-audiorecorder.attach-error: >-
+    Nismo mogli pristupiti sučelju medija. Ovisno o uređaju i pregledniku, možda
+    ćete morati instalirati Flash ili pristupiti stranici putem SSL-a.
+  ba-audiorecorder.software-required: >-
+    Da biste nastavili, kliknite ispod kako biste instalirali / aktivirali
+    sljedeće zahtjeve.
+  ba-audiorecorder.software-waiting: >-
+    Čeka se instaliranje / aktiviranje zahtjeva. Možda ćete morati osvježiti
+    stranicu nakon dovršetka.
+  ba-audiorecorder.access-forbidden: Pristup medijima bio je zabranjen. Kliknite za ponovni pokušaj.
+  ba-audiorecorder.uploading: Prijenos
+  ba-audiorecorder.uploading-failed: Učitavanje nije uspjelo - kliknite ovdje za ponovni pokušaj.
+  ba-audiorecorder.upload-error-duration: >-
+    Duljina prenesenog zvuka ne zadovoljava zahtjeve - kliknite ovdje za ponovni
+    pokušaj.
+  ba-audiorecorder.verifying: Provjera
+  ba-audiorecorder.verifying-failed: Potvrđivanje nije uspjelo - kliknite ovdje za ponovni pokušaj.
+  ba-audiorecorder.rerecord-confirm: Želite li zaista ponoviti zvuk?
+  ba-audiorecorder.cancel-confirm: Želite li zaista otkazati prijenos zvuka?
+  ba-audiorecorder.audio_file_too_large: >-
+    Vaša je audio datoteka prevelika ( %s) - kliknite ovdje da biste pokušali
+    ponovno s manjom audio datotekom.
+  ba-audiorecorder.unsupported_audio_type: 'Prenesite: %s - kliknite ovdje za ponovni pokušaj.'

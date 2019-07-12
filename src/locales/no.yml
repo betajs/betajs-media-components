@@ -132,3 +132,69 @@
   ba-audiorecorder-controlbar.stop-available-after: Minimum opptakstid er %d sekunder
   ba-audiorecorder-controlbar.cancel: Avbryt
   ba-audiorecorder-controlbar.cancel-tooltip: Klikk her for å avbryte.
+  ba-videoplayer-controlbar.player-speed: Spillerens hastighet
+  ba-videoplayer-controlbar.settings: innstillinger
+  ba-videoplayer-controlbar.airplay: airplay
+  ba-videoplayer-controlbar.airplay-icon: Airplay-ikon.
+  ba-videoplayer.all-settings: Alle innstillinger
+  ba-videoplayer.player-speed: Spillerens hastighet
+  ba-videoplayer.full-screen: Full skjerm
+  ba-videorecorder-controlbar.add-stream: Legg til strøm
+  ba-videorecorder.switch-camera: Bytt kamera
+  ba-videorecorder.prepare-covershot: Forbereder deksler
+  ba-videorecorder.prepare-thumbnails: Forbereder søker miniatyrbilder
+  ba-videorecorder.adding-new-stream: Legger til ny strøm
+  ba-imagecapture.recorder-error: En feil oppstod. Vennligst prøv igjen senere. Klikk for å prøve igjen.
+  ba-imagecapture.attach-error: >-
+    Vi kunne ikke få tilgang til mediegrensesnittet. Avhengig av enhet og
+    nettleser, må du kanskje installere Flash eller få tilgang til siden via
+    SSL.
+  ba-imagecapture.software-required: >-
+    Vennligst klikk nedenfor for å installere / aktivere følgende krav for å
+    fortsette.
+  ba-imagecapture.software-waiting: >-
+    Venter på kravene som skal installeres / aktiveres. Du må kanskje oppdatere
+    siden etter ferdigstillelse.
+  ba-imagecapture.access-forbidden: Tilgang til media var forbudt. Klikk for å prøve igjen.
+  ba-imagecapture.uploading: Laster opp
+  ba-imagecapture.uploading-failed: Opplasting mislyktes - klikk her for å prøve på nytt.
+  ba-imagecapture.upload-error-duration: >-
+    Lengden på det opplastede bildet oppfyller ikke kravene - klikk her for å
+    prøve igjen.
+  ba-imagecapture.resolution-constraint-error: >-
+    Filen du har valgt stemmer ikke overens med ønsket oppløsning - klikk her
+    for å prøve på nytt.
+  ba-imagecapture.verifying: Bekrefter
+  ba-imagecapture.verifying-failed: Bekreftelse mislyktes - klikk her for å prøve igjen.
+  ba-imagecapture.rerecord-confirm: Vil du virkelig gjenta bildet ditt?
+  ba-imagecapture.image_file_too_large: >-
+    Bildefilen din er for stor ( %s) - klikk her for å prøve igjen med en mindre
+    bildefil.
+  ba-imagecapture.unsupported_image_type: 'Vennligst last opp: %s - klikk her for å prøve på nytt.'
+  ba-imagecapture.orientation-portrait-required: Vennligst roter enheten din for å ta opp i stående modus.
+  ba-imagecapture.orientation-landscape-required: Vennligst roter enheten til å ta opp i liggende modus.
+  ba-audiorecorder.recorder-error: En feil oppstod. Vennligst prøv igjen senere. Klikk for å prøve igjen.
+  ba-audiorecorder.attach-error: >-
+    Vi kunne ikke få tilgang til mediegrensesnittet. Avhengig av enhet og
+    nettleser, må du kanskje installere Flash eller få tilgang til siden via
+    SSL.
+  ba-audiorecorder.software-required: >-
+    Vennligst klikk nedenfor for å installere / aktivere følgende krav for å
+    fortsette.
+  ba-audiorecorder.software-waiting: >-
+    Venter på kravene som skal installeres / aktiveres. Du må kanskje oppdatere
+    siden etter ferdigstillelse.
+  ba-audiorecorder.access-forbidden: Tilgang til media var forbudt. Klikk for å prøve igjen.
+  ba-audiorecorder.uploading: Laster opp
+  ba-audiorecorder.uploading-failed: Opplasting mislyktes - klikk her for å prøve på nytt.
+  ba-audiorecorder.upload-error-duration: >-
+    Lengden på den opplastede lyden oppfyller ikke kravene - klikk her for å
+    prøve på nytt.
+  ba-audiorecorder.verifying: Bekrefter
+  ba-audiorecorder.verifying-failed: Bekreftelse mislyktes - klikk her for å prøve igjen.
+  ba-audiorecorder.rerecord-confirm: Vil du virkelig gjenta lyden din?
+  ba-audiorecorder.cancel-confirm: Vil du virkelig slette lydopplasting?
+  ba-audiorecorder.audio_file_too_large: >-
+    Lydfilen din er for stor ( %s) - klikk her for å prøve igjen med en mindre
+    lydfil.
+  ba-audiorecorder.unsupported_audio_type: 'Vennligst last opp: %s - klikk her for å prøve på nytt.'

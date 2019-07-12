@@ -129,3 +129,67 @@
   ba-audiorecorder-controlbar.stop-available-after: Minimi tallennusaika on %d sekuntia
   ba-audiorecorder-controlbar.cancel: Peruuttaa
   ba-audiorecorder-controlbar.cancel-tooltip: Peruuta napsauttamalla tätä.
+  ba-videoplayer-controlbar.player-speed: Pelaajan nopeus
+  ba-videoplayer-controlbar.settings: asetukset
+  ba-videoplayer-controlbar.airplay: Airplay
+  ba-videoplayer-controlbar.airplay-icon: Airplay-kuvake.
+  ba-videoplayer.all-settings: Kaikki asetukset
+  ba-videoplayer.player-speed: Pelaajan nopeus
+  ba-videoplayer.full-screen: Koko näyttö
+  ba-videorecorder-controlbar.add-stream: Lisää Stream
+  ba-videorecorder.switch-camera: Vaihda kamera
+  ba-videorecorder.prepare-covershot: Coverhottien valmistelu
+  ba-videorecorder.prepare-thumbnails: Pienoiskuvien etsiminen
+  ba-videorecorder.adding-new-stream: Uuden virran lisääminen
+  ba-imagecapture.recorder-error: 'Tapahtui virhe, yritä myöhemmin uudelleen. Napsauta uudelleen yrittääksesi.'
+  ba-imagecapture.attach-error: >-
+    Emme voineet käyttää mediarajapintaa. Laitteesta ja selaimesta riippuen
+    sinun on ehkä asennettava Flash tai avattava sivu SSL: n kautta.
+  ba-imagecapture.software-required: >-
+    Klikkaa alla asentaaksesi / aktivoidaksesi seuraavat vaatimukset
+    jatkaaksesi.
+  ba-imagecapture.software-waiting: >-
+    Odotetaan, että vaatimukset asennetaan / aktivoidaan. Saatat joutua
+    päivittämään sivun valmistumisen jälkeen.
+  ba-imagecapture.access-forbidden: Pääsy tiedotusvälineisiin oli kielletty. Napsauta uudelleen yrittääksesi.
+  ba-imagecapture.uploading: lataaminen
+  ba-imagecapture.uploading-failed: Lataaminen epäonnistui - yritä uudelleen napsauttamalla tätä.
+  ba-imagecapture.upload-error-duration: >-
+    Lähetetyn kuvan pituus ei täytä vaatimuksia - yritä uudelleen napsauttamalla
+    tätä.
+  ba-imagecapture.resolution-constraint-error: >-
+    Valitsemasi tiedosto ei vastaa vaadittua tarkkuutta - yritä uudelleen
+    napsauttamalla tätä.
+  ba-imagecapture.verifying: Tarkistetaan
+  ba-imagecapture.verifying-failed: Vahvistaminen epäonnistui - yritä uudelleen napsauttamalla tätä.
+  ba-imagecapture.rerecord-confirm: Haluatko todella ottaa kuvan uudelleen?
+  ba-imagecapture.image_file_too_large: >-
+    Kuvatiedosto on liian suuri ( %s) - napsauta tätä, jos haluat kokeilla
+    uudelleen pienempää kuvatiedostoa.
+  ba-imagecapture.unsupported_image_type: 'Lähetä: %s - napsauta tätä, jos haluat yrittää uudelleen.'
+  ba-imagecapture.orientation-portrait-required: Käännä laitetta tallentaaksesi muotokuvaustilassa.
+  ba-imagecapture.orientation-landscape-required: Kierrä laitetta kuvaamaan vaakasuunnassa.
+  ba-audiorecorder.recorder-error: 'Tapahtui virhe, yritä myöhemmin uudelleen. Napsauta uudelleen yrittääksesi.'
+  ba-audiorecorder.attach-error: >-
+    Emme voineet käyttää mediarajapintaa. Laitteesta ja selaimesta riippuen
+    sinun on ehkä asennettava Flash tai avattava sivu SSL: n kautta.
+  ba-audiorecorder.software-required: >-
+    Klikkaa alla asentaaksesi / aktivoidaksesi seuraavat vaatimukset
+    jatkaaksesi.
+  ba-audiorecorder.software-waiting: >-
+    Odotetaan, että vaatimukset asennetaan / aktivoidaan. Saatat joutua
+    päivittämään sivun valmistumisen jälkeen.
+  ba-audiorecorder.access-forbidden: Pääsy tiedotusvälineisiin oli kielletty. Napsauta uudelleen yrittääksesi.
+  ba-audiorecorder.uploading: lataaminen
+  ba-audiorecorder.uploading-failed: Lataaminen epäonnistui - yritä uudelleen napsauttamalla tätä.
+  ba-audiorecorder.upload-error-duration: >-
+    Lähetetyn äänen pituus ei täytä vaatimuksia - yritä uudelleen napsauttamalla
+    tätä.
+  ba-audiorecorder.verifying: Tarkistetaan
+  ba-audiorecorder.verifying-failed: Vahvistaminen epäonnistui - yritä uudelleen napsauttamalla tätä.
+  ba-audiorecorder.rerecord-confirm: Haluatko todella toistaa äänesi uudelleen?
+  ba-audiorecorder.cancel-confirm: Haluatko todella peruuttaa äänilatauksen?
+  ba-audiorecorder.audio_file_too_large: >-
+    Äänitiedosto on liian suuri ( %s) - napsauta tätä, jos haluat kokeilla
+    uudelleen pienempää äänitiedostoa.
+  ba-audiorecorder.unsupported_audio_type: 'Lähetä: %s - napsauta tätä, jos haluat yrittää uudelleen.'

@@ -139,3 +139,71 @@
   ba-audiorecorder-controlbar.stop-available-after: Minsta inspelningstid är %d sekunder
   ba-audiorecorder-controlbar.cancel: Annullera
   ba-audiorecorder-controlbar.cancel-tooltip: Klicka här för att avbryta.
+  ba-videoplayer-controlbar.player-speed: Spelarens hastighet
+  ba-videoplayer-controlbar.settings: inställningar
+  ba-videoplayer-controlbar.airplay: Airplay
+  ba-videoplayer-controlbar.airplay-icon: Airplay-ikonen.
+  ba-videoplayer.all-settings: Alla inställningar
+  ba-videoplayer.player-speed: Spelarens hastighet
+  ba-videoplayer.full-screen: Fullskärm
+  ba-videorecorder-controlbar.add-stream: Lägg till ström
+  ba-videorecorder.switch-camera: Byt kamera
+  ba-videorecorder.prepare-covershot: Förbereder täckbilder
+  ba-videorecorder.prepare-thumbnails: Förbereder söker miniatyrbilder
+  ba-videorecorder.adding-new-stream: Lägger till ny ström
+  ba-imagecapture.recorder-error: >-
+    Ett fel har inträffat. Vänligen försök igen senare. Klicka för att försöka
+    igen.
+  ba-imagecapture.attach-error: >-
+    Vi kunde inte komma åt mediegränssnittet. Beroende på enhet och webbläsare
+    kan du behöva installera Flash eller komma åt sidan via SSL.
+  ba-imagecapture.software-required: >-
+    Vänligen klicka nedan för att installera / aktivera följande krav för att
+    fortsätta.
+  ba-imagecapture.software-waiting: >-
+    Väntar på att kraven ska installeras / aktiveras. Det kan hända att du
+    behöver uppdatera sidan efter slutförandet.
+  ba-imagecapture.access-forbidden: Tillgång till media var förbjuden. Klicka för att försöka igen.
+  ba-imagecapture.uploading: uppladdning
+  ba-imagecapture.uploading-failed: Uppladdning misslyckades - klicka här för att försöka igen.
+  ba-imagecapture.upload-error-duration: >-
+    Längd på den uppladdade bilden uppfyller inte kraven - klicka här för att
+    försöka igen.
+  ba-imagecapture.resolution-constraint-error: >-
+    Filen du har valt matchar inte den önskade upplösningen - klicka här för att
+    försöka igen.
+  ba-imagecapture.verifying: verifiera
+  ba-imagecapture.verifying-failed: Verifiering misslyckades - klicka här för att försöka igen.
+  ba-imagecapture.rerecord-confirm: Vill du verkligen ta om bilden?
+  ba-imagecapture.image_file_too_large: >-
+    Din bildfil är för stor ( %s) - klicka här för att försöka igen med en
+    mindre bildfil.
+  ba-imagecapture.unsupported_image_type: 'Vänligen ladda upp: %s - klicka här för att försöka igen.'
+  ba-imagecapture.orientation-portrait-required: Vänligen rotera enheten för att spela in i stående läge.
+  ba-imagecapture.orientation-landscape-required: Vänligen rotera enheten för att spela in i liggande läge.
+  ba-audiorecorder.recorder-error: >-
+    Ett fel har inträffat. Vänligen försök igen senare. Klicka för att försöka
+    igen.
+  ba-audiorecorder.attach-error: >-
+    Vi kunde inte komma åt mediegränssnittet. Beroende på enhet och webbläsare
+    kan du behöva installera Flash eller komma åt sidan via SSL.
+  ba-audiorecorder.software-required: >-
+    Vänligen klicka nedan för att installera / aktivera följande krav för att
+    fortsätta.
+  ba-audiorecorder.software-waiting: >-
+    Väntar på att kraven ska installeras / aktiveras. Det kan hända att du
+    behöver uppdatera sidan efter slutförandet.
+  ba-audiorecorder.access-forbidden: Tillgång till media var förbjuden. Klicka för att försöka igen.
+  ba-audiorecorder.uploading: uppladdning
+  ba-audiorecorder.uploading-failed: Uppladdning misslyckades - klicka här för att försöka igen.
+  ba-audiorecorder.upload-error-duration: >-
+    Längden på det uppladdade ljudet uppfyller inte kraven - klicka här för att
+    försöka igen.
+  ba-audiorecorder.verifying: verifiera
+  ba-audiorecorder.verifying-failed: Verifiering misslyckades - klicka här för att försöka igen.
+  ba-audiorecorder.rerecord-confirm: Vill du verkligen göra om ditt ljud?
+  ba-audiorecorder.cancel-confirm: Vill du verkligen avbryta din ljuduppladdning?
+  ba-audiorecorder.audio_file_too_large: >-
+    Din ljudfil är för stor ( %s) - klicka här för att försöka igen med en
+    mindre ljudfil.
+  ba-audiorecorder.unsupported_audio_type: 'Vänligen ladda upp: %s - klicka här för att försöka igen.'

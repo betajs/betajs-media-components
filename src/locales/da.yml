@@ -129,3 +129,63 @@
   ba-audiorecorder-controlbar.stop-available-after: Mindste optagetid er %d sekunder
   ba-audiorecorder-controlbar.cancel: Afbestille
   ba-audiorecorder-controlbar.cancel-tooltip: Klik her for at annullere.
+  ba-videoplayer-controlbar.player-speed: Spillerhastighed
+  ba-videoplayer-controlbar.settings: Indstillinger
+  ba-videoplayer-controlbar.airplay: airplay
+  ba-videoplayer-controlbar.airplay-icon: Airplay ikon.
+  ba-videoplayer.all-settings: Alle indstillinger
+  ba-videoplayer.player-speed: Spillerhastighed
+  ba-videoplayer.full-screen: Fuld skærm
+  ba-videorecorder-controlbar.add-stream: Tilføj Stream
+  ba-videorecorder.switch-camera: Skift kamera
+  ba-videorecorder.prepare-covershot: Forbereder coverhots
+  ba-videorecorder.prepare-thumbnails: Forbereder søger miniaturer
+  ba-videorecorder.adding-new-stream: Tilføjelse af ny strøm
+  ba-imagecapture.recorder-error: Der opstod en fejl. Prøv venligst igen senere. Klik for at prøve igen.
+  ba-imagecapture.attach-error: >-
+    Vi kunne ikke få adgang til medieinterfacet. Afhængigt af enhed og browser
+    skal du muligvis installere Flash eller få adgang til siden via SSL.
+  ba-imagecapture.software-required: Klik nedenfor for at installere / aktivere følgende krav for at fortsætte.
+  ba-imagecapture.software-waiting: >-
+    Venter på de krav, der skal installeres / aktiveres. Du skal måske opdatere
+    siden efter færdiggørelsen.
+  ba-imagecapture.access-forbidden: Adgang til medierne var forbudt. Klik for at prøve igen.
+  ba-imagecapture.uploading: Upload
+  ba-imagecapture.uploading-failed: Uploading mislykkedes - klik her for at prøve igen.
+  ba-imagecapture.upload-error-duration: >-
+    Længde på det uploadede billede opfylder ikke kravene - klik her for at
+    prøve igen.
+  ba-imagecapture.resolution-constraint-error: >-
+    Filen du har valgt stemmer ikke overens med den krævede opløsning - klik her
+    for at prøve igen.
+  ba-imagecapture.verifying: Bekræftelse
+  ba-imagecapture.verifying-failed: Bekræftelse mislykkedes - klik her for at prøve igen.
+  ba-imagecapture.rerecord-confirm: Vil du virkelig genoptage dit billede?
+  ba-imagecapture.image_file_too_large: >-
+    Din billedfil er for stor ( %s) - klik her for at prøve igen med en mindre
+    billedfil.
+  ba-imagecapture.unsupported_image_type: 'Upload venligst: %s - klik her for at prøve igen.'
+  ba-imagecapture.orientation-portrait-required: Venligst drej din enhed for at optage i stående tilstand.
+  ba-imagecapture.orientation-landscape-required: Venligst drej din enhed for at optage i liggende tilstand.
+  ba-audiorecorder.recorder-error: Der opstod en fejl. Prøv venligst igen senere. Klik for at prøve igen.
+  ba-audiorecorder.attach-error: >-
+    Vi kunne ikke få adgang til medieinterfacet. Afhængigt af enhed og browser
+    skal du muligvis installere Flash eller få adgang til siden via SSL.
+  ba-audiorecorder.software-required: Klik nedenfor for at installere / aktivere følgende krav for at fortsætte.
+  ba-audiorecorder.software-waiting: >-
+    Venter på de krav, der skal installeres / aktiveres. Du skal måske opdatere
+    siden efter færdiggørelsen.
+  ba-audiorecorder.access-forbidden: Adgang til medierne var forbudt. Klik for at prøve igen.
+  ba-audiorecorder.uploading: Upload
+  ba-audiorecorder.uploading-failed: Uploading mislykkedes - klik her for at prøve igen.
+  ba-audiorecorder.upload-error-duration: >-
+    Længden på den uploadede lyd opfylder ikke kravene - klik her for at prøve
+    igen.
+  ba-audiorecorder.verifying: Bekræftelse
+  ba-audiorecorder.verifying-failed: Bekræftelse mislykkedes - klik her for at prøve igen.
+  ba-audiorecorder.rerecord-confirm: Vil du virkelig lave din lyd igen?
+  ba-audiorecorder.cancel-confirm: Vil du virkelig annullere din lydopload?
+  ba-audiorecorder.audio_file_too_large: >-
+    Din lydfil er for stor ( %s) - klik her for at prøve igen med en mindre
+    lydfil.
+  ba-audiorecorder.unsupported_audio_type: 'Upload venligst: %s - klik her for at prøve igen.'

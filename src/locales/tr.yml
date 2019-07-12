@@ -131,3 +131,67 @@
   ba-audiorecorder-controlbar.stop-available-after: Minimum kayıt süresi %d saniyedir
   ba-audiorecorder-controlbar.cancel: İptal etmek
   ba-audiorecorder-controlbar.cancel-tooltip: İptal etmek için buraya tıklayın.
+  ba-videoplayer-controlbar.player-speed: Oyuncu hızı
+  ba-videoplayer-controlbar.settings: Ayarlar
+  ba-videoplayer-controlbar.airplay: Airplay
+  ba-videoplayer-controlbar.airplay-icon: Airplay simgesi.
+  ba-videoplayer.all-settings: Tüm ayarlar
+  ba-videoplayer.player-speed: Oyuncu hızı
+  ba-videoplayer.full-screen: Tam ekran
+  ba-videorecorder-controlbar.add-stream: Akış ekle
+  ba-videorecorder.switch-camera: Kamera değiştir
+  ba-videorecorder.prepare-covershot: Kapak hazırlığı
+  ba-videorecorder.prepare-thumbnails: Küçük resim aramaya hazırlanıyor
+  ba-videorecorder.adding-new-stream: Yeni Akış Ekleme
+  ba-imagecapture.recorder-error: 'Bir hata oluştu, daha sonra tekrar deneyin. Yeniden denemek için tıklayın.'
+  ba-imagecapture.attach-error: >-
+    Medya arayüzüne erişemedik. Aygıta ve tarayıcıya bağlı olarak, Flash
+    yüklemeniz veya sayfaya SSL ile erişmeniz gerekebilir.
+  ba-imagecapture.software-required: >-
+    Devam etmek için aşağıdaki gereksinimleri kurmak / etkinleştirmek için
+    lütfen aşağıya tıklayın.
+  ba-imagecapture.software-waiting: >-
+    Yüklenmesi / etkinleştirilmesi için gerekenler bekleniyor. Tamamlandıktan
+    sonra sayfayı yenilemeniz gerekebilir.
+  ba-imagecapture.access-forbidden: Medyaya erişim yasaklandı. Yeniden denemek için tıklayın.
+  ba-imagecapture.uploading: Yükleme
+  ba-imagecapture.uploading-failed: Yükleme başarısız - tekrar denemek için burayı tıklayın.
+  ba-imagecapture.upload-error-duration: >-
+    Yüklenen resmin uzunluğu gereksinimleri karşılamıyor - yeniden denemek için
+    burayı tıklayın.
+  ba-imagecapture.resolution-constraint-error: >-
+    Seçtiğiniz dosya gerekli çözünürlük ile eşleşmiyor - tekrar denemek için
+    burayı tıklayın.
+  ba-imagecapture.verifying: Doğrulama
+  ba-imagecapture.verifying-failed: Doğrulama başarısız oldu - yeniden denemek için burayı tıklayın.
+  ba-imagecapture.rerecord-confirm: Gerçekten imajını tekrar almak istiyor musun?
+  ba-imagecapture.image_file_too_large: >-
+    Resim dosyanız çok büyük ( %s) - daha küçük bir resim dosyasıyla tekrar
+    denemek için burayı tıklayın.
+  ba-imagecapture.unsupported_image_type: 'Lütfen yükleyin: %s - yeniden denemek için burayı tıklayın.'
+  ba-imagecapture.orientation-portrait-required: Portre modunda kayıt yapmak için lütfen cihazınızı döndürün.
+  ba-imagecapture.orientation-landscape-required: Manzara modunda kayıt yapmak için lütfen cihazınızı döndürün.
+  ba-audiorecorder.recorder-error: 'Bir hata oluştu, daha sonra tekrar deneyin. Yeniden denemek için tıklayın.'
+  ba-audiorecorder.attach-error: >-
+    Medya arayüzüne erişemedik. Aygıta ve tarayıcıya bağlı olarak, Flash
+    yüklemeniz veya sayfaya SSL ile erişmeniz gerekebilir.
+  ba-audiorecorder.software-required: >-
+    Devam etmek için aşağıdaki gereksinimleri kurmak / etkinleştirmek için
+    lütfen aşağıya tıklayın.
+  ba-audiorecorder.software-waiting: >-
+    Yüklenmesi / etkinleştirilmesi için gerekenler bekleniyor. Tamamlandıktan
+    sonra sayfayı yenilemeniz gerekebilir.
+  ba-audiorecorder.access-forbidden: Medyaya erişim yasaklandı. Yeniden denemek için tıklayın.
+  ba-audiorecorder.uploading: Yükleme
+  ba-audiorecorder.uploading-failed: Yükleme başarısız - tekrar denemek için burayı tıklayın.
+  ba-audiorecorder.upload-error-duration: >-
+    Yüklenen sesin uzunluğu gereksinimleri karşılamıyor - yeniden denemek için
+    burayı tıklayın.
+  ba-audiorecorder.verifying: Doğrulama
+  ba-audiorecorder.verifying-failed: Doğrulama başarısız oldu - yeniden denemek için burayı tıklayın.
+  ba-audiorecorder.rerecord-confirm: Gerçekten sesini yeniden yapmak istiyor musun?
+  ba-audiorecorder.cancel-confirm: Ses yüklemenizi gerçekten iptal etmek istiyor musunuz?
+  ba-audiorecorder.audio_file_too_large: >-
+    Ses dosyanız çok büyük ( %s) - daha küçük bir ses dosyasıyla tekrar denemek
+    için burayı tıklayın.
+  ba-audiorecorder.unsupported_audio_type: 'Lütfen yükleyin: %s - yeniden denemek için burayı tıklayın.'

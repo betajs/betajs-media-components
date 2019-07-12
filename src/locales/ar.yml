@@ -127,3 +127,57 @@
   ba-audiorecorder-controlbar.stop-available-after: الحد الأدنى لمدة التسجيل هو٪ d ثانية
   ba-audiorecorder-controlbar.cancel: إلغاء
   ba-audiorecorder-controlbar.cancel-tooltip: انقر هنا للإلغاء.
+  ba-videoplayer-controlbar.player-speed: سرعة اللاعب
+  ba-videoplayer-controlbar.settings: الإعدادات
+  ba-videoplayer-controlbar.airplay: البث
+  ba-videoplayer-controlbar.airplay-icon: أيقونة البث.
+  ba-videoplayer.all-settings: جميع الإعدادات
+  ba-videoplayer.player-speed: سرعة اللاعب
+  ba-videoplayer.full-screen: شاشة كاملة
+  ba-videorecorder-controlbar.add-stream: إضافة تيار
+  ba-videorecorder.switch-camera: تبديل الكاميرا
+  ba-videorecorder.prepare-covershot: إعداد covershots
+  ba-videorecorder.prepare-thumbnails: إعداد تسعى الصور المصغرة
+  ba-videorecorder.adding-new-stream: مضيفا تيار جديد
+  ba-imagecapture.recorder-error: لقد حدث خطأ، رجاء أعد المحاولة لاحقا. انقر لإعادة المحاولة.
+  ba-imagecapture.attach-error: >-
+    لم نتمكن من الوصول إلى واجهة الوسائط. اعتمادًا على الجهاز والمستعرض ، قد
+    تحتاج إلى تثبيت Flash أو الوصول إلى الصفحة عبر طبقة المقابس الآمنة.
+  ba-imagecapture.software-required: يرجى النقر أدناه لتثبيت / تفعيل المتطلبات التالية من أجل المتابعة.
+  ba-imagecapture.software-waiting: >-
+    في انتظار المتطلبات ليتم تثبيتها / تفعيلها. قد تحتاج إلى تحديث الصفحة بعد
+    الانتهاء.
+  ba-imagecapture.access-forbidden: تم منع الوصول إلى وسائل الإعلام. انقر لإعادة المحاولة.
+  ba-imagecapture.uploading: تحميل
+  ba-imagecapture.uploading-failed: فشل التحميل - انقر هنا لإعادة المحاولة.
+  ba-imagecapture.upload-error-duration: طول الصورة التي تم تحميلها لا يلبي المتطلبات - انقر هنا لإعادة المحاولة.
+  ba-imagecapture.resolution-constraint-error: الملف الذي حددته لا يتطابق مع الدقة المطلوبة - انقر هنا لإعادة المحاولة.
+  ba-imagecapture.verifying: التحقق
+  ba-imagecapture.verifying-failed: فشل التحقق - انقر هنا لإعادة المحاولة.
+  ba-imagecapture.rerecord-confirm: هل تريد حقًا استعادة صورتك؟
+  ba-imagecapture.image_file_too_large: >-
+    ملف الصورة الخاص بك كبير جدًا (٪ s) - انقر هنا لإعادة المحاولة باستخدام ملف
+    صورة أصغر.
+  ba-imagecapture.unsupported_image_type: 'الرجاء التحميل:٪ s - انقر هنا لإعادة المحاولة.'
+  ba-imagecapture.orientation-portrait-required: يرجى تدوير جهازك لتسجيل في وضع عمودي.
+  ba-imagecapture.orientation-landscape-required: يرجى تدوير جهازك للتسجيل في وضع أفقي.
+  ba-audiorecorder.recorder-error: لقد حدث خطأ، رجاء أعد المحاولة لاحقا. انقر لإعادة المحاولة.
+  ba-audiorecorder.attach-error: >-
+    لم نتمكن من الوصول إلى واجهة الوسائط. اعتمادًا على الجهاز والمستعرض ، قد
+    تحتاج إلى تثبيت Flash أو الوصول إلى الصفحة عبر طبقة المقابس الآمنة.
+  ba-audiorecorder.software-required: يرجى النقر أدناه لتثبيت / تفعيل المتطلبات التالية من أجل المتابعة.
+  ba-audiorecorder.software-waiting: >-
+    في انتظار المتطلبات ليتم تثبيتها / تفعيلها. قد تحتاج إلى تحديث الصفحة بعد
+    الانتهاء.
+  ba-audiorecorder.access-forbidden: تم منع الوصول إلى وسائل الإعلام. انقر لإعادة المحاولة.
+  ba-audiorecorder.uploading: تحميل
+  ba-audiorecorder.uploading-failed: فشل التحميل - انقر هنا لإعادة المحاولة.
+  ba-audiorecorder.upload-error-duration: طول الصوت الذي تم تحميله لا يلبي المتطلبات - انقر هنا لإعادة المحاولة.
+  ba-audiorecorder.verifying: التحقق
+  ba-audiorecorder.verifying-failed: فشل التحقق - انقر هنا لإعادة المحاولة.
+  ba-audiorecorder.rerecord-confirm: هل تريد حقًا إعادة صوتك؟
+  ba-audiorecorder.cancel-confirm: هل تريد حقًا إلغاء تحميل الصوت الخاص بك؟
+  ba-audiorecorder.audio_file_too_large: >-
+    ملف الصوت الخاص بك كبير جدًا (٪ s) - انقر هنا لإعادة المحاولة باستخدام ملف
+    صوتي أصغر.
+  ba-audiorecorder.unsupported_audio_type: 'الرجاء التحميل:٪ s - انقر هنا لإعادة المحاولة.'

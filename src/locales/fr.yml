@@ -15,7 +15,9 @@
   ba-videoplayer-controlbar.volume-button: Régler ou ajuster le volume
   ba-videoplayer-controlbar.volume-mute: Silencieux
   ba-videoplayer-controlbar.volume-unmute: Silencieux désactivé
-  ba-videoplayer.video-error: 'Une erreur s’est produite, réessayez ultérieurement – cliquez ici pour réessayer.'
+  ba-videoplayer.video-error: >-
+    Une erreur s’est produite, réessayez ultérieurement – cliquez ici pour
+    réessayer.
   ba-videorecorder-chooser.record-video: Enregistrer votre vidéo
   ba-videorecorder-chooser.upload-video: Téléchargez votre vidéo
   ba-videorecorder-controlbar.settings: Réglage ou mise à jour
@@ -33,7 +35,9 @@
   ba-videorecorder-controlbar.stop-tooltip: Cliquez ici pour arrêter.
   ba-videorecorder-controlbar.skip: Sauter
   ba-videorecorder-controlbar.skip-tooltip: Cliquez ici pour sauter.
-  ba-videorecorder.recorder-error: 'Une erreur s’est produite, réessayez ultérieurement – cliquez ici pour réessayer.'
+  ba-videorecorder.recorder-error: >-
+    Une erreur s’est produite, réessayez ultérieurement – cliquez ici pour
+    réessayer.
   ba-videorecorder.attach-error: >-
     Nous ne pouvons pas accéder à l’interface de l’appareil- cela dépend du
     système et de l’explorateur. Cela peut nécessiter d’installer flash ou une
@@ -48,7 +52,7 @@
   ba-videorecorder.video_file_too_large: >-
     La taille de votre fichier est trop grande (%s). Cliquez ici pour ajuster la
     taille.
-  ba-videorecorder.unsupported_video_type: 'S’il vous plaît téléchargez %s - cliquez ici pour réessayer.'
+  ba-videorecorder.unsupported_video_type: S’il vous plaît téléchargez %s - cliquez ici pour réessayer.
   ba-videoplayer-controlbar.exit-fullscreen-video: Quitter le mode plein écran
   ba-videoplayer-share.share: Partager la vidéo
   ba-videorecorder-chooser.record-screen: Écran d'enregistrement
@@ -137,4 +141,73 @@
   ba-audiorecorder-controlbar.stop-available-after: La durée d'enregistrement minimale est de %d secondes
   ba-audiorecorder-controlbar.cancel: Annuler
   ba-audiorecorder-controlbar.cancel-tooltip: Cliquez ici pour annuler.
-  
+  ba-videoplayer-controlbar.player-speed: Vitesse du joueur
+  ba-videoplayer-controlbar.settings: Réglages
+  ba-videoplayer-controlbar.airplay: Airplay
+  ba-videoplayer-controlbar.airplay-icon: Icône airplay.
+  ba-videoplayer.all-settings: Tous les réglages
+  ba-videoplayer.player-speed: Vitesse du joueur
+  ba-videoplayer.full-screen: Plein écran
+  ba-videorecorder-controlbar.add-stream: Ajouter un flux
+  ba-videorecorder.switch-camera: Changer de caméra
+  ba-videorecorder.prepare-covershot: Préparation des reprises
+  ba-videorecorder.prepare-thumbnails: Préparer la recherche de vignettes
+  ba-videorecorder.adding-new-stream: Ajout d'un nouveau flux
+  ba-imagecapture.recorder-error: >-
+    Une erreur est survenue, veuillez réessayer plus tard. Cliquez pour
+    réessayer.
+  ba-imagecapture.attach-error: >-
+    Nous n'avons pas pu accéder à l'interface multimédia. Selon le périphérique
+    et le navigateur, vous devrez peut-être installer Flash ou accéder à la page
+    via SSL.
+  ba-imagecapture.software-required: >-
+    Veuillez cliquer ci-dessous pour installer / activer les conditions
+    suivantes afin de continuer.
+  ba-imagecapture.software-waiting: >-
+    En attente des exigences à installer / activer. Vous devrez peut-être
+    actualiser la page une fois l’opération terminée.
+  ba-imagecapture.access-forbidden: L'accès aux médias était interdit. Cliquez pour réessayer.
+  ba-imagecapture.uploading: Téléchargement
+  ba-imagecapture.uploading-failed: Échec du téléchargement - cliquez ici pour réessayer.
+  ba-imagecapture.upload-error-duration: >-
+    La longueur de l'image téléchargée ne répond pas aux exigences - cliquez ici
+    pour réessayer.
+  ba-imagecapture.resolution-constraint-error: >-
+    Le fichier que vous avez sélectionné ne correspond pas à la résolution
+    requise - cliquez ici pour réessayer.
+  ba-imagecapture.verifying: Vérification
+  ba-imagecapture.verifying-failed: Vérification en échec - cliquez ici pour réessayer.
+  ba-imagecapture.rerecord-confirm: Voulez-vous vraiment reprendre votre image?
+  ba-imagecapture.image_file_too_large: >-
+    Votre fichier image est trop volumineux ( %s) - cliquez ici pour essayer à
+    nouveau avec un fichier image plus petit.
+  ba-imagecapture.unsupported_image_type: 'Veuillez télécharger: %s - cliquez ici pour réessayer.'
+  ba-imagecapture.orientation-portrait-required: Veuillez faire pivoter votre appareil pour enregistrer en mode portrait.
+  ba-imagecapture.orientation-landscape-required: Veuillez faire pivoter votre appareil pour enregistrer en mode paysage.
+  ba-audiorecorder.recorder-error: >-
+    Une erreur est survenue, veuillez réessayer plus tard. Cliquez pour
+    réessayer.
+  ba-audiorecorder.attach-error: >-
+    Nous n'avons pas pu accéder à l'interface multimédia. Selon le périphérique
+    et le navigateur, vous devrez peut-être installer Flash ou accéder à la page
+    via SSL.
+  ba-audiorecorder.software-required: >-
+    Veuillez cliquer ci-dessous pour installer / activer les conditions
+    suivantes afin de continuer.
+  ba-audiorecorder.software-waiting: >-
+    En attente des exigences à installer / activer. Vous devrez peut-être
+    actualiser la page une fois l’opération terminée.
+  ba-audiorecorder.access-forbidden: L'accès aux médias était interdit. Cliquez pour réessayer.
+  ba-audiorecorder.uploading: Téléchargement
+  ba-audiorecorder.uploading-failed: Échec du téléchargement - cliquez ici pour réessayer.
+  ba-audiorecorder.upload-error-duration: >-
+    La longueur de l'audio téléchargée ne répond pas aux exigences - cliquez ici
+    pour réessayer.
+  ba-audiorecorder.verifying: Vérification
+  ba-audiorecorder.verifying-failed: Vérification en échec - cliquez ici pour réessayer.
+  ba-audiorecorder.rerecord-confirm: Voulez-vous vraiment refaire votre audio?
+  ba-audiorecorder.cancel-confirm: Voulez-vous vraiment annuler votre téléchargement audio?
+  ba-audiorecorder.audio_file_too_large: >-
+    Votre fichier audio est trop volumineux ( %s) - cliquez ici pour essayer à
+    nouveau avec un fichier audio plus petit.
+  ba-audiorecorder.unsupported_audio_type: 'Veuillez télécharger: %s - cliquez ici pour réessayer.'

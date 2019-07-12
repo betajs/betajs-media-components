@@ -158,6 +158,12 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "stretch": false,
                     "audio-test-mandatory": false,
                     "snapshotfromuploader": true,
+                    "allowmultistreams": false,
+                    "showaddstreambutton": false,
+                    "addstreampositionx": 5,
+                    "addstreampositiony": 5,
+                    "addstreampositionwidth": 120,
+                    "addstreampositionheight": 95,
 
                     "allowtexttrackupload": false,
                     "uploadlocales": [{
@@ -248,6 +254,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "audio-test-mandatory": "boolean",
                     "allowtexttrackupload": "boolean",
                     "uploadlocales": "array",
+                    "allowmultistreams": "boolean",
                     "pauseable": "boolean"
                 },
 
@@ -293,6 +300,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
                     this.set("ie8", Info.isInternetExplorer() && Info.internetExplorerVersion() < 9);
                     this.set("hideoverlay", false);
+                    this.set("firefox", Info.isFirefox());
 
                     this.set("canswitchcamera", false);
                     this.set("recordviafilecapture", Info.isMobile() && (!this.get("webrtconmobile") || !VideoRecorderWrapper.anySupport(this._videoRecorderWrapperOptions())));
@@ -450,6 +458,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                                 this.set("microphones", new Collection(Objs.values(devices.audio)));
                                 this.trigger(Types.is_empty(devices.video) ? "no_camera" : "has_camera");
                                 this.trigger(Types.is_empty(devices.audio) ? "no_microphone" : "has_microphone");
+                                this.set("showaddstreambutton", this._showAddStreamButton());
                             }, this);
                             if (!this.get("noaudio"))
                                 this.recorder.testSoundLevel(true);
@@ -471,6 +480,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
                 isWebrtcStreaming: function() {
                     return this.recorder && this.recorder.isWebrtcStreaming();
+                },
+
+                _showAddStreamButton: function() {
+                    return this.get("allowmultistreams") && (this.get("cameras").count() > 1 || this.get("cameras").count() >= 1 && this.get("record_media") === "screen");
                 },
 
                 _initSettings: function() {
@@ -717,6 +730,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                             this.recorder.setCurrentDevices({
                                 video: camera_id
                             });
+                            this.set("showaddstreambutton", this._showAddStreamButton());
                             this.set("selectedcamera", camera_id);
                         }
                     },
@@ -737,6 +751,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                             this.recorder.setCameraFace(this.get("camerafacefront"));
                             this.set("camerafacefront", !this.get("camerafacefront"));
                         }
+                    },
+
+                    add_new_stream: function(deviceId) {
+                        this._add_new_stream(deviceId);
                     },
 
                     invoke_skip: function() {
@@ -824,7 +842,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
                     toggle_facemode: function() {
                         this._toggleFaceMode();
-
                     },
 
                     manual_submit: function() {
@@ -1046,6 +1063,38 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         height: this.get("popup-height"),
                         stretch: this.get("popup-stretch")
                     };
+                },
+
+                /**
+                 * Will add new stream based on provided ID
+                 * @param deviceId
+                 */
+                _add_new_stream: function(deviceId) {
+                    var _selected;
+                    var _currentTracks = this.recorder._recorder.stream().getTracks();
+                    this.get("cameras").iterate(function(videoDevice) {
+                        var _videoDevice = videoDevice.data();
+                        deviceId = deviceId || _videoDevice.id; // In case if argument is empty take any video source
+                        if (!_selected && deviceId === _videoDevice.id) {
+                            this.set("loadlabel", this.string("adding-new-stream"));
+                            this.set("loader_active", true);
+                            this.recorder.addMultiStream(_videoDevice, {
+                                positionX: this.get("addstreampositionx"),
+                                positionY: this.get("addstreampositiony"),
+                                width: this.get("addstreampositionwidth"),
+                                height: this.get("addstreampositionheight")
+                            }, _currentTracks).success(function() {
+                                _selected = true;
+                                this.set("loadlabel", "");
+                                this.set("loader_active", false);
+                                this.set("showaddstreambutton", false);
+                            }, this).error(function(message) {
+                                console.warn(message);
+                                this.set("loadlabel", message);
+                                this.set("loader_active", false);
+                            }, this);
+                        }
+                    }, this);
                 }
 
             };
@@ -1083,6 +1132,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
             "orientation-landscape-required": "Please rotate your device to record in landscape mode.",
             "switch-camera": "Switch camera",
             "prepare-covershot": "Preparing covershots",
-            "prepare-thumbnails": "Preparing seeking thumbnails"
+            "prepare-thumbnails": "Preparing seeking thumbnails",
+            "adding-new-stream": "Adding New Stream"
         });
 });

@@ -140,3 +140,73 @@
   ba-audiorecorder-controlbar.stop-available-after: Minimale opnametijd is %d seconden
   ba-audiorecorder-controlbar.cancel: Annuleer
   ba-audiorecorder-controlbar.cancel-tooltip: Klik hier om te annuleren.
+  ba-videoplayer-controlbar.player-speed: Snelheid van de speler
+  ba-videoplayer-controlbar.settings: instellingen
+  ba-videoplayer-controlbar.airplay: airplay
+  ba-videoplayer-controlbar.airplay-icon: Airplay-pictogram.
+  ba-videoplayer.all-settings: Alle instellingen
+  ba-videoplayer.player-speed: Snelheid van de speler
+  ba-videoplayer.full-screen: Volledig scherm
+  ba-videorecorder-controlbar.add-stream: Stream toevoegen
+  ba-videorecorder.switch-camera: Schakel camera
+  ba-videorecorder.prepare-covershot: Dekkinghots voorbereiden
+  ba-videorecorder.prepare-thumbnails: Voorbereiden op het zoeken naar miniaturen
+  ba-videorecorder.adding-new-stream: Nieuwe stream toevoegen
+  ba-imagecapture.recorder-error: >-
+    Er is een fout opgetreden. Probeer het later opnieuw. Klik om opnieuw te
+    proberen.
+  ba-imagecapture.attach-error: >-
+    We hadden geen toegang tot de media-interface. Afhankelijk van het apparaat
+    en de browser, moet u mogelijk Flash installeren of de pagina openen via
+    SSL.
+  ba-imagecapture.software-required: >-
+    Klik hieronder om de volgende vereisten te installeren / activeren om door
+    te gaan.
+  ba-imagecapture.software-waiting: >-
+    Wacht tot de vereisten zijn geïnstalleerd / geactiveerd. Mogelijk moet u de
+    pagina na voltooiing vernieuwen.
+  ba-imagecapture.access-forbidden: Toegang tot de media was verboden. Klik om opnieuw te proberen.
+  ba-imagecapture.uploading: uploaden
+  ba-imagecapture.uploading-failed: Uploaden mislukt - klik hier om het opnieuw te proberen.
+  ba-imagecapture.upload-error-duration: >-
+    De lengte van de geüploade afbeelding voldoet niet aan de vereisten. Klik
+    hier om opnieuw te proberen.
+  ba-imagecapture.resolution-constraint-error: >-
+    Het bestand dat u heeft geselecteerd komt niet overeen met de vereiste
+    resolutie - klik hier om het opnieuw te proberen.
+  ba-imagecapture.verifying: Het verifiëren
+  ba-imagecapture.verifying-failed: Verifiëren mislukt - klik hier om het opnieuw te proberen.
+  ba-imagecapture.rerecord-confirm: Wil je echt je foto opnieuw maken?
+  ba-imagecapture.image_file_too_large: >-
+    Uw afbeeldingsbestand is te groot ( %s) - klik hier om het opnieuw te
+    proberen met een kleiner afbeeldingsbestand.
+  ba-imagecapture.unsupported_image_type: 'Upload alstublieft: %s - klik hier om het opnieuw te proberen.'
+  ba-imagecapture.orientation-portrait-required: Draai uw apparaat om op te nemen in staande modus.
+  ba-imagecapture.orientation-landscape-required: Draai je apparaat om op te nemen in liggende modus.
+  ba-audiorecorder.recorder-error: >-
+    Er is een fout opgetreden. Probeer het later opnieuw. Klik om opnieuw te
+    proberen.
+  ba-audiorecorder.attach-error: >-
+    We hadden geen toegang tot de media-interface. Afhankelijk van het apparaat
+    en de browser, moet u mogelijk Flash installeren of de pagina openen via
+    SSL.
+  ba-audiorecorder.software-required: >-
+    Klik hieronder om de volgende vereisten te installeren / activeren om door
+    te gaan.
+  ba-audiorecorder.software-waiting: >-
+    Wacht tot de vereisten zijn geïnstalleerd / geactiveerd. Mogelijk moet u de
+    pagina na voltooiing vernieuwen.
+  ba-audiorecorder.access-forbidden: Toegang tot de media was verboden. Klik om opnieuw te proberen.
+  ba-audiorecorder.uploading: uploaden
+  ba-audiorecorder.uploading-failed: Uploaden mislukt - klik hier om het opnieuw te proberen.
+  ba-audiorecorder.upload-error-duration: >-
+    De lengte van de geüploade audio voldoet niet aan de vereisten. Klik hier om
+    opnieuw te proberen.
+  ba-audiorecorder.verifying: Het verifiëren
+  ba-audiorecorder.verifying-failed: Verifiëren mislukt - klik hier om het opnieuw te proberen.
+  ba-audiorecorder.rerecord-confirm: Wil je je audio echt opnieuw spelen?
+  ba-audiorecorder.cancel-confirm: Wil je echt je audio-upload annuleren?
+  ba-audiorecorder.audio_file_too_large: >-
+    Je audiobestand is te groot ( %s) - klik hier om het opnieuw te proberen met
+    een kleiner audiobestand.
+  ba-audiorecorder.unsupported_audio_type: 'Upload alstublieft: %s - klik hier om het opnieuw te proberen.'

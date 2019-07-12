@@ -45,6 +45,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Controlbar", [
                     toggleFaceMode: function() {
                         this.trigger("toggle-face-mode");
                     },
+                    addNewStream: function(deviceId) {
+                        this.trigger("add-new-stream", deviceId);
+                    },
                     hover: function(text) {
                         this.set("hovermessage", text);
                     },
@@ -103,6 +106,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Controlbar", [
             "stop-available-after": "Minimum recording time is %d seconds",
             "cancel": "Cancel",
             "cancel-tooltip": "Click here to cancel.",
+            "add-stream": "Add Stream",
             "pause-recorder": "Pause Recorder",
             "resume-recorder": "Resume Recorder"
         });

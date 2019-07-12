@@ -94,7 +94,7 @@
 
   .#{$css}-settings {
     position: inherit;
-    label {
+    label, .#{$cssvideorecorder}-add-stream {
       font-family: $font_family;
       font-weight: 300;
       font-size: $settings_font_size ;

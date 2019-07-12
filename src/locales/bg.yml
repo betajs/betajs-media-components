@@ -140,3 +140,73 @@
   ba-audiorecorder-controlbar.stop-available-after: Минималното време за запис е %d секунди
   ba-audiorecorder-controlbar.cancel: Отказ
   ba-audiorecorder-controlbar.cancel-tooltip: 'Кликнете тук, за да отмените.'
+  ba-videoplayer-controlbar.player-speed: Скорост на играча
+  ba-videoplayer-controlbar.settings: Настройки
+  ba-videoplayer-controlbar.airplay: Airplay
+  ba-videoplayer-controlbar.airplay-icon: Икона на ефира.
+  ba-videoplayer.all-settings: Всички настройки
+  ba-videoplayer.player-speed: Скорост на играча
+  ba-videoplayer.full-screen: Цял екран
+  ba-videorecorder-controlbar.add-stream: Добавете Поток
+  ba-videorecorder.switch-camera: Превключване на камерата
+  ba-videorecorder.prepare-covershot: Подготовка за снимки
+  ba-videorecorder.prepare-thumbnails: Подготовка за търсене на миниатюри
+  ba-videorecorder.adding-new-stream: Добавяне на нов поток
+  ba-imagecapture.recorder-error: >-
+    Възникна грешка. Моля, опитайте отново по-късно. Кликнете, за да опитате
+    отново.
+  ba-imagecapture.attach-error: >-
+    Не можахме да осъществим достъп до медийния интерфейс. В зависимост от
+    устройството и браузъра може да се наложи да инсталирате Flash или да
+    влезете в страницата чрез SSL.
+  ba-imagecapture.software-required: >-
+    Моля, кликнете по-долу, за да инсталирате / активирате следните изисквания,
+    за да продължите.
+  ba-imagecapture.software-waiting: >-
+    Изчакване за инсталиране / активиране на изискванията. Може да се наложи да
+    обновите страницата след завършване.
+  ba-imagecapture.access-forbidden: 'Достъпът до медиите е забранен. Кликнете, за да опитате отново.'
+  ba-imagecapture.uploading: Качване
+  ba-imagecapture.uploading-failed: 'Неуспешно качване - кликнете тук, за да опитате отново.'
+  ba-imagecapture.upload-error-duration: >-
+    Дължината на каченото изображение не отговаря на изискванията - кликнете
+    тук, за да опитате отново.
+  ba-imagecapture.resolution-constraint-error: >-
+    Избраният от вас файл не съответства на изискваната резолюция - кликнете
+    тук, за да опитате отново.
+  ba-imagecapture.verifying: Проверка
+  ba-imagecapture.verifying-failed: 'Проверката е неуспешна - кликнете тук, за да опитате отново.'
+  ba-imagecapture.rerecord-confirm: Наистина ли искате да възстановите изображението си?
+  ba-imagecapture.image_file_too_large: >-
+    Вашият файл с изображение е твърде голям ( %s) - кликнете тук, за да опитате
+    отново с по-малък файл с изображение.
+  ba-imagecapture.unsupported_image_type: 'Моля, качете: %s - кликнете тук, за да опитате отново.'
+  ba-imagecapture.orientation-portrait-required: 'Завъртете устройството, за да записвате в портретен режим.'
+  ba-imagecapture.orientation-landscape-required: 'Завъртете устройството, за да записвате в пейзажен режим.'
+  ba-audiorecorder.recorder-error: >-
+    Възникна грешка. Моля, опитайте отново по-късно. Кликнете, за да опитате
+    отново.
+  ba-audiorecorder.attach-error: >-
+    Не можахме да осъществим достъп до медийния интерфейс. В зависимост от
+    устройството и браузъра може да се наложи да инсталирате Flash или да
+    влезете в страницата чрез SSL.
+  ba-audiorecorder.software-required: >-
+    Моля, кликнете по-долу, за да инсталирате / активирате следните изисквания,
+    за да продължите.
+  ba-audiorecorder.software-waiting: >-
+    Изчакване за инсталиране / активиране на изискванията. Може да се наложи да
+    обновите страницата след завършване.
+  ba-audiorecorder.access-forbidden: 'Достъпът до медиите е забранен. Кликнете, за да опитате отново.'
+  ba-audiorecorder.uploading: Качване
+  ba-audiorecorder.uploading-failed: 'Неуспешно качване - кликнете тук, за да опитате отново.'
+  ba-audiorecorder.upload-error-duration: >-
+    Дължината на качения звук не отговаря на изискванията - кликнете тук, за да
+    опитате отново.
+  ba-audiorecorder.verifying: Проверка
+  ba-audiorecorder.verifying-failed: 'Проверката е неуспешна - кликнете тук, за да опитате отново.'
+  ba-audiorecorder.rerecord-confirm: Наистина ли искате да повторите аудиото си?
+  ba-audiorecorder.cancel-confirm: Наистина ли искате да анулирате качването на звук?
+  ba-audiorecorder.audio_file_too_large: >-
+    Аудиофайлът ви е твърде голям ( %s) - кликнете тук, за да опитате отново с
+    по-малък аудио файл.
+  ba-audiorecorder.unsupported_audio_type: 'Моля, качете: %s - кликнете тук, за да опитате отново.'

@@ -148,6 +148,32 @@
 
 		<div class="{{cssrecorder}}-controlbar-right-section">
 
+			<div class="{{css}}-rightbutton-container {{css}}-pause-button-container" ba-show="{{stopvisible}}">
+				<div class="{{css}}-circle-button">
+                    <div tabindex="0" data-selector="pause-primary-button"  ba-show="{{pausable && !resumevisible}}"
+                         ba-hotkey:space^enter="{{stop()}}" onmouseout="this.blur()"
+                         data-selector="pause-primary-button" class="{{css}}-button-inner"
+                         title="{{string('pause-recorder')}}"
+                         onclick="{{pause()}}"
+                         onmouseenter="{{hover(string('pause-recorder'))}}"
+                         onmouseleave="{{unhover()}}"
+                    >
+                        <i class="{{csscommon}}-icon-pause"></i>
+                    </div>
+
+                    <div tabindex="0" data-selector="resume-primary-button"  ba-show="{{pausable && resumevisible}}"
+                         ba-hotkey:space^enter="{{resume()}}" onmouseout="this.blur()"
+                         data-selector="resume-primary-button" class="{{css}}-button-inner"
+                         title="{{string('resume-recorder')}}"
+                         onclick="{{resume()}}"
+                         onmouseenter="{{hover(string('resume-recorder'))}}"
+                         onmouseleave="{{unhover()}}"
+                    >
+                        <i class="{{csscommon}}-icon-ccw"></i>
+                    </div>
+				</div>
+			</div>
+
 			<div class="{{css}}-rightbutton-container" ba-show="{{recordvisible}}">
 				<div tabindex="0"
 					 ba-hotkey:space^enter="{{record()}}" onmouseout="this.blur()"

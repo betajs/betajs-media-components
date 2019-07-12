@@ -155,9 +155,12 @@
     }
   }
 
-  .#{$css}-stop-button-container{
+  .#{$css}-stop-button-container {
     text-align: right;
     @include absolute-align-right-bottom();
+    .#{$css}-button {
+      color: $button_color;
+    }
   }
 }
 

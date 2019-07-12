@@ -14,6 +14,12 @@
         @include absolute-align-full-bottom();
         height: $controlbar_footer_height;
         padding: 0 10px;
+        .#{$css}-rightbutton-container {
+            &.#{$css}-pause-button-container {
+                position: absolute;
+                right: 10px;
+            }
+        }
     }
 
     .#{$css}-controlbar-left-section {
@@ -138,7 +144,7 @@
         }
     }
 
-    .#{$css}-stop-button-container{
+    .#{$css}-stop-button-container {
         float: right;
         text-align: left;
         width: 50%;

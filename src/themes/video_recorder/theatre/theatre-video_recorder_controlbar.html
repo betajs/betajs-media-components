@@ -178,6 +178,31 @@
 			</div>
 
 			<div class="{{css}}-stop-button-container">
+
+				<div class="{{css}}-button">
+					<div tabindex="0" ba-show="{{pausable && !resumevisible}}"
+						 ba-hotkey:space^enter="{{stop()}}" onmouseout="this.blur()"
+						 data-selector="pause-primary-button" class="{{css}}-button"
+						 title="{{string('pause-recorder')}}"
+						 onclick="{{pause()}}"
+						 onmouseenter="{{hover(string('pause-recorder'))}}"
+						 onmouseleave="{{unhover()}}"
+					>
+						<i class="{{csscommon}}-icon-pause"></i>
+					</div>
+
+					<div tabindex="0" ba-show="{{pausable && resumevisible}}"
+						 ba-hotkey:space^enter="{{resume()}}" onmouseout="this.blur()"
+						 data-selector="resume-primary-button" class="{{css}}-button"
+						 title="{{string('resume-recorder')}}"
+						 onclick="{{resume()}}"
+						 onmouseenter="{{hover(string('resume-recorder'))}}"
+						 onmouseleave="{{unhover()}}"
+					>
+						<i class="{{csscommon}}-icon-ccw"></i>
+					</div>
+				</div>
+
 				<div tabindex="0"
 					 ba-hotkey:space^enter="{{stop()}}" onmouseout="this.blur()"
 					 data-selector="stop-primary-button"

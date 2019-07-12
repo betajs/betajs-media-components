@@ -29,7 +29,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Controlbar", [
                     this.auto_destroy(new Timer({
                         context: this,
                         fire: function() {
-                            this.set("recordingindication", !this.get("recordingindication"));
+                            this.set("recordingindication", !this.get("recordingindication") && !this.__parent.__paused);
                         },
                         delay: 500
                     }));

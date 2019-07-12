@@ -4,7 +4,8 @@
 
       .#{$csstheme}-dashboard {
 
-        .#{$css}-button-selected, .#{$css}-button-inner, .#{$css}-button-inner:hover {
+        .#{$css}-button-selected, .#{$css}-button-inner, .#{$css}-button-inner:hover,
+        .#{$css}-stop-button-container .#{$css}-button {
           color: $value;
         }
         .#{$css}-button-selected {

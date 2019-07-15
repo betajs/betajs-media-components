@@ -687,6 +687,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.call("toggle_fullscreen");
                 },
 
+                toggleSubtitle: function() {
+                    var status = this.get("tracktextvisible");
+                    if (status === 'showing') {
+                        this.set("tracktextvisible", "disabled");
+                        this.toggleTrackTags("disabled");
+                    } else {
+                        this.set("tracktextvisible", "showing");
+                        this.toggleTrackTags("showing");
+                    }
+                },
+
                 /* In the future if require to use promise player, Supports >Chrome50, >FireFox53
                 _playWithPromise: function(dyn) {
                     var _player, _promise, _autoplayAllowed;

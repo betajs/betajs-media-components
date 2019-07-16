@@ -687,8 +687,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.call("toggle_fullscreen");
                 },
 
-                toggleSubtitle: function() {
-                    var status = this.get("tracktextvisible");
+                toggleSubtitles: function(new_status) {
+                    var status;
+                    if (new_status == undefined) {
+                        status = this.get("tracktextvisible");
+                    } else {
+                        status = !new_status;
+                    }
                     if (status == true) {
                         this.set("tracktextvisible", false);
                         this.toggleTrackTags(false);

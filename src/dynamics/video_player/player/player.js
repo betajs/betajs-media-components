@@ -689,12 +689,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 toggleSubtitle: function() {
                     var status = this.get("tracktextvisible");
-                    if (status === 'showing') {
-                        this.set("tracktextvisible", "disabled");
-                        this.toggleTrackTags("disabled");
+                    if (status == true) {
+                        this.set("tracktextvisible", false);
+                        this.toggleTrackTags(false);
                     } else {
-                        this.set("tracktextvisible", "showing");
-                        this.toggleTrackTags("showing");
+                        this.set("tracktextvisible", true);
+                        this.toggleTrackTags(true);
                     }
                 },
 

@@ -1252,6 +1252,30 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }, this);
                 },
 
+                isHD: function() {
+                    if (this.videoAttached()) {
+                        if ((this.videoWidth() * this.videoHeight()) >= 1280 * 720) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        return undefined;
+                    }
+                },
+
+                isSD: function() {
+                    if (this.videoAttached()) {
+                        if ((this.videoWidth() * this.videoHeight()) < 1280 * 720) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        return undefined;
+                    }
+                },
+
                 popupAttrs: function() {
                     return {
                         autoplay: true,

@@ -420,9 +420,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     this.recorder = VideoRecorderWrapper.create(Objs.extend({
                         element: video
                     }, this._videoRecorderWrapperOptions()));
-                    if (this.recorder)
+                    if (this.recorder) {
                         this.trigger("attached");
-                    else
+                        this.set("pausable", this.get("pausable") && this.recorder.canPause());
+                    } else
                         this._error("attach");
                 },
 

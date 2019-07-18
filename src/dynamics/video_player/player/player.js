@@ -1260,7 +1260,20 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             return false;
                         }
                     } else {
-                        var video_data = this.get("video_data").default_stream;
+                        var video_data;
+                        if (this.get("stream") == null || this.get("stream") == "") {
+                            video_data = this.get("video_data").default_stream;
+                        } else {
+                            for (var i = 0; i < this.get("video_data").streams.length; i++) {
+                                if (this.get("video_data").streams[i].token == this.get("stream")) {
+                                    if ((this.get("video_data").streams[i].video_width * this.get("video_data").streams[i].video_height) >= 1280 * 720) {
+                                        return true;
+                                    } else {
+                                        return false;
+                                    }
+                                }
+                            }
+                        }
                         if (video_data) {
                             if ((video_data.video_width * video_data.video_height) >= 1280 * 720) {
                                 return true;

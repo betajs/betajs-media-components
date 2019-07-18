@@ -1290,6 +1290,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     return !this.isHD();
                 },
 
+                isMobile: function() {
+                    return Info.isMobile();
+                },
+
                 popupAttrs: function() {
                     return {
                         autoplay: true,

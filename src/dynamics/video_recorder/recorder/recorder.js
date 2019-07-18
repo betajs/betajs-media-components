@@ -667,6 +667,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     }
                 },
 
+                isMobile: function() {
+                    return Info.isMobile();
+                },
+
                 object_functions: ["record", "rerecord", "record_screen", "stop", "play", "pause", "reset"],
 
                 functions: {

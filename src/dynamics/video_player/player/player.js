@@ -1260,20 +1260,21 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             return false;
                         }
                     } else {
-                        return undefined;
+                        var video_data = this.get("video_data").default_stream;
+                        if (video_data) {
+                            if ((video_data.video_width * video_data.video_height) >= 1280 * 720) {
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        } else {
+                            return undefined;
+                        }
                     }
                 },
 
                 isSD: function() {
-                    if (this.videoAttached()) {
-                        if ((this.videoWidth() * this.videoHeight()) < 1280 * 720) {
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    } else {
-                        return undefined;
-                    }
+                    return !this.isHD();
                 },
 
                 popupAttrs: function() {

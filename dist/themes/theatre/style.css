@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.179 - 2019-07-11
+betajs-media-components - v0.0.182 - 2019-07-17
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -581,7 +581,8 @@ Apache-2.0 Software License.
 .ba-recorder-theme-theatre .ba-commoncss-icon-upload:before {
   font-size: .9em; }
 
-.ba-recorder-red-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-selected, .ba-recorder-red-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-inner, .ba-recorder-red-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-inner:hover {
+.ba-recorder-red-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-selected, .ba-recorder-red-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-inner, .ba-recorder-red-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-inner:hover,
+.ba-recorder-red-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-stop-button-container .ba-videorecorder-button {
   color: #eb6a74; }
 .ba-recorder-red-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-selected {
   border-color: #eb6a74; }
@@ -604,7 +605,8 @@ Apache-2.0 Software License.
 .ba-recorder-red-color .ba-videorecorder-message-message a {
   color: #eb6a74; }
 
-.ba-recorder-blue-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-selected, .ba-recorder-blue-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-inner, .ba-recorder-blue-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-inner:hover {
+.ba-recorder-blue-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-selected, .ba-recorder-blue-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-inner, .ba-recorder-blue-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-inner:hover,
+.ba-recorder-blue-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-stop-button-container .ba-videorecorder-button {
   color: #2a74eb; }
 .ba-recorder-blue-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-selected {
   border-color: #2a74eb; }
@@ -627,7 +629,8 @@ Apache-2.0 Software License.
 .ba-recorder-blue-color .ba-videorecorder-message-message a {
   color: #2a74eb; }
 
-.ba-recorder-green-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-selected, .ba-recorder-green-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-inner, .ba-recorder-green-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-inner:hover {
+.ba-recorder-green-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-selected, .ba-recorder-green-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-inner, .ba-recorder-green-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-inner:hover,
+.ba-recorder-green-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-stop-button-container .ba-videorecorder-button {
   color: #5daa96; }
 .ba-recorder-green-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-selected {
   border-color: #5daa96; }
@@ -808,6 +811,8 @@ Apache-2.0 Software License.
     position: absolute;
     right: 0;
     top: auto; }
+    .ba-recorder-theme-theatre-dashboard .ba-videorecorder-stop-button-container .ba-videorecorder-button {
+      color: #000000; }
 
 .ba-recorder-theme-theatre.ba-videorecorder-container .ba-videorecorder-imagegallery-container {
   left: 50px;

@@ -195,3 +195,5 @@
     Your audio file is too large (%s) - click here to try again with a smaller
     audio file.
   ba-audiorecorder.unsupported_audio_type: 'Please upload: %s - click here to retry.'
+  ba-videorecorder-controlbar.pause-recorder: Pause Recorder
+  ba-videorecorder-controlbar.resume-recorder: Resume Recorder

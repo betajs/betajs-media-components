@@ -657,8 +657,8 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraHasAccess", [
             if (this.dyn.get("countdown") > 0 && this.dyn.recorder && this.dyn.recorder.recordDelay(this.dyn.get("uploadoptions")) > this.dyn.get("countdown") * 1000)
                 this._preparePromise = this.dyn._prepareRecording();
             //  For now available for WebRTC only
-            if (this.dyn.get("pausable") && this.dyn.recorder.isFlash())
-                this.dyn.set("pausable", false);
+            if (this.dyn.get("pausable"))
+                this.dyn.set("pausable", this.dyn.recorder.canPause());
             this.dyn.set("hovermessage", "");
             this.dyn.set("topmessage", "");
             this.dyn.set("settingsvisible", true);

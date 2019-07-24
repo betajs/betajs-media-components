@@ -467,6 +467,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("videoelement_active", false);
                 },
 
+                getCurrentPosition: function() {
+                    if (this.videoAttached()) {
+                        return this.player._element.currentTime;
+                    } else {
+                        return NaN;
+                    }
+                },
+
                 _attachVideo: function() {
                     if (this.videoAttached())
                         return;
@@ -580,6 +588,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this._playWhenVisible(video);
                         }
                         this.player.on("fullscreen-change", function(inFullscreen) {
+                            console.log("fullscreen-change");
                             this.set("fullscreened", inFullscreen);
                             if (!inFullscreen && (this.get('hideoninactivity') !== this.get("initialoptions").hideoninactivity)) {
                                 this.set("hideoninactivity", this.get("initialoptions").hideoninactivity);

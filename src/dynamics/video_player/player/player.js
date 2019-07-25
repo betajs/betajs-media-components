@@ -588,7 +588,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this._playWhenVisible(video);
                         }
                         this.player.on("fullscreen-change", function(inFullscreen) {
-                            console.log("fullscreen-change");
                             this.set("fullscreened", inFullscreen);
                             if (!inFullscreen && (this.get('hideoninactivity') !== this.get("initialoptions").hideoninactivity)) {
                                 this.set("hideoninactivity", this.get("initialoptions").hideoninactivity);

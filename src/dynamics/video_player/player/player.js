@@ -214,6 +214,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "preventinteractionstatus": false, // need to prevent `Unexpected token: punc (()` Uglification issue
                     "ready": true,
                     "tracktagssupport": false,
+                    "playbackcount": 0,
+                    "playbackended": 0,
                     // If settings are open and visible
                     "settingsoptionsvisible": false,
                     "states": {
@@ -609,6 +611,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.player.on("playing", function() {
                             this.set("playing", true);
                             this.trigger("playing");
+                            if (this.get("playedonce") == false) {
+                                this.set("playbackcount", 1);
+                            } else {
+                                this.set("playbackcount", this.get("playbackended") + 1);
+                            }
                         }, this);
                         this.player.on("error", function(e) {
                             this._error("video", e);
@@ -622,6 +629,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.player.on("ended", function() {
                             this.set("playing", false);
                             this.set('playedonce', true);
+                            this.set("playbackended", this.get('playbackended') + 1);
                             if (this.settings)
                                 this.settings.hide_settings();
                             this.trigger("ended");
@@ -709,6 +717,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("tracktextvisible", true);
                         this.toggleTrackTags(true);
                     }
+                },
+
+                getPlaybackCount: function() {
+                    return this.get("playbackcount");
                 },
 
                 /* In the future if require to use promise player, Supports >Chrome50, >FireFox53

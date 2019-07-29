@@ -45,7 +45,7 @@
 
     <script>
         BetaJS.Flash.options = {
-            flashFile: "../node_modules/betajs-flash/dist/betajs-flash.swf",
+            flashFile: "../../node_modules/betajs-flash/dist/betajs-flash.swf",
             forceReload: true
         };
         var player = new BetaJS.MediaComponents.VideoPlayer.Dynamics.Player({
@@ -53,6 +53,7 @@
             attrs: {
                 theme: "default",
                 themecolor: "red",
+                // source: '/static/demos/sample-video.mp4',
                 sources: [
                     {
                         src:'/static/demos/sample-video.mp4',
@@ -64,8 +65,10 @@
                 ],
                 streams: [{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }],
                 skipinitial: false,
+                forceflash: false,
                 hideoninactivity: false,
                 tracktagsstyled: true,
+                loop: true,
                 tracktags: [
                     {
                         lang: 'en',
@@ -85,6 +88,10 @@
                 ]
             }
         });
+
+        player.on("ended", function () {
+            console.log('ENDED');
+        }, player);
 
         player.activate();
 

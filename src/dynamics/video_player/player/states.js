@@ -462,6 +462,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
 
         _started: function() {
             this.dyn.set("autoplay", false);
+            // As during loop we will play player after ended event fire, need initial cover will be hidden
+            if (this.dyn.get("loop"))
+                this.dyn.set("skipinitial", true);
             this.listenOn(this.dyn, "change:currentstream", function() {
                 this.dyn.set("autoplay", true);
                 this.dyn.set("autoseek", this.dyn.player.position());

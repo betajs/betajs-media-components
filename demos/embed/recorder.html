@@ -41,52 +41,37 @@
 
 </head>
 <body style="background: #EEE">
-    <div id="player"></div>
+    <div id="recorder"></div>
 
     <script>
         BetaJS.Flash.options = {
             flashFile: "../node_modules/betajs-flash/dist/betajs-flash.swf",
             forceReload: true
         };
-        var player = new BetaJS.MediaComponents.VideoPlayer.Dynamics.Player({
-            element: $('#player'),
+        var filename = "video-" + BetaJS.Time.now();
+        var recorder = new BetaJS.MediaComponents.VideoRecorder.Dynamics.Recorder({
+            element: document.getElementById('recorder'),
             attrs: {
                 theme: "default",
-                themecolor: "red",
-                sources: [
-                    {
-                        src:'/static/demos/sample-video.mp4',
-                        poster: '/static/demos/sample-cover.png', hd: true
-                    }, {
-                        src:'/static/demos/sample-video2.mp4',
-                        poster:'/static/demos/sample-cover2.png', hd: false
-                    }
-                ],
-                streams: [{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }],
-                skipinitial: false,
-                hideoninactivity: false,
-                tracktagsstyled: true,
-                tracktags: [
-                    {
-                        lang: 'en',
-                        kind: 'subtitles',
-                        label: 'English',
-                        //enabled: true,
-                        src: '../assets/bunny-en.vtt'
-                    },
-                    {
-                        lang: 'de',
-                        kind: 'subtitles',
-                        label: 'Deutsch',
-                        //enabled: true,
-                        src: '../assets/bunny-de.vtt'
-                    }
-
-                ]
+                themecolor: "red"
             }
         });
 
-        player.activate();
+        recorder._prepareRecording = function () {
+            recorder.set("uploadoptions", {
+                image: {url:"/files/" + filename + ".jpg"},
+                video: {url:"/files/" + filename + ".webm"},
+                audio: {url:"/files/" + filename + ".wav"},
+                thumbnail: {url:"/files/" + filename + "-thumbnails.jpg"},
+                tracks: {url:"/files/" + filename + ".vtt"}
+            });
+            recorder.set("playbacksource", "/files/" + filename + ".mp4");
+            if (recorder.recorder)
+                recorder.set("playbackposter", "/files/" + filename + ".jpg");
+            return BetaJS.Promise.value(true);
+        };
+
+        recorder.activate();
 
     </script>
 </body>

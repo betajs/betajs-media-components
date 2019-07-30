@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.183 - 2019-07-25
+betajs-media-components - v0.0.183 - 2019-07-29
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -16,7 +16,7 @@ Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
     "version": "0.0.183",
-    "datetime": 1564096231486
+    "datetime": 1564451664594
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -5480,6 +5480,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
 
         _started: function() {
             this.dyn.set("autoplay", false);
+            // As during loop we will play player after ended event fire, need initial cover will be hidden
+            if (this.dyn.get("loop"))
+                this.dyn.set("skipinitial", true);
             this.listenOn(this.dyn, "change:currentstream", function() {
                 this.dyn.set("autoplay", true);
                 this.dyn.set("autoseek", this.dyn.player.position());
@@ -12027,6 +12030,9 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.PlayAudio", [
 
         _started: function() {
             this.dyn.set("autoplay", false);
+            // As during loop we will play player after ended event fire, need initial cover will be hidden
+            if (this.dyn.get("loop"))
+                this.dyn.set("skipinitial", true);
             this.listenOn(this.dyn, "ended", function() {
                 this.dyn.set("autoseek", null);
                 this.next("NextAudio");

@@ -241,6 +241,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "minuploadingheight": "int",
                     "maxuploadingheight": "int",
                     "framerate-warning": "int",
+                    "snapshotfromuploader": "boolean",
                     "flip-camera": "boolean",
                     "faceoutline": "boolean",
                     "early-rerecord": "boolean",

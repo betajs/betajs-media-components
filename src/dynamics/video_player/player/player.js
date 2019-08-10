@@ -131,7 +131,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "thumbcuelist": [],
                     "showsettings": true,
                     "showduration": false,
-                    "poster_alt": "",
+                    "posteralt": "",
                     "hidevolumebar": false,
                     "settingsoptions": [{
                             id: 'playerspeeds',

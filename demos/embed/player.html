@@ -53,6 +53,7 @@
             attrs: {
                 theme: "default",
                 themecolor: "red",
+                // stretch: true,
                 // source: '/static/demos/sample-video.mp4',
                 sources: [
                     {
@@ -64,7 +65,7 @@
                     }
                 ],
                 streams: [{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }],
-                skipinitial: false,
+                skipinitial: true,
                 forceflash: false,
                 hideoninactivity: false,
                 tracktagsstyled: true,
@@ -88,6 +89,12 @@
                 ]
             }
         });
+
+        player.on("attached", function (playerInstance) {
+            playerInstance.on("fullscreen-change", function (isFullscreen) {
+                console.log('is Full', isFullscreen);
+            }, this);
+        }, player);
 
         player.on("ended", function () {
             console.log('ENDED');

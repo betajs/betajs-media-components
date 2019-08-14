@@ -315,7 +315,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
                 this.dyn._uploadVideoFile(file);
                 this._setValueToEmpty(file);
                 this.__blocked = false;
-                if ((Info.isMobile && this.dyn.get("recordviafilecapture") || this.dyn.get("snapshotfromuploader")) && !this.dyn.get("onlyaudio") && this.dyn.get("picksnapshots")) {
+                if (((Info.isMobile && this.dyn.get("recordviafilecapture") && this.dyn.get("snapshotfrommobilecapture")) || this.dyn.get("snapshotfromuploader")) && !this.dyn.get("onlyaudio") && this.dyn.get("picksnapshots")) {
                     this.dyn.snapshots = [];
                     this.next("CreateUploadCovershot");
                 } else

@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.187 - 2019-08-13
+betajs-media-components - v0.0.187 - 2019-08-14
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1006,7 +1006,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.187 - 2019-08-13
+betajs-media-components - v0.0.187 - 2019-08-14
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1023,7 +1023,7 @@ Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
     "version": "0.0.187",
-    "datetime": 1565733203413
+    "datetime": 1565797543509
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -7488,7 +7488,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "filesizelimit": null,
                     "faceoutline": false,
                     "display-timer": true,
-                    "pausable": true,
+                    "pausable": false,
 
                     /* Configuration */
                     "forceflash": false,
@@ -7513,7 +7513,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "popup-stretch": false,
                     "stretch": false,
                     "audio-test-mandatory": false,
-                    "snapshotfromuploader": true,
+                    "snapshotfromuploader": false,
+                    "snapshotfrommobilecapture": false,
                     "allowmultistreams": false,
                     "showaddstreambutton": false,
                     "addstreampositionx": 5,
@@ -7598,6 +7599,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "maxuploadingheight": "int",
                     "framerate-warning": "int",
                     "snapshotfromuploader": "boolean",
+                    "snapshotfrommobilecapture": "boolean",
                     "flip-camera": "boolean",
                     "faceoutline": "boolean",
                     "early-rerecord": "boolean",
@@ -8811,7 +8813,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
                 this.dyn._uploadVideoFile(file);
                 this._setValueToEmpty(file);
                 this.__blocked = false;
-                if ((Info.isMobile && this.dyn.get("recordviafilecapture") || this.dyn.get("snapshotfromuploader")) && !this.dyn.get("onlyaudio") && this.dyn.get("picksnapshots")) {
+                if (((Info.isMobile && this.dyn.get("recordviafilecapture") && this.dyn.get("snapshotfrommobilecapture")) || this.dyn.get("snapshotfromuploader")) && !this.dyn.get("onlyaudio") && this.dyn.get("picksnapshots")) {
                     this.dyn.snapshots = [];
                     this.next("CreateUploadCovershot");
                 } else

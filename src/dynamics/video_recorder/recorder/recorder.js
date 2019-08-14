@@ -132,7 +132,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "filesizelimit": null,
                     "faceoutline": false,
                     "display-timer": true,
-                    "pausable": true,
+                    "pausable": false,
 
                     /* Configuration */
                     "forceflash": false,
@@ -157,7 +157,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "popup-stretch": false,
                     "stretch": false,
                     "audio-test-mandatory": false,
-                    "snapshotfromuploader": true,
+                    "snapshotfromuploader": false,
+                    "snapshotfrommobilecapture": false,
                     "allowmultistreams": false,
                     "showaddstreambutton": false,
                     "addstreampositionx": 5,
@@ -242,6 +243,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "maxuploadingheight": "int",
                     "framerate-warning": "int",
                     "snapshotfromuploader": "boolean",
+                    "snapshotfrommobilecapture": "boolean",
                     "flip-camera": "boolean",
                     "faceoutline": "boolean",
                     "early-rerecord": "boolean",

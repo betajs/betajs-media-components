@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.187 - 2019-08-14
+betajs-media-components - v0.0.189 - 2019-08-17
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1006,7 +1006,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.187 - 2019-08-14
+betajs-media-components - v0.0.189 - 2019-08-17
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1022,8 +1022,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.187",
-    "datetime": 1565797543509
+    "version": "0.0.189",
+    "datetime": 1566093262201
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -7750,8 +7750,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         recordAudio: !this.get("noaudio"),
                         recordingWidth: this.get("nativeRecordingWidth"),
                         recordingHeight: this.get("nativeRecordingHeight"),
-                        audioBitrate: this.get("audiobitrate"),
-                        videoBitrate: this.get("videobitrate"),
+                        audioBitrate: typeof this.get("audiobitrate") === "number" ? this.get("audiobitrate") : undefined,
+                        videoBitrate: typeof this.get("videobitrate") === "number" ? this.get("videobitrate") : undefined,
                         flashFullSecurityDialog: !this.get("flashincognitosupport"),
                         rtmpStreamType: this.get("rtmpstreamtype"),
                         rtmpMicrophoneCodec: this.get("rtmpmicrophonecodec"),

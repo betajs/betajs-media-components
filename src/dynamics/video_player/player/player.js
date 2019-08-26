@@ -109,6 +109,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "nofullscreen": false,
                     "playfullscreenonmobile": false,
                     "stretch": false,
+                    "stretchwidth": false,
+                    "stretchheight": false,
                     "popup-stretch": false,
                     "hideoninactivity": true,
                     "hidebarafter": 5000,
@@ -241,6 +243,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "ready": "boolean",
                     "nofullscreen": "boolean",
                     "stretch": "boolean",
+                    "stretchwidth": "boolean",
+                    "stretchheight": "boolean",
                     "preroll": "boolean",
                     "hideoninactivity": "boolean",
                     "hidebarafter": "integer",
@@ -352,6 +356,26 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             hideoninactivity: this.get("hideoninactivity")
                         }));
                     }
+
+                    if ((this.get("stretch") || this.get("stretchwidth") || this.get("stretchheight")) && (this.get("height") > 0.00 || this.get("width") > 0.00)) {
+                        if (this.get("height") && this.get("width") && this.get("stretch")) {
+                            this.__stretchBasedOnDimensions = true;
+                        } else if (this.get("height") && !this.get("stretchwidth")) {
+                            this.__stretchBasedOnHeight = true;
+                        } else {
+                            this.__stretchBasedOnWidth = true;
+                        }
+                    }
+
+                    // If both set to true, then normal stretch is enought
+                    if (this.get("stretchwidth") && this.get("stretchheight")) {
+                        this.set("stretch", true);
+                        this.set("stretchheight", false);
+                    }
+                    // else if (this.get("stretchwidth") || this.get("stretchheight")) {
+                    //     // In case if one of the stretch options set as true normal stretch will be false
+                    //     this.set("stretch", false);
+                    // }
 
                     this.set("ie8", Info.isInternetExplorer() && Info.internetExplorerVersion() < 9);
                     this.set("firefox", Info.isFirefox());
@@ -576,6 +600,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this._broadcasting.attachAirplayEvent.call(this, video);
                             }
                         }
+
+                        // In case if set height set and stretch NOT based on width
+                        if ((this.get("stretchheight") || this.__stretchBasedOnHeight) && !this.get("stretchwidth") && this.get("height") > 0.00)
+                            video.height = this.get("height");
+
 
                         if (this.get("playwhenvisible")) {
                             this.set("skipinitial", true);
@@ -1124,7 +1153,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                         this.set('preventinteractionstatus', true);
                                     }
                                 }
-
                             }
                             this.set("last_position_change_delta", _now - this.get("last_position_change"));
                             this.set("position", new_position);
@@ -1155,7 +1183,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 _updateCSSSize: function() {
                     var width = Dom.elementDimensions(this.activeElement()).width;
                     this.set("csssize", width > 400 ? "normal" : (width > 320 ? "medium" : "small"));
-                    this.set("mobileview", width < 560);
                 },
 
                 videoHeight: function() {
@@ -1206,11 +1233,20 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 _updateStretch: function() {
                     var newStretch = null;
-                    if (this.get("stretch")) {
+                    if (this.get("stretch") || this.get("stretchwidth") || this.get("stretchheight")) {
                         var ar = this.aspectRatio();
                         if (isFinite(ar)) {
                             var par = this.parentAspectRatio();
-                            if (isFinite(par)) {
+                            if (this.__stretchBasedOnDimensions) {
+                                if (!this.get("height") && !this.get("width"))
+                                    newStretch = ar > 1.00 ? "width" : "height";
+                                else
+                                    newStretch = 'both';
+                            } else if (this.__stretchBasedOnWidth) {
+                                newStretch = "width";
+                            } else if (this.__stretchBasedOnHeight) {
+                                newStretch = "height";
+                            } else if (isFinite(par)) {
                                 if (par > ar)
                                     newStretch = "height";
                                 if (par < ar)

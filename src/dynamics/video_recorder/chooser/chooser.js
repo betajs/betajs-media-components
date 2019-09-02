@@ -21,6 +21,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
                     "allowrecord": true,
                     "allowupload": true,
                     "allowscreen": false,
+                    "allowmultistreams": false,
                     "facecamera": true,
 
                     "primaryrecord": true,
@@ -58,11 +59,15 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
                             order.push("record");
                         if (this.get("allowscreen"))
                             order.push("screen");
+                        if (this.get("allowmultistreams"))
+                            order.push("multistream");
                         if (this.get("allowupload"))
                             order.push("upload");
                     } else {
                         if (this.get("allowscreen"))
                             order.push("screen");
+                        if (this.get("allowmultistreams"))
+                            order.push("multistream");
                         if (this.get("allowupload"))
                             order.push("upload");
                         if (this.get("allowrecord"))
@@ -104,6 +109,14 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
                                     label: this.string("record-screen")
                                 });
                                 break;
+                            case "multistream":
+                                actions.add({
+                                    type: "multistream",
+                                    index: index,
+                                    icon: "plus",
+                                    label: this.string("record-screen")
+                                });
+                                break;
                         }
                     }, this);
                 },
@@ -113,7 +126,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
                     click_action: function(action) {
                         if (action.get("select"))
                             return;
-                        if (action.get("type") === "screen") {
+                        if (action.get("type") === "screen" || action.get("type") === "multistream") {
                             this.trigger("record-screen");
                             return;
                         }

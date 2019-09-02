@@ -590,8 +590,11 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.RequiredSoftwareWait
 
 Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraAccess", [
     "module:VideoRecorder.Dynamics.RecorderStates.State",
-    "base:Timers.Timer"
-], function(State, Timer, scoped) {
+    "base:Objs",
+    "base:Types",
+    "base:Timers.Timer",
+    "base:Collections.Collection"
+], function(State, Objs, Types, Timer, Collection, scoped) {
     return State.extend({
         scoped: scoped
     }, {
@@ -609,6 +612,13 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraAccess", [
             this.listenOn(this.dyn, "bound", function() {
                 this.dyn.set("creation-type", this.dyn.isFlash() ? "flash" : "webrtc");
                 if (this.dyn.get("onlyaudio") || this.dyn.get("record_media") === "screen") {
+                    if (this.dyn.get("allowmultistreams")) {
+                        this.dyn.recorder.enumerateDevices().success(function(devices) {
+                            this.set("cameras", new Collection(Objs.values(devices.video)));
+                            this.trigger(Types.is_empty(devices.video) ? "no_camera" : "has_camera");
+                            this._add_new_stream();
+                        }, this.dyn);
+                    }
                     this.next("CameraHasAccess");
                     return;
                 }
@@ -652,6 +662,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraHasAccess", [
         dynamics: ["topmessage", "controlbar"],
 
         _started: function() {
+            console.log('Camera has access');
             this.dyn.trigger("ready_to_record");
             this._preparePromise = null;
             if (this.dyn.get("countdown") > 0 && this.dyn.recorder && this.dyn.recorder.recordDelay(this.dyn.get("uploadoptions")) > this.dyn.get("countdown") * 1000)

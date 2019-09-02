@@ -280,6 +280,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         if (this.get("recordviafilecapture")) {
                             this.set("skipinitial", false);
                             this.set("skipinitialonrerecord", false);
+                            this.set("allowmultistreams", false);
                             this.set("allowscreen", false);
                             this.set("autorecord", false);
                         }
@@ -313,6 +314,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         this.set("skipinitial", false);
                         this.set("skipinitialonrerecord", false);
                         this.set("allowscreen", false);
+                        this.set("allowmultistreams", false);
                         this.set("autorecord", false);
                     }
 
@@ -404,7 +406,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         webrtcStreamingIfNecessary: !!this.get("webrtcstreamingifnecessary"),
                         // webrtcOnMobile: !!this.get("webrtconmobile"),
                         localPlaybackRequested: this.get("localplayback"),
-                        screen: this.get("allowscreen") && this.get("record_media") === "screen" ? this.get("screen") : null,
+                        screen: (this.get("allowscreen") && this.get("record_media") === "screen") || (this.get("allowmultistreams") && this.get("record_media") === "multistream") ? this.get("screen") : null,
                         framerate: this.get("framerate"),
                         flip: this.get("flip-camera")
                     };

@@ -10,57 +10,57 @@
 	<ba-videorecorder-faceoutline class="{{css}}-overlay" ba-if="{{faceoutline && hasrecorder && isrecorderready}}"></ba-videorecorder-faceoutline>
     <div data-selector="recorder-overlay" class='{{cssrecorder}}-overlay' ba-show="{{!hideoverlay}}" data-overlay="overlay">
 		<ba-{{dynloader}}
-			ba-css="{{cssloader || css}}"
+		    ba-css="{{cssloader || css}}"
 			ba-cssrecorder="{{cssrecorder || css}}"
 			ba-themecolor="{{themecolor}}"
-			ba-template="{{tmplloader}}"
-			ba-show="{{loader_active}}"
-			ba-tooltip="{{loadertooltip}}"
+		    ba-template="{{tmplloader}}"
+		    ba-show="{{loader_active}}"
+		    ba-tooltip="{{loadertooltip}}"
 			ba-hovermessage="{{=hovermessage}}"
-			ba-label="{{loaderlabel}}"
-	></ba-{{dynloader}}>
+		    ba-label="{{loaderlabel}}"
+		></ba-{{dynloader}}>
 
 		<ba-{{dynmessage}}
-			ba-css="{{cssmessage || css}}"
+		    ba-css="{{cssmessage || css}}"
 			ba-themecolor="{{themecolor}}"
 			ba-cssrecorder="{{cssrecorder || css}}"
-			ba-template="{{tmplmessage}}"
-			ba-show="{{message_active}}"
-			ba-message="{{message}}"
+		    ba-template="{{tmplmessage}}"
+		    ba-show="{{message_active}}"
+		    ba-message="{{message}}"
 			ba-links="{{message_links}}"
-			ba-event:click="message_click"
+		    ba-event:click="message_click"
 			ba-event:link="message_link_click"
 		></ba-{{dynmessage}}>
 
 		<ba-{{dyntopmessage}}
-			ba-css="{{csstopmessage || css}}"
+		    ba-css="{{csstopmessage || css}}"
 			ba-themecolor="{{themecolor}}"
 			ba-cssrecorder="{{cssrecorder || css}}"
-			ba-template="{{tmpltopmessage}}"
-			ba-show="{{topmessage_active && (topmessage || hovermessage)}}"
-			ba-topmessage="{{hovermessage || topmessage}}"
+		    ba-template="{{tmpltopmessage}}"
+		    ba-show="{{topmessage_active && (topmessage || hovermessage)}}"
+		    ba-topmessage="{{hovermessage || topmessage}}"
 		></ba-{{dyntopmessage}}>
 
 		<ba-{{dynchooser}}
 			ba-onlyaudio="{{onlyaudio}}"
 			ba-facecamera="{{facecamera}}"
 			ba-recordviafilecapture="{{recordviafilecapture}}"
-			ba-css="{{csschooser || css}}"
+		    ba-css="{{csschooser || css}}"
 			ba-themecolor="{{themecolor}}"
 			ba-cssrecorder="{{cssrecorder || css}}"
-			ba-template="{{tmplchooser}}"
+		    ba-template="{{tmplchooser}}"
 			ba-allowscreen="{{allowscreen}}"
 			ba-parentpopup="{{popup}}"
-			ba-if="{{chooser_active && !is_initial_state}}"
-			ba-allowrecord="{{allowrecord}}"
-			ba-allowupload="{{allowupload}}"
-			ba-allowcustomupload="{{allowcustomupload}}"
-			ba-allowedextensions="{{allowedextensions}}"
-			ba-primaryrecord="{{primaryrecord}}"
-			ba-timelimit="{{timelimit}}"
-			ba-event:record="record_video"
+		    ba-if="{{chooser_active && !is_initial_state}}"
+		    ba-allowrecord="{{allowrecord}}"
+		    ba-allowupload="{{allowupload}}"
+		    ba-allowcustomupload="{{allowcustomupload}}"
+		    ba-allowedextensions="{{allowedextensions}}"
+		    ba-primaryrecord="{{primaryrecord}}"
+		    ba-timelimit="{{timelimit}}"
+		    ba-event:record="record_video"
 			ba-event:record-screen="record_screen"
-			ba-event:upload="video_file_selected"
+		    ba-event:upload="video_file_selected"
 		></ba-{{dynchooser}}>
 
 		<ba-{{dynimagegallery}}

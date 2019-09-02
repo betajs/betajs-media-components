@@ -3,6 +3,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
     "module:Assets",
     "browser:Info",
     "browser:Dom",
+    "browser:Events",
     "browser:Upload.MultiUploader",
     "browser:Upload.FileUploader",
     "media:Recorder.VideoRecorderWrapper",
@@ -36,7 +37,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.TemplatePartial",
     "dynamics:Partials.HotkeyPartial"
-], function(Class, Assets, Info, Dom, MultiUploader, FileUploader, VideoRecorderWrapper, RecorderSupport, WebRTCSupport, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Collection, Promise, InitialState, RecorderStates, scoped) {
+], function(Class, Assets, Info, Dom, DomEvents, MultiUploader, FileUploader, VideoRecorderWrapper, RecorderSupport, WebRTCSupport, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Collection, Promise, InitialState, RecorderStates, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -1076,6 +1077,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 _add_new_stream: function(deviceId) {
                     var _selected;
                     var _currentTracks = this.recorder._recorder.stream().getTracks();
+
                     this.get("cameras").iterate(function(videoDevice) {
                         var _videoDevice = videoDevice.data();
                         deviceId = deviceId || _videoDevice.id; // In case if argument is empty take any video source
@@ -1092,12 +1094,39 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                                 this.set("loadlabel", "");
                                 this.set("loader_active", false);
                                 this.set("showaddstreambutton", false);
+                                this.__appendNewCameraReverseElement(this.activeElement());
                             }, this).error(function(message) {
                                 console.warn(message);
                                 this.set("loadlabel", message);
                                 this.set("loader_active", false);
                             }, this);
                         }
+                    }, this);
+                },
+
+                /**
+                 * Will append DIV element which will affect as a button
+                 * @param {HTMLElement} recorderContainer
+                 * @private
+                 */
+                __appendNewCameraReverseElement: function(recorderContainer) {
+                    var _screenSwitcherElement = document.createElement('div');
+                    recorderContainer.append(_screenSwitcherElement);
+                    Dom.elementAddClass(_screenSwitcherElement, 'ba-screen-switcher');
+                    // _screenSwitcherElement.style.border = '3px solid red'; // for testing purposes only
+                    _screenSwitcherElement.style.opacity = 0;
+                    _screenSwitcherElement.style.position = 'absolute';
+                    _screenSwitcherElement.style.cursor = 'pointer';
+                    _screenSwitcherElement.style.top = this.get("addstreampositionx") + 'px';
+                    _screenSwitcherElement.style.left = this.get("addstreampositionx") + 'px';
+                    _screenSwitcherElement.style.width = this.get("addstreampositionwidth") + 'px';
+                    _screenSwitcherElement.style.height = this.get("addstreampositionheight") + 'px';
+                    _screenSwitcherElement.style.width = 'pointer';
+                    _screenSwitcherElement.style.zIndex = '100';
+
+                    this._changeVideoEventHandler = this.auto_destroy(new DomEvents());
+                    this._changeVideoEventHandler.on(_screenSwitcherElement, "click touch", function() {
+                        this.recorder.reverseCameraScreens();
                     }, this);
                 }
 

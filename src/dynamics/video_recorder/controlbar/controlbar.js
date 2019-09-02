@@ -46,6 +46,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Controlbar", [
                         this.trigger("toggle-face-mode");
                     },
                     addNewStream: function(deviceId) {
+                        this.set("settingsopen", false);
+                        this.set("hovermessage", "");
                         this.trigger("add-new-stream", deviceId);
                     },
                     hover: function(text) {

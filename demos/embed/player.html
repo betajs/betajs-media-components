@@ -41,12 +41,7 @@
 
 </head>
 <body style="background: #EEE">
-
-    <div class="row">
-        <div class="col-xs-12">
-            <div id="player"></div>
-        </div>
-    </div>
+    <div id="player"></div>
 
     <script>
         BetaJS.Flash.options = {
@@ -56,28 +51,17 @@
         var player = new BetaJS.MediaComponents.VideoPlayer.Dynamics.Player({
             element: $('#player'),
             attrs: {
-                // height: 330,
-                // width: 420,
                 theme: "default",
                 themecolor: "red",
-                // autoplay:true,
-                stretch: true,
-                // stretchheight: true,
-                // stretchwidth: true,
+                // stretch: true,
                 // source: '/static/demos/sample-video.mp4',
-                // poster:
                 sources: [
                     {
-                        src:'/static/demos/assets/portrait.mp4'
-                        , poster: '/static/demos/assets/portrait-poster.png', hd: true
-                        // src:'/static/demos/sample-video.mp4', hd: true
-                        // , poster: '/static/demos/sample-cover.png'
-                    },
-                    {
-                        // src:'/static/demos/assets/portrait.mp4'
-                        // , poster:'/static/demos/assets/portrait-poster.png', hd: false
-                        src:'/static/demos/sample-video2.mp4', hd: false
-                        , poster: '/static/demos/sample-cover.png'
+                        src:'/static/demos/sample-video.mp4',
+                        poster: '/static/demos/sample-cover.png', hd: true
+                    }, {
+                        src:'/static/demos/sample-video2.mp4',
+                        poster:'/static/demos/sample-cover2.png', hd: false
                     }
                 ],
                 streams: [{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }],

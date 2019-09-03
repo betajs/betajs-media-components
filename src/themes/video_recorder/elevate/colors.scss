@@ -27,11 +27,11 @@
         color: $value;
       }
 
-      .#{$css}-chooser-button-0, .#{$css}-imagegallery-rightbutton, .#{$css}-imagegallery-leftbutton {
+      .#{$css}-chooser-button-0, .#{$css}-chooser-button-2, .#{$css}-imagegallery-rightbutton, .#{$css}-imagegallery-leftbutton {
         background-color: $value;
       }
 
-      .#{$css}-chooser-button-0, .#{$css}-imagegallery-image:hover {
+      .#{$css}-chooser-button-0, .#{$css}-chooser-button-2, .#{$css}-imagegallery-image:hover {
         border-color: $value;
       }
 

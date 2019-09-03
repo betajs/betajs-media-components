@@ -24,10 +24,10 @@
 
       &.#{$csstheme} {
 
-        .#{$css}-chooser-button-0 {
+        .#{$css}-chooser-button-0, .#{$css}-chooser-button-2 {
           color: #ffffff;
         }
-        .#{$css}-chooser-button-1, .#{$css}-chooser-button-2 {
+        .#{$css}-chooser-button-1, .#{$css}-chooser-button-3 {
           background-color: #ffffff;
         }
       }
@@ -38,11 +38,11 @@
       }
 
       .#{$css}-imagegallery-rightbutton, .#{$css}-imagegallery-leftbutton,
-      .#{$css}-chooser-button-0 {
+      .#{$css}-chooser-button-0, .#{$css}-chooser-button-2 {
         background-color: $value;
       }
 
-      .#{$css}-imagegallery-image:hover, .#{$css}-chooser-button-0 {
+      .#{$css}-imagegallery-image:hover, .#{$css}-chooser-button-0, .#{$css}-chooser-button-2 {
         border-color: $value;
       }
 

@@ -66,12 +66,12 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
                     } else {
                         if (this.get("allowscreen"))
                             order.push("screen");
-                        if (this.get("allowmultistreams"))
-                            order.push("multistream");
                         if (this.get("allowupload"))
                             order.push("upload");
                         if (this.get("allowrecord"))
                             order.push("record");
+                        if (this.get("allowmultistreams"))
+                            order.push("multistream");
                     }
                     var actions = this.get("actions");
                     order.forEach(function(act, index) {
@@ -114,7 +114,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
                                     type: "multistream",
                                     index: index,
                                     icon: "plus",
-                                    label: this.string("record-screen")
+                                    label: this.string("multi-stream")
                                 });
                                 break;
                         }
@@ -127,7 +127,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
                         if (action.get("select"))
                             return;
                         if (action.get("type") === "screen" || action.get("type") === "multistream") {
-                            this.trigger("record-screen");
+                            this.trigger("record-screen", action.get("type") === "multistream");
                             return;
                         }
                         if (Info.isMobile() && Info.isCordova()) {
@@ -174,6 +174,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
             "record-video": "Record Video",
             "record-audio": "Record Audio",
             "record-screen": "Record Screen",
+            "multi-stream": "Multi Stream",
             "upload-video": "Upload Video"
         });
 });

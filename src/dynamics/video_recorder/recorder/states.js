@@ -49,7 +49,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.State", [
 
         selectRecord: function() {},
 
-        selectRecordScreen: function() {},
+        selectRecordScreen: function(isMultiStream) {},
 
         selectUpload: function(file) {},
 
@@ -211,12 +211,16 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
             this.selectRecord();
         },
 
-        selectRecordScreen: function() {
+        /**
+         * Will launch multistream
+         * @param isMultiStream // Does stream has additional stream
+         */
+        selectRecordScreen: function(isMultiStream) {
             if (this.dyn.get("popup")) {
                 this._popup();
                 return;
             }
-            this.dyn.set("record_media", "screen");
+            this.dyn.set("record_media", isMultiStream ? "multistream" : "screen");
             this.next("RequiredSoftwareCheck");
         },
 
@@ -611,8 +615,8 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraAccess", [
             this.dyn.set("loaderlabel", "");
             this.listenOn(this.dyn, "bound", function() {
                 this.dyn.set("creation-type", this.dyn.isFlash() ? "flash" : "webrtc");
-                if (this.dyn.get("onlyaudio") || this.dyn.get("record_media") === "screen") {
-                    if (this.dyn.get("allowmultistreams")) {
+                if (this.dyn.get("onlyaudio") || this.dyn.get("record_media") === "screen" || this.dyn.get("record_media") === "multistream") {
+                    if (this.dyn.get("allowmultistreams") && this.dyn.get("record_media") === "multistream") {
                         this.dyn.recorder.enumerateDevices().success(function(devices) {
                             this.set("cameras", new Collection(Objs.values(devices.video)));
                             this.trigger(Types.is_empty(devices.video) ? "no_camera" : "has_camera");
@@ -662,7 +666,6 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraHasAccess", [
         dynamics: ["topmessage", "controlbar"],
 
         _started: function() {
-            console.log('Camera has access');
             this.dyn.trigger("ready_to_record");
             this._preparePromise = null;
             if (this.dyn.get("countdown") > 0 && this.dyn.recorder && this.dyn.recorder.recordDelay(this.dyn.get("uploadoptions")) > this.dyn.get("countdown") * 1000)

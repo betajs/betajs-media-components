@@ -179,10 +179,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
                 computed: {
                     "nativeRecordingWidth:recordingwidth,record_media": function() {
-                        return this.get("recordingwidth") || (this.get("record_media") !== "screen" ? 640 : (window.innerWidth || document.body.clientWidth));
+                        return this.get("recordingwidth") || ((this.get("record_media") !== "screen" || (this.get("record_media") !== "multistream")) ? 640 : (window.innerWidth || document.body.clientWidth));
                     },
                     "nativeRecordingHeight:recordingheight,record_media": function() {
-                        return this.get("recordingheight") || (this.get("record_media") !== "screen" ? 480 : (window.innerHeight || document.body.clientHeight));
+                        return this.get("recordingheight") || ((this.get("record_media") !== "screen" || (this.get("record_media") !== "multistream")) ? 480 : (window.innerHeight || document.body.clientHeight));
                     },
                     "widthHeightStyles:width,height": function() {
                         var result = {};
@@ -490,7 +490,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 },
 
                 _showAddStreamButton: function() {
-                    return this.get("allowmultistreams") && (this.get("cameras").count() > 1 || this.get("cameras").count() >= 1 && this.get("record_media") === "screen");
+                    return this.get("allowmultistreams") && (this.get("cameras").count() > 1 || this.get("cameras").count() >= 1 && ((this.get("record_media") !== "screen" || (this.get("record_media") !== "multistream"))));
                 },
 
                 _initSettings: function() {
@@ -689,12 +689,12 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         this.host.state().selectRecord();
                     },
 
-                    record_screen: function() {
+                    record_screen: function(isMultiStream) {
                         if (this._delegatedRecorder) {
                             this._delegatedRecorder.execute("record_screen");
                             return;
                         }
-                        this.host.state().selectRecordScreen();
+                        this.host.state().selectRecordScreen(isMultiStream);
                     },
 
                     pause_recorder: function() {
@@ -1079,7 +1079,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 _add_new_stream: function(deviceId) {
                     var _selected;
                     var _currentTracks = this.recorder._recorder.stream().getTracks();
-
                     this.get("cameras").iterate(function(videoDevice) {
                         var _videoDevice = videoDevice.data();
                         deviceId = deviceId || _videoDevice.id; // In case if argument is empty take any video source

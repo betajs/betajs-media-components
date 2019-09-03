@@ -21,10 +21,10 @@
 .#{$css}-chooser-button-container {
 	@include absolute-center-center;
 	@include transform-translate(-50%, -50%);
-	text-align: center;	
+	text-align: center;
 }
 
-.#{$css}-chooser-button-0 {
+.#{$css}-chooser-button-0, .#{$css}-chooser-button-2 {
 	@include clickable;
 	@include border-radius($chooser_primary_button_border_radius);
 	background-color: $chooser_primary_button_bgcolor;
@@ -39,7 +39,7 @@
 	white-space: nowrap;
 }
 
-.#{$css}-chooser-button-1, .#{$css}-chooser-button-2 {
+.#{$css}-chooser-button-1, .#{$css}-chooser-button-3 {
 	@include clickable;
 	color: $chooser_secondary_button_color;
 	font-family: $font_family;

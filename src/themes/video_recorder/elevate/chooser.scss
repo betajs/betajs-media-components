@@ -10,28 +10,28 @@
 		margin: $chooser_icon_margin;
 	}
 
-	.#{$css}-chooser-button-0 {
+	.#{$css}-chooser-button-0, .#{$css}-chooser-button-2 {
 		background-color: $chooser_primary_button_bgcolor;
 	}
 
-	.#{$css}-chooser-button-0, .#{$css}-chooser-button-1, .#{$css}-chooser-button-2 {
+	.#{$css}-chooser-button-0, .#{$css}-chooser-button-1, .#{$css}-chooser-button-2, .#{$css}-chooser-button-3 {
 		line-height: $chooser_buttons_line_height;
 		min-width: $chooser_buttons_min_width;
 		padding: $chooser_primary_button_vertical_padding $chooser_primary_button_horizontal_padding;
 	}
 
-	.#{$css}-chooser-button-0 {
+	.#{$css}-chooser-button-0, .#{$css}-chooser-button-2 {
 		@include border-radius(2px);
 		border: 1px solid $chooser_primary_button_bgcolor;
 
 	}
 
-	.#{$css}-chooser-button-1, .#{$css}-chooser-button-2 {
+	.#{$css}-chooser-button-1, .#{$css}-chooser-button-3 {
 		@include border-radius(2px);
 		background-color: $chooser_secondary_button_bgcolor;
 		color: $text_color_secondary;
 		border: 1px solid $text_color_secondary;
-		margin-top: 2px;
+		margin: 2px 0;
 	}
 
 	.#{$csscommon}-icon-record:before {

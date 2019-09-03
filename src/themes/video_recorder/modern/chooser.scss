@@ -5,11 +5,11 @@
         font-size: 32px;
     }
 
-    .#{$css}-chooser-button-0 {
+    .#{$css}-chooser-button-0, .#{$css}-chooser-button-2 {
         background-color: $button_color;
     }
 
-    .#{$css}-chooser-button-1, .#{$css}-chooser-button-2 {
+    .#{$css}-chooser-button-1, .#{$css}-chooser-button-3 {
         color: $button_color;
     }
 }

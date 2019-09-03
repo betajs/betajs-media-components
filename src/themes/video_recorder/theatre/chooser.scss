@@ -10,24 +10,24 @@
       margin: $chooser_icon_margin;
     }
 
-    .#{$css}-chooser-button-0, .#{$css}-chooser-button-1, .#{$css}-chooser-button-2 {
+    .#{$css}-chooser-button-0, .#{$css}-chooser-button-1, .#{$css}-chooser-button-2, .#{$css}-chooser-button-3 {
       @include border-radius( $chooser_primary_button_border_radius );
       line-height: $chooser_buttons_line_height;
       min-width: $chooser_buttons_min_width;
       padding: $chooser_primary_button_vertical_padding $chooser_primary_button_horizontal_padding;
     }
 
-    .#{$css}-chooser-button-0 {
+    .#{$css}-chooser-button-0, .#{$css}-chooser-button-2 {
       background-color: #ffffff;
       color: #333333;
       border: 1px solid #333;
     }
 
-    .#{$css}-chooser-button-1, .#{$css}-chooser-button-1 {
+    .#{$css}-chooser-button-1, .#{$css}-chooser-button-3 {
       //@include background-rgba( 0, 0, 0, 0.5, #666666 );
       border: 1px solid #999;
       color: #979797;
-      margin-top: 2px;
+      margin: 2px 0;
     }
 
     .#{$csscommon}-icon-record:before {

@@ -179,10 +179,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
                 computed: {
                     "nativeRecordingWidth:recordingwidth,record_media": function() {
-                        return this.get("recordingwidth") || this.get("record_media") !== "screen" || this.get("record_media") !== "multistream" ? 640 : (window.innerWidth || document.body.clientWidth);
+                        return this.get("recordingwidth") || ((this.get("record_media") !== "screen" && (this.get("record_media") !== "multistream")) ? 640 : (window.innerWidth || document.body.clientWidth));
                     },
                     "nativeRecordingHeight:recordingheight,record_media": function() {
-                        return this.get("recordingheight") || this.get("record_media") !== "screen" || this.get("record_media") !== "multistream" ? 480 : (window.innerHeight || document.body.clientHeight);
+                        return this.get("recordingheight") || ((this.get("record_media") !== "screen" && (this.get("record_media") !== "multistream")) ? 480 : (window.innerHeight || document.body.clientHeight));
                     },
                     "widthHeightStyles:width,height": function() {
                         var result = {};

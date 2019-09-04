@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.189 - 2019-08-17
+betajs-media-components - v0.0.190 - 2019-09-03
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -343,16 +343,17 @@ Apache-2.0 Software License.
   color: #000000;
   font-size: 32px;
   margin: 16px; }
-.ba-recorder-theme-cube .ba-videorecorder-chooser-button-0, .ba-recorder-theme-cube .ba-videorecorder-chooser-button-1, .ba-recorder-theme-cube .ba-videorecorder-chooser-button-2 {
+.ba-recorder-theme-cube .ba-videorecorder-chooser-button-0, .ba-recorder-theme-cube .ba-videorecorder-chooser-button-1, .ba-recorder-theme-cube .ba-videorecorder-chooser-button-2, .ba-recorder-theme-cube .ba-videorecorder-chooser-button-3 {
   line-height: 20px;
   min-width: 10em;
+  margin: 2px 0;
   padding: 6px 8px; }
-.ba-recorder-theme-cube .ba-videorecorder-chooser-button-0 {
+.ba-recorder-theme-cube .ba-videorecorder-chooser-button-0, .ba-recorder-theme-cube .ba-videorecorder-chooser-button-2 {
   -moz-border-radius: 0;
   -webkit-border-radius: 0;
   border-radius: 0;
   background-color: #000000; }
-.ba-recorder-theme-cube .ba-videorecorder-chooser-button-1, .ba-recorder-theme-cube .ba-videorecorder-chooser-button-2 {
+.ba-recorder-theme-cube .ba-videorecorder-chooser-button-1, .ba-recorder-theme-cube .ba-videorecorder-chooser-button-3 {
   background-color: #666666;
   color: #eeeeee;
   margin-top: 2px; }
@@ -366,7 +367,7 @@ Apache-2.0 Software License.
   border-color: #eb6a74; }
 .ba-recorder-red-color .ba-videorecorder-chooser-icon-container, .ba-recorder-red-color .ba-recorder-loader-label {
   color: #eb6a74; }
-.ba-recorder-red-color .ba-videorecorder-chooser-button-0, .ba-recorder-red-color .ba-videorecorder-imagegallery-rightbutton, .ba-recorder-red-color .ba-videorecorder-imagegallery-leftbutton {
+.ba-recorder-red-color .ba-videorecorder-chooser-button-0, .ba-recorder-red-color .ba-videorecorder-chooser-button-2, .ba-recorder-red-color .ba-videorecorder-imagegallery-rightbutton, .ba-recorder-red-color .ba-videorecorder-imagegallery-leftbutton {
   background-color: #eb6a74; }
 .ba-recorder-red-color .ba-videorecorder-imagegallery-image:hover {
   border-color: #eb6a74; }
@@ -382,7 +383,7 @@ Apache-2.0 Software License.
   border-color: #2a74eb; }
 .ba-recorder-blue-color .ba-videorecorder-chooser-icon-container, .ba-recorder-blue-color .ba-recorder-loader-label {
   color: #2a74eb; }
-.ba-recorder-blue-color .ba-videorecorder-chooser-button-0, .ba-recorder-blue-color .ba-videorecorder-imagegallery-rightbutton, .ba-recorder-blue-color .ba-videorecorder-imagegallery-leftbutton {
+.ba-recorder-blue-color .ba-videorecorder-chooser-button-0, .ba-recorder-blue-color .ba-videorecorder-chooser-button-2, .ba-recorder-blue-color .ba-videorecorder-imagegallery-rightbutton, .ba-recorder-blue-color .ba-videorecorder-imagegallery-leftbutton {
   background-color: #2a74eb; }
 .ba-recorder-blue-color .ba-videorecorder-imagegallery-image:hover {
   border-color: #2a74eb; }
@@ -398,7 +399,7 @@ Apache-2.0 Software License.
   border-color: #5daa96; }
 .ba-recorder-green-color .ba-videorecorder-chooser-icon-container, .ba-recorder-green-color .ba-recorder-loader-label {
   color: #5daa96; }
-.ba-recorder-green-color .ba-videorecorder-chooser-button-0, .ba-recorder-green-color .ba-videorecorder-imagegallery-rightbutton, .ba-recorder-green-color .ba-videorecorder-imagegallery-leftbutton {
+.ba-recorder-green-color .ba-videorecorder-chooser-button-0, .ba-recorder-green-color .ba-videorecorder-chooser-button-2, .ba-recorder-green-color .ba-videorecorder-imagegallery-rightbutton, .ba-recorder-green-color .ba-videorecorder-imagegallery-leftbutton {
   background-color: #5daa96; }
 .ba-recorder-green-color .ba-videorecorder-imagegallery-image:hover {
   border-color: #5daa96; }

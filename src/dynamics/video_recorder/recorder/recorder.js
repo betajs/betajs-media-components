@@ -397,8 +397,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         recordAudio: !this.get("noaudio"),
                         recordingWidth: this.get("nativeRecordingWidth"),
                         recordingHeight: this.get("nativeRecordingHeight"),
-                        audioBitrate: this.get("audiobitrate"),
-                        videoBitrate: this.get("videobitrate"),
+                        audioBitrate: typeof this.get("audiobitrate") === "number" ? this.get("audiobitrate") : undefined,
+                        videoBitrate: typeof this.get("videobitrate") === "number" ? this.get("videobitrate") : undefined,
                         flashFullSecurityDialog: !this.get("flashincognitosupport"),
                         rtmpStreamType: this.get("rtmpstreamtype"),
                         rtmpMicrophoneCodec: this.get("rtmpmicrophonecodec"),
@@ -666,6 +666,22 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     if (this.__backgroundSnapshot)
                         this.recorder.removeSnapshot(this.__backgroundSnapshot);
                     delete this.__backgroundSnapshot;
+                },
+
+                toggleFaceOutline: function(new_status) {
+                    if (new_status == undefined) {
+                        if (this.get("faceoutline") == true) {
+                            this.set("faceoutline", false);
+                        } else {
+                            this.set("faceoutline", true);
+                        }
+                    } else {
+                        this.set("faceoutline", new_status);
+                    }
+                },
+
+                isMobile: function() {
+                    return Info.isMobile();
                 },
 
                 object_functions: ["record", "rerecord", "record_screen", "stop", "play", "pause", "reset"],

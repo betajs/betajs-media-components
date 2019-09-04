@@ -215,6 +215,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "preventinteractionstatus": false, // need to prevent `Unexpected token: punc (()` Uglification issue
                     "ready": true,
                     "tracktagssupport": false,
+                    "playbackcount": 0,
+                    "playbackended": 0,
                     // If settings are open and visible
                     "settingsoptionsvisible": false,
                     "states": {
@@ -468,6 +470,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("videoelement_active", false);
                 },
 
+                getCurrentPosition: function() {
+                    if (this.videoAttached()) {
+                        return this.player._element.currentTime;
+                    } else {
+                        return NaN;
+                    }
+                },
+
                 _attachVideo: function() {
                     if (this.videoAttached())
                         return;
@@ -603,6 +613,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.player.on("playing", function() {
                             this.set("playing", true);
                             this.trigger("playing");
+                            if (this.get("playedonce") == false) {
+                                this.set("playbackcount", 1);
+                            } else {
+                                this.set("playbackcount", this.get("playbackended") + 1);
+                            }
                         }, this);
                         this.player.on("error", function(e) {
                             this._error("video", e);
@@ -616,6 +631,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.player.on("ended", function() {
                             this.set("playing", false);
                             this.set('playedonce', true);
+                            this.set("playbackended", this.get('playbackended') + 1);
                             if (this.settings)
                                 this.settings.hide_settings();
                             this.trigger("ended");
@@ -683,6 +699,30 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     });
 
+                },
+
+                toggleFullscreen: function() {
+                    this.call("toggle_fullscreen");
+                },
+
+                toggleSubtitles: function(new_status) {
+                    var status;
+                    if (new_status == undefined) {
+                        status = this.get("tracktextvisible");
+                    } else {
+                        status = !new_status;
+                    }
+                    if (status == true) {
+                        this.set("tracktextvisible", false);
+                        this.toggleTrackTags(false);
+                    } else {
+                        this.set("tracktextvisible", true);
+                        this.toggleTrackTags(true);
+                    }
+                },
+
+                getPlaybackCount: function() {
+                    return this.get("playbackcount");
                 },
 
                 /* In the future if require to use promise player, Supports >Chrome50, >FireFox53
@@ -1232,6 +1272,48 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     return Objs.map(this.attrs, function(value, key) {
                         return this.get(key);
                     }, this);
+                },
+
+                isHD: function() {
+                    if (this.videoAttached()) {
+                        if ((this.videoWidth() * this.videoHeight()) >= 1280 * 720) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        var video_data;
+                        if (this.get("stream") == null || this.get("stream") == "") {
+                            video_data = this.get("video_data").default_stream;
+                        } else {
+                            for (var i = 0; i < this.get("video_data").streams.length; i++) {
+                                if (this.get("video_data").streams[i].token == this.get("stream")) {
+                                    if ((this.get("video_data").streams[i].video_width * this.get("video_data").streams[i].video_height) >= 1280 * 720) {
+                                        return true;
+                                    } else {
+                                        return false;
+                                    }
+                                }
+                            }
+                        }
+                        if (video_data) {
+                            if ((video_data.video_width * video_data.video_height) >= 1280 * 720) {
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        } else {
+                            return undefined;
+                        }
+                    }
+                },
+
+                isSD: function() {
+                    return !this.isHD();
+                },
+
+                isMobile: function() {
+                    return Info.isMobile();
                 },
 
                 popupAttrs: function() {

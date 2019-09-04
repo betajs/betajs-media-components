@@ -665,6 +665,22 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     delete this.__backgroundSnapshot;
                 },
 
+                toggleFaceOutline: function(new_status) {
+                    if (new_status == undefined) {
+                        if (this.get("faceoutline") == true) {
+                            this.set("faceoutline", false);
+                        } else {
+                            this.set("faceoutline", true);
+                        }
+                    } else {
+                        this.set("faceoutline", new_status);
+                    }
+                },
+
+                isMobile: function() {
+                    return Info.isMobile();
+                },
+
                 object_functions: ["record", "rerecord", "record_screen", "stop", "play", "pause", "reset"],
 
                 functions: {

@@ -109,6 +109,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "nofullscreen": false,
                     "playfullscreenonmobile": false,
                     "stretch": false,
+                    "stretchwidth": false,
+                    "stretchheight": false,
                     "popup-stretch": false,
                     "hideoninactivity": true,
                     "hidebarafter": 5000,
@@ -215,8 +217,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "preventinteractionstatus": false, // need to prevent `Unexpected token: punc (()` Uglification issue
                     "ready": true,
                     "tracktagssupport": false,
-                    "playbackcount": 0,
-                    "playbackended": 0,
                     // If settings are open and visible
                     "settingsoptionsvisible": false,
                     "states": {
@@ -243,6 +243,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "ready": "boolean",
                     "nofullscreen": "boolean",
                     "stretch": "boolean",
+                    "stretchwidth": "boolean",
+                    "stretchheight": "boolean",
                     "preroll": "boolean",
                     "hideoninactivity": "boolean",
                     "hidebarafter": "integer",
@@ -354,6 +356,26 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             hideoninactivity: this.get("hideoninactivity")
                         }));
                     }
+
+                    if ((this.get("stretch") || this.get("stretchwidth") || this.get("stretchheight")) && (this.get("height") > 0.00 || this.get("width") > 0.00)) {
+                        if (this.get("height") && this.get("width") && this.get("stretch")) {
+                            this.__stretchBasedOnDimensions = true;
+                        } else if (this.get("height") && !this.get("stretchwidth")) {
+                            this.__stretchBasedOnHeight = true;
+                        } else {
+                            this.__stretchBasedOnWidth = true;
+                        }
+                    }
+
+                    // If both set to true, then normal stretch is enought
+                    if (this.get("stretchwidth") && this.get("stretchheight")) {
+                        this.set("stretch", true);
+                        this.set("stretchheight", false);
+                    }
+                    // else if (this.get("stretchwidth") || this.get("stretchheight")) {
+                    //     // In case if one of the stretch options set as true normal stretch will be false
+                    //     this.set("stretch", false);
+                    // }
 
                     this.set("ie8", Info.isInternetExplorer() && Info.internetExplorerVersion() < 9);
                     this.set("firefox", Info.isFirefox());
@@ -470,14 +492,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("videoelement_active", false);
                 },
 
-                getCurrentPosition: function() {
-                    if (this.videoAttached()) {
-                        return this.player._element.currentTime;
-                    } else {
-                        return NaN;
-                    }
-                },
-
                 _attachVideo: function() {
                     if (this.videoAttached())
                         return;
@@ -558,7 +572,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     //If local player playing stop it before
                                     if (this.get('playing')) this.stop();
 
-                                    // Intial play button state
+                                    // Initial play button state
                                     if (!castRemotePlayer.isPaused) this.set('playing', true);
 
                                 }, this);
@@ -587,6 +601,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }
                         }
 
+                        // In case if set height set and stretch NOT based on width
+                        if ((this.get("stretchheight") || this.__stretchBasedOnHeight) && !this.get("stretchwidth") && this.get("height") > 0.00)
+                            video.height = this.get("height");
+
                         if (this.get("playwhenvisible")) {
                             this.set("skipinitial", true);
                             this._playWhenVisible(video);
@@ -613,11 +631,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.player.on("playing", function() {
                             this.set("playing", true);
                             this.trigger("playing");
-                            if (this.get("playedonce") == false) {
-                                this.set("playbackcount", 1);
-                            } else {
-                                this.set("playbackcount", this.get("playbackended") + 1);
-                            }
                         }, this);
                         this.player.on("error", function(e) {
                             this._error("video", e);
@@ -631,7 +644,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.player.on("ended", function() {
                             this.set("playing", false);
                             this.set('playedonce', true);
-                            this.set("playbackended", this.get('playbackended') + 1);
                             if (this.settings)
                                 this.settings.hide_settings();
                             this.trigger("ended");
@@ -701,30 +713,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 },
 
-                toggleFullscreen: function() {
-                    this.call("toggle_fullscreen");
-                },
-
-                toggleSubtitles: function(new_status) {
-                    var status;
-                    if (new_status == undefined) {
-                        status = this.get("tracktextvisible");
-                    } else {
-                        status = !new_status;
-                    }
-                    if (status == true) {
-                        this.set("tracktextvisible", false);
-                        this.toggleTrackTags(false);
-                    } else {
-                        this.set("tracktextvisible", true);
-                        this.toggleTrackTags(true);
-                    }
-                },
-
-                getPlaybackCount: function() {
-                    return this.get("playbackcount");
-                },
-
                 /* In the future if require to use promise player, Supports >Chrome50, >FireFox53
                 _playWithPromise: function(dyn) {
                     var _player, _promise, _autoplayAllowed;
@@ -775,7 +763,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         _status = status ? 'showing' : 'disabled';
                     _status = (status && _customStyled) ? 'hidden' : _status;
                     if (!status && this.get("tracktagsstyled")) this.set("trackcuetext", null);
-
                     Objs.iter(this.__video.textTracks, function(track, index) {
                         if (typeof this.__video.textTracks[index] === 'object' && this.__video.textTracks[index]) {
                             var _track = this.__video.textTracks[index];
@@ -1164,7 +1151,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                         this.set('preventinteractionstatus', true);
                                     }
                                 }
-
                             }
                             this.set("last_position_change_delta", _now - this.get("last_position_change"));
                             this.set("position", new_position);
@@ -1195,7 +1181,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 _updateCSSSize: function() {
                     var width = Dom.elementDimensions(this.activeElement()).width;
                     this.set("csssize", width > 400 ? "normal" : (width > 320 ? "medium" : "small"));
-                    this.set("mobileview", width < 560);
                 },
 
                 videoHeight: function() {
@@ -1246,11 +1231,20 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 _updateStretch: function() {
                     var newStretch = null;
-                    if (this.get("stretch")) {
+                    if (this.get("stretch") || this.get("stretchwidth") || this.get("stretchheight")) {
                         var ar = this.aspectRatio();
                         if (isFinite(ar)) {
                             var par = this.parentAspectRatio();
-                            if (isFinite(par)) {
+                            if (this.__stretchBasedOnDimensions) {
+                                if (!this.get("height") && !this.get("width"))
+                                    newStretch = ar > 1.00 ? "width" : "height";
+                                else
+                                    newStretch = 'both';
+                            } else if (this.__stretchBasedOnWidth) {
+                                newStretch = "width";
+                            } else if (this.__stretchBasedOnHeight) {
+                                newStretch = "height";
+                            } else if (isFinite(par)) {
                                 if (par > ar)
                                     newStretch = "height";
                                 if (par < ar)
@@ -1272,48 +1266,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     return Objs.map(this.attrs, function(value, key) {
                         return this.get(key);
                     }, this);
-                },
-
-                isHD: function() {
-                    if (this.videoAttached()) {
-                        if ((this.videoWidth() * this.videoHeight()) >= 1280 * 720) {
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    } else {
-                        var video_data;
-                        if (this.get("stream") == null || this.get("stream") == "") {
-                            video_data = this.get("video_data").default_stream;
-                        } else {
-                            for (var i = 0; i < this.get("video_data").streams.length; i++) {
-                                if (this.get("video_data").streams[i].token == this.get("stream")) {
-                                    if ((this.get("video_data").streams[i].video_width * this.get("video_data").streams[i].video_height) >= 1280 * 720) {
-                                        return true;
-                                    } else {
-                                        return false;
-                                    }
-                                }
-                            }
-                        }
-                        if (video_data) {
-                            if ((video_data.video_width * video_data.video_height) >= 1280 * 720) {
-                                return true;
-                            } else {
-                                return false;
-                            }
-                        } else {
-                            return undefined;
-                        }
-                    }
-                },
-
-                isSD: function() {
-                    return !this.isHD();
-                },
-
-                isMobile: function() {
-                    return Info.isMobile();
                 },
 
                 popupAttrs: function() {

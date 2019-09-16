@@ -1,0 +1,3913 @@
+/*!
+betajs-media-components - v0.0.192 - 2019-09-16
+Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
+Apache-2.0 Software License.
+*/
+$csscommon: "ba-commoncss";
+$cssrecorder: "ba-recorder";
+$cssplayer: "ba-player";
+$cssvideoplayer: "ba-videoplayer";
+$cssvideorecorder: "ba-videorecorder";
+$cssaudioplayer: "ba-audioplayer";
+$cssaudiorecorder: "ba-audiorecorder";
+$cssimageviewer: "ba-imageviewer";
+$cssimagecapture: "ba-imagecapture";
+$cssie8: "ba-videoplayer-ie8";
+$cssnoie8: "ba-videoplayer-noie8";
+$fontello_name: "bjsmc";
+
+// Sidebar share
+$share_container_top: 50px;
+$share_container_width: 90px;
+$share_container_right: 15px;
+$open_share_button_color: #eeeeee;
+$open_share_button_border_radius: 5px;
+$open_share_button_size: 13px;
+$open_share_button_top: 30px;
+$open_share_button_box_size: 45px;
+$open_share_button_font_size: 14px;
+$open_share_button_z-index: 100;
+$share_icon_font_size: 14px;
+$share_icon_container_height: 45px;
+$share_icon_container_width: 45px;
+
+// Player play button
+$cover_playbutton_color: #eeeeee;
+$cover_playbutton_hover_color: #000000;
+$cover_playbutton_shadow: #000000;
+$cover_playbutton_border_color: #eeeeee;
+$cover_playbutton_border_hover_color: #000000;
+$cover_playbutton_hover_shadow: #eeeeee;
+
+$playbutton_size: 5px;
+$playbutton_frame_thickness: 0.6em;
+$playbutton_default_opacity: 0.6;
+$playbutton_hover_opacity: 0.9;
+$playbutton_transition_time: .25s;
+$playbutton_background_opacity: 0.2;
+
+$rerecord_height: 48px;
+$rerecord_opacity: 0.5;
+$rerecord_bgcolor: #666666;
+$rerecord_padding: 24px;
+$rerecord_padding: 16px;
+$rerecord_primarybutton_radius: 0;
+$rerecord_primarybutton_color: #000000;
+$rerecord_primarybutton_text_color: #eeeeee;
+$rerecord_primarybutton_padding: 0;
+$rerecord_primarybutton_vertical_padding: 16px;
+$rerecord_primarybutton_font_weight: 300;
+$rerecord_primarybutton_font_size: 12px;
+$rerecord_letter_spacing: .1em;
+$rerecord_text_color: #eeeeee;
+$rerecord_font_family: sans-serif;
+
+
+// Recorder message
+$message_bgcolor: #eeeeee;
+$message_opacity: 0.75;
+$message_color: #000000;
+$message_opacity: 0.75;
+$message_height: 90px;
+$message_width: 90px;
+$message_side_interval: 8px;
+$topmessage_fontsize: 15px;
+
+$loader_size: 5px;
+$recorder_loader_frame_thickness: 1.1em;
+$player_loader_frame_thickness: 0.6em;
+$loader_label_fontsize: 40px;
+
+// Recorder mic and video status colors
+$controlbar_icon_good: #9F9;
+$controlbar_icon_bad: #F99;
+
+$player_controlbar_height: 30px;
+$player_progressbar_height: 3px;
+
+$player_dashboard_transition: 0.5s;
+
+// Theme Colors
+$theme_color_blue: #2a74eb;
+$theme_color_red: #eb6a74;
+$theme_color_green: #5daa96;
+
+$colors: (
+  'red': $theme_color_red,
+  'blue': $theme_color_blue,
+  'green': $theme_color_green,
+  'default': ''
+);
+
+@mixin transform-translate($x, $y) {
+    -webkit-transform: translate($x, $y);
+    -moz-transform: translate($x, $y);
+    -o-transform: translate($x, $y);
+    -ms-transform: translate($x, $y);
+    transform: translate($x, $y);
+}
+
+@mixin transform-translate-y($y) {
+    -webkit-transform: translateY($y);
+    -moz-transform: translateY($y);
+    -o-transform: translateY($y);
+    -ms-transform: translateY($y);
+    transform: translateY($y);
+}
+
+@mixin transform-translate-x($x) {
+    -webkit-transform: translateX($x);
+    -moz-transform: translateX($x);
+    -o-transform: translateX($x);
+    -ms-transform: translateX($x);
+    transform: translateX($x);
+}
+
+@mixin transform-translate-z($y) {
+    -webkit-transform: translateZ($y);
+    -moz-transform: translateZ($y);
+    -o-transform: translateZ($y);
+    -ms-transform: translateZ($y);
+    transform: translateZ($y);
+}
+
+
+@mixin align-all() {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+@mixin align-full-top() {
+    left: 0;
+    right: 0;
+    top: 0;
+}
+
+@mixin align-full-bottom() {
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+@mixin absolute-align-left {
+    position: absolute;
+    left: 0;
+}
+
+@mixin absolute-align-bottom {
+    position: absolute;
+    bottom: 0;
+}
+
+@mixin absolute-align-top {
+    position: absolute;
+    top: 0;
+}
+
+@mixin absolute-align-right-bottom {
+    bottom: 0;
+    left: auto;
+    position: absolute;
+    right: 0;
+    top: auto;
+}
+
+@mixin absolute-align-all() {
+    position: absolute;
+    @include align-all();
+}
+
+@mixin relative-align-all() {
+    position: relative;
+    @include align-all();
+}
+
+@mixin absolute-align-full-bottom() {
+    position: absolute;
+    @include align-full-bottom();
+}
+
+@mixin absolute-align-full-bottom-above-control-bar($ctrlbar_height) {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: $ctrlbar_height;
+}
+
+@mixin absolute-align-full-top() {
+    position: absolute;
+    @include align-full-top();
+}
+
+@mixin relative-align-full-bottom() {
+    position: relative;
+    @include align-full-bottom();
+}
+
+@mixin absolute-center-center() {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+@mixin absolute-max-max() {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+@mixin relative-center-center {
+    @include transform-translate-y(-50%);
+    top: 50%;
+    position: relative;
+    text-align: center;
+}
+
+@mixin relative-horizontally-center {
+    position: relative;
+    margin: auto;
+}
+
+@mixin float-width-height($float, $width, $height) {
+    float: $float;
+    width: $width;
+    height: $height;
+}
+
+@mixin float-height($float, $height) {
+    float: $float;
+    height: $height;
+}
+
+@mixin background-rgba($r, $g, $b, $o, $fallback) {
+    background-color: $fallback;
+    background-color: rgba($r, $g, $b, $o);
+}
+
+@mixin border-rgba($thinkness, $r, $g, $b, $o, $fallback) {
+    border: $thinkness solid;
+    border-color: $fallback;
+    border-color: rgba($r, $g, $b, $o);
+}
+
+@mixin border-rgba-with-type($thinkness, $type, $r, $g, $b, $o, $fallback) {
+    border: $thinkness $type;
+    border-color: $fallback;
+    border-color: rgba($r, $g, $b, $o);
+}
+
+@mixin border-top-rgba($thinkness, $r, $g, $b, $o, $fallback) {
+    border-top: $thinkness solid;
+    border-top-color: $fallback;
+    border-top-color: rgba($r, $g, $b, $o);
+}
+
+@mixin border-left-rgba($thinkness, $r, $g, $b, $o, $fallback) {
+    border-left: $thinkness solid;
+    border-left-color: $fallback;
+    border-left-color: rgba($r, $g, $b, $o);
+}
+
+@mixin border-bottom-rgba($thinkness, $r, $g, $b, $o, $fallback) {
+    border-bottom: $thinkness solid;
+    border-bottom-color: $fallback;
+    border-bottom-color: rgba($r, $g, $b, $o);
+}
+
+@mixin border-right-rgba($thinkness, $r, $g, $b, $o, $fallback) {
+    border-right: $thinkness solid;
+    border-right-color: $fallback;
+    border-right-color: rgba($r, $g, $b, $o);
+}
+
+@mixin border-round-edges($width) {
+    border-bottom-left-radius: $width;
+    border-bottom-right-radius: $width;
+    border-top-left-radius: $width;
+    border-top-right-radius: $width;
+}
+
+@mixin border-right-round-edges($width) {
+    border-bottom-right-radius: $width;
+    border-top-right-radius: $width;
+}
+
+@mixin border-radius($radius) {
+    -moz-border-radius: $radius;
+    -webkit-border-radius: $radius;
+    border-radius: $radius;
+}
+
+@mixin transition1($attribute, $time, $mode) {
+    transition: $attribute $time $mode;
+    -moz-transition: $attribute $time $mode;
+    -webkit-transition: $attribute $time $mode;
+    -o-transition: $attribute $time $mode;
+    -ms-transition: $attribute $time $mode;
+}
+
+@mixin transition2($attribute1, $attribute2, $time, $mode) {
+    transition: $attribute1 $time $mode, $attribute2 $time $mode;
+    -moz-transition: $attribute1 $time $mode, $attribute2 $time $mode;
+    -webkit-transition: $attribute1 $time $mode, $attribute2 $time $mode;
+    -o-transition: $attribute1 $time $mode, $attribute2 $time $mode;
+}
+
+@mixin hide-slow( $time ) {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity #{$time}s linear;
+}
+
+@mixin show-slow($time) {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0s, opacity #{$time}s linear;
+}
+
+@mixin clickable {
+    cursor: pointer;
+    //-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+
+@mixin transparent($opacity) {
+    /* works for IE 5+. */
+    //filter:alpha(opacity= ( $opacity*10 ) );
+
+    /* works for IE 8. */
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=#{$opacity * 100})";
+
+    /* works for old school versions of the Mozilla browsers like Netscape Navigator. */
+    -moz-opacity:$opacity;
+
+    /* This is for old versions of Safari (1.x) with KHTML rendering engine */
+    -khtml-opacity: $opacity;
+
+    /* This is the "most important" one because it's the current standard in CSS. This will work in most versions of Firefox, Safari, and Opera. */
+    opacity: $opacity;
+}
+
+@mixin argb($hex) {
+    background: none;
+    -ms-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=$hex,endColorstr=$hex);
+    //filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=$hex,endColorstr=$hex);
+    zoom: 1;
+}
+
+@mixin rotate($degree) {
+    -webkit-transform: rotate($degree deg); /* Chrome, Safari, Opera */
+    -moz-transform: rotate($degree deg);
+    -o-transform: rotate($degree deg);
+    -ms-transform: rotate($degree deg); /* IE 9 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=#{$degree/30})";
+    transform: rotate($degree deg);
+}
+
+@mixin rotate90() {
+    -moz-transform:    rotate(90deg);
+    -o-transform:      rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform:         rotate(90deg);
+
+    /* IE8+ - must be on one line, unfortunately */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=-1.8369701987210297e-16, M12=-1, M21=1, M22=-1.8369701987210297e-16, SizingMethod='auto expand')";
+
+    /* IE6 and 7 */
+    //filter: progid:DXImageTransform.Microsoft.Matrix(
+    //                M11=-1.8369701987210297e-16,
+    //                M12=-1,
+    //                M21=1,
+    //                M22=-1.8369701987210297e-16,
+    //                SizingMethod='auto expand');
+}
+
+@mixin rotate-90() {
+    -moz-transform:    rotate(-90deg);
+    -o-transform:      rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    -ms-transform:     rotate(-90deg);
+    transform:         rotate(-90deg);
+
+    /* IE8+ - must be on one line, unfortunately */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=3.061616997868383e-16, M12=1, M21=-1, M22=3.061616997868383e-16, SizingMethod='auto expand')";
+}
+
+@mixin background-rgba-ie($filter, $R, $G, $B, $opacity, $fallback) {
+
+    /* Web browsers that does not support RGBa, the Fallback */
+    background-color: rgb($R, $G, $B);
+
+    /* IE9/FF/chrome/safari supported */
+    background-color: rgba($R, $G, $B, $opacity);
+
+    /* IE 8 supported */
+    /* Here some time problem for Hover than you can use background color/image */
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$filter}, endColorstr=#{$filter})";
+
+    /* Below IE7 supported */
+    //filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$filter}, endColorstr=#{$filter});
+}
+
+@mixin color-rgba($R, $G, $B, $opacity, $fallback) {
+
+    /* Web browsers that does not support RGBa the Fallback*/
+    color: $fallback;
+
+    /* IE9/FF/chrome/safari supported */
+    color: rgba($R, $G, $B, $opacity);
+
+}
+
+@mixin absolute_left_sidebar($width) {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: auto;
+    top: 0;
+    width: $width;
+}
+
+@mixin disabled_element() {
+    cursor: not-allowed;
+    //pointer-events: none; // This will cause issue with cursor property
+    @include transparent(0.5);
+    &:after {
+        //content: ' ';
+        //cursor: not-allowed;
+        //position: absolute;
+        //top: 0; left: 0; width: 100%; height: 100%;
+    }
+}
+
+//############# SHAPES ############
+// $side_colors = transparent
+@mixin triangle_up_shape($bottom_width, $backgroung) {
+    border-bottom: $bottom_width solid $backgroung;
+    border-left: $bottom_width / 2 solid transparent;
+    border-right: $bottom_width / 2 solid transparent;
+    display: inline-block;
+    height: 0;
+    width: 0;
+}
+
+@mixin circle_shape( $size, $backgroung, $border_width, $border_color) {
+    background-color: $backgroung;
+    border: $border_width solid $border_color;
+    /* Cleaner, but slightly less support: use "50%" as value */
+    @include border-radius( $size * 4);
+    display: inline-block;
+    height: $size;
+    width: $size;
+}
+
+
+@mixin settings_bubble_bottom_shape ($h, $radius, $r, $g, $b, $o, $fallback, $left) {
+    @include background-rgba($r, $g, $b, $o, $fallback);
+    @include border-radius($radius);
+    display: inline-block;
+    padding: 12px 0;
+    line-height: 1.2;
+    position: relative;
+
+    &:before {
+        @include border-top-rgba( 9px, $r, $g, $b, $o, $fallback);
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        content:"";
+        height: 0;
+        left: $left;
+        position: absolute;
+        right: 100%;
+        top: $h;
+        width: 0;
+    }
+}
+
+@mixin settings_bubble_left_to_right_shape ($w, $radius, $r, $g, $b, $o, $fallback, $top) {
+    @include background-rgba($r, $g, $b, $o, $fallback);
+    @include border-radius($radius);
+    display: inline-block;
+    padding: 9px 0;
+    line-height: 1.2;
+    min-width: $w;
+    position: relative;
+    &:before {
+        @include border-right-rgba(9px, $r, $g, $b, $o, $fallback);
+        border-bottom: 6px solid transparent;
+        border-top: 6px solid transparent;
+        content:"";
+        height: 0;
+        top: $top;
+        position: absolute;
+        left: -9px;
+        width: 0;
+    }
+}
+
+@mixin text-shadow($color, $width) {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=#{$width}, Direction=90, Color=#{$color})";/*IE 8*/
+    text-shadow: 0 0 #{$width}px $color;/* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+}
+
+@mixin box-shadow($color, $width) {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=#{$width}, Direction=90, Color=#{$color})";/*IE 8*/
+    -moz-box-shadow: 0 0 #{$width}px #{$color};/*FF 3.5+*/
+    -webkit-box-shadow: 0 0 #{$width}px #{$color};/*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+    box-shadow: 0 0 #{$width}px #{$color};/* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+}
+
+@mixin inner-box-shadow($color, $width) {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=12, Direction=90, Color=#{$color})";/*IE 8*/
+    -moz-box-shadow: inset 0 0 #{$width}px #{$color};/*FF 3.5+*/
+    -webkit-box-shadow: inset 0 0 #{$width}px #{$color};/*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+    box-shadow: inset 0 0 #{$width}px #{$color};/* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+}
+
+@mixin right-box-shadow($color, $width) {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=#{$width}, Direction=270, Color=#{$color})";/*IE 8*/
+    -moz-box-shadow: inset -#{$width}px 0 0 #{$color};/*FF 3.5+*/
+    -webkit-box-shadow: inset -#{$width}px 0 0 #{$color};/*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+    box-shadow: inset -#{$width}px 0 0 #{$color};/* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+    //filter: progid:DXImageTransform.Microsoft.Shadow(Strength=#{$width}, Direction=270, Color=#{$color}); /*IE 5.5-7*/
+}
+
+@mixin box-outline-shadow($color, $width) {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=#{$width}, Direction=90, Color=#{$color})";/*IE 8*/
+    -moz-box-shadow: 0 0 0 #{$width} #{$color};/*FF 3.5+*/
+    -webkit-box-shadow: 0 0 0 #{$width} #{$color};/*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+    box-shadow: 0 0 0 #{$width} #{$color};/* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+}
+
+@mixin left-box-shadow($color, $width) {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=0, Direction=90, Color=#{$color})";/*IE 8*/
+    -moz-box-shadow: inset #{$width}px 0 0 #{$color};/*FF 3.5+*/
+    -webkit-box-shadow: inset #{$width}px 0 0 #{$color};/*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+    box-shadow: inset #{$width}px 0 0 #{$color};/* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+    //filter: progid:DXImageTransform.Microsoft.Shadow(Strength=0, Direction=90, Color=#{$color}); /*IE 5.5-7*/
+}
+
+@function bg-light-depending-color($compare-color, $dark-color, $light-color) {
+    @if (lightness($compare-color) > 50%) {
+        @return $dark-color; // Lighter backgorund, return dark color
+    } @else {
+        @return $light-color; // Darker background, return light color
+    }
+}
+
+// FULL SCREEN
+@mixin full-screen-dom-shadow-display($display) {
+    :-webkit-full-screen {
+        display: $display;
+    }
+    :-moz-full-screen::backdrop {
+        display: $display;
+    }
+    :-ms-fullscreen::-ms-backdrop {
+        display: $display;
+    }
+
+    :fullscreen::backdrop {
+        display: $display;
+    }
+}
+
+@mixin full-screen-backdrop($color) {
+    :-webkit-full-screen::backdrop {
+        background-color: $color;
+    }
+    :-moz-full-screen::backdrop {
+        background-color: $color;
+    }
+    :-ms-fullscreen::-ms-backdrop {
+        background-color: $color;
+    }
+    :fullscreen::backdrop {
+        background-color: $color;
+    }
+}
+
+// 2147483648 z-index require for visible element
+@mixin hide-dom-shadow-media-control() {
+
+    video::-webkit-media-controls-overlay-enclosure {
+        display:none;
+    }
+
+    video::-webkit-media-controls-enclosure {
+        display:none;
+    }
+
+    video::-webkit-media-controls {
+        display:none;
+    }
+
+    video::-webkit-media-controls-panel {
+        display:none;
+    }
+
+    video::-webkit-media-controls-play-button {
+        display: none;
+    }
+
+    video::-webkit-media-controls-current-time-display {
+        display: none;
+    }
+
+    video::-webkit-media-controls-time-remaining-display {
+        display: none;
+    }
+
+    video::-webkit-media-controls-timeline {
+        display: none;
+    }
+
+    video::-webkit-media-controls-mute-button {
+        display: none;
+    }
+
+    video::-webkit-media-controls-volume-slider {
+        display: none;
+    }
+
+    video::-webkit-media-controls-fullscreen-button {
+        display: none;
+    }
+
+    video::-internal-media-controls-download-button {
+        display: none;
+    }
+
+    video::-moz-list-bullet, video::-moz-list-number {
+        display:none;
+    }
+
+    video::-moz-meter-bar {
+        display:none;
+    }
+
+    video:fullscreen:not(:root) {
+        display:none;
+    }
+}
+
+@mixin full-height-video() {
+    video {
+        height: 100%;
+        object-fit: fill;
+    }
+}
+
+@mixin remove-outline() {
+    outline: 0;
+    -moz-outline-style: none;
+}
+@mixin fontello-icon {
+  font-family: $fontello_name;
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+ 
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+ 
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+     
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+ 
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+ 
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+ 
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+$fontello_name: "bjsmc";
+
+@font-face {
+  font-family: $fontello_name;
+  src: url('bjsmc-ie8.eot?') format('eot') local($fontello_name);
+}
+
+@font-face {
+  font-family: $fontello_name;
+  src: url('data:application/octet-stream;base64,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RlJYIDxZLrErARQrLbA/LLA2K4ogIDywBCNCijgjIC5GsAIlRlJYIDxZLrErARQrsARDLrArKy2wQCywABawBCWwBCYgLkcjRyNhsAlDKyMgPCAuIzixKwEUKy2wQSyxCAQlQrAAFrAEJbAEJSAuRyNHI2EgsAQjQrAJQysgsGBQWCCwQFFYswIgAyAbswImAxpZQkIjIEewBEOwAmIgsABQWLBAYFlmsAFjYCCwASsgiophILACQ2BkI7ADQ2FkUFiwAkNhG7ADQ2BZsAMlsAJiILAAUFiwQGBZZrABY2GwAiVGYTgjIDwjOBshICBGI0ewASsjYTghWbErARQrLbBCLLA1Ky6xKwEUKy2wQyywNishIyAgPLAEI0IjOLErARQrsARDLrArKy2wRCywABUgR7AAI0KyAAEBFRQTLrAxKi2wRSywABUgR7AAI0KyAAEBFRQTLrAxKi2wRiyxAAEUE7AyKi2wRyywNCotsEgssAAWRSMgLiBGiiNhOLErARQrLbBJLLAII0KwSCstsEossgAAQSstsEsssgABQSstsEwssgEAQSstsE0ssgEBQSstsE4ssgAAQistsE8ssgABQistsFAssgEAQistsFEssgEBQistsFIssgAAPistsFMssgABPistsFQssgEAPistsFUssgEBPistsFYssgAAQCstsFcssgABQCstsFgssgEAQCstsFkssgEBQCstsFossgAAQystsFsssgABQystsFwssgEAQystsF0ssgEBQystsF4ssgAAPystsF8ssgABPystsGAssgEAPystsGEssgEBPystsGIssDcrLrErARQrLbBjLLA3K7A7Ky2wZCywNyuwPCstsGUssAAWsDcrsD0rLbBmLLA4Ky6xKwEUKy2wZyywOCuwOystsGgssDgrsDwrLbBpLLA4K7A9Ky2waiywOSsusSsBFCstsGsssDkrsDsrLbBsLLA5K7A8Ky2wbSywOSuwPSstsG4ssDorLrErARQrLbBvLLA6K7A7Ky2wcCywOiuwPCstsHEssDorsD0rLbByLLMJBAIDRVghGyMhWUIrsAhlsAMkUHiwARUwLQBLuADIUlixAQGOWbABuQgACABjcLEABUKyAAEAKrEABUKzCgIBCCqxAAVCsw4AAQgqsQAGQroCwAABAAkqsQAHQroAQAABAAkqsQMARLEkAYhRWLBAiFixA2REsSYBiFFYugiAAAEEQIhjVFixAwBEWVlZWbMMAgEMKrgB/4WwBI2xAgBEAAA=') format('embedded-opentype'),
+  url('data:application/octet-stream;base64,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') format('woff'),
+  url('data:application/octet-stream;base64,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sAFjYCCwASsgiophILACQ2BkI7ADQ2FkUFiwAkNhG7ADQ2BZsAMlsAJiILAAUFiwQGBZZrABY2GwAiVGYTgjIDwjOBshICBGI0ewASsjYTghWbErARQrLbBCLLA1Ky6xKwEUKy2wQyywNishIyAgPLAEI0IjOLErARQrsARDLrArKy2wRCywABUgR7AAI0KyAAEBFRQTLrAxKi2wRSywABUgR7AAI0KyAAEBFRQTLrAxKi2wRiyxAAEUE7AyKi2wRyywNCotsEgssAAWRSMgLiBGiiNhOLErARQrLbBJLLAII0KwSCstsEossgAAQSstsEsssgABQSstsEwssgEAQSstsE0ssgEBQSstsE4ssgAAQistsE8ssgABQistsFAssgEAQistsFEssgEBQistsFIssgAAPistsFMssgABPistsFQssgEAPistsFUssgEBPistsFYssgAAQCstsFcssgABQCstsFgssgEAQCstsFkssgEBQCstsFossgAAQystsFsssgABQystsFwssgEAQystsF0ssgEBQystsF4ssgAAPystsF8ssgABPystsGAssgEAPystsGEssgEBPystsGIssDcrLrErARQrLbBjLLA3K7A7Ky2wZCywNyuwPCstsGUssAAWsDcrsD0rLbBmLLA4Ky6xKwEUKy2wZyywOCuwOystsGgssDgrsDwrLbBpLLA4K7A9Ky2waiywOSsusSsBFCstsGsssDkrsDsrLbBsLLA5K7A8Ky2wbSywOSuwPSstsG4ssDorLrErARQrLbBvLLA6K7A7Ky2wcCywOiuwPCstsHEssDorsD0rLbByLLMJBAIDRVghGyMhWUIrsAhlsAMkUHiwARUwLQBLuADIUlixAQGOWbABuQgACABjcLEABUKyAAEAKrEABUKzCgIBCCqxAAVCsw4AAQgqsQAGQroCwAABAAkqsQAHQroAQAABAAkqsQMARLEkAYhRWLBAiFixA2REsSYBiFFYugiAAAEEQIhjVFixAwBEWVlZWbMMAgEMKrgB/4WwBI2xAgBEAAA=') format('truetype');
+}
+
+
+.#{$csscommon}-icon-volume-off:before {
+    @include fontello-icon;
+    content: '\e800';
+}
+
+.#{$csscommon}-icon-volume-down:before {
+    @include fontello-icon;
+    content: '\e801';
+}
+
+.#{$csscommon}-icon-volume-up:before {
+    @include fontello-icon;
+    content: '\e802';
+}
+
+.#{$csscommon}-icon-resize-full:before {
+    @include fontello-icon;
+    content: '\e803';
+}
+
+.#{$csscommon}-icon-ccw:before {
+    @include fontello-icon;
+    content: '\e804';
+}
+
+.#{$csscommon}-icon-play:before {
+    @include fontello-icon;
+    content: '\e805';
+}
+
+.#{$csscommon}-icon-pause:before {
+    @include fontello-icon;
+    content: '\e806';
+}
+
+.#{$csscommon}-icon-videocam:before {
+    @include fontello-icon;
+    content: '\e807';
+}
+
+.#{$csscommon}-icon-upload:before {
+    @include fontello-icon;
+    content: '\e808';
+}
+
+.#{$csscommon}-icon-left-open:before {
+    @include fontello-icon;
+    content: '\e809';
+}
+
+.#{$csscommon}-icon-right-open:before {
+    @include fontello-icon;
+    content: '\e80a';
+}
+
+.#{$csscommon}-icon-cog:before {
+    @include fontello-icon;
+    content: '\e80b';
+}
+
+.#{$csscommon}-icon-mic:before {
+    @include fontello-icon;
+    content: '\e80c';
+}
+
+.#{$csscommon}-icon-mute:before {
+    @include fontello-icon;
+    content: '\e80d';
+}
+
+.#{$csscommon}-icon-lightbulb:before {
+    @include fontello-icon;
+    content: '\e80e';
+}
+
+.#{$csscommon}-icon-resize-small:before {
+    @include fontello-icon;
+    content: '\e80f';
+}
+
+.#{$csscommon}-icon-resize-minimize:before {
+    @include fontello-icon;
+    content: '\e810';
+}
+
+.#{$csscommon}-icon-record:before {
+    @include fontello-icon;
+    content: '\e811';
+}
+
+.#{$csscommon}-icon-record-core:before {
+    @include fontello-icon;
+    content: '\e812';
+}
+
+.#{$csscommon}-icon-up-dir:before {
+    @include fontello-icon;
+    content: '\e813';
+}
+
+.#{$csscommon}-icon-cancel:before {
+    @include fontello-icon;
+    content: '\e814';
+}
+
+.#{$csscommon}-icon-cc:before {
+    @include fontello-icon;
+    content: '\e815';
+}
+
+.#{$csscommon}-icon-clock:before {
+    @include fontello-icon;
+    content: '\e816';
+}
+
+.#{$csscommon}-icon-check:before {
+    @include fontello-icon;
+    content: '\e817';
+}
+
+.#{$csscommon}-icon-arrows-cw:before {
+    @include fontello-icon;
+    content: '\e818';
+}
+
+.#{$csscommon}-icon-plus:before {
+    @include fontello-icon;
+    content: '\e819';
+}
+
+.#{$csscommon}-icon-twitter:before {
+    @include fontello-icon;
+    content: '\f099';
+}
+
+.#{$csscommon}-icon-facebook:before {
+    @include fontello-icon;
+    content: '\f09a';
+}
+
+.#{$csscommon}-icon-gplus-squared:before {
+    @include fontello-icon;
+    content: '\f0d4';
+}
+
+.#{$csscommon}-icon-gplus:before {
+    @include fontello-icon;
+    content: '\f0d5';
+}
+
+.#{$csscommon}-icon-angle-left:before {
+    @include fontello-icon;
+    content: '\f104';
+}
+
+.#{$csscommon}-icon-angle-right:before {
+    @include fontello-icon;
+    content: '\f105';
+}
+
+.#{$csscommon}-icon-angle-up:before {
+    @include fontello-icon;
+    content: '\f106';
+}
+
+.#{$csscommon}-icon-angle-down:before {
+    @include fontello-icon;
+    content: '\f107';
+}
+
+.#{$csscommon}-icon-crop:before {
+    @include fontello-icon;
+    content: '\f125';
+}
+
+.#{$csscommon}-icon-share:before {
+    @include fontello-icon;
+    content: '\f130';
+}
+
+.#{$csscommon}-icon-resize-full-alt:before {
+    @include fontello-icon;
+    content: '\f131';
+}
+
+.#{$csscommon}-icon-play-circled:before {
+    @include fontello-icon;
+    content: '\f144';
+}
+
+.#{$csscommon}-icon-subtitle:before {
+    @include fontello-icon;
+    content: '\f20a';
+}
+
+.#{$csscommon}-icon-facebook-official:before {
+    @include fontello-icon;
+    content: '\f230';
+}
+
+.#{$csscommon}-icon-television:before {
+    @include fontello-icon;
+    content: '\f26c';
+}
+
+.#{$csscommon}-icon-twitter-squared:before {
+    @include fontello-icon;
+    content: '\f304';
+}
+
+.#{$csscommon}-icon-facebook:before {
+  color: #3b5998;
+}
+
+.#{$csscommon}-icon-facebook-official:before {
+  color: #3b5998;
+}
+
+.#{$csscommon}-icon-twitter:before {
+  color: #1da1f2;
+}
+
+.#{$csscommon}-icon-twitter-squared:before {
+  color: #1da1f2;
+}
+
+.#{$csscommon}-icon-gplus:before {
+  color: #dd4b39;
+}
+
+.#{$csscommon}-icon-gplus-squared:before {
+  color: #dd4b39;
+}
+
+.#{$cssimageviewer}-overlay div[tabindex] {
+  @include transition1(all, 0.30s, ease-in-out);
+}
+
+.#{$cssimageviewer}-overlay div[tabindex]:focus {
+  @include box-outline-shadow(#1b8fcc, 2px);
+  @include remove-outline;
+}
+
+.#{$cssimageviewer}-overlay div[tabindex]:hover, .#{$cssimageviewer}-overlay div[tabindex]:focus:hover {
+  box-shadow: none;
+}
+
+.#{$cssie8} {
+  .#{$cssimageviewer}-overlay {
+    height: 100%;
+  }
+}
+
+.#{$cssimageviewer}-image-viewer-wrapper {
+  @include absolute-max-max();
+  z-index: 1005;
+}
+
+.#{$cssimageviewer}-image-viewer-expanded {
+  @include transform-translate(-50%, -50%);
+  left: 50%;
+  position: fixed;
+  top: 50%;
+  width: 100%;
+  z-index: 1003;
+}
+
+.#{$cssimageviewer}-title, .#{$cssimageviewer}-close-button {
+  @include background-rgba(0, 0, 0, .7, #777777);
+  @include transform-translate-x(-50%);
+  box-sizing: content-box;
+  color: #eeeeee;
+  padding: 8px;
+  position: fixed;
+  z-index: 99999;
+}
+
+.#{$cssimageviewer}-title {
+  bottom: 3%;
+  left:50%;
+}
+
+.#{$cssimageviewer}-close-button {
+  @include border-radius(50%);
+  cursor: pointer;
+  font-size: 22px;
+  right: 3%;
+  &:before {
+    @include fontello-icon;
+    content: '\e814';
+  }
+}
+
+/* Full screen options */
+
+.#{$cssimageviewer}-fullscreen-view {
+
+    .#{$cssimageviewer}-overlay {
+        background-color: #000000;
+        bottom:0;
+        height: 100%;
+        position:fixed;
+        top:0;
+        width: 100%;
+        z-index: 1001;
+    }
+
+}
+.#{$cssplayer}-adslot {
+    @include align-all();
+    @include background-rgba(0, 0, 0, 0.8, #333333);
+    color: #ffffff;
+    position: absolute;
+}
+
+.#{$cssplayer}-ad-click-tracker {
+    @include align-all();
+}
+
+.#{$cssplayer}-ad-dashboard {
+    @include absolute-align-full-bottom;
+    @include transition1(opacity, 0.5s, ease-in-out);
+    height: 100%;
+    opacity: 0.9;
+    overflow: hidden;
+}
+
+.#{$cssplayer}-ad-controlbar {
+    @include background-rgba(0, 0, 0, 0.8, #333333);
+    @include absolute-align-bottom();
+    height: 40px;
+    width: 100%;
+}
+
+.#{$cssplayer}-ad-leftbutton-container {
+    @include float-width-height(left, 40px, 100%);
+    @include clickable;
+    box-sizing: content-box;
+}
+
+.#{$cssnoie8} .#{$cssplayer}-ad-rightbutton-container {
+    @include float-width-height(right, 40px, 100%);
+    @include clickable;
+    box-sizing: content-box;
+}
+
+.#{$cssie8} .#{$cssplayer}-ad-rightbutton-container {
+    @include float-width-height(right, 40px, 50%);
+    @include clickable;
+    box-sizing: content-box;
+}
+
+.#{$cssnoie8} .#{$cssplayer}-ad-button-inner {
+    @include relative-center-center;
+    color: #ffffff;
+    font-size: 13px;
+}
+
+.#{$cssie8} .#{$cssplayer}-ad-button-inner {
+    margin-top: 6px + 6;
+    text-align: center;
+    color: #ffffff;
+    font-size: 13px;
+}
+
+.#{$cssplayer}-ad-button-inner {
+    @include clickable;
+}
+
+.#{$cssplayer}-ad-time-container {
+    @include float-width-height(left, auto, 100%);
+    text-align: center;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    color: #ffffff;
+    box-sizing: content-box;
+}
+
+.#{$cssie8} .#{$cssplayer}-ad-time-container {
+    margin-top: 6px + 5;
+}
+
+.#{$cssplayer}-ad-time-value {
+    @include relative-center-center;
+    float: left;
+    width: auto;
+    padding: 0 15px;
+}
+
+.#{$cssnoie8} .#{$cssplayer}-ad-volumebar {
+    @include float-width-height(right, 60px, 100%);
+    margin-right: 6px*2;
+}
+
+.#{$cssie8} .#{$cssplayer}-ad-volumebar {
+    @include float-width-height(right, 60px, 50%);
+    margin-top: 6px+10;
+    margin-right: 6px*2;
+}
+
+.#{$cssplayer}-ad-volumebar-inner {
+    @include relative-center-center;
+    @include border-round-edges(6px / 2);
+    @include clickable;
+    background-color: #878787;
+    height: 6px;
+}
+
+.#{$cssplayer}-ad-volumebar-position {
+    @include border-round-edges(6px / 2);
+    @include absolute-align-left();
+    background-color: #ffffff;
+    height: 100%;
+}
+
+.#{$cssplayer}-skipbutton-container {
+    @include transition1(all, 0.3s, ease-in-out 0.2s);
+    @include transparent(0.4);
+    background: #020202;
+    font-size: 12px;
+    bottom: 80px;
+    color: #ececec;
+    cursor: pointer;
+    overflow: hidden;
+    position: absolute;
+    padding: 10px 0;
+    right: 0;
+    text-align: center;
+    min-width: 100px;
+}
+
+.#{$cssplayer}-skipbutton {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.#{$cssplayer}-skipbutton-container:hover {
+    @include transparent(0.7);
+    @include transition1(all, 0.3s, ease-in-out 0.2s);
+}
+
+@each $color, $value in $colors {
+  @if $color != default {
+    .#{$cssplayer}-#{$color}-color {
+
+      .#{$cssplayer}-cc-inactive .#{$csscommon}-icon-subtitle,
+      .#{$csscommon}-icon-share:before, .#{$csscommon}-icon-play, .#{$csscommon}-icon-pause,
+      .#{$csscommon}-icon-resize-full, .#{$csscommon}-icon-volume-up, .#{$csscommon}-icon-volume-down,
+      .#{$csscommon}-icon-resize-small, .#{$cssplayer}-toggle-share-container,
+      .#{$cssplayer}-socials-list .#{$cssplayer}-button-inner, .ba-settings-overlay-inner,
+      .#{$cssplayer}-cue-content, .#{$csscommon}-options-popup .#{$csscommon}-options-list .#{$csscommon}-options-list-item {
+        color: $value;
+      }
+
+      .#{$cssplayer}-cc-active {
+        background-color: $value;
+      }
+
+      .#{$cssplayer}-airplay-container svg path {
+        fill: $value;
+      }
+
+      // Main play button
+      &.#{$cssnoie8} {
+        .#{$cssplayer}-playbutton-container {
+          border-color: $value;
+        }
+        .#{$cssplayer}-playbutton-button::after {
+          color: $value;
+        }
+      }
+    }
+  }
+}
+
+/* Full screen options */
+
+.#{$cssplayer}-fullscreen-view {
+
+  @include hide-dom-shadow-media-control();
+
+  &.#{$cssplayer}-common-browser .#{$cssvideoplayer}-overlay {
+    z-index: 2147483647;
+  }
+
+  &.#{$cssplayer}-firefox-browser {
+
+    video {
+      position: relative;
+      min-height: 100%; // TODO: check cube, theatre and default themes capability
+      min-width: 100%;
+      z-index: 0;
+    }
+
+  }
+
+}
+
+.#{$cssplayer}-loader-container {
+	@include transform-translate(-50%, -50%);
+	@include absolute-center-center;
+}
+
+.#{$cssplayer}-loader-loader:before {
+    content: "";
+    display: block;
+    padding-top: 100%; /* initial ratio of 1:1*/
+}
+
+.#{$cssplayer}-loader-loader {
+	@include transform-translate-z(0);
+    position: relative;
+    width: 100%;
+    font-size: $loader_size;
+    box-sizing: content-box;
+    @include border-top-rgba($player_loader_frame_thickness, 255, 255, 255, 0.2, #999);
+    @include border-right-rgba($player_loader_frame_thickness, 255, 255, 255, 0.2, #999);
+    @include border-bottom-rgba($player_loader_frame_thickness, 255, 255, 255, 0.2, #999);
+    border-left: $player_loader_frame_thickness solid #ffffff;    
+    -webkit-animation: #{$cssplayer}-loader-load8 1.1s infinite linear;
+    -moz-animation: #{$cssplayer}-loader-load8 1.1s infinite linear;
+    animation: #{$cssplayer}-loader-load8 1.1s infinite linear;
+}
+
+.#{$cssplayer}-loader-loader, .#{$cssplayer}-loader-loader:after {
+    border-radius: 50%;
+    width: 10em;
+    height: 10em;
+}
+
+@-webkit-keyframes #{$cssplayer}-loader-load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes #{$cssplayer}-loader-load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.#{$cssnoie8} {
+
+    .#{$cssplayer}-playbutton-container {
+        @include transform-translate(-50%, -50%);
+        @include border-rgba($playbutton_frame_thickness, 255, 255, 255, $playbutton_default_opacity, #999);
+        @include absolute-center-center;
+        @include transition1(all, $playbutton_transition_time, ease-in-out);
+        @include box-shadow($cover_playbutton_shadow, 22);
+        border-radius: 50%;
+        box-sizing: content-box;
+        cursor: pointer;
+        font-size: $playbutton_size;
+        height: 10em;
+        text-align: center;
+        width: 10em;
+        &:focus {
+            outline: none;
+            border-radius: 50%;
+            border-color: #1b8fcc;
+            @include box-outline-shadow(#1b8fcc, 2px);
+            &:hover {
+                border: none;
+            }
+        }
+    }
+    .#{$cssplayer}-playbutton-container:hover {
+        @include box-shadow($cover_playbutton_hover_shadow, 22);
+        //border-color: $cover_playbutton_border_hover_color;
+        .#{$cssplayer}-playbutton-button::after {
+            @include text-shadow($cover_playbutton_hover_shadow, 4);
+        }
+    }
+
+    .#{$cssplayer}-playbutton-button::after {
+        @include fontello-icon;
+        @include text-shadow($cover_playbutton_shadow, 4);
+        @include transition1(all, $playbutton_transition_time, ease-in-out);
+        content: "\e805";
+        color: $cover_playbutton_color;
+        font-size: 4.6em;
+    }
+    // To override fontello-icons properties
+    .#{$cssplayer}-playbutton-button::after {
+        line-height: 2.3em;
+        margin-left: 0.1em;
+        width: 100%;
+    }
+}
+
+.#{$cssplayer}-rerecord-bar {
+    @include absolute-align-full-bottom;
+    @include background-rgba(0, 0, 0, .4, #979797);
+}
+
+.#{$cssplayer}-rerecord-backbar {
+    @include absolute-align-full-bottom;
+    height: $rerecord_height;
+    opacity: $rerecord_opacity;
+}
+
+.#{$cssplayer}-rerecord-frontbar {
+    @include relative-align-full-bottom;
+    height: $rerecord_height;
+    overflow: hidden;
+    padding-left: $rerecord_padding;
+    padding-right: $rerecord_padding;
+    text-align: center;
+}
+
+.#{$cssplayer}-rerecord-button-container {
+    display: inline-block;
+}
+
+.#{$cssplayer}-rerecord-button {
+    background-color: $rerecord_primarybutton_color;
+    border-radius: 0;
+    color: $rerecord_primarybutton_text_color;
+    @include clickable;
+    font-family: $rerecord_font_family;
+    font-weight: $rerecord_primarybutton_font_weight;
+    font-size: $rerecord_primarybutton_font_size;
+    height: $rerecord_height;
+    padding: $rerecord_primarybutton_padding;
+    padding-left: $rerecord_primarybutton_vertical_padding;
+    padding-right: $rerecord_primarybutton_vertical_padding;
+    line-height: $rerecord_height;
+    letter-spacing: $rerecord_letter_spacing;
+}
+
+.#{$cssvideoplayer}-overlay {
+    div[tabindex] {
+        @include transition1(all, 0.30s, ease-in-out);
+    }
+    div[tabindex]:focus {
+        @include box-outline-shadow(#1b8fcc, 2px);
+        @include remove-outline;
+    }
+    div[tabindex]:hover, div[tabindex]:focus:hover {
+        box-shadow: none;
+    }
+
+}
+
+.#{$cssvideoplayer}-container {
+    .#{$cssvideoplayer}-overlay {
+        .#{$cssplayer}-dashboard-hidden {
+            opacity: 0;
+            & * {
+                cursor: none;
+            }
+        }
+    }
+}
+
+.#{$cssaudioplayer}-container {
+    .#{$cssaudioplayer}-overlay {
+        .#{$cssplayer}-dashboard-hidden {
+            opacity: 0;
+            & * {
+                cursor: none;
+            }
+        }
+    }
+}
+
+.#{$cssvideoplayer}-overlay, .#{$cssvideoplayer}-player-toggle-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.#{$cssplayer}-airplay-container {
+    @include clickable();
+    padding-top: 4px;
+    svg path {
+        fill: #ffffff;
+    }
+}
+
+.#{$cssplayer}-cc-inactive {
+    background-color: transparent;
+    .#{$csscommon}-icon-subtitle {
+        color: #ffffff;
+    }
+}
+
+.#{$cssplayer}-cc-active {
+    background: #000000;
+    .#{$csscommon}-icon-subtitle {
+        color: #eeeeee;
+    }
+}
+
+
+
+.#{$cssplayer}-share-action-container {
+  @include transition1(all, 0.3s, ease-in-out 0.2s);
+  position: absolute;
+  right: -1 * $share_container_width / 2;
+  top: $share_container_top;
+  width: $share_container_width;
+  .#{$cssplayer}-button-inner {
+    @include transform-translate-y(0);
+    top: 0;
+  }
+}
+
+.#{$cssplayer}-share-action-container:hover {
+  @include transform-translate( -1 * $share_container_width / 2, 0);
+}
+
+.#{$cssplayer}-toggle-share-container {
+  @include background-rgba(0, 0, 0, .3, #979797);
+  border-bottom-left-radius: $open_share_button_border_radius;
+  border-top-left-radius: $open_share_button_border_radius;
+  color: white;
+  float: left;
+  font-size: $open_share_button_font_size;
+  line-height: $open_share_button_box_size;
+  text-align: center;
+  width: $share_container_width / 2;
+
+}
+
+.#{$cssplayer}-social-buttons-container {
+  float: right;
+  width: $share_container_width / 2;
+}
+
+.#{$cssplayer}-socials-list {
+  @include background-rgba(0, 0, 0, .3, #979797);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  & > li {
+    @include clickable;
+    font-size: $share_icon_font_size;
+    //height: $share_icon_container_height;
+    width: $share_icon_container_width;
+    line-height: $open_share_button_box_size;
+  }
+  .#{$cssplayer}-button-inner {
+    color: $open_share_button_color;
+  }
+}
+
+
+
+
+
+.#{$cssplayer}-text-tracks-overlay {
+    @include absolute-align-full-bottom-above-control-bar($player_controlbar_height + $player_progressbar_height);
+    @include transition1(bottom, $player_dashboard_transition, ease-in-out);
+}
+
+.#{$cssplayer}-back-arrow-pointer-container {
+    margin-bottom: 5px;
+    .#{$cssplayer}-back-arrow-pointer {
+        cursor: pointer;
+        font-size: 12px;
+        margin: 0 0 10px;
+    }
+}
+
+.#{$cssplayer}-cue-content {
+    @include relative-horizontally-center();
+    background: #2c2c2c;
+    color: #eeeeee;
+    text-align: center;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    width: 60%;
+}
+
+.#{$csscommon}-tracks-selector-list-visible {
+    @include show-slow(0.2);
+}
+
+.#{$csscommon}-tracks-selector-list-hidden {
+    @include hide-slow(0.2);
+}
+
+
+
+.#{$cssrecorder}-controlbar-right-section {
+  float: right;
+}
+
+.#{$cssrecorder}-controlbar-left-section {
+  float: left;
+}
+
+// Apply to all recorder themes except default
+.#{$cssrecorder}-overlay {
+
+  .#{$csscommon}-icon-state-good {
+    color: $controlbar_icon_good;
+  }
+
+  .#{$csscommon}-icon-state-bad {
+    color: $controlbar_icon_bad;
+  }
+
+  .#{$cssvideorecorder}-settings {
+    li {
+      padding: 5px 8px;
+      &:last-child {
+        padding-bottom: 0;
+      }
+    }
+  }
+
+}
+
+/* Apply to all VIDEO RECORDER themes */
+.#{$cssvideorecorder}-timer-container { cursor: default; }
+
+.#{$cssvideorecorder}-add-stream { cursor: pointer }
+.#{$cssrecorder}-loader-container {
+	@include transform-translate(-50%, -50%);
+	@include absolute-center-center;
+}
+
+.#{$cssrecorder}-loader-loader:before {
+	content: "";
+	display: block;
+	padding-top: 100%; /* initial ratio of 1:1*/
+}
+
+.#{$cssrecorder}-loader-loader {
+	@include transform-translate-z(0);
+	position: relative;
+	width: 100%;
+	font-size: $loader_size;
+	box-sizing: content-box;
+	@include border-top-rgba($recorder_loader_frame_thickness, 225, 225, 225, 0.2, #999);
+	@include border-right-rgba($recorder_loader_frame_thickness, 225, 225, 225, 0.2, #999);
+	@include border-bottom-rgba($recorder_loader_frame_thickness, 225, 225, 225, 0.2, #999);
+	border-left: $recorder_loader_frame_thickness solid #ddd;
+	-webkit-animation: #{$cssrecorder}-loader-load8 1.1s infinite linear;
+	-moz-animation: #{$cssrecorder}-loader-load8 1.1s infinite linear;
+	animation: #{$cssrecorder}-loader-load8 1.1s infinite linear;
+}
+
+.#{$cssrecorder}-loader-loader, .#{$cssrecorder}-loader-loader:after {
+	border-radius: 50%;
+	width: 10em;
+	height: 10em;
+}
+
+.#{$cssrecorder}-loader-label {
+	@include transform-translate(-50%, -50%);
+	@include absolute-center-center;
+	font-size: $loader_label_fontsize;
+	color: white;
+}
+
+@-webkit-keyframes #{$cssrecorder}-loader-load8 {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}
+@keyframes #{$cssrecorder}-loader-load8 {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}
+.#{$cssrecorder}-message-container {
+  opacity: 1;
+  display: table;
+  height: 100%;
+  width: 100%;
+  .#{$cssrecorder}-top-inner-message-container {
+    display: table-cell;
+    vertical-align: middle;
+    &.#{$cssrecorder}-short-message {
+      .#{$cssrecorder}-first-inner-message-container {
+        @include background-rgba( 255, 255, 255, .3, #7f7f7f );
+        @include border-radius(50%);
+        position: relative;
+        margin: 0 auto;
+        height: $message_height + ( $message_side_interval * 9 );
+        width: $message_width + ( $message_side_interval * 9 );
+        z-index: 4;
+        .#{$cssrecorder}-second-inner-message-container {
+          @include background-rgba( 255, 255, 255, .5, #b2b2b2 );
+          @include border-radius(50%);
+          height: $message_height + ( $message_side_interval * 6 );
+          position: relative;
+          left: $message_side_interval + ($message_side_interval / 2);
+          top: $message_side_interval + ($message_side_interval / 2);
+          width: $message_width + ( $message_side_interval * 6 );
+          z-index: 6;
+          .#{$cssrecorder}-third-inner-message-container {
+            @include background-rgba( 255, 255, 255, .7, #e5e5e5 );
+            @include border-radius(50%);
+            height: $message_height + ( $message_side_interval * 3 );
+            position: relative;
+            left: $message_side_interval + ($message_side_interval / 2);
+            top: $message_side_interval + ($message_side_interval / 2);
+            width: $message_width + ( $message_side_interval * 3 );
+            z-index: 8;
+            .#{$cssrecorder}-fourth-inner-message-container {
+              background-color: $message_bgcolor;
+              display: table;
+              @include border-radius(50%);
+              height: $message_height;
+              left: $message_side_interval + ($message_side_interval / 2);
+              position: relative;
+              top: $message_side_interval + ($message_side_interval / 2);
+              width: $message_width;
+              z-index: 10;
+            }
+          }
+        }
+      }
+    }
+    &.#{$cssrecorder}-long-message {
+      .#{$cssrecorder}-first-inner-message-container {
+        @include background-rgba(255, 255, 255, .9, #ffffff);
+        box-sizing: border-box;
+        padding: 5px;
+        position: relative;
+        margin: 0 auto;
+        width: 80%;
+        overflow: hidden;
+      }
+    }
+  }
+
+}
+
+.#{$cssrecorder}-message-message {
+  color: $message_color;
+  display: table-cell;
+  font-size: $topmessage_fontsize;
+  font-weight: 300;
+  letter-spacing: .1em;
+  text-align: center;
+  vertical-align: middle;
+}
+
+
+.#{$cssrecorder}-message-message ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.#{$cssrecorder}-message-message a {
+  border-bottom-style: dashed;
+  border-bottom-width: 1px;
+  color: black;
+  text-decoration:none;
+}
+
+.#{$cssrecorder}-message-message a:hover {
+  border-bottom-style: solid;
+}
+.#{$cssrecorder}-overlay {
+    div[tabindex] {
+        @include transition1(all, 0.30s, ease-in-out);
+    }
+    div[tabindex]:focus {
+        @include box-outline-shadow(#1b8fcc, 2px);
+        @include remove-outline;
+    }
+    div[tabindex]:hover, div[tabindex]:focus:hover {
+        box-shadow: none;
+    }
+}
+.ba-settings-overlay {
+  & ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.ba-settings-overlay-inner {
+  @include background-rgba(0, 0, 0, 0.75, #555555);
+  bottom: 39px;
+  color: #ffffff;
+  //min-width: 65px;
+  position: absolute;
+  right: 0;
+  z-index: 100;
+  & li {
+    cursor: pointer;
+    font-weight: 200;
+    letter-spacing: 0.03em;
+    padding: 7px 5px 7px 20px;
+    text-align: left;
+  }
+  & li:hover {
+    @include background-rgba(0, 0, 0, 0.9, #222222);
+  }
+  .ba-settings-back-to-settings {
+    padding: 5px 10px 5px 5px;
+  }
+  .ba-player-speed-list-item {
+    padding: 5px 0 5px 8px;
+  }
+}
+
+.ba-settings-label-icon {
+  min-width: 1em;
+  display: inline-block;
+}
+
+.#{$cssplayer}-settings-visible {
+  background-color: #000000;
+}
+
+.#{$csscommon}-full-width { width: 100%;}
+
+.#{$csscommon}-half-width {width: 50%;}
+
+.#{$csscommon}-text-center {text-align: center;}
+
+.#{$csscommon}-text-right {text-align: right;}
+
+.#{$csscommon}-text-left {text-align: left;}
+
+.#{$csscommon}-pull-right {float: right;}
+
+.#{$csscommon}-disabled, .#{$csscommon}-disabled * { @include disabled_element() }
+
+.#{$csscommon}-text-info { color: #5dbb96 }
+
+.#{$csscommon}-text-error { color: #dd4b39}
+
+.#{$csscommon}-open-next, .#{$csscommon}-open-previous {
+    & > .#{$csscommon}-inner-icon, & > .#{$csscommon}-inner-text {
+        font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.5em;
+        display: inline-block;
+        vertical-align: middle;
+    }
+    & > .#{$csscommon}-inner-icon {
+        @include fontello-icon;
+        color: #eeeeee;
+        position: relative;
+    }
+    & > .#{$csscommon}-inner-text {
+    }
+}
+
+.#{$csscommon}-open-next {
+    & > .#{$csscommon}-inner-icon {
+        &:after {
+            content: '\f105';
+            left: 5px;
+        }
+    }
+}
+
+.#{$csscommon}-open-previous {
+    & > .#{$csscommon}-inner-icon {
+        float: left;
+        line-height: 1.5;
+        &:before {
+            content: '\f104';
+            right: 5px;
+        }
+    }
+}
+
+.#{$csscommon}-button {
+    color: #333;
+    background-color: #fff;
+    border-radius: 0;
+    padding: 5px 10px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.#{$csscommon}-form {
+    .#{$csscommon}-form-input {
+        &.#{$csscommon}-select-field {
+            //background: #fafafa url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAlklEQVQ4T+3SMQ5BQRDG8d+7hVLrEhqJ4h1ANCqFE0g0CuVzBJ2SAygkKqfQ6pyCbLISWdYWrxNTznzzn8w3U2kZVct+PwjYY4lLxpseVhg966kHfWwwxDWBdHHEFOccIORrrDHALQo7OGGOwys4d4VxFAdI0ITmBrt0tW9nnGESAdu42ps1pT9Y4B6nf/S1BCg+6h/AA/hvEhFscWXpAAAAAElFTkSuQmCC") no-repeat 95% 50%;
+            border: 1px solid #cccccc;
+            cursor: pointer;
+            min-width: 130px;
+            min-height: 25px;
+            overflow: hidden;
+            select {
+                @include background-rgba(0, 0, 0, 0.7, #555555);
+                border: none;
+                box-sizing: border-box;
+                box-shadow: none;
+                cursor: pointer;
+                padding: 5px 8px;
+                position: relative;
+                width: 100%;
+                z-index: 1;
+                -moz-appearance: none;
+                -webkit-appearance: none;
+            }
+            select:focus {
+                outline: none;
+            }
+            &:after {
+                @include fontello-icon;
+                @include transform-translate-y(-50%);
+                content: '\f107';
+                color: #eeeeee;
+                position: absolute;
+                right: 15px;
+                top: 50%;
+            }
+        }
+
+        input[type='file'] {
+            @include transparent(0);
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            z-index: 100;
+            &::-webkit-file-upload-button {
+                cursor: pointer;
+            }
+        }
+        &.#{$csscommon}-error {
+            border: 1px solid #dd4b39;
+        }
+        input[type='submit'] {
+            background: #2c2c2c;
+            color: #cccccc;
+        }
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 5px 10px;
+        }
+
+    }
+}
+
+.#{$csscommon}-options-popup {
+    @include background-rgba(0, 0, 0, 0.7, #555555);
+    @include transition1(opacity, .2s, ease-in-out);
+    box-sizing: border-box;
+    bottom: 3px;
+    min-width: 140px;
+    overflow: hidden;
+    position: absolute;
+    right: 5px;
+    z-index: 10;
+    .#{$csscommon}-options-list {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        .#{$csscommon}-options-list-item {
+            @include remove-outline();
+            box-sizing: border-box;
+            cursor: pointer;
+            color: #eeeeee;
+            display: list-item;
+            font-weight: 200;
+            letter-spacing: 0.03em;
+            padding: 5px 10px;
+            white-space: nowrap;
+            width: 100%;
+            & > .#{$csscommon}-inner-text {
+                font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+                font-size: 14px;
+                float: left;
+            }
+            &.#{$csscommon}-inner-icon {
+                margin: 0;
+                padding: 5px 0 5px 10px
+            }
+        }
+        .#{$csscommon}-options-list-item:hover {
+            @include background-rgba(255, 255, 255, .1, #555555);
+        }
+    }
+}
+
+.#{$csscommon}-options-list-visible {
+    @include show-slow(.5);
+    &.#{$csscommon}-button {
+        background-color: #979797;
+        color: #eeeeee;
+        margin-top: 5px;
+    }
+}
+
+.#{$csscommon}-options-list-hidden {
+    @include hide-slow(.5);
+    display: none;
+    &.#{$csscommon}-button {
+        background-color: #979797;
+        color: #eeeeee;
+        margin-top: 5px;
+    }
+}
+
+.#{$csscommon}-form {
+    .#{$csscommon}-form-input {
+        &.#{$csscommon}-disabled {
+            input {
+                @include disabled_element();
+            }
+            input[type='file'] { @include transparent(0); }
+        }
+        &.#{$csscommon}-select-field {
+            margin-bottom: 7px;
+            select {
+                color: #eeeeee;
+            }
+            &:after {
+                position: relative;
+                right: 30px;
+                top: 10px;
+            }
+        }
+    }
+}
+
+/* Recorder image gallery right left icons */
+.#{$csscommon}-icon-right-open:before {
+    margin-right: 0;
+}
+
+.#{$csscommon}-icon-left-open:before {
+    margin-left: 0;
+}
+
+$css: "ba-videoplayer";
+$csstheme: "ba-videoplayer";
+$cssplayer: "ba-player";
+$csscommon: "ba-commoncss";
+$cssie8: "ba-videoplayer-ie8";
+$cssnoie8: "ba-videoplayer-noie8";
+$fontello_name: "bjsmc";
+
+
+$message_bgcolor: black;
+$message_opacity: 0.75;
+$message_color: white;
+
+$font_family: Arial, sans-serif;
+$topmessage_bgcolor: black;
+$topmessage_opacity: 0.1;
+$topmessage_fontsize: 16px;
+$topmessage_height: 32px;
+$topmessage_fontweight: normal;
+
+$focus_button_color: #1b7fcc;
+$focus_overlay_color: #000000;
+
+$playbutton_size: 15%;
+$playbutton_opacity: 0.75;
+$playbutton_hover_opacity: 0.9;
+$playbutton_transition_time: .25;
+
+$video_title_margin: 0 0 0 10px;
+$video_title_font_color: #ffffff;
+$video_title_line_height: 32px;
+$video_title_font_family: sans-serif, Arial;
+$video_title_font_size: 12px;
+$video_title_font_weight: 300;
+$video_title_letter_spacing: 0.1em;
+
+$full_screen_background: #b2b2b2;
+
+$progressbar_height: 9px;
+$progressbar_height_small: 3px;
+$progressbar_button_border: 1px;
+$progressbar_button_overflow: 1px;
+$controlbar_height: 30px;
+$button_width: 50px;
+$volume_width: 100px;
+$volume_height: 8px;
+$time_value_width: 40px;
+$time_sep_width: 15px;
+$ie8_margintop: 6px;
+
+$progressbar_transition: 0.1s;
+$dashboard_transition: 0.5s;
+$button_fontsize: 14px;
+$text_fontsize: 13px;
+$text_fontfamily: Arial, sans-serif;
+$controlbar_opacity: 0.7;
+
+$progressbar_bgcolor: #999;
+$progressbar_position_bgcolor: #8CF;
+$progressbar_cache_bgcolor: #EEE;
+$progressbar_button_bgcolor: #FFF;
+$progressbar_button_bordercolor: #999;
+$controlbar_bgcolor: #000;
+$text_color: #FFF;
+
+$rerecord_text_color: white;
+$rerecord_button_color: #8CF;
+$rerecord_font_family: Arial, sans-serif;
+
+$rerecord_height: 32px;
+$rerecord_opacity: 0.1;
+$rerecord_bgcolor: black;
+$rerecord_padding: 16px;
+$rerecord_primarybutton_radius: 2px;
+$rerecord_primarybutton_padding: 4px;
+$rerecord_primarybutton_vertical_padding: 8px;
+$rerecord_primarybutton_font_weight: normal;
+$rerecord_primarybutton_font_size: 14px;
+
+// Mobile
+$mobile_time-sep_width: 5px;
+$mobile_time-container_width: 85px;
+$mobile_leftbutton-container_width: 40px;
+$mobile_volumebar_width: 60px;
+
+$mobile_small_volumebar_width: 45px;
+@each $color, $value in $colors {
+  @if $color != default {
+    .#{$cssplayer}-#{$color}-color {
+
+      .#{$csstheme}-button-inner, .#{$csstheme}-title {
+        color: $value;
+      }
+
+      .#{$csstheme}-volumebar-position, .#{$csstheme}-progressbar-position,
+      .#{$csstheme}-rerecord-button, .#{$csstheme}-playbutton-duration {
+        background-color: $value;
+      }
+
+      .#{$csstheme}-volumebar-inner {
+        @include background-rgba(255, 255, 255, 0.3, #7f7f7f);
+      }
+    }
+  }
+}
+
+.#{$cssplayer}-dashboard {
+    @include absolute-align-full-bottom;
+    @include transition1(opacity, $dashboard_transition, ease-in-out);
+}
+
+.#{$css}-progressbar {
+    @include clickable;
+    @include transition1(height, $progressbar_transition, ease-in-out);
+    height: $progressbar_height;
+    background-color: $progressbar_bgcolor;
+}
+
+.#{$csstheme}-progressbar.#{$cssplayer}-disabled {
+    &, & .#{$csstheme}-progressbar-cache,
+    & .#{$csstheme}-progressbar-inner,
+    & .#{$csstheme}-progressbar-position {
+        cursor: not-allowed
+    }
+}
+
+.#{$css}-progressbar-small {
+    height: $progressbar_height_small;
+}
+
+.#{$css}-progressbar-position {
+    @include absolute-align-left;
+    @include transition1(height, $progressbar_transition, ease-in-out);
+    background-color: $progressbar_position_bgcolor;
+    height: $progressbar_height;
+}
+
+.#{$css}-progressbar-small .#{$css}-progressbar-position {
+    height: $progressbar_height_small;
+}
+
+.#{$css}-progressbar-cache {
+    @include absolute-align-left;
+    @include transition1(height, $progressbar_transition, ease-in-out);
+    background-color: $progressbar_cache_bgcolor;
+    height: $progressbar_height;
+}
+
+.#{$css}-progressbar-small .#{$css}-progressbar-cache {
+    height: $progressbar_height_small;
+}
+
+.#{$css}-progressbar-button {
+    $radius: floor(($progressbar_height + 2 * $progressbar_button_overflow)/2);
+    @include border-radius($radius);
+    background-color: $progressbar_button_bgcolor;
+    box-sizing: content-box;
+    border: $progressbar_button_border solid $progressbar_button_bordercolor;
+    position: absolute;
+    right: -$radius;
+    top: -($progressbar_button_border + $progressbar_button_overflow);
+    z-index: 1;
+    width: $progressbar_height + 2 * $progressbar_button_overflow;
+    height: $progressbar_height + 2 * $progressbar_button_overflow;
+}
+
+.#{$css}-progressbar-small .#{$css}-progressbar-button {
+    display: none;
+}
+
+.#{$css}-backbar {
+    @include absolute-align-full-bottom;
+    height: $controlbar_height;
+    background-color: $controlbar_bgcolor;
+    opacity: $controlbar_opacity;
+}
+
+.#{$css}-controlbar {
+    @include relative-align-full-bottom;
+    height: $controlbar_height;
+    overflow: hidden;
+}
+
+.#{$css}-leftbutton-container {
+    @include float-width-height(left, $button_width, 100%);
+    @include clickable;
+}
+
+.#{$css}-rightbutton-container {
+    @include clickable;
+    padding: 0 8px;
+}
+
+.#{$cssnoie8} .#{$css}-rightbutton-container {
+    @include float-width-height(right, auto, 100%);
+}
+
+.#{$cssie8} .#{$css}-rightbutton-container {
+    // NOTE: fix IE8, don't set height argument to 0, will
+    @include float-width-height(right, auto, 1px);
+}
+
+.#{$cssnoie8} .#{$css}-cast-button-container {
+    line-height: 40px;
+    width: auto;
+}
+
+.#{$css}-cast-button-container button {
+    //--connected-color: #00cc00;
+    //--disconnected-color: #cecece;
+    @include transparent(0.7);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    //outline: none;
+    width: 32px;
+}
+
+.#{$css}-button-inner, .#{$cssplayer}-airplay-container {
+    @include relative-center-center;
+    @include clickable;
+    color: $text_color;
+    font-size: $button_fontsize;
+}
+
+.#{$css}-button-text {
+	font-family: Arial;
+    font-weight: bold;
+}
+
+.#{$cssie8} .#{$css}-button-inner {
+    margin-top: $ie8_margintop;
+}
+
+.#{$cssnoie8} .#{$css}-time-container {
+    @include float-width-height(left, 2 * $time_value_width + $time_sep_width, 100%);
+    text-align: center;
+    font-family: $text_fontfamily;
+    font-size: $text_fontsize;
+    color: $text_color;
+}
+
+.#{$cssie8} .#{$css}-time-container {
+    @include float-width-height(left, 2 * $time_value_width + $time_sep_width, 50%);
+    text-align: center;
+    font-family: $text_fontfamily;
+    font-size: $text_fontsize;
+    color: $text_color;
+    margin-top: $ie8_margintop;
+}
+
+.#{$css}-time-value {
+    @include relative-center-center;
+    float: left;
+    width: $time_value_width;
+}
+
+.#{$css}-time-sep {
+    @include relative-center-center;
+    float: left;
+    width: $time_sep_width;
+}
+
+.#{$cssnoie8} .#{$css}-volumebar {
+    @include float-width-height(right, $volume_width, 100%);
+    margin-left: $volume_height;
+    margin-right: $volume_height + 5;
+}
+
+//.#{$cssnoie8} .#{$css}-volumebar {
+//}
+
+.#{$cssie8} .#{$css}-volumebar {
+    @include float-width-height(right, $volume_width, 50%);
+    margin-top: $ie8_margintop+4;
+    margin-right: 15px;
+}
+
+.#{$css}-volumebar-inner {
+    @include relative-center-center;
+    @include border-round-edges($volume_height / 2);
+    @include clickable;
+    background-color: $progressbar_bgcolor;
+    height: $volume_height;
+}
+
+.#{$css}-volumebar-position {
+    @include border-round-edges($volume_height / 2);
+    @include absolute-align-left();
+    background-color: $progressbar_position_bgcolor;
+    height: 100%;
+}
+
+.#{$css}-volumebar-button {
+    $radius: $volume_height - 2 * $progressbar_button_overflow;
+    @include border-radius($radius);
+    @include clickable;
+    background-color: $progressbar_button_bgcolor;
+    box-sizing: content-box;
+    border: $progressbar_button_border solid $progressbar_button_bordercolor;
+    position: absolute;
+    right: -$radius;
+    top: -($progressbar_button_border + $progressbar_button_overflow);
+    z-index: 1;
+    width: $progressbar_height + 2 * $progressbar_button_overflow;
+    height: $progressbar_height + 2 * $progressbar_button_overflow;
+}
+
+.#{$css}-title {
+    color: $video_title_font_color;
+    font-family: $video_title_font_family;
+    font-weight: $video_title_font_weight;
+    font-size: $video_title_font_size;
+    float: left;
+    letter-spacing: $video_title_letter_spacing;
+    line-height: 30px;
+    margin: $video_title_margin;
+}
+
+.#{$css}-seeking-thumb-container {
+    position: absolute;
+    padding: 3px 4px;
+    background-color: #ffffff;
+    bottom: 45px;
+    left: 5px;
+    text-align: center;
+    & > span {
+        font-size: 0.6em;
+        color: #2c2c2c;
+    }
+}
+
+// Apply for mobile no need ie8 selectors
+.#{$cssplayer}-device-type-mobile {
+    .#{$csstheme}-leftbutton-container {
+        @include float-width-height(left, $mobile_leftbutton-container_width, 100%);
+    }
+}
+.#{$cssplayer}-size-medium {
+    .#{$csstheme}-time-sep {
+        width: $mobile_time-sep_width;
+    }
+    &.#{$cssnoie8} .#{$csstheme}-time-container {
+        @include float-width-height(left, $mobile_time-container_width, 100%);
+    }
+    &.#{$cssnoie8} .#{$csstheme}-volumebar {
+        @include float-width-height(right, $mobile_volumebar_width, 100%);
+    }
+}
+
+.#{$cssplayer}-size-small {
+    &.#{$cssnoie8} .#{$csstheme}-time-container {
+        @include float-width-height(left, $time_value_width, 100%);
+    }
+    .#{$csstheme}-time-total-duration, .#{$csstheme}-time-sep {
+        display: none;
+    }
+    &.#{$cssnoie8} .#{$csstheme}-volumebar {
+        @include float-width-height(right, $mobile_small_volumebar_width, 100%);
+    }
+}
+/* Full screen options */
+
+.#{$cssplayer}-fullscreen-view {
+
+  @include hide-dom-shadow-media-control();
+
+  & > div, video {
+    height: 100%;
+  }
+
+  .#{$css}-dashboard {
+    bottom: 0;
+  }
+
+  .#{$css}-title-block {
+    top: 0;
+  }
+
+  &.#{$cssplayer}-firefox-browser {
+
+    .#{$css}-dashboard, .#{$css}-title-block {
+      position: fixed;
+      z-index: 100;
+    }
+
+  }
+
+}
+
+// Fix Chromium related fullscreen issue
+.#{$css}-container {
+  &.#{$cssplayer}-fullscreen-view {
+    min-width: 100%; position: absolute;
+    min-height: fit-content; // Supports only with Chrome and fix Chrome only related issue
+    & > .#{$css}-overlay {
+      position: fixed;
+    }
+  }
+}
+.#{$css}-message-container {
+	@include absolute-align-all;
+    background-color: $message_bgcolor;
+    opacity: $message_opacity;
+}
+
+.#{$css}-message-message {
+	@include transform-translate-y(-50%);
+    color: $message_color;
+    position: absolute;
+    left: 5px;
+    right: 5px;    
+    top: 50%;    
+    text-align: center;
+}
+.#{$cssnoie8} .#{$csstheme}-playbutton-container {
+    @include absolute-center-center;
+    @include transform-translate(-50%, -50%);
+    width: $playbutton_size;
+    &:focus {
+        outline: none;
+        border-radius: 50%;
+        border-color: #1b8fcc;
+        @include box-outline-shadow(#1b8fcc, 2px);
+        &:hover, &:active {
+            border: none;
+        }
+    }
+}
+
+.#{$cssnoie8} .#{$csstheme}-playbutton-button {
+    @include transition1(opacity, $playbutton_transition_time, ease-in-out);
+    background-color: transparent;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbDpzcGFjZT0icHJlc2VydmUiIHZpZXdCb3g9IjAgMCA0MCA0MCIgdmVyc2lvbj0iMS4xIiB5PSIwcHgiIHg9IjBweCIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDQwIDQwIj48Zz48cGF0aCBmaWxsPSJncmF5IiBkPSJtMzcuMyAxMGMtNS41LTkuNi0xNy43LTEyLjgtMjcuMy03LjNzLTEyLjggMTcuNy03LjMgMjcuMyAxNy44IDEyLjggMjcuMyA3LjNjOS42LTUuNSAxMi44LTE3LjcgNy4zLTI3LjN6IiAvPjxwYXRoIGZpbGw9IndoaXRlIiBkPSJtMzcuMyAxMGMtNS41LTkuNi0xNy43LTEyLjgtMjcuMy03LjNzLTEyLjggMTcuNy03LjMgMjcuMyAxNy44IDEyLjggMjcuMyA3LjNjOS42LTUuNSAxMi44LTE3LjcgNy4zLTI3LjN6bS05LjMgMjMuOWMtNy43IDQuNC0xNy40IDEuOC0yMS45LTUuOS00LjQtNy42LTEuNy0xNy40IDUuOS0yMS45IDcuNy00LjQgMTcuNC0xLjggMjEuOSA1LjkgNC40IDcuNyAxLjggMTcuNC01LjkgMjEuOXptLTAuOC0xNC43bC0xMC41LTYuMWMtMS4yLTAuNC0xLjQtMC4yLTEuNyAxbDAuMSAxMi4xYzAuMiAxLjIgMC42IDEuNCAxLjcgMWwxMC40LTZjMC45LTAuNyAwLjktMS4zIDAtMnoiLz48L2c+PC9zdmc+Cg==');
+    background-origin: padding-box;
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    display: block;
+    opacity: $playbutton_opacity;
+    padding-top: 100%; /* initial ratio of 1:1*/
+    position: relative;
+    width: 100%;
+}
+
+.#{$cssnoie8} .#{$csstheme}-playbutton-button:hover {
+    opacity: $playbutton_hover_opacity;
+}
+
+.#{$cssie8} .#{$csstheme}-playbutton-container {}
+
+.#{$cssie8} .#{$csstheme}-playbutton-button {
+    @include absolute-align-all();
+    background-color: transparent;
+    background-image: url("data:image/png;base64,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");
+    background-repeat: no-repeat;
+    cursor: pointer;
+    height: 64px;
+    margin: auto;
+    width: 64px;
+}
+
+.#{$csstheme}-rerecord-bar {
+    @include absolute-align-full-bottom;
+}
+
+.#{$csstheme}-rerecord-backbar {
+    @include absolute-align-full-bottom;
+    height: $rerecord_height;
+    background-color: $rerecord_bgcolor;
+    opacity: $rerecord_opacity;
+}
+
+.#{$csstheme}-rerecord-frontbar {
+    @include relative-align-full-bottom;
+    height: $rerecord_height;
+    overflow: hidden;
+    padding-left: $rerecord_padding;
+    padding-right: $rerecord_padding;
+}
+
+.#{$csstheme}-rerecord-button-container {
+    height: 100%;
+    @include clickable;
+    padding-left: 8px;
+    padding-right: 8px;
+    display: inline-block;
+    position:relative;
+    left:50%;
+    transform:translateX(-50%);
+}
+
+.#{$csstheme}-rerecord-button {
+    @include relative-center-center;
+    @include clickable;
+    border-radius: $rerecord_primarybutton_radius;
+    padding: $rerecord_primarybutton_padding;
+    padding-left: $rerecord_primarybutton_vertical_padding;
+    padding-right: $rerecord_primarybutton_vertical_padding;
+    background-color: $rerecord_button_color;
+    color: $rerecord_text_color;
+    font-family: $rerecord_font_family;
+    font-weight: $rerecord_primarybutton_font_weight;
+    font-size: $rerecord_primarybutton_font_size;
+}
+
+.#{$csstheme}-playbutton-duration {
+	background-color: gray;
+	color: $rerecord_text_color;
+	font-family: $rerecord_font_family;
+	font-weight: $rerecord_primarybutton_font_weight;
+	font-size: $rerecord_primarybutton_font_size;
+	float:right;
+	margin:5px;
+	padding: 2px
+}
+.#{$css}-container {
+    display: inline-block;
+    position: relative;
+	overflow: hidden;
+}
+
+.#{$css}-video {
+    width: 100%;
+    display: block;
+}
+
+.#{$css}-container video::-webkit-media-controls-start-playback-button {
+  display: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.#{$css}-stretch-height .#{$css}-container, .#{$css}-stretch-width .#{$css}-container {
+	height:100%;
+	overflow: hidden;
+	position:relative;
+	max-width: 100%;
+	max-height: 100%;
+	width: 100%;
+}
+
+.#{$css}-stretch-height .#{$css}-video {
+	position: absolute;
+	transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
+	min-width: 100%;
+//		min-height: 100%;
+//		width: auto;
+}
+
+.#{$css}-stretch-width .#{$css}-video {
+	position: absolute;
+	transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
+	max-height: 100%;
+	height:100%;
+	//	width: 10000px;
+//		min-height: 100%;
+//		min-width: 100%;
+		width: auto;
+}
+
+.#{$css}-stretch-width, .#{$css}-stretch-height {
+	display: inline-block;
+	height:100%;
+	width:100%;
+}
+
+.#{$cssplayer}-disabled {
+	@include disabled_element();
+	& * {cursor: not-allowed}
+}
+.#{$css}-topmessage-container {
+    @include absolute-align-full-top;
+}
+
+.#{$css}-topmessage-message {
+    @include absolute-align-full-top;
+	font-family: $font_family;
+	font-size: $topmessage_fontsize;
+	font-weight: $topmessage_fontweight;
+	color: $text_color;
+	padding: ($topmessage_height - $topmessage_fontsize) / 2;
+    text-align: center;
+}
+
+.#{$css}-topmessage-background {
+    background-color: $topmessage_bgcolor;
+    height: $topmessage_height;
+    opacity: $topmessage_opacity;
+    position: absolute;
+    width: 100%;
+}
+
+.#{$css}-container {
+
+    .#{$cssplayer}-text-tracks-overlay {
+        @include absolute-align-full-bottom-above-control-bar($controlbar_height + 9);
+        @include transition1(bottom, $player_dashboard_transition, ease-in-out);
+        .#{$csscommon}-options-popup {
+            bottom: 2px;
+            right: 0;
+        }
+    }
+
+    .#{$cssplayer}-track-dashboard-hidden {
+        &.#{$cssplayer}-text-tracks-overlay {
+            bottom: 5px;
+        }
+    }
+
+}
+
+$css: "ba-videorecorder";
+$csstheme: "ba-videorecorder";
+$csscommon: "ba-commoncss";
+$cssrecorder: "ba-recorder";
+$cssie8: "ba-videorecorder-ie8";
+$cssnoie8: "ba-videorecorder-noie8";
+$fontello_name: "bjsmc";
+
+$font_family: Arial, sans-serif;
+$recorder_bgcolor: #000000;
+$chooser_background: #FDFDFD;
+$text_color: white;
+
+$button_color: #8CF;
+
+$message_bgcolor: black;
+$message_opacity: 0.75;
+
+$topmessage_bgcolor: black;
+$topmessage_opacity: 0.1;
+$topmessage_fontsize: 16px;
+$topmessage_height: 32px;
+$topmessage_fontweight: normal;
+
+$chooser_fontsize: 14px;
+$chooser_buttons_min_width: 12em;
+$chooser_primary_button_bgcolor: #8CF;
+$chooser_primary_button_vertical_padding: 12px;
+$chooser_primary_button_horizontal_padding: 32px;
+$chooser_primary_button_border_radius: 4px;
+$chooser_secondary_button_color: $chooser_primary_button_bgcolor;
+$chooser_secondary_button_padding: 8px;
+
+$imagegallery_buttonmargin: 10px;
+$imagegallery_buttonsize: 20px;
+
+$settings_margin: 4px;
+$settings_padding: 4px;	
+$settings_radius: 4px;
+$settings_bgcolor: black;
+$settings_opacity: 0.25;
+$settings_border: 1px solid white;
+$settings_font_size: 12px;
+$settings_horizontal_margin: 8px;
+$settings_item_padding: 2px;
+$settings_radio_color: white;
+$settings_radio_color_selected: $button_color;
+
+$controlbar_height: 32px;
+$controlbar_opacity: 0.1;
+$controlbar_bgcolor: black;
+$controlbar_padding: 16px;
+$controlbar_icon_good: #0F0;
+$controlbar_icon_bad: #F00;
+$controlbar_label_padding: 7px;
+$controlbar_recording_indication_color: red;
+$controlbar_recording_indication_size: 12px;
+$controlbar_button_horizontal_padding: 8px;
+$controlbar_primarybutton_radius: 2px;
+$controlbar_primarybutton_padding: 4px;
+$controlbar_primarybutton_vertical_padding: 8px;
+$controlbar_primarybutton_font_weight: normal;
+$controlbar_primarybutton_font_size: 14px;
+$controlbar_primarybutton_border: none;
+$controlbar_primarybutton_horizontal_margin: 10px;
+$controlbar_button_fontsize: 14px;
+$controlbar_button_margin: 4px;
+$controlbar_button_padding: 3px;
+$controlbar_button_vertical_padding: 3px;
+$controlbar_button_border_radius: 2px;
+$controlbar_button_border: 1px solid $text_color;
+
+// Theme Colors
+$theme_color_blue: #2a74eb;
+$theme_color_red: #eb6a74;
+$theme_color_green: #5daa96;
+
+$colors: (
+  'red': $theme_color_red,
+  'blue': $theme_color_blue,
+  'green': $theme_color_green,
+  'default': ''
+);
+
+.#{$css}-chooser-container {
+	@include absolute-align-all;
+	background-color: $chooser_background;
+}
+
+.#{$css}-chooser-file {
+	position: absolute;
+	@include transparent(0);
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+	left: 0;
+	top: 0;
+	z-index: 100;
+}
+
+.#{$css}-chooser-file::-webkit-file-upload-button {
+	cursor: pointer;
+}
+
+.#{$css}-chooser-button-container {
+	@include absolute-center-center;
+	@include transform-translate(-50%, -50%);
+	text-align: center;
+}
+
+.#{$css}-chooser-button-0, .#{$css}-chooser-button-2 {
+	@include clickable;
+	@include border-radius($chooser_primary_button_border_radius);
+	background-color: $chooser_primary_button_bgcolor;
+	color: $text_color;
+	padding: $chooser_primary_button_vertical_padding;
+	padding-left: $chooser_primary_button_horizontal_padding;
+	padding-right: $chooser_primary_button_horizontal_padding;
+	font-family: $font_family;
+	font-size: $chooser_fontsize;
+	text-align: center;
+	position: relative;
+	white-space: nowrap;
+}
+
+.#{$css}-chooser-button-1, .#{$css}-chooser-button-3 {
+	@include clickable;
+	color: $chooser_secondary_button_color;
+	font-family: $font_family;
+	font-size: $chooser_fontsize;
+	text-align: center;
+	padding: $chooser_secondary_button_padding;
+	position: relative;
+	white-space: nowrap;
+}
+
+@each $color, $value in $colors {
+  @if $color != default {
+    .#{$cssrecorder}-#{$color}-color {
+
+      .#{$css}-button-inner, .#{$css}-chooser-button-1, .#{$css}-chooser-button-3, .#{$css}-loader-label {
+        color: $value;
+      }
+
+      .#{$css}-button-primary, .#{$css}-chooser-button-0, .#{$css}-chooser-button-2,
+      .#{$css}-imagegallery-rightbutton, .#{$css}-imagegallery-leftbutton {
+        background-color: $value;
+      }
+
+      .#{$css}-settings input[type=radio]:checked + span,
+      .#{$css}-imagegallery-image:hover {
+        border-color: $value;
+      }
+
+      .#{$css}-message-message a {
+        color: $value;
+      }
+
+      .#{$css}-imagegallery-button-inner {
+        color: #ffffff;
+      }
+
+      // Applied to all other recorders
+
+
+    }
+  }
+}
+
+.#{$css}-dashboard {
+    @include absolute-align-full-bottom;
+
+	.#{$csscommon}-icon-state-good {
+		color: $controlbar_icon_good;
+	}
+
+	.#{$csscommon}-icon-state-bad {
+		color: $controlbar_icon_bad;
+	}
+}
+
+.#{$css}-backbar {
+    @include absolute-align-full-bottom;
+    height: $controlbar_height;
+    background-color: $controlbar_bgcolor;
+    opacity: $controlbar_opacity;
+}
+
+.#{$css}-controlbar {
+    @include relative-align-full-bottom;
+    height: $controlbar_height;
+    overflow: hidden;
+    padding-left: $controlbar_padding;
+    padding-right: $controlbar_padding;
+}
+
+.#{$css}-label-container {
+    @include absolute-align-full-top;
+}
+
+.#{$css}-label-label {
+    @include absolute-align-full-top;
+	font-family: $font_family;
+	font-size: $topmessage_fontsize;
+	font-weight: $topmessage_fontweight;
+	color: $text_color;
+	padding: $controlbar_label_padding;
+    text-align: center;
+}
+
+.#{$css}-recording-indication {
+    @include relative-center-center;
+	background: $controlbar_recording_indication_color;
+	width: $controlbar_recording_indication_size;
+	height: $controlbar_recording_indication_size;
+	margin-left: $controlbar_recording_indication_size;
+	margin-right: $controlbar_recording_indication_size;
+	border-radius: $controlbar_recording_indication_size;	
+}
+
+.#{$css}-rightbutton-container {
+    @include float-height(right, 100%);
+    @include clickable;
+    padding-left: $controlbar_button_horizontal_padding;
+    padding-right: $controlbar_button_horizontal_padding;
+}
+
+.#{$css}-centerbutton-container {
+	@include transform-translate-x(-50%);
+    @include clickable;
+    display: inline-block;
+    position: relative;
+    left: 50%;
+	height: 100%;
+    padding-left: $controlbar_button_horizontal_padding;
+    padding-right: $controlbar_button_horizontal_padding;
+}
+
+.#{$css}-lefticon-container {
+    @include float-height(left, 100%);
+}
+
+.#{$css}-leftbutton-container {
+    @include float-height(left, 100%);
+    @include clickable;
+}
+
+.#{$css}-button-primary {
+    @include relative-center-center;
+    @include clickable;
+	border-radius: $controlbar_primarybutton_radius;
+	margin-left: $controlbar_primarybutton_horizontal_margin;
+	margin-right: $controlbar_primarybutton_horizontal_margin;
+	padding: $controlbar_primarybutton_padding;
+	padding-left: $controlbar_primarybutton_vertical_padding;
+	padding-right: $controlbar_primarybutton_vertical_padding;
+	background-color: $button_color;
+	color: $text_color;
+	font-family: $font_family;
+	font-weight: $controlbar_primarybutton_font_weight;
+	font-size: $controlbar_primarybutton_font_size;
+	border: $controlbar_primarybutton_border;
+}
+
+.#{$css}-button-inner {
+    @include relative-center-center;
+    color: $text_color;
+	cursor: pointer;
+    font-size: $controlbar_button_fontsize;
+	margin-left: $controlbar_button_margin;
+	margin-right: $controlbar_button_margin;
+	padding: $controlbar_button_vertical_padding;
+	border: $controlbar_button_border;
+	border-radius: $controlbar_button_border_radius;
+}
+
+.#{$csscommon}-icon-inner {
+    @include relative-center-center;
+    color: $text_color;
+    font-size: $controlbar_button_fontsize;     
+	margin-left: $controlbar_button_margin;
+	margin-right: $controlbar_button_margin;
+	padding: $controlbar_button_vertical_padding;
+	padding-left: $controlbar_button_padding;
+	padding-right: $controlbar_button_padding;
+	border: $controlbar_button_border;
+	border-radius: $controlbar_button_border_radius;
+}
+
+.#{$css}-button-selected {
+    border: 1px solid $button_color;
+    color: $button_color;
+    background-color: $text_color;
+}
+
+/* Media styles */
+.#{$cssplayer}-size-small .#{$css}-lefticon-container {
+	display: none;
+}
+
+.#{$css}-imagegallery-leftbutton {
+	@include transform-translate-y(-50%);
+    position: absolute;
+    margin-left: $imagegallery_buttonmargin;
+    margin-right: $imagegallery_buttonmargin;
+    top: 50%;    
+    left: 0;
+    width: $imagegallery_buttonsize;
+    height: $imagegallery_buttonsize;
+}
+
+.#{$css}-imagegallery-rightbutton {
+	@include transform-translate-y(-50%);
+    position: absolute;
+    margin-left: $imagegallery_buttonmargin;
+    margin-right: $imagegallery_buttonmargin;
+    top: 50%;    
+    right: 0;
+    width: $imagegallery_buttonsize;
+    height: $imagegallery_buttonsize;
+}
+
+.#{$css}-imagegallery-container {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 2 * $imagegallery_buttonmargin + $imagegallery_buttonsize;
+	right: 2 * $imagegallery_buttonmargin + $imagegallery_buttonsize;
+}
+
+.#{$css}-imagegallery-image {
+	z-index: 2;
+    position: absolute;
+    box-sizing: border-box;
+    cursor:pointer;
+  border: 2px solid gray;
+}
+
+.#{$css}-imagegallery-image:hover {
+	border: 2px solid white;
+}
+
+.#{$css}-imagegallery-image-compat {
+  cursor:pointer;
+  background: white;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=1)";
+  opacity: 0.01;
+  width:100%;
+  height: 100%;
+}
+
+.#{$css}-imagegallery-button-inner {
+    @include relative-center-center;
+    @include clickable;
+    color: $text_color;
+    font-size: $button_fontsize;        
+}
+
+.#{$css}-message-container {
+	@include absolute-align-all;
+    background-color: $message_bgcolor;
+    opacity: $message_opacity;
+}
+
+ba-videorecorder-message[ba-message=""], ba-videorecorder-message[ba-message="null"] {
+    display: none;
+}
+
+.#{$css}-message-message {
+	@include transform-translate-y(-50%);
+    color: $text_color;
+    position: absolute;
+    left: 5px;
+    right: 5px;    
+    top: 50%;    
+    text-align: center;
+}
+
+.#{$css}-message-message ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.#{$css}-message-message a {
+  border-bottom-style: dashed;
+  border-bottom-width: 1px;
+  color: $text_color;
+  text-decoration:none;
+}
+
+.#{$css}-message-message a:hover {
+  border-bottom-style: solid;
+}
+
+.#{$css}-container {
+    display: inline-block;
+    position: relative;
+    background-color: $recorder_bgcolor;
+}
+
+.#{$cssrecorder}-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.#{$css}-video {
+    width: 100%;
+    height: 100%;
+    display: block;
+    background-color: $recorder_bgcolor;
+}
+
+.#{$css}-norecorder {
+    background-color: black;
+}
+
+.#{$css}-container video::-webkit-media-controls-start-playback-button {
+  display: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.#{$css}-stretch-height .#{$css}-container, .#{$css}-stretch-width .#{$css}-container {
+	height:100%;
+	overflow: hidden;
+	position:relative;
+	max-width: 100%;
+	max-height: 100%;
+	width: 100%;
+}
+
+.#{$css}-stretch-height .#{$css}-video {
+		position: absolute;
+		transform: translate(-50%, -50%);
+		top: 50%;
+		left: 50%;
+	height: inherit;
+	min-width: 100%;
+//		min-height: 100%;
+//		width: auto;
+}
+
+.#{$css}-stretch-width .#{$css}-video {
+	position: absolute;
+	transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
+	max-height: 100%;
+	height:100%;
+		// width: 10000px;
+//		min-height: 100%;
+//		min-width: 100%;
+		width: auto;
+}
+
+.#{$css}-stretch-width, .#{$css}-stretch-height {
+	display: inline-block;
+	height:100%;
+	width:100%;
+}
+
+.#{$css}-videorecorder-player {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+div.#{$css}-disabled {
+	@include disabled_element();
+	& * {cursor: not-allowed}
+}
+.#{$css}-settings {
+	position: absolute;
+	left: 0;
+	bottom: $controlbar_height;
+	color: $text_color;
+	margin: $settings_margin;
+	padding: $settings_padding;	
+}
+
+.#{$css}-settings-backbar {
+    @include absolute-align-all;
+	border-radius: $settings_radius;
+    background-color: $settings_bgcolor;
+    opacity: $settings_opacity;
+    border: $settings_border;
+}
+
+.#{$css}-settings-front {
+    @include relative-align-all;
+    font-family: $font_family;
+	font-size: $settings_font_size;
+	max-height: 14em;
+	overflow: scroll;
+}
+
+.#{$css}-settings hr {
+    background-color: #ffffff;
+	border: none;
+	height: 1px;
+	margin: 2px;
+	margin-left: $settings_horizontal_margin;
+	margin-right: $settings_horizontal_margin;
+}
+
+.#{$css}-settings ul {
+	margin: 0;
+	padding: 0;
+}
+
+.#{$css}-settings li {
+	list-style-type: none;
+	padding: $settings_item_padding;
+	text-align: left;
+}
+
+.#{$css}-settings label {
+	cursor: pointer;
+}
+
+.#{$css}-settings input[type=radio] {
+	display: none;
+}
+
+.#{$css}-settings span {
+	cursor: pointer;
+	width: 4px;
+	height: 4px;
+	background-color: $settings_radio_color;
+	border: 3px solid $settings_radio_color;
+	border-radius: 4px;
+	margin: 1px;
+	box-sizing: content-box;
+	top: 2px;
+	display: inline-block;
+	position: relative;
+}
+	
+.#{$css}-settings input[type=radio]:checked + span  {
+	border: 3px solid $settings_radio_color_selected;
+}
+.#{$css}-topmessage-container {
+    @include absolute-align-full-top;
+}
+
+.#{$css}-topmessage-message {
+    @include absolute-align-full-top;
+	font-family: $font_family;
+	font-size: $topmessage_fontsize;
+	font-weight: $topmessage_fontweight;
+	color: $text_color;
+	padding: ($topmessage_height - $topmessage_fontsize) / 2;
+    text-align: center;
+}
+
+.#{$css}-topmessage-background {
+    background-color: $topmessage_bgcolor;
+    opacity: $topmessage_opacity;
+    width: 100%;
+    height: $topmessage_height;
+    position: absolute;
+}
+
+$css: "ba-imageviewer";
+$csstheme: "ba-imageviewer";
+$cssie8: "ba-imageviewer-ie8";
+$cssnoie8: "ba-imageviewer-noie8";
+$fontello_name: "bjsmc";
+
+$message_bgcolor: black;
+$message_opacity: 0.75;
+$message_color: white;
+
+$font_family: Arial, sans-serif;
+$topmessage_bgcolor: black;
+$topmessage_opacity: 0.1;
+$topmessage_fontsize: 16px;
+$topmessage_height: 32px;
+$topmessage_fontweight: normal;
+
+$focus_button_color: #1b7fcc;
+$focus_overlay_color: #000000;
+
+$image_title_margin: 0 0 0 10px;
+$image_title_font_color: #ffffff;
+$image_title_line_height: 32px;
+$image_title_font_family: sans-serif, Arial;
+$image_title_font_size: 12px;
+$image_title_font_weight: 300;
+$image_title_letter_spacing: 0.1em;
+
+$full_screen_background: #b2b2b2;
+
+$controlbar_height: 30px;
+$button_width: 50px;
+$ie8_margintop: 6px;
+
+$dashboard_transition: 0.5s;
+$button_fontsize: 14px;
+$text_fontsize: 13px;
+$text_fontfamily: Arial, sans-serif;
+$controlbar_opacity: 0.7;
+
+$controlbar_bgcolor: #000;
+$text_color: #FFF;
+
+
+$rerecord_text_color: white;
+$rerecord_button_color: #8CF;
+$rerecord_font_family: Arial, sans-serif;
+
+$rerecord_height: 32px;
+$rerecord_opacity: 0.1;
+$rerecord_bgcolor: black;
+$rerecord_padding: 16px;
+$rerecord_primarybutton_radius: 2px;
+$rerecord_primarybutton_padding: 4px;
+$rerecord_primarybutton_vertical_padding: 8px;
+$rerecord_primarybutton_font_weight: normal;
+$rerecord_primarybutton_font_size: 14px;
+
+// Theme Colors
+$theme_color_blue: #2a74eb;
+$theme_color_red: #eb6a74;
+$theme_color_green: #5daa96;
+
+$colors: (
+  'red': $theme_color_red,
+  'blue': $theme_color_blue,
+  'green': $theme_color_green,
+  'default': ''
+);
+
+@each $color, $value in $colors {
+  @if $color != default {
+    .#{$css}-#{$color}-color {
+
+      .#{$css}-button-inner, .#{$css}-image-title {
+        color: $value;
+      }
+
+      .#{$css}-rerecord-button {
+        background-color: $value;
+      }
+
+    }
+  }
+}
+
+
+.#{$css}-dashboard {
+    @include absolute-align-full-bottom;
+    @include transition1(opacity, $dashboard_transition, ease-in-out);
+}
+
+.#{$css}-dashboard-hidden {
+    opacity: 0;
+}
+
+.#{$css}-backbar {
+    @include absolute-align-full-bottom;
+    height: $controlbar_height;
+    background-color: $controlbar_bgcolor;
+    opacity: $controlbar_opacity;
+}
+
+.#{$css}-controlbar {
+    @include relative-align-full-bottom;
+    height: $controlbar_height;
+    overflow: hidden;
+}
+
+.#{$css}-leftbutton-container {
+    @include float-width-height(left, $button_width, 100%);
+    @include clickable;
+}
+
+.#{$css}-rightbutton-container {
+    @include clickable;
+    padding: 0 8px;
+}
+
+.#{$cssnoie8} .#{$css}-rightbutton-container {
+    @include float-width-height(right, auto, 100%);
+}
+
+.#{$cssie8} .#{$css}-rightbutton-container {
+    @include float-width-height(right, auto, 0);
+}
+
+.#{$css}-button-inner {
+    @include relative-center-center;
+    @include clickable;
+    color: $text_color;
+    font-size: $button_fontsize;
+}
+
+.#{$css}-button-text {
+	font-family: Arial;
+    font-weight: bold;
+}
+
+.#{$cssie8} .#{$css}-button-inner {
+    margin-top: $ie8_margintop;
+}
+
+.#{$css}-image-title {
+    color: $image_title_font_color;
+    font-family: $image_title_font_family;
+    font-weight: $image_title_font_weight;
+    font-size: $image_title_font_size;
+    float: left;
+    letter-spacing: $image_title_letter_spacing;
+    line-height: 30px;
+    margin: $image_title_margin;
+}
+
+
+/* Full screen options */
+
+.#{$css}-fullscreen-view {
+  .#{$css}-controlbar {
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+    z-index: 1010;
+  }
+}
+.#{$css}-message-container {
+	@include absolute-align-all;
+    background-color: $message_bgcolor;
+    opacity: $message_opacity;
+}
+
+.#{$css}-message-message {
+	@include transform-translate-y(-50%);
+    color: $message_color;
+    position: absolute;
+    left: 5px;
+    right: 5px;    
+    top: 50%;    
+    text-align: center;
+}
+.#{$css}-topmessage-container {
+    @include absolute-align-full-top;
+}
+
+.#{$css}-topmessage-message {
+    @include absolute-align-full-top;
+	font-family: $font_family;
+	font-size: $topmessage_fontsize;
+	font-weight: $topmessage_fontweight;
+	color: $text_color;
+	padding: ($topmessage_height - $topmessage_fontsize) / 2;
+    text-align: center;
+}
+
+.#{$css}-topmessage-background {
+    background-color: $topmessage_bgcolor;
+    height: $topmessage_height;
+    opacity: $topmessage_opacity;
+    position: absolute;
+    width: 100%;
+}
+
+.#{$css}-container {
+    display: inline-block;
+    position: relative;
+	overflow: hidden;
+}
+
+.#{$css}-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.#{$css}-image {
+    width: 100%;
+    display: block;
+}
+
+.#{$css}-stretch-height .#{$css}-container, .#{$css}-stretch-width .#{$css}-container {
+	height:100%;
+	overflow: hidden;
+	position:relative;
+	max-width: 100%;
+	max-height: 100%;
+	width: 100%;
+}
+
+.#{$css}-stretch-height .#{$css}-image {
+	position: absolute;
+	transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
+	min-height: 100%;
+	min-width: 100%;
+	width: auto;
+}
+
+.#{$css}-stretch-width .#{$css}-image {
+	position: absolute;
+	transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
+	//max-height: 100%;
+	//height:100%;
+	//width: 10000px;
+	min-height: 100%;
+	min-width: 100%;
+	width: auto;
+}
+
+.#{$css}-stretch-width, .#{$css}-stretch-height {
+	display: inline-block;
+	height:100%;
+	width:100%;
+}
+
+.#{$css}-disabled {
+	@include disabled_element();
+	& * {cursor: not-allowed}
+}
+$css: "ba-audioplayer";
+$csstheme: "ba-audioplayer";
+$cssplayer: "ba-player";
+$csscommon: "ba-commoncss";
+$cssie8: "ba-audioplayer-ie8";
+$cssnoie8: "ba-audioplayer-noie8";
+$fontello_name: "bjsmc";
+
+$message_bgcolor: black;
+$message_opacity: 0.75;
+$message_color: white;
+
+$font_family: Arial, sans-serif;
+
+$focus_button_color: #1b7fcc;
+$focus_overlay_color: #000000;
+
+$audio_title_margin: 0 0 0 10px;
+$audio_title_font_color: #ffffff;
+$audio_title_line_height: 32px;
+$audio_title_font_family: sans-serif, Arial;
+$audio_title_font_size: 12px;
+$audio_title_font_weight: 300;
+$audio_title_letter_spacing: 0.1em;
+
+$progressbar_height: 9px;
+$progressbar_height_small: 3px;
+$progressbar_button_border: 1px;
+$progressbar_button_overflow: 1px;
+$controlbar_height: 30px;
+$button_width: 50px;
+$volume_width: 100px;
+$volume_height: 8px;
+$time_value_width: 40px;
+$time_sep_width: 15px;
+$ie8_margintop: 6px;
+
+$progressbar_transition: 0.1s;
+$dashboard_transition: 0.5s;
+$button_fontsize: 14px;
+$text_fontsize: 13px;
+$text_fontfamily: Arial, sans-serif;
+$controlbar_opacity: 0.7;
+
+$progressbar_bgcolor: #999;
+$progressbar_position_bgcolor: #8CF;
+$progressbar_cache_bgcolor: #EEE;
+$progressbar_button_bgcolor: #FFF;
+$progressbar_button_bordercolor: #999;
+$controlbar_bgcolor: #000;
+$text_color: #FFF;
+
+
+$rerecord_text_color: white;
+$rerecord_button_color: #8CF;
+$rerecord_font_family: Arial, sans-serif;
+
+$rerecord_height: 32px;
+$rerecord_opacity: 0.1;
+$rerecord_bgcolor: black;
+$rerecord_padding: 16px;
+$rerecord_primarybutton_radius: 2px;
+$rerecord_primarybutton_padding: 4px;
+$rerecord_primarybutton_vertical_padding: 8px;
+$rerecord_primarybutton_font_weight: normal;
+$rerecord_primarybutton_font_size: 14px;
+
+// Theme Colors
+$theme_color_blue: #2a74eb;
+$theme_color_red: #eb6a74;
+$theme_color_green: #5daa96;
+
+$colors: (
+  'red': $theme_color_red,
+  'blue': $theme_color_blue,
+  'green': $theme_color_green,
+  'default': ''
+);
+
+@each $color, $value in $colors {
+  @if $color != default {
+    .#{$cssplayer}-#{$color}-color {
+
+      .#{$csstheme}-dashboard, .#{$csstheme}-title,
+      .#{$csstheme}-button-inner > i {
+        color: $value;
+      }
+
+      .#{$csstheme}-volumebar-position, .#{$csstheme}-progressbar-position,
+      .#{$csstheme}-rerecord-button {
+        background-color: $value;
+      }
+
+      .#{$csstheme}-volumebar-inner {
+        @include background-rgba(255, 255, 255, 0.3, #979797);
+      }
+
+    }
+  }
+}
+
+.#{$css}-container {
+    box-sizing: border-box;
+    height: 45px;
+    min-height: 45px;
+    min-width: 320px;
+}
+
+.#{$css}-audio-canvas {
+    display: none;
+    position: absolute;
+    bottom: $controlbar_height;
+    background-color: #000000;
+}
+
+.#{$css}-dashboard {
+    @include absolute-align-full-bottom;
+    @include transition1(opacity, $dashboard_transition, ease-in-out);
+}
+
+.#{$css}-progressbar {
+    @include clickable;
+    @include transition1(height, $progressbar_transition, ease-in-out);
+    height: $progressbar_height;
+    background-color: $progressbar_bgcolor;
+}
+
+.#{$css}-progressbar-inner.#{$cssplayer}-disabled {
+    & .#{$css}-progressbar-cache, .#{$css}-progressbar-position, & {cursor: not-allowed}
+}
+
+.#{$css}-progressbar-small {
+    height: $progressbar_height_small;
+}
+
+.#{$css}-progressbar-position {
+    @include absolute-align-left;
+    @include transition1(height, $progressbar_transition, ease-in-out);
+    background-color: $progressbar_position_bgcolor;
+    height: $progressbar_height;
+}
+
+.#{$css}-progressbar-small .#{$css}-progressbar-position {
+    height: $progressbar_height_small;
+}
+
+.#{$css}-progressbar-cache {
+    @include absolute-align-left;
+    @include transition1(height, $progressbar_transition, ease-in-out);
+    background-color: $progressbar_cache_bgcolor;
+    height: $progressbar_height;
+}
+
+.#{$css}-progressbar-small .#{$css}-progressbar-cache {
+    height: $progressbar_height_small;
+}
+
+.#{$css}-progressbar-button {
+    $radius: floor(($progressbar_height + 2 * $progressbar_button_overflow)/2);
+    @include border-radius($radius);
+    background-color: $progressbar_button_bgcolor;
+    box-sizing: content-box;
+    border: $progressbar_button_border solid $progressbar_button_bordercolor;
+    position: absolute;
+    right: -$radius;
+    top: -($progressbar_button_border + $progressbar_button_overflow);
+    z-index: 1;
+    width: $progressbar_height + 2 * $progressbar_button_overflow;
+    height: $progressbar_height + 2 * $progressbar_button_overflow;
+}
+
+.#{$css}-progressbar-small .#{$css}-progressbar-button {
+    display: none;
+}
+
+.#{$css}-backbar {
+    @include absolute-align-full-bottom;
+    height: $controlbar_height;
+    background-color: $controlbar_bgcolor;
+    opacity: $controlbar_opacity;
+}
+
+.#{$css}-controlbar {
+    @include relative-align-full-bottom;
+    height: $controlbar_height;
+    overflow: hidden;
+}
+
+.#{$css}-leftbutton-container {
+    @include float-width-height(left, $button_width, 100%);
+    @include clickable;
+}
+
+.#{$css}-rightbutton-container {
+    @include clickable;
+    padding: 0 8px;
+}
+
+.#{$cssnoie8} .#{$css}-rightbutton-container {
+    @include float-width-height(right, auto, 100%);
+}
+
+.#{$cssie8} .#{$css}-rightbutton-container {
+    @include float-width-height(right, auto, 0);
+}
+
+.#{$css}-button-inner {
+    @include relative-center-center;
+    @include clickable;
+    color: $text_color;
+    font-size: $button_fontsize;
+}
+
+.#{$css}-button-text {
+	font-family: Arial;
+    font-weight: bold;
+}
+
+.#{$cssie8} .#{$css}-button-inner {
+    margin-top: $ie8_margintop;
+}
+
+.#{$cssnoie8} .#{$css}-time-container {
+    @include float-width-height(left, 2 * $time_value_width + $time_sep_width, 100%);
+    text-align: center;
+    font-family: $text_fontfamily;
+    font-size: $text_fontsize;
+    color: $text_color;
+}
+
+.#{$cssie8} .#{$css}-time-container {
+    @include float-width-height(left, 2 * $time_value_width + $time_sep_width, 50%);
+    text-align: center;
+    font-family: $text_fontfamily;
+    font-size: $text_fontsize;
+    color: $text_color;
+    margin-top: $ie8_margintop;
+}
+
+.#{$css}-time-value {
+    @include relative-center-center;
+    float: left;
+    width: $time_value_width;
+}
+
+.#{$css}-time-sep {
+    @include relative-center-center;
+    float: left;
+    width: $time_sep_width;
+}
+
+.#{$cssnoie8} .#{$css}-volumebar {
+    margin-left: $volume_height;
+    margin-right: $volume_height + 5;
+}
+
+.#{$cssnoie8} .#{$css}-volumebar {
+    @include float-width-height(right, $volume_width, 100%);
+}
+
+.#{$cssie8} .#{$css}-volumebar {
+    @include float-width-height(right, $volume_width, 50%);
+    margin-top: $ie8_margintop+4;
+    margin-right: 15px;
+}
+
+.#{$css}-volumebar-inner {
+    @include relative-center-center;
+    @include border-round-edges($volume_height / 2);
+    @include clickable;
+    background-color: $progressbar_bgcolor;
+    height: $volume_height;
+}
+
+.#{$css}-volumebar-position {
+    @include border-round-edges($volume_height / 2);
+    @include absolute-align-left();
+    background-color: $progressbar_position_bgcolor;
+    height: 100%;
+}
+
+.#{$css}-volumebar-button {
+    $radius: $volume_height - 2 * $progressbar_button_overflow;
+    @include border-radius($radius);
+    @include clickable;
+    background-color: $progressbar_button_bgcolor;
+    box-sizing: content-box;
+    border: $progressbar_button_border solid $progressbar_button_bordercolor;
+    position: absolute;
+    right: -$radius;
+    top: -($progressbar_button_border + $progressbar_button_overflow);
+    z-index: 1;
+    width: $progressbar_height + 2 * $progressbar_button_overflow;
+    height: $progressbar_height + 2 * $progressbar_button_overflow;
+}
+
+.#{$css}-title {
+    color: $audio_title_font_color;
+    font-family: $audio_title_font_family;
+    font-weight: $audio_title_font_weight;
+    font-size: $audio_title_font_size;
+    float: left;
+    letter-spacing: $audio_title_letter_spacing;
+    line-height: 30px;
+    margin: $audio_title_margin;
+}
+
+
+.#{$css}-message-container {
+	@include absolute-align-all;
+    background-color: $message_bgcolor;
+    opacity: $message_opacity;
+}
+
+.#{$css}-message-message {
+	@include transform-translate-y(-50%);
+    color: $message_color;
+    position: absolute;
+    left: 5px;
+    right: 5px;    
+    top: 50%;    
+    text-align: center;
+}
+.#{$css}-container {
+    display: inline-block;
+    position: relative;
+	overflow: hidden;
+}
+
+.#{$css}-audio {
+    width: 100%;
+    display: block;
+}
+
+.#{$css}-container audio::-webkit-media-controls-start-playback-button {
+  display: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.#{$css}-stretch-height .#{$css}-container, .#{$css}-stretch-width .#{$css}-container {
+	height:100%;
+	overflow: hidden;
+	position:relative;
+	max-width: 100%;
+	max-height: 100%;
+	width: 100%;
+}
+
+.#{$css}-stretch-height .#{$css}-audio {
+	position: absolute;
+	transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
+	min-height: 100%;
+	min-width: 100%;
+	width: auto;
+}
+
+.#{$css}-stretch-width .#{$css}-audio {
+	position: absolute;
+	transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
+	//max-height: 100%;
+	//height:100%;
+	//width: 10000px;
+	min-height: 100%;
+	min-width: 100%;
+	width: auto;
+}
+
+.#{$css}-stretch-width, .#{$css}-stretch-height {
+	display: inline-block;
+	height:100%;
+	width:100%;
+}
+
+.#{$cssplayer}-disabled {
+	@include disabled_element();
+	& * {cursor: not-allowed}
+}
+$css: "ba-videorecorder"; // !!! inherit most rules from video recorder
+$csstheme: "ba-audiorecorder";
+$cssrecorder: "ba-recorder";
+$csscommon: "ba-commoncss";
+$cssie8: "ba-audiorecorder-ie8";
+$cssnoie8: "ba-audiorecorder-noie8";
+$fontello_name: "bjsmc";
+
+$font_family: Arial, sans-serif;
+$recorder_bgcolor: #FDFDFD;
+$text_color: white;
+
+$button_color: #8CF;
+
+$message_bgcolor: black;
+$message_opacity: 0.75;
+
+$topmessage_bgcolor: black;
+$topmessage_opacity: 0.1;
+$topmessage_fontsize: 16px;
+$topmessage_height: 32px;
+$topmessage_fontweight: normal;
+
+$chooser_fontsize: 14px;
+$chooser_buttons_min_width: 12em;
+$chooser_primary_button_bgcolor: #8CF;
+$chooser_primary_button_vertical_padding: 12px;
+$chooser_primary_button_horizontal_padding: 32px;
+$chooser_primary_button_border_radius: 4px;
+$chooser_secondary_button_color: $chooser_primary_button_bgcolor;
+$chooser_secondary_button_padding: 8px;
+
+$imagegallery_buttonmargin: 10px;
+$imagegallery_buttonsize: 20px;
+
+$settings_margin: 4px;
+$settings_padding: 4px;	
+$settings_radius: 4px;
+$settings_bgcolor: black;
+$settings_opacity: 0.25;
+$settings_border: 1px solid white;
+$settings_font_size: 12px;
+$settings_horizontal_margin: 8px;
+$settings_item_padding: 2px;
+$settings_radio_color: white;
+$settings_radio_color_selected: $button_color;
+
+$controlbar_height: 32px;
+$controlbar_opacity: 0.1;
+$controlbar_bgcolor: black;
+$controlbar_padding: 16px;
+$controlbar_icon_good: #0F0;
+$controlbar_icon_bad: #F00;
+$controlbar_label_padding: 7px;
+$controlbar_recording_indication_color: red;
+$controlbar_recording_indication_size: 12px;
+$controlbar_button_horizontal_padding: 8px;
+$controlbar_primarybutton_radius: 2px;
+$controlbar_primarybutton_padding: 4px;
+$controlbar_primarybutton_vertical_padding: 8px;
+$controlbar_primarybutton_font_weight: normal;
+$controlbar_primarybutton_font_size: 14px;
+$controlbar_primarybutton_border: none;
+$controlbar_primarybutton_horizontal_margin: 10px;
+$controlbar_button_fontsize: 14px;
+$controlbar_button_margin: 4px;
+$controlbar_button_padding: 3px;
+$controlbar_button_vertical_padding: 3px;
+$controlbar_button_border_radius: 2px;
+$controlbar_button_border: 1px solid $text_color;
+
+// Theme Colors
+$theme_color_blue: #2a74eb;
+$theme_color_red: #eb6a74;
+$theme_color_green: #5daa96;
+
+$colors: (
+  'red': $theme_color_red,
+  'blue': $theme_color_blue,
+  'green': $theme_color_green,
+  'default': ''
+);
+
+.ba-popup-helper-overlay-background {
+  background-color: white;
+  opacity: 0.85;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
+  cursor: default;
+}
+.ba-popup-helper-overlay {
+  background-color: black;
+  opacity: 1;
+  z-index: 10001;
+  padding:4px 4px 0 4px;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  margin-right: -50%;
+  position: fixed;
+}
+.ba-popup-helper-overlay-inner {
+  width: 100%;
+  height: 100%;
+}
+.ba-popup-helper-overlay-body {
+  overflow: hidden;
+}

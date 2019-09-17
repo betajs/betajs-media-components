@@ -23,7 +23,7 @@
   ba-videorecorder-controlbar.cameraunhealthy: L'illuminazione non è ottimale
   ba-videorecorder-controlbar.microphonehealthy: Il suono è buono
   ba-videorecorder-controlbar.microphoneunhealthy: Non è possibile udire i suoni
-  ba-videorecorder-controlbar.record: Disco
+  ba-videorecorder-controlbar.record: Registrare
   ba-videorecorder-controlbar.record-tooltip: Clicca qui per registrare.
   ba-videorecorder-controlbar.rerecord: Rifare
   ba-videorecorder-controlbar.rerecord-tooltip: Clicca qui per rifare.
@@ -124,7 +124,7 @@
   ba-audiorecorder-controlbar.settings: impostazioni
   ba-audiorecorder-controlbar.microphonehealthy: Il suono è buono
   ba-audiorecorder-controlbar.microphoneunhealthy: Non posso sentire alcun suono
-  ba-audiorecorder-controlbar.record: Disco
+  ba-audiorecorder-controlbar.record: Registrare
   ba-audiorecorder-controlbar.record-tooltip: Clicca qui per registrare.
   ba-audiorecorder-controlbar.rerecord: Rifare
   ba-audiorecorder-controlbar.rerecord-tooltip: Clicca qui per rifare.

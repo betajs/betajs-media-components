@@ -18,6 +18,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
     "base:Classes.ClassRegistry",
     "base:Collections.Collection",
     "base:Promise",
+    "base:Async",
     "module:VideoRecorder.Dynamics.RecorderStates.Initial",
     "module:VideoRecorder.Dynamics.RecorderStates"
 ], [
@@ -37,7 +38,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.TemplatePartial",
     "dynamics:Partials.HotkeyPartial"
-], function(Class, Assets, Info, Dom, DomEvents, MultiUploader, FileUploader, VideoRecorderWrapper, RecorderSupport, WebRTCSupport, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Collection, Promise, InitialState, RecorderStates, scoped) {
+], function(Class, Assets, Info, Dom, DomEvents, MultiUploader, FileUploader, VideoRecorderWrapper, RecorderSupport, WebRTCSupport, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Collection, Promise, Async, InitialState, RecorderStates, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -162,6 +163,11 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "snapshotfrommobilecapture": false,
                     "allowmultistreams": false,
                     "showaddstreambutton": false,
+                    "multistreamreversable": true,
+                    "multistreamgragable": true,
+                    "multistreamresizeable": true,
+                    "multisctreamminwidth": 120,
+                    "multisctreamminheight": 95,
                     "addstreampositionx": 5,
                     "addstreampositiony": 5,
                     "addstreampositionwidth": 120,
@@ -259,6 +265,11 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "allowtexttrackupload": "boolean",
                     "uploadlocales": "array",
                     "allowmultistreams": "boolean",
+                    "multistreamreversable": "boolean",
+                    "multistreamgragable": "boolean",
+                    "multistreamresizeable": "boolean",
+                    "multisctreamminwidth": "number",
+                    "multisctreamminheight": "number",
                     "pausable": "boolean"
                 },
 
@@ -1111,7 +1122,26 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                                 this.set("loadlabel", "");
                                 this.set("loader_active", false);
                                 this.set("showaddstreambutton", false);
-                                this.__appendNewCameraReverseElement(this.activeElement());
+                                if (this.get("multistreamreversable") || this.get("multistreamgragable") || this.get("multistreamresizeable")) {
+                                    this.on("change:addstreampositionx change:addstreampositiony change:addstreampositionwidth change:addstreampositionheight", function(ev) {
+                                        if (typeof this.recorder._recorder === 'object') {
+                                            this.recorder._recorder.updateMultiStreamPosition(
+                                                this.get("addstreampositionx"),
+                                                this.get("addstreampositiony"),
+                                                this.get("addstreampositionwidth"),
+                                                this.get("addstreampositionheight")
+                                            );
+
+                                        }
+                                    });
+                                    this.__appendMultiStreamHelperElement({
+                                        // border: '3px solid red', // for testing purposes only
+                                        opacity: 0,
+                                        position: 'absolute',
+                                        cursor: 'pointer',
+                                        zIndex: 100
+                                    });
+                                }
                             }, this).error(function(message) {
                                 console.warn(message);
                                 this.set("loadlabel", message);
@@ -1123,30 +1153,217 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
                 /**
                  * Will append DIV element which will affect as a button
-                 * @param {HTMLElement} recorderContainer
+                 * @param {Object} options
                  * @private
                  */
-                __appendNewCameraReverseElement: function(recorderContainer) {
-                    var _screenSwitcherElement = document.createElement('div');
-                    recorderContainer.append(_screenSwitcherElement);
-                    Dom.elementAddClass(_screenSwitcherElement, 'ba-screen-switcher');
-                    // _screenSwitcherElement.style.border = '3px solid red'; // for testing purposes only
-                    _screenSwitcherElement.style.opacity = 0;
-                    _screenSwitcherElement.style.position = 'absolute';
-                    _screenSwitcherElement.style.cursor = 'pointer';
-                    _screenSwitcherElement.style.top = this.get("addstreampositionx") + 'px';
-                    _screenSwitcherElement.style.left = this.get("addstreampositionx") + 'px';
-                    _screenSwitcherElement.style.width = this.get("addstreampositionwidth") + 'px';
-                    _screenSwitcherElement.style.height = this.get("addstreampositionheight") + 'px';
-                    _screenSwitcherElement.style.width = 'pointer';
-                    _screenSwitcherElement.style.zIndex = '100';
+                __appendMultiStreamHelperElement: function(options) {
+                    var _screenSwitcherClicksCount = 0;
+                    var _clickEvent, _isTouchDevice, _mouseDownEvent;
+
+                    this.__multistreamHelperElement = document.createElement('div');
+                    Dom.elementAddClass(this.__multistreamHelperElement, 'ba-recorder-screen-switcher');
+
+                    Objs.iter(options, function(value, index) {
+                        this.__multistreamHelperElement.style[index] = value;
+                    }, this);
+                    this.activeElement().append(this.__multistreamHelperElement);
+
+                    // Create additional related elements after reverse element created
+                    this.__setMultiStreamElementDimensions(this.__multistreamHelperElement);
 
                     this._changeVideoEventHandler = this.auto_destroy(new DomEvents());
-                    this._changeVideoEventHandler.on(_screenSwitcherElement, "click touch", function() {
-                        this.recorder.reverseCameraScreens();
-                    }, this);
-                }
+                    _isTouchDevice = (('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));
+                    _clickEvent = _isTouchDevice ? 'touch' : 'click';
 
+                    // If Reverse Cameras Settings is true
+                    if (this.get("multistreamreversable")) {
+                        this._changeVideoEventHandler.on(this.__multistreamHelperElement, _clickEvent, function(ev) {
+                            _screenSwitcherClicksCount++;
+                            // because not enough info regarding supported versions also not be able to support mobile, avoided to use dblclick event
+                            if (_screenSwitcherClicksCount === 1)
+                                Async.eventually(function() {
+                                    _screenSwitcherClicksCount = 0;
+                                }, this, 200);
+
+                            if (_screenSwitcherClicksCount >= 2) {
+                                this.recorder.reverseCameraScreens();
+                            }
+                        }, this);
+                    }
+
+                    // If Drag Settings is true
+                    if (this.get("multistreamgragable")) {
+                        this.__addDragResizeOption(this.__multistreamHelperElement, _isTouchDevice);
+                    }
+
+                    if (this.get("multistreamresizeable")) {
+                        this.__addResizeElement(_isTouchDevice, null, {
+                            width: '7px',
+                            height: '7px',
+                            borderRight: '2px solid white',
+                            borderBottom: '2px solid white',
+                            position: 'absolute',
+                            right: '-9px',
+                            bottom: '-9px',
+                            cursor: 'nwse-resize'
+                        });
+                    }
+                },
+
+                /**
+                 * Will add Drag
+                 *
+                 * @param {HTMLElement} draggedElement
+                 * @param {Boolean} isTouchDevice
+                 * @private
+                 */
+                __addDragResizeOption: function(draggedElement, isTouchDevice) {
+                    var _pos1 = 0;
+                    var _pos2 = 0;
+                    var _pos3 = 0;
+                    var _pos4 = 0;
+                    var _self = this;
+                    var _dragElement, _draggingEvent, _mouseMoveEvent, _mouseUpEvent, _mouseDownEvent, _isResizing;
+
+                    _dragElement = draggedElement || this.__multistreamHelperElement;
+
+                    this.__draggingEvent = this.auto_destroy(new DomEvents());
+
+                    // switch to touch events if using a touch screen
+                    _mouseDownEvent = isTouchDevice ? 'touchstart' : 'mousedown';
+
+                    this.__draggingEvent.on(_dragElement, _mouseDownEvent, function(ev) {
+                        ev = ev || window.event;
+                        ev.preventDefault();
+
+                        _dragElement.style.cursor = 'move';
+
+                        // get the mouse cursor position at startup:
+                        _pos3 = ev.clientX;
+                        _pos4 = ev.clientY;
+
+                        if (isTouchDevice)
+                            _dragElement.ontouchend = dragEndHandler;
+                        else
+                            _dragElement.onmouseup = dragEndHandler;
+
+                        function dragEndHandler(ev) {
+                            // stop moving when mouse button is released:
+                            _dragElement.style.cursor = 'pointer';
+                            _dragElement.onmouseup = null;
+                            _dragElement.onmousemove = null;
+                        }
+
+                        // call a function whenever the cursor moves:
+                        if (isTouchDevice)
+                            _dragElement.ontouchmove = dragHandler;
+                        else
+                            _dragElement.onmousemove = dragHandler;
+
+                        function dragHandler(mouseEv) {
+                            mouseEv = mouseEv || window.event;
+                            mouseEv.preventDefault();
+
+                            // calculate the new cursor position:
+                            _pos1 = _pos3 - mouseEv.clientX;
+                            _pos2 = _pos4 - mouseEv.clientY;
+                            _pos3 = mouseEv.clientX;
+                            _pos4 = mouseEv.clientY;
+
+                            // set the element's new position:
+                            var _top = (_dragElement.offsetTop - _pos2);
+                            var _left = (_dragElement.offsetLeft - _pos1);
+                            _dragElement.style.top = _top + "px";
+                            _dragElement.style.left = _left + "px";
+
+                            _self.set("addstreampositionx", _left);
+                            _self.set("addstreampositiony", _top);
+
+                            // var coordinates = Dom.elementOffset(_dragElement); {left, top}
+                        }
+                    }, this);
+                },
+
+                /**
+                 *
+                 *
+                 * @param {Boolean} isTouchDevice
+                 * @param {HTMLElement} parentElement
+                 * @param {Object} options
+                 * @private
+                 */
+                __addResizeElement: function(isTouchDevice, parentElement, options) {
+                    parentElement = parentElement || this.__multistreamHelperElement;
+                    var _minSize = 120;
+                    var _self = this;
+                    var _mouseDownEvent, _mouseUpEvent, _mouseMoveEvent;
+                    this.__resizerElement = document.createElement('div');
+                    var _resizeElement = this.__resizerElement;
+                    Objs.iter(options, function(value, index) {
+                        this.__resizerElement.style[index] = value;
+                    }, this);
+
+                    parentElement.append(this.__resizerElement);
+                    this.__resizeEvent = this.auto_destroy(new DomEvents());
+
+                    // switch to touch events if using a touch screen
+                    _mouseDownEvent = isTouchDevice ? 'touchstart' : 'mousedown';
+                    _mouseUpEvent = isTouchDevice ? 'touchend' : 'mouseup';
+                    _mouseMoveEvent = isTouchDevice ? 'touchmove' : 'mousemove';
+
+                    this.__resizeEvent.on(_resizeElement, _mouseDownEvent, function(e) {
+                        e = e || window.event;
+                        e.preventDefault();
+
+                        var minimum_size = 120;
+                        var original_width = this.get("addstreampositionwidth");
+                        var original_height = this.get("addstreampositionheight");
+
+                        var original_mouse_x = e.pageX;
+                        var original_mouse_y = e.pageY;
+
+                        window.addEventListener(_mouseMoveEvent, resize);
+                        window.addEventListener(_mouseUpEvent, stopResize);
+
+                        //isTouchDevice ? _resizeElement.ontouchend : _resizeElement.onmouseup =
+                        function stopResize(ev) {
+                            // stop moving when mouse button is released:
+                            // _resizeElement.onmouseup = null;
+                            // _resizeElement.onmousemove = null;
+                            window.removeEventListener('mousemove', resize);
+                        }
+
+                        //isTouchDevice ? _resizeElement.ontouchmove : _resizeElement.onmousemove =
+                        function resize(mouseEv) {
+
+                            var width = original_width + (mouseEv.pageX - original_mouse_x);
+                            var height = original_height + (mouseEv.pageY - original_mouse_y);
+                            if (width > _self.get("multisctreamminwidth")) {
+                                _self.__multistreamHelperElement.style.width = width + 'px';
+                                _self.set("addstreampositionwidth", width);
+                            }
+                            if (height > _self.get("multisctreamminheight")) {
+                                _self.__multistreamHelperElement.style.height = height + 'px';
+                                _self.set("addstreampositionheight", height);
+                            }
+                        }
+                    }, this);
+                },
+
+                /**
+                 * Helper method will set dimentios for multiscreen recorder related elements
+                 *
+                 * @param {HTMLElement} element
+                 * @private
+                 */
+                __setMultiStreamElementDimensions: function(element) {
+                    if (element) {
+                        element.style.top = this.get("addstreampositionx") + 'px';
+                        element.style.left = this.get("addstreampositiony") + 'px';
+                        element.style.width = this.get("addstreampositionwidth") + 'px';
+                        element.style.height = this.get("addstreampositionheight") + 'px';
+                    }
+                }
             };
         }, {
 

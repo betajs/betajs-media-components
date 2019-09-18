@@ -15,7 +15,7 @@
         "url": "https://github.com/betajs/betajs-media-components/issues"
     },
     "name": "betajs-media-components",
-    "version": "0.0.193",
+    "version": "0.0.194",
     "description": "BetaJS-Media-Components is a JavaScript media UI components framework",
     "contributors": [
         "Ziggeo",
@@ -47,7 +47,7 @@
         "grunt-yaml": "",
         "grunt-template": "",
         "he": "",
-        "nano-media-server": "~0.0.7",
+        "nano-media-server": "~0.0.3",
         "grunt-betajs-docs-compile": "~0.0.19",
         "betajs-scoped": "~0.0.13",
         "betajs-compile": "~0.0.37",

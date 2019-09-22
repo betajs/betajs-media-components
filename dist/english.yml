@@ -198,3 +198,6 @@
   ba-videorecorder-chooser.multi-stream: Multi Stream
   ba-videorecorder-controlbar.pause-recorder: Pause Recorder
   ba-videorecorder-controlbar.resume-recorder: Resume Recorder
+  ba-videorecorder.missing-track: Required audio or video track is missing
+  ba-videorecorder.device-already-in-use: At least one of your input devices are already in use
+  ba-videorecorder.browser-permission-denied: 'Permission denied by browser, please grant access and reload page'

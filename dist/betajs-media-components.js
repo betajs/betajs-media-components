@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.193 - 2019-09-18
+betajs-media-components - v0.0.196 - 2019-09-22
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1006,7 +1006,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.193 - 2019-09-18
+betajs-media-components - v0.0.196 - 2019-09-22
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1022,8 +1022,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.193",
-    "datetime": 1568842953358
+    "version": "0.0.196",
+    "datetime": 1569159963955
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -8674,7 +8674,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
             "switch-camera": "Switch camera",
             "prepare-covershot": "Preparing covershots",
             "prepare-thumbnails": "Preparing seeking thumbnails",
-            "adding-new-stream": "Adding New Stream"
+            "adding-new-stream": "Adding New Stream",
+            "missing-track": "Required audio or video track is missing",
+            "device-already-in-use": "At least one of your input devices are already in use",
+            "browser-permission-denied": "Permission denied by browser, please grant access and reload page"
         });
 });
 Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.State", [
@@ -9323,9 +9326,20 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraAccess", [
                     retry: "Initial"
                 });
             }, this);
-            this.listenOn(this.dyn, "access_forbidden", function() {
+            this.listenOn(this.dyn, "access_forbidden", function(e) {
+                var message = this.dyn.string("access-forbidden");
+
+                if (typeof e.name === 'string' && typeof this.dyn.recorder.errorHandler === 'function') {
+                    var errorHandler = this.dyn.recorder.errorHandler(e.name);
+                    if (typeof errorHandler === 'object') {
+                        if (errorHandler.userLevel)
+                            message = this.dyn.string(errorHandler.key);
+                        else
+                            console.warn(errorHandler.message + '. Please inform us!');
+                    }
+                }
                 this.next("FatalError", {
-                    message: this.dyn.string("access-forbidden"),
+                    message: message,
                     retry: "Initial"
                 });
             }, this);

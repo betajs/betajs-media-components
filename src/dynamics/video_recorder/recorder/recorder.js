@@ -1187,6 +1187,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
             "switch-camera": "Switch camera",
             "prepare-covershot": "Preparing covershots",
             "prepare-thumbnails": "Preparing seeking thumbnails",
-            "adding-new-stream": "Adding New Stream"
+            "adding-new-stream": "Adding New Stream",
+            "missing-track": "Required audio or video track is missing",
+            "device-already-in-use": "At least one of your input devices are already in use",
+            "browser-permission-denied": "Permission denied by browser, please grant access and reload page"
         });
 });

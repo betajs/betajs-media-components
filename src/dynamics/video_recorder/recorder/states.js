@@ -644,9 +644,20 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraAccess", [
                     retry: "Initial"
                 });
             }, this);
-            this.listenOn(this.dyn, "access_forbidden", function() {
+            this.listenOn(this.dyn, "access_forbidden", function(e) {
+                var message = this.dyn.string("access-forbidden");
+
+                if (typeof e.name === 'string' && typeof this.dyn.recorder.errorHandler === 'function') {
+                    var errorHandler = this.dyn.recorder.errorHandler(e.name);
+                    if (typeof errorHandler === 'object') {
+                        if (errorHandler.userLevel)
+                            message = this.dyn.string(errorHandler.key);
+                        else
+                            console.warn(errorHandler.message + '. Please inform us!');
+                    }
+                }
                 this.next("FatalError", {
-                    message: this.dyn.string("access-forbidden"),
+                    message: message,
                     retry: "Initial"
                 });
             }, this);

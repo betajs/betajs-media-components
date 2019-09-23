@@ -119,7 +119,19 @@
 		    ba-event:toggle-face-mode="toggle_face_mode"
 			ba-event:add-new-stream="add_new_stream"
 		></ba-{{dyncontrolbar}}>
-    </div>
+
+		<ba-{{dynhelperframe}}
+			ba-if={{helperframe_active}}
+			ba-template="{{tmphelperframe}}"
+			ba-framereversable= "{{multistreamreversable}}"
+			ba-framedragable="{{multistreamdgragable}}"
+			ba-frameresizeable="{{multistreamresizeable}}"
+			ba-framepositionx="{{addstreampositionx}}"
+			ba-framepositiony="{{addstreampositiony}}"
+			ba-framewidth="{{addstreampositionwidth}}"
+			ba-frameheight="{{addstreampositionheight}}"
+		></ba-{{dynhelperframe}}>
+	</div>
 </div>
 
 

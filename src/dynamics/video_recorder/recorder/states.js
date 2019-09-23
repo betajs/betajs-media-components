@@ -17,7 +17,8 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.State", [
                 "topmessage": false,
                 "controlbar": false,
                 "loader": false,
-                "imagegallery": false
+                "imagegallery": false,
+                "helperframe": false
             }, Objs.objectify(this.dynamics)), function(value, key) {
                 this.dyn.set(key + "_active", value);
             }, this);

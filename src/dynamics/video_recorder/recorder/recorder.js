@@ -28,6 +28,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
     "module:VideoRecorder.Dynamics.Topmessage",
     "module:VideoRecorder.Dynamics.Chooser",
     "module:VideoRecorder.Dynamics.Faceoutline",
+    "module:Common.Dynamics.Helperframe",
     "dynamics:Partials.ShowPartial",
     "dynamics:Partials.IfPartial",
     "dynamics:Partials.EventPartial",
@@ -57,6 +58,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "cssmessage": "",
                     "csstopmessage": "",
                     "csschooser": "",
+                    "csshelperframe": "",
                     "width": "",
                     "height": "",
                     "gallerysnapshots": 3,
@@ -76,6 +78,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "dyntopmessage": "videorecorder-topmessage",
                     "dynchooser": "videorecorder-chooser",
                     "dynvideoplayer": "videoplayer",
+                    "dynhelperframe": "helperframe",
 
                     /* Templates */
                     "tmplimagegallery": "",
@@ -84,6 +87,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "tmplmessage": "",
                     "tmpltopmessage": "",
                     "tmplchooser": "",
+                    "tmplhelperframe": "",
 
                     /* Attributes */
                     "autorecord": false,
@@ -164,10 +168,15 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "snapshotfrommobilecapture": false,
                     "allowmultistreams": false,
                     "showaddstreambutton": false,
+                    "multistreamreversable": true,
+                    "multistreamdgragable": true,
+                    "multistreamresizeable": false,
                     "addstreampositionx": 5,
                     "addstreampositiony": 5,
                     "addstreampositionwidth": 120,
                     "addstreampositionheight": 95,
+                    "addstreamminwidth": 120,
+                    "addstreamminheight": 95,
 
                     "allowtexttrackupload": false,
                     "uploadlocales": [{
@@ -263,7 +272,16 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "allowtexttrackupload": "boolean",
                     "uploadlocales": "array",
                     "allowmultistreams": "boolean",
-                    "pausable": "boolean"
+                    "pausable": "boolean",
+                    "multistreamreversable": "boolean",
+                    "multistreamdgragable": "boolean",
+                    "multistreamresizeable": "boolean",
+                    "addstreampositionx": "int",
+                    "addstreampositiony": "int",
+                    "addstreampositionwidth": "int",
+                    "addstreampositionheight": "int",
+                    "addstreamminwidth": "int",
+                    "addstreamminheight": "int"
                 },
 
                 extendables: ["states"],
@@ -1115,7 +1133,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                                 this.set("loadlabel", "");
                                 this.set("loader_active", false);
                                 this.set("showaddstreambutton", false);
-                                this.__appendNewCameraReverseElement(this.activeElement());
+                                if (this.get("allowmultistreams") && (this.get("multistreamreversable") || this.get("multistreamdgragable") || this.get("multistreamresizeable")))
+                                    this.set("helperframe_active", true);
                             }, this).error(function(message) {
                                 console.warn(message);
                                 this.set("loadlabel", message);
@@ -1123,34 +1142,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                             }, this);
                         }
                     }, this);
-                },
-
-                /**
-                 * Will append DIV element which will affect as a button
-                 * @param {HTMLElement} recorderContainer
-                 * @private
-                 */
-                __appendNewCameraReverseElement: function(recorderContainer) {
-                    var _screenSwitcherElement = document.createElement('div');
-                    recorderContainer.append(_screenSwitcherElement);
-                    Dom.elementAddClass(_screenSwitcherElement, 'ba-screen-switcher');
-                    // _screenSwitcherElement.style.border = '3px solid red'; // for testing purposes only
-                    _screenSwitcherElement.style.opacity = 0;
-                    _screenSwitcherElement.style.position = 'absolute';
-                    _screenSwitcherElement.style.cursor = 'pointer';
-                    _screenSwitcherElement.style.top = this.get("addstreampositionx") + 'px';
-                    _screenSwitcherElement.style.left = this.get("addstreampositionx") + 'px';
-                    _screenSwitcherElement.style.width = this.get("addstreampositionwidth") + 'px';
-                    _screenSwitcherElement.style.height = this.get("addstreampositionheight") + 'px';
-                    _screenSwitcherElement.style.width = 'pointer';
-                    _screenSwitcherElement.style.zIndex = '100';
-
-                    this._changeVideoEventHandler = this.auto_destroy(new DomEvents());
-                    this._changeVideoEventHandler.on(_screenSwitcherElement, "click touch", function() {
-                        this.recorder.reverseCameraScreens();
-                    }, this);
                 }
-
             };
         }, {
 

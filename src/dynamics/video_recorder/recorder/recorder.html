@@ -121,7 +121,7 @@
 		></ba-{{dyncontrolbar}}>
 
 		<ba-{{dynhelperframe}}
-			ba-if={{helperframe_active}}
+			ba-if="{{helperframe_active || framevisible}}"
 			ba-template="{{tmphelperframe}}"
 			ba-framereversable= "{{multistreamreversable}}"
 			ba-framedragable="{{multistreamdgragable}}"

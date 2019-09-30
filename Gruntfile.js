@@ -14,7 +14,6 @@ module.exports = function(grunt) {
             'dist/betajs-media-components-locales.js',
             'src/ads/**/*.js',
             'src/dynamics/_common/*.js',
-            'src/dynamics/_common/**/*.js',
             'src/dynamics/popup_helper/*.js',
             'src/dynamics/iframe_helper/*.js',
             'src/dynamics/video_player/**/*.js',

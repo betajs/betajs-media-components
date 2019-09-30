@@ -170,7 +170,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "showaddstreambutton": false,
                     "multistreamreversable": true,
                     "multistreamdgragable": true,
-                    "multistreamresizeable": false,
+                    "multistreamresizeable": true,
                     "addstreampositionx": 5,
                     "addstreampositiony": 5,
                     "addstreampositionwidth": 120,
@@ -179,6 +179,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "addstreamminheight": 95,
 
                     "allowtexttrackupload": false,
+                    "framevisible": false,
                     "uploadlocales": [{
                         lang: 'en',
                         label: 'English'
@@ -1133,8 +1134,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                                 this.set("loadlabel", "");
                                 this.set("loader_active", false);
                                 this.set("showaddstreambutton", false);
-                                if (this.get("allowmultistreams") && (this.get("multistreamreversable") || this.get("multistreamdgragable") || this.get("multistreamresizeable")))
+                                if (this.get("allowmultistreams") && (this.get("multistreamreversable") || this.get("multistreamdgragable") || this.get("multistreamresizeable"))) {
                                     this.set("helperframe_active", true);
+                                    this.set("framevisible", true);
+                                }
                             }, this).error(function(message) {
                                 console.warn(message);
                                 this.set("loadlabel", message);

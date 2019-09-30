@@ -9,8 +9,6 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
         }, function(inherited) {
             return {
 
-                template: "<%= template(dirname + '/helperframe.html') %>",
-
                 attrs: {
                     "css": "ba-videorecorder",
                     "framereversable": true,
@@ -59,14 +57,14 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
 
                 create: function() {
                     var _frameClicksCount = 0;
-                    var _interactionEvent, _isTouchDevice, _mouseDownEvent;
+                    var _interactionEvent, _isTouchDevice;
 
                     Objs.iter(this.get("framemainstyle"), function(value, index) {
                         this.activeElement().style[index] = value;
                     }, this);
 
                     // Create additional related elements after reverse element created
-                    this.__setMultiStreamElementDimensions(this.activeElement());
+                    this.__setHelperFrameDimensions(this.activeElement());
 
                     _isTouchDevice = (('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));
                     _interactionEvent = _isTouchDevice ? 'touch' : 'click';
@@ -99,7 +97,7 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
 
                     // If Drag Settings is true
                     if (this.get("framedragable")) {
-                        this.__addDragResizeOption(this.activeElement(), _isTouchDevice);
+                        this.__addDragOption(this.activeElement(), _isTouchDevice);
                     }
 
                     if (this.get("frameresizeable")) {
@@ -108,22 +106,16 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                             height: '7px',
                             borderRight: '2px solid white',
                             borderBottom: '2px solid white',
+                            bottom: 0,
+                            right: 0,
                             position: 'absolute',
-                            right: '-9px',
-                            bottom: '-9px',
-                            cursor: 'nwse-resize'
+                            cursor: 'nwse-resize',
+                            zIndex: 200
                         });
                     }
                 },
 
                 functions: {},
-
-                /**
-                 * Will append DIV element which will affect as a button
-                 * @param {Object} options
-                 * @private
-                 */
-                appendMultiStreamHelperElement: function(options) {},
 
                 /**
                  * Will add Drag
@@ -132,25 +124,27 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                  * @param {Boolean} isTouchDevice
                  * @private
                  */
-                __addDragResizeOption: function(draggedElement, isTouchDevice) {
+                __addDragOption: function(draggedElement, isTouchDevice) {
                     var _pos1 = 0;
                     var _pos2 = 0;
                     var _pos3 = 0;
                     var _pos4 = 0;
                     var _self = this;
-                    var _dragElement, _draggingEvent, _mouseMoveEvent, _mouseUpEvent, _mouseDownEvent, _isResizing;
+                    var _dragElement, _mouseDownEvent;
 
                     _dragElement = draggedElement || this.activeElement();
 
-                    this.__draggingEvent = this.auto_destroy(new DomEvents());
+                    this._draggingEvent = this.auto_destroy(new DomEvents());
 
                     // switch to touch events if using a touch screen
                     _mouseDownEvent = isTouchDevice ? 'touchstart' : 'mousedown';
 
-                    this.__draggingEvent.on(_dragElement, _mouseDownEvent, function(ev) {
+                    this._draggingEvent.on(_dragElement, _mouseDownEvent, function(ev) {
                         ev.preventDefault();
 
-                        _dragElement.style.cursor = 'move';
+                        if (!this.__resizing)
+                            _dragElement.style.cursor = 'move';
+                        this.__dragging = true;
 
                         // get the mouse cursor position at startup:
                         _pos3 = ev.clientX;
@@ -166,16 +160,18 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                             _dragElement.style.cursor = 'pointer';
                             _dragElement.onmouseup = null;
                             _dragElement.onmousemove = null;
+                            _self.__dragging = false;
                         }
 
                         // call a function whenever the cursor moves:
-                        if (isTouchDevice)
-                            _dragElement.ontouchmove = dragHandler;
-                        else
-                            _dragElement.onmousemove = dragHandler;
+                        if (this.__dragging && !this.__resizing) {
+                            if (isTouchDevice)
+                                _dragElement.ontouchmove = dragHandler;
+                            else
+                                _dragElement.onmousemove = dragHandler;
+                        }
 
                         function dragHandler(mouseEv) {
-                            mouseEv = mouseEv || window.event;
                             mouseEv.preventDefault();
 
                             // calculate the new cursor position:
@@ -206,7 +202,6 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                  */
                 __addResizeElement: function(isTouchDevice, parentElement, options) {
                     parentElement = parentElement || this.activeElement();
-                    var _minSize = 120;
                     var _self = this;
                     var _mouseDownEvent, _mouseUpEvent, _mouseMoveEvent;
                     this.__resizerElement = document.createElement('div');
@@ -224,18 +219,19 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                     _mouseMoveEvent = isTouchDevice ? 'touchmove' : 'mousemove';
 
                     this.__resizeEvent.on(_resizeElement, _mouseDownEvent, function(e) {
-                        e = e || window.event;
                         e.preventDefault();
+                        this.__resizing = true;
 
-                        var minimum_size = 120;
                         var original_width = this.get("framewidth");
                         var original_height = this.get("frameheight");
 
                         var original_mouse_x = e.pageX;
                         var original_mouse_y = e.pageY;
 
-                        window.addEventListener(_mouseMoveEvent, resize);
-                        window.addEventListener(_mouseUpEvent, stopResize);
+                        if (this.__resizing) {
+                            window.addEventListener(_mouseMoveEvent, resize);
+                            window.addEventListener(_mouseUpEvent, stopResize);
+                        }
 
                         //isTouchDevice ? _resizeElement.ontouchend : _resizeElement.onmouseup =
                         function stopResize(ev) {
@@ -243,18 +239,21 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                             // _resizeElement.onmouseup = null;
                             // _resizeElement.onmousemove = null;
                             window.removeEventListener('mousemove', resize);
+                            _self.__dragging = true;
+                            _self.__resizing = false;
                         }
 
                         //isTouchDevice ? _resizeElement.ontouchmove : _resizeElement.onmousemove =
                         function resize(mouseEv) {
 
+                            _self.__dragging = false;
                             var width = original_width + (mouseEv.pageX - original_mouse_x);
                             var height = original_height + (mouseEv.pageY - original_mouse_y);
                             if (width > _self.get("frameminwidth")) {
                                 _self.activeElement().style.width = width + 'px';
                                 _self.set("framewidth", width);
                             }
-                            if (height > _self.get("frameheight")) {
+                            if (height > _self.get("frameminheight")) {
                                 _self.activeElement().style.height = height + 'px';
                                 _self.set("frameheight", height);
                             }
@@ -268,7 +267,7 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                  * @param {HTMLElement} element
                  * @private
                  */
-                __setMultiStreamElementDimensions: function(element) {
+                __setHelperFrameDimensions: function(element) {
                     if (element) {
                         element.style.top = this.get("framepositionx") + 'px';
                         element.style.left = this.get("framepositiony") + 'px';
@@ -280,7 +279,17 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
             };
         })
         .registerFunctions({
-            /*<%= template_function_cache(dirname + '/helperframe.html') %>*/
+            /**/
+            "css": function(obj) {
+                with(obj) {
+                    return css;
+                }
+            },
+            "frameresizeable": function(obj) {
+                with(obj) {
+                    return frameresizeable;
+                }
+            } /**/
         })
         .register("ba-helperframe");
 });

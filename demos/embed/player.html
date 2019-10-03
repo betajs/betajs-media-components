@@ -68,21 +68,23 @@
                 sources: [
                     {
                         src:'/static/demos/assets/portrait.mp4'
-                        , poster: '/static/demos/assets/portrait-poster.png', hd: true
-                        // src:'/static/demos/sample-video.mp4', hd: true
+                        // src:'/static/demos/sample-video.mp4'
+                        , poster: '/static/demos/assets/portrait-poster.png'
+                        , hd: true
                         // , poster: '/static/demos/sample-cover.png'
                     },
                     {
                         // src:'/static/demos/assets/portrait.mp4'
                         // , poster:'/static/demos/assets/portrait-poster.png', hd: false
-                        src:'/static/demos/sample-video2.mp4', hd: false
+                        src:'/static/demos/sample-video2.mp4'
+                        , hd: false
                         , poster: '/static/demos/sample-cover.png'
                     }
                 ],
                 streams: [{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }],
                 skipinitial: true,
                 forceflash: false,
-                hideoninactivity: false,
+                hideoninactivity: true,
                 tracktagsstyled: true,
                 loop: true,
                 tracktags: [

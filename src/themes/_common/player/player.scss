@@ -9,7 +9,6 @@
     div[tabindex]:hover, div[tabindex]:focus:hover {
         box-shadow: none;
     }
-
 }
 
 .#{$cssvideoplayer}-container {
@@ -40,6 +39,7 @@
     right: 0;
     top: 0;
     bottom: 0;
+    overflow: hidden;
 }
 
 .#{$cssplayer}-airplay-container {

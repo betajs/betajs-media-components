@@ -203,7 +203,7 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                 __addResizeElement: function(isTouchDevice, parentElement, options) {
                     parentElement = parentElement || this.activeElement();
                     var _self = this;
-                    var _mouseDownEvent, _mouseUpEvent, _mouseMoveEvent;
+                    var _mouseDownEvent, _mouseUpEvent, _mouseMoveEvent, _globalWidth;
                     this.__resizerElement = document.createElement('div');
                     var _resizeElement = this.__resizerElement;
                     Objs.iter(options, function(value, index) {
@@ -249,6 +249,8 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                             _self.__dragging = false;
                             var width = original_width + (mouseEv.pageX - original_mouse_x);
                             var height = original_height + (mouseEv.pageY - original_mouse_y);
+                            _globalWidth = _globalWidth !== width ? width : _globalWidth;
+
                             if (width > _self.get("frameminwidth")) {
                                 _self.activeElement().style.width = width + 'px';
                                 _self.set("framewidth", width);
@@ -275,10 +277,8 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                         element.style.height = this.get("frameheight") + 'px';
                     }
                 }
-
             };
-        })
-        .registerFunctions({
+        }).registerFunctions({
             /**/
             "css": function(obj) {
                 with(obj) {

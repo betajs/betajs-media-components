@@ -943,8 +943,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     this.set("currentorientation", window.innerHeight > window.innerWidth ? "portrait" : "landscape");
                     try {
                         if (this.recorderAttached() && this.get("devicetesting")) {
-                            var lightLevel = this.lightLevel();
-                            this.set("camerahealthy", lightLevel >= 100 && lightLevel <= 200);
+                            if (!this.get("onlyaudio")) {
+                                var lightLevel = this.lightLevel();
+                                this.set("camerahealthy", lightLevel >= 100 && lightLevel <= 200);
+                            }
                             if (!this.get("noaudio") && !this.get("microphonehealthy") && this.soundLevel() >= 1.01) {
                                 this.set("microphonehealthy", true);
                                 this.recorder.testSoundLevel(false);

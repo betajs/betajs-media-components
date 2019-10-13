@@ -2,6 +2,7 @@
 	display: inline-block;
 	position: relative;
 	overflow: hidden;
+	z-index: 1;
 }
 
 .#{$css}-video {
@@ -20,7 +21,6 @@
 .#{$css}-stretch-both .#{$css}-container,
 .#{$css}-stretch-height .#{$css}-container
 {
-	overflow: hidden;
 	position:relative;
 	height:100%;
 }

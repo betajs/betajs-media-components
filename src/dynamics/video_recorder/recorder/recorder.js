@@ -171,6 +171,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "multistreamreversable": true,
                     "multistreamdgragable": true,
                     "multistreamresizeable": true,
+                    "addstreamproportional": true,
                     "addstreampositionx": 5,
                     "addstreampositiony": 5,
                     "addstreampositionwidth": 120,
@@ -191,11 +192,31 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
                 computed: {
                     "nativeRecordingWidth:recordingwidth,record_media": function() {
-                        return this.get("recordingwidth") || ((this.get("record_media") !== "screen" && (this.get("record_media") !== "multistream")) ? 640 : (window.innerWidth || document.body.clientWidth));
+                        if (this.get("record_media") !== "multistream") {
+                            return this.videoWidth();
+                            // var ratio = (window.innerWidth || document.body.clientWidth) / (window.innerHeight || document.body.clientHeight);
+                            // console.log('W -- >', ratio > 1 ? this.videoWidth() : this.videoHeight() * ratio, ratio);
+                            // return ratio > 1 ? this.videoWidth() : this.videoHeight() * ratio;
+                        } else {
+                            return this.get("recordingwidth") || (this.get("record_media") !== "screen" ? 640 : (window.innerWidth || document.body.clientWidth));
+                        }
                     },
                     "nativeRecordingHeight:recordingheight,record_media": function() {
-                        return this.get("recordingheight") || ((this.get("record_media") !== "screen" && (this.get("record_media") !== "multistream")) ? 480 : (window.innerHeight || document.body.clientHeight));
+                        if (this.get("record_media") !== "multistream") {
+                            return this.videoWidth() * this.aspectRatio();
+                            // var ratio = (window.innerWidth || document.body.clientWidth) / (window.innerHeight || document.body.clientHeight);
+                            // console.log('H -- >', ratio > 1 ? this.videoWidth() * ratio : this.videoHeight());
+                            // return ratio > 1 ? this.videoWidth() * ratio : this.videoHeight();
+                        } else {
+                            return this.get("recordingheight") || (this.get("record_media") !== "screen" ? 480 : (window.innerHeight || document.body.clientHeight));
+                        }
                     },
+                    // "nativeRecordingWidth:recordingwidth,record_media": function() {
+                    //     return this.get("recordingwidth") || ((this.get("record_media") !== "screen" && (this.get("record_media") !== "multistream")) ? 640 : (window.innerWidth || document.body.clientWidth));
+                    // },
+                    // "nativeRecordingHeight:recordingheight,record_media": function() {
+                    //     return this.get("recordingheight") || ((this.get("record_media") !== "screen" && (this.get("record_media") !== "multistream")) ? 480 : (window.innerHeight || document.body.clientHeight));
+                    // },
                     "widthHeightStyles:width,height": function() {
                         var result = {};
                         var width = this.get("width");
@@ -277,6 +298,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "multistreamreversable": "boolean",
                     "multistreamdgragable": "boolean",
                     "multistreamresizeable": "boolean",
+                    "addstreamproportional": "boolean",
                     "addstreampositionx": "int",
                     "addstreampositiony": "int",
                     "addstreampositionwidth": "int",

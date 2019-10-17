@@ -20,6 +20,7 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                     "framepositiony": 5,
                     "frameminwidth": 120,
                     "frameminheight": 95,
+                    "frameproportional": true,
                     "framemainstyle": {
                         opacity: 0,
                         position: 'absolute',
@@ -32,6 +33,7 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                     "framereversable": "boolean",
                     "framedragable": "boolean",
                     "frameresizeable": "boolean",
+                    "frameproportional": "boolean",
                     "framewidth": "int",
                     "frameheight": "int",
                     "framepositionx": "int",
@@ -203,7 +205,10 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                 __addResizeElement: function(isTouchDevice, parentElement, options) {
                     parentElement = parentElement || this.activeElement();
                     var _self = this;
-                    var _mouseDownEvent, _mouseUpEvent, _mouseMoveEvent, _globalWidth;
+                    var _mouseDownEvent, _mouseUpEvent, _mouseMoveEvent, _initialHeight, _initialWidth, _initialRatio;
+                    // _initialWidth = this.get("framewidth");
+                    // _initialHeight = this.get("frameheight");
+                    _initialRatio = this.get("framewidth") / this.get("frameheight");
                     this.__resizerElement = document.createElement('div');
                     var _resizeElement = this.__resizerElement;
                     Objs.iter(options, function(value, index) {
@@ -222,11 +227,11 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                         e.preventDefault();
                         this.__resizing = true;
 
-                        var original_width = this.get("framewidth");
-                        var original_height = this.get("frameheight");
+                        var originalWidth = this.get("framewidth");
+                        var originalHeight = this.get("frameheight");
 
-                        var original_mouse_x = e.pageX;
-                        var original_mouse_y = e.pageY;
+                        var originalMouseX = e.pageX;
+                        var originalMouseY = e.pageY;
 
                         if (this.__resizing) {
                             window.addEventListener(_mouseMoveEvent, resize);
@@ -247,17 +252,40 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                         function resize(mouseEv) {
 
                             _self.__dragging = false;
-                            var width = original_width + (mouseEv.pageX - original_mouse_x);
-                            var height = original_height + (mouseEv.pageY - original_mouse_y);
-                            _globalWidth = _globalWidth !== width ? width : _globalWidth;
+                            var width = originalWidth + (mouseEv.pageX - originalMouseX);
+                            var height = originalHeight + (mouseEv.pageY - originalMouseY);
 
-                            if (width > _self.get("frameminwidth")) {
-                                _self.activeElement().style.width = width + 'px';
-                                _self.set("framewidth", width);
-                            }
-                            if (height > _self.get("frameminheight")) {
-                                _self.activeElement().style.height = height + 'px';
-                                _self.set("frameheight", height);
+                            if (_self.get("frameproportional")) {
+                                _initialWidth = _initialWidth !== width ? width : _initialWidth;
+                                _initialHeight = _initialHeight !== height ? height : _initialHeight;
+
+                                if (_initialWidth !== width) {
+                                    if (width > _self.get("frameminwidth") && height > _self.get("frameminheight")) {
+                                        var __height = Math.round(width * _initialRatio);
+                                        _self.activeElement().style.width = width + 'px';
+                                        _self.activeElement().style.width = __height + 'px';
+                                        _self.set("framewidth", width);
+                                        _self.set("frameheigh", __height);
+                                    }
+                                } else if (_initialHeight !== height) {
+                                    if (width > _self.get("frameminwidth") && height > _self.get("frameminheight")) {
+                                        var __width = Math.round(height * _initialRatio);
+                                        _self.activeElement().style.height = height + 'px';
+                                        _self.activeElement().style.width = __width + 'px';
+                                        _self.set("frameheigh", height);
+                                        _self.set("framewidth", __width);
+                                    }
+                                }
+
+                            } else {
+                                if (width > _self.get("frameminwidth")) {
+                                    _self.activeElement().style.width = width + 'px';
+                                    _self.set("framewidth", width);
+                                }
+                                if (height > _self.get("frameminheight")) {
+                                    _self.activeElement().style.height = height + 'px';
+                                    _self.set("frameheight", height);
+                                }
                             }
                         }
                     }, this);

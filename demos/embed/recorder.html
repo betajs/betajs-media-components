@@ -41,7 +41,9 @@
 
 </head>
 <body style="background: #EEE">
+<div style="width: 300px; position: relative; margin: 0 auto;">
     <div id="recorder"></div>
+</div>
 
     <script>
         BetaJS.Flash.options = {
@@ -53,7 +55,8 @@
             element: document.getElementById('recorder'),
             attrs: {
                 theme: "default",
-                themecolor: "red"
+                themecolor: "red",
+                width: '100%'
             }
         });
 

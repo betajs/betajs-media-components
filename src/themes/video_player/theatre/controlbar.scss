@@ -18,7 +18,7 @@
         color: $button_color_secondary;
     }
 
-    .#{$cssplayer}-cc-inactive i, .#{$cssplayer}-settings-hidden i {
+    .#{$cssplayer}-cc-inactive i, .#{$csscommon}-settings-hidden i {
         color: $button_color_secondary;
     }
 }
@@ -319,7 +319,7 @@
     width: 30px;
 }
 
-.#{$cssplayer}-settings-visible .#{$csstheme}-settings-button-inner {
+.#{$csscommon}-settings-visible .#{$csstheme}-settings-button-inner {
     color: $controlbar_background;
 }
 

@@ -391,11 +391,11 @@
         color: $cc_label_text_color;
         font-size: 0.8em;
     }
-    &.#{$cssplayer}-cc-active, &.#{$cssplayer}-settings-visible {
+    &.#{$cssplayer}-cc-active, &.#{$csscommon}-settings-visible {
         background-color: $cc_active_label_bg_color;
         opacity: 0.75;
     }
-    &.#{$cssplayer}-settings-hidden, &.#{$cssplayer}-cc-inactive {
+    &.#{$csscommon}-settings-hidden, &.#{$cssplayer}-cc-inactive {
         background-color: $cc_label_bg_color;
         opacity: 0.75;
     }

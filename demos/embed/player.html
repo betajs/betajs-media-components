@@ -107,6 +107,8 @@
         });
 
         player.on("attached", function (playerInstance) {
+            // this.addSettingsMenuItem({set: 'Somen'});
+            // playerInstance.add_setting({setting: 'someID'});
             playerInstance.on("fullscreen-change", function (isFullscreen) {
                 console.log('is Full', isFullscreen);
             }, this);

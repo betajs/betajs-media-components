@@ -1,4 +1,47 @@
-.ba-settings-overlay {
+.ba-commoncss-settings-menu {
+  background: rgba(28,28,28,0.9);
+  border-radius: 2px;
+  min-width: 190px;
+  overflow: hidden;
+  position: absolute;
+  text-shadow: 0 0 2px rgba(0,0,0,.5);
+  right: 5px;
+  bottom: 43px;
+}
+
+.ba-commoncss-settings-menu-item {
+  display: table-row;
+  cursor: pointer;
+  line-height: 1.3em;
+  padding: 0 4px;
+  outline: none;
+  height: 32px;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  & > div {
+    font-family: sans-serif, Arial;
+    color: #fafafa;
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0 15px;
+  }
+}
+
+.ba-commoncss-settings-menu-label {
+  font-weight: normal;
+  font-size: 0.9em;
+  text-align: left;
+}
+
+.ba-commoncss-settings-menu-value {
+  font-weight: lighter;
+  font-size: 0.8em;
+  text-align: right;
+  line-height: 2.5em;
+}
+
+.ba-settings-menu-overlay {
   & ul {
     list-style: none;
     margin: 0;
@@ -6,7 +49,7 @@
   }
 }
 
-.ba-settings-overlay-inner {
+.ba-settings-menu-overlay-inner {
   @include background-rgba(0, 0, 0, 0.75, #555555);
   bottom: 39px;
   color: #ffffff;

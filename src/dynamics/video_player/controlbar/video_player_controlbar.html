@@ -3,16 +3,16 @@
 	<div tabindex="{{skipinitial ? 2 : 1}}" data-selector="progress-bar-inner" class="{{css}}-progressbar {{activitydelta < 2500 || ismobile ? '' : (css + '-progressbar-small')}} {{disableseeking ? cssplayer + '-disabled' : ''}}"
 		 ba-hotkey:right="{{seek(position + skipseconds)}}"
 		 ba-hotkey:left="{{seek(position - skipseconds)}}"
-         ba-hotkey:alt+right="{{seek(position + skipseconds * 3)}}"
-         ba-hotkey:alt+left="{{seek(position - skipseconds * 3)}}"
+		 ba-hotkey:alt+right="{{seek(position + skipseconds * 3)}}"
+		 ba-hotkey:alt+left="{{seek(position - skipseconds * 3)}}"
 		 onmouseout="this.blur()"
 		 ontouchstart="{{startUpdatePosition(domEvent)}}"
 		 ontouchmove="{{progressUpdatePosition(domEvent)}}"
 		 ontouchend="{{stopUpdatePosition(domEvent); this.blur()}}"
-	     onmousedown="{{startUpdatePosition(domEvent)}}"
-	     onmouseup="{{stopUpdatePosition(domEvent)}}"
-	     onmouseleave="{{stopUpdatePosition(domEvent)}}"
-	     onmousemove="{{progressUpdatePosition(domEvent)}}"
+		 onmousedown="{{startUpdatePosition(domEvent)}}"
+		 onmouseup="{{stopUpdatePosition(domEvent)}}"
+		 onmouseleave="{{stopUpdatePosition(domEvent)}}"
+		 onmousemove="{{progressUpdatePosition(domEvent)}}"
 	>
 		<div class="{{css}}-progressbar-cache" ba-styles="{{{width: Math.round(duration ? cached / duration * 100 : 0) + '%'}}}"></div>
 		<div class="{{css}}-progressbar-position" ba-styles="{{{width: Math.round(duration ? position / duration * 100 : 0) + '%'}}}" title="{{string('video-progress')}}">
@@ -24,45 +24,45 @@
 
 	<div class="{{css}}-controlbar">
 
-        <div tabindex="0" data-selector="submit-video-button"
+		<div tabindex="0" data-selector="submit-video-button"
 			 ba-hotkey:space^enter="{{submit()}}" onmouseout="this.blur()"
 			 class="{{css}}-leftbutton-container"
 			 ba-if="{{submittable}}" ba-click="{{submit()}}">
-            <div class="{{css}}-button-inner">
-                {{string('submit-video')}}
-            </div>
-        </div>
+			<div class="{{css}}-button-inner">
+				{{string('submit-video')}}
+			</div>
+		</div>
 
-        <div tabindex="0" data-selector="button-icon-ccw"
+		<div tabindex="0" data-selector="button-icon-ccw"
 			 ba-hotkey:space^enter="{{rerecord()}}" onmouseout="this.blur()"
 			 class="{{css}}-leftbutton-container" ba-if="{{rerecordable}}"
 			 ba-click="{{rerecord()}}" title="{{string('rerecord-video')}}"
 		>
-            <div class="{{css}}-button-inner">
-                <i class="{{csscommon}}-icon-ccw"></i>
-            </div>
-        </div>
+			<div class="{{css}}-button-inner">
+				<i class="{{csscommon}}-icon-ccw"></i>
+			</div>
+		</div>
 
-        <div tabindex="{{skipinitial ? 0 : 2}}" data-selector="button-icon-play"
+		<div tabindex="{{skipinitial ? 0 : 2}}" data-selector="button-icon-play"
 			 ba-hotkey:space^enter="{{toggle_player()}}" onmouseout="this.blur()"
 			 class="{{css}}-leftbutton-container" title="{{string('play-video')}}"
 			 onkeydown="{{tab_index_move(domEvent, null, 'button-icon-pause')}}" ba-if="{{!playing}}" ba-click="{{play()}}"
 		>
-            <div class="{{css}}-button-inner">
-                <i class="{{csscommon}}-icon-play"></i>
-            </div>
-        </div>
+			<div class="{{css}}-button-inner">
+				<i class="{{csscommon}}-icon-play"></i>
+			</div>
+		</div>
 
-        <div tabindex="{{skipinitial ? 0 : 2}}" data-selector="button-icon-pause"
+		<div tabindex="{{skipinitial ? 0 : 2}}" data-selector="button-icon-pause"
 			 ba-hotkey:space^enter="{{toggle_player()}}" onmouseout="this.blur()"
 			 class="{{css}}-leftbutton-container {{disablepause ? cssplayer + '-disabled' : ''}}"
 			 onkeydown="{{tab_index_move(domEvent, null, 'button-icon-play')}}" ba-if="{{playing}}" ba-click="{{pause()}}"
 			 title="{{disablepause ? string('pause-video-disabled') : string('pause-video')}}"
 		>
-            <div class="{{css}}-button-inner">
-                <i class="{{csscommon}}-icon-pause"></i>
-            </div>
-        </div>
+			<div class="{{css}}-button-inner">
+				<i class="{{csscommon}}-icon-pause"></i>
+			</div>
+		</div>
 
 		<div class="{{css}}-time-container">
 			<div class="{{css}}-time-value" title="{{string('elapsed-time')}}">{{formatTime(position)}}</div>
@@ -77,11 +77,12 @@
 		</div>
 
 		<div tabindex="11" data-selector="button-icon-settings"
-			 ba-hotkey:space^enter="{{toggle_settings()}}" onmouseout="this.blur()"
-			 class="{{css}}-rightbutton-container {{cssplayer}}-settings-{{settingsoptionsvisible ? 'visible' : 'hidden'}}"
+			 ba-hotkey:space^enter="{{toggle_settings_menu()}}" onmouseout="this.blur()"
+			 class="{{css}}-rightbutton-container"
 			 onkeydown="{{tab_index_move(domEvent)}}"
-			 ba-if="{{settings}}" ba-click="{{toggle_settings()}}"
-			 title="{{string('settings')}}">
+			 ba-if="{{settingsmenubutton}}" ba-click="{{toggle_settings_menu()}}"
+			 title="{{string('settings')}}"
+		>
 			<div class="{{css}}-button-inner {{css}}-settings-button">
 				<i class="{{csscommon}}-icon-cog"></i>
 			</div>
@@ -110,28 +111,28 @@
 			</div>
 		</div>
 
-        <div tabindex="7" data-selector="button-airplay"
+		<div tabindex="7" data-selector="button-airplay"
 			 ba-hotkey:space^enter="{{show_airplay_devices()}}" onmouseout="this.blur()"
 			 class="{{css}}-rightbutton-container"
 			 ba-show="{{airplaybuttonvisible}}" ba-click="{{show_airplay_devices()}}">
-            <div class="{{css}}-airplay-container">
-                <svg width="16px" height="11px" viewBox="0 0 16 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <!-- Generator: Sketch 3.3.2 (12043) - http://www.bohemiancoding.com/sketch -->
-                    <title>{{string('airplay')}}</title>
-                    <desc>{{string('airplay-icon')}}</desc>
-                    <defs></defs>
-                    <g stroke="none" stroke-width="1" fill-rule="evenodd" sketch:type="MSPage">
-                        <path d="M4,11 L12,11 L8,7 L4,11 Z M14.5454545,0 L1.45454545,0 C0.654545455,0 0,0.5625 0,1.25 L0,8.75 C0,9.4375 0.654545455,10 1.45454545,10 L4.36363636,10 L4.36363636,8.75 L1.45454545,8.75 L1.45454545,1.25 L14.5454545,1.25 L14.5454545,8.75 L11.6363636,8.75 L11.6363636,10 L14.5454545,10 C15.3454545,10 16,9.4375 16,8.75 L16,1.25 C16,0.5625 15.3454545,0 14.5454545,0 L14.5454545,0 Z" sketch:type="MSShapeGroup"></path>
-                    </g>
-                </svg>
-            </div>
-        </div>
+			<div class="{{css}}-airplay-container">
+				<svg width="16px" height="11px" viewBox="0 0 16 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+					<!-- Generator: Sketch 3.3.2 (12043) - http://www.bohemiancoding.com/sketch -->
+					<title>{{string('airplay')}}</title>
+					<desc>{{string('airplay-icon')}}</desc>
+					<defs></defs>
+					<g stroke="none" stroke-width="1" fill-rule="evenodd" sketch:type="MSPage">
+						<path d="M4,11 L12,11 L8,7 L4,11 Z M14.5454545,0 L1.45454545,0 C0.654545455,0 0,0.5625 0,1.25 L0,8.75 C0,9.4375 0.654545455,10 1.45454545,10 L4.36363636,10 L4.36363636,8.75 L1.45454545,8.75 L1.45454545,1.25 L14.5454545,1.25 L14.5454545,8.75 L11.6363636,8.75 L11.6363636,10 L14.5454545,10 C15.3454545,10 16,9.4375 16,8.75 L16,1.25 C16,0.5625 15.3454545,0 14.5454545,0 L14.5454545,0 Z" sketch:type="MSShapeGroup"></path>
+					</g>
+				</svg>
+			</div>
+		</div>
 
-        <div data-selector="button-chromecast" class="{{css}}-rightbutton-container {{css}}-cast-button-container" ba-show="{{castbuttonvisble}}">
-            <button tabindex="0" class="{{css}}-gcast-button" is="google-cast-button"></button>
-        </div>
+		<div data-selector="button-chromecast" class="{{css}}-rightbutton-container {{css}}-cast-button-container" ba-show="{{castbuttonvisble}}">
+			<button tabindex="0" class="{{css}}-gcast-button" is="google-cast-button"></button>
+		</div>
 
-        <div tabindex="6" data-selector="button-stream-label"
+		<div tabindex="6" data-selector="button-stream-label"
 			 ba-hotkey:space^enter="{{toggle_stream()}}" onmouseout="this.blur()"
 			 class="{{css}}-rightbutton-container"
 			 ba-if="{{streams.length > 1 && currentstream}}" ba-click="{{toggle_stream()}}"
@@ -151,13 +152,13 @@
 				 ontouchstart="{{startUpdateVolume(domEvent)}}"
 				 ontouchmove="{{progressUpdateVolume(domEvent)}}"
 				 ontouchend="{{stopUpdateVolume(domEvent); this.blur()}};"
-			     onmousedown="{{startUpdateVolume(domEvent)}}"
-                 onmouseup="{{stopUpdateVolume(domEvent)}}"
-                 onmouseleave="{{stopUpdateVolume(domEvent)}}"
-                 onmousemove="{{progressUpdateVolume(domEvent)}}"
+				 onmousedown="{{startUpdateVolume(domEvent)}}"
+				 onmouseup="{{stopUpdateVolume(domEvent)}}"
+				 onmouseleave="{{stopUpdateVolume(domEvent)}}"
+				 onmousemove="{{progressUpdateVolume(domEvent)}}"
 			>
 				<div class="{{css}}-volumebar-position" ba-styles="{{{width: Math.min(100, Math.round(volume * 100)) + '%'}}}">
-				    <div class="{{css}}-volumebar-button" title="{{string('volume-button')}}"></div>
+					<div class="{{css}}-volumebar-button" title="{{string('volume-button')}}"></div>
 				</div>
 			</div>
 		</div>

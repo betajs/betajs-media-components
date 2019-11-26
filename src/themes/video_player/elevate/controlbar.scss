@@ -1,7 +1,7 @@
 /* Elevate */
 
 .#{$csstheme} {
-    
+
     .#{$csscommon}-icon-play, .#{$csscommon}-icon-pause {
         color: $button_color;
     }
@@ -27,7 +27,7 @@
         right: $controlbar_side_padding;
     }
 
-    .#{$cssplayer}-settings-visible {
+    .#{$csscommon}-settings-visible {
         .#{$csstheme}-button-inner {
             color: $controlbar_background;
         }

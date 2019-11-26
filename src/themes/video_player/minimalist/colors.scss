@@ -19,10 +19,10 @@
 
       .#{$csstheme}-right-button-container {
         &.#{$cssplayer}-cc-active .#{$csscommon}-icon-subtitle,
-        &.#{$cssplayer}-settings-visible .#{$csscommon}-icon-cog {
+        &.#{$csscommon}-settings-visible .#{$csscommon}-icon-cog {
           color: $value;
         }
-        &.#{$cssplayer}-cc-inactive, &.#{$cssplayer}-settings-hidden {
+        &.#{$cssplayer}-cc-inactive, &.#{$csscommon}-settings-hidden {
           background-color: $value;
         }
 

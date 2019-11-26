@@ -32,11 +32,11 @@
   }
 }
 
-.ba-settings-label-icon {
+.#{$csscommon}-settings-label-icon {
   min-width: 1em;
   display: inline-block;
 }
 
-.#{$cssplayer}-settings-visible {
+.ba-settings-visible {
   background-color: #000000;
 }

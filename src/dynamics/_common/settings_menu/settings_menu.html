@@ -1,0 +1,16 @@
+<div class="{{csscommon}}-settings-menu {{csstheme}}-settings-menu" role="settingsblock">
+    <div class="{{csscommon}}-settings-overlay">
+        <div class="{{csscommon}}-settings-menu-item"
+             ba-repeat-element="{{item :: visiblesettings}}"
+             ba-click="{{select_setting(item)}}"
+        >
+            <div class="{{csscommon}}-settings-menu-label" role="settingslabel">
+                {item.label}
+            </div>
+            <div class="{{csscommon}}-settings-menu-value" onclick="" role="settingsvalue"
+            >
+                {item.value}
+            </div>
+        </div>
+    </div>
+</div>

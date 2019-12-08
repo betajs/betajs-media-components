@@ -1,105 +1,105 @@
 {
-  "name": "betajs-media-components",
-  "version": "0.0.201",
-  "description": "BetaJS-Media-Components is a JavaScript media UI components framework",
-  "contributors": [
-    "Ziggeo",
-    "Oliver Friedmann",
-    "Rashad Aliyev"
-  ],
-  "devDependencies": {
-    "lodash": "",
-    "grunt": "",
-    "grunt-contrib-jshint": "",
-    "grunt-contrib-concat": "",
-    "grunt-contrib-uglify": "~4.0.0",
-    "grunt-contrib-clean": "",
-    "grunt-contrib-copy": "",
-    "grunt-preprocess": "",
-    "grunt-closure-tools": "",
-    "grunt-node-qunit": "",
-    "qunit": "",
-    "jsdom": "~9.12.0",
-    "js-yaml": "",
-    "grunt-contrib-sass": "",
-    "grunt-contrib-cssmin": "",
-    "grunt-contrib-csslint": "",
-    "grunt-contrib-connect": "",
-    "grunt-githooks": "",
-    "@google-cloud/translate": "1.1.0",
-    "grunt-jsdoc": "",
-    "grunt-shell": "",
-    "grunt-yaml": "",
-    "grunt-template": "",
-    "he": "",
-    "nano-media-server": "~0.0.3",
-    "grunt-betajs-docs-compile": "~0.0.19",
-    "betajs-scoped": "~0.0.13",
-    "betajs-compile": "~0.0.37",
-    "betajs-shims": "~0.0.12",
-    "betajs": "~1.0.96",
-    "betajs-browser": "~1.0.65",
-    "betajs-flash": "~0.0.18",
-    "betajs-media": "~0.0.45",
-    "betajs-dynamics": "~0.0.83",
-    "grunt-betajs-templates": "~0.1.11",
-    "js-beautify": ""
-  },
-  "main": "dist/betajs-media-components.js",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/betajs/betajs-media-components.git"
-  },
-  "scripts": {
-    "relink": "npm link betajs && npm link betajs-compile && npm link betajs-scoped && npm link betajs-shims && npm link betajs-browser && npm link betajs-flash && npm link betajs-dynamics && npm link betajs-media && npm link grunt-betajs-docs-compile && npm link grunt-betajs-templates",
-    "reinstall": "rm -f package-lock.json && rm -rf node_modules && npm i && npm run relink"
-  },
-  "meta": {
-    "sponsors": [
-      "Ziggeo",
-      "Browserstack"
+    "name": "betajs-media-components",
+    "version": "0.0.202",
+    "description": "BetaJS-Media-Components is a JavaScript media UI components framework",
+    "contributors": [
+        "Ziggeo",
+        "Oliver Friedmann",
+        "Rashad Aliyev"
     ],
-    "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "installdoc": "docsrc/common/install.md",
-    "summarydoc": "docsrc/common/summary.md",
-    "badges": {
-      "codeclimate": true,
-      "travis": false,
-      "npm": true,
-      "gitter": true
+    "devDependencies": {
+        "lodash": "",
+        "grunt": "",
+        "grunt-contrib-jshint": "",
+        "grunt-contrib-concat": "",
+        "grunt-contrib-uglify": "~4.0.0",
+        "grunt-contrib-clean": "",
+        "grunt-contrib-copy": "",
+        "grunt-preprocess": "",
+        "grunt-closure-tools": "",
+        "grunt-node-qunit": "",
+        "qunit": "",
+        "jsdom": "~9.12.0",
+        "js-yaml": "",
+        "grunt-contrib-sass": "",
+        "grunt-contrib-cssmin": "",
+        "grunt-contrib-csslint": "",
+        "grunt-contrib-connect": "",
+        "grunt-githooks": "",
+        "@google-cloud/translate": "1.1.0",
+        "grunt-jsdoc": "",
+        "grunt-shell": "",
+        "grunt-yaml": "",
+        "grunt-template": "",
+        "he": "",
+        "nano-media-server": "~0.0.3",
+        "grunt-betajs-docs-compile": "~0.0.19",
+        "betajs-scoped": "~0.0.13",
+        "betajs-compile": "~0.0.37",
+        "betajs-shims": "~0.0.12",
+        "betajs": "~1.0.96",
+        "betajs-browser": "~1.0.65",
+        "betajs-flash": "~0.0.18",
+        "betajs-media": "~0.0.45",
+        "betajs-dynamics": "~0.0.83",
+        "grunt-betajs-templates": "~0.1.11",
+        "js-beautify": ""
     },
-    "credits": [
-      "VAST Client, (c) Olivier Poitrey, MIT License, https://github.com/dailymotion/vast-client-js"
-    ],
-    "weakDependencies": {
-      "betajs-scoped": "https://github.com/betajs/betajs-scoped",
-      "betajs-shims": "https://github.com/betajs/betajs-shims"
+    "main": "dist/betajs-media-components.js",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/betajs/betajs-media-components.git"
     },
-    "dependencies": {
-      "betajs": "https://github.com/betajs/betajs",
-      "betajs-browser": "https://github.com/betajs/betajs-browser",
-      "betajs-flash": "https://github.com/betajs/betajs-flash",
-      "betajs-media": "https://github.com/betajs/betajs-media",
-      "betajs-dynamics": "https://github.com/betajs/betajs-dynamics"
+    "scripts": {
+        "relink": "npm link betajs && npm link betajs-compile && npm link betajs-scoped && npm link betajs-shims && npm link betajs-browser && npm link betajs-flash && npm link betajs-dynamics && npm link betajs-media && npm link grunt-betajs-docs-compile && npm link grunt-betajs-templates",
+        "reinstall": "rm -f package-lock.json && rm -rf node_modules && npm i && npm run relink"
     },
-    "compatability": {
-      "Firefox": "4 - Latest",
-      "Chrome": "18 - Latest",
-      "Safari": "4 - Latest",
-      "Opera": "12 - Latest",
-      "Internet Explorer": "8 - Latest",
-      "Edge": "12 - Latest",
-      "iOS": "4.0 - Latest",
-      "Android": "2.3 - Latest"
-    },
-    "tests": {
-      "Test Suite": "http://rawgit.com/betajs/betajs-media-components/master/tests/tests.html"
-    },
-    "cdn": {
-      "betajs-media-components.js": "http://cdn.rawgit.com/betajs/betajs-media/master/dist/betajs-media-components.js",
-      "betajs-media-components.min.js": "http://cdn.rawgit.com/betajs/betajs-media/master/dist/betajs-media-components.min.js",
-      "betajs-media-components-noscoped.js": "http://cdn.rawgit.com/betajs/betajs-media/master/dist/betajs-media-components-noscoped.js",
-      "betajs-media-components-noscoped.min.js": "http://cdn.rawgit.com/betajs/betajs-media/master/dist/betajs-media-components-noscoped.min.js"
+    "meta": {
+        "sponsors": [
+            "Ziggeo",
+            "Browserstack"
+        ],
+        "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
+        "installdoc": "docsrc/common/install.md",
+        "summarydoc": "docsrc/common/summary.md",
+        "badges": {
+            "codeclimate": true,
+            "travis": false,
+            "npm": true,
+            "gitter": true
+        },
+        "credits": [
+            "VAST Client, (c) Olivier Poitrey, MIT License, https://github.com/dailymotion/vast-client-js"
+        ],
+        "weakDependencies": {
+            "betajs-scoped": "https://github.com/betajs/betajs-scoped",
+            "betajs-shims": "https://github.com/betajs/betajs-shims"
+        },
+        "dependencies": {
+            "betajs": "https://github.com/betajs/betajs",
+            "betajs-browser": "https://github.com/betajs/betajs-browser",
+            "betajs-flash": "https://github.com/betajs/betajs-flash",
+            "betajs-media": "https://github.com/betajs/betajs-media",
+            "betajs-dynamics": "https://github.com/betajs/betajs-dynamics"
+        },
+        "compatability": {
+            "Firefox": "4 - Latest",
+            "Chrome": "18 - Latest",
+            "Safari": "4 - Latest",
+            "Opera": "12 - Latest",
+            "Internet Explorer": "8 - Latest",
+            "Edge": "12 - Latest",
+            "iOS": "4.0 - Latest",
+            "Android": "2.3 - Latest"
+        },
+        "tests": {
+            "Test Suite": "http://rawgit.com/betajs/betajs-media-components/master/tests/tests.html"
+        },
+        "cdn": {
+            "betajs-media-components.js": "http://cdn.rawgit.com/betajs/betajs-media/master/dist/betajs-media-components.js",
+            "betajs-media-components.min.js": "http://cdn.rawgit.com/betajs/betajs-media/master/dist/betajs-media-components.min.js",
+            "betajs-media-components-noscoped.js": "http://cdn.rawgit.com/betajs/betajs-media/master/dist/betajs-media-components-noscoped.js",
+            "betajs-media-components-noscoped.min.js": "http://cdn.rawgit.com/betajs/betajs-media/master/dist/betajs-media-components-noscoped.min.js"
+        }
     }
-  }
 }

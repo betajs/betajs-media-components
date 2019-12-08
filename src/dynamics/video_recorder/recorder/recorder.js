@@ -170,7 +170,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "showaddstreambutton": false,
                     "multistreamreversable": true,
                     "multistreamdgragable": true,
-                    "multistreamresizeable": true,
+                    "multistreamresizeable": false,
                     "addstreamproportional": true,
                     "addstreampositionx": 5,
                     "addstreampositiony": 5,
@@ -192,30 +192,24 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
                 computed: {
                     "nativeRecordingWidth:recordingwidth,record_media": function() {
-                        if (this.get("record_media") !== "multistream") {
-                            return this.videoWidth();
-                            // var ratio = (window.innerWidth || document.body.clientWidth) / (window.innerHeight || document.body.clientHeight);
-                            // console.log('W -- >', ratio > 1 ? this.videoWidth() : this.videoHeight() * ratio, ratio);
-                            // return ratio > 1 ? this.videoWidth() : this.videoHeight() * ratio;
-                        } else {
-                            return this.get("recordingwidth") || (this.get("record_media") !== "screen" ? 640 : (window.innerWidth || document.body.clientWidth));
-                        }
+                        return this.get("recordingwidth") || ((this.get("record_media") !== "screen" && (this.get("record_media") !== "multistream")) ? 640 : (window.innerWidth || document.body.clientWidth));
                     },
                     "nativeRecordingHeight:recordingheight,record_media": function() {
-                        if (this.get("record_media") !== "multistream") {
-                            return this.videoWidth() * this.aspectRatio();
-                            // var ratio = (window.innerWidth || document.body.clientWidth) / (window.innerHeight || document.body.clientHeight);
-                            // console.log('H -- >', ratio > 1 ? this.videoWidth() * ratio : this.videoHeight());
-                            // return ratio > 1 ? this.videoWidth() * ratio : this.videoHeight();
-                        } else {
-                            return this.get("recordingheight") || (this.get("record_media") !== "screen" ? 480 : (window.innerHeight || document.body.clientHeight));
-                        }
+                        return this.get("recordingheight") || ((this.get("record_media") !== "screen" && (this.get("record_media") !== "multistream")) ? 480 : (window.innerHeight || document.body.clientHeight));
                     },
                     // "nativeRecordingWidth:recordingwidth,record_media": function() {
-                    //     return this.get("recordingwidth") || ((this.get("record_media") !== "screen" && (this.get("record_media") !== "multistream")) ? 640 : (window.innerWidth || document.body.clientWidth));
+                    //     if (this.get("record_media") !== "multistream") {
+                    //         return this.videoWidth();
+                    //     } else {
+                    //         return this.get("recordingwidth") || (this.get("record_media") !== "screen" ? 640 : (window.innerWidth || document.body.clientWidth));
+                    //     }
                     // },
                     // "nativeRecordingHeight:recordingheight,record_media": function() {
-                    //     return this.get("recordingheight") || ((this.get("record_media") !== "screen" && (this.get("record_media") !== "multistream")) ? 480 : (window.innerHeight || document.body.clientHeight));
+                    //     if (this.get("record_media") !== "multistream") {
+                    //         return this.videoWidth() * this.aspectRatio();
+                    //     } else {
+                    //         return this.get("recordingheight") || (this.get("record_media") !== "screen" ? 480 : (window.innerHeight || document.body.clientHeight));
+                    //     }
                     // },
                     "widthHeightStyles:width,height": function() {
                         var result = {};

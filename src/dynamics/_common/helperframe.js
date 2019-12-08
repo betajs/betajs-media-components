@@ -1,113 +1,141 @@
 Scoped.define("module:Common.Dynamics.Helperframe", [
     "dynamics:Dynamic",
     "base:Async",
+    "base:Timers.Timer",
     "base:Objs",
-    "browser:Events"
-], function(Class, Async, Objs, DomEvents, scoped) {
+    "browser:Events",
+    "browser:Geometry",
+    "browser:Info"
+], function(Class, Async, Timer, Objs, DomEvents, Geometry, Info, scoped) {
     return Class.extend({
-            scoped: scoped
-        }, function(inherited) {
-            return {
+        scoped: scoped
+    }, function(inherited) {
+        return {
 
-                attrs: {
-                    "css": "ba-videorecorder",
-                    "framereversable": true,
-                    "framedragable": true,
-                    "frameresizeable": true,
-                    "framewidth": 120,
-                    "frameheight": 95,
-                    "framepositionx": 5,
-                    "framepositiony": 5,
-                    "frameminwidth": 120,
-                    "frameminheight": 95,
-                    "frameproportional": true,
-                    "framemainstyle": {
-                        opacity: 0,
-                        position: 'absolute',
-                        cursor: 'pointer',
-                        zIndex: 100
+            attrs: {
+                "css": "ba-videorecorder",
+                "framereversable": true,
+                "framedragable": true,
+                "frameresizeable": false,
+                "framewidth": 120,
+                "frameheight": 95,
+                "framepositionx": 5,
+                "framepositiony": 5,
+                "frameminwidth": 120,
+                "frameminheight": 95,
+                "flipframe": false,
+                "frameproportional": true,
+                "framemainstyle": {
+                    opacity: 0.5,
+                    position: 'absolute',
+                    cursor: 'pointer',
+                    zIndex: 100
+                }
+            },
+
+            types: {
+                "framereversable": "boolean",
+                "framedragable": "boolean",
+                "frameresizeable": "boolean",
+                "frameproportional": "boolean",
+                "framewidth": "int",
+                "frameheight": "int",
+                "framepositionx": "int",
+                "framepositiony": "int",
+                "frameminwidth": "int",
+                "frameminheight": "int"
+            },
+
+            computed: {},
+
+            events: {
+                "change:framepositionx change:framepositiony change:framewidth change:frameheight": function(value) {
+                    if (typeof this.recorder._recorder === 'object' && this.__visibleDimensions.accessible) {
+                        this.recorder._recorder.updateMultiStreamPosition(
+                            this.get("framepositionx"),
+                            this.get("framepositiony"),
+                            this.get("framewidth"),
+                            this.get("frameheight")
+                        );
                     }
-                },
+                }
+            },
 
-                types: {
-                    "framereversable": "boolean",
-                    "framedragable": "boolean",
-                    "frameresizeable": "boolean",
-                    "frameproportional": "boolean",
-                    "framewidth": "int",
-                    "frameheight": "int",
-                    "framepositionx": "int",
-                    "framepositiony": "int",
-                    "frameminwidth": "int",
-                    "frameminheight": "int"
-                },
+            create: function() {
+                var _interactionEvent;
+                var _frameClicksCount = 0;
 
-                computed: {},
+                // window.HELPER_FRAME = this;
 
-                events: {
-                    "change:framepositionx change:framepositiony change:framewidth change:frameheight": function(value) {
-                        if (typeof this.recorder._recorder === 'object') {
-                            this.recorder._recorder.updateMultiStreamPosition(
-                                this.get("framepositionx"),
-                                this.get("framepositiony"),
-                                this.get("framewidth"),
-                                this.get("frameheight")
-                            );
-                        }
-                    }
-                },
+                Objs.iter(this.get("framemainstyle"), function(value, index) {
+                    this.activeElement().style[index] = value;
+                }, this);
 
-                create: function() {
-                    var _frameClicksCount = 0;
-                    var _interactionEvent, _isTouchDevice;
+                // var helperElement = this.activeElement();
+                // if (this.get("flipframe")) {
+                //     helperElement.style["-moz-transform"] = "scale(-1, 1)";
+                //     helperElement.style["-webkit-transform"] = "scale(-1, 1)";
+                //     helperElement.style["-o-transform"] = "scale(-1, 1)";
+                //     helperElement.style.transform = "scale(-1, 1)";
+                //     helperElement.style.filter = "FlipH";
+                // }
 
-                    Objs.iter(this.get("framemainstyle"), function(value, index) {
-                        this.activeElement().style[index] = value;
-                    }, this);
+                // Create additional related elements after reverse element created
+                _interactionEvent = Info.isTouchable() ? 'touch' : 'click';
 
-                    // Create additional related elements after reverse element created
-                    this.__setHelperFrameDimensions(this.activeElement());
+                this._frameInteractionEventHandler = this.auto_destroy(new DomEvents());
 
-                    _isTouchDevice = (('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));
-                    _interactionEvent = _isTouchDevice ? 'touch' : 'click';
+                this.recorder = this.parent().recorder;
+                this.player = this.parent().player;
+                this.__visibleDimensions = {};
+                this.__setHelperFrameDimensions();
 
-                    this._frameInteractionEventHandler = this.auto_destroy(new DomEvents());
+                // fit frame dimensions based on source resolution
+                // Only after we have _recorder informer
+                if (!this.__visibleDimensions.accessible) {
+                    var timer = new Timer({
+                        context: this,
+                        fire: function() {
+                            if (typeof this.recorder._recorder._videoTrackSettings.videoElement === 'object' && timer) {
+                                this.fitFrameViewOnScreenVideo();
+                                timer.stop();
+                            }
+                        },
+                        delay: 10,
+                        destroy_on_stop: true,
+                        immediate: true
+                    });
+                }
 
-                    this.recorder = this.parent().recorder;
-                    this.player = this.parent().recorder;
+                if (this.recorder) {
+                    // DO RECORDER STUFF
 
-                    if (this.recorder) {
-                        // do recorder stuff
-                        // If Reverse Cameras Settings is true
-                        if (this.get("framereversable")) {
-                            this._frameInteractionEventHandler.on(this.activeElement(), _interactionEvent, function(ev) {
-                                _frameClicksCount++;
-                                // because not enough info regarding supported versions also not be able to support mobile, avoided to use dblclick event
-                                if (_frameClicksCount === 1)
-                                    Async.eventually(function() {
-                                        _frameClicksCount = 0;
-                                    }, this, 200);
+                    // If Reverse Cameras Settings is true
+                    if (this.get("framereversable")) {
+                        this._frameInteractionEventHandler.on(this.activeElement(), _interactionEvent, function(ev) {
+                            _frameClicksCount++;
+                            // because not enough info regarding supported versions also not be able to support mobile, avoided to use dblclick event
+                            if (_frameClicksCount === 1)
+                                Async.eventually(function() {
+                                    _frameClicksCount = 0;
+                                }, this, 200);
 
-                                if (_frameClicksCount >= 2) {
-                                    this.recorder.reverseCameraScreens();
-                                }
-                            }, this);
-                        }
-                    } else if (this.player) {
-                        // do player stuff
+                            if (_frameClicksCount >= 2) {
+                                this.recorder.reverseCameraScreens();
+                            }
+                        }, this);
                     }
 
                     // If Drag Settings is true
-                    if (this.get("framedragable")) {
-                        this.__addDragOption(this.activeElement(), _isTouchDevice);
-                    }
+                    if (this.get("framedragable"))
+                        this.addDragOption(this.parent().activeElement());
 
                     if (this.get("frameresizeable")) {
-                        this.__addResizeElement(_isTouchDevice, null, {
+                        this.addResize(Info.isTouchable(), null, {
                             width: '7px',
                             height: '7px',
-                            borderRight: '2px solid white',
-                            borderBottom: '2px solid white',
+                            borderRight: '1px solid white',
+                            borderBottom: '1px solid white',
                             bottom: 0,
                             right: 0,
                             position: 'absolute',
@@ -115,209 +143,238 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                             zIndex: 200
                         });
                     }
-                },
-
-                functions: {},
-
-                /**
-                 * Will add Drag
-                 *
-                 * @param {HTMLElement} draggedElement
-                 * @param {Boolean} isTouchDevice
-                 * @private
-                 */
-                __addDragOption: function(draggedElement, isTouchDevice) {
-                    var _pos1 = 0;
-                    var _pos2 = 0;
-                    var _pos3 = 0;
-                    var _pos4 = 0;
-                    var _self = this;
-                    var _dragElement, _mouseDownEvent;
-
-                    _dragElement = draggedElement || this.activeElement();
-
-                    this._draggingEvent = this.auto_destroy(new DomEvents());
-
-                    // switch to touch events if using a touch screen
-                    _mouseDownEvent = isTouchDevice ? 'touchstart' : 'mousedown';
-
-                    this._draggingEvent.on(_dragElement, _mouseDownEvent, function(ev) {
-                        ev.preventDefault();
-
-                        if (!this.__resizing)
-                            _dragElement.style.cursor = 'move';
-                        this.__dragging = true;
-
-                        // get the mouse cursor position at startup:
-                        _pos3 = ev.clientX;
-                        _pos4 = ev.clientY;
-
-                        if (isTouchDevice)
-                            _dragElement.ontouchend = dragEndHandler;
-                        else
-                            _dragElement.onmouseup = dragEndHandler;
-
-                        function dragEndHandler(ev) {
-                            // stop moving when mouse button is released:
-                            _dragElement.style.cursor = 'pointer';
-                            _dragElement.onmouseup = null;
-                            _dragElement.onmousemove = null;
-                            _self.__dragging = false;
-                        }
-
-                        // call a function whenever the cursor moves:
-                        if (this.__dragging && !this.__resizing) {
-                            if (isTouchDevice)
-                                _dragElement.ontouchmove = dragHandler;
-                            else
-                                _dragElement.onmousemove = dragHandler;
-                        }
-
-                        function dragHandler(mouseEv) {
-                            mouseEv.preventDefault();
-
-                            // calculate the new cursor position:
-                            _pos1 = _pos3 - mouseEv.clientX;
-                            _pos2 = _pos4 - mouseEv.clientY;
-                            _pos3 = mouseEv.clientX;
-                            _pos4 = mouseEv.clientY;
-
-                            // set the element's new position:
-                            var _top = (_dragElement.offsetTop - _pos2);
-                            var _left = (_dragElement.offsetLeft - _pos1);
-                            _dragElement.style.top = _top + "px";
-                            _dragElement.style.left = _left + "px";
-
-                            _self.set("framepositionx", _left);
-                            _self.set("framepositiony", _top);
-                        }
-                    }, this);
-                },
-
-                /**
-                 *
-                 *
-                 * @param {Boolean} isTouchDevice
-                 * @param {HTMLElement} parentElement
-                 * @param {Object} options
-                 * @private
-                 */
-                __addResizeElement: function(isTouchDevice, parentElement, options) {
-                    parentElement = parentElement || this.activeElement();
-                    var _self = this;
-                    var _mouseDownEvent, _mouseUpEvent, _mouseMoveEvent, _initialHeight, _initialWidth, _initialRatio;
-                    // _initialWidth = this.get("framewidth");
-                    // _initialHeight = this.get("frameheight");
-                    _initialRatio = this.get("framewidth") / this.get("frameheight");
-                    this.__resizerElement = document.createElement('div');
-                    var _resizeElement = this.__resizerElement;
-                    Objs.iter(options, function(value, index) {
-                        this.__resizerElement.style[index] = value;
-                    }, this);
-
-                    parentElement.append(this.__resizerElement);
-                    this.__resizeEvent = this.auto_destroy(new DomEvents());
-
-                    // switch to touch events if using a touch screen
-                    _mouseDownEvent = isTouchDevice ? 'touchstart' : 'mousedown';
-                    _mouseUpEvent = isTouchDevice ? 'touchend' : 'mouseup';
-                    _mouseMoveEvent = isTouchDevice ? 'touchmove' : 'mousemove';
-
-                    this.__resizeEvent.on(_resizeElement, _mouseDownEvent, function(e) {
-                        e.preventDefault();
-                        this.__resizing = true;
-
-                        var originalWidth = this.get("framewidth");
-                        var originalHeight = this.get("frameheight");
-
-                        var originalMouseX = e.pageX;
-                        var originalMouseY = e.pageY;
-
-                        if (this.__resizing) {
-                            window.addEventListener(_mouseMoveEvent, resize);
-                            window.addEventListener(_mouseUpEvent, stopResize);
-                        }
-
-                        //isTouchDevice ? _resizeElement.ontouchend : _resizeElement.onmouseup =
-                        function stopResize(ev) {
-                            // stop moving when mouse button is released:
-                            // _resizeElement.onmouseup = null;
-                            // _resizeElement.onmousemove = null;
-                            window.removeEventListener('mousemove', resize);
-                            _self.__dragging = true;
-                            _self.__resizing = false;
-                        }
-
-                        //isTouchDevice ? _resizeElement.ontouchmove : _resizeElement.onmousemove =
-                        function resize(mouseEv) {
-
-                            _self.__dragging = false;
-                            var width = originalWidth + (mouseEv.pageX - originalMouseX);
-                            var height = originalHeight + (mouseEv.pageY - originalMouseY);
-
-                            if (_self.get("frameproportional")) {
-                                _initialWidth = _initialWidth !== width ? width : _initialWidth;
-                                _initialHeight = _initialHeight !== height ? height : _initialHeight;
-
-                                if (_initialWidth !== width) {
-                                    if (width > _self.get("frameminwidth") && height > _self.get("frameminheight")) {
-                                        var __height = Math.round(width * _initialRatio);
-                                        _self.activeElement().style.width = width + 'px';
-                                        _self.activeElement().style.width = __height + 'px';
-                                        _self.set("framewidth", width);
-                                        _self.set("frameheigh", __height);
-                                    }
-                                } else if (_initialHeight !== height) {
-                                    if (width > _self.get("frameminwidth") && height > _self.get("frameminheight")) {
-                                        var __width = Math.round(height * _initialRatio);
-                                        _self.activeElement().style.height = height + 'px';
-                                        _self.activeElement().style.width = __width + 'px';
-                                        _self.set("frameheigh", height);
-                                        _self.set("framewidth", __width);
-                                    }
-                                }
-
-                            } else {
-                                if (width > _self.get("frameminwidth")) {
-                                    _self.activeElement().style.width = width + 'px';
-                                    _self.set("framewidth", width);
-                                }
-                                if (height > _self.get("frameminheight")) {
-                                    _self.activeElement().style.height = height + 'px';
-                                    _self.set("frameheight", height);
-                                }
-                            }
-                        }
-                    }, this);
-                },
-
-                /**
-                 * Helper method will set dimensions for multi-screen recorder related elements
-                 *
-                 * @param {HTMLElement} element
-                 * @private
-                 */
-                __setHelperFrameDimensions: function(element) {
-                    if (element) {
-                        element.style.top = this.get("framepositionx") + 'px';
-                        element.style.left = this.get("framepositiony") + 'px';
-                        element.style.width = this.get("framewidth") + 'px';
-                        element.style.height = this.get("frameheight") + 'px';
-                    }
-                }
-            };
-        }).registerFunctions({
-            /**/
-            "css": function(obj) {
-                with(obj) {
-                    return css;
+                } else if (this.player) {
+                    // DO PLAYER STUFF
                 }
             },
-            "frameresizeable": function(obj) {
-                with(obj) {
-                    return frameresizeable;
+
+            functions: {},
+
+            /**
+             * Will calculate real
+             * @private
+             */
+            fitFrameViewOnScreenVideo: function() {
+
+                // It will be accessible when at least one of the
+                // EventListeners will be fired
+                var vts = this.recorder._recorder._videoTrackSettings;
+                this.__translate = Geometry.padFitBoxInBox(vts.width, vts.height, vts.videoElement.width, vts.videoElement.height);
+
+                if (!this.__resizing) {
+                    this.__visibleDimensions.x = this.__translate.offsetX + this.get("framepositionx") * this.__translate.scale;
+                    this.__visibleDimensions.y = this.__translate.offsetY + this.get("framepositiony") * this.__translate.scale;
                 }
-            } /**/
-        })
+
+                this.__visibleDimensions.width = this.get("framewidth") * this.__translate.scale;
+                this.__visibleDimensions.height = this.get("frameheight") * this.__translate.scale;
+
+                this.__visibleDimensions.accessible = true;
+
+                if (!this.__dragging && !this.__resizing) {
+                    this.__positions = {
+                        initialX: this.__visibleDimensions.x,
+                        initialY: this.__visibleDimensions.y,
+                        currentX: this.__visibleDimensions.x,
+                        currentY: this.__visibleDimensions.y,
+                        bottomX: this.__visibleDimensions.x + this.__visibleDimensions.width,
+                        bottomY: this.__visibleDimensions.y + this.__visibleDimensions.height,
+                        xOffset: 0,
+                        yOffset: 0
+                    };
+                }
+
+                this.__setHelperFrameDimensions();
+            },
+
+            /**
+             * Will add Drag
+             *
+             * @param {HTMLElement} container
+             * @private
+             */
+            addDragOption: function(container) {
+                this._draggingEvent = this.auto_destroy(new DomEvents());
+
+                // switch to touch events if using a touch screen
+                var _endEvent = Info.isTouchable() ? 'touchend' : 'mouseup';
+                var _moveEvent = Info.isTouchable() ? 'touchmove' : 'mousemove';
+                var _startEvent = Info.isTouchable() ? 'touchstart' : 'mousedown';
+
+                this._draggingEvent.on(container, _endEvent, this.__handleMouseEndEvent, this);
+                this._draggingEvent.on(container, _moveEvent, this.__handleMouseMoveEvent, this);
+                this._draggingEvent.on(container, _startEvent, this.__handleMouseStartEvent, this);
+            },
+
+            /**
+             * @param {Boolean} isTouchDevice
+             * @param {HTMLElement} container
+             * @param {Object} options
+             * @private
+             */
+            addResize: function(isTouchDevice, container, options) {
+                container = container || this.activeElement();
+
+                this.__resizerElement = document.createElement('div');
+
+                Objs.iter(options, function(value, index) {
+                    this.__resizerElement.style[index] = value;
+                }, this);
+
+                container.append(this.__resizerElement);
+                this.__resizeEvent = this.auto_destroy(new DomEvents());
+            },
+
+            /**
+             * Handle Draggable Element Mouse Event
+             *
+             * @param {MouseEvent|TouchEvent} ev
+             * @private
+             */
+            __handleMouseStartEvent: function(ev) {
+                ev.preventDefault();
+                if (typeof this.__visibleDimensions.accessible === 'undefined') {
+                    this.fitFrameViewOnScreenVideo();
+                    return;
+                }
+                this.__dragging = ev.target === this.activeElement();
+                this.__resizing = ev.target === this.__resizerElement;
+
+                if (typeof this.__positions === 'object') {
+                    if (ev.type === "touchstart") {
+                        this.__positions.initialX = ev.touches[0].clientX - this.__positions.xOffset;
+                        this.__positions.frame.initialY = ev.touches[0].clientY - this.__positions.yOffset;
+                    } else {
+                        if (this.__dragging) {
+                            this.__positions.initialX = ev.clientX - this.__positions.xOffset;
+                            this.__positions.initialY = ev.clientY - this.__positions.yOffset;
+                        }
+                        this.__positions.bottomX = this.__positions.initialX + this.__visibleDimensions.width;
+                        this.__positions.bottomY = this.__positions.initialY + this.__visibleDimensions.height;
+                    }
+                }
+            },
+
+
+            /**
+             * Listener of mouse movement
+             *
+             * @param {MouseEvent|TouchEvent} ev
+             * @private
+             */
+            __handleMouseMoveEvent: function(ev) {
+                ev.preventDefault();
+                if (!this.__dragging && !this.__resizing) return;
+                this.activeElement().style.cursor = 'move';
+                this.activeElement().style.opacity = '0';
+
+                var _diffX, _diffY;
+
+                if (ev.type === "touchmove") {
+                    this.__positions.currentX = ev.touches[0].clientX - this.__positions.initialX;
+                    this.__positions.currentY = ev.touches[0].clientY - this.__positions.initialY;
+                } else {
+                    if (this.__dragging) {
+                        this.__positions.currentX = ev.clientX - this.__positions.initialX;
+                        this.__positions.currentY = ev.clientY - this.__positions.initialY;
+                    }
+
+                    if (this.__resizing) {
+                        // var _d = this.activeElement().getBoundingClientRect();
+                        // this.__visibleDimensions.width = this.get("framewidth") * this.__translate.scale;
+                        // this.__visibleDimensions.height = this.get("frameheight") * this.__translate.scale;
+                        _diffX = ev.clientX - this.__positions.bottomX; //(this.__positions.currentX + this.__visibleDimensions.width);
+                        _diffY = ev.clientY - this.__positions.bottomY; //(this.__positions.currentY + this.__visibleDimensions.height);
+                    }
+                }
+
+
+                if (this.__dragging) {
+                    this.__positions.xOffset = this.__positions.currentX;
+                    this.__positions.yOffset = this.__positions.currentY;
+
+                    setTranslate(this.activeElement(), this.__positions.currentX, this.__positions.currentY);
+                    this.set("framepositionx", this.__positions.currentX / this.__translate.scale);
+                    this.set("framepositiony", this.__positions.currentY / this.__translate.scale);
+                }
+
+                if (this.__resizing) {
+                    var _width = this.__visibleDimensions.width + _diffX;
+                    var _height = this.__visibleDimensions.height + _diffY;
+
+                    this.__positions.bottomX = this.__positions.currentX + _width;
+                    this.__positions.bottomY = this.__positions.currentY + _height;
+
+                    this.set("framewidth", _width / this.__translate.scale);
+                    this.set("frameheight", _height / this.__translate.scale);
+
+                    this.fitFrameViewOnScreenVideo();
+                    setDimension(this.activeElement(), _width, _height);
+                }
+
+                function setTranslate(el, posX, posY) {
+                    el.style.transform = "translate3d(" + posX + "px, " + posY + "px, 0)";
+                }
+
+                function setDimension(el, width, height) {
+                    el.style.width = width;
+                    el.style.height = height;
+                }
+            },
+
+            /**
+             * Listener of movement end
+             *
+             * @param {MouseEvent|TouchEvent} ev
+             * @private
+             */
+            __handleMouseEndEvent: function(ev) {
+                ev.preventDefault();
+                if (!this.__dragging && !this.__resizing) return;
+
+                if (!this.__resizing) {
+                    this.__positions.initialX = this.__positions.currentX;
+                    this.__positions.initialY = this.__positions.currentY;
+                } else {
+                    this.__positions.bottomX = this.__positions.currentX + this.__visibleDimensions.width;
+                    this.__positions.bottomY = this.__positions.currentY + this.__visibleDimensions.height;
+                }
+
+                this.activeElement().style.cursor = 'pointer';
+                this.activeElement().style.opacity = this.get("framemainstyle").opacity;
+
+                this.__dragging = false;
+                this.__resizing = false;
+            },
+
+            /**
+             * Helper method will set dimensions for multi-screen recorder related elements
+             *
+             * @param {HTMLElement=} element - HTML element or Null to set dimentions and position
+             * @private
+             */
+            __setHelperFrameDimensions: function(element) {
+                element = element || this.activeElement();
+                if (element) {
+                    element.style.top = this.__visibleDimensions.y + 'px';
+                    element.style.left = this.__visibleDimensions.x + 'px';
+                    element.style.width = this.__visibleDimensions.width + 'px';
+                    element.style.height = this.__visibleDimensions.height + 'px';
+                }
+            }
+        };
+    }).registerFunctions({
+        /**/
+        "css": function(obj) {
+            with(obj) {
+                return css;
+            }
+        },
+        "frameresizeable": function(obj) {
+            with(obj) {
+                return frameresizeable;
+            }
+        } /**/
+    })
         .register("ba-helperframe");
 });

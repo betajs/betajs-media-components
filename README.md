@@ -1,5 +1,4 @@
-# betajs-media-components 0.0.200
->>>>>>> bd4f29fa08cbed138f60ff18fd3fd038ae2b655a
+# betajs-media-components 0.0.201
 [![Code Climate](https://codeclimate.com/github/betajs/betajs-media-components/badges/gpa.svg)](https://codeclimate.com/github/betajs/betajs-media-components)
 [![NPM](https://img.shields.io/npm/v/betajs-media-components.svg?style=flat)](https://www.npmjs.com/package/betajs-media-components)
 [![Gitter Chat](https://badges.gitter.im/betajs/betajs-media-components.svg)](https://gitter.im/betajs/betajs-media-components)
@@ -147,4 +146,5 @@ This software may include modified and unmodified portions of:
 
 - Ziggeo
 - Browserstack
+
 

@@ -50,14 +50,14 @@
     }
 }
 
-.#{$cssplayer}-cc-inactive {
+.#{$cssplayer}-button-inactive {
     background-color: transparent;
     .#{$csscommon}-icon-subtitle {
         color: #ffffff;
     }
 }
 
-.#{$cssplayer}-cc-active {
+.#{$cssplayer}-button-active {
     background: #000000;
     .#{$csscommon}-icon-subtitle {
         color: #eeeeee;

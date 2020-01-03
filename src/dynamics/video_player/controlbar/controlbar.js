@@ -263,9 +263,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     // Hover on CC button in controller
                     hover_cc: function(hover) {
                         // Not show CC on hover during settings block is open
-                        // Reason why use parent not local settingsmenuvisible,
+                        // Reason why use parent not local settingsmenu_active,
                         // is that settings model also has to be aware it's state. So we need as a global variable
-                        if (this.parent().get("settingsmenuvisible")) return;
+                        if (this.parent().get("settingsmenu_active")) return;
                         Async.eventually(function() {
                             this.parent().set("tracksshowselection", hover);
                         }, this, 300);
@@ -284,28 +284,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     },
 
                     toggle_settings: function() {
-                        this.parent().set("settingsmenuvisible", !this.parent().get("settingsmenuvisible"));
                         this.trigger("toggle_settings");
                     }
                 },
 
                 create: function() {
-                    var dynamic = this.__parent;
                     this.set("ismobile", Info.isMobile());
-                    if (dynamic.get("showsettings")) {
-                        this.set("isflash", dynamic.get('forceflash') && !dynamic.get('noflash'));
-                        Objs.iter(dynamic.get('settingsmenu'), function(setting) {
-                            if (this.get())
-                                if (this.get("isflash")) {
-                                    if (setting.flashSupport)
-                                        this.set("settings", true);
-                                } else if (this.get("ismobile")) {
-                                if (setting.mobileSupport)
-                                    this.set("settings", true);
-                            } else
-                                this.set("settings", true);
-                        }, this);
-                    }
                 }
             };
         })

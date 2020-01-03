@@ -1,15 +1,47 @@
-<div class="{{csscommon}}-settings-menu {{csstheme}}-settings-menu" role="settingsblock">
-    <div class="{{csscommon}}-settings-overlay">
-        <div class="{{csscommon}}-settings-menu-item"
-             ba-repeat-element="{{item :: visiblesettings}}"
-             ba-click="{{select_setting(item)}}"
+<div if="{{visiblesettings.length > 0}}" class="{{csscommon}}-settings-menu {{csstheme}}-settings-menu" role="settingsblock">
+    <div class="{{csscommon}}-settings-menu-overlay">
+        <div ba-if="{{root}}"
+             class="{{csscommon}}-settings-menu-item"
+             ba-repeat-element="{{setting :: visiblesettings}}"
+             title="{{string(setting.label)}}"
+             ba-click="{{select_setting(setting.id)}}"
         >
             <div class="{{csscommon}}-settings-menu-label" role="settingslabel">
-                {item.label}
+                {{string(setting.label) || setting.label}}
             </div>
-            <div class="{{csscommon}}-settings-menu-value"
-                 role="settingsvalue">
-                {item.value}
+
+            <div ba-if="{{setting.options}}" class="{{csscommon}}-settings-menu-value {{csscommon}}-setting-option-value"
+                 role="settingsvalue"
+            >
+                {{setting.value}}
+            </div>
+
+            <div ba-if="{{!setting.options}}" class="{{csscommon}}-settings-menu-value "
+                 role="settingicon"
+            >
+                <div ba-if="{{setting.showicon}}"
+                     style="{{setting.value ? setting.icontruestyle : setting.iconfalsestyle}}"
+                     class="{{csscommon}}-setting-menu-icon {{csscommon + (setting.value ? '-setting-on' : '-setting-off')}}">
+                    {{setting.value ? setting.trueicon : setting.falseicon}}
+                </div>
+            </div>
+
+        </div>
+
+        <div ba-if="{{!root}}">
+            <div class="{{csscommon}}-setting-menu-options-title {{csscommon}}-settings-menu-options-item"
+                 ba-click="{{show_root()}}"
+            > <div>{{ string(selected.label) || string('setting-menu')}}</div></div>
+            <div
+                class="{{csscommon}}-settings-menu-options-item"
+                ba-repeat-element="{{option :: visiblesettings}}"
+                title="{{string(selected.label) || string('')}}"
+                ba-click="{{select_value(option)}}"
+            >
+                <div>
+                    <i ba-if="{{option === selected.value}}" class="{{csscommon}}-icon-check"></i>
+                    {{option.label || option}}
+                </div>
             </div>
         </div>
     </div>

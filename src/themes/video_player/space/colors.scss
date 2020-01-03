@@ -9,7 +9,7 @@
       }
 
       &.#{$cssnoie8} .#{$csstheme}-stream-label-container,
-      &.#{$cssie8} .#{$csstheme}-stream-label-container, .#{$cssplayer}-cc-active {
+      &.#{$cssie8} .#{$csstheme}-stream-label-container, .#{$cssplayer}-button-active {
         color: $button_color;
         background-color: $value;
       }
@@ -37,7 +37,7 @@
       .#{$csstheme}-volumebar-inner, .#{$csstheme}-progressbar-inner {
         @include background-rgba(255, 255, 255, 0.3, #7f7f7f);
       }
-      
+
     }
   }
 }

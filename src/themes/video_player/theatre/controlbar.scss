@@ -18,8 +18,12 @@
         color: $button_color_secondary;
     }
 
-    .#{$cssplayer}-cc-inactive i, .#{$csscommon}-settings-hidden i {
+    .#{$cssplayer}-button-inactive i, .#{$csscommon}-settings-hidden i {
         color: $button_color_secondary;
+    }
+
+    .#{$csscommon}-settings-menu {
+        right: $controlbar_side_padding;
     }
 }
 

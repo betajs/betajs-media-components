@@ -102,7 +102,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     /* Ads */
                     "adprovider": null,
                     "preroll": false,
+
                     /* Options */
+                    "allowpip": true,
                     "rerecordable": false,
                     "submittable": false,
                     "autoplay": false,
@@ -115,6 +117,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "stretch": false,
                     "stretchwidth": false,
                     "stretchheight": false,
+                    "selfstretched": false,
                     "popup-stretch": false,
                     "hideoninactivity": true,
                     "hidebarafter": 5000,
@@ -126,7 +129,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "disablepause": false,
                     "disableseeking": false,
                     "airplay": false,
-                    "airplaydevicesavailable": false,
                     "chromecast": false,
                     "skipseconds": 5,
                     "tracktags": [],
@@ -136,7 +138,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "thumbimage": {},
                     "thumbcuelist": [],
                     "showduration": false,
-                    "showsettingsmenu": true, // As property show/hide from users
+                    "showsettingsmenu": true, // As a property show/hide from users
                     "posteralt": "",
                     "hidevolumebar": false,
                     "allowtexttrackupload": false,
@@ -157,6 +159,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "volumelevel": null,
                         "playlist": []
                     },
+                    "inpipmode": false,
                     "lastplaylistitem": false,
                     "manuallypaused": false,
                     "playedonce": false,
@@ -166,8 +169,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "playbackcount": 0,
                     "playbackended": 0,
                     // If settings are open and visible
-                    "settingsmenuvisible": false,
-                    "hassettingsmenu": false,
                     "states": {
                         "poster_error": {
                             "ignore": false,
@@ -182,6 +183,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 types: {
+                    "allowpip": "boolean",
                     "forceflash": "boolean",
                     "noflash": "boolean",
                     "rerecordable": "boolean",
@@ -230,7 +232,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "playerspeeds": "array",
                     "playercurrentspeed": "float",
                     "showsettings": "boolean",
-                    "showduration": "boolean"
+                    "showduration": "boolean",
+                    "visibilityfraction": "float"
                 },
 
                 extendables: ["states"],
@@ -395,12 +398,36 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     return this.__error;
                 },
 
-                addSettingsMenuItem: function(setting) {
-                    this.__settingsMenu.execute('add_new_settings_item', setting);
+                /**
+                 *
+                 * @param {object} settingObject
+                 */
+                addSettingsMenuItem: function(settingObject) {
+                    this.__settingsMenu.execute('add_new_settings_item', settingObject);
                 },
 
-                removeSettingsMenuItem: function(settingId) {
-                    this.__settingsMenu.execute('remove_settings_item', settingId);
+                /**
+                 *
+                 * @param {string} id
+                 * @param {object} updatedSettingObject
+                 */
+                updateSettingsMenuItem: function(id, updatedSettingObject) {
+                    this.__settingsMenu.execute('update_new_settings_item', id, updatedSettingObject);
+                },
+
+                /**
+                 *
+                 * @param {string} id
+                 */
+                removeSettingsMenuItem: function(id) {
+                    this.__settingsMenu.execute('remove_settings_item', id);
+                },
+
+                toggle_pip: function() {
+                    if (this.player.isInPIPMode())
+                        this.player.exitPIPMode();
+                    else
+                        this.player.enterPIPMode();
                 },
 
                 _error: function(error_type, error_code) {
@@ -616,8 +643,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.set("playing", false);
                             this.set('playedonce', true);
                             this.set("playbackended", this.get('playbackended') + 1);
-                            if (this.settings)
-                                this.settings.hide_settings();
+                            this.set("settingsmenu_active", false);
                             this.trigger("ended");
                         }, this);
                         this.trigger("attached", instance);
@@ -631,6 +657,23 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this._updateStretch();
                             if (this.get("initialseek"))
                                 this.player.setPosition(this.get("initialseek"));
+                            if (this.get("allowpip")) {
+                                this.addSettingsMenuItem({
+                                    id: 'pip',
+                                    label: 'Picture-in-Picture',
+                                    showicon: true,
+                                    visible: this.player.supportsPIP(),
+                                    func: function(settings) {
+                                        this.player.on("pip-mode-change", function(ev, inPIPMode) {
+                                            this.set("inpipmode", inPIPMode);
+                                            this.updateSettingsMenuItem('pip', {
+                                                value: inPIPMode
+                                            });
+                                        }, this);
+                                        return !!this.toggle_pip();
+                                    }
+                                });
+                            }
                         }, this);
                         if (this.player.loaded())
                             this.player.trigger("loaded");
@@ -663,23 +706,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.__settingsMenu = this.scopes.settingsmenu;
                     if (this.__settingsMenu.get('settings'))
                         this.set("hassettings", true);
-
-
-                    // if (this.get("showsettings")) {
-                    //     this.set("isflash", this.get('forceflash') && !this.get('noflash'));
-                    //     Objs.iter(this.get('settingsmenu'), function(setting) {
-                    //         if (this.get())
-                    //             if (this.get("isflash")) {
-                    //                 if (setting.flashSupport)
-                    //                     this.set("hassettings", true);
-                    //             } else if (this.get("ismobile")) {
-                    //             if (setting.mobileSupport)
-                    //                 this.set("hassettings", true);
-                    //         } else
-                    //             this.set("hassettings", true);
-                    //     }, this);
-                    // }
-
 
                     if (this.__attachRequested)
                         this._attachVideo();
@@ -772,7 +798,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 /**
                  * Click CC buttons will trigger
-                 * @param status
+                 * @param {boolean} status
                  */
                 toggleTrackTags: function(status) {
                     if (!this.__trackTags) return;
@@ -1013,11 +1039,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     toggle_settings_menu: function() {
                         this.set("settingsmenu_active", !this.get("settingsmenu_active"));
-                        if (this.get("settingsmenu_active")) {
-                            this.__settingsMenu.execute("show_settings_menu");
-                        } else {
-                            this.__settingsMenu.execute("hide_settings_menu");
-                        }
                     },
 
                     toggle_fullscreen: function() {
@@ -1183,11 +1204,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.set("duration", this.get("totalduration") || new_position);
                             this.set("fullscreened", this.player.isFullscreen(this.activeElement().childNodes[0]));
                             // If settings pop-up is open hide it together with control-bar if hideOnInactivity is true
-                            if (
-                                this.settings && this.get('hideoninactivity') &&
-                                (this.get('activity_delta') > this.get('hidebarafter'))
-                            ) {
-                                this.settings.hide_settings();
+                            if (this.get('hideoninactivity') && (this.get('activity_delta') > this.get('hidebarafter'))) {
+                                this.set("settingsmenu_active", false);
                             }
                         }
                     } catch (e) {}

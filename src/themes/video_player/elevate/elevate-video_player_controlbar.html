@@ -159,10 +159,10 @@
                 <button tabindex="7" class="{{csstheme}}-gcast-button" is="google-cast-button"></button>
             </div>
 
-            <div tabindex="10" data-selector="button-icon-settings"
-                 ba-hotkey:space^enter="{{toggle_settings()}}" onmouseout="this.blur()"
-                 class="{{csstheme}}-button-container {{cssplayer}}-settings-{{settingsoptionsvisible ? 'visible' : 'hidden'}}"
-                 ba-if="{{settings}}" ba-click="{{toggle_settings()}}"
+            <div tabindex="8" data-selector="button-icon-settings"
+                 ba-hotkey:space^enter="{{toggle_settings_menu()}}" onmouseout="this.blur()"
+                 class="{{csstheme}}-button-container {{cssplayer}}-button-{{settingsmenuactive ? 'active' : 'inactive'}}"
+                 ba-if="{{settingsmenubutton}}" ba-click="{{toggle_settings_menu()}}"
                  title="{{string('settings')}}"
                  onkeydown="{{tab_index_move(domEvent)}}"
             >
@@ -171,9 +171,9 @@
                 </div>
             </div>
 
-            <div tabindex="8" data-selector="button-icon-resize-full"
+            <div tabindex="9" data-selector="button-icon-resize-full"
                  ba-hotkey:space^enter="{{toggle_fullscreen()}}" onmouseout="this.blur()"
-                 class="{{csstheme}}-button-container"
+                 class="{{csstheme}}-button-container  {{cssplayer}}-button-{{fullscreened ? 'active' : 'inactive'}}"
                  ba-if="{{fullscreen}}" ba-click="{{toggle_fullscreen()}}" title="{{ fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video') }}"
             >
                 <div class="{{csstheme}}-button-inner {{csstheme}}-full-screen-btn-inner">
@@ -181,10 +181,10 @@
                 </div>
             </div>
 
-            <div tabindex="9" data-selector="cc-button-container"
+            <div tabindex="10" data-selector="cc-button-container"
                  ba-hotkey:space^enter="{{toggle_tracks()}}" onmouseout="this.blur()"
                  ba-if="{{(tracktags.length > 0 && showsubtitlebutton) || allowtexttrackupload}}"
-                 class="{{csstheme}}-button-container  {{cssplayer}}-cc-{{tracktextvisible ? 'active' : 'inactive'}}"
+                 class="{{csstheme}}-button-container  {{cssplayer}}-button-{{tracktextvisible ? 'active' : 'inactive'}}"
                  title="{{tracktextvisible ? string('close-tracks') : string('show-tracks')}}"
                  ba-click="{{toggle_tracks()}}"
                  onmouseover="{{hover_cc(true)}}"

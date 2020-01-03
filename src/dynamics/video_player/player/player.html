@@ -8,7 +8,7 @@
      ba-styles="{{widthHeightStyles}}"
 >
     <div ba-show="{{videoelement_active}}">
-        <video tabindex="-1" class="{{css}}-video" data-video="video"
+        <video tabindex="-1" class="{{css}}-video" data-video="video" {{ allowpip ? '' : 'disablePictureInPicture'}}
                ba-toggle:playsinline="{{!playfullscreenonmobile}}"
         ></video>
     </div>
@@ -76,7 +76,8 @@
             ba-disableseeking="{{disableseeking}}"
             ba-skipseconds="{{skipseconds}}"
             ba-skipinitial="{{skipinitial}}"
-            ba-settingsmenubutton="{{showsettingsmenu || hassettingsmenu}}"
+            ba-settingsmenubutton="{{showsettingsmenu}}"
+            ba-settingsmenuactive="{{settingsmenu_active}}"
             ba-hidevolumebar="{{hidevolumebar}}"
         ></ba-{{dyncontrolbar}}>
 

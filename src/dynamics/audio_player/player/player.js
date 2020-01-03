@@ -17,6 +17,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
     "module:AudioPlayer.Dynamics.PlayerStates",
     "browser:Events"
 ], [
+    "module:Common.Dynamics.Settingsmenu",
     "module:AudioPlayer.Dynamics.Message",
     "module:AudioPlayer.Dynamics.Loader",
     "module:AudioPlayer.Dynamics.Controlbar",
@@ -53,10 +54,14 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     "dynloader": "audioplayer-loader",
                     "dynmessage": "audioplayer-message",
                     "dyncontrolbar": "audioplayer-controlbar",
+                    "dynsettingsmenu": "common-settingsmenu",
+
                     /* Templates */
                     "tmplloader": "",
                     "tmplmessage": "",
                     "tmplcontrolbar": "",
+                    "tmplsettingsmenu": "",
+
                     /* Attributes */
                     "source": "",
                     "sources": [],
@@ -88,6 +93,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     "disablepause": false,
                     "disableseeking": false,
                     "postervisible": false,
+                    "showsettingsmenu": true, // As a property show/hide from users
                     "visualeffectvisible": false,
                     "visualeffectsupported": false,
                     "visualeffectheight": null,
@@ -125,6 +131,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     "disablepause": "boolean",
                     "disableseeking": "boolean",
                     "playonclick": "boolean",
+                    "showsettings": "boolean",
                     "skipseconds": "integer",
                     "visualeffectvisible": "boolean",
                     "visualeffectmode": "string",
@@ -132,6 +139,10 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                 },
 
                 extendables: ["states"],
+
+                scopes: {
+                    settingsmenu: ">[tagname='ba-common-settingsmenu']"
+                },
 
                 computed: {
                     "widthHeightStyles:width,height": function() {
@@ -346,8 +357,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                         this.player.on("ended", function() {
                             this.set("playing", false);
                             this.set('playedonce', true);
-                            if (this.settings)
-                                this.settings.hide_settings();
+                            this.set("settingsmenu_active", false);
                             this.trigger("ended");
                         }, this);
                         this.trigger("attached", instance);
@@ -384,6 +394,10 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     this.__activated = true;
                     if (this.__attachRequested)
                         this._attachAudio();
+                    this.__settingsMenu = this.scopes.settingsmenu;
+                    if (this.__settingsMenu.get('settings'))
+                        this.set("hassettings", true);
+
                 },
 
                 _playWhenVisible: function(audio) {
@@ -592,7 +606,12 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                                 }, this, 100);
 
                         }
+                    },
+
+                    toggle_settings_menu: function() {
+                        this.set("settingsmenu_active", !this.get("settingsmenu_active"));
                     }
+
                 },
 
                 destroy: function() {
@@ -649,6 +668,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
         })
         .attachStringTable(Assets.strings)
         .addStrings({
-            "audio-error": "An error occurred, please try again later. Click to retry."
+            "audio-error": "An error occurred, please try again later. Click to retry.",
+            "all-settings": "All settings"
         });
 });

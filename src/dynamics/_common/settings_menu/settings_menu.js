@@ -24,7 +24,7 @@ Scoped.define("module:Common.Dynamics.Settingsmenu", [
                     "csscommon": "ba-commoncss",
                     "cssplayer": "ba-player",
                     "settings": [],
-                    "visiblesettings": null,
+                    "visiblesettings": [],
                     "selected": null,
                     "root": true,
 
@@ -325,6 +325,9 @@ Scoped.define("module:Common.Dynamics.Settingsmenu", [
             };
         })
         .register("ba-common-settingsmenu")
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/settings_menu.html') %>*/
+        })
         .attachStringTable(Assets.strings)
         .addStrings({
             "tooltip": "Click to play.",

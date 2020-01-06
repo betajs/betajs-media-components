@@ -136,8 +136,6 @@ Scoped.define("module:Common.Dynamics.Settingsmenu", [
                 create: function() {
                     this.domEvents = this.auto_destroy(new DomEvents());
 
-                    window.THIS = this;
-
                     // If mouse clicked outside of the element
                     this.domEvents.on(document, "click touchstart", function(event) {
                         var isClickInside = this.activeElement().contains(event.target);

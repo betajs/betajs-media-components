@@ -117,7 +117,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "stretch": false,
                     "stretchwidth": false,
                     "stretchheight": false,
-                    "selfstretched": false,
                     "popup-stretch": false,
                     "hideoninactivity": true,
                     "hidebarafter": 5000,

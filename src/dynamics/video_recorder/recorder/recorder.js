@@ -169,7 +169,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "allowmultistreams": false,
                     "showaddstreambutton": false,
                     "multistreamreversable": true,
-                    "multistreamdgragable": true,
+                    "multistreamddragable": true,
                     "multistreamresizeable": false,
                     "addstreamproportional": true,
                     "addstreampositionx": 5,
@@ -290,7 +290,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "allowmultistreams": "boolean",
                     "pausable": "boolean",
                     "multistreamreversable": "boolean",
-                    "multistreamdgragable": "boolean",
+                    "multistreamddragable": "boolean",
                     "multistreamresizeable": "boolean",
                     "addstreamproportional": "boolean",
                     "addstreampositionx": "int",
@@ -1152,7 +1152,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                                 this.set("loadlabel", "");
                                 this.set("loader_active", false);
                                 this.set("showaddstreambutton", false);
-                                if (this.get("allowmultistreams") && (this.get("multistreamreversable") || this.get("multistreamdgragable") || this.get("multistreamresizeable"))) {
+                                if (this.get("allowmultistreams") && (this.get("multistreamreversable") || this.get("multistreamddragable") || this.get("multistreamresizeable"))) {
                                     this.set("helperframe_active", true);
                                     this.set("framevisible", true);
                                 }

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="/static/vendors/jquery.min.js"></script>
+    <script src="/static/node_modules/betajs-shims/dist/betajs-shims.js"></script>
+    <script src="/static/node_modules/betajs-scoped/dist/scoped.js"></script>
+    <script src="/static/node_modules/betajs/dist/beta-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
+    <script src="/static/dist/betajs-media-components-noscoped.js"></script>
+    <link  href="/static/dist/betajs-media-components.css" rel="stylesheet" />
+    <script src="/static/dist/themes/modern/script.js"></script>
+    <link  href="/static/dist/themes/modern/style.css" rel="stylesheet" />
+
+
+    <!-- Cube Theme Assets -->
+    <script src="/static/dist/themes/cube/script.js"></script>
+    <link href="/static/dist/themes/cube/style.css" rel="stylesheet" />
+
+    <!-- Elevate Theme Assets -->
+    <script src="/static/dist/themes/elevate/script.js"></script>
+    <link href="/static/dist/themes/elevate/style.css" rel="stylesheet" />
+
+    <!-- Minimalist Theme Assets -->
+    <script src="/static/dist/themes/minimalist/script.js"></script>
+    <link href="/static/dist/themes/minimalist/style.css" rel="stylesheet" />
+
+    <!-- Minimalist Theme Assets -->
+    <script src="/static/dist/themes/modern/script.js"></script>
+    <link href="/static/dist/themes/modern/style.css" rel="stylesheet" />
+
+    <!-- Space Theme Assets -->
+    <script src="/static/dist/themes/space/script.js"></script>
+    <link href="/static/dist/themes/space/style.css" rel="stylesheet" />
+
+    <!-- Theatre Theme Assets -->
+    <script src="/static/dist/themes/theatre/script.js"></script>
+    <link href="/static/dist/themes/theatre/style.css" rel="stylesheet" />
+
+</head>
+<body style="background: #EEE">
+<div class="row">
+    <div class="col-xs-12">
+        <div id="player"></div>
+    </div>
+</div>
+
+<script>
+    BetaJS.Flash.options = {
+        flashFile: "../../node_modules/betajs-flash/dist/betajs-flash.swf",
+        forceReload: true
+    };
+    var player = new BetaJS.MediaComponents.VideoPlayer.Dynamics.Player({
+        element: $('#player'),
+        attrs: {
+            height: 330,
+            width: 420,
+            theme: "default",
+            themecolor: "red",
+            // autoplay:true,
+            // stretch: true,
+            stretchheight: true,
+            // stretchwidth: true,
+            // source: '/static/demos/sample-video.mp4',
+            // poster:
+            sources: [
+                {
+                    src:'/static/demos/assets/portrait.mp4'
+                    // src:'/static/demos/sample-video.mp4'
+                    , poster: '/static/demos/assets/portrait-poster.png'
+                    , hd: true
+                    // , poster: '/static/demos/sample-cover.png'
+                },
+                {
+                    // src:'/static/demos/assets/portrait.mp4'
+                    // , poster:'/static/demos/assets/portrait-poster.png', hd: false
+                    src:'/static/demos/sample-video2.mp4'
+                    , hd: false
+                    , poster: '/static/demos/sample-cover.png'
+                }
+            ],
+            streams: [{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }],
+            skipinitial: true,
+            forceflash: false,
+            hideoninactivity: true,
+            tracktagsstyled: true,
+            loop: true,
+            tracktags: [
+                {
+                    lang: 'en',
+                    kind: 'subtitles',
+                    label: 'English',
+                    //enabled: true,
+                    src: './assets/bunny-en.vtt'
+                },
+                {
+                    lang: 'de',
+                    kind: 'subtitles',
+                    label: 'Deutsch',
+                    //enabled: true,
+                    src: './assets/bunny-de.vtt'
+                }
+            ]
+        }
+    });
+
+    player.on("attached", function (playerInstance) {
+        // this.addSettingsMenuItem({set: 'Somen'});
+        // playerInstance.add_setting({setting: 'someID'});
+
+        // remove setting example
+        // player.removeSettingsMenuItem('fullscreen');
+
+        // let video = player.activeElement().querySelector('video');
+        //
+        // video.addEventListener('enterpictureinpicture', function(event) {
+        //     // Video entered Picture-in-Picture mode.
+        //     console.log('Enabled', event);
+        //     const pipWindow = event.pictureInPictureWindow;
+        //     console.log('Picture-in-Picture window width: ' + pipWindow.width);
+        //     console.log('Picture-in-Picture window height: ' + pipWindow.height);
+        // });
+        //
+        // video.addEventListener('leavepictureinpicture', function(ev) {
+        //     console.log('leave', ev);
+        //     // Video left Picture-in-Picture mode.
+        // });
+
+        // Add new example
+        player.addSettingsMenuItem({
+            id: 'playbutton',
+            label: 'Toggle Player',
+            showicon: true,
+            trueicon: 'Pause',
+            falseicon: 'Play',
+            icontruestyle: 'color: green',
+            iconfalsestyle: 'color: yellow',
+
+            func: (settings) => {
+                if (this.get("playing")) {
+                    this.functions.pause.call(this, true);
+                    return true;
+                } else {
+                    this.functions.play.call(this, false);
+                    return false;
+                }
+            }
+        });
+
+        player.addSettingsMenuItem({
+            id: 'tracks',
+            label: 'CC',
+            value: 'off',
+            visible: player.get("supportspip"),
+            options: ['Off', 'English', 'Deutsch'],
+            func: (settings, value, index) => {
+                this.set("tracksshowselection", false);
+                if (value === 'Off') {
+                    this.toggleTrackTags(false);
+                    return false;
+                }
+                BetaJS.Objs.iter(player.get("tracktags"), function (track, i) {
+                    if (track.label === value) {
+                        this.trigger("switch-track", track);
+                        this.toggleTrackTags(true);
+                        return true;
+                    }
+                }, this);
+                return true;
+            }
+        });
+
+
+        // Update Example
+        player.updateSettingsMenuItem('fullscreen', {
+            label: 'Toggle Fullscreen',
+            showicon: false
+        });
+
+        playerInstance.on("fullscreen-change", function (isFullscreen) {
+            console.log('is Full', isFullscreen);
+        }, this);
+    }, player);
+
+    player.on("ended", function () {
+        console.log('ENDED');
+    }, player);
+
+    player.activate();
+
+</script>
+</body>
+</html>

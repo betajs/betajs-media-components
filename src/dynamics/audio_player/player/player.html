@@ -11,8 +11,7 @@
 			 ba-hotkey:right="{{seek(position + skipseconds)}}" ba-hotkey:left="{{seek(position - skipseconds)}}"
 			 ba-hotkey:alt+right="{{seek(position + skipseconds * 3)}}" ba-hotkey:alt+left="{{seek(position - skipseconds * 3)}}"
 			 ba-hotkey:up="{{set_volume(volume + 0.1)}}" ba-hotkey:down="{{set_volume(volume - 0.1)}}"
-			 >
-		</div>
+		></div>
 	    <ba-{{dyncontrolbar}}
 		    ba-css="{{csscontrolbar || css}}"
 			ba-cssplayer="{{cssplayer || css}}"
@@ -32,6 +31,7 @@
 			ba-event:tab_index_move="tab_index_move"
 			ba-event:seek="seek"
 			ba-event:set_volume="set_volume"
+			ba-event:settings_menu="toggle_settings_menu"
 			ba-tabindex="{{tabindex}}"
 		    ba-volume="{{volume}}"
 		    ba-duration="{{duration}}"
@@ -44,6 +44,8 @@
 			ba-disablepause="{{disablepause}}"
 			ba-disableseeking="{{disableseeking}}"
 			ba-skipseconds="{{skipseconds}}"
+			ba-settingsmenubutton="{{showsettingsmenu}}"
+			ba-settingsmenuactive="{{settingsmenu_active}}"
 		></ba-{{dyncontrolbar}}>
 
 		<ba-{{dynloader}}
@@ -67,7 +69,14 @@
 		    ba-event:click="message_click"
 		></ba-{{dynmessage}}>
 
+		<ba-{{dynsettingsmenu}}
+			ba-css="{{css}}"
+			ba-csstheme="{{csstheme || css}}"
+			ba-show="{{settingsmenu_active}}"
+			ba-template="{{tmplsettingsmenu}}"
+		></ba-{{dynsettingsmenu}}>
+
 		<meta itemprop="caption" content="{{title}}" />
 		<meta itemprop="contentUrl" content="{{source}}"/>
-    </div>
+	</div>
 </div>

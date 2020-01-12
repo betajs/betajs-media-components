@@ -8,7 +8,7 @@
      ba-styles="{{widthHeightStyles}}"
 >
     <div ba-show="{{videoelement_active}}">
-        <video tabindex="-1" class="{{css}}-video" data-video="video"
+        <video tabindex="-1" class="{{css}}-video" data-video="video" {{ allowpip ? '' : 'disablePictureInPicture'}}
                ba-toggle:playsinline="{{!playfullscreenonmobile}}"
         ></video>
     </div>
@@ -45,7 +45,7 @@
             ba-event:position="seek"
             ba-event:volume="set_volume"
             ba-event:set_speed="set_speed"
-            ba-event:toggle_settings="toggle_settings"
+            ba-event:settings_menu="toggle_settings_menu"
             ba-event:fullscreen="toggle_fullscreen"
             ba-event:toggle_player="toggle_player"
             ba-event:tab_index_move="tab_index_move"
@@ -76,9 +76,9 @@
             ba-disableseeking="{{disableseeking}}"
             ba-skipseconds="{{skipseconds}}"
             ba-skipinitial="{{skipinitial}}"
-            ba-showsettings="{{showsettings}}"
+            ba-settingsmenubutton="{{showsettingsmenu}}"
+            ba-settingsmenuactive="{{settingsmenu_active}}"
             ba-hidevolumebar="{{hidevolumebar}}"
-            ba-settingsoptionsvisible="{{settingsoptionsvisible}}"
         ></ba-{{dyncontrolbar}}>
 
         <ba-{{dyntracks}}
@@ -102,6 +102,13 @@
             ba-event:upload-text-tracks="upload_text_tracks"
             ba-event:move_to_option="move_to_option"
         ></ba-{{dyntracks}}>
+
+        <ba-{{dynsettingsmenu}}
+            ba-css="{{css}}"
+            ba-csstheme="{{csstheme || css}}"
+            ba-show="{{settingsmenu_active}}"
+            ba-template="{{tmplsettingsmenu}}"
+        ></ba-{{dynsettingsmenu}}>
 
         <ba-{{dynplaybutton}}
             ba-css="{{cssplaybutton || css}}"

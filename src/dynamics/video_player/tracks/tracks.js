@@ -33,7 +33,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Tracks", [
 
                     hover_cc: function(ev, hover) {
                         // Not show CC on hover during settings block is open
-                        if (this.parent().get("settingsoptionsvisible")) return;
+                        if (this.parent().get("settingsmenu_active")) return;
 
                         // Don't lose focus on clicking move between sliders
                         // After if element has an focus not close it till next mouseover/mouseleave

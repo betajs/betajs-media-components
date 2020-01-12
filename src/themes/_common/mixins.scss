@@ -411,6 +411,11 @@
     text-shadow: 0 0 #{$width}px $color;/* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
 }
 
+@mixin text-shadow-rgba($r, $g, $b, $o, $fallback, $width) {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=#{$width}, Direction=90, Color=#{$fallback})";/*IE 8*/
+    text-shadow: 0 0 #{$width}px rgba($r, $g, $b, $o);/* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+}
+
 @mixin box-shadow($color, $width) {
     -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=#{$width}, Direction=90, Color=#{$color})";/*IE 8*/
     -moz-box-shadow: 0 0 #{$width}px #{$color};/*FF 3.5+*/

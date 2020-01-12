@@ -42,7 +42,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     "hidebarafter": 5000,
                     "preventinteraction": false,
                     "title": "",
-                    "settings": false,
+                    "settingsmenubutton": false,
                     "hoveredblock": false, // Set true when mouse hovered
                     "allowtexttrackupload": false,
                     'thumbisvisible': false,
@@ -216,6 +216,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         this.trigger("fullscreen");
                     },
 
+                    toggle_settings_menu: function() {
+                        this.trigger("settings_menu");
+                    },
+
                     rerecord: function() {
                         this.trigger("rerecord");
                     },
@@ -259,9 +263,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     // Hover on CC button in controller
                     hover_cc: function(hover) {
                         // Not show CC on hover during settings block is open
-                        // Reason why use parent not local settingsoptionsvisible,
+                        // Reason why use parent not local settingsmenu_active,
                         // is that settings model also has to be aware it's state. So we need as a global variable
-                        if (this.parent().get("settingsoptionsvisible")) return;
+                        if (this.parent().get("settingsmenu_active")) return;
                         Async.eventually(function() {
                             this.parent().set("tracksshowselection", hover);
                         }, this, 300);
@@ -280,28 +284,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     },
 
                     toggle_settings: function() {
-                        this.parent().set("settingsoptionsvisible", !this.parent().get("settingsoptionsvisible"));
                         this.trigger("toggle_settings");
                     }
                 },
 
                 create: function() {
-                    var dynamic = this.__parent;
                     this.set("ismobile", Info.isMobile());
-                    if (dynamic.get("showsettings")) {
-                        this.set("isflash", dynamic.get('forceflash') && !dynamic.get('noflash'));
-                        Objs.iter(dynamic.get('settingsoptions'), function(setting) {
-                            if (this.get())
-                                if (this.get("isflash")) {
-                                    if (setting.flashSupport)
-                                        this.set("settings", true);
-                                } else if (this.get("ismobile")) {
-                                if (setting.mobileSupport)
-                                    this.set("settings", true);
-                            } else
-                                this.set("settings", true);
-                        }, this);
-                    }
                 }
             };
         })

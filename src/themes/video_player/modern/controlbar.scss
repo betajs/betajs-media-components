@@ -16,7 +16,7 @@
         }
     }
 
-    .#{$cssplayer}-settings-visible .#{$csstheme}-button-inner {
+    .#{$csscommon}-settings-visible .#{$csstheme}-button-inner {
         color: $controlbar_background;
     }
 }
@@ -43,7 +43,7 @@
 }
 
 .#{$cssnoie8} .#{$csstheme}-button-inner,
-.#{$csstheme} .#{$cssplayer}-cc-inactive .#{$csscommon}-icon-subtitle {
+.#{$csstheme} .#{$cssplayer}-button-inactive .#{$csscommon}-icon-subtitle {
     @include clickable;
     @include relative-center-center;
     color: $button_color;

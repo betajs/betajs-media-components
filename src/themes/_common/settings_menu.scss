@@ -1,0 +1,78 @@
+.ba-commoncss-settings-menu {
+  @include background-rgba(28,28,28,0.9, #0a0a0a);
+  @include text-shadow-rgba(0,0,0,.5, #333333, 2);
+  border-radius: 2px;
+  min-width: 150px;
+  overflow: hidden;
+  position: absolute;
+  right: 5px;
+  bottom: 43px;
+}
+
+.ba-commoncss-settings-menu-overlay {
+  display: table;
+  width: 100%;
+}
+
+.ba-commoncss-settings-menu-item {
+  box-sizing: content-box;
+  cursor: pointer;
+  display: table-row;
+  line-height: 1.3em;
+  padding: 0 4px;
+  outline: none;
+  height: 32px;
+  &:hover {
+    @include background-rgba(255, 255, 255, 0.1, #777777);
+  }
+  & > div {
+    font-family: sans-serif, Arial;
+    font-size: 0.9em;
+    color: #fafafa;
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0 15px;
+  }
+  & > .ba-commoncss-setting-option-value {
+    text-align: right;
+  }
+  & .ba-commoncss-setting-menu-icon {
+    font-size: 0.9em;
+    width: 100%;
+    text-align: right;
+  }
+  & .ba-commoncss-setting-option-value:after {
+    content: "\203A";
+    padding-left: 2px;
+  }
+}
+
+.ba-commoncss-setting-menu-options-title, .ba-commoncss-settings-menu-options-item {
+  box-sizing: content-box;
+  cursor: pointer;
+  display: block;
+  line-height: 1.3em;
+  padding: 5px 10px;
+  text-align: center;
+  & > div {
+    color: #fafafa;
+    font-family: sans-serif, Arial;
+    font-size: 0.8em;
+    font-weight: 100;
+  }
+  &:hover {
+    @include background-rgba(255, 255, 255, 0.1, #777777);
+  }
+}
+
+.ba-commoncss-setting-menu-options-title {
+  @include border-bottom-rgba(1px, 255, 255, 255, 0.3, #cccccc);
+  &:before {
+    color: #fafafa;
+    content: "\2039";
+    float: left;
+    line-height: 1.2em;
+    padding-right: 10px;
+  }
+}
+

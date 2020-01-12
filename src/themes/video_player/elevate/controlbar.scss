@@ -1,7 +1,7 @@
 /* Elevate */
 
 .#{$csstheme} {
-    
+
     .#{$csscommon}-icon-play, .#{$csscommon}-icon-pause {
         color: $button_color;
     }
@@ -16,6 +16,10 @@
         }
     }
 
+    .#{$csscommon}-settings-menu {
+        bottom: 72px;
+    }
+
     &.#{$cssie8} .#{$csscommon}-icon-volume-down {
         &:before {
             font-size: $text_fontsize + 1;
@@ -27,7 +31,7 @@
         right: $controlbar_side_padding;
     }
 
-    .#{$cssplayer}-settings-visible {
+    .#{$csscommon}-settings-visible {
         .#{$csstheme}-button-inner {
             color: $controlbar_background;
         }
@@ -57,11 +61,11 @@
     overflow: hidden;
     z-index: 1;
 
-    .#{$cssplayer}-airplay-container, .#{$cssplayer}-cc-active .#{$csstheme}-button-inner {
+    .#{$cssplayer}-airplay-container, .#{$cssplayer}-button-active .#{$csstheme}-button-inner {
         padding-top: 2px;
     }
 
-    .#{$cssplayer}-cc-inactive .ba-commoncss-icon-subtitle {
+    .#{$cssplayer}-button-inactive .ba-commoncss-icon-subtitle {
         color: $rerecord_primarybutton_color;
     }
 
@@ -167,12 +171,12 @@
     text-align: center;
     font-family: $text_fontfamily;
     font-size: $text_fontsize;
-	box-sizing: content-box;
+    box-sizing: content-box;
     border: none;
 }
 
 .#{$cssie8} .#{$csstheme}-time-container {
-   top: $progressbar_height - 1;
+    top: $progressbar_height - 1;
 }
 
 .#{$csstheme}-time-value {
@@ -245,17 +249,17 @@
 }
 
 .#{$csstheme}-button-text {
-	font-family: sans-serif;
+    font-family: sans-serif;
     font-weight: normal;
     font-size: 10px;
 }
 
 .#{$cssplayer}-size-small .#{$csstheme}-time-container, .#{$cssplayer}-size-small .#{$csstheme}-center-block {
-	display: none;
+    display: none;
 }
 
 .#{$cssplayer}-size-medium .#{$csstheme}-volumebar {
-	display: none;
+    display: none;
 }
 
 .#{$cssplayer}-size-medium .#{$csstheme}-right-time-container {
@@ -324,7 +328,7 @@
 
 .#{$csstheme}-title-block > p, .#{$csstheme}-left-block .#{$csstheme}-volumebar,
 .#{$csstheme}-button-inner {
-  padding-top: 1px;
+    padding-top: 1px;
 }
 
 .#{$csstheme}-cast-button-container button {

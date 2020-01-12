@@ -2,7 +2,7 @@
   @if $color != default {
     .#{$cssplayer}-#{$color}-color {
 
-      .#{$cssplayer}-cc-inactive .#{$csscommon}-icon-subtitle,
+      .#{$cssplayer}-button-inactive .#{$csscommon}-icon-subtitle,
       .#{$csscommon}-icon-share:before, .#{$csscommon}-icon-play, .#{$csscommon}-icon-pause,
       .#{$csscommon}-icon-resize-full, .#{$csscommon}-icon-volume-up, .#{$csscommon}-icon-volume-down,
       .#{$csscommon}-icon-resize-small, .#{$cssplayer}-toggle-share-container,
@@ -11,7 +11,7 @@
         color: $value;
       }
 
-      .#{$cssplayer}-cc-active {
+      .#{$cssplayer}-button-active {
         background-color: $value;
       }
 

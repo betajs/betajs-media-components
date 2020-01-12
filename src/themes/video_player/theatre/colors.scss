@@ -3,13 +3,13 @@
     .#{$cssplayer}-#{$color}-color {
 
       .#{$csstheme}-title, .#{$csstheme}-button-inner i,
-      &.#{$csstheme} .#{$cssplayer}-cc-inactive i, &.#{$csstheme} .#{$cssplayer}-settings-hidden i {
+      &.#{$csstheme} .#{$cssplayer}-button-inactive i, &.#{$csstheme} .#{$csscommon}-settings-hidden i {
         color: $value;
       }
 
       .#{$csstheme}-stream-label-container .#{$csstheme}-stream-label, .#{$csstheme}-progressbar-position,
-      .#{$csstheme}-volumebar-position, .#{$csstheme}-rerecord-button, .#{$cssplayer}-cc-active,
-      .#{$cssplayer}-settings-visible, .#{$csstheme}-playbutton-duration {
+      .#{$csstheme}-volumebar-position, .#{$csstheme}-rerecord-button, .#{$cssplayer}-button-active,
+      .#{$csscommon}-settings-visible, .#{$csstheme}-playbutton-duration {
         background-color: $value;
       }
 
@@ -27,7 +27,7 @@
         @include background-rgba(255, 255, 255, 0.3, #7f7f7f);
       }
 
-      .#{$cssplayer}-cc-active i, .#{$cssplayer}-settings-visible i {
+      .#{$cssplayer}-button-active i, .#{$csscommon}-settings-visible i {
         color: #eeeeee;
       }
 

@@ -6,25 +6,25 @@
 
 <div class="{{csstheme}}-dashboard {{activitydelta > hidebarafter && hideoninactivity ? (cssplayer + '-dashboard-hidden') : ''}}">
 
-    <div tabindex="0" data-selector="submit-video-button"
+	<div tabindex="0" data-selector="submit-video-button"
 		 ba-hotkey:space^enter="{{submit()}}" onmouseout="this.blur()"
 		 class="{{csstheme}}-leftbutton-container"
 		 ba-if="{{submittable}}" ba-click="{{submit()}}"
 	>
-        <div class="{{csstheme}}-button-inner">
-        	{{string('submit-video')}}
-        </div>
-    </div>
+		<div class="{{csstheme}}-button-inner">
+			{{string('submit-video')}}
+		</div>
+	</div>
 
-    <div tabindex="0" data-selector="button-icon-ccw"
+	<div tabindex="0" data-selector="button-icon-ccw"
 		 ba-hotkey:space^enter="{{rerecord()}}" onmouseout="this.blur()"
 		 class="{{csstheme}}-leftbutton-container"
 		 ba-if="{{rerecordable}}" ba-click="{{rerecord()}}" title="{{string('rerecord-video')}}"
 	>
-    	<div class="{{csstheme}}-button-inner">
-    		<i class="{{csscommon}}-icon-ccw"></i>
-    	</div>
-    </div>
+		<div class="{{csstheme}}-button-inner">
+			<i class="{{csscommon}}-icon-ccw"></i>
+		</div>
+	</div>
 
 	<div tabindex="{{skipinitial ? 0 : 1}}" data-selector="button-icon-play"
 		 ba-hotkey:space^enter="{{play()}}" onmouseout="this.blur()"
@@ -54,9 +54,9 @@
 	</div>
 
 	<div tabindex="10" data-selector="button-icon-settings"
-		 ba-hotkey:space^enter="{{toggle_settings()}}" onmouseout="this.blur()"
-		 class="{{csstheme}}-rightbutton-container {{cssplayer}}-settings-{{settingsoptionsvisible ? 'visible' : 'hidden'}}"
-		 ba-if="{{settings}}" ba-click="{{toggle_settings()}}"
+		 ba-hotkey:space^enter="{{toggle_settings_menu()}}" onmouseout="this.blur()"
+		 class="{{csstheme}}-rightbutton-container {{cssplayer}}-button-{{settingsmenuactive ? 'active' : 'inactive'}}"
+		 ba-if="{{settingsmenubutton}}" ba-click="{{toggle_settings_menu()}}"
 		 title="{{string('settings')}}"
 		 onkeydown="{{tab_index_move(domEvent)}}"
 	>
@@ -68,8 +68,8 @@
 	<div tabindex="9" data-selector="cc-button-container"
 		 ba-hotkey:space^enter="{{toggle_tracks()}}" onmouseout="this.blur()"
 		 ba-if="{{(tracktags.length > 0 && showsubtitlebutton) || allowtexttrackupload}}"
-		 class="{{csstheme}}-rightbutton-container  {{cssplayer}}-cc-{{tracktextvisible ? 'active' : 'inactive'}}"
-		 title="{{ tracktextvisible ? string('close-tracks') : string('show-tracks')}}"
+		 class="{{csstheme}}-rightbutton-container  {{cssplayer}}-button-{{tracktextvisible ? 'active' : 'inactive'}}"
+		 title="{{tracktextvisible ? string('close-tracks') : string('show-tracks')}}"
 		 ba-click="{{toggle_tracks()}}"
 		 onmouseover="{{hover_cc(true)}}"
 		 onmouseleave="{{hover_cc(false)}}"
@@ -84,7 +84,7 @@
 		 ba-hotkey:space^enter="{{toggle_fullscreen()}}" onmouseout="this.blur()"
 		 onkeydown="{{tab_index_move(domEvent)}}"
 		 class="{{csstheme}}-rightbutton-container"
-		ba-if="{{fullscreen}}" ba-click="{{toggle_fullscreen()}}" title="{{ fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video') }}"
+		 ba-if="{{fullscreen}}" ba-click="{{toggle_fullscreen()}}" title="{{ fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video') }}"
 	>
 		<div class="{{csstheme}}-button-inner {{csstheme}}-full-screen-btn-inner">
 			<i class="{{csscommon}}-icon-resize-{{fullscreened ? 'small' : 'full'}}"></i>
@@ -158,12 +158,12 @@
 			 ontouchstart="{{startUpdatePosition(domEvent)}}"
 			 ontouchmove="{{progressUpdatePosition(domEvent)}}"
 			 ontouchend="{{stopUpdatePosition(domEvent); this.blur()}}"
-		     onmousedown="{{startUpdatePosition(domEvent)}}"
-		     onmouseup="{{stopUpdatePosition(domEvent)}}"
-		     onmouseleave="{{stopUpdatePosition(domEvent)}}"
-		     onmousemove="{{progressUpdatePosition(domEvent)}}"
+			 onmousedown="{{startUpdatePosition(domEvent)}}"
+			 onmouseup="{{stopUpdatePosition(domEvent)}}"
+			 onmouseleave="{{stopUpdatePosition(domEvent)}}"
+			 onmousemove="{{progressUpdatePosition(domEvent)}}"
 		>
-		<div class="{{csstheme}}-progressbar-cache" ba-styles="{{{width: Math.round(duration ? cached / duration * 100 : 0) + '%'}}}"></div>
-		<div class="{{csstheme}}-progressbar-position" ba-styles="{{{width: Math.round(duration ? position / duration * 100 : 0) + '%'}}}" title="{{string('video-progress')}}"></div>
+			<div class="{{csstheme}}-progressbar-cache" ba-styles="{{{width: Math.round(duration ? cached / duration * 100 : 0) + '%'}}}"></div>
+			<div class="{{csstheme}}-progressbar-position" ba-styles="{{{width: Math.round(duration ? position / duration * 100 : 0) + '%'}}}" title="{{string('video-progress')}}"></div>
+		</div>
 	</div>
-</div>

@@ -3,11 +3,11 @@
     .#{$cssplayer}-#{$color}-color {
 
       &.#{$csstheme} {
-        .#{$cssplayer}-cc-inactive .#{$csscommon}-icon-subtitle {
+        .#{$cssplayer}-button-inactive .#{$csscommon}-icon-subtitle {
           color: $value;
           background-color: transparent;
         }
-        .#{$csstheme}-rightbutton-container.#{$cssplayer}-settings-visible {
+        .#{$csstheme}-rightbutton-container.#{$csscommon}-settings-visible {
           background-color: $value;
         }
       }
@@ -27,7 +27,7 @@
       }
 
       .#{$csstheme}-progressbar-position, .#{$csstheme}-volumebar-position,
-      .#{$csstheme}-rerecord-button, .#{$cssplayer}-cc-active, .#{$csstheme}-playbutton-duration {
+      .#{$csstheme}-rerecord-button, .#{$cssplayer}-button-active, .#{$csstheme}-playbutton-duration {
         background-color: $value;
       }
 

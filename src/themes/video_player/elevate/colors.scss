@@ -2,12 +2,12 @@
   @if $color != default {
     .#{$cssplayer}-#{$color}-color {
 
-      .#{$csstheme}-dashboard .#{$cssplayer}-cc-inactive .#{$csscommon}-icon-subtitle,
+      .#{$csstheme}-dashboard .#{$cssplayer}-button-inactive .#{$csscommon}-icon-subtitle,
       .#{$csstheme}-button-inner i {
         color: $value;
       }
 
-      .#{$csstheme}-dashboard .#{$cssplayer}-cc-active .#{$csscommon}-icon-subtitle {
+      .#{$csstheme}-dashboard .#{$cssplayer}-button-active .#{$csscommon}-icon-subtitle {
         color: $stream_label_color;
       }
 

@@ -18,15 +18,15 @@
       }
 
       .#{$csstheme}-right-button-container {
-        &.#{$cssplayer}-cc-active .#{$csscommon}-icon-subtitle,
-        &.#{$cssplayer}-settings-visible .#{$csscommon}-icon-cog {
+        &.#{$cssplayer}-button-active .#{$csscommon}-icon-subtitle,
+        &.#{$csscommon}-settings-visible .#{$csscommon}-icon-cog {
           color: $value;
         }
-        &.#{$cssplayer}-cc-inactive, &.#{$cssplayer}-settings-hidden {
+        &.#{$cssplayer}-button-inactive, &.#{$csscommon}-settings-hidden {
           background-color: $value;
         }
 
-        &.#{$cssplayer}-cc-inactive .#{$csscommon}-icon-subtitle {
+        &.#{$cssplayer}-button-inactive .#{$csscommon}-icon-subtitle {
           color: $cc_label_text_color;
         }
       }

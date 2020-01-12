@@ -160,9 +160,9 @@
             </div>
 
             <div tabindex="9" data-selector="button-icon-settings"
-                 ba-hotkey:space^enter="{{toggle_settings()}}" onmouseout="this.blur()"
-                 class="{{csstheme}}-right-button-container {{cssplayer}}-settings-{{settingsoptionsvisible ? 'visible' : 'hidden'}}"
-                 ba-if="{{settings}}" ba-click="{{toggle_settings()}}"
+                 ba-hotkey:space^enter="{{toggle_settings_menu()}}" onmouseout="this.blur()"
+                 class="{{csstheme}}-right-button-container {{cssplayer}}-settings-{{settingsmenuactive ? 'visible' : 'hidden'}}"
+                 ba-if="{{settingsmenubutton}}" ba-click="{{toggle_settings_menu()}}"
                  title="{{string('settings')}}"
                  onkeydown="{{tab_index_move(domEvent)}}"
             >
@@ -175,7 +175,7 @@
                  ba-hotkey:space^enter="{{toggle_tracks()}}" onmouseout="this.blur()"
                  ba-if="{{(tracktags.length > 0 && showsubtitlebutton) || allowtexttrackupload}}"
                  ba-click="{{toggle_tracks()}}"
-                 class="{{csstheme}}-right-button-container {{cssplayer}}-cc-{{tracktextvisible ? 'active' : 'inactive'}}"
+                 class="{{csstheme}}-right-button-container {{cssplayer}}-button-{{tracktextvisible ? 'active' : 'inactive'}}"
                  title="{{ tracktextvisible ? string('close-tracks') : string('show-tracks')}}"
                  onmouseover="{{hover_cc(true)}}" onmouseleave="{{hover_cc(false)}}"
             >

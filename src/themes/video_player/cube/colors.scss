@@ -7,7 +7,7 @@
         color: $value;
       }
 
-      .#{$cssplayer}-cc-active .#{$csstheme}-button-inner > i {
+      .#{$cssplayer}-button-active .#{$csstheme}-button-inner > i {
         color: $stream_label_color;
       }
 
@@ -23,7 +23,7 @@
 
       .#{$csstheme}-volumebar-position, .#{$csstheme}-stream-label,
       .#{$csstheme}-progressbar-position,
-      .#{$csstheme}-rerecord-button, .#{$cssplayer}-cc-active, .#{$csstheme}-playbutton-duration {
+      .#{$csstheme}-rerecord-button, .#{$cssplayer}-button-active, .#{$csstheme}-playbutton-duration {
         background-color: $value;
       }
 

@@ -64,29 +64,19 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
             create: function() {
                 var _interactionEvent;
                 var _frameClicksCount = 0;
-
-                // window.HELPER_FRAME = this;
+                this.__parent = this.parent();
 
                 Objs.iter(this.get("framemainstyle"), function(value, index) {
                     this.activeElement().style[index] = value;
                 }, this);
-
-                // var helperElement = this.activeElement();
-                // if (this.get("flipframe")) {
-                //     helperElement.style["-moz-transform"] = "scale(-1, 1)";
-                //     helperElement.style["-webkit-transform"] = "scale(-1, 1)";
-                //     helperElement.style["-o-transform"] = "scale(-1, 1)";
-                //     helperElement.style.transform = "scale(-1, 1)";
-                //     helperElement.style.filter = "FlipH";
-                // }
 
                 // Create additional related elements after reverse element created
                 _interactionEvent = Info.isTouchable() ? 'touch' : 'click';
 
                 this._frameInteractionEventHandler = this.auto_destroy(new DomEvents());
 
-                this.recorder = this.parent().recorder;
-                this.player = this.parent().player;
+                this.recorder = this.__parent.recorder;
+                this.player = this.__parent.player;
                 this.__visibleDimensions = {};
                 this.__setHelperFrameDimensions();
 
@@ -128,7 +118,7 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
 
                     // If Drag Settings is true
                     if (this.get("framedragable"))
-                        this.addDragOption(this.parent().activeElement());
+                        this.addDragOption(this.__parent.activeElement());
 
                     if (this.get("frameresizeable")) {
                         this.addResize(Info.isTouchable(), null, {
@@ -159,7 +149,11 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                 // It will be accessible when at least one of the
                 // EventListeners will be fired
                 var vts = this.recorder._recorder._videoTrackSettings;
-                this.__translate = Geometry.padFitBoxInBox(vts.width, vts.height, vts.videoElement.width, vts.videoElement.height);
+                var _height = this.__parent.get('height') ? vts.videoElement.height : vts.videoInnerFrame.height;
+
+                if (!this.__vts) this.__vts = vts;
+
+                this.__translate = Geometry.padFitBoxInBox(vts.width, vts.height, vts.videoElement.width, _height);
 
                 if (!this.__resizing) {
                     this.__visibleDimensions.x = this.__translate.offsetX + this.get("framepositionx") * this.__translate.scale;
@@ -299,8 +293,12 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                 }
 
                 if (this.__resizing) {
+                    var _height;
                     var _width = this.__visibleDimensions.width + _diffX;
-                    var _height = this.__visibleDimensions.height + _diffY;
+                    if (this.get("frameproportional"))
+                        _height = _width / this.__vts.aspectRatio;
+                    else
+                        _height = this.__visibleDimensions.height + _diffY;
 
                     this.__positions.bottomX = this.__positions.currentX + _width;
                     this.__positions.bottomY = this.__positions.currentY + _height;
@@ -363,18 +361,5 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                 }
             }
         };
-    }).registerFunctions({
-        /**/
-        "css": function(obj) {
-            with(obj) {
-                return css;
-            }
-        },
-        "frameresizeable": function(obj) {
-            with(obj) {
-                return frameresizeable;
-            }
-        } /**/
-    })
-        .register("ba-helperframe");
+    }).register("ba-helperframe");
 });

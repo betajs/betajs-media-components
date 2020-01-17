@@ -1017,6 +1017,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this._delegatedPlayer.execute("toggle_fullscreen");
                             return;
                         }
+                        if (!this.player) return;
                         if (this.get("fullscreened"))
                             this.player.exitFullscreen();
                         else

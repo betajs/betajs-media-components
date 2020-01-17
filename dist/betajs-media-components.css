@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /*!
-betajs-media-components - v0.0.203 - 2020-01-08
+betajs-media-components - v0.0.205 - 2020-01-17
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -3210,7 +3210,6 @@ Apache-2.0 Software License.
   display: inline-block;
   position: relative;
   overflow: hidden;
-  z-index: 1;
 }
 
 .ba-videoplayer-video {
@@ -3225,29 +3224,67 @@ Apache-2.0 Software License.
   -moz-appearance: none;
 }
 
-.ba-videoplayer-stretch-width .ba-videoplayer-container,
-.ba-videoplayer-stretch-both .ba-videoplayer-container,
-.ba-videoplayer-stretch-height .ba-videoplayer-container {
+.ba-videoplayer-stretch-height .ba-videoplayer-container, .ba-videoplayer-stretch-width .ba-videoplayer-container {
   position: relative;
-  height: 100%;
-}
-
-.ba-videoplayer-stretch-width .ba-videoplayer-container {
-  width: 100%;
   max-width: 100%;
-}
-
-.ba-videoplayer-stretch-height .ba-videoplayer-container {
-  min-height: 100%;
+  max-height: 100%;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
 }
 
 .ba-videoplayer-stretch-height .ba-videoplayer-video {
-  min-height: 100%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
 }
 
 .ba-videoplayer-stretch-width .ba-videoplayer-video {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  max-height: 100%;
+  height: 100%;
+}
+
+.ba-videoplayer-stretch-width .ba-videoplayer-self-stretched.ba-videoplayer-container {
+  max-width: none;
+  max-height: none;
+}
+.ba-videoplayer-stretch-width .ba-videoplayer-self-stretched .ba-videoplayer-video {
+  transform: none;
+  top: auto;
+  left: auto;
+  max-height: none;
   margin: auto;
   min-width: 100%;
+}
+
+.ba-videoplayer-stretch-height .ba-videoplayer-self-stretched.ba-videoplayer-container {
+  max-width: none;
+  max-height: none;
+}
+.ba-videoplayer-stretch-height .ba-videoplayer-self-stretched .ba-videoplayer-video {
+  transform: none;
+  top: auto;
+  left: auto;
+  max-height: none;
+  min-height: 100%;
+}
+
+.ba-videoplayer-stretch-both .ba-videoplayer-self-stretched.ba-videoplayer-container {
+  max-width: none;
+  max-height: none;
+}
+.ba-videoplayer-stretch-both .ba-videoplayer-self-stretched .ba-videoplayer-video {
+  margin: auto;
+  min-height: 100%;
+  min-width: 100%;
+  object-fit: cover;
+  width: auto;
 }
 
 .ba-videoplayer-stretch-both .ba-videoplayer-video {

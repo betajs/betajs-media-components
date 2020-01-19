@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.205 - 2020-01-17
+betajs-media-components - v0.0.206 - 2020-01-19
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -15,8 +15,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.205",
-    "datetime": 1579299393981
+    "version": "0.0.206",
+    "datetime": 1579477346906
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -7220,8 +7220,22 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     this.__backgroundSnapshot = this.recorder.createSnapshot(this.get("snapshottype"));
                     var el = this.activeElement().querySelector("[data-video]");
                     var dimensions = Dom.elementDimensions(el);
-                    if (this.__backgroundSnapshot)
-                        this.__backgroundSnapshotDisplay = this.recorder.createSnapshotDisplay(el, this.__backgroundSnapshot, 0, 0, dimensions.width, dimensions.height);
+                    if (this.__backgroundSnapshot) {
+                        var _top, _left, _width, _height, _dimensions;
+                        _top = 0;
+                        _left = 0;
+                        _width = dimensions.width;
+                        _height = dimensions.height;
+                        if (typeof this.recorder._recorder._videoTrackSettings.videoInnerFrame !== "undefined") {
+                            _dimensions = this.recorder._recorder._videoTrackSettings.videoInnerFrame;
+                            _width = _dimensions.width || _width;
+                            _height = _dimensions.height || _height;
+                            _left = (dimensions.width - _width) / 2;
+                            _top = (dimensions.height - _height) / 2;
+                        }
+                        this.__backgroundSnapshotDisplay = this.recorder.createSnapshotDisplay(el, this.__backgroundSnapshot, _left, _top, _width, _height);
+                    }
+
                 },
 
                 _hideBackgroundSnapshot: function() {

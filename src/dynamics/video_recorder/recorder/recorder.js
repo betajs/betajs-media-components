@@ -657,8 +657,22 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     this.__backgroundSnapshot = this.recorder.createSnapshot(this.get("snapshottype"));
                     var el = this.activeElement().querySelector("[data-video]");
                     var dimensions = Dom.elementDimensions(el);
-                    if (this.__backgroundSnapshot)
-                        this.__backgroundSnapshotDisplay = this.recorder.createSnapshotDisplay(el, this.__backgroundSnapshot, 0, 0, dimensions.width, dimensions.height);
+                    if (this.__backgroundSnapshot) {
+                        var _top, _left, _width, _height, _dimensions;
+                        _top = 0;
+                        _left = 0;
+                        _width = dimensions.width;
+                        _height = dimensions.height;
+                        if (typeof this.recorder._recorder._videoTrackSettings.videoInnerFrame !== "undefined") {
+                            _dimensions = this.recorder._recorder._videoTrackSettings.videoInnerFrame;
+                            _width = _dimensions.width || _width;
+                            _height = _dimensions.height || _height;
+                            _left = (dimensions.width - _width) / 2;
+                            _top = (dimensions.height - _height) / 2;
+                        }
+                        this.__backgroundSnapshotDisplay = this.recorder.createSnapshotDisplay(el, this.__backgroundSnapshot, _left, _top, _width, _height);
+                    }
+
                 },
 
                 _hideBackgroundSnapshot: function() {

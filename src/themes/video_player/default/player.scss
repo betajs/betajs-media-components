@@ -2,6 +2,7 @@
 	display: inline-block;
 	position: relative;
 	overflow: hidden;
+	z-index: 1;
 }
 
 .#{$css}-video {

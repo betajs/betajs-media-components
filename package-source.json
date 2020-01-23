@@ -1,6 +1,6 @@
 {
     "name": "betajs-media-components",
-    "version": "0.0.209",
+    "version": "0.0.210",
     "description": "BetaJS-Media-Components is a JavaScript media UI components framework",
     "contributors": [
         "Ziggeo",
@@ -26,6 +26,7 @@
         "grunt-contrib-csslint": "",
         "grunt-contrib-connect": "",
         "grunt-githooks": "",
+        "grunt-dart-sass": "",
         "@google-cloud/translate": "1.1.0",
         "grunt-jsdoc": "",
         "grunt-shell": "",

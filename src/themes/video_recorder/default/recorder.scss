@@ -2,6 +2,7 @@
     display: inline-block;
     position: relative;
     background-color: $recorder_bgcolor;
+		overflow: hidden;
 }
 
 .#{$cssrecorder}-overlay {

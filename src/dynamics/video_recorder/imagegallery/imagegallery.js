@@ -114,8 +114,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
                     if (ih > 1.00) {
                         // If images count is 1
                         if (this.get("images").count() === 1) {
-                            iw *= 0.3;
-                            ih *= 0.3;
+                            iw *= 0.45;
+                            ih *= 0.45;
                         }
                         image.set("left", 1 + Math.round(i * (iw + id)));
                         image.set("top", 1 + Math.round((h - ih) / 2));

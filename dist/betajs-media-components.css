@@ -1,6 +1,5 @@
-@charset "UTF-8";
 /*!
-betajs-media-components - v0.0.203 - 2020-01-08
+betajs-media-components - v0.0.211 - 2020-01-24
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -35,7 +34,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\e800";
 }
 
 .ba-commoncss-icon-volume-down:before {
@@ -61,7 +60,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\e801";
 }
 
 .ba-commoncss-icon-volume-up:before {
@@ -87,7 +86,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\e802";
 }
 
 .ba-commoncss-icon-resize-full:before {
@@ -113,7 +112,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\e803";
 }
 
 .ba-commoncss-icon-ccw:before {
@@ -139,7 +138,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\e804";
 }
 
 .ba-commoncss-icon-play:before {
@@ -165,7 +164,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\e805";
 }
 
 .ba-commoncss-icon-pause:before {
@@ -191,7 +190,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\e806";
 }
 
 .ba-commoncss-icon-videocam:before {
@@ -217,7 +216,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\e807";
 }
 
 .ba-commoncss-icon-upload:before {
@@ -243,7 +242,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\e808";
 }
 
 .ba-commoncss-icon-left-open:before {
@@ -269,7 +268,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\e809";
 }
 
 .ba-commoncss-icon-right-open:before {
@@ -295,7 +294,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\e80a";
 }
 
 .ba-commoncss-icon-cog:before {
@@ -321,7 +320,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\e80b";
 }
 
 .ba-commoncss-icon-mic:before {
@@ -347,7 +346,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\e80c";
 }
 
 .ba-commoncss-icon-mute:before {
@@ -373,7 +372,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\e80d";
 }
 
 .ba-commoncss-icon-lightbulb:before {
@@ -399,7 +398,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\e80e";
 }
 
 .ba-commoncss-icon-resize-small:before {
@@ -425,7 +424,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\e80f";
 }
 
 .ba-commoncss-icon-resize-minimize:before {
@@ -451,7 +450,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\e810";
 }
 
 .ba-commoncss-icon-record:before {
@@ -477,7 +476,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\e811";
 }
 
 .ba-commoncss-icon-record-core:before {
@@ -503,7 +502,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\e812";
 }
 
 .ba-commoncss-icon-up-dir:before {
@@ -529,7 +528,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\e813";
 }
 
 .ba-commoncss-icon-cancel:before {
@@ -555,7 +554,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\e814";
 }
 
 .ba-commoncss-icon-cc:before {
@@ -581,7 +580,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\e815";
 }
 
 .ba-commoncss-icon-clock:before {
@@ -607,7 +606,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\e816";
 }
 
 .ba-commoncss-icon-check:before {
@@ -633,7 +632,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\e817";
 }
 
 .ba-commoncss-icon-arrows-cw:before {
@@ -659,7 +658,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\e818";
 }
 
 .ba-commoncss-icon-plus:before {
@@ -685,7 +684,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\e819";
 }
 
 .ba-commoncss-icon-twitter:before {
@@ -711,7 +710,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\f099";
 }
 
 .ba-commoncss-icon-facebook:before {
@@ -737,7 +736,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\f09a";
 }
 
 .ba-commoncss-icon-gplus-squared:before {
@@ -763,7 +762,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\f0d4";
 }
 
 .ba-commoncss-icon-gplus:before {
@@ -789,7 +788,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\f0d5";
 }
 
 .ba-commoncss-icon-angle-left:before {
@@ -815,7 +814,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\f104";
 }
 
 .ba-commoncss-icon-angle-right:before {
@@ -841,7 +840,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\f105";
 }
 
 .ba-commoncss-icon-angle-up:before {
@@ -867,7 +866,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\f106";
 }
 
 .ba-commoncss-icon-angle-down:before {
@@ -893,7 +892,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\f107";
 }
 
 .ba-commoncss-icon-crop:before {
@@ -919,7 +918,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\f125";
 }
 
 .ba-commoncss-icon-share:before {
@@ -945,7 +944,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\f130";
 }
 
 .ba-commoncss-icon-resize-full-alt:before {
@@ -971,7 +970,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\f131";
 }
 
 .ba-commoncss-icon-play-circled:before {
@@ -997,7 +996,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\f144";
 }
 
 .ba-commoncss-icon-subtitle:before {
@@ -1023,7 +1022,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\f20a";
 }
 
 .ba-commoncss-icon-facebook-official:before {
@@ -1049,7 +1048,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\f230";
 }
 
 .ba-commoncss-icon-television:before {
@@ -1075,7 +1074,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\f26c";
 }
 
 .ba-commoncss-icon-twitter-squared:before {
@@ -1101,7 +1100,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\f304";
 }
 
 .ba-commoncss-icon-facebook:before {
@@ -1228,7 +1227,7 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  content: "";
+  content: "\e814";
 }
 
 /* Full screen options */
@@ -1741,7 +1740,7 @@ Apache-2.0 Software License.
   -webkit-transition: all 0.25s ease-in-out;
   -o-transition: all 0.25s ease-in-out;
   -ms-transition: all 0.25s ease-in-out;
-  content: "";
+  content: "\e805";
   color: #eeeeee;
   font-size: 4.6em;
 }
@@ -2260,7 +2259,7 @@ Apache-2.0 Software License.
   text-align: right;
 }
 .ba-commoncss-settings-menu-item .ba-commoncss-setting-option-value:after {
-  content: "›";
+  content: "\203a";
   padding-left: 2px;
 }
 
@@ -2290,7 +2289,7 @@ Apache-2.0 Software License.
 }
 .ba-commoncss-setting-menu-options-title:before {
   color: #fafafa;
-  content: "‹";
+  content: "\2039";
   float: left;
   line-height: 1.2em;
   padding-right: 10px;
@@ -2374,7 +2373,7 @@ Apache-2.0 Software License.
   position: relative;
 }
 .ba-commoncss-open-next > .ba-commoncss-inner-icon:after {
-  content: "";
+  content: "\f105";
   left: 5px;
 }
 
@@ -2383,7 +2382,7 @@ Apache-2.0 Software License.
   line-height: 1.5;
 }
 .ba-commoncss-open-previous > .ba-commoncss-inner-icon:before {
-  content: "";
+  content: "\f104";
   right: 5px;
 }
 
@@ -2451,7 +2450,7 @@ Apache-2.0 Software License.
   -o-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
-  content: "";
+  content: "\f107";
   color: #eeeeee;
   position: absolute;
   right: 15px;
@@ -3225,29 +3224,67 @@ Apache-2.0 Software License.
   -moz-appearance: none;
 }
 
-.ba-videoplayer-stretch-width .ba-videoplayer-container,
-.ba-videoplayer-stretch-both .ba-videoplayer-container,
-.ba-videoplayer-stretch-height .ba-videoplayer-container {
+.ba-videoplayer-stretch-height .ba-videoplayer-container, .ba-videoplayer-stretch-width .ba-videoplayer-container {
   position: relative;
-  height: 100%;
-}
-
-.ba-videoplayer-stretch-width .ba-videoplayer-container {
-  width: 100%;
   max-width: 100%;
-}
-
-.ba-videoplayer-stretch-height .ba-videoplayer-container {
-  min-height: 100%;
+  max-height: 100%;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
 }
 
 .ba-videoplayer-stretch-height .ba-videoplayer-video {
-  min-height: 100%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
 }
 
 .ba-videoplayer-stretch-width .ba-videoplayer-video {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  max-height: 100%;
+  height: 100%;
+}
+
+.ba-videoplayer-stretch-width .ba-videoplayer-self-stretched.ba-videoplayer-container {
+  max-width: none;
+  max-height: none;
+}
+.ba-videoplayer-stretch-width .ba-videoplayer-self-stretched .ba-videoplayer-video {
+  transform: none;
+  top: auto;
+  left: auto;
+  max-height: none;
   margin: auto;
   min-width: 100%;
+}
+
+.ba-videoplayer-stretch-height .ba-videoplayer-self-stretched.ba-videoplayer-container {
+  max-width: none;
+  max-height: none;
+}
+.ba-videoplayer-stretch-height .ba-videoplayer-self-stretched .ba-videoplayer-video {
+  transform: none;
+  top: auto;
+  left: auto;
+  max-height: none;
+  min-height: 100%;
+}
+
+.ba-videoplayer-stretch-both .ba-videoplayer-self-stretched.ba-videoplayer-container {
+  max-width: none;
+  max-height: none;
+}
+.ba-videoplayer-stretch-both .ba-videoplayer-self-stretched .ba-videoplayer-video {
+  margin: auto;
+  min-height: 100%;
+  min-width: 100%;
+  object-fit: cover;
+  width: auto;
 }
 
 .ba-videoplayer-stretch-both .ba-videoplayer-video {
@@ -3753,6 +3790,7 @@ ba-videorecorder-message[ba-message=""], ba-videorecorder-message[ba-message=nul
   display: inline-block;
   position: relative;
   background-color: #000000;
+  overflow: hidden;
 }
 
 .ba-recorder-overlay {

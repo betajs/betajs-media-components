@@ -42,37 +42,101 @@
 </head>
 <body style="background: #EEE">
 	<ba-videoplayer
-        ba-theme="default"
-        ba-themecolor="red"
-        ba-hideoninactivity="false"
-        ba-skipinitial="false"
-        ba-sources="{{[{src:'sample-video.mp4', poster: 'sample-cover.png', hd: true}, {src:'sample-video2.mp4', poster:'sample-cover2.png', hd: false}]}}"
-        ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
-        ba-tracktagsstyled="true"
-        ba-tracktags="{{
-            [
-                {
-                    lang: 'en',
-                    kind: 'subtitles',
-                    label: 'English',
-                    //enabled: true,
-                    src: 'assets/bunny-en.vtt'
-                },
-                {
-                    lang: 'de',
-                    kind: 'subtitles',
-                    label: 'Deutsch',
-                    //enabled: true,
-                    src: './assets/bunny-de.vtt'
-                }
-
-            ]
-        }}"
+    ba-theme="cube"
+    ba-themecolor="red"
+    ba-hideoninactivity="false"
+    ba-skipinitial="false"
+    ba-source="./sample-video.mp4"
+    ba-poster="./sample-cover.png"
 	></ba-videoplayer>
 
-    <iframe width="425" height="349" src="https://www.youtube.com/embed/vunQEDq-b-c?rel=0" frameborder="0" allowfullscreen></iframe>
+  <div style="width: 840px; height: 580px">
+    <ba-videoplayer
+      ba-theme="modern"
+      ba-themecolor="red"
+      ba-hideoninactivity="false"
+      ba-skipinitial="false"
+      ba-source="./sample-video.mp4"
+      ba-poster="./sample-cover.png"
+    ></ba-videoplayer>
 
-    <script>
+  </div>
+
+  <hr />
+
+  <ba-videoplayer
+    ba-hideoninactivity="true"
+    ba-height="400px"
+    ba-width="320px"
+    ba-skipinitial="false"
+    ba-source="./sample-video.mp4"
+    ba-poster="./sample-cover.png"
+  ></ba-videoplayer>
+
+  <ba-videoplayer
+    ba-stretchwidth
+    ba-hideoninactivity="true"
+    ba-height="400px"
+    ba-width="320px"
+    ba-skipinitial="false"
+    ba-source="./assets/portrait.mp4"
+    ba-poster="./assets/portrait-poster.png"
+  ></ba-videoplayer>
+
+  <hr />
+
+  <ba-videoplayer
+    ba-theme="default"
+    ba-themecolor="red"
+    ba-hideoninactivity="false"
+    ba-skipinitial="false"
+    ba-source="./assets/portrait.mp4"
+    ba-poster="./assets/portrait-poster.png"
+  ></ba-videoplayer>
+
+  <div style="width: 640px; height: 480px">
+
+    <ba-videoplayer
+      ba-stretch
+      ba-theme="modern"
+      ba-themecolor="red"
+      ba-hideoninactivity="false"
+      ba-skipinitial="false"
+      ba-source="./assets/portrait.mp4"
+      ba-poster="./assets/portrait-poster.png"
+    ></ba-videoplayer>
+
+  </div>
+
+  <hr/>
+
+  <h2>IBNU DEMO</h2>
+
+  <div style="width: 200px; height: 400px; border: solid 1px red; display: inline-block;">
+    <ba-videoplayer
+      ba-stretch
+      ba-skipinitial
+      ba-source="./sample-video.mp4"
+      ba-poster="./sample-cover.png"
+    ></ba-videoplayer>
+    <!--      ba-source="./assets/portrait.mp4"-->
+    <!--      ba-poster="./assets/portrait-poster.png"-->
+  </div>
+  <div style="width: 400px; height: 700px; border: solid 1px red; float: right">
+    <ba-videoplayer
+      ba-source="./assets/portrait.mp4"
+      ba-poster="./assets/portrait-poster.png"
+      ba-orientation="landscape"
+      ba-responsive
+    ></ba-videoplayer>
+  </div>
+
+</body>
+
+
+
+
+<script>
         BetaJS.Flash.options = {
             flashFile: "../node_modules/betajs-flash/dist/betajs-flash.swf",
             forceReload: true

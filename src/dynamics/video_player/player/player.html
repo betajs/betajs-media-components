@@ -1,7 +1,8 @@
 <div itemscope itemtype="http://schema.org/VideoObject"
      class="{{css}}-container {{cssplayer}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}
      {{cssplayer}}-{{ fullscreened ? 'fullscreen' : 'normal' }}-view {{cssplayer}}-{{ firefox ? 'firefox' : 'common'}}-browser
-     {{cssplayer}}-{{themecolor}}-color {{cssplayer}}-device-type-{{ mobileview ? 'mobile' : 'desktop'}}"
+     {{cssplayer}}-{{themecolor}}-color {{cssplayer}}-device-type-{{ mobileview ? 'mobile' : 'desktop'}}
+     {{(stretchheight || stretchwidth) ? css + '-self-stretched' : ''}}"
      ba-on:mousemove="{{user_activity()}}"
      ba-on:mousedown="{{user_activity(true)}}"
      ba-on:touchstart="{{user_activity(true)}}"

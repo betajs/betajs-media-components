@@ -415,7 +415,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         screen: (this.get("allowscreen") && this.get("record_media") === "screen") || (this.get("allowmultistreams") && this.get("record_media") === "multistream") ? this.get("screen") : null,
                         framerate: this.get("framerate"),
                         flip: this.get("flip-camera"),
-                        flipcreen: this.get("flipscreen")
+                        flipscreen: this.get("flipscreen")
                     };
                 },
 

@@ -108,7 +108,7 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                             if (_frameClicksCount === 1)
                                 Async.eventually(function() {
                                     _frameClicksCount = 0;
-                                }, this, 200);
+                                }, this, 400);
 
                             if (_frameClicksCount >= 2) {
                                 this.recorder.reverseCameraScreens();

@@ -126,6 +126,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "webrtcstreamingifnecessary": false,
                     "microphone-volume": 1.0,
                     "flip-camera": false,
+                    "flipscreen": false, // Will affect as true, if flip-camera also set as true
                     "early-rerecord": false,
                     "custom-covershots": false,
                     "manualsubmit": false,
@@ -250,6 +251,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "snapshotfromuploader": "boolean",
                     "snapshotfrommobilecapture": "boolean",
                     "flip-camera": "boolean",
+                    "flipscreen": "boolean",
                     "faceoutline": "boolean",
                     "early-rerecord": "boolean",
                     "custom-covershots": "boolean",
@@ -412,7 +414,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         localPlaybackRequested: this.get("localplayback"),
                         screen: (this.get("allowscreen") && this.get("record_media") === "screen") || (this.get("allowmultistreams") && this.get("record_media") === "multistream") ? this.get("screen") : null,
                         framerate: this.get("framerate"),
-                        flip: this.get("flip-camera")
+                        flip: this.get("flip-camera"),
+                        flipscreen: this.get("flipscreen")
                     };
                 },
 

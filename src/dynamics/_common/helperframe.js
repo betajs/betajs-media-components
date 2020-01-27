@@ -257,6 +257,15 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
              * @private
              */
             __handleMouseMoveEvent: function(ev) {
+                var setTranslate = function(el, posX, posY) {
+                    el.style.transform = "translate3d(" + posX + "px, " + posY + "px, 0)";
+                };
+
+                var setDimension = function(el, width, height) {
+                    el.style.width = width;
+                    el.style.height = height;
+                };
+
                 ev.preventDefault();
                 if (!this.__dragging && !this.__resizing) return;
                 this.activeElement().style.cursor = 'move';
@@ -310,14 +319,6 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                     setDimension(this.activeElement(), _width, _height);
                 }
 
-                function setTranslate(el, posX, posY) {
-                    el.style.transform = "translate3d(" + posX + "px, " + posY + "px, 0)";
-                }
-
-                function setDimension(el, width, height) {
-                    el.style.width = width;
-                    el.style.height = height;
-                }
             },
 
             /**

@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.211 - 2020-01-24
+betajs-media-components - v0.0.212 - 2020-01-26
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.211 - 2020-01-24
+betajs-media-components - v0.0.212 - 2020-01-26
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1026,8 +1026,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.211",
-    "datetime": 1579884066502
+    "version": "0.0.212",
+    "datetime": 1580097723591
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -7382,6 +7382,11 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
                     var id = this.get("imagedelta");
                     var h = this.get("containerheight");
                     if (ih > 1.00) {
+                        // If images count is 1
+                        if (this.get("images").count() === 1) {
+                            iw *= 0.45;
+                            ih *= 0.45;
+                        }
                         image.set("left", 1 + Math.round(i * (iw + id)));
                         image.set("top", 1 + Math.round((h - ih) / 2));
                         image.set("width", 1 + Math.round(iw));
@@ -7700,6 +7705,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "webrtcstreamingifnecessary": false,
                     "microphone-volume": 1.0,
                     "flip-camera": false,
+                    "flipscreen": false, // Will affect as true, if flip-camera also set as true
                     "early-rerecord": false,
                     "custom-covershots": false,
                     "manualsubmit": false,
@@ -7824,6 +7830,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "snapshotfromuploader": "boolean",
                     "snapshotfrommobilecapture": "boolean",
                     "flip-camera": "boolean",
+                    "flipscreen": "boolean",
                     "faceoutline": "boolean",
                     "early-rerecord": "boolean",
                     "custom-covershots": "boolean",
@@ -7986,7 +7993,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         localPlaybackRequested: this.get("localplayback"),
                         screen: (this.get("allowscreen") && this.get("record_media") === "screen") || (this.get("allowmultistreams") && this.get("record_media") === "multistream") ? this.get("screen") : null,
                         framerate: this.get("framerate"),
-                        flip: this.get("flip-camera")
+                        flip: this.get("flip-camera"),
+                        flipscreen: this.get("flipscreen")
                     };
                 },
 

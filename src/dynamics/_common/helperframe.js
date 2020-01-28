@@ -86,7 +86,7 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                     var timer = new Timer({
                         context: this,
                         fire: function() {
-                            if (typeof this.recorder._recorder._videoTrackSettings.videoElement === 'object' && timer) {
+                            if (this.recorder._recorder._videoTrackSettings && typeof this.recorder._recorder._videoTrackSettings.videoElement === 'object' && timer) {
                                 this.fitFrameViewOnScreenVideo();
                                 timer.stop();
                             }
@@ -149,6 +149,8 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                 // It will be accessible when at least one of the
                 // EventListeners will be fired
                 var vts = this.recorder._recorder._videoTrackSettings;
+                if (!vts)
+                    return;
                 var _height = this.__parent.get('height') ? vts.videoElement.height : vts.videoInnerFrame.height;
 
                 if (!this.__vts) this.__vts = vts;

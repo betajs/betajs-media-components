@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.213 - 2020-01-27
+betajs-media-components - v0.0.214 - 2020-01-28
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.213 - 2020-01-27
+betajs-media-components - v0.0.214 - 2020-01-28
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1026,8 +1026,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.213",
-    "datetime": 1580155535262
+    "version": "0.0.214",
+    "datetime": 1580234880268
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -3424,7 +3424,7 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                     var timer = new Timer({
                         context: this,
                         fire: function() {
-                            if (typeof this.recorder._recorder._videoTrackSettings.videoElement === 'object' && timer) {
+                            if (this.recorder._recorder._videoTrackSettings && typeof this.recorder._recorder._videoTrackSettings.videoElement === 'object' && timer) {
                                 this.fitFrameViewOnScreenVideo();
                                 timer.stop();
                             }
@@ -3487,6 +3487,8 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                 // It will be accessible when at least one of the
                 // EventListeners will be fired
                 var vts = this.recorder._recorder._videoTrackSettings;
+                if (!vts)
+                    return;
                 var _height = this.__parent.get('height') ? vts.videoElement.height : vts.videoInnerFrame.height;
 
                 if (!this.__vts) this.__vts = vts;
@@ -8646,7 +8648,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         _left = 0;
                         _width = dimensions.width;
                         _height = dimensions.height;
-                        if (typeof this.recorder._recorder._videoTrackSettings.videoInnerFrame !== "undefined") {
+                        if (this.recorder._recorder._videoTrackSettings && typeof this.recorder._recorder._videoTrackSettings.videoInnerFrame !== "undefined") {
                             _dimensions = this.recorder._recorder._videoTrackSettings.videoInnerFrame;
                             _width = _dimensions.width || _width;
                             _height = _dimensions.height || _height;

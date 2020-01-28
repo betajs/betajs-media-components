@@ -701,7 +701,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         _left = 0;
                         _width = dimensions.width;
                         _height = dimensions.height;
-                        if (typeof this.recorder._recorder._videoTrackSettings.videoInnerFrame !== "undefined") {
+                        if (this.recorder._recorder._videoTrackSettings && typeof this.recorder._recorder._videoTrackSettings.videoInnerFrame !== "undefined") {
                             _dimensions = this.recorder._recorder._videoTrackSettings.videoInnerFrame;
                             _width = _dimensions.width || _width;
                             _height = _dimensions.height || _height;

@@ -366,9 +366,12 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CreateUploadCoversho
         dynamics: ["loader", "message"],
 
         _started: function() {
+            this.dyn.set("cancancel", true);
             this.dyn.set("loader_active", true);
             this.dyn.set("topmessage", this.dyn.string('please-wait'));
             this.dyn.set("message", this.dyn.string("prepare-covershot"));
+            if (this.dyn.get("cancancel") && this.dyn.get("allowcancel"))
+                this.dyn.set("controlbar_active", true);
 
             try {
                 this.dyn.set("player_active", false);
@@ -1112,7 +1115,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
             this.dyn.set("isrecorderready", false);
             this.dyn.trigger("uploading");
             this.dyn.set("rerecordvisible", this.dyn.get("early-rerecord"));
-            if (this.dyn.get("early-rerecord"))
+            if (this.dyn.get("early-rerecord") || (this.dyn.get("cancancel") && this.dyn.get("allowcancel")))
                 this.dyn.set("controlbar_active", true);
             this.dyn.set("hovermessage", "");
             this.dyn.set("topmessage", "");

@@ -104,7 +104,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "preroll": false,
 
                     /* Options */
-                    "allowpip": false, // Disable Picture-In-Picture by default
+                    "allowpip": true, // Picture-In-Picture Mode
                     "rerecordable": false,
                     "submittable": false,
                     "autoplay": false,

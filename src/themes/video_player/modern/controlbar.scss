@@ -16,7 +16,7 @@
         }
     }
 
-    .#{$csscommon}-settings-visible .#{$csstheme}-button-inner {
+    .#{$cssplayer}-button-active .#{$csstheme}-settings-button {
         color: $controlbar_background;
     }
 }

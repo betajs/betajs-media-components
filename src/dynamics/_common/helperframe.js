@@ -22,7 +22,11 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                 "framepositionx": 5,
                 "framepositiony": 5,
                 "frameminwidth": 120,
-                "frameminheight": 95,
+                "frameminheight": 320,
+                "initialpositionx": null,
+                "initialpositiony": null,
+                "initialwidth": null,
+                "initialheight": null,
                 "flipframe": false,
                 "frameproportional": true,
                 "framemainstyle": {
@@ -50,13 +54,15 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
 
             events: {
                 "change:framepositionx change:framepositiony change:framewidth change:frameheight": function(value) {
-                    if (typeof this.recorder._recorder === 'object' && this.__visibleDimensions.accessible) {
-                        this.recorder._recorder.updateMultiStreamPosition(
-                            this.get("framepositionx"),
-                            this.get("framepositiony"),
-                            this.get("framewidth"),
-                            this.get("frameheight")
-                        );
+                    if (typeof this.recorder !== 'undefined') {
+                        if (typeof this.recorder._recorder === 'object' && this.__visibleDimensions.accessible) {
+                            this.recorder._recorder.updateMultiStreamPosition(
+                                this.get("framepositionx"),
+                                this.get("framepositiony"),
+                                this.get("framewidth"),
+                                this.get("frameheight")
+                            );
+                        }
                     }
                 }
             },
@@ -69,6 +75,16 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                 Objs.iter(this.get("framemainstyle"), function(value, index) {
                     this.activeElement().style[index] = value;
                 }, this);
+
+                if (!this.get("initialpositionx") || !this.get("initialpositionx")) {
+                    this.set("initialpositionx", this.get("framepositionx"));
+                    this.set("initialpositiony", this.get("framepositiony"));
+                }
+
+                if (!this.get("initialwidth") || !this.get("initialheight")) {
+                    this.set("initialwidth", this.get("framewidth"));
+                    this.set("initialheight", this.get("frameheight"));
+                }
 
                 // Create additional related elements after reverse element created
                 _interactionEvent = Info.isTouchable() ? 'touch' : 'click';
@@ -239,7 +255,7 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                 if (typeof this.__positions === 'object') {
                     if (ev.type === "touchstart") {
                         this.__positions.initialX = ev.touches[0].clientX - this.__positions.xOffset;
-                        this.__positions.frame.initialY = ev.touches[0].clientY - this.__positions.yOffset;
+                        this.__positions.initialY = ev.touches[0].clientY - this.__positions.yOffset;
                     } else {
                         if (this.__dragging) {
                             this.__positions.initialX = ev.clientX - this.__positions.xOffset;
@@ -299,8 +315,8 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                     this.__positions.yOffset = this.__positions.currentY;
 
                     setTranslate(this.activeElement(), this.__positions.currentX, this.__positions.currentY);
-                    this.set("framepositionx", this.__positions.currentX / this.__translate.scale);
-                    this.set("framepositiony", this.__positions.currentY / this.__translate.scale);
+                    this.set("framepositionx", this.__positions.currentX / this.__translate.scale + this.get("initialpositionx"));
+                    this.set("framepositiony", this.__positions.currentY / this.__translate.scale + this.get("initialpositiony"));
                 }
 
                 if (this.__resizing) {

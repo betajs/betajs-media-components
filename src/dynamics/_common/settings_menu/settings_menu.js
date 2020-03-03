@@ -223,6 +223,12 @@ Scoped.define("module:Common.Dynamics.Settingsmenu", [
                         return;
                     }
 
+                    Objs.iter(this.get("settings"), function(setting) {
+                        // if already exists remove old one
+                        if (setting.id === newMenuItem.id)
+                            this.removeSetting(setting.id);
+                    }, this);
+
                     if (!newMenuItem.func || !newMenuItem.id) {
                         console.warn('Your added new setting missing mandatory `id`, `func` or `label` keys, please add them');
                         return;

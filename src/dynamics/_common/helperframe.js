@@ -22,7 +22,7 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                 "framepositionx": 5,
                 "framepositiony": 5,
                 "frameminwidth": 120,
-                "frameminheight": 320,
+                "frameminheight": 95,
                 "initialpositionx": null,
                 "initialpositiony": null,
                 "initialwidth": null,

@@ -176,9 +176,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "addstreampositionx": 5,
                     "addstreampositiony": 5,
                     "addstreampositionwidth": 120,
-                    "addstreampositionheight": 95,
+                    "addstreampositionheight": null,
                     "addstreamminwidth": 120,
-                    "addstreamminheight": 95,
+                    "addstreamminheight": null,
 
                     "allowtexttrackupload": false,
                     "framevisible": false,
@@ -1093,6 +1093,14 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     return width / height;
                 },
 
+                isPortrait: function() {
+                    return this.aspectRatio() < 1.00;
+                },
+
+                isLandscape: function() {
+                    return !this.isPortrait();
+                },
+
                 parentWidth: function() {
                     return this.get("width") || Dom.elementDimensions(this.activeElement()).width;
                 },
@@ -1166,12 +1174,25 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                                 positionY: this.get("addstreampositiony"),
                                 width: this.get("addstreampositionwidth"),
                                 height: this.get("addstreampositionheight")
-                            }, _currentTracks).success(function() {
+                            }, _currentTracks).success(function(stream) {
                                 _selected = true;
+                                var _height;
+                                if (!this.get("addstreampositionheight")) {
+                                    if (typeof stream.getTracks()[0] !== 'undefined') {
+                                        var _settings = stream.getTracks()[0].getSettings();
+                                        var _aspectRatio = _settings.aspectRatio;
+                                        _height = this.get("addstreampositionwidth") / _aspectRatio;
+                                    } else {
+                                        _height = this.get("addstreampositionwidth") / 1.333;
+                                    }
+                                } else {
+                                    _height = this.get("addstreampositionheight");
+                                }
                                 this.set("loadlabel", "");
                                 this.set("loader_active", false);
                                 this.set("showaddstreambutton", false);
                                 if (this.get("allowmultistreams") && (this.get("multistreamreversable") || this.get("multistreamdraggable") || this.get("multistreamresizeable"))) {
+                                    this.set("addstreampositionheight", _height);
                                     this.set("helperframe_active", true);
                                     this.set("framevisible", true);
                                 }

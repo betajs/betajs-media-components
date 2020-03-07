@@ -76,7 +76,7 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                     this.activeElement().style[index] = value;
                 }, this);
 
-                if (!this.get("initialpositionx") || !this.get("initialpositionx")) {
+                if (!this.get("initialpositionx") || !this.get("initialpositiony")) {
                     this.set("initialpositionx", this.get("framepositionx"));
                     this.set("initialpositiony", this.get("framepositiony"));
                 }

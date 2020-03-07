@@ -1176,23 +1176,25 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                                 height: this.get("addstreampositionheight")
                             }, _currentTracks).success(function(stream) {
                                 _selected = true;
-                                var _height;
+                                var _height, _aspectRatio;
+                                _aspectRatio = 1.333;
                                 if (!this.get("addstreampositionheight")) {
                                     if (typeof stream.getTracks()[0] !== 'undefined') {
                                         var _settings = stream.getTracks()[0].getSettings();
-                                        var _aspectRatio = _settings.aspectRatio;
-                                        _height = this.get("addstreampositionwidth") / _aspectRatio;
-                                    } else {
-                                        _height = this.get("addstreampositionwidth") / 1.333;
+                                        _aspectRatio = _settings.aspectRatio;
                                     }
+                                    _height = this.get("addstreampositionwidth") / _aspectRatio;
                                 } else {
                                     _height = this.get("addstreampositionheight");
                                 }
+                                if (!this.get("addstreamminheight")) {
+                                    this.set("addstreamminheight", this.get("addstreamminwidth") * _aspectRatio);
+                                }
+                                this.set("addstreampositionheight", _height);
                                 this.set("loadlabel", "");
                                 this.set("loader_active", false);
                                 this.set("showaddstreambutton", false);
                                 if (this.get("allowmultistreams") && (this.get("multistreamreversable") || this.get("multistreamdraggable") || this.get("multistreamresizeable"))) {
-                                    this.set("addstreampositionheight", _height);
                                     this.set("helperframe_active", true);
                                     this.set("framevisible", true);
                                 }

@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.214 - 2020-01-28
+betajs-media-components - v0.0.215 - 2020-03-07
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -111,7 +111,7 @@ Apache-2.0 Software License.
 .ba-player-theme-modern-dashboard .ba-player-theme-modern-rightbutton-container.ba-player-airplay-container svg path {
   fill: #000000;
 }
-.ba-player-theme-modern-dashboard .ba-commoncss-settings-visible .ba-player-theme-modern-button-inner {
+.ba-player-theme-modern-dashboard .ba-player-button-active .ba-player-theme-modern-settings-button {
   color: #ecebed;
 }
 

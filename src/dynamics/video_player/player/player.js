@@ -322,7 +322,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     }
 
-                    // If both set to true, then normal stretch is enought
+                    // If both set to true, then normal stretch is enough
                     if (this.get("stretchwidth") && this.get("stretchheight")) {
                         this.set("stretch", true);
                         this.set("stretchheight", false);
@@ -1254,6 +1254,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     var width = this.videoWidth();
 
                     return width / height;
+                },
+
+                isPortrait: function() {
+                    return this.aspectRatio() < 1.00;
+                },
+
+                isLandscape: function() {
+                    return !this.isPortrait();
                 },
 
                 parentWidth: function() {

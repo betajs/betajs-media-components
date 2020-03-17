@@ -99,24 +99,40 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
                     if (!this.parent().recorder && this.parent().snapshots.length < 1)
                         return;
                     // Will fix portrait covershot bug, will not show stretched box
-                    var _maxHeight;
-                    if (this.parent().get('videometadata').ratio) {
-                        _maxHeight = Math.floor(this.get("imagewidth") / this.parent().get('videometadata').ratio);
+                    var _maxHeight,
+                        _reduceWidth = false,
+                        _reduceInPercentage = 0.75,
+                        _ratio = this.parent().get('videometadata').ratio;
+
+                    if (!_ratio && typeof this.parent().recorder._recorder !== "undefined") {
+                        if (typeof this.parent().recorder._recorder._videoTrackSettings !== "undefined") {
+                            _ratio = this.parent().recorder._recorder._videoTrackSettings.aspectRatio;
+                        }
+                    }
+                    if (_ratio) {
+                        _maxHeight = Math.floor(this.get("imagewidth") / _ratio);
                         if (this.get("containerheight") < _maxHeight && _maxHeight > 0.00) {
-                            _maxHeight = Math.floor(this.get("containerheight") * 0.9);
+                            _reduceWidth = true;
+                            _maxHeight = Math.floor(this.get("containerheight") * _reduceInPercentage);
                         }
                     }
                     var i = image.get("index");
                     var ih = _maxHeight || this.get("imageheight");
-                    var iw = this.get("imagewidth");
+                    var iw = _reduceWidth ? this.get("imagewidth") * _reduceInPercentage : this.get("imagewidth");
                     var id = this.get("imagedelta");
                     var h = this.get("containerheight");
                     if (ih > 1.00) {
                         // If images count is 1
                         if (this.get("images").count() === 1) {
-                            iw *= 0.45;
-                            ih *= 0.45;
+                            if (_ratio > 1.00) {
+                                iw *= 0.45;
+                                ih *= 0.45;
+                            } else
+                                iw *= 0.45;
                         }
+                        if (this.get("images").count() === 2 && _ratio < 1.00)
+                            iw *= 0.70;
+
                         image.set("left", 1 + Math.round(i * (iw + id)));
                         image.set("top", 1 + Math.round((h - ih) / 2));
                         image.set("width", 1 + Math.round(iw));

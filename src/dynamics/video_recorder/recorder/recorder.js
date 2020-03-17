@@ -388,7 +388,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     this._initSettings();
 
                     if (this.get("onlyaudio")) {
-                        this.set("picksnapshots", false);
                         this.set("allowupload", false);
                         this.set("orientation", false);
                     }
@@ -1094,6 +1093,12 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 },
 
                 isPortrait: function() {
+                    if (typeof this.recorder !== "undefined") {
+                        if (typeof this.recorder._recorder._videoTrackSettings !== "undefined") {
+                            return this.recorder._recorder._videoTrackSettings.aspectRatio < 1.0;
+                        }
+                    }
+
                     return this.aspectRatio() < 1.00;
                 },
 

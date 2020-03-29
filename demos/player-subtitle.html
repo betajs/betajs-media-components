@@ -46,28 +46,25 @@
         ba-themecolor="red"
         ba-hideoninactivity="false"
         ba-skipinitial="false"
-        ba-sources="{{[{src:'sample-video.mp4', poster: 'sample-cover.png', hd: true}, {src:'sample-video2.mp4', poster:'sample-cover2.png', hd: false}]}}"
-        ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
+        ba-sources='[{"src":"sample-video.mp4", "poster": "sample-cover.png", "hd": true}, {"src":"sample-video2.mp4", "poster":"sample-cover2.png", "hd": false}]'
+        ba-streams='[{"label":"HD", "filter":{"hd":true} }, {"label":"SD", "filter":{"hd": false} }]'
         ba-tracktagsstyled="true"
-        ba-tracktags="{{
+        ba-tracktags='
             [
                 {
-                    lang: 'en',
-                    kind: 'subtitles',
-                    label: 'English',
-                    //enabled: true,
-                    src: 'assets/bunny-en.vtt'
+                    "lang": "en",
+                    "kind": "subtitles",
+                    "label": "English",
+                    "src": "assets/bunny-en.vtt"
                 },
                 {
-                    lang: 'de',
-                    kind: 'subtitles',
-                    label: 'Deutsch',
-                    //enabled: true,
-                    src: './assets/bunny-de.vtt'
+                    "lang": "de",
+                    "kind": "subtitles",
+                    "label": "Deutsch",
+                    "src": "./assets/bunny-de.vtt"
                 }
-
             ]
-        }}"
+        '
 	></ba-videoplayer>
 
     <iframe width="425" height="349" src="https://www.youtube.com/embed/vunQEDq-b-c?rel=0" frameborder="0" allowfullscreen></iframe>
@@ -77,6 +74,7 @@
             flashFile: "../node_modules/betajs-flash/dist/betajs-flash.swf",
             forceReload: true
         };
+        BetaJS.Dynamics.Parser.secureMode = true;
         BetaJS.Dynamics.Dynamic.activate();
     </script>
 </body>

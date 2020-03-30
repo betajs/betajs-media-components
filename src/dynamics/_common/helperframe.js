@@ -17,8 +17,6 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                 "framereversable": true,
                 "framedragable": true,
                 "frameresizeable": false,
-                "framewidth": 120,
-                "frameheight": 95,
                 "framepositionx": 5,
                 "framepositiony": 5,
                 "frameminwidth": 120,
@@ -42,8 +40,6 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                 "framedragable": "boolean",
                 "frameresizeable": "boolean",
                 "frameproportional": "boolean",
-                "framewidth": "int",
-                "frameheight": "int",
                 "framepositionx": "int",
                 "framepositiony": "int",
                 "frameminwidth": "int",
@@ -81,11 +77,6 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                     this.set("initialpositiony", this.get("framepositiony"));
                 }
 
-                if (!this.get("initialwidth") || !this.get("initialheight")) {
-                    this.set("initialwidth", this.get("framewidth"));
-                    this.set("initialheight", this.get("frameheight"));
-                }
-
                 // Create additional related elements after reverse element created
                 _interactionEvent = Info.isTouchable() ? 'touch' : 'click';
 
@@ -103,6 +94,12 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                         context: this,
                         fire: function() {
                             if (this.recorder._recorder._videoTrackSettings && typeof this.recorder._recorder._videoTrackSettings.videoElement === 'object' && timer) {
+                                this.set("framewidth", this.__parent.get("addstreampositionwidth"));
+                                this.set("frameheight", this.__parent.get("addstreampositionheight"));
+                                if (!this.get("initialwidth") || !this.get("initialheight")) {
+                                    this.set("initialwidth", this.get("framewidth"));
+                                    this.set("initialheight", this.get("frameheight"));
+                                }
                                 this.fitFrameViewOnScreenVideo();
                                 timer.stop();
                             }

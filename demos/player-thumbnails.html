@@ -42,43 +42,60 @@
 </head>
 <body style="background: #EEE">
 	<ba-videoplayer
-        ba-theme="theatre"
-        ba-width="80%"
+        ba-theme="modern"
+        ba-width="610"
         ba-themecolor="red"
         ba-hideoninactivity="false"
         ba-skipinitial="true"
-        ba-sources="{{[{src:'sample-video.mp4', poster: 'sample-cover.png', hd: true}, {src:'sample-video2.mp4', poster:'sample-cover2.png', hd: false}]}}"
-        ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
+        ba-sources='[{"src":"sample-video.mp4", "poster": "sample-cover.png", "hd": true}, {"src":"sample-video2.mp4", "poster":"sample-cover2.png", "hd": false}]'
+        ba-streams='[{"label":"HD", "filter":{"hd":true} }, {"label":"SD", "filter":{"hd": false} }]'
         ba-tracktagsstyled="true"
-        ba-tracktags="{{
-            [
-                {
-                    lang: 'en',
-                    kind: 'subtitles',
-                    label: 'English',
-                    //enabled: true,
-                    src: 'assets/bunny-en.vtt'
-                },
-                {
-                    lang: 'de',
-                    kind: 'subtitles',
-                    label: 'Deutsch',
-                    //enabled: true,
-                    src: 'assets/bunny-de.vtt'
-                },
-                {
-                    kind: 'thumbnails',
-                    src: 'assets/video-bgbb.vtt'
-                }
-            ]
-        }}"
+        ba-tracktags='[
+            {
+                "lang": "en",
+                "kind": "subtitles",
+                "label": "English",
+                "src": "assets/bunny-en.vtt"
+            },
+            {
+                "lang": "de",
+                "kind": "subtitles",
+                "label": "Deutsch",
+                "src": "assets/bunny-de.vtt"
+            },
+            {
+                "kind": "thumbnails",
+                "src": "./assets/video-bgbb.vtt"
+            }
+        ]'
 	></ba-videoplayer>
+
+<!--    ba-tracktags='[-->
+<!--    {-->
+<!--    "lang: "en",-->
+<!--    "kind: "subtitles",-->
+<!--    "label: "English",-->
+<!--    "src: "assets/bunny-en.vtt"-->
+<!--    },-->
+<!--    {-->
+<!--    "lang": "de",-->
+<!--    "kind": "subtitles",-->
+<!--    "label": "Deutsch",-->
+<!--    "src": "assets/bunny-de.vtt"-->
+<!--    },-->
+<!--    {-->
+<!--    "kind": "thumbnails",-->
+<!--    "src": "/static/demo/assets/video-bgbb.vtt"-->
+<!--    }-->
+<!--    ]'-->
+
 
     <script>
         BetaJS.Flash.options = {
             flashFile: "../node_modules/betajs-flash/dist/betajs-flash.swf",
             forceReload: true
         };
+        BetaJS.Dynamics.Parser.secureMode = true;
         BetaJS.Dynamics.Dynamic.activate();
     </script>
 </body>

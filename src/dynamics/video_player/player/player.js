@@ -222,7 +222,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "airplaybuttonvisible": "boolean",
                     "chromecast": "boolean",
                     "skipseconds": "integer",
-                    "tracktags": "array",
+                    "streams": "jsonarray",
+                    "sources": "jsonarray",
+                    "tracktags": "jsonarray",
                     "tracktagsstyled": "boolean",
                     "allowtexttrackupload": "boolean",
                     "uploadtexttracksvisible": "boolean",
@@ -729,27 +731,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             _self.player.pause();
                         }
                     });
-
                 },
 
                 toggleFullscreen: function() {
                     this.call("toggle_fullscreen");
-                },
-
-                toggleSubtitles: function(new_status) {
-                    var status;
-                    if (new_status == undefined) {
-                        status = this.get("tracktextvisible");
-                    } else {
-                        status = !new_status;
-                    }
-                    if (status == true) {
-                        this.set("tracktextvisible", false);
-                        this.toggleTrackTags(false);
-                    } else {
-                        this.set("tracktextvisible", true);
-                        this.toggleTrackTags(true);
-                    }
                 },
 
                 getPlaybackCount: function() {
@@ -903,7 +888,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("activity_delta", 0);
                 },
 
-                object_functions: ["play", "rerecord", "pause", "stop", "seek", "set_volume"],
+                object_functions: ["play", "rerecord", "pause", "stop", "seek", "set_volume", "toggle_tracks"],
 
                 functions: {
 
@@ -1156,8 +1141,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         } else {
                             this.set("preventinteractionstatus", !this.get("preventinteractionstatus"));
                         }
-                    }
+                    },
 
+                    toggle_tracks: function() {
+                        this.toggleTrackTags(!this.get('tracktextvisible'));
+                    }
                 },
 
                 destroy: function() {

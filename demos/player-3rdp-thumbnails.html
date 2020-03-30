@@ -42,6 +42,7 @@
 </head>
 <body style="background: #EEE">
 	<ba-videoplayer
+        ba-theme="modern"
         ba-themecolor="red"
         ba-hideoninactivity="false"
         ba-skipinitial="true"
@@ -51,25 +52,12 @@
         ba-tracktags="{{
             [
                 {
-                    lang: 'en',
-                    kind: 'subtitles',
-                    label: 'English',
-                    //enabled: true,
-                    src: '/static/demos/assets/bunny-en.vtt'
-                },
-                {
-                    lang: 'de',
-                    kind: 'subtitles',
-                    label: 'Deutsch',
-                    //enabled: true,
-                    src: '/static/demos/assets/bunny-de.vtt'
-                },
-                {
                     kind: 'thumbnails',
                     src: '/static/demos/assets/example-3rdp.vtt'
                 }
             ]
         }}"
+        ba-allowtexttrackupload="true"
 	></ba-videoplayer>
 
     <script>

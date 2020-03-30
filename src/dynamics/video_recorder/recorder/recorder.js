@@ -1181,21 +1181,25 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                                 height: this.get("addstreampositionheight")
                             }, _currentTracks).success(function(stream) {
                                 _selected = true;
-                                var _height, _aspectRatio;
-                                _aspectRatio = 1.333;
                                 if (!this.get("addstreampositionheight")) {
+                                    var _height, _aspectRatio;
+                                    _aspectRatio = 1.333;
                                     if (typeof stream.getTracks()[0] !== 'undefined') {
                                         var _settings = stream.getTracks()[0].getSettings();
-                                        _aspectRatio = _settings.aspectRatio;
+                                        if (_settings.aspectRatio) {
+                                            _aspectRatio = _settings.aspectRatio;
+                                        } else if (_settings.height > 0 && _settings.width > 0) {
+                                            _aspectRatio = Math.round((_settings.width / _settings.height) * 100) / 100;
+                                        }
                                     }
-                                    _height = this.get("addstreampositionwidth") / _aspectRatio;
-                                } else {
-                                    _height = this.get("addstreampositionheight");
+
+                                    if (_aspectRatio)
+                                        _height = this.get("addstreampositionwidth") / _aspectRatio;
+                                    else
+                                        _height = Math.round(this.get("addstreampositionwidth") / 1.33);
+
+                                    this.set("addstreampositionheight", _height);
                                 }
-                                if (!this.get("addstreamminheight")) {
-                                    this.set("addstreamminheight", this.get("addstreamminwidth") * _aspectRatio);
-                                }
-                                this.set("addstreampositionheight", _height);
                                 this.set("loadlabel", "");
                                 this.set("loader_active", false);
                                 this.set("showaddstreambutton", false);

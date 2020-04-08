@@ -1,0 +1,54 @@
+'language:el':
+  ba-videoplayer-playbutton.tooltip: Κλικ για αναπαραγωγή.
+  ba-videoplayer-playbutton.rerecord: Επανάληψη
+  ba-videoplayer-playbutton.submit-video: Επιβεβαιώστε το βίντεο
+  ba-videoplayer-loader.tooltip: Φόρτωση...
+  ba-videoplayer-controlbar.change-resolution: Αλλαγή ανάλυσης
+  ba-videoplayer-controlbar.video-progress: Πρόοδος
+  ba-videoplayer-controlbar.rerecord-video: Επανάληψη;
+  ba-videoplayer-controlbar.submit-video: Επιβεβαίωση
+  ba-videoplayer-controlbar.play-video: Αναπαραγωγή
+  ba-videoplayer-controlbar.pause-video: Προσωρινή παύση
+  ba-videoplayer-controlbar.elapsed-time: Χρόνος που παρήλθε
+  ba-videoplayer-controlbar.total-time: Συνολική διάρκεια του
+  ba-videoplayer-controlbar.fullscreen-video: Μετάβαση σε πλήρη οθόνη
+  ba-videoplayer-controlbar.volume-button: Ορισμός έντασης
+  ba-videoplayer-controlbar.volume-mute: Σίγαση ήχου
+  ba-videoplayer-controlbar.volume-unmute: Αναίρεση σίγασης ήχου
+  ba-videoplayer.video-error: 'Συνέβη κάποιο λάθος, παρακαλούμε ξαναπροσπαθήστε αργότερα. Κλικ για να ξαναπροσπαθήσετε.'
+  ba-videorecorder-chooser.record-video: Εγγραφή βίντεο
+  ba-videorecorder-chooser.upload-video: Μεταφόρτωση βίντεο
+  ba-videorecorder-controlbar.settings: Ρυθμίσεις
+  ba-videorecorder-controlbar.camerahealthy: Ο φωτισμός είναι καλός
+  ba-videorecorder-controlbar.cameraunhealthy: Ο φωτισμός δεν είναι ικανοποιητικός
+  ba-videorecorder-controlbar.microphonehealthy: Ο ήχος είναι καλός
+  ba-videorecorder-controlbar.microphoneunhealthy: Δεν ακούγεται καθόλου ήχος
+  ba-videorecorder-controlbar.record: Εγγραφή
+  ba-videorecorder-controlbar.record-tooltip: Κλικ εδώ για εγγραφή.
+  ba-videorecorder-controlbar.rerecord: Επανάληψη
+  ba-videorecorder-controlbar.rerecord-tooltip: Κλικ εδώ για επανάληψη.
+  ba-videorecorder-controlbar.upload-covershot: Μεταφόρτωση
+  ba-videorecorder-controlbar.upload-covershot-tooltip: Κλικ εδώ για να μεταφορτώσετε μία δική σας εικόνα επισκόπησης
+  ba-videorecorder-controlbar.stop: Διακοπή
+  ba-videorecorder-controlbar.stop-tooltip: Κλικ εδώ για διακοπή.
+  ba-videorecorder-controlbar.skip: Παράλειψη
+  ba-videorecorder-controlbar.skip-tooltip: Κλικ εδώ για παράλειψη.
+  ba-videorecorder.recorder-error: 'Συνέβη κάποιο λάθος, παρακαλούμε ξαναπροσπαθήστε αργότερα. Κλικ για να ξαναπροσπαθήσετε.'
+  ba-videorecorder.attach-error: >-
+    Δεν μπορέσαμε να αποκτήσουμε πρόσβαση στην κάμερα. Ανάλογα με τη συσκευή
+    και τον browser που χρησιμοποιείτε, μπορεί να χρειαστεί να εγκαταστήσετε το Flash ή να μπείτε στη σελίδα μέσω SSL.
+  ba-videorecorder.access-forbidden: Δεν επιτράπηκε η πρόσβαση στην κάμερα. Κλικ για να ξαναπροσπαθήστε.
+  ba-videorecorder.pick-covershot: Επιλέξτε μια εικόνα επισκόπησης.
+  ba-videorecorder.uploading: Μεταφόρτωση
+  ba-videorecorder.uploading-failed: Η μεταφόρτωση απέτυχε - κλικ εδώ για να ξαναπροσπαθήσετε.
+  ba-videorecorder.verifying: Επιβεβαίωση
+  ba-videorecorder.verifying-failed: Η επιβεβαίωση απέτυχε- κλικ εδώ για να ξαναπροσπαθήσετε.
+  ba-videorecorder.rerecord-confirm: Σίγοουρα θέλετε να επαναλάβετε τη βίντεο-λήψη;
+  ba-videorecorder.video_file_too_large: >-
+    Το αρχείο βίντεο είναι πολύ μεγάλο (%s) - κλικ εδώ για να ξαναπροσπαθήσετε με ένα μεγαλύτερο 
+    αρχείο.
+  ba-videorecorder.unsupported_video_type: 'Παρακαλούμε μεταφορτώστε: %s - κλικ εδώ για να ξαναπροσπαθήσετε.'
+  ba-videoplayer-controlbar.exit-fullscreen-video: Έξοδος από πλήρη οθόνη
+  ba-videoplayer-share.share: Διαμοιρασμός
+  ba-videoplayer-controlbar.pause-video-disabled: Η προσωρινή παύση δεν υποσηρίζεται
+  ba-videorecorder-chooser.record-audio: Εγγραφή ήχου

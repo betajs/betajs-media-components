@@ -23,7 +23,7 @@
   ba-videorecorder-controlbar.cameraunhealthy: Valaistus ei ole optimaalinen
   ba-videorecorder-controlbar.microphonehealthy: Ääni on hyvä
   ba-videorecorder-controlbar.microphoneunhealthy: Voi poimia mitään ääntä
-  ba-videorecorder-controlbar.record: Ennätys
+  ba-videorecorder-controlbar.record: Nauhoita
   ba-videorecorder-controlbar.record-tooltip: Täältä tallentaa.
   ba-videorecorder-controlbar.rerecord: tehdä uudelleen
   ba-videorecorder-controlbar.rerecord-tooltip: Täältä redo.
@@ -120,7 +120,7 @@
   ba-audiorecorder-controlbar.settings: asetukset
   ba-audiorecorder-controlbar.microphonehealthy: Ääni on hyvä
   ba-audiorecorder-controlbar.microphoneunhealthy: Ei voi herättää ääntä
-  ba-audiorecorder-controlbar.record: Ennätys
+  ba-audiorecorder-controlbar.record: Nauhoita
   ba-audiorecorder-controlbar.record-tooltip: Napsauta tätä.
   ba-audiorecorder-controlbar.rerecord: tehdä uudelleen
   ba-audiorecorder-controlbar.rerecord-tooltip: Napsauta tätä uudelleen.

@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.219 - 2020-04-08
+betajs-media-components - v0.0.219 - 2020-04-13
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -16,7 +16,7 @@ Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
     "version": "0.0.219",
-    "datetime": 1586395336302
+    "datetime": 1586795091670
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -5621,6 +5621,13 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
             }, Objs.objectify(this.dynamics)), function(value, key) {
                 this.dyn.set(key + "_active", value);
             }, this);
+            if (this.dyn.parent()) {
+                if (this.dyn.parent().record !== 'undefined' && this.dyn.parent().host !== 'undefined') {
+                    this.dyn._isRecorder = true;
+                    this.dyn._recorderDyn = this.dyn.parent();
+                    this.dyn._recorderHost = this.dyn._recorderDyn.host;
+                }
+            }
             this._started();
         },
 
@@ -5648,7 +5655,26 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
                 _recorder.host.state().next("Player");
             else
                 this.next("LoadPlayer");
+        },
+
+        nextToChooser: function(message) {
+            var _dyn = this.dyn;
+
+            if (!_dyn._isRecorder)
+                return false;
+
+            if (typeof _dyn._recorderHost.next === 'function') {
+                _dyn._recorderHost.next("FatalError", {
+                    message: message,
+                    retry: "Chooser"
+                });
+                // !Don't uncomment will brock host
+                // _dyn._recorderDyn.set("player_active", false);
+                return true;
+            } else
+                return false;
         }
+
     }]);
 });
 
@@ -5862,7 +5888,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadError", [
         _started: function() {
             this.dyn.set("message", this.dyn.string("video-error"));
             this.listenOn(this.dyn, "message:click", function() {
-                this.next("LoadPlayer");
+                if (!this.nextToChooser(this.dyn.get("message")))
+                    this.next("LoadPlayer");
             }, this);
         }
 
@@ -5961,7 +5988,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterError", [
         _started: function() {
             this.dyn.set("message", this.dyn.string("video-error"));
             this.listenOn(this.dyn, "message:click", function() {
-                this.next(this.dyn.get("states").poster_error.click_play ? "LoadVideo" : "LoadPlayer");
+                if (!this.nextToChooser(this.dyn.get("message")))
+                    this.next(this.dyn.get("states").poster_error.click_play ? "LoadVideo" : "LoadPlayer");
             }, this);
         }
 
@@ -6045,7 +6073,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.ErrorVideo", [
         _started: function() {
             this.dyn.set("message", this.dyn.string("video-error"));
             this.listenOn(this.dyn, "message:click", function() {
-                this.next("LoadVideo");
+                if (!this.nextToChooser(this.dyn.get("message")))
+                    this.next("LoadVideo");
             }, this);
         }
 

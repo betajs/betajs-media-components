@@ -45,31 +45,46 @@
         ba-themecolor="red"
         ba-hideoninactivity="false"
         ba-skipinitial="true"
-        ba-sources="{{[{src:'/files/video-1554031363399.mp4', poster: '/files/video-1554031363399.jpg', hd: true}, {src:'sample-video2.mp4', poster:'sample-cover2.png', hd: false}]}}"
-        ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
-        ba-tracktagsstyled="true"
-        ba-tracktags="{{
+        ba-sources='{{
             [
                 {
-                    lang: 'en',
-                    kind: 'subtitles',
-                    label: 'English',
-                    //enabled: true,
-                    src: '/static/demos/assets/bunny-en.vtt'
+                    "src":"sample-video.mp4",
+                    "poster": "sample-cover.png",
+                    "hd": true
                 },
                 {
-                    lang: 'de',
-                    kind: 'subtitles',
-                    label: 'Deutsch',
-                    //enabled: true,
-                    src: '/static/demos/assets/bunny-de.vtt'
-                },
-                {
-                    kind: 'thumbnails',
-                    src: '/files/video-1554031363399.vtt'
+                    "src":"sample-video2.mp4",
+                    "poster": "sample-cover2.png",
+                    "hd": false
                 }
             ]
-        }}"
+        }}'
+        ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
+        ba-tracktagsstyled="true"
+        ba-tracktags='{{
+            [
+                {
+                    "lang": "en",
+                    "kind": "subtitles",
+                    "label": "English",
+                    "src": "/static/demos/assets/bunny-en.vtt"
+                },
+                {
+                    "lang": "de",
+                    "kind": "subtitles",
+                    "label": "Deutsch",
+                    "src": "/static/demos/assets/bunny-de.vtt"
+                },
+                {
+                    "kind": "chapters",
+                    "src": "/static/demos/assets/video-bgbb-chapters.vtt"
+                },
+                {
+                    "kind": "thumbnails",
+                    "src": "/static/demos/assets/video-bgbb.vtt"
+                }
+            ]
+        }}'
 	></ba-videoplayer>
 
     <script>

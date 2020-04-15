@@ -16,5 +16,6 @@ google-translate-creds.json
 /demos/themes/temp/*
 /demos/themes/files/*
 /demos/tmp/
+.history
 *.log
 package-lock.json

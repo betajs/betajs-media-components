@@ -97,6 +97,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "allowcustomupload": true,
                     "manual-upload": false,
                     "camerafacefront": false,
+                    "resizemode": null, // enum option to scale screen recorder, has 2 options: 'crop-and-scale',  'none'
                     "createthumbnails": false,
                     "primaryrecord": true,
                     "allowscreen": false,
@@ -429,11 +430,21 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 },
 
                 _videoRecorderWrapperOptions: function() {
+                    var _screen = null;
+                    var _resizeMode = this.get("resizemode");
+                    if ((this.get("allowscreen") && this.get("record_media") === "screen") || (this.get("allowmultistreams") && this.get("record_media") === "multistream")) {
+                        _screen = this.get("screen");
+                        if (!_resizeMode) {
+                            _resizeMode = 'none';
+
+                        }
+                    }
                     return {
                         simulate: this.get("simulate"),
                         forceflash: this.get("forceflash"),
                         noflash: this.get("noflash"),
                         recordVideo: !this.get("onlyaudio"),
+                        screenResizeMode: this.get("screenresizemode"),
                         recordAudio: !this.get("noaudio"),
                         recordingWidth: this.get("nativeRecordingWidth"),
                         recordingHeight: this.get("nativeRecordingHeight"),
@@ -446,7 +457,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         webrtcStreamingIfNecessary: !!this.get("webrtcstreamingifnecessary"),
                         // webrtcOnMobile: !!this.get("webrtconmobile"),
                         localPlaybackRequested: this.get("localplayback"),
-                        screen: (this.get("allowscreen") && this.get("record_media") === "screen") || (this.get("allowmultistreams") && this.get("record_media") === "multistream") ? this.get("screen") : null,
+                        screen: _screen,
+                        resizeMode: _resizeMode,
                         framerate: this.get("framerate"),
                         flip: this.get("flip-camera"),
                         flipscreen: this.get("flipscreen")

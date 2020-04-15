@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.220 - 2020-04-14
+betajs-media-components - v0.0.221 - 2020-04-15
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.220 - 2020-04-14
+betajs-media-components - v0.0.221 - 2020-04-15
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1026,8 +1026,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.220",
-    "datetime": 1586877842815
+    "version": "0.0.221",
+    "datetime": 1586967912820
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -8105,6 +8105,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "allowcustomupload": true,
                     "manual-upload": false,
                     "camerafacefront": false,
+                    "resizemode": null, // enum option to scale screen recorder, has 2 options: 'crop-and-scale',  'none'
                     "createthumbnails": false,
                     "primaryrecord": true,
                     "allowscreen": false,
@@ -8437,11 +8438,21 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 },
 
                 _videoRecorderWrapperOptions: function() {
+                    var _screen = null;
+                    var _resizeMode = this.get("resizemode");
+                    if ((this.get("allowscreen") && this.get("record_media") === "screen") || (this.get("allowmultistreams") && this.get("record_media") === "multistream")) {
+                        _screen = this.get("screen");
+                        if (!_resizeMode) {
+                            _resizeMode = 'none';
+
+                        }
+                    }
                     return {
                         simulate: this.get("simulate"),
                         forceflash: this.get("forceflash"),
                         noflash: this.get("noflash"),
                         recordVideo: !this.get("onlyaudio"),
+                        screenResizeMode: this.get("screenresizemode"),
                         recordAudio: !this.get("noaudio"),
                         recordingWidth: this.get("nativeRecordingWidth"),
                         recordingHeight: this.get("nativeRecordingHeight"),
@@ -8454,7 +8465,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         webrtcStreamingIfNecessary: !!this.get("webrtcstreamingifnecessary"),
                         // webrtcOnMobile: !!this.get("webrtconmobile"),
                         localPlaybackRequested: this.get("localplayback"),
-                        screen: (this.get("allowscreen") && this.get("record_media") === "screen") || (this.get("allowmultistreams") && this.get("record_media") === "multistream") ? this.get("screen") : null,
+                        screen: _screen,
+                        resizeMode: _resizeMode,
                         framerate: this.get("framerate"),
                         flip: this.get("flip-camera"),
                         flipscreen: this.get("flipscreen")

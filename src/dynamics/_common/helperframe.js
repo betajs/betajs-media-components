@@ -67,6 +67,11 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                 var _interactionEvent;
                 var _frameClicksCount = 0;
                 this.__parent = this.parent();
+                this.__initialSettings = {
+                    reversable: this.get("framereversable"),
+                    dragable: this.get("framedragable"),
+                    resizeable: this.get("frameresizeable")
+                };
 
                 Objs.iter(this.get("framemainstyle"), function(value, index) {
                     this.activeElement().style[index] = value;
@@ -112,6 +117,17 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
 
                 if (this.recorder) {
                     // DO RECORDER STUFF
+                    this.recorder._recorder.on("multistream-camera-switched", function(dimensions, isReversed) {
+                        this.set("frameresizeable", (this.__initialSettings.resizeable || false));
+                        if (isReversed && this.__resizerElement) {
+                            this.set("frameresizeable", false);
+                            this.__resizerElement.style.display = 'none';
+                        } else if (this.set("frameresizeable")) {
+                            this.__resizerElement.style.display = 'block';
+                        }
+                        this.set("framewidth", dimensions.width);
+                        this.set("frameheight", dimensions.height);
+                    }, this);
 
                     // If Reverse Cameras Settings is true
                     if (this.get("framereversable")) {

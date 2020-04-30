@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.221 - 2020-04-15
+betajs-media-components - v0.0.222 - 2020-04-30
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -15,8 +15,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.221",
-    "datetime": 1586967912820
+    "version": "0.0.222",
+    "datetime": 1588220888273
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -2394,6 +2394,11 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                 var _interactionEvent;
                 var _frameClicksCount = 0;
                 this.__parent = this.parent();
+                this.__initialSettings = {
+                    reversable: this.get("framereversable"),
+                    dragable: this.get("framedragable"),
+                    resizeable: this.get("frameresizeable")
+                };
 
                 Objs.iter(this.get("framemainstyle"), function(value, index) {
                     this.activeElement().style[index] = value;
@@ -2439,6 +2444,17 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
 
                 if (this.recorder) {
                     // DO RECORDER STUFF
+                    this.recorder._recorder.on("multistream-camera-switched", function(dimensions, isReversed) {
+                        this.set("frameresizeable", (this.__initialSettings.resizeable || false));
+                        if (isReversed && this.__resizerElement) {
+                            this.set("frameresizeable", false);
+                            this.__resizerElement.style.display = 'none';
+                        } else if (this.set("frameresizeable")) {
+                            this.__resizerElement.style.display = 'block';
+                        }
+                        this.set("framewidth", dimensions.width);
+                        this.set("frameheight", dimensions.height);
+                    }, this);
 
                     // If Reverse Cameras Settings is true
                     if (this.get("framereversable")) {

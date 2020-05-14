@@ -174,7 +174,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Controlbar", [
             "play-audio": "Play",
             "pause-audio": "Pause",
             "pause-audio-disabled": "Pause not supported",
-            "elapsed-time": "Elasped time",
+            "elapsed-time": "Elapsed time",
             "total-time": "Total length of",
             "volume-button": "Set volume",
             "volume-mute": "Mute sound",

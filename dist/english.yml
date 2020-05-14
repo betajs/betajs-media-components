@@ -9,7 +9,7 @@
   ba-videoplayer-controlbar.submit-video: Confirm
   ba-videoplayer-controlbar.play-video: Play
   ba-videoplayer-controlbar.pause-video: Pause
-  ba-videoplayer-controlbar.elapsed-time: Elasped time
+  ba-videoplayer-controlbar.elapsed-time: Elapsed time
   ba-videoplayer-controlbar.total-time: Total length of
   ba-videoplayer-controlbar.fullscreen-video: Enter fullscreen
   ba-videoplayer-controlbar.volume-button: Set volume
@@ -57,7 +57,7 @@
   ba-videorecorder-controlbar.cancel: Cancel
   ba-videorecorder-controlbar.cancel-tooltip: Click here to cancel.
   ba-videorecorder.cancel-confirm: Do you really want to cancel your video upload?
-  ba-videoplayer-adslot.elapsed-time: Elasped time
+  ba-videoplayer-adslot.elapsed-time: Elapsed time
   ba-videoplayer-adslot.volume-button: Set volume
   ba-videoplayer-adslot.volume-mute: Mute sound
   ba-videoplayer-adslot.volume-unmute: Unmute sound
@@ -110,7 +110,7 @@
   ba-audioplayer-controlbar.play-audio: Play
   ba-audioplayer-controlbar.pause-audio: Pause
   ba-audioplayer-controlbar.pause-audio-disabled: Pause not supported
-  ba-audioplayer-controlbar.elapsed-time: Elasped time
+  ba-audioplayer-controlbar.elapsed-time: Elapsed time
   ba-audioplayer-controlbar.total-time: Total length of
   ba-audioplayer-controlbar.volume-button: Set volume
   ba-audioplayer-controlbar.volume-mute: Mute sound

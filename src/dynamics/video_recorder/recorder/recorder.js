@@ -141,6 +141,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "faceoutline": false,
                     "display-timer": true,
                     "pausable": false,
+                    "sharevideo": [],
 
                     /* Configuration */
                     "forceflash": false,
@@ -294,6 +295,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "uploadlocales": "array",
                     "allowmultistreams": "boolean",
                     "pausable": "boolean",
+                    "sharevideo": "array",
                     "multistreamreversable": "boolean",
                     "multistreamdraggable": "boolean",
                     "multistreamresizeable": "boolean",

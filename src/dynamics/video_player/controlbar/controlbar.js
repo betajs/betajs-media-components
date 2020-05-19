@@ -305,7 +305,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
             "play-video": "Play",
             "pause-video": "Pause",
             "pause-video-disabled": "Pause not supported",
-            "elapsed-time": "Elasped time",
+            "elapsed-time": "Elapsed time",
             "total-time": "Total length of",
             "fullscreen-video": "Enter fullscreen",
             "volume-button": "Set volume",

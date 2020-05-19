@@ -241,7 +241,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Adplayer", [
         })
         .attachStringTable(Assets.strings)
         .addStrings({
-            "elapsed-time": "Elasped time",
+            "elapsed-time": "Elapsed time",
             "volume-button": "Set volume",
             "volume-mute": "Mute sound",
             "volume-unmute": "Unmute sound",

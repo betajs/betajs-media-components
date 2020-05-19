@@ -41,7 +41,7 @@
 
 </head>
 <body style="background: #EEE">
-<div style="width: 300px; position: relative;">
+<div style="width: 400px; position: relative;">
     <div id="recorder"></div>
 </div>
 
@@ -55,12 +55,16 @@
             element: document.getElementById('recorder'),
             attrs: {
                 theme: "default",
+                // theme: "minimalist",
+                // "custom-covershots" : true,
                 themecolor: "red",
-                width: '100%',
-                height: 360,
-                width: 360,
-                // recordingheight: 360,
-                // recordingwidth: 360,
+                // width: '100%',
+                width: 690,
+                height: 340,
+                cropthestream: false,
+                recordingwidth: 1200,
+                recordingheight: 1200,
+                allowscreen: true,
                 snapshotfromuploader: true,
                 picksnapshots: true,
                 snapshotmax: 4,
@@ -70,8 +74,7 @@
 
         recorder._prepareRecording = function () {
             recorder.set("uploadoptions", {
-                image: {url:"/files/" + filename + ".jpg"},
-                // video: {url:"/files/" + filename + ".webm" + '/transcode/' + filename + ".mp4"},
+                image: {url:"/files/" + filename + ".jpg"},// video: {url:"/files/" + filename + ".webm" + '/transcode/' + filename + ".mp4"},
                 video: {url:"/files/" + filename + ".webm"},
                 audio: {url:"/files/" + filename + ".wav"},
                 thumbnail: {url:"/files/" + filename + "-thumbnails.jpg"},

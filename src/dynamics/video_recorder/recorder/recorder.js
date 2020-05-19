@@ -97,6 +97,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "allowcustomupload": true,
                     "manual-upload": false,
                     "camerafacefront": false,
+                    "cropthestream": false,
                     "resizemode": null, // enum option to scale screen recorder, has 2 options: 'crop-and-scale',  'none'
                     "createthumbnails": false,
                     "primaryrecord": true,
@@ -239,6 +240,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "rerecordable": "boolean",
                     "ready": "boolean",
                     "stretch": "boolean",
+                    "cropthestream": "boolean",
                     "stretchwidth": "boolean",
                     "stretchheight": "boolean",
                     "autorecord": "boolean",
@@ -461,7 +463,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         resizeMode: _resizeMode,
                         framerate: this.get("framerate"),
                         flip: this.get("flip-camera"),
-                        flipscreen: this.get("flipscreen")
+                        flipscreen: this.get("flipscreen"),
+                        cropTheStream: this.get("cropthestream")
                     };
                 },
 

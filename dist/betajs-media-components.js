@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.224 - 2020-05-17
+betajs-media-components - v0.0.225 - 2020-05-23
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.224 - 2020-05-17
+betajs-media-components - v0.0.225 - 2020-05-23
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1026,8 +1026,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.224",
-    "datetime": 1589692029179
+    "version": "0.0.225",
+    "datetime": 1590255908486
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -3456,12 +3456,9 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                 if (this.recorder) {
                     // DO RECORDER STUFF
                     this.recorder._recorder.on("multistream-camera-switched", function(dimensions, isReversed) {
-                        this.set("frameresizeable", (this.__initialSettings.resizeable || false));
-                        if (isReversed && this.__resizerElement) {
-                            this.set("frameresizeable", false);
-                            this.__resizerElement.style.display = 'none';
-                        } else if (this.set("frameresizeable")) {
-                            this.__resizerElement.style.display = 'block';
+                        if (this.__initialSettings.resizeable && this.__resizerElement) {
+                            this.set("frameresizeable", isReversed);
+                            this.__resizerElement.style.display = isReversed ? 'none' : 'block';
                         }
                         this.set("framewidth", dimensions.width);
                         this.set("frameheight", dimensions.height);
@@ -8121,6 +8118,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "allowcustomupload": true,
                     "manual-upload": false,
                     "camerafacefront": false,
+                    "fittodimensions": false,
                     "resizemode": null, // enum option to scale screen recorder, has 2 options: 'crop-and-scale',  'none'
                     "createthumbnails": false,
                     "primaryrecord": true,
@@ -8264,6 +8262,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "rerecordable": "boolean",
                     "ready": "boolean",
                     "stretch": "boolean",
+                    "fittodimensions": "boolean",
                     "stretchwidth": "boolean",
                     "stretchheight": "boolean",
                     "autorecord": "boolean",
@@ -8487,7 +8486,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         resizeMode: _resizeMode,
                         framerate: this.get("framerate"),
                         flip: this.get("flip-camera"),
-                        flipscreen: this.get("flipscreen")
+                        flipscreen: this.get("flipscreen"),
+                        fittodimensions: this.get("fittodimensions")
                     };
                 },
 

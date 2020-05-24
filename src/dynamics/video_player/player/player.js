@@ -113,6 +113,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "loopall": false,
                     "popup": false,
                     "nofullscreen": false,
+                    "fullscreenmandatory": false,
                     "playfullscreenonmobile": false,
                     "stretch": false,
                     "stretchwidth": false,
@@ -150,6 +151,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "ttuploadervisible": false,
 
                     /* States (helper variables which are controlled by application itself not set by user) */
+                    "showbuiltincontroller": false,
                     "airplaybuttonvisible": false,
                     "castbuttonvisble": false,
                     "fullscreened": false,
@@ -192,6 +194,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "preload": "boolean",
                     "ready": "boolean",
                     "nofullscreen": "boolean",
+                    "fullscreenmandatory": "boolean",
                     "stretch": "boolean",
                     "stretchwidth": "boolean",
                     "stretchheight": "boolean",
@@ -266,6 +269,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("initialoptions", Objs.tree_merge(this.get("initialoptions"), {
                         volumelevel: this.get("volume")
                     }));
+                    if (this.get("fullscreenmandatory")) {
+                        if (!(document.fullscreenEnabled || document.mozFullscreenEnabled ||
+                                document.webkitFullscreenEnabled || document.msFullscreenEnabled)) {
+                            this.set("showbuiltincontroller", true);
+                        }
+                    }
 
                     if ((Info.isMobile() || Info.isChromiumBased()) && (this.get("autoplay") || this.get("playwhenvisible"))) {
                         this.set("volume", 0.0);
@@ -498,7 +507,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     var video = this.activeElement().querySelector("[data-video='video']");
                     this._clearError();
                     // Just in case be sure that player's controllers will be hidden
-                    //video.controls = false;
+                    if (this.get("showbuiltincontroller"))
+                        video.controls = true;
+                    if (this.get("allowpip"))
+                        video.disablePictureInPicture = true;
                     VideoPlayerWrapper.create(Objs.extend(this._getSources(), {
                         element: video,
                         onlyaudio: this.get("onlyaudio"), // Will fix only audio local playback bug

@@ -60,10 +60,11 @@
             element: $('#player'),
             attrs: {
                 // height: 330,
-                width: 610,
-                // width: '100%',
+                // width: 610,
+                width: '100%',
                 theme: "modern",
                 themecolor: "red",
+                fullscreenmandatory: true,
                 // stretchheight: true,
                 // autoplay:true,
                 // stretch: true,
@@ -127,7 +128,7 @@
                 player.toggle_tracks();
             };
             playerInstance.on("fullscreen-change", function (isFullscreen) {
-                console.log('is Full', isFullscreen);
+                // console.log('is Full', isFullscreen);
             }, this);
 
             // this.on("loaded", () => {
@@ -135,7 +136,6 @@
             // }, this);
         }, player);
 
-        console.log('Portrait before ?? ', player.isPortrait(), player.isLandscape());
         player.on("ready_to_play", (ev) => {
             // console.log('Portrait after ?? ', player.isPortrait(), player.isLandscape());
         }, player);

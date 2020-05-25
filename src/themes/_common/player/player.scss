@@ -22,15 +22,6 @@
     }
 }
 
-.#{$cssplayer}-stretch-height .#{$cssplayer}-container img.#{$cssplayer}-video {
-    max-height: 100%;
-    min-width: auto;
-    width: auto;
-    transform-box: border-box;
-    transform: translateX(-50%);
-    left: 50%;
-}
-
 .#{$cssaudioplayer}-container {
     .#{$cssaudioplayer}-overlay {
         .#{$cssplayer}-dashboard-hidden {

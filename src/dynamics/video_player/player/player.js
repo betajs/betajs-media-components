@@ -507,9 +507,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     var video = this.activeElement().querySelector("[data-video='video']");
                     this._clearError();
                     // Just in case be sure that player's controllers will be hidden
-                    if (this.get("showbuiltincontroller"))
-                        video.controls = true;
-                    if (this.get("allowpip"))
+                    video.controls = this.get("showbuiltincontroller");
+                    if (!this.get("allowpip"))
                         video.disablePictureInPicture = true;
                     VideoPlayerWrapper.create(Objs.extend(this._getSources(), {
                         element: video,

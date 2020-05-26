@@ -272,6 +272,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.get("fullscreenmandatory")) {
                         if (!(document.fullscreenEnabled || document.mozFullscreenEnabled ||
                                 document.webkitFullscreenEnabled || document.msFullscreenEnabled)) {
+                            this.set("skipinitial", true);
                             this.set("showbuiltincontroller", true);
                         }
                     }

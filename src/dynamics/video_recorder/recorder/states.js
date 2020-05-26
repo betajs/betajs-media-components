@@ -528,6 +528,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.RequiredSoftwareChec
             this.dyn.set("rerecordvisible", false);
             this.dyn.set("stopvisible", false);
             this.dyn.set("skipvisible", false);
+            this.dyn.set("uploadcovershotvisible", false);
             this.dyn.set("controlbarlabel", "");
             this.dyn.set("loaderlabel", "");
             this.listenOn(this.dyn, "error", function(s) {
@@ -574,6 +575,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.RequiredSoftwareWait
             this.dyn.set("rerecordvisible", false);
             this.dyn.set("stopvisible", false);
             this.dyn.set("skipvisible", false);
+            this.dyn.set("uploadcovershotvisible", false);
             this.dyn.set("controlbarlabel", "");
             this.dyn.set("loaderlabel", "");
             this.dyn.set("message", this.dyn.string("software-waiting"));
@@ -615,6 +617,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraAccess", [
             this.dyn.set("rerecordvisible", false);
             this.dyn.set("stopvisible", false);
             this.dyn.set("skipvisible", false);
+            this.dyn.set("uploadcovershotvisible", false);
             this.dyn.set("controlbarlabel", "");
             this.dyn.set("loaderlabel", "");
             this.listenOn(this.dyn, "bound", function() {
@@ -695,6 +698,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraHasAccess", [
             this.dyn.set("rerecordvisible", false);
             this.dyn.set("stopvisible", false);
             this.dyn.set("skipvisible", false);
+            this.dyn.set("uploadcovershotvisible", false);
             this.dyn.set("controlbarlabel", "");
             this.dyn.set("isrecorderready", true);
             if (this.dyn.get("autorecord"))
@@ -820,6 +824,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
             this.dyn.set("recordvisible", false);
             this.dyn.set("stopvisible", true);
             this.dyn.set("skipvisible", false);
+            this.dyn.set("uploadcovershotvisible", false);
             this._startTime = Time.now();
             this._stopping = false;
             this._timer = this.auto_destroy(new Timer({

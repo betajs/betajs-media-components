@@ -957,6 +957,10 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
         },
 
         uploadCovershot: function(file) {
+            // If passed file in HTMLInputElement get file
+            if (typeof file.files !== 'undefined')
+                if (file.files[0])
+                    file = file.files[0];
             this.dyn._uploadCovershotFile(file);
             this._nextUploading(false);
         },

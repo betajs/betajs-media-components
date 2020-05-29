@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.227 - 2020-05-26
+betajs-media-components - v0.0.227 - 2020-05-28
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.227 - 2020-05-26
+betajs-media-components - v0.0.227 - 2020-05-28
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1027,7 +1027,7 @@ Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
     "version": "0.0.227",
-    "datetime": 1590516702714
+    "datetime": 1590721305550
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -10266,6 +10266,10 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
         },
 
         uploadCovershot: function(file) {
+            // If passed file in HTMLInputElement get file
+            if (typeof file.files !== 'undefined')
+                if (file.files[0])
+                    file = file.files[0];
             this.dyn._uploadCovershotFile(file);
             this._nextUploading(false);
         },

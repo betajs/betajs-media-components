@@ -40,7 +40,7 @@
     <link href="/static/dist/themes/theatre/style.css" rel="stylesheet" />
 
 </head>
-<body style="background: #EEE">
+<body style="background: #ccc">
 <div style="width: 400px; position: relative;">
     <div id="recorder"></div>
 </div>
@@ -55,43 +55,21 @@
             element: document.getElementById('recorder'),
             attrs: {
                 // theme: "default",
-                // theme: "minimalist",
-                // "custom-covershots" : true,
-                // themecolor: "red",
-                // webrtc_on_mobile: true,
+                theme: "minimalist",
+                "custom-covershots" : true,
+                themecolor: "red",
+                webrtc_on_mobile: true,
                 // width: '100%',
-                // width: 690,
-                // height: 340,
-                // cropthestream: false,
-                // recordingwidth: 1200,
-                // recordingheight: 1200,
-                // allowscreen: true,
-                // snapshotfromuploader: true,
-                // picksnapshots: true,
-                // snapshotmax: 4,
-                // gallerysnapshots: 1
-
-
-                // reported by Karan
-                timelimit: 60,
-                'auto-crop': true,
-                'early-rerecord': true,
-                recordingheight: 1024,
-                recordingwidth: 576,
-                localplayback: false,
-                theme: 'minimalist',
-                themecolor: 'red',
-                countdown: 3,
-                noflash: true,
-                allowupload: false,
-                skipinitial: true,
-                autorecord: false,
-                primaryrecord: true,
-                skipinitialonrerecord: true,
-                manualsubmit: true,
-                'manual-upload': false,
-                orientation: 'portrait',
-                picksnapshots: false,
+                width: 690,
+                height: 340,
+                cropthestream: false,
+                recordingwidth: 400,
+                recordingheight: 300,
+                allowscreen: true,
+                snapshotfromuploader: true,
+                picksnapshots: true,
+                snapshotmax: 4,
+                gallerysnapshots: 3
             }
         });
 

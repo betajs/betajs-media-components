@@ -889,7 +889,8 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
             Async.eventually(function() {
                 this.dyn._stopRecording().success(function() {
                     this._hasStopped();
-                    if (this.dyn.get("picksnapshots") && this.dyn.snapshots.length >= this.dyn.get("gallerysnapshots"))
+                    var snapshotsCount = this.dyn.snapshots.length;
+                    if (this.dyn.get("picksnapshots") && snapshotsCount >= Math.min(this.dyn.get("gallerysnapshots"), snapshotsCount))
                         this.next("CovershotSelection");
                     else if (this.dyn.get("videometadata").thumbnails.images.length > 3 && this.dyn.get("createthumbnails"))
                         this.next("UploadThumbnails");

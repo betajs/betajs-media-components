@@ -966,7 +966,10 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
         },
 
         _nextUploading: function(skippedCovershot) {
-            if (this.dyn.get("videometadata").thumbnails.images.length > 3 && this.dyn.get("createthumbnails"))
+            if (skippedCovershot && this.dyn.get("selectfirstcovershotonskip") && this.dyn.snapshots)
+                if (this.dyn.snapshots[0])
+                    this.dyn._uploadCovershot(this.dyn.snapshots[0]);
+            if (!skippedCovershot && this.dyn.get("videometadata").thumbnails.images.length > 3 && this.dyn.get("createthumbnails"))
                 this.next("UploadThumbnails");
             else
                 this.next("Uploading");

@@ -135,6 +135,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "flipscreen": false, // Will affect as true, if flip-camera also set as true
                     "early-rerecord": false,
                     "custom-covershots": false,
+                    "selectfirstcovershotonskip": false,
                     "manualsubmit": false,
                     "allowedextensions": null,
                     "filesizelimit": null,
@@ -284,6 +285,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "faceoutline": "boolean",
                     "early-rerecord": "boolean",
                     "custom-covershots": "boolean",
+                    "selectfirstcovershotonskip": "boolean",
                     "manualsubmit": "boolean",
                     "simulate": "boolean",
                     "allowedextensions": "array",
@@ -710,6 +712,12 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     if (this.get("onlyaudio"))
                         return;
                     this._hideBackgroundSnapshot();
+                    if (this.snapshots && this.get("selectfirstcovershotonskip")) {
+                        if (this.snapshots[0])
+                            this.__backgroundSnapshot = this.snapshots[0];
+                    } else {
+                        this.__backgroundSnapshot = this.recorder.createSnapshot(this.get("snapshottype"));
+                    }
                     this.__backgroundSnapshot = this.recorder.createSnapshot(this.get("snapshottype"));
                     var el = this.activeElement().querySelector("[data-video]");
                     var dimensions = Dom.elementDimensions(el);
@@ -743,12 +751,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 },
 
                 toggleFaceOutline: function(new_status) {
-                    if (new_status == undefined) {
-                        if (this.get("faceoutline") == true) {
-                            this.set("faceoutline", false);
-                        } else {
-                            this.set("faceoutline", true);
-                        }
+                    if (typeof new_status === 'undefined') {
+                        this.set("faceoutline", !this.get("faceoutline"));
                     } else {
                         this.set("faceoutline", new_status);
                     }

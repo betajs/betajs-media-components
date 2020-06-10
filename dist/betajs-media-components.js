@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.227 - 2020-05-28
+betajs-media-components - v0.0.229 - 2020-06-09
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.227 - 2020-05-28
+betajs-media-components - v0.0.229 - 2020-06-09
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1026,8 +1026,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.227",
-    "datetime": 1590721305550
+    "version": "0.0.229",
+    "datetime": 1591758409717
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -8168,6 +8168,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "flipscreen": false, // Will affect as true, if flip-camera also set as true
                     "early-rerecord": false,
                     "custom-covershots": false,
+                    "selectfirstcovershotonskip": false,
                     "manualsubmit": false,
                     "allowedextensions": null,
                     "filesizelimit": null,
@@ -8317,6 +8318,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "faceoutline": "boolean",
                     "early-rerecord": "boolean",
                     "custom-covershots": "boolean",
+                    "selectfirstcovershotonskip": "boolean",
                     "manualsubmit": "boolean",
                     "simulate": "boolean",
                     "allowedextensions": "array",
@@ -8743,6 +8745,12 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     if (this.get("onlyaudio"))
                         return;
                     this._hideBackgroundSnapshot();
+                    if (this.snapshots && this.get("selectfirstcovershotonskip")) {
+                        if (this.snapshots[0])
+                            this.__backgroundSnapshot = this.snapshots[0];
+                    } else {
+                        this.__backgroundSnapshot = this.recorder.createSnapshot(this.get("snapshottype"));
+                    }
                     this.__backgroundSnapshot = this.recorder.createSnapshot(this.get("snapshottype"));
                     var el = this.activeElement().querySelector("[data-video]");
                     var dimensions = Dom.elementDimensions(el);
@@ -8776,12 +8784,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 },
 
                 toggleFaceOutline: function(new_status) {
-                    if (new_status == undefined) {
-                        if (this.get("faceoutline") == true) {
-                            this.set("faceoutline", false);
-                        } else {
-                            this.set("faceoutline", true);
-                        }
+                    if (typeof new_status === 'undefined') {
+                        this.set("faceoutline", !this.get("faceoutline"));
                     } else {
                         this.set("faceoutline", new_status);
                     }
@@ -10198,7 +10202,8 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
             Async.eventually(function() {
                 this.dyn._stopRecording().success(function() {
                     this._hasStopped();
-                    if (this.dyn.get("picksnapshots") && this.dyn.snapshots.length >= this.dyn.get("gallerysnapshots"))
+                    var snapshotsCount = this.dyn.snapshots.length;
+                    if (this.dyn.get("picksnapshots") && snapshotsCount >= Math.min(this.dyn.get("gallerysnapshots"), snapshotsCount))
                         this.next("CovershotSelection");
                     else if (this.dyn.get("videometadata").thumbnails.images.length > 3 && this.dyn.get("createthumbnails"))
                         this.next("UploadThumbnails");
@@ -10275,7 +10280,10 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
         },
 
         _nextUploading: function(skippedCovershot) {
-            if (this.dyn.get("videometadata").thumbnails.images.length > 3 && this.dyn.get("createthumbnails"))
+            if (skippedCovershot && this.dyn.get("selectfirstcovershotonskip") && this.dyn.snapshots)
+                if (this.dyn.snapshots[0])
+                    this.dyn._uploadCovershot(this.dyn.snapshots[0]);
+            if (!skippedCovershot && this.dyn.get("videometadata").thumbnails.images.length > 3 && this.dyn.get("createthumbnails"))
                 this.next("UploadThumbnails");
             else
                 this.next("Uploading");

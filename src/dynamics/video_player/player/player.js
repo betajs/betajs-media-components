@@ -1044,10 +1044,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             return;
                         }
                         if (!this.player) return;
-                        if (this.get("fullscreened"))
+                        if (this.get("fullscreened")) {
                             this.player.exitFullscreen();
-                        else
-                            this.player.enterFullscreen(this.activeElement().childNodes[0]);
+                        } else {
+                            if (Info.isSafari())
+                                this.player.enterFullscreen(this.activeElement().querySelector('video'));
+                            else
+                                this.player.enterFullscreen(this.activeElement().childNodes[0]);
+                        }
+
+                        this.player.enterFullscreen(this.activeElement().childNodes[0]);
                         this.set("fullscreened", !this.get("fullscreened"));
                     },
 

@@ -930,7 +930,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
             this.dyn.set("settingsvisible", false);
             this.dyn.set("recordvisible", false);
             this.dyn.set("stopvisible", false);
-            this.dyn.set("skipvisible", true);
+            this.dyn.set("skipvisible", !this.dyn.get("picksnapshotmandatory"));
             this.dyn.set("controlbarlabel", "");
             this.dyn.set("rerecordvisible", this.dyn.get("early-rerecord"));
             this.dyn.set("uploadcovershotvisible", this.dyn.get("custom-covershots"));

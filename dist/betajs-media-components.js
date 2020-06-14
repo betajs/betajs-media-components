@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.229 - 2020-06-09
+betajs-media-components - v0.0.229 - 2020-06-14
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.229 - 2020-06-09
+betajs-media-components - v0.0.229 - 2020-06-14
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1027,7 +1027,7 @@ Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
     "version": "0.0.229",
-    "datetime": 1591758409717
+    "datetime": 1592148518120
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -8169,6 +8169,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "early-rerecord": false,
                     "custom-covershots": false,
                     "selectfirstcovershotonskip": false,
+                    "picksnapshotmandatory": false,
                     "manualsubmit": false,
                     "allowedextensions": null,
                     "filesizelimit": null,
@@ -8318,6 +8319,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "faceoutline": "boolean",
                     "early-rerecord": "boolean",
                     "custom-covershots": "boolean",
+                    "picksnapshotmandatory": "boolean",
                     "selectfirstcovershotonskip": "boolean",
                     "manualsubmit": "boolean",
                     "simulate": "boolean",
@@ -10243,7 +10245,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
             this.dyn.set("settingsvisible", false);
             this.dyn.set("recordvisible", false);
             this.dyn.set("stopvisible", false);
-            this.dyn.set("skipvisible", true);
+            this.dyn.set("skipvisible", !this.dyn.get("picksnapshotmandatory"));
             this.dyn.set("controlbarlabel", "");
             this.dyn.set("rerecordvisible", this.dyn.get("early-rerecord"));
             this.dyn.set("uploadcovershotvisible", this.dyn.get("custom-covershots"));

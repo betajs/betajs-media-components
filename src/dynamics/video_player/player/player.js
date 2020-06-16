@@ -1052,8 +1052,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             else
                                 this.player.enterFullscreen(this.activeElement().childNodes[0]);
                         }
-
-                        this.player.enterFullscreen(this.activeElement().childNodes[0]);
                         this.set("fullscreened", !this.get("fullscreened"));
                     },
 

@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.231 - 2020-06-16
+betajs-media-components - v0.0.232 - 2020-06-18
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -15,8 +15,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.231",
-    "datetime": 1592315777522
+    "version": "0.0.232",
+    "datetime": 1592505235401
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -2385,6 +2385,9 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                                 this.get("framewidth"),
                                 this.get("frameheight")
                             );
+                        } else {
+                            // If previous recorder instance will be destroyed (like after rerecord)
+                            this.recorder = this.__parent.recorder;
                         }
                     }
                 }

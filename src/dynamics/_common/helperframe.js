@@ -58,6 +58,9 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                                 this.get("framewidth"),
                                 this.get("frameheight")
                             );
+                        } else {
+                            // If previous recorder instance will be destroyed (like after rerecord)
+                            this.recorder = this.__parent.recorder;
                         }
                     }
                 }

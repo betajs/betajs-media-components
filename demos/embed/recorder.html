@@ -56,8 +56,17 @@
             attrs: {
                 // theme: "default",
                 theme: "minimalist",
-                "custom-covershots" : true,
+                // "custom-covershots" : true,
                 themecolor: "red",
+                skipinitial: false,
+                autorecord: false,
+                allowrecord: true,
+                allowscreen: false,
+                allowmultistreams: true,
+                // onlyaudio:true,
+                picksnapshots: false,
+                snapshotfromuploader: true,
+                selectfirstcovershotonskip: true,
                 // webrtcstreaming: true,
                 // width: '100%',
                 width: 690,
@@ -65,17 +74,16 @@
                 cropthestream: false,
                 recordingwidth: 400,
                 recordingheight: 300,
-                allowscreen: true,
-                snapshotfromuploader: true,
-                picksnapshots: false,
-                snapshotmax: 4,
-                gallerysnapshots: 3
+                // snapshotmax: 4,
+                // gallerysnapshots: 3
             }
         });
 
         recorder._prepareRecording = function () {
             recorder.set("uploadoptions", {
-                image: {url:"/files/" + filename + ".jpg"},// video: {url:"/files/" + filename + ".webm" + '/transcode/' + filename + ".mp4"},
+                image: {url:"/files/" + filename + ".jpg"},
+                // video: {url:"/files/" + filename + ".mov"},
+                // video: {url:"/files/" + filename + ".webm" + '/transcode/' + filename + ".mp4"},
                 video: {url:"/files/" + filename + ".webm"},
                 audio: {url:"/files/" + filename + ".wav"},
                 thumbnail: {url:"/files/" + filename + "-thumbnails.jpg"},

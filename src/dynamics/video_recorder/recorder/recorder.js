@@ -447,6 +447,12 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
                         }
                     }
+                    if (!this.get("allowrecord") && (this.get("autorecord") || this.get("skipinitial"))) {
+                        if (this.get("allowscreen") || this.get("allowmultistreams")) {
+                            this.set("record_media", this.get("allowscreen") ? "screen" : "multistream");
+                            _screen = {};
+                        }
+                    }
                     return {
                         simulate: this.get("simulate"),
                         forceflash: this.get("forceflash"),

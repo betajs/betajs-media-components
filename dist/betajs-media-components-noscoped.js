@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.232 - 2020-06-18
+betajs-media-components - v0.0.234 - 2020-06-28
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -15,8 +15,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.232",
-    "datetime": 1592505235401
+    "version": "0.0.234",
+    "datetime": 1593400426600
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -7476,6 +7476,12 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
                         }
                     }
+                    if (!this.get("allowrecord") && (this.get("autorecord") || this.get("skipinitial"))) {
+                        if (this.get("allowscreen") || this.get("allowmultistreams")) {
+                            this.set("record_media", this.get("allowscreen") ? "screen" : "multistream");
+                            _screen = {};
+                        }
+                    }
                     return {
                         simulate: this.get("simulate"),
                         forceflash: this.get("forceflash"),
@@ -8631,11 +8637,14 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
                 this.dyn._uploadVideoFile(file);
                 this._setValueToEmpty(file);
                 this.__blocked = false;
-                if (((Info.isMobile && this.dyn.get("recordviafilecapture") && this.dyn.get("snapshotfrommobilecapture")) || this.dyn.get("snapshotfromuploader")) && !this.dyn.get("onlyaudio") && this.dyn.get("picksnapshots")) {
+                if (((Info.isMobile && this.dyn.get("recordviafilecapture") && this.dyn.get("snapshotfrommobilecapture")) || this.dyn.get("snapshotfromuploader")) && !this.dyn.get("onlyaudio") && (this.dyn.get("picksnapshots") || this.dyn.get("selectfirstcovershotonskip"))) {
+                    if (!this.dyn.get("picksnapshots") && this.dyn.get("selectfirstcovershotonskip"))
+                        this.dyn.set("snapshotmax", 1);
                     this.dyn.snapshots = [];
                     this.next("CreateUploadCovershot");
-                } else
+                } else {
                     this.next("Uploading");
+                }
             }, this).error(function(s) {
                 this._setValueToEmpty(file);
                 this.__blocked = false;
@@ -8756,34 +8765,45 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CreateUploadCoversho
                     }
                 }, this);
 
-                _playerLoadedData.on(_video, "seeked", function(ev) {
-                    var __snap = RecorderSupport.createSnapshot(this.dyn.get("snapshottype"), _video, true);
-                    if (__snap) {
-                        // Will add snap images as thumbnails
-                        if (this.dyn.get("createthumbnails")) {
-                            this.dyn.get("videometadata").thumbnails.images.push({
-                                time: _video.currentTime,
-                                snap: __snap
-                            });
-                        }
-                        if (this.dyn.snapshots.length < this.dyn.get("snapshotmax")) {
-                            this.dyn.snapshots.push(__snap);
-                        } else {
-                            var i = Math.floor(Math.random() * this.dyn.get("snapshotmax"));
-                            RecorderSupport.removeSnapshot(this.dyn.snapshots[i]);
-                            this.dyn.snapshots[i] = __snap;
-                        }
-                    }
-
-                    // Should trigger ended event
-                    if ((_video.currentTime + _seekPeriod) >= _totalDuration) {
-                        _video.currentTime = _video.currentTime + _seekPeriod;
-                        // Will fire ended event if not fired already, fixes IE/Edge related bug
-                        if (!_video.ended) {
+                if (this.dyn.get("selectfirstcovershotonskip") && !this.dyn.get("picksnapshots")) {
+                    _playerLoadedData.on(_video, "canplay", function(ev) {
+                        _video.currentTime = 0;
+                        var __snap = RecorderSupport.createSnapshot(this.dyn.get("snapshottype"), _video, true);
+                        if (__snap) {
+                            this.dyn.snapshots[0] = __snap;
                             Dom.triggerDomEvent(_video, "ended");
                         }
-                    }
-                }, this);
+                    }, this);
+                } else {
+                    _playerLoadedData.on(_video, "seeked", function(ev) {
+                        var __snap = RecorderSupport.createSnapshot(this.dyn.get("snapshottype"), _video, true);
+                        if (__snap) {
+                            // Will add snap images as thumbnails
+                            if (this.dyn.get("createthumbnails")) {
+                                this.dyn.get("videometadata").thumbnails.images.push({
+                                    time: _video.currentTime,
+                                    snap: __snap
+                                });
+                            }
+                            if (this.dyn.snapshots.length < this.dyn.get("snapshotmax")) {
+                                this.dyn.snapshots.push(__snap);
+                            } else {
+                                var i = Math.floor(Math.random() * this.dyn.get("snapshotmax"));
+                                RecorderSupport.removeSnapshot(this.dyn.snapshots[i]);
+                                this.dyn.snapshots[i] = __snap;
+                            }
+                        }
+
+                        // Should trigger ended event
+                        if ((_video.currentTime + _seekPeriod) >= _totalDuration) {
+                            _video.currentTime = _video.currentTime + _seekPeriod;
+                            // Will fire ended event if not fired already, fixes IE/Edge related bug
+                            if (!_video.ended) {
+                                Dom.triggerDomEvent(_video, "ended");
+                            }
+                        }
+                    }, this);
+                }
 
                 _playerLoadedData.on(_video, "ended", function(ev) {
                     this.__videoSeekTimer.stop();
@@ -8791,10 +8811,13 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CreateUploadCoversho
                         _video.remove();
                     else
                         _video.style.display = 'none';
-                    if (this.dyn.snapshots.length >= this.dyn.get("gallerysnapshots"))
+                    if (this.dyn.snapshots.length >= this.dyn.get("gallerysnapshots")) {
                         this.next("CovershotSelection");
-                    else
+                    } else {
+                        if (this.dyn.get("selectfirstcovershotonskip") && this.dyn.snapshots.length > 0)
+                            this.dyn._uploadCovershot(this.dyn.snapshots[0]);
                         this.next("Uploading");
+                    }
                 }, this);
 
             } catch (exe) {
@@ -9281,7 +9304,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
             if (skippedCovershot && this.dyn.get("selectfirstcovershotonskip") && this.dyn.snapshots)
                 if (this.dyn.snapshots[0])
                     this.dyn._uploadCovershot(this.dyn.snapshots[0]);
-            if (!skippedCovershot && this.dyn.get("videometadata").thumbnails.images.length > 3 && this.dyn.get("createthumbnails"))
+            if (this.dyn.get("videometadata").thumbnails.images.length > 3 && this.dyn.get("createthumbnails"))
                 this.next("UploadThumbnails");
             else
                 this.next("Uploading");

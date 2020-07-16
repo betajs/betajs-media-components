@@ -10,6 +10,7 @@
 >
     <div ba-show="{{videoelement_active}}">
         <video tabindex="-1" class="{{css}}-video" data-video="video"
+               preload="{{preload ? 'auto' : 'none'}}"
                ba-toggle:playsinline="{{!playfullscreenonmobile}}"
         ></video>
     </div>

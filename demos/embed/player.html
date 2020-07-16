@@ -105,6 +105,7 @@
                 forceflash: false,
                 hideoninactivity: true,
                 tracktagsstyled: true,
+                preload: true,
                 loop: true,
                 tracktags: [
                     {
@@ -130,10 +131,13 @@
             }
         });
 
+        console.log('Player >> ', player);
+
         player.on("attached", function (playerInstance) {
             // this.addSettingsMenuItem({set: 'Somen'});
             // playerInstance.add_setting({setting: 'someID'});
             // console.log("Tags >  ", player.get("tracktags"));
+            console.log('00 >> ', playerInstance, player.player._element)
             let toggleButton = document.getElementById('toggleTracks');
             toggleButton.onclick = function() {
                 player.toggle_tracks();

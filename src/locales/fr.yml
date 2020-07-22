@@ -1,11 +1,11 @@
 'language:fr':
   ba-videoplayer-playbutton.tooltip: Cliquez ici pour voir la vidéo.
-  ba-videoplayer-playbutton.rerecord: Revoir
+  ba-videoplayer-playbutton.rerecord: Recommencer
   ba-videoplayer-playbutton.submit-video: Confirmer vidéo
   ba-videoplayer-loader.tooltip: Télécharger votre vidéo
   ba-videoplayer-controlbar.change-resolution: Modifier la résolution
   ba-videoplayer-controlbar.video-progress: Vidéo en cours de chargement
-  ba-videoplayer-controlbar.rerecord-video: Revoir la vidéo?
+  ba-videoplayer-controlbar.rerecord-video: Recommencer la vidéo?
   ba-videoplayer-controlbar.submit-video: Valider la vidéo
   ba-videoplayer-controlbar.play-video: Lire la vidéo
   ba-videoplayer-controlbar.pause-video: Passer la vidéo
@@ -27,7 +27,7 @@
   ba-videorecorder-controlbar.microphoneunhealthy: L’acoustique n'est pas idéale
   ba-videorecorder-controlbar.record: Enregistrer
   ba-videorecorder-controlbar.record-tooltip: Cliquez ici pour enregistrer.
-  ba-videorecorder-controlbar.rerecord: Revoir
+  ba-videorecorder-controlbar.rerecord: Recommencer
   ba-videorecorder-controlbar.rerecord-tooltip: Cliquez ici pour recommencer.
   ba-videorecorder-controlbar.upload-covershot: Télécharger
   ba-videorecorder-controlbar.upload-covershot-tooltip: Cliquez ici pour télécharger une couverture personnalisée.

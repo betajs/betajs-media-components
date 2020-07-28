@@ -184,6 +184,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "addstreampositionheight": null,
                     "addstreamminwidth": 120,
                     "addstreamminheight": null,
+                    "showsettingsmenu": true, // As a property show/hide settings from users
+                    "showplayersettingsmenu": true, // As a property show/hide after recorder player settings from users
 
                     "allowtexttrackupload": false,
                     "framevisible": false,
@@ -309,7 +311,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "addstreampositionwidth": "int",
                     "addstreampositionheight": "int",
                     "addstreamminwidth": "int",
-                    "addstreamminheight": "int"
+                    "addstreamminheight": "int",
+                    "showsettingsmenu": "boolean",
+                    "showplayersettingsmenu": "boolean"
                 },
 
                 extendables: ["states"],

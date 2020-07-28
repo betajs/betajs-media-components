@@ -87,7 +87,7 @@ Scoped.define("module:TrackTags", [
                         case 'thumbnails':
                             _trackTag.id = this._dyn.get("css") + '-track-thumbnails';
                             _trackTag.kind = 'metadata';
-                            _trackTag.src = subtitle.src;
+                            if (!_trackTag.src) _trackTag.src = subtitle.src || null;
                             _trackTag.mode = 'hidden';
                             this.__appendThumbnailTrackTags(subtitle, index, _trackTag, _domEvent);
                             break;
@@ -96,7 +96,7 @@ Scoped.define("module:TrackTags", [
                             _trackTag.kind = subtitle.kind || 'subtitles';
                             _trackTag.label = subtitle.label || 'English';
                             _trackTag.srclang = subtitle.lang || 'en';
-                            _trackTag.src = subtitle.src || null;
+                            if (!_trackTag.src) _trackTag.src = subtitle.src || null;
                             this._dyn.set("hassubtitles", true);
                             this.__appendTextTrackTags(subtitle, index, _trackTag, _flag, _domEvent);
                             if (this._trackTags.length > 1) {

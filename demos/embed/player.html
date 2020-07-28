@@ -75,9 +75,10 @@
                 // width: '100%',
                 theme: "modern",
                 themecolor: "red",
-                skipinitial: false,
+                skipinitial: true,
                 fullscreenmandatory: true,
                 stretchheight: true,
+                showsettingsmenu: false,
                 // autoplay:true,
                 stretch: true,
                 // stretchwidth: true,
@@ -145,6 +146,18 @@
             playerInstance.on("fullscreen-change", function (isFullscreen) {
                 // console.log('is Full', isFullscreen);
             }, this);
+
+            // setTimeout(() => {
+            //     player.set("tracktags", [
+            //         {
+            //             lang: 'en',
+            //             kind: 'subtitles',
+            //             label: 'English',
+            //             //enabled: true,
+            //             src: '../assets/bunny-en.vtt'
+            //         }
+            //     ]);
+            // }, 2000);
 
             // this.on("loaded", () => {
             //     console.log('Player >> ', this);

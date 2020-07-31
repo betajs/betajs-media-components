@@ -1,54 +1,55 @@
 'language:el':
-  ba-videoplayer-playbutton.tooltip: Κλικ για αναπαραγωγή.
-  ba-videoplayer-playbutton.rerecord: Επανάληψη
-  ba-videoplayer-playbutton.submit-video: Επιβεβαιώστε το βίντεο
-  ba-videoplayer-loader.tooltip: Φόρτωση...
-  ba-videoplayer-controlbar.change-resolution: Αλλαγή ανάλυσης
-  ba-videoplayer-controlbar.video-progress: Πρόοδος
-  ba-videoplayer-controlbar.rerecord-video: Επανάληψη;
-  ba-videoplayer-controlbar.submit-video: Επιβεβαίωση
-  ba-videoplayer-controlbar.play-video: Αναπαραγωγή
-  ba-videoplayer-controlbar.pause-video: Προσωρινή παύση
-  ba-videoplayer-controlbar.elapsed-time: Χρόνος που παρήλθε
-  ba-videoplayer-controlbar.total-time: Συνολική διάρκεια του
-  ba-videoplayer-controlbar.fullscreen-video: Μετάβαση σε πλήρη οθόνη
-  ba-videoplayer-controlbar.volume-button: Ορισμός έντασης
-  ba-videoplayer-controlbar.volume-mute: Σίγαση ήχου
-  ba-videoplayer-controlbar.volume-unmute: Αναίρεση σίγασης ήχου
-  ba-videoplayer.video-error: 'Συνέβη κάποιο λάθος, παρακαλούμε ξαναπροσπαθήστε αργότερα. Κλικ για να ξαναπροσπαθήσετε.'
-  ba-videorecorder-chooser.record-video: Εγγραφή βίντεο
-  ba-videorecorder-chooser.upload-video: Μεταφόρτωση βίντεο
-  ba-videorecorder-controlbar.settings: Ρυθμίσεις
-  ba-videorecorder-controlbar.camerahealthy: Ο φωτισμός είναι καλός
-  ba-videorecorder-controlbar.cameraunhealthy: Ο φωτισμός δεν είναι ικανοποιητικός
-  ba-videorecorder-controlbar.microphonehealthy: Ο ήχος είναι καλός
-  ba-videorecorder-controlbar.microphoneunhealthy: Δεν ακούγεται καθόλου ήχος
-  ba-videorecorder-controlbar.record: Εγγραφή
-  ba-videorecorder-controlbar.record-tooltip: Κλικ εδώ για εγγραφή.
-  ba-videorecorder-controlbar.rerecord: Επανάληψη
-  ba-videorecorder-controlbar.rerecord-tooltip: Κλικ εδώ για επανάληψη.
-  ba-videorecorder-controlbar.upload-covershot: Μεταφόρτωση
-  ba-videorecorder-controlbar.upload-covershot-tooltip: Κλικ εδώ για να μεταφορτώσετε μία δική σας εικόνα επισκόπησης
-  ba-videorecorder-controlbar.stop: Διακοπή
-  ba-videorecorder-controlbar.stop-tooltip: Κλικ εδώ για διακοπή.
-  ba-videorecorder-controlbar.skip: Παράλειψη
-  ba-videorecorder-controlbar.skip-tooltip: Κλικ εδώ για παράλειψη.
-  ba-videorecorder.recorder-error: 'Συνέβη κάποιο λάθος, παρακαλούμε ξαναπροσπαθήστε αργότερα. Κλικ για να ξαναπροσπαθήσετε.'
+  ba-videoplayer-playbutton.tooltip: ΞΞ»ΞΉΞΊ Ξ³ΞΉΞ± Ξ±Ξ½Ξ±Ο€Ξ±ΟΞ±Ξ³Ο‰Ξ³Ξ®.
+  ba-videoplayer-playbutton.rerecord: Ξ•Ο€Ξ±Ξ½Ξ¬Ξ»Ξ·ΟΞ·
+  ba-videoplayer-playbutton.submit-video: Ξ•Ο€ΞΉΞ²ΞµΞ²Ξ±ΞΉΟΟƒΟ„Ξµ Ο„ΞΏ Ξ²Ξ―Ξ½Ο„ΞµΞΏ
+  ba-videoplayer-loader.tooltip: Ξ¦ΟΟΟ„Ο‰ΟƒΞ·...
+  ba-videoplayer-controlbar.change-resolution: Ξ‘Ξ»Ξ»Ξ±Ξ³Ξ® Ξ±Ξ½Ξ¬Ξ»Ο…ΟƒΞ·Ο‚
+  ba-videoplayer-controlbar.video-progress: Ξ ΟΟΞΏΞ΄ΞΏΟ‚
+  ba-videoplayer-controlbar.rerecord-video: Ξ•Ο€Ξ±Ξ½Ξ¬Ξ»Ξ·ΟΞ·;
+  ba-videoplayer-controlbar.submit-video: Ξ•Ο€ΞΉΞ²ΞµΞ²Ξ±Ξ―Ο‰ΟƒΞ·
+  ba-videoplayer-controlbar.play-video: Ξ‘Ξ½Ξ±Ο€Ξ±ΟΞ±Ξ³Ο‰Ξ³Ξ®
+  ba-videoplayer-controlbar.pause-video: Ξ ΟΞΏΟƒΟ‰ΟΞΉΞ½Ξ® Ο€Ξ±ΟΟƒΞ·
+  ba-videoplayer-controlbar.elapsed-time: Ξ§ΟΟΞ½ΞΏΟ‚ Ο€ΞΏΟ… Ο€Ξ±ΟΞ®Ξ»ΞΈΞµ
+  ba-videoplayer-controlbar.total-time: Ξ£Ο…Ξ½ΞΏΞ»ΞΉΞΊΞ® Ξ΄ΞΉΞ¬ΟΞΊΞµΞΉΞ± Ο„ΞΏΟ…
+  ba-videoplayer-controlbar.fullscreen-video: ΞΞµΟ„Ξ¬Ξ²Ξ±ΟƒΞ· ΟƒΞµ Ο€Ξ»Ξ®ΟΞ· ΞΏΞΈΟΞ½Ξ·
+  ba-videoplayer-controlbar.volume-button: ΞΟΞΉΟƒΞΌΟΟ‚ Ξ­Ξ½Ο„Ξ±ΟƒΞ·Ο‚
+  ba-videoplayer-controlbar.volume-mute: Ξ£Ξ―Ξ³Ξ±ΟƒΞ· Ξ®Ο‡ΞΏΟ…
+  ba-videoplayer-controlbar.volume-unmute: Ξ‘Ξ½Ξ±Ξ―ΟΞµΟƒΞ· ΟƒΞ―Ξ³Ξ±ΟƒΞ·Ο‚ Ξ®Ο‡ΞΏΟ…
+  ba-videoplayer.video-error: 'Ξ£Ο…Ξ½Ξ­Ξ²Ξ· ΞΊΞ¬Ο€ΞΏΞΉΞΏ Ξ»Ξ¬ΞΈΞΏΟ‚, Ο€Ξ±ΟΞ±ΞΊΞ±Ξ»ΞΏΟΞΌΞµ ΞΎΞ±Ξ½Ξ±Ο€ΟΞΏΟƒΟ€Ξ±ΞΈΞ®ΟƒΟ„Ξµ Ξ±ΟΞ³ΟΟ„ΞµΟΞ±. ΞΞ»ΞΉΞΊ Ξ³ΞΉΞ± Ξ½Ξ± ΞΎΞ±Ξ½Ξ±Ο€ΟΞΏΟƒΟ€Ξ±ΞΈΞ®ΟƒΞµΟ„Ξµ.'
+  ba-videorecorder-chooser.record-video: Ξ•Ξ³Ξ³ΟΞ±Ο†Ξ® Ξ²Ξ―Ξ½Ο„ΞµΞΏ
+  ba-videorecorder-chooser.upload-video: ΞΞµΟ„Ξ±Ο†ΟΟΟ„Ο‰ΟƒΞ· Ξ²Ξ―Ξ½Ο„ΞµΞΏ
+  ba-videorecorder-controlbar.settings: Ξ΅Ο…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚
+  ba-videorecorder-controlbar.camerahealthy: Ξ Ο†Ο‰Ο„ΞΉΟƒΞΌΟΟ‚ ΞµΞ―Ξ½Ξ±ΞΉ ΞΊΞ±Ξ»ΟΟ‚
+  ba-videorecorder-controlbar.cameraunhealthy: Ξ Ο†Ο‰Ο„ΞΉΟƒΞΌΟΟ‚ Ξ΄ΞµΞ½ ΞµΞ―Ξ½Ξ±ΞΉ ΞΉΞΊΞ±Ξ½ΞΏΟ€ΞΏΞΉΞ·Ο„ΞΉΞΊΟΟ‚
+  ba-videorecorder-controlbar.microphonehealthy: Ξ Ξ®Ο‡ΞΏΟ‚ ΞµΞ―Ξ½Ξ±ΞΉ ΞΊΞ±Ξ»ΟΟ‚
+  ba-videorecorder-controlbar.microphoneunhealthy: Ξ”ΞµΞ½ Ξ±ΞΊΞΏΟΞ³ΞµΟ„Ξ±ΞΉ ΞΊΞ±ΞΈΟΞ»ΞΏΟ… Ξ®Ο‡ΞΏΟ‚
+  ba-videorecorder-controlbar.record: Ξ•Ξ³Ξ³ΟΞ±Ο†Ξ®
+  ba-videorecorder-controlbar.record-tooltip: ΞΞ»ΞΉΞΊ ΞµΞ΄Ο Ξ³ΞΉΞ± ΞµΞ³Ξ³ΟΞ±Ο†Ξ®.
+  ba-videorecorder-controlbar.rerecord: Ξ•Ο€Ξ±Ξ½Ξ¬Ξ»Ξ·ΟΞ·
+  ba-videorecorder-controlbar.rerecord-tooltip: ΞΞ»ΞΉΞΊ ΞµΞ΄Ο Ξ³ΞΉΞ± ΞµΟ€Ξ±Ξ½Ξ¬Ξ»Ξ·ΟΞ·.
+  ba-videorecorder-controlbar.upload-covershot: ΞΞµΟ„Ξ±Ο†ΟΟΟ„Ο‰ΟƒΞ·
+  ba-videorecorder-controlbar.upload-covershot-tooltip: ΞΞ»ΞΉΞΊ ΞµΞ΄Ο Ξ³ΞΉΞ± Ξ½Ξ± ΞΌΞµΟ„Ξ±Ο†ΞΏΟΟ„ΟΟƒΞµΟ„Ξµ ΞΌΞ―Ξ± Ξ΄ΞΉΞΊΞ® ΟƒΞ±Ο‚ ΞµΞΉΞΊΟΞ½Ξ± ΞµΟ€ΞΉΟƒΞΊΟΟ€Ξ·ΟƒΞ·Ο‚
+  ba-videorecorder-controlbar.stop: Ξ”ΞΉΞ±ΞΊΞΏΟ€Ξ®
+  ba-videorecorder-controlbar.stop-tooltip: ΞΞ»ΞΉΞΊ ΞµΞ΄Ο Ξ³ΞΉΞ± Ξ΄ΞΉΞ±ΞΊΞΏΟ€Ξ®.
+  ba-videorecorder-controlbar.skip: Ξ Ξ±ΟΞ¬Ξ»ΞµΞΉΟΞ·
+  ba-videorecorder-controlbar.skip-tooltip: ΞΞ»ΞΉΞΊ ΞµΞ΄Ο Ξ³ΞΉΞ± Ο€Ξ±ΟΞ¬Ξ»ΞµΞΉΟΞ·.
+  ba-videorecorder.recorder-error: 'Ξ£Ο…Ξ½Ξ­Ξ²Ξ· ΞΊΞ¬Ο€ΞΏΞΉΞΏ Ξ»Ξ¬ΞΈΞΏΟ‚, Ο€Ξ±ΟΞ±ΞΊΞ±Ξ»ΞΏΟΞΌΞµ ΞΎΞ±Ξ½Ξ±Ο€ΟΞΏΟƒΟ€Ξ±ΞΈΞ®ΟƒΟ„Ξµ Ξ±ΟΞ³ΟΟ„ΞµΟΞ±. ΞΞ»ΞΉΞΊ Ξ³ΞΉΞ± Ξ½Ξ± ΞΎΞ±Ξ½Ξ±Ο€ΟΞΏΟƒΟ€Ξ±ΞΈΞ®ΟƒΞµΟ„Ξµ.'
   ba-videorecorder.attach-error: >-
-    Δεν μπορέσαμε να αποκτήσουμε πρόσβαση στην κάμερα. Ανάλογα με τη συσκευή
-    και τον browser που χρησιμοποιείτε, μπορεί να χρειαστεί να εγκαταστήσετε το Flash ή να μπείτε στη σελίδα μέσω SSL.
-  ba-videorecorder.access-forbidden: Δεν επιτράπηκε η πρόσβαση στην κάμερα. Κλικ για να ξαναπροσπαθήστε.
-  ba-videorecorder.pick-covershot: Επιλέξτε μια εικόνα επισκόπησης.
-  ba-videorecorder.uploading: Μεταφόρτωση
-  ba-videorecorder.uploading-failed: Η μεταφόρτωση απέτυχε - κλικ εδώ για να ξαναπροσπαθήσετε.
-  ba-videorecorder.verifying: Επιβεβαίωση
-  ba-videorecorder.verifying-failed: Η επιβεβαίωση απέτυχε- κλικ εδώ για να ξαναπροσπαθήσετε.
-  ba-videorecorder.rerecord-confirm: Σίγοουρα θέλετε να επαναλάβετε τη βίντεο-λήψη;
+    Ξ”ΞµΞ½ ΞΌΟ€ΞΏΟΞ­ΟƒΞ±ΞΌΞµ Ξ½Ξ± Ξ±Ο€ΞΏΞΊΟ„Ξ®ΟƒΞΏΟ…ΞΌΞµ Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ· ΟƒΟ„Ξ·Ξ½ ΞΊΞ¬ΞΌΞµΟΞ±. Ξ‘Ξ½Ξ¬Ξ»ΞΏΞ³Ξ± ΞΌΞµ Ο„Ξ· ΟƒΟ…ΟƒΞΊΞµΟ…Ξ®
+    ΞΊΞ±ΞΉ Ο„ΞΏΞ½ browser Ο€ΞΏΟ… Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞµΞ―Ο„Ξµ, ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ο‡ΟΞµΞΉΞ±ΟƒΟ„ΞµΞ― Ξ½Ξ± ΞµΞ³ΞΊΞ±Ο„Ξ±ΟƒΟ„Ξ®ΟƒΞµΟ„Ξµ Ο„ΞΏ Flash Ξ® Ξ½Ξ± ΞΌΟ€ΞµΞ―Ο„Ξµ ΟƒΟ„Ξ· ΟƒΞµΞ»Ξ―Ξ΄Ξ± ΞΌΞ­ΟƒΟ‰ SSL.
+  ba-videorecorder.access-forbidden: Ξ”ΞµΞ½ ΞµΟ€ΞΉΟ„ΟΞ¬Ο€Ξ·ΞΊΞµ Ξ· Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ· ΟƒΟ„Ξ·Ξ½ ΞΊΞ¬ΞΌΞµΟΞ±. ΞΞ»ΞΉΞΊ Ξ³ΞΉΞ± Ξ½Ξ± ΞΎΞ±Ξ½Ξ±Ο€ΟΞΏΟƒΟ€Ξ±ΞΈΞ®ΟƒΟ„Ξµ.
+  ba-videorecorder.pick-covershot: Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ ΞΌΞΉΞ± ΞµΞΉΞΊΟΞ½Ξ± ΞµΟ€ΞΉΟƒΞΊΟΟ€Ξ·ΟƒΞ·Ο‚.
+  ba-videorecorder.uploading: ΞΞµΟ„Ξ±Ο†ΟΟΟ„Ο‰ΟƒΞ·
+  ba-videorecorder.uploading-failed: Ξ— ΞΌΞµΟ„Ξ±Ο†ΟΟΟ„Ο‰ΟƒΞ· Ξ±Ο€Ξ­Ο„Ο…Ο‡Ξµ - ΞΊΞ»ΞΉΞΊ ΞµΞ΄Ο Ξ³ΞΉΞ± Ξ½Ξ± ΞΎΞ±Ξ½Ξ±Ο€ΟΞΏΟƒΟ€Ξ±ΞΈΞ®ΟƒΞµΟ„Ξµ.
+  ba-videorecorder.verifying: Ξ•Ο€ΞΉΞ²ΞµΞ²Ξ±Ξ―Ο‰ΟƒΞ·
+  ba-videorecorder.verifying-failed: Ξ— ΞµΟ€ΞΉΞ²ΞµΞ²Ξ±Ξ―Ο‰ΟƒΞ· Ξ±Ο€Ξ­Ο„Ο…Ο‡Ξµ- ΞΊΞ»ΞΉΞΊ ΞµΞ΄Ο Ξ³ΞΉΞ± Ξ½Ξ± ΞΎΞ±Ξ½Ξ±Ο€ΟΞΏΟƒΟ€Ξ±ΞΈΞ®ΟƒΞµΟ„Ξµ.
+  ba-videorecorder.rerecord-confirm: Ξ£Ξ―Ξ³ΞΏΞΏΟ…ΟΞ± ΞΈΞ­Ξ»ΞµΟ„Ξµ Ξ½Ξ± ΞµΟ€Ξ±Ξ½Ξ±Ξ»Ξ¬Ξ²ΞµΟ„Ξµ Ο„Ξ· Ξ²Ξ―Ξ½Ο„ΞµΞΏ-Ξ»Ξ®ΟΞ·;
   ba-videorecorder.video_file_too_large: >-
-    Το αρχείο βίντεο είναι πολύ μεγάλο (%s) - κλικ εδώ για να ξαναπροσπαθήσετε με ένα μεγαλύτερο 
-    αρχείο.
-  ba-videorecorder.unsupported_video_type: 'Παρακαλούμε μεταφορτώστε: %s - κλικ εδώ για να ξαναπροσπαθήσετε.'
-  ba-videoplayer-controlbar.exit-fullscreen-video: Έξοδος από πλήρη οθόνη
-  ba-videoplayer-share.share: Διαμοιρασμός
-  ba-videoplayer-controlbar.pause-video-disabled: Η προσωρινή παύση δεν υποσηρίζεται
-  ba-videorecorder-chooser.record-audio: Εγγραφή ήχου
+    Ξ¤ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ Ξ²Ξ―Ξ½Ο„ΞµΞΏ ΞµΞ―Ξ½Ξ±ΞΉ Ο€ΞΏΞ»Ο ΞΌΞµΞ³Ξ¬Ξ»ΞΏ (%s) - ΞΊΞ»ΞΉΞΊ ΞµΞ΄Ο Ξ³ΞΉΞ± Ξ½Ξ± ΞΎΞ±Ξ½Ξ±Ο€ΟΞΏΟƒΟ€Ξ±ΞΈΞ®ΟƒΞµΟ„Ξµ ΞΌΞµ Ξ­Ξ½Ξ± ΞΌΞµΞ³Ξ±Ξ»ΟΟ„ΞµΟΞΏ 
+    Ξ±ΟΟ‡ΞµΞ―ΞΏ.
+  ba-videorecorder.unsupported_video_type: 'Ξ Ξ±ΟΞ±ΞΊΞ±Ξ»ΞΏΟΞΌΞµ ΞΌΞµΟ„Ξ±Ο†ΞΏΟΟ„ΟΟƒΟ„Ξµ: %s - ΞΊΞ»ΞΉΞΊ ΞµΞ΄Ο Ξ³ΞΉΞ± Ξ½Ξ± ΞΎΞ±Ξ½Ξ±Ο€ΟΞΏΟƒΟ€Ξ±ΞΈΞ®ΟƒΞµΟ„Ξµ.'
+  ba-videoplayer-controlbar.exit-fullscreen-video: ΞΞΎΞΏΞ΄ΞΏΟ‚ Ξ±Ο€Ο Ο€Ξ»Ξ®ΟΞ· ΞΏΞΈΟΞ½Ξ·
+  ba-videoplayer-share.share: Ξ”ΞΉΞ±ΞΌΞΏΞΉΟΞ±ΟƒΞΌΟΟ‚
+  ba-videoplayer-controlbar.pause-video-disabled: Ξ— Ο€ΟΞΏΟƒΟ‰ΟΞΉΞ½Ξ® Ο€Ξ±ΟΟƒΞ· Ξ΄ΞµΞ½ Ο…Ο€ΞΏΟƒΞ·ΟΞ―Ξ¶ΞµΟ„Ξ±ΞΉ
+  ba-videorecorder-chooser.record-audio: Ξ•Ξ³Ξ³ΟΞ±Ο†Ξ® Ξ®Ο‡ΞΏΟ…
+  

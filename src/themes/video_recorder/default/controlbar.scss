@@ -46,7 +46,7 @@
 	height: $controlbar_recording_indication_size;
 	margin-left: $controlbar_recording_indication_size;
 	margin-right: $controlbar_recording_indication_size;
-	border-radius: $controlbar_recording_indication_size;	
+	border-radius: $controlbar_recording_indication_size;
 }
 
 .#{$css}-rightbutton-container {
@@ -65,6 +65,7 @@
 	height: 100%;
     padding-left: $controlbar_button_horizontal_padding;
     padding-right: $controlbar_button_horizontal_padding;
+	z-index: 10;
 }
 
 .#{$css}-lefticon-container {
@@ -108,7 +109,7 @@
 .#{$csscommon}-icon-inner {
     @include relative-center-center;
     color: $text_color;
-    font-size: $controlbar_button_fontsize;     
+    font-size: $controlbar_button_fontsize;
 	margin-left: $controlbar_button_margin;
 	margin-right: $controlbar_button_margin;
 	padding: $controlbar_button_vertical_padding;

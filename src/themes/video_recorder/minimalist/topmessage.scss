@@ -15,6 +15,7 @@
         padding: $controlbar_button_padding;
         position: relative;
         top: 12px;
+        z-index: 10;
     }
 
     .#{$css}-topmessage-background {

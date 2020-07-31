@@ -1,7 +1,7 @@
 <div itemscope itemtype="http://schema.org/VideoObject"
      class="{{css}}-container {{cssplayer}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}
-     {{cssplayer}}-{{ fullscreened ? 'fullscreen' : 'normal' }}-view {{cssplayer}}-{{ firefox ? 'firefox' : 'common'}}-browser
-     {{cssplayer}}-{{themecolor}}-color {{cssplayer}}-device-type-{{ mobileview ? 'mobile' : 'desktop'}}
+     {{cssplayer}}-{{fullscreened ? 'fullscreen' : 'normal'}}-view {{cssplayer}}-{{firefox ? 'firefox' : 'common'}}-browser
+     {{cssplayer}}-{{themecolor}}-color {{cssplayer}}-device-type-{{mobileview ? 'mobile' : 'desktop'}}
      {{(stretchheight || stretchwidth) ? css + '-self-stretched' : ''}}"
      ba-on:mousemove="{{user_activity()}}"
      ba-on:mousedown="{{user_activity(true)}}"
@@ -9,14 +9,15 @@
      ba-styles="{{widthHeightStyles}}"
 >
     <div ba-show="{{videoelement_active}}">
-        <video tabindex="-1" class="{{css}}-video" data-video="video" {{ allowpip ? '' : 'disablePictureInPicture'}}
+        <video tabindex="-1" class="{{css}}-video" data-video="video"
+               preload="{{preload ? 'auto' : 'none'}}"
                ba-toggle:playsinline="{{!playfullscreenonmobile}}"
         ></video>
     </div>
     <div ba-show="{{imageelement_active && !videoelement_active}}">
         <img tabindex="-1" class="{{css}}-video" data-image="image" alt="{{posteralt}}"/>
     </div>
-    <div class="{{css}}-overlay">
+    <div class="{{css}}-overlay" ba-show="{{!showbuiltincontroller}}">
         <div tabindex="-1" class="{{css}}-player-toggle-overlay" data-selector="player-toggle-overlay"
              ba-hotkey:right="{{seek(position + skipseconds)}}" ba-hotkey:left="{{seek(position - skipseconds)}}"
              ba-hotkey:alt+right="{{seek(position + skipseconds * 3)}}" ba-hotkey:alt+left="{{seek(position - skipseconds * 3)}}"

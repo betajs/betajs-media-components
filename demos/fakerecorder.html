@@ -4,7 +4,7 @@
 	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 	<meta content="utf-8" http-equiv="encoding">
 	<script src="../vendors/jquery.min.js"></script>
-		<script src="../node_modules/betajs-shims/dist/betajs-shims.js"></script>		
+		<script src="../node_modules/betajs-shims/dist/betajs-shims.js"></script>
         <script src="../node_modules/betajs-scoped/dist/scoped.js"></script>
         <script src="../node_modules/betajs/dist/beta-noscoped.js"></script>
         <script src="../node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
@@ -74,16 +74,16 @@ cursor: pointer;
     	});
         recorder._attachRecorder = function () {
             this.recorder = {
-                	blankLevel: function () {
-                		return 0.5;
-                	},
-                	isFlash: function () {
-                		return false;
-                	},
-                	deltaCoefficient: function () {
-                		return 0.5;
-                	}
-                };
+                blankLevel: function () {
+                    return 0.5;
+                },
+                isFlash: function () {
+                    return false;
+                },
+                deltaCoefficient: function () {
+                    return 0.5;
+                }
+            };
             var video = $(this.activeElement()).find("[data-video='video']").get(0);
             video.autoplay = true;
             video.loop = true;

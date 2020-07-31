@@ -113,6 +113,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "loopall": false,
                     "popup": false,
                     "nofullscreen": false,
+                    "fullscreenmandatory": false,
                     "playfullscreenonmobile": false,
                     "stretch": false,
                     "stretchwidth": false,
@@ -150,6 +151,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "ttuploadervisible": false,
 
                     /* States (helper variables which are controlled by application itself not set by user) */
+                    "showbuiltincontroller": false,
                     "airplaybuttonvisible": false,
                     "castbuttonvisble": false,
                     "fullscreened": false,
@@ -192,6 +194,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "preload": "boolean",
                     "ready": "boolean",
                     "nofullscreen": "boolean",
+                    "fullscreenmandatory": "boolean",
                     "stretch": "boolean",
                     "stretchwidth": "boolean",
                     "stretchheight": "boolean",
@@ -266,6 +269,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("initialoptions", Objs.tree_merge(this.get("initialoptions"), {
                         volumelevel: this.get("volume")
                     }));
+                    if (this.get("fullscreenmandatory")) {
+                        if (!(document.fullscreenEnabled || document.mozFullscreenEnabled ||
+                                document.webkitFullscreenEnabled || document.msFullscreenEnabled)) {
+                            this.set("skipinitial", true);
+                            this.set("showbuiltincontroller", true);
+                        }
+                    }
 
                     if ((Info.isMobile() || Info.isChromiumBased()) && (this.get("autoplay") || this.get("playwhenvisible"))) {
                         this.set("volume", 0.0);
@@ -498,7 +508,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     var video = this.activeElement().querySelector("[data-video='video']");
                     this._clearError();
                     // Just in case be sure that player's controllers will be hidden
-                    //video.controls = false;
+                    video.controls = this.get("showbuiltincontroller");
+                    if (!this.get("allowpip"))
+                        video.disablePictureInPicture = true;
                     VideoPlayerWrapper.create(Objs.extend(this._getSources(), {
                         element: video,
                         onlyaudio: this.get("onlyaudio"), // Will fix only audio local playback bug
@@ -1032,10 +1044,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             return;
                         }
                         if (!this.player) return;
-                        if (this.get("fullscreened"))
+                        if (this.get("fullscreened")) {
                             this.player.exitFullscreen();
-                        else
-                            this.player.enterFullscreen(this.activeElement().childNodes[0]);
+                        } else {
+                            if (Info.isSafari())
+                                this.player.enterFullscreen(this.activeElement().querySelector('video'));
+                            else
+                                this.player.enterFullscreen(this.activeElement().childNodes[0]);
+                        }
                         this.set("fullscreened", !this.get("fullscreened"));
                     },
 

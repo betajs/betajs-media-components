@@ -97,6 +97,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "allowcustomupload": true,
                     "manual-upload": false,
                     "camerafacefront": false,
+                    "fittodimensions": false,
+                    "resizemode": null, // enum option to scale screen recorder, has 2 options: 'crop-and-scale',  'none'
                     "createthumbnails": false,
                     "primaryrecord": true,
                     "allowscreen": false,
@@ -133,12 +135,15 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "flipscreen": false, // Will affect as true, if flip-camera also set as true
                     "early-rerecord": false,
                     "custom-covershots": false,
+                    "selectfirstcovershotonskip": false,
+                    "picksnapshotmandatory": false,
                     "manualsubmit": false,
                     "allowedextensions": null,
                     "filesizelimit": null,
                     "faceoutline": false,
                     "display-timer": true,
                     "pausable": false,
+                    "sharevideo": [],
 
                     /* Configuration */
                     "forceflash": false,
@@ -238,6 +243,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "rerecordable": "boolean",
                     "ready": "boolean",
                     "stretch": "boolean",
+                    "fittodimensions": "boolean",
                     "stretchwidth": "boolean",
                     "stretchheight": "boolean",
                     "autorecord": "boolean",
@@ -280,6 +286,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "faceoutline": "boolean",
                     "early-rerecord": "boolean",
                     "custom-covershots": "boolean",
+                    "picksnapshotmandatory": "boolean",
+                    "selectfirstcovershotonskip": "boolean",
                     "manualsubmit": "boolean",
                     "simulate": "boolean",
                     "allowedextensions": "array",
@@ -291,6 +299,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "uploadlocales": "array",
                     "allowmultistreams": "boolean",
                     "pausable": "boolean",
+                    "sharevideo": "array",
                     "multistreamreversable": "boolean",
                     "multistreamdraggable": "boolean",
                     "multistreamresizeable": "boolean",
@@ -429,11 +438,27 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 },
 
                 _videoRecorderWrapperOptions: function() {
+                    var _screen = null;
+                    var _resizeMode = this.get("resizemode");
+                    if ((this.get("allowscreen") && this.get("record_media") === "screen") || (this.get("allowmultistreams") && this.get("record_media") === "multistream")) {
+                        _screen = this.get("screen");
+                        if (!_resizeMode) {
+                            _resizeMode = 'none';
+
+                        }
+                    }
+                    if (!this.get("allowrecord") && (this.get("autorecord") || this.get("skipinitial"))) {
+                        if (this.get("allowscreen") || this.get("allowmultistreams")) {
+                            this.set("record_media", this.get("allowscreen") ? "screen" : "multistream");
+                            _screen = {};
+                        }
+                    }
                     return {
                         simulate: this.get("simulate"),
                         forceflash: this.get("forceflash"),
                         noflash: this.get("noflash"),
                         recordVideo: !this.get("onlyaudio"),
+                        screenResizeMode: this.get("screenresizemode"),
                         recordAudio: !this.get("noaudio"),
                         recordingWidth: this.get("nativeRecordingWidth"),
                         recordingHeight: this.get("nativeRecordingHeight"),
@@ -446,10 +471,12 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         webrtcStreamingIfNecessary: !!this.get("webrtcstreamingifnecessary"),
                         // webrtcOnMobile: !!this.get("webrtconmobile"),
                         localPlaybackRequested: this.get("localplayback"),
-                        screen: (this.get("allowscreen") && this.get("record_media") === "screen") || (this.get("allowmultistreams") && this.get("record_media") === "multistream") ? this.get("screen") : null,
+                        screen: _screen,
+                        resizeMode: _resizeMode,
                         framerate: this.get("framerate"),
                         flip: this.get("flip-camera"),
-                        flipscreen: this.get("flipscreen")
+                        flipscreen: this.get("flipscreen"),
+                        fittodimensions: this.get("fittodimensions")
                     };
                 },
 
@@ -693,6 +720,12 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     if (this.get("onlyaudio"))
                         return;
                     this._hideBackgroundSnapshot();
+                    if (this.snapshots && this.get("selectfirstcovershotonskip")) {
+                        if (this.snapshots[0])
+                            this.__backgroundSnapshot = this.snapshots[0];
+                    } else {
+                        this.__backgroundSnapshot = this.recorder.createSnapshot(this.get("snapshottype"));
+                    }
                     this.__backgroundSnapshot = this.recorder.createSnapshot(this.get("snapshottype"));
                     var el = this.activeElement().querySelector("[data-video]");
                     var dimensions = Dom.elementDimensions(el);
@@ -726,12 +759,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 },
 
                 toggleFaceOutline: function(new_status) {
-                    if (new_status == undefined) {
-                        if (this.get("faceoutline") == true) {
-                            this.set("faceoutline", false);
-                        } else {
-                            this.set("faceoutline", true);
-                        }
+                    if (typeof new_status === 'undefined') {
+                        this.set("faceoutline", !this.get("faceoutline"));
                     } else {
                         this.set("faceoutline", new_status);
                     }

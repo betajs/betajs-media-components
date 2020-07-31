@@ -39,6 +39,17 @@
     <script src="/static/dist/themes/theatre/script.js"></script>
     <link href="/static/dist/themes/theatre/style.css" rel="stylesheet" />
 
+    <style>
+        .ba-videoplayer-stretch-height .ba-videoplayer-container img.ba-videoplayer-video {
+            max-height: 100%;
+            min-width: auto;
+            width: auto;
+            transform-box: border-box;
+            transform: translateX(-50%);
+            left: 50%;
+        }
+    </style>
+
 </head>
 <body style="background: #EEE">
     <div class="row">
@@ -59,14 +70,16 @@
         var player = new BetaJS.MediaComponents.VideoPlayer.Dynamics.Player({
             element: $('#player'),
             attrs: {
-                // height: 330,
+                height: 330,
                 width: 610,
                 // width: '100%',
                 theme: "modern",
                 themecolor: "red",
-                // stretchheight: true,
+                skipinitial: false,
+                fullscreenmandatory: true,
+                stretchheight: true,
                 // autoplay:true,
-                // stretch: true,
+                stretch: true,
                 // stretchwidth: true,
                 // source: '/static/demos/sample-video.mp4',
                 // poster: '/static/demos/assets/sample-cover.png',
@@ -74,25 +87,25 @@
                 // poster: '/static/demos/assets/portrait-poster.png',
                 sources: [
                     {
-                        // src:'/static/demos/assets/portrait.mp4'
-                        src:'/static/demos/sample-video.mp4'
-                        // , poster: '/static/demos/assets/portrait-poster.png'
+                        src:'/static/demos/assets/portrait.mp4'
+                        // src:'/static/demos/sample-video.mp4'
+                        , poster: '/static/demos/assets/portrait-poster.png'
                         , hd: true
-                        , poster: '/static/demos/sample-cover.png'
+                        // , poster: '/static/demos/sample-cover.png'
                     },
                     {
-                        // src:'/static/demos/assets/portrait.mp4'
-                        // , poster:'/static/demos/assets/portrait-poster.png', hd: false
-                        src:'/static/demos/sample-video2.mp4'
+                        src:'/static/demos/assets/portrait.mp4'
+                        , poster:'/static/demos/assets/portrait-poster.png', hd: false
+                        // src:'/static/demos/sample-video2.mp4'
                         // , hd: false
-                        , poster: '/static/demos/sample-cover.png'
+                        // , poster: '/static/demos/sample-cover.png'
                     }
                 ],
                 // streams: [{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }],
-                skipinitial: true,
                 forceflash: false,
                 hideoninactivity: true,
                 tracktagsstyled: true,
+                preload: true,
                 loop: true,
                 tracktags: [
                     {
@@ -118,16 +131,19 @@
             }
         });
 
+        console.log('Player >> ', player);
+
         player.on("attached", function (playerInstance) {
             // this.addSettingsMenuItem({set: 'Somen'});
             // playerInstance.add_setting({setting: 'someID'});
             // console.log("Tags >  ", player.get("tracktags"));
+            console.log('00 >> ', playerInstance, player.player._element)
             let toggleButton = document.getElementById('toggleTracks');
             toggleButton.onclick = function() {
                 player.toggle_tracks();
             };
             playerInstance.on("fullscreen-change", function (isFullscreen) {
-                console.log('is Full', isFullscreen);
+                // console.log('is Full', isFullscreen);
             }, this);
 
             // this.on("loaded", () => {
@@ -135,7 +151,6 @@
             // }, this);
         }, player);
 
-        console.log('Portrait before ?? ', player.isPortrait(), player.isLandscape());
         player.on("ready_to_play", (ev) => {
             // console.log('Portrait after ?? ', player.isPortrait(), player.isLandscape());
         }, player);

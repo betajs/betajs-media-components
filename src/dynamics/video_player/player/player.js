@@ -135,7 +135,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "tracktagsstyled": true,
                     "tracktaglang": 'en',
                     "tracksshowselection": false,
-                    "viewchaptertext": true,
+                    "showchaptertext": true,
                     "thumbimage": {},
                     "thumbcuelist": [],
                     "showduration": false,
@@ -241,7 +241,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "showsettings": "boolean",
                     "showduration": "boolean",
                     "visibilityfraction": "float",
-                    "viewchaptertext": "boolean"
+                    "showchaptertext": "boolean"
                 },
 
                 extendables: ["states"],

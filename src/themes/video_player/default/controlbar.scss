@@ -92,7 +92,6 @@
     position: absolute;
     right: -$radius;
     top: -($progressbar_button_border + $progressbar_button_overflow);
-    z-index: 1;
     width: $progressbar_height + 2 * $progressbar_button_overflow;
     height: $progressbar_height + 2 * $progressbar_button_overflow;
     z-index: 20;

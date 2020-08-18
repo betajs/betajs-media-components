@@ -48,7 +48,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     "thumbisvisible": false,
                     "tracktextvisible": false, // Are subtitles visible?
                     "chapterslist": [],
-                    "viewchaptertext": true,
+                    "showchaptertext": true,
                     "visibleindex": -1
                 },
 
@@ -90,7 +90,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         if (!this.get("_updatePosition") && !_dyn.__trackTags.hasThumbs)
                             return;
 
-                        if (this.__parent.__trackTags.hasThumbs && this.get("visibleindex") === -1) {
+                        if (this.__parent.__trackTags.hasThumbs) {
+                            if (this.get("visibleindex") > -1 && this.get("showchaptertext"))
+                                return;
                             var _index;
                             var _trackTags = _dyn.__trackTags;
                             var _cuesCount = _dyn.get("thumbcuelist").length;

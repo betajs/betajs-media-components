@@ -45,8 +45,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     "settingsmenubutton": false,
                     "hoveredblock": false, // Set true when mouse hovered
                     "allowtexttrackupload": false,
-                    'thumbisvisible': false,
-                    "tracktextvisible": false // Are subtitles visible?
+                    "thumbisvisible": false,
+                    "tracktextvisible": false, // Are subtitles visible?
+                    "chapterslist": [],
+                    "viewchaptertext": true,
+                    "visibleindex": -1
                 },
 
                 computed: {
@@ -87,9 +90,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         if (!this.get("_updatePosition") && !_dyn.__trackTags.hasThumbs)
                             return;
 
-                        var player = _dyn.player;
-
-                        if (this.__parent.__trackTags.hasThumbs) {
+                        if (this.__parent.__trackTags.hasThumbs && this.get("visibleindex") === -1) {
                             var _index;
                             var _trackTags = _dyn.__trackTags;
                             var _cuesCount = _dyn.get("thumbcuelist").length;
@@ -116,9 +117,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         if (this.get("_updatePosition")) {
                             this.set("position", onDuration);
 
-                            if (player._broadcastingState.googleCastConnected) {
-                                player.trigger('google-cast-seeking', this.get("position"));
-                                return;
+                            if (typeof player._broadcastingState !== 'undefined') {
+                                if (player._broadcastingState.googleCastConnected) {
+                                    player.trigger('google-cast-seeking', this.get("position"));
+                                    return;
+                                }
                             }
                             this.trigger("position", this.get("position"));
                         }
@@ -128,10 +131,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         var ev = event[0];
                         ev.preventDefault();
                         this.set("_updatePosition", false);
-                        if (this.__parent.__trackTags.hasThumbs && this.get("thumbisvisible")) {
-                            this.set("thumbisvisible", false);
-                            this.__parent.__trackTags.hideDurationThumb();
-                        }
+                        this._hideThumb();
                     },
 
                     startUpdateVolume: function(event) {
@@ -182,6 +182,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         _position = _position > 1.00 ? 1.00 : (_position < 0.00 ? 0.00 : _position);
                         this.set("volume", _position);
                         this.trigger("volume", this.get("volume"));
+                    },
+
+                    showChapterText: function(chapter) {
+                        this.set("visibleindex", chapter.index);
+                        this._hideThumb();
+                    },
+
+                    hideChapterText: function() {
+                        this.set("visibleindex", -1);
                     },
 
                     stopVerticallyUpdateVolume: function(event) {
@@ -285,6 +294,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 
                     toggle_settings: function() {
                         this.trigger("toggle_settings");
+                    }
+                },
+
+                _hideThumb: function() {
+                    if (this.__parent.__trackTags.hasThumbs && this.get("thumbisvisible")) {
+                        this.set("thumbisvisible", false);
+                        this.__parent.__trackTags.hideDurationThumb();
                     }
                 },
 

@@ -21,6 +21,8 @@ Scoped.define("module:TrackTags", [
                 this._dyn = dynamics;
                 this._trackTags = dynamics.get("tracktags");
                 this._video = dynamics.__video;
+                this._chapters = [];
+                this._chapterLoadedTriggered = false;
                 this.hasThumbs = false;
                 dynamics.set("tracktagssupport", this._trackTags && this._trackTags.length > 0 &&
                     ('track' in document.createElement('track')));
@@ -91,6 +93,13 @@ Scoped.define("module:TrackTags", [
                             _trackTag.mode = 'hidden';
                             this.__appendThumbnailTrackTags(subtitle, index, _trackTag, _domEvent);
                             break;
+                        case 'chapters':
+                            _trackTag.id = this._dyn.get("css") + '-track-chapters';
+                            _trackTag.kind = 'chapters';
+                            _trackTag.src = subtitle.src;
+                            _trackTag.mode = 'hidden';
+                            this.__appendChaptersTrackTags(subtitle, index, _trackTag, _domEvent);
+                            break;
                         default: // Will be subtitles, as mostly it's using for this purpose
                             _trackTag.id = this._dyn.get("css") + '-tack-' + index;
                             _trackTag.kind = subtitle.kind || 'subtitles';
@@ -138,6 +147,29 @@ Scoped.define("module:TrackTags", [
                         if (this._video) this._video.textTracks[index].mode = "hidden"; // Firefox
                     }
                 }, this);
+            },
+
+            /**
+             *
+             * @param {Object} subtitle
+             * @param {Integer} index
+             * @param {HTMLElement} trackTag
+             * @param {EventListenerOrEventListenerObject} domEvent
+             * @private
+             */
+            __appendChaptersTrackTags: function(subtitle, index, trackTag, domEvent) {
+                var _self = this,
+                    _track, _cues;
+                trackTag.setAttribute('data-selector', 'chapters-track-tag');
+                domEvent.on(trackTag, "load", function(ev) {
+                    this.hasChapters = true;
+                    _track = this.track;
+                    _cues = _track.cues;
+                    if (!_cues)
+                        console.warn('Provided source for the chapters is not correct');
+                    else
+                        _self.__generateChapters(_cues);
+                });
             },
 
             /**
@@ -220,6 +252,29 @@ Scoped.define("module:TrackTags", [
             },
 
             /**
+             * Generate
+             * @param {Object} cues
+             * @private
+             */
+            __generateChapters: function(cues) {
+                Objs.iter(cues, function(cue, index) {
+                    if (typeof cue === 'object') {
+                        // this here is main Player Dynamics instance
+                        this._chapters.push({
+                            index: index,
+                            startTime: cue.startTime,
+                            endTime: cue.endTime,
+                            title: cue.text
+                        });
+                    }
+                    if (cues.length === this._chapters.length && !this._chapterLoadedTriggered) {
+                        this._dyn.trigger("chaptercuesloaded", this._chapters, cues.length);
+                        this._chapterLoadedTriggered = true;
+                    }
+                }, this);
+            },
+
+            /**
              * If custom styled text track selected
              * @param {Object} track
              * @param {String} lang
@@ -256,6 +311,7 @@ Scoped.define("module:TrackTags", [
                             var _track = this._video.textTracks[index];
                             // If set custom style to true show cue text in our element
                             if (_track.kind === 'metadata') _track.mode = 'hidden';
+                            if (_track.kind === 'chapters') _track.mode = 'showing';
                         }
                     }, this);
             },

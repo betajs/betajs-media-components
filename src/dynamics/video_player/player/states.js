@@ -310,7 +310,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
             this.dyn.trigger("ready_to_play");
             this.dyn.trigger("loaded");
             this.listenOn(this.dyn, "error:poster", function() {
-                if (!this.dyn.get("states").poster_error.ignore)
+                if (!this.dyn.get("states").poster_error.ignore && !this.dyn.get("popup"))
                     this.next("PosterError");
             }, this);
             if (this.dyn.get("autoplay") || this.dyn.get("skipinitial"))

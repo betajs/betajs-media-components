@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.237 - 2020-08-07
+betajs-media-components - v0.0.238 - 2020-08-20
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -15,8 +15,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.237",
-    "datetime": 1596857078365
+    "version": "0.0.238",
+    "datetime": 1597977423250
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -5944,7 +5944,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
             this.dyn.trigger("ready_to_play");
             this.dyn.trigger("loaded");
             this.listenOn(this.dyn, "error:poster", function() {
-                if (!this.dyn.get("states").poster_error.ignore)
+                if (!this.dyn.get("states").poster_error.ignore && !this.dyn.get("popup"))
                     this.next("PosterError");
             }, this);
             if (this.dyn.get("autoplay") || this.dyn.get("skipinitial"))

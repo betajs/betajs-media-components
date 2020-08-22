@@ -875,7 +875,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
 
             if (this.dyn.get("framerate-warning") && this.dyn.averageFrameRate()) {
                 var framerateWarning = this.dyn.averageFrameRate() < this.dyn.get("framerate-warning");
-                if (framerateWarning != this._framerateWarning) {
+                if (framerateWarning !== this._framerateWarning) {
                     this._framerateWarning = framerateWarning;
                     if (framerateWarning)
                         this.dyn.set("hovermessage", this.dyn.string("framerate-warning"));
@@ -907,7 +907,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
                 this.dyn._stopRecording().success(function() {
                     this._hasStopped();
                     var snapshotsCount = this.dyn.snapshots.length;
-                    if (this.dyn.get("picksnapshots") && snapshotsCount >= Math.min(this.dyn.get("gallerysnapshots"), snapshotsCount))
+                    if (this.dyn.get("picksnapshots") && (snapshotsCount >= Math.min(this.dyn.get("gallerysnapshots"), snapshotsCount)) && snapshotsCount > 0)
                         this.next("CovershotSelection");
                     else if (this.dyn.get("videometadata").thumbnails.images.length > 3 && this.dyn.get("createthumbnails"))
                         this.next("UploadThumbnails");

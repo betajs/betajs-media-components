@@ -135,6 +135,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "tracktagsstyled": true,
                     "tracktaglang": 'en',
                     "tracksshowselection": false,
+                    "showchaptertext": true,
                     "thumbimage": {},
                     "thumbcuelist": [],
                     "showduration": false,
@@ -169,6 +170,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "tracktagssupport": false,
                     "playbackcount": 0,
                     "playbackended": 0,
+                    "currentchapterindex": 0,
+                    "chapterslist": [],
                     // If settings are open and visible
                     "states": {
                         "poster_error": {
@@ -237,7 +240,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "playercurrentspeed": "float",
                     "showsettings": "boolean",
                     "showduration": "boolean",
-                    "visibilityfraction": "float"
+                    "visibilityfraction": "float",
+                    "showchaptertext": "boolean"
                 },
 
                 extendables: ["states"],
@@ -637,7 +641,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.player.on("playing", function() {
                             this.set("playing", true);
                             this.trigger("playing");
-                            if (this.get("playedonce") == false) {
+                            if (this.get("playedonce") === false) {
                                 this.set("playbackcount", 1);
                             } else {
                                 this.set("playbackcount", this.get("playbackended") + 1);
@@ -667,6 +671,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (this.get("totalduration") || this.player.duration() < Infinity)
                                 this.set("duration", this.get("totalduration") || this.player.duration());
                             this.set("fullscreensupport", this.player.supportsFullscreen(this.activeElement().childNodes[0]));
+                            // As duration is credential we're waiting to get duration info
+                            this.on("chaptercuesloaded", function(chapters, length) {
+                                this.set("chapterslist", chapters);
+                            }, this);
                             this._updateStretch();
                             if (this.get("initialseek"))
                                 this.player.setPosition(this.get("initialseek"));

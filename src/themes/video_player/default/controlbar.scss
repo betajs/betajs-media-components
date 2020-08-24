@@ -10,6 +10,39 @@
     background-color: $progressbar_bgcolor;
 }
 
+.#{$css}-progressbar-chapters {
+    .#{$css}-chapters-list-container {
+        display: block;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        width:100%;
+    }
+
+    .#{$css}-chapters-list-item {
+        background: $chapter_item_background;
+        cursor: pointer;
+        height: $progressbar_height + 1;
+        position: absolute;
+        top: -0.5px;
+        width: $chapter_item_width;
+        z-index: 10;
+    }
+
+    .#{$css}-chapters-item-text {
+        background: $chapter_text_container_background;
+        bottom: $chapter_text_container_bottom;
+        font-size: 11px;
+        left: - ($chapter_text_container_min_width / 2);
+        min-width: $chapter_text_container_min_width;
+        opacity: 0.7;
+        padding: $chapter_text_container_padding;
+        position: absolute;
+        text-align: center;
+    }
+}
+
 .#{$csstheme}-progressbar.#{$cssplayer}-disabled {
     &, & .#{$csstheme}-progressbar-cache,
     & .#{$csstheme}-progressbar-inner,
@@ -20,6 +53,12 @@
 
 .#{$css}-progressbar-small {
     height: $progressbar_height_small;
+    .#{$css}-progressbar-chapters {
+        .#{$css}-chapters-list-item {
+            height: $progressbar_height_small + 0.5;
+            top: -0.25px;
+        }
+    }
 }
 
 .#{$css}-progressbar-position {
@@ -53,9 +92,9 @@
     position: absolute;
     right: -$radius;
     top: -($progressbar_button_border + $progressbar_button_overflow);
-    z-index: 1;
     width: $progressbar_height + 2 * $progressbar_button_overflow;
     height: $progressbar_height + 2 * $progressbar_button_overflow;
+    z-index: 20;
 }
 
 .#{$css}-progressbar-small .#{$css}-progressbar-button {

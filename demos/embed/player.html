@@ -73,13 +73,14 @@
                 height: 330,
                 width: 610,
                 // width: '100%',
-                theme: "modern",
+                // theme: "modern",
                 themecolor: "red",
                 skipinitial: true,
                 fullscreenmandatory: true,
                 stretchheight: true,
                 showsettingsmenu: false,
                 // autoplay:true,
+                showchaptertext: true,
                 stretch: true,
                 // stretchwidth: true,
                 // source: '/static/demos/sample-video.mp4',
@@ -88,23 +89,23 @@
                 // poster: '/static/demos/assets/portrait-poster.png',
                 sources: [
                     {
-                        src:'/static/demos/assets/portrait.mp4'
-                        // src:'/static/demos/sample-video.mp4'
-                        , poster: '/static/demos/assets/portrait-poster.png'
+                        // src:'/static/demos/assets/portrait.mp4'
+                        src:'/static/demos/sample-video.mp4'
+                        // , poster: '/static/demos/assets/portrait-poster.png'
                         , hd: true
                         // , poster: '/static/demos/sample-cover.png'
                     },
                     {
-                        src:'/static/demos/assets/portrait.mp4'
-                        , poster:'/static/demos/assets/portrait-poster.png', hd: false
-                        // src:'/static/demos/sample-video2.mp4'
+                        // src:'/static/demos/assets/portrait.mp4'
+                        // , poster:'/static/demos/assets/portrait-poster.png', hd: false
+                        src:'/static/demos/sample-video2.mp4'
                         // , hd: false
-                        // , poster: '/static/demos/sample-cover.png'
+                        , poster: '/static/demos/sample-cover.png'
                     }
                 ],
                 // streams: [{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }],
                 forceflash: false,
-                hideoninactivity: true,
+                hideoninactivity: false,
                 tracktagsstyled: true,
                 preload: true,
                 loop: true,
@@ -127,18 +128,23 @@
                         kind: 'thumbnails',
                         // src: '/static/demos/assets/example-3rdp.vtt'
                         src: '/static/demos/assets/video-bgbb.vtt'
+                    },
+                    {
+                        kind: 'chapters',
+                        // src: '/static/demos/assets/example-3rdp.vtt'
+                        src: '/static/demos/assets/video-bgbb-chapters.vtt'
                     }
                 ]
             }
         });
 
-        console.log('Player >> ', player);
+        // console.log('Player >> ', player);
 
         player.on("attached", function (playerInstance) {
             // this.addSettingsMenuItem({set: 'Somen'});
             // playerInstance.add_setting({setting: 'someID'});
             // console.log("Tags >  ", player.get("tracktags"));
-            console.log('00 >> ', playerInstance, player.player._element)
+            // console.log('00 >> ', playerInstance, player.player._element)
             let toggleButton = document.getElementById('toggleTracks');
             toggleButton.onclick = function() {
                 player.toggle_tracks();

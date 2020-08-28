@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.238 - 2020-08-20
+betajs-media-components - v0.0.239 - 2020-08-24
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -2662,12 +2662,45 @@ Apache-2.0 Software License.
   background-color: #999;
 }
 
+.ba-videoplayer-progressbar-chapters .ba-videoplayer-chapters-list-container {
+  display: block;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  width: 100%;
+}
+.ba-videoplayer-progressbar-chapters .ba-videoplayer-chapters-list-item {
+  background: #0f0f0f;
+  cursor: pointer;
+  height: 10px;
+  position: absolute;
+  top: -0.5px;
+  width: 4px;
+  z-index: 10;
+}
+.ba-videoplayer-progressbar-chapters .ba-videoplayer-chapters-item-text {
+  background: #cccccc;
+  bottom: 15px;
+  font-size: 11px;
+  left: -60px;
+  min-width: 120px;
+  opacity: 0.7;
+  padding: 3px;
+  position: absolute;
+  text-align: center;
+}
+
 .ba-videoplayer-progressbar.ba-player-disabled, .ba-videoplayer-progressbar.ba-player-disabled .ba-videoplayer-progressbar-cache, .ba-videoplayer-progressbar.ba-player-disabled .ba-videoplayer-progressbar-inner, .ba-videoplayer-progressbar.ba-player-disabled .ba-videoplayer-progressbar-position {
   cursor: not-allowed;
 }
 
 .ba-videoplayer-progressbar-small {
   height: 3px;
+}
+.ba-videoplayer-progressbar-small .ba-videoplayer-progressbar-chapters .ba-videoplayer-chapters-list-item {
+  height: 3.5px;
+  top: -0.25px;
 }
 
 .ba-videoplayer-progressbar-position {
@@ -2712,9 +2745,9 @@ Apache-2.0 Software License.
   position: absolute;
   right: -5px;
   top: -2px;
-  z-index: 1;
   width: 11px;
   height: 11px;
+  z-index: 20;
 }
 
 .ba-videoplayer-progressbar-small .ba-videoplayer-progressbar-button {

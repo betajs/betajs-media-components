@@ -14,6 +14,23 @@
          onmouseleave="{{stopUpdatePosition(domEvent)}}"
          onmousemove="{{progressUpdatePosition(domEvent)}}"
     >
+        <div class="{{css}}-progressbar-chapters" ba-show="{{true}}">
+            <div class="{{css}}-chapters-list-container"
+                ba-repeat="{{chapter :: chapterslist}}"
+            >
+                <div
+                    class="{{css}}-chapters-list-item"
+                    data-selector="chapter-index-{{chapter.index}}"
+                    ba-styles="{{{left: Math.round(duration ? chapter.startTime / duration * 100 : 0) + '%'}}}"
+                    onmouseenter="{{showChapterText(chapter)}}"
+                    onmouseleave="{{hideChapterText()}}"
+                >
+                    <div class="{{css}}-chapters-item-text" ba-show="{{visibleindex === chapter.index && showchaptertext}}">
+                        {{chapter.title}}
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="{{css}}-progressbar-cache" ba-styles="{{{width: Math.round(duration ? cached / duration * 100 : 0) + '%'}}}"></div>
         <div class="{{css}}-progressbar-position" ba-styles="{{{width: Math.round(duration ? position / duration * 100 : 0) + '%'}}}" title="{{string('video-progress')}}">
             <div class="{{css}}-progressbar-button"></div>

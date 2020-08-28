@@ -13,7 +13,7 @@
     <link  href="../dist/betajs-media-components.css" rel="stylesheet" />
     <script src="../dist/themes/modern/script.js"></script>
     <link  href="../dist/themes/modern/style.css" rel="stylesheet" />
-    <!--<script type="text/javascript" src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>-->
+    <script type="text/javascript" src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
 </head>
 <body style="background: #EEE">
     <script>
@@ -30,14 +30,16 @@
         ba-experimental="true"
         ba-vast = "{{[
             {
-                provider: 'adProviderName',
-                adServer: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=',
-                schedule : 'postRoll',
+                provider: 'vast',
+                adServer: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=',
+                schedule : 'preRoll',
                 skipAfter: 5,
                 muted: true
             }
         ]}}"
     ></ba-videoplayer>
+
+    <!-- adServer: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=',-->
 
     <!-- Single Inline Linear -->
     <!-- https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=    -->

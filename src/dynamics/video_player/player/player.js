@@ -301,6 +301,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this._adProvider = this.get("adprovider");
                         if (Types.is_string(this._adProvider))
                             this._adProvider = AdProvider.registry[this._adProvider];
+
+                        if (this._adProvider && this.get("preroll")) {
+                            this._prerollAd = this._adProvider.newPrerollAd({
+                                videoElement: this.activeElement().querySelector("[data-video='video']"),
+                                adElement: this.activeElement().querySelector("[data-video='ad']"),
+                                dynamic: this
+                            });
+                        }
                     }
                     if (this.get("playlist")) {
                         var pl0 = (this.get("playlist"))[0];
@@ -527,14 +535,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }, this).success(function(instance) {
                         if (this.destroyed())
                             return;
-                        if (this._adProvider && this.get("preroll")) {
-                            this._prerollAd = this._adProvider.newPrerollAd({
-                                videoElement: this.activeElement().querySelector("[data-video='video']"),
-                                adElement: this.activeElement().querySelector("[data-video='ad']"),
-                                dynamic: this
-                            });
-                        }
-
                         this.player = instance;
                         this.__video = video;
                         this.__trackTags = new TrackTags({}, this);

@@ -90,6 +90,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         if (!this.get("_updatePosition") && !_dyn.__trackTags.hasThumbs)
                             return;
 
+                        var player = _dyn.player;
+
                         if (this.__parent.__trackTags.hasThumbs) {
                             if (this.get("visibleindex") > -1 && this.get("showchaptertext"))
                                 return;

@@ -7885,7 +7885,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     return Info.isMobile();
                 },
 
-                object_functions: ["record", "rerecord", "record_screen", "stop", "play", "pause", "reset", "cancel"],
+                object_functions: ["record", "rerecord", "record_screen", "stop", "play", "pause", "reset", "cancel", "pause_recorder", "resume"],
 
                 functions: {
 
@@ -7919,12 +7919,15 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                             this._delegatedRecorder.execute("pause_recorder");
                             return;
                         }
-                        this.__paused = true;
-                        this.__recording = false;
-                        this.recorder.pauseRecord();
-                        this.recorder._recorder.once("paused", function(ev) {
-                            this.set("resumevisible", true);
-                        }, this);
+                        if (typeof this.recorder !== 'undefined') {
+                            this.recorder.pauseRecord();
+                            this.recorder._recorder.once("paused", function(ev) {
+                                console.log('Paused');
+                                this.__paused = true;
+                                this.__recording = false;
+                                this.set("resumevisible", true);
+                            }, this);
+                        }
                     },
 
                     resume: function() {
@@ -7932,7 +7935,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                             this._delegatedRecorder.execute("resume");
                             return;
                         }
-                        this._resume();
+                        if (typeof this.recorder !== 'undefined')
+                            this._resume();
                     },
 
                     video_file_selected: function(file) {

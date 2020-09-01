@@ -43,6 +43,14 @@
 <body style="background: #ccc">
 <div style="width: 400px; position: relative;">
     <div id="recorder"></div>
+
+    <div style="width: 100%">
+        <div>
+            <button style="min-width: 120px; color: #ffffff; background: #1b8fcc"
+                    onclick="pauseClickHandler(this)"
+            >Toggle Pause</button>
+        </div>
+    </div>
 </div>
 
     <script>
@@ -65,7 +73,7 @@
                 allowmultistreams: true,
                 localplayback: true,
                 showplayersettingsmenu: false,
-                onlyaudio:true,
+                // onlyaudio: true,
                 localplayback: true,
                 picksnapshots: false,
                 snapshotfromuploader: true,
@@ -99,6 +107,14 @@
         };
 
         recorder.activate();
+
+        const pauseClickHandler = (ev) => {
+            // recorder.stop();
+            if (recorder.isRecording())
+                recorder.pause_recorder();
+            else
+                recorder.resume();
+        }
 
     </script>
 </body>

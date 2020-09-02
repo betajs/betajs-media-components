@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.240 - 2020-08-30
+betajs-media-components - v0.0.241 - 2020-09-01
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -15,8 +15,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.240",
-    "datetime": 1598817359150
+    "version": "0.0.241",
+    "datetime": 1599011140504
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -3935,6 +3935,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 
                         if (!this.get("_updatePosition") && !_dyn.__trackTags.hasThumbs)
                             return;
+
+                        var player = _dyn.player;
 
                         if (this.__parent.__trackTags.hasThumbs) {
                             if (this.get("visibleindex") > -1 && this.get("showchaptertext"))
@@ -7920,11 +7922,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                             return;
                         }
                         if (typeof this.recorder !== 'undefined') {
+                            this.__paused = true;
+                            this.__recording = false;
                             this.recorder.pauseRecord();
                             this.recorder._recorder.once("paused", function(ev) {
-                                console.log('Paused');
-                                this.__paused = true;
-                                this.__recording = false;
                                 this.set("resumevisible", true);
                             }, this);
                         }

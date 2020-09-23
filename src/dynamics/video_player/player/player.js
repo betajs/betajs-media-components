@@ -152,6 +152,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "ttuploadervisible": false,
 
                     /* States (helper variables which are controlled by application itself not set by user) */
+                    "showvideoplaceholder": false,
                     "showbuiltincontroller": false,
                     "airplaybuttonvisible": false,
                     "castbuttonvisble": false,
@@ -179,6 +180,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             "click_play": true
                         }
                     },
+                    "playerorientation": undefined,
                     // Reference to Chrome renewed policy, we have to setup mute for auto-playing players.
                     // If we do it forcibly then will set as true
                     "forciblymuted": false,
@@ -255,6 +257,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         var result = {};
                         var width = this.get("width");
                         var height = this.get("height");
+                        this.persistentTrigger("dimensions-detected", width, height);
                         if (width)
                             result.width = width + ((width + '').match(/^\d+$/g) ? 'px' : '');
                         if (height)

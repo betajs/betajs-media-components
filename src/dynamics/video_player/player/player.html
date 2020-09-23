@@ -10,10 +10,11 @@
 >
     <div ba-show="{{videoelement_active}}">
         <video tabindex="-1" class="{{css}}-video" data-video="video"
-               preload="{{preload ? 'auto' : 'none'}}"
+               preload="{{preload ? 'auto' : 'metadata'}}"
                ba-toggle:playsinline="{{!playfullscreenonmobile}}"
         ></video>
     </div>
+    <div ba-show="{{showvideoplaceholder}}" class="{{css}}-video-placeholder"></div>
     <div ba-show="{{imageelement_active && !videoelement_active}}">
         <img tabindex="-1" class="{{css}}-video" data-image="image" alt="{{posteralt}}"/>
     </div>

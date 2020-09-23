@@ -438,6 +438,11 @@
     //filter: progid:DXImageTransform.Microsoft.Shadow(Strength=#{$width}, Direction=270, Color=#{$color}); /*IE 5.5-7*/
 }
 
+@mixin linear-background($from, $to, $fallback) {
+    background-color: $fallback;
+    background-image: linear-gradient($from, $to);
+}
+
 @mixin box-outline-shadow($color, $width) {
     -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=#{$width}, Direction=90, Color=#{$color})";/*IE 8*/
     -moz-box-shadow: 0 0 0 #{$width} #{$color};/*FF 3.5+*/

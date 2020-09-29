@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.242 - 2020-09-23
+betajs-media-components - v0.0.243 - 2020-09-29
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.242 - 2020-09-23
+betajs-media-components - v0.0.243 - 2020-09-29
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1026,8 +1026,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.242",
-    "datetime": 1600875066265
+    "version": "0.0.243",
+    "datetime": 1601396613521
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -3424,7 +3424,7 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                 }
 
                 // Create additional related elements after reverse element created
-                _interactionEvent = Info.isTouchable() ? 'touch' : 'click';
+                _interactionEvent = (Info.isTouchable() && !Info.isDesktop()) ? 'touch' : 'click';
 
                 this._frameInteractionEventHandler = this.auto_destroy(new DomEvents());
 
@@ -3488,7 +3488,7 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                         this.addDragOption(this.__parent.activeElement());
 
                     if (this.get("frameresizeable")) {
-                        this.addResize(Info.isTouchable(), null, {
+                        this.addResize((Info.isTouchable() && !Info.isDesktop()), null, {
                             width: '7px',
                             height: '7px',
                             borderRight: '1px solid white',
@@ -3559,10 +3559,11 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
             addDragOption: function(container) {
                 this._draggingEvent = this.auto_destroy(new DomEvents());
 
+                var isTouchable = Info.isTouchable() && !Info.isDesktop();
                 // switch to touch events if using a touch screen
-                var _endEvent = Info.isTouchable() ? 'touchend' : 'mouseup';
-                var _moveEvent = Info.isTouchable() ? 'touchmove' : 'mousemove';
-                var _startEvent = Info.isTouchable() ? 'touchstart' : 'mousedown';
+                var _endEvent = isTouchable ? 'touchend' : 'mouseup';
+                var _moveEvent = isTouchable ? 'touchmove' : 'mousemove';
+                var _startEvent = isTouchable ? 'touchstart' : 'mousedown';
 
                 this._draggingEvent.on(container, _endEvent, this.__handleMouseEndEvent, this);
                 this._draggingEvent.on(container, _moveEvent, this.__handleMouseMoveEvent, this);

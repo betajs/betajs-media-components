@@ -86,7 +86,7 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                 }
 
                 // Create additional related elements after reverse element created
-                _interactionEvent = Info.isTouchable() ? 'touch' : 'click';
+                _interactionEvent = (Info.isTouchable() && !Info.isDesktop()) ? 'touch' : 'click';
 
                 this._frameInteractionEventHandler = this.auto_destroy(new DomEvents());
 
@@ -150,7 +150,7 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
                         this.addDragOption(this.__parent.activeElement());
 
                     if (this.get("frameresizeable")) {
-                        this.addResize(Info.isTouchable(), null, {
+                        this.addResize((Info.isTouchable() && !Info.isDesktop()), null, {
                             width: '7px',
                             height: '7px',
                             borderRight: '1px solid white',
@@ -221,10 +221,11 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
             addDragOption: function(container) {
                 this._draggingEvent = this.auto_destroy(new DomEvents());
 
+                var isTouchable = Info.isTouchable() && !Info.isDesktop();
                 // switch to touch events if using a touch screen
-                var _endEvent = Info.isTouchable() ? 'touchend' : 'mouseup';
-                var _moveEvent = Info.isTouchable() ? 'touchmove' : 'mousemove';
-                var _startEvent = Info.isTouchable() ? 'touchstart' : 'mousedown';
+                var _endEvent = isTouchable ? 'touchend' : 'mouseup';
+                var _moveEvent = isTouchable ? 'touchmove' : 'mousemove';
+                var _startEvent = isTouchable ? 'touchstart' : 'mousedown';
 
                 this._draggingEvent.on(container, _endEvent, this.__handleMouseEndEvent, this);
                 this._draggingEvent.on(container, _moveEvent, this.__handleMouseMoveEvent, this);

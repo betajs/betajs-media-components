@@ -198,6 +198,7 @@
   ba-audiorecorder.audio_file_too_large: >-
     Il tuo file audio è troppo grande ( %s) - fai clic qui per riprovare con un
     file audio più piccolo.
+  ba-audiorecorder.unsupported_audio_type: 'Carica: %s - fai clic qui per riprovare.'
   ba-common-settingsmenu.tooltip: Clicca per guardare.
   ba-common-settingsmenu.setting-menu: Tutte le impostazioni
   ba-common-settingsmenu.source-quality: Qualità

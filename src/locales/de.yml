@@ -60,6 +60,7 @@
     noch einmal zu probieren.
   ba-videoplayer-controlbar.exit-fullscreen-video: Den Vollbildmous verlassen
   ba-videoplayer-share.share: Video teilen
+  ba-videorecorder-chooser.record-screen: Bildschirm aufnehmen
   ba-videoplayer-controlbar.pause-video-disabled: Pause wird nicht unterstützt
   ba-videorecorder-chooser.record-audio: Ton aufnehmen
   ba-videorecorder-controlbar.stop-available-after: Die minimale Aufnahmezeit ist %d Sekunden
@@ -218,3 +219,19 @@
     Ihre Audiodatei ist zu groß ( %s) - Klicken Sie hier, um es mit einer
     kleineren Audiodatei erneut zu versuchen.
   ba-audiorecorder.unsupported_audio_type: 'Bitte hochladen: %s - Klicken Sie hier, um es erneut zu versuchen.'
+  ba-common-settingsmenu.tooltip: Hier klicken um Wiedergabe zu starten.
+  ba-common-settingsmenu.setting-menu: Einstellungen
+  ba-common-settingsmenu.source-quality: Quellqualität
+  ba-common-settingsmenu.player-speed: Wiedergabegeschwindigkeit
+  ba-common-settingsmenu.set-menu-option: Option einstellen
+  ba-common-settingsmenu.submit-video: Video bestätigen
+  ba-common-settingsmenu.picture-in-picture: Bild im Bild
+  ba-common-settingsmenu.exit-fullscreen-video: Vollbildmous verlassen
+  ba-common-settingsmenu.fullscreen-video: Vollbildmodus
+  ba-videorecorder-chooser.multi-stream: Mehrfach-Stream
+  ba-videorecorder-controlbar.pause-recorder: Aufnahme pausieren
+  ba-videorecorder-controlbar.resume-recorder: Aufnahme fortsetzen
+  ba-videorecorder.missing-track: Die erforderliche Audio- oder Videospur fehlt
+  ba-videorecorder.device-already-in-use: Mindestens eines Ihrer Eingabegeräte ist bereits in Gebrauch
+  ba-videorecorder.browser-permission-denied: 'Zugriff wurde vom Browser verweigert, bitte erteilen Sie die Erlaubnis und laden Sie die Seite neu'
+  ba-audioplayer.all-settings: Einstellungen

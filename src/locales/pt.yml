@@ -56,7 +56,7 @@
   ba-videoplayer-share.share: Partilhar a gravação
   ba-videoplayer-controlbar.pause-video-disabled: A pausa não é suportada
   ba-videorecorder-chooser.record-audio: Gravar Áudio
-  ba-videorecorder-chooser.record-screen: Tela de gravação
+  ba-videorecorder-chooser.record-screen: Captura de ecrã
   ba-videorecorder-controlbar.stop-available-after: O tempo mínimo de gravação é %d segundos
   ba-videorecorder-controlbar.cancel: Cancelar
   ba-videorecorder-controlbar.cancel-tooltip: Clique aqui para cancelar.
@@ -67,7 +67,7 @@
   ba-videoplayer-adslot.volume-unmute: Ativar Som
   ba-videoplayer-adslot.ad-will-end-after: O anúncio terminará após %s
   ba-videoplayer-adslot.can-skip-after: Ignorar após %d
-  ba-videoplayer-adslot.skip-ad: Pular Anúncio
+  ba-videoplayer-adslot.skip-ad: Saltar Anúncio
   ba-videorecorder.software-required: >-
     Clique abaixo para instalar / ativar os seguintes requisitos para
     prosseguir.
@@ -94,8 +94,8 @@
   ba-videorecorder.orientation-landscape-required: 'Por favor, gire seu dispositivo para gravar no modo paisagem.'
   ba-imageviewer-controlbar.rerecord-image: Refazer
   ba-imageviewer-controlbar.submit-image: confirmar
-  ba-imageviewer-controlbar.fullscreen-image: Entrar em tela cheia
-  ba-imageviewer-controlbar.exit-fullscreen-image: Sair da tela cheia
+  ba-imageviewer-controlbar.fullscreen-image: Entrar em ecrã inteiro
+  ba-imageviewer-controlbar.exit-fullscreen-image: Sair de ecrã inteiro
   ba-imageviewer.image-error: >-
     Ocorreu um erro. Por favor tente novamente mais tarde. Clique para tentar
     novamente.
@@ -145,7 +145,7 @@
   ba-videoplayer-controlbar.airplay-icon: Ícone de airplay.
   ba-videoplayer.all-settings: Todas as configurações
   ba-videoplayer.player-speed: Velocidade de reprodução
-  ba-videoplayer.full-screen: Tela cheia
+  ba-videoplayer.full-screen: Modo ecrã inteiro
   ba-videorecorder-controlbar.add-stream: Adicionar stream
   ba-videorecorder.switch-camera: Alternar câmera
   ba-videorecorder.prepare-covershot: Preparando covershots
@@ -209,3 +209,19 @@
     Seu arquivo de áudio é muito grande ( %s) - clique aqui para tentar
     novamente com um arquivo de áudio menor.
   ba-audiorecorder.unsupported_audio_type: 'Carregue por favor: %s - clique aqui para tentar novamente.'
+  ba-common-settingsmenu.tooltip: Clique para reproduzir.
+  ba-common-settingsmenu.setting-menu: Todas as configurações 
+  ba-common-settingsmenu.source-quality: Qualidade da fonte
+  ba-common-settingsmenu.player-speed: Velocidade de reprodução
+  ba-common-settingsmenu.set-menu-option: Definir opção
+  ba-common-settingsmenu.submit-video: Confirmar vídeo
+  ba-common-settingsmenu.picture-in-picture: Picture in picture
+  ba-common-settingsmenu.exit-fullscreen-video: Sair do modo ecrã inteiro
+  ba-common-settingsmenu.fullscreen-video: Entrar em modo ecrã inteiro
+  ba-videorecorder-chooser.multi-stream: Multi Stream
+  ba-videorecorder-controlbar.pause-recorder: Pausar gravador
+  ba-videorecorder-controlbar.resume-recorder: Resumir gravador
+  ba-videorecorder.missing-track: Falta a pista de áudio ou vídeo necessária
+  ba-videorecorder.device-already-in-use: Pelo menos um dos sesus dispositivos de entrada está em uso
+  ba-videorecorder.browser-permission-denied: 'Permissão negada pelo navegador, por favor conceda acesso e recarregue a página'
+  ba-audioplayer.all-settings: Todas as configurações 

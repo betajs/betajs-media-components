@@ -222,6 +222,6 @@
   ba-videorecorder-controlbar.pause-recorder: Pausar gravador
   ba-videorecorder-controlbar.resume-recorder: Resumir gravador
   ba-videorecorder.missing-track: Falta a pista de áudio ou vídeo necessária
-  ba-videorecorder.device-already-in-use: Pelo menos um dos sesus dispositivos de entrada está em uso
+  ba-videorecorder.device-already-in-use: Pelo menos um dos seus dispositivos de entrada está em uso
   ba-videorecorder.browser-permission-denied: 'Permissão negada pelo navegador, por favor conceda acesso e recarregue a página'
   ba-audioplayer.all-settings: Todas as configurações 

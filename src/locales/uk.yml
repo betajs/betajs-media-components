@@ -53,7 +53,7 @@
   ba-videorecorder-chooser.record-screen: Запис екрану
   ba-videoplayer-controlbar.pause-video-disabled: Пауза не підтримується
   ba-videorecorder-chooser.record-audio: Запис аудіо
-  ba-videorecorder-controlbar.stop-available-after: Мінімальний час запису: %d секунд
+  ba-videorecorder-controlbar.stop-available-after: 'Мінімальний час запису: %d секунд'
   ba-videorecorder-controlbar.cancel: Скасувати
   ba-videorecorder-controlbar.cancel-tooltip: Натисніть тут щоб скасувати.
   ba-videorecorder.cancel-confirm: Ви дійсно хочете скасувати вивантаження відео?
@@ -170,7 +170,7 @@
     файлом зображення.
   ba-imagecapture.unsupported_image_type: 'Будь ласка, вивантажте: %s - натисніть тут, щоб спробувати ще раз.'
   ba-imagecapture.orientation-portrait-required: Будь ласка, оберніть пристрій, щоб записувати у портретному режимі.
-  ba-imagecapture.orientation-landscape-required:Будь ласка, оберніть пристрій, щоб записувати у альбомному режимі.
+  ba-imagecapture.orientation-landscape-required: Будь ласка, оберніть пристрій, щоб записувати у альбомному режимі.
   ba-audiorecorder.recorder-error: 'Виникла помилка, будь ласка, повторіть спробу пізніше. Натисніть щоб повторити.'
   ba-audiorecorder.attach-error: >-
     Не вдалося отримати доступу до мультимедійного інтерфейсу. Залежно від пристрою та

@@ -165,8 +165,7 @@
     Wybrany plik nie odpowiada wymaganej rozdzielczości - kliknij tutaj, aby
     spróbować ponownie.
   ba-imagecapture.verifying: Weryfikacja
-  ba-imagecapture.verifying-failed: 'Weryfikacja nie powiodła się - kliknij tutaj, 
-  aby spróbować ponownie.'
+  ba-imagecapture.verifying-failed: 'Weryfikacja nie powiodła się - kliknij tutaj, aby spróbować ponownie.'
   ba-imagecapture.rerecord-confirm: Czy na pewno chcesz ponowić dodawanie obrazu?
   ba-imagecapture.image_file_too_large: >-
     Twój plik obrazu jest za duży ( %s) - kliknij tutaj, aby spróbować ponownie

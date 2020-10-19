@@ -213,7 +213,7 @@
   ba-audiorecorder.unsupported_audio_type: 'Mangyaring mag-upload: %s - mag-click dito upang subukang muli.'
   ba-common-settingsmenu.tooltip: Pindutin upang i-play.
   ba-common-settingsmenu.setting-menu: Mga Settings
-  ba-common-settingsmenu.source-quality: Source quality
+  ba-common-settingsmenu.source-quality: Kalidad ng mapagkukunan
   ba-common-settingsmenu.player-speed: Bilis ng player
   ba-common-settingsmenu.set-menu-option: Magtakda ng Pagpipilian
   ba-common-settingsmenu.submit-video: I-confirm video

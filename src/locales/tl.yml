@@ -11,7 +11,7 @@
   ba-videoplayer-controlbar.pause-video: I-pause ang video
   ba-videoplayer-controlbar.elapsed-time: Tiyak na oras
   ba-videoplayer-controlbar.total-time: Kabuuang haba ng video
-  ba-videoplayer-controlbar.fullscreen-video: Ipasok sa fullscreen
+  ba-videoplayer-controlbar.fullscreen-video: Pumasok sa fullscreen
   ba-videoplayer-controlbar.volume-button: Itakda ang lakas ng tunog
   ba-videoplayer-controlbar.volume-mute: I-mute ang tunog
   ba-videoplayer-controlbar.volume-unmute: I-unmute ang tunog
@@ -211,3 +211,19 @@
     Ang iyong audio file ay masyadong malaki ( %s) - mag-click dito upang
     subukang muli gamit ang isang mas maliit na audio file.
   ba-audiorecorder.unsupported_audio_type: 'Mangyaring mag-upload: %s - mag-click dito upang subukang muli.'
+  ba-common-settingsmenu.tooltip: Pindutin upang i-play.
+  ba-common-settingsmenu.setting-menu: Mga Settings
+  ba-common-settingsmenu.source-quality: Source quality
+  ba-common-settingsmenu.player-speed: Bilis ng player
+  ba-common-settingsmenu.set-menu-option: Magtakda ng Pagpipilian
+  ba-common-settingsmenu.submit-video: I-confirm video
+  ba-common-settingsmenu.picture-in-picture: Larawan sa larawan
+  ba-common-settingsmenu.exit-fullscreen-video: Umalis sa Fullscreen
+  ba-common-settingsmenu.fullscreen-video: Pumasok sa fullscreen
+  ba-videorecorder-chooser.multi-stream: Ang Multi Stream
+  ba-videorecorder-controlbar.pause-recorder: I-pause and Recorder
+  ba-videorecorder-controlbar.resume-recorder: I-resume Recorder
+  ba-videorecorder.missing-track: Ang kinakailangan na audio or video tranck ay hindi makita
+  ba-videorecorder.device-already-in-use: Hindi bababa sa isa sa iyong mga input device ang ginagamit na
+  ba-videorecorder.browser-permission-denied: 'Ang pahintulot ay tinanggihan ng browser, mangyaring magbigay ng access at i-reload ang pahina'
+  ba-audioplayer.all-settings: Lahat ng mga setting

@@ -1,17 +1,17 @@
 'language:tl':
   ba-videoplayer-playbutton.tooltip: I-click upang i-play ang video.
-  ba-videoplayer-playbutton.rerecord: I-redo
+  ba-videoplayer-playbutton.rerecord: Gawing muli
   ba-videoplayer-playbutton.submit-video: Kumpirmahin ang video
   ba-videoplayer-loader.tooltip: Nilo-load ang video ...
   ba-videoplayer-controlbar.change-resolution: Baguhin ang resolution
-  ba-videoplayer-controlbar.video-progress: pag-usad Video
+  ba-videoplayer-controlbar.video-progress: Pag-usad ng video
   ba-videoplayer-controlbar.rerecord-video: Gawing muli ang video?
   ba-videoplayer-controlbar.submit-video: Kumpirmahin ang video
-  ba-videoplayer-controlbar.play-video: I-Play ang video
+  ba-videoplayer-controlbar.play-video: I-play ang video
   ba-videoplayer-controlbar.pause-video: I-pause ang video
-  ba-videoplayer-controlbar.elapsed-time: Elasped oras
+  ba-videoplayer-controlbar.elapsed-time: Tiyak na oras
   ba-videoplayer-controlbar.total-time: Kabuuang haba ng video
-  ba-videoplayer-controlbar.fullscreen-video: Ipasok fullscreen
+  ba-videoplayer-controlbar.fullscreen-video: Pumasok sa fullscreen
   ba-videoplayer-controlbar.volume-button: Itakda ang lakas ng tunog
   ba-videoplayer-controlbar.volume-mute: I-mute ang tunog
   ba-videoplayer-controlbar.volume-unmute: I-unmute ang tunog
@@ -21,16 +21,16 @@
   ba-videorecorder-chooser.record-video: Kumuha ng video
   ba-videorecorder-chooser.upload-video: Mag-upload ng Video
   ba-videorecorder-controlbar.settings: Mga Setting
-  ba-videorecorder-controlbar.camerahealthy: Pag-iilaw ay mabuti
-  ba-videorecorder-controlbar.cameraunhealthy: Pag-iilaw ay hindi optimal
-  ba-videorecorder-controlbar.microphonehealthy: Sound ay mabuti
-  ba-videorecorder-controlbar.microphoneunhealthy: Hindi kunin ang anumang tunog
+  ba-videorecorder-controlbar.camerahealthy: Ang pag-iilaw ay mabuti
+  ba-videorecorder-controlbar.cameraunhealthy: Ang pag-iilaw ay hindi pinakamainam
+  ba-videorecorder-controlbar.microphonehealthy: Ang tunog ay mabuti
+  ba-videorecorder-controlbar.microphoneunhealthy: Walang nakukuhang anumang tunog
   ba-videorecorder-controlbar.record: Rekord
   ba-videorecorder-controlbar.record-tooltip: Mag-click dito upang i-record.
-  ba-videorecorder-controlbar.rerecord: I-redo
+  ba-videorecorder-controlbar.rerecord: Gawing muli
   ba-videorecorder-controlbar.rerecord-tooltip: Mag-click dito upang gawing muli.
   ba-videorecorder-controlbar.upload-covershot: Upload
-  ba-videorecorder-controlbar.upload-covershot-tooltip: Mag-click dito upang mag-upload ng mga pasadyang pabalat shot
+  ba-videorecorder-controlbar.upload-covershot-tooltip: Mag-click dito upang mag-upload ng angkop na cover shot
   ba-videorecorder-controlbar.stop: Itigil
   ba-videorecorder-controlbar.stop-tooltip: Mag-click dito upang itigil.
   ba-videorecorder-controlbar.skip: Laktawan
@@ -42,13 +42,13 @@
     Hindi namin mai-access ang interface ng camera. Depende sa device at
     browser, maaaring kailangan mong i-install ng Flash o ma-access ang pahina
     sa pamamagitan ng SSL.
-  ba-videorecorder.access-forbidden: Access sa camera ay ipinagbabawal. I-click upang subukang muli.
+  ba-videorecorder.access-forbidden: Ang access sa camera ay ipinagbabawal. I-click upang subukang muli.
   ba-videorecorder.pick-covershot: Pumili ng isang covershot.
   ba-videorecorder.uploading: Pag-upload
-  ba-videorecorder.uploading-failed: Ina-upload ang mali - i-click dito upang subukang muli.
+  ba-videorecorder.uploading-failed: Nabigo ang pag-upload - i-click dito upang subukang muli.
   ba-videorecorder.verifying: Bine-verify
   ba-videorecorder.verifying-failed: Ang pag-verify nabigo - i-click dito upang subukang muli.
-  ba-videorecorder.rerecord-confirm: Nais mo ba talagang nais na gawing muli ang iyong video?
+  ba-videorecorder.rerecord-confirm: Nais mo ba talaga na gawing muli ang iyong video?
   ba-videorecorder.video_file_too_large: >-
     Ang iyong video file ay masyadong malaki (%s) - i-click dito upang subukang
     muli gamit ang mas maliit na file na video.
@@ -56,9 +56,9 @@
   ba-videoplayer-controlbar.exit-fullscreen-video: Lumabas sa fullscreen
   ba-videoplayer-share.share: Ibahagi ang video
   ba-videorecorder-chooser.record-screen: Mag-record ng Screen
-  ba-videoplayer-controlbar.pause-video-disabled: I-pause ang hindi suportado
-  ba-videorecorder-chooser.record-audio: Mag-record Audio
-  ba-videorecorder-controlbar.stop-available-after: Ang minimum na oras ng pag-record ay %d segundo
+  ba-videoplayer-controlbar.pause-video-disabled: Ang pause ang hindi suportado
+  ba-videorecorder-chooser.record-audio: Mag-record ng Audio
+  ba-videorecorder-controlbar.stop-available-after: Ang pinakamababa na oras ng pag-record ay %d segundo
   ba-videorecorder-controlbar.cancel: Kanselahin
   ba-videorecorder-controlbar.cancel-tooltip: Mag-click dito upang kanselahin.
   ba-videorecorder.cancel-confirm: Nais mo bang kanselahin ang iyong pag-upload ng video?
@@ -75,13 +75,13 @@
   ba-videorecorder.software-waiting: >-
     Naghihintay ng mga kinakailangan na mai-install / isinaaktibo. Maaaring
     kailanganin mong i-refresh ang pahina pagkatapos makumpleto.
-  ba-videoplayer-controlbar.close-tracks: Isara CC
+  ba-videoplayer-controlbar.close-tracks: Isara ang CC
   ba-videoplayer-controlbar.show-tracks: Ipakita ang CC
   ba-videoplayer-tracks.upload-text-tracks: Mag-upload ng mga track text file
   ba-videoplayer-tracks.select-text-track-language: Wika ng Subtitle
-  ba-videoplayer-tracks.info-select-locale-first: Unang piliin ang locale
+  ba-videoplayer-tracks.info-select-locale-first: Unang piliin ang lokal
   ba-videoplayer-tracks.select-text-track-file: I-click upang piliin ang file
-  ba-videoplayer-tracks.back: bumalik
+  ba-videoplayer-tracks.back: Bumalik
   ba-videorecorder.framerate-warning: >-
     Napakababa ang rate ng video frame. Inirerekumenda namin ang pagsasara ng
     lahat ng iba pang mga programa at mga tab ng browser o upang gumamit ng mas
@@ -93,8 +93,8 @@
     Ang file na napili mo ay hindi tumutugma sa kinakailangang resolution -
     mag-click dito upang subukang muli.
   ba-videorecorder.orientation-portrait-required: Mangyaring i-rotate ang iyong aparato upang i-record sa portrait mode.
-  ba-videorecorder.orientation-landscape-required: Mangyaring i-rotate ang iyong device upang i-record sa landscape mode.
-  ba-imageviewer-controlbar.rerecord-image: I-redo?
+  ba-videorecorder.orientation-landscape-required: Mangyaring i-rotate ang iyong aparato upang i-record sa landscape mode.
+  ba-imageviewer-controlbar.rerecord-image: Gawing muli?
   ba-imageviewer-controlbar.submit-image: Kumpirmahin
   ba-imageviewer-controlbar.fullscreen-image: Ipasok ang fullscreen
   ba-imageviewer-controlbar.exit-fullscreen-image: Lumabas sa fullscreen
@@ -108,16 +108,16 @@
   ba-imagecapture-controlbar.cameraunhealthy: Ang pag-iilaw ay hindi sulit
   ba-imagecapture-controlbar.record: Kumuha
   ba-imagecapture-controlbar.record-tooltip: Mag-click dito upang makuha.
-  ba-imagecapture-controlbar.rerecord: I-redo
+  ba-imagecapture-controlbar.rerecord: Gawing muli
   ba-imagecapture-controlbar.rerecord-tooltip: Mag-click dito upang gawing muli.
   ba-imagecapture-controlbar.cancel: Kanselahin
   ba-imagecapture-controlbar.cancel-tooltip: Mag-click dito upang kanselahin.
   ba-audioplayer-controlbar.audio-progress: Isinasagawa
-  ba-audioplayer-controlbar.rerecord-audio: I-redo?
+  ba-audioplayer-controlbar.rerecord-audio: Gawing muli?
   ba-audioplayer-controlbar.submit-audio: Kumpirmahin
-  ba-audioplayer-controlbar.play-audio: Maglaro
+  ba-audioplayer-controlbar.play-audio: I-play
   ba-audioplayer-controlbar.pause-audio: I-pause
-  ba-audioplayer-controlbar.pause-audio-disabled: I-pause ang hindi suportado
+  ba-audioplayer-controlbar.pause-audio-disabled: Ang pause ay hindi suportado
   ba-audioplayer-controlbar.elapsed-time: Tiyak na oras
   ba-audioplayer-controlbar.total-time: Kabuuang haba ng
   ba-audioplayer-controlbar.volume-button: Itakda ang lakas ng tunog
@@ -127,31 +127,31 @@
   ba-audioplayer.audio-error: >-
     May naganap na error. Mangyaring subukan muli sa ibang pagkakataon. I-click
     upang muling subukan.
-  ba-audiorecorder-chooser.record-audio: Mag-record Audio
+  ba-audiorecorder-chooser.record-audio: Mag-record ng Audio
   ba-audiorecorder-chooser.upload-audio: Mag-upload ng Audio
   ba-audiorecorder-controlbar.settings: Mga Setting
   ba-audiorecorder-controlbar.microphonehealthy: Ang tunog ay mabuti
-  ba-audiorecorder-controlbar.microphoneunhealthy: Hindi makukuha ang anumang tunog
+  ba-audiorecorder-controlbar.microphoneunhealthy: Walang makukuhag anumang tunog
   ba-audiorecorder-controlbar.record: Mag-record
   ba-audiorecorder-controlbar.record-tooltip: Mag-click dito upang mag-record.
   ba-audiorecorder-controlbar.rerecord: I-redo
   ba-audiorecorder-controlbar.rerecord-tooltip: Mag-click dito upang gawing muli.
   ba-audiorecorder-controlbar.stop: Itigil
   ba-audiorecorder-controlbar.stop-tooltip: Mag-click dito upang huminto.
-  ba-audiorecorder-controlbar.stop-available-after: Ang minimum na oras ng pag-record ay %d segundo
+  ba-audiorecorder-controlbar.stop-available-after: Ang pinakamababa na oras ng pag-record ay %d segundo
   ba-audiorecorder-controlbar.cancel: Kanselahin
   ba-audiorecorder-controlbar.cancel-tooltip: Mag-click dito upang kanselahin.
-  ba-videoplayer-controlbar.player-speed: Bilis ng Player
-  ba-videoplayer-controlbar.settings: Mga Setting
+  ba-videoplayer-controlbar.player-speed: Bilis ng Video Player
+  ba-videoplayer-controlbar.settings: Mga Settings
   ba-videoplayer-controlbar.airplay: Airplay
   ba-videoplayer-controlbar.airplay-icon: Icon ng Airplay.
-  ba-videoplayer.all-settings: Lahat ng mga setting
+  ba-videoplayer.all-settings: Lahat ng mga settings
   ba-videoplayer.player-speed: Bilis ng Player
   ba-videoplayer.full-screen: Buong screen
   ba-videorecorder-controlbar.add-stream: Magdagdag ng Stream
   ba-videorecorder.switch-camera: Lumipat ng camera
-  ba-videorecorder.prepare-covershot: Paghahanda ng mga coverhots
-  ba-videorecorder.prepare-thumbnails: Paghahanda ng mga naghahanap ng mga thumbnail
+  ba-videorecorder.prepare-covershot: Paghahanda ng mga cover shots
+  ba-videorecorder.prepare-thumbnails: Paghahanda ng mga thumbnail
   ba-videorecorder.adding-new-stream: Pagdaragdag ng Bagong Stream
   ba-imagecapture.recorder-error: >-
     May naganap na error. Mangyaring subukan muli sa ibang pagkakataon. I-click
@@ -206,8 +206,24 @@
   ba-audiorecorder.verifying: Pag-verify
   ba-audiorecorder.verifying-failed: Nabigo ang pag-verify - mag-click dito upang subukang muli.
   ba-audiorecorder.rerecord-confirm: Gusto mo bang gawing muli ang iyong audio?
-  ba-audiorecorder.cancel-confirm: Nais mo bang kanselahin ang iyong pag-upload ng audio?
+  ba-audiorecorder.cancel-confirm: Nais mo bang kanselahin ang pag-upload ng iyong audio?
   ba-audiorecorder.audio_file_too_large: >-
     Ang iyong audio file ay masyadong malaki ( %s) - mag-click dito upang
     subukang muli gamit ang isang mas maliit na audio file.
   ba-audiorecorder.unsupported_audio_type: 'Mangyaring mag-upload: %s - mag-click dito upang subukang muli.'
+  ba-common-settingsmenu.tooltip: Pindutin upang i-play.
+  ba-common-settingsmenu.setting-menu: Mga Settings
+  ba-common-settingsmenu.source-quality: Kalidad ng mapagkukunan
+  ba-common-settingsmenu.player-speed: Bilis ng player
+  ba-common-settingsmenu.set-menu-option: Magtakda ng Pagpipilian
+  ba-common-settingsmenu.submit-video: I-confirm video
+  ba-common-settingsmenu.picture-in-picture: Larawan sa larawan
+  ba-common-settingsmenu.exit-fullscreen-video: Umalis sa Fullscreen
+  ba-common-settingsmenu.fullscreen-video: Pumasok sa fullscreen
+  ba-videorecorder-chooser.multi-stream: Ang Multi Stream
+  ba-videorecorder-controlbar.pause-recorder: I-pause and Recorder
+  ba-videorecorder-controlbar.resume-recorder: I-resume Recorder
+  ba-videorecorder.missing-track: Ang kinakailangan na audio or video tranck ay hindi makita
+  ba-videorecorder.device-already-in-use: Hindi bababa sa isa sa iyong mga input device ang ginagamit na
+  ba-videorecorder.browser-permission-denied: 'Ang pahintulot ay tinanggihan ng browser, mangyaring magbigay ng access at i-reload ang pahina'
+  ba-audioplayer.all-settings: Lahat ng mga setting

@@ -2,25 +2,25 @@
   ba-videoplayer-playbutton.tooltip: Cliquez ici pour voir la vidéo.
   ba-videoplayer-playbutton.rerecord: Recommencer
   ba-videoplayer-playbutton.submit-video: Confirmer vidéo
-  ba-videoplayer-loader.tooltip: Télécharger votre vidéo
+  ba-videoplayer-loader.tooltip: Chargement...
   ba-videoplayer-controlbar.change-resolution: Modifier la résolution
-  ba-videoplayer-controlbar.video-progress: Vidéo en cours de chargement
+  ba-videoplayer-controlbar.video-progress: Progrès
   ba-videoplayer-controlbar.rerecord-video: Recommencer la vidéo?
-  ba-videoplayer-controlbar.submit-video: Valider la vidéo
-  ba-videoplayer-controlbar.play-video: Lire la vidéo
-  ba-videoplayer-controlbar.pause-video: Passer la vidéo
+  ba-videoplayer-controlbar.submit-video: Valider
+  ba-videoplayer-controlbar.play-video: Lecture
+  ba-videoplayer-controlbar.pause-video: Pause
   ba-videoplayer-controlbar.elapsed-time: Temps écoulé ou expiré
   ba-videoplayer-controlbar.total-time: Durée totale de la vidéo
-  ba-videoplayer-controlbar.fullscreen-video: Sélectionner le mode plein écran
-  ba-videoplayer-controlbar.volume-button: Régler ou ajuster le volume
+  ba-videoplayer-controlbar.fullscreen-video: Passer en mode plein écran
+  ba-videoplayer-controlbar.volume-button: Ajuster le volume
   ba-videoplayer-controlbar.volume-mute: Silencieux
   ba-videoplayer-controlbar.volume-unmute: Silencieux désactivé
   ba-videoplayer.video-error: >-
-    Une erreur s’est produite, réessayez ultérieurement – cliquez ici pour
+    Une erreur s’est produite, réessayez ultérieurement. Cliquez ici pour
     réessayer.
   ba-videorecorder-chooser.record-video: Enregistrer votre vidéo
-  ba-videorecorder-chooser.upload-video: Téléchargez votre vidéo
-  ba-videorecorder-controlbar.settings: Réglage ou mise à jour
+  ba-videorecorder-chooser.upload-video: Télécharger votre vidéo
+  ba-videorecorder-controlbar.settings: Réglages
   ba-videorecorder-controlbar.camerahealthy: Bon éclairage
   ba-videorecorder-controlbar.cameraunhealthy: L’éclairage n’est pas ideal
   ba-videorecorder-controlbar.microphonehealthy: Bonne acoustique
@@ -29,59 +29,59 @@
   ba-videorecorder-controlbar.record-tooltip: Cliquez ici pour enregistrer.
   ba-videorecorder-controlbar.rerecord: Recommencer
   ba-videorecorder-controlbar.rerecord-tooltip: Cliquez ici pour recommencer.
-  ba-videorecorder-controlbar.upload-covershot: Télécharger
+  ba-videorecorder-controlbar.upload-covershot: Télécharger couverture
   ba-videorecorder-controlbar.upload-covershot-tooltip: Cliquez ici pour télécharger une couverture personnalisée.
   ba-videorecorder-controlbar.stop: Arrêter
   ba-videorecorder-controlbar.stop-tooltip: Cliquez ici pour arrêter.
   ba-videorecorder-controlbar.skip: Sauter
   ba-videorecorder-controlbar.skip-tooltip: Cliquez ici pour sauter.
   ba-videorecorder.recorder-error: >-
-    Une erreur s’est produite, réessayez ultérieurement – cliquez ici pour
+    Une erreur s’est produite, réessayez ultérieurement. Cliquez ici pour
     réessayer.
   ba-videorecorder.attach-error: >-
-    Nous ne pouvons pas accéder à l’interface de l’appareil- cela dépend du
-    système et de l’explorateur. Cela peut nécessiter d’installer flash ou une
-    accédez à la page via SSL.
+    Nous n'avons pas pu accéder à l'interface multimédia. Selon le périphérique
+    et le navigateur, vous devrez peut-être installer Flash ou accéder à la page
+    via SSL.
   ba-videorecorder.access-forbidden: L’accès à l’appareil est interdit. Cliquez pour recommencer.
-  ba-videorecorder.pick-covershot: Choisissez une page de couverture.
-  ba-videorecorder.uploading: Télécharger
-  ba-videorecorder.uploading-failed: Echec du Téléchargement- Cliquez ici pour recommencer ou réessayer.
+  ba-videorecorder.pick-covershot: Choisissez une couverture.
+  ba-videorecorder.uploading: Téléchargement
+  ba-videorecorder.uploading-failed: Échec du Téléchargement - Cliquez ici pour recommencer ou réessayer.
   ba-videorecorder.verifying: Vérification
   ba-videorecorder.verifying-failed: Vérification échouée - Cliquez ici pour recommencer ou réessayer.
   ba-videorecorder.rerecord-confirm: Souhaitez vous réellement recommencer la vidéo?
   ba-videorecorder.video_file_too_large: >-
-    La taille de votre fichier est trop grande (%s). Cliquez ici pour ajuster la
-    taille.
-  ba-videorecorder.unsupported_video_type: S’il vous plaît téléchargez %s - cliquez ici pour réessayer.
+    La taille de votre fichier est trop grande (%s) - Cliquez ici pour réessayer
+    avec un fichier plus petit.
+  ba-videorecorder.unsupported_video_type: S’il vous plaît, téléchargez %s - cliquez ici pour réessayer.
   ba-videoplayer-controlbar.exit-fullscreen-video: Quitter le mode plein écran
   ba-videoplayer-share.share: Partager la vidéo
-  ba-videorecorder-chooser.record-screen: Écran d'enregistrement
+  ba-videorecorder-chooser.record-screen: Enregistrer l'écran
   ba-videoplayer-controlbar.pause-video-disabled: Pause non prise en charge
   ba-videorecorder-chooser.record-audio: Enregistrement audio
   ba-videorecorder-controlbar.stop-available-after: La durée d'enregistrement minimale est de %d secondes
   ba-videorecorder-controlbar.cancel: Annuler
-  ba-videorecorder-controlbar.cancel-tooltip: Cliquez ici pour annuler
+  ba-videorecorder-controlbar.cancel-tooltip: Cliquez ici pour annuler.
   ba-videorecorder.cancel-confirm: Voulez-vous vraiment annuler votre téléchargement de vidéo?
-  ba-videoplayer-adslot.elapsed-time: Temps élasped
+  ba-videoplayer-adslot.elapsed-time: Temps écoulé
   ba-videoplayer-adslot.volume-button: Définir le volume
   ba-videoplayer-adslot.volume-mute: Son muet
   ba-videoplayer-adslot.volume-unmute: Activer le son
   ba-videoplayer-adslot.ad-will-end-after: L'annonce se termine après %s
   ba-videoplayer-adslot.can-skip-after: Passer après %d
-  ba-videoplayer-adslot.skip-ad: Passer la pub
+  ba-videoplayer-adslot.skip-ad: Passer l'annonce
   ba-videorecorder.software-required: >-
-    Veuillez cliquer ci-dessous pour installer / activer les conditions
+    Veuillez cliquer ci-dessous pour installer / activer les dépendances
     suivantes afin de continuer.
   ba-videorecorder.software-waiting: >-
     Attendre que les exigences soient installées / activées. Vous devrez
     peut-être actualiser la page après l'achèvement.
-  ba-videoplayer-controlbar.close-tracks: Fermer CC
-  ba-videoplayer-controlbar.show-tracks: Montrer CC
+  ba-videoplayer-controlbar.close-tracks: Fermer sous-titrage
+  ba-videoplayer-controlbar.show-tracks: Montrer sous-titrage
   ba-videoplayer-tracks.upload-text-tracks: Télécharger des fichiers texte de piste
   ba-videoplayer-tracks.select-text-track-language: Langue des sous-titres
   ba-videoplayer-tracks.info-select-locale-first: Sélectionnez d'abord les paramètres régionaux
   ba-videoplayer-tracks.select-text-track-file: Cliquez pour sélectionner un fichier
-  ba-videoplayer-tracks.back: arrière
+  ba-videoplayer-tracks.back: retour
   ba-videorecorder.framerate-warning: >-
     Le taux de trame vidéo est très faible. Nous vous recommandons de fermer
     tous les autres programmes et les onglets du navigateur ou d'utiliser un
@@ -141,7 +141,7 @@
   ba-audiorecorder-controlbar.stop-available-after: La durée d'enregistrement minimale est de %d secondes
   ba-audiorecorder-controlbar.cancel: Annuler
   ba-audiorecorder-controlbar.cancel-tooltip: Cliquez ici pour annuler.
-  ba-videoplayer-controlbar.player-speed: Vitesse du joueur
+  ba-videoplayer-controlbar.player-speed: Vitesse du lecteur
   ba-videoplayer-controlbar.settings: Réglages
   ba-videoplayer-controlbar.airplay: Airplay
   ba-videoplayer-controlbar.airplay-icon: Icône airplay.
@@ -150,7 +150,7 @@
   ba-videoplayer.full-screen: Plein écran
   ba-videorecorder-controlbar.add-stream: Ajouter un flux
   ba-videorecorder.switch-camera: Changer de caméra
-  ba-videorecorder.prepare-covershot: Préparation des reprises
+  ba-videorecorder.prepare-covershot: Préparation des couvertures
   ba-videorecorder.prepare-thumbnails: Préparer la recherche de vignettes
   ba-videorecorder.adding-new-stream: Ajout d'un nouveau flux
   ba-imagecapture.recorder-error: >-
@@ -161,12 +161,12 @@
     et le navigateur, vous devrez peut-être installer Flash ou accéder à la page
     via SSL.
   ba-imagecapture.software-required: >-
-    Veuillez cliquer ci-dessous pour installer / activer les conditions
+    Veuillez cliquer ci-dessous pour installer / activer les dépendances
     suivantes afin de continuer.
   ba-imagecapture.software-waiting: >-
-    En attente des exigences à installer / activer. Vous devrez peut-être
+    En attente des dépendances à installer / activer. Vous devrez peut-être
     actualiser la page une fois l’opération terminée.
-  ba-imagecapture.access-forbidden: L'accès aux médias était interdit. Cliquez pour réessayer.
+  ba-imagecapture.access-forbidden: L'accès au média était interdit. Cliquez pour réessayer.
   ba-imagecapture.uploading: Téléchargement
   ba-imagecapture.uploading-failed: Échec du téléchargement - cliquez ici pour réessayer.
   ba-imagecapture.upload-error-duration: >-
@@ -176,12 +176,12 @@
     Le fichier que vous avez sélectionné ne correspond pas à la résolution
     requise - cliquez ici pour réessayer.
   ba-imagecapture.verifying: Vérification
-  ba-imagecapture.verifying-failed: Vérification en échec - cliquez ici pour réessayer.
+  ba-imagecapture.verifying-failed: Vérification échouée - cliquez ici pour réessayer.
   ba-imagecapture.rerecord-confirm: Voulez-vous vraiment reprendre votre image?
   ba-imagecapture.image_file_too_large: >-
-    Votre fichier image est trop volumineux ( %s) - cliquez ici pour essayer à
+    Votre fichier image est trop volumineux (%s) - cliquez ici pour essayer à
     nouveau avec un fichier image plus petit.
-  ba-imagecapture.unsupported_image_type: 'Veuillez télécharger: %s - cliquez ici pour réessayer.'
+  ba-imagecapture.unsupported_image_type: 'Veuillez télécharger : %s - cliquez ici pour réessayer.'
   ba-imagecapture.orientation-portrait-required: Veuillez faire pivoter votre appareil pour enregistrer en mode portrait.
   ba-imagecapture.orientation-landscape-required: Veuillez faire pivoter votre appareil pour enregistrer en mode paysage.
   ba-audiorecorder.recorder-error: >-
@@ -192,22 +192,38 @@
     et le navigateur, vous devrez peut-être installer Flash ou accéder à la page
     via SSL.
   ba-audiorecorder.software-required: >-
-    Veuillez cliquer ci-dessous pour installer / activer les conditions
+    Veuillez cliquer ci-dessous pour installer / activer les dépendances
     suivantes afin de continuer.
   ba-audiorecorder.software-waiting: >-
-    En attente des exigences à installer / activer. Vous devrez peut-être
+    En attente des dépendances à installer / activer. Vous devrez peut-être
     actualiser la page une fois l’opération terminée.
   ba-audiorecorder.access-forbidden: L'accès aux médias était interdit. Cliquez pour réessayer.
   ba-audiorecorder.uploading: Téléchargement
   ba-audiorecorder.uploading-failed: Échec du téléchargement - cliquez ici pour réessayer.
   ba-audiorecorder.upload-error-duration: >-
-    La longueur de l'audio téléchargée ne répond pas aux exigences - cliquez ici
+    La longueur de l'audio téléchargé ne répond pas aux exigences - cliquez ici
     pour réessayer.
   ba-audiorecorder.verifying: Vérification
-  ba-audiorecorder.verifying-failed: Vérification en échec - cliquez ici pour réessayer.
+  ba-audiorecorder.verifying-failed: Vérification échouée - cliquez ici pour réessayer.
   ba-audiorecorder.rerecord-confirm: Voulez-vous vraiment refaire votre audio?
   ba-audiorecorder.cancel-confirm: Voulez-vous vraiment annuler votre téléchargement audio?
   ba-audiorecorder.audio_file_too_large: >-
-    Votre fichier audio est trop volumineux ( %s) - cliquez ici pour essayer à
+    Votre fichier audio est trop volumineux (%s) - cliquez ici pour essayer à
     nouveau avec un fichier audio plus petit.
-  ba-audiorecorder.unsupported_audio_type: 'Veuillez télécharger: %s - cliquez ici pour réessayer.'
+  ba-audiorecorder.unsupported_audio_type: 'Veuillez télécharger : %s - cliquez ici pour réessayer.'
+  ba-common-settingsmenu.tooltip: Cliquez ici pour voir la vidéo
+  ba-common-settingsmenu.setting-menu: Tous les réglages
+  ba-common-settingsmenu.source-quality: Qualité source
+  ba-common-settingsmenu.player-speed: Vitesse du lecteur
+  ba-common-settingsmenu.set-menu-option: Configurer l'option
+  ba-common-settingsmenu.submit-video: Confirmer vidéo
+  ba-common-settingsmenu.picture-in-picture: Image dans l'image
+  ba-common-settingsmenu.exit-fullscreen-video: Quitter le mode plein écran
+  ba-common-settingsmenu.fullscreen-video: Passer en mode plein écran
+  ba-videorecorder-chooser.multi-stream: Flux multiples
+  ba-videorecorder-controlbar.pause-recorder: Mettre l'enregistrement en pause
+  ba-videorecorder-controlbar.resume-recorder: Continuer l'enregistrement
+  ba-videorecorder.missing-track: La piste audio ou vidéo requise est manquante
+  ba-videorecorder.device-already-in-use: Au moins un de vos périphériques d'entrée est déjà utilisé
+  ba-videorecorder.browser-permission-denied: Autorisation refusée par le navigateur, veuillez accorder l'accès et recharger la page
+  ba-audioplayer.all-settings: Tous les réglages

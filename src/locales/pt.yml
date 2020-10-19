@@ -90,8 +90,8 @@
   ba-videorecorder.resolution-constraint-error: >-
     O arquivo que você selecionou não corresponde à resolução necessária -
     clique aqui para tentar novamente.
-  ba-videorecorder.orientation-portrait-required: 'Por favor, gire seu dispositivo para gravar no modo retrato.'
-  ba-videorecorder.orientation-landscape-required: 'Por favor, gire seu dispositivo para gravar no modo paisagem.'
+  ba-videorecorder.orientation-portrait-required: 'Por favor, gire o seu dispositivo para gravar no modo retrato.'
+  ba-videorecorder.orientation-landscape-required: 'Por favor, gire o seu dispositivo para gravar no modo paisagem.'
   ba-imageviewer-controlbar.rerecord-image: Refazer
   ba-imageviewer-controlbar.submit-image: confirmar
   ba-imageviewer-controlbar.fullscreen-image: Entrar em ecrã inteiro
@@ -149,7 +149,7 @@
   ba-videorecorder-controlbar.add-stream: Adicionar stream
   ba-videorecorder.switch-camera: Alternar câmera
   ba-videorecorder.prepare-covershot: Preparando covershots
-  ba-videorecorder.prepare-thumbnails: Preparando miniaturas em busca
+  ba-videorecorder.prepare-thumbnails: Preparando a busca de miniaturas
   ba-videorecorder.adding-new-stream: Adicionando Novo Stream
   ba-imagecapture.recorder-error: >-
     Ocorreu um erro. Por favor tente novamente mais tarde. Clique para tentar
@@ -180,8 +180,8 @@
     Seu arquivo de imagem é muito grande ( %s) - clique aqui para tentar
     novamente com um arquivo de imagem menor.
   ba-imagecapture.unsupported_image_type: 'Carregue por favor: %s - clique aqui para tentar novamente.'
-  ba-imagecapture.orientation-portrait-required: 'Por favor, gire seu dispositivo para gravar no modo retrato.'
-  ba-imagecapture.orientation-landscape-required: 'Por favor, gire seu dispositivo para gravar no modo paisagem.'
+  ba-imagecapture.orientation-portrait-required: 'Por favor, gire o seu dispositivo para gravar no modo retrato.'
+  ba-imagecapture.orientation-landscape-required: 'Por favor, gire o seu dispositivo para gravar no modo paisagem.'
   ba-audiorecorder.recorder-error: >-
     Ocorreu um erro. Por favor tente novamente mais tarde. Clique para tentar
     novamente.
@@ -203,8 +203,8 @@
     tentar novamente.
   ba-audiorecorder.verifying: Verificando
   ba-audiorecorder.verifying-failed: Verificando falhou - clique aqui para tentar novamente.
-  ba-audiorecorder.rerecord-confirm: Você realmente quer refazer seu áudio?
-  ba-audiorecorder.cancel-confirm: Você realmente quer cancelar seu upload de áudio?
+  ba-audiorecorder.rerecord-confirm: Você realmente quer refazer o seu áudio?
+  ba-audiorecorder.cancel-confirm: Você realmente quer cancelar o seu upload de áudio?
   ba-audiorecorder.audio_file_too_large: >-
     Seu arquivo de áudio é muito grande ( %s) - clique aqui para tentar
     novamente com um arquivo de áudio menor.

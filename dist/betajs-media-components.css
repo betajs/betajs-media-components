@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.243 - 2020-09-29
+betajs-media-components - v0.0.244 - 2020-10-28
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -4015,6 +4015,8 @@ div.ba-videorecorder-disabled * {
 
 .ba-videorecorder-settings input[type=radio]:checked + span {
   border: 3px solid #8CF;
+  display: inline;
+  margin-right: 5px;
 }
 
 .ba-videorecorder-topmessage-container {

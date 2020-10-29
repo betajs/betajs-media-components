@@ -213,5 +213,5 @@
   ba-videorecorder-controlbar.resume-recorder: Riprendi la registrazione
   ba-videorecorder.missing-track: Audio o video non disponibile
   ba-videorecorder.device-already-in-use: Almeno uno dei tuoi dispositivi di input è già in uso
-  ba-videorecorder.browser-permission-denied: 'Autorizzazione negata dal browser, concedi l'accesso e ricarica la pagina'
+  ba-videorecorder.browser-permission-denied: Autorizzazione negata dal browser, concedi l'accesso e ricarica la pagina
   ba-audioplayer.all-settings: Tutte le impostazioni

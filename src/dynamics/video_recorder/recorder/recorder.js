@@ -530,6 +530,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                             this.recorder.setVolumeGain(this.get("microphone-volume"));
                             this.set("hideoverlay", false);
                             this.off("require_display", null, this);
+                            this.recorder.once("mainvideostreamended", function() {
+                                this.trigger("mainvideostreamended");
+                            }, this);
                             this.recorder.enumerateDevices().success(function(devices) {
                                 this.recorder.once("currentdevicesdetected", function(currentDevices) {
                                     this.set("selectedcamera", currentDevices.video);

@@ -4,7 +4,7 @@
 	bottom: $controlbar_height;
 	color: $text_color;
 	margin: $settings_margin;
-	padding: $settings_padding;	
+	padding: $settings_padding;
 }
 
 .#{$css}-settings-backbar {
@@ -64,7 +64,9 @@
 	display: inline-block;
 	position: relative;
 }
-	
-.#{$css}-settings input[type=radio]:checked + span  {
+
+.#{$css}-settings input[type=radio]:checked + span {
 	border: 3px solid $settings_radio_color_selected;
+  	display: inline;
+	margin-right: 5px;
 }

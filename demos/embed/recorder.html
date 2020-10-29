@@ -50,6 +50,7 @@
                     onclick="pauseClickHandler(this)"
             >Toggle Pause</button>
         </div>
+        Logs : >> <div id="recorder-logs"></div>
     </div>
 </div>
 
@@ -69,7 +70,7 @@
                 skipinitial: false,
                 autorecord: false,
                 allowrecord: true,
-                allowscreen: false,
+                allowscreen: true,
                 allowmultistreams: true,
                 localplayback: true,
                 showplayersettingsmenu: false,
@@ -105,6 +106,14 @@
                 recorder.set("playbackposter", "/files/" + filename + ".jpg");
             return BetaJS.Promise.value(true);
         };
+
+        recorder.on("ended", (ev) => {
+            console.log('Ended >> ', ev);
+        }, recorder);
+
+        recorder.on("mainvideostreamended", (e) => {
+            console.log('Main video stream ended', e);
+        });
 
         recorder.activate();
 

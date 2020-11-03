@@ -15,7 +15,9 @@
   ba-videoplayer-controlbar.volume-button: Ορισμός έντασης
   ba-videoplayer-controlbar.volume-mute: Σίγαση ήχου
   ba-videoplayer-controlbar.volume-unmute: Αναίρεση σίγασης ήχου
-  ba-videoplayer.video-error: 'Συνέβη κάποιο λάθος, παρακαλούμε ξαναπροσπαθήστε αργότερα. Κλικ για να ξαναπροσπαθήσετε.'
+  ba-videoplayer.video-error: >-
+    Συνέβη κάποιο λάθος, παρακαλούμε ξαναπροσπαθήστε αργότερα. Κλικ για να
+    ξαναπροσπαθήσετε.
   ba-videorecorder-chooser.record-video: Εγγραφή βίντεο
   ba-videorecorder-chooser.upload-video: Μεταφόρτωση βίντεο
   ba-videorecorder-controlbar.settings: Ρυθμίσεις
@@ -33,10 +35,13 @@
   ba-videorecorder-controlbar.stop-tooltip: Κλικ εδώ για διακοπή.
   ba-videorecorder-controlbar.skip: Παράλειψη
   ba-videorecorder-controlbar.skip-tooltip: Κλικ εδώ για παράλειψη.
-  ba-videorecorder.recorder-error: 'Συνέβη κάποιο λάθος, παρακαλούμε ξαναπροσπαθήστε αργότερα. Κλικ για να ξαναπροσπαθήσετε.'
+  ba-videorecorder.recorder-error: >-
+    Συνέβη κάποιο λάθος, παρακαλούμε ξαναπροσπαθήστε αργότερα. Κλικ για να
+    ξαναπροσπαθήσετε.
   ba-videorecorder.attach-error: >-
-    Δεν μπορέσαμε να αποκτήσουμε πρόσβαση στην κάμερα. Ανάλογα με τη συσκευή
-    και τον browser που χρησιμοποιείτε, μπορεί να χρειαστεί να εγκαταστήσετε το Flash ή να μπείτε στη σελίδα μέσω SSL.
+    Δεν μπορέσαμε να αποκτήσουμε πρόσβαση στην κάμερα. Ανάλογα με τη συσκευή και
+    τον browser που χρησιμοποιείτε, μπορεί να χρειαστεί να εγκαταστήσετε το
+    Flash ή να μπείτε στη σελίδα μέσω SSL.
   ba-videorecorder.access-forbidden: Δεν επιτράπηκε η πρόσβαση στην κάμερα. Κλικ για να ξαναπροσπαθήστε.
   ba-videorecorder.pick-covershot: Επιλέξτε μια εικόνα επισκόπησης.
   ba-videorecorder.uploading: Μεταφόρτωση
@@ -45,11 +50,182 @@
   ba-videorecorder.verifying-failed: Η επιβεβαίωση απέτυχε- κλικ εδώ για να ξαναπροσπαθήσετε.
   ba-videorecorder.rerecord-confirm: Σίγοουρα θέλετε να επαναλάβετε τη βίντεο-λήψη;
   ba-videorecorder.video_file_too_large: >-
-    Το αρχείο βίντεο είναι πολύ μεγάλο (%s) - κλικ εδώ για να ξαναπροσπαθήσετε με ένα μεγαλύτερο 
-    αρχείο.
+    Το αρχείο βίντεο είναι πολύ μεγάλο (%s) - κλικ εδώ για να ξαναπροσπαθήσετε
+    με ένα μεγαλύτερο  αρχείο.
   ba-videorecorder.unsupported_video_type: 'Παρακαλούμε μεταφορτώστε: %s - κλικ εδώ για να ξαναπροσπαθήσετε.'
   ba-videoplayer-controlbar.exit-fullscreen-video: Έξοδος από πλήρη οθόνη
   ba-videoplayer-share.share: Διαμοιρασμός
   ba-videoplayer-controlbar.pause-video-disabled: Η προσωρινή παύση δεν υποσηρίζεται
   ba-videorecorder-chooser.record-audio: Εγγραφή ήχου
-  
+  ba-videorecorder-chooser.record-screen: Οθόνη εγγραφής
+  ba-videorecorder-controlbar.stop-available-after: Ο ελάχιστος χρόνος εγγραφής είναι %d δευτερόλεπτα
+  ba-videorecorder-controlbar.cancel: Ματαίωση
+  ba-videorecorder-controlbar.cancel-tooltip: Κάντε κλικ εδώ για ακύρωση.
+  ba-videorecorder.cancel-confirm: Θέλετε πραγματικά να ακυρώσετε τη μεταφόρτωση του βίντεό σας;
+  ba-videoplayer-adslot.elapsed-time: Χρόνος που παρήλθε
+  ba-videoplayer-adslot.volume-button: Ρύθμιση έντασης
+  ba-videoplayer-adslot.volume-mute: Σίγαση ήχου
+  ba-videoplayer-adslot.volume-unmute: Σίγαση ήχου
+  ba-videoplayer-adslot.ad-will-end-after: Η διαφήμιση θα λήξει μετά το %s
+  ba-videoplayer-adslot.can-skip-after: Παράλειψη μετά το %d
+  ba-videoplayer-adslot.skip-ad: Παράκαμψη διαφήμισης
+  ba-videorecorder.software-required: >-
+    Κάντε κλικ παρακάτω για να εγκαταστήσετε / ενεργοποιήσετε τις ακόλουθες
+    απαιτήσεις για να προχωρήσετε.
+  ba-videorecorder.software-waiting: >-
+    Αναμονή για την εγκατάσταση / ενεργοποίηση των απαιτήσεων. Ίσως χρειαστεί να
+    ανανεώσετε τη σελίδα μετά την ολοκλήρωση.
+  ba-videoplayer-controlbar.close-tracks: Κλείσιμο CC
+  ba-videoplayer-controlbar.show-tracks: Εμφάνιση CC
+  ba-videoplayer-tracks.upload-text-tracks: Ανεβάστε αρχεία κειμένου κομματιού
+  ba-videoplayer-tracks.select-text-track-language: Γλώσσα υποτίτλων
+  ba-videoplayer-tracks.info-select-locale-first: Πρώτα επιλέξτε τοπικές ρυθμίσεις
+  ba-videoplayer-tracks.select-text-track-file: Κάντε κλικ για να επιλέξετε αρχείο
+  ba-videoplayer-tracks.back: πίσω
+  ba-videorecorder.framerate-warning: >-
+    Ο ρυθμός καρέ βίντεο είναι πολύ χαμηλός. Σας συνιστούμε να κλείσετε όλα τα
+    άλλα προγράμματα και τις καρτέλες του προγράμματος περιήγησης ή να
+    χρησιμοποιήσετε έναν γρηγορότερο υπολογιστή.
+  ba-videorecorder.upload-error-duration: >-
+    Το μήκος του μεταφορτωμένου βίντεο δεν πληροί τις απαιτήσεις - κάντε κλικ
+    εδώ για να προσπαθήσετε ξανά.
+  ba-videorecorder.resolution-constraint-error: >-
+    Το αρχείο που επιλέξατε δεν ταιριάζει με την απαιτούμενη ανάλυση - κάντε
+    κλικ εδώ για να προσπαθήσετε ξανά.
+  ba-videorecorder.orientation-portrait-required: Περιστρέψτε τη συσκευή σας για εγγραφή σε κατακόρυφη λειτουργία.
+  ba-videorecorder.orientation-landscape-required: Περιστρέψτε τη συσκευή σας για εγγραφή σε οριζόντια λειτουργία.
+  ba-imageviewer-controlbar.rerecord-image: Ξανακάνω?
+  ba-imageviewer-controlbar.submit-image: Επιβεβαιώνω
+  ba-imageviewer-controlbar.fullscreen-image: Εισαγάγετε την πλήρη οθόνη
+  ba-imageviewer-controlbar.exit-fullscreen-image: Έξοδος από πλήρη οθόνη
+  ba-imageviewer.image-error: >-
+    Εμφανίστηκε κάποιο σφάλμα. Παρακαλώ δοκιμάστε αργότερα. Κάντε κλικ για
+    επανάληψη.
+  ba-imagecapture-chooser.image-capture: Λήψη εικόνας
+  ba-imagecapture-chooser.upload-image: Μεταφόρτωση εικόνας
+  ba-imagecapture-controlbar.settings: Ρυθμίσεις
+  ba-imagecapture-controlbar.camerahealthy: Ο φωτισμός είναι καλός
+  ba-imagecapture-controlbar.cameraunhealthy: Ο φωτισμός δεν είναι βέλτιστος
+  ba-imagecapture-controlbar.record: Πιάνω
+  ba-imagecapture-controlbar.record-tooltip: Κάντε κλικ εδώ για λήψη.
+  ba-imagecapture-controlbar.rerecord: Ξανακάνω
+  ba-imagecapture-controlbar.rerecord-tooltip: Κάντε κλικ εδώ για επανάληψη.
+  ba-imagecapture-controlbar.cancel: Ματαίωση
+  ba-imagecapture-controlbar.cancel-tooltip: Κάντε κλικ εδώ για ακύρωση.
+  ba-audioplayer-controlbar.audio-progress: Πρόοδος
+  ba-audioplayer-controlbar.rerecord-audio: Ξανακάνω?
+  ba-audioplayer-controlbar.submit-audio: Επιβεβαιώνω
+  ba-audioplayer-controlbar.play-audio: Παίζω
+  ba-audioplayer-controlbar.pause-audio: Παύση
+  ba-audioplayer-controlbar.pause-audio-disabled: Η παύση δεν υποστηρίζεται
+  ba-audioplayer-controlbar.elapsed-time: Χρόνος που παρήλθε
+  ba-audioplayer-controlbar.total-time: Συνολικό μήκος
+  ba-audioplayer-controlbar.volume-button: Ρύθμιση έντασης
+  ba-audioplayer-controlbar.volume-mute: Σίγαση ήχου
+  ba-audioplayer-controlbar.volume-unmute: Σίγαση ήχου
+  ba-audioplayer-loader.tooltip: Φόρτωση...
+  ba-audioplayer.audio-error: >-
+    Εμφανίστηκε κάποιο σφάλμα. Παρακαλώ δοκιμάστε αργότερα. Κάντε κλικ για
+    επανάληψη.
+  ba-audiorecorder-chooser.record-audio: Εγγραφή ήχου
+  ba-audiorecorder-chooser.upload-audio: Μεταφόρτωση ήχου
+  ba-audiorecorder-controlbar.settings: Ρυθμίσεις
+  ba-audiorecorder-controlbar.microphonehealthy: Ο ήχος είναι καλός
+  ba-audiorecorder-controlbar.microphoneunhealthy: Δεν είναι δυνατή η λήψη ήχου
+  ba-audiorecorder-controlbar.record: Ρεκόρ
+  ba-audiorecorder-controlbar.record-tooltip: Κάντε κλικ εδώ για εγγραφή.
+  ba-audiorecorder-controlbar.rerecord: Ξανακάνω
+  ba-audiorecorder-controlbar.rerecord-tooltip: Κάντε κλικ εδώ για επανάληψη.
+  ba-audiorecorder-controlbar.stop: Να σταματήσει
+  ba-audiorecorder-controlbar.stop-tooltip: Κάντε κλικ εδώ για να σταματήσετε.
+  ba-audiorecorder-controlbar.stop-available-after: Ο ελάχιστος χρόνος εγγραφής είναι %d δευτερόλεπτα
+  ba-audiorecorder-controlbar.cancel: Ματαίωση
+  ba-audiorecorder-controlbar.cancel-tooltip: Κάντε κλικ εδώ για ακύρωση.
+  ba-videoplayer-controlbar.player-speed: Ταχύτητα παίκτη
+  ba-videoplayer-controlbar.settings: Ρυθμίσεις
+  ba-videoplayer-controlbar.airplay: Airplay
+  ba-videoplayer-controlbar.airplay-icon: Εικονίδιο Airplay.
+  ba-videoplayer.all-settings: Όλες οι ρυθμίσεις
+  ba-videoplayer.player-speed: Ταχύτητα παίκτη
+  ba-videoplayer.full-screen: ΠΛΗΡΗΣ ΟΘΟΝΗ
+  ba-videorecorder-controlbar.add-stream: Προσθήκη ροής
+  ba-videorecorder.switch-camera: Εναλλαγή κάμερας
+  ba-videorecorder.prepare-covershot: Προετοιμασία εξώφυλλων
+  ba-videorecorder.prepare-thumbnails: Προετοιμασία αναζήτησης μικρογραφιών
+  ba-videorecorder.adding-new-stream: Προσθήκη νέας ροής
+  ba-imagecapture.recorder-error: >-
+    Εμφανίστηκε κάποιο σφάλμα. Παρακαλώ δοκιμάστε αργότερα. Κάντε κλικ για
+    επανάληψη.
+  ba-imagecapture.attach-error: >-
+    Δεν ήταν δυνατή η πρόσβαση στη διεπαφή πολυμέσων. Ανάλογα με τη συσκευή και
+    το πρόγραμμα περιήγησης, ίσως χρειαστεί να εγκαταστήσετε το Flash ή να
+    αποκτήσετε πρόσβαση στη σελίδα μέσω SSL.
+  ba-imagecapture.software-required: >-
+    Κάντε κλικ παρακάτω για να εγκαταστήσετε / ενεργοποιήσετε τις ακόλουθες
+    απαιτήσεις για να προχωρήσετε.
+  ba-imagecapture.software-waiting: >-
+    Αναμονή για την εγκατάσταση / ενεργοποίηση των απαιτήσεων. Ίσως χρειαστεί να
+    ανανεώσετε τη σελίδα μετά την ολοκλήρωση.
+  ba-imagecapture.access-forbidden: Απαγορεύτηκε η πρόσβαση στα μέσα ενημέρωσης. Κάντε κλικ για επανάληψη.
+  ba-imagecapture.uploading: Μεταφόρτωση
+  ba-imagecapture.uploading-failed: Η μεταφόρτωση απέτυχε - κάντε κλικ εδώ για να προσπαθήσετε ξανά.
+  ba-imagecapture.upload-error-duration: >-
+    Το μήκος της μεταφορτωμένης εικόνας δεν πληροί τις απαιτήσεις - κάντε κλικ
+    εδώ για να προσπαθήσετε ξανά.
+  ba-imagecapture.resolution-constraint-error: >-
+    Το αρχείο που επιλέξατε δεν ταιριάζει με την απαιτούμενη ανάλυση - κάντε
+    κλικ εδώ για να προσπαθήσετε ξανά.
+  ba-imagecapture.verifying: Επαλήθευση
+  ba-imagecapture.verifying-failed: Η επαλήθευση απέτυχε - κάντε κλικ εδώ για να προσπαθήσετε ξανά.
+  ba-imagecapture.rerecord-confirm: Θέλετε πραγματικά να επαναλάβετε την εικόνα σας;
+  ba-imagecapture.image_file_too_large: >-
+    Το αρχείο εικόνας σας είναι πολύ μεγάλο ( %s) - κάντε κλικ εδώ για να
+    προσπαθήσετε ξανά με ένα μικρότερο αρχείο εικόνας.
+  ba-imagecapture.unsupported_image_type: 'Μεταφορτώστε: %s - κάντε κλικ εδώ για να προσπαθήσετε ξανά.'
+  ba-imagecapture.orientation-portrait-required: Περιστρέψτε τη συσκευή σας για εγγραφή σε κατακόρυφη λειτουργία.
+  ba-imagecapture.orientation-landscape-required: Περιστρέψτε τη συσκευή σας για εγγραφή σε οριζόντια λειτουργία.
+  ba-audiorecorder.recorder-error: >-
+    Εμφανίστηκε κάποιο σφάλμα. Παρακαλώ δοκιμάστε αργότερα. Κάντε κλικ για
+    επανάληψη.
+  ba-audiorecorder.attach-error: >-
+    Δεν ήταν δυνατή η πρόσβαση στη διεπαφή πολυμέσων. Ανάλογα με τη συσκευή και
+    το πρόγραμμα περιήγησης, ίσως χρειαστεί να εγκαταστήσετε το Flash ή να
+    αποκτήσετε πρόσβαση στη σελίδα μέσω SSL.
+  ba-audiorecorder.software-required: >-
+    Κάντε κλικ παρακάτω για να εγκαταστήσετε / ενεργοποιήσετε τις ακόλουθες
+    απαιτήσεις για να προχωρήσετε.
+  ba-audiorecorder.software-waiting: >-
+    Αναμονή για την εγκατάσταση / ενεργοποίηση των απαιτήσεων. Ίσως χρειαστεί να
+    ανανεώσετε τη σελίδα μετά την ολοκλήρωση.
+  ba-audiorecorder.access-forbidden: Απαγορεύτηκε η πρόσβαση στα μέσα ενημέρωσης. Κάντε κλικ για επανάληψη.
+  ba-audiorecorder.uploading: Μεταφόρτωση
+  ba-audiorecorder.uploading-failed: Η μεταφόρτωση απέτυχε - κάντε κλικ εδώ για να προσπαθήσετε ξανά.
+  ba-audiorecorder.upload-error-duration: >-
+    Το μήκος του μεταφορτωμένου ήχου δεν πληροί τις απαιτήσεις - κάντε κλικ εδώ
+    για να προσπαθήσετε ξανά.
+  ba-audiorecorder.verifying: Επαλήθευση
+  ba-audiorecorder.verifying-failed: Η επαλήθευση απέτυχε - κάντε κλικ εδώ για να προσπαθήσετε ξανά.
+  ba-audiorecorder.rerecord-confirm: Θέλετε πραγματικά να επαναλάβετε τον ήχο σας;
+  ba-audiorecorder.cancel-confirm: Θέλετε πραγματικά να ακυρώσετε τη μεταφόρτωση ήχου;
+  ba-audiorecorder.audio_file_too_large: >-
+    Το αρχείο ήχου σας είναι πολύ μεγάλο ( %s) - κάντε κλικ εδώ για να
+    δοκιμάσετε ξανά με ένα μικρότερο αρχείο ήχου.
+  ba-audiorecorder.unsupported_audio_type: 'Μεταφορτώστε: %s - κάντε κλικ εδώ για να προσπαθήσετε ξανά.'
+  ba-common-settingsmenu.tooltip: Κάντε κλικ για να παίξετε.
+  ba-common-settingsmenu.setting-menu: Όλες οι ρυθμίσεις
+  ba-common-settingsmenu.source-quality: Ποιότητα πηγής
+  ba-common-settingsmenu.player-speed: Ταχύτητα παίκτη
+  ba-common-settingsmenu.set-menu-option: Ορίστε την επιλογή
+  ba-common-settingsmenu.submit-video: Επιβεβαίωση βίντεο
+  ba-common-settingsmenu.picture-in-picture: Εικόνα σε εικόνα
+  ba-common-settingsmenu.exit-fullscreen-video: Έξοδος από πλήρη οθόνη
+  ba-common-settingsmenu.fullscreen-video: Εισαγάγετε την πλήρη οθόνη
+  ba-videorecorder-chooser.multi-stream: Πολλαπλή ροή
+  ba-videorecorder-controlbar.pause-recorder: Παύση εγγραφής
+  ba-videorecorder-controlbar.resume-recorder: Συνέχιση εγγραφής
+  ba-videorecorder.missing-track: Λείπει το απαιτούμενο κομμάτι ήχου ή βίντεο
+  ba-videorecorder.device-already-in-use: Τουλάχιστον μία από τις συσκευές εισόδου σας χρησιμοποιείται ήδη
+  ba-videorecorder.browser-permission-denied: >-
+    Δεν επιτρέπεται η άδεια από το πρόγραμμα περιήγησης, παραχωρήστε πρόσβαση
+    και φορτώστε ξανά τη σελίδα
+  ba-audioplayer.all-settings: Όλες οι ρυθμίσεις

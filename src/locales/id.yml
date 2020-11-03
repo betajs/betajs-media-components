@@ -198,3 +198,19 @@
     File audio Anda terlalu besar ( %s) - klik di sini untuk mencoba lagi dengan
     file audio yang lebih kecil.
   ba-audiorecorder.unsupported_audio_type: 'Harap unggah: %s - klik di sini untuk mencoba lagi.'
+  ba-common-settingsmenu.tooltip: Klik untuk main.
+  ba-common-settingsmenu.setting-menu: Semua pengaturan
+  ba-common-settingsmenu.source-quality: Kualitas sumber
+  ba-common-settingsmenu.player-speed: Kecepatan pemain
+  ba-common-settingsmenu.set-menu-option: Atur opsi
+  ba-common-settingsmenu.submit-video: Konfirmasikan video
+  ba-common-settingsmenu.picture-in-picture: Gambar di dalam gambar
+  ba-common-settingsmenu.exit-fullscreen-video: Keluar dari layar penuh
+  ba-common-settingsmenu.fullscreen-video: Memasuki layar penuh
+  ba-videorecorder-chooser.multi-stream: Multi Stream
+  ba-videorecorder-controlbar.pause-recorder: Jeda Perekam
+  ba-videorecorder-controlbar.resume-recorder: Lanjutkan Perekam
+  ba-videorecorder.missing-track: Trek audio atau video yang diperlukan tidak ada
+  ba-videorecorder.device-already-in-use: Setidaknya satu dari perangkat input Anda sudah digunakan
+  ba-videorecorder.browser-permission-denied: 'Izin ditolak oleh browser, berikan akses dan muat ulang halaman'
+  ba-audioplayer.all-settings: Semua pengaturan

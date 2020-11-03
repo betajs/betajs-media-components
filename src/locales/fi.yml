@@ -22,7 +22,7 @@
   ba-videorecorder-controlbar.camerahealthy: Valaistus on riittävä
   ba-videorecorder-controlbar.cameraunhealthy: Valaistus ei ole optimaalinen
   ba-videorecorder-controlbar.microphonehealthy: Äänitys toimii
-  ba-videorecorder-controlbar.microphoneunhealthy: Ääni ei tallennu, tarkista mikrofoniasetus
+  ba-videorecorder-controlbar.microphoneunhealthy: 'Ääni ei tallennu, tarkista mikrofoniasetus'
   ba-videorecorder-controlbar.record: Nauhoita
   ba-videorecorder-controlbar.record-tooltip: Aloita videon nauhoitus.
   ba-videorecorder-controlbar.rerecord: Uudelleen
@@ -35,8 +35,8 @@
   ba-videorecorder-controlbar.skip-tooltip: Paina tästä ohittaaksesi.
   ba-videorecorder.recorder-error: 'Tapahtui virhe, yritä myöhemmin uudelleen. Yritä uudelleen klikkaamalla.'
   ba-videorecorder.attach-error: >-
-    Emme voineet käyttää kamera-rajapintaa. Laitteesta ja selaimesta riippuen, sinun
-    on ehkä asennettava Flash tai käytettävä sivun kautta SSL.
+    Emme voineet käyttää kamera-rajapintaa. Laitteesta ja selaimesta riippuen,
+    sinun on ehkä asennettava Flash tai käytettävä sivun kautta SSL.
   ba-videorecorder.access-forbidden: Pääsy kameraan oli kielletty. Yritä uudelleen klikkaamalla.
   ba-videorecorder.pick-covershot: Valitse aloituskuva.
   ba-videorecorder.uploading: Ladataan
@@ -80,7 +80,9 @@
   ba-videorecorder.framerate-warning: >-
     Videon frame-rate on hyvin alhainen. Suosittelemme kaikkien muiden ohjelmien
     ja selainvälilehtien sulkemista tai nopeamman tietokoneen käyttöä.
-  ba-videorecorder.upload-error-duration: Lähetetyn videon pituus ei täytä vaatimuksia - klikkaa tästä yrittääksesi uudelleen.
+  ba-videorecorder.upload-error-duration: >-
+    Lähetetyn videon pituus ei täytä vaatimuksia - klikkaa tästä yrittääksesi
+    uudelleen.
   ba-videorecorder.resolution-constraint-error: >-
     Valitsemasi tiedosto ei vastaa vaadittua tarkkuutta - napsauta tätä
     uudelleen yrittääksesi.
@@ -145,9 +147,7 @@
   ba-imagecapture.attach-error: >-
     Emme voineet käyttää mediarajapintaa. Laitteesta ja selaimesta riippuen
     sinun on ehkä asennettava Flash tai avattava sivu SSL:n kautta.
-  ba-imagecapture.software-required: >-
-    Klikkaa asentaaksesi / aktivoidaksesi seuraavat vaatimukset
-    jatkaaksesi.
+  ba-imagecapture.software-required: Klikkaa asentaaksesi / aktivoidaksesi seuraavat vaatimukset jatkaaksesi.
   ba-imagecapture.software-waiting: >-
     Odotetaan, että vaatimukset asennetaan / aktivoidaan. Saatat joutua
     päivittämään sivun valmistumisen jälkeen.
@@ -183,8 +183,8 @@
   ba-audiorecorder.uploading: Ladataan
   ba-audiorecorder.uploading-failed: Lataaminen epäonnistui - yritä uudelleen napsauttamalla tätä.
   ba-audiorecorder.upload-error-duration: >-
-    Lähetetyn äänityksen pituus ei täytä vaatimuksia - yritä uudelleen napsauttamalla
-    tätä.
+    Lähetetyn äänityksen pituus ei täytä vaatimuksia - yritä uudelleen
+    napsauttamalla tätä.
   ba-audiorecorder.verifying: Tarkistetaan
   ba-audiorecorder.verifying-failed: Vahvistaminen epäonnistui - yritä uudelleen napsauttamalla tätä.
   ba-audiorecorder.rerecord-confirm: Haluatko todella nauhoittaa uudelleen?
@@ -193,3 +193,19 @@
     Äänitiedosto on liian suuri ( %s) - napsauta tätä, jos haluat kokeilla
     uudelleen pienempää äänitiedostoa.
   ba-audiorecorder.unsupported_audio_type: 'Lähetä: %s - napsauta tätä, jos haluat yrittää uudelleen.'
+  ba-common-settingsmenu.tooltip: Klikkaa pelataksesi.
+  ba-common-settingsmenu.setting-menu: Kaikki asetukset
+  ba-common-settingsmenu.source-quality: Lähteen laatu
+  ba-common-settingsmenu.player-speed: Pelaajan nopeus
+  ba-common-settingsmenu.set-menu-option: Aseta vaihtoehto
+  ba-common-settingsmenu.submit-video: Vahvista video
+  ba-common-settingsmenu.picture-in-picture: Kuva kuvassa
+  ba-common-settingsmenu.exit-fullscreen-video: Poistu koko näytöstä
+  ba-common-settingsmenu.fullscreen-video: Siirry koko näyttöön
+  ba-videorecorder-chooser.multi-stream: Monivirta
+  ba-videorecorder-controlbar.pause-recorder: Keskeytä tallennin
+  ba-videorecorder-controlbar.resume-recorder: Jatka tallenninta
+  ba-videorecorder.missing-track: Vaadittu ääni- tai videoraita puuttuu
+  ba-videorecorder.device-already-in-use: Ainakin yksi syöttölaitteistasi on jo käytössä
+  ba-videorecorder.browser-permission-denied: Selain ei myöntänyt lupaa. Anna käyttöoikeus ja lataa sivu uudelleen
+  ba-audioplayer.all-settings: Kaikki asetukset

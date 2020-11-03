@@ -210,3 +210,19 @@
     Je audiobestand is te groot ( %s) - klik hier om het opnieuw te proberen met
     een kleiner audiobestand.
   ba-audiorecorder.unsupported_audio_type: 'Upload alstublieft: %s - klik hier om het opnieuw te proberen.'
+  ba-common-settingsmenu.tooltip: Klik om te spelen.
+  ba-common-settingsmenu.setting-menu: Alle instellingen
+  ba-common-settingsmenu.source-quality: Bronkwaliteit
+  ba-common-settingsmenu.player-speed: Speler snelheid
+  ba-common-settingsmenu.set-menu-option: Optie instellen
+  ba-common-settingsmenu.submit-video: Bevestig video
+  ba-common-settingsmenu.picture-in-picture: Foto in foto
+  ba-common-settingsmenu.exit-fullscreen-video: Verlaat volledig scherm
+  ba-common-settingsmenu.fullscreen-video: Volledig scherm openen
+  ba-videorecorder-chooser.multi-stream: Multi-stream
+  ba-videorecorder-controlbar.pause-recorder: Pauzeer de recorder
+  ba-videorecorder-controlbar.resume-recorder: Hervat de recorder
+  ba-videorecorder.missing-track: Vereiste audio- of videotrack ontbreekt
+  ba-videorecorder.device-already-in-use: Minstens een van uw invoerapparaten is al in gebruik
+  ba-videorecorder.browser-permission-denied: 'Toestemming geweigerd door browser, geef toegang en laad de pagina opnieuw'
+  ba-audioplayer.all-settings: Alle instellingen

@@ -207,3 +207,19 @@
     Din ljudfil är för stor ( %s) - klicka här för att försöka igen med en
     mindre ljudfil.
   ba-audiorecorder.unsupported_audio_type: 'Vänligen ladda upp: %s - klicka här för att försöka igen.'
+  ba-common-settingsmenu.tooltip: Klicka för att spela.
+  ba-common-settingsmenu.setting-menu: Alla inställningar
+  ba-common-settingsmenu.source-quality: Källkvalitet
+  ba-common-settingsmenu.player-speed: Spelarens hastighet
+  ba-common-settingsmenu.set-menu-option: Ställ in alternativ
+  ba-common-settingsmenu.submit-video: Bekräfta video
+  ba-common-settingsmenu.picture-in-picture: Bild i bild
+  ba-common-settingsmenu.exit-fullscreen-video: Avsluta helskärm
+  ba-common-settingsmenu.fullscreen-video: Gå till helskärm
+  ba-videorecorder-chooser.multi-stream: Multi Stream
+  ba-videorecorder-controlbar.pause-recorder: Pausa inspelaren
+  ba-videorecorder-controlbar.resume-recorder: Återuppta inspelare
+  ba-videorecorder.missing-track: Nödvändigt ljud- eller videospår saknas
+  ba-videorecorder.device-already-in-use: Minst en av dina inmatningsenheter är redan i bruk
+  ba-videorecorder.browser-permission-denied: 'Tillåtelse nekad av webbläsaren, vänligen ge åtkomst och ladda om sidan'
+  ba-audioplayer.all-settings: Alla inställningar

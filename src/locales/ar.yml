@@ -181,3 +181,19 @@
     ملف الصوت الخاص بك كبير جدًا (٪ s) - انقر هنا لإعادة المحاولة باستخدام ملف
     صوتي أصغر.
   ba-audiorecorder.unsupported_audio_type: 'الرجاء التحميل:٪ s - انقر هنا لإعادة المحاولة.'
+  ba-common-settingsmenu.tooltip: انقر للعب.
+  ba-common-settingsmenu.setting-menu: جميع الإعدادات
+  ba-common-settingsmenu.source-quality: جودة المصدر
+  ba-common-settingsmenu.player-speed: سرعة اللاعب
+  ba-common-settingsmenu.set-menu-option: تعيين الخيار
+  ba-common-settingsmenu.submit-video: تأكيد الفيديو
+  ba-common-settingsmenu.picture-in-picture: صور في صور
+  ba-common-settingsmenu.exit-fullscreen-video: الخروج من الشاشة الكاملة
+  ba-common-settingsmenu.fullscreen-video: أدخل ملء الشاشة
+  ba-videorecorder-chooser.multi-stream: متعدد تيار
+  ba-videorecorder-controlbar.pause-recorder: مسجل وقفة
+  ba-videorecorder-controlbar.resume-recorder: مسجل السيرة الذاتية
+  ba-videorecorder.missing-track: مسار الصوت أو الفيديو المطلوب مفقود
+  ba-videorecorder.device-already-in-use: واحد على الأقل من أجهزة الإدخال الخاصة بك قيد الاستخدام بالفعل
+  ba-videorecorder.browser-permission-denied: تم رفض الإذن عن طريق المتصفح ، يرجى منح الوصول وإعادة تحميل الصفحة
+  ba-audioplayer.all-settings: جميع الإعدادات

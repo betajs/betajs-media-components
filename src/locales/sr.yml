@@ -206,3 +206,19 @@
     Ваша аудио датотека је превелика ( %с) - кликните овде да бисте покушали
     поново са мањим аудио фајлом.
   ba-audiorecorder.unsupported_audio_type: 'Учитајте: %с - кликните овде да бисте покушали поново.'
+  ba-common-settingsmenu.tooltip: Кликните за репродукцију.
+  ba-common-settingsmenu.setting-menu: Сва подешавања
+  ba-common-settingsmenu.source-quality: Квалитет извора
+  ba-common-settingsmenu.player-speed: Брзина играча
+  ba-common-settingsmenu.set-menu-option: Поставите опцију
+  ba-common-settingsmenu.submit-video: Потврдите видео
+  ba-common-settingsmenu.picture-in-picture: Слика у слици
+  ba-common-settingsmenu.exit-fullscreen-video: Изађи из целог екрана
+  ba-common-settingsmenu.fullscreen-video: Уђите на цео екран
+  ba-videorecorder-chooser.multi-stream: Мулти Стреам
+  ba-videorecorder-controlbar.pause-recorder: Паузирај снимач
+  ba-videorecorder-controlbar.resume-recorder: Ресуме Рецордер
+  ba-videorecorder.missing-track: Недостаје обавезна аудио или видео нумера
+  ba-videorecorder.device-already-in-use: Барем један од ваших улазних уређаја се већ користи
+  ba-videorecorder.browser-permission-denied: 'Прегледач је одбио дозволу, дозволите приступ и поновно учитавање странице'
+  ba-audioplayer.all-settings: Сва подешавања

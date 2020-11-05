@@ -1,0 +1,230 @@
+'language:mk':
+  ba-videoplayer-playbutton.tooltip: Кликнете за да играте.
+  ba-videoplayer-playbutton.rerecord: Повторно
+  ba-videoplayer-playbutton.submit-video: Потврдете го видеото
+  ba-videoplayer-loader.tooltip: Се вчитува ...
+  ba-videoplayer-controlbar.change-resolution: Променете ја резолуцијата
+  ba-videoplayer-controlbar.video-progress: Напредок
+  ba-videoplayer-controlbar.rerecord-video: Повторно?
+  ba-videoplayer-controlbar.submit-video: Потврди
+  ba-videoplayer-controlbar.play-video: Играј
+  ba-videoplayer-controlbar.pause-video: Пауза
+  ba-videoplayer-controlbar.elapsed-time: Поминато време
+  ba-videoplayer-controlbar.total-time: Вкупна должина на
+  ba-videoplayer-controlbar.fullscreen-video: Внесете цел екран
+  ba-videoplayer-controlbar.volume-button: Поставете ја јачината на звукот
+  ba-videoplayer-controlbar.volume-mute: Неми звук
+  ba-videoplayer-controlbar.volume-unmute: Неми звук
+  ba-videoplayer.video-error: >-
+    Настана грешка, обидете се повторно подоцна. Кликнете за да се обидете
+    повторно.
+  ba-videorecorder-chooser.record-video: Сними видео
+  ba-videorecorder-chooser.upload-video: Поставете видео
+  ba-videorecorder-controlbar.settings: Поставки
+  ba-videorecorder-controlbar.camerahealthy: Осветлувањето е добро
+  ba-videorecorder-controlbar.cameraunhealthy: Осветлувањето не е оптимално
+  ba-videorecorder-controlbar.microphonehealthy: Звукот е добар
+  ba-videorecorder-controlbar.microphoneunhealthy: Не можам да соберам звук
+  ba-videorecorder-controlbar.record: Сними
+  ba-videorecorder-controlbar.record-tooltip: Кликнете овде за да снимите.
+  ba-videorecorder-controlbar.rerecord: Повторно
+  ba-videorecorder-controlbar.rerecord-tooltip: Кликнете овде за да направите повторно.
+  ba-videorecorder-controlbar.upload-covershot: Поставете корица
+  ba-videorecorder-controlbar.upload-covershot-tooltip: Кликнете овде за да поставите прилагодена снимка од корицата
+  ba-videorecorder-controlbar.stop: Застани
+  ba-videorecorder-controlbar.stop-tooltip: Кликнете тука за да запрете.
+  ba-videorecorder-controlbar.skip: Прескокни
+  ba-videorecorder-controlbar.skip-tooltip: Кликнете тука за да прескокнете.
+  ba-videorecorder.recorder-error: >-
+    Настана грешка, обидете се повторно подоцна. Кликнете за да се обидете
+    повторно.
+  ba-videorecorder.attach-error: >-
+    Не можевме да пристапиме до медиумскиот интерфејс. Во зависност од уредот и
+    прелистувачот, можеби ќе треба да инсталирате Flash или да пристапите на
+    страницата преку SSL.
+  ba-videorecorder.access-forbidden: Забранет е пристапот до медиумите. Кликнете за да се обидете повторно.
+  ba-videorecorder.pick-covershot: Изберете покривка.
+  ba-videorecorder.uploading: Се поставува
+  ba-videorecorder.uploading-failed: Вчитувањето не успеа - кликнете овде за да пробате повторно.
+  ba-videorecorder.verifying: Потврдување
+  ba-videorecorder.verifying-failed: Потврдата не успеа - кликнете овде за да пробате повторно.
+  ba-videorecorder.rerecord-confirm: Дали навистина сакате да го направите вашето видео?
+  ba-videorecorder.video_file_too_large: >-
+    Вашата видео датотека е преголема ( %s) - кликнете овде за да се обидете
+    повторно со помала видео-датотека.
+  ba-videorecorder.unsupported_video_type: 'Поставете: %s - кликнете тука за да пробате повторно.'
+  ba-videoplayer-controlbar.exit-fullscreen-video: Излезете од цел екран
+  ba-videoplayer-share.share: Сподели медиуми
+  ba-videorecorder-chooser.record-screen: Екран за снимање
+  ba-videoplayer-controlbar.pause-video-disabled: Паузата не е поддржана
+  ba-videorecorder-chooser.record-audio: Сними аудио
+  ba-videorecorder-controlbar.stop-available-after: Минималното време на снимање е %d секунди
+  ba-videorecorder-controlbar.cancel: Откажи
+  ba-videorecorder-controlbar.cancel-tooltip: Кликнете тука за да откажете.
+  ba-videorecorder.cancel-confirm: Дали навистина сакате да го откажете поставувањето на видеото?
+  ba-videoplayer-adslot.elapsed-time: Поминато време
+  ba-videoplayer-adslot.volume-button: Поставете ја јачината на звукот
+  ba-videoplayer-adslot.volume-mute: Неми звук
+  ba-videoplayer-adslot.volume-unmute: Неми звук
+  ba-videoplayer-adslot.ad-will-end-after: Огласот ќе заврши по %s
+  ba-videoplayer-adslot.can-skip-after: Прескокни по %d
+  ba-videoplayer-adslot.skip-ad: Прескокнете реклама
+  ba-videorecorder.software-required: >-
+    Кликнете подолу за да ги инсталирате / активирате следниве барања за да
+    продолжите.
+  ba-videorecorder.software-waiting: >-
+    Чекајќи да се инсталираат / активираат барањата. Можеби ќе треба да ја
+    освежите страницата по завршувањето.
+  ba-videoplayer-controlbar.close-tracks: Затвори CC
+  ba-videoplayer-controlbar.show-tracks: Покажи CC
+  ba-videoplayer-tracks.upload-text-tracks: Поставете датотеки со текст за песна
+  ba-videoplayer-tracks.select-text-track-language: Јазик на превод
+  ba-videoplayer-tracks.info-select-locale-first: Прво изберете локација
+  ba-videoplayer-tracks.select-text-track-file: Кликнете за да изберете датотека
+  ba-videoplayer-tracks.back: назад
+  ba-videorecorder.framerate-warning: >-
+    Стапката на видео рамки е многу мала. Препорачуваме да ги затворите сите
+    други програми и јазичиња на прелистувачи или да користите побрз компјутер.
+  ba-videorecorder.upload-error-duration: >-
+    Должината на поставеното видео не ги исполнува условите - кликнете овде за
+    да пробате повторно.
+  ba-videorecorder.resolution-constraint-error: >-
+    Датотеката што ја избравте не одговара на потребната резолуција - кликнете
+    овде за да пробате повторно.
+  ba-videorecorder.orientation-portrait-required: Завртете го уредот за снимање во режим на портрет.
+  ba-videorecorder.orientation-landscape-required: Завртете го уредот за снимање во режим на пејзаж.
+  ba-imageviewer-controlbar.rerecord-image: Повторно?
+  ba-imageviewer-controlbar.submit-image: Потврди
+  ba-imageviewer-controlbar.fullscreen-image: Внесете цел екран
+  ba-imageviewer-controlbar.exit-fullscreen-image: Излезете од цел екран
+  ba-imageviewer.image-error: >-
+    Настана грешка, обидете се повторно подоцна. Кликнете за да се обидете
+    повторно.
+  ba-imagecapture-chooser.image-capture: Сними слика
+  ba-imagecapture-chooser.upload-image: Поставете слика
+  ba-imagecapture-controlbar.settings: Поставки
+  ba-imagecapture-controlbar.camerahealthy: Осветлувањето е добро
+  ba-imagecapture-controlbar.cameraunhealthy: Осветлувањето не е оптимално
+  ba-imagecapture-controlbar.record: Фати
+  ba-imagecapture-controlbar.record-tooltip: Кликнете овде за да снимите.
+  ba-imagecapture-controlbar.rerecord: Повторно
+  ba-imagecapture-controlbar.rerecord-tooltip: Кликнете овде за да направите повторно.
+  ba-imagecapture-controlbar.cancel: Откажи
+  ba-imagecapture-controlbar.cancel-tooltip: Кликнете тука за да откажете.
+  ba-audioplayer-controlbar.audio-progress: Напредок
+  ba-audioplayer-controlbar.rerecord-audio: Повторно?
+  ba-audioplayer-controlbar.submit-audio: Потврди
+  ba-audioplayer-controlbar.play-audio: Играј
+  ba-audioplayer-controlbar.pause-audio: Пауза
+  ba-audioplayer-controlbar.pause-audio-disabled: Паузата не е поддржана
+  ba-audioplayer-controlbar.elapsed-time: Поминато време
+  ba-audioplayer-controlbar.total-time: Вкупна должина на
+  ba-audioplayer-controlbar.volume-button: Поставете ја јачината на звукот
+  ba-audioplayer-controlbar.volume-mute: Неми звук
+  ba-audioplayer-controlbar.volume-unmute: Неми звук
+  ba-audioplayer-loader.tooltip: Се вчитува ...
+  ba-audioplayer.audio-error: >-
+    Настана грешка, обидете се повторно подоцна. Кликнете за да се обидете
+    повторно.
+  ba-audiorecorder-chooser.record-audio: Сними аудио
+  ba-audiorecorder-chooser.upload-audio: Поставете аудио
+  ba-audiorecorder-controlbar.settings: Поставки
+  ba-audiorecorder-controlbar.microphonehealthy: Звукот е добар
+  ba-audiorecorder-controlbar.microphoneunhealthy: Не можам да соберам звук
+  ba-audiorecorder-controlbar.record: Сними
+  ba-audiorecorder-controlbar.record-tooltip: Кликнете овде за да снимите.
+  ba-audiorecorder-controlbar.rerecord: Повторно
+  ba-audiorecorder-controlbar.rerecord-tooltip: Кликнете овде за да направите повторно.
+  ba-audiorecorder-controlbar.stop: Застани
+  ba-audiorecorder-controlbar.stop-tooltip: Кликнете тука за да запрете.
+  ba-audiorecorder-controlbar.stop-available-after: Минималното време на снимање е %d секунди
+  ba-audiorecorder-controlbar.cancel: Откажи
+  ba-audiorecorder-controlbar.cancel-tooltip: Кликнете тука за да откажете.
+  ba-videoplayer-controlbar.player-speed: Брзина на плеерот
+  ba-videoplayer-controlbar.settings: Поставки
+  ba-videoplayer-controlbar.airplay: Воздушна игра
+  ba-videoplayer-controlbar.airplay-icon: Икона за воздушна игра.
+  ba-videoplayer.all-settings: Сите поставки
+  ba-videoplayer.player-speed: Брзина на плеерот
+  ba-videoplayer.full-screen: Цел екран
+  ba-videorecorder-controlbar.add-stream: Додадете поток
+  ba-videorecorder.switch-camera: Префрлете ја камерата
+  ba-videorecorder.prepare-covershot: Подготвување покривки
+  ba-videorecorder.prepare-thumbnails: Се подготвува барање на сликички
+  ba-videorecorder.adding-new-stream: Додавање нов тек
+  ba-imagecapture.recorder-error: >-
+    Настана грешка, обидете се повторно подоцна. Кликнете за да се обидете
+    повторно.
+  ba-imagecapture.attach-error: >-
+    Не можевме да пристапиме до медиумскиот интерфејс. Во зависност од уредот и
+    прелистувачот, можеби ќе треба да инсталирате Flash или да пристапите на
+    страницата преку SSL.
+  ba-imagecapture.software-required: >-
+    Кликнете подолу за да ги инсталирате / активирате следниве барања за да
+    продолжите.
+  ba-imagecapture.software-waiting: >-
+    Чекајќи да се инсталираат / активираат барањата. Можеби ќе треба да ја
+    освежите страницата по завршувањето.
+  ba-imagecapture.access-forbidden: Забранет е пристапот до медиумите. Кликнете за да се обидете повторно.
+  ba-imagecapture.uploading: Се поставува
+  ba-imagecapture.uploading-failed: Вчитувањето не успеа - кликнете овде за да пробате повторно.
+  ba-imagecapture.upload-error-duration: >-
+    Должината на поставената слика не ги исполнува условите - кликнете овде за
+    да пробате повторно.
+  ba-imagecapture.resolution-constraint-error: >-
+    Датотеката што ја избравте не одговара на потребната резолуција - кликнете
+    овде за да пробате повторно.
+  ba-imagecapture.verifying: Потврдување
+  ba-imagecapture.verifying-failed: Потврдата не успеа - кликнете овде за да пробате повторно.
+  ba-imagecapture.rerecord-confirm: Дали навистина сакате да ја повратите вашата слика?
+  ba-imagecapture.image_file_too_large: >-
+    Вашата датотека со слика е преголема ( %s) - кликнете овде за да се обидете
+    повторно со помала датотека со слика.
+  ba-imagecapture.unsupported_image_type: 'Поставете: %s - кликнете тука за да пробате повторно.'
+  ba-imagecapture.orientation-portrait-required: Завртете го уредот за снимање во режим на портрет.
+  ba-imagecapture.orientation-landscape-required: Завртете го уредот за снимање во режим на пејзаж.
+  ba-audiorecorder.recorder-error: >-
+    Настана грешка, обидете се повторно подоцна. Кликнете за да се обидете
+    повторно.
+  ba-audiorecorder.attach-error: >-
+    Не можевме да пристапиме до медиумскиот интерфејс. Во зависност од уредот и
+    прелистувачот, можеби ќе треба да инсталирате Flash или да пристапите на
+    страницата преку SSL.
+  ba-audiorecorder.software-required: >-
+    Кликнете подолу за да ги инсталирате / активирате следниве барања за да
+    продолжите.
+  ba-audiorecorder.software-waiting: >-
+    Чекајќи да се инсталираат / активираат барањата. Можеби ќе треба да ја
+    освежите страницата по завршувањето.
+  ba-audiorecorder.access-forbidden: Забранет е пристапот до медиумите. Кликнете за да се обидете повторно.
+  ba-audiorecorder.uploading: Се поставува
+  ba-audiorecorder.uploading-failed: Вчитувањето не успеа - кликнете овде за да пробате повторно.
+  ba-audiorecorder.upload-error-duration: >-
+    Должината на поставеното аудио не ги исполнува условите - кликнете овде за
+    да пробате повторно.
+  ba-audiorecorder.verifying: Потврдување
+  ba-audiorecorder.verifying-failed: Потврдата не успеа - кликнете овде за да пробате повторно.
+  ba-audiorecorder.rerecord-confirm: Дали навистина сакате да го направите вашето аудио порака?
+  ba-audiorecorder.cancel-confirm: Дали навистина сакате да го откажете аудио поставувањето?
+  ba-audiorecorder.audio_file_too_large: >-
+    Вашата аудио-датотека е преголема ( %s) - кликнете тука за да се обидете
+    повторно со помала аудио-датотека.
+  ba-audiorecorder.unsupported_audio_type: 'Поставете: %s - кликнете тука за да пробате повторно.'
+  ba-common-settingsmenu.tooltip: Кликнете за да играте.
+  ba-common-settingsmenu.setting-menu: Сите поставки
+  ba-common-settingsmenu.source-quality: Квалитет на изворот
+  ba-common-settingsmenu.player-speed: Брзина на плеерот
+  ba-common-settingsmenu.set-menu-option: Поставете опција
+  ba-common-settingsmenu.submit-video: Потврдете го видеото
+  ba-common-settingsmenu.picture-in-picture: Слика на слика
+  ba-common-settingsmenu.exit-fullscreen-video: Излезете од цел екран
+  ba-common-settingsmenu.fullscreen-video: Внесете цел екран
+  ba-videorecorder-chooser.multi-stream: Мулти-поток
+  ba-videorecorder-controlbar.pause-recorder: Пауза на снимачот
+  ba-videorecorder-controlbar.resume-recorder: Продолжи Рекордер
+  ba-videorecorder.missing-track: Недостасува потребната аудио или видео-трака
+  ba-videorecorder.device-already-in-use: Барем еден од вашите влезни уреди веќе се користи
+  ba-videorecorder.browser-permission-denied: >-
+    Дозволата е одбиена од прелистувачот, доделете пристап и повторно вчитајте
+    ја страницата
+  ba-audioplayer.all-settings: Сите поставки

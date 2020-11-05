@@ -210,3 +210,19 @@
     Ваш аудиофайл слишком большой ( %s) - нажмите здесь, чтобы повторить попытку
     с меньшим аудиофайлом.
   ba-audiorecorder.unsupported_audio_type: 'Загрузите: %s - нажмите здесь, чтобы повторить попытку.'
+  ba-common-settingsmenu.tooltip: 'Нажмите, чтобы играть.'
+  ba-common-settingsmenu.setting-menu: Все настройки
+  ba-common-settingsmenu.source-quality: Качество источника
+  ba-common-settingsmenu.player-speed: Скорость игрока
+  ba-common-settingsmenu.set-menu-option: Установить вариант
+  ba-common-settingsmenu.submit-video: Подтвердить видео
+  ba-common-settingsmenu.picture-in-picture: Картинка в картинке
+  ba-common-settingsmenu.exit-fullscreen-video: Выйти из полноэкранного режима
+  ba-common-settingsmenu.fullscreen-video: Войти в полноэкранный режим
+  ba-videorecorder-chooser.multi-stream: Многопоточный
+  ba-videorecorder-controlbar.pause-recorder: Приостановить рекордер
+  ba-videorecorder-controlbar.resume-recorder: Рекордер резюме
+  ba-videorecorder.missing-track: Отсутствует необходимая звуковая или видеодорожка
+  ba-videorecorder.device-already-in-use: Как минимум одно из ваших устройств ввода уже используется
+  ba-videorecorder.browser-permission-denied: 'Браузер отказал в разрешении, предоставьте доступ и перезагрузите страницу'
+  ba-audioplayer.all-settings: Все настройки

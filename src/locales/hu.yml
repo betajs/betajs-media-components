@@ -201,3 +201,21 @@
     A hangfájl túl nagy ( %s) - kattints ide, ha megpróbálsz újra egy kisebb
     hangfájl segítségével.
   ba-audiorecorder.unsupported_audio_type: 'Kérjük, töltse fel: %s - kattintson ide, hogy újra próbálkozzon.'
+  ba-common-settingsmenu.tooltip: Kattintson a játék elkezdéséhez.
+  ba-common-settingsmenu.setting-menu: Minden beállítás
+  ba-common-settingsmenu.source-quality: Forrás minősége
+  ba-common-settingsmenu.player-speed: Játékos sebessége
+  ba-common-settingsmenu.set-menu-option: Beállítás opció
+  ba-common-settingsmenu.submit-video: Videó megerősítése
+  ba-common-settingsmenu.picture-in-picture: Kép a képen
+  ba-common-settingsmenu.exit-fullscreen-video: Kilépés a teljes képernyős képernyőről
+  ba-common-settingsmenu.fullscreen-video: Lépjen be teljes képernyősre
+  ba-videorecorder-chooser.multi-stream: Több adatfolyam
+  ba-videorecorder-controlbar.pause-recorder: A felvevő szüneteltetése
+  ba-videorecorder-controlbar.resume-recorder: Felvétel folytatása
+  ba-videorecorder.missing-track: Hiányzik a szükséges audio vagy video sáv
+  ba-videorecorder.device-already-in-use: Legalább az egyik beviteli eszköz már használatban van
+  ba-videorecorder.browser-permission-denied: >-
+    Az engedélyt a böngésző megtagadta. Kérjük, adjon hozzáférést és töltse be
+    újra az oldalt
+  ba-audioplayer.all-settings: Minden beállítás

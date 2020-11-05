@@ -159,3 +159,19 @@
   ba-audiorecorder.cancel-confirm: 你真的想取消音频上传吗？
   ba-audiorecorder.audio_file_too_large: 您的音频文件太大（％s） - 点击此处再次尝试使用较小的音频文件。
   ba-audiorecorder.unsupported_audio_type: 请上传：％s  - 点击此处重试。
+  ba-common-settingsmenu.tooltip: 点击播放。
+  ba-common-settingsmenu.setting-menu: 所有设定
+  ba-common-settingsmenu.source-quality: 源质量
+  ba-common-settingsmenu.player-speed: 播放速度
+  ba-common-settingsmenu.set-menu-option: 设定选项
+  ba-common-settingsmenu.submit-video: 确认影片
+  ba-common-settingsmenu.picture-in-picture: 画中画
+  ba-common-settingsmenu.exit-fullscreen-video: 退出全屏
+  ba-common-settingsmenu.fullscreen-video: 进入全屏
+  ba-videorecorder-chooser.multi-stream: 多流
+  ba-videorecorder-controlbar.pause-recorder: 暂停记录器
+  ba-videorecorder-controlbar.resume-recorder: 简历记录器
+  ba-videorecorder.missing-track: 缺少必需的音频或视频轨道
+  ba-videorecorder.device-already-in-use: 您的至少一个输入设备已在使用中
+  ba-videorecorder.browser-permission-denied: 浏览器拒绝此权限，请授予访问权限并重新加载页面
+  ba-audioplayer.all-settings: 所有设定

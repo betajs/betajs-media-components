@@ -210,3 +210,21 @@
     Аудиофайлът ви е твърде голям ( %s) - кликнете тук, за да опитате отново с
     по-малък аудио файл.
   ba-audiorecorder.unsupported_audio_type: 'Моля, качете: %s - кликнете тук, за да опитате отново.'
+  ba-common-settingsmenu.tooltip: 'Щракнете, за да играете.'
+  ba-common-settingsmenu.setting-menu: Всички настройки
+  ba-common-settingsmenu.source-quality: Качество на източника
+  ba-common-settingsmenu.player-speed: Скорост на играча
+  ba-common-settingsmenu.set-menu-option: Задайте опция
+  ba-common-settingsmenu.submit-video: Потвърдете видеоклипа
+  ba-common-settingsmenu.picture-in-picture: Картина в картина
+  ba-common-settingsmenu.exit-fullscreen-video: Излезте от цял екран
+  ba-common-settingsmenu.fullscreen-video: Въведете цял екран
+  ba-videorecorder-chooser.multi-stream: Multi Stream
+  ba-videorecorder-controlbar.pause-recorder: Пауза на записващото устройство
+  ba-videorecorder-controlbar.resume-recorder: Рекордер за възобновяване
+  ba-videorecorder.missing-track: Липсва необходимата аудио или видео песен
+  ba-videorecorder.device-already-in-use: Поне едно от вашите входни устройства вече се използва
+  ba-videorecorder.browser-permission-denied: >-
+    Разрешението е отказано от браузъра, моля, предоставете достъп и презаредете
+    страницата
+  ba-audioplayer.all-settings: Всички настройки

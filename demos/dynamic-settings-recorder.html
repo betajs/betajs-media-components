@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+	<meta content="utf-8" http-equiv="encoding">
+	<script src="../vendors/jquery.min.js"></script>
+    <script src="../node_modules/betajs-shims/dist/betajs-shims.js"></script>		
+    <script src="../node_modules/betajs-scoped/dist/scoped.js"></script>
+    <script src="../node_modules/betajs/dist/beta-noscoped.js"></script>
+    <script src="../node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
+    <script src="../node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
+    <script src="../node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+    <script src="../node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
+	<script src="../dist/betajs-media-components-noscoped.js"></script>
+	<link  href="../dist/betajs-media-components.css" rel="stylesheet" />
+    <script src="../dist/themes/modern/script.js"></script>
+    <link  href="../dist/themes/modern/style.css" rel="stylesheet" />
+    <script src="../dist/themes/space/script.js"></script>
+    <link  href="../dist/themes/space/style.css" rel="stylesheet" />
+    <script src="../dist/themes/theatre/script.js"></script>
+    <link  href="../dist/themes/theatre/style.css" rel="stylesheet" />
+    <script src="../dist/themes/cube/script.js"></script>
+    <link  href="../dist/themes/cube/style.css" rel="stylesheet" />
+    <script src="../dist/themes/elevate/script.js"></script>
+    <link  href="../dist/themes/elevate/style.css" rel="stylesheet" />
+    <script src="../dist/themes/minimalist/script.js"></script>
+    <link  href="../dist/themes/minimalist/style.css" rel="stylesheet" />
+</head>
+<body style="background: #999">
+    <form>
+        <textarea rows="10" style="width: 300px;height: auto;" name="parameters">{
+    "simulate": true,
+    "gallerysnapshots": 1,
+    "theme": "modern",
+    "countdown": 0,
+    "width": 400,
+    "height": 300
+}</textarea>
+        <input type="submit" value="Restart recorder">
+    </form>
+    <ba-videorecorder></ba-videorecorder>
+    <script>
+        BetaJS.Dynamics.Dynamic.activate();
+        var recorder = document.querySelector("ba-videorecorder").dynamicshandler;
+
+        function updateAndRestartRecorder() {
+            var settings = JSON.parse(document.querySelector("textarea").value);
+            for (key in settings) {
+                recorder.set(key, settings[key]);
+            }
+            recorder.reset();
+        }
+
+        updateAndRestartRecorder();
+
+        document.querySelector("form").addEventListener("submit", function(e) {
+            e.preventDefault();
+            updateAndRestartRecorder();
+        });
+    </script>
+</body>
+</html>

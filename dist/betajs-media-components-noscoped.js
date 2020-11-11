@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.245 - 2020-11-05
+betajs-media-components - v0.0.245 - 2020-11-10
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -16,7 +16,7 @@ Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
     "version": "0.0.245",
-    "datetime": 1604618793188
+    "datetime": 1605065689553
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -6915,6 +6915,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
                     var iw = _reduceWidth ? this.get("imagewidth") * _reduceInPercentage : this.get("imagewidth");
                     var id = this.get("imagedelta");
                     var h = this.get("containerheight");
+                    var w = this.get("containerwidth");
                     if (ih > 1.00) {
                         // If images count is 1
                         if (this.get("images").count() === 1) {
@@ -6926,8 +6927,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
                         }
                         if (this.get("images").count() === 2 && _ratio < 1.00)
                             iw *= 0.70;
-
-                        image.set("left", 1 + Math.round(i * (iw + id)));
+                        image.set("left", this.get("images").count() === 1 ? 1 + Math.round((w - iw) / 2) : 1 + Math.round(i * (iw + id)));
                         image.set("top", 1 + Math.round((h - ih) / 2));
                         image.set("width", 1 + Math.round(iw));
                         image.set("height", 1 + Math.round(ih));

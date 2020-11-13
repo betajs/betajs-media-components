@@ -207,3 +207,21 @@
     आपकी ऑडियो फ़ाइल बहुत बड़ी है ( %s) - एक छोटी ऑडियो फ़ाइल के साथ पुन: प्रयास
     करने के लिए यहां क्लिक करें।
   ba-audiorecorder.unsupported_audio_type: 'कृपया अपलोड करें: %s - पुन: प्रयास करने के लिए यहां क्लिक करें।'
+  ba-common-settingsmenu.tooltip: चलाने के लिए क्लिक करें।
+  ba-common-settingsmenu.setting-menu: सभी सेटिंग्स
+  ba-common-settingsmenu.source-quality: स्रोत की गुणवत्ता
+  ba-common-settingsmenu.player-speed: खिलाड़ी की गति
+  ba-common-settingsmenu.set-menu-option: विकल्प सेट करें
+  ba-common-settingsmenu.submit-video: वीडियो की पुष्टि करें
+  ba-common-settingsmenu.picture-in-picture: चित्र में चित्र
+  ba-common-settingsmenu.exit-fullscreen-video: पूर्ण स्क्रीन से बाहर निकलें
+  ba-common-settingsmenu.fullscreen-video: पूर्ण स्क्रीन दर्ज करें
+  ba-videorecorder-chooser.multi-stream: मल्टी स्ट्रीम
+  ba-videorecorder-controlbar.pause-recorder: विराम देने वाला
+  ba-videorecorder-controlbar.resume-recorder: फिर से शुरू करें
+  ba-videorecorder.missing-track: आवश्यक ऑडियो या वीडियो ट्रैक गायब है
+  ba-videorecorder.device-already-in-use: आपका कम से कम एक इनपुट डिवाइस पहले से ही उपयोग में है
+  ba-videorecorder.browser-permission-denied: >-
+    ब्राउज़र द्वारा अनुमति से इनकार किया गया है, कृपया पहुँच और पुनः लोड पृष्ठ
+    प्रदान करें
+  ba-audioplayer.all-settings: सभी सेटिंग्स

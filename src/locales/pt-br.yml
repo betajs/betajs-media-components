@@ -83,8 +83,9 @@
   ba-videoplayer-tracks.select-text-track-file: Clique para selecionar o arquivo
   ba-videoplayer-tracks.back: voltar
   ba-videorecorder.framerate-warning: >-
-    A taxa de frames por segundo do vídeo é muito baixa. Recomendamos fechar todos os
-    outros programas e guias do navegador ou usar um computador mais rápido.
+    A taxa de frames por segundo do vídeo é muito baixa. Recomendamos fechar
+    todos os outros programas e guias do navegador ou usar um computador mais
+    rápido.
   ba-videorecorder.upload-error-duration: >-
     A duração do vídeo enviado não atende aos requisitos. Clique aqui para
     tentar novamente.
@@ -151,7 +152,7 @@
   ba-videorecorder.switch-camera: Alternar câmera
   ba-videorecorder.prepare-covershot: Preparando imagens de capa
   ba-videorecorder.prepare-thumbnails: Preparando miniaturas em busca
-  ba-videorecorder.adding-new-stream: Adicionando Novo Stream 
+  ba-videorecorder.adding-new-stream: Adicionando Novo Stream
   ba-imagecapture.recorder-error: >-
     Ocorreu um erro. Por favor tente novamente mais tarde. Clique para tentar
     novamente.
@@ -210,3 +211,19 @@
     Seu arquivo de áudio é muito grande ( %s) - clique aqui para tentar
     novamente com um arquivo de áudio menor.
   ba-audiorecorder.unsupported_audio_type: 'Por favor, envie: %s - clique aqui para tentar novamente.'
+  ba-common-settingsmenu.tooltip: Clique para jogar.
+  ba-common-settingsmenu.setting-menu: Todas as configurações
+  ba-common-settingsmenu.source-quality: Qualidade da fonte
+  ba-common-settingsmenu.player-speed: Velocidade do jogador
+  ba-common-settingsmenu.set-menu-option: Definir opção
+  ba-common-settingsmenu.submit-video: Confirme o vídeo
+  ba-common-settingsmenu.picture-in-picture: Imagem na imagem
+  ba-common-settingsmenu.exit-fullscreen-video: Sair da tela inteira
+  ba-common-settingsmenu.fullscreen-video: Entrar em tela cheia
+  ba-videorecorder-chooser.multi-stream: Multi Stream
+  ba-videorecorder-controlbar.pause-recorder: Pausar gravador
+  ba-videorecorder-controlbar.resume-recorder: Retomar gravador
+  ba-videorecorder.missing-track: Falta trilha de áudio ou vídeo necessária
+  ba-videorecorder.device-already-in-use: Pelo menos um de seus dispositivos de entrada já está em uso
+  ba-videorecorder.browser-permission-denied: 'Permissão negada pelo navegador, conceda acesso e recarregue a página'
+  ba-audioplayer.all-settings: Todas as configurações

@@ -195,3 +195,21 @@
     Ses dosyanız çok büyük ( %s) - daha küçük bir ses dosyasıyla tekrar denemek
     için burayı tıklayın.
   ba-audiorecorder.unsupported_audio_type: 'Lütfen yükleyin: %s - yeniden denemek için burayı tıklayın.'
+  ba-common-settingsmenu.tooltip: Oynatmak için tıklayın.
+  ba-common-settingsmenu.setting-menu: Tüm ayarlar
+  ba-common-settingsmenu.source-quality: Kaynak kalitesi
+  ba-common-settingsmenu.player-speed: Oyuncu hızı
+  ba-common-settingsmenu.set-menu-option: Seçeneği ayarla
+  ba-common-settingsmenu.submit-video: Videoyu onaylayın
+  ba-common-settingsmenu.picture-in-picture: Fotoğraf içinde fotoğraf
+  ba-common-settingsmenu.exit-fullscreen-video: Tam ekrandan çık
+  ba-common-settingsmenu.fullscreen-video: Tam ekran yap
+  ba-videorecorder-chooser.multi-stream: Çoklu Akış
+  ba-videorecorder-controlbar.pause-recorder: Kaydediciyi Duraklat
+  ba-videorecorder-controlbar.resume-recorder: Kaydediciyi Devam Ettir
+  ba-videorecorder.missing-track: Gerekli ses veya video parçası eksik
+  ba-videorecorder.device-already-in-use: Giriş cihazlarınızdan en az biri zaten kullanımda
+  ba-videorecorder.browser-permission-denied: >-
+    İzin tarayıcı tarafından reddedildi, lütfen erişim izni verin ve sayfayı
+    yeniden yükleyin
+  ba-audioplayer.all-settings: Tüm ayarlar

@@ -215,3 +215,21 @@
     El vostre fitxer d’àudio és massa gran ( %s): feu clic aquí per tornar-ho a
     provar amb un fitxer d’àudio més petit.
   ba-audiorecorder.unsupported_audio_type: 'Pengeu: %s: feu clic aquí per tornar-ho a provar.'
+  ba-common-settingsmenu.tooltip: Feu clic per jugar.
+  ba-common-settingsmenu.setting-menu: Tots els paràmetres
+  ba-common-settingsmenu.source-quality: Qualitat de la font
+  ba-common-settingsmenu.player-speed: Velocitat del jugador
+  ba-common-settingsmenu.set-menu-option: Estableix l'opció
+  ba-common-settingsmenu.submit-video: Confirmeu el vídeo
+  ba-common-settingsmenu.picture-in-picture: Imatge en imatge
+  ba-common-settingsmenu.exit-fullscreen-video: Surt de la pantalla completa
+  ba-common-settingsmenu.fullscreen-video: Introduïu la pantalla completa
+  ba-videorecorder-chooser.multi-stream: Multitransmissió
+  ba-videorecorder-controlbar.pause-recorder: Grava en pausa
+  ba-videorecorder-controlbar.resume-recorder: Reprèn la gravadora
+  ba-videorecorder.missing-track: Falta la pista d’àudio o vídeo requerida
+  ba-videorecorder.device-already-in-use: Almenys un dels vostres dispositius d'entrada ja està en ús
+  ba-videorecorder.browser-permission-denied: >-
+    El navegador ha denegat el permís, concediu accés i torneu a carregar la
+    pàgina
+  ba-audioplayer.all-settings: Tots els paràmetres

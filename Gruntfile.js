@@ -530,17 +530,44 @@ module.exports = function(grunt) {
 
         if (keys.length > 0) {
             var translate = require('@google-cloud/translate')(JSON.parse(grunt.file.read("./google-translate-creds.json")));
-            translate.translate(values, {from: source.language, to: target.language}, function (err, translation) {
-                if (err) {
-                    console.error(err);
-                    return;
-                }
-                for (var i = 0; i < keys.length; ++i)
-                    target.dict[keys[i]] = translation[i].replace("% ", " %");
+            var batchSize = 128; // Cloud Translation API limits how many text segments can be translated at once
+            var batches = [];
+            var promisesArray = [];
 
+            while (values.length > 0) {
+                var k = keys.splice(0, batchSize);
+                var v = values.splice(0, batchSize);
+
+                batches.push({
+                    "keys": k,
+                    "values": v
+                });
+            }
+
+            batches.forEach(function(batch) {
+                promisesArray.push(new Promise(function(resolve, reject) {
+                    translate.translate(batch.values, {from: source.language, to: target.language}, function(err, translation) {
+                        if (err) reject(err);
+                        else {
+                            var dict = {};
+                            for (var i = 0; i < batch.keys.length; i++) {
+                                dict[batch.keys[i]] = translation[i].replace("% ", " %");
+                            }
+                            resolve(dict);
+                        }
+                    });
+                }));
+            });
+
+            Promise.all(promisesArray).then(function(dictsArray) {   
                 var result = {};
+                dictsArray.forEach(function(d) {
+                    Object.assign(target.dict, d);
+                });
                 result["language:" + target.language] = target.dict;
                 grunt.file.write(targetFile, yaml.dump(result));
+            })["catch"](function(err) {
+                console.error(err);
             });
         }
     };

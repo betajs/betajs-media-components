@@ -121,6 +121,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
                     var iw = _reduceWidth ? this.get("imagewidth") * _reduceInPercentage : this.get("imagewidth");
                     var id = this.get("imagedelta");
                     var h = this.get("containerheight");
+                    var w = this.get("containerwidth");
                     if (ih > 1.00) {
                         // If images count is 1
                         if (this.get("images").count() === 1) {
@@ -132,8 +133,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
                         }
                         if (this.get("images").count() === 2 && _ratio < 1.00)
                             iw *= 0.70;
-
-                        image.set("left", 1 + Math.round(i * (iw + id)));
+                        image.set("left", this.get("images").count() === 1 ? 1 + Math.round((w - iw) / 2) : 1 + Math.round(i * (iw + id)));
                         image.set("top", 1 + Math.round((h - ih) / 2));
                         image.set("width", 1 + Math.round(iw));
                         image.set("height", 1 + Math.round(ih));

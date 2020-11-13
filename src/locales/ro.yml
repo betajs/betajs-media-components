@@ -210,3 +210,21 @@
     Fișierul dvs. audio este prea mare ( %s) - faceți clic aici pentru a încerca
     din nou cu un fișier audio mai mic.
   ba-audiorecorder.unsupported_audio_type: 'Încărcați: %s - faceți clic aici pentru a reîncerca.'
+  ba-common-settingsmenu.tooltip: Faceți clic pentru a juca.
+  ba-common-settingsmenu.setting-menu: Toate setările
+  ba-common-settingsmenu.source-quality: Calitatea sursei
+  ba-common-settingsmenu.player-speed: Viteza jucătorului
+  ba-common-settingsmenu.set-menu-option: Setați opțiunea
+  ba-common-settingsmenu.submit-video: Confirmați videoclipul
+  ba-common-settingsmenu.picture-in-picture: Imagine în imagine
+  ba-common-settingsmenu.exit-fullscreen-video: Ieșiți pe ecran complet
+  ba-common-settingsmenu.fullscreen-video: Intră pe ecran complet
+  ba-videorecorder-chooser.multi-stream: Multi Stream
+  ba-videorecorder-controlbar.pause-recorder: Pauză Recorder
+  ba-videorecorder-controlbar.resume-recorder: Reluați înregistratorul
+  ba-videorecorder.missing-track: Piesa audio sau video necesară lipsește
+  ba-videorecorder.device-already-in-use: Cel puțin unul dintre dispozitivele dvs. de intrare este deja utilizat
+  ba-videorecorder.browser-permission-denied: >-
+    Permisiunea refuzată de browser, vă rugăm să acordați acces și să
+    reîncărcați pagina
+  ba-audioplayer.all-settings: Toate setările

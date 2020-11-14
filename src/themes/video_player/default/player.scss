@@ -17,15 +17,35 @@
 	-moz-appearance: none;
 }
 
-.#{$css}-stretch-height .#{$css}-container, .#{$css}-stretch-width .#{$css}-container {
-	position:relative;
+.#{$css}-stretch-both {
+	display: inline-block;
+	height: 100%;
+	width: 100%;
+}
+
+.#{$css}-stretch-both .#{$css}-container {
 	max-width: 100%;
 	max-height: 100%;
-	height:100%;
+	height: 100%;
 	width: 100%;
+}
+
+.#{$css}-stretch-height .#{$css}-container {
+	max-width: 100%;
+	max-height: 100%;
+	height: 100%;
+	width: auto;
 	overflow: hidden;
 }
 
+.#{$css}-stretch-width .#{$css}-container {
+	max-width: 100%;
+	max-height: 100%;
+	height: auto;
+	width: 100%;
+}
+
+.#{$css}-stretch-both .#{$css}-video,
 .#{$css}-stretch-height .#{$css}-video {
 	position: absolute;
 	transform: translate(-50%, -50%);
@@ -104,9 +124,10 @@
 	min-width: 100%;
 	object-fit: cover;
 	width: auto;
+	height: auto;
 }
 
-.#{$css}-stretch-width, .#{$css}-stretch-height {
+.#{$css}-stretch-both, .#{$css}-stretch-width, .#{$css}-stretch-height {
 	display: inline-block;
 	height:100%;
 	width:100%;

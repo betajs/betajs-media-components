@@ -440,7 +440,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
                 this.next("PlayVideo");
             else {
                 var counter = 10;
-                this.dyn.set("showvideoplaceholder", true);
+                this.dyn._beforePlayAction();
                 this.auto_destroy(new Timer({
                     context: this,
                     fire: function() {
@@ -492,7 +492,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
 
         _started: function() {
             this.dyn.set("autoplay", false);
-            this.dyn.set("showvideoplaceholder", false);
             // As during loop we will play player after ended event fire, need initial cover will be hidden
             if (this.dyn.get("loop"))
                 this.dyn.set("skipinitial", true);

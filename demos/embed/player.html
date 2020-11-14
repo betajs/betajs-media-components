@@ -10,6 +10,7 @@
     <script src="/static/node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
     <script src="/static/node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
 	<script src="/static/dist/betajs-media-components-noscoped.js"></script>
+<!--    <script src="/static/demos/tmp/current.js"></script>-->
 	<link  href="/static/dist/betajs-media-components.css" rel="stylesheet" />
     <script src="/static/dist/themes/modern/script.js"></script>
     <link  href="/static/dist/themes/modern/style.css" rel="stylesheet" />
@@ -49,44 +50,33 @@
         /*    left: 50%;*/
         /*}*/
         .ba-videoplayer-container {
-            /*display: block !important;*/
+            /*display: block;*/
         }
-        .ba-videoplayer-video {
-            width: 100%;
-            height: auto;
-        }
-        .ba-videoplayer-lazy-loader {
-            position: absolute;
-            background-image: linear-gradient(#dddddd, #e9e9e9);
-            height: 100%;
-            width: 100%;
-            top: 0;
-            left: 0;
-            z-index: 10;
-        }
-
-        .ba-videoplayer-lazy-loader::after {
-            position: absolute;
-            height: 100%;
-            width: 100%;
-            content: '';
-            transform: translateX(-100%);
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .6), transparent);
-            animation: loading 1.5s infinite;
-        }
-
-        @keyframes loading {
-            100% {
-                transform: translateX(100%);
-            }
+        .ba-videoplayer-overlay {
+            /*height: 360px;*/
+            /*width: 640px;*/
         }
     </style>
-
 </head>
 <body style="background: #EEE">
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-6" style="float: left">
+<!--        <div class="col-xs-12" style="height: 500px">-->
             <div id="player"></div>
+        </div>
+        <div class="col-xs-6">
+            AAAAAAAAAAAAAA
+        </div>
+    </div>
+    <div class="row">
+        <div class="not-embed-player" style="width: 400px">
+            <ba-videoplayer
+                ba-stretch
+                ba-stretchheight
+                ba-skipinitial="false"
+                ba-source="/static/demos/sample-video.mp4"
+                ba-poster="/static/demos/assets/sample-cover.png"
+            ></ba-videoplayer>
         </div>
         <div class="divider"></div>
         <div class="col-xs-12">
@@ -99,73 +89,80 @@
             flashFile: "../../node_modules/betajs-flash/dist/betajs-flash.swf",
             forceReload: true
         };
+
         var player = new BetaJS.MediaComponents.VideoPlayer.Dynamics.Player({
             element: $('#player'),
             attrs: {
-                width: 360,
-                // width: '100%',
+                // height: 260,
+                // width: 400,
+                // width: '440px',
+                // width: '80%',
+                // stretch: true,
+                // stretchheight: true,
+                // stretchwidth: true,
+                // popup: true,
+                // skipinitial: true,
+                // preload: false,
+                // fitonwidth: true,
+                // fitonheight: true,
+
                 // theme: "modern",
                 themecolor: "red",
-                skipinitial: true,
                 fullscreenmandatory: true,
                 showsettingsmenu: false,
                 // autoplay:true,
                 showchaptertext: true,
-                // stretch: true,
-                // stretchheight: true,
-                // stretchwidth: true,
-                // source: '/static/demos/sample-video.mp4',
-                // poster: '/static/demos/assets/sample-cover.png',
+                source: '/static/demos/sample-video.mp4',
+                poster: '/static/demos/assets/sample-cover.png',
                 // source: '/static/demos/assets/portrait.mp4',
                 // poster: '/static/demos/assets/portrait-poster.png',
-                sources: [
-                    {
-                        // src:'/static/demos/assets/portrait.mp4'
-                        src:'/static/demos/sample-video.mp4'
-                        // , poster: '/static/demos/assets/portrait-poster.png'
-                        , hd: true
-                        // , poster: '/static/demos/sample-cover.png'
-                    },
-                    {
-                        // src:'/static/demos/assets/portrait.mp4'
-                        // , poster:'/static/demos/assets/portrait-poster.png', hd: false
-                        src:'/static/demos/sample-video2.mp4'
-                        // , hd: false
-                        , poster: '/static/demos/sample-cover.png'
-                    }
-                ],
+                // sources: [
+                //     {
+                //         // src:'/static/demos/assets/portrait.mp4'
+                //         src:'/static/demos/sample-video.mp4'
+                //         // , poster: '/static/demos/assets/portrait-poster.png'
+                //         , hd: true
+                //         // , poster: '/static/demos/sample-cover.png'
+                //     },
+                //     {
+                //         // src:'/static/demos/assets/portrait.mp4'
+                //         // , poster:'/static/demos/assets/portrait-poster.png', hd: false
+                //         src:'/static/demos/sample-video2.mp4'
+                //         // , hd: false
+                //         , poster: '/static/demos/sample-cover.png'
+                //     }
+                // ],
                 // streams: [{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }],
                 forceflash: false,
                 hideoninactivity: false,
                 tracktagsstyled: true,
-                // preload: true,
                 loop: true,
-                tracktags: [
-                    {
-                        lang: 'en',
-                        kind: 'subtitles',
-                        label: 'English',
-                        //enabled: true,
-                        src: '../assets/bunny-en.vtt'
-                    },
-                    {
-                        lang: 'de',
-                        kind: 'subtitles',
-                        label: 'Deutsch',
-                        //enabled: true,
-                        src: '../assets/bunny-de.vtt'
-                    },
-                    {
-                        kind: 'thumbnails',
-                        // src: '/static/demos/assets/example-3rdp.vtt'
-                        src: '/static/demos/assets/video-bgbb.vtt'
-                    },
-                    {
-                        kind: 'chapters',
-                        // src: '/static/demos/assets/example-3rdp.vtt'
-                        src: '/static/demos/assets/video-bgbb-chapters.vtt'
-                    }
-                ]
+                // tracktags: [
+                //     {
+                //         lang: 'en',
+                //         kind: 'subtitles',
+                //         label: 'English',
+                //         //enabled: true,
+                //         src: '../assets/bunny-en.vtt'
+                //     },
+                //     {
+                //         lang: 'de',
+                //         kind: 'subtitles',
+                //         label: 'Deutsch',
+                //         //enabled: true,
+                //         src: '../assets/bunny-de.vtt'
+                //     },
+                //     {
+                //         kind: 'thumbnails',
+                //         // src: '/static/demos/assets/example-3rdp.vtt'
+                //         src: '/static/demos/assets/video-bgbb.vtt'
+                //     },
+                //     {
+                //         kind: 'chapters',
+                //         // src: '/static/demos/assets/example-3rdp.vtt'
+                //         src: '/static/demos/assets/video-bgbb-chapters.vtt'
+                //     }
+                // ]
             }
         });
 
@@ -210,6 +207,7 @@
         }, player);
 
         player.activate();
+        // BetaJS.Dynamics.Dynamic.activate();
 
     </script>
 </body>

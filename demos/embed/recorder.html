@@ -50,6 +50,11 @@
                     onclick="pauseClickHandler(this)"
             >Toggle Pause</button>
         </div>
+        <div>
+            <button style="min-width: 120px; color: #000000; background: #cccccc"
+                    onclick="recorderScreen()"
+            >Record Screen</button>
+        </div>
         Logs : >> <div id="recorder-logs"></div>
     </div>
 </div>
@@ -116,6 +121,10 @@
         });
 
         recorder.activate();
+
+        const recorderScreen = () => {
+            recorder.record_screen();
+        }
 
         const pauseClickHandler = (ev) => {
             // recorder.stop();

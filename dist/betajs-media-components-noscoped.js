@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.245 - 2020-11-10
+betajs-media-components - v0.0.247 - 2020-11-15
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -15,8 +15,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.245",
-    "datetime": 1605065689553
+    "version": "0.0.247",
+    "datetime": 1605476192614
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -4356,7 +4356,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
         }, function(inherited) {
             return {
 
-                template: "<div itemscope itemtype=\"http://schema.org/VideoObject\"\n     class=\"{{css}}-container {{cssplayer}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}\n     {{cssplayer}}-{{fullscreened ? 'fullscreen' : 'normal'}}-view {{cssplayer}}-{{firefox ? 'firefox' : 'common'}}-browser\n     {{cssplayer}}-{{themecolor}}-color {{cssplayer}}-device-type-{{mobileview ? 'mobile' : 'desktop'}}\n     {{(stretchheight || stretchwidth) ? css + '-self-stretched' : ''}}\"\n     ba-on:mousemove=\"{{user_activity()}}\"\n     ba-on:mousedown=\"{{user_activity(true)}}\"\n     ba-on:touchstart=\"{{user_activity(true)}}\"\n     ba-styles=\"{{widthHeightStyles}}\"\n>\n    <div ba-show=\"{{videoelement_active}}\">\n        <video tabindex=\"-1\" class=\"{{css}}-video\" data-video=\"video\"\n               preload=\"{{preload ? 'auto' : 'metadata'}}\"\n               ba-toggle:playsinline=\"{{!playfullscreenonmobile}}\"\n        ></video>\n    </div>\n    <div ba-show=\"{{showvideoplaceholder}}\" class=\"{{css}}-video-placeholder\"></div>\n    <div ba-show=\"{{imageelement_active && !videoelement_active}}\">\n        <img tabindex=\"-1\" class=\"{{css}}-video\" data-image=\"image\" alt=\"{{posteralt}}\"/>\n    </div>\n    <div class=\"{{css}}-overlay\" ba-show=\"{{!showbuiltincontroller}}\">\n        <div tabindex=\"-1\" class=\"{{css}}-player-toggle-overlay\" data-selector=\"player-toggle-overlay\"\n             ba-hotkey:right=\"{{seek(position + skipseconds)}}\" ba-hotkey:left=\"{{seek(position - skipseconds)}}\"\n             ba-hotkey:alt+right=\"{{seek(position + skipseconds * 3)}}\" ba-hotkey:alt+left=\"{{seek(position - skipseconds * 3)}}\"\n             ba-hotkey:up=\"{{set_volume(volume + 0.1)}}\" ba-hotkey:down=\"{{set_volume(volume - 0.1)}}\"\n             ba-hotkey:space^enter=\"{{toggle_player()}}\"\n             ba-on:click=\"{{toggle_player()}}\"\n        ></div>\n        <ba-{{dyncontrolbar}}\n            ba-css=\"{{csscontrolbar || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-themecolor=\"{{themecolor}}\"\n            ba-template=\"{{tmplcontrolbar}}\"\n            ba-show=\"{{controlbar_active}}\"\n            ba-playing=\"{{playing}}\"\n            ba-playwhenvisible=\"{{playwhenvisible}}\"\n            ba-playerspeeds=\"{{playerspeeds}}\"\n            ba-playercurrentspeed=\"{{playercurrentspeed}}\"\n            ba-airplay=\"{{airplay}}\"\n            ba-airplaybuttonvisible=\"{{airplaybuttonvisible}}\"\n            ba-chromecast=\"{{chromecast}}\"\n            ba-castbuttonvisble=\"{{castbuttonvisble}}\"\n            ba-event:rerecord=\"rerecord\"\n            ba-event:submit=\"submit\"\n            ba-event:play=\"play\"\n            ba-event:pause=\"pause\"\n            ba-event:position=\"seek\"\n            ba-event:volume=\"set_volume\"\n            ba-event:set_speed=\"set_speed\"\n            ba-event:settings_menu=\"toggle_settings_menu\"\n            ba-event:fullscreen=\"toggle_fullscreen\"\n            ba-event:toggle_player=\"toggle_player\"\n            ba-event:tab_index_move=\"tab_index_move\"\n            ba-event:seek=\"seek\"\n            ba-event:set_volume=\"set_volume\"\n            ba-event:toggle_tracks=\"toggle_tracks\"\n            ba-tabindex=\"{{tabindex}}\"\n            ba-showchaptertext=\"{{showchaptertext}}\"\n            ba-chapterslist=\"{{chapterslist}}\"\n            ba-tracktextvisible=\"{{tracktextvisible}}\"\n            ba-tracktags=\"{{tracktags}}\"\n            ba-showsubtitlebutton=\"{{hassubtitles && tracktagssupport}}\"\n            ba-allowtexttrackupload=\"{{allowtexttrackupload}}\"\n            ba-tracksshowselection=\"{{tracksshowselection}}\"\n            ba-volume=\"{{volume}}\"\n            ba-duration=\"{{duration}}\"\n            ba-cached=\"{{buffered}}\"\n            ba-title=\"{{title}}\"\n            ba-position=\"{{position}}\"\n            ba-activitydelta=\"{{activity_delta}}\"\n            ba-hideoninactivity=\"{{hideoninactivity}}\"\n            ba-hidebarafter=\"{{hidebarafter}}\"\n            ba-rerecordable=\"{{rerecordable}}\"\n            ba-submittable=\"{{submittable}}\"\n            ba-streams=\"{{streams}}\"\n            ba-currentstream=\"{{=currentstream}}\"\n            ba-fullscreen=\"{{fullscreensupport && !nofullscreen}}\"\n            ba-fullscreened=\"{{fullscreened}}\"\n            ba-source=\"{{source}}\"\n            ba-disablepause=\"{{disablepause}}\"\n            ba-disableseeking=\"{{disableseeking}}\"\n            ba-skipseconds=\"{{skipseconds}}\"\n            ba-skipinitial=\"{{skipinitial}}\"\n            ba-settingsmenubutton=\"{{showsettingsmenu}}\"\n            ba-settingsmenuactive=\"{{settingsmenu_active}}\"\n            ba-hidevolumebar=\"{{hidevolumebar}}\"\n        ></ba-{{dyncontrolbar}}>\n\n        <ba-{{dyntracks}}\n            ba-css=\"{{csstracks || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-show=\"{{tracktagssupport || allowtexttrackupload}}\"\n            ba-tracksshowselection=\"{{tracksshowselection}}\"\n            ba-trackselectorhovered=\"{{trackselectorhovered}}\"\n            ba-tracktags=\"{{tracktags}}\"\n            ba-hidebarafter=\"{{hidebarafter}}\"\n            ba-tracktagsstyled=\"{{tracktagsstyled}}\"\n            ba-trackcuetext=\"{{trackcuetext}}\"\n            ba-allowtexttrackupload=\"{{allowtexttrackupload}}\"\n            ba-uploadtexttracksvisible=\"{{uploadtexttracksvisible}}\"\n            ba-acceptedtracktexts=\"{{acceptedtracktexts}}\"\n            ba-uploadlocales=\"{{uploadlocales}}\"\n            ba-activitydelta=\"{{activity_delta}}\"\n            ba-hideoninactivity=\"{{hideoninactivity}}\"\n            ba-event:selected_label_value=\"selected_label_value\"\n            ba-event:upload-text-tracks=\"upload_text_tracks\"\n            ba-event:move_to_option=\"move_to_option\"\n        ></ba-{{dyntracks}}>\n\n        <ba-{{dynsettingsmenu}}\n            ba-css=\"{{css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-show=\"{{settingsmenu_active}}\"\n            ba-template=\"{{tmplsettingsmenu}}\"\n        ></ba-{{dynsettingsmenu}}>\n\n        <ba-{{dynplaybutton}}\n            ba-css=\"{{cssplaybutton || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplplaybutton}}\"\n            ba-show=\"{{playbutton_active}}\"\n            ba-rerecordable=\"{{rerecordable}}\"\n\t\t\tba-submittable=\"{{submittable}}\"\n\t\t\tba-showduration=\"{{showduration}}\"\n\t\t\tba-duration=\"{{duration}}\"\n            ba-event:play=\"playbutton_click\"\n            ba-event:rerecord=\"rerecord\"\n            ba-event:submit=\"submit\"\n            ba-event:tab_index_move=\"tab_index_move\"\n        ></ba-{{dynplaybutton}}>\n\n        <ba-{{dynloader}}\n            ba-css=\"{{cssloader || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplloader}}\"\n            ba-playwhenvisible=\"{{playwhenvisible}}\"\n            ba-show=\"{{loader_active}}\"\n        ></ba-{{dynloader}}>\n\n        <ba-{{dynshare}}\n            ba-css=\"{{cssshare || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplshare}}\"\n            ba-show=\"{{sharevideourl && sharevideo.length > 0}}\"\n            ba-url=\"{{sharevideourl}}\"\n            ba-shares=\"{{sharevideo}}\"\n        ></ba-{{dynshare}}>\n\n        <ba-{{dynmessage}}\n            ba-css=\"{{cssmessage || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplmessage}}\"\n            ba-show=\"{{message_active}}\"\n            ba-message=\"{{message}}\"\n            ba-event:click=\"message_click\"\n        ></ba-{{dynmessage}}>\n\n        <ba-{{dyntopmessage}}\n            ba-css=\"{{csstopmessage || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmpltopmessage}}\"\n            ba-show=\"{{topmessage}}\"\n            ba-topmessage=\"{{topmessage}}\"\n        ></ba-{{dyntopmessage}}>\n\n        <meta itemprop=\"caption\" content=\"{{title}}\" />\n        <meta itemprop=\"thumbnailUrl\" content=\"{{poster}}\"/>\n        <meta itemprop=\"contentUrl\" content=\"{{source}}\"/>\n    </div>\n    <div class=\"{{css}}-overlay\" data-video=\"ad\" style=\"display:none\"></div>\n</div>\n",
+                template: "<div itemscope itemtype=\"http://schema.org/VideoObject\"\n     class=\"{{css}}-container {{cssplayer}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}\n     {{cssplayer}}-{{fullscreened ? 'fullscreen' : 'normal'}}-view {{cssplayer}}-{{firefox ? 'firefox' : 'common'}}-browser\n     {{cssplayer}}-{{themecolor}}-color {{cssplayer}}-device-type-{{mobileview ? 'mobile' : 'desktop'}}\n     {{(stretchheight || stretchwidth) ? css + '-self-stretched' : ''}}\n     {{sourceratio ? css + (sourceratio > 1 ? '-video-landscape-mode' : '-video-portrait-mode') : ''}}\n     {{containeroffsetratio ? css + (containeroffsetratio > 1 ? '-container-landscape' : '-container-portrait') : ''}}\"\n     ba-on:mousemove=\"{{user_activity()}}\"\n     ba-on:mousedown=\"{{user_activity(true)}}\"\n     ba-on:touchstart=\"{{user_activity(true)}}\"\n     ba-styles=\"{{widthHeightStyles}}\"\n>\n    <div ba-show=\"{{videoelement_active && !showvideoplaceholder}}\">\n        <video tabindex=\"-1\" class=\"{{css}}-video\" data-video=\"video\"\n               preload=\"{{preload ? 'auto' : 'metadata'}}\"\n               ba-toggle:playsinline=\"{{!playfullscreenonmobile}}\"\n        ></video>\n    </div>\n    <div ba-show=\"{{showvideoplaceholder}}\" class=\"{{css}}-video-placeholder\"\n         ba-styles=\"{{containerElementWidthHeightStyles}}\"\n    ></div>\n    <div ba-show=\"{{imageelement_active && !videoelement_active}}\">\n        <img tabindex=\"-1\" class=\"{{css}}-video\" data-image=\"image\" alt=\"{{posteralt}}\"/>\n    </div>\n    <div class=\"{{css}}-overlay\" ba-show=\"{{!showbuiltincontroller && !showvideoplaceholder}}\">\n        <div tabindex=\"-1\" class=\"{{css}}-player-toggle-overlay\" data-selector=\"player-toggle-overlay\"\n             ba-hotkey:right=\"{{seek(position + skipseconds)}}\" ba-hotkey:left=\"{{seek(position - skipseconds)}}\"\n             ba-hotkey:alt+right=\"{{seek(position + skipseconds * 3)}}\" ba-hotkey:alt+left=\"{{seek(position - skipseconds * 3)}}\"\n             ba-hotkey:up=\"{{set_volume(volume + 0.1)}}\" ba-hotkey:down=\"{{set_volume(volume - 0.1)}}\"\n             ba-hotkey:space^enter=\"{{toggle_player()}}\"\n             ba-on:click=\"{{toggle_player()}}\"\n        ></div>\n        <ba-{{dyncontrolbar}}\n            ba-css=\"{{csscontrolbar || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-themecolor=\"{{themecolor}}\"\n            ba-template=\"{{tmplcontrolbar}}\"\n            ba-show=\"{{controlbar_active}}\"\n            ba-playing=\"{{playing}}\"\n            ba-playwhenvisible=\"{{playwhenvisible}}\"\n            ba-playerspeeds=\"{{playerspeeds}}\"\n            ba-playercurrentspeed=\"{{playercurrentspeed}}\"\n            ba-airplay=\"{{airplay}}\"\n            ba-airplaybuttonvisible=\"{{airplaybuttonvisible}}\"\n            ba-chromecast=\"{{chromecast}}\"\n            ba-castbuttonvisble=\"{{castbuttonvisble}}\"\n            ba-event:rerecord=\"rerecord\"\n            ba-event:submit=\"submit\"\n            ba-event:play=\"play\"\n            ba-event:pause=\"pause\"\n            ba-event:position=\"seek\"\n            ba-event:volume=\"set_volume\"\n            ba-event:set_speed=\"set_speed\"\n            ba-event:settings_menu=\"toggle_settings_menu\"\n            ba-event:fullscreen=\"toggle_fullscreen\"\n            ba-event:toggle_player=\"toggle_player\"\n            ba-event:tab_index_move=\"tab_index_move\"\n            ba-event:seek=\"seek\"\n            ba-event:set_volume=\"set_volume\"\n            ba-event:toggle_tracks=\"toggle_tracks\"\n            ba-tabindex=\"{{tabindex}}\"\n            ba-showchaptertext=\"{{showchaptertext}}\"\n            ba-chapterslist=\"{{chapterslist}}\"\n            ba-tracktextvisible=\"{{tracktextvisible}}\"\n            ba-tracktags=\"{{tracktags}}\"\n            ba-showsubtitlebutton=\"{{hassubtitles && tracktagssupport}}\"\n            ba-allowtexttrackupload=\"{{allowtexttrackupload}}\"\n            ba-tracksshowselection=\"{{tracksshowselection}}\"\n            ba-volume=\"{{volume}}\"\n            ba-duration=\"{{duration}}\"\n            ba-cached=\"{{buffered}}\"\n            ba-title=\"{{title}}\"\n            ba-position=\"{{position}}\"\n            ba-activitydelta=\"{{activity_delta}}\"\n            ba-hideoninactivity=\"{{hideoninactivity}}\"\n            ba-hidebarafter=\"{{hidebarafter}}\"\n            ba-rerecordable=\"{{rerecordable}}\"\n            ba-submittable=\"{{submittable}}\"\n            ba-streams=\"{{streams}}\"\n            ba-currentstream=\"{{=currentstream}}\"\n            ba-fullscreen=\"{{fullscreensupport && !nofullscreen}}\"\n            ba-fullscreened=\"{{fullscreened}}\"\n            ba-source=\"{{source}}\"\n            ba-disablepause=\"{{disablepause}}\"\n            ba-disableseeking=\"{{disableseeking}}\"\n            ba-skipseconds=\"{{skipseconds}}\"\n            ba-skipinitial=\"{{skipinitial}}\"\n            ba-settingsmenubutton=\"{{showsettingsmenu}}\"\n            ba-settingsmenuactive=\"{{settingsmenu_active}}\"\n            ba-hidevolumebar=\"{{hidevolumebar}}\"\n        ></ba-{{dyncontrolbar}}>\n\n        <ba-{{dyntracks}}\n            ba-css=\"{{csstracks || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-show=\"{{tracktagssupport || allowtexttrackupload}}\"\n            ba-tracksshowselection=\"{{tracksshowselection}}\"\n            ba-trackselectorhovered=\"{{trackselectorhovered}}\"\n            ba-tracktags=\"{{tracktags}}\"\n            ba-hidebarafter=\"{{hidebarafter}}\"\n            ba-tracktagsstyled=\"{{tracktagsstyled}}\"\n            ba-trackcuetext=\"{{trackcuetext}}\"\n            ba-allowtexttrackupload=\"{{allowtexttrackupload}}\"\n            ba-uploadtexttracksvisible=\"{{uploadtexttracksvisible}}\"\n            ba-acceptedtracktexts=\"{{acceptedtracktexts}}\"\n            ba-uploadlocales=\"{{uploadlocales}}\"\n            ba-activitydelta=\"{{activity_delta}}\"\n            ba-hideoninactivity=\"{{hideoninactivity}}\"\n            ba-event:selected_label_value=\"selected_label_value\"\n            ba-event:upload-text-tracks=\"upload_text_tracks\"\n            ba-event:move_to_option=\"move_to_option\"\n        ></ba-{{dyntracks}}>\n\n        <ba-{{dynsettingsmenu}}\n            ba-css=\"{{css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-show=\"{{settingsmenu_active}}\"\n            ba-template=\"{{tmplsettingsmenu}}\"\n        ></ba-{{dynsettingsmenu}}>\n\n        <ba-{{dynplaybutton}}\n            ba-css=\"{{cssplaybutton || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplplaybutton}}\"\n            ba-show=\"{{playbutton_active}}\"\n            ba-rerecordable=\"{{rerecordable}}\"\n\t\t\tba-submittable=\"{{submittable}}\"\n\t\t\tba-showduration=\"{{showduration}}\"\n\t\t\tba-duration=\"{{duration}}\"\n            ba-event:play=\"playbutton_click\"\n            ba-event:rerecord=\"rerecord\"\n            ba-event:submit=\"submit\"\n            ba-event:tab_index_move=\"tab_index_move\"\n        ></ba-{{dynplaybutton}}>\n\n        <ba-{{dynloader}}\n            ba-css=\"{{cssloader || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplloader}}\"\n            ba-playwhenvisible=\"{{playwhenvisible}}\"\n            ba-show=\"{{loader_active}}\"\n        ></ba-{{dynloader}}>\n\n        <ba-{{dynshare}}\n            ba-css=\"{{cssshare || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplshare}}\"\n            ba-show=\"{{sharevideourl && sharevideo.length > 0}}\"\n            ba-url=\"{{sharevideourl}}\"\n            ba-shares=\"{{sharevideo}}\"\n        ></ba-{{dynshare}}>\n\n        <ba-{{dynmessage}}\n            ba-css=\"{{cssmessage || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplmessage}}\"\n            ba-show=\"{{message_active}}\"\n            ba-message=\"{{message}}\"\n            ba-event:click=\"message_click\"\n        ></ba-{{dynmessage}}>\n\n        <ba-{{dyntopmessage}}\n            ba-css=\"{{csstopmessage || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmpltopmessage}}\"\n            ba-show=\"{{topmessage}}\"\n            ba-topmessage=\"{{topmessage}}\"\n        ></ba-{{dyntopmessage}}>\n\n        <meta itemprop=\"caption\" content=\"{{title}}\" />\n        <meta itemprop=\"thumbnailUrl\" content=\"{{poster}}\"/>\n        <meta itemprop=\"contentUrl\" content=\"{{source}}\"/>\n    </div>\n    <div class=\"{{css}}-overlay\" data-video=\"ad\" style=\"display:none\"></div>\n</div>\n",
 
                 attrs: {
                     /* CSS */
@@ -4436,6 +4436,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "stretch": false,
                     "stretchwidth": false,
                     "stretchheight": false,
+                    "fitonwidth": false,
+                    "fitonheight": false,
                     "popup-stretch": false,
                     "hideoninactivity": true,
                     "hidebarafter": 5000,
@@ -4470,6 +4472,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "ttuploadervisible": false,
 
                     /* States (helper variables which are controlled by application itself not set by user) */
+                    "sourcewidth": null,
+                    "sourceheight": null,
+                    "sourceratio": null,
+                    "containeroffsetwidth": null,
+                    "containeroffsetheight": null,
+                    "containeroffsetratio": null,
                     "showvideoplaceholder": false,
                     "showbuiltincontroller": false,
                     "airplaybuttonvisible": false,
@@ -4496,6 +4504,22 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "poster_error": {
                             "ignore": false,
                             "click_play": true
+                        },
+                        "stretch": {
+                            "basedOnContainerWidth": false,
+                            "basedOnContainerHeight": false
+                        },
+                        "fit": {
+                            "basedOnSelfWidth": false,
+                            "basedOnSelfHeight": false,
+                            "basedOnSelfBoth": false
+                        },
+                        "dimensions": {
+                            "sourceDimensionsHasBeenSet": false,
+                            "containerDimensionsHasBeenSet": false,
+                            "containerDimensionsInitialied": false,
+                            "temporarlywidthwasset": false,
+                            "temporarlyheightwasset": false
                         }
                     },
                     "playerorientation": undefined,
@@ -4521,6 +4545,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "stretch": "boolean",
                     "stretchwidth": "boolean",
                     "stretchheight": "boolean",
+                    "fitonwidth": "boolean",
+                    "fitonheight": "boolean",
                     "preroll": "boolean",
                     "hideoninactivity": "boolean",
                     "hidebarafter": "integer",
@@ -4581,6 +4607,80 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (height)
                             result.height = height + ((height + '').match(/^\d+$/g) ? 'px' : '');
                         return result;
+                    },
+                    "containerElementWidthHeightStyles:containeroffsetwidth,containeroffsetheight": function() {
+                        var states = this.get("states");
+                        if (this.get("containeroffsetwidth") > 0 && this.get("containeroffsetheight") > 0 && !states.dimensions.containerDimensionsInitialied) {
+                            var result = {},
+                                width, height, video, containerRatio, mainContainer,
+                                mainContainerDimensions;
+
+                            // var pixelExpression = new RegExp('\\px$', 'i');
+                            var percentageExpression = new RegExp('\\%$', 'i');
+                            width = this.get("width") || this.get("containeroffsetwidth"); // ;
+                            height = this.get("height") || this.get("containeroffsetheight"); // ;
+                            mainContainer = this.activeElement().childNodes[0];
+                            video = this.__video || this.activeElement().querySelector("[data-video='video']");
+                            mainContainerDimensions = Dom.elementDimensions(mainContainer);
+                            containerRatio = this.get("containeroffsetratio");
+
+                            // If we have set stretch settings, which means player has to fill parent element
+                            if (this.get("stretch") && mainContainerDimensions.width >= 0 && mainContainerDimensions.height >= 0) {
+                                width = mainContainerDimensions.width;
+                                height = mainContainerDimensions.height;
+
+                                if (width > 0 && height <= 0) {
+                                    height = containerRatio > 1.0 ? width / containerRatio : width * containerRatio;
+                                    mainContainer.style.height = height + "px";
+                                }
+
+                                // If we additionally adding stretch height it means video height has to be fully visible
+                                if (this.get("stretchheight") && !this.get("stretchwidth")) {
+                                    states.stretch.basedOnContainerHeight = true;
+                                }
+
+                                // If we additionally adding stretch width it means video width has to be fully visible
+                                if (this.get("stretchwidth") && !this.get("stretchheight")) {
+                                    states.stretch.basedOnContainerWidth = true;
+                                }
+                            } else {
+                                // If user set width/height and it's with percentage or as string/number
+                                // if dimension set as percentage we need get parent dimension
+                                if (percentageExpression.test(width) && mainContainerDimensions.width > 0)
+                                    width = mainContainerDimensions.width;
+                                else
+                                    width = parseFloat(width); // width = width.replace(pixelExpression, '');
+
+                                if (percentageExpression.test(height) && mainContainerDimensions.height > 0)
+                                    height = mainContainerDimensions.height;
+                                else
+                                    height = parseFloat(height);
+
+                                // If user is not set stretc but vant video will be in full height or hight
+                                // then we define self stretch options
+                                if (this.get("fitonwidth") && this.get("fitonheight")) {
+                                    states.fit.basedOnSelfBoth = true;
+                                } else if (this.get("fitonwidth")) {
+                                    states.fit.basedOnSelfWidth = true;
+                                } else if (this.get("fitonheight")) {
+                                    states.fit.basedOnSelfHeight = true;
+                                }
+                            }
+
+                            if (width)
+                                result.minWidth = width + ((width + '').match(/^\d+$/g) ? 'px' : '');
+                            if (height)
+                                result.minHeight = height + ((height + '').match(/^\d+$/g) ? 'px' : '');
+
+                            this.set("containeroffsetratio", (Math.round((width / height) * 100) / 100));
+
+                            if (width > 0 && height > 0) {
+                                video.width = width;
+                                video.height = height;
+                                states.dimensions.containerDimensionsInitialied = true;
+                            }
+                            return result;
+                        }
                     },
                     "buffering:buffered,position,last_position_change_delta,playing": function() {
                         return this.get("playing") && this.get("buffered") < this.get("position") && this.get("last_position_change_delta") > 1000;
@@ -4655,16 +4755,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("initialoptions", Objs.tree_merge(this.get("initialoptions"), {
                             hideoninactivity: this.get("hideoninactivity")
                         }));
-                    }
-
-                    if ((this.get("stretch") || this.get("stretchwidth") || this.get("stretchheight")) && (this.get("height") > 0.00 || this.get("width") > 0.00)) {
-                        if (this.get("height") && this.get("width") && this.get("stretch")) {
-                            this.__stretchBasedOnDimensions = true;
-                        } else if (this.get("height") && !this.get("stretchwidth")) {
-                            this.__stretchBasedOnHeight = true;
-                        } else {
-                            this.__stretchBasedOnWidth = true;
-                        }
                     }
 
                     // If both set to true, then normal stretch is enough
@@ -4802,6 +4892,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     img.onerror = function() {
                         self.trigger("error:poster");
                     };
+                    this._setContainerDimensions(img);
                     img.onload = function() {
                         self.set("imageelement_active", true);
                         self.trigger("image-attached");
@@ -4852,7 +4943,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         preload: !!this.get("preload"),
                         loop: !!this.get("loop") || (this.get("lastplaylistitem") && this.get("loopall")),
                         reloadonplay: this.get('playlist') ? true : !!this.get("reloadonplay"),
-                        fullscreenedElement: this.activeElement().childNodes[0]
+                        fullscreenedElement: this.activeElement().childNodes[0],
+                        loadmetadata: Info.isChrome() && this.get("skipinitial")
                     })).error(function(e) {
                         if (this.destroyed())
                             return;
@@ -4863,6 +4955,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.player = instance;
                         this.__video = video;
                         this.__trackTags = new TrackTags({}, this);
+
+                        if (!this.get("states").dimensions.containerDimensionsHasBeenSet)
+                            this._setContainerDimensions();
 
                         if (this.get("chromecast")) {
                             if (!this.get("skipinitial")) this.set("skipinitial", true);
@@ -4931,10 +5026,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this._broadcasting.attachAirplayEvent.call(this, video);
                             }
                         }
-
-                        // In case if set height set and stretch NOT based on width
-                        if ((this.get("stretchheight") || this.__stretchBasedOnHeight) && !this.get("stretchwidth") && this.get("height") > 0.00)
-                            video.height = this.get("height");
 
                         if (this.get("playwhenvisible")) {
                             this.set("skipinitial", true);
@@ -5021,6 +5112,74 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.player.trigger("loaded");
                         this._updateStretch();
                     }, this);
+                },
+
+                /**
+                 * Will set videoElement width and height
+                 * @private
+                 */
+                _setContainerDimensions: function(img) {
+                    var conatinerDimensions;
+                    var dimensions = this.get("states").dimensions;
+                    var containerElement = this.activeElement().childNodes[0];
+
+                    if (img && !this.get("skipinitial")) {
+                        this.on("image-attached", function() {
+                            // Safari can not get correct width/height for image viewport
+                            if (!Info.isSafari()) {
+                                if (!dimensions.containerDimensionsHasBeenSet) {
+                                    if (img.width > 0 && img.height > 0 && !dimensions.containerDimensionsHasBeenSet) {
+                                        this.set("containeroffsetwidth", img.width);
+                                        this.set("containeroffsetheight", img.height);
+                                        this.set("containeroffsetratio", Math.round((img.width / img.height) * 100) / 100);
+                                        dimensions.containerDimensionsHasBeenSet = true;
+                                    }
+                                }
+                            } else {
+                                conatinerDimensions = Dom.elementDimensions(containerElement);
+                                if (!dimensions.containerDimensionsHasBeenSet) {
+                                    if (conatinerDimensions.width > 0 && conatinerDimensions.height > 0 && !dimensions.containerDimensionsHasBeenSet) {
+                                        this.set("containeroffsetwidth", conatinerDimensions.width);
+                                        this.set("containeroffsetheight", conatinerDimensions.height);
+                                        this.set("containeroffsetratio", Math.round((conatinerDimensions.width / conatinerDimensions.height) * 100) / 100);
+                                        dimensions.containerDimensionsHasBeenSet = true;
+                                    }
+                                }
+                            }
+                            if (!dimensions.sourceDimensionsHasBeenSet && typeof img.naturalWidth !== "undefined" && typeof img.naturalHeight !== 'undefined') {
+                                if (img.naturalWidth > 0 && img.naturalHeight > 0) {
+                                    this.set("sourceheight", img.naturalHeight);
+                                    this.set("sourcewidth", img.naturalWidth);
+                                    this.set("sourceratio", Math.round((img.naturalWidth / img.naturalHeight) * 100) / 100);
+                                    dimensions.sourceDimensionsHasBeenSet = true;
+                                }
+                            }
+                        }, this);
+                    } else {
+                        if (!dimensions.containerDimensionsHasBeenSet || !dimensions.sourceDimensionsHasBeenSet) {
+                            // Check dimension after video is attached
+                            this.on("attached", function(player) {
+                                player.on("posterloaded", function(img) {
+                                    if (!dimensions.containerDimensionsHasBeenSet) {
+                                        if (img.width > 0 && img.height > 0 && !dimensions.sourceDimensionsHasBeenSet) {
+                                            this.set("sourcewidth", img.width);
+                                            this.set("sourceheight", img.height);
+                                            this.set("sourceratio", Math.round((img.width / img.height) * 100) / 100);
+                                            dimensions.sourceDimensionsHasBeenSet = true;
+                                        }
+                                    }
+
+                                    conatinerDimensions = Dom.elementDimensions(containerElement);
+                                    if (conatinerDimensions.width > 0 && conatinerDimensions.height > 0 && !dimensions.containerDimensionsHasBeenSet) {
+                                        this.set("containeroffsetwidth", conatinerDimensions.width);
+                                        this.set("containeroffsetheight", conatinerDimensions.height);
+                                        this.set("containeroffsetratio", Math.round((conatinerDimensions.width / conatinerDimensions.height) * 100) / 100);
+                                        dimensions.containerDimensionsHasBeenSet = true;
+                                    }
+                                }, this);
+                            }, this);
+                        }
+                    }
                 },
 
                 _getSources: function() {
@@ -5262,6 +5421,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this._broadcasting.player.trigger("play-google-cast");
                             return;
                         }
+                        this._beforePlayAction();
                         this.host.state().play();
                     },
 
@@ -5626,10 +5786,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             } else if (this.__stretchBasedOnHeight) {
                                 newStretch = "height";
                             } else if (isFinite(par)) {
-                                if (par > ar)
+                                if (par > ar && this.get("stretchheight"))
                                     newStretch = "height";
-                                if (par < ar)
+                                if (par < ar && this.get("stretchwidth"))
                                     newStretch = "width";
+                                else
+                                    newStretch = 'both';
                             } else if (par === Infinity)
                                 newStretch = "height";
                         }
@@ -5699,8 +5861,91 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         height: this.get("popup-height"),
                         stretch: this.get("popup-stretch")
                     };
-                }
+                },
 
+                /**
+                 * Will temporarly set video all content dimension
+                 * @private
+                 */
+                _beforePlayAction: function() {
+                    this.set("showvideoplaceholder", true);
+                    var dimensionsState = this.get("states").dimensions;
+                    if (!this.get("width") && this.get("containeroffsetwidth") > 0 && !dimensionsState.temporarlywidthwasset) {
+                        this.set("width", this.get("containeroffsetwidth"));
+                        dimensionsState.temporarlywidthwasset = true;
+                    }
+
+                    if (!this.get("height") && this.get("containeroffsetheight") > 0 && !dimensionsState.temporarlyheightwasset) {
+                        this.set("height", this.get("containeroffsetheight"));
+                        dimensionsState.temporarlyheightwasset = true;
+                    }
+
+                    if (!dimensionsState.sourceDimensionsHasBeenSet) {
+                        if (this.get("containeroffsetwidth") > 0 || this.get("sourcewidth") > 0)
+                            this.__video.width = this.get("containeroffsetwidth") || this.get("sourcewidth");
+
+                        if (this.get("containeroffsetheight") > 0 || this.get("sourceheight") > 0)
+                            this.__video.height = this.get("containeroffsetheight") || this.get("sourceheight");
+                        dimensionsState.sourceDimensionsHasBeenSet = true;
+                    }
+
+                    if (typeof this.player !== 'undefined')
+                        this.player.on("playing", function() {
+                            this._afterPlayAction();
+                        }, this);
+                },
+
+                /**
+                 * Will hide video autoload and set video dimensions back
+                 * @private
+                 */
+                _afterPlayAction: function() {
+                    var dimensionsState = this.get("states").dimensions;
+                    var fitState = this.get("states").fit;
+                    this.set("showvideoplaceholder", false);
+                    if (typeof this.__video !== 'undefined' && this.get("states").dimensions.sourceDimensionsHasBeenSet) {
+                        if (fitState.basedOnSelfHeight) {
+                            this.__video.removeAttribute('width');
+                        } else if (fitState.basedOnSelfWidth) {
+                            this.__video.removeAttribute('height');
+                        } else {
+                            if (!fitState.basedOnSelfBoth) {
+                                this.__video.removeAttribute('width');
+                                this.__video.removeAttribute('height');
+                            }
+                        }
+                    }
+
+                    Async.eventually(function() {
+                        var _container;
+                        if (typeof this.__video !== 'undefined' && this.get("states").dimensions.sourceDimensionsHasBeenSet) {
+                            if (fitState.basedOnSelfHeight) {
+                                this.__video.removeAttribute('width');
+                            } else if (fitState.basedOnSelfWidth) {
+                                this.__video.removeAttribute('height');
+                            } else {
+                                this.__video.removeAttribute('width');
+                                this.__video.removeAttribute('height');
+                            }
+                        }
+
+                        if (dimensionsState.temporarlywidthwasset || dimensionsState.temporarlyheightwasset)
+                            _container = this.activeElement().childNodes[0];
+
+                        if (dimensionsState.temporarlywidthwasset) {
+                            if (typeof _container.style !== 'undefined')
+                                _container.style.width = null;
+                            dimensionsState.temporarlywidthwasset = false;
+                        }
+
+                        if (dimensionsState.temporarlyheightwasset) {
+                            if (typeof _container.style !== 'undefined')
+                                _container.style.height = null;
+                            dimensionsState.temporarlyheightwasset = false;
+                        }
+                    }, this, 100);
+
+                }
             };
         }, {
 
@@ -5710,7 +5955,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
         }).register("ba-videoplayer")
         .registerFunctions({
-            /**/"css": function (obj) { with (obj) { return css; } }, "cssplayer": function (obj) { with (obj) { return cssplayer; } }, "csssize": function (obj) { with (obj) { return csssize; } }, "iecss": function (obj) { with (obj) { return iecss; } }, "ie8 ? 'ie8' : 'noie8'": function (obj) { with (obj) { return ie8 ? 'ie8' : 'noie8'; } }, "csstheme": function (obj) { with (obj) { return csstheme; } }, "fullscreened ? 'fullscreen' : 'normal'": function (obj) { with (obj) { return fullscreened ? 'fullscreen' : 'normal'; } }, "firefox ? 'firefox' : 'common'": function (obj) { with (obj) { return firefox ? 'firefox' : 'common'; } }, "themecolor": function (obj) { with (obj) { return themecolor; } }, "mobileview ? 'mobile' : 'desktop'": function (obj) { with (obj) { return mobileview ? 'mobile' : 'desktop'; } }, "(stretchheight || stretchwidth) ? css + '-self-stretched' : ''": function (obj) { with (obj) { return (stretchheight || stretchwidth) ? css + '-self-stretched' : ''; } }, "user_activity()": function (obj) { with (obj) { return user_activity(); } }, "user_activity(true)": function (obj) { with (obj) { return user_activity(true); } }, "widthHeightStyles": function (obj) { with (obj) { return widthHeightStyles; } }, "videoelement_active": function (obj) { with (obj) { return videoelement_active; } }, "preload ? 'auto' : 'metadata'": function (obj) { with (obj) { return preload ? 'auto' : 'metadata'; } }, "!playfullscreenonmobile": function (obj) { with (obj) { return !playfullscreenonmobile; } }, "showvideoplaceholder": function (obj) { with (obj) { return showvideoplaceholder; } }, "imageelement_active && !videoelement_active": function (obj) { with (obj) { return imageelement_active && !videoelement_active; } }, "posteralt": function (obj) { with (obj) { return posteralt; } }, "!showbuiltincontroller": function (obj) { with (obj) { return !showbuiltincontroller; } }, "seek(position + skipseconds)": function (obj) { with (obj) { return seek(position + skipseconds); } }, "seek(position - skipseconds)": function (obj) { with (obj) { return seek(position - skipseconds); } }, "seek(position + skipseconds * 3)": function (obj) { with (obj) { return seek(position + skipseconds * 3); } }, "seek(position - skipseconds * 3)": function (obj) { with (obj) { return seek(position - skipseconds * 3); } }, "set_volume(volume + 0.1)": function (obj) { with (obj) { return set_volume(volume + 0.1); } }, "set_volume(volume - 0.1)": function (obj) { with (obj) { return set_volume(volume - 0.1); } }, "toggle_player()": function (obj) { with (obj) { return toggle_player(); } }, "dyncontrolbar": function (obj) { with (obj) { return dyncontrolbar; } }, "csscontrolbar || css": function (obj) { with (obj) { return csscontrolbar || css; } }, "cssplayer || css": function (obj) { with (obj) { return cssplayer || css; } }, "csstheme || css": function (obj) { with (obj) { return csstheme || css; } }, "tmplcontrolbar": function (obj) { with (obj) { return tmplcontrolbar; } }, "controlbar_active": function (obj) { with (obj) { return controlbar_active; } }, "playing": function (obj) { with (obj) { return playing; } }, "playwhenvisible": function (obj) { with (obj) { return playwhenvisible; } }, "playerspeeds": function (obj) { with (obj) { return playerspeeds; } }, "playercurrentspeed": function (obj) { with (obj) { return playercurrentspeed; } }, "airplay": function (obj) { with (obj) { return airplay; } }, "airplaybuttonvisible": function (obj) { with (obj) { return airplaybuttonvisible; } }, "chromecast": function (obj) { with (obj) { return chromecast; } }, "castbuttonvisble": function (obj) { with (obj) { return castbuttonvisble; } }, "tabindex": function (obj) { with (obj) { return tabindex; } }, "showchaptertext": function (obj) { with (obj) { return showchaptertext; } }, "chapterslist": function (obj) { with (obj) { return chapterslist; } }, "tracktextvisible": function (obj) { with (obj) { return tracktextvisible; } }, "tracktags": function (obj) { with (obj) { return tracktags; } }, "hassubtitles && tracktagssupport": function (obj) { with (obj) { return hassubtitles && tracktagssupport; } }, "allowtexttrackupload": function (obj) { with (obj) { return allowtexttrackupload; } }, "tracksshowselection": function (obj) { with (obj) { return tracksshowselection; } }, "volume": function (obj) { with (obj) { return volume; } }, "duration": function (obj) { with (obj) { return duration; } }, "buffered": function (obj) { with (obj) { return buffered; } }, "title": function (obj) { with (obj) { return title; } }, "position": function (obj) { with (obj) { return position; } }, "activity_delta": function (obj) { with (obj) { return activity_delta; } }, "hideoninactivity": function (obj) { with (obj) { return hideoninactivity; } }, "hidebarafter": function (obj) { with (obj) { return hidebarafter; } }, "rerecordable": function (obj) { with (obj) { return rerecordable; } }, "submittable": function (obj) { with (obj) { return submittable; } }, "streams": function (obj) { with (obj) { return streams; } }, "currentstream": function (obj) { with (obj) { return currentstream; } }, "fullscreensupport && !nofullscreen": function (obj) { with (obj) { return fullscreensupport && !nofullscreen; } }, "fullscreened": function (obj) { with (obj) { return fullscreened; } }, "source": function (obj) { with (obj) { return source; } }, "disablepause": function (obj) { with (obj) { return disablepause; } }, "disableseeking": function (obj) { with (obj) { return disableseeking; } }, "skipseconds": function (obj) { with (obj) { return skipseconds; } }, "skipinitial": function (obj) { with (obj) { return skipinitial; } }, "showsettingsmenu": function (obj) { with (obj) { return showsettingsmenu; } }, "settingsmenu_active": function (obj) { with (obj) { return settingsmenu_active; } }, "hidevolumebar": function (obj) { with (obj) { return hidevolumebar; } }, "dyntracks": function (obj) { with (obj) { return dyntracks; } }, "csstracks || css": function (obj) { with (obj) { return csstracks || css; } }, "tracktagssupport || allowtexttrackupload": function (obj) { with (obj) { return tracktagssupport || allowtexttrackupload; } }, "trackselectorhovered": function (obj) { with (obj) { return trackselectorhovered; } }, "tracktagsstyled": function (obj) { with (obj) { return tracktagsstyled; } }, "trackcuetext": function (obj) { with (obj) { return trackcuetext; } }, "uploadtexttracksvisible": function (obj) { with (obj) { return uploadtexttracksvisible; } }, "acceptedtracktexts": function (obj) { with (obj) { return acceptedtracktexts; } }, "uploadlocales": function (obj) { with (obj) { return uploadlocales; } }, "dynsettingsmenu": function (obj) { with (obj) { return dynsettingsmenu; } }, "tmplsettingsmenu": function (obj) { with (obj) { return tmplsettingsmenu; } }, "dynplaybutton": function (obj) { with (obj) { return dynplaybutton; } }, "cssplaybutton || css": function (obj) { with (obj) { return cssplaybutton || css; } }, "tmplplaybutton": function (obj) { with (obj) { return tmplplaybutton; } }, "playbutton_active": function (obj) { with (obj) { return playbutton_active; } }, "showduration": function (obj) { with (obj) { return showduration; } }, "dynloader": function (obj) { with (obj) { return dynloader; } }, "cssloader || css": function (obj) { with (obj) { return cssloader || css; } }, "tmplloader": function (obj) { with (obj) { return tmplloader; } }, "loader_active": function (obj) { with (obj) { return loader_active; } }, "dynshare": function (obj) { with (obj) { return dynshare; } }, "cssshare || css": function (obj) { with (obj) { return cssshare || css; } }, "tmplshare": function (obj) { with (obj) { return tmplshare; } }, "sharevideourl && sharevideo.length > 0": function (obj) { with (obj) { return sharevideourl && sharevideo.length > 0; } }, "sharevideourl": function (obj) { with (obj) { return sharevideourl; } }, "sharevideo": function (obj) { with (obj) { return sharevideo; } }, "dynmessage": function (obj) { with (obj) { return dynmessage; } }, "cssmessage || css": function (obj) { with (obj) { return cssmessage || css; } }, "tmplmessage": function (obj) { with (obj) { return tmplmessage; } }, "message_active": function (obj) { with (obj) { return message_active; } }, "message": function (obj) { with (obj) { return message; } }, "dyntopmessage": function (obj) { with (obj) { return dyntopmessage; } }, "csstopmessage || css": function (obj) { with (obj) { return csstopmessage || css; } }, "tmpltopmessage": function (obj) { with (obj) { return tmpltopmessage; } }, "topmessage": function (obj) { with (obj) { return topmessage; } }, "poster": function (obj) { with (obj) { return poster; } }/**/
+            /**/"css": function (obj) { with (obj) { return css; } }, "cssplayer": function (obj) { with (obj) { return cssplayer; } }, "csssize": function (obj) { with (obj) { return csssize; } }, "iecss": function (obj) { with (obj) { return iecss; } }, "ie8 ? 'ie8' : 'noie8'": function (obj) { with (obj) { return ie8 ? 'ie8' : 'noie8'; } }, "csstheme": function (obj) { with (obj) { return csstheme; } }, "fullscreened ? 'fullscreen' : 'normal'": function (obj) { with (obj) { return fullscreened ? 'fullscreen' : 'normal'; } }, "firefox ? 'firefox' : 'common'": function (obj) { with (obj) { return firefox ? 'firefox' : 'common'; } }, "themecolor": function (obj) { with (obj) { return themecolor; } }, "mobileview ? 'mobile' : 'desktop'": function (obj) { with (obj) { return mobileview ? 'mobile' : 'desktop'; } }, "(stretchheight || stretchwidth) ? css + '-self-stretched' : ''": function (obj) { with (obj) { return (stretchheight || stretchwidth) ? css + '-self-stretched' : ''; } }, "sourceratio ? css + (sourceratio > 1 ? '-video-landscape-mode' : '-video-portrait-mode') : ''": function (obj) { with (obj) { return sourceratio ? css + (sourceratio > 1 ? '-video-landscape-mode' : '-video-portrait-mode') : ''; } }, "containeroffsetratio ? css + (containeroffsetratio > 1 ? '-container-landscape' : '-container-portrait') : ''": function (obj) { with (obj) { return containeroffsetratio ? css + (containeroffsetratio > 1 ? '-container-landscape' : '-container-portrait') : ''; } }, "user_activity()": function (obj) { with (obj) { return user_activity(); } }, "user_activity(true)": function (obj) { with (obj) { return user_activity(true); } }, "widthHeightStyles": function (obj) { with (obj) { return widthHeightStyles; } }, "videoelement_active && !showvideoplaceholder": function (obj) { with (obj) { return videoelement_active && !showvideoplaceholder; } }, "preload ? 'auto' : 'metadata'": function (obj) { with (obj) { return preload ? 'auto' : 'metadata'; } }, "!playfullscreenonmobile": function (obj) { with (obj) { return !playfullscreenonmobile; } }, "showvideoplaceholder": function (obj) { with (obj) { return showvideoplaceholder; } }, "containerElementWidthHeightStyles": function (obj) { with (obj) { return containerElementWidthHeightStyles; } }, "imageelement_active && !videoelement_active": function (obj) { with (obj) { return imageelement_active && !videoelement_active; } }, "posteralt": function (obj) { with (obj) { return posteralt; } }, "!showbuiltincontroller && !showvideoplaceholder": function (obj) { with (obj) { return !showbuiltincontroller && !showvideoplaceholder; } }, "seek(position + skipseconds)": function (obj) { with (obj) { return seek(position + skipseconds); } }, "seek(position - skipseconds)": function (obj) { with (obj) { return seek(position - skipseconds); } }, "seek(position + skipseconds * 3)": function (obj) { with (obj) { return seek(position + skipseconds * 3); } }, "seek(position - skipseconds * 3)": function (obj) { with (obj) { return seek(position - skipseconds * 3); } }, "set_volume(volume + 0.1)": function (obj) { with (obj) { return set_volume(volume + 0.1); } }, "set_volume(volume - 0.1)": function (obj) { with (obj) { return set_volume(volume - 0.1); } }, "toggle_player()": function (obj) { with (obj) { return toggle_player(); } }, "dyncontrolbar": function (obj) { with (obj) { return dyncontrolbar; } }, "csscontrolbar || css": function (obj) { with (obj) { return csscontrolbar || css; } }, "cssplayer || css": function (obj) { with (obj) { return cssplayer || css; } }, "csstheme || css": function (obj) { with (obj) { return csstheme || css; } }, "tmplcontrolbar": function (obj) { with (obj) { return tmplcontrolbar; } }, "controlbar_active": function (obj) { with (obj) { return controlbar_active; } }, "playing": function (obj) { with (obj) { return playing; } }, "playwhenvisible": function (obj) { with (obj) { return playwhenvisible; } }, "playerspeeds": function (obj) { with (obj) { return playerspeeds; } }, "playercurrentspeed": function (obj) { with (obj) { return playercurrentspeed; } }, "airplay": function (obj) { with (obj) { return airplay; } }, "airplaybuttonvisible": function (obj) { with (obj) { return airplaybuttonvisible; } }, "chromecast": function (obj) { with (obj) { return chromecast; } }, "castbuttonvisble": function (obj) { with (obj) { return castbuttonvisble; } }, "tabindex": function (obj) { with (obj) { return tabindex; } }, "showchaptertext": function (obj) { with (obj) { return showchaptertext; } }, "chapterslist": function (obj) { with (obj) { return chapterslist; } }, "tracktextvisible": function (obj) { with (obj) { return tracktextvisible; } }, "tracktags": function (obj) { with (obj) { return tracktags; } }, "hassubtitles && tracktagssupport": function (obj) { with (obj) { return hassubtitles && tracktagssupport; } }, "allowtexttrackupload": function (obj) { with (obj) { return allowtexttrackupload; } }, "tracksshowselection": function (obj) { with (obj) { return tracksshowselection; } }, "volume": function (obj) { with (obj) { return volume; } }, "duration": function (obj) { with (obj) { return duration; } }, "buffered": function (obj) { with (obj) { return buffered; } }, "title": function (obj) { with (obj) { return title; } }, "position": function (obj) { with (obj) { return position; } }, "activity_delta": function (obj) { with (obj) { return activity_delta; } }, "hideoninactivity": function (obj) { with (obj) { return hideoninactivity; } }, "hidebarafter": function (obj) { with (obj) { return hidebarafter; } }, "rerecordable": function (obj) { with (obj) { return rerecordable; } }, "submittable": function (obj) { with (obj) { return submittable; } }, "streams": function (obj) { with (obj) { return streams; } }, "currentstream": function (obj) { with (obj) { return currentstream; } }, "fullscreensupport && !nofullscreen": function (obj) { with (obj) { return fullscreensupport && !nofullscreen; } }, "fullscreened": function (obj) { with (obj) { return fullscreened; } }, "source": function (obj) { with (obj) { return source; } }, "disablepause": function (obj) { with (obj) { return disablepause; } }, "disableseeking": function (obj) { with (obj) { return disableseeking; } }, "skipseconds": function (obj) { with (obj) { return skipseconds; } }, "skipinitial": function (obj) { with (obj) { return skipinitial; } }, "showsettingsmenu": function (obj) { with (obj) { return showsettingsmenu; } }, "settingsmenu_active": function (obj) { with (obj) { return settingsmenu_active; } }, "hidevolumebar": function (obj) { with (obj) { return hidevolumebar; } }, "dyntracks": function (obj) { with (obj) { return dyntracks; } }, "csstracks || css": function (obj) { with (obj) { return csstracks || css; } }, "tracktagssupport || allowtexttrackupload": function (obj) { with (obj) { return tracktagssupport || allowtexttrackupload; } }, "trackselectorhovered": function (obj) { with (obj) { return trackselectorhovered; } }, "tracktagsstyled": function (obj) { with (obj) { return tracktagsstyled; } }, "trackcuetext": function (obj) { with (obj) { return trackcuetext; } }, "uploadtexttracksvisible": function (obj) { with (obj) { return uploadtexttracksvisible; } }, "acceptedtracktexts": function (obj) { with (obj) { return acceptedtracktexts; } }, "uploadlocales": function (obj) { with (obj) { return uploadlocales; } }, "dynsettingsmenu": function (obj) { with (obj) { return dynsettingsmenu; } }, "tmplsettingsmenu": function (obj) { with (obj) { return tmplsettingsmenu; } }, "dynplaybutton": function (obj) { with (obj) { return dynplaybutton; } }, "cssplaybutton || css": function (obj) { with (obj) { return cssplaybutton || css; } }, "tmplplaybutton": function (obj) { with (obj) { return tmplplaybutton; } }, "playbutton_active": function (obj) { with (obj) { return playbutton_active; } }, "showduration": function (obj) { with (obj) { return showduration; } }, "dynloader": function (obj) { with (obj) { return dynloader; } }, "cssloader || css": function (obj) { with (obj) { return cssloader || css; } }, "tmplloader": function (obj) { with (obj) { return tmplloader; } }, "loader_active": function (obj) { with (obj) { return loader_active; } }, "dynshare": function (obj) { with (obj) { return dynshare; } }, "cssshare || css": function (obj) { with (obj) { return cssshare || css; } }, "tmplshare": function (obj) { with (obj) { return tmplshare; } }, "sharevideourl && sharevideo.length > 0": function (obj) { with (obj) { return sharevideourl && sharevideo.length > 0; } }, "sharevideourl": function (obj) { with (obj) { return sharevideourl; } }, "sharevideo": function (obj) { with (obj) { return sharevideo; } }, "dynmessage": function (obj) { with (obj) { return dynmessage; } }, "cssmessage || css": function (obj) { with (obj) { return cssmessage || css; } }, "tmplmessage": function (obj) { with (obj) { return tmplmessage; } }, "message_active": function (obj) { with (obj) { return message_active; } }, "message": function (obj) { with (obj) { return message; } }, "dyntopmessage": function (obj) { with (obj) { return dyntopmessage; } }, "csstopmessage || css": function (obj) { with (obj) { return csstopmessage || css; } }, "tmpltopmessage": function (obj) { with (obj) { return tmpltopmessage; } }, "topmessage": function (obj) { with (obj) { return topmessage; } }, "poster": function (obj) { with (obj) { return poster; } }/**/
         })
         .attachStringTable(Assets.strings)
         .addStrings({
@@ -6162,7 +6407,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
                 this.next("PlayVideo");
             else {
                 var counter = 10;
-                this.dyn.set("showvideoplaceholder", true);
+                this.dyn._beforePlayAction();
                 this.auto_destroy(new Timer({
                     context: this,
                     fire: function() {
@@ -6214,7 +6459,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
 
         _started: function() {
             this.dyn.set("autoplay", false);
-            this.dyn.set("showvideoplaceholder", false);
             // As during loop we will play player after ended event fire, need initial cover will be hidden
             if (this.dyn.get("loop"))
                 this.dyn.set("skipinitial", true);

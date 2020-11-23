@@ -9,7 +9,7 @@
   ba-videoplayer-controlbar.submit-video: Videonu təsdiq et
   ba-videoplayer-controlbar.play-video: Videonu göstər
   ba-videoplayer-controlbar.pause-video: Videonu dayandır
-  ba-videoplayer-controlbar.elapsed-time: Göstərilmiş vaxt
+  ba-videoplayer-controlbar.elapsed-time: Keçən vaxt
   ba-videoplayer-controlbar.total-time: Videonu tam uzunluğu
   ba-videoplayer-controlbar.fullscreen-video: Tam ekran edin
   ba-videoplayer-controlbar.volume-button: Səs düyməsi
@@ -62,12 +62,12 @@
   ba-videorecorder-controlbar.cancel: Ləğv et
   ba-videorecorder-controlbar.cancel-tooltip: Ləğv etmək üçün buraya basın.
   ba-videorecorder.cancel-confirm: Video yükləməyini həqiqətən ləğv etmək istəyirsiniz?
-  ba-videoplayer-adslot.elapsed-time: Elasped vaxt
+  ba-videoplayer-adslot.elapsed-time: Keçən vaxt
   ba-videoplayer-adslot.volume-button: Həcmi seçin
   ba-videoplayer-adslot.volume-mute: Səs səsi
   ba-videoplayer-adslot.volume-unmute: Səsin səsləndirilməsi
   ba-videoplayer-adslot.ad-will-end-after: Reklam %s sonra sona çatacaq
-  ba-videoplayer-adslot.can-skip-after: ' %D sonra atlayın'
+  ba-videoplayer-adslot.can-skip-after: '%d sonra atlayın'
   ba-videoplayer-adslot.skip-ad: Reklamı atlayın
   ba-videorecorder.software-required: >-
     Davam etmək üçün aşağıdakı tələbləri qurmaq / aktivləşdirmək üçün aşağıya
@@ -118,7 +118,7 @@
   ba-audioplayer-controlbar.play-audio: Oynamaq
   ba-audioplayer-controlbar.pause-audio: Pauza
   ba-audioplayer-controlbar.pause-audio-disabled: Pauza dəstəklənmir
-  ba-audioplayer-controlbar.elapsed-time: Elasped vaxt
+  ba-audioplayer-controlbar.elapsed-time: Keçən vaxt
   ba-audioplayer-controlbar.total-time: Ümumi uzunluğu
   ba-audioplayer-controlbar.volume-button: Həcmi seçin
   ba-audioplayer-controlbar.volume-mute: Səs səsi
@@ -178,7 +178,7 @@
   ba-imagecapture.verifying-failed: Doğru yoxlanıldı - yenidən cəhd etmək üçün buraya vurun.
   ba-imagecapture.rerecord-confirm: Həqiqətən resminizi bərpa etmək istəyirsiniz?
   ba-imagecapture.image_file_too_large: >-
-    Resim faylınız çox böyükdür ( %s) - daha kiçik bir görüntü faylı ilə yenidən
+    Resim faylınız çox böyükdür (%s) - daha kiçik bir görüntü faylı ilə yenidən
     sınanmaq üçün buraya vurun.
   ba-imagecapture.unsupported_image_type: 'Xahiş edirik yükləyin: %s - yenidən cəhd etmək üçün buraya vurun.'
   ba-imagecapture.orientation-portrait-required: Portret rejimində qeyd etmək üçün cihazınızı döndərin.
@@ -206,7 +206,7 @@
   ba-audiorecorder.rerecord-confirm: Həqiqətən səsinizi təkrarlamaq istəyirsiniz?
   ba-audiorecorder.cancel-confirm: 'Həqiqətən, audio yükləməni ləğv etmək istəyirsiniz?'
   ba-audiorecorder.audio_file_too_large: >-
-    Sizin audio faylınız çox böyükdür ( %s) - daha kiçik bir audio faylı ilə
+    Sizin audio faylınız çox böyükdür (%s) - daha kiçik bir audio faylı ilə
     yenidən cəhd etmək üçün buraya vurun.
   ba-audiorecorder.unsupported_audio_type: 'Xahiş edirik yükləyin: %s - yenidən cəhd etmək üçün buraya vurun.'
   ba-common-settingsmenu.tooltip: Oynamaq üçün vurun.

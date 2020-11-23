@@ -177,7 +177,7 @@
   ba-imagecapture.verifying-failed: Verificação falhou - clique aqui para tentar novamente.
   ba-imagecapture.rerecord-confirm: Você realmente quer refazer sua imagem?
   ba-imagecapture.image_file_too_large: >-
-    Seu arquivo de imagem é muito grande ( %s) - clique aqui para tentar
+    Seu arquivo de imagem é muito grande (%s) - clique aqui para tentar
     novamente com um arquivo de imagem menor.
   ba-imagecapture.unsupported_image_type: 'Carregue por favor: %s - clique aqui para tentar novamente.'
   ba-imagecapture.orientation-portrait-required: 'Por favor, gire o seu dispositivo para gravar no modo retrato.'
@@ -206,7 +206,7 @@
   ba-audiorecorder.rerecord-confirm: Você realmente quer refazer o seu áudio?
   ba-audiorecorder.cancel-confirm: Você realmente quer cancelar o seu upload de áudio?
   ba-audiorecorder.audio_file_too_large: >-
-    Seu arquivo de áudio é muito grande ( %s) - clique aqui para tentar
+    Seu arquivo de áudio é muito grande (%s) - clique aqui para tentar
     novamente com um arquivo de áudio menor.
   ba-audiorecorder.unsupported_audio_type: 'Carregue por favor: %s - clique aqui para tentar novamente.'
   ba-common-settingsmenu.tooltip: Clique para reproduzir.

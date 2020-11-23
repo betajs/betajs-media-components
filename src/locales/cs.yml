@@ -46,7 +46,7 @@
   ba-videorecorder.verifying-failed: Ověření se nezdařilo - kliknutím sem to zkuste znovu.
   ba-videorecorder.rerecord-confirm: Opravdu chcete své video zopakovat?
   ba-videorecorder.video_file_too_large: >-
-    Váš video soubor je příliš velký ( %s) - kliknutím sem to zkuste znovu s
+    Váš video soubor je příliš velký (%s) - kliknutím sem to zkuste znovu s
     menším video souborem.
   ba-videorecorder.unsupported_video_type: 'Nahrajte prosím: %s - kliknutím sem to zkuste znovu.'
   ba-videoplayer-controlbar.exit-fullscreen-video: Ukončit režim celé obrazovky
@@ -164,7 +164,7 @@
   ba-imagecapture.verifying-failed: Ověření se nezdařilo - kliknutím sem to zkuste znovu.
   ba-imagecapture.rerecord-confirm: Opravdu chcete znovu pořídit svůj obrázek?
   ba-imagecapture.image_file_too_large: >-
-    Váš obrazový soubor je příliš velký ( %s) - kliknutím sem to zkuste znovu s
+    Váš obrazový soubor je příliš velký (%s) - kliknutím sem to zkuste znovu s
     menším obrazovým souborem.
   ba-imagecapture.unsupported_image_type: 'Nahrajte prosím: %s - kliknutím sem to zkuste znovu.'
   ba-imagecapture.orientation-portrait-required: 'Chcete-li nahrávat v režimu na výšku, otočte zařízení.'
@@ -189,7 +189,7 @@
   ba-audiorecorder.rerecord-confirm: Opravdu chcete předělat zvuk?
   ba-audiorecorder.cancel-confirm: Opravdu chcete zrušit nahrávání zvuku?
   ba-audiorecorder.audio_file_too_large: >-
-    Váš zvukový soubor je příliš velký ( %s) - kliknutím sem to zkuste znovu s
+    Váš zvukový soubor je příliš velký (%s) - kliknutím sem to zkuste znovu s
     menším zvukovým souborem.
   ba-audiorecorder.unsupported_audio_type: 'Nahrajte prosím: %s - kliknutím sem to zkuste znovu.'
   ba-common-settingsmenu.tooltip: Klikněte pro přehrání.

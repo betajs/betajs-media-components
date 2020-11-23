@@ -45,15 +45,15 @@
   ba-videorecorder.verifying-failed: فشل عملية التحقق - انقر هنا لإعادة المحاولة.
   ba-videorecorder.rerecord-confirm: تآكيد اعادة الفيديو؟
   ba-videorecorder.video_file_too_large: >-
-    ملف الفيديو كبير جدا (٪ s) - انقر هنا لإعادة المحاولة باستخدام ملف فيديو
+    ملف الفيديو كبير جدا (%s) - انقر هنا لإعادة المحاولة باستخدام ملف فيديو
     أصغر.
-  ba-videorecorder.unsupported_video_type: 'صيغة الفيديو غير مدعومة :٪ s - انقر هنا لإعادة المحاولة.'
+  ba-videorecorder.unsupported_video_type: 'صيغة الفيديو غير مدعومة :%s - انقر هنا لإعادة المحاولة.'
   ba-videoplayer-controlbar.exit-fullscreen-video: الخروج من الشاشة الكاملة
   ba-videoplayer-share.share: شارك الفيديو
   ba-videorecorder-chooser.record-screen: سجل الشاشة
   ba-videoplayer-controlbar.pause-video-disabled: إيقاف مؤقت غير متوافق
   ba-videorecorder-chooser.record-audio: تسجيل صوتي
-  ba-videorecorder-controlbar.stop-available-after: الحد الأدنى لوقت التسجيل هو٪ d ثانية
+  ba-videorecorder-controlbar.stop-available-after: الحد الأدنى لوقت التسجيل هو%d ثانية
   ba-videorecorder-controlbar.cancel: إلغاء
   ba-videorecorder-controlbar.cancel-tooltip: انقر هنا للإلغاء.
   ba-videorecorder.cancel-confirm: هل تريد حقا إلغاء تحميل الفيديو؟
@@ -61,8 +61,8 @@
   ba-videoplayer-adslot.volume-button: تعيين مستوى الصوت
   ba-videoplayer-adslot.volume-mute: صوت منخفض
   ba-videoplayer-adslot.volume-unmute: إلغاء صوت الصوت
-  ba-videoplayer-adslot.ad-will-end-after: سينتهي الإعلان بعد٪ s
-  ba-videoplayer-adslot.can-skip-after: تخطي بعد٪ d
+  ba-videoplayer-adslot.ad-will-end-after: سينتهي الإعلان بعد%s
+  ba-videoplayer-adslot.can-skip-after: تخطي بعد%d
   ba-videoplayer-adslot.skip-ad: تجاهل الاعلانات
   ba-videorecorder.software-required: يرجى النقر أدناه لتثبيت / تفعيل المتطلبات التالية من أجل المضي قدما.
   ba-videorecorder.software-waiting: >-
@@ -106,7 +106,7 @@
   ba-audioplayer-controlbar.play-audio: لعب
   ba-audioplayer-controlbar.pause-audio: وقفة
   ba-audioplayer-controlbar.pause-audio-disabled: وقفة غير معتمد
-  ba-audioplayer-controlbar.elapsed-time: الوقت Elasped
+  ba-audioplayer-controlbar.elapsed-time: الوقت المنقضي
   ba-audioplayer-controlbar.total-time: الطول الكلي
   ba-audioplayer-controlbar.volume-button: ضبط الحجم
   ba-audioplayer-controlbar.volume-mute: صوت منخفض
@@ -124,7 +124,7 @@
   ba-audiorecorder-controlbar.rerecord-tooltip: انقر هنا للإعادة.
   ba-audiorecorder-controlbar.stop: توقف
   ba-audiorecorder-controlbar.stop-tooltip: انقر هنا للتوقف.
-  ba-audiorecorder-controlbar.stop-available-after: الحد الأدنى لمدة التسجيل هو٪ d ثانية
+  ba-audiorecorder-controlbar.stop-available-after: الحد الأدنى لمدة التسجيل هو%d ثانية
   ba-audiorecorder-controlbar.cancel: إلغاء
   ba-audiorecorder-controlbar.cancel-tooltip: انقر هنا للإلغاء.
   ba-videoplayer-controlbar.player-speed: سرعة اللاعب
@@ -156,9 +156,9 @@
   ba-imagecapture.verifying-failed: فشل التحقق - انقر هنا لإعادة المحاولة.
   ba-imagecapture.rerecord-confirm: هل تريد حقًا استعادة صورتك؟
   ba-imagecapture.image_file_too_large: >-
-    ملف الصورة الخاص بك كبير جدًا (٪ s) - انقر هنا لإعادة المحاولة باستخدام ملف
+    ملف الصورة الخاص بك كبير جدًا (%s) - انقر هنا لإعادة المحاولة باستخدام ملف
     صورة أصغر.
-  ba-imagecapture.unsupported_image_type: 'الرجاء التحميل:٪ s - انقر هنا لإعادة المحاولة.'
+  ba-imagecapture.unsupported_image_type: 'الرجاء التحميل:%s - انقر هنا لإعادة المحاولة.'
   ba-imagecapture.orientation-portrait-required: يرجى تدوير جهازك لتسجيل في وضع عمودي.
   ba-imagecapture.orientation-landscape-required: يرجى تدوير جهازك للتسجيل في وضع أفقي.
   ba-audiorecorder.recorder-error: لقد حدث خطأ، رجاء أعد المحاولة لاحقا. انقر لإعادة المحاولة.
@@ -178,9 +178,9 @@
   ba-audiorecorder.rerecord-confirm: هل تريد حقًا إعادة صوتك؟
   ba-audiorecorder.cancel-confirm: هل تريد حقًا إلغاء تحميل الصوت الخاص بك؟
   ba-audiorecorder.audio_file_too_large: >-
-    ملف الصوت الخاص بك كبير جدًا (٪ s) - انقر هنا لإعادة المحاولة باستخدام ملف
+    ملف الصوت الخاص بك كبير جدًا (%s) - انقر هنا لإعادة المحاولة باستخدام ملف
     صوتي أصغر.
-  ba-audiorecorder.unsupported_audio_type: 'الرجاء التحميل:٪ s - انقر هنا لإعادة المحاولة.'
+  ba-audiorecorder.unsupported_audio_type: 'الرجاء التحميل:%s - انقر هنا لإعادة المحاولة.'
   ba-common-settingsmenu.tooltip: انقر للعب.
   ba-common-settingsmenu.setting-menu: جميع الإعدادات
   ba-common-settingsmenu.source-quality: جودة المصدر

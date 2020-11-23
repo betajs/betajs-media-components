@@ -117,7 +117,7 @@
   ba-audioplayer-controlbar.play-audio: Spelen
   ba-audioplayer-controlbar.pause-audio: Pauze
   ba-audioplayer-controlbar.pause-audio-disabled: Pauzeren niet ondersteund
-  ba-audioplayer-controlbar.elapsed-time: Elasped tijd
+  ba-audioplayer-controlbar.elapsed-time: Verstreken tijd
   ba-audioplayer-controlbar.total-time: Totale lengte van
   ba-audioplayer-controlbar.volume-button: Volume instellen
   ba-audioplayer-controlbar.volume-mute: Geluid dempen
@@ -178,7 +178,7 @@
   ba-imagecapture.verifying-failed: Verifiëren mislukt - klik hier om het opnieuw te proberen.
   ba-imagecapture.rerecord-confirm: Wil je echt je foto opnieuw maken?
   ba-imagecapture.image_file_too_large: >-
-    Uw afbeeldingsbestand is te groot ( %s) - klik hier om het opnieuw te
+    Uw afbeeldingsbestand is te groot (%s) - klik hier om het opnieuw te
     proberen met een kleiner afbeeldingsbestand.
   ba-imagecapture.unsupported_image_type: 'Upload alstublieft: %s - klik hier om het opnieuw te proberen.'
   ba-imagecapture.orientation-portrait-required: Draai uw apparaat om op te nemen in staande modus.
@@ -207,7 +207,7 @@
   ba-audiorecorder.rerecord-confirm: Wil je je audio echt opnieuw spelen?
   ba-audiorecorder.cancel-confirm: Wil je echt je audio-upload annuleren?
   ba-audiorecorder.audio_file_too_large: >-
-    Je audiobestand is te groot ( %s) - klik hier om het opnieuw te proberen met
+    Je audiobestand is te groot (%s) - klik hier om het opnieuw te proberen met
     een kleiner audiobestand.
   ba-audiorecorder.unsupported_audio_type: 'Upload alstublieft: %s - klik hier om het opnieuw te proberen.'
   ba-common-settingsmenu.tooltip: Klik om te spelen.

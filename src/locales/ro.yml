@@ -178,7 +178,7 @@
   ba-imagecapture.verifying-failed: Verificarea eșuată - faceți clic aici pentru a reîncerca.
   ba-imagecapture.rerecord-confirm: Chiar vrei să-ți recuperezi imaginea?
   ba-imagecapture.image_file_too_large: >-
-    Fișierul imagine este prea mare ( %s) - faceți clic aici pentru a încerca
+    Fișierul imagine este prea mare (%s) - faceți clic aici pentru a încerca
     din nou cu un fișier imagine mai mic.
   ba-imagecapture.unsupported_image_type: 'Încărcați: %s - faceți clic aici pentru a reîncerca.'
   ba-imagecapture.orientation-portrait-required: Vă rotește dispozitivul să înregistreze în modul portret.
@@ -207,7 +207,7 @@
   ba-audiorecorder.rerecord-confirm: Chiar vrei să-ți reoriști sunetul?
   ba-audiorecorder.cancel-confirm: Chiar vrei să anulezi încărcarea audio?
   ba-audiorecorder.audio_file_too_large: >-
-    Fișierul dvs. audio este prea mare ( %s) - faceți clic aici pentru a încerca
+    Fișierul dvs. audio este prea mare (%s) - faceți clic aici pentru a încerca
     din nou cu un fișier audio mai mic.
   ba-audiorecorder.unsupported_audio_type: 'Încărcați: %s - faceți clic aici pentru a reîncerca.'
   ba-common-settingsmenu.tooltip: Faceți clic pentru a juca.

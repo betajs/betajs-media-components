@@ -46,7 +46,7 @@
   ba-videorecorder.verifying-failed: Verifikasi gagal - klik di sini untuk mencoba lagi.
   ba-videorecorder.rerecord-confirm: Apakah Anda benar-benar ingin mengulang video Anda?
   ba-videorecorder.video_file_too_large: >-
-    File video Anda terlalu besar ( %s) - klik di sini untuk mencoba lagi dengan
+    File video Anda terlalu besar (%s) - klik di sini untuk mencoba lagi dengan
     file video yang lebih kecil.
   ba-videorecorder.unsupported_video_type: 'Silakan upload: %s - klik di sini untuk mencoba lagi.'
   ba-videoplayer-controlbar.exit-fullscreen-video: Keluar dari layar penuh
@@ -168,7 +168,7 @@
   ba-imagecapture.verifying-failed: Verifikasi gagal - klik di sini untuk mencoba lagi.
   ba-imagecapture.rerecord-confirm: Apakah Anda benar-benar ingin mengambil kembali gambar Anda?
   ba-imagecapture.image_file_too_large: >-
-    File gambar Anda terlalu besar ( %s) - klik di sini untuk mencoba lagi
+    File gambar Anda terlalu besar (%s) - klik di sini untuk mencoba lagi
     dengan file gambar yang lebih kecil.
   ba-imagecapture.unsupported_image_type: 'Harap unggah: %s - klik di sini untuk mencoba lagi.'
   ba-imagecapture.orientation-portrait-required: Harap putar perangkat Anda untuk merekam dalam mode potret.
@@ -195,7 +195,7 @@
   ba-audiorecorder.rerecord-confirm: Apakah Anda benar-benar ingin mengulang audio Anda?
   ba-audiorecorder.cancel-confirm: Apakah Anda benar-benar ingin membatalkan upload audio Anda?
   ba-audiorecorder.audio_file_too_large: >-
-    File audio Anda terlalu besar ( %s) - klik di sini untuk mencoba lagi dengan
+    File audio Anda terlalu besar (%s) - klik di sini untuk mencoba lagi dengan
     file audio yang lebih kecil.
   ba-audiorecorder.unsupported_audio_type: 'Harap unggah: %s - klik di sini untuk mencoba lagi.'
   ba-common-settingsmenu.tooltip: Klik untuk main.

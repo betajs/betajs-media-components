@@ -166,7 +166,7 @@
   ba-imagecapture.verifying-failed: Doğrulama başarısız oldu - yeniden denemek için burayı tıklayın.
   ba-imagecapture.rerecord-confirm: Gerçekten imajını tekrar almak istiyor musun?
   ba-imagecapture.image_file_too_large: >-
-    Resim dosyanız çok büyük ( %s) - daha küçük bir resim dosyasıyla tekrar
+    Resim dosyanız çok büyük (%s) - daha küçük bir resim dosyasıyla tekrar
     denemek için burayı tıklayın.
   ba-imagecapture.unsupported_image_type: 'Lütfen yükleyin: %s - yeniden denemek için burayı tıklayın.'
   ba-imagecapture.orientation-portrait-required: Portre modunda kayıt yapmak için lütfen cihazınızı döndürün.
@@ -192,7 +192,7 @@
   ba-audiorecorder.rerecord-confirm: Gerçekten sesini yeniden yapmak istiyor musun?
   ba-audiorecorder.cancel-confirm: Ses yüklemenizi gerçekten iptal etmek istiyor musunuz?
   ba-audiorecorder.audio_file_too_large: >-
-    Ses dosyanız çok büyük ( %s) - daha küçük bir ses dosyasıyla tekrar denemek
+    Ses dosyanız çok büyük (%s) - daha küçük bir ses dosyasıyla tekrar denemek
     için burayı tıklayın.
   ba-audiorecorder.unsupported_audio_type: 'Lütfen yükleyin: %s - yeniden denemek için burayı tıklayın.'
   ba-common-settingsmenu.tooltip: Oynatmak için tıklayın.

@@ -47,7 +47,7 @@
   ba-videorecorder.verifying-failed: सत्यापन विफल - पुनः प्रयास करने के लिए यहां क्लिक करें।
   ba-videorecorder.rerecord-confirm: क्या आप वास्तव में अपने वीडियो को फिर से करना चाहते हैं?
   ba-videorecorder.video_file_too_large: >-
-    आपकी वीडियो फ़ाइल बहुत बड़ी है ( %s) - एक छोटे वीडियो फ़ाइल के साथ फिर से
+    आपकी वीडियो फ़ाइल बहुत बड़ी है (%s) - एक छोटे वीडियो फ़ाइल के साथ फिर से
     प्रयास करने के लिए यहां क्लिक करें
   ba-videorecorder.unsupported_video_type: 'कृपया अपलोड करें: %s - पुनः प्रयास करने के लिए यहां क्लिक करें।'
   ba-videoplayer-controlbar.exit-fullscreen-video: पूर्ण स्क्रीन से बाहर निकलें
@@ -175,7 +175,7 @@
   ba-imagecapture.verifying-failed: 'सत्यापित करना विफल - पुन: प्रयास करने के लिए यहां क्लिक करें।'
   ba-imagecapture.rerecord-confirm: क्या आप वास्तव में अपनी छवि को फिर से बनाना चाहते हैं?
   ba-imagecapture.image_file_too_large: >-
-    आपकी छवि फ़ाइल बहुत बड़ी है ( %s) - एक छोटी छवि फ़ाइल के साथ फिर से प्रयास
+    आपकी छवि फ़ाइल बहुत बड़ी है (%s) - एक छोटी छवि फ़ाइल के साथ फिर से प्रयास
     करने के लिए यहां क्लिक करें।
   ba-imagecapture.unsupported_image_type: 'कृपया अपलोड करें: %s - पुन: प्रयास करने के लिए यहां क्लिक करें।'
   ba-imagecapture.orientation-portrait-required: कृपया पोर्ट्रेट मोड में रिकॉर्ड करने के लिए अपने डिवाइस को घुमाएं।
@@ -204,7 +204,7 @@
   ba-audiorecorder.rerecord-confirm: क्या आप वास्तव में अपने ऑडियो को फिर से करना चाहते हैं?
   ba-audiorecorder.cancel-confirm: क्या आप वास्तव में अपने ऑडियो अपलोड को रद्द करना चाहते हैं?
   ba-audiorecorder.audio_file_too_large: >-
-    आपकी ऑडियो फ़ाइल बहुत बड़ी है ( %s) - एक छोटी ऑडियो फ़ाइल के साथ पुन: प्रयास
+    आपकी ऑडियो फ़ाइल बहुत बड़ी है (%s) - एक छोटी ऑडियो फ़ाइल के साथ पुन: प्रयास
     करने के लिए यहां क्लिक करें।
   ba-audiorecorder.unsupported_audio_type: 'कृपया अपलोड करें: %s - पुन: प्रयास करने के लिए यहां क्लिक करें।'
   ba-common-settingsmenu.tooltip: चलाने के लिए क्लिक करें।

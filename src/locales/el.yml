@@ -179,7 +179,7 @@
   ba-imagecapture.verifying-failed: Η επαλήθευση απέτυχε - κάντε κλικ εδώ για να προσπαθήσετε ξανά.
   ba-imagecapture.rerecord-confirm: Θέλετε πραγματικά να επαναλάβετε την εικόνα σας;
   ba-imagecapture.image_file_too_large: >-
-    Το αρχείο εικόνας σας είναι πολύ μεγάλο ( %s) - κάντε κλικ εδώ για να
+    Το αρχείο εικόνας σας είναι πολύ μεγάλο (%s) - κάντε κλικ εδώ για να
     προσπαθήσετε ξανά με ένα μικρότερο αρχείο εικόνας.
   ba-imagecapture.unsupported_image_type: 'Μεταφορτώστε: %s - κάντε κλικ εδώ για να προσπαθήσετε ξανά.'
   ba-imagecapture.orientation-portrait-required: Περιστρέψτε τη συσκευή σας για εγγραφή σε κατακόρυφη λειτουργία.
@@ -208,7 +208,7 @@
   ba-audiorecorder.rerecord-confirm: Θέλετε πραγματικά να επαναλάβετε τον ήχο σας;
   ba-audiorecorder.cancel-confirm: Θέλετε πραγματικά να ακυρώσετε τη μεταφόρτωση ήχου;
   ba-audiorecorder.audio_file_too_large: >-
-    Το αρχείο ήχου σας είναι πολύ μεγάλο ( %s) - κάντε κλικ εδώ για να
+    Το αρχείο ήχου σας είναι πολύ μεγάλο (%s) - κάντε κλικ εδώ για να
     δοκιμάσετε ξανά με ένα μικρότερο αρχείο ήχου.
   ba-audiorecorder.unsupported_audio_type: 'Μεταφορτώστε: %s - κάντε κλικ εδώ για να προσπαθήσετε ξανά.'
   ba-common-settingsmenu.tooltip: Κάντε κλικ για να παίξετε.

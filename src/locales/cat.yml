@@ -181,7 +181,7 @@
   ba-imagecapture.verifying-failed: 'Verificació fallida: feu clic aquí per tornar-ho a provar.'
   ba-imagecapture.rerecord-confirm: Segur que voleu reprendre la vostra imatge?
   ba-imagecapture.image_file_too_large: >-
-    El vostre fitxer d'imatge és massa gran ( %s): feu clic aquí per tornar-ho a
+    El vostre fitxer d'imatge és massa gran (%s): feu clic aquí per tornar-ho a
     provar amb un fitxer d'imatge més petit.
   ba-imagecapture.unsupported_image_type: 'Pengeu: %s: feu clic aquí per tornar-ho a provar.'
   ba-imagecapture.orientation-portrait-required: Gireu el dispositiu per gravar en mode vertical.
@@ -212,7 +212,7 @@
   ba-audiorecorder.rerecord-confirm: Esteu segur que voleu referir l’àudio?
   ba-audiorecorder.cancel-confirm: Segur que voleu cancel·lar la càrrega d’àudio?
   ba-audiorecorder.audio_file_too_large: >-
-    El vostre fitxer d’àudio és massa gran ( %s): feu clic aquí per tornar-ho a
+    El vostre fitxer d’àudio és massa gran (%s): feu clic aquí per tornar-ho a
     provar amb un fitxer d’àudio més petit.
   ba-audiorecorder.unsupported_audio_type: 'Pengeu: %s: feu clic aquí per tornar-ho a provar.'
   ba-common-settingsmenu.tooltip: Feu clic per jugar.

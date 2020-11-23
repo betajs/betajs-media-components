@@ -168,7 +168,7 @@
   ba-imagecapture.verifying-failed: Bekreftelse mislyktes - klikk her for å prøve igjen.
   ba-imagecapture.rerecord-confirm: Vil du virkelig gjenta bildet ditt?
   ba-imagecapture.image_file_too_large: >-
-    Bildefilen din er for stor ( %s) - klikk her for å prøve igjen med en mindre
+    Bildefilen din er for stor (%s) - klikk her for å prøve igjen med en mindre
     bildefil.
   ba-imagecapture.unsupported_image_type: 'Vennligst last opp: %s - klikk her for å prøve på nytt.'
   ba-imagecapture.orientation-portrait-required: Vennligst roter enheten din for å ta opp i stående modus.
@@ -195,7 +195,7 @@
   ba-audiorecorder.rerecord-confirm: Vil du virkelig gjenta lyden din?
   ba-audiorecorder.cancel-confirm: Vil du virkelig slette lydopplasting?
   ba-audiorecorder.audio_file_too_large: >-
-    Lydfilen din er for stor ( %s) - klikk her for å prøve igjen med en mindre
+    Lydfilen din er for stor (%s) - klikk her for å prøve igjen med en mindre
     lydfil.
   ba-audiorecorder.unsupported_audio_type: 'Vennligst last opp: %s - klikk her for å prøve på nytt.'
   ba-common-settingsmenu.tooltip: Klikk for å spille.

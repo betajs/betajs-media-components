@@ -162,7 +162,7 @@
   ba-imagecapture.verifying-failed: Bekræftelse mislykkedes - klik her for at prøve igen.
   ba-imagecapture.rerecord-confirm: Vil du virkelig genoptage dit billede?
   ba-imagecapture.image_file_too_large: >-
-    Din billedfil er for stor ( %s) - klik her for at prøve igen med en mindre
+    Din billedfil er for stor (%s) - klik her for at prøve igen med en mindre
     billedfil.
   ba-imagecapture.unsupported_image_type: 'Upload venligst: %s - klik her for at prøve igen.'
   ba-imagecapture.orientation-portrait-required: Venligst drej din enhed for at optage i stående tilstand.
@@ -186,7 +186,7 @@
   ba-audiorecorder.rerecord-confirm: Vil du virkelig lave din lyd igen?
   ba-audiorecorder.cancel-confirm: Vil du virkelig annullere din lydopload?
   ba-audiorecorder.audio_file_too_large: >-
-    Din lydfil er for stor ( %s) - klik her for at prøve igen med en mindre
+    Din lydfil er for stor (%s) - klik her for at prøve igen med en mindre
     lydfil.
   ba-audiorecorder.unsupported_audio_type: 'Upload venligst: %s - klik her for at prøve igen.'
   ba-common-settingsmenu.tooltip: Klik for at spille.

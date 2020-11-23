@@ -171,7 +171,7 @@
   ba-imagecapture.verifying-failed: 'Sikertelen ellenőrzés - kattintson ide, hogy újra próbálkozzon.'
   ba-imagecapture.rerecord-confirm: Tényleg meg akarja ismételni a képet?
   ba-imagecapture.image_file_too_large: >-
-    A képfájl túl nagy ( %s) - kattintson ide, ha megpróbál egy kisebb képfájl
+    A képfájl túl nagy (%s) - kattintson ide, ha megpróbál egy kisebb képfájl
     használatával.
   ba-imagecapture.unsupported_image_type: 'Kérjük, töltse fel: %s - kattintson ide, hogy újra próbálkozzon.'
   ba-imagecapture.orientation-portrait-required: 'Kérjük, forgassa el a készüléket, hogy portré módban rögzítse.'
@@ -198,7 +198,7 @@
   ba-audiorecorder.rerecord-confirm: Tényleg meg szeretné újítani a hangját?
   ba-audiorecorder.cancel-confirm: Tényleg törölni szeretné a hangfelvételét?
   ba-audiorecorder.audio_file_too_large: >-
-    A hangfájl túl nagy ( %s) - kattints ide, ha megpróbálsz újra egy kisebb
+    A hangfájl túl nagy (%s) - kattints ide, ha megpróbálsz újra egy kisebb
     hangfájl segítségével.
   ba-audiorecorder.unsupported_audio_type: 'Kérjük, töltse fel: %s - kattintson ide, hogy újra próbálkozzon.'
   ba-common-settingsmenu.tooltip: Kattintson a játék elkezdéséhez.

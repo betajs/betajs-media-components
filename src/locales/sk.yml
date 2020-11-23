@@ -166,7 +166,7 @@
   ba-imagecapture.verifying-failed: Overenie zlyhalo - kliknutím sem zopakujte pokus.
   ba-imagecapture.rerecord-confirm: Naozaj chcete znova nasnímať svoj obrázok?
   ba-imagecapture.image_file_too_large: >-
-    Váš obrazový súbor je príliš veľký ( %s) - kliknutím sem skúste znova s
+    Váš obrazový súbor je príliš veľký (%s) - kliknutím sem skúste znova s
     menším obrázkovým súborom.
   ba-imagecapture.unsupported_image_type: 'Nahrajte: %s - kliknite sem a skúste to znova.'
   ba-imagecapture.orientation-portrait-required: 'Ak chcete nahrávať v režime na výšku, otočte zariadenie.'
@@ -193,7 +193,7 @@
   ba-audiorecorder.rerecord-confirm: Naozaj chcete prepracovať zvuk?
   ba-audiorecorder.cancel-confirm: Naozaj chcete zrušiť nahrávanie zvuku?
   ba-audiorecorder.audio_file_too_large: >-
-    Váš zvukový súbor je príliš veľký ( %s) - kliknite sem a skúste znova s
+    Váš zvukový súbor je príliš veľký (%s) - kliknite sem a skúste znova s
     menším zvukovým súborom.
   ba-audiorecorder.unsupported_audio_type: 'Nahrajte: %s - kliknite sem a skúste to znova.'
   ba-common-settingsmenu.tooltip: Kliknutím prehráte.

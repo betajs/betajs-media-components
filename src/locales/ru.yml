@@ -178,7 +178,7 @@
   ba-imagecapture.verifying-failed: 'Проверка не удалась - нажмите здесь, чтобы повторить попытку.'
   ba-imagecapture.rerecord-confirm: Вы действительно хотите вернуть свой образ?
   ba-imagecapture.image_file_too_large: >-
-    Файл изображения слишком велик ( %s) - нажмите здесь, чтобы повторить
+    Файл изображения слишком велик (%s) - нажмите здесь, чтобы повторить
     попытку с меньшим файлом изображения.
   ba-imagecapture.unsupported_image_type: 'Загрузите: %s - нажмите здесь, чтобы повторить попытку.'
   ba-imagecapture.orientation-portrait-required: 'Пожалуйста, поверните устройство для записи в портретном режиме.'
@@ -207,7 +207,7 @@
   ba-audiorecorder.rerecord-confirm: Вы действительно хотите повторить аудио?
   ba-audiorecorder.cancel-confirm: Вы действительно хотите отменить загрузку аудио?
   ba-audiorecorder.audio_file_too_large: >-
-    Ваш аудиофайл слишком большой ( %s) - нажмите здесь, чтобы повторить попытку
+    Ваш аудиофайл слишком большой (%s) - нажмите здесь, чтобы повторить попытку
     с меньшим аудиофайлом.
   ba-audiorecorder.unsupported_audio_type: 'Загрузите: %s - нажмите здесь, чтобы повторить попытку.'
   ba-common-settingsmenu.tooltip: 'Нажмите, чтобы играть.'

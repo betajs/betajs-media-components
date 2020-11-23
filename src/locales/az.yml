@@ -67,7 +67,7 @@
   ba-videoplayer-adslot.volume-mute: Səs səsi
   ba-videoplayer-adslot.volume-unmute: Səsin səsləndirilməsi
   ba-videoplayer-adslot.ad-will-end-after: Reklam %s sonra sona çatacaq
-  ba-videoplayer-adslot.can-skip-after: ' %D sonra atlayın'
+  ba-videoplayer-adslot.can-skip-after: '%d sonra atlayın'
   ba-videoplayer-adslot.skip-ad: Reklamı atlayın
   ba-videorecorder.software-required: >-
     Davam etmək üçün aşağıdakı tələbləri qurmaq / aktivləşdirmək üçün aşağıya

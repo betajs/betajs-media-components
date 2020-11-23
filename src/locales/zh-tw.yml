@@ -49,7 +49,7 @@
   ba-videoplayer-controlbar.pause-video-disabled: 無法暫停
   ba-videorecorder-chooser.record-audio: 錄音
   ba-videorecorder-chooser.record-screen: 記錄屏幕
-  ba-videorecorder-controlbar.stop-available-after: 最短記錄時間是％d秒
+  ba-videorecorder-controlbar.stop-available-after: 最短記錄時間是%d秒
   ba-videorecorder-controlbar.cancel: 取消
   ba-videorecorder-controlbar.cancel-tooltip: 點擊這裡取消。
   ba-videorecorder.cancel-confirm: 你真的想取消你的視頻上傳？
@@ -57,8 +57,8 @@
   ba-videoplayer-adslot.volume-button: 設置音量
   ba-videoplayer-adslot.volume-mute: 靜音
   ba-videoplayer-adslot.volume-unmute: 取消靜音
-  ba-videoplayer-adslot.ad-will-end-after: 廣告將在％s之後結束
-  ba-videoplayer-adslot.can-skip-after: 在％d之後跳過
+  ba-videoplayer-adslot.ad-will-end-after: 廣告將在%s之後結束
+  ba-videoplayer-adslot.can-skip-after: 在%d之後跳過
   ba-videoplayer-adslot.skip-ad: 跳過廣告
   ba-videorecorder.software-required: 請點擊下面的安裝/激活以下要求才能繼續。
   ba-videorecorder.software-waiting: 等待要求安裝/激活。完成後可能需要刷新頁面。
@@ -114,7 +114,7 @@
   ba-audiorecorder-controlbar.rerecord-tooltip: 點擊這裡重做。
   ba-audiorecorder-controlbar.stop: 停止
   ba-audiorecorder-controlbar.stop-tooltip: 點擊此處停止。
-  ba-audiorecorder-controlbar.stop-available-after: 最短錄製時間為％d秒
+  ba-audiorecorder-controlbar.stop-available-after: 最短錄製時間為%d秒
   ba-audiorecorder-controlbar.cancel: 取消
   ba-audiorecorder-controlbar.cancel-tooltip: 點擊這裡取消。
   ba-videoplayer-controlbar.player-speed: 球員速度
@@ -141,8 +141,8 @@
   ba-imagecapture.verifying: 驗證
   ba-imagecapture.verifying-failed: 驗證失敗 - 單擊此處重試。
   ba-imagecapture.rerecord-confirm: 你真的想重拍你的形象嗎？
-  ba-imagecapture.image_file_too_large: 您的圖片文件太大（％s） - 點擊此處再次嘗試使用較小的圖片文件。
-  ba-imagecapture.unsupported_image_type: 請上傳：％s  - 點擊此處重試。
+  ba-imagecapture.image_file_too_large: 您的圖片文件太大（%s） - 點擊此處再次嘗試使用較小的圖片文件。
+  ba-imagecapture.unsupported_image_type: 請上傳：%s  - 點擊此處重試。
   ba-imagecapture.orientation-portrait-required: 請旋轉設備以縱向模式錄製。
   ba-imagecapture.orientation-landscape-required: 請旋轉您的設備以橫向模式錄製。
   ba-audiorecorder.recorder-error: 發生了一個錯誤。請稍後重試。點擊重試。
@@ -157,8 +157,8 @@
   ba-audiorecorder.verifying-failed: 驗證失敗 - 單擊此處重試。
   ba-audiorecorder.rerecord-confirm: 你真的想要重做你的音頻嗎？
   ba-audiorecorder.cancel-confirm: 你真的想取消音頻上傳嗎？
-  ba-audiorecorder.audio_file_too_large: 您的音頻文件太大（％s） - 點擊此處再次嘗試使用較小的音頻文件。
-  ba-audiorecorder.unsupported_audio_type: 請上傳：％s  - 點擊此處重試。
+  ba-audiorecorder.audio_file_too_large: 您的音頻文件太大（%s） - 點擊此處再次嘗試使用較小的音頻文件。
+  ba-audiorecorder.unsupported_audio_type: 請上傳：%s  - 點擊此處重試。
   ba-common-settingsmenu.tooltip: 點擊播放。
   ba-common-settingsmenu.setting-menu: 所有設定
   ba-common-settingsmenu.source-quality: 源質量

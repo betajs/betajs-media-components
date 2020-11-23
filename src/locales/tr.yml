@@ -62,7 +62,7 @@
   ba-videoplayer-adslot.volume-mute: Sesi kapat
   ba-videoplayer-adslot.volume-unmute: Sesi açma
   ba-videoplayer-adslot.ad-will-end-after: 'Reklam, %s sonra sona erecek'
-  ba-videoplayer-adslot.can-skip-after: ' %D sonra atla'
+  ba-videoplayer-adslot.can-skip-after: '%d sonra atla'
   ba-videoplayer-adslot.skip-ad: Reklamı geç
   ba-videorecorder.software-required: >-
     Devam etmek için aşağıdaki gereksinimleri yüklemek / etkinleştirmek için

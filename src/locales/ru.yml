@@ -40,8 +40,8 @@
   ba-videorecorder.verifying-failed: 'Ошибка подтверждения. Нажмите здесь, чтобы повторить попытку.'
   ba-videorecorder.rerecord-confirm: Вы действительно хотите перезаписать видео?
   ba-videorecorder.video_file_too_large: >-
-    Слишком большой видеофайл. Нажмите здесь, чтобы повторить попытку с меньшим
-    видеофайлом.
+    Ваш видеофайл слишком велик (%s) - нажмите здесь, чтобы повторить попытку с
+    меньшим видеофайлом.
   ba-videorecorder.unsupported_video_type: 'Пожалуйста загрузите: %s - нажмите здесь, чтобы повторить попытку.'
   ba-videoplayer-playbutton.submit-video: Подтвердить видео
   ba-videoplayer-controlbar.submit-video: Подтвердить видео

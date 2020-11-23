@@ -58,7 +58,7 @@
   ba-videorecorder-controlbar.cancel-tooltip: Kliknite sem pre zrušenie.
   ba-videorecorder.cancel-confirm: Naozaj chcete zrušiť nahrávanie videa?
   ba-videorecorder-chooser.record-screen: Obrazovka nahrávania
-  ba-videoplayer-adslot.elapsed-time: Elasped čas
+  ba-videoplayer-adslot.elapsed-time: Uplynutý čas
   ba-videoplayer-adslot.volume-button: Nastavte hlasitosť
   ba-videoplayer-adslot.volume-mute: Stlmenie zvuku
   ba-videoplayer-adslot.volume-unmute: Zrušiť zvuk
@@ -109,7 +109,7 @@
   ba-audioplayer-controlbar.play-audio: hrať
   ba-audioplayer-controlbar.pause-audio: Pauza
   ba-audioplayer-controlbar.pause-audio-disabled: Pozastavenie nie je podporované
-  ba-audioplayer-controlbar.elapsed-time: Elasped čas
+  ba-audioplayer-controlbar.elapsed-time: Uplynutý čas
   ba-audioplayer-controlbar.total-time: Celková dĺžka
   ba-audioplayer-controlbar.volume-button: Nastavte hlasitosť
   ba-audioplayer-controlbar.volume-mute: Stlmenie zvuku

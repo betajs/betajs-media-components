@@ -9,7 +9,7 @@
   ba-videoplayer-controlbar.submit-video: Videonu təsdiq et
   ba-videoplayer-controlbar.play-video: Videonu göstər
   ba-videoplayer-controlbar.pause-video: Videonu dayandır
-  ba-videoplayer-controlbar.elapsed-time: Göstərilmiş vaxt
+  ba-videoplayer-controlbar.elapsed-time: Keçən vaxt
   ba-videoplayer-controlbar.total-time: Videonu tam uzunluğu
   ba-videoplayer-controlbar.fullscreen-video: Tam ekran edin
   ba-videoplayer-controlbar.volume-button: Səs düyməsi
@@ -62,7 +62,7 @@
   ba-videorecorder-controlbar.cancel: Ləğv et
   ba-videorecorder-controlbar.cancel-tooltip: Ləğv etmək üçün buraya basın.
   ba-videorecorder.cancel-confirm: Video yükləməyini həqiqətən ləğv etmək istəyirsiniz?
-  ba-videoplayer-adslot.elapsed-time: Elasped vaxt
+  ba-videoplayer-adslot.elapsed-time: Keçən vaxt
   ba-videoplayer-adslot.volume-button: Həcmi seçin
   ba-videoplayer-adslot.volume-mute: Səs səsi
   ba-videoplayer-adslot.volume-unmute: Səsin səsləndirilməsi
@@ -118,7 +118,7 @@
   ba-audioplayer-controlbar.play-audio: Oynamaq
   ba-audioplayer-controlbar.pause-audio: Pauza
   ba-audioplayer-controlbar.pause-audio-disabled: Pauza dəstəklənmir
-  ba-audioplayer-controlbar.elapsed-time: Elasped vaxt
+  ba-audioplayer-controlbar.elapsed-time: Keçən vaxt
   ba-audioplayer-controlbar.total-time: Ümumi uzunluğu
   ba-audioplayer-controlbar.volume-button: Həcmi seçin
   ba-audioplayer-controlbar.volume-mute: Səs səsi

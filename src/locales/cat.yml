@@ -9,7 +9,7 @@
   ba-videoplayer-controlbar.submit-video: confirmar vídeo
   ba-videoplayer-controlbar.play-video: reproducció de vídeo
   ba-videoplayer-controlbar.pause-video: pausa de vídeo
-  ba-videoplayer-controlbar.elapsed-time: temps Elasped
+  ba-videoplayer-controlbar.elapsed-time: Temps transcorregut
   ba-videoplayer-controlbar.total-time: Durada total de vídeo
   ba-videoplayer-controlbar.fullscreen-video: Introduïu a pantalla completa
   ba-videoplayer-controlbar.volume-button: volum de sèries
@@ -62,7 +62,7 @@
   ba-videorecorder-controlbar.cancel: Cancel · lar
   ba-videorecorder-controlbar.cancel-tooltip: Feu clic aquí per cancel·lar.
   ba-videorecorder.cancel-confirm: Realment vols cancel·lar la càrrega del teu vídeo?
-  ba-videoplayer-adslot.elapsed-time: Elasped temps
+  ba-videoplayer-adslot.elapsed-time: Temps transcorregut
   ba-videoplayer-adslot.volume-button: Estableix el volum
   ba-videoplayer-adslot.volume-mute: Silenciar el so
   ba-videoplayer-adslot.volume-unmute: Silenciar el so
@@ -118,7 +118,7 @@
   ba-audioplayer-controlbar.play-audio: Jugar
   ba-audioplayer-controlbar.pause-audio: Pausa
   ba-audioplayer-controlbar.pause-audio-disabled: Pausa no és compatible
-  ba-audioplayer-controlbar.elapsed-time: Elasped temps
+  ba-audioplayer-controlbar.elapsed-time: Temps transcorregut
   ba-audioplayer-controlbar.total-time: Durada total de
   ba-audioplayer-controlbar.volume-button: Estableix el volum
   ba-audioplayer-controlbar.volume-mute: Silenciar el so

@@ -9,7 +9,7 @@
   ba-videoplayer-controlbar.submit-video: Bekræft video
   ba-videoplayer-controlbar.play-video: Afspil video
   ba-videoplayer-controlbar.pause-video: Pause video
-  ba-videoplayer-controlbar.elapsed-time: Elasped tid
+  ba-videoplayer-controlbar.elapsed-time: Forløbet tid
   ba-videoplayer-controlbar.total-time: Samlet længde af video
   ba-videoplayer-controlbar.fullscreen-video: Indtast fullscreen
   ba-videoplayer-controlbar.volume-button: Indstil lydstyrke
@@ -57,7 +57,7 @@
   ba-videorecorder-controlbar.cancel: Afbestille
   ba-videorecorder-controlbar.cancel-tooltip: Klik her for at annullere.
   ba-videorecorder.cancel-confirm: Vil du virkelig annullere din video upload?
-  ba-videoplayer-adslot.elapsed-time: Elasped tid
+  ba-videoplayer-adslot.elapsed-time: Forløbet tid
   ba-videoplayer-adslot.volume-button: Indstil lydstyrke
   ba-videoplayer-adslot.volume-mute: Dæmp lyd
   ba-videoplayer-adslot.volume-unmute: Sluk lyden
@@ -108,7 +108,7 @@
   ba-audioplayer-controlbar.play-audio: Spille
   ba-audioplayer-controlbar.pause-audio: Pause
   ba-audioplayer-controlbar.pause-audio-disabled: Pause ikke understøttet
-  ba-audioplayer-controlbar.elapsed-time: Elasped tid
+  ba-audioplayer-controlbar.elapsed-time: Forløbet tid
   ba-audioplayer-controlbar.total-time: Total længde på
   ba-audioplayer-controlbar.volume-button: Indstil lydstyrke
   ba-audioplayer-controlbar.volume-mute: Dæmp lyd

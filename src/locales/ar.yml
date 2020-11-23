@@ -106,7 +106,7 @@
   ba-audioplayer-controlbar.play-audio: لعب
   ba-audioplayer-controlbar.pause-audio: وقفة
   ba-audioplayer-controlbar.pause-audio-disabled: وقفة غير معتمد
-  ba-audioplayer-controlbar.elapsed-time: الوقت Elasped
+  ba-audioplayer-controlbar.elapsed-time: الوقت المنقضي
   ba-audioplayer-controlbar.total-time: الطول الكلي
   ba-audioplayer-controlbar.volume-button: ضبط الحجم
   ba-audioplayer-controlbar.volume-mute: صوت منخفض

@@ -9,7 +9,7 @@
   ba-videoplayer-controlbar.submit-video: Potvrda videa
   ba-videoplayer-controlbar.play-video: Reprodukcija videozapisa
   ba-videoplayer-controlbar.pause-video: Pauza Video
-  ba-videoplayer-controlbar.elapsed-time: Elasped vrijeme
+  ba-videoplayer-controlbar.elapsed-time: Proteklo vrijeme
   ba-videoplayer-controlbar.total-time: Ukupna dužina videa
   ba-videoplayer-controlbar.fullscreen-video: Idi na puni zaslon
   ba-videoplayer-controlbar.volume-button: Set volumen
@@ -61,7 +61,7 @@
   ba-videorecorder-controlbar.cancel: Otkazati
   ba-videorecorder-controlbar.cancel-tooltip: Kliknite ovdje kako biste odustali.
   ba-videorecorder.cancel-confirm: Želite li zaista odustati od prijenosa videozapisa?
-  ba-videoplayer-adslot.elapsed-time: Otpremljeno vrijeme
+  ba-videoplayer-adslot.elapsed-time: Proteklo vrijeme
   ba-videoplayer-adslot.volume-button: Postavite glasnoću
   ba-videoplayer-adslot.volume-mute: Isključite zvuk
   ba-videoplayer-adslot.volume-unmute: Uključi zvuk
@@ -116,7 +116,7 @@
   ba-audioplayer-controlbar.play-audio: igra
   ba-audioplayer-controlbar.pause-audio: Pauza
   ba-audioplayer-controlbar.pause-audio-disabled: Pauza nije podržana
-  ba-audioplayer-controlbar.elapsed-time: Otpremljeno vrijeme
+  ba-audioplayer-controlbar.elapsed-time: Proteklo vrijeme
   ba-audioplayer-controlbar.total-time: Ukupna duljina
   ba-audioplayer-controlbar.volume-button: Postavite glasnoću
   ba-audioplayer-controlbar.volume-mute: Isključite zvuk

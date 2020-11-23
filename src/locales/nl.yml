@@ -117,7 +117,7 @@
   ba-audioplayer-controlbar.play-audio: Spelen
   ba-audioplayer-controlbar.pause-audio: Pauze
   ba-audioplayer-controlbar.pause-audio-disabled: Pauzeren niet ondersteund
-  ba-audioplayer-controlbar.elapsed-time: Elasped tijd
+  ba-audioplayer-controlbar.elapsed-time: Verstreken tijd
   ba-audioplayer-controlbar.total-time: Totale lengte van
   ba-audioplayer-controlbar.volume-button: Volume instellen
   ba-audioplayer-controlbar.volume-mute: Geluid dempen

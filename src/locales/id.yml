@@ -9,7 +9,7 @@
   ba-videoplayer-controlbar.submit-video: Konfirmasi video
   ba-videoplayer-controlbar.play-video: Putar video
   ba-videoplayer-controlbar.pause-video: Jeda video
-  ba-videoplayer-controlbar.elapsed-time: Elasped waktu
+  ba-videoplayer-controlbar.elapsed-time: Waktu berlalu
   ba-videoplayer-controlbar.total-time: Panjang video total
   ba-videoplayer-controlbar.fullscreen-video: Memasuki layar penuh
   ba-videoplayer-controlbar.volume-button: Setel volume
@@ -58,7 +58,7 @@
   ba-videorecorder-controlbar.cancel: Membatalkan
   ba-videorecorder-controlbar.cancel-tooltip: Klik disini untuk membatalkan
   ba-videorecorder.cancel-confirm: Apakah Anda benar-benar ingin membatalkan upload video Anda?
-  ba-videoplayer-adslot.elapsed-time: Elasped waktu
+  ba-videoplayer-adslot.elapsed-time: Waktu berlalu
   ba-videoplayer-adslot.volume-button: Setel volume
   ba-videoplayer-adslot.volume-mute: Bisu terdengar
   ba-videoplayer-adslot.volume-unmute: Suarakan suara
@@ -111,7 +111,7 @@
   ba-audioplayer-controlbar.play-audio: Bermain
   ba-audioplayer-controlbar.pause-audio: Berhenti sebentar
   ba-audioplayer-controlbar.pause-audio-disabled: Jeda tidak didukung
-  ba-audioplayer-controlbar.elapsed-time: Waktu Elasped
+  ba-audioplayer-controlbar.elapsed-time: Waktu berlalu
   ba-audioplayer-controlbar.total-time: Panjang total
   ba-audioplayer-controlbar.volume-button: Setel volume
   ba-audioplayer-controlbar.volume-mute: Bungkam suara

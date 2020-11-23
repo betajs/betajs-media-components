@@ -9,7 +9,7 @@
   ba-videoplayer-controlbar.submit-video: Потвърждаване на видео
   ba-videoplayer-controlbar.play-video: възпроизвеждане на видео
   ba-videoplayer-controlbar.pause-video: Pause видео
-  ba-videoplayer-controlbar.elapsed-time: Elasped време
+  ba-videoplayer-controlbar.elapsed-time: Изминалото време
   ba-videoplayer-controlbar.total-time: Обща дължина на видео
   ba-videoplayer-controlbar.fullscreen-video: Въведете цял екран
   ba-videoplayer-controlbar.volume-button: Set обем
@@ -62,7 +62,7 @@
   ba-videorecorder-controlbar.cancel: Отказ
   ba-videorecorder-controlbar.cancel-tooltip: 'Кликнете тук, за да отмените.'
   ba-videorecorder.cancel-confirm: Наистина ли искате да анулирате качването на видеоклипа си?
-  ba-videoplayer-adslot.elapsed-time: Изглади времето
+  ba-videoplayer-adslot.elapsed-time: Изминалото време
   ba-videoplayer-adslot.volume-button: Задайте сила на звука
   ba-videoplayer-adslot.volume-mute: Спиране на звука
   ba-videoplayer-adslot.volume-unmute: Заглушаване на звука
@@ -117,7 +117,7 @@
   ba-audioplayer-controlbar.play-audio: играя
   ba-audioplayer-controlbar.pause-audio: пауза
   ba-audioplayer-controlbar.pause-audio-disabled: Паузата не се поддържа
-  ba-audioplayer-controlbar.elapsed-time: Изглади времето
+  ba-audioplayer-controlbar.elapsed-time: Изминалото време
   ba-audioplayer-controlbar.total-time: Обща дължина
   ba-audioplayer-controlbar.volume-button: Задайте сила на звука
   ba-audioplayer-controlbar.volume-mute: Спиране на звука

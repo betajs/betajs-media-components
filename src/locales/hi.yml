@@ -9,7 +9,7 @@
   ba-videoplayer-controlbar.submit-video: वीडियो जमा कि
   ba-videoplayer-controlbar.play-video: वीडियो चलाएं
   ba-videoplayer-controlbar.pause-video: वीडियो रोकें
-  ba-videoplayer-controlbar.elapsed-time: बीता  आ समय
+  ba-videoplayer-controlbar.elapsed-time: बीता हुआ समय
   ba-videoplayer-controlbar.total-time: वीडियो की कुल लंबाई
   ba-videoplayer-controlbar.fullscreen-video: पूर्ण स्क्रीन दर्ज करें
   ba-videoplayer-controlbar.volume-button: मात्रा सेट करें
@@ -59,7 +59,7 @@
   ba-videorecorder-controlbar.cancel: रद्द करना
   ba-videorecorder-controlbar.cancel-tooltip: रद्द करने के लिए यहां क्लिक करें
   ba-videorecorder.cancel-confirm: क्या आप वाकई अपना वीडियो अपलोड रद्द करना चाहते हैं?
-  ba-videoplayer-adslot.elapsed-time: Elasped समय
+  ba-videoplayer-adslot.elapsed-time: बीता हुआ समय
   ba-videoplayer-adslot.volume-button: मात्रा सेट करें
   ba-videoplayer-adslot.volume-mute: ध्वनि म्यूट करें
   ba-videoplayer-adslot.volume-unmute: ध्वनि को अनम्यूट करें
@@ -114,7 +114,7 @@
   ba-audioplayer-controlbar.play-audio: प्ले
   ba-audioplayer-controlbar.pause-audio: ठहराव
   ba-audioplayer-controlbar.pause-audio-disabled: रोकें समर्थित नहीं है
-  ba-audioplayer-controlbar.elapsed-time: Elasped समय
+  ba-audioplayer-controlbar.elapsed-time: बीता हुआ समय
   ba-audioplayer-controlbar.total-time: की कुल लंबाई
   ba-audioplayer-controlbar.volume-button: वॉल्यूम सेट करें
   ba-audioplayer-controlbar.volume-mute: ध्वनि म्यूट करें

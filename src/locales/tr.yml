@@ -9,7 +9,7 @@
   ba-videoplayer-controlbar.submit-video: videoyu onayla
   ba-videoplayer-controlbar.play-video: Video oynatmak
   ba-videoplayer-controlbar.pause-video: Pause Video
-  ba-videoplayer-controlbar.elapsed-time: Geçen süre
+  ba-videoplayer-controlbar.elapsed-time: Geçen zaman
   ba-videoplayer-controlbar.total-time: videonun toplam uzunluğu
   ba-videoplayer-controlbar.fullscreen-video: Tam ekran yap
   ba-videoplayer-controlbar.volume-button: Set hacmi
@@ -57,7 +57,7 @@
   ba-videorecorder-controlbar.cancel: İptal etmek
   ba-videorecorder-controlbar.cancel-tooltip: İptal etmek için buraya tıklayın.
   ba-videorecorder.cancel-confirm: Video yüklemenizi gerçekten iptal etmek istiyor musunuz?
-  ba-videoplayer-adslot.elapsed-time: Kazanılan zaman
+  ba-videoplayer-adslot.elapsed-time: Geçen zaman
   ba-videoplayer-adslot.volume-button: Sesi ayarla
   ba-videoplayer-adslot.volume-mute: Sesi kapat
   ba-videoplayer-adslot.volume-unmute: Sesi açma
@@ -110,7 +110,7 @@
   ba-audioplayer-controlbar.play-audio: Oyun
   ba-audioplayer-controlbar.pause-audio: Duraklat
   ba-audioplayer-controlbar.pause-audio-disabled: Duraklat desteklenmiyor
-  ba-audioplayer-controlbar.elapsed-time: Elasped zaman
+  ba-audioplayer-controlbar.elapsed-time: Geçen zaman
   ba-audioplayer-controlbar.total-time: Toplam uzunluğu
   ba-audioplayer-controlbar.volume-button: Sesi ayarla
   ba-audioplayer-controlbar.volume-mute: Sesi kapat

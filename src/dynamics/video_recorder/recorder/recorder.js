@@ -125,11 +125,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "skipinitialonrerecord": false,
                     "timelimit": null,
                     "timeminlimit": null,
-                    "rtmpstreamtype": "mp4",
-                    "rtmpmicrophonecodec": "speex",
                     "webrtcstreaming": false,
                     "webrtconmobile": false,
-                    "webrtcstreamingifnecessary": false,
+                    "webrtcstreamingifnecessary": true,
                     "microphone-volume": 1.0,
                     "flip-camera": false,
                     "flipscreen": false, // Will affect as true, if flip-camera also set as true
@@ -146,12 +144,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "sharevideo": [],
 
                     /* Configuration */
-                    "forceflash": false,
                     "simulate": false,
-                    "noflash": false,
                     "onlyaudio": false,
                     "noaudio": false,
-                    "flashincognitosupport": false,
                     "enforce-duration": null,
                     "localplayback": false,
                     "uploadoptions": {},
@@ -240,8 +235,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
                 types: {
                     "allowscreen": "boolean",
-                    "forceflash": "boolean",
-                    "noflash": "boolean",
                     "rerecordable": "boolean",
                     "ready": "boolean",
                     "stretch": "boolean",
@@ -254,7 +247,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "allowupload": "boolean",
                     "allowcustomupload": "boolean",
                     "primaryrecord": "boolean",
-                    "flashincognitosupport": "boolean",
                     "recordermode": "boolean",
                     "nofullscreen": "boolean",
                     "skipinitialonrerecord": "boolean",
@@ -459,8 +451,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     }
                     return {
                         simulate: this.get("simulate"),
-                        forceflash: this.get("forceflash"),
-                        noflash: this.get("noflash"),
                         recordVideo: !this.get("onlyaudio"),
                         screenResizeMode: this.get("screenresizemode"),
                         recordAudio: !this.get("noaudio"),
@@ -468,9 +458,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         recordingHeight: this.get("nativeRecordingHeight"),
                         audioBitrate: typeof this.get("audiobitrate") === "number" ? this.get("audiobitrate") : undefined,
                         videoBitrate: typeof this.get("videobitrate") === "number" ? this.get("videobitrate") : undefined,
-                        flashFullSecurityDialog: !this.get("flashincognitosupport"),
-                        rtmpStreamType: this.get("rtmpstreamtype"),
-                        rtmpMicrophoneCodec: this.get("rtmpmicrophonecodec"),
                         webrtcStreaming: !!this.get("webrtcstreaming"),
                         webrtcStreamingIfNecessary: !!this.get("webrtcstreamingifnecessary"),
                         // webrtcOnMobile: !!this.get("webrtconmobile"),
@@ -558,10 +545,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     }, this);
                 },
 
-                isFlash: function() {
-                    return this.recorder && this.recorder.isFlash();
-                },
-
                 isWebrtcStreaming: function() {
                     return this.recorder && this.recorder.isWebrtcStreaming();
                 },
@@ -604,7 +587,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     this.__lastCovershotUpload = image;
                     var uploader = this.recorder ?
                         this.recorder.createSnapshotUploader(image, this.get("snapshottype"), this.get("uploadoptions").image) :
-                        RecorderSupport.createSnapshotUploader(this.isFlash(), image, this.get("snapshottype"), this.get("uploadoptions").image);
+                        RecorderSupport.createSnapshotUploader(image, this.get("snapshottype"), this.get("uploadoptions").image);
                     uploader.upload();
                     this._dataUploader.addUploader(uploader);
                 },
@@ -683,7 +666,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         this.recorder.testSoundLevel(false);
                     this.set("devicetesting", false);
                     return this.recorder.startRecord({
-                        rtmp: this.get("uploadoptions").rtmp,
                         video: this.get("uploadoptions").video,
                         audio: this.get("uploadoptions").audio,
                         webrtcStreaming: this.get("uploadoptions").webrtcStreaming
@@ -697,7 +679,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     if (!this.__recording)
                         return Promise.error(true);
                     return this.recorder.stopRecord({
-                        rtmp: this.get("uploadoptions").rtmp,
                         video: this.get("uploadoptions").video,
                         audio: this.get("uploadoptions").audio,
                         webrtcStreaming: this.get("uploadoptions").webrtcStreaming
@@ -1269,7 +1250,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
         .attachStringTable(Assets.strings)
         .addStrings({
             "recorder-error": "An error occurred, please try again later. Click to retry.",
-            "attach-error": "We could not access the media interface. Depending on the device and browser, you might need to install Flash or access the page via SSL.",
+            "attach-error": "We could not access the media interface. Depending on the device and browser, you might need to access the page via SSL.",
             "software-required": "Please click below to install / activate the following requirements in order to proceed.",
             "software-waiting": "Waiting for the requirements to be installed / activated. You might need to refresh the page after completion.",
             "access-forbidden": "Access to the media was forbidden. Click to retry.",

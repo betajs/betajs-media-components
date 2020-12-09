@@ -9,7 +9,6 @@
 		<script src="/static/node_modules/betajs-scoped/dist/scoped.js"></script>
 		<script src="/static/node_modules/betajs/dist/beta-noscoped.js"></script>
 		<script src="/static/node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
-		<script src="/static/node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
 		<script src="/static/node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
 		<script src="/static/node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
 		<script src="/static/dist/betajs-media-components-noscoped.js"></script>
@@ -36,12 +35,7 @@
 
 
 		<script>
-	        BetaJS.Flash.options = {
-	            flashFile: "../assets/betajs-flash.swf",
-	            forceReload: true
-	        };
-
-            var selectColor = new BetaJS.Dynamics.Dynamic({
+var selectColor = new BetaJS.Dynamics.Dynamic({
               templateUrl: "../templates/themecolors.html",
               element: $('#theme-colors'),
               attrs: {

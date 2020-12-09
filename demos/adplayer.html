@@ -6,7 +6,6 @@
     <script src="../node_modules/betajs-scoped/dist/scoped.js"></script>
     <script src="../node_modules/betajs/dist/beta-noscoped.js"></script>
     <script src="../node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
-    <script src="../node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
     <script src="../node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
     <script src="../node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
     <script src="../dist/betajs-media-components-noscoped.js"></script>
@@ -22,8 +21,7 @@
         ba-sources="{{[{src:'sample-video.mp4', poster: 'sample-cover.png', hd: true}, {src:'sample-video2.mp4', poster:'sample-cover2.png', hd: false}]}}"
         ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
         ba-theme="modern"
-        ba-noflash
-        ba-hideoninactivity="false"
+  ba-hideoninactivity="false"
         ba-skipinitial="true"
         ba-width="480"
         ba-height="320"
@@ -67,11 +65,7 @@
     <!--skipAfter: false-->
     <!--}-->
     <script>
-        BetaJS.Flash.options = {
-            flashFile: "../node_modules/betajs-flash/dist/betajs-flash.swf",
-            forceReload: true
-        };
-        BetaJS.Dynamics.Dynamic.activate();
+BetaJS.Dynamics.Dynamic.activate();
     </script>
 </body>
 </html>

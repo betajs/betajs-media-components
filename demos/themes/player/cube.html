@@ -9,7 +9,6 @@
     <script src="/static/node_modules/betajs-scoped/dist/scoped.js"></script>
     <script src="/static/node_modules/betajs/dist/beta-noscoped.js"></script>
     <script src="/static/node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
-    <script src="/static/node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
     <script src="/static/node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
     <script src="/static/node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
     <script src="/static/dist/betajs-media-components-noscoped.js"></script>
@@ -39,8 +38,7 @@
                 ba-hidebarafter="3000"
                 ba-themecolor="{{themeColor}}"
                 ba-title="Some test title from html"
-                ba-noflash
-                ba-hideoninactivity="{{hideOnInactivity}}"
+          ba-hideoninactivity="{{hideOnInactivity}}"
                 ba-disableseeking="{{disableSeeking}}"
                 ba-disablepause="{{disablePause}}"
                 ba-skipinitial="true"
@@ -55,7 +53,6 @@
                     label: 'player-speed',
                     defaultValue: 1.0,
                     visible: 'media-all',
-                    flashSupport: false,
                     mobileSupport: true,
                     className: 'player-speed',
                     options: [

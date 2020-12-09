@@ -36,7 +36,7 @@
   ba-videorecorder.recorder-error: 'An error occurred, please try again later. Click to retry.'
   ba-videorecorder.attach-error: >-
     We could not access the media interface. Depending on the device and
-    browser, you might need to install Flash or access the page via SSL.
+    browser, you might need to access the page via SSL.
   ba-videorecorder.access-forbidden: Access to the media was forbidden. Click to retry.
   ba-videorecorder.pick-covershot: Pick a covershot.
   ba-videorecorder.uploading: Uploading
@@ -146,7 +146,7 @@
   ba-imagecapture.recorder-error: 'An error occurred, please try again later. Click to retry.'
   ba-imagecapture.attach-error: >-
     We could not access the media interface. Depending on the device and
-    browser, you might need to install Flash or access the page via SSL.
+    browser, you might need to access the page via SSL.
   ba-imagecapture.software-required: >-
     Please click below to install / activate the following requirements in order
     to proceed.
@@ -174,7 +174,7 @@
   ba-audiorecorder.recorder-error: 'An error occurred, please try again later. Click to retry.'
   ba-audiorecorder.attach-error: >-
     We could not access the media interface. Depending on the device and
-    browser, you might need to install Flash or access the page via SSL.
+    browser, you might need to access the page via SSL.
   ba-audiorecorder.software-required: >-
     Please click below to install / activate the following requirements in order
     to proceed.

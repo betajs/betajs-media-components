@@ -8,8 +8,7 @@
         <script src="../node_modules/betajs-scoped/dist/scoped.js"></script>
         <script src="../node_modules/betajs/dist/beta-noscoped.js"></script>
         <script src="../node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
-        <script src="../node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
-        <script src="../node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+<script src="../node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
         <script src="../node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
 	<script src="../dist/betajs-media-components-noscoped.js"></script>
 	<link  href="../dist/betajs-media-components.css" rel="stylesheet" />
@@ -61,10 +60,6 @@ cursor: pointer;
 	</style>
 	<div id="container" style="width:400px"></div>
     <script>
-    BetaJS.Flash.options = {
-            flashFile: "../node_modules/betajs-flash/dist/betajs-flash.swf",
-            forceReload: true
-        };
     	var recorder = new BetaJS.MediaComponents.VideoRecorder.Dynamics.Recorder({
     		element: $("#container"),
     		attrs: {
@@ -76,9 +71,6 @@ cursor: pointer;
             this.recorder = {
                 blankLevel: function () {
                     return 0.5;
-                },
-                isFlash: function () {
-                    return false;
                 },
                 deltaCoefficient: function () {
                     return 0.5;

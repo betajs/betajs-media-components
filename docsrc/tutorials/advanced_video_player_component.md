@@ -1,6 +1,4 @@
 The advanced options allow you to configure the player even more precisely:
-- forceflash: Always use Flash instead of HTML5
-- noflash: Never use Flash
 - autoplay: Immediately play the video back
 - preload: Preload the video file immediately
 - loop: Loop the video file

@@ -11,8 +11,7 @@
         <script src="../node_modules/betajs-scoped/dist/scoped.js"></script>
         <script src="../node_modules/betajs/dist/beta-noscoped.js"></script>
         <script src="../node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
-        <script src="../node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
-        <script src="../node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+<script src="../node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
         <script src="../node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
 		<script src="../dist/betajs-media-components-noscoped.js"></script>
 		<link rel="stylesheet" href="../dist/betajs-media-components.css">
@@ -24,12 +23,6 @@
 		<div id="qunit-fixture"></div>
 		<div id="visible-fixture"></div>
 		<script src="http://code.jquery.com/qunit/qunit-1.11.0.js"></script>
-		<script>
-            BetaJS.Flash.options = {
-                flashFile: "../node_modules/betajs-flash/dist/betajs-flash.swf",
-                forceReload: true
-            };
-		</script>
 		<script>
 			QUnit.launcher = function (method, ctx) {
 				method.apply(ctx);
@@ -52,12 +45,6 @@
     	    var haveSelenium = !window.BrowserStack;
     	    function mytest(name, callback, opts) {
     	    	opts = opts || {};
-    	    	if (opts.flash) {
-    	    		if (!BetaJS.Browser.Info.flash().installed() || BetaJS.Browser.Info.isMobile())
-    	    			return;
-    	    		if (BetaJS.Browser.Info.isSafari() && BetaJS.Browser.Info.safariVersion() >= 10)
-    	    			return;
-    	    	}
     	    	if (opts.native_video) {
     	    		if (BetaJS.Browser.Info.isInternetExplorer() && BetaJS.Browser.Info.internetExplorerVersion() <= 8)
     	    			return;

@@ -74,8 +74,6 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     "unmuted": false, // Reference to Chrome renewed policy, we have to setup mute for auto plyed players.
 
                     /* Configuration */
-                    "forceflash": false,
-                    "noflash": false,
                     "reloadonplay": false,
                     "playonclick": true,
                     /* Options */
@@ -113,8 +111,6 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                 },
 
                 types: {
-                    "forceflash": "boolean",
-                    "noflash": "boolean",
                     "rerecordable": "boolean",
                     "loop": "boolean",
                     "autoplay": "boolean",
@@ -288,8 +284,6 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     this._clearError();
                     AudioPlayerWrapper.create(Objs.extend(this._getSources(), {
                         element: audio,
-                        forceflash: !!this.get("forceflash"),
-                        noflash: !!this.get("noflash"),
                         preload: !!this.get("preload"),
                         loop: !!this.get("loop"),
                         reloadonplay: this.get('playlist') ? true : !!this.get("reloadonplay")

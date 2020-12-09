@@ -32,7 +32,6 @@ Scoped.define("module:Common.Dynamics.Settingsmenu", [
                         value: false,
                         label: 'setting-item',
                         visible: true, // small < 320 , medium < 400, normal >= 401, false
-                        flashSupport: false,
                         mobileSupport: true,
                         showicon: true,
                         // https://www.htmlsymbols.xyz/unicode

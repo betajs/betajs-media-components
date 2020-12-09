@@ -6,7 +6,6 @@
     <script src="../../node_modules/betajs-scoped/dist/scoped.js"></script>
     <script src="../../node_modules/betajs/dist/beta-noscoped.js"></script>
     <script src="../../node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
-    <script src="../../node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
     <script src="../../node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
     <script src="../../node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
 	<script src="../../dist/betajs-media-components-noscoped.js"></script>
@@ -44,7 +43,6 @@
             ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
             ba-theme="{{theme}}"
             ba-title="Foobar"
-            ba-noflash
             ba-sharevideo="facebook,twitter,gplus"
             ba-sharevideourl="http://betajs.com"
             ba-hideoninactivity="false"
@@ -53,10 +51,6 @@
     </div>
 
 	<script>
-      BetaJS.Flash.options = {
-        flashFile: "../../node_modules/betajs-flash/dist/betajs-flash.swf",
-        forceReload: true
-      };
       BetaJS.Dynamics.Dynamic.activate({
         element: document.body,
         attrs: {

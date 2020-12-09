@@ -5,11 +5,6 @@
 
 ```js
 
-	// For fallback
-    BetaJS.Flash.options = {
-        flashFile: "betajs-flash.swf"
-    };
-    
     BetaJS.Dynamics.Dynamic.activate();
     
 ```

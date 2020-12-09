@@ -90,10 +90,9 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     "skipinitialonrerecord": false,
                     "timelimit": null,
                     "timeminlimit": null,
-                    "rtmpmicrophonecodec": "speex",
                     "webrtcstreaming": false,
                     "webrtconmobile": false,
-                    "webrtcstreamingifnecessary": false,
+                    "webrtcstreamingifnecessary": true,
                     "microphone-volume": 1.0,
                     "early-rerecord": false,
                     "manualsubmit": false,
@@ -107,10 +106,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     "visualeffecttheme": "balloon", // types: `balloon`, 'red-bars'
 
                     /* Configuration */
-                    "forceflash": false,
                     "simulate": false,
-                    "noflash": false,
-                    "flashincognitosupport": false,
                     "enforce-duration": null,
                     "localplayback": false,
                     "uploadoptions": {},
@@ -145,8 +141,6 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                 },
 
                 types: {
-                    "forceflash": "boolean",
-                    "noflash": "boolean",
                     "rerecordable": "boolean",
                     "ready": "boolean",
                     "stretch": "boolean",
@@ -156,7 +150,6 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     "allowupload": "boolean",
                     "allowcustomupload": "boolean",
                     "primaryrecord": "boolean",
-                    "flashincognitosupport": "boolean",
                     "recordermode": "boolean",
                     "skipinitialonrerecord": "boolean",
                     "localplayback": "boolean",
@@ -287,12 +280,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                 _audioRecorderWrapperOptions: function() {
                     return {
                         simulate: this.get("simulate"),
-                        forceflash: this.get("forceflash"),
-                        noflash: this.get("noflash"),
                         audioBitrate: this.get("audiobitrate"),
-                        flashFullSecurityDialog: !this.get("flashincognitosupport"),
-                        rtmpStreamType: this.get("rtmpstreamtype"),
-                        rtmpMicrophoneCodec: this.get("rtmpmicrophonecodec"),
                         webrtcStreaming: !!this.get("webrtcstreaming"),
                         webrtcStreamingIfNecessary: !!this.get("webrtcstreamingifnecessary"),
                         // webrtcOnMobile: !!this.get("webrtconmobile"),
@@ -399,10 +387,6 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     }, this);
                 },
 
-                isFlash: function() {
-                    return this.recorder && this.recorder.isFlash();
-                },
-
                 isWebrtcStreaming: function() {
                     return this.recorder && this.recorder.isWebrtcStreaming();
                 },
@@ -439,7 +423,6 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                         return Promise.error(true);
                     this.set("devicetesting", false);
                     return this.recorder.startRecord({
-                        rtmp: this.get("uploadoptions").rtmp,
                         audio: this.get("uploadoptions").audio,
                         webrtcStreaming: this.get("uploadoptions").webrtcStreaming
                     }).success(function() {
@@ -455,7 +438,6 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     if (this.audioVisualisation)
                         this.audioVisualisation.cancelFrame(this.audioVisualisation.frameID);
                     return this.recorder.stopRecord({
-                        rtmp: this.get("uploadoptions").rtmp,
                         audio: this.get("uploadoptions").audio,
                         webrtcStreaming: this.get("uploadoptions").webrtcStreaming
                     }).success(function(uploader) {
@@ -664,7 +646,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
         .attachStringTable(Assets.strings)
         .addStrings({
             "recorder-error": "An error occurred, please try again later. Click to retry.",
-            "attach-error": "We could not access the media interface. Depending on the device and browser, you might need to install Flash or access the page via SSL.",
+            "attach-error": "We could not access the media interface. Depending on the device and browser, you might need to access the page via SSL.",
             "software-required": "Please click below to install / activate the following requirements in order to proceed.",
             "software-waiting": "Waiting for the requirements to be installed / activated. You might need to refresh the page after completion.",
             "access-forbidden": "Access to the media was forbidden. Click to retry.",

@@ -6,7 +6,6 @@
     <script src="/static/node_modules/betajs-scoped/dist/scoped.js"></script>
     <script src="/static/node_modules/betajs/dist/beta-noscoped.js"></script>
     <script src="/static/node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
-    <script src="/static/node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
     <script src="/static/node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
     <script src="/static/node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
 	<script src="/static/dist/betajs-media-components-noscoped.js"></script>
@@ -44,8 +43,7 @@
       ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
       ba-theme="cube"
       ba-themecolor="red"
-      ba-noflash
-      ba-hideoninactivity="false"
+ba-hideoninactivity="false"
       ba-sharevideo="true"
       ba-skipinitial="false"
       ba-title="Test title from html"
@@ -56,8 +54,7 @@
       ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
       ba-theme="default"
       ba-themecolor="blue"
-      ba-noflash
-      ba-hideoninactivity="false"
+ba-hideoninactivity="false"
       ba-skipinitial="false"
       ba-sharevideo="true"
       ba-experimental="true"
@@ -69,7 +66,7 @@
 					ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
 					ba-theme="elevate"
 					ba-themecolor="blue"
-					ba-noflash
+
 					ba-hideoninactivity="false"
 					ba-sharevideo="true"
 					ba-skipinitial="false"
@@ -81,7 +78,7 @@
 					ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
 					ba-theme="minimalist"
 					ba-themecolor="red"
-					ba-noflash
+
 					ba-hideoninactivity="false"
 					ba-sharevideo="true"
 					ba-title="Test title from html"
@@ -93,7 +90,7 @@
 					ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
 					ba-theme="modern"
 					ba-themecolor="green"
-					ba-noflash
+
 					ba-hideoninactivity="false"
 					ba-skipinitial="false"
 					ba-experimental="true"
@@ -106,7 +103,7 @@
 					ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
 					ba-theme="space"
 					ba-themecolor="blue"
-					ba-noflash
+
 					ba-hideoninactivity="false"
 					ba-skipinitial="false"
 					ba-title="Test title from html"
@@ -117,7 +114,7 @@
 					ba-streams="{{[{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }]}}"
 					ba-theme="theatre"
 					ba-themecolor="red"
-					ba-noflash
+
 					ba-hideoninactivity="false"
 					ba-sharevideo="true"
 					ba-skipinitial="false"
@@ -125,10 +122,6 @@
 					ba-width='100%'></ba-videoplayer>
 
     <script>
-        BetaJS.Flash.options = {
-            flashFile: "../../node_modules/betajs-flash/dist/betajs-flash.swf",
-            forceReload: true
-        };
         BetaJS.Dynamics.Dynamic.activate();
     </script>
 </body>

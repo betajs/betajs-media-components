@@ -350,7 +350,7 @@ Scoped.define("module:AudioRecorder.Dynamics.RecorderStates.MicrophoneAccess", [
             this.dyn.set("controlbarlabel", "");
             this.dyn.set("loaderlabel", "");
             this.listenOn(this.dyn, "bound", function() {
-                this.dyn.set("creation-type", this.dyn.isFlash() ? "flash" : "webrtc");
+                this.dyn.set("creation-type", "webrtc");
                 this.next("MicrophoneHasAccess");
             }, this);
             this.listenOn(this.dyn, "error", function(s) {

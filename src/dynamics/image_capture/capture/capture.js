@@ -104,10 +104,7 @@ Scoped.define("module:ImageCapture.Dynamics.Recorder", [
                     "faceoutline": false,
 
                     /* Configuration */
-                    "forceflash": false,
                     "simulate": false,
-                    "noflash": false,
-                    "flashincognitosupport": false,
                     "localplayback": false,
                     "uploadoptions": {},
                     "playerattrs": {},
@@ -149,8 +146,6 @@ Scoped.define("module:ImageCapture.Dynamics.Recorder", [
                 },
 
                 types: {
-                    "forceflash": "boolean",
-                    "noflash": "boolean",
                     "rerecordable": "boolean",
                     "ready": "boolean",
                     "stretch": "boolean",
@@ -159,7 +154,6 @@ Scoped.define("module:ImageCapture.Dynamics.Recorder", [
                     "allowupload": "boolean",
                     "allowcustomupload": "boolean",
                     "primaryrecord": "boolean",
-                    "flashincognitosupport": "boolean",
                     "recordermode": "boolean",
                     "nofullscreen": "boolean",
                     "skipinitialonrerecord": "boolean",
@@ -285,9 +279,6 @@ Scoped.define("module:ImageCapture.Dynamics.Recorder", [
                 _imageCaptureWrapperOptions: function() {
                     return {
                         simulate: this.get("simulate"),
-                        forceflash: this.get("forceflash"),
-                        noflash: this.get("noflash"),
-                        flashFullSecurityDialog: !this.get("flashincognitosupport"),
                         // webrtcOnMobile: !!this.get("webrtconmobile"),
                         localPlaybackRequested: this.get("localplayback"),
                         flip: this.get("flip-camera")
@@ -347,10 +338,6 @@ Scoped.define("module:ImageCapture.Dynamics.Recorder", [
                             this.trigger("bound");
                         }, this);
                     }, this);
-                },
-
-                isFlash: function() {
-                    return this.recorder && this.recorder.isFlash();
                 },
 
                 _initializeUploader: function() {
@@ -589,7 +576,7 @@ Scoped.define("module:ImageCapture.Dynamics.Recorder", [
         .attachStringTable(Assets.strings)
         .addStrings({
             "recorder-error": "An error occurred, please try again later. Click to retry.",
-            "attach-error": "We could not access the media interface. Depending on the device and browser, you might need to install Flash or access the page via SSL.",
+            "attach-error": "We could not access the media interface. Depending on the device and browser, you might need to access the page via SSL.",
             "software-required": "Please click below to install / activate the following requirements in order to proceed.",
             "software-waiting": "Waiting for the requirements to be installed / activated. You might need to refresh the page after completion.",
             "access-forbidden": "Access to the media was forbidden. Click to retry.",

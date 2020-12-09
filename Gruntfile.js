@@ -27,13 +27,11 @@ module.exports = function(grunt) {
             "module": "global:BetaJS.MediaComponents",
             "base": "global:BetaJS",
             "browser": "global:BetaJS.Browser",
-            "flash": "global:BetaJS.Flash",
             "media": "global:BetaJS.Media",
             "dynamics": "global:BetaJS.Dynamics"
         }, {
             "base:version": pkg.devDependencies.betajs,
             "browser:version": pkg.devDependencies["betajs-browser"],
-            "flash:version": pkg.devDependencies["betajs-flash"],
             "dynamics:version": pkg.devDependencies["betajs-dynamics"],
             "media:version": pkg.devDependencies["betajs-media"]
         }, null, betajsTemplates.concatProcess(grunt))
@@ -343,7 +341,6 @@ module.exports = function(grunt) {
             require.resolve("betajs-scoped"),
             require.resolve("betajs"),
             require.resolve("betajs-browser"),
-            require.resolve("betajs-flash"),
             require.resolve("betajs-media"),
             require.resolve("betajs-dynamics"),
             './dist/betajs-media-components-noscoped.js'

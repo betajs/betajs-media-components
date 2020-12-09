@@ -95,8 +95,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "sharevideourl": "",
                     "visibilityfraction": 0.8,
                     /* Configuration */
-                    "forceflash": false,
-                    "noflash": false,
                     "reloadonplay": false,
                     "playonclick": true,
                     /* Ads */
@@ -214,8 +212,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 types: {
                     "allowpip": "boolean",
-                    "forceflash": "boolean",
-                    "noflash": "boolean",
                     "rerecordable": "boolean",
                     "loop": "boolean",
                     "loopall": "boolean",
@@ -620,8 +616,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     VideoPlayerWrapper.create(Objs.extend(this._getSources(), {
                         element: video,
                         onlyaudio: this.get("onlyaudio"), // Will fix only audio local playback bug
-                        forceflash: !!this.get("forceflash"),
-                        noflash: !!this.get("noflash"),
                         preload: !!this.get("preload"),
                         loop: !!this.get("loop") || (this.get("lastplaylistitem") && this.get("loopall")),
                         reloadonplay: this.get('playlist') ? true : !!this.get("reloadonplay"),

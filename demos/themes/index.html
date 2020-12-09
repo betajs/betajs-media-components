@@ -6,7 +6,6 @@
         <script src="/static/node_modules/betajs-scoped/dist/scoped.js"></script>
         <script src="/static/node_modules/betajs/dist/beta-noscoped.js"></script>
         <script src="/static/node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
-        <script src="/static/node_modules/betajs-flash/dist/betajs-flash-noscoped.js"></script>
         <script src="/static/node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
         <script src="/static/node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
 		<script src="/static/dist/betajs-media-components-noscoped.js"></script>
@@ -24,11 +23,6 @@
 
 		<script>
 			var base = "";
-	        BetaJS.Flash.options = {
-	            flashFile: "/static/node_modules/betajs-flash/dist/betajs-flash.swf",
-	            forceReload: true
-	        };
-
 	        BetaJS.Dynamics.Dynamic.activate();
 	        var filename = "video-" + BetaJS.Time.now();
 	        var recorder = BetaJS.Dynamics.Dynamic.findByElement($("ba-videorecorder"));

@@ -638,7 +638,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraAccess", [
             this.dyn.set("controlbarlabel", "");
             this.dyn.set("loaderlabel", "");
             this.listenOn(this.dyn, "bound", function() {
-                this.dyn.set("creation-type", this.dyn.isFlash() ? "flash" : "webrtc");
+                this.dyn.set("creation-type", "webrtc");
                 if (this.dyn.get("onlyaudio") || this.dyn.get("record_media") === "screen" || this.dyn.get("record_media") === "multistream") {
                     if (this.dyn.get("allowmultistreams") && this.dyn.get("record_media") === "multistream") {
                         this.dyn.recorder.enumerateDevices().success(function(devices) {

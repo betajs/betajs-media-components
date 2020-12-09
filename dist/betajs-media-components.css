@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.247 - 2020-12-09
+betajs-media-components - v0.0.248 - 2020-12-09
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -2369,6 +2369,44 @@ Apache-2.0 Software License.
   color: #dd4b39;
 }
 
+.ba-commoncss-message-container {
+  position: relative;
+  margin: auto;
+  margin-top: 10px;
+  max-width: 90%;
+  text-align: center;
+}
+.ba-commoncss-message-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.ba-commoncss-message-container ul li {
+  padding: 4px 10px;
+  margin-bottom: 2px;
+}
+
+.ba-commoncss-message-warning {
+  color: #0a0a0a;
+  background-color: #F1D44F;
+}
+
+.ba-commoncss-message-success {
+  color: #0a0a0a;
+  background-color: #9EBC9F;
+}
+
+.ba-commoncss-message-error {
+  color: #ffffff;
+  background-color: #FF6256;
+}
+
+.ba-commoncss-action-button {
+  cursor: pointer;
+  float: right;
+  text-align: right;
+}
+
 .ba-commoncss-open-next > .ba-commoncss-inner-icon, .ba-commoncss-open-next > .ba-commoncss-inner-text, .ba-commoncss-open-previous > .ba-commoncss-inner-icon, .ba-commoncss-open-previous > .ba-commoncss-inner-text {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
@@ -4036,7 +4074,6 @@ div.ba-videorecorder-disabled * {
 
 .ba-videorecorder-settings input[type=radio]:checked + span {
   border: 3px solid #8CF;
-  display: inline;
   margin-right: 5px;
 }
 

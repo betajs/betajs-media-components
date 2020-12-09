@@ -1,4 +1,4 @@
-# betajs-media-components 0.0.247
+# betajs-media-components 0.0.248
 [![Code Climate](https://codeclimate.com/github/betajs/betajs-media-components/badges/gpa.svg)](https://codeclimate.com/github/betajs/betajs-media-components)
 [![NPM](https://img.shields.io/npm/v/betajs-media-components.svg?style=flat)](https://www.npmjs.com/package/betajs-media-components)
 [![Gitter Chat](https://badges.gitter.im/betajs/betajs-media-components.svg)](https://gitter.im/betajs/betajs-media-components)
@@ -105,7 +105,6 @@ The icons in this library depend on Fontello. In order to update the icons / add
 | :----- | -------: |
 | betajs | [Open](https://github.com/betajs/betajs) |
 | betajs-browser | [Open](https://github.com/betajs/betajs-browser) |
-| betajs-flash | [Open](https://github.com/betajs/betajs-flash) |
 | betajs-media | [Open](https://github.com/betajs/betajs-media) |
 | betajs-dynamics | [Open](https://github.com/betajs/betajs-dynamics) |
 

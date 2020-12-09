@@ -3,6 +3,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
     "module:Assets",
     "browser:Info"
 ], [
+    "dynamics:Partials.RepeatPartial",
     "dynamics:Partials.ClickPartial",
     "dynamics:Partials.IfPartial"
 ], function(Class, Assets, Info, scoped) {
@@ -30,15 +31,18 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
                     "allowcustomupload": true,
                     "allowedextensions": null,
                     "onlyaudio": false,
-                    "parentpopup": false
+                    "parentpopup": false,
 
+                    /* Messages */
+                    "initialmessages": []
                 },
 
                 types: {
                     "allowedextensions": "array",
                     "recordviafilecapture": "boolean",
                     "facecamera": "boolean",
-                    "parentpopup": "boolean"
+                    "parentpopup": "boolean",
+                    "initialmessages": "array"
                 },
 
                 collections: ["actions"],
@@ -122,7 +126,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
                 },
 
                 functions: {
-
                     click_action: function(action) {
                         if (action.get("select"))
                             return;
@@ -159,6 +162,13 @@ Scoped.define("module:VideoRecorder.Dynamics.Chooser", [
                         if (!action.get("select"))
                             return;
                         this.trigger("upload", domEvent[0].target);
+                    },
+
+                    close_message: function(id) {
+                        if (typeof Array.prototype.filter !== 'undefined')
+                            this.set("initialmessages", this.get("initialmessages").filter(function(item) {
+                                return item.id !== id;
+                            }));
                     }
 
                 }

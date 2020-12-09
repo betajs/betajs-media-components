@@ -42,6 +42,7 @@
 		></ba-{{dyntopmessage}}>
 
 		<ba-{{dynchooser}}
+			ba-if="{{chooser_active && !is_initial_state}}"
 			ba-onlyaudio="{{onlyaudio}}"
 			ba-facecamera="{{facecamera}}"
 			ba-recordviafilecapture="{{recordviafilecapture}}"
@@ -52,12 +53,12 @@
 			ba-allowscreen="{{allowscreen}}"
 			ba-allowmultistreams="{{allowmultistreams}}"
 			ba-parentpopup="{{popup}}"
-			ba-if="{{chooser_active && !is_initial_state}}"
 			ba-allowrecord="{{allowrecord}}"
 			ba-allowupload="{{allowupload}}"
 			ba-allowcustomupload="{{allowcustomupload}}"
 			ba-allowedextensions="{{allowedextensions}}"
 			ba-primaryrecord="{{primaryrecord}}"
+			ba-initialmessages="{{initialmessages}}"
 			ba-timelimit="{{timelimit}}"
 			ba-event:record="record_video"
 			ba-event:record-screen="record_screen"
@@ -65,11 +66,11 @@
 		></ba-{{dynchooser}}>
 
 		<ba-{{dynimagegallery}}
+			ba-if="{{imagegallery_active}}"
 			ba-css="{{cssimagegallery || css}}"
 			ba-themecolor="{{themecolor}}"
 			ba-cssrecorder="{{cssrecorder || css}}"
 			ba-template="{{tmplimagegallery}}"
-			ba-if="{{imagegallery_active}}"
 			ba-imagecount="{{gallerysnapshots}}"
 			ba-imagenativewidth="{{nativeRecordingWidth}}"
 			ba-imagenativeheight="{{nativeRecordingHeight}}"

@@ -41,21 +41,37 @@
 
 </head>
 <body style="background: #ccc">
-<div style="width: 400px; position: relative;">
+<div style="position: relative;">
     <div id="recorder"></div>
 
+    <hr/>
     <div style="width: 100%">
-        <div>
-            <button style="min-width: 120px; color: #ffffff; background: #1b8fcc"
-                    onclick="pauseClickHandler(this)"
-            >Toggle Pause</button>
+        <div style="float: left">
+            <button style="min-width: 110px; color: #ffffff; background: #1b8fcc"
+                    onclick="pauseClickHandler()"
+            >Toggle Pause</button> &nbsp;&nbsp;
         </div>
+
+        <div style="float: left">
+            <button style="min-width: 110px; color: #fff; background: #499855"
+                    onclick="recordClickHandler()"
+            >Record </button> &nbsp;&nbsp;
+        </div>
+
+        <div style="float: left">
+            <button style="min-width: 110px; color: #000; background: #44ede3"
+                    onclick="resetClickHandler()"
+            >Reset Recorder</button> &nbsp;&nbsp;
+        </div>
+
         <div>
-            <button style="min-width: 120px; color: #000000; background: #cccccc"
+            <button style="min-width: 10px; color: #000000; background: #cccccc"
                     onclick="recorderScreen()"
             >Record Screen</button>
         </div>
+        <hr/>
         Logs : >> <div id="recorder-logs"></div>
+        <hr/>
     </div>
 </div>
 
@@ -68,20 +84,25 @@
         var recorder = new BetaJS.MediaComponents.VideoRecorder.Dynamics.Recorder({
             element: document.getElementById('recorder'),
             attrs: {
-                // theme: "default",
-                theme: "minimalist",
+                // webrtconmobile: true,
+                // theme: "cube",
+                // theme: "elevate",
+                // theme: "minimalist",
+                // theme: "modern",
+                // theme: "space",
+                theme: "theatre",
                 // "custom-covershots" : true,
-                themecolor: "red",
+                // themecolor: "red",
                 skipinitial: false,
                 autorecord: false,
                 allowrecord: true,
                 allowscreen: true,
                 allowmultistreams: true,
-                localplayback: true,
+                screenrecordmandatory: true,
                 showplayersettingsmenu: false,
                 // onlyaudio: true,
                 localplayback: true,
-                picksnapshots: false,
+                picksnapshots: true,
                 snapshotfromuploader: true,
                 selectfirstcovershotonskip: true,
                 // webrtcstreaming: true,
@@ -91,6 +112,22 @@
                 cropthestream: false,
                 recordingwidth: 400,
                 recordingheight: 300,
+                initialmessages: [
+                    {
+                        id: +Date.now(),
+                        message: "Success Message :), and have close option",
+                        type: "success"
+                    },
+                    {
+                        id: +Date.now() + 77,
+                        message: "Warning message content, and have close option",
+                        type: "warning"
+                    },
+                    {
+                        message: "If we have some error, with no close option!!",
+                        type: "error"
+                    },
+                ]
                 // snapshotmax: 4,
                 // gallerysnapshots: 3
             }
@@ -122,11 +159,21 @@
 
         recorder.activate();
 
+        const recordClickHandler = (ev) => {
+            console.log('Record Button Pressed >> ', recorder.get("autorecord"));
+            recorder.record();
+        }
+
+        const resetClickHandler = () => {
+            console.log('Reset Button Pressed >> ');
+            recorder.reset();
+        }
+
         const recorderScreen = () => {
             recorder.record_screen();
         }
 
-        const pauseClickHandler = (ev) => {
+        const pauseClickHandler = () => {
             // recorder.stop();
             if (recorder.isRecording())
                 recorder.pause_recorder();

@@ -102,6 +102,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "createthumbnails": false,
                     "primaryrecord": true,
                     "allowscreen": false,
+                    "initialmessages": [], // should include object at least with message key, and optional type with enum: "error", "warninig" (default) or "success"
+                    "screenrecordmandatory": false,
                     "nofullscreen": false,
                     "recordingwidth": undefined,
                     "recordingheight": undefined,
@@ -190,7 +192,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     }],
                     "tracktags": [],
                     "hassubtitles": false,
-                    "videometadata": {}
+                    "videometadata": {},
+                    "optionsinitialstate": {}
                 },
 
                 computed: {
@@ -305,7 +308,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "addstreamminwidth": "int",
                     "addstreamminheight": "int",
                     "showsettingsmenu": "boolean",
-                    "showplayersettingsmenu": "boolean"
+                    "showplayersettingsmenu": "boolean",
+                    "initialmessages": "array",
+                    "screenrecordmandatory": "boolean"
                 },
 
                 extendables: ["states"],
@@ -326,9 +331,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         if (this.get("recordviafilecapture")) {
                             this.set("skipinitial", false);
                             this.set("skipinitialonrerecord", false);
-                            this.set("allowmultistreams", false);
-                            this.set("allowscreen", false);
                             this.set("autorecord", false);
+                            this._screenRecorderVerifier(false);
                         }
                     }
                 },
@@ -336,6 +340,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 create: function() {
                     // Init Audio Context
                     WebRTCSupport.globals();
+                    this.set("optionsinitialstate", {
+                        autorecord: this.get("autorecord"),
+                        skipinitial: this.get("skipinitial")
+                    });
 
                     if (this.get("theme") in Assets.recorderthemes) {
                         Objs.iter(Assets.recorderthemes[this.get("theme")], function(value, key) {
@@ -359,9 +367,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     if (this.get("recordviafilecapture")) {
                         this.set("skipinitial", false);
                         this.set("skipinitialonrerecord", false);
-                        this.set("allowscreen", false);
-                        this.set("allowmultistreams", false);
                         this.set("autorecord", false);
+                        this._screenRecorderVerifier(false);
                     }
 
                     this.__attachRequested = false;
@@ -399,6 +406,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     if (!Info.isMobile())
                         this.set("orientation", false);
                     this.set("currentorientation", window.innerHeight > window.innerWidth ? "portrait" : "landscape");
+                    this._screenRecorderVerifier();
                 },
 
                 state: function() {
@@ -431,6 +439,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         this.recorder.weakDestroy();
                     this.recorder = null;
                     this.set("hasrecorder", false);
+                    // to prevent autorecord if user not set, but use reset()
+                    this.set("autorecord", this.get("optionsinitialstate").autorecord);
                 },
 
                 _videoRecorderWrapperOptions: function() {
@@ -479,7 +489,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         return;
                     }
                     if (this.get("record_media") === "screen" && Info.isSafari() && typeof navigator.mediaDevices.getDisplayMedia !== 'undefined')
-                        this.set("webrtcStreaming", true);
+                        this.set("webrtcstreaming", true);
                     this.set("hasrecorder", true);
                     this.__attachRequested = false;
                     var video = this.activeElement().querySelector("[data-video='video']");
@@ -927,17 +937,20 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     },
 
                     reset: function() {
-                        if (this._delegatedRecorder) {
-                            this._delegatedRecorder.execute("reset");
-                            return;
+                        // We need check if Promise related to getting devices information was completed
+                        if (typeof this.get("microphones") !== 'undefined' || typeof this.get("cameras") !== 'undefined') {
+                            if (this._delegatedRecorder) {
+                                this._delegatedRecorder.execute("reset");
+                                return;
+                            }
+                            this._stopRecording().callback(function() {
+                                this._unbindMedia();
+                                this._hideBackgroundSnapshot();
+                                this._detachRecorder();
+                                this._initSettings();
+                                this.host.state().next("Initial");
+                            }, this);
                         }
-                        this._stopRecording().callback(function() {
-                            this._unbindMedia();
-                            this._hideBackgroundSnapshot();
-                            this._detachRecorder();
-                            this._initSettings();
-                            this.host.state().next("Initial");
-                        }, this);
                     },
 
                     toggle_facemode: function() {
@@ -1082,7 +1095,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 },
 
                 _updateCSSSize: function() {
-                    var width = Dom.elementDimensions(this.activeElement()).width;
+                    var width = Dom.elementDimensions(this.activeElement().childNodes[0]).width;
                     this.set("csssize", width > 400 ? "normal" : (width > 300 ? "medium" : "small"));
                 },
 
@@ -1182,6 +1195,25 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 },
 
                 /**
+                 *
+                 * @param {boolean =} setFalse
+                 * @private
+                 */
+                _screenRecorderVerifier: function(setFalse) {
+                    if (setFalse) {
+                        this.set("allowscreen", false);
+                        this.set("allowmultistreams", false);
+                    }
+                    if ((this.get("allowscreen") || this.get("allowmultistreams")) && this.get("screenrecordmandatory") && !Info.isScreenRecorderSupported()) {
+                        this.get("initialmessages").push({
+                            id: typeof Date.now !== 'undefined' ? +Date.now() : 1498744,
+                            message: this.string("screen-recorder-is-not-supported"),
+                            type: 'warning'
+                        });
+                    }
+                },
+
+                /**
                  * Will add new stream based on provided ID
                  * @param deviceId
                  */
@@ -1274,6 +1306,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
             "adding-new-stream": "Adding New Stream",
             "missing-track": "Required audio or video track is missing",
             "device-already-in-use": "At least one of your input devices are already in use",
-            "browser-permission-denied": "Permission denied by browser, please grant access and reload page"
+            "browser-permission-denied": "Permission denied by browser, please grant access and reload page",
+            "screen-recorder-is-not-supported": "Screen recorder is not supported on this device"
         });
 });

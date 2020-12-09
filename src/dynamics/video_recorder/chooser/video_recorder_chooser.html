@@ -1,4 +1,19 @@
 <div class="{{css}}-chooser-container">
+	<div ba-if="{{initialmessages.length > 0}}" class="{{csscommon}}-message-container">
+		<ul ba-repeat="{{initialmessage :: initialmessages}}">
+			<li ba-if="{{initialmessage.message}}"
+				class="{{csscommon}}-message-text {{csscommon}}-message-{{initialmessage.type ? initialmessage.type : 'default'}}"
+			>
+				{{ initialmessage.message }}
+				<span ba-if="{{initialmessage.id}}"
+					  class="{{csscommon}}-action-button"
+					  ba-click="close_message(initialmessage.id)"
+				>
+					<i class="{{csscommon}}-icon-cancel"></i>
+				</span>
+			</li>
+		</ul>
+	</div>
 	<div class="{{css}}-chooser-button-container">
 		<div ba-repeat="{{action :: actions}}">
 			<div ba-hotkey:space^enter="{{click_action(action)}}" onmouseout="this.blur()"

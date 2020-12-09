@@ -67,6 +67,6 @@
 
 .#{$css}-settings input[type=radio]:checked + span {
 	border: 3px solid $settings_radio_color_selected;
-  	display: inline;
+  	//display: inline;
 	margin-right: 5px;
 }

@@ -1,5 +1,9 @@
 .#{$csstheme} {
 
+    .#{$csscommon}-message-text {
+        @include border-radius( $chooser_primary_button_border_radius );
+    }
+
     .#{$css}-chooser-container {
       background-color: $chooser_background;
     }

@@ -9,7 +9,7 @@
   ba-videoplayer-controlbar.submit-video: वीडियो जमा कि
   ba-videoplayer-controlbar.play-video: वीडियो चलाएं
   ba-videoplayer-controlbar.pause-video: वीडियो रोकें
-  ba-videoplayer-controlbar.elapsed-time: बीता  आ समय
+  ba-videoplayer-controlbar.elapsed-time: बीता हुआ समय
   ba-videoplayer-controlbar.total-time: वीडियो की कुल लंबाई
   ba-videoplayer-controlbar.fullscreen-video: पूर्ण स्क्रीन दर्ज करें
   ba-videoplayer-controlbar.volume-button: मात्रा सेट करें
@@ -47,7 +47,7 @@
   ba-videorecorder.verifying-failed: सत्यापन विफल - पुनः प्रयास करने के लिए यहां क्लिक करें।
   ba-videorecorder.rerecord-confirm: क्या आप वास्तव में अपने वीडियो को फिर से करना चाहते हैं?
   ba-videorecorder.video_file_too_large: >-
-    आपकी वीडियो फ़ाइल बहुत बड़ी है ( %s) - एक छोटे वीडियो फ़ाइल के साथ फिर से
+    आपकी वीडियो फ़ाइल बहुत बड़ी है (%s) - एक छोटे वीडियो फ़ाइल के साथ फिर से
     प्रयास करने के लिए यहां क्लिक करें
   ba-videorecorder.unsupported_video_type: 'कृपया अपलोड करें: %s - पुनः प्रयास करने के लिए यहां क्लिक करें।'
   ba-videoplayer-controlbar.exit-fullscreen-video: पूर्ण स्क्रीन से बाहर निकलें
@@ -59,12 +59,12 @@
   ba-videorecorder-controlbar.cancel: रद्द करना
   ba-videorecorder-controlbar.cancel-tooltip: रद्द करने के लिए यहां क्लिक करें
   ba-videorecorder.cancel-confirm: क्या आप वाकई अपना वीडियो अपलोड रद्द करना चाहते हैं?
-  ba-videoplayer-adslot.elapsed-time: Elasped समय
+  ba-videoplayer-adslot.elapsed-time: बीता हुआ समय
   ba-videoplayer-adslot.volume-button: मात्रा सेट करें
   ba-videoplayer-adslot.volume-mute: ध्वनि म्यूट करें
   ba-videoplayer-adslot.volume-unmute: ध्वनि को अनम्यूट करें
   ba-videoplayer-adslot.ad-will-end-after: विज्ञापन %s के बाद समाप्त हो जाएगा
-  ba-videoplayer-adslot.can-skip-after: ' %D के बाद छोड़ें'
+  ba-videoplayer-adslot.can-skip-after: '%d के बाद छोड़ें'
   ba-videoplayer-adslot.skip-ad: विज्ञापन से आगे बढ़ें
   ba-videorecorder.software-required: >-
     आगे बढ़ने के लिए कृपया निम्नलिखित आवश्यकताओं को स्थापित / सक्रिय करने के लिए
@@ -114,7 +114,7 @@
   ba-audioplayer-controlbar.play-audio: प्ले
   ba-audioplayer-controlbar.pause-audio: ठहराव
   ba-audioplayer-controlbar.pause-audio-disabled: रोकें समर्थित नहीं है
-  ba-audioplayer-controlbar.elapsed-time: Elasped समय
+  ba-audioplayer-controlbar.elapsed-time: बीता हुआ समय
   ba-audioplayer-controlbar.total-time: की कुल लंबाई
   ba-audioplayer-controlbar.volume-button: वॉल्यूम सेट करें
   ba-audioplayer-controlbar.volume-mute: ध्वनि म्यूट करें
@@ -175,7 +175,7 @@
   ba-imagecapture.verifying-failed: 'सत्यापित करना विफल - पुन: प्रयास करने के लिए यहां क्लिक करें।'
   ba-imagecapture.rerecord-confirm: क्या आप वास्तव में अपनी छवि को फिर से बनाना चाहते हैं?
   ba-imagecapture.image_file_too_large: >-
-    आपकी छवि फ़ाइल बहुत बड़ी है ( %s) - एक छोटी छवि फ़ाइल के साथ फिर से प्रयास
+    आपकी छवि फ़ाइल बहुत बड़ी है (%s) - एक छोटी छवि फ़ाइल के साथ फिर से प्रयास
     करने के लिए यहां क्लिक करें।
   ba-imagecapture.unsupported_image_type: 'कृपया अपलोड करें: %s - पुन: प्रयास करने के लिए यहां क्लिक करें।'
   ba-imagecapture.orientation-portrait-required: कृपया पोर्ट्रेट मोड में रिकॉर्ड करने के लिए अपने डिवाइस को घुमाएं।
@@ -204,7 +204,7 @@
   ba-audiorecorder.rerecord-confirm: क्या आप वास्तव में अपने ऑडियो को फिर से करना चाहते हैं?
   ba-audiorecorder.cancel-confirm: क्या आप वास्तव में अपने ऑडियो अपलोड को रद्द करना चाहते हैं?
   ba-audiorecorder.audio_file_too_large: >-
-    आपकी ऑडियो फ़ाइल बहुत बड़ी है ( %s) - एक छोटी ऑडियो फ़ाइल के साथ पुन: प्रयास
+    आपकी ऑडियो फ़ाइल बहुत बड़ी है (%s) - एक छोटी ऑडियो फ़ाइल के साथ पुन: प्रयास
     करने के लिए यहां क्लिक करें।
   ba-audiorecorder.unsupported_audio_type: 'कृपया अपलोड करें: %s - पुन: प्रयास करने के लिए यहां क्लिक करें।'
   ba-common-settingsmenu.tooltip: चलाने के लिए क्लिक करें।

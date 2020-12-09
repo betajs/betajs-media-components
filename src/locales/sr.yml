@@ -54,7 +54,7 @@
   ba-videorecorder-chooser.record-screen: Снимак екрана
   ba-videoplayer-controlbar.pause-video-disabled: Пауза није подржана
   ba-videorecorder-chooser.record-audio: Снимити звук
-  ba-videorecorder-controlbar.stop-available-after: Минимално време снимања је %д секунди
+  ba-videorecorder-controlbar.stop-available-after: Минимално време снимања је %d секунди
   ba-videorecorder-controlbar.cancel: 'Поништити, отказати'
   ba-videorecorder-controlbar.cancel-tooltip: Кликните овде да бисте отказали.
   ba-videorecorder.cancel-confirm: Да ли заиста желите да откажете видео отпремање?
@@ -63,7 +63,7 @@
   ba-videoplayer-adslot.volume-mute: Искључи звук
   ba-videoplayer-adslot.volume-unmute: Укључи звук
   ba-videoplayer-adslot.ad-will-end-after: Оглас ће се завршити након %с
-  ba-videoplayer-adslot.can-skip-after: Прескочи после %д
+  ba-videoplayer-adslot.can-skip-after: Прескочи после %d
   ba-videoplayer-adslot.skip-ad: Прескочите оглас
   ba-videorecorder.software-required: >-
     Молимо да кликнете испод да бисте инсталирали / активирали следеће захтеве
@@ -133,7 +133,7 @@
   ba-audiorecorder-controlbar.rerecord-tooltip: Кликните овде да бисте поновили.
   ba-audiorecorder-controlbar.stop: Зауставити
   ba-audiorecorder-controlbar.stop-tooltip: Кликните овде да бисте зауставили.
-  ba-audiorecorder-controlbar.stop-available-after: Минимално време снимања је %д секунди
+  ba-audiorecorder-controlbar.stop-available-after: Минимално време снимања је %d секунди
   ba-audiorecorder-controlbar.cancel: 'Поништити, отказати'
   ba-audiorecorder-controlbar.cancel-tooltip: Кликните овде да бисте отказали.
   ba-videoplayer-controlbar.player-speed: Брзина играча
@@ -174,7 +174,7 @@
   ba-imagecapture.verifying-failed: Верификација није успела - кликните овде да бисте покушали поново.
   ba-imagecapture.rerecord-confirm: Да ли заиста желите да поново преузмете слику?
   ba-imagecapture.image_file_too_large: >-
-    Датотека слике је превелика ( %с) - кликните овде да бисте покушали поново
+    Датотека слике је превелика (%с) - кликните овде да бисте покушали поново
     са мањом сликом.
   ba-imagecapture.unsupported_image_type: 'Учитајте: %с - кликните овде да бисте покушали поново.'
   ba-imagecapture.orientation-portrait-required: Ротирајте уређај да бисте снимали у портретном режиму.
@@ -203,7 +203,7 @@
   ba-audiorecorder.rerecord-confirm: Да ли заиста желите да поновите звук?
   ba-audiorecorder.cancel-confirm: Да ли заиста желите да откажете учитавање звука?
   ba-audiorecorder.audio_file_too_large: >-
-    Ваша аудио датотека је превелика ( %с) - кликните овде да бисте покушали
+    Ваша аудио датотека је превелика (%с) - кликните овде да бисте покушали
     поново са мањим аудио фајлом.
   ba-audiorecorder.unsupported_audio_type: 'Учитајте: %с - кликните овде да бисте покушали поново.'
   ba-common-settingsmenu.tooltip: Кликните за репродукцију.

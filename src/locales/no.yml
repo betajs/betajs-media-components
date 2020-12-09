@@ -9,7 +9,7 @@
   ba-videoplayer-controlbar.submit-video: bekreft video
   ba-videoplayer-controlbar.play-video: spill video
   ba-videoplayer-controlbar.pause-video: pause video
-  ba-videoplayer-controlbar.elapsed-time: Elasped tid
+  ba-videoplayer-controlbar.elapsed-time: Forløpt tid
   ba-videoplayer-controlbar.total-time: Total lengde på video
   ba-videoplayer-controlbar.fullscreen-video: Skriv fullskjerm
   ba-videoplayer-controlbar.volume-button: Still inn volum
@@ -58,7 +58,7 @@
   ba-videorecorder-controlbar.cancel: Avbryt
   ba-videorecorder-controlbar.cancel-tooltip: Klikk her for å avbryte.
   ba-videorecorder.cancel-confirm: Vil du virkelig slette videoopplasting?
-  ba-videoplayer-adslot.elapsed-time: Elasped tid
+  ba-videoplayer-adslot.elapsed-time: Forløpt tid
   ba-videoplayer-adslot.volume-button: Angi volum
   ba-videoplayer-adslot.volume-mute: Dempe lyd
   ba-videoplayer-adslot.volume-unmute: Slå av lyden
@@ -111,7 +111,7 @@
   ba-audioplayer-controlbar.play-audio: Spille
   ba-audioplayer-controlbar.pause-audio: Pause
   ba-audioplayer-controlbar.pause-audio-disabled: Pause ikke støttet
-  ba-audioplayer-controlbar.elapsed-time: Elasped tid
+  ba-audioplayer-controlbar.elapsed-time: Forløpt tid
   ba-audioplayer-controlbar.total-time: Total lengde på
   ba-audioplayer-controlbar.volume-button: Angi volum
   ba-audioplayer-controlbar.volume-mute: Dempe lyd
@@ -168,7 +168,7 @@
   ba-imagecapture.verifying-failed: Bekreftelse mislyktes - klikk her for å prøve igjen.
   ba-imagecapture.rerecord-confirm: Vil du virkelig gjenta bildet ditt?
   ba-imagecapture.image_file_too_large: >-
-    Bildefilen din er for stor ( %s) - klikk her for å prøve igjen med en mindre
+    Bildefilen din er for stor (%s) - klikk her for å prøve igjen med en mindre
     bildefil.
   ba-imagecapture.unsupported_image_type: 'Vennligst last opp: %s - klikk her for å prøve på nytt.'
   ba-imagecapture.orientation-portrait-required: Vennligst roter enheten din for å ta opp i stående modus.
@@ -195,7 +195,7 @@
   ba-audiorecorder.rerecord-confirm: Vil du virkelig gjenta lyden din?
   ba-audiorecorder.cancel-confirm: Vil du virkelig slette lydopplasting?
   ba-audiorecorder.audio_file_too_large: >-
-    Lydfilen din er for stor ( %s) - klikk her for å prøve igjen med en mindre
+    Lydfilen din er for stor (%s) - klikk her for å prøve igjen med en mindre
     lydfil.
   ba-audiorecorder.unsupported_audio_type: 'Vennligst last opp: %s - klikk her for å prøve på nytt.'
   ba-common-settingsmenu.tooltip: Klikk for å spille.

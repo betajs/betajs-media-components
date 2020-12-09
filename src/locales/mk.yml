@@ -50,7 +50,7 @@
   ba-videorecorder.verifying-failed: Потврдата не успеа - кликнете овде за да пробате повторно.
   ba-videorecorder.rerecord-confirm: Дали навистина сакате да го направите вашето видео?
   ba-videorecorder.video_file_too_large: >-
-    Вашата видео датотека е преголема ( %s) - кликнете овде за да се обидете
+    Вашата видео датотека е преголема (%s) - кликнете овде за да се обидете
     повторно со помала видео-датотека.
   ba-videorecorder.unsupported_video_type: 'Поставете: %s - кликнете тука за да пробате повторно.'
   ba-videoplayer-controlbar.exit-fullscreen-video: Излезете од цел екран
@@ -178,7 +178,7 @@
   ba-imagecapture.verifying-failed: Потврдата не успеа - кликнете овде за да пробате повторно.
   ba-imagecapture.rerecord-confirm: Дали навистина сакате да ја повратите вашата слика?
   ba-imagecapture.image_file_too_large: >-
-    Вашата датотека со слика е преголема ( %s) - кликнете овде за да се обидете
+    Вашата датотека со слика е преголема (%s) - кликнете овде за да се обидете
     повторно со помала датотека со слика.
   ba-imagecapture.unsupported_image_type: 'Поставете: %s - кликнете тука за да пробате повторно.'
   ba-imagecapture.orientation-portrait-required: Завртете го уредот за снимање во режим на портрет.
@@ -207,7 +207,7 @@
   ba-audiorecorder.rerecord-confirm: Дали навистина сакате да го направите вашето аудио порака?
   ba-audiorecorder.cancel-confirm: Дали навистина сакате да го откажете аудио поставувањето?
   ba-audiorecorder.audio_file_too_large: >-
-    Вашата аудио-датотека е преголема ( %s) - кликнете тука за да се обидете
+    Вашата аудио-датотека е преголема (%s) - кликнете тука за да се обидете
     повторно со помала аудио-датотека.
   ba-audiorecorder.unsupported_audio_type: 'Поставете: %s - кликнете тука за да пробате повторно.'
   ba-common-settingsmenu.tooltip: Кликнете за да играте.

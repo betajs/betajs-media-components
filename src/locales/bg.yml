@@ -9,7 +9,7 @@
   ba-videoplayer-controlbar.submit-video: Потвърждаване на видео
   ba-videoplayer-controlbar.play-video: възпроизвеждане на видео
   ba-videoplayer-controlbar.pause-video: Pause видео
-  ba-videoplayer-controlbar.elapsed-time: Elasped време
+  ba-videoplayer-controlbar.elapsed-time: Изминалото време
   ba-videoplayer-controlbar.total-time: Обща дължина на видео
   ba-videoplayer-controlbar.fullscreen-video: Въведете цял екран
   ba-videoplayer-controlbar.volume-button: Set обем
@@ -62,7 +62,7 @@
   ba-videorecorder-controlbar.cancel: Отказ
   ba-videorecorder-controlbar.cancel-tooltip: 'Кликнете тук, за да отмените.'
   ba-videorecorder.cancel-confirm: Наистина ли искате да анулирате качването на видеоклипа си?
-  ba-videoplayer-adslot.elapsed-time: Изглади времето
+  ba-videoplayer-adslot.elapsed-time: Изминалото време
   ba-videoplayer-adslot.volume-button: Задайте сила на звука
   ba-videoplayer-adslot.volume-mute: Спиране на звука
   ba-videoplayer-adslot.volume-unmute: Заглушаване на звука
@@ -117,7 +117,7 @@
   ba-audioplayer-controlbar.play-audio: играя
   ba-audioplayer-controlbar.pause-audio: пауза
   ba-audioplayer-controlbar.pause-audio-disabled: Паузата не се поддържа
-  ba-audioplayer-controlbar.elapsed-time: Изглади времето
+  ba-audioplayer-controlbar.elapsed-time: Изминалото време
   ba-audioplayer-controlbar.total-time: Обща дължина
   ba-audioplayer-controlbar.volume-button: Задайте сила на звука
   ba-audioplayer-controlbar.volume-mute: Спиране на звука
@@ -178,7 +178,7 @@
   ba-imagecapture.verifying-failed: 'Проверката е неуспешна - кликнете тук, за да опитате отново.'
   ba-imagecapture.rerecord-confirm: Наистина ли искате да възстановите изображението си?
   ba-imagecapture.image_file_too_large: >-
-    Вашият файл с изображение е твърде голям ( %s) - кликнете тук, за да опитате
+    Вашият файл с изображение е твърде голям (%s) - кликнете тук, за да опитате
     отново с по-малък файл с изображение.
   ba-imagecapture.unsupported_image_type: 'Моля, качете: %s - кликнете тук, за да опитате отново.'
   ba-imagecapture.orientation-portrait-required: 'Завъртете устройството, за да записвате в портретен режим.'
@@ -207,7 +207,7 @@
   ba-audiorecorder.rerecord-confirm: Наистина ли искате да повторите аудиото си?
   ba-audiorecorder.cancel-confirm: Наистина ли искате да анулирате качването на звук?
   ba-audiorecorder.audio_file_too_large: >-
-    Аудиофайлът ви е твърде голям ( %s) - кликнете тук, за да опитате отново с
+    Аудиофайлът ви е твърде голям (%s) - кликнете тук, за да опитате отново с
     по-малък аудио файл.
   ba-audiorecorder.unsupported_audio_type: 'Моля, качете: %s - кликнете тук, за да опитате отново.'
   ba-common-settingsmenu.tooltip: 'Щракнете, за да играете.'

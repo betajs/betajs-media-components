@@ -9,7 +9,7 @@
   ba-videoplayer-controlbar.submit-video: Potvrda videa
   ba-videoplayer-controlbar.play-video: Reprodukcija videozapisa
   ba-videoplayer-controlbar.pause-video: Pauza Video
-  ba-videoplayer-controlbar.elapsed-time: Elasped vrijeme
+  ba-videoplayer-controlbar.elapsed-time: Proteklo vrijeme
   ba-videoplayer-controlbar.total-time: Ukupna dužina videa
   ba-videoplayer-controlbar.fullscreen-video: Idi na puni zaslon
   ba-videoplayer-controlbar.volume-button: Set volumen
@@ -61,7 +61,7 @@
   ba-videorecorder-controlbar.cancel: Otkazati
   ba-videorecorder-controlbar.cancel-tooltip: Kliknite ovdje kako biste odustali.
   ba-videorecorder.cancel-confirm: Želite li zaista odustati od prijenosa videozapisa?
-  ba-videoplayer-adslot.elapsed-time: Otpremljeno vrijeme
+  ba-videoplayer-adslot.elapsed-time: Proteklo vrijeme
   ba-videoplayer-adslot.volume-button: Postavite glasnoću
   ba-videoplayer-adslot.volume-mute: Isključite zvuk
   ba-videoplayer-adslot.volume-unmute: Uključi zvuk
@@ -116,7 +116,7 @@
   ba-audioplayer-controlbar.play-audio: igra
   ba-audioplayer-controlbar.pause-audio: Pauza
   ba-audioplayer-controlbar.pause-audio-disabled: Pauza nije podržana
-  ba-audioplayer-controlbar.elapsed-time: Otpremljeno vrijeme
+  ba-audioplayer-controlbar.elapsed-time: Proteklo vrijeme
   ba-audioplayer-controlbar.total-time: Ukupna duljina
   ba-audioplayer-controlbar.volume-button: Postavite glasnoću
   ba-audioplayer-controlbar.volume-mute: Isključite zvuk
@@ -176,7 +176,7 @@
   ba-imagecapture.verifying-failed: Potvrđivanje nije uspjelo - kliknite ovdje za ponovni pokušaj.
   ba-imagecapture.rerecord-confirm: Želite li doista ponovno uzeti sliku?
   ba-imagecapture.image_file_too_large: >-
-    Vaša je slikovna datoteka prevelika ( %s) - kliknite ovdje da biste pokušali
+    Vaša je slikovna datoteka prevelika (%s) - kliknite ovdje da biste pokušali
     ponovno s manjom slikovnom datotekom.
   ba-imagecapture.unsupported_image_type: 'Prenesite: %s - kliknite ovdje za ponovni pokušaj.'
   ba-imagecapture.orientation-portrait-required: Okrećite uređaj da biste snimali u portretnom načinu.
@@ -204,7 +204,7 @@
   ba-audiorecorder.rerecord-confirm: Želite li zaista ponoviti zvuk?
   ba-audiorecorder.cancel-confirm: Želite li zaista otkazati prijenos zvuka?
   ba-audiorecorder.audio_file_too_large: >-
-    Vaša je audio datoteka prevelika ( %s) - kliknite ovdje da biste pokušali
+    Vaša je audio datoteka prevelika (%s) - kliknite ovdje da biste pokušali
     ponovno s manjom audio datotekom.
   ba-audiorecorder.unsupported_audio_type: 'Prenesite: %s - kliknite ovdje za ponovni pokušaj.'
   ba-common-settingsmenu.tooltip: Kliknite za reprodukciju.

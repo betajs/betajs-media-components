@@ -184,7 +184,7 @@
   ba-imagecapture.verifying-failed: 'Überprüfung fehlgeschlagen - Klicken Sie hier, um es erneut zu versuchen.'
   ba-imagecapture.rerecord-confirm: Möchten Sie Ihr Bild wirklich neu aufnehmen?
   ba-imagecapture.image_file_too_large: >-
-    Ihre Bilddatei ist zu groß ( %s). Klicken Sie hier, um es mit einer
+    Ihre Bilddatei ist zu groß (%s). Klicken Sie hier, um es mit einer
     kleineren Bilddatei erneut zu versuchen.
   ba-imagecapture.unsupported_image_type: 'Bitte hochladen: %s - Klicken Sie hier, um es erneut zu versuchen.'
   ba-imagecapture.orientation-portrait-required: 'Bitte drehen Sie Ihr Gerät, um im Hochformat aufzunehmen.'
@@ -215,7 +215,7 @@
   ba-audiorecorder.rerecord-confirm: Möchten Sie Ihr Audio wirklich wiederholen?
   ba-audiorecorder.cancel-confirm: Möchten Sie Ihren Audio-Upload wirklich abbrechen?
   ba-audiorecorder.audio_file_too_large: >-
-    Ihre Audiodatei ist zu groß ( %s) - Klicken Sie hier, um es mit einer
+    Ihre Audiodatei ist zu groß (%s) - Klicken Sie hier, um es mit einer
     kleineren Audiodatei erneut zu versuchen.
   ba-audiorecorder.unsupported_audio_type: 'Bitte hochladen: %s - Klicken Sie hier, um es erneut zu versuchen.'
   ba-common-settingsmenu.tooltip: Hier klicken um Wiedergabe zu starten.

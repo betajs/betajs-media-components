@@ -168,7 +168,7 @@
   ba-imagecapture.verifying-failed: 'Weryfikacja nie powiodła się - kliknij tutaj, aby spróbować ponownie.'
   ba-imagecapture.rerecord-confirm: Czy na pewno chcesz ponowić dodawanie obrazu?
   ba-imagecapture.image_file_too_large: >-
-    Twój plik obrazu jest za duży ( %s) - kliknij tutaj, aby spróbować ponownie
+    Twój plik obrazu jest za duży (%s) - kliknij tutaj, aby spróbować ponownie
     z mniejszym plikiem obrazu.
   ba-imagecapture.unsupported_image_type: 'Prześlij: %s - kliknij tutaj, aby spróbować ponownie.'
   ba-imagecapture.orientation-portrait-required: 'Obróć urządzenie, aby nagrywać w trybie pionowym.'
@@ -195,7 +195,7 @@
   ba-audiorecorder.rerecord-confirm: Czy na pewno chcesz nadpisać przesłany dźwięk?
   ba-audiorecorder.cancel-confirm: Czy na pewno chcesz anulować przesyłanie dźwięku?
   ba-audiorecorder.audio_file_too_large: >-
-    Twój plik audio jest za duży ( %s) - kliknij tutaj, aby spróbować ponownie z
+    Twój plik audio jest za duży (%s) - kliknij tutaj, aby spróbować ponownie z
     mniejszym plikiem audio.
   ba-audiorecorder.unsupported_audio_type: 'Prześlij: %s - kliknij tutaj, aby spróbować ponownie.'
   ba-common-settingsmenu.tooltip: Kliknij, aby uruchomić

@@ -47,6 +47,13 @@
     <div style="width: 100%">
         <div style="float: left">
             <button style="min-width: 110px; color: #ffffff; background: #1b8fcc"
+                    onclick="handleCaptureScreen()"
+            >Capture Screen</button> &nbsp;&nbsp;
+        </div>
+    </div>
+    <div style="width: 100%">
+        <div style="float: left">
+            <button style="min-width: 110px; color: #ffffff; background: #1b8fcc"
                     onclick="pauseClickHandler()"
             >Toggle Pause</button> &nbsp;&nbsp;
         </div>
@@ -79,50 +86,57 @@ var filename = "video-" + BetaJS.Time.now();
         var recorder = new BetaJS.MediaComponents.VideoRecorder.Dynamics.Recorder({
             element: document.getElementById('recorder'),
             attrs: {
+                width: '100%',
+                height: 'auto',
+                picksnapshots: false,
+                "custom-covershots" : true,
+                onlyaudio: true,
+                // selectfirstcovershotonskip: true,
+
                 // webrtconmobile: true,
                 // theme: "cube",
                 // theme: "elevate",
                 // theme: "minimalist",
                 // theme: "modern",
                 // theme: "space",
-                theme: "theatre",
-                // "custom-covershots" : true,
+                // theme: "theatre",
                 // themecolor: "red",
-                skipinitial: false,
-                autorecord: false,
-                allowrecord: true,
-                allowscreen: true,
-                allowmultistreams: true,
-                screenrecordmandatory: true,
-                showplayersettingsmenu: false,
-                // onlyaudio: true,
-                localplayback: true,
-                picksnapshots: true,
-                snapshotfromuploader: true,
-                selectfirstcovershotonskip: true,
+                // skipinitial: false,
+                // autorecord: false,
+                // allowrecord: true,
+                // allowscreen: true,
+                // allowmultistreams: true,
+                // screenrecordmandatory: true,
+                // showplayersettingsmenu: false,
+                // stretch: true,
+                // localplayback: true,
+                // picksnapshots: false,
+                // snapshotfromuploader: true,
+                // selectfirstcovershotonskip: true,
                 // webrtcstreaming: true,
-                // width: '100%',
-                width: 690,
-                height: 340,
-                cropthestream: false,
-                recordingwidth: 400,
-                recordingheight: 300,
-                initialmessages: [
-                    {
-                        id: +Date.now(),
-                        message: "Success Message :), and have close option",
-                        type: "success"
-                    },
-                    {
-                        id: +Date.now() + 77,
-                        message: "Warning message content, and have close option",
-                        type: "warning"
-                    },
-                    {
-                        message: "If we have some error, with no close option!!",
-                        type: "error"
-                    },
-                ]
+                // fittodimensions: true,
+                // width: 690,
+                // heigth: 500,
+                // recordingwidth: 340,
+                // recordingheight: 240,
+                // height: "auto",
+                // cropthestream: false,
+                // initialmessages: [
+                //     {
+                //         id: +Date.now(),
+                //         message: "Success Message :), and have close option",
+                //         type: "success"
+                //     }
+                //     // , {
+                //     //     id: +Date.now() + 77,
+                //     //     message: "Warning message content, and have close option",
+                //     //     type: "warning"
+                //     // }
+                //     // , {
+                //     //     message: "If we have some error, with no close option!!",
+                //     //     type: "error"
+                //     // },
+                // ]
                 // snapshotmax: 4,
                 // gallerysnapshots: 3
             }
@@ -152,6 +166,27 @@ var filename = "video-" + BetaJS.Time.now();
             console.log('Main video stream ended', e);
         });
 
+        recorder.on("upload_progress", function (embedding, uploaded, total) {
+            console.log('Details >> ', embedding, uploaded, total);
+            console.log('Upload Progress: ', (uploaded/total)*100 + '%' + ' ('+ Date.now() + ')' );
+        });
+
+        recorder.on("attached", function () {
+            console.log('Recorder Attcahed !!!');
+        });
+
+        recorder.on("uploaded", function (embedding) {
+            console.log('Uploaded: ', 'uploaded'+ ' ('+ Date.now() + ')');
+        });
+
+        recorder.on("processing", function (embedding, percentage) {
+            console.log('Processing: ', percentage + '%' + ' ('+ Date.now() + ')');
+        });
+
+        recorder.on("processed", function (embedding) {
+            console.log('Processed: ', 'processed' + ' ('+ Date.now() + ')');
+        });
+
         recorder.activate();
 
         const recordClickHandler = (ev) => {
@@ -174,6 +209,14 @@ var filename = "video-" + BetaJS.Time.now();
                 recorder.pause_recorder();
             else
                 recorder.resume();
+        }
+
+        const handleCaptureScreen = () => {
+            // createSnapshot: (type)
+            // snapshotToLocalPoster
+            // createSnapshotDisplay(parent, snapshot, x, y, w, h)
+            // createSnapshotUploader: ƒ (snapshot, type, uploaderOptions)
+            console.log('Get > >', recorder.snapshots, recorder);
         }
 
     </script>

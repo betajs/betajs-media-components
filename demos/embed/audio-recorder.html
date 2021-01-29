@@ -42,13 +42,13 @@
 <body style="background: #EEE">
     <div class="row">
         <div class="col-xs-12">
-            <div id="player"></div>
+            <div id="audio-recorder"></div>
         </div>
     </div>
 
     <script>
-        var player = new BetaJS.MediaComponents.AudioPlayer.Dynamics.Player({
-            element: $('#player'),
+        var recorder = new BetaJS.MediaComponents.AudioRecorder.Dynamics.Recorder({
+            element: $('#audio-recorder'),
             attrs: {
                 height: 330,
                 width: 420,
@@ -57,63 +57,29 @@
                 visualeffectvisible: true,
                 // autoplay:true,
                 // stretch: true,
-                stretchheight: true,
                 // stretchwidth: true,
                 // source: '/static/demos/sample-video.mp4',
                 // poster:
-                sources: [
-                    {
-                        src:'/static/demos/assets/audio.mp3'
-                        // src:'/static/demos/sample-video.mp4'
-                        , poster: '/static/demos/assets/portrait-poster.png'
-                        // , hd: true
-                        // , poster: '/static/demos/sample-cover.png'
-                    },
-                    // {
-                    //     // src:'/static/demos/assets/portrait.mp4'
-                    //     // , poster:'/static/demos/assets/portrait-poster.png', hd: false
-                    //     src:'/static/demos/sample-video2.mp4'
-                    //     , hd: false
-                    //     , poster: '/static/demos/sample-cover.png'
-                    // }
-                ],
                 // streams: [{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }],
-                skipinitial: true,
+                // skipinitial: true,
                 hideoninactivity: true,
                 tracktagsstyled: true,
-                loop: true,
-                tracktags: [
-                    {
-                        lang: 'en',
-                        kind: 'subtitles',
-                        label: 'English',
-                        //enabled: true,
-                        src: '../assets/bunny-en.vtt'
-                    },
-                    {
-                        lang: 'de',
-                        kind: 'subtitles',
-                        label: 'Deutsch',
-                        //enabled: true,
-                        src: '../assets/bunny-de.vtt'
-                    }
-                ]
             }
         });
 
-        player.on("attached", function (playerInstance) {
+        recorder.on("attached", function (recorderInstance) {
             // this.addSettingsMenuItem({set: 'Somen'});
             // playerInstance.add_setting({setting: 'someID'});
-            playerInstance.on("fullscreen-change", function (isFullscreen) {
+            recorderInstance.on("fullscreen-change", function (isFullscreen) {
                 console.log('is Full', isFullscreen);
             }, this);
-        }, player);
+        }, recorder);
 
-        player.on("ended", function () {
+        recorder.on("ended", function () {
             console.log('ENDED');
-        }, player);
+        }, recorder);
 
-        player.activate();
+        recorder.activate();
 
     </script>
 </body>

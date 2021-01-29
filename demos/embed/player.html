@@ -65,6 +65,23 @@
         </div>
         <div class="col-xs-6">
             AAAAAAAAAAAAAA
+            <video id="videoBlob" ></video>
+            <script>
+                $(document).ready(() => {
+                    const video = $("#videoBlob")[0];
+                    let blob = new Blob([
+                        // "blob:https://localhost:5050/d760965b-fa47-4e16-a4ea-067fb6fb087d"
+                        '/static/demos/sample-video.mp4'
+                    ], {type: "video/mp4"});
+                    video.src = "blob:https://localhost:5050/d760965b-fa47-4e16-a4ea-067fb6fb087d";
+                    // URL.createObjectURL(blob);
+                    // video.src = '/static/demos/sample-video.mp4';
+                    console.log('Blob >> ', blob, video, URL.createObjectURL(blob));
+                    video.onloadstart = (ev) => {
+                        video.play();
+                    };
+                });
+            </script>
         </div>
     </div>
     <div class="row">

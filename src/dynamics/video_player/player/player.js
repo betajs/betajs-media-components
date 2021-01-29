@@ -334,7 +334,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 else
                                     height = parseFloat(height);
 
-                                // If user is not set stretc but vant video will be in full height or hight
+                                // If user set auto or another text
+                                if (isNaN(height))
+                                    height = this.get("containeroffsetheight") || mainContainerDimensions.height;
+                                if (isNaN(width))
+                                    height = this.get("containeroffsetwidth") || mainContainerDimensions.width;
+
+                                // If user is not set stretch but vant video will be in full height or hight
                                 // then we define self stretch options
                                 if (this.get("fitonwidth") && this.get("fitonheight")) {
                                     states.fit.basedOnSelfBoth = true;

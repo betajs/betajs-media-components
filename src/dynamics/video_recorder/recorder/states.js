@@ -325,6 +325,8 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
                         this.dyn.set("snapshotmax", 1);
                     this.dyn.snapshots = [];
                     this.next("CreateUploadCovershot");
+                } else if (this.dyn.get("custom-covershots")) {
+                    this.next("CovershotSelection");
                 } else {
                     this.next("Uploading");
                 }
@@ -907,7 +909,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
                 this.dyn._stopRecording().success(function() {
                     this._hasStopped();
                     var snapshotsCount = this.dyn.snapshots.length;
-                    if (this.dyn.get("picksnapshots") && (snapshotsCount >= Math.min(this.dyn.get("gallerysnapshots"), snapshotsCount)) && snapshotsCount > 0)
+                    if ((this.dyn.get("picksnapshots") && (snapshotsCount >= Math.min(this.dyn.get("gallerysnapshots"), snapshotsCount)) && snapshotsCount > 0) || this.dyn.get("custom-covershots"))
                         this.next("CovershotSelection");
                     else if (this.dyn.get("videometadata").thumbnails.images.length > 3 && this.dyn.get("createthumbnails"))
                         this.next("UploadThumbnails");
@@ -954,9 +956,11 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
             this.dyn.set("hovermessage", "");
             this.dyn.set("topmessage", this.dyn.string('pick-covershot'));
             this.dyn.set("isrecorderready", false);
-            var imagegallery = this.dyn.scope(">[tagname='ba-videorecorder-imagegallery']").materialize(true);
-            imagegallery.loadSnapshots();
-            imagegallery.updateContainerSize();
+            if (this.dyn.snapshots.length > 0) {
+                var imagegallery = this.dyn.scope(">[tagname='ba-videorecorder-imagegallery']").materialize(true);
+                imagegallery.loadSnapshots();
+                imagegallery.updateContainerSize();
+            }
             this.listenOn(this.dyn, "invoke-skip", function() {
                 this._nextUploading(true);
             }, this);

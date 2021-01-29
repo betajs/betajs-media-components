@@ -5,10 +5,11 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
     "base:Properties.Properties",
     "base:Timers.Timer",
     "browser:Dom",
-    "browser:Info"
+    "browser:Info",
+    "module:Assets"
 ], [
     "dynamics:Partials.StylesPartial"
-], function(Class, RecorderSupport, Collection, Properties, Timer, Dom, Info, scoped) {
+], function(Class, RecorderSupport, Collection, Properties, Timer, Dom, Info, Assets, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -27,10 +28,15 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
                     "containerheight": 0,
                     "containeroffset": 0,
                     "images": {},
-                    "deltafrac": 1 / 8
+                    "deltafrac": 1 / 8,
+                    "showslidercontainer": true,
+                    "covershot_accept_string": "image/*,image/png,image/jpg,image/jpeg"
                 },
 
                 computed: {
+                    "showslidercontainer": function() {
+                        return this.parent().snapshots.length > 0;
+                    },
                     "imagewidth:imagecount,containerwidth,deltafrac": function() {
                         if (this.get("imagecount") <= 0)
                             return 0.0;
@@ -64,10 +70,12 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
                 },
 
                 destroy: function() {
-                    this.get("images").iterate(function(image) {
-                        if (image.snapshotDisplay && this.parent().recorder)
-                            this.parent().recorder.removeSnapshotDisplay(image.snapshotDisplay);
-                    }, this);
+                    if (this.get("images").length > 0) {
+                        this.get("images").iterate(function(image) {
+                            if (image.snapshotDisplay && this.parent().recorder)
+                                this.parent().recorder.removeSnapshotDisplay(image.snapshotDisplay);
+                        }, this);
+                    }
                     inherited.destroy.call(this);
                 },
 
@@ -242,6 +250,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
                     },
                     select: function(image) {
                         this.trigger("image-selected", image.snapshot);
+                    },
+                    uploadCovershot: function(domEvent) {
+                        this.trigger("upload-covershot", domEvent[0].target);
                     }
                 }
 
@@ -250,5 +261,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
         .registerFunctions({
             /*<%= template_function_cache(dirname + '/video_recorder_imagegallery.html') %>*/
         })
-        .register("ba-videorecorder-imagegallery");
+        .register("ba-videorecorder-imagegallery")
+        .attachStringTable(Assets.strings)
+        .addStrings({
+            "upload-covershot": "Upload Cover"
+        });
 });

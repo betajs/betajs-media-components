@@ -402,6 +402,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     if (this.get("onlyaudio")) {
                         this.set("allowupload", false);
                         this.set("orientation", false);
+                        // By default custom-covershots is false, if user want poster they can upload it
+                        this.set("picksnapshots", this.get("custom-covershots"));
                     }
                     if (!Info.isMobile())
                         this.set("orientation", false);
@@ -1021,7 +1023,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         }
                     } catch (e) {}
 
-                    if (!this.get("onlyaudio")) {
+                    if (!this.get("onlyaudio") && this.get("picksnapshots")) {
                         if (this.__recording && this.__recording_start_time + 500 < Time.now()) {
                             var p = this.snapshots.length < this.get("snapshotmax") ? 0.25 : 0.05;
                             if (Math.random() <= p) {

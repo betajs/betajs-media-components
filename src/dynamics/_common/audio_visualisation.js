@@ -19,14 +19,9 @@ Scoped.define("module:AudioVisualisation", [
                 if (options.recorder) {
                     this.recorder = options.recorder;
                 } else {
+                    // JSLint not allow for shortcuts new(window.AudioContext || window.webkitAudioContext)
                     var AudioContext = window.AudioContext || window.webkitAudioContext;
-                    if (Info.isChromiumBased()) {
-                        Dom.userInteraction(function() {
-                            this.audioContext = new AudioContext();
-                        }, this);
-                    } else {
-                        this.audioContext = new AudioContext();
-                    }
+                    this.audioContext = new AudioContext();
                 }
                 this.createVisualisationCanvas(options.height, options.element);
                 this.frameID = null;
@@ -131,6 +126,13 @@ Scoped.define("module:AudioVisualisation", [
             cancelFrame: function(ID) {
                 var _ID = ID || this.renderFrame;
                 cancelAnimationFrame(_ID);
+            },
+
+            updateSourceStream: function() {
+                this.cancelFrame();
+                this.initializeVisualEffect();
+                // this._analyser = new AudioAnalyser(this._recorder.stream());
+                // this._analyser.destroy();
             },
 
             _drawRedBars: function() {

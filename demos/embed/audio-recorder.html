@@ -47,6 +47,7 @@
     </div>
 
     <script>
+        var filename = "audio-" + BetaJS.Time.now();
         var recorder = new BetaJS.MediaComponents.AudioRecorder.Dynamics.Recorder({
             element: $('#audio-recorder'),
             attrs: {
@@ -55,6 +56,7 @@
                 theme: "default",
                 themecolor: "red",
                 visualeffectvisible: true,
+                // visualeffecttheme: "balloon",
                 // autoplay:true,
                 // stretch: true,
                 // stretchwidth: true,
@@ -68,12 +70,28 @@
         });
 
         recorder.on("attached", function (recorderInstance) {
+            console.log('-- > ', recorderInstance, this);
             // this.addSettingsMenuItem({set: 'Somen'});
             // playerInstance.add_setting({setting: 'someID'});
-            recorderInstance.on("fullscreen-change", function (isFullscreen) {
-                console.log('is Full', isFullscreen);
-            }, this);
+            // recorderInstance.on("fullscreen-change", function (isFullscreen) {
+            //     console.log('is Full', isFullscreen);
+            // }, this);
         }, recorder);
+
+        recorder._prepareRecording = function () {
+            recorder.set("uploadoptions", {
+                image: {url:"/files/" + filename + ".jpg"},
+                // video: {url:"/files/" + filename + ".mov"},
+                // video: {url:"/files/" + filename + ".webm" + '/transcode/' + filename + ".mp4"},
+                audio: {url:"/files/" + filename + ".wav"},
+                tracks: {url:"/files/" + filename + ".vtt"}
+            });
+            recorder.set("playbacksource", "/files/" + filename + ".wav");
+            if (recorder.recorder)
+                recorder.set("playbackposter", "/files/" + filename + ".jpg");
+            return BetaJS.Promise.value(true);
+        };
+
 
         recorder.on("ended", function () {
             console.log('ENDED');

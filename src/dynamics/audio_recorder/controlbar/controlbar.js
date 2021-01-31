@@ -33,6 +33,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Controlbar", [
 
                 functions: {
                     selectMicrophone: function(microphoneId) {
+                        this.set("settingsopen", false); // Close microphoe selection after it was selected
                         this.trigger("select-microphone", microphoneId);
                     },
                     hover: function(text) {

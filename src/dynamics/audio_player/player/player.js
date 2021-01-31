@@ -96,7 +96,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     "visualeffectsupported": false,
                     "visualeffectheight": null,
                     "visualeffectminheight": 120,
-                    "visualeffecttheme": "balloon", // types: `balloon`, 'red-bars'
+                    "visualeffecttheme": "red-bars", // types: `balloon`, 'red-bars'
                     "skipseconds": 5,
 
                     /* States (helper variables which are controlled by application itself not set by user) */
@@ -304,14 +304,14 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                             } else if (this.get("visualeffectheight") < this.get("visualeffectminheight")) {
                                 this.set('visualeffectheight', this.get("visualeffectminheight"));
                             }
-                            this.audioVisualisation = new AudioVisualisation(audio, {
-                                height: this.get('visualeffectheight'),
-                                element: this.activeElement(),
-                                theme: this.get("visualeffecttheme")
-                            });
 
-                            // To be able set width of the canvas element
-                            Async.eventually(function() {
+                            // Will fix Safari and other browsers auto sound off behaviour
+                            Dom.userInteraction(function() {
+                                this.audioVisualisation = new AudioVisualisation(audio, {
+                                    height: this.get('visualeffectheight'),
+                                    element: this.activeElement(),
+                                    theme: this.get("visualeffecttheme")
+                                });
                                 try {
                                     this.audioVisualisation.initializeVisualEffect();
                                     this.set("visualeffectsupported", true);
@@ -319,7 +319,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                                     this.set("visualeffectsupported", false);
                                     console.warn(e);
                                 }
-                            }, this, 100);
+                            }, this);
                         }
 
                         if (this.get("playwhenvisible")) {

@@ -1,5 +1,7 @@
 .#{$css}-container {
+	background-color: #000000;
     display: inline-block;
+	padding-bottom: $controlbar_height + $progressbar_height;
     position: relative;
 	overflow: hidden;
 }

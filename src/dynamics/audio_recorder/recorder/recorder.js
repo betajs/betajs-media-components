@@ -103,7 +103,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     "visualeffectsupported": false,
                     "visualeffectheight": null,
                     "visualeffectminheight": 120,
-                    "visualeffecttheme": "balloon", // types: `balloon`, 'red-bars'
+                    "visualeffecttheme": "red-bars", // types: `balloon`, 'red-bars'
 
                     /* Configuration */
                     "simulate": false,
@@ -490,6 +490,11 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                             });
                             this.recorder.testSoundLevel(true);
                             this.set("selectedmicrophone", microphone_id);
+                            if (this.audioVisualisation) {
+                                this.recorder._recorder.on("bound", function() {
+                                    this.audioVisualisation.updateSourceStream();
+                                }, this);
+                            }
                         }
                         this.set("microphonehealthy", false);
                     },

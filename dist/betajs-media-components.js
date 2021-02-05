@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.249 - 2020-12-09
+betajs-media-components - v0.0.251 - 2021-02-02
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.249 - 2020-12-09
+betajs-media-components - v0.0.251 - 2021-02-02
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.249",
-    "datetime": 1607551281709
+    "version": "0.0.251",
+    "datetime": 1612322787323
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -3127,14 +3127,9 @@ Scoped.define("module:AudioVisualisation", [
                 if (options.recorder) {
                     this.recorder = options.recorder;
                 } else {
+                    // JSLint not allow for shortcuts new(window.AudioContext || window.webkitAudioContext)
                     var AudioContext = window.AudioContext || window.webkitAudioContext;
-                    if (Info.isChromiumBased()) {
-                        Dom.userInteraction(function() {
-                            this.audioContext = new AudioContext();
-                        }, this);
-                    } else {
-                        this.audioContext = new AudioContext();
-                    }
+                    this.audioContext = new AudioContext();
                 }
                 this.createVisualisationCanvas(options.height, options.element);
                 this.frameID = null;
@@ -3239,6 +3234,13 @@ Scoped.define("module:AudioVisualisation", [
             cancelFrame: function(ID) {
                 var _ID = ID || this.renderFrame;
                 cancelAnimationFrame(_ID);
+            },
+
+            updateSourceStream: function() {
+                this.cancelFrame();
+                this.initializeVisualEffect();
+                // this._analyser = new AudioAnalyser(this._recorder.stream());
+                // this._analyser.destroy();
             },
 
             _drawRedBars: function() {
@@ -5660,7 +5662,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 else
                                     height = parseFloat(height);
 
-                                // If user is not set stretc but vant video will be in full height or hight
+                                // If user set auto or another text
+                                if (isNaN(height))
+                                    height = this.get("containeroffsetheight") || mainContainerDimensions.height;
+                                if (isNaN(width))
+                                    height = this.get("containeroffsetwidth") || mainContainerDimensions.width;
+
+                                // If user is not set stretch but vant video will be in full height or hight
                                 // then we define self stretch options
                                 if (this.get("fitonwidth") && this.get("fitonheight")) {
                                     states.fit.basedOnSelfBoth = true;
@@ -8055,16 +8063,17 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
     "base:Properties.Properties",
     "base:Timers.Timer",
     "browser:Dom",
-    "browser:Info"
+    "browser:Info",
+    "module:Assets"
 ], [
     "dynamics:Partials.StylesPartial"
-], function(Class, RecorderSupport, Collection, Properties, Timer, Dom, Info, scoped) {
+], function(Class, RecorderSupport, Collection, Properties, Timer, Dom, Info, Assets, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
             return {
 
-                template: "<div data-selector=\"slider-left-button\" class=\"{{css}}-imagegallery-leftbutton\">\n\t<div tabindex=\"0\" data-selector=\"slider-left-inner-button\"\n\t\t ba-hotkey:space^enter^left=\"{{left()}}\" onmouseout=\"this.blur()\"\n\t\t class=\"{{css}}-imagegallery-button-inner\" onclick=\"{{left()}}\"\n\t>\n\t\t<i class=\"{{csscommon}}-icon-left-open\"></i>\n\t</div>\n</div>\n\n<div data-selector=\"images-imagegallery-container\" ba-repeat=\"{{image::images}}\"\n\t class=\"{{css}}-imagegallery-container\" data-gallery-container>\n     <div tabindex=\"0\" class=\"{{css}}-imagegallery-image\"\n\t\t  ba-hotkey:space^enter=\"{{select(image)}}\" onmouseout=\"this.blur()\"\n          ba-styles=\"{{{left: image.left + 'px', top: image.top + 'px', width: image.width + 'px', height: image.height + 'px'}}}\"\n          onclick=\"{{select(image)}}\"\n\t >\n\t\t <div class=\"{{css}}-imagegallery-image-compat\" ba-show=\"{{ie10below}}\"></div>\n     </div>\n</div>\n\n<div data-selector=\"slider-right-button\" class=\"{{css}}-imagegallery-rightbutton\">\n\t<div tabindex=\"0\" data-selector=\"slider-right-inner-button\"\n\t\t ba-hotkey:space^enter^right=\"{{right()}}\" onmouseout=\"this.blur()\"\n\t\t class=\"{{css}}-imagegallery-button-inner\" onclick=\"{{right()}}\"\n\t>\n\t\t<i class=\"{{csscommon}}-icon-right-open\"></i>\n\t</div>\n</div>\n",
+                template: "<div ba-if=\"{{showslidercontainer}}\">\n\t<div data-selector=\"slider-left-button\" class=\"{{css}}-imagegallery-leftbutton\">\n\t\t<div tabindex=\"0\" data-selector=\"slider-left-inner-button\"\n\t\t\t ba-hotkey:space^enter^left=\"{{left()}}\" onmouseout=\"this.blur()\"\n\t\t\t class=\"{{css}}-imagegallery-button-inner\" onclick=\"{{left()}}\"\n\t\t>\n\t\t\t<i class=\"{{csscommon}}-icon-left-open\"></i>\n\t\t</div>\n\t</div>\n\n\t<div data-selector=\"images-imagegallery-container\" ba-repeat=\"{{image::images}}\"\n\t\t class=\"{{css}}-imagegallery-container\" data-gallery-container>\n\t\t<div tabindex=\"0\" class=\"{{css}}-imagegallery-image\"\n\t\t\t ba-hotkey:space^enter=\"{{select(image)}}\" onmouseout=\"this.blur()\"\n\t\t\t ba-styles=\"{{{left: image.left + 'px', top: image.top + 'px', width: image.width + 'px', height: image.height + 'px'}}}\"\n\t\t\t onclick=\"{{select(image)}}\"\n\t\t>\n\t\t\t<div class=\"{{css}}-imagegallery-image-compat\" ba-show=\"{{ie10below}}\"></div>\n\t\t</div>\n\t</div>\n\n\t<div data-selector=\"slider-right-button\" class=\"{{css}}-imagegallery-rightbutton\">\n\t\t<div tabindex=\"0\" data-selector=\"slider-right-inner-button\"\n\t\t\t ba-hotkey:space^enter^right=\"{{right()}}\" onmouseout=\"this.blur()\"\n\t\t\t class=\"{{css}}-imagegallery-button-inner\" onclick=\"{{right()}}\"\n\t\t>\n\t\t\t<i class=\"{{csscommon}}-icon-right-open\"></i>\n\t\t</div>\n\t</div>\n</div>\n\n<div ba-if=\"{{!showslidercontainer}}\" class=\"{{css}}-chooser-container\">\n\t<div data-selector=\"covershot-primary-button\" class=\"{{css}}-chooser-button-container\">\n\t\t<div class=\"{{css}}-chooser-button-0\">\n\t\t\t<input type=\"file\"\n\t\t\t\t   tabindex=\"0\"\n\t\t\t\t   class=\"{{css}}-chooser-file\"\n\t\t\t\t   accept=\"{{covershot_accept_string}}\"\n\t\t\t\t   onchange=\"{{uploadCovershot(domEvent)}}\"\n\t\t\t/>\n\t\t\t<i class=\"{{csscommon}}-icon-picture\"></i>\n\t\t\t<span>\n\t\t\t{{string('upload-covershot')}}\n\t\t</span>\n\t\t</div>\n\t</div>\n</div>\n",
 
                 attrs: {
                     "css": "ba-videorecorder",
@@ -8077,10 +8086,15 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
                     "containerheight": 0,
                     "containeroffset": 0,
                     "images": {},
-                    "deltafrac": 1 / 8
+                    "deltafrac": 1 / 8,
+                    "showslidercontainer": true,
+                    "covershot_accept_string": "image/*,image/png,image/jpg,image/jpeg"
                 },
 
                 computed: {
+                    "showslidercontainer": function() {
+                        return this.parent().snapshots.length > 0;
+                    },
                     "imagewidth:imagecount,containerwidth,deltafrac": function() {
                         if (this.get("imagecount") <= 0)
                             return 0.0;
@@ -8114,10 +8128,12 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
                 },
 
                 destroy: function() {
-                    this.get("images").iterate(function(image) {
-                        if (image.snapshotDisplay && this.parent().recorder)
-                            this.parent().recorder.removeSnapshotDisplay(image.snapshotDisplay);
-                    }, this);
+                    if (this.get("images").length > 0) {
+                        this.get("images").iterate(function(image) {
+                            if (image.snapshotDisplay && this.parent().recorder)
+                                this.parent().recorder.removeSnapshotDisplay(image.snapshotDisplay);
+                        }, this);
+                    }
                     inherited.destroy.call(this);
                 },
 
@@ -8292,15 +8308,22 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
                     },
                     select: function(image) {
                         this.trigger("image-selected", image.snapshot);
+                    },
+                    uploadCovershot: function(domEvent) {
+                        this.trigger("upload-covershot", domEvent[0].target);
                     }
                 }
 
             };
         })
         .registerFunctions({
-            /**/"css": function (obj) { with (obj) { return css; } }, "left()": function (obj) { with (obj) { return left(); } }, "csscommon": function (obj) { with (obj) { return csscommon; } }, "images": function (obj) { with (obj) { return images; } }, "select(image)": function (obj) { with (obj) { return select(image); } }, "{left: image.left + 'px', top: image.top + 'px', width: image.width + 'px', height: image.height + 'px'}": function (obj) { with (obj) { return {left: image.left + 'px', top: image.top + 'px', width: image.width + 'px', height: image.height + 'px'}; } }, "ie10below": function (obj) { with (obj) { return ie10below; } }, "right()": function (obj) { with (obj) { return right(); } }/**/
+            /**/"showslidercontainer": function (obj) { with (obj) { return showslidercontainer; } }, "css": function (obj) { with (obj) { return css; } }, "left()": function (obj) { with (obj) { return left(); } }, "csscommon": function (obj) { with (obj) { return csscommon; } }, "images": function (obj) { with (obj) { return images; } }, "select(image)": function (obj) { with (obj) { return select(image); } }, "{left: image.left + 'px', top: image.top + 'px', width: image.width + 'px', height: image.height + 'px'}": function (obj) { with (obj) { return {left: image.left + 'px', top: image.top + 'px', width: image.width + 'px', height: image.height + 'px'}; } }, "ie10below": function (obj) { with (obj) { return ie10below; } }, "right()": function (obj) { with (obj) { return right(); } }, "!showslidercontainer": function (obj) { with (obj) { return !showslidercontainer; } }, "covershot_accept_string": function (obj) { with (obj) { return covershot_accept_string; } }, "uploadCovershot(domEvent)": function (obj) { with (obj) { return uploadCovershot(domEvent); } }, "string('upload-covershot')": function (obj) { with (obj) { return string('upload-covershot'); } }/**/
         })
-        .register("ba-videorecorder-imagegallery");
+        .register("ba-videorecorder-imagegallery")
+        .attachStringTable(Assets.strings)
+        .addStrings({
+            "upload-covershot": "Upload Cover"
+        });
 });
 Scoped.define("module:VideoRecorder.Dynamics.Loader", [
     "dynamics:Dynamic",
@@ -8419,7 +8442,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
         }, function(inherited) {
             return {
 
-                template: "\n<div data-selector=\"video-recorder-container\" ba-show=\"{{!player_active}}\"\n     class=\"{{css}}-container {{csstheme}} {{css}}-size-{{csssize}}\n     {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{css}}-{{ fullscreened ? 'fullscreen' : 'normal' }}-view\n     {{cssrecorder}}-{{ firefox ? 'firefox' : 'common'}}-browser\n     {{cssrecorder}}-{{themecolor}}-color\" ba-styles=\"{{widthHeightStyles}}\"\n>\n\n    <video tabindex=\"-1\" data-selector=\"recorder-status\" class=\"{{css}}-video {{css}}-{{hasrecorder ? 'hasrecorder' : 'norecorder'}}\" data-video=\"video\" playsinline></video>\n\t<ba-videorecorder-faceoutline class=\"{{css}}-overlay\" ba-if=\"{{faceoutline && hasrecorder && isrecorderready}}\"></ba-videorecorder-faceoutline>\n    <div data-selector=\"recorder-overlay\" class='{{cssrecorder}}-overlay' ba-show=\"{{!hideoverlay}}\" data-overlay=\"overlay\">\n\t\t<ba-{{dynloader}}\n\t\t\tba-css=\"{{cssloader || css}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-template=\"{{tmplloader}}\"\n\t\t\tba-show=\"{{loader_active}}\"\n\t\t\tba-tooltip=\"{{loadertooltip}}\"\n\t\t\tba-hovermessage=\"{{=hovermessage}}\"\n\t\t\tba-label=\"{{loaderlabel}}\"\n\t\t></ba-{{dynloader}}>\n\n\t\t<ba-{{dynmessage}}\n\t\t\tba-css=\"{{cssmessage || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t\tba-template=\"{{tmplmessage}}\"\n\t\t\tba-show=\"{{message_active}}\"\n\t\t\tba-message=\"{{message}}\"\n\t\t\tba-links=\"{{message_links}}\"\n\t\t\tba-event:click=\"message_click\"\n\t\t\tba-event:link=\"message_link_click\"\n\t\t></ba-{{dynmessage}}>\n\n\t\t<ba-{{dyntopmessage}}\n\t\t\tba-css=\"{{csstopmessage || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t\tba-template=\"{{tmpltopmessage}}\"\n\t\t\tba-show=\"{{topmessage_active && (topmessage || hovermessage)}}\"\n\t\t\tba-topmessage=\"{{hovermessage || topmessage}}\"\n\t\t></ba-{{dyntopmessage}}>\n\n\t\t<ba-{{dynchooser}}\n\t\t\tba-if=\"{{chooser_active && !is_initial_state}}\"\n\t\t\tba-onlyaudio=\"{{onlyaudio}}\"\n\t\t\tba-facecamera=\"{{facecamera}}\"\n\t\t\tba-recordviafilecapture=\"{{recordviafilecapture}}\"\n\t\t\tba-css=\"{{csschooser || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t\tba-template=\"{{tmplchooser}}\"\n\t\t\tba-allowscreen=\"{{allowscreen}}\"\n\t\t\tba-allowmultistreams=\"{{allowmultistreams}}\"\n\t\t\tba-parentpopup=\"{{popup}}\"\n\t\t\tba-allowrecord=\"{{allowrecord}}\"\n\t\t\tba-allowupload=\"{{allowupload}}\"\n\t\t\tba-allowcustomupload=\"{{allowcustomupload}}\"\n\t\t\tba-allowedextensions=\"{{allowedextensions}}\"\n\t\t\tba-primaryrecord=\"{{primaryrecord}}\"\n\t\t\tba-initialmessages=\"{{initialmessages}}\"\n\t\t\tba-timelimit=\"{{timelimit}}\"\n\t\t\tba-event:record=\"record_video\"\n\t\t\tba-event:record-screen=\"record_screen\"\n\t\t\tba-event:upload=\"video_file_selected\"\n\t\t></ba-{{dynchooser}}>\n\n\t\t<ba-{{dynimagegallery}}\n\t\t\tba-if=\"{{imagegallery_active}}\"\n\t\t\tba-css=\"{{cssimagegallery || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t\tba-template=\"{{tmplimagegallery}}\"\n\t\t\tba-imagecount=\"{{gallerysnapshots}}\"\n\t\t\tba-imagenativewidth=\"{{nativeRecordingWidth}}\"\n\t\t\tba-imagenativeheight=\"{{nativeRecordingHeight}}\"\n\t\t\tba-event:image-selected=\"select_image\"\n\t\t></ba-{{dynimagegallery}}>\n\n\t\t<ba-{{dyncontrolbar}}\n\t\t\tba-css=\"{{csscontrolbar || css}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t\tba-csstheme=\"{{csstheme || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-template=\"{{tmplcontrolbar}}\"\n\t\t\tba-show=\"{{controlbar_active}}\"\n\t\t\tba-cameras=\"{{cameras}}\"\n\t\t\tba-microphones=\"{{microphones}}\"\n\t\t\tba-noaudio=\"{{noaudio}}\"\n\t\t\tba-novideo=\"{{onlyaudio}}\"\n\t\t\tba-allowscreen=\"{{record_media==='screen' || record_media==='multistream'}}\"\n\t\t\tba-selectedcamera=\"{{selectedcamera || 0}}\"\n\t\t\tba-selectedmicrophone=\"{{selectedmicrophone || 0}}\"\n\t\t\tba-showaddstreambutton=\"{{showaddstreambutton}}\"\n\t\t\tba-camerahealthy=\"{{camerahealthy}}\"\n\t\t\tba-microphonehealthy=\"{{microphonehealthy}}\"\n\t\t\tba-hovermessage=\"{{=hovermessage}}\"\n\t\t\tba-settingsvisible=\"{{settingsvisible}}\"\n\t\t\tba-recordvisible=\"{{recordvisible}}\"\n\t\t\tba-cancelvisible=\"{{allowcancel && cancancel}}\"\n\t\t\tba-uploadcovershotvisible=\"{{uploadcovershotvisible}}\"\n\t\t\tba-rerecordvisible=\"{{rerecordvisible}}\"\n\t\t\tba-stopvisible=\"{{stopvisible}}\"\n\t\t\tba-skipvisible=\"{{skipvisible}}\"\n\t\t\tba-controlbarlabel=\"{{controlbarlabel}}\"\n\t\t\tba-mintimeindicator=\"{{mintimeindicator}}\"\n\t\t\tba-timeminlimit=\"{{timeminlimit}}\"\n\t\t\tba-resumevisible=\"{{resumevisible}}\"\n\t\t\tba-pausable=\"{{pausable}}\"\n\t\t\tba-firefox=\"{{firefox}}\"\n\t\t\tba-event:select-camera=\"select_camera\"\n\t\t\tba-event:select-microphone=\"select_microphone\"\n\t\t\tba-event:invoke-record=\"record\"\n\t\t\tba-event:invoke-rerecord=\"rerecord\"\n\t\t\tba-event:invoke-stop=\"stop\"\n\t\t\tba-event:invoke-skip=\"invoke_skip\"\n\t\t\tba-event:invoke-pause=\"pause_recorder\"\n\t\t\tba-event:invoke-resume=\"resume\"\n\t\t\tba-event:invoke-cancel=\"cancel\"\n\t\t\tba-event:upload-covershot=\"upload_covershot\"\n\t\t\tba-event:toggle-face-mode=\"toggle_face_mode\"\n\t\t\tba-event:add-new-stream=\"add_new_stream\"\n\t\t></ba-{{dyncontrolbar}}>\n\n\t\t<ba-{{dynhelperframe}}\n\t\t\tba-if=\"{{helperframe_active || framevisible}}\"\n\t\t\tba-template=\"{{tmphelperframe}}\"\n\t\t\tba-framereversable= \"{{multistreamreversable}}\"\n\t\t\tba-framedragable=\"{{multistreamdraggable}}\"\n\t\t\tba-frameresizeable=\"{{multistreamresizeable}}\"\n\t\t\tba-framepositionx=\"{{addstreampositionx}}\"\n\t\t\tba-framepositiony=\"{{addstreampositiony}}\"\n\t\t\tba-frameproportional=\"{{addstreamproportional}}\"\n\t\t\tba-flipframe=\"{{flip-camera}}\"\n\t\t></ba-{{dynhelperframe}}>\n\t</div>\n</div>\n\n\n<div data-selector=\"recorder-player\" ba-if=\"{{player_active}}\" ba-styles=\"{{widthHeightStyles}}\">\n\t<span ba-show=\"{{ie8}}\">&nbsp;</span>\n\t<ba-{{dynvideoplayer}}\n\t\tba-theme=\"{{theme || 'default'}}\"\n\t\tba-themecolor=\"{{themecolor}}\"\n\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\tba-source=\"{{localplayback ? playbacksource : ''}}\"\n\t\tba-poster=\"{{localplayback ? playbackposter : ''}}\"\n\t\tba-hideoninactivity=\"{{false}}\"\n\t\tba-stretch=\"{{stretch}}\"\n\t\tba-showsettingsmenu=\"{{showplayersettingsmenu}}\"\n\t\tba-stretchheight=\"{{stretchheight}}\"\n\t\tba-stretchwidth=\"{{stretchwidth}}\"\n\t\tba-onlyaudio=\"{{onlyaudio}}\"\n\t\tba-attrs=\"{{playerattrs}}\"\n\t\tba-data:id=\"player\"\n\t\tba-width=\"{{width || (onlyaudio ? 240 : undefined)}}\"\n\t\tba-height=\"{{height}}\"\n\t\tba-totalduration=\"{{duration / 1000}}\"\n\t\tba-rerecordable=\"{{rerecordable && (recordings === null || recordings > 0)}}\"\n\t\tba-submittable=\"{{manualsubmit && verified}}\"\n\t\tba-reloadonplay=\"{{true}}\"\n\t\tba-autoplay=\"{{autoplay}}\"\n\t\tba-nofullscreen=\"{{nofullscreen}}\"\n\t\tba-topmessage=\"{{playertopmessage}}\"\n\t\tba-allowtexttrackupload=\"{{allowtexttrackupload}}\"\n\t\tba-uploadtexttracksvisible=\"{{uploadtexttracksvisible}}\"\n\t\tba-tracktags=\"{{tracktags}}\"\n\t\tba-tracktagsstyled=\"{{tracktagsstyled}}\"\n\t\tba-trackcuetext=\"{{trackcuetext}}\"\n\t\tba-acceptedtracktexts=\"{{acceptedtracktexts}}\"\n\t\tba-sharevideo=\"{{sharevideo}}\"\n\t\tba-event:loaded=\"ready_to_play\"\n\t\tba-event:rerecord=\"rerecord\"\n\t\tba-event:playing=\"playing\"\n\t\tba-event:paused=\"paused\"\n\t\tba-event:ended=\"ended\"\n\t\tba-event:submit=\"manual_submit\"\n\t\tba-event:upload-text-tracks=\"upload_text_tracks\"\n\t\tba-tracksshowselection=\"{{tracksshowselection}}\"\n\t\tba-trackselectorhovered=\"{{trackselectorhovered}}\"\n\t\tba-uploadlocales=\"{{uploadlocales}}\"\n\t\tba-event:selected_label_value=\"selected_label_value\"\n\t\tba-event:move_to_option=\"move_to_option\"\n\t>\n\t</ba-{{dynvideoplayer}}>\n</div>\n",
+                template: "\n<div data-selector=\"video-recorder-container\" ba-show=\"{{!player_active}}\"\n     class=\"{{css}}-container {{csstheme}} {{css}}-size-{{csssize}}\n     {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{css}}-{{ fullscreened ? 'fullscreen' : 'normal' }}-view\n     {{cssrecorder}}-{{ firefox ? 'firefox' : 'common'}}-browser\n     {{cssrecorder}}-{{themecolor}}-color\" ba-styles=\"{{widthHeightStyles}}\"\n>\n\n    <video tabindex=\"-1\" data-selector=\"recorder-status\" class=\"{{css}}-video {{css}}-{{hasrecorder ? 'hasrecorder' : 'norecorder'}}\" data-video=\"video\" playsinline></video>\n\t<ba-videorecorder-faceoutline class=\"{{css}}-overlay\" ba-if=\"{{faceoutline && hasrecorder && isrecorderready}}\"></ba-videorecorder-faceoutline>\n    <div data-selector=\"recorder-overlay\" class='{{cssrecorder}}-overlay' ba-show=\"{{!hideoverlay}}\" data-overlay=\"overlay\">\n\t\t<ba-{{dynloader}}\n\t\t\tba-css=\"{{cssloader || css}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-template=\"{{tmplloader}}\"\n\t\t\tba-show=\"{{loader_active}}\"\n\t\t\tba-tooltip=\"{{loadertooltip}}\"\n\t\t\tba-hovermessage=\"{{=hovermessage}}\"\n\t\t\tba-label=\"{{loaderlabel}}\"\n\t\t></ba-{{dynloader}}>\n\n\t\t<ba-{{dynmessage}}\n\t\t\tba-css=\"{{cssmessage || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t\tba-template=\"{{tmplmessage}}\"\n\t\t\tba-show=\"{{message_active}}\"\n\t\t\tba-message=\"{{message}}\"\n\t\t\tba-links=\"{{message_links}}\"\n\t\t\tba-event:click=\"message_click\"\n\t\t\tba-event:link=\"message_link_click\"\n\t\t></ba-{{dynmessage}}>\n\n\t\t<ba-{{dyntopmessage}}\n\t\t\tba-css=\"{{csstopmessage || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t\tba-template=\"{{tmpltopmessage}}\"\n\t\t\tba-show=\"{{topmessage_active && (topmessage || hovermessage)}}\"\n\t\t\tba-topmessage=\"{{hovermessage || topmessage}}\"\n\t\t></ba-{{dyntopmessage}}>\n\n\t\t<ba-{{dynchooser}}\n\t\t\tba-if=\"{{chooser_active && !is_initial_state}}\"\n\t\t\tba-onlyaudio=\"{{onlyaudio}}\"\n\t\t\tba-facecamera=\"{{facecamera}}\"\n\t\t\tba-recordviafilecapture=\"{{recordviafilecapture}}\"\n\t\t\tba-css=\"{{csschooser || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t\tba-template=\"{{tmplchooser}}\"\n\t\t\tba-allowscreen=\"{{allowscreen}}\"\n\t\t\tba-allowmultistreams=\"{{allowmultistreams}}\"\n\t\t\tba-parentpopup=\"{{popup}}\"\n\t\t\tba-allowrecord=\"{{allowrecord}}\"\n\t\t\tba-allowupload=\"{{allowupload}}\"\n\t\t\tba-allowcustomupload=\"{{allowcustomupload}}\"\n\t\t\tba-allowedextensions=\"{{allowedextensions}}\"\n\t\t\tba-primaryrecord=\"{{primaryrecord}}\"\n\t\t\tba-initialmessages=\"{{initialmessages}}\"\n\t\t\tba-timelimit=\"{{timelimit}}\"\n\t\t\tba-event:record=\"record_video\"\n\t\t\tba-event:record-screen=\"record_screen\"\n\t\t\tba-event:upload=\"video_file_selected\"\n\t\t></ba-{{dynchooser}}>\n\n\t\t<ba-{{dynimagegallery}}\n\t\t\tba-if=\"{{imagegallery_active}}\"\n\t\t\tba-css=\"{{cssimagegallery || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t\tba-template=\"{{tmplimagegallery}}\"\n\t\t\tba-imagecount=\"{{gallerysnapshots}}\"\n\t\t\tba-imagenativewidth=\"{{nativeRecordingWidth}}\"\n\t\t\tba-imagenativeheight=\"{{nativeRecordingHeight}}\"\n\t\t\tba-event:image-selected=\"select_image\"\n\t\t\tba-event:upload-covershot=\"upload_covershot\"\n\t\t></ba-{{dynimagegallery}}>\n\n\t\t<ba-{{dyncontrolbar}}\n\t\t\tba-css=\"{{csscontrolbar || css}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t\tba-csstheme=\"{{csstheme || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-template=\"{{tmplcontrolbar}}\"\n\t\t\tba-show=\"{{controlbar_active}}\"\n\t\t\tba-cameras=\"{{cameras}}\"\n\t\t\tba-microphones=\"{{microphones}}\"\n\t\t\tba-noaudio=\"{{noaudio}}\"\n\t\t\tba-novideo=\"{{onlyaudio}}\"\n\t\t\tba-allowscreen=\"{{record_media==='screen' || record_media==='multistream'}}\"\n\t\t\tba-selectedcamera=\"{{selectedcamera || 0}}\"\n\t\t\tba-selectedmicrophone=\"{{selectedmicrophone || 0}}\"\n\t\t\tba-showaddstreambutton=\"{{showaddstreambutton}}\"\n\t\t\tba-camerahealthy=\"{{camerahealthy}}\"\n\t\t\tba-microphonehealthy=\"{{microphonehealthy}}\"\n\t\t\tba-hovermessage=\"{{=hovermessage}}\"\n\t\t\tba-settingsvisible=\"{{settingsvisible}}\"\n\t\t\tba-recordvisible=\"{{recordvisible}}\"\n\t\t\tba-cancelvisible=\"{{allowcancel && cancancel}}\"\n\t\t\tba-uploadcovershotvisible=\"{{uploadcovershotvisible}}\"\n\t\t\tba-rerecordvisible=\"{{rerecordvisible}}\"\n\t\t\tba-stopvisible=\"{{stopvisible}}\"\n\t\t\tba-skipvisible=\"{{skipvisible}}\"\n\t\t\tba-controlbarlabel=\"{{controlbarlabel}}\"\n\t\t\tba-mintimeindicator=\"{{mintimeindicator}}\"\n\t\t\tba-timeminlimit=\"{{timeminlimit}}\"\n\t\t\tba-resumevisible=\"{{resumevisible}}\"\n\t\t\tba-pausable=\"{{pausable}}\"\n\t\t\tba-firefox=\"{{firefox}}\"\n\t\t\tba-event:select-camera=\"select_camera\"\n\t\t\tba-event:select-microphone=\"select_microphone\"\n\t\t\tba-event:invoke-record=\"record\"\n\t\t\tba-event:invoke-rerecord=\"rerecord\"\n\t\t\tba-event:invoke-stop=\"stop\"\n\t\t\tba-event:invoke-skip=\"invoke_skip\"\n\t\t\tba-event:invoke-pause=\"pause_recorder\"\n\t\t\tba-event:invoke-resume=\"resume\"\n\t\t\tba-event:invoke-cancel=\"cancel\"\n\t\t\tba-event:upload-covershot=\"upload_covershot\"\n\t\t\tba-event:toggle-face-mode=\"toggle_face_mode\"\n\t\t\tba-event:add-new-stream=\"add_new_stream\"\n\t\t></ba-{{dyncontrolbar}}>\n\n\t\t<ba-{{dynhelperframe}}\n\t\t\tba-if=\"{{helperframe_active || framevisible}}\"\n\t\t\tba-template=\"{{tmphelperframe}}\"\n\t\t\tba-framereversable= \"{{multistreamreversable}}\"\n\t\t\tba-framedragable=\"{{multistreamdraggable}}\"\n\t\t\tba-frameresizeable=\"{{multistreamresizeable}}\"\n\t\t\tba-framepositionx=\"{{addstreampositionx}}\"\n\t\t\tba-framepositiony=\"{{addstreampositiony}}\"\n\t\t\tba-frameproportional=\"{{addstreamproportional}}\"\n\t\t\tba-flipframe=\"{{flip-camera}}\"\n\t\t></ba-{{dynhelperframe}}>\n\t</div>\n</div>\n\n\n<div data-selector=\"recorder-player\" ba-if=\"{{player_active}}\" ba-styles=\"{{widthHeightStyles}}\">\n\t<span ba-show=\"{{ie8}}\">&nbsp;</span>\n\t<ba-{{dynvideoplayer}}\n\t\tba-theme=\"{{theme || 'default'}}\"\n\t\tba-themecolor=\"{{themecolor}}\"\n\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\tba-source=\"{{localplayback ? playbacksource : ''}}\"\n\t\tba-poster=\"{{localplayback ? playbackposter : ''}}\"\n\t\tba-hideoninactivity=\"{{false}}\"\n\t\tba-stretch=\"{{stretch}}\"\n\t\tba-showsettingsmenu=\"{{showplayersettingsmenu}}\"\n\t\tba-stretchheight=\"{{stretchheight}}\"\n\t\tba-stretchwidth=\"{{stretchwidth}}\"\n\t\tba-onlyaudio=\"{{onlyaudio}}\"\n\t\tba-attrs=\"{{playerattrs}}\"\n\t\tba-data:id=\"player\"\n\t\tba-width=\"{{width || (onlyaudio ? 240 : undefined)}}\"\n\t\tba-height=\"{{height}}\"\n\t\tba-totalduration=\"{{duration / 1000}}\"\n\t\tba-rerecordable=\"{{rerecordable && (recordings === null || recordings > 0)}}\"\n\t\tba-submittable=\"{{manualsubmit && verified}}\"\n\t\tba-reloadonplay=\"{{true}}\"\n\t\tba-autoplay=\"{{autoplay}}\"\n\t\tba-nofullscreen=\"{{nofullscreen}}\"\n\t\tba-topmessage=\"{{playertopmessage}}\"\n\t\tba-allowtexttrackupload=\"{{allowtexttrackupload}}\"\n\t\tba-uploadtexttracksvisible=\"{{uploadtexttracksvisible}}\"\n\t\tba-tracktags=\"{{tracktags}}\"\n\t\tba-tracktagsstyled=\"{{tracktagsstyled}}\"\n\t\tba-trackcuetext=\"{{trackcuetext}}\"\n\t\tba-acceptedtracktexts=\"{{acceptedtracktexts}}\"\n\t\tba-sharevideo=\"{{sharevideo}}\"\n\t\tba-event:loaded=\"ready_to_play\"\n\t\tba-event:rerecord=\"rerecord\"\n\t\tba-event:playing=\"playing\"\n\t\tba-event:paused=\"paused\"\n\t\tba-event:ended=\"ended\"\n\t\tba-event:submit=\"manual_submit\"\n\t\tba-event:upload-text-tracks=\"upload_text_tracks\"\n\t\tba-tracksshowselection=\"{{tracksshowselection}}\"\n\t\tba-trackselectorhovered=\"{{trackselectorhovered}}\"\n\t\tba-uploadlocales=\"{{uploadlocales}}\"\n\t\tba-event:selected_label_value=\"selected_label_value\"\n\t\tba-event:move_to_option=\"move_to_option\"\n\t>\n\t</ba-{{dynvideoplayer}}>\n</div>\n",
 
                 attrs: {
                     /* CSS */
@@ -8777,6 +8800,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     if (this.get("onlyaudio")) {
                         this.set("allowupload", false);
                         this.set("orientation", false);
+                        // By default custom-covershots is false, if user want poster they can upload it
+                        this.set("picksnapshots", this.get("custom-covershots"));
                     }
                     if (!Info.isMobile())
                         this.set("orientation", false);
@@ -9396,7 +9421,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         }
                     } catch (e) {}
 
-                    if (!this.get("onlyaudio")) {
+                    if (!this.get("onlyaudio") && this.get("picksnapshots")) {
                         if (this.__recording && this.__recording_start_time + 500 < Time.now()) {
                             var p = this.snapshots.length < this.get("snapshotmax") ? 0.25 : 0.05;
                             if (Math.random() <= p) {
@@ -10012,6 +10037,8 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
                         this.dyn.set("snapshotmax", 1);
                     this.dyn.snapshots = [];
                     this.next("CreateUploadCovershot");
+                } else if (this.dyn.get("custom-covershots")) {
+                    this.next("CovershotSelection");
                 } else {
                     this.next("Uploading");
                 }
@@ -10594,7 +10621,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
                 this.dyn._stopRecording().success(function() {
                     this._hasStopped();
                     var snapshotsCount = this.dyn.snapshots.length;
-                    if (this.dyn.get("picksnapshots") && (snapshotsCount >= Math.min(this.dyn.get("gallerysnapshots"), snapshotsCount)) && snapshotsCount > 0)
+                    if ((this.dyn.get("picksnapshots") && (snapshotsCount >= Math.min(this.dyn.get("gallerysnapshots"), snapshotsCount)) && snapshotsCount > 0) || this.dyn.get("custom-covershots"))
                         this.next("CovershotSelection");
                     else if (this.dyn.get("videometadata").thumbnails.images.length > 3 && this.dyn.get("createthumbnails"))
                         this.next("UploadThumbnails");
@@ -10641,9 +10668,11 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
             this.dyn.set("hovermessage", "");
             this.dyn.set("topmessage", this.dyn.string('pick-covershot'));
             this.dyn.set("isrecorderready", false);
-            var imagegallery = this.dyn.scope(">[tagname='ba-videorecorder-imagegallery']").materialize(true);
-            imagegallery.loadSnapshots();
-            imagegallery.updateContainerSize();
+            if (this.dyn.snapshots.length > 0) {
+                var imagegallery = this.dyn.scope(">[tagname='ba-videorecorder-imagegallery']").materialize(true);
+                imagegallery.loadSnapshots();
+                imagegallery.updateContainerSize();
+            }
             this.listenOn(this.dyn, "invoke-skip", function() {
                 this._nextUploading(true);
             }, this);
@@ -13524,7 +13553,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     "visualeffectsupported": false,
                     "visualeffectheight": null,
                     "visualeffectminheight": 120,
-                    "visualeffecttheme": "balloon", // types: `balloon`, 'red-bars'
+                    "visualeffecttheme": "red-bars", // types: `balloon`, 'red-bars'
                     "skipseconds": 5,
 
                     /* States (helper variables which are controlled by application itself not set by user) */
@@ -13732,14 +13761,14 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                             } else if (this.get("visualeffectheight") < this.get("visualeffectminheight")) {
                                 this.set('visualeffectheight', this.get("visualeffectminheight"));
                             }
-                            this.audioVisualisation = new AudioVisualisation(audio, {
-                                height: this.get('visualeffectheight'),
-                                element: this.activeElement(),
-                                theme: this.get("visualeffecttheme")
-                            });
 
-                            // To be able set width of the canvas element
-                            Async.eventually(function() {
+                            // Will fix Safari and other browsers auto sound off behaviour
+                            Dom.userInteraction(function() {
+                                this.audioVisualisation = new AudioVisualisation(audio, {
+                                    height: this.get('visualeffectheight'),
+                                    element: this.activeElement(),
+                                    theme: this.get("visualeffecttheme")
+                                });
                                 try {
                                     this.audioVisualisation.initializeVisualEffect();
                                     this.set("visualeffectsupported", true);
@@ -13747,7 +13776,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                                     this.set("visualeffectsupported", false);
                                     console.warn(e);
                                 }
-                            }, this, 100);
+                            }, this);
                         }
 
                         if (this.get("playwhenvisible")) {
@@ -14517,6 +14546,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Controlbar", [
 
                 functions: {
                     selectMicrophone: function(microphoneId) {
+                        this.set("settingsopen", false); // Close microphoe selection after it was selected
                         this.trigger("select-microphone", microphoneId);
                     },
                     hover: function(text) {
@@ -14733,7 +14763,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     "visualeffectsupported": false,
                     "visualeffectheight": null,
                     "visualeffectminheight": 120,
-                    "visualeffecttheme": "balloon", // types: `balloon`, 'red-bars'
+                    "visualeffecttheme": "red-bars", // types: `balloon`, 'red-bars'
 
                     /* Configuration */
                     "simulate": false,
@@ -15120,6 +15150,11 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                             });
                             this.recorder.testSoundLevel(true);
                             this.set("selectedmicrophone", microphone_id);
+                            if (this.audioVisualisation) {
+                                this.recorder._recorder.on("bound", function() {
+                                    this.audioVisualisation.updateSourceStream();
+                                }, this);
+                            }
                         }
                         this.set("microphonehealthy", false);
                     },

@@ -158,7 +158,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "containeroffsetwidth": null,
                     "containeroffsetheight": null,
                     "containeroffsetratio": null,
-                    "showvideoplaceholder": false,
                     "showbuiltincontroller": false,
                     "airplaybuttonvisible": false,
                     "castbuttonvisble": false,
@@ -1070,7 +1069,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("activity_delta", 0);
                 },
 
-                object_functions: ["play", "rerecord", "pause", "stop", "seek", "set_volume", "toggle_tracks"],
+                object_functions: ["play", "rerecord", "pause", "stop", "seek", "set_volume", "set_speed", "toggle_tracks"],
 
                 functions: {
 
@@ -1103,7 +1102,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this._broadcasting.player.trigger("play-google-cast");
                             return;
                         }
-                        this._beforePlayAction();
                         this.host.state().play();
                     },
 
@@ -1543,90 +1541,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         height: this.get("popup-height"),
                         stretch: this.get("popup-stretch")
                     };
-                },
-
-                /**
-                 * Will temporarly set video all content dimension
-                 * @private
-                 */
-                _beforePlayAction: function() {
-                    this.set("showvideoplaceholder", true);
-                    var dimensionsState = this.get("states").dimensions;
-                    if (!this.get("width") && this.get("containeroffsetwidth") > 0 && !dimensionsState.temporarlywidthwasset) {
-                        this.set("width", this.get("containeroffsetwidth"));
-                        dimensionsState.temporarlywidthwasset = true;
-                    }
-
-                    if (!this.get("height") && this.get("containeroffsetheight") > 0 && !dimensionsState.temporarlyheightwasset) {
-                        this.set("height", this.get("containeroffsetheight"));
-                        dimensionsState.temporarlyheightwasset = true;
-                    }
-
-                    if (!dimensionsState.sourceDimensionsHasBeenSet) {
-                        if (this.get("containeroffsetwidth") > 0 || this.get("sourcewidth") > 0)
-                            this.__video.width = this.get("containeroffsetwidth") || this.get("sourcewidth");
-
-                        if (this.get("containeroffsetheight") > 0 || this.get("sourceheight") > 0)
-                            this.__video.height = this.get("containeroffsetheight") || this.get("sourceheight");
-                        dimensionsState.sourceDimensionsHasBeenSet = true;
-                    }
-
-                    if (typeof this.player !== 'undefined')
-                        this.player.on("playing", function() {
-                            this._afterPlayAction();
-                        }, this);
-                },
-
-                /**
-                 * Will hide video autoload and set video dimensions back
-                 * @private
-                 */
-                _afterPlayAction: function() {
-                    var dimensionsState = this.get("states").dimensions;
-                    var fitState = this.get("states").fit;
-                    this.set("showvideoplaceholder", false);
-                    if (typeof this.__video !== 'undefined' && this.get("states").dimensions.sourceDimensionsHasBeenSet) {
-                        if (fitState.basedOnSelfHeight) {
-                            this.__video.removeAttribute('width');
-                        } else if (fitState.basedOnSelfWidth) {
-                            this.__video.removeAttribute('height');
-                        } else {
-                            if (!fitState.basedOnSelfBoth) {
-                                this.__video.removeAttribute('width');
-                                this.__video.removeAttribute('height');
-                            }
-                        }
-                    }
-
-                    Async.eventually(function() {
-                        var _container;
-                        if (typeof this.__video !== 'undefined' && this.get("states").dimensions.sourceDimensionsHasBeenSet) {
-                            if (fitState.basedOnSelfHeight) {
-                                this.__video.removeAttribute('width');
-                            } else if (fitState.basedOnSelfWidth) {
-                                this.__video.removeAttribute('height');
-                            } else {
-                                this.__video.removeAttribute('width');
-                                this.__video.removeAttribute('height');
-                            }
-                        }
-
-                        if (dimensionsState.temporarlywidthwasset || dimensionsState.temporarlyheightwasset)
-                            _container = this.activeElement().childNodes[0];
-
-                        if (dimensionsState.temporarlywidthwasset) {
-                            if (typeof _container.style !== 'undefined')
-                                _container.style.width = null;
-                            dimensionsState.temporarlywidthwasset = false;
-                        }
-
-                        if (dimensionsState.temporarlyheightwasset) {
-                            if (typeof _container.style !== 'undefined')
-                                _container.style.height = null;
-                            dimensionsState.temporarlyheightwasset = false;
-                        }
-                    }, this, 100);
-
                 }
             };
         }, {

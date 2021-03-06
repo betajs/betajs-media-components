@@ -10,19 +10,17 @@
      ba-on:touchstart="{{user_activity(true)}}"
      ba-styles="{{widthHeightStyles}}"
 >
-    <div ba-show="{{videoelement_active && !showvideoplaceholder}}">
+    <div ba-show="{{videoelement_active}}">
         <video tabindex="-1" class="{{css}}-video" data-video="video"
                preload="{{preload ? 'auto' : 'metadata'}}"
+               ba-styles="{{containerElementWidthHeightStyles}}"
                ba-toggle:playsinline="{{!playfullscreenonmobile}}"
         ></video>
     </div>
-    <div ba-show="{{showvideoplaceholder}}" class="{{css}}-video-placeholder"
-         ba-styles="{{containerElementWidthHeightStyles}}"
-    ></div>
-    <div ba-show="{{imageelement_active && !videoelement_active}}">
-        <img tabindex="-1" class="{{css}}-video" data-image="image" alt="{{posteralt}}"/>
+    <div ba-show="{{(imageelement_active && !videoelement_active) || (!playing && position < 1 && videoelement_active)}}" class="{{css}}-video-poster{{(!playing && position < 1 && videoelement_active) ? '-active' : ''}}">
+        <img tabindex="-1" data-image="image" alt="{{posteralt}}"/>
     </div>
-    <div class="{{css}}-overlay" ba-show="{{!showbuiltincontroller && !showvideoplaceholder}}">
+    <div class="{{css}}-overlay" ba-show="{{!showbuiltincontroller}}">
         <div tabindex="-1" class="{{css}}-player-toggle-overlay" data-selector="player-toggle-overlay"
              ba-hotkey:right="{{seek(position + skipseconds)}}" ba-hotkey:left="{{seek(position - skipseconds)}}"
              ba-hotkey:alt+right="{{seek(position + skipseconds * 3)}}" ba-hotkey:alt+left="{{seek(position - skipseconds * 3)}}"
@@ -144,6 +142,7 @@
             ba-theme-color="{{themecolor}}"
             ba-template="{{tmplloader}}"
             ba-playwhenvisible="{{playwhenvisible}}"
+            ba-containerElementWidthHeightStyles="{{containerElementWidthHeightStyles}}"
             ba-show="{{loader_active}}"
         ></ba-{{dynloader}}>
 

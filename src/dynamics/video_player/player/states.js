@@ -7,7 +7,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
         scoped: scoped
     }, [ListenMixin, {
 
-        dynamics: [],
+        dynamics: ["loader"],
 
         _start: function() {
             this.dyn = this.host.dynamic;
@@ -394,8 +394,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterError", [
     });
 });
 
-
-
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
     "module:VideoPlayer.Dynamics.PlayerStates.State",
     "browser:Info",
@@ -440,7 +438,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
                 this.next("PlayVideo");
             else {
                 var counter = 10;
-                this.dyn._beforePlayAction();
                 this.auto_destroy(new Timer({
                     context: this,
                     fire: function() {

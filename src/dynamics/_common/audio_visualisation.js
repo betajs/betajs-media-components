@@ -56,6 +56,7 @@ Scoped.define("module:AudioVisualisation", [
                         }
 
                         if (this.stream instanceof HTMLElement) {
+                            // this.stream.crossOrigin = "anonymous";
                             _source = this.audioContext.createMediaElementSource(this.stream);
                             this.analyser = this._analyser || this.audioContext.createAnalyser();
                             _source.connect(this.analyser);

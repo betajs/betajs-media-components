@@ -11,6 +11,11 @@
 	width: 100%;
 }
 
+.#{$css}-video-poster-active {
+    position: absolute;
+	top: 0;
+}
+
 .#{$css}-container video::-webkit-media-controls-start-playback-button {
 	display: none;
 	-webkit-appearance: none;

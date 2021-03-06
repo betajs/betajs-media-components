@@ -81,8 +81,13 @@
             </div>
         </div>
 
-        <div class="{{csstheme}}-time-container">
-            <div class="{{csstheme}}-time-value" title="{{string('elapsed-time')}}">{{formatTime(position)}}</div>
+        <div class="{{csstheme}}-time-container {{csscommon}}-clickable" ba-click="{{toggle_position_info()}}">
+            <div class="{{csstheme}}-time-value"
+                 title="{{revertposition ? string('remaining-time') : string('elapsed-time')}}"
+            >
+                {{(revertposition && duration > 0) ? "-" : ""}}
+                {{(revertposition && duration > 0) ? formatTime(duration - position) : formatTime(position)}}
+            </div>
         </div>
     </div>
 

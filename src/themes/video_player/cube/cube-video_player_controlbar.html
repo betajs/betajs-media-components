@@ -52,9 +52,16 @@
     </div>
 
     <div class="{{csstheme}}-right-block">
-        <div class="{{csstheme}}-button-container {{csstheme}}-timer-container">
+        <div class="{{csstheme}}-button-container {{csstheme}}-timer-container {{csscommon}}-clickable"
+             ba-click="{{toggle_position_info()}}"
+        >
             <div class="{{csstheme}}-time-container">
-                <div class="{{csstheme}}-time-value" title="{{string('elapsed-time')}}">{{formatTime(position)}}</div>
+                <div class="{{csstheme}}-time-value"
+                     title="{{revertposition ? string('remaining-time') : string('elapsed-time')}}"
+                >
+                    {{revertposition ? "-" : ""}}
+                    {{revertposition ? formatTime(duration - position) : formatTime(position)}}
+                </div>
             </div>
             <p> / </p>
             <div class="{{csstheme}}-time-container">

@@ -228,13 +228,13 @@
 
 .#{$csstheme}-time-container{
     font-size: 0.7rem;
-    width: 30px;
+    width: 50px;
 }
 
 .#{$csstheme}-time-value{
-    width: 30px;
-    letter-spacing: 0.2em;
     font-weight: 300;
+    letter-spacing: 0.2em;
+    width: 50px;
 }
 
 .#{$cssplayer}-size-small .#{$csstheme}-time-container {

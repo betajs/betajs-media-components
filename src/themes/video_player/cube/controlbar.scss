@@ -99,15 +99,14 @@
   @include background-rgba(0, 0, 0, 0.35, #b2b2b2);
   //background: $controlbar_background;
   color: $text_color;
-  cursor: default;
   letter-spacing: .1em;
-  width: 90px;
+  width: 98px;
   font-weight: 300;
   font-size: .9em;
   & > div:first-child { margin-left: 4px }
   & > div {
     float: left;
-    width: $button_width;
+    width: $button_width + 5;
   }
 
   & > p {

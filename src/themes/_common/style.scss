@@ -16,6 +16,8 @@
 
 .#{$csscommon}-text-error { color: #dd4b39}
 
+.#{$csscommon}-clickable {cursor: pointer;}
+
 .#{$csscommon}-message-container {
     @include relative-horizontally-center();
     margin-top: 10px;

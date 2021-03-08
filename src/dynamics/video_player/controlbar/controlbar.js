@@ -41,6 +41,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     "activitydelta": 0,
                     "hidebarafter": 5000,
                     "preventinteraction": false,
+                    "revertposition": false,
                     "title": "",
                     "settingsmenubutton": false,
                     "hoveredblock": false, // Set true when mouse hovered
@@ -62,7 +63,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                 functions: {
 
                     formatTime: function(time) {
-                        time = Math.max(time || 0, 1);
+                        time = Math.max(time || 0, 0.1);
                         return TimeFormat.format(TimeFormat.ELAPSED_MINUTES_SECONDS, time * 1000);
                     },
 
@@ -225,6 +226,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         this.trigger("volume", this.get("volume"));
                     },
 
+                    toggle_position_info: function() {
+                        this.set("revertposition", !this.get("revertposition"));
+                    },
+
                     toggle_fullscreen: function() {
                         this.trigger("fullscreen");
                     },
@@ -338,6 +343,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
             "player-speed": "Player speed",
             "settings": "Settings",
             "airplay": "Airplay",
-            "airplay-icon": "Airplay icon."
+            "airplay-icon": "Airplay icon.",
+            "remaining-time": "Remaining time"
         });
 });

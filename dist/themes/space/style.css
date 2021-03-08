@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.251 - 2021-02-02
+betajs-media-components - v0.0.252 - 2021-03-08
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -387,13 +387,13 @@ Apache-2.0 Software License.
 
 .ba-player-space-theme-time-container {
   font-size: 0.7rem;
-  width: 30px;
+  width: 50px;
 }
 
 .ba-player-space-theme-time-value {
-  width: 30px;
-  letter-spacing: 0.2em;
   font-weight: 300;
+  letter-spacing: 0.2em;
+  width: 50px;
 }
 
 .ba-player-size-small .ba-player-space-theme-time-container {

@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.251 - 2021-02-02
+betajs-media-components - v0.0.252 - 2021-03-08
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -216,9 +216,8 @@ Apache-2.0 Software License.
   background-color: #b2b2b2;
   background-color: rgba(0, 0, 0, 0.35);
   color: #eeeeee;
-  cursor: default;
   letter-spacing: 0.1em;
-  width: 90px;
+  width: 98px;
   font-weight: 300;
   font-size: 0.9em;
 }
@@ -227,7 +226,7 @@ Apache-2.0 Software License.
 }
 .ba-player-cube-theme-timer-container > div {
   float: left;
-  width: 40px;
+  width: 45px;
 }
 .ba-player-cube-theme-timer-container > p {
   float: left;

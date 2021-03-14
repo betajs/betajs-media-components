@@ -283,10 +283,14 @@ Scoped.define("module:TrackTags", [
             _showTracksInCustomElement: function(track, lang) {
                 var _lang = lang || this._dyn.get("tracktaglang");
                 var _dyn = this._dyn;
+                var _currentTime = _dyn.__video.currentTime;
                 if (track.language === _lang) {
                     var _cues = track.cues;
                     Objs.iter(_cues, function(cue, index) {
                         if (typeof _cues[index] === 'object' && _cues[index]) {
+                            if (cue.startTime < _currentTime && cue.endTime > _currentTime) {
+                                _dyn.set("trackcuetext", cue.text);
+                            }
                             cue.onenter = function(ev) {
                                 track.mode = 'hidden';
                                 if (_dyn.get("tracktextvisible"))

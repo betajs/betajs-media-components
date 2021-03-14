@@ -111,7 +111,7 @@
                 // stretchheight: true,
                 // stretchwidth: true,
                 // popup: true,
-                skipinitial: true,
+                skipinitial: false,
                 // preload: false,
                 // fitonwidth: true,
                 // fitonheight: true,
@@ -149,34 +149,34 @@
                 // ],
                 // streams: [{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }],
                 hideoninactivity: false,
-                tracktagsstyled: true,
+                // tracktagsstyled: false,
                 loop: true,
-                // tracktags: [
-                //     {
-                //         lang: 'en',
-                //         kind: 'subtitles',
-                //         label: 'English',
-                //         //enabled: true,
-                //         src: '../assets/bunny-en.vtt'
-                //     },
-                //     {
-                //         lang: 'de',
-                //         kind: 'subtitles',
-                //         label: 'Deutsch',
-                //         //enabled: true,
-                //         src: '../assets/bunny-de.vtt'
-                //     },
-                //     {
-                //         kind: 'thumbnails',
-                //         // src: '/static/demos/assets/example-3rdp.vtt'
-                //         src: '/static/demos/assets/video-bgbb.vtt'
-                //     },
-                //     {
-                //         kind: 'chapters',
-                //         // src: '/static/demos/assets/example-3rdp.vtt'
-                //         src: '/static/demos/assets/video-bgbb-chapters.vtt'
-                //     }
-                // ]
+                tracktags: [
+                    {
+                        lang: 'en',
+                        kind: 'subtitles',
+                        label: 'English',
+                        //enabled: true,
+                        src: '../assets/bunny-en.vtt'
+                    },
+                    {
+                        lang: 'de',
+                        kind: 'subtitles',
+                        label: 'Deutsch',
+                        //enabled: true,
+                        src: '../assets/bunny-de.vtt'
+                    },
+                    {
+                        kind: 'thumbnails',
+                        // src: '/static/demos/assets/example-3rdp.vtt'
+                        src: '/static/demos/assets/video-bgbb.vtt'
+                    },
+                    {
+                        kind: 'chapters',
+                        // src: '/static/demos/assets/example-3rdp.vtt'
+                        src: '/static/demos/assets/video-bgbb-chapters.vtt'
+                    }
+                ],
             }
         });
 
@@ -191,6 +191,7 @@
             toggleButton.onclick = function() {
                 player.toggle_tracks();
             };
+
             playerInstance.on("fullscreen-change", function (isFullscreen) {
                 // console.log('is Full', isFullscreen);
             }, this);

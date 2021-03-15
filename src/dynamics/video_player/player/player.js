@@ -128,6 +128,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "playwhenvisible": false,
                     "disablepause": false,
                     "disableseeking": false,
+                    "tracktextvisible": false,
                     "airplay": false,
                     "chromecast": false,
                     "skipseconds": 5,
@@ -479,7 +480,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.activeElement().onkeydown = this._keyDownActivity.bind(this, this.activeElement());
 
                     this.on("change:tracktags", function() {
-                        this.__trackTags = new TrackTags({}, this);
+                        if (typeof this.__video !== 'undefined')
+                            this.__trackTags = new TrackTags({}, this);
                     }, this);
 
                     this.on("change:stretch", function() {
@@ -635,7 +637,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             return;
                         this.player = instance;
                         this.__video = video;
-                        this.__trackTags = new TrackTags({}, this);
 
                         if (!this.get("states").dimensions.containerDimensionsHasBeenSet)
                             this._setContainerDimensions();
@@ -761,6 +762,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             var volume = Math.min(1.0, this.get("volume"));
                             this.player.setVolume(volume);
                             this.player.setMuted(volume <= 0.0);
+                            if (!this.__trackTags && this.get("tracktags").length)
+                                this.__trackTags = new TrackTags({}, this);
                             if (this.get("totalduration") || this.player.duration() < Infinity)
                                 this.set("duration", this.get("totalduration") || this.player.duration());
                             this.set("fullscreensupport", this.player.supportsFullscreen(this.activeElement().childNodes[0]));
@@ -963,10 +966,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 /**
                  * Click CC buttons will trigger
-                 * @param {boolean} status
                  */
-                toggleTrackTags: function(status) {
+                toggleTrackTags: function() {
                     if (!this.__trackTags) return;
+                    this.set("tracktextvisible", !this.get("tracktextvisible"));
+                    var status = this.get("tracktextvisible");
                     var _lang = this.get("tracktaglang"),
                         _customStyled = this.get("tracktagsstyled"),
                         _status = status ? 'showing' : 'disabled';

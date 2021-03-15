@@ -1,11 +1,12 @@
 Scoped.define("module:VideoPlayer.Dynamics.Tracks", [
     "dynamics:Dynamic",
+    "base:Objs",
     "base:Async",
     "module:Assets"
 ], [
     "dynamics:Partials.ClickPartial",
     "dynamics:Partials.RepeatElementPartial"
-], function(Class, Async, Assets, scoped) {
+], function(Class, Objs, Async, Assets, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -20,9 +21,18 @@ Scoped.define("module:VideoPlayer.Dynamics.Tracks", [
                     "trackcuetext": null,
                     "acceptedtracktexts": "text/vtt,application/ttml+xml,type/subtype",
                     "trackselectorhovered": false,
+                    "texttrackslength": 0,
                     "uploadtexttracksvisible": false,
                     "uploadlocales": [],
                     "chosenoption": null
+                },
+
+                create: function() {
+                    Objs.iter(this.get("tracktags"), function(subtitle) {
+                        if (subtitle.kind === "subtitles") {
+                            this.set("texttrackslength", this.get("texttrackslength") + 1);
+                        }
+                    }, this);
                 },
 
                 functions: {

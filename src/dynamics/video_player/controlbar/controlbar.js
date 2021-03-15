@@ -47,7 +47,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     "hoveredblock": false, // Set true when mouse hovered
                     "allowtexttrackupload": false,
                     "thumbisvisible": false,
-                    "tracktextvisible": false, // Are subtitles visible?
                     "chapterslist": [],
                     "showchaptertext": true,
                     "visibleindex": -1
@@ -275,7 +274,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 
                     // Start ro stop showing CC content
                     toggle_tracks: function() {
-                        return this.parent().toggleTrackTags(!this.get('tracktextvisible'));
+                        return this.parent().toggleTrackTags();
                     },
 
                     // Hover on CC button in controller

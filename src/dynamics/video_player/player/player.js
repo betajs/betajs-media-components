@@ -56,6 +56,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "height": "",
                     "popup-width": "",
                     "popup-height": "",
+                    "fallback-width": 320,
+                    "fallback-height": 240,
                     /* Themes */
                     "theme": "",
                     "csstheme": "",
@@ -235,6 +237,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "popup-stretch": "boolean",
                     "popup-width": "int",
                     "popup-height": "int",
+                    "fallback-width": "int",
+                    "fallback-height": "int",
                     "initialseek": "float",
                     "fullscreened": "boolean",
                     "sharevideo": "array",
@@ -275,15 +279,23 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 computed: {
-                    "widthHeightStyles:width,height": function() {
+                    "widthHeightStyles:width,height,videoelement_active,imageelement_active": function() {
                         var result = {};
+                        var widthMod = "width";
+                        var heightMod = "height";
                         var width = this.get("width");
                         var height = this.get("height");
                         this.persistentTrigger("dimensions-detected", width, height);
+                        if (!width && !height && !this.get("videoelement_active") && !this.get("imageelement_active") && this.get("fallback-width") && this.get("fallback-height")) {
+                            width = this.get("fallback-width");
+                            height = this.get("fallback-height");
+                            widthMod = "min-width";
+                            heightMod = "min-height";
+                        }
                         if (width)
-                            result.width = width + ((width + '').match(/^\d+$/g) ? 'px' : '');
+                            result[widthMod] = width + ((width + '').match(/^\d+$/g) ? 'px' : '');
                         if (height)
-                            result.height = height + ((height + '').match(/^\d+$/g) ? 'px' : '');
+                            result[heightMod] = height + ((height + '').match(/^\d+$/g) ? 'px' : '');
                         return result;
                     },
                     "containerElementWidthHeightStyles:containeroffsetwidth,containeroffsetheight": function() {
@@ -567,6 +579,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 _attachImage: function() {
+                    var isLocal = typeof this.get("poster") === 'object';
                     if (!this.get("poster")) {
                         this.trigger("error:poster");
                         return;
@@ -583,7 +596,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         self.trigger("image-attached");
                     };
                     // If type of source of image is Blob object, convert it to URL
-                    img.src = (typeof this.get("poster") === 'object') ? (window.URL || window.webkitURL).createObjectURL(this.get("poster")) : this.get("poster");
+                    img.src = isLocal ? (window.URL || window.webkitURL).createObjectURL(this.get("poster")) : this.get("poster");
                 },
 
                 _detachVideo: function() {

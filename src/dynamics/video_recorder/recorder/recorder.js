@@ -193,7 +193,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "tracktags": [],
                     "hassubtitles": false,
                     "videometadata": {},
-                    "optionsinitialstate": {}
+                    "optionsinitialstate": {},
+                    "playerfallbackwidth": 320,
+                    "playerfallbackheight": 240
                 },
 
                 computed: {
@@ -1100,8 +1102,12 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     this._updateCSSSize();
                 },
 
+                domDimensions: function() {
+                    return Dom.elementDimensions(this.activeElement().childNodes[0]);
+                },
+
                 _updateCSSSize: function() {
-                    var width = Dom.elementDimensions(this.activeElement().childNodes[0]).width;
+                    var width = this.domDimensions().width;
                     this.set("csssize", width > 400 ? "normal" : (width > 300 ? "medium" : "small"));
                 },
 

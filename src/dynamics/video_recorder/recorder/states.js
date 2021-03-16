@@ -144,6 +144,9 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Player", [
         },
 
         _started: function() {
+            var dims = this.dyn.domDimensions();
+            this.dyn.set("playerfallbackwidth", dims.width);
+            this.dyn.set("playerfallbackheight", dims.height);
             this.dyn.set("player_active", true);
             if (this.dyn.get("allowtexttrackupload"))
                 this.dyn.set("uploadtexttracksvisible", true);

@@ -1,5 +1,4 @@
-<div data-selector="image-gallery" class="{{css}}-image-gallery-container">
-
+<div ba-if="{{showslidercontainer}}" data-selector="image-gallery" class="{{css}}-image-gallery-container">
 	<div data-selector="slider-left-button" class="{{css}}-imagegallery-leftbutton">
 		<div tabindex="0" data-selector="slider-left-inner-button"
 			 ba-hotkey:space^enter^left="{{left()}}" onmouseout="this.blur()"
@@ -28,5 +27,21 @@
 			<i class="{{csscommon}}-icon-right-open"></i>
 		</div>
 	</div>
+</div>
 
+<div ba-if="{{!showslidercontainer}}" class="{{css}}-chooser-container">
+	<div data-selector="covershot-primary-button" class="{{css}}-chooser-button-container">
+		<div class="{{css}}-chooser-button-0">
+			<input type="file"
+				   tabindex="0"
+				   class="{{css}}-chooser-file"
+				   accept="{{covershot_accept_string}}"
+				   onchange="{{uploadCovershot(domEvent)}}"
+			/>
+			<i class="{{csscommon}}-icon-picture"></i>
+			<span>
+			{{string('upload-covershot')}}
+		</span>
+		</div>
+	</div>
 </div>

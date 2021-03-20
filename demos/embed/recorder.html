@@ -54,7 +54,7 @@
     <div style="width: 100%">
         <div style="float: left">
             <button style="min-width: 110px; color: #ffffff; background: #1b8fcc"
-                    onclick="pauseClickHandler()"
+                onclick="pauseClickHandler()"
             >Toggle Pause</button> &nbsp;&nbsp;
         </div>
 
@@ -76,7 +76,7 @@
             >Record Screen</button>
         </div>
         <hr/>
-        Logs : >> <div id="recorder-logs"></div>
+         Logs : >> <div id="recorder-logs"></div>
         <hr/>
     </div>
 </div>
@@ -90,7 +90,7 @@ var filename = "video-" + BetaJS.Time.now();
                 height: 'auto',
                 picksnapshots: false,
                 "custom-covershots" : true,
-                onlyaudio: true,
+                // onlyaudio: true,
                 // selectfirstcovershotonskip: true,
 
                 // webrtconmobile: true,
@@ -99,8 +99,8 @@ var filename = "video-" + BetaJS.Time.now();
                 // theme: "minimalist",
                 // theme: "modern",
                 // theme: "space",
-                // theme: "theatre",
-                // themecolor: "red",
+                theme: "theatre",
+                themecolor: "red",
                 // skipinitial: false,
                 // autorecord: false,
                 // allowrecord: true,

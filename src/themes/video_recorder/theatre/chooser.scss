@@ -1,7 +1,7 @@
 .#{$csstheme} {
 
     .#{$csscommon}-message-text {
-        @include border-radius( $chooser_primary_button_border_radius );
+        @include border-radius($chooser_primary_button_border_radius);
     }
 
     .#{$css}-chooser-container {

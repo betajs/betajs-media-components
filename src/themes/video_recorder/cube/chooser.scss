@@ -2,6 +2,7 @@
 
 	.#{$css}-chooser-container {
 		background-color: $chooser_background;
+		z-index: 1;
 	}
 
 	.#{$css}-chooser-icon-container {

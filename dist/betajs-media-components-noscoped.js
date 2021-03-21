@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.253 - 2021-03-15
+betajs-media-components - v0.0.254 - 2021-03-20
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.253",
-    "datetime": 1615853437828
+    "version": "0.0.254",
+    "datetime": 1616289757434
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -13093,6 +13093,13 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.State", [
             }, Objs.objectify(this.dynamics)), function(value, key) {
                 this.dyn.set(key + "_active", value);
             }, this);
+            if (this.dyn.parent()) {
+                if (this.dyn.parent().record !== 'undefined' && this.dyn.parent().host !== 'undefined') {
+                    this.dyn._isRecorder = true;
+                    this.dyn._recorderDyn = this.dyn.parent();
+                    this.dyn._recorderHost = this.dyn._recorderDyn.host;
+                }
+            }
             this._started();
         },
 

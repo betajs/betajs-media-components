@@ -82,14 +82,15 @@
 </div>
 
     <script>
-var filename = "video-" + BetaJS.Time.now();
+        var filename = "video-" + BetaJS.Time.now();
         var recorder = new BetaJS.MediaComponents.VideoRecorder.Dynamics.Recorder({
             element: document.getElementById('recorder'),
             attrs: {
                 width: '100%',
                 height: 'auto',
-                picksnapshots: false,
-                "custom-covershots" : true,
+                localplayback: true,
+                // picksnapshots: false,
+                // "custom-covershots" : true,
                 // onlyaudio: true,
                 // selectfirstcovershotonskip: true,
 
@@ -99,7 +100,7 @@ var filename = "video-" + BetaJS.Time.now();
                 // theme: "minimalist",
                 // theme: "modern",
                 // theme: "space",
-                theme: "theatre",
+                // theme: "theatre",
                 themecolor: "red",
                 // skipinitial: false,
                 // autorecord: false,
@@ -109,8 +110,6 @@ var filename = "video-" + BetaJS.Time.now();
                 // screenrecordmandatory: true,
                 // showplayersettingsmenu: false,
                 // stretch: true,
-                // localplayback: true,
-                // picksnapshots: false,
                 // snapshotfromuploader: true,
                 // selectfirstcovershotonskip: true,
                 // webrtcstreaming: true,

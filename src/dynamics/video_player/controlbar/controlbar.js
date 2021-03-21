@@ -87,35 +87,37 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         var percentageFromStart = (clientX - offset.left) / (dimensions.width || 1);
                         var onDuration = this.get("duration") * percentageFromStart;
 
-                        if (!this.get("_updatePosition") && !_dyn.__trackTags.hasThumbs)
+                        if (!this.get("_updatePosition") && typeof _dyn.__trackTags === 'undefined')
                             return;
 
                         var player = _dyn.player;
 
-                        if (this.__parent.__trackTags.hasThumbs) {
-                            if (this.get("visibleindex") > -1 && this.get("showchaptertext"))
-                                return;
-                            var _index;
-                            var _trackTags = _dyn.__trackTags;
-                            var _cuesCount = _dyn.get("thumbcuelist").length;
-                            if (onDuration > 0) {
-                                _index = Math.floor(_cuesCount * percentageFromStart);
-                                for (var i = _index - 2; i < _cuesCount; i++) {
-                                    if (_dyn.get("thumbcuelist")[i]) {
-                                        var _cue = _dyn.get("thumbcuelist")[i];
-                                        if (_cue.startTime < onDuration && _cue.endTime > onDuration) {
-                                            _trackTags.showDurationThumb(i, clientX, onDuration);
-                                            break;
+                        if (typeof _dyn.__trackTags !== 'undefined') {
+                            if (this.__parent.__trackTags.hasThumbs) {
+                                if (this.get("visibleindex") > -1 && this.get("showchaptertext"))
+                                    return;
+                                var _index;
+                                var _trackTags = _dyn.__trackTags;
+                                var _cuesCount = _dyn.get("thumbcuelist").length;
+                                if (onDuration > 0) {
+                                    _index = Math.floor(_cuesCount * percentageFromStart);
+                                    for (var i = _index - 2; i < _cuesCount; i++) {
+                                        if (_dyn.get("thumbcuelist")[i]) {
+                                            var _cue = _dyn.get("thumbcuelist")[i];
+                                            if (_cue.startTime < onDuration && _cue.endTime > onDuration) {
+                                                _trackTags.showDurationThumb(i, clientX, onDuration);
+                                                break;
+                                            }
                                         }
                                     }
+                                } else {
+                                    _index = Math.floor(_cuesCount * percentageFromStart);
+                                    _trackTags.showDurationThumb(_index, clientX);
                                 }
-                            } else {
-                                _index = Math.floor(_cuesCount * percentageFromStart);
-                                _trackTags.showDurationThumb(_index, clientX);
-                            }
 
-                            this.set("thumbisvisible", true);
-                            this.activeElement().appendChild(_trackTags.thumbContainer);
+                                this.set("thumbisvisible", true);
+                                this.activeElement().appendChild(_trackTags.thumbContainer);
+                            }
                         }
 
                         if (this.get("_updatePosition")) {
@@ -306,9 +308,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                 },
 
                 _hideThumb: function() {
-                    if (this.__parent.__trackTags.hasThumbs && this.get("thumbisvisible")) {
-                        this.set("thumbisvisible", false);
-                        this.__parent.__trackTags.hideDurationThumb();
+                    if (typeof this.__parent.__trackTags !== "undefined") {
+                        if (this.__parent.__trackTags.hasThumbs && this.get("thumbisvisible")) {
+                            this.set("thumbisvisible", false);
+                            this.__parent.__trackTags.hideDurationThumb();
+                        }
                     }
                 },
 

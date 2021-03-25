@@ -95,7 +95,7 @@
                 // selectfirstcovershotonskip: true,
 
                 // webrtconmobile: true,
-                // theme: "cube",
+                theme: "cube",
                 // theme: "elevate",
                 // theme: "minimalist",
                 // theme: "modern",
@@ -146,7 +146,8 @@
                 image: {url:"/files/" + filename + ".jpg"},
                 // video: {url:"/files/" + filename + ".mov"},
                 // video: {url:"/files/" + filename + ".webm" + '/transcode/' + filename + ".mp4"},
-                video: {url:"/files/" + filename + ".webm"},
+                // video: {url:"/files/" + filename + ".webm"},
+                video: {url:"/files/" + filename + (BetaJS.Browser.Info.isSafari() ? ".mp4" : ".webm")},
                 audio: {url:"/files/" + filename + ".wav"},
                 thumbnail: {url:"/files/" + filename + "-thumbnails.jpg"},
                 tracks: {url:"/files/" + filename + ".vtt"}

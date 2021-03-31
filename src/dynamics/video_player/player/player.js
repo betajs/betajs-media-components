@@ -11,6 +11,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "base:Strings",
     "base:Time",
     "base:Timers",
+    "base:TimeFormat",
     "base:States.Host",
     "base:Classes.ClassRegistry",
     "base:Async",
@@ -32,7 +33,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.TemplatePartial",
     "dynamics:Partials.HotkeyPartial"
-], function(Class, Assets, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
+], function(Class, Assets, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, Types, Objs, Strings, Time, Timers, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -92,6 +93,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "playlist": null,
                     "volume": 1.0,
                     "title": "",
+                    "description": "",
+                    "uploaddate": "",
                     "initialseek": null,
                     "sharevideo": [],
                     "sharevideourl": "",
@@ -281,6 +284,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 computed: {
                     "widthHeightStyles:width,height,videoelement_active,imageelement_active": function() {
                         var result = {};
+                        if (!this._isRecorder) return result;
                         var widthMod = "width";
                         var heightMod = "height";
                         var width = this.get("width");
@@ -1348,6 +1352,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     toggle_tracks: function() {
                         this.toggleTrackTags(!this.get('tracktextvisible'));
+                    },
+
+                    format_date: function(date) {
+                        if (typeof date === "number")
+                            this.set("uploaddate", TimeFormat.format("yyyy-mm-dd", date * 1000));
                     }
                 },
 

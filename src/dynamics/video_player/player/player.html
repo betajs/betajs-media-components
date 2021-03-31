@@ -10,6 +10,9 @@
      ba-on:touchstart="{{user_activity(true)}}"
      ba-styles="{{widthHeightStyles}}"
 >
+    <meta itemprop="name" content="{{title || 'Video Plauploaddateyer'}}" />
+    <meta itemprop="description" content="{{description || 'Video Player'}}" />
+    <meta itemprop="uploadDate" content="{{uploaddate}}" />
     <div ba-show="{{videoelement_active}}">
         <video tabindex="-1" class="{{css}}-video" data-video="video"
                preload="{{preload ? 'auto' : 'metadata'}}"

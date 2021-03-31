@@ -21,6 +21,7 @@
     & > img {
 		@include relative-horizontally-center();
 		display: block;
+		max-width: 100%;
 	}
 }
 

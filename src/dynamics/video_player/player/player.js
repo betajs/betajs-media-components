@@ -57,8 +57,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "height": "",
                     "popup-width": "",
                     "popup-height": "",
-                    "fallback-width": 320,
-                    "fallback-height": 240,
+                    //                    "fallback-width": 320,
+                    //                    "fallback-height": 240,
                     /* Themes */
                     "theme": "",
                     "csstheme": "",
@@ -284,7 +284,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 computed: {
                     "widthHeightStyles:width,height,videoelement_active,imageelement_active": function() {
                         var result = {};
-                        if (!this._isRecorder) return result;
                         var widthMod = "width";
                         var heightMod = "height";
                         var width = this.get("width");

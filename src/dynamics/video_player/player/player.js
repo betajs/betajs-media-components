@@ -95,6 +95,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "title": "",
                     "description": "",
                     "uploaddate": "",
+                    "contenturl": "",
+                    "thumbnailurl": "",
                     "initialseek": null,
                     "sharevideo": [],
                     "sharevideourl": "",
@@ -272,13 +274,25 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "showsettings": "boolean",
                     "showduration": "boolean",
                     "visibilityfraction": "float",
-                    "showchaptertext": "boolean"
+                    "showchaptertext": "boolean",
+                    "title": "string",
+                    "description": "string",
+                    "uploaddate": "string",
+                    "contenturl": "string",
+                    "thumbnailurl": "string"
                 },
 
                 extendables: ["states"],
 
                 scopes: {
                     settingsmenu: ">[tagname='ba-common-settingsmenu']"
+                },
+
+                events: {
+                    "change:uploaddate": function(value) {
+                        if (typeof value === "number")
+                            this.set("uploaddate", TimeFormat.format("yyyy-mm-dd", value * 1000));
+                    }
                 },
 
                 computed: {
@@ -1351,11 +1365,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     toggle_tracks: function() {
                         this.toggleTrackTags(!this.get('tracktextvisible'));
-                    },
-
-                    format_date: function(date) {
-                        if (typeof date === "number")
-                            this.set("uploaddate", TimeFormat.format("yyyy-mm-dd", date * 1000));
                     }
                 },
 

@@ -12,8 +12,14 @@
 }
 
 .#{$css}-video-poster-active {
-    position: absolute;
+	background-color: $player_bgcolor;
+	position: absolute;
 	top: 0;
+	& > img {
+		@include relative-horizontally-center();
+		display: block;
+		max-width: 100%;
+	}
 }
 
 .#{$css}-video-poster {

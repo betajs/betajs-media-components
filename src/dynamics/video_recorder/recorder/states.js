@@ -927,7 +927,9 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
 
         _started: function() {
             if ((this.dyn.get("picksnapshots") || this.dyn.get("custom-covershots")) && !this.dyn.get("onlyaudio")) {
-                if (this.dyn.snapshots && this.dyn.snapshots.length > 0) {
+                if (this.dyn.get("pickcovershotframe") && ((this.dyn.recorder && this.dyn.recorder.supportsLocalPlayback()) || (this.dyn._videoFile && this.dyn._videoFilePlaybackable))) {
+                    this.next("CovershotSelectionFromPlayer");
+                } else if (this.dyn.snapshots && this.dyn.snapshots.length > 0) {
                     this.next("CovershotSelectionFromGallery");
                 } else if (this.dyn.get("snapshotfromuploader") || (this.dyn.get("snapshotfrommobilecapture") && this.dyn.get("recordviafilecapture"))) {
                     this.next("CreateUploadCovershot");
@@ -1011,6 +1013,19 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelectionFr
             this.dyn._uploadCovershotFile(file);
             this._nextUploading(false);
         }
+    });
+});
+
+Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelectionFromPlayer", [
+    "module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection"
+], function(CovershotSelectionState, scoped) {
+    return CovershotSelectionState.extend({
+        scoped: scoped
+    }, {
+
+        _started: function() {},
+
+        _end: function() {}
     });
 });
 

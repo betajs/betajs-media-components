@@ -1299,6 +1299,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
             "software-waiting": "Waiting for the requirements to be installed / activated. You might need to refresh the page after completion.",
             "access-forbidden": "Access to the media was forbidden. Click to retry.",
             "pick-covershot": "Pick a covershot.",
+            "pick-covershot-frame": "Select a frame to use as covershot.",
             "framerate-warning": "The video frame rate is very low. We recommend closing all other programs and browser tabs or to use a faster computer.",
             "uploading": "Uploading",
             "uploading-failed": "Uploading failed - click here to retry.",

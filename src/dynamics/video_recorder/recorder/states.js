@@ -1017,8 +1017,10 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelectionFr
 });
 
 Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelectionFromPlayer", [
-    "module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection"
-], function(CovershotSelectionState, scoped) {
+    "module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
+    "media:Recorder.Support",
+    "browser:Events"
+], function(CovershotSelectionState, RecorderSupport, Events, scoped) {
     return CovershotSelectionState.extend({
         scoped: scoped
     }, {
@@ -1031,11 +1033,37 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelectionFr
             this._source = this.dyn.get("playerattrs").source;
 
             var source = this.dyn._videoFile || this.dyn.recorder.localPlaybackSource();
+            var blob = this.dyn._videoFile || this.dyn.recorder.localPlaybackSource().src;
+            var video = document.createElement("video");
 
-            this.startFrameSelection({
-                poster: this.dyn.__backgroundSnapshot,
-                source: source
+            video.src = URL.createObjectURL(blob);
+            video.type = blob.type;
+
+            var events = this.auto_destroy(new Events());
+
+            events.on(video, "loadedmetadata", function() {
+                video.currentTime = 0;
             });
+
+            events.on(video, "seeked", function() {
+                this.startFrameSelection({
+                    poster: RecorderSupport.createSnapshot(this.dyn.get("snapshottype"), video),
+                    source: source
+                });
+                events.clear();
+                URL.revokeObjectURL(video.src);
+            }, this);
+
+            events.on(video, "error", function() {
+                this.startFrameSelection({
+                    poster: this.dyn.__backgroundSnapshot, // use background snapshot as fallback
+                    source: source
+                });
+                events.clear();
+                URL.revokeObjectURL(video.src);
+            }, this);
+
+            video.load();
         },
 
         startFrameSelection: function(options) {

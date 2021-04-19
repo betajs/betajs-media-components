@@ -1023,9 +1023,35 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelectionFr
         scoped: scoped
     }, {
 
-        _started: function() {},
+        _poster: undefined,
+        _source: undefined,
 
-        _end: function() {}
+        _started: function() {
+            this._poster = this.dyn.get("playerattrs").poster;
+            this._source = this.dyn.get("playerattrs").source;
+
+            var source = this.dyn._videoFile || this.dyn.recorder.localPlaybackSource();
+
+            this.startFrameSelection({
+                poster: this.dyn.__backgroundSnapshot,
+                source: source
+            });
+        },
+
+        startFrameSelection: function(options) {
+            this.dyn.set("playerattrs.poster", options.poster);
+            this.dyn.set("playerattrs.source", options.source);
+            this.dyn.set("player_active", true);
+        },
+
+        endFrameSelection: function() {
+            this.dyn.set("playerattrs.poster", this._poster);
+            this.dyn.set("playerattrs.source", this._source);
+        },
+
+        _end: function() {
+            this.endFrameSelection();
+        }
     });
 });
 

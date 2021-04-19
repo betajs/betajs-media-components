@@ -1067,12 +1067,14 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelectionFr
         },
 
         startFrameSelection: function(options) {
+            this.dyn.set("frameselectionmode", true);
             this.dyn.set("playerattrs.poster", options.poster);
             this.dyn.set("playerattrs.source", options.source);
             this.dyn.set("player_active", true);
         },
 
         endFrameSelection: function() {
+            this.dyn.set("frameselectionmode", false);
             this.dyn.set("playerattrs.poster", this._poster);
             this.dyn.set("playerattrs.source", this._source);
         },

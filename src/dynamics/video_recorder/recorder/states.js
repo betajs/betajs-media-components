@@ -1031,6 +1031,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelectionFr
         _started: function() {
             this._poster = this.dyn.get("playerattrs").poster;
             this._source = this.dyn.get("playerattrs").source;
+            this._skipinitial = this.dyn.get("playerattrs").skipinitial;
 
             var source = this.dyn._videoFile || this.dyn.recorder.localPlaybackSource();
             var blob = this.dyn._videoFile || this.dyn.recorder.localPlaybackSource().src;
@@ -1071,6 +1072,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelectionFr
             this.dyn.set("playerattrs.poster", options.poster);
             this.dyn.set("playerattrs.source", options.source);
             this.dyn.set("playertopmessage", this.dyn.string("pick-covershot-frame"));
+            this.dyn.set("playerattrs.skipinitial", true);
             this.dyn.set("player_active", true);
         },
 
@@ -1078,6 +1080,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelectionFr
             this.dyn.set("frameselectionmode", false);
             this.dyn.set("playerattrs.poster", this._poster);
             this.dyn.set("playerattrs.source", this._source);
+            this.dyn.set("playerattrs.skipinitial", this._skipinitial);
         },
 
         _end: function() {

@@ -18,7 +18,8 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.State", [
                 "controlbar": false,
                 "loader": false,
                 "imagegallery": false,
-                "helperframe": false
+                "helperframe": false,
+                "player": false
             }, Objs.objectify(this.dynamics)), function(value, key) {
                 this.dyn.set(key + "_active", value);
             }, this);
@@ -1074,6 +1075,11 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelectionFr
             this.dyn.set("playertopmessage", this.dyn.string("pick-covershot-frame"));
             this.dyn.set("playerattrs.skipinitial", true);
             this.dyn.set("player_active", true);
+
+            this.listenOn(this.dyn.scopes.player, "image-selected", function(image) {
+                this.dyn._uploadCovershot(image);
+                this._nextUploading(false);
+            }, this);
         },
 
         endFrameSelection: function() {

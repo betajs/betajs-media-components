@@ -7,14 +7,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
     "module:Assets",
     "browser:Info",
     "media:Player.Support",
-    "base:Async"
+    "base:Async",
+    "base:Timers.Timer"
 ], [
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.ShowPartial",
     "dynamics:Partials.IfPartial",
     "dynamics:Partials.ClickPartial",
     "dynamics:Partials.RepeatElementPartial"
-], function(Class, TimeFormat, Comparators, Objs, Dom, Assets, Info, PlayerSupport, Async, scoped) {
+], function(Class, TimeFormat, Comparators, Objs, Dom, Assets, Info, PlayerSupport, Async, Timer, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -257,6 +258,47 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         this.trigger("submit");
                     },
 
+                    select_frame: function() {
+                        var player = this.parent().player;
+                        var position = player.position();
+                        var imageSelected = false;
+
+                        player.pause();
+
+                        var timer = new Timer({
+                            context: this,
+                            start: false,
+                            fire: function() {
+                                player.setPosition(position);
+                                player.play();
+                                player.pause();
+                                if (player.loaded()) {
+                                    player.createSnapshotPromise().success(function(blob) {
+                                        timer.stop();
+                                        if (!imageSelected) {
+                                            imageSelected = true;
+                                            this.parent().trigger("image-selected", blob);
+                                        }
+                                    }, this);
+                                }
+                            },
+                            delay: 300,
+                            fire_max: 5,
+                            destroy_on_stop: true
+                        });
+
+                        if (player.loaded()) {
+                            player.createSnapshotPromise().success(function(blob) {
+                                this.parent().trigger("image-selected", blob);
+                            }, this).error(function() {
+                                timer.start();
+                            }, this);
+                        } else {
+                            timer.start();
+                        }
+
+                    },
+
                     toggle_stream: function() {
                         var streams = this.get("streams");
                         var current = streams.length - 1;
@@ -347,6 +389,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
             "settings": "Settings",
             "airplay": "Airplay",
             "airplay-icon": "Airplay icon.",
-            "remaining-time": "Remaining time"
+            "remaining-time": "Remaining time",
+            "select-frame": "Select"
         });
 });

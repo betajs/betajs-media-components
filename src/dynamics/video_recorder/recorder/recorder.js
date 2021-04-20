@@ -195,7 +195,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "videometadata": {},
                     "optionsinitialstate": {},
                     "playerfallbackwidth": 320,
-                    "playerfallbackheight": 240
+                    "playerfallbackheight": 240,
+                    "pickcovershotframe": false
                 },
 
                 computed: {
@@ -312,7 +313,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "showsettingsmenu": "boolean",
                     "showplayersettingsmenu": "boolean",
                     "initialmessages": "array",
-                    "screenrecordmandatory": "boolean"
+                    "screenrecordmandatory": "boolean",
+                    "pickcovershotframe": "boolean"
                 },
 
                 extendables: ["states"],

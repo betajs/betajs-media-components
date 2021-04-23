@@ -6,7 +6,10 @@
      {{cssrecorder}}-{{themecolor}}-color" ba-styles="{{widthHeightStyles}}"
 >
 
-    <video tabindex="-1" data-selector="recorder-status" class="{{css}}-video {{css}}-{{hasrecorder ? 'hasrecorder' : 'norecorder'}}" data-video="video" playsinline></video>
+    <video tabindex="-1"
+		   data-selector="recorder-status" class="{{css}}-video {{css}}-{{hasrecorder ? 'hasrecorder' : 'norecorder'}}"
+		   data-video="video" playsinline disablePictureInPicture
+	></video>
 	<ba-videorecorder-faceoutline class="{{css}}-overlay" ba-if="{{faceoutline && hasrecorder && isrecorderready}}"></ba-videorecorder-faceoutline>
     <div data-selector="recorder-overlay" class='{{cssrecorder}}-overlay' ba-show="{{!hideoverlay}}" data-overlay="overlay">
 		<ba-{{dynloader}}

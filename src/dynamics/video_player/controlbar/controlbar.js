@@ -34,6 +34,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     "playing": false,
                     "rerecordable": false,
                     "submittable": false,
+                    "manuallypaused": false,
                     "streams": [],
                     "currentstream": null,
                     "fullscreen": true,
@@ -69,7 +70,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     startUpdatePosition: function(event) {
                         if (this.get("disableseeking")) return;
                         event[0].preventDefault();
-                        if (!this.__parent.get("playing") && this.__parent.player) this.__parent.player.play();
+                        if (!this.__parent.get("playing") && this.__parent.player && !this.get("manuallypaused"))
+                            this.__parent.player.play();
                         this.set("_updatePosition", true);
                         this.call("progressUpdatePosition", event);
                     },

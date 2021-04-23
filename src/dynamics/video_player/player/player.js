@@ -1137,6 +1137,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             return;
                         }
                         this.host.state().play();
+                        this.set("manuallypaused", false);
                     },
 
                     rerecord: function() {
@@ -1178,8 +1179,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.player.pause();
                         }
 
-                        if (this.get("playwhenvisible"))
-                            this.set("manuallypaused", true);
+                        this.set("manuallypaused", true);
                     },
 
                     stop: function() {
@@ -1274,11 +1274,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.set("volumeafterinteraction", false);
 
                             // If user paused the video and don't like player will auto-played
-                            // so, no need to play each time when user see video
-                            if (this.get("playwhenvisible"))
-                                this.set("manuallypaused", true);
-                        } else
+                            // so, no need to play each time when user see video, also works for progress bar click
+                            this.set("manuallypaused", true);
+                        } else {
                             this.play();
+                            this.set("manuallypaused", false);
+                        }
                     },
 
                     tab_index_move: function(ev, nextSelector, focusingSelector) {

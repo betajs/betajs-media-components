@@ -13,6 +13,7 @@ jsdoc.conf.json
 /demos/recorder*.html
 /demos/themes/files
 google-translate-creds.json
+/demos/assets/huge_video.mp4
 /demos/themes/temp/*
 /demos/themes/files/*
 /demos/tmp/

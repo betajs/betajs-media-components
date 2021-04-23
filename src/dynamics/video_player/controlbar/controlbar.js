@@ -86,7 +86,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         var target = ev.currentTarget;
                         var offset = Dom.elementOffset(target);
                         var dimensions = Dom.elementDimensions(target);
-                        var percentageFromStart = (clientX - offset.left) / (dimensions.width || 1);
+                        // -6 is centered position of dot which is on the progressbar
+                        var percentageFromStart = (clientX - offset.left - 6) / (dimensions.width || 1);
                         var onDuration = this.get("duration") * percentageFromStart;
 
                         if (!this.get("_updatePosition") && typeof _dyn.__trackTags === 'undefined')

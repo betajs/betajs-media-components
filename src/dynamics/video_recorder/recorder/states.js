@@ -18,7 +18,8 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.State", [
                 "controlbar": false,
                 "loader": false,
                 "imagegallery": false,
-                "helperframe": false
+                "helperframe": false,
+                "player": false
             }, Objs.objectify(this.dynamics)), function(value, key) {
                 this.dyn.set(key + "_active", value);
             }, this);
@@ -323,16 +324,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
                 this.dyn._uploadVideoFile(file);
                 this._setValueToEmpty(file);
                 this.__blocked = false;
-                if (((Info.isMobile && this.dyn.get("recordviafilecapture") && this.dyn.get("snapshotfrommobilecapture")) || this.dyn.get("snapshotfromuploader")) && !this.dyn.get("onlyaudio") && (this.dyn.get("picksnapshots") || this.dyn.get("selectfirstcovershotonskip"))) {
-                    if (!this.dyn.get("picksnapshots") && this.dyn.get("selectfirstcovershotonskip"))
-                        this.dyn.set("snapshotmax", 1);
-                    this.dyn.snapshots = [];
-                    this.next("CreateUploadCovershot");
-                } else if (this.dyn.get("custom-covershots")) {
-                    this.next("CovershotSelection");
-                } else {
-                    this.next("Uploading");
-                }
+                this.next("CovershotSelection");
             }, this).error(function(s) {
                 this._setValueToEmpty(file);
                 this.__blocked = false;
@@ -499,13 +491,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CreateUploadCoversho
                         _video.remove();
                     else
                         _video.style.display = 'none';
-                    if (this.dyn.snapshots.length >= this.dyn.get("gallerysnapshots")) {
-                        this.next("CovershotSelection");
-                    } else {
-                        if (this.dyn.get("selectfirstcovershotonskip") && this.dyn.snapshots.length > 0)
-                            this.dyn._uploadCovershot(this.dyn.snapshots[0]);
-                        this.next("Uploading");
-                    }
+                    this.next("CovershotSelection");
                 }, this);
 
             } catch (exe) {
@@ -911,13 +897,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
             Async.eventually(function() {
                 this.dyn._stopRecording().success(function() {
                     this._hasStopped();
-                    var snapshotsCount = this.dyn.snapshots.length;
-                    if ((this.dyn.get("picksnapshots") && (snapshotsCount >= Math.min(this.dyn.get("gallerysnapshots"), snapshotsCount)) && snapshotsCount > 0) || this.dyn.get("custom-covershots"))
-                        this.next("CovershotSelection");
-                    else if (this.dyn.get("videometadata").thumbnails.images.length > 3 && this.dyn.get("createthumbnails"))
-                        this.next("UploadThumbnails");
-                    else
-                        this.next("Uploading");
+                    this.next("CovershotSelection");
                 }, this).error(function(s) {
                     this.next("FatalError", {
                         message: s,
@@ -943,6 +923,59 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
     "module:VideoRecorder.Dynamics.RecorderStates.State"
 ], function(State, scoped) {
     return State.extend({
+        scoped: scoped
+    }, {
+
+        _started: function() {
+            if ((this.dyn.get("picksnapshots") || this.dyn.get("custom-covershots")) && !this.dyn.get("onlyaudio")) {
+                if (this.dyn.get("pickcovershotframe") && ((this.dyn.recorder && this.dyn.recorder.supportsLocalPlayback()) || (this.dyn._videoFile && this.dyn._videoFilePlaybackable))) {
+                    this.next("CovershotSelectionFromPlayer");
+                } else if (this.dyn.snapshots && this.dyn.snapshots.length > 0) {
+                    this.next("CovershotSelectionFromGallery");
+                } else if (this.dyn.get("snapshotfromuploader") || (this.dyn.get("snapshotfrommobilecapture") && this.dyn.get("recordviafilecapture"))) {
+                    this.next("CreateUploadCovershot");
+                } else {
+                    this._nextUploading(true);
+                }
+            } else if (!this.dyn.snapshots && this.dyn.get("snapshotfromuploader") || (this.dyn.get("snapshotfrommobilecapture") && this.dyn.get("recordviafilecapture"))) {
+                if (this.dyn.get("selectfirstcovershotonskip")) {
+                    this.dyn.set("snapshotmax", 1);
+                    this.dyn.snapshots = [];
+                    this.next("CreateUploadCovershot");
+                }
+            } else {
+                this._nextUploading(true);
+            }
+        },
+
+        rerecord: function() {
+            this.dyn._hideBackgroundSnapshot();
+            this.dyn._detachRecorder();
+            this.dyn.trigger("rerecord");
+            this.dyn.set("recordermode", true);
+            this.next("Initial");
+        },
+
+        _nextUploading: function(skippedCovershot) {
+            if (skippedCovershot && this.dyn.get("selectfirstcovershotonskip") && this.dyn.snapshots) {
+                if (this.dyn.snapshots[0]) {
+                    this.dyn._uploadCovershot(this.dyn.snapshots[0]);
+                }
+            }
+            if (this.dyn.get("videometadata").thumbnails.images.length > 3 && this.dyn.get("createthumbnails")) {
+                this.next("UploadThumbnails");
+            } else {
+                this.next("Uploading");
+            }
+        }
+
+    });
+});
+
+Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelectionFromGallery", [
+    "module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection"
+], function(CovershotSelectionState, scoped) {
+    return CovershotSelectionState.extend({
         scoped: scoped
     }, {
 
@@ -973,14 +1006,6 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
             }, this);
         },
 
-        rerecord: function() {
-            this.dyn._hideBackgroundSnapshot();
-            this.dyn._detachRecorder();
-            this.dyn.trigger("rerecord");
-            this.dyn.set("recordermode", true);
-            this.next("Initial");
-        },
-
         uploadCovershot: function(file) {
             // If passed file in HTMLInputElement get file
             if (typeof file.files !== 'undefined')
@@ -988,18 +1013,85 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
                     file = file.files[0];
             this.dyn._uploadCovershotFile(file);
             this._nextUploading(false);
+        }
+    });
+});
+
+Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelectionFromPlayer", [
+    "module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
+    "media:Recorder.Support",
+    "browser:Events"
+], function(CovershotSelectionState, RecorderSupport, Events, scoped) {
+    return CovershotSelectionState.extend({
+        scoped: scoped
+    }, {
+
+        _poster: undefined,
+        _source: undefined,
+
+        _started: function() {
+            this._poster = this.dyn.get("playerattrs").poster;
+            this._source = this.dyn.get("playerattrs").source;
+            this._skipinitial = this.dyn.get("playerattrs").skipinitial;
+
+            var source = this.dyn._videoFile || this.dyn.recorder.localPlaybackSource();
+            var blob = this.dyn._videoFile || this.dyn.recorder.localPlaybackSource().src;
+            var video = document.createElement("video");
+
+            video.src = URL.createObjectURL(blob);
+            video.type = blob.type;
+
+            var events = this.auto_destroy(new Events());
+
+            events.on(video, "loadedmetadata", function() {
+                video.currentTime = 0;
+            });
+
+            events.on(video, "seeked", function() {
+                this.startFrameSelection({
+                    poster: RecorderSupport.createSnapshot(this.dyn.get("snapshottype"), video),
+                    source: source
+                });
+                events.clear();
+                URL.revokeObjectURL(video.src);
+            }, this);
+
+            events.on(video, "error", function() {
+                this.startFrameSelection({
+                    poster: this.dyn.__backgroundSnapshot, // use background snapshot as fallback
+                    source: source
+                });
+                events.clear();
+                URL.revokeObjectURL(video.src);
+            }, this);
+
+            video.load();
         },
 
-        _nextUploading: function(skippedCovershot) {
-            if (skippedCovershot && this.dyn.get("selectfirstcovershotonskip") && this.dyn.snapshots)
-                if (this.dyn.snapshots[0])
-                    this.dyn._uploadCovershot(this.dyn.snapshots[0]);
-            if (this.dyn.get("videometadata").thumbnails.images.length > 3 && this.dyn.get("createthumbnails"))
-                this.next("UploadThumbnails");
-            else
-                this.next("Uploading");
-        }
+        startFrameSelection: function(options) {
+            this.dyn.set("frameselectionmode", true);
+            this.dyn.set("playerattrs.poster", options.poster);
+            this.dyn.set("playerattrs.source", options.source);
+            this.dyn.set("playertopmessage", this.dyn.string("pick-covershot-frame"));
+            this.dyn.set("playerattrs.skipinitial", true);
+            this.dyn.set("player_active", true);
 
+            this.listenOn(this.dyn.scopes.player, "image-selected", function(image) {
+                this.dyn._uploadCovershot(image);
+                this._nextUploading(false);
+            }, this);
+        },
+
+        endFrameSelection: function() {
+            this.dyn.set("frameselectionmode", false);
+            this.dyn.set("playerattrs.poster", this._poster);
+            this.dyn.set("playerattrs.source", this._source);
+            this.dyn.set("playerattrs.skipinitial", this._skipinitial);
+        },
+
+        _end: function() {
+            this.endFrameSelection();
+        }
     });
 });
 

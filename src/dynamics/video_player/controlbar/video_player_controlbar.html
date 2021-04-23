@@ -98,6 +98,15 @@
             </p>
         </div>
 
+        <div tabindex="12" class="{{css}}-rightbutton-container" ba-if="{{frameselectionmode}}">
+        	<div data-selector="select-frame-button"
+                 onmouseout="this.blur()"
+                 ba-click="{{select_frame()}}"
+                 class="{{css}}-rerecord-button">
+                 {{string('select-frame')}}
+        	</div>
+        </div>
+
         <div tabindex="11" data-selector="button-icon-settings"
              ba-hotkey:space^enter="{{toggle_settings_menu()}}" onmouseout="this.blur()"
              class="{{css}}-rightbutton-container {{cssplayer}}-button-{{settingsmenuactive ? 'active' : 'inactive'}}"

@@ -5,6 +5,7 @@
 	height: $controlbar_height;
     opacity: 0.9;
     overflow: hidden;
+    font-family: $font_family;
 
     .#{$csstheme}-rightbutton-container.#{$cssplayer}-airplay-container {
         height: 28px;
@@ -203,4 +204,12 @@
     .#{$csstheme}-time-value, .#{$csstheme}-time-container {
         width: $time_value_width / 2;
     }
+}
+
+.#{$csstheme}-rightbutton-container.#{$csstheme}-select-button-container {
+    width: auto;
+}
+
+.#{$csstheme}-select-button {
+    padding: 0 10px;
 }

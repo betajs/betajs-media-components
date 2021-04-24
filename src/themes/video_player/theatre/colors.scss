@@ -2,7 +2,7 @@
   @if $color != default {
     .#{$cssplayer}-#{$color}-color {
 
-      .#{$csstheme}-title, .#{$csstheme}-button-inner i,
+      .#{$csstheme}-title, .#{$csstheme}-button-inner i, .#{$csstheme}-button-inner.#{$csstheme}-select-button,
       &.#{$csstheme} .#{$cssplayer}-button-inactive i, &.#{$csstheme} .#{$csscommon}-settings-hidden i {
         color: $value;
       }

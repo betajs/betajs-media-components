@@ -1,5 +1,6 @@
 
 .#{$csstheme}-dashboard {
+    font-family: $font_family;
     .#{$cssplayer}-airplay-container {
         box-sizing: content-box;
         padding: 12px 0 0 6px;
@@ -54,7 +55,6 @@
     & > p {
         margin: 0;
         font-size: $controlbar_title_font_size;
-        font-family: $font_family;
     }
 }
 
@@ -92,13 +92,11 @@
     padding-right: 10px;
 }
 
-.#{$cssnoie8} .#{$csstheme}-button-inner {
+.#{$csstheme}-button-inner {
+    @include clickable;
     color: $button_color;
     font-size: $button_fontsize;
-}
-
-.#{$csstheme}-button-inner {
-  @include clickable;
+    border-radius: 3px;
 }
 
 .#{$cssnoie8} .#{$csstheme}-controlbar-footer .#{$csstheme}-button-inner {
@@ -106,8 +104,6 @@
 }
 
 .#{$cssie8} .#{$csstheme}-button-inner {
-    color: $button_color;
-    font-size: $button_fontsize;
     height: auto;
     margin-top: $ie8_margintop + 8;
     margin-left: 3px;
@@ -283,4 +279,10 @@
 
 .ba-settings-overlay-inner {
     bottom: 40px;
+}
+
+.#{$csstheme}-select-button {
+    background-color: white;
+    color: $main_color;
+    padding: 5px;
 }

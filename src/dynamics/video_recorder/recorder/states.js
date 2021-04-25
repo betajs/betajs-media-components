@@ -382,7 +382,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CreateUploadCoversho
                     this.dyn.set("playbacksource", (window.URL || window.webkitURL).createObjectURL(this.dyn._videoFile));
                 else {
                     console.warn('Could not find source file to be able start player');
-                    return this.next("Uploading");
+                    return this.next("Trimming");
                 }
 
                 var _video = document.createElement('video');
@@ -399,7 +399,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CreateUploadCoversho
                     // Have no metadata
                     if (_video.readyState < 1) {
                         console.warn('Could not be able load video metadata');
-                        return this.next("Uploading");
+                        return this.next("Trimming");
                     }
                 }, this, 5000);
 
@@ -413,7 +413,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CreateUploadCoversho
                     _totalDuration = _video.duration;
                     if (_totalDuration === Infinity || !_totalDuration) {
                         console.warn('Could not generate video covershots from uploaded file');
-                        return this.next("Uploading");
+                        return this.next("Trimming");
                     }
                     _seekPeriod = this._calculateSeekPeriod(_totalDuration);
                     if (_video.videoWidth > 0 && _video.videoHeight > 0) {
@@ -441,7 +441,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CreateUploadCoversho
                         });
                     } else {
                         console.warn('Could not find video dimensions information to be able create covershot');
-                        return this.next("Uploading");
+                        return this.next("Trimming");
                     }
                 }, this);
 
@@ -496,7 +496,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CreateUploadCoversho
 
             } catch (exe) {
                 console.warn(exe);
-                this.next("Uploading");
+                this.next("Trimming");
             }
         },
 
@@ -918,6 +918,23 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
     });
 });
 
+Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Trimming", [
+    "module:VideoRecorder.Dynamics.RecorderStates.State"
+], function(State, scoped) {
+    return State.extend({
+        scoped: scoped
+    }, {
+
+        _started: function() {
+            if (!this.dyn.get("allowtrim")) {
+                this.next("Uploading");
+            } else {
+                // TODO
+            }
+        }
+    });
+});
+
 
 Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection", [
     "module:VideoRecorder.Dynamics.RecorderStates.State"
@@ -935,7 +952,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
                 } else if (this.dyn.get("snapshotfromuploader") || (this.dyn.get("snapshotfrommobilecapture") && this.dyn.get("recordviafilecapture"))) {
                     this.next("CreateUploadCovershot");
                 } else {
-                    this._nextUploading(true);
+                    this._next(true);
                 }
             } else if (!this.dyn.snapshots && this.dyn.get("snapshotfromuploader") || (this.dyn.get("snapshotfrommobilecapture") && this.dyn.get("recordviafilecapture"))) {
                 if (this.dyn.get("selectfirstcovershotonskip")) {
@@ -944,7 +961,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
                     this.next("CreateUploadCovershot");
                 }
             } else {
-                this._nextUploading(true);
+                this._next(true);
             }
         },
 
@@ -956,7 +973,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
             this.next("Initial");
         },
 
-        _nextUploading: function(skippedCovershot) {
+        _next: function(skippedCovershot) {
             if (skippedCovershot && this.dyn.get("selectfirstcovershotonskip") && this.dyn.snapshots) {
                 if (this.dyn.snapshots[0]) {
                     this.dyn._uploadCovershot(this.dyn.snapshots[0]);
@@ -965,7 +982,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
             if (this.dyn.get("videometadata").thumbnails.images.length > 3 && this.dyn.get("createthumbnails")) {
                 this.next("UploadThumbnails");
             } else {
-                this.next("Uploading");
+                this.next("Trimming");
             }
         }
 
@@ -998,11 +1015,11 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelectionFr
                 imagegallery.updateContainerSize();
             }
             this.listenOn(this.dyn, "invoke-skip", function() {
-                this._nextUploading(true);
+                this._next(true);
             }, this);
             this.listenOn(this.dyn, "select-image", function(image) {
                 this.dyn._uploadCovershot(image);
-                this._nextUploading(false);
+                this._next(false);
             }, this);
         },
 
@@ -1012,7 +1029,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelectionFr
                 if (file.files[0])
                     file = file.files[0];
             this.dyn._uploadCovershotFile(file);
-            this._nextUploading(false);
+            this._next(false);
         }
     });
 });
@@ -1078,7 +1095,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelectionFr
 
             this.listenOn(this.dyn.scopes.player, "image-selected", function(image) {
                 this.dyn._uploadCovershot(image);
-                this._nextUploading(false);
+                this._next(false);
             }, this);
         },
 
@@ -1123,11 +1140,11 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.UploadThumbnails", [
                     this.dyn._uploadThumbnailTracks(new Blob(this._vttDescripitions, {
                         type: "text/vtt"
                     }));
-                    this.next("Uploading");
+                    this.next("Trimming");
                 }, this)
                 .error(function(err) {
                     console.warn(err);
-                    this.next("Uploading");
+                    this.next("Trimming");
                 }, this);
         },
 

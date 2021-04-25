@@ -3,7 +3,7 @@
     position: absolute;
     margin-left: $imagegallery_buttonmargin;
     margin-right: $imagegallery_buttonmargin;
-    top: 50%;    
+    top: 50%;
     left: 0;
     width: $imagegallery_buttonsize;
     height: $imagegallery_buttonsize;
@@ -14,7 +14,7 @@
     position: absolute;
     margin-left: $imagegallery_buttonmargin;
     margin-right: $imagegallery_buttonmargin;
-    top: 50%;    
+    top: 50%;
     right: 0;
     width: $imagegallery_buttonsize;
     height: $imagegallery_buttonsize;
@@ -52,6 +52,6 @@
 .#{$css}-imagegallery-button-inner {
     @include relative-center-center;
     @include clickable;
-    color: $text_color;
-    font-size: $button_fontsize;        
+    color: #cccccc;
+    font-size: $button_fontsize;
 }

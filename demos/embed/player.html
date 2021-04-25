@@ -60,8 +60,9 @@
 <body style="background: #EEE">
     <div class="row">
         <div class="col-xs-6" style="float: left">
-<!--        <div class="col-xs-12" style="height: 500px">-->
-            <div id="player"></div>
+<!--            <div class="col-xs-12" style="width: 300px">-->
+                <div id="player"></div>
+<!--            </div>-->
         </div>
 <!--        <div class="col-xs-6">-->
 <!--            <video id="videoBlob" ></video>-->
@@ -108,10 +109,10 @@
                 // width: '440px',
                 // width: '80%',
                 // stretch: true,
+                // skipinitial: true,
                 // stretchheight: true,
                 // stretchwidth: true,
                 // popup: true,
-                // skipinitial: true,
                 // preload: false,
                 // fitonwidth: true,
                 // fitonheight: true,
@@ -131,6 +132,8 @@
                 poster: '/static/demos/assets/sample-cover.png',
                 // source: '/static/demos/assets/portrait.mp4',
                 // poster: '/static/demos/assets/portrait-poster.png',
+                // poster: '/static/demos/assets/portrait-poster-270x480.jpeg',
+                // source: '/static/demos/assets/huge_video.mp4',
                 // sources: [
                 //     {
                 //         // src:'/static/demos/assets/portrait.mp4'
@@ -188,9 +191,10 @@
             // console.log("Tags >  ", player.get("tracktags"));
             // console.log('00 >> ', playerInstance, player.player._element)
             let toggleButton = document.getElementById('toggleTracks');
-            toggleButton.onclick = function() {
-                player.toggle_tracks();
-            };
+            if (toggleButton)
+                toggleButton.onclick = function() {
+                    player.toggle_tracks();
+                };
 
             playerInstance.on("fullscreen-change", function (isFullscreen) {
                 // console.log('is Full', isFullscreen);

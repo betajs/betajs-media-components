@@ -114,9 +114,16 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
 
                     if (!_ratio && typeof this.parent().recorder._recorder !== "undefined") {
                         if (typeof this.parent().recorder._recorder._videoTrackSettings !== "undefined") {
-                            _ratio = this.parent().recorder._recorder._videoTrackSettings.aspectRatio;
+                            var _videoSettings = this.parent().recorder._recorder._videoTrackSettings;
+                            if (typeof _videoSettings.aspectRatio !== "undefined") {
+                                _ratio = _videoSettings.aspectRatio;
+                            } else {
+                                if (typeof _videoSettings.width !== "undefined" && typeof _videoSettings.height !== "undefined")
+                                    _ratio = Math.round(_videoSettings.width / _videoSettings.height * 100) / 100;
+                            }
                         }
                     }
+
                     if (_ratio) {
                         _maxHeight = Math.floor(this.get("imagewidth") / _ratio);
                         if (this.get("containerheight") < _maxHeight && _maxHeight > 0.00) {

@@ -212,5 +212,7 @@
   ba-videorecorder.browser-permission-denied: 'Permission denied by browser, please grant access and reload page'
   ba-audioplayer.all-settings: All settings
   ba-videoplayer-controlbar.remaining-time: Remaining time
+  ba-videoplayer-controlbar.select-frame: Select
   ba-videorecorder-imagegallery.upload-covershot: Upload Cover
+  ba-videorecorder.pick-covershot-frame: Select a frame to use as covershot.
   ba-videorecorder.screen-recorder-is-not-supported: Screen recorder is not supported on this device

@@ -1,10 +1,9 @@
 /*!
-betajs-media-components - v0.0.258 - 2021-04-06
+betajs-media-components - v0.0.259 - 2021-04-24
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
-.ba-player-red-color .ba-player-cube-theme-dashboard, .ba-player-red-color .ba-player-cube-theme-title, .ba-player-red-color .ba-player-cube-theme-button-inner,
-.ba-player-red-color .ba-player-cube-theme-button-inner > i {
+.ba-player-red-color .ba-player-cube-theme-dashboard, .ba-player-red-color .ba-player-cube-theme-title, .ba-player-red-color .ba-player-cube-theme-button-inner > i {
   color: #eb6a74;
 }
 .ba-player-red-color .ba-player-button-active .ba-player-cube-theme-button-inner > i {
@@ -17,7 +16,7 @@ Apache-2.0 Software License.
   color: #eb6a74;
 }
 .ba-player-red-color .ba-player-cube-theme-volumebar-position, .ba-player-red-color .ba-player-cube-theme-stream-label,
-.ba-player-red-color .ba-player-cube-theme-progressbar-position,
+.ba-player-red-color .ba-player-cube-theme-progressbar-position, .ba-player-red-color .ba-player-cube-theme-select-button,
 .ba-player-red-color .ba-player-cube-theme-rerecord-button, .ba-player-red-color .ba-player-button-active, .ba-player-red-color .ba-player-cube-theme-playbutton-duration {
   background-color: #eb6a74;
 }
@@ -29,8 +28,7 @@ Apache-2.0 Software License.
   background-color: rgba(255, 255, 255, 0.3);
 }
 
-.ba-player-blue-color .ba-player-cube-theme-dashboard, .ba-player-blue-color .ba-player-cube-theme-title, .ba-player-blue-color .ba-player-cube-theme-button-inner,
-.ba-player-blue-color .ba-player-cube-theme-button-inner > i {
+.ba-player-blue-color .ba-player-cube-theme-dashboard, .ba-player-blue-color .ba-player-cube-theme-title, .ba-player-blue-color .ba-player-cube-theme-button-inner > i {
   color: #2a74eb;
 }
 .ba-player-blue-color .ba-player-button-active .ba-player-cube-theme-button-inner > i {
@@ -43,7 +41,7 @@ Apache-2.0 Software License.
   color: #2a74eb;
 }
 .ba-player-blue-color .ba-player-cube-theme-volumebar-position, .ba-player-blue-color .ba-player-cube-theme-stream-label,
-.ba-player-blue-color .ba-player-cube-theme-progressbar-position,
+.ba-player-blue-color .ba-player-cube-theme-progressbar-position, .ba-player-blue-color .ba-player-cube-theme-select-button,
 .ba-player-blue-color .ba-player-cube-theme-rerecord-button, .ba-player-blue-color .ba-player-button-active, .ba-player-blue-color .ba-player-cube-theme-playbutton-duration {
   background-color: #2a74eb;
 }
@@ -55,8 +53,7 @@ Apache-2.0 Software License.
   background-color: rgba(255, 255, 255, 0.3);
 }
 
-.ba-player-green-color .ba-player-cube-theme-dashboard, .ba-player-green-color .ba-player-cube-theme-title, .ba-player-green-color .ba-player-cube-theme-button-inner,
-.ba-player-green-color .ba-player-cube-theme-button-inner > i {
+.ba-player-green-color .ba-player-cube-theme-dashboard, .ba-player-green-color .ba-player-cube-theme-title, .ba-player-green-color .ba-player-cube-theme-button-inner > i {
   color: #5daa96;
 }
 .ba-player-green-color .ba-player-button-active .ba-player-cube-theme-button-inner > i {
@@ -69,7 +66,7 @@ Apache-2.0 Software License.
   color: #5daa96;
 }
 .ba-player-green-color .ba-player-cube-theme-volumebar-position, .ba-player-green-color .ba-player-cube-theme-stream-label,
-.ba-player-green-color .ba-player-cube-theme-progressbar-position,
+.ba-player-green-color .ba-player-cube-theme-progressbar-position, .ba-player-green-color .ba-player-cube-theme-select-button,
 .ba-player-green-color .ba-player-cube-theme-rerecord-button, .ba-player-green-color .ba-player-button-active, .ba-player-green-color .ba-player-cube-theme-playbutton-duration {
   background-color: #5daa96;
 }
@@ -315,6 +312,11 @@ Apache-2.0 Software License.
   box-sizing: border-box;
   padding: 11px 6px 0 5px;
   width: 32px;
+}
+
+.ba-player-cube-theme-select-button {
+  color: #eeeeee;
+  background-color: #979797;
 }
 
 .ba-player-size-small .ba-player-cube-theme-button-container {

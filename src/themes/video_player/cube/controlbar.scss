@@ -189,6 +189,11 @@
     width: 32px;
 }
 
+.#{$csstheme}-select-button {
+  color: $button_color;
+  background-color: $button_color_secondary;
+}
+
 .#{$cssplayer}-size-small {
   .#{$csstheme}-button-container {
     width: $button-width_mobile;

@@ -1,12 +1,13 @@
 /*!
-betajs-media-components - v0.0.258 - 2021-04-06
+betajs-media-components - v0.0.259 - 2021-04-24
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
-.ba-player-red-color .ba-player-space-theme-title > p, .ba-player-red-color.ba-videoplayer-noie8 .ba-player-space-theme-button-inner, .ba-player-red-color.ba-videoplayer-ie8 .ba-player-space-theme-button-inner {
+.ba-player-red-color .ba-player-space-theme-title > p,
+.ba-player-red-color .ba-player-space-theme-button-inner {
   color: #eb6a74;
 }
-.ba-player-red-color.ba-videoplayer-noie8 .ba-player-space-theme-stream-label-container, .ba-player-red-color.ba-videoplayer-ie8 .ba-player-space-theme-stream-label-container, .ba-player-red-color .ba-player-button-active {
+.ba-player-red-color.ba-videoplayer-noie8 .ba-player-space-theme-stream-label-container, .ba-player-red-color .ba-player-space-theme-select-button, .ba-player-red-color.ba-videoplayer-ie8 .ba-player-space-theme-stream-label-container, .ba-player-red-color .ba-player-button-active {
   color: #eeeeee;
   background-color: #eb6a74;
 }
@@ -30,10 +31,11 @@ Apache-2.0 Software License.
   background-color: rgba(255, 255, 255, 0.3);
 }
 
-.ba-player-blue-color .ba-player-space-theme-title > p, .ba-player-blue-color.ba-videoplayer-noie8 .ba-player-space-theme-button-inner, .ba-player-blue-color.ba-videoplayer-ie8 .ba-player-space-theme-button-inner {
+.ba-player-blue-color .ba-player-space-theme-title > p,
+.ba-player-blue-color .ba-player-space-theme-button-inner {
   color: #2a74eb;
 }
-.ba-player-blue-color.ba-videoplayer-noie8 .ba-player-space-theme-stream-label-container, .ba-player-blue-color.ba-videoplayer-ie8 .ba-player-space-theme-stream-label-container, .ba-player-blue-color .ba-player-button-active {
+.ba-player-blue-color.ba-videoplayer-noie8 .ba-player-space-theme-stream-label-container, .ba-player-blue-color .ba-player-space-theme-select-button, .ba-player-blue-color.ba-videoplayer-ie8 .ba-player-space-theme-stream-label-container, .ba-player-blue-color .ba-player-button-active {
   color: #eeeeee;
   background-color: #2a74eb;
 }
@@ -57,10 +59,11 @@ Apache-2.0 Software License.
   background-color: rgba(255, 255, 255, 0.3);
 }
 
-.ba-player-green-color .ba-player-space-theme-title > p, .ba-player-green-color.ba-videoplayer-noie8 .ba-player-space-theme-button-inner, .ba-player-green-color.ba-videoplayer-ie8 .ba-player-space-theme-button-inner {
+.ba-player-green-color .ba-player-space-theme-title > p,
+.ba-player-green-color .ba-player-space-theme-button-inner {
   color: #5daa96;
 }
-.ba-player-green-color.ba-videoplayer-noie8 .ba-player-space-theme-stream-label-container, .ba-player-green-color.ba-videoplayer-ie8 .ba-player-space-theme-stream-label-container, .ba-player-green-color .ba-player-button-active {
+.ba-player-green-color.ba-videoplayer-noie8 .ba-player-space-theme-stream-label-container, .ba-player-green-color .ba-player-space-theme-select-button, .ba-player-green-color.ba-videoplayer-ie8 .ba-player-space-theme-stream-label-container, .ba-player-green-color .ba-player-button-active {
   color: #eeeeee;
   background-color: #5daa96;
 }
@@ -84,6 +87,9 @@ Apache-2.0 Software License.
   background-color: rgba(255, 255, 255, 0.3);
 }
 
+.ba-player-space-theme-dashboard {
+  font-family: sans-serif;
+}
 .ba-player-space-theme-dashboard .ba-player-airplay-container {
   box-sizing: content-box;
   padding: 12px 0 0 6px;
@@ -152,7 +158,6 @@ Apache-2.0 Software License.
 .ba-player-space-theme-title > p {
   margin: 0;
   font-size: 12px;
-  font-family: sans-serif;
 }
 
 .ba-videoplayer-noie8 .ba-player-space-theme-title-container .ba-player-space-theme-button-inner {
@@ -199,13 +204,11 @@ Apache-2.0 Software License.
   padding-right: 10px;
 }
 
-.ba-videoplayer-noie8 .ba-player-space-theme-button-inner {
-  color: #eeeeee;
-  font-size: 13px;
-}
-
 .ba-player-space-theme-button-inner {
   cursor: pointer;
+  color: #eeeeee;
+  font-size: 13px;
+  border-radius: 3px;
 }
 
 .ba-videoplayer-noie8 .ba-player-space-theme-controlbar-footer .ba-player-space-theme-button-inner {
@@ -220,8 +223,6 @@ Apache-2.0 Software License.
 }
 
 .ba-videoplayer-ie8 .ba-player-space-theme-button-inner {
-  color: #eeeeee;
-  font-size: 13px;
   height: auto;
   margin-top: 14px;
   margin-left: 3px;
@@ -447,6 +448,12 @@ Apache-2.0 Software License.
 
 .ba-settings-overlay-inner {
   bottom: 40px;
+}
+
+.ba-player-space-theme-select-button {
+  background-color: white;
+  color: #000000;
+  padding: 5px;
 }
 
 /* Full screen options */

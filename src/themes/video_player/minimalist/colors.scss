@@ -2,7 +2,7 @@
   @if $color != default {
     .#{$cssplayer}-#{$color}-color {
 
-      .#{$csstheme}-title p, .#{$csstheme}-button-inner,
+      .#{$csstheme}-title p,
       .#{$csstheme}-controlbar-top-block .#{$csstheme}-button-container .#{$csstheme}-button-inner {
         color: $value;
       }
@@ -22,7 +22,7 @@
         &.#{$csscommon}-settings-visible .#{$csscommon}-icon-cog {
           color: $value;
         }
-        &.#{$cssplayer}-button-inactive, &.#{$csscommon}-settings-hidden {
+        &.#{$cssplayer}-button-inactive, &.#{$csscommon}-settings-hidden, .#{$csstheme}-select-button {
           background-color: $value;
         }
 

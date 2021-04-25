@@ -1,10 +1,10 @@
 /*!
-betajs-media-components - v0.0.258 - 2021-04-06
+betajs-media-components - v0.0.259 - 2021-04-24
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
 .ba-player-red-color .ba-player-elevate-theme-dashboard .ba-player-button-inactive .ba-commoncss-icon-subtitle,
-.ba-player-red-color .ba-player-elevate-theme-button-inner i {
+.ba-player-red-color .ba-player-elevate-theme-button-inner i, .ba-player-red-color .ba-player-elevate-theme-button-inner.ba-player-elevate-theme-select-button {
   color: #eb6a74;
 }
 .ba-player-red-color .ba-player-elevate-theme-dashboard .ba-player-button-active .ba-commoncss-icon-subtitle {
@@ -26,7 +26,7 @@ Apache-2.0 Software License.
 }
 
 .ba-player-blue-color .ba-player-elevate-theme-dashboard .ba-player-button-inactive .ba-commoncss-icon-subtitle,
-.ba-player-blue-color .ba-player-elevate-theme-button-inner i {
+.ba-player-blue-color .ba-player-elevate-theme-button-inner i, .ba-player-blue-color .ba-player-elevate-theme-button-inner.ba-player-elevate-theme-select-button {
   color: #2a74eb;
 }
 .ba-player-blue-color .ba-player-elevate-theme-dashboard .ba-player-button-active .ba-commoncss-icon-subtitle {
@@ -48,7 +48,7 @@ Apache-2.0 Software License.
 }
 
 .ba-player-green-color .ba-player-elevate-theme-dashboard .ba-player-button-inactive .ba-commoncss-icon-subtitle,
-.ba-player-green-color .ba-player-elevate-theme-button-inner i {
+.ba-player-green-color .ba-player-elevate-theme-button-inner i, .ba-player-green-color .ba-player-elevate-theme-button-inner.ba-player-elevate-theme-select-button {
   color: #5daa96;
 }
 .ba-player-green-color .ba-player-elevate-theme-dashboard .ba-player-button-active .ba-commoncss-icon-subtitle {
@@ -70,6 +70,9 @@ Apache-2.0 Software License.
 }
 
 /* Elevate */
+.ba-player-elevate-theme {
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+}
 .ba-player-elevate-theme .ba-commoncss-icon-play, .ba-player-elevate-theme .ba-commoncss-icon-pause {
   color: #000000;
 }
@@ -218,7 +221,6 @@ Apache-2.0 Software License.
   position: relative;
   top: 10px;
   text-align: center;
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 11px;
   box-sizing: content-box;
   border: none;
@@ -437,6 +439,14 @@ Apache-2.0 Software License.
   cursor: pointer;
   padding-top: 7px;
   width: 32px;
+}
+
+.ba-player-elevate-theme-select-button {
+  padding: 0 10px;
+}
+
+.ba-player-elevate-theme-select-button-container {
+  width: auto;
 }
 
 /* Full screen options */

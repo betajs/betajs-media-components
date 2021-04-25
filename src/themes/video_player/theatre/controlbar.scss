@@ -2,6 +2,8 @@
 
 .#{$csstheme} {
 
+    font-family: $font_family;
+
     .#{$csscommon}-icon-play, .#{$csscommon}-icon-pause {
         color: $button_color;
     }
@@ -143,7 +145,7 @@
 }
 
 .#{$cssnoie8} .#{$csstheme}-button-inner {
-    color: $button_color;
+    color: $button_color_secondary;
     font-size: $button_fontsize;
 }
 
@@ -274,7 +276,6 @@
 }
 
 .#{$csstheme}-button-text {
-    font-family: $font_family;
     font-weight: normal;
     font-size: 10px;
 }

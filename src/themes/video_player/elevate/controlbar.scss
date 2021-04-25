@@ -2,6 +2,8 @@
 
 .#{$csstheme} {
 
+    font-family: $text_fontfamily;
+
     .#{$csscommon}-icon-play, .#{$csscommon}-icon-pause {
         color: $button_color;
     }
@@ -169,7 +171,6 @@
     position: relative;
     top: $progressbar_height + 2;
     text-align: center;
-    font-family: $text_fontfamily;
     font-size: $text_fontsize;
     box-sizing: content-box;
     border: none;
@@ -343,3 +344,10 @@
     width: 32px;
 }
 
+.#{$csstheme}-select-button {
+    padding: 0 10px;
+}
+
+.#{$csstheme}-select-button-container {
+    width: auto;
+}

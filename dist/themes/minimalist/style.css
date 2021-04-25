@@ -1,9 +1,9 @@
 /*!
-betajs-media-components - v0.0.258 - 2021-04-06
+betajs-media-components - v0.0.259 - 2021-04-24
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
-.ba-player-red-color .ba-player-minimalist-theme-title p, .ba-player-red-color .ba-player-minimalist-theme-button-inner,
+.ba-player-red-color .ba-player-minimalist-theme-title p,
 .ba-player-red-color .ba-player-minimalist-theme-controlbar-top-block .ba-player-minimalist-theme-button-container .ba-player-minimalist-theme-button-inner {
   color: #eb6a74;
 }
@@ -16,7 +16,7 @@ Apache-2.0 Software License.
 .ba-player-red-color .ba-player-minimalist-theme-right-button-container.ba-player-button-active .ba-commoncss-icon-subtitle, .ba-player-red-color .ba-player-minimalist-theme-right-button-container.ba-commoncss-settings-visible .ba-commoncss-icon-cog {
   color: #eb6a74;
 }
-.ba-player-red-color .ba-player-minimalist-theme-right-button-container.ba-player-button-inactive, .ba-player-red-color .ba-player-minimalist-theme-right-button-container.ba-commoncss-settings-hidden {
+.ba-player-red-color .ba-player-minimalist-theme-right-button-container.ba-player-button-inactive, .ba-player-red-color .ba-player-minimalist-theme-right-button-container.ba-commoncss-settings-hidden, .ba-player-red-color .ba-player-minimalist-theme-right-button-container .ba-player-minimalist-theme-select-button {
   background-color: #eb6a74;
 }
 .ba-player-red-color .ba-player-minimalist-theme-right-button-container.ba-player-button-inactive .ba-commoncss-icon-subtitle {
@@ -27,7 +27,7 @@ Apache-2.0 Software License.
   background-color: #eb6a74;
 }
 
-.ba-player-blue-color .ba-player-minimalist-theme-title p, .ba-player-blue-color .ba-player-minimalist-theme-button-inner,
+.ba-player-blue-color .ba-player-minimalist-theme-title p,
 .ba-player-blue-color .ba-player-minimalist-theme-controlbar-top-block .ba-player-minimalist-theme-button-container .ba-player-minimalist-theme-button-inner {
   color: #2a74eb;
 }
@@ -40,7 +40,7 @@ Apache-2.0 Software License.
 .ba-player-blue-color .ba-player-minimalist-theme-right-button-container.ba-player-button-active .ba-commoncss-icon-subtitle, .ba-player-blue-color .ba-player-minimalist-theme-right-button-container.ba-commoncss-settings-visible .ba-commoncss-icon-cog {
   color: #2a74eb;
 }
-.ba-player-blue-color .ba-player-minimalist-theme-right-button-container.ba-player-button-inactive, .ba-player-blue-color .ba-player-minimalist-theme-right-button-container.ba-commoncss-settings-hidden {
+.ba-player-blue-color .ba-player-minimalist-theme-right-button-container.ba-player-button-inactive, .ba-player-blue-color .ba-player-minimalist-theme-right-button-container.ba-commoncss-settings-hidden, .ba-player-blue-color .ba-player-minimalist-theme-right-button-container .ba-player-minimalist-theme-select-button {
   background-color: #2a74eb;
 }
 .ba-player-blue-color .ba-player-minimalist-theme-right-button-container.ba-player-button-inactive .ba-commoncss-icon-subtitle {
@@ -51,7 +51,7 @@ Apache-2.0 Software License.
   background-color: #2a74eb;
 }
 
-.ba-player-green-color .ba-player-minimalist-theme-title p, .ba-player-green-color .ba-player-minimalist-theme-button-inner,
+.ba-player-green-color .ba-player-minimalist-theme-title p,
 .ba-player-green-color .ba-player-minimalist-theme-controlbar-top-block .ba-player-minimalist-theme-button-container .ba-player-minimalist-theme-button-inner {
   color: #5daa96;
 }
@@ -64,7 +64,7 @@ Apache-2.0 Software License.
 .ba-player-green-color .ba-player-minimalist-theme-right-button-container.ba-player-button-active .ba-commoncss-icon-subtitle, .ba-player-green-color .ba-player-minimalist-theme-right-button-container.ba-commoncss-settings-visible .ba-commoncss-icon-cog {
   color: #5daa96;
 }
-.ba-player-green-color .ba-player-minimalist-theme-right-button-container.ba-player-button-inactive, .ba-player-green-color .ba-player-minimalist-theme-right-button-container.ba-commoncss-settings-hidden {
+.ba-player-green-color .ba-player-minimalist-theme-right-button-container.ba-player-button-inactive, .ba-player-green-color .ba-player-minimalist-theme-right-button-container.ba-commoncss-settings-hidden, .ba-player-green-color .ba-player-minimalist-theme-right-button-container .ba-player-minimalist-theme-select-button {
   background-color: #5daa96;
 }
 .ba-player-green-color .ba-player-minimalist-theme-right-button-container.ba-player-button-inactive .ba-commoncss-icon-subtitle {
@@ -75,6 +75,9 @@ Apache-2.0 Software License.
   background-color: #5daa96;
 }
 
+.ba-player-minimalist-theme {
+  font-family: sans-serif;
+}
 .ba-player-minimalist-theme .ba-settings-overlay-inner {
   right: 4%;
 }
@@ -324,7 +327,7 @@ Apache-2.0 Software License.
   height: 4px;
 }
 
-.ba-player-minimalist-theme-progressbar.ba-player-disabled .ba-player-minimalist-theme-progressbar-cache, .ba-player-minimalist-theme-progressbar.ba-player-disabled .ba-player-minimalist-theme-progressbar-inner, .ba-player-minimalist-theme-progressbar.ba-player-disabled .ba-player-minimalist-theme-progressbar-position {
+.ba-player-minimalist-theme-progressbar.ba-player-disabled.ba-player-minimalist-theme-progressbar-cache, .ba-player-minimalist-theme-progressbar.ba-player-disabled.ba-player-minimalist-theme-progressbar-inner, .ba-player-minimalist-theme-progressbar.ba-player-disabled.ba-player-minimalist-theme-progressbar-position {
   cursor: not-allowed;
 }
 
@@ -506,6 +509,18 @@ Apache-2.0 Software License.
 .ba-player-minimalist-theme-right-button-container.ba-commoncss-settings-hidden, .ba-player-minimalist-theme-right-button-container.ba-player-button-inactive {
   background-color: #979797;
   opacity: 0.75;
+}
+
+.ba-player-minimalist-theme-select-button-container {
+  width: auto;
+}
+
+.ba-player-minimalist-theme-select-button-container > .ba-player-minimalist-theme-select-button {
+  height: auto;
+  transform: none;
+  padding: 3px;
+  line-height: normal;
+  background-color: #979797;
 }
 
 /* Full screen options */

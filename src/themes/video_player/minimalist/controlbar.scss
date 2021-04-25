@@ -1,6 +1,8 @@
 
 .#{$csstheme} {
 
+    font-family: $font_family;
+    
     .ba-settings-overlay-inner {
         right: $controlbar_side_padding;
     }
@@ -45,62 +47,62 @@
 
 /* Control Bar Header*/
 .#{$csstheme}-controlbar-header {
-  @include background-rgba( 0,0,0, 0.3, #ddd );
-  height: $controlbar_header_height;
-  left: 0;
-  letter-spacing: .05rem;
-  line-height: $topmessage_height / 2;
-  padding: 0;
-  position: absolute;
-  text-align: left;
-  width: 100%;
-  .#{$csstheme}-right-block {
-    line-height: $topmessage_height - 10px;
+    @include background-rgba( 0,0,0, 0.3, #ddd );
+    height: $controlbar_header_height;
+    left: 0;
+    letter-spacing: .05rem;
+    line-height: $topmessage_height / 2;
+    padding: 0;
     position: absolute;
-    right: $controlbar_side_padding;
-    z-index: 100;
-  }
+    text-align: left;
+    width: 100%;
+    .#{$csstheme}-right-block {
+        line-height: $topmessage_height - 10px;
+        position: absolute;
+        right: $controlbar_side_padding;
+        z-index: 100;
+    }
 }
 
 .#{$cssie8} .#{$csstheme}-controlbar-header {
-  display: none;
+    display: none;
 }
 
 .#{$csstheme}-controlbar-header-title-block {
-  position: relative;
-  width: 100%;
-  z-index: 10;
+    position: relative;
+    width: 100%;
+    z-index: 10;
 }
 
 .#{$cssie8} .#{$csstheme}-controlbar-header .#{$csstheme}-right-block {
-  position: relative;
+    position: relative;
 }
 
 .#{$cssie8} .#{$csstheme}-controlbar-header-title-block {
-  left: 50px;
+    left: 50px;
 }
 
 .#{$csstheme}-title {
-  p {
-    color: $text_color;
-    font-family: $font_family;
-    font-size: $controlbar_video_title_font_size;
-    font-weight: 300;
-    letter-spacing: .1em;
-    line-height: $topmessage_height - 10;
-    margin: 0;
-    padding: 0 0 0 $controlbar_side_padding;
-    text-align: left;
-  }
+    p {
+        color: $text_color;
+        font-family: $font_family;
+        font-size: $controlbar_video_title_font_size;
+        font-weight: 300;
+        letter-spacing: .1em;
+        line-height: $topmessage_height - 10;
+        margin: 0;
+        padding: 0 0 0 $controlbar_side_padding;
+        text-align: left;
+    }
 }
 
 .#{$cssnoie8} .#{$csstheme}-controlbar-header .#{$csstheme}-button-inner {
-  text-align: right;
-  @include transform-translate-y(0);
+    text-align: right;
+    @include transform-translate-y(0);
 }
 
 .#{$cssnoie8} .#{$csstheme}-topmessage-container .#{$csstheme}-rightbutton-container {
-  width: 25px; padding-top: 5px;
+    width: 25px; padding-top: 5px;
 }
 
 .#{$csstheme}-controlbar-header .#{$csstheme}-button-container {
@@ -109,8 +111,8 @@
 
 /* Control Bar Footer*/
 .#{$csstheme}-controlbar-footer {
-  position:relative;
-  height: 100%;
+    position:relative;
+    height: 100%;
 }
 
 .#{$csstheme}-controlbar-top-block {
@@ -136,36 +138,36 @@
 }
 
 .#{$cssnoie8} {
-  .#{$css}-overlay {
-    .#{$csstheme}-controlbar-top-block {
-      .#{$csstheme}-button-inner {
-        @include transition1(opacity, 0.3s, ease);
-        opacity: 0;
-      }
+    .#{$css}-overlay {
+        .#{$csstheme}-controlbar-top-block {
+            .#{$csstheme}-button-inner {
+                @include transition1(opacity, 0.3s, ease);
+                opacity: 0;
+            }
+        }
+        &:hover .#{$csstheme}-controlbar-top-block {
+            .#{$csstheme}-button-inner {
+                @include transition1(opacity, 0.2s, ease);
+                opacity: .6;
+            }
+        }
     }
-    &:hover .#{$csstheme}-controlbar-top-block {
-      .#{$csstheme}-button-inner {
-        @include transition1(opacity, 0.2s, ease);
-        opacity: .6;
-      }
-    }
-  }
 }
 
 .#{$cssie8} {
-  .#{$css}-overlay {
-    height: 100%;
-    .#{$csstheme}-controlbar-top-block {
-      .#{$csstheme}-button-inner {
-        @include transparent(0);
-      }
+    .#{$css}-overlay {
+        height: 100%;
+        .#{$csstheme}-controlbar-top-block {
+            .#{$csstheme}-button-inner {
+                @include transparent(0);
+            }
+        }
+        &:hover .#{$csstheme}-controlbar-top-block {
+            .#{$csstheme}-button-inner {
+                @include transparent(.6);
+            }
+        }
     }
-    &:hover .#{$csstheme}-controlbar-top-block {
-      .#{$csstheme}-button-inner {
-        @include transparent(.6);
-      }
-    }
-  }
 }
 
 .#{$csstheme}-button-inner { @include clickable; z-index: 100; position: relative; }
@@ -216,7 +218,7 @@
 }
 
 .#{$csstheme}-progressbar.#{$cssplayer}-disabled {
-  & .#{$csstheme}-progressbar-cache, & .#{$csstheme}-progressbar-inner, & .#{$csstheme}-progressbar-position {cursor: not-allowed}
+    &.#{$csstheme}-progressbar-cache, &.#{$csstheme}-progressbar-inner, &.#{$csstheme}-progressbar-position {cursor: not-allowed}
 }
 
 .#{$csstheme}-progressbar-position {
@@ -268,7 +270,7 @@
         }
     }
     & > div:first-child{
-      //opacity: 1;
+        //opacity: 1;
     }
     & > p {
         float: left;
@@ -295,68 +297,68 @@
 }
 
 .#{$csstheme}-volumebar {
-  float: right;
-  height: $controlbar_header_height;
-  margin-left: 10px;
-  position: relative;
-  width: $volume_width;
-  z-index: 10;
+    float: right;
+    height: $controlbar_header_height;
+    margin-left: 10px;
+    position: relative;
+    width: $volume_width;
+    z-index: 10;
 }
 
 .#{$csstheme}-volumebar-inner {
-  @include relative-center-center;
-  @include border-round-edges($volume_height / 2);
-  @include clickable;
-  background-color: $volumebar_inner_color;
-  height: $volume_height;
+    @include relative-center-center;
+    @include border-round-edges($volume_height / 2);
+    @include clickable;
+    background-color: $volumebar_inner_color;
+    height: $volume_height;
 }
 
 .#{$csstheme}-volumebar-position {
-  @include border-round-edges($volume_height / 2);
-  @include absolute-align-left();
-  background-color: $volumebar_position_bg;
-  height: 100%;
+    @include border-round-edges($volume_height / 2);
+    @include absolute-align-left();
+    background-color: $volumebar_position_bg;
+    height: 100%;
 }
 
 .#{$cssplayer}-size-medium {
-
-  .#{$csstheme}-controlbar-top-block {
-    .#{$csstheme}-button-container {
-      .#{$csstheme}-button-inner {
-        font-size: $controlbar_playbutton_font_size - .5;
-      }
+    
+    .#{$csstheme}-controlbar-top-block {
+        .#{$csstheme}-button-container {
+            .#{$csstheme}-button-inner {
+                font-size: $controlbar_playbutton_font_size - .5;
+            }
+        }
     }
-  }
 }
 
 .#{$cssplayer}-size-small {
-  .#{$csstheme}-volumebar {
-    display: none;
-  }
-
-  .#{$csstheme}-controlbar-header {
-    top: 7px;
-  }
-
-  .#{$csstheme}-controlbar-top-block {
-    .#{$csstheme}-button-container {
-      .#{$csstheme}-button-inner {
-        font-size: $controlbar_playbutton_font_size - .7;
-      }
+    .#{$csstheme}-volumebar {
+        display: none;
     }
-  }
-
-  .#{$csstheme}-controlbar-middle-block {
-    bottom: 40px;
-  }
-
-  .#{$csstheme}-controlbar-bottom-block {
-    bottom: 38px;
-  }
-
-  .#{$csstheme}-time-container{
-    font-size: .7em;
-  }
+    
+    .#{$csstheme}-controlbar-header {
+        top: 7px;
+    }
+    
+    .#{$csstheme}-controlbar-top-block {
+        .#{$csstheme}-button-container {
+            .#{$csstheme}-button-inner {
+                font-size: $controlbar_playbutton_font_size - .7;
+            }
+        }
+    }
+    
+    .#{$csstheme}-controlbar-middle-block {
+        bottom: 40px;
+    }
+    
+    .#{$csstheme}-controlbar-bottom-block {
+        bottom: 38px;
+    }
+    
+    .#{$csstheme}-time-container{
+        font-size: .7em;
+    }
 }
 
 .#{$csstheme}-cast-button-container button {
@@ -399,4 +401,16 @@
         background-color: $cc_label_bg_color;
         opacity: 0.75;
     }
+}
+
+.#{$csstheme}-select-button-container {
+    width: auto;
+}
+
+.#{$csstheme}-select-button-container > .#{$csstheme}-select-button {
+    height: auto;
+    transform: none;
+    padding: 3px;
+    line-height: normal;
+    background-color: $secondary_color;
 }

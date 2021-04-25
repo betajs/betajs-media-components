@@ -2,8 +2,7 @@
   @if $color != default {
     .#{$cssplayer}-#{$color}-color {
 
-      .#{$csstheme}-dashboard, .#{$csstheme}-title, .#{$csstheme}-button-inner,
-      .#{$csstheme}-button-inner > i {
+      .#{$csstheme}-dashboard, .#{$csstheme}-title, .#{$csstheme}-button-inner > i {
         color: $value;
       }
 
@@ -22,7 +21,7 @@
       }
 
       .#{$csstheme}-volumebar-position, .#{$csstheme}-stream-label,
-      .#{$csstheme}-progressbar-position,
+      .#{$csstheme}-progressbar-position, .#{$csstheme}-select-button,
       .#{$csstheme}-rerecord-button, .#{$cssplayer}-button-active, .#{$csstheme}-playbutton-duration {
         background-color: $value;
       }

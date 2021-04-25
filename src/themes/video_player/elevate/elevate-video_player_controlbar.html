@@ -200,6 +200,15 @@
                 </div>
             </div>
 
+            <div tabindex="11" class="{{csstheme}}-select-button-container {{csstheme}}-button-container" ba-if="{{frameselectionmode}}">
+                <div data-selector="select-frame-button"
+                     onmouseout="this.blur()"
+                     ba-click="{{select_frame()}}"
+                     class="{{csstheme}}-select-button {{csstheme}}-button-inner">
+                     {{string('select-frame')}}
+                </div>
+            </div>
+
         </div>
 
     </div>

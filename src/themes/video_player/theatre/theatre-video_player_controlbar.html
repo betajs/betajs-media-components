@@ -93,7 +93,7 @@
 
     <div class="{{csstheme}}-right-block">
 
-        <div tabindex="9" data-selector="button-icon-settings"
+        <div tabindex="10" data-selector="button-icon-settings"
              ba-hotkey:space^enter="{{toggle_settings_menu()}}" onmouseout="this.blur()"
              class="{{csstheme}}-rightbutton-container {{csstheme}}-settings-button-container {{cssplayer}}-button-{{settingsmenuactive ? 'active' : 'inactive'}}"
              ba-if="{{settingsmenubutton}}" ba-click="{{toggle_settings_menu()}}"
@@ -105,7 +105,7 @@
             </div>
         </div>
 
-        <div tabindex="8" data-selector="cc-button-container"
+        <div tabindex="9" data-selector="cc-button-container"
              ba-hotkey:space^enter="{{toggle_tracks()}}" onmouseout="this.blur()"
              ba-if="{{(tracktags.length > 0 && showsubtitlebutton) || allowtexttrackupload}}"
              class="{{csstheme}}-rightbutton-container {{csstheme}}-cc-button-container {{cssplayer}}-button-{{tracktextvisible ? 'active' : 'inactive'}}"
@@ -119,7 +119,7 @@
             </div>
         </div>
 
-        <div tabindex="7" data-selector="button-icon-resize-full"
+        <div tabindex="8" data-selector="button-icon-resize-full"
              ba-hotkey:space^enter="{{toggle_fullscreen()}}" onmouseout="this.blur()"
              onkeydown="{{tab_index_move(domEvent)}}"
              class="{{csstheme}}-button-container {{csstheme}}-fullscreen-icon-container"
@@ -127,6 +127,15 @@
         >
             <div class="{{csstheme}}-button-inner {{csstheme}}-full-screen-btn-inner">
                 <i class="{{csscommon}}-icon-resize-{{fullscreened ? 'small' : 'full'}}"></i>
+            </div>
+        </div>
+
+        <div tabindex="7" class="{{csstheme}}-button-container" ba-if="{{frameselectionmode}}">
+            <div data-selector="select-frame-button"
+                 onmouseout="this.blur()"
+                 ba-click="{{select_frame()}}"
+                 class="{{csstheme}}-select-button {{csstheme}}-button-inner">
+                 {{string('select-frame')}}
             </div>
         </div>
 

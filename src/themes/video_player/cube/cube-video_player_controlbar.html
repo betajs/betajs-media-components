@@ -163,6 +163,15 @@
                 <i class="{{csscommon}}-icon-cog"></i>
             </div>
         </div>
+
+        <div tabindex="11" class="{{csstheme}}-button-container" ba-if="{{frameselectionmode}}">
+            <div data-selector="select-frame-button"
+                 onmouseout="this.blur()"
+                 ba-click="{{select_frame()}}"
+                 class="{{csstheme}}-button-inner {{csstheme}}-select-button">
+                 {{string('select-frame')}}
+            </div>
+        </div>
     </div>
 
     <div class="{{csstheme}}-progressbar {{disableseeking ? cssplayer + '-disabled' : ''}}">

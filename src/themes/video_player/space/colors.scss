@@ -3,12 +3,11 @@
     .#{$cssplayer}-#{$color}-color {
 
       .#{$csstheme}-title > p,
-      &.#{$cssnoie8} .#{$csstheme}-button-inner,
-      &.#{$cssie8} .#{$csstheme}-button-inner {
+      .#{$csstheme}-button-inner {
         color: $value;
       }
 
-      &.#{$cssnoie8} .#{$csstheme}-stream-label-container,
+      &.#{$cssnoie8} .#{$csstheme}-stream-label-container, .#{$csstheme}-select-button,
       &.#{$cssie8} .#{$csstheme}-stream-label-container, .#{$cssplayer}-button-active {
         color: $button_color;
         background-color: $value;

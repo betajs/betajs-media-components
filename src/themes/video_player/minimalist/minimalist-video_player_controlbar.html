@@ -166,7 +166,7 @@
                 <button class="{{csstheme}}-gcast-button" is="google-cast-button"></button>
             </div>
 
-            <div tabindex="9" data-selector="button-icon-settings"
+            <div tabindex="10" data-selector="button-icon-settings"
                  ba-hotkey:space^enter="{{toggle_settings_menu()}}" onmouseout="this.blur()"
                  class="{{csstheme}}-right-button-container {{cssplayer}}-settings-{{settingsmenuactive ? 'visible' : 'hidden'}}"
                  ba-if="{{settingsmenubutton}}" ba-click="{{toggle_settings_menu()}}"
@@ -175,6 +175,15 @@
             >
                 <div class="{{csstheme}}-settings-button">
                     <i class="{{csscommon}}-icon-cog"></i>
+                </div>
+            </div>
+
+            <div tabindex="9" class="{{csstheme}}-select-button-container {{csstheme}}-right-button-container" ba-if="{{frameselectionmode}}">
+                <div data-selector="select-frame-button"
+                     onmouseout="this.blur()"
+                     ba-click="{{select_frame()}}"
+                     class="{{csstheme}}-select-button {{csstheme}}-button-inner">
+                     {{string('select-frame')}}
                 </div>
             </div>
 

@@ -1035,62 +1035,33 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelectionFr
 });
 
 Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelectionFromPlayer", [
-    "module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
-    "media:Recorder.Support",
-    "browser:Events"
-], function(CovershotSelectionState, RecorderSupport, Events, scoped) {
+    "module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection"
+], function(CovershotSelectionState, scoped) {
     return CovershotSelectionState.extend({
         scoped: scoped
     }, {
 
-        _poster: undefined,
-        _source: undefined,
-
         _started: function() {
-            this._poster = this.dyn.get("playerattrs").poster;
-            this._source = this.dyn.get("playerattrs").source;
-            this._skipinitial = this.dyn.get("playerattrs").skipinitial;
-
-            var source = this.dyn._videoFile || this.dyn.recorder.localPlaybackSource();
-            var blob = this.dyn._videoFile || this.dyn.recorder.localPlaybackSource().src;
-            var video = document.createElement("video");
-
-            video.src = URL.createObjectURL(blob);
-            video.type = blob.type;
-
-            var events = this.auto_destroy(new Events());
-
-            events.on(video, "loadedmetadata", function() {
-                video.currentTime = 0;
-            });
-
-            events.on(video, "seeked", function() {
-                this.startFrameSelection({
-                    poster: RecorderSupport.createSnapshot(this.dyn.get("snapshottype"), video),
-                    source: source
-                });
-                events.clear();
-                URL.revokeObjectURL(video.src);
-            }, this);
-
-            events.on(video, "error", function() {
-                this.startFrameSelection({
-                    poster: this.dyn.__backgroundSnapshot, // use background snapshot as fallback
-                    source: source
-                });
-                events.clear();
-                URL.revokeObjectURL(video.src);
-            }, this);
-
-            video.load();
+            this.dyn._getFirstFrameSnapshot()
+                .success(function(snapshot) {
+                    this.startFrameSelection(snapshot);
+                }, this)
+                .error(function() {
+                    this.startFrameSelection(this.dyn.__backgroundSnapshot);
+                }, this);
         },
 
-        startFrameSelection: function(options) {
+        startFrameSelection: function(poster) {
+            this._playerattrs = this.dyn.get("playerattrs");
+
+            this.dyn.set("playerattrs", {
+                poster: poster,
+                source: this.dyn._videoFile || this.dyn.recorder.localPlaybackSource(),
+                skipinitial: true
+            });
+
             this.dyn.set("frameselectionmode", true);
-            this.dyn.set("playerattrs.poster", options.poster);
-            this.dyn.set("playerattrs.source", options.source);
             this.dyn.set("playertopmessage", this.dyn.string("pick-covershot-frame"));
-            this.dyn.set("playerattrs.skipinitial", true);
             this.dyn.set("player_active", true);
 
             this.listenOn(this.dyn.scopes.player, "image-selected", function(image) {
@@ -1101,9 +1072,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelectionFr
 
         endFrameSelection: function() {
             this.dyn.set("frameselectionmode", false);
-            this.dyn.set("playerattrs.poster", this._poster);
-            this.dyn.set("playerattrs.source", this._source);
-            this.dyn.set("playerattrs.skipinitial", this._skipinitial);
+            this.dyn.set("playerattrs", this._playerattrs);
         },
 
         _end: function() {

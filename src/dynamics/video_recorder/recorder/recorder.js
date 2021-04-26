@@ -764,6 +764,29 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     delete this.__backgroundSnapshot;
                 },
 
+                _getFirstFrameSnapshot: function() {
+                    if (this.__firstFrameSnapshot)
+                        return Promise.value(this.__firstFrameSnapshot);
+
+                    if (!(this._videoFile || (this.recorder && this.recorder.localPlaybackSource().src)))
+                        return Promise.error("No source to get the snapshot from");
+
+                    var promise = Promise.create();
+                    var blob = this._videoFile || this.recorder.localPlaybackSource().src;
+                    RecorderSupport.createSnapshotFromSource(URL.createObjectURL(blob), this.get("snapshottype"), 0)
+                        .success(function(snapshot) {
+                            this.__firstFrameSnapshot = snapshot;
+                            promise.asyncSuccess(snapshot);
+                            URL.revokeObjectURL(blob);
+                        }, this)
+                        .error(function(error) {
+                            promise.asyncError(error);
+                            URL.revokeObjectURL(blob);
+                        }, this);
+
+                    return promise;
+                },
+
                 toggleFaceOutline: function(new_status) {
                     if (typeof new_status === 'undefined') {
                         this.set("faceoutline", !this.get("faceoutline"));

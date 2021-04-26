@@ -135,6 +135,7 @@
     @include clickable;
     background-color: $controls_bgcolor;
     height: $volume_height;
+    overflow: hidden;
 }
 
 .#{$csstheme}-progressbar.#{$cssplayer}-disabled {

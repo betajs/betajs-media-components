@@ -168,7 +168,7 @@
 			 ba-hotkey:right="{{seek(position + skipseconds)}}"
 			 ba-hotkey:left="{{seek(position - skipseconds)}}"
 			 onmouseout="this.blur()"
-			 class="{{csstheme}}-progressbar-inner {{position > 5.0 ? csstheme + '-progressbar-later-position' : ''}}"
+			 class="{{csstheme}}-progressbar-inner"
 			 ontouchstart="{{startUpdatePosition(domEvent)}}"
 			 ontouchmove="{{progressUpdatePosition(domEvent)}}"
 			 ontouchend="{{stopUpdatePosition(domEvent); this.blur()}}"

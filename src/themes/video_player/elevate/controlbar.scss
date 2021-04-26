@@ -230,8 +230,9 @@
 }
 
 .#{$csstheme}-progressbar-position {
-    @include absolute-align-left();
     background-color: $progressbar_button_overflow;
+    left: -15px;
+    position: absolute;
     height: 100%;
 }
 

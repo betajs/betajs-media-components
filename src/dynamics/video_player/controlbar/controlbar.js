@@ -88,23 +88,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         var offset = Dom.elementOffset(target);
                         var dimensions = Dom.elementDimensions(target);
                         // centerMousePosition is progressbar dot cemtered position
-                        var centerMousePosition;
-                        switch (_dyn.get("theme")) {
-                            case "cube":
-                            case "space":
-                            case "theatre":
-                                centerMousePosition = -9;
-                                break;
-                            case "minimalist":
-                                centerMousePosition = -11;
-                                break;
-                            case "elevate":
-                                centerMousePosition = -14;
-                                break;
-                            default:
-                                centerMousePosition = -7;
-                        }
-                        var percentageFromStart = (clientX - offset.left + centerMousePosition) / (dimensions.width || 1);
+                        var percentageFromStart = (clientX - offset.left) / (dimensions.width || 1);
                         var onDuration = this.get("duration") * percentageFromStart;
 
                         if (!this.get("_updatePosition") && typeof _dyn.__trackTags === 'undefined')

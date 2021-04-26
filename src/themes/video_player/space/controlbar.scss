@@ -196,8 +196,9 @@
 
 .#{$csstheme}-progressbar-position {
     @include border-round-edges($volume_height / 2);
-    @include absolute-align-left();
     background-color: $progressbar_button_overflow;
+    position: absolute;
+    left: -9px;
     height: 5px;
     top: -1px;
 }

@@ -70,6 +70,7 @@
 
 .#{$css}-progressbar-small .#{$css}-progressbar-position {
     height: $progressbar_height_small;
+    left: -7px;
 }
 
 .#{$css}-progressbar-cache {

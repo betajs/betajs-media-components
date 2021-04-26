@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.260 - 2021-04-25
+betajs-media-components - v0.0.261 - 2021-04-26
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.260 - 2021-04-25
+betajs-media-components - v0.0.261 - 2021-04-26
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.260",
-    "datetime": 1619383273316
+    "version": "0.0.261",
+    "datetime": 1619467239836
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -4950,23 +4950,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         var offset = Dom.elementOffset(target);
                         var dimensions = Dom.elementDimensions(target);
                         // centerMousePosition is progressbar dot cemtered position
-                        var centerMousePosition;
-                        switch (_dyn.get("theme")) {
-                            case "cube":
-                            case "space":
-                            case "theatre":
-                                centerMousePosition = -9;
-                                break;
-                            case "minimalist":
-                                centerMousePosition = -11;
-                                break;
-                            case "elevate":
-                                centerMousePosition = -14;
-                                break;
-                            default:
-                                centerMousePosition = -7;
-                        }
-                        var percentageFromStart = (clientX - offset.left + centerMousePosition) / (dimensions.width || 1);
+                        var percentageFromStart = (clientX - offset.left) / (dimensions.width || 1);
                         var onDuration = this.get("duration") * percentageFromStart;
 
                         if (!this.get("_updatePosition") && typeof _dyn.__trackTags === 'undefined')

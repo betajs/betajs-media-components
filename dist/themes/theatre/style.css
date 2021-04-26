@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.260 - 2021-04-25
+betajs-media-components - v0.0.261 - 2021-04-26
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -339,6 +339,7 @@ Apache-2.0 Software License.
   cursor: pointer;
   height: 10px;
   background-color: #cccccc;
+  overflow: hidden;
 }
 
 .ba-videoplayer-noie8 .ba-player-theatre-theme-progressbar-inner {
@@ -373,9 +374,9 @@ Apache-2.0 Software License.
 }
 
 .ba-player-theatre-theme-progressbar-position {
-  position: absolute;
-  left: 0;
   background-color: #000000;
+  position: absolute;
+  left: -9px;
   height: 100%;
 }
 

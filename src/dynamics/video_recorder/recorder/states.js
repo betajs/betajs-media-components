@@ -104,6 +104,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Initial", [
             this.dyn._videoFileName = null;
             this.dyn._videoFile = null;
             this.dyn._videoFilePlaybackable = false;
+            this.dyn.__firstFrameSnapshot = null;
             this.dyn._initializeUploader();
             if (!this.dyn.get("recordermode")) {
                 if (!this.dyn.get("video")) {

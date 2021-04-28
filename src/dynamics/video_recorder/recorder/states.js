@@ -929,8 +929,36 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Trimming", [
             if (!this.dyn.get("allowtrim")) {
                 this.next("Uploading");
             } else {
-                // TODO
+                this.dyn._getFirstFrameSnapshot()
+                    .success(function(snapshot) {
+                        this.startTrimming(snapshot);
+                    }, this)
+                    .error(function() {
+                        this.startTrimming(this.dyn.__backgroundSnapshot);
+                    }, this);
             }
+        },
+
+        startTrimming: function(poster) {
+            this._playerAttrs = this.dyn.get("playerattrs");
+
+            this.dyn.set("playerattrs", {
+                poster: poster,
+                source: this.dyn._videoFile || this.dyn.recorder.localPlaybackSource(),
+                skipinitial: true
+            });
+            this.dyn.set("trimmingmode", true);
+            this.dyn.set("playertopmessage", this.dyn.string("trim-video"));
+            this.dyn.set("player_active", true);
+        },
+
+        endTrimming: function() {
+            this.dyn.set("trimmingmode", false);
+            this.dyn.set("playerattrs", this._playerAttrs);
+        },
+
+        _end: function() {
+            this.endTrimming();
         }
     });
 });

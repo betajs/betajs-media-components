@@ -1347,6 +1347,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
             "missing-track": "Required audio or video track is missing",
             "device-already-in-use": "At least one of your input devices are already in use",
             "browser-permission-denied": "Permission denied by browser, please grant access and reload page",
-            "screen-recorder-is-not-supported": "Screen recorder is not supported on this device"
+            "screen-recorder-is-not-supported": "Screen recorder is not supported on this device",
+            "trim-video": "Do you want to trim your video?"
         });
 });

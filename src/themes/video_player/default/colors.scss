@@ -7,7 +7,8 @@
       }
 
       .#{$csstheme}-volumebar-position, .#{$csstheme}-progressbar-position,
-      .#{$csstheme}-rerecord-button, .#{$csstheme}-playbutton-duration {
+      .#{$csstheme}-rerecord-button, .#{$csstheme}-playbutton-duration,
+      .#{$csstheme}-primary-button {
         background-color: $value;
       }
 

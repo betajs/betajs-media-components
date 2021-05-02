@@ -138,6 +138,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "tracktextvisible": false,
                     "airplay": false,
                     "chromecast": false,
+                    "chromecastreceiverappid": null, // Could be published custom App ID https://cast.google.com/publish/#/overview
                     "skipseconds": 5,
                     "tracktags": [],
                     "tracktagsstyled": true,
@@ -260,6 +261,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "airplay": "boolean",
                     "airplaybuttonvisible": "boolean",
                     "chromecast": "boolean",
+                    "chromecastreceiverappid": "string",
                     "skipseconds": "integer",
                     "streams": "jsonarray",
                     "sources": "jsonarray",
@@ -678,7 +680,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 commonOptions: {
                                     title: this.get("title"),
                                     poster: this.player._element.poster,
-                                    currentPosition: this.get("position")
+                                    currentPosition: this.get("position"),
+                                    chromecastReceiverAppId: this.get("chromecastreceiverappid")
                                 },
                                 castOptions: {
                                     canControlVolume: true,

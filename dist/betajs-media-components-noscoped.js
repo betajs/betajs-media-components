@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.261 - 2021-04-26
+betajs-media-components - v0.0.261 - 2021-05-04
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -15,7 +15,7 @@ Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
     "version": "0.0.261",
-    "datetime": 1619467239836
+    "datetime": 1620187121495
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -4515,6 +4515,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "tracktextvisible": false,
                     "airplay": false,
                     "chromecast": false,
+                    "chromecastreceiverappid": null, // Could be published custom App ID https://cast.google.com/publish/#/overview
                     "skipseconds": 5,
                     "tracktags": [],
                     "tracktagsstyled": true,
@@ -4637,6 +4638,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "airplay": "boolean",
                     "airplaybuttonvisible": "boolean",
                     "chromecast": "boolean",
+                    "chromecastreceiverappid": "string",
                     "skipseconds": "integer",
                     "streams": "jsonarray",
                     "sources": "jsonarray",
@@ -5055,7 +5057,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 commonOptions: {
                                     title: this.get("title"),
                                     poster: this.player._element.poster,
-                                    currentPosition: this.get("position")
+                                    currentPosition: this.get("position"),
+                                    chromecastReceiverAppId: this.get("chromecastreceiverappid")
                                 },
                                 castOptions: {
                                     canControlVolume: true,

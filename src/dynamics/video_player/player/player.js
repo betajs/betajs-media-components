@@ -57,8 +57,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "height": "",
                     "popup-width": "",
                     "popup-height": "",
-                    //                    "fallback-width": 320,
-                    //                    "fallback-height": 240,
+                    "fallback-width": 320,
+                    "fallback-height": 240,
                     /* Themes */
                     "theme": "",
                     "csstheme": "",
@@ -304,10 +304,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         var heightMod = "height";
                         var width = this.get("width");
                         var height = this.get("height");
-                        this.persistentTrigger("dimensions-detected", width, height);
-                        if (!width && !height && !this.get("videoelement_active") && !this.get("imageelement_active") && this.get("fallback-width") && this.get("fallback-height")) {
-                            width = this.get("fallback-width");
-                            height = this.get("fallback-height");
+                        if ((!width || !height) && !this.get("videoelement_active") && !this.get("imageelement_active") && this.get("fallback-width") && this.get("fallback-height")) {
+                            if (!width)
+                                width = this.get("fallback-width");
+                            if (!height)
+                                height = this.get("fallback-height");
                             widthMod = "min-width";
                             heightMod = "min-height";
                         }

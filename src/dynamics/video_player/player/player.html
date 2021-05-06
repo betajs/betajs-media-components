@@ -13,10 +13,10 @@
     <meta itemprop="name" content="{{title || 'Video Player'}}" />
     <meta itemprop="description" content="{{description || 'Video Player'}}" />
     <meta itemprop="uploadDate" content="{{uploaddate}}" />
-    <div ba-show="{{videoelement_active}}">
+    <div ba-show="{{videoelement_active || (!imageelement_active && !videoelement_active)}}">
         <video tabindex="-1" class="{{css}}-video" data-video="video"
                preload="{{preload ? 'auto' : 'metadata'}}"
-               ba-styles="{{containerElementWidthHeightStyles}}"
+               ba-styles="{{widthHeightStyles}}"
                ba-toggle:playsinline="{{!playfullscreenonmobile}}"
         ></video>
     </div>
@@ -131,9 +131,9 @@
             ba-template="{{tmplplaybutton}}"
             ba-show="{{playbutton_active}}"
             ba-rerecordable="{{rerecordable}}"
-			ba-submittable="{{submittable}}"
-			ba-showduration="{{showduration}}"
-			ba-duration="{{duration}}"
+            ba-submittable="{{submittable}}"
+            ba-showduration="{{showduration}}"
+			      ba-duration="{{duration}}"
             ba-event:play="playbutton_click"
             ba-event:rerecord="rerecord"
             ba-event:submit="submit"

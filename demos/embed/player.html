@@ -104,7 +104,7 @@
         var player = new BetaJS.MediaComponents.VideoPlayer.Dynamics.Player({
             element: $('#player'),
             attrs: {
-                // height: 260,
+                height: 260,
                 width: 400,
                 // width: '440px',
                 // width: '80%',
@@ -128,29 +128,29 @@
                 showsettingsmenu: false,
                 // autoplay:true,
                 showchaptertext: true,
-                source: '/static/demos/sample-video.mp4',
-                poster: '/static/demos/assets/sample-cover.png',
-                // source: '/static/demos/assets/portrait.mp4',
+                // source: '/static/demos/sample-video.mp4',
+                // poster: '/static/demos/assets/sample-cover.png',
+                source: '/static/demos/assets/portrait.mp4',
                 // poster: '/static/demos/assets/portrait-poster.png',
-                // poster: '/static/demos/assets/portrait-poster-270x480.jpeg',
+                poster: '/static/demos/assets/portrait-poster-270x480.jpeg',
                 // source: '/static/demos/assets/huge_video.mp4',
-                // sources: [
-                //     {
-                //         // src:'/static/demos/assets/portrait.mp4'
-                //         src:'/static/demos/sample-video.mp4'
-                //         // , poster: '/static/demos/assets/portrait-poster.png'
-                //         , hd: true
-                //         // , poster: '/static/demos/sample-cover.png'
-                //     },
-                //     {
-                //         // src:'/static/demos/assets/portrait.mp4'
-                //         // , poster:'/static/demos/assets/portrait-poster.png', hd: false
-                //         src:'/static/demos/sample-video2.mp4'
-                //         // , hd: false
-                //         , poster: '/static/demos/sample-cover.png'
-                //     }
-                // ],
-                // streams: [{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }],
+                sources: [
+                    {
+                        // src:'/static/demos/assets/portrait.mp4'
+                        src:'/static/demos/sample-video.mp4'
+                        // , poster: '/static/demos/assets/portrait-poster.png'
+                        , hd: true
+                        // , poster: '/static/demos/sample-cover.png'
+                    },
+                    {
+                        // src:'/static/demos/assets/portrait.mp4'
+                        // , poster:'/static/demos/assets/portrait-poster.png', hd: false
+                        src:'/static/demos/sample-video2.mp4'
+                        // , hd: false
+                        , poster: '/static/demos/sample-cover.png'
+                    }
+                ],
+                streams: [{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }],
                 hideoninactivity: false,
                 // tracktagsstyled: false,
                 loop: true,

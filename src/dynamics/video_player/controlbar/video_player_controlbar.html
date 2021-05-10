@@ -99,12 +99,21 @@
         </div>
 
         <div tabindex="12" class="{{css}}-rightbutton-container" ba-if="{{frameselectionmode}}">
-        	<div data-selector="select-frame-button"
+            <div data-selector="select-frame-button"
                  onmouseout="this.blur()"
                  ba-click="{{select_frame()}}"
                  class="{{css}}-primary-button">
                  {{string('select-frame')}}
-        	</div>
+            </div>
+        </div>
+
+        <div tabindex="12" class="{{css}}-rightbutton-container" ba-if="{{trimmingmode}}">
+            <div data-selector="trim-video-button"
+                 onmouseout="this.blur()"
+                 ba-click="{{trim()}}"
+                 class="{{css}}-primary-button">
+                 {{string('trim-video')}}
+            </div>
         </div>
 
         <div tabindex="11" data-selector="button-icon-settings"

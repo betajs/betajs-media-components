@@ -390,6 +390,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
             "airplay": "Airplay",
             "airplay-icon": "Airplay icon.",
             "remaining-time": "Remaining time",
-            "select-frame": "Select"
+            "select-frame": "Select",
+            "trim-video": "Trim"
         });
 });

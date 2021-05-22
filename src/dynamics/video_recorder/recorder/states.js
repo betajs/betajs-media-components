@@ -928,8 +928,14 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
 
         _started: function() {
             if ((this.dyn.get("picksnapshots") || this.dyn.get("custom-covershots")) && !this.dyn.get("onlyaudio")) {
-                if (this.dyn.get("pickcovershotframe") && ((this.dyn.recorder && this.dyn.recorder.supportsLocalPlayback()) || (this.dyn._videoFile && this.dyn._videoFilePlaybackable))) {
-                    this.next("CovershotSelectionFromPlayer");
+                if (this.dyn.get("pickcovershotframe")) {
+                    if (this.dyn.recorder && this.dyn.recorder.supportsLocalPlayback()) {
+                        this.next("CovershotSelectionFromPlayer");
+                    } else if (this.dyn.get("snapshotfromuploader") && this.dyn._videoFile && this.dyn._videoFilePlaybackable) {
+                        this.next("CovershotSelectionFromPlayer");
+                    } else {
+                        this._nextUploading(true);
+                    }
                 } else if (this.dyn.snapshots && this.dyn.snapshots.length > 0) {
                     this.next("CovershotSelectionFromGallery");
                 } else if (this.dyn.get("snapshotfromuploader") || (this.dyn.get("snapshotfrommobilecapture") && this.dyn.get("recordviafilecapture"))) {

@@ -153,9 +153,9 @@
                 thumbnail: {url:"/files/" + filename + "-thumbnails.jpg"},
                 tracks: {url:"/files/" + filename + ".vtt"}
             });
-            recorder.set("playbacksource", "/files/" + filename + ".mp4");
+            recorder.set("playerattrs.source", "/files/" + filename + ".mp4");
             if (recorder.recorder)
-                recorder.set("playbackposter", "/files/" + filename + ".jpg");
+                recorder.set("playerattrs.poster", "/files/" + filename + ".jpg");
             return BetaJS.Promise.value(true);
         };
 

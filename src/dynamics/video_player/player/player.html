@@ -8,20 +8,20 @@
      ba-on:mousemove="{{user_activity()}}"
      ba-on:mousedown="{{user_activity(true)}}"
      ba-on:touchstart="{{user_activity(true)}}"
-     ba-styles="{{widthHeightStyles}}"
+     ba-styles="{{(width || height) ? widthHeightStyles : containerElementWidthHeightStyles}}"
 >
     <meta itemprop="name" content="{{title || 'Video Player'}}" />
     <meta itemprop="description" content="{{description || 'Video Player'}}" />
     <meta itemprop="uploadDate" content="{{uploaddate}}" />
-    <div ba-show="{{videoelement_active}}">
+    <div ba-show="{{videoelement_active || (!imageelement_active && !videoelement_active)}}">
         <video tabindex="-1" class="{{css}}-video" data-video="video"
                preload="{{preload ? 'auto' : 'metadata'}}"
-               ba-styles="{{containerElementWidthHeightStyles}}"
+               ba-styles="{{widthHeightStyles}}"
                ba-toggle:playsinline="{{!playfullscreenonmobile}}"
         ></video>
     </div>
-    <div ba-show="{{(imageelement_active && !videoelement_active) || (!playing && position < 1 && videoelement_active)}}" class="{{css}}-video-poster{{(!playing && position < 1 && videoelement_active) ? '-active' : ''}}">
-        <img tabindex="-1" data-image="image" alt="{{posteralt}}"/>
+    <div ba-show="{{(imageelement_active && !videoelement_active) || (!playing && position < 0.1 && videoelement_active)}}" class="{{css}}-video-poster{{(!playing && position < 0.1 && videoelement_active) ? '-active' : ''}}">
+        <img tabindex="-1" data-image="image" alt="{{posteralt}}" height="{{height || containeroffsetheight}}" />
     </div>
     <div class="{{css}}-overlay" ba-show="{{!showbuiltincontroller}}">
         <div tabindex="-1" class="{{css}}-player-toggle-overlay" data-selector="player-toggle-overlay"
@@ -92,6 +92,7 @@
             ba-settingsmenubutton="{{showsettingsmenu}}"
             ba-settingsmenuactive="{{settingsmenu_active}}"
             ba-hidevolumebar="{{hidevolumebar}}"
+            ba-manuallypaused="{{manuallypaused}}"
         ></ba-{{dyncontrolbar}}>
 
         <ba-{{dyntracks}}
@@ -131,9 +132,9 @@
             ba-template="{{tmplplaybutton}}"
             ba-show="{{playbutton_active}}"
             ba-rerecordable="{{rerecordable}}"
-			ba-submittable="{{submittable}}"
-			ba-showduration="{{showduration}}"
-			ba-duration="{{duration}}"
+            ba-submittable="{{submittable}}"
+            ba-showduration="{{showduration}}"
+			      ba-duration="{{duration}}"
             ba-event:play="playbutton_click"
             ba-event:rerecord="rerecord"
             ba-event:submit="submit"

@@ -240,6 +240,7 @@
     @include clickable;
     height: $progressbar_height;
     background-color: $progressbar_cache_bgcolor;
+    overflow: hidden;
 }
 
 .#{$cssnoie8} .#{$csstheme}-progressbar-inner {
@@ -266,8 +267,9 @@
 }
 
 .#{$csstheme}-progressbar-position {
-    @include absolute-align-left();
     background-color: $progressbar_button_overflow;
+    position: absolute;
+    left: -9px;
     height: 100%;
 }
 

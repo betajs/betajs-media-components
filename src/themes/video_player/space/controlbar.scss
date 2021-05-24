@@ -188,6 +188,7 @@
     @include clickable;
     background-color: $stream_label_bg_color;
     height: $progressbar_height;
+    overflow: hidden;
 }
 
 .#{$csstheme}-progressbar.#{$cssplayer}-disabled {
@@ -196,8 +197,9 @@
 
 .#{$csstheme}-progressbar-position {
     @include border-round-edges($volume_height / 2);
-    @include absolute-align-left();
     background-color: $progressbar_button_overflow;
+    position: absolute;
+    left: -11px;
     height: 5px;
     top: -1px;
 }

@@ -71,9 +71,10 @@
         </div>
 
         <div>
-            <button style="min-width: 10px; color: #000000; background: #cccccc"
-                    onclick="recorderScreen()"
-            >Record Screen</button>
+            <button
+              style="min-width: 10px; color: #000000; background: #cccccc"
+              onclick="recorderScreen()"
+            > Record Screen </button>
         </div>
         <hr/>
          Logs : >> <div id="recorder-logs"></div>
@@ -86,16 +87,16 @@
         var recorder = new BetaJS.MediaComponents.VideoRecorder.Dynamics.Recorder({
             element: document.getElementById('recorder'),
             attrs: {
-                width: '100%',
-                height: 'auto',
-                localplayback: true,
+                width: '320',
+                // height: '440',
+                // localplayback: true,
                 // picksnapshots: false,
                 // "custom-covershots" : true,
                 // onlyaudio: true,
                 // selectfirstcovershotonskip: true,
 
                 // webrtconmobile: true,
-                theme: "cube",
+                // theme: "cube",
                 // theme: "elevate",
                 // theme: "minimalist",
                 // theme: "modern",
@@ -110,14 +111,14 @@
                 // screenrecordmandatory: true,
                 // showplayersettingsmenu: false,
                 // stretch: true,
-                // snapshotfromuploader: true,
+                snapshotfromuploader: true,
                 // selectfirstcovershotonskip: true,
                 // webrtcstreaming: true,
                 // fittodimensions: true,
                 // width: 690,
                 // heigth: 500,
-                // recordingwidth: 340,
-                // recordingheight: 240,
+                // recordingwidth: 320,
+                // recordingheight: 440,
                 // height: "auto",
                 // cropthestream: false,
                 // initialmessages: [

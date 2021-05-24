@@ -57,8 +57,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "height": "",
                     "popup-width": "",
                     "popup-height": "",
-                    //                    "fallback-width": 320,
-                    //                    "fallback-height": 240,
+                    "fallback-width": 320,
+                    "fallback-height": 240,
                     /* Themes */
                     "theme": "",
                     "csstheme": "",
@@ -138,6 +138,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "tracktextvisible": false,
                     "airplay": false,
                     "chromecast": false,
+                    "chromecastreceiverappid": null, // Could be published custom App ID https://cast.google.com/publish/#/overview
                     "skipseconds": 5,
                     "tracktags": [],
                     "tracktagsstyled": true,
@@ -260,6 +261,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "airplay": "boolean",
                     "airplaybuttonvisible": "boolean",
                     "chromecast": "boolean",
+                    "chromecastreceiverappid": "string",
                     "skipseconds": "integer",
                     "streams": "jsonarray",
                     "sources": "jsonarray",
@@ -302,10 +304,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         var heightMod = "height";
                         var width = this.get("width");
                         var height = this.get("height");
-                        this.persistentTrigger("dimensions-detected", width, height);
-                        if (!width && !height && !this.get("videoelement_active") && !this.get("imageelement_active") && this.get("fallback-width") && this.get("fallback-height")) {
-                            width = this.get("fallback-width");
-                            height = this.get("fallback-height");
+                        if ((!width || !height) && !this.get("videoelement_active") && !this.get("imageelement_active") && this.get("fallback-width") && this.get("fallback-height")) {
+                            if (!width)
+                                width = this.get("fallback-width");
+                            if (!height)
+                                height = this.get("fallback-height");
                             widthMod = "min-width";
                             heightMod = "min-height";
                         }
@@ -678,7 +681,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 commonOptions: {
                                     title: this.get("title"),
                                     poster: this.player._element.poster,
-                                    currentPosition: this.get("position")
+                                    currentPosition: this.get("position"),
+                                    chromecastReceiverAppId: this.get("chromecastreceiverappid")
                                 },
                                 castOptions: {
                                     canControlVolume: true,
@@ -1137,6 +1141,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             return;
                         }
                         this.host.state().play();
+                        this.set("manuallypaused", false);
                     },
 
                     rerecord: function() {
@@ -1178,8 +1183,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.player.pause();
                         }
 
-                        if (this.get("playwhenvisible"))
-                            this.set("manuallypaused", true);
+                        this.set("manuallypaused", true);
                     },
 
                     stop: function() {
@@ -1274,11 +1278,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.set("volumeafterinteraction", false);
 
                             // If user paused the video and don't like player will auto-played
-                            // so, no need to play each time when user see video
-                            if (this.get("playwhenvisible"))
-                                this.set("manuallypaused", true);
-                        } else
+                            // so, no need to play each time when user see video, also works for progress bar click
+                            this.set("manuallypaused", true);
+                        } else {
                             this.play();
+                            this.set("manuallypaused", false);
+                        }
                     },
 
                     tab_index_move: function(ev, nextSelector, focusingSelector) {

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script src="/vendors/jquery.min.js"></script>
+    <script src="/node_modules/betajs-shims/dist/betajs-shims.js"></script>
+    <script src="/node_modules/betajs-scoped/dist/scoped.js"></script>
+    <script src="/node_modules/betajs/dist/beta-noscoped.js"></script>
+    <script src="/node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
+    <script src="/node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+    <script src="/node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
+	<script src="/dist/betajs-media-components-noscoped.js"></script>
+<!--    <script src="/demos/tmp/current.js"></script>-->
+	<link  href="/dist/betajs-media-components.css" rel="stylesheet" />
+    <script src="/dist/themes/modern/script.js"></script>
+    <link  href="/dist/themes/modern/style.css" rel="stylesheet" />
+
+
+    <!-- Cube Theme Assets -->
+    <script src="/dist/themes/cube/script.js"></script>
+    <link href="/dist/themes/cube/style.css" rel="stylesheet" />
+
+    <!-- Elevate Theme Assets -->
+    <script src="/dist/themes/elevate/script.js"></script>
+    <link href="/dist/themes/elevate/style.css" rel="stylesheet" />
+
+    <!-- Minimalist Theme Assets -->
+    <script src="/dist/themes/minimalist/script.js"></script>
+    <link href="/dist/themes/minimalist/style.css" rel="stylesheet" />
+
+    <!-- Minimalist Theme Assets -->
+    <script src="/dist/themes/modern/script.js"></script>
+    <link href="/dist/themes/modern/style.css" rel="stylesheet" />
+
+    <!-- Space Theme Assets -->
+    <script src="/dist/themes/space/script.js"></script>
+    <link href="/dist/themes/space/style.css" rel="stylesheet" />
+
+    <!-- Theatre Theme Assets -->
+    <script src="/dist/themes/theatre/script.js"></script>
+    <link href="/dist/themes/theatre/style.css" rel="stylesheet" />
+
+</head>
+<body style="background: #EEE">
+    <div class="row">
+        <div class="col-xs-12" style="width: 100%">
+<!--        <div class="col-xs-12" style="height: 500px">-->
+            <div id="player"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12" style="width: 100%; padding: 40px">
+            <pre>
+To run cast need setup need gloablly installed packages:
+    <i>npm install -g http-server</i>
+    <i>npm install -g ngrok</i>
+Change to root directory run <i>http-server</i> and based on started port <i>ngrok http PORT_NUMBER</i>
+and browse to <i>https://NGROK_ID.ngrok.io/demos/embed/cast-player.html</i>
+            </pre>
+        </div>
+    </div>
+
+    <script>
+        var player = new BetaJS.MediaComponents.VideoPlayer.Dynamics.Player({
+            element: $('#player'),
+            attrs: {
+                // height: 260,
+                width: 400,
+                // width: '440px',
+                // width: '80%',
+                // stretch: true,
+                // stretchheight: true,
+                // stretchwidth: true,
+                // popup: true,
+                skipinitial: true,
+                // preload: false,
+                // fitonwidth: true,
+                // fitonheight: true,
+                chromecast: true,
+
+                // theme: "cube",
+                // theme: "elevate",
+                // theme: "minimalist",
+                // theme: "modern",
+                // theme: "space",
+                // theme: "theatre",
+                themecolor: "red",
+                fullscreenmandatory: true,
+                showsettingsmenu: false,
+                // autoplay:true,
+                showchaptertext: true,
+                // source: '/demos/sample-video.mp4',
+                // poster: '/demos/assets/sample-cover.png',
+                // source: '/demos/assets/portrait.mp4',
+                // poster: '/demos/assets/portrait-poster.png',
+                sources: [
+                    {
+                        // src:'/demos/assets/portrait.mp4'
+                        src:'/demos/sample-video.mp4'
+                        // , poster: '/demos/assets/portrait-poster.png'
+                        , hd: true
+                        // , poster: '/demos/sample-cover.png'
+                    },
+                    {
+                        // src:'/demos/assets/portrait.mp4'
+                        // , poster:'/demos/assets/portrait-poster.png', hd: false
+                        src:'/demos/sample-video2.mp4'
+                        // , hd: false
+                        , poster: '/demos/sample-cover.png'
+                    }
+                ],
+                // streams: [{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }],
+                hideoninactivity: false,
+                // tracktagsstyled: false,
+                loop: true,
+                tracktags: [
+                    {
+                        lang: 'en',
+                        kind: 'subtitles',
+                        label: 'English',
+                        //enabled: true,
+                        src: '../assets/bunny-en.vtt'
+                    },
+                    {
+                        lang: 'de',
+                        kind: 'subtitles',
+                        label: 'Deutsch',
+                        //enabled: true,
+                        src: '../assets/bunny-de.vtt'
+                    },
+                    {
+                        kind: 'thumbnails',
+                        // src: '/demos/assets/example-3rdp.vtt'
+                        src: '/demos/assets/video-bgbb.vtt'
+                    },
+                    {
+                        kind: 'chapters',
+                        // src: '/demos/assets/example-3rdp.vtt'
+                        src: '/demos/assets/video-bgbb-chapters.vtt'
+                    }
+                ],
+            }
+        });
+
+        player.on("attached", function (playerInstance) {
+        }, player);
+
+        player.on("ready_to_play", (ev) => {
+            // console.log('Portrait after ?? ', player.isPortrait(), player.isLandscape());
+        }, player);
+
+        player.on("ended", function () {
+            // console.log('ENDED');
+        }, player);
+
+        player.activate();
+        // BetaJS.Dynamics.Dynamic.activate();
+
+    </script>
+</body>
+</html>

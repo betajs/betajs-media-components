@@ -2,7 +2,7 @@
 .#{$csstheme} {
 
     font-family: $font_family;
-    
+
     .ba-settings-overlay-inner {
         right: $controlbar_side_padding;
     }
@@ -222,8 +222,9 @@
 }
 
 .#{$csstheme}-progressbar-position {
-    @include absolute-align-left();
     background-color: $progressbar_button_overflow;
+    position: absolute;
+    left: -11px;
     height: 100%;
 }
 
@@ -321,7 +322,7 @@
 }
 
 .#{$cssplayer}-size-medium {
-    
+
     .#{$csstheme}-controlbar-top-block {
         .#{$csstheme}-button-container {
             .#{$csstheme}-button-inner {
@@ -335,11 +336,11 @@
     .#{$csstheme}-volumebar {
         display: none;
     }
-    
+
     .#{$csstheme}-controlbar-header {
         top: 7px;
     }
-    
+
     .#{$csstheme}-controlbar-top-block {
         .#{$csstheme}-button-container {
             .#{$csstheme}-button-inner {
@@ -347,15 +348,15 @@
             }
         }
     }
-    
+
     .#{$csstheme}-controlbar-middle-block {
         bottom: 40px;
     }
-    
+
     .#{$csstheme}-controlbar-bottom-block {
         bottom: 38px;
     }
-    
+
     .#{$csstheme}-time-container{
         font-size: .7em;
     }

@@ -35,6 +35,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     "playing": false,
                     "rerecordable": false,
                     "submittable": false,
+                    "manuallypaused": false,
                     "streams": [],
                     "currentstream": null,
                     "fullscreen": true,
@@ -70,7 +71,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     startUpdatePosition: function(event) {
                         if (this.get("disableseeking")) return;
                         event[0].preventDefault();
-                        if (!this.__parent.get("playing") && this.__parent.player) this.__parent.player.play();
+                        if (!this.__parent.get("playing") && this.__parent.player && !this.get("manuallypaused"))
+                            this.__parent.player.play();
                         this.set("_updatePosition", true);
                         this.call("progressUpdatePosition", event);
                     },
@@ -85,6 +87,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         var target = ev.currentTarget;
                         var offset = Dom.elementOffset(target);
                         var dimensions = Dom.elementDimensions(target);
+                        // centerMousePosition is progressbar dot cemtered position
                         var percentageFromStart = (clientX - offset.left) / (dimensions.width || 1);
                         var onDuration = this.get("duration") * percentageFromStart;
 

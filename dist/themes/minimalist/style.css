@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.259 - 2021-04-24
+betajs-media-components - v0.0.263 - 2021-05-12
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -332,9 +332,9 @@ Apache-2.0 Software License.
 }
 
 .ba-player-minimalist-theme-progressbar-position {
-  position: absolute;
-  left: 0;
   background-color: #979797;
+  position: absolute;
+  left: -11px;
   height: 100%;
 }
 

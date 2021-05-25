@@ -1,6 +1,6 @@
 'language:ro':
   ba-videoplayer-playbutton.tooltip: Click aici pentru a reda video.
-  ba-videoplayer-playbutton.rerecord: Reface
+  ba-videoplayer-playbutton.rerecord: Înregistrează din nou
   ba-videoplayer-playbutton.submit-video: confirmă film
   ba-videoplayer-loader.tooltip: Se încarcă videoclipul ...
   ba-videoplayer-controlbar.change-resolution: Schimbați rezoluția
@@ -8,46 +8,46 @@
   ba-videoplayer-controlbar.rerecord-video: Refaceți video?
   ba-videoplayer-controlbar.submit-video: confirmă film
   ba-videoplayer-controlbar.play-video: Rulează video
-  ba-videoplayer-controlbar.pause-video: video de pauză
+  ba-videoplayer-controlbar.pause-video: Pauză video
   ba-videoplayer-controlbar.elapsed-time: timp scurs
   ba-videoplayer-controlbar.total-time: Lungimea totală a videoclipului
-  ba-videoplayer-controlbar.fullscreen-video: intra pe tot ecranul
-  ba-videoplayer-controlbar.volume-button: set de volum
-  ba-videoplayer-controlbar.volume-mute: sunet mut
+  ba-videoplayer-controlbar.fullscreen-video: Mărește pe tot ecranul
+  ba-videoplayer-controlbar.volume-button: reglajul volumului
+  ba-videoplayer-controlbar.volume-mute: oprește sunet
   ba-videoplayer-controlbar.volume-unmute: repornirea sunetului
   ba-videoplayer.video-error: >-
     A apărut o eroare, vă rugăm să încercați din nou mai târziu. Click aici
     pentru a încerca din nou.
-  ba-videorecorder-chooser.record-video: Înregistrarea imaginilor video dvs.
+  ba-videorecorder-chooser.record-video: Înregistrarea Dvs. video
   ba-videorecorder-chooser.upload-video: Încarcă film
   ba-videorecorder-controlbar.settings: setările
-  ba-videorecorder-controlbar.camerahealthy: De iluminat este bun
-  ba-videorecorder-controlbar.cameraunhealthy: De iluminat nu este optim
+  ba-videorecorder-controlbar.camerahealthy: Lumina este optimă
+  ba-videorecorder-controlbar.cameraunhealthy: Lumina nu este optimă
   ba-videorecorder-controlbar.microphonehealthy: Sunetul este bun
-  ba-videorecorder-controlbar.microphoneunhealthy: Nu se poate ridica nici un sunet
-  ba-videorecorder-controlbar.record: Record
+  ba-videorecorder-controlbar.microphoneunhealthy: Sunetul nu poate fi înregistrat
+  ba-videorecorder-controlbar.record: Înregistrează
   ba-videorecorder-controlbar.record-tooltip: Apasa aici pentru a înregistra.
-  ba-videorecorder-controlbar.rerecord: Reface
+  ba-videorecorder-controlbar.rerecord: Înregistrează din nou
   ba-videorecorder-controlbar.rerecord-tooltip: Apasa aici pentru a reface.
   ba-videorecorder-controlbar.upload-covershot: Încărcați
-  ba-videorecorder-controlbar.upload-covershot-tooltip: Apasa aici pentru a încărca capac personalizat lovitură
+  ba-videorecorder-controlbar.upload-covershot-tooltip: Apasa aici pentru a încărca o copertă personalizată
   ba-videorecorder-controlbar.stop: Stop
   ba-videorecorder-controlbar.stop-tooltip: Apasa aici pentru a opri.
-  ba-videorecorder-controlbar.skip: sări
+  ba-videorecorder-controlbar.skip: sari
   ba-videorecorder-controlbar.skip-tooltip: Apasa aici pentru a sări peste.
   ba-videorecorder.recorder-error: >-
     A apărut o eroare, vă rugăm să încercați din nou mai târziu. Click aici
     pentru a încerca din nou.
   ba-videorecorder.attach-error: >-
-    Nu am putut accesa interfața camerei. În funcție de dispozitiv și
-    browser-ul, poate fi necesar să instalați Flash sau accesa pagina prin SSL.
-  ba-videorecorder.access-forbidden: Accesul la camera a fost interzisă. Click aici pentru a încerca din nou.
-  ba-videorecorder.pick-covershot: Alege un covershot.
+    Nu am putut accesa interfața camerei. În funcție de dispozitiv și de
+    browser-ul folosit, poate fi necesar să instalați Flash sau accesa pagina prin SSL.
+  ba-videorecorder.access-forbidden: Accesul la camera a fost interzis. Click aici pentru a încerca din nou.
+  ba-videorecorder.pick-covershot: Alege o copertă.
   ba-videorecorder.uploading: Se încarcă
-  ba-videorecorder.uploading-failed: Se încarcă nu a reușit - clic aici pentru a încerca din nou.
+  ba-videorecorder.uploading-failed: Încărcarea nu a reușit - clic aici pentru a încerca din nou.
   ba-videorecorder.verifying: Se verifică
-  ba-videorecorder.verifying-failed: Care verifică dacă nu a reușit - clic aici pentru a încerca din nou.
-  ba-videorecorder.rerecord-confirm: Chiar vrei să refaceți videoclipul?
+  ba-videorecorder.verifying-failed: Verificarea nu a reușit - clic aici pentru a încerca din nou.
+  ba-videorecorder.rerecord-confirm: Sunteți sigur că vreți să refaceți videoclipul?
   ba-videorecorder.video_file_too_large: >-
     Fișierul dvs. video este prea mare (%s) - click aici pentru a încerca din
     nou cu un fișier video mai mic.
@@ -61,10 +61,10 @@
   ba-videorecorder-controlbar.cancel: Anulare
   ba-videorecorder-controlbar.cancel-tooltip: Faceți clic aici pentru a anula.
   ba-videorecorder.cancel-confirm: Chiar vrei să anulezi încărcarea videoclipului?
-  ba-videoplayer-adslot.elapsed-time: Elased timp
+  ba-videoplayer-adslot.elapsed-time: Timp scurs
   ba-videoplayer-adslot.volume-button: Setați volumul
   ba-videoplayer-adslot.volume-mute: Opriți sunetul
-  ba-videoplayer-adslot.volume-unmute: Repetați sunetul
+  ba-videoplayer-adslot.volume-unmute: Deblocați sunetul
   ba-videoplayer-adslot.ad-will-end-after: Anunțul se va încheia după %s
   ba-videoplayer-adslot.can-skip-after: Săriți după %d
   ba-videoplayer-adslot.skip-ad: Ștergeți anunțul
@@ -91,11 +91,11 @@
   ba-videorecorder.resolution-constraint-error: >-
     Fișierul pe care l-ați selectat nu corespunde rezoluției cerute - faceți
     clic aici pentru a încerca din nou.
-  ba-videorecorder.orientation-portrait-required: Vă rotește dispozitivul să înregistreze în modul portret.
-  ba-videorecorder.orientation-landscape-required: Roteți dispozitivul să înregistreze în modul peisaj.
-  ba-imageviewer-controlbar.rerecord-image: A reface?
-  ba-imageviewer-controlbar.submit-image: A confirma
-  ba-imageviewer-controlbar.fullscreen-image: Introduceți ecranul complet
+  ba-videorecorder.orientation-portrait-required: Rotește dispozitivul pentru a înregistra în modul portret.
+  ba-videorecorder.orientation-landscape-required: Rotește dispozitivul pentru a înregistra în modul peisaj.
+  ba-imageviewer-controlbar.rerecord-image: Re-inregistreaza?
+  ba-imageviewer-controlbar.submit-image: Confirma
+  ba-imageviewer-controlbar.fullscreen-image: Mărește pe între ecranul
   ba-imageviewer-controlbar.exit-fullscreen-image: Ieșiți de pe ecranul complet
   ba-imageviewer.image-error: >-
     A apărut o eroare, încercați din nou mai târziu. Faceți clic pentru a
@@ -112,16 +112,16 @@
   ba-imagecapture-controlbar.cancel: Anulare
   ba-imagecapture-controlbar.cancel-tooltip: Faceți clic aici pentru a anula.
   ba-audioplayer-controlbar.audio-progress: progres
-  ba-audioplayer-controlbar.rerecord-audio: A reface?
-  ba-audioplayer-controlbar.submit-audio: A confirma
-  ba-audioplayer-controlbar.play-audio: Joaca
+  ba-audioplayer-controlbar.rerecord-audio: Re-inregistreaza?
+  ba-audioplayer-controlbar.submit-audio: Confirma
+  ba-audioplayer-controlbar.play-audio: Rulează
   ba-audioplayer-controlbar.pause-audio: Pauză
   ba-audioplayer-controlbar.pause-audio-disabled: Întreruperea nu este acceptată
-  ba-audioplayer-controlbar.elapsed-time: Elased timp
+  ba-audioplayer-controlbar.elapsed-time: Timp scurs
   ba-audioplayer-controlbar.total-time: Lungimea totală
   ba-audioplayer-controlbar.volume-button: Setați volumul
   ba-audioplayer-controlbar.volume-mute: Opriți sunetul
-  ba-audioplayer-controlbar.volume-unmute: Repetați sunetul
+  ba-audioplayer-controlbar.volume-unmute: Deblocați sunetul
   ba-audioplayer-loader.tooltip: Se incarca...
   ba-audioplayer.audio-error: >-
     A apărut o eroare, încercați din nou mai târziu. Faceți clic pentru a
@@ -130,27 +130,27 @@
   ba-audiorecorder-chooser.upload-audio: Încărcați audio
   ba-audiorecorder-controlbar.settings: Setări
   ba-audiorecorder-controlbar.microphonehealthy: Sunetul este bun
-  ba-audiorecorder-controlbar.microphoneunhealthy: Nu pot lua niciun sunet
-  ba-audiorecorder-controlbar.record: Record
+  ba-audiorecorder-controlbar.microphoneunhealthy: Sunetul nu este bun
+  ba-audiorecorder-controlbar.record: Înregistrează
   ba-audiorecorder-controlbar.record-tooltip: Faceți clic aici pentru a înregistra.
-  ba-audiorecorder-controlbar.rerecord: A reface
+  ba-audiorecorder-controlbar.rerecord: Înregistrează din nou
   ba-audiorecorder-controlbar.rerecord-tooltip: Faceți clic aici pentru a reveni.
   ba-audiorecorder-controlbar.stop: Stop
   ba-audiorecorder-controlbar.stop-tooltip: Faceți clic aici pentru a opri.
   ba-audiorecorder-controlbar.stop-available-after: Durata minimă de înregistrare este %d secunde
   ba-audiorecorder-controlbar.cancel: Anulare
   ba-audiorecorder-controlbar.cancel-tooltip: Faceți clic aici pentru a anula.
-  ba-videoplayer-controlbar.player-speed: Viteza jucătorului
+  ba-videoplayer-controlbar.player-speed: Viteza de rulare
   ba-videoplayer-controlbar.settings: Setări
   ba-videoplayer-controlbar.airplay: AirPlay
-  ba-videoplayer-controlbar.airplay-icon: Air icon.
+  ba-videoplayer-controlbar.airplay-icon: Airplay icon.
   ba-videoplayer.all-settings: Toate setările
-  ba-videoplayer.player-speed: Viteza jucătorului
+  ba-videoplayer.player-speed: Viteza de rulare
   ba-videoplayer.full-screen: Ecran complet
   ba-videorecorder-controlbar.add-stream: Adăugați un flux
   ba-videorecorder.switch-camera: Porniți camera
-  ba-videorecorder.prepare-covershot: Pregătirea focurilor
-  ba-videorecorder.prepare-thumbnails: Pregătirea căutării miniaturilor
+  ba-videorecorder.prepare-covershot: Pregătește coperta
+  ba-videorecorder.prepare-thumbnails: Pregătește miniaturi
   ba-videorecorder.adding-new-stream: Adăugarea fluxului nou
   ba-imagecapture.recorder-error: >-
     A apărut o eroare, încercați din nou mai târziu. Faceți clic pentru a
@@ -169,20 +169,20 @@
   ba-imagecapture.uploading: Se încarcă
   ba-imagecapture.uploading-failed: Încărcarea a eșuat - faceți clic aici pentru a reîncerca.
   ba-imagecapture.upload-error-duration: >-
-    Lungimea imaginii încărcate nu îndeplinește cerințele - faceți clic aici
+    Mărimea imaginii încărcate nu îndeplinește cerințele - faceți clic aici
     pentru a reîncerca.
   ba-imagecapture.resolution-constraint-error: >-
     Fișierul pe care l-ați selectat nu corespunde rezoluției dorite - faceți
     clic aici pentru a încerca din nou.
-  ba-imagecapture.verifying: verificarea
-  ba-imagecapture.verifying-failed: Verificarea eșuată - faceți clic aici pentru a reîncerca.
-  ba-imagecapture.rerecord-confirm: Chiar vrei să-ți recuperezi imaginea?
+  ba-imagecapture.verifying: Verificare
+  ba-imagecapture.verifying-failed: Verificare eșuată - faceți clic aici pentru a reîncerca.
+  ba-imagecapture.rerecord-confirm: Doriți să refaceți imaginea?
   ba-imagecapture.image_file_too_large: >-
     Fișierul imagine este prea mare (%s) - faceți clic aici pentru a încerca
     din nou cu un fișier imagine mai mic.
   ba-imagecapture.unsupported_image_type: 'Încărcați: %s - faceți clic aici pentru a reîncerca.'
-  ba-imagecapture.orientation-portrait-required: Vă rotește dispozitivul să înregistreze în modul portret.
-  ba-imagecapture.orientation-landscape-required: Vă rotește dispozitivul să înregistreze în modul peisaj.
+  ba-imagecapture.orientation-portrait-required: Rotește dispozitivul pentru a înregistra în modul portret.
+  ba-imagecapture.orientation-landscape-required: Rotește dispozitivul pentru a înregistra în modul peisaj.
   ba-audiorecorder.recorder-error: >-
     A apărut o eroare, încercați din nou mai târziu. Faceți clic pentru a
     reîncerca.
@@ -200,12 +200,12 @@
   ba-audiorecorder.uploading: Se încarcă
   ba-audiorecorder.uploading-failed: Încărcarea a eșuat - faceți clic aici pentru a reîncerca.
   ba-audiorecorder.upload-error-duration: >-
-    Lungimea sunetului încărcat nu îndeplinește cerințele - faceți clic aici
+    Dimensiunea fișierului de sunet încărcat nu îndeplinește cerințele - faceți clic aici
     pentru a încerca din nou.
-  ba-audiorecorder.verifying: verificarea
-  ba-audiorecorder.verifying-failed: Verificarea eșuată - faceți clic aici pentru a reîncerca.
-  ba-audiorecorder.rerecord-confirm: Chiar vrei să-ți reoriști sunetul?
-  ba-audiorecorder.cancel-confirm: Chiar vrei să anulezi încărcarea audio?
+  ba-audiorecorder.verifying: Verificare
+  ba-audiorecorder.verifying-failed: Verificare eșuată - faceți clic aici pentru a reîncerca.
+  ba-audiorecorder.rerecord-confirm: Doriți să reînregistrați sunetul?
+  ba-audiorecorder.cancel-confirm: Doriți să anulați încărcarea audio?
   ba-audiorecorder.audio_file_too_large: >-
     Fișierul dvs. audio este prea mare (%s) - faceți clic aici pentru a încerca
     din nou cu un fișier audio mai mic.
@@ -213,17 +213,17 @@
   ba-common-settingsmenu.tooltip: Faceți clic pentru a juca.
   ba-common-settingsmenu.setting-menu: Toate setările
   ba-common-settingsmenu.source-quality: Calitatea sursei
-  ba-common-settingsmenu.player-speed: Viteza jucătorului
+  ba-common-settingsmenu.player-speed: Viteza de redare
   ba-common-settingsmenu.set-menu-option: Setați opțiunea
   ba-common-settingsmenu.submit-video: Confirmați videoclipul
   ba-common-settingsmenu.picture-in-picture: Imagine în imagine
-  ba-common-settingsmenu.exit-fullscreen-video: Ieșiți pe ecran complet
-  ba-common-settingsmenu.fullscreen-video: Intră pe ecran complet
+  ba-common-settingsmenu.exit-fullscreen-video: Ieșiți din modul ecran complet
+  ba-common-settingsmenu.fullscreen-video: Afișează pe ecran complet
   ba-videorecorder-chooser.multi-stream: Multi Stream
-  ba-videorecorder-controlbar.pause-recorder: Pauză Recorder
-  ba-videorecorder-controlbar.resume-recorder: Reluați înregistratorul
-  ba-videorecorder.missing-track: Piesa audio sau video necesară lipsește
-  ba-videorecorder.device-already-in-use: Cel puțin unul dintre dispozitivele dvs. de intrare este deja utilizat
+  ba-videorecorder-controlbar.pause-recorder: Pauză înregistrare
+  ba-videorecorder-controlbar.resume-recorder: Reluați înregistrarea
+  ba-videorecorder.missing-track: Fișierul audio sau video necesar lipsește
+  ba-videorecorder.device-already-in-use: Cel puțin unul dintre dispozitivele dvs. este deja utilizat
   ba-videorecorder.browser-permission-denied: >-
     Permisiunea refuzată de browser, vă rugăm să acordați acces și să
     reîncărcați pagina

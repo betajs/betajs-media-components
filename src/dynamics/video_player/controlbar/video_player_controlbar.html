@@ -7,12 +7,7 @@
          ba-hotkey:alt+left="{{seek(position - skipseconds * 3)}}"
          onmouseout="this.blur()"
          ontouchstart="{{startUpdatePosition(domEvent)}}"
-         ontouchmove="{{progressUpdatePosition(domEvent)}}"
-         ontouchend="{{stopUpdatePosition(domEvent); this.blur()}}"
          onmousedown="{{startUpdatePosition(domEvent)}}"
-         onmouseup="{{stopUpdatePosition(domEvent)}}"
-         onmouseleave="{{stopUpdatePosition(domEvent)}}"
-         onmousemove="{{progressUpdatePosition(domEvent)}}"
     >
         <div class="{{css}}-progressbar-chapters" ba-show="{{true}}">
             <div class="{{css}}-chapters-list-container"

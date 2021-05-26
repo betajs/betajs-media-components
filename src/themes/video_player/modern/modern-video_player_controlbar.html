@@ -170,12 +170,7 @@
 			 onmouseout="this.blur()"
 			 class="{{csstheme}}-progressbar-inner"
 			 ontouchstart="{{startUpdatePosition(domEvent)}}"
-			 ontouchmove="{{progressUpdatePosition(domEvent)}}"
-			 ontouchend="{{stopUpdatePosition(domEvent); this.blur()}}"
 			 onmousedown="{{startUpdatePosition(domEvent)}}"
-			 onmouseup="{{stopUpdatePosition(domEvent)}}"
-			 onmouseleave="{{stopUpdatePosition(domEvent)}}"
-			 onmousemove="{{progressUpdatePosition(domEvent)}}"
 		>
 			<div class="{{csstheme}}-progressbar-cache" ba-styles="{{{width: Math.round(duration ? cached / duration * 100 : 0) + '%'}}}"></div>
 			<div class="{{csstheme}}-progressbar-position" ba-styles="{{{width: Math.round(duration ? position / duration * 100 : 0) + '%'}}}" title="{{string('video-progress')}}"></div>

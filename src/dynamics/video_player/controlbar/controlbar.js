@@ -8,14 +8,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
     "browser:Info",
     "media:Player.Support",
     "base:Async",
-    "base:Timers.Timer"
+    "base:Timers.Timer",
+    "browser:Events"
 ], [
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.ShowPartial",
     "dynamics:Partials.IfPartial",
     "dynamics:Partials.ClickPartial",
     "dynamics:Partials.RepeatElementPartial"
-], function(Class, TimeFormat, Comparators, Objs, Dom, Assets, Info, PlayerSupport, Async, Timer, scoped) {
+], function(Class, TimeFormat, Comparators, Objs, Dom, Assets, Info, PlayerSupport, Async, Timer, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -73,22 +74,40 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         event[0].preventDefault();
                         if (!this.__parent.get("playing") && this.__parent.player && !this.get("manuallypaused"))
                             this.__parent.player.play();
+
+                        var target = event[0].currentTarget;
+                        this.set("offset", Dom.elementOffset(target));
+                        this.set("dimensions", Dom.elementDimensions(target));
+
                         this.set("_updatePosition", true);
-                        this.call("progressUpdatePosition", event);
+                        this.call("progressUpdatePosition", event[0]);
+
+                        var events = this.get("events");
+                        events.on(document, "mousemove touchmove", function(e) {
+                            e.preventDefault();
+                            this.call("progressUpdatePosition", e);
+                        }, this);
+                        events.on(document, "mouseup touchend", function(e) {
+                            e.preventDefault();
+                            this.call("stopUpdatePosition");
+                            events.off(document, "mouseup touchend mousemove touchmove");
+                        }, this);
                     },
 
                     progressUpdatePosition: function(event) {
-                        var ev = event[0];
-                        ev.preventDefault();
                         var _dyn = this.__parent;
 
                         // Mouse or Touch Event
-                        var clientX = ev.clientX || ev.targetTouches[0].clientX;
-                        var target = ev.currentTarget;
-                        var offset = Dom.elementOffset(target);
-                        var dimensions = Dom.elementDimensions(target);
+                        var clientX = event.clientX === 0 ? 0 : event.clientX || event.targetTouches[0].clientX;
                         // centerMousePosition is progressbar dot cemtered position
-                        var percentageFromStart = (clientX - offset.left) / (dimensions.width || 1);
+                        var offset = this.get("offset");
+                        var dimensions = this.get("dimensions");
+                        var percentageFromStart = -1;
+                        if (clientX < offset.left + 9) percentageFromStart = 0;
+                        else if (clientX > (offset.left + 9 + dimensions.width)) percentageFromStart = 1;
+                        else {
+                            percentageFromStart = (clientX - offset.left) / (dimensions.width || 1);
+                        }
                         var onDuration = this.get("duration") * percentageFromStart;
 
                         if (!this.get("_updatePosition") && typeof _dyn.__trackTags === 'undefined')
@@ -137,9 +156,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         }
                     },
 
-                    stopUpdatePosition: function(event) {
-                        var ev = event[0];
-                        ev.preventDefault();
+                    stopUpdatePosition: function() {
                         this.set("_updatePosition", false);
                         this._hideThumb();
                     },
@@ -363,6 +380,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 
                 create: function() {
                     this.set("ismobile", Info.isMobile());
+                    this.set("events", new DomEvents());
                 }
             };
         })

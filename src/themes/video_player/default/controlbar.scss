@@ -64,7 +64,6 @@
 .#{$css}-progressbar-position {
     @include transition1(height, $progressbar_transition, ease-in-out);
     position: absolute;
-    left: -7px;
     background-color: $progressbar_position_bgcolor;
     height: $progressbar_height;
 }

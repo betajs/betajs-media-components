@@ -199,7 +199,6 @@
     @include border-round-edges($volume_height / 2);
     background-color: $progressbar_button_overflow;
     position: absolute;
-    left: -11px;
     height: 5px;
     top: -1px;
 }
@@ -211,7 +210,6 @@
     box-sizing: content-box;
     border: none;
     position: absolute;
-    right: -5px;
     top: -2px;
     z-index: 1;
     width: 10px;

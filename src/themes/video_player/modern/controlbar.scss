@@ -146,7 +146,6 @@
     @include border-round-edges($volume_height / 2);
     background-color: $button_color;
     position: absolute;
-    left: -9px;
     height: 100%;
 }
 

@@ -76,8 +76,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                             this.__parent.player.play();
 
                         var target = event[0].currentTarget;
-                        this.set("offset", Dom.elementOffset(target));
-                        this.set("dimensions", Dom.elementDimensions(target));
+                        this.set("dimensions", target.getBoundingClientRect());
 
                         this.set("_updatePosition", true);
                         this.call("progressUpdatePosition", event[0]);
@@ -100,13 +99,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         // Mouse or Touch Event
                         var clientX = event.clientX === 0 ? 0 : event.clientX || event.targetTouches[0].clientX;
                         // centerMousePosition is progressbar dot cemtered position
-                        var offset = this.get("offset");
                         var dimensions = this.get("dimensions");
                         var percentageFromStart = -1;
-                        if (clientX < offset.left + 9) percentageFromStart = 0;
-                        else if (clientX > (offset.left + 9 + dimensions.width)) percentageFromStart = 1;
+                        if (clientX < dimensions.left) percentageFromStart = 0;
+                        else if (clientX > (dimensions.left + dimensions.width)) percentageFromStart = 1;
                         else {
-                            percentageFromStart = (clientX - offset.left) / (dimensions.width || 1);
+                            percentageFromStart = (clientX - dimensions.left) / (dimensions.width || 1);
                         }
                         var onDuration = this.get("duration") * percentageFromStart;
 

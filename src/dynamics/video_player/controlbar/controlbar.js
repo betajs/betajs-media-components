@@ -364,6 +364,59 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 
                     toggle_settings: function() {
                         this.trigger("toggle_settings");
+                    },
+
+                    addTrimmingEventListeners: function() {
+                        var events = this.get("events");
+                        var trimStartMarker = this.activeElement().querySelector('[data-selector="trim-start-marker"]');
+                        var trimEndMarker = this.activeElement().querySelector('[data-selector="trim-end-marker"]');
+
+                        events.on(trimStartMarker, "mousedown touchstart", function(e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+
+                            var boundingRect = this.get("progressbarElement").getBoundingClientRect();
+                            this.call("updatePosition", "trimstart", e, boundingRect);
+
+                            events.on(document, "mousemove touchmove", function(e) {
+                                e.preventDefault();
+                                this.call("updatePosition", "trimstart", e, boundingRect);
+                            }, this);
+
+                            events.on(document, "mouseup touchend", function(e) {
+                                e.preventDefault();
+                                events.off(document, "mouseup touchend mousemove touchmove");
+                            }, this);
+                        }, this);
+
+                        events.on(trimEndMarker, "mousedown touchstart", function(e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+
+                            var boundingRect = this.get("progressbarElement").getBoundingClientRect();
+                            this.call("updatePosition", "trimend", e, boundingRect);
+
+                            events.on(document, "mousemove touchmove", function(e) {
+                                e.preventDefault();
+                                this.call("updatePosition", "trimend", e, boundingRect);
+                            }, this);
+
+                            events.on(document, "mouseup touchend", function(e) {
+                                e.preventDefault();
+                                events.off(document, "mouseup touchend mousemove touchmove");
+                            }, this);
+                        }, this);
+                    },
+
+                    updatePosition: function(attr, event, dimensions) {
+                        var clientX = event.clientX === 0 ? 0 : event.clientX || event.targetTouches[0].clientX;
+                        var percentageFromStart = -1;
+                        if (clientX < dimensions.left) percentageFromStart = 0;
+                        else if (clientX > (dimensions.left + dimensions.width)) percentageFromStart = 1;
+                        else {
+                            percentageFromStart = (clientX - dimensions.left) / (dimensions.width || 1);
+                        }
+                        this.set(attr, this.get("duration") * percentageFromStart);
                     }
                 },
 
@@ -379,6 +432,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                 create: function() {
                     this.set("ismobile", Info.isMobile());
                     this.set("events", new DomEvents());
+                    this.set("progressbarElement", this.activeElement().querySelector('[data-selector="progress-bar-inner"]'));
+                    this.call("addTrimmingEventListeners");
                 }
             };
         })

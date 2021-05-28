@@ -98,7 +98,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 
                         // Mouse or Touch Event
                         var clientX = event.clientX === 0 ? 0 : event.clientX || event.targetTouches[0].clientX;
-                        // centerMousePosition is progressbar dot cemtered position
                         var dimensions = this.get("dimensions");
                         var percentageFromStart = -1;
                         if (clientX < dimensions.left) percentageFromStart = 0;

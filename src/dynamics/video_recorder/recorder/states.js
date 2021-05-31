@@ -951,6 +951,12 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Trimming", [
             this.dyn.set("trimmingmode", true);
             this.dyn.set("playertopmessage", this.dyn.string("trim-video"));
             this.dyn.set("player_active", true);
+
+            this.listenOn(this.dyn.scopes.player, "video-trimmed", function(start, end) {
+                this.dyn.set("starttime", start);
+                this.dyn.set("endtime", end);
+                this.next("Uploading");
+            }, this);
         },
 
         endTrimming: function() {

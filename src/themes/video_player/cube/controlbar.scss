@@ -176,6 +176,13 @@
   display: none;
 }
 
+.#{$csstheme}-progressbar-marker {
+  position: absolute;
+  height: $progressbar_height;
+  width: $progressbar_height / 4;
+  background-color: black;
+}
+
 .#{$csstheme}-cast-button-container button {
     //--connected-color: #00cc00;
     //--disconnected-color: #cecece;

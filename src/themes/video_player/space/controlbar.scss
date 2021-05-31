@@ -188,7 +188,6 @@
     @include clickable;
     background-color: $stream_label_bg_color;
     height: $progressbar_height;
-    overflow: hidden;
 }
 
 .#{$csstheme}-progressbar.#{$cssplayer}-disabled {
@@ -199,8 +198,7 @@
     @include border-round-edges($volume_height / 2);
     background-color: $progressbar_button_overflow;
     position: absolute;
-    height: 5px;
-    top: -1px;
+    height: $progressbar_height;
 }
 
 
@@ -214,6 +212,14 @@
     z-index: 1;
     width: 10px;
     height: 10px;
+}
+
+.#{$csstheme}-progressbar-marker {
+    position: absolute;
+    background-color: black;
+    top: -4px;
+    height: 12px;
+    width: 5px;
 }
 
 .#{$csstheme}-button-text {

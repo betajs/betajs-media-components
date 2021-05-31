@@ -149,6 +149,12 @@
     height: 100%;
 }
 
+.#{$csstheme}-progressbar-marker {
+    position: absolute;
+    background-color: $button-color;
+    height: 100%;
+}
+
 .#{$csstheme}-button-text {
 	font-family: Arial;
     font-weight: bold;

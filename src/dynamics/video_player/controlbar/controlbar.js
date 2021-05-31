@@ -365,6 +365,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         this.trigger("toggle_settings");
                     },
 
+                    trim: function() {
+                        this.parent().trigger("video-trimmed", this.get("trimstart") || 0, this.get("trimend") || this.get("duration"));
+                    },
+
                     addTrimmingEventListeners: function() {
                         var events = this.get("events");
                         var trimStartMarker = this.activeElement().querySelector('[data-selector="trim-start-marker"]');

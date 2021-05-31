@@ -242,6 +242,14 @@
     height: 8px;
 }
 
+.#{$csstheme}-progressbar-marker {
+    position: absolute;
+    top: $progressbar_height / -2;
+    height: $progressbar_height * 2;
+    width: $progressbar_height;
+    background-color: black;
+}
+
 .#{$csstheme}-controlbar-bottom-block{
     position: relative;
     bottom: 40px;

@@ -250,6 +250,18 @@
     width: $progressbar_height;
 }
 
+.#{$csstheme}-progressbar-marker {
+    box-sizing: content-box;
+    display: inline-block;
+    position: absolute;
+    right: -15px;
+    top: $progressbar_height / -2;
+    z-index: 1;
+    background-color: $button-color;
+    height: $progressbar_height * 2;
+    width: $progressbar_height / 2;
+}
+
 .#{$csstheme}-button-text {
     font-family: sans-serif;
     font-weight: normal;

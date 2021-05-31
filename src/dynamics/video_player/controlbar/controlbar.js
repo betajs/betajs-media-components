@@ -414,9 +414,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     updateTrimStart: function(event, boundingRect) {
                         var position = this.call("calculatePosition", event, boundingRect);
                         var trimEnd = this.get("trimend") || this.get("duration");
-                        var timeLimit = this.get("timelimit") || 5;
-                        if (position > trimEnd - timeLimit) {
-                            this.set("trimstart", trimEnd - timeLimit);
+                        var timeMinLimit = this.get("timeminlimit") || 1;
+                        if (position > trimEnd - timeMinLimit) {
+                            this.set("trimstart", trimEnd - timeMinLimit);
                         } else {
                             this.set("trimstart", position);
                         }
@@ -425,9 +425,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     updateTrimEnd: function(event, boundingRect) {
                         var position = this.call("calculatePosition", event, boundingRect);
                         var trimStart = this.get("trimstart") || 0;
-                        var timeLimit = this.get("timelimit") || 5;
-                        if (position < trimStart + timeLimit) {
-                            this.set("trimend", trimStart + timeLimit);
+                        var timeMinLimit = this.get("timeminlimit") || 1;
+                        if (position < trimStart + timeMinLimit) {
+                            this.set("trimend", trimStart + timeMinLimit);
                         } else {
                             this.set("trimend", position);
                         }

@@ -189,6 +189,16 @@
             <div class="{{csstheme}}-progressbar-position" ba-styles="{{{width: Math.round(duration ? position / duration * 100 : 0) + '%'}}}" title="{{string('video-progress')}}">
                 <div class="{{csstheme}}-progressbar-button"></div>
             </div>
+            <div class="{{css}}-progressbar-button"
+                data-selector="trim-start-marker"
+                ba-if="{{trimmingmode}}"
+                ba-styles="{{{left: Math.round(duration && trimstart ? trimstart / duration * 100 : 0) + '%'}}}"
+            ></div>
+            <div class="{{css}}-progressbar-button"
+                data-selector="trim-end-marker"
+                ba-if="{{trimmingmode}}"
+                ba-styles="{{{left: 'auto', right: 100 - Math.round(duration && trimend ? trimend / duration * 100 : 100) + '%'}}}"
+            ></div>
         </div>
     </div>
 

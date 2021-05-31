@@ -183,6 +183,15 @@
                 </div>
             </div>
 
+            <div tabindex="9" class="{{csstheme}}-primary-button-container {{csstheme}}-right-button-container" ba-if="{{trimmingmode}}">
+                <div data-selector="trim-button"
+                     onmouseout="this.blur()"
+                     ba-click="{{trim()}}"
+                     class="{{csstheme}}-primary-button {{csstheme}}-button-inner">
+                     {{string('trim-video')}}
+                </div>
+            </div>
+
             <div tabindex="9" class="{{csstheme}}-primary-button-container {{csstheme}}-right-button-container" ba-if="{{frameselectionmode}}">
                 <div data-selector="select-frame-button"
                      onmouseout="this.blur()"

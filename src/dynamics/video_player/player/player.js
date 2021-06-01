@@ -314,7 +314,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     var position = this.getCurrentPosition();
                                     if (position >= this.get("endtime")) {
                                         this.player.trigger("ended");
-                                        this.player.pause();
+                                        if (!this.get("loop")) {
+                                            this.player.pause();
+                                        }
                                     }
                                 }, this);
                             }

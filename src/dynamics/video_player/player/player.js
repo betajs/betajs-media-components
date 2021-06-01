@@ -159,6 +159,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         label: 'English'
                     }],
                     "ttuploadervisible": false,
+                    "posterfitstrategy": "crop",
 
                     /* States (helper variables which are controlled by application itself not set by user) */
                     "sourcewidth": null,
@@ -281,7 +282,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "description": "string",
                     "uploaddate": "string",
                     "contenturl": "string",
-                    "thumbnailurl": "string"
+                    "thumbnailurl": "string",
+                    "posterfitstrategy": "string"
                 },
 
                 extendables: ["states"],

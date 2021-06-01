@@ -22,6 +22,28 @@
     }
 }
 
+.#{$cssvideoplayer}-poster-container {
+    background-color: black;
+}
+
+.#{$cssvideoplayer}-poster-container, .#{$cssvideoplayer}-poster-container img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.#{$cssvideoplayer}-crop {
+    object-fit: cover;
+}
+
+.#{$cssvideoplayer}-pad {
+    object-fit: contain;
+}
+
+.#{$cssvideoplayer}-original {
+    object-fit: none;
+}
+
 .#{$cssvideoplayer}-video-placeholder {
     @include linear-background(#dddddd, #e9e9e9, #e9e9e9);
     position: absolute;

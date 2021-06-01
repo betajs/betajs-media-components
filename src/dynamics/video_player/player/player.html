@@ -20,8 +20,8 @@
                ba-toggle:playsinline="{{!playfullscreenonmobile}}"
         ></video>
     </div>
-    <div ba-show="{{(imageelement_active && !videoelement_active) || (!playing && position < 0.1 && videoelement_active)}}" class="{{css}}-video-poster{{(!playing && position < 0.1 && videoelement_active) ? '-active' : ''}}">
-        <img tabindex="-1" data-image="image" alt="{{posteralt}}" height="{{height || containeroffsetheight}}" />
+    <div ba-show="{{imageelement_active && !videoelement_active}}" class="{{css}}-poster-container">
+        <img tabindex="-1" data-image="image" alt="{{posteralt}}" class="{{css}}-{{posterfitstrategy}}"/>
     </div>
     <div class="{{css}}-overlay" ba-show="{{!showbuiltincontroller}}">
         <div tabindex="-1" class="{{css}}-player-toggle-overlay" data-selector="player-toggle-overlay"

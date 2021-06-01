@@ -11,27 +11,6 @@
 	width: 100%;
 }
 
-.#{$css}-video-poster-active {
-	background-color: $player_bgcolor;
-	position: absolute;
-	top: 0;
-	width: 100%;
-	& > img {
-		@include relative-horizontally-center();
-		display: block;
-		max-width: 100%;
-	}
-}
-
-.#{$css}-video-poster {
-	background-color: $player_bgcolor;
-    width: 100%;
-    & > img {
-		@include relative-horizontally-center();
-		display: block;
-		max-width: 100%;
-	}
-}
 
 .#{$css}-container video::-webkit-media-controls-start-playback-button {
 	display: none;

@@ -295,6 +295,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (typeof value === "number")
                             this.set("uploaddate", TimeFormat.format("yyyy-mm-dd", value * 1000));
                     },
+                    "change:starttime": function(startTime) {
+                        if (startTime > this.getCurrentPosition()) {
+                            this.player.setPosition(startTime);
+                        }
+                    },
                     "change:endtime": function(endTime) {
                         if (endTime === this.get("duration")) {
                             if (this.get("_timeUpdateEventHandler")) {

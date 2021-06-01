@@ -814,8 +814,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.set('playedonce', true);
                             this.set("playbackended", this.get('playbackended') + 1);
                             this.set("settingsmenu_active", false);
-                            if (this.get("starttime")) {
-                                this.player.setPosition(this.get("starttime"));
+                            if (this.get("starttime") || this.get("endtime")) {
+                                this.player.setPosition(this.get("starttime") || 0);
                             }
                             this.trigger("ended");
                         }, this);

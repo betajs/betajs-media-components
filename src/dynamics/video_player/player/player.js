@@ -294,6 +294,26 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "change:uploaddate": function(value) {
                         if (typeof value === "number")
                             this.set("uploaddate", TimeFormat.format("yyyy-mm-dd", value * 1000));
+                    },
+                    "change:endtime": function(endTime) {
+                        if (endTime === this.get("duration")) {
+                            if (this.get("_timeUpdateEventHandler")) {
+                                this.get("_timeUpdateEventHandler").clear();
+                            }
+                        } else {
+                            if (!this.get("_timeUpdateEventHandler")) {
+                                this.set("_timeUpdateEventHandler", new DomEvents());
+                            }
+                            if (!this.get("_timeUpdateEventHandler").__callbacks.timeupdate) {
+                                this.get("_timeUpdateEventHandler").on(this.player._element, "timeupdate", function() {
+                                    var position = this.getCurrentPosition();
+                                    if (position >= this.get("endtime")) {
+                                        this.player.trigger("ended");
+                                        this.player.pause();
+                                    }
+                                }, this);
+                            }
+                        }
                     }
                 },
 
@@ -789,6 +809,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.set('playedonce', true);
                             this.set("playbackended", this.get('playbackended') + 1);
                             this.set("settingsmenu_active", false);
+                            if (this.get("starttime")) {
+                                this.player.setPosition(this.get("starttime"));
+                            }
                             this.trigger("ended");
                         }, this);
                         this.trigger("attached", instance);
@@ -1210,7 +1233,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.videoLoaded()) {
                             if (position > this.player.duration())
                                 this.player.setPosition(this.player.duration() - this.get("skipseconds"));
-                            else {
+                            else if (this.get("starttime") && position < this.get("starttime")) {
+                                this.player.setPosition(this.get("starttime"));
+                            } else {
                                 this.player.setPosition(position);
                                 this.trigger("seek", position);
                             }

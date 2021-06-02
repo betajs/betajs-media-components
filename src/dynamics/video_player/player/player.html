@@ -14,7 +14,7 @@
     <meta itemprop="description" content="{{description || 'Video Player'}}" />
     <meta itemprop="uploadDate" content="{{uploaddate}}" />
     <div ba-show="{{videoelement_active || !imageelement_active}}" class="{{css}}-video-container">
-        <video tabindex="-1" class="{{css}}-video" data-video="video"
+        <video tabindex="-1" class="{{css}}-video {{css}}-{{videofitstrategy}}" data-video="video"
                preload="{{preload ? 'auto' : 'metadata'}}"
                ba-toggle:playsinline="{{!playfullscreenonmobile}}"
         ></video>

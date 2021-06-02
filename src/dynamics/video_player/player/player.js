@@ -159,6 +159,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         label: 'English'
                     }],
                     "ttuploadervisible": false,
+                    "videofitstrategy": "pad",
                     "posterfitstrategy": "crop",
 
                     /* States (helper variables which are controlled by application itself not set by user) */
@@ -283,6 +284,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "uploaddate": "string",
                     "contenturl": "string",
                     "thumbnailurl": "string",
+                    "videofitstrategy": "string",
                     "posterfitstrategy": "string"
                 },
 

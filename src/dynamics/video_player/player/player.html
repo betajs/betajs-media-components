@@ -8,7 +8,7 @@
      ba-on:mousemove="{{user_activity()}}"
      ba-on:mousedown="{{user_activity(true)}}"
      ba-on:touchstart="{{user_activity(true)}}"
-     ba-styles="{{(width || height) ? widthHeightStyles : containerElementWidthHeightStyles}}"
+     ba-styles="{{containerSizingStyles}}"
 >
     <meta itemprop="name" content="{{title || 'Video Player'}}" />
     <meta itemprop="description" content="{{description || 'Video Player'}}" />

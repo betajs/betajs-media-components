@@ -302,6 +302,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 computed: {
+                    "containerSizingStyles:width,height": function() {
+                        var width = this.get("width") || this.get("fallback-width");
+                        var height = this.get("height") || this.get("fallback-height");
+                        width = typeof width === "string" && width.charAt(width.length - 1) === "%" ? width : width + "px";
+                        height = typeof height === "string" && height.charAt(height.length - 1) === "%" ? height : height + "px";
+                        return {
+                            width: width,
+                            height: height
+                        };
+                    },
                     "widthHeightStyles:width,height,videoelement_active,imageelement_active": function() {
                         var result = {};
                         var widthMod = "width";

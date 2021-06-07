@@ -962,11 +962,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this._attachVideo();
 
                     var img = this.activeElement().querySelector('img[data-image="image"]');
-                    if (!this.get("aspectratio")) {
+                    var imgEventHandler = this.auto_destroy(new DomEvents());
+                    imgEventHandler.on(img, "load", function() {
+                        this.set("fallback-width", img.naturalWidth);
+                        this.set("fallback-height", img.naturalHeight);
                         this.set("aspectratio", img.naturalWidth / img.naturalHeight);
-                    }
-                    this.set("fallback-width", img.naturalWidth);
-                    this.set("fallback-height", img.naturalHeight);
+                        imgEventHandler.destroy();
+                    }, this);
                 },
 
                 _playWhenVisible: function(video) {

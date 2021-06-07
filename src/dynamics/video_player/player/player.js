@@ -304,7 +304,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 computed: {
-                    "containerSizingStyles:width,height,aspectratio,fallback-width": function(width, height, aspectRatio, fallbackWidth) {
+                    "useAspectRatioFallback:width,height": function(width, height) {
+                        return (width && !height) && (Info.isSafari() || Info.isInternetExplorer());
+                    },
+                    "containerSizingStyles:width,height,aspectratio,fallback-width,fallback-height": function(width, height, aspectRatio, fallbackWidth, fallbackHeight) {
                         if (width && height) {
                             return {
                                 width: typeof width === "string" && width[width.length - 1] === "%" ? width : width + "px",
@@ -318,6 +321,21 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             };
                         }
                         if (height) {
+                            if (Info.isInternetExplorer() || Info.isSafari()) {
+                                if (!(typeof height === "string" && height[height.length - 1] === "%")) {
+                                    return {
+                                        height: height + "px",
+                                        width: height * aspectRatio + "px"
+                                    };
+                                } else {
+                                    if (this.activeElement()) { // TODO add a resize observer to update width dynamically
+                                        return {
+                                            height: height,
+                                            width: this.activeElement().parentElement.offsetHeight * aspectRatio + "px"
+                                        };
+                                    }
+                                }
+                            }
                             return {
                                 aspectRatio: aspectRatio,
                                 height: typeof height === "string" && height[height.length - 1] === "%" ? height : height + "px"
@@ -325,7 +343,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         if (!width && !height) {
                             return {
-                                aspectRatio: aspectRatio,
+                                height: fallbackHeight + "px",
                                 width: fallbackWidth + "px"
                             };
                         }

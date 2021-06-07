@@ -57,6 +57,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "height": "",
                     "popup-width": "",
                     "popup-height": "",
+                    "aspectratio": null,
                     "fallback-width": 320,
                     "fallback-height": 240,
                     /* Themes */
@@ -245,6 +246,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "popup-stretch": "boolean",
                     "popup-width": "int",
                     "popup-height": "int",
+                    "aspectratio": "float",
                     "fallback-width": "int",
                     "fallback-height": "int",
                     "initialseek": "float",
@@ -942,6 +944,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     if (this.__attachRequested)
                         this._attachVideo();
+
+                    var img = this.activeElement().querySelector('img[data-image="image"]');
+                    if (!this.get("aspectratio")) {
+                        this.set("aspectratio", img.naturalWidth / img.naturalHeight);
+                    }
+                    this.set("fallback-width", img.naturalWidth);
+                    this.set("fallback-height", img.naturalHeight);
                 },
 
                 _playWhenVisible: function(video) {

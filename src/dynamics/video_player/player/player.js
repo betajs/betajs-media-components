@@ -304,15 +304,31 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 computed: {
-                    "containerSizingStyles:width,height": function() {
-                        var width = this.get("width") || this.get("fallback-width");
-                        var height = this.get("height") || this.get("fallback-height");
-                        width = typeof width === "string" && width.charAt(width.length - 1) === "%" ? width : width + "px";
-                        height = typeof height === "string" && height.charAt(height.length - 1) === "%" ? height : height + "px";
-                        return {
-                            width: width,
-                            height: height
-                        };
+                    "containerSizingStyles:width,height,aspectratio,fallback-width": function(width, height, aspectRatio, fallbackWidth) {
+                        if (width && height) {
+                            return {
+                                width: typeof width === "string" && width[width.length - 1] === "%" ? width : width + "px",
+                                height: typeof height === "string" && height[height.length - 1] === "%" ? height : height + "px"
+                            };
+                        }
+                        if (width) {
+                            return {
+                                aspectRatio: aspectRatio,
+                                width: typeof width === "string" && width[width.length - 1] === "%" ? width : width + "px"
+                            };
+                        }
+                        if (height) {
+                            return {
+                                aspectRatio: aspectRatio,
+                                height: typeof height === "string" && height[height.length - 1] === "%" ? height : height + "px"
+                            };
+                        }
+                        if (!width && !height) {
+                            return {
+                                aspectRatio: aspectRatio,
+                                width: fallbackWidth + "px"
+                            };
+                        }
                     },
                     "widthHeightStyles:width,height,videoelement_active,imageelement_active": function() {
                         var result = {};

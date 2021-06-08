@@ -197,7 +197,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "optionsinitialstate": {},
                     "playerfallbackwidth": 320,
                     "playerfallbackheight": 240,
-                    "pickcovershotframe": false
+                    "pickcovershotframe": false,
+                    "allowtrim": false
                 },
 
                 computed: {
@@ -315,7 +316,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "showplayersettingsmenu": "boolean",
                     "initialmessages": "array",
                     "screenrecordmandatory": "boolean",
-                    "pickcovershotframe": "boolean"
+                    "pickcovershotframe": "boolean",
+                    "allowtrim": "boolean"
                 },
 
                 extendables: ["states"],
@@ -783,6 +785,29 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     if (this.__backgroundSnapshot)
                         this.recorder.removeSnapshot(this.__backgroundSnapshot);
                     delete this.__backgroundSnapshot;
+                },
+
+                _getFirstFrameSnapshot: function() {
+                    if (this.__firstFrameSnapshot)
+                        return Promise.value(this.__firstFrameSnapshot);
+
+                    if (!(this._videoFile || (this.recorder && this.recorder.localPlaybackSource().src)))
+                        return Promise.error("No source to get the snapshot from");
+
+                    var promise = Promise.create();
+                    var blob = this._videoFile || this.recorder.localPlaybackSource().src;
+                    RecorderSupport.createSnapshotFromSource(URL.createObjectURL(blob), this.get("snapshottype"), 0)
+                        .success(function(snapshot) {
+                            this.__firstFrameSnapshot = snapshot;
+                            promise.asyncSuccess(snapshot);
+                            URL.revokeObjectURL(blob);
+                        }, this)
+                        .error(function(error) {
+                            promise.asyncError(error);
+                            URL.revokeObjectURL(blob);
+                        }, this);
+
+                    return promise;
                 },
 
                 toggleFaceOutline: function(new_status) {
@@ -1345,6 +1370,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
             "missing-track": "Required audio or video track is missing",
             "device-already-in-use": "At least one of your input devices are already in use",
             "browser-permission-denied": "Permission denied by browser, please grant access and reload page",
-            "screen-recorder-is-not-supported": "Screen recorder is not supported on this device"
+            "screen-recorder-is-not-supported": "Screen recorder is not supported on this device",
+            "trim-video": "Move the start and end markers to trim your video"
         });
 });

@@ -7,12 +7,7 @@
          ba-hotkey:alt+left="{{seek(position - skipseconds * 3)}}"
          onmouseout="this.blur()"
          ontouchstart="{{startUpdatePosition(domEvent)}}"
-         ontouchmove="{{progressUpdatePosition(domEvent)}}"
-         ontouchend="{{stopUpdatePosition(domEvent); this.blur()}}"
          onmousedown="{{startUpdatePosition(domEvent)}}"
-         onmouseup="{{stopUpdatePosition(domEvent)}}"
-         onmouseleave="{{stopUpdatePosition(domEvent)}}"
-         onmousemove="{{progressUpdatePosition(domEvent)}}"
     >
         <div class="{{css}}-progressbar-chapters" ba-show="{{true}}">
             <div class="{{css}}-chapters-list-container"
@@ -35,6 +30,16 @@
         <div class="{{css}}-progressbar-position" ba-styles="{{{width: Math.round(duration ? position / duration * 100 : 0) + '%'}}}" title="{{string('video-progress')}}">
             <div class="{{css}}-progressbar-button"></div>
         </div>
+        <div class="{{css}}-progressbar-marker"
+             data-selector="trim-start-marker"
+             ba-if="{{trimmingmode}}"
+             ba-styles="{{{left: Math.round(duration && trimstart ? trimstart / duration * 100 : 0) + '%'}}}"
+        ></div>
+        <div class="{{css}}-progressbar-marker"
+             data-selector="trim-end-marker"
+             ba-if="{{trimmingmode}}"
+             ba-styles="{{{left: 'auto', right: 100 - Math.round(duration && trimend ? trimend / duration * 100 : 100) + '%'}}}"
+        ></div>
     </div>
 
     <div class="{{css}}-backbar"></div>
@@ -99,12 +104,21 @@
         </div>
 
         <div tabindex="12" class="{{css}}-rightbutton-container" ba-if="{{frameselectionmode}}">
-        	<div data-selector="select-frame-button"
+            <div data-selector="select-frame-button"
                  onmouseout="this.blur()"
                  ba-click="{{select_frame()}}"
-                 class="{{css}}-rerecord-button">
+                 class="{{css}}-primary-button">
                  {{string('select-frame')}}
-        	</div>
+            </div>
+        </div>
+
+        <div tabindex="12" class="{{css}}-rightbutton-container" ba-if="{{trimmingmode}}">
+            <div data-selector="trim-video-button"
+                 onmouseout="this.blur()"
+                 ba-click="{{trim()}}"
+                 class="{{css}}-primary-button">
+                 {{string('trim-video')}}
+            </div>
         </div>
 
         <div tabindex="11" data-selector="button-icon-settings"

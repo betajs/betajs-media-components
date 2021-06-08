@@ -224,7 +224,7 @@
 .#{$csstheme}-progressbar-position {
     background-color: $progressbar_button_overflow;
     position: absolute;
-    left: -11px;
+    left: -3px;
     height: 100%;
 }
 
@@ -240,6 +240,14 @@
     z-index: 1;
     width: 8px;
     height: 8px;
+}
+
+.#{$csstheme}-progressbar-marker {
+    position: absolute;
+    top: $progressbar_height / -2;
+    height: $progressbar_height * 2;
+    width: $progressbar_height;
+    background-color: black;
 }
 
 .#{$csstheme}-controlbar-bottom-block{
@@ -404,11 +412,11 @@
     }
 }
 
-.#{$csstheme}-select-button-container {
+.#{$csstheme}-primary-button-container {
     width: auto;
 }
 
-.#{$csstheme}-select-button-container > .#{$csstheme}-select-button {
+.#{$csstheme}-primary-button-container > .#{$csstheme}-primary-button {
     height: auto;
     transform: none;
     padding: 3px;

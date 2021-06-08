@@ -64,7 +64,6 @@
 .#{$css}-progressbar-position {
     @include transition1(height, $progressbar_transition, ease-in-out);
     position: absolute;
-    left: -7px;
     background-color: $progressbar_position_bgcolor;
     height: $progressbar_height;
 }
@@ -97,6 +96,15 @@
     width: $progressbar_height + 2 * $progressbar_button_overflow;
     height: $progressbar_height + 2 * $progressbar_button_overflow;
     z-index: 20;
+}
+
+.#{$css}-progressbar-marker {
+    background-color: $progressbar_button_bgcolor;
+    box-sizing: content-box;
+    position: absolute;
+    width: $progressbar_height * 0.75;
+    height: $progressbar_height;
+    background-color: black;
 }
 
 .#{$css}-progressbar-small .#{$css}-progressbar-button {

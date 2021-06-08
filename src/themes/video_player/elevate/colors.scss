@@ -3,7 +3,7 @@
     .#{$cssplayer}-#{$color}-color {
 
       .#{$csstheme}-dashboard .#{$cssplayer}-button-inactive .#{$csscommon}-icon-subtitle,
-      .#{$csstheme}-button-inner i, .#{$csstheme}-button-inner.#{$csstheme}-select-button {
+      .#{$csstheme}-button-inner i, .#{$csstheme}-button-inner.#{$csstheme}-primary-button {
         color: $value;
       }
 

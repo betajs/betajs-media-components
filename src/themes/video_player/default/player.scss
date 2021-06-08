@@ -159,3 +159,17 @@
 	@include disabled_element();
 	& * {cursor: not-allowed}
 }
+
+.#{$csstheme}-primary-button {
+    @include relative-center-center;
+    @include clickable;
+    border-radius: $rerecord_primarybutton_radius;
+    padding: $rerecord_primarybutton_padding;
+    padding-left: $rerecord_primarybutton_vertical_padding;
+    padding-right: $rerecord_primarybutton_vertical_padding;
+    background-color: $rerecord_button_color;
+    color: $rerecord_text_color;
+    font-family: $rerecord_font_family;
+    font-weight: $rerecord_primarybutton_font_weight;
+    font-size: $rerecord_primarybutton_font_size;
+}

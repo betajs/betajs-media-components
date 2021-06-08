@@ -22,7 +22,7 @@
         &.#{$csscommon}-settings-visible .#{$csscommon}-icon-cog {
           color: $value;
         }
-        &.#{$cssplayer}-button-inactive, &.#{$csscommon}-settings-hidden, .#{$csstheme}-select-button {
+        &.#{$cssplayer}-button-inactive, &.#{$csscommon}-settings-hidden, .#{$csstheme}-primary-button {
           background-color: $value;
         }
 

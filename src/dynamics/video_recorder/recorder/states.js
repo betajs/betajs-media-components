@@ -955,6 +955,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Trimming", [
             this.listenOn(this.dyn.scopes.player, "video-trimmed", function(start, end) {
                 this.dyn.set("starttime", start);
                 this.dyn.set("endtime", end);
+                this.endTrimming();
                 this.next("Uploading");
             }, this);
         },
@@ -962,10 +963,6 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Trimming", [
         endTrimming: function() {
             this.dyn.set("trimmingmode", false);
             this.dyn.set("playerattrs", this._playerAttrs);
-        },
-
-        _end: function() {
-            this.endTrimming();
         }
     });
 });

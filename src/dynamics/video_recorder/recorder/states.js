@@ -815,8 +815,9 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
     "base:Timers.Timer",
     "base:Time",
     "base:TimeFormat",
-    "base:Async"
-], function(State, Timer, Time, TimeFormat, Async, scoped) {
+    "base:Async",
+    "browser:Info"
+], function(State, Timer, Time, TimeFormat, Async, Info, scoped) {
     return State.extend({
         scoped: scoped
     }, {
@@ -836,9 +837,12 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
             this.dyn.set("uploadcovershotvisible", false);
             this._startTime = Time.now();
             this._stopping = false;
+            this.__firedTimes = 0;
+            this.__pauseDelta = 0;
+            this.__timerDelay = 10;
             this._timer = this.auto_destroy(new Timer({
                 immediate: true,
-                delay: 10,
+                delay: this.__timerDelay,
                 context: this,
                 fire: this._timerFire
             }));
@@ -846,15 +850,18 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
         },
 
         _timerFire: function() {
+            this.__firedTimes += 1;
             var limit = this.dyn.get("timelimit");
-            var current = Time.now();
+            var current = (Info.isFirefox() ?
+                this._startTime + (this.__firedTimes * this.__timerDelay) :
+                Time.now()) - this.__pauseDelta;
             var display = Math.max(0, limit ? (this._startTime + limit * 1000 - current) : (current - this._startTime));
-            this.dyn.trigger("recording_progress", current - this._startTime);
+            this.dyn.trigger("recording_progress", current - this._startTime, !!this.dyn.__paused);
             this.dyn.set("controlbarlabel", this.dyn.get("display-timer") ? TimeFormat.format(TimeFormat.ELAPSED_MINUTES_SECONDS, display) : "");
 
             // If recorder paused will slips starting second
             if (this.dyn.__paused)
-                this._startTime += 10;
+                this.__pauseDelta += this.__timerDelay;
 
             if (this.dyn.get("timeminlimit"))
                 this.dyn.set("mintimeindicator", (Time.now() - this._startTime) / 1000 <= this.dyn.get("timeminlimit"));

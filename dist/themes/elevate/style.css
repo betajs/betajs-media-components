@@ -1,10 +1,10 @@
 /*!
-betajs-media-components - v0.0.265 - 2021-05-25
+betajs-media-components - v0.0.267 - 2021-06-13
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
 .ba-player-red-color .ba-player-elevate-theme-dashboard .ba-player-button-inactive .ba-commoncss-icon-subtitle,
-.ba-player-red-color .ba-player-elevate-theme-button-inner i, .ba-player-red-color .ba-player-elevate-theme-button-inner.ba-player-elevate-theme-select-button {
+.ba-player-red-color .ba-player-elevate-theme-button-inner i, .ba-player-red-color .ba-player-elevate-theme-button-inner.ba-player-elevate-theme-primary-button {
   color: #eb6a74;
 }
 .ba-player-red-color .ba-player-elevate-theme-dashboard .ba-player-button-active .ba-commoncss-icon-subtitle {
@@ -26,7 +26,7 @@ Apache-2.0 Software License.
 }
 
 .ba-player-blue-color .ba-player-elevate-theme-dashboard .ba-player-button-inactive .ba-commoncss-icon-subtitle,
-.ba-player-blue-color .ba-player-elevate-theme-button-inner i, .ba-player-blue-color .ba-player-elevate-theme-button-inner.ba-player-elevate-theme-select-button {
+.ba-player-blue-color .ba-player-elevate-theme-button-inner i, .ba-player-blue-color .ba-player-elevate-theme-button-inner.ba-player-elevate-theme-primary-button {
   color: #2a74eb;
 }
 .ba-player-blue-color .ba-player-elevate-theme-dashboard .ba-player-button-active .ba-commoncss-icon-subtitle {
@@ -48,7 +48,7 @@ Apache-2.0 Software License.
 }
 
 .ba-player-green-color .ba-player-elevate-theme-dashboard .ba-player-button-inactive .ba-commoncss-icon-subtitle,
-.ba-player-green-color .ba-player-elevate-theme-button-inner i, .ba-player-green-color .ba-player-elevate-theme-button-inner.ba-player-elevate-theme-select-button {
+.ba-player-green-color .ba-player-elevate-theme-button-inner i, .ba-player-green-color .ba-player-elevate-theme-button-inner.ba-player-elevate-theme-primary-button {
   color: #5daa96;
 }
 .ba-player-green-color .ba-player-elevate-theme-dashboard .ba-player-button-active .ba-commoncss-icon-subtitle {
@@ -308,7 +308,7 @@ Apache-2.0 Software License.
 
 .ba-player-elevate-theme-progressbar-position {
   background-color: #000000;
-  left: -15px;
+  left: -8px;
   position: absolute;
   height: 100%;
 }
@@ -327,6 +327,18 @@ Apache-2.0 Software License.
   border: 4px solid #666666;
   height: 8px;
   width: 8px;
+}
+
+.ba-player-elevate-theme-progressbar-marker {
+  box-sizing: content-box;
+  display: inline-block;
+  position: absolute;
+  right: -15px;
+  top: -4px;
+  z-index: 1;
+  background-color: #000000;
+  height: 16px;
+  width: 4px;
 }
 
 .ba-player-elevate-theme-button-text {
@@ -441,11 +453,11 @@ Apache-2.0 Software License.
   width: 32px;
 }
 
-.ba-player-elevate-theme-select-button {
+.ba-player-elevate-theme-primary-button {
   padding: 0 10px;
 }
 
-.ba-player-elevate-theme-select-button-container {
+.ba-player-elevate-theme-primary-button-container {
   width: auto;
 }
 

@@ -213,6 +213,8 @@
   ba-audioplayer.all-settings: All settings
   ba-videoplayer-controlbar.remaining-time: Remaining time
   ba-videoplayer-controlbar.select-frame: Select
+  ba-videoplayer-controlbar.trim-video: Trim
   ba-videorecorder-imagegallery.upload-covershot: Upload Cover
   ba-videorecorder.pick-covershot-frame: Select a frame to use as covershot.
   ba-videorecorder.screen-recorder-is-not-supported: Screen recorder is not supported on this device
+  ba-videorecorder.trim-video: Move the start and end markers to trim your video

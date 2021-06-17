@@ -935,7 +935,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Trimming", [
     }, {
 
         _started: function() {
-            if (!this.dyn.get("allowtrim")) {
+            if (!this.dyn.get("allowtrim") || this.dyn.get("duration") < this.dyn.get("timeminlimit")) {
                 this.next("Uploading");
             } else {
                 this.dyn._getFirstFrameSnapshot()

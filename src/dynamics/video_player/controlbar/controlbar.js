@@ -462,7 +462,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     this.set("ismobile", Info.isMobile());
                     this.set("events", new DomEvents());
                     this.set("progressbarElement", this.activeElement().querySelector('[data-selector="progress-bar-inner"]'));
-                    this.call("addTrimmingEventListeners");
+                    if (this.get("trimmingmode"))
+                        this.call("addTrimmingEventListeners");
                 }
             };
         })

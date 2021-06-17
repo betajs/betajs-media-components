@@ -33,5 +33,12 @@
         		{{string('trim')}}
         	</div>
         </div>
+        <div class="{{css}}-rerecord-button-container" ba-if="{{trimmingmode}}">
+        	<div tabindex="0" data-selector="player-rerecord-button"
+                 ba-hotkey:space^enter="{{skip()}}" onmouseout="this.blur()"
+                 class="{{css}}-rerecord-button" onclick="{{skip()}}">
+        		{{string('skip')}}
+        	</div>
+        </div>
 	</div>
 </div>

@@ -952,14 +952,18 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Trimming", [
 
             this.dyn.set("playerattrs", {
                 poster: poster,
-                source: this.dyn._videoFile || this.dyn.recorder.localPlaybackSource(),
-                skipinitial: true
+                source: this.dyn._videoFile || this.dyn.recorder.localPlaybackSource()
             });
             this.dyn.set("trimmingmode", true);
-            this.dyn.set("playertopmessage", this.dyn.string("trim-video"));
+            this.dyn.set("playertopmessage", this.dyn.string("trim-prompt"));
             this.dyn.set("player_active", true);
 
-            this.listenOn(this.dyn.scopes.player, "video-trimmed", function(start, end) {
+            this.listenOnce(this.dyn.scopes.player, "playing", function() {
+                this.dyn.scopes.player.set("skipinitial", true);
+                this.dyn.set("playertopmessage", this.dyn.string("trim-video"));
+            });
+
+            this.listenOnce(this.dyn.scopes.player, "video-trimmed", function(start, end) {
                 this.dyn.set("starttime", start);
                 this.dyn.set("endtime", end);
                 this.endTrimming();

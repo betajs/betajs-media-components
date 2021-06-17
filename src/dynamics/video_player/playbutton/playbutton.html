@@ -19,11 +19,18 @@
                 {{string('submit-video')}}
             </div>
         </div>
-        <div class="{{css}}-rerecord-button-container" ba-if="{{rerecordable}}">
+        <div class="{{css}}-rerecord-button-container" ba-if="{{rerecordable && !trimmingmode}}">
         	<div tabindex="0" data-selector="player-rerecord-button"
                  ba-hotkey:space^enter="{{rerecord()}}" onmouseout="this.blur()"
                  class="{{css}}-rerecord-button" onclick="{{rerecord()}}">
         		{{string('rerecord')}}
+        	</div>
+        </div>
+        <div class="{{css}}-rerecord-button-container" ba-if="{{trimmingmode}}">
+        	<div tabindex="0" data-selector="player-rerecord-button"
+                 ba-hotkey:space^enter="{{play()}}" onmouseout="this.blur()"
+                 class="{{css}}-rerecord-button" onclick="{{play()}}">
+        		{{string('trim')}}
         	</div>
         </div>
 	</div>

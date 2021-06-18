@@ -626,11 +626,10 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                             this.set("last_position_change_delta", Time.now() - this.get("last_position_change"));
                             this.set("position", new_position);
                             this.set("buffered", this.player.buffered());
-                            var pld = this.player.duration();
-                            if (0.0 < pld && pld < Infinity)
-                                this.set("duration", this.player.duration());
+                            if (this.get("totalduration") || (this.player.duration() > 0 && this.player.duration() < Infinity))
+                                this.set("duration", this.get("totalduration") || this.player.duration());
                             else
-                                this.set("duration", this.get("totalduration") || new_position);
+                                this.set("duration", new_position);
                         }
                     } catch (e) {}
                     try {

@@ -995,20 +995,17 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     },
 
                     reset: function() {
-                        // We need check if Promise related to getting devices information was completed
-                        if (typeof this.get("microphones") !== 'undefined' || typeof this.get("cameras") !== 'undefined') {
-                            if (this._delegatedRecorder) {
-                                this._delegatedRecorder.execute("reset");
-                                return;
-                            }
-                            this._stopRecording().callback(function() {
-                                this._unbindMedia();
-                                this._hideBackgroundSnapshot();
-                                this._detachRecorder();
-                                this._initSettings();
-                                this.host.state().next("Initial");
-                            }, this);
+                        if (this._delegatedRecorder) {
+                            this._delegatedRecorder.execute("reset");
+                            return;
                         }
+                        this._stopRecording().callback(function() {
+                            this._unbindMedia();
+                            this._hideBackgroundSnapshot();
+                            this._detachRecorder();
+                            this._initSettings();
+                            this.host.state().next("Initial");
+                        }, this);
                     },
 
                     toggle_facemode: function() {

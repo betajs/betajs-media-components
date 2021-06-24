@@ -64,8 +64,6 @@ Scoped.define("module:AudioVisualization", [
                             this.analyser.connect(this.audioContext.destination);
                         }
 
-                        this.audioBufferSourceNode = this.audioContext.createBufferSource();
-                        this.audioBufferSourceNode.connect(this.analyser);
                         this.bufferLength = this.analyser.frequencyBinCount;
                         // this.dataArray = new Uint8Array(this.analyser.fftSize);
                         this.dataArray = new Uint8Array(this.analyser.frequencyBinCount);
@@ -108,7 +106,6 @@ Scoped.define("module:AudioVisualization", [
                 this.frameID = requestAnimationFrame(function() {
                     _self.renderFrame();
                 });
-                this.dataArray = new Uint8Array(this.analyser.frequencyBinCount);
                 this.analyser.getByteFrequencyData(this.dataArray);
                 // this.dataArray = new Float32Array( this.analyser.fftSize);
                 // this.analyser.getFloatTimeDomainData(this.dataArray);

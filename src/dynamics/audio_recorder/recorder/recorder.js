@@ -166,7 +166,8 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     "allowedextensions": "array",
                     "allowcancel": "boolean",
                     "display-timer": "boolean",
-                    "audio-test-mandatory": "boolean"
+                    "audio-test-mandatory": "boolean",
+                    "visualeffectvisible": "boolean"
                 },
 
                 extendables: ["states"],

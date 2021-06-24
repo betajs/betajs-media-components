@@ -64,7 +64,6 @@ Scoped.define("module:AudioVisualization", [
                             this.analyser.connect(this.audioContext.destination);
                         }
 
-                        this.analyser.connect(this.audioContext.destination);
                         this.audioBufferSourceNode = this.audioContext.createBufferSource();
                         this.audioBufferSourceNode.connect(this.analyser);
                         this.bufferLength = this.analyser.frequencyBinCount;

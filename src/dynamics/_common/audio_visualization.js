@@ -1,4 +1,4 @@
-Scoped.define("module:AudioVisualisation", [
+Scoped.define("module:AudioVisualization", [
     "base:Class",
     "browser:Dom",
     "browser:Info"
@@ -23,11 +23,11 @@ Scoped.define("module:AudioVisualisation", [
                     var AudioContext = window.AudioContext || window.webkitAudioContext;
                     this.audioContext = new AudioContext();
                 }
-                this.createVisualisationCanvas(options.height, options.element);
+                this.createVisualizationCanvas(options.height, options.element);
                 this.frameID = null;
             },
 
-            createVisualisationCanvas: function(height, element) {
+            createVisualizationCanvas: function(height, element) {
                 var _height, _containerElement;
                 _height = height || 120;
                 _containerElement = (element.firstElementChild || element.firstChild);

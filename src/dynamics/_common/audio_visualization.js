@@ -1,4 +1,4 @@
-Scoped.define("module:AudioVisualisation", [
+Scoped.define("module:AudioVisualization", [
     "base:Class",
     "browser:Dom",
     "browser:Info"
@@ -23,11 +23,11 @@ Scoped.define("module:AudioVisualisation", [
                     var AudioContext = window.AudioContext || window.webkitAudioContext;
                     this.audioContext = new AudioContext();
                 }
-                this.createVisualisationCanvas(options.height, options.element);
+                this.createVisualizationCanvas(options.height, options.element);
                 this.frameID = null;
             },
 
-            createVisualisationCanvas: function(height, element) {
+            createVisualizationCanvas: function(height, element) {
                 var _height, _containerElement;
                 _height = height || 120;
                 _containerElement = (element.firstElementChild || element.firstChild);
@@ -56,7 +56,6 @@ Scoped.define("module:AudioVisualisation", [
                         }
 
                         if (this.stream instanceof HTMLElement) {
-                            // this.stream.crossOrigin = "anonymous";
                             _source = this.audioContext.createMediaElementSource(this.stream);
                             this.analyser = this._analyser || this.audioContext.createAnalyser();
                             _source.connect(this.analyser);
@@ -64,9 +63,6 @@ Scoped.define("module:AudioVisualisation", [
                             this.analyser.connect(this.audioContext.destination);
                         }
 
-                        this.analyser.connect(this.audioContext.destination);
-                        this.audioBufferSourceNode = this.audioContext.createBufferSource();
-                        this.audioBufferSourceNode.connect(this.analyser);
                         this.bufferLength = this.analyser.frequencyBinCount;
                         // this.dataArray = new Uint8Array(this.analyser.fftSize);
                         this.dataArray = new Uint8Array(this.analyser.frequencyBinCount);
@@ -109,7 +105,6 @@ Scoped.define("module:AudioVisualisation", [
                 this.frameID = requestAnimationFrame(function() {
                     _self.renderFrame();
                 });
-                this.dataArray = new Uint8Array(this.analyser.frequencyBinCount);
                 this.analyser.getByteFrequencyData(this.dataArray);
                 // this.dataArray = new Float32Array( this.analyser.fftSize);
                 // this.analyser.getFloatTimeDomainData(this.dataArray);

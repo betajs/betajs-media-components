@@ -5,7 +5,7 @@
 	ba-styles="{{widthHeightStyles}}"
 >
 	<canvas data-selector="audio-canvas" class="{{csstheme}}-audio-canvas"></canvas>
-    <audio tabindex="-1" class="{{css}}-audio" data-audio="audio"></audio>
+    <audio crossorigin="anonymous" tabindex="-1" class="{{css}}-audio" data-audio="audio"></audio>
     <div class="{{css}}-overlay">
 		<div tabindex="-1" class="{{css}}-player-toggle-overlay" data-selector="player-toggle-overlay"
 			 ba-hotkey:right="{{seek(position + skipseconds)}}" ba-hotkey:left="{{seek(position - skipseconds)}}"

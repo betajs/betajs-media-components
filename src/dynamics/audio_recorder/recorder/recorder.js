@@ -1,7 +1,7 @@
 Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
     "dynamics:Dynamic",
     "module:Assets",
-    "module:AudioVisualisation",
+    "module:AudioVisualization",
     "browser:Info",
     "browser:Dom",
     "browser:Upload.MultiUploader",
@@ -33,7 +33,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.TemplatePartial",
     "dynamics:Partials.HotkeyPartial"
-], function(Class, Assets, AudioVisualisation, Info, Dom, MultiUploader, FileUploader, AudioRecorderWrapper, WebRTCSupport, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Collection, Promise, InitialState, RecorderStates, scoped) {
+], function(Class, Assets, AudioVisualization, Info, Dom, MultiUploader, FileUploader, AudioRecorderWrapper, WebRTCSupport, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Collection, Promise, InitialState, RecorderStates, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -166,7 +166,8 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     "allowedextensions": "array",
                     "allowcancel": "boolean",
                     "display-timer": "boolean",
-                    "audio-test-mandatory": "boolean"
+                    "audio-test-mandatory": "boolean",
+                    "visualeffectvisible": "boolean"
                 },
 
                 extendables: ["states"],
@@ -190,13 +191,13 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     "change:visualeffectsupported": function(value) {
                         if (!value) {
                             // If after checking we found that AudioAnalyzer not supported we should remove canvas
-                            if (this.audioVisualisation) {
-                                if (this.audioVisualisation.canvas)
-                                    this.audioVisualisation.canvas.remove();
-                                this.audioVisualisation.destroy();
+                            if (this.audioVisualization) {
+                                if (this.audioVisualization.canvas)
+                                    this.audioVisualization.canvas.remove();
+                                this.audioVisualization.destroy();
                             }
-                        } else if (this.audioVisualisation) {
-                            this.audioVisualisation.renderFrame();
+                        } else if (this.audioVisualization) {
+                            this.audioVisualization.renderFrame();
                         }
                     }
                 },
@@ -302,9 +303,9 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     this.recorder = AudioRecorderWrapper.create(Objs.extend({
                         element: audio
                     }, this._audioRecorderWrapperOptions()));
-                    // Draw visualisation effect for the audio player
-                    // if (this.get("visualeffectvisible") && AudioVisualisation.supported()) {
-                    //     this.audioVisualisation = new AudioVisualisation(audio, {
+                    // Draw visualization effect for the audio player
+                    // if (this.get("visualeffectvisible") && AudioVisualization.supported()) {
+                    //     this.audioVisualization = new AudioVisualization(audio, {
                     //         recorder: this.recorder,
                     //         globalAudioContext: WebRTCSupport.globals().audioContext,
                     //         height: this.recorder._recorder._options.recordResolution.height || 120,
@@ -340,14 +341,14 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                             this.recorder.setVolumeGain(this.get("microphone-volume"));
                             this.set("hideoverlay", false);
                             this.off("require_display", null, this);
-                            // Draw visualisation effect for the audio player
-                            if (this.get("visualeffectvisible") && AudioVisualisation.supported()) {
+                            // Draw visualization effect for the audio player
+                            if (this.get("visualeffectvisible") && AudioVisualization.supported()) {
                                 if (this.get("height") && this.get("height") > this.get("visualeffectminheight")) {
                                     this.set('visualeffectheight', this.get("height"));
                                 } else if (this.get("visualeffectheight") < this.get("visualeffectminheight")) {
                                     this.set('visualeffectheight', this.get("visualeffectminheight"));
                                 }
-                                this.audioVisualisation = new AudioVisualisation(this.recorder._recorder.stream(), {
+                                this.audioVisualization = new AudioVisualization(this.recorder._recorder.stream(), {
                                     element: this.activeElement(),
                                     recorder: this.recorder,
                                     height: this.get("visualeffectheight"),
@@ -361,7 +362,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                                     fire: function() {
                                         if (this.recorder._analyser) {
                                             try {
-                                                this.audioVisualisation.initializeVisualEffect();
+                                                this.audioVisualization.initializeVisualEffect();
                                                 this.set("visualeffectsupported", true);
                                             } catch (ex) {
                                                 this.set("visualeffectsupported", false);
@@ -434,9 +435,9 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                 _stopRecording: function() {
                     if (!this.__recording)
                         return Promise.error(true);
-                    // Destroy audio visualisation effect for the recorder
-                    if (this.audioVisualisation)
-                        this.audioVisualisation.cancelFrame(this.audioVisualisation.frameID);
+                    // Destroy audio visualization effect for the recorder
+                    if (this.audioVisualization)
+                        this.audioVisualization.cancelFrame(this.audioVisualization.frameID);
                     return this.recorder.stopRecord({
                         audio: this.get("uploadoptions").audio,
                         webrtcStreaming: this.get("uploadoptions").webrtcStreaming
@@ -490,9 +491,9 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                             });
                             this.recorder.testSoundLevel(true);
                             this.set("selectedmicrophone", microphone_id);
-                            if (this.audioVisualisation) {
+                            if (this.audioVisualization) {
                                 this.recorder._recorder.on("bound", function() {
-                                    this.audioVisualisation.updateSourceStream();
+                                    this.audioVisualization.updateSourceStream();
                                 }, this);
                             }
                         }

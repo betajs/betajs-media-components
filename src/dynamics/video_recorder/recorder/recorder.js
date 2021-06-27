@@ -543,6 +543,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     if (this._bound || !this.recorderAttached() || !this.recorder)
                         return;
                     this.recorder.ready.success(function() {
+                        if (!this.recorder) return;
                         this.recorder.on("require_display", function() {
                             this.set("hideoverlay", true);
                         }, this);
@@ -552,6 +553,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                             this.off("require_display", null, this);
                             this._error("bind", e);
                         }, this).success(function() {
+                            if (!this.recorder) return;
                             this.trigger("access_granted");
                             this.recorder.setVolumeGain(this.get("microphone-volume"));
                             this.set("hideoverlay", false);
@@ -560,6 +562,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                                 this.trigger("mainvideostreamended");
                             }, this);
                             this.recorder.enumerateDevices().success(function(devices) {
+                                if (!this.recorder) return;
                                 this.recorder.once("currentdevicesdetected", function(currentDevices) {
                                     this.set("selectedcamera", currentDevices.video);
                                     this.set("selectedmicrophone", currentDevices.audio);
@@ -995,20 +998,17 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     },
 
                     reset: function() {
-                        // We need check if Promise related to getting devices information was completed
-                        if (typeof this.get("microphones") !== 'undefined' || typeof this.get("cameras") !== 'undefined') {
-                            if (this._delegatedRecorder) {
-                                this._delegatedRecorder.execute("reset");
-                                return;
-                            }
-                            this._stopRecording().callback(function() {
-                                this._unbindMedia();
-                                this._hideBackgroundSnapshot();
-                                this._detachRecorder();
-                                this._initSettings();
-                                this.host.state().next("Initial");
-                            }, this);
+                        if (this._delegatedRecorder) {
+                            this._delegatedRecorder.execute("reset");
+                            return;
                         }
+                        this._stopRecording().callback(function() {
+                            this._unbindMedia();
+                            this._hideBackgroundSnapshot();
+                            this._detachRecorder();
+                            this._initSettings();
+                            this.host.state().next("Initial");
+                        }, this);
                     },
 
                     toggle_facemode: function() {

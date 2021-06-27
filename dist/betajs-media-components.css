@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.267 - 2021-06-13
+betajs-media-components - v0.0.268 - 2021-06-27
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -2853,10 +2853,12 @@ Apache-2.0 Software License.
 
 .ba-videoplayer-progressbar-marker {
   background-color: #FFF;
+  border: 1px solid #999;
   box-sizing: content-box;
   position: absolute;
   width: 6.75px;
-  height: 9px;
+  top: -4px;
+  height: 17px;
 }
 
 .ba-videoplayer-progressbar-small .ba-videoplayer-progressbar-button {
@@ -3302,6 +3304,8 @@ Apache-2.0 Software License.
   overflow: hidden;
   padding-left: 16px;
   padding-right: 16px;
+  display: flex;
+  justify-content: center;
 }
 
 .ba-videoplayer-rerecord-button-container {
@@ -3311,8 +3315,6 @@ Apache-2.0 Software License.
   padding-right: 8px;
   display: inline-block;
   position: relative;
-  left: 50%;
-  transform: translateX(-50%);
 }
 
 .ba-videoplayer-rerecord-button {

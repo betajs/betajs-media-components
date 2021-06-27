@@ -312,7 +312,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (!this.get("_timeUpdateEventHandler").__callbacks.timeupdate) {
                                 this.get("_timeUpdateEventHandler").on(this.player._element, "timeupdate", function() {
                                     var position = this.getCurrentPosition();
-                                    if (position >= this.get("endtime")) {
+                                    if (position >= endTime) {
                                         this.player.trigger("ended");
                                         if (!this.get("loop")) {
                                             this.player.pause();

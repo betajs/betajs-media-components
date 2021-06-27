@@ -298,6 +298,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
                         return;
                     }
                     this.dyn._videoFilePlaybackable = true;
+                    this.dyn.set("duration", data.duration);
                     this._uploadFile(file);
                 }, this).error(function() {
                     this._uploadFile(file);
@@ -916,7 +917,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
         },
 
         _hasStopped: function() {
-            this.dyn.set("duration", Time.now() - this._startTime);
+            this.dyn.set("duration", (Time.now() - this._startTime) / 1000);
             if (this.dyn.snapshots.length > 0)
                 this.dyn._showBackgroundSnapshot();
             this.dyn._unbindMedia();
@@ -934,7 +935,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Trimming", [
     }, {
 
         _started: function() {
-            if (!this.dyn.get("allowtrim")) {
+            if (!this.dyn.get("allowtrim") || this.dyn.get("duration") < this.dyn.get("timeminlimit")) {
                 this.next("Uploading");
             } else {
                 this.dyn._getFirstFrameSnapshot()
@@ -952,16 +953,20 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Trimming", [
 
             this.dyn.set("playerattrs", {
                 poster: poster,
-                source: this.dyn._videoFile || this.dyn.recorder.localPlaybackSource(),
-                skipinitial: true
+                source: this.dyn._videoFile || this.dyn.recorder.localPlaybackSource()
             });
             this.dyn.set("trimmingmode", true);
-            this.dyn.set("playertopmessage", this.dyn.string("trim-video"));
+            this.dyn.set("playertopmessage", this.dyn.string("trim-prompt"));
             this.dyn.set("player_active", true);
 
-            this.listenOn(this.dyn.scopes.player, "video-trimmed", function(start, end) {
-                this.dyn.set("starttime", start);
-                this.dyn.set("endtime", end);
+            this.listenOnce(this.dyn.scopes.player, "playing", function() {
+                this.dyn.scopes.player.set("skipinitial", true);
+                this.dyn.set("playertopmessage", this.dyn.string("trim-video"));
+            });
+
+            this.listenOnce(this.dyn.scopes.player, "video-trimmed skip", function(start, end) {
+                if (start) this.dyn.set("starttime", start);
+                if (end) this.dyn.set("endtime", end);
                 this.endTrimming();
                 this.next("Uploading");
             }, this);

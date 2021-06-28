@@ -197,8 +197,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "hassubtitles": false,
                     "videometadata": {},
                     "optionsinitialstate": {},
-                    "playerfallbackwidth": 320,
-                    "playerfallbackheight": 240,
                     "pickcovershotframe": false
                 },
 
@@ -209,28 +207,29 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "nativeRecordingHeight:recordingheight,record_media": function() {
                         return this.get("recordingheight") || ((this.get("record_media") !== "screen" && (this.get("record_media") !== "multistream")) ? 480 : (window.innerHeight || document.body.clientHeight));
                     },
-                    // "nativeRecordingWidth:recordingwidth,record_media": function() {
-                    //     if (this.get("record_media") !== "multistream") {
-                    //         return this.videoWidth();
-                    //     } else {
-                    //         return this.get("recordingwidth") || (this.get("record_media") !== "screen" ? 640 : (window.innerWidth || document.body.clientWidth));
-                    //     }
-                    // },
-                    // "nativeRecordingHeight:recordingheight,record_media": function() {
-                    //     if (this.get("record_media") !== "multistream") {
-                    //         return this.videoWidth() * this.aspectRatio();
-                    //     } else {
-                    //         return this.get("recordingheight") || (this.get("record_media") !== "screen" ? 480 : (window.innerHeight || document.body.clientHeight));
-                    //     }
-                    // },
-                    "widthHeightStyles:width,height": function() {
+                    "containerSizingStyles:width,height,aspectratio,nativeRecordingWidth,nativeRecordingHeight": function(width, height, aspectRatio, fallbackWidth, fallbackHeight) {
                         var result = {};
-                        var width = this.get("width");
-                        var height = this.get("height");
-                        if (width)
-                            result.width = width + ((width + '').match(/^\d+$/g) ? 'px' : '');
-                        if (height)
-                            result.height = height + ((height + '').match(/^\d+$/g) ? 'px' : '');
+                        if (width) result.width = typeof width === "string" && width[width.length - 1] === "%" ? width : width + "px";
+                        if (height) result.height = typeof height === "string" && height[height.length - 1] === "%" ? height : height + "px";
+                        result.aspectRatio = aspectRatio || fallbackWidth + "/" + fallbackHeight;
+                        if (!width && !height) {
+                            result.width = fallbackWidth + "px";
+                            result.height = fallbackHeight + "px";
+                        } else if ((Info.isInternetExplorer() || Info.isSafari())) {
+                            if (!width) {
+                                if (typeof height === "string" && height[height.length - 1] === "%") {
+                                    // TODO
+                                } else {
+                                    result.width = height * (aspectRatio || (fallbackWidth / fallbackHeight));
+                                }
+                            } else if (!height) {
+                                if (typeof width === "string" && width[width.length - 1] === "%") {
+                                    // TODO
+                                } else {
+                                    result.height = width * (aspectRatio * (fallbackWidth / fallbackHeight));
+                                }
+                            }
+                        }
                         return result;
                     },
                     "canswitchcamera:recordviafilecapture": function() {

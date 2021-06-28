@@ -18,6 +18,12 @@
 
 .#{$csscommon}-clickable {cursor: pointer;}
 
+.#{$csscommon}-crop-fit {object-fit: cover;}
+
+.#{$csscommon}-pad-fit {object-fit: contain;}
+
+.#{$csscommon}-original-fit {object-fit: none;}
+
 .#{$csscommon}-message-container {
     @include relative-horizontally-center();
     margin-top: 10px;

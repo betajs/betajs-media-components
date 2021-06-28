@@ -14,13 +14,13 @@
     <meta itemprop="description" content="{{description || 'Video Player'}}" />
     <meta itemprop="uploadDate" content="{{uploaddate}}" />
     <div ba-show="{{videoelement_active || !imageelement_active}}" class="{{css}}-video-container">
-        <video tabindex="-1" class="{{css}}-video {{css}}-{{videofitstrategy}}" data-video="video"
+        <video tabindex="-1" class="{{css}}-video {{csscommon}}-{{videofitstrategy}}-fit" data-video="video"
                preload="{{preload ? 'auto' : 'metadata'}}"
                ba-toggle:playsinline="{{!playfullscreenonmobile}}"
         ></video>
     </div>
     <div ba-show="{{imageelement_active && !videoelement_active}}" class="{{css}}-poster-container">
-        <img tabindex="-1" data-image="image" alt="{{posteralt}}" class="{{css}}-{{posterfitstrategy}}"/>
+        <img tabindex="-1" data-image="image" alt="{{posteralt}}" class="{{csscommon}}-{{posterfitstrategy}}-fit"/>
     </div>
     <div class="{{css}}-overlay" ba-show="{{!showbuiltincontroller}}">
         <div tabindex="-1" class="{{css}}-player-toggle-overlay" data-selector="player-toggle-overlay"

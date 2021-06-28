@@ -144,6 +144,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "display-timer": true,
                     "pausable": false,
                     "sharevideo": [],
+                    "videofitstrategy": "pad",
+                    "posterfitstrategy": "crop",
 
                     /* Configuration */
                     "simulate": false,

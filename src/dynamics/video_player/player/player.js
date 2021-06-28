@@ -348,26 +348,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             };
                         }
                     },
-                    "widthHeightStyles:width,height,videoelement_active,imageelement_active": function() {
-                        var result = {};
-                        var widthMod = "width";
-                        var heightMod = "height";
-                        var width = this.get("width");
-                        var height = this.get("height");
-                        if ((!width || !height) && !this.get("videoelement_active") && !this.get("imageelement_active") && this.get("fallback-width") && this.get("fallback-height")) {
-                            if (!width)
-                                width = this.get("fallback-width");
-                            if (!height)
-                                height = this.get("fallback-height");
-                            widthMod = "min-width";
-                            heightMod = "min-height";
-                        }
-                        if (width)
-                            result[widthMod] = width + ((width + '').match(/^\d+$/g) ? 'px' : '');
-                        if (height)
-                            result[heightMod] = height + ((height + '').match(/^\d+$/g) ? 'px' : '');
-                        return result;
-                    },
                     "containerElementWidthHeightStyles:containeroffsetwidth,containeroffsetheight": function() {
                         var states = this.get("states");
                         if (this.get("containeroffsetwidth") > 0 && this.get("containeroffsetheight") > 0 && !states.dimensions.containerDimensionsInitialied) {

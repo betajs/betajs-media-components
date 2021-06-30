@@ -307,6 +307,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "useAspectRatioFallback:width,height": function(width, height) {
                         return (width && !height) && (Info.isSafari() || Info.isInternetExplorer());
                     },
+                    "aspectRatioFallback:aspectratio,fallback-width,fallback-height": function(aspectRatio, fallbackWidth, fallbackHeight) {
+                        return {
+                            paddingTop: 100 / (aspectRatio || (fallbackWidth / fallbackHeight)) + "%"
+                        };
+                    },
                     "containerSizingStyles:width,height,aspectratio,fallback-width,fallback-height": function(width, height, aspectRatio, fallbackWidth, fallbackHeight) {
                         if (width && height) {
                             return {
@@ -964,7 +969,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     imgEventHandler.on(img, "load", function() {
                         this.set("fallback-width", img.naturalWidth);
                         this.set("fallback-height", img.naturalHeight);
-                        this.set("aspectratio", img.naturalWidth / img.naturalHeight);
                         imgEventHandler.destroy();
                     }, this);
                 },

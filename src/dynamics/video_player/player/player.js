@@ -313,45 +313,24 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         };
                     },
                     "containerSizingStyles:width,height,aspectratio,fallback-width,fallback-height": function(width, height, aspectRatio, fallbackWidth, fallbackHeight) {
-                        if (width && height) {
-                            return {
-                                width: typeof width === "string" && width[width.length - 1] === "%" ? width : width + "px",
-                                height: typeof height === "string" && height[height.length - 1] === "%" ? height : height + "px"
-                            };
-                        }
-                        if (width) {
-                            return {
-                                aspectRatio: aspectRatio,
-                                width: typeof width === "string" && width[width.length - 1] === "%" ? width : width + "px"
-                            };
-                        }
-                        if (height) {
-                            if (Info.isInternetExplorer() || Info.isSafari()) {
-                                if (!(typeof height === "string" && height[height.length - 1] === "%")) {
-                                    return {
-                                        height: height + "px",
-                                        width: height * aspectRatio + "px"
-                                    };
-                                } else {
-                                    if (this.activeElement()) { // TODO add a resize observer to update width dynamically
-                                        return {
-                                            height: height,
-                                            width: this.activeElement().parentElement.offsetHeight * aspectRatio + "px"
-                                        };
-                                    }
-                                }
-                            }
-                            return {
-                                aspectRatio: aspectRatio,
-                                height: typeof height === "string" && height[height.length - 1] === "%" ? height : height + "px"
-                            };
-                        }
+                        var result = {};
+                        if (width) result.width = typeof width === "string" && width[width.length - 1] === "%" ? width : width + "px";
+                        if (height) result.height = typeof height === "string" && height[height.length - 1] === "%" ? height : height + "px";
+                        result.aspectRatio = aspectRatio || fallbackWidth + "/" + fallbackHeight;
                         if (!width && !height) {
-                            return {
-                                height: fallbackHeight + "px",
-                                width: fallbackWidth + "px"
-                            };
+                            result.width = fallbackWidth + "px";
+                            result.height = fallbackHeight + "px";
+                        } else if ((Info.isInternetExplorer() || Info.isSafari()) && !width) {
+                            if (typeof height === "string" && height[height.length - 1] === "%") {
+                                if (this.activeElement()) { // TODO add resize observer to update width dynamically
+                                    var percentage = height.slice(0, -1) / 100;
+                                    result.width = Math.floor(this.activeElement().parentElement.offsetHeight * percentage * (aspectRatio || (fallbackWidth / fallbackHeight))) + "px";
+                                }
+                            } else {
+                                result.width = Math.floor(height * (aspectRatio || (fallbackWidth / fallbackHeight))) + "px";
+                            }
                         }
+                        return result;
                     },
                     "containerElementWidthHeightStyles:containeroffsetwidth,containeroffsetheight": function() {
                         var states = this.get("states");

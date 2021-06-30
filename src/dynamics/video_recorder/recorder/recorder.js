@@ -165,9 +165,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "orientation": false,
                     "popup": false,
                     "popup-stretch": false,
-                    "stretch": false,
-                    "stretchwidth": false,
-                    "stretchheight": false,
                     "audio-test-mandatory": false,
                     "snapshotfromuploader": false,
                     "snapshotfrommobilecapture": false,
@@ -257,10 +254,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "allowscreen": "boolean",
                     "rerecordable": "boolean",
                     "ready": "boolean",
-                    "stretch": "boolean",
                     "fittodimensions": "boolean",
-                    "stretchwidth": "boolean",
-                    "stretchheight": "boolean",
                     "autorecord": "boolean",
                     "autoplay": "boolean",
                     "allowrecord": "boolean",
@@ -376,6 +370,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 },
 
                 create: function() {
+                    if (this.get("stretch") || this.get("stretchwidth") || this.get("stretchheight")) {
+                        console.warn("Stretch parameters were removed, please set width and/or height to 100% instead.");
+                    }
                     // Init Audio Context
                     WebRTCSupport.globals();
                     this.set("optionsinitialstate", {
@@ -414,11 +411,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     this._bound = false;
                     this.__recording = false;
                     this.__error = null;
-                    this.__currentStretch = null;
 
-                    this.on("change:stretch", function() {
-                        this._updateStretch();
-                    }, this);
                     this.host = new Host({
                         stateRegistry: new ClassRegistry(this.cls.recorderStates())
                     });
@@ -586,7 +579,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                             if (typeof this.recorder._recorder._videoTrackSettings !== "undefined")
                                 this.set("videodimensions", this.recorder._recorder._videoTrackSettings);
                             this.set("devicetesting", true);
-                            this._updateStretch();
                             while (this.snapshots.length > 0) {
                                 var snapshot = this.snapshots.unshift();
                                 this.recorder.removeSnapshot(snapshot);
@@ -1137,7 +1129,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         }
                     } catch (e) {}
 
-                    this._updateStretch();
                     this._updateCSSSize();
                 },
 
@@ -1204,30 +1195,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
                 averageFrameRate: function() {
                     return this.recorderAttached() ? this.recorder.averageFrameRate() : null;
-                },
-
-                _updateStretch: function() {
-                    var newStretch = null;
-                    if (this.get("stretch")) {
-                        var ar = this.aspectRatio();
-                        if (isFinite(ar)) {
-                            var par = this.parentAspectRatio();
-                            if (isFinite(par)) {
-                                if (par > ar)
-                                    newStretch = "height";
-                                if (par < ar)
-                                    newStretch = "width";
-                            } else if (par === Infinity)
-                                newStretch = "height";
-                        }
-                    }
-                    if (this.__currentStretch !== newStretch) {
-                        if (this.__currentStretch)
-                            Dom.elementRemoveClass(this.activeElement(), this.get("css") + "-stretch-" + this.__currentStretch);
-                        if (newStretch)
-                            Dom.elementAddClass(this.activeElement(), this.get("css") + "-stretch-" + newStretch);
-                    }
-                    this.__currentStretch = newStretch;
                 },
 
                 cloneAttrs: function() {

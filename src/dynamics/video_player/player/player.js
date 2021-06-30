@@ -121,9 +121,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "nofullscreen": false,
                     "fullscreenmandatory": false,
                     "playfullscreenonmobile": false,
-                    "stretch": false,
-                    "stretchwidth": false,
-                    "stretchheight": false,
                     "fitonwidth": false,
                     "fitonheight": false,
                     "popup-stretch": false,
@@ -196,10 +193,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             "ignore": false,
                             "click_play": true
                         },
-                        "stretch": {
-                            "basedOnContainerWidth": false,
-                            "basedOnContainerHeight": false
-                        },
                         "fit": {
                             "basedOnSelfWidth": false,
                             "basedOnSelfHeight": false,
@@ -231,9 +224,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "ready": "boolean",
                     "nofullscreen": "boolean",
                     "fullscreenmandatory": "boolean",
-                    "stretch": "boolean",
-                    "stretchwidth": "boolean",
-                    "stretchheight": "boolean",
                     "fitonwidth": "boolean",
                     "fitonheight": "boolean",
                     "preroll": "boolean",
@@ -351,53 +341,32 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             mainContainerDimensions = Dom.elementDimensions(mainContainer);
                             containerRatio = this.get("containeroffsetratio");
 
-                            // If we have set stretch settings, which means player has to fill parent element
-                            if (this.get("stretch") && mainContainerDimensions.width >= 0 && mainContainerDimensions.height >= 0) {
+                            // If user set width/height and it's with percentage or as string/number
+                            // if dimension set as percentage we need get parent dimension
+                            if (percentageExpression.test(width) && mainContainerDimensions.width > 0)
                                 width = mainContainerDimensions.width;
+                            else
+                                width = parseFloat(width); // width = width.replace(pixelExpression, '');
+
+                            if (percentageExpression.test(height) && mainContainerDimensions.height > 0)
                                 height = mainContainerDimensions.height;
+                            else
+                                height = parseFloat(height);
 
-                                if (width > 0 && height <= 0) {
-                                    height = containerRatio > 1.0 ? width / containerRatio : width * containerRatio;
-                                    mainContainer.style.height = height + "px";
-                                }
+                            // If user set auto or another text
+                            if (isNaN(height))
+                                height = this.get("containeroffsetheight") || mainContainerDimensions.height;
+                            if (isNaN(width))
+                                height = this.get("containeroffsetwidth") || mainContainerDimensions.width;
 
-                                // If we additionally adding stretch height it means video height has to be fully visible
-                                if (this.get("stretchheight") && !this.get("stretchwidth")) {
-                                    states.stretch.basedOnContainerHeight = true;
-                                }
-
-                                // If we additionally adding stretch width it means video width has to be fully visible
-                                if (this.get("stretchwidth") && !this.get("stretchheight")) {
-                                    states.stretch.basedOnContainerWidth = true;
-                                }
-                            } else {
-                                // If user set width/height and it's with percentage or as string/number
-                                // if dimension set as percentage we need get parent dimension
-                                if (percentageExpression.test(width) && mainContainerDimensions.width > 0)
-                                    width = mainContainerDimensions.width;
-                                else
-                                    width = parseFloat(width); // width = width.replace(pixelExpression, '');
-
-                                if (percentageExpression.test(height) && mainContainerDimensions.height > 0)
-                                    height = mainContainerDimensions.height;
-                                else
-                                    height = parseFloat(height);
-
-                                // If user set auto or another text
-                                if (isNaN(height))
-                                    height = this.get("containeroffsetheight") || mainContainerDimensions.height;
-                                if (isNaN(width))
-                                    height = this.get("containeroffsetwidth") || mainContainerDimensions.width;
-
-                                // If user is not set stretch but vant video will be in full height or hight
-                                // then we define self stretch options
-                                if (this.get("fitonwidth") && this.get("fitonheight")) {
-                                    states.fit.basedOnSelfBoth = true;
-                                } else if (this.get("fitonwidth")) {
-                                    states.fit.basedOnSelfWidth = true;
-                                } else if (this.get("fitonheight")) {
-                                    states.fit.basedOnSelfHeight = true;
-                                }
+                            // If user is not set stretch but vant video will be in full height or hight
+                            // then we define self stretch options
+                            if (this.get("fitonwidth") && this.get("fitonheight")) {
+                                states.fit.basedOnSelfBoth = true;
+                            } else if (this.get("fitonwidth")) {
+                                states.fit.basedOnSelfWidth = true;
+                            } else if (this.get("fitonheight")) {
+                                states.fit.basedOnSelfHeight = true;
                             }
 
                             if (width)
@@ -423,6 +392,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 remove_on_destroy: true,
 
                 create: function() {
+                    if (this.get("stretch") || this.get("stretchwidth") || this.get("stretchheight")) {
+                        console.warn("Stretch parameters were removed, please set width and/or height to 100% instead.");
+                    }
                     // Will set volume initial state
                     this.set("initialoptions", Objs.tree_merge(this.get("initialoptions"), {
                         volumelevel: this.get("volume")
@@ -490,12 +462,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }));
                     }
 
-                    // If both set to true, then normal stretch is enough
-                    if (this.get("stretchwidth") && this.get("stretchheight")) {
-                        this.set("stretch", true);
-                        this.set("stretchheight", false);
-                    }
-
                     this.set("ie8", Info.isInternetExplorer() && Info.internetExplorerVersion() < 9);
                     this.set("firefox", Info.isFirefox());
                     this.set("mobileview", Info.isMobile());
@@ -523,7 +489,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.__attachRequested = false;
                     this.__activated = false;
                     this.__error = null;
-                    this.__currentStretch = null;
 
                     if (document.onkeydown)
                         this.activeElement().onkeydown = this._keyDownActivity.bind(this, this.activeElement());
@@ -533,9 +498,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.__trackTags = new TrackTags({}, this);
                     }, this);
 
-                    this.on("change:stretch", function() {
-                        this._updateStretch();
-                    }, this);
                     this.host = new Host({
                         stateRegistry: new ClassRegistry(this.cls.playerStates())
                     });
@@ -822,7 +784,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.on("chaptercuesloaded", function(chapters, length) {
                                 this.set("chapterslist", chapters);
                             }, this);
-                            this._updateStretch();
                             if (this.get("initialseek"))
                                 this.player.setPosition(this.get("initialseek"));
                             if (this.get("allowpip")) {
@@ -845,7 +806,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }, this);
                         if (this.player.loaded())
                             this.player.trigger("loaded");
-                        this._updateStretch();
                     }, this);
                 },
 
@@ -1447,9 +1407,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     } catch (e) {}
                     try {
-                        this._updateStretch();
-                    } catch (e) {}
-                    try {
                         this._updateCSSSize();
                     } catch (e) {}
                 },
@@ -1512,41 +1469,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 parentAspectRatio: function() {
                     return this.parentWidth() / this.parentHeight();
-                },
-
-                _updateStretch: function() {
-                    var newStretch = null;
-                    if (this.get("stretch") || this.get("stretchwidth") || this.get("stretchheight")) {
-                        var ar = this.aspectRatio();
-                        if (isFinite(ar)) {
-                            var par = this.parentAspectRatio();
-                            if (this.__stretchBasedOnDimensions) {
-                                if (!this.get("height") && !this.get("width"))
-                                    newStretch = ar > 1.00 ? "width" : "height";
-                                else
-                                    newStretch = 'both';
-                            } else if (this.__stretchBasedOnWidth) {
-                                newStretch = "width";
-                            } else if (this.__stretchBasedOnHeight) {
-                                newStretch = "height";
-                            } else if (isFinite(par)) {
-                                if (par > ar && this.get("stretchheight"))
-                                    newStretch = "height";
-                                if (par < ar && this.get("stretchwidth"))
-                                    newStretch = "width";
-                                else
-                                    newStretch = 'both';
-                            } else if (par === Infinity)
-                                newStretch = "height";
-                        }
-                    }
-                    if (this.__currentStretch !== newStretch) {
-                        if (this.__currentStretch)
-                            Dom.elementRemoveClass(this.activeElement(), this.get("css") + "-stretch-" + this.__currentStretch);
-                        if (newStretch)
-                            Dom.elementAddClass(this.activeElement(), this.get("css") + "-stretch-" + newStretch);
-                    }
-                    this.__currentStretch = newStretch;
                 },
 
                 cloneAttrs: function() {

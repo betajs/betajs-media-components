@@ -161,12 +161,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "posterfitstrategy": "crop",
 
                     /* States (helper variables which are controlled by application itself not set by user) */
-                    "sourcewidth": null,
-                    "sourceheight": null,
-                    "sourceratio": null,
-                    "containeroffsetwidth": null,
-                    "containeroffsetheight": null,
-                    "containeroffsetratio": null,
                     "showbuiltincontroller": false,
                     "airplaybuttonvisible": false,
                     "castbuttonvisble": false,
@@ -192,18 +186,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "poster_error": {
                             "ignore": false,
                             "click_play": true
-                        },
-                        "fit": {
-                            "basedOnSelfWidth": false,
-                            "basedOnSelfHeight": false,
-                            "basedOnSelfBoth": false
-                        },
-                        "dimensions": {
-                            "sourceDimensionsHasBeenSet": false,
-                            "containerDimensionsHasBeenSet": false,
-                            "containerDimensionsInitialied": false,
-                            "temporarlywidthwasset": false,
-                            "temporarlyheightwasset": false
                         }
                     },
                     "playerorientation": undefined,
@@ -224,8 +206,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "ready": "boolean",
                     "nofullscreen": "boolean",
                     "fullscreenmandatory": "boolean",
-                    "fitonwidth": "boolean",
-                    "fitonheight": "boolean",
                     "preroll": "boolean",
                     "hideoninactivity": "boolean",
                     "hidebarafter": "integer",
@@ -324,65 +304,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }
                         }
                         return result;
-                    },
-                    "containerElementWidthHeightStyles:containeroffsetwidth,containeroffsetheight": function() {
-                        var states = this.get("states");
-                        if (this.get("containeroffsetwidth") > 0 && this.get("containeroffsetheight") > 0 && !states.dimensions.containerDimensionsInitialied) {
-                            var result = {},
-                                width, height, video, containerRatio, mainContainer,
-                                mainContainerDimensions;
-
-                            // var pixelExpression = new RegExp('\\px$', 'i');
-                            var percentageExpression = new RegExp('\\%$', 'i');
-                            width = this.get("width") || this.get("containeroffsetwidth"); // ;
-                            height = this.get("height") || this.get("containeroffsetheight"); // ;
-                            mainContainer = this.activeElement().childNodes[0];
-                            video = this.__video || this.activeElement().querySelector("[data-video='video']");
-                            mainContainerDimensions = Dom.elementDimensions(mainContainer);
-                            containerRatio = this.get("containeroffsetratio");
-
-                            // If user set width/height and it's with percentage or as string/number
-                            // if dimension set as percentage we need get parent dimension
-                            if (percentageExpression.test(width) && mainContainerDimensions.width > 0)
-                                width = mainContainerDimensions.width;
-                            else
-                                width = parseFloat(width); // width = width.replace(pixelExpression, '');
-
-                            if (percentageExpression.test(height) && mainContainerDimensions.height > 0)
-                                height = mainContainerDimensions.height;
-                            else
-                                height = parseFloat(height);
-
-                            // If user set auto or another text
-                            if (isNaN(height))
-                                height = this.get("containeroffsetheight") || mainContainerDimensions.height;
-                            if (isNaN(width))
-                                height = this.get("containeroffsetwidth") || mainContainerDimensions.width;
-
-                            // If user is not set stretch but vant video will be in full height or hight
-                            // then we define self stretch options
-                            if (this.get("fitonwidth") && this.get("fitonheight")) {
-                                states.fit.basedOnSelfBoth = true;
-                            } else if (this.get("fitonwidth")) {
-                                states.fit.basedOnSelfWidth = true;
-                            } else if (this.get("fitonheight")) {
-                                states.fit.basedOnSelfHeight = true;
-                            }
-
-                            if (width)
-                                result.minWidth = width + ((width + '').match(/^\d+$/g) ? 'px' : '');
-                            if (height)
-                                result.minHeight = height + ((height + '').match(/^\d+$/g) ? 'px' : '');
-
-                            this.set("containeroffsetratio", (Math.round((width / height) * 100) / 100));
-
-                            if (width > 0 && height > 0) {
-                                video.width = width;
-                                video.height = height;
-                                states.dimensions.containerDimensionsInitialied = true;
-                            }
-                            return result;
-                        }
                     },
                     "buffering:buffered,position,last_position_change_delta,playing": function() {
                         return this.get("playing") && this.get("buffered") < this.get("position") && this.get("last_position_change_delta") > 1000;
@@ -589,7 +510,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     img.onerror = function() {
                         self.trigger("error:poster");
                     };
-                    this._setContainerDimensions(img);
                     img.onload = function() {
                         self.set("imageelement_active", true);
                         self.trigger("image-attached");
@@ -649,9 +569,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             return;
                         this.player = instance;
                         this.__video = video;
-
-                        if (!this.get("states").dimensions.containerDimensionsHasBeenSet)
-                            this._setContainerDimensions();
 
                         if (this.get("chromecast")) {
                             if (!this.get("skipinitial")) this.set("skipinitial", true);
@@ -807,74 +724,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.player.loaded())
                             this.player.trigger("loaded");
                     }, this);
-                },
-
-                /**
-                 * Will set videoElement width and height
-                 * @private
-                 */
-                _setContainerDimensions: function(img) {
-                    var conatinerDimensions;
-                    var dimensions = this.get("states").dimensions;
-                    var containerElement = this.activeElement().childNodes[0];
-
-                    if (img && !this.get("skipinitial")) {
-                        this.on("image-attached", function() {
-                            // Safari can not get correct width/height for image viewport
-                            if (!Info.isSafari()) {
-                                if (!dimensions.containerDimensionsHasBeenSet) {
-                                    if (img.width > 0 && img.height > 0 && !dimensions.containerDimensionsHasBeenSet) {
-                                        this.set("containeroffsetwidth", img.width);
-                                        this.set("containeroffsetheight", img.height);
-                                        this.set("containeroffsetratio", Math.round((img.width / img.height) * 100) / 100);
-                                        dimensions.containerDimensionsHasBeenSet = true;
-                                    }
-                                }
-                            } else {
-                                conatinerDimensions = Dom.elementDimensions(containerElement);
-                                if (!dimensions.containerDimensionsHasBeenSet) {
-                                    if (conatinerDimensions.width > 0 && conatinerDimensions.height > 0 && !dimensions.containerDimensionsHasBeenSet) {
-                                        this.set("containeroffsetwidth", conatinerDimensions.width);
-                                        this.set("containeroffsetheight", conatinerDimensions.height);
-                                        this.set("containeroffsetratio", Math.round((conatinerDimensions.width / conatinerDimensions.height) * 100) / 100);
-                                        dimensions.containerDimensionsHasBeenSet = true;
-                                    }
-                                }
-                            }
-                            if (!dimensions.sourceDimensionsHasBeenSet && typeof img.naturalWidth !== "undefined" && typeof img.naturalHeight !== 'undefined') {
-                                if (img.naturalWidth > 0 && img.naturalHeight > 0) {
-                                    this.set("sourceheight", img.naturalHeight);
-                                    this.set("sourcewidth", img.naturalWidth);
-                                    this.set("sourceratio", Math.round((img.naturalWidth / img.naturalHeight) * 100) / 100);
-                                    dimensions.sourceDimensionsHasBeenSet = true;
-                                }
-                            }
-                        }, this);
-                    } else {
-                        if (!dimensions.containerDimensionsHasBeenSet || !dimensions.sourceDimensionsHasBeenSet) {
-                            // Check dimension after video is attached
-                            this.on("attached", function(player) {
-                                player.on("posterloaded", function(img) {
-                                    if (!dimensions.containerDimensionsHasBeenSet) {
-                                        if (img.width > 0 && img.height > 0 && !dimensions.sourceDimensionsHasBeenSet) {
-                                            this.set("sourcewidth", img.width);
-                                            this.set("sourceheight", img.height);
-                                            this.set("sourceratio", Math.round((img.width / img.height) * 100) / 100);
-                                            dimensions.sourceDimensionsHasBeenSet = true;
-                                        }
-                                    }
-
-                                    conatinerDimensions = Dom.elementDimensions(containerElement);
-                                    if (conatinerDimensions.width > 0 && conatinerDimensions.height > 0 && !dimensions.containerDimensionsHasBeenSet) {
-                                        this.set("containeroffsetwidth", conatinerDimensions.width);
-                                        this.set("containeroffsetheight", conatinerDimensions.height);
-                                        this.set("containeroffsetratio", Math.round((conatinerDimensions.width / conatinerDimensions.height) * 100) / 100);
-                                        dimensions.containerDimensionsHasBeenSet = true;
-                                    }
-                                }, this);
-                            }, this);
-                        }
-                    }
                 },
 
                 _getSources: function() {

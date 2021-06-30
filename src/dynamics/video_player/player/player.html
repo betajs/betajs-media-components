@@ -2,8 +2,6 @@
      class="{{css}}-container {{cssplayer}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}
      {{cssplayer}}-{{fullscreened ? 'fullscreen' : 'normal'}}-view {{cssplayer}}-{{firefox ? 'firefox' : 'common'}}-browser
      {{cssplayer}}-{{themecolor}}-color {{cssplayer}}-device-type-{{mobileview ? 'mobile' : 'desktop'}}
-     {{sourceratio ? css + (sourceratio > 1 ? '-video-landscape-mode' : '-video-portrait-mode') : ''}}
-     {{containeroffsetratio ? css + (containeroffsetratio > 1 ? '-container-landscape' : '-container-portrait') : ''}}"
      ba-on:mousemove="{{user_activity()}}"
      ba-on:mousedown="{{user_activity(true)}}"
      ba-on:touchstart="{{user_activity(true)}}"
@@ -145,7 +143,6 @@
             ba-theme-color="{{themecolor}}"
             ba-template="{{tmplloader}}"
             ba-playwhenvisible="{{playwhenvisible}}"
-            ba-containerElementWidthHeightStyles="{{containerElementWidthHeightStyles}}"
             ba-show="{{loader_active}}"
         ></ba-{{dynloader}}>
 

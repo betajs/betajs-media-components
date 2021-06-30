@@ -322,9 +322,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             result.height = fallbackHeight + "px";
                         } else if ((Info.isInternetExplorer() || Info.isSafari()) && !width) {
                             if (typeof height === "string" && height[height.length - 1] === "%") {
-                                if (this.activeElement()) { // TODO add resize observer to update width dynamically
+                                if (this.activeElement()) {
                                     var percentage = height.slice(0, -1) / 100;
-                                    result.width = Math.floor(this.activeElement().parentElement.offsetHeight * percentage * (aspectRatio || (fallbackWidth / fallbackHeight))) + "px";
+                                    new ResizeObserver(function(entries) {
+                                        this.set("width", Math.floor(entries[0].target.offsetHeight * percentage * (aspectRatio || (fallbackWidth / fallbackHeight))));
+                                    }.bind(this)).observe(this.activeElement());
+                                    result.width = Math.floor(this.activeElement().offsetHeight * percentage * (aspectRatio || (fallbackWidth / fallbackHeight))) + "px";
                                 }
                             } else {
                                 result.width = Math.floor(height * (aspectRatio || (fallbackWidth / fallbackHeight))) + "px";

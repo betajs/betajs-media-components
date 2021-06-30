@@ -207,7 +207,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "nativeRecordingHeight:recordingheight,record_media": function() {
                         return this.get("recordingheight") || ((this.get("record_media") !== "screen" && (this.get("record_media") !== "multistream")) ? 480 : (window.innerHeight || document.body.clientHeight));
                     },
-                    "containerSizingStyles:width,height,aspectratio,nativeRecordingWidth,nativeRecordingHeight": function(width, height, aspectRatio, fallbackWidth, fallbackHeight) {
+                    "containerSizingStyles:width,height,aspectratio,nativeRecordingWidth,nativeRecordingHeight,activated": function(width, height, aspectRatio, fallbackWidth, fallbackHeight, active) {
                         var result = {};
                         if (width) result.width = typeof width === "string" && width[width.length - 1] === "%" ? width : width + "px";
                         if (height) result.height = typeof height === "string" && height[height.length - 1] === "%" ? height : height + "px";
@@ -218,13 +218,25 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         } else if ((Info.isInternetExplorer() || Info.isSafari()) && (!width || !height)) {
                             if (!width) {
                                 if (typeof height === "string" && height[height.length - 1] === "%") {
-                                    // TODO
+                                    if (active) {
+                                        var heightPercentage = height.slice(0, -1) / 100;
+                                        new ResizeObserver(function(entries) {
+                                            this.set("width", Math.floor(entries[0].target.offsetHeight * heightPercentage * (aspectRatio || (fallbackWidth / fallbackHeight))));
+                                        }.bind(this)).observe(this.activeElement().parentElement);
+                                        result.width = Math.floor(this.activeElement().parentElement.offsetHeight * heightPercentage * (aspectRatio || (fallbackWidth / fallbackHeight))) + "px";
+                                    }
                                 } else {
                                     result.width = Math.floor(height * (aspectRatio || (fallbackWidth / fallbackHeight))) + "px";
                                 }
                             } else if (!height) {
                                 if (typeof width === "string" && width[width.length - 1] === "%") {
-                                    // TODO
+                                    if (active) {
+                                        var widthPercentage = width.slice(0, -1) / 100;
+                                        new ResizeObserver(function(entries) {
+                                            this.set("height", Math.floor(entries[0].target.offsetWidth * widthPercentage / (aspectRatio || (fallbackWidth / fallbackHeight))));
+                                        }.bind(this)).observe(this.activeElement().parentElement);
+                                        result.height = Math.floor(this.activeElement().parentElement.offsetWidth * widthPercentage / (aspectRatio || (fallbackWidth / fallbackHeight))) + "px";
+                                    }
                                 } else {
                                     result.height = Math.floor(width / (aspectRatio || (fallbackWidth / fallbackHeight))) + "px";
                                 }
@@ -739,6 +751,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
                 _afterActivate: function(element) {
                     inherited._afterActivate.call(this, element);
+                    this.set("activated", true);
                     this.__activated = true;
                     if (this.__attachRequested)
                         this._attachRecorder();

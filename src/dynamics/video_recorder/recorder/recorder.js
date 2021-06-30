@@ -215,18 +215,18 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         if (!width && !height) {
                             result.width = fallbackWidth + "px";
                             result.height = fallbackHeight + "px";
-                        } else if ((Info.isInternetExplorer() || Info.isSafari())) {
+                        } else if ((Info.isInternetExplorer() || Info.isSafari()) && (!width || !height)) {
                             if (!width) {
                                 if (typeof height === "string" && height[height.length - 1] === "%") {
                                     // TODO
                                 } else {
-                                    result.width = height * (aspectRatio || (fallbackWidth / fallbackHeight));
+                                    result.width = Math.floor(height * (aspectRatio || (fallbackWidth / fallbackHeight))) + "px";
                                 }
                             } else if (!height) {
                                 if (typeof width === "string" && width[width.length - 1] === "%") {
                                     // TODO
                                 } else {
-                                    result.height = width * (aspectRatio * (fallbackWidth / fallbackHeight));
+                                    result.height = Math.floor(width / (aspectRatio || (fallbackWidth / fallbackHeight))) + "px";
                                 }
                             }
                         }

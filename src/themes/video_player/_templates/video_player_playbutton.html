@@ -13,18 +13,32 @@
 <div class="{{cssplayer}}-rerecord-bar" ba-if="{{rerecordable || submittable}}">
 	<div class="{{cssplayer}}-rerecord-backbar"></div>
 	<div class="{{cssplayer}}-rerecord-frontbar">
-        <div class="{{cssplayer}}-rerecord-button-container" ba-if="{{submittable}}">
+        <div class="{{cssplayer}}-rerecord-button-container" ba-if="{{submittable && !trimmingmode}}">
             <div tabindex="0" data-selector="player-submit-button"
                  ba-hotkey:space^enter="{{submit()}}" onmouseout="this.blur()"
                  class="{{cssplayer}}-rerecord-button" onclick="{{submit()}}">
                 {{string('submit-video')}}
             </div>
         </div>
-        <div class="{{cssplayer}}-rerecord-button-container" ba-if="{{rerecordable}}">
+        <div class="{{cssplayer}}-rerecord-button-container" ba-if="{{rerecordable && !trimmingmode}}">
         	<div tabindex="0" data-selector="player-rerecord-button"
                  ba-hotkey:space^enter="{{rerecord()}}" onmouseout="this.blur()"
                  class="{{cssplayer}}-rerecord-button" onclick="{{rerecord()}}">
         		{{string('rerecord')}}
+        	</div>
+        </div>
+        <div class="{{cssplayer}}-rerecord-button-container" ba-if="{{trimmingmode}}">
+        	<div tabindex="0" data-selector="player-trim-button"
+                 ba-hotkey:space^enter="{{play()}}" onmouseout="this.blur()"
+                 class="{{cssplayer}}-rerecord-button" onclick="{{play()}}">
+        		{{string('trim')}}
+        	</div>
+        </div>
+        <div class="{{cssplayer}}-rerecord-button-container" ba-if="{{trimmingmode}}">
+        	<div tabindex="0" data-selector="player-skip-button"
+                 ba-hotkey:space^enter="{{skip()}}" onmouseout="this.blur()"
+                 class="{{cssplayer}}-rerecord-button" onclick="{{skip()}}">
+        		{{string('skip')}}
         	</div>
         </div>
 	</div>

@@ -28,6 +28,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Playbutton", [
                         this.trigger("play");
                     },
 
+                    skip: function() {
+                        this.parent().trigger("skip");
+                    },
+
                     submit: function() {
                         this.set("submittable", false);
                         this.set("rerecordable", false);
@@ -61,6 +65,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Playbutton", [
         .addStrings({
             "tooltip": "Click to play.",
             "rerecord": "Redo",
-            "submit-video": "Confirm video"
+            "submit-video": "Confirm video",
+            "trim": "Trim",
+            "skip": "Skip"
         });
 });

@@ -1,9 +1,9 @@
 /*!
-betajs-media-components - v0.0.265 - 2021-05-25
+betajs-media-components - v0.0.268 - 2021-06-27
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
-.ba-player-red-color .ba-player-theatre-theme-title, .ba-player-red-color .ba-player-theatre-theme-button-inner i, .ba-player-red-color .ba-player-theatre-theme-button-inner.ba-player-theatre-theme-select-button, .ba-player-red-color.ba-player-theatre-theme .ba-player-button-inactive i, .ba-player-red-color.ba-player-theatre-theme .ba-commoncss-settings-hidden i {
+.ba-player-red-color .ba-player-theatre-theme-title, .ba-player-red-color .ba-player-theatre-theme-button-inner i, .ba-player-red-color .ba-player-theatre-theme-button-inner.ba-player-theatre-theme-primary-button, .ba-player-red-color.ba-player-theatre-theme .ba-player-button-inactive i, .ba-player-red-color.ba-player-theatre-theme .ba-commoncss-settings-hidden i {
   color: #eb6a74;
 }
 .ba-player-red-color .ba-player-theatre-theme-stream-label-container .ba-player-theatre-theme-stream-label, .ba-player-red-color .ba-player-theatre-theme-progressbar-position,
@@ -25,7 +25,7 @@ Apache-2.0 Software License.
   color: #eeeeee;
 }
 
-.ba-player-blue-color .ba-player-theatre-theme-title, .ba-player-blue-color .ba-player-theatre-theme-button-inner i, .ba-player-blue-color .ba-player-theatre-theme-button-inner.ba-player-theatre-theme-select-button, .ba-player-blue-color.ba-player-theatre-theme .ba-player-button-inactive i, .ba-player-blue-color.ba-player-theatre-theme .ba-commoncss-settings-hidden i {
+.ba-player-blue-color .ba-player-theatre-theme-title, .ba-player-blue-color .ba-player-theatre-theme-button-inner i, .ba-player-blue-color .ba-player-theatre-theme-button-inner.ba-player-theatre-theme-primary-button, .ba-player-blue-color.ba-player-theatre-theme .ba-player-button-inactive i, .ba-player-blue-color.ba-player-theatre-theme .ba-commoncss-settings-hidden i {
   color: #2a74eb;
 }
 .ba-player-blue-color .ba-player-theatre-theme-stream-label-container .ba-player-theatre-theme-stream-label, .ba-player-blue-color .ba-player-theatre-theme-progressbar-position,
@@ -47,7 +47,7 @@ Apache-2.0 Software License.
   color: #eeeeee;
 }
 
-.ba-player-green-color .ba-player-theatre-theme-title, .ba-player-green-color .ba-player-theatre-theme-button-inner i, .ba-player-green-color .ba-player-theatre-theme-button-inner.ba-player-theatre-theme-select-button, .ba-player-green-color.ba-player-theatre-theme .ba-player-button-inactive i, .ba-player-green-color.ba-player-theatre-theme .ba-commoncss-settings-hidden i {
+.ba-player-green-color .ba-player-theatre-theme-title, .ba-player-green-color .ba-player-theatre-theme-button-inner i, .ba-player-green-color .ba-player-theatre-theme-button-inner.ba-player-theatre-theme-primary-button, .ba-player-green-color.ba-player-theatre-theme .ba-player-button-inactive i, .ba-player-green-color.ba-player-theatre-theme .ba-commoncss-settings-hidden i {
   color: #5daa96;
 }
 .ba-player-green-color .ba-player-theatre-theme-stream-label-container .ba-player-theatre-theme-stream-label, .ba-player-green-color .ba-player-theatre-theme-progressbar-position,
@@ -339,7 +339,6 @@ Apache-2.0 Software License.
   cursor: pointer;
   height: 10px;
   background-color: #cccccc;
-  overflow: hidden;
 }
 
 .ba-videoplayer-noie8 .ba-player-theatre-theme-progressbar-inner {
@@ -376,12 +375,19 @@ Apache-2.0 Software License.
 .ba-player-theatre-theme-progressbar-position {
   background-color: #000000;
   position: absolute;
-  left: -9px;
   height: 100%;
 }
 
 .ba-player-theatre-theme-progressbar-button {
   display: none;
+}
+
+.ba-player-theatre-theme-progressbar-marker {
+  position: absolute;
+  top: -2px;
+  height: 15px;
+  width: 5px;
+  background-color: black;
 }
 
 .ba-player-theatre-theme-button-text {

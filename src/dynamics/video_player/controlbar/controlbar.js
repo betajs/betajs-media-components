@@ -8,14 +8,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
     "browser:Info",
     "media:Player.Support",
     "base:Async",
-    "base:Timers.Timer"
+    "base:Timers.Timer",
+    "browser:Events"
 ], [
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.ShowPartial",
     "dynamics:Partials.IfPartial",
     "dynamics:Partials.ClickPartial",
     "dynamics:Partials.RepeatElementPartial"
-], function(Class, TimeFormat, Comparators, Objs, Dom, Assets, Info, PlayerSupport, Async, Timer, scoped) {
+], function(Class, TimeFormat, Comparators, Objs, Dom, Assets, Info, PlayerSupport, Async, Timer, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -73,22 +74,37 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         event[0].preventDefault();
                         if (!this.__parent.get("playing") && this.__parent.player && !this.get("manuallypaused"))
                             this.__parent.player.play();
+
+                        var target = event[0].currentTarget;
+                        this.set("dimensions", target.getBoundingClientRect());
+
                         this.set("_updatePosition", true);
-                        this.call("progressUpdatePosition", event);
+                        this.call("progressUpdatePosition", event[0]);
+
+                        var events = this.get("events");
+                        events.on(document, "mousemove touchmove", function(e) {
+                            e.preventDefault();
+                            this.call("progressUpdatePosition", e);
+                        }, this);
+                        events.on(document, "mouseup touchend", function(e) {
+                            e.preventDefault();
+                            this.call("stopUpdatePosition");
+                            events.off(document, "mouseup touchend mousemove touchmove");
+                        }, this);
                     },
 
                     progressUpdatePosition: function(event) {
-                        var ev = event[0];
-                        ev.preventDefault();
                         var _dyn = this.__parent;
 
                         // Mouse or Touch Event
-                        var clientX = ev.clientX || ev.targetTouches[0].clientX;
-                        var target = ev.currentTarget;
-                        var offset = Dom.elementOffset(target);
-                        var dimensions = Dom.elementDimensions(target);
-                        // centerMousePosition is progressbar dot cemtered position
-                        var percentageFromStart = (clientX - offset.left) / (dimensions.width || 1);
+                        var clientX = event.clientX === 0 ? 0 : event.clientX || event.targetTouches[0].clientX;
+                        var dimensions = this.get("dimensions");
+                        var percentageFromStart = -1;
+                        if (clientX < dimensions.left) percentageFromStart = 0;
+                        else if (clientX > (dimensions.left + dimensions.width)) percentageFromStart = 1;
+                        else {
+                            percentageFromStart = (clientX - dimensions.left) / (dimensions.width || 1);
+                        }
                         var onDuration = this.get("duration") * percentageFromStart;
 
                         if (!this.get("_updatePosition") && typeof _dyn.__trackTags === 'undefined')
@@ -137,9 +153,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         }
                     },
 
-                    stopUpdatePosition: function(event) {
-                        var ev = event[0];
-                        ev.preventDefault();
+                    stopUpdatePosition: function() {
                         this.set("_updatePosition", false);
                         this._hideThumb();
                     },
@@ -349,6 +363,89 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 
                     toggle_settings: function() {
                         this.trigger("toggle_settings");
+                    },
+
+                    trim: function() {
+                        this.parent().trigger("video-trimmed", this.get("trimstart") || 0, this.get("trimend") || this.get("duration"));
+                    },
+
+                    addTrimmingEventListeners: function() {
+                        var events = this.get("events");
+                        var trimStartMarker = this.activeElement().querySelector('[data-selector="trim-start-marker"]');
+                        var trimEndMarker = this.activeElement().querySelector('[data-selector="trim-end-marker"]');
+
+                        events.on(trimStartMarker, "mousedown touchstart", function(e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+
+                            var boundingRect = this.get("progressbarElement").getBoundingClientRect();
+                            this.call("updateTrimStart", e, boundingRect);
+
+                            events.on(document, "mousemove touchmove", function(e) {
+                                e.preventDefault();
+                                this.call("updateTrimStart", e, boundingRect);
+                            }, this);
+
+                            events.on(document, "mouseup touchend", function(e) {
+                                e.preventDefault();
+                                events.off(document, "mouseup touchend mousemove touchmove");
+                            }, this);
+                        }, this);
+
+                        events.on(trimEndMarker, "mousedown touchstart", function(e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+
+                            var boundingRect = this.get("progressbarElement").getBoundingClientRect();
+                            this.call("updateTrimEnd", e, boundingRect);
+
+                            events.on(document, "mousemove touchmove", function(e) {
+                                e.preventDefault();
+                                this.call("updateTrimEnd", e, boundingRect);
+                            }, this);
+
+                            events.on(document, "mouseup touchend", function(e) {
+                                e.preventDefault();
+                                events.off(document, "mouseup touchend mousemove touchmove");
+                            }, this);
+                        }, this);
+                    },
+
+                    updateTrimStart: function(event, boundingRect) {
+                        var position = this.call("calculatePosition", event, boundingRect);
+                        var trimEnd = this.get("trimend") || this.get("duration");
+                        var timeMinLimit = this.get("timeminlimit") || 1;
+                        if (position > trimEnd - timeMinLimit) {
+                            this.set("trimstart", trimEnd - timeMinLimit);
+                        } else {
+                            this.set("trimstart", position);
+                        }
+                    },
+
+                    updateTrimEnd: function(event, boundingRect) {
+                        var position = this.call("calculatePosition", event, boundingRect);
+                        var trimStart = this.get("trimstart") || 0;
+                        var timeMinLimit = this.get("timeminlimit") || 1;
+                        if (position < trimStart + timeMinLimit) {
+                            this.set("trimend", trimStart + timeMinLimit);
+                        } else {
+                            this.set("trimend", position);
+                        }
+                    },
+
+                    getClientX: function(event) {
+                        return event.clientX === 0 ? 0 : event.clientX || event.targetTouches[0].clientX;
+                    },
+
+                    calculatePosition: function(event, dimensions) {
+                        var clientX = this.call("getClientX", event);
+                        var percentageFromStart = -1;
+                        if (clientX < dimensions.left) percentageFromStart = 0;
+                        else if (clientX > (dimensions.left + dimensions.width)) percentageFromStart = 1;
+                        else {
+                            percentageFromStart = (clientX - dimensions.left) / (dimensions.width || 1);
+                        }
+                        return this.get("duration") * percentageFromStart;
                     }
                 },
 
@@ -363,6 +460,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 
                 create: function() {
                     this.set("ismobile", Info.isMobile());
+                    this.set("events", new DomEvents());
+                    this.set("progressbarElement", this.activeElement().querySelector('[data-selector="progress-bar-inner"]'));
+                    if (this.get("trimmingmode"))
+                        this.call("addTrimmingEventListeners");
                 }
             };
         })
@@ -393,6 +494,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
             "airplay": "Airplay",
             "airplay-icon": "Airplay icon.",
             "remaining-time": "Remaining time",
-            "select-frame": "Select"
+            "select-frame": "Select",
+            "trim-video": "Trim"
         });
 });

@@ -29,12 +29,7 @@
                  onmouseout="this.blur()"
                  data-selector="progress-bar-inner" class="{{csstheme}}-progressbar-inner"
                  ontouchstart="{{startUpdatePosition(domEvent)}}"
-                 ontouchmove="{{progressUpdatePosition(domEvent)}}"
-                 ontouchend="{{stopUpdatePosition(domEvent); this.blur()}}"
                  onmousedown="{{startUpdatePosition(domEvent)}}"
-                 onmouseup="{{stopUpdatePosition(domEvent)}}"
-                 onmouseleave="{{stopUpdatePosition(domEvent)}}"
-                 onmousemove="{{progressUpdatePosition(domEvent)}}"
             >
 
                 <div class="{{csstheme}}-progressbar-cache" ba-styles="{{{width: Math.round(duration ? cached / duration * 100 : 0) + '%'}}}"></div>
@@ -49,6 +44,16 @@
                     </div>
                     <div class="{{csstheme}}-progressbar-button"></div>
                 </div>
+                <div class="{{csstheme}}-progressbar-marker"
+                    data-selector="trim-start-marker"
+                    ba-if="{{trimmingmode}}"
+                    ba-styles="{{{left: Math.round(duration && trimstart ? trimstart / duration * 100 : 0) + '%'}}}"
+                ></div>
+                <div class="{{csstheme}}-progressbar-marker"
+                    data-selector="trim-end-marker"
+                    ba-if="{{trimmingmode}}"
+                    ba-styles="{{{left: 'auto', right: 100 - Math.round(duration && trimend ? trimend / duration * 100 : 100) + '%'}}}"
+                ></div>
             </div>
         </div>
 
@@ -200,11 +205,20 @@
                 </div>
             </div>
 
-            <div tabindex="11" class="{{csstheme}}-select-button-container {{csstheme}}-button-container" ba-if="{{frameselectionmode}}">
+            <div tabindex="11" class="{{csstheme}}-primary-button-container {{csstheme}}-button-container" ba-if="{{trimmingmode}}">
+                <div data-selector="trim-button"
+                     onmouseout="this.blur()"
+                     ba-click="{{trim()}}"
+                     class="{{csstheme}}-primary-button {{csstheme}}-button-inner">
+                     {{string('trim-video')}}
+                </div>
+            </div>
+
+            <div tabindex="11" class="{{csstheme}}-primary-button-container {{csstheme}}-button-container" ba-if="{{frameselectionmode}}">
                 <div data-selector="select-frame-button"
                      onmouseout="this.blur()"
                      ba-click="{{select_frame()}}"
-                     class="{{csstheme}}-select-button {{csstheme}}-button-inner">
+                     class="{{csstheme}}-primary-button {{csstheme}}-button-inner">
                      {{string('select-frame')}}
                 </div>
             </div>

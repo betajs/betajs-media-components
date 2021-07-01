@@ -156,7 +156,7 @@
 		ba-data:id="player"
 		ba-width="100%"
 		ba-height="100%"
-		ba-totalduration="{{duration / 1000}}"
+		ba-totalduration="{{duration}}"
 		ba-rerecordable="{{rerecordable && (recordings === null || recordings > 0)}}"
 		ba-submittable="{{manualsubmit && verified}}"
 		ba-reloadonplay="{{true}}"
@@ -184,6 +184,8 @@
 		ba-trackselectorhovered="{{trackselectorhovered}}"
 		ba-uploadlocales="{{uploadlocales}}"
 		ba-frameselectionmode="{{frameselectionmode}}"
+		ba-trimmingmode="{{trimmingmode}}"
+		ba-timeminlimit="{{timeminlimit}}"
 		ba-event:selected_label_value="selected_label_value"
 		ba-event:move_to_option="move_to_option"
 	>

@@ -1,7 +1,7 @@
 Scoped.define("module:AudioPlayer.Dynamics.Player", [
     "dynamics:Dynamic",
     "module:Assets",
-    "module:AudioVisualisation",
+    "module:AudioVisualization",
     "browser:Info",
     "browser:Dom",
     "media:AudioPlayer.AudioPlayerWrapper",
@@ -27,7 +27,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.TemplatePartial",
     "dynamics:Partials.HotkeyPartial"
-], function(Class, Assets, AudioVisualisation, Info, Dom, AudioPlayerWrapper, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Async, InitialState, PlayerStates, DomEvents, scoped) {
+], function(Class, Assets, AudioVisualization, Info, Dom, AudioPlayerWrapper, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Async, InitialState, PlayerStates, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -160,9 +160,9 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     "change:visualeffectsupported": function(value) {
                         if (!value) {
                             // If after checking we found that AudioAnalyzer not supported we should remove canvas
-                            if (this.audioVisualisation) {
-                                this.audioVisualisation.destroy();
-                                this.audioVisualisation.canvas.remove();
+                            if (this.audioVisualization) {
+                                this.audioVisualization.destroy();
+                                this.audioVisualization.canvas.remove();
                             }
                         }
                     }
@@ -297,8 +297,8 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
 
                         this.player = instance;
                         this.__audio = audio;
-                        // Draw audio visualisation effect
-                        if (this.get("visualeffectvisible") && AudioVisualisation.supported() && !this.audioVisualisation) {
+                        // Draw audio visualization effect
+                        if (this.get("visualeffectvisible") && AudioVisualization.supported() && !this.audioVisualization) {
                             if (this.get("height") && this.get("height") > this.get("visualeffectminheight")) {
                                 this.set('visualeffectheight', this.get("height"));
                             } else if (this.get("visualeffectheight") < this.get("visualeffectminheight")) {
@@ -307,13 +307,13 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
 
                             // Will fix Safari and other browsers auto sound off behaviour
                             Dom.userInteraction(function() {
-                                this.audioVisualisation = new AudioVisualisation(audio, {
+                                this.audioVisualization = new AudioVisualization(audio, {
                                     height: this.get('visualeffectheight'),
                                     element: this.activeElement(),
                                     theme: this.get("visualeffecttheme")
                                 });
                                 try {
-                                    this.audioVisualisation.initializeVisualEffect();
+                                    this.audioVisualization.initializeVisualEffect();
                                     this.set("visualeffectsupported", true);
                                 } catch (e) {
                                     this.set("visualeffectsupported", false);
@@ -496,7 +496,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                         this.host.state().play();
                         // Draw visual effect
                         if (this.get('visualeffectsupported'))
-                            this.audioVisualisation.renderFrame();
+                            this.audioVisualization.renderFrame();
                     },
 
                     rerecord: function() {
@@ -520,9 +520,9 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                             this.player.pause();
                         }
 
-                        if (this.get("visualeffectsupported") && this.audioVisualisation) {
-                            if (this.audioVisualisation.frameID)
-                                this.audioVisualisation.cancelFrame(this.audioVisualisation.frameID);
+                        if (this.get("visualeffectsupported") && this.audioVisualization) {
+                            if (this.audioVisualization.frameID)
+                                this.audioVisualization.cancelFrame(this.audioVisualization.frameID);
                             else
                                 this.set("visualeffectsupported", false);
                         }
@@ -626,11 +626,10 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                             this.set("last_position_change_delta", Time.now() - this.get("last_position_change"));
                             this.set("position", new_position);
                             this.set("buffered", this.player.buffered());
-                            var pld = this.player.duration();
-                            if (0.0 < pld && pld < Infinity)
-                                this.set("duration", this.player.duration());
+                            if (this.get("totalduration") || (this.player.duration() > 0 && this.player.duration() < Infinity))
+                                this.set("duration", this.get("totalduration") || this.player.duration());
                             else
-                                this.set("duration", this.get("totalduration") || new_position);
+                                this.set("duration", new_position);
                         }
                     } catch (e) {}
                     try {

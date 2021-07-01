@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.265 - 2021-05-25
+betajs-media-components - v0.0.268 - 2021-06-27
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -2705,7 +2705,8 @@ Apache-2.0 Software License.
   color: #eb6a74;
 }
 .ba-player-red-color .ba-videoplayer-volumebar-position, .ba-player-red-color .ba-videoplayer-progressbar-position,
-.ba-player-red-color .ba-videoplayer-rerecord-button, .ba-player-red-color .ba-videoplayer-playbutton-duration {
+.ba-player-red-color .ba-videoplayer-rerecord-button, .ba-player-red-color .ba-videoplayer-playbutton-duration,
+.ba-player-red-color .ba-videoplayer-primary-button {
   background-color: #eb6a74;
 }
 .ba-player-red-color .ba-videoplayer-volumebar-inner {
@@ -2717,7 +2718,8 @@ Apache-2.0 Software License.
   color: #2a74eb;
 }
 .ba-player-blue-color .ba-videoplayer-volumebar-position, .ba-player-blue-color .ba-videoplayer-progressbar-position,
-.ba-player-blue-color .ba-videoplayer-rerecord-button, .ba-player-blue-color .ba-videoplayer-playbutton-duration {
+.ba-player-blue-color .ba-videoplayer-rerecord-button, .ba-player-blue-color .ba-videoplayer-playbutton-duration,
+.ba-player-blue-color .ba-videoplayer-primary-button {
   background-color: #2a74eb;
 }
 .ba-player-blue-color .ba-videoplayer-volumebar-inner {
@@ -2729,7 +2731,8 @@ Apache-2.0 Software License.
   color: #5daa96;
 }
 .ba-player-green-color .ba-videoplayer-volumebar-position, .ba-player-green-color .ba-videoplayer-progressbar-position,
-.ba-player-green-color .ba-videoplayer-rerecord-button, .ba-player-green-color .ba-videoplayer-playbutton-duration {
+.ba-player-green-color .ba-videoplayer-rerecord-button, .ba-player-green-color .ba-videoplayer-playbutton-duration,
+.ba-player-green-color .ba-videoplayer-primary-button {
   background-color: #5daa96;
 }
 .ba-player-green-color .ba-videoplayer-volumebar-inner {
@@ -2808,7 +2811,6 @@ Apache-2.0 Software License.
   -o-transition: height 0.1s ease-in-out;
   -ms-transition: height 0.1s ease-in-out;
   position: absolute;
-  left: -7px;
   background-color: #8CF;
   height: 9px;
 }
@@ -2847,6 +2849,16 @@ Apache-2.0 Software License.
   width: 11px;
   height: 11px;
   z-index: 20;
+}
+
+.ba-videoplayer-progressbar-marker {
+  background-color: #FFF;
+  border: 1px solid #999;
+  box-sizing: content-box;
+  position: absolute;
+  width: 6.75px;
+  top: -4px;
+  height: 17px;
 }
 
 .ba-videoplayer-progressbar-small .ba-videoplayer-progressbar-button {
@@ -3292,6 +3304,8 @@ Apache-2.0 Software License.
   overflow: hidden;
   padding-left: 16px;
   padding-right: 16px;
+  display: flex;
+  justify-content: center;
 }
 
 .ba-videoplayer-rerecord-button-container {
@@ -3301,8 +3315,6 @@ Apache-2.0 Software License.
   padding-right: 8px;
   display: inline-block;
   position: relative;
-  left: 50%;
-  transform: translateX(-50%);
 }
 
 .ba-videoplayer-rerecord-button {
@@ -3492,6 +3504,27 @@ Apache-2.0 Software License.
 }
 .ba-player-disabled * {
   cursor: not-allowed;
+}
+
+.ba-videoplayer-primary-button {
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  top: 50%;
+  position: relative;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 2px;
+  padding: 4px;
+  padding-left: 8px;
+  padding-right: 8px;
+  background-color: #8CF;
+  color: white;
+  font-family: Arial, sans-serif;
+  font-weight: normal;
+  font-size: 14px;
 }
 
 .ba-videoplayer-topmessage-container {

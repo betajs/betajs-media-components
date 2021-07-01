@@ -62,6 +62,8 @@
     overflow: hidden;
     padding-left: $rerecord_padding;
     padding-right: $rerecord_padding;
+    display: flex;
+    justify-content: center;
 }
 
 .#{$csstheme}-rerecord-button-container {
@@ -71,8 +73,6 @@
     padding-right: 8px;
     display: inline-block;
     position:relative;
-    left:50%;
-    transform:translateX(-50%);
 }
 
 .#{$csstheme}-rerecord-button {

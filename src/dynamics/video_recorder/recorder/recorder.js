@@ -184,7 +184,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "addstreamminheight": null,
                     "showsettingsmenu": true, // As a property show/hide settings from users
                     "showplayersettingsmenu": true, // As a property show/hide after recorder player settings from users
-                    "videodimensions": {},
 
                     "allowtexttrackupload": false,
                     "framevisible": false,
@@ -356,26 +355,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                             this.set("skipinitialonrerecord", false);
                             this.set("autorecord", false);
                             this._screenRecorderVerifier(false);
-                        }
-                    },
-                    "change:videodimensions": function(dimension) {
-                        var width = this.get("width");
-                        var height = this.get("height");
-                        if ((!height || !width) && typeof dimension.aspectRatio !== "undefined") {
-                            var aspectRatio = dimension.aspectRatio;
-                            if (!width && !height) {
-                                width = dimension.width;
-                                height = dimension.height;
-                            } else {
-                                if (!height) {
-                                    height = aspectRatio > 1 ? Math.floor(this.get("width") / aspectRatio) : Math.floor(this.get("width") * aspectRatio);
-                                }
-                                if (!width) {
-                                    width = aspectRatio > 1 ? Math.floor(this.get("height") * aspectRatio) : Math.floor(this.get("height") / aspectRatio);
-                                }
-                            }
-                            this.set("playerfallbackwidth", width);
-                            this.set("playerfallbackheight", height);
                         }
                     }
                 },
@@ -597,8 +576,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                             }, this);
                             if (!this.get("noaudio"))
                                 this.recorder.testSoundLevel(true);
-                            if (typeof this.recorder._recorder._videoTrackSettings !== "undefined")
-                                this.set("videodimensions", this.recorder._recorder._videoTrackSettings);
                             this.set("devicetesting", true);
                             while (this.snapshots.length > 0) {
                                 var snapshot = this.snapshots.unshift();

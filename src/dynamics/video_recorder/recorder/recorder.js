@@ -94,6 +94,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "autoplay": false,
                     "allowrecord": true,
                     "allowupload": true,
+                    "minheight": 240,
+                    "minwidth": 320,
                     "allowcustomupload": true,
                     "manual-upload": false,
                     "camerafacefront": false,
@@ -208,10 +210,13 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         return this.get("recordingheight") || ((this.get("record_media") !== "screen" && (this.get("record_media") !== "multistream")) ? 480 : (window.innerHeight || document.body.clientHeight));
                     },
                     "containerSizingStyles:width,height,aspectratio,nativeRecordingWidth,nativeRecordingHeight,activated": function(width, height, aspectRatio, fallbackWidth, fallbackHeight, active) {
-                        var result = {};
+                        var result = {
+                            minWidth: this.get("minwidth") + "px",
+                            minHeight: this.get("minheight") + "px",
+                            aspectRatio: aspectRatio || fallbackWidth + "/" + fallbackHeight
+                        };
                         if (width) result.width = typeof width === "string" && width[width.length - 1] === "%" ? width : width + "px";
                         if (height) result.height = typeof height === "string" && height[height.length - 1] === "%" ? height : height + "px";
-                        result.aspectRatio = aspectRatio || fallbackWidth + "/" + fallbackHeight;
                         if (!width && !height) {
                             result.width = fallbackWidth + "px";
                             result.height = fallbackHeight + "px";
@@ -281,6 +286,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "themecolor": "string",
                     "webrtconmobile": "boolean",
                     "manual-upload": "boolean",
+                    "minwidth": "int",
+                    "minheight": "int",
                     "webrtcstreamingifnecessary": "boolean",
                     "microphone-volume": "float",
                     "audiobitrate": "int",

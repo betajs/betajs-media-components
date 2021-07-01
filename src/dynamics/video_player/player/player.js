@@ -131,6 +131,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "topmessage": "",
                     "totalduration": null,
                     "playwhenvisible": false,
+                    "minwidth": 320,
+                    "minheight": 240,
                     "disablepause": false,
                     "disableseeking": false,
                     "tracktextvisible": false,
@@ -229,6 +231,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "playwhenvisible": "boolean",
                     "playedonce": "boolean",
                     "manuallypaused": "boolean",
+                    "minwidth": "int",
+                    "minheight": "int",
                     "disablepause": "boolean",
                     "disableseeking": "boolean",
                     "playonclick": "boolean",
@@ -310,10 +314,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         };
                     },
                     "containerSizingStyles:width,height,aspectratio,fallback-width,fallback-height": function(width, height, aspectRatio, fallbackWidth, fallbackHeight) {
-                        var result = {};
+                        var result = {
+                            minWidth: this.get("minwidth") + "px",
+                            minHeight: this.get("minheight") + "px",
+                            aspectRatio: aspectRatio || fallbackWidth + "/" + fallbackHeight
+                        };
                         if (width) result.width = typeof width === "string" && width[width.length - 1] === "%" ? width : width + "px";
                         if (height) result.height = typeof height === "string" && height[height.length - 1] === "%" ? height : height + "px";
-                        result.aspectRatio = aspectRatio || fallbackWidth + "/" + fallbackHeight;
                         if (!width && !height) {
                             result.width = fallbackWidth + "px";
                             result.height = fallbackHeight + "px";

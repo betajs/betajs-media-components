@@ -99,7 +99,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     "allowedextensions": null,
                     "filesizelimit": null,
                     "display-timer": true,
-                    "visualeffectvisible": false,
+                    "visualeffectvisible": true,
                     "visualeffectsupported": false,
                     "visualeffectheight": null,
                     "visualeffectminheight": 120,

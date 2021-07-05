@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.268 - 2021-06-27
+betajs-media-components - v0.0.269 - 2021-07-05
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.268",
-    "datetime": 1624828075127
+    "version": "0.0.269",
+    "datetime": 1625517753301
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -14110,7 +14110,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     "allowedextensions": null,
                     "filesizelimit": null,
                     "display-timer": true,
-                    "visualeffectvisible": false,
+                    "visualeffectvisible": true,
                     "visualeffectsupported": false,
                     "visualeffectheight": null,
                     "visualeffectminheight": 120,

@@ -938,13 +938,15 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Trimming", [
             if (!this.dyn.get("allowtrim") || this.dyn.get("duration") < this.dyn.get("timeminlimit")) {
                 this.next("Uploading");
             } else {
-                this.dyn._getFirstFrameSnapshot()
-                    .success(function(snapshot) {
-                        this.showTrimmingOverlay(snapshot);
-                    }, this)
-                    .error(function() {
-                        this.showTrimmingOverlay(this.dyn.__backgroundSnapshot);
-                    }, this);
+                if (this.dyn.get("trimoverlay")) {
+                    this.dyn._getFirstFrameSnapshot()
+                        .success(function(snapshot) {
+                            this.showTrimmingOverlay(snapshot);
+                        }, this)
+                        .error(function() {
+                            this.showTrimmingOverlay(this.dyn.__backgroundSnapshot);
+                        }, this);
+                }
             }
         },
 

@@ -940,15 +940,15 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Trimming", [
             } else {
                 this.dyn._getFirstFrameSnapshot()
                     .success(function(snapshot) {
-                        this.startTrimming(snapshot);
+                        this.showTrimmingOverlay(snapshot);
                     }, this)
                     .error(function() {
-                        this.startTrimming(this.dyn.__backgroundSnapshot);
+                        this.showTrimmingOverlay(this.dyn.__backgroundSnapshot);
                     }, this);
             }
         },
 
-        startTrimming: function(poster) {
+        showTrimmingOverlay: function(poster) {
             this._playerAttrs = this.dyn.get("playerattrs");
 
             this.dyn.set("playerattrs", {
@@ -967,12 +967,12 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Trimming", [
             this.listenOnce(this.dyn.scopes.player, "video-trimmed skip", function(start, end) {
                 if (start) this.dyn.set("starttime", start);
                 if (end) this.dyn.set("endtime", end);
-                this.endTrimming();
+                this.hideTrimmingOverlay();
                 this.next("Uploading");
             }, this);
         },
 
-        endTrimming: function() {
+        hideTrimmingOverlay: function() {
             this.dyn.set("trimmingmode", false);
             this.dyn.set("playerattrs", this._playerAttrs);
         }

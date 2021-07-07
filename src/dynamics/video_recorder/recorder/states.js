@@ -948,6 +948,8 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Trimming", [
                             this.showTrimmingOverlay(this.dyn.__backgroundSnapshot);
                         }, this);
                 } else {
+                    this.dyn.set("message_active", true);
+                    this.dyn.set("message", this.dyn.string("wait-for-trim"));
                     this.listenOnce(this.dyn, "video-trimmed", function(start, end) {
                         if (Types.isNumber(start) && start > 0) this.dyn.set("starttime", start);
                         if (Types.isNumber(end) && end <= this.get("duration")) this.dyn.set("endtime", end);

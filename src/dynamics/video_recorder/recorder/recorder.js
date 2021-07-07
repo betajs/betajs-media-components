@@ -1379,6 +1379,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
             "browser-permission-denied": "Permission denied by browser, please grant access and reload page",
             "screen-recorder-is-not-supported": "Screen recorder is not supported on this device",
             "trim-prompt": "Do you want to trim your video?",
-            "trim-video": "Move the start and end markers to trim your video"
+            "trim-video": "Move the start and end markers to trim your video",
+            "wait-for-trim": "Waiting for trim command..."
         });
 });

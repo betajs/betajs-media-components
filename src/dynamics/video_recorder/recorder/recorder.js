@@ -1019,7 +1019,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
                     trim: function(start, end) {
                         if (this.host.state().state_name() !== "Trimming") return;
-                        this.trigger("video-trimmed", start, end);
+                        this.trigger("manual-trim", start, end);
                     },
 
                     manual_submit: function() {

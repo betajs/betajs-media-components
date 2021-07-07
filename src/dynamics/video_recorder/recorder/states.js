@@ -950,9 +950,10 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Trimming", [
                 } else {
                     this.dyn.set("message_active", true);
                     this.dyn.set("message", this.dyn.string("wait-for-trim"));
-                    this.listenOnce(this.dyn, "video-trimmed", function(start, end) {
+                    this.listenOnce(this.dyn, "manual-trim", function(start, end) {
                         if (Types.isNumber(start) && start > 0) this.dyn.set("starttime", start);
                         if (Types.isNumber(end) && end <= this.get("duration")) this.dyn.set("endtime", end);
+                        this.trigger("video-trimmed", this.dyn.get("starttime"), this.dyn.get("endtime"));
                         this.next("Uploading");
                     });
                 }
@@ -978,6 +979,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Trimming", [
             this.listenOnce(this.dyn.scopes.player, "video-trimmed skip", function(start, end) {
                 if (start) this.dyn.set("starttime", start);
                 if (end) this.dyn.set("endtime", end);
+                this.trigger("video-trimmed", this.dyn.get("starttime"), this.dyn.get("endtime"));
                 this.hideTrimmingOverlay();
                 this.next("Uploading");
             }, this);

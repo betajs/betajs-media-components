@@ -928,8 +928,9 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
 });
 
 Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Trimming", [
-    "module:VideoRecorder.Dynamics.RecorderStates.State"
-], function(State, scoped) {
+    "module:VideoRecorder.Dynamics.RecorderStates.State",
+    "base:Types"
+], function(State, Types, scoped) {
     return State.extend({
         scoped: scoped
     }, {
@@ -946,6 +947,12 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Trimming", [
                         .error(function() {
                             this.showTrimmingOverlay(this.dyn.__backgroundSnapshot);
                         }, this);
+                } else {
+                    this.listenOnce(this.dyn, "video-trimmed", function(start, end) {
+                        if (Types.isNumber(start) && start > 0) this.dyn.set("starttime", start);
+                        if (Types.isNumber(end) && end <= this.get("duration")) this.dyn.set("endtime", end);
+                        this.next("Uploading");
+                    });
                 }
             }
         },

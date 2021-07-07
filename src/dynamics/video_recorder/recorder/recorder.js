@@ -830,7 +830,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 object_functions: [
                     "record", "rerecord", "record_screen", "stop", "play", "pause", "reset", "cancel",
                     "pause_recorder", "resume", "upload_video", "upload_covershot", "select_camera",
-                    "select_microphone", "add_new_stream"
+                    "select_microphone", "add_new_stream", "trim"
                 ],
 
                 functions: {
@@ -1015,6 +1015,11 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
                     toggle_facemode: function() {
                         this._toggleFaceMode();
+                    },
+
+                    trim: function(start, end) {
+                        if (this.host.state().state_name() !== "Trimming") return;
+                        this.trigger("video-trimmed", start, end);
                     },
 
                     manual_submit: function() {

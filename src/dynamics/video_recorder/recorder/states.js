@@ -953,7 +953,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Trimming", [
                     this.listenOnce(this.dyn, "manual-trim", function(start, end) {
                         if (Types.isNumber(start) && start > 0) this.dyn.set("starttime", start);
                         if (Types.isNumber(end) && end <= this.get("duration")) this.dyn.set("endtime", end);
-                        this.dyn.trigger("video-trimmed", this.dyn.get("starttime"), this.dyn.get("endtime"));
+                        this.dyn.trigger("video-trimmed", this.dyn.get("starttime"), this.dyn.get("endtime"), this.dyn.get("duration"));
                         this.next("Uploading");
                     });
                 }

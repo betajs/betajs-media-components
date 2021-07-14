@@ -3,7 +3,7 @@
      class="{{css}}-container {{csstheme}} {{css}}-size-{{csssize}}
      {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{css}}-{{ fullscreened ? 'fullscreen' : 'normal' }}-view
      {{cssrecorder}}-{{ firefox ? 'firefox' : 'common'}}-browser
-     {{cssrecorder}}-{{themecolor}}-color" ba-styles="{{widthHeightStyles}}"
+     {{cssrecorder}}-{{themecolor}}-color" ba-styles="{{containerSizingStyles}}"
 >
 
     <video tabindex="-1"
@@ -141,7 +141,7 @@
 </div>
 
 
-<div data-selector="recorder-player" ba-if="{{player_active}}" ba-styles="{{widthHeightStyles}}">
+<div data-selector="recorder-player" ba-if="{{player_active}}" ba-styles="{{containerSizingStyles}}">
 	<span ba-show="{{ie8}}">&nbsp;</span>
 	<ba-{{dynvideoplayer}}
 		ba-theme="{{theme || 'default'}}"
@@ -150,17 +150,12 @@
 		ba-source="{{localplayback ? playbacksource : ''}}"
 		ba-poster="{{localplayback ? playbackposter : ''}}"
 		ba-hideoninactivity="{{false}}"
-		ba-stretch="{{stretch}}"
 		ba-showsettingsmenu="{{showplayersettingsmenu}}"
-		ba-stretchheight="{{stretchheight}}"
-		ba-stretchwidth="{{stretchwidth}}"
-		ba-fallback-width="{{playerfallbackwidth}}"
-		ba-fallback-height="{{playerfallbackheight}}"
 		ba-onlyaudio="{{onlyaudio}}"
 		ba-attrs="{{playerattrs}}"
 		ba-data:id="player"
-		ba-width="{{width || (onlyaudio ? 240 : undefined)}}"
-		ba-height="{{height}}"
+		ba-width="100%"
+		ba-height="100%"
 		ba-totalduration="{{duration}}"
 		ba-rerecordable="{{rerecordable && (recordings === null || recordings > 0)}}"
 		ba-submittable="{{manualsubmit && verified}}"
@@ -176,6 +171,8 @@
 		ba-trackcuetext="{{trackcuetext}}"
 		ba-acceptedtracktexts="{{acceptedtracktexts}}"
 		ba-sharevideo="{{sharevideo}}"
+		ba-videofitstrategy="{{videofitstrategy}}"
+		ba-posterfitstrategy="{{posterfitstrategy}}"
 		ba-event:loaded="ready_to_play"
 		ba-event:rerecord="rerecord"
 		ba-event:playing="playing"

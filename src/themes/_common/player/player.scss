@@ -22,6 +22,17 @@
     }
 }
 
+.#{$cssvideoplayer}-poster-container, .#{$cssvideoplayer}-video-container {
+    background-color: black;
+}
+
+.#{$cssvideoplayer}-poster-container, .#{$cssvideoplayer}-poster-container img,
+.#{$cssvideoplayer}-video-container, .#{$cssvideoplayer}-video-container video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
 .#{$cssvideoplayer}-video-placeholder {
     @include linear-background(#dddddd, #e9e9e9, #e9e9e9);
     position: absolute;

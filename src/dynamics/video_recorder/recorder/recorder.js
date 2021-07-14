@@ -94,6 +94,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "autoplay": false,
                     "allowrecord": true,
                     "allowupload": true,
+                    "minheight": 240,
+                    "minwidth": 320,
                     "allowcustomupload": true,
                     "manual-upload": false,
                     "camerafacefront": false,
@@ -144,6 +146,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "display-timer": true,
                     "pausable": false,
                     "sharevideo": [],
+                    "videofitstrategy": "pad",
+                    "posterfitstrategy": "crop",
 
                     /* Configuration */
                     "simulate": false,
@@ -163,9 +167,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "orientation": false,
                     "popup": false,
                     "popup-stretch": false,
-                    "stretch": false,
-                    "stretchwidth": false,
-                    "stretchheight": false,
                     "audio-test-mandatory": false,
                     "snapshotfromuploader": false,
                     "snapshotfrommobilecapture": false,
@@ -183,7 +184,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "addstreamminheight": null,
                     "showsettingsmenu": true, // As a property show/hide settings from users
                     "showplayersettingsmenu": true, // As a property show/hide after recorder player settings from users
-                    "videodimensions": {},
 
                     "allowtexttrackupload": false,
                     "framevisible": false,
@@ -209,28 +209,44 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "nativeRecordingHeight:recordingheight,record_media": function() {
                         return this.get("recordingheight") || ((this.get("record_media") !== "screen" && (this.get("record_media") !== "multistream")) ? 480 : (window.innerHeight || document.body.clientHeight));
                     },
-                    // "nativeRecordingWidth:recordingwidth,record_media": function() {
-                    //     if (this.get("record_media") !== "multistream") {
-                    //         return this.videoWidth();
-                    //     } else {
-                    //         return this.get("recordingwidth") || (this.get("record_media") !== "screen" ? 640 : (window.innerWidth || document.body.clientWidth));
-                    //     }
-                    // },
-                    // "nativeRecordingHeight:recordingheight,record_media": function() {
-                    //     if (this.get("record_media") !== "multistream") {
-                    //         return this.videoWidth() * this.aspectRatio();
-                    //     } else {
-                    //         return this.get("recordingheight") || (this.get("record_media") !== "screen" ? 480 : (window.innerHeight || document.body.clientHeight));
-                    //     }
-                    // },
-                    "widthHeightStyles:width,height": function() {
-                        var result = {};
-                        var width = this.get("width");
-                        var height = this.get("height");
-                        if (width)
-                            result.width = width + ((width + '').match(/^\d+$/g) ? 'px' : '');
-                        if (height)
-                            result.height = height + ((height + '').match(/^\d+$/g) ? 'px' : '');
+                    "containerSizingStyles:width,height,aspectratio,nativeRecordingWidth,nativeRecordingHeight,activated": function(width, height, aspectRatio, fallbackWidth, fallbackHeight, active) {
+                        var result = {
+                            minWidth: this.get("minwidth") + "px",
+                            minHeight: this.get("minheight") + "px",
+                            aspectRatio: aspectRatio || fallbackWidth + "/" + fallbackHeight
+                        };
+                        if (width) result.width = typeof width === "string" && width[width.length - 1] === "%" ? width : width + "px";
+                        if (height) result.height = typeof height === "string" && height[height.length - 1] === "%" ? height : height + "px";
+                        if (!width && !height) {
+                            result.width = fallbackWidth + "px";
+                            result.height = fallbackHeight + "px";
+                        } else if ((Info.isInternetExplorer() || Info.isSafari()) && (!width || !height)) {
+                            if (!width) {
+                                if (typeof height === "string" && height[height.length - 1] === "%") {
+                                    if (active) {
+                                        var heightPercentage = height.slice(0, -1) / 100;
+                                        new ResizeObserver(function(entries) {
+                                            this.set("width", Math.floor(entries[0].target.offsetHeight * heightPercentage * (aspectRatio || (fallbackWidth / fallbackHeight))));
+                                        }.bind(this)).observe(this.activeElement().parentElement);
+                                        result.width = Math.floor(this.activeElement().parentElement.offsetHeight * heightPercentage * (aspectRatio || (fallbackWidth / fallbackHeight))) + "px";
+                                    }
+                                } else {
+                                    result.width = Math.floor(height * (aspectRatio || (fallbackWidth / fallbackHeight))) + "px";
+                                }
+                            } else if (!height) {
+                                if (typeof width === "string" && width[width.length - 1] === "%") {
+                                    if (active) {
+                                        var widthPercentage = width.slice(0, -1) / 100;
+                                        new ResizeObserver(function(entries) {
+                                            this.set("height", Math.floor(entries[0].target.offsetWidth * widthPercentage / (aspectRatio || (fallbackWidth / fallbackHeight))));
+                                        }.bind(this)).observe(this.activeElement().parentElement);
+                                        result.height = Math.floor(this.activeElement().parentElement.offsetWidth * widthPercentage / (aspectRatio || (fallbackWidth / fallbackHeight))) + "px";
+                                    }
+                                } else {
+                                    result.height = Math.floor(width / (aspectRatio || (fallbackWidth / fallbackHeight))) + "px";
+                                }
+                            }
+                        }
                         return result;
                     },
                     "canswitchcamera:recordviafilecapture": function() {
@@ -246,10 +262,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "allowscreen": "boolean",
                     "rerecordable": "boolean",
                     "ready": "boolean",
-                    "stretch": "boolean",
                     "fittodimensions": "boolean",
-                    "stretchwidth": "boolean",
-                    "stretchheight": "boolean",
                     "autorecord": "boolean",
                     "autoplay": "boolean",
                     "allowrecord": "boolean",
@@ -273,6 +286,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "themecolor": "string",
                     "webrtconmobile": "boolean",
                     "manual-upload": "boolean",
+                    "minwidth": "int",
+                    "minheight": "int",
                     "webrtcstreamingifnecessary": "boolean",
                     "microphone-volume": "float",
                     "audiobitrate": "int",
@@ -343,30 +358,20 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                             this.set("autorecord", false);
                             this._screenRecorderVerifier(false);
                         }
-                    },
-                    "change:videodimensions": function(dimension) {
-                        var width = this.get("width");
-                        var height = this.get("height");
-                        if ((!height || !width) && typeof dimension.aspectRatio !== "undefined") {
-                            var aspectRatio = dimension.aspectRatio;
-                            if (!width && !height) {
-                                width = dimension.width;
-                                height = dimension.height;
-                            } else {
-                                if (!height) {
-                                    height = aspectRatio > 1 ? Math.floor(this.get("width") / aspectRatio) : Math.floor(this.get("width") * aspectRatio);
-                                }
-                                if (!width) {
-                                    width = aspectRatio > 1 ? Math.floor(this.get("height") * aspectRatio) : Math.floor(this.get("height") / aspectRatio);
-                                }
-                            }
-                            this.set("playerfallbackwidth", width);
-                            this.set("playerfallbackheight", height);
-                        }
                     }
                 },
 
                 create: function() {
+                    var fitStrategies = ["crop", "pad", "original"];
+                    if (!fitStrategies.includes(this.get("videofitstrategy"))) {
+                        console.warn("Invalid value for videofitstrategy: " + this.get("videofitstrategy") + "\nPossible values are: " + fitStrategies.slice(0, -1).join(", ") + " or " + fitStrategies.slice(-1));
+                    }
+                    if (!fitStrategies.includes(this.get("posterfitstrategy"))) {
+                        console.warn("Invalid value for posterfitstrategy: " + this.get("posterfitstrategy") + "\nPossible values are: " + fitStrategies.slice(0, -1).join(", ") + " or " + fitStrategies.slice(-1));
+                    }
+                    if (this.get("stretch") || this.get("stretchwidth") || this.get("stretchheight")) {
+                        console.warn("Stretch parameters were removed, please set width and/or height to 100% instead.");
+                    }
                     // Init Audio Context
                     WebRTCSupport.globals();
                     this.set("optionsinitialstate", {
@@ -405,11 +410,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     this._bound = false;
                     this.__recording = false;
                     this.__error = null;
-                    this.__currentStretch = null;
 
-                    this.on("change:stretch", function() {
-                        this._updateStretch();
-                    }, this);
                     this.host = new Host({
                         stateRegistry: new ClassRegistry(this.cls.recorderStates())
                     });
@@ -577,10 +578,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                             }, this);
                             if (!this.get("noaudio"))
                                 this.recorder.testSoundLevel(true);
-                            if (typeof this.recorder._recorder._videoTrackSettings !== "undefined")
-                                this.set("videodimensions", this.recorder._recorder._videoTrackSettings);
                             this.set("devicetesting", true);
-                            this._updateStretch();
                             while (this.snapshots.length > 0) {
                                 var snapshot = this.snapshots.unshift();
                                 this.recorder.removeSnapshot(snapshot);
@@ -745,6 +743,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
                 _afterActivate: function(element) {
                     inherited._afterActivate.call(this, element);
+                    this.set("activated", true);
                     this.__activated = true;
                     if (this.__attachRequested)
                         this._attachRecorder();
@@ -1155,7 +1154,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         }
                     } catch (e) {}
 
-                    this._updateStretch();
                     this._updateCSSSize();
                 },
 
@@ -1222,30 +1220,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
                 averageFrameRate: function() {
                     return this.recorderAttached() ? this.recorder.averageFrameRate() : null;
-                },
-
-                _updateStretch: function() {
-                    var newStretch = null;
-                    if (this.get("stretch")) {
-                        var ar = this.aspectRatio();
-                        if (isFinite(ar)) {
-                            var par = this.parentAspectRatio();
-                            if (isFinite(par)) {
-                                if (par > ar)
-                                    newStretch = "height";
-                                if (par < ar)
-                                    newStretch = "width";
-                            } else if (par === Infinity)
-                                newStretch = "height";
-                        }
-                    }
-                    if (this.__currentStretch !== newStretch) {
-                        if (this.__currentStretch)
-                            Dom.elementRemoveClass(this.activeElement(), this.get("css") + "-stretch-" + this.__currentStretch);
-                        if (newStretch)
-                            Dom.elementAddClass(this.activeElement(), this.get("css") + "-stretch-" + newStretch);
-                    }
-                    this.__currentStretch = newStretch;
                 },
 
                 cloneAttrs: function() {

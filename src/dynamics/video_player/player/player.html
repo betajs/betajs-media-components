@@ -2,26 +2,22 @@
      class="{{css}}-container {{cssplayer}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}
      {{cssplayer}}-{{fullscreened ? 'fullscreen' : 'normal'}}-view {{cssplayer}}-{{firefox ? 'firefox' : 'common'}}-browser
      {{cssplayer}}-{{themecolor}}-color {{cssplayer}}-device-type-{{mobileview ? 'mobile' : 'desktop'}}
-     {{(stretchheight || stretchwidth) ? css + '-self-stretched' : ''}}
-     {{sourceratio ? css + (sourceratio > 1 ? '-video-landscape-mode' : '-video-portrait-mode') : ''}}
-     {{containeroffsetratio ? css + (containeroffsetratio > 1 ? '-container-landscape' : '-container-portrait') : ''}}"
      ba-on:mousemove="{{user_activity()}}"
      ba-on:mousedown="{{user_activity(true)}}"
      ba-on:touchstart="{{user_activity(true)}}"
-     ba-styles="{{(width || height) ? widthHeightStyles : containerElementWidthHeightStyles}}"
+     ba-styles="{{containerSizingStyles}}"
 >
     <meta itemprop="name" content="{{title || 'Video Player'}}" />
     <meta itemprop="description" content="{{description || 'Video Player'}}" />
     <meta itemprop="uploadDate" content="{{uploaddate}}" />
-    <div ba-show="{{videoelement_active || (!imageelement_active && !videoelement_active)}}">
-        <video tabindex="-1" class="{{css}}-video" data-video="video"
+    <div ba-show="{{videoelement_active || !imageelement_active}}" class="{{css}}-video-container">
+        <video tabindex="-1" class="{{css}}-video {{csscommon}}-{{videofitstrategy}}-fit" data-video="video"
                preload="{{preload ? 'auto' : 'metadata'}}"
-               ba-styles="{{widthHeightStyles}}"
                ba-toggle:playsinline="{{!playfullscreenonmobile}}"
         ></video>
     </div>
-    <div ba-show="{{(imageelement_active && !videoelement_active) || (!playing && position < 0.1 && videoelement_active)}}" class="{{css}}-video-poster{{(!playing && position < 0.1 && videoelement_active) ? '-active' : ''}}">
-        <img tabindex="-1" data-image="image" alt="{{posteralt}}" height="{{height || containeroffsetheight}}" />
+    <div ba-show="{{imageelement_active && !videoelement_active}}" class="{{css}}-poster-container">
+        <img tabindex="-1" data-image="image" alt="{{posteralt}}" class="{{csscommon}}-{{posterfitstrategy}}-fit"/>
     </div>
     <div class="{{css}}-overlay" ba-show="{{!showbuiltincontroller}}">
         <div tabindex="-1" class="{{css}}-player-toggle-overlay" data-selector="player-toggle-overlay"
@@ -152,7 +148,6 @@
             ba-theme-color="{{themecolor}}"
             ba-template="{{tmplloader}}"
             ba-playwhenvisible="{{playwhenvisible}}"
-            ba-containerElementWidthHeightStyles="{{containerElementWidthHeightStyles}}"
             ba-show="{{loader_active}}"
         ></ba-{{dynloader}}>
 
@@ -193,4 +188,5 @@
         <meta itemprop="contentUrl" content="{{contenturl}}"/>
     </div>
     <div class="{{css}}-overlay" data-video="ad" style="display:none"></div>
+    <div ba-show="{{useAspectRatioFallback}}" ba-styles="{{aspectRatioFallback}}"></div>
 </div>

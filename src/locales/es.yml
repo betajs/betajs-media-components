@@ -92,8 +92,8 @@
   ba-videorecorder.resolution-constraint-error: >-
     El archivo que ha seleccionado no coincide con la resolución requerida; haga
     clic aquí para volver a intentarlo.
-  ba-videorecorder.orientation-portrait-required: Por favor, gire su dispositivo para grabar en modo vertical.
-  ba-videorecorder.orientation-landscape-required: Por favor, gire su dispositivo para grabar en modo horizontal.
+  ba-videorecorder.orientation-portrait-required: 'Por favor, gire su dispositivo para grabar en modo vertical.'
+  ba-videorecorder.orientation-landscape-required: 'Por favor, gire su dispositivo para grabar en modo horizontal.'
   ba-imageviewer-controlbar.rerecord-image: ¿Rehacer?
   ba-imageviewer-controlbar.submit-image: Confirmar
   ba-imageviewer-controlbar.fullscreen-image: Ingrese a pantalla completa
@@ -167,16 +167,16 @@
     Esperando a que los requisitos sean instalados / activados. Es posible que
     necesite actualizar la página al finalizar.
   ba-imagecapture.access-forbidden: >-
-    El acceso a los medios de comunicación está denegado. Haga clic para
-    volver a intentarlo.
+    El acceso a los medios de comunicación está denegado. Haga clic para volver
+    a intentarlo.
   ba-imagecapture.uploading: Subiendo
   ba-imagecapture.uploading-failed: Falló la carga - haga clic aquí para volver a intentarlo.
   ba-imagecapture.upload-error-duration: >-
     La longitud de la imagen cargada no cumple con los requisitos - haga clic
     aquí para volver a intentarlo.
   ba-imagecapture.resolution-constraint-error: >-
-    El archivo que ha seleccionado no coincide con la resolución requerida - haga
-    clic aquí para volver a intentarlo.
+    El archivo que ha seleccionado no coincide con la resolución requerida -
+    haga clic aquí para volver a intentarlo.
   ba-imagecapture.verifying: Verificando
   ba-imagecapture.verifying-failed: Verificación fallida - haga clic aquí para volver a intentarlo.
   ba-imagecapture.rerecord-confirm: ¿De verdad quieres volver a tomar tu imagen?
@@ -184,8 +184,8 @@
     Su archivo de imagen es demasiado grande (%s): haga clic aquí para volver a
     intentarlo con un archivo de imagen más pequeño.
   ba-imagecapture.unsupported_image_type: 'Por favor suba: %s - haga clic aquí para volver a intentarlo.'
-  ba-imagecapture.orientation-portrait-required: Por favor, gire su dispositivo para grabar en modo retrato.
-  ba-imagecapture.orientation-landscape-required: Por favor, gire su dispositivo para grabar en modo horizontal.
+  ba-imagecapture.orientation-portrait-required: 'Por favor, gire su dispositivo para grabar en modo retrato.'
+  ba-imagecapture.orientation-landscape-required: 'Por favor, gire su dispositivo para grabar en modo horizontal.'
   ba-audiorecorder.recorder-error: >-
     Ha ocurrido un error, por favor intente de nuevo más tarde. Haga clic para
     volver a intentarlo.
@@ -194,14 +194,14 @@
     navegador, es posible que deba instalar Flash o acceder a la página a través
     de SSL.
   ba-audiorecorder.software-required: >-
-    Haga clic debajo para instalar / activar los siguientes requisitos
-    para continuar.
+    Haga clic debajo para instalar / activar los siguientes requisitos para
+    continuar.
   ba-audiorecorder.software-waiting: >-
     Esperando a que los requisitos sean instalados / activados. Es posible que
     necesite actualizar la página después de finalizar.
   ba-audiorecorder.access-forbidden: >-
-    El acceso a los medios de comunicación está denegado. Haga clic para
-    volver a intentarlo.
+    El acceso a los medios de comunicación está denegado. Haga clic para volver
+    a intentarlo.
   ba-audiorecorder.uploading: Subiendo
   ba-audiorecorder.uploading-failed: Falló la carga - haga clic aquí para volver a intentarlo.
   ba-audiorecorder.upload-error-duration: >-
@@ -229,5 +229,18 @@
   ba-videorecorder-controlbar.resume-recorder: Resumir grabación
   ba-videorecorder.missing-track: Pista de audio o video requerida
   ba-videorecorder.device-already-in-use: Por lo menos uno de sus dispositivos de entrada se encuentra en uso
-  ba-videorecorder.browser-permission-denied: 'Permiso denegado por el navegador, por favor conceda acceso y recargue la página'
+  ba-videorecorder.browser-permission-denied: >-
+    Permiso denegado por el navegador, por favor conceda acceso y recargue la
+    página
   ba-audioplayer.all-settings: Todos los ajustes
+  ba-videoplayer-controlbar.remaining-time: Tiempo restante
+  ba-videoplayer-controlbar.select-frame: Seleccione
+  ba-videoplayer-controlbar.trim-video: Podar
+  ba-videoplayer-playbutton.trim: Podar
+  ba-videoplayer-playbutton.skip: Saltar
+  ba-videorecorder-imagegallery.upload-covershot: Subir portada
+  ba-videorecorder.pick-covershot-frame: Seleccione un fotograma para usarlo como foto de portada.
+  ba-videorecorder.screen-recorder-is-not-supported: La grabadora de pantalla no es compatible con este dispositivo
+  ba-videorecorder.trim-prompt: ¿Quieres recortar tu video?
+  ba-videorecorder.trim-video: Mueva los marcadores de inicio y fin para recortar su video
+  ba-videorecorder.wait-for-trim: Esperando el comando de recorte ...

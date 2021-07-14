@@ -52,7 +52,7 @@
   ba-videorecorder.video_file_too_large: >-
     La taille de votre fichier est trop grande (%s) - Cliquez ici pour réessayer
     avec un fichier plus petit.
-  ba-videorecorder.unsupported_video_type: S’il vous plaît, téléchargez %s - cliquez ici pour réessayer.
+  ba-videorecorder.unsupported_video_type: 'S’il vous plaît, téléchargez %s - cliquez ici pour réessayer.'
   ba-videoplayer-controlbar.exit-fullscreen-video: Quitter le mode plein écran
   ba-videoplayer-share.share: Partager la vidéo
   ba-videorecorder-chooser.record-screen: Enregistrer l'écran
@@ -225,5 +225,18 @@
   ba-videorecorder-controlbar.resume-recorder: Continuer l'enregistrement
   ba-videorecorder.missing-track: La piste audio ou vidéo requise est manquante
   ba-videorecorder.device-already-in-use: Au moins un de vos périphériques d'entrée est déjà utilisé
-  ba-videorecorder.browser-permission-denied: Autorisation refusée par le navigateur, veuillez accorder l'accès et recharger la page
+  ba-videorecorder.browser-permission-denied: >-
+    Autorisation refusée par le navigateur, veuillez accorder l'accès et
+    recharger la page
   ba-audioplayer.all-settings: Tous les réglages
+  ba-videoplayer-controlbar.remaining-time: Temps restant
+  ba-videoplayer-controlbar.select-frame: Sélectionner
+  ba-videoplayer-controlbar.trim-video: Garniture
+  ba-videoplayer-playbutton.trim: Garniture
+  ba-videoplayer-playbutton.skip: Sauter
+  ba-videorecorder-imagegallery.upload-covershot: Télécharger la couverture
+  ba-videorecorder.pick-covershot-frame: Sélectionnez une image à utiliser comme couverture.
+  ba-videorecorder.screen-recorder-is-not-supported: L'enregistreur d'écran n'est pas pris en charge sur cet appareil
+  ba-videorecorder.trim-prompt: "Voulez-vous découper votre vidéo\_?"
+  ba-videorecorder.trim-video: Déplacez les marqueurs de début et de fin pour découper votre vidéo
+  ba-videorecorder.wait-for-trim: En attente de la commande de rognage...

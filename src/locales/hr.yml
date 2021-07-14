@@ -225,3 +225,14 @@
     Dozvola odbijena od strane preglednika, odobrite pristup i ponovno učitajte
     stranicu
   ba-audioplayer.all-settings: Sve postavke
+  ba-videoplayer-controlbar.remaining-time: Preostalo vrijeme
+  ba-videoplayer-controlbar.select-frame: Odaberi
+  ba-videoplayer-controlbar.trim-video: Obrežite
+  ba-videoplayer-playbutton.trim: Obrežite
+  ba-videoplayer-playbutton.skip: Preskočiti
+  ba-videorecorder-imagegallery.upload-covershot: Prenesi naslovnicu
+  ba-videorecorder.pick-covershot-frame: Odaberite okvir koji ćete koristiti kao snimku naslovnice.
+  ba-videorecorder.screen-recorder-is-not-supported: Snimač zaslona nije podržan na ovom uređaju
+  ba-videorecorder.trim-prompt: Želite li obrezati svoj videozapis?
+  ba-videorecorder.trim-video: Pomaknite oznake početka i kraja da biste obrezali videozapis
+  ba-videorecorder.wait-for-trim: Čeka se naredba trim ...

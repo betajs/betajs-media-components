@@ -205,3 +205,14 @@
   ba-videorecorder.device-already-in-use: Mindst en af dine inputenheder er allerede i brug
   ba-videorecorder.browser-permission-denied: 'Tilladelse nægtet af browseren, giv venligst adgang og genindlæs siden'
   ba-audioplayer.all-settings: Alle indstillinger
+  ba-videoplayer-controlbar.remaining-time: Resterende tid
+  ba-videoplayer-controlbar.select-frame: Vælg
+  ba-videoplayer-controlbar.trim-video: Trimme
+  ba-videoplayer-playbutton.trim: Trimme
+  ba-videoplayer-playbutton.skip: Springe
+  ba-videorecorder-imagegallery.upload-covershot: Upload dækning
+  ba-videorecorder.pick-covershot-frame: 'Vælg en ramme, der skal bruges som forsidebillede.'
+  ba-videorecorder.screen-recorder-is-not-supported: Screen recorder understøttes ikke på denne enhed
+  ba-videorecorder.trim-prompt: Vil du trimme din video?
+  ba-videorecorder.trim-video: Flyt start- og slutmarkørerne for at trimme din video
+  ba-videorecorder.wait-for-trim: Venter på trimkommando ...

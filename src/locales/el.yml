@@ -208,8 +208,8 @@
   ba-audiorecorder.rerecord-confirm: Θέλετε πραγματικά να επαναλάβετε τον ήχο σας;
   ba-audiorecorder.cancel-confirm: Θέλετε πραγματικά να ακυρώσετε τη μεταφόρτωση ήχου;
   ba-audiorecorder.audio_file_too_large: >-
-    Το αρχείο ήχου σας είναι πολύ μεγάλο (%s) - κάντε κλικ εδώ για να
-    δοκιμάσετε ξανά με ένα μικρότερο αρχείο ήχου.
+    Το αρχείο ήχου σας είναι πολύ μεγάλο (%s) - κάντε κλικ εδώ για να δοκιμάσετε
+    ξανά με ένα μικρότερο αρχείο ήχου.
   ba-audiorecorder.unsupported_audio_type: 'Μεταφορτώστε: %s - κάντε κλικ εδώ για να προσπαθήσετε ξανά.'
   ba-common-settingsmenu.tooltip: Κάντε κλικ για να παίξετε.
   ba-common-settingsmenu.setting-menu: Όλες οι ρυθμίσεις
@@ -229,3 +229,14 @@
     Δεν επιτρέπεται η άδεια από το πρόγραμμα περιήγησης, παραχωρήστε πρόσβαση
     και φορτώστε ξανά τη σελίδα
   ba-audioplayer.all-settings: Όλες οι ρυθμίσεις
+  ba-videoplayer-controlbar.remaining-time: Χρόνος που απομένει
+  ba-videoplayer-controlbar.select-frame: Επιλέγω
+  ba-videoplayer-controlbar.trim-video: Τακτοποίηση
+  ba-videoplayer-playbutton.trim: Τακτοποίηση
+  ba-videoplayer-playbutton.skip: Παραλείπω
+  ba-videorecorder-imagegallery.upload-covershot: Μεταφόρτωση εξωφύλλου
+  ba-videorecorder.pick-covershot-frame: Επιλέξτε ένα πλαίσιο για χρήση ως κάλυψη.
+  ba-videorecorder.screen-recorder-is-not-supported: Η συσκευή εγγραφής οθόνης δεν υποστηρίζεται σε αυτήν τη συσκευή
+  ba-videorecorder.trim-prompt: Θέλετε να κόψετε το βίντεό σας;
+  ba-videorecorder.trim-video: Μετακινήστε τους δείκτες έναρξης και τέλους για να κόψετε το βίντεό σας
+  ba-videorecorder.wait-for-trim: Αναμονή για εντολή περικοπής ...

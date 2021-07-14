@@ -225,5 +225,20 @@
   ba-videorecorder-controlbar.resume-recorder: I-resume Recorder
   ba-videorecorder.missing-track: Ang kinakailangan na audio or video tranck ay hindi makita
   ba-videorecorder.device-already-in-use: Hindi bababa sa isa sa iyong mga input device ang ginagamit na
-  ba-videorecorder.browser-permission-denied: 'Ang pahintulot ay tinanggihan ng browser, mangyaring magbigay ng access at i-reload ang pahina'
+  ba-videorecorder.browser-permission-denied: >-
+    Ang pahintulot ay tinanggihan ng browser, mangyaring magbigay ng access at
+    i-reload ang pahina
   ba-audioplayer.all-settings: Lahat ng mga setting
+  ba-videoplayer-controlbar.remaining-time: Natitirang oras
+  ba-videoplayer-controlbar.select-frame: Pumili
+  ba-videoplayer-controlbar.trim-video: Putulin
+  ba-videoplayer-playbutton.trim: Putulin
+  ba-videoplayer-playbutton.skip: Laktawan
+  ba-videorecorder-imagegallery.upload-covershot: I-upload ang Cover
+  ba-videorecorder.pick-covershot-frame: Pumili ng isang frame na gagamitin bilang coverhot.
+  ba-videorecorder.screen-recorder-is-not-supported: Ang screen recorder ay hindi suportado sa aparatong ito
+  ba-videorecorder.trim-prompt: Nais mo bang i-trim ang iyong video?
+  ba-videorecorder.trim-video: >-
+    Ilipat ang mga panimulang at pagtatapos ng mga marker upang i-trim ang iyong
+    video
+  ba-videorecorder.wait-for-trim: Naghihintay para sa trim na utos ...

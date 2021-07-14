@@ -184,8 +184,8 @@
   ba-imagecapture.verifying-failed: 'Überprüfung fehlgeschlagen - Klicken Sie hier, um es erneut zu versuchen.'
   ba-imagecapture.rerecord-confirm: Möchten Sie Ihr Bild wirklich neu aufnehmen?
   ba-imagecapture.image_file_too_large: >-
-    Ihre Bilddatei ist zu groß (%s). Klicken Sie hier, um es mit einer
-    kleineren Bilddatei erneut zu versuchen.
+    Ihre Bilddatei ist zu groß (%s). Klicken Sie hier, um es mit einer kleineren
+    Bilddatei erneut zu versuchen.
   ba-imagecapture.unsupported_image_type: 'Bitte hochladen: %s - Klicken Sie hier, um es erneut zu versuchen.'
   ba-imagecapture.orientation-portrait-required: 'Bitte drehen Sie Ihr Gerät, um im Hochformat aufzunehmen.'
   ba-imagecapture.orientation-landscape-required: 'Bitte drehen Sie Ihr Gerät, um im Querformat aufzunehmen.'
@@ -232,5 +232,18 @@
   ba-videorecorder-controlbar.resume-recorder: Aufnahme fortsetzen
   ba-videorecorder.missing-track: Die erforderliche Audio- oder Videospur fehlt
   ba-videorecorder.device-already-in-use: Mindestens eines Ihrer Eingabegeräte ist bereits in Gebrauch
-  ba-videorecorder.browser-permission-denied: 'Zugriff wurde vom Browser verweigert, bitte erteilen Sie die Erlaubnis und laden Sie die Seite neu'
+  ba-videorecorder.browser-permission-denied: >-
+    Zugriff wurde vom Browser verweigert, bitte erteilen Sie die Erlaubnis und
+    laden Sie die Seite neu
   ba-audioplayer.all-settings: Einstellungen
+  ba-videoplayer-controlbar.remaining-time: Verbleibende Zeit
+  ba-videoplayer-controlbar.select-frame: Wählen
+  ba-videoplayer-controlbar.trim-video: Trimmen
+  ba-videoplayer-playbutton.trim: Trimmen
+  ba-videoplayer-playbutton.skip: Überspringen
+  ba-videorecorder-imagegallery.upload-covershot: Cover hochladen
+  ba-videorecorder.pick-covershot-frame: 'Wählen Sie ein Bild aus, das als Covershot verwendet werden soll.'
+  ba-videorecorder.screen-recorder-is-not-supported: Bildschirmaufnahme wird auf diesem Gerät nicht unterstützt
+  ba-videorecorder.trim-prompt: Möchten Sie Ihr Video trimmen?
+  ba-videorecorder.trim-video: 'Verschieben Sie die Start- und Endmarkierungen, um Ihr Video zu trimmen'
+  ba-videorecorder.wait-for-trim: Warten auf Trimmbefehl...

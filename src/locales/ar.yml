@@ -197,3 +197,14 @@
   ba-videorecorder.device-already-in-use: واحد على الأقل من أجهزة الإدخال الخاصة بك قيد الاستخدام بالفعل
   ba-videorecorder.browser-permission-denied: تم رفض الإذن عن طريق المتصفح ، يرجى منح الوصول وإعادة تحميل الصفحة
   ba-audioplayer.all-settings: جميع الإعدادات
+  ba-videoplayer-controlbar.remaining-time: الوقت المتبقي
+  ba-videoplayer-controlbar.select-frame: يختار
+  ba-videoplayer-controlbar.trim-video: تقليم
+  ba-videoplayer-playbutton.trim: تقليم
+  ba-videoplayer-playbutton.skip: يتخطى
+  ba-videorecorder-imagegallery.upload-covershot: تحميل الغلاف
+  ba-videorecorder.pick-covershot-frame: حدد إطارًا لاستخدامه كصورة غلاف.
+  ba-videorecorder.screen-recorder-is-not-supported: مسجل الشاشة غير مدعوم على هذا الجهاز
+  ba-videorecorder.trim-prompt: هل تريد تقليم الفيديو الخاص بك؟
+  ba-videorecorder.trim-video: حرك علامتي البداية والنهاية لقص الفيديو الخاص بك
+  ba-videorecorder.wait-for-trim: في انتظار أمر القطع ...

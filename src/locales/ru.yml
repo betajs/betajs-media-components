@@ -178,8 +178,8 @@
   ba-imagecapture.verifying-failed: 'Проверка не удалась - нажмите здесь, чтобы повторить попытку.'
   ba-imagecapture.rerecord-confirm: Вы действительно хотите вернуть свой образ?
   ba-imagecapture.image_file_too_large: >-
-    Файл изображения слишком велик (%s) - нажмите здесь, чтобы повторить
-    попытку с меньшим файлом изображения.
+    Файл изображения слишком велик (%s) - нажмите здесь, чтобы повторить попытку
+    с меньшим файлом изображения.
   ba-imagecapture.unsupported_image_type: 'Загрузите: %s - нажмите здесь, чтобы повторить попытку.'
   ba-imagecapture.orientation-portrait-required: 'Пожалуйста, поверните устройство для записи в портретном режиме.'
   ba-imagecapture.orientation-landscape-required: 'Пожалуйста, поверните устройство для записи в ландшафтном режиме.'
@@ -226,3 +226,14 @@
   ba-videorecorder.device-already-in-use: Как минимум одно из ваших устройств ввода уже используется
   ba-videorecorder.browser-permission-denied: 'Браузер отказал в разрешении, предоставьте доступ и перезагрузите страницу'
   ba-audioplayer.all-settings: Все настройки
+  ba-videoplayer-controlbar.remaining-time: Оставшееся время
+  ba-videoplayer-controlbar.select-frame: Выбирать
+  ba-videoplayer-controlbar.trim-video: Отделка
+  ba-videoplayer-playbutton.trim: Отделка
+  ba-videoplayer-playbutton.skip: Пропускать
+  ba-videorecorder-imagegallery.upload-covershot: Загрузить обложку
+  ba-videorecorder.pick-covershot-frame: Выберите кадр для использования в качестве обложки.
+  ba-videorecorder.screen-recorder-is-not-supported: Запись с экрана не поддерживается на этом устройстве
+  ba-videorecorder.trim-prompt: Вы хотите обрезать видео?
+  ba-videorecorder.trim-video: 'Переместите маркеры начала и конца, чтобы обрезать видео'
+  ba-videorecorder.wait-for-trim: Ожидание команды обрезки ...

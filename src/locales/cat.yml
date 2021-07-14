@@ -233,3 +233,14 @@
     El navegador ha denegat el permís, concediu accés i torneu a carregar la
     pàgina
   ba-audioplayer.all-settings: Tots els paràmetres
+  ba-videoplayer-controlbar.remaining-time: Temps restant
+  ba-videoplayer-controlbar.select-frame: Seleccioneu
+  ba-videoplayer-controlbar.trim-video: Retallar
+  ba-videoplayer-playbutton.trim: Retallar
+  ba-videoplayer-playbutton.skip: Omet
+  ba-videorecorder-imagegallery.upload-covershot: Carrega la portada
+  ba-videorecorder.pick-covershot-frame: Seleccioneu un marc per utilitzar-lo com a captura de pantalla.
+  ba-videorecorder.screen-recorder-is-not-supported: La gravadora de pantalla no és compatible amb aquest dispositiu
+  ba-videorecorder.trim-prompt: Voleu retallar el vostre vídeo?
+  ba-videorecorder.trim-video: Mou els marcadors d’inici i de finalització per retallar el vídeo
+  ba-videorecorder.wait-for-trim: S'està esperant l'ordre de retallada ...

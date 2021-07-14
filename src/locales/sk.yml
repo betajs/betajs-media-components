@@ -212,3 +212,14 @@
   ba-videorecorder.device-already-in-use: Aspoň jedno z vašich vstupných zariadení sa už používa
   ba-videorecorder.browser-permission-denied: 'Prehliadač zamietol povolenie, udeľte prístup a znova načítajte stránku'
   ba-audioplayer.all-settings: Všetky nastavenia
+  ba-videoplayer-controlbar.remaining-time: Zostávajúci čas
+  ba-videoplayer-controlbar.select-frame: Vyberte
+  ba-videoplayer-controlbar.trim-video: Orezať
+  ba-videoplayer-playbutton.trim: Orezať
+  ba-videoplayer-playbutton.skip: Preskočiť
+  ba-videorecorder-imagegallery.upload-covershot: Odovzdajte obálku
+  ba-videorecorder.pick-covershot-frame: 'Vyberte rám, ktorý sa má použiť ako krycí záber.'
+  ba-videorecorder.screen-recorder-is-not-supported: Rekordér obrazovky nie je týmto zariadením podporovaný
+  ba-videorecorder.trim-prompt: Chcete video orezať?
+  ba-videorecorder.trim-video: Posunutím začiatočných a koncových značiek video upravte
+  ba-videorecorder.wait-for-trim: Čaká sa na príkaz na orezanie ...

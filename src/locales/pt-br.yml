@@ -208,8 +208,8 @@
   ba-audiorecorder.rerecord-confirm: Você realmente quer refazer seu áudio?
   ba-audiorecorder.cancel-confirm: Você realmente quer cancelar o envio do seu áudio?
   ba-audiorecorder.audio_file_too_large: >-
-    Seu arquivo de áudio é muito grande (%s) - clique aqui para tentar
-    novamente com um arquivo de áudio menor.
+    Seu arquivo de áudio é muito grande (%s) - clique aqui para tentar novamente
+    com um arquivo de áudio menor.
   ba-audiorecorder.unsupported_audio_type: 'Por favor, envie: %s - clique aqui para tentar novamente.'
   ba-common-settingsmenu.tooltip: Clique para jogar.
   ba-common-settingsmenu.setting-menu: Todas as configurações
@@ -227,3 +227,14 @@
   ba-videorecorder.device-already-in-use: Pelo menos um de seus dispositivos de entrada já está em uso
   ba-videorecorder.browser-permission-denied: 'Permissão negada pelo navegador, conceda acesso e recarregue a página'
   ba-audioplayer.all-settings: Todas as configurações
+  ba-videoplayer-controlbar.remaining-time: Tempo restante
+  ba-videoplayer-controlbar.select-frame: Selecione
+  ba-videoplayer-controlbar.trim-video: Aparar
+  ba-videoplayer-playbutton.trim: Aparar
+  ba-videoplayer-playbutton.skip: Pular
+  ba-videorecorder-imagegallery.upload-covershot: Carregar capa
+  ba-videorecorder.pick-covershot-frame: Selecione um quadro para usar como cobertura.
+  ba-videorecorder.screen-recorder-is-not-supported: O gravador de tela não é compatível com este dispositivo
+  ba-videorecorder.trim-prompt: Você quer cortar seu vídeo?
+  ba-videorecorder.trim-video: Mova os marcadores de início e fim para cortar seu vídeo
+  ba-videorecorder.wait-for-trim: Esperando pelo comando de corte ...

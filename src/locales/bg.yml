@@ -228,3 +228,14 @@
     Разрешението е отказано от браузъра, моля, предоставете достъп и презаредете
     страницата
   ba-audioplayer.all-settings: Всички настройки
+  ba-videoplayer-controlbar.remaining-time: Оставащо време
+  ba-videoplayer-controlbar.select-frame: Изберете
+  ba-videoplayer-controlbar.trim-video: Подстригване
+  ba-videoplayer-playbutton.trim: Подстригване
+  ba-videoplayer-playbutton.skip: Пропуснете
+  ba-videorecorder-imagegallery.upload-covershot: Качване на корицата
+  ba-videorecorder.pick-covershot-frame: 'Изберете рамка, която да използвате като снимка на корицата.'
+  ba-videorecorder.screen-recorder-is-not-supported: Това устройство не поддържа екранен рекордер
+  ba-videorecorder.trim-prompt: Искате ли да отрежете видеоклипа си?
+  ba-videorecorder.trim-video: 'Преместете маркерите за начало и край, за да отрежете видеоклипа си'
+  ba-videorecorder.wait-for-trim: Изчаква се команда за отрязване ...

@@ -226,3 +226,14 @@
   ba-videorecorder.device-already-in-use: Minstens een van uw invoerapparaten is al in gebruik
   ba-videorecorder.browser-permission-denied: 'Toestemming geweigerd door browser, geef toegang en laad de pagina opnieuw'
   ba-audioplayer.all-settings: Alle instellingen
+  ba-videoplayer-controlbar.remaining-time: Overgebleven tijd
+  ba-videoplayer-controlbar.select-frame: Selecteer
+  ba-videoplayer-controlbar.trim-video: Trimmen
+  ba-videoplayer-playbutton.trim: Trimmen
+  ba-videoplayer-playbutton.skip: Overspringen
+  ba-videorecorder-imagegallery.upload-covershot: Omslag uploaden
+  ba-videorecorder.pick-covershot-frame: Selecteer een frame om als covershot te gebruiken.
+  ba-videorecorder.screen-recorder-is-not-supported: Schermrecorder wordt niet ondersteund op dit apparaat
+  ba-videorecorder.trim-prompt: Wil je je video inkorten?
+  ba-videorecorder.trim-video: Verplaats de begin- en eindmarkeringen om je video bij te snijden
+  ba-videorecorder.wait-for-trim: Wachten op trimcommando...

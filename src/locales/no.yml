@@ -216,3 +216,14 @@
     Tillatelse nektet av nettleseren. Vennligst gi tilgang og last inn siden på
     nytt
   ba-audioplayer.all-settings: Alle innstillinger
+  ba-videoplayer-controlbar.remaining-time: Gjenværende tid
+  ba-videoplayer-controlbar.select-frame: Å velge
+  ba-videoplayer-controlbar.trim-video: Listverk
+  ba-videoplayer-playbutton.trim: Listverk
+  ba-videoplayer-playbutton.skip: Hopp over
+  ba-videorecorder-imagegallery.upload-covershot: Last opp deksel
+  ba-videorecorder.pick-covershot-frame: Velg en ramme som skal brukes som forsidebilde.
+  ba-videorecorder.screen-recorder-is-not-supported: Skjermopptaker støttes ikke på denne enheten
+  ba-videorecorder.trim-prompt: Vil du trimme videoen din?
+  ba-videorecorder.trim-video: Flytt start- og sluttmarkørene for å trimme videoen
+  ba-videorecorder.wait-for-trim: Venter på trimkommando ...

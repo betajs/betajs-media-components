@@ -227,3 +227,14 @@
     Brauzer tərəfindən icazə rədd edildi, zəhmət olmasa giriş verin və səhifəni
     yenidən yükləyin
   ba-audioplayer.all-settings: Bütün parametrlər
+  ba-videoplayer-controlbar.remaining-time: Qalan vaxt
+  ba-videoplayer-controlbar.select-frame: Seçin
+  ba-videoplayer-controlbar.trim-video: Kəsin
+  ba-videoplayer-playbutton.trim: Kəsin
+  ba-videoplayer-playbutton.skip: Keç
+  ba-videorecorder-imagegallery.upload-covershot: Qapağı yükləyin
+  ba-videorecorder.pick-covershot-frame: Örtük şəklində istifadə etmək üçün bir çərçivə seçin.
+  ba-videorecorder.screen-recorder-is-not-supported: Ekran qeyd cihazı bu cihazda dəstəklənmir
+  ba-videorecorder.trim-prompt: Videonuzu kəsmək istəyirsiniz?
+  ba-videorecorder.trim-video: Videonuzu düzəltmək üçün başlanğıc və bitmə işarələrini hərəkət etdirin
+  ba-videorecorder.wait-for-trim: Kəsmə əmri gözlənilir ...

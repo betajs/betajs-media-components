@@ -175,3 +175,14 @@
   ba-videorecorder.device-already-in-use: 您的至少一個輸入設備已在使用中
   ba-videorecorder.browser-permission-denied: 瀏覽器拒絕此權限，請授予訪問權限並重新加載頁面
   ba-audioplayer.all-settings: 所有設定
+  ba-videoplayer-controlbar.remaining-time: 剩餘時間
+  ba-videoplayer-controlbar.select-frame: 選擇
+  ba-videoplayer-controlbar.trim-video: 修剪
+  ba-videoplayer-playbutton.trim: 修剪
+  ba-videoplayer-playbutton.skip: 跳過
+  ba-videorecorder-imagegallery.upload-covershot: 上傳封面
+  ba-videorecorder.pick-covershot-frame: 選擇要用作掩護的幀。
+  ba-videorecorder.screen-recorder-is-not-supported: 此設備不支持屏幕錄像機
+  ba-videorecorder.trim-prompt: 你想修剪你的視頻嗎？
+  ba-videorecorder.trim-video: 移動開始和結束標記以修剪視頻
+  ba-videorecorder.wait-for-trim: 等待修剪命令...

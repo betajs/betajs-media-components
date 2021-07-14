@@ -40,7 +40,8 @@
     pentru a încerca din nou.
   ba-videorecorder.attach-error: >-
     Nu am putut accesa interfața camerei. În funcție de dispozitiv și de
-    browser-ul folosit, poate fi necesar să instalați Flash sau accesa pagina prin SSL.
+    browser-ul folosit, poate fi necesar să instalați Flash sau accesa pagina
+    prin SSL.
   ba-videorecorder.access-forbidden: Accesul la camera a fost interzis. Click aici pentru a încerca din nou.
   ba-videorecorder.pick-covershot: Alege o copertă.
   ba-videorecorder.uploading: Se încarcă
@@ -178,8 +179,8 @@
   ba-imagecapture.verifying-failed: Verificare eșuată - faceți clic aici pentru a reîncerca.
   ba-imagecapture.rerecord-confirm: Doriți să refaceți imaginea?
   ba-imagecapture.image_file_too_large: >-
-    Fișierul imagine este prea mare (%s) - faceți clic aici pentru a încerca
-    din nou cu un fișier imagine mai mic.
+    Fișierul imagine este prea mare (%s) - faceți clic aici pentru a încerca din
+    nou cu un fișier imagine mai mic.
   ba-imagecapture.unsupported_image_type: 'Încărcați: %s - faceți clic aici pentru a reîncerca.'
   ba-imagecapture.orientation-portrait-required: Rotește dispozitivul pentru a înregistra în modul portret.
   ba-imagecapture.orientation-landscape-required: Rotește dispozitivul pentru a înregistra în modul peisaj.
@@ -200,8 +201,8 @@
   ba-audiorecorder.uploading: Se încarcă
   ba-audiorecorder.uploading-failed: Încărcarea a eșuat - faceți clic aici pentru a reîncerca.
   ba-audiorecorder.upload-error-duration: >-
-    Dimensiunea fișierului de sunet încărcat nu îndeplinește cerințele - faceți clic aici
-    pentru a încerca din nou.
+    Dimensiunea fișierului de sunet încărcat nu îndeplinește cerințele - faceți
+    clic aici pentru a încerca din nou.
   ba-audiorecorder.verifying: Verificare
   ba-audiorecorder.verifying-failed: Verificare eșuată - faceți clic aici pentru a reîncerca.
   ba-audiorecorder.rerecord-confirm: Doriți să reînregistrați sunetul?
@@ -228,3 +229,14 @@
     Permisiunea refuzată de browser, vă rugăm să acordați acces și să
     reîncărcați pagina
   ba-audioplayer.all-settings: Toate setările
+  ba-videoplayer-controlbar.remaining-time: Timp rămas
+  ba-videoplayer-controlbar.select-frame: Selectați
+  ba-videoplayer-controlbar.trim-video: Tunde
+  ba-videoplayer-playbutton.trim: Tunde
+  ba-videoplayer-playbutton.skip: Ocolire
+  ba-videorecorder-imagegallery.upload-covershot: Încărcați coperta
+  ba-videorecorder.pick-covershot-frame: Selectați un cadru pe care să îl utilizați ca imagine de acoperire.
+  ba-videorecorder.screen-recorder-is-not-supported: Înregistratorul de ecran nu este acceptat pe acest dispozitiv
+  ba-videorecorder.trim-prompt: Doriți să tăiați videoclipul?
+  ba-videorecorder.trim-video: Mutați marcajele de început și sfârșit pentru a tăia videoclipul
+  ba-videorecorder.wait-for-trim: Se așteaptă comanda de tăiere ...

@@ -28,14 +28,15 @@
   ba-videorecorder-controlbar.rerecord: Ponovno snemanje
   ba-videorecorder-controlbar.rerecord-tooltip: Klikni tukaj za ponovno snemanje.
   ba-videorecorder-controlbar.upload-covershot: Naloži naslovno sliko
-  ba-videorecorder-controlbar.upload-covershot-tooltip: Klikni tukaj, če želiš naložiti naslovno sliko
-  ba-videorecorder-controlbar.stop: Stop 
+  ba-videorecorder-controlbar.upload-covershot-tooltip: 'Klikni tukaj, če želiš naložiti naslovno sliko'
+  ba-videorecorder-controlbar.stop: Stop
   ba-videorecorder-controlbar.stop-tooltip: Klikni tukaj za zaustavitev snemanja.
   ba-videorecorder-controlbar.skip: Preskoči
-  ba-videorecorder-controlbar.skip-tooltip: Klikni tukaj, če želiš preskočiti.
+  ba-videorecorder-controlbar.skip-tooltip: 'Klikni tukaj, če želiš preskočiti.'
   ba-videorecorder.recorder-error: 'Prišlo je do napake. Prosimo, poskusite kasneje. Klikni za ponovni poskus'
   ba-videorecorder.attach-error: >-
-    Ne moremo dostopati do medijskega vmesnika. Namestite Flash ali dostopajte do strani preko SSL-ja.
+    Ne moremo dostopati do medijskega vmesnika. Namestite Flash ali dostopajte
+    do strani preko SSL-ja.
   ba-videorecorder.access-forbidden: Dostop do medija je bil prepovedan. Klikni za ponovni poskus.
   ba-videorecorder.pick-covershot: Izberi naslovno sliko
   ba-videorecorder.uploading: Nalaganje
@@ -44,7 +45,8 @@
   ba-videorecorder.verifying-failed: Preverjanje ni uspelo - klikni tukaj za ponovni poskus
   ba-videorecorder.rerecord-confirm: Ali res želite ponovno posneti video?
   ba-videorecorder.video_file_too_large: >-
-    Vaša video datoteka je prevelika (%s) - klikni tukaj, da poskusite znova z manjšo video datoteko.
+    Vaša video datoteka je prevelika (%s) - klikni tukaj, da poskusite znova z
+    manjšo video datoteko.
   ba-videorecorder.unsupported_video_type: 'Prosimo naložite: %s - klikni tukaj za ponovni poskus.'
   ba-videoplayer-controlbar.exit-fullscreen-video: Zapusti celozaslonski način
   ba-videoplayer-share.share: Deli
@@ -57,32 +59,37 @@
   ba-videorecorder.cancel-confirm: Ali res želite preklicati prenos videoposnetka?
   ba-videoplayer-adslot.elapsed-time: Pretečen čas
   ba-videoplayer-adslot.volume-button: Nastavitve glasnosti
-  ba-videoplayer-adslot.volume-mute: Utišaj zvok 
+  ba-videoplayer-adslot.volume-mute: Utišaj zvok
   ba-videoplayer-adslot.volume-unmute: Vklopi zvok
   ba-videoplayer-adslot.ad-will-end-after: Oglas se bo končal po %s
   ba-videoplayer-adslot.can-skip-after: Preskoči po %d
   ba-videoplayer-adslot.skip-ad: Preskoči oglas
   ba-videorecorder.software-required: >-
-    Če želite nadaljevati, klikni spodaj, da namestite / aktivirate naslednje zahteve.
+    Če želite nadaljevati, klikni spodaj, da namestite / aktivirate naslednje
+    zahteve.
   ba-videorecorder.software-waiting: >-
-    Čakamo, da se zahteve namestijo / aktivirajo. Po zaključku boste morda morali osvežiti stran.
+    Čakamo, da se zahteve namestijo / aktivirajo. Po zaključku boste morda
+    morali osvežiti stran.
   ba-videoplayer-controlbar.close-tracks: Zapri CC
   ba-videoplayer-controlbar.show-tracks: Pokaži CC
   ba-videoplayer-tracks.upload-text-tracks: Naloži besedilne datoteke
   ba-videoplayer-tracks.select-text-track-language: Jezik podnapisov
   ba-videoplayer-tracks.info-select-locale-first: Najprej izberite jezik
-  ba-videoplayer-tracks.select-text-track-file: Klikni, da izberete datoteko
+  ba-videoplayer-tracks.select-text-track-file: 'Klikni, da izberete datoteko'
   ba-videoplayer-tracks.back: nazaj
   ba-videorecorder.framerate-warning: >-
-    Hitrost videa je zelo nizka. Priporočamo, da zaprete vse druge programe in zavihke brskalnika ali uporabite hitrejši računalnik.
+    Hitrost videa je zelo nizka. Priporočamo, da zaprete vse druge programe in
+    zavihke brskalnika ali uporabite hitrejši računalnik.
   ba-videorecorder.upload-error-duration: >-
-    Dolžina naloženega videoposnetka ne ustreza zahtevam - klikni tukaj za ponovni poskus.
+    Dolžina naloženega videoposnetka ne ustreza zahtevam - klikni tukaj za
+    ponovni poskus.
   ba-videorecorder.resolution-constraint-error: >-
-    Izbrana datoteka se ne ujema z zahtevano ločljivostjo - klikni tukaj za ponovni poskus.
+    Izbrana datoteka se ne ujema z zahtevano ločljivostjo - klikni tukaj za
+    ponovni poskus.
   ba-videorecorder.orientation-portrait-required: Za snemanje v pokončnem načinu obrnite napravo.
   ba-videorecorder.orientation-landscape-required: Za snemanje v ležečem načinu obrnite napravo.
   ba-imageviewer-controlbar.rerecord-image: Ponovno snemanje?
-  ba-imageviewer-controlbar.submit-image: Potrdi 
+  ba-imageviewer-controlbar.submit-image: Potrdi
   ba-imageviewer-controlbar.fullscreen-image: Celozaslonski način
   ba-imageviewer-controlbar.exit-fullscreen-image: Izhod iz celozaslonskega načina
   ba-imageviewer.image-error: 'Prišlo je do napake. Prosimo, poskusite kasneje. Klikni za ponovni poskus'
@@ -126,56 +133,65 @@
   ba-audiorecorder-controlbar.cancel-tooltip: Klikni tukaj za preklic.
   ba-videoplayer-controlbar.player-speed: Hitrost predvajalnika
   ba-videoplayer-controlbar.settings: Nastavitve
-  ba-videoplayer-controlbar.airplay: Airplay 
+  ba-videoplayer-controlbar.airplay: Airplay
   ba-videoplayer-controlbar.airplay-icon: Airplay icon. Airplay ikona.
   ba-videoplayer.all-settings: Vse nastavitve
   ba-videoplayer.player-speed: Hitrost predvajalnika
   ba-videoplayer.full-screen: Celozaslonski način
-  ba-videorecorder-controlbar.add-stream: Add Stream 
+  ba-videorecorder-controlbar.add-stream: Add Stream
   ba-videorecorder.switch-camera: Zamenjaj kamero
   ba-videorecorder.prepare-covershot: Pripravljanje naslovne fotografije
   ba-videorecorder.prepare-thumbnails: Pripravljanje predogledne slike
-  ba-videorecorder.adding-new-stream: Adding New Stream 
+  ba-videorecorder.adding-new-stream: Adding New Stream
   ba-imagecapture.recorder-error: 'Prišlo je do napake. Prosimo, poskusite kasneje. Klikni za ponovni poskus.'
   ba-imagecapture.attach-error: >-
-    Ne moremo dostopati do medijskega vmesnika. Namestite Flash ali dostopajte do strani preko SSL-ja.
+    Ne moremo dostopati do medijskega vmesnika. Namestite Flash ali dostopajte
+    do strani preko SSL-ja.
   ba-imagecapture.software-required: >-
-    Če želite nadaljevati, klikni spodaj, da namestite / aktivirate naslednje zahteve.
+    Če želite nadaljevati, klikni spodaj, da namestite / aktivirate naslednje
+    zahteve.
   ba-imagecapture.software-waiting: >-
-    Čakamo, da se zahteve namestijo / aktivirajo. Po zaključku boste morda morali osvežiti stran.
+    Čakamo, da se zahteve namestijo / aktivirajo. Po zaključku boste morda
+    morali osvežiti stran.
   ba-imagecapture.access-forbidden: Dostop do medija je bil prepovedan. Klikni za ponovni poskus.
   ba-imagecapture.uploading: Nalaganje
   ba-imagecapture.uploading-failed: Nalaganje ni uspelo - klikni tukaj za ponovni poskus.
-  ba-imagecapture.upload-error-duration: >-
-    Naložena slika ne ustreza zahtevam - klikni tukaj za ponovni poskus.
+  ba-imagecapture.upload-error-duration: Naložena slika ne ustreza zahtevam - klikni tukaj za ponovni poskus.
   ba-imagecapture.resolution-constraint-error: >-
-    Izbrana datoteka se ne ujema z zahtevano ločljivostjo - klikni tukaj za ponovni poskus.
+    Izbrana datoteka se ne ujema z zahtevano ločljivostjo - klikni tukaj za
+    ponovni poskus.
   ba-imagecapture.verifying: Preverjanje
   ba-imagecapture.verifying-failed: Preverjanje ni uspelo - klikni tukaj za ponovni poskus.
   ba-imagecapture.rerecord-confirm: Ali res želite ponovno posneti sliko?
   ba-imagecapture.image_file_too_large: >-
-    Vaša slikovna datoteka je prevelika (%s) - klikni tukaj, da poskusite ponovno z manjšo.
+    Vaša slikovna datoteka je prevelika (%s) - klikni tukaj, da poskusite
+    ponovno z manjšo.
   ba-imagecapture.unsupported_image_type: 'Prosimo naložite: %s - klikni tukaj za ponovni poskus.'
   ba-imagecapture.orientation-portrait-required: Za snemanje v pokončnem načinu obrnite napravo.
   ba-imagecapture.orientation-landscape-required: Za snemanje v ležečem načinu obrnite napravo.
   ba-audiorecorder.recorder-error: 'Prišlo je do napake. Prosimo, poskusite kasneje. Klikni za ponovni poskus.'
   ba-audiorecorder.attach-error: >-
-    Ne moremo dostopati do medijskega vmesnika. Namestite Flash ali dostopajte do strani preko SSL-ja.
+    Ne moremo dostopati do medijskega vmesnika. Namestite Flash ali dostopajte
+    do strani preko SSL-ja.
   ba-audiorecorder.software-required: >-
-    Če želite nadaljevati, klikni spodaj, da namestite / aktivirate naslednje zahteve.
+    Če želite nadaljevati, klikni spodaj, da namestite / aktivirate naslednje
+    zahteve.
   ba-audiorecorder.software-waiting: >-
-    Čakamo, da se zahteve namestijo / aktivirajo. Po zaključku boste morda morali osvežiti stran.
+    Čakamo, da se zahteve namestijo / aktivirajo. Po zaključku boste morda
+    morali osvežiti stran.
   ba-audiorecorder.access-forbidden: Dostop do medija je bil prepovedan. Klikni za ponovni poskus.
   ba-audiorecorder.uploading: Nalaganje
   ba-audiorecorder.uploading-failed: Nalaganje ni uspelo - klikni tukaj za ponovni poskus.
   ba-audiorecorder.upload-error-duration: >-
-    Dolžina naloženega videoposnetka ne ustreza zahtevam - klikni tukaj za ponovni poskus.
+    Dolžina naloženega videoposnetka ne ustreza zahtevam - klikni tukaj za
+    ponovni poskus.
   ba-audiorecorder.verifying: Preverjanje
   ba-audiorecorder.verifying-failed: Preverjanje ni uspelo - klikni tukaj za ponovni poskus.
   ba-audiorecorder.rerecord-confirm: Ali res želite obnoviti zvočni posnetek?
   ba-audiorecorder.cancel-confirm: Ali res želite preklicati nalaganje vašega zvočnega posnetka?
   ba-audiorecorder.audio_file_too_large: >-
-    Vaša zvočna datoteka je prevelika (%s) - klikni tukaj, da poskusite ponovno z manjšo.
+    Vaša zvočna datoteka je prevelika (%s) - klikni tukaj, da poskusite ponovno
+    z manjšo.
   ba-audiorecorder.unsupported_audio_type: 'Prosimo naložite: %s - klikni tukaj za ponovni poskus.'
   ba-common-settingsmenu.tooltip: Klikni za predvajanje.
   ba-common-settingsmenu.setting-menu: Vse nastavitve
@@ -186,10 +202,23 @@
   ba-common-settingsmenu.picture-in-picture: Slika v sliki
   ba-common-settingsmenu.exit-fullscreen-video: Izhod iz celozaslonskega načina
   ba-common-settingsmenu.fullscreen-video: Celozaslonski način
-  ba-videorecorder-chooser.multi-stream: Multi Stream 
+  ba-videorecorder-chooser.multi-stream: Multi Stream
   ba-videorecorder-controlbar.pause-recorder: Zaustavi snemalnik
   ba-videorecorder-controlbar.resume-recorder: Ponovno nadaljuj
   ba-videorecorder.missing-track: Zahtevan zvočni ali video posnetek manjka
   ba-videorecorder.device-already-in-use: Vsaj ena od vaših vhodnih naprav je že v uporabi
-  ba-videorecorder.browser-permission-denied: 'Dovoljenje zavrnjeno s strani brskalnika, prosimo pridobite odobritev za dostop in ponovno naložite stran.'
+  ba-videorecorder.browser-permission-denied: >-
+    Dovoljenje zavrnjeno s strani brskalnika, prosimo pridobite odobritev za
+    dostop in ponovno naložite stran.
   ba-audioplayer.all-settings: Vse nastavitve
+  ba-videoplayer-controlbar.remaining-time: Preostali čas
+  ba-videoplayer-controlbar.select-frame: Izberite
+  ba-videoplayer-controlbar.trim-video: Obrežite
+  ba-videoplayer-playbutton.trim: Obrežite
+  ba-videoplayer-playbutton.skip: Preskoči
+  ba-videorecorder-imagegallery.upload-covershot: Naloži ovitek
+  ba-videorecorder.pick-covershot-frame: 'Izberite okvir, ki ga želite uporabiti kot posnetek.'
+  ba-videorecorder.screen-recorder-is-not-supported: Ta naprava ne podpira snemalnika zaslona
+  ba-videorecorder.trim-prompt: Ali želite obrezati video?
+  ba-videorecorder.trim-video: 'Premaknite začetni in končni označevalnik, da obrežete video'
+  ba-videorecorder.wait-for-trim: Čakanje na ukaz za obrezovanje ...

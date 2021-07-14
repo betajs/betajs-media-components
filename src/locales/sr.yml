@@ -174,8 +174,8 @@
   ba-imagecapture.verifying-failed: Верификација није успела - кликните овде да бисте покушали поново.
   ba-imagecapture.rerecord-confirm: Да ли заиста желите да поново преузмете слику?
   ba-imagecapture.image_file_too_large: >-
-    Датотека слике је превелика (%с) - кликните овде да бисте покушали поново
-    са мањом сликом.
+    Датотека слике је превелика (%с) - кликните овде да бисте покушали поново са
+    мањом сликом.
   ba-imagecapture.unsupported_image_type: 'Учитајте: %с - кликните овде да бисте покушали поново.'
   ba-imagecapture.orientation-portrait-required: Ротирајте уређај да бисте снимали у портретном режиму.
   ba-imagecapture.orientation-landscape-required: Ротирајте уређај да бисте снимали у пејзажном режиму.
@@ -222,3 +222,14 @@
   ba-videorecorder.device-already-in-use: Барем један од ваших улазних уређаја се већ користи
   ba-videorecorder.browser-permission-denied: 'Прегледач је одбио дозволу, дозволите приступ и поновно учитавање странице'
   ba-audioplayer.all-settings: Сва подешавања
+  ba-videoplayer-controlbar.remaining-time: Преостало време
+  ba-videoplayer-controlbar.select-frame: Изаберите
+  ba-videoplayer-controlbar.trim-video: Трим
+  ba-videoplayer-playbutton.trim: Трим
+  ba-videoplayer-playbutton.skip: Прескочи
+  ba-videorecorder-imagegallery.upload-covershot: Уплоад Цовер
+  ba-videorecorder.pick-covershot-frame: Изаберите оквир који ћете користити као насловну фотографију.
+  ba-videorecorder.screen-recorder-is-not-supported: Овај уређај не подржава снимач екрана
+  ba-videorecorder.trim-prompt: Да ли желите да обрежете видео?
+  ba-videorecorder.trim-video: Померите почетне и крајње маркере да бисте исекли видео
+  ba-videorecorder.wait-for-trim: Чека се наредба за трим ...

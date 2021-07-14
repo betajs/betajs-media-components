@@ -213,3 +213,14 @@
     İzin tarayıcı tarafından reddedildi, lütfen erişim izni verin ve sayfayı
     yeniden yükleyin
   ba-audioplayer.all-settings: Tüm ayarlar
+  ba-videoplayer-controlbar.remaining-time: Kalan süre
+  ba-videoplayer-controlbar.select-frame: Seç
+  ba-videoplayer-controlbar.trim-video: kırp
+  ba-videoplayer-playbutton.trim: kırp
+  ba-videoplayer-playbutton.skip: atla
+  ba-videorecorder-imagegallery.upload-covershot: Kapak Yükle
+  ba-videorecorder.pick-covershot-frame: Kapak resmi olarak kullanmak için bir çerçeve seçin.
+  ba-videorecorder.screen-recorder-is-not-supported: Bu cihazda ekran kaydedici desteklenmiyor
+  ba-videorecorder.trim-prompt: Videonuzu kırpmak istiyor musunuz?
+  ba-videorecorder.trim-video: Videonuzu kırpmak için başlangıç ve bitiş işaretçilerini hareket ettirin
+  ba-videorecorder.wait-for-trim: Trim komutu bekleniyor...

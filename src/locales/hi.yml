@@ -225,3 +225,16 @@
     ब्राउज़र द्वारा अनुमति से इनकार किया गया है, कृपया पहुँच और पुनः लोड पृष्ठ
     प्रदान करें
   ba-audioplayer.all-settings: सभी सेटिंग्स
+  ba-videoplayer-controlbar.remaining-time: शेष समय
+  ba-videoplayer-controlbar.select-frame: चुनते हैं
+  ba-videoplayer-controlbar.trim-video: ट्रिम
+  ba-videoplayer-playbutton.trim: ट्रिम
+  ba-videoplayer-playbutton.skip: छोड़ें
+  ba-videorecorder-imagegallery.upload-covershot: कवर अपलोड करें
+  ba-videorecorder.pick-covershot-frame: कवरशॉट के रूप में उपयोग करने के लिए एक फ्रेम का चयन करें।
+  ba-videorecorder.screen-recorder-is-not-supported: इस डिवाइस पर स्क्रीन रिकॉर्डर समर्थित नहीं है
+  ba-videorecorder.trim-prompt: क्या आप अपना वीडियो ट्रिम करना चाहते हैं?
+  ba-videorecorder.trim-video: >-
+    अपने वीडियो को ट्रिम करने के लिए प्रारंभ और समाप्ति मार्करों को स्थानांतरित
+    करें
+  ba-videorecorder.wait-for-trim: ट्रिम कमांड की प्रतीक्षा की जा रही है...

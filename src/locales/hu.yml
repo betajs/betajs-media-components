@@ -219,3 +219,14 @@
     Az engedélyt a böngésző megtagadta. Kérjük, adjon hozzáférést és töltse be
     újra az oldalt
   ba-audioplayer.all-settings: Minden beállítás
+  ba-videoplayer-controlbar.remaining-time: Hátralévő idő
+  ba-videoplayer-controlbar.select-frame: Válassza a lehetőséget
+  ba-videoplayer-controlbar.trim-video: Vágás
+  ba-videoplayer-playbutton.trim: Vágás
+  ba-videoplayer-playbutton.skip: Ugrás
+  ba-videorecorder-imagegallery.upload-covershot: Borító feltöltése
+  ba-videorecorder.pick-covershot-frame: 'Válasszon ki egy képet, amelyet fedőképként használni szeretne.'
+  ba-videorecorder.screen-recorder-is-not-supported: Ez a készülék nem támogatja a képernyőfelvevőt
+  ba-videorecorder.trim-prompt: Le akarja vágni a videódat?
+  ba-videorecorder.trim-video: Mozgassa a kezdő és a befejező jelzőt a videó vágásához
+  ba-videorecorder.wait-for-trim: Várakozás a trim parancsra ...

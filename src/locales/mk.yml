@@ -228,3 +228,14 @@
     Дозволата е одбиена од прелистувачот, доделете пристап и повторно вчитајте
     ја страницата
   ba-audioplayer.all-settings: Сите поставки
+  ba-videoplayer-controlbar.remaining-time: Преостанатото време
+  ba-videoplayer-controlbar.select-frame: Изберете
+  ba-videoplayer-controlbar.trim-video: Намали
+  ba-videoplayer-playbutton.trim: Намали
+  ba-videoplayer-playbutton.skip: Прескокни
+  ba-videorecorder-imagegallery.upload-covershot: Поставете корица
+  ba-videorecorder.pick-covershot-frame: Изберете рамка што ќе ја користите како покривка.
+  ba-videorecorder.screen-recorder-is-not-supported: Снимачот на екранот не е поддржан на овој уред
+  ba-videorecorder.trim-prompt: Дали сакате да го исечете вашето видео?
+  ba-videorecorder.trim-video: Поместете ги ознаките за почеток и крај за да го исечете вашето видео
+  ba-videorecorder.wait-for-trim: Се чека командата за трим ...

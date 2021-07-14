@@ -209,3 +209,14 @@
   ba-videorecorder.device-already-in-use: Ainakin yksi syöttölaitteistasi on jo käytössä
   ba-videorecorder.browser-permission-denied: Selain ei myöntänyt lupaa. Anna käyttöoikeus ja lataa sivu uudelleen
   ba-audioplayer.all-settings: Kaikki asetukset
+  ba-videoplayer-controlbar.remaining-time: Jäljellä oleva aika
+  ba-videoplayer-controlbar.select-frame: Valitse
+  ba-videoplayer-controlbar.trim-video: Trimmata
+  ba-videoplayer-playbutton.trim: Trimmata
+  ba-videoplayer-playbutton.skip: Ohita
+  ba-videorecorder-imagegallery.upload-covershot: Lähetä kansi
+  ba-videorecorder.pick-covershot-frame: 'Valitse kehys, jota käytetään kansikuvana.'
+  ba-videorecorder.screen-recorder-is-not-supported: Näytön tallenninta ei tueta tässä laitteessa
+  ba-videorecorder.trim-prompt: Haluatko leikata videosi?
+  ba-videorecorder.trim-video: Leikkaa videota siirtämällä aloitus- ja lopetusmerkkejä
+  ba-videorecorder.wait-for-trim: Odotetaan leikkauskomentoa ...

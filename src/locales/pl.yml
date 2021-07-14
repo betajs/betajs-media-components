@@ -35,9 +35,9 @@
   ba-videorecorder-controlbar.skip-tooltip: 'Kliknij tutaj, aby pominąć.'
   ba-videorecorder.recorder-error: 'Wystąpił błąd. Proszę spróbować później. Kliknij, aby ponowić próbę.'
   ba-videorecorder.attach-error: >-
-    Nie uzyskano dostępu do interfejsu aparatu. W zależności od
-    urządzenia i przeglądarki, może być konieczne zainstalowanie Flash lub 
-    wejście na stronę za pośrednictwem protokołu SSL.
+    Nie uzyskano dostępu do interfejsu aparatu. W zależności od urządzenia i
+    przeglądarki, może być konieczne zainstalowanie Flash lub  wejście na stronę
+    za pośrednictwem protokołu SSL.
   ba-videorecorder.access-forbidden: 'Dostęp do kamery został zabroniony. Kliknij, aby ponowić próbę.'
   ba-videorecorder.pick-covershot: Wybierz plik okładki.
   ba-videorecorder.uploading: Przesyłanie
@@ -75,7 +75,7 @@
   ba-videoplayer-controlbar.show-tracks: Pokaż CC
   ba-videoplayer-tracks.upload-text-tracks: Prześlij pliki tekstowe ścieżki dźwiękowej
   ba-videoplayer-tracks.select-text-track-language: Język napisów
-  ba-videoplayer-tracks.info-select-locale-first: Najpierw wybierz ustawienia lokalne 
+  ba-videoplayer-tracks.info-select-locale-first: Najpierw wybierz ustawienia lokalne
   ba-videoplayer-tracks.select-text-track-file: 'Kliknij, aby wybrać plik'
   ba-videoplayer-tracks.back: Cofnij
   ba-videorecorder.framerate-warning: >-
@@ -108,7 +108,7 @@
   ba-audioplayer-controlbar.audio-progress: Postęp
   ba-audioplayer-controlbar.rerecord-audio: Ponowić?
   ba-audioplayer-controlbar.submit-audio: Potwierdź
-  ba-audioplayer-controlbar.play-audio:  Uruchom
+  ba-audioplayer-controlbar.play-audio: Uruchom
   ba-audioplayer-controlbar.pause-audio: Zatrzymaj
   ba-audioplayer-controlbar.pause-audio-disabled: Wstrzymanie nie jest obsługiwane
   ba-audioplayer-controlbar.elapsed-time: Czas trwania
@@ -168,8 +168,8 @@
   ba-imagecapture.verifying-failed: 'Weryfikacja nie powiodła się - kliknij tutaj, aby spróbować ponownie.'
   ba-imagecapture.rerecord-confirm: Czy na pewno chcesz ponowić dodawanie obrazu?
   ba-imagecapture.image_file_too_large: >-
-    Twój plik obrazu jest za duży (%s) - kliknij tutaj, aby spróbować ponownie
-    z mniejszym plikiem obrazu.
+    Twój plik obrazu jest za duży (%s) - kliknij tutaj, aby spróbować ponownie z
+    mniejszym plikiem obrazu.
   ba-imagecapture.unsupported_image_type: 'Prześlij: %s - kliknij tutaj, aby spróbować ponownie.'
   ba-imagecapture.orientation-portrait-required: 'Obróć urządzenie, aby nagrywać w trybie pionowym.'
   ba-imagecapture.orientation-landscape-required: 'Obróć urządzenie, aby nagrywać w trybie poziomym.'
@@ -198,7 +198,7 @@
     Twój plik audio jest za duży (%s) - kliknij tutaj, aby spróbować ponownie z
     mniejszym plikiem audio.
   ba-audiorecorder.unsupported_audio_type: 'Prześlij: %s - kliknij tutaj, aby spróbować ponownie.'
-  ba-common-settingsmenu.tooltip: Kliknij, aby uruchomić
+  ba-common-settingsmenu.tooltip: 'Kliknij, aby uruchomić'
   ba-common-settingsmenu.setting-menu: Ustawienia
   ba-common-settingsmenu.source-quality: Jakość źródła
   ba-common-settingsmenu.player-speed: Szybkość odtwarzania
@@ -212,5 +212,16 @@
   ba-videorecorder-controlbar.resume-recorder: Wznów nagrywanie
   ba-videorecorder.missing-track: Nie znaleziono wymaganej ścieżki dźwiękowej lub pliku wideo
   ba-videorecorder.device-already-in-use: Przynajmniej jedno z twoich urządzeń wejścia jest już w użyciu
-  ba-videorecorder.browser-permission-denied: 'Odmowa dostępu przez przeglądarkę. Nadaj uprawnienia i odśwież'
+  ba-videorecorder.browser-permission-denied: Odmowa dostępu przez przeglądarkę. Nadaj uprawnienia i odśwież
   ba-audioplayer.all-settings: Ustawiemia
+  ba-videoplayer-controlbar.remaining-time: Pozostały czas
+  ba-videoplayer-controlbar.select-frame: Wybierz
+  ba-videoplayer-controlbar.trim-video: Trym
+  ba-videoplayer-playbutton.trim: Trym
+  ba-videoplayer-playbutton.skip: Pominąć
+  ba-videorecorder-imagegallery.upload-covershot: Prześlij okładkę
+  ba-videorecorder.pick-covershot-frame: 'Wybierz ramkę, której chcesz użyć jako zrzutu ekranu.'
+  ba-videorecorder.screen-recorder-is-not-supported: Rejestrator ekranu nie jest obsługiwany na tym urządzeniu
+  ba-videorecorder.trim-prompt: Czy chcesz przyciąć swój film?
+  ba-videorecorder.trim-video: 'Przesuń znaczniki początku i końca, aby przyciąć film'
+  ba-videorecorder.wait-for-trim: Oczekiwanie na polecenie przycięcia...

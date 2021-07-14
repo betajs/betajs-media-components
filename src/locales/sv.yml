@@ -176,8 +176,8 @@
   ba-imagecapture.verifying-failed: Verifiering misslyckades - klicka här för att försöka igen.
   ba-imagecapture.rerecord-confirm: Vill du verkligen ta om bilden?
   ba-imagecapture.image_file_too_large: >-
-    Din bildfil är för stor (%s) - klicka här för att försöka igen med en
-    mindre bildfil.
+    Din bildfil är för stor (%s) - klicka här för att försöka igen med en mindre
+    bildfil.
   ba-imagecapture.unsupported_image_type: 'Vänligen ladda upp: %s - klicka här för att försöka igen.'
   ba-imagecapture.orientation-portrait-required: Vänligen rotera enheten för att spela in i stående läge.
   ba-imagecapture.orientation-landscape-required: Vänligen rotera enheten för att spela in i liggande läge.
@@ -204,8 +204,8 @@
   ba-audiorecorder.rerecord-confirm: Vill du verkligen göra om ditt ljud?
   ba-audiorecorder.cancel-confirm: Vill du verkligen avbryta din ljuduppladdning?
   ba-audiorecorder.audio_file_too_large: >-
-    Din ljudfil är för stor (%s) - klicka här för att försöka igen med en
-    mindre ljudfil.
+    Din ljudfil är för stor (%s) - klicka här för att försöka igen med en mindre
+    ljudfil.
   ba-audiorecorder.unsupported_audio_type: 'Vänligen ladda upp: %s - klicka här för att försöka igen.'
   ba-common-settingsmenu.tooltip: Klicka för att spela.
   ba-common-settingsmenu.setting-menu: Alla inställningar
@@ -223,3 +223,14 @@
   ba-videorecorder.device-already-in-use: Minst en av dina inmatningsenheter är redan i bruk
   ba-videorecorder.browser-permission-denied: 'Tillåtelse nekad av webbläsaren, vänligen ge åtkomst och ladda om sidan'
   ba-audioplayer.all-settings: Alla inställningar
+  ba-videoplayer-controlbar.remaining-time: Återstående tid
+  ba-videoplayer-controlbar.select-frame: Välj
+  ba-videoplayer-controlbar.trim-video: Trim
+  ba-videoplayer-playbutton.trim: Trim
+  ba-videoplayer-playbutton.skip: Hoppa
+  ba-videorecorder-imagegallery.upload-covershot: Ladda upp omslaget
+  ba-videorecorder.pick-covershot-frame: Välj en ram som ska användas som omslagsbild.
+  ba-videorecorder.screen-recorder-is-not-supported: Skärminspelare stöds inte på den här enheten
+  ba-videorecorder.trim-prompt: Vill du klippa din video?
+  ba-videorecorder.trim-video: Flytta start- och slutmarkörerna för att trimma din video
+  ba-videorecorder.wait-for-trim: Väntar på trimkommando ...

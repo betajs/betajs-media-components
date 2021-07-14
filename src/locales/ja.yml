@@ -178,3 +178,14 @@
   ba-videorecorder.device-already-in-use: 入力デバイスの少なくとも1つがすでに使用されています
   ba-videorecorder.browser-permission-denied: ブラウザによって拒否されました。アクセスを許可してページをリロードしてください
   ba-audioplayer.all-settings: すべての設定
+  ba-videoplayer-controlbar.remaining-time: 残り時間
+  ba-videoplayer-controlbar.select-frame: 選択する
+  ba-videoplayer-controlbar.trim-video: トリム
+  ba-videoplayer-playbutton.trim: トリム
+  ba-videoplayer-playbutton.skip: スキップ
+  ba-videorecorder-imagegallery.upload-covershot: カバーをアップロード
+  ba-videorecorder.pick-covershot-frame: カバーショットとして使用するフレームを選択します。
+  ba-videorecorder.screen-recorder-is-not-supported: スクリーンレコーダーはこのデバイスではサポートされていません
+  ba-videorecorder.trim-prompt: ビデオをトリミングしますか？
+  ba-videorecorder.trim-video: 開始マーカーと終了マーカーを移動して、ビデオをトリミングします
+  ba-videorecorder.wait-for-trim: トリムコマンドを待っています...

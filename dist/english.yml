@@ -221,3 +221,4 @@
   ba-videorecorder.screen-recorder-is-not-supported: Screen recorder is not supported on this device
   ba-videorecorder.trim-prompt: Do you want to trim your video?
   ba-videorecorder.trim-video: Move the start and end markers to trim your video
+  ba-videorecorder.wait-for-trim: Waiting for trim command...

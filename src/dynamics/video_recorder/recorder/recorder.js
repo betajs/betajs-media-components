@@ -1237,6 +1237,14 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     };
                 },
 
+                imageUploaded: function() {
+                    return !!this.__lastCovershotUpload;
+                },
+
+                audioUploaded: function() {
+                    return this.recorder.localPlaybackSource() && !!this.recorder.localPlaybackSource().audiosrc;
+                },
+
                 /**
                  *
                  * @param {boolean =} setFalse

@@ -601,6 +601,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     // Without below line re-recorder will not launch
                     this.snapshots = [];
                     this.thumbnails = [];
+                    this.__lastCovershotUpload = undefined;
                     this.set("videometadata", {
                         "height": null,
                         "width": null,
@@ -1235,6 +1236,14 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         height: this.get("popup-height"),
                         stretch: this.get("popup-stretch")
                     };
+                },
+
+                imageUploaded: function() {
+                    return !!this.__lastCovershotUpload;
+                },
+
+                audioUploaded: function() {
+                    return this.recorder.localPlaybackSource() && !!this.recorder.localPlaybackSource().audiosrc;
                 },
 
                 /**

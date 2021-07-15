@@ -601,6 +601,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     // Without below line re-recorder will not launch
                     this.snapshots = [];
                     this.thumbnails = [];
+                    this.__lastCovershotUpload = undefined;
                     this.set("videometadata", {
                         "height": null,
                         "width": null,

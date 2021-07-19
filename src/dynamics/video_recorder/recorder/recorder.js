@@ -1243,7 +1243,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 },
 
                 audioUploaded: function() {
-                    return this.recorder.localPlaybackSource() && !!this.recorder.localPlaybackSource().audiosrc;
+                    return this.recorder && this.recorder.localPlaybackSource() && !!this.recorder.localPlaybackSource().audiosrc;
                 },
 
                 /**

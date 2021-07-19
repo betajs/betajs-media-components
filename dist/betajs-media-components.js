@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.271 - 2021-07-18
+betajs-media-components - v0.0.273 - 2021-07-19
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.271 - 2021-07-18
+betajs-media-components - v0.0.273 - 2021-07-19
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.271",
-    "datetime": 1626640625915
+    "version": "0.0.273",
+    "datetime": 1626717265848
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -9613,7 +9613,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 },
 
                 audioUploaded: function() {
-                    return this.recorder.localPlaybackSource() && !!this.recorder.localPlaybackSource().audiosrc;
+                    return this.recorder && this.recorder.localPlaybackSource() && !!this.recorder.localPlaybackSource().audiosrc;
                 },
 
                 /**

@@ -581,10 +581,6 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     this.set("csssize", width > 400 ? "normal" : (width > 300 ? "medium" : "small"));
                 },
 
-                audioHeight: function() {
-                    return this.recorderAttached() ? this.recorder.cameraHeight() : NaN;
-                },
-
                 parentWidth: function() {
                     return this.get("width") || Dom.elementDimensions(this.activeElement()).width;
                 },

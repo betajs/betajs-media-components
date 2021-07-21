@@ -25,7 +25,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Controlbar", [
                     this.auto_destroy(new Timer({
                         context: this,
                         fire: function() {
-                            this.set("recordingindication", !this.get("recordingindication"));
+                            this.set("recordingindication", !this.get("recordingindication") && !this.__parent.__paused);
                         },
                         delay: 500
                     }));
@@ -47,6 +47,12 @@ Scoped.define("module:AudioRecorder.Dynamics.Controlbar", [
                     },
                     rerecord: function() {
                         this.trigger("invoke-rerecord");
+                    },
+                    pause: function() {
+                        this.trigger("invoke-pause");
+                    },
+                    resume: function() {
+                        this.trigger("invoke-resume");
                     },
                     stop: function() {
                         this.trigger("invoke-stop");
@@ -75,6 +81,8 @@ Scoped.define("module:AudioRecorder.Dynamics.Controlbar", [
             "stop-tooltip": "Click here to stop.",
             "stop-available-after": "Minimum recording time is %d seconds",
             "cancel": "Cancel",
-            "cancel-tooltip": "Click here to cancel."
+            "cancel-tooltip": "Click here to cancel.",
+            "pause-recorder": "Pause Recorder",
+            "resume-recorder": "Resume Recorder"
         });
 });

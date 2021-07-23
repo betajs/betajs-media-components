@@ -885,7 +885,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
         stop: function() {
             var minlimit = this.dyn.get("timeminlimit");
             if (minlimit) {
-                var delta = (Time.now() - this._startTime) / 1000;
+                var delta = (Time.now() - (this._startTime + this.__pauseDelta)) / 1000;
                 if (delta < minlimit) {
                     var limit = this.dyn.get("timelimit");
                     if (!limit || limit > delta)
@@ -914,7 +914,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
         },
 
         _hasStopped: function() {
-            this.dyn.set("duration", (Time.now() - this._startTime) / 1000);
+            this.dyn.set("duration", (Time.now() - (this._startTime + this.__pauseDelta)) / 1000);
             if (this.dyn.snapshots.length > 0)
                 this.dyn._showBackgroundSnapshot();
             this.dyn._unbindMedia();

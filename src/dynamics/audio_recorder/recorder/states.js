@@ -206,6 +206,7 @@ Scoped.define("module:AudioRecorder.Dynamics.RecorderStates.Chooser", [
                         }
                     }
                     this.dyn._audioFilePlaybackable = true;
+                    this.dyn.set("duration", data.duration);
                     this._uploadFile(file);
                 }, this).error(function() {
                     this._uploadFile(file);
@@ -526,7 +527,7 @@ Scoped.define("module:AudioRecorder.Dynamics.RecorderStates.Recording", [
             this.__timerDelay = 10;
             this._timer = this.auto_destroy(new Timer({
                 immediate: true,
-                delay: 10,
+                delay: this.__timerDelay,
                 context: this,
                 fire: this._timerFire
             }));
@@ -553,7 +554,6 @@ Scoped.define("module:AudioRecorder.Dynamics.RecorderStates.Recording", [
                 this._timer.stop();
                 this.stop();
             }
-
         },
 
         stop: function() {
@@ -587,7 +587,7 @@ Scoped.define("module:AudioRecorder.Dynamics.RecorderStates.Recording", [
         },
 
         _hasStopped: function() {
-            this.dyn.set("duration", Time.now() - this._startTime);
+            this.dyn.set("duration", Time.now() - this._startTime - this.__pauseDelta);
             this.dyn._unbindMedia();
             this.dyn.trigger("recording_stopped");
         }

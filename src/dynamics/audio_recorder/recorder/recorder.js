@@ -524,10 +524,10 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
 
                     pause_recorder: function() {
                         if (typeof this.recorder !== 'undefined') {
-                            this.__paused = true;
-                            this.__recording = false;
                             this.recorder.pauseRecord();
-                            this.recorder._recorder.once("paused", function(ev) {
+                            this.recorder._recorder.once("paused", function() {
+                                this.__paused = true;
+                                this.__recording = false;
                                 this.set("resumevisible", true);
                             }, this);
                         }

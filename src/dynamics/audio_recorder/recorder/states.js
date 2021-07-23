@@ -559,7 +559,7 @@ Scoped.define("module:AudioRecorder.Dynamics.RecorderStates.Recording", [
         stop: function() {
             var minlimit = this.dyn.get("timeminlimit");
             if (minlimit) {
-                var delta = (Time.now() - this._startTime) / 1000;
+                var delta = (Time.now() - this._startTime - this.__pauseDelta) / 1000;
                 if (delta < minlimit) {
                     var limit = this.dyn.get("timelimit");
                     if (!limit || limit > delta)

@@ -297,7 +297,13 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
                     this.dyn._videoFilePlaybackable = true;
                     this.dyn.set("duration", data.duration);
                     this._uploadFile(file);
-                }, this).error(function() {
+                }, this).error(function(e) {
+                    if (e.code === MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED) {
+                        // skip allowtrim/localplayback, show different error message on uploading.
+                        this.dyn.set("allowtrim", false);
+                        this.dyn.set("localplayback", false);
+                        this.dyn.set("media_src_not_supported", true);
+                    }
                     this._uploadFile(file);
                 }, this);
             } catch (e) {
@@ -1295,7 +1301,10 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
                 this.dyn.set("controlbar_active", true);
             this.dyn.set("hovermessage", "");
             this.dyn.set("topmessage", "");
-            this.dyn.set("message", this.dyn.string("uploading"));
+            if (this.dyn.get("media_src_not_supported") == true) {
+                this.dyn.set("uploading-message", this.dyn.string("uploading-src-error"));
+            }
+            this.dyn.set("message", this.dyn.get("uploading-message"));
             this.dyn.set("playertopmessage", this.dyn.get("message"));
             var uploader = this.dyn._dataUploader;
             this.listenOn(uploader, "success", function() {
@@ -1326,7 +1335,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
                 if (total !== 0 && total > 0 && uploaded >= 0) {
                     var up = Math.min(100, Math.round(uploaded / total * 100));
                     if (!isNaN(up)) {
-                        this.dyn.set("message", this.dyn.string("uploading") + ": " + up + "%");
+                        this.dyn.set("message", this.dyn.get("uploading-message") + ": " + up + "%");
                         this.dyn.set("playertopmessage", this.dyn.get("message"));
                     }
                 }

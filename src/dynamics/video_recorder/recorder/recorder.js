@@ -1342,6 +1342,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
             "pick-covershot-frame": "Select a frame to use as covershot.",
             "framerate-warning": "The video frame rate is very low. We recommend closing all other programs and browser tabs or to use a faster computer.",
             "uploading": "Uploading",
+            "uploading-src-error": "Unable to play back video now, uploading is still in progress",
             "uploading-failed": "Uploading failed - click here to retry.",
             "upload-error-duration": "Length of the uploaded video does not meet the requirements - click here to retry.",
             "resolution-constraint-error": "The file you've selected does not match the required resolution - click here to retry.",

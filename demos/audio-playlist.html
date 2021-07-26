@@ -14,41 +14,32 @@
     <link  href="../dist/themes/modern/style.css" rel="stylesheet" />
 </head>
 <body style="background: #EEE">
-	<ba-videoplayer
+	<ba-audioplayer
         ba-theme="modern"
         ba-stretch="true"
+        ba-loop="true"
         ba-loopall="true"
         ba-playlist="{{[
-            {poster: 'sample-cover2.png', source: 'sample-video2.mp4'},
-            {poster: 'sample-cover.png', source: 'sample-video.mp4'},
-            {poster: 'sample-cover.png', source: 'sample-video3.mp4'}
+            { source: '/static/demos/assets/audio3s.mp3' },
+            { source: '/static/demos/assets/audio6s.mp3' },
+            { source: '/static/demos/assets/audio12s.mp3' }
         ]}}"
-	></ba-videoplayer>
+        ba-visualeffectvisible="true"
+	></ba-audioplayer>
 
     <script>
-BetaJS.Dynamics.Dynamic.activate();
+        BetaJS.Dynamics.Dynamic.activate();
 
-        var player = BetaJS.Dynamics.Dynamic.findByElement($("ba-videoplayer"));
-
-        // player.on("ended", function () {
-        //     console.log('ENDED');
-        // }, player);
+        var player = BetaJS.Dynamics.Dynamic.findByElement($("ba-audioplayer"));
 
         player.on("attached", function (playerInstance) {
-            // this.addSettingsMenuItem({set: 'Somen'});
-            // playerInstance.add_setting({setting: 'someID'});
             playerInstance.on("fullscreen-change", function (isFullscreen) {
                 console.log('is Full', isFullscreen);
             }, this);
-
-            // this.on("loaded", () => {
-            //     console.log('Player >> ', this);
-            // }, this);
         }, player);
 
-        console.log('Portrait before ?? ', player.isPortrait(), player.isLandscape());
         player.on("ready_to_play", (ev) => {
-            console.log('Portrait after ?? ', player.isPortrait(), player.isLandscape());
+            console.log('Ready to play', ev);
         }, player);
 
         player.on("ended", function () {

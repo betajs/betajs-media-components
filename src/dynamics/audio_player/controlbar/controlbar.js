@@ -3,13 +3,14 @@ Scoped.define("module:AudioPlayer.Dynamics.Controlbar", [
     "base:TimeFormat",
     "browser:Dom",
     "module:Assets",
-    "browser:Info"
+    "browser:Info",
+    "browser:Events"
 ], [
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.ShowPartial",
     "dynamics:Partials.IfPartial",
     "dynamics:Partials.ClickPartial"
-], function(Class, TimeFormat, Dom, Assets, Info, scoped) {
+], function(Class, TimeFormat, Dom, Assets, Info, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -26,6 +27,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Controlbar", [
                     "position": 0,
                     "cached": 0,
                     "volume": 1.0,
+                    "manuallypaused": false,
                     "expandedprogress": true,
                     "playing": false,
                     "rerecordable": false,
@@ -36,35 +38,58 @@ Scoped.define("module:AudioPlayer.Dynamics.Controlbar", [
                 functions: {
 
                     formatTime: function(time) {
-                        time = Math.max(time || 0, 1);
+                        time = Math.max(time || 0, 0.1);
                         return TimeFormat.format(TimeFormat.ELAPSED_MINUTES_SECONDS, time * 1000);
                     },
 
                     startUpdatePosition: function(event) {
                         if (this.get("disableseeking")) return;
                         event[0].preventDefault();
+                        if (!this.__parent.get("playing") && this.__parent.player && !this.get("manuallypaused"))
+                            this.__parent.player.play();
+
+                        var target = event[0].currentTarget;
+                        this.set("dimensions", target.getBoundingClientRect());
+
                         this.set("_updatePosition", true);
-                        this.call("progressUpdatePosition", event);
+                        this.call("progressUpdatePosition", event[0]);
+
+                        var events = this.get("events");
+                        events.on(document, "mousemove touchmove", function(e) {
+                            e.preventDefault();
+                            this.call("progressUpdatePosition", e);
+                        }, this);
+                        events.on(document, "mouseup touchend", function(e) {
+                            e.preventDefault();
+                            this.call("stopUpdatePosition");
+                            events.off(document, "mouseup touchend mousemove touchmove");
+                        }, this);
                     },
 
                     progressUpdatePosition: function(event) {
-                        var ev = event[0];
+                        if (!this.get("dimensions")) return;
+                        var ev = event[0] || event;
                         ev.preventDefault();
-                        if (!this.get("_updatePosition"))
-                            return;
-                        var clientX = ev.clientX;
-                        var target = ev.currentTarget;
-                        var offset = Dom.elementOffset(target);
-                        var dimensions = Dom.elementDimensions(target);
-                        this.set("position", this.get("duration") * (clientX - offset.left) / (dimensions.width || 1));
+                        // Mouse or Touch Event
+                        var clientX = ev.clientX === 0 ? 0 : ev.clientX || ev.targetTouches[0].clientX;
+                        var dimensions = this.get("dimensions");
+                        var percentageFromStart;
+                        if (clientX < dimensions.left) {
+                            percentageFromStart = 0;
+                        } else if (clientX > (dimensions.left + dimensions.width)) {
+                            percentageFromStart = 1;
+                        } else {
+                            percentageFromStart = (clientX - dimensions.left) / (dimensions.width || 1);
+                        }
+                        var onDuration = this.get("duration") * percentageFromStart;
 
-                        var player = this.__parent.player;
+                        if (!this.get("_updatePosition")) return;
 
+                        this.set("position", onDuration);
                         this.trigger("position", this.get("position"));
                     },
 
-                    stopUpdatePosition: function(event) {
-                        event[0].preventDefault();
+                    stopUpdatePosition: function() {
                         this.set("_updatePosition", false);
                     },
 
@@ -159,6 +184,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Controlbar", [
 
                 create: function() {
                     this.set("ismobile", Info.isMobile());
+                    this.set("events", new DomEvents());
                 }
             };
         })

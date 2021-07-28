@@ -222,3 +222,6 @@
   ba-videorecorder.trim-prompt: Do you want to trim your video?
   ba-videorecorder.trim-video: Move the start and end markers to trim your video
   ba-videorecorder.wait-for-trim: Waiting for trim command...
+  ba-videorecorder.uploading-src-error: 'Unable to play back video now, uploading is still in progress'
+  ba-audiorecorder-controlbar.pause-recorder: Pause Recorder
+  ba-audiorecorder-controlbar.resume-recorder: Resume Recorder

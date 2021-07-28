@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.273 - 2021-07-19
+betajs-media-components - v0.0.274 - 2021-07-28
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.273 - 2021-07-19
+betajs-media-components - v0.0.274 - 2021-07-28
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.273",
-    "datetime": 1626717265848
+    "version": "0.0.274",
+    "datetime": 1627489142614
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -5596,6 +5596,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     /* Configuration */
                     "reloadonplay": false,
                     "playonclick": true,
+                    "pauseonclick": true,
                     /* Ads */
                     "adprovider": null,
                     "preroll": false,
@@ -5727,6 +5728,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "disablepause": "boolean",
                     "disableseeking": "boolean",
                     "playonclick": "boolean",
+                    "pauseonclick": "boolean",
                     "airplay": "boolean",
                     "airplaybuttonvisible": "boolean",
                     "chromecast": "boolean",
@@ -6634,26 +6636,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     toggle_player: function() {
-                        if (this.get('playing'))
-                            if (this.get("preventinteractionstatus")) return;
+                        if (this.get("playing") && this.get("preventinteractionstatus")) return;
                         if (this._delegatedPlayer) {
                             this._delegatedPlayer.execute("toggle_player");
                             return;
                         }
-                        if (!this.get("playonclick"))
-                            return;
-                        if (this.get('playing') && !this.get("disablepause")) {
-                            if (!this.get("volumeafterinteraction"))
-                                this.pause();
-                            else
-                                this.set("volumeafterinteraction", false);
-
-                            // If user paused the video and don't like player will auto-played
-                            // so, no need to play each time when user see video, also works for progress bar click
-                            this.set("manuallypaused", true);
-                        } else {
+                        if (this.get("playing") && this.get("pauseonclick")) {
+                            this.pause();
+                        } else if (!this.get("playing") && this.get("playonclick")) {
                             this.play();
-                            this.set("manuallypaused", false);
                         }
                     },
 
@@ -9712,6 +9703,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
             "pick-covershot-frame": "Select a frame to use as covershot.",
             "framerate-warning": "The video frame rate is very low. We recommend closing all other programs and browser tabs or to use a faster computer.",
             "uploading": "Uploading",
+            "uploading-src-error": "Unable to play back video now, uploading is still in progress",
             "uploading-failed": "Uploading failed - click here to retry.",
             "upload-error-duration": "Length of the uploaded video does not meet the requirements - click here to retry.",
             "resolution-constraint-error": "The file you've selected does not match the required resolution - click here to retry.",
@@ -10035,7 +10027,13 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
                     this.dyn._videoFilePlaybackable = true;
                     this.dyn.set("duration", data.duration);
                     this._uploadFile(file);
-                }, this).error(function() {
+                }, this).error(function(e) {
+                    if (e.code === MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED) {
+                        // skip allowtrim/localplayback, show different error message on uploading.
+                        this.dyn.set("allowtrim", false);
+                        this.dyn.set("localplayback", false);
+                        this.dyn.set("media_src_not_supported", true);
+                    }
                     this._uploadFile(file);
                 }, this);
             } catch (e) {
@@ -10623,7 +10621,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
         stop: function() {
             var minlimit = this.dyn.get("timeminlimit");
             if (minlimit) {
-                var delta = (Time.now() - this._startTime) / 1000;
+                var delta = (Time.now() - (this._startTime + this.__pauseDelta)) / 1000;
                 if (delta < minlimit) {
                     var limit = this.dyn.get("timelimit");
                     if (!limit || limit > delta)
@@ -10652,7 +10650,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
         },
 
         _hasStopped: function() {
-            this.dyn.set("duration", (Time.now() - this._startTime) / 1000);
+            this.dyn.set("duration", (Time.now() - (this._startTime + this.__pauseDelta)) / 1000);
             if (this.dyn.snapshots.length > 0)
                 this.dyn._showBackgroundSnapshot();
             this.dyn._unbindMedia();
@@ -11033,7 +11031,10 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
                 this.dyn.set("controlbar_active", true);
             this.dyn.set("hovermessage", "");
             this.dyn.set("topmessage", "");
-            this.dyn.set("message", this.dyn.string("uploading"));
+            if (this.dyn.get("media_src_not_supported") == true) {
+                this.dyn.set("uploading-message", this.dyn.string("uploading-src-error"));
+            }
+            this.dyn.set("message", this.dyn.get("uploading-message"));
             this.dyn.set("playertopmessage", this.dyn.get("message"));
             var uploader = this.dyn._dataUploader;
             this.listenOn(uploader, "success", function() {
@@ -11064,7 +11065,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
                 if (total !== 0 && total > 0 && uploaded >= 0) {
                     var up = Math.min(100, Math.round(uploaded / total * 100));
                     if (!isNaN(up)) {
-                        this.dyn.set("message", this.dyn.string("uploading") + ": " + up + "%");
+                        this.dyn.set("message", this.dyn.get("uploading-message") + ": " + up + "%");
                         this.dyn.set("playertopmessage", this.dyn.get("message"));
                     }
                 }
@@ -13387,19 +13388,20 @@ Scoped.define("module:AudioPlayer.Dynamics.Controlbar", [
     "base:TimeFormat",
     "browser:Dom",
     "module:Assets",
-    "browser:Info"
+    "browser:Info",
+    "browser:Events"
 ], [
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.ShowPartial",
     "dynamics:Partials.IfPartial",
     "dynamics:Partials.ClickPartial"
-], function(Class, TimeFormat, Dom, Assets, Info, scoped) {
+], function(Class, TimeFormat, Dom, Assets, Info, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
             return {
 
-                template: "\n<div class=\"{{css}}-dashboard\">\n\t<div tabindex=\"2\" data-selector=\"progress-bar-inner\" class=\"{{css}}-progressbar {{disableseeking ? cssplayer + '-disabled' : ''}}\"\n\t\t ba-hotkey:right=\"{{seek(position + skipseconds)}}\"\n\t\t ba-hotkey:left=\"{{seek(position - skipseconds)}}\"\n         ba-hotkey:alt+right=\"{{seek(position + skipseconds * 3)}}\"\n         ba-hotkey:alt+left=\"{{seek(position - skipseconds * 3)}}\"\n\t\t onmouseout=\"this.blur()\"\n\t     onmousedown=\"{{startUpdatePosition(domEvent)}}\"\n\t     onmouseup=\"{{stopUpdatePosition(domEvent)}}\"\n\t     onmouseleave=\"{{stopUpdatePosition(domEvent)}}\"\n\t     onmousemove=\"{{progressUpdatePosition(domEvent)}}\">\n\t\t<div class=\"{{css}}-progressbar-cache\" ba-styles=\"{{{width: Math.round(duration ? cached / duration * 100 : 0) + '%'}}}\"></div>\n\t\t<div class=\"{{css}}-progressbar-position\" ba-styles=\"{{{width: Math.round(duration ? position / duration * 100 : 0) + '%'}}}\" title=\"{{string('audio-progress')}}\">\n\t\t\t<div class=\"{{css}}-progressbar-button\"></div>\n\t\t</div>\n\t</div>\n\n\t<div class=\"{{css}}-backbar\"></div>\n\n\t<div class=\"{{css}}-controlbar\">\n\n        <div tabindex=\"0\" data-selector=\"submit-audio-button\"\n\t\t\t ba-hotkey:space^enter=\"{{submit()}}\" onmouseout=\"this.blur()\"\n\t\t\t class=\"{{css}}-leftbutton-container\"\n\t\t\t ba-if=\"{{submittable}}\" ba-click=\"{{submit()}}\">\n            <div class=\"{{css}}-button-inner\">\n                {{string('submit-audio')}}\n            </div>\n        </div>\n\n        <div tabindex=\"0\" data-selector=\"button-icon-ccw\"\n\t\t\t ba-hotkey:space^enter=\"{{rerecord()}}\" onmouseout=\"this.blur()\"\n\t\t\t class=\"{{css}}-leftbutton-container\" ba-if=\"{{rerecordable}}\"\n\t\t\t ba-click=\"{{rerecord()}}\" title=\"{{string('rerecord-audio')}}\"\n\t\t>\n            <div class=\"{{css}}-button-inner\">\n                <i class=\"{{csscommon}}-icon-ccw\"></i>\n            </div>\n        </div>\n\n        <div tabindex=\"0\" data-selector=\"button-icon-play\"\n\t\t\t onmouseout=\"this.blur()\"\n\t\t\t class=\"{{css}}-leftbutton-container\" title=\"{{string('play-audio')}}\"\n\t\t\t onkeydown=\"{{tab_index_move(domEvent, null, 'button-icon-pause')}}\" ba-if=\"{{!playing}}\" ba-click=\"{{play()}}\"\n\t\t>\n            <div class=\"{{css}}-button-inner\">\n                <i class=\"{{csscommon}}-icon-play\"></i>\n            </div>\n        </div>\n\n        <div tabindex=\"0\" data-selector=\"button-icon-pause\"\n\t\t\t onmouseout=\"this.blur()\"\n\t\t\t class=\"{{css}}-leftbutton-container {{disablepause ? cssplayer + '-disabled' : ''}}\"\n\t\t\t onkeydown=\"{{tab_index_move(domEvent, null, 'button-icon-play')}}\" ba-if=\"{{playing}}\" ba-click=\"{{pause()}}\"\n\t\t\t title=\"{{disablepause ? string('pause-audio-disabled') : string('pause-audio')}}\"\n\t\t>\n            <div class=\"{{css}}-button-inner\">\n                <i class=\"{{csscommon}}-icon-pause\"></i>\n            </div>\n        </div>\n\n\t\t<div class=\"{{css}}-time-container\">\n\t\t\t<div class=\"{{css}}-time-value\" title=\"{{string('elapsed-time')}}\">{{formatTime(position)}}</div>\n\t\t\t<div class=\"{{css}}-time-sep\">/</div>\n\t\t\t<div class=\"{{css}}-time-value\" title=\"{{string('total-time')}}\">{{formatTime(duration || position)}}</div>\n\t\t</div>\n\n\t\t<div data-selector=\"audio-title-block\" class=\"{{css}}-title-container\" ba-if=\"{{title}}\">\n\t\t\t<p class=\"{{css}}-title\">\n\t\t\t\t{{title}}\n\t\t\t</p>\n\t\t</div>\n\n\t\t<div class=\"{{css}}-volumebar\">\n\t\t\t<div tabindex=\"5\" data-selector=\"button-volume-bar\"\n\t\t\t\t ba-hotkey:right=\"{{set_volume(volume + 0.1)}}\" ba-hotkey:left=\"{{set_volume(volume - 0.1)}}\"\n\t\t\t\t ba-hotkey:up=\"{{set_volume(1)}}\" ba-hotkey:down=\"{{set_volume(0)}}\"\n\t\t\t\t onmouseout=\"this.blur()\"\n\t\t\t\t class=\"{{css}}-volumebar-inner\"\n\t\t\t     onmousedown=\"{{startUpdateVolume(domEvent)}}\"\n                 onmouseup=\"{{stopUpdateVolume(domEvent)}}\"\n                 onmouseleave=\"{{stopUpdateVolume(domEvent)}}\"\n                 onmousemove=\"{{progressUpdateVolume(domEvent)}}\"\n\t\t\t>\n\t\t\t\t<div class=\"{{css}}-volumebar-position\" ba-styles=\"{{{width: Math.min(100, Math.round(volume * 100)) + '%'}}}\">\n\t\t\t\t    <div class=\"{{css}}-volumebar-button\" title=\"{{string('volume-button')}}\"></div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\n\t\t<div tabindex=\"4\" data-selector=\"button-icon-volume\"\n\t\t\t ba-hotkey:space^enter=\"{{toggle_volume()}}\" onmouseout=\"this.blur()\"\n\t\t\t class=\"{{css}}-rightbutton-container\"\n\t\t\t ba-click=\"{{toggle_volume()}}\" title=\"{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}\">\n\t\t\t<div class=\"{{css}}-button-inner\">\n\t\t\t\t<i class=\"{{csscommon + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}\"></i>\n\t\t\t</div>\n\t\t</div>\n\n\t</div>\n</div>\n",
+                template: "\n<div class=\"{{css}}-dashboard\">\n\t<div tabindex=\"2\" data-selector=\"progress-bar-inner\" class=\"{{css}}-progressbar {{disableseeking ? cssplayer + '-disabled' : ''}}\"\n\t\t ba-hotkey:right=\"{{seek(position + skipseconds)}}\"\n\t\t ba-hotkey:left=\"{{seek(position - skipseconds)}}\"\n         ba-hotkey:alt+right=\"{{seek(position + skipseconds * 3)}}\"\n         ba-hotkey:alt+left=\"{{seek(position - skipseconds * 3)}}\"\n\t\t onmouseout=\"this.blur()\"\n\t\t ontouchstart=\"{{startUpdatePosition(domEvent)}}\"\n\t\t onmousedown=\"{{startUpdatePosition(domEvent)}}\"\n\t>\n\t\t<div class=\"{{css}}-progressbar-cache\" ba-styles=\"{{{width: Math.round(duration ? cached / duration * 100 : 0) + '%'}}}\"></div>\n\t\t<div class=\"{{css}}-progressbar-position\"\n\t\t\t ba-styles=\"{{{width: Math.round(duration ? position / duration * 100 : 0) + '%'}}}\"\n\t\t\t title=\"{{string('audio-progress')}}\"\n\t\t>\n\t\t\t<div class=\"{{css}}-progressbar-button\"></div>\n\t\t</div>\n\t</div>\n\n\t<div class=\"{{css}}-backbar\"></div>\n\n\t<div class=\"{{css}}-controlbar\">\n\n        <div tabindex=\"0\" data-selector=\"submit-audio-button\"\n\t\t\t ba-hotkey:space^enter=\"{{submit()}}\" onmouseout=\"this.blur()\"\n\t\t\t class=\"{{css}}-leftbutton-container\"\n\t\t\t ba-if=\"{{submittable}}\" ba-click=\"{{submit()}}\">\n            <div class=\"{{css}}-button-inner\">\n                {{string('submit-audio')}}\n            </div>\n        </div>\n\n        <div tabindex=\"0\" data-selector=\"button-icon-ccw\"\n\t\t\t ba-hotkey:space^enter=\"{{rerecord()}}\" onmouseout=\"this.blur()\"\n\t\t\t class=\"{{css}}-leftbutton-container\" ba-if=\"{{rerecordable}}\"\n\t\t\t ba-click=\"{{rerecord()}}\" title=\"{{string('rerecord-audio')}}\"\n\t\t>\n            <div class=\"{{css}}-button-inner\">\n                <i class=\"{{csscommon}}-icon-ccw\"></i>\n            </div>\n        </div>\n\n        <div tabindex=\"0\" data-selector=\"button-icon-play\"\n\t\t\t onmouseout=\"this.blur()\"\n\t\t\t class=\"{{css}}-leftbutton-container\" title=\"{{string('play-audio')}}\"\n\t\t\t onkeydown=\"{{tab_index_move(domEvent, null, 'button-icon-pause')}}\" ba-if=\"{{!playing}}\" ba-click=\"{{play()}}\"\n\t\t>\n            <div class=\"{{css}}-button-inner\">\n                <i class=\"{{csscommon}}-icon-play\"></i>\n            </div>\n        </div>\n\n        <div tabindex=\"0\" data-selector=\"button-icon-pause\"\n\t\t\t onmouseout=\"this.blur()\"\n\t\t\t class=\"{{css}}-leftbutton-container {{disablepause ? cssplayer + '-disabled' : ''}}\"\n\t\t\t onkeydown=\"{{tab_index_move(domEvent, null, 'button-icon-play')}}\" ba-if=\"{{playing}}\" ba-click=\"{{pause()}}\"\n\t\t\t title=\"{{disablepause ? string('pause-audio-disabled') : string('pause-audio')}}\"\n\t\t>\n            <div class=\"{{css}}-button-inner\">\n                <i class=\"{{csscommon}}-icon-pause\"></i>\n            </div>\n        </div>\n\n\t\t<div class=\"{{css}}-time-container\">\n\t\t\t<div class=\"{{css}}-time-value\" title=\"{{string('elapsed-time')}}\">{{formatTime(position)}}</div>\n\t\t\t<div class=\"{{css}}-time-sep\">/</div>\n\t\t\t<div class=\"{{css}}-time-value\" title=\"{{string('total-time')}}\">{{formatTime(duration || position)}}</div>\n\t\t</div>\n\n\t\t<div data-selector=\"audio-title-block\" class=\"{{css}}-title-container\" ba-if=\"{{title}}\">\n\t\t\t<p class=\"{{css}}-title\">\n\t\t\t\t{{title}}\n\t\t\t</p>\n\t\t</div>\n\n\t\t<div class=\"{{css}}-volumebar\">\n\t\t\t<div tabindex=\"5\" data-selector=\"button-volume-bar\"\n\t\t\t\t ba-hotkey:right=\"{{set_volume(volume + 0.1)}}\" ba-hotkey:left=\"{{set_volume(volume - 0.1)}}\"\n\t\t\t\t ba-hotkey:up=\"{{set_volume(1)}}\" ba-hotkey:down=\"{{set_volume(0)}}\"\n\t\t\t\t onmouseout=\"this.blur()\"\n\t\t\t\t class=\"{{css}}-volumebar-inner\"\n\t\t\t\t ontouchstart=\"{{startUpdateVolume(domEvent)}}\"\n\t\t\t\t ontouchmove=\"{{progressUpdateVolume(domEvent)}}\"\n\t\t\t\t ontouchend=\"{{stopUpdateVolume(domEvent); this.blur()}};\"\n\t\t\t\t onmousedown=\"{{startUpdateVolume(domEvent)}}\"\n                 onmouseup=\"{{stopUpdateVolume(domEvent)}}\"\n                 onmouseleave=\"{{stopUpdateVolume(domEvent)}}\"\n                 onmousemove=\"{{progressUpdateVolume(domEvent)}}\"\n\t\t\t>\n\t\t\t\t<div class=\"{{css}}-volumebar-position\" ba-styles=\"{{{width: Math.min(100, Math.round(volume * 100)) + '%'}}}\">\n\t\t\t\t    <div class=\"{{css}}-volumebar-button\" title=\"{{string('volume-button')}}\"></div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\n\t\t<div tabindex=\"4\" data-selector=\"button-icon-volume\"\n\t\t\t ba-hotkey:space^enter=\"{{toggle_volume()}}\" onmouseout=\"this.blur()\"\n\t\t\t class=\"{{css}}-rightbutton-container\"\n\t\t\t ba-click=\"{{toggle_volume()}}\" title=\"{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}\">\n\t\t\t<div class=\"{{css}}-button-inner\">\n\t\t\t\t<i class=\"{{csscommon + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}\"></i>\n\t\t\t</div>\n\t\t</div>\n\n\t</div>\n</div>\n",
 
                 attrs: {
                     "css": "ba-audioplayer",
@@ -13410,6 +13412,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Controlbar", [
                     "position": 0,
                     "cached": 0,
                     "volume": 1.0,
+                    "manuallypaused": false,
                     "expandedprogress": true,
                     "playing": false,
                     "rerecordable": false,
@@ -13420,35 +13423,58 @@ Scoped.define("module:AudioPlayer.Dynamics.Controlbar", [
                 functions: {
 
                     formatTime: function(time) {
-                        time = Math.max(time || 0, 1);
+                        time = Math.max(time || 0, 0.1);
                         return TimeFormat.format(TimeFormat.ELAPSED_MINUTES_SECONDS, time * 1000);
                     },
 
                     startUpdatePosition: function(event) {
                         if (this.get("disableseeking")) return;
                         event[0].preventDefault();
+                        if (!this.__parent.get("playing") && this.__parent.player && !this.get("manuallypaused"))
+                            this.__parent.player.play();
+
+                        var target = event[0].currentTarget;
+                        this.set("dimensions", target.getBoundingClientRect());
+
                         this.set("_updatePosition", true);
-                        this.call("progressUpdatePosition", event);
+                        this.call("progressUpdatePosition", event[0]);
+
+                        var events = this.get("events");
+                        events.on(document, "mousemove touchmove", function(e) {
+                            e.preventDefault();
+                            this.call("progressUpdatePosition", e);
+                        }, this);
+                        events.on(document, "mouseup touchend", function(e) {
+                            e.preventDefault();
+                            this.call("stopUpdatePosition");
+                            events.off(document, "mouseup touchend mousemove touchmove");
+                        }, this);
                     },
 
                     progressUpdatePosition: function(event) {
-                        var ev = event[0];
+                        if (!this.get("dimensions")) return;
+                        var ev = event[0] || event;
                         ev.preventDefault();
-                        if (!this.get("_updatePosition"))
-                            return;
-                        var clientX = ev.clientX;
-                        var target = ev.currentTarget;
-                        var offset = Dom.elementOffset(target);
-                        var dimensions = Dom.elementDimensions(target);
-                        this.set("position", this.get("duration") * (clientX - offset.left) / (dimensions.width || 1));
+                        // Mouse or Touch Event
+                        var clientX = ev.clientX === 0 ? 0 : ev.clientX || ev.targetTouches[0].clientX;
+                        var dimensions = this.get("dimensions");
+                        var percentageFromStart;
+                        if (clientX < dimensions.left) {
+                            percentageFromStart = 0;
+                        } else if (clientX > (dimensions.left + dimensions.width)) {
+                            percentageFromStart = 1;
+                        } else {
+                            percentageFromStart = (clientX - dimensions.left) / (dimensions.width || 1);
+                        }
+                        var onDuration = this.get("duration") * percentageFromStart;
 
-                        var player = this.__parent.player;
+                        if (!this.get("_updatePosition")) return;
 
+                        this.set("position", onDuration);
                         this.trigger("position", this.get("position"));
                     },
 
-                    stopUpdatePosition: function(event) {
-                        event[0].preventDefault();
+                    stopUpdatePosition: function() {
                         this.set("_updatePosition", false);
                     },
 
@@ -13543,12 +13569,13 @@ Scoped.define("module:AudioPlayer.Dynamics.Controlbar", [
 
                 create: function() {
                     this.set("ismobile", Info.isMobile());
+                    this.set("events", new DomEvents());
                 }
             };
         })
         .register("ba-audioplayer-controlbar")
         .registerFunctions({
-            /**/"css": function (obj) { with (obj) { return css; } }, "disableseeking ? cssplayer + '-disabled' : ''": function (obj) { with (obj) { return disableseeking ? cssplayer + '-disabled' : ''; } }, "seek(position + skipseconds)": function (obj) { with (obj) { return seek(position + skipseconds); } }, "seek(position - skipseconds)": function (obj) { with (obj) { return seek(position - skipseconds); } }, "seek(position + skipseconds * 3)": function (obj) { with (obj) { return seek(position + skipseconds * 3); } }, "seek(position - skipseconds * 3)": function (obj) { with (obj) { return seek(position - skipseconds * 3); } }, "startUpdatePosition(domEvent)": function (obj) { with (obj) { return startUpdatePosition(domEvent); } }, "stopUpdatePosition(domEvent)": function (obj) { with (obj) { return stopUpdatePosition(domEvent); } }, "progressUpdatePosition(domEvent)": function (obj) { with (obj) { return progressUpdatePosition(domEvent); } }, "{width: Math.round(duration ? cached / duration * 100 : 0) + '%'}": function (obj) { with (obj) { return {width: Math.round(duration ? cached / duration * 100 : 0) + '%'}; } }, "{width: Math.round(duration ? position / duration * 100 : 0) + '%'}": function (obj) { with (obj) { return {width: Math.round(duration ? position / duration * 100 : 0) + '%'}; } }, "string('audio-progress')": function (obj) { with (obj) { return string('audio-progress'); } }, "submit()": function (obj) { with (obj) { return submit(); } }, "submittable": function (obj) { with (obj) { return submittable; } }, "string('submit-audio')": function (obj) { with (obj) { return string('submit-audio'); } }, "rerecord()": function (obj) { with (obj) { return rerecord(); } }, "rerecordable": function (obj) { with (obj) { return rerecordable; } }, "string('rerecord-audio')": function (obj) { with (obj) { return string('rerecord-audio'); } }, "csscommon": function (obj) { with (obj) { return csscommon; } }, "string('play-audio')": function (obj) { with (obj) { return string('play-audio'); } }, "tab_index_move(domEvent, null, 'button-icon-pause')": function (obj) { with (obj) { return tab_index_move(domEvent, null, 'button-icon-pause'); } }, "!playing": function (obj) { with (obj) { return !playing; } }, "play()": function (obj) { with (obj) { return play(); } }, "disablepause ? cssplayer + '-disabled' : ''": function (obj) { with (obj) { return disablepause ? cssplayer + '-disabled' : ''; } }, "tab_index_move(domEvent, null, 'button-icon-play')": function (obj) { with (obj) { return tab_index_move(domEvent, null, 'button-icon-play'); } }, "playing": function (obj) { with (obj) { return playing; } }, "pause()": function (obj) { with (obj) { return pause(); } }, "disablepause ? string('pause-audio-disabled') : string('pause-audio')": function (obj) { with (obj) { return disablepause ? string('pause-audio-disabled') : string('pause-audio'); } }, "string('elapsed-time')": function (obj) { with (obj) { return string('elapsed-time'); } }, "formatTime(position)": function (obj) { with (obj) { return formatTime(position); } }, "string('total-time')": function (obj) { with (obj) { return string('total-time'); } }, "formatTime(duration || position)": function (obj) { with (obj) { return formatTime(duration || position); } }, "title": function (obj) { with (obj) { return title; } }, "set_volume(volume + 0.1)": function (obj) { with (obj) { return set_volume(volume + 0.1); } }, "set_volume(volume - 0.1)": function (obj) { with (obj) { return set_volume(volume - 0.1); } }, "set_volume(1)": function (obj) { with (obj) { return set_volume(1); } }, "set_volume(0)": function (obj) { with (obj) { return set_volume(0); } }, "startUpdateVolume(domEvent)": function (obj) { with (obj) { return startUpdateVolume(domEvent); } }, "stopUpdateVolume(domEvent)": function (obj) { with (obj) { return stopUpdateVolume(domEvent); } }, "progressUpdateVolume(domEvent)": function (obj) { with (obj) { return progressUpdateVolume(domEvent); } }, "{width: Math.min(100, Math.round(volume * 100)) + '%'}": function (obj) { with (obj) { return {width: Math.min(100, Math.round(volume * 100)) + '%'}; } }, "string('volume-button')": function (obj) { with (obj) { return string('volume-button'); } }, "toggle_volume()": function (obj) { with (obj) { return toggle_volume(); } }, "string(volume > 0 ? 'volume-mute' : 'volume-unmute')": function (obj) { with (obj) { return string(volume > 0 ? 'volume-mute' : 'volume-unmute'); } }, "csscommon + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off'))": function (obj) { with (obj) { return csscommon + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')); } }/**/
+            /**/"css": function (obj) { with (obj) { return css; } }, "disableseeking ? cssplayer + '-disabled' : ''": function (obj) { with (obj) { return disableseeking ? cssplayer + '-disabled' : ''; } }, "seek(position + skipseconds)": function (obj) { with (obj) { return seek(position + skipseconds); } }, "seek(position - skipseconds)": function (obj) { with (obj) { return seek(position - skipseconds); } }, "seek(position + skipseconds * 3)": function (obj) { with (obj) { return seek(position + skipseconds * 3); } }, "seek(position - skipseconds * 3)": function (obj) { with (obj) { return seek(position - skipseconds * 3); } }, "startUpdatePosition(domEvent)": function (obj) { with (obj) { return startUpdatePosition(domEvent); } }, "{width: Math.round(duration ? cached / duration * 100 : 0) + '%'}": function (obj) { with (obj) { return {width: Math.round(duration ? cached / duration * 100 : 0) + '%'}; } }, "{width: Math.round(duration ? position / duration * 100 : 0) + '%'}": function (obj) { with (obj) { return {width: Math.round(duration ? position / duration * 100 : 0) + '%'}; } }, "string('audio-progress')": function (obj) { with (obj) { return string('audio-progress'); } }, "submit()": function (obj) { with (obj) { return submit(); } }, "submittable": function (obj) { with (obj) { return submittable; } }, "string('submit-audio')": function (obj) { with (obj) { return string('submit-audio'); } }, "rerecord()": function (obj) { with (obj) { return rerecord(); } }, "rerecordable": function (obj) { with (obj) { return rerecordable; } }, "string('rerecord-audio')": function (obj) { with (obj) { return string('rerecord-audio'); } }, "csscommon": function (obj) { with (obj) { return csscommon; } }, "string('play-audio')": function (obj) { with (obj) { return string('play-audio'); } }, "tab_index_move(domEvent, null, 'button-icon-pause')": function (obj) { with (obj) { return tab_index_move(domEvent, null, 'button-icon-pause'); } }, "!playing": function (obj) { with (obj) { return !playing; } }, "play()": function (obj) { with (obj) { return play(); } }, "disablepause ? cssplayer + '-disabled' : ''": function (obj) { with (obj) { return disablepause ? cssplayer + '-disabled' : ''; } }, "tab_index_move(domEvent, null, 'button-icon-play')": function (obj) { with (obj) { return tab_index_move(domEvent, null, 'button-icon-play'); } }, "playing": function (obj) { with (obj) { return playing; } }, "pause()": function (obj) { with (obj) { return pause(); } }, "disablepause ? string('pause-audio-disabled') : string('pause-audio')": function (obj) { with (obj) { return disablepause ? string('pause-audio-disabled') : string('pause-audio'); } }, "string('elapsed-time')": function (obj) { with (obj) { return string('elapsed-time'); } }, "formatTime(position)": function (obj) { with (obj) { return formatTime(position); } }, "string('total-time')": function (obj) { with (obj) { return string('total-time'); } }, "formatTime(duration || position)": function (obj) { with (obj) { return formatTime(duration || position); } }, "title": function (obj) { with (obj) { return title; } }, "set_volume(volume + 0.1)": function (obj) { with (obj) { return set_volume(volume + 0.1); } }, "set_volume(volume - 0.1)": function (obj) { with (obj) { return set_volume(volume - 0.1); } }, "set_volume(1)": function (obj) { with (obj) { return set_volume(1); } }, "set_volume(0)": function (obj) { with (obj) { return set_volume(0); } }, "startUpdateVolume(domEvent)": function (obj) { with (obj) { return startUpdateVolume(domEvent); } }, "progressUpdateVolume(domEvent)": function (obj) { with (obj) { return progressUpdateVolume(domEvent); } }, "stopUpdateVolume(domEvent); this.blur()": function (obj) { with (obj) { return stopUpdateVolume(domEvent); this.blur(); } }, "stopUpdateVolume(domEvent)": function (obj) { with (obj) { return stopUpdateVolume(domEvent); } }, "{width: Math.min(100, Math.round(volume * 100)) + '%'}": function (obj) { with (obj) { return {width: Math.min(100, Math.round(volume * 100)) + '%'}; } }, "string('volume-button')": function (obj) { with (obj) { return string('volume-button'); } }, "toggle_volume()": function (obj) { with (obj) { return toggle_volume(); } }, "string(volume > 0 ? 'volume-mute' : 'volume-unmute')": function (obj) { with (obj) { return string(volume > 0 ? 'volume-mute' : 'volume-unmute'); } }, "csscommon + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off'))": function (obj) { with (obj) { return csscommon + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')); } }/**/
         })
         .attachStringTable(Assets.strings)
         .addStrings({
@@ -13658,7 +13685,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
         }, function(inherited) {
             return {
 
-                template: "<div itemscope itemtype=\"http://schema.org/AudioObject\"\n    class=\"{{css}}-container {{cssplayer}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}\n    {{cssplayer}}-normal-view {{cssplayer}}-common-browser {{cssplayer}}-{{themecolor}}-color {{stretch ? css + '-stretch' : ''}}\n    {{cssplayer}}-{{title ? 'has-title' : 'no-title'}} {{visualeffectvisible ? cssplayer + '-visual-effect-applied' : ''}}\"\n\tba-styles=\"{{widthHeightStyles}}\"\n>\n\t<canvas data-selector=\"audio-canvas\" class=\"{{csstheme}}-audio-canvas\"></canvas>\n    <audio crossorigin=\"anonymous\" tabindex=\"-1\" class=\"{{css}}-audio\" data-audio=\"audio\"></audio>\n    <div class=\"{{css}}-overlay\">\n\t\t<div tabindex=\"-1\" class=\"{{css}}-player-toggle-overlay\" data-selector=\"player-toggle-overlay\"\n\t\t\t ba-hotkey:right=\"{{seek(position + skipseconds)}}\" ba-hotkey:left=\"{{seek(position - skipseconds)}}\"\n\t\t\t ba-hotkey:alt+right=\"{{seek(position + skipseconds * 3)}}\" ba-hotkey:alt+left=\"{{seek(position - skipseconds * 3)}}\"\n\t\t\t ba-hotkey:up=\"{{set_volume(volume + 0.1)}}\" ba-hotkey:down=\"{{set_volume(volume - 0.1)}}\"\n\t\t></div>\n\t    <ba-{{dyncontrolbar}}\n\t\t    ba-css=\"{{csscontrolbar || css}}\"\n\t\t\tba-cssplayer=\"{{cssplayer || css}}\"\n\t\t\tba-csscommon=\"{{csscommon || css}}\"\n\t\t\tba-csstheme=\"{{csstheme || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplcontrolbar}}\"\n\t\t    ba-show=\"{{controlbar_active}}\"\n\t\t    ba-playing=\"{{playing}}\"\n\t\t\tba-playwhenvisible=\"{{playwhenvisible}}\"\n\t\t    ba-event:rerecord=\"rerecord\"\n\t\t    ba-event:submit=\"submit\"\n\t\t    ba-event:play=\"play\"\n\t\t    ba-event:pause=\"pause\"\n\t\t    ba-event:position=\"seek\"\n\t\t    ba-event:volume=\"set_volume\"\n\t\t\tba-event:tab_index_move=\"tab_index_move\"\n\t\t\tba-event:seek=\"seek\"\n\t\t\tba-event:set_volume=\"set_volume\"\n\t\t\tba-event:settings_menu=\"toggle_settings_menu\"\n\t\t\tba-tabindex=\"{{tabindex}}\"\n\t\t    ba-volume=\"{{volume}}\"\n\t\t    ba-duration=\"{{duration}}\"\n\t\t    ba-cached=\"{{buffered}}\"\n\t\t    ba-title=\"{{title}}\"\n\t\t    ba-position=\"{{position}}\"\n\t\t    ba-rerecordable=\"{{rerecordable}}\"\n\t\t    ba-submittable=\"{{submittable}}\"\n            ba-source=\"{{source}}\"\n\t\t\tba-disablepause=\"{{disablepause}}\"\n\t\t\tba-disableseeking=\"{{disableseeking}}\"\n\t\t\tba-skipseconds=\"{{skipseconds}}\"\n\t\t\tba-settingsmenubutton=\"{{showsettingsmenu}}\"\n\t\t\tba-settingsmenuactive=\"{{settingsmenu_active}}\"\n\t\t></ba-{{dyncontrolbar}}>\n\n\t\t<ba-{{dynloader}}\n\t\t    ba-css=\"{{cssloader || css}}\"\n\t\t\tba-cssplayer=\"{{cssplayer || css}}\"\n\t\t\tba-csscommon=\"{{csscommon || css}}\"\n\t\t\tba-theme-color=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplloader}}\"\n\t\t\tba-playwhenvisible=\"{{playwhenvisible}}\"\n\t\t    ba-show=\"{{loader_active}}\"\n\t\t></ba-{{dynloader}}>\n\n\t\t<ba-{{dynmessage}}\n\t\t    ba-css=\"{{cssmessage || css}}\"\n\t\t\tba-cssplayer=\"{{cssplayer || css}}\"\n\t\t\tba-csscommon=\"{{csscommon || css}}\"\n\t\t\tba-theme-color=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplmessage}}\"\n\t\t    ba-show=\"{{message_active}}\"\n\t\t    ba-message=\"{{message}}\"\n\t\t    ba-event:click=\"message_click\"\n\t\t></ba-{{dynmessage}}>\n\n\t\t<ba-{{dynsettingsmenu}}\n\t\t\tba-css=\"{{css}}\"\n\t\t\tba-csstheme=\"{{csstheme || css}}\"\n\t\t\tba-show=\"{{settingsmenu_active}}\"\n\t\t\tba-template=\"{{tmplsettingsmenu}}\"\n\t\t></ba-{{dynsettingsmenu}}>\n\n\t\t<meta itemprop=\"caption\" content=\"{{title}}\" />\n\t\t<meta itemprop=\"contentUrl\" content=\"{{source}}\"/>\n\t</div>\n</div>\n",
+                template: "<div itemscope itemtype=\"http://schema.org/AudioObject\"\n    class=\"{{css}}-container {{cssplayer}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}\n    {{cssplayer}}-normal-view {{cssplayer}}-common-browser {{cssplayer}}-{{themecolor}}-color\n    {{cssplayer}}-{{title ? 'has-title' : 'no-title'}} {{visualeffectvisible ? cssplayer + '-visual-effect-applied' : ''}}\"\n\tba-styles=\"{{widthHeightStyles}}\"\n>\n\t<canvas data-selector=\"audio-canvas\" class=\"{{csstheme}}-audio-canvas\" ba-on:click=\"{{toggle_player()}}\"></canvas>\n    <audio crossorigin=\"anonymous\" tabindex=\"-1\" class=\"{{css}}-audio\" data-audio=\"audio\"></audio>\n    <div class=\"{{css}}-overlay\">\n\t\t<div tabindex=\"-1\" class=\"{{css}}-player-toggle-overlay\" data-selector=\"player-toggle-overlay\"\n\t\t\t ba-hotkey:right=\"{{seek(position + skipseconds)}}\" ba-hotkey:left=\"{{seek(position - skipseconds)}}\"\n\t\t\t ba-hotkey:alt+right=\"{{seek(position + skipseconds * 3)}}\" ba-hotkey:alt+left=\"{{seek(position - skipseconds * 3)}}\"\n\t\t\t ba-hotkey:up=\"{{set_volume(volume + 0.1)}}\" ba-hotkey:down=\"{{set_volume(volume - 0.1)}}\"\n\t\t\t ba-hotkey:space^enter=\"{{toggle_player()}}\"\n\t\t\t ba-on:click=\"{{toggle_player()}}\"\n\t\t></div>\n\t    <ba-{{dyncontrolbar}}\n\t\t    ba-css=\"{{csscontrolbar || css}}\"\n\t\t\tba-cssplayer=\"{{cssplayer || css}}\"\n\t\t\tba-csscommon=\"{{csscommon || css}}\"\n\t\t\tba-csstheme=\"{{csstheme || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplcontrolbar}}\"\n\t\t    ba-show=\"{{controlbar_active}}\"\n\t\t    ba-playing=\"{{playing}}\"\n\t\t\tba-playwhenvisible=\"{{playwhenvisible}}\"\n\t\t    ba-event:rerecord=\"rerecord\"\n\t\t    ba-event:submit=\"submit\"\n\t\t    ba-event:play=\"play\"\n\t\t    ba-event:pause=\"pause\"\n\t\t    ba-event:position=\"seek\"\n\t\t    ba-event:volume=\"set_volume\"\n\t\t\tba-event:tab_index_move=\"tab_index_move\"\n\t\t\tba-event:seek=\"seek\"\n\t\t\tba-event:set_volume=\"set_volume\"\n\t\t\tba-event:settings_menu=\"toggle_settings_menu\"\n\t\t\tba-tabindex=\"{{tabindex}}\"\n\t\t    ba-volume=\"{{volume}}\"\n\t\t    ba-duration=\"{{duration}}\"\n\t\t    ba-cached=\"{{buffered}}\"\n\t\t    ba-title=\"{{title}}\"\n\t\t    ba-position=\"{{position}}\"\n\t\t    ba-rerecordable=\"{{rerecordable}}\"\n\t\t    ba-submittable=\"{{submittable}}\"\n            ba-source=\"{{source}}\"\n\t\t\tba-disablepause=\"{{disablepause}}\"\n\t\t\tba-disableseeking=\"{{disableseeking}}\"\n\t\t\tba-skipseconds=\"{{skipseconds}}\"\n\t\t\tba-settingsmenubutton=\"{{showsettingsmenu}}\"\n\t\t\tba-settingsmenuactive=\"{{settingsmenu_active}}\"\n\t\t></ba-{{dyncontrolbar}}>\n\n\t\t<ba-{{dynloader}}\n\t\t    ba-css=\"{{cssloader || css}}\"\n\t\t\tba-cssplayer=\"{{cssplayer || css}}\"\n\t\t\tba-csscommon=\"{{csscommon || css}}\"\n\t\t\tba-theme-color=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplloader}}\"\n\t\t\tba-playwhenvisible=\"{{playwhenvisible}}\"\n\t\t    ba-show=\"{{loader_active}}\"\n\t\t></ba-{{dynloader}}>\n\n\t\t<ba-{{dynmessage}}\n\t\t    ba-css=\"{{cssmessage || css}}\"\n\t\t\tba-cssplayer=\"{{cssplayer || css}}\"\n\t\t\tba-csscommon=\"{{csscommon || css}}\"\n\t\t\tba-theme-color=\"{{themecolor}}\"\n\t\t    ba-template=\"{{tmplmessage}}\"\n\t\t    ba-show=\"{{message_active}}\"\n\t\t    ba-message=\"{{message}}\"\n\t\t    ba-event:click=\"message_click\"\n\t\t></ba-{{dynmessage}}>\n\n\t\t<ba-{{dynsettingsmenu}}\n\t\t\tba-css=\"{{css}}\"\n\t\t\tba-csstheme=\"{{csstheme || css}}\"\n\t\t\tba-show=\"{{settingsmenu_active}}\"\n\t\t\tba-template=\"{{tmplsettingsmenu}}\"\n\t\t></ba-{{dynsettingsmenu}}>\n\n\t\t<meta itemprop=\"caption\" content=\"{{title}}\" />\n\t\t<meta itemprop=\"contentUrl\" content=\"{{source}}\"/>\n\t</div>\n</div>\n",
 
                 attrs: {
                     /* CSS */
@@ -13701,14 +13728,15 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     /* Configuration */
                     "reloadonplay": false,
                     "playonclick": true,
+                    "pauseonclick": true,
                     /* Options */
                     "rerecordable": false,
                     "submittable": false,
                     "autoplay": false,
                     "preload": false,
                     "loop": false,
+                    "loopall": false,
                     "ready": true,
-                    "stretch": false,
                     "totalduration": null,
                     "playwhenvisible": false,
                     "playedonce": false,
@@ -13726,8 +13754,10 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
 
                     /* States (helper variables which are controlled by application itself not set by user) */
                     "initialoptions": {
-                        "volumelevel": null
+                        "volumelevel": null,
+                        "playlist": []
                     },
+                    "lastplaylistitem": false,
                     // Reference to Chrome renewed policy, we have to setup mute for auto-playing players.
                     // If we do it forcibly then will set as true
                     "forciblymuted": false,
@@ -13738,10 +13768,10 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                 types: {
                     "rerecordable": "boolean",
                     "loop": "boolean",
+                    "loopall": "boolean",
                     "autoplay": "boolean",
                     "preload": "boolean",
                     "ready": "boolean",
-                    "stretch": "boolean",
                     "volume": "float",
                     "initialseek": "float",
                     "themecolor": "string",
@@ -13752,6 +13782,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     "disablepause": "boolean",
                     "disableseeking": "boolean",
                     "playonclick": "boolean",
+                    "pauseonclick": "boolean",
                     "showsettings": "boolean",
                     "skipseconds": "integer",
                     "visualeffectvisible": "boolean",
@@ -13786,8 +13817,8 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                         if (!value) {
                             // If after checking we found that AudioAnalyzer not supported we should remove canvas
                             if (this.audioVisualization) {
-                                this.audioVisualization.destroy();
                                 this.audioVisualization.canvas.remove();
+                                this.audioVisualization.destroy();
                             }
                         }
                     }
@@ -13895,6 +13926,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                         this.player.weakDestroy();
                     this.player = null;
                     this.__audio = null;
+                    this.set("audioelement_active", false);
                 },
 
                 _attachAudio: function() {
@@ -13905,13 +13937,14 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                         return;
                     }
                     this.__attachRequested = false;
+                    this.set("audioelement_active", true);
                     var audio = this.activeElement().querySelector("[data-audio='audio']");
                     this._clearError();
                     AudioPlayerWrapper.create(Objs.extend(this._getSources(), {
                         element: audio,
                         preload: !!this.get("preload"),
-                        loop: !!this.get("loop"),
-                        reloadonplay: this.get('playlist') ? true : !!this.get("reloadonplay")
+                        loop: !!this.get("loop") || (this.get("lastplaylistitem") && this.get("loopall")),
+                        reloadonplay: !!this.get("reloadonplay") // reload of AudioMediaElement not act like in VideoMediaElement, no need for reload
                     })).error(function(e) {
                         if (this.destroyed())
                             return;
@@ -14122,6 +14155,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                         // Draw visual effect
                         if (this.get('visualeffectsupported'))
                             this.audioVisualization.renderFrame();
+                        this.set("manuallypaused", false);
                     },
 
                     rerecord: function() {
@@ -14168,9 +14202,9 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     seek: function(position) {
                         if (this.get('disableseeking')) return;
                         if (this.audioLoaded()) {
-                            if (position > this.player.duration())
+                            if (position > this.player.duration()) {
                                 this.player.setPosition(this.player.duration() - this.get("skipseconds"));
-                            else {
+                            } else {
                                 this.player.setPosition(position);
                                 this.trigger("seek", position);
                             }
@@ -14229,6 +14263,14 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
 
                     toggle_settings_menu: function() {
                         this.set("settingsmenu_active", !this.get("settingsmenu_active"));
+                    },
+
+                    toggle_player: function() {
+                        if (this.get("playing") && this.get("pauseonclick")) {
+                            this.pause();
+                        } else if (!this.get("playing") && this.get("playonclick")) {
+                            this.play();
+                        }
                     }
 
                 },
@@ -14245,16 +14287,20 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                         return;
                     try {
                         if (this.audioLoaded()) {
+                            var _now = Time.now();
                             var new_position = this.player.position();
-                            if (new_position != this.get("position") || this.get("last_position_change"))
-                                this.set("last_position_change", Time.now());
-                            this.set("last_position_change_delta", Time.now() - this.get("last_position_change"));
+                            if (new_position !== this.get("position") || this.get("last_position_change"))
+                                this.set("last_position_change", _now);
+                            // In case if prevent interaction with controller set to true
+                            this.set("last_position_change_delta", _now - this.get("last_position_change"));
                             this.set("position", new_position);
                             this.set("buffered", this.player.buffered());
-                            if (this.get("totalduration") || (this.player.duration() > 0 && this.player.duration() < Infinity))
-                                this.set("duration", this.get("totalduration") || this.player.duration());
-                            else
-                                this.set("duration", new_position);
+                            var pld = this.player.duration();
+                            if (0.0 < pld && pld < Infinity) {
+                                this.set("duration", this.player.duration());
+                            } else {
+                                this.set("duration", this.get("totalduration") || new_position);
+                            }
                         }
                     } catch (e) {}
                     try {
@@ -14282,7 +14328,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
 
         }).register("ba-audioplayer")
         .registerFunctions({
-            /**/"css": function (obj) { with (obj) { return css; } }, "cssplayer": function (obj) { with (obj) { return cssplayer; } }, "csssize": function (obj) { with (obj) { return csssize; } }, "iecss": function (obj) { with (obj) { return iecss; } }, "ie8 ? 'ie8' : 'noie8'": function (obj) { with (obj) { return ie8 ? 'ie8' : 'noie8'; } }, "csstheme": function (obj) { with (obj) { return csstheme; } }, "themecolor": function (obj) { with (obj) { return themecolor; } }, "stretch ? css + '-stretch' : ''": function (obj) { with (obj) { return stretch ? css + '-stretch' : ''; } }, "title ? 'has-title' : 'no-title'": function (obj) { with (obj) { return title ? 'has-title' : 'no-title'; } }, "visualeffectvisible ? cssplayer + '-visual-effect-applied' : ''": function (obj) { with (obj) { return visualeffectvisible ? cssplayer + '-visual-effect-applied' : ''; } }, "widthHeightStyles": function (obj) { with (obj) { return widthHeightStyles; } }, "seek(position + skipseconds)": function (obj) { with (obj) { return seek(position + skipseconds); } }, "seek(position - skipseconds)": function (obj) { with (obj) { return seek(position - skipseconds); } }, "seek(position + skipseconds * 3)": function (obj) { with (obj) { return seek(position + skipseconds * 3); } }, "seek(position - skipseconds * 3)": function (obj) { with (obj) { return seek(position - skipseconds * 3); } }, "set_volume(volume + 0.1)": function (obj) { with (obj) { return set_volume(volume + 0.1); } }, "set_volume(volume - 0.1)": function (obj) { with (obj) { return set_volume(volume - 0.1); } }, "dyncontrolbar": function (obj) { with (obj) { return dyncontrolbar; } }, "csscontrolbar || css": function (obj) { with (obj) { return csscontrolbar || css; } }, "cssplayer || css": function (obj) { with (obj) { return cssplayer || css; } }, "csscommon || css": function (obj) { with (obj) { return csscommon || css; } }, "csstheme || css": function (obj) { with (obj) { return csstheme || css; } }, "tmplcontrolbar": function (obj) { with (obj) { return tmplcontrolbar; } }, "controlbar_active": function (obj) { with (obj) { return controlbar_active; } }, "playing": function (obj) { with (obj) { return playing; } }, "playwhenvisible": function (obj) { with (obj) { return playwhenvisible; } }, "tabindex": function (obj) { with (obj) { return tabindex; } }, "volume": function (obj) { with (obj) { return volume; } }, "duration": function (obj) { with (obj) { return duration; } }, "buffered": function (obj) { with (obj) { return buffered; } }, "title": function (obj) { with (obj) { return title; } }, "position": function (obj) { with (obj) { return position; } }, "rerecordable": function (obj) { with (obj) { return rerecordable; } }, "submittable": function (obj) { with (obj) { return submittable; } }, "source": function (obj) { with (obj) { return source; } }, "disablepause": function (obj) { with (obj) { return disablepause; } }, "disableseeking": function (obj) { with (obj) { return disableseeking; } }, "skipseconds": function (obj) { with (obj) { return skipseconds; } }, "showsettingsmenu": function (obj) { with (obj) { return showsettingsmenu; } }, "settingsmenu_active": function (obj) { with (obj) { return settingsmenu_active; } }, "dynloader": function (obj) { with (obj) { return dynloader; } }, "cssloader || css": function (obj) { with (obj) { return cssloader || css; } }, "tmplloader": function (obj) { with (obj) { return tmplloader; } }, "loader_active": function (obj) { with (obj) { return loader_active; } }, "dynmessage": function (obj) { with (obj) { return dynmessage; } }, "cssmessage || css": function (obj) { with (obj) { return cssmessage || css; } }, "tmplmessage": function (obj) { with (obj) { return tmplmessage; } }, "message_active": function (obj) { with (obj) { return message_active; } }, "message": function (obj) { with (obj) { return message; } }, "dynsettingsmenu": function (obj) { with (obj) { return dynsettingsmenu; } }, "tmplsettingsmenu": function (obj) { with (obj) { return tmplsettingsmenu; } }/**/
+            /**/"css": function (obj) { with (obj) { return css; } }, "cssplayer": function (obj) { with (obj) { return cssplayer; } }, "csssize": function (obj) { with (obj) { return csssize; } }, "iecss": function (obj) { with (obj) { return iecss; } }, "ie8 ? 'ie8' : 'noie8'": function (obj) { with (obj) { return ie8 ? 'ie8' : 'noie8'; } }, "csstheme": function (obj) { with (obj) { return csstheme; } }, "themecolor": function (obj) { with (obj) { return themecolor; } }, "title ? 'has-title' : 'no-title'": function (obj) { with (obj) { return title ? 'has-title' : 'no-title'; } }, "visualeffectvisible ? cssplayer + '-visual-effect-applied' : ''": function (obj) { with (obj) { return visualeffectvisible ? cssplayer + '-visual-effect-applied' : ''; } }, "widthHeightStyles": function (obj) { with (obj) { return widthHeightStyles; } }, "toggle_player()": function (obj) { with (obj) { return toggle_player(); } }, "seek(position + skipseconds)": function (obj) { with (obj) { return seek(position + skipseconds); } }, "seek(position - skipseconds)": function (obj) { with (obj) { return seek(position - skipseconds); } }, "seek(position + skipseconds * 3)": function (obj) { with (obj) { return seek(position + skipseconds * 3); } }, "seek(position - skipseconds * 3)": function (obj) { with (obj) { return seek(position - skipseconds * 3); } }, "set_volume(volume + 0.1)": function (obj) { with (obj) { return set_volume(volume + 0.1); } }, "set_volume(volume - 0.1)": function (obj) { with (obj) { return set_volume(volume - 0.1); } }, "dyncontrolbar": function (obj) { with (obj) { return dyncontrolbar; } }, "csscontrolbar || css": function (obj) { with (obj) { return csscontrolbar || css; } }, "cssplayer || css": function (obj) { with (obj) { return cssplayer || css; } }, "csscommon || css": function (obj) { with (obj) { return csscommon || css; } }, "csstheme || css": function (obj) { with (obj) { return csstheme || css; } }, "tmplcontrolbar": function (obj) { with (obj) { return tmplcontrolbar; } }, "controlbar_active": function (obj) { with (obj) { return controlbar_active; } }, "playing": function (obj) { with (obj) { return playing; } }, "playwhenvisible": function (obj) { with (obj) { return playwhenvisible; } }, "tabindex": function (obj) { with (obj) { return tabindex; } }, "volume": function (obj) { with (obj) { return volume; } }, "duration": function (obj) { with (obj) { return duration; } }, "buffered": function (obj) { with (obj) { return buffered; } }, "title": function (obj) { with (obj) { return title; } }, "position": function (obj) { with (obj) { return position; } }, "rerecordable": function (obj) { with (obj) { return rerecordable; } }, "submittable": function (obj) { with (obj) { return submittable; } }, "source": function (obj) { with (obj) { return source; } }, "disablepause": function (obj) { with (obj) { return disablepause; } }, "disableseeking": function (obj) { with (obj) { return disableseeking; } }, "skipseconds": function (obj) { with (obj) { return skipseconds; } }, "showsettingsmenu": function (obj) { with (obj) { return showsettingsmenu; } }, "settingsmenu_active": function (obj) { with (obj) { return settingsmenu_active; } }, "dynloader": function (obj) { with (obj) { return dynloader; } }, "cssloader || css": function (obj) { with (obj) { return cssloader || css; } }, "tmplloader": function (obj) { with (obj) { return tmplloader; } }, "loader_active": function (obj) { with (obj) { return loader_active; } }, "dynmessage": function (obj) { with (obj) { return dynmessage; } }, "cssmessage || css": function (obj) { with (obj) { return cssmessage || css; } }, "tmplmessage": function (obj) { with (obj) { return tmplmessage; } }, "message_active": function (obj) { with (obj) { return message_active; } }, "message": function (obj) { with (obj) { return message; } }, "dynsettingsmenu": function (obj) { with (obj) { return dynsettingsmenu; } }, "tmplsettingsmenu": function (obj) { with (obj) { return tmplsettingsmenu; } }/**/
         })
         .attachStringTable(Assets.strings)
         .addStrings({
@@ -14358,6 +14404,7 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.Initial", [
         dynamics: ["loader"],
 
         _started: function() {
+            this.dyn.set("audioelement_active", false);
             if (this.dyn.get("ready"))
                 this.next("LoadPlayer");
             else {
@@ -14426,6 +14473,20 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.LoadAudio", [
         dynamics: ["loader"],
 
         _started: function() {
+            if (!this.dyn.get("audioelement_active")) {
+                this.listenOn(this.dyn, "error:attach", function() {
+                    this.next("LoadError");
+                }, this);
+                this.listenOn(this.dyn, "attached", function() {
+                    this.__loadAudio();
+                }, this);
+                this.dyn.reattachAudio();
+            } else {
+                this.__loadAudio();
+            }
+        },
+
+        __loadAudio: function() {
             this.listenOn(this.dyn, "error:audio", function() {
                 this.next("ErrorAudio");
             }, this);
@@ -14436,29 +14497,24 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.LoadAudio", [
                     this.dyn.execute("seek", this.dyn.get("autoseek"));
                 this.next("PlayAudio");
             }, this);
-            if (!this.dyn.get("autoplay"))
+            if (this.dyn.get("skipinitial") && !this.dyn.get("autoplay")) {
                 this.next("PlayAudio");
-            else {
-                this._runTimer();
+            } else {
+                var counter = 10;
+                this.auto_destroy(new Timer({
+                    context: this,
+                    fire: function() {
+                        if (!this.destroyed() && !this.dyn.destroyed() && this.dyn.player)
+                            this.dyn.player.play();
+                        counter--;
+                        if (counter === 0)
+                            this.next("PlayAudio");
+                    },
+                    delay: 200,
+                    immediate: true
+                }));
             }
-        },
-
-        _runTimer: function() {
-            var counter = 10;
-            this.auto_destroy(new Timer({
-                context: this,
-                fire: function() {
-                    if (!this.destroyed() && !this.dyn.destroyed() && this.dyn.player)
-                        this.dyn.player.play();
-                    counter--;
-                    if (counter === 0)
-                        this.next("PlayAudio");
-                },
-                delay: 200,
-                immediate: true
-            }));
         }
-
     });
 });
 
@@ -14527,25 +14583,54 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.NextAudio", [
 
         _started: function() {
             if (this.dyn.get("playlist")) {
+                var pl0, initialPlaylist;
                 var list = this.dyn.get("playlist");
                 var head = list.shift();
-                if (this.dyn.get("loop"))
-                    list.push(head);
-                this.dyn.set("playlist", list);
+                this.dyn.resetTimer = true;
+                this.dyn.get("initialoptions").playlist.push(head);
                 if (list.length > 0) {
-                    var pl0 = list[0];
+                    pl0 = list[0];
                     this.dyn.set("source", pl0.source);
                     this.dyn.set("sources", pl0.sources);
-                    this.dyn.trigger("playlist-next", pl0);
-                    this.dyn.reattachAudio();
+                    return this._playNext(pl0);
+                } else {
+                    initialPlaylist = this.dyn.get("initialoptions").playlist;
+                    this.dyn.set("lastplaylistitem", true);
+                    this.dyn.trigger("last-playlist-item");
+                    this.dyn.set("playlist", initialPlaylist);
+                    this.dyn.get("initialoptions").playlist = [];
+
+                    pl0 = initialPlaylist[0];
+                    this.dyn.set("source", pl0.source);
+                    this.dyn.set("sources", pl0.sources);
+                    if (this.dyn.get("loopall"))
+                        return this._playNext(pl0);
+                    else
+                        this.dyn.reattachAudio();
+                }
+            } else {
+                // If user will set loopall as true, single audio also will be played
+                if (this.dyn.get("loopall")) {
+                    this.dyn.set("loop", true);
                     this.dyn.set("autoplay", true);
-                    this.next("LoadPlayer");
-                    return;
+                    this.dyn.reattachAudio();
                 }
             }
-            this.next("LoadPlayer");
-        }
 
+            this.next("LoadPlayer");
+        },
+
+        /**
+         * Will start auto play the next play list element
+         * @param {object} pl
+         * @private
+         */
+        _playNext: function(pl) {
+            this.dyn.trigger("playlist-next", pl);
+            this.dyn.set("autoplay", true);
+            this.next("LoadPlayer");
+            // As this.next("LoadPlayer") already contains reattach, no need for this.dyn.reattachAudio();
+        }
     });
 });
 Scoped.define("module:AudioRecorder.Dynamics.Chooser", [
@@ -14698,7 +14783,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Controlbar", [
         }, function(inherited) {
             return {
 
-                template: "<div class=\"{{css}}-dashboard\">\n\t<div class=\"{{css}}-backbar\"></div>\n\t<div data-selector=\"recorder-settings\" class=\"{{css}}-settings\" ba-show=\"{{settingsvisible && settingsopen}}\">\n\t\t<div class=\"{{css}}-settings-backbar\"></div>\n\t\t<div data-selector=\"settings-list-front\" class=\"{{css}}-settings-front\">\n\t\t\t<ul data-selector=\"microphone-settings\" ba-repeat=\"{{microphone :: microphones}}\">\n\t\t\t\t<li tabindex=\"0\"\n\t\t\t\t\tba-hotkey:space^enter=\"{{selectMicrophone(microphone.id)}}\" onmouseout=\"this.blur()\"\n\t\t\t\t\tonclick=\"{{selectMicrophone(microphone.id)}}\"\n\t\t\t\t>\n\t\t\t\t\t<input type='radio' name='microphone' value=\"{{selectedmicrophone == microphone.id}}\" />\n\t\t\t\t\t<span></span>\n\t\t\t\t\t<label>\n\t\t\t\t\t\t{{microphone.label}}\n\t\t\t\t\t</label>\n\t\t\t\t </li>\n\t\t\t</ul>\n\t\t</div>\n\t</div>\n\t<div data-selector=\"controlbar\" class=\"{{css}}-controlbar\">\n\n        <div class=\"{{css}}-leftbutton-container\" ba-show=\"{{settingsvisible}}\">\n            <div tabindex=\"0\"\n\t\t\t\t ba-hotkey:space^enter=\"{{settingsopen=!settingsopen}}\" onmouseout=\"this.blur()\"\n\t\t\t\t data-selector=\"record-button-icon-cog\" class=\"{{css}}-button-inner {{css}}-button-{{settingsopen ? 'selected' : 'unselected'}}\"\n                 onclick=\"{{settingsopen=!settingsopen}}\"\n                 onmouseenter=\"{{hover(string('settings'))}}\"\n                 onmouseleave=\"{{unhover()}}\"\n\t\t\t>\n                <i class=\"{{csscommon}}-icon-cog\"></i>\n            </div>\n        </div>\n\n        <div class=\"{{css}}-lefticon-container\" ba-show=\"{{settingsvisible}}\">\n            <div data-selector=\"record-button-icon-mic\" class=\"{{csscommon}}-icon-inner\"\n                 onmouseenter=\"{{hover(string(microphonehealthy ? 'microphonehealthy' : 'microphoneunhealthy'))}}\"\n                 onmouseleave=\"{{unhover()}}\"\n\t\t\t>\n                <i class=\"{{csscommon}}-icon-mic {{csscommon}}-icon-state-{{microphonehealthy ? 'good' : 'bad' }}\"></i>\n            </div>\n        </div>\n\n        <div class=\"{{css}}-lefticon-container\" ba-show=\"{{stopvisible && recordingindication}}\">\n            <div data-selector=\"recording-indicator\" class=\"{{css}}-recording-indication\">\n            </div>\n        </div>\n\n        <div class=\"{{css}}-label-container\" ba-show=\"{{controlbarlabel}}\">\n        \t<div data-selector=\"record-label-block\" class=\"{{css}}-label-label\">\n        \t\t{{controlbarlabel}}\n        \t</div>\n        </div>\n\n        <div class=\"{{css}}-rightbutton-container\" ba-show=\"{{recordvisible}}\">\n        \t<div tabindex=\"0\"\n\t\t\t\t ba-hotkey:space^enter=\"{{record()}}\" onmouseout=\"this.blur()\"\n\t\t\t\t data-selector=\"record-primary-button\" class=\"{{css}}-button-primary\"\n                 onclick=\"{{record()}}\"\n                 onmouseenter=\"{{hover(string('record-tooltip'))}}\"\n                 onmouseleave=\"{{unhover()}}\"\n\t\t\t>\n        \t\t{{string('record')}}\n        \t</div>\n        </div>\n\n        <div class=\"{{css}}-rightbutton-container\" ba-show=\"{{rerecordvisible}}\">\n        \t<div tabindex=\"0\"\n\t\t\t\t ba-hotkey:space^enter=\"{{rerecord()}}\" onmouseout=\"this.blur()\"\n\t\t\t\t data-selector=\"rerecord-primary-button\" class=\"{{css}}-button-primary\"\n                 onclick=\"{{rerecord()}}\"\n                 onmouseenter=\"{{hover(string('rerecord-tooltip'))}}\"\n                 onmouseleave=\"{{unhover()}}\"\n\t\t\t>\n        \t\t{{string('rerecord')}}\n        \t</div>\n        </div>\n\n\t\t<div class=\"{{css}}-rightbutton-container\" ba-show=\"{{cancelvisible}}\">\n\t\t\t<div tabindex=\"0\"\n\t\t\t\t ba-hotkey:space^enter=\"{{cancel()}}\" onmouseout=\"this.blur()\"\n\t\t\t\t data-selector=\"cancel-primary-button\" class=\"{{css}}-button-primary\"\n\t\t\t\t onclick=\"{{cancel()}}\"\n\t\t\t\t onmouseenter=\"{{hover(string('cancel-tooltip'))}}\"\n\t\t\t\t onmouseleave=\"{{unhover()}}\"\n\t\t\t>\n\t\t\t\t{{string('cancel')}}\n\t\t\t</div>\n\t\t</div>\n\n        <div class=\"{{css}}-rightbutton-container\" ba-show=\"{{stopvisible}}\">\n        \t<div tabindex=\"0\"\n\t\t\t\t ba-hotkey:space^enter=\"{{stop()}}\" onmouseout=\"this.blur()\"\n\t\t\t\t data-selector=\"stop-primary-button\" class=\"{{css}}-button-primary {{mintimeindicator ? css + '-disabled': ''}}\"\n\t\t\t\t title=\"{{mintimeindicator ? string('stop-available-after').replace('%d', timeminlimit) : string('stop-tooltip')}}\"\n                 onclick=\"{{stop()}}\"\n                 onmouseenter=\"{{hover( mintimeindicator ? string('stop-available-after').replace('%d', timeminlimit) : string('stop-tooltip'))}}\"\n                 onmouseleave=\"{{unhover()}}\"\n\t\t\t>\n        \t\t{{string('stop')}}\n        \t</div>\n        </div>\n\n\t</div>\n</div>\n",
+                template: "<div class=\"{{css}}-dashboard\">\n\t<div class=\"{{css}}-backbar\"></div>\n\t<div data-selector=\"recorder-settings\" class=\"{{css}}-settings\" ba-show=\"{{settingsvisible && settingsopen}}\">\n\t\t<div class=\"{{css}}-settings-backbar\"></div>\n\t\t<div data-selector=\"settings-list-front\" class=\"{{css}}-settings-front\">\n\t\t\t<ul data-selector=\"microphone-settings\" ba-repeat=\"{{microphone :: microphones}}\">\n\t\t\t\t<li tabindex=\"0\"\n\t\t\t\t\tba-hotkey:space^enter=\"{{selectMicrophone(microphone.id)}}\" onmouseout=\"this.blur()\"\n\t\t\t\t\tonclick=\"{{selectMicrophone(microphone.id)}}\"\n\t\t\t\t>\n\t\t\t\t\t<input type='radio' name='microphone' value=\"{{selectedmicrophone == microphone.id}}\" />\n\t\t\t\t\t<span></span>\n\t\t\t\t\t<label>\n\t\t\t\t\t\t{{microphone.label}}\n\t\t\t\t\t</label>\n\t\t\t\t </li>\n\t\t\t</ul>\n\t\t</div>\n\t</div>\n\t<div data-selector=\"controlbar\" class=\"{{css}}-controlbar\">\n\n        <div class=\"{{css}}-leftbutton-container\" ba-show=\"{{settingsvisible}}\">\n            <div tabindex=\"0\"\n\t\t\t\t ba-hotkey:space^enter=\"{{settingsopen=!settingsopen}}\" onmouseout=\"this.blur()\"\n\t\t\t\t data-selector=\"record-button-icon-cog\" class=\"{{css}}-button-inner {{css}}-button-{{settingsopen ? 'selected' : 'unselected'}}\"\n                 onclick=\"{{settingsopen=!settingsopen}}\"\n                 onmouseenter=\"{{hover(string('settings'))}}\"\n                 onmouseleave=\"{{unhover()}}\"\n\t\t\t>\n                <i class=\"{{csscommon}}-icon-cog\"></i>\n            </div>\n        </div>\n\n        <div class=\"{{css}}-lefticon-container\" ba-show=\"{{settingsvisible}}\">\n            <div data-selector=\"record-button-icon-mic\" class=\"{{csscommon}}-icon-inner\"\n                 onmouseenter=\"{{hover(string(microphonehealthy ? 'microphonehealthy' : 'microphoneunhealthy'))}}\"\n                 onmouseleave=\"{{unhover()}}\"\n\t\t\t>\n                <i class=\"{{csscommon}}-icon-mic {{csscommon}}-icon-state-{{microphonehealthy ? 'good' : 'bad' }}\"></i>\n            </div>\n        </div>\n\n        <div class=\"{{css}}-lefticon-container\" ba-show=\"{{stopvisible && recordingindication}}\">\n            <div data-selector=\"recording-indicator\" class=\"{{css}}-recording-indication\">\n            </div>\n        </div>\n\n        <div class=\"{{css}}-label-container\" ba-show=\"{{controlbarlabel}}\">\n        \t<div data-selector=\"record-label-block\" class=\"{{css}}-label-label\">\n        \t\t{{controlbarlabel}}\n        \t</div>\n        </div>\n\n        <div class=\"{{css}}-rightbutton-container\" ba-show=\"{{recordvisible}}\">\n        \t<div tabindex=\"0\"\n\t\t\t\t ba-hotkey:space^enter=\"{{record()}}\" onmouseout=\"this.blur()\"\n\t\t\t\t data-selector=\"record-primary-button\" class=\"{{css}}-button-primary\"\n                 onclick=\"{{record()}}\"\n                 onmouseenter=\"{{hover(string('record-tooltip'))}}\"\n                 onmouseleave=\"{{unhover()}}\"\n\t\t\t>\n        \t\t{{string('record')}}\n        \t</div>\n        </div>\n\n        <div class=\"{{css}}-rightbutton-container\" ba-show=\"{{rerecordvisible}}\">\n        \t<div tabindex=\"0\"\n\t\t\t\t ba-hotkey:space^enter=\"{{rerecord()}}\" onmouseout=\"this.blur()\"\n\t\t\t\t data-selector=\"rerecord-primary-button\" class=\"{{css}}-button-primary\"\n                 onclick=\"{{rerecord()}}\"\n                 onmouseenter=\"{{hover(string('rerecord-tooltip'))}}\"\n                 onmouseleave=\"{{unhover()}}\"\n\t\t\t>\n        \t\t{{string('rerecord')}}\n        \t</div>\n        </div>\n\n\t\t<div class=\"{{css}}-rightbutton-container\" ba-show=\"{{cancelvisible}}\">\n\t\t\t<div tabindex=\"0\"\n\t\t\t\t ba-hotkey:space^enter=\"{{cancel()}}\" onmouseout=\"this.blur()\"\n\t\t\t\t data-selector=\"cancel-primary-button\" class=\"{{css}}-button-primary\"\n\t\t\t\t onclick=\"{{cancel()}}\"\n\t\t\t\t onmouseenter=\"{{hover(string('cancel-tooltip'))}}\"\n\t\t\t\t onmouseleave=\"{{unhover()}}\"\n\t\t\t>\n\t\t\t\t{{string('cancel')}}\n\t\t\t</div>\n\t\t</div>\n\n        <div class=\"{{css}}-rightbutton-container\" ba-show=\"{{stopvisible}}\">\n        \t<div tabindex=\"0\"\n\t\t\t\t ba-hotkey:space^enter=\"{{stop()}}\" onmouseout=\"this.blur()\"\n\t\t\t\t data-selector=\"stop-primary-button\" class=\"{{css}}-button-primary {{mintimeindicator ? css + '-disabled': ''}}\"\n\t\t\t\t title=\"{{mintimeindicator ? string('stop-available-after').replace('%d', timeminlimit) : string('stop-tooltip')}}\"\n                 onclick=\"{{stop()}}\"\n                 onmouseenter=\"{{hover( mintimeindicator ? string('stop-available-after').replace('%d', timeminlimit) : string('stop-tooltip'))}}\"\n                 onmouseleave=\"{{unhover()}}\"\n\t\t\t>\n        \t\t{{string('stop')}}\n        \t</div>\n        </div>\n\n\t\t<div class=\"{{css}}-rightbutton-container\" ba-show=\"{{pausable && !resumevisible && stopvisible}}\">\n\t\t\t<div tabindex=\"0\"\n\t\t\t\t ba-hotkey:space^enter=\"{{pause()}}\" onmouseout=\"this.blur()\"\n\t\t\t\t data-selector=\"pause-primary-button\" class=\"{{css}}-button-primary\"\n\t\t\t\t title=\"{{string('pause-recorder')}}\"\n\t\t\t\t onclick=\"{{pause()}}\"\n\t\t\t\t onmouseenter=\"{{hover(string('pause-recorder'))}}\"\n\t\t\t\t onmouseleave=\"{{unhover()}}\"\n\t\t\t>\n\t\t\t\t<i class=\"{{csscommon}}-icon-pause\"></i>\n\t\t\t</div>\n\t\t</div>\n\n\t\t<div class=\"{{css}}-rightbutton-container\" ba-show=\"{{pausable && resumevisible}}\">\n\t\t\t<div tabindex=\"0\"\n\t\t\t\t ba-hotkey:space^enter=\"{{resume()}}\" onmouseout=\"this.blur()\"\n\t\t\t\t data-selector=\"resume-primary-button\" class=\"{{css}}-button-primary\"\n\t\t\t\t title=\"{{string('resume-recorder')}}\"\n\t\t\t\t onclick=\"{{resume()}}\"\n\t\t\t\t onmouseenter=\"{{hover(string('resume-recorder'))}}\"\n\t\t\t\t onmouseleave=\"{{unhover()}}\"\n\t\t\t>\n\t\t\t\t<i class=\"{{csscommon}}-icon-ccw\"></i>\n\t\t\t</div>\n\t\t</div>\n\n\n\t</div>\n</div>\n",
 
                 attrs: {
                     "css": "ba-audiorecorder",
@@ -14712,7 +14797,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Controlbar", [
                     this.auto_destroy(new Timer({
                         context: this,
                         fire: function() {
-                            this.set("recordingindication", !this.get("recordingindication"));
+                            this.set("recordingindication", !this.get("recordingindication") && !this.__parent.__paused);
                         },
                         delay: 500
                     }));
@@ -14735,6 +14820,12 @@ Scoped.define("module:AudioRecorder.Dynamics.Controlbar", [
                     rerecord: function() {
                         this.trigger("invoke-rerecord");
                     },
+                    pause: function() {
+                        this.trigger("invoke-pause");
+                    },
+                    resume: function() {
+                        this.trigger("invoke-resume");
+                    },
                     stop: function() {
                         this.trigger("invoke-stop");
                     },
@@ -14747,7 +14838,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Controlbar", [
         })
         .register("ba-audiorecorder-controlbar")
         .registerFunctions({
-            /**/"css": function (obj) { with (obj) { return css; } }, "settingsvisible && settingsopen": function (obj) { with (obj) { return settingsvisible && settingsopen; } }, "microphones": function (obj) { with (obj) { return microphones; } }, "selectMicrophone(microphone.id)": function (obj) { with (obj) { return selectMicrophone(microphone.id); } }, "selectedmicrophone == microphone.id": function (obj) { with (obj) { return selectedmicrophone == microphone.id; } }, "microphone.label": function (obj) { with (obj) { return microphone.label; } }, "settingsvisible": function (obj) { with (obj) { return settingsvisible; } }, "settingsopen=!settingsopen": function (obj) { with (obj) { return settingsopen=!settingsopen; } }, "settingsopen ? 'selected' : 'unselected'": function (obj) { with (obj) { return settingsopen ? 'selected' : 'unselected'; } }, "hover(string('settings'))": function (obj) { with (obj) { return hover(string('settings')); } }, "unhover()": function (obj) { with (obj) { return unhover(); } }, "csscommon": function (obj) { with (obj) { return csscommon; } }, "hover(string(microphonehealthy ? 'microphonehealthy' : 'microphoneunhealthy'))": function (obj) { with (obj) { return hover(string(microphonehealthy ? 'microphonehealthy' : 'microphoneunhealthy')); } }, "microphonehealthy ? 'good' : 'bad'": function (obj) { with (obj) { return microphonehealthy ? 'good' : 'bad'; } }, "stopvisible && recordingindication": function (obj) { with (obj) { return stopvisible && recordingindication; } }, "controlbarlabel": function (obj) { with (obj) { return controlbarlabel; } }, "recordvisible": function (obj) { with (obj) { return recordvisible; } }, "record()": function (obj) { with (obj) { return record(); } }, "hover(string('record-tooltip'))": function (obj) { with (obj) { return hover(string('record-tooltip')); } }, "string('record')": function (obj) { with (obj) { return string('record'); } }, "rerecordvisible": function (obj) { with (obj) { return rerecordvisible; } }, "rerecord()": function (obj) { with (obj) { return rerecord(); } }, "hover(string('rerecord-tooltip'))": function (obj) { with (obj) { return hover(string('rerecord-tooltip')); } }, "string('rerecord')": function (obj) { with (obj) { return string('rerecord'); } }, "cancelvisible": function (obj) { with (obj) { return cancelvisible; } }, "cancel()": function (obj) { with (obj) { return cancel(); } }, "hover(string('cancel-tooltip'))": function (obj) { with (obj) { return hover(string('cancel-tooltip')); } }, "string('cancel')": function (obj) { with (obj) { return string('cancel'); } }, "stopvisible": function (obj) { with (obj) { return stopvisible; } }, "stop()": function (obj) { with (obj) { return stop(); } }, "mintimeindicator ? css + '-disabled': ''": function (obj) { with (obj) { return mintimeindicator ? css + '-disabled': ''; } }, "mintimeindicator ? string('stop-available-after').replace('%d', timeminlimit) : string('stop-tooltip')": function (obj) { with (obj) { return mintimeindicator ? string('stop-available-after').replace('%d', timeminlimit) : string('stop-tooltip'); } }, "hover( mintimeindicator ? string('stop-available-after').replace('%d', timeminlimit) : string('stop-tooltip'))": function (obj) { with (obj) { return hover( mintimeindicator ? string('stop-available-after').replace('%d', timeminlimit) : string('stop-tooltip')); } }, "string('stop')": function (obj) { with (obj) { return string('stop'); } }/**/
+            /**/"css": function (obj) { with (obj) { return css; } }, "settingsvisible && settingsopen": function (obj) { with (obj) { return settingsvisible && settingsopen; } }, "microphones": function (obj) { with (obj) { return microphones; } }, "selectMicrophone(microphone.id)": function (obj) { with (obj) { return selectMicrophone(microphone.id); } }, "selectedmicrophone == microphone.id": function (obj) { with (obj) { return selectedmicrophone == microphone.id; } }, "microphone.label": function (obj) { with (obj) { return microphone.label; } }, "settingsvisible": function (obj) { with (obj) { return settingsvisible; } }, "settingsopen=!settingsopen": function (obj) { with (obj) { return settingsopen=!settingsopen; } }, "settingsopen ? 'selected' : 'unselected'": function (obj) { with (obj) { return settingsopen ? 'selected' : 'unselected'; } }, "hover(string('settings'))": function (obj) { with (obj) { return hover(string('settings')); } }, "unhover()": function (obj) { with (obj) { return unhover(); } }, "csscommon": function (obj) { with (obj) { return csscommon; } }, "hover(string(microphonehealthy ? 'microphonehealthy' : 'microphoneunhealthy'))": function (obj) { with (obj) { return hover(string(microphonehealthy ? 'microphonehealthy' : 'microphoneunhealthy')); } }, "microphonehealthy ? 'good' : 'bad'": function (obj) { with (obj) { return microphonehealthy ? 'good' : 'bad'; } }, "stopvisible && recordingindication": function (obj) { with (obj) { return stopvisible && recordingindication; } }, "controlbarlabel": function (obj) { with (obj) { return controlbarlabel; } }, "recordvisible": function (obj) { with (obj) { return recordvisible; } }, "record()": function (obj) { with (obj) { return record(); } }, "hover(string('record-tooltip'))": function (obj) { with (obj) { return hover(string('record-tooltip')); } }, "string('record')": function (obj) { with (obj) { return string('record'); } }, "rerecordvisible": function (obj) { with (obj) { return rerecordvisible; } }, "rerecord()": function (obj) { with (obj) { return rerecord(); } }, "hover(string('rerecord-tooltip'))": function (obj) { with (obj) { return hover(string('rerecord-tooltip')); } }, "string('rerecord')": function (obj) { with (obj) { return string('rerecord'); } }, "cancelvisible": function (obj) { with (obj) { return cancelvisible; } }, "cancel()": function (obj) { with (obj) { return cancel(); } }, "hover(string('cancel-tooltip'))": function (obj) { with (obj) { return hover(string('cancel-tooltip')); } }, "string('cancel')": function (obj) { with (obj) { return string('cancel'); } }, "stopvisible": function (obj) { with (obj) { return stopvisible; } }, "stop()": function (obj) { with (obj) { return stop(); } }, "mintimeindicator ? css + '-disabled': ''": function (obj) { with (obj) { return mintimeindicator ? css + '-disabled': ''; } }, "mintimeindicator ? string('stop-available-after').replace('%d', timeminlimit) : string('stop-tooltip')": function (obj) { with (obj) { return mintimeindicator ? string('stop-available-after').replace('%d', timeminlimit) : string('stop-tooltip'); } }, "hover( mintimeindicator ? string('stop-available-after').replace('%d', timeminlimit) : string('stop-tooltip'))": function (obj) { with (obj) { return hover( mintimeindicator ? string('stop-available-after').replace('%d', timeminlimit) : string('stop-tooltip')); } }, "string('stop')": function (obj) { with (obj) { return string('stop'); } }, "pausable && !resumevisible && stopvisible": function (obj) { with (obj) { return pausable && !resumevisible && stopvisible; } }, "pause()": function (obj) { with (obj) { return pause(); } }, "string('pause-recorder')": function (obj) { with (obj) { return string('pause-recorder'); } }, "hover(string('pause-recorder'))": function (obj) { with (obj) { return hover(string('pause-recorder')); } }, "pausable && resumevisible": function (obj) { with (obj) { return pausable && resumevisible; } }, "resume()": function (obj) { with (obj) { return resume(); } }, "string('resume-recorder')": function (obj) { with (obj) { return string('resume-recorder'); } }, "hover(string('resume-recorder'))": function (obj) { with (obj) { return hover(string('resume-recorder')); } }/**/
         })
         .attachStringTable(Assets.strings)
         .addStrings({
@@ -14762,7 +14853,9 @@ Scoped.define("module:AudioRecorder.Dynamics.Controlbar", [
             "stop-tooltip": "Click here to stop.",
             "stop-available-after": "Minimum recording time is %d seconds",
             "cancel": "Cancel",
-            "cancel-tooltip": "Click here to cancel."
+            "cancel-tooltip": "Click here to cancel.",
+            "pause-recorder": "Pause Recorder",
+            "resume-recorder": "Resume Recorder"
         });
 });
 Scoped.define("module:AudioRecorder.Dynamics.Loader", [
@@ -14873,7 +14966,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
         }, function(inherited) {
             return {
 
-                template: "\n<div data-selector=\"audio-recorder-container\" ba-show=\"{{!player_active}}\"\n     class=\"{{css}}-container {{csstheme}} {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}}\n     \t{{cssrecorder}}-{{ firefox ? 'firefox' : 'common'}}-browser {{cssaudio}}\n    \t{{cssrecorder}}-{{themecolor}}-color\"\n     ba-styles=\"{{widthHeightStyles}}\"\n>\n\n\t<canvas data-selector=\"visualization-canvas\" class=\"{{css}}-visualization-canvas\"></canvas>\n    <audio tabindex=\"-1\" data-selector=\"recorder-status\" class=\"{{css}}-audio {{css}}-{{hasrecorder ? 'hasrecorder' : 'norecorder'}}\" data-audio=\"audio\" playsinline></audio>\n    <div data-selector=\"audio-recorder-overlay\" class='{{cssrecorder}}-overlay' ba-show=\"{{!hideoverlay}}\" data-overlay=\"overlay\">\n\t\t<ba-{{dynloader}}\n\t\t    ba-css=\"{{cssloader || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t    ba-template=\"{{tmplloader}}\"\n\t\t    ba-show=\"{{loader_active}}\"\n\t\t    ba-tooltip=\"{{loadertooltip}}\"\n\t\t\tba-hovermessage=\"{{=hovermessage}}\"\n\t\t    ba-label=\"{{loaderlabel}}\"\n\t\t></ba-{{dynloader}}>\n\n\t\t<ba-{{dynmessage}}\n\t\t    ba-css=\"{{cssmessage || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t    ba-template=\"{{tmplmessage}}\"\n\t\t    ba-show=\"{{message_active}}\"\n\t\t    ba-message=\"{{message}}\"\n\t\t\tba-links=\"{{message_links}}\"\n\t\t    ba-event:click=\"message_click\"\n\t\t\tba-event:link=\"message_link_click\"\n\t\t></ba-{{dynmessage}}>\n\n\t\t<ba-{{dynchooser}}\n\t\t\tba-recordviafilecapture=\"{{recordviafilecapture}}\"\n\t\t    ba-css=\"{{csschooser || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t    ba-template=\"{{tmplchooser}}\"\n\t\t    ba-if=\"{{chooser_active && !is_initial_state}}\"\n\t\t    ba-allowrecord=\"{{allowrecord}}\"\n\t\t    ba-allowupload=\"{{allowupload}}\"\n\t\t    ba-allowcustomupload=\"{{allowcustomupload}}\"\n\t\t    ba-allowedextensions=\"{{allowedextensions}}\"\n\t\t    ba-primaryrecord=\"{{primaryrecord}}\"\n\t\t    ba-timelimit=\"{{timelimit}}\"\n\t\t    ba-event:record=\"record_audio\"\n\t\t    ba-event:upload=\"upload_audio\"\n\t\t></ba-{{dynchooser}}>\n\n\t\t<ba-{{dyncontrolbar}}\n\t\t    ba-css=\"{{csscontrolbar || css}}\"\n\t\t\tba-csstheme=\"{{csstheme || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t    ba-template=\"{{tmplcontrolbar}}\"\n\t\t    ba-show=\"{{controlbar_active}}\"\n\t\t    ba-microphones=\"{{microphones}}\"\n\t\t    ba-selectedmicrophone=\"{{selectedmicrophone || 0}}\"\n\t\t    ba-microphonehealthy=\"{{microphonehealthy}}\"\n\t\t    ba-hovermessage=\"{{=hovermessage}}\"\n\t\t    ba-settingsvisible=\"{{settingsvisible}}\"\n\t\t    ba-recordvisible=\"{{recordvisible}}\"\n\t\t\tba-cancelvisible=\"{{allowcancel && cancancel}}\"\n\t\t    ba-rerecordvisible=\"{{rerecordvisible}}\"\n\t\t    ba-stopvisible=\"{{stopvisible}}\"\n\t\t    ba-controlbarlabel=\"{{controlbarlabel}}\"\n\t\t\tba-mintimeindicator=\"{{mintimeindicator}}\"\n\t\t\tba-timeminlimit=\"{{timeminlimit}}\"\n\t\t    ba-event:select-microphone=\"select_microphone\"\n\t\t    ba-event:invoke-record=\"record\"\n\t\t    ba-event:invoke-rerecord=\"rerecord\"\n\t\t    ba-event:invoke-stop=\"stop\"\n\t\t></ba-{{dyncontrolbar}}>\n    </div>\n</div>\n\n<div data-selector=\"recorder-player\" ba-if=\"{{player_active}}\" ba-styles=\"{{widthHeightStyles}}\">\n\t<span ba-show=\"{{ie8}}\">&nbsp;</span>\n\t<ba-{{dynaudioplayer}}\n\t    ba-theme=\"{{theme || 'default'}}\"\n        ba-themecolor=\"{{themecolor}}\"\n        ba-source=\"{{playbacksource}}\"\n        ba-hideoninactivity=\"{{false}}\"\n\t\tba-visualeffectheight=\"{{visualeffectheight}}\"\n\t\tba-visualeffecttheme=\"{{visualeffecttheme}}\"\n        ba-stretch=\"{{stretch}}\"\n        ba-attrs=\"{{playerattrs}}\"\n        ba-data:id=\"player\"\n        ba-width=\"{{width}}\"\n        ba-height=\"{{height}}\"\n        ba-totalduration=\"{{duration / 1000}}\"\n        ba-rerecordable=\"{{rerecordable && (recordings === null || recordings > 0)}}\"\n        ba-submittable=\"{{manualsubmit && verified}}\"\n        ba-reloadonplay=\"{{true}}\"\n        ba-autoplay=\"{{autoplay}}\"\n\t\tba-visualeffectvisible=\"{{visualeffectvisible}}\"\n\t\tba-event:loaded=\"ready_to_play\"\n        ba-event:rerecord=\"rerecord\"\n        ba-event:playing=\"playing\"\n        ba-event:paused=\"paused\"\n        ba-event:ended=\"ended\"\n        ba-event:submit=\"manual_submit\"\n\t>\n\t</ba-{{dynaudioplayer}}>\n</div>\n",
+                template: "\n<div data-selector=\"audio-recorder-container\" ba-show=\"{{!player_active}}\"\n     class=\"{{css}}-container {{csstheme}} {{css}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}}\n     \t{{cssrecorder}}-{{ firefox ? 'firefox' : 'common'}}-browser {{cssaudio}}\n    \t{{cssrecorder}}-{{themecolor}}-color\"\n     ba-styles=\"{{widthHeightStyles}}\"\n>\n\n\t<canvas data-selector=\"visualization-canvas\" class=\"{{css}}-visualization-canvas\"></canvas>\n    <audio tabindex=\"-1\" data-selector=\"recorder-status\" class=\"{{css}}-audio {{css}}-{{hasrecorder ? 'hasrecorder' : 'norecorder'}}\" data-audio=\"audio\" playsinline></audio>\n    <div data-selector=\"audio-recorder-overlay\" class='{{cssrecorder}}-overlay' ba-show=\"{{!hideoverlay}}\" data-overlay=\"overlay\">\n\t\t<ba-{{dynloader}}\n\t\t    ba-css=\"{{cssloader || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t    ba-template=\"{{tmplloader}}\"\n\t\t    ba-show=\"{{loader_active}}\"\n\t\t    ba-tooltip=\"{{loadertooltip}}\"\n\t\t\tba-hovermessage=\"{{=hovermessage}}\"\n\t\t    ba-label=\"{{loaderlabel}}\"\n\t\t></ba-{{dynloader}}>\n\n\t\t<ba-{{dynmessage}}\n\t\t    ba-css=\"{{cssmessage || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t    ba-template=\"{{tmplmessage}}\"\n\t\t    ba-show=\"{{message_active}}\"\n\t\t    ba-message=\"{{message}}\"\n\t\t\tba-links=\"{{message_links}}\"\n\t\t    ba-event:click=\"message_click\"\n\t\t\tba-event:link=\"message_link_click\"\n\t\t></ba-{{dynmessage}}>\n\n\t\t<ba-{{dynchooser}}\n\t\t\tba-recordviafilecapture=\"{{recordviafilecapture}}\"\n\t\t    ba-css=\"{{csschooser || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t    ba-template=\"{{tmplchooser}}\"\n\t\t    ba-if=\"{{chooser_active && !is_initial_state}}\"\n\t\t    ba-allowrecord=\"{{allowrecord}}\"\n\t\t    ba-allowupload=\"{{allowupload}}\"\n\t\t    ba-allowcustomupload=\"{{allowcustomupload}}\"\n\t\t    ba-allowedextensions=\"{{allowedextensions}}\"\n\t\t    ba-primaryrecord=\"{{primaryrecord}}\"\n\t\t    ba-timelimit=\"{{timelimit}}\"\n\t\t    ba-event:record=\"record_audio\"\n\t\t    ba-event:upload=\"upload_audio\"\n\t\t></ba-{{dynchooser}}>\n\n\t\t<ba-{{dyncontrolbar}}\n\t\t    ba-css=\"{{csscontrolbar || css}}\"\n\t\t\tba-csstheme=\"{{csstheme || css}}\"\n\t\t\tba-themecolor=\"{{themecolor}}\"\n\t\t\tba-cssrecorder=\"{{cssrecorder || css}}\"\n\t\t    ba-template=\"{{tmplcontrolbar}}\"\n\t\t    ba-show=\"{{controlbar_active}}\"\n\t\t    ba-microphones=\"{{microphones}}\"\n\t\t\tba-pausable=\"{{pausable}}\"\n\t\t\tba-resumevisible=\"{{resumevisible}}\"\n\t\t\tba-selectedmicrophone=\"{{selectedmicrophone || 0}}\"\n\t\t    ba-microphonehealthy=\"{{microphonehealthy}}\"\n\t\t    ba-hovermessage=\"{{=hovermessage}}\"\n\t\t    ba-settingsvisible=\"{{settingsvisible}}\"\n\t\t    ba-recordvisible=\"{{recordvisible}}\"\n\t\t\tba-cancelvisible=\"{{allowcancel && cancancel}}\"\n\t\t    ba-rerecordvisible=\"{{rerecordvisible}}\"\n\t\t    ba-stopvisible=\"{{stopvisible}}\"\n\t\t    ba-controlbarlabel=\"{{controlbarlabel}}\"\n\t\t\tba-mintimeindicator=\"{{mintimeindicator}}\"\n\t\t\tba-timeminlimit=\"{{timeminlimit}}\"\n\t\t    ba-event:select-microphone=\"select_microphone\"\n\t\t    ba-event:invoke-record=\"record\"\n\t\t    ba-event:invoke-rerecord=\"rerecord\"\n\t\t    ba-event:invoke-stop=\"stop\"\n\t\t\tba-event:invoke-pause=\"pause_recorder\"\n\t\t\tba-event:invoke-resume=\"resume\"\n\t\t></ba-{{dyncontrolbar}}>\n    </div>\n</div>\n\n<div data-selector=\"recorder-player\" ba-if=\"{{player_active}}\" ba-styles=\"{{widthHeightStyles}}\">\n\t<span ba-show=\"{{ie8}}\">&nbsp;</span>\n\t<ba-{{dynaudioplayer}}\n\t    ba-theme=\"{{theme || 'default'}}\"\n        ba-themecolor=\"{{themecolor}}\"\n        ba-source=\"{{playbacksource}}\"\n        ba-hideoninactivity=\"{{false}}\"\n\t\tba-visualeffectheight=\"{{visualeffectheight}}\"\n\t\tba-visualeffecttheme=\"{{visualeffecttheme}}\"\n        ba-attrs=\"{{playerattrs}}\"\n        ba-data:id=\"player\"\n        ba-width=\"{{width}}\"\n        ba-height=\"{{height}}\"\n        ba-totalduration=\"{{duration / 1000}}\"\n        ba-rerecordable=\"{{rerecordable && (recordings === null || recordings > 0)}}\"\n        ba-submittable=\"{{manualsubmit && verified}}\"\n        ba-reloadonplay=\"{{true}}\"\n        ba-autoplay=\"{{autoplay}}\"\n\t\tba-visualeffectvisible=\"{{visualeffectvisible}}\"\n\t\tba-event:loaded=\"ready_to_play\"\n        ba-event:rerecord=\"rerecord\"\n        ba-event:playing=\"playing\"\n        ba-event:paused=\"paused\"\n        ba-event:ended=\"ended\"\n        ba-event:submit=\"manual_submit\"\n\t>\n\t</ba-{{dynaudioplayer}}>\n</div>\n",
 
                 attrs: {
                     /* CSS */
@@ -14933,6 +15026,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     "allowedextensions": null,
                     "filesizelimit": null,
                     "display-timer": true,
+                    "pausable": false,
                     "visualeffectvisible": true,
                     "visualeffectsupported": false,
                     "visualeffectheight": null,
@@ -14952,7 +15046,6 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     "allowcancel": false,
                     "recordings": null,
                     "ready": true,
-                    "stretch": false,
                     "audio-test-mandatory": false
 
                 },
@@ -14977,7 +15070,6 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                 types: {
                     "rerecordable": "boolean",
                     "ready": "boolean",
-                    "stretch": "boolean",
                     "autorecord": "boolean",
                     "autoplay": "boolean",
                     "allowrecord": "boolean",
@@ -14988,6 +15080,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     "skipinitialonrerecord": "boolean",
                     "localplayback": "boolean",
                     "skipinitial": "boolean",
+                    "pausable": "boolean",
                     "enforce-duration": "bool",
                     "webrtcstreaming": "boolean",
                     "webrtconmobile": "boolean",
@@ -15056,16 +15149,15 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                         this.set("autorecord", false);
                     }
 
+                    if (this.get("pausable"))
+                        this.set("resumevisible", false);
+
                     this.__attachRequested = false;
                     this.__activated = false;
                     this._bound = false;
                     this.__recording = false;
                     this.__error = null;
-                    this.__currentStretch = null;
 
-                    this.on("change:stretch", function() {
-                        this._updateStretch();
-                    }, this);
                     this.host = new Host({
                         stateRegistry: new ClassRegistry(this.cls.recorderStates())
                     });
@@ -15146,10 +15238,12 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     //         element: this.activeElement()
                     //     });
                     // }
-                    if (this.recorder)
+                    if (this.recorder) {
                         this.trigger("attached");
-                    else
+                        this.set("pausable", this.get("pausable") && this.recorder.canPause());
+                    } else {
                         this._error("attach");
+                    }
                 },
 
                 _softwareDependencies: function() {
@@ -15215,7 +15309,6 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                             }, this);
                             this.recorder.testSoundLevel(true);
                             this.set("devicetesting", true);
-                            this._updateStretch();
                             this._bound = true;
                             this.trigger("bound");
                         }, this);
@@ -15297,7 +15390,9 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                         this._attachRecorder();
                 },
 
-                object_functions: ["record", "rerecord", "stop", "play", "pause", "reset"],
+                object_functions: [
+                    "record", "rerecord", "stop", "play", "pause", "reset", "pause_recorder", "resume"
+                ],
 
                 functions: {
 
@@ -15340,7 +15435,27 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     },
 
                     stop: function() {
+                        // If recorder is paused need resume first,
+                        // setting this._recording to true also could be enough
+                        if (this.__paused)
+                            this._resume();
                         this.host.state().stop();
+                    },
+
+                    pause_recorder: function() {
+                        if (typeof this.recorder !== 'undefined') {
+                            this.recorder.pauseRecord();
+                            this.recorder._recorder.once("paused", function() {
+                                this.__paused = true;
+                                this.__recording = false;
+                                this.set("resumevisible", true);
+                            }, this);
+                        }
+                    },
+
+                    resume: function() {
+                        if (typeof this.recorder !== 'undefined')
+                            this._resume();
                     },
 
                     play: function() {
@@ -15391,6 +15506,15 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
 
                 },
 
+                _resume: function() {
+                    this.__paused = false;
+                    this.__recording = true;
+                    this.recorder.resumeRecord();
+                    this.recorder._recorder.once("resumed", function() {
+                        this.set("resumevisible", false);
+                    }, this);
+                },
+
                 destroy: function() {
                     this._timer.destroy();
                     this.host.destroy();
@@ -15414,25 +15538,12 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                         }
                     } catch (e) {}
 
-                    this._updateStretch();
                     this._updateCSSSize();
                 },
 
                 _updateCSSSize: function() {
                     var width = Dom.elementDimensions(this.activeElement()).width;
                     this.set("csssize", width > 400 ? "normal" : (width > 300 ? "medium" : "small"));
-                },
-
-                audioHeight: function() {
-                    return this.recorderAttached() ? this.recorder.cameraHeight() : NaN;
-                },
-
-                audioWidth: function() {
-                    return this.recorderAttached() ? this.recorder.cameraWidth() : NaN;
-                },
-
-                aspectRatio: function() {
-                    return this.audioWidth() / this.audioHeight();
                 },
 
                 parentWidth: function() {
@@ -15445,30 +15556,6 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
 
                 parentAspectRatio: function() {
                     return this.parentWidth() / this.parentHeight();
-                },
-
-                _updateStretch: function() {
-                    var newStretch = null;
-                    if (this.get("stretch")) {
-                        var ar = this.aspectRatio();
-                        if (isFinite(ar)) {
-                            var par = this.parentAspectRatio();
-                            if (isFinite(par)) {
-                                if (par > ar)
-                                    newStretch = "height";
-                                if (par < ar)
-                                    newStretch = "width";
-                            } else if (par === Infinity)
-                                newStretch = "height";
-                        }
-                    }
-                    if (this.__currentStretch !== newStretch) {
-                        if (this.__currentStretch)
-                            Dom.elementRemoveClass(this.activeElement(), this.get("css") + "-stretch-" + this.__currentStretch);
-                        if (newStretch)
-                            Dom.elementAddClass(this.activeElement(), this.get("css") + "-stretch-" + newStretch);
-                    }
-                    this.__currentStretch = newStretch;
                 }
 
             };
@@ -15481,7 +15568,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
         })
         .register("ba-audiorecorder")
         .registerFunctions({
-            /**/"!player_active": function (obj) { with (obj) { return !player_active; } }, "css": function (obj) { with (obj) { return css; } }, "csstheme": function (obj) { with (obj) { return csstheme; } }, "csssize": function (obj) { with (obj) { return csssize; } }, "iecss": function (obj) { with (obj) { return iecss; } }, "ie8 ? 'ie8' : 'noie8'": function (obj) { with (obj) { return ie8 ? 'ie8' : 'noie8'; } }, "cssrecorder": function (obj) { with (obj) { return cssrecorder; } }, "firefox ? 'firefox' : 'common'": function (obj) { with (obj) { return firefox ? 'firefox' : 'common'; } }, "cssaudio": function (obj) { with (obj) { return cssaudio; } }, "themecolor": function (obj) { with (obj) { return themecolor; } }, "widthHeightStyles": function (obj) { with (obj) { return widthHeightStyles; } }, "hasrecorder ? 'hasrecorder' : 'norecorder'": function (obj) { with (obj) { return hasrecorder ? 'hasrecorder' : 'norecorder'; } }, "!hideoverlay": function (obj) { with (obj) { return !hideoverlay; } }, "dynloader": function (obj) { with (obj) { return dynloader; } }, "cssloader || css": function (obj) { with (obj) { return cssloader || css; } }, "cssrecorder || css": function (obj) { with (obj) { return cssrecorder || css; } }, "tmplloader": function (obj) { with (obj) { return tmplloader; } }, "loader_active": function (obj) { with (obj) { return loader_active; } }, "loadertooltip": function (obj) { with (obj) { return loadertooltip; } }, "hovermessage": function (obj) { with (obj) { return hovermessage; } }, "loaderlabel": function (obj) { with (obj) { return loaderlabel; } }, "dynmessage": function (obj) { with (obj) { return dynmessage; } }, "cssmessage || css": function (obj) { with (obj) { return cssmessage || css; } }, "tmplmessage": function (obj) { with (obj) { return tmplmessage; } }, "message_active": function (obj) { with (obj) { return message_active; } }, "message": function (obj) { with (obj) { return message; } }, "message_links": function (obj) { with (obj) { return message_links; } }, "dynchooser": function (obj) { with (obj) { return dynchooser; } }, "recordviafilecapture": function (obj) { with (obj) { return recordviafilecapture; } }, "csschooser || css": function (obj) { with (obj) { return csschooser || css; } }, "tmplchooser": function (obj) { with (obj) { return tmplchooser; } }, "chooser_active && !is_initial_state": function (obj) { with (obj) { return chooser_active && !is_initial_state; } }, "allowrecord": function (obj) { with (obj) { return allowrecord; } }, "allowupload": function (obj) { with (obj) { return allowupload; } }, "allowcustomupload": function (obj) { with (obj) { return allowcustomupload; } }, "allowedextensions": function (obj) { with (obj) { return allowedextensions; } }, "primaryrecord": function (obj) { with (obj) { return primaryrecord; } }, "timelimit": function (obj) { with (obj) { return timelimit; } }, "dyncontrolbar": function (obj) { with (obj) { return dyncontrolbar; } }, "csscontrolbar || css": function (obj) { with (obj) { return csscontrolbar || css; } }, "csstheme || css": function (obj) { with (obj) { return csstheme || css; } }, "tmplcontrolbar": function (obj) { with (obj) { return tmplcontrolbar; } }, "controlbar_active": function (obj) { with (obj) { return controlbar_active; } }, "microphones": function (obj) { with (obj) { return microphones; } }, "selectedmicrophone || 0": function (obj) { with (obj) { return selectedmicrophone || 0; } }, "microphonehealthy": function (obj) { with (obj) { return microphonehealthy; } }, "settingsvisible": function (obj) { with (obj) { return settingsvisible; } }, "recordvisible": function (obj) { with (obj) { return recordvisible; } }, "allowcancel && cancancel": function (obj) { with (obj) { return allowcancel && cancancel; } }, "rerecordvisible": function (obj) { with (obj) { return rerecordvisible; } }, "stopvisible": function (obj) { with (obj) { return stopvisible; } }, "controlbarlabel": function (obj) { with (obj) { return controlbarlabel; } }, "mintimeindicator": function (obj) { with (obj) { return mintimeindicator; } }, "timeminlimit": function (obj) { with (obj) { return timeminlimit; } }, "player_active": function (obj) { with (obj) { return player_active; } }, "ie8": function (obj) { with (obj) { return ie8; } }, "dynaudioplayer": function (obj) { with (obj) { return dynaudioplayer; } }, "theme || 'default'": function (obj) { with (obj) { return theme || 'default'; } }, "playbacksource": function (obj) { with (obj) { return playbacksource; } }, "false": function (obj) { with (obj) { return false; } }, "visualeffectheight": function (obj) { with (obj) { return visualeffectheight; } }, "visualeffecttheme": function (obj) { with (obj) { return visualeffecttheme; } }, "stretch": function (obj) { with (obj) { return stretch; } }, "playerattrs": function (obj) { with (obj) { return playerattrs; } }, "width": function (obj) { with (obj) { return width; } }, "height": function (obj) { with (obj) { return height; } }, "duration / 1000": function (obj) { with (obj) { return duration / 1000; } }, "rerecordable && (recordings === null || recordings > 0)": function (obj) { with (obj) { return rerecordable && (recordings === null || recordings > 0); } }, "manualsubmit && verified": function (obj) { with (obj) { return manualsubmit && verified; } }, "true": function (obj) { with (obj) { return true; } }, "autoplay": function (obj) { with (obj) { return autoplay; } }, "visualeffectvisible": function (obj) { with (obj) { return visualeffectvisible; } }/**/
+            /**/"!player_active": function (obj) { with (obj) { return !player_active; } }, "css": function (obj) { with (obj) { return css; } }, "csstheme": function (obj) { with (obj) { return csstheme; } }, "csssize": function (obj) { with (obj) { return csssize; } }, "iecss": function (obj) { with (obj) { return iecss; } }, "ie8 ? 'ie8' : 'noie8'": function (obj) { with (obj) { return ie8 ? 'ie8' : 'noie8'; } }, "cssrecorder": function (obj) { with (obj) { return cssrecorder; } }, "firefox ? 'firefox' : 'common'": function (obj) { with (obj) { return firefox ? 'firefox' : 'common'; } }, "cssaudio": function (obj) { with (obj) { return cssaudio; } }, "themecolor": function (obj) { with (obj) { return themecolor; } }, "widthHeightStyles": function (obj) { with (obj) { return widthHeightStyles; } }, "hasrecorder ? 'hasrecorder' : 'norecorder'": function (obj) { with (obj) { return hasrecorder ? 'hasrecorder' : 'norecorder'; } }, "!hideoverlay": function (obj) { with (obj) { return !hideoverlay; } }, "dynloader": function (obj) { with (obj) { return dynloader; } }, "cssloader || css": function (obj) { with (obj) { return cssloader || css; } }, "cssrecorder || css": function (obj) { with (obj) { return cssrecorder || css; } }, "tmplloader": function (obj) { with (obj) { return tmplloader; } }, "loader_active": function (obj) { with (obj) { return loader_active; } }, "loadertooltip": function (obj) { with (obj) { return loadertooltip; } }, "hovermessage": function (obj) { with (obj) { return hovermessage; } }, "loaderlabel": function (obj) { with (obj) { return loaderlabel; } }, "dynmessage": function (obj) { with (obj) { return dynmessage; } }, "cssmessage || css": function (obj) { with (obj) { return cssmessage || css; } }, "tmplmessage": function (obj) { with (obj) { return tmplmessage; } }, "message_active": function (obj) { with (obj) { return message_active; } }, "message": function (obj) { with (obj) { return message; } }, "message_links": function (obj) { with (obj) { return message_links; } }, "dynchooser": function (obj) { with (obj) { return dynchooser; } }, "recordviafilecapture": function (obj) { with (obj) { return recordviafilecapture; } }, "csschooser || css": function (obj) { with (obj) { return csschooser || css; } }, "tmplchooser": function (obj) { with (obj) { return tmplchooser; } }, "chooser_active && !is_initial_state": function (obj) { with (obj) { return chooser_active && !is_initial_state; } }, "allowrecord": function (obj) { with (obj) { return allowrecord; } }, "allowupload": function (obj) { with (obj) { return allowupload; } }, "allowcustomupload": function (obj) { with (obj) { return allowcustomupload; } }, "allowedextensions": function (obj) { with (obj) { return allowedextensions; } }, "primaryrecord": function (obj) { with (obj) { return primaryrecord; } }, "timelimit": function (obj) { with (obj) { return timelimit; } }, "dyncontrolbar": function (obj) { with (obj) { return dyncontrolbar; } }, "csscontrolbar || css": function (obj) { with (obj) { return csscontrolbar || css; } }, "csstheme || css": function (obj) { with (obj) { return csstheme || css; } }, "tmplcontrolbar": function (obj) { with (obj) { return tmplcontrolbar; } }, "controlbar_active": function (obj) { with (obj) { return controlbar_active; } }, "microphones": function (obj) { with (obj) { return microphones; } }, "pausable": function (obj) { with (obj) { return pausable; } }, "resumevisible": function (obj) { with (obj) { return resumevisible; } }, "selectedmicrophone || 0": function (obj) { with (obj) { return selectedmicrophone || 0; } }, "microphonehealthy": function (obj) { with (obj) { return microphonehealthy; } }, "settingsvisible": function (obj) { with (obj) { return settingsvisible; } }, "recordvisible": function (obj) { with (obj) { return recordvisible; } }, "allowcancel && cancancel": function (obj) { with (obj) { return allowcancel && cancancel; } }, "rerecordvisible": function (obj) { with (obj) { return rerecordvisible; } }, "stopvisible": function (obj) { with (obj) { return stopvisible; } }, "controlbarlabel": function (obj) { with (obj) { return controlbarlabel; } }, "mintimeindicator": function (obj) { with (obj) { return mintimeindicator; } }, "timeminlimit": function (obj) { with (obj) { return timeminlimit; } }, "player_active": function (obj) { with (obj) { return player_active; } }, "ie8": function (obj) { with (obj) { return ie8; } }, "dynaudioplayer": function (obj) { with (obj) { return dynaudioplayer; } }, "theme || 'default'": function (obj) { with (obj) { return theme || 'default'; } }, "playbacksource": function (obj) { with (obj) { return playbacksource; } }, "false": function (obj) { with (obj) { return false; } }, "visualeffectheight": function (obj) { with (obj) { return visualeffectheight; } }, "visualeffecttheme": function (obj) { with (obj) { return visualeffecttheme; } }, "playerattrs": function (obj) { with (obj) { return playerattrs; } }, "width": function (obj) { with (obj) { return width; } }, "height": function (obj) { with (obj) { return height; } }, "duration / 1000": function (obj) { with (obj) { return duration / 1000; } }, "rerecordable && (recordings === null || recordings > 0)": function (obj) { with (obj) { return rerecordable && (recordings === null || recordings > 0); } }, "manualsubmit && verified": function (obj) { with (obj) { return manualsubmit && verified; } }, "true": function (obj) { with (obj) { return true; } }, "autoplay": function (obj) { with (obj) { return autoplay; } }, "visualeffectvisible": function (obj) { with (obj) { return visualeffectvisible; } }/**/
         })
         .attachStringTable(Assets.strings)
         .addStrings({
@@ -15709,6 +15796,7 @@ Scoped.define("module:AudioRecorder.Dynamics.RecorderStates.Chooser", [
                         }
                     }
                     this.dyn._audioFilePlaybackable = true;
+                    this.dyn.set("duration", data.duration);
                     this._uploadFile(file);
                 }, this).error(function() {
                     this._uploadFile(file);
@@ -15889,6 +15977,8 @@ Scoped.define("module:AudioRecorder.Dynamics.RecorderStates.MicrophoneHasAccess"
             this._preparePromise = null;
             if (this.dyn.get("countdown") > 0 && this.dyn.recorder && this.dyn.recorder.recordDelay(this.dyn.get("uploadoptions")) > this.dyn.get("countdown") * 1000)
                 this._preparePromise = this.dyn._prepareRecording();
+            if (this.dyn.get("pausable"))
+                this.dyn.set("pausable", this.dyn.recorder.canPause());
             this.dyn.set("hovermessage", "");
             this.dyn.set("settingsvisible", true);
             this.dyn.set("recordvisible", true);
@@ -16001,8 +16091,9 @@ Scoped.define("module:AudioRecorder.Dynamics.RecorderStates.Recording", [
     "base:Timers.Timer",
     "base:Time",
     "base:TimeFormat",
-    "base:Async"
-], function(State, Timer, Time, TimeFormat, Async, scoped) {
+    "base:Async",
+    "browser:Info"
+], function(State, Timer, Time, TimeFormat, Async, Info, scoped) {
     return State.extend({
         scoped: scoped
     }, {
@@ -16021,20 +16112,30 @@ Scoped.define("module:AudioRecorder.Dynamics.RecorderStates.Recording", [
 
             this._startTime = Time.now();
             this._stopping = false;
+            this.__firedTimes = 0;
+            this.__pauseDelta = 0;
+            this.__timerDelay = 10;
             this._timer = this.auto_destroy(new Timer({
                 immediate: true,
-                delay: 10,
+                delay: this.__timerDelay,
                 context: this,
                 fire: this._timerFire
             }));
         },
 
         _timerFire: function() {
+            this.__firedTimes += 1;
             var limit = this.dyn.get("timelimit");
-            var current = Time.now();
+            var current = (Info.isFirefox() ?
+                this._startTime + (this.__firedTimes * this.__timerDelay) :
+                Time.now()) - this.__pauseDelta;
             var display = Math.max(0, limit ? (this._startTime + limit * 1000 - current) : (current - this._startTime));
-            this.dyn.trigger("recording_progress", current - this._startTime);
+            this.dyn.trigger("recording_progress", current - this._startTime, !!this.dyn.__paused);
             this.dyn.set("controlbarlabel", this.dyn.get("display-timer") ? TimeFormat.format(TimeFormat.ELAPSED_MINUTES_SECONDS, display) : "");
+
+            // If recorder paused will slips starting second
+            if (this.dyn.__paused)
+                this.__pauseDelta += this.__timerDelay;
 
             if (this.dyn.get("timeminlimit"))
                 this.dyn.set("mintimeindicator", (Time.now() - this._startTime) / 1000 <= this.dyn.get("timeminlimit"));
@@ -16043,13 +16144,12 @@ Scoped.define("module:AudioRecorder.Dynamics.RecorderStates.Recording", [
                 this._timer.stop();
                 this.stop();
             }
-
         },
 
         stop: function() {
             var minlimit = this.dyn.get("timeminlimit");
             if (minlimit) {
-                var delta = (Time.now() - this._startTime) / 1000;
+                var delta = (Time.now() - this._startTime - this.__pauseDelta) / 1000;
                 if (delta < minlimit) {
                     var limit = this.dyn.get("timelimit");
                     if (!limit || limit > delta)
@@ -16077,7 +16177,7 @@ Scoped.define("module:AudioRecorder.Dynamics.RecorderStates.Recording", [
         },
 
         _hasStopped: function() {
-            this.dyn.set("duration", Time.now() - this._startTime);
+            this.dyn.set("duration", Time.now() - this._startTime - this.__pauseDelta);
             this.dyn._unbindMedia();
             this.dyn.trigger("recording_stopped");
         }

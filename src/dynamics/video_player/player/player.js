@@ -105,6 +105,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     /* Configuration */
                     "reloadonplay": false,
                     "playonclick": true,
+                    "pauseonclick": true,
                     /* Ads */
                     "adprovider": null,
                     "preroll": false,
@@ -236,6 +237,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "disablepause": "boolean",
                     "disableseeking": "boolean",
                     "playonclick": "boolean",
+                    "pauseonclick": "boolean",
                     "airplay": "boolean",
                     "airplaybuttonvisible": "boolean",
                     "chromecast": "boolean",
@@ -1143,26 +1145,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     toggle_player: function() {
-                        if (this.get('playing'))
-                            if (this.get("preventinteractionstatus")) return;
+                        if (this.get("playing") && this.get("preventinteractionstatus")) return;
                         if (this._delegatedPlayer) {
                             this._delegatedPlayer.execute("toggle_player");
                             return;
                         }
-                        if (!this.get("playonclick"))
-                            return;
-                        if (this.get('playing') && !this.get("disablepause")) {
-                            if (!this.get("volumeafterinteraction"))
-                                this.pause();
-                            else
-                                this.set("volumeafterinteraction", false);
-
-                            // If user paused the video and don't like player will auto-played
-                            // so, no need to play each time when user see video, also works for progress bar click
-                            this.set("manuallypaused", true);
-                        } else {
+                        if (this.get("playing") && this.get("pauseonclick")) {
+                            this.pause();
+                        } else if (!this.get("playing") && this.get("playonclick")) {
                             this.play();
-                            this.set("manuallypaused", false);
                         }
                     },
 

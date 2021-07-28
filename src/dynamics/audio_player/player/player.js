@@ -76,6 +76,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     /* Configuration */
                     "reloadonplay": false,
                     "playonclick": true,
+                    "pauseonclick": true,
                     /* Options */
                     "rerecordable": false,
                     "submittable": false,
@@ -125,6 +126,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     "disablepause": "boolean",
                     "disableseeking": "boolean",
                     "playonclick": "boolean",
+                    "pauseonclick": "boolean",
                     "showsettings": "boolean",
                     "skipseconds": "integer",
                     "visualeffectvisible": "boolean",
@@ -495,6 +497,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                         // Draw visual effect
                         if (this.get('visualeffectsupported'))
                             this.audioVisualization.renderFrame();
+                        this.set("manuallypaused", false);
                     },
 
                     rerecord: function() {
@@ -602,6 +605,14 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
 
                     toggle_settings_menu: function() {
                         this.set("settingsmenu_active", !this.get("settingsmenu_active"));
+                    },
+
+                    toggle_player: function() {
+                        if (this.get("playing") && this.get("pauseonclick")) {
+                            this.pause();
+                        } else if (!this.get("playing") && this.get("playonclick")) {
+                            this.play();
+                        }
                     }
 
                 },

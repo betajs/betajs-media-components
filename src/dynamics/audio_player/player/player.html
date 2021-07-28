@@ -4,13 +4,15 @@
     {{cssplayer}}-{{title ? 'has-title' : 'no-title'}} {{visualeffectvisible ? cssplayer + '-visual-effect-applied' : ''}}"
 	ba-styles="{{widthHeightStyles}}"
 >
-	<canvas data-selector="audio-canvas" class="{{csstheme}}-audio-canvas"></canvas>
+	<canvas data-selector="audio-canvas" class="{{csstheme}}-audio-canvas" ba-on:click="{{toggle_player()}}"></canvas>
     <audio crossorigin="anonymous" tabindex="-1" class="{{css}}-audio" data-audio="audio"></audio>
     <div class="{{css}}-overlay">
 		<div tabindex="-1" class="{{css}}-player-toggle-overlay" data-selector="player-toggle-overlay"
 			 ba-hotkey:right="{{seek(position + skipseconds)}}" ba-hotkey:left="{{seek(position - skipseconds)}}"
 			 ba-hotkey:alt+right="{{seek(position + skipseconds * 3)}}" ba-hotkey:alt+left="{{seek(position - skipseconds * 3)}}"
 			 ba-hotkey:up="{{set_volume(volume + 0.1)}}" ba-hotkey:down="{{set_volume(volume - 0.1)}}"
+			 ba-hotkey:space^enter="{{toggle_player()}}"
+			 ba-on:click="{{toggle_player()}}"
 		></div>
 	    <ba-{{dyncontrolbar}}
 		    ba-css="{{csscontrolbar || css}}"

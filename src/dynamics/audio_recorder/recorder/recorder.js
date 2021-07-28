@@ -99,6 +99,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     "allowedextensions": null,
                     "filesizelimit": null,
                     "display-timer": true,
+                    "pausable": false,
                     "visualeffectvisible": true,
                     "visualeffectsupported": false,
                     "visualeffectheight": null,
@@ -152,6 +153,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     "skipinitialonrerecord": "boolean",
                     "localplayback": "boolean",
                     "skipinitial": "boolean",
+                    "pausable": "boolean",
                     "enforce-duration": "bool",
                     "webrtcstreaming": "boolean",
                     "webrtconmobile": "boolean",
@@ -219,6 +221,9 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                         this.set("skipinitialonrerecord", false);
                         this.set("autorecord", false);
                     }
+
+                    if (this.get("pausable"))
+                        this.set("resumevisible", false);
 
                     this.__attachRequested = false;
                     this.__activated = false;
@@ -306,10 +311,12 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     //         element: this.activeElement()
                     //     });
                     // }
-                    if (this.recorder)
+                    if (this.recorder) {
                         this.trigger("attached");
-                    else
+                        this.set("pausable", this.get("pausable") && this.recorder.canPause());
+                    } else {
                         this._error("attach");
+                    }
                 },
 
                 _softwareDependencies: function() {
@@ -456,7 +463,9 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                         this._attachRecorder();
                 },
 
-                object_functions: ["record", "rerecord", "stop", "play", "pause", "reset"],
+                object_functions: [
+                    "record", "rerecord", "stop", "play", "pause", "reset", "pause_recorder", "resume"
+                ],
 
                 functions: {
 
@@ -499,7 +508,27 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     },
 
                     stop: function() {
+                        // If recorder is paused need resume first,
+                        // setting this._recording to true also could be enough
+                        if (this.__paused)
+                            this._resume();
                         this.host.state().stop();
+                    },
+
+                    pause_recorder: function() {
+                        if (typeof this.recorder !== 'undefined') {
+                            this.recorder.pauseRecord();
+                            this.recorder._recorder.once("paused", function() {
+                                this.__paused = true;
+                                this.__recording = false;
+                                this.set("resumevisible", true);
+                            }, this);
+                        }
+                    },
+
+                    resume: function() {
+                        if (typeof this.recorder !== 'undefined')
+                            this._resume();
                     },
 
                     play: function() {
@@ -548,6 +577,15 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                         this.trigger("ready_to_play");
                     }
 
+                },
+
+                _resume: function() {
+                    this.__paused = false;
+                    this.__recording = true;
+                    this.recorder.resumeRecord();
+                    this.recorder._recorder.once("resumed", function() {
+                        this.set("resumevisible", false);
+                    }, this);
                 },
 
                 destroy: function() {

@@ -206,6 +206,7 @@ Scoped.define("module:AudioRecorder.Dynamics.RecorderStates.Chooser", [
                         }
                     }
                     this.dyn._audioFilePlaybackable = true;
+                    this.dyn.set("duration", data.duration);
                     this._uploadFile(file);
                 }, this).error(function() {
                     this._uploadFile(file);
@@ -386,6 +387,8 @@ Scoped.define("module:AudioRecorder.Dynamics.RecorderStates.MicrophoneHasAccess"
             this._preparePromise = null;
             if (this.dyn.get("countdown") > 0 && this.dyn.recorder && this.dyn.recorder.recordDelay(this.dyn.get("uploadoptions")) > this.dyn.get("countdown") * 1000)
                 this._preparePromise = this.dyn._prepareRecording();
+            if (this.dyn.get("pausable"))
+                this.dyn.set("pausable", this.dyn.recorder.canPause());
             this.dyn.set("hovermessage", "");
             this.dyn.set("settingsvisible", true);
             this.dyn.set("recordvisible", true);
@@ -498,8 +501,9 @@ Scoped.define("module:AudioRecorder.Dynamics.RecorderStates.Recording", [
     "base:Timers.Timer",
     "base:Time",
     "base:TimeFormat",
-    "base:Async"
-], function(State, Timer, Time, TimeFormat, Async, scoped) {
+    "base:Async",
+    "browser:Info"
+], function(State, Timer, Time, TimeFormat, Async, Info, scoped) {
     return State.extend({
         scoped: scoped
     }, {
@@ -518,20 +522,30 @@ Scoped.define("module:AudioRecorder.Dynamics.RecorderStates.Recording", [
 
             this._startTime = Time.now();
             this._stopping = false;
+            this.__firedTimes = 0;
+            this.__pauseDelta = 0;
+            this.__timerDelay = 10;
             this._timer = this.auto_destroy(new Timer({
                 immediate: true,
-                delay: 10,
+                delay: this.__timerDelay,
                 context: this,
                 fire: this._timerFire
             }));
         },
 
         _timerFire: function() {
+            this.__firedTimes += 1;
             var limit = this.dyn.get("timelimit");
-            var current = Time.now();
+            var current = (Info.isFirefox() ?
+                this._startTime + (this.__firedTimes * this.__timerDelay) :
+                Time.now()) - this.__pauseDelta;
             var display = Math.max(0, limit ? (this._startTime + limit * 1000 - current) : (current - this._startTime));
-            this.dyn.trigger("recording_progress", current - this._startTime);
+            this.dyn.trigger("recording_progress", current - this._startTime, !!this.dyn.__paused);
             this.dyn.set("controlbarlabel", this.dyn.get("display-timer") ? TimeFormat.format(TimeFormat.ELAPSED_MINUTES_SECONDS, display) : "");
+
+            // If recorder paused will slips starting second
+            if (this.dyn.__paused)
+                this.__pauseDelta += this.__timerDelay;
 
             if (this.dyn.get("timeminlimit"))
                 this.dyn.set("mintimeindicator", (Time.now() - this._startTime) / 1000 <= this.dyn.get("timeminlimit"));
@@ -540,13 +554,12 @@ Scoped.define("module:AudioRecorder.Dynamics.RecorderStates.Recording", [
                 this._timer.stop();
                 this.stop();
             }
-
         },
 
         stop: function() {
             var minlimit = this.dyn.get("timeminlimit");
             if (minlimit) {
-                var delta = (Time.now() - this._startTime) / 1000;
+                var delta = (Time.now() - this._startTime - this.__pauseDelta) / 1000;
                 if (delta < minlimit) {
                     var limit = this.dyn.get("timelimit");
                     if (!limit || limit > delta)
@@ -574,7 +587,7 @@ Scoped.define("module:AudioRecorder.Dynamics.RecorderStates.Recording", [
         },
 
         _hasStopped: function() {
-            this.dyn.set("duration", Time.now() - this._startTime);
+            this.dyn.set("duration", Time.now() - this._startTime - this.__pauseDelta);
             this.dyn._unbindMedia();
             this.dyn.trigger("recording_stopped");
         }

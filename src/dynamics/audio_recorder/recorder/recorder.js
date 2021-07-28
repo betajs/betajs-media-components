@@ -118,7 +118,6 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     "allowcancel": false,
                     "recordings": null,
                     "ready": true,
-                    "stretch": false,
                     "audio-test-mandatory": false
 
                 },
@@ -143,7 +142,6 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                 types: {
                     "rerecordable": "boolean",
                     "ready": "boolean",
-                    "stretch": "boolean",
                     "autorecord": "boolean",
                     "autoplay": "boolean",
                     "allowrecord": "boolean",
@@ -227,11 +225,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     this._bound = false;
                     this.__recording = false;
                     this.__error = null;
-                    this.__currentStretch = null;
 
-                    this.on("change:stretch", function() {
-                        this._updateStretch();
-                    }, this);
                     this.host = new Host({
                         stateRegistry: new ClassRegistry(this.cls.recorderStates())
                     });
@@ -381,7 +375,6 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                             }, this);
                             this.recorder.testSoundLevel(true);
                             this.set("devicetesting", true);
-                            this._updateStretch();
                             this._bound = true;
                             this.trigger("bound");
                         }, this);
@@ -580,25 +573,12 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                         }
                     } catch (e) {}
 
-                    this._updateStretch();
                     this._updateCSSSize();
                 },
 
                 _updateCSSSize: function() {
                     var width = Dom.elementDimensions(this.activeElement()).width;
                     this.set("csssize", width > 400 ? "normal" : (width > 300 ? "medium" : "small"));
-                },
-
-                audioHeight: function() {
-                    return this.recorderAttached() ? this.recorder.cameraHeight() : NaN;
-                },
-
-                audioWidth: function() {
-                    return this.recorderAttached() ? this.recorder.cameraWidth() : NaN;
-                },
-
-                aspectRatio: function() {
-                    return this.audioWidth() / this.audioHeight();
                 },
 
                 parentWidth: function() {
@@ -611,30 +591,6 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
 
                 parentAspectRatio: function() {
                     return this.parentWidth() / this.parentHeight();
-                },
-
-                _updateStretch: function() {
-                    var newStretch = null;
-                    if (this.get("stretch")) {
-                        var ar = this.aspectRatio();
-                        if (isFinite(ar)) {
-                            var par = this.parentAspectRatio();
-                            if (isFinite(par)) {
-                                if (par > ar)
-                                    newStretch = "height";
-                                if (par < ar)
-                                    newStretch = "width";
-                            } else if (par === Infinity)
-                                newStretch = "height";
-                        }
-                    }
-                    if (this.__currentStretch !== newStretch) {
-                        if (this.__currentStretch)
-                            Dom.elementRemoveClass(this.activeElement(), this.get("css") + "-stretch-" + this.__currentStretch);
-                        if (newStretch)
-                            Dom.elementAddClass(this.activeElement(), this.get("css") + "-stretch-" + newStretch);
-                    }
-                    this.__currentStretch = newStretch;
                 }
 
             };

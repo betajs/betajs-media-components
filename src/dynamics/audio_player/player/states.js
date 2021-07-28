@@ -66,6 +66,7 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.Initial", [
         dynamics: ["loader"],
 
         _started: function() {
+            this.dyn.set("audioelement_active", false);
             if (this.dyn.get("ready"))
                 this.next("LoadPlayer");
             else {
@@ -134,6 +135,20 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.LoadAudio", [
         dynamics: ["loader"],
 
         _started: function() {
+            if (!this.dyn.get("audioelement_active")) {
+                this.listenOn(this.dyn, "error:attach", function() {
+                    this.next("LoadError");
+                }, this);
+                this.listenOn(this.dyn, "attached", function() {
+                    this.__loadAudio();
+                }, this);
+                this.dyn.reattachAudio();
+            } else {
+                this.__loadAudio();
+            }
+        },
+
+        __loadAudio: function() {
             this.listenOn(this.dyn, "error:audio", function() {
                 this.next("ErrorAudio");
             }, this);
@@ -144,29 +159,24 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.LoadAudio", [
                     this.dyn.execute("seek", this.dyn.get("autoseek"));
                 this.next("PlayAudio");
             }, this);
-            if (!this.dyn.get("autoplay"))
+            if (this.dyn.get("skipinitial") && !this.dyn.get("autoplay")) {
                 this.next("PlayAudio");
-            else {
-                this._runTimer();
+            } else {
+                var counter = 10;
+                this.auto_destroy(new Timer({
+                    context: this,
+                    fire: function() {
+                        if (!this.destroyed() && !this.dyn.destroyed() && this.dyn.player)
+                            this.dyn.player.play();
+                        counter--;
+                        if (counter === 0)
+                            this.next("PlayAudio");
+                    },
+                    delay: 200,
+                    immediate: true
+                }));
             }
-        },
-
-        _runTimer: function() {
-            var counter = 10;
-            this.auto_destroy(new Timer({
-                context: this,
-                fire: function() {
-                    if (!this.destroyed() && !this.dyn.destroyed() && this.dyn.player)
-                        this.dyn.player.play();
-                    counter--;
-                    if (counter === 0)
-                        this.next("PlayAudio");
-                },
-                delay: 200,
-                immediate: true
-            }));
         }
-
     });
 });
 
@@ -235,24 +245,53 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.NextAudio", [
 
         _started: function() {
             if (this.dyn.get("playlist")) {
+                var pl0, initialPlaylist;
                 var list = this.dyn.get("playlist");
                 var head = list.shift();
-                if (this.dyn.get("loop"))
-                    list.push(head);
-                this.dyn.set("playlist", list);
+                this.dyn.resetTimer = true;
+                this.dyn.get("initialoptions").playlist.push(head);
                 if (list.length > 0) {
-                    var pl0 = list[0];
+                    pl0 = list[0];
                     this.dyn.set("source", pl0.source);
                     this.dyn.set("sources", pl0.sources);
-                    this.dyn.trigger("playlist-next", pl0);
-                    this.dyn.reattachAudio();
+                    return this._playNext(pl0);
+                } else {
+                    initialPlaylist = this.dyn.get("initialoptions").playlist;
+                    this.dyn.set("lastplaylistitem", true);
+                    this.dyn.trigger("last-playlist-item");
+                    this.dyn.set("playlist", initialPlaylist);
+                    this.dyn.get("initialoptions").playlist = [];
+
+                    pl0 = initialPlaylist[0];
+                    this.dyn.set("source", pl0.source);
+                    this.dyn.set("sources", pl0.sources);
+                    if (this.dyn.get("loopall"))
+                        return this._playNext(pl0);
+                    else
+                        this.dyn.reattachAudio();
+                }
+            } else {
+                // If user will set loopall as true, single audio also will be played
+                if (this.dyn.get("loopall")) {
+                    this.dyn.set("loop", true);
                     this.dyn.set("autoplay", true);
-                    this.next("LoadPlayer");
-                    return;
+                    this.dyn.reattachAudio();
                 }
             }
-            this.next("LoadPlayer");
-        }
 
+            this.next("LoadPlayer");
+        },
+
+        /**
+         * Will start auto play the next play list element
+         * @param {object} pl
+         * @private
+         */
+        _playNext: function(pl) {
+            this.dyn.trigger("playlist-next", pl);
+            this.dyn.set("autoplay", true);
+            this.next("LoadPlayer");
+            // As this.next("LoadPlayer") already contains reattach, no need for this.dyn.reattachAudio();
+        }
     });
 });

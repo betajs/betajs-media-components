@@ -6,12 +6,14 @@
          ba-hotkey:alt+right="{{seek(position + skipseconds * 3)}}"
          ba-hotkey:alt+left="{{seek(position - skipseconds * 3)}}"
 		 onmouseout="this.blur()"
-	     onmousedown="{{startUpdatePosition(domEvent)}}"
-	     onmouseup="{{stopUpdatePosition(domEvent)}}"
-	     onmouseleave="{{stopUpdatePosition(domEvent)}}"
-	     onmousemove="{{progressUpdatePosition(domEvent)}}">
+		 ontouchstart="{{startUpdatePosition(domEvent)}}"
+		 onmousedown="{{startUpdatePosition(domEvent)}}"
+	>
 		<div class="{{css}}-progressbar-cache" ba-styles="{{{width: Math.round(duration ? cached / duration * 100 : 0) + '%'}}}"></div>
-		<div class="{{css}}-progressbar-position" ba-styles="{{{width: Math.round(duration ? position / duration * 100 : 0) + '%'}}}" title="{{string('audio-progress')}}">
+		<div class="{{css}}-progressbar-position"
+			 ba-styles="{{{width: Math.round(duration ? position / duration * 100 : 0) + '%'}}}"
+			 title="{{string('audio-progress')}}"
+		>
 			<div class="{{css}}-progressbar-button"></div>
 		</div>
 	</div>
@@ -78,7 +80,10 @@
 				 ba-hotkey:up="{{set_volume(1)}}" ba-hotkey:down="{{set_volume(0)}}"
 				 onmouseout="this.blur()"
 				 class="{{css}}-volumebar-inner"
-			     onmousedown="{{startUpdateVolume(domEvent)}}"
+				 ontouchstart="{{startUpdateVolume(domEvent)}}"
+				 ontouchmove="{{progressUpdateVolume(domEvent)}}"
+				 ontouchend="{{stopUpdateVolume(domEvent); this.blur()}};"
+				 onmousedown="{{startUpdateVolume(domEvent)}}"
                  onmouseup="{{stopUpdateVolume(domEvent)}}"
                  onmouseleave="{{stopUpdateVolume(domEvent)}}"
                  onmousemove="{{progressUpdateVolume(domEvent)}}"

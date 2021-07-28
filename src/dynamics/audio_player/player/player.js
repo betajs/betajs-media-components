@@ -83,6 +83,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     "autoplay": false,
                     "preload": false,
                     "loop": false,
+                    "loopall": false,
                     "ready": true,
                     "totalduration": null,
                     "playwhenvisible": false,
@@ -101,8 +102,10 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
 
                     /* States (helper variables which are controlled by application itself not set by user) */
                     "initialoptions": {
-                        "volumelevel": null
+                        "volumelevel": null,
+                        "playlist": []
                     },
+                    "lastplaylistitem": false,
                     // Reference to Chrome renewed policy, we have to setup mute for auto-playing players.
                     // If we do it forcibly then will set as true
                     "forciblymuted": false,
@@ -113,6 +116,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                 types: {
                     "rerecordable": "boolean",
                     "loop": "boolean",
+                    "loopall": "boolean",
                     "autoplay": "boolean",
                     "preload": "boolean",
                     "ready": "boolean",
@@ -161,8 +165,8 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                         if (!value) {
                             // If after checking we found that AudioAnalyzer not supported we should remove canvas
                             if (this.audioVisualization) {
-                                this.audioVisualization.destroy();
                                 this.audioVisualization.canvas.remove();
+                                this.audioVisualization.destroy();
                             }
                         }
                     }
@@ -270,6 +274,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                         this.player.weakDestroy();
                     this.player = null;
                     this.__audio = null;
+                    this.set("audioelement_active", false);
                 },
 
                 _attachAudio: function() {
@@ -280,13 +285,14 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                         return;
                     }
                     this.__attachRequested = false;
+                    this.set("audioelement_active", true);
                     var audio = this.activeElement().querySelector("[data-audio='audio']");
                     this._clearError();
                     AudioPlayerWrapper.create(Objs.extend(this._getSources(), {
                         element: audio,
                         preload: !!this.get("preload"),
-                        loop: !!this.get("loop"),
-                        reloadonplay: this.get('playlist') ? true : !!this.get("reloadonplay")
+                        loop: !!this.get("loop") || (this.get("lastplaylistitem") && this.get("loopall")),
+                        reloadonplay: !!this.get("reloadonplay") // reload of AudioMediaElement not act like in VideoMediaElement, no need for reload
                     })).error(function(e) {
                         if (this.destroyed())
                             return;
@@ -544,9 +550,9 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     seek: function(position) {
                         if (this.get('disableseeking')) return;
                         if (this.audioLoaded()) {
-                            if (position > this.player.duration())
+                            if (position > this.player.duration()) {
                                 this.player.setPosition(this.player.duration() - this.get("skipseconds"));
-                            else {
+                            } else {
                                 this.player.setPosition(position);
                                 this.trigger("seek", position);
                             }
@@ -629,16 +635,20 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                         return;
                     try {
                         if (this.audioLoaded()) {
+                            var _now = Time.now();
                             var new_position = this.player.position();
-                            if (new_position != this.get("position") || this.get("last_position_change"))
-                                this.set("last_position_change", Time.now());
-                            this.set("last_position_change_delta", Time.now() - this.get("last_position_change"));
+                            if (new_position !== this.get("position") || this.get("last_position_change"))
+                                this.set("last_position_change", _now);
+                            // In case if prevent interaction with controller set to true
+                            this.set("last_position_change_delta", _now - this.get("last_position_change"));
                             this.set("position", new_position);
                             this.set("buffered", this.player.buffered());
-                            if (this.get("totalduration") || (this.player.duration() > 0 && this.player.duration() < Infinity))
-                                this.set("duration", this.get("totalduration") || this.player.duration());
-                            else
-                                this.set("duration", new_position);
+                            var pld = this.player.duration();
+                            if (0.0 < pld && pld < Infinity) {
+                                this.set("duration", this.player.duration());
+                            } else {
+                                this.set("duration", this.get("totalduration") || new_position);
+                            }
                         }
                     } catch (e) {}
                     try {

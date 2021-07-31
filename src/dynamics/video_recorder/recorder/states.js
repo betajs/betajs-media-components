@@ -1012,7 +1012,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
                     } else if (this.dyn.get("snapshotfromuploader") && this.dyn._videoFile && this.dyn._videoFilePlaybackable) {
                         this.next("CovershotSelectionFromPlayer");
                     } else {
-                        this._nextUploading(true);
+                        this._next(true);
                     }
                 } else if (this.dyn.snapshots && this.dyn.snapshots.length > 0) {
                     this.next("CovershotSelectionFromGallery");

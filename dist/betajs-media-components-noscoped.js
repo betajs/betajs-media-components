@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.274 - 2021-07-28
+betajs-media-components - v0.0.275 - 2021-08-03
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.274",
-    "datetime": 1627489142614
+    "version": "0.0.275",
+    "datetime": 1628018225173
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -9731,7 +9731,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
                     } else if (this.dyn.get("snapshotfromuploader") && this.dyn._videoFile && this.dyn._videoFilePlaybackable) {
                         this.next("CovershotSelectionFromPlayer");
                     } else {
-                        this._nextUploading(true);
+                        this._next(true);
                     }
                 } else if (this.dyn.snapshots && this.dyn.snapshots.length > 0) {
                     this.next("CovershotSelectionFromGallery");

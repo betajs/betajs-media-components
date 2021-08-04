@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.275 - 2021-08-03
+betajs-media-components - v0.0.276 - 2021-08-04
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.275 - 2021-08-03
+betajs-media-components - v0.0.276 - 2021-08-04
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.275",
-    "datetime": 1628018225173
+    "version": "0.0.276",
+    "datetime": 1628083893636
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -11033,6 +11033,8 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
             this.dyn.set("topmessage", "");
             if (this.dyn.get("media_src_not_supported") == true) {
                 this.dyn.set("uploading-message", this.dyn.string("uploading-src-error"));
+            } else {
+                this.dyn.set("uploading-message", this.dyn.string("uploading"));
             }
             this.dyn.set("message", this.dyn.get("uploading-message"));
             this.dyn.set("playertopmessage", this.dyn.get("message"));

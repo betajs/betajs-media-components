@@ -1303,6 +1303,8 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
             this.dyn.set("topmessage", "");
             if (this.dyn.get("media_src_not_supported") == true) {
                 this.dyn.set("uploading-message", this.dyn.string("uploading-src-error"));
+            } else {
+                this.dyn.set("uploading-message", this.dyn.string("uploading"));
             }
             this.dyn.set("message", this.dyn.get("uploading-message"));
             this.dyn.set("playertopmessage", this.dyn.get("message"));

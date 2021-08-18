@@ -161,14 +161,8 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                 },
 
                 events: {
-                    "change:visualeffectsupported": function(value) {
-                        if (!value) {
-                            // If after checking we found that AudioAnalyzer not supported we should remove canvas
-                            if (this.audioVisualization) {
-                                this.audioVisualization.canvas.remove();
-                                this.audioVisualization.destroy();
-                            }
-                        }
+                    "change:visualeffectsupported": function(supported) {
+                        if (!supported && this.audioVisualization) this.audioVisualization.destroy();
                     }
                 },
 
@@ -497,9 +491,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
 
                     play: function() {
                         this.host.state().play();
-                        // Draw visual effect
-                        if (this.get('visualeffectsupported'))
-                            this.audioVisualization.renderFrame();
+                        if (this.audioVisualization) this.audioVisualization.start();
                         this.set("manuallypaused", false);
                     },
 
@@ -524,12 +516,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                             this.player.pause();
                         }
 
-                        if (this.get("visualeffectsupported") && this.audioVisualization) {
-                            if (this.audioVisualization.frameID)
-                                this.audioVisualization.cancelFrame(this.audioVisualization.frameID);
-                            else
-                                this.set("visualeffectsupported", false);
-                        }
+                        if (this.audioVisualization) this.audioVisualization.pause();
 
                         if (this.get("playwhenvisible"))
                             this.set("manuallypaused", true);

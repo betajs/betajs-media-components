@@ -102,12 +102,23 @@ Scoped.define("module:AudioVisualization", [
                 }
             },
 
-            renderFrame: function() {
-                // requestAnimationFrame(this.renderFrame.bind(this));
-                var _self = this;
+            start: function() {
+                this._renderFrame();
+            },
+
+            pause: function() {
+                this._cancelFrame();
+            },
+
+            destroy: function() {
+                if (this.canvas) this.canvas.remove();
+                inherited.destroy.call(this);
+            },
+
+            _renderFrame: function() {
                 this.frameID = requestAnimationFrame(function() {
-                    _self.renderFrame();
-                });
+                    this._renderFrame();
+                }.bind(this));
                 this.analyser.getByteFrequencyData(this.dataArray);
                 // this.dataArray = new Float32Array( this.analyser.fftSize);
                 // this.analyser.getFloatTimeDomainData(this.dataArray);
@@ -122,13 +133,12 @@ Scoped.define("module:AudioVisualization", [
                 }
             },
 
-            cancelFrame: function(ID) {
-                var _ID = ID || this.frameID;
-                cancelAnimationFrame(_ID);
+            _cancelFrame: function() {
+                cancelAnimationFrame(this.frameID);
             },
 
             updateSourceStream: function() {
-                this.cancelFrame();
+                this._cancelFrame();
                 this.initializeVisualEffect();
                 // this._analyser = new AudioAnalyser(this._recorder.stream());
                 // this._analyser.destroy();

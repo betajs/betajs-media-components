@@ -121,7 +121,7 @@ Scoped.define("module:AudioVisualization", [
             },
 
             cancelFrame: function(ID) {
-                var _ID = ID || this.renderFrame;
+                var _ID = ID || this.frameID;
                 cancelAnimationFrame(_ID);
             },
 

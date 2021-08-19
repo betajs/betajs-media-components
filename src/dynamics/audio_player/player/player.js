@@ -311,21 +311,18 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                                 this.set('visualeffectheight', this.get("visualeffectminheight"));
                             }
 
-                            // Will fix Safari and other browsers auto sound off behaviour
-                            Dom.userInteraction(function() {
-                                this.audioVisualization = new AudioVisualization(audio, {
-                                    height: this.get('visualeffectheight'),
-                                    element: this.activeElement(),
-                                    theme: this.get("visualeffecttheme")
-                                });
-                                try {
-                                    this.audioVisualization.initializeVisualEffect();
-                                    this.set("visualeffectsupported", true);
-                                } catch (e) {
-                                    this.set("visualeffectsupported", false);
-                                    console.warn(e);
-                                }
-                            }, this);
+                            this.audioVisualization = new AudioVisualization(audio, {
+                                height: this.get('visualeffectheight'),
+                                element: this.activeElement(),
+                                theme: this.get("visualeffecttheme")
+                            });
+                            try {
+                                this.audioVisualization.initializeVisualEffect();
+                                this.set("visualeffectsupported", true);
+                            } catch (e) {
+                                this.set("visualeffectsupported", false);
+                                console.warn(e);
+                            }
                         }
 
                         if (this.get("playwhenvisible")) {

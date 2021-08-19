@@ -53,7 +53,9 @@ Scoped.define("module:AudioVisualization", [
 
                     if (this.audioContext || this.stream) {
                         if (this.audioContext.state === 'suspended') {
-                            this.audioContext.resume();
+                            Dom.userInteraction(function() {
+                                this.audioContext.resume();
+                            }, this);
                         }
 
                         if (this.stream instanceof HTMLElement) {

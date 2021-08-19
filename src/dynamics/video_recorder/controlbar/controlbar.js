@@ -19,9 +19,33 @@ Scoped.define("module:VideoRecorder.Dynamics.Controlbar", [
                     "csscommon": "ba-commoncss",
                     "cssrecorder": "ba-recorder",
                     "hovermessage": "",
+                    "videoselectnotification": null,
                     "ismobile": false,
                     "recordingindication": true,
                     "covershot_accept_string": "image/*,image/png,image/jpg,image/jpeg"
+                },
+
+                events: {
+                    "change:settingsopen": function(visible) {
+                        if (visible) {
+                            var availableCamerasCount = this.get("cameras").count();
+                            if (this.get("cameras").count() < 1) {
+                                this.set("videoselectnotification", this.string('no-video-source'));
+                            } else {
+                                if (availableCamerasCount > 1 && this.get("addstreamdeviceid")) {
+                                    this.set("videoselectnotification", this.string('stream-already-selected'));
+                                    return;
+                                }
+                                this.get("cameras").iterate(function(item) {
+                                    if (availableCamerasCount === 1 && this.get("addstreamdeviceid") === item.data().id) {
+                                        this.set("videoselectnotification", this.string('stream-already-selected'));
+                                    }
+                                }, this);
+                            }
+                        } else {
+                            this.set("videoselectnotification", null);
+                        }
+                    }
                 },
 
                 create: function() {
@@ -110,6 +134,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Controlbar", [
             "cancel-tooltip": "Click here to cancel.",
             "add-stream": "Add Stream",
             "pause-recorder": "Pause Recorder",
-            "resume-recorder": "Resume Recorder"
+            "resume-recorder": "Resume Recorder",
+            "no-video-source": "Missing additional video input source",
+            "stream-already-selected": "Additional stream has been already selected"
         });
 });

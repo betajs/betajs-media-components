@@ -182,6 +182,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "addstreampositionheight": null,
                     "addstreamminwidth": 120,
                     "addstreamminheight": null,
+                    "addstreamdeviceid": null,
                     "showsettingsmenu": true, // As a property show/hide settings from users
                     "showplayersettingsmenu": true, // As a property show/hide after recorder player settings from users
 
@@ -1285,6 +1286,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                                 height: this.get("addstreampositionheight")
                             }, _currentTracks).success(function(stream) {
                                 _selected = true;
+                                this.set("addstreamdeviceid", deviceId);
                                 if (!this.get("addstreampositionheight")) {
                                     var _height, _aspectRatio;
                                     _aspectRatio = 1.333;

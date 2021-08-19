@@ -520,6 +520,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         this.__attachRequested = true;
                         return;
                     }
+                    if (this.get("record_media") === "screen" && typeof navigator.mediaDevices.getDisplayMedia !== 'undefined')
+                        this.set("webrtcstreaming", true);
                     this.set("hasrecorder", true);
                     this.__attachRequested = false;
                     var video = this.activeElement().querySelector("[data-video='video']");

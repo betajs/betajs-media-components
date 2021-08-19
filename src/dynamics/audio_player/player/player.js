@@ -319,6 +319,15 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                             }
                         }
 
+                        if (this.get("visualeffectvisible") && this.audioVisualization) {
+                            this.player.on("playing", function() {
+                                this.audioVisualization.start();
+                            }, this);
+                            this.player.on("paused", function() {
+                                this.audioVisualization.pause();
+                            }, this);
+                        }
+
                         if (this.get("playwhenvisible")) {
                             this._playWhenVisible(audio);
                         }
@@ -491,7 +500,6 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
 
                     play: function() {
                         this.host.state().play();
-                        if (this.audioVisualization) this.audioVisualization.start();
                         this.set("manuallypaused", false);
                     },
 
@@ -515,8 +523,6 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                         if (this.get("playing")) {
                             this.player.pause();
                         }
-
-                        if (this.audioVisualization) this.audioVisualization.pause();
 
                         if (this.get("playwhenvisible"))
                             this.set("manuallypaused", true);

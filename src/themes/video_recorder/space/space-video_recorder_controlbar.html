@@ -5,6 +5,18 @@
 		<!-- Popup Settings Selections, initially hidden, appear when click button for settings -->
 		<div data-selector="recorder-settings" class="{{css}}-settings" ba-show="{{settingsvisible && settingsopen}}">
 			<div class="{{css}}-bubble-info">
+				<ul data-selector="add-new-stream" ba-if="{{videoselectnotification}}">
+					<li>
+						<div data-selector="single-camera-stream">
+							<i class="ba-commoncss-icon-plus"></i> {{string('add-stream')}}
+						</div>
+					</li>
+					<li>
+						<div data-selector="single-camera-stream" class="{{csscommon}}-text-error">
+							{{videoselectnotification}}
+						</div>
+					</li>
+				</ul>
 
 				<ul data-selector="add-new-stream" ba-show="{{showaddstreambutton && firefox && allowscreen}}">
 					<li>

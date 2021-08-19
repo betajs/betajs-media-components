@@ -15,7 +15,7 @@
 					</div>
 				</li>
 			</ul>
-			<ul data-selector="add-new-stream" ba-show="{{showaddstreambutton && firefox && allowscreen && !showvideoselectnotification}}">
+			<ul data-selector="add-new-stream" ba-show="{{showaddstreambutton && firefox && allowscreen}}">
                 <li>
                     <div data-selector="single-camera-stream"
                          class="{{css}}-add-stream"
@@ -27,7 +27,7 @@
                 </li>
 			</ul>
 
-			<ul data-selector="add-new-stream" ba-show="{{showaddstreambutton && !firefox && !showvideoselectnotification}}" ba-repeat="{{camera :: cameras}}">
+			<ul data-selector="add-new-stream" ba-show="{{showaddstreambutton && !firefox && !videoselectnotification}}" ba-repeat="{{camera :: cameras}}">
 				<li ba-show="{{(camera.id !== selectedcamera) || allowscreen}}">
 					<div data-selector="single-camera-stream"
 						 class="{{css}}-add-stream"

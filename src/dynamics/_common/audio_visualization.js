@@ -64,7 +64,7 @@ Scoped.define("module:AudioVisualization", [
 
                         if (this.stream instanceof HTMLElement) {
                             _source = this.audioContext.createMediaElementSource(this.stream);
-                            this.analyser = this._analyser || this.audioContext.createAnalyser();
+                            this.analyser = this.audioContext.createAnalyser();
                             _source.connect(this.analyser);
                             this.analyser.fftSize = 256;
                             this.analyser.connect(this.audioContext.destination);

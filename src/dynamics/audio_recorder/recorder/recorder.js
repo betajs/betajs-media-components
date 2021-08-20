@@ -190,7 +190,6 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     },
                     "change:visualeffectsupported": function(supported) {
                         if (!supported && this.audioVisualization) this.audioVisualization.destroy();
-                        else if (this.audioVisualization) this.audioVisualization.start();
                     }
                 },
 
@@ -356,6 +355,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                                         if (this.recorder._analyser) {
                                             try {
                                                 this.audioVisualization.initializeVisualEffect();
+                                                this.audioVisualization.start();
                                                 this.set("visualeffectsupported", true);
                                             } catch (ex) {
                                                 this.set("visualeffectsupported", false);

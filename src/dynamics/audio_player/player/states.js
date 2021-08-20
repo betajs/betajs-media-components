@@ -194,7 +194,7 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.ErrorAudio", [
         _started: function() {
             this.dyn.set("message", this.dyn.string("audio-error"));
             this.listenOn(this.dyn, "message:click", function() {
-                this.next("LoadAudio");
+                this.next("Initial");
             }, this);
         }
 

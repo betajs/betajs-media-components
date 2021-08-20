@@ -24,6 +24,18 @@
 				<div class="{{css}}-circle-button" ba-show="{{settingsvisible}}">
 
 					<div class="{{css}}-bubble-info" ba-show="{{settingsopen}}">
+						<ul data-selector="add-new-stream" ba-if="{{videoselectnotification}}">
+							<li>
+								<div data-selector="single-camera-stream">
+									<i class="ba-commoncss-icon-plus"></i> {{string('add-stream')}}
+								</div>
+							</li>
+							<li>
+								<div data-selector="single-camera-stream" class="{{csscommon}}-text-error">
+									{{videoselectnotification}}
+								</div>
+							</li>
+						</ul>
 
 						<ul data-selector="add-new-stream" ba-show="{{showaddstreambutton && firefox && allowscreen}}">
 							<li>

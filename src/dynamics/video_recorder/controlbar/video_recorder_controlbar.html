@@ -3,6 +3,18 @@
 	<div data-selector="recorder-settings" class="{{css}}-settings" ba-show="{{settingsvisible && settingsopen}}">
 		<div class="{{css}}-settings-backbar"></div>
 		<div data-selector="settings-list-front" class="{{css}}-settings-front">
+			<ul data-selector="add-new-stream" ba-if="{{videoselectnotification}}">
+				<li>
+					<div data-selector="single-camera-stream">
+						<i class="ba-commoncss-icon-plus"></i> {{string('add-stream')}}
+					</div>
+				</li>
+				<li>
+					<div data-selector="single-camera-stream" class="{{csscommon}}-text-error">
+						{{videoselectnotification}}
+					</div>
+				</li>
+			</ul>
 			<ul data-selector="add-new-stream" ba-show="{{showaddstreambutton && firefox && allowscreen}}">
                 <li>
                     <div data-selector="single-camera-stream"
@@ -15,7 +27,7 @@
                 </li>
 			</ul>
 
-			<ul data-selector="add-new-stream" ba-show="{{showaddstreambutton && !firefox}}" ba-repeat="{{camera :: cameras}}">
+			<ul data-selector="add-new-stream" ba-show="{{showaddstreambutton && !firefox && !videoselectnotification}}" ba-repeat="{{camera :: cameras}}">
 				<li ba-show="{{(camera.id !== selectedcamera) || allowscreen}}">
 					<div data-selector="single-camera-stream"
 						 class="{{css}}-add-stream"

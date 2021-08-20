@@ -242,3 +242,8 @@
     Ilipat ang mga panimulang at pagtatapos ng mga marker upang i-trim ang iyong
     video
   ba-videorecorder.wait-for-trim: Naghihintay para sa trim na utos ...
+  ba-videorecorder-controlbar.no-video-source: Nawawalang karagdagang mapagkukunan ng pag-input ng video
+  ba-videorecorder-controlbar.stream-already-selected: Napili na ang karagdagang stream
+  ba-videorecorder.uploading-src-error: 'Hindi ma-play pabalik ang video ngayon, isinasagawa pa rin ang pag-upload'
+  ba-audiorecorder-controlbar.pause-recorder: I-pause ang Recorder
+  ba-audiorecorder-controlbar.resume-recorder: Ipagpatuloy ang Recorder

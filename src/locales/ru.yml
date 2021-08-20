@@ -237,3 +237,8 @@
   ba-videorecorder.trim-prompt: Вы хотите обрезать видео?
   ba-videorecorder.trim-video: 'Переместите маркеры начала и конца, чтобы обрезать видео'
   ba-videorecorder.wait-for-trim: Ожидание команды обрезки ...
+  ba-videorecorder-controlbar.no-video-source: Отсутствует дополнительный источник видеовхода
+  ba-videorecorder-controlbar.stream-already-selected: Дополнительный поток уже выбран
+  ba-videorecorder.uploading-src-error: 'Невозможно воспроизвести видео, загрузка все еще продолжается'
+  ba-audiorecorder-controlbar.pause-recorder: Приостановить рекордер
+  ba-audiorecorder-controlbar.resume-recorder: Рекордер резюме

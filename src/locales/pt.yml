@@ -238,3 +238,8 @@
   ba-videorecorder.trim-prompt: Você quer cortar seu vídeo?
   ba-videorecorder.trim-video: Mova os marcadores de início e fim para cortar seu vídeo
   ba-videorecorder.wait-for-trim: Esperando pelo comando de corte ...
+  ba-videorecorder-controlbar.no-video-source: Fonte de entrada de vídeo adicional ausente
+  ba-videorecorder-controlbar.stream-already-selected: Stream adicional já foi selecionado
+  ba-videorecorder.uploading-src-error: 'Não é possível reproduzir o vídeo agora, o upload ainda está em andamento'
+  ba-audiorecorder-controlbar.pause-recorder: Pausar gravador
+  ba-audiorecorder-controlbar.resume-recorder: Retomar gravador

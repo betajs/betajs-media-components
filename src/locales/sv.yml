@@ -234,3 +234,8 @@
   ba-videorecorder.trim-prompt: Vill du klippa din video?
   ba-videorecorder.trim-video: Flytta start- och slutmarkörerna för att trimma din video
   ba-videorecorder.wait-for-trim: Väntar på trimkommando ...
+  ba-videorecorder-controlbar.no-video-source: Saknar ytterligare videoingångskälla
+  ba-videorecorder-controlbar.stream-already-selected: Ytterligare ström har redan valts
+  ba-videorecorder.uploading-src-error: 'Det går inte att spela upp video nu, uppladdning pågår fortfarande'
+  ba-audiorecorder-controlbar.pause-recorder: Pausa inspelare
+  ba-audiorecorder-controlbar.resume-recorder: Återuppta inspelaren

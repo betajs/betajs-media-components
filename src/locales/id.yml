@@ -225,3 +225,8 @@
   ba-videorecorder.trim-prompt: Apakah Anda ingin memangkas video Anda?
   ba-videorecorder.trim-video: Pindahkan penanda awal dan akhir untuk memangkas video Anda
   ba-videorecorder.wait-for-trim: Menunggu perintah trim...
+  ba-videorecorder-controlbar.no-video-source: Tidak ada sumber input video tambahan
+  ba-videorecorder-controlbar.stream-already-selected: Aliran tambahan telah dipilih
+  ba-videorecorder.uploading-src-error: 'Tidak dapat memutar video sekarang, pengunggahan masih berlangsung'
+  ba-audiorecorder-controlbar.pause-recorder: Jeda Perekam
+  ba-audiorecorder-controlbar.resume-recorder: Perekam Lanjutkan

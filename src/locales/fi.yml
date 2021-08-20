@@ -220,3 +220,8 @@
   ba-videorecorder.trim-prompt: Haluatko leikata videosi?
   ba-videorecorder.trim-video: Leikkaa videota siirtämällä aloitus- ja lopetusmerkkejä
   ba-videorecorder.wait-for-trim: Odotetaan leikkauskomentoa ...
+  ba-videorecorder-controlbar.no-video-source: Lisävideon tulolähde puuttuu
+  ba-videorecorder-controlbar.stream-already-selected: Lisävirta on jo valittu
+  ba-videorecorder.uploading-src-error: 'Videon toistaminen ei onnistu, lataaminen on edelleen kesken'
+  ba-audiorecorder-controlbar.pause-recorder: Keskeytä tallennin
+  ba-audiorecorder-controlbar.resume-recorder: Jatka tallenninta

@@ -222,3 +222,8 @@
   ba-videorecorder.trim-prompt: Ali želite obrezati video?
   ba-videorecorder.trim-video: 'Premaknite začetni in končni označevalnik, da obrežete video'
   ba-videorecorder.wait-for-trim: Čakanje na ukaz za obrezovanje ...
+  ba-videorecorder-controlbar.no-video-source: Manjka dodaten video vhodni vir
+  ba-videorecorder-controlbar.stream-already-selected: Dodatni tok je že izbran
+  ba-videorecorder.uploading-src-error: 'Videoposnetka trenutno ni mogoče predvajati, nalaganje še poteka'
+  ba-audiorecorder-controlbar.pause-recorder: Zaustavi snemalnik
+  ba-audiorecorder-controlbar.resume-recorder: Snemalnik življenjepisov

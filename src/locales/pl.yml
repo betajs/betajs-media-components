@@ -225,3 +225,8 @@
   ba-videorecorder.trim-prompt: Czy chcesz przyciąć swój film?
   ba-videorecorder.trim-video: 'Przesuń znaczniki początku i końca, aby przyciąć film'
   ba-videorecorder.wait-for-trim: Oczekiwanie na polecenie przycięcia...
+  ba-videorecorder-controlbar.no-video-source: Brakuje dodatkowego źródła wejścia wideo
+  ba-videorecorder-controlbar.stream-already-selected: Dodatkowy strumień został już wybrany
+  ba-videorecorder.uploading-src-error: 'Nie można teraz odtworzyć filmu, przesyłanie jest nadal w toku'
+  ba-audiorecorder-controlbar.pause-recorder: Wstrzymaj rejestrator
+  ba-audiorecorder-controlbar.resume-recorder: Rejestrator CV

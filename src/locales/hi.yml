@@ -238,3 +238,8 @@
     अपने वीडियो को ट्रिम करने के लिए प्रारंभ और समाप्ति मार्करों को स्थानांतरित
     करें
   ba-videorecorder.wait-for-trim: ट्रिम कमांड की प्रतीक्षा की जा रही है...
+  ba-videorecorder-controlbar.no-video-source: अतिरिक्त वीडियो इनपुट स्रोत गुम है
+  ba-videorecorder-controlbar.stream-already-selected: अतिरिक्त स्ट्रीम पहले ही चुनी जा चुकी है
+  ba-videorecorder.uploading-src-error: 'अभी वीडियो वापस चलाने में असमर्थ, अपलोड करना अभी भी प्रगति पर है'
+  ba-audiorecorder-controlbar.pause-recorder: रोकें रिकॉर्डर
+  ba-audiorecorder-controlbar.resume-recorder: रिज्यूमे रिकॉर्डर

@@ -189,3 +189,8 @@
   ba-videorecorder.trim-prompt: ビデオをトリミングしますか？
   ba-videorecorder.trim-video: 開始マーカーと終了マーカーを移動して、ビデオをトリミングします
   ba-videorecorder.wait-for-trim: トリムコマンドを待っています...
+  ba-videorecorder-controlbar.no-video-source: 追加のビデオ入力ソースがありません
+  ba-videorecorder-controlbar.stream-already-selected: 追加のストリームはすでに選択されています
+  ba-videorecorder.uploading-src-error: 現在動画を再生できません。アップロードはまだ進行中です
+  ba-audiorecorder-controlbar.pause-recorder: レコーダーの一時停止
+  ba-audiorecorder-controlbar.resume-recorder: レジュメレコーダー

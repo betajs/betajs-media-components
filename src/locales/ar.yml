@@ -208,3 +208,8 @@
   ba-videorecorder.trim-prompt: هل تريد تقليم الفيديو الخاص بك؟
   ba-videorecorder.trim-video: حرك علامتي البداية والنهاية لقص الفيديو الخاص بك
   ba-videorecorder.wait-for-trim: في انتظار أمر القطع ...
+  ba-videorecorder-controlbar.no-video-source: مصدر إدخال الفيديو الإضافي مفقود
+  ba-videorecorder-controlbar.stream-already-selected: تم تحديد تيار إضافي بالفعل
+  ba-videorecorder.uploading-src-error: تعذر تشغيل الفيديو الآن ، لا يزال التحميل قيد التقدم
+  ba-audiorecorder-controlbar.pause-recorder: مسجل وقفة
+  ba-audiorecorder-controlbar.resume-recorder: مسجل السيرة الذاتية

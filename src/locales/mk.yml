@@ -239,3 +239,8 @@
   ba-videorecorder.trim-prompt: Дали сакате да го исечете вашето видео?
   ba-videorecorder.trim-video: Поместете ги ознаките за почеток и крај за да го исечете вашето видео
   ba-videorecorder.wait-for-trim: Се чека командата за трим ...
+  ba-videorecorder-controlbar.no-video-source: Недостасува дополнителен извор за внесување видео
+  ba-videorecorder-controlbar.stream-already-selected: Дополнителен тек веќе е избран
+  ba-videorecorder.uploading-src-error: 'Не може да се репродуцира видео сега, прикачувањето е сеуште во тек'
+  ba-audiorecorder-controlbar.pause-recorder: Паузирајте го рекордерот
+  ba-audiorecorder-controlbar.resume-recorder: Резиме на резиме

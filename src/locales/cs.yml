@@ -219,3 +219,8 @@
   ba-videorecorder.trim-prompt: Chcete video oříznout?
   ba-videorecorder.trim-video: Posunutím počátečních a koncových značek ořízněte video
   ba-videorecorder.wait-for-trim: Čekání na příkaz oříznutí ...
+  ba-videorecorder-controlbar.no-video-source: Chybí další zdroj vstupu videa
+  ba-videorecorder-controlbar.stream-already-selected: Další stream již byl vybrán
+  ba-videorecorder.uploading-src-error: 'Nyní nelze přehrát video, nahrávání stále probíhá'
+  ba-audiorecorder-controlbar.pause-recorder: Pozastavit rekordér
+  ba-audiorecorder-controlbar.resume-recorder: Obnovit záznamník

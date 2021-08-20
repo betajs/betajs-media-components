@@ -240,3 +240,10 @@
   ba-videorecorder.trim-prompt: Θέλετε να κόψετε το βίντεό σας;
   ba-videorecorder.trim-video: Μετακινήστε τους δείκτες έναρξης και τέλους για να κόψετε το βίντεό σας
   ba-videorecorder.wait-for-trim: Αναμονή για εντολή περικοπής ...
+  ba-videorecorder-controlbar.no-video-source: Λείπει πρόσθετη πηγή εισόδου βίντεο
+  ba-videorecorder-controlbar.stream-already-selected: Η πρόσθετη ροή έχει ήδη επιλεγεί
+  ba-videorecorder.uploading-src-error: >-
+    Δεν είναι δυνατή η αναπαραγωγή βίντεο τώρα, η μεταφόρτωση είναι ακόμα σε
+    εξέλιξη
+  ba-audiorecorder-controlbar.pause-recorder: Παύση εγγραφής
+  ba-audiorecorder-controlbar.resume-recorder: Συνέχιση εγγραφής

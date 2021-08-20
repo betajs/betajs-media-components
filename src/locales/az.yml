@@ -238,3 +238,8 @@
   ba-videorecorder.trim-prompt: Videonuzu kəsmək istəyirsiniz?
   ba-videorecorder.trim-video: Videonuzu düzəltmək üçün başlanğıc və bitmə işarələrini hərəkət etdirin
   ba-videorecorder.wait-for-trim: Kəsmə əmri gözlənilir ...
+  ba-videorecorder-controlbar.no-video-source: Əlavə video giriş mənbəyi yoxdur
+  ba-videorecorder-controlbar.stream-already-selected: Əlavə axın artıq seçilib
+  ba-videorecorder.uploading-src-error: 'Videonu indi oxutmaq mümkün deyil, yükləmə hələ də davam edir'
+  ba-audiorecorder-controlbar.pause-recorder: Yazıcıyı durdurun
+  ba-audiorecorder-controlbar.resume-recorder: Recume Recume

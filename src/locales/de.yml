@@ -247,3 +247,8 @@
   ba-videorecorder.trim-prompt: Möchten Sie Ihr Video trimmen?
   ba-videorecorder.trim-video: 'Verschieben Sie die Start- und Endmarkierungen, um Ihr Video zu trimmen'
   ba-videorecorder.wait-for-trim: Warten auf Trimmbefehl...
+  ba-videorecorder-controlbar.no-video-source: Fehlende zusätzliche Videoeingangsquelle
+  ba-videorecorder-controlbar.stream-already-selected: Zusätzlicher Stream wurde bereits ausgewählt
+  ba-videorecorder.uploading-src-error: 'Video kann jetzt nicht wiedergegeben werden, Upload läuft noch'
+  ba-audiorecorder-controlbar.pause-recorder: Recorder pausieren
+  ba-audiorecorder-controlbar.resume-recorder: Lebenslauf-Recorder

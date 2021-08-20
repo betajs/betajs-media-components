@@ -224,3 +224,8 @@
   ba-videorecorder.trim-prompt: Videonuzu kırpmak istiyor musunuz?
   ba-videorecorder.trim-video: Videonuzu kırpmak için başlangıç ve bitiş işaretçilerini hareket ettirin
   ba-videorecorder.wait-for-trim: Trim komutu bekleniyor...
+  ba-videorecorder-controlbar.no-video-source: Ek video giriş kaynağı eksik
+  ba-videorecorder-controlbar.stream-already-selected: Ek akış zaten seçildi
+  ba-videorecorder.uploading-src-error: 'Video şu anda oynatılamıyor, yükleme işlemi devam ediyor'
+  ba-audiorecorder-controlbar.pause-recorder: Kaydediciyi Duraklat
+  ba-audiorecorder-controlbar.resume-recorder: Kaydediciyi Sürdür

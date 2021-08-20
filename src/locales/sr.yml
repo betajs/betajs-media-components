@@ -233,3 +233,8 @@
   ba-videorecorder.trim-prompt: Да ли желите да обрежете видео?
   ba-videorecorder.trim-video: Померите почетне и крајње маркере да бисте исекли видео
   ba-videorecorder.wait-for-trim: Чека се наредба за трим ...
+  ba-videorecorder-controlbar.no-video-source: Недостаје додатни извор видео улаза
+  ba-videorecorder-controlbar.stream-already-selected: Додатни ток је већ изабран
+  ba-videorecorder.uploading-src-error: 'Видео није могуће репродуковати, отпремање је још у току'
+  ba-audiorecorder-controlbar.pause-recorder: Паусе Рецордер
+  ba-audiorecorder-controlbar.resume-recorder: Снимач животописа

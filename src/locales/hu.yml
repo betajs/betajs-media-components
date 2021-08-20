@@ -230,3 +230,8 @@
   ba-videorecorder.trim-prompt: Le akarja vágni a videódat?
   ba-videorecorder.trim-video: Mozgassa a kezdő és a befejező jelzőt a videó vágásához
   ba-videorecorder.wait-for-trim: Várakozás a trim parancsra ...
+  ba-videorecorder-controlbar.no-video-source: Hiányzik a további videó bemeneti forrás
+  ba-videorecorder-controlbar.stream-already-selected: További adatfolyam már kiválasztva
+  ba-videorecorder.uploading-src-error: 'A videót most nem lehet lejátszani, a feltöltés még folyamatban van'
+  ba-audiorecorder-controlbar.pause-recorder: Szüneteltesse a felvevőt
+  ba-audiorecorder-controlbar.resume-recorder: Felvétel folytatása

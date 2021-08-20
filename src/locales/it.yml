@@ -226,3 +226,8 @@
   ba-videorecorder.trim-prompt: Vuoi tagliare il tuo video?
   ba-videorecorder.trim-video: Sposta gli indicatori di inizio e fine per tagliare il tuo video
   ba-videorecorder.wait-for-trim: In attesa del comando di assetto...
+  ba-videorecorder-controlbar.no-video-source: Fonte di ingresso video aggiuntiva mancante
+  ba-videorecorder-controlbar.stream-already-selected: È già stato selezionato un flusso aggiuntivo
+  ba-videorecorder.uploading-src-error: 'Impossibile riprodurre il video ora, il caricamento è ancora in corso'
+  ba-audiorecorder-controlbar.pause-recorder: Pausa registratore
+  ba-audiorecorder-controlbar.resume-recorder: Riprendi registratore

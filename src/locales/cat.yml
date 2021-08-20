@@ -244,3 +244,8 @@
   ba-videorecorder.trim-prompt: Voleu retallar el vostre vídeo?
   ba-videorecorder.trim-video: Mou els marcadors d’inici i de finalització per retallar el vídeo
   ba-videorecorder.wait-for-trim: S'està esperant l'ordre de retallada ...
+  ba-videorecorder-controlbar.no-video-source: Falta una font d’entrada de vídeo addicional
+  ba-videorecorder-controlbar.stream-already-selected: Ja s'ha seleccionat un flux addicional
+  ba-videorecorder.uploading-src-error: Ara no es pot reproduir el vídeo; la càrrega encara està en curs
+  ba-audiorecorder-controlbar.pause-recorder: Grava en pausa
+  ba-audiorecorder-controlbar.resume-recorder: Reprèn la gravadora

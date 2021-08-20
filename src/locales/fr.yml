@@ -240,3 +240,10 @@
   ba-videorecorder.trim-prompt: "Voulez-vous découper votre vidéo\_?"
   ba-videorecorder.trim-video: Déplacez les marqueurs de début et de fin pour découper votre vidéo
   ba-videorecorder.wait-for-trim: En attente de la commande de rognage...
+  ba-videorecorder-controlbar.no-video-source: Source d'entrée vidéo supplémentaire manquante
+  ba-videorecorder-controlbar.stream-already-selected: Un flux supplémentaire a déjà été sélectionné
+  ba-videorecorder.uploading-src-error: >-
+    Impossible de lire la vidéo maintenant, le téléchargement est toujours en
+    cours
+  ba-audiorecorder-controlbar.pause-recorder: Suspendre l'enregistreur
+  ba-audiorecorder-controlbar.resume-recorder: Enregistreur de CV

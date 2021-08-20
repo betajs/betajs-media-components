@@ -236,3 +236,8 @@
   ba-videorecorder.trim-prompt: Želite li obrezati svoj videozapis?
   ba-videorecorder.trim-video: Pomaknite oznake početka i kraja da biste obrezali videozapis
   ba-videorecorder.wait-for-trim: Čeka se naredba trim ...
+  ba-videorecorder-controlbar.no-video-source: Nedostaje dodatni video ulaz
+  ba-videorecorder-controlbar.stream-already-selected: Dodatni tok već je odabran
+  ba-videorecorder.uploading-src-error: 'Videozapis se sada ne može reproducirati, prijenos je još u tijeku'
+  ba-audiorecorder-controlbar.pause-recorder: Zaustavi snimač
+  ba-audiorecorder-controlbar.resume-recorder: Snimač životopisa

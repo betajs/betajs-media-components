@@ -237,3 +237,8 @@
   ba-videorecorder.trim-prompt: Wil je je video inkorten?
   ba-videorecorder.trim-video: Verplaats de begin- en eindmarkeringen om je video bij te snijden
   ba-videorecorder.wait-for-trim: Wachten op trimcommando...
+  ba-videorecorder-controlbar.no-video-source: Ontbrekende extra video-invoerbron
+  ba-videorecorder-controlbar.stream-already-selected: Extra stream is al geselecteerd
+  ba-videorecorder.uploading-src-error: 'Kan de video nu niet afspelen, het uploaden is nog bezig'
+  ba-audiorecorder-controlbar.pause-recorder: Recorder pauzeren
+  ba-audiorecorder-controlbar.resume-recorder: Recorder hervatten

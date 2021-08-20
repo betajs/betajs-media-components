@@ -240,3 +240,8 @@
   ba-videorecorder.trim-prompt: Doriți să tăiați videoclipul?
   ba-videorecorder.trim-video: Mutați marcajele de început și sfârșit pentru a tăia videoclipul
   ba-videorecorder.wait-for-trim: Se așteaptă comanda de tăiere ...
+  ba-videorecorder-controlbar.no-video-source: Lipsește o sursă de intrare video suplimentară
+  ba-videorecorder-controlbar.stream-already-selected: Fluxul suplimentar a fost deja selectat
+  ba-videorecorder.uploading-src-error: 'Imposibil de redat videoclipul acum, încărcarea este încă în desfășurare'
+  ba-audiorecorder-controlbar.pause-recorder: Pauză Recorder
+  ba-audiorecorder-controlbar.resume-recorder: Reluați înregistratorul

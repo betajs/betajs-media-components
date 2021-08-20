@@ -216,3 +216,8 @@
   ba-videorecorder.trim-prompt: Vil du trimme din video?
   ba-videorecorder.trim-video: Flyt start- og slutmarkørerne for at trimme din video
   ba-videorecorder.wait-for-trim: Venter på trimkommando ...
+  ba-videorecorder-controlbar.no-video-source: Mangler yderligere videoindgangskilde
+  ba-videorecorder-controlbar.stream-already-selected: Yderligere strøm er allerede valgt
+  ba-videorecorder.uploading-src-error: 'Kan ikke afspille video nu, og upload er stadig i gang'
+  ba-audiorecorder-controlbar.pause-recorder: Pause optager
+  ba-audiorecorder-controlbar.resume-recorder: Genoptag optager

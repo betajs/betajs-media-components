@@ -186,3 +186,8 @@
   ba-videorecorder.trim-prompt: 你想修剪你的視頻嗎？
   ba-videorecorder.trim-video: 移動開始和結束標記以修剪視頻
   ba-videorecorder.wait-for-trim: 等待修剪命令...
+  ba-videorecorder-controlbar.no-video-source: 缺少額外的視頻輸入源
+  ba-videorecorder-controlbar.stream-already-selected: 已選擇附加流
+  ba-videorecorder.uploading-src-error: 現在無法播放視頻，上傳仍在進行中
+  ba-audiorecorder-controlbar.pause-recorder: 暫停錄音機
+  ba-audiorecorder-controlbar.resume-recorder: 簡歷記錄器

@@ -427,7 +427,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                 _stopRecording: function() {
                     if (!this.__recording)
                         return Promise.error(true);
-                    if (this.audioVisualization) this.audioVisualization.pause();
+                    if (this.audioVisualization) this.audioVisualization.stop();
                     return this.recorder.stopRecord({
                         audio: this.get("uploadoptions").audio,
                         webrtcStreaming: this.get("uploadoptions").webrtcStreaming

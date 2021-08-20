@@ -40,6 +40,10 @@ Scoped.define("module:AudioVisualization", [
                 this.canvasContext = this.canvas.getContext("2d");
             },
 
+            _clearCanvas: function() {
+                this.canvasContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            },
+
             initializeVisualEffect: function() {
                 try {
                     var _source;
@@ -108,6 +112,11 @@ Scoped.define("module:AudioVisualization", [
 
             pause: function() {
                 this._cancelFrame();
+            },
+
+            stop: function() {
+                this._cancelFrame();
+                this._clearCanvas();
             },
 
             destroy: function() {

@@ -326,6 +326,9 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                             this.player.on("paused", function() {
                                 this.audioVisualization.pause();
                             }, this);
+                            this.player.on("ended", function() {
+                                this.audioVisualization.stop();
+                            }, this);
                         }
 
                         if (this.get("playwhenvisible")) {

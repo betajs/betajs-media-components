@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.277 - 2021-08-19
+betajs-media-components - v0.0.278 - 2021-08-22
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.277 - 2021-08-19
+betajs-media-components - v0.0.278 - 2021-08-22
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.277",
-    "datetime": 1629430739233
+    "version": "0.0.278",
+    "datetime": 1629689800352
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -3108,9 +3108,10 @@ Scoped.define("module:Assets", [
 });
 Scoped.define("module:AudioVisualization", [
     "base:Class",
+    "base:Maths",
     "browser:Dom",
     "browser:Info"
-], function(Class, Dom, Info, scoped) {
+], function(Class, Maths, Dom, Info, scoped) {
     return Class.extend({
         scoped: scoped
     }, function(inherited) {
@@ -3147,6 +3148,10 @@ Scoped.define("module:AudioVisualization", [
                 this.canvasContext = this.canvas.getContext("2d");
             },
 
+            _clearCanvas: function() {
+                this.canvasContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            },
+
             initializeVisualEffect: function() {
                 try {
                     var _source;
@@ -3160,12 +3165,14 @@ Scoped.define("module:AudioVisualization", [
 
                     if (this.audioContext || this.stream) {
                         if (this.audioContext.state === 'suspended') {
-                            this.audioContext.resume();
+                            Dom.userInteraction(function() {
+                                this.audioContext.resume();
+                            }, this);
                         }
 
                         if (this.stream instanceof HTMLElement) {
                             _source = this.audioContext.createMediaElementSource(this.stream);
-                            this.analyser = this._analyser || this.audioContext.createAnalyser();
+                            this.analyser = this.audioContext.createAnalyser();
                             _source.connect(this.analyser);
                             this.analyser.fftSize = 256;
                             this.analyser.connect(this.audioContext.destination);
@@ -3207,12 +3214,28 @@ Scoped.define("module:AudioVisualization", [
                 }
             },
 
-            renderFrame: function() {
-                // requestAnimationFrame(this.renderFrame.bind(this));
-                var _self = this;
+            start: function() {
+                this._renderFrame();
+            },
+
+            pause: function() {
+                this._cancelFrame();
+            },
+
+            stop: function() {
+                this._cancelFrame();
+                this._clearCanvas();
+            },
+
+            destroy: function() {
+                if (this.canvas) this.canvas.remove();
+                inherited.destroy.call(this);
+            },
+
+            _renderFrame: function() {
                 this.frameID = requestAnimationFrame(function() {
-                    _self.renderFrame();
-                });
+                    this._renderFrame();
+                }.bind(this));
                 this.analyser.getByteFrequencyData(this.dataArray);
                 // this.dataArray = new Float32Array( this.analyser.fftSize);
                 // this.analyser.getFloatTimeDomainData(this.dataArray);
@@ -3227,13 +3250,12 @@ Scoped.define("module:AudioVisualization", [
                 }
             },
 
-            cancelFrame: function(ID) {
-                var _ID = ID || this.renderFrame;
-                cancelAnimationFrame(_ID);
+            _cancelFrame: function() {
+                cancelAnimationFrame(this.frameID);
             },
 
             updateSourceStream: function() {
-                this.cancelFrame();
+                this._cancelFrame();
                 this.initializeVisualEffect();
                 // this._analyser = new AudioAnalyser(this._recorder.stream());
                 // this._analyser.destroy();
@@ -3306,24 +3328,20 @@ Scoped.define("module:AudioVisualization", [
 
                 if (typeof g === 'undefined') g = r;
                 if (typeof b === 'undefined') b = r;
-                return 'rgb(' + this.__clamp(Math.round(r), 0, 255) + ', ' + this.__clamp(Math.round(g), 0, 255) + ', ' + this.__clamp(Math.round(b), 0, 255) + ')';
+                return 'rgb(' + Maths.clamp(Math.round(r), 0, 255) + ', ' + Maths.clamp(Math.round(g), 0, 255) + ', ' + Maths.clamp(Math.round(b), 0, 255) + ')';
 
             },
 
             __rgba: function(r, g, b, a) {
                 if (typeof g === 'undefined') {
-                    return 'rgb(' + this.__clamp(Math.round(r), 0, 255) + ', ' + this.__clamp(Math.round(r), 0, 255) + ', ' + this.__clamp(Math.round(r), 0, 255) + ')';
+                    return 'rgb(' + Maths.clamp(Math.round(r), 0, 255) + ', ' + Maths.clamp(Math.round(r), 0, 255) + ', ' + Maths.clamp(Math.round(r), 0, 255) + ')';
                 } else if (typeof b === 'undefined') {
-                    return 'rgba(' + this.__clamp(Math.round(r), 0, 255) + ', ' + this.__clamp(Math.round(r), 0, 255) + ', ' + this.__clamp(Math.round(r), 0, 255) + ', ' + this.__clamp(g, 0, 1) + ')';
+                    return 'rgba(' + Maths.clamp(Math.round(r), 0, 255) + ', ' + Maths.clamp(Math.round(r), 0, 255) + ', ' + Maths.clamp(Math.round(r), 0, 255) + ', ' + Maths.clamp(g, 0, 1) + ')';
                 } else if (typeof a === 'undefined') {
-                    return 'rgba(' + this.__clamp(Math.round(r), 0, 255) + ', ' + this.__clamp(Math.round(g), 0, 255) + ', ' + this.__clamp(Math.round(b), 0, 255) + ', 1)';
+                    return 'rgba(' + Maths.clamp(Math.round(r), 0, 255) + ', ' + Maths.clamp(Math.round(g), 0, 255) + ', ' + Maths.clamp(Math.round(b), 0, 255) + ', 1)';
                 } else {
-                    return 'rgba(' + this.__clamp(Math.round(r), 0, 255) + ', ' + this.__clamp(Math.round(g), 0, 255) + ', ' + this.__clamp(Math.round(b), 0, 255) + ', ' + this.__clamp(a, 0, 1) + ')';
+                    return 'rgba(' + Maths.clamp(Math.round(r), 0, 255) + ', ' + Maths.clamp(Math.round(g), 0, 255) + ', ' + Maths.clamp(Math.round(b), 0, 255) + ', ' + Maths.clamp(a, 0, 1) + ')';
                 }
-            },
-
-            __clamp: function(value, min, max) {
-                return Math.min(Math.max(value, Math.min(min, max)), Math.max(min, max));
             }
         };
     }, {
@@ -13844,14 +13862,8 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                 },
 
                 events: {
-                    "change:visualeffectsupported": function(value) {
-                        if (!value) {
-                            // If after checking we found that AudioAnalyzer not supported we should remove canvas
-                            if (this.audioVisualization) {
-                                this.audioVisualization.canvas.remove();
-                                this.audioVisualization.destroy();
-                            }
-                        }
+                    "change:visualeffectsupported": function(supported) {
+                        if (!supported && this.audioVisualization) this.audioVisualization.destroy();
                     }
                 },
 
@@ -13994,20 +14006,29 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                                 this.set('visualeffectheight', this.get("visualeffectminheight"));
                             }
 
-                            // Will fix Safari and other browsers auto sound off behaviour
-                            Dom.userInteraction(function() {
-                                this.audioVisualization = new AudioVisualization(audio, {
-                                    height: this.get('visualeffectheight'),
-                                    element: this.activeElement(),
-                                    theme: this.get("visualeffecttheme")
-                                });
-                                try {
-                                    this.audioVisualization.initializeVisualEffect();
-                                    this.set("visualeffectsupported", true);
-                                } catch (e) {
-                                    this.set("visualeffectsupported", false);
-                                    console.warn(e);
-                                }
+                            this.audioVisualization = new AudioVisualization(audio, {
+                                height: this.get('visualeffectheight'),
+                                element: this.activeElement(),
+                                theme: this.get("visualeffecttheme")
+                            });
+                            try {
+                                this.audioVisualization.initializeVisualEffect();
+                                this.set("visualeffectsupported", true);
+                            } catch (e) {
+                                this.set("visualeffectsupported", false);
+                                console.warn(e);
+                            }
+                        }
+
+                        if (this.get("visualeffectvisible") && this.audioVisualization) {
+                            this.player.on("playing", function() {
+                                this.audioVisualization.start();
+                            }, this);
+                            this.player.on("paused", function() {
+                                this.audioVisualization.pause();
+                            }, this);
+                            this.player.on("ended", function() {
+                                this.audioVisualization.stop();
                             }, this);
                         }
 
@@ -14183,9 +14204,6 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
 
                     play: function() {
                         this.host.state().play();
-                        // Draw visual effect
-                        if (this.get('visualeffectsupported'))
-                            this.audioVisualization.renderFrame();
                         this.set("manuallypaused", false);
                     },
 
@@ -14208,13 +14226,6 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
 
                         if (this.get("playing")) {
                             this.player.pause();
-                        }
-
-                        if (this.get("visualeffectsupported") && this.audioVisualization) {
-                            if (this.audioVisualization.frameID)
-                                this.audioVisualization.cancelFrame(this.audioVisualization.frameID);
-                            else
-                                this.set("visualeffectsupported", false);
                         }
 
                         if (this.get("playwhenvisible"))
@@ -14563,7 +14574,7 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.ErrorAudio", [
         _started: function() {
             this.dyn.set("message", this.dyn.string("audio-error"));
             this.listenOn(this.dyn, "message:click", function() {
-                this.next("LoadAudio");
+                this.next("Initial");
             }, this);
         }
 
@@ -15146,17 +15157,8 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                             this.set("autorecord", false);
                         }
                     },
-                    "change:visualeffectsupported": function(value) {
-                        if (!value) {
-                            // If after checking we found that AudioAnalyzer not supported we should remove canvas
-                            if (this.audioVisualization) {
-                                if (this.audioVisualization.canvas)
-                                    this.audioVisualization.canvas.remove();
-                                this.audioVisualization.destroy();
-                            }
-                        } else if (this.audioVisualization) {
-                            this.audioVisualization.renderFrame();
-                        }
+                    "change:visualeffectsupported": function(supported) {
+                        if (!supported && this.audioVisualization) this.audioVisualization.destroy();
                     }
                 },
 
@@ -15322,6 +15324,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                                         if (this.recorder._analyser) {
                                             try {
                                                 this.audioVisualization.initializeVisualEffect();
+                                                this.audioVisualization.start();
                                                 this.set("visualeffectsupported", true);
                                             } catch (ex) {
                                                 this.set("visualeffectsupported", false);
@@ -15393,9 +15396,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                 _stopRecording: function() {
                     if (!this.__recording)
                         return Promise.error(true);
-                    // Destroy audio visualization effect for the recorder
-                    if (this.audioVisualization)
-                        this.audioVisualization.cancelFrame(this.audioVisualization.frameID);
+                    if (this.audioVisualization) this.audioVisualization.stop();
                     return this.recorder.stopRecord({
                         audio: this.get("uploadoptions").audio,
                         webrtcStreaming: this.get("uploadoptions").webrtcStreaming

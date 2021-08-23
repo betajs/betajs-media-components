@@ -161,14 +161,8 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                 },
 
                 events: {
-                    "change:visualeffectsupported": function(value) {
-                        if (!value) {
-                            // If after checking we found that AudioAnalyzer not supported we should remove canvas
-                            if (this.audioVisualization) {
-                                this.audioVisualization.canvas.remove();
-                                this.audioVisualization.destroy();
-                            }
-                        }
+                    "change:visualeffectsupported": function(supported) {
+                        if (!supported && this.audioVisualization) this.audioVisualization.destroy();
                     }
                 },
 
@@ -311,20 +305,29 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                                 this.set('visualeffectheight', this.get("visualeffectminheight"));
                             }
 
-                            // Will fix Safari and other browsers auto sound off behaviour
-                            Dom.userInteraction(function() {
-                                this.audioVisualization = new AudioVisualization(audio, {
-                                    height: this.get('visualeffectheight'),
-                                    element: this.activeElement(),
-                                    theme: this.get("visualeffecttheme")
-                                });
-                                try {
-                                    this.audioVisualization.initializeVisualEffect();
-                                    this.set("visualeffectsupported", true);
-                                } catch (e) {
-                                    this.set("visualeffectsupported", false);
-                                    console.warn(e);
-                                }
+                            this.audioVisualization = new AudioVisualization(audio, {
+                                height: this.get('visualeffectheight'),
+                                element: this.activeElement(),
+                                theme: this.get("visualeffecttheme")
+                            });
+                            try {
+                                this.audioVisualization.initializeVisualEffect();
+                                this.set("visualeffectsupported", true);
+                            } catch (e) {
+                                this.set("visualeffectsupported", false);
+                                console.warn(e);
+                            }
+                        }
+
+                        if (this.get("visualeffectvisible") && this.audioVisualization) {
+                            this.player.on("playing", function() {
+                                this.audioVisualization.start();
+                            }, this);
+                            this.player.on("paused", function() {
+                                this.audioVisualization.pause();
+                            }, this);
+                            this.player.on("ended", function() {
+                                this.audioVisualization.stop();
                             }, this);
                         }
 
@@ -500,9 +503,6 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
 
                     play: function() {
                         this.host.state().play();
-                        // Draw visual effect
-                        if (this.get('visualeffectsupported'))
-                            this.audioVisualization.renderFrame();
                         this.set("manuallypaused", false);
                     },
 
@@ -525,13 +525,6 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
 
                         if (this.get("playing")) {
                             this.player.pause();
-                        }
-
-                        if (this.get("visualeffectsupported") && this.audioVisualization) {
-                            if (this.audioVisualization.frameID)
-                                this.audioVisualization.cancelFrame(this.audioVisualization.frameID);
-                            else
-                                this.set("visualeffectsupported", false);
                         }
 
                         if (this.get("playwhenvisible"))

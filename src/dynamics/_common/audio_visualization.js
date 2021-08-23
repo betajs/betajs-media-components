@@ -1,8 +1,9 @@
 Scoped.define("module:AudioVisualization", [
     "base:Class",
+    "base:Maths",
     "browser:Dom",
     "browser:Info"
-], function(Class, Dom, Info, scoped) {
+], function(Class, Maths, Dom, Info, scoped) {
     return Class.extend({
         scoped: scoped
     }, function(inherited) {
@@ -39,6 +40,10 @@ Scoped.define("module:AudioVisualization", [
                 this.canvasContext = this.canvas.getContext("2d");
             },
 
+            _clearCanvas: function() {
+                this.canvasContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            },
+
             initializeVisualEffect: function() {
                 try {
                     var _source;
@@ -52,12 +57,14 @@ Scoped.define("module:AudioVisualization", [
 
                     if (this.audioContext || this.stream) {
                         if (this.audioContext.state === 'suspended') {
-                            this.audioContext.resume();
+                            Dom.userInteraction(function() {
+                                this.audioContext.resume();
+                            }, this);
                         }
 
                         if (this.stream instanceof HTMLElement) {
                             _source = this.audioContext.createMediaElementSource(this.stream);
-                            this.analyser = this._analyser || this.audioContext.createAnalyser();
+                            this.analyser = this.audioContext.createAnalyser();
                             _source.connect(this.analyser);
                             this.analyser.fftSize = 256;
                             this.analyser.connect(this.audioContext.destination);
@@ -99,12 +106,28 @@ Scoped.define("module:AudioVisualization", [
                 }
             },
 
-            renderFrame: function() {
-                // requestAnimationFrame(this.renderFrame.bind(this));
-                var _self = this;
+            start: function() {
+                this._renderFrame();
+            },
+
+            pause: function() {
+                this._cancelFrame();
+            },
+
+            stop: function() {
+                this._cancelFrame();
+                this._clearCanvas();
+            },
+
+            destroy: function() {
+                if (this.canvas) this.canvas.remove();
+                inherited.destroy.call(this);
+            },
+
+            _renderFrame: function() {
                 this.frameID = requestAnimationFrame(function() {
-                    _self.renderFrame();
-                });
+                    this._renderFrame();
+                }.bind(this));
                 this.analyser.getByteFrequencyData(this.dataArray);
                 // this.dataArray = new Float32Array( this.analyser.fftSize);
                 // this.analyser.getFloatTimeDomainData(this.dataArray);
@@ -119,13 +142,12 @@ Scoped.define("module:AudioVisualization", [
                 }
             },
 
-            cancelFrame: function(ID) {
-                var _ID = ID || this.renderFrame;
-                cancelAnimationFrame(_ID);
+            _cancelFrame: function() {
+                cancelAnimationFrame(this.frameID);
             },
 
             updateSourceStream: function() {
-                this.cancelFrame();
+                this._cancelFrame();
                 this.initializeVisualEffect();
                 // this._analyser = new AudioAnalyser(this._recorder.stream());
                 // this._analyser.destroy();
@@ -198,24 +220,20 @@ Scoped.define("module:AudioVisualization", [
 
                 if (typeof g === 'undefined') g = r;
                 if (typeof b === 'undefined') b = r;
-                return 'rgb(' + this.__clamp(Math.round(r), 0, 255) + ', ' + this.__clamp(Math.round(g), 0, 255) + ', ' + this.__clamp(Math.round(b), 0, 255) + ')';
+                return 'rgb(' + Maths.clamp(Math.round(r), 0, 255) + ', ' + Maths.clamp(Math.round(g), 0, 255) + ', ' + Maths.clamp(Math.round(b), 0, 255) + ')';
 
             },
 
             __rgba: function(r, g, b, a) {
                 if (typeof g === 'undefined') {
-                    return 'rgb(' + this.__clamp(Math.round(r), 0, 255) + ', ' + this.__clamp(Math.round(r), 0, 255) + ', ' + this.__clamp(Math.round(r), 0, 255) + ')';
+                    return 'rgb(' + Maths.clamp(Math.round(r), 0, 255) + ', ' + Maths.clamp(Math.round(r), 0, 255) + ', ' + Maths.clamp(Math.round(r), 0, 255) + ')';
                 } else if (typeof b === 'undefined') {
-                    return 'rgba(' + this.__clamp(Math.round(r), 0, 255) + ', ' + this.__clamp(Math.round(r), 0, 255) + ', ' + this.__clamp(Math.round(r), 0, 255) + ', ' + this.__clamp(g, 0, 1) + ')';
+                    return 'rgba(' + Maths.clamp(Math.round(r), 0, 255) + ', ' + Maths.clamp(Math.round(r), 0, 255) + ', ' + Maths.clamp(Math.round(r), 0, 255) + ', ' + Maths.clamp(g, 0, 1) + ')';
                 } else if (typeof a === 'undefined') {
-                    return 'rgba(' + this.__clamp(Math.round(r), 0, 255) + ', ' + this.__clamp(Math.round(g), 0, 255) + ', ' + this.__clamp(Math.round(b), 0, 255) + ', 1)';
+                    return 'rgba(' + Maths.clamp(Math.round(r), 0, 255) + ', ' + Maths.clamp(Math.round(g), 0, 255) + ', ' + Maths.clamp(Math.round(b), 0, 255) + ', 1)';
                 } else {
-                    return 'rgba(' + this.__clamp(Math.round(r), 0, 255) + ', ' + this.__clamp(Math.round(g), 0, 255) + ', ' + this.__clamp(Math.round(b), 0, 255) + ', ' + this.__clamp(a, 0, 1) + ')';
+                    return 'rgba(' + Maths.clamp(Math.round(r), 0, 255) + ', ' + Maths.clamp(Math.round(g), 0, 255) + ', ' + Maths.clamp(Math.round(b), 0, 255) + ', ' + Maths.clamp(a, 0, 1) + ')';
                 }
-            },
-
-            __clamp: function(value, min, max) {
-                return Math.min(Math.max(value, Math.min(min, max)), Math.max(min, max));
             }
         };
     }, {

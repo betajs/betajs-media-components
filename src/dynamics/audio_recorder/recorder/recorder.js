@@ -188,17 +188,8 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                             this.set("autorecord", false);
                         }
                     },
-                    "change:visualeffectsupported": function(value) {
-                        if (!value) {
-                            // If after checking we found that AudioAnalyzer not supported we should remove canvas
-                            if (this.audioVisualization) {
-                                if (this.audioVisualization.canvas)
-                                    this.audioVisualization.canvas.remove();
-                                this.audioVisualization.destroy();
-                            }
-                        } else if (this.audioVisualization) {
-                            this.audioVisualization.renderFrame();
-                        }
+                    "change:visualeffectsupported": function(supported) {
+                        if (!supported && this.audioVisualization) this.audioVisualization.destroy();
                     }
                 },
 
@@ -364,6 +355,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                                         if (this.recorder._analyser) {
                                             try {
                                                 this.audioVisualization.initializeVisualEffect();
+                                                this.audioVisualization.start();
                                                 this.set("visualeffectsupported", true);
                                             } catch (ex) {
                                                 this.set("visualeffectsupported", false);
@@ -435,9 +427,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                 _stopRecording: function() {
                     if (!this.__recording)
                         return Promise.error(true);
-                    // Destroy audio visualization effect for the recorder
-                    if (this.audioVisualization)
-                        this.audioVisualization.cancelFrame(this.audioVisualization.frameID);
+                    if (this.audioVisualization) this.audioVisualization.stop();
                     return this.recorder.stopRecord({
                         audio: this.get("uploadoptions").audio,
                         webrtcStreaming: this.get("uploadoptions").webrtcStreaming

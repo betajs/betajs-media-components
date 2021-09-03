@@ -637,10 +637,12 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                             this.set("position", new_position);
                             this.set("buffered", this.player.buffered());
                             var pld = this.player.duration();
-                            if (0.0 < pld && pld < Infinity) {
+                            if (this.get("totalduration")) {
+                                this.set("duration", this.get("totalduration"));
+                            } else if (0.0 < pld && pld < Infinity) {
                                 this.set("duration", this.player.duration());
                             } else {
-                                this.set("duration", this.get("totalduration") || new_position);
+                                this.set("duration", new_position);
                             }
                         }
                     } catch (e) {}

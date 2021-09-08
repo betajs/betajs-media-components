@@ -159,7 +159,7 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.LoadAudio", [
                     this.dyn.execute("seek", this.dyn.get("autoseek"));
                 this.next("PlayAudio");
             }, this);
-            if (this.dyn.get("skipinitial") || !this.dyn.get("autoplay")) {
+            if (!this.dyn.get("autoplay")) {
                 this.next("PlayAudio");
             } else {
                 var counter = 10;
@@ -213,8 +213,6 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.PlayAudio", [
         _started: function() {
             this.dyn.set("autoplay", false);
             // As during loop we will play player after ended event fire, need initial cover will be hidden
-            if (this.dyn.get("loop"))
-                this.dyn.set("skipinitial", true);
             this.listenOn(this.dyn, "ended", function() {
                 this.dyn.set("autoseek", null);
                 this.next("NextAudio");

@@ -28,7 +28,7 @@
 
 .#{$cssvideoplayer}-poster-container, .#{$cssvideoplayer}-poster-container img,
 .#{$cssvideoplayer}-video-container, .#{$cssvideoplayer}-video-container video {
-    position: absolute;
+    @include absolute-align-all();
     width: 100%;
     height: 100%;
 }

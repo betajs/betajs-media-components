@@ -159,7 +159,7 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.LoadAudio", [
                     this.dyn.execute("seek", this.dyn.get("autoseek"));
                 this.next("PlayAudio");
             }, this);
-            if (this.dyn.get("skipinitial") && !this.dyn.get("autoplay")) {
+            if (this.dyn.get("skipinitial") || !this.dyn.get("autoplay")) {
                 this.next("PlayAudio");
             } else {
                 var counter = 10;

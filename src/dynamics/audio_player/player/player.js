@@ -174,16 +174,6 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                         volumelevel: this.get("volume")
                     }));
 
-                    if ((Info.isMobile() || Info.isChromiumBased()) && (this.get("autoplay") || this.get("playwhenvisible"))) {
-                        this.set("volume", 0.0);
-                        this.set("forciblymuted", true);
-
-                        //if (!(Info.isiOS() && Info.iOSversion().major >= 10)) {
-                        //this.set("autoplay", false);
-                        //this.set("loop", false);
-                        //}
-                    }
-
                     if (this.get("theme") in Assets.audioplayerthemes) {
                         Objs.iter(Assets.audioplayerthemes[this.get("theme")], function(value, key) {
                             if (!this.isArgumentAttr(key))

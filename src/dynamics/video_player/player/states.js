@@ -20,7 +20,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
                 this.dyn.set(key + "_active", value);
             }, this);
             if (this.dyn.parent()) {
-                if (this.dyn.parent().record !== 'undefined' && this.dyn.parent().host !== 'undefined') {
+                if (this.dyn.parent().record !== undefined && this.dyn.parent().host !== undefined) {
                     this.dyn._isRecorder = true;
                     this.dyn._recorderDyn = this.dyn.parent();
                     this.dyn._recorderHost = this.dyn._recorderDyn.host;

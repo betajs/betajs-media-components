@@ -166,8 +166,18 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.LoadAudio", [
                 this.auto_destroy(new Timer({
                     context: this,
                     fire: function() {
-                        if (!this.destroyed() && !this.dyn.destroyed() && this.dyn.player)
-                            this.dyn.player.play();
+                        if (!this.destroyed() && !this.dyn.destroyed() && this.dyn.player) {
+                            try {
+                                var promise = this.dyn.player.play();
+                                if (promise) {
+                                    promise.success(function() {
+                                        this.next("PlayAudio");
+                                    });
+                                }
+                            } catch (e) {
+                                // browsers released before 2019 may not return promise on play()
+                            }
+                        }
                         counter--;
                         if (counter === 0)
                             this.next("PlayAudio");

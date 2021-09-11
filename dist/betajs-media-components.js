@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.279 - 2021-09-08
+betajs-media-components - v0.0.280 - 2021-09-11
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.279 - 2021-09-08
+betajs-media-components - v0.0.280 - 2021-09-11
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.279",
-    "datetime": 1631115718089
+    "version": "0.0.280",
+    "datetime": 1631365648350
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -13870,20 +13870,12 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                 remove_on_destroy: true,
 
                 create: function() {
+                    if (this.get("visualeffectvisible") && (!this.get("height") || this.get("height") < this.get("visualeffectminheight")))
+                        this.set("height", this.get("visualeffectminheight"));
                     // Will set volume initial state
                     this.set("initialoptions", Objs.tree_merge(this.get("initialoptions"), {
                         volumelevel: this.get("volume")
                     }));
-
-                    if ((Info.isMobile() || Info.isChromiumBased()) && (this.get("autoplay") || this.get("playwhenvisible"))) {
-                        this.set("volume", 0.0);
-                        this.set("forciblymuted", true);
-
-                        //if (!(Info.isiOS() && Info.iOSversion().major >= 10)) {
-                        //this.set("autoplay", false);
-                        //this.set("loop", false);
-                        //}
-                    }
 
                     if (this.get("theme") in Assets.audioplayerthemes) {
                         Objs.iter(Assets.audioplayerthemes[this.get("theme")], function(value, key) {
@@ -14338,10 +14330,12 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                             this.set("position", new_position);
                             this.set("buffered", this.player.buffered());
                             var pld = this.player.duration();
-                            if (0.0 < pld && pld < Infinity) {
+                            if (this.get("totalduration")) {
+                                this.set("duration", this.get("totalduration"));
+                            } else if (0.0 < pld && pld < Infinity) {
                                 this.set("duration", this.player.duration());
                             } else {
-                                this.set("duration", this.get("totalduration") || new_position);
+                                this.set("duration", new_position);
                             }
                         }
                     } catch (e) {}
@@ -14539,15 +14533,25 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.LoadAudio", [
                     this.dyn.execute("seek", this.dyn.get("autoseek"));
                 this.next("PlayAudio");
             }, this);
-            if (this.dyn.get("skipinitial") && !this.dyn.get("autoplay")) {
+            if (!this.dyn.get("autoplay")) {
                 this.next("PlayAudio");
             } else {
                 var counter = 10;
                 this.auto_destroy(new Timer({
                     context: this,
                     fire: function() {
-                        if (!this.destroyed() && !this.dyn.destroyed() && this.dyn.player)
-                            this.dyn.player.play();
+                        if (!this.destroyed() && !this.dyn.destroyed() && this.dyn.player) {
+                            try {
+                                var promise = this.dyn.player.play();
+                                if (promise) {
+                                    promise.success(function() {
+                                        this.next("PlayAudio");
+                                    });
+                                }
+                            } catch (e) {
+                                // browsers released before 2019 may not return promise on play()
+                            }
+                        }
                         counter--;
                         if (counter === 0)
                             this.next("PlayAudio");
@@ -14593,8 +14597,6 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.PlayAudio", [
         _started: function() {
             this.dyn.set("autoplay", false);
             // As during loop we will play player after ended event fire, need initial cover will be hidden
-            if (this.dyn.get("loop"))
-                this.dyn.set("skipinitial", true);
             this.listenOn(this.dyn, "ended", function() {
                 this.dyn.set("autoseek", null);
                 this.next("NextAudio");

@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.279 - 2021-09-08
+betajs-media-components - v0.0.280 - 2021-09-11
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -4495,8 +4495,13 @@ div.ba-videorecorder-disabled * {
   position: relative;
   text-align: center;
   cursor: pointer;
+  display: inline-flex;
   color: #FFF;
   font-size: 14px;
+}
+
+.ba-audioplayer-leftbutton-container .ba-audioplayer-button-inner {
+  left: 25%;
 }
 
 .ba-audioplayer-button-text {
@@ -4660,6 +4665,10 @@ div.ba-videorecorder-disabled * {
   padding-bottom: 39px;
   position: relative;
   overflow: hidden;
+}
+
+.ba-audioplayer-container canvas {
+  position: absolute;
 }
 
 .ba-audioplayer-audio {

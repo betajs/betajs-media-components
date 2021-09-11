@@ -169,6 +169,8 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                 remove_on_destroy: true,
 
                 create: function() {
+                    if (this.get("visualeffectvisible") && (!this.get("height") || this.get("height") < this.get("visualeffectminheight")))
+                        this.set("height", this.get("visualeffectminheight"));
                     // Will set volume initial state
                     this.set("initialoptions", Objs.tree_merge(this.get("initialoptions"), {
                         volumelevel: this.get("volume")

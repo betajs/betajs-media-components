@@ -6,6 +6,10 @@
 	overflow: hidden;
 }
 
+.#{$css}-container canvas {
+    position: absolute;
+}
+
 .#{$css}-audio {
     width: 100%;
     display: block;

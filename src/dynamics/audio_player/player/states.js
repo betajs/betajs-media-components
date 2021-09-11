@@ -159,15 +159,25 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.LoadAudio", [
                     this.dyn.execute("seek", this.dyn.get("autoseek"));
                 this.next("PlayAudio");
             }, this);
-            if (this.dyn.get("skipinitial") && !this.dyn.get("autoplay")) {
+            if (!this.dyn.get("autoplay")) {
                 this.next("PlayAudio");
             } else {
                 var counter = 10;
                 this.auto_destroy(new Timer({
                     context: this,
                     fire: function() {
-                        if (!this.destroyed() && !this.dyn.destroyed() && this.dyn.player)
-                            this.dyn.player.play();
+                        if (!this.destroyed() && !this.dyn.destroyed() && this.dyn.player) {
+                            try {
+                                var promise = this.dyn.player.play();
+                                if (promise) {
+                                    promise.success(function() {
+                                        this.next("PlayAudio");
+                                    });
+                                }
+                            } catch (e) {
+                                // browsers released before 2019 may not return promise on play()
+                            }
+                        }
                         counter--;
                         if (counter === 0)
                             this.next("PlayAudio");
@@ -213,8 +223,6 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.PlayAudio", [
         _started: function() {
             this.dyn.set("autoplay", false);
             // As during loop we will play player after ended event fire, need initial cover will be hidden
-            if (this.dyn.get("loop"))
-                this.dyn.set("skipinitial", true);
             this.listenOn(this.dyn, "ended", function() {
                 this.dyn.set("autoseek", null);
                 this.next("NextAudio");

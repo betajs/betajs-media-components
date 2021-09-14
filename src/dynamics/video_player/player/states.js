@@ -287,7 +287,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadError", [
             this.dyn.set("message", this.dyn.string("video-error"));
             this.listenOn(this.dyn, "message:click", function() {
                 if (!this.nextToChooser(this.dyn.get("message")))
-                    this.next("LoadPlayer");
+                    this.next("Initial");
             }, this);
         }
 

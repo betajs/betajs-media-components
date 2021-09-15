@@ -286,8 +286,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadError", [
         _started: function() {
             this.dyn.set("message", this.dyn.string("video-error"));
             this.listenOn(this.dyn, "message:click", function() {
-                if (!this.nextToChooser(this.dyn.get("message")))
-                    this.next("Initial");
+                this.next("Initial");
             }, this);
         }
 
@@ -386,8 +385,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterError", [
         _started: function() {
             this.dyn.set("message", this.dyn.string("video-error"));
             this.listenOn(this.dyn, "message:click", function() {
-                if (!this.nextToChooser(this.dyn.get("message")))
-                    this.next(this.dyn.get("states").poster_error.click_play ? "LoadVideo" : "LoadPlayer");
+                this.next(this.dyn.get("states").poster_error.click_play ? "LoadVideo" : "LoadPlayer");
             }, this);
         }
 

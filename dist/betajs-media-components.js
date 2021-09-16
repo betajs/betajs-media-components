@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.280 - 2021-09-11
+betajs-media-components - v0.0.281 - 2021-09-16
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.280 - 2021-09-11
+betajs-media-components - v0.0.281 - 2021-09-16
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.280",
-    "datetime": 1631365648350
+    "version": "0.0.281",
+    "datetime": 1631772215519
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -6964,7 +6964,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
                 this.dyn.set(key + "_active", value);
             }, this);
             if (this.dyn.parent()) {
-                if (this.dyn.parent().record !== 'undefined' && this.dyn.parent().host !== 'undefined') {
+                if (this.dyn.parent().record !== undefined && this.dyn.parent().host !== undefined) {
                     this.dyn._isRecorder = true;
                     this.dyn._recorderDyn = this.dyn.parent();
                     this.dyn._recorderHost = this.dyn._recorderDyn.host;
@@ -7230,8 +7230,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadError", [
         _started: function() {
             this.dyn.set("message", this.dyn.string("video-error"));
             this.listenOn(this.dyn, "message:click", function() {
-                if (!this.nextToChooser(this.dyn.get("message")))
-                    this.next("LoadPlayer");
+                this.next("Initial");
             }, this);
         }
 
@@ -7330,8 +7329,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterError", [
         _started: function() {
             this.dyn.set("message", this.dyn.string("video-error"));
             this.listenOn(this.dyn, "message:click", function() {
-                if (!this.nextToChooser(this.dyn.get("message")))
-                    this.next(this.dyn.get("states").poster_error.click_play ? "LoadVideo" : "LoadPlayer");
+                this.next(this.dyn.get("states").poster_error.click_play ? "LoadVideo" : "LoadPlayer");
             }, this);
         }
 

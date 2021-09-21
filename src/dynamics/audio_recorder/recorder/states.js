@@ -587,7 +587,7 @@ Scoped.define("module:AudioRecorder.Dynamics.RecorderStates.Recording", [
         },
 
         _hasStopped: function() {
-            this.dyn.set("duration", Time.now() - this._startTime - this.__pauseDelta);
+            this.dyn.set("duration", (Time.now() - this._startTime - this.__pauseDelta) / 1000);
             this.dyn._unbindMedia();
             this.dyn.trigger("recording_stopped");
         }

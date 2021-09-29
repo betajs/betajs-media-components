@@ -234,6 +234,8 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                         delay: 250,
                         start: true
                     });
+
+                    this._initSettings();
                 },
 
                 state: function() {
@@ -384,6 +386,10 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     return this.recorder && this.recorder.isWebrtcStreaming();
                 },
 
+                _initSettings: function() {
+                    this.set("duration", 0);
+                },
+
                 _initializeUploader: function() {
                     if (this._dataUploader)
                         this._dataUploader.weakDestroy();
@@ -493,8 +499,10 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     },
 
                     rerecord: function() {
-                        if (confirm(this.stringUnicode("rerecord-confirm")))
+                        if (confirm(this.stringUnicode("rerecord-confirm"))) {
                             this.host.state().rerecord();
+                            this._initSettings();
+                        }
                     },
 
                     stop: function() {
@@ -553,6 +561,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                         this._stopRecording().callback(function() {
                             this._unbindMedia();
                             this._detachRecorder();
+                            this._initSettings();
                             this.host.state().next("Initial");
                         }, this);
                     },

@@ -299,9 +299,20 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
                     this._uploadFile(file);
                 }, this).error(function(e) {
                     if (e.code === MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED) {
-                        // skip allowtrim/localplayback, show different error message on uploading.
-                        this.dyn.set("allowtrim", false);
-                        this.dyn.set("localplayback", false);
+                        // skip allowtrim/localplayback/snapshotfromuploader, show different error message on uploading.
+                        if (this.dyn.get("allowtrim") == true) {
+                            this.dyn.set("allowtrim", false);
+                            this.dyn.set("was_allowtrim", true);
+                        }
+                        if (this.dyn.get("localplayback") == true) {
+                            this.dyn.set("localplayback", false);
+                            this.dyn.set("was_localplayback", true);
+                        }
+                        if (this.dyn.get("snapshotfromuploader") == true) {
+                            this.dyn.set("snapshotfromuploader", false);
+                            this.dyn.set("was_snapshotfromuploader", true);
+                        }
+
                         this.dyn.set("media_src_not_supported", true);
                     }
                     this._uploadFile(file);
@@ -1301,11 +1312,14 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
                 this.dyn.set("controlbar_active", true);
             this.dyn.set("hovermessage", "");
             this.dyn.set("topmessage", "");
-            if (this.dyn.get("media_src_not_supported") == true) {
+
+            if (this.dyn.get("media_src_not_supported") == true && (
+                    (this.dyn.get("was_allowtrim") == true) || (this.dyn.get("was_localplayback") == true) || (this.dyn.get("was_snapshotfromuploader") == true))) {
                 this.dyn.set("uploading-message", this.dyn.string("uploading-src-error"));
             } else {
                 this.dyn.set("uploading-message", this.dyn.string("uploading"));
             }
+
             this.dyn.set("message", this.dyn.get("uploading-message"));
             this.dyn.set("playertopmessage", this.dyn.get("message"));
             var uploader = this.dyn._dataUploader;

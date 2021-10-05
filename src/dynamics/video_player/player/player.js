@@ -1,6 +1,7 @@
 Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "dynamics:Dynamic",
     "module:Assets",
+    "module:StickyHandler",
     "module:TrackTags",
     "browser:Info",
     "browser:Dom",
@@ -33,7 +34,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.TemplatePartial",
     "dynamics:Partials.HotkeyPartial"
-], function(Class, Assets, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, Types, Objs, Strings, Time, Timers, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
+], function(Class, Assets, StickyHandler, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, Types, Objs, Strings, Time, Timers, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -141,6 +142,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "chromecast": false,
                     "chromecastreceiverappid": null, // Could be published custom App ID https://cast.google.com/publish/#/overview
                     "skipseconds": 5,
+                    "sticky": false,
                     "tracktags": [],
                     "tracktagsstyled": true,
                     "tracktaglang": 'en',
@@ -243,6 +245,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "chromecast": "boolean",
                     "chromecastreceiverappid": "string",
                     "skipseconds": "integer",
+                    "sticky": "boolean",
                     "streams": "jsonarray",
                     "sources": "jsonarray",
                     "tracktags": "jsonarray",
@@ -474,6 +477,26 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         delay: 100,
                         start: true
                     });
+
+                    if (this.get("sticky")) {
+                        var stickyOptions = {
+                            paused: true
+                        };
+                        this.stickyHandler = this.auto_destroy(new StickyHandler(
+                            this.activeElement().firstChild,
+                            this.activeElement(),
+                            stickyOptions
+                        ));
+                        this.stickyHandler.init();
+                        this.set("fadeup", true);
+                        this.stickyHandler.on("elementLeftView", function() {
+                            this.set("sticktoview", true);
+                        }, this);
+                        this.stickyHandler.on("containerEnteredView", function() {
+                            this.set("sticktoview", false);
+                            if (this.get("fadeup") && this.stickyHandler.elementWasDragged()) this.set("fadeup", false);
+                        }, this);
+                    }
                 },
 
                 state: function() {
@@ -1145,6 +1168,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     toggle_player: function() {
+                        if (this.get("sticky") && this.stickyHandler.isDragging()) {
+                            this.stickyHandler.stopDragging();
+                            return;
+                        }
                         if (this.get("playing") && this.get("preventinteractionstatus")) return;
                         if (this._delegatedPlayer) {
                             this._delegatedPlayer.execute("toggle_player");

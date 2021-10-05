@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.283 - 2021-10-03
+betajs-media-components - v0.0.284 - 2021-10-05
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.283 - 2021-10-03
+betajs-media-components - v0.0.284 - 2021-10-05
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.283",
-    "datetime": 1633282033814
+    "version": "0.0.284",
+    "datetime": 1633441143679
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -1332,13 +1332,16 @@ Scoped.define("module:Ads.VAST.Ad", ["base:Class", "base:Objs", "base:Events.Eve
                 storage = null;
             }
             isDisabled = function(store) {
-                var e, testValue;
+                var e, testValue, storeValue;
                 try {
                     testValue = '__VAST__';
+                    storeValue = store.getItem(testValue);
                     store.setItem(testValue, testValue);
                     if (store.getItem(testValue) !== testValue) {
                         return true;
                     }
+                    if (storeValue) store.setItem(testValue, storeValue);
+                    else store.removeItem(testValue);
                 } catch (error) {
                     e = error;
                     return true;

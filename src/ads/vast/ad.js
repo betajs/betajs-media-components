@@ -127,13 +127,16 @@ Scoped.define("module:Ads.VAST.Ad", ["base:Class", "base:Objs", "base:Events.Eve
                 storage = null;
             }
             isDisabled = function(store) {
-                var e, testValue;
+                var e, testValue, storeValue;
                 try {
                     testValue = '__VAST__';
+                    storeValue = store.getItem(testValue);
                     store.setItem(testValue, testValue);
                     if (store.getItem(testValue) !== testValue) {
                         return true;
                     }
+                    if (storeValue) store.setItem(testValue, storeValue);
+                    else store.removeItem(testValue);
                 } catch (error) {
                     e = error;
                     return true;

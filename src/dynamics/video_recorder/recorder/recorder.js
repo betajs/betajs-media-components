@@ -1,6 +1,7 @@
 Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
     "dynamics:Dynamic",
     "module:Assets",
+    "module:StylesMixin",
     "browser:Info",
     "browser:Dom",
     "browser:Events",
@@ -38,10 +39,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.TemplatePartial",
     "dynamics:Partials.HotkeyPartial"
-], function(Class, Assets, Info, Dom, DomEvents, MultiUploader, FileUploader, VideoRecorderWrapper, RecorderSupport, WebRTCSupport, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Collection, Promise, InitialState, RecorderStates, scoped) {
+], function(Class, Assets, StylesMixin, Info, Dom, DomEvents, MultiUploader, FileUploader, VideoRecorderWrapper, RecorderSupport, WebRTCSupport, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Collection, Promise, InitialState, RecorderStates, scoped) {
     return Class.extend({
             scoped: scoped
-        }, function(inherited) {
+        }, [StylesMixin, function(inherited) {
             return {
 
                 template: "<%= template(dirname + '/recorder.html') %>",
@@ -248,6 +249,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                                 }
                             }
                         }
+                        if (this.activeElement()) this._applyStyles(this.activeElement(), result, this.__lastContainerSizingStyles);
+                        this.__lastContainerSizingStyles = result;
                         return result;
                     },
                     "canswitchcamera:recordviafilecapture": function() {
@@ -424,6 +427,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         delay: 250,
                         start: true
                     });
+
+                    this.activeElement().style.setProperty("display", "inline-block");
+                    this._applyStyles(this.activeElement(), this.get("containerSizingStyles"));
 
                     this.__cameraResponsive = true;
                     this.__cameraSignal = true;
@@ -1324,7 +1330,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     }, this);
                 }
             };
-        }, {
+        }], {
 
             recorderStates: function() {
                 return [RecorderStates];

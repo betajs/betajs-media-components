@@ -2,6 +2,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "dynamics:Dynamic",
     "module:Assets",
     "module:StickyHandler",
+    "module:StylesMixin",
     "module:TrackTags",
     "browser:Info",
     "browser:Dom",
@@ -34,10 +35,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.TemplatePartial",
     "dynamics:Partials.HotkeyPartial"
-], function(Class, Assets, StickyHandler, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, Types, Objs, Strings, Time, Timers, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
+], function(Class, Assets, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, Types, Objs, Strings, Time, Timers, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
-        }, function(inherited) {
+        }, [StylesMixin, function(inherited) {
             return {
 
                 template: "<%= template(dirname + '/player.html') %>",
@@ -342,6 +343,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 result.width = Math.floor(height * (aspectRatio || (fallbackWidth / fallbackHeight))) + "px";
                             }
                         }
+                        if (this.activeElement()) this._applyStyles(this.activeElement(), result, this.__lastContainerSizingStyles);
+                        this.__lastContainerSizingStyles = result;
                         return result;
                     },
                     "buffering:buffered,position,last_position_change_delta,playing": function() {
@@ -477,6 +480,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         delay: 100,
                         start: true
                     });
+
+                    this.activeElement().style.setProperty("display", "inline-block");
+                    this._applyStyles(this.activeElement(), this.get("containerSizingStyles"));
 
                     if (this.get("sticky")) {
                         var stickyOptions = {
@@ -1442,7 +1448,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     };
                 }
             };
-        }, {
+        }], {
 
             playerStates: function() {
                 return [PlayerStates];

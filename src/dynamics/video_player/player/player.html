@@ -26,7 +26,8 @@
              ba-hotkey:alt+right="{{seek(position + skipseconds * 3)}}" ba-hotkey:alt+left="{{seek(position - skipseconds * 3)}}"
              ba-hotkey:up="{{set_volume(volume + 0.1)}}" ba-hotkey:down="{{set_volume(volume - 0.1)}}"
              ba-hotkey:space^enter="{{toggle_player()}}"
-             ba-on:click="{{toggle_player()}}"
+             ba-on:mouseup="{{toggle_player()}}"
+             ba-on:touchend="{{toggle_player()}}"
         ></div>
         <ba-{{dyncontrolbar}}
             ba-css="{{csscontrolbar || css}}"

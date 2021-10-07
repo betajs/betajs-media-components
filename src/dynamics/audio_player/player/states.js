@@ -256,7 +256,6 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.NextAudio", [
                 var pl0, initialPlaylist;
                 var list = this.dyn.get("playlist");
                 var head = list.shift();
-                this.dyn.resetTimer = true;
                 this.dyn.get("initialoptions").playlist.push(head);
                 if (list.length > 0) {
                     pl0 = list[0];

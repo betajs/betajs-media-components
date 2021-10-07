@@ -286,7 +286,7 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.NextAudio", [
                 }
             }
 
-            this.next("LoadPlayer");
+            this.next("LoadAudio");
         },
 
         /**

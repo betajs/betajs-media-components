@@ -256,7 +256,6 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.NextAudio", [
                 var pl0, initialPlaylist;
                 var list = this.dyn.get("playlist");
                 var head = list.shift();
-                this.dyn.resetTimer = true;
                 this.dyn.get("initialoptions").playlist.push(head);
                 if (list.length > 0) {
                     pl0 = list[0];
@@ -298,8 +297,9 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.NextAudio", [
         _playNext: function(pl) {
             this.dyn.trigger("playlist-next", pl);
             this.dyn.set("autoplay", true);
-            this.next("LoadPlayer");
-            // As this.next("LoadPlayer") already contains reattach, no need for this.dyn.reattachAudio();
+            // this.next("LoadPlayer") will reattach audio which cause twice player bidings
+            // as a result old duration is set as a new one;
+            this.next("LoadAudio");
         }
     });
 });

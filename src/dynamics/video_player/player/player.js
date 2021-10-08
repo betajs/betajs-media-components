@@ -134,6 +134,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "playwhenvisible": false,
                     "minwidth": 320,
                     "minheight": 240,
+                    "maxwidth": null,
+                    "maxheight": null,
                     "disablepause": false,
                     "disableseeking": false,
                     "tracktextvisible": false,
@@ -234,6 +236,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "manuallypaused": "boolean",
                     "minwidth": "int",
                     "minheight": "int",
+                    "maxwidth": "int",
+                    "maxheight": "int",
                     "disablepause": "boolean",
                     "disableseeking": "boolean",
                     "playonclick": "boolean",
@@ -339,6 +343,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 result.width = Math.floor(height * (aspectRatio || (fallbackWidth / fallbackHeight))) + "px";
                             }
                         }
+                        if (this.get("maxwidth")) result.maxWidth = this.get("maxwidth") + "px";
+                        if (this.get("maxheight")) result.maxHeight = this.get("maxheight") + "px";
                         return result;
                     },
                     "buffering:buffered,position,last_position_change_delta,playing": function() {

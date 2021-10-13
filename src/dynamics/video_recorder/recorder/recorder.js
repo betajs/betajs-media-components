@@ -96,6 +96,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "allowupload": true,
                     "minheight": 240,
                     "minwidth": 320,
+                    "maxheight": null,
+                    "maxwidth": null,
                     "allowcustomupload": true,
                     "manual-upload": false,
                     "camerafacefront": false,
@@ -248,6 +250,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                                 }
                             }
                         }
+                        if (this.get("maxwidth")) result.maxWidth = this.get("maxwidth") + "px";
+                        if (this.get("maxheight")) result.maxHeight = this.get("maxheight") + "px";
                         return result;
                     },
                     "canswitchcamera:recordviafilecapture": function() {
@@ -289,6 +293,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "manual-upload": "boolean",
                     "minwidth": "int",
                     "minheight": "int",
+                    "maxwidth": "int",
+                    "maxheight": "int",
                     "webrtcstreamingifnecessary": "boolean",
                     "microphone-volume": "float",
                     "audiobitrate": "int",

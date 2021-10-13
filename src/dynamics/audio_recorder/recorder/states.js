@@ -208,7 +208,15 @@ Scoped.define("module:AudioRecorder.Dynamics.RecorderStates.Chooser", [
                     this.dyn._audioFilePlaybackable = true;
                     this.dyn.set("duration", data.duration);
                     this._uploadFile(file);
-                }, this).error(function() {
+                }, this).error(function(e) {
+                    if (e.code === MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED) {
+                        if (this.dyn.get("localplayback")) {
+                            this.dyn.set("localplayback", false);
+                            this.dyn.set("was_localplayback", true);
+                        }
+                        this.dyn.set("media_src_not_supported", true);
+                    }
+
                     this._uploadFile(file);
                 }, this);
             } catch (e) {
@@ -591,10 +599,8 @@ Scoped.define("module:AudioRecorder.Dynamics.RecorderStates.Recording", [
             this.dyn._unbindMedia();
             this.dyn.trigger("recording_stopped");
         }
-
     });
 });
-
 
 
 Scoped.define("module:AudioRecorder.Dynamics.RecorderStates.Uploading", [
@@ -619,10 +625,15 @@ Scoped.define("module:AudioRecorder.Dynamics.RecorderStates.Uploading", [
             this.dyn.set("controlbarlabel", "");
             this.dyn.trigger("uploading");
             this.dyn.set("rerecordvisible", this.dyn.get("early-rerecord"));
+            if (this.dyn.get("media_src_not_supported") && this.dyn.get("was_localplayback")) {
+                this.dyn.set("uploading-message", this.dyn.string("uploading-src-error"));
+            } else {
+                this.dyn.set("uploading-message", this.dyn.string("uploading"));
+            }
             if (this.dyn.get("early-rerecord"))
                 this.dyn.set("controlbar_active", true);
             this.dyn.set("hovermessage", "");
-            this.dyn.set("message", this.dyn.string("uploading"));
+            this.dyn.set("message", this.dyn.get("uploading-message"));
             var uploader = this.dyn._dataUploader;
             this.listenOn(uploader, "success", function() {
                 Async.eventually(function() {
@@ -652,7 +663,7 @@ Scoped.define("module:AudioRecorder.Dynamics.RecorderStates.Uploading", [
                 if (total !== 0 && total > 0 && uploaded >= 0) {
                     var up = Math.min(100, Math.round(uploaded / total * 100));
                     if (!isNaN(up)) {
-                        this.dyn.set("message", this.dyn.string("uploading") + ": " + up + "%");
+                        this.dyn.set("message", this.dyn.get("uploading-message") + ": " + up + "%");
                         this.dyn.set("playertopmessage", this.dyn.get("message"));
                     }
                 }

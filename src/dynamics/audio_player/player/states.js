@@ -32,8 +32,23 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.State", [
 
         play: function() {
             this.dyn.set("autoplay", true);
-        }
+        },
 
+        nextToChooser: function(message) {
+            var _dyn = this.dyn;
+
+            if (!_dyn._isRecorder)
+                return false;
+
+            if (typeof _dyn._recorderHost.next === 'function') {
+                _dyn._recorderHost.next("FatalError", {
+                    message: message,
+                    retry: "Chooser"
+                });
+                return true;
+            } else
+                return false;
+        }
     }]);
 });
 
@@ -51,7 +66,6 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.FatalError", [
         _started: function() {
             this.dyn.set("message", this._message || this.dyn.string("audio-error"));
         }
-
     });
 });
 
@@ -204,7 +218,10 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.ErrorAudio", [
         _started: function() {
             this.dyn.set("message", this.dyn.string("audio-error"));
             this.listenOn(this.dyn, "message:click", function() {
-                this.next("Initial");
+                if (!this.nextToChooser(this.dyn.get("message")))
+                    this.next("LoadAudio");
+                else
+                    this.next("Initial");
             }, this);
         }
 

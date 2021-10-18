@@ -657,6 +657,10 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
             "rerecord-confirm": "Do you really want to redo your audio?",
             "cancel-confirm": "Do you really want to cancel your audio upload?",
             "audio_file_too_large": "Your audio file is too large (%s) - click here to try again with a smaller audio file.",
-            "unsupported_audio_type": "Please upload: %s - click here to retry."
+            "unsupported_audio_type": "Please upload: %s - click here to retry.",
+            "uploading-src-error": "Unable to play back audio now, uploading is still in progress",
+            "missing-track": "Required audio track is missing",
+            "device-already-in-use": "At least one of your input devices are already in use",
+            "browser-permission-denied": "Permission denied by browser, please grant access and reload page"
         });
 });

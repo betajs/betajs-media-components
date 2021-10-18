@@ -227,3 +227,7 @@
   ba-videorecorder.uploading-src-error: 'Unable to play back video now, uploading is still in progress'
   ba-audiorecorder-controlbar.pause-recorder: Pause Recorder
   ba-audiorecorder-controlbar.resume-recorder: Resume Recorder
+  ba-audiorecorder.uploading-src-error: 'Unable to play back audio now, uploading is still in progress'
+  ba-audiorecorder.missing-track: Required audio track is missing
+  ba-audiorecorder.device-already-in-use: At least one of your input devices are already in use
+  ba-audiorecorder.browser-permission-denied: 'Permission denied by browser, please grant access and reload page'

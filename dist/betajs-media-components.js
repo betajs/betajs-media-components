@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.284 - 2021-10-05
+betajs-media-components - v0.0.285 - 2021-10-18
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.284 - 2021-10-05
+betajs-media-components - v0.0.285 - 2021-10-18
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.284",
-    "datetime": 1633441143679
+    "version": "0.0.285",
+    "datetime": 1634565374502
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -5644,8 +5644,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "topmessage": "",
                     "totalduration": null,
                     "playwhenvisible": false,
-                    "minwidth": 320,
-                    "minheight": 240,
+                    "minwidth": 240,
+                    "minheight": 180,
+                    "maxwidth": null,
+                    "maxheight": null,
                     "disablepause": false,
                     "disableseeking": false,
                     "tracktextvisible": false,
@@ -5746,6 +5748,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "manuallypaused": "boolean",
                     "minwidth": "int",
                     "minheight": "int",
+                    "maxwidth": "int",
+                    "maxheight": "int",
                     "disablepause": "boolean",
                     "disableseeking": "boolean",
                     "playonclick": "boolean",
@@ -5851,6 +5855,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 result.width = Math.floor(height * (aspectRatio || (fallbackWidth / fallbackHeight))) + "px";
                             }
                         }
+                        if (this.get("maxwidth")) result.maxWidth = this.get("maxwidth") + "px";
+                        if (this.get("maxheight")) result.maxHeight = this.get("maxheight") + "px";
                         return result;
                     },
                     "buffering:buffered,position,last_position_change_delta,playing": function() {
@@ -8502,6 +8508,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "allowupload": true,
                     "minheight": 240,
                     "minwidth": 320,
+                    "maxheight": null,
+                    "maxwidth": null,
                     "allowcustomupload": true,
                     "manual-upload": false,
                     "camerafacefront": false,
@@ -8654,6 +8662,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                                 }
                             }
                         }
+                        if (this.get("maxwidth")) result.maxWidth = this.get("maxwidth") + "px";
+                        if (this.get("maxheight")) result.maxHeight = this.get("maxheight") + "px";
                         return result;
                     },
                     "canswitchcamera:recordviafilecapture": function() {
@@ -8695,6 +8705,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "manual-upload": "boolean",
                     "minwidth": "int",
                     "minheight": "int",
+                    "maxwidth": "int",
+                    "maxheight": "int",
                     "webrtcstreamingifnecessary": "boolean",
                     "microphone-volume": "float",
                     "audiobitrate": "int",
@@ -10646,9 +10658,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
         _timerFire: function() {
             this.__firedTimes += 1;
             var limit = this.dyn.get("timelimit");
-            var current = (Info.isFirefox() ?
-                this._startTime + (this.__firedTimes * this.__timerDelay) :
-                Time.now()) - this.__pauseDelta;
+            var current = Time.now() - this.__pauseDelta;
             var display = Math.max(0, limit ? (this._startTime + limit * 1000 - current) : (current - this._startTime));
             this.dyn.trigger("recording_progress", current - this._startTime, !!this.dyn.__paused);
             this.dyn.set("controlbarlabel", this.dyn.get("display-timer") ? TimeFormat.format(TimeFormat.ELAPSED_MINUTES_SECONDS, display) : "");
@@ -14422,8 +14432,23 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.State", [
 
         play: function() {
             this.dyn.set("autoplay", true);
-        }
+        },
 
+        nextToChooser: function(message) {
+            var _dyn = this.dyn;
+
+            if (!_dyn._isRecorder)
+                return false;
+
+            if (typeof _dyn._recorderHost.next === 'function') {
+                _dyn._recorderHost.next("FatalError", {
+                    message: message,
+                    retry: "Chooser"
+                });
+                return true;
+            } else
+                return false;
+        }
     }]);
 });
 
@@ -14441,7 +14466,6 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.FatalError", [
         _started: function() {
             this.dyn.set("message", this._message || this.dyn.string("audio-error"));
         }
-
     });
 });
 
@@ -14594,7 +14618,10 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.ErrorAudio", [
         _started: function() {
             this.dyn.set("message", this.dyn.string("audio-error"));
             this.listenOn(this.dyn, "message:click", function() {
-                this.next("Initial");
+                if (!this.nextToChooser(this.dyn.get("message")))
+                    this.next("LoadAudio");
+                else
+                    this.next("Initial");
             }, this);
         }
 
@@ -14646,7 +14673,6 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.NextAudio", [
                 var pl0, initialPlaylist;
                 var list = this.dyn.get("playlist");
                 var head = list.shift();
-                this.dyn.resetTimer = true;
                 this.dyn.get("initialoptions").playlist.push(head);
                 if (list.length > 0) {
                     pl0 = list[0];
@@ -14677,7 +14703,7 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.NextAudio", [
                 }
             }
 
-            this.next("LoadPlayer");
+            this.next("LoadAudio");
         },
 
         /**
@@ -14688,8 +14714,9 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.NextAudio", [
         _playNext: function(pl) {
             this.dyn.trigger("playlist-next", pl);
             this.dyn.set("autoplay", true);
-            this.next("LoadPlayer");
-            // As this.next("LoadPlayer") already contains reattach, no need for this.dyn.reattachAudio();
+            // this.next("LoadPlayer") will reattach audio which cause twice player bidings
+            // as a result old duration is set as a new one;
+            this.next("LoadAudio");
         }
     });
 });
@@ -15644,7 +15671,11 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
             "rerecord-confirm": "Do you really want to redo your audio?",
             "cancel-confirm": "Do you really want to cancel your audio upload?",
             "audio_file_too_large": "Your audio file is too large (%s) - click here to try again with a smaller audio file.",
-            "unsupported_audio_type": "Please upload: %s - click here to retry."
+            "unsupported_audio_type": "Please upload: %s - click here to retry.",
+            "uploading-src-error": "Unable to play back audio now, uploading is still in progress",
+            "missing-track": "Required audio track is missing",
+            "device-already-in-use": "At least one of your input devices are already in use",
+            "browser-permission-denied": "Permission denied by browser, please grant access and reload page"
         });
 });
 Scoped.define("module:AudioRecorder.Dynamics.RecorderStates.State", [
@@ -15857,7 +15888,15 @@ Scoped.define("module:AudioRecorder.Dynamics.RecorderStates.Chooser", [
                     this.dyn._audioFilePlaybackable = true;
                     this.dyn.set("duration", data.duration);
                     this._uploadFile(file);
-                }, this).error(function() {
+                }, this).error(function(e) {
+                    if (e.code === MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED) {
+                        if (this.dyn.get("localplayback")) {
+                            this.dyn.set("localplayback", false);
+                            this.dyn.set("was_localplayback", true);
+                        }
+                        this.dyn.set("media_src_not_supported", true);
+                    }
+
                     this._uploadFile(file);
                 }, this);
             } catch (e) {
@@ -16185,9 +16224,7 @@ Scoped.define("module:AudioRecorder.Dynamics.RecorderStates.Recording", [
         _timerFire: function() {
             this.__firedTimes += 1;
             var limit = this.dyn.get("timelimit");
-            var current = (Info.isFirefox() ?
-                this._startTime + (this.__firedTimes * this.__timerDelay) :
-                Time.now()) - this.__pauseDelta;
+            var current = Time.now() - this.__pauseDelta;
             var display = Math.max(0, limit ? (this._startTime + limit * 1000 - current) : (current - this._startTime));
             this.dyn.trigger("recording_progress", current - this._startTime, !!this.dyn.__paused);
             this.dyn.set("controlbarlabel", this.dyn.get("display-timer") ? TimeFormat.format(TimeFormat.ELAPSED_MINUTES_SECONDS, display) : "");
@@ -16240,10 +16277,8 @@ Scoped.define("module:AudioRecorder.Dynamics.RecorderStates.Recording", [
             this.dyn._unbindMedia();
             this.dyn.trigger("recording_stopped");
         }
-
     });
 });
-
 
 
 Scoped.define("module:AudioRecorder.Dynamics.RecorderStates.Uploading", [
@@ -16268,10 +16303,15 @@ Scoped.define("module:AudioRecorder.Dynamics.RecorderStates.Uploading", [
             this.dyn.set("controlbarlabel", "");
             this.dyn.trigger("uploading");
             this.dyn.set("rerecordvisible", this.dyn.get("early-rerecord"));
+            if (this.dyn.get("media_src_not_supported") && this.dyn.get("was_localplayback")) {
+                this.dyn.set("uploading-message", this.dyn.string("uploading-src-error"));
+            } else {
+                this.dyn.set("uploading-message", this.dyn.string("uploading"));
+            }
             if (this.dyn.get("early-rerecord"))
                 this.dyn.set("controlbar_active", true);
             this.dyn.set("hovermessage", "");
-            this.dyn.set("message", this.dyn.string("uploading"));
+            this.dyn.set("message", this.dyn.get("uploading-message"));
             var uploader = this.dyn._dataUploader;
             this.listenOn(uploader, "success", function() {
                 Async.eventually(function() {
@@ -16301,7 +16341,7 @@ Scoped.define("module:AudioRecorder.Dynamics.RecorderStates.Uploading", [
                 if (total !== 0 && total > 0 && uploaded >= 0) {
                     var up = Math.min(100, Math.round(uploaded / total * 100));
                     if (!isNaN(up)) {
-                        this.dyn.set("message", this.dyn.string("uploading") + ": " + up + "%");
+                        this.dyn.set("message", this.dyn.get("uploading-message") + ": " + up + "%");
                         this.dyn.set("playertopmessage", this.dyn.get("message"));
                     }
                 }

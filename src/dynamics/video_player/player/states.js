@@ -207,6 +207,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Initial", [
         scoped: scoped
     }, {
 
+
         dynamics: ["loader"],
 
         _started: function() {

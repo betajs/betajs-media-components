@@ -141,6 +141,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "custom-covershots": false,
                     "selectfirstcovershotonskip": false,
                     "picksnapshotmandatory": false,
+                    "mandatoryorientation": null, // possible options "landscape", "portrait"
                     "manualsubmit": false,
                     "allowedextensions": null,
                     "filesizelimit": null,
@@ -339,6 +340,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "showplayersettingsmenu": "boolean",
                     "initialmessages": "array",
                     "screenrecordmandatory": "boolean",
+                    "mandatoryorientation": "string",
+                    "mandatoryresolutions": "array",
                     "pickcovershotframe": "boolean",
                     "allowtrim": "boolean",
                     "trimoverlay": "boolean"
@@ -498,6 +501,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                             _screen = {};
                         }
                     }
+
                     return {
                         simulate: this.get("simulate"),
                         recordVideo: !this.get("onlyaudio"),
@@ -1374,6 +1378,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
             "screen-recorder-is-not-supported": "Screen recorder is not supported on this device",
             "trim-prompt": "Do you want to trim your video?",
             "trim-video": "Move the start and end markers to trim your video",
-            "wait-for-trim": "Waiting for trim command..."
+            "wait-for-trim": "Waiting for trim command...",
+            "supported-mode": "Media resolution should be in '%s' mode.",
+            "re-choose-action": "Please click to choose another input device or retry action."
         });
 });

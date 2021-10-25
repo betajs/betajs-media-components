@@ -318,6 +318,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
         },
 
         play: function() {
+            if (this.dyn.get("sticky")) this.dyn.stickyHandler.start();
             if (!this.dyn.get("popup")) {
                 this.next("Preroll");
                 return;

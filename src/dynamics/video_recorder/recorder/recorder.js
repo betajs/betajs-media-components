@@ -763,6 +763,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     this.__activated = true;
                     if (this.__attachRequested)
                         this._attachRecorder();
+                    this.persistentTrigger("loaded");
                 },
 
                 _showBackgroundSnapshot: function() {

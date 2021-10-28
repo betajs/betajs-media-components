@@ -238,6 +238,7 @@ Scoped.define("module:AudioPlayer.Dynamics.PlayerStates.PlayAudio", [
         dynamics: ["controlbar"],
 
         _started: function() {
+            this.dyn.trigger("loaded");
             this.dyn.set("autoplay", false);
             // As during loop we will play player after ended event fire, need initial cover will be hidden
             this.listenOn(this.dyn, "ended", function() {

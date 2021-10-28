@@ -457,6 +457,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     this.__activated = true;
                     if (this.__attachRequested)
                         this._attachRecorder();
+                    this.persistentTrigger("loaded");
                 },
 
                 object_functions: [

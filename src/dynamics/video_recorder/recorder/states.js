@@ -59,10 +59,10 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.State", [
 
         checkOrientation: function(isPortrait, next) {
             next = next || "FatalError";
-            if (this.dyn.get("mandatoryorientation")) {
+            if (this.dyn.get("media-orientation")) {
                 if (
-                    (this.dyn.get("mandatoryorientation") === "portrait" && !isPortrait) ||
-                    (this.dyn.get("mandatoryorientation") === "landscape" && isPortrait)
+                    (this.dyn.get("media-orientation") === "portrait" && !isPortrait) ||
+                    (this.dyn.get("media-orientation") === "landscape" && isPortrait)
                 ) {
                     this.dyn.set("recordvisible", false);
                     var message = this.dyn.string("supported-mode")

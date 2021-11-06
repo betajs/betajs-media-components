@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.287 - 2021-10-30
+betajs-media-components - v0.0.288 - 2021-11-06
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.287 - 2021-10-30
+betajs-media-components - v0.0.288 - 2021-11-06
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.287",
-    "datetime": 1635613187743
+    "version": "0.0.288",
+    "datetime": 1636237628539
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -8763,7 +8763,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "custom-covershots": false,
                     "selectfirstcovershotonskip": false,
                     "picksnapshotmandatory": false,
-                    "mandatoryorientation": null, // possible options "landscape", "portrait"
+                    "media-orientation": null, // possible options "landscape", "portrait"
                     "manualsubmit": false,
                     "allowedextensions": null,
                     "filesizelimit": null,
@@ -8964,7 +8964,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "showplayersettingsmenu": "boolean",
                     "initialmessages": "array",
                     "screenrecordmandatory": "boolean",
-                    "mandatoryorientation": "string",
+                    "media-orientation": "string",
                     "mandatoryresolutions": "array",
                     "pickcovershotframe": "boolean",
                     "allowtrim": "boolean",
@@ -10076,10 +10076,10 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.State", [
 
         checkOrientation: function(isPortrait, next) {
             next = next || "FatalError";
-            if (this.dyn.get("mandatoryorientation")) {
+            if (this.dyn.get("media-orientation")) {
                 if (
-                    (this.dyn.get("mandatoryorientation") === "portrait" && !isPortrait) ||
-                    (this.dyn.get("mandatoryorientation") === "landscape" && isPortrait)
+                    (this.dyn.get("media-orientation") === "portrait" && !isPortrait) ||
+                    (this.dyn.get("media-orientation") === "landscape" && isPortrait)
                 ) {
                     this.dyn.set("recordvisible", false);
                     var message = this.dyn.string("supported-mode")

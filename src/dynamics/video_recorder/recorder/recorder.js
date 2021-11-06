@@ -142,7 +142,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "custom-covershots": false,
                     "selectfirstcovershotonskip": false,
                     "picksnapshotmandatory": false,
-                    "mandatoryorientation": null, // possible options "landscape", "portrait"
+                    "media-orientation": null, // possible options "landscape", "portrait"
                     "manualsubmit": false,
                     "allowedextensions": null,
                     "filesizelimit": null,
@@ -343,7 +343,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "showplayersettingsmenu": "boolean",
                     "initialmessages": "array",
                     "screenrecordmandatory": "boolean",
-                    "mandatoryorientation": "string",
+                    "media-orientation": "string",
                     "mandatoryresolutions": "array",
                     "pickcovershotframe": "boolean",
                     "allowtrim": "boolean",

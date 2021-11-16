@@ -11,7 +11,7 @@ $recorder_bgcolor: #000000;
 $chooser_background: #FDFDFD;
 $text_color: white;
 
-$button_color: #8CF;
+$accent_color: #8CF;
 
 $message_bgcolor: black;
 $message_opacity: 0.75;
@@ -24,11 +24,11 @@ $topmessage_fontweight: normal;
 
 $chooser_fontsize: 14px;
 $chooser_buttons_min_width: 12em;
-$chooser_primary_button_bgcolor: #8CF;
+$chooser_primary_button_bgcolor: $accent_color;
 $chooser_primary_button_vertical_padding: 12px;
 $chooser_primary_button_horizontal_padding: 32px;
 $chooser_primary_button_border_radius: 4px;
-$chooser_secondary_button_color: $chooser_primary_button_bgcolor;
+$chooser_secondary_button_color: $accent_color;
 $chooser_secondary_button_padding: 8px;
 
 $imagegallery_buttonmargin: 10px;
@@ -44,7 +44,7 @@ $settings_font_size: 12px;
 $settings_horizontal_margin: 8px;
 $settings_item_padding: 2px;
 $settings_radio_color: white;
-$settings_radio_color_selected: $button_color;
+$settings_radio_color_selected: $accent_color;
 
 $controlbar_height: 32px;
 $controlbar_opacity: 0.1;

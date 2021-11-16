@@ -73,6 +73,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "dynshare": "videoplayer-share",
                     "dyntracks": "videoplayer-tracks",
                     "dynsettingsmenu": "common-settingsmenu",
+                    "dyntrimmer": "videorecorder-trimmer",
 
                     /* Templates */
                     "tmplplaybutton": "",
@@ -152,6 +153,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "showsettingsmenu": true, // As a property show/hide from users
                     "posteralt": "",
                     "hidevolumebar": false,
+                    "hidecontrolbar": false,
                     "allowtexttrackupload": false,
                     "uploadtexttracksvisible": false,
                     "acceptedtracktexts": null,
@@ -288,13 +290,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.get("_timeUpdateEventHandler").clear();
                             }
                         } else {
+                            if (endTime < this.getCurrentPosition()) {
+                                this.player.setPosition(endTime);
+                            }
                             if (!this.get("_timeUpdateEventHandler")) {
                                 this.set("_timeUpdateEventHandler", new DomEvents());
                             }
                             if (!this.get("_timeUpdateEventHandler").__callbacks.timeupdate) {
                                 this.get("_timeUpdateEventHandler").on(this.player._element, "timeupdate", function() {
                                     var position = this.getCurrentPosition();
-                                    if (position >= endTime) {
+                                    if (position >= this.get("endtime")) {
                                         this.player.trigger("ended");
                                         if (!this.get("loop")) {
                                             this.player.pause();
@@ -728,7 +733,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.set('playedonce', true);
                             this.set("playbackended", this.get('playbackended') + 1);
                             this.set("settingsmenu_active", false);
-                            if (this.get("starttime") || this.get("endtime")) {
+                            if (this.get("starttime")) {
                                 this.player.setPosition(this.get("starttime") || 0);
                             }
                             this.trigger("ended");

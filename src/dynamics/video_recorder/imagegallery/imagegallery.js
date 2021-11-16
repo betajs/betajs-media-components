@@ -30,12 +30,13 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
                     "images": {},
                     "deltafrac": 1 / 8,
                     "showslidercontainer": true,
+                    "snapshots": [],
                     "covershot_accept_string": "image/*,image/png,image/jpg,image/jpeg"
                 },
 
                 computed: {
-                    "showslidercontainer": function() {
-                        return this.parent().snapshots.length > 0;
+                    "showslidercontainer:snapshots": function() {
+                        return this.get("snapshots").length > 0;
                     },
                     "imagewidth:imagecount,containerwidth,deltafrac": function() {
                         if (this.get("imagecount") <= 0)
@@ -104,7 +105,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
                  * @private
                  */
                 _recomputeImageBox: function(image) {
-                    if (!this.parent().recorder && this.parent().snapshots.length < 1)
+                    if (!this.parent().recorder && this.get("snapshots").length < 1)
                         return;
                     // Will fix portrait covershot bug, will not show stretched box
                     var _maxHeight,
@@ -211,7 +212,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Imagegallery", [
                             RecorderSupport.removeSnapshotDisplay(image.snapshotDisplay);
                         image.snapshotDisplay = null;
                     }
-                    var snapshots = this.parent().snapshots;
+                    var snapshots = this.get("snapshots");
                     image.snapshot = snapshots[((snapshotindex % snapshots.length) + snapshots.length) % snapshots.length];
                     image.snapshotDisplay = this.parent().recorder ?
                         this.parent().recorder.createSnapshotDisplay(

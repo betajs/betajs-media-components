@@ -86,7 +86,7 @@
 	padding: $controlbar_primarybutton_padding;
 	padding-left: $controlbar_primarybutton_vertical_padding;
 	padding-right: $controlbar_primarybutton_vertical_padding;
-	background-color: $button_color;
+	background-color: $accent_color;
 	color: $text_color;
 	font-family: $font_family;
 	font-weight: $controlbar_primarybutton_font_weight;
@@ -120,8 +120,8 @@
 }
 
 .#{$css}-button-selected {
-    border: 1px solid $button_color;
-    color: $button_color;
+    border: 1px solid $accent_color;
+    color: $accent_color;
     background-color: $text_color;
 }
 

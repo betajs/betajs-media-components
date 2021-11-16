@@ -2,17 +2,20 @@
   @if $color != default {
     .#{$cssrecorder}-#{$color}-color {
 
-      .#{$css}-button-inner, .#{$css}-chooser-button-1, .#{$css}-chooser-button-3, .#{$css}-loader-label {
+      .#{$css}-button-inner, .#{$css}-chooser-button-1, .#{$css}-chooser-button-3, .#{$css}-loader-label,
+      .#{$csscommon}-accent-color {
         color: $value;
       }
 
       .#{$css}-button-primary, .#{$css}-chooser-button-0, .#{$css}-chooser-button-2,
-      .#{$css}-imagegallery-rightbutton, .#{$css}-imagegallery-leftbutton {
+      .#{$css}-imagegallery-rightbutton, .#{$css}-imagegallery-leftbutton,
+      .#{$csscommon}-accent-color-bg {
         background-color: $value;
       }
 
       .#{$css}-settings input[type=radio]:checked + span,
-      .#{$css}-imagegallery-image:hover {
+      .#{$css}-imagegallery-image:hover,
+      .#{$csscommon}-accent-color-border {
         border-color: $value;
       }
 

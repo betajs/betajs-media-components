@@ -455,7 +455,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CreateUploadCoversho
                         _video.currentTime = 0;
                         var __snap = RecorderSupport.createSnapshot(this.dyn.get("snapshottype"), _video, true);
                         if (__snap) {
-                            this.dyn.snapshots[0] = __snap;
+                            this.dyn.get("snapshots")[0] = __snap;
                             Dom.triggerDomEvent(_video, "ended");
                         }
                     }, this);
@@ -470,12 +470,12 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CreateUploadCoversho
                                     snap: __snap
                                 });
                             }
-                            if (this.dyn.snapshots.length < this.dyn.get("snapshotmax")) {
-                                this.dyn.snapshots.push(__snap);
+                            if (this.dyn.get("snapshots").length < this.dyn.get("snapshotmax")) {
+                                this.dyn.get("snapshots").push(__snap);
                             } else {
                                 var i = Math.floor(Math.random() * this.dyn.get("snapshotmax"));
-                                RecorderSupport.removeSnapshot(this.dyn.snapshots[i]);
-                                this.dyn.snapshots[i] = __snap;
+                                RecorderSupport.removeSnapshot(this.dyn.get("snapshots")[i]);
+                                this.dyn.get("snapshots")[i] = __snap;
                             }
                         }
 
@@ -921,7 +921,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
 
         _hasStopped: function() {
             this.dyn.set("duration", (Time.now() - (this._startTime + this.__pauseDelta)) / 1000);
-            if (this.dyn.snapshots.length > 0)
+            if (this.dyn.get("snapshots").length > 0)
                 this.dyn._showBackgroundSnapshot();
             this.dyn._unbindMedia();
             this.dyn.trigger("recording_stopped");
@@ -969,9 +969,10 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Trimming", [
 
             this.dyn.set("playerattrs", {
                 poster: poster,
-                source: this.dyn._videoFile || this.dyn.recorder.localPlaybackSource()
+                source: this.dyn._videoFile || this.dyn.recorder.localPlaybackSource(),
+                trimmingmode: true,
+                hidecontrolbar: true
             });
-            this.dyn.set("trimmingmode", true);
             this.dyn.set("playertopmessage", this.dyn.string("trim-prompt"));
             this.dyn.set("player_active", true);
 
@@ -1014,17 +1015,17 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
                     } else {
                         this._next(true);
                     }
-                } else if (this.dyn.snapshots && this.dyn.snapshots.length > 0) {
+                } else if (this.dyn.get("snapshots") && this.dyn.get("snapshots").length > 0) {
                     this.next("CovershotSelectionFromGallery");
                 } else if (this.dyn.get("snapshotfromuploader") || (this.dyn.get("snapshotfrommobilecapture") && this.dyn.get("recordviafilecapture"))) {
                     this.next("CreateUploadCovershot");
                 } else {
                     this._next(true);
                 }
-            } else if (!this.dyn.snapshots && this.dyn.get("snapshotfromuploader") || (this.dyn.get("snapshotfrommobilecapture") && this.dyn.get("recordviafilecapture"))) {
+            } else if (!this.dyn.get("snapshots") && this.dyn.get("snapshotfromuploader") || (this.dyn.get("snapshotfrommobilecapture") && this.dyn.get("recordviafilecapture"))) {
                 if (this.dyn.get("selectfirstcovershotonskip")) {
                     this.dyn.set("snapshotmax", 1);
-                    this.dyn.snapshots = [];
+                    this.dyn.set("snapshots", []);
                     this.next("CreateUploadCovershot");
                 }
             } else {
@@ -1041,9 +1042,9 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
         },
 
         _next: function(skippedCovershot) {
-            if (skippedCovershot && this.dyn.get("selectfirstcovershotonskip") && this.dyn.snapshots) {
-                if (this.dyn.snapshots[0]) {
-                    this.dyn._uploadCovershot(this.dyn.snapshots[0]);
+            if (skippedCovershot && this.dyn.get("selectfirstcovershotonskip") && this.dyn.get("snapshots")) {
+                if (this.dyn.get("snapshots")[0]) {
+                    this.dyn._uploadCovershot(this.dyn.get("snapshots")[0]);
                 }
             }
             if (this.dyn.get("videometadata").thumbnails.images.length > 3 && this.dyn.get("createthumbnails")) {
@@ -1076,7 +1077,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelectionFr
             this.dyn.set("hovermessage", "");
             this.dyn.set("topmessage", this.dyn.string('pick-covershot'));
             this.dyn.set("isrecorderready", false);
-            if (this.dyn.snapshots.length > 0) {
+            if (this.dyn.get("snapshots").length > 0) {
                 var imagegallery = this.dyn.scope(">[tagname='ba-videorecorder-imagegallery']").materialize(true);
                 imagegallery.loadSnapshots();
                 imagegallery.updateContainerSize();

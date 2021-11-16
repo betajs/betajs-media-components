@@ -581,8 +581,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                             if (!this.get("noaudio"))
                                 this.recorder.testSoundLevel(true);
                             this.set("devicetesting", true);
-                            while (this.snapshots.length > 0) {
-                                var snapshot = this.snapshots.unshift();
+                            while (this.get("snapshots").length > 0) {
+                                var snapshot = this.get("snapshots").unshift();
                                 this.recorder.removeSnapshot(snapshot);
                             }
                             this._bound = true;
@@ -601,7 +601,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
                 _initSettings: function() {
                     // Without below line re-recorder will not launch
-                    this.snapshots = [];
+                    this.set("snapshots", []);
                     this.thumbnails = [];
                     this.__lastCovershotUpload = undefined;
                     this.set("videometadata", {
@@ -756,9 +756,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     if (this.get("onlyaudio"))
                         return;
                     this._hideBackgroundSnapshot();
-                    if (this.snapshots && this.get("selectfirstcovershotonskip")) {
-                        if (this.snapshots[0])
-                            this.__backgroundSnapshot = this.snapshots[0];
+                    if (this.get("snapshots") && this.get("selectfirstcovershotonskip")) {
+                        if (this.get("snapshots")[0])
+                            this.__backgroundSnapshot = this.get("snapshots")[0];
                     } else {
                         this.__backgroundSnapshot = this.recorder.createSnapshot(this.get("snapshottype"));
                     }
@@ -1090,7 +1090,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
                     if (!this.get("onlyaudio") && this.get("picksnapshots")) {
                         if (this.__recording && this.__recording_start_time + 500 < Time.now()) {
-                            var p = this.snapshots.length < this.get("snapshotmax") ? 0.25 : 0.05;
+                            var p = this.get("snapshots").length < this.get("snapshotmax") ? 0.25 : 0.05;
                             if (Math.random() <= p) {
                                 var snap = this.recorder.createSnapshot(this.get("snapshottype"));
                                 if (snap) {
@@ -1106,12 +1106,12 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                                             }));
                                         }, this);
                                     }
-                                    if (this.snapshots.length < this.get("snapshotmax")) {
-                                        this.snapshots.push(snap);
+                                    if (this.get("snapshots").length < this.get("snapshotmax")) {
+                                        this.get("snapshots").push(snap);
                                     } else {
                                         var i = Math.floor(Math.random() * this.get("snapshotmax"));
-                                        this.recorder.removeSnapshot(this.snapshots[i]);
-                                        this.snapshots[i] = snap;
+                                        this.recorder.removeSnapshot(this.get("snapshots")[i]);
+                                        this.get("snapshots")[i] = snap;
                                     }
 
                                     if (this.get("createthumbnails")) {

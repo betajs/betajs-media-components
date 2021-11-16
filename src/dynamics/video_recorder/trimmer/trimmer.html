@@ -1,0 +1,48 @@
+<div class="{{csstrimmer}}-container {{csscommon}}-accent-color-bg">
+    <!-- play/pause button container -->
+    <button ba-click="{{togglePlay()}}" class="{{csstrimmer}}-button-play" aria-label="{{playing || wasPlaying ? 'Pause' : 'Play'}}">
+        <i class="{{csscommon + '-icon-' + (playing || wasPlaying ? 'pause' : 'play')}} {{csscommon}}-accent-color"></i>
+    </button>
+    <!-- progressbar -->
+    <div
+        class="{{csstrimmer}}-progress-bar"
+        ontouchstart="{{handleProgressBarClick(event)}}"
+        onmousedown="{{handleProgressBarClick(event)}}"
+        data-selector="progressbar"
+    >
+        <!-- snapshots -->
+        <div
+            class="{{csstrimmer}}-snapshots"
+            data-selector="snapshots"
+        ></div>
+        <!-- playhead -->
+        <div
+            class="{{csstrimmer}}-playhead"
+            style="left: calc({{duration ? position / duration * 100 : 0}}% - 1px)"
+        ></div>
+        <!-- selection -->
+        <div
+            class="{{csstrimmer}}-selection {{csscommon}}-accent-color-border"
+            ontouchstart="{{handleSelectionClick(event)}}"
+            onmousedown="{{handleSelectionClick(event)}}"
+            data-selector="selection"
+            style="
+                left: calc({{duration && startposition ? startposition / duration * 100 : 0}}% - 4px);
+                right: calc({{100 - (duration && endposition ? endposition / duration * 100 : 100)}}% - 4px);
+            "
+        ></div>
+    </div>
+    <!-- buttons container -->
+    <div class="{{csstrimmer}}-right-button-container">
+        <!-- trim button -->
+        <button
+            class="{{csscommon}}-{{trimButtonEnabled ? 'accent-color-bg' : 'disabled'}} {{csstrimmer}}-button-trim"
+            ba-click="{{trim()}}"
+        >Trim</button>
+        <!-- skip button -->
+        <button
+            class="{{csstrimmer}}-button-skip"
+            ba-click="{{skip()}}"
+        >Skip</button>
+    </div>
+</div>

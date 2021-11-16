@@ -12,6 +12,12 @@
 
 .#{$csscommon}-disabled, .#{$csscommon}-disabled * { @include disabled_element() }
 
+.#{$csscommon}-accent-color { color: $accent_color; }
+
+.#{$csscommon}-accent-color-bg { background-color: $accent_color; }
+
+.#{$csscommon}-accent-color-border { border-color: $accent_color; }
+
 .#{$csscommon}-text-info { color: #5dbb96 }
 
 .#{$csscommon}-text-error { color: #dd4b39}

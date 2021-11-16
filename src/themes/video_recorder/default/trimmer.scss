@@ -1,0 +1,91 @@
+.#{$css}-trimmer-accent-color {
+  color: $accent-color;
+}
+
+#{$css}-trimmer {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+}
+
+.#{$css}-trimmer-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  background-color: rgba(50,50,50,0.5);
+}
+
+.#{$css}-trimmer-container button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.#{$css}-trimmer-container .#{$csscommon}-disabled {
+  cursor: not-allowed;
+}
+
+.#{$css}-trimmer-container .#{$css}-trimmer-button {
+  border-radius: 3px;
+  margin: 2px;
+}
+
+.#{$css}-trimmer-button-play {
+  font-size: 1.2em;
+}
+
+.#{$css}-trimmer-right-button-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.#{$css}-trimmer-container .#{$css}-trimmer-button-trim {
+  background-color: $accent-color;
+  color: white;
+}
+
+.#{$css}-trimmer-button.#{$csscommon}-disabled {
+  background-color: #333;
+  color: #555;
+  // @include opacity(1);
+}
+
+.#{$css}-trimmer-container .#{$css}-trimmer-button-skip {
+  background-color: #777;
+  color: white;
+}
+
+.#{$css}-trimmer-progress-bar {
+  flex: 1;
+  position: relative;
+  background-color: black;
+  height: 34px;
+  margin: 0 13px;
+}
+
+.#{$css}-trimmer-playhead {
+  position: absolute;
+  height: 100%;
+  width: 1px;
+  box-shadow: 0 0 2px 0 rgba(0,0,0,.25);
+  background-color: red;
+}
+
+.#{$css}-trimmer-selection {
+  position: absolute;
+  border-style: solid;
+  border-width: 2px 8px;
+  border-radius: 2px;
+  top: -2px;
+  height: 100%;
+  box-shadow: inset 2px 2px 2px rgba(0,0,0,.15), 2px 2px 2px rgba(0,0,0,.15);
+}
+
+.#{$css}-trimmer-snapshots {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  overflow: hidden;
+  display: flex;
+}

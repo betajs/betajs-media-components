@@ -604,6 +604,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     this.set("snapshots", []);
                     this.thumbnails = [];
                     this.__lastCovershotUpload = undefined;
+                    this.set("starttime", undefined);
+                    this.set("endtime", undefined);
                     this.set("videometadata", {
                         "height": null,
                         "width": null,

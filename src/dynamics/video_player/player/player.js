@@ -285,7 +285,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     },
                     "change:endtime": function(endTime) {
-                        if (endTime === this.get("duration")) {
+                        if (!endTime || endTime === this.get("duration")) {
                             if (this.get("_timeUpdateEventHandler")) {
                                 this.get("_timeUpdateEventHandler").clear();
                             }

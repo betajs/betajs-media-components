@@ -21,9 +21,14 @@ Scoped.define("module:VideoRecorder.Dynamics.Trimmer", [
                 },
 
                 events: {
-                    "change:progress-bar-width": function(newValue, oldValue) {
+                    "change:progress-bar-width": function() {
                         this.call("updateThumbnails");
                     }
+                },
+
+                destroy: function() {
+                    if (this._progressBarResizeObserver) this._progressBarResizeObserver.disconnect();
+                    inherited.destroy.call(this);
                 },
 
                 functions: {
@@ -31,7 +36,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Trimmer", [
                         this.chainedTrigger("skip");
                     },
                     trim: function() {
-                        this.chainedTrigger("video-trimmed", this.get("startposition"), this.get("endposition"));
+                        this.chainedTrigger("video-trimmed", {
+                            start: this.get("startposition"),
+                            end: this.get("endposition")
+                        });
                     },
                     togglePlay: function() {
                         this.trigger(this.get("playing") ? "pause" : "play");
@@ -140,7 +148,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Trimmer", [
                         Promise.conditional(!this._internalVideoElement, function() {
                             var promise = Promise.create();
                             var video = document.createElement("video");
-                            video.src = URL.createObjectURL(this.get("source"));
+                            var source = this.get("source").src || this.get("source");
+                            video.src = URL.createObjectURL(source);
                             video.addEventListener("loadedmetadata", function() {
                                 this._internalVideoElement = video;
                                 this._canvasHeight = 34; // TODO calculate instead of hard coding value
@@ -187,19 +196,20 @@ Scoped.define("module:VideoRecorder.Dynamics.Trimmer", [
                 },
 
                 create: function() {
-                    this._events = new DomEvents();
+                    if (typeof this.get("source") === "string") return;
+                    this._events = this.auto_destroy(new DomEvents());
                     this._progressBarElement = this.activeElement().querySelector("[data-selector='progressbar'");
                     this._selectionElement = this.activeElement().querySelector("[data-selector='selection']");
                     this._snapshotsElement = this.activeElement().querySelector("[data-selector='snapshots']");
 
-                    var progressBarResizeObserver = new ResizeObserver(function(entries) {
+                    this._progressBarResizeObserver = new ResizeObserver(function(entries) {
                         entries.forEach(function(entry) {
                             if (entry.contentRect.width === this.get("progress-bar-width")) return;
                             this.set("progress-bar-width", entry.contentRect.width);
                         }.bind(this));
                     }.bind(this));
 
-                    progressBarResizeObserver.observe(this._progressBarElement);
+                    this._progressBarResizeObserver.observe(this._progressBarElement);
                     this.call("updateThumbnails");
                 }
             };

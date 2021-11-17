@@ -981,10 +981,10 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Trimming", [
                 this.dyn.set("playertopmessage", this.dyn.string("trim-video"));
             });
 
-            this.listenOnce(this.dyn.scopes.player, "video-trimmed skip", function(start, end) {
-                if (start) this.dyn.set("starttime", start);
-                if (end) this.dyn.set("endtime", end);
-                this.dyn.trigger("video-trimmed", this.dyn.get("starttime"), this.dyn.get("endtime"));
+            this.listenOnce(this.dyn.scopes.player, "video-trimmed skip", function(data) {
+                if (data && data.start) this.dyn.set("starttime", data.start);
+                if (data && data.end) this.dyn.set("endtime", data.end);
+                this.dyn.trigger("video-trimmed", this.dyn.get("starttime"), this.dyn.get("endtime"), this.dyn.get("duration"));
                 this.hideTrimmingOverlay();
                 this.next("Uploading");
             }, this);

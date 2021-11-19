@@ -294,7 +294,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.player.setPosition(endTime);
                             }
                             if (!this.get("_timeUpdateEventHandler")) {
-                                this.set("_timeUpdateEventHandler", new DomEvents());
+                                this.set("_timeUpdateEventHandler", this.auto_destroy(new DomEvents()));
                             }
                             if (!this.get("_timeUpdateEventHandler").__callbacks.timeupdate) {
                                 this.get("_timeUpdateEventHandler").on(this.player._element, "timeupdate", function() {

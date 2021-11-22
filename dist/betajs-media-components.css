@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.288 - 2021-11-06
+betajs-media-components - v0.0.289 - 2021-11-22
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -2439,6 +2439,18 @@ Apache-2.0 Software License.
   /* This is the "most important" one because it's the current standard in CSS. This will work in most versions of Firefox, Safari, and Opera. */
   opacity: 0.5;
 }
+.ba-commoncss-accent-color {
+  color: #8CF;
+}
+
+.ba-commoncss-accent-color-bg {
+  background-color: #8CF;
+}
+
+.ba-commoncss-accent-color-border {
+  border-color: #8CF;
+}
+
 .ba-commoncss-text-info {
   color: #5dbb96;
 }
@@ -3587,15 +3599,18 @@ Apache-2.0 Software License.
   white-space: nowrap;
 }
 
-.ba-recorder-red-color .ba-videorecorder-button-inner, .ba-recorder-red-color .ba-videorecorder-chooser-button-1, .ba-recorder-red-color .ba-videorecorder-chooser-button-3, .ba-recorder-red-color .ba-videorecorder-loader-label {
+.ba-recorder-red-color .ba-videorecorder-button-inner, .ba-recorder-red-color .ba-videorecorder-chooser-button-1, .ba-recorder-red-color .ba-videorecorder-chooser-button-3, .ba-recorder-red-color .ba-videorecorder-loader-label,
+.ba-recorder-red-color .ba-commoncss-accent-color {
   color: #eb6a74;
 }
 .ba-recorder-red-color .ba-videorecorder-button-primary, .ba-recorder-red-color .ba-videorecorder-chooser-button-0, .ba-recorder-red-color .ba-videorecorder-chooser-button-2,
-.ba-recorder-red-color .ba-videorecorder-imagegallery-rightbutton, .ba-recorder-red-color .ba-videorecorder-imagegallery-leftbutton {
+.ba-recorder-red-color .ba-videorecorder-imagegallery-rightbutton, .ba-recorder-red-color .ba-videorecorder-imagegallery-leftbutton,
+.ba-recorder-red-color .ba-commoncss-accent-color-bg {
   background-color: #eb6a74;
 }
 .ba-recorder-red-color .ba-videorecorder-settings input[type=radio]:checked + span,
-.ba-recorder-red-color .ba-videorecorder-imagegallery-image:hover {
+.ba-recorder-red-color .ba-videorecorder-imagegallery-image:hover,
+.ba-recorder-red-color .ba-commoncss-accent-color-border {
   border-color: #eb6a74;
 }
 .ba-recorder-red-color .ba-videorecorder-message-message a {
@@ -3605,15 +3620,18 @@ Apache-2.0 Software License.
   color: #ffffff;
 }
 
-.ba-recorder-blue-color .ba-videorecorder-button-inner, .ba-recorder-blue-color .ba-videorecorder-chooser-button-1, .ba-recorder-blue-color .ba-videorecorder-chooser-button-3, .ba-recorder-blue-color .ba-videorecorder-loader-label {
+.ba-recorder-blue-color .ba-videorecorder-button-inner, .ba-recorder-blue-color .ba-videorecorder-chooser-button-1, .ba-recorder-blue-color .ba-videorecorder-chooser-button-3, .ba-recorder-blue-color .ba-videorecorder-loader-label,
+.ba-recorder-blue-color .ba-commoncss-accent-color {
   color: #2a74eb;
 }
 .ba-recorder-blue-color .ba-videorecorder-button-primary, .ba-recorder-blue-color .ba-videorecorder-chooser-button-0, .ba-recorder-blue-color .ba-videorecorder-chooser-button-2,
-.ba-recorder-blue-color .ba-videorecorder-imagegallery-rightbutton, .ba-recorder-blue-color .ba-videorecorder-imagegallery-leftbutton {
+.ba-recorder-blue-color .ba-videorecorder-imagegallery-rightbutton, .ba-recorder-blue-color .ba-videorecorder-imagegallery-leftbutton,
+.ba-recorder-blue-color .ba-commoncss-accent-color-bg {
   background-color: #2a74eb;
 }
 .ba-recorder-blue-color .ba-videorecorder-settings input[type=radio]:checked + span,
-.ba-recorder-blue-color .ba-videorecorder-imagegallery-image:hover {
+.ba-recorder-blue-color .ba-videorecorder-imagegallery-image:hover,
+.ba-recorder-blue-color .ba-commoncss-accent-color-border {
   border-color: #2a74eb;
 }
 .ba-recorder-blue-color .ba-videorecorder-message-message a {
@@ -3623,15 +3641,18 @@ Apache-2.0 Software License.
   color: #ffffff;
 }
 
-.ba-recorder-green-color .ba-videorecorder-button-inner, .ba-recorder-green-color .ba-videorecorder-chooser-button-1, .ba-recorder-green-color .ba-videorecorder-chooser-button-3, .ba-recorder-green-color .ba-videorecorder-loader-label {
+.ba-recorder-green-color .ba-videorecorder-button-inner, .ba-recorder-green-color .ba-videorecorder-chooser-button-1, .ba-recorder-green-color .ba-videorecorder-chooser-button-3, .ba-recorder-green-color .ba-videorecorder-loader-label,
+.ba-recorder-green-color .ba-commoncss-accent-color {
   color: #5daa96;
 }
 .ba-recorder-green-color .ba-videorecorder-button-primary, .ba-recorder-green-color .ba-videorecorder-chooser-button-0, .ba-recorder-green-color .ba-videorecorder-chooser-button-2,
-.ba-recorder-green-color .ba-videorecorder-imagegallery-rightbutton, .ba-recorder-green-color .ba-videorecorder-imagegallery-leftbutton {
+.ba-recorder-green-color .ba-videorecorder-imagegallery-rightbutton, .ba-recorder-green-color .ba-videorecorder-imagegallery-leftbutton,
+.ba-recorder-green-color .ba-commoncss-accent-color-bg {
   background-color: #5daa96;
 }
 .ba-recorder-green-color .ba-videorecorder-settings input[type=radio]:checked + span,
-.ba-recorder-green-color .ba-videorecorder-imagegallery-image:hover {
+.ba-recorder-green-color .ba-videorecorder-imagegallery-image:hover,
+.ba-recorder-green-color .ba-commoncss-accent-color-border {
   border-color: #5daa96;
 }
 .ba-recorder-green-color .ba-videorecorder-message-message a {
@@ -4098,6 +4119,97 @@ div.ba-videorecorder-disabled * {
   width: 100%;
   height: 32px;
   position: absolute;
+}
+
+.ba-videorecorder-trimmer-accent-color {
+  color: #8CF;
+}
+
+ba-videorecorder-trimmer {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+}
+
+.ba-videorecorder-trimmer-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  background-color: rgba(50, 50, 50, 0.5);
+}
+
+.ba-videorecorder-trimmer-container button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.ba-videorecorder-trimmer-container .ba-commoncss-disabled {
+  cursor: not-allowed;
+}
+
+.ba-videorecorder-trimmer-container .ba-videorecorder-trimmer-button {
+  border-radius: 3px;
+  margin: 2px;
+}
+
+.ba-videorecorder-trimmer-button-play {
+  font-size: 1.2em;
+}
+
+.ba-videorecorder-trimmer-right-button-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.ba-videorecorder-trimmer-container .ba-videorecorder-trimmer-button-trim {
+  background-color: #8CF;
+  color: white;
+}
+
+.ba-videorecorder-trimmer-button.ba-commoncss-disabled {
+  background-color: #333;
+  color: #555;
+}
+
+.ba-videorecorder-trimmer-container .ba-videorecorder-trimmer-button-skip {
+  background-color: #777;
+  color: white;
+}
+
+.ba-videorecorder-trimmer-progress-bar {
+  flex: 1;
+  position: relative;
+  background-color: black;
+  height: 34px;
+  margin: 0 13px;
+}
+
+.ba-videorecorder-trimmer-playhead {
+  position: absolute;
+  height: 100%;
+  width: 1px;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.25);
+  background-color: red;
+}
+
+.ba-videorecorder-trimmer-selection {
+  position: absolute;
+  border-style: solid;
+  border-width: 2px 8px;
+  border-radius: 2px;
+  top: -2px;
+  height: 100%;
+  box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.15), 2px 2px 2px rgba(0, 0, 0, 0.15);
+}
+
+.ba-videorecorder-trimmer-snapshots {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  overflow: hidden;
+  display: flex;
 }
 
 .ba-imageviewer-red-color .ba-imageviewer-button-inner, .ba-imageviewer-red-color .ba-imageviewer-image-title {

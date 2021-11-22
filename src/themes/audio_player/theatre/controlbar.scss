@@ -6,8 +6,8 @@
     min-height: 58px;
     min-width: 320px;
     &.#{$cssplayer}-no-title {
-        height: $controlbar_height + 2;
-        min-height: $controlbar_height + 2;
+        height: $controlbar_height;
+        min-height: $controlbar_height;
     }
 
     .#{$csstheme}-dashboard {
@@ -21,8 +21,8 @@
 
     .#{$csstheme}-right-block {
         & > div  {
-            height: $controlbar_line_height;
-            line-height: $controlbar_line_height;
+            height: $controlbar_height;
+            line-height: $controlbar_height;
             width: $button_width;
         }
     }

@@ -106,8 +106,13 @@
 .#{$css}-button-inner {
     @include relative-center-center;
     @include clickable;
+    display: inline-flex;
     color: $text_color;
     font-size: $button_fontsize;
+}
+
+.#{$css}-leftbutton-container .#{$css}-button-inner {
+    left: 25%;
 }
 
 .#{$css}-button-text {

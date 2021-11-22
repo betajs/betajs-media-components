@@ -55,7 +55,29 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.State", [
 
         selectUpload: function(file) {},
 
-        uploadCovershot: function(file) {}
+        uploadCovershot: function(file) {},
+
+        checkOrientation: function(isPortrait, next) {
+            next = next || "FatalError";
+            if (this.dyn.get("media-orientation")) {
+                if (
+                    (this.dyn.get("media-orientation") === "portrait" && !isPortrait) ||
+                    (this.dyn.get("media-orientation") === "landscape" && isPortrait)
+                ) {
+                    this.dyn.set("recordvisible", false);
+                    var message = this.dyn.string("supported-mode")
+                        .replace("%s", isPortrait ? "landscape" : "portrait");
+                    message += " " + this.dyn.string("re-choose-action");
+                    this.next(next, {
+                        message: message,
+                        retry: "Chooser"
+                    });
+                    return false;
+                }
+            }
+            return true;
+        }
+
 
     }]);
 });
@@ -82,7 +104,39 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.FatalError", [
                     this.next(this._retry);
             });
         }
+    });
+});
 
+Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.ChooseAlternativeDevice", [
+    "module:VideoRecorder.Dynamics.RecorderStates.State",
+    "browser:Info"
+], function(State, Info, scoped) {
+    return State.extend({
+        scoped: scoped
+    }, {
+
+        dynamics: ["message"],
+        _locals: ["message", "retry"],
+
+
+        _started: function() {
+            this.dyn.set("controlbar_active", true);
+            this.dyn.set("message", this._message || this.dyn.string("recorder-error"));
+            this.dyn.set("shortMessage", this.dyn.get("message").length < 30);
+
+            this.listenOn(this.dyn, "message-click", function() {
+                this.next("Chooser");
+            }, this);
+
+            // source
+            // this.listenOn(this.dyn, "change:selectedcamera", function() {
+            if (typeof this.dyn.recorder._recorder !== "undefined") {
+                this.listenOn(this.dyn.recorder._recorder, "rebound", function() {
+                    if (Info.isChromiumBased())
+                        this.next("CameraHasAccess");
+                }, this);
+            }
+        }
     });
 });
 
@@ -275,6 +329,11 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
             }
             try {
                 PlayerSupport.videoFileInfo(file.files[0]).success(function(data) {
+
+                    if (typeof data.width !== "undefined" && typeof data.height !== "undefined")
+                        if (!this.checkOrientation((data.width / data.height) > 1))
+                            return;
+
                     if (data.duration && this.dyn.get("enforce-duration")) {
                         if ((this.dyn.get("timeminlimit") && data.duration < this.dyn.get("timeminlimit")) || (this.dyn.get("timelimit") && data.duration > this.dyn.get("timelimit"))) {
                             this.next("FatalError", {
@@ -299,9 +358,20 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
                     this._uploadFile(file);
                 }, this).error(function(e) {
                     if (e.code === MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED) {
-                        // skip allowtrim/localplayback, show different error message on uploading.
-                        this.dyn.set("allowtrim", false);
-                        this.dyn.set("localplayback", false);
+                        // skip allowtrim/localplayback/snapshotfromuploader, show different error message on uploading.
+                        if (this.dyn.get("allowtrim") == true) {
+                            this.dyn.set("allowtrim", false);
+                            this.dyn.set("was_allowtrim", true);
+                        }
+                        if (this.dyn.get("localplayback") == true) {
+                            this.dyn.set("localplayback", false);
+                            this.dyn.set("was_localplayback", true);
+                        }
+                        if (this.dyn.get("snapshotfromuploader") == true) {
+                            this.dyn.set("snapshotfromuploader", false);
+                            this.dyn.set("was_snapshotfromuploader", true);
+                        }
+
                         this.dyn.set("media_src_not_supported", true);
                     }
                     this._uploadFile(file);
@@ -566,7 +636,6 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.RequiredSoftwareChec
                 }, this);
             }
         }
-
     });
 });
 
@@ -697,6 +766,8 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CameraHasAccess", [
         dynamics: ["topmessage", "controlbar"],
 
         _started: function() {
+            if (!this.checkOrientation(this.dyn.isPortrait(), "ChooseAlternativeDevice"))
+                return;
             this.dyn.trigger("ready_to_record");
             this._preparePromise = null;
             if (this.dyn.get("countdown") > 0 && this.dyn.recorder && this.dyn.recorder.recordDelay(this.dyn.get("uploadoptions")) > this.dyn.get("countdown") * 1000)
@@ -856,9 +927,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
         _timerFire: function() {
             this.__firedTimes += 1;
             var limit = this.dyn.get("timelimit");
-            var current = (Info.isFirefox() ?
-                this._startTime + (this.__firedTimes * this.__timerDelay) :
-                Time.now()) - this.__pauseDelta;
+            var current = Time.now() - this.__pauseDelta;
             var display = Math.max(0, limit ? (this._startTime + limit * 1000 - current) : (current - this._startTime));
             this.dyn.trigger("recording_progress", current - this._startTime, !!this.dyn.__paused);
             this.dyn.set("controlbarlabel", this.dyn.get("display-timer") ? TimeFormat.format(TimeFormat.ELAPSED_MINUTES_SECONDS, display) : "");
@@ -1302,11 +1371,14 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
                 this.dyn.set("controlbar_active", true);
             this.dyn.set("hovermessage", "");
             this.dyn.set("topmessage", "");
-            if (this.dyn.get("media_src_not_supported") == true) {
+
+            if (this.dyn.get("media_src_not_supported") == true && (
+                    (this.dyn.get("was_allowtrim") == true) || (this.dyn.get("was_localplayback") == true) || (this.dyn.get("was_snapshotfromuploader") == true))) {
                 this.dyn.set("uploading-message", this.dyn.string("uploading-src-error"));
             } else {
                 this.dyn.set("uploading-message", this.dyn.string("uploading"));
             }
+
             this.dyn.set("message", this.dyn.get("uploading-message"));
             this.dyn.set("playertopmessage", this.dyn.get("message"));
             var uploader = this.dyn._dataUploader;

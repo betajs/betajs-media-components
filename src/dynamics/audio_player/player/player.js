@@ -169,20 +169,12 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                 remove_on_destroy: true,
 
                 create: function() {
+                    if (this.get("visualeffectvisible") && (!this.get("height") || this.get("height") < this.get("visualeffectminheight")))
+                        this.set("height", this.get("visualeffectminheight"));
                     // Will set volume initial state
                     this.set("initialoptions", Objs.tree_merge(this.get("initialoptions"), {
                         volumelevel: this.get("volume")
                     }));
-
-                    if ((Info.isMobile() || Info.isChromiumBased()) && (this.get("autoplay") || this.get("playwhenvisible"))) {
-                        this.set("volume", 0.0);
-                        this.set("forciblymuted", true);
-
-                        //if (!(Info.isiOS() && Info.iOSversion().major >= 10)) {
-                        //this.set("autoplay", false);
-                        //this.set("loop", false);
-                        //}
-                    }
 
                     if (this.get("theme") in Assets.audioplayerthemes) {
                         Objs.iter(Assets.audioplayerthemes[this.get("theme")], function(value, key) {
@@ -637,10 +629,12 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                             this.set("position", new_position);
                             this.set("buffered", this.player.buffered());
                             var pld = this.player.duration();
-                            if (0.0 < pld && pld < Infinity) {
+                            if (this.get("totalduration")) {
+                                this.set("duration", this.get("totalduration"));
+                            } else if (0.0 < pld && pld < Infinity) {
                                 this.set("duration", this.player.duration());
                             } else {
-                                this.set("duration", this.get("totalduration") || new_position);
+                                this.set("duration", new_position);
                             }
                         }
                     } catch (e) {}

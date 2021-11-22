@@ -216,7 +216,7 @@
   ba-videorecorder.browser-permission-denied: 'Autorizzazione negata dal browser, concedi l''accesso e ricarica la pagina'
   ba-audioplayer.all-settings: Tutte le impostazioni
   ba-videoplayer-controlbar.remaining-time: Tempo rimanente
-  ba-videoplayer-controlbar.select-frame: Selezionare
+  ba-videoplayer-controlbar.select-frame: Seleziona
   ba-videoplayer-controlbar.trim-video: Taglia
   ba-videoplayer-playbutton.trim: Taglia
   ba-videoplayer-playbutton.skip: Salta
@@ -225,7 +225,7 @@
   ba-videorecorder.screen-recorder-is-not-supported: Il registratore dello schermo non è supportato su questo dispositivo
   ba-videorecorder.trim-prompt: Vuoi tagliare il tuo video?
   ba-videorecorder.trim-video: Sposta gli indicatori di inizio e fine per tagliare il tuo video
-  ba-videorecorder.wait-for-trim: In attesa del comando di assetto...
+  ba-videorecorder.wait-for-trim: In attesa del comando di ritaglio...
   ba-videorecorder-controlbar.no-video-source: Fonte di ingresso video aggiuntiva mancante
   ba-videorecorder-controlbar.stream-already-selected: È già stato selezionato un flusso aggiuntivo
   ba-videorecorder.uploading-src-error: 'Impossibile riprodurre il video ora, il caricamento è ancora in corso'

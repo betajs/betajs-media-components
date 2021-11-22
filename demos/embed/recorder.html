@@ -91,6 +91,7 @@
                 width: '440',
                 // height: '440',
                 localplayback: true,
+                mandatoryorientation: "portrait", // landscape, portrait
                 // picksnapshots: false,
                 // "custom-covershots" : true,
                 // onlyaudio: true,
@@ -118,8 +119,9 @@
                 // fittodimensions: true,
                 // width: 690,
                 // heigth: 500,
-                // recordingwidth: 320,
-                // recordingheight: 440,
+                recordingwidth: 320,
+                recordingheight: 440,
+                // "cpu-friendly": true,
                 // height: "auto",
                 // cropthestream: false,
                 // initialmessages: [
@@ -172,6 +174,22 @@
             console.log('Details >> ', embedding, uploaded, total);
             console.log('Upload Progress: ', (uploaded/total)*100 + '%' + ' ('+ Date.now() + ')' );
         });
+
+        recorder.on("bound", function () {
+            setTimeout(() => {
+                console.log('BEFORE MODE!!!', recorder.get("mandatoryorientation"));
+                recorder.set("mandatoryorientation",
+                    recorder.get("mandatoryorientation") === "portrait" ? "landscape" : "portrait"
+                );
+                console.log('CHAGED MODE TO !!!', recorder.get("mandatoryorientation"));
+            }, 5000);
+        }, recorder);
+
+        recorder.on("unbound", function () {
+            console.log('Unbounded!!!', recorder.get("mandatoryorientation"));
+        }, recorder);
+
+
 
         recorder.on("attached", function () {
             console.log('Recorder Attcahed !!!');

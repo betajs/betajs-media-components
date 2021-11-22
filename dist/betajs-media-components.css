@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.278 - 2021-08-22
+betajs-media-components - v0.0.288 - 2021-11-06
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1863,6 +1863,10 @@ Apache-2.0 Software License.
 .ba-videoplayer-poster-container, .ba-videoplayer-poster-container img,
 .ba-videoplayer-video-container, .ba-videoplayer-video-container video {
   position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
   width: 100%;
   height: 100%;
 }
@@ -2362,6 +2366,43 @@ Apache-2.0 Software License.
   padding-right: 10px;
 }
 
+@keyframes ba-commoncss-fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes ba-commoncss-fade-in-up {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.ba-commoncss-sticky {
+  position: fixed !important;
+  height: auto !important;
+  min-height: initial !important;
+  max-width: 360px;
+  bottom: 20px;
+  right: 20px;
+  animation: ba-commoncss-fade-in 0.75s ease forwards;
+}
+
+.ba-commoncss-fade-up {
+  transform: translateY(100%);
+  animation: ba-commoncss-fade-in-up 0.75s ease forwards;
+}
+
+@media (max-width: 980px) {
+  .ba-commoncss-sticky {
+    max-width: 50%;
+  }
+}
 .ba-commoncss-full-width {
   width: 100%;
 }
@@ -4491,8 +4532,13 @@ div.ba-videorecorder-disabled * {
   position: relative;
   text-align: center;
   cursor: pointer;
+  display: inline-flex;
   color: #FFF;
   font-size: 14px;
+}
+
+.ba-audioplayer-leftbutton-container .ba-audioplayer-button-inner {
+  left: 25%;
 }
 
 .ba-audioplayer-button-text {
@@ -4656,6 +4702,10 @@ div.ba-videorecorder-disabled * {
   padding-bottom: 39px;
   position: relative;
   overflow: hidden;
+}
+
+.ba-audioplayer-container canvas {
+  position: absolute;
 }
 
 .ba-audioplayer-audio {

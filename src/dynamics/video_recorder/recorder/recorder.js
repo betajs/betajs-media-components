@@ -1,6 +1,7 @@
 Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
     "dynamics:Dynamic",
     "module:Assets",
+    "module:StylesMixin",
     "browser:Info",
     "browser:Dom",
     "browser:Events",
@@ -38,10 +39,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.TemplatePartial",
     "dynamics:Partials.HotkeyPartial"
-], function(Class, Assets, Info, Dom, DomEvents, MultiUploader, FileUploader, VideoRecorderWrapper, RecorderSupport, WebRTCSupport, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Collection, Promise, InitialState, RecorderStates, scoped) {
+], function(Class, Assets, StylesMixin, Info, Dom, DomEvents, MultiUploader, FileUploader, VideoRecorderWrapper, RecorderSupport, WebRTCSupport, Types, Objs, Strings, Time, Timers, Host, ClassRegistry, Collection, Promise, InitialState, RecorderStates, scoped) {
     return Class.extend({
             scoped: scoped
-        }, function(inherited) {
+        }, [StylesMixin, function(inherited) {
             return {
 
                 template: "<%= template(dirname + '/recorder.html') %>",
@@ -96,6 +97,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "allowupload": true,
                     "minheight": 240,
                     "minwidth": 320,
+                    "maxheight": null,
+                    "maxwidth": null,
                     "allowcustomupload": true,
                     "manual-upload": false,
                     "camerafacefront": false,
@@ -139,6 +142,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "custom-covershots": false,
                     "selectfirstcovershotonskip": false,
                     "picksnapshotmandatory": false,
+                    "media-orientation": null, // possible options "landscape", "portrait"
                     "manualsubmit": false,
                     "allowedextensions": null,
                     "filesizelimit": null,
@@ -158,6 +162,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "uploadoptions": {},
                     "playerattrs": {},
                     "shortMessage": true,
+                    "cpu-friendly": false,
 
                     /* Options */
                     "rerecordable": true,
@@ -248,6 +253,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                                 }
                             }
                         }
+                        if (this.get("maxwidth")) result.maxWidth = this.get("maxwidth") + "px";
+                        if (this.get("maxheight")) result.maxHeight = this.get("maxheight") + "px";
+                        if (this.activeElement()) this._applyStyles(this.activeElement(), result, this.__lastContainerSizingStyles);
+                        this.__lastContainerSizingStyles = result;
                         return result;
                     },
                     "canswitchcamera:recordviafilecapture": function() {
@@ -289,6 +298,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "manual-upload": "boolean",
                     "minwidth": "int",
                     "minheight": "int",
+                    "maxwidth": "int",
+                    "maxheight": "int",
                     "webrtcstreamingifnecessary": "boolean",
                     "microphone-volume": "float",
                     "audiobitrate": "int",
@@ -311,6 +322,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "simulate": "boolean",
                     "allowedextensions": "array",
                     "onlyaudio": "boolean",
+                    "cpu-friendly": "boolean",
                     "allowcancel": "boolean",
                     "display-timer": "boolean",
                     "audio-test-mandatory": "boolean",
@@ -333,6 +345,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "showplayersettingsmenu": "boolean",
                     "initialmessages": "array",
                     "screenrecordmandatory": "boolean",
+                    "media-orientation": "string",
+                    "mandatoryresolutions": "array",
                     "pickcovershotframe": "boolean",
                     "allowtrim": "boolean",
                     "trimoverlay": "boolean"
@@ -363,16 +377,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 },
 
                 create: function() {
-                    var fitStrategies = ["crop", "pad", "original"];
-                    if (!fitStrategies.includes(this.get("videofitstrategy"))) {
-                        console.warn("Invalid value for videofitstrategy: " + this.get("videofitstrategy") + "\nPossible values are: " + fitStrategies.slice(0, -1).join(", ") + " or " + fitStrategies.slice(-1));
-                    }
-                    if (!fitStrategies.includes(this.get("posterfitstrategy"))) {
-                        console.warn("Invalid value for posterfitstrategy: " + this.get("posterfitstrategy") + "\nPossible values are: " + fitStrategies.slice(0, -1).join(", ") + " or " + fitStrategies.slice(-1));
-                    }
-                    if (this.get("stretch") || this.get("stretchwidth") || this.get("stretchheight")) {
-                        console.warn("Stretch parameters were removed, please set width and/or height to 100% instead.");
-                    }
+                    this._validateParameters();
                     // Init Audio Context
                     WebRTCSupport.globals();
                     this.set("optionsinitialstate", {
@@ -425,6 +430,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         start: true
                     });
 
+                    this.activeElement().style.setProperty("display", "inline-block");
+                    this._applyStyles(this.activeElement(), this.get("containerSizingStyles"));
+
                     this.__cameraResponsive = true;
                     this.__cameraSignal = true;
 
@@ -476,6 +484,19 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     this.set("autorecord", this.get("optionsinitialstate").autorecord);
                 },
 
+                _validateParameters: function() {
+                    var fitStrategies = ["crop", "pad", "original"];
+                    if (!fitStrategies.includes(this.get("videofitstrategy"))) {
+                        console.warn("Invalid value for videofitstrategy: " + this.get("videofitstrategy") + "\nPossible values are: " + fitStrategies.slice(0, -1).join(", ") + " or " + fitStrategies.slice(-1));
+                    }
+                    if (!fitStrategies.includes(this.get("posterfitstrategy"))) {
+                        console.warn("Invalid value for posterfitstrategy: " + this.get("posterfitstrategy") + "\nPossible values are: " + fitStrategies.slice(0, -1).join(", ") + " or " + fitStrategies.slice(-1));
+                    }
+                    if (this.get("stretch") || this.get("stretchwidth") || this.get("stretchheight")) {
+                        console.warn("Stretch parameters were removed, please set width and/or height to 100% instead.");
+                    }
+                },
+
                 _videoRecorderWrapperOptions: function() {
                     var _screen = null;
                     var _resizeMode = this.get("resizemode");
@@ -492,6 +513,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                             _screen = {};
                         }
                     }
+
                     return {
                         simulate: this.get("simulate"),
                         recordVideo: !this.get("onlyaudio"),
@@ -510,7 +532,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         framerate: this.get("framerate"),
                         flip: this.get("flip-camera"),
                         flipscreen: this.get("flipscreen"),
-                        fittodimensions: this.get("fittodimensions")
+                        fittodimensions: this.get("fittodimensions"),
+                        cpuFriendly: this.get("cpu-friendly")
                     };
                 },
 
@@ -606,6 +629,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     this.__lastCovershotUpload = undefined;
                     this.set("starttime", undefined);
                     this.set("endtime", undefined);
+                    this.set("duration", 0);
                     this.set("videometadata", {
                         "height": null,
                         "width": null,
@@ -752,6 +776,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     this.__activated = true;
                     if (this.__attachRequested)
                         this._attachRecorder();
+                    this.persistentTrigger("loaded");
                 },
 
                 _showBackgroundSnapshot: function() {
@@ -1325,7 +1350,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     }, this);
                 }
             };
-        }, {
+        }], {
 
             recorderStates: function() {
                 return [RecorderStates];
@@ -1369,6 +1394,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
             "screen-recorder-is-not-supported": "Screen recorder is not supported on this device",
             "trim-prompt": "Do you want to trim your video?",
             "trim-video": "Move the start and end markers to trim your video",
-            "wait-for-trim": "Waiting for trim command..."
+            "wait-for-trim": "Waiting for trim command...",
+            "supported-mode": "Media resolution should be in '%s' mode.",
+            "re-choose-action": "Please click to choose another input device or retry action."
         });
 });

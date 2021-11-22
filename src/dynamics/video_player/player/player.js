@@ -1,6 +1,8 @@
 Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "dynamics:Dynamic",
     "module:Assets",
+    "module:StickyHandler",
+    "module:StylesMixin",
     "module:TrackTags",
     "browser:Info",
     "browser:Dom",
@@ -33,10 +35,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.TemplatePartial",
     "dynamics:Partials.HotkeyPartial"
-], function(Class, Assets, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, Types, Objs, Strings, Time, Timers, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
+], function(Class, Assets, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, Types, Objs, Strings, Time, Timers, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
-        }, function(inherited) {
+        }, [StylesMixin, function(inherited) {
             return {
 
                 template: "<%= template(dirname + '/player.html') %>",
@@ -133,8 +135,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "topmessage": "",
                     "totalduration": null,
                     "playwhenvisible": false,
-                    "minwidth": 320,
-                    "minheight": 240,
+                    "minwidth": 240,
+                    "minheight": 180,
+                    "maxwidth": null,
+                    "maxheight": null,
                     "disablepause": false,
                     "disableseeking": false,
                     "tracktextvisible": false,
@@ -142,6 +146,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "chromecast": false,
                     "chromecastreceiverappid": null, // Could be published custom App ID https://cast.google.com/publish/#/overview
                     "skipseconds": 5,
+                    "sticky": false,
                     "tracktags": [],
                     "tracktagsstyled": true,
                     "tracktaglang": 'en',
@@ -236,6 +241,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "manuallypaused": "boolean",
                     "minwidth": "int",
                     "minheight": "int",
+                    "maxwidth": "int",
+                    "maxheight": "int",
                     "disablepause": "boolean",
                     "disableseeking": "boolean",
                     "playonclick": "boolean",
@@ -245,6 +252,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "chromecast": "boolean",
                     "chromecastreceiverappid": "string",
                     "skipseconds": "integer",
+                    "sticky": "boolean",
                     "streams": "jsonarray",
                     "sources": "jsonarray",
                     "tracktags": "jsonarray",
@@ -344,6 +352,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 result.width = Math.floor(height * (aspectRatio || (fallbackWidth / fallbackHeight))) + "px";
                             }
                         }
+                        if (this.get("maxwidth")) result.maxWidth = this.get("maxwidth") + "px";
+                        if (this.get("maxheight")) result.maxHeight = this.get("maxheight") + "px";
+                        if (this.activeElement()) this._applyStyles(this.activeElement(), result, this.__lastContainerSizingStyles);
+                        this.__lastContainerSizingStyles = result;
                         return result;
                     },
                     "buffering:buffered,position,last_position_change_delta,playing": function() {
@@ -354,16 +366,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 remove_on_destroy: true,
 
                 create: function() {
-                    var fitStrategies = ["crop", "pad", "original"];
-                    if (!fitStrategies.includes(this.get("videofitstrategy"))) {
-                        console.warn("Invalid value for videofitstrategy: " + this.get("videofitstrategy") + "\nPossible values are: " + fitStrategies.slice(0, -1).join(", ") + " or " + fitStrategies.slice(-1));
-                    }
-                    if (!fitStrategies.includes(this.get("posterfitstrategy"))) {
-                        console.warn("Invalid value for posterfitstrategy: " + this.get("posterfitstrategy") + "\nPossible values are: " + fitStrategies.slice(0, -1).join(", ") + " or " + fitStrategies.slice(-1));
-                    }
-                    if (this.get("stretch") || this.get("stretchwidth") || this.get("stretchheight")) {
-                        console.warn("Stretch parameters were removed, please set width and/or height to 100% instead.");
-                    }
+                    this._validateParameters();
                     // Will set volume initial state
                     this.set("initialoptions", Objs.tree_merge(this.get("initialoptions"), {
                         volumelevel: this.get("volume")
@@ -479,6 +482,29 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         delay: 100,
                         start: true
                     });
+
+                    this.activeElement().style.setProperty("display", "inline-block");
+                    this._applyStyles(this.activeElement(), this.get("containerSizingStyles"));
+
+                    if (this.get("sticky")) {
+                        var stickyOptions = {
+                            paused: true
+                        };
+                        this.stickyHandler = this.auto_destroy(new StickyHandler(
+                            this.activeElement().firstChild,
+                            this.activeElement(),
+                            stickyOptions
+                        ));
+                        this.stickyHandler.init();
+                        this.set("fadeup", true);
+                        this.stickyHandler.on("elementLeftView", function() {
+                            this.set("sticktoview", true);
+                        }, this);
+                        this.stickyHandler.on("containerEnteredView", function() {
+                            this.set("sticktoview", false);
+                            if (this.get("fadeup") && this.stickyHandler.elementWasDragged()) this.set("fadeup", false);
+                        }, this);
+                    }
                 },
 
                 state: function() {
@@ -575,6 +601,19 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.player = null;
                     this.__video = null;
                     this.set("videoelement_active", false);
+                },
+
+                _validateParameters: function() {
+                    var fitStrategies = ["crop", "pad", "original"];
+                    if (!fitStrategies.includes(this.get("videofitstrategy"))) {
+                        console.warn("Invalid value for videofitstrategy: " + this.get("videofitstrategy") + "\nPossible values are: " + fitStrategies.slice(0, -1).join(", ") + " or " + fitStrategies.slice(-1));
+                    }
+                    if (!fitStrategies.includes(this.get("posterfitstrategy"))) {
+                        console.warn("Invalid value for posterfitstrategy: " + this.get("posterfitstrategy") + "\nPossible values are: " + fitStrategies.slice(0, -1).join(", ") + " or " + fitStrategies.slice(-1));
+                    }
+                    if (this.get("stretch") || this.get("stretchwidth") || this.get("stretchheight")) {
+                        console.warn("Stretch parameters were removed, please set width and/or height to 100% instead.");
+                    }
                 },
 
                 getCurrentPosition: function() {
@@ -1150,6 +1189,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     toggle_player: function() {
+                        if (this.get("sticky") && this.stickyHandler.isDragging()) {
+                            this.stickyHandler.stopDragging();
+                            return;
+                        }
                         if (this.get("playing") && this.get("preventinteractionstatus")) return;
                         if (this._delegatedPlayer) {
                             this._delegatedPlayer.execute("toggle_player");
@@ -1420,7 +1463,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     };
                 }
             };
-        }, {
+        }], {
 
             playerStates: function() {
                 return [PlayerStates];

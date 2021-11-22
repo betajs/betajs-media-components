@@ -2,6 +2,7 @@
      class="{{css}}-container {{cssplayer}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}
      {{cssplayer}}-{{fullscreened ? 'fullscreen' : 'normal'}}-view {{cssplayer}}-{{firefox ? 'firefox' : 'common'}}-browser
      {{cssplayer}}-{{themecolor}}-color {{cssplayer}}-device-type-{{mobileview ? 'mobile' : 'desktop'}}
+     {{sticktoview ? csscommon + '-sticky' : ''}} {{sticktoview && fadeup ? csscommon + '-fade-up' : ''}}"
      ba-on:mousemove="{{user_activity()}}"
      ba-on:mousedown="{{user_activity(true)}}"
      ba-on:touchstart="{{user_activity(true)}}"
@@ -25,7 +26,8 @@
              ba-hotkey:alt+right="{{seek(position + skipseconds * 3)}}" ba-hotkey:alt+left="{{seek(position - skipseconds * 3)}}"
              ba-hotkey:up="{{set_volume(volume + 0.1)}}" ba-hotkey:down="{{set_volume(volume - 0.1)}}"
              ba-hotkey:space^enter="{{toggle_player()}}"
-             ba-on:click="{{toggle_player()}}"
+             ba-on:mouseup="{{toggle_player()}}"
+             ba-on:touchend="{{toggle_player()}}"
         ></div>
         <ba-{{dyntrimmer}}
             ba-show="{{trimmingmode && videoelement_active}}"

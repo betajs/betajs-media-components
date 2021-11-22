@@ -162,6 +162,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "uploadoptions": {},
                     "playerattrs": {},
                     "shortMessage": true,
+                    "cpu-friendly": false,
 
                     /* Options */
                     "rerecordable": true,
@@ -321,6 +322,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "simulate": "boolean",
                     "allowedextensions": "array",
                     "onlyaudio": "boolean",
+                    "cpu-friendly": "boolean",
                     "allowcancel": "boolean",
                     "display-timer": "boolean",
                     "audio-test-mandatory": "boolean",
@@ -530,7 +532,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         framerate: this.get("framerate"),
                         flip: this.get("flip-camera"),
                         flipscreen: this.get("flipscreen"),
-                        fittodimensions: this.get("fittodimensions")
+                        fittodimensions: this.get("fittodimensions"),
+                        cpuFriendly: this.get("cpu-friendly")
                     };
                 },
 

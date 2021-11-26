@@ -627,6 +627,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     this.set("snapshots", []);
                     this.thumbnails = [];
                     this.__lastCovershotUpload = undefined;
+                    this.__pauseDelta = 0;
                     this.set("starttime", undefined);
                     this.set("endtime", undefined);
                     this.set("duration", 0);
@@ -896,6 +897,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         }
                         if (typeof this.recorder !== 'undefined') {
                             this.__paused = true;
+                            this.__pauseStart = Time.now();
                             this.__recording = false;
                             this.recorder.pauseRecord();
                             this.recorder._recorder.once("paused", function(ev) {
@@ -1064,6 +1066,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
                 _resume: function() {
                     this.__paused = false;
+                    this.__pauseDelta += Time.now() - this.__pauseStart;
                     this.__recording = true;
                     this.recorder.resumeRecord();
                     this.recorder._recorder.once("resumed", function() {

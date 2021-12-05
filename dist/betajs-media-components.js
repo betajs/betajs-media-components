@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.289 - 2021-11-22
+betajs-media-components - v0.0.290 - 2021-12-05
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.289 - 2021-11-22
+betajs-media-components - v0.0.290 - 2021-12-05
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.289",
-    "datetime": 1637618478669
+    "version": "0.0.290",
+    "datetime": 1638720908217
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -9254,6 +9254,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     this.set("snapshots", []);
                     this.thumbnails = [];
                     this.__lastCovershotUpload = undefined;
+                    this.__pauseDelta = 0;
                     this.set("starttime", undefined);
                     this.set("endtime", undefined);
                     this.set("duration", 0);
@@ -9523,6 +9524,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         }
                         if (typeof this.recorder !== 'undefined') {
                             this.__paused = true;
+                            this.__pauseStart = Time.now();
                             this.__recording = false;
                             this.recorder.pauseRecord();
                             this.recorder._recorder.once("paused", function(ev) {
@@ -9691,6 +9693,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
                 _resume: function() {
                     this.__paused = false;
+                    this.__pauseDelta += Time.now() - this.__pauseStart;
                     this.__recording = true;
                     this.recorder.resumeRecord();
                     this.recorder._recorder.once("resumed", function() {
@@ -10940,8 +10943,6 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
             this.dyn.set("uploadcovershotvisible", false);
             this._startTime = Time.now();
             this._stopping = false;
-            this.__firedTimes = 0;
-            this.__pauseDelta = 0;
             this.__timerDelay = 10;
             this._timer = this.auto_destroy(new Timer({
                 immediate: true,
@@ -10953,16 +10954,12 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
         },
 
         _timerFire: function() {
-            this.__firedTimes += 1;
             var limit = this.dyn.get("timelimit");
-            var current = Time.now() - this.__pauseDelta;
+            if (this.dyn.__paused) return;
+            var current = Time.now() - this.dyn.__pauseDelta;
             var display = Math.max(0, limit ? (this._startTime + limit * 1000 - current) : (current - this._startTime));
             this.dyn.trigger("recording_progress", current - this._startTime, !!this.dyn.__paused);
             this.dyn.set("controlbarlabel", this.dyn.get("display-timer") ? TimeFormat.format(TimeFormat.ELAPSED_MINUTES_SECONDS, display) : "");
-
-            // If recorder paused will slips starting second
-            if (this.dyn.__paused)
-                this.__pauseDelta += this.__timerDelay;
 
             if (this.dyn.get("timeminlimit"))
                 this.dyn.set("mintimeindicator", (Time.now() - this._startTime) / 1000 <= this.dyn.get("timeminlimit"));
@@ -10988,7 +10985,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
         stop: function() {
             var minlimit = this.dyn.get("timeminlimit");
             if (minlimit) {
-                var delta = (Time.now() - (this._startTime + this.__pauseDelta)) / 1000;
+                var delta = (Time.now() - (this._startTime + this.dyn.__pauseDelta)) / 1000;
                 if (delta < minlimit) {
                     var limit = this.dyn.get("timelimit");
                     if (!limit || limit > delta)
@@ -11017,7 +11014,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Recording", [
         },
 
         _hasStopped: function() {
-            this.dyn.set("duration", (Time.now() - (this._startTime + this.__pauseDelta)) / 1000);
+            this.dyn.set("duration", (Time.now() - (this._startTime + this.dyn.__pauseDelta)) / 1000);
             if (this.dyn.get("snapshots").length > 0)
                 this.dyn._showBackgroundSnapshot();
             this.dyn._unbindMedia();

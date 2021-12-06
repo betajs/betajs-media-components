@@ -32,7 +32,12 @@
 }
 
 .#{$css}-trimmer-button-play {
-  font-size: 1.2em;
+  font-size: 19px;
+}
+
+.#{$css}-trimmer-container .#{$css}-trimmer-button-play i:before {
+  font-size: unset;
+  margin: unset;
 }
 
 .#{$css}-trimmer-right-button-container {

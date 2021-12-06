@@ -385,6 +385,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         skipinitial: this.get("skipinitial")
                     });
 
+                    if (this.get("theme")) this.set("theme", this.get("theme").toLowerCase());
                     if (this.get("theme") in Assets.recorderthemes) {
                         Objs.iter(Assets.recorderthemes[this.get("theme")], function(value, key) {
                             if (!this.isArgumentAttr(key))

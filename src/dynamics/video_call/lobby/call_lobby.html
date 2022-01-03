@@ -1,0 +1,12 @@
+<div class="ba-video-call-lobby">
+	<h1>{{string('title')}}</h1>
+	<p>{{string('description')}}</p>
+	<button ba-click="{{connect()}}">{{string('join-button')}}</button>
+	<div class="ba-call-lobby-camera">
+		<button class="ba-call-lobby-mute-btn" ba-click="{{toggle_mute()}}">{{string('mute-button')}}</button>
+		<button class="ba-call-lobby-camera-btn" ba-click="{{toggle_camera()}}">{{string('camera-button')}}</button>
+		<ba-local-view ba-stream="{{=stream}}"
+					   ba-camera_active="{{camera_active}}"
+		></ba-local-view>
+	</div>
+</div>

@@ -22,7 +22,8 @@ module.exports = function(grunt) {
             'src/dynamics/image_viewer/**/*.js',
             'src/dynamics/image_capture/**/*.js',
             'src/dynamics/audio_player/**/*.js',
-            'src/dynamics/audio_recorder/**/*.js'
+            'src/dynamics/audio_recorder/**/*.js',
+            'src/dynamics/video_call/**/*.js'
         ], "dist/" + dist + "-noscoped.js", {
             "module": "global:BetaJS.MediaComponents",
             "base": "global:BetaJS",

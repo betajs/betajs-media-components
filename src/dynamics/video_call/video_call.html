@@ -1,0 +1,22 @@
+<div class="video-call-container ba-commoncss-full-width ba-commoncss-landscape-aspect-ratio ba-commoncss-max-height-100vh">
+	<!-- Lobby Screen -->
+	<ba-call-lobby ba-if="{{lobby_active}}"
+				   ba-stream="{{=local_stream}}"
+				   ba-camera_active="{{local_camera_active}}"
+	></ba-call-lobby>
+
+	<!-- Message Overlay (used on connecting screen, error message and call ended message) -->
+	<p ba-if="{{message}}"
+	   class="ba-commoncss-full-width ba-commoncss-full-height"
+	>{{message}}</p>
+
+	<!-- Active Call -->
+	<ba-call-view ba-if="{{call_active}}"
+				  ba-local_stream="{{=local_stream}}"
+				  ba-remote_stream="{{=remote_stream}}"
+				  ba-local_camera_active="{{local_camera_active}}"
+				  ba-local_microphone_active="{{local_microphone_active}}"
+				  ba-remote_camera_active="{{remote_camera_active}}"
+				  ba-remote_microphone_active="{{remote_microphone_active}}"
+	></ba-call-view>
+</div>

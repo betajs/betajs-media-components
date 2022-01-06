@@ -307,6 +307,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
         dynamics: ["playbutton"],
 
         _started: function() {
+            // Will attach video in the backside
+            if (!this.dyn.get("skipinitial") && this.dyn.get("preload"))
+                this.dyn._attachVideo(true);
             this.dyn.trigger("ready_to_play");
             this.dyn.trigger("loaded");
             this.listenOn(this.dyn, "error:poster", function() {
@@ -318,6 +321,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
         },
 
         play: function() {
+            this.dyn.set("silent_attach", false);
             if (this.dyn.get("sticky")) this.dyn.stickyHandler.start();
             if (!this.dyn.get("popup")) {
                 this.next("Preroll");
@@ -338,11 +342,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
             popup.show();
             dynamic.activate();
         }
-
     });
 });
-
-
 
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Preroll", [
     "module:VideoPlayer.Dynamics.PlayerStates.State"

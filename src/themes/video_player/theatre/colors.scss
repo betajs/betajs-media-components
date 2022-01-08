@@ -27,7 +27,7 @@
         @include background-rgba(255, 255, 255, 0.3, #7f7f7f);
       }
 
-      .#{$cssplayer}-button-active i, .#{$csscommon}-settings-visible i {
+      .#{$cssplayer}-button-active i, .#{$csscommon}-settings-visible i, .#{$csscommon}-accent-color {
         color: #eeeeee;
       }
 

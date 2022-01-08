@@ -113,6 +113,7 @@ Scoped.define("module:ImageViewer.Dynamics.ImageViewer", [
                 remove_on_destroy: true,
 
                 create: function() {
+                    if (this.get("theme")) this.set("theme", this.get("theme").toLowerCase());
                     if (this.get("theme") in Assets.imageviewerthemes) {
                         Objs.iter(Assets.imageviewerthemes[this.get("theme")], function(value, key) {
                             if (!this.isArgumentAttr(key))

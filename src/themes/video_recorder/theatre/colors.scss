@@ -5,13 +5,13 @@
       .#{$csstheme}-dashboard {
 
         .#{$css}-button-selected, .#{$css}-button-inner, .#{$css}-button-inner:hover,
-        .#{$css}-stop-button-container .#{$css}-button {
+        .#{$css}-stop-button-container .#{$css}-button, .#{$csscommon}-accent-color {
           color: $value;
         }
-        .#{$css}-button-selected {
+        .#{$css}-button-selected, .#{$csscommon}-accent-color-border {
           border-color:  $value;
         }
-        .#{$css}-button-primary {
+        .#{$css}-button-primary, .#{$csscommon}-accent-color-bg {
           background-color: $value;
         }
 

@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.290 - 2021-12-05
+betajs-media-components - v0.0.291 - 2022-01-08
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -21,7 +21,7 @@ Apache-2.0 Software License.
   background-color: #7f7f7f;
   background-color: rgba(255, 255, 255, 0.3);
 }
-.ba-player-red-color .ba-player-button-active i, .ba-player-red-color .ba-commoncss-settings-visible i {
+.ba-player-red-color .ba-player-button-active i, .ba-player-red-color .ba-commoncss-settings-visible i, .ba-player-red-color .ba-commoncss-accent-color {
   color: #eeeeee;
 }
 
@@ -43,7 +43,7 @@ Apache-2.0 Software License.
   background-color: #7f7f7f;
   background-color: rgba(255, 255, 255, 0.3);
 }
-.ba-player-blue-color .ba-player-button-active i, .ba-player-blue-color .ba-commoncss-settings-visible i {
+.ba-player-blue-color .ba-player-button-active i, .ba-player-blue-color .ba-commoncss-settings-visible i, .ba-player-blue-color .ba-commoncss-accent-color {
   color: #eeeeee;
 }
 
@@ -65,7 +65,7 @@ Apache-2.0 Software License.
   background-color: #7f7f7f;
   background-color: rgba(255, 255, 255, 0.3);
 }
-.ba-player-green-color .ba-player-button-active i, .ba-player-green-color .ba-commoncss-settings-visible i {
+.ba-player-green-color .ba-player-button-active i, .ba-player-green-color .ba-commoncss-settings-visible i, .ba-player-green-color .ba-commoncss-accent-color {
   color: #eeeeee;
 }
 
@@ -704,13 +704,13 @@ Apache-2.0 Software License.
 }
 
 .ba-recorder-red-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-selected, .ba-recorder-red-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-inner, .ba-recorder-red-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-inner:hover,
-.ba-recorder-red-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-stop-button-container .ba-videorecorder-button {
+.ba-recorder-red-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-stop-button-container .ba-videorecorder-button, .ba-recorder-red-color .ba-recorder-theme-theatre-dashboard .ba-commoncss-accent-color {
   color: #eb6a74;
 }
-.ba-recorder-red-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-selected {
+.ba-recorder-red-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-selected, .ba-recorder-red-color .ba-recorder-theme-theatre-dashboard .ba-commoncss-accent-color-border {
   border-color: #eb6a74;
 }
-.ba-recorder-red-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-primary {
+.ba-recorder-red-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-primary, .ba-recorder-red-color .ba-recorder-theme-theatre-dashboard .ba-commoncss-accent-color-bg {
   background-color: #eb6a74;
 }
 .ba-recorder-red-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-settings input[type=radio]:checked + span {
@@ -738,13 +738,13 @@ Apache-2.0 Software License.
 }
 
 .ba-recorder-blue-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-selected, .ba-recorder-blue-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-inner, .ba-recorder-blue-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-inner:hover,
-.ba-recorder-blue-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-stop-button-container .ba-videorecorder-button {
+.ba-recorder-blue-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-stop-button-container .ba-videorecorder-button, .ba-recorder-blue-color .ba-recorder-theme-theatre-dashboard .ba-commoncss-accent-color {
   color: #2a74eb;
 }
-.ba-recorder-blue-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-selected {
+.ba-recorder-blue-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-selected, .ba-recorder-blue-color .ba-recorder-theme-theatre-dashboard .ba-commoncss-accent-color-border {
   border-color: #2a74eb;
 }
-.ba-recorder-blue-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-primary {
+.ba-recorder-blue-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-primary, .ba-recorder-blue-color .ba-recorder-theme-theatre-dashboard .ba-commoncss-accent-color-bg {
   background-color: #2a74eb;
 }
 .ba-recorder-blue-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-settings input[type=radio]:checked + span {
@@ -772,13 +772,13 @@ Apache-2.0 Software License.
 }
 
 .ba-recorder-green-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-selected, .ba-recorder-green-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-inner, .ba-recorder-green-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-inner:hover,
-.ba-recorder-green-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-stop-button-container .ba-videorecorder-button {
+.ba-recorder-green-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-stop-button-container .ba-videorecorder-button, .ba-recorder-green-color .ba-recorder-theme-theatre-dashboard .ba-commoncss-accent-color {
   color: #5daa96;
 }
-.ba-recorder-green-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-selected {
+.ba-recorder-green-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-selected, .ba-recorder-green-color .ba-recorder-theme-theatre-dashboard .ba-commoncss-accent-color-border {
   border-color: #5daa96;
 }
-.ba-recorder-green-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-primary {
+.ba-recorder-green-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-button-primary, .ba-recorder-green-color .ba-recorder-theme-theatre-dashboard .ba-commoncss-accent-color-bg {
   background-color: #5daa96;
 }
 .ba-recorder-green-color .ba-recorder-theme-theatre-dashboard .ba-videorecorder-settings input[type=radio]:checked + span {

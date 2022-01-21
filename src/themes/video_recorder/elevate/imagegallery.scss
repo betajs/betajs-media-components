@@ -1,9 +1,10 @@
 .#{$csstheme}.#{$css}-container {
 
-    .#{$css}-imagegallery-container {
-        left: 50px;
-        right: 50px;
-    }
+  .#{$css}-imagegallery-container {
+      left: 50px;
+      right: 50px;
+  }
+
 }
 
 
@@ -22,8 +23,4 @@
     height: $imagegallery_buttonsize;
     width: $imagegallery_buttonsize;
     z-index: 10;
-}
-
-.#{$css}-imagegallery-button-inner{
-    color: $text_color_secondary;
 }

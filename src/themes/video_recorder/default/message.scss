@@ -4,6 +4,10 @@
     opacity: $message_opacity;
 }
 
+.#{$css}-overlay-with-placeholder .#{$css}-message-container {
+  opacity: 0.25;
+}
+
 ba-videorecorder-message[ba-message=""], ba-videorecorder-message[ba-message="null"] {
     display: none;
 }
@@ -13,8 +17,8 @@ ba-videorecorder-message[ba-message=""], ba-videorecorder-message[ba-message="nu
     color: $text_color;
     position: absolute;
     left: 5px;
-    right: 5px;    
-    top: 50%;    
+    right: 5px;
+    top: 50%;
     text-align: center;
 }
 

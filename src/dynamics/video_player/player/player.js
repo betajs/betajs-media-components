@@ -199,6 +199,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             "click_play": true
                         }
                     },
+                    "placeholderstyle": "",
+                    "hasplaceholderstyle": false,
                     "playerorientation": undefined,
                     // Reference to Chrome renewed policy, we have to setup mute for auto-playing players.
                     // If we do it forcibly then will set as true
@@ -317,6 +319,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 }, this);
                             }
                         }
+                    },
+                    "change:placeholderstyle": function(value) {
+                        this.set("hasplaceholderstyle", value.length > 10);
                     }
                 },
 

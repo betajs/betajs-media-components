@@ -4,12 +4,17 @@
     opacity: $message_opacity;
 }
 
+.#{$css}-overlay-with-placeholder .#{$css}-message-container {
+  opacity: 0.25;
+}
+
+
 .#{$css}-message-message {
 	@include transform-translate-y(-50%);
     color: $message_color;
     position: absolute;
     left: 5px;
-    right: 5px;    
-    top: 50%;    
+    right: 5px;
+    top: 50%;
     text-align: center;
 }

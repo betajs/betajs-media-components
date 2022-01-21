@@ -11,7 +11,11 @@
 		   data-video="video" playsinline disablePictureInPicture
 	></video>
 	<ba-videorecorder-faceoutline class="{{css}}-overlay" ba-if="{{faceoutline && hasrecorder && isrecorderready}}"></ba-videorecorder-faceoutline>
-    <div data-selector="recorder-overlay" class='{{cssrecorder}}-overlay' ba-show="{{!hideoverlay}}" data-overlay="overlay">
+    <div data-selector="recorder-overlay" style="{{placeholderstyle}}"
+		 class="{{cssrecorder}}-overlay {{hasplaceholderstyle ? (css + '-overlay-with-placeholder') : ''}}"
+		 ba-show="{{!hideoverlay}}"
+		 data-overlay="overlay"
+	>
 		<ba-{{dynloader}}
 			ba-css="{{cssloader || css}}"
 			ba-cssrecorder="{{cssrecorder || css}}"
@@ -175,6 +179,7 @@
 		ba-sharevideo="{{sharevideo}}"
 		ba-videofitstrategy="{{videofitstrategy}}"
 		ba-posterfitstrategy="{{posterfitstrategy}}"
+		ba-placeholderstyle="{{placeholderstyle}}"
 		ba-event:loaded="ready_to_play"
 		ba-event:rerecord="rerecord"
 		ba-event:playing="playing"

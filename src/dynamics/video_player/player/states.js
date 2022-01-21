@@ -207,7 +207,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Initial", [
         scoped: scoped
     }, {
 
-
         dynamics: ["loader"],
 
         _started: function() {
@@ -307,6 +306,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
         dynamics: ["playbutton"],
 
         _started: function() {
+            this.dyn.set("placeholderstyle", "");
             // Will attach video in the backside
             if (!this.dyn.get("skipinitial") && this.dyn.get("preload"))
                 this.dyn._attachVideo(true);

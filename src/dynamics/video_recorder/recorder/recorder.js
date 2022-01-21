@@ -152,6 +152,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "sharevideo": [],
                     "videofitstrategy": "pad",
                     "posterfitstrategy": "crop",
+                    "placeholderstyle": "",
+                    "hasplaceholderstyle": false,
 
                     /* Configuration */
                     "simulate": false,
@@ -373,6 +375,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                             this.set("autorecord", false);
                             this._screenRecorderVerifier(false);
                         }
+                    },
+                    "change:placeholderstyle": function(value) {
+                        this.set("hasplaceholderstyle", value.length > 10);
                     }
                 },
 
@@ -639,7 +644,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         "thumbnails": {
                             "mainimage": null,
                             "images": []
-                        }
+                        },
+                        "placeholderSnapshot": null
                     });
                 },
 
@@ -788,10 +794,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     if (this.get("snapshots") && this.get("selectfirstcovershotonskip")) {
                         if (this.get("snapshots")[0])
                             this.__backgroundSnapshot = this.get("snapshots")[0];
-                    } else {
+                    }
+                    if (!this.__backgroundSnapshot && this.recorder) {
                         this.__backgroundSnapshot = this.recorder.createSnapshot(this.get("snapshottype"));
                     }
-                    this.__backgroundSnapshot = this.recorder.createSnapshot(this.get("snapshottype"));
                     var el = this.activeElement().querySelector("[data-video]");
                     var dimensions = Dom.elementDimensions(el);
                     if (this.__backgroundSnapshot) {
@@ -1119,53 +1125,60 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         }
                     } catch (e) {}
 
-                    if (!this.get("onlyaudio") && this.get("picksnapshots")) {
-                        if (this.__recording && this.__recording_start_time + 500 < Time.now()) {
-                            var p = this.get("snapshots").length < this.get("snapshotmax") ? 0.25 : 0.05;
-                            if (Math.random() <= p) {
-                                var snap = this.recorder.createSnapshot(this.get("snapshottype"));
-                                if (snap) {
-                                    if (!this.get('videometadata').height && typeof Image !== 'undefined' && this.get("createthumbnails")) {
-                                        RecorderSupport.snapshotMetaData(snap).success(function(data) {
-                                            var _thumbWidth = data.orientation === 'landscape' ? 80 : 35;
-                                            this.set("videometadata", Objs.tree_merge(this.get("videometadata"), data));
-                                            this.set("videometadata", Objs.tree_merge(this.get("videometadata"), {
-                                                "thumbnails": {
-                                                    width: _thumbWidth,
-                                                    height: Math.floor(_thumbWidth / data.width * data.height)
+                    if (!this.get("onlyaudio") && this.__recording) {
+                        if (this.get("picksnapshots")) {
+                            if (this.__recording_start_time + 500 < Time.now()) {
+                                var p = this.get("snapshots").length < this.get("snapshotmax") ? 0.25 : 0.05;
+                                if (Math.random() <= p) {
+                                    var snap = this.recorder.createSnapshot(this.get("snapshottype"));
+                                    if (snap) {
+                                        if (!this.get('videometadata').height && typeof Image !== 'undefined' && this.get("createthumbnails")) {
+                                            RecorderSupport.snapshotMetaData(snap).success(function(data) {
+                                                var _thumbWidth = data.orientation === 'landscape' ? 80 : 35;
+                                                this.set("videometadata", Objs.tree_merge(this.get("videometadata"), data));
+                                                this.set("videometadata", Objs.tree_merge(this.get("videometadata"), {
+                                                    "thumbnails": {
+                                                        width: _thumbWidth,
+                                                        height: Math.floor(_thumbWidth / data.width * data.height)
+                                                    }
+                                                }));
+                                            }, this);
+                                        }
+                                        if (this.get("snapshots").length < this.get("snapshotmax")) {
+                                            this.get("snapshots").push(snap);
+                                        } else {
+                                            var i = Math.floor(Math.random() * this.get("snapshotmax"));
+                                            this.recorder.removeSnapshot(this.get("snapshots")[i]);
+                                            this.get("snapshots")[i] = snap;
+                                        }
+
+                                        if (this.get("createthumbnails")) {
+                                            var _currentRecordingSecond = Math.floor((Time.now() - this.__recording_start_time) / 1000);
+                                            var _thumbLatestIndex = this.get("videometadata").thumbnails.images.length > 1 ? this.get("videometadata").thumbnails.images.length - 1 : 0;
+                                            var _latestThumb = this.get("videometadata").thumbnails.images[_thumbLatestIndex];
+
+                                            // Add thumb each 2 seconds
+                                            if (typeof _latestThumb !== 'undefined') {
+                                                if (_currentRecordingSecond > _latestThumb.time + 1) {
+                                                    this.get("videometadata").thumbnails.images.push({
+                                                        time: _currentRecordingSecond,
+                                                        snap: snap
+                                                    });
                                                 }
-                                            }));
-                                        }, this);
-                                    }
-                                    if (this.get("snapshots").length < this.get("snapshotmax")) {
-                                        this.get("snapshots").push(snap);
-                                    } else {
-                                        var i = Math.floor(Math.random() * this.get("snapshotmax"));
-                                        this.recorder.removeSnapshot(this.get("snapshots")[i]);
-                                        this.get("snapshots")[i] = snap;
-                                    }
-
-                                    if (this.get("createthumbnails")) {
-                                        var _currentRecordingSecond = Math.floor((Time.now() - this.__recording_start_time) / 1000);
-                                        var _thumbLatestIndex = this.get("videometadata").thumbnails.images.length > 1 ? this.get("videometadata").thumbnails.images.length - 1 : 0;
-                                        var _latestThumb = this.get("videometadata").thumbnails.images[_thumbLatestIndex];
-
-                                        // Add thumb each 2 seconds
-                                        if (typeof _latestThumb !== 'undefined') {
-                                            if (_currentRecordingSecond > _latestThumb.time + 1) {
+                                            } else {
                                                 this.get("videometadata").thumbnails.images.push({
                                                     time: _currentRecordingSecond,
                                                     snap: snap
                                                 });
                                             }
-                                        } else {
-                                            this.get("videometadata").thumbnails.images.push({
-                                                time: _currentRecordingSecond,
-                                                snap: snap
-                                            });
                                         }
                                     }
                                 }
+                            }
+                        } else {
+                            // took snap only one for background view
+                            if (!this.get("videometadata").processingPlaceholder) {
+                                this.get("videometadata").processingPlaceholder = this.recorder.createSnapshot(this.get("snapshottype"));
                             }
                         }
                     }

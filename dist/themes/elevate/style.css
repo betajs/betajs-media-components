@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.291 - 2022-01-08
+betajs-media-components - v0.0.292 - 2022-01-24
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -848,10 +848,6 @@ Apache-2.0 Software License.
   height: 30px;
   width: 30px;
   z-index: 10;
-}
-
-.ba-videorecorder-imagegallery-button-inner {
-  color: #666666;
 }
 
 .ba-recorder-theme-elevate .ba-videorecorder-topmessage-container {

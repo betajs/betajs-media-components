@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.291 - 2022-01-08
+betajs-media-components - v0.0.292 - 2022-01-24
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -3273,6 +3273,10 @@ Apache-2.0 Software License.
   opacity: 0.75;
 }
 
+.ba-videoplayer-overlay-with-placeholder .ba-videoplayer-message-container {
+  opacity: 0.25;
+}
+
 .ba-videoplayer-message-message {
   -webkit-transform: translateY(-50%);
   -moz-transform: translateY(-50%);
@@ -3923,6 +3927,10 @@ Apache-2.0 Software License.
   bottom: 0;
   background-color: black;
   opacity: 0.75;
+}
+
+.ba-videorecorder-overlay-with-placeholder .ba-videorecorder-message-container {
+  opacity: 0.25;
 }
 
 ba-videorecorder-message[ba-message=""], ba-videorecorder-message[ba-message=null] {

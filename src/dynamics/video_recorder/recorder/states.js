@@ -1061,6 +1061,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Trimming", [
         hideTrimmingOverlay: function() {
             this.dyn.set("trimmingmode", false);
             this.dyn.set("playerattrs", this._playerAttrs);
+            this.dyn.set("player_active", false);
         }
     });
 });

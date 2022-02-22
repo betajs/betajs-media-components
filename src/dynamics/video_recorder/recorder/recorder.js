@@ -762,7 +762,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     return this.recorder.stopRecord({
                         video: this.get("uploadoptions").video,
                         audio: this.get("uploadoptions").audio,
-                        webrtcStreaming: this.get("uploadoptions").webrtcStreaming
+                        webrtcStreaming: this.get("uploadoptions").webrtcStreaming,
+                        noUploading: this.get("uploadoptions").noUploading
                     }).success(function(uploader) {
                         this.__recording = false;
                         uploader.upload();

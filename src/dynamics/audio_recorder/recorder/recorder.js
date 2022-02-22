@@ -437,7 +437,8 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     if (this.audioVisualization) this.audioVisualization.stop();
                     return this.recorder.stopRecord({
                         audio: this.get("uploadoptions").audio,
-                        webrtcStreaming: this.get("uploadoptions").webrtcStreaming
+                        webrtcStreaming: this.get("uploadoptions").webrtcStreaming,
+                        noUploading: this.get("uploadoptions").noUploading
                     }).success(function(uploader) {
                         this.__recording = false;
                         uploader.upload();

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script src="/static/vendors/jquery.min.js"></script>
+    <script src="/static/node_modules/betajs-shims/dist/betajs-shims.js"></script>
+    <script src="/static/node_modules/betajs-scoped/dist/scoped.js"></script>
+    <script src="/static/node_modules/betajs/dist/beta-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
+	<script src="/static/dist/betajs-media-components-noscoped.js"></script>
+	<link  href="/static/dist/betajs-media-components.css" rel="stylesheet" />
+    <script src="/static/dist/themes/modern/script.js"></script>
+    <link  href="/static/dist/themes/modern/style.css" rel="stylesheet" />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+
+    <!-- Cube Theme Assets -->
+    <script src="/static/dist/themes/cube/script.js"></script>
+    <link href="/static/dist/themes/cube/style.css" rel="stylesheet" />
+
+    <!-- Elevate Theme Assets -->
+    <script src="/static/dist/themes/elevate/script.js"></script>
+    <link href="/static/dist/themes/elevate/style.css" rel="stylesheet" />
+
+    <!-- Minimalist Theme Assets -->
+    <script src="/static/dist/themes/minimalist/script.js"></script>
+    <link href="/static/dist/themes/minimalist/style.css" rel="stylesheet" />
+
+    <!-- Minimalist Theme Assets -->
+    <script src="/static/dist/themes/modern/script.js"></script>
+    <link href="/static/dist/themes/modern/style.css" rel="stylesheet" />
+
+    <!-- Space Theme Assets -->
+    <script src="/static/dist/themes/space/script.js"></script>
+    <link href="/static/dist/themes/space/style.css" rel="stylesheet" />
+
+    <!-- Theatre Theme Assets -->
+    <script src="/static/dist/themes/theatre/script.js"></script>
+    <link href="/static/dist/themes/theatre/style.css" rel="stylesheet" />
+
+</head>
+<body style="background: #ccc">
+
+<div class="md:container md:mx-auto">
+    <div class="grid grid-cols-6 gap-4 divide-y divide-dashed">
+        <div class="ol-start-2 col-span-6 text-center">
+            <div id="recorder"></div>
+        </div>
+
+        <div class="col-start-2 col-span-6 text-center">
+            <label class="block">
+                <span class="text-gray-700">Cameras</span>
+                <select id="cam-my-own-id-selector" class="
+                            block
+                            w-full
+                            mt-0
+                            px-1.5
+                            border-0 border-b-2 border-gray-200
+                            focus:ring-0 focus:border-black
+                          ">
+                    <option>Please Select Camera</option>
+                </select>
+            </label>
+        </div>
+
+        <div class="col-start-2 col-span-6 text-center">
+            <label class="block">
+                <span class="text-gray-700">Audio Inputs/Mic</span>
+                    <div id="mic-my-own-id-selector" class="form-group"></div>
+<!--                <select id="mic-my-own-id-selector" class="-->
+<!--                            block-->
+<!--                            w-full-->
+<!--                            mt-0-->
+<!--                            px-1.5-->
+<!--                            border-0 border-b-2 border-gray-200-->
+<!--                            focus:ring-0 focus:border-black-->
+<!--                          ">-->
+<!--                    <option>Audio Input</option>-->
+<!--                </select>-->
+            </label>
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+    var filename = "video-" + BetaJS.Time.now();
+    var recorder = new BetaJS.MediaComponents.VideoRecorder.Dynamics.Recorder({
+        element: document.getElementById('recorder'),
+        attrs: {
+            pausable: true,
+            // width: '440',
+            // height: '440',
+            // localplayback: true,
+            // mandatoryorientation: "portrait", // landscape, portrait
+            picksnapshots: true,
+            snapshotfromuploader: true,
+            'outsource-selectors': "cam-my-own-id-selector[type='select',showCapabilities=true];mic-my-own-id-selector[type='radio',className='asdas asdasd form']",
+            // skipinitial: true,
+            // onlyaudio: true,
+
+            // webrtconmobile: true,
+            // theme: "cube",
+            // theme: "elevate",
+            // theme: "minimalist",
+            // theme: "modern",
+            // theme: "space",
+            // theme: "theatre",
+            // themecolor: "red",
+            allowscreen: true,
+            allowmultistreams: true,
+        }
+    });
+
+
+    // BetaJS.Browser.Dom.ready(() => {
+    //     BetaJS.Media.WebRTC.Support.enumerateMediaSources((devices) => {}, recorder);
+    // }, recorder);
+
+    recorder._prepareRecording = function () {
+        recorder.set("uploadoptions", {
+            image: {url:"/files/" + filename + ".jpg"},
+            // video: {url:"/files/" + filename + ".mov"},
+            // video: {url:"/files/" + filename + ".webm" + '/transcode/' + filename + ".mp4"},
+            // video: {url:"/files/" + filename + ".webm"},
+            video: {url:"/files/" + filename + (BetaJS.Browser.Info.isSafari() ? ".mp4" : ".webm")},
+            audio: {url:"/files/" + filename + ".wav"},
+            thumbnail: {url:"/files/" + filename + "-thumbnails.jpg"},
+            tracks: {url:"/files/" + filename + ".vtt"}
+        });
+        recorder.set("playerattrs.source", "/files/" + filename + ".mp4");
+        if (recorder.recorder)
+            recorder.set("playerattrs.poster", "/files/" + filename + ".jpg");
+        return BetaJS.Promise.value(true);
+    };
+
+    recorder.on("ended", (ev) => {}, recorder);
+
+    // const micSelectionSelector = document.getElementById('select-mic');
+    // const cameraSelectionSelector = document.getElementById('select-camera');
+    //
+    // if (micSelectionSelector) {
+    //     micSelectionSelector.addEventListener("change", (ev) => {
+    //         const { target: { options } } = ev;
+    //         Array.from(options).forEach(function (element) {
+    //             if (element.selected) recorder.select_microphone(element.value);
+    //         });
+    //     });
+    // }
+    //
+    // if (cameraSelectionSelector) {
+    //     cameraSelectionSelector.addEventListener("change", (ev) => {
+    //         const { target: { options } } = ev;
+    //         Array.from(options).forEach(function (element) {
+    //             if (element.selected) recorder.select_camera(element.value);
+    //         });
+    //     });
+    // }
+
+    // recorder.on("access_granted", () => {
+    //     if (typeof recorder.recorder !== "undefined") {
+    //         const _recorder = recorder.recorder;
+    //         _recorder.on("currentdevicesdetected", (currentDeivices) => {
+    //             micSelectionSelector.disabled = recorder.get("microphones").count() <= 1;
+    //             cameraSelectionSelector.disabled = recorder.get("cameras").count() <= 1;
+    //
+    //             recorder.get("cameras").iterate((cam) => {
+    //                 const option = document.createElement('option');
+    //                 const cam_id = cam.get("id");
+    //                 const cam_label = cam.get("label");
+    //                 let _details = '';
+    //                 const cam_capabilities = cam.get("capabilities");
+    //                 if (cam_capabilities) {
+    //                     if (typeof cam_capabilities.width !== "undefined" && typeof cam_capabilities.height !== "undefined") {
+    //                         _details = '(' + cam_capabilities.width.max + 'x' + cam_capabilities.height.max + ')';
+    //                     }
+    //                 }
+    //                 option.value = cam_id;
+    //                 option.innerText = cam_label + _details;
+    //                 option.selected = cam_id === currendDeivices.video;
+    //                 cameraSelectionSelector.appendChild(option);
+    //             }, recorder);
+    //
+    //             recorder.get("microphones").iterate((mic) => {
+    //                 const option = document.createElement('option');
+    //                 const cam_id = mic.get("id");
+    //                 option.value = cam_id;
+    //                 option.innerText = mic.get("label");
+    //                 option.selected = cam_id === currendDeivices.audio;
+    //                 micSelectionSelector.appendChild(option);
+    //             }, recorder);
+    //
+    //         }, recorder);
+    //     }
+    // }, recorder);
+
+
+    // recorder.on("recording", () => {
+    //     micSelectionSelector.style.display = 'none';
+    //     cameraSelectionSelector.style.display = 'none';
+    // }, recorder);
+
+    // recorder.on("no_camera", () => {
+    //     cameraSelectionSelector.disabled = true;
+    //     // Some other actions if no camera available
+    // }, recorder);
+
+    // recorder.on("no_microphone", () => {
+    //     micSelectionSelector.disabled = true;
+    //     // Some other actions if no mics available
+    // }, recorder);
+
+    recorder.on("bound", function () {}, recorder);
+
+    recorder.on("unbound", function () {
+        console.log('Unbounded!!!', recorder.get("mandatoryorientation"));
+    }, recorder);
+
+
+    recorder.on("attached", function () {
+        console.log('Recorder Attcahed !!!');
+    });
+
+    recorder.on("uploaded", function (embedding) {
+        console.log('Uploaded: ', 'uploaded'+ ' ('+ Date.now() + ')');
+    });
+
+    recorder.on("processing", function (embedding, percentage) {
+        console.log('Processing: ', percentage + '%' + ' ('+ Date.now() + ')');
+    });
+
+    recorder.on("processed", function (embedding) {
+        console.log('Processed: ', 'processed' + ' ('+ Date.now() + ')');
+    });
+
+    recorder.activate();
+
+    const recordClickHandler = (ev) => {
+        console.log('Record Button Pressed >> ', recorder.get("autorecord"));
+        recorder.record();
+    }
+
+    const resetClickHandler = () => {
+        console.log('Reset Button Pressed >> ');
+        recorder.reset();
+    }
+
+    const recorderScreen = () => {
+        recorder.record_screen();
+    }
+
+    const pauseClickHandler = () => {
+        // recorder.stop();
+        if (recorder.isRecording())
+            recorder.pause_recorder();
+        else
+            recorder.resume();
+    }
+
+    const handleCaptureScreen = () => {
+        // createSnapshot: (type)
+        // snapshotToLocalPoster
+        // createSnapshotDisplay(parent, snapshot, x, y, w, h)
+        // createSnapshotUploader: ƒ (snapshot, type, uploaderOptions)
+        console.log('Get > >', recorder.snapshots, recorder);
+    }
+
+</script>
+</body>
+</html>

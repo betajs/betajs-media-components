@@ -154,6 +154,22 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "posterfitstrategy": "crop",
                     "placeholderstyle": "",
                     "hasplaceholderstyle": false,
+                    /** outsource-selectors should start with cam-* or/and mic-* will add in the feature other selectors.
+                     * If set skipinitial devices info will be accessible w/o pressing record button
+                     * all settings should be seperated by ';' and has to be ID selector (only characters: "-", "_", numbers and letters allowed)
+                     * OPTIONS:
+                     * 'type': Could be manage type of element, by default will be 'select' element
+                     * possible types: 'radio', 'select'(default) all should be as a string
+                     * 'disabled': Could be set disable by default, and of there're no option more than 1
+                     * device selection. Default is true
+                     * 'className': will be added as a class attribute to single option and in label for radio
+                     * 'showCapabilities' for camera only and if available camera resolutions info provided
+                     * by browser. Default is true
+                     * examples:
+                     * "cam-my-own-id-selector;mic-my-own-id-selector"
+                     * "cam-my-own-id-selector[type='select',disabled=false,showCapabilities=true];mic-my-own-id-selector[type='radio',className='class1 class2 etc']"
+                     */
+                    "outsource-selectors": null,
 
                     /* Configuration */
                     "simulate": false,
@@ -200,6 +216,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         label: 'English'
                     }],
                     "tracktags": [],
+                    "outsourceSelectors": [],
                     "hassubtitles": false,
                     "videometadata": {},
                     "optionsinitialstate": {},
@@ -351,7 +368,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "mandatoryresolutions": "array",
                     "pickcovershotframe": "boolean",
                     "allowtrim": "boolean",
-                    "trimoverlay": "boolean"
+                    "trimoverlay": "boolean",
+                    "outsourceSelectors": []
                 },
 
                 extendables: ["states"],
@@ -409,6 +427,53 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
 
                     this.set("canswitchcamera", false);
                     this.set("recordviafilecapture", Info.isMobile() && (!this.get("webrtconmobile") || !VideoRecorderWrapper.anySupport(this._videoRecorderWrapperOptions())));
+
+                    if (this.get("outsource-selectors")) {
+                        var selectors = Objs.map(this.get("outsource-selectors").split(/;/), function(item) {
+                            var obj = {
+                                options: {
+                                    type: 'select',
+                                    disabled: true,
+                                    showCapabilities: true
+                                }
+                            };
+                            var options = '';
+                            var splitted = item.split("[");
+                            var selector = splitted[0];
+                            var camSelectorPatters = /^cam\-[A-Za-z\d\-\_]*/i;
+                            var micSelectorPatters = /^mic\-[A-Za-z\d\-\_]*/i;
+                            if (camSelectorPatters.test(selector)) {
+                                obj.isCamera = true;
+                                obj.selector = selector;
+                            }
+                            if (micSelectorPatters.test(selector)) {
+                                obj.isCamera = false;
+                                obj.selector = selector;
+                            }
+
+                            if (splitted[1]) {
+                                options = splitted[1].replace(/\]$/, "")
+                                    .replace(/\=/g, ':').replace(/\'/g, '"')
+                                    .replace(/(\w+:)|(\w+ :)/g, function(matchedStr) {
+                                        return '"' + matchedStr.substring(0, matchedStr.length - 1) + '":';
+                                    });
+                            }
+                            if (options.length > 5) {
+                                try {
+                                    var parsedOptions = JSON.parse("{" + options + "}");
+                                    obj.options = Objs.tree_extend(obj.options, parsedOptions);
+                                } catch (e) {
+                                    console.warn("Wrong settins for 'outsource-selectors' was provided");
+                                }
+                            }
+
+                            if (!Types.is_undefined(obj.isCamera)) {
+                                return obj;
+                            }
+
+                        }, this);
+                        this.set("outsourceSelectors", selectors);
+                    }
 
                     if (this.get("recordviafilecapture")) {
                         this.set("skipinitial", false);
@@ -600,6 +665,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                                 this.recorder.once("currentdevicesdetected", function(currentDevices) {
                                     this.set("selectedcamera", currentDevices.video);
                                     this.set("selectedmicrophone", currentDevices.audio);
+                                    if (this.get("outsourceSelectors").length > 0) {
+                                        this.setOutsourceSelectors(currentDevices);
+                                    }
                                 }, this);
                                 this.set("cameras", new Collection(Objs.values(devices.video)));
                                 this.set("microphones", new Collection(Objs.values(devices.audio)));
@@ -1366,6 +1434,164 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                             }, this);
                         }
                     }, this);
+                },
+
+                /**
+                 * Will set settings on outsource elements
+                 */
+                setOutsourceSelectors: function(choosenDevices) {
+                    Objs.map(this.get("outsourceSelectors"), function(item) {
+                        var options = item.options;
+                        var element = document.getElementById(item.selector);
+                        if (element) {
+                            var isCamera = item.isCamera;
+                            var choosenDevice = choosenDevices[isCamera ? 'video' : 'audio'];
+                            if ((options.type === "select" && element.tagName !== "SELECT") || (options.type !== "select" && element.tagName === "SELECT")) {
+                                var message = "You sould provide correct element selector, option element could be only select element child";
+                                var childNode = document.createTextNode(message);
+                                if (element.tagName === "SELECT") {
+                                    var textNode = childNode;
+                                    childNode = document.createElement('option');
+                                    childNode.appendChild(textNode);
+                                }
+                                element.appendChild(childNode);
+                                console.warn(message);
+                            } else {
+                                this.__buildOuturseElement(element, item.options, isCamera, choosenDevice);
+                            }
+                        } else {
+                            console.warn("There are no element with id: " + item.selector + " to implement 'outsource-selectors'");
+                        }
+                    }, this);
+                },
+
+                /**
+                 * Just Helper funtion build outsources elements
+                 * @param element
+                 * @param options
+                 * @param isCamera
+                 * @param choosenDevice
+                 * @private
+                 */
+                __buildOuturseElement: function(element, options, isCamera, choosenDevice) {
+                    var self = this;
+                    var deviceCollections = isCamera ? this.get("cameras") : this.get("microphones");
+                    var listeners = [];
+                    var initialSelectorText = '';
+                    element.disabled = deviceCollections.count() <= 1 && options.disabled;
+                    if (deviceCollections.count() > 0) {
+                        // Clear initial select content
+                        if (options.type === "select" && element.options) {
+                            initialSelectorText = element.options[0].innerText;
+                            while (element.options.length > 0) {
+                                element.remove(0);
+                            }
+                        }
+
+                        deviceCollections.iterate(function(device) {
+                            var _details = '';
+                            if (options.showCapabilities && isCamera) {
+                                var capabilities = device.get("capabilities");
+                                if (capabilities) {
+                                    if (typeof capabilities.width !== "undefined" && typeof capabilities.height !== "undefined") {
+                                        _details = '(' + capabilities.width.max + 'x' + capabilities.height.max + ')';
+                                    }
+                                }
+                            }
+
+                            var id = device.get("id");
+                            var label = device.get("label");
+
+                            if (options.type === "select" && element.tagName === "SELECT") {
+                                var option = document.createElement('option');
+                                option.value = id;
+                                option.innerText = label + _details;
+                                option.selected = id === choosenDevice;
+                                if (options.className) option.className += options.className;
+                                element.appendChild(option);
+                            }
+
+                            if (options.type === "radio") {
+                                var radioInput = document.createElement('input');
+                                var radioInputLabel = document.createElement('label');
+                                radioInput.name = self.get("css") + (isCamera ? '-cam' : '-mic') + '-radio-input';
+                                radioInput.type = 'radio';
+                                if (options.className) {
+                                    radioInputLabel.className += options.className;
+                                }
+
+                                radioInputLabel.setAttribute('for', this.get("css") + id);
+                                radioInput.value = id;
+                                radioInput.checked = id === choosenDevice;
+                                // radioInputLabel.innerText = label + _details;
+                                var radioInputTextNode = document.createTextNode(label + _details);
+
+                                radioInputLabel.appendChild(radioInput);
+                                radioInputLabel.appendChild(radioInputTextNode);
+                                element.appendChild(radioInputLabel);
+
+                                // Add event listener on change
+                                radioInput.addEventListener("change", function(ev) {
+                                    var _radio = ev.target;
+                                    var value = _radio.value;
+                                    if (_radio.checked && value) {
+                                        if (isCamera) {
+                                            self.select_camera(value);
+                                        } else {
+                                            self.select_microphone(value);
+                                        }
+                                    }
+                                });
+                                listeners.push({
+                                    type: "change",
+                                    element: radioInput,
+                                    container: radioInputLabel
+                                });
+                            }
+                        }, this);
+
+                        // Add event listener on change
+                        if (options.type === "select") {
+                            listeners.push({
+                                type: "change",
+                                element: element
+                            });
+                            element.addEventListener("change", function(ev) {
+                                Array.from(ev.target.options).forEach(function(option) {
+                                    var value = option.value;
+                                    if (option.selected && value) {
+                                        if (isCamera) {
+                                            self.select_camera(value);
+                                        } else {
+                                            self.select_microphone(value);
+                                        }
+                                    }
+                                });
+                            });
+                        }
+
+                        self.on("recording", function() {
+                            if (listeners.length > 0) {
+                                Objs.map(listeners, function(listener) {
+                                    var type = listener.type;
+                                    var el = listener.element;
+                                    var container = listener.container || el;
+                                    removeEventListener(type, el);
+                                    if (!Types.is_undefined(container.options)) {
+                                        while (container.options.length > 0) {
+                                            container.remove(0);
+                                        }
+                                        var option = document.createElement('option');
+                                        var textNode = document.createTextNode(initialSelectorText);
+                                        option.appendChild(textNode);
+                                        container.appendChild(option);
+                                    } else {
+                                        container.parentNode.removeChild(container);
+                                    }
+                                });
+                            }
+                        });
+                    }
                 }
             };
         }], {

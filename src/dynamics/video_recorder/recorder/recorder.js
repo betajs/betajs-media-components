@@ -1457,7 +1457,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                                 element.appendChild(childNode);
                                 console.warn(message);
                             } else {
-                                this.__buildOuturseElement(element, item.options, isCamera, choosenDevice);
+                                this.__buildOutsourceElement(element, item.options, isCamera, choosenDevice);
                             }
                         } else {
                             console.warn("There are no element with id: " + item.selector + " to implement 'outsource-selectors'");
@@ -1473,7 +1473,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                  * @param choosenDevice
                  * @private
                  */
-                __buildOuturseElement: function(element, options, isCamera, choosenDevice) {
+                __buildOutsourceElement: function(element, options, isCamera, choosenDevice) {
                     var self = this;
                     var deviceCollections = isCamera ? this.get("cameras") : this.get("microphones");
                     var listeners = [];

@@ -144,6 +144,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "tracktextvisible": false,
                     "airplay": false,
                     "chromecast": false,
+                    "broadcasting": false,
                     "chromecastreceiverappid": null, // Could be published custom App ID https://cast.google.com/publish/#/overview
                     "skipseconds": 5,
                     "sticky": false,
@@ -691,23 +692,26 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             });
                             if (Info.isChrome() && this.get("chromecast")) {
                                 this._broadcasting.attachGoggleCast();
-                                this.player.on("cast-available", function(isCastDeviceAvailable) {
-                                    this.set("castbuttonvisble", isCastDeviceAvailable);
+                                this.player.on("cast-state-changed", function(status, states) {
+                                    // Other states: CONNECTED, CONNECTING, NOT_CONNECTED
+                                    this.set("castbuttonvisble", status !== states.NO_DEVICES_AVAILABLE);
+                                    this.set("chromecasting", status === states.CONNECTED);
                                 }, this);
                                 this.player.on("cast-loaded", function(castRemotePlayer, castRemotePlayerController) {
-                                    //castRemotePlayer.currentMediaDuration = this.player;
-
+                                    this.set("broadcasting", true);
                                     // If player already start to play
                                     if (this.get("position") > 0) {
-                                        this._broadcasting.options.currentPosition = this.get("position");
+                                        this._broadcasting._seekToGoogleCast(this.get("position"));
+                                        this._broadcasting._googleCastRemotePlay();
                                     }
 
                                     //If local player playing stop it before
-                                    if (this.get('playing')) this.stop();
+                                    if (this.get('playing')) this.pause();
 
                                     // Initial play button state
-                                    if (!castRemotePlayer.isPaused) this.set('playing', true);
-
+                                    this.player.on("cast-paused", function(castPaused) {
+                                        this.set("playing", !castPaused);
+                                    }, this);
                                 }, this);
 
                                 this.player.on("cast-playpause", function(castPaused) {
@@ -715,18 +719,26 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 }, this);
 
                                 this.player.on("cast-time-changed", function(currentTime, totalMediaDuration) {
-                                    var position = Math.round(currentTime / totalMediaDuration * 100);
-                                    this.set("buffered", totalMediaDuration);
-                                    this.set("cahched", totalMediaDuration);
-                                    this.set("duration", totalMediaDuration || 0.0);
+                                    if (!Types.is_defined(currentTime) || currentTime === 0)
+                                        return;
+                                    if (totalMediaDuration) {
+                                        this.set("cahched", totalMediaDuration);
+                                        this.set("duration", totalMediaDuration || 0.0);
+                                    }
                                     this.set("position", currentTime);
+                                    this.set("videoelement_active", false);
+                                    this.set("imageelement_active", true);
                                 }, this);
 
-                                this.player.on("proceed-when-ending-googlecast", function(position) {
+                                this.player.on("proceed-when-ending-googlecast", function(position, isPaused) {
+                                    this.set("broadcasting", false);
+                                    this.set("videoelement_active", true);
+                                    this.set("imageelement_active", false);
                                     this.player._broadcastingState.googleCastConnected = false;
-                                    this.set('playing', false);
+                                    this.set("playing", false);
+                                    this.trigger("seek", position);
+                                    this.player.setPosition(position);
                                 }, this);
-
                             }
                             if (Info.isSafari() && Info.safariVersion() >= 9 && window.WebKitPlaybackTargetAvailabilityEvent && this.get("airplay")) {
                                 this.set("airplaybuttonvisible", true);
@@ -1068,7 +1080,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this._delegatedPlayer.execute("play");
                             return;
                         }
-                        if (this.player && this.player._broadcastingState && this.player._broadcastingState.googleCastConnected) {
+                        if (this.player && this.get("broadcasting")) {
                             this._broadcasting.player.trigger("play-google-cast");
                             return;
                         }
@@ -1108,7 +1120,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.get('disablepause')) return;
 
                         if (this.get("playing")) {
-                            if (this.player && this.player._broadcastingState && this.player._broadcastingState.googleCastConnected) {
+                            if (this.player && this.get("broadcasting")) {
                                 this._broadcasting.player.trigger("pause-google-cast");
                                 return;
                             }
@@ -1333,14 +1345,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 }
 
                             }
-                            this.set("last_position_change_delta", _now - this.get("last_position_change"));
-                            this.set("position", new_position);
-                            this.set("buffered", this.player.buffered());
-                            var pld = this.player.duration();
-                            if (0.0 < pld && pld < Infinity)
-                                this.set("duration", this.player.duration());
-                            else
-                                this.set("duration", this.get("totalduration") || new_position);
+                            if (!this.get("broadcasting")) {
+                                this.set("last_position_change_delta", _now - this.get("last_position_change"));
+                                this.set("position", new_position);
+                                this.set("buffered", this.player.buffered());
+                                var pld = this.player.duration();
+                                if (0.0 < pld && pld < Infinity)
+                                    this.set("duration", this.player.duration());
+                                else
+                                    this.set("duration", this.get("totalduration") || new_position);
+                            }
                             this.set("fullscreened", this.player.isFullscreen(this.activeElement().childNodes[0]));
                             // If settings pop-up is open hide it together with control-bar if hideOnInactivity is true
                             if (this.get('hideoninactivity') && (this.get('activity_delta') > this.get('hidebarafter'))) {

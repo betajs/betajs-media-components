@@ -59,7 +59,7 @@
 </head>
 <body style="background: #EEE">
     <div class="row">
-        <div class="col-xs-6" style="float: left">
+        <div class="col-xs-10" style="float: left">
 <!--            <div class="col-xs-12" style="width: 300px">-->
                 <div id="player"></div>
 <!--            </div>-->
@@ -101,12 +101,13 @@
     </div>
 
     <script>
+
         var player = new BetaJS.MediaComponents.VideoPlayer.Dynamics.Player({
             element: $('#player'),
             attrs: {
-                height: 260,
-                width: 400,
-                // width: '440px',
+                height: 320,
+                // width: 400,
+                width: '640px',
                 // width: '80%',
                 // stretch: true,
                 // stretchheight: true,
@@ -131,60 +132,74 @@
                 showchaptertext: true,
                 // source: '/static/demos/sample-video.mp4',
                 // poster: '/static/demos/assets/sample-cover.png',
-                source: '/static/demos/assets/portrait.mp4',
+                // source: '/static/demos/assets/portrait.mp4',
+                source: 'https://storage.googleapis.com/cpe-sample-media/content/big_buck_bunny/prog/big_buck_bunny_prog.mp4', // << Chromecast
                 // poster: '/static/demos/assets/portrait-poster.png',
-                poster: '/static/demos/assets/portrait-poster-270x480.jpeg',
+                // poster: '/static/demos/assets/portrait-poster-270x480.jpeg',
+                poster: 'https://storage.googleapis.com/cpe-sample-media/content/big_buck_bunny/images/screenshot1.png', // << Chromecast
                 // source: '/static/demos/assets/huge_video.mp4',
-                sources: [
-                    {
-                        // src:'/static/demos/assets/portrait.mp4'
-                        src:'/static/demos/sample-video.mp4'
-                        // , poster: '/static/demos/assets/portrait-poster.png'
-                        , hd: true
-                        // , poster: '/static/demos/sample-cover.png'
-                    },
-                    {
-                        // src:'/static/demos/assets/portrait.mp4'
-                        // , poster:'/static/demos/assets/portrait-poster.png', hd: false
-                        src:'/static/demos/sample-video2.mp4'
-                        // , hd: false
-                        , poster: '/static/demos/sample-cover.png'
-                    }
-                ],
-                streams: [{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }],
+                // sources: [
+                //     {
+                //         // src:'/static/demos/assets/portrait.mp4'
+                //         src:'/static/demos/sample-video.mp4'
+                //         // , poster: '/static/demos/assets/portrait-poster.png'
+                //         , hd: true
+                //         // , poster: '/static/demos/sample-cover.png'
+                //     },
+                //     {
+                //         // src:'/static/demos/assets/portrait.mp4'
+                //         // , poster:'/static/demos/assets/portrait-poster.png', hd: false
+                //         src:'/static/demos/sample-video2.mp4'
+                //         // , hd: false
+                //         , poster: '/static/demos/sample-cover.png'
+                //     }
+                // ],
+                // streams: [{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }],
                 hideoninactivity: true,
                 // tracktagsstyled: false,
                 loop: true,
-                tracktags: [
-                    {
-                        lang: 'en',
-                        kind: 'subtitles',
-                        label: 'English',
-                        //enabled: true,
-                        src: '../assets/bunny-en.vtt'
-                    },
-                    {
-                        lang: 'de',
-                        kind: 'subtitles',
-                        label: 'Deutsch',
-                        //enabled: true,
-                        src: '../assets/bunny-de.vtt'
-                    },
-                    {
-                        kind: 'thumbnails',
-                        // src: '/static/demos/assets/example-3rdp.vtt'
-                        src: '/static/demos/assets/video-bgbb.vtt'
-                    },
-                    {
-                        kind: 'chapters',
-                        // src: '/static/demos/assets/example-3rdp.vtt'
-                        src: '/static/demos/assets/video-bgbb-chapters.vtt'
-                    }
-                ],
+                // tracktags: [
+                //     {
+                //         lang: 'en',
+                //         kind: 'subtitles',
+                //         label: 'English',
+                //         //enabled: true,
+                //         src: '../assets/bunny-en.vtt'
+                //     },
+                //     {
+                //         lang: 'de',
+                //         kind: 'subtitles',
+                //         label: 'Deutsch',
+                //         //enabled: true,
+                //         src: '../assets/bunny-de.vtt'
+                //     },
+                //     {
+                //         kind: 'thumbnails',
+                //         // src: '/static/demos/assets/example-3rdp.vtt'
+                //         src: '/static/demos/assets/video-bgbb.vtt'
+                //     },
+                //     {
+                //         kind: 'chapters',
+                //         // src: '/static/demos/assets/example-3rdp.vtt'
+                //         src: '/static/demos/assets/video-bgbb-chapters.vtt'
+                //     }
+                // ],
             }
         });
 
         // console.log('Player >> ', player);
+
+        player.on("change-google-cast-volume", function (ev) {
+            console.log("change-google-cast-VOLUME - >> ", ev);
+        });
+
+        player.on("pause-google-cast", function (ev) {
+            console.log(" Should not be triggered PAUSE-google-cast ", ev);
+        });
+
+        player.on("play-google-cast", function () {
+            console.log(" Should not be triggered PLAY-google-cast ", ev);
+        });
 
         player.on("attached", function (playerInstance) {
             // this.addSettingsMenuItem({set: 'Somen'});

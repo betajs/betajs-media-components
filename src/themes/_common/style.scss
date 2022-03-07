@@ -2,6 +2,8 @@
 
 .#{$csscommon}-half-width {width: 50%;}
 
+.#{$csscommon}-max-height-100vh { max-height: 100vh; }
+
 .#{$csscommon}-text-center {text-align: center;}
 
 .#{$csscommon}-text-right {text-align: right;}
@@ -29,6 +31,14 @@
 .#{$csscommon}-pad-fit {object-fit: contain;}
 
 .#{$csscommon}-original-fit {object-fit: none;}
+
+.#{$csscommon}-portrait-aspect-ratio {aspect-ratio: "9/16";}
+
+.#{$csscommon}-landscape-aspect-ratio {aspect-ratio: "16/9";}
+
+.#{$csscommon}-standard-aspect-ratio {aspect-ratio: "4/3";}
+
+.#{$csscommon}-square-aspect-ratio {aspect-ratio: "1/1";}
 
 .#{$csscommon}-message-container {
     @include relative-horizontally-center();

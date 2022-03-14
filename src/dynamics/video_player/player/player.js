@@ -156,7 +156,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "hidevolumebar": false,
                     "hidecontrolbar": false,
                     "allowtexttrackupload": false,
-                    "useAspectRatioFallback": (Info.isSafari() && Info.safariVersion < 15) || Info.isInternetExplorer(),
+                    "useAspectRatioFallback": (Info.isSafari() && Info.safariVersion() < 15) || Info.isInternetExplorer(),
                     "uploadtexttracksvisible": false,
                     "acceptedtracktexts": null,
                     "uploadlocales": [{

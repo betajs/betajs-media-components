@@ -135,10 +135,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "topmessage": "",
                     "totalduration": null,
                     "playwhenvisible": false,
-                    "minwidth": 240,
-                    "minheight": 180,
-                    "maxwidth": null,
-                    "maxheight": null,
                     "disablepause": false,
                     "disableseeking": false,
                     "tracktextvisible": false,
@@ -161,6 +157,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "hidevolumebar": false,
                     "hidecontrolbar": false,
                     "allowtexttrackupload": false,
+                    "useAspectRatioFallback": (Info.isSafari() && Info.safariVersion() < 15) || Info.isInternetExplorer(),
                     "uploadtexttracksvisible": false,
                     "acceptedtracktexts": null,
                     "uploadlocales": [{
@@ -243,10 +240,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "playwhenvisible": "boolean",
                     "playedonce": "boolean",
                     "manuallypaused": "boolean",
-                    "minwidth": "int",
-                    "minheight": "int",
-                    "maxwidth": "int",
-                    "maxheight": "int",
                     "disablepause": "boolean",
                     "disableseeking": "boolean",
                     "playonclick": "boolean",
@@ -327,43 +320,20 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 computed: {
-                    "useAspectRatioFallback:width,height": function(width, height) {
-                        return (width && !height) && (Info.isSafari() || Info.isInternetExplorer());
-                    },
                     "aspectRatioFallback:aspectratio,fallback-width,fallback-height": function(aspectRatio, fallbackWidth, fallbackHeight) {
                         return {
                             paddingTop: 100 / (aspectRatio || (fallbackWidth / fallbackHeight)) + "%"
                         };
                     },
-                    "containerSizingStyles:width,height,aspectratio,fallback-width,fallback-height": function(width, height, aspectRatio, fallbackWidth, fallbackHeight) {
-                        var result = {
-                            minWidth: this.get("minwidth") + "px",
-                            minHeight: this.get("minheight") + "px",
+                    "containerSizingStyles:aspectratio,fallback-width,fallback-height": function(aspectRatio, fallbackWidth, fallbackHeight) {
+                        var styles = {
                             aspectRatio: aspectRatio || fallbackWidth + "/" + fallbackHeight
                         };
-                        if (width) result.width = typeof width === "string" && width[width.length - 1] === "%" ? width : width + "px";
-                        if (height) result.height = typeof height === "string" && height[height.length - 1] === "%" ? height : height + "px";
-                        if (!width && !height) {
-                            result.width = fallbackWidth + "px";
-                            result.height = fallbackHeight + "px";
-                        } else if ((Info.isInternetExplorer() || Info.isSafari()) && !width) {
-                            if (typeof height === "string" && height[height.length - 1] === "%") {
-                                if (this.activeElement()) {
-                                    var percentage = height.slice(0, -1) / 100;
-                                    new ResizeObserver(function(entries) {
-                                        this.set("width", Math.floor(entries[0].target.offsetHeight * percentage * (aspectRatio || (fallbackWidth / fallbackHeight))));
-                                    }.bind(this)).observe(this.activeElement());
-                                    result.width = Math.floor(this.activeElement().offsetHeight * percentage * (aspectRatio || (fallbackWidth / fallbackHeight))) + "px";
-                                }
-                            } else {
-                                result.width = Math.floor(height * (aspectRatio || (fallbackWidth / fallbackHeight))) + "px";
-                            }
+                        if (this.activeElement()) {
+                            this._applyStyles(this.activeElement(), styles, this.__lastContainerSizingStyles);
                         }
-                        if (this.get("maxwidth")) result.maxWidth = this.get("maxwidth") + "px";
-                        if (this.get("maxheight")) result.maxHeight = this.get("maxheight") + "px";
-                        if (this.activeElement()) this._applyStyles(this.activeElement(), result, this.__lastContainerSizingStyles);
-                        this.__lastContainerSizingStyles = result;
-                        return result;
+                        this.__lastContainerSizingStyles = styles;
+                        return styles;
                     },
                     "buffering:buffered,position,last_position_change_delta,playing": function() {
                         return this.get("playing") && this.get("buffered") < this.get("position") && this.get("last_position_change_delta") > 1000;
@@ -619,9 +589,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (!fitStrategies.includes(this.get("posterfitstrategy"))) {
                         console.warn("Invalid value for posterfitstrategy: " + this.get("posterfitstrategy") + "\nPossible values are: " + fitStrategies.slice(0, -1).join(", ") + " or " + fitStrategies.slice(-1));
                     }
+
                     if (this.get("stretch") || this.get("stretchwidth") || this.get("stretchheight")) {
-                        console.warn("Stretch parameters were removed, please set width and/or height to 100% instead.");
+                        console.warn("Stretch parameters were deprecated, your player will stretch to the full container width by default.");
                     }
+
+                    var deprecatedCSS = ["width", "height", "minheight", "minwidth", "minheight", "minwidth"];
+                    deprecatedCSS.forEach(function(parameter) {
+                        if (this.get(parameter)) console.warn(parameter + " parameter was deprecated, please use CSS instead.");
+                    }.bind(this));
                 },
 
                 getCurrentPosition: function() {
@@ -865,6 +841,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.__attachRequested)
                         this._attachVideo();
 
+                    this.activeElement().classList.add(this.get("csscommon") + "-full-width");
+                    this.activeElement().classList.add(this.get("csscommon") + "-max-height-100vh");
                     var img = this.activeElement().querySelector('img[data-image="image"]');
                     var imgEventHandler = this.auto_destroy(new DomEvents());
                     imgEventHandler.on(img, "load", function() {

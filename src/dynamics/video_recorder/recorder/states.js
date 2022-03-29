@@ -1443,7 +1443,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
                         var reader = new FileReader();
                         reader.onloadend = function() {
                             // bs-styles not works as expected
-                            dyn.set("placeholderstyle", "background: url('" + reader.result + "') center no-repeat");
+                            dyn.set("placeholderstyle", "background: url('" + reader.result + "') center/contain no-repeat");
                         };
                         reader.readAsDataURL(XHR.response);
                     };

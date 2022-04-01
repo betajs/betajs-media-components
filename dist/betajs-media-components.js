@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.295 - 2022-03-16
+betajs-media-components - v0.0.296 - 2022-04-01
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.295 - 2022-03-16
+betajs-media-components - v0.0.296 - 2022-04-01
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.295",
-    "datetime": 1647455907696
+    "version": "0.0.296",
+    "datetime": 1648804621154
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -11671,7 +11671,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
                         var reader = new FileReader();
                         reader.onloadend = function() {
                             // bs-styles not works as expected
-                            dyn.set("placeholderstyle", "background: url('" + reader.result + "') center no-repeat");
+                            dyn.set("placeholderstyle", "background: url('" + reader.result + "') center/contain no-repeat");
                         };
                         reader.readAsDataURL(XHR.response);
                     };

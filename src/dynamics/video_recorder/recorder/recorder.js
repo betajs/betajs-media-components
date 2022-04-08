@@ -1449,7 +1449,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     if (deviceCollections.count() > 0) {
                         // Clear initial select content
                         if (options.type === "select" && element.options) {
-                            initialSelectorText = element.options[0].innerText;
+                            if (Types.is_defined(element.options[0]))
+                                initialSelectorText = element.options[0].innerText;
                             while (element.options.length > 0) {
                                 element.remove(0);
                             }

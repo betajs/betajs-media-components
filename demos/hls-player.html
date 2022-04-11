@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.1.5/hls.light.min.js"></script> -->
+    <script src="../node_modules/betajs-shims/dist/betajs-shims.js"></script>
+    <script src="../node_modules/betajs-scoped/dist/scoped.js"></script>
+    <script src="../node_modules/betajs/dist/beta-noscoped.js"></script>
+    <script src="../node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
+    <script src="../node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+    <script src="../node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
+    <script src="../dist/betajs-media-components-noscoped.js"></script>
+    <link  href="../dist/betajs-media-components.css" rel="stylesheet" />
+    <script src="../dist/themes/modern/script.js"></script>
+    <link  href="../dist/themes/modern/style.css" rel="stylesheet" />
+    <script type="text/javascript" src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+</head>
+<body>
+    <ba-videoplayer
+        ba-source="https://multiplatform-f.akamaihd.net/i/multi/will/bunny/big_buck_bunny_,640x360_400,640x360_700,640x360_1000,950x540_1500,.f4v.csmil/master.m3u8"
+    ></ba-videoplayer>
+    <script>
+		BetaJS.Dynamics.Dynamic.activate();
+    </script>
+</body>
+</html>

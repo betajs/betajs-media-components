@@ -183,7 +183,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "ready": true,
                     "orientation": false,
                     "popup": false,
-                    "popup-stretch": false,
                     "audio-test-mandatory": false,
                     "snapshotfromuploader": false,
                     "snapshotfrommobilecapture": false,
@@ -271,7 +270,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "noaudio": "boolean",
                     "skipinitial": "boolean",
                     "popup": "boolean",
-                    "popup-stretch": "boolean",
                     "popup-width": "int",
                     "popup-height": "int",
                     "enforce-duration": "bool",
@@ -1315,8 +1313,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     return {
                         popup: false,
                         width: this.get("popup-width"),
-                        height: this.get("popup-height"),
-                        stretch: this.get("popup-stretch")
+                        height: this.get("popup-height")
                     };
                 },
 

@@ -127,7 +127,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "playfullscreenonmobile": false,
                     "fitonwidth": false,
                     "fitonheight": false,
-                    "popup-stretch": false,
                     "hideoninactivity": true,
                     "hidebarafter": 5000,
                     "preventinteraction": false,
@@ -224,7 +223,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "skipinitial": "boolean",
                     "volume": "float",
                     "popup": "boolean",
-                    "popup-stretch": "boolean",
                     "popup-width": "int",
                     "popup-height": "int",
                     "aspectratio": "float",
@@ -1446,8 +1444,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         autoplay: true,
                         popup: false,
                         width: this.get("popup-width"),
-                        height: this.get("popup-height"),
-                        stretch: this.get("popup-stretch")
+                        height: this.get("popup-height")
                     };
                 }
             };

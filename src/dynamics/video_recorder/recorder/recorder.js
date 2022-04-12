@@ -227,10 +227,12 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "nativeRecordingHeight:recordingheight,record_media": function() {
                         return this.get("recordingheight") || ((this.get("record_media") !== "screen" && (this.get("record_media") !== "multistream")) ? 480 : (window.innerHeight || document.body.clientHeight));
                     },
-                    "containerSizingStyles:aspectratio,nativeRecordingWidth,nativeRecordingHeight,activated": function(aspectRatio, fallbackWidth, fallbackHeight, active) {
+                    "containerSizingStyles:aspectratio,nativeRecordingWidth,nativeRecordingHeight,activated, height, width": function(aspectRatio, fallbackWidth, fallbackHeight, active, height, width) {
                         var result = {
                             aspectRatio: aspectRatio || fallbackWidth + "/" + fallbackHeight
                         };
+						if (height) result.height = typeof height === "string" && height[height.length - 1] === "%" ? height : height + "px";
+						if (width) result.width = typeof width === "string" && width[width.length - 1] === "%" ? width : width + "px";
                         if (active && (Info.isInternetExplorer() || (Info.isSafari() && Info.safariVersion() < 15))) {
                             new ResizeObserver(function(entries) {
                                 this.set("height", Math.floor(entries[0].target.offsetWidth / (aspectRatio || (fallbackWidth / fallbackHeight))));

@@ -323,10 +323,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             paddingTop: 100 / (aspectRatio || (fallbackWidth / fallbackHeight)) + "%"
                         };
                     },
-                    "containerSizingStyles:aspectratio,fallback-width,fallback-height": function(aspectRatio, fallbackWidth, fallbackHeight) {
+                    "containerSizingStyles:aspectratio,fallback-width,fallback-height,height,width": function(aspectRatio, fallbackWidth, fallbackHeight, height, width) {
                         var styles = {
                             aspectRatio: aspectRatio || fallbackWidth + "/" + fallbackHeight
                         };
+                        if (height) styles.height = typeof height === "string" && height[height.length - 1] === "%" ? height : height + "px";
+                        if (width) styles.width = typeof width === "string" && width[width.length - 1] === "%" ? width : width + "px";
                         if (this.activeElement()) {
                             this._applyStyles(this.activeElement(), styles, this.__lastContainerSizingStyles);
                         }

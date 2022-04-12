@@ -594,7 +594,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         console.warn("Stretch parameters were deprecated, your player will stretch to the full container width by default.");
                     }
 
-                    var deprecatedCSS = ["width", "height", "minheight", "minwidth", "minheight", "minwidth"];
+                    var deprecatedCSS = ["minheight", "minwidth", "minheight", "minwidth"];
                     deprecatedCSS.forEach(function(parameter) {
                         if (this.get(parameter)) console.warn(parameter + " parameter was deprecated, please use CSS instead.");
                     }.bind(this));

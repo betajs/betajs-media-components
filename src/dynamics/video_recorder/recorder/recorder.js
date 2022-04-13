@@ -231,8 +231,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         var result = {
                             aspectRatio: aspectRatio || fallbackWidth + "/" + fallbackHeight
                         };
-						if (height) result.height = typeof height === "string" && height[height.length - 1] === "%" ? height : height + "px";
-						if (width) result.width = typeof width === "string" && width[width.length - 1] === "%" ? width : width + "px";
+                        if (height) result.height = typeof height === "string" && height[height.length - 1] === "%" ? height : height + "px";
+                        if (width) result.width = typeof width === "string" && width[width.length - 1] === "%" ? width : width + "px";
                         if (active && (Info.isInternetExplorer() || (Info.isSafari() && Info.safariVersion() < 15))) {
                             new ResizeObserver(function(entries) {
                                 this.set("height", Math.floor(entries[0].target.offsetWidth / (aspectRatio || (fallbackWidth / fallbackHeight))));

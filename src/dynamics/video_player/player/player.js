@@ -773,6 +773,28 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }
                             this.trigger("ended");
                         }, this);
+                        if (this.player._qualityOptions) {
+                            this.addSettingsMenuItem({
+                                id: "sourcequality",
+                                label: "source-quality",
+                                showicon: true,
+                                visible: true, // TODO add parameter for setting source quality settings visibility
+                                value: this.player._currentQuality.label,
+                                options: this.player._qualityOptions.map(function(option) {
+                                    return option.label;
+                                }),
+                                func: function(_, label) {
+                                    this.player.trigger("setsourcequality", this.player._qualityOptions.find(function(option) {
+                                        return option.label === label;
+                                    }).id);
+                                }
+                            });
+                            this.player.on("qualityswitched", function(currentQuality) {
+                                this.updateSettingsMenuItem("sourcequality", {
+                                    value: currentQuality.label
+                                });
+                            }.bind(this));
+                        }
                         this.trigger("attached", instance);
                         this.player.once("loaded", function() {
                             var volume = Math.min(1.0, this.get("volume"));

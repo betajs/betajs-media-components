@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.298 - 2022-04-13
+betajs-media-components - v0.0.299 - 2022-04-17
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.298",
-    "datetime": 1649854082158
+    "version": "0.0.299",
+    "datetime": 1650169410087
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -5444,6 +5444,28 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }
                             this.trigger("ended");
                         }, this);
+                        if (this.player._qualityOptions) {
+                            this.addSettingsMenuItem({
+                                id: "sourcequality",
+                                label: "source-quality",
+                                showicon: true,
+                                visible: true, // TODO add parameter for setting source quality settings visibility
+                                value: this.player._currentQuality.label,
+                                options: this.player._qualityOptions.map(function(option) {
+                                    return option.label;
+                                }),
+                                func: function(_, label) {
+                                    this.player.trigger("setsourcequality", this.player._qualityOptions.find(function(option) {
+                                        return option.label === label;
+                                    }).id);
+                                }
+                            });
+                            this.player.on("qualityswitched", function(currentQuality) {
+                                this.updateSettingsMenuItem("sourcequality", {
+                                    value: currentQuality.label
+                                });
+                            }.bind(this));
+                        }
                         this.trigger("attached", instance);
                         this.player.once("loaded", function() {
                             var volume = Math.min(1.0, this.get("volume"));

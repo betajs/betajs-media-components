@@ -183,7 +183,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "ready": true,
                     "orientation": false,
                     "popup": false,
-                    "popup-stretch": false,
                     "audio-test-mandatory": false,
                     "snapshotfromuploader": false,
                     "snapshotfrommobilecapture": false,
@@ -228,10 +227,12 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "nativeRecordingHeight:recordingheight,record_media": function() {
                         return this.get("recordingheight") || ((this.get("record_media") !== "screen" && (this.get("record_media") !== "multistream")) ? 480 : (window.innerHeight || document.body.clientHeight));
                     },
-                    "containerSizingStyles:aspectratio,nativeRecordingWidth,nativeRecordingHeight,activated": function(aspectRatio, fallbackWidth, fallbackHeight, active) {
+                    "containerSizingStyles:aspectratio,nativeRecordingWidth,nativeRecordingHeight,activated, height, width": function(aspectRatio, fallbackWidth, fallbackHeight, active, height, width) {
                         var result = {
                             aspectRatio: aspectRatio || fallbackWidth + "/" + fallbackHeight
                         };
+                        if (height) result.height = typeof height === "string" && height[height.length - 1] === "%" ? height : height + "px";
+                        if (width) result.width = typeof width === "string" && width[width.length - 1] === "%" ? width : width + "px";
                         if (active && (Info.isInternetExplorer() || (Info.isSafari() && Info.safariVersion() < 15))) {
                             new ResizeObserver(function(entries) {
                                 this.set("height", Math.floor(entries[0].target.offsetWidth / (aspectRatio || (fallbackWidth / fallbackHeight))));
@@ -271,7 +272,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     "noaudio": "boolean",
                     "skipinitial": "boolean",
                     "popup": "boolean",
-                    "popup-stretch": "boolean",
                     "popup-width": "int",
                     "popup-height": "int",
                     "enforce-duration": "bool",
@@ -527,7 +527,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         console.warn("Stretch parameters were deprecated, your player will stretch to the full container width by default.");
                     }
 
-                    var deprecatedCSS = ["width", "height", "minheight", "minwidth", "minheight", "minwidth"];
+                    var deprecatedCSS = ["minheight", "minwidth", "minheight", "minwidth"];
                     deprecatedCSS.forEach(function(parameter) {
                         if (this.get(parameter)) console.warn(parameter + " parameter was deprecated, please use CSS instead.");
                     }.bind(this));
@@ -1315,8 +1315,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     return {
                         popup: false,
                         width: this.get("popup-width"),
-                        height: this.get("popup-height"),
-                        stretch: this.get("popup-stretch")
+                        height: this.get("popup-height")
                     };
                 },
 
@@ -1449,7 +1448,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     if (deviceCollections.count() > 0) {
                         // Clear initial select content
                         if (options.type === "select" && element.options) {
-                            initialSelectorText = element.options[0].innerText;
+                            if (Types.is_defined(element.options[0]))
+                                initialSelectorText = element.options[0].innerText;
                             while (element.options.length > 0) {
                                 element.remove(0);
                             }

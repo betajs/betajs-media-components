@@ -127,7 +127,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "playfullscreenonmobile": false,
                     "fitonwidth": false,
                     "fitonheight": false,
-                    "popup-stretch": false,
                     "hideoninactivity": true,
                     "hidebarafter": 5000,
                     "preventinteraction": false,
@@ -224,7 +223,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "skipinitial": "boolean",
                     "volume": "float",
                     "popup": "boolean",
-                    "popup-stretch": "boolean",
                     "popup-width": "int",
                     "popup-height": "int",
                     "aspectratio": "float",
@@ -325,10 +323,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             paddingTop: 100 / (aspectRatio || (fallbackWidth / fallbackHeight)) + "%"
                         };
                     },
-                    "containerSizingStyles:aspectratio,fallback-width,fallback-height": function(aspectRatio, fallbackWidth, fallbackHeight) {
+                    "containerSizingStyles:aspectratio,fallback-width,fallback-height,height,width": function(aspectRatio, fallbackWidth, fallbackHeight, height, width) {
                         var styles = {
                             aspectRatio: aspectRatio || fallbackWidth + "/" + fallbackHeight
                         };
+                        if (height) styles.height = typeof height === "string" && height[height.length - 1] === "%" ? height : height + "px";
+                        if (width) styles.width = typeof width === "string" && width[width.length - 1] === "%" ? width : width + "px";
                         if (this.activeElement()) {
                             this._applyStyles(this.activeElement(), styles, this.__lastContainerSizingStyles);
                         }
@@ -594,7 +594,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         console.warn("Stretch parameters were deprecated, your player will stretch to the full container width by default.");
                     }
 
-                    var deprecatedCSS = ["width", "height", "minheight", "minwidth", "minheight", "minwidth"];
+                    var deprecatedCSS = ["minheight", "minwidth", "minheight", "minwidth"];
                     deprecatedCSS.forEach(function(parameter) {
                         if (this.get(parameter)) console.warn(parameter + " parameter was deprecated, please use CSS instead.");
                     }.bind(this));
@@ -1468,8 +1468,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         autoplay: true,
                         popup: false,
                         width: this.get("popup-width"),
-                        height: this.get("popup-height"),
-                        stretch: this.get("popup-stretch")
+                        height: this.get("popup-height")
                     };
                 }
             };

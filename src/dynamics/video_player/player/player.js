@@ -388,6 +388,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 adElement: this.activeElement().querySelector("[data-video='ad']"),
                                 dynamic: this
                             });
+
+                            this._prerollAd.once("ad-loaded", function() {
+                                this.set("has-ad", true);
+                            }, this);
+                            this._prerollAd.once("ad-error", function() {
+                                this.set("has-ad", false);
+                            }, this);
                         }
                     }
                     if (this.get("playlist")) {

@@ -355,7 +355,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Preroll", [
         dynamics: [],
 
         _started: function() {
-            if (this.dyn._prerollAd) {
+            if (this.dyn._prerollAd && this.dyn.get("has-ad")) {
                 this.dyn._prerollAd.once("finished", function() {
                     this.next("LoadVideo");
                 }, this);

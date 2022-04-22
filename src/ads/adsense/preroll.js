@@ -16,8 +16,9 @@ Scoped.define("module:Ads.AdSenseVideoAdProvider", [
 
 
 Scoped.define("module:Ads.AdSensePrerollAd", [
-    "module:Ads.AbstractPrerollAd"
-], function(AbstractVideoPrerollAd, scoped) {
+    "module:Ads.AbstractPrerollAd",
+    "browser:Loader"
+], function(AbstractVideoPrerollAd, Loader, scoped) {
     return AbstractVideoPrerollAd.extend({
         scoped: scoped
     }, function(inherited) {
@@ -25,9 +26,21 @@ Scoped.define("module:Ads.AdSensePrerollAd", [
 
             constructor: function(provider, options) {
                 inherited.constructor.call(this, provider, options);
-                this._adDisplayContainer = new google.ima.AdDisplayContainer(this._options.adElement, this._options.videoElement);
+
+                // https://developers.google.com/interactive-media-ads/docs/sdks/html5/client-side/architecture
+                Loader.loadScript('//imasdk.googleapis.com/js/sdkloader/ima3.js', function() {
+                    this.initAdmanager();
+                }, this);
+            },
+
+            initAdmanager: function() {
+                this._adDisplayContainer = new google.ima.AdDisplayContainer(
+                    this._options.adElement, this._options.videoElement
+                );
+
                 // Must be done as the result of a user action on mobile
                 this._adDisplayContainer.initialize();
+
                 //Re-use this AdsLoader instance for the entire lifecycle of your page.
                 this._adsLoader = new google.ima.AdsLoader(this._adDisplayContainer);
 
@@ -36,6 +49,7 @@ Scoped.define("module:Ads.AdSensePrerollAd", [
                     self._adError();
                 }, false);
                 this._adsLoader.addEventListener(google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED, function() {
+                    self.adManagerLoaded();
                     self._adLoaded.apply(self, arguments);
                 }, false);
 
@@ -48,15 +62,17 @@ Scoped.define("module:Ads.AdSensePrerollAd", [
                 // select the correct creative if multiple are returned.
                 this._adsRequest.linearAdSlotWidth = options.width;
                 this._adsRequest.linearAdSlotHeight = options.height;
-                // adsRequest.nonLinearAdSlotWidth = 640;
-                // adsRequest.nonLinearAdSlotHeight = 150;
+                // For non linear ads like image in te bottom side of the video
+                this._adsRequest.nonLinearAdSlotWidth = options.width;
+                this._adsRequest.nonLinearAdSlotHeight = options.height / 3;
 
                 this._adsLoader.requestAds(this._adsRequest);
             },
 
             _adError: function() {
-                if (this._adsManager)
+                if (this._adsManager) {
                     this._adsManager.destroy();
+                }
                 this._adFinished();
             },
 
@@ -67,7 +83,10 @@ Scoped.define("module:Ads.AdSensePrerollAd", [
 
                 try {
                     // Initialize the ads manager. Ad rules playlist will start at this time.
-                    this._adsManager.init(this._adsRequest.linearAdSlotWidth, this._adsRequest.linearAdSlotHeight, google.ima.ViewMode.NORMAL);
+                    this._adsManager.init(
+                        this._adsRequest.linearAdSlotWidth, this._adsRequest.linearAdSlotHeight,
+                        google.ima.ViewMode.NORMAL
+                    );
                     // Call start to show ads. Single video and overlay ads will
                     // start at this time; this call will be ignored for ad rules, as ad rules
                     // ads start when the adsManager is initialized.
@@ -82,12 +101,21 @@ Scoped.define("module:Ads.AdSensePrerollAd", [
                     self._adError();
                 }, false);
 
+                this._adsManager.addEventListener(google.ima.AdErrorEvent.Type.LOADED, function() {
+                    this.adInitialized();
+                }, false);
+
+
                 //this._adsManager.addEventListener(google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED, function () {});
+                // If user
                 this._adsManager.addEventListener(google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED, function() {
                     self._adFinished();
                 });
 
-                //this._adsManager.addEventListener(google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED, function () {});
+                this._adsManager.addEventListener(google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED, function() {});
+
+                this._adsManager.addEventListener(google.ima.AdEvent.Type.ALL_ADS_COMPLETED, function() {});
+
                 this._adsManager.addEventListener(google.ima.AdEvent.Type.SKIPPED, function() {
                     self._adSkipped();
                 });

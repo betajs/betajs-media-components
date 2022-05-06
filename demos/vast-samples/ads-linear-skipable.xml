@@ -1,2 +1,156 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<VAST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vast.xsd" version="3.0"/>
+<VAST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vast.xsd" version="3.0">
+    <Ad id="23123123">
+        <InLine>
+            <AdSystem>GDFP</AdSystem>
+            <AdTitle>External NCA1C1L1 Linear Inline</AdTitle>
+            <Description>
+                <![CDATA[ TEST title Linear ad!!! ]]>
+            </Description>
+            <Error>
+                <![CDATA[ //localhost:5050/ad/error ]]>
+            </Error>
+            <Impression>
+                <![CDATA[ //localhost:5050/ad/impression ]]>
+            </Impression>
+            <Creatives>
+                <Creative id="578" sequence="1">
+                    <Linear skipoffset="00:00:05">
+                        <Duration>00:00:10</Duration>
+                        <TrackingEvents>
+                            <Tracking event="start">
+                                <![CDATA[ //localhost:5050/ad/start ]]>
+                            </Tracking>
+                            <Tracking event="firstQuartile">
+                                <![CDATA[ //localhost:5050/ad/firstQuartile ]]>
+                            </Tracking>
+                            <Tracking event="midpoint">
+                                <![CDATA[ //localhost:5050/ad/midpoint ]]>
+                            </Tracking>
+                            <Tracking event="thirdQuartile">
+                                <![CDATA[ //localhost:5050/ad/thirdQuartile ]]>
+                            </Tracking>
+                            <Tracking event="complete">
+                                <![CDATA[ //localhost:5050/ad/complete ]]>
+                            </Tracking>
+                            <Tracking event="mute">
+                                <![CDATA[ //localhost:5050/ad/mute ]]>
+                            </Tracking>
+                            <Tracking event="unmute">
+                                <![CDATA[ //localhost:5050/ad/unmute ]]>
+                            </Tracking>
+                            <Tracking event="rewind">
+                                <![CDATA[ //localhost:5050/ad/rewind ]]>
+                            </Tracking>
+                            <Tracking event="pause">
+                                <![CDATA[ //localhost:5050/ad/pause ]]>
+                            </Tracking>
+                            <Tracking event="resume">
+                                <![CDATA[ //localhost:5050/ad/resume ]]>
+                            </Tracking>
+                            <Tracking event="creativeView">
+                                <![CDATA[ //localhost:5050/ad/creativeView ]]>
+                            </Tracking>
+                            <Tracking event="fullscreen">
+                                <![CDATA[ //localhost:5050/ad/fullscreen ]]>
+                            </Tracking>
+                            <Tracking event="acceptInvitationLinear">
+                                <![CDATA[ //localhost:5050/ad/acceptInvitationLinear ]]>
+                            </Tracking>
+                            <Tracking event="closeLinear">
+                                <![CDATA[ //localhost:5050/ad/closeLinear ]]>
+                            </Tracking>
+                            <Tracking event="exitFullscreen">
+                                <![CDATA[ //localhost:5050/ad/exitFullscreen ]]>
+                            </Tracking>
+                        </TrackingEvents>
+                        <VideoClicks>
+                            <ClickThrough id="GDFP">
+                                <![CDATA[ https://ziggeo.com ]]>
+                            </ClickThrough>
+                        </VideoClicks>
+                        <MediaFiles>
+                            <MediaFile id="GDFP" delivery="progressive" width="1280" height="720" type="video/mp4" bitrate="450" scalable="true" maintainAspectRatio="true">
+                                <![CDATA[ //localhost:5050/static/demos/assets/vast/video_mp4_1280x720_br-450.mp4 ]]>
+                            </MediaFile>
+                            <MediaFile id="GDFP" delivery="progressive" width="176" height="144" type="video/3gpp" bitrate="36" scalable="true" maintainAspectRatio="true">
+                                <![CDATA[//localhost:5050/static/demos/assets/vast/video_3gpp_176x144_br-36.3gp ]]>
+                            </MediaFile>
+                            <MediaFile id="GDFP" delivery="progressive" width="320" height="180" type="video/3gpp" bitrate="69" scalable="true" maintainAspectRatio="true">
+                                <![CDATA[//localhost:5050/static/demos/assets/vast/video_3gpp_320x180_br-69.3gp ]]>
+                            </MediaFile>
+                            <MediaFile id="GDFP" delivery="progressive" width="640" height="360" type="video/mp4" bitrate="118" scalable="true" maintainAspectRatio="true">
+                                <![CDATA[//localhost:5050/static/demos/assets/vast/video_mp4_640x360_br-118.mp4 ]]>
+                            </MediaFile>
+                            <MediaFile id="GDFP" delivery="progressive" width="640" height="360" type="video/webm" bitrate="119" scalable="true" maintainAspectRatio="true">
+                                <![CDATA[//localhost:5050/static/demos/assets/vast/video_webm_640x360_br-119.webm ]]>
+                            </MediaFile>
+                            <MediaFile id="GDFP" delivery="progressive" width="1280" height="720" type="video/webm" bitrate="229" scalable="true" maintainAspectRatio="true">
+                                <![CDATA[//localhost:5050/static/demos/assets/vast/video_webm_1280x720_br-229.webm ]]>
+                            </MediaFile>
+                            <MediaFile id="GDFP" delivery="progressive" width="854" height="480" type="video/webm" bitrate="132" scalable="true" maintainAspectRatio="true">
+                                <![CDATA[//localhost:5050/static/demos/assets/vast/video_webm_854x480_br-132.webm ]]>
+                            </MediaFile>
+                            <MediaFile id="GDFP" delivery="progressive" width="1280" height="720" type="video/mp4" bitrate="241" scalable="true" maintainAspectRatio="true">
+                                <![CDATA[//localhost:5050/static/demos/assets/vast/video_mp4_1280x720_br-241.mp4 ]]>
+                            </MediaFile>
+                        </MediaFiles>
+                    </Linear>
+                </Creative>
+                <Creative id="57857370976" sequence="1">
+                    <CompanionAds>
+                        <Companion id="57857370976" width="300" height="250">
+                            <StaticResource creativeType="image/png">
+                                <![CDATA[ https://pagead2.googlesyndication.com/simgad/14568666361913360151 ]]>
+                            </StaticResource>
+                            <TrackingEvents>
+                                <Tracking event="creativeView">
+                                    <![CDATA[//localhost:5050/ad/creativeView ]]>
+                                </Tracking>
+                            </TrackingEvents>
+                            <CompanionClickThrough>
+                                <![CDATA[ //localhost:5050/ad/companion-click-through ]]>
+                            </CompanionClickThrough>
+                        </Companion>
+                    </CompanionAds>
+                </Creative>
+            </Creatives>
+            <Extensions>
+                <Extension type="waterfall" fallback_index="0"/>
+                <Extension type="geo">
+                    <Country>AZ</Country>
+                    <Bandwidth>4</Bandwidth>
+                    <BandwidthKbps>12100</BandwidthKbps>
+                </Extension>
+                <Extension type="metrics">
+                    <FeEventId>pU50Yp1zsK_v9Q-V6qmICA</FeEventId>
+                    <AdEventId>CKanlqizyfcCFUvjuwgdToMJ1w</AdEventId>
+                </Extension>
+                <Extension type="ShowAdTracking">
+                    <CustomTracking>
+                        <Tracking event="show_ad">
+                            <![CDATA[ //localhost:5050/ad/show_ad ]]>
+                        </Tracking>
+                    </CustomTracking>
+                </Extension>
+                <Extension type="video_ad_loaded">
+                    <CustomTracking>
+                        <Tracking event="loaded">
+                            <![CDATA[//localhost:5050/ad/video_ad_loaded ]]>
+                        </Tracking>
+                    </CustomTracking>
+                </Extension>
+                <Extension type="heavy_ad_intervention">
+                    <CustomTracking>
+                        <Tracking event="heavy_ad_intervention_cpu">
+                            <![CDATA[ //localhost:5050/ad/heavy_ad_intervention_cpu ]]>
+                        </Tracking>
+                        <Tracking event="heavy_ad_intervention_network">
+                            <![CDATA[ //localhost:5050/ad/heavy_ad_intervention_network ]]>
+                        </Tracking>
+                    </CustomTracking>
+                </Extension>
+            </Extensions>
+        </InLine>
+    </Ad>
+</VAST>

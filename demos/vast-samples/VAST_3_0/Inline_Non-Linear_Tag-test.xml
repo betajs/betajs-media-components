@@ -33,7 +33,7 @@
                             </StaticResource>
 
                             <NonLinearClickTracking>
-                                <![CDATA[http://example.com/trackingurl/clickTracking]]>
+                                <![CDATA[http://localhost:5050/ad/clickTracking]]>
                             </NonLinearClickTracking>
         					<NonLinearClickThrough>
         						<![CDATA[http://iabtechlab.com]]>

@@ -150,7 +150,7 @@
             ba-submittable="{{submittable}}"
             ba-trimmingmode="{{trimmingmode}}"
             ba-showduration="{{showduration}}"
-			      ba-duration="{{duration}}"
+            ba-duration="{{duration}}"
             ba-event:play="playbutton_click"
             ba-event:rerecord="rerecord"
             ba-event:submit="submit"
@@ -200,9 +200,12 @@
         ></ba-{{dyntopmessage}}>
 
         <meta itemprop="caption" content="{{title}}" />
-        <meta itemprop="thumbnailUrl" content="{{thumbnailurl}}"/>
-        <meta itemprop="contentUrl" content="{{contenturl}}"/>
+        <meta itemprop="thumbnailUrl" content="{{thumbnailurl}}" />
+        <meta itemprop="contentUrl" content="{{contenturl}}" />
     </div>
-    <div class="{{css}}-overlay" data-video="ad" style="display:none"></div>
+    <div class="{{css}}-overlay" data-video="ad" style="display:none">
+        <div data-ads="controllbar"></div>
+        <div data-video="ima-ad-container"></div>
+    </div>
     <div ba-show="{{useAspectRatioFallback}}" ba-styles="{{aspectRatioFallback}}"></div>
 </div>

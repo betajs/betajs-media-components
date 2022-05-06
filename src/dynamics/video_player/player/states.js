@@ -355,20 +355,38 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Preroll", [
         dynamics: [],
 
         _started: function() {
-            if (this.dyn._prerollAd && this.dyn.get("has-ad")) {
+            if (this.dyn._prerollAd) {
+                this.dyn._prerollAd.once("ad-loaded", function(ad) {
+                    if (typeof ad !== "undefined") {
+                        // If ad type is non-lienar like image banner need to load video
+                        if (!ad.isLinear()) {
+                            this.next("LoadVideo");
+                        }
+                    }
+                }, this);
+
                 this.dyn._prerollAd.once("finished", function() {
                     this.next("LoadVideo");
                 }, this);
+
                 this.dyn._prerollAd.once("adskipped", function() {
                     this.next("LoadVideo");
                 }, this);
+
                 // TODO: video height and width return NaN before ad start even when ba-width/ba-height are provided
                 this.dyn._prerollAd.executeAd({
                     width: this.dyn.videoWidth(),
                     height: this.dyn.videoHeight()
                 });
-            } else
+
+                this.dyn._prerollAd.once("ad-error", function(message) {
+                    console.error('Error during loading an ad. Details:"' + message + '".');
+                    this.next("LoadVideo");
+                }, this);
+
+            } else {
                 this.next("LoadVideo");
+            }
         }
 
     });

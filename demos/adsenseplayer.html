@@ -17,9 +17,13 @@
 </head>
 <body style="background: #EEE">
     <script>
+        var v3_skipable = '//localhost:5050/static/demos/vast-samples/ads-linear-skipable.xml';
+        var v3_doubleclick = '//localhost:5050/static/demos/vast-samples/based-doubleclick.xml';
+
         var adsense = new BetaJS.MediaComponents.Ads.AdSenseVideoAdProvider({
             // adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator='
-            adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator='
+            //adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator='
+            adTagUrl: v3_skipable,
             // adTagUrl: 'https://securepubads.g.doubleclick.net/gampad/ads?env=vp&gdfp_req=1&output=vast&iu=/1234/video-demo&sz=400x300&unviewed_position_start=1&ciu_szs=728x90,300x250'
             // adTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Inline_Linear_Tag-test.xml'
             // adTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml'

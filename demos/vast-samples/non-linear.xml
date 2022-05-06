@@ -30,7 +30,7 @@
                             <StaticResource creativeType="application/javascript"><![CDATA[http://ryanthompson591.github.io/vpaidExamples/examples/VpaidNonLinear.js]]>
                             </StaticResource>
                             <NonLinearClickThrough id="GDFP">
-                                <![CDATA[ http://google.com ]]>
+                                <![CDATA[ https://google.com ]]>
                             </NonLinearClickThrough>
                         </NonLinear>
                     </NonLinearAds>

@@ -109,9 +109,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "reloadonplay": false,
                     "playonclick": true,
                     "pauseonclick": true,
+
                     /* Ads */
                     "adprovider": null,
                     "preroll": false,
+                    "linear": null,
+                    "non-linear": null,
+                    "show-ad-controller": false,
+                    "mid-linear-ad": [],
+                    "non-linear-ad": [],
 
                     /* Options */
                     "allowpip": true, // Picture-In-Picture Mode
@@ -268,7 +274,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "contenturl": "string",
                     "thumbnailurl": "string",
                     "videofitstrategy": "string",
-                    "posterfitstrategy": "string"
+                    "posterfitstrategy": "string",
+
+                    "linear": "string",
+                    "non-linear": "string"
                 },
 
                 extendables: ["states"],
@@ -382,19 +391,85 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (Types.is_string(this._adProvider))
                             this._adProvider = AdProvider.registry[this._adProvider];
 
-                        if (this._adProvider && this.get("preroll")) {
-                            this._prerollAd = this._adProvider.newPrerollAd({
+                        if (this._adProvider) {
+                            var adInitOptions = {
                                 videoElement: this.activeElement().querySelector("[data-video='video']"),
                                 adElement: this.activeElement().querySelector("[data-video='ad']"),
                                 dynamic: this
-                            });
+                            };
 
-                            this._prerollAd.once("ad-loaded", function() {
-                                this.set("has-ad", true);
-                            }, this);
-                            this._prerollAd.once("ad-error", function() {
-                                this.set("has-ad", false);
-                            }, this);
+                            if (this.get("preroll")) {
+                                // console.warn('Adsense ad provider is deprecated, please try to implement IMA ad provider with linear & non-linear options instead');
+                                this._prerollAd = this._adProvider.newPrerollAd(adInitOptions);
+                            }
+
+                            if (this.get("adprovider") === 'ima' && (this.get("linear") || this.get("non-linear"))) {
+                                // Split all via comma exclude inside brackets
+                                var schedules = Objs.map(this.get("linear").split(/(?![^)(]*\([^)(]*?\)\)),(?![^\[]*\])/), function(item) {
+                                    return item.trim();
+                                }, this);
+
+                                // On iOS and Android devices, video playback must begin in a user action.
+                                // In mobile could be require wait user interaction before init container and loader
+                                // Dom.userInteraction(function() {}, this);
+
+                                if (schedules.length > 0) {
+                                    this._adProvider.initAdsLoader(adInitOptions)
+                                        .success(function(loader) {
+                                            this._adsLoader = loader;
+                                            Objs.iter(schedules, function(schedule) {
+                                                switch (schedule.toLowerCase()) {
+                                                    case this._adProvider.__IMA_PRE_ROLL:
+                                                        // if already user not set preroll as an attribute
+                                                        if (typeof this._prerollAd === "undefined") {
+                                                            this._prerollAd = this._adProvider._newAdsRequester(
+                                                                loader, adInitOptions, this, this._adProvider.__IMA_PRE_ROLL
+                                                            );
+                                                        }
+                                                        break;
+                                                    case this._adProvider.__IMA_POST_ROLL:
+                                                        // Post roll will trigger as soon as video will be stopped
+                                                        this.set("has-post-roll-ad", true);
+                                                        break;
+                                                        // Midroll could be just "mid", which will trigger on 50% of player time,
+                                                        // or specify more details with second and percentage
+                                                    default:
+                                                        // if user set schedule with time settings
+                                                        if (/^mid\[[\d\s]+(,[\d\s]+|[\d\s]+\%)*\]*$/i.test(schedule)) {
+                                                            this.set("mid-linear-ad", []);
+                                                            var _s = schedule.replace('mid[', '').replace(']', '');
+                                                            Objs.map(_s.split(','), function(item) {
+                                                                item = item.trim();
+                                                                if (/^[\d\s]+\%$/.test(item)) {
+                                                                    item = parseInt(item.replace('%', '').trim(), 10);
+                                                                    if (item < 100 && item > 0) {
+                                                                        this.get("mid-linear-ad").push({
+                                                                            position: parseFloat((item / 100).toFixed(2))
+                                                                        });
+                                                                    }
+                                                                } else {
+                                                                    // user also can set 0 to 1 value, as percentage, more 1 means seconds
+                                                                    this.get("mid-linear-ad").push({
+                                                                        position: parseFloat(item)
+                                                                    });
+                                                                }
+                                                            }, this);
+                                                        } else {
+                                                            if (/^mid$/.test(schedule)) {
+                                                                this.get("mid-linear-ad").push({
+                                                                    position: 0.5
+                                                                });
+                                                            }
+                                                        }
+                                                        break;
+                                                }
+                                            }, this);
+                                        }, this)
+                                        .error(function(err) {
+                                            console.log("Error could not be able init adsense container. Err: ", err);
+                                        }, this);
+                                }
+                            }
                         }
                     }
                     if (this.get("playlist")) {

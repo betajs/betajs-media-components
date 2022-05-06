@@ -1,0 +1,68 @@
+<VAST version="2.0">
+    <Ad id="602678">
+        <InLine>
+            <AdSystem>Acudeo Compatible</AdSystem>
+            <AdTitle>NonLinear Test Campaign 1</AdTitle>
+            <Description>NonLinear Test Campaign 1</Description>
+            <Survey>//localhost:5050/ad/vast2_non_linear-survey</Survey>
+            <Error>//localhost:5050/ad/vast2_non_linear-error</Error>
+            <Impression>//myTrackingURL/impression</Impression>
+            <Creatives>
+                <Creative AdID="602678-NonLinear">
+                    <NonLinearAds>
+                        <TrackingEvents>
+                            <Tracking event="creativeView">//localhost:5050/ad/vast2_non_linear-creativeView</Tracking>
+                            <Tracking event="expand">//localhost:5050/ad/vast2_non_linear-expand</Tracking>
+                            <Tracking event="collapse">//localhost:5050/ad/vast2_non_linear-collapse</Tracking>
+                            <Tracking event="acceptInvitation">//localhost:5050/ad/vast2_non_linear-acceptInvitation</Tracking>
+                            <Tracking event="close">//localhost:5050/ad/vast2_non_linear-close</Tracking>
+                        </TrackingEvents>
+                        <NonLinear height="90" width="728" minSuggestedDuration="00:00:07">
+                            <StaticResource creativeType="image/jpeg">
+                                //localhost:5050/static/demos/assets/banner-728x90.jpeg
+                            </StaticResource>
+                            <NonLinearClickThrough>//localhost:5050/static/demos/assets/banner-728x90.jpeg</NonLinearClickThrough>
+                        </NonLinear>
+                        <NonLinear height="50" width="450" minSuggestedDuration="00:00:20">
+                            <StaticResource creativeType="image/jpeg">
+                                //localhost:5050/static/demos/assets/ad-rectangle-300x250.jpeg
+                            </StaticResource>
+                            <NonLinearClickThrough>//localhost:5050/static/demos/assets/ad-rectangle-300x250.jpeg </NonLinearClickThrough>
+                        </NonLinear>
+                    </NonLinearAds>
+                </Creative>
+
+                <Creative AdID="602678-Companion">
+                    <CompanionAds>
+                        <Companion width="300" height="250">
+                            <StaticResource creativeType="application/x-shockwave-flash">
+                                //qa.longtailvideo.com/~alex/300x250_companion_1.swf
+                            </StaticResource>
+                            <TrackingEvents>
+                                <Tracking event="creativeView">
+                                    //localhost:5050/ad/vast2_non_linear-second-firstCompanion
+                                </Tracking>
+                            </TrackingEvents>
+                            <CompanionClickThrough>
+                                //ziggeo.com?ad=vast2_non_linear-second-firstCompanion
+                            </CompanionClickThrough>
+                        </Companion>
+                        <Companion width="728" height="90">
+                            <StaticResource creativeType="image/jpeg">
+                                //localhost:5050/static/demos/assets/banner-728x90.jpeg
+                            </StaticResource>
+                            <TrackingEvents>
+                                <Tracking event="creativeView">
+                                    //ziggeo.com?ad=vast2_non_linear-second-secondCompanion
+                                </Tracking>
+                            </TrackingEvents>
+                            <CompanionClickThrough>
+                                //localhost:5050/static/demos/assets/banner-728x90.jpeg
+                            </CompanionClickThrough>
+                        </Companion>
+                    </CompanionAds>
+                </Creative>
+            </Creatives>
+        </InLine>
+    </Ad>
+</VAST>

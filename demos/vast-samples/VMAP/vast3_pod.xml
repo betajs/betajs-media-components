@@ -1,0 +1,179 @@
+<VAST xmlns:xsi="//www.w3.org/2001/XMLSchema-instance" version="3.0" xsi:noNamespaceSchemaLocation="vast3_draft.xsd">
+    <Ad id="preroll-1" sequence="2">
+        <InLine>
+            <AdSystem version="2.0">VAST_EXAMPLE</AdSystem>
+            <AdTitle/>
+            <Description/>
+            <Survey/>
+            <Error>
+                <![CDATA[//localhost:5050/ad/vmap-vast3_pod-error ]]>
+            </Error>
+            <Impression id="DART">
+                <![CDATA[ //localhost:5050/ad/vmap-vast3_pod-impression ]]>
+            </Impression>
+            <Creatives>
+                <Creative sequence="1" AdID="">
+                    <Linear skipoffset="00:00:03">
+                        <Duration>00:00:10</Duration>
+                        <TrackingEvents>
+                            <Tracking event="start">//localhost:5050/ad/vmap-vast3_pod-start</Tracking>
+                            <!--  Invalid, use 'Impression' element: <Tracking event="impression">//localhost:5050/ad/2</Tracking>  -->
+                            <Tracking event="firstQuartile">//localhost:5050/ad/vmap-vast3_pod-firstQ</Tracking>
+                            <Tracking event="midpoint">//localhost:5050/ad/vmap-vast3_pod-midpoint</Tracking>
+                            <Tracking event="thirdQuartile">//localhost:5050/ad/vmap-vast3_pod-thirdQ</Tracking>
+                            <Tracking event="complete">//localhost:5050/ad/vmap-vast3_pod-complete</Tracking>
+                            <Tracking event="pause">//localhost:5050/ad/vmap-vast3_pod-pause</Tracking>
+                            <Tracking event="mute">//localhost:5050/ad/vmap-vast3_pod-mute</Tracking>
+                            <Tracking event="fullscreen">//localhost:5050/ad/vmap-vast3_pod-fullscreen</Tracking>
+                        </TrackingEvents>
+                        <AdParameters/>
+                        <VideoClicks>
+                            <ClickThrough>
+                                <![CDATA[//ziggeo.com/?click ]]>
+                            </ClickThrough>
+                            <ClickTracking id="Alex">
+                                <![CDATA[//localhost:5050/ad/vmap-vast3_pod-click_throught ]]>
+                            </ClickTracking>
+                        </VideoClicks>
+                        <MediaFiles>
+                            <MediaFile id="1" delivery="progressive" type="video/mp4" bitrate="0" width="640" height="360">
+                                <![CDATA[ //content.bitsontherun.com/videos/1EI2jHpo-52qL9xLP.mp4 ]]>
+                            </MediaFile>
+                            <MediaFile id="2" delivery="progressive" type="video/webm" bitrate="0" width="640" height="360">
+                                <![CDATA[ //content.bitsontherun.com/videos/1EI2jHpo-27m5HpIu.webm ]]>
+                            </MediaFile>
+                        </MediaFiles>
+                    </Linear>
+                </Creative>
+                <Creative AdID="601364-Companion">
+                    <CompanionAds>
+                        <Companion id="0" width="300" height="250">
+                            <StaticResource creativeType="application/x-shockwave-flash">
+                                <![CDATA[//localhost:5050/static/demos/assets/betajs-flash.swf]]>
+                            </StaticResource>
+                            <TrackingEvents>
+                                <Tracking event="creativeView">//localhost:5050/ad/vmap-vast3_pod-firstCompanion</Tracking>
+                            </TrackingEvents>
+                            <CompanionClickThrough>//ziggeo.com?ad=vmap-vast3_pod-firstCompanion</CompanionClickThrough>
+                        </Companion>
+                        <Companion id="1" width="300" height="250">
+                            <StaticResource creativeType="image/jpeg">
+                                <![CDATA[//localhost:5050/static/demos/assets/ad-rectangle-300x250.jpeg ]]>
+                            </StaticResource>
+                            <CompanionClickThrough>
+                                <![CDATA[//localhost:5050/static/demos/assets/ad-rectangle-300x250.jpeg]]>
+                            </CompanionClickThrough>
+                            <AltText/>
+                            <AdParameters/>
+                        </Companion>
+                        <Companion id="2" width="728" height="90">
+                            <StaticResource creativeType="image/jpeg">
+                                <![CDATA[//localhost:5050/static/demos/assets/banner-728x90.jpeg ]]>
+                            </StaticResource>
+                            <CompanionClickThrough>
+                                <![CDATA[//localhost:5050/static/demos/assets/banner-728x90.jpeg]]>
+                            </CompanionClickThrough>
+                            <AltText/>
+                            <AdParameters/>
+                        </Companion>
+                    </CompanionAds>
+                </Creative>
+            </Creatives>
+            <Extensions>
+                <Extension type="DART">
+                    <AdServingData>
+                        <DeliveryData>
+                            <GeoData>
+                                <![CDATA[ ct=US&st=NY&ac=212&zp=10021&bw=3&dma=3&city=13275 ]]>
+                            </GeoData>
+                        </DeliveryData>
+                    </AdServingData>
+                </Extension>
+            </Extensions>
+        </InLine>
+    </Ad>
+    <Ad id="preroll-1" sequence="1">
+        <InLine>
+            <AdSystem version="2.0">Ziggeo_Vast</AdSystem>
+            <AdTitle>ad 1</AdTitle>
+            <Description/>
+            <Survey/>
+            <Error>
+                <![CDATA[ //localhost:5050/ad/preroll-1-error ]]>
+            </Error>
+            <Impression id="DART">
+                <![CDATA[ //localhost:5050/ad/preroll-1-impression ]]>
+            </Impression>
+            <Creatives>
+                <Creative sequence="1" AdID="">
+                    <Linear>
+                        <Duration>00:00:10</Duration>
+                        <TrackingEvents>
+                            <Tracking event="start">//localhost:5050/ad/preroll-1-start</Tracking>
+                            <!--  Invalid, use 'Impression' element: <Tracking event="impression">//localhost:5050/ad/2</Tracking>  -->
+                            <Tracking event="firstQuartile">//localhost:5050/ad/preroll-1-firstQ</Tracking>
+                            <Tracking event="midpoint">//localhost:5050/ad/preroll-1-midpoint</Tracking>
+                            <Tracking event="thirdQuartile">//localhost:5050/ad/preroll-1-thirdQ</Tracking>
+                            <Tracking event="complete">//localhost:5050/ad/preroll-1-complete</Tracking>
+                            <Tracking event="pause">//localhost:5050/ad/preroll-1-pause</Tracking>
+                            <Tracking event="mute">//localhost:5050/ad/preroll-1-mute</Tracking>
+                            <Tracking event="fullscreen">//localhost:5050/ad/preroll-1-fullscreen</Tracking>
+                        </TrackingEvents>
+                        <AdParameters/>
+                        <VideoClicks>
+                            <ClickThrough>
+                                <![CDATA[ //ziggeo.com ]]>
+                            </ClickThrough>
+                            <ClickTracking id="Ziggeo">
+                                <![CDATA[ //localhost:5050/ad/preroll-1-click-throught ]]>
+                            </ClickTracking>
+                        </VideoClicks>
+                        <MediaFiles>
+                            <MediaFile id="1" delivery="progressive" type="video/mp4" bitrate="0" width="640" height="360">
+                                <![CDATA[ //content.bitsontherun.com/videos/tafrxQYx-bPwArWA4.mp4 ]]>
+                            </MediaFile>
+                            <MediaFile id="2" delivery="progressive" type="video/webm" bitrate="0" width="640" height="360">
+                                <![CDATA[ //content.bitsontherun.com/videos/tafrxQYx-27m5HpIu.webm ]]>
+                            </MediaFile>
+                        </MediaFiles>
+                    </Linear>
+                </Creative>
+                <Creative sequence="1" AdID="">
+                    <CompanionAds>
+                        <Companion id="1" width="300" height="250">
+                            <StaticResource creativeType="image/jpeg">
+                                <![CDATA[//localhost:5050/static/demos/assets/ad-rectangle-300x250.jpeg ]]>
+                            </StaticResource>
+                            <CompanionClickThrough>
+                                <![CDATA[//localhost:5050/static/demos/assets/ad-rectangle-300x250.jpeg ]]>
+                            </CompanionClickThrough>
+                            <AltText/>
+                            <AdParameters/>
+                        </Companion>
+                        <Companion id="2" width="728" height="90">
+                            <StaticResource creativeType="image/jpeg">
+                                <![CDATA[//localhost:5050/static/demos/assets/banner-728x90.jpeg]]>
+                            </StaticResource>
+                            <CompanionClickThrough>
+                                <![CDATA[//localhost:5050/static/demos/assets/banner-728x90.jpeg]]>
+                            </CompanionClickThrough>
+                            <AltText/>
+                            <AdParameters/>
+                        </Companion>
+                    </CompanionAds>
+                </Creative>
+            </Creatives>
+            <Extensions>
+                <Extension type="DART">
+                    <AdServingData>
+                        <DeliveryData>
+                            <GeoData>
+                                <![CDATA[ ct=US&st=NY&ac=212&zp=10021&bw=3&dma=3&city=13275 ]]>
+                            </GeoData>
+                        </DeliveryData>
+                    </AdServingData>
+                </Extension>
+            </Extensions>
+        </InLine>
+    </Ad>
+</VAST>

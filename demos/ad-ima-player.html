@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--    <script type="text/javascript" src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>-->
+
+    <script src="../vendors/jquery.min.js"></script>
+    <script src="../node_modules/betajs-shims/dist/betajs-shims.js"></script>
+    <script src="../node_modules/betajs-scoped/dist/scoped.js"></script>
+    <script src="../node_modules/betajs/dist/beta-noscoped.js"></script>
+    <script src="../node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
+    <script src="../node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+    <script src="../node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
+    <script src="../dist/betajs-media-components-noscoped.js"></script>
+    <link  href="../dist/betajs-media-components.css" rel="stylesheet" />
+    <script src="../dist/themes/modern/script.js"></script>
+    <link  href="../dist/themes/modern/style.css" rel="stylesheet" />
+</head>
+<body style="background: #EEE">
+    <script>
+
+        var errroAd = '//localhost:5050/static/demos/vast-samples/---error-url---';
+        var v3_clickThroughtLocalAd = '//localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml';
+        var v3_skipable = '//localhost:5050/static/demos/vast-samples/ads-linear-skipable.xml';
+        var v3_doubleclick = 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=';
+        var v3_doubleclickbased = '//localhost:5050/static/demos/vast-samples/based-doubleclick.xml';
+
+        var adsense = new BetaJS.MediaComponents.Ads.IMAProvider({
+            // adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator='
+            // adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator='
+            // adTagUrl: 'https://securepubads.g.doubleclick.net/gampad/ads?env=vp&gdfp_req=1&output=vast&iu=/1234/video-demo&sz=400x300&unviewed_position_start=1&ciu_szs=728x90,300x250'
+            // adTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Inline_Linear_Tag-test.xml'
+            // adTagUrl: errroAd
+            // adTagUrl: v3_clickThroughtLocalAd
+            adTagUrl: v3_doubleclickbased
+            // adTagUrl: v3_skipable
+
+            // adPreTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml',
+            // adPostTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml',
+            // adMidTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml',
+            // adMidTagUrls: [
+            //     'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml',
+            //     'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml'
+            // ]
+            //, vpaidMode: true, DISABLED, ENABLED, INSECURE
+            //, preload: true
+            // , maxAllowedRedirects: 10,
+            // https://developers.google.com/interactive-media-ads/docs/sdks/html5/client-side/localization
+            , locale: 'es_ar'
+            , customSkipView: true
+            , skipAfter: 3
+        });
+        adsense.register("ima");
+    </script>
+
+    <ba-videoplayer
+        ba-poster="sample-cover.png"
+        ba-source="sample-video.mp4"
+        ba-theme="modern"
+        ba-adprovider="ima"
+        ba-linear="pre,mid[14, 45%,39], post"
+        ba-non-linear="40, 50%[720,90]"
+    ></ba-videoplayer>
+    <!--  mid,post  -->
+    <!--  ba-linear="pre,mid[14, 45%,39], post" -->
+    <!--  ba-non-linear="40, 50%" -->
+
+    <script>
+        BetaJS.Dynamics.Dynamic.activate();
+    </script>
+</body>
+</html>

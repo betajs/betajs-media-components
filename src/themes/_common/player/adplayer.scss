@@ -20,8 +20,9 @@
 .#{$cssplayer}-ad-controlbar {
     @include background-rgba(0, 0, 0, 0.8, #333333);
     @include absolute-align-bottom();
-    height: 40px;
+    height: 38px;
     width: 100%;
+    z-index: 10;
 }
 
 .#{$cssplayer}-ad-leftbutton-container {
@@ -130,4 +131,13 @@
 .#{$cssplayer}-skipbutton-container:hover {
     @include transparent(0.7);
     @include transition1(all, 0.3s, ease-in-out 0.2s);
+}
+
+.#{$cssplayer}-container {
+    .raisedSkipButton.videoAdUiSkipWidgetV2 .videoAdUiPreSkipContainer,
+    .raisedSkipButton.videoAdUiSkipWidgetV2 .videoAdUiSkipContainer,
+    .gma-instream .videoAdUiSkipWidgetV2 .videoAdUiPreSkipContainer,
+    .gma-instream .videoAdUiSkipWidgetV2 .videoAdUiSkipContainer {
+        bottom: 70px;
+    }
 }

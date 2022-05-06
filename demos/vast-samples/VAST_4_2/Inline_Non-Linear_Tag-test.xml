@@ -33,7 +33,7 @@
                 <![CDATA[https://iabtechlab.com]]>
               </NonLinearClickThrough>
               <NonLinearClickTracking>
-                <![CDATA[https://localhost:5050/ad/clickTracking]]>
+                <![CDATA[//localhost:5050/ad/clickTracking]]>
               </NonLinearClickTracking>
             </NonLinear>
           </NonLinearAds>

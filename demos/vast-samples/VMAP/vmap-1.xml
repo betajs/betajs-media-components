@@ -1,0 +1,123 @@
+<vmap:VMAP xmlns:vmap="//www.iab.net/vmap-1.0" version="1.0">
+    <vmap:AdBreak breakType="linear" timeOffset="start">
+        <vmap:AdSource allowMultipleAds="true" followRedirects="true" id="2">
+            <VASTData>
+                <VAST xmlns:xsi="//www.w3.org/2001/XMLSchema-instance"
+                      xsi:noNamespaceSchemaLocation="vast.xsd"
+                      version="2.0">
+                    <Ad id="1">
+                        <InLine>
+                            <AdSystem>GDFP</AdSystem>
+                            <AdTitle>video</AdTitle>
+                            <Description>video ad</Description>
+                            <Error>
+                                <![CDATA[//example.com/ad/error/?label=videoplayfailed]]>
+                            </Error>
+                            <Impression>
+                                <![CDATA[//example.com/ad/view]]>
+                            </Impression>
+                            <Creatives>
+                                <Creative>
+                                    <Linear>
+                                        <Duration>00:00:10.6</Duration>
+                                        <MediaFiles>
+                                            <MediaFile id="1" delivery="progressive" type="video/mp4" bitrate="0" width="640" height="360">
+                                                <![CDATA[//iab-publicfiles.s3.amazonaws.com/vast/VAST-4.0-Short-Intro.mp4]]>
+                                            </MediaFile>
+                                            <MediaFile id="2" delivery="progressive" type="video/webm" bitrate="0" width="640" height="360">
+                                                <![CDATA[//content.bitsontherun.com/videos/tafrxQYx-27m5HpIu.webm]]>
+                                            </MediaFile>
+                                        </MediaFiles>
+                                    </Linear>
+                                </Creative>
+                            </Creatives>
+                        </InLine>
+                    </Ad>
+                </VAST>
+            </VASTData>
+        </vmap:AdSource>
+        <vmap:TrackingEvents>
+            <vmap:Tracking event="breakStart">
+                <![CDATA[//localhost:5050/ad/breakstart2]]>
+            </vmap:Tracking>
+            <vmap:Tracking event="breakEnd">
+                <![CDATA[//localhost:5050/ad/breakend2]]>
+            </vmap:Tracking>
+            <vmap:Tracking event="error">
+                <![CDATA[//localhost:5050/ad/breakerror2]]>
+            </vmap:Tracking>
+        </vmap:TrackingEvents>
+    </vmap:AdBreak>
+    <vmap:AdBreak breakType="linear" breakId="midrolls2" timeOffset="00:00:15.125">
+        <vmap:AdSource allowMultipleAds="true" followRedirects="true" id="2">
+            <AdTagURI templateType="vast3">
+                <![CDATA[//localhost:5050/static/demos/vast-samples/VMAP/vast3_pod.xml]]>
+            </AdTagURI>
+        </vmap:AdSource>
+        <vmap:TrackingEvents>
+            <vmap:Tracking event="breakStart">
+                <![CDATA[//localhost:5050/ad/breakstart3]]>
+            </vmap:Tracking>
+            <vmap:Tracking event="breakEnd">
+                <![CDATA[//localhost:5050/ad/breakend3]]>
+            </vmap:Tracking>
+            <vmap:Tracking event="error">
+                <![CDATA[//localhost:5050/ad/breakerror3]]>
+            </vmap:Tracking>
+        </vmap:TrackingEvents>
+    </vmap:AdBreak>
+    <vmap:AdBreak breakType="nonlinear" breakId="midrolls2" timeOffset="70%">
+        <vmap:AdSource allowMultipleAds="true" followRedirects="true" id="2">
+            <AdTagURI templateType="vast2">
+                <![CDATA[//localhost:5050/static/demos/vast-samples/VMAP/vast2_inline_nonlinear.xml]]>
+            </AdTagURI>
+        </vmap:AdSource>
+        <vmap:TrackingEvents>
+            <vmap:Tracking event="breakStart">
+                <![CDATA[//localhost:5050/ad/breakstart4]]>
+            </vmap:Tracking>
+            <vmap:Tracking event="breakEnd">
+                <![CDATA[//localhost:5050/ad/breakend4]]>
+            </vmap:Tracking>
+            <vmap:Tracking event="error">
+                <![CDATA[//localhost:5050/ad/breakerror4]]>
+            </vmap:Tracking>
+        </vmap:TrackingEvents>
+    </vmap:AdBreak>
+    <vmap:AdBreak breakType="linear" breakId="midrolls2" timeOffset="#1">
+        <vmap:AdSource allowMultipleAds="true" followRedirects="true" id="2">
+            <AdTagURI templateType="vast2">
+                <![CDATA[//localhost:5050/static/demos/vast-samples/VMAP/vast3_pod.xml]]>
+            </AdTagURI>
+        </vmap:AdSource>
+        <vmap:TrackingEvents>
+            <vmap:Tracking event="breakStart">
+                <![CDATA[//localhost:5050/ad/breakstart5]]>
+            </vmap:Tracking>
+            <vmap:Tracking event="breakEnd">
+                <![CDATA[//localhost:5050/ad/breakend5]]>
+            </vmap:Tracking>
+            <vmap:Tracking event="error">
+                <![CDATA[//localhost:5050/ad/breakerror5]]>
+            </vmap:Tracking>
+        </vmap:TrackingEvents>
+    </vmap:AdBreak>
+    <vmap:AdBreak breakType="linear" breakId="post" timeOffset="end">
+        <vmap:AdSource allowMultipleAds="true" followRedirects="true" id="3">
+            <AdTagURI templateType="vast2">
+                <![CDATA[//playertest.longtailvideo.com/adtags/postroll.xml]]>
+            </AdTagURI>
+        </vmap:AdSource>
+        <vmap:TrackingEvents>
+            <vmap:Tracking event="breakStart">
+                <![CDATA[//localhost:5050/ad/breakstart6]]>
+            </vmap:Tracking>
+            <vmap:Tracking event="breakEnd">
+                <![CDATA[//localhost:5050/ad/breakend6]]>
+            </vmap:Tracking>
+            <vmap:Tracking event="error">
+                <![CDATA[//localhost:5050/ad/breakerror6]]>
+            </vmap:Tracking>
+        </vmap:TrackingEvents>
+    </vmap:AdBreak>
+</vmap:VMAP>

@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.300 - 2022-04-17
+betajs-media-components - v0.0.301 - 2022-05-10
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.300 - 2022-04-17
+betajs-media-components - v0.0.301 - 2022-05-10
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.300",
-    "datetime": 1650190457421
+    "version": "0.0.301",
+    "datetime": 1652194163788
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -1041,25 +1041,24 @@ Scoped.extend("module:Assets", ["module:Assets"], function (Assets) {
 });
 
 Scoped.define("module:Ads.AdSenseVideoAdProvider", [
-        "module:Ads.AbstractVideoAdProvider",
-        "module:Ads.AdSensePrerollAd"
-    ],
-    function(AbstractVideoAdProvider, AdSensePrerollAd, scoped) {
-        return AbstractVideoAdProvider.extend({
-            scoped: scoped
-        }, {
+    "module:Ads.AbstractVideoAdProvider",
+    "module:Ads.AdSensePrerollAd"
+], function(AbstractVideoAdProvider, AdSensePrerollAd, scoped) {
+    return AbstractVideoAdProvider.extend({
+        scoped: scoped
+    }, {
 
-            _newPrerollAd: function(options) {
-                return new AdSensePrerollAd(this, options);
-            }
+        _newPrerollAd: function(options) {
+            return new AdSensePrerollAd(this, options);
+        }
 
-        });
     });
-
+});
 
 Scoped.define("module:Ads.AdSensePrerollAd", [
-    "module:Ads.AbstractPrerollAd"
-], function(AbstractVideoPrerollAd, scoped) {
+    "module:Ads.AbstractPrerollAd",
+    "browser:Loader"
+], function(AbstractVideoPrerollAd, Loader, scoped) {
     return AbstractVideoPrerollAd.extend({
         scoped: scoped
     }, function(inherited) {
@@ -1067,6 +1066,26 @@ Scoped.define("module:Ads.AdSensePrerollAd", [
 
             constructor: function(provider, options) {
                 inherited.constructor.call(this, provider, options);
+
+                // https://developers.google.com/interactive-media-ads/docs/sdks/html5/client-side/architecture
+                // If google script nor loaded
+                if (typeof google === "undefined") {
+                    Loader.loadScript('https://imasdk.googleapis.com/js/sdkloader/ima3.js', function() {
+                        this.init();
+                    }, this);
+                } else {
+                    // Just in case check if google is relate IMA SDK not other google service
+                    if (typeof google.ima === "undefined") {
+                        Loader.loadScript('https://imasdk.googleapis.com/js/sdkloader/ima3.js', function() {
+                            this.init();
+                        }, this);
+                    } else {
+                        this.init();
+                    }
+                }
+            },
+
+            init: function() {
                 this._adDisplayContainer = new google.ima.AdDisplayContainer(this._options.adElement, this._options.videoElement);
                 // Must be done as the result of a user action on mobile
                 this._adDisplayContainer.initialize();
@@ -1097,8 +1116,9 @@ Scoped.define("module:Ads.AdSensePrerollAd", [
             },
 
             _adError: function() {
-                if (this._adsManager)
+                if (this._adsManager) {
                     this._adsManager.destroy();
+                }
                 this._adFinished();
             },
 
@@ -1138,42 +1158,796 @@ Scoped.define("module:Ads.AdSensePrerollAd", [
         };
     });
 });
-Scoped.define("module:Ads.AbstractVideoAdProvider", ["base:Class"], function(
-    Class, scoped) {
-    return Class.extend({
-        scoped: scoped
-    }, function(inherited) {
-        return {
+Scoped.define("module:Ads.IMA.Controllbar", [
+    "dynamics:Dynamic",
+    "browser:Dom",
+    "browser:Info",
+    "base:Types",
+    "base:Time",
+    "base:Timers",
+    "base:TimeFormat",
+    "module:Assets",
+    "browser:Events"
+], function(Dynamic, Dom, Info, Types, Time, Timers, TimeFormat, Assets, DomEvents, scoped) {
+    return Dynamic.extend({
+            scoped: scoped
+        }, function(inherited) {
+            return {
 
-            constructor: function(options) {
-                inherited.constructor.call(this);
-                this._options = options;
-            },
+                template: "<div class=\"{{cssplayer}}-ad-controllbar\">\n    <div ba-show=\"{{skippable}}\" class=\"{{cssplayer}}-skipbutton-container\"\n         ba-click=\"{{skip_linear_ad()}}\"\n    >\n        <p class=\"{{cssplayer}}-skipbutton\">\n            {{lefttillskip > 0 ? string('can-skip-after').replace('%d', lefttillskip) : string('skip-ad') }}\n        </p>\n    </div>\n\n    <div ba-if=\"{{!customcontroller}}\" class=\"{{css}}-companion-ad-container\" ba-show=\"{{companionadvisible}}\">\n        <div class=\"{{css}}-close-companion-ad\" ba-click=\"{{skip_companion_ad()}}\">X</div>\n        <img class=\"{{css}}-companion-ad\" src=\"\" />\n    </div>\n\n    <div ba-if=\"{{customcontroller}}\" class=\"{{css}}-overlay {{cssplayer}}-ad-click-tracker\n        {{clickthroughurl && controllbarisvisible ? csscommon + '-clickable' : ''}}\"\n         ba-click=\"{{ad_clicked()}}\"\n    ></div>\n\n    <div class=\"{{cssplayer}}-ad-controlbar {{controllbarisvisible ? '' : (cssplayer + '-dashboard-hidden')}}\">\n        <div tabindex=\"1\" ba-hotkey:space^enter=\"{{toggle_player()}}\"\n             onmouseout=\"this.blur()\" class=\"{{css}}-leftbutton-container\"\n             autofocus\n        >\n            <div ba-if=\"{{!playing}}\" class=\"{{css}}-button-inner\"\n                 ba-click=\"{{resume()}}\" title=\"{{string('play-ad')}}\"\n            >\n                <i class=\"{{csscommon}}-icon-play\"></i>\n            </div>\n            <div ba-if=\"{{playing}}\" class=\"{{css}}-button-inner\" ba-click=\"{{pause()}}\"\n                 title=\"{{disablepause ? string('pause-video-disabled') : string('pause-video')}}\"\n            >\n                <i class=\"{{csscommon}}-icon-pause\"></i>\n            </div>\n        </div>\n\n        <div class=\"{{cssplayer}}-ad-time-container\">\n            <div class=\"{{cssplayer}}-ad-time-value\"\n                 title=\"{{string('elapsed-time')}}\"\n            >\n                {{formatTime(duration)}} / {{formatTime(remaining)}}\n                    <span>|</span>\n                {{title}}\n            </div>\n        </div>\n\n        <div tabindex=\"4\" ba-if=\"{{supportsfullscreen}}\"\n             title=\"{{ fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video') }}\"\n             ba-hotkey:space^enter=\"{{toggle_fullscreen()}}\" onmouseout=\"this.blur()\"\n             class=\"{{css}}-rightbutton-container\" ba-click=\"{{toggle_fullscreen()}}\"\n        >\n            <div class=\"{{css}}-button-inner\">\n                <i class=\"{{csscommon}}-icon-resize-{{fullscreened ? 'small' : 'full'}}\"></i>\n            </div>\n        </div>\n\n        <div tabindex=\"3\" class=\"{{cssplayer}}-ad-volumebar\"\n             ba-hotkey:right=\"{{set_volume(volume + 0.1)}}\" ba-hotkey:left=\"{{set_volume(volume - 0.1)}}\"\n             ba-hotkey:up=\"{{set_volume(1)}}\" ba-hotkey:down=\"{{set_volume(0)}}\"\n        >\n            <div data-selector=\"button-volume-bar\" class=\"{{cssplayer}}-ad-volumebar-inner\"\n                 onmousedown=\"{{startUpdateVolume(domEvent)}}\"\n                 onmouseup=\"{{stopUpdateVolume(domEvent)}}\"\n                 onmouseleave=\"{{stopUpdateVolume(domEvent)}}\"\n                 onmousemove=\"{{progressUpdateVolume(domEvent)}}\"\n            >\n                <div class=\"{{cssplayer}}-ad-volumebar-position\"\n                     ba-styles=\"{{{width: Math.min(100, Math.round(volume * 100)) + '%'}}}\"\n                >\n                    <div class=\"{{cssplayer}}-ad-volumebar-button\"\n                         title=\"{{string('volume-button')}}\"\n                    ></div>\n                </div>\n            </div>\n        </div>\n\n        <div tabindex=\"2\" class=\"{{cssplayer}}-ad-rightbutton-container\"\n             ba-click=\"{{toggle_volume()}}\" ba-hotkey:space^enter=\"{{toggle_volume()}}\"\n             title=\"{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}\"\n        >\n            <div class=\"{{cssplayer}}-ad-button-inner\">\n                <i class=\"{{csscommon + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}\"></i>\n            </div>\n        </div>\n    </div>\n</div>\n\n",
 
-            options: function() {
-                return this._options;
-            },
+                attrs: {
+                    css: "ba-videoplayer",
+                    cssplayer: "ba-player",
+                    csscommon: "ba-commoncss",
+                    adplayercss: 'ba-videoadplayer',
+                    skipable: false,
+                    'allow-skip': false,
+                    dyn: null,
+                    requester: null,
+                    ad: null,
+                    playing: false,
+                    duration: 0,
+                    remaining: 0,
+                    volume: 1,
+                    disablepause: false,
+                    title: null,
+                    pausedonclick: false,
+                    clickthroughurl: null,
+                    fullscreened: false,
+                    supportsfullscreen: false,
+                    hidebarafter: 5000,
+                    // if controlbar is hidden, touch on screen should make it visible,
+                    // and not handle click trough action, as user may want to use controlbar options
+                    controllbarisvisible: true,
+                    skippable: false, // Set when skip not exists in XML file and user set
+                    skipoffset: -1
+                },
 
-            _newPrerollAd: function(options) {},
+                create: function() {
+                    // , destroy, focus, getCuePoints
+                    // getCuePoints, resize, skip, start, stop,
+                    // discardAdBreak
 
-            newPrerollAd: function(options) {
-                return this._newPrerollAd(options);
-            },
+                    this._adsRequester = this.get("requester");
+                    this._contentPlayer = this._adsRequester._dyn;
+                    this._adsManager = this._adsRequester._adsManager;
+                    this._ads = this._adsManager.getCurrentAd();
+                    this._element = this._adsRequester._options.adElement;
+                    this.set("last_activity", Time.now());
 
-            register: function(name) {
-                this.cls.registry[name] = this;
+                    if (this._contentPlayer.get("playing")) this._contentPlayer.pause();
+                    this.set("supportsfullscreen", Dom.elementSupportsFullscreen(this._element));
+
+                    var key = Object.keys(this._ads)[0] || null;
+                    if (key && this._ads[key]) {
+                        this.set("clickthroughurl", this._ads[key].clickThroughUrl);
+                    }
+
+                    this._domEvents = this.auto_destroy(new DomEvents());
+
+                    this.set("ad", this._ads);
+                    this.set("title", this._ads.getTitle());
+                    this.set("duration", this._ads.getDuration());
+                    // this.set("skippable", this._adsManager.getAdSkippableState());
+                    this.set("skipoffset", this._ads.getSkipTimeOffset());
+                    var podInfo = this._ads.getAdPodInfo();
+                    this.set("pods", {
+                        index: podInfo.getPodIndex(),
+                        position: podInfo.getAdPosition(),
+                        total: podInfo.getTotalAds(),
+                        maxDuration: podInfo.getMaxDuration(),
+                        timeOffset: podInfo.getTimeOffset()
+                    });
+                    this.set("volume", this._adsManager.getVolume());
+                    this.set("remaining", this._adsManager.getRemainingTime());
+                    // vastMediaBitrate: 360 // vastMediaHeight: 300 // vastMediaWidth: 400
+                    this.set("width", this._contentPlayer.videoWidth());
+                    this.set("height", this._contentPlayer.videoHeight());
+
+                    // If skipoffset attribute not exisit in XML but user set own skipafter
+                    if (!this._ads.isSkippable() && Types.isNumber(this._adsRequester._providerOptions.skipAfter)) {
+                        this.set("skippable", true);
+                        this.set("skipoffset", this._adsRequester._providerOptions.skipAfter);
+                        this.set("lefttillskip", this.get("skipoffset"));
+                    }
+
+                    this._adsRequester.on("adstart", function() {
+                        this.set("playing", true);
+                    }, this);
+                    this._adsRequester.on("adpause", function() {
+                        this.set("playing", false);
+                    }, this);
+                    this._adsRequester.on("adresume", function() {
+                        this.set("playing", true);
+                    }, this);
+                    this._adsRequester.on("skippableStateChanged", function() {
+                        console.log("Skip state was changed!!!");
+                    }, this);
+
+                    this._domEvents.on(this._element, 'fullscreenchange', function(ev) {
+                        var element = ev.target;
+                        var _mode, _width = element.offsetWidth,
+                            _height = element.offsetHeight;
+                        // if (document.fullscreenElement || document.webkitFullscreenElement)
+                        this.set("fullscreened", Dom.elementIsFullscreen(element));
+                        _mode = this.get("fullscreened") ? google.ima.ViewMode.FULLSCREEN : google.ima.ViewMode.NORMAL;
+                        this._adsManager.resize(_width, _height, _mode);
+                    }, this);
+
+                    // On user over
+                    this._domEvents.on(this._element, 'mouseover', function(ev) {
+                        this.set("last_activity", Time.now());
+                    }, this);
+
+                    this._domEvents.on(this._element, 'tap', function(ev) {
+                        this.set("last_activity", Time.now());
+                    }, this);
+
+                    // Below listener also can do the job, only user activity will pause as progress fire onlu on playing ad
+                    // this._adsRequester.on("adadProgress", function(ev) {}, this);
+                    this._timer = this._auto_destroy(new Timers.Timer({
+                        context: this,
+                        fire: this._timerFire,
+                        delay: 200,
+                        start: true
+                    }, this));
+                },
+
+                functions: {
+
+                    formatTime: function(time) {
+                        time = Math.max(time || 0, 1);
+                        return TimeFormat.format(TimeFormat.ELAPSED_MINUTES_SECONDS, time * 1000);
+                    },
+
+                    startUpdateVolume: function(event) {
+                        event[0].preventDefault();
+                        this.set("_updateVolume", true);
+                        this.call("progressUpdateVolume", event);
+                    },
+
+                    progressUpdateVolume: function(event) {
+                        var ev = event[0];
+                        ev.preventDefault();
+                        if (!this.get("_updateVolume"))
+                            return;
+                        var clientX = ev.clientX;
+                        var target = ev.currentTarget;
+                        var offset = Dom.elementOffset(target);
+                        var dimensions = Dom.elementDimensions(target);
+                        this.set("volume", (clientX - offset.left) / (dimensions.width || 1));
+                        this._adsManager.setVolume(this.get("volume") > 1 ? 1 : this.get("volume"));
+                    },
+
+                    stopUpdateVolume: function(event) {
+                        event[0].preventDefault();
+                        this.set("_updateVolume", false);
+                    },
+
+                    play: function() {
+                        this._adsManager.start();
+                    },
+
+                    resume: function() {
+                        this._adsManager.resume();
+                    },
+
+                    toggle_player: function() {
+                        // NO NEED: we are listening for this: this.set("playing", !this.get("playing"));
+                        if (this.get("playing")) {
+                            this._adsManager.pause();
+                        } else {
+                            this._adsManager.resume();
+                        }
+                    },
+
+                    pause: function() {
+                        this._adsManager.pause();
+                    },
+
+                    set_volume: function(value) {
+                        this.set("volume", value);
+                        this._adsManager.setVolume(this.get("volume") > 1 ? 1 : this.get("volume"));
+                    },
+
+                    toggle_volume: function() {
+                        this.set("volume", this._adsManager.getVolume() === 0 ? 1 : 0);
+                        this._adsManager.setVolume(this.get("volume"));
+                    },
+
+                    skip_linear_ad: function() {
+                        if (this.get("lefttillskip") > 0)
+                            return;
+                        // ad skip works only if adSkippableState is true and it will be shown by default, we have to use stop
+                        // this._adsManager.skip();
+                        this._adsManager.stop();
+                    },
+
+                    skip_companion_ad: function() {
+                        this._adsManager.skip();
+                    },
+
+                    toggle_fullscreen: function() {
+                        var fullscreenElement = this._element;
+                        if (this.get("fullscreened")) {
+                            Dom.documentExitFullscreen(fullscreenElement);
+                        } else {
+                            Dom.elementEnterFullscreen(fullscreenElement);
+                        }
+                    },
+
+                    ad_clicked: function() {
+                        console.log("Ad was clicked");
+                        // this._ads.initialUserAction();
+                        if (this.get("clickthroughurl") && !this.get('pausedonclick') && this.get('controllbarisvisible')) {
+                            this._adsManager.pause();
+                            // this._adsManager.dispatch(google.ima.AdEvent.Type.CLICK);
+                            var linkElement = document.createElement('a');
+                            linkElement.href = this.get("clickthroughurl");
+                            linkElement.target = '_blank';
+                            linkElement.click();
+                            this.set('pausedonclick', true);
+                        } else {
+                            // When second time click on ad resume playe
+                            this._adsManager.resume();
+                            this.set('pausedonclick', false);
+                            this.set('controllbarisvisible', true);
+                        }
+                    }
+                },
+
+                _timerFire: function() {
+                    var _now = Time.now();
+                    this.set("activity_delta", _now - this.get("last_activity"));
+
+                    this.set("remaining", this._adsManager.getRemainingTime());
+
+                    if (this.get("skipoffset") > 0 && this.get("skippable")) {
+                        this.set("lefttillskip", Math.floor(this.get("skipoffset") - (this.get("duration") - this.get("remaining"))));
+                    }
+
+                    this.set("controllbarisvisible", this.get("activity_delta") < this.get("hidebarafter"));
+                }
+            };
+        }).register("ba-ads-controllbar")
+        .registerFunctions({
+            /**/"cssplayer": function (obj) { return obj.cssplayer; }, "skippable": function (obj) { return obj.skippable; }, "skip_linear_ad()": function (obj) { return obj.skip_linear_ad(); }, "lefttillskip > 0 ? string('can-skip-after').replace('%d', lefttillskip) : string('skip-ad')": function (obj) { return obj.lefttillskip > 0 ? obj.string('can-skip-after').replace('%d', obj.lefttillskip) : obj.string('skip-ad'); }, "!customcontroller": function (obj) { return !obj.customcontroller; }, "css": function (obj) { return obj.css; }, "companionadvisible": function (obj) { return obj.companionadvisible; }, "skip_companion_ad()": function (obj) { return obj.skip_companion_ad(); }, "customcontroller": function (obj) { return obj.customcontroller; }, "clickthroughurl && controllbarisvisible ? csscommon + '-clickable' : ''": function (obj) { return obj.clickthroughurl && obj.controllbarisvisible ? obj.csscommon + '-clickable' : ''; }, "ad_clicked()": function (obj) { return obj.ad_clicked(); }, "controllbarisvisible ? '' : (cssplayer + '-dashboard-hidden')": function (obj) { return obj.controllbarisvisible ? '' : (obj.cssplayer + '-dashboard-hidden'); }, "toggle_player()": function (obj) { return obj.toggle_player(); }, "!playing": function (obj) { return !obj.playing; }, "resume()": function (obj) { return obj.resume(); }, "string('play-ad')": function (obj) { return obj.string('play-ad'); }, "csscommon": function (obj) { return obj.csscommon; }, "playing": function (obj) { return obj.playing; }, "pause()": function (obj) { return obj.pause(); }, "disablepause ? string('pause-video-disabled') : string('pause-video')": function (obj) { return obj.disablepause ? obj.string('pause-video-disabled') : obj.string('pause-video'); }, "string('elapsed-time')": function (obj) { return obj.string('elapsed-time'); }, "formatTime(duration)": function (obj) { return obj.formatTime(obj.duration); }, "formatTime(remaining)": function (obj) { return obj.formatTime(obj.remaining); }, "title": function (obj) { return obj.title; }, "supportsfullscreen": function (obj) { return obj.supportsfullscreen; }, "fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video')": function (obj) { return obj.fullscreened ? obj.string('exit-fullscreen-video') : obj.string('fullscreen-video'); }, "toggle_fullscreen()": function (obj) { return obj.toggle_fullscreen(); }, "fullscreened ? 'small' : 'full'": function (obj) { return obj.fullscreened ? 'small' : 'full'; }, "set_volume(volume + 0.1)": function (obj) { return obj.set_volume(obj.volume + 0.1); }, "set_volume(volume - 0.1)": function (obj) { return obj.set_volume(obj.volume - 0.1); }, "set_volume(1)": function (obj) { return obj.set_volume(1); }, "set_volume(0)": function (obj) { return obj.set_volume(0); }, "startUpdateVolume(domEvent)": function (obj) { return obj.startUpdateVolume(obj.domEvent); }, "stopUpdateVolume(domEvent)": function (obj) { return obj.stopUpdateVolume(obj.domEvent); }, "progressUpdateVolume(domEvent)": function (obj) { return obj.progressUpdateVolume(obj.domEvent); }, "{width: Math.min(100, Math.round(volume * 100)) + '%'}": function (obj) { return {width: Math.min(100, Math.round(obj.volume * 100)) + '%'}; }, "string('volume-button')": function (obj) { return obj.string('volume-button'); }, "toggle_volume()": function (obj) { return obj.toggle_volume(); }, "string(volume > 0 ? 'volume-mute' : 'volume-unmute')": function (obj) { return obj.string(obj.volume > 0 ? 'volume-mute' : 'volume-unmute'); }, "csscommon + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off'))": function (obj) { return obj.csscommon + '-icon-volume-' + (obj.volume >= 0.5 ? 'up' : (obj.volume > 0 ? 'down' : 'off')); }/**/
+        })
+        .attachStringTable(Assets.strings)
+        .addStrings({
+            "elapsed-time": "Elapsed time",
+            "volume-button": "Set volume",
+            "volume-mute": "Mute sound",
+            "volume-unmute": "Unmute sound",
+            "ad-will-end-after": "Ad will end after %s",
+            "can-skip-after": "Skip after %d",
+            "skip-ad": "Skip ad"
+        });
+});
+Scoped.define("module:Ads.IMALoader", [
+    "base:Promise",
+    "browser:Loader"
+], function(Promise, Loader) {
+    return {
+
+        /**
+         * contentComplete(); destroy(); getVersion() - string;
+         * getSettings() non-null ImaSdkSettings;
+         * requestAds(adsRequest, userRequestContext);
+         * @param options
+         * @returns {*}
+         */
+        loadSDK: function(options) {
+            var promise = Promise.create();
+            // https://developers.google.com/interactive-media-ads/docs/sdks/html5/client-side/architecture
+            try {
+                if (typeof google === "undefined") {
+                    Loader.loadScript('https://imasdk.googleapis.com/js/sdkloader/ima3.js', function() {
+                        promise.asyncSuccess(this.adsLoader(options));
+                    }, this);
+                } else {
+                    // Just in case check if google is relate IMA SDK not other google service
+                    if (typeof google.ima === "undefined") {
+                        Loader.loadScript('https://imasdk.googleapis.com/js/sdkloader/ima3.js', function() {
+                            promise.asyncSuccess(this.adsLoader(options));
+                        }, this);
+                    } else promise.asyncSuccess(this.adsLoader(options));
+                }
+            } catch (e) {
+                promise.asyncError(e);
             }
 
-        };
+            return promise;
+        },
+
+        /**
+         *
+         * @param options
+         * @returns {google.ima.AdDisplayContainer}
+         */
+        adContainer: function(options) {
+            var adDisplayContainer = new google.ima.AdDisplayContainer(
+                options.adElement, options.videoElement
+            );
+
+            // Must be done as the result of a user action on mobile
+            adDisplayContainer.initialize();
+            return adDisplayContainer;
+        },
+
+        /**
+         * Will return adsLoader, after we have to setup lister and destroy per each adsRequest
+         * @param options
+         */
+        adsLoader: function(options) {
+            // Re-use this AdsLoader instance for the entire lifecycle of your page.
+            return new google.ima.AdsLoader(this.adContainer(options));
+        }
+    };
+});
+Scoped.define("module:Ads.IMAManager", [
+    "base:Objs",
+    "browser:Dom"
+], function(Objs, Dom) {
+    return {
+
+        /**
+         * focus() - Puts the focus on the skip button, if present
+         * getAdSkippableState() boolean
+         * getRemainingTime()
+         * getCuePoints() non-null Array of number // Returns an array of offsets 0-preroll -1-postroll
+         * getVolume() number  0 (muted) to 1 (loudest).
+         * isCustomPlaybackUsed () - boolean
+         * start(), stop(), pause() resume(), setVolume(), skip(), resize(width, height, viewMode)
+         * ViewMode - NORMAL, FULLSCREEN
+         * updateAdsRenderingSettings(adsRenderingSettings)
+         * @param adsManagerLoadedEvent
+         * @param requester
+         * @param preload
+         * @returns {*}
+         */
+        onAdsManagerLoaded: function(adsManagerLoadedEvent, requester, preload) {
+            var adRenderingSettings = new google.ima.AdsRenderingSettings();
+            adRenderingSettings.enablePreloading = preload;
+            adRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
+
+            // getUserRequestContext
+            var adsManager = adsManagerLoadedEvent.getAdsManager(
+                requester._player, adRenderingSettings
+            );
+
+            // requester._eventHandler = requester.auto_destroy(this.cls());
+
+            this._start(adsManager, requester);
+            return adsManager;
+        },
+
+        /**
+         * Start requested ad
+         * @param adsManager
+         * @param requester
+         * @private
+         */
+        _start: function(adsManager, requester) {
+            var dyn = requester._dyn;
+
+            /**
+             * Listen to error event
+             */
+            adsManager.addEventListener(
+                google.ima.AdErrorEvent.Type.AD_ERROR,
+                function(ev) {
+                    return requester.onAdError(ev);
+                }, false, this
+            );
+
+            /**
+             * All events listed above in except error event which will be trigger separately
+             */
+            Objs.iter(this.__events(), function(event) {
+                // requester._eventHandler.on(adManager, event, function() {
+                //     return requester.onAdEvent(ev);
+                // });
+                adsManager.addEventListener(event, function(ev) {
+                    return requester.onAdEvent(ev);
+                }, false, this);
+            }, this);
+
+            /**
+             * Set preferred video dimensions
+             */
+            var initWidth, initHeight;
+            if (dyn.get("fullscreened")) {
+                initWidth = Dom.elementDimensions(document.body).width;
+                initHeight = Dom.elementDimensions(document.body).height;
+            } else {
+                initWidth = dyn.videoWidth();
+                initHeight = dyn.videoHeight();
+            }
+
+            try {
+                // init(width, height, viewMode, videoElement)
+                adsManager.init(initWidth, initHeight, google.ima.ViewMode.NORMAL);
+                adsManager.start();
+            } catch (e) {
+                requester.onAdError('Ad Manager Init', e);
+            }
+        },
+
+        /**
+         * Terminate and remove all event listeners
+         * @param adsManager
+         * @param controlbar
+         */
+        destroy: function(adsManager, controlbar) {
+            // IF controlbar was generated
+            // if (typeof controlbar === 'object' && controlbar) controlbar.destroy();
+            // if (typeof adsManager === 'object' && adsManager) adsManager.destroy();
+
+            // var events = this.__events();
+            // events.push(google.ima.AdErrorEvent.Type.AD_ERROR);
+            // var counter = events.length;
+            // if (adsManager) {
+            //     Objs.iter(events, function(event) {
+            //         adsManager.removeEventListener(event);
+            //         counter--;
+            //         // After removing all listeners destroy self
+            //         if (counter === 0) {
+            //             adsManager.destroy();
+            //         }
+            //     }, this);
+            // }
+        },
+
+        /**
+         * IMA SDK events
+         * @returns {(*|number)[]}
+         * @private
+         *
+         * CONTENT_PAUSE_REQUESTED
+         * Fired when content should be paused. This usually happens right before an ad is about to cover the content.
+         *
+         * CONTENT_RESUME_REQUESTED
+         * Fired when content should be resumed. This usually happens when an ad finishes or collapses.
+         *
+         * CLICK
+         * Fired when the ad is clicked.
+         *
+         * VIDEO_CLICKED
+         * Fired when the non-clickthrough portion of a video ad is clicked.
+         *
+         * VIDEO_ICON_CLICKED
+         * Fired when a user clicks a video icon.
+         *
+         * STARTED
+         * Fired when the ad starts playing.
+         *
+         * AD_PROGRESS
+         * Fired when the ad's current time value changes. Calling getAdData() on this event will return an AdProgressData object.
+         *
+         * AD_BUFFERING
+         * Fired when the ad has stalled playback to buffer.
+         *
+         * IMPRESSION
+         * Fired when the impression URL has been pinged.
+         *
+         * PAUSED
+         * Fired when the ad is paused.
+         *
+         * RESUMED
+         * Fired when the ad is resumed.
+         *
+         * FIRST_QUARTILE
+         * Fired when the ad playhead crosses first quartile.
+         *
+         * MIDPOINT
+         * Fired when the ad playhead crosses midpoint.
+         *
+         * THIRD_QUARTILE
+         * Fired when the ad playhead crosses third quartile.
+         *
+         * COMPLETE
+         * Fired when the ad completes playing.
+         *
+         * DURATION_CHANGE
+         * Fired when the ad's duration changes.
+         *
+         * USER_CLOSE
+         * Fired when the ad is closed by the user.
+         *
+         * LOADED
+         * Fired when ad data is available.
+         *
+         * ALL_ADS_COMPLETED
+         * Fired when the ads manager is done playing all the valid ads in the ads response, or when the response doesn't return any valid ads.
+         *
+         * SKIPPED
+         * Fired when the ad is skipped by the user.
+         *
+         * LINEAR_CHANGED
+         * Fired when the displayed ad changes from linear to nonlinear, or vice versa.
+         *
+         * SKIPPABLE_STATE_CHANGED
+         * Fired when the displayed ads skippable state is changed.
+         *
+         * AD_METADATA
+         * Fired when an ads list is loaded.
+         *
+         * AD_BREAK_READY
+         * Fired when an ad rule or a VMAP ad break would have played if autoPlayAdBreaks is false.
+         *
+         * LOG
+         * Fired when a non-fatal error is encountered. The user need not take any action since the SDK will continue with the same or next ad playback depending on the error situation.
+         *
+         * VOLUME_CHANGED
+         * Fired when the ad volume has changed.
+         *
+         * VOLUME_MUTED
+         * Fired when the ad volume has been muted.
+         *
+         * INTERACTION
+         * Fired when an ad triggers the interaction callback. Ad interactions contain an interaction ID string in the ad data.
+         */
+        __events: function() {
+            return [
+                google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED, // contentPauseRequested
+                google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED, // contentResumeRequested
+
+                google.ima.AdEvent.Type.LOADED, // loaded
+                google.ima.AdEvent.Type.STARTED, // start
+
+                google.ima.AdEvent.Type.FIRST_QUARTILE, // firstQuartile
+                google.ima.AdEvent.Type.MIDPOINT, // midpoint
+                google.ima.AdEvent.Type.THIRD_QUARTILE, // thirdQuartile
+
+                google.ima.AdEvent.Type.COMPLETE, // complete
+                google.ima.AdEvent.Type.ALL_ADS_COMPLETED, // allAdsCompleted
+
+                google.ima.AdEvent.Type.PAUSED, // pause
+                google.ima.AdEvent.Type.RESUMED, // ?? not trigger
+
+                google.ima.AdEvent.Type.CLICK,
+                google.ima.AdEvent.Type.VIDEO_CLICKED,
+                google.ima.AdEvent.Type.AD_PROGRESS,
+                google.ima.AdEvent.Type.DURATION_CHANGE,
+                google.ima.AdEvent.Type.SKIPPED,
+                google.ima.AdEvent.Type.LINEAR_CHANGED,
+                google.ima.AdEvent.Type.VOLUME_CHANGED,
+                google.ima.AdEvent.Type.VOLUME_MUTED,
+
+                google.ima.AdEvent.Type.SKIPPABLE_STATE_CHANGED
+            ];
+        }
+    };
+});
+Scoped.define("module:Ads.IMAProvider", [
+    "module:Ads.AbstractVideoAdProvider",
+    "module:Ads.IMALoader",
+    "module:Ads.IMARequester"
+], function(AbstractVideoAdProvider, IMALoader, IMARequester, scoped) {
+    return AbstractVideoAdProvider.extend({
+        scoped: scoped
     }, {
 
-        registry: {}
+        __IMA_PRE_ROLL: 'pre',
+        __IMA_POST_ROLL: 'post',
 
+        /**
+         *
+         * @param options
+         * @returns {Promise}
+         * @private
+         */
+        _initAdsLoader: function(options) {
+            return IMALoader.loadSDK(options);
+        },
+
+        /**
+         *
+         * @param loader
+         * @param options
+         * @param dyn
+         * @param position
+         * @returns {*}
+         * @private
+         */
+        _newAdsRequester: function(loader, options, dyn, position) {
+            return new IMARequester(this, loader, options, dyn, position);
+        }
     });
 });
+Scoped.define("module:Ads.IMARequester", [
+    "base:Class",
+    "browser:Info",
+    "module:Ads.IMAManager",
+    "base:Events.EventsMixin"
+], function(Class, Info, AdsManager, EventsMixin, scoped) {
+    return Class.extend({
+        scoped: scoped
+    }, [EventsMixin, function(inherited) {
+        return {
+
+            /**
+             * adsResponse; adTagUrl; contentDuration; contentKeywords; contentTitle;
+             * forceNonLinearFullSlot; linearAdSlotHeight; linearAdSlotWidth;
+             * liveStreamPrefetchSeconds; nonLinearAdSlotHeight; nonLinearAdSlotWidth;
+             * omidAccessModeRules; OmidAccessMode - LIMITED, DOMAIN, FULL
+             * VpaidMode - DISABLED, ENABLED, INSECURE
+             * pageUrl; vastLoadTimeout;
+             * setAdWillAutoPlay(boolean); setAdWillPlayMuted(bool);
+             * setContinuousPlayback(boolean);
+             * @param provider
+             * @param loader
+             * @param options
+             * @param dyn
+             * @param position
+             */
+            constructor: function(provider, loader, options, dyn, position) {
+
+                inherited.constructor.call(this, loader, options, dyn, position);
+
+                // init
+                this._dyn = dyn;
+                this._adsLoaded = false;
+                this._position = position;
+                this._adsLoader = loader;
+                this._options = options;
+                this._player = options.videoElement;
+                this._adsManager = null;
+                this._adControlbar = null;
+                this._providerOptions = provider.options();
+
+                this._adsRequest = new google.ima.AdsRequest();
+
+                // google.ima.ImaSdkSettings.VpaidMode.DISABLED
+                // DISABLED - VPAID ads will not play and an error will be returned.
+                // ENABLED - VPAID ads are enabled using a cross domain iframe
+                // INSECURE - This allows the ad access to the site via JavaScript.
+                if (this._providerOptions.vpaidMode)
+                    google.ima.settings.setVpaidMode(this._providerOptions.vpaidMode);
+
+                // Call setLocale() to localize language text and downloaded swfs
+                if (Info.language() !== "en" || this._providerOptions.locale)
+                    google.ima.settings.setLocale(this._providerOptions.locale || Info.language());
+
+                if (this._providerOptions.maxAllowedRedirects && Info.number(this._providerOptions.maxAllowedRedirects))
+                    google.ima.settings.setNumRedirects(this._providerOptions.maxAllowedRedirects);
 
 
-Scoped.define("module:Ads.AbstractPrerollAd", ["base:Class", "base:Events.EventsMixin"], function(Class, EventsMixin, scoped) {
+                // setAutoPlayAdBreaks(boolean)
+
+                // For IOS skipable
+                // google.ima.settings.setDisableCustomPlaybackForIOS10Plus(true);
+
+                this._adsRequest = new google.ima.AdsRequest();
+
+                // switch (position) {
+                //     case provider.__IMA_PRE_ROLL:
+                //         this._adsRequest.adTagUrl = this._providerOptions.adPreTagUrl || this._providerOptions.adTagUrl;
+                //         break;
+                //     case provider.__IMA_POST_ROLL:
+                //         this._adsRequest.adTagUrl = this._providerOptions.adPostTagUrl || this._providerOptions.adTagUrl;
+                //         break;
+                //     default:
+                //         this._adsRequest.adTagUrl = this._providerOptions._prepareMidURL() || this._providerOptions.adTagUrl;
+                //         break;
+                // }
+
+                var self = this;
+                this._adsRequest.adTagUrl = this._providerOptions.adTagUrl;
+                this._adsLoader.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, function(err) {
+                    self.onAdError(err.type, err.getError().toString());
+                }, false);
+
+                this._adsLoader.addEventListener(google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED, function(ev) {
+                    // Preload if ad is preroll and user set preload option
+                    self._adsManager = AdsManager.onAdsManagerLoaded(
+                        ev, self, position === provider.__IMA_PRE_ROLL && options.preload
+                    );
+                }, false);
+            },
+
+            executeAd: function(options) {
+                // Specify the linear and nonlinear slot sizes.
+                // This helps the SDK to
+                // select the correct creative if multiple are returned.
+                this._adsRequest.linearAdSlotWidth = options.width;
+                this._adsRequest.linearAdSlotHeight = options.height;
+                // For non linear ads like image in te bottom side of the video
+                this._adsRequest.nonLinearAdSlotWidth = options.width;
+                this._adsRequest.nonLinearAdSlotHeight = options.height / 3;
+
+                this._adsLoader.requestAds(this._adsRequest);
+            },
+
+            /**
+             * TODO: IMPROVE FOR MID-ROLLS IF USER WANT SET DIFFERENT
+             * @returns {null}
+             * @private
+             */
+            _prepareMidURL: function() {
+                return null;
+            },
+
+            /**
+             * On Each IMA SDK events are triggered
+             * @param ev
+             * @private
+             */
+            onAdEvent: function(ev) {
+                // Event type Priority: loaded, contentPauseRequested, start,
+                // [firstQuartile, midpoint, thirdQuartile],
+                // complete, contentResumeRequested, allAdsCompleted
+                var data = typeof ev.getAd === 'function' ? ev.getAd() : null;
+                switch (ev.type) {
+                    case 'loaded':
+                        this._adsLoaded = true;
+                        this.trigger('ad-' + ev.type, data);
+                        this._showIMAAdController(this, data);
+                        break;
+                    case 'allAdsCompleted':
+                        this.trigger('finished');
+                        break;
+                    case 'contentPauseRequested':
+                        if (this._dyn.get("playing")) this._dyn.pause();
+                        this._options.adElement.style.display = "";
+                        break;
+                    case 'contentResumeRequested':
+                        if (!this._dyn.get("playing")) this._dyn.play();
+                        this._options.adElement.style.display = "none";
+                        break;
+                    default:
+                        // Trigger events with ad- prefix
+                        this.trigger('ad' + ev.type, typeof ev.getAd === 'function' ? ev.getAd() : null);
+
+                }
+            },
+
+            /**
+             * Show error if any occurecs
+             * @param type
+             * @param message
+             * @private
+             */
+            onAdError: function(type, message) {
+                if (this._adsManager) {
+                    AdsManager.destroy(this._adsManager, this._adControlbar);
+                }
+                this.trigger('ad-error', message);
+            },
+
+            // destroy: function() {
+            //     // if (this._adsManager)
+            //     //     AdsManager.destroy(this._adsManager, this._adControlbar);
+            //     // this._adsLoader.removeEventListener(google.ima.AdErrorEvent.Type.AD_ERROR);
+            //     // this._adsLoader.removeEventListener(google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED);
+            // },
+
+            /**
+             * @param requester IMA Ad requester
+             * @param data IMA Ad data
+             */
+            _showIMAAdController: function(requester, data) {
+                this._dyn.set("show-ad-controller", true);
+                var controllerElement = this._dyn.activeElement().querySelector("[data-ads='controllbar']");
+                if (controllerElement) {
+                    this._adControlbar = new BetaJS.MediaComponents.Ads.IMA.Controllbar({
+                        element: controllerElement,
+                        attrs: {
+                            requester: this,
+                            data: data
+                        }
+                    });
+                    this._adControlbar.activate();
+                }
+            }
+        };
+    }]);
+});
+Scoped.define("module:Ads.AbstractPrerollAd", [
+    "base:Class", "base:Events.EventsMixin"
+], function(Class, EventsMixin, scoped) {
     return Class.extend({
         scoped: scoped
     }, [EventsMixin, function(inherited) {
@@ -1183,6 +1957,42 @@ Scoped.define("module:Ads.AbstractPrerollAd", ["base:Class", "base:Events.Events
                 inherited.constructor.call(this);
                 this._provider = provider;
                 this._options = options;
+            },
+
+            /**
+             * Case when SDK loaded and ready to start for manage ads
+             */
+            adsManagerLoaded: function() {
+                this.trigger('ad-loaded');
+            },
+
+            /**
+             * Case when any error occurred when try to load ad
+             */
+            adError: function() {
+                this._options.adElement.style.display = "none";
+                this.trigger('ad-error');
+            },
+
+            /**
+             * When new ad is starting and need pause main player
+             */
+            pauseContentPlayer: function() {
+
+            },
+
+            /**
+             * When ad completed and need play the main video player
+             */
+            resumeContentPlayer: function() {
+
+            },
+
+            /**
+             * When all ads which should be shows was completed
+             */
+            allAdsCompleted: function() {
+
             },
 
             executeAd: function(options) {
@@ -1202,6 +2012,62 @@ Scoped.define("module:Ads.AbstractPrerollAd", ["base:Class", "base:Events.Events
 
         };
     }]);
+});
+Scoped.define("module:Ads.AbstractVideoAdProvider", [
+    "base:Class"
+], function(Class, scoped) {
+    return Class.extend({
+        scoped: scoped
+    }, function(inherited) {
+        return {
+
+            constructor: function(options) {
+                inherited.constructor.call(this);
+                this._options = options;
+            },
+
+            options: function() {
+                return this._options;
+            },
+
+            _newPrerollAd: function(options) {},
+            _initAdsLoader: function(options) {},
+            _newAdsRequester: function(options) {},
+
+            newPrerollAd: function(options) {
+                return this._newPrerollAd(options);
+            },
+
+            /**
+             * Implementing adsense loader initialization
+             * @param options
+             * @returns {Promise}
+             */
+            initAdsLoader: function(options) {
+                return this._initAdsLoader(options);
+            },
+
+            /**
+             * Will request and listen via ad loader
+             * @param loader
+             * @param dyn
+             * @param position mid, pro or post
+             * @returns {*}
+             */
+            newAdsRequester: function(loader, dyn, position) {
+                return this._newAdsRequester(loader, dyn, position);
+            },
+
+            register: function(name) {
+                this.cls.registry[name] = this;
+            }
+
+        };
+    }, {
+
+        registry: {}
+
+    });
 });
 /**
  * This software may include modified and unmodified portions of:
@@ -5723,7 +6589,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
         }, [StylesMixin, function(inherited) {
             return {
 
-                template: "<div itemscope itemtype=\"http://schema.org/VideoObject\"\n     class=\"{{css}}-container {{cssplayer}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}\n     {{cssplayer}}-{{fullscreened ? 'fullscreen' : 'normal'}}-view {{cssplayer}}-{{firefox ? 'firefox' : 'common'}}-browser\n     {{cssplayer}}-{{themecolor}}-color {{cssplayer}}-device-type-{{mobileview ? 'mobile' : 'desktop'}}\n     {{sticktoview ? csscommon + '-sticky' : ''}} {{sticktoview && fadeup ? csscommon + '-fade-up' : ''}}\n     {{csscommon}}-full-width\n     {{csscommon}}-max-height-100vh\"\n     ba-on:mousemove=\"{{user_activity()}}\"\n     ba-on:mousedown=\"{{user_activity(true)}}\"\n     ba-on:touchstart=\"{{user_activity(true)}}\"\n     ba-styles=\"{{containerSizingStyles}}\"\n>\n    <meta itemprop=\"name\" content=\"{{title || 'Video Player'}}\" />\n    <meta itemprop=\"description\" content=\"{{description || 'Video Player'}}\" />\n    <meta itemprop=\"uploadDate\" content=\"{{uploaddate}}\" />\n    <div ba-show=\"{{(videoelement_active || !imageelement_active) && !silent_attach}}\" class=\"{{css}}-video-container\">\n        <video tabindex=\"-1\" class=\"{{css}}-video {{csscommon}}-{{videofitstrategy}}-fit\" data-video=\"video\"\n               preload=\"{{preload ? 'auto' : 'metadata'}}\"\n               ba-toggle:playsinline=\"{{!playfullscreenonmobile}}\"\n        ></video>\n    </div>\n    <div ba-show=\"{{(imageelement_active && !videoelement_active) || silent_attach}}\" class=\"{{css}}-poster-container\">\n        <img tabindex=\"-1\" data-image=\"image\" alt=\"{{posteralt}}\" class=\"{{csscommon}}-{{posterfitstrategy}}-fit\"/>\n    </div>\n    <div class=\"{{css}}-overlay {{hasplaceholderstyle ? (css + '-overlay-with-placeholder') : ''}}\"\n         ba-show=\"{{!showbuiltincontroller}}\" style=\"{{placeholderstyle}}\"\n    >\n        <div tabindex=\"-1\" class=\"{{css}}-player-toggle-overlay\" data-selector=\"player-toggle-overlay\"\n             ba-hotkey:right=\"{{seek(position + skipseconds)}}\" ba-hotkey:left=\"{{seek(position - skipseconds)}}\"\n             ba-hotkey:alt+right=\"{{seek(position + skipseconds * 3)}}\" ba-hotkey:alt+left=\"{{seek(position - skipseconds * 3)}}\"\n             ba-hotkey:up=\"{{set_volume(volume + 0.1)}}\" ba-hotkey:down=\"{{set_volume(volume - 0.1)}}\"\n             ba-hotkey:space^enter=\"{{toggle_player()}}\"\n             ba-on:mouseup=\"{{toggle_player()}}\"\n             ba-on:touchend=\"{{toggle_player()}}\"\n        ></div>\n        <ba-{{dyntrimmer}}\n            ba-show=\"{{trimmingmode && videoelement_active}}\"\n            ba-playing=\"{{playing}}\"\n            ba-startposition=\"{{=starttime}}\"\n            ba-position=\"{{position}}\"\n            ba-endposition=\"{{=endtime}}\"\n            ba-minduration=\"{{timeminlimit}}\"\n            ba-duration=\"{{duration}}\"\n            ba-source=\"{{source}}\"\n            ba-event:play=\"play\"\n            ba-event:pause=\"pause\"\n            ba-event:seek=\"seek\"\n        ></ba-{{dyntrimmer}}>\n        <ba-{{dyncontrolbar}}\n            ba-css=\"{{csscontrolbar || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-themecolor=\"{{themecolor}}\"\n            ba-template=\"{{tmplcontrolbar}}\"\n            ba-show=\"{{controlbar_active && !hidecontrolbar}}\"\n            ba-playing=\"{{playing}}\"\n            ba-playwhenvisible=\"{{playwhenvisible}}\"\n            ba-playerspeeds=\"{{playerspeeds}}\"\n            ba-playercurrentspeed=\"{{playercurrentspeed}}\"\n            ba-airplay=\"{{airplay}}\"\n            ba-airplaybuttonvisible=\"{{airplaybuttonvisible}}\"\n            ba-chromecast=\"{{chromecast}}\"\n            ba-castbuttonvisble=\"{{castbuttonvisble}}\"\n            ba-event:rerecord=\"rerecord\"\n            ba-event:submit=\"submit\"\n            ba-event:play=\"play\"\n            ba-event:pause=\"pause\"\n            ba-event:position=\"seek\"\n            ba-event:volume=\"set_volume\"\n            ba-event:set_speed=\"set_speed\"\n            ba-event:settings_menu=\"toggle_settings_menu\"\n            ba-event:fullscreen=\"toggle_fullscreen\"\n            ba-event:toggle_player=\"toggle_player\"\n            ba-event:tab_index_move=\"tab_index_move\"\n            ba-event:seek=\"seek\"\n            ba-event:set_volume=\"set_volume\"\n            ba-event:toggle_tracks=\"toggle_tracks\"\n            ba-tabindex=\"{{tabindex}}\"\n            ba-showchaptertext=\"{{showchaptertext}}\"\n            ba-chapterslist=\"{{chapterslist}}\"\n            ba-tracktextvisible=\"{{tracktextvisible}}\"\n            ba-tracktags=\"{{tracktags}}\"\n            ba-showsubtitlebutton=\"{{hassubtitles && tracktagssupport}}\"\n            ba-allowtexttrackupload=\"{{allowtexttrackupload}}\"\n            ba-tracksshowselection=\"{{tracksshowselection}}\"\n            ba-volume=\"{{volume}}\"\n            ba-duration=\"{{duration}}\"\n            ba-cached=\"{{buffered}}\"\n            ba-title=\"{{title}}\"\n            ba-position=\"{{position}}\"\n            ba-activitydelta=\"{{activity_delta}}\"\n            ba-hideoninactivity=\"{{hideoninactivity}}\"\n            ba-hidebarafter=\"{{hidebarafter}}\"\n            ba-rerecordable=\"{{rerecordable}}\"\n            ba-submittable=\"{{submittable}}\"\n            ba-frameselectionmode=\"{{frameselectionmode}}\"\n            ba-timeminlimit=\"{{timeminlimit}}\"\n            ba-streams=\"{{streams}}\"\n            ba-currentstream=\"{{=currentstream}}\"\n            ba-fullscreen=\"{{fullscreensupport && !nofullscreen}}\"\n            ba-fullscreened=\"{{fullscreened}}\"\n            ba-source=\"{{source}}\"\n            ba-disablepause=\"{{disablepause}}\"\n            ba-disableseeking=\"{{disableseeking}}\"\n            ba-skipseconds=\"{{skipseconds}}\"\n            ba-skipinitial=\"{{skipinitial}}\"\n            ba-settingsmenubutton=\"{{showsettingsmenu}}\"\n            ba-settingsmenuactive=\"{{settingsmenu_active}}\"\n            ba-hidevolumebar=\"{{hidevolumebar}}\"\n            ba-manuallypaused=\"{{manuallypaused}}\"\n        ></ba-{{dyncontrolbar}}>\n\n        <ba-{{dyntracks}}\n            ba-css=\"{{csstracks || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-show=\"{{tracktagssupport || allowtexttrackupload}}\"\n            ba-tracksshowselection=\"{{tracksshowselection}}\"\n            ba-trackselectorhovered=\"{{trackselectorhovered}}\"\n            ba-tracktags=\"{{tracktags}}\"\n            ba-hidebarafter=\"{{hidebarafter}}\"\n            ba-tracktagsstyled=\"{{tracktagsstyled}}\"\n            ba-trackcuetext=\"{{trackcuetext}}\"\n            ba-allowtexttrackupload=\"{{allowtexttrackupload}}\"\n            ba-uploadtexttracksvisible=\"{{uploadtexttracksvisible}}\"\n            ba-acceptedtracktexts=\"{{acceptedtracktexts}}\"\n            ba-uploadlocales=\"{{uploadlocales}}\"\n            ba-activitydelta=\"{{activity_delta}}\"\n            ba-hideoninactivity=\"{{hideoninactivity}}\"\n            ba-event:selected_label_value=\"selected_label_value\"\n            ba-event:upload-text-tracks=\"upload_text_tracks\"\n            ba-event:move_to_option=\"move_to_option\"\n        ></ba-{{dyntracks}}>\n\n        <ba-{{dynsettingsmenu}}\n            ba-css=\"{{css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-show=\"{{settingsmenu_active}}\"\n            ba-template=\"{{tmplsettingsmenu}}\"\n        ></ba-{{dynsettingsmenu}}>\n\n        <ba-{{dynplaybutton}}\n            ba-css=\"{{cssplaybutton || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplplaybutton}}\"\n            ba-show=\"{{playbutton_active}}\"\n            ba-rerecordable=\"{{rerecordable}}\"\n            ba-submittable=\"{{submittable}}\"\n            ba-trimmingmode=\"{{trimmingmode}}\"\n            ba-showduration=\"{{showduration}}\"\n\t\t\t      ba-duration=\"{{duration}}\"\n            ba-event:play=\"playbutton_click\"\n            ba-event:rerecord=\"rerecord\"\n            ba-event:submit=\"submit\"\n            ba-event:tab_index_move=\"tab_index_move\"\n        ></ba-{{dynplaybutton}}>\n\n        <ba-{{dynloader}}\n            ba-css=\"{{cssloader || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplloader}}\"\n            ba-playwhenvisible=\"{{playwhenvisible}}\"\n            ba-show=\"{{loader_active}}\"\n        ></ba-{{dynloader}}>\n\n        <ba-{{dynshare}}\n            ba-css=\"{{cssshare || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplshare}}\"\n            ba-show=\"{{sharevideourl && sharevideo.length > 0}}\"\n            ba-url=\"{{sharevideourl}}\"\n            ba-shares=\"{{sharevideo}}\"\n        ></ba-{{dynshare}}>\n\n        <ba-{{dynmessage}}\n            ba-css=\"{{cssmessage || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplmessage}}\"\n            ba-show=\"{{message_active}}\"\n            ba-message=\"{{message}}\"\n            ba-event:click=\"message_click\"\n        ></ba-{{dynmessage}}>\n\n        <ba-{{dyntopmessage}}\n            ba-css=\"{{csstopmessage || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmpltopmessage}}\"\n            ba-show=\"{{topmessage}}\"\n            ba-topmessage=\"{{topmessage}}\"\n        ></ba-{{dyntopmessage}}>\n\n        <meta itemprop=\"caption\" content=\"{{title}}\" />\n        <meta itemprop=\"thumbnailUrl\" content=\"{{thumbnailurl}}\"/>\n        <meta itemprop=\"contentUrl\" content=\"{{contenturl}}\"/>\n    </div>\n    <div class=\"{{css}}-overlay\" data-video=\"ad\" style=\"display:none\"></div>\n    <div ba-show=\"{{useAspectRatioFallback}}\" ba-styles=\"{{aspectRatioFallback}}\"></div>\n</div>\n",
+                template: "<div itemscope itemtype=\"http://schema.org/VideoObject\"\n     class=\"{{css}}-container {{cssplayer}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}\n     {{cssplayer}}-{{fullscreened ? 'fullscreen' : 'normal'}}-view {{cssplayer}}-{{firefox ? 'firefox' : 'common'}}-browser\n     {{cssplayer}}-{{themecolor}}-color {{cssplayer}}-device-type-{{mobileview ? 'mobile' : 'desktop'}}\n     {{sticktoview ? csscommon + '-sticky' : ''}} {{sticktoview && fadeup ? csscommon + '-fade-up' : ''}}\n     {{csscommon}}-full-width\n     {{csscommon}}-max-height-100vh\"\n     ba-on:mousemove=\"{{user_activity()}}\"\n     ba-on:mousedown=\"{{user_activity(true)}}\"\n     ba-on:touchstart=\"{{user_activity(true)}}\"\n     ba-styles=\"{{containerSizingStyles}}\"\n>\n    <meta itemprop=\"name\" content=\"{{title || 'Video Player'}}\" />\n    <meta itemprop=\"description\" content=\"{{description || 'Video Player'}}\" />\n    <meta itemprop=\"uploadDate\" content=\"{{uploaddate}}\" />\n    <div ba-show=\"{{(videoelement_active || !imageelement_active) && !silent_attach}}\" class=\"{{css}}-video-container\">\n        <video tabindex=\"-1\" class=\"{{css}}-video {{csscommon}}-{{videofitstrategy}}-fit\" data-video=\"video\"\n               preload=\"{{preload ? 'auto' : 'metadata'}}\"\n               ba-toggle:playsinline=\"{{!playfullscreenonmobile}}\"\n        ></video>\n    </div>\n    <div ba-show=\"{{(imageelement_active && !videoelement_active) || silent_attach}}\" class=\"{{css}}-poster-container\">\n        <img tabindex=\"-1\" data-image=\"image\" alt=\"{{posteralt}}\" class=\"{{csscommon}}-{{posterfitstrategy}}-fit\"/>\n    </div>\n    <div class=\"{{css}}-overlay {{hasplaceholderstyle ? (css + '-overlay-with-placeholder') : ''}}\"\n         ba-show=\"{{!showbuiltincontroller}}\" style=\"{{placeholderstyle}}\"\n    >\n        <div tabindex=\"-1\" class=\"{{css}}-player-toggle-overlay\" data-selector=\"player-toggle-overlay\"\n             ba-hotkey:right=\"{{seek(position + skipseconds)}}\" ba-hotkey:left=\"{{seek(position - skipseconds)}}\"\n             ba-hotkey:alt+right=\"{{seek(position + skipseconds * 3)}}\" ba-hotkey:alt+left=\"{{seek(position - skipseconds * 3)}}\"\n             ba-hotkey:up=\"{{set_volume(volume + 0.1)}}\" ba-hotkey:down=\"{{set_volume(volume - 0.1)}}\"\n             ba-hotkey:space^enter=\"{{toggle_player()}}\"\n             ba-on:mouseup=\"{{toggle_player()}}\"\n             ba-on:touchend=\"{{toggle_player()}}\"\n        ></div>\n        <ba-{{dyntrimmer}}\n            ba-show=\"{{trimmingmode && videoelement_active}}\"\n            ba-playing=\"{{playing}}\"\n            ba-startposition=\"{{=starttime}}\"\n            ba-position=\"{{position}}\"\n            ba-endposition=\"{{=endtime}}\"\n            ba-minduration=\"{{timeminlimit}}\"\n            ba-duration=\"{{duration}}\"\n            ba-source=\"{{source}}\"\n            ba-event:play=\"play\"\n            ba-event:pause=\"pause\"\n            ba-event:seek=\"seek\"\n        ></ba-{{dyntrimmer}}>\n        <ba-{{dyncontrolbar}}\n            ba-css=\"{{csscontrolbar || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-themecolor=\"{{themecolor}}\"\n            ba-template=\"{{tmplcontrolbar}}\"\n            ba-show=\"{{controlbar_active && !hidecontrolbar}}\"\n            ba-playing=\"{{playing}}\"\n            ba-playwhenvisible=\"{{playwhenvisible}}\"\n            ba-playerspeeds=\"{{playerspeeds}}\"\n            ba-playercurrentspeed=\"{{playercurrentspeed}}\"\n            ba-airplay=\"{{airplay}}\"\n            ba-airplaybuttonvisible=\"{{airplaybuttonvisible}}\"\n            ba-chromecast=\"{{chromecast}}\"\n            ba-castbuttonvisble=\"{{castbuttonvisble}}\"\n            ba-event:rerecord=\"rerecord\"\n            ba-event:submit=\"submit\"\n            ba-event:play=\"play\"\n            ba-event:pause=\"pause\"\n            ba-event:position=\"seek\"\n            ba-event:volume=\"set_volume\"\n            ba-event:set_speed=\"set_speed\"\n            ba-event:settings_menu=\"toggle_settings_menu\"\n            ba-event:fullscreen=\"toggle_fullscreen\"\n            ba-event:toggle_player=\"toggle_player\"\n            ba-event:tab_index_move=\"tab_index_move\"\n            ba-event:seek=\"seek\"\n            ba-event:set_volume=\"set_volume\"\n            ba-event:toggle_tracks=\"toggle_tracks\"\n            ba-tabindex=\"{{tabindex}}\"\n            ba-showchaptertext=\"{{showchaptertext}}\"\n            ba-chapterslist=\"{{chapterslist}}\"\n            ba-tracktextvisible=\"{{tracktextvisible}}\"\n            ba-tracktags=\"{{tracktags}}\"\n            ba-showsubtitlebutton=\"{{hassubtitles && tracktagssupport}}\"\n            ba-allowtexttrackupload=\"{{allowtexttrackupload}}\"\n            ba-tracksshowselection=\"{{tracksshowselection}}\"\n            ba-volume=\"{{volume}}\"\n            ba-duration=\"{{duration}}\"\n            ba-cached=\"{{buffered}}\"\n            ba-title=\"{{title}}\"\n            ba-position=\"{{position}}\"\n            ba-activitydelta=\"{{activity_delta}}\"\n            ba-hideoninactivity=\"{{hideoninactivity}}\"\n            ba-hidebarafter=\"{{hidebarafter}}\"\n            ba-rerecordable=\"{{rerecordable}}\"\n            ba-submittable=\"{{submittable}}\"\n            ba-frameselectionmode=\"{{frameselectionmode}}\"\n            ba-timeminlimit=\"{{timeminlimit}}\"\n            ba-streams=\"{{streams}}\"\n            ba-currentstream=\"{{=currentstream}}\"\n            ba-fullscreen=\"{{fullscreensupport && !nofullscreen}}\"\n            ba-fullscreened=\"{{fullscreened}}\"\n            ba-source=\"{{source}}\"\n            ba-disablepause=\"{{disablepause}}\"\n            ba-disableseeking=\"{{disableseeking}}\"\n            ba-skipseconds=\"{{skipseconds}}\"\n            ba-skipinitial=\"{{skipinitial}}\"\n            ba-settingsmenubutton=\"{{showsettingsmenu}}\"\n            ba-settingsmenuactive=\"{{settingsmenu_active}}\"\n            ba-hidevolumebar=\"{{hidevolumebar}}\"\n            ba-manuallypaused=\"{{manuallypaused}}\"\n        ></ba-{{dyncontrolbar}}>\n\n        <ba-{{dyntracks}}\n            ba-css=\"{{csstracks || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-show=\"{{tracktagssupport || allowtexttrackupload}}\"\n            ba-tracksshowselection=\"{{tracksshowselection}}\"\n            ba-trackselectorhovered=\"{{trackselectorhovered}}\"\n            ba-tracktags=\"{{tracktags}}\"\n            ba-hidebarafter=\"{{hidebarafter}}\"\n            ba-tracktagsstyled=\"{{tracktagsstyled}}\"\n            ba-trackcuetext=\"{{trackcuetext}}\"\n            ba-allowtexttrackupload=\"{{allowtexttrackupload}}\"\n            ba-uploadtexttracksvisible=\"{{uploadtexttracksvisible}}\"\n            ba-acceptedtracktexts=\"{{acceptedtracktexts}}\"\n            ba-uploadlocales=\"{{uploadlocales}}\"\n            ba-activitydelta=\"{{activity_delta}}\"\n            ba-hideoninactivity=\"{{hideoninactivity}}\"\n            ba-event:selected_label_value=\"selected_label_value\"\n            ba-event:upload-text-tracks=\"upload_text_tracks\"\n            ba-event:move_to_option=\"move_to_option\"\n        ></ba-{{dyntracks}}>\n\n        <ba-{{dynsettingsmenu}}\n            ba-css=\"{{css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-show=\"{{settingsmenu_active}}\"\n            ba-template=\"{{tmplsettingsmenu}}\"\n        ></ba-{{dynsettingsmenu}}>\n\n        <ba-{{dynplaybutton}}\n            ba-css=\"{{cssplaybutton || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplplaybutton}}\"\n            ba-show=\"{{playbutton_active}}\"\n            ba-rerecordable=\"{{rerecordable}}\"\n            ba-submittable=\"{{submittable}}\"\n            ba-trimmingmode=\"{{trimmingmode}}\"\n            ba-showduration=\"{{showduration}}\"\n            ba-duration=\"{{duration}}\"\n            ba-event:play=\"playbutton_click\"\n            ba-event:rerecord=\"rerecord\"\n            ba-event:submit=\"submit\"\n            ba-event:tab_index_move=\"tab_index_move\"\n        ></ba-{{dynplaybutton}}>\n\n        <ba-{{dynloader}}\n            ba-css=\"{{cssloader || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplloader}}\"\n            ba-playwhenvisible=\"{{playwhenvisible}}\"\n            ba-show=\"{{loader_active}}\"\n        ></ba-{{dynloader}}>\n\n        <ba-{{dynshare}}\n            ba-css=\"{{cssshare || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplshare}}\"\n            ba-show=\"{{sharevideourl && sharevideo.length > 0}}\"\n            ba-url=\"{{sharevideourl}}\"\n            ba-shares=\"{{sharevideo}}\"\n        ></ba-{{dynshare}}>\n\n        <ba-{{dynmessage}}\n            ba-css=\"{{cssmessage || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplmessage}}\"\n            ba-show=\"{{message_active}}\"\n            ba-message=\"{{message}}\"\n            ba-event:click=\"message_click\"\n        ></ba-{{dynmessage}}>\n\n        <ba-{{dyntopmessage}}\n            ba-css=\"{{csstopmessage || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmpltopmessage}}\"\n            ba-show=\"{{topmessage}}\"\n            ba-topmessage=\"{{topmessage}}\"\n        ></ba-{{dyntopmessage}}>\n\n        <meta itemprop=\"caption\" content=\"{{title}}\" />\n        <meta itemprop=\"thumbnailUrl\" content=\"{{thumbnailurl}}\" />\n        <meta itemprop=\"contentUrl\" content=\"{{contenturl}}\" />\n    </div>\n    <div class=\"{{css}}-overlay\" data-video=\"ad\" style=\"display:none\">\n        <div data-ads=\"controllbar\"></div>\n        <div data-video=\"ima-ad-container\"></div>\n    </div>\n    <div ba-show=\"{{useAspectRatioFallback}}\" ba-styles=\"{{aspectRatioFallback}}\"></div>\n</div>\n",
 
                 attrs: {
                     /* CSS */
@@ -5791,9 +6657,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "reloadonplay": false,
                     "playonclick": true,
                     "pauseonclick": true,
+
                     /* Ads */
                     "adprovider": null,
                     "preroll": false,
+                    "linear": null,
+                    "non-linear": null,
+                    "show-ad-controller": false,
+                    "mid-linear-ad": [],
+                    "non-linear-ad": [],
 
                     /* Options */
                     "allowpip": true, // Picture-In-Picture Mode
@@ -5950,7 +6822,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "contenturl": "string",
                     "thumbnailurl": "string",
                     "videofitstrategy": "string",
-                    "posterfitstrategy": "string"
+                    "posterfitstrategy": "string",
+
+                    "linear": "string",
+                    "non-linear": "string"
                 },
 
                 extendables: ["states"],
@@ -6064,12 +6939,85 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (Types.is_string(this._adProvider))
                             this._adProvider = AdProvider.registry[this._adProvider];
 
-                        if (this._adProvider && this.get("preroll")) {
-                            this._prerollAd = this._adProvider.newPrerollAd({
+                        if (this._adProvider) {
+                            var adInitOptions = {
                                 videoElement: this.activeElement().querySelector("[data-video='video']"),
                                 adElement: this.activeElement().querySelector("[data-video='ad']"),
                                 dynamic: this
-                            });
+                            };
+
+                            if (this.get("preroll")) {
+                                // console.warn('Adsense ad provider is deprecated, please try to implement IMA ad provider with linear & non-linear options instead');
+                                this._prerollAd = this._adProvider.newPrerollAd(adInitOptions);
+                            }
+
+                            if (this.get("adprovider") === 'ima' && (this.get("linear") || this.get("non-linear"))) {
+                                // Split all via comma exclude inside brackets
+                                var schedules = Objs.map(this.get("linear").split(/(?![^)(]*\([^)(]*?\)\)),(?![^\[]*\])/), function(item) {
+                                    return item.trim();
+                                }, this);
+
+                                // On iOS and Android devices, video playback must begin in a user action.
+                                // In mobile could be require wait user interaction before init container and loader
+                                // Dom.userInteraction(function() {}, this);
+
+                                if (schedules.length > 0) {
+                                    this._adProvider.initAdsLoader(adInitOptions)
+                                        .success(function(loader) {
+                                            this._adsLoader = loader;
+                                            Objs.iter(schedules, function(schedule) {
+                                                switch (schedule.toLowerCase()) {
+                                                    case this._adProvider.__IMA_PRE_ROLL:
+                                                        // if already user not set preroll as an attribute
+                                                        if (typeof this._prerollAd === "undefined") {
+                                                            this._prerollAd = this._adProvider._newAdsRequester(
+                                                                loader, adInitOptions, this, this._adProvider.__IMA_PRE_ROLL
+                                                            );
+                                                        }
+                                                        break;
+                                                    case this._adProvider.__IMA_POST_ROLL:
+                                                        // Post roll will trigger as soon as video will be stopped
+                                                        this.set("has-post-roll-ad", true);
+                                                        break;
+                                                        // Midroll could be just "mid", which will trigger on 50% of player time,
+                                                        // or specify more details with second and percentage
+                                                    default:
+                                                        // if user set schedule with time settings
+                                                        if (/^mid\[[\d\s]+(,[\d\s]+|[\d\s]+\%)*\]*$/i.test(schedule)) {
+                                                            this.set("mid-linear-ad", []);
+                                                            var _s = schedule.replace('mid[', '').replace(']', '');
+                                                            Objs.map(_s.split(','), function(item) {
+                                                                item = item.trim();
+                                                                if (/^[\d\s]+\%$/.test(item)) {
+                                                                    item = parseInt(item.replace('%', '').trim(), 10);
+                                                                    if (item < 100 && item > 0) {
+                                                                        this.get("mid-linear-ad").push({
+                                                                            position: parseFloat((item / 100).toFixed(2))
+                                                                        });
+                                                                    }
+                                                                } else {
+                                                                    // user also can set 0 to 1 value, as percentage, more 1 means seconds
+                                                                    this.get("mid-linear-ad").push({
+                                                                        position: parseFloat(item)
+                                                                    });
+                                                                }
+                                                            }, this);
+                                                        } else {
+                                                            if (/^mid$/.test(schedule)) {
+                                                                this.get("mid-linear-ad").push({
+                                                                    position: 0.5
+                                                                });
+                                                            }
+                                                        }
+                                                        break;
+                                                }
+                                            }, this);
+                                        }, this)
+                                        .error(function(err) {
+                                            console.log("Error could not be able init adsense container. Err: ", err);
+                                        }, this);
+                                }
+                            }
                         }
                     }
                     if (this.get("playlist")) {
@@ -7530,19 +8478,37 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Preroll", [
 
         _started: function() {
             if (this.dyn._prerollAd) {
+                this.dyn._prerollAd.once("ad-loaded", function(ad) {
+                    if (typeof ad !== "undefined") {
+                        // If ad type is non-lienar like image banner need to load video
+                        if (!ad.isLinear()) {
+                            this.next("LoadVideo");
+                        }
+                    }
+                }, this);
+
                 this.dyn._prerollAd.once("finished", function() {
                     this.next("LoadVideo");
                 }, this);
+
                 this.dyn._prerollAd.once("adskipped", function() {
                     this.next("LoadVideo");
                 }, this);
+
                 // TODO: video height and width return NaN before ad start even when ba-width/ba-height are provided
                 this.dyn._prerollAd.executeAd({
                     width: this.dyn.videoWidth(),
                     height: this.dyn.videoHeight()
                 });
-            } else
+
+                this.dyn._prerollAd.once("ad-error", function(message) {
+                    console.error('Error during loading an ad. Details:"' + message + '".');
+                    this.next("LoadVideo");
+                }, this);
+
+            } else {
                 this.next("LoadVideo");
+            }
         }
 
     });

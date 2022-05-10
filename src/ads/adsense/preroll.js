@@ -28,13 +28,13 @@ Scoped.define("module:Ads.AdSensePrerollAd", [
                 // https://developers.google.com/interactive-media-ads/docs/sdks/html5/client-side/architecture
                 // If google script nor loaded
                 if (typeof google === "undefined") {
-                    Loader.loadScript('//imasdk.googleapis.com/js/sdkloader/ima3.js', function() {
+                    Loader.loadScript('https://imasdk.googleapis.com/js/sdkloader/ima3.js', function() {
                         this.init();
                     }, this);
                 } else {
                     // Just in case check if google is relate IMA SDK not other google service
                     if (typeof google.ima === "undefined") {
-                        Loader.loadScript('//imasdk.googleapis.com/js/sdkloader/ima3.js', function() {
+                        Loader.loadScript('https://imasdk.googleapis.com/js/sdkloader/ima3.js', function() {
                             this.init();
                         }, this);
                     } else {

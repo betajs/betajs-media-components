@@ -227,6 +227,13 @@
   ba-videorecorder.uploading-src-error: 'Unable to play back video now, uploading is still in progress'
   ba-audiorecorder-controlbar.pause-recorder: Pause Recorder
   ba-audiorecorder-controlbar.resume-recorder: Resume Recorder
+  ba-ads-controllbar.elapsed-time: Elapsed time
+  ba-ads-controllbar.volume-button: Set volume
+  ba-ads-controllbar.volume-mute: Mute sound
+  ba-ads-controllbar.volume-unmute: Unmute sound
+  ba-ads-controllbar.ad-will-end-after: Ad will end after %s
+  ba-ads-controllbar.can-skip-after: Skip after %d
+  ba-ads-controllbar.skip-ad: Skip ad
   ba-videorecorder.supported-mode: Media resolution should be in '%s' mode.
   ba-videorecorder.re-choose-action: Please click to choose another input device or retry action.
   ba-audiorecorder.uploading-src-error: 'Unable to play back audio now, uploading is still in progress'

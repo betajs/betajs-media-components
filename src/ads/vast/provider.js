@@ -46,7 +46,7 @@ Scoped.define("module:Ads.VastPrerollAd", [
 
             _adFinished: function() {
                 this._options.adElement.style.display = "none";
-                this.trigger("finished");
+                this.trigger("adfinished");
             },
 
             _adSkipped: function() {

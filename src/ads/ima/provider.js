@@ -8,6 +8,7 @@ Scoped.define("module:Ads.IMAProvider", [
     }, {
 
         __IMA_PRE_ROLL: 'pre',
+        __IMA_MID_ROLL: 'mid',
         __IMA_POST_ROLL: 'post',
 
         /**
@@ -22,15 +23,14 @@ Scoped.define("module:Ads.IMAProvider", [
 
         /**
          *
-         * @param loader
-         * @param options
          * @param dyn
-         * @param position
+         * @param {string} position
+         * @param {boolean} autostart
          * @returns {*}
          * @private
          */
-        _newAdsRequester: function(loader, options, dyn, position) {
-            return new IMARequester(this, loader, options, dyn, position);
+        _newAdsRequester: function(dyn, position, autostart) {
+            return new IMARequester(this, dyn, position, autostart);
         }
     });
 });

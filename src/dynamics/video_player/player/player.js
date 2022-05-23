@@ -11,6 +11,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "base:Types",
     "base:Objs",
     "base:Strings",
+    "base:Collections.Collection",
     "base:Time",
     "base:Timers",
     "base:TimeFormat",
@@ -20,6 +21,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.PlayerStates.Initial",
     "module:VideoPlayer.Dynamics.PlayerStates",
     "module:Ads.AbstractVideoAdProvider",
+    "module:Ads.IMARequester",
     "browser:Events"
 ], [
     "module:Common.Dynamics.Settingsmenu",
@@ -35,7 +37,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.TemplatePartial",
     "dynamics:Partials.HotkeyPartial"
-], function(Class, Assets, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, Types, Objs, Strings, Time, Timers, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
+], function(Class, Assets, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, Types, Objs, Strings, Collection, Time, Timers, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, IMARequester, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, [StylesMixin, function(inherited) {
@@ -417,14 +419,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     this._adProvider.initAdsLoader(adInitOptions)
                                         .success(function(loader) {
                                             this._adsLoader = loader;
+                                            this._adOptions = adInitOptions;
                                             Objs.iter(schedules, function(schedule) {
                                                 switch (schedule.toLowerCase()) {
                                                     case this._adProvider.__IMA_PRE_ROLL:
                                                         // if already user not set preroll as an attribute
                                                         if (typeof this._prerollAd === "undefined") {
-                                                            this._prerollAd = this._adProvider._newAdsRequester(
-                                                                loader, adInitOptions, this, this._adProvider.__IMA_PRE_ROLL
-                                                            );
+                                                            this._prerollAd = this._adProvider._newAdsRequester(this, this._adProvider.__IMA_PRE_ROLL, true);
                                                         }
                                                         break;
                                                     case this._adProvider.__IMA_POST_ROLL:
@@ -658,6 +659,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.player.weakDestroy();
                     if (this._prerollAd)
                         this._prerollAd.weakDestroy();
+                    if (this._adsRoll)
+                        this._adsRoll.weakDestroy();
                     this.player = null;
                     this.__video = null;
                     this.set("videoelement_active", false);
@@ -1425,7 +1428,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                         this.set('preventinteractionstatus', true);
                                     }
                                 }
-
                             }
                             if (!this.get("broadcasting")) {
                                 this.set("last_position_change_delta", _now - this.get("last_position_change"));
@@ -1441,6 +1443,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             // If settings pop-up is open hide it together with control-bar if hideOnInactivity is true
                             if (this.get('hideoninactivity') && (this.get('activity_delta') > this.get('hidebarafter'))) {
                                 this.set("settingsmenu_active", false);
+                            }
+                            if (this._adsLoader && this._adProvider) {
+                                this.__controlAdRolls();
                             }
                         }
                     } catch (e) {}
@@ -1552,6 +1557,97 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         width: this.get("popup-width"),
                         height: this.get("popup-height")
                     };
+                },
+
+                /**
+                 * Prepare for postoll and mid roll ad managers
+                 * @private
+                 */
+                __controlAdRolls: function() {
+
+                    // If we have midrolls, then prepare mid Rolls
+                    if (this.get("mid-linear-ad").length > 0 && this.get("duration") > 0.0 && !this._adsCollection) {
+                        this._adsCollection = this.auto_destroy(new Collection()); // our adsCollections
+                        this.nextRollPosition = this.get("duration"); // Maximum available position
+                        var _current = null;
+                        Objs.iter(this.get("mid-linear-ad"), function(roll) {
+                            if (roll.position && roll.position > 0) {
+                                // First ad position, if less than 1 it means it's persentage not second
+                                var _position = roll.position < 1 ? Math.floor(this.get("duration") * roll.position) : roll.position;
+                                // We should choose minimum position when ad will be launched
+                                if (_position < this.nextRollPosition) {
+                                    this.nextRollPosition = _position;
+                                }
+                                // If user will not set and we will not get the same ad position, avoids dublication,
+                                // prevent very close ads and also wrong set position which exceeds the duration
+                                if (Math.abs(_position - _current) > 5 && _position < this.get("duration")) {
+                                    _current = _position;
+                                    this._adsCollection.add({
+                                        position: _position
+                                    });
+                                }
+                            }
+                        }, this);
+                    }
+
+                    if (this._adsCollection && !this.nextRollPosition) {
+                        this.nextRollPosition = null; // Set as null if it's undefined, to be able compare
+                        if (this._adsCollection.count() > 0) {
+                            this._adsCollection.iterate(function(curr) {
+                                if (this.get("position") >= curr.get("position")) {
+                                    // We need max close position to play, if user seeked the video
+                                    if (this.nextRollPosition < curr.get("position")) {
+                                        this.nextRollPosition = curr.get("position");
+                                    }
+                                    // Remove all passed positions
+                                    this._adsCollection.remove(curr);
+                                }
+                            }, this);
+                        }
+                    }
+
+                    if (this.nextRollPosition && !this._adsRoll) {
+                        if (this.nextRollPosition <= this.get("position")) {
+                            this._adsRoll = this._adProvider._newAdsRequester(this, this._adProvider.__IMA_MID_ROLL, true);
+                            this._adsRoll.executeAd({
+                                width: this.parentWidth(),
+                                height: this.parentHeight()
+                            });
+                            this._adsRoll.once("adfinished", function() {
+                                this.nextRollPosition = null;
+                                this._adsRoll = null;
+                                if (!this.get("playing")) this.player.play();
+                            }, this);
+                            this._adsRoll.on("ad-error", function(message) {
+                                console.error('Error during loading an ad. Details:"' + message + '".');
+                                this.nextRollPosition = null;
+                                this._adsRoll = null;
+                                if (!this.get("playing")) this.player.play();
+                            }, this);
+
+                            // To remove first roll position
+                            if (this._adsCollection.count() > 0) {
+                                this._adsCollection.iterate(function(curr) {
+                                    if (curr.get("position") < this.nextRollPosition) {
+                                        this._adsCollection.remove(curr);
+                                    }
+                                }, this);
+                            }
+                        }
+                    }
+
+                    // Set postroll ads
+                    if (this.get("has-post-roll-ad") && !this._postrollAd) {
+                        // when time is less than 10 seconds
+                        if ((this.get("duration") - this.get("position")) <= 10) {
+                            this._postrollAd = this._adProvider._newAdsRequester(this, this._adProvider.__IMA_POST_ROLL, false);
+                            this._postrollAd.on("ad-error", function(message) {
+                                console.error('Error during loading an ad. Details:"' + message + '".');
+                                this._postrollAd = null;
+                                this.set("has-post-roll-ad", false);
+                            }, this);
+                        }
+                    }
                 }
             };
         }], {

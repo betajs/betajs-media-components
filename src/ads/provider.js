@@ -17,7 +17,7 @@ Scoped.define("module:Ads.AbstractVideoAdProvider", [
 
             _newPrerollAd: function(options) {},
             _initAdsLoader: function(options) {},
-            _newAdsRequester: function(options) {},
+            _newAdsRequester: function(dyn, position, autostart) {},
 
             newPrerollAd: function(options) {
                 return this._newPrerollAd(options);
@@ -34,13 +34,13 @@ Scoped.define("module:Ads.AbstractVideoAdProvider", [
 
             /**
              * Will request and listen via ad loader
-             * @param loader
              * @param dyn
-             * @param position mid, pro or post
+             * @param {string} position
+             * @param {boolean} position
              * @returns {*}
              */
-            newAdsRequester: function(loader, dyn, position) {
-                return this._newAdsRequester(loader, dyn, position);
+            newAdsRequester: function(dyn, position, autostart) {
+                return this._newAdsRequester(dyn, position, autostart);
             },
 
             register: function(name) {

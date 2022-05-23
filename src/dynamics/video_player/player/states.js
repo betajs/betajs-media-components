@@ -356,7 +356,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Preroll", [
 
         _started: function() {
             if (this.dyn._prerollAd) {
-                this.dyn._prerollAd.once("ad-loaded", function(ad) {
+                this.dyn._prerollAd.once("adloaded", function(ad) {
                     if (typeof ad !== "undefined") {
                         // If ad type is non-lienar like image banner need to load video
                         if (!ad.isLinear()) {
@@ -365,7 +365,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Preroll", [
                     }
                 }, this);
 
-                this.dyn._prerollAd.once("finished", function() {
+                this.dyn._prerollAd.on("adfinished", function() {
                     this.next("LoadVideo");
                 }, this);
 
@@ -426,6 +426,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
         dynamics: ["loader"],
 
         _started: function() {
+            // Just in case set to null preload
+            this.dyn._prerollAd = null;
             if (!this.dyn.get("videoelement_active")) {
                 this.listenOn(this.dyn, "error:attach", function() {
                     this.next("LoadError");
@@ -453,9 +455,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
                     this.dyn.execute("seek", this.dyn.get("autoseek"));
                 this.next("PlayVideo");
             }, this);
-            if (this.dyn.get("skipinitial") && !this.dyn.get("autoplay"))
+            if (this.dyn.get("skipinitial") && !this.dyn.get("autoplay")) {
                 this.next("PlayVideo");
-            else {
+            } else {
                 var counter = 10;
                 this.auto_destroy(new Timer({
                     context: this,
@@ -496,7 +498,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.ErrorVideo", [
     });
 });
 
-
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
     "module:VideoPlayer.Dynamics.PlayerStates.State"
 ], function(State, scoped) {
@@ -519,7 +520,10 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
             }, this);
             this.listenOn(this.dyn, "ended", function() {
                 this.dyn.set("autoseek", null);
-                this.next("NextVideo");
+                if (this.dyn._postrollAd)
+                    this._playPostrollAd();
+                else
+                    this.next("NextVideo");
             }, this);
             this.listenOn(this.dyn, "change:buffering", function() {
                 this.dyn.set("loader_active", this.dyn.get("buffering"));
@@ -532,8 +536,22 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
         play: function() {
             if (!this.dyn.get("playing"))
                 this.dyn.player.play();
-        }
+        },
 
+        _playPostrollAd: function() {
+            // Actually it should be prepare ad, because older name convention leave as it's
+            this.dyn._postrollAd.executeAd({
+                width: this.dyn.parentWidth(),
+                height: this.dyn.parentHeight()
+            });
+            this.dyn._postrollAd.once("adfinished", function() {
+                this.next("NextVideo");
+            }, this);
+            this.dyn._postrollAd.on("ad-error", function(message) {
+                console.error('Error during loading an ad. Details:"' + message + '".');
+                this.next("NextVideo");
+            }, this);
+        }
     });
 });
 

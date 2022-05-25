@@ -666,8 +666,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.player.weakDestroy();
                     if (this._prerollAd)
                         this._prerollAd.weakDestroy();
-                    if (this._adsRoll)
+                    if (this._adsRoll) {
                         this._adsRoll.weakDestroy();
+                        this._adsRoll = null;
+                    }
+                    if (this._postrollAd) {
+                        this._postrollAd.weakDestroy();
+                        this._postrollAd = null;
+                    }
                     this.player = null;
                     this.__video = null;
                     this.set("videoelement_active", false);
@@ -1639,6 +1645,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             });
                             this._adsRoll.once("adfinished", function() {
                                 this._nextRollPosition = null;
+                                this._adsRoll.weakDestroy();
                                 this._adsRoll = null;
                                 if (!this.get("playing")) this.player.play();
                             }, this);

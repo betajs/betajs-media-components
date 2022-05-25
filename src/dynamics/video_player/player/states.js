@@ -545,10 +545,14 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
                 height: this.dyn.parentHeight()
             });
             this.dyn._postrollAd.once("adfinished", function() {
+                this.dyn._postrollAd.weakDestroy();
+                this.dyn._postrollAd = null;
                 this.next("NextVideo");
             }, this);
             this.dyn._postrollAd.on("ad-error", function(message) {
                 console.error('Error during loading an ad. Details:"' + message + '".');
+                this.dyn._postrollAd.weakDestroy();
+                this.dyn._postrollAd = null;
                 this.next("NextVideo");
             }, this);
         }

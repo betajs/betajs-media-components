@@ -406,10 +406,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }
 
                             if (this.get("adprovider") === 'ima' && (this.get("linear") || this.get("non-linear"))) {
+                                var schedules = [];
                                 // Split all via comma exclude inside brackets
-                                var schedules = Objs.map(this.get("linear").split(/(?![^)(]*\([^)(]*?\)\)),(?![^\[]*\])/), function(item) {
-                                    return item.trim();
-                                }, this);
+                                if (this.get("linear")) {
+                                    schedules = Objs.map(this.get("linear").split(/(?![^)(]*\([^)(]*?\)\)),(?![^\[]*\])/), function(item) {
+                                        return item.trim();
+                                    }, this);
+                                }
+
+                                if (this.get("non-linear")) {
+                                    // TODO: add non-linear schedule as well
+                                }
 
                                 // On iOS and Android devices, video playback must begin in a user action.
                                 // In mobile could be require wait user interaction before init container and loader

@@ -1246,6 +1246,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.trigger("seek", position);
                             }
                         }
+                        // In midroll ads we need recheck next ad position
+                        if (this._adsCollection) {
+                            if (this._adsCollection.count() > 0) {
+                                this._adsCollection.iterate(function(curr) {
+                                    if (curr.get("position") < position)
+                                        this._nextRollPosition = null;
+                                }, this);
+                            }
+                        }
                     },
 
                     set_speed: function(speed) {
@@ -1568,20 +1577,28 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     // If we have midrolls, then prepare mid Rolls
                     if (this.get("mid-linear-ad").length > 0 && this.get("duration") > 0.0 && !this._adsCollection) {
                         this._adsCollection = this.auto_destroy(new Collection()); // our adsCollections
-                        this.nextRollPosition = this.get("duration"); // Maximum available position
+                        this._nextRollPosition = this.get("duration"); // Maximum available position
                         var _current = null;
-                        Objs.iter(this.get("mid-linear-ad"), function(roll) {
+                        var _nextPositionIndex = null;
+                        Objs.iter(this.get("mid-linear-ad"), function(roll, index) {
                             if (roll.position && roll.position > 0) {
                                 // First ad position, if less than 1 it means it's persentage not second
-                                var _position = roll.position < 1 ? Math.floor(this.get("duration") * roll.position) : roll.position;
+                                var _position = roll.position < 1 ?
+                                    Math.floor(this.get("duration") * roll.position) : roll.position;
                                 // We should choose minimum position when ad will be launched
-                                if (_position < this.nextRollPosition) {
-                                    this.nextRollPosition = _position;
+                                if (_position < this._nextRollPosition) {
+                                    var _existingPosition = this._adsCollection.getByIndex(_nextPositionIndex);
+                                    this._nextRollPosition = _position;
+                                    // In case user set wrong sorted data
+                                    if (_existingPosition) {
+                                        _position = _existingPosition.get("position");
+                                    }
                                 }
                                 // If user will not set and we will not get the same ad position, avoids dublication,
                                 // prevent very close ads and also wrong set position which exceeds the duration
                                 if (Math.abs(_position - _current) > 5 && _position < this.get("duration")) {
                                     _current = _position;
+                                    _nextPositionIndex = index;
                                     this._adsCollection.add({
                                         position: _position
                                     });
@@ -1590,14 +1607,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }, this);
                     }
 
-                    if (this._adsCollection && !this.nextRollPosition) {
-                        this.nextRollPosition = null; // Set as null if it's undefined, to be able compare
+                    if (this._adsCollection && !this._nextRollPosition) {
+                        this._nextRollPosition = null; // Set as null if it's undefined, to be able compare
                         if (this._adsCollection.count() > 0) {
                             this._adsCollection.iterate(function(curr) {
                                 if (this.get("position") >= curr.get("position")) {
                                     // We need max close position to play, if user seeked the video
-                                    if (this.nextRollPosition < curr.get("position")) {
-                                        this.nextRollPosition = curr.get("position");
+                                    if (this._nextRollPosition < curr.get("position")) {
+                                        this._nextRollPosition = curr.get("position");
                                     }
                                     // Remove all passed positions
                                     this._adsCollection.remove(curr);
@@ -1606,21 +1623,21 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     }
 
-                    if (this.nextRollPosition && !this._adsRoll) {
-                        if (this.nextRollPosition <= this.get("position")) {
+                    if (this._nextRollPosition && !this._adsRoll) {
+                        if (this._nextRollPosition <= this.get("position")) {
                             this._adsRoll = this._adProvider._newAdsRequester(this, this._adProvider.__IMA_MID_ROLL, true);
                             this._adsRoll.executeAd({
                                 width: this.parentWidth(),
                                 height: this.parentHeight()
                             });
                             this._adsRoll.once("adfinished", function() {
-                                this.nextRollPosition = null;
+                                this._nextRollPosition = null;
                                 this._adsRoll = null;
                                 if (!this.get("playing")) this.player.play();
                             }, this);
                             this._adsRoll.on("ad-error", function(message) {
                                 console.error('Error during loading an ad. Details:"' + message + '".');
-                                this.nextRollPosition = null;
+                                this._nextRollPosition = null;
                                 this._adsRoll = null;
                                 if (!this.get("playing")) this.player.play();
                             }, this);
@@ -1628,7 +1645,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             // To remove first roll position
                             if (this._adsCollection.count() > 0) {
                                 this._adsCollection.iterate(function(curr) {
-                                    if (curr.get("position") < this.nextRollPosition) {
+                                    if (curr.get("position") < this._nextRollPosition) {
                                         this._adsCollection.remove(curr);
                                     }
                                 }, this);

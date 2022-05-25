@@ -3,7 +3,7 @@
     <InLine>
       <AdSystem version="1">iabtechlab</AdSystem>
       <Error>
-        <![CDATA[https://example.com/error]]>
+        <![CDATA[//localhost:5050/ad/error]]>
       </Error>
       <Extensions>
         <Extension type="iab-Count">
@@ -13,7 +13,7 @@
         </Extension>
       </Extensions>
       <Impression id="Impression-ID">
-        <![CDATA[https://example.com/track/impression]]>
+        <![CDATA[//localhost:5050/ad/impression]]>
       </Impression>
       <Pricing model="cpm" currency="USD">
         <![CDATA[ 25.00 ]]>
@@ -25,9 +25,9 @@
       <Creatives>
         <Creative id="5480" sequence="1" adId="2447226">
           <NonLinearAds>
-            <NonLinear width="350" height="350">
+            <NonLinear width="720" height="90">
               <StaticResource creativeType="image/png">
-                <![CDATA[https://mms.businesswire.com/media/20150623005446/en/473787/21/iab_tech_lab.jpg]]>
+                <![CDATA[//localhost:5050/static/demos/assets/vast/ad-banner-728x90.jpeg]]>
               </StaticResource>
               <NonLinearClickThrough>
                 <![CDATA[https://iabtechlab.com]]>

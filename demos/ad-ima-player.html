@@ -23,6 +23,8 @@
         var v3_skipable = '//localhost:5050/static/demos/vast-samples/ads-linear-skipable.xml';
         var v3_doubleclick = 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=';
         var v3_doubleclickbased = '//localhost:5050/static/demos/vast-samples/based-doubleclick.xml';
+        var v4_2_wrapper = '//localhost:5050/static/demos/vast-samples/VAST_4_2/Wrapper_Tag-test.xml';
+        var v4_2_non_linear = '//localhost:5050/static/demos/vast-samples/VAST_4_2/Inline_Non-Linear_Tag-test.xml';
 
         var adsense = new BetaJS.MediaComponents.Ads.IMAProvider({
             // adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator='
@@ -33,6 +35,8 @@
             // adTagUrl: v3_clickThroughtLocalAd
             adTagUrl: v3_doubleclickbased
             // adTagUrl: v3_skipable
+            // adTagUrl: v4_2_wrapper
+            // adTagUrl: v4_2_non_linear
 
             // adPreTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml',
             // adPostTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml',

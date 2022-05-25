@@ -3,7 +3,7 @@
     <InLine>
       <AdSystem version="4.1">iabtechlab</AdSystem>
       <Error>
-        <![CDATA[https://example.com/error]]>
+        <![CDATA[//localhost:5050/ad/error]]>
       </Error>
       <Extensions>
         <Extension type="iab-Count">
@@ -13,7 +13,7 @@
         </Extension>
       </Extensions>
       <Impression id="Impression-ID">
-        <![CDATA[https://example.com/track/impression]]>
+        <![CDATA[//localhost:5050/ad/impression]]>
       </Impression>
       <Pricing model="cpm" currency="USD">
         <![CDATA[ 25.00 ]]>

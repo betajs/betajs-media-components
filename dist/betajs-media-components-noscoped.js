@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.301 - 2022-05-10
+betajs-media-components - v0.0.302 - 2022-05-25
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.301",
-    "datetime": 1652194163788
+    "version": "0.0.302",
+    "datetime": 1653505224330
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -475,241 +475,6 @@ Scoped.define("module:Ads.IMALoader", [
         }
     };
 });
-Scoped.define("module:Ads.IMAManager", [
-    "base:Objs",
-    "browser:Dom"
-], function(Objs, Dom) {
-    return {
-
-        /**
-         * focus() - Puts the focus on the skip button, if present
-         * getAdSkippableState() boolean
-         * getRemainingTime()
-         * getCuePoints() non-null Array of number // Returns an array of offsets 0-preroll -1-postroll
-         * getVolume() number  0 (muted) to 1 (loudest).
-         * isCustomPlaybackUsed () - boolean
-         * start(), stop(), pause() resume(), setVolume(), skip(), resize(width, height, viewMode)
-         * ViewMode - NORMAL, FULLSCREEN
-         * updateAdsRenderingSettings(adsRenderingSettings)
-         * @param adsManagerLoadedEvent
-         * @param requester
-         * @param preload
-         * @returns {*}
-         */
-        onAdsManagerLoaded: function(adsManagerLoadedEvent, requester, preload) {
-            var adRenderingSettings = new google.ima.AdsRenderingSettings();
-            adRenderingSettings.enablePreloading = preload;
-            adRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
-
-            // getUserRequestContext
-            var adsManager = adsManagerLoadedEvent.getAdsManager(
-                requester._player, adRenderingSettings
-            );
-
-            // requester._eventHandler = requester.auto_destroy(this.cls());
-
-            this._start(adsManager, requester);
-            return adsManager;
-        },
-
-        /**
-         * Start requested ad
-         * @param adsManager
-         * @param requester
-         * @private
-         */
-        _start: function(adsManager, requester) {
-            var dyn = requester._dyn;
-
-            /**
-             * Listen to error event
-             */
-            adsManager.addEventListener(
-                google.ima.AdErrorEvent.Type.AD_ERROR,
-                function(ev) {
-                    return requester.onAdError(ev);
-                }, false, this
-            );
-
-            /**
-             * All events listed above in except error event which will be trigger separately
-             */
-            Objs.iter(this.__events(), function(event) {
-                // requester._eventHandler.on(adManager, event, function() {
-                //     return requester.onAdEvent(ev);
-                // });
-                adsManager.addEventListener(event, function(ev) {
-                    return requester.onAdEvent(ev);
-                }, false, this);
-            }, this);
-
-            /**
-             * Set preferred video dimensions
-             */
-            var initWidth, initHeight;
-            if (dyn.get("fullscreened")) {
-                initWidth = Dom.elementDimensions(document.body).width;
-                initHeight = Dom.elementDimensions(document.body).height;
-            } else {
-                initWidth = dyn.videoWidth();
-                initHeight = dyn.videoHeight();
-            }
-
-            try {
-                // init(width, height, viewMode, videoElement)
-                adsManager.init(initWidth, initHeight, google.ima.ViewMode.NORMAL);
-                adsManager.start();
-            } catch (e) {
-                requester.onAdError('Ad Manager Init', e);
-            }
-        },
-
-        /**
-         * Terminate and remove all event listeners
-         * @param adsManager
-         * @param controlbar
-         */
-        destroy: function(adsManager, controlbar) {
-            // IF controlbar was generated
-            // if (typeof controlbar === 'object' && controlbar) controlbar.destroy();
-            // if (typeof adsManager === 'object' && adsManager) adsManager.destroy();
-
-            // var events = this.__events();
-            // events.push(google.ima.AdErrorEvent.Type.AD_ERROR);
-            // var counter = events.length;
-            // if (adsManager) {
-            //     Objs.iter(events, function(event) {
-            //         adsManager.removeEventListener(event);
-            //         counter--;
-            //         // After removing all listeners destroy self
-            //         if (counter === 0) {
-            //             adsManager.destroy();
-            //         }
-            //     }, this);
-            // }
-        },
-
-        /**
-         * IMA SDK events
-         * @returns {(*|number)[]}
-         * @private
-         *
-         * CONTENT_PAUSE_REQUESTED
-         * Fired when content should be paused. This usually happens right before an ad is about to cover the content.
-         *
-         * CONTENT_RESUME_REQUESTED
-         * Fired when content should be resumed. This usually happens when an ad finishes or collapses.
-         *
-         * CLICK
-         * Fired when the ad is clicked.
-         *
-         * VIDEO_CLICKED
-         * Fired when the non-clickthrough portion of a video ad is clicked.
-         *
-         * VIDEO_ICON_CLICKED
-         * Fired when a user clicks a video icon.
-         *
-         * STARTED
-         * Fired when the ad starts playing.
-         *
-         * AD_PROGRESS
-         * Fired when the ad's current time value changes. Calling getAdData() on this event will return an AdProgressData object.
-         *
-         * AD_BUFFERING
-         * Fired when the ad has stalled playback to buffer.
-         *
-         * IMPRESSION
-         * Fired when the impression URL has been pinged.
-         *
-         * PAUSED
-         * Fired when the ad is paused.
-         *
-         * RESUMED
-         * Fired when the ad is resumed.
-         *
-         * FIRST_QUARTILE
-         * Fired when the ad playhead crosses first quartile.
-         *
-         * MIDPOINT
-         * Fired when the ad playhead crosses midpoint.
-         *
-         * THIRD_QUARTILE
-         * Fired when the ad playhead crosses third quartile.
-         *
-         * COMPLETE
-         * Fired when the ad completes playing.
-         *
-         * DURATION_CHANGE
-         * Fired when the ad's duration changes.
-         *
-         * USER_CLOSE
-         * Fired when the ad is closed by the user.
-         *
-         * LOADED
-         * Fired when ad data is available.
-         *
-         * ALL_ADS_COMPLETED
-         * Fired when the ads manager is done playing all the valid ads in the ads response, or when the response doesn't return any valid ads.
-         *
-         * SKIPPED
-         * Fired when the ad is skipped by the user.
-         *
-         * LINEAR_CHANGED
-         * Fired when the displayed ad changes from linear to nonlinear, or vice versa.
-         *
-         * SKIPPABLE_STATE_CHANGED
-         * Fired when the displayed ads skippable state is changed.
-         *
-         * AD_METADATA
-         * Fired when an ads list is loaded.
-         *
-         * AD_BREAK_READY
-         * Fired when an ad rule or a VMAP ad break would have played if autoPlayAdBreaks is false.
-         *
-         * LOG
-         * Fired when a non-fatal error is encountered. The user need not take any action since the SDK will continue with the same or next ad playback depending on the error situation.
-         *
-         * VOLUME_CHANGED
-         * Fired when the ad volume has changed.
-         *
-         * VOLUME_MUTED
-         * Fired when the ad volume has been muted.
-         *
-         * INTERACTION
-         * Fired when an ad triggers the interaction callback. Ad interactions contain an interaction ID string in the ad data.
-         */
-        __events: function() {
-            return [
-                google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED, // contentPauseRequested
-                google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED, // contentResumeRequested
-
-                google.ima.AdEvent.Type.LOADED, // loaded
-                google.ima.AdEvent.Type.STARTED, // start
-
-                google.ima.AdEvent.Type.FIRST_QUARTILE, // firstQuartile
-                google.ima.AdEvent.Type.MIDPOINT, // midpoint
-                google.ima.AdEvent.Type.THIRD_QUARTILE, // thirdQuartile
-
-                google.ima.AdEvent.Type.COMPLETE, // complete
-                google.ima.AdEvent.Type.ALL_ADS_COMPLETED, // allAdsCompleted
-
-                google.ima.AdEvent.Type.PAUSED, // pause
-                google.ima.AdEvent.Type.RESUMED, // ?? not trigger
-
-                google.ima.AdEvent.Type.CLICK,
-                google.ima.AdEvent.Type.VIDEO_CLICKED,
-                google.ima.AdEvent.Type.AD_PROGRESS,
-                google.ima.AdEvent.Type.DURATION_CHANGE,
-                google.ima.AdEvent.Type.SKIPPED,
-                google.ima.AdEvent.Type.LINEAR_CHANGED,
-                google.ima.AdEvent.Type.VOLUME_CHANGED,
-                google.ima.AdEvent.Type.VOLUME_MUTED,
-
-                google.ima.AdEvent.Type.SKIPPABLE_STATE_CHANGED
-            ];
-        }
-    };
-});
 Scoped.define("module:Ads.IMAProvider", [
     "module:Ads.AbstractVideoAdProvider",
     "module:Ads.IMALoader",
@@ -720,6 +485,7 @@ Scoped.define("module:Ads.IMAProvider", [
     }, {
 
         __IMA_PRE_ROLL: 'pre',
+        __IMA_MID_ROLL: 'mid',
         __IMA_POST_ROLL: 'post',
 
         /**
@@ -734,55 +500,47 @@ Scoped.define("module:Ads.IMAProvider", [
 
         /**
          *
-         * @param loader
-         * @param options
          * @param dyn
-         * @param position
+         * @param {string} position
+         * @param {boolean} autostart
          * @returns {*}
          * @private
          */
-        _newAdsRequester: function(loader, options, dyn, position) {
-            return new IMARequester(this, loader, options, dyn, position);
+        _newAdsRequester: function(dyn, position, autostart) {
+            return new IMARequester(this, dyn, position, autostart);
         }
     });
 });
 Scoped.define("module:Ads.IMARequester", [
     "base:Class",
+    "base:Objs",
+    "browser:Dom",
     "browser:Info",
-    "module:Ads.IMAManager",
     "base:Events.EventsMixin"
-], function(Class, Info, AdsManager, EventsMixin, scoped) {
+], function(Class, Objs, Dom, Info, EventsMixin, scoped) {
     return Class.extend({
         scoped: scoped
     }, [EventsMixin, function(inherited) {
         return {
 
             /**
-             * adsResponse; adTagUrl; contentDuration; contentKeywords; contentTitle;
-             * forceNonLinearFullSlot; linearAdSlotHeight; linearAdSlotWidth;
-             * liveStreamPrefetchSeconds; nonLinearAdSlotHeight; nonLinearAdSlotWidth;
-             * omidAccessModeRules; OmidAccessMode - LIMITED, DOMAIN, FULL
-             * VpaidMode - DISABLED, ENABLED, INSECURE
-             * pageUrl; vastLoadTimeout;
-             * setAdWillAutoPlay(boolean); setAdWillPlayMuted(bool);
-             * setContinuousPlayback(boolean);
              * @param provider
-             * @param loader
-             * @param options
              * @param dyn
-             * @param position
+             * @param {string} position
+             * @param {boolean} autostart
              */
-            constructor: function(provider, loader, options, dyn, position) {
-
-                inherited.constructor.call(this, loader, options, dyn, position);
+            constructor: function(provider, dyn, position, autostart) {
+                inherited.constructor.call(this, dyn, position, autostart);
 
                 // init
                 this._dyn = dyn;
                 this._adsLoaded = false;
-                this._position = position;
-                this._adsLoader = loader;
-                this._options = options;
-                this._player = options.videoElement;
+                this._adsProvider = provider;
+                this._adsPosition = position;
+                this._autostart = autostart;
+                this._adsLoader = dyn._adsLoader;
+                this._options = dyn._adOptions;
+                this._player = dyn._adOptions.videoElement;
                 this._adsManager = null;
                 this._adControlbar = null;
                 this._providerOptions = provider.options();
@@ -830,10 +588,10 @@ Scoped.define("module:Ads.IMARequester", [
                 }, false);
 
                 this._adsLoader.addEventListener(google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED, function(ev) {
-                    // Preload if ad is preroll and user set preload option
-                    self._adsManager = AdsManager.onAdsManagerLoaded(
-                        ev, self, position === provider.__IMA_PRE_ROLL && options.preload
-                    );
+                    // Preload if ad is preroll and user set preload optin
+                    self.onAdsManagerLoaded(ev, provider.__IMA_PRE_ROLL || self._autostart);
+                    self._adsLoaded = true;
+                    if (self._autostart) self.startAd();
                 }, false);
             },
 
@@ -860,6 +618,22 @@ Scoped.define("module:Ads.IMARequester", [
             },
 
             /**
+             * @param adsManagerLoadedEvent
+             * @param {boolean} preload
+             * @returns {*}
+             */
+            onAdsManagerLoaded: function(adsManagerLoadedEvent, preload) {
+                var adRenderingSettings = new google.ima.AdsRenderingSettings();
+                adRenderingSettings.enablePreloading = preload;
+                adRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
+
+                // getUserRequestContext
+                this._adsManager = adsManagerLoadedEvent.getAdsManager(
+                    this._player, adRenderingSettings
+                );
+            },
+
+            /**
              * On Each IMA SDK events are triggered
              * @param ev
              * @private
@@ -871,25 +645,22 @@ Scoped.define("module:Ads.IMARequester", [
                 var data = typeof ev.getAd === 'function' ? ev.getAd() : null;
                 switch (ev.type) {
                     case 'loaded':
-                        this._adsLoaded = true;
-                        this.trigger('ad-' + ev.type, data);
+                        this.trigger('ad' + ev.type, data);
                         this._showIMAAdController(this, data);
                         break;
                     case 'allAdsCompleted':
-                        this.trigger('finished');
+                        this.trigger('adfinished');
                         break;
                     case 'contentPauseRequested':
                         if (this._dyn.get("playing")) this._dyn.pause();
                         this._options.adElement.style.display = "";
                         break;
                     case 'contentResumeRequested':
-                        if (!this._dyn.get("playing")) this._dyn.play();
                         this._options.adElement.style.display = "none";
                         break;
                     default:
                         // Trigger events with ad- prefix
-                        this.trigger('ad' + ev.type, typeof ev.getAd === 'function' ? ev.getAd() : null);
-
+                        this.trigger('ad' + ev.type, data);
                 }
             },
 
@@ -900,24 +671,70 @@ Scoped.define("module:Ads.IMARequester", [
              * @private
              */
             onAdError: function(type, message) {
-                if (this._adsManager) {
-                    AdsManager.destroy(this._adsManager, this._adControlbar);
+                if (this._adControlbar) {
+                    this._adControlbar.destroy();
                 }
                 this.trigger('ad-error', message);
             },
 
+            /**
+             * Destroy class
+             */
             // destroy: function() {
-            //     // if (this._adsManager)
-            //     //     AdsManager.destroy(this._adsManager, this._adControlbar);
-            //     // this._adsLoader.removeEventListener(google.ima.AdErrorEvent.Type.AD_ERROR);
-            //     // this._adsLoader.removeEventListener(google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED);
+            //     inherited.destroy.call(this);
             // },
 
             /**
-             * @param requester IMA Ad requester
+             * Start requested ad
+             * @private
+             */
+            startAd: function() {
+                var dyn = this._dyn;
+
+                /**
+                 * Listen to error event
+                 */
+                this._adsManager.addEventListener(
+                    google.ima.AdErrorEvent.Type.AD_ERROR,
+                    function(ev) {
+                        return requester.onAdError(ev);
+                    }, false, this
+                );
+
+                /**
+                 * All events listed above in except error event which will be trigger separately
+                 */
+                Objs.iter(this.__events(), function(event) {
+                    this._adsManager.addEventListener(event, function(ev) {
+                        return this.onAdEvent(ev);
+                    }, false, this);
+                }, this);
+
+                /**
+                 * Set preferred video dimensions
+                 */
+                var initWidth, initHeight;
+                if (dyn.get("fullscreened")) {
+                    initWidth = Dom.elementDimensions(document.body).width;
+                    initHeight = Dom.elementDimensions(document.body).height;
+                } else {
+                    initWidth = dyn.parentWidth();
+                    initHeight = dyn.parentHeight();
+                }
+
+                try {
+                    // init(width, height, viewMode, videoElement)
+                    this._adsManager.init(initWidth, initHeight, google.ima.ViewMode.NORMAL);
+                    this._adsManager.start();
+                } catch (e) {
+                    this.onAdError('Ad Manager Init Error: ', e);
+                }
+            },
+
+            /**
              * @param data IMA Ad data
              */
-            _showIMAAdController: function(requester, data) {
+            _showIMAAdController: function(data) {
                 this._dyn.set("show-ad-controller", true);
                 var controllerElement = this._dyn.activeElement().querySelector("[data-ads='controllbar']");
                 if (controllerElement) {
@@ -930,6 +747,126 @@ Scoped.define("module:Ads.IMARequester", [
                     });
                     this._adControlbar.activate();
                 }
+            },
+
+            /**
+             * IMA SDK events
+             * @returns {(*|number)[]}
+             * @private
+             *
+             * CONTENT_PAUSE_REQUESTED
+             * Fired when content should be paused. This usually happens right before an ad is about to cover the content.
+             *
+             * CONTENT_RESUME_REQUESTED
+             * Fired when content should be resumed. This usually happens when an ad finishes or collapses.
+             *
+             * CLICK
+             * Fired when the ad is clicked.
+             *
+             * VIDEO_CLICKED
+             * Fired when the non-clickthrough portion of a video ad is clicked.
+             *
+             * VIDEO_ICON_CLICKED
+             * Fired when a user clicks a video icon.
+             *
+             * STARTED
+             * Fired when the ad starts playing.
+             *
+             * AD_PROGRESS
+             * Fired when the ad's current time value changes. Calling getAdData() on this event will return an AdProgressData object.
+             *
+             * AD_BUFFERING
+             * Fired when the ad has stalled playback to buffer.
+             *
+             * IMPRESSION
+             * Fired when the impression URL has been pinged.
+             *
+             * PAUSED
+             * Fired when the ad is paused.
+             *
+             * RESUMED
+             * Fired when the ad is resumed.
+             *
+             * FIRST_QUARTILE
+             * Fired when the ad playhead crosses first quartile.
+             *
+             * MIDPOINT
+             * Fired when the ad playhead crosses midpoint.
+             *
+             * THIRD_QUARTILE
+             * Fired when the ad playhead crosses third quartile.
+             *
+             * COMPLETE
+             * Fired when the ad completes playing.
+             *
+             * DURATION_CHANGE
+             * Fired when the ad's duration changes.
+             *
+             * USER_CLOSE
+             * Fired when the ad is closed by the user.
+             *
+             * LOADED
+             * Fired when ad data is available.
+             *
+             * ALL_ADS_COMPLETED
+             * Fired when the ads manager is done playing all the valid ads in the ads response, or when the response doesn't return any valid ads.
+             *
+             * SKIPPED
+             * Fired when the ad is skipped by the user.
+             *
+             * LINEAR_CHANGED
+             * Fired when the displayed ad changes from linear to nonlinear, or vice versa.
+             *
+             * SKIPPABLE_STATE_CHANGED
+             * Fired when the displayed ads skippable state is changed.
+             *
+             * AD_METADATA
+             * Fired when an ads list is loaded.
+             *
+             * AD_BREAK_READY
+             * Fired when an ad rule or a VMAP ad break would have played if autoPlayAdBreaks is false.
+             *
+             * LOG
+             * Fired when a non-fatal error is encountered. The user need not take any action since the SDK will continue with the same or next ad playback depending on the error situation.
+             *
+             * VOLUME_CHANGED
+             * Fired when the ad volume has changed.
+             *
+             * VOLUME_MUTED
+             * Fired when the ad volume has been muted.
+             *
+             * INTERACTION
+             * Fired when an ad triggers the interaction callback. Ad interactions contain an interaction ID string in the ad data.
+             */
+            __events: function() {
+                return [
+                    google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED, // contentPauseRequested
+                    google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED, // contentResumeRequested
+
+                    google.ima.AdEvent.Type.LOADED, // loaded
+                    google.ima.AdEvent.Type.STARTED, // start
+
+                    google.ima.AdEvent.Type.FIRST_QUARTILE, // firstQuartile
+                    google.ima.AdEvent.Type.MIDPOINT, // midpoint
+                    google.ima.AdEvent.Type.THIRD_QUARTILE, // thirdQuartile
+
+                    google.ima.AdEvent.Type.COMPLETE, // complete
+                    google.ima.AdEvent.Type.ALL_ADS_COMPLETED, // allAdsCompleted
+
+                    google.ima.AdEvent.Type.PAUSED, // pause
+                    google.ima.AdEvent.Type.RESUMED, // ?? not trigger
+
+                    google.ima.AdEvent.Type.CLICK,
+                    google.ima.AdEvent.Type.VIDEO_CLICKED,
+                    google.ima.AdEvent.Type.AD_PROGRESS,
+                    google.ima.AdEvent.Type.DURATION_CHANGE,
+                    google.ima.AdEvent.Type.SKIPPED,
+                    google.ima.AdEvent.Type.LINEAR_CHANGED,
+                    google.ima.AdEvent.Type.VOLUME_CHANGED,
+                    google.ima.AdEvent.Type.VOLUME_MUTED,
+
+                    google.ima.AdEvent.Type.SKIPPABLE_STATE_CHANGED
+                ];
             }
         };
     }]);
@@ -991,7 +928,7 @@ Scoped.define("module:Ads.AbstractPrerollAd", [
 
             _adFinished: function() {
                 this._options.adElement.style.display = "none";
-                this.trigger("finished");
+                this.trigger("adfinished");
             },
 
             _adSkipped: function() {
@@ -1021,7 +958,7 @@ Scoped.define("module:Ads.AbstractVideoAdProvider", [
 
             _newPrerollAd: function(options) {},
             _initAdsLoader: function(options) {},
-            _newAdsRequester: function(options) {},
+            _newAdsRequester: function(dyn, position, autostart) {},
 
             newPrerollAd: function(options) {
                 return this._newPrerollAd(options);
@@ -1038,13 +975,13 @@ Scoped.define("module:Ads.AbstractVideoAdProvider", [
 
             /**
              * Will request and listen via ad loader
-             * @param loader
              * @param dyn
-             * @param position mid, pro or post
+             * @param {string} position
+             * @param {boolean} position
              * @returns {*}
              */
-            newAdsRequester: function(loader, dyn, position) {
-                return this._newAdsRequester(loader, dyn, position);
+            newAdsRequester: function(dyn, position, autostart) {
+                return this._newAdsRequester(dyn, position, autostart);
             },
 
             register: function(name) {
@@ -2469,7 +2406,7 @@ Scoped.define("module:Ads.VastPrerollAd", [
 
             _adFinished: function() {
                 this._options.adElement.style.display = "none";
-                this.trigger("finished");
+                this.trigger("adfinished");
             },
 
             _adSkipped: function() {
@@ -5548,6 +5485,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "base:Types",
     "base:Objs",
     "base:Strings",
+    "base:Collections.Collection",
     "base:Time",
     "base:Timers",
     "base:TimeFormat",
@@ -5557,6 +5495,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.PlayerStates.Initial",
     "module:VideoPlayer.Dynamics.PlayerStates",
     "module:Ads.AbstractVideoAdProvider",
+    "module:Ads.IMARequester",
     "browser:Events"
 ], [
     "module:Common.Dynamics.Settingsmenu",
@@ -5572,7 +5511,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.TemplatePartial",
     "dynamics:Partials.HotkeyPartial"
-], function(Class, Assets, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, Types, Objs, Strings, Time, Timers, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
+], function(Class, Assets, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, Types, Objs, Strings, Collection, Time, Timers, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, IMARequester, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, [StylesMixin, function(inherited) {
@@ -5941,10 +5880,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }
 
                             if (this.get("adprovider") === 'ima' && (this.get("linear") || this.get("non-linear"))) {
+                                var schedules = [];
                                 // Split all via comma exclude inside brackets
-                                var schedules = Objs.map(this.get("linear").split(/(?![^)(]*\([^)(]*?\)\)),(?![^\[]*\])/), function(item) {
-                                    return item.trim();
-                                }, this);
+                                if (this.get("linear")) {
+                                    schedules = Objs.map(this.get("linear").split(/(?![^)(]*\([^)(]*?\)\)),(?![^\[]*\])/), function(item) {
+                                        return item.trim();
+                                    }, this);
+                                }
+
+                                if (this.get("non-linear")) {
+                                    // TODO: add non-linear schedule as well
+                                }
 
                                 // On iOS and Android devices, video playback must begin in a user action.
                                 // In mobile could be require wait user interaction before init container and loader
@@ -5954,14 +5900,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     this._adProvider.initAdsLoader(adInitOptions)
                                         .success(function(loader) {
                                             this._adsLoader = loader;
+                                            this._adOptions = adInitOptions;
                                             Objs.iter(schedules, function(schedule) {
                                                 switch (schedule.toLowerCase()) {
                                                     case this._adProvider.__IMA_PRE_ROLL:
                                                         // if already user not set preroll as an attribute
                                                         if (typeof this._prerollAd === "undefined") {
-                                                            this._prerollAd = this._adProvider._newAdsRequester(
-                                                                loader, adInitOptions, this, this._adProvider.__IMA_PRE_ROLL
-                                                            );
+                                                            this._prerollAd = this._adProvider._newAdsRequester(this, this._adProvider.__IMA_PRE_ROLL, true);
                                                         }
                                                         break;
                                                     case this._adProvider.__IMA_POST_ROLL:
@@ -6195,6 +6140,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.player.weakDestroy();
                     if (this._prerollAd)
                         this._prerollAd.weakDestroy();
+                    if (this._adsRoll) {
+                        this._adsRoll.weakDestroy();
+                        this._adsRoll = null;
+                    }
+                    if (this._postrollAd) {
+                        this._postrollAd.weakDestroy();
+                        this._postrollAd = null;
+                    }
                     this.player = null;
                     this.__video = null;
                     this.set("videoelement_active", false);
@@ -6780,6 +6733,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.trigger("seek", position);
                             }
                         }
+                        // In midroll ads we need recheck next ad position
+                        if (this._adsCollection) {
+                            if (this._adsCollection.count() > 0) {
+                                this._adsCollection.iterate(function(curr) {
+                                    if (curr.get("position") < position)
+                                        this._nextRollPosition = null;
+                                }, this);
+                            }
+                        }
                     },
 
                     set_speed: function(speed) {
@@ -6962,7 +6924,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                         this.set('preventinteractionstatus', true);
                                     }
                                 }
-
                             }
                             if (!this.get("broadcasting")) {
                                 this.set("last_position_change_delta", _now - this.get("last_position_change"));
@@ -6978,6 +6939,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             // If settings pop-up is open hide it together with control-bar if hideOnInactivity is true
                             if (this.get('hideoninactivity') && (this.get('activity_delta') > this.get('hidebarafter'))) {
                                 this.set("settingsmenu_active", false);
+                            }
+                            if (this._adsLoader && this._adProvider) {
+                                this.__controlAdRolls();
                             }
                         }
                     } catch (e) {}
@@ -7089,6 +7053,106 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         width: this.get("popup-width"),
                         height: this.get("popup-height")
                     };
+                },
+
+                /**
+                 * Prepare for postoll and mid roll ad managers
+                 * @private
+                 */
+                __controlAdRolls: function() {
+
+                    // If we have midrolls, then prepare mid Rolls
+                    if (this.get("mid-linear-ad").length > 0 && this.get("duration") > 0.0 && !this._adsCollection) {
+                        this._adsCollection = this.auto_destroy(new Collection()); // our adsCollections
+                        this._nextRollPosition = this.get("duration"); // Maximum available position
+                        var _current = null;
+                        var _nextPositionIndex = null;
+                        Objs.iter(this.get("mid-linear-ad"), function(roll, index) {
+                            if (roll.position && roll.position > 0) {
+                                // First ad position, if less than 1 it means it's persentage not second
+                                var _position = roll.position < 1 ?
+                                    Math.floor(this.get("duration") * roll.position) : roll.position;
+                                // We should choose minimum position when ad will be launched
+                                if (_position < this._nextRollPosition) {
+                                    var _existingPosition = this._adsCollection.getByIndex(_nextPositionIndex);
+                                    this._nextRollPosition = _position;
+                                    // In case user set wrong sorted data
+                                    if (_existingPosition) {
+                                        _position = _existingPosition.get("position");
+                                    }
+                                }
+                                // If user will not set and we will not get the same ad position, avoids dublication,
+                                // prevent very close ads and also wrong set position which exceeds the duration
+                                if (Math.abs(_position - _current) > 5 && _position < this.get("duration")) {
+                                    _current = _position;
+                                    _nextPositionIndex = index;
+                                    this._adsCollection.add({
+                                        position: _position
+                                    });
+                                }
+                            }
+                        }, this);
+                    }
+
+                    if (this._adsCollection && !this._nextRollPosition) {
+                        this._nextRollPosition = null; // Set as null if it's undefined, to be able compare
+                        if (this._adsCollection.count() > 0) {
+                            this._adsCollection.iterate(function(curr) {
+                                if (this.get("position") >= curr.get("position")) {
+                                    // We need max close position to play, if user seeked the video
+                                    if (this._nextRollPosition < curr.get("position")) {
+                                        this._nextRollPosition = curr.get("position");
+                                    }
+                                    // Remove all passed positions
+                                    this._adsCollection.remove(curr);
+                                }
+                            }, this);
+                        }
+                    }
+
+                    if (this._nextRollPosition && !this._adsRoll) {
+                        if (this._nextRollPosition <= this.get("position")) {
+                            this._adsRoll = this._adProvider._newAdsRequester(this, this._adProvider.__IMA_MID_ROLL, true);
+                            this._adsRoll.executeAd({
+                                width: this.parentWidth(),
+                                height: this.parentHeight()
+                            });
+                            this._adsRoll.once("adfinished", function() {
+                                this._nextRollPosition = null;
+                                this._adsRoll.weakDestroy();
+                                this._adsRoll = null;
+                                if (!this.get("playing")) this.player.play();
+                            }, this);
+                            this._adsRoll.on("ad-error", function(message) {
+                                console.error('Error during loading an ad. Details:"' + message + '".');
+                                this._nextRollPosition = null;
+                                this._adsRoll = null;
+                                if (!this.get("playing")) this.player.play();
+                            }, this);
+
+                            // To remove first roll position
+                            if (this._adsCollection.count() > 0) {
+                                this._adsCollection.iterate(function(curr) {
+                                    if (curr.get("position") < this._nextRollPosition) {
+                                        this._adsCollection.remove(curr);
+                                    }
+                                }, this);
+                            }
+                        }
+                    }
+
+                    // Set postroll ads
+                    if (this.get("has-post-roll-ad") && !this._postrollAd) {
+                        // when time is less than 10 seconds
+                        if ((this.get("duration") - this.get("position")) <= 10) {
+                            this._postrollAd = this._adProvider._newAdsRequester(this, this._adProvider.__IMA_POST_ROLL, false);
+                            this._postrollAd.on("ad-error", function(message) {
+                                console.error('Error during loading an ad. Details:"' + message + '".');
+                                this._postrollAd = null;
+                                this.set("has-post-roll-ad", false);
+                            }, this);
+                        }
+                    }
                 }
             };
         }], {
@@ -7467,7 +7531,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Preroll", [
 
         _started: function() {
             if (this.dyn._prerollAd) {
-                this.dyn._prerollAd.once("ad-loaded", function(ad) {
+                this.dyn._prerollAd.once("adloaded", function(ad) {
                     if (typeof ad !== "undefined") {
                         // If ad type is non-lienar like image banner need to load video
                         if (!ad.isLinear()) {
@@ -7476,7 +7540,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Preroll", [
                     }
                 }, this);
 
-                this.dyn._prerollAd.once("finished", function() {
+                this.dyn._prerollAd.on("adfinished", function() {
                     this.next("LoadVideo");
                 }, this);
 
@@ -7537,6 +7601,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
         dynamics: ["loader"],
 
         _started: function() {
+            // Just in case set to null preload
+            this.dyn._prerollAd = null;
             if (!this.dyn.get("videoelement_active")) {
                 this.listenOn(this.dyn, "error:attach", function() {
                     this.next("LoadError");
@@ -7564,9 +7630,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
                     this.dyn.execute("seek", this.dyn.get("autoseek"));
                 this.next("PlayVideo");
             }, this);
-            if (this.dyn.get("skipinitial") && !this.dyn.get("autoplay"))
+            if (this.dyn.get("skipinitial") && !this.dyn.get("autoplay")) {
                 this.next("PlayVideo");
-            else {
+            } else {
                 var counter = 10;
                 this.auto_destroy(new Timer({
                     context: this,
@@ -7607,7 +7673,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.ErrorVideo", [
     });
 });
 
-
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
     "module:VideoPlayer.Dynamics.PlayerStates.State"
 ], function(State, scoped) {
@@ -7630,7 +7695,10 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
             }, this);
             this.listenOn(this.dyn, "ended", function() {
                 this.dyn.set("autoseek", null);
-                this.next("NextVideo");
+                if (this.dyn._postrollAd)
+                    this._playPostrollAd();
+                else
+                    this.next("NextVideo");
             }, this);
             this.listenOn(this.dyn, "change:buffering", function() {
                 this.dyn.set("loader_active", this.dyn.get("buffering"));
@@ -7643,8 +7711,26 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
         play: function() {
             if (!this.dyn.get("playing"))
                 this.dyn.player.play();
-        }
+        },
 
+        _playPostrollAd: function() {
+            // Actually it should be prepare ad, because older name convention leave as it's
+            this.dyn._postrollAd.executeAd({
+                width: this.dyn.parentWidth(),
+                height: this.dyn.parentHeight()
+            });
+            this.dyn._postrollAd.once("adfinished", function() {
+                this.dyn._postrollAd.weakDestroy();
+                this.dyn._postrollAd = null;
+                this.next("NextVideo");
+            }, this);
+            this.dyn._postrollAd.on("ad-error", function(message) {
+                console.error('Error during loading an ad. Details:"' + message + '".');
+                this.dyn._postrollAd.weakDestroy();
+                this.dyn._postrollAd = null;
+                this.next("NextVideo");
+            }, this);
+        }
     });
 });
 

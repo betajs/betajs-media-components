@@ -149,8 +149,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Trimmer", [
                             var promise = Promise.create();
                             var video = document.createElement("video");
                             var source = this.get("source").src || this.get("source");
-                            video.src = URL.createObjectURL(source);
+                            video.src = typeof source === "string" ? source : URL.createObjectURL(source);
                             video.addEventListener("loadedmetadata", function() {
+                                if (!this.get("duration")) this.set("duration", video.duration);
                                 this._internalVideoElement = video;
                                 this._canvasHeight = 34; // TODO calculate instead of hard coding value
                                 this._canvasWidth = this._canvasHeight * video.videoWidth / video.videoHeight;
@@ -196,7 +197,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Trimmer", [
                 },
 
                 create: function() {
-                    if (typeof this.get("source") === "string") return;
                     this._events = this.auto_destroy(new DomEvents());
                     this._progressBarElement = this.activeElement().querySelector("[data-selector='progressbar'");
                     this._selectionElement = this.activeElement().querySelector("[data-selector='selection']");

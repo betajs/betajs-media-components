@@ -6,8 +6,8 @@
     <!-- progressbar -->
     <div
         class="{{csstrimmer}}-progress-bar"
-        ontouchstart="{{handleProgressBarClick(event)}}"
-        onmousedown="{{handleProgressBarClick(event)}}"
+        ontouchstart="{{handleProgressBarClick(domEvent)}}"
+        onmousedown="{{handleProgressBarClick(domEvent)}}"
         data-selector="progressbar"
     >
         <!-- snapshots -->
@@ -23,8 +23,8 @@
         <!-- selection -->
         <div
             class="{{csstrimmer}}-selection {{csscommon}}-accent-color-border"
-            ontouchstart="{{handleSelectionClick(event)}}"
-            onmousedown="{{handleSelectionClick(event)}}"
+            ontouchstart="{{handleSelectionClick(domEvent)}}"
+            onmousedown="{{handleSelectionClick(domEvent)}}"
             data-selector="selection"
             style="
                 left: calc({{duration && startposition ? startposition / duration * 100 : 0}}% - 4px);

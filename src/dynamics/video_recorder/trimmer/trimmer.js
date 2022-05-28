@@ -44,7 +44,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Trimmer", [
                     togglePlay: function() {
                         this.trigger(this.get("playing") ? "pause" : "play");
                     },
-                    handleSelectionClick: function(event) {
+                    handleSelectionClick: function(events) {
+                        var event = events[0];
                         event.preventDefault();
                         if (event.type === "mousedown" && event.button !== 0) return;
                         var clientX = this.call("getClientX", event);
@@ -60,7 +61,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Trimmer", [
                         else this.call("attachUpdatePositionEventListeners", clientX, "endposition");
                     },
 
-                    handleProgressBarClick: function(event) {
+                    handleProgressBarClick: function(events) {
+                        var event = events[0];
                         event.preventDefault();
                         if (event.type === "mousedown" && event.button !== 0) return;
                         var clientX = this.call("getClientX", event);

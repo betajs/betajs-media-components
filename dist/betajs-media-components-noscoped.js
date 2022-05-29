@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.302 - 2022-05-25
+betajs-media-components - v0.0.303 - 2022-05-28
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.302",
-    "datetime": 1653505224330
+    "version": "0.0.303",
+    "datetime": 1653791880778
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -11850,7 +11850,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Trimmer", [
             scoped: scoped
         }, function(inherited) {
             return {
-                template: "<div class=\"{{csstrimmer}}-container {{csscommon}}-accent-color-bg\">\n    \n    <button ba-click=\"{{togglePlay()}}\" class=\"{{csstrimmer}}-button-play\" aria-label=\"{{playing || wasPlaying ? 'Pause' : 'Play'}}\">\n        <i class=\"{{csscommon + '-icon-' + (playing || wasPlaying ? 'pause' : 'play')}} {{csscommon}}-accent-color\"></i>\n    </button>\n    \n    <div\n        class=\"{{csstrimmer}}-progress-bar\"\n        ontouchstart=\"{{handleProgressBarClick(event)}}\"\n        onmousedown=\"{{handleProgressBarClick(event)}}\"\n        data-selector=\"progressbar\"\n    >\n        \n        <div\n            class=\"{{csstrimmer}}-snapshots\"\n            data-selector=\"snapshots\"\n        ></div>\n        \n        <div\n            class=\"{{csstrimmer}}-playhead\"\n            style=\"left: calc({{duration ? position / duration * 100 : 0}}% - 1px)\"\n        ></div>\n        \n        <div\n            class=\"{{csstrimmer}}-selection {{csscommon}}-accent-color-border\"\n            ontouchstart=\"{{handleSelectionClick(event)}}\"\n            onmousedown=\"{{handleSelectionClick(event)}}\"\n            data-selector=\"selection\"\n            style=\"\n                left: calc({{duration && startposition ? startposition / duration * 100 : 0}}% - 4px);\n                right: calc({{100 - (duration && endposition ? endposition / duration * 100 : 100)}}% - 4px);\n            \"\n        ></div>\n    </div>\n    \n    <div class=\"{{csstrimmer}}-right-button-container\">\n        \n        <button\n            class=\"{{csscommon}}-{{trimButtonEnabled ? 'accent-color-bg' : 'disabled'}} {{csstrimmer}}-button-trim\"\n            ba-click=\"{{trim()}}\"\n        >Trim</button>\n        \n        <button\n            class=\"{{csstrimmer}}-button-skip\"\n            ba-click=\"{{skip()}}\"\n        >Skip</button>\n    </div>\n</div>",
+                template: "<div class=\"{{csstrimmer}}-container {{csscommon}}-accent-color-bg\">\n    \n    <button ba-click=\"{{togglePlay()}}\" class=\"{{csstrimmer}}-button-play\" aria-label=\"{{playing || wasPlaying ? 'Pause' : 'Play'}}\">\n        <i class=\"{{csscommon + '-icon-' + (playing || wasPlaying ? 'pause' : 'play')}} {{csscommon}}-accent-color\"></i>\n    </button>\n    \n    <div\n        class=\"{{csstrimmer}}-progress-bar\"\n        ontouchstart=\"{{handleProgressBarClick(domEvent)}}\"\n        onmousedown=\"{{handleProgressBarClick(domEvent)}}\"\n        data-selector=\"progressbar\"\n    >\n        \n        <div\n            class=\"{{csstrimmer}}-snapshots\"\n            data-selector=\"snapshots\"\n        ></div>\n        \n        <div\n            class=\"{{csstrimmer}}-playhead\"\n            style=\"left: calc({{duration ? position / duration * 100 : 0}}% - 1px)\"\n        ></div>\n        \n        <div\n            class=\"{{csstrimmer}}-selection {{csscommon}}-accent-color-border\"\n            ontouchstart=\"{{handleSelectionClick(domEvent)}}\"\n            onmousedown=\"{{handleSelectionClick(domEvent)}}\"\n            data-selector=\"selection\"\n            style=\"\n                left: calc({{duration && startposition ? startposition / duration * 100 : 0}}% - 4px);\n                right: calc({{100 - (duration && endposition ? endposition / duration * 100 : 100)}}% - 4px);\n            \"\n        ></div>\n    </div>\n    \n    <div class=\"{{csstrimmer}}-right-button-container\">\n        \n        <button\n            class=\"{{csscommon}}-{{trimButtonEnabled ? 'accent-color-bg' : 'disabled'}} {{csstrimmer}}-button-trim\"\n            ba-click=\"{{trim()}}\"\n        >Trim</button>\n        \n        <button\n            class=\"{{csstrimmer}}-button-skip\"\n            ba-click=\"{{skip()}}\"\n        >Skip</button>\n    </div>\n</div>",
 
                 attrs: {
                     "csscommon": "ba-commoncss",
@@ -11887,7 +11887,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Trimmer", [
                     togglePlay: function() {
                         this.trigger(this.get("playing") ? "pause" : "play");
                     },
-                    handleSelectionClick: function(event) {
+                    handleSelectionClick: function(events) {
+                        var event = events[0];
                         event.preventDefault();
                         if (event.type === "mousedown" && event.button !== 0) return;
                         var clientX = this.call("getClientX", event);
@@ -11903,7 +11904,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Trimmer", [
                         else this.call("attachUpdatePositionEventListeners", clientX, "endposition");
                     },
 
-                    handleProgressBarClick: function(event) {
+                    handleProgressBarClick: function(events) {
+                        var event = events[0];
                         event.preventDefault();
                         if (event.type === "mousedown" && event.button !== 0) return;
                         var clientX = this.call("getClientX", event);
@@ -11992,8 +11994,9 @@ Scoped.define("module:VideoRecorder.Dynamics.Trimmer", [
                             var promise = Promise.create();
                             var video = document.createElement("video");
                             var source = this.get("source").src || this.get("source");
-                            video.src = URL.createObjectURL(source);
+                            video.src = typeof source === "string" ? source : URL.createObjectURL(source);
                             video.addEventListener("loadedmetadata", function() {
+                                if (!this.get("duration")) this.set("duration", video.duration);
                                 this._internalVideoElement = video;
                                 this._canvasHeight = 34; // TODO calculate instead of hard coding value
                                 this._canvasWidth = this._canvasHeight * video.videoWidth / video.videoHeight;
@@ -12039,7 +12042,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Trimmer", [
                 },
 
                 create: function() {
-                    if (typeof this.get("source") === "string") return;
                     this._events = this.auto_destroy(new DomEvents());
                     this._progressBarElement = this.activeElement().querySelector("[data-selector='progressbar'");
                     this._selectionElement = this.activeElement().querySelector("[data-selector='selection']");
@@ -12059,7 +12061,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Trimmer", [
         })
         .register("ba-videorecorder-trimmer")
         .registerFunctions({
-            /**/"csstrimmer": function (obj) { return obj.csstrimmer; }, "csscommon": function (obj) { return obj.csscommon; }, "togglePlay()": function (obj) { return obj.togglePlay(); }, "playing || wasPlaying ? 'Pause' : 'Play'": function (obj) { return obj.playing || obj.wasPlaying ? 'Pause' : 'Play'; }, "csscommon + '-icon-' + (playing || wasPlaying ? 'pause' : 'play')": function (obj) { return obj.csscommon + '-icon-' + (obj.playing || obj.wasPlaying ? 'pause' : 'play'); }, "handleProgressBarClick(event)": function (obj) { return obj.handleProgressBarClick(obj.event); }, "duration ? position / duration * 100 : 0": function (obj) { return obj.duration ? obj.position / obj.duration * 100 : 0; }, "handleSelectionClick(event)": function (obj) { return obj.handleSelectionClick(obj.event); }, "duration && startposition ? startposition / duration * 100 : 0": function (obj) { return obj.duration && obj.startposition ? obj.startposition / obj.duration * 100 : 0; }, "100 - (duration && endposition ? endposition / duration * 100 : 100)": function (obj) { return 100 - (obj.duration && obj.endposition ? obj.endposition / obj.duration * 100 : 100); }, "trimButtonEnabled ? 'accent-color-bg' : 'disabled'": function (obj) { return obj.trimButtonEnabled ? 'accent-color-bg' : 'disabled'; }, "trim()": function (obj) { return obj.trim(); }, "skip()": function (obj) { return obj.skip(); }/**/
+            /**/"csstrimmer": function (obj) { return obj.csstrimmer; }, "csscommon": function (obj) { return obj.csscommon; }, "togglePlay()": function (obj) { return obj.togglePlay(); }, "playing || wasPlaying ? 'Pause' : 'Play'": function (obj) { return obj.playing || obj.wasPlaying ? 'Pause' : 'Play'; }, "csscommon + '-icon-' + (playing || wasPlaying ? 'pause' : 'play')": function (obj) { return obj.csscommon + '-icon-' + (obj.playing || obj.wasPlaying ? 'pause' : 'play'); }, "handleProgressBarClick(domEvent)": function (obj) { return obj.handleProgressBarClick(obj.domEvent); }, "duration ? position / duration * 100 : 0": function (obj) { return obj.duration ? obj.position / obj.duration * 100 : 0; }, "handleSelectionClick(domEvent)": function (obj) { return obj.handleSelectionClick(obj.domEvent); }, "duration && startposition ? startposition / duration * 100 : 0": function (obj) { return obj.duration && obj.startposition ? obj.startposition / obj.duration * 100 : 0; }, "100 - (duration && endposition ? endposition / duration * 100 : 100)": function (obj) { return 100 - (obj.duration && obj.endposition ? obj.endposition / obj.duration * 100 : 100); }, "trimButtonEnabled ? 'accent-color-bg' : 'disabled'": function (obj) { return obj.trimButtonEnabled ? 'accent-color-bg' : 'disabled'; }, "trim()": function (obj) { return obj.trim(); }, "skip()": function (obj) { return obj.skip(); }/**/
         });
 });
 Scoped.define("module:ImageViewer.Dynamics.Controlbar", [

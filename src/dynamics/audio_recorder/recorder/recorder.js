@@ -227,7 +227,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                         stateRegistry: new ClassRegistry(this.cls.recorderStates())
                     });
                     this.host.dynamic = this;
-                    this.host.initialize(InitialState);
+                    this.host.initialize(this._initialState);
 
                     this._timer = new Timers.Timer({
                         context: this,
@@ -238,6 +238,8 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
 
                     this._initSettings();
                 },
+
+                _initialState: InitialState,
 
                 state: function() {
                     return this.host.state();

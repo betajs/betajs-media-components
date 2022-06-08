@@ -452,7 +452,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         stateRegistry: new ClassRegistry(this.cls.recorderStates())
                     });
                     this.host.dynamic = this;
-                    this.host.initialize(InitialState);
+                    this.host.initialize(this._initialState);
 
                     this._timer = new Timers.Timer({
                         context: this,
@@ -480,6 +480,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     this.set("currentorientation", window.innerHeight > window.innerWidth ? "portrait" : "landscape");
                     this._screenRecorderVerifier();
                 },
+
+                _initialState: InitialState,
 
                 state: function() {
                     return this.host.state();

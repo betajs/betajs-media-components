@@ -216,7 +216,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                         stateRegistry: new ClassRegistry(this.cls.playerStates())
                     });
                     this.host.dynamic = this;
-                    this.host.initialize(InitialState);
+                    this.host.initialize(this._initialState);
 
                     this._timer = new Timers.Timer({
                         context: this,
@@ -225,6 +225,8 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                         start: true
                     });
                 },
+
+                _initialState: InitialState,
 
                 state: function() {
                     return this.host.state();

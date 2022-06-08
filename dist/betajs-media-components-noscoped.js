@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.303 - 2022-05-28
+betajs-media-components - v0.0.304 - 2022-06-08
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.303",
-    "datetime": 1653791880778
+    "version": "0.0.304",
+    "datetime": 1654678766393
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -6016,7 +6016,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         stateRegistry: new ClassRegistry(this.cls.playerStates())
                     });
                     this.host.dynamic = this;
-                    this.host.initialize(InitialState);
+                    this.host.initialize(this._initialState);
 
                     this._timer = new Timers.Timer({
                         context: this,
@@ -6048,6 +6048,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }, this);
                     }
                 },
+
+                _initialState: InitialState,
 
                 state: function() {
                     return this.host.state();
@@ -9130,7 +9132,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         stateRegistry: new ClassRegistry(this.cls.recorderStates())
                     });
                     this.host.dynamic = this;
-                    this.host.initialize(InitialState);
+                    this.host.initialize(this._initialState);
 
                     this._timer = new Timers.Timer({
                         context: this,
@@ -9158,6 +9160,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     this.set("currentorientation", window.innerHeight > window.innerWidth ? "portrait" : "landscape");
                     this._screenRecorderVerifier();
                 },
+
+                _initialState: InitialState,
 
                 state: function() {
                     return this.host.state();
@@ -12950,7 +12954,7 @@ Scoped.define("module:ImageCapture.Dynamics.Recorder", [
                         stateRegistry: new ClassRegistry(this.cls.recorderStates())
                     });
                     this.host.dynamic = this;
-                    this.host.initialize(InitialState);
+                    this.host.initialize(this._initialState);
 
                     this._timer = new Timers.Timer({
                         context: this,
@@ -12966,6 +12970,8 @@ Scoped.define("module:ImageCapture.Dynamics.Recorder", [
                         this.set("orientation", false);
                     this.set("currentorientation", window.innerHeight > window.innerWidth ? "portrait" : "landscape");
                 },
+
+                _initialState: InitialState,
 
                 state: function() {
                     return this.host.state();
@@ -14755,7 +14761,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                         stateRegistry: new ClassRegistry(this.cls.playerStates())
                     });
                     this.host.dynamic = this;
-                    this.host.initialize(InitialState);
+                    this.host.initialize(this._initialState);
 
                     this._timer = new Timers.Timer({
                         context: this,
@@ -14764,6 +14770,8 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                         start: true
                     });
                 },
+
+                _initialState: InitialState,
 
                 state: function() {
                     return this.host.state();
@@ -16055,7 +16063,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                         stateRegistry: new ClassRegistry(this.cls.recorderStates())
                     });
                     this.host.dynamic = this;
-                    this.host.initialize(InitialState);
+                    this.host.initialize(this._initialState);
 
                     this._timer = new Timers.Timer({
                         context: this,
@@ -16066,6 +16074,8 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
 
                     this._initSettings();
                 },
+
+                _initialState: InitialState,
 
                 state: function() {
                     return this.host.state();

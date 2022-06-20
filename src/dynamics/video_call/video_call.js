@@ -47,6 +47,30 @@ Scoped.define("module:VideoCall.Dynamics.Call", [
                     }
                 },
 
+                events: {
+                    "change:local_camera_active": function(active) {
+                        if (!this.get("local_stream")) return;
+                        this.get("local_stream").getVideoTracks()[0].enabled = active;
+                        if (!this._dataChannelIsReady()) return;
+                        this._dataChannel.send(JSON.stringify({
+                            remote_camera_active: active
+                        }));
+                    },
+                    "change:local_microphone_active": function(active) {
+                        if (!this.get("local_stream")) return;
+                        this.get("local_stream").getAudioTracks()[0].enabled = active;
+                        if (!this._dataChannelIsReady()) return;
+                        this._dataChannel.send(JSON.stringify({
+                            remote_microphone_active: active
+                        }));
+                    },
+                    "change:local_stream": function(stream) {
+                        if (!stream) return;
+                        this.get("local_stream").getVideoTracks()[0].enabled = !!this.get("local_camera_active");
+                        this.get("local_stream").getAudioTracks()[0].enabled = !!this.get("local_microphone_active");
+                    }
+                },
+
                 _afterActivate: function(element) {
                     inherited._afterActivate.call(this, element);
                     this.persistentTrigger("loaded");
@@ -81,6 +105,33 @@ Scoped.define("module:VideoCall.Dynamics.Call", [
                         connectionPromise.asyncSuccess();
                     }.bind(this), 1000);
                     return connectionPromise;
+                },
+
+                _createPeerConnection: function(configuration) {
+                    if (this._peerConnection) return;
+                    this._peerConnection = new RTCPeerConnection(configuration);
+                    this._createDataChannel();
+                },
+
+                _createDataChannel: function() {
+                    if (!this._peerConnection) return;
+                    this._dataChannel = this._peerConnection.createDataChannel("call", {
+                        negotiated: true,
+                        id: 0
+                    });
+                    this._dataChannel.onopen = function(event) {
+                        this._dataChannel.send(JSON.stringify({
+                            remote_camera_active: this.get("local_camera_active"),
+                            remote_microphone_active: this.get("local_microphone_active")
+                        }));
+                    }.bind(this);
+                    this._dataChannel.onmessage = function(event) {
+                        this.setAll(JSON.parse(event.data));
+                    }.bind(this);
+                },
+
+                _dataChannelIsReady: function() {
+                    return this._dataChannel && this._dataChannel.readyState === "open";
                 }
             };
         }, {

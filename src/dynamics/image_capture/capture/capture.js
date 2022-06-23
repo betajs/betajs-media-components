@@ -249,6 +249,10 @@ Scoped.define("module:ImageCapture.Dynamics.Recorder", [
                     return "image";
                 },
 
+                getImageFile: function() {
+                    return this._imageFile || (this.recorder && this.recorder.localPlaybackSource()) || null;
+                },
+
                 _initialState: InitialState,
 
                 state: function() {

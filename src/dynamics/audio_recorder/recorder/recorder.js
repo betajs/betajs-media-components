@@ -243,6 +243,10 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     return "audio";
                 },
 
+                getAudioFile: function() {
+                    return this._audioFile || (this.recorder && this.recorder.localPlaybackSource()) || null;
+                },
+
                 _initialState: InitialState,
 
                 state: function() {

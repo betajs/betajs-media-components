@@ -485,6 +485,14 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     return "video";
                 },
 
+                getCovershotFile: function() {
+                    return this.__lastCovershotUpload;
+                },
+
+                getVideoFile: function() {
+                    return this._videoFile || (this.recorder && this.recorder.localPlaybackSource()) || null;
+                },
+
                 _initialState: InitialState,
 
                 state: function() {

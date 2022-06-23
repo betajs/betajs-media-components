@@ -157,6 +157,10 @@ Scoped.define("module:ImageViewer.Dynamics.ImageViewer", [
                     });
                 },
 
+                getMediaType: function() {
+                    return "image";
+                },
+
                 _keyDownActivity: function(element, ev) {
                     var _keyCode = ev.which || ev.keyCode;
                     // Prevent whitespace browser center scroll and arrow buttons behaviours

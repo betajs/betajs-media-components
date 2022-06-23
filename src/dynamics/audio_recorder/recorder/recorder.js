@@ -239,6 +239,10 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     this._initSettings();
                 },
 
+                getMediaType: function() {
+                    return "audio";
+                },
+
                 _initialState: InitialState,
 
                 state: function() {

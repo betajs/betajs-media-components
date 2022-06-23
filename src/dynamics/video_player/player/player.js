@@ -575,6 +575,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }
                 },
 
+                getMediaType: function() {
+                    return "video";
+                },
+
                 _initialState: InitialState,
 
                 state: function() {

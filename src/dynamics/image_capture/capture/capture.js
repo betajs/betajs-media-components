@@ -245,6 +245,10 @@ Scoped.define("module:ImageCapture.Dynamics.Recorder", [
                     this.set("currentorientation", window.innerHeight > window.innerWidth ? "portrait" : "landscape");
                 },
 
+                getMediaType: function() {
+                    return "image";
+                },
+
                 _initialState: InitialState,
 
                 state: function() {

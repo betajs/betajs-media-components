@@ -226,6 +226,10 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     });
                 },
 
+                getMediaType: function() {
+                    return "audio";
+                },
+
                 _initialState: InitialState,
 
                 state: function() {

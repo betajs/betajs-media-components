@@ -481,6 +481,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     this._screenRecorderVerifier();
                 },
 
+                getMediaType: function() {
+                    return "video";
+                },
+
                 _initialState: InitialState,
 
                 state: function() {

@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.304 - 2022-06-08
+betajs-media-components - v0.0.305 - 2022-06-23
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.304",
-    "datetime": 1654678766393
+    "version": "0.0.305",
+    "datetime": 1655995184699
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -6049,6 +6049,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }
                 },
 
+                getMediaType: function() {
+                    return "video";
+                },
+
                 _initialState: InitialState,
 
                 state: function() {
@@ -9159,6 +9163,18 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         this.set("orientation", false);
                     this.set("currentorientation", window.innerHeight > window.innerWidth ? "portrait" : "landscape");
                     this._screenRecorderVerifier();
+                },
+
+                getMediaType: function() {
+                    return "video";
+                },
+
+                getCovershotFile: function() {
+                    return this.__lastCovershotUpload;
+                },
+
+                getVideoFile: function() {
+                    return this._videoFile || (this.recorder && this.recorder.localPlaybackSource()) || null;
                 },
 
                 _initialState: InitialState,
@@ -12345,6 +12361,10 @@ Scoped.define("module:ImageViewer.Dynamics.ImageViewer", [
                     });
                 },
 
+                getMediaType: function() {
+                    return "image";
+                },
+
                 _keyDownActivity: function(element, ev) {
                     var _keyCode = ev.which || ev.keyCode;
                     // Prevent whitespace browser center scroll and arrow buttons behaviours
@@ -12969,6 +12989,14 @@ Scoped.define("module:ImageCapture.Dynamics.Recorder", [
                     if (!Info.isMobile())
                         this.set("orientation", false);
                     this.set("currentorientation", window.innerHeight > window.innerWidth ? "portrait" : "landscape");
+                },
+
+                getMediaType: function() {
+                    return "image";
+                },
+
+                getImageFile: function() {
+                    return this._imageFile || (this.recorder && this.recorder.localPlaybackSource()) || null;
                 },
 
                 _initialState: InitialState,
@@ -14771,6 +14799,10 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     });
                 },
 
+                getMediaType: function() {
+                    return "audio";
+                },
+
                 _initialState: InitialState,
 
                 state: function() {
@@ -16073,6 +16105,14 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     });
 
                     this._initSettings();
+                },
+
+                getMediaType: function() {
+                    return "audio";
+                },
+
+                getAudioFile: function() {
+                    return this._audioFile || (this.recorder && this.recorder.localPlaybackSource()) || null;
                 },
 
                 _initialState: InitialState,

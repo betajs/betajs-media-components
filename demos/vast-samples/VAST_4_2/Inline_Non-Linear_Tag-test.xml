@@ -35,17 +35,6 @@
               <Tracking event="overlayViewDuration"><![CDATA[https://localhost:5050/ad/overlayViewDuration]]></Tracking>
               <Tracking event="otherAdInteraction"><![CDATA[https://localhost:5050/ad/otherAdInteraction]]></Tracking>
             </TrackingEvents>
-            <NonLinear width="720" height="90" timeOffset="00:00:05">
-              <StaticResource creativeType="image/jpeg">
-                <![CDATA[//localhost:5050/static/demos/assets/vast/ad-banner-728x90.jpeg]]>
-              </StaticResource>
-              <NonLinearClickThrough>
-                <![CDATA[https://ziggeo.com]]>
-              </NonLinearClickThrough>
-              <NonLinearClickTracking>
-                <![CDATA[//localhost:5050/ad/clickTracking]]>
-              </NonLinearClickTracking>
-            </NonLinear>
             <NonLinear width="300" height="250" timeOffset="00:00:20">
               <StaticResource creativeType="image/jpeg">
                 <![CDATA[//localhost:5050/static/demos/assets/vast/ad-rectangle-300x250.jpeg]]>
@@ -55,6 +44,17 @@
               </NonLinearClickThrough>
               <NonLinearClickTracking>
                 <![CDATA[//localhost:5050/ad/clickTracking-300-250]]>
+              </NonLinearClickTracking>
+            </NonLinear>
+            <NonLinear width="720" height="90" timeOffset="00:00:05">
+              <StaticResource creativeType="image/jpeg">
+                <![CDATA[//localhost:5050/static/demos/assets/vast/ad-banner-728x90.jpeg]]>
+              </StaticResource>
+              <NonLinearClickThrough>
+                <![CDATA[https://ziggeo.com]]>
+              </NonLinearClickThrough>
+              <NonLinearClickTracking>
+                <![CDATA[//localhost:5050/ad/clickTracking]]>
               </NonLinearClickTracking>
             </NonLinear>
           </NonLinearAds>

@@ -177,8 +177,11 @@ Scoped.define("module:Ads.IMARequester", [
                         this.trigger('adloaded', ad);
                         break;
                     case google.ima.AdEvent.Type.ALL_ADS_COMPLETED:
-                        this.trigger('adfinished');
                         if (this._adControlbar) this._adControlbar.destroy();
+                        if (this._adsPosition === this._adsProvider.__IMA_POST_ROLL && this._dyn) {
+                            this._dyn.stop();
+                        }
+                        this.trigger('adfinished');
                         break;
                     case google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED:
                         this._isShowing = true;
@@ -189,7 +192,9 @@ Scoped.define("module:Ads.IMARequester", [
                         if (this._options)
                             this._options.adElement.style.display = "none";
                         if (this._dyn && ad.isLinear()) {
-                            if (!this._dyn.get("playing")) this._dyn.play();
+                            if (!this._dyn.get("playing") && this._adsPosition !== this._adsProvider.__IMA_POST_ROLL) {
+                                this._dyn.play();
+                            }
                         }
                         this._isShowing = false;
                         break;

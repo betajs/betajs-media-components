@@ -10,7 +10,8 @@
     <div ba-if="{{showbanner && media}}" class="{{cssplayer}}-ad-media-container"
          data-ads="banner-ad-container"
     >
-        <img class="{{css}}-banner-ad" src="{{media}}" alt="{{title || 'ad banner image'}}" />
+        <!-- While `customnonlinear` not supporting, below gives error on each ad start -->
+        <!-- <img ba-show="{{media}}" class="{{css}}-banner-ad" src="{{media}}" alt="{{title || 'ad banner image'}}" /> -->
         <span class="{{cssplayer}}-ad-banner-close-button"
               ba-click="{{skip_non_linear_ad()}}"
         >

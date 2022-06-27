@@ -81,12 +81,13 @@
         ba-source="sample-video.mp4"
         ba-theme="modern"
         ba-adprovider="ima"
-        ba-non-linear="52[,250], 40%[300], 19[,250], 2[480,70]"
+        ba-linear="pre,mid[36, 44, 14, 40%], post"
+        ba-non-linear="52[,250], 55%[300], 19[,250], 2[480,70]"
     ></ba-videoplayer>
+<!--    ba-non-linear="52[,250], 40%[300], 13[300,250], 2[480,70]"-->
     <!-- 40% == 24sec   -->
 <!-- 45% == 27sec   -->
 <!--    ba-non-linear="40[,90], 50%, 20[720,90], 45[250]"-->
-    <!--    ba-linear="pre,mid[36, 44, 14, 45%], post"-->
     <!--    ba-non-linear="40, 50%[720,90], 20[,90], 45[250]", based on player dimension it could be 720x90 or 300x50 -->
     <!-- If will not set ba-non-linear dimensions it will be based on video player dimenstions
     , also if will be set only one side dimension it will be not look for exact match advertisement, but only partial

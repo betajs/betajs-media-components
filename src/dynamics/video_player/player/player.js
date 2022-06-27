@@ -118,7 +118,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "linear": null,
                     "non-linear": null,
                     "linearadplayer": true,
-                    "customnonlinear": false,
+                    "customnonlinear": false, // Currently, not fully suported
                     "non-linear-min-duration": 10,
                     "mid-linear-ad": [],
                     "non-linear-ad": [],

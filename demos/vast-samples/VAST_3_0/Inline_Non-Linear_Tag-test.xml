@@ -1,53 +1,143 @@
-<VAST version="3.0">
-    <Ad id="20005">
+<VAST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vast.xsd" version="3.0">
+    <Ad id="5933136122">
         <InLine>
-            <AdSystem version="4.0">iabtechlab</AdSystem>
-            <AdTitle>
-                NonLinear Image
-            </AdTitle>
+            <AdSystem>GDFP</AdSystem>
+            <AdTitle>External - Non-linear Inline</AdTitle>
             <Description>
-                <![CDATA[VAST 3.0 sample tag for Non Linear ad (i.e Overlay ad). Change the StaticResources to have a tag with your own content. Change NonLinear tag's parameters accordingly to view desired results. ]]>
+                <![CDATA[ External - Non-linear Inline ad ]]>
             </Description>
-            <Pricing model="cpm" currency="USD">
-                <![CDATA[ 25.00 ]]>
-            </Pricing>
             <Error>
-            <![CDATA[
-            https://localhost:5050/ad/error
-            ]]>
+                <![CDATA[//localhost:5050/ad/error]]>
             </Error>
-            <Impression id="Impression-ID">
-            <![CDATA[
-            https://localhost:5050/ad/impression
-            ]]>
+            <Impression>
+                <![CDATA[//localhost:5050/ad/impression]]>
             </Impression>
-
             <Creatives>
-                <Creative id="5480" sequence="1">
+                <Creative id="138382391559" sequence="1">
                     <NonLinearAds>
-                        <NonLinear width="480" height="150" minSuggestedDuration="00:00:05" scalable="true" maintainAspectRatio="true">
+                        <TrackingEvents>
+                            <Tracking event="start">
+                                <![CDATA[//localhost:5050/ad/tracking-start]]>
+                            </Tracking>
+                            <Tracking event="firstQuartile">
+                                <![CDATA[//localhost:5050/ad/tracking-firstQuartile]]>
+                            </Tracking>
+                            <Tracking event="midpoint">
+                                <![CDATA[//localhost:5050/ad/tracking-midpoint]]>
+                            </Tracking>
+                            <Tracking event="thirdQuartile">
+                                <![CDATA[//localhost:5050/ad/tracking-thirdQuartile]]>
+                            </Tracking>
+                            <Tracking event="complete">
+                                <![CDATA[//localhost:5050/ad/tracking-complete]]>
+                            </Tracking>
+                            <Tracking event="mute">
+                                <![CDATA[//localhost:5050/ad/tracking-mute]]>
+                            </Tracking>
+                            <Tracking event="unmute">
+                                <![CDATA[//localhost:5050/ad/tracking-unmute]]>
+                            </Tracking>
+                            <Tracking event="rewind">
+                                <![CDATA[//localhost:5050/ad/tracking-rewind]]>
+                            </Tracking>
+                            <Tracking event="pause">
+                                <![CDATA[//localhost:5050/ad/tracking-pause]]>
+                            </Tracking>
+                            <Tracking event="resume">
+                                <![CDATA[//localhost:5050/ad/tracking-resume]]>
+                            </Tracking>
+                            <Tracking event="creativeView">
+                                <![CDATA[//localhost:5050/ad/tracking-creativeView]]>
+                            </Tracking>
+                            <Tracking event="fullscreen">
+                                <![CDATA[ //localhost:5050/ad/tracking-fullscreen ]]>
+                            </Tracking>
+                            <Tracking event="close">
+                                <![CDATA[ //localhost:5050/ad/tracking-close ]]>
+                            </Tracking>
+                            <Tracking event="acceptInvitation">
+                                <![CDATA[ //localhost:5050/ad/tracking-acceptInvitation ]]>
+                            </Tracking>
+                            <Tracking event="expand">
+                                <![CDATA[ //localhost:5050/ad/tracking-expand ]]>
+                            </Tracking>
+                            <Tracking event="collapse">
+                                <![CDATA[ //localhost:5050/ad/tracking-collapse ]]>
+                            </Tracking>
+                            <Tracking event="exitFullscreen">
+                                <![CDATA[ //localhost:5050/ad/tracking-exitFullscreen ]]>
+                            </Tracking>
+                        </TrackingEvents>
+                        <NonLinear id="GDFP" width="480" height="70" minSuggestedDuration="00:00:05" scalable="true" maintainAspectRatio="true">
                             <StaticResource creativeType="image/png">
-                                <![CDATA[
-                                http://mms.businesswire.com/media/20150623005446/en/473787/21/iab_tech_lab.jpg
-                            ]]>
+                                <![CDATA[ //localhost:5050/static/demos/assets/vast/ad-banner-480x70.png ]]>
                             </StaticResource>
-
+                            <NonLinearClickThrough>
+                                <![CDATA[ https://ziggeo.com ]]>
+                            </NonLinearClickThrough>
                             <NonLinearClickTracking>
-                                <![CDATA[http://localhost:5050/ad/clickTracking]]>
+                                <![CDATA[//localhost:5050/ad/tracking-480x70_clicked]]>
                             </NonLinearClickTracking>
-        					<NonLinearClickThrough>
-        						<![CDATA[http://iabtechlab.com]]>
-        					</NonLinearClickThrough>
-
-        				</NonLinear>
-			         </NonLinearAds>
+                        </NonLinear>
+                    </NonLinearAds>
+                </Creative>
+                <Creative id="138381056765" sequence="1">
+                    <CompanionAds>
+                        <Companion id="138381056765" width="300" height="250">
+                            <StaticResource creativeType="image/jpeg">
+                                <![CDATA[//localhost:5050/static/demos/assets/vast/ad-rectangle-300x250.jpeg ]]>
+                            </StaticResource>
+                            <TrackingEvents>
+                                <Tracking event="creativeView">
+                                    <![CDATA[//localhost:5050/ad/tracking-300x250_creativeView ]]>
+                                </Tracking>
+                            </TrackingEvents>
+                            <CompanionClickThrough>
+                                <![CDATA[//localhost:5050/static/demos/assets/vast/ad-rectangle-300x250.jpeg ]]>
+                            </CompanionClickThrough>
+                        </Companion>
+                        <Companion id="138381188849" width="728" height="90">
+                            <StaticResource creativeType="image/jpeg">
+                                <![CDATA[ //localhost:5050/static/demos/assets/vast/ad-banner-728x90.jpeg ]]>
+                            </StaticResource>
+                            <TrackingEvents>
+                                <Tracking event="creativeView">
+                                    <![CDATA[//localhost:5050/ad/tracking-728x90_creativeView ]]>
+                                </Tracking>
+                            </TrackingEvents>
+                            <CompanionClickThrough>
+                                <![CDATA[ //localhost:5050/ad/tracking-companion ]]>
+                            </CompanionClickThrough>
+                        </Companion>
+                    </CompanionAds>
                 </Creative>
             </Creatives>
             <Extensions>
-                <Extension type="iab-Count">
-                    <total_available>
-                        <![CDATA[ 2 ]]>
-                    </total_available>
+                <Extension type="geo">
+                    <Country>AZ</Country>
+                    <Bandwidth>4</Bandwidth>
+                    <BandwidthKbps>11440</BandwidthKbps>
+                </Extension>
+                <Extension type="metrics">
+                    <FeEventId>enizYv_KHbmL9u8PkoCw0Ac</FeEventId>
+                    <AdEventId>CJzl7IjwwfgCFQGc_QcdgHoIMw</AdEventId>
+                </Extension>
+                <Extension type="video_ad_loaded">
+                    <CustomTracking>
+                        <Tracking event="loaded">
+                            <![CDATA[ //localhost:5050/ad/tracking-loaded ]]>
+                        </Tracking>
+                    </CustomTracking>
+                </Extension>
+                <Extension type="heavy_ad_intervention">
+                    <CustomTracking>
+                        <Tracking event="heavy_ad_intervention_cpu">
+                            <![CDATA[//localhost:5050/ad/tracking-heavy_ad_intervention_cpu ]]>
+                        </Tracking>
+                        <Tracking event="heavy_ad_intervention_network">
+                            <![CDATA[ //localhost:5050/ad/tracking-heavy_ad_intervention_network ]]>
+                        </Tracking>
+                    </CustomTracking>
                 </Extension>
             </Extensions>
         </InLine>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vmap:VMAP xmlns:vmap="http://www.iab.net/videosuite/vmap" version="1.0">
+    <vmap:AdBreak timeOffset="start" breakType="linear" breakId="preroll">
+        <vmap:AdSource id="preroll-ad-1" allowMultipleAds="false" followRedirects="true">
+            <vmap:AdTagURI templateType="vast3"><![CDATA[//localhost:5050/static/demos/vast-samples/based-doubleclick.xml]]></vmap:AdTagURI>
+        </vmap:AdSource>
+    </vmap:AdBreak>
+    <vmap:AdBreak timeOffset="00:00:15.000" breakType="linear" breakId="midroll-1">
+        <vmap:AdSource id="midroll-1-ad-1" allowMultipleAds="false" followRedirects="true">
+            <vmap:AdTagURI templateType="vast3"><![CDATA[//localhost:5050/static/demos/vast-samples/based-doubleclick.xml]]></vmap:AdTagURI>
+        </vmap:AdSource>
+    </vmap:AdBreak>
+    <vmap:AdBreak timeOffset="00:00:15.000" breakType="linear" breakId="midroll-1">
+        <vmap:AdSource id="midroll-1-ad-2" allowMultipleAds="false" followRedirects="true">
+            <vmap:AdTagURI templateType="vast3"><![CDATA[//localhost:5050/static/demos/vast-samples/based-doubleclick.xml]]></vmap:AdTagURI>
+        </vmap:AdSource>
+    </vmap:AdBreak>
+    <vmap:AdBreak timeOffset="00:00:15.000" breakType="linear" breakId="midroll-1">
+        <vmap:AdSource id="midroll-1-ad-3" allowMultipleAds="false" followRedirects="true">
+            <vmap:AdTagURI templateType="vast3"><![CDATA[//localhost:5050/static/demos/vast-samples/based-doubleclick.xml]]></vmap:AdTagURI>
+        </vmap:AdSource>
+    </vmap:AdBreak>
+    <vmap:AdBreak timeOffset="end" breakType="linear" breakId="postroll">
+        <vmap:AdSource id="postroll-ad-1" allowMultipleAds="false" followRedirects="true">
+            <vmap:AdTagURI templateType="vast3"><![CDATA[//localhost:5050/static/demos/vast-samples/based-doubleclick.xml]]></vmap:AdTagURI>
+        </vmap:AdSource>
+    </vmap:AdBreak>
+</vmap:VMAP>

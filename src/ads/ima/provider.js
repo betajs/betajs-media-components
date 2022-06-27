@@ -10,6 +10,8 @@ Scoped.define("module:Ads.IMAProvider", [
         __IMA_PRE_ROLL: 'pre',
         __IMA_MID_ROLL: 'mid',
         __IMA_POST_ROLL: 'post',
+        __IMA_AD_TYPE_LINEAR: 'linear',
+        __IMA_AD_TYPE_NON_LINEAR: 'non-linear',
 
         /**
          *

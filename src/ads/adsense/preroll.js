@@ -44,7 +44,7 @@ Scoped.define("module:Ads.AdSensePrerollAd", [
             },
 
             init: function() {
-                this._adDisplayContainer = new google.ima.AdDisplayContainer(this._options.adElement, this._options.videoElement);
+                this._adDisplayContainer = new google.ima.AdDisplayContainer(this._options.adContainer, this._options.videoElement);
                 // Must be done as the result of a user action on mobile
                 this._adDisplayContainer.initialize();
                 //Re-use this AdsLoader instance for the entire lifecycle of your page.
@@ -55,7 +55,7 @@ Scoped.define("module:Ads.AdSensePrerollAd", [
                     self._adError();
                 }, false);
                 this._adsLoader.addEventListener(google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED, function() {
-                    self._adLoaded.apply(self, arguments);
+                    self._isLoaded.apply(self, arguments);
                 }, false);
 
                 this._adsRequest = new google.ima.AdsRequest();

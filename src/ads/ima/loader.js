@@ -41,7 +41,7 @@ Scoped.define("module:Ads.IMALoader", [
          */
         adContainer: function(options) {
             var adDisplayContainer = new google.ima.AdDisplayContainer(
-                options.adElement, options.videoElement
+                options.adContainer, options.videoElement
             );
 
             // Must be done as the result of a user action on mobile

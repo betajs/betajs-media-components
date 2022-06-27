@@ -4,6 +4,7 @@
      {{cssplayer}}-{{themecolor}}-color {{cssplayer}}-device-type-{{mobileview ? 'mobile' : 'desktop'}}
      {{sticktoview ? csscommon + '-sticky' : ''}} {{sticktoview && fadeup ? csscommon + '-fade-up' : ''}}
      {{csscommon}}-full-width
+     {{cssplayer + (((activity_delta > hidebarafter) && hideoninactivity) ? '-controlbar-hidden' : '-controlbar-visible')}}
      {{csscommon}}-max-height-100vh"
      ba-on:mousemove="{{user_activity()}}"
      ba-on:mousedown="{{user_activity(true)}}"
@@ -203,9 +204,12 @@
         <meta itemprop="thumbnailUrl" content="{{thumbnailurl}}" />
         <meta itemprop="contentUrl" content="{{contenturl}}" />
     </div>
-    <div class="{{css}}-overlay" data-video="ad" style="display:none">
-        <div data-ads="controllbar"></div>
-        <div data-video="ima-ad-container"></div>
+    <div class="{{linearadplayer ? css + '-overlay' : ''}}" data-video="ad" style="display:none">
+        <div ba-if="{{linearadplayer || customnonlinear}}" data-ads="controllbar"></div>
+        <div ba-if="{{linearadplayer || !customnonlinear}}"
+             class="{{linearadplayer ? cssplayer + '-linear-ad-container' : cssplayer + '-non-linear-ad-container'}}"
+             data-video="ima-ad-container"
+        ></div>
     </div>
     <div ba-show="{{useAspectRatioFallback}}" ba-styles="{{aspectRatioFallback}}"></div>
 </div>

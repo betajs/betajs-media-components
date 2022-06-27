@@ -1,4 +1,4 @@
-<div class="{{cssplayer}}-ad-controllbar">
+<div class="{{cssplayer}}-ad-controllbar {{showbanner ? cssplayer + '-ad-media-controllbar' : ''}}">
     <div ba-show="{{skippable}}" class="{{cssplayer}}-skipbutton-container"
          ba-click="{{skip_linear_ad()}}"
     >
@@ -7,17 +7,23 @@
         </p>
     </div>
 
-    <div ba-if="{{!customcontroller}}" class="{{css}}-companion-ad-container" ba-show="{{companionadvisible}}">
-        <div class="{{css}}-close-companion-ad" ba-click="{{skip_companion_ad()}}">X</div>
-        <img class="{{css}}-companion-ad" src="" />
+    <div ba-if="{{showbanner && media}}" class="{{cssplayer}}-ad-media-container"
+         data-ads="banner-ad-container"
+    >
+        <img class="{{css}}-banner-ad" src="{{media}}" alt="{{title || 'ad banner image'}}" />
+        <span class="{{cssplayer}}-ad-banner-close-button"
+              ba-click="{{skip_non_linear_ad()}}"
+        >
+            <i class="{{csscommon}}-icon-cancel"></i>
+        </span>
     </div>
 
-    <div ba-if="{{customcontroller}}" class="{{css}}-overlay {{cssplayer}}-ad-click-tracker
+    <div ba-if="{{customcontroller && !media}}" class="{{css}}-overlay {{cssplayer}}-ad-click-tracker
         {{clickthroughurl && controllbarisvisible ? csscommon + '-clickable' : ''}}"
          ba-click="{{ad_clicked()}}"
     ></div>
 
-    <div class="{{cssplayer}}-ad-controlbar {{controllbarisvisible ? '' : (cssplayer + '-dashboard-hidden')}}">
+    <div ba-if="{{showcontrolbar}}" class="{{cssplayer}}-ad-controlbar {{controllbarisvisible ? '' : (cssplayer + '-dashboard-hidden')}}">
         <div tabindex="1" ba-hotkey:space^enter="{{toggle_player()}}"
              onmouseout="this.blur()" class="{{css}}-leftbutton-container"
              autofocus

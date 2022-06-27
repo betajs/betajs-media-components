@@ -71,6 +71,51 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
                 return true;
             } else
                 return false;
+        },
+
+        executeAd: function(instanceKey, next) {
+            var adInstance = this.dyn[instanceKey];
+            if (!adInstance) return this.next(next);
+
+            adInstance.once("adloaded", function(ad) {
+                if (typeof ad !== "undefined") {
+                    // If ad type is non-lienar like image banner need to load video
+                    if (!ad.isLinear()) {
+                        this.next(next);
+                    }
+                }
+            }, this);
+
+            adInstance.on("adfinished", function() {
+                if (this.dyn[instanceKey]) {
+                    this.dyn[instanceKey] = null;
+                    if (adInstance) adInstance.weakDestroy();
+                    if (next) this.next(next);
+                }
+            }, this);
+
+            adInstance.once("adskipped", function() {
+                if (this.dyn[instanceKey]) {
+                    this.dyn[instanceKey] = null;
+                    if (adInstance) adInstance.weakDestroy();
+                    if (next) this.next(next);
+                }
+            }, this);
+
+            adInstance.once("ad-error", function(message) {
+                console.error('Error during loading an ' + instanceKey + ' ad. Details: "' + message + '".');
+                if (this.dyn[instanceKey]) {
+                    this.dyn[instanceKey] = null;
+                    if (adInstance) adInstance.weakDestroy();
+                    if (next) this.next(next);
+                }
+            }, this);
+
+            // TODO: video height and width return NaN before ad start even when ba-width/ba-height are provided
+            adInstance.executeAd({
+                width: this.dyn.videoWidth() || this.dyn.parentWidth(),
+                height: this.dyn.videoHeight() || this.dyn.parentHeight()
+            });
         }
 
     }]);
@@ -355,35 +400,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Preroll", [
         dynamics: [],
 
         _started: function() {
-            if (this.dyn._prerollAd) {
-                this.dyn._prerollAd.once("adloaded", function(ad) {
-                    if (typeof ad !== "undefined") {
-                        // If ad type is non-lienar like image banner need to load video
-                        if (!ad.isLinear()) {
-                            this.next("LoadVideo");
-                        }
-                    }
-                }, this);
-
-                this.dyn._prerollAd.on("adfinished", function() {
-                    this.next("LoadVideo");
-                }, this);
-
-                this.dyn._prerollAd.once("adskipped", function() {
-                    this.next("LoadVideo");
-                }, this);
-
-                // TODO: video height and width return NaN before ad start even when ba-width/ba-height are provided
-                this.dyn._prerollAd.executeAd({
-                    width: this.dyn.videoWidth(),
-                    height: this.dyn.videoHeight()
-                });
-
-                this.dyn._prerollAd.once("ad-error", function(message) {
-                    console.error('Error during loading an ad. Details:"' + message + '".');
-                    this.next("LoadVideo");
-                }, this);
-
+            if (this.dyn._prerollAd && !(this.dyn.get("autoplay") || this.dyn.get("skipinitial"))) {
+                this.executeAd('_prerollAd', "LoadVideo");
             } else {
                 this.next("LoadVideo");
             }
@@ -391,7 +409,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Preroll", [
 
     });
 });
-
 
 
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterError", [
@@ -426,8 +443,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
         dynamics: ["loader"],
 
         _started: function() {
-            // Just in case set to null preload
-            this.dyn._prerollAd = null;
             if (!this.dyn.get("videoelement_active")) {
                 this.listenOn(this.dyn, "error:attach", function() {
                     this.next("LoadError");
@@ -476,8 +491,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
     });
 });
 
-
-
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.ErrorVideo", [
     "module:VideoPlayer.Dynamics.PlayerStates.State"
 ], function(State, scoped) {
@@ -521,7 +534,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
             this.listenOn(this.dyn, "ended", function() {
                 this.dyn.set("autoseek", null);
                 if (this.dyn._postrollAd)
-                    this._playPostrollAd();
+                    this.executeAd("_postrollAd", "NextVideo");
                 else
                     this.next("NextVideo");
             }, this);
@@ -534,27 +547,13 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
         },
 
         play: function() {
-            if (!this.dyn.get("playing"))
+            // Will execute on, skip initial
+            if (this.dyn.get("position") === 0 && this.dyn._prerollAd && (this.dyn.get("autoplay") || this.dyn.get("skipinitial"))) {
+                this.executeAd('_prerollAd');
+            }
+            if (!this.dyn.get("playing")) {
                 this.dyn.player.play();
-        },
-
-        _playPostrollAd: function() {
-            // Actually it should be prepare ad, because older name convention leave as it's
-            this.dyn._postrollAd.executeAd({
-                width: this.dyn.parentWidth(),
-                height: this.dyn.parentHeight()
-            });
-            this.dyn._postrollAd.once("adfinished", function() {
-                this.dyn._postrollAd.weakDestroy();
-                this.dyn._postrollAd = null;
-                this.next("NextVideo");
-            }, this);
-            this.dyn._postrollAd.on("ad-error", function(message) {
-                console.error('Error during loading an ad. Details:"' + message + '".');
-                this.dyn._postrollAd.weakDestroy();
-                this.dyn._postrollAd = null;
-                this.next("NextVideo");
-            }, this);
+            }
         }
     });
 });

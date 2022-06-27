@@ -1,0 +1,173 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<VAST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vast.xsd" version="3.0">
+    <Ad id="5925906858">
+        <Wrapper>
+            <AdSystem>GDFP</AdSystem>
+            <VASTAdTagURI>
+                <![CDATA[//localhost:5050/static/demos/vast-samples/VPAID_2/non-linear.xml]]></VASTAdTagURI>
+            <Error><![CDATA[//localhost:5050/ad/error]]></Error>
+            <Impression><![CDATA[//localhost:5050/ad/impression]]></Impression>
+            <Creatives>
+                <Creative id="138381750227" sequence="1">
+                    <NonLinearAds>
+                        <TrackingEvents>
+                            <Tracking event="start"><![CDATA[//localhost:5050/ad/start]]></Tracking>
+                            <Tracking event="firstQuartile"><![CDATA[//localhost:5050/ad/firstQuartile]]></Tracking>
+                            <Tracking event="midpoint"><![CDATA[//localhost:5050/ad/midpoint]]></Tracking>
+                            <Tracking event="thirdQuartile"><![CDATA[//localhost:5050/ad/thirdQuartile]]></Tracking>
+                            <Tracking event="complete"><![CDATA[//localhost:5050/ad/complete]]></Tracking>
+                            <Tracking event="mute"><![CDATA[//localhost:5050/ad/mute]]></Tracking>
+                            <Tracking event="unmute"><![CDATA[//localhost:5050/ad/unmute]]></Tracking>
+                            <Tracking event="rewind"><![CDATA[//localhost:5050/ad/rewind]]></Tracking>
+                            <Tracking event="pause"><![CDATA[//localhost:5050/ad/pause]]></Tracking>
+                            <Tracking event="resume"><![CDATA[//localhost:5050/ad/resume]]></Tracking>
+                            <Tracking event="creativeView"><![CDATA[//localhost:5050/ad/creativeView]]></Tracking>
+                            <Tracking event="fullscreen"><![CDATA[//localhost:5050/ad/fullscreen]]></Tracking>
+                            <Tracking event="close"><![CDATA[//localhost:5050/ad/close]]></Tracking>
+                            <Tracking event="acceptInvitation"><![CDATA[//localhost:5050/ad/acceptInvitation]]></Tracking>
+                            <Tracking event="expand"><![CDATA[//localhost:5050/ad/expand]]></Tracking>
+                            <Tracking event="collapse"><![CDATA[//localhost:5050/ad/collapse]]></Tracking>
+                            <Tracking event="exitFullscreen"><![CDATA[//localhost:5050/ad/exitFullscreen]]></Tracking>
+                        </TrackingEvents>
+                        <NonLinear id="GDFP" width="640" height="480" minSuggestedDuration="00:00:10">
+                            <NonLinearClickTracking><![CDATA[https://pubads.g.doubleclick.net/pcs/click?xai=AKAOjsvC0BrNN6bTVqHmzS0OFDfmf1f6nGY4NR6OsKO5HyuPkMeV9ECWHdobZCNfU05_oD5f_31_dD6sXk9ok33TVlOdciW4rSOQ77nD-DR02PGzqeKc3xSOXqz_7kBPD-D--sQEpK3UuCzaljyGfZbO09FPpV35-ueiot-IehQVdIODLpP9ZZ-KGbPDvYgfNCsP2tRbrNpxHGgy9smAfVDt39Rq8KNnlX2HX6CDti3frSjO8IeBwDpVC5zPn2OUxpxevERPbpzU82Y83PxIRFYgitaWSwhA7FLrsuiTtU1Z7VPpP6ma&sig=Cg0ArKJSzAvJg7fxmzaZEAE&fbs_aeid=[gw_fbsaeid]&urlfix=1]]></NonLinearClickTracking>
+                        </NonLinear>
+                    </NonLinearAds>
+                </Creative>
+                <Creative id="138381056765" sequence="1">
+                    <CompanionAds>
+                        <Companion id="138381056765" width="300" height="250">
+                            <StaticResource creativeType="image/jpeg">
+                                <![CDATA[//localhost:5050/static/demos/assets/vast/ad-rectangle-300x250.jpeg]]>
+                            </StaticResource>
+                            <TrackingEvents>
+                                <Tracking event="creativeView"><![CDATA[//localhost:5050/ad/300_250_clicked]]></Tracking>
+                            </TrackingEvents>
+                            <CompanionClickThrough><![CDATA[https://ziggeo.com]]></CompanionClickThrough>
+                        </Companion>
+                        <Companion id="138381188849" width="728" height="90">
+                            <StaticResource creativeType="image/jpeg">
+                                <![CDATA[//localhost:5050/static/demos/assets/vast/ad-banner-728x90.jpeg]]>
+                            </StaticResource>
+                            <TrackingEvents>
+                                <Tracking event="creativeView">
+                                    <![CDATA[https://securepubads.g.doubleclick.net/pcs/view?xai=AKAOjsvDxscncQD9Vi_GK_B8sbcRKxB79oyI0mBSv6V0DuMZ0k6hr328Azwd1w6wZ9O97Bf7wEXdIDeFdMpt0M7GvuBaxmIHzn0wg50kvQcIdf9dzT5pGYZFCgr51FqhjObStbuTolDhD2MPcv8p1GuBjE6vX73zY-8G4XcAmemKqdfzv4oG8tvklN6BBkO41M8TYQ4kHvAT2iznJzsx5V1sJl5fsMCJY9SH6BA1dH2tSTQsdXVrgJVkui4s1xbk4-hsDArdE7x3x3nfVMwpdLHYFPOpT2xI5JjbxmVnZkdy3jjO9V0YisTU3yE&sig=Cg0ArKJSzLuTiRHz5aQAEAE&uach_m=[UACH]&adurl=]]>
+                                </Tracking>
+                            </TrackingEvents>
+                            <CompanionClickThrough>
+                                <![CDATA[https://pubads.g.doubleclick.net/pcs/click?xai=AKAOjstCBOGp-xy5y7GMmxMlwjomjHOu_XmqF4-O7vwiPAuycD3Rkne_VQ6AvDApALhaZ6nqq_6mVb_WKy23RrGy_mt7N-oi0Xju_UywCaZnKHBPtm7R9fI_5hs5Df3f4TXinSnLbf0t9VB2FxNR71oO4n7ZNnOIVpY-FyYDbUdg1MD2pbTJM4etgYtsVrfDVB0KqXg1JjmG9kUSFXZ5r0Y6P3FLQDziIfR6iftux0RRF6mqH3RY2cS1N7b-2eX3y5Udc_eGGI566xteIWOC0PWp-FfjX6l_Il4GpDhT0os1fYJSERsW&sig=Cg0ArKJSzKNtfpYLv6Ff&fbs_aeid=[gw_fbsaeid]&adurl=https://googleads.github.io/googleads-ima-html5/vsi/]]>
+                            </CompanionClickThrough>
+                        </Companion>
+                    </CompanionAds>
+                </Creative>
+            </Creatives>
+            <Extensions><Extension type="geo"><Country>AZ</Country><Bandwidth>4</Bandwidth><BandwidthKbps>11540</BandwidthKbps></Extension><Extension type="metrics"><FeEventId>QHqbYqWNK7We7_UP9decuAU</FeEventId><AdEventId>COuzuLGOlPgCFTz-uwgdJD8Lpw</AdEventId></Extension><Extension type="wrapper_info"><Duration>00:00:10</Duration></Extension><Extension type="video_ad_loaded"><CustomTracking><Tracking event="loaded"><![CDATA[https://pubads.g.doubleclick.net/pagead/interaction/?ai=BJwcDQHqbYuuTLLz87_UPpP6suArY_s-VRgAAABABII64hW84AVjT38fBgwRgoLg-ugEKNzI4eDkwX3htbMgBBcACAuACAOoCJy8yMTc3NTc0NDkyMy9leHRlcm5hbC9zaW5nbGVfYWRfc2FtcGxlc_gCgtIegAMBkAPAB5gD4AOoAwHgBAHSBQYQqtPYiRaQBgGgBiSoB_PRG6gHltgbqAeqm7ECqAffn7EC2AcA4Acf0ggHCIBhEAEYHdgIAoAKBZgLAYAMAdAVAfgWAYAXAQ&sigh=pOnpzdJRjhY&label=video_ad_loaded]]></Tracking></CustomTracking></Extension><Extension type="heavy_ad_intervention"><CustomTracking><Tracking event="heavy_ad_intervention_cpu"><![CDATA[https://googleads.g.doubleclick.net/pagead/interaction/?ai=BJwcDQHqbYuuTLLz87_UPpP6suArY_s-VRgAAABABII64hW84AVjT38fBgwRgoLg-ugEKNzI4eDkwX3htbMgBBcACAuACAOoCJy8yMTc3NTc0NDkyMy9leHRlcm5hbC9zaW5nbGVfYWRfc2FtcGxlc_gCgtIegAMBkAPAB5gD4AOoAwHgBAHSBQYQqtPYiRaQBgGgBiSoB_PRG6gHltgbqAeqm7ECqAffn7EC2AcA4Acf0ggHCIBhEAEYHdgIAoAKBZgLAYAMAdAVAfgWAYAXAQ&sigh=pOnpzdJRjhY&label=heavy_ad_intervention_cpu]]></Tracking><Tracking event="heavy_ad_intervention_network"><![CDATA[https://googleads.g.doubleclick.net/pagead/interaction/?ai=BJwcDQHqbYuuTLLz87_UPpP6suArY_s-VRgAAABABII64hW84AVjT38fBgwRgoLg-ugEKNzI4eDkwX3htbMgBBcACAuACAOoCJy8yMTc3NTc0NDkyMy9leHRlcm5hbC9zaW5nbGVfYWRfc2FtcGxlc_gCgtIegAMBkAPAB5gD4AOoAwHgBAHSBQYQqtPYiRaQBgGgBiSoB_PRG6gHltgbqAeqm7ECqAffn7EC2AcA4Acf0ggHCIBhEAEYHdgIAoAKBZgLAYAMAdAVAfgWAYAXAQ&sigh=pOnpzdJRjhY&label=heavy_ad_intervention_network]]></Tracking></CustomTracking></Extension></Extensions>
+        </Wrapper>
+    </Ad>
+</VAST>
+
+
+
+        <?xml version="1.0" encoding="UTF-8"?>
+<VAST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vast.xsd" version="3.0">
+    <Ad id="5933136122">
+        <InLine>
+            <AdSystem>GDFP</AdSystem>
+            <AdTitle>External - Non-linear Inline</AdTitle>
+            <Description><![CDATA[External - Non-linear Inline ad]]></Description>
+            <Error><![CDATA[//localhost:5050/ad/error]]></Error>
+            <Impression><![CDATA[//localhost:5050/ad/impression]]></Impression>
+            <Creatives>
+                <Creative id="138382391559" sequence="1">
+                    <NonLinearAds>
+                        <TrackingEvents>
+                            <Tracking event="start"><![CDATA[//localhost:5050/ad/start]]></Tracking>
+                            <Tracking event="firstQuartile"><![CDATA[//localhost:5050/ad/firstQuartile]]></Tracking>
+                            <Tracking event="midpoint"><![CDATA[//localhost:5050/ad/midpoint]]></Tracking>
+                            <Tracking event="thirdQuartile"><![CDATA[//localhost:5050/ad/thirdQuartile]]></Tracking>
+                            <Tracking event="complete"><![CDATA[//localhost:5050/ad/complete]]></Tracking>
+                            <Tracking event="mute"><![CDATA[//localhost:5050/ad/mute]]></Tracking>
+                            <Tracking event="unmute"><![CDATA[//localhost:5050/ad/unmute]]></Tracking>
+                            <Tracking event="rewind"><![CDATA[//localhost:5050/ad/rewind]]></Tracking>
+                            <Tracking event="pause"><![CDATA[//localhost:5050/ad/pause]]></Tracking>
+                            <Tracking event="resume"><![CDATA[//localhost:5050/ad/resume]]></Tracking>
+                            <Tracking event="creativeView"><![CDATA[//localhost:5050/ad/creativeView]]></Tracking>
+                            <Tracking event="fullscreen"><![CDATA[//localhost:5050/ad/fullscreen]]></Tracking>
+                            <Tracking event="close"><![CDATA[//localhost:5050/ad/close]]></Tracking>
+                            <Tracking event="acceptInvitation"><![CDATA[//localhost:5050/ad/acceptInvitation]]></Tracking>
+                            <Tracking event="expand"><![CDATA[//localhost:5050/ad/expand]]></Tracking>
+                            <Tracking event="collapse"><![CDATA[//localhost:5050/ad/collapse]]></Tracking>
+                            <Tracking event="exitFullscreen"><![CDATA[//localhost:5050/ad/exitFullscreen]]></Tracking>
+                        </TrackingEvents>
+                        <NonLinear
+                            id="GDFP" width="480" height="70"
+                            minSuggestedDuration="00:00:05" scalable="true"
+                            maintainAspectRatio="true"
+                        >
+                            <StaticResource creativeType="image/png">
+                                <![CDATA[//localhost:5050/static/demos/assets/vast/ad-banner-480x70.png]]>
+                            </StaticResource>
+                            <NonLinearClickThrough>
+                                <![CDATA[https://ziggeo.com]]>
+                            </NonLinearClickThrough>
+                            <NonLinearClickTracking>
+                                <![CDATA[//localhost:5050/ad/480_70_clicked]]>
+                            </NonLinearClickTracking>
+                        </NonLinear>
+                    </NonLinearAds>
+                </Creative>
+                <Creative id="138381056765" sequence="1">
+                    <CompanionAds>
+                        <Companion id="138381056765" width="300" height="250">
+                            <StaticResource creativeType="image/png">
+                                <![CDATA[//localhost:5050/static/demos/assets/vast/ad-rectangle-300x250.jpeg]]>
+                            </StaticResource>
+                            <TrackingEvents>
+                                <Tracking event="creativeView"><![CDATA[//localhost:5050/ad/300_250_clicked]]></Tracking>
+                            </TrackingEvents>
+                            <CompanionClickThrough><![CDATA[https://ziggeo.com]]></CompanionClickThrough>
+                        </Companion>
+                        <Companion id="138381188849" width="728" height="90">
+                            <StaticResource creativeType="image/png">
+                                <![CDATA[//localhost:5050/static/demos/assets/vast/ad-banner-728x90.jpeg]]>
+                            </StaticResource>
+                            <TrackingEvents>
+                                <Tracking event="creativeView"><![CDATA[//localhost:5050/ad/728_90_clicked]]></Tracking>
+                            </TrackingEvents>
+                            <CompanionClickThrough><![CDATA[https://ziggeo.com]]></CompanionClickThrough>
+                        </Companion>
+                    </CompanionAds>
+                </Creative>
+            </Creatives>
+            <Extensions>
+                <Extension type="geo">
+                    <Country>US</Country>
+                    <Bandwidth>4</Bandwidth>
+                    <BandwidthKbps>11540</BandwidthKbps>
+                </Extension>
+                <Extension type="metrics">
+                    <FeEventId>iHWbYo-CEeyy9u8Pp66i0AU</FeEventId>
+                    <AdEventId>CO3Pm_GJlPgCFf2X_QcdF08Bhg</AdEventId>
+                </Extension>
+                <Extension type="video_ad_loaded">
+                    <CustomTracking>
+                        <Tracking event="loaded">
+                            <![CDATA[]]>
+                        </Tracking>
+                    </CustomTracking>
+                </Extension>
+                <Extension type="heavy_ad_intervention">
+                    <CustomTracking>
+                        <Tracking event="heavy_ad_intervention_cpu">
+                            <![CDATA[]]>
+                        </Tracking>
+                        <Tracking event="heavy_ad_intervention_network">
+                            <![CDATA[]]>
+                        </Tracking>
+                    </CustomTracking>
+                </Extension>
+            </Extensions>
+        </InLine>
+    </Ad>
+</VAST>

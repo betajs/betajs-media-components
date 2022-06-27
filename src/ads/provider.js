@@ -36,7 +36,7 @@ Scoped.define("module:Ads.AbstractVideoAdProvider", [
              * Will request and listen via ad loader
              * @param dyn
              * @param {string} position
-             * @param {boolean} position
+             * @param {boolean} autostart
              * @returns {*}
              */
             newAdsRequester: function(dyn, position, autostart) {

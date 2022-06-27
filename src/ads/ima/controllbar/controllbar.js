@@ -21,6 +21,9 @@ Scoped.define("module:Ads.IMA.Controllbar", [
                     cssplayer: "ba-player",
                     csscommon: "ba-commoncss",
                     adplayercss: 'ba-videoadplayer',
+                    showcontrolbar: true,
+                    showbanner: false,
+                    media: null,
                     skipable: false,
                     'allow-skip': false,
                     dyn: null,
@@ -53,10 +56,23 @@ Scoped.define("module:Ads.IMA.Controllbar", [
                     this._contentPlayer = this._adsRequester._dyn;
                     this._adsManager = this._adsRequester._adsManager;
                     this._ads = this._adsManager.getCurrentAd();
-                    this._element = this._adsRequester._options.adElement;
+                    this._element = this._adsRequester._options.adContainer;
                     this.set("last_activity", Time.now());
 
-                    if (this._contentPlayer.get("playing")) this._contentPlayer.pause();
+                    if (this._ads) {
+                        if (this._ads.isLinear()) {
+                            if (this._contentPlayer.get("playing")) {
+                                this._contentPlayer.pause();
+                            }
+                        } else {
+                            this.set("showcontrolbar", false);
+                            var _bannerContainer = this.activeElement().querySelector("[data-ads='banner-ad-container']");
+                            if (_bannerContainer) {
+                                this.set("showbanner", true);
+                                this.set("media", this._ads.getMediaUrl());
+                            }
+                        }
+                    }
                     this.set("supportsfullscreen", Dom.elementSupportsFullscreen(this._element));
 
                     var key = Object.keys(this._ads)[0] || null;
@@ -204,8 +220,8 @@ Scoped.define("module:Ads.IMA.Controllbar", [
                         this._adsManager.stop();
                     },
 
-                    skip_companion_ad: function() {
-                        this._adsManager.skip();
+                    skip_non_linear_ad: function() {
+                        this._adsRequester.manuallyEndAd();
                     },
 
                     toggle_fullscreen: function() {
@@ -218,7 +234,6 @@ Scoped.define("module:Ads.IMA.Controllbar", [
                     },
 
                     ad_clicked: function() {
-                        console.log("Ad was clicked");
                         // this._ads.initialUserAction();
                         if (this.get("clickthroughurl") && !this.get('pausedonclick') && this.get('controllbarisvisible')) {
                             this._adsManager.pause();
@@ -240,6 +255,9 @@ Scoped.define("module:Ads.IMA.Controllbar", [
                 _timerFire: function() {
                     var _now = Time.now();
                     this.set("activity_delta", _now - this.get("last_activity"));
+                    // While video will not be loaded, activity_delta in th player will not be launched
+                    if (!this._contentPlayer.videoLoaded())
+                        this._contentPlayer.set("activity_delta", this.get("activity_delta"));
 
                     this.set("remaining", this._adsManager.getRemainingTime());
 

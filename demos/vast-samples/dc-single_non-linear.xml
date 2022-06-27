@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VAST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vast.xsd" version="3.0">
+    <Ad id="5933136122">
+        <InLine>
+            <AdSystem>GDFP</AdSystem>
+            <AdTitle>External - Non-linear Inline</AdTitle>
+            <Description><![CDATA[External - Non-linear Inline ad]]></Description>
+            <Error><![CDATA[//localhost:5050/ad/error]]></Error>
+            <Impression><![CDATA[//localhost:5050/ad/impression]]></Impression>
+            <Creatives>
+                <Creative id="138382391559" sequence="1">
+                    <NonLinearAds>
+                        <TrackingEvents>
+                            <Tracking event="start"><![CDATA[//localhost:5050/ad/start]]></Tracking>
+                            <Tracking event="firstQuartile"><![CDATA[//localhost:5050/ad/firstQuartile]]></Tracking>
+                            <Tracking event="midpoint"><![CDATA[//localhost:5050/ad/midpoint]]></Tracking>
+                            <Tracking event="thirdQuartile"><![CDATA[//localhost:5050/ad/thirdQuartile]]></Tracking>
+                            <Tracking event="complete"><![CDATA[//localhost:5050/ad/complete]]></Tracking>
+                            <Tracking event="mute"><![CDATA[//localhost:5050/ad/mute]]></Tracking>
+                            <Tracking event="unmute"><![CDATA[//localhost:5050/ad/unmute]]></Tracking>
+                            <Tracking event="rewind"><![CDATA[//localhost:5050/ad/rewind]]></Tracking>
+                            <Tracking event="pause"><![CDATA[//localhost:5050/ad/pause]]></Tracking>
+                            <Tracking event="resume"><![CDATA[//localhost:5050/ad/resume]]></Tracking>
+                            <Tracking event="creativeView"><![CDATA[//localhost:5050/ad/creativeView]]></Tracking>
+                            <Tracking event="fullscreen"><![CDATA[//localhost:5050/ad/fullscreen]]></Tracking>
+                            <Tracking event="close"><![CDATA[//localhost:5050/ad/close]]></Tracking>
+                            <Tracking event="acceptInvitation"><![CDATA[//localhost:5050/ad/acceptInvitation]]></Tracking>
+                            <Tracking event="expand"><![CDATA[//localhost:5050/ad/expand]]></Tracking>
+                            <Tracking event="collapse"><![CDATA[//localhost:5050/ad/collapse]]></Tracking>
+                            <Tracking event="exitFullscreen"><![CDATA[//localhost:5050/ad/exitFullscreen]]></Tracking>
+                        </TrackingEvents>
+                        <NonLinear
+                            id="GDFP" width="480" height="70"
+                            minSuggestedDuration="00:00:05" scalable="true"
+                            maintainAspectRatio="true"
+                        >
+                            <StaticResource creativeType="image/png">
+                                <![CDATA[https://localhost:5050/static/demos/assets/vast/ad-banner-480x70.png]]>
+                            </StaticResource>
+                            <NonLinearClickThrough>
+                                <![CDATA[https://ziggeo.com]]>
+                            </NonLinearClickThrough>
+                            <NonLinearClickTracking>
+                                <![CDATA[//localhost:5050/ad/480_70_clicked]]>
+                            </NonLinearClickTracking>
+                        </NonLinear>
+                    </NonLinearAds>
+                </Creative>
+                <Creative id="138381056765" sequence="1">
+                    <CompanionAds>
+                        <Companion id="138381056765" width="300" height="250">
+                            <StaticResource creativeType="image/jpeg">
+                                <![CDATA[//localhost:5050/static/demos/assets/vast/ad-rectangle-300x250.jpeg]]>
+                            </StaticResource>
+                            <TrackingEvents>
+                                <Tracking event="creativeView"><![CDATA[//localhost:5050/ad/300_250_clicked]]></Tracking>
+                            </TrackingEvents>
+                            <CompanionClickThrough><![CDATA[https://ziggeo.com]]></CompanionClickThrough>
+                        </Companion>
+                        <Companion id="138381188849" width="728" height="90">
+                            <StaticResource creativeType="image/jpeg">
+                                <![CDATA[https://localhost:5050/static/demos/assets/vast/ad-banner-728x90.jpeg]]>
+                            </StaticResource>
+                            <TrackingEvents>
+                                <Tracking event="creativeView"><![CDATA[//localhost:5050/ad/728_90_clicked]]></Tracking>
+                            </TrackingEvents>
+                            <CompanionClickThrough><![CDATA[https://ziggeo.com]]></CompanionClickThrough>
+                        </Companion>
+                    </CompanionAds>
+                </Creative>
+            </Creatives>
+            <Extensions>
+                <Extension type="geo">
+                    <Country>US</Country>
+                    <Bandwidth>4</Bandwidth>
+                    <BandwidthKbps>11540</BandwidthKbps>
+                </Extension>
+                <Extension type="metrics">
+                    <FeEventId>iHWbYo-CEeyy9u8Pp66i0AU</FeEventId>
+                    <AdEventId>CO3Pm_GJlPgCFf2X_QcdF08Bhg</AdEventId>
+                </Extension>
+                <Extension type="video_ad_loaded">
+                    <CustomTracking>
+                        <Tracking event="loaded">
+                            <![CDATA[]]>
+                        </Tracking>
+                    </CustomTracking>
+                </Extension>
+                <Extension type="heavy_ad_intervention">
+                    <CustomTracking>
+                        <Tracking event="heavy_ad_intervention_cpu">
+                            <![CDATA[]]>
+                        </Tracking>
+                        <Tracking event="heavy_ad_intervention_network">
+                            <![CDATA[]]>
+                        </Tracking>
+                    </CustomTracking>
+                </Extension>
+            </Extensions>
+        </InLine>
+    </Ad>
+</VAST>

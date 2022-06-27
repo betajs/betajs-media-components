@@ -21,7 +21,9 @@ Scoped.define("module:Ads.IMARequester", [
 
                 // init
                 this._dyn = dyn;
-                this._adsLoaded = false;
+                this._isLoaded = false;
+                this._isShowing = false;
+                this._isContetnLoaded = false;
                 this._adsProvider = provider;
                 this._adsPosition = position;
                 this._autostart = autostart;
@@ -31,6 +33,9 @@ Scoped.define("module:Ads.IMARequester", [
                 this._adsManager = null;
                 this._adControlbar = null;
                 this._providerOptions = provider.options();
+                this._isLinear = null;
+                this._isPlaying = false;
+                this._linearExpected = position !== provider.__IMA_AD_TYPE_NON_LINEAR;
 
                 this._adsRequest = new google.ima.AdsRequest();
 
@@ -38,7 +43,11 @@ Scoped.define("module:Ads.IMARequester", [
                 // DISABLED - VPAID ads will not play and an error will be returned.
                 // ENABLED - VPAID ads are enabled using a cross domain iframe
                 // INSECURE - This allows the ad access to the site via JavaScript.
-                if (this._providerOptions.vpaidMode)
+                if (this._providerOptions.vpaidMode && [
+                        google.ima.ImaSdkSettings.VpaidMode.DISABLED,
+                        google.ima.ImaSdkSettings.VpaidMode.ENABLED,
+                        google.ima.ImaSdkSettings.VpaidMode.INSECURE
+                    ].includes(this._providerOptions.vpaidMode))
                     google.ima.settings.setVpaidMode(this._providerOptions.vpaidMode);
 
                 // Call setLocale() to localize language text and downloaded swfs
@@ -55,21 +64,25 @@ Scoped.define("module:Ads.IMARequester", [
                 // google.ima.settings.setDisableCustomPlaybackForIOS10Plus(true);
 
                 this._adsRequest = new google.ima.AdsRequest();
-
-                // switch (position) {
-                //     case provider.__IMA_PRE_ROLL:
-                //         this._adsRequest.adTagUrl = this._providerOptions.adPreTagUrl || this._providerOptions.adTagUrl;
-                //         break;
-                //     case provider.__IMA_POST_ROLL:
-                //         this._adsRequest.adTagUrl = this._providerOptions.adPostTagUrl || this._providerOptions.adTagUrl;
-                //         break;
-                //     default:
-                //         this._adsRequest.adTagUrl = this._providerOptions._prepareMidURL() || this._providerOptions.adTagUrl;
-                //         break;
-                // }
+                switch (position) {
+                    case provider.__IMA_AD_TYPE_NON_LINEAR:
+                        this._adsRequest.adTagUrl = this._providerOptions.nonLinearAdTagUrl || this._providerOptions.adTagUrl;
+                        break;
+                    case provider.__IMA_PRE_ROLL:
+                        this._adsRequest.adTagUrl = this._providerOptions.preAdTagUrl || this._providerOptions.adTagUrl;
+                        break;
+                    case provider.__IMA_MID_ROLL:
+                        this._adsRequest.adTagUrl = this._providerOptions.midAdTagUrl || this._providerOptions.adTagUrl;
+                        break;
+                    case provider.__IMA_POST_ROLL:
+                        this._adsRequest.adTagUrl = this._providerOptions.postAdTagUrl || this._providerOptions.adTagUrl;
+                        break;
+                    default:
+                        this._adsRequest.adTagUrl = this._providerOptions.adTagUrl;
+                        break;
+                }
 
                 var self = this;
-                this._adsRequest.adTagUrl = this._providerOptions.adTagUrl;
                 this._adsLoader.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, function(err) {
                     self.onAdError(err.type, err.getError().toString());
                 }, false);
@@ -77,20 +90,26 @@ Scoped.define("module:Ads.IMARequester", [
                 this._adsLoader.addEventListener(google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED, function(ev) {
                     // Preload if ad is preroll and user set preload optin
                     self.onAdsManagerLoaded(ev, provider.__IMA_PRE_ROLL || self._autostart);
-                    self._adsLoaded = true;
+                    self._isLoaded = true;
                     if (self._autostart) self.startAd();
                 }, false);
             },
 
             executeAd: function(options) {
+                if (!this._adsRequest) return;
                 // Specify the linear and nonlinear slot sizes.
                 // This helps the SDK to
                 // select the correct creative if multiple are returned.
-                this._adsRequest.linearAdSlotWidth = options.width;
-                this._adsRequest.linearAdSlotHeight = options.height;
+                this._adsRequest.linearAdSlotWidth = +options.width;
+                this._adsRequest.linearAdSlotHeight = +options.height;
                 // For non linear ads like image in te bottom side of the video
-                this._adsRequest.nonLinearAdSlotWidth = options.width;
-                this._adsRequest.nonLinearAdSlotHeight = options.height / 3;
+                if (options.exact !== null) {
+                    this._adsRequest.nonLinearAdSlotWidth = +options.width;
+                    this._adsRequest.nonLinearAdSlotHeight = +options.height;
+                } else {
+                    this._adsRequest.nonLinearAdSlotWidth = options.width;
+                    this._adsRequest.nonLinearAdSlotHeight = options.height / 3;
+                }
 
                 this._adsLoader.requestAds(this._adsRequest);
             },
@@ -111,13 +130,25 @@ Scoped.define("module:Ads.IMARequester", [
              */
             onAdsManagerLoaded: function(adsManagerLoadedEvent, preload) {
                 var adRenderingSettings = new google.ima.AdsRenderingSettings();
-                adRenderingSettings.enablePreloading = preload;
-                adRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
+                // mimeTypes == Only supported for linear video mime types
+                // playAdsAfterTime == For VMAP and ad rules playlists, only play ad breaks scheduled after this time (in seconds)
+                // Set to false if you wish to have fine grained control over the positioning of all non-linear ads
+                // adRenderingSettings.autoAlign = false;
+                // uiElements [nullable Array of string] == Specifies whether the UI elements that should be displayed,
+                //          The elements in this array are ignored for AdSense/AdX ads
+                if (this._linearExpected) {
+                    adRenderingSettings.enablePreloading = preload;
+                    adRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
+                } else {
+                    // useStyledNonLinearAds == Render non-linear ads with a close and recall button.
+                    adRenderingSettings.useStyledNonLinearAds = true;
+                }
 
                 // getUserRequestContext
                 this._adsManager = adsManagerLoadedEvent.getAdsManager(
                     this._player, adRenderingSettings
                 );
+                this._userContext = adsManagerLoadedEvent.getUserRequestContext();
             },
 
             /**
@@ -129,25 +160,53 @@ Scoped.define("module:Ads.IMARequester", [
                 // Event type Priority: loaded, contentPauseRequested, start,
                 // [firstQuartile, midpoint, thirdQuartile],
                 // complete, contentResumeRequested, allAdsCompleted
-                var data = typeof ev.getAd === 'function' ? ev.getAd() : null;
+                var ad = typeof ev.getAd === 'function' ? ev.getAd() : null;
+
                 switch (ev.type) {
-                    case 'loaded':
-                        this.trigger('ad' + ev.type, data);
-                        this._showIMAAdController(this, data);
+                    case google.ima.AdEvent.Type.LOADED:
+                        this._isLinear = ad.isLinear();
+                        this._isContetnLoaded = true;
+                        if ((ad.isLinear() && this._linearExpected) || (!ad.isLinear() && !this._linearExpected)) {
+                            this._options.adElement.style.display = "";
+                            this._adDuration = ad.getDuration() || 10;
+                            this._isContetnLoaded = true;
+                            this._showIMAAdController(ad);
+                        } else {
+                            this.manuallyEndAd();
+                        }
+                        this.trigger('adloaded', ad);
                         break;
-                    case 'allAdsCompleted':
+                    case google.ima.AdEvent.Type.ALL_ADS_COMPLETED:
                         this.trigger('adfinished');
+                        if (this._adControlbar) this._adControlbar.destroy();
                         break;
-                    case 'contentPauseRequested':
-                        if (this._dyn.get("playing")) this._dyn.pause();
-                        this._options.adElement.style.display = "";
+                    case google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED:
+                        this._isShowing = true;
+                        if (this._dyn.get("playing") && ad.isLinear())
+                            this._dyn.pause();
                         break;
-                    case 'contentResumeRequested':
-                        this._options.adElement.style.display = "none";
+                    case google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED:
+                        if (this._options)
+                            this._options.adElement.style.display = "none";
+                        if (this._dyn && ad.isLinear()) {
+                            if (!this._dyn.get("playing")) this._dyn.play();
+                        }
+                        this._isShowing = false;
+                        break;
+                    case google.ima.AdEvent.Type.PAUSED:
+                        this._isPlaying = false;
+                        this.trigger('ad' + ev.type, ad);
+                        break;
+                    case google.ima.AdEvent.Type.RESUMED:
+                        this._isPlaying = true;
+                        this.trigger('ad' + ev.type, ad);
+                        break;
+                    case google.ima.AdEvent.Type.USER_CLOSE:
+                        this.trigger('ad' + ev.type, ad);
                         break;
                     default:
                         // Trigger events with ad- prefix
-                        this.trigger('ad' + ev.type, data);
+                        this.trigger('ad' + ev.type, ad);
                 }
             },
 
@@ -177,6 +236,7 @@ Scoped.define("module:Ads.IMARequester", [
              */
             startAd: function() {
                 var dyn = this._dyn;
+                var requester = this;
 
                 /**
                  * Listen to error event
@@ -218,11 +278,42 @@ Scoped.define("module:Ads.IMARequester", [
                 }
             },
 
+            showBannerAd: function() {
+
+            },
+
+            hideBannerAd: function() {
+
+            },
+
+            manuallyEndAd: function() {
+                // Skips the current ad when AdsManager.getAdSkippableState() is true.
+                // this._adsManager.skip();
+
+                // Stop playing the ads. Calling this will get publisher back to the content.
+                // this._adsManager.stop();
+
+                // If an ad break is currently playing, discard it and resume content.
+                // this._adsManager.discardAdBreak();
+
+                // Removes ad assets loaded at runtime that need to be properly removed at the time of ad completion
+                // and stops the ad and all tracking
+                this._adsManager.destroy();
+
+                // Signals to the SDK that the content is finished.
+                // This will allow the SDK to play post-roll ads, if any are loaded via ad rules.
+                this._adsLoader.contentComplete();
+
+                if (this._options)
+                    this._options.adElement.style.display = "none";
+                this.trigger('adendmanually', this._adsManager.getCurrentAd());
+            },
+
             /**
              * @param data IMA Ad data
              */
             _showIMAAdController: function(data) {
-                this._dyn.set("show-ad-controller", true);
+                if (data) this._dyn.set("linearadplayer", data.isLinear());
                 var controllerElement = this._dyn.activeElement().querySelector("[data-ads='controllbar']");
                 if (controllerElement) {
                     this._adControlbar = new BetaJS.MediaComponents.Ads.IMA.Controllbar({
@@ -327,6 +418,7 @@ Scoped.define("module:Ads.IMARequester", [
              */
             __events: function() {
                 return [
+                    google.ima.AdEvent.Type.IMPRESSION,
                     google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED, // contentPauseRequested
                     google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED, // contentResumeRequested
 
@@ -352,7 +444,16 @@ Scoped.define("module:Ads.IMARequester", [
                     google.ima.AdEvent.Type.VOLUME_CHANGED,
                     google.ima.AdEvent.Type.VOLUME_MUTED,
 
-                    google.ima.AdEvent.Type.SKIPPABLE_STATE_CHANGED
+                    google.ima.AdEvent.Type.SKIPPABLE_STATE_CHANGED,
+
+
+                    google.ima.AdEvent.Type.INTERACTION,
+                    google.ima.AdEvent.Type.USER_CLOSE,
+                    google.ima.AdEvent.Type.VIDEO_ICON_CLICKED,
+                    google.ima.AdEvent.Type.AD_BUFFERING,
+                    google.ima.AdEvent.Type.AD_METADATA,
+                    google.ima.AdEvent.Type.AD_BREAK_READY
+                    // ,google.ima.AdEvent.Type.LOG
                 ];
             }
         };

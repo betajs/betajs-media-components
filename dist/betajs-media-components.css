@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.305 - 2022-06-23
+betajs-media-components - v0.0.306 - 2022-06-28
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -3510,6 +3510,96 @@ Apache-2.0 Software License.
   font-family: Arial, sans-serif;
   font-weight: normal;
   font-size: 14px;
+}
+
+.ba-player-ad-media-controllbar {
+  transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out;
+  -ms-transition: opacity 0.5s ease-in-out;
+  position: absolute;
+  bottom: 55px;
+  opacity: 0.6;
+  text-align: center;
+  width: 100%;
+}
+
+.ba-player-controlbar-hidden .ba-player-non-linear-ad-container > div {
+  transition: bottom 0.5s ease 0.2s;
+  -moz-transition: bottom 0.5s ease 0.2s;
+  -webkit-transition: bottom 0.5s ease 0.2s;
+  -o-transition: bottom 0.5s ease 0.2s;
+  -ms-transition: bottom 0.5s ease 0.2s;
+  bottom: 0;
+}
+
+.ba-player-non-linear-ad-container > div {
+  transition: bottom 0.5s ease 0.2s;
+  -moz-transition: bottom 0.5s ease 0.2s;
+  -webkit-transition: bottom 0.5s ease 0.2s;
+  -o-transition: bottom 0.5s ease 0.2s;
+  -ms-transition: bottom 0.5s ease 0.2s;
+  bottom: 43px;
+}
+
+.ba-player-controlbar-hidden .ba-player-linear-ad-container > div {
+  transition: bottom 0.5s ease 0.2s;
+  -moz-transition: bottom 0.5s ease 0.2s;
+  -webkit-transition: bottom 0.5s ease 0.2s;
+  -o-transition: bottom 0.5s ease 0.2s;
+  -ms-transition: bottom 0.5s ease 0.2s;
+  bottom: -2px;
+}
+
+.ba-player-controlbar-visible .ba-player-linear-ad-container > div {
+  transition: bottom 0.5s ease 0.2s;
+  -moz-transition: bottom 0.5s ease 0.2s;
+  -webkit-transition: bottom 0.5s ease 0.2s;
+  -o-transition: bottom 0.5s ease 0.2s;
+  -ms-transition: bottom 0.5s ease 0.2s;
+  bottom: 2px;
+}
+
+.ba-player-ad-media-controllbar:hover {
+  transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out;
+  -ms-transition: opacity 0.5s ease-in-out;
+  opacity: 1;
+}
+
+.ba-player-ad-media-container {
+  position: relative;
+  display: inline-block;
+}
+
+.ba-player-ad-banner-close-button {
+  background: white;
+  color: black;
+  cursor: pointer;
+  display: inline-block;
+  height: 16px;
+  position: absolute;
+  right: 15px;
+  text-align: center;
+  top: 10px;
+  width: 16px;
+  z-index: 100;
+}
+
+.ba-player-ad-banner-close-button > i::before {
+  margin: 0;
+  line-height: 16px;
+}
+
+.ba-player-ad-controlbar {
+  transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out;
+  -ms-transition: opacity 0.5s ease-in-out;
 }
 
 .ba-videoplayer-topmessage-container {

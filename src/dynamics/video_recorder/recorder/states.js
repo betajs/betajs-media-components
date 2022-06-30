@@ -1079,7 +1079,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.CovershotSelection",
                 if (this.dyn.get("pickcovershotframe")) {
                     if (this.dyn.recorder && this.dyn.recorder.supportsLocalPlayback()) {
                         this.next("CovershotSelectionFromPlayer");
-                    } else if (this.dyn.get("snapshotfromuploader") && this.dyn._videoFile && this.dyn._videoFilePlaybackable) {
+                    } else if (this.dyn.get("snapshotfromuploader") && this.dyn.isFormatSupported()) {
                         this.next("CovershotSelectionFromPlayer");
                     } else {
                         this._next(true);
@@ -1420,7 +1420,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Uploading", [
                     }
                 }
             });
-            if (this.dyn.get("localplayback") && ((this.dyn.recorder && this.dyn.recorder.supportsLocalPlayback()) || this.dyn._videoFilePlaybackable)) {
+            if (this.dyn.get("localplayback") && this.dyn.isFormatSupported()) {
                 if (this.dyn.recorder && this.dyn.recorder.supportsLocalPlayback())
                     this.dyn.set("playbacksource", this.dyn.recorder.localPlaybackSource());
                 else
@@ -1489,7 +1489,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Verifying", [
             this.dyn.trigger("verifying");
             this.dyn.set("message", this.dyn.string("verifying") + "...");
             this.dyn.set("playertopmessage", this.dyn.get("message"));
-            if (this.dyn.get("localplayback") && ((this.dyn.recorder && this.dyn.recorder.supportsLocalPlayback()) || this.dyn._videoFilePlaybackable)) {
+            if (this.dyn.get("localplayback") && this.dyn.isFormatSupported()) {
                 this.dyn.set("loader_active", false);
                 this.dyn.set("message_active", false);
             } else {

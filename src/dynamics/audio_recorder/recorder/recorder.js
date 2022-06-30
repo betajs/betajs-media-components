@@ -397,6 +397,10 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                     return this.recorder && this.recorder.isWebrtcStreaming();
                 },
 
+                isFormatSupported: function() {
+                    return (this.recorder && this.recorder.supportsLocalPlayback()) || this._audioFilePlaybackable;
+                },
+
                 _initSettings: function() {
                     this.set("duration", 0);
                 },

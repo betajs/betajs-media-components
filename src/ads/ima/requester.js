@@ -161,6 +161,9 @@ Scoped.define("module:Ads.IMARequester", [
                 // [firstQuartile, midpoint, thirdQuartile],
                 // complete, contentResumeRequested, allAdsCompleted
                 var ad = typeof ev.getAd === 'function' ? ev.getAd() : null;
+                var player = this._dyn;
+
+                if (player) player.trigger('ad-' + ev.type, ad);
 
                 switch (ev.type) {
                     case google.ima.AdEvent.Type.LOADED:

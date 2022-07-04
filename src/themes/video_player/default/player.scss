@@ -57,15 +57,16 @@
     bottom: 43px;
 }
 
-.#{$cssplayer}-controlbar-hidden .#{$cssplayer}-linear-ad-container > div {
-    @include transition1(bottom, #{$player_dashboard_transition}, ease 0.2s);
-    bottom: -2px;
-}
-
-.#{$cssplayer}-controlbar-visible .#{$cssplayer}-linear-ad-container > div {
-    @include transition1(bottom, #{$player_dashboard_transition}, ease 0.2s);
-    bottom: 2px;
-}
+// commented code cause video player fit issue
+//.#{$cssplayer}-controlbar-hidden .#{$cssplayer}-linear-ad-container > div {
+//    @include transition1(bottom, #{$player_dashboard_transition}, ease 0.2s);
+//    bottom: -2px;
+//}
+//
+//.#{$cssplayer}-controlbar-visible .#{$cssplayer}-linear-ad-container > div {
+//    @include transition1(bottom, #{$player_dashboard_transition}, ease 0.2s);
+//    bottom: 2px;
+//}
 
 .#{$cssplayer}-ad-media-controllbar:hover {
     @include transition1(opacity, #{$player_dashboard_transition}, ease-in-out);

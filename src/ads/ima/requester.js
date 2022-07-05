@@ -225,6 +225,7 @@ Scoped.define("module:Ads.IMARequester", [
              * @private
              */
             onAdError: function(type, message) {
+                if (this._options) this._options.adElement.style.display = "none";
                 if (this._adControlbar) {
                     this._adControlbar.destroy();
                 }

@@ -1,0 +1,137 @@
+<VAST version="3.0">
+    <!-- KARGO_VAST_PROPS: {"has_kargo_privacy_icon":true,"has_preroll_overlay":false,"has_main_content_overlay":true} -->
+    <Ad id="2cbf0361-4734-4065-b1e2-7ee6e53d64b3" sequence="1">
+        <InLine>
+            <AdSystem>
+                Kargo
+            </AdSystem>
+            <Advertiser></Advertiser>
+            <AdTitle>
+                Kargo
+            </AdTitle>
+            <Impression>
+                <![CDATA[https://tk.kargo.com/t/impression.video.44ioutkxe0kj17?rand=%%CACHEBUSTER%%&kid=%%PATTERN:kid%%&uuid=%%PATTERN:uuid%%&aslot={AD_SLOT}&krg_imp_id={IMP_ID}&url=]]>
+            </Impression>
+            <Creatives>
+                <Creative id="e56bfcc4-849d-4c8c-a6b6-95fa216bbf52" sequence="1">
+                    <Linear skipoffset="00:00:02">
+                        <Duration>
+                            00:00:15.083
+                        </Duration>
+                        <TrackingEvents>
+                            <Tracking event="start">
+                                <![CDATA[https://tk.kargo.com/t/video-start.44ioutkxe0kj10?rand=%%CACHEBUSTER%%&kid=%%PATTERN:kid%%&uuid=%%PATTERN:uuid%%&aslot={AD_SLOT}&krg_imp_id={IMP_ID}&url=]]>
+                            </Tracking>
+                            <Tracking event="firstQuartile">
+                                <![CDATA[https://tk.kargo.com/t/video-q1.44ioutkxe0kj11?rand=%%CACHEBUSTER%%&kid=%%PATTERN:kid%%&uuid=%%PATTERN:uuid%%&aslot={AD_SLOT}&krg_imp_id={IMP_ID}&url=]]>
+                            </Tracking>
+                            <Tracking event="midpoint">
+                                <![CDATA[https://tk.kargo.com/t/video-q2.44ioutkxe0kj12?rand=%%CACHEBUSTER%%&kid=%%PATTERN:kid%%&uuid=%%PATTERN:uuid%%&aslot={AD_SLOT}&krg_imp_id={IMP_ID}&url=]]>
+                            </Tracking>
+                            <Tracking event="thirdQuartile">
+                                <![CDATA[https://tk.kargo.com/t/video-q3.44ioutkxe0kj13?rand=%%CACHEBUSTER%%&kid=%%PATTERN:kid%%&uuid=%%PATTERN:uuid%%&aslot={AD_SLOT}&krg_imp_id={IMP_ID}&url=]]>
+                            </Tracking>
+                            <Tracking event="complete">
+                                <![CDATA[https://tk.kargo.com/t/video-complete.44ioutkxe0kj14?rand=%%CACHEBUSTER%%&kid=%%PATTERN:kid%%&uuid=%%PATTERN:uuid%%&aslot={AD_SLOT}&krg_imp_id={IMP_ID}&url=]]>
+                            </Tracking>
+                        </TrackingEvents>
+                        <VideoClicks>
+                            <ClickThrough>
+                                <![CDATA[https://kargo.com]]>
+                            </ClickThrough>
+                            <ClickTracking>
+                                <![CDATA[https://tk.kargo.com/t/click.video.44ioutkxe0kj18?rand=%%CACHEBUSTER%%&kid=%%PATTERN:kid%%&uuid=%%PATTERN:uuid%%&aslot={AD_SLOT}&krg_imp_id={IMP_ID}&url=]]>
+                            </ClickTracking>
+                        </VideoClicks>
+                        <MediaFiles>
+                            <MediaFile height="300" width="534" bitrate="727" type="video/mp4" delivery="progressive">
+                                <![CDATA[https://storage.cloud.kargo.com/ad/mos/videos/813a81056f0587ee6bc0c86ebd4e184d.mp4]]>
+                            </MediaFile>
+                        </MediaFiles>
+                        <Icons>
+                            <Icon program="Kargo Privacy" width="17" height="17" xPosition="left" yPosition="top">
+                                <StaticResource creativeType="image/png">
+                                    <![CDATA[https://storage.cloud.kargo.com/ad/network/tag/assets/kargo_privacy_icon_mobile.png]]>
+                                </StaticResource>
+                                <IconClicks>
+                                    <IconClickThrough>
+                                        <![CDATA[https://kargo.com/privacy]]>
+                                    </IconClickThrough>
+                                </IconClicks>
+                            </Icon>
+                        </Icons>
+                    </Linear>
+                </Creative>
+            </Creatives>
+        </InLine>
+    </Ad>
+    <Ad id="87704392-339c-4fea-b7c9-910b04667cc6" sequence="2">
+        <InLine>
+            <AdSystem>
+                Kargo
+            </AdSystem>
+            <AdTitle>
+                Kargo Overlay
+            </AdTitle>
+            <Impression>
+                <![CDATA[https://tk.kargo.com/t/impression.overlay.44ioutkxe0kj1b?rand=%%CACHEBUSTER%%&kid=%%PATTERN:kid%%&uuid=%%PATTERN:uuid%%&aslot={AD_SLOT}&krg_imp_id={IMP_ID}&url=]]>
+            </Impression>
+            <Creatives>
+                <Creative sequence="1">
+                    <NonLinearAds>
+                        <NonLinear width="1000" height="100" minSuggestedDuration="00:00:15" scalable="true" maintainAspectRatio="true">
+                            <StaticResource creativeType="application/x-javascript">
+                                <![CDATA[https://storage.cloud.kargo.com/ad/viewstream/Kargo%20Overlay14cf616c-bb95-416b-9ad7-0f7832796d15.html?click_url_unesc=https://tk.kargo.com/t/click.video.44ioutkxe0kj18?rand=%%CACHEBUSTER%%&kid=%%PATTERN:kid%%&uuid=%%PATTERN:uuid%%&aslot={AD_SLOT}&krg_imp_id={IMP_ID}&url=]]>
+                            </StaticResource>
+                        </NonLinear>
+                        <NonLinear width="900" height="100" minSuggestedDuration="00:00:15" scalable="true" maintainAspectRatio="true">
+                            <StaticResource creativeType="application/x-javascript">
+                                <![CDATA[https://storage.cloud.kargo.com/ad/viewstream/Kargo%20Overlay14cf616c-bb95-416b-9ad7-0f7832796d15.html?click_url_unesc=https://tk.kargo.com/t/click.video.44ioutkxe0kj18?rand=%%CACHEBUSTER%%&kid=%%PATTERN:kid%%&uuid=%%PATTERN:uuid%%&aslot={AD_SLOT}&krg_imp_id={IMP_ID}&url=]]>
+                            </StaticResource>
+                        </NonLinear>
+                        <NonLinear width="800" height="100" minSuggestedDuration="00:00:15" scalable="true" maintainAspectRatio="true">
+                            <StaticResource creativeType="application/x-javascript">
+                                <![CDATA[https://storage.cloud.kargo.com/ad/viewstream/Kargo%20Overlay14cf616c-bb95-416b-9ad7-0f7832796d15.html?click_url_unesc=https://tk.kargo.com/t/click.video.44ioutkxe0kj18?rand=%%CACHEBUSTER%%&kid=%%PATTERN:kid%%&uuid=%%PATTERN:uuid%%&aslot={AD_SLOT}&krg_imp_id={IMP_ID}&url=]]>
+                            </StaticResource>
+                        </NonLinear>
+                        <NonLinear width="700" height="100" minSuggestedDuration="00:00:15" scalable="true" maintainAspectRatio="true">
+                            <StaticResource creativeType="application/x-javascript">
+                                <![CDATA[https://storage.cloud.kargo.com/ad/viewstream/Kargo%20Overlay14cf616c-bb95-416b-9ad7-0f7832796d15.html?click_url_unesc=https://tk.kargo.com/t/click.video.44ioutkxe0kj18?rand=%%CACHEBUSTER%%&kid=%%PATTERN:kid%%&uuid=%%PATTERN:uuid%%&aslot={AD_SLOT}&krg_imp_id={IMP_ID}&url=]]>
+                            </StaticResource>
+                        </NonLinear>
+                        <NonLinear width="640" height="100" minSuggestedDuration="00:00:15" scalable="true" maintainAspectRatio="true">
+                            <StaticResource creativeType="application/x-javascript">
+                                <![CDATA[https://storage.cloud.kargo.com/ad/viewstream/Kargo%20Overlay14cf616c-bb95-416b-9ad7-0f7832796d15.html?click_url_unesc=https://tk.kargo.com/t/click.video.44ioutkxe0kj18?rand=%%CACHEBUSTER%%&kid=%%PATTERN:kid%%&uuid=%%PATTERN:uuid%%&aslot={AD_SLOT}&krg_imp_id={IMP_ID}&url=]]>
+                            </StaticResource>
+                        </NonLinear>
+                        <NonLinear width="600" height="100" minSuggestedDuration="00:00:15" scalable="true" maintainAspectRatio="true">
+                            <StaticResource creativeType="application/x-javascript">
+                                <![CDATA[https://storage.cloud.kargo.com/ad/viewstream/Kargo%20Overlay14cf616c-bb95-416b-9ad7-0f7832796d15.html?click_url_unesc=https://tk.kargo.com/t/click.video.44ioutkxe0kj18?rand=%%CACHEBUSTER%%&kid=%%PATTERN:kid%%&uuid=%%PATTERN:uuid%%&aslot={AD_SLOT}&krg_imp_id={IMP_ID}&url=]]>
+                            </StaticResource>
+                        </NonLinear>
+                        <NonLinear width="500" height="90" minSuggestedDuration="00:00:15" scalable="true" maintainAspectRatio="true">
+                            <StaticResource creativeType="application/x-javascript">
+                                <![CDATA[https://storage.cloud.kargo.com/ad/viewstream/Kargo%20Overlay14cf616c-bb95-416b-9ad7-0f7832796d15.html?click_url_unesc=https://tk.kargo.com/t/click.video.44ioutkxe0kj18?rand=%%CACHEBUSTER%%&kid=%%PATTERN:kid%%&uuid=%%PATTERN:uuid%%&aslot={AD_SLOT}&krg_imp_id={IMP_ID}&url=]]>
+                            </StaticResource>
+                        </NonLinear>
+                        <NonLinear width="414" height="75" minSuggestedDuration="00:00:15" scalable="true" maintainAspectRatio="true">
+                            <StaticResource creativeType="application/x-javascript">
+                                <![CDATA[https://storage.cloud.kargo.com/ad/viewstream/Kargo%20Overlay14cf616c-bb95-416b-9ad7-0f7832796d15.html?click_url_unesc=https://tk.kargo.com/t/click.video.44ioutkxe0kj18?rand=%%CACHEBUSTER%%&kid=%%PATTERN:kid%%&uuid=%%PATTERN:uuid%%&aslot={AD_SLOT}&krg_imp_id={IMP_ID}&url=]]>
+                            </StaticResource>
+                        </NonLinear>
+                        <NonLinear width="375" height="70" minSuggestedDuration="00:00:15" scalable="true" maintainAspectRatio="true">
+                            <StaticResource creativeType="application/x-javascript">
+                                <![CDATA[https://storage.cloud.kargo.com/ad/viewstream/Kargo%20Overlay14cf616c-bb95-416b-9ad7-0f7832796d15.html?click_url_unesc=https://tk.kargo.com/t/click.video.44ioutkxe0kj18?rand=%%CACHEBUSTER%%&kid=%%PATTERN:kid%%&uuid=%%PATTERN:uuid%%&aslot={AD_SLOT}&krg_imp_id={IMP_ID}&url=]]>
+                            </StaticResource>
+                        </NonLinear>
+                        <NonLinear width="320" height="60" minSuggestedDuration="00:00:15" scalable="true" maintainAspectRatio="true">
+                            <StaticResource creativeType="application/x-javascript">
+                                <![CDATA[https://storage.cloud.kargo.com/ad/viewstream/Kargo%20Overlay14cf616c-bb95-416b-9ad7-0f7832796d15.html?click_url_unesc=https://tk.kargo.com/t/click.video.44ioutkxe0kj18?rand=%%CACHEBUSTER%%&kid=%%PATTERN:kid%%&uuid=%%PATTERN:uuid%%&aslot={AD_SLOT}&krg_imp_id={IMP_ID}&url=]]>
+                            </StaticResource>
+                        </NonLinear>
+                    </NonLinearAds>
+                </Creative>
+            </Creatives>
+        </InLine>
+    </Ad>
+</VAST>

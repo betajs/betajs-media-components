@@ -32,7 +32,8 @@
 
         // VMAP - Pre-roll Single Ad, Mid-roll Optimized Pod with 3 Ads, Post-roll Single Ad
         // var vmap = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/vmap_ad_samples&sz=640x480&cust_params=sample_ar%3Dpremidpostoptimizedpod&ciu_szs=300x250&gdfp_req=1&ad_rule=1&output=vmap&unviewed_position_start=1&env=vp&impl=s&cmsid=496&vid=short_onecue&correlator='
-        var vmap = '//localhost:5050/static/demos/vast-samples/VMAP/dc_vmap_pre_1_mid_3_post_1.xml'
+        // var vmap = '//localhost:5050/static/demos/vast-samples/VMAP/dc_vmap_pre_1_mid_3_post_1.xml'
+        var kargo = '//localhost:5050/static/demos/vast-samples/kargo.xml'
 
         // var nonLinear = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/nonlinear_ad_samples&sz=480x70&cust_params=sample_ct%3Dnonlinear&ciu_szs=300x250%2C728x90&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=';
         var nonLinear = '//localhost:5050/static/demos/vast-samples/dc-single_non-linear.xml';
@@ -48,11 +49,11 @@
             // adTagUrl: v3_skipable
             // adTagUrl: v4_2_wrapper
             // adTagUrl: v3_doubleclickVMAP
-            adTagUrl: v4_2_skipable
+            adTagUrl: kargo
             // adTagUrl: v4_2_non_skipable
             // adTagUrl: vmap
             // adTagUrl: nonLinear
-            , nonLinearAdTagUrl: v3_non_linear
+            // , nonLinearAdTagUrl: v3_non_linear
 
             // preAdTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml',
             // postAdTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml',
@@ -81,8 +82,8 @@
         ba-source="sample-video.mp4"
         ba-theme="modern"
         ba-adprovider="ima"
-        ba-linear="pre,mid[36, 44, 14, 40%], post"
-        ba-non-linear="52[,250], 55%[300], 19[,250], 2[480,70]"
+        ba-linear="mid[44, 2, 50%], post"
+        ba-non-linear="25, 10[320,60]"
     ></ba-videoplayer>
 <!--    ba-non-linear="52[,250], 40%[300], 13[300,250], 2[480,70]"-->
     <!-- 40% == 24sec   -->

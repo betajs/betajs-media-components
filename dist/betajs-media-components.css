@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.307 - 2022-07-08
+betajs-media-components - v0.0.308 - 2022-07-08
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -2417,6 +2417,30 @@ Apache-2.0 Software License.
 
 .ba-commoncss-half-width {
   width: 50%;
+}
+
+.ba-commoncss-full-height {
+  height: 100%;
+}
+
+.ba-commoncss-max-height-100vh {
+  max-height: 100vh;
+}
+
+.ba-commoncss-portrait-aspect-ratio {
+  aspect-ratio: 9/16;
+}
+
+.ba-commoncss-landscape-aspect-ratio {
+  aspect-ratio: 16/9;
+}
+
+.ba-commoncss-standard-aspect-ratio {
+  aspect-ratio: 4/3;
+}
+
+.ba-commoncss-square-aspect-ratio {
+  aspect-ratio: 1/1;
 }
 
 .ba-commoncss-max-height-100vh {

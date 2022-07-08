@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.307 - 2022-07-08
+betajs-media-components - v0.0.308 - 2022-07-08
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.307",
-    "datetime": 1657259312784
+    "version": "0.0.308",
+    "datetime": 1657259423313
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -17599,5 +17599,447 @@ Scoped.define("module:AudioRecorder.Dynamics.RecorderStates.Verifying", [
         }
 
     });
+});
+Scoped.define("module:VideoCall.Dynamics.CallViewer", [
+    "dynamics:Dynamic"
+], function(Dynamic, scoped) {
+    return Dynamic.extend({
+        scoped: scoped
+    }, {
+        template: "<div class=\"ba-commoncss-full-width\">\n\t<ba-local-view  ba-stream=\"{{=local_stream}}\"\n\t\t\t\t\tba-camera_active={{local_camera_active}}\n\t\t\t\t\tba-microphone_active=\"{{local_microphone_active}}\"\n\t></ba-local-view>\n\t<ba-remote-view ba-stream=\"{{=remote_stream}}\"\n\t\t\t\t\tba-camera_active={{remote_camera_active}}\n\t\t\t\t\tba-microphone_active=\"{{remote_microphone_active}}\"\n\t></ba-remote-view>\n\t<ba-call-controlbar></ba-call-controlbar>\n</div>"
+    }).register("ba-call-view");
+});
+Scoped.define("module:VideoCall.Dynamics.BaseView", [
+    "dynamics:Dynamic"
+], [
+
+], function(Dynamic, scoped) {
+    return Dynamic.extend({
+            scoped: scoped
+        }, function(inherited) {
+            return {
+                template: "<div class=\"{{cssclass}}\">\n\t<video ba-if=\"{{camera_active}}\"></video>\n</div>\n",
+
+				attrs: {
+					cssclass: "ba-call-camera-view"
+				},
+
+                events: {
+                    "change:stream": function(stream) {
+						if (!stream || !this.video) return;
+                        this.video.srcObject = stream;
+						this.video.play();
+                    }
+                },
+
+                create: function() {
+                    this.video = this.activeElement().querySelector("video");
+					if (this.get("stream")) {
+						this.video.srcObject = this.get("stream");
+						this.video.play();
+					}
+                }
+            };
+        });
+});
+Scoped.define("module:VideoCall.Dynamics.LocalView", [
+    "module:VideoCall.Dynamics.BaseView"
+], [
+
+], function(BaseView, scoped) {
+    return BaseView.extend({
+            scoped: scoped
+        }, function(inherited) {
+            return {
+                template: inherited.template.replace("<video", "<video muted"),
+
+				attrs: {
+					cssclass: "ba-call-local-view"
+				},
+
+                create: function() {
+					inherited.create.call(this);
+                    if (!this.get("stream")) this.call("init_camera");
+                },
+
+                functions: {
+                    init_camera: function() {
+                        navigator.mediaDevices.getUserMedia({
+                            audio: true,
+                            video: true
+                        }).then(function(stream) {
+                            this.set("stream", stream);
+                        }.bind(this))["catch"](function() {
+                            console.log("error", arguments);
+                        });
+                    }
+                }
+            };
+        })
+        .register("ba-local-view");
+});
+Scoped.define("module:VideoCall.Dynamics.RemoteView", [
+    "module:VideoCall.Dynamics.BaseView"
+], [
+
+], function(BaseView, scoped) {
+    return BaseView.extend({
+        scoped: scoped
+    }, function(inherited) {
+        return {
+            template: inherited.template.replace("<video", "<video"),
+
+			attrs: {
+				cssclass: "ba-call-remote-view"
+			},
+
+            create: function() {
+				inherited.create.call(this);
+            }
+        };
+    }).register("ba-remote-view");
+});
+Scoped.define("module:VideoCall.Dynamics.Controlbar", [
+    "dynamics:Dynamic",
+    "module:Assets"
+], [
+
+], function(Dynamic, Assets, scoped) {
+    return Dynamic.extend({
+            scoped: scoped
+        }, function(inherited) {
+            return {
+                template: "<div class=\"ba-call-controlbar\">\n\t<button class=\"ba-call-mute-btn\" ba-click=\"{{toggle_mute()}}\">{{string('mute-button')}}</button>\n\t<button class=\"ba-call-camera-btn\" ba-click=\"{{toggle_camera()}}\">{{string('camera-button')}}</button>\n\t<button class=\"ba-call-leave-btn\" ba-click=\"{{leave_call()}}\">Leave Call</button>\n</div>",
+
+                functions: {
+                    toggle_mute: function() {
+                        this.channel("call").trigger("toggle_mute");
+                    },
+                    toggle_camera: function() {
+                        this.channel("call").trigger("toggle_camera");
+                    },
+                    leave_call: function() {
+                        this.channel("call").trigger("leave_call");
+                    }
+                }
+            };
+        })
+        .register("ba-call-controlbar")
+        .attachStringTable(Assets.strings)
+        .addStrings({
+            "camera-button": "Show/Hide Camera",
+            "leave-button": "Leave Call",
+            "mute-button": "Mute/Unmute"
+        });
+});
+Scoped.define("module:VideoCall.Dynamics.Lobby", [
+    "dynamics:Dynamic",
+    "module:Assets"
+], [
+
+], function(Dynamic, Assets, scoped) {
+    return Dynamic.extend({
+            scoped: scoped
+        }, function(inherited) {
+            return {
+                template: "<div class=\"ba-video-call-lobby\">\n\t<h1>{{string('title')}}</h1>\n\t<p>{{string('description')}}</p>\n\t<button ba-click=\"{{connect()}}\">{{string('join-button')}}</button>\n\t<div class=\"ba-call-lobby-camera\">\n\t\t<button class=\"ba-call-lobby-mute-btn\" ba-click=\"{{toggle_mute()}}\">{{string('mute-button')}}</button>\n\t\t<button class=\"ba-call-lobby-camera-btn\" ba-click=\"{{toggle_camera()}}\">{{string('camera-button')}}</button>\n\t\t<ba-local-view ba-stream=\"{{=stream}}\"\n\t\t\t\t\t   ba-camera_active=\"{{camera_active}}\"\n\t\t\t\t\t   ba-microphone_active=\"{{microphone_active}}\"\n\t\t></ba-local-view>\n\t</div>\n</div>\n",
+
+                functions: {
+                    connect: function() {
+                        this.channel("call").trigger("connect");
+                    },
+                    toggle_mute: function() {
+                        this.channel("call").trigger("toggle_mute");
+                    },
+                    toggle_camera: function() {
+                        this.channel("call").trigger("toggle_camera");
+                    }
+                }
+            };
+        })
+        .register("ba-call-lobby")
+        .attachStringTable(Assets.strings)
+        .addStrings({
+            "camera-button": "Camera",
+            "description": "When you're ready click on the button below to join the call.",
+            "join-button": "Join",
+            "mute-button": "Mute",
+            "title": "Join Call"
+        });
+});
+Scoped.define("module:VideoCall.Dynamics.CallStates.State", [
+    "base:States.State"
+], function(State, scoped) {
+    return State.extend({
+        scoped: scoped
+    }, {
+
+        _start: function() {
+            this.dyn = this.host.dynamic;
+            this._started();
+        }
+    });
+});
+
+Scoped.define("module:VideoCall.Dynamics.CallStates.Initial", [
+    "module:VideoCall.Dynamics.CallStates.State"
+], function(State, scoped) {
+    return State.extend({
+        scoped: scoped
+    }, {
+
+        _started: function() {
+            if (this.dyn.get("skipinitial")) {
+                this.next("Connecting");
+                return;
+            }
+
+            this.dyn.channel("call").on("connect", function() {
+                this.next("Connecting");
+            }.bind(this));
+            this.dyn.set("lobby_active", true);
+        },
+
+        _end: function() {
+            this.dyn.set("lobby_active", false);
+        }
+    });
+});
+
+Scoped.define("module:VideoCall.Dynamics.CallStates.Connecting", [
+    "module:VideoCall.Dynamics.CallStates.State"
+], function(State, scoped) {
+    return State.extend({
+        scoped: scoped
+    }, {
+
+        _started: function() {
+            this.dyn.set("message", this.dyn.string("connecting"));
+            this.dyn.trigger("connecting");
+            this.dyn._connect().success(function() {
+                this.dyn.set("connected", true);
+                this.dyn.trigger("connected", this.dyn.get("call_data"));
+                this.next("Active");
+            }.bind(this)).error(function() {
+                this.next("ConnectionFailed");
+            }.bind(this));
+        },
+
+        _end: function() {
+            this.dyn.set("message", "");
+        }
+    });
+});
+
+Scoped.define("module:VideoCall.Dynamics.CallStates.ConnectionFailed", [
+    "module:VideoCall.Dynamics.CallStates.State"
+], function(State, scoped) {
+    return State.extend({
+        scoped: scoped
+    }, {
+        dynamics: ["loader"],
+
+        _started: function() {
+            this.dyn.set("message", this.dyn.string("connection-error"));
+            this.dyn.activeElement().addEventListener("click", function() {
+                this.next("Connecting");
+            }.bind(this), {
+                once: true
+            });
+        },
+
+        _end: function() {
+            this.dyn.set("message", "");
+        }
+    });
+});
+
+Scoped.define("module:VideoCall.Dynamics.CallStates.Active", [
+    "module:VideoCall.Dynamics.CallStates.State"
+], function(State, scoped) {
+    return State.extend({
+        scoped: scoped
+    }, {
+        dynamics: ["loader"],
+
+        _started: function() {
+            this.dyn.set("call_active", true);
+            this.dyn.on("ended", function() {
+                this.next("Ended");
+            }.bind(this));
+        },
+
+        _end: function() {
+            this.dyn.set("call_active", false);
+        }
+    });
+});
+
+Scoped.define("module:VideoCall.Dynamics.CallStates.Ended", [
+    "module:VideoCall.Dynamics.CallStates.State"
+], function(State, scoped) {
+    return State.extend({
+        scoped: scoped
+    }, {
+        dynamics: ["loader"],
+
+        _started: function() {
+            this.dyn.get("local_stream").getVideoTracks()[0].stop();
+            this.dyn.set("message", this.dyn.string("call-ended"));
+        },
+
+        _end: function() {
+            this.set("message", "");
+        }
+    });
+});
+Scoped.define("module:VideoCall.Dynamics.Call", [
+    "base:Classes.ClassRegistry",
+    "base:Promise",
+    "base:States.Host",
+    "dynamics:Dynamic",
+    "module:Assets",
+    "module:VideoCall.Dynamics.CallStates.Initial",
+    "module:VideoCall.Dynamics.CallStates"
+], function(ClassRegistry, Promise, Host, Dynamic, Assets, InitialState, CallStates, scoped) {
+    return Dynamic.extend({
+            scoped: scoped
+        }, function(inherited) {
+            return {
+
+                template: "<div class=\"video-call-container ba-commoncss-full-width ba-commoncss-landscape-aspect-ratio ba-commoncss-max-height-100vh\">\n\t\n\t<ba-call-lobby ba-if=\"{{lobby_active}}\"\n\t\t\t\t   ba-stream=\"{{=local_stream}}\"\n\t\t\t\t   ba-camera_active=\"{{local_camera_active}}\"\n\t\t\t\t   ba-microphone_active=\"{{local_microphone_active}}\"\n\t></ba-call-lobby>\n\n\t\n\t<p ba-if=\"{{message}}\"\n\t   class=\"ba-commoncss-full-width ba-commoncss-full-height\"\n\t>{{message}}</p>\n\n\t\n\t<ba-call-view ba-if=\"{{call_active}}\"\n\t\t\t\t  ba-local_stream=\"{{=local_stream}}\"\n\t\t\t\t  ba-remote_stream=\"{{=remote_stream}}\"\n\t\t\t\t  ba-local_camera_active=\"{{local_camera_active}}\"\n\t\t\t\t  ba-local_microphone_active=\"{{local_microphone_active}}\"\n\t\t\t\t  ba-remote_camera_active=\"{{remote_camera_active}}\"\n\t\t\t\t  ba-remote_microphone_active=\"{{remote_microphone_active}}\"\n\t></ba-call-view>\n</div>",
+
+                attrs: {
+                    local_camera_active: false,
+                    local_microphone_active: false,
+                    local_stream: undefined,
+                    remote_camera_active: false,
+                    remote_microphone_active: false,
+                    remote_stream: undefined,
+                    skipinitial: false
+                },
+
+                registerchannels: ["call"],
+
+                channels: {
+                    "call:leave_call": function() {
+                        this.trigger("ended");
+                    },
+                    "call:toggle_camera": function() {
+                        this.set("local_camera_active", !this.get("local_camera_active"));
+                    },
+                    "call:toggle_mute": function() {
+                        this.set("local_microphone_active", !this.get("local_microphone_active"));
+                    }
+                },
+
+                object_functions: ["leave"],
+
+                functions: {
+                    leave: function() {
+                        if (!this.get("connected")) return;
+                        this.channel("call").trigger("leave_call");
+                    }
+                },
+
+                events: {
+                    "change:local_camera_active": function(active) {
+                        if (!this.get("local_stream")) return;
+                        this.get("local_stream").getVideoTracks()[0].enabled = active;
+                        if (!this._dataChannelIsReady()) return;
+                        this._dataChannel.send(JSON.stringify({
+                            remote_camera_active: active
+                        }));
+                    },
+                    "change:local_microphone_active": function(active) {
+                        if (!this.get("local_stream")) return;
+                        this.get("local_stream").getAudioTracks()[0].enabled = active;
+                        if (!this._dataChannelIsReady()) return;
+                        this._dataChannel.send(JSON.stringify({
+                            remote_microphone_active: active
+                        }));
+                    },
+                    "change:local_stream": function(stream) {
+                        if (!stream) return;
+                        this.get("local_stream").getVideoTracks()[0].enabled = !!this.get("local_camera_active");
+                        this.get("local_stream").getAudioTracks()[0].enabled = !!this.get("local_microphone_active");
+                    }
+                },
+
+                _afterActivate: function(element) {
+                    inherited._afterActivate.call(this, element);
+                    this.persistentTrigger("loaded");
+                },
+
+                create: function() {
+                    this._initStateMachine();
+                },
+
+                _initStateMachine: function() {
+                    var host = new Host({
+                        stateRegistry: new ClassRegistry(this.cls.callStates())
+                    });
+                    host.dynamic = this;
+                    host.initialize(InitialState);
+                },
+
+                _connect: function() { // Simulates connection, needs to be replaced with actual connection
+                    var connectionPromise = Promise.create();
+                    setTimeout(function() {
+                        Promise.conditional(!this.get("local_stream"), function() {
+                            var localStreamPromise = Promise.create();
+                            this.once("change:local_stream", function(stream) {
+                                if (stream) localStreamPromise.asyncSuccess(stream);
+                            });
+                            return localStreamPromise;
+                        }.bind(this), this.get("local_stream")).success(function(stream) {
+                            this.set("remote_stream", stream);
+                            this.set("remote_camera_active", true);
+                            this.set("remote_microphone_active", true);
+                        }, this);
+                        connectionPromise.asyncSuccess();
+                    }.bind(this), 1000);
+                    return connectionPromise;
+                },
+
+                _createPeerConnection: function(configuration) {
+                    if (this._peerConnection) return;
+                    this._peerConnection = new RTCPeerConnection(configuration);
+                    this._createDataChannel();
+                },
+
+                _createDataChannel: function() {
+                    if (!this._peerConnection) return;
+                    this._dataChannel = this._peerConnection.createDataChannel("call", {
+                        negotiated: true,
+                        id: 0
+                    });
+                    this._dataChannel.onopen = function(event) {
+                        this._dataChannel.send(JSON.stringify({
+                            remote_camera_active: this.get("local_camera_active"),
+                            remote_microphone_active: this.get("local_microphone_active")
+                        }));
+                    }.bind(this);
+                    this._dataChannel.onmessage = function(event) {
+                        this.setAll(JSON.parse(event.data));
+                    }.bind(this);
+                },
+
+                _dataChannelIsReady: function() {
+                    return this._dataChannel && this._dataChannel.readyState === "open";
+                }
+            };
+        }, {
+            callStates: function() {
+                return [CallStates];
+            }
+        })
+        .register("ba-video-call")
+        .attachStringTable(Assets.strings)
+        .addStrings({
+            "call-ended": "Call ended",
+            "connecting": "Connecting...",
+            "connection-error": "There was an error while connecting, please click to try again."
+        });
 });
 }).call(Scoped);

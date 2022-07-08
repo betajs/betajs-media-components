@@ -1,0 +1,11 @@
+<div class="ba-commoncss-full-width">
+	<ba-local-view  ba-stream="{{=local_stream}}"
+					ba-camera_active={{local_camera_active}}
+					ba-microphone_active="{{local_microphone_active}}"
+	></ba-local-view>
+	<ba-remote-view ba-stream="{{=remote_stream}}"
+					ba-camera_active={{remote_camera_active}}
+					ba-microphone_active="{{remote_microphone_active}}"
+	></ba-remote-view>
+	<ba-call-controlbar></ba-call-controlbar>
+</div>

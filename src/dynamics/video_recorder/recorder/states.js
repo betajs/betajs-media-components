@@ -307,8 +307,13 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
                             found = true;
                     }, this);
                     if (!found) {
+                        var error_message = this.dyn.string("unsupported_video_type").replace("%s", this.dyn.get("allowedextensions").join(" / "));
+                        this.dyn.trigger("error", {
+                            error_type: "upload",
+                            error_code: error_message
+                        });
                         this.next("FatalError", {
-                            message: this.dyn.string("unsupported_video_type").replace("%s", this.dyn.get("allowedextensions").join(" / ")),
+                            message: error_message,
                             retry: "Chooser"
                         });
                         return;

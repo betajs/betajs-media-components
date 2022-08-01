@@ -20,3 +20,4 @@ google-translate-creds.json
 .history
 *.log
 package-lock.json
+/demos/kargo/

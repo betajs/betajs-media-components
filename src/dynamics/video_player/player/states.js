@@ -76,6 +76,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
         executeAd: function(instanceKey, next) {
             var adInstance = this.dyn[instanceKey];
             if (!adInstance) return this.next(next);
+            // this.dyn._adsRoll = adInstance;
 
             adInstance.once("adloaded", function(ad) {
                 if (typeof ad !== "undefined") {
@@ -87,6 +88,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
             }, this);
 
             adInstance.on("adfinished", function() {
+                // this.dyn._adsRoll = null;
                 if (this.dyn[instanceKey]) {
                     this.dyn[instanceKey] = null;
                     if (adInstance) adInstance.weakDestroy();
@@ -95,6 +97,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
             }, this);
 
             adInstance.once("adskipped", function() {
+                // this.dyn._adsRoll = null;
                 if (this.dyn[instanceKey]) {
                     this.dyn[instanceKey] = null;
                     if (adInstance) adInstance.weakDestroy();
@@ -102,8 +105,22 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
                 }
             }, this);
 
+            adInstance.once("adcontentResumeRequested", function(ad) {
+                if (next) this.next(next);
+            }, this);
+
+            // adInstance.once("adendmanually", function(ad) {
+            //     if (this.dyn[instanceKey] && this.dyn._adsRoll) {
+            //         this.dyn._adsRoll.weakDestroy();
+            //         this.dyn._adsRoll = null;
+            //     }
+            //     if (!this.dyn.get("playing") && !this.dyn.get("manuallypaused") && ad.isLinear())
+            //         this.dyn.player.play();
+            // }, this);
+
             adInstance.once("ad-error", function(message) {
                 console.error('Error during loading an ' + instanceKey + ' ad. Details: "' + message + '".');
+                this.dyn._adsRoll = null;
                 if (this.dyn[instanceKey]) {
                     this.dyn[instanceKey] = null;
                     if (adInstance) adInstance.weakDestroy();

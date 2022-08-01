@@ -117,6 +117,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "preroll": false,
                     "linear": null,
                     "non-linear": null,
+                    "companion-ad": null,
                     "linearadplayer": true,
                     "customnonlinear": false, // Currently, not fully suported
                     "non-linear-min-duration": 10,
@@ -204,6 +205,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "poster_error": {
                             "ignore": false,
                             "click_play": true
+                        },
+                        "dimensions": {
+                            "width": null,
+                            "height": null
                         }
                     },
                     "placeholderstyle": "",
@@ -279,10 +284,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "thumbnailurl": "string",
                     "videofitstrategy": "string",
                     "posterfitstrategy": "string",
-
                     "linear": "string",
                     "non-linear": "string",
-                    "non-linear-min-duration": "int"
+                    "non-linear-min-duration": "int",
+                    "companion-ad": "string"
                 },
 
                 extendables: ["states"],
@@ -1553,6 +1558,27 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     } catch (e) {}
                     try {
+                        // For now it will be implemented only for ads, if in the feateure
+                        // will be applied for other features statment could be updated
+                        if (this._adsRoll) {
+                            var dimensions = this.get("states").dimensions;
+                            var _width = this.videoWidth() || this.parentWidth() || Dom.elementDimensions(this.activeElement()).width;
+                            var _height = this.videoHeight() || this.parentHeight() || Dom.elementDimensions(this.activeElement()).height;
+                            // If any updates will occure
+                            if (dimensions.widht === null || (dimensions.height !== _height || dimensions.width !== _width)) {
+                                this.set("states", Objs.tree_merge(this.get("states"), {
+                                    dimensions: {
+                                        width: _width,
+                                        height: _height
+                                    }
+                                }));
+                                if (this._adsRoll._adsManager) {
+                                    this._adsRoll._adsManager.resize(_width, _height, google.ima.ViewMode.NORMAL);
+                                }
+                            }
+                        }
+                    } catch (e) {}
+                    try {
                         this._updateCSSSize();
                     } catch (e) {}
                 },
@@ -1710,8 +1736,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                         var _position = nonLinear.position < 1 ?
                                             Math.floor(this.get("duration") * nonLinear.position) :
                                             nonLinear.position;
-                                        var _width = nonLinear.width || (this.parentWidth() > 640 ? 720 : 300);
-                                        var _height = nonLinear.height || (this.parentWidth() > 640 ? 90 : 50);
+                                        var _width = nonLinear.width || this.parentWidth();
+                                        var _height = nonLinear.height || this.parentHeight();
                                         this._adsCollection.add({
                                             position: _position,
                                             duration: this._adProvider.nonLienarDuration,
@@ -1794,7 +1820,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this._adsRoll.once("adendmanually", function(ad) {
                                     if (this._adsRoll) this._adsRoll.weakDestroy();
                                     this._adsRoll = null;
-                                    if (!this.get("playing") && !this.get("manuallypaused"))
+                                    if (!this.get("playing") && !this.get("manuallypaused") && ad.isLinear())
                                         this.player.play();
                                 }, this);
 

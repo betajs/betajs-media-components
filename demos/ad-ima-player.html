@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!--    <script type="text/javascript" src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>-->
+    <!--    <script type="text/javascript" src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>-->
 
     <script src="../vendors/jquery.min.js"></script>
     <script src="../node_modules/betajs-shims/dist/betajs-shims.js"></script>
@@ -16,89 +16,106 @@
     <link  href="../dist/themes/modern/style.css" rel="stylesheet" />
 </head>
 <body style="background: #EEE">
-    <script>
+<script>
 
-        var errroAd = '//localhost:5050/static/demos/vast-samples/---error-url---';
-        var v3_clickThroughtLocalAd = '//localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml';
-        var v3_skipable = '//localhost:5050/static/demos/vast-samples/ads-linear-skipable.xml';
-        var v3_doubleclick = 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=';
-        // var v3_doubleclickVMAP = 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=&ad_rule=1';
-        var v3_doubleclickbased = '//localhost:5050/static/demos/vast-samples/based-doubleclick.xml';
-        var v4_2_wrapper = '//localhost:5050/static/demos/vast-samples/VAST_4_2/Wrapper_Tag-test.xml';
-        // var v4_2_non_linear = '//localhost:5050/static/demos/vast-samples/VAST_4_2/Inline_Non-Linear_Tag-test.xml';
-        var v3_non_linear = '//localhost:5050/static/demos/vast-samples/VAST_3_0/Inline_Non-Linear_Tag-test.xml';
-        var v4_2_skipable = '//localhost:5050/static/demos/vast-samples/VAST_4_2/Inline_Skipable.xml';
-        var v4_2_non_skipable = '//localhost:5050/static/demos/vast-samples/VAST_4_2/Inline_NON_Skipable.xml';
+    var errroAd = '//localhost:5050/static/demos/vast-samples/---error-url---';
+    var v3_clickThroughtLocalAd = '//localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml';
+    var v3_skipable = '//localhost:5050/static/demos/vast-samples/ads-linear-skipable.xml';
+    var v3_doubleclick = 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=';
+    // var v3_doubleclickVMAP = 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=&ad_rule=1';
+    var v3_doubleclickbased = '//localhost:5050/static/demos/vast-samples/based-doubleclick.xml';
+    var v4_2_wrapper = '//localhost:5050/static/demos/vast-samples/VAST_4_2/Wrapper_Tag-test.xml';
+    // var v4_2_non_linear = '//localhost:5050/static/demos/vast-samples/VAST_4_2/Inline_Non-Linear_Tag-test.xml';
+    var v3_non_linear = '//localhost:5050/static/demos/vast-samples/VAST_3_0/Inline_Non-Linear_Tag-test.xml';
+    var v4_2_skipable = '//localhost:5050/static/demos/vast-samples/VAST_4_2/Inline_Skipable.xml';
+    var v4_2_non_skipable = '//localhost:5050/static/demos/vast-samples/VAST_4_2/Inline_NON_Skipable.xml';
+    const v_4_2_inline_with_companion = "//localhost:5050/static/demos/vast-samples/VAST_4_2/Inline_Companion_Tag-test.xml";
 
-        // VMAP - Pre-roll Single Ad, Mid-roll Optimized Pod with 3 Ads, Post-roll Single Ad
-        // var vmap = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/vmap_ad_samples&sz=640x480&cust_params=sample_ar%3Dpremidpostoptimizedpod&ciu_szs=300x250&gdfp_req=1&ad_rule=1&output=vmap&unviewed_position_start=1&env=vp&impl=s&cmsid=496&vid=short_onecue&correlator='
-        // var vmap = '//localhost:5050/static/demos/vast-samples/VMAP/dc_vmap_pre_1_mid_3_post_1.xml'
-        var kargo = '//localhost:5050/static/demos/vast-samples/kargo.xml'
+    // VMAP - Pre-roll Single Ad, Mid-roll Optimized Pod with 3 Ads, Post-roll Single Ad
+    // var vmap = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/vmap_ad_samples&sz=640x480&cust_params=sample_ar%3Dpremidpostoptimizedpod&ciu_szs=300x250&gdfp_req=1&ad_rule=1&output=vmap&unviewed_position_start=1&env=vp&impl=s&cmsid=496&vid=short_onecue&correlator='
+    // var vmap = '//localhost:5050/static/demos/vast-samples/VMAP/dc_vmap_pre_1_mid_3_post_1.xml'
+    var kargo = '//localhost:5050/static/demos/kargo/vast_3.xml';
+    var kargo_p1 = '//localhost:5050/static/demos/kargo/vast_3_part_1.xml';
+    var kargo_p2 = '//localhost:5050/static/demos/kargo/vast_3_part_2.xml';
 
-        // var nonLinear = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/nonlinear_ad_samples&sz=480x70&cust_params=sample_ct%3Dnonlinear&ciu_szs=300x250%2C728x90&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=';
-        var nonLinear = '//localhost:5050/static/demos/vast-samples/dc-single_non-linear.xml';
 
-        var adsense = new BetaJS.MediaComponents.Ads.IMAProvider({
-            // adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator='
-            // adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator='
-            // adTagUrl: 'https://securepubads.g.doubleclick.net/gampad/ads?env=vp&gdfp_req=1&output=vast&iu=/1234/video-demo&sz=400x300&unviewed_position_start=1&ciu_szs=728x90,300x250'
-            // adTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Inline_Linear_Tag-test.xml'
-            // adTagUrl: errroAd
-            // adTagUrl: v3_clickThroughtLocalAd
-            // adTagUrl: v3_doubleclickbased
-            // adTagUrl: v3_skipable
-            // adTagUrl: v4_2_wrapper
-            // adTagUrl: v3_doubleclickVMAP
-            adTagUrl: kargo
-            // adTagUrl: v4_2_non_skipable
-            // adTagUrl: vmap
-            // adTagUrl: nonLinear
-            // , nonLinearAdTagUrl: v3_non_linear
+    // var nonLinear = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/nonlinear_ad_samples&sz=480x70&cust_params=sample_ct%3Dnonlinear&ciu_szs=300x250%2C728x90&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=';
+    var nonLinear = '//localhost:5050/static/demos/vast-samples/dc-single_non-linear.xml';
 
-            // preAdTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml',
-            // postAdTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml',
-            // midAdTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml',
-            // adMidTagUrls: [
-            //     'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml',
-            //     'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml'
-            // ]
-            //, vpaidMode: true, DISABLED, ENABLED, INSECURE
-            //, preload: true
-            // , maxAllowedRedirects: 10,
-            // https://developers.google.com/interactive-media-ads/docs/sdks/html5/client-side/localization
-            , locale: 'fr'
-            , customSkipView: true
-            // , skipAfter: 3
-            , nonLienarDuraton: 10 // default will be 10 seconds
-        });
-        adsense.register("ima");
-    </script>
+    var adsense = new BetaJS.MediaComponents.Ads.IMAProvider({
+        // adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator='
+        // adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator='
+        // adTagUrl: 'https://securepubads.g.doubleclick.net/gampad/ads?env=vp&gdfp_req=1&output=vast&iu=/1234/video-demo&sz=400x300&unviewed_position_start=1&ciu_szs=728x90,300x250'
+        // adTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Inline_Linear_Tag-test.xml'
+        // adTagUrl: errroAd
+        // adTagUrl: v3_clickThroughtLocalAd
+        // adTagUrl: v3_doubleclickbased
+        // adTagUrl: v3_skipable
+        // adTagUrl: v4_2_wrapper
+        // adTagUrl: v3_doubleclickVMAP
+        // adTagUrl: v_4_2_inline_with_companion
+        adTagUrl: kargo
+        // adTagUrl: v4_2_non_skipable
+        // adTagUrl: vmap
+        // adTagUrl: nonLinear
+        , nonLinearAdTagUrl: kargo_p2
+        // , nonLinearAdTagUrl: v3_non_linear
+
+        // preAdTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml',
+        // postAdTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml',
+        // midAdTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml',
+        // adMidTagUrls: [
+        //     'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml',
+        //     'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml'
+        // ]
+        //, vpaidMode: true, DISABLED, ENABLED, INSECURE
+        //, preload: true
+        // , maxAllowedRedirects: 10,
+        // https://developers.google.com/interactive-media-ads/docs/sdks/html5/client-side/localization
+        , locale: 'fr'
+        , customSkipView: true
+        // , skipAfter: 3
+        , nonLienarDuraton: 10 // default will be 10 seconds
+    });
+    adsense.register("ima");
+</script>
 
 <!--    ba-skipinitial-->
 <!--    ba-autoplay-->
 <!--    custom-non-linear-->
+<div style="width: 70%; float: left;">
     <ba-videoplayer
         ba-poster="sample-cover.png"
         ba-source="sample-video.mp4"
         ba-theme="modern"
         ba-adprovider="ima"
-        ba-linear="mid[44, 2, 50%], post"
-        ba-non-linear="25, 10[320,60]"
+        ba-linear="pre,mid[44, 50%], post"
+        ba-non-linear="5[640,100]"
+        ba-companion-ad="compad-selector[300,200]"
     ></ba-videoplayer>
+</div>
+<div style="width: 30%; float: right;">
+    <div id="compad-fluid" style="width: 100%"></div>
+    <div id="compad-selector" style="width: 300px;height: 250px"></div>
+</div>
+
+<!--    ba-companion-ad="compad-selector[300,200]"-->
+<!--    ba-companion-ad="compad-fluid[fluid]"-->
+<!--    ba-non-linear="25, 10[320,60]"-->
 <!--    ba-non-linear="52[,250], 40%[300], 13[300,250], 2[480,70]"-->
-    <!-- 40% == 24sec   -->
+<!-- 40% == 24sec   -->
 <!-- 45% == 27sec   -->
 <!--    ba-non-linear="40[,90], 50%, 20[720,90], 45[250]"-->
-    <!--    ba-non-linear="40, 50%[720,90], 20[,90], 45[250]", based on player dimension it could be 720x90 or 300x50 -->
-    <!-- If will not set ba-non-linear dimensions it will be based on video player dimenstions
-    , also if will be set only one side dimension it will be not look for exact match advertisement, but only partial
-    -->
-    <!--  mid,post  -->
-    <!--  ba-linear="pre,mid[14, 45%,39], post" -->
-    <!--  ba-non-linear="40, 50%[720,90], 20[,90], 45[250]"-->
+<!--    ba-non-linear="40, 50%[720,90], 20[,90], 45[250]", based on player dimension it could be 720x90 or 300x50 -->
+<!-- If will not set ba-non-linear dimensions it will be based on video player dimenstions
+, also if will be set only one side dimension it will be not look for exact match advertisement, but only partial
+-->
+<!--  mid,post  -->
+<!--  ba-linear="pre,mid[14, 45%,39], post" -->
+<!--  ba-non-linear="40, 50%[720,90], 20[,90], 45[250]"-->
 
-    <script>
-        BetaJS.Dynamics.Dynamic.activate();
-    </script>
+<script>
+    BetaJS.Dynamics.Dynamic.activate();
+</script>
 </body>
 </html>

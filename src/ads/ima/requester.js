@@ -1,10 +1,11 @@
 Scoped.define("module:Ads.IMARequester", [
     "base:Class",
     "base:Objs",
+    "base:Async",
     "browser:Dom",
     "browser:Info",
     "base:Events.EventsMixin"
-], function(Class, Objs, Dom, Info, EventsMixin, scoped) {
+], function(Class, Objs, Async, Dom, Info, EventsMixin, scoped) {
     return Class.extend({
         scoped: scoped
     }, [EventsMixin, function(inherited) {
@@ -22,8 +23,6 @@ Scoped.define("module:Ads.IMARequester", [
                 // init
                 this._dyn = dyn;
                 this._isLoaded = false;
-                this._isShowing = false;
-                this._isContetnLoaded = false;
                 this._adsProvider = provider;
                 this._adsPosition = position;
                 this._autostart = autostart;
@@ -33,6 +32,7 @@ Scoped.define("module:Ads.IMARequester", [
                 this._adsManager = null;
                 this._adControlbar = null;
                 this._providerOptions = provider.options();
+                this._allAdsCompelted = false;
                 this._isLinear = null;
                 this._isPlaying = false;
                 this._linearExpected = position !== provider.__IMA_AD_TYPE_NON_LINEAR;
@@ -72,7 +72,7 @@ Scoped.define("module:Ads.IMARequester", [
                         this._adsRequest.adTagUrl = this._providerOptions.preAdTagUrl || this._providerOptions.adTagUrl;
                         break;
                     case provider.__IMA_MID_ROLL:
-                        this._adsRequest.adTagUrl = this._providerOptions.midAdTagUrl || this._providerOptions.adTagUrl;
+                        this._adsRequest.adTagUresumeAfterAdrl = this._providerOptions.midAdTagUrl || this._providerOptions.adTagUrl;
                         break;
                     case provider.__IMA_POST_ROLL:
                         this._adsRequest.adTagUrl = this._providerOptions.postAdTagUrl || this._providerOptions.adTagUrl;
@@ -102,14 +102,10 @@ Scoped.define("module:Ads.IMARequester", [
                 // select the correct creative if multiple are returned.
                 this._adsRequest.linearAdSlotWidth = +options.width;
                 this._adsRequest.linearAdSlotHeight = +options.height;
+
                 // For non linear ads like image in te bottom side of the video
-                if (options.exact !== null) {
-                    this._adsRequest.nonLinearAdSlotWidth = +options.width;
-                    this._adsRequest.nonLinearAdSlotHeight = +options.height;
-                } else {
-                    this._adsRequest.nonLinearAdSlotWidth = options.width;
-                    this._adsRequest.nonLinearAdSlotHeight = options.height / 3;
-                }
+                this._adsRequest.nonLinearAdSlotWidth = +options.width;
+                this._adsRequest.nonLinearAdSlotHeight = +options.height;
 
                 this._adsLoader.requestAds(this._adsRequest);
             },
@@ -168,12 +164,10 @@ Scoped.define("module:Ads.IMARequester", [
                 switch (ev.type) {
                     case google.ima.AdEvent.Type.LOADED:
                         this._isLinear = ad.isLinear();
-                        this._isContetnLoaded = true;
+                        this._allAdsCompelted = false;
                         if ((ad.isLinear() && this._linearExpected) || (!ad.isLinear() && !this._linearExpected)) {
                             this._options.adElement.style.display = "";
-                            this._adDuration = ad.getDuration() || 10;
-                            this._isContetnLoaded = true;
-                            this._showIMAAdController(ad);
+                            if (!this._adControlbar) this._showIMAAdController(ad);
                         } else {
                             this.manuallyEndAd();
                         }
@@ -181,13 +175,43 @@ Scoped.define("module:Ads.IMARequester", [
                         break;
                     case google.ima.AdEvent.Type.ALL_ADS_COMPLETED:
                         if (this._adControlbar) this._adControlbar.destroy();
-                        if (this._adsPosition === this._adsProvider.__IMA_POST_ROLL && this._dyn) {
-                            this._dyn.stop();
+                        if (this._adsProvider && this._dyn) {
+                            if (this._adsPosition === this._adsProvider.__IMA_POST_ROLL) {
+                                this._dyn.stop();
+                            }
                         }
+                        this._allAdsCompelted = true;
                         this.trigger('adfinished');
                         break;
+                    case google.ima.AdEvent.Type.STARTED:
+                        if (this._dyn) {
+                            if (this._dyn.get("companion-ad") && ad) {
+                                this._showCompanionAd(ad, this._dyn.get("companion-ad"));
+                            }
+                        }
+                        /**
+                         if (!ad.isLinear() && this._dyn) {
+                            this._minSuggestedDuration = ad.getMinSuggestedDuration() || 10;
+                            if (this._minSuggestedDuration > 0) {
+                                this._nextEnd = this._minSuggestedDuration + this._dyn.get("position");
+                                Async.eventually(function() {
+                                    // Show at least minSuggested duration
+                                    // and prevent timer if user set to pause or skip
+                                    this._minSuggestedDuration--;
+                                    if (this._minSuggestedDuration < 1 && (this._nextEnd < this._dyn.get("position"))) {
+                                        // If in the next iteration there's no ads roll still contniue showing ad,
+                                        // till it will not dissapera itself
+                                        if (this._dyn._adsRoll) {
+                                            this.manuallyEndAd();
+                                        }
+                                        this._dyn._adsRoll = null;
+                                    }
+                                }, this, 1000);
+                            }
+                        } **/
+                        this.trigger('ad' + ev.type, ad);
+                        break;
                     case google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED:
-                        this._isShowing = true;
                         if (this._dyn.get("playing") && ad.isLinear())
                             this._dyn.pause();
                         break;
@@ -196,10 +220,16 @@ Scoped.define("module:Ads.IMARequester", [
                             this._options.adElement.style.display = "none";
                         if (this._dyn && ad.isLinear()) {
                             if (!this._dyn.get("playing") && this._adsPosition !== this._adsProvider.__IMA_POST_ROLL) {
-                                this._dyn.play();
+                                if (!this._dyn.videoAttached()) {
+                                    this._dyn.on("attached", function(player) {
+                                        if (!this.get("playing")) this.play();
+                                    }, this._dyn);
+                                } else {
+                                    this._dyn.play();
+                                }
                             }
                         }
-                        this._isShowing = false;
+                        this.trigger('ad' + ev.type, ad);
                         break;
                     case google.ima.AdEvent.Type.PAUSED:
                         this._isPlaying = false;
@@ -287,14 +317,6 @@ Scoped.define("module:Ads.IMARequester", [
                 }
             },
 
-            showBannerAd: function() {
-
-            },
-
-            hideBannerAd: function() {
-
-            },
-
             manuallyEndAd: function() {
                 // Skips the current ad when AdsManager.getAdSkippableState() is true.
                 // this._adsManager.skip();
@@ -305,6 +327,15 @@ Scoped.define("module:Ads.IMARequester", [
                 // If an ad break is currently playing, discard it and resume content.
                 // this._adsManager.discardAdBreak();
 
+                this.resetAdsManager();
+
+                if (this._options)
+                    this._options.adElement.style.display = "none";
+                this.trigger('adendmanually', this._adsManager.getCurrentAd());
+            },
+
+            // Will get a new AdsManager when will make next request.
+            resetAdsManager: function() {
                 // Removes ad assets loaded at runtime that need to be properly removed at the time of ad completion
                 // and stops the ad and all tracking
                 this._adsManager.destroy();
@@ -312,10 +343,6 @@ Scoped.define("module:Ads.IMARequester", [
                 // Signals to the SDK that the content is finished.
                 // This will allow the SDK to play post-roll ads, if any are loaded via ad rules.
                 this._adsLoader.contentComplete();
-
-                if (this._options)
-                    this._options.adElement.style.display = "none";
-                this.trigger('adendmanually', this._adsManager.getCurrentAd());
             },
 
             /**
@@ -334,6 +361,44 @@ Scoped.define("module:Ads.IMARequester", [
                     });
                     this._adControlbar.activate();
                 }
+            },
+
+            /**
+             * @param ad IMA Ad data
+             * @param options
+             */
+            _showCompanionAd: function(ad, options) {
+                options = options.replace(/\].*/g, "$'").split('[');
+                var selector = options[0];
+                if (!selector) return;
+                var element = document.getElementById(selector);
+                if (!element) return;
+                var dimensions = options[1];
+                if (!dimensions) return;
+                var selectionCriteria = new google.ima.CompanionAdSelectionSettings();
+                selectionCriteria.resourceType = google.ima.CompanionAdSelectionSettings.ResourceType.STATIC;
+                selectionCriteria.creativeType = google.ima.CompanionAdSelectionSettings.CreativeType.IMAGE;
+                var companionAds = [];
+
+                var isFluid = dimensions === 'fluid';
+                if (!isFluid) {
+                    selectionCriteria.sizeCriteria = google.ima.CompanionAdSelectionSettings.SizeCriteria.IGNORE;
+                    dimensions = dimensions.split(',');
+                    if (dimensions[0] && dimensions[1]) {
+                        // Get a list of companion ads for an ad slot size and CompanionAdSelectionSettings
+                        companionAds = ad.getCompanionAds(+dimensions[0], +dimensions[1], selectionCriteria);
+                    }
+                } else {
+                    selectionCriteria.sizeCriteria = google.ima.CompanionAdSelectionSettings.SizeCriteria.SELECT_FLUID;
+                    companionAds = ad.getCompanionAds(0, 0, selectionCriteria);
+                }
+
+                if (typeof companionAds[0] === "undefined") return;
+
+                var companionAd = companionAds[0];
+                // Get HTML content from the companion ad.
+                // Write the content to the companion ad slot.
+                element.innerHTML = companionAd.getContent();
             },
 
             /**

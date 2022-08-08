@@ -101,7 +101,7 @@ Scoped.define("module:Ads.IMA.Controllbar", [
                     this.set("width", this._contentPlayer.videoWidth());
                     this.set("height", this._contentPlayer.videoHeight());
 
-                    // If skipoffset attribute not exisit in XML but user set own skipafter
+                    // If a skipoffset attribute does not exist in XML, but user set own skip after
                     if (!this._ads.isSkippable() && Types.isNumber(this._adsRequester._providerOptions.skipAfter)) {
                         this.set("skippable", true);
                         this.set("skipoffset", this._adsRequester._providerOptions.skipAfter);

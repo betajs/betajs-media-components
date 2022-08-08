@@ -20,7 +20,7 @@
 .#{$cssplayer}-ad-controlbar {
     @include background-rgba(0, 0, 0, 0.8, #333333);
     @include absolute-align-bottom();
-    height: 38px;
+    height: 32px;
     width: 100%;
     z-index: 10;
 }

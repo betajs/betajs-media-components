@@ -719,10 +719,18 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("playing", false);
                     if (this.player)
                         this.player.weakDestroy();
-                    if (this._prerollAd)
-                        this._prerollAd.weakDestroy();
-                    if (this._adsRoll) {
-                        // this._adsRoll.weakDestroy();
+                    // if the same instance
+                    if (typeof this._prerollAd._allAdsCompelted !== "undefined") {
+                        if (this._prerollAd._allAdsCompelted) {
+                            this._prerollAd.weakDestroy();
+                            if (typeof this._adsRoll.__cid !== "undefined")
+                                this._adsRoll.weakDestroy();
+                            this._adsRoll = null;
+                            this._prerollAd = this._adsRoll;
+                        }
+                    } else {
+                        if (this._prerollAd)
+                            this._prerollAd.weakDestroy();
                         this._adsRoll = null;
                     }
                     if (this._postrollAd) {

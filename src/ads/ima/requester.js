@@ -1,11 +1,11 @@
 Scoped.define("module:Ads.IMARequester", [
     "base:Class",
     "base:Objs",
-    "base:Async",
+    "base:Timers",
     "browser:Dom",
     "browser:Info",
     "base:Events.EventsMixin"
-], function(Class, Objs, Async, Dom, Info, EventsMixin, scoped) {
+], function(Class, Objs, Timers, Dom, Info, EventsMixin, scoped) {
     return Class.extend({
         scoped: scoped
     }, [EventsMixin, function(inherited) {
@@ -40,8 +40,8 @@ Scoped.define("module:Ads.IMARequester", [
                 this._adsRequest = new google.ima.AdsRequest();
 
                 // google.ima.ImaSdkSettings.VpaidMode.DISABLED
-                // DISABLED - VPAID ads will not play and an error will be returned.
-                // ENABLED - VPAID ads are enabled using a cross domain iframe
+                // DISABLED - VPAID ads will not play, and an error will be returned.
+                // ENABLED - VPAID ads are enabled using a cross-domain iframe
                 // INSECURE - This allows the ad access to the site via JavaScript.
                 if (this._providerOptions.vpaidMode && [
                         google.ima.ImaSdkSettings.VpaidMode.DISABLED,
@@ -49,6 +49,8 @@ Scoped.define("module:Ads.IMARequester", [
                         google.ima.ImaSdkSettings.VpaidMode.INSECURE
                     ].includes(this._providerOptions.vpaidMode))
                     google.ima.settings.setVpaidMode(this._providerOptions.vpaidMode);
+                else
+                    google.ima.settings.setVpaidMode(google.ima.ImaSdkSettings.VpaidMode.ENABLED);
 
                 // Call setLocale() to localize language text and downloaded swfs
                 if (Info.language() !== "en" || this._providerOptions.locale)
@@ -99,11 +101,11 @@ Scoped.define("module:Ads.IMARequester", [
                 if (!this._adsRequest) return;
                 // Specify the linear and nonlinear slot sizes.
                 // This helps the SDK to
-                // select the correct creative if multiple are returned.
+                // select the correct creative if multiple is returned.
                 this._adsRequest.linearAdSlotWidth = +options.width;
                 this._adsRequest.linearAdSlotHeight = +options.height;
 
-                // For non linear ads like image in te bottom side of the video
+                // For non-linear ads like image in te bottom side of the video
                 this._adsRequest.nonLinearAdSlotWidth = +options.width;
                 this._adsRequest.nonLinearAdSlotHeight = +options.height;
 
@@ -128,17 +130,17 @@ Scoped.define("module:Ads.IMARequester", [
                 var adRenderingSettings = new google.ima.AdsRenderingSettings();
                 // mimeTypes == Only supported for linear video mime types
                 // playAdsAfterTime == For VMAP and ad rules playlists, only play ad breaks scheduled after this time (in seconds)
-                // Set to false if you wish to have fine grained control over the positioning of all non-linear ads
+                // Set to false if you wish to have fine-grained control over the positioning of all non-linear ads
                 // adRenderingSettings.autoAlign = false;
                 // uiElements [nullable Array of string] == Specifies whether the UI elements that should be displayed,
                 //          The elements in this array are ignored for AdSense/AdX ads
                 if (this._linearExpected) {
                     adRenderingSettings.enablePreloading = preload;
-                    adRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
                 } else {
                     // useStyledNonLinearAds == Render non-linear ads with a close and recall button.
                     adRenderingSettings.useStyledNonLinearAds = true;
                 }
+                adRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
 
                 // getUserRequestContext
                 this._adsManager = adsManagerLoadedEvent.getAdsManager(
@@ -148,7 +150,7 @@ Scoped.define("module:Ads.IMARequester", [
             },
 
             /**
-             * On Each IMA SDK events are triggered
+             * On Each IMA SDK event is triggered
              * @param ev
              * @private
              */
@@ -181,34 +183,46 @@ Scoped.define("module:Ads.IMARequester", [
                             }
                         }
                         this._allAdsCompelted = true;
-                        this.trigger('adfinished');
+                        this.resetAdsManager();
+                        this.trigger('adfinished', this._dyn);
                         break;
                     case google.ima.AdEvent.Type.STARTED:
+                        this._allAdsCompelted = false;
                         if (this._dyn) {
+                            // Don't show NonLinear on post-roll
+                            if (this._adsPosition !== this._adsProvider.__IMA_POST_ROLL && !ad.isLinear()) {
+                                this._options.adElement.style.display = "";
+                                this._dyn.set("linearadplayer", false);
+
+                                this._leftSuggesstedDuration = ad.getMinSuggestedDuration() || this._providerOptions.nonLinearDuration || 10;
+                                if (this._leftSuggesstedDuration > 0) {
+
+                                    this._timer = this._auto_destroy(new Timers.Timer({
+                                        context: this,
+                                        fire: function() {
+                                            // Show at least minSuggested duration
+                                            // and freeze a timer if user set to pause or skip
+                                            this._leftSuggesstedDuration--;
+                                            if (this._leftSuggesstedDuration < 1) {
+                                                // If in the next iteration there's no ads roll still continue showing ad,
+                                                // till it will not disappear itself
+                                                if (this._dyn._adsRoll) {
+                                                    this.manuallyEndAd();
+                                                }
+                                                this._dyn._adsRoll = null;
+                                                this._timer.stop();
+                                            }
+                                        },
+                                        delay: 1000,
+                                        start: true,
+                                        destroy_on_stop: true
+                                    }, this));
+                                }
+                            }
                             if (this._dyn.get("companion-ad") && ad) {
                                 this._showCompanionAd(ad, this._dyn.get("companion-ad"));
                             }
                         }
-                        /**
-                         if (!ad.isLinear() && this._dyn) {
-                            this._minSuggestedDuration = ad.getMinSuggestedDuration() || 10;
-                            if (this._minSuggestedDuration > 0) {
-                                this._nextEnd = this._minSuggestedDuration + this._dyn.get("position");
-                                Async.eventually(function() {
-                                    // Show at least minSuggested duration
-                                    // and prevent timer if user set to pause or skip
-                                    this._minSuggestedDuration--;
-                                    if (this._minSuggestedDuration < 1 && (this._nextEnd < this._dyn.get("position"))) {
-                                        // If in the next iteration there's no ads roll still contniue showing ad,
-                                        // till it will not dissapera itself
-                                        if (this._dyn._adsRoll) {
-                                            this.manuallyEndAd();
-                                        }
-                                        this._dyn._adsRoll = null;
-                                    }
-                                }, this, 1000);
-                            }
-                        } **/
                         this.trigger('ad' + ev.type, ad);
                         break;
                     case google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED:
@@ -240,6 +254,7 @@ Scoped.define("module:Ads.IMARequester", [
                         this.trigger('ad' + ev.type, ad);
                         break;
                     case google.ima.AdEvent.Type.USER_CLOSE:
+                        this.manuallyEndAd();
                         this.trigger('ad' + ev.type, ad);
                         break;
                     default:
@@ -258,6 +273,12 @@ Scoped.define("module:Ads.IMARequester", [
                 if (this._options) this._options.adElement.style.display = "none";
                 if (this._adControlbar) {
                     this._adControlbar.destroy();
+                }
+                if (typeof type.getError === "function") {
+                    var error = type.getError();
+                    if (error) {
+                        message = error.getMessage() + ' Code: ' + error.getErrorCode();
+                    }
                 }
                 this.trigger('ad-error', message);
             },
@@ -331,18 +352,18 @@ Scoped.define("module:Ads.IMARequester", [
 
                 if (this._options)
                     this._options.adElement.style.display = "none";
-                this.trigger('adendmanually', this._adsManager.getCurrentAd());
+                this.trigger('adendmanually', this._adsManager.getCurrentAd(), this._dyn);
             },
 
             // Will get a new AdsManager when will make next request.
             resetAdsManager: function() {
                 // Removes ad assets loaded at runtime that need to be properly removed at the time of ad completion
                 // and stops the ad and all tracking
-                this._adsManager.destroy();
+                if (this._adsManager) this._adsManager.destroy();
 
                 // Signals to the SDK that the content is finished.
-                // This will allow the SDK to play post-roll ads, if any are loaded via ad rules.
-                this._adsLoader.contentComplete();
+                // This will allow the SDK to play post-roll ads if any are loaded via ad rules.
+                if (this._adsLoader) this._adsLoader.contentComplete();
             },
 
             /**

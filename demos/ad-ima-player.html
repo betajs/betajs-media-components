@@ -58,8 +58,8 @@
         // adTagUrl: v4_2_non_skipable
         // adTagUrl: vmap
         // adTagUrl: nonLinear
-        , nonLinearAdTagUrl: kargo_p2
-        // , nonLinearAdTagUrl: v3_non_linear
+        // , nonLinearAdTagUrl: kargo_p2
+        , nonLinearAdTagUrl: v3_non_linear
 
         // preAdTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml',
         // postAdTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml',
@@ -75,7 +75,7 @@
         , locale: 'fr'
         , customSkipView: true
         // , skipAfter: 3
-        , nonLienarDuraton: 10 // default will be 10 seconds
+        , nonLinearDuration: 5 // default will be 10 seconds
     });
     adsense.register("ima");
 </script>
@@ -90,13 +90,14 @@
         ba-theme="modern"
         ba-adprovider="ima"
         ba-linear="pre,mid[44, 50%], post"
-        ba-non-linear="5[640,100]"
+        ba-non-linear="12[480,70]"
         ba-companion-ad="compad-selector[300,200]"
     ></ba-videoplayer>
 </div>
+
 <div style="width: 30%; float: right;">
     <div id="compad-fluid" style="width: 100%"></div>
-    <div id="compad-selector" style="width: 300px;height: 250px"></div>
+    <div id="compad-selector"></div>
 </div>
 
 <!--    ba-companion-ad="compad-selector[300,200]"-->

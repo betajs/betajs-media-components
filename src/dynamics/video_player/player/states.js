@@ -76,28 +76,34 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
         executeAd: function(instanceKey, next) {
             var adInstance = this.dyn[instanceKey];
             if (!adInstance) return this.next(next);
-            // this.dyn._adsRoll = adInstance;
+            this.dyn._adsRoll = adInstance;
 
             adInstance.once("adloaded", function(ad) {
                 if (typeof ad !== "undefined") {
-                    // If ad type is non-lienar like image banner need to load video
+                    // If ad type is non-linear like image banner needs to load video
                     if (!ad.isLinear()) {
                         this.next(next);
                     }
                 }
             }, this);
 
-            adInstance.on("adfinished", function() {
-                // this.dyn._adsRoll = null;
-                if (this.dyn[instanceKey]) {
-                    this.dyn[instanceKey] = null;
-                    if (adInstance) adInstance.weakDestroy();
-                    if (next) this.next(next);
+            adInstance.on("adfinished", function(dyn) {
+                dyn = this.dyn || dyn;
+                if (dyn) {
+                    if (typeof dyn._adsRoll.__cid !== "undefined") dyn._adsRoll.weakDestroy();
+                    dyn._adsRoll = null;
+                    if (dyn[instanceKey]) {
+                        if (adInstance) adInstance.weakDestroy();
+                        dyn[instanceKey] = null;
+                        if (next) this.next(next);
+                    }
+                } else {
+                    console.error("Error not be able get DYN instance on manually end event");
                 }
             }, this);
 
             adInstance.once("adskipped", function() {
-                // this.dyn._adsRoll = null;
+                this.dyn._adsRoll = null;
                 if (this.dyn[instanceKey]) {
                     this.dyn[instanceKey] = null;
                     if (adInstance) adInstance.weakDestroy();
@@ -109,14 +115,20 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
                 if (next) this.next(next);
             }, this);
 
-            // adInstance.once("adendmanually", function(ad) {
-            //     if (this.dyn[instanceKey] && this.dyn._adsRoll) {
-            //         this.dyn._adsRoll.weakDestroy();
-            //         this.dyn._adsRoll = null;
-            //     }
-            //     if (!this.dyn.get("playing") && !this.dyn.get("manuallypaused") && ad.isLinear())
-            //         this.dyn.player.play();
-            // }, this);
+            adInstance.once("adendmanually", function(ad, dyn) {
+                dyn = this.dyn || dyn;
+                if (dyn) {
+                    if (dyn[instanceKey] && dyn._adsRoll) {
+                        if (typeof dyn._adsRoll.__cid !== "undefined")
+                            dyn._adsRoll.weakDestroy();
+                        dyn._adsRoll = null;
+                    }
+                    if (!dyn.get("playing") && !dyn.get("manuallypaused") && ad.isLinear())
+                        dyn.player.play();
+                } else {
+                    console.error("Error not be able get DYN instance on manually end event");
+                }
+            }, this);
 
             adInstance.once("ad-error", function(message) {
                 console.error('Error during loading an ' + instanceKey + ' ad. Details: "' + message + '".');

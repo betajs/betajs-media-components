@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.308 - 2022-07-08
+betajs-media-components - v0.0.309 - 2022-08-09
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1305,7 +1305,7 @@ Apache-2.0 Software License.
   background-color: rgba(0, 0, 0, 0.8);
   position: absolute;
   bottom: 0;
-  height: 38px;
+  height: 32px;
   width: 100%;
   z-index: 10;
 }
@@ -3565,24 +3565,6 @@ Apache-2.0 Software License.
   -o-transition: bottom 0.5s ease 0.2s;
   -ms-transition: bottom 0.5s ease 0.2s;
   bottom: 43px;
-}
-
-.ba-player-controlbar-hidden .ba-player-linear-ad-container > div {
-  transition: bottom 0.5s ease 0.2s;
-  -moz-transition: bottom 0.5s ease 0.2s;
-  -webkit-transition: bottom 0.5s ease 0.2s;
-  -o-transition: bottom 0.5s ease 0.2s;
-  -ms-transition: bottom 0.5s ease 0.2s;
-  bottom: -2px;
-}
-
-.ba-player-controlbar-visible .ba-player-linear-ad-container > div {
-  transition: bottom 0.5s ease 0.2s;
-  -moz-transition: bottom 0.5s ease 0.2s;
-  -webkit-transition: bottom 0.5s ease 0.2s;
-  -o-transition: bottom 0.5s ease 0.2s;
-  -ms-transition: bottom 0.5s ease 0.2s;
-  bottom: 2px;
 }
 
 .ba-player-ad-media-controllbar:hover {

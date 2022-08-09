@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.308 - 2022-07-08
+betajs-media-components - v0.0.309 - 2022-08-09
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.308 - 2022-07-08
+betajs-media-components - v0.0.309 - 2022-08-09
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.308",
-    "datetime": 1657259423313
+    "version": "0.0.309",
+    "datetime": 1660034909740
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -1174,7 +1174,7 @@ Scoped.define("module:Ads.IMA.Controllbar", [
         }, function(inherited) {
             return {
 
-                template: "<div class=\"{{cssplayer}}-ad-controllbar {{showbanner ? cssplayer + '-ad-media-controllbar' : ''}}\">\n    <div ba-show=\"{{skippable}}\" class=\"{{cssplayer}}-skipbutton-container\"\n         ba-click=\"{{skip_linear_ad()}}\"\n    >\n        <p class=\"{{cssplayer}}-skipbutton\">\n            {{lefttillskip > 0 ? string('can-skip-after').replace('%d', lefttillskip) : string('skip-ad') }}\n        </p>\n    </div>\n\n    <div ba-if=\"{{showbanner && media}}\" class=\"{{cssplayer}}-ad-media-container\"\n         data-ads=\"banner-ad-container\"\n    >\n        \n        \n        <span class=\"{{cssplayer}}-ad-banner-close-button\"\n              ba-click=\"{{skip_non_linear_ad()}}\"\n        >\n            <i class=\"{{csscommon}}-icon-cancel\"></i>\n        </span>\n    </div>\n\n    <div ba-if=\"{{customcontroller && !media}}\" class=\"{{css}}-overlay {{cssplayer}}-ad-click-tracker\n        {{clickthroughurl && controllbarisvisible ? csscommon + '-clickable' : ''}}\"\n         ba-click=\"{{ad_clicked()}}\"\n    ></div>\n\n    <div ba-if=\"{{showcontrolbar}}\" class=\"{{cssplayer}}-ad-controlbar {{controllbarisvisible ? '' : (cssplayer + '-dashboard-hidden')}}\">\n        <div tabindex=\"1\" ba-hotkey:space^enter=\"{{toggle_player()}}\"\n             onmouseout=\"this.blur()\" class=\"{{css}}-leftbutton-container\"\n             autofocus\n        >\n            <div ba-if=\"{{!playing}}\" class=\"{{css}}-button-inner\"\n                 ba-click=\"{{resume()}}\" title=\"{{string('play-ad')}}\"\n            >\n                <i class=\"{{csscommon}}-icon-play\"></i>\n            </div>\n            <div ba-if=\"{{playing}}\" class=\"{{css}}-button-inner\" ba-click=\"{{pause()}}\"\n                 title=\"{{disablepause ? string('pause-video-disabled') : string('pause-video')}}\"\n            >\n                <i class=\"{{csscommon}}-icon-pause\"></i>\n            </div>\n        </div>\n\n        <div class=\"{{cssplayer}}-ad-time-container\">\n            <div class=\"{{cssplayer}}-ad-time-value\"\n                 title=\"{{string('elapsed-time')}}\"\n            >\n                {{formatTime(duration)}} / {{formatTime(remaining)}}\n                    <span>|</span>\n                {{title}}\n            </div>\n        </div>\n\n        <div tabindex=\"4\" ba-if=\"{{supportsfullscreen}}\"\n             title=\"{{ fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video') }}\"\n             ba-hotkey:space^enter=\"{{toggle_fullscreen()}}\" onmouseout=\"this.blur()\"\n             class=\"{{css}}-rightbutton-container\" ba-click=\"{{toggle_fullscreen()}}\"\n        >\n            <div class=\"{{css}}-button-inner\">\n                <i class=\"{{csscommon}}-icon-resize-{{fullscreened ? 'small' : 'full'}}\"></i>\n            </div>\n        </div>\n\n        <div tabindex=\"3\" class=\"{{cssplayer}}-ad-volumebar\"\n             ba-hotkey:right=\"{{set_volume(volume + 0.1)}}\" ba-hotkey:left=\"{{set_volume(volume - 0.1)}}\"\n             ba-hotkey:up=\"{{set_volume(1)}}\" ba-hotkey:down=\"{{set_volume(0)}}\"\n        >\n            <div data-selector=\"button-volume-bar\" class=\"{{cssplayer}}-ad-volumebar-inner\"\n                 onmousedown=\"{{startUpdateVolume(domEvent)}}\"\n                 onmouseup=\"{{stopUpdateVolume(domEvent)}}\"\n                 onmouseleave=\"{{stopUpdateVolume(domEvent)}}\"\n                 onmousemove=\"{{progressUpdateVolume(domEvent)}}\"\n            >\n                <div class=\"{{cssplayer}}-ad-volumebar-position\"\n                     ba-styles=\"{{{width: Math.min(100, Math.round(volume * 100)) + '%'}}}\"\n                >\n                    <div class=\"{{cssplayer}}-ad-volumebar-button\"\n                         title=\"{{string('volume-button')}}\"\n                    ></div>\n                </div>\n            </div>\n        </div>\n\n        <div tabindex=\"2\" class=\"{{cssplayer}}-ad-rightbutton-container\"\n             ba-click=\"{{toggle_volume()}}\" ba-hotkey:space^enter=\"{{toggle_volume()}}\"\n             title=\"{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}\"\n        >\n            <div class=\"{{cssplayer}}-ad-button-inner\">\n                <i class=\"{{csscommon + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}\"></i>\n            </div>\n        </div>\n    </div>\n</div>\n\n",
+                template: "<div class=\"{{cssplayer}}-ad-controllbar {{showbanner ? cssplayer + '-ad-media-controllbar' : ''}}\"\n     xmlns:ba-hotkey=\"http://www.w3.org/1999/xhtml\">\n    <div ba-show=\"{{skippable}}\" class=\"{{cssplayer}}-skipbutton-container\"\n         ba-click=\"{{skip_linear_ad()}}\"\n    >\n        <p class=\"{{cssplayer}}-skipbutton\">\n            {{lefttillskip > 0 ? string('can-skip-after').replace('%d', lefttillskip) : string('skip-ad') }}\n        </p>\n    </div>\n\n    <div ba-if=\"{{showbanner && media}}\" class=\"{{cssplayer}}-ad-media-container\"\n         data-ads=\"banner-ad-container\"\n    >\n        \n        \n        <span class=\"{{cssplayer}}-ad-banner-close-button\"\n              ba-click=\"{{skip_non_linear_ad()}}\"\n        >\n            <i class=\"{{csscommon}}-icon-cancel\"></i>\n        </span>\n    </div>\n\n    <div ba-if=\"{{customcontroller && !media}}\" class=\"{{css}}-overlay {{cssplayer}}-ad-click-tracker\n        {{clickthroughurl && controllbarisvisible ? csscommon + '-clickable' : ''}}\"\n         ba-click=\"{{ad_clicked()}}\"\n    ></div>\n\n    <div ba-if=\"{{showcontrolbar}}\" class=\"{{cssplayer}}-ad-controlbar {{controllbarisvisible ? '' : (cssplayer + '-dashboard-hidden')}}\">\n        <div tabindex=\"1\" ba-hotkey:space^enter=\"{{toggle_player()}}\"\n             onmouseout=\"this.blur()\" class=\"{{css}}-leftbutton-container\"\n             autofocus\n        >\n            <div ba-if=\"{{!playing}}\" class=\"{{css}}-button-inner\"\n                 ba-click=\"{{resume()}}\" title=\"{{string('play-ad')}}\"\n            >\n                <i class=\"{{csscommon}}-icon-play\"></i>\n            </div>\n            <div ba-if=\"{{playing}}\" class=\"{{css}}-button-inner\" ba-click=\"{{pause()}}\"\n                 title=\"{{disablepause ? string('pause-video-disabled') : string('pause-video')}}\"\n            >\n                <i class=\"{{csscommon}}-icon-pause\"></i>\n            </div>\n        </div>\n\n        <div class=\"{{cssplayer}}-ad-time-container\">\n            <div class=\"{{cssplayer}}-ad-time-value\"\n                 title=\"{{string('elapsed-time')}}\"\n            >\n                {{formatTime(duration)}} / {{formatTime(remaining)}}\n                    <span>|</span>\n                {{title}}\n            </div>\n        </div>\n\n        <div tabindex=\"4\" ba-if=\"{{supportsfullscreen}}\"\n             title=\"{{ fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video') }}\"\n             ba-hotkey:space^enter=\"{{toggle_fullscreen()}}\" onmouseout=\"this.blur()\"\n             class=\"{{css}}-rightbutton-container\" ba-click=\"{{toggle_fullscreen()}}\"\n        >\n            <div class=\"{{css}}-button-inner\">\n                <i class=\"{{csscommon}}-icon-resize-{{fullscreened ? 'small' : 'full'}}\"></i>\n            </div>\n        </div>\n\n        <div tabindex=\"3\" class=\"{{cssplayer}}-ad-volumebar\"\n             ba-hotkey:right=\"{{set_volume(volume + 0.1)}}\" ba-hotkey:left=\"{{set_volume(volume - 0.1)}}\"\n             ba-hotkey:up=\"{{set_volume(1)}}\" ba-hotkey:down=\"{{set_volume(0)}}\"\n        >\n            <div data-selector=\"button-volume-bar\" class=\"{{cssplayer}}-ad-volumebar-inner\"\n                 onmousedown=\"{{startUpdateVolume(domEvent)}}\"\n                 onmouseup=\"{{stopUpdateVolume(domEvent)}}\"\n                 onmouseleave=\"{{stopUpdateVolume(domEvent)}}\"\n                 onmousemove=\"{{progressUpdateVolume(domEvent)}}\"\n            >\n                <div class=\"{{cssplayer}}-ad-volumebar-position\"\n                     ba-styles=\"{{{width: Math.min(100, Math.round(volume * 100)) + '%'}}}\"\n                >\n                    <div class=\"{{cssplayer}}-ad-volumebar-button\"\n                         title=\"{{string('volume-button')}}\"\n                    ></div>\n                </div>\n            </div>\n        </div>\n\n        <div tabindex=\"2\" class=\"{{cssplayer}}-ad-rightbutton-container\"\n             ba-click=\"{{toggle_volume()}}\" ba-hotkey:space^enter=\"{{toggle_volume()}}\"\n             title=\"{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}\"\n        >\n            <div class=\"{{cssplayer}}-ad-button-inner\">\n                <i class=\"{{csscommon + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}\"></i>\n            </div>\n        </div>\n    </div>\n</div>\n\n",
 
                 attrs: {
                     css: "ba-videoplayer",
@@ -1261,7 +1261,7 @@ Scoped.define("module:Ads.IMA.Controllbar", [
                     this.set("width", this._contentPlayer.videoWidth());
                     this.set("height", this._contentPlayer.videoHeight());
 
-                    // If skipoffset attribute not exisit in XML but user set own skipafter
+                    // If a skipoffset attribute does not exist in XML, but user set own skip after
                     if (!this._ads.isSkippable() && Types.isNumber(this._adsRequester._providerOptions.skipAfter)) {
                         this.set("skippable", true);
                         this.set("skipoffset", this._adsRequester._providerOptions.skipAfter);
@@ -1545,10 +1545,11 @@ Scoped.define("module:Ads.IMAProvider", [
 Scoped.define("module:Ads.IMARequester", [
     "base:Class",
     "base:Objs",
+    "base:Timers",
     "browser:Dom",
     "browser:Info",
     "base:Events.EventsMixin"
-], function(Class, Objs, Dom, Info, EventsMixin, scoped) {
+], function(Class, Objs, Timers, Dom, Info, EventsMixin, scoped) {
     return Class.extend({
         scoped: scoped
     }, [EventsMixin, function(inherited) {
@@ -1566,8 +1567,6 @@ Scoped.define("module:Ads.IMARequester", [
                 // init
                 this._dyn = dyn;
                 this._isLoaded = false;
-                this._isShowing = false;
-                this._isContetnLoaded = false;
                 this._adsProvider = provider;
                 this._adsPosition = position;
                 this._autostart = autostart;
@@ -1577,6 +1576,7 @@ Scoped.define("module:Ads.IMARequester", [
                 this._adsManager = null;
                 this._adControlbar = null;
                 this._providerOptions = provider.options();
+                this._allAdsCompelted = false;
                 this._isLinear = null;
                 this._isPlaying = false;
                 this._linearExpected = position !== provider.__IMA_AD_TYPE_NON_LINEAR;
@@ -1584,8 +1584,8 @@ Scoped.define("module:Ads.IMARequester", [
                 this._adsRequest = new google.ima.AdsRequest();
 
                 // google.ima.ImaSdkSettings.VpaidMode.DISABLED
-                // DISABLED - VPAID ads will not play and an error will be returned.
-                // ENABLED - VPAID ads are enabled using a cross domain iframe
+                // DISABLED - VPAID ads will not play, and an error will be returned.
+                // ENABLED - VPAID ads are enabled using a cross-domain iframe
                 // INSECURE - This allows the ad access to the site via JavaScript.
                 if (this._providerOptions.vpaidMode && [
                         google.ima.ImaSdkSettings.VpaidMode.DISABLED,
@@ -1593,6 +1593,8 @@ Scoped.define("module:Ads.IMARequester", [
                         google.ima.ImaSdkSettings.VpaidMode.INSECURE
                     ].includes(this._providerOptions.vpaidMode))
                     google.ima.settings.setVpaidMode(this._providerOptions.vpaidMode);
+                else
+                    google.ima.settings.setVpaidMode(google.ima.ImaSdkSettings.VpaidMode.ENABLED);
 
                 // Call setLocale() to localize language text and downloaded swfs
                 if (Info.language() !== "en" || this._providerOptions.locale)
@@ -1616,7 +1618,7 @@ Scoped.define("module:Ads.IMARequester", [
                         this._adsRequest.adTagUrl = this._providerOptions.preAdTagUrl || this._providerOptions.adTagUrl;
                         break;
                     case provider.__IMA_MID_ROLL:
-                        this._adsRequest.adTagUrl = this._providerOptions.midAdTagUrl || this._providerOptions.adTagUrl;
+                        this._adsRequest.adTagUresumeAfterAdrl = this._providerOptions.midAdTagUrl || this._providerOptions.adTagUrl;
                         break;
                     case provider.__IMA_POST_ROLL:
                         this._adsRequest.adTagUrl = this._providerOptions.postAdTagUrl || this._providerOptions.adTagUrl;
@@ -1643,17 +1645,13 @@ Scoped.define("module:Ads.IMARequester", [
                 if (!this._adsRequest) return;
                 // Specify the linear and nonlinear slot sizes.
                 // This helps the SDK to
-                // select the correct creative if multiple are returned.
+                // select the correct creative if multiple is returned.
                 this._adsRequest.linearAdSlotWidth = +options.width;
                 this._adsRequest.linearAdSlotHeight = +options.height;
-                // For non linear ads like image in te bottom side of the video
-                if (options.exact !== null) {
-                    this._adsRequest.nonLinearAdSlotWidth = +options.width;
-                    this._adsRequest.nonLinearAdSlotHeight = +options.height;
-                } else {
-                    this._adsRequest.nonLinearAdSlotWidth = options.width;
-                    this._adsRequest.nonLinearAdSlotHeight = options.height / 3;
-                }
+
+                // For non-linear ads like image in te bottom side of the video
+                this._adsRequest.nonLinearAdSlotWidth = +options.width;
+                this._adsRequest.nonLinearAdSlotHeight = +options.height;
 
                 this._adsLoader.requestAds(this._adsRequest);
             },
@@ -1676,17 +1674,17 @@ Scoped.define("module:Ads.IMARequester", [
                 var adRenderingSettings = new google.ima.AdsRenderingSettings();
                 // mimeTypes == Only supported for linear video mime types
                 // playAdsAfterTime == For VMAP and ad rules playlists, only play ad breaks scheduled after this time (in seconds)
-                // Set to false if you wish to have fine grained control over the positioning of all non-linear ads
+                // Set to false if you wish to have fine-grained control over the positioning of all non-linear ads
                 // adRenderingSettings.autoAlign = false;
                 // uiElements [nullable Array of string] == Specifies whether the UI elements that should be displayed,
                 //          The elements in this array are ignored for AdSense/AdX ads
                 if (this._linearExpected) {
                     adRenderingSettings.enablePreloading = preload;
-                    adRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
                 } else {
                     // useStyledNonLinearAds == Render non-linear ads with a close and recall button.
                     adRenderingSettings.useStyledNonLinearAds = true;
                 }
+                adRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
 
                 // getUserRequestContext
                 this._adsManager = adsManagerLoadedEvent.getAdsManager(
@@ -1696,7 +1694,7 @@ Scoped.define("module:Ads.IMARequester", [
             },
 
             /**
-             * On Each IMA SDK events are triggered
+             * On Each IMA SDK event is triggered
              * @param ev
              * @private
              */
@@ -1712,12 +1710,10 @@ Scoped.define("module:Ads.IMARequester", [
                 switch (ev.type) {
                     case google.ima.AdEvent.Type.LOADED:
                         this._isLinear = ad.isLinear();
-                        this._isContetnLoaded = true;
+                        this._allAdsCompelted = false;
                         if ((ad.isLinear() && this._linearExpected) || (!ad.isLinear() && !this._linearExpected)) {
                             this._options.adElement.style.display = "";
-                            this._adDuration = ad.getDuration() || 10;
-                            this._isContetnLoaded = true;
-                            this._showIMAAdController(ad);
+                            if (!this._adControlbar) this._showIMAAdController(ad);
                         } else {
                             this.manuallyEndAd();
                         }
@@ -1725,13 +1721,55 @@ Scoped.define("module:Ads.IMARequester", [
                         break;
                     case google.ima.AdEvent.Type.ALL_ADS_COMPLETED:
                         if (this._adControlbar) this._adControlbar.destroy();
-                        if (this._adsPosition === this._adsProvider.__IMA_POST_ROLL && this._dyn) {
-                            this._dyn.stop();
+                        if (this._adsProvider && this._dyn) {
+                            if (this._adsPosition === this._adsProvider.__IMA_POST_ROLL) {
+                                this._dyn.stop();
+                            }
                         }
-                        this.trigger('adfinished');
+                        this._allAdsCompelted = true;
+                        this.resetAdsManager();
+                        this.trigger('adfinished', this._dyn);
+                        break;
+                    case google.ima.AdEvent.Type.STARTED:
+                        this._allAdsCompelted = false;
+                        if (this._dyn) {
+                            // Don't show NonLinear on post-roll
+                            if (this._adsPosition !== this._adsProvider.__IMA_POST_ROLL && !ad.isLinear()) {
+                                this._options.adElement.style.display = "";
+                                this._dyn.set("linearadplayer", false);
+
+                                this._leftSuggesstedDuration = ad.getMinSuggestedDuration() || this._providerOptions.nonLinearDuration || 10;
+                                if (this._leftSuggesstedDuration > 0) {
+
+                                    this._timer = this._auto_destroy(new Timers.Timer({
+                                        context: this,
+                                        fire: function() {
+                                            // Show at least minSuggested duration
+                                            // and freeze a timer if user set to pause or skip
+                                            this._leftSuggesstedDuration--;
+                                            if (this._leftSuggesstedDuration < 1) {
+                                                // If in the next iteration there's no ads roll still continue showing ad,
+                                                // till it will not disappear itself
+                                                if (this._dyn._adsRoll) {
+                                                    this.manuallyEndAd();
+                                                }
+                                                this._dyn._adsRoll = null;
+                                                this._timer.stop();
+                                            }
+                                        },
+                                        delay: 1000,
+                                        start: true,
+                                        destroy_on_stop: true
+                                    }, this));
+                                }
+                            }
+                            if (this._dyn.get("companion-ad") && ad) {
+                                this._showCompanionAd(ad, this._dyn.get("companion-ad"));
+                            }
+                        }
+                        this.trigger('ad' + ev.type, ad);
                         break;
                     case google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED:
-                        this._isShowing = true;
                         if (this._dyn.get("playing") && ad.isLinear())
                             this._dyn.pause();
                         break;
@@ -1740,10 +1778,16 @@ Scoped.define("module:Ads.IMARequester", [
                             this._options.adElement.style.display = "none";
                         if (this._dyn && ad.isLinear()) {
                             if (!this._dyn.get("playing") && this._adsPosition !== this._adsProvider.__IMA_POST_ROLL) {
-                                this._dyn.play();
+                                if (!this._dyn.videoAttached()) {
+                                    this._dyn.on("attached", function(player) {
+                                        if (!this.get("playing")) this.play();
+                                    }, this._dyn);
+                                } else {
+                                    this._dyn.play();
+                                }
                             }
                         }
-                        this._isShowing = false;
+                        this.trigger('ad' + ev.type, ad);
                         break;
                     case google.ima.AdEvent.Type.PAUSED:
                         this._isPlaying = false;
@@ -1754,6 +1798,7 @@ Scoped.define("module:Ads.IMARequester", [
                         this.trigger('ad' + ev.type, ad);
                         break;
                     case google.ima.AdEvent.Type.USER_CLOSE:
+                        this.manuallyEndAd();
                         this.trigger('ad' + ev.type, ad);
                         break;
                     default:
@@ -1772,6 +1817,12 @@ Scoped.define("module:Ads.IMARequester", [
                 if (this._options) this._options.adElement.style.display = "none";
                 if (this._adControlbar) {
                     this._adControlbar.destroy();
+                }
+                if (typeof type.getError === "function") {
+                    var error = type.getError();
+                    if (error) {
+                        message = error.getMessage() + ' Code: ' + error.getErrorCode();
+                    }
                 }
                 this.trigger('ad-error', message);
             },
@@ -1831,14 +1882,6 @@ Scoped.define("module:Ads.IMARequester", [
                 }
             },
 
-            showBannerAd: function() {
-
-            },
-
-            hideBannerAd: function() {
-
-            },
-
             manuallyEndAd: function() {
                 // Skips the current ad when AdsManager.getAdSkippableState() is true.
                 // this._adsManager.skip();
@@ -1849,17 +1892,22 @@ Scoped.define("module:Ads.IMARequester", [
                 // If an ad break is currently playing, discard it and resume content.
                 // this._adsManager.discardAdBreak();
 
-                // Removes ad assets loaded at runtime that need to be properly removed at the time of ad completion
-                // and stops the ad and all tracking
-                this._adsManager.destroy();
-
-                // Signals to the SDK that the content is finished.
-                // This will allow the SDK to play post-roll ads, if any are loaded via ad rules.
-                this._adsLoader.contentComplete();
+                this.resetAdsManager();
 
                 if (this._options)
                     this._options.adElement.style.display = "none";
-                this.trigger('adendmanually', this._adsManager.getCurrentAd());
+                this.trigger('adendmanually', this._adsManager.getCurrentAd(), this._dyn);
+            },
+
+            // Will get a new AdsManager when will make next request.
+            resetAdsManager: function() {
+                // Removes ad assets loaded at runtime that need to be properly removed at the time of ad completion
+                // and stops the ad and all tracking
+                if (this._adsManager) this._adsManager.destroy();
+
+                // Signals to the SDK that the content is finished.
+                // This will allow the SDK to play post-roll ads if any are loaded via ad rules.
+                if (this._adsLoader) this._adsLoader.contentComplete();
             },
 
             /**
@@ -1878,6 +1926,44 @@ Scoped.define("module:Ads.IMARequester", [
                     });
                     this._adControlbar.activate();
                 }
+            },
+
+            /**
+             * @param ad IMA Ad data
+             * @param options
+             */
+            _showCompanionAd: function(ad, options) {
+                options = options.replace(/\].*/g, "$'").split('[');
+                var selector = options[0];
+                if (!selector) return;
+                var element = document.getElementById(selector);
+                if (!element) return;
+                var dimensions = options[1];
+                if (!dimensions) return;
+                var selectionCriteria = new google.ima.CompanionAdSelectionSettings();
+                selectionCriteria.resourceType = google.ima.CompanionAdSelectionSettings.ResourceType.STATIC;
+                selectionCriteria.creativeType = google.ima.CompanionAdSelectionSettings.CreativeType.IMAGE;
+                var companionAds = [];
+
+                var isFluid = dimensions === 'fluid';
+                if (!isFluid) {
+                    selectionCriteria.sizeCriteria = google.ima.CompanionAdSelectionSettings.SizeCriteria.IGNORE;
+                    dimensions = dimensions.split(',');
+                    if (dimensions[0] && dimensions[1]) {
+                        // Get a list of companion ads for an ad slot size and CompanionAdSelectionSettings
+                        companionAds = ad.getCompanionAds(+dimensions[0], +dimensions[1], selectionCriteria);
+                    }
+                } else {
+                    selectionCriteria.sizeCriteria = google.ima.CompanionAdSelectionSettings.SizeCriteria.SELECT_FLUID;
+                    companionAds = ad.getCompanionAds(0, 0, selectionCriteria);
+                }
+
+                if (typeof companionAds[0] === "undefined") return;
+
+                var companionAd = companionAds[0];
+                // Get HTML content from the companion ad.
+                // Write the content to the companion ad slot.
+                element.innerHTML = companionAd.getContent();
             },
 
             /**
@@ -5740,7 +5826,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Adplayer", [
         }, function(inherited) {
             return {
 
-                template: "<video class=\"{{css}}-video\" data-video=\"video\"></video>\n<div class=\"{{cssplayer}}-ad-dashboard\">\n    <div class=\"{{cssplayer}}-ad-click-tracker\" ba-click=\"{{ad_clicked()}}\"></div>\n    <div class=\"{{cssplayer}}-skipbutton-container\" ba-click=\"{{skip_linear_ad()}}\"  ba-show=\"{{skipbuttonvisible}}\">\n        <p class=\"{{cssplayer}}-skipbutton\">{{lefttillskip > 0 ? string('can-skip-after').replace('%d', lefttillskip) : string('skip-ad')}}</p>\n    </div>\n\n    <div class=\"{{css}}-companion-ad-container\" ba-show=\"{{companionadvisible}}\">\n        <div class=\"{{css}}-close-companion-ad\" ba-click=\"{{skip_companion_ad()}}\">X</div>\n        <img class=\"{{css}}-companion-ad\" src=\"\"/>\n    </div>\n\n    <div class=\"{{cssplayer}}-ad-controlbar\">\n\n        <div class=\"{{cssplayer}}-ad-time-container\">\n            <div class=\"{{cssplayer}}-ad-time-value\" title=\"{{string('elapsed-time')}}\">{{string('ad-will-end-after').replace('%s', formatTime(adduration))}}</div>\n        </div>\n\n        <div class=\"{{cssplayer}}-ad-volumebar\">\n            <div data-selector=\"button-volume-bar\" class=\"{{cssplayer}}-ad-volumebar-inner\"\n                 onmousedown=\"{{startUpdateAdVolume(domEvent)}}\"\n                 onmouseup=\"{{stopUpdateAdVolume(domEvent)}}\"\n                 onmouseleave=\"{{stopUpdateAdVolume(domEvent)}}\"\n                 onmousemove=\"{{progressUpdateAdVolume(domEvent)}}\">\n                <div class=\"{{cssplayer}}-ad-volumebar-position\" ba-styles=\"{{{width: Math.min(100, Math.round(advolume * 100)) + '%'}}}\">\n                    <div class=\"{{cssplayer}}-ad-volumebar-button\" title=\"{{string('volume-button')}}\"></div>\n                </div>\n            </div>\n        </div>\n\n        <div data-selector=\"button-icon-volume\" class=\"{{cssplayer}}-ad-rightbutton-container\" ba-click=\"{{toggle_ad_volume()}}\" title=\"{{string(advolume > 0 ? 'volume-mute' : 'volume-unmute')}}\">\n            <div class=\"{{cssplayer}}-ad-button-inner\">\n                <i class=\"{{css + '-icon-volume-' + (advolume >= 0.5 ? 'up' : (advolume > 0 ? 'down' : 'off')) }}\"></i>\n            </div>\n        </div>\n\n    </div>\n</div>\n",
+                template: "<video class=\"{{css}}-video\" data-video=\"video\"></video>\n<div class=\"{{cssplayer}}-ad-dashboard\">\n    <div class=\"{{cssplayer}}-ad-click-tracker\" ba-click=\"{{ad_clicked()}}\"></div>\n    <div class=\"{{cssplayer}}-skipbutton-container\" ba-click=\"{{skip_linear_ad()}}\" ba-show=\"{{skipbuttonvisible}}\">\n        <p class=\"{{cssplayer}}-skipbutton\">{{lefttillskip > 0 ? string('can-skip-after').replace('%d', lefttillskip) : string('skip-ad')}}</p>\n    </div>\n\n    <div class=\"{{css}}-companion-ad-container\" ba-show=\"{{companionadvisible}}\">\n        <div class=\"{{css}}-close-companion-ad\" ba-click=\"{{skip_companion_ad()}}\">X</div>\n        <img class=\"{{css}}-companion-ad\" src=\"\"/>\n    </div>\n\n    <div class=\"{{cssplayer}}-ad-controlbar\">\n\n        <div class=\"{{cssplayer}}-ad-time-container\">\n            <div class=\"{{cssplayer}}-ad-time-value\" title=\"{{string('elapsed-time')}}\">{{string('ad-will-end-after').replace('%s', formatTime(adduration))}}</div>\n        </div>\n\n        <div class=\"{{cssplayer}}-ad-volumebar\">\n            <div data-selector=\"button-volume-bar\" class=\"{{cssplayer}}-ad-volumebar-inner\"\n                 onmousedown=\"{{startUpdateAdVolume(domEvent)}}\"\n                 onmouseup=\"{{stopUpdateAdVolume(domEvent)}}\"\n                 onmouseleave=\"{{stopUpdateAdVolume(domEvent)}}\"\n                 onmousemove=\"{{progressUpdateAdVolume(domEvent)}}\">\n                <div class=\"{{cssplayer}}-ad-volumebar-position\" ba-styles=\"{{{width: Math.min(100, Math.round(advolume * 100)) + '%'}}}\">\n                    <div class=\"{{cssplayer}}-ad-volumebar-button\" title=\"{{string('volume-button')}}\"></div>\n                </div>\n            </div>\n        </div>\n\n        <div data-selector=\"button-icon-volume\" class=\"{{cssplayer}}-ad-rightbutton-container\" ba-click=\"{{toggle_ad_volume()}}\" title=\"{{string(advolume > 0 ? 'volume-mute' : 'volume-unmute')}}\">\n            <div class=\"{{cssplayer}}-ad-button-inner\">\n                <i class=\"{{css + '-icon-volume-' + (advolume >= 0.5 ? 'up' : (advolume > 0 ? 'down' : 'off')) }}\"></i>\n            </div>\n        </div>\n\n    </div>\n</div>\n",
 
                 attrs: {
                     "css": "ba-adplayer",
@@ -6732,6 +6818,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "preroll": false,
                     "linear": null,
                     "non-linear": null,
+                    "companion-ad": null,
                     "linearadplayer": true,
                     "customnonlinear": false, // Currently, not fully suported
                     "non-linear-min-duration": 10,
@@ -6819,6 +6906,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "poster_error": {
                             "ignore": false,
                             "click_play": true
+                        },
+                        "dimensions": {
+                            "width": null,
+                            "height": null
                         }
                     },
                     "placeholderstyle": "",
@@ -6894,10 +6985,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "thumbnailurl": "string",
                     "videofitstrategy": "string",
                     "posterfitstrategy": "string",
-
                     "linear": "string",
                     "non-linear": "string",
-                    "non-linear-min-duration": "int"
+                    "non-linear-min-duration": "int",
+                    "companion-ad": "string"
                 },
 
                 extendables: ["states"],
@@ -7329,12 +7420,22 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("playing", false);
                     if (this.player)
                         this.player.weakDestroy();
-                    if (this._prerollAd)
-                        this._prerollAd.weakDestroy();
-                    if (this._adsRoll) {
-                        // this._adsRoll.weakDestroy();
-                        this._adsRoll = null;
+                    // if the same instance
+                    if (this._prerollAd) {
+                        if (typeof this._prerollAd._allAdsCompelted !== "undefined") {
+                            if (this._prerollAd._allAdsCompelted) {
+                                this._prerollAd.weakDestroy();
+                                if (typeof this._adsRoll.__cid !== "undefined")
+                                    this._adsRoll.weakDestroy();
+                                this._adsRoll = null;
+                                this._prerollAd = this._adsRoll;
+                            }
+                        } else {
+                            this._prerollAd.weakDestroy();
+                            this._adsRoll = null;
+                        }
                     }
+
                     if (this._postrollAd) {
                         this._postrollAd.weakDestroy();
                         this._postrollAd = null;
@@ -8168,6 +8269,27 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     } catch (e) {}
                     try {
+                        // For now it will be implemented only for ads, if in the feateure
+                        // will be applied for other features statment could be updated
+                        if (this._adsRoll) {
+                            var dimensions = this.get("states").dimensions;
+                            var _width = this.videoWidth() || this.parentWidth() || Dom.elementDimensions(this.activeElement()).width;
+                            var _height = this.videoHeight() || this.parentHeight() || Dom.elementDimensions(this.activeElement()).height;
+                            // If any updates will occure
+                            if (dimensions.widht === null || (dimensions.height !== _height || dimensions.width !== _width)) {
+                                this.set("states", Objs.tree_merge(this.get("states"), {
+                                    dimensions: {
+                                        width: _width,
+                                        height: _height
+                                    }
+                                }));
+                                if (this._adsRoll._adsManager) {
+                                    this._adsRoll._adsManager.resize(_width, _height, google.ima.ViewMode.NORMAL);
+                                }
+                            }
+                        }
+                    } catch (e) {}
+                    try {
                         this._updateCSSSize();
                     } catch (e) {}
                 },
@@ -8325,8 +8447,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                         var _position = nonLinear.position < 1 ?
                                             Math.floor(this.get("duration") * nonLinear.position) :
                                             nonLinear.position;
-                                        var _width = nonLinear.width || (this.parentWidth() > 640 ? 720 : 300);
-                                        var _height = nonLinear.height || (this.parentWidth() > 640 ? 90 : 50);
+                                        var _width = nonLinear.width || this.parentWidth();
+                                        var _height = nonLinear.height || this.parentHeight();
                                         this._adsCollection.add({
                                             position: _position,
                                             duration: this._adProvider.nonLienarDuration,
@@ -8409,7 +8531,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this._adsRoll.once("adendmanually", function(ad) {
                                     if (this._adsRoll) this._adsRoll.weakDestroy();
                                     this._adsRoll = null;
-                                    if (!this.get("playing") && !this.get("manuallypaused"))
+                                    if (!this.get("playing") && !this.get("manuallypaused") && ad.isLinear())
                                         this.player.play();
                                 }, this);
 
@@ -8577,17 +8699,34 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
         executeAd: function(instanceKey, next) {
             var adInstance = this.dyn[instanceKey];
             if (!adInstance) return this.next(next);
+            this.dyn._adsRoll = adInstance;
 
             adInstance.once("adloaded", function(ad) {
                 if (typeof ad !== "undefined") {
-                    // If ad type is non-lienar like image banner need to load video
+                    // If ad type is non-linear like image banner needs to load video
                     if (!ad.isLinear()) {
                         this.next(next);
                     }
                 }
             }, this);
 
-            adInstance.on("adfinished", function() {
+            adInstance.on("adfinished", function(dyn) {
+                dyn = this.dyn || dyn;
+                if (dyn) {
+                    if (typeof dyn._adsRoll.__cid !== "undefined") dyn._adsRoll.weakDestroy();
+                    dyn._adsRoll = null;
+                    if (dyn[instanceKey]) {
+                        if (adInstance) adInstance.weakDestroy();
+                        dyn[instanceKey] = null;
+                        if (next) this.next(next);
+                    }
+                } else {
+                    console.error("Error not be able get DYN instance on manually end event");
+                }
+            }, this);
+
+            adInstance.once("adskipped", function() {
+                this.dyn._adsRoll = null;
                 if (this.dyn[instanceKey]) {
                     this.dyn[instanceKey] = null;
                     if (adInstance) adInstance.weakDestroy();
@@ -8595,16 +8734,28 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
                 }
             }, this);
 
-            adInstance.once("adskipped", function() {
-                if (this.dyn[instanceKey]) {
-                    this.dyn[instanceKey] = null;
-                    if (adInstance) adInstance.weakDestroy();
-                    if (next) this.next(next);
+            adInstance.once("adcontentResumeRequested", function(ad) {
+                if (next) this.next(next);
+            }, this);
+
+            adInstance.once("adendmanually", function(ad, dyn) {
+                dyn = this.dyn || dyn;
+                if (dyn) {
+                    if (dyn[instanceKey] && dyn._adsRoll) {
+                        if (typeof dyn._adsRoll.__cid !== "undefined")
+                            dyn._adsRoll.weakDestroy();
+                        dyn._adsRoll = null;
+                    }
+                    if (!dyn.get("playing") && !dyn.get("manuallypaused") && ad.isLinear())
+                        dyn.player.play();
+                } else {
+                    console.error("Error not be able get DYN instance on manually end event");
                 }
             }, this);
 
             adInstance.once("ad-error", function(message) {
                 console.error('Error during loading an ' + instanceKey + ' ad. Details: "' + message + '".');
+                this.dyn._adsRoll = null;
                 if (this.dyn[instanceKey]) {
                     this.dyn[instanceKey] = null;
                     if (adInstance) adInstance.weakDestroy();

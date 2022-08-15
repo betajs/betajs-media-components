@@ -24,6 +24,9 @@ Scoped.define("module:VideoCall.Dynamics.Lobby", [
             };
         })
         .register("ba-call-lobby")
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/call_lobby.html') %>*/
+        })
         .attachStringTable(Assets.strings)
         .addStrings({
             "camera-button": "Camera",

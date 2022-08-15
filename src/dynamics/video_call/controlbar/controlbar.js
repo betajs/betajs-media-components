@@ -24,6 +24,9 @@ Scoped.define("module:VideoCall.Dynamics.Controlbar", [
             };
         })
         .register("ba-call-controlbar")
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/call_controlbar.html') %>*/
+        })
         .attachStringTable(Assets.strings)
         .addStrings({
             "camera-button": "Show/Hide Camera",

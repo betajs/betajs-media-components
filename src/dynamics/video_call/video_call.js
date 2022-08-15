@@ -140,6 +140,9 @@ Scoped.define("module:VideoCall.Dynamics.Call", [
             }
         })
         .register("ba-video-call")
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/video_call.html') %>*/
+        })
         .attachStringTable(Assets.strings)
         .addStrings({
             "call-ended": "Call ended",

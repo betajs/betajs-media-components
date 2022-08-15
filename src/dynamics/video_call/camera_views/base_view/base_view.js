@@ -29,5 +29,8 @@ Scoped.define("module:VideoCall.Dynamics.BaseView", [
 					}
                 }
             };
+        })
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/base_view.html') %>*/
         });
 });

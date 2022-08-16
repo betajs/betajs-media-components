@@ -17,5 +17,9 @@ Scoped.define("module:VideoCall.Dynamics.RemoteView", [
 				inherited.create.call(this);
             }
         };
-    }).register("ba-remote-view");
+    })
+    .register("ba-remote-view")
+    .registerFunctions({
+        /*<%= template_function_cache(dirname + '/remote_view_overlay.html') %>*/
+    });
 });

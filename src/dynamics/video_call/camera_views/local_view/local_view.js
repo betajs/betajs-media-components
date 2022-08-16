@@ -32,5 +32,8 @@ Scoped.define("module:VideoCall.Dynamics.LocalView", [
                 }
             };
         })
-        .register("ba-local-view");
+        .register("ba-local-view")
+        .registerFunctions({
+            /*<%= template_function_cache(dirname + '/local_view_overlay.html') %>*/
+        });
 });

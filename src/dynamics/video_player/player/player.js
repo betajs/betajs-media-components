@@ -18,6 +18,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "base:States.Host",
     "base:Classes.ClassRegistry",
     "base:Async",
+    "base:Ajax.Support",
     "module:VideoPlayer.Dynamics.PlayerStates.Initial",
     "module:VideoPlayer.Dynamics.PlayerStates",
     "module:Ads.AbstractVideoAdProvider",
@@ -37,7 +38,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.TemplatePartial",
     "dynamics:Partials.HotkeyPartial"
-], function(Class, Assets, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, Types, Objs, Strings, Collection, Time, Timers, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, IMARequester, DomEvents, scoped) {
+], function(Class, Assets, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, Types, Objs, Strings, Collection, Time, Timers, TimeFormat, Host, ClassRegistry, Async, AjaxSupport, InitialState, PlayerStates, AdProvider, IMARequester, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, [StylesMixin, function(inherited) {
@@ -107,6 +108,20 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "sharevideo": [],
                     "sharevideourl": "",
                     "visibilityfraction": 0.8,
+                    "collect-meta-data": false,
+                    /**
+                     * collection-xpath-rule format:
+                     * [{
+                     *   key: string // Any key name which could be set as JSON key. Example: 'header',
+                     *   scope: Node // Node scope, in which area query required. Example: document.body,
+                     *   dataKeyType: 'key' | 'tag' | string: 'anyAttributeName' // Which type of key should be used as deta key,
+                     *   resultKeyType: 'innerText' // Found Node content type,
+                     *   rules: string[] | string // Sny xPath rules: https://devhints.io/xpath, Example: "//h1[position()=1]"
+                     * }]
+                     */
+                    "collection-xpath-rule": null,
+                    "send-meta-endpoint": null,
+
                     /* Configuration */
                     "reloadonplay": false,
                     "playonclick": true,
@@ -287,7 +302,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "linear": "string",
                     "non-linear": "string",
                     "non-linear-min-duration": "int",
-                    "companion-ad": "string"
+                    "companion-ad": "string",
+                    "collect-meta-data": "boolean",
+                    "collection-xpath-rule": "jsonarray",
+                    "send-meta-endpoint": "string"
                 },
 
                 extendables: ["states"],
@@ -395,6 +413,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     if (!this.get("themecolor"))
                         this.set("themecolor", "default");
+
+                    if (this.get("collect-meta-data") && this.get("send-meta-endpoint")) {
+                        this._collectMetaData();
+                    }
 
                     if (this.get("adprovider")) {
                         this._adProvider = this.get("adprovider");
@@ -1697,6 +1719,115 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         height: this.get("popup-height")
                     };
                 },
+
+                _collectMetaData: function() {
+                    var data = {};
+                    var rules = [{
+                            key: 'meta',
+                            scope: document.head,
+                            dataKeyType: 'name', // key - this object key, tag - should be key as a tag name, anyAttributeName - if not defined will use key
+                            resultKeyType: 'content', // content, innerText
+                            rules: "//meta[@name='keywords' or @name='description']" // string or array of rules
+                        },
+                        {
+                            key: 'header',
+                            scope: document.body,
+                            dataKeyType: 'key',
+                            resultKeyType: 'innerText',
+                            rules: "//h1[position()=1]"
+                        },
+                        {
+                            key: 'content',
+                            scope: document.body,
+                            dataKeyType: 'key',
+                            resultKeyType: 'innerText',
+                            rules: [
+                                "//p[parent::div or parent::main or parent::article][parent::*[not(parent::a)]][parent::*[parent::*[not(parent::a)]]]",
+                                "//h2[parent::div or parent::main or parent::article or parent::body][parent::*[not(parent::a)]][parent::*[parent::*[not(parent::a)]]]",
+                                "//h3[parent::div or parent::main or parent::article or parent::body][parent::*[not(parent::a)]][parent::*[parent::*[not(parent::a)]]]",
+                                "//h4[parent::div or parent::main or parent::article or parent::body][parent::*[not(parent::a)]][parent::*[parent::*[not(parent::a)]]]",
+                                "//h5[parent::div or parent::main or parent::article or parent::body][parent::*[not(parent::a)]][parent::*[parent::*[not(parent::a)]]]",
+                                "//h6[parent::div or parent::main or parent::article or parent::body][parent::*[not(parent::a)]][parent::*[parent::*[not(parent::a)]]]"
+                            ]
+                        }
+                    ];
+
+                    if (Objs.count(this.get("collection-xpath-rule")) > 0) {
+                        rules = Objs.tree_merge(rules, this.get("collection-xpath-rule"));
+                    }
+
+                    Objs.iter(rules, function(rule, index) {
+                        if (Types.is_undefined(rule.key) || Types.is_undefined(rule.rules) ||
+                            (Types.is_defined(rule.key) && (!Types.is_string(rule.key) || !rule.key)) ||
+                            (Types.is_defined(rule.rule) && !(Types.is_string(rule.rules) || Types.is_array(rule.rules)))
+                        ) { // ANY nothing condition
+                        } else {
+                            if (Types.is_array(rule.rules)) {
+                                Objs.iter(rule.rules, function(_r) {
+                                    this.__xPathSelection(_r, rule, data);
+                                }, this);
+                            } else {
+                                this.__xPathSelection(rule.rules, rule, data);
+                            }
+                        }
+
+                        if (index === Objs.count(rules) - 1 && Objs.count(data) > 0) {
+                            AjaxSupport.execute({
+                                method: 'POST',
+                                uri: this.get("send-meta-endpoint"),
+                                contentType: 'application/json',
+                                data: data
+                            }).success(function(resp) {
+                                this.trigger("metadatasent", data, resp);
+                            }, this).error(function(err) {
+                                this.trigger("metadatasenterror", err);
+                            }, this);
+                        }
+                    }, this);
+
+                },
+
+                /**
+                 *
+                 * @param query any xPath rules: https://devhints.io/xpath
+                 * @param resultRule:
+                 *          {
+                 *             key: string,
+                 *             scope: Node, // default document.body
+                 *             nodeOutputKey: 'content' || 'innerText',
+                 *             resultKeyType: 'key' | 'tag' | string: 'anyAttributeName',
+                 *          }
+                 * @param result any object
+                 */
+                __xPathSelection: function(query, resultRule, result) {
+                    var selected, queries, key, scope, outputKey, resultKeyType;
+                    result = Types.is_object(result) ? result : {};
+                    key = resultRule.key;
+                    scope = resultRule.scope;
+                    outputKey = key;
+                    resultKeyType = Types.is_undefined(resultRule.resultKeyType) ? 'innerText' : resultRule.resultKeyType;
+                    queries = document.evaluate(query, scope || document.body, null, XPathResult.ANY_TYPE, null);
+
+                    while (selected = queries.iterateNext()) {
+                        if (typeof resultRule.dataKeyType !== "undefined" && resultRule.dataKeyType) {
+                            if (resultRule.dataKeyType === 'tag') {
+                                outputKey = selected.nodeName;
+                            } else {
+                                if (resultRule.dataKeyType !== 'key' && typeof selected.getAttribute('name') !== 'undefined') {
+                                    outputKey = selected.getAttribute('name');
+                                }
+                            }
+                        }
+
+                        if (Types.is_undefined(result[outputKey])) result[outputKey] = "";
+                        else result[outputKey] += " ";
+
+                        result[outputKey] += selected[resultKeyType];
+                    }
+
+                    return result;
+                },
+
 
                 /**
                  * Prepare for postoll and mid roll ad managers

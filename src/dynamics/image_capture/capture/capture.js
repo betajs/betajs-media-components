@@ -267,6 +267,10 @@ Scoped.define("module:ImageCapture.Dynamics.Recorder", [
                     return this.__error;
                 },
 
+                isFormatSupported: function() {
+                    return (this.dyn.recorder && this.dyn.recorder.supportsLocalPlayback()) || this.dyn._imageFilePlaybackable;
+                },
+
                 _error: function(error_type, error_code) {
                     this.__error = {
                         error_type: error_type,

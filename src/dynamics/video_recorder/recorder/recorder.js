@@ -822,6 +822,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     return this.__recording;
                 },
 
+                isFormatSupported: function() {
+                    return (this.recorder && this.recorder.supportsLocalPlayback()) || this._videoFilePlaybackable;
+                },
+
                 _verifyRecording: function() {
                     return Promise.create(true);
                 },

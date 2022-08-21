@@ -8,7 +8,7 @@
   ba-videoplayer-controlbar.rerecord-video: Újra videót?
   ba-videoplayer-controlbar.submit-video: Erősítse videó
   ba-videoplayer-controlbar.play-video: videó lejátszása
-  ba-videoplayer-controlbar.pause-video: szünet videó
+  ba-videoplayer-controlbar.pause-video: Videó megállítása
   ba-videoplayer-controlbar.elapsed-time: Eltelt idő
   ba-videoplayer-controlbar.total-time: Teljes hossza videó
   ba-videoplayer-controlbar.fullscreen-video: a teljes képernyős
@@ -16,7 +16,7 @@
   ba-videoplayer-controlbar.volume-mute: hang elnémítása
   ba-videoplayer-controlbar.volume-unmute: Unmute hang
   ba-videoplayer.video-error: 'Hiba történt. Kérjük, próbálkozzon később. Kattintson ide újra.'
-  ba-videorecorder-chooser.record-video: A videó rögzítésének
+  ba-videorecorder-chooser.record-video: Videó rögzítése
   ba-videorecorder-chooser.upload-video: Videó feltöltése
   ba-videorecorder-controlbar.settings: Beállítások
   ba-videorecorder-controlbar.camerahealthy: Világítás jó
@@ -24,7 +24,7 @@
   ba-videorecorder-controlbar.microphonehealthy: Hang jó
   ba-videorecorder-controlbar.microphoneunhealthy: Nem lehet felvenni minden hang
   ba-videorecorder-controlbar.record: Rekord
-  ba-videorecorder-controlbar.record-tooltip: 'Kattintson ide, hogy rögzíti.'
+  ba-videorecorder-controlbar.record-tooltip: 'Kattintson ide a rögzítéshez.'
   ba-videorecorder-controlbar.rerecord: Újra
   ba-videorecorder-controlbar.rerecord-tooltip: 'Kattintson ide, hogy újra.'
   ba-videorecorder-controlbar.upload-covershot: Feltöltés
@@ -106,7 +106,7 @@
   ba-imagecapture-controlbar.rerecord-tooltip: Kattintson ide újra.
   ba-imagecapture-controlbar.cancel: Megszünteti
   ba-imagecapture-controlbar.cancel-tooltip: Kattintson ide a lemondáshoz.
-  ba-audioplayer-controlbar.audio-progress: Előrehalad
+  ba-audioplayer-controlbar.audio-progress: A hangfelvétel folyamatban van
   ba-audioplayer-controlbar.rerecord-audio: Újra?
   ba-audioplayer-controlbar.submit-audio: megerősít
   ba-audioplayer-controlbar.play-audio: Játék
@@ -220,7 +220,7 @@
     újra az oldalt
   ba-audioplayer.all-settings: Minden beállítás
   ba-videoplayer-controlbar.remaining-time: Hátralévő idő
-  ba-videoplayer-controlbar.select-frame: Válassza a lehetőséget
+  ba-videoplayer-controlbar.select-frame: Válasszon ki egy filmkockát
   ba-videoplayer-controlbar.trim-video: Vágás
   ba-videoplayer-playbutton.trim: Vágás
   ba-videoplayer-playbutton.skip: Ugrás

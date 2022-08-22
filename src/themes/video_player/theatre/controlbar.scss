@@ -277,10 +277,11 @@
 
 .#{$csstheme}-progressbar-marker {
     position: absolute;
-    top: -2px;
+    top: -4px;
     height: $progressbar_height * 1.5;
     width: 5px;
     background-color: black;
+    border: 2px solid #666;
 }
 
 .#{$csstheme}-button-text {

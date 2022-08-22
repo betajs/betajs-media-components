@@ -255,7 +255,8 @@
     display: inline-block;
     position: absolute;
     right: -15px;
-    top: $progressbar_height / -2;
+    top: ($progressbar_height / -2) - 2; //-2 to accomodate for border size
+    border: 2px solid #666666;
     z-index: 1;
     background-color: $button-color;
     height: $progressbar_height * 2;

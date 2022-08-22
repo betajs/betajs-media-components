@@ -31,6 +31,12 @@
         }
       }
 
+      // Trim handle / marker for start and end
+      .#{$csstheme}-progressbar-marker {
+        border-color: $value;
+        background-image: repeating-linear-gradient(-45deg, transparent 0px, $value 1px),repeating-linear-gradient(45deg, transparent 0px, $value 1px);
+      }
+
       .#{$csstheme}-volumebar-position, .#{$csstheme}-stream-label, .#{$csstheme}-progressbar-position,
       .#{$csstheme}-time-container, .#{$csstheme}-progressbar-button, .#{$csstheme}-rerecord-button, .#{$csstheme}-playbutton-duration {
         background-color: $value;

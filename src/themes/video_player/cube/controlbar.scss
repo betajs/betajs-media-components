@@ -181,6 +181,7 @@
   height: $progressbar_height;
   width: $progressbar_height / 4;
   background-color: black;
+  border: 2px solid #666666;
 }
 
 .#{$csstheme}-cast-button-container button {

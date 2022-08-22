@@ -29,6 +29,12 @@
         }
       }
 
+      // Trim handle / marker for start and end
+      .#{$csstheme}-progressbar-marker {
+        border-color: $value;
+        background-image: repeating-linear-gradient(-45deg, transparent 0px, $value 1px),repeating-linear-gradient(45deg, transparent 0px, $value 1px);
+      }
+
       .#{$csstheme}-progressbar-cache {
         @include background-rgba(255, 255, 255, 0.6, #4c4c4c);
       }

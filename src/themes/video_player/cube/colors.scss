@@ -26,6 +26,12 @@
         background-color: $value;
       }
 
+      // Trim handle / marker for start and end
+      .#{$csstheme}-progressbar-marker {
+        border-color: $value;
+        background-image: repeating-linear-gradient(-45deg, transparent 0px, $value 4px),repeating-linear-gradient(45deg, transparent 0px, $value 4px);
+      }
+
       .#{$csstheme}-playbutton-button {
         border-left-color: $value;
       }

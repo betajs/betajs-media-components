@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.310 - 2022-08-21
+betajs-media-components - v0.0.311 - 2022-08-25
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -16,6 +16,10 @@ Apache-2.0 Software License.
 }
 .ba-player-red-color.ba-videoplayer-noie8 .ba-player-theatre-theme-playbutton-button::after {
   color: #eb6a74;
+}
+.ba-player-red-color .ba-player-theatre-theme-progressbar-marker {
+  border-color: #eb6a74;
+  background-image: repeating-linear-gradient(-45deg, transparent 0px, #eb6a74 1px), repeating-linear-gradient(45deg, transparent 0px, #eb6a74 1px);
 }
 .ba-player-red-color .ba-player-theatre-theme-volumebar-inner {
   background-color: #7f7f7f;
@@ -39,6 +43,10 @@ Apache-2.0 Software License.
 .ba-player-blue-color.ba-videoplayer-noie8 .ba-player-theatre-theme-playbutton-button::after {
   color: #2a74eb;
 }
+.ba-player-blue-color .ba-player-theatre-theme-progressbar-marker {
+  border-color: #2a74eb;
+  background-image: repeating-linear-gradient(-45deg, transparent 0px, #2a74eb 1px), repeating-linear-gradient(45deg, transparent 0px, #2a74eb 1px);
+}
 .ba-player-blue-color .ba-player-theatre-theme-volumebar-inner {
   background-color: #7f7f7f;
   background-color: rgba(255, 255, 255, 0.3);
@@ -60,6 +68,10 @@ Apache-2.0 Software License.
 }
 .ba-player-green-color.ba-videoplayer-noie8 .ba-player-theatre-theme-playbutton-button::after {
   color: #5daa96;
+}
+.ba-player-green-color .ba-player-theatre-theme-progressbar-marker {
+  border-color: #5daa96;
+  background-image: repeating-linear-gradient(-45deg, transparent 0px, #5daa96 1px), repeating-linear-gradient(45deg, transparent 0px, #5daa96 1px);
 }
 .ba-player-green-color .ba-player-theatre-theme-volumebar-inner {
   background-color: #7f7f7f;
@@ -384,10 +396,11 @@ Apache-2.0 Software License.
 
 .ba-player-theatre-theme-progressbar-marker {
   position: absolute;
-  top: -2px;
+  top: -4px;
   height: 15px;
   width: 5px;
   background-color: black;
+  border: 2px solid #666;
 }
 
 .ba-player-theatre-theme-button-text {

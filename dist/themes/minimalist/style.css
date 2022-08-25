@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.310 - 2022-08-21
+betajs-media-components - v0.0.311 - 2022-08-25
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -21,6 +21,10 @@ Apache-2.0 Software License.
 }
 .ba-player-red-color .ba-player-minimalist-theme-right-button-container.ba-player-button-inactive .ba-commoncss-icon-subtitle {
   color: #eeeeee;
+}
+.ba-player-red-color .ba-player-minimalist-theme-progressbar-marker {
+  border-color: #eb6a74;
+  background-image: repeating-linear-gradient(-45deg, transparent 0px, #eb6a74 1px), repeating-linear-gradient(45deg, transparent 0px, #eb6a74 1px);
 }
 .ba-player-red-color .ba-player-minimalist-theme-volumebar-position, .ba-player-red-color .ba-player-minimalist-theme-stream-label, .ba-player-red-color .ba-player-minimalist-theme-progressbar-position,
 .ba-player-red-color .ba-player-minimalist-theme-time-container, .ba-player-red-color .ba-player-minimalist-theme-progressbar-button, .ba-player-red-color .ba-player-minimalist-theme-rerecord-button, .ba-player-red-color .ba-player-minimalist-theme-playbutton-duration {
@@ -46,6 +50,10 @@ Apache-2.0 Software License.
 .ba-player-blue-color .ba-player-minimalist-theme-right-button-container.ba-player-button-inactive .ba-commoncss-icon-subtitle {
   color: #eeeeee;
 }
+.ba-player-blue-color .ba-player-minimalist-theme-progressbar-marker {
+  border-color: #2a74eb;
+  background-image: repeating-linear-gradient(-45deg, transparent 0px, #2a74eb 1px), repeating-linear-gradient(45deg, transparent 0px, #2a74eb 1px);
+}
 .ba-player-blue-color .ba-player-minimalist-theme-volumebar-position, .ba-player-blue-color .ba-player-minimalist-theme-stream-label, .ba-player-blue-color .ba-player-minimalist-theme-progressbar-position,
 .ba-player-blue-color .ba-player-minimalist-theme-time-container, .ba-player-blue-color .ba-player-minimalist-theme-progressbar-button, .ba-player-blue-color .ba-player-minimalist-theme-rerecord-button, .ba-player-blue-color .ba-player-minimalist-theme-playbutton-duration {
   background-color: #2a74eb;
@@ -69,6 +77,10 @@ Apache-2.0 Software License.
 }
 .ba-player-green-color .ba-player-minimalist-theme-right-button-container.ba-player-button-inactive .ba-commoncss-icon-subtitle {
   color: #eeeeee;
+}
+.ba-player-green-color .ba-player-minimalist-theme-progressbar-marker {
+  border-color: #5daa96;
+  background-image: repeating-linear-gradient(-45deg, transparent 0px, #5daa96 1px), repeating-linear-gradient(45deg, transparent 0px, #5daa96 1px);
 }
 .ba-player-green-color .ba-player-minimalist-theme-volumebar-position, .ba-player-green-color .ba-player-minimalist-theme-stream-label, .ba-player-green-color .ba-player-minimalist-theme-progressbar-position,
 .ba-player-green-color .ba-player-minimalist-theme-time-container, .ba-player-green-color .ba-player-minimalist-theme-progressbar-button, .ba-player-green-color .ba-player-minimalist-theme-rerecord-button, .ba-player-green-color .ba-player-minimalist-theme-playbutton-duration {
@@ -359,6 +371,7 @@ Apache-2.0 Software License.
   height: 8px;
   width: 4px;
   background-color: black;
+  border: 2px solid #666;
 }
 
 .ba-player-minimalist-theme-controlbar-bottom-block {

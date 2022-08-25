@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.310 - 2022-08-21
+betajs-media-components - v0.0.311 - 2022-08-25
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.310 - 2022-08-21
+betajs-media-components - v0.0.311 - 2022-08-25
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.310",
-    "datetime": 1661089336344
+    "version": "0.0.311",
+    "datetime": 1661458294317
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -12796,7 +12796,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Trimming", [
     }, {
 
         _started: function() {
-            if (!this.dyn.isFormatSupported() && !this.dyn.get("allowtrim") || this.dyn.get("duration") < this.dyn.get("timeminlimit")) {
+            if (!this.dyn.isFormatSupported() || !this.dyn.get("allowtrim") || this.dyn.get("duration") < this.dyn.get("timeminlimit")) {
                 if (!this.dyn.isFormatSupported()) {
                     this.dyn.set("allowtrim", false);
                     this.dyn.set("was_allowtrim", true);

@@ -1012,7 +1012,7 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Trimming", [
     }, {
 
         _started: function() {
-            if (!this.dyn.isFormatSupported() && !this.dyn.get("allowtrim") || this.dyn.get("duration") < this.dyn.get("timeminlimit")) {
+            if (!this.dyn.isFormatSupported() || !this.dyn.get("allowtrim") || this.dyn.get("duration") < this.dyn.get("timeminlimit")) {
                 if (!this.dyn.isFormatSupported()) {
                     this.dyn.set("allowtrim", false);
                     this.dyn.set("was_allowtrim", true);

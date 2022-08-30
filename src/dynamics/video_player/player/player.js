@@ -30,13 +30,27 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.Loader",
     "module:VideoPlayer.Dynamics.Share",
     "module:VideoPlayer.Dynamics.Controlbar",
+    "module:VideoPlayer.Dynamics.Topmessage",
     "module:VideoPlayer.Dynamics.Tracks",
     "dynamics:Partials.EventPartial",
     "dynamics:Partials.OnPartial",
     "dynamics:Partials.TogglePartial",
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.TemplatePartial",
-    "dynamics:Partials.HotkeyPartial"
+    "dynamics:Partials.HotkeyPartial",
+    "module:VideoPlayer.Dynamics.PlayerStates.TextTrackUploading",
+    "module:VideoPlayer.Dynamics.PlayerStates.FatalError",
+    "module:VideoPlayer.Dynamics.PlayerStates.Initial",
+    "module:VideoPlayer.Dynamics.PlayerStates.LoadPlayer",
+    "module:VideoPlayer.Dynamics.PlayerStates.LoadPlayerDirectly",
+    "module:VideoPlayer.Dynamics.PlayerStates.LoadError",
+    "module:VideoPlayer.Dynamics.PlayerStates.PosterReady",
+    "module:VideoPlayer.Dynamics.PlayerStates.Preroll",
+    "module:VideoPlayer.Dynamics.PlayerStates.PosterError",
+    "module:VideoPlayer.Dynamics.PlayerStates.LoadVideo",
+    "module:VideoPlayer.Dynamics.PlayerStates.ErrorVideo",
+    "module:VideoPlayer.Dynamics.PlayerStates.PlayVideo",
+    "module:VideoPlayer.Dynamics.PlayerStates.NextVideo"
 ], function(Class, Assets, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, Types, Objs, Strings, Collection, Time, Timers, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, IMARequester, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped

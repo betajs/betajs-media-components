@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.311 - 2022-08-29
+betajs-media-components - v0.0.313 - 2022-08-30
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.311",
-    "datetime": 1661824485008
+    "version": "0.0.313",
+    "datetime": 1661887631800
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -5720,13 +5720,27 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.Loader",
     "module:VideoPlayer.Dynamics.Share",
     "module:VideoPlayer.Dynamics.Controlbar",
+    "module:VideoPlayer.Dynamics.Topmessage",
     "module:VideoPlayer.Dynamics.Tracks",
     "dynamics:Partials.EventPartial",
     "dynamics:Partials.OnPartial",
     "dynamics:Partials.TogglePartial",
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.TemplatePartial",
-    "dynamics:Partials.HotkeyPartial"
+    "dynamics:Partials.HotkeyPartial",
+    "module:VideoPlayer.Dynamics.PlayerStates.TextTrackUploading",
+    "module:VideoPlayer.Dynamics.PlayerStates.FatalError",
+    "module:VideoPlayer.Dynamics.PlayerStates.Initial",
+    "module:VideoPlayer.Dynamics.PlayerStates.LoadPlayer",
+    "module:VideoPlayer.Dynamics.PlayerStates.LoadPlayerDirectly",
+    "module:VideoPlayer.Dynamics.PlayerStates.LoadError",
+    "module:VideoPlayer.Dynamics.PlayerStates.PosterReady",
+    "module:VideoPlayer.Dynamics.PlayerStates.Preroll",
+    "module:VideoPlayer.Dynamics.PlayerStates.PosterError",
+    "module:VideoPlayer.Dynamics.PlayerStates.LoadVideo",
+    "module:VideoPlayer.Dynamics.PlayerStates.ErrorVideo",
+    "module:VideoPlayer.Dynamics.PlayerStates.PlayVideo",
+    "module:VideoPlayer.Dynamics.PlayerStates.NextVideo"
 ], function(Class, Assets, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, Types, Objs, Strings, Collection, Time, Timers, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, IMARequester, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped

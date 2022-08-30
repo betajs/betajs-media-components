@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.311 - 2022-08-25
+betajs-media-components - v0.0.311 - 2022-08-29
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.311 - 2022-08-25
+betajs-media-components - v0.0.311 - 2022-08-29
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1026,7 +1026,7 @@ Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
     "version": "0.0.311",
-    "datetime": 1661458294317
+    "datetime": 1661824485008
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -7115,7 +7115,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this._prerollAd = this._adProvider.newPrerollAd(adInitOptions);
                             }
 
-                            if (this.get("adprovider") === 'ima' && (this.get("linear") || this.get("non-linear"))) {
+                            if ((this.get("adprovider") === 'ima' || this.get("adprovider").__IMA_PRE_ROLL) && (this.get("linear") || this.get("non-linear"))) {
                                 var schedules = [],
                                     nonLinearSchedules = [];
                                 // Split all via comma exclude inside brackets

@@ -414,7 +414,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this._prerollAd = this._adProvider.newPrerollAd(adInitOptions);
                             }
 
-                            if (this.get("adprovider") === 'ima' && (this.get("linear") || this.get("non-linear"))) {
+                            if ((this.get("adprovider") === 'ima' || this.get("adprovider").__IMA_PRE_ROLL) && (this.get("linear") || this.get("non-linear"))) {
                                 var schedules = [],
                                     nonLinearSchedules = [];
                                 // Split all via comma exclude inside brackets

@@ -37,7 +37,7 @@
 }
 
 // non-linear-conainer
-.#{$cssplayer}-ad-media-controllbar {
+.#{$cssplayer}-ad-media-controlbar {
     @include transition1(opacity, #{$player_dashboard_transition}, ease-in-out);
     position: absolute;
     bottom: 55px;
@@ -68,7 +68,7 @@
 //    bottom: 2px;
 //}
 
-.#{$cssplayer}-ad-media-controllbar:hover {
+.#{$cssplayer}-ad-media-controlbar:hover {
     @include transition1(opacity, #{$player_dashboard_transition}, ease-in-out);
     opacity: 1;
 }

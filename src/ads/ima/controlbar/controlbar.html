@@ -1,4 +1,4 @@
-<div class="{{cssplayer}}-ad-controllbar {{showbanner ? cssplayer + '-ad-media-controllbar' : ''}}"
+<div class="{{cssplayer}}-ad-controlbar {{showbanner ? cssplayer + '-ad-media-controlbar' : ''}}"
      xmlns:ba-hotkey="http://www.w3.org/1999/xhtml">
     <div ba-show="{{skippable}}" class="{{cssplayer}}-skipbutton-container"
          ba-click="{{skip_linear_ad()}}"
@@ -21,11 +21,11 @@
     </div>
 
     <div ba-if="{{customcontroller && !media}}" class="{{css}}-overlay {{cssplayer}}-ad-click-tracker
-        {{clickthroughurl && controllbarisvisible ? csscommon + '-clickable' : ''}}"
+        {{clickthroughurl && controlbarisvisible ? csscommon + '-clickable' : ''}}"
          ba-click="{{ad_clicked()}}"
     ></div>
 
-    <div ba-if="{{showcontrolbar}}" class="{{cssplayer}}-ad-controlbar {{controllbarisvisible ? '' : (cssplayer + '-dashboard-hidden')}}">
+    <div ba-if="{{showcontrolbar}}" class="{{cssplayer}}-ad-controlbar {{controlbarisvisible ? '' : (cssplayer + '-dashboard-hidden')}}">
         <div tabindex="1" ba-hotkey:space^enter="{{toggle_player()}}"
              onmouseout="this.blur()" class="{{css}}-leftbutton-container"
              autofocus

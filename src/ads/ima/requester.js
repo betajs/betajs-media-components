@@ -4,8 +4,9 @@ Scoped.define("module:Ads.IMARequester", [
     "base:Timers",
     "browser:Dom",
     "browser:Info",
-    "base:Events.EventsMixin"
-], function(Class, Objs, Timers, Dom, Info, EventsMixin, scoped) {
+    "base:Events.EventsMixin",
+    "module:Ads.IMA.Controlbar"
+], function(Class, Objs, Timers, Dom, Info, EventsMixin, IMAControlbar, scoped) {
     return Class.extend({
         scoped: scoped
     }, [EventsMixin, function(inherited) {
@@ -371,9 +372,9 @@ Scoped.define("module:Ads.IMARequester", [
              */
             _showIMAAdController: function(data) {
                 if (data) this._dyn.set("linearadplayer", data.isLinear());
-                var controllerElement = this._dyn.activeElement().querySelector("[data-ads='controllbar']");
+                var controllerElement = this._dyn.activeElement().querySelector("[data-ads='controlbar']");
                 if (controllerElement) {
-                    this._adControlbar = new BetaJS.MediaComponents.Ads.IMA.Controllbar({
+                    this._adControlbar = new IMAControlbar({
                         element: controllerElement,
                         attrs: {
                             requester: this,

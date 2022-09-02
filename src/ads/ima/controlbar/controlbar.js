@@ -1,4 +1,4 @@
-Scoped.define("module:Ads.IMA.Controllbar", [
+Scoped.define("module:Ads.IMA.Controlbar", [
     "dynamics:Dynamic",
     "browser:Dom",
     "browser:Info",
@@ -14,7 +14,7 @@ Scoped.define("module:Ads.IMA.Controllbar", [
         }, function(inherited) {
             return {
 
-                template: "<%= template(dirname + '/controllbar.html') %>",
+                template: "<%= template(dirname + '/controlbar.html') %>",
 
                 attrs: {
                     css: "ba-videoplayer",
@@ -42,7 +42,7 @@ Scoped.define("module:Ads.IMA.Controllbar", [
                     hidebarafter: 5000,
                     // if controlbar is hidden, touch on screen should make it visible,
                     // and not handle click trough action, as user may want to use controlbar options
-                    controllbarisvisible: true,
+                    controlbarisvisible: true,
                     skippable: false, // Set when skip not exists in XML file and user set
                     skipoffset: -1
                 },
@@ -235,7 +235,7 @@ Scoped.define("module:Ads.IMA.Controllbar", [
 
                     ad_clicked: function() {
                         // this._ads.initialUserAction();
-                        if (this.get("clickthroughurl") && !this.get('pausedonclick') && this.get('controllbarisvisible')) {
+                        if (this.get("clickthroughurl") && !this.get('pausedonclick') && this.get('controlbarisvisible')) {
                             this._adsManager.pause();
                             // this._adsManager.dispatch(google.ima.AdEvent.Type.CLICK);
                             var linkElement = document.createElement('a');
@@ -247,7 +247,7 @@ Scoped.define("module:Ads.IMA.Controllbar", [
                             // When second time click on ad resume playe
                             this._adsManager.resume();
                             this.set('pausedonclick', false);
-                            this.set('controllbarisvisible', true);
+                            this.set('controlbarisvisible', true);
                         }
                     }
                 },
@@ -265,12 +265,12 @@ Scoped.define("module:Ads.IMA.Controllbar", [
                         this.set("lefttillskip", Math.floor(this.get("skipoffset") - (this.get("duration") - this.get("remaining"))));
                     }
 
-                    this.set("controllbarisvisible", this.get("activity_delta") < this.get("hidebarafter"));
+                    this.set("controlbarisvisible", this.get("activity_delta") < this.get("hidebarafter"));
                 }
             };
-        }).register("ba-ads-controllbar")
+        }).register("ba-ads-controlbar")
         .registerFunctions({
-            /*<%= template_function_cache(dirname + '/controllbar.html') %>*/
+            /*<%= template_function_cache(dirname + '/controlbar.html') %>*/
         })
         .attachStringTable(Assets.strings)
         .addStrings({

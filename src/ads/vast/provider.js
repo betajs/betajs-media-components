@@ -17,8 +17,9 @@ Scoped.define("module:Ads.VastVideoAdProvider", [
 
 Scoped.define("module:Ads.VastPrerollAd", [
     "module:Ads.AbstractPrerollAd",
-    "module:Ads.VAST.VAST"
-], function(AbstractVideoPrerollAd, VAST, scoped) {
+    "module:Ads.VAST.VAST",
+    "module:VideoPlayer.Dynamics.Adplayer"
+], function(AbstractVideoPrerollAd, VAST, Adplayer, scoped) {
     return AbstractVideoPrerollAd.extend({
         scoped: scoped
     }, function(inherited) {
@@ -33,7 +34,7 @@ Scoped.define("module:Ads.VastPrerollAd", [
             },
 
             _executeAd: function(options) {
-                this._adplayer = new BetaJS.MediaComponents.VideoPlayer.Dynamics.Adplayer({
+                this._adplayer = new Adplayer({
                     element: this._options.adElement,
                     attrs: {
                         css: this._options.dynamic.get("css")

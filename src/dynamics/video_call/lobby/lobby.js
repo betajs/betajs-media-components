@@ -10,6 +10,22 @@ Scoped.define("module:VideoCall.Dynamics.Lobby", [
             return {
                 template: "<%= template(dirname + '/call_lobby.html') %>",
 
+                attrs: {
+                    mode: "join"
+                },
+
+                computed: {
+                    "title:mode": function(mode) {
+                        return mode === "create" ? this.string("title-create") : this.string("title-join");
+                    },
+                    "description:mode": function(mode) {
+                        return mode === "create" ? this.string("description-create") : this.string("description-join");
+                    },
+                    "button:mode": function(mode) {
+                        return mode === "create" ? this.string("create-button") : this.string("join-button");
+                    }
+                },
+
                 functions: {
                     connect: function() {
                         this.channel("call").trigger("connect");
@@ -30,9 +46,12 @@ Scoped.define("module:VideoCall.Dynamics.Lobby", [
         .attachStringTable(Assets.strings)
         .addStrings({
             "camera-button": "Camera",
-            "description": "When you're ready click on the button below to join the call.",
+            "description-create": "When you're ready click on the button below to create a call.",
+            "description-join": "When you're ready click on the button below to join the call.",
             "join-button": "Join",
+            "create-button": "Create",
             "mute-button": "Mute",
-            "title": "Join Call"
+            "title-create": "Create Call",
+            "title-join": "Join Call"
         });
 });

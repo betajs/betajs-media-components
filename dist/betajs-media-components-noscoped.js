@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.315 - 2022-09-02
+betajs-media-components - v0.0.316 - 2022-09-12
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.315",
-    "datetime": 1662138668460
+    "version": "0.0.316",
+    "datetime": 1662992272182
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -18111,7 +18111,23 @@ Scoped.define("module:VideoCall.Dynamics.Lobby", [
             scoped: scoped
         }, function(inherited) {
             return {
-                template: "<div class=\"ba-video-call-lobby\">\n\t<h1>{{string('title')}}</h1>\n\t<p>{{string('description')}}</p>\n\t<button ba-click=\"{{connect()}}\">{{string('join-button')}}</button>\n\t<div class=\"ba-call-lobby-camera\">\n\t\t<button class=\"ba-call-lobby-mute-btn\" ba-click=\"{{toggle_mute()}}\">{{string('mute-button')}}</button>\n\t\t<button class=\"ba-call-lobby-camera-btn\" ba-click=\"{{toggle_camera()}}\">{{string('camera-button')}}</button>\n\t\t<ba-local-view ba-stream=\"{{=stream}}\"\n\t\t\t\t\t   ba-camera_active=\"{{camera_active}}\"\n\t\t\t\t\t   ba-microphone_active=\"{{microphone_active}}\"\n\t\t></ba-local-view>\n\t</div>\n</div>\n",
+                template: "<div class=\"ba-video-call-lobby\">\n\t<h1>{{title}}</h1>\n\t<p>{{description}}</p>\n\t<button ba-click=\"{{connect()}}\">{{button}}</button>\n\t<div class=\"ba-call-lobby-camera\">\n\t\t<button class=\"ba-call-lobby-mute-btn\" ba-click=\"{{toggle_mute()}}\">{{string('mute-button')}}</button>\n\t\t<button class=\"ba-call-lobby-camera-btn\" ba-click=\"{{toggle_camera()}}\">{{string('camera-button')}}</button>\n\t\t<ba-local-view ba-stream=\"{{=stream}}\"\n\t\t\t\t\t   ba-camera_active=\"{{camera_active}}\"\n\t\t\t\t\t   ba-microphone_active=\"{{microphone_active}}\"\n\t\t></ba-local-view>\n\t</div>\n</div>\n",
+
+                attrs: {
+                    mode: "join"
+                },
+
+                computed: {
+                    "title:mode": function(mode) {
+                        return mode === "create" ? this.string("title-create") : this.string("title-join");
+                    },
+                    "description:mode": function(mode) {
+                        return mode === "create" ? this.string("description-create") : this.string("description-join");
+                    },
+                    "button:mode": function(mode) {
+                        return mode === "create" ? this.string("create-button") : this.string("join-button");
+                    }
+                },
 
                 functions: {
                     connect: function() {
@@ -18128,15 +18144,18 @@ Scoped.define("module:VideoCall.Dynamics.Lobby", [
         })
         .register("ba-call-lobby")
         .registerFunctions({
-            /**/"string('title')": function (obj) { return obj.string('title'); }, "string('description')": function (obj) { return obj.string('description'); }, "connect()": function (obj) { return obj.connect(); }, "string('join-button')": function (obj) { return obj.string('join-button'); }, "toggle_mute()": function (obj) { return obj.toggle_mute(); }, "string('mute-button')": function (obj) { return obj.string('mute-button'); }, "toggle_camera()": function (obj) { return obj.toggle_camera(); }, "string('camera-button')": function (obj) { return obj.string('camera-button'); }, "stream": function (obj) { return obj.stream; }, "camera_active": function (obj) { return obj.camera_active; }, "microphone_active": function (obj) { return obj.microphone_active; }/**/
+            /**/"title": function (obj) { return obj.title; }, "description": function (obj) { return obj.description; }, "connect()": function (obj) { return obj.connect(); }, "button": function (obj) { return obj.button; }, "toggle_mute()": function (obj) { return obj.toggle_mute(); }, "string('mute-button')": function (obj) { return obj.string('mute-button'); }, "toggle_camera()": function (obj) { return obj.toggle_camera(); }, "string('camera-button')": function (obj) { return obj.string('camera-button'); }, "stream": function (obj) { return obj.stream; }, "camera_active": function (obj) { return obj.camera_active; }, "microphone_active": function (obj) { return obj.microphone_active; }/**/
         })
         .attachStringTable(Assets.strings)
         .addStrings({
             "camera-button": "Camera",
-            "description": "When you're ready click on the button below to join the call.",
+            "description-create": "When you're ready click on the button below to create a call.",
+            "description-join": "When you're ready click on the button below to join the call.",
             "join-button": "Join",
+            "create-button": "Create",
             "mute-button": "Mute",
-            "title": "Join Call"
+            "title-create": "Create Call",
+            "title-join": "Join Call"
         });
 });
 Scoped.define("module:VideoCall.Dynamics.CallStates.State", [
@@ -18279,7 +18298,7 @@ Scoped.define("module:VideoCall.Dynamics.Call", [
         }, function(inherited) {
             return {
 
-                template: "<div class=\"video-call-container ba-commoncss-full-width ba-commoncss-landscape-aspect-ratio ba-commoncss-max-height-100vh\">\n\t\n\t<ba-call-lobby ba-if=\"{{lobby_active}}\"\n\t\t\t\t   ba-stream=\"{{=local_stream}}\"\n\t\t\t\t   ba-camera_active=\"{{local_camera_active}}\"\n\t\t\t\t   ba-microphone_active=\"{{local_microphone_active}}\"\n\t></ba-call-lobby>\n\n\t\n\t<p ba-if=\"{{message}}\"\n\t   class=\"ba-commoncss-full-width ba-commoncss-full-height\"\n\t>{{message}}</p>\n\n\t\n\t<ba-call-view ba-if=\"{{call_active}}\"\n\t\t\t\t  ba-local_stream=\"{{=local_stream}}\"\n\t\t\t\t  ba-remote_stream=\"{{=remote_stream}}\"\n\t\t\t\t  ba-local_camera_active=\"{{local_camera_active}}\"\n\t\t\t\t  ba-local_microphone_active=\"{{local_microphone_active}}\"\n\t\t\t\t  ba-remote_camera_active=\"{{remote_camera_active}}\"\n\t\t\t\t  ba-remote_microphone_active=\"{{remote_microphone_active}}\"\n\t></ba-call-view>\n</div>",
+                template: "<div class=\"video-call-container ba-commoncss-full-width ba-commoncss-landscape-aspect-ratio ba-commoncss-max-height-100vh\">\n\t\n\t<ba-call-lobby ba-if=\"{{lobby_active}}\"\n\t\t\t\t   ba-stream=\"{{=local_stream}}\"\n\t\t\t\t   ba-camera_active=\"{{local_camera_active}}\"\n\t\t\t\t   ba-microphone_active=\"{{local_microphone_active}}\"\n\t\t\t\t   ba-mode=\"{{mode}}\"\n\t></ba-call-lobby>\n\n\t\n\t<p ba-if=\"{{message}}\"\n\t   class=\"ba-commoncss-full-width ba-commoncss-full-height\"\n\t>{{message}}</p>\n\n\t\n\t<ba-call-view ba-if=\"{{call_active}}\"\n\t\t\t\t  ba-local_stream=\"{{=local_stream}}\"\n\t\t\t\t  ba-remote_stream=\"{{=remote_stream}}\"\n\t\t\t\t  ba-local_camera_active=\"{{local_camera_active}}\"\n\t\t\t\t  ba-local_microphone_active=\"{{local_microphone_active}}\"\n\t\t\t\t  ba-remote_camera_active=\"{{remote_camera_active}}\"\n\t\t\t\t  ba-remote_microphone_active=\"{{remote_microphone_active}}\"\n\t></ba-call-view>\n</div>",
 
                 attrs: {
                     local_camera_active: false,
@@ -18408,7 +18427,7 @@ Scoped.define("module:VideoCall.Dynamics.Call", [
         })
         .register("ba-video-call")
         .registerFunctions({
-            /**/"lobby_active": function (obj) { return obj.lobby_active; }, "local_stream": function (obj) { return obj.local_stream; }, "local_camera_active": function (obj) { return obj.local_camera_active; }, "local_microphone_active": function (obj) { return obj.local_microphone_active; }, "message": function (obj) { return obj.message; }, "call_active": function (obj) { return obj.call_active; }, "remote_stream": function (obj) { return obj.remote_stream; }, "remote_camera_active": function (obj) { return obj.remote_camera_active; }, "remote_microphone_active": function (obj) { return obj.remote_microphone_active; }/**/
+            /**/"lobby_active": function (obj) { return obj.lobby_active; }, "local_stream": function (obj) { return obj.local_stream; }, "local_camera_active": function (obj) { return obj.local_camera_active; }, "local_microphone_active": function (obj) { return obj.local_microphone_active; }, "mode": function (obj) { return obj.mode; }, "message": function (obj) { return obj.message; }, "call_active": function (obj) { return obj.call_active; }, "remote_stream": function (obj) { return obj.remote_stream; }, "remote_camera_active": function (obj) { return obj.remote_camera_active; }, "remote_microphone_active": function (obj) { return obj.remote_microphone_active; }/**/
         })
         .attachStringTable(Assets.strings)
         .addStrings({

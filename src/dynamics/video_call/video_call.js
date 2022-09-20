@@ -3,10 +3,11 @@ Scoped.define("module:VideoCall.Dynamics.Call", [
     "base:Promise",
     "base:States.Host",
     "dynamics:Dynamic",
+    "media:WebRTC.Support",
     "module:Assets",
     "module:VideoCall.Dynamics.CallStates.Initial",
     "module:VideoCall.Dynamics.CallStates"
-], function(ClassRegistry, Promise, Host, Dynamic, Assets, InitialState, CallStates, scoped) {
+], function(ClassRegistry, Promise, Host, Dynamic, WebRTCSupport, Assets, InitialState, CallStates, scoped) {
     return Dynamic.extend({
             scoped: scoped
         }, function(inherited) {
@@ -24,7 +25,7 @@ Scoped.define("module:VideoCall.Dynamics.Call", [
                     skipinitial: false
                 },
 
-                registerchannels: ["call"],
+                registerchannels: ["call", "local_camera", "errors"],
 
                 channels: {
                     "call:leave_call": function() {
@@ -35,6 +36,12 @@ Scoped.define("module:VideoCall.Dynamics.Call", [
                     },
                     "call:toggle_mute": function() {
                         this.set("local_microphone_active", !this.get("local_microphone_active"));
+                    },
+                    "local_camera:retry": function() {
+                        this._getUserMedia({
+                            audio: true,
+                            video: true
+                        });
                     }
                 },
 
@@ -68,6 +75,10 @@ Scoped.define("module:VideoCall.Dynamics.Call", [
                         if (!stream) return;
                         this.get("local_stream").getVideoTracks()[0].enabled = !!this.get("local_camera_active");
                         this.get("local_stream").getAudioTracks()[0].enabled = !!this.get("local_microphone_active");
+                    },
+                    "error": function(error_type, error) {
+                        this.channel("errors").trigger(error_type);
+                        this.trigger(error_type, error);
                     }
                 },
 
@@ -86,6 +97,23 @@ Scoped.define("module:VideoCall.Dynamics.Call", [
                     });
                     host.dynamic = this;
                     host.initialize(InitialState);
+                },
+
+                _getUserMedia: function(constraints) {
+                    if (!WebRTCSupport.userMediaSupported()) {
+                        var error = new Error("Camera access is only available in secure contexts (HTTPS).");
+                        console.error(error);
+                        this.trigger("error", "camera_access_unsupported", error);
+                        return Promise.error(error);
+                    }
+                    return WebRTCSupport.userMedia(constraints).success(function(stream) {
+                        this.trigger("access_granted");
+                        this.set("local_stream", stream);
+                        return stream;
+                    }, this).error(function(error) {
+                        if (error.message === "Permission denied") this.trigger("error", "access_forbidden");
+                        else this.trigger("error", "local_camera_error", error);
+                    }, this);
                 },
 
                 _connect: function() { // Simulates connection, needs to be replaced with actual connection

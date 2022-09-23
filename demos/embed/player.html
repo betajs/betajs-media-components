@@ -189,6 +189,10 @@
 
         // console.log('Player >> ', player);
 
+        player.on("playing", function() {
+            console.log('Player, started: ', this, this.get("position"));
+        }, player);
+
         player.on("change-google-cast-volume", function (ev) {
             console.log("change-google-cast-VOLUME - >> ", ev);
         });
@@ -197,7 +201,7 @@
             console.log(" Should not be triggered PAUSE-google-cast ", ev);
         });
 
-        player.on("play-google-cast", function () {
+        player.on("play-google-cast", function (ev) {
             console.log(" Should not be triggered PLAY-google-cast ", ev);
         });
 

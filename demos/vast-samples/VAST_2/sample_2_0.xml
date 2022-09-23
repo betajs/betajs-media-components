@@ -1,0 +1,57 @@
+<VAST version="2.0">
+    <Ad id="601364">
+        <InLine>
+            <AdSystem>Adsystem Example</AdSystem>
+            <AdTitle>VAST 2.0</AdTitle>
+            <Description>VAST 2.0</Description>
+            <Error>http://myErrorURL/error</Error>
+            <Impression>//localhost:5050/ad/impression</Impression>
+            <Creatives>
+                <Creative AdID="12345">
+                    <Linear>
+                        <Duration>00:00:30</Duration>
+                        <TrackingEvents>
+                            <Tracking event="creativeView">//localhost:5050/ad/creativeView</Tracking>
+                            <Tracking event="start">//localhost:5050/ad/start</Tracking>
+                            <Tracking event="midpoint">//localhost:5050/ad/midpoint</Tracking>
+                            <Tracking event="firstQuartile">//localhost:5050/ad/firstQuartile</Tracking>
+                            <Tracking event="thirdQuartile">//localhost:5050/ad/thirdQuartile</Tracking>
+                            <Tracking event="complete">//localhost:5050/ad/complete</Tracking>
+                        </TrackingEvents>
+                        <VideoClicks>
+                            <ClickThrough>https://ziggeo.com</ClickThrough>
+                            <ClickTracking>//localhost:5050/ad/click</ClickTracking>
+                        </VideoClicks>
+                        <MediaFiles>
+                            <MediaFile id="5241" delivery="progressive" type="video/mp4"
+                                       bitrate="2000" width="1280" height="720" minBitrate="1500"
+                                       maintainAspectRatio="1"
+                            >//localhost:5050/static/demos/assets/vast/iab-vast-intro.mp4
+                                <![CDATA[]]>
+                            </MediaFile>
+                        </MediaFiles>
+                    </Linear>
+                </Creative>
+                <Creative AdID="601364-Companion">
+                    <CompanionAds>
+                        <Companion width="300" height="250">
+                            <StaticResource creativeType="image/jpeg">
+                                <![CDATA[//localhost:5050/static/demos/assets/vast/ad-rectangle-300x250.jpeg]]>
+                            </StaticResource>
+                            <TrackingEvents>
+                                <Tracking event="creativeView">//localhost:5050/ad/tracking</Tracking>
+                            </TrackingEvents>
+                            <CompanionClickThrough>https://ziggeo.com</CompanionClickThrough>
+                        </Companion>
+                        <Companion width="728" height="90">
+                            <StaticResource creativeType="image/jpeg">
+                                <![CDATA[//localhost:5050/static/demos/assets/vast/ad-banner-728x90.jpeg]]>
+                            </StaticResource>
+                            <CompanionClickThrough>https://ziggeo.com</CompanionClickThrough>
+                        </Companion>
+                    </CompanionAds>
+                </Creative>
+            </Creatives>
+        </InLine>
+    </Ad>
+</VAST>

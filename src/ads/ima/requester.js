@@ -67,6 +67,7 @@ Scoped.define("module:Ads.IMARequester", [
                 // google.ima.settings.setDisableCustomPlaybackForIOS10Plus(true);
 
                 this._adsRequest = new google.ima.AdsRequest();
+                this._adsRequest.adsResponse = this._providerOptions.inlineVASTXML;
                 switch (position) {
                     case provider.__IMA_AD_TYPE_NON_LINEAR:
                         this._adsRequest.adTagUrl = this._providerOptions.nonLinearAdTagUrl || this._providerOptions.adTagUrl;

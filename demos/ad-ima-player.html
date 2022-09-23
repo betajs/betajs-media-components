@@ -26,6 +26,7 @@
     var v3_doubleclickbased = '//localhost:5050/static/demos/vast-samples/based-doubleclick.xml';
     var v4_2_wrapper = '//localhost:5050/static/demos/vast-samples/VAST_4_2/Wrapper_Tag-test.xml';
     // var v4_2_non_linear = '//localhost:5050/static/demos/vast-samples/VAST_4_2/Inline_Non-Linear_Tag-test.xml';
+    var v2_linear = '//localhost:5050/static/demos/vast-samples/VAST_2/sample_2_0.xml';
     var v3_non_linear = '//localhost:5050/static/demos/vast-samples/VAST_3_0/Inline_Non-Linear_Tag-test.xml';
     var v4_2_skipable = '//localhost:5050/static/demos/vast-samples/VAST_4_2/Inline_Skipable.xml';
     var v4_2_non_skipable = '//localhost:5050/static/demos/vast-samples/VAST_4_2/Inline_NON_Skipable.xml';
@@ -38,6 +39,90 @@
     var kargo_p1 = '//localhost:5050/static/demos/kargo/vast_3_part_1.xml';
     var kargo_p2 = '//localhost:5050/static/demos/kargo/vast_3_part_2.xml';
 
+    var inlineVASTXMLWrapper = `<VAST version="4.0" xmlns="http://www.iab.com/VAST">
+  <Ad id="20011" sequence="1" conditionalAd="false">
+    <Wrapper followAdditionalWrappers="0" allowMultipleAds="1" fallbackOnNoAd="0">
+      <AdSystem version="4.0">iabtechlab</AdSystem>
+      <Error>http://example.com/error</Error>
+      <Impression id="Impression-ID">http://example.com/track/impression</Impression>
+      <Creatives>
+        <Creative id="5480" sequence="1" adId="2447226">
+          <CompanionAds>
+            <Companion id="1232" width="100" height="150" assetWidth="250" assetHeight="200" expandedWidth="350" expandedHeight="250" apiFramework="VPAID" adSlotID="3214" pxratio="1400">
+              <StaticResource creativeType="image/png">
+                <![CDATA[https://www.iab.com/wp-content/uploads/2014/09/iab-tech-lab-6-644x290.png]]>
+              </StaticResource>
+              <CompanionClickThrough>
+                <![CDATA[https://iabtechlab.com]]>
+              </CompanionClickThrough>
+            </Companion>
+          </CompanionAds>
+        </Creative>
+      </Creatives>
+      <VASTAdTagURI>
+        <![CDATA[https://raw.githubusercontent.com/InteractiveAdvertisingBureau/VAST_Samples/master/VAST%204.0%20Samples/Inline_Companion_Tag-test.xml]]>
+      </VASTAdTagURI>
+    </Wrapper>
+  </Ad>
+</VAST>`;
+    var inlineVASTXML = `
+    <VAST version="2.0">
+    <Ad id="601364">
+        <InLine>
+            <AdSystem>Adsystem Example</AdSystem>
+            <AdTitle>VAST 2.0</AdTitle>
+            <Description>VAST 2.0</Description>
+            <Error>http://myErrorURL/error</Error>
+            <Impression>//localhost:5050/ad/impression</Impression>
+            <Creatives>
+                <Creative AdID="12345">
+                    <Linear>
+                        <Duration>00:00:30</Duration>
+                        <TrackingEvents>
+                            <Tracking event="creativeView">//localhost:5050/ad/creativeView</Tracking>
+                            <Tracking event="start">//localhost:5050/ad/start</Tracking>
+                            <Tracking event="midpoint">//localhost:5050/ad/midpoint</Tracking>
+                            <Tracking event="firstQuartile">//localhost:5050/ad/firstQuartile</Tracking>
+                            <Tracking event="thirdQuartile">//localhost:5050/ad/thirdQuartile</Tracking>
+                            <Tracking event="complete">//localhost:5050/ad/complete</Tracking>
+                        </TrackingEvents>
+                        <VideoClicks>
+                            <ClickThrough>https://ziggeo.com</ClickThrough>
+                            <ClickTracking>//localhost:5050/ad/click</ClickTracking>
+                        </VideoClicks>
+                        <MediaFiles>
+                            <MediaFile id="5241" delivery="progressive" type="video/mp4"
+                                       bitrate="2000" width="1280" height="720" minBitrate="1500"
+                                       maintainAspectRatio="1"
+                            >
+                                <![CDATA[//localhost:5050/static/demos/assets/vast/iab-vast-intro.mp4]]>
+                            </MediaFile>
+                        </MediaFiles>
+                    </Linear>
+                </Creative>
+                <Creative AdID="601364-Companion">
+                    <CompanionAds>
+                        <Companion width="300" height="250">
+                            <StaticResource creativeType="image/jpeg">
+                                <![CDATA[//localhost:5050/static/demos/assets/vast/ad-rectangle-300x250.jpeg]]>
+                            </StaticResource>
+                            <TrackingEvents>
+                                <Tracking event="creativeView">//localhost:5050/ad/tracking</Tracking>
+                            </TrackingEvents>
+                            <CompanionClickThrough>https://ziggeo.com</CompanionClickThrough>
+                        </Companion>
+                        <Companion width="728" height="90">
+                            <StaticResource creativeType="image/jpeg">
+                                <![CDATA[//localhost:5050/static/demos/assets/vast/ad-banner-728x90.jpeg]]>
+                            </StaticResource>
+                            <CompanionClickThrough>https://ziggeo.com</CompanionClickThrough>
+                        </Companion>
+                    </CompanionAds>
+                </Creative>
+            </Creatives>
+        </InLine>
+    </Ad>
+</VAST>`;
 
     // var nonLinear = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/nonlinear_ad_samples&sz=480x70&cust_params=sample_ct%3Dnonlinear&ciu_szs=300x250%2C728x90&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=';
     var nonLinear = '//localhost:5050/static/demos/vast-samples/dc-single_non-linear.xml';
@@ -48,18 +133,20 @@
         // adTagUrl: 'https://securepubads.g.doubleclick.net/gampad/ads?env=vp&gdfp_req=1&output=vast&iu=/1234/video-demo&sz=400x300&unviewed_position_start=1&ciu_szs=728x90,300x250'
         // adTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Inline_Linear_Tag-test.xml'
         // adTagUrl: errroAd
+        // adTagUrl:    v2_linear
         // adTagUrl: v3_clickThroughtLocalAd
         // adTagUrl: v3_doubleclickbased
         // adTagUrl: v3_skipable
         // adTagUrl: v4_2_wrapper
         // adTagUrl: v3_doubleclickVMAP
         // adTagUrl: v_4_2_inline_with_companion
-        adTagUrl: kargo
+        // adTagUrl: kargo
         // adTagUrl: v4_2_non_skipable
         // adTagUrl: vmap
         // adTagUrl: nonLinear
+        inlineVASTXML: inlineVASTXMLWrapper
         // , nonLinearAdTagUrl: kargo_p2
-        , nonLinearAdTagUrl: v3_non_linear
+        // , nonLinearAdTagUrl: v3_non_linear
 
         // preAdTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml',
         // postAdTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml',
@@ -90,7 +177,6 @@
         ba-theme="modern"
         ba-adprovider="ima"
         ba-linear="pre,mid[44, 50%], post"
-        ba-non-linear="12[480,70]"
         ba-companion-ad="compad-selector[300,200]"
     ></ba-videoplayer>
 </div>

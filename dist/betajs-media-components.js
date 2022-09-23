@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.316 - 2022-09-12
+betajs-media-components - v0.0.317 - 2022-09-23
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.316 - 2022-09-12
+betajs-media-components - v0.0.317 - 2022-09-23
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.316",
-    "datetime": 1662992272182
+    "version": "0.0.317",
+    "datetime": 1663964188647
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -1775,6 +1775,7 @@ Scoped.define("module:Ads.IMARequester", [
                 // google.ima.settings.setDisableCustomPlaybackForIOS10Plus(true);
 
                 this._adsRequest = new google.ima.AdsRequest();
+                this._adsRequest.adsResponse = this._providerOptions.inlineVASTXML;
                 switch (position) {
                     case provider.__IMA_AD_TYPE_NON_LINEAR:
                         this._adsRequest.adTagUrl = this._providerOptions.nonLinearAdTagUrl || this._providerOptions.adTagUrl;

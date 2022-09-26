@@ -114,10 +114,10 @@
                 // stretchwidth: true,
                 // popup: true,
                 skipinitial: true,
-                preload: true,
+                preload: false,
                 // fitonwidth: true,
                 // fitonheight: true,
-                chromecast: true, // Will work only with valid URL, use ngrock for testing
+                // chromecast: true, // Will work only with valid URL, use ngrock for testing
 
                 // theme: "cube",
                 // theme: "elevate",
@@ -130,13 +130,13 @@
                 showsettingsmenu: false,
                 // autoplay:true,
                 showchaptertext: true,
-                // source: '/static/demos/sample-video.mp4',
-                // poster: '/static/demos/assets/sample-cover.png',
+                source: '/static/demos/sample-video.mp4',
+                poster: '/static/demos/assets/sample-cover.png',
                 // source: '/static/demos/assets/portrait.mp4',
-                source: 'https://storage.googleapis.com/cpe-sample-media/content/big_buck_bunny/prog/big_buck_bunny_prog.mp4', // << Chromecast
+                // source: 'https://storage.googleapis.com/cpe-sample-media/content/big_buck_bunny/prog/big_buck_bunny_prog.mp4', // << Chromecast
                 // poster: '/static/demos/assets/portrait-poster.png',
                 // poster: '/static/demos/assets/portrait-poster-270x480.jpeg',
-                poster: 'https://storage.googleapis.com/cpe-sample-media/content/big_buck_bunny/images/screenshot1.png', // << Chromecast
+                // poster: 'https://storage.googleapis.com/cpe-sample-media/content/big_buck_bunny/images/screenshot1.png', // << Chromecast
                 // source: '/static/demos/assets/huge_video.mp4',
                 // sources: [
                 //     {
@@ -157,7 +157,7 @@
                 // streams: [{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }],
                 hideoninactivity: true,
                 // tracktagsstyled: false,
-                loop: true,
+                // loop: true,
                 // tracktags: [
                 //     {
                 //         lang: 'en',
@@ -188,6 +188,15 @@
         });
 
         // console.log('Player >> ', player);
+        player.on("quarter-passed", (qr) => {
+            // qr == this.get();
+            console.log("TYPED: ", typeof this, qr);
+            // console.log("Passed Quarter: ", qr);
+            console.log("Played Seconds: ", player.get("played-seconds"));
+            // console.log("Played w/seconds: ", this.get("played-with-sound-seconds"));
+        }, player);
+
+        player.on("ended", () => console.log("ENDED"), player);
 
         player.on("playing", function() {
             console.log('Player, started: ', this, this.get("position"));

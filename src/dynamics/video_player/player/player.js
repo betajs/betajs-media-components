@@ -229,9 +229,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "hasplaceholderstyle": false,
                     "playerorientation": undefined,
                     // Reference to Chrome renewed policy, we have to setup mute for auto-playing players.
-                    // If we do it forcibly then will set as true
+                    // If we do it forcibly, then we will set as true
                     "forciblymuted": false,
-                    // When volume was un muted, by user himself, not automatically
+                    // When volume was unmuted, by the user himself, not automatically
                     "volumeafterinteraction": false
                 },
 
@@ -368,7 +368,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.__lastContainerSizingStyles = styles;
                         return styles;
                     },
-                    "buffering:buffered,position,last_position_change_delta,playing": function() {
+                    "buffering:buffered,position,last_position_change_delta,playing": function(buffered, position, ld, playing) {
+                        if (playing) this.__playedStats(position, this.get("duration"));
                         return this.get("playing") && this.get("buffered") < this.get("position") && this.get("last_position_change_delta") > 1000;
                     }
                 },
@@ -572,6 +573,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("duration", this.get("totalduration") || 0.0);
                     this.set("position", 0.0);
                     this.set("buffered", 0.0);
+                    this.set("passed-quarter", 0);
+                    this.set("played-seconds", 0);
+                    this.set("last-played-position", 0);
+                    this.set("player-started", false);
+                    this.set("last-seen-position", this.get("volume") > 0.2 ? 1 : 0);
                     this.set("message", "");
                     this.set("fullscreensupport", false);
                     this.set("csssize", "normal");
@@ -1347,6 +1353,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 }, this);
                             }
                         }
+                        this.__playedStats(position, this.get("duration"));
                     },
 
                     set_speed: function(speed) {
@@ -1914,6 +1921,31 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }, this);
                         }
                     }
+                },
+
+                /**
+                 * Will generate player stats
+                 * @param position
+                 * @param duration
+                 * @private
+                 */
+                __playedStats: function(position, duration) {
+                    var currentPassedQuarter = Math.floor(position / duration / 0.25);
+                    if (Math.abs(this.get("last-seen-position") - position) >= 1) {
+                        this.set("last-seen-position", position);
+                        this.set("played-seconds", this.get("played-seconds") + 1);
+                        if (this.get("volume") > 0.2) {
+                            this.set("last-played-position", this.get("last-played-position") + 1);
+                        }
+                    }
+
+                    if (this.get("passed-quarter") !== currentPassedQuarter) {
+                        this.set("passed-quarter", currentPassedQuarter);
+                        this.trigger("quarter-passed", currentPassedQuarter);
+                    }
+
+                    if (!this.get("player-started")) this.set("player-started", true);
+
                 }
             };
         }], {

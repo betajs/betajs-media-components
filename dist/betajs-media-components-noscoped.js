@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.317 - 2022-09-23
+betajs-media-components - v0.0.318 - 2022-09-28
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.317",
-    "datetime": 1663964188647
+    "version": "0.0.318",
+    "datetime": 1664406247877
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -6086,9 +6086,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "hasplaceholderstyle": false,
                     "playerorientation": undefined,
                     // Reference to Chrome renewed policy, we have to setup mute for auto-playing players.
-                    // If we do it forcibly then will set as true
+                    // If we do it forcibly, then we will set as true
                     "forciblymuted": false,
-                    // When volume was un muted, by user himself, not automatically
+                    // When volume was unmuted, by the user himself, not automatically
                     "volumeafterinteraction": false
                 },
 
@@ -6225,7 +6225,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.__lastContainerSizingStyles = styles;
                         return styles;
                     },
-                    "buffering:buffered,position,last_position_change_delta,playing": function() {
+                    "buffering:buffered,position,last_position_change_delta,playing": function(buffered, position, ld, playing) {
+                        if (playing) this.__playedStats(position, this.get("duration"));
                         return this.get("playing") && this.get("buffered") < this.get("position") && this.get("last_position_change_delta") > 1000;
                     }
                 },
@@ -6429,6 +6430,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("duration", this.get("totalduration") || 0.0);
                     this.set("position", 0.0);
                     this.set("buffered", 0.0);
+                    this.set("passed-quarter", 0);
+                    this.set("played-seconds", 0);
+                    this.set("last-played-position", 0);
+                    this.set("player-started", false);
+                    this.set("last-seen-position", this.get("volume") > 0.2 ? 1 : 0);
                     this.set("message", "");
                     this.set("fullscreensupport", false);
                     this.set("csssize", "normal");
@@ -7204,6 +7210,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 }, this);
                             }
                         }
+                        this.__playedStats(position, this.get("duration"));
                     },
 
                     set_speed: function(speed) {
@@ -7771,6 +7778,31 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }, this);
                         }
                     }
+                },
+
+                /**
+                 * Will generate player stats
+                 * @param position
+                 * @param duration
+                 * @private
+                 */
+                __playedStats: function(position, duration) {
+                    var currentPassedQuarter = Math.floor(position / duration / 0.25);
+                    if (Math.abs(this.get("last-seen-position") - position) >= 1) {
+                        this.set("last-seen-position", position);
+                        this.set("played-seconds", this.get("played-seconds") + 1);
+                        if (this.get("volume") > 0.2) {
+                            this.set("last-played-position", this.get("last-played-position") + 1);
+                        }
+                    }
+
+                    if (this.get("passed-quarter") !== currentPassedQuarter) {
+                        this.set("passed-quarter", currentPassedQuarter);
+                        this.trigger("quarter-passed", currentPassedQuarter);
+                    }
+
+                    if (!this.get("player-started")) this.set("player-started", true);
+
                 }
             };
         }], {
@@ -17975,7 +18007,7 @@ Scoped.define("module:VideoCall.Dynamics.BaseView", [
             scoped: scoped
         }, function(inherited) {
             return {
-                template: "<div class=\"{{cssclass}}\">\n\t<video ba-if=\"{{camera_active}}\"></video>\n</div>\n",
+                template: "<div class=\"{{cssclass}}\">\n\t\n\t<video ba-if=\"{{camera_active}}\"></video>\n</div>\n",
 
 				attrs: {
 					cssclass: "ba-call-camera-view"
@@ -18003,42 +18035,42 @@ Scoped.define("module:VideoCall.Dynamics.BaseView", [
         });
 });
 Scoped.define("module:VideoCall.Dynamics.LocalView", [
+    "module:Assets",
     "module:VideoCall.Dynamics.BaseView"
 ], [
 
-], function(BaseView, scoped) {
+], function(Assets, BaseView, scoped) {
     return BaseView.extend({
             scoped: scoped
         }, function(inherited) {
             return {
-                template: inherited.template.replace("<video", "<video muted"),
+                template: inherited.template.replace("<video", "<div ba-if=\"{{error}}\" ba-click=\"{{retry()}}\">\n    <p>{{error}}</p>\n</div>\n<video muted"),
 
 				attrs: {
 					cssclass: "ba-call-local-view"
 				},
 
-                create: function() {
-					inherited.create.call(this);
-                    if (!this.get("stream")) this.call("init_camera");
+                channels: {
+                    "errors:local_camera_error": function() {
+                        this.set("error", this.string("local-camera-connection-error"));
+                    }
                 },
 
                 functions: {
-                    init_camera: function() {
-                        navigator.mediaDevices.getUserMedia({
-                            audio: true,
-                            video: true
-                        }).then(function(stream) {
-                            this.set("stream", stream);
-                        }.bind(this))["catch"](function() {
-                            console.log("error", arguments);
-                        });
+                    retry: function() {
+                        this.set("error", "");
+                        this.channel("local_camera").trigger("retry");
                     }
                 }
             };
         })
         .register("ba-local-view")
         .registerFunctions({
-            /**//**/
+            /**/"error": function (obj) { return obj.error; }, "retry()": function (obj) { return obj.retry(); }/**/
+        })
+        .attachStringTable(Assets.strings)
+        .addStrings({
+            "local-camera-connection-error": "There was an error when connecting to local camera. Click to try again."
         });
 });
 Scoped.define("module:VideoCall.Dynamics.RemoteView", [
@@ -18181,6 +18213,11 @@ Scoped.define("module:VideoCall.Dynamics.CallStates.Initial", [
     }, {
 
         _started: function() {
+            this.dyn._getUserMedia({
+                audio: true,
+                video: true
+            });
+
             if (this.dyn.get("skipinitial")) {
                 this.next("Connecting");
                 return;
@@ -18290,10 +18327,11 @@ Scoped.define("module:VideoCall.Dynamics.Call", [
     "base:Promise",
     "base:States.Host",
     "dynamics:Dynamic",
+    "media:WebRTC.Support",
     "module:Assets",
     "module:VideoCall.Dynamics.CallStates.Initial",
     "module:VideoCall.Dynamics.CallStates"
-], function(ClassRegistry, Promise, Host, Dynamic, Assets, InitialState, CallStates, scoped) {
+], function(ClassRegistry, Promise, Host, Dynamic, WebRTCSupport, Assets, InitialState, CallStates, scoped) {
     return Dynamic.extend({
             scoped: scoped
         }, function(inherited) {
@@ -18311,7 +18349,7 @@ Scoped.define("module:VideoCall.Dynamics.Call", [
                     skipinitial: false
                 },
 
-                registerchannels: ["call"],
+                registerchannels: ["call", "local_camera", "errors"],
 
                 channels: {
                     "call:leave_call": function() {
@@ -18322,6 +18360,12 @@ Scoped.define("module:VideoCall.Dynamics.Call", [
                     },
                     "call:toggle_mute": function() {
                         this.set("local_microphone_active", !this.get("local_microphone_active"));
+                    },
+                    "local_camera:retry": function() {
+                        this._getUserMedia({
+                            audio: true,
+                            video: true
+                        });
                     }
                 },
 
@@ -18355,6 +18399,10 @@ Scoped.define("module:VideoCall.Dynamics.Call", [
                         if (!stream) return;
                         this.get("local_stream").getVideoTracks()[0].enabled = !!this.get("local_camera_active");
                         this.get("local_stream").getAudioTracks()[0].enabled = !!this.get("local_microphone_active");
+                    },
+                    "error": function(error_type, error) {
+                        this.channel("errors").trigger(error_type);
+                        this.trigger(error_type, error);
                     }
                 },
 
@@ -18373,6 +18421,23 @@ Scoped.define("module:VideoCall.Dynamics.Call", [
                     });
                     host.dynamic = this;
                     host.initialize(InitialState);
+                },
+
+                _getUserMedia: function(constraints) {
+                    if (!WebRTCSupport.userMediaSupported()) {
+                        var error = new Error("Camera access is only available in secure contexts (HTTPS).");
+                        console.error(error);
+                        this.trigger("error", "camera_access_unsupported", error);
+                        return Promise.error(error);
+                    }
+                    return WebRTCSupport.userMedia(constraints).success(function(stream) {
+                        this.trigger("access_granted");
+                        this.set("local_stream", stream);
+                        return stream;
+                    }, this).error(function(error) {
+                        if (error.message === "Permission denied") this.trigger("error", "access_forbidden");
+                        else this.trigger("error", "local_camera_error", error);
+                    }, this);
                 },
 
                 _connect: function() { // Simulates connection, needs to be replaced with actual connection

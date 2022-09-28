@@ -240,6 +240,7 @@
   ba-audiorecorder.missing-track: Required audio track is missing
   ba-audiorecorder.device-already-in-use: At least one of your input devices are already in use
   ba-audiorecorder.browser-permission-denied: 'Permission denied by browser, please grant access and reload page'
+  ba-local-view.local-camera-connection-error: There was an error when connecting to local camera. Click to try again.
   ba-call-controlbar.camera-button: Show/Hide Camera
   ba-call-controlbar.leave-button: Leave Call
   ba-call-controlbar.mute-button: Mute/Unmute

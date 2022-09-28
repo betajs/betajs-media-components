@@ -1,8 +1,9 @@
 Scoped.define("module:VideoCall.Dynamics.LocalView", [
+    "module:Assets",
     "module:VideoCall.Dynamics.BaseView"
 ], [
 
-], function(BaseView, scoped) {
+], function(Assets, BaseView, scoped) {
     return BaseView.extend({
             scoped: scoped
         }, function(inherited) {
@@ -13,21 +14,16 @@ Scoped.define("module:VideoCall.Dynamics.LocalView", [
 					cssclass: "ba-call-local-view"
 				},
 
-                create: function() {
-					inherited.create.call(this);
-                    if (!this.get("stream")) this.call("init_camera");
+                channels: {
+                    "errors:local_camera_error": function() {
+                        this.set("error", this.string("local-camera-connection-error"));
+                    }
                 },
 
                 functions: {
-                    init_camera: function() {
-                        navigator.mediaDevices.getUserMedia({
-                            audio: true,
-                            video: true
-                        }).then(function(stream) {
-                            this.set("stream", stream);
-                        }.bind(this))["catch"](function() {
-                            console.log("error", arguments);
-                        });
+                    retry: function() {
+                        this.set("error", "");
+                        this.channel("local_camera").trigger("retry");
                     }
                 }
             };
@@ -35,5 +31,9 @@ Scoped.define("module:VideoCall.Dynamics.LocalView", [
         .register("ba-local-view")
         .registerFunctions({
             /*<%= template_function_cache(dirname + '/local_view_overlay.html') %>*/
+        })
+        .attachStringTable(Assets.strings)
+        .addStrings({
+            "local-camera-connection-error": "There was an error when connecting to local camera. Click to try again."
         });
 });

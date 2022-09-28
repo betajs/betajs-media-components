@@ -20,6 +20,11 @@ Scoped.define("module:VideoCall.Dynamics.CallStates.Initial", [
     }, {
 
         _started: function() {
+            this.dyn._getUserMedia({
+                audio: true,
+                video: true
+            });
+
             if (this.dyn.get("skipinitial")) {
                 this.next("Connecting");
                 return;

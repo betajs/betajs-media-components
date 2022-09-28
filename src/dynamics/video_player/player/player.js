@@ -1349,8 +1349,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     },
 
-                    set_speed: function(speed) {
-                        this.player.setSpeed(speed);
+                    set_speed: function(speed, from_ui) {
+                        if (!from_ui)
+                            from_ui = false;
+                        speed = parseFloat(speed.toFixed(2));
+                        if (this.player != undefined) {
+                            this.player.setSpeed(speed);
+                            if (from_ui != true)
+                                this.trigger("speed-set", speed);
+                            return speed;
+                        }
+                        return false;
                     },
 
                     set_volume: function(volume) {

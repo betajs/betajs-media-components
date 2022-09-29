@@ -142,11 +142,6 @@ Scoped.define("module:Common.Dynamics.Settingsmenu", [
                             this.parent().set("settingsmenu_active", false);
                         }
                     }, this);
-                    this.parent().on("speed-set", function(speed) {
-                        this.updateSetting("playerspeeds", {
-                            value: speed
-                        });
-                    }, this);
                 },
 
                 /**

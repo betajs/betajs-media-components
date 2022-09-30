@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.318 - 2022-09-28
+betajs-media-components - v0.0.319 - 2022-09-30
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.318",
-    "datetime": 1664406247877
+    "version": "0.0.319",
+    "datetime": 1664519164190
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -4535,7 +4535,7 @@ Scoped.define("module:Common.Dynamics.Settingsmenu", [
                             func: function(setting, value) {
                                 /** @var Dynamic this */
                                 if (typeof this.functions.set_speed === 'function' && value > 0) {
-                                    this.functions.set_speed.call(this, value);
+                                    this.functions.set_speed.call(this, value, true);
                                     return true;
                                 } else {
                                     console.error('Wrong argument or function provided');
@@ -4634,7 +4634,6 @@ Scoped.define("module:Common.Dynamics.Settingsmenu", [
                  * @param {string =} settingId
                  */
                 build_setting: function(settingMenu, settingId) {
-
                     if (!settingMenu || !settingId) {
                         console.warn('At least on of the arguments are required');
                         return;
@@ -7213,8 +7212,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.__playedStats(position, this.get("duration"));
                     },
 
-                    set_speed: function(speed) {
+                    set_speed: function(speed, from_ui) {
+                        if (!this.player) return false;
                         this.player.setSpeed(speed);
+                        if (!from_ui) this.updateSettingsMenuItem("playerspeeds", {
+                            value: parseFloat(speed.toFixed(2))
+                        });
+                        return speed;
                     },
 
                     set_volume: function(volume) {

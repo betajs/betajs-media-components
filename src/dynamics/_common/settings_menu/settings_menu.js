@@ -50,7 +50,7 @@ Scoped.define("module:Common.Dynamics.Settingsmenu", [
                             func: function(setting, value) {
                                 /** @var Dynamic this */
                                 if (typeof this.functions.set_speed === 'function' && value > 0) {
-                                    this.functions.set_speed.call(this, value);
+                                    this.functions.set_speed.call(this, value, true);
                                     return true;
                                 } else {
                                     console.error('Wrong argument or function provided');
@@ -149,7 +149,6 @@ Scoped.define("module:Common.Dynamics.Settingsmenu", [
                  * @param {string =} settingId
                  */
                 build_setting: function(settingMenu, settingId) {
-
                     if (!settingMenu || !settingId) {
                         console.warn('At least on of the arguments are required');
                         return;

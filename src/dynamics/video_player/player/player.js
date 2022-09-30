@@ -1356,8 +1356,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.__playedStats(position, this.get("duration"));
                     },
 
-                    set_speed: function(speed) {
+                    set_speed: function(speed, from_ui) {
+                        if (!this.player) return false;
                         this.player.setSpeed(speed);
+                        if (!from_ui) this.updateSettingsMenuItem("playerspeeds", {
+                            value: parseFloat(speed.toFixed(2))
+                        });
+                        return speed;
                     },
 
                     set_volume: function(volume) {

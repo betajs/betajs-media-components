@@ -697,8 +697,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 },
 
                 _initializeUploader: function() {
-                    if (this._dataUploader)
-                        this._dataUploader.weakDestroy();
+                    if (this._videoUploader) this._videoUploader.weakDestroy();
+                    if (this._dataUploader) this._dataUploader.weakDestroy();
                     this._dataUploader = new MultiUploader();
                 },
 
@@ -780,6 +780,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         source: file
                     }, this.get("uploadoptions").video));
                     uploader.upload();
+                    this._videoUploader = uploader;
                     this._dataUploader.addUploader(uploader);
                 },
 

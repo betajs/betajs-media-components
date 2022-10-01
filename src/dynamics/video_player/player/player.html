@@ -35,7 +35,7 @@
              ba-on:touchend="{{toggle_player()}}"
         ></div>
         <ba-{{dyntrimmer}}
-            ba-show="{{trimmingmode && videoelement_active}}"
+            ba-if="{{trimmingmode && videoelement_active}}"
             ba-playing="{{playing}}"
             ba-startposition="{{=starttime}}"
             ba-position="{{position}}"

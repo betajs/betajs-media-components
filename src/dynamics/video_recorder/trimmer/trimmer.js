@@ -147,27 +147,8 @@ Scoped.define("module:VideoRecorder.Dynamics.Trimmer", [
                     },
 
                     updateThumbnails: function() {
-                        Promise.conditional(!this._internalVideoElement, function() {
-                            var promise = Promise.create();
-                            var video = document.createElement("video");
-                            var source = this.get("source").src || this.get("source");
-                            video.src = typeof source === "string" ? source : URL.createObjectURL(source);
-                            video.addEventListener("loadedmetadata", function() {
-                                if (!this.get("duration")) this.set("duration", video.duration);
-                                this._internalVideoElement = video;
-                                this._canvasHeight = 34; // TODO calculate instead of hard coding value
-                                this._canvasWidth = this._canvasHeight * video.videoWidth / video.videoHeight;
-                                this._canvases = [];
-                                this._canvases.push(this.call("createNewCanvas"));
-                                this.call("drawSnapshot", this._canvases[0], 0).success(function() {
-                                    promise.asyncSuccess(video);
-                                });
-                            }.bind(this));
-                            return promise;
-                        }.bind(this), this._internalVideoElement).success(function(video) {
-                            if (this._progressBarElement.clientWidth === 0) return;
-                            this.call("drawSnapshotRecursive", 1);
-                        }, this);
+                        if (!this._internalVideoElement || this._progressBarElement.clientWidth === 0) return;
+                        this.call("drawSnapshotRecursive", 1);
                     },
 
                     createNewCanvas: function() {
@@ -212,7 +193,30 @@ Scoped.define("module:VideoRecorder.Dynamics.Trimmer", [
                     }.bind(this));
 
                     this._progressBarResizeObserver.observe(this._progressBarElement);
-                    this.call("updateThumbnails");
+
+                    this._loadVideo().success(function() {
+                        this.call("updateThumbnails");
+                    }, this);
+                },
+
+                _loadVideo: function() {
+                    var promise = Promise.create();
+                    var video = document.createElement("video");
+                    var source = this.get("source").src || this.get("source");
+                    video.src = typeof source === "string" ? source : URL.createObjectURL(source);
+                    this._events.on(video, "loadedmetadata", function() {
+                        if (!this || this.destroyed()) return;
+                        if (!this.get("duration")) this.set("duration", video.duration);
+                        this._internalVideoElement = video;
+                        this._canvasHeight = 34; // TODO calculate instead of hard coding value
+                        this._canvasWidth = this._canvasHeight * video.videoWidth / video.videoHeight;
+                        this._canvases = [];
+                        this._canvases.push(this.call("createNewCanvas"));
+                        this.call("drawSnapshot", this._canvases[0], 0).success(function() {
+                            promise.asyncSuccess(video);
+                        });
+                    }, this);
+                    return promise;
                 }
             };
         })

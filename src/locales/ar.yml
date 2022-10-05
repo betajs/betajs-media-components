@@ -210,6 +210,34 @@
   ba-videorecorder.wait-for-trim: في انتظار أمر القطع ...
   ba-videorecorder-controlbar.no-video-source: مصدر إدخال الفيديو الإضافي مفقود
   ba-videorecorder-controlbar.stream-already-selected: تم تحديد تيار إضافي بالفعل
-  ba-videorecorder.uploading-src-error: تعذر تشغيل الفيديو الآن ، لا يزال التحميل قيد التقدم
+  ba-videorecorder.uploading-src-error: تعذر تشغيل الفيديو الآن، لا يزال التحميل قيد التقدم
   ba-audiorecorder-controlbar.pause-recorder: مسجل وقفة
   ba-audiorecorder-controlbar.resume-recorder: مسجل السيرة الذاتية
+  ba-ads-controlbar.elapsed-time: الوقت المنقضي
+  ba-ads-controlbar.volume-button: ضبط الصوت
+  ba-ads-controlbar.volume-mute: كتم الصوت
+  ba-ads-controlbar.volume-unmute: الغاء كتم الصوت
+  ba-ads-controlbar.ad-will-end-after: سينتهي الاعلان بعد %s
+  ba-ads-controlbar.can-skip-after: تخطي بعد %d
+  ba-ads-controlbar.skip-ad: تخطى الاعلان
+  ba-videorecorder.supported-mode: دقة العرض يجب ان تكون في وضع '%s' 
+  ba-videorecorder.re-choose-action: الرجاء النقر لاختيار جهاز إدخال آخر أو إعادة محاولة الإجراء.
+  ba-audiorecorder.uploading-src-error: 'لا يمكن تشغيل الصوت الآن، لا زالت عملية الرفع جارية'
+  ba-audiorecorder.missing-track: المسار الصوتي المطلوب مفقود
+  ba-audiorecorder.device-already-in-use: هناك جهاز واحد على الأقل من أجهزة الإدخال قيد الاستخدام بالفعل
+  ba-audiorecorder.browser-permission-denied: 'تم رفض الإذن بواسطة المتصفح ، يرجى منح الوصول وإعادة تحميل الصفحة'
+  ba-local-view.local-camera-connection-error: حدث خطأ عند الاتصال بالكاميرا الخاصة بجهازك. انقر للمحاول مجددا.
+  ba-call-controlbar.camera-button: إظهار/إخفاء الكاميرا
+  ba-call-controlbar.leave-button: غادر المكالمة
+  ba-call-controlbar.mute-button: كتم/الغاء كتم الصوت
+  ba-call-lobby.camera-button: الكاميرا
+  ba-call-lobby.description-create: عندما تكون جاهزًا، انقر فوق الزر أدناه لإجراء مكالمة.
+  ba-call-lobby.description-join: عندما تكون جاهزًا، انقر فوق الزر أدناه للانضمام إلى المكالمة.
+  ba-call-lobby.join-button: انضمام
+  ba-call-lobby.create-button: بدأ
+  ba-call-lobby.mute-button: كتم
+  ba-call-lobby.title-create: القيام بمكالمة
+  ba-call-lobby.title-join: انضمام لمكالمة
+  ba-video-call.call-ended: انتهت المكالمة
+  ba-video-call.connecting: جاري الاتصال...
+  ba-video-call.connection-error: 'حدث خطأ أثناء الاتصال، يرجى النقر للمحاولة مرة أخرى.'

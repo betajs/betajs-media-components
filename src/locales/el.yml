@@ -247,3 +247,31 @@
     εξέλιξη
   ba-audiorecorder-controlbar.pause-recorder: Παύση εγγραφής
   ba-audiorecorder-controlbar.resume-recorder: Συνέχιση εγγραφής
+  ba-ads-controlbar.elapsed-time: Παρήλθε ο χρόνος
+  ba-ads-controlbar.volume-button: Ρύθμιση έντασης
+  ba-ads-controlbar.volume-mute: Σίγαση έντασης
+  ba-ads-controlbar.volume-unmute: Κάταργηση σίγασης έντασης
+  ba-ads-controlbar.ad-will-end-after: Η διαφήμιση θα τελειώσει μετα απο %s
+  ba-ads-controlbar.can-skip-after: Παράλειψη μετά %d
+  ba-ads-controlbar.skip-ad: Παράλειψη διαφήμισης
+  ba-videorecorder.supported-mode: Η ανάλυση πρέπει να είναι σε '%s' λειτουργία.
+  ba-videorecorder.re-choose-action: Παρακαλώ κάντε κλικ για να διαλέξετε άλλη συσκευή ή ξαναπροσπαθήστε.
+  ba-audiorecorder.uploading-src-error: 'Μη δυνατή η αναπαραγωγή ήχου τώρα, η μεταφόρτωση είναι σε εξέλιξη'
+  ba-audiorecorder.missing-track: Το απαιτούμενο κομμάτι ήχου λείπει
+  ba-audiorecorder.device-already-in-use: Τουλάχιστον μία από τις συσκευές εισόδου χρησιμοποιείται ήδη
+  ba-audiorecorder.browser-permission-denied: 'Δεν επιτρέπεται πρόσβαση από το πρόγραμμα περιήγησης, δώστε άδεια και φορτώστε ξανά τη σελίδα'
+  ba-local-view.local-camera-connection-error: Παρουσιάστηκε σφάλμα κατά τη σύνδεση με την κάμερα. Κάντε κλικ για να προσπαθήσετε ξανά.
+  ba-call-controlbar.camera-button: Εμφάνιση/Απόκρυψη κάμερας
+  ba-call-controlbar.leave-button: Αποχώρηση από την κλήση
+  ba-call-controlbar.mute-button: Σίγαση/Κατάργηση σίγασης
+  ba-call-lobby.camera-button: Κάμερα
+  ba-call-lobby.description-create: Όταν είστε έτοιμοι, κάντε κλικ στο κουμπί παρακάτω για δημιουργία κλήσης.
+  ba-call-lobby.description-join: Όταν είστε έτοιμοι, κάντε κλικ στο κουμπί παρακάτω για συμμετοχή στην κλήση.
+  ba-call-lobby.join-button: Συμμετοχή
+  ba-call-lobby.create-button: Δημιουργία
+  ba-call-lobby.mute-button: Σίγαση
+  ba-call-lobby.title-create: Δημιουργία κλήσης
+  ba-call-lobby.title-join: Συμμετοχή σε κλήση
+  ba-video-call.call-ended: Η κλήση τελείωσε
+  ba-video-call.connecting: Σύνδεση...
+  ba-video-call.connection-error: 'Παρουσιάστηκε σφάλμα κατά τη σύνδεση, κάντε κλικ για να προσπαθήσετε ξανά.'

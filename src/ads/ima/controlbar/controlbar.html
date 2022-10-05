@@ -1,4 +1,4 @@
-<div class="{{cssplayer}}-ad-controlbar {{showbanner ? cssplayer + '-ad-media-controlbar' : ''}}"
+<div class="{{showbanner ? cssplayer + '-ad-media-controlbar' : ''}}"
      xmlns:ba-hotkey="http://www.w3.org/1999/xhtml">
     <div ba-show="{{skippable}}" class="{{cssplayer}}-skipbutton-container"
          ba-click="{{skip_linear_ad()}}"
@@ -47,7 +47,7 @@
                  title="{{string('elapsed-time')}}"
             >
                 {{formatTime(duration)}} / {{formatTime(remaining)}}
-                    <span>|</span>
+                <span>|</span>
                 {{title}}
             </div>
         </div>
@@ -92,4 +92,3 @@
         </div>
     </div>
 </div>
-

@@ -41,9 +41,9 @@ Scoped.define("module:Ads.IMARequester", [
                 this._adsRequest = new google.ima.AdsRequest();
 
                 // google.ima.ImaSdkSettings.VpaidMode.DISABLED
-                // DISABLED - VPAID ads will not play, and an error will be returned.
-                // ENABLED - VPAID ads are enabled using a cross-domain iframe
-                // INSECURE - This allows the ad access to the site via JavaScript.
+                // DISABLED == 0 - VPAID ads will not play, and an error will be returned.
+                // ENABLED == 1 - VPAID ads are enabled using a cross-domain iframe
+                // INSECURE == 2 - This allows the ad access to the site via JavaScript.
                 if (this._providerOptions.vpaidMode && [
                         google.ima.ImaSdkSettings.VpaidMode.DISABLED,
                         google.ima.ImaSdkSettings.VpaidMode.ENABLED,
@@ -51,7 +51,7 @@ Scoped.define("module:Ads.IMARequester", [
                     ].includes(this._providerOptions.vpaidMode))
                     google.ima.settings.setVpaidMode(this._providerOptions.vpaidMode);
                 else
-                    google.ima.settings.setVpaidMode(google.ima.ImaSdkSettings.VpaidMode.ENABLED);
+                    google.ima.settings.setVpaidMode(google.ima.ImaSdkSettings.VpaidMode.DISABLED);
 
                 // Call setLocale() to localize language text and downloaded swfs
                 if (Info.language() !== "en" || this._providerOptions.locale)
@@ -62,8 +62,9 @@ Scoped.define("module:Ads.IMARequester", [
 
 
                 // setAutoPlayAdBreaks(boolean)
+                // google.ima.settings.setVpaidAllowed(true); // true will cause an issue
 
-                // For IOS skipable
+                // For IOS skip able
                 // google.ima.settings.setDisableCustomPlaybackForIOS10Plus(true);
 
                 this._adsRequest = new google.ima.AdsRequest();
@@ -169,12 +170,6 @@ Scoped.define("module:Ads.IMARequester", [
                     case google.ima.AdEvent.Type.LOADED:
                         this._isLinear = ad.isLinear();
                         this._allAdsCompelted = false;
-                        if ((ad.isLinear() && this._linearExpected) || (!ad.isLinear() && !this._linearExpected)) {
-                            this._options.adElement.style.display = "";
-                            if (!this._adControlbar) this._showIMAAdController(ad);
-                        } else {
-                            this.manuallyEndAd();
-                        }
                         this.trigger('adloaded', ad);
                         break;
                     case google.ima.AdEvent.Type.ALL_ADS_COMPLETED:
@@ -205,7 +200,7 @@ Scoped.define("module:Ads.IMARequester", [
                                             // Show at least minSuggested duration
                                             // and freeze a timer if user set to pause or skip
                                             this._leftSuggesstedDuration--;
-                                            if (this._leftSuggesstedDuration < 1) {
+                                            if (this._leftSuggesstedDuration < 1 && this._dyn) {
                                                 // If in the next iteration there's no ads roll still continue showing ad,
                                                 // till it will not disappear itself
                                                 if (this._dyn._adsRoll) {
@@ -230,6 +225,12 @@ Scoped.define("module:Ads.IMARequester", [
                     case google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED:
                         if (this._dyn.get("playing") && ad.isLinear())
                             this._dyn.pause();
+                        if ((ad.isLinear() && this._linearExpected) || (!ad.isLinear() && !this._linearExpected)) {
+                            this._options.adElement.style.display = "";
+                            if (!this._adControlbar) this._showIMAAdController(ad);
+                        } else {
+                            this.manuallyEndAd();
+                        }
                         break;
                     case google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED:
                         if (this._options)
@@ -266,7 +267,7 @@ Scoped.define("module:Ads.IMARequester", [
             },
 
             /**
-             * Show error if any occurecs
+             * Show error if any occurred
              * @param type
              * @param message
              * @private

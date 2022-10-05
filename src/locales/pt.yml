@@ -85,7 +85,7 @@
     A taxa de quadros do vídeo é muito baixa. Recomendamos fechar todos os
     outros programas e guias do navegador ou usar um computador mais rápido.
   ba-videorecorder.upload-error-duration: >-
-    A duração do vídeo enviado não atende aos requisitos. Clique aqui para
+    A duração do vídeo enviado não cumpre os requisitos. Clique aqui para
     tentar novamente.
   ba-videorecorder.resolution-constraint-error: >-
     O arquivo que você selecionou não corresponde à resolução necessária -
@@ -240,6 +240,6 @@
   ba-videorecorder.wait-for-trim: Esperando pelo comando de corte ...
   ba-videorecorder-controlbar.no-video-source: Fonte de entrada de vídeo adicional ausente
   ba-videorecorder-controlbar.stream-already-selected: Stream adicional já foi selecionado
-  ba-videorecorder.uploading-src-error: 'Não é possível reproduzir o vídeo agora, o upload ainda está em andamento'
+  ba-videorecorder.uploading-src-error: 'Não é possível reproduzir o vídeo agora, o upload ainda está em progresso'
   ba-audiorecorder-controlbar.pause-recorder: Pausar gravador
   ba-audiorecorder-controlbar.resume-recorder: Retomar gravador

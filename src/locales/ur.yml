@@ -34,8 +34,7 @@
   ba-videorecorder-controlbar.skip: چھوڑ دو
   ba-videorecorder-controlbar.skip-tooltip: چھوڑنے کے لیے یہاں کلک کریں۔
   ba-videorecorder.recorder-error: 'ایک خامی پیش آگئی. برائے مہربانی کچھ دیر بعد دوبارہ کوشش کریں. دوبارہ کوشش کرنے کے لیے کلک کریں۔'
-  ba-videorecorder.attach-error: >-
-ہم میڈیا انٹرفیس تک رسائی حاصل نہیں کر سکے۔ڈیوائس اور براؤزر پر منحصر ہےآپ کوایس ایس ایل کے ذریعے صفحہ تک رسائی کی ضرورت ہو سکتی ہے۔
+  ba-videorecorder.attach-error: ہم میڈیا انٹرفیس تک رسائی حاصل نہیں کر سکے۔ڈیوائس اور براؤزر پر منحصر ہےآپ کوایس ایس ایل کے ذریعے صفحہ تک رسائی کی ضرورت ہو سکتی ہے۔
   ba-videorecorder.access-forbidden: میڈیا تک رسائی ممنوع تھی۔ دوبارہ کوشش کرنے کے لیے کلک کریں۔
   ba-videorecorder.pick-covershot: ایک کور شاٹ چنیں۔
   ba-videorecorder.uploading: اپ لوڈ ہو رہا ہے۔
@@ -155,7 +154,7 @@
   ba-imagecapture.rerecord-confirm: کیا آپ واقعی اپنی تصویر دوبارہ لینا چاہتے ہیں؟
   ba-imagecapture.image_file_too_large: >-
     ایک چھوٹی تصویر فائل کے ساتھ دوبارہ کوشش کرنے کے لیے یہاں کلک کریں۔ - (%s) آپ کی تصویر کی فائل بہت بڑی ہے
-  ba-imagecapture.unsupported_image_type: 'دوبارہ کوشش کرنے کے لیے یہاں کلک کریں۔ - %s براہ کرم اپ لوڈ کریں' 
+  ba-imagecapture.unsupported_image_type: 'دوبارہ کوشش کرنے کے لیے یہاں کلک کریں۔ - %s براہ کرم اپ لوڈ کریں'
   ba-imagecapture.orientation-portrait-required: براہ کرم پورٹریٹ موڈ میں ریکارڈ کرنے کے لیے اپنے آلے کو گھمائیں۔
   ba-imagecapture.orientation-landscape-required: براہ کرم لینڈ اسکیپ موڈ میں ریکارڈ کرنے کے لیے اپنے آلے کو گھمائیں۔
   ba-audiorecorder.recorder-error: 'ایک خامی پیش آگئی. برائے مہربانی کچھ دیر بعد دوبارہ کوشش کریں. دوبارہ کوشش کرنے کے لیے کلک کریں۔'

@@ -79,6 +79,10 @@
     overflow: hidden;
 }
 
+.#{$cssvideoplayer}-overlay[data-video='ad'] {
+    top: -2px;
+}
+
 .#{$cssplayer}-airplay-container {
     @include clickable();
     padding-top: 4px;

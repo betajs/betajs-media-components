@@ -601,6 +601,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
                 var list = this.dyn.get("playlist");
                 var head = list.shift();
                 this.dyn.get("initialoptions").playlist.push(head);
+                this.dyn.set("passed-quarter", 0);
+                this.dyn.set("played-seconds", 0);
+                this.dyn.set("last-played-position", 0);
                 if (list.length > 0) {
                     pl0 = list[0];
                     this.dyn.set("poster", pl0.poster);

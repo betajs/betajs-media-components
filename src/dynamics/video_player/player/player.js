@@ -545,9 +545,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }
                     if (this.get("playlist")) {
                         var pl0 = (this.get("playlist"))[0];
-                        this.set("poster", pl0.poster);
-                        this.set("source", pl0.source);
-                        this.set("sources", pl0.sources);
+                        if (pl0 && Types.is_object(pl0)) {
+                            this.set("poster", pl0.poster);
+                            this.set("source", pl0.source);
+                            this.set("sources", pl0.sources);
+                        }
                     }
                     if (this.get("streams") && !this.get("currentstream"))
                         this.set("currentstream", (this.get("streams"))[0]);

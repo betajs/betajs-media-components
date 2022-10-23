@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.323 - 2022-10-16
+betajs-media-components - v0.0.324 - 2022-10-23
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.323",
-    "datetime": 1665966787164
+    "version": "0.0.324",
+    "datetime": 1666548704589
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -6407,9 +6407,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }
                     if (this.get("playlist")) {
                         var pl0 = (this.get("playlist"))[0];
-                        this.set("poster", pl0.poster);
-                        this.set("source", pl0.source);
-                        this.set("sources", pl0.sources);
+                        if (pl0 && Types.is_object(pl0)) {
+                            this.set("poster", pl0.poster);
+                            this.set("source", pl0.source);
+                            this.set("sources", pl0.sources);
+                        }
                     }
                     if (this.get("streams") && !this.get("currentstream"))
                         this.set("currentstream", (this.get("streams"))[0]);
@@ -8436,6 +8438,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
                 var list = this.dyn.get("playlist");
                 var head = list.shift();
                 this.dyn.get("initialoptions").playlist.push(head);
+                this.dyn.set("passed-quarter", 0);
+                this.dyn.set("played-seconds", 0);
+                this.dyn.set("last-played-position", 0);
                 if (list.length > 0) {
                     pl0 = list[0];
                     this.dyn.set("poster", pl0.poster);

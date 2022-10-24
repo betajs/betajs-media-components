@@ -638,15 +638,15 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
         },
 
         /**
-         * Will start auto play the next play list element
+         * Will start autoplay the next play list element
          * @param {object} pl
          * @private
          */
         _playNext: function(pl) {
             this.dyn.trigger("playlist-next", pl);
-            this.dyn.reattachVideo();
+            // this.dyn.reattachVideo();
             this.dyn.set("autoplay", true);
-            this.next("LoadPlayer");
+            this.next("LoadPlayerDirectly");
         }
     });
 });

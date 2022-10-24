@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.324 - 2022-10-23
+betajs-media-components - v0.0.325 - 2022-10-24
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -244,10 +244,8 @@ Apache-2.0 Software License.
 
 .ba-player-elevate-theme-time-value {
   color: #ffffff;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color=#000000)";
-  /*IE 8*/
-  text-shadow: 0 0 4px #000000;
-  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color=#000000)"; /*IE 8*/
+  text-shadow: 0 0 4px #000000; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
   -webkit-transform: translateY(-50%);
   -moz-transform: translateY(-50%);
   -o-transform: translateY(-50%);
@@ -783,7 +781,7 @@ Apache-2.0 Software License.
 }
 .ba-recorder-theme-elevate-dashboard .ba-videorecorder-bubble-info {
   background-color: #ffffff;
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   -moz-border-radius: 16px;
   -webkit-border-radius: 16px;
   border-radius: 16px;
@@ -799,7 +797,7 @@ Apache-2.0 Software License.
 .ba-recorder-theme-elevate-dashboard .ba-videorecorder-bubble-info:before {
   border-right: 9px solid;
   border-right-color: #ffffff;
-  border-right-color: white;
+  border-right-color: rgb(255, 255, 255);
   border-bottom: 6px solid transparent;
   border-top: 6px solid transparent;
   content: "";
@@ -948,14 +946,10 @@ Apache-2.0 Software License.
   float: left;
 }
 .ba-imageviewer-elevate-theme .ba-imageviewer-left-block > div {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=270, Color=#666666)";
-  /*IE 8*/
-  -moz-box-shadow: inset -1px 0 0 #666666;
-  /*FF 3.5+*/
-  -webkit-box-shadow: inset -1px 0 0 #666666;
-  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
-  box-shadow: inset -1px 0 0 #666666;
-  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=270, Color=#666666)"; /*IE 8*/
+  -moz-box-shadow: inset -1px 0 0 #666666; /*FF 3.5+*/
+  -webkit-box-shadow: inset -1px 0 0 #666666; /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: inset -1px 0 0 #666666; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
   float: left;
   font-size: 13px;
   color: #000000;
@@ -974,14 +968,10 @@ Apache-2.0 Software License.
   float: right;
 }
 .ba-imageviewer-elevate-theme .ba-imageviewer-right-block > div {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=0, Direction=90, Color=#666666)";
-  /*IE 8*/
-  -moz-box-shadow: inset 1px 0 0 #666666;
-  /*FF 3.5+*/
-  -webkit-box-shadow: inset 1px 0 0 #666666;
-  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
-  box-shadow: inset 1px 0 0 #666666;
-  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=0, Direction=90, Color=#666666)"; /*IE 8*/
+  -moz-box-shadow: inset 1px 0 0 #666666; /*FF 3.5+*/
+  -webkit-box-shadow: inset 1px 0 0 #666666; /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: inset 1px 0 0 #666666; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
   float: right;
   line-height: 32px;
   text-align: center;

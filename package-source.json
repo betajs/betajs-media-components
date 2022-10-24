@@ -1,6 +1,6 @@
 {
     "name": "betajs-media-components",
-    "version": "0.0.324",
+    "version": "0.0.325",
     "description": "BetaJS-Media-Components is a JavaScript media UI components framework",
     "contributors": [
         "Ziggeo",
@@ -40,7 +40,7 @@
         "betajs-shims": "~0.0.12",
         "betajs": "~1.0.96",
         "betajs-browser": "~1.0.65",
-        "betajs-media": "~0.0.45",
+        "betajs-media": "^0.0.191",
         "betajs-dynamics": "~0.0.83",
         "grunt-betajs-templates": "~0.1.11",
         "js-beautify": ""

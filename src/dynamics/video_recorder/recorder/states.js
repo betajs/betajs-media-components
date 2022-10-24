@@ -363,6 +363,10 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
                     }
                     this.dyn._videoFilePlaybackable = true;
                     this.dyn.set("duration", data.duration);
+                    if (data.width <= 0 || data.height <= 0) {
+                        this.dyn._videoFilePlaybackable = false;
+                        this.dyn.set("media_src_not_supported", true);
+                    }
                     this._uploadFile(file);
                 }, this).error(function(e) {
                     if (e.code === MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED) {

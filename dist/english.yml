@@ -1,4 +1,4 @@
-'language:en':
+language:en:
   ba-videoplayer-playbutton.tooltip: Click to play.
   ba-videoplayer-playbutton.rerecord: Redo
   ba-videoplayer-playbutton.submit-video: Confirm video
@@ -15,7 +15,7 @@
   ba-videoplayer-controlbar.volume-button: Set volume
   ba-videoplayer-controlbar.volume-mute: Mute sound
   ba-videoplayer-controlbar.volume-unmute: Unmute sound
-  ba-videoplayer.video-error: 'An error occurred, please try again later. Click to retry.'
+  ba-videoplayer.video-error: An error occurred, please try again later. Click to retry.
   ba-videorecorder-chooser.record-video: Record Video
   ba-videorecorder-chooser.upload-video: Upload Video
   ba-videorecorder-controlbar.settings: Settings
@@ -33,7 +33,7 @@
   ba-videorecorder-controlbar.stop-tooltip: Click here to stop.
   ba-videorecorder-controlbar.skip: Skip
   ba-videorecorder-controlbar.skip-tooltip: Click here to skip.
-  ba-videorecorder.recorder-error: 'An error occurred, please try again later. Click to retry.'
+  ba-videorecorder.recorder-error: An error occurred, please try again later. Click to retry.
   ba-videorecorder.attach-error: >-
     We could not access the media interface. Depending on the device and
     browser, you might need to access the page via SSL.
@@ -92,7 +92,7 @@
   ba-imageviewer-controlbar.submit-image: Confirm
   ba-imageviewer-controlbar.fullscreen-image: Enter fullscreen
   ba-imageviewer-controlbar.exit-fullscreen-image: Exit fullscreen
-  ba-imageviewer.image-error: 'An error occurred, please try again later. Click to retry.'
+  ba-imageviewer.image-error: An error occurred, please try again later. Click to retry.
   ba-imagecapture-chooser.image-capture: Capture Image
   ba-imagecapture-chooser.upload-image: Upload Image
   ba-imagecapture-controlbar.settings: Settings
@@ -116,7 +116,7 @@
   ba-audioplayer-controlbar.volume-mute: Mute sound
   ba-audioplayer-controlbar.volume-unmute: Unmute sound
   ba-audioplayer-loader.tooltip: Loading...
-  ba-audioplayer.audio-error: 'An error occurred, please try again later. Click to retry.'
+  ba-audioplayer.audio-error: An error occurred, please try again later. Click to retry.
   ba-audiorecorder-chooser.record-audio: Record Audio
   ba-audiorecorder-chooser.upload-audio: Upload Audio
   ba-audiorecorder-controlbar.settings: Settings
@@ -143,7 +143,7 @@
   ba-videorecorder.prepare-covershot: Preparing covershots
   ba-videorecorder.prepare-thumbnails: Preparing seeking thumbnails
   ba-videorecorder.adding-new-stream: Adding New Stream
-  ba-imagecapture.recorder-error: 'An error occurred, please try again later. Click to retry.'
+  ba-imagecapture.recorder-error: An error occurred, please try again later. Click to retry.
   ba-imagecapture.attach-error: >-
     We could not access the media interface. Depending on the device and
     browser, you might need to access the page via SSL.
@@ -171,7 +171,7 @@
   ba-imagecapture.unsupported_image_type: 'Please upload: %s - click here to retry.'
   ba-imagecapture.orientation-portrait-required: Please rotate your device to record in portrait mode.
   ba-imagecapture.orientation-landscape-required: Please rotate your device to record in landscape mode.
-  ba-audiorecorder.recorder-error: 'An error occurred, please try again later. Click to retry.'
+  ba-audiorecorder.recorder-error: An error occurred, please try again later. Click to retry.
   ba-audiorecorder.attach-error: >-
     We could not access the media interface. Depending on the device and
     browser, you might need to access the page via SSL.
@@ -209,7 +209,7 @@
   ba-videorecorder-controlbar.resume-recorder: Resume Recorder
   ba-videorecorder.missing-track: Required audio or video track is missing
   ba-videorecorder.device-already-in-use: At least one of your input devices are already in use
-  ba-videorecorder.browser-permission-denied: 'Permission denied by browser, please grant access and reload page'
+  ba-videorecorder.browser-permission-denied: Permission denied by browser, please grant access and reload page
   ba-audioplayer.all-settings: All settings
   ba-videoplayer-controlbar.remaining-time: Remaining time
   ba-videoplayer-controlbar.select-frame: Select
@@ -224,7 +224,7 @@
   ba-videorecorder.wait-for-trim: Waiting for trim command...
   ba-videorecorder-controlbar.no-video-source: Missing additional video input source
   ba-videorecorder-controlbar.stream-already-selected: Additional stream has been already selected
-  ba-videorecorder.uploading-src-error: 'Unable to play back video now, uploading is still in progress'
+  ba-videorecorder.uploading-src-error: Unable to play back video now, uploading is still in progress
   ba-audiorecorder-controlbar.pause-recorder: Pause Recorder
   ba-audiorecorder-controlbar.resume-recorder: Resume Recorder
   ba-ads-controlbar.elapsed-time: Elapsed time
@@ -236,10 +236,10 @@
   ba-ads-controlbar.skip-ad: Skip ad
   ba-videorecorder.supported-mode: Media resolution should be in '%s' mode.
   ba-videorecorder.re-choose-action: Please click to choose another input device or retry action.
-  ba-audiorecorder.uploading-src-error: 'Unable to play back audio now, uploading is still in progress'
+  ba-audiorecorder.uploading-src-error: Unable to play back audio now, uploading is still in progress
   ba-audiorecorder.missing-track: Required audio track is missing
   ba-audiorecorder.device-already-in-use: At least one of your input devices are already in use
-  ba-audiorecorder.browser-permission-denied: 'Permission denied by browser, please grant access and reload page'
+  ba-audiorecorder.browser-permission-denied: Permission denied by browser, please grant access and reload page
   ba-local-view.local-camera-connection-error: There was an error when connecting to local camera. Click to try again.
   ba-call-controlbar.camera-button: Show/Hide Camera
   ba-call-controlbar.leave-button: Leave Call
@@ -254,4 +254,4 @@
   ba-call-lobby.title-join: Join Call
   ba-video-call.call-ended: Call ended
   ba-video-call.connecting: Connecting...
-  ba-video-call.connection-error: 'There was an error while connecting, please click to try again.'
+  ba-video-call.connection-error: There was an error while connecting, please click to try again.

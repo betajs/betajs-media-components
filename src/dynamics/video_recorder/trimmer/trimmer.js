@@ -161,7 +161,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Trimmer", [
 
                     drawSnapshot: function(canvas, position) {
                         var promise = Promise.create();
-                        this._internalVideoElement.currentTime = position;
+                        this._internalVideoElement.currentTime = position || 0;
                         this._events.on(this._internalVideoElement, "seeked", function() {
                             canvas.getContext("2d").drawImage(this._internalVideoElement, 0, 0, canvas.width, canvas.height);
                             this._events.off(this._internalVideoElement, "seeked");

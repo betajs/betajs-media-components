@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.325 - 2022-10-24
+betajs-media-components - v0.0.326 - 2022-10-31
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.325",
-    "datetime": 1666638771885
+    "version": "0.0.326",
+    "datetime": 1667243943508
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -3534,18 +3534,6 @@ Scoped.define("module:AudioVisualization", [
         }
     });
 });
-Scoped.define("module:Common.Dynamics.CenteredElement", [
-    "dynamics:Dynamic"
-], function(Dynamic, scoped) {
-    return Dynamic.extend({
-            scoped: scoped
-        }, function(inherited) {
-            return {
-                template: '<div class="ba-commoncss-full-width ba-commoncss-full-height ba-commoncss-flex-center"><></div>'
-            };
-        })
-        .register("ba-spinner");
-});
 Scoped.define("module:Common.Dynamics.Helperframe", [
     "dynamics:Dynamic",
     "base:Async",
@@ -3943,17 +3931,6 @@ Scoped.define("module:Common.Dynamics.Helperframe", [
             }
         };
     }).register("ba-helperframe");
-});
-Scoped.define("module:Common.Dynamics.Spinner", [
-    "module:Common.Dynamics.CenteredElement"
-], function(CenteredElementDynamic, scoped) {
-    return CenteredElementDynamic.extend({
-        scoped: scoped
-    }, function(inherited) {
-        return {
-            template: inherited.template.replace("element", "<div>hello, world</div>")
-        };
-    });
 });
 Scoped.define("module:StickyHandler", [
     "base:Class",
@@ -8498,15 +8475,15 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
         },
 
         /**
-         * Will start auto play the next play list element
+         * Will start autoplay the next play list element
          * @param {object} pl
          * @private
          */
         _playNext: function(pl) {
             this.dyn.trigger("playlist-next", pl);
-            this.dyn.reattachVideo();
+            // this.dyn.reattachVideo();
             this.dyn.set("autoplay", true);
-            this.next("LoadPlayer");
+            this.next("LoadPlayerDirectly");
         }
     });
 });

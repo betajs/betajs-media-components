@@ -366,24 +366,13 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
                     if (data.width <= 0 || data.height <= 0) {
                         this.dyn._videoFilePlaybackable = false;
                         this.dyn.set("media_src_not_supported", true);
+                        this._disablePlaybackOnRecorder();
                     }
                     this._uploadFile(file);
                 }, this).error(function(e) {
                     if (e.code === MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED) {
-                        // skip allowtrim/localplayback/snapshotfromuploader, show different error message on uploading.
-                        if (this.dyn.get("allowtrim") === true) {
-                            this.dyn.set("allowtrim", false);
-                            this.dyn.set("was_allowtrim", true);
-                        }
-                        if (this.dyn.get("localplayback") === true) {
-                            this.dyn.set("localplayback", false);
-                            this.dyn.set("was_localplayback", true);
-                        }
-                        if (this.dyn.get("snapshotfromuploader") === true) {
-                            this.dyn.set("snapshotfromuploader", false);
-                            this.dyn.set("was_snapshotfromuploader", true);
-                        }
                         this.dyn.set("media_src_not_supported", true);
+                        this._disablePlaybackOnRecorder();
                     }
                     this._uploadFile(file);
                 }, this);
@@ -430,8 +419,23 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
             try {
                 file.value = '';
             } catch (e) {}
+        },
+        _disablePlaybackOnRecorder: function() {
+            // skip allowtrim/localplayback/snapshotfromuploader, show different error message on uploading.
+            // anything that call playback on recorder will be skipped, unless it's returned from server (transcoded)
+            if (this.dyn.get("allowtrim") === true) {
+                this.dyn.set("allowtrim", false);
+                this.dyn.set("was_allowtrim", true);
+            }
+            if (this.dyn.get("localplayback") === true) {
+                this.dyn.set("localplayback", false);
+                this.dyn.set("was_localplayback", true);
+            }
+            if (this.dyn.get("snapshotfromuploader") === true) {
+                this.dyn.set("snapshotfromuploader", false);
+                this.dyn.set("was_snapshotfromuploader", true);
+            }
         }
-
     });
 });
 

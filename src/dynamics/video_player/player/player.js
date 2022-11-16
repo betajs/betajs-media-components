@@ -191,6 +191,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "ttuploadervisible": false,
                     "videofitstrategy": "pad",
                     "posterfitstrategy": "crop",
+                    "slim": false,
 
                     /* States (helper variables which are controlled by application itself not set by user) */
                     "showbuiltincontroller": false,
@@ -301,7 +302,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "linear": "string",
                     "non-linear": "string",
                     "non-linear-min-duration": "int",
-                    "companion-ad": "string"
+                    "companion-ad": "string",
+                    "slim": "boolean"
                 },
 
                 extendables: ["states"],
@@ -643,6 +645,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.set("sticktoview", false);
                             if (this.get("fadeup") && this.stickyHandler.elementWasDragged()) this.set("fadeup", false);
                         }, this);
+                    }
+
+                    if (!this.get("slim")) {
+                        this.set("slim", false);
                     }
                 },
 
@@ -1050,6 +1056,23 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     this.activeElement().classList.add(this.get("csscommon") + "-full-width");
                     this.activeElement().classList.add(this.get("csscommon") + "-max-height-100vh");
+
+                    if (this.get("slim") === true) {
+                        // We should add the CSS codes and we are adding it here, to mark the player
+                        this.activeElement().classList.add("slim");
+
+                        // We also include CSS if it is not already present.
+                        if (!document.getElementById("icss-slim-theme")) {
+                            var slim_style = document.createElement("style");
+                            slim_style.id = "icss-slim-theme";
+                            slim_style.innerText = 'div.' + this.get("csscommon") + "-full-width.slim" +
+                                "{width:auto;}.slim ." + this.get("cssplayer") + "-linear-ad-container" +
+                                "{position:relative;}" + ".slim ." + this.get("cssplayer") + "-linear-ad-container>div," +
+                                ".slim ." + this.get("cssplayer") + "-linear-ad-container iframe{max-width:100%;}";
+                            document.head.appendChild(slim_style);
+                        }
+                    }
+
                     var img = this.activeElement().querySelector('img[data-image="image"]');
                     var imgEventHandler = this.auto_destroy(new DomEvents());
                     imgEventHandler.on(img, "load", function() {

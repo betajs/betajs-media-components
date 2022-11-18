@@ -1060,17 +1060,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.get("slim") === true) {
                         // We should add the CSS codes and we are adding it here, to mark the player
                         this.activeElement().classList.add("slim");
-
-                        // We also include CSS if it is not already present.
-                        if (!document.getElementById("icss-slim-theme")) {
-                            var slim_style = document.createElement("style");
-                            slim_style.id = "icss-slim-theme";
-                            slim_style.innerText = 'div.' + this.get("csscommon") + "-full-width.slim" +
-                                "{width:auto;}.slim ." + this.get("cssplayer") + "-linear-ad-container" +
-                                "{position:relative;}" + ".slim ." + this.get("cssplayer") + "-linear-ad-container>div," +
-                                ".slim ." + this.get("cssplayer") + "-linear-ad-container iframe{max-width:100%;}";
-                            document.head.appendChild(slim_style);
-                        }
                     }
 
                     var img = this.activeElement().querySelector('img[data-image="image"]');

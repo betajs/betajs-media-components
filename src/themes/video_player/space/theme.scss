@@ -116,3 +116,7 @@ $colors: (
   'green': $theme_color_green,
   'default': ''
 );
+
+.slim.#{$csscommon}-full-width { width:auto; }
+.slim .#{$cssplayer}-linear-ad-container { position:relative; }
+.slim .#{$cssplayer}-linear-ad-container > div, .slim .#{$cssplayer}-linear-ad-container iframe { max-width:100%; }

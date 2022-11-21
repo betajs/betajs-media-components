@@ -646,10 +646,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (this.get("fadeup") && this.stickyHandler.elementWasDragged()) this.set("fadeup", false);
                         }, this);
                     }
-
-                    if (!this.get("slim")) {
-                        this.set("slim", false);
-                    }
                 },
 
                 getMediaType: function() {
@@ -1059,7 +1055,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     if (this.get("slim") === true) {
                         // We should add the CSS codes and we are adding it here, to mark the player
-                        this.activeElement().classList.add("slim");
+                        this.activeElement().classList.add(this.get("csscommon") + "-slim");
                     }
 
                     var img = this.activeElement().querySelector('img[data-image="image"]');

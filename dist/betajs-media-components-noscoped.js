@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.326 - 2022-10-31
+betajs-media-components - v0.0.327 - 2022-11-21
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.326",
-    "datetime": 1667243943508
+    "version": "0.0.327",
+    "datetime": 1669041642778
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -6053,6 +6053,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "ttuploadervisible": false,
                     "videofitstrategy": "pad",
                     "posterfitstrategy": "crop",
+                    "slim": false,
 
                     /* States (helper variables which are controlled by application itself not set by user) */
                     "showbuiltincontroller": false,
@@ -6163,7 +6164,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "linear": "string",
                     "non-linear": "string",
                     "non-linear-min-duration": "int",
-                    "companion-ad": "string"
+                    "companion-ad": "string",
+                    "slim": "boolean"
                 },
 
                 extendables: ["states"],
@@ -6912,6 +6914,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     this.activeElement().classList.add(this.get("csscommon") + "-full-width");
                     this.activeElement().classList.add(this.get("csscommon") + "-max-height-100vh");
+
+                    if (this.get("slim") === true) {
+                        // We should add the CSS codes and we are adding it here, to mark the player
+                        this.activeElement().classList.add(this.get("csscommon") + "-slim");
+                    }
+
                     var img = this.activeElement().querySelector('img[data-image="image"]');
                     var imgEventHandler = this.auto_destroy(new DomEvents());
                     imgEventHandler.on(img, "load", function() {
@@ -11368,24 +11376,13 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
                     if (data.width <= 0 || data.height <= 0) {
                         this.dyn._videoFilePlaybackable = false;
                         this.dyn.set("media_src_not_supported", true);
+                        this._disablePlaybackOnRecorder();
                     }
                     this._uploadFile(file);
                 }, this).error(function(e) {
                     if (e.code === MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED) {
-                        // skip allowtrim/localplayback/snapshotfromuploader, show different error message on uploading.
-                        if (this.dyn.get("allowtrim") === true) {
-                            this.dyn.set("allowtrim", false);
-                            this.dyn.set("was_allowtrim", true);
-                        }
-                        if (this.dyn.get("localplayback") === true) {
-                            this.dyn.set("localplayback", false);
-                            this.dyn.set("was_localplayback", true);
-                        }
-                        if (this.dyn.get("snapshotfromuploader") === true) {
-                            this.dyn.set("snapshotfromuploader", false);
-                            this.dyn.set("was_snapshotfromuploader", true);
-                        }
                         this.dyn.set("media_src_not_supported", true);
+                        this._disablePlaybackOnRecorder();
                     }
                     this._uploadFile(file);
                 }, this);
@@ -11432,8 +11429,23 @@ Scoped.define("module:VideoRecorder.Dynamics.RecorderStates.Chooser", [
             try {
                 file.value = '';
             } catch (e) {}
+        },
+        _disablePlaybackOnRecorder: function() {
+            // skip allowtrim/localplayback/snapshotfromuploader, show different error message on uploading.
+            // anything that call playback on recorder will be skipped, unless it's returned from server (transcoded)
+            if (this.dyn.get("allowtrim") === true) {
+                this.dyn.set("allowtrim", false);
+                this.dyn.set("was_allowtrim", true);
+            }
+            if (this.dyn.get("localplayback") === true) {
+                this.dyn.set("localplayback", false);
+                this.dyn.set("was_localplayback", true);
+            }
+            if (this.dyn.get("snapshotfromuploader") === true) {
+                this.dyn.set("snapshotfromuploader", false);
+                this.dyn.set("was_snapshotfromuploader", true);
+            }
         }
-
     });
 });
 

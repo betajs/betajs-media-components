@@ -123,6 +123,6 @@ $colors: (
   'default': ''
 );
 
-.slim.#{$csscommon}-full-width { width:auto; }
-.slim .#{$cssplayer}-linear-ad-container { position:relative; }
-.slim .#{$cssplayer}-linear-ad-container > div, .slim .#{$cssplayer}-linear-ad-container iframe { max-width:100%; }
+.#{$csscommon}-slim.#{$csscommon}-full-width { width:auto; }
+.#{$csscommon}-slim .#{$cssplayer}-linear-ad-container { position:relative; }
+.#{$csscommon}-slim .#{$cssplayer}-linear-ad-container > div, .#{$csscommon}-slim .#{$cssplayer}-linear-ad-container iframe { max-width:100%; }

@@ -191,6 +191,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "ttuploadervisible": false,
                     "videofitstrategy": "pad",
                     "posterfitstrategy": "crop",
+                    "slim": false,
 
                     /* States (helper variables which are controlled by application itself not set by user) */
                     "showbuiltincontroller": false,
@@ -301,7 +302,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "linear": "string",
                     "non-linear": "string",
                     "non-linear-min-duration": "int",
-                    "companion-ad": "string"
+                    "companion-ad": "string",
+                    "slim": "boolean"
                 },
 
                 extendables: ["states"],
@@ -643,6 +645,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.set("sticktoview", false);
                             if (this.get("fadeup") && this.stickyHandler.elementWasDragged()) this.set("fadeup", false);
                         }, this);
+                    }
+
+                    if (!this.get("slim")) {
+                        this.set("slim", false);
                     }
                 },
 
@@ -1050,6 +1056,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     this.activeElement().classList.add(this.get("csscommon") + "-full-width");
                     this.activeElement().classList.add(this.get("csscommon") + "-max-height-100vh");
+
+                    if (this.get("slim") === true) {
+                        // We should add the CSS codes and we are adding it here, to mark the player
+                        this.activeElement().classList.add("slim");
+                    }
+
                     var img = this.activeElement().querySelector('img[data-image="image"]');
                     var imgEventHandler = this.auto_destroy(new DomEvents());
                     imgEventHandler.on(img, "load", function() {

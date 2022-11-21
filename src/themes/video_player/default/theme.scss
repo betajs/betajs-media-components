@@ -92,3 +92,7 @@ $mobile_leftbutton-container_width: 40px;
 $mobile_volumebar_width: 60px;
 
 $mobile_small_volumebar_width: 45px;
+
+.slim.#{$csscommon}-full-width { width:auto; }
+.slim .#{$cssplayer}-linear-ad-container { position:relative; }
+.slim .#{$cssplayer}-linear-ad-container > div, .slim .#{$cssplayer}-linear-ad-container iframe { max-width:100%; }

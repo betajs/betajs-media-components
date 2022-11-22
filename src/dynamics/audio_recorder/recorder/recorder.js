@@ -406,8 +406,8 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                 },
 
                 _initializeUploader: function() {
-                    if (this._dataUploader)
-                        this._dataUploader.weakDestroy();
+                    if (this._audioUploader) this._audioUploader.weakDestroy();
+                    if (this._dataUploader) this._dataUploader.weakDestroy();
                     this._dataUploader = new MultiUploader();
                 },
 
@@ -425,6 +425,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                         source: file
                     }, this.get("uploadoptions").audio));
                     uploader.upload();
+                    this._audioUploader = uploader;
                     this._dataUploader.addUploader(uploader);
                 },
 

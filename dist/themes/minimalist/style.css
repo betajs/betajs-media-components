@@ -228,10 +228,8 @@ Apache-2.0 Software License.
   color: #e5e5e5;
   /* IE9/FF/chrome/safari supported */
   color: rgba(255, 255, 255, 0.6);
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color=#000000)";
-  /*IE 8*/
-  text-shadow: 0 0 4px #000000;
-  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color=#000000)"; /*IE 8*/
+  text-shadow: 0 0 4px #000000; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
   font-size: 2.5em;
 }
 
@@ -428,7 +426,7 @@ Apache-2.0 Software License.
   display: inline-block;
   padding: 4px 3px 3px 4px;
   background-color: #979797;
-  color: white;
+  color: rgb(255, 255, 255);
   opacity: 0.75;
 }
 
@@ -1181,10 +1179,8 @@ Apache-2.0 Software License.
   color: #e5e5e5;
   /* IE9/FF/chrome/safari supported */
   color: rgba(255, 255, 255, 0.6);
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color=#000000)";
-  /*IE 8*/
-  text-shadow: 0 0 4px #000000;
-  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color=#000000)"; /*IE 8*/
+  text-shadow: 0 0 4px #000000; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
   font-size: 2.5em;
 }
 .ba-imageviewer-minimalist-theme.ba-imageviewer-ie8 .ba-imageviewer-controlbar-top-block {

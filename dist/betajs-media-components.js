@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.327 - 2022-11-21
+betajs-media-components - v0.0.328 - 2022-11-21
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.327 - 2022-11-21
+betajs-media-components - v0.0.328 - 2022-11-21
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.327",
-    "datetime": 1669041642778
+    "version": "0.0.328",
+    "datetime": 1669076416861
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -18010,8 +18010,8 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                 },
 
                 _initializeUploader: function() {
-                    if (this._dataUploader)
-                        this._dataUploader.weakDestroy();
+                    if (this._audioUploader) this._audioUploader.weakDestroy();
+                    if (this._dataUploader) this._dataUploader.weakDestroy();
                     this._dataUploader = new MultiUploader();
                 },
 
@@ -18029,6 +18029,7 @@ Scoped.define("module:AudioRecorder.Dynamics.Recorder", [
                         source: file
                     }, this.get("uploadoptions").audio));
                     uploader.upload();
+                    this._audioUploader = uploader;
                     this._dataUploader.addUploader(uploader);
                 },
 

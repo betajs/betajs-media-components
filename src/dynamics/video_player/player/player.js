@@ -392,7 +392,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     }
 
-                    if ((Info.isMobile() || Info.isChromiumBased()) && (this.get("autoplay") || this.get("playwhenvisible"))) {
+                    if ((Info.isMobile() || Info.isChromiumBased() || Info.isSafari()) && (this.get("autoplay") || this.get("playwhenvisible"))) {
                         this.set("volume", 0.0);
                         this.set("forciblymuted", true);
 
@@ -920,12 +920,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }
                         }, this);
                         // If browser is Chrome, and we have manually forcibly muted player
-                        if (Info.isChromiumBased() && this.get("forciblymuted")) {
-                            video.isMuted = true;
+                        if ((Info.isChromiumBased() || Info.isSafari()) && this.get("forciblymuted")) {
+                            video.muted = true;
                             Dom.userInteraction(function() {
                                 this.set_volume(this.get("initialoptions").volumelevel);
                                 if (this.get("volume") > 0.00)
-                                    video.isMuted = false;
+                                    video.muted = false;
                                 this.set("forciblymuted", false);
                             }, this);
                         }

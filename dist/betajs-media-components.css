@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.327 - 2022-11-21
+betajs-media-components - v0.0.329 - 2022-11-29
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1162,10 +1162,14 @@ Apache-2.0 Software License.
 }
 
 .ba-imageviewer-overlay div[tabindex]:focus {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2px, Direction=90, Color=#1b8fcc)"; /*IE 8*/
-  -moz-box-shadow: 0 0 0 2px #1b8fcc; /*FF 3.5+*/
-  -webkit-box-shadow: 0 0 0 2px #1b8fcc; /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
-  box-shadow: 0 0 0 2px #1b8fcc; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2px, Direction=90, Color=#1b8fcc)";
+  /*IE 8*/
+  -moz-box-shadow: 0 0 0 2px #1b8fcc;
+  /*FF 3.5+*/
+  -webkit-box-shadow: 0 0 0 2px #1b8fcc;
+  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: 0 0 0 2px #1b8fcc;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
   outline: 0;
   -moz-outline-style: none;
 }
@@ -1618,7 +1622,8 @@ Apache-2.0 Software License.
 .ba-player-loader-loader:before {
   content: "";
   display: block;
-  padding-top: 100%; /* initial ratio of 1:1*/
+  padding-top: 100%;
+  /* initial ratio of 1:1*/
 }
 
 .ba-player-loader-loader {
@@ -1689,10 +1694,14 @@ Apache-2.0 Software License.
   -webkit-transition: all 0.25s ease-in-out;
   -o-transition: all 0.25s ease-in-out;
   -ms-transition: all 0.25s ease-in-out;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=22, Direction=90, Color=#000000)"; /*IE 8*/
-  -moz-box-shadow: 0 0 22px #000000; /*FF 3.5+*/
-  -webkit-box-shadow: 0 0 22px #000000; /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
-  box-shadow: 0 0 22px #000000; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=22, Direction=90, Color=#000000)";
+  /*IE 8*/
+  -moz-box-shadow: 0 0 22px #000000;
+  /*FF 3.5+*/
+  -webkit-box-shadow: 0 0 22px #000000;
+  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: 0 0 22px #000000;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
   border-radius: 50%;
   box-sizing: content-box;
   cursor: pointer;
@@ -1705,23 +1714,33 @@ Apache-2.0 Software License.
   outline: none;
   border-radius: 50%;
   border-color: #1b8fcc;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2px, Direction=90, Color=#1b8fcc)"; /*IE 8*/
-  -moz-box-shadow: 0 0 0 2px #1b8fcc; /*FF 3.5+*/
-  -webkit-box-shadow: 0 0 0 2px #1b8fcc; /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
-  box-shadow: 0 0 0 2px #1b8fcc; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2px, Direction=90, Color=#1b8fcc)";
+  /*IE 8*/
+  -moz-box-shadow: 0 0 0 2px #1b8fcc;
+  /*FF 3.5+*/
+  -webkit-box-shadow: 0 0 0 2px #1b8fcc;
+  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: 0 0 0 2px #1b8fcc;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
 }
 .ba-videoplayer-noie8 .ba-player-playbutton-container:focus:hover {
   border: none;
 }
 .ba-videoplayer-noie8 .ba-player-playbutton-container:hover {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=22, Direction=90, Color=#eeeeee)"; /*IE 8*/
-  -moz-box-shadow: 0 0 22px #eeeeee; /*FF 3.5+*/
-  -webkit-box-shadow: 0 0 22px #eeeeee; /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
-  box-shadow: 0 0 22px #eeeeee; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=22, Direction=90, Color=#eeeeee)";
+  /*IE 8*/
+  -moz-box-shadow: 0 0 22px #eeeeee;
+  /*FF 3.5+*/
+  -webkit-box-shadow: 0 0 22px #eeeeee;
+  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: 0 0 22px #eeeeee;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
 }
 .ba-videoplayer-noie8 .ba-player-playbutton-container:hover .ba-player-playbutton-button::after {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color=#eeeeee)"; /*IE 8*/
-  text-shadow: 0 0 4px #eeeeee; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color=#eeeeee)";
+  /*IE 8*/
+  text-shadow: 0 0 4px #eeeeee;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
 }
 .ba-videoplayer-noie8 .ba-player-playbutton-button::after {
   font-family: "bjsmc";
@@ -1746,8 +1765,10 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color=#000000)"; /*IE 8*/
-  text-shadow: 0 0 4px #000000; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color=#000000)";
+  /*IE 8*/
+  text-shadow: 0 0 4px #000000;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
   transition: all 0.25s ease-in-out;
   -moz-transition: all 0.25s ease-in-out;
   -webkit-transition: all 0.25s ease-in-out;
@@ -1821,10 +1842,14 @@ Apache-2.0 Software License.
   -ms-transition: all 0.3s ease-in-out;
 }
 .ba-videoplayer-overlay div[tabindex]:focus {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2px, Direction=90, Color=#1b8fcc)"; /*IE 8*/
-  -moz-box-shadow: 0 0 0 2px #1b8fcc; /*FF 3.5+*/
-  -webkit-box-shadow: 0 0 0 2px #1b8fcc; /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
-  box-shadow: 0 0 0 2px #1b8fcc; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2px, Direction=90, Color=#1b8fcc)";
+  /*IE 8*/
+  -moz-box-shadow: 0 0 0 2px #1b8fcc;
+  /*FF 3.5+*/
+  -webkit-box-shadow: 0 0 0 2px #1b8fcc;
+  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: 0 0 0 2px #1b8fcc;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
   outline: 0;
   -moz-outline-style: none;
 }
@@ -2078,7 +2103,8 @@ Apache-2.0 Software License.
 .ba-recorder-loader-loader:before {
   content: "";
   display: block;
-  padding-top: 100%; /* initial ratio of 1:1*/
+  padding-top: 100%;
+  /* initial ratio of 1:1*/
 }
 
 .ba-recorder-loader-loader {
@@ -2251,10 +2277,14 @@ Apache-2.0 Software License.
   -ms-transition: all 0.3s ease-in-out;
 }
 .ba-recorder-overlay div[tabindex]:focus {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2px, Direction=90, Color=#1b8fcc)"; /*IE 8*/
-  -moz-box-shadow: 0 0 0 2px #1b8fcc; /*FF 3.5+*/
-  -webkit-box-shadow: 0 0 0 2px #1b8fcc; /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
-  box-shadow: 0 0 0 2px #1b8fcc; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2px, Direction=90, Color=#1b8fcc)";
+  /*IE 8*/
+  -moz-box-shadow: 0 0 0 2px #1b8fcc;
+  /*FF 3.5+*/
+  -webkit-box-shadow: 0 0 0 2px #1b8fcc;
+  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: 0 0 0 2px #1b8fcc;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
   outline: 0;
   -moz-outline-style: none;
 }
@@ -2265,8 +2295,10 @@ Apache-2.0 Software License.
 .ba-commoncss-settings-menu {
   background-color: #0a0a0a;
   background-color: rgba(28, 28, 28, 0.9);
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2, Direction=90, Color=#333333)"; /*IE 8*/
-  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5); /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2, Direction=90, Color=#333333)";
+  /*IE 8*/
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
   border-radius: 2px;
   min-width: 150px;
   overflow: hidden;
@@ -3342,10 +3374,14 @@ Apache-2.0 Software License.
   outline: none;
   border-radius: 50%;
   border-color: #1b8fcc;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2px, Direction=90, Color=#1b8fcc)"; /*IE 8*/
-  -moz-box-shadow: 0 0 0 2px #1b8fcc; /*FF 3.5+*/
-  -webkit-box-shadow: 0 0 0 2px #1b8fcc; /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
-  box-shadow: 0 0 0 2px #1b8fcc; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2px, Direction=90, Color=#1b8fcc)";
+  /*IE 8*/
+  -moz-box-shadow: 0 0 0 2px #1b8fcc;
+  /*FF 3.5+*/
+  -webkit-box-shadow: 0 0 0 2px #1b8fcc;
+  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: 0 0 0 2px #1b8fcc;
+  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
 }
 .ba-videoplayer-noie8 .ba-videoplayer-playbutton-container:focus:hover, .ba-videoplayer-noie8 .ba-videoplayer-playbutton-container:focus:active {
   border: none;
@@ -3365,7 +3401,8 @@ Apache-2.0 Software License.
   cursor: pointer;
   display: block;
   opacity: 0.75;
-  padding-top: 100%; /* initial ratio of 1:1*/
+  padding-top: 100%;
+  /* initial ratio of 1:1*/
   position: relative;
   width: 100%;
 }

@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.328 - 2022-11-21
+betajs-media-components - v0.0.329 - 2022-11-29
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.328 - 2022-11-21
+betajs-media-components - v0.0.329 - 2022-11-29
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.328",
-    "datetime": 1669076416861
+    "version": "0.0.329",
+    "datetime": 1669743700228
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -7265,7 +7265,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     }
 
-                    if ((Info.isMobile() || Info.isChromiumBased()) && (this.get("autoplay") || this.get("playwhenvisible"))) {
+                    if ((Info.isMobile() || Info.isChromiumBased() || Info.isSafari()) && (this.get("autoplay") || this.get("playwhenvisible"))) {
                         this.set("volume", 0.0);
                         this.set("forciblymuted", true);
 
@@ -7793,12 +7793,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }
                         }, this);
                         // If browser is Chrome, and we have manually forcibly muted player
-                        if (Info.isChromiumBased() && this.get("forciblymuted")) {
-                            video.isMuted = true;
+                        if ((Info.isChromiumBased() || Info.isSafari()) && this.get("forciblymuted")) {
+                            video.muted = true;
                             Dom.userInteraction(function() {
                                 this.set_volume(this.get("initialoptions").volumelevel);
                                 if (this.get("volume") > 0.00)
-                                    video.isMuted = false;
+                                    video.muted = false;
                                 this.set("forciblymuted", false);
                             }, this);
                         }

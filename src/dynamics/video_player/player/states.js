@@ -287,10 +287,16 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Initial", [
             this.dyn.set("imageelement_active", false);
             this.dyn.set("videoelement_active", false);
             if (this.dyn.get("ready"))
-                this.next("LoadPlayer");
+                if (this.dyn.get('effect-profile'))
+                    this.next("LoadEffectProfilePlayer");
+                else
+                    this.next("LoadPlayer");
             else {
                 this.listenOn(this.dyn, "change:ready", function() {
-                    this.next("LoadPlayer");
+                    if (this.dyn.get('effect-profile'))
+                        this.next("LoadEffectProfilePlayer");
+                    else
+                        this.next("LoadPlayer");
                 });
             }
         }
@@ -320,6 +326,30 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadPlayer", [
     });
 });
 
+Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadEffectProfilePlayer", [
+    "module:VideoPlayer.Dynamics.PlayerStates.State"
+], function(State, scoped) {
+    return State.extend({
+        scoped: scoped
+    }, {
+
+        dynamics: ["loader"],
+
+        _started: function() {
+            this.listenOn(this.dyn, "error:poster", function() {
+                this.next("LoadPlayerDirectly");
+            }, this);
+            this.listenOn(this.dyn, "image-attached", function() {
+                this.dyn._detachImage();
+                this.listenOn(this.dyn, "effect-profile-found", function() {
+                    this.next("PosterReady");
+                });
+            }, this);
+            this.dyn.reattachImage();
+        }
+
+    });
+});
 
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadPlayerDirectly", [
     "module:VideoPlayer.Dynamics.PlayerStates.State"

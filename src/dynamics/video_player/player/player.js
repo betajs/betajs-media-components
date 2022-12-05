@@ -168,6 +168,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "chromecastreceiverappid": null, // Could be published custom App ID https://cast.google.com/publish/#/overview
                     "skipseconds": 5,
                     "sticky": false,
+                    "sticky-position": "bottom-right",
                     "tracktags": [],
                     "tracktagsstyled": true,
                     "tracktaglang": 'en',
@@ -380,6 +381,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 create: function() {
                     this._validateParameters();
+                    this.set("stickypositioncss", this.get("sticky-position"));
                     // Will set volume initial state
                     this.set("initialoptions", Objs.tree_merge(this.get("initialoptions"), {
                         volumelevel: this.get("volume")
@@ -770,6 +772,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 _validateParameters: function() {
                     var fitStrategies = ["crop", "pad", "original"];
+                    var stickyPositions = ["top-left", "top-right", "bottom-right", "bottom-left"];
                     if (!fitStrategies.includes(this.get("videofitstrategy"))) {
                         console.warn("Invalid value for videofitstrategy: " + this.get("videofitstrategy") + "\nPossible values are: " + fitStrategies.slice(0, -1).join(", ") + " or " + fitStrategies.slice(-1));
                     }
@@ -779,6 +782,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     if (this.get("stretch") || this.get("stretchwidth") || this.get("stretchheight")) {
                         console.warn("Stretch parameters were deprecated, your player will stretch to the full container width by default.");
+                    }
+                    if (this.get("sticky") && !stickyPositions.includes(this.get("sticky-position"))) {
+                        console.warn("Invalid option for attribute sticky-position: " + this.get("sticky-position"));
+                        console.warn("Please choose one of the following values instead:", stickyPositions);
+                        this.set("sticky-position", "bottom-right");
                     }
 
                     var deprecatedCSS = ["minheight", "minwidth", "minheight", "minwidth"];

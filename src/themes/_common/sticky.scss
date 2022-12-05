@@ -17,13 +17,31 @@
     }
 }
 
+.#{$csscommon}-sticky-top-left {
+    top: 20px;
+    left: 20px;
+}
+
+.#{$csscommon}-sticky-top-right {
+    top: 20px;
+    right: 20px;
+}
+
+.#{$csscommon}-sticky-bottom-right {
+    bottom: 20px;
+    right: 20px;
+}
+
+.#{$csscommon}-sticky-bottom-left {
+    bottom: 20px;
+    left: 20px;
+}
+
 .#{$csscommon}-sticky {
     position: fixed !important;
     height: auto !important;
     min-height: initial !important;
     max-width: 360px;
-    bottom: 20px;
-    right: 20px;
     animation: #{$csscommon}-fade-in 0.75s ease forwards;
 }
 

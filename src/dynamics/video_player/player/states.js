@@ -596,7 +596,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
     }, {
 
         _started: function() {
-            if (this.dyn.get("playlist")) {
+            if (this.dyn.get("playlist") && this.dyn.get("playlist").length > 0) {
                 var pl0, initialPlaylist;
                 var list = this.dyn.get("playlist");
                 var head = list.shift();

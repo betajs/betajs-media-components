@@ -547,7 +547,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }
                         }
                     }
-                    if (this.get("playlist")) {
+                    if (this.get("playlist") && this.get("playlist").length > 0) {
                         var pl0 = (this.get("playlist"))[0];
                         if (pl0 && Types.is_object(pl0)) {
                             this.set("poster", pl0.poster);
@@ -823,7 +823,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         onlyaudio: this.get("onlyaudio"), // Will fix only audio local playback bug
                         preload: !!this.get("preload"),
                         loop: !!this.get("loop") || (this.get("lastplaylistitem") && this.get("loopall")),
-                        reloadonplay: this.get('playlist') ? true : !!this.get("reloadonplay"),
+                        reloadonplay: this.get('playlist') && this.get("playlist").length > 0 ? true : !!this.get("reloadonplay"),
                         fullscreenedElement: this.activeElement().childNodes[0],
                         loadmetadata: Info.isChrome() && this.get("skipinitial")
                     })).error(function(e) {

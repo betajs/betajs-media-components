@@ -59,182 +59,184 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 template: "<%= template(dirname + '/player.html') %>",
 
-                attrs: {
-                    /* CSS */
-                    "css": "ba-videoplayer",
-                    "csscommon": "ba-commoncss",
-                    "cssplayer": "ba-player",
-                    "iecss": "ba-videoplayer",
-                    "cssplaybutton": "",
-                    "cssloader": "",
-                    "cssmessage": "",
-                    "csstopmessage": "",
-                    "csscontrolbar": "",
-                    "csstracks": "",
-                    "width": "",
-                    "height": "",
-                    "popup-width": "",
-                    "popup-height": "",
-                    "aspectratio": null,
-                    "fallback-width": 320,
-                    "fallback-height": 240,
-                    /* Themes */
-                    "theme": "",
-                    "csstheme": "",
-                    "themecolor": "",
-                    /* Dynamics */
-                    "dynplaybutton": "videoplayer-playbutton",
-                    "dynloader": "videoplayer-loader",
-                    "dynmessage": "videoplayer-message",
-                    "dyntopmessage": "videoplayer-topmessage",
-                    "dyncontrolbar": "videoplayer-controlbar",
-                    "dynshare": "videoplayer-share",
-                    "dyntracks": "videoplayer-tracks",
-                    "dynsettingsmenu": "common-settingsmenu",
-                    "dyntrimmer": "videorecorder-trimmer",
+                attrs: function() {
+                    return {
+                        /* CSS */
+                        "css": "ba-videoplayer",
+                        "csscommon": "ba-commoncss",
+                        "cssplayer": "ba-player",
+                        "iecss": "ba-videoplayer",
+                        "cssplaybutton": "",
+                        "cssloader": "",
+                        "cssmessage": "",
+                        "csstopmessage": "",
+                        "csscontrolbar": "",
+                        "csstracks": "",
+                        "width": "",
+                        "height": "",
+                        "popup-width": "",
+                        "popup-height": "",
+                        "aspectratio": null,
+                        "fallback-width": 320,
+                        "fallback-height": 240,
+                        /* Themes */
+                        "theme": "",
+                        "csstheme": "",
+                        "themecolor": "",
+                        /* Dynamics */
+                        "dynplaybutton": "videoplayer-playbutton",
+                        "dynloader": "videoplayer-loader",
+                        "dynmessage": "videoplayer-message",
+                        "dyntopmessage": "videoplayer-topmessage",
+                        "dyncontrolbar": "videoplayer-controlbar",
+                        "dynshare": "videoplayer-share",
+                        "dyntracks": "videoplayer-tracks",
+                        "dynsettingsmenu": "common-settingsmenu",
+                        "dyntrimmer": "videorecorder-trimmer",
 
-                    /* Templates */
-                    "tmplplaybutton": "",
-                    "tmplloader": "",
-                    "tmplmessage": "",
-                    "tmplshare": "",
-                    "tmpltopmessage": "",
-                    "tmplcontrolbar": "",
-                    "tmpltracks": "",
-                    "tmplsettingsmenu": "",
+                        /* Templates */
+                        "tmplplaybutton": "",
+                        "tmplloader": "",
+                        "tmplmessage": "",
+                        "tmplshare": "",
+                        "tmpltopmessage": "",
+                        "tmplcontrolbar": "",
+                        "tmpltracks": "",
+                        "tmplsettingsmenu": "",
 
-                    /* Attributes */
-                    "poster": "",
-                    "source": "",
-                    "sources": [],
-                    "sourcefilter": {},
-                    "streams": [],
-                    "currentstream": null,
-                    "playlist": null,
-                    "volume": 1.0,
-                    "title": "",
-                    "description": "",
-                    "uploaddate": "",
-                    "contenturl": "",
-                    "thumbnailurl": "",
-                    "initialseek": null,
-                    "sharevideo": [],
-                    "sharevideourl": "",
-                    "visibilityfraction": 0.8,
-                    /* Configuration */
-                    "reloadonplay": false,
-                    "playonclick": true,
-                    "pauseonclick": true,
+                        /* Attributes */
+                        "poster": "",
+                        "source": "",
+                        "sources": [],
+                        "sourcefilter": {},
+                        "streams": [],
+                        "currentstream": null,
+                        "playlist": null,
+                        "volume": 1.0,
+                        "title": "",
+                        "description": "",
+                        "uploaddate": "",
+                        "contenturl": "",
+                        "thumbnailurl": "",
+                        "initialseek": null,
+                        "sharevideo": [],
+                        "sharevideourl": "",
+                        "visibilityfraction": 0.8,
+                        /* Configuration */
+                        "reloadonplay": false,
+                        "playonclick": true,
+                        "pauseonclick": true,
 
-                    /* Ads */
-                    "adprovider": null,
-                    "preroll": false,
-                    "linear": null,
-                    "non-linear": null,
-                    "companion-ad": null,
-                    "linearadplayer": true,
-                    "customnonlinear": false, // Currently, not fully suported
-                    "non-linear-min-duration": 10,
-                    "mid-linear-ad": [],
-                    "non-linear-ad": [],
+                        /* Ads */
+                        "adprovider": null,
+                        "preroll": false,
+                        "linear": null,
+                        "non-linear": null,
+                        "companion-ad": null,
+                        "linearadplayer": true,
+                        "customnonlinear": false, // Currently, not fully suported
+                        "non-linear-min-duration": 10,
+                        "mid-linear-ad": [],
+                        "non-linear-ad": [],
 
-                    /* Options */
-                    "allowpip": true, // Picture-In-Picture Mode
-                    "rerecordable": false,
-                    "submittable": false,
-                    "autoplay": false,
-                    "preload": false,
-                    "loop": false,
-                    "loopall": false,
-                    "popup": false,
-                    "nofullscreen": false,
-                    "fullscreenmandatory": false,
-                    "playfullscreenonmobile": false,
-                    "fitonwidth": false,
-                    "fitonheight": false,
-                    "hideoninactivity": true,
-                    "hidebarafter": 5000,
-                    "preventinteraction": false,
-                    "skipinitial": false,
-                    "topmessage": "",
-                    "totalduration": null,
-                    "playwhenvisible": false,
-                    "disablepause": false,
-                    "disableseeking": false,
-                    "tracktextvisible": false,
-                    "airplay": false,
-                    "chromecast": false,
-                    "broadcasting": false,
-                    "chromecastreceiverappid": null, // Could be published custom App ID https://cast.google.com/publish/#/overview
-                    "skipseconds": 5,
-                    "sticky": false,
-                    "sticky-position": "bottom-right",
-                    "tracktags": [],
-                    "tracktagsstyled": true,
-                    "tracktaglang": 'en',
-                    "tracksshowselection": false,
-                    "showchaptertext": true,
-                    "thumbimage": {},
-                    "thumbcuelist": [],
-                    "showduration": false,
-                    "showsettingsmenu": true, // As a property show/hide from users
-                    "posteralt": "",
-                    "hidevolumebar": false,
-                    "hidecontrolbar": false,
-                    "allowtexttrackupload": false,
-                    "useAspectRatioFallback": (Info.isSafari() && Info.safariVersion() < 15) || Info.isInternetExplorer(),
-                    "uploadtexttracksvisible": false,
-                    "acceptedtracktexts": null,
-                    "uploadlocales": [{
-                        lang: 'en',
-                        label: 'English'
-                    }],
-                    "ttuploadervisible": false,
-                    "videofitstrategy": "pad",
-                    "posterfitstrategy": "crop",
-                    "slim": false,
+                        /* Options */
+                        "allowpip": true, // Picture-In-Picture Mode
+                        "rerecordable": false,
+                        "submittable": false,
+                        "autoplay": false,
+                        "preload": false,
+                        "loop": false,
+                        "loopall": false,
+                        "popup": false,
+                        "nofullscreen": false,
+                        "fullscreenmandatory": false,
+                        "playfullscreenonmobile": false,
+                        "fitonwidth": false,
+                        "fitonheight": false,
+                        "hideoninactivity": true,
+                        "hidebarafter": 5000,
+                        "preventinteraction": false,
+                        "skipinitial": false,
+                        "topmessage": "",
+                        "totalduration": null,
+                        "playwhenvisible": false,
+                        "disablepause": false,
+                        "disableseeking": false,
+                        "tracktextvisible": false,
+                        "airplay": false,
+                        "chromecast": false,
+                        "broadcasting": false,
+                        "chromecastreceiverappid": null, // Could be published custom App ID https://cast.google.com/publish/#/overview
+                        "skipseconds": 5,
+                        "sticky": false,
+                        "sticky-position": "bottom-right",
+                        "tracktags": [],
+                        "tracktagsstyled": true,
+                        "tracktaglang": 'en',
+                        "tracksshowselection": false,
+                        "showchaptertext": true,
+                        "thumbimage": {},
+                        "thumbcuelist": [],
+                        "showduration": false,
+                        "showsettingsmenu": true, // As a property show/hide from users
+                        "posteralt": "",
+                        "hidevolumebar": false,
+                        "hidecontrolbar": false,
+                        "allowtexttrackupload": false,
+                        "useAspectRatioFallback": (Info.isSafari() && Info.safariVersion() < 15) || Info.isInternetExplorer(),
+                        "uploadtexttracksvisible": false,
+                        "acceptedtracktexts": null,
+                        "uploadlocales": [{
+                            lang: 'en',
+                            label: 'English'
+                        }],
+                        "ttuploadervisible": false,
+                        "videofitstrategy": "pad",
+                        "posterfitstrategy": "crop",
+                        "slim": false,
 
-                    /* States (helper variables which are controlled by application itself not set by user) */
-                    "showbuiltincontroller": false,
-                    "airplaybuttonvisible": false,
-                    "castbuttonvisble": false,
-                    "fullscreened": false,
-                    "initialoptions": {
-                        "hideoninactivity": null,
-                        "volumelevel": null,
-                        "playlist": []
-                    },
-                    "silent_attach": false,
-                    "inpipmode": false,
-                    "lastplaylistitem": false,
-                    "manuallypaused": false,
-                    "playedonce": false,
-                    "preventinteractionstatus": false, // need to prevent `Unexpected token: punc (()` Uglification issue
-                    "ready": true,
-                    "tracktagssupport": false,
-                    "playbackcount": 0,
-                    "playbackended": 0,
-                    "currentchapterindex": 0,
-                    "chapterslist": [],
-                    // If settings are open and visible
-                    "states": {
-                        "poster_error": {
-                            "ignore": false,
-                            "click_play": true
+                        /* States (helper variables which are controlled by application itself not set by user) */
+                        "showbuiltincontroller": false,
+                        "airplaybuttonvisible": false,
+                        "castbuttonvisble": false,
+                        "fullscreened": false,
+                        "initialoptions": {
+                            "hideoninactivity": null,
+                            "volumelevel": null,
+                            "playlist": []
                         },
-                        "dimensions": {
-                            "width": null,
-                            "height": null
-                        }
-                    },
-                    "placeholderstyle": "",
-                    "hasplaceholderstyle": false,
-                    "playerorientation": undefined,
-                    // Reference to Chrome renewed policy, we have to setup mute for auto-playing players.
-                    // If we do it forcibly, then we will set as true
-                    "forciblymuted": false,
-                    // When volume was unmuted, by the user himself, not automatically
-                    "volumeafterinteraction": false
+                        "silent_attach": false,
+                        "inpipmode": false,
+                        "lastplaylistitem": false,
+                        "manuallypaused": false,
+                        "playedonce": false,
+                        "preventinteractionstatus": false, // need to prevent `Unexpected token: punc (()` Uglification issue
+                        "ready": true,
+                        "tracktagssupport": false,
+                        "playbackcount": 0,
+                        "playbackended": 0,
+                        "currentchapterindex": 0,
+                        "chapterslist": [],
+                        // If settings are open and visible
+                        "states": {
+                            "poster_error": {
+                                "ignore": false,
+                                "click_play": true
+                            },
+                            "dimensions": {
+                                "width": null,
+                                "height": null
+                            }
+                        },
+                        "placeholderstyle": "",
+                        "hasplaceholderstyle": false,
+                        "playerorientation": undefined,
+                        // Reference to Chrome renewed policy, we have to setup mute for auto-playing players.
+                        // If we do it forcibly, then we will set as true
+                        "forciblymuted": false,
+                        // When volume was unmuted, by the user himself, not automatically
+                        "volumeafterinteraction": false
+                    };
                 },
 
                 types: {
@@ -1700,7 +1702,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 cloneAttrs: function() {
-                    return Objs.map(this.attrs, function(value, key) {
+                    return Objs.map(Types.is_function(this.attrs) ? this.attrs.call(this) : this.attrs, function(value, key) {
                         return this.get(key);
                     }, this);
                 },

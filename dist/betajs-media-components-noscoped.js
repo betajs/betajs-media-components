@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.330 - 2022-12-07
+betajs-media-components - v0.0.331 - 2022-12-07
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.330",
-    "datetime": 1670423754498
+    "version": "0.0.331",
+    "datetime": 1670451428704
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -5921,182 +5921,184 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 template: "<div itemscope itemtype=\"http://schema.org/VideoObject\"\n     class=\"{{css}}-container {{cssplayer}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}\n     {{cssplayer}}-{{fullscreened ? 'fullscreen' : 'normal'}}-view {{cssplayer}}-{{firefox ? 'firefox' : 'common'}}-browser\n     {{cssplayer}}-{{themecolor}}-color {{cssplayer}}-device-type-{{mobileview ? 'mobile' : 'desktop'}}\n     {{sticktoview ? csscommon + '-sticky' : ''}}\n     {{sticktoview && fadeup ? csscommon + '-fade-up' : ''}}\n     {{sticktoview ? csscommon + '-sticky-' + stickypositioncss : ''}}\n     {{csscommon}}-full-width\n     {{cssplayer + (((activity_delta > hidebarafter) && hideoninactivity) ? '-controlbar-hidden' : '-controlbar-visible')}}\n     {{csscommon}}-max-height-100vh\"\n     ba-on:mousemove=\"{{user_activity()}}\"\n     ba-on:mousedown=\"{{user_activity(true)}}\"\n     ba-on:touchstart=\"{{user_activity(true)}}\"\n     ba-styles=\"{{containerSizingStyles}}\"\n>\n    <meta itemprop=\"name\" content=\"{{title || 'Video Player'}}\" />\n    <meta itemprop=\"description\" content=\"{{description || 'Video Player'}}\" />\n    <meta itemprop=\"uploadDate\" content=\"{{uploaddate}}\" />\n    <div ba-show=\"{{(videoelement_active || !imageelement_active) && !silent_attach}}\" class=\"{{css}}-video-container\">\n        <video tabindex=\"-1\" class=\"{{css}}-video {{csscommon}}-{{videofitstrategy}}-fit\" data-video=\"video\"\n               preload=\"{{preload ? 'auto' : 'metadata'}}\"\n               ba-toggle:playsinline=\"{{!playfullscreenonmobile}}\"\n        ></video>\n    </div>\n    <div ba-show=\"{{(imageelement_active && !videoelement_active) || silent_attach}}\" class=\"{{css}}-poster-container\">\n        <img tabindex=\"-1\" data-image=\"image\" alt=\"{{posteralt}}\" class=\"{{csscommon}}-{{posterfitstrategy}}-fit\"/>\n    </div>\n    <div class=\"{{css}}-overlay {{hasplaceholderstyle ? (css + '-overlay-with-placeholder') : ''}}\"\n         ba-show=\"{{!showbuiltincontroller}}\" style=\"{{placeholderstyle}}\"\n    >\n        <div tabindex=\"-1\" class=\"{{css}}-player-toggle-overlay\" data-selector=\"player-toggle-overlay\"\n             ba-hotkey:right=\"{{seek(position + skipseconds)}}\" ba-hotkey:left=\"{{seek(position - skipseconds)}}\"\n             ba-hotkey:alt+right=\"{{seek(position + skipseconds * 3)}}\" ba-hotkey:alt+left=\"{{seek(position - skipseconds * 3)}}\"\n             ba-hotkey:up=\"{{set_volume(volume + 0.1)}}\" ba-hotkey:down=\"{{set_volume(volume - 0.1)}}\"\n             ba-hotkey:space^enter=\"{{toggle_player()}}\"\n             ba-on:mouseup=\"{{toggle_player()}}\"\n             ba-on:touchend=\"{{toggle_player()}}\"\n        ></div>\n        <ba-{{dyntrimmer}}\n            ba-if=\"{{trimmingmode && videoelement_active}}\"\n            ba-playing=\"{{playing}}\"\n            ba-startposition=\"{{=starttime}}\"\n            ba-position=\"{{position}}\"\n            ba-endposition=\"{{=endtime}}\"\n            ba-minduration=\"{{timeminlimit}}\"\n            ba-duration=\"{{duration}}\"\n            ba-source=\"{{source}}\"\n            ba-event:play=\"play\"\n            ba-event:pause=\"pause\"\n            ba-event:seek=\"seek\"\n        ></ba-{{dyntrimmer}}>\n        <ba-{{dyncontrolbar}}\n            ba-css=\"{{csscontrolbar || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-themecolor=\"{{themecolor}}\"\n            ba-template=\"{{tmplcontrolbar}}\"\n            ba-show=\"{{controlbar_active && !hidecontrolbar}}\"\n            ba-playing=\"{{playing}}\"\n            ba-playwhenvisible=\"{{playwhenvisible}}\"\n            ba-playerspeeds=\"{{playerspeeds}}\"\n            ba-playercurrentspeed=\"{{playercurrentspeed}}\"\n            ba-airplay=\"{{airplay}}\"\n            ba-airplaybuttonvisible=\"{{airplaybuttonvisible}}\"\n            ba-chromecast=\"{{chromecast}}\"\n            ba-castbuttonvisble=\"{{castbuttonvisble}}\"\n            ba-event:rerecord=\"rerecord\"\n            ba-event:submit=\"submit\"\n            ba-event:play=\"play\"\n            ba-event:pause=\"pause\"\n            ba-event:position=\"seek\"\n            ba-event:volume=\"set_volume\"\n            ba-event:set_speed=\"set_speed\"\n            ba-event:settings_menu=\"toggle_settings_menu\"\n            ba-event:fullscreen=\"toggle_fullscreen\"\n            ba-event:toggle_player=\"toggle_player\"\n            ba-event:tab_index_move=\"tab_index_move\"\n            ba-event:seek=\"seek\"\n            ba-event:set_volume=\"set_volume\"\n            ba-event:toggle_tracks=\"toggle_tracks\"\n            ba-tabindex=\"{{tabindex}}\"\n            ba-showchaptertext=\"{{showchaptertext}}\"\n            ba-chapterslist=\"{{chapterslist}}\"\n            ba-tracktextvisible=\"{{tracktextvisible}}\"\n            ba-tracktags=\"{{tracktags}}\"\n            ba-showsubtitlebutton=\"{{hassubtitles && tracktagssupport}}\"\n            ba-allowtexttrackupload=\"{{allowtexttrackupload}}\"\n            ba-tracksshowselection=\"{{tracksshowselection}}\"\n            ba-volume=\"{{volume}}\"\n            ba-duration=\"{{duration}}\"\n            ba-cached=\"{{buffered}}\"\n            ba-title=\"{{title}}\"\n            ba-position=\"{{position}}\"\n            ba-activitydelta=\"{{activity_delta}}\"\n            ba-hideoninactivity=\"{{hideoninactivity}}\"\n            ba-hidebarafter=\"{{hidebarafter}}\"\n            ba-rerecordable=\"{{rerecordable}}\"\n            ba-submittable=\"{{submittable}}\"\n            ba-frameselectionmode=\"{{frameselectionmode}}\"\n            ba-timeminlimit=\"{{timeminlimit}}\"\n            ba-streams=\"{{streams}}\"\n            ba-currentstream=\"{{=currentstream}}\"\n            ba-fullscreen=\"{{fullscreensupport && !nofullscreen}}\"\n            ba-fullscreened=\"{{fullscreened}}\"\n            ba-source=\"{{source}}\"\n            ba-disablepause=\"{{disablepause}}\"\n            ba-disableseeking=\"{{disableseeking}}\"\n            ba-skipseconds=\"{{skipseconds}}\"\n            ba-skipinitial=\"{{skipinitial}}\"\n            ba-settingsmenubutton=\"{{showsettingsmenu}}\"\n            ba-settingsmenuactive=\"{{settingsmenu_active}}\"\n            ba-hidevolumebar=\"{{hidevolumebar}}\"\n            ba-manuallypaused=\"{{manuallypaused}}\"\n        ></ba-{{dyncontrolbar}}>\n\n        <ba-{{dyntracks}}\n            ba-css=\"{{csstracks || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-show=\"{{tracktagssupport || allowtexttrackupload}}\"\n            ba-tracksshowselection=\"{{tracksshowselection}}\"\n            ba-trackselectorhovered=\"{{trackselectorhovered}}\"\n            ba-tracktags=\"{{tracktags}}\"\n            ba-hidebarafter=\"{{hidebarafter}}\"\n            ba-tracktagsstyled=\"{{tracktagsstyled}}\"\n            ba-trackcuetext=\"{{trackcuetext}}\"\n            ba-allowtexttrackupload=\"{{allowtexttrackupload}}\"\n            ba-uploadtexttracksvisible=\"{{uploadtexttracksvisible}}\"\n            ba-acceptedtracktexts=\"{{acceptedtracktexts}}\"\n            ba-uploadlocales=\"{{uploadlocales}}\"\n            ba-activitydelta=\"{{activity_delta}}\"\n            ba-hideoninactivity=\"{{hideoninactivity}}\"\n            ba-event:selected_label_value=\"selected_label_value\"\n            ba-event:upload-text-tracks=\"upload_text_tracks\"\n            ba-event:move_to_option=\"move_to_option\"\n        ></ba-{{dyntracks}}>\n\n        <ba-{{dynsettingsmenu}}\n            ba-css=\"{{css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-show=\"{{settingsmenu_active}}\"\n            ba-template=\"{{tmplsettingsmenu}}\"\n        ></ba-{{dynsettingsmenu}}>\n\n        <ba-{{dynplaybutton}}\n            ba-css=\"{{cssplaybutton || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplplaybutton}}\"\n            ba-show=\"{{playbutton_active}}\"\n            ba-rerecordable=\"{{rerecordable}}\"\n            ba-submittable=\"{{submittable}}\"\n            ba-trimmingmode=\"{{trimmingmode}}\"\n            ba-showduration=\"{{showduration}}\"\n            ba-duration=\"{{duration}}\"\n            ba-event:play=\"playbutton_click\"\n            ba-event:rerecord=\"rerecord\"\n            ba-event:submit=\"submit\"\n            ba-event:tab_index_move=\"tab_index_move\"\n        ></ba-{{dynplaybutton}}>\n\n        <ba-{{dynloader}}\n            ba-css=\"{{cssloader || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplloader}}\"\n            ba-playwhenvisible=\"{{playwhenvisible}}\"\n            ba-show=\"{{loader_active}}\"\n        ></ba-{{dynloader}}>\n\n        <ba-{{dynshare}}\n            ba-css=\"{{cssshare || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplshare}}\"\n            ba-show=\"{{sharevideourl && sharevideo.length > 0}}\"\n            ba-url=\"{{sharevideourl}}\"\n            ba-shares=\"{{sharevideo}}\"\n        ></ba-{{dynshare}}>\n\n        <ba-{{dynmessage}}\n            ba-css=\"{{cssmessage || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmplmessage}}\"\n            ba-show=\"{{message_active}}\"\n            ba-message=\"{{message}}\"\n            ba-event:click=\"message_click\"\n        ></ba-{{dynmessage}}>\n\n        <ba-{{dyntopmessage}}\n            ba-css=\"{{csstopmessage || css}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-cssplayer=\"{{cssplayer || css}}\"\n            ba-theme-color=\"{{themecolor}}\"\n            ba-template=\"{{tmpltopmessage}}\"\n            ba-show=\"{{topmessage}}\"\n            ba-topmessage=\"{{topmessage}}\"\n        ></ba-{{dyntopmessage}}>\n\n        <meta itemprop=\"caption\" content=\"{{title}}\" />\n        <meta itemprop=\"thumbnailUrl\" content=\"{{thumbnailurl}}\" />\n        <meta itemprop=\"contentUrl\" content=\"{{contenturl}}\" />\n    </div>\n    <div class=\"{{linearadplayer ? css + '-overlay' : ''}}\" data-video=\"ad\" style=\"display:none\">\n        <div ba-if=\"{{linearadplayer || customnonlinear}}\" data-ads=\"controlbar\"></div>\n        <div ba-if=\"{{linearadplayer || !customnonlinear}}\"\n             class=\"{{linearadplayer ? cssplayer + '-linear-ad-container' : cssplayer + '-non-linear-ad-container'}}\"\n             data-video=\"ima-ad-container\"\n        ></div>\n    </div>\n    <div ba-show=\"{{useAspectRatioFallback}}\" ba-styles=\"{{aspectRatioFallback}}\"></div>\n</div>\n",
 
-                attrs: {
-                    /* CSS */
-                    "css": "ba-videoplayer",
-                    "csscommon": "ba-commoncss",
-                    "cssplayer": "ba-player",
-                    "iecss": "ba-videoplayer",
-                    "cssplaybutton": "",
-                    "cssloader": "",
-                    "cssmessage": "",
-                    "csstopmessage": "",
-                    "csscontrolbar": "",
-                    "csstracks": "",
-                    "width": "",
-                    "height": "",
-                    "popup-width": "",
-                    "popup-height": "",
-                    "aspectratio": null,
-                    "fallback-width": 320,
-                    "fallback-height": 240,
-                    /* Themes */
-                    "theme": "",
-                    "csstheme": "",
-                    "themecolor": "",
-                    /* Dynamics */
-                    "dynplaybutton": "videoplayer-playbutton",
-                    "dynloader": "videoplayer-loader",
-                    "dynmessage": "videoplayer-message",
-                    "dyntopmessage": "videoplayer-topmessage",
-                    "dyncontrolbar": "videoplayer-controlbar",
-                    "dynshare": "videoplayer-share",
-                    "dyntracks": "videoplayer-tracks",
-                    "dynsettingsmenu": "common-settingsmenu",
-                    "dyntrimmer": "videorecorder-trimmer",
+                attrs: function() {
+                    return {
+                        /* CSS */
+                        "css": "ba-videoplayer",
+                        "csscommon": "ba-commoncss",
+                        "cssplayer": "ba-player",
+                        "iecss": "ba-videoplayer",
+                        "cssplaybutton": "",
+                        "cssloader": "",
+                        "cssmessage": "",
+                        "csstopmessage": "",
+                        "csscontrolbar": "",
+                        "csstracks": "",
+                        "width": "",
+                        "height": "",
+                        "popup-width": "",
+                        "popup-height": "",
+                        "aspectratio": null,
+                        "fallback-width": 320,
+                        "fallback-height": 240,
+                        /* Themes */
+                        "theme": "",
+                        "csstheme": "",
+                        "themecolor": "",
+                        /* Dynamics */
+                        "dynplaybutton": "videoplayer-playbutton",
+                        "dynloader": "videoplayer-loader",
+                        "dynmessage": "videoplayer-message",
+                        "dyntopmessage": "videoplayer-topmessage",
+                        "dyncontrolbar": "videoplayer-controlbar",
+                        "dynshare": "videoplayer-share",
+                        "dyntracks": "videoplayer-tracks",
+                        "dynsettingsmenu": "common-settingsmenu",
+                        "dyntrimmer": "videorecorder-trimmer",
 
-                    /* Templates */
-                    "tmplplaybutton": "",
-                    "tmplloader": "",
-                    "tmplmessage": "",
-                    "tmplshare": "",
-                    "tmpltopmessage": "",
-                    "tmplcontrolbar": "",
-                    "tmpltracks": "",
-                    "tmplsettingsmenu": "",
+                        /* Templates */
+                        "tmplplaybutton": "",
+                        "tmplloader": "",
+                        "tmplmessage": "",
+                        "tmplshare": "",
+                        "tmpltopmessage": "",
+                        "tmplcontrolbar": "",
+                        "tmpltracks": "",
+                        "tmplsettingsmenu": "",
 
-                    /* Attributes */
-                    "poster": "",
-                    "source": "",
-                    "sources": [],
-                    "sourcefilter": {},
-                    "streams": [],
-                    "currentstream": null,
-                    "playlist": null,
-                    "volume": 1.0,
-                    "title": "",
-                    "description": "",
-                    "uploaddate": "",
-                    "contenturl": "",
-                    "thumbnailurl": "",
-                    "initialseek": null,
-                    "sharevideo": [],
-                    "sharevideourl": "",
-                    "visibilityfraction": 0.8,
-                    /* Configuration */
-                    "reloadonplay": false,
-                    "playonclick": true,
-                    "pauseonclick": true,
+                        /* Attributes */
+                        "poster": "",
+                        "source": "",
+                        "sources": [],
+                        "sourcefilter": {},
+                        "streams": [],
+                        "currentstream": null,
+                        "playlist": null,
+                        "volume": 1.0,
+                        "title": "",
+                        "description": "",
+                        "uploaddate": "",
+                        "contenturl": "",
+                        "thumbnailurl": "",
+                        "initialseek": null,
+                        "sharevideo": [],
+                        "sharevideourl": "",
+                        "visibilityfraction": 0.8,
+                        /* Configuration */
+                        "reloadonplay": false,
+                        "playonclick": true,
+                        "pauseonclick": true,
 
-                    /* Ads */
-                    "adprovider": null,
-                    "preroll": false,
-                    "linear": null,
-                    "non-linear": null,
-                    "companion-ad": null,
-                    "linearadplayer": true,
-                    "customnonlinear": false, // Currently, not fully suported
-                    "non-linear-min-duration": 10,
-                    "mid-linear-ad": [],
-                    "non-linear-ad": [],
+                        /* Ads */
+                        "adprovider": null,
+                        "preroll": false,
+                        "linear": null,
+                        "non-linear": null,
+                        "companion-ad": null,
+                        "linearadplayer": true,
+                        "customnonlinear": false, // Currently, not fully suported
+                        "non-linear-min-duration": 10,
+                        "mid-linear-ad": [],
+                        "non-linear-ad": [],
 
-                    /* Options */
-                    "allowpip": true, // Picture-In-Picture Mode
-                    "rerecordable": false,
-                    "submittable": false,
-                    "autoplay": false,
-                    "preload": false,
-                    "loop": false,
-                    "loopall": false,
-                    "popup": false,
-                    "nofullscreen": false,
-                    "fullscreenmandatory": false,
-                    "playfullscreenonmobile": false,
-                    "fitonwidth": false,
-                    "fitonheight": false,
-                    "hideoninactivity": true,
-                    "hidebarafter": 5000,
-                    "preventinteraction": false,
-                    "skipinitial": false,
-                    "topmessage": "",
-                    "totalduration": null,
-                    "playwhenvisible": false,
-                    "disablepause": false,
-                    "disableseeking": false,
-                    "tracktextvisible": false,
-                    "airplay": false,
-                    "chromecast": false,
-                    "broadcasting": false,
-                    "chromecastreceiverappid": null, // Could be published custom App ID https://cast.google.com/publish/#/overview
-                    "skipseconds": 5,
-                    "sticky": false,
-                    "sticky-position": "bottom-right",
-                    "tracktags": [],
-                    "tracktagsstyled": true,
-                    "tracktaglang": 'en',
-                    "tracksshowselection": false,
-                    "showchaptertext": true,
-                    "thumbimage": {},
-                    "thumbcuelist": [],
-                    "showduration": false,
-                    "showsettingsmenu": true, // As a property show/hide from users
-                    "posteralt": "",
-                    "hidevolumebar": false,
-                    "hidecontrolbar": false,
-                    "allowtexttrackupload": false,
-                    "useAspectRatioFallback": (Info.isSafari() && Info.safariVersion() < 15) || Info.isInternetExplorer(),
-                    "uploadtexttracksvisible": false,
-                    "acceptedtracktexts": null,
-                    "uploadlocales": [{
-                        lang: 'en',
-                        label: 'English'
-                    }],
-                    "ttuploadervisible": false,
-                    "videofitstrategy": "pad",
-                    "posterfitstrategy": "crop",
-                    "slim": false,
+                        /* Options */
+                        "allowpip": true, // Picture-In-Picture Mode
+                        "rerecordable": false,
+                        "submittable": false,
+                        "autoplay": false,
+                        "preload": false,
+                        "loop": false,
+                        "loopall": false,
+                        "popup": false,
+                        "nofullscreen": false,
+                        "fullscreenmandatory": false,
+                        "playfullscreenonmobile": false,
+                        "fitonwidth": false,
+                        "fitonheight": false,
+                        "hideoninactivity": true,
+                        "hidebarafter": 5000,
+                        "preventinteraction": false,
+                        "skipinitial": false,
+                        "topmessage": "",
+                        "totalduration": null,
+                        "playwhenvisible": false,
+                        "disablepause": false,
+                        "disableseeking": false,
+                        "tracktextvisible": false,
+                        "airplay": false,
+                        "chromecast": false,
+                        "broadcasting": false,
+                        "chromecastreceiverappid": null, // Could be published custom App ID https://cast.google.com/publish/#/overview
+                        "skipseconds": 5,
+                        "sticky": false,
+                        "sticky-position": "bottom-right",
+                        "tracktags": [],
+                        "tracktagsstyled": true,
+                        "tracktaglang": 'en',
+                        "tracksshowselection": false,
+                        "showchaptertext": true,
+                        "thumbimage": {},
+                        "thumbcuelist": [],
+                        "showduration": false,
+                        "showsettingsmenu": true, // As a property show/hide from users
+                        "posteralt": "",
+                        "hidevolumebar": false,
+                        "hidecontrolbar": false,
+                        "allowtexttrackupload": false,
+                        "useAspectRatioFallback": (Info.isSafari() && Info.safariVersion() < 15) || Info.isInternetExplorer(),
+                        "uploadtexttracksvisible": false,
+                        "acceptedtracktexts": null,
+                        "uploadlocales": [{
+                            lang: 'en',
+                            label: 'English'
+                        }],
+                        "ttuploadervisible": false,
+                        "videofitstrategy": "pad",
+                        "posterfitstrategy": "crop",
+                        "slim": false,
 
-                    /* States (helper variables which are controlled by application itself not set by user) */
-                    "showbuiltincontroller": false,
-                    "airplaybuttonvisible": false,
-                    "castbuttonvisble": false,
-                    "fullscreened": false,
-                    "initialoptions": {
-                        "hideoninactivity": null,
-                        "volumelevel": null,
-                        "playlist": []
-                    },
-                    "silent_attach": false,
-                    "inpipmode": false,
-                    "lastplaylistitem": false,
-                    "manuallypaused": false,
-                    "playedonce": false,
-                    "preventinteractionstatus": false, // need to prevent `Unexpected token: punc (()` Uglification issue
-                    "ready": true,
-                    "tracktagssupport": false,
-                    "playbackcount": 0,
-                    "playbackended": 0,
-                    "currentchapterindex": 0,
-                    "chapterslist": [],
-                    // If settings are open and visible
-                    "states": {
-                        "poster_error": {
-                            "ignore": false,
-                            "click_play": true
+                        /* States (helper variables which are controlled by application itself not set by user) */
+                        "showbuiltincontroller": false,
+                        "airplaybuttonvisible": false,
+                        "castbuttonvisble": false,
+                        "fullscreened": false,
+                        "initialoptions": {
+                            "hideoninactivity": null,
+                            "volumelevel": null,
+                            "playlist": []
                         },
-                        "dimensions": {
-                            "width": null,
-                            "height": null
-                        }
-                    },
-                    "placeholderstyle": "",
-                    "hasplaceholderstyle": false,
-                    "playerorientation": undefined,
-                    // Reference to Chrome renewed policy, we have to setup mute for auto-playing players.
-                    // If we do it forcibly, then we will set as true
-                    "forciblymuted": false,
-                    // When volume was unmuted, by the user himself, not automatically
-                    "volumeafterinteraction": false
+                        "silent_attach": false,
+                        "inpipmode": false,
+                        "lastplaylistitem": false,
+                        "manuallypaused": false,
+                        "playedonce": false,
+                        "preventinteractionstatus": false, // need to prevent `Unexpected token: punc (()` Uglification issue
+                        "ready": true,
+                        "tracktagssupport": false,
+                        "playbackcount": 0,
+                        "playbackended": 0,
+                        "currentchapterindex": 0,
+                        "chapterslist": [],
+                        // If settings are open and visible
+                        "states": {
+                            "poster_error": {
+                                "ignore": false,
+                                "click_play": true
+                            },
+                            "dimensions": {
+                                "width": null,
+                                "height": null
+                            }
+                        },
+                        "placeholderstyle": "",
+                        "hasplaceholderstyle": false,
+                        "playerorientation": undefined,
+                        // Reference to Chrome renewed policy, we have to setup mute for auto-playing players.
+                        // If we do it forcibly, then we will set as true
+                        "forciblymuted": false,
+                        // When volume was unmuted, by the user himself, not automatically
+                        "volumeafterinteraction": false
+                    };
                 },
 
                 types: {
@@ -7562,7 +7564,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 cloneAttrs: function() {
-                    return Objs.map(this.attrs, function(value, key) {
+                    return Objs.map(Types.is_function(this.attrs) ? this.attrs.call(this) : this.attrs, function(value, key) {
                         return this.get(key);
                     }, this);
                 },

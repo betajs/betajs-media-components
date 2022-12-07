@@ -98,6 +98,6 @@ $colors: (
   'default': ''
 );
 
-.#{$csscommon}-slim.#{$csscommon}-full-width { width:auto; }
+.#{$csscommon}-slim.#{$csscommon}-full-width { width:auto; margin: 0 auto; }
 .#{$csscommon}-slim .#{$cssplayer}-linear-ad-container { position:relative; }
 .#{$csscommon}-slim .#{$cssplayer}-linear-ad-container > div, .#{$csscommon}-slim .#{$cssplayer}-linear-ad-container iframe { max-width:100%; }

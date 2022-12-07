@@ -1064,6 +1064,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.get("slim") === true) {
                         // We should add the CSS codes and we are adding it here, to mark the player
                         this.activeElement().classList.add(this.get("csscommon") + "-slim");
+                        // Makes player a block, so we can position it in the page more easily
+                        this.activeElement().style.setProperty("display", "block");
                     }
 
                     var img = this.activeElement().querySelector('img[data-image="image"]');

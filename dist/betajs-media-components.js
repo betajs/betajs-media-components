@@ -1026,7 +1026,7 @@ Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
     "version": "0.0.331",
-    "datetime": 1670451428704
+    "datetime": 1670461481307
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -7290,7 +7290,113 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (!this.get("themecolor"))
                         this.set("themecolor", "default");
 
-                    if (this.get("adprovider")) {
+                    if (this.get("adprovider"))
+                        this.initAdProvider();
+                    if (this.get("playlist") && this.get("playlist").length > 0) {
+                        var pl0 = (this.get("playlist"))[0];
+                        if (pl0 && Types.is_object(pl0)) {
+                            this.set("poster", pl0.poster);
+                            this.set("source", pl0.source);
+                            this.set("sources", pl0.sources);
+                        }
+                    }
+                    if (this.get("streams") && !this.get("currentstream"))
+                        this.set("currentstream", (this.get("streams"))[0]);
+
+                    // Set `hideoninactivity` initial options for further help actions
+                    if (this.get("preventinteraction") && !this.get("hideoninactivity")) {
+                        this.set("hideoninactivity", true);
+                        this.set("initialoptions", Objs.tree_merge(this.get("initialoptions"), {
+                            hideoninactivity: true
+                        }));
+                    } else {
+                        // Set initial options for further help actions
+                        this.set("initialoptions", Objs.tree_merge(this.get("initialoptions"), {
+                            hideoninactivity: this.get("hideoninactivity")
+                        }));
+                    }
+
+                    this.set("ie8", Info.isInternetExplorer() && Info.internetExplorerVersion() < 9);
+                    this.set("firefox", Info.isFirefox());
+                    this.set("mobileview", Info.isMobile());
+                    // For Apple it's very important that their users always remain in control of the volume of the sounds their devices emit
+                    this.set("hidevolumebar", (Info.isMobile() && Info.isiOS()));
+                    this.set("duration", this.get("totalduration") || 0.0);
+                    this.set("position", 0.0);
+                    this.set("buffered", 0.0);
+                    this.set("passed-quarter", 0);
+                    this.set("played-seconds", 0);
+                    this.set("last-played-position", 0);
+                    this.set("player-started", false);
+                    this.set("last-seen-position", this.get("volume") > 0.2 ? 1 : 0);
+                    this.set("message", "");
+                    this.set("fullscreensupport", false);
+                    this.set("csssize", "normal");
+
+                    this.set("loader_active", false);
+                    this.set("playbutton_active", false);
+                    this.set("controlbar_active", false);
+                    this.set("message_active", false);
+                    this.set("settingsmenu_active", false);
+
+                    this.set("last_activity", Time.now());
+                    this.set("activity_delta", 0);
+                    this.set("passed_after_play", 0);
+
+                    this.set("playing", false);
+
+                    this.__attachRequested = false;
+                    this.__activated = false;
+                    this.__error = null;
+
+                    if (document.onkeydown)
+                        this.activeElement().onkeydown = this._keyDownActivity.bind(this, this.activeElement());
+
+                    this.on("change:tracktags", function() {
+                        if (typeof this.__video !== 'undefined')
+                            this.__trackTags = new TrackTags({}, this);
+                    }, this);
+
+                    this.host = new Host({
+                        stateRegistry: new ClassRegistry(this.cls.playerStates())
+                    });
+                    this.host.dynamic = this;
+                    this.host.initialize(this._initialState);
+
+                    this.__adControlPosition = 0;
+                    this._timer = new Timers.Timer({
+                        context: this,
+                        fire: this._timerFire,
+                        delay: 100,
+                        start: true
+                    });
+
+                    this.activeElement().style.setProperty("display", "inline-block");
+                    this._applyStyles(this.activeElement(), this.get("containerSizingStyles"));
+
+                    if (this.get("sticky")) {
+                        var stickyOptions = {
+                            paused: true
+                        };
+                        this.stickyHandler = this.auto_destroy(new StickyHandler(
+                            this.activeElement().firstChild,
+                            this.activeElement(),
+                            stickyOptions
+                        ));
+                        this.stickyHandler.init();
+                        this.set("fadeup", true);
+                        this.stickyHandler.on("elementLeftView", function() {
+                            this.set("sticktoview", true);
+                        }, this);
+                        this.stickyHandler.on("containerEnteredView", function() {
+                            this.set("sticktoview", false);
+                            if (this.get("fadeup") && this.stickyHandler.elementWasDragged()) this.set("fadeup", false);
+                        }, this);
+                    }
+                },
+
+                initAdProvider: function() {
+                    {
                         this._adProvider = this.get("adprovider");
                         if (Types.is_string(this._adProvider))
                             this._adProvider = AdProvider.registry[this._adProvider];
@@ -7421,107 +7527,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 }
                             }
                         }
-                    }
-                    if (this.get("playlist") && this.get("playlist").length > 0) {
-                        var pl0 = (this.get("playlist"))[0];
-                        if (pl0 && Types.is_object(pl0)) {
-                            this.set("poster", pl0.poster);
-                            this.set("source", pl0.source);
-                            this.set("sources", pl0.sources);
-                        }
-                    }
-                    if (this.get("streams") && !this.get("currentstream"))
-                        this.set("currentstream", (this.get("streams"))[0]);
-
-                    // Set `hideoninactivity` initial options for further help actions
-                    if (this.get("preventinteraction") && !this.get("hideoninactivity")) {
-                        this.set("hideoninactivity", true);
-                        this.set("initialoptions", Objs.tree_merge(this.get("initialoptions"), {
-                            hideoninactivity: true
-                        }));
-                    } else {
-                        // Set initial options for further help actions
-                        this.set("initialoptions", Objs.tree_merge(this.get("initialoptions"), {
-                            hideoninactivity: this.get("hideoninactivity")
-                        }));
-                    }
-
-                    this.set("ie8", Info.isInternetExplorer() && Info.internetExplorerVersion() < 9);
-                    this.set("firefox", Info.isFirefox());
-                    this.set("mobileview", Info.isMobile());
-                    // For Apple it's very important that their users always remain in control of the volume of the sounds their devices emit
-                    this.set("hidevolumebar", (Info.isMobile() && Info.isiOS()));
-                    this.set("duration", this.get("totalduration") || 0.0);
-                    this.set("position", 0.0);
-                    this.set("buffered", 0.0);
-                    this.set("passed-quarter", 0);
-                    this.set("played-seconds", 0);
-                    this.set("last-played-position", 0);
-                    this.set("player-started", false);
-                    this.set("last-seen-position", this.get("volume") > 0.2 ? 1 : 0);
-                    this.set("message", "");
-                    this.set("fullscreensupport", false);
-                    this.set("csssize", "normal");
-
-                    this.set("loader_active", false);
-                    this.set("playbutton_active", false);
-                    this.set("controlbar_active", false);
-                    this.set("message_active", false);
-                    this.set("settingsmenu_active", false);
-
-                    this.set("last_activity", Time.now());
-                    this.set("activity_delta", 0);
-                    this.set("passed_after_play", 0);
-
-                    this.set("playing", false);
-
-                    this.__attachRequested = false;
-                    this.__activated = false;
-                    this.__error = null;
-
-                    if (document.onkeydown)
-                        this.activeElement().onkeydown = this._keyDownActivity.bind(this, this.activeElement());
-
-                    this.on("change:tracktags", function() {
-                        if (typeof this.__video !== 'undefined')
-                            this.__trackTags = new TrackTags({}, this);
-                    }, this);
-
-                    this.host = new Host({
-                        stateRegistry: new ClassRegistry(this.cls.playerStates())
-                    });
-                    this.host.dynamic = this;
-                    this.host.initialize(this._initialState);
-
-                    this.__adControlPosition = 0;
-                    this._timer = new Timers.Timer({
-                        context: this,
-                        fire: this._timerFire,
-                        delay: 100,
-                        start: true
-                    });
-
-                    this.activeElement().style.setProperty("display", "inline-block");
-                    this._applyStyles(this.activeElement(), this.get("containerSizingStyles"));
-
-                    if (this.get("sticky")) {
-                        var stickyOptions = {
-                            paused: true
-                        };
-                        this.stickyHandler = this.auto_destroy(new StickyHandler(
-                            this.activeElement().firstChild,
-                            this.activeElement(),
-                            stickyOptions
-                        ));
-                        this.stickyHandler.init();
-                        this.set("fadeup", true);
-                        this.stickyHandler.on("elementLeftView", function() {
-                            this.set("sticktoview", true);
-                        }, this);
-                        this.stickyHandler.on("containerEnteredView", function() {
-                            this.set("sticktoview", false);
-                            if (this.get("fadeup") && this.stickyHandler.elementWasDragged()) this.set("fadeup", false);
-                        }, this);
                     }
                 },
 

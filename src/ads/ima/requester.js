@@ -173,13 +173,19 @@ Scoped.define("module:Ads.IMARequester", [
                         this.trigger('adloaded', ad);
                         break;
                     case google.ima.AdEvent.Type.ALL_ADS_COMPLETED:
-                        if (this._adControlbar) this._adControlbar.destroy();
+                        if (this._adControlbar) {
+                            this._adControlbar.weakDestroy();
+                            this._adControlbar = undefined;
+                        }
                         if (this._adsProvider && this._dyn) {
                             if (this._adsPosition === this._adsProvider.__IMA_POST_ROLL) {
                                 this._dyn.stop();
                             }
                         }
                         this._allAdsCompelted = true;
+                        try {
+                            this._options.adElement.style.display = "none";
+                        } catch (e) {}
                         this.resetAdsManager();
                         this.trigger('adfinished', this._dyn);
                         break;
@@ -275,7 +281,8 @@ Scoped.define("module:Ads.IMARequester", [
             onAdError: function(type, message) {
                 if (this._options) this._options.adElement.style.display = "none";
                 if (this._adControlbar) {
-                    this._adControlbar.destroy();
+                    this._adControlbar.weakDestroy();
+                    this._adControlbar = undefined;
                 }
                 if (typeof type.getError === "function") {
                     var error = type.getError();
@@ -362,7 +369,10 @@ Scoped.define("module:Ads.IMARequester", [
             resetAdsManager: function() {
                 // Removes ad assets loaded at runtime that need to be properly removed at the time of ad completion
                 // and stops the ad and all tracking
-                if (this._adsManager) this._adsManager.destroy();
+                if (this._adsManager) {
+                    this._adsManager.destroy();
+                    this._adsManager = undefined;
+                }
 
                 // Signals to the SDK that the content is finished.
                 // This will allow the SDK to play post-roll ads if any are loaded via ad rules.

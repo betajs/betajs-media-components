@@ -524,6 +524,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 initAdProvider: function() {
                     {
+                        this.set("ad-provider-ready", false);
                         this._adProvider = this.get("adprovider");
                         if (Types.is_string(this._adProvider))
                             this._adProvider = AdProvider.registry[this._adProvider];
@@ -539,6 +540,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (this.get("preroll")) {
                                 // console.warn('Adsense ad provider is deprecated, please try to implement IMA ad provider with linear & non-linear options instead');
                                 this._prerollAd = this._adProvider.newPrerollAd(adInitOptions);
+                                this.set("ad-provider-ready", true);
                             }
 
                             if ((this.get("adprovider") === 'ima' || this.get("adprovider").__IMA_PRE_ROLL) && (this.get("linear") || this.get("non-linear"))) {
@@ -650,6 +652,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                         }, this)
                                         .error(function(err) {
                                             console.log("Error could not be able init adsense container. Err: ", err);
+                                        }, this)
+                                        .callback(function() {
+                                            this.set("ad-provider-ready", true);
                                         }, this);
                                 }
                             }

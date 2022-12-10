@@ -76,6 +76,7 @@ Scoped.define("module:Ads.AdSensePrerollAd", [
             _adError: function() {
                 if (this._adsManager) {
                     this._adsManager.destroy();
+                    this._adsManager = undefined;
                 }
                 this._adFinished();
             },

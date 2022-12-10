@@ -429,7 +429,12 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Preroll", [
         dynamics: [],
 
         _started: function() {
-            if (this.dyn._prerollAd && !(this.dyn.get("autoplay") || this.dyn.get("skipinitial"))) {
+            if (this.dyn.get("adprovider") && !this.dyn.get("ad-provider-ready")) {
+                this.dyn.once("change:ad-provider-ready", this._started, this);
+                return;
+            }
+            if (this.dyn._prerollAd /* && !(this.dyn.get("autoplay") || this.dyn.get("skipinitial"))*/ ) {
+                this.dyn.reattachVideo();
                 this.executeAd('_prerollAd', "LoadVideo");
             } else {
                 this.next("LoadVideo");

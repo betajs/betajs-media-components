@@ -213,3 +213,8 @@
     @include fontello-icon;
     content: '\f304';
 }
+
+.#{$csscommon}-icon-linkedin:before {
+    @include fontello-icon;
+    content: '\f30c';
+}

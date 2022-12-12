@@ -37,11 +37,14 @@
     left: 20px;
 }
 
-.#{$csscommon}-sticky {
+div.#{$csscommon}-sticky {
     z-index: 10000;
-    position: fixed !important;
-    height: auto !important;
-    min-height: initial !important;
+    position: fixed;
+    height: auto;
+    min-height: initial;
+}
+
+.#{$csscommon}-sticky {
     max-width: 360px;
     animation: #{$csscommon}-fade-in 0.75s ease forwards;
 }

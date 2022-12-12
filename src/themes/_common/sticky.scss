@@ -38,6 +38,7 @@
 }
 
 .#{$csscommon}-sticky {
+    z-index: 10000;
     position: fixed !important;
     height: auto !important;
     min-height: initial !important;

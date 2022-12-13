@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.334 - 2022-12-12
+betajs-media-components - v0.0.335 - 2022-12-13
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -2415,11 +2415,14 @@ Apache-2.0 Software License.
   left: 20px;
 }
 
-.ba-commoncss-sticky {
+div.ba-commoncss-sticky {
   z-index: 10000;
-  position: fixed !important;
-  height: auto !important;
-  min-height: initial !important;
+  position: fixed;
+  height: auto;
+  min-height: initial;
+}
+
+.ba-commoncss-sticky {
   max-width: 360px;
   animation: ba-commoncss-fade-in 0.75s ease forwards;
 }

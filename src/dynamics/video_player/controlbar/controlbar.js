@@ -2,6 +2,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
     "dynamics:Dynamic",
     "base:TimeFormat",
     "base:Comparators",
+    "base:Maths",
     "base:Objs",
     "browser:Dom",
     "module:Assets",
@@ -16,7 +17,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
     "dynamics:Partials.IfPartial",
     "dynamics:Partials.ClickPartial",
     "dynamics:Partials.RepeatElementPartial"
-], function(Class, TimeFormat, Comparators, Objs, Dom, Assets, Info, PlayerSupport, Async, Timer, DomEvents, scoped) {
+], function(Class, TimeFormat, Comparators, Maths, Objs, Dom, Assets, Info, PlayerSupport, Async, Timer, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -158,54 +159,36 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         this._hideThumb();
                     },
 
-                    startUpdateVolume: function(event) {
-                        event[0].preventDefault();
-                        this.set("_updateVolume", true);
-                        this.call("progressUpdateVolume", event);
-                    },
+                    startUpdateVolume: function(args, element) {
+                        var event = args[0];
+                        var moveEvent = event.type === "mousedown" ? "mousemove" : "touchmove";
+                        var stopEvent = event.type === "mousedown" ? "mouseup" : "touchend";
+                        var domRect = element.getBoundingClientRect();
+                        event.preventDefault();
 
-                    progressUpdateVolume: function(event) {
-                        var ev = event[0];
-                        ev.preventDefault();
-                        if (!this.get("_updateVolume"))
-                            return;
-                        var clientX = ev.clientX || ev.targetTouches[0].clientX;
-                        var target = ev.currentTarget;
-                        var offset = Dom.elementOffset(target);
-                        var dimensions = Dom.elementDimensions(target);
-                        var _position = (clientX - offset.left) / (dimensions.width || 1);
-                        var _test = Dom.getRelativeCoordinates(target, event[0]);
-                        // Will fix bug (is outside the range [0, 1]) which cause mobile bug also
-                        _position = _position > 1.00 ? 1.00 : (_position < 0.00 ? 0.00 : _position);
-                        this.set("volume", _position);
-                        this.trigger("volume", this.get("volume"));
-                    },
+                        var updateVolume = function(event) {
+                            event.preventDefault();
+                            if (domRect.width > domRect.height) {
+                                // Horizontal slider
+                                var x = event.clientX;
+                                if (!x && Array.isArray(event.touches)) x = event.touches[0].clientX;
+                                this.set("volume", Maths.clamp((x - domRect.x) / domRect.width, 0, 1));
+                            } else {
+                                // Vertical slider
+                                var y = event.clientY;
+                                if (!y && Array.isArray(event.touches)) y = event.touches[0].clientY;
+                                this.set("volume", Maths.clamp((domRect.bottom - y) / domRect.height, 0, 1));
+                            }
+                        }.bind(this);
 
-                    stopUpdateVolume: function(event) {
-                        event[0].preventDefault();
-                        this.set("_updateVolume", false);
-                    },
+                        updateVolume(event);
 
-                    startVerticallyUpdateVolume: function(event) {
-                        event[0].preventDefault();
-                        this.set("_updateVolume", true);
-                        this.call("progressVerticallyUpdateVolume", event);
-                    },
-
-                    progressVerticallyUpdateVolume: function(event) {
-                        var ev = event[0];
-                        ev.preventDefault();
-                        if (!this.get("_updateVolume"))
-                            return;
-                        var clientY = ev.clientY || ev.targetTouches[0].clientY;
-                        var target = ev.currentTarget;
-                        var offset = Dom.elementOffset(target);
-                        var dimensions = Dom.elementDimensions(target);
-                        var _position = 1 - (clientY - offset.top) / (dimensions.height || 1);
-                        // Will fix bug (is outside the range [0, 1]) which cause mobile bug also
-                        _position = _position > 1.00 ? 1.00 : (_position < 0.00 ? 0.00 : _position);
-                        this.set("volume", _position);
-                        this.trigger("volume", this.get("volume"));
+                        document.addEventListener(moveEvent, updateVolume);
+                        document.addEventListener(stopEvent, function() {
+                            document.removeEventListener(moveEvent, updateVolume);
+                        }, {
+                            once: true
+                        });
                     },
 
                     showChapterText: function(chapter) {

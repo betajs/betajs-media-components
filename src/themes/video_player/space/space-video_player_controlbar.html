@@ -9,13 +9,8 @@
              ba-hotkey:left="{{set_volume(volume - 0.1)}}"
              onmouseout="this.blur()"
              class="{{csstheme}}-volumebar-inner"
-             ontouchstart="{{startUpdateVolume(domEvent)}}"
-             ontouchmove="{{progressUpdateVolume(domEvent)}}"
-             ontouchend="{{stopUpdateVolume(domEvent); this.blur()}};"
-             onmousedown="{{startUpdateVolume(domEvent)}}"
-             onmouseup="{{stopUpdateVolume(domEvent)}}"
-             onmouseleave="{{stopUpdateVolume(domEvent)}}"
-             onmousemove="{{progressUpdateVolume(domEvent)}}"
+             ontouchstart="{{startUpdateVolume(domEvent, currElement)}}"
+             onmousedown="{{startUpdateVolume(domEvent, currElement)}}"
         >
             <div class="{{csstheme}}-volumebar-position" ba-styles="{{{width: Math.ceil(1+Math.min(99, Math.round(volume * 100))) + '%'}}}" title="{{string('volume-button')}}"></div>
         </div>

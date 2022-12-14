@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../node_modules/betajs-shims/dist/betajs-shims.js"></script>
+    <script src="../node_modules/betajs-scoped/dist/scoped.js"></script>
+    <script src="../node_modules/betajs/dist/beta-noscoped.js"></script>
+    <script src="../node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
+    <script src="../node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+    <script src="../node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
+	<script src="../dist/betajs-media-components-noscoped.js"></script>
+	<link  href="../dist/betajs-media-components.css" rel="stylesheet" />
+    <script src="../dist/themes/modern/script.js"></script>
+    <link  href="../dist/themes/modern/style.css" rel="stylesheet" />
+
+
+    <!-- Cube Theme Assets -->
+    <script src="../dist/themes/cube/script.js"></script>
+    <link href="../dist/themes/cube/style.css" rel="stylesheet" />
+
+    <!-- Elevate Theme Assets -->
+    <script src="../dist/themes/elevate/script.js"></script>
+    <link href="../dist/themes/elevate/style.css" rel="stylesheet" />
+
+    <!-- Minimalist Theme Assets -->
+    <script src="../dist/themes/minimalist/script.js"></script>
+    <link href="../dist/themes/minimalist/style.css" rel="stylesheet" />
+
+    <!-- Minimalist Theme Assets -->
+    <script src="../dist/themes/modern/script.js"></script>
+    <link href="../dist/themes/modern/style.css" rel="stylesheet" />
+
+    <!-- Space Theme Assets -->
+    <script src="../dist/themes/space/script.js"></script>
+    <link href="../dist/themes/space/style.css" rel="stylesheet" />
+
+    <!-- Theatre Theme Assets -->
+    <script src="../dist/themes/theatre/script.js"></script>
+    <link href="../dist/themes/theatre/style.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div id="player"></div>
+    
+<script>
+    var player;
+    if (player) player.destroy();
+    const anchor = document.getElementById("player");
+    player = new BetaJS.MediaComponents.VideoPlayer.Dynamics.Player({
+        element: anchor,
+    attrs: {
+            width: 400,
+            source: "./sample-video.mp4",
+            poster: "./assets/sample-cover.png",
+            skipinitial: true,
+            tmplcontrolbar: `
+<div class="{{css}}-volumebar" ba-show="{{!hidevolumebar}}">
+    <div tabindex="5" data-selector="button-volume-bar" style="width:7px;height:50px"
+        ba-hotkey:right="{{set_volume(volume + 0.1)}}" ba-hotkey:left="{{set_volume(volume - 0.1)}}"
+        ba-hotkey:up="{{set_volume(1)}}" ba-hotkey:down="{{set_volume(0)}}"
+        onmouseout="this.blur()"
+        class="{{css}}-volumebar-inner"
+        ontouchstart="{{startUpdateVolume(domEvent, currElement)}}"
+        onmousedown="{{startUpdateVolume(domEvent, currElement)}}"
+    >
+        <div class="{{css}}-volumebar-position" style="width: 7px" ba-styles="{{{height: (volume * 50) + 'px', top: 50 - volume * 50 + 'px'}}}">
+            <div class="{{css}}-volumebar-button" style="left:-3px" title="{{string('volume-button')}}"></div>
+        </div>
+    </div>
+</div>
+<div class="{{css}}-volumebar" ba-show="{{!hidevolumebar}}">
+    <div tabindex="5" data-selector="button-volume-bar"
+        ba-hotkey:right="{{set_volume(volume + 0.1)}}" ba-hotkey:left="{{set_volume(volume - 0.1)}}"
+        ba-hotkey:up="{{set_volume(1)}}" ba-hotkey:down="{{set_volume(0)}}"
+        onmouseout="this.blur()"
+        class="{{css}}-volumebar-inner"
+        ontouchstart="{{startUpdateVolume(domEvent, currElement)}}"
+        onmousedown="{{startUpdateVolume(domEvent, currElement)}}"
+    >
+        <div class="{{css}}-volumebar-position" ba-styles="{{{width: Math.min(100, Math.round(volume * 100)) + '%'}}}">
+            <div class="{{css}}-volumebar-button" title="{{string('volume-button')}}"></div>
+        </div>
+    </div>
+</div>
+`
+        }
+    });
+    player.activate();
+</script>
+</body>
+</html>

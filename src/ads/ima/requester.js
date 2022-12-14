@@ -342,6 +342,8 @@ Scoped.define("module:Ads.IMARequester", [
                 try {
                     // init(width, height, viewMode, videoElement)
                     this._adsManager.init(initWidth, initHeight, google.ima.ViewMode.NORMAL);
+                    // Play if browser allows playing without sound
+                    // this._adsRequest.setAdWillPlayMuted(true);
                     this._adsManager.start();
                 } catch (e) {
                     this.onAdError('Ad Manager Init Error: ', e);

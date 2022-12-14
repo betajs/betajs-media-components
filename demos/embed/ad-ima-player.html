@@ -62,7 +62,6 @@
             //     'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml'
             // ]
             //, vpaidMode: true, DISABLED, ENABLED, INSECURE
-            //, preload: true
             // , maxAllowedRedirects: 10,
             // https://developers.google.com/interactive-media-ads/docs/sdks/html5/client-side/localization
             , locale: 'fr'
@@ -74,7 +73,9 @@
     </script>
 
 
-    <div id="player"></div>
+    <div style="position: relative">
+        <div id="player"></div>
+    </div>
 
 <!--    ba-skipinitial-->
 <!--    ba-autoplay-->
@@ -94,17 +95,17 @@
     <!--  ba-non-linear="40, 50%[720,90], 20[,90], 45[250]"-->
 
     <script>
-
-
         var player = new BetaJS.MediaComponents.VideoPlayer.Dynamics.Player({
             element: document.getElementById('player'),
             attrs: {
                 theme: "modern",
                 poster: "/static/demos/assets/sample-cover.png",
-                source: "/static/demos/assets/sample-video.mp4",
+                source: "/static/demos/assets/landscape.mp4",
                 adprovider: "ima",
-                linear: "pre,mid[36, 44, 14, 40%], post",
-                'non-linear': "52[,250], 55%[300], 19[,250], 2[480,70]"
+                linear: "pre,mid[36, 44, 14, 40%], post"
+                //, 'non-linear': "52[,250], 55%[300], 19[,250], 2[480,70]"
+                , preload: true
+                , autoplay: false
             }
         });
 

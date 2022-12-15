@@ -194,13 +194,8 @@
                  ba-hotkey:up="{{set_volume(1)}}" ba-hotkey:down="{{set_volume(0)}}"
                  onmouseout="this.blur()"
                  class="{{css}}-volumebar-inner"
-                 ontouchstart="{{startUpdateVolume(domEvent)}}"
-                 ontouchmove="{{progressUpdateVolume(domEvent)}}"
-                 ontouchend="{{stopUpdateVolume(domEvent); this.blur()}};"
-                 onmousedown="{{startUpdateVolume(domEvent)}}"
-                 onmouseup="{{stopUpdateVolume(domEvent)}}"
-                 onmouseleave="{{stopUpdateVolume(domEvent)}}"
-                 onmousemove="{{progressUpdateVolume(domEvent)}}"
+                 ontouchstart="{{startUpdateVolume(domEvent, currElement)}}"
+                 onmousedown="{{startUpdateVolume(domEvent, currElement)}}"
             >
                 <div class="{{css}}-volumebar-position" ba-styles="{{{width: Math.min(100, Math.round(volume * 100)) + '%'}}}">
                     <div class="{{css}}-volumebar-button" title="{{string('volume-button')}}"></div>

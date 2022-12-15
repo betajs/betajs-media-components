@@ -179,6 +179,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                                 if (!y && Array.isArray(event.touches)) y = event.touches[0].clientY;
                                 this.set("volume", Maths.clamp((domRect.bottom - y) / domRect.height, 0, 1));
                             }
+                            this.trigger("volume", this.get("volume"));
                         }.bind(this);
 
                         updateVolume(event);

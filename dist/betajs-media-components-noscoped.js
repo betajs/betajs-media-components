@@ -15,7 +15,7 @@ Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
     "version": "0.0.336",
-    "datetime": 1671098825774
+    "datetime": 1671099833137
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -5420,6 +5420,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                                 if (!y && Array.isArray(event.touches)) y = event.touches[0].clientY;
                                 this.set("volume", Maths.clamp((domRect.bottom - y) / domRect.height, 0, 1));
                             }
+                            this.trigger("volume", this.get("volume"));
                         }.bind(this);
 
                         updateVolume(event);

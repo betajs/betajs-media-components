@@ -1631,7 +1631,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this._adsRoll) {
                             var dimensions = this.get("states").dimensions;
                             var _width = this.parentWidth() || this.videoWidth() || Dom.elementDimensions(this.activeElement()).width;
-                            var _height =this.parentHeight() ||  this.videoHeight() || Dom.elementDimensions(this.activeElement()).height;
+                            var _height = this.parentHeight() || this.videoHeight() || Dom.elementDimensions(this.activeElement()).height;
                             // If any updates occur
                             if (dimensions.widht === null || (dimensions.height !== _height || dimensions.width !== _width)) {
                                 this.set("states", Objs.tree_merge(this.get("states"), {

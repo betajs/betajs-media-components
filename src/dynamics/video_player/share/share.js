@@ -5,8 +5,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Share", [
 
     var SHARES = {
         facebook: 'https://facebook.com/sharer/sharer.php?u=',
-        twitter: 'https://twitter.com/intent/tweet?text=',
-        gplus: 'https://plus.google.com/share?url='
+        gplus: 'https://plus.google.com/share?url=',
+        linkedin: 'https://www.linkedin.com/sharing/share-offsite/?url=',
+        twitter: 'https://twitter.com/intent/tweet?text='
     };
 
     return Class.extend({

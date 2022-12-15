@@ -263,6 +263,12 @@
       "css": "picture",
       "code": 59418,
       "src": "fontawesome"
+    },
+    {
+      "uid": "1145676a91138011729fa2909997af66",
+      "css": "linkedin",
+      "code": 62220,
+      "src": "fontawesome"
     }
   ]
 }

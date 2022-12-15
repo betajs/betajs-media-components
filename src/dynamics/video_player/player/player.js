@@ -1626,13 +1626,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     } catch (e) {}
                     try {
-                        // For now it will be implemented only for ads, if in the feateure
-                        // will be applied for other features statment could be updated
+                        // For now, it will be implemented only for ads, if in the feature
+                        //  are applied for another feature statement could be updated
                         if (this._adsRoll) {
                             var dimensions = this.get("states").dimensions;
-                            var _width = this.videoWidth() || this.parentWidth() || Dom.elementDimensions(this.activeElement()).width;
-                            var _height = this.videoHeight() || this.parentHeight() || Dom.elementDimensions(this.activeElement()).height;
-                            // If any updates will occure
+                            var _width = this.parentWidth() || this.videoWidth() || Dom.elementDimensions(this.activeElement()).width;
+                            var _height =this.parentHeight() ||  this.videoHeight() || Dom.elementDimensions(this.activeElement()).height;
+                            // If any updates occur
                             if (dimensions.widht === null || (dimensions.height !== _height || dimensions.width !== _width)) {
                                 this.set("states", Objs.tree_merge(this.get("states"), {
                                     dimensions: {
@@ -1661,7 +1661,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.videoAttached())
                         return this.player.videoHeight();
                     var img = this.activeElement().querySelector("img");
-                    if (img && img.height) {
+                    // In Safari img && img.height could return 0
+                    if (Types.is_defined(img) && img.height) {
                         var clientHeight = (window.innerHeight || document.body.clientHeight);
                         if (img.height > clientHeight)
                             return clientHeight;
@@ -1674,7 +1675,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.videoAttached())
                         return this.player.videoWidth();
                     var img = this.activeElement().querySelector("img");
-                    if (img && img.width) {
+                    // In Safari img && img.width could return 0
+                    if (Types.is_defined(img) && img.width) {
                         var clientWidth = (window.innerWidth || document.body.clientWidth);
                         if (img.width > clientWidth)
                             return clientWidth;

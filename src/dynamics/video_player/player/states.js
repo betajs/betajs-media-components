@@ -142,8 +142,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
 
             // TODO: video height and width return NaN before ad start even when ba-width/ba-height are provided
             adInstance.executeAd({
-                width: this.dyn.videoWidth() || this.dyn.parentWidth(),
-                height: this.dyn.videoHeight() || this.dyn.parentHeight()
+                width: this.dyn.parentWidth() || this.dyn.videoWidth(),
+                height: this.dyn.parentHeight() || this.dyn.videoHeight()
             });
         }
 

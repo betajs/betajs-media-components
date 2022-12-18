@@ -602,38 +602,56 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                                 Objs.iter(schedules, function(schedule) {
                                                     switch (schedule.toLowerCase()) {
                                                         case this._adProvider.__IMA_PRE_ROLL:
-                                                            // if already user not set preroll as an attribute
+                                                            // if already, the user did not set preroll as an attribute
                                                             if (!this._prerollAd) {
                                                                 this._prerollAd = this._adProvider._newAdsRequester(this, this._adProvider.__IMA_PRE_ROLL, true);
                                                             }
                                                             break;
                                                         case this._adProvider.__IMA_POST_ROLL:
-                                                            // Post roll will trigger as soon as video will be stopped
+                                                            // Post-roll will trigger as soon as the video will be stopped
                                                             this.set("has-post-roll-ad", true);
                                                             break;
                                                             // Midroll could be just "mid", which will trigger on 50% of player time,
                                                             // or specify more details with second and percentage
                                                         default:
                                                             // if user set schedule with time settings
-                                                            if (/^mid\[[\d\s]+(,[\d\s]+|[\d\s]+\%)*\]*$/i.test(schedule)) {
+                                                            if (/^mid\[[\d\s]+(,[\d\s]+|[\d\s]+\%|\%|[\d\s]+\'|\')*\]*$/i.test(schedule)) {
                                                                 var _s = schedule.replace('mid[', '').replace(']', '');
                                                                 Objs.map(_s.split(','), function(item) {
                                                                     item = item.trim();
-                                                                    if (/^[\d\s]+\%$/.test(item)) {
-                                                                        item = parseInt(item.replace('%', '').trim(), 10);
-                                                                        if (item < 100 && item > 0) {
+                                                                    if (/^[\d\s]+\'$/.test(item)) {
+                                                                        item = +item.replace("\'", '');
+                                                                        this.on("change:duration", function(duration) {
+                                                                            if (duration > 0) {
+                                                                                var step = Math.floor(duration / item);
+                                                                                if (duration > item) {
+                                                                                    for (var i = 1; i <= step; i++) {
+                                                                                        this.get("mid-linear-ad").push({
+                                                                                            position: i * item
+                                                                                        });
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }, this);
+                                                                    } else {
+                                                                        if (/^[\d\s]+\%$/.test(item)) {
+                                                                            item = parseInt(item.replace('%', '').trim(), 10);
+                                                                            if (item < 100 && item > 0) {
+                                                                                this.get("mid-linear-ad").push({
+                                                                                    position: parseFloat((item / 100).toFixed(2))
+                                                                                });
+                                                                            }
+                                                                        } else {
+                                                                            // the user also set 0 to 1 value, as percentage, more 1 means seconds
                                                                             this.get("mid-linear-ad").push({
-                                                                                position: parseFloat((item / 100).toFixed(2))
+                                                                                position: parseFloat(item)
                                                                             });
                                                                         }
-                                                                    } else {
-                                                                        // user also can set 0 to 1 value, as percentage, more 1 means seconds
-                                                                        this.get("mid-linear-ad").push({
-                                                                            position: parseFloat(item)
-                                                                        });
                                                                     }
                                                                 }, this);
                                                             } else {
+                                                                if (/^mid\[.*?\]$/.test(schedule))
+                                                                    console.log('Seems your mid roll settings does not correctly set. It will be played only in the middle of the video.');
                                                                 if (/^mid$/.test(schedule)) {
                                                                     this.get("mid-linear-ad").push({
                                                                         position: 0.5
@@ -1012,7 +1030,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (this.get("totalduration") || this.player.duration() < Infinity)
                                 this.set("duration", this.get("totalduration") || this.player.duration());
                             this.set("fullscreensupport", this.player.supportsFullscreen(this.activeElement().childNodes[0]));
-                            // As duration is credential we're waiting to get duration info
+                            // As duration is credential, we're waiting to get duration info
                             this.on("chaptercuesloaded", function(chapters, length) {
                                 this.set("chapterslist", chapters);
                             }, this);
@@ -1633,7 +1651,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             var _width = this.parentWidth() || this.videoWidth() || Dom.elementDimensions(this.activeElement()).width;
                             var _height = this.parentHeight() || this.videoHeight() || Dom.elementDimensions(this.activeElement()).height;
                             // If any updates occur
-                            if (dimensions.widht === null || (dimensions.height !== _height || dimensions.width !== _width)) {
+                            if (dimensions.width === null || (dimensions.height !== _height || dimensions.width !== _width)) {
                                 this.set("states", Objs.tree_merge(this.get("states"), {
                                     dimensions: {
                                         width: _width,
@@ -1759,11 +1777,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 /**
-                 * Prepare for postoll and mid roll ad managers
+                 * Prepare for postoll and mid-roll ad managers
                  * @private
                  */
                 __controlAdRolls: function() {
-                    // If we have midrolls, then prepare mid Rolls
+                    // If we have mid-rolls, then prepare mid-Rolls
                     if (
                         (this.get("mid-linear-ad").length > 0 || this.get('non-linear-ad').length > 0) &&
                         this.get("duration") > 0.0 && !this._adsCollection
@@ -1789,7 +1807,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                             type: this._adProvider.__IMA_AD_TYPE_LINEAR,
                                             isLinear: true,
                                             dimensions: {
-                                                widht: this.parentWidth(),
+                                                width: this.parentWidth(),
                                                 height: this.parentHeight()
                                             }
                                         });

@@ -477,6 +477,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
         dynamics: ["loader"],
 
         _started: function() {
+            this.dyn.set("hasnext", this.dyn.get("loop") || this.dyn.get("loopall") || this.dyn.get("playlist") && this.dyn.get("playlist").length > 1);
             if (!this.dyn.get("videoelement_active")) {
                 this.listenOn(this.dyn, "error:attach", function() {
                     this.next("LoadError");
@@ -614,10 +615,12 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
                     this.dyn.set("poster", pl0.poster);
                     this.dyn.set("source", pl0.source);
                     this.dyn.set("sources", pl0.sources);
+                    this.dyn.set("hasnext", this.dyn.get("loop") || this.dyn.get("loopall") || list.length > 1);
                     return this._playNext(pl0);
                 } else {
                     initialPlaylist = this.dyn.get("initialoptions").playlist;
                     this.dyn.set("lastplaylistitem", true);
+                    this.dyn.set("hasnext", this.dyn.get("loop") || this.dyn.get("loopall") || initialPlaylist.length > 1);
                     this.dyn.trigger("last-playlist-item");
                     this.dyn.set("playlist", initialPlaylist);
                     this.dyn.get("initialoptions").playlist = [];

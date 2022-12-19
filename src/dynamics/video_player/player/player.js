@@ -111,6 +111,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "sourcefilter": {},
                         "streams": [],
                         "currentstream": null,
+                        "hasnext": false,
                         "playlist": null,
                         "volume": 1.0,
                         "title": "",
@@ -241,6 +242,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 types: {
                     "allowpip": "boolean",
+                    "hasnext": "boolean",
                     "rerecordable": "boolean",
                     "loop": "boolean",
                     "loopall": "boolean",
@@ -446,6 +448,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("ie8", Info.isInternetExplorer() && Info.internetExplorerVersion() < 9);
                     this.set("firefox", Info.isFirefox());
                     this.set("mobileview", Info.isMobile());
+                    this.set("hasnext", this.get("loop") || this.get("loopall") || this.get("playlist") && this.get("playlist").length > 1);
                     // For Apple it's very important that their users always remain in control of the volume of the sounds their devices emit
                     this.set("hidevolumebar", (Info.isMobile() && Info.isiOS()));
                     this.set("duration", this.get("totalduration") || 0.0);

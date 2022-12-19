@@ -235,7 +235,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         // If we do it forcibly, then we will set as true
                         "forciblymuted": false,
                         // When volume was unmuted, by the user himself, not automatically
-                        "volumeafterinteraction": false
+                        "volumeafterinteraction": false,
+                        "prominent-title": "",
+                        "prominent-title-closeable": false
                     };
                 },
 
@@ -306,7 +308,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "non-linear": "string",
                     "non-linear-min-duration": "int",
                     "companion-ad": "string",
-                    "slim": "boolean"
+                    "slim": "boolean",
+                    "prominent-title": "string",
+                    "prominent-title-closeable": "boolean"
                 },
 
                 extendables: ["states"],
@@ -382,6 +386,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 remove_on_destroy: true,
 
                 create: function() {
+                    this.set("prominent_title", this.get("prominent-title"));
+                    this.set("prominent_title_closeable", this.get("prominent-title-closeable"));
                     this._validateParameters();
                     this.set("stickypositioncss", this.get("sticky-position"));
                     // Will set volume initial state

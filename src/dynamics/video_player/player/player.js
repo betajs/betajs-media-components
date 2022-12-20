@@ -1421,6 +1421,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("settingsmenu_active", !this.get("settingsmenu_active"));
                     },
 
+                    toggle_share: function() {
+                        this.set("share_active", !this.get("share_active"));
+                    },
+
                     toggle_fullscreen: function() {
                         if (this.get("preventinteractionstatus")) return;
                         if (this._delegatedPlayer) {

@@ -121,6 +121,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "initialseek": null,
                         "sharevideo": [],
                         "sharevideourl": "",
+                        "share_active": true,
                         "visibilityfraction": 0.8,
                         /* Configuration */
                         "reloadonplay": false,

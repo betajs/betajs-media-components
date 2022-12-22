@@ -122,6 +122,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "initialseek": null,
                         "sharevideo": [],
                         "sharevideourl": "",
+                        "share_active": true,
                         "visibilityfraction": 0.8,
                         /* Configuration */
                         "reloadonplay": false,
@@ -1421,6 +1422,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     toggle_settings_menu: function() {
                         this.set("settingsmenu_active", !this.get("settingsmenu_active"));
+                    },
+
+                    toggle_share: function() {
+                        this.set("share_active", !this.get("share_active"));
                     },
 
                     toggle_fullscreen: function() {

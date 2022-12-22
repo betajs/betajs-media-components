@@ -141,6 +141,8 @@
             ba-csstheme="{{csstheme || css}}"
             ba-show="{{settingsmenu_active}}"
             ba-template="{{tmplsettingsmenu}}"
+            ba-toggle_settings_menu="{{toggle_settings_menu}}"
+            ba-toggle_share="{{toggle_share}}"
         ></ba-{{dynsettingsmenu}}>
 
         <ba-{{dynplaybutton}}
@@ -177,7 +179,8 @@
             ba-cssplayer="{{cssplayer || css}}"
             ba-theme-color="{{themecolor}}"
             ba-template="{{tmplshare}}"
-            ba-show="{{sharevideourl && sharevideo.length > 0}}"
+            ba-show="{{sharevideourl && sharevideo.length > 0 && share_active}}"
+            ba-visible="{{=share_active}}"
             ba-url="{{sharevideourl}}"
             ba-shares="{{sharevideo}}"
         ></ba-{{dynshare}}>

@@ -100,10 +100,14 @@
             attrs: {
                 theme: "modern",
                 poster: "/static/demos/assets/sample-cover.png",
-                source: "/static/demos/assets/landscape.mp4",
-                adprovider: "ima",
-                linear: "pre,mid[36, 44, 14, 40%], post"
-                //, 'non-linear': "52[,250], 55%[300], 19[,250], 2[480,70]"
+                source: "/static/demos/assets/portrait.mp4",
+                // source: "/static/demos/assets/landscape.mp4",
+                adprovider: "ima"
+                // showduration: true,
+                // linear: "pre,mid[6'], post"
+                , linear: "mid[5*]"
+                , minadintervals: 8
+                // , 'non-linear': "52[,250], 55%[300], 19[,250], 2[480,70]"
                 , preload: true
                 , autoplay: false
             }
@@ -135,6 +139,10 @@
         player.on("ended", function () {
             // console.log('ENDED');
         }, player);
+        //
+        // setInterval(() => {
+        //     player.set("duration", new Date());
+        // }, 3000);
 
         player.activate();
 

@@ -53,13 +53,28 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     "thumbisvisible": false,
                     "chapterslist": [],
                     "showchaptertext": true,
-                    "visibleindex": -1
+                    "visibleindex": -1,
+                    "title_show_class": ""
                 },
 
                 computed: {
                     "currentstream_label:currentstream": function() {
                         var cs = this.get("currentstream");
                         return cs ? (cs.label ? cs.label : PlayerSupport.resolutionToLabel(cs.width, cs.height)) : "";
+                    }
+                },
+
+                events: {
+                    "change:activitydelta": function(value) {
+                        if (this.get("prominent_title")) {
+                            this.set("title_show_class", "");
+                        } else {
+                            if (value > this.get("hidebarafter") && this.get("hideoninactivity")) {
+                                this.set("title_show_class", this.get("cssplayer") + "-dashboard-hidden");
+                            } else {
+                                this.set("title_show_class", "");
+                            }
+                        }
                     }
                 },
 

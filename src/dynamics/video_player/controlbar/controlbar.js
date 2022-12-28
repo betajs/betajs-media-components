@@ -54,7 +54,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     "chapterslist": [],
                     "showchaptertext": true,
                     "visibleindex": -1,
-                    "title_show_class": ""
+                    "title_hide_class": "",
+                    "controlbar_hide_class": ""
                 },
 
                 computed: {
@@ -67,13 +68,18 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                 events: {
                     "change:activitydelta": function(value) {
                         if (this.get("prominent_title")) {
-                            this.set("title_show_class", "");
+                            this.set("title_hide_class", "");
                         } else {
                             if (value > this.get("hidebarafter") && this.get("hideoninactivity")) {
-                                this.set("title_show_class", this.get("cssplayer") + "-dashboard-hidden");
+                                this.set("title_hide_class", this.get("cssplayer") + "-dashboard-hidden");
                             } else {
-                                this.set("title_show_class", "");
+                                this.set("title_hide_class", "");
                             }
+                        }
+                        if (value > this.get("hidebarafter") && this.get("hideoninactivity")) {
+                            this.set("controlbar_hide_class", this.get("cssplayer") + "-dashboard-hidden");
+                        } else {
+                            this.set("controlbar_hide_class", "");
                         }
                     }
                 },

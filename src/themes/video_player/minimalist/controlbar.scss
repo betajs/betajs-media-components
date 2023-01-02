@@ -56,6 +56,9 @@
     position: absolute;
     text-align: left;
     width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
     .#{$csstheme}-right-block {
         line-height: $topmessage_height - 10px;
         position: absolute;
@@ -64,14 +67,27 @@
     }
 }
 
+.#{$csstheme}-header-pad {
+    flex-grow: 1;
+    width: $controlbar_side_padding;
+}
+
 .#{$cssie8} .#{$csstheme}-controlbar-header {
     display: none;
 }
 
 .#{$csstheme}-controlbar-header-title-block {
+    flex-grow: 20;
     position: relative;
     width: 100%;
     z-index: 10;
+    & > .prominent-title-close {
+        color: $text_color;
+        font-family: $font_family;
+        font-size: $controlbar_video_title_font_size;
+        width: $controlbar_header_height;
+        height: $controlbar_header_height;
+    }
 }
 
 .#{$cssie8} .#{$csstheme}-controlbar-header .#{$csstheme}-right-block {
@@ -91,8 +107,12 @@
         letter-spacing: .1em;
         line-height: $topmessage_height - 10;
         margin: 0;
-        padding: 0 0 0 $controlbar_side_padding;
+        padding: 0 0 0 0;
         text-align: left;
+    }
+
+    p > span {
+        cursor: pointer;
     }
 }
 
@@ -173,7 +193,7 @@
 .#{$csstheme}-button-inner { @include clickable; z-index: 100; position: relative; }
 
 .#{$csstheme}-right-block {
-    float: right;
+    // float: right;
 }
 
 .#{$cssnoie8} .#{$csstheme}-button-inner {

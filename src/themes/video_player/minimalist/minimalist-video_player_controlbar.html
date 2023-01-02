@@ -1,7 +1,8 @@
-<div class="{{csstheme}}-dashboard {{activitydelta > hidebarafter && hideoninactivity ? (cssplayer + '-dashboard-hidden') : ''}}">
+<div class="{{csstheme}}-dashboard {{((prominent_title_closed || title_hide_class) && controlbar_hide_class) ? cssplayer + '-dashboard-hidden' : ''}}">
 
     <div class='{{csstheme}}-controlbar-header'>
-        <div class="{{csstheme}}-controlbar-header-icons-block">
+        <div class="{{csstheme}}-header-pad">&nbsp;</div>
+        <div class="{{csstheme}}-controlbar-header-icons-block {{controlbar_hide_class}}">
 
             <div class="{{csstheme}}-right-block">
 
@@ -43,12 +44,14 @@
         </div>
 
 
-        <div class="{{csstheme}}-controlbar-header-title-block" ba-if="{{title}}">
-            <div class="{{csstheme}}-title"><p>{{title}}</p></div>
+        <div class="{{csstheme}}-controlbar-header-title-block {{title_hide_class}}" ba-if="{{title && !prominent_title_closed}}">
+            <div class="{{csstheme}}-title"><p><span ba-if="{{closeable_title}}" ba-click="{{prominent_title_closed=true}}">&#10006;</span> {{title}}</p></div>
         </div>
+
+        <div class="{{csstheme}}-header-pad">&nbsp;</div>
     </div>
 
-    <div class="{{csstheme}}-controlbar-footer">
+    <div class="{{csstheme}}-controlbar-footer {{controlbar_hide_class}}">
 
         <div class="{{csstheme}}-controlbar-top-block">
 

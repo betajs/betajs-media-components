@@ -245,6 +245,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 types: {
                     "allowpip": "boolean",
                     "hasnext": "boolean",
+                    "hidecontrolbar": "boolean",
                     "rerecordable": "boolean",
                     "loop": "boolean",
                     "loopall": "boolean",

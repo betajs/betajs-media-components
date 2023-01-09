@@ -143,7 +143,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
             // TODO: video height and width return NaN before ad start even when ba-width/ba-height are provided
             adInstance.executeAd({
                 width: this.dyn.parentWidth() || this.dyn.videoWidth(),
-                height: this.dyn.parentHeight() || this.dyn.videoHeight()
+                height: this.dyn.parentHeight() || this.dyn.videoHeight(),
+                autoplayAllowed: this.dyn.get("autoplay-allowed"),
+                autoplayRequiresMuted: this.dyn.get("autoplay-requires-muted")
             });
         }
 
@@ -635,7 +637,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
                         this.dyn.reattachVideo();
                 }
             } else {
-                // If user will set loopall as true, single video also will be played
+                // If a user set loopall as true, a single video also be played
                 if (this.dyn.get("loopall")) {
                     this.dyn.set("loop", true);
                     this.dyn.set("autoplay", true);

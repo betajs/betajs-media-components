@@ -89,7 +89,7 @@
             attrs: {
                 pausable: true,
                 allowtrim: true,
-                onlyaudio: true,
+                // onlyaudio: true,
                 // width: '440',
                 // height: '440',
                 // localplayback: true,
@@ -104,7 +104,7 @@
                 // theme: "cube",
                 // theme: "elevate",
                 // theme: "minimalist",
-                // theme: "modern",
+                theme: "modern",
                 // theme: "space",
                 // theme: "theatre",
                 // themecolor: "red",
@@ -190,8 +190,6 @@
         recorder.on("unbound", function () {
             console.log('Unbounded!!!', recorder.get("mandatoryorientation"));
         }, recorder);
-
-
 
         recorder.on("attached", function () {
             console.log('Recorder Attcahed !!!');

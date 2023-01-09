@@ -69,7 +69,7 @@
             // , skipAfter: 3
             , nonLinearDuration: 10 // default will be 10 seconds
         });
-        adsense.register("ima");
+        // adsense.register("ima");
     </script>
 
 
@@ -102,14 +102,19 @@
                 poster: "/static/demos/assets/sample-cover.png",
                 source: "/static/demos/assets/portrait.mp4",
                 // source: "/static/demos/assets/landscape.mp4",
+                // 'ba-playlist': [
+                //     {poster: 'sample-cover2.png', source: 'sample-video2.mp4'},
+                //     {poster: 'sample-cover.png', source: 'sample-video.mp4'},
+                //     {poster: 'sample-cover.png', source: 'sample-video3.mp4'}
+                // ],
                 adprovider: "ima"
                 // showduration: true,
-                // linear: "pre,mid[6'], post"
-                , linear: "mid[5*]"
+                // linear: "pre,mid[6*], post"
+                // , linear: "mid[5*]"
                 , minadintervals: 8
                 // , 'non-linear': "52[,250], 55%[300], 19[,250], 2[480,70]"
                 , preload: true
-                , autoplay: false
+                , autoplay: true
             }
         });
 

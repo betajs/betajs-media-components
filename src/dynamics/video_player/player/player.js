@@ -8,6 +8,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "browser:Dom",
     "media:Player.VideoPlayerWrapper",
     "media:Player.Broadcasting",
+    "media:Player.Support",
     "base:Types",
     "base:Objs",
     "base:Strings",
@@ -51,7 +52,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.PlayerStates.ErrorVideo",
     "module:VideoPlayer.Dynamics.PlayerStates.PlayVideo",
     "module:VideoPlayer.Dynamics.PlayerStates.NextVideo"
-], function(Class, Assets, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, Types, Objs, Strings, Collection, Time, Timers, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, IMARequester, DomEvents, scoped) {
+], function(Class, Assets, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, PlayerSupport, Types, Objs, Strings, Collection, Time, Timers, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, IMARequester, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, [StylesMixin, function(inherited) {
@@ -206,7 +207,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "initialoptions": {
                             "hideoninactivity": null,
                             "volumelevel": null,
-                            "playlist": []
+                            "playlist": [],
+                            "autoplay": null
                         },
                         "silent_attach": false,
                         "inpipmode": false,
@@ -237,6 +239,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         // Reference to Chrome renewed policy, we have to setup mute for auto-playing players.
                         // If we do it forcibly, then we will set as true
                         "forciblymuted": false,
+                        "autoplay-allowed": null,
+                        "autoplay-requires-muted": null,
+                        "autoplay-requires-playsinline": null,
                         // When volume was unmuted, by the user himself, not automatically
                         "volumeafterinteraction": false
                     };
@@ -391,7 +396,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("stickypositioncss", this.get("sticky-position"));
                     // Will set volume initial state
                     this.set("initialoptions", Objs.tree_merge(this.get("initialoptions"), {
-                        volumelevel: this.get("volume")
+                        volumelevel: this.get("volume"),
+                        autoplay: this.get("autoplay")
                     }));
                     if (this.get("fullscreenmandatory")) {
                         if (!(document.fullscreenEnabled || document.mozFullscreenEnabled ||
@@ -401,14 +407,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     }
 
-                    if ((Info.isMobile() || Info.isChromiumBased() || Info.isSafari()) && (this.get("autoplay") || this.get("playwhenvisible"))) {
-                        this.set("volume", 0.0);
-                        this.set("forciblymuted", true);
-
-                        //if (!(Info.isiOS() && Info.iOSversion().major >= 10)) {
-                        //this.set("autoplay", false);
-                        //this.set("loop", false);
-                        //}
+                    if ((this.get("autoplay") || this.get("playwhenvisible"))) {
+                        this.set("wait-user-interaction", true);
+                        // check in which option player allow autoplay
+                        this.__testAutoplayOptions();
                     }
 
                     if (this.get("theme")) this.set("theme", this.get("theme").toLowerCase());
@@ -422,7 +424,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (!this.get("themecolor"))
                         this.set("themecolor", "default");
 
-                    if (this.get("adprovider"))
+                    if (this.get("adprovider") && !this.get("wait-user-interaction"))
                         this.initAdProvider();
                     if (this.get("playlist") && this.get("playlist").length > 0) {
                         var pl0 = (this.get("playlist"))[0];
@@ -658,7 +660,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                                                 }, this);
                                                             } else {
                                                                 if (/^mid\[.*?\]$/.test(schedule))
-                                                                    console.log('Seems your mid roll settings does not correctly set. It will be played only in the middle of the video.');
+                                                                    console.warn('Seems your mid roll settings does not correctly set. It will be played only in the middle of the video.');
                                                                 if (/^mid$/.test(schedule)) {
                                                                     this.get("mid-linear-ad").push({
                                                                         position: 0.5
@@ -676,7 +678,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                                         }, this)
                                         .error(function(err) {
-                                            console.log("Error could not be able init adsense container. Err: ", err);
+                                            console.error("Error could not be able init adsense container. Err: ", err);
                                         }, this)
                                         .callback(function() {
                                             this.set("ad-provider-ready", true);
@@ -964,14 +966,21 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.set("hideoninactivity", this.get("initialoptions").hideoninactivity);
                             }
                         }, this);
-                        // If browser is Chrome, and we have manually forcibly muted player
-                        if ((Info.isChromiumBased() || Info.isSafari()) && this.get("forciblymuted")) {
-                            video.muted = true;
+                        // If the browser not allows unmuted autoplay, and we have manually forcibly muted player
+                        if (this.get("autoplay-requires-muted") || this.get("autoplay-requires-playsinline") || this.get("wait-user-interaction") || this.get("forciblymuted")) {
+                            if (this.get("autoplay-requires-muted") || this.get("forciblymuted"))
+                                video.muted = true;
+                            if (this.get("autoplay-requires-playsinline"))
+                                video.playsinline = true;
                             Dom.userInteraction(function() {
                                 this.set_volume(this.get("initialoptions").volumelevel);
+                                this.set("autoplay", this.get("initialoptions").autoplay);
                                 if (this.get("volume") > 0.00)
                                     video.muted = false;
                                 this.set("forciblymuted", false);
+                                if (this.get("wait-user-interaction") && this.get("autoplay")) {
+                                    this.__testAutoplayOptions(video);
+                                }
                             }, this);
                         }
                         this.player.on("postererror", function() {
@@ -2016,6 +2025,81 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     if (!this.get("player-started")) this.set("player-started", true);
 
+                },
+
+                __testAutoplayOptions: function(video) {
+                    var sutableCondition = false;
+                    var autoplayPossibleOptions = [{
+                            muted: false,
+                            playsinline: false
+                        },
+                        {
+                            muted: false,
+                            playsinline: true
+                        },
+                        {
+                            muted: true,
+                            playsinline: false
+                        },
+                        {
+                            muted: true,
+                            playsinline: true
+                        }
+                    ];
+                    Objs.iter(autoplayPossibleOptions, function(opt, index) {
+                        PlayerSupport.canAutoplayVideo(opt)
+                            .success(function(response, err) {
+                                if (sutableCondition) return;
+                                // If condition is true no need for turn off volume
+                                if (!opt.muted && !opt.playsinline && response.result) {
+                                    this.set("autoplay-allowed", true);
+                                    this.set("wait-user-interaction", false);
+                                    sutableCondition = true;
+                                    if (video) video.muted = opt.muted;
+                                    if (video) {
+                                        if (opt.playsinline) {
+                                            video.setAttribute('playsinline', '');
+                                        } else {
+                                            video.removeAttribute('playsinline');
+                                        }
+                                    }
+                                    if (!this.get("playing") && this.player) {
+                                        this.player.play();
+                                    }
+                                }
+                                if (opt.muted && response.result) {
+                                    this.set("autoplay-requires-muted", true);
+                                    this.set("wait-user-interaction", false);
+                                    this.set("volume", 0.0);
+                                    this.set("forciblymuted", true);
+                                    sutableCondition = true;
+                                    if (video) video.muted = opt.muted;
+                                    if (video) {
+                                        if (opt.playsinline) {
+                                            video.setAttribute('playsinline', '');
+                                        } else {
+                                            video.removeAttribute('playsinline');
+                                        }
+                                    }
+                                    if (!this.get("playing") && this.player) {
+                                        this.player.play();
+                                    }
+                                }
+                                if (opt.playsinline && response.result) {
+                                    this.set("autoplay-requires-playsinline", true);
+                                    this.set("wait-user-interaction", false);
+                                    if (video) video.playsinline = true;
+                                    if (opt.muted) {
+                                        this.set("autoplay-requires-muted", true);
+                                        if (video) video.muted = true;
+                                    }
+                                    sutableCondition = true;
+                                }
+                            }, this)
+                            .error(function(err) {
+                                console.warn("Error :", err, opt, index);
+                            }, this);
+                    }, this);
                 }
             };
         }], {

@@ -60,12 +60,12 @@ Scoped.define("module:Ads.IMARequester", [
                 if (this._providerOptions.maxAllowedRedirects && Info.number(this._providerOptions.maxAllowedRedirects))
                     google.ima.settings.setNumRedirects(this._providerOptions.maxAllowedRedirects);
 
-
                 // setAutoPlayAdBreaks(boolean)
                 // google.ima.settings.setVpaidAllowed(true); // true will cause an issue
 
                 // For IOS skip able
-                // google.ima.settings.setDisableCustomPlaybackForIOS10Plus(true);
+                if (Info.isiOS() && Info.safariVersion() >= 10)
+                    google.ima.settings.setDisableCustomPlaybackForIOS10Plus(true);
 
                 this._adsRequest = new google.ima.AdsRequest();
                 this._adsRequest.adsResponse = this._providerOptions.inlineVASTXML;
@@ -111,6 +111,11 @@ Scoped.define("module:Ads.IMARequester", [
                 // For non-linear ads like image in te bottom side of the video
                 this._adsRequest.nonLinearAdSlotWidth = +options.width;
                 this._adsRequest.nonLinearAdSlotHeight = +options.height;
+
+                if (options.autoplayAllowed && typeof options.autoplayAllowed === "boolean")
+                    this._adsRequest.setAdWillAutoPlay(options.autoplayAllowed);
+                if (options.autoplayRequiresMuted && typeof options.autoplayRequiresMuted === "boolean")
+                    this._adsRequest.setAdWillPlayMuted(options.autoplayRequiresMuted);
 
                 this._adsLoader.requestAds(this._adsRequest);
             },

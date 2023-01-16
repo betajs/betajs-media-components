@@ -411,6 +411,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("wait-user-interaction", true);
                         // check in which option player allow autoplay
                         this.__testAutoplayOptions();
+                        // Safari is behaving differently on the Desktop and Mobile
+                        // preload in desktop allow autoplay. In mobile, it's preventing autoplay
+                        if (Info.isSafari()) this.set("preload", !Info.isMobile());
+                        // In Safari Desktop can cause trouble on preload, if user will
                     }
 
                     if (this.get("theme")) this.set("theme", this.get("theme").toLowerCase());
@@ -424,8 +428,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (!this.get("themecolor"))
                         this.set("themecolor", "default");
 
-                    if (this.get("adprovider") && !this.get("wait-user-interaction"))
-                        this.initAdProvider();
+                    if (this.get("adprovider")) this.initAdProvider();
                     if (this.get("playlist") && this.get("playlist").length > 0) {
                         var pl0 = (this.get("playlist"))[0];
                         if (pl0 && Types.is_object(pl0)) {
@@ -531,159 +534,158 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 initAdProvider: function() {
-                    {
-                        this.set("ad-provider-ready", false);
-                        this._adProvider = this.get("adprovider");
-                        if (Types.is_string(this._adProvider))
-                            this._adProvider = AdProvider.registry[this._adProvider];
+                    this.set("ad-provider-ready", false);
+                    this._adProvider = this.get("adprovider");
+                    if (Types.is_string(this._adProvider))
+                        this._adProvider = AdProvider.registry[this._adProvider];
 
-                        if (this._adProvider) {
-                            var adInitOptions = {
-                                videoElement: this.activeElement().querySelector("[data-video='video']"),
-                                adElement: this.activeElement().querySelector("[data-video='ad']"),
-                                adContainer: this.activeElement().querySelector("[data-video='ima-ad-container']"),
-                                dynamic: this
-                            };
+                    if (this._adProvider) {
+                        var adInitOptions = {
+                            videoElement: this.activeElement().querySelector("[data-video='video']"),
+                            adElement: this.activeElement().querySelector("[data-video='ad']"),
+                            adContainer: this.activeElement().querySelector("[data-video='ima-ad-container']"),
+                            dynamic: this
+                        };
 
-                            if (this.get("preroll")) {
-                                // console.warn('Adsense ad provider is deprecated, please try to implement IMA ad provider with linear & non-linear options instead');
-                                this._prerollAd = this._adProvider.newPrerollAd(adInitOptions);
-                                this.set("ad-provider-ready", true);
+                        if (this.get("preroll")) {
+                            // console.warn('Adsense ad provider is deprecated, please try to implement IMA ad provider with linear & non-linear options instead');
+                            this._prerollAd = this._adProvider.newPrerollAd(adInitOptions);
+                            this.set("ad-provider-ready", true);
+                        }
+
+                        if ((this.get("adprovider") === 'ima' || this.get("adprovider").__IMA_PRE_ROLL) && (this.get("linear") || this.get("non-linear"))) {
+                            var schedules = [],
+                                nonLinearSchedules = [];
+                            // Split all via comma exclude inside brackets
+                            if (this.get("linear")) {
+                                schedules = Objs.map(this.get("linear").split(/(?![^)(]*\([^)(]*?\)\)),(?![^\[]*\])/), function(item) {
+                                    return item.trim();
+                                }, this);
                             }
 
-                            if ((this.get("adprovider") === 'ima' || this.get("adprovider").__IMA_PRE_ROLL) && (this.get("linear") || this.get("non-linear"))) {
-                                var schedules = [],
-                                    nonLinearSchedules = [];
-                                // Split all via comma exclude inside brackets
-                                if (this.get("linear")) {
-                                    schedules = Objs.map(this.get("linear").split(/(?![^)(]*\([^)(]*?\)\)),(?![^\[]*\])/), function(item) {
-                                        return item.trim();
-                                    }, this);
-                                }
-
-                                if (this.get("non-linear")) {
-                                    // TODO: add non-linear schedule as well
-                                    nonLinearSchedules = Objs.map(this.get("non-linear").split(/(?![^)(]*\([^)(]*?\)\)),(?![^\[]*\])/), function(item) {
-                                        var items = item.trim().split(/[\[\]]/);
-                                        if (items[0]) {
-                                            var position = items[0].split('%');
-                                            position = position.length > 1 ? parseFloat((position[0] / 100).toFixed(2)) : +items[0];
-                                            if (position > 0) {
-                                                var output = {
-                                                    position: position,
-                                                    width: null,
-                                                    height: null
-                                                };
-                                                if (items[1]) {
-                                                    var dimensions = items[1].split(',');
-                                                    if (dimensions.length > 0) {
-                                                        output.width = dimensions[0] ? dimensions[0] : null;
-                                                        output.height = dimensions[1] ? dimensions[1] : null;
-                                                    }
-                                                    return output;
-                                                } else {
-                                                    return output;
+                            if (this.get("non-linear")) {
+                                // TODO: add non-linear schedule as well
+                                nonLinearSchedules = Objs.map(this.get("non-linear").split(/(?![^)(]*\([^)(]*?\)\)),(?![^\[]*\])/), function(item) {
+                                    var items = item.trim().split(/[\[\]]/);
+                                    if (items[0]) {
+                                        var position = items[0].split('%');
+                                        position = position.length > 1 ? parseFloat((position[0] / 100).toFixed(2)) : +items[0];
+                                        if (position > 0) {
+                                            var output = {
+                                                position: position,
+                                                width: null,
+                                                height: null
+                                            };
+                                            if (items[1]) {
+                                                var dimensions = items[1].split(',');
+                                                if (dimensions.length > 0) {
+                                                    output.width = dimensions[0] ? dimensions[0] : null;
+                                                    output.height = dimensions[1] ? dimensions[1] : null;
                                                 }
+                                                return output;
+                                            } else {
+                                                return output;
                                             }
                                         }
-                                    }, this);
-                                    // If user just set this setting will aplly it in 50% of the player
-                                    if (nonLinearSchedules.length === 0) {
-                                        nonLinearSchedules = [{
-                                            position: 0.5,
-                                            width: null,
-                                            height: null
-                                        }];
                                     }
+                                }, this);
+                                // If user just set this setting will aplly it in 50% of the player
+                                if (nonLinearSchedules.length === 0) {
+                                    nonLinearSchedules = [{
+                                        position: 0.5,
+                                        width: null,
+                                        height: null
+                                    }];
                                 }
-                                // On iOS and Android devices, video playback must begin in a user action.
-                                // In mobile could be require wait user interaction before init container and loader
-                                // Dom.userInteraction(function() {}, this);
+                            }
+                            // On iOS and Android devices, video playback must begin in a user action.
+                            // In mobile could be require wait user interaction before init container and loader
+                            // Dom.userInteraction(function() {}, this);
 
-                                if (schedules.length > 0 || nonLinearSchedules.length > 0) {
-                                    this.set("mid-linear-ad", []);
-                                    this.__adMinIntervals = this.get("minadintervals");
-                                    this._adProvider.initAdsLoader(adInitOptions)
-                                        .success(function(loader) {
-                                            this._adsLoader = loader;
-                                            this._adOptions = adInitOptions;
-                                            if (schedules.length > 0) {
-                                                Objs.iter(schedules, function(schedule) {
-                                                    switch (schedule.toLowerCase()) {
-                                                        case this._adProvider.__IMA_PRE_ROLL:
-                                                            // if already, the user did not set preroll as an attribute
-                                                            if (!this._prerollAd) {
-                                                                this._prerollAd = this._adProvider._newAdsRequester(this, this._adProvider.__IMA_PRE_ROLL, true);
-                                                            }
-                                                            break;
-                                                        case this._adProvider.__IMA_POST_ROLL:
-                                                            // Post-roll will trigger as soon as the video will be stopped
-                                                            this.set("has-post-roll-ad", true);
-                                                            break;
-                                                            // Midroll could be just "mid", which will trigger on 50% of player time,
-                                                            // or specify more details with second and percentage
-                                                        default:
-                                                            // if user set schedule with time settings
-                                                            if (/^mid\[[\d\s]+(,[\d\s]+|[\d\s]+\%|\%|[\d\s]+\*|\*)*\]*$/i.test(schedule)) {
-                                                                var _s = schedule.replace('mid[', '').replace(']', '');
-                                                                Objs.map(_s.split(','), function(item) {
-                                                                    item = item.trim();
-                                                                    if (/^[\d\s]+\*$/.test(item)) {
-                                                                        item = +item.replace("\*", '');
-                                                                        this.on("change:duration", function(duration) {
-                                                                            if (duration > 0) {
-                                                                                var step = Math.floor(duration / item);
-                                                                                if (duration > item) {
-                                                                                    for (var i = 1; i <= step; i++) {
-                                                                                        this.get("mid-linear-ad").push({
-                                                                                            position: i * item
-                                                                                        });
-                                                                                    }
+                            if (schedules.length > 0 || nonLinearSchedules.length > 0) {
+                                this.set("mid-linear-ad", []);
+                                this.__adMinIntervals = this.get("minadintervals");
+                                this._adProvider.initAdsLoader(adInitOptions)
+                                    .success(function(loader) {
+                                        this._adsLoader = loader;
+                                        this._adOptions = adInitOptions;
+                                        if (schedules.length > 0) {
+                                            Objs.iter(schedules, function(schedule) {
+                                                switch (schedule.toLowerCase()) {
+                                                    case this._adProvider.__IMA_PRE_ROLL:
+                                                        // if already, the user did not set preroll as an attribute
+                                                        if (!this._prerollAd) {
+                                                            this._prerollAd = this._adProvider._newAdsRequester(this, this._adProvider.__IMA_PRE_ROLL, true);
+                                                        }
+                                                        break;
+                                                    case this._adProvider.__IMA_POST_ROLL:
+                                                        // Post-roll will trigger as soon as the video will be stopped
+                                                        this.set("has-post-roll-ad", true);
+                                                        break;
+                                                        // Midroll could be just "mid", which will trigger on 50% of player time,
+                                                        // or specify more details with second and percentage
+                                                    default:
+                                                        // if user set schedule with time settings
+                                                        if (/^mid\[[\d\s]+(,[\d\s]+|[\d\s]+\%|\%|[\d\s]+\*|\*)*\]*$/i.test(schedule)) {
+                                                            var _s = schedule.replace('mid[', '').replace(']', '');
+                                                            Objs.map(_s.split(','), function(item) {
+                                                                item = item.trim();
+                                                                if (/^[\d\s]+\*$/.test(item)) {
+                                                                    item = +item.replace("\*", '');
+                                                                    this.on("change:duration", function(duration) {
+                                                                        if (duration > 0) {
+                                                                            var step = Math.floor(duration / item);
+                                                                            if (duration > item) {
+                                                                                for (var i = 1; i <= step; i++) {
+                                                                                    this.get("mid-linear-ad").push({
+                                                                                        position: i * item
+                                                                                    });
                                                                                 }
                                                                             }
-                                                                        }, this);
-                                                                    } else {
-                                                                        if (/^[\d\s]+\%$/.test(item)) {
-                                                                            item = parseInt(item.replace('%', '').trim(), 10);
-                                                                            if (item < 100 && item > 0) {
-                                                                                this.get("mid-linear-ad").push({
-                                                                                    position: parseFloat((item / 100).toFixed(2))
-                                                                                });
-                                                                            }
-                                                                        } else {
-                                                                            // the user also set 0 to 1 value, as percentage, more 1 means seconds
+                                                                        }
+                                                                    }, this);
+                                                                } else {
+                                                                    if (/^[\d\s]+\%$/.test(item)) {
+                                                                        item = parseInt(item.replace('%', '').trim(), 10);
+                                                                        if (item < 100 && item > 0) {
                                                                             this.get("mid-linear-ad").push({
-                                                                                position: parseFloat(item)
+                                                                                position: parseFloat((item / 100).toFixed(2))
                                                                             });
                                                                         }
+                                                                    } else {
+                                                                        // the user also set 0 to 1 value, as percentage, more 1 means seconds
+                                                                        this.get("mid-linear-ad").push({
+                                                                            position: parseFloat(item)
+                                                                        });
                                                                     }
-                                                                }, this);
-                                                            } else {
-                                                                if (/^mid\[.*?\]$/.test(schedule))
-                                                                    console.warn('Seems your mid roll settings does not correctly set. It will be played only in the middle of the video.');
-                                                                if (/^mid$/.test(schedule)) {
-                                                                    this.get("mid-linear-ad").push({
-                                                                        position: 0.5
-                                                                    });
                                                                 }
+                                                            }, this);
+                                                        } else {
+                                                            if (/^mid\[.*?\]$/.test(schedule))
+                                                                console.warn('Seems your mid roll settings does not correctly set. It will be played only in the middle of the video.');
+                                                            if (/^mid$/.test(schedule)) {
+                                                                this.get("mid-linear-ad").push({
+                                                                    position: 0.5
+                                                                });
                                                             }
-                                                            break;
-                                                    }
-                                                }, this);
-                                            }
+                                                        }
+                                                        break;
+                                                }
+                                            }, this);
+                                        }
 
-                                            if (nonLinearSchedules.length > 0) {
-                                                this.set("non-linear-ad", nonLinearSchedules);
-                                            }
+                                        if (nonLinearSchedules.length > 0) {
+                                            this.set("non-linear-ad", nonLinearSchedules);
+                                        }
 
-                                        }, this)
-                                        .error(function(err) {
-                                            console.error("Error could not be able init adsense container. Err: ", err);
-                                        }, this)
-                                        .callback(function() {
-                                            this.set("ad-provider-ready", true);
-                                        }, this);
-                                }
+                                    }, this)
+                                    .error(function(err) {
+                                        console.error("Error could not be able init adsense container. Err: ", err);
+                                    }, this)
+                                    .callback(function() {
+                                        // on IMS SDK related URLs are loaded
+                                        this.set("ad-provider-ready", true);
+                                    }, this);
                             }
                         }
                     }
@@ -874,7 +876,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             return;
                         this.player = instance;
                         this.__video = video;
-                        this.set("silent_attach", silent || false);
+                        // On autoplay video silent attach should be false
+                        this.set("silent_attach", (silent && !this.get("autoplay")) || false);
 
                         if (this.get("chromecast")) {
                             if (!this.get("skipinitial")) this.set("skipinitial", true);
@@ -966,20 +969,31 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.set("hideoninactivity", this.get("initialoptions").hideoninactivity);
                             }
                         }, this);
-                        // If the browser not allows unmuted autoplay, and we have manually forcibly muted player
+
+                        // All conditions below appear on autoplay only
+                        // If the browser not allows un-muted autoplay,
+                        // and we have manually forcibly muted player
                         if (this.get("autoplay-requires-muted") || this.get("autoplay-requires-playsinline") || this.get("wait-user-interaction") || this.get("forciblymuted")) {
                             if (this.get("autoplay-requires-muted") || this.get("forciblymuted"))
                                 video.muted = true;
                             if (this.get("autoplay-requires-playsinline"))
                                 video.playsinline = true;
                             Dom.userInteraction(function() {
-                                this.set_volume(this.get("initialoptions").volumelevel);
+                                var _initialVolume = this.get("initialoptions").volumelevel > 1 ? 1 : this.get("initialoptions").volumelevel;
+                                this.set_volume(_initialVolume);
                                 this.set("autoplay", this.get("initialoptions").autoplay);
                                 if (this.get("volume") > 0.00)
                                     video.muted = false;
                                 this.set("forciblymuted", false);
+                                if (this.get("autoplay-requires-muted") && (this._prerollAd || this._adsRoll)) {
+                                    var _adsManager = (this._prerollAd || this._adsRoll)._adsManager;
+                                    var _adsControlBar = (this._prerollAd || this._adsRoll)._adControlbar;
+                                    if (_adsManager) _adsManager.setVolume(_initialVolume);
+                                    if (_adsControlBar) _adsControlBar.set('volume', _initialVolume);
+                                }
                                 if (this.get("wait-user-interaction") && this.get("autoplay")) {
                                     this.__testAutoplayOptions(video);
+                                    this.trigger("user-has-interaction");
                                 }
                             }, this);
                         }

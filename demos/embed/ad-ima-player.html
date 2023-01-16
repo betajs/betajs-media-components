@@ -18,6 +18,7 @@
 <body style="background: #EEE">
     <script>
 
+        var gnrok; // = 'https://613d-213-172-83-96.in.ngrok.io/';
         var errroAd = '//localhost:5050/static/demos/vast-samples/---error-url---';
         var v3_clickThroughtLocalAd = '//localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml';
         var v3_skipable = '//localhost:5050/static/demos/vast-samples/ads-linear-skipable.xml';
@@ -27,7 +28,7 @@
         var v4_2_wrapper = '//localhost:5050/static/demos/vast-samples/VAST_4_2/Wrapper_Tag-test.xml';
         // var v4_2_non_linear = '//localhost:5050/static/demos/vast-samples/VAST_4_2/Inline_Non-Linear_Tag-test.xml';
         var v3_non_linear = '//localhost:5050/static/demos/vast-samples/VAST_3_0/Inline_Non-Linear_Tag-test.xml';
-        var v4_2_skipable = '//localhost:5050/static/demos/vast-samples/VAST_4_2/Inline_Skipable.xml';
+        var v4_2_skipable = (gnrok || '//localhost:5050/') + 'static/demos/vast-samples/VAST_4_2/Inline_Skipable.xml';
         var v4_2_non_skipable = '//localhost:5050/static/demos/vast-samples/VAST_4_2/Inline_NON_Skipable.xml';
 
         // VMAP - Pre-roll Single Ad, Mid-roll Optimized Pod with 3 Ads, Post-roll Single Ad
@@ -69,7 +70,7 @@
             // , skipAfter: 3
             , nonLinearDuration: 10 // default will be 10 seconds
         });
-        // adsense.register("ima");
+        adsense.register("ima");
     </script>
 
 
@@ -80,8 +81,7 @@
 <!--    ba-skipinitial-->
 <!--    ba-autoplay-->
 <!--    custom-non-linear-->
-    <ba-videoplayer
-    ></ba-videoplayer>
+<!--    <ba-videoplayer></ba-videoplayer>-->
 <!--    ba-non-linear="52[,250], 40%[300], 13[300,250], 2[480,70]"-->
     <!-- 40% == 24sec   -->
 <!-- 45% == 27sec   -->
@@ -99,21 +99,24 @@
             element: document.getElementById('player'),
             attrs: {
                 theme: "modern",
-                poster: "/static/demos/assets/sample-cover.png",
-                source: "/static/demos/assets/portrait.mp4",
+                poster: "/static/demos/assets/sample-cover.png"
+                // , source: "/static/demos/assets/portrait.mp4"
+                , source: "https://betajs.com/sample.mp4"
                 // source: "/static/demos/assets/landscape.mp4",
                 // 'ba-playlist': [
                 //     {poster: 'sample-cover2.png', source: 'sample-video2.mp4'},
                 //     {poster: 'sample-cover.png', source: 'sample-video.mp4'},
                 //     {poster: 'sample-cover.png', source: 'sample-video3.mp4'}
                 // ],
-                adprovider: "ima"
+                , adprovider: "ima"
                 // showduration: true,
-                // linear: "pre,mid[6*], post"
+                // ,linear: "pre, mid[6*], post"
+                // ,linear: "post"
+                , linear: "pre"
                 // , linear: "mid[5*]"
                 , minadintervals: 8
                 // , 'non-linear': "52[,250], 55%[300], 19[,250], 2[480,70]"
-                , preload: true
+                // , preload: true
                 , autoplay: true
             }
         });

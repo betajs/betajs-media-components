@@ -383,7 +383,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
 
         _started: function() {
             this.dyn.set("placeholderstyle", "");
-            // Will attach video in the backside
+            // Will attach video silently without starting playing the video
             if (!this.dyn.get("skipinitial") && this.dyn.get("preload"))
                 this.dyn._attachVideo(true);
             this.dyn.trigger("ready_to_play");
@@ -392,8 +392,17 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
                 if (!this.dyn.get("states").poster_error.ignore && !this.dyn.get("popup"))
                     this.next("PosterError");
             }, this);
-            if (this.dyn.get("autoplay") || this.dyn.get("skipinitial"))
-                this.play();
+            if (this.dyn.get("autoplay") || this.dyn.get("skipinitial")) {
+                this.listenOn(this.dyn, "change:wait-user-interaction", function(wait) {
+                    if (wait) {
+                        this.dyn.once("user-has-interaction", function() {
+                            this.play();
+                        }, this);
+                    } else {
+                        this.play();
+                    }
+                });
+            }
         },
 
         play: function() {
@@ -544,7 +553,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.ErrorVideo", [
                     this.next("LoadVideo");
             }, this);
         }
-
     });
 });
 
@@ -559,7 +567,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
 
         _started: function() {
             this.dyn.set("autoplay", false);
-            // As during loop we will play player after ended event fire, need initial cover will be hidden
+            // As during a loop we will play player after ended event fire, need initial cover will be hidden
             if (this.dyn.get("loop"))
                 this.dyn.set("skipinitial", true);
             this.listenOn(this.dyn, "change:currentstream", function() {

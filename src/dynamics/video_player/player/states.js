@@ -392,7 +392,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
                 if (!this.dyn.get("states").poster_error.ignore && !this.dyn.get("popup"))
                     this.next("PosterError");
             }, this);
-            if (this.dyn.get("autoplay") || this.dyn.get("skipinitial")) {
+            if (this.dyn.get("autoplay")) {
                 this.listenOn(this.dyn, "change:wait-user-interaction", function(wait) {
                     if (wait) {
                         this.dyn.once("user-has-interaction", function() {
@@ -402,6 +402,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
                         this.play();
                     }
                 });
+            }
+            if (this.dyn.get("skipinitial") && this.dyn.get("autoplay")) {
+                this.play();
             }
         },
 

@@ -13,7 +13,9 @@
         <Creative id="5480" sequence="1" adId="2447226">
           <Linear skipoffset="00:00:05">
             <TrackingEvents>
-              <Tracking event="start" ><![CDATA[//localhost:5050/ad/start]]></Tracking>
+              <Tracking event="start">
+                <![CDATA[//localhost:5050/ad/start]]>
+              </Tracking>
               <Tracking event="progress" offset="00:00:10"><![CDATA[//localhost:5050/ad/progress-10]]></Tracking>
               <Tracking event="firstQuartile"><![CDATA[//localhost:5050/ad/firstQuartile]]></Tracking>
               <Tracking event="midpoint"><![CDATA[//localhost:5050/ad/midpoint]]></Tracking>

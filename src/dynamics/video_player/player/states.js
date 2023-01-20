@@ -434,7 +434,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Preroll", [
                 return;
             }
             if (this.dyn._prerollAd /* && !(this.dyn.get("autoplay") || this.dyn.get("skipinitial"))*/ ) {
-                this.dyn.reattachVideo();
+                if (!this.dyn.videoAttached())
+                    this.dyn.reattachVideo();
                 this.executeAd('_prerollAd', "LoadVideo");
             } else {
                 this.next("LoadVideo");
@@ -651,6 +652,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
          * @private
          */
         _playNext: function(pl) {
+            if (this.dyn.get("adprovider")) {
+                this.dyn.initAdProvider();
+            }
             this.dyn.trigger("playlist-next", pl);
             // this.dyn.reattachVideo();
             this.dyn.set("autoplay", true);

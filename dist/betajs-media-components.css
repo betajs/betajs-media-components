@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.339 - 2022-12-22
+betajs-media-components - v0.0.340 - 2023-01-24
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -3266,6 +3266,9 @@ div.ba-commoncss-sticky {
   letter-spacing: 0.1em;
   line-height: 30px;
   margin: 0 0 0 10px;
+}
+.ba-videoplayer-title > span {
+  cursor: pointer;
 }
 
 .ba-videoplayer-seeking-thumb-container {

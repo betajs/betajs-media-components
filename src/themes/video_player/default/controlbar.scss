@@ -259,6 +259,9 @@
     letter-spacing: $video_title_letter_spacing;
     line-height: 30px;
     margin: $video_title_margin;
+    & > span {
+        cursor: pointer;
+    }
 }
 
 .#{$css}-seeking-thumb-container {

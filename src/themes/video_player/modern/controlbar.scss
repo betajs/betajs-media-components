@@ -165,11 +165,29 @@
     display: none;
 }
 
+.#{$csstheme}-prominent-title-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    & > p{
+        flex-grow: 200;
+        text-align: center;
+        overflow: hidden;
+    }
+    & > div {
+        flex-grow: 1;
+        width: 30px;
+    }
+    & > .prominent-title-close > span{
+        cursor: pointer;
+    }
+}
+
 .#{$csstheme}-title-container{
     @include absolute-align-full-top();
     @include transition1(opacity, $dashboard_transition, ease-in-out);
     width: 100%;
-    & > p {
+    & > p, div {
         color: $title_text_color;
         @include background-rgba( 255, 255, 255, 0.7, $controlbar_background);
         @include relative-horizontally-center();

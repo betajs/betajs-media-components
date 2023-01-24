@@ -1,7 +1,7 @@
 
-<div class="{{csstheme}}-dashboard {{activitydelta > hidebarafter && hideoninactivity ? (cssplayer + '-dashboard-hidden') : ''}}">
+<div class="{{csstheme}}-dashboard {{((prominent_title_closed || title_hide_class) && controlbar_hide_class) ? cssplayer + '-dashboard-hidden' : ''}}">
 
-    <div class="{{csstheme}}-top-block">
+    <div class="{{csstheme}}-top-block {{controlbar_hide_class}}">
 
         <div class="{{csstheme}}-top-left-block {{csscommon}}-clickable" ba-click="{{toggle_position_info()}}">
             <div class="{{csstheme}}-time-container {{csstheme}}-left-time-container">
@@ -61,7 +61,7 @@
 
     <div class="{{csstheme}}-bottom-block">
 
-        <div class="{{csstheme}}-left-block">
+        <div class="{{csstheme}}-left-block {{controlbar_hide_class}}">
 
             <div tabindex="0" ba-hotkey:space^enter="{{submit()}}" onmouseout="this.blur()"
                  data-selector="submit-video-button" class="{{csstheme}}-leftbutton-container"
@@ -125,15 +125,15 @@
 
         </div>
 
-        <div class="{{csstheme}}-center-block">
-            <div data-selector="video-title-block" class="{{csstheme}}-title-block" ba-if="{{title}}">
-                <p class="{{csstheme}}-title">
+        <div class="{{csstheme}}-center-block {{title_hide_class}}">
+            <div data-selector="video-title-block" class="{{csstheme}}-title-block" ba-if="{{title && !prominent_title_closed}}">
+                <p class="{{csstheme}}-title"><span ba-if="{{closeable_title}}" ba-click="{{prominent_title_closed=true}}">&#10006;</span>
                     {{title}}
                 </p>
             </div>
         </div>
 
-        <div class="{{csstheme}}-right-block">
+        <div class="{{csstheme}}-right-block {{controlbar_hide_class}}">
 
             <div tabindex="5" ba-hotkey:space^enter="{{toggle_stream()}}" onmouseout="this.blur()"
                  data-selector="button-stream-label" class="{{csstheme}}-button-container"

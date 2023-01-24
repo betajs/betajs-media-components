@@ -1,6 +1,6 @@
 
-<div class="{{cssplayer}}-dashboard {{activitydelta > hidebarafter && hideoninactivity ? (cssplayer + '-dashboard-hidden') : ''}}">
-    <div tabindex="{{skipinitial ? 2 : 1}}" data-selector="progress-bar-inner" class="{{css}}-progressbar {{activitydelta < 2500 || ismobile ? '' : (css + '-progressbar-small')}} {{disableseeking ? cssplayer + '-disabled' : ''}}"
+<div class="{{cssplayer}}-dashboard {{((prominent_title_closed || title_hide_class) && controlbar_hide_class) ? cssplayer + '-dashboard-hidden' : ''}}">
+    <div tabindex="{{skipinitial ? 2 : 1}}" data-selector="progress-bar-inner" class="{{css}}-progressbar {{controlbar_hide_class}} {{activitydelta < 2500 || ismobile ? '' : (css + '-progressbar-small')}} {{disableseeking ? cssplayer + '-disabled' : ''}}"
          ba-hotkey:right="{{seek(position + skipseconds)}}"
          ba-hotkey:left="{{seek(position - skipseconds)}}"
          ba-hotkey:alt+right="{{seek(position + skipseconds * 3)}}"
@@ -48,7 +48,7 @@
 
         <div tabindex="0" data-selector="submit-video-button"
              ba-hotkey:space^enter="{{submit()}}" onmouseout="this.blur()"
-             class="{{css}}-leftbutton-container"
+             class="{{css}}-leftbutton-container {{controlbar_hide_class}}"
              ba-if="{{submittable}}" ba-click="{{submit()}}">
             <div class="{{css}}-button-inner">
                 {{string('submit-video')}}
@@ -57,17 +57,17 @@
 
         <div tabindex="0" data-selector="button-icon-ccw"
              ba-hotkey:space^enter="{{rerecord()}}" onmouseout="this.blur()"
-             class="{{css}}-leftbutton-container" ba-if="{{rerecordable}}"
+             class="{{css}}-leftbutton-container {{controlbar_hide_class}}" ba-if="{{rerecordable}}"
              ba-click="{{rerecord()}}" title="{{string('rerecord-video')}}"
         >
-            <div class="{{css}}-button-inner">
+            <div class="{{css}}-button-inner {{controlbar_hide_class}}">
                 <i class="{{csscommon}}-icon-ccw"></i>
             </div>
         </div>
 
         <div tabindex="{{skipinitial ? 0 : 2}}" data-selector="button-icon-play"
              ba-hotkey:space^enter="{{toggle_player()}}" onmouseout="this.blur()"
-             class="{{css}}-leftbutton-container" title="{{string('play-video')}}"
+             class="{{css}}-leftbutton-container {{controlbar_hide_class}}" title="{{string('play-video')}}"
              onkeydown="{{tab_index_move(domEvent, null, 'button-icon-pause')}}" ba-if="{{!playing}}" ba-click="{{play()}}"
         >
             <div class="{{css}}-button-inner">
@@ -77,7 +77,7 @@
 
         <div tabindex="{{skipinitial ? 0 : 2}}" data-selector="button-icon-pause"
              ba-hotkey:space^enter="{{toggle_player()}}" onmouseout="this.blur()"
-             class="{{css}}-leftbutton-container {{disablepause ? cssplayer + '-disabled' : ''}}"
+             class="{{css}}-leftbutton-container {{disablepause ? cssplayer + '-disabled' : ''}} {{controlbar_hide_class}}"
              onkeydown="{{tab_index_move(domEvent, null, 'button-icon-play')}}" ba-if="{{playing}}" ba-click="{{pause()}}"
              title="{{disablepause ? string('pause-video-disabled') : string('pause-video')}}"
         >
@@ -86,7 +86,7 @@
             </div>
         </div>
 
-        <div class="{{css}}-time-container {{csscommon}}-clickable" ba-click="{{toggle_position_info()}}">
+        <div class="{{css}}-time-container {{csscommon}}-clickable {{controlbar_hide_class}}" ba-click="{{toggle_position_info()}}">
             <div class="{{css}}-time-value"
                  title="{{revertposition ? string('remaining-time') : string('elapsed-time')}}"
             >
@@ -97,13 +97,13 @@
             <div class="{{css}}-time-value {{css}}-time-total-duration" title="{{string('total-time')}}">{{formatTime(duration || position)}}</div>
         </div>
 
-        <div data-selector="video-title-block" class="{{css}}-title-container" ba-if="{{title}}">
-            <p class="{{css}}-title">
+        <div data-selector="video-title-block" class="{{css}}-title-container {{title_hide_class}}" ba-if="{{title && !prominent_title_closed}}">
+            <p class="{{css}}-title"><span ba-if="{{closeable_title}}" ba-click="{{prominent_title_closed=true}}">&#10006;</span>
                 {{title}}
             </p>
         </div>
 
-        <div tabindex="12" class="{{css}}-rightbutton-container" ba-if="{{frameselectionmode}}">
+        <div tabindex="12" class="{{css}}-rightbutton-container {{controlbar_hide_class}}" ba-if="{{frameselectionmode}}">
             <div data-selector="select-frame-button"
                  onmouseout="this.blur()"
                  ba-click="{{select_frame()}}"
@@ -112,7 +112,7 @@
             </div>
         </div>
 
-        <div tabindex="12" class="{{css}}-rightbutton-container" ba-if="{{trimmingmode}}">
+        <div tabindex="12" class="{{css}}-rightbutton-container {{controlbar_hide_class}}" ba-if="{{trimmingmode}}">
             <div data-selector="trim-video-button"
                  onmouseout="this.blur()"
                  ba-click="{{trim()}}"
@@ -123,7 +123,7 @@
 
         <div tabindex="11" data-selector="button-icon-settings"
              ba-hotkey:space^enter="{{toggle_settings_menu()}}" onmouseout="this.blur()"
-             class="{{css}}-rightbutton-container {{cssplayer}}-button-{{settingsmenuactive ? 'active' : 'inactive'}}"
+             class="{{css}}-rightbutton-container {{cssplayer}}-button-{{settingsmenuactive ? 'active' : 'inactive'}} {{controlbar_hide_class}}"
              onkeydown="{{tab_index_move(domEvent)}}"
              ba-if="{{settingsmenubutton}}" ba-click="{{toggle_settings_menu()}}"
              title="{{string('settings')}}"
@@ -136,20 +136,20 @@
         <div tabindex="10" data-selector="cc-button-container"
              ba-hotkey:space^enter="{{toggle_tracks()}}" onmouseout="this.blur()"
              ba-if="{{(tracktags.length > 0 && showsubtitlebutton) || allowtexttrackupload}}"
-             class="{{css}}-rightbutton-container {{cssplayer}}-button-{{tracktextvisible ? 'active' : 'inactive'}}"
+             class="{{css}}-rightbutton-container {{cssplayer}}-button-{{tracktextvisible ? 'active' : 'inactive'}} {{controlbar_hide_class}}"
              title="{{ tracktextvisible ? string('close-tracks') : string('show-tracks')}}"
              ba-click="{{toggle_tracks()}}"
              onmouseover="{{hover_cc(true)}}"
              onmouseleave="{{hover_cc(false)}}"
         >
-            <div class="{{css}}-button-inner">
+            <div class="{{css}}-button-inner {{controlbar_hide_class}}">
                 <i class="{{csscommon}}-icon-subtitle"></i>
             </div>
         </div>
 
         <div tabindex=9 data-selector="button-icon-resize-full"
              ba-hotkey:space^enter="{{toggle_fullscreen()}}" onmouseout="this.blur()"
-             class="{{css}}-rightbutton-container"
+             class="{{css}}-rightbutton-container {{controlbar_hide_class}}"
              onkeydown="{{tab_index_move(domEvent)}}" ba-if="{{fullscreen}}" ba-click="{{toggle_fullscreen()}}" title="{{ fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video') }}">
             <div class="{{css}}-button-inner">
                 <i class="{{csscommon}}-icon-resize-{{fullscreened ? 'small' : 'full'}}"></i>
@@ -158,7 +158,7 @@
 
         <div tabindex="7" data-selector="button-airplay"
              ba-hotkey:space^enter="{{show_airplay_devices()}}" onmouseout="this.blur()"
-             class="{{css}}-rightbutton-container"
+             class="{{css}}-rightbutton-container {{controlbar_hide_class}}"
              ba-show="{{airplaybuttonvisible}}" ba-click="{{show_airplay_devices()}}">
             <div class="{{css}}-airplay-container">
                 <svg width="16px" height="11px" viewBox="0 0 16 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -173,22 +173,22 @@
             </div>
         </div>
 
-        <div data-selector="button-chromecast" class="{{css}}-rightbutton-container {{css}}-cast-button-container" ba-show="{{castbuttonvisble}}">
+        <div data-selector="button-chromecast" class="{{css}}-rightbutton-container {{css}}-cast-button-container {{controlbar_hide_class}}" ba-show="{{castbuttonvisble}}">
             <button tabindex="0" class="{{css}}-gcast-button" is="google-cast-button"></button>
         </div>
 
         <div tabindex="6" data-selector="button-stream-label"
              ba-hotkey:space^enter="{{toggle_stream()}}" onmouseout="this.blur()"
-             class="{{css}}-rightbutton-container"
+             class="{{css}}-rightbutton-container {{controlbar_hide_class}}"
              ba-if="{{streams.length > 1 && currentstream}}" ba-click="{{toggle_stream()}}"
              title="{{string('change-resolution')}}"
         >
-            <div class="{{css}}-button-inner">
+            <div class="{{css}}-button-inner {{controlbar_hide_class}}">
                 <span class="{{css}}-button-text">{{currentstream_label}}</span>
             </div>
         </div>
 
-        <div class="{{css}}-volumebar" ba-show="{{!hidevolumebar}}">
+        <div class="{{css}}-volumebar {{controlbar_hide_class}}" ba-show="{{!hidevolumebar}}">
             <div tabindex="5" data-selector="button-volume-bar"
                  ba-hotkey:right="{{set_volume(volume + 0.1)}}" ba-hotkey:left="{{set_volume(volume - 0.1)}}"
                  ba-hotkey:up="{{set_volume(1)}}" ba-hotkey:down="{{set_volume(0)}}"
@@ -205,7 +205,7 @@
 
         <div tabindex="4" data-selector="button-icon-volume"
              ba-hotkey:space^enter="{{toggle_volume()}}" onmouseout="this.blur()"
-             class="{{css}}-rightbutton-container"
+             class="{{css}}-rightbutton-container {{controlbar_hide_class}}"
              ba-click="{{toggle_volume()}}" title="{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}"
         >
             <div class="{{css}}-button-inner">

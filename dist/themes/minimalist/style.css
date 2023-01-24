@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.339 - 2022-12-22
+betajs-media-components - v0.0.340 - 2023-01-24
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -153,6 +153,9 @@ Apache-2.0 Software License.
   position: absolute;
   text-align: left;
   width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
 }
 .ba-player-minimalist-theme-controlbar-header .ba-player-minimalist-theme-right-block {
   line-height: 40px;
@@ -161,14 +164,27 @@ Apache-2.0 Software License.
   z-index: 100;
 }
 
+.ba-player-minimalist-theme-header-pad {
+  flex-grow: 1;
+  width: 4%;
+}
+
 .ba-videoplayer-ie8 .ba-player-minimalist-theme-controlbar-header {
   display: none;
 }
 
 .ba-player-minimalist-theme-controlbar-header-title-block {
+  flex-grow: 20;
   position: relative;
   width: 100%;
   z-index: 10;
+}
+.ba-player-minimalist-theme-controlbar-header-title-block > .prominent-title-close {
+  color: #eeeeee;
+  font-family: sans-serif;
+  font-size: 12px;
+  width: 40px;
+  height: 40px;
 }
 
 .ba-videoplayer-ie8 .ba-player-minimalist-theme-controlbar-header .ba-player-minimalist-theme-right-block {
@@ -187,8 +203,11 @@ Apache-2.0 Software License.
   letter-spacing: 0.1em;
   line-height: 40px;
   margin: 0;
-  padding: 0 0 0 4%;
+  padding: 0 0 0 0;
   text-align: left;
+}
+.ba-player-minimalist-theme-title p > span {
+  cursor: pointer;
 }
 
 .ba-videoplayer-noie8 .ba-player-minimalist-theme-controlbar-header .ba-player-minimalist-theme-button-inner {
@@ -290,10 +309,6 @@ Apache-2.0 Software License.
   cursor: pointer;
   z-index: 100;
   position: relative;
-}
-
-.ba-player-minimalist-theme-right-block {
-  float: right;
 }
 
 .ba-videoplayer-noie8 .ba-player-minimalist-theme-button-inner {

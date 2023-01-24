@@ -52,7 +52,19 @@
 .#{$csstheme}-title {
     float: left;
     color: $text_color;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    & > div {
+        flex-grow: 1;
+        cursor: pointer;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
     & > p {
+        flex-grow: 200;
         margin: 0;
         font-size: $controlbar_title_font_size;
     }

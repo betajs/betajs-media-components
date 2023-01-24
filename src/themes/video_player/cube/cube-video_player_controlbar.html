@@ -1,11 +1,13 @@
 
-<div data-selector="video-title-block" class="{{csstheme}}-title-block {{activitydelta > hidebarafter && hideoninactivity ? (cssplayer + '-dashboard-hidden') : ''}}" ba-if="{{title}}">
+<div data-selector="video-title-block" class="{{csstheme}}-title-block {{title_hide_class}}" ba-if="{{title && !prominent_title_closed}}">
     <p class="{{csstheme}}-title">
         {{title}}
     </p>
+    <div ba-if="{{closeable_title}}" class="prominent-title-close" ba-click="{{prominent_title_closed=true}}"><span>&#10006;</span></div>
+	<div ba-if="{{!closeable_title}}">&nbsp;</div>
 </div>
 
-<div class="{{csstheme}}-dashboard {{activitydelta > hidebarafter && hideoninactivity ? (cssplayer + '-dashboard-hidden') : ''}}">
+<div class="{{csstheme}}-dashboard {{controlbar_hide_class}}">
 
     <div class="{{csstheme}}-left-block">
 

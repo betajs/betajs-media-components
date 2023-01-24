@@ -27,6 +27,22 @@
   @include absolute-align-full-top();
   @include background-rgba(0, 0, 0, 0.6, #4f4f4f);
   @include transition1(opacity, $dashboard_transition, ease-in-out);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  & > p{
+    flex-grow: 200;
+    overflow: hidden;
+  }
+  & > div {
+      flex-grow: 1;
+      color: $text_color;
+      font-size: $text_fontsize;
+      padding: 10px;
+  }
+  & > .prominent-title-close > span{
+      cursor: pointer;
+  }
 }
 
 .#{$csstheme}-title {

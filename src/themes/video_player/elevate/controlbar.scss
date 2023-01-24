@@ -91,10 +91,14 @@
     height: $controlbar_bottom_height;
     overflow: hidden;
     width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
 }
 
 .#{$csstheme}-left-block {
-    float: left;
+    flex-grow: 1;
+    min-width: (2 * $button_width) + $volume_width + 3;
     & > div {
         //@include right-box-shadow($button_border_color, 1);
         border-right: 1px solid $button_border_color;
@@ -116,12 +120,13 @@
 }
 
 .#{$csstheme}-center-block {
-    float: left;
+    flex-grow: 10;
     padding: 0 10px;
 }
 
 .#{$csstheme}-right-block {
-    float: right;
+    flex-grow: 1;
+    min-width: (3 * $button_width) + 3;
     & > div {
         //@include left-box-shadow($button_border_color, 1);
         border-left: 1px solid $button_border_color;
@@ -192,7 +197,6 @@
 
 .#{$cssnoie8} .#{$csstheme}-volumebar {
     @include float-width-height(right, $volume_width, 100%);
-    margin-right: $volume_height*2;
 }
 
 .#{$cssie8} .#{$csstheme}-volumebar {
@@ -290,6 +294,7 @@
         color: $text_color;
         font-weight: bold;
         font-size: 1em;
+        cursor: pointer;
     }
 }
 

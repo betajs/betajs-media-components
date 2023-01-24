@@ -393,6 +393,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 create: function() {
                     this.set("prominent_title", this.get("prominent-title"));
                     this.set("closeable_title", this.get("closeable-title"));
+                    this._observer = new ResizeObserver(function(entries) {
+                        for (var i = 0; i < entries.length; i++) {
+                            this.trigger("resize", {
+                                width: entries[i].contentRect.width,
+                                height: entries[i].contentRect.height
+                            });
+                        }
+                    }.bind(this));
+                    this._observer.observe(this.activeElement());
                     this._validateParameters();
                     this.set("stickypositioncss", this.get("sticky-position"));
                     // Will set volume initial state
@@ -1606,6 +1615,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 destroy: function() {
+                    if (this._observer) this._observer.disconnect();
                     this._timer.destroy();
                     this.host.destroy();
                     this._detachVideo();

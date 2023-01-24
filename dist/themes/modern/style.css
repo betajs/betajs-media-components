@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.339 - 2022-12-22
+betajs-media-components - v0.0.340 - 2023-01-24
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -328,6 +328,24 @@ Apache-2.0 Software License.
   display: none;
 }
 
+.ba-player-theme-modern-prominent-title-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+.ba-player-theme-modern-prominent-title-container > p {
+  flex-grow: 200;
+  text-align: center;
+  overflow: hidden;
+}
+.ba-player-theme-modern-prominent-title-container > div {
+  flex-grow: 1;
+  width: 30px;
+}
+.ba-player-theme-modern-prominent-title-container > .prominent-title-close > span {
+  cursor: pointer;
+}
+
 .ba-player-theme-modern-title-container {
   position: absolute;
   left: 0;
@@ -340,7 +358,7 @@ Apache-2.0 Software License.
   -ms-transition: opacity 0.5s ease-in-out;
   width: 100%;
 }
-.ba-player-theme-modern-title-container > p {
+.ba-player-theme-modern-title-container > p, .ba-player-theme-modern-title-container div {
   color: #666666;
   background-color: #ecebed;
   background-color: rgba(255, 255, 255, 0.7);

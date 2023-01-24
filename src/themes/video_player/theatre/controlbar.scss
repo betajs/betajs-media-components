@@ -109,7 +109,11 @@
     @include absolute-align-full-top();
     @include transition1(opacity, $dashboard_transition, ease-in-out);
     width: 100%;
-    & > p {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    & > div {
+        width: $dashboard_width;
         @include background-rgba( 255, 255, 255, 0.4, $controlbar_background);
         @include relative-horizontally-center();
         height: $controlbar_height;
@@ -117,7 +121,22 @@
         top: $controlbar_distance_from_side;
         text-align: center;
         color: $message_color;
-        width: $dashboard_width;
+        display: flex;
+    }
+    & > div > p {
+        flex-grow: 200;
+        top: 0px;
+        margin: 0px;
+        height: $controlbar_height;
+        overflow: hidden;
+    }
+    & > div > div {
+        flex-grow: 1;
+        width: $controlbar_height;
+    }
+
+    & > div > .prominent-title-close > span{
+        cursor: pointer;
     }
 }
 

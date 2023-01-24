@@ -1,5 +1,6 @@
-<div class="{{csstheme}}-title-container {{activitydelta > hidebarafter && hideoninactivity ? (cssplayer + '-dashboard-hidden') : ''}}">
-    <div class="{{csstheme}}-title" ba-if="{{title}}">
+<div class="{{csstheme}}-title-container {{(prominent_title_closed && controlbar_hide_class ? cssplayer + '-dashboard-hidden' : '')}}">
+    <div class="{{csstheme}}-title {{title_hide_class}}" ba-if="{{title && !prominent_title_closed}}">
+        <div ba-if="{{closeable_title}}" class="prominent-title-close" ba-click="{{prominent_title_closed=true}}"><span>&#10006;</span></div>
         <p>{{title}}</p>
     </div>
 
@@ -8,7 +9,7 @@
              ba-hotkey:right="{{set_volume(volume + 0.1)}}"
              ba-hotkey:left="{{set_volume(volume - 0.1)}}"
              onmouseout="this.blur()"
-             class="{{csstheme}}-volumebar-inner"
+             class="{{csstheme}}-volumebar-inner {{controlbar_hide_class}}"
              ontouchstart="{{startUpdateVolume(domEvent, currElement)}}"
              onmousedown="{{startUpdateVolume(domEvent, currElement)}}"
         >
@@ -18,7 +19,7 @@
 
     <div tabindex="{{skipinitial ? 0 : 1}}" data-selector="button-icon-volume"
          ba-hotkey:space^enter="{{toggle_volume()}}" onmouseout="this.blur()"
-         class="{{csstheme}}-rightbutton-container"
+         class="{{csstheme}}-rightbutton-container {{controlbar_hide_class}}"
          ba-click="{{toggle_volume()}}" title="{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}"
     >
         <div class="{{csstheme}}-button-inner">
@@ -27,7 +28,7 @@
     </div>
 </div>
 
-<div class="{{csstheme}}-dashboard {{activitydelta > hidebarafter && hideoninactivity ? (cssplayer + '-dashboard-hidden') : ''}}">
+<div class="{{csstheme}}-dashboard {{controlbar_hide_class}}">
 
     <div class="{{csstheme}}-controlbar-footer">
         <div tabindex="0" data-selector="submit-video-button"

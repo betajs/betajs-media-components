@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.339 - 2022-12-22
+betajs-media-components - v0.0.340 - 2023-01-24
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -179,8 +179,18 @@ Apache-2.0 Software License.
 .ba-player-space-theme-title {
   float: left;
   color: #eeeeee;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+.ba-player-space-theme-title > div {
+  flex-grow: 1;
+  cursor: pointer;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 .ba-player-space-theme-title > p {
+  flex-grow: 200;
   margin: 0;
   font-size: 12px;
 }

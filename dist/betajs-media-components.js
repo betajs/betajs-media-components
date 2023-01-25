@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.341 - 2023-01-24
+betajs-media-components - v0.0.342 - 2023-01-25
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.341 - 2023-01-24
+betajs-media-components - v0.0.342 - 2023-01-25
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.341",
-    "datetime": 1674590101548
+    "version": "0.0.342",
+    "datetime": 1674678806971
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -7323,6 +7323,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("wait-user-interaction", true);
                         // check in which option player allow autoplay
                         this.__testAutoplayOptions();
+                        // Safari is behaving differently on the Desktop and Mobile
+                        // preload in desktop allow autoplay. In mobile, it's preventing autoplay
+                        if (Info.isSafari()) this.set("preload", !Info.isMobile());
+                        // In Safari Desktop can cause trouble on preload, if user will
                     }
 
                     if (this.get("theme")) this.set("theme", this.get("theme").toLowerCase());
@@ -7336,8 +7340,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (!this.get("themecolor"))
                         this.set("themecolor", "default");
 
-                    if (this.get("adprovider") && !this.get("wait-user-interaction"))
-                        this.initAdProvider();
+                    if (this.get("adprovider")) this.initAdProvider();
                     if (this.get("playlist") && this.get("playlist").length > 0) {
                         var pl0 = (this.get("playlist"))[0];
                         if (pl0 && Types.is_object(pl0)) {
@@ -7443,14 +7446,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 initAdProvider: function() {
-                    {
-                        this.set("ad-provider-ready", false);
-                        this._adProvider = this.get("adprovider");
-                        if (Types.is_string(this._adProvider))
-                            this._adProvider = AdProvider.registry[this._adProvider];
+                    var adInitOptions, adContainer;
+                    this._adProvider = this.get("adprovider");
+                    adContainer = this.activeElement().querySelector("[data-video='ima-ad-container']");
+                    if (Types.is_string(this._adProvider))
+                        this._adProvider = AdProvider.registry[this._adProvider];
 
-                        if (this._adProvider) {
-                            var adInitOptions = {
+                    if (this._adProvider) {
+                        if (!adContainer.hasChildNodes()) {
+                            this.set("ad-provider-ready", false);
+                            adInitOptions = {
                                 videoElement: this.activeElement().querySelector("[data-video='video']"),
                                 adElement: this.activeElement().querySelector("[data-video='ad']"),
                                 adContainer: this.activeElement().querySelector("[data-video='ima-ad-container']"),
@@ -7458,143 +7463,86 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             };
 
                             if (this.get("preroll")) {
-                                // console.warn('Adsense ad provider is deprecated, please try to implement IMA ad provider with linear & non-linear options instead');
                                 this._prerollAd = this._adProvider.newPrerollAd(adInitOptions);
                                 this.set("ad-provider-ready", true);
                             }
+                        }
 
-                            if ((this.get("adprovider") === 'ima' || this.get("adprovider").__IMA_PRE_ROLL) && (this.get("linear") || this.get("non-linear"))) {
-                                var schedules = [],
-                                    nonLinearSchedules = [];
-                                // Split all via comma exclude inside brackets
-                                if (this.get("linear")) {
-                                    schedules = Objs.map(this.get("linear").split(/(?![^)(]*\([^)(]*?\)\)),(?![^\[]*\])/), function(item) {
-                                        return item.trim();
-                                    }, this);
-                                }
 
-                                if (this.get("non-linear")) {
-                                    // TODO: add non-linear schedule as well
-                                    nonLinearSchedules = Objs.map(this.get("non-linear").split(/(?![^)(]*\([^)(]*?\)\)),(?![^\[]*\])/), function(item) {
-                                        var items = item.trim().split(/[\[\]]/);
-                                        if (items[0]) {
-                                            var position = items[0].split('%');
-                                            position = position.length > 1 ? parseFloat((position[0] / 100).toFixed(2)) : +items[0];
-                                            if (position > 0) {
-                                                var output = {
-                                                    position: position,
-                                                    width: null,
-                                                    height: null
-                                                };
-                                                if (items[1]) {
-                                                    var dimensions = items[1].split(',');
-                                                    if (dimensions.length > 0) {
-                                                        output.width = dimensions[0] ? dimensions[0] : null;
-                                                        output.height = dimensions[1] ? dimensions[1] : null;
-                                                    }
-                                                    return output;
-                                                } else {
-                                                    return output;
+                        if ((this.get("adprovider") === 'ima' || this.get("adprovider").__IMA_PRE_ROLL) && (this.get("linear") || this.get("non-linear"))) {
+                            var schedules = [],
+                                nonLinearSchedules = [];
+                            // Split all via comma exclude inside brackets
+                            if (this.get("linear")) {
+                                schedules = Objs.map(this.get("linear").split(/(?![^)(]*\([^)(]*?\)\)),(?![^\[]*\])/), function(item) {
+                                    return item.trim();
+                                }, this);
+                            }
+
+                            if (this.get("non-linear")) {
+                                // TODO: add non-linear schedule as well
+                                nonLinearSchedules = Objs.map(this.get("non-linear").split(/(?![^)(]*\([^)(]*?\)\)),(?![^\[]*\])/), function(item) {
+                                    var items = item.trim().split(/[\[\]]/);
+                                    if (items[0]) {
+                                        var position = items[0].split('%');
+                                        position = position.length > 1 ? parseFloat((position[0] / 100).toFixed(2)) : +items[0];
+                                        if (position > 0) {
+                                            var output = {
+                                                position: position,
+                                                width: null,
+                                                height: null
+                                            };
+                                            if (items[1]) {
+                                                var dimensions = items[1].split(',');
+                                                if (dimensions.length > 0) {
+                                                    output.width = dimensions[0] ? dimensions[0] : null;
+                                                    output.height = dimensions[1] ? dimensions[1] : null;
                                                 }
+                                                return output;
+                                            } else {
+                                                return output;
                                             }
                                         }
-                                    }, this);
-                                    // If user just set this setting will aplly it in 50% of the player
-                                    if (nonLinearSchedules.length === 0) {
-                                        nonLinearSchedules = [{
-                                            position: 0.5,
-                                            width: null,
-                                            height: null
-                                        }];
                                     }
+                                }, this);
+                                // If user just set this setting will aplly it in 50% of the player
+                                if (nonLinearSchedules.length === 0) {
+                                    nonLinearSchedules = [{
+                                        position: 0.5,
+                                        width: null,
+                                        height: null
+                                    }];
                                 }
-                                // On iOS and Android devices, video playback must begin in a user action.
-                                // In mobile could be require wait user interaction before init container and loader
-                                // Dom.userInteraction(function() {}, this);
+                            }
+                            // On iOS and Android devices, video playback must begin in a user action.
+                            // In mobile could be require wait user interaction before init container and loader
+                            // Dom.userInteraction(function() {}, this);
 
-                                if (schedules.length > 0 || nonLinearSchedules.length > 0) {
-                                    this.set("mid-linear-ad", []);
-                                    this.__adMinIntervals = this.get("minadintervals");
+                            if (schedules.length > 0 || nonLinearSchedules.length > 0) {
+                                this.set("mid-linear-ad", []);
+                                this.__adMinIntervals = this.get("minadintervals");
+                                if (Types.is_undefined(this._adsLoader) && adInitOptions) {
                                     this._adProvider.initAdsLoader(adInitOptions)
                                         .success(function(loader) {
                                             this._adsLoader = loader;
                                             this._adOptions = adInitOptions;
-                                            if (schedules.length > 0) {
-                                                Objs.iter(schedules, function(schedule) {
-                                                    switch (schedule.toLowerCase()) {
-                                                        case this._adProvider.__IMA_PRE_ROLL:
-                                                            // if already, the user did not set preroll as an attribute
-                                                            if (!this._prerollAd) {
-                                                                this._prerollAd = this._adProvider._newAdsRequester(this, this._adProvider.__IMA_PRE_ROLL, true);
-                                                            }
-                                                            break;
-                                                        case this._adProvider.__IMA_POST_ROLL:
-                                                            // Post-roll will trigger as soon as the video will be stopped
-                                                            this.set("has-post-roll-ad", true);
-                                                            break;
-                                                            // Midroll could be just "mid", which will trigger on 50% of player time,
-                                                            // or specify more details with second and percentage
-                                                        default:
-                                                            // if user set schedule with time settings
-                                                            if (/^mid\[[\d\s]+(,[\d\s]+|[\d\s]+\%|\%|[\d\s]+\*|\*)*\]*$/i.test(schedule)) {
-                                                                var _s = schedule.replace('mid[', '').replace(']', '');
-                                                                Objs.map(_s.split(','), function(item) {
-                                                                    item = item.trim();
-                                                                    if (/^[\d\s]+\*$/.test(item)) {
-                                                                        item = +item.replace("\*", '');
-                                                                        this.on("change:duration", function(duration) {
-                                                                            if (duration > 0) {
-                                                                                var step = Math.floor(duration / item);
-                                                                                if (duration > item) {
-                                                                                    for (var i = 1; i <= step; i++) {
-                                                                                        this.get("mid-linear-ad").push({
-                                                                                            position: i * item
-                                                                                        });
-                                                                                    }
-                                                                                }
-                                                                            }
-                                                                        }, this);
-                                                                    } else {
-                                                                        if (/^[\d\s]+\%$/.test(item)) {
-                                                                            item = parseInt(item.replace('%', '').trim(), 10);
-                                                                            if (item < 100 && item > 0) {
-                                                                                this.get("mid-linear-ad").push({
-                                                                                    position: parseFloat((item / 100).toFixed(2))
-                                                                                });
-                                                                            }
-                                                                        } else {
-                                                                            // the user also set 0 to 1 value, as percentage, more 1 means seconds
-                                                                            this.get("mid-linear-ad").push({
-                                                                                position: parseFloat(item)
-                                                                            });
-                                                                        }
-                                                                    }
-                                                                }, this);
-                                                            } else {
-                                                                if (/^mid\[.*?\]$/.test(schedule))
-                                                                    console.warn('Seems your mid roll settings does not correctly set. It will be played only in the middle of the video.');
-                                                                if (/^mid$/.test(schedule)) {
-                                                                    this.get("mid-linear-ad").push({
-                                                                        position: 0.5
-                                                                    });
-                                                                }
-                                                            }
-                                                            break;
-                                                    }
-                                                }, this);
-                                            }
-
-                                            if (nonLinearSchedules.length > 0) {
-                                                this.set("non-linear-ad", nonLinearSchedules);
-                                            }
-
+                                            this.__prepareAdSchedule(schedules, nonLinearSchedules);
                                         }, this)
                                         .error(function(err) {
                                             console.error("Error could not be able init adsense container. Err: ", err);
                                         }, this)
                                         .callback(function() {
+                                            // on IMS SDK related URLs are loaded
                                             this.set("ad-provider-ready", true);
                                         }, this);
+                                } else {
+                                    // This will be called in the next video cases
+                                    this.__prepareAdSchedule(schedules, nonLinearSchedules);
+                                    this.__adControlPosition = 0;
+                                    if ((this.get("mid-linear-ad").length > 0 || this.get('non-linear-ad').length > 0) && this._adsCollection) {
+                                        this._adsCollection.destroy();
+                                        this._adsCollection = null;
+                                    }
                                 }
                             }
                         }
@@ -7697,7 +7645,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.player)
                         this.player.weakDestroy();
                     // if the same instance
-                    if (this._prerollAd) {
+                    if (this._prerollAd && !this.get("hasnext")) {
                         if (typeof this._prerollAd._allAdsCompelted !== "undefined") {
                             if (this._prerollAd._allAdsCompelted) {
                                 this._prerollAd.weakDestroy();
@@ -7712,7 +7660,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     }
 
-                    if (this._postrollAd) {
+                    if (this._postrollAd && !this.get("hasnext")) {
                         this._postrollAd.weakDestroy();
                         this._postrollAd = null;
                     }
@@ -7786,7 +7734,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             return;
                         this.player = instance;
                         this.__video = video;
-                        this.set("silent_attach", silent || false);
+                        // On autoplay video silent attach should be false
+                        this.set("silent_attach", (silent && !this.get("autoplay")) || false);
 
                         if (this.get("chromecast")) {
                             if (!this.get("skipinitial")) this.set("skipinitial", true);
@@ -7878,20 +7827,31 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.set("hideoninactivity", this.get("initialoptions").hideoninactivity);
                             }
                         }, this);
-                        // If the browser not allows unmuted autoplay, and we have manually forcibly muted player
+
+                        // All conditions below appear on autoplay only
+                        // If the browser not allows unmuted autoplay,
+                        // and we have manually forcibly muted player
                         if (this.get("autoplay-requires-muted") || this.get("autoplay-requires-playsinline") || this.get("wait-user-interaction") || this.get("forciblymuted")) {
                             if (this.get("autoplay-requires-muted") || this.get("forciblymuted"))
                                 video.muted = true;
                             if (this.get("autoplay-requires-playsinline"))
                                 video.playsinline = true;
                             Dom.userInteraction(function() {
-                                this.set_volume(this.get("initialoptions").volumelevel);
+                                var _initialVolume = this.get("initialoptions").volumelevel > 1 ? 1 : this.get("initialoptions").volumelevel;
+                                this.set_volume(_initialVolume);
                                 this.set("autoplay", this.get("initialoptions").autoplay);
                                 if (this.get("volume") > 0.00)
                                     video.muted = false;
                                 this.set("forciblymuted", false);
+                                if (this.get("autoplay-requires-muted") && (this._prerollAd || this._adsRoll)) {
+                                    var _adsManager = (this._prerollAd || this._adsRoll)._adsManager;
+                                    var _adsControlBar = (this._prerollAd || this._adsRoll)._adControlbar;
+                                    if (_adsManager) _adsManager.setVolume(_initialVolume);
+                                    if (_adsControlBar) _adsControlBar.set('volume', _initialVolume);
+                                }
                                 if (this.get("wait-user-interaction") && this.get("autoplay")) {
                                     this.__testAutoplayOptions(video);
+                                    this.trigger("user-has-interaction");
                                 }
                             }, this);
                         }
@@ -8941,7 +8901,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 __testAutoplayOptions: function(video) {
-                    var sutableCondition = false;
+                    var suitableCondition = false;
                     var autoplayPossibleOptions = [{
                             muted: false,
                             playsinline: false
@@ -8962,12 +8922,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     Objs.iter(autoplayPossibleOptions, function(opt, index) {
                         PlayerSupport.canAutoplayVideo(opt)
                             .success(function(response, err) {
-                                if (sutableCondition) return;
+                                if (suitableCondition) return;
                                 // If condition is true no need for turn off volume
                                 if (!opt.muted && !opt.playsinline && response.result) {
                                     this.set("autoplay-allowed", true);
                                     this.set("wait-user-interaction", false);
-                                    sutableCondition = true;
+                                    suitableCondition = true;
                                     if (video) video.muted = opt.muted;
                                     if (video) {
                                         if (opt.playsinline) {
@@ -8985,7 +8945,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     this.set("wait-user-interaction", false);
                                     this.set("volume", 0.0);
                                     this.set("forciblymuted", true);
-                                    sutableCondition = true;
+                                    suitableCondition = true;
                                     if (video) video.muted = opt.muted;
                                     if (video) {
                                         if (opt.playsinline) {
@@ -9006,13 +8966,90 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                         this.set("autoplay-requires-muted", true);
                                         if (video) video.muted = true;
                                     }
-                                    sutableCondition = true;
+                                    suitableCondition = true;
                                 }
                             }, this)
                             .error(function(err) {
                                 console.warn("Error :", err, opt, index);
                             }, this);
                     }, this);
+                },
+
+                __prepareAdSchedule: function(schedules, nonLinearSchedules) {
+                    if (schedules.length > 0) {
+                        Objs.iter(schedules, function(schedule, index) {
+                            switch (schedule.toLowerCase()) {
+                                case this._adProvider.__IMA_PRE_ROLL:
+                                    // if already, the user did not set preroll as an attribute
+                                    if (!this._prerollAd) {
+                                        this._prerollAd = this._adProvider._newAdsRequester(this, this._adProvider.__IMA_PRE_ROLL, true);
+                                    }
+                                    break;
+                                case this._adProvider.__IMA_POST_ROLL:
+                                    // Post-roll will trigger as soon as the video will be stopped
+                                    this.set("has-post-roll-ad", true);
+                                    break;
+                                    // Midroll could be just "mid", which will trigger on 50% of player time,
+                                    // or specify more details with second and percentage
+                                default:
+                                    // if user set schedule with time settings
+                                    if (/^mid\[[\d\s]+(,[\d\s]+|[\d\s]+\%|\%|[\d\s]+\*|\*)*\]*$/i.test(schedule)) {
+                                        var _s = schedule.replace('mid[', '').replace(']', '');
+                                        Objs.map(_s.split(','), function(item) {
+                                            item = item.trim();
+                                            if (/^[\d\s]+\*$/.test(item)) {
+                                                item = +item.replace("\*", '');
+                                                this.on("change:duration", function(duration) {
+                                                    if (duration > 0) {
+                                                        var step = Math.floor(duration / item);
+                                                        if (duration > item) {
+                                                            for (var i = 1; i <= step; i++) {
+                                                                this.get("mid-linear-ad").push({
+                                                                    position: i * item
+                                                                });
+                                                            }
+                                                        }
+                                                    }
+                                                }, this);
+                                            } else {
+                                                if (/^[\d\s]+\%$/.test(item)) {
+                                                    item = parseInt(item.replace('%', '').trim(), 10);
+                                                    if (item < 100 && item > 0) {
+                                                        this.get("mid-linear-ad").push({
+                                                            position: parseFloat((item / 100).toFixed(2))
+                                                        });
+                                                    }
+                                                } else {
+                                                    // the user also set 0 to 1 value, as percentage, more 1 means seconds
+                                                    this.get("mid-linear-ad").push({
+                                                        position: parseFloat(item)
+                                                    });
+                                                }
+                                            }
+                                        }, this);
+                                    } else {
+                                        if (/^mid\[.*?\]$/.test(schedule))
+                                            console.log('Seems your mid roll settings does not correctly set. It will be played only in the middle of the video.');
+                                        if (/^mid$/.test(schedule)) {
+                                            this.get("mid-linear-ad").push({
+                                                position: 0.5
+                                            });
+                                        }
+                                    }
+                                    break;
+                            }
+
+                            // After iteration completing. if adsCollections existed should be destroyed
+                            if (((index + 1) === schedules.length) && !!this._adsCollection) {
+                                this._adsCollection.destroy();
+                                this._adsCollection = null;
+                            }
+                        }, this);
+                    }
+
+                    if (nonLinearSchedules.length > 0) {
+                        this.set("non-linear-ad", nonLinearSchedules);
+                    }
                 }
             };
         }], {
@@ -9418,7 +9455,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
 
         _started: function() {
             this.dyn.set("placeholderstyle", "");
-            // Will attach video in the backside
+            // Will attach video silently without starting playing the video
             if (!this.dyn.get("skipinitial") && this.dyn.get("preload"))
                 this.dyn._attachVideo(true);
             this.dyn.trigger("ready_to_play");
@@ -9427,8 +9464,20 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
                 if (!this.dyn.get("states").poster_error.ignore && !this.dyn.get("popup"))
                     this.next("PosterError");
             }, this);
-            if (this.dyn.get("autoplay") || this.dyn.get("skipinitial"))
+            if (this.dyn.get("autoplay")) {
+                this.listenOn(this.dyn, "change:wait-user-interaction", function(wait) {
+                    if (wait) {
+                        this.dyn.once("user-has-interaction", function() {
+                            this.play();
+                        }, this);
+                    } else {
+                        this.play();
+                    }
+                });
+            }
+            if ((this.dyn.get("skipinitial") && this.dyn.get("autoplay")) || this.dyn.get("play-next")) {
                 this.play();
+            }
         },
 
         play: function() {
@@ -9471,7 +9520,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Preroll", [
                 return;
             }
             if (this.dyn._prerollAd /* && !(this.dyn.get("autoplay") || this.dyn.get("skipinitial"))*/ ) {
-                this.dyn.reattachVideo();
+                if (!this.dyn.videoAttached()) this.dyn.reattachVideo();
                 this.executeAd('_prerollAd', "LoadVideo");
             } else {
                 this.next("LoadVideo");
@@ -9579,7 +9628,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.ErrorVideo", [
                     this.next("LoadVideo");
             }, this);
         }
-
     });
 });
 
@@ -9594,7 +9642,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
 
         _started: function() {
             this.dyn.set("autoplay", false);
-            // As during loop we will play player after ended event fire, need initial cover will be hidden
+            // As during a loop we will play player after ended event fire, need initial cover will be hidden
             if (this.dyn.get("loop"))
                 this.dyn.set("skipinitial", true);
             this.listenOn(this.dyn, "change:currentstream", function() {
@@ -9688,9 +9736,10 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
          * @private
          */
         _playNext: function(pl) {
+            if (this.dyn.get("adprovider")) this.dyn.initAdProvider();
             this.dyn.trigger("playlist-next", pl);
             // this.dyn.reattachVideo();
-            this.dyn.set("autoplay", true);
+            this.dyn.set("play-next", true);
             this.next("LoadPlayerDirectly");
         }
     });

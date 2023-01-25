@@ -376,9 +376,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             paddingTop: 100 / (aspectRatio || (fallbackWidth / fallbackHeight)) + "%"
                         };
                     },
-                    "containerSizingStyles:aspectratio,fallback-width,fallback-height,height,width": function(aspectRatio, fallbackWidth, fallbackHeight, height, width) {
+                    "aspect_ratio:aspectratio,fallback-width,fallback-height": function(aspectRatio, fallbackWidth, fallbackHeight) {
+                        return aspectRatio || fallbackWidth + "/" + fallbackHeight;
+                    },
+                    "containerSizingStyles:aspect_ratio,height,width": function(aspectRatio, height, width) {
                         var styles = {
-                            aspectRatio: aspectRatio || fallbackWidth + "/" + fallbackHeight
+                            aspectRatio: aspectRatio
                         };
                         if (height) styles.height = typeof height === "string" && height[height.length - 1] === "%" ? height : height + "px";
                         if (width) styles.width = typeof width === "string" && width[width.length - 1] === "%" ? width : width + "px";

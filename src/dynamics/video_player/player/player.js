@@ -550,24 +550,28 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 initAdProvider: function() {
-                    this.set("ad-provider-ready", false);
+                    var adInitOptions, adContainer;
                     this._adProvider = this.get("adprovider");
+                    adContainer = this.activeElement().querySelector("[data-video='ima-ad-container']");
                     if (Types.is_string(this._adProvider))
                         this._adProvider = AdProvider.registry[this._adProvider];
 
                     if (this._adProvider) {
-                        var adInitOptions = {
-                            videoElement: this.activeElement().querySelector("[data-video='video']"),
-                            adElement: this.activeElement().querySelector("[data-video='ad']"),
-                            adContainer: this.activeElement().querySelector("[data-video='ima-ad-container']"),
-                            dynamic: this
-                        };
+                        if (!adContainer.hasChildNodes()) {
+                            this.set("ad-provider-ready", false);
+                            adInitOptions = {
+                                videoElement: this.activeElement().querySelector("[data-video='video']"),
+                                adElement: this.activeElement().querySelector("[data-video='ad']"),
+                                adContainer: this.activeElement().querySelector("[data-video='ima-ad-container']"),
+                                dynamic: this
+                            };
 
-                        if (this.get("preroll")) {
-                            // console.warn('Adsense ad provider is deprecated, please try to implement IMA ad provider with linear & non-linear options instead');
-                            this._prerollAd = this._adProvider.newPrerollAd(adInitOptions);
-                            this.set("ad-provider-ready", true);
+                            if (this.get("preroll")) {
+                                this._prerollAd = this._adProvider.newPrerollAd(adInitOptions);
+                                this.set("ad-provider-ready", true);
+                            }
                         }
+
 
                         if ((this.get("adprovider") === 'ima' || this.get("adprovider").__IMA_PRE_ROLL) && (this.get("linear") || this.get("non-linear"))) {
                             var schedules = [],
@@ -621,87 +625,29 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (schedules.length > 0 || nonLinearSchedules.length > 0) {
                                 this.set("mid-linear-ad", []);
                                 this.__adMinIntervals = this.get("minadintervals");
-                                this._adProvider.initAdsLoader(adInitOptions)
-                                    .success(function(loader) {
-                                        this._adsLoader = loader;
-                                        this._adOptions = adInitOptions;
-                                        if (schedules.length > 0) {
-                                            Objs.iter(schedules, function(schedule) {
-                                                switch (schedule.toLowerCase()) {
-                                                    case this._adProvider.__IMA_PRE_ROLL:
-                                                        // if already, the user did not set preroll as an attribute
-                                                        if (!this._prerollAd) {
-                                                            this._prerollAd = this._adProvider._newAdsRequester(this, this._adProvider.__IMA_PRE_ROLL, true);
-                                                        }
-                                                        break;
-                                                    case this._adProvider.__IMA_POST_ROLL:
-                                                        // Post-roll will trigger as soon as the video will be stopped
-                                                        this.set("has-post-roll-ad", true);
-                                                        break;
-                                                        // Midroll could be just "mid", which will trigger on 50% of player time,
-                                                        // or specify more details with second and percentage
-                                                    default:
-                                                        // if user set schedule with time settings
-                                                        if (/^mid\[[\d\s]+(,[\d\s]+|[\d\s]+\%|\%|[\d\s]+\*|\*)*\]*$/i.test(schedule)) {
-                                                            var _s = schedule.replace('mid[', '').replace(']', '');
-                                                            Objs.map(_s.split(','), function(item) {
-                                                                item = item.trim();
-                                                                if (/^[\d\s]+\*$/.test(item)) {
-                                                                    item = +item.replace("\*", '');
-                                                                    this.on("change:duration", function(duration) {
-                                                                        if (duration > 0) {
-                                                                            var step = Math.floor(duration / item);
-                                                                            if (duration > item) {
-                                                                                for (var i = 1; i <= step; i++) {
-                                                                                    this.get("mid-linear-ad").push({
-                                                                                        position: i * item
-                                                                                    });
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }, this);
-                                                                } else {
-                                                                    if (/^[\d\s]+\%$/.test(item)) {
-                                                                        item = parseInt(item.replace('%', '').trim(), 10);
-                                                                        if (item < 100 && item > 0) {
-                                                                            this.get("mid-linear-ad").push({
-                                                                                position: parseFloat((item / 100).toFixed(2))
-                                                                            });
-                                                                        }
-                                                                    } else {
-                                                                        // the user also set 0 to 1 value, as percentage, more 1 means seconds
-                                                                        this.get("mid-linear-ad").push({
-                                                                            position: parseFloat(item)
-                                                                        });
-                                                                    }
-                                                                }
-                                                            }, this);
-                                                        } else {
-                                                            if (/^mid\[.*?\]$/.test(schedule))
-                                                                console.warn('Seems your mid roll settings does not correctly set. It will be played only in the middle of the video.');
-                                                            if (/^mid$/.test(schedule)) {
-                                                                this.get("mid-linear-ad").push({
-                                                                    position: 0.5
-                                                                });
-                                                            }
-                                                        }
-                                                        break;
-                                                }
-                                            }, this);
-                                        }
-
-                                        if (nonLinearSchedules.length > 0) {
-                                            this.set("non-linear-ad", nonLinearSchedules);
-                                        }
-
-                                    }, this)
-                                    .error(function(err) {
-                                        console.error("Error could not be able init adsense container. Err: ", err);
-                                    }, this)
-                                    .callback(function() {
-                                        // on IMS SDK related URLs are loaded
-                                        this.set("ad-provider-ready", true);
-                                    }, this);
+                                if (Types.is_undefined(this._adsLoader) && adInitOptions) {
+                                    this._adProvider.initAdsLoader(adInitOptions)
+                                        .success(function(loader) {
+                                            this._adsLoader = loader;
+                                            this._adOptions = adInitOptions;
+                                            this.__prepareAdSchedule(schedules, nonLinearSchedules);
+                                        }, this)
+                                        .error(function(err) {
+                                            console.error("Error could not be able init adsense container. Err: ", err);
+                                        }, this)
+                                        .callback(function() {
+                                            // on IMS SDK related URLs are loaded
+                                            this.set("ad-provider-ready", true);
+                                        }, this);
+                                } else {
+                                    // This will be called in the next video cases
+                                    this.__prepareAdSchedule(schedules, nonLinearSchedules);
+                                    this.__adControlPosition = 0;
+                                    if ((this.get("mid-linear-ad").length > 0 || this.get('non-linear-ad').length > 0) && this._adsCollection) {
+                                        this._adsCollection.destroy();
+                                        this._adsCollection = null;
+                                    }
+                                }
                             }
                         }
                     }
@@ -803,7 +749,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.player)
                         this.player.weakDestroy();
                     // if the same instance
-                    if (this._prerollAd) {
+                    if (this._prerollAd && !this.get("hasnext")) {
                         if (typeof this._prerollAd._allAdsCompelted !== "undefined") {
                             if (this._prerollAd._allAdsCompelted) {
                                 this._prerollAd.weakDestroy();
@@ -818,7 +764,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     }
 
-                    if (this._postrollAd) {
+                    if (this._postrollAd && !this.get("hasnext")) {
                         this._postrollAd.weakDestroy();
                         this._postrollAd = null;
                     }
@@ -987,7 +933,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }, this);
 
                         // All conditions below appear on autoplay only
-                        // If the browser not allows un-muted autoplay,
+                        // If the browser not allows unmuted autoplay,
                         // and we have manually forcibly muted player
                         if (this.get("autoplay-requires-muted") || this.get("autoplay-requires-playsinline") || this.get("wait-user-interaction") || this.get("forciblymuted")) {
                             if (this.get("autoplay-requires-muted") || this.get("forciblymuted"))
@@ -2059,7 +2005,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 __testAutoplayOptions: function(video) {
-                    var sutableCondition = false;
+                    var suitableCondition = false;
                     var autoplayPossibleOptions = [{
                             muted: false,
                             playsinline: false
@@ -2080,12 +2026,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     Objs.iter(autoplayPossibleOptions, function(opt, index) {
                         PlayerSupport.canAutoplayVideo(opt)
                             .success(function(response, err) {
-                                if (sutableCondition) return;
+                                if (suitableCondition) return;
                                 // If condition is true no need for turn off volume
                                 if (!opt.muted && !opt.playsinline && response.result) {
                                     this.set("autoplay-allowed", true);
                                     this.set("wait-user-interaction", false);
-                                    sutableCondition = true;
+                                    suitableCondition = true;
                                     if (video) video.muted = opt.muted;
                                     if (video) {
                                         if (opt.playsinline) {
@@ -2103,7 +2049,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     this.set("wait-user-interaction", false);
                                     this.set("volume", 0.0);
                                     this.set("forciblymuted", true);
-                                    sutableCondition = true;
+                                    suitableCondition = true;
                                     if (video) video.muted = opt.muted;
                                     if (video) {
                                         if (opt.playsinline) {
@@ -2124,13 +2070,90 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                         this.set("autoplay-requires-muted", true);
                                         if (video) video.muted = true;
                                     }
-                                    sutableCondition = true;
+                                    suitableCondition = true;
                                 }
                             }, this)
                             .error(function(err) {
                                 console.warn("Error :", err, opt, index);
                             }, this);
                     }, this);
+                },
+
+                __prepareAdSchedule: function(schedules, nonLinearSchedules) {
+                    if (schedules.length > 0) {
+                        Objs.iter(schedules, function(schedule, index) {
+                            switch (schedule.toLowerCase()) {
+                                case this._adProvider.__IMA_PRE_ROLL:
+                                    // if already, the user did not set preroll as an attribute
+                                    if (!this._prerollAd) {
+                                        this._prerollAd = this._adProvider._newAdsRequester(this, this._adProvider.__IMA_PRE_ROLL, true);
+                                    }
+                                    break;
+                                case this._adProvider.__IMA_POST_ROLL:
+                                    // Post-roll will trigger as soon as the video will be stopped
+                                    this.set("has-post-roll-ad", true);
+                                    break;
+                                    // Midroll could be just "mid", which will trigger on 50% of player time,
+                                    // or specify more details with second and percentage
+                                default:
+                                    // if user set schedule with time settings
+                                    if (/^mid\[[\d\s]+(,[\d\s]+|[\d\s]+\%|\%|[\d\s]+\*|\*)*\]*$/i.test(schedule)) {
+                                        var _s = schedule.replace('mid[', '').replace(']', '');
+                                        Objs.map(_s.split(','), function(item) {
+                                            item = item.trim();
+                                            if (/^[\d\s]+\*$/.test(item)) {
+                                                item = +item.replace("\*", '');
+                                                this.on("change:duration", function(duration) {
+                                                    if (duration > 0) {
+                                                        var step = Math.floor(duration / item);
+                                                        if (duration > item) {
+                                                            for (var i = 1; i <= step; i++) {
+                                                                this.get("mid-linear-ad").push({
+                                                                    position: i * item
+                                                                });
+                                                            }
+                                                        }
+                                                    }
+                                                }, this);
+                                            } else {
+                                                if (/^[\d\s]+\%$/.test(item)) {
+                                                    item = parseInt(item.replace('%', '').trim(), 10);
+                                                    if (item < 100 && item > 0) {
+                                                        this.get("mid-linear-ad").push({
+                                                            position: parseFloat((item / 100).toFixed(2))
+                                                        });
+                                                    }
+                                                } else {
+                                                    // the user also set 0 to 1 value, as percentage, more 1 means seconds
+                                                    this.get("mid-linear-ad").push({
+                                                        position: parseFloat(item)
+                                                    });
+                                                }
+                                            }
+                                        }, this);
+                                    } else {
+                                        if (/^mid\[.*?\]$/.test(schedule))
+                                            console.log('Seems your mid roll settings does not correctly set. It will be played only in the middle of the video.');
+                                        if (/^mid$/.test(schedule)) {
+                                            this.get("mid-linear-ad").push({
+                                                position: 0.5
+                                            });
+                                        }
+                                    }
+                                    break;
+                            }
+
+                            // After iteration completing. if adsCollections existed should be destroyed
+                            if (((index + 1) === schedules.length) && !!this._adsCollection) {
+                                this._adsCollection.destroy();
+                                this._adsCollection = null;
+                            }
+                        }, this);
+                    }
+
+                    if (nonLinearSchedules.length > 0) {
+                        this.set("non-linear-ad", nonLinearSchedules);
+                    }
                 }
             };
         }], {

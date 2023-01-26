@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.342 - 2023-01-25
+betajs-media-components - v0.0.343 - 2023-01-25
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.342",
-    "datetime": 1674678806971
+    "version": "0.0.343",
+    "datetime": 1674704416055
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -6261,9 +6261,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             paddingTop: 100 / (aspectRatio || (fallbackWidth / fallbackHeight)) + "%"
                         };
                     },
-                    "containerSizingStyles:aspectratio,fallback-width,fallback-height,height,width": function(aspectRatio, fallbackWidth, fallbackHeight, height, width) {
+                    "aspect_ratio:aspectratio,fallback-width,fallback-height": function(aspectRatio, fallbackWidth, fallbackHeight) {
+                        return aspectRatio || fallbackWidth + "/" + fallbackHeight;
+                    },
+                    "containerSizingStyles:aspect_ratio,height,width": function(aspectRatio, height, width) {
                         var styles = {
-                            aspectRatio: aspectRatio || fallbackWidth + "/" + fallbackHeight
+                            aspectRatio: aspectRatio
                         };
                         if (height) styles.height = typeof height === "string" && height[height.length - 1] === "%" ? height : height + "px";
                         if (width) styles.width = typeof width === "string" && width[width.length - 1] === "%" ? width : width + "px";

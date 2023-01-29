@@ -1648,8 +1648,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         //  are applied for another feature statement could be updated
                         if (this._adsRoll) {
                             var dimensions = this.get("states").dimensions;
-                            var _width = this.parentWidth() || this.videoWidth() || Dom.elementDimensions(this.activeElement()).width;
-                            var _height = this.parentHeight() || this.videoHeight() || Dom.elementDimensions(this.activeElement()).height;
+                            var _width = Dom.elementDimensions(this.activeElement()).width || this.videoWidth() || this.parentWidth();
+                            var _height = Dom.elementDimensions(this.activeElement()).height || this.videoHeight() || this.parentHeight();
                             // If any updates occur
                             if (dimensions.width === null || (dimensions.height !== _height || dimensions.width !== _width)) {
                                 this.set("states", Objs.tree_merge(this.get("states"), {
@@ -1809,8 +1809,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                             type: this._adProvider.__IMA_AD_TYPE_LINEAR,
                                             isLinear: true,
                                             dimensions: {
-                                                width: this.parentWidth(),
-                                                height: this.parentHeight()
+                                                width: Dom.elementDimensions(this.activeElement()).width || this.parentWidth(),
+                                                height: Dom.elementDimensions(this.activeElement()).height || this.parentHeight()
                                             }
                                         });
                                     }
@@ -1826,8 +1826,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                         var _position = nonLinear.position < 1 ?
                                             Math.floor(this.get("duration") * nonLinear.position) :
                                             nonLinear.position;
-                                        var _width = nonLinear.width || this.parentWidth();
-                                        var _height = nonLinear.height || this.parentHeight();
+                                        var _width = nonLinear.width || Dom.elementDimensions(this.activeElement()).width || this.parentWidth();
+                                        var _height = nonLinear.height || Dom.elementDimensions(this.activeElement()).height || this.parentHeight();
                                         this._adsCollection.add({
                                             position: _position,
                                             duration: this._adProvider.nonLienarDuration,
@@ -1949,8 +1949,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             );
                             var _nextPosition = this._nextRollPosition;
                             this._adsRoll.executeAd({
-                                width: _nextPosition.dimensions.width || this.parentWidth(),
-                                height: _nextPosition.dimensions.height || this.parentHeight(),
+                                width: _nextPosition.dimensions.width || Dom.elementDimensions(this.activeElement()).width || this.parentWidth(),
+                                height: _nextPosition.dimensions.height || Dom.elementDimensions(this.activeElement()).height || this.parentHeight(),
                                 exact: _nextPosition.exact || false,
                                 isLinear: _nextPosition.isLinear
                             });

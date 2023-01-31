@@ -58,7 +58,8 @@
         "betajs-media": "~0.0.191",
         "betajs-dynamics": "~0.0.83",
         "grunt-betajs-templates": "~0.1.11",
-        "js-beautify": ""
+        "js-beautify": "",
+        "sass": "^1.57.1"
     },
     "main": "dist/betajs-media-components.js",
     "repository": {

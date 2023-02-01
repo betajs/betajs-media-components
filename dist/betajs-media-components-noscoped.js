@@ -8467,7 +8467,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
                     }
                 });
             }
-            if ((this.dyn.get("skipinitial") && this.dyn.get("autoplay")) || this.dyn.get("play-next")) {
+            if (this.dyn.get("skipinitial") || this.dyn.get("play-next")) {
                 this.play();
             }
         },

@@ -424,7 +424,7 @@ Scoped.define("module:Ads.IMARequester", [
                 }
                 if (!element) return;
                 var dimensions = options[1].split(',');
-                var isFluid = dimensions === 'fluid';
+                var isFluid = dimensions[0] === 'fluid';
                 // dimensions = dimensions.split(',');
                 if (!isFluid) {
                     width = Number((dimensions && dimensions[0] && dimensions[0] > 0) ?

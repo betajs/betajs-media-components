@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--    <script type="text/javascript" src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>-->
+
+    <script src="../../vendors/jquery.min.js"></script>
+    <script src="../../node_modules/betajs-shims/dist/betajs-shims.js"></script>
+    <script src="../../node_modules/betajs-scoped/dist/scoped.js"></script>
+    <script src="../../node_modules/betajs/dist/beta-noscoped.js"></script>
+    <script src="../../node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
+    <script src="../../node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+    <script src="../../node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
+    <script src="../../dist/betajs-media-components-noscoped.js"></script>
+    <link  href="../../dist/betajs-media-components.css" rel="stylesheet" />
+    <script src="../../dist/themes/modern/script.js"></script>
+    <link  href="../../dist/themes/modern/style.css" rel="stylesheet" />
+</head>
+<body style="background: #EEE">
+    <script>
+
+        var gnrok; // = 'https://PUBLIC_ID.in.ngrok.io/';
+        var v4_2_companion = (gnrok || '//localhost:5050/') + 'static/demos/vast-samples/VAST_4_2/Inline_Companion_Tag-test.xml';
+
+        var adsense = new BetaJS.MediaComponents.Ads.IMAProvider({
+            adTagUrl: v4_2_companion
+            // adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator='
+
+
+            // , skipAfter: 3
+            , nonLinearDuration: 10 // default will be 10 seconds
+        });
+        adsense.register("ima");
+    </script>
+
+
+    <div>
+        <div>
+            <div id="player"></div>
+        </div>
+        <div>
+            <div id="companion-fluid"></div>
+            <div id="companion-selector" style="display: inline-block"></div>
+        </div>
+
+<!--        <ba-videoplayer-->
+<!--            ba-poster="/static/demos/assets/sample-cover.png"-->
+<!--            ba-source="https://betajs.com/sample.mp4"-->
+<!--            ba-theme="modern"-->
+<!--            ba-hideoninactivity="false"-->
+<!--            ba-width="480"-->
+<!--            ba-adprovider="ima"-->
+<!--            ba-linear="pre"-->
+<!--        ></ba-videoplayer>-->
+
+    </div>
+
+    <script>
+        var player = new BetaJS.MediaComponents.VideoPlayer.Dynamics.Player({
+            element: document.getElementById('player'),
+            attrs: {
+                theme: "modern",
+                poster: "/static/demos/assets/sample-cover.png"
+                // , source: "/static/demos/assets/portrait.mp4"
+                , source: "https://betajs.com/sample.mp4"
+                // , source: "/static/demos/assets/landscape.mp4"
+                // 'ba-playlist': [
+                //     {poster: 'sample-cover2.png', source: 'sample-video2.mp4'},
+                //     {poster: 'sample-cover.png', source: 'sample-video.mp4'},
+                //     {poster: 'sample-cover.png', source: 'sample-video3.mp4'}
+                // ],
+                , adprovider: "ima"
+                // showduration: true,
+                // ,linear: "pre, mid[6*], post"
+                // ,linear: "post"
+                , linear: "pre"
+                // , linear: "mid[5*]"
+                // , minadintervals: 5
+                // , 'non-linear': "52[,250], 55%[300], 19[,250], 2[480,70]"
+                // , preload: true
+                // , autoplay: true
+                // , 'companion-ad': '[300,250]|left'
+                // , 'companion-ad': '[300,]|top'
+                , 'companion-ad': '[]|bottom'
+                // , 'companion-ad': '[300,]|bottom'
+                // , 'companion-ad': 'companion-selector[300,200]'
+                // , 'companion-ad': 'companion-fluid[fluid]'
+                , width: 420
+                // , height: 480
+            }
+        });
+
+        player.on("adloaded", () => { console.log("ad loaded")});
+
+        player.activate();
+
+        // monitorEvents(player.activeElement());
+
+        // BetaJS.Dynamics.Dynamic.activate();
+    </script>
+</body>
+</html>

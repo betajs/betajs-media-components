@@ -1,9 +1,9 @@
 <VAST version="4.2" xmlns="http://www.iab.com/VAST">
-  <Ad id="20004" >
+  <Ad id="20004">
     <InLine>
       <AdSystem version="1">iabtechlab</AdSystem>
-      <Error><![CDATA[https://example.com/error]]></Error>
-      <Impression id="Impression-ID"><![CDATA[https://example.com/track/impression]]></Impression>
+      <Error><![CDATA[//localhost:5050/ad/error]]></Error>
+      <Impression id="Impression-ID"><![CDATA[//localhost:5050/ad/impression]]></Impression>
       <Pricing model="cpm" currency="USD">
         <![CDATA[ 25.00 ]]>
       </Pricing>
@@ -12,28 +12,46 @@
         <![CDATA[VAST 4.0 Pilot - Scenario 5]]>
       </AdTitle>
       <Creatives>
-        <Creative id="5480" sequence="1" adId="2447226">
+        <Creative id="28753825938" sequence="1" adId="2447226">
           <CompanionAds>
-            <Companion id="1232" width="300" height="250" assetWidth="250" assetHeight="200" expandedWidth="350" expandedHeight="250" adSlotId="3214" pxratio="1400">
+            <Companion id="28753825938" width="300" height="250" assetWidth="250" assetHeight="200" expandedWidth="350" expandedHeight="250" adSlotId="3214" pxratio="1400">
               <StaticResource creativeType="image/jpeg">
                 <![CDATA[//localhost:5050/static/demos/assets/vast/ad-rectangle-300x250.jpeg]]>
               </StaticResource>
               <CompanionClickThrough>
                 <![CDATA[https://ziggeo.com]]>
               </CompanionClickThrough>
+              <TrackingEvents>
+                <Tracking event="creativeView">
+                  <![CDATA[//localhost:5050/ad/creative-view-id-1232]]>
+                </Tracking>
+              </TrackingEvents>
+            </Companion>
+            <Companion id="28753826058" width="300" height="250">
+              <StaticResource creativeType="image/gif">
+                <![CDATA[//localhost:5050/static/demos/assets/iab.gif]]>
+              </StaticResource>
+              <TrackingEvents>
+                <Tracking event="creativeView">
+                  <![CDATA[]]>
+                </Tracking>
+              </TrackingEvents>
+              <CompanionClickThrough>
+                <![CDATA[https://www.iab.com/guidelines/vast/]]>
+              </CompanionClickThrough>
             </Companion>
           </CompanionAds>
-          <UniversalAdId idRegistry="Ad-ID" >8465</UniversalAdId>
+          <UniversalAdId idRegistry="Ad-ID">8465</UniversalAdId>
         </Creative>
         <Creative id="5481" sequence="1" adId="2447226">
           <Linear>
             <TrackingEvents>
-              <Tracking event="start" ><![CDATA[https://localhost:5050/ad/start]]></Tracking>
-              <Tracking event="progress" offset="00:00:10"><![CDATA[https://localhost:5050/ad/progress-10]]></Tracking>
-              <Tracking event="firstQuartile"><![CDATA[https://localhost:5050/ad/firstQuartile]]></Tracking>
-              <Tracking event="midpoint"><![CDATA[https://localhost:5050/ad/midpoint]]></Tracking>
-              <Tracking event="thirdQuartile"><![CDATA[https://localhost:5050/ad/thirdQuartile]]></Tracking>
-              <Tracking event="complete"><![CDATA[https://localhost:5050/ad/complete]]></Tracking>
+              <Tracking event="start" ><![CDATA[//localhost:5050/ad/start]]></Tracking>
+              <Tracking event="progress" offset="00:00:10"><![CDATA[//localhost:5050/ad/progress-10]]></Tracking>
+              <Tracking event="firstQuartile"><![CDATA[//localhost:5050/ad/firstQuartile]]></Tracking>
+              <Tracking event="midpoint"><![CDATA[//localhost:5050/ad/midpoint]]></Tracking>
+              <Tracking event="thirdQuartile"><![CDATA[//localhost:5050/ad/thirdQuartile]]></Tracking>
+              <Tracking event="complete"><![CDATA[//localhost:5050/ad/complete]]></Tracking>
             </TrackingEvents>
             <Duration>00:00:16</Duration>
             <MediaFiles>

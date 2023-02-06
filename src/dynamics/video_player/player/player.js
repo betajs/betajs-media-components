@@ -78,8 +78,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "popup-width": "",
                         "popup-height": "",
                         "aspectratio": null,
-                        "fallback-width": 320,
-                        "fallback-height": 240,
+                        "fallback-width": 480,
+                        "fallback-height": 270,
                         /* Themes */
                         "theme": "",
                         "csstheme": "",

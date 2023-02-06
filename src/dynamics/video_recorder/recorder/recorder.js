@@ -839,7 +839,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         this._attachRecorder();
                     this.persistentTrigger("loaded");
                     this.activeElement().classList.add(this.get("csscommon") + "-full-width");
-                    this.activeElement().classList.add(this.get("csscommon") + "-max-height-100vh");
                 },
 
                 _showBackgroundSnapshot: function() {

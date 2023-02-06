@@ -6,8 +6,7 @@
      {{sticktoview && fadeup ? csscommon + '-fade-up' : ''}}
      {{sticktoview ? csscommon + '-sticky-' + stickypositioncss : ''}}
      {{csscommon}}-full-width
-     {{cssplayer + (((activity_delta > hidebarafter) && hideoninactivity) ? '-controlbar-hidden' : '-controlbar-visible')}}
-     {{csscommon}}-max-height-100vh"
+     {{cssplayer + (((activity_delta > hidebarafter) && hideoninactivity) ? '-controlbar-hidden' : '-controlbar-visible')}}"
      ba-on:mousemove="{{user_activity()}}"
      ba-on:mousedown="{{user_activity(true)}}"
      ba-on:touchstart="{{user_activity(true)}}"

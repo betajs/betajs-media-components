@@ -1,10 +1,6 @@
 .#{$csscommon}-full-width { width: 100%; }
 
-.#{$csscommon}-half-width { width: 50%; }
-
 .#{$csscommon}-full-height { height: 100%; }
-
-.#{$csscommon}-max-height-100vh { max-height: 100vh; }
 
 .#{$csscommon}-portrait-aspect-ratio { aspect-ratio: 9/16; }
 
@@ -13,8 +9,6 @@
 .#{$csscommon}-standard-aspect-ratio { aspect-ratio: 4/3; }
 
 .#{$csscommon}-square-aspect-ratio { aspect-ratio: 1/1; }
-
-.#{$csscommon}-max-height-100vh { max-height: 100vh; }
 
 .#{$csscommon}-text-center {text-align: center;}
 

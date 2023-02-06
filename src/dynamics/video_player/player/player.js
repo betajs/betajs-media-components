@@ -1084,7 +1084,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this._attachVideo();
 
                     this.activeElement().classList.add(this.get("csscommon") + "-full-width");
-                    this.activeElement().classList.add(this.get("csscommon") + "-max-height-100vh");
 
                     if (this.get("slim") === true) {
                         // We should add the CSS codes and we are adding it here, to mark the player

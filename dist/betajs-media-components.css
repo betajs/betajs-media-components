@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.344 - 2023-02-01
+betajs-media-components - v0.0.345 - 2023-02-06
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -2471,16 +2471,8 @@ div.ba-commoncss-sticky {
   width: 100%;
 }
 
-.ba-commoncss-half-width {
-  width: 50%;
-}
-
 .ba-commoncss-full-height {
   height: 100%;
-}
-
-.ba-commoncss-max-height-100vh {
-  max-height: 100vh;
 }
 
 .ba-commoncss-portrait-aspect-ratio {
@@ -2497,10 +2489,6 @@ div.ba-commoncss-sticky {
 
 .ba-commoncss-square-aspect-ratio {
   aspect-ratio: 1/1;
-}
-
-.ba-commoncss-max-height-100vh {
-  max-height: 100vh;
 }
 
 .ba-commoncss-text-center {

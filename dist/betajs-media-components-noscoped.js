@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.346 - 2023-02-07
+betajs-media-components - v0.0.347 - 2023-02-07
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.346",
-    "datetime": 1675796811043
+    "version": "0.0.347",
+    "datetime": 1675803052375
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -6339,7 +6339,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             });
                         }
                     }.bind(this));
-                    this._observer.observe(this.activeElement());
+                    this._observer.observe(this.activeElement().firstChild);
                     this._validateParameters();
                     // Will set volume initial state
                     this.set("initialoptions", Objs.tree_merge(this.get("initialoptions"), {

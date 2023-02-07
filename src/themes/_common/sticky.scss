@@ -45,7 +45,7 @@ div.#{$csscommon}-sticky {
 }
 
 .#{$csscommon}-sticky {
-    max-width: 360px;
+    width: 360px;
     animation: #{$csscommon}-fade-in 0.75s ease forwards;
 }
 

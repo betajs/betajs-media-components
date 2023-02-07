@@ -966,6 +966,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this._error("poster");
                         }, this);
                         this.player.on("playing", function() {
+                            if (this.get("sticky")) this.stickyHandler.start();
                             this.set("playing", true);
                             this.trigger("playing");
                             if (this.get("playedonce") === false) {

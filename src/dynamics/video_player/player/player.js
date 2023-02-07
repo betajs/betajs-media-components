@@ -412,7 +412,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }.bind(this));
                     this._observer.observe(this.activeElement());
                     this._validateParameters();
-                    this.set("stickypositioncss", this.get("sticky-position"));
                     // Will set volume initial state
                     this.set("initialoptions", Objs.tree_merge(this.get("initialoptions"), {
                         volumelevel: this.get("volume"),
@@ -533,7 +532,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     if (this.get("sticky")) {
                         var stickyOptions = {
-                            paused: true
+                            paused: true,
+                            position: this.get("sticky-position")
                         };
                         this.stickyHandler = this.auto_destroy(new StickyHandler(
                             this.activeElement().firstChild,
@@ -541,14 +541,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             stickyOptions
                         ));
                         this.stickyHandler.init();
-                        this.set("fadeup", true);
-                        this.stickyHandler.on("elementLeftView", function() {
-                            this.set("sticktoview", true);
-                        }, this);
-                        this.stickyHandler.on("containerEnteredView", function() {
-                            this.set("sticktoview", false);
-                            if (this.get("fadeup") && this.stickyHandler.elementWasDragged()) this.set("fadeup", false);
-                        }, this);
                     }
                 },
 
@@ -966,6 +958,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this._error("poster");
                         }, this);
                         this.player.on("playing", function() {
+                            if (this.get("sticky")) this.stickyHandler.start();
                             this.set("playing", true);
                             this.trigger("playing");
                             if (this.get("playedonce") === false) {

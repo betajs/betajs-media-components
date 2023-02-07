@@ -410,7 +410,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             });
                         }
                     }.bind(this));
-                    this._observer.observe(this.activeElement());
+                    this._observer.observe(this.activeElement().firstChild);
                     this._validateParameters();
                     // Will set volume initial state
                     this.set("initialoptions", Objs.tree_merge(this.get("initialoptions"), {

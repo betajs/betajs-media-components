@@ -2,9 +2,6 @@
      class="{{css}}-container {{cssplayer}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}
      {{cssplayer}}-{{fullscreened ? 'fullscreen' : 'normal'}}-view {{cssplayer}}-{{firefox ? 'firefox' : 'common'}}-browser
      {{cssplayer}}-{{themecolor}}-color {{cssplayer}}-device-type-{{mobileview ? 'mobile' : 'desktop'}}
-     {{sticktoview ? csscommon + '-sticky' : ''}}
-     {{sticktoview && fadeup ? csscommon + '-fade-up' : ''}}
-     {{sticktoview ? csscommon + '-sticky-' + stickypositioncss : ''}}
      {{csscommon}}-full-width
      {{cssplayer + (((activity_delta > hidebarafter) && hideoninactivity) ? '-controlbar-hidden' : '-controlbar-visible')}}"
      ba-on:mousemove="{{user_activity()}}"

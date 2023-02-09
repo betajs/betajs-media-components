@@ -425,8 +425,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     }
 
-                    if ((this.get("autoplay") || this.get("playwhenvisible"))) {
-                        this.set("wait-user-interaction", true);
+                    if (this.get("autoplay") || this.get("playwhenvisible")) {
                         // check in which option player allow autoplay
                         this.__testAutoplayOptions();
                         // Safari is behaving differently on the Desktop and Mobile
@@ -833,8 +832,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             return;
                         this.player = instance;
                         this.__video = video;
-                        // On autoplay video silent attach should be false
-                        // this.set("silent_attach", (silent && !this.get("autoplay")) || false);
+                        // On autoplay video, silent attach should be false
+                        this.set("silent_attach", (silent && !this.get("autoplay")) || false);
 
                         if (this.get("chromecast")) {
                             if (!this.get("skipinitial")) this.set("skipinitial", true);
@@ -930,30 +929,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         // All conditions below appear on autoplay only
                         // If the browser not allows unmuted autoplay,
                         // and we have manually forcibly muted player
-                        if (this.get("autoplay-requires-muted") || this.get("autoplay-requires-playsinline") || this.get("wait-user-interaction") || this.get("forciblymuted")) {
-                            if (this.get("autoplay-requires-muted") || this.get("forciblymuted"))
-                                video.muted = true;
-                            if (this.get("autoplay-requires-playsinline"))
-                                video.playsinline = true;
-                            Dom.userInteraction(function() {
-                                var _initialVolume = this.get("initialoptions").volumelevel > 1 ? 1 : this.get("initialoptions").volumelevel;
-                                this.set_volume(_initialVolume);
-                                this.set("autoplay", this.get("initialoptions").autoplay);
-                                if (this.get("volume") > 0.00)
-                                    video.muted = false;
-                                this.set("forciblymuted", false);
-                                if (this.get("autoplay-requires-muted") && (this._prerollAd || this._adsRoll)) {
-                                    var _adsManager = (this._prerollAd || this._adsRoll)._adsManager;
-                                    var _adsControlBar = (this._prerollAd || this._adsRoll)._adControlbar;
-                                    if (_adsManager) _adsManager.setVolume(_initialVolume);
-                                    if (_adsControlBar) _adsControlBar.set('volume', _initialVolume);
-                                }
-                                if (this.get("wait-user-interaction") && this.get("autoplay")) {
-                                    this.__testAutoplayOptions(video);
-                                    this.trigger("user-has-interaction");
-                                }
-                            }, this);
-                        }
+                        this._checkAutoPlay(this.__video);
                         this.player.on("postererror", function() {
                             this._error("poster");
                         }, this);
@@ -1902,23 +1878,27 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this._adsRoll.once("adendmanually", function(ad) {
                                     if (this._adsRoll) this._adsRoll.weakDestroy();
                                     this._adsRoll = null;
-                                    if (!this.get("playing") && !this.get("manuallypaused") && ad.isLinear())
+                                    if (!this.get("playing") && !this.get("manuallypaused") && ad.isLinear()) {
                                         this.player.play();
+                                    }
                                 }, this);
 
                                 this._adsRoll.once("adfinished", function(ad) {
                                     if (this._adsRoll) this._adsRoll.weakDestroy();
                                     this._adsRoll = null;
-                                    if (!this.get("playing") && !this.get("manuallypaused"))
+                                    if (!this.get("playing") && !this.get("manuallypaused")) {
+                                        console.warn("adfinished PLAY ll ");
                                         this.player.play();
+                                    }
                                 }, this);
 
                                 this._adsRoll.on("ad-error", function(message) {
                                     console.error('Error during loading an ad. Details:"' + message + '".');
                                     if (this._adsRoll) this._adsRoll.weakDestroy();
                                     this._adsRoll = null;
-                                    if (!this.get("playing") && !this.get("manuallypaused"))
+                                    if (!this.get("playing") && !this.get("manuallypaused")) {
                                         this.player.play();
+                                    }
                                 }, this);
                             } else {
                                 // Will allow 5 seconds for load content before destroying the roll instance
@@ -1999,6 +1979,36 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 },
 
+                _checkAutoPlay: function(video) {
+                    video = video || this.__video;
+                    if (!video) return;
+                    if (this.get("autoplay-requires-muted") || this.get("autoplay-requires-playsinline") || this.get("wait-user-interaction") || this.get("forciblymuted")) {
+                        if (this.get("autoplay-requires-muted") || this.get("forciblymuted"))
+                            video.muted = true;
+                        if (this.get("autoplay-requires-playsinline"))
+                            video.playsinline = true;
+                        Dom.userInteraction(function() {
+                            var _initialVolume = this.get("initialoptions").volumelevel > 1 ? 1 : this.get("initialoptions").volumelevel;
+                            this.set_volume(_initialVolume);
+                            this.set("autoplay", this.get("initialoptions").autoplay);
+                            if (this.get("volume") > 0.00)
+                                video.muted = false;
+                            this.set("forciblymuted", false);
+                            if (this.get("autoplay-requires-muted") && (this._prerollAd || this._adsRoll)) {
+                                var _adsManager = (this._prerollAd || this._adsRoll)._adsManager;
+                                var _adsControlBar = (this._prerollAd || this._adsRoll)._adControlbar;
+                                if (_adsManager) _adsManager.setVolume(_initialVolume);
+                                if (_adsControlBar) _adsControlBar.set('volume', _initialVolume);
+                            }
+                            if (this.get("wait-user-interaction") && this.get("autoplay")) {
+                                this.__testAutoplayOptions(video);
+                                this.trigger("user-has-interaction");
+                            }
+                        }, this);
+                    }
+
+                },
+
                 __testAutoplayOptions: function(video) {
                     var suitableCondition = false;
                     var autoplayPossibleOptions = [{
@@ -2027,7 +2037,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     this.set("autoplay-allowed", true);
                                     this.set("wait-user-interaction", false);
                                     suitableCondition = true;
-                                    if (video) video.muted = opt.muted;
+                                    // if (video) video.muted = opt.muted;
                                     if (video) {
                                         if (opt.playsinline) {
                                             video.setAttribute('playsinline', '');
@@ -2040,6 +2050,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     }
                                 }
                                 if (opt.muted && response.result) {
+                                    this.set("forciblymuted", true);
                                     this.set("autoplay-requires-muted", true);
                                     this.set("wait-user-interaction", false);
                                     this.set("volume", 0.0);
@@ -2062,6 +2073,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     this.set("wait-user-interaction", false);
                                     if (video) video.playsinline = true;
                                     if (opt.muted) {
+                                        this.set("forciblymuted", true);
                                         this.set("autoplay-requires-muted", true);
                                         if (video) video.muted = true;
                                     }

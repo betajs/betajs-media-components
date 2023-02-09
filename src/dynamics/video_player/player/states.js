@@ -393,17 +393,27 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
                     this.next("PosterError");
             }, this);
             if (this.dyn.get("autoplay")) {
-                this.listenOn(this.dyn, "change:wait-user-interaction", function(wait) {
-                    if (wait) {
+                if (this.dyn.get("wait-user-interaction") !== undefined) {
+                    if (this.dyn.get("wait-user-interaction")) {
                         this.dyn.once("user-has-interaction", function() {
                             this.play();
                         }, this);
                     } else {
                         this.play();
                     }
-                });
+                } else {
+                    this.listenOn(this.dyn, "change:wait-user-interaction", function(wait) {
+                        if (wait) {
+                            this.dyn.once("user-has-interaction", function() {
+                                this.play();
+                            }, this);
+                        } else {
+                            this.play();
+                        }
+                    });
+                }
             }
-            if ((this.dyn.get("skipinitial") && !this.dyn.get("autoplay")) || this.dyn.get("play-next")) {
+            if (this.dyn && ((this.dyn.get("skipinitial") && !this.dyn.get("autoplay")) || this.dyn.get("play-next"))) {
                 this.play();
             }
         },

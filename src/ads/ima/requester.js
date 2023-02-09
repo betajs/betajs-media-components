@@ -369,7 +369,7 @@ Scoped.define("module:Ads.IMARequester", [
 
                 if (this._options)
                     this._options.adElement.style.display = "none";
-                this.trigger('adendmanually', this._adsManager.getCurrentAd(), this._dyn);
+                this.trigger('adendmanually', this._adsManager && this._adsManager.getCurrentAd ? this._adsManager.getCurrentAd() : undefined, this._dyn);
             },
 
             // Will get a new AdsManager when will make next request.

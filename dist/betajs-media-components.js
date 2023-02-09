@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.347 - 2023-02-07
+betajs-media-components - v0.0.348 - 2023-02-09
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.347 - 2023-02-07
+betajs-media-components - v0.0.348 - 2023-02-09
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.347",
-    "datetime": 1675803052375
+    "version": "0.0.348",
+    "datetime": 1675973667587
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -1385,7 +1385,7 @@ Scoped.define("module:Ads.IMA.Controlbar", [
                     this._adsRequester = this.get("requester");
                     this._contentPlayer = this._adsRequester._dyn;
                     this._adsManager = this._adsRequester._adsManager;
-                    this._ads = this._adsManager.getCurrentAd();
+                    this._ads = this._adsManager && this._adsManager.getCurrentAd ? this._adsManager.getCurrentAd() : undefined;
                     this._element = this._adsRequester._options.adContainer;
                     this.set("last_activity", Time.now());
 
@@ -1402,6 +1402,9 @@ Scoped.define("module:Ads.IMA.Controlbar", [
                                 this.set("media", this._ads.getMediaUrl());
                             }
                         }
+                    } else {
+                        console.warn("Ad is undefined in IMA controlbar");
+                        return;
                     }
                     this.set("supportsfullscreen", Dom.elementSupportsFullscreen(this._element));
 
@@ -1428,8 +1431,10 @@ Scoped.define("module:Ads.IMA.Controlbar", [
                     this.set("volume", this._adsManager.getVolume());
                     this.set("remaining", this._adsManager.getRemainingTime());
                     // vastMediaBitrate: 360 // vastMediaHeight: 300 // vastMediaWidth: 400
+                    /*
                     this.set("width", this._contentPlayer.videoWidth());
                     this.set("height", this._contentPlayer.videoHeight());
+                    */
 
                     // If a skipoffset attribute does not exist in XML, but user set own skip after
                     if (!this._ads.isSkippable() && Types.isNumber(this._adsRequester._providerOptions.skipAfter)) {
@@ -2083,7 +2088,7 @@ Scoped.define("module:Ads.IMARequester", [
 
                 if (this._options)
                     this._options.adElement.style.display = "none";
-                this.trigger('adendmanually', this._adsManager.getCurrentAd(), this._dyn);
+                this.trigger('adendmanually', this._adsManager && this._adsManager.getCurrentAd ? this._adsManager.getCurrentAd() : undefined, this._dyn);
             },
 
             // Will get a new AdsManager when will make next request.
@@ -9504,17 +9509,27 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
                     this.next("PosterError");
             }, this);
             if (this.dyn.get("autoplay")) {
-                this.listenOn(this.dyn, "change:wait-user-interaction", function(wait) {
-                    if (wait) {
+                if (this.dyn.get("wait-user-interaction") !== undefined) {
+                    if (this.dyn.get("wait-user-interaction")) {
                         this.dyn.once("user-has-interaction", function() {
                             this.play();
                         }, this);
                     } else {
                         this.play();
                     }
-                });
+                } else {
+                    this.listenOn(this.dyn, "change:wait-user-interaction", function(wait) {
+                        if (wait) {
+                            this.dyn.once("user-has-interaction", function() {
+                                this.play();
+                            }, this);
+                        } else {
+                            this.play();
+                        }
+                    });
+                }
             }
-            if ((this.dyn.get("skipinitial") && !this.dyn.get("autoplay")) || this.dyn.get("play-next")) {
+            if (this.dyn && ((this.dyn.get("skipinitial") && !this.dyn.get("autoplay")) || this.dyn.get("play-next"))) {
                 this.play();
             }
         },

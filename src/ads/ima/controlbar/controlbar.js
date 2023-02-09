@@ -55,7 +55,7 @@ Scoped.define("module:Ads.IMA.Controlbar", [
                     this._adsRequester = this.get("requester");
                     this._contentPlayer = this._adsRequester._dyn;
                     this._adsManager = this._adsRequester._adsManager;
-                    this._ads = this._adsManager.getCurrentAd();
+                    this._ads = this._adsManager && this._adsManager.getCurrentAd ? this._adsManager.getCurrentAd() : undefined;
                     this._element = this._adsRequester._options.adContainer;
                     this.set("last_activity", Time.now());
 
@@ -72,6 +72,9 @@ Scoped.define("module:Ads.IMA.Controlbar", [
                                 this.set("media", this._ads.getMediaUrl());
                             }
                         }
+                    } else {
+                        console.warn("Ad is undefined in IMA controlbar");
+                        return;
                     }
                     this.set("supportsfullscreen", Dom.elementSupportsFullscreen(this._element));
 
@@ -98,8 +101,10 @@ Scoped.define("module:Ads.IMA.Controlbar", [
                     this.set("volume", this._adsManager.getVolume());
                     this.set("remaining", this._adsManager.getRemainingTime());
                     // vastMediaBitrate: 360 // vastMediaHeight: 300 // vastMediaWidth: 400
+                    /*
                     this.set("width", this._contentPlayer.videoWidth());
                     this.set("height", this._contentPlayer.videoHeight());
+                    */
 
                     // If a skipoffset attribute does not exist in XML, but user set own skip after
                     if (!this._ads.isSkippable() && Types.isNumber(this._adsRequester._providerOptions.skipAfter)) {

@@ -489,11 +489,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("fullscreensupport", false);
                     this.set("csssize", "normal");
 
-                    this.set("loader_active", false);
-                    this.set("playbutton_active", false);
-                    this.set("controlbar_active", false);
-                    this.set("message_active", false);
-                    this.set("settingsmenu_active", false);
+                    // this.set("loader_active", false);
+                    // this.set("playbutton_active", false);
+                    // this.set("controlbar_active", false);
+                    // this.set("message_active", false);
+                    // this.set("settingsmenu_active", false);
 
                     this.set("last_activity", Time.now());
                     this.set("activity_delta", 0);

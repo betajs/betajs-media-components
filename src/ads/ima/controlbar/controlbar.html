@@ -26,6 +26,9 @@
     ></div>
 
     <div ba-if="{{showcontrolbar}}" class="{{cssplayer}}-ad-controlbar {{controlbarisvisible ? '' : (cssplayer + '-dashboard-hidden')}}">
+        <div class="{{css}}-ad-progressbar-inside-controller">
+            <div class="{{css}}-ad-progressbar-played" ba-styles="{{{width: Math.round(duration ? played / duration * 100 : 0) + '%'}}}"></div>
+        </div>
         <div tabindex="1" ba-hotkey:space^enter="{{toggle_player()}}"
              onmouseout="this.blur()" class="{{css}}-leftbutton-container"
              autofocus
@@ -87,6 +90,11 @@
             <div class="{{cssplayer}}-ad-button-inner">
                 <i class="{{csscommon + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}"></i>
             </div>
+        </div>
+    </div>
+    <div ba-if="{{showcontrolbar && !controlbarisvisible}}" class="{{css}}-ad-progressbar-container">
+        <div class="{{css}}-ad-progressbar">
+            <div class="{{css}}-ad-progressbar-played" ba-styles="{{{width: Math.round(duration ? played / duration * 100 : 0) + '%'}}}"></div>
         </div>
     </div>
 </div>

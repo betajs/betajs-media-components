@@ -239,8 +239,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         // Reference to Chrome renewed policy, we have to setup mute for auto-playing players.
                         // If we do it forcibly, then we will set as true
                         "forciblymuted": false,
-                        "autoplay-allowed": null,
-                        "autoplay-requires-muted": null,
+                        "autoplay-allowed": false,
+                        "autoplay-requires-muted": true,
                         "autoplay-requires-playsinline": null,
                         // When volume was unmuted, by the user himself, not automatically
                         "volumeafterinteraction": false,
@@ -1573,6 +1573,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             var new_position = this.player.position();
                             if (new_position !== this.get("position") || this.get("last_position_change"))
                                 this.set("last_position_change", _now);
+
+                            // If play action will not set the silent_attach to false.
+                            if (new_position > 0.0 && this.get("silent_attach"))
+                                this.set("silent_attach", false);
                             // In case if prevent interaction with controller set to true
                             if (this.get('preventinteraction')) {
                                 // set timer since player started to play
@@ -1603,7 +1607,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (this.get('hideoninactivity') && (this.get('activity_delta') > this.get('hidebarafter'))) {
                                 this.set("settingsmenu_active", false);
                             }
-
                             // We need this part run each second not too fast, this.__adControlPosition will control it
                             if (this._adsLoader && this._adProvider && this.__adControlPosition < this.get("position")) {
                                 this.__adControlPosition = Math.ceil(this.get("position"));
@@ -2032,10 +2035,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         PlayerSupport.canAutoplayVideo(opt)
                             .success(function(response, err) {
                                 if (suitableCondition) return;
+                                // If autoplay is allowed in any way
+                                if (!this.get("autoplay-allowed")) {
+                                    this.set("autoplay-allowed", !!response.result);
+                                }
                                 // If condition is true no need for turn off volume
                                 if (!opt.muted && !opt.playsinline && response.result) {
-                                    this.set("autoplay-allowed", true);
                                     this.set("wait-user-interaction", false);
+                                    this.set("autoplay-requires-muted", false);
                                     suitableCondition = true;
                                     // if (video) video.muted = opt.muted;
                                     if (video) {

@@ -123,8 +123,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
                             dyn._adsRoll.weakDestroy();
                         dyn._adsRoll = null;
                     }
-                    if (!dyn.get("playing") && !dyn.get("manuallypaused") && ad.isLinear()) {
-                        console.warn("INS Sp pl ");
+                    if (!dyn.get("playing") && !dyn.get("manuallypaused") && (ad && ad.isLinear())) {
                         dyn.player.play();
                     }
                 } else {
@@ -147,7 +146,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
                 width: this.dyn.parentWidth() || this.dyn.videoWidth(),
                 height: this.dyn.parentHeight() || this.dyn.videoHeight(),
                 autoplayAllowed: this.dyn.get("autoplay-allowed"),
-                autoplayRequiresMuted: this.dyn.get("autoplay-requires-muted")
+                autoplayRequiresMuted: this.dyn.get("autoplay-requires-muted"),
+                playlistVideo: !!this.dyn.get("playlist") && this.dyn.get("playlist").length > 0
             });
         }
 
@@ -399,11 +399,10 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
             if (this.dyn && ((this.dyn.get("skipinitial") && !this.dyn.get("autoplay")) || this.dyn.get("play-next"))) {
                 this.play();
             }
-            if (this.dyn.get("autoplay")) this.runAutoplay();
+            if (this.dyn && this.dyn.get("autoplay")) this.runAutoplay();
         },
 
         play: function() {
-            this.dyn.set("silent_attach", false);
             if (!this.dyn.get("popup")) {
                 this.next("Preroll");
                 return;
@@ -464,9 +463,13 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Preroll", [
                 this.dyn.once("change:ad-provider-ready", this._started, this);
                 return;
             }
-            if (this.dyn._prerollAd /* && !(this.dyn.get("autoplay") || this.dyn.get("skipinitial"))*/ ) {
-                if (!this.dyn.videoAttached()) this.dyn.reattachVideo();
-                this.executeAd('_prerollAd', "LoadVideo");
+            if (this.dyn._prerollAd) {
+                if (this.dyn.get("skipinitial") && !this.dyn.get("autoplay"))
+                    this.next("LoadVideo");
+                else {
+                    if (!this.dyn.videoAttached()) this.dyn.reattachVideo();
+                    this.executeAd('_prerollAd', "LoadVideo");
+                }
             } else {
                 this.next("LoadVideo");
             }
@@ -614,7 +617,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
         },
 
         play: function() {
-            console.timeStamp('IS play inside PlayerStates.PlayVideo');
             // Will execute on, skip initial
             if (this.dyn.get("position") === 0 && this.dyn._prerollAd && (this.dyn.get("autoplay") || this.dyn.get("skipinitial"))) {
                 this.executeAd('_prerollAd');

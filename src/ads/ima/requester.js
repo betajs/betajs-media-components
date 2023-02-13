@@ -51,7 +51,7 @@ Scoped.define("module:Ads.IMARequester", [
                     ].includes(this._providerOptions.vpaidMode))
                     google.ima.settings.setVpaidMode(this._providerOptions.vpaidMode);
                 else
-                    google.ima.settings.setVpaidMode(google.ima.ImaSdkSettings.VpaidMode.DISABLED);
+                    google.ima.settings.setVpaidMode(google.ima.ImaSdkSettings.VpaidMode.ENABLED);
 
                 // Call setLocale() to localize language text and downloaded swfs
                 if (Info.language() !== "en" || this._providerOptions.locale)
@@ -93,8 +93,8 @@ Scoped.define("module:Ads.IMARequester", [
                 }, false);
 
                 this._adsLoader.addEventListener(google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED, function(ev) {
-                    // Preload if ad is preroll and user set preload optin
-                    self.onAdsManagerLoaded(ev, provider.__IMA_PRE_ROLL || self._autostart);
+                    // Preload if ad is preroll and user set a preload option
+                    self.onAdsManagerLoaded(ev, !!provider.__IMA_PRE_ROLL || self._autostart);
                     self._isLoaded = true;
                     if (self._autostart) self.startAd();
                 }, false);
@@ -112,10 +112,16 @@ Scoped.define("module:Ads.IMARequester", [
                 this._adsRequest.nonLinearAdSlotWidth = +options.width;
                 this._adsRequest.nonLinearAdSlotHeight = +options.height;
 
-                if (options.autoplayAllowed && typeof options.autoplayAllowed === "boolean")
+                if (options.autoplayAllowed && typeof options.autoplayAllowed === "boolean") {
                     this._adsRequest.setAdWillAutoPlay(options.autoplayAllowed);
-                if (options.autoplayRequiresMuted && typeof options.autoplayRequiresMuted === "boolean")
+                }
+                if (options.autoplayRequiresMuted && typeof options.autoplayRequiresMuted === "boolean") {
+                    // setAdWillPlayMuted -- is just an informative method
                     this._adsRequest.setAdWillPlayMuted(options.autoplayRequiresMuted);
+                }
+                this._autoPlayAllowed = !!options.autoplayRequiresMuted && !!options.autoplayAllowed;
+                if (options.playlistVideo && typeof options.playlistVideo === "boolean")
+                    this._adsRequest.setContinuousPlayback(options.playlistVideo);
 
                 this._adsLoader.requestAds(this._adsRequest);
             },
@@ -234,8 +240,7 @@ Scoped.define("module:Ads.IMARequester", [
                         this.trigger('ad' + ev.type, ad);
                         break;
                     case google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED:
-                        if (this._dyn.get("playing") && ad.isLinear())
-                            this._dyn.pause();
+                        if (ad.isLinear()) this._dyn.pause();
                         if ((ad.isLinear() && this._linearExpected) || (!ad.isLinear() && !this._linearExpected)) {
                             this._options.adElement.style.display = "";
                             if (!this._adControlbar) this._showIMAAdController(ad);
@@ -258,6 +263,11 @@ Scoped.define("module:Ads.IMARequester", [
                             }
                         }
                         this.trigger('ad' + ev.type, ad);
+                        break;
+                    case google.ima.AdEvent.Type.AD_PROGRESS:
+                        // be sure player will not run in the background on linear ad
+                        if (this._dyn && this._isLinear && this._dyn.get("playing"))
+                            this._dyn.pause();
                         break;
                     case google.ima.AdEvent.Type.PAUSED:
                         this._isPlaying = false;
@@ -284,7 +294,8 @@ Scoped.define("module:Ads.IMARequester", [
              * @private
              */
             onAdError: function(type, message) {
-                if (this._options) this._options.adElement.style.display = "none";
+                if (this._options && this._options.adElment)
+                    this._options.adElment.style.display = "none";
                 if (this._adControlbar) {
                     this._adControlbar.weakDestroy();
                     this._adControlbar = undefined;
@@ -349,6 +360,9 @@ Scoped.define("module:Ads.IMARequester", [
                     this._adsManager.init(initWidth, initHeight, google.ima.ViewMode.NORMAL);
                     // Play if browser allows playing without sound
                     // this._adsRequest.setAdWillPlayMuted(true);
+                    if (dyn.get("autoplay-requires-muted") && dyn.get("autoplay-allowed") && dyn.get("autoplay")) {
+                        this._adsManager.setVolume(0);
+                    }
                     this._adsManager.start();
                 } catch (e) {
                     this.onAdError('Ad Manager Init Error: ', e);

@@ -77,7 +77,29 @@
     @include relative-center-center;
     float: left;
     width: auto;
-    padding: 0 15px;
+    padding: 3px 15px 0;
+}
+.#{$cssvideoplayer}-ad-progressbar-container {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    z-index: 100;
+    background-color: #666666;
+    height: 3px;
+    cursor: not-allowed;
+}
+.#{$cssvideoplayer}-ad-progressbar-played {
+    background-color: #F1D44F;
+    position: relative;
+    left: 0;
+    height: 3px;
+}
+.#{$cssvideoplayer}-ad-progressbar-inside-controller {
+    position: absolute;
+    width: 100%;
+    .#{$cssvideoplayer}-ad-progressbar-played {
+        height: 1px;
+    }
 }
 
 .#{$cssnoie8} .#{$cssplayer}-ad-volumebar {

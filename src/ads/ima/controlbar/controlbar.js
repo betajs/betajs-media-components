@@ -265,6 +265,7 @@ Scoped.define("module:Ads.IMA.Controlbar", [
                         this._contentPlayer.set("activity_delta", this.get("activity_delta"));
 
                     this.set("remaining", this._adsManager.getRemainingTime());
+                    this.set("played", this.get("duration") - this.get("remaining"));
 
                     if (this.get("skipoffset") > 0 && this.get("skippable")) {
                         this.set("lefttillskip", Math.floor(this.get("skipoffset") - (this.get("duration") - this.get("remaining"))));

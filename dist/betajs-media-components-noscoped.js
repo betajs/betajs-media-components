@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.349 - 2023-02-09
+betajs-media-components - v0.0.350 - 2023-02-13
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.349",
-    "datetime": 1675976605507
+    "version": "0.0.350",
+    "datetime": 1676318556896
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -6423,11 +6423,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("fullscreensupport", false);
                     this.set("csssize", "normal");
 
-                    this.set("loader_active", false);
-                    this.set("playbutton_active", false);
-                    this.set("controlbar_active", false);
-                    this.set("message_active", false);
-                    this.set("settingsmenu_active", false);
+                    // this.set("loader_active", false);
+                    // this.set("playbutton_active", false);
+                    // this.set("controlbar_active", false);
+                    // this.set("message_active", false);
+                    // this.set("settingsmenu_active", false);
 
                     this.set("last_activity", Time.now());
                     this.set("activity_delta", 0);

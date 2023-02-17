@@ -38,54 +38,6 @@
         // var nonLinear = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/nonlinear_ad_samples&sz=480x70&cust_params=sample_ct%3Dnonlinear&ciu_szs=300x250%2C728x90&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=';
         var nonLinear = '//localhost:5050/static/demos/vast-samples/dc-single_non-linear.xml';
 
-        const inlineVAST = `<VAST version="2.0">
-            <Ad id="81121">
-              <InLine>
-                <AdSystem>Kargo</AdSystem>
-                <AdTitle>Vast Test</AdTitle>
-                <Impression>
-                  <![CDATA[https://tk.kargo.com/t/impression.2eucc5arkobuhdrj?rand=13561821663705664&kid=&uuid=dc04c83b-fca9-4d23-b0d9-cecf0276b9f5&aslot={AD_SLOT}&krg_imp_id={IMP_ID}&url=]]>
-                </Impression>
-                <Creatives>
-                  <Creative>
-                    <Linear>
-                      <Duration>00:00:15.000</Duration>
-                      <TrackingEvents>
-                        <Tracking event="start">
-                          <![CDATA[https://tk.kargo.com/t/video-start.2eucc5arkobuhdrl?rand=13561821663705664&kid=&uuid=dc04c83b-fca9-4d23-b0d9-cecf0276b9f5&aslot={AD_SLOT}&krg_imp_id={IMP_ID}]]></Tracking>
-                        <Tracking event="firstQuartile">
-                          <![CDATA[https://tk.kargo.com/t/video-q1.2eucc5arkobuhdrm?rand=13561821663705664&kid=&uuid=dc04c83b-fca9-4d23-b0d9-cecf0276b9f5&aslot={AD_SLOT}&krg_imp_id={IMP_ID}]]></Tracking>
-                        <Tracking event="midpoint">
-                          <![CDATA[https://tk.kargo.com/t/video-q2.2eucc5arkobuhdrn?rand=13561821663705664&kid=&uuid=dc04c83b-fca9-4d23-b0d9-cecf0276b9f5&aslot={AD_SLOT}&krg_imp_id={IMP_ID}]]></Tracking>
-                        <Tracking event="thirdQuartile">
-                          <![CDATA[https://tk.kargo.com/t/video-q3.2eucc5arkobuhdro?rand=13561821663705664&kid=&uuid=dc04c83b-fca9-4d23-b0d9-cecf0276b9f5&aslot={AD_SLOT}&krg_imp_id={IMP_ID}]]></Tracking>
-                        <Tracking event="complete">
-                          <![CDATA[https://tk.kargo.com/t/video-complete.2eucc5arkobuhdrp?rand=13561821663705664&kid=&uuid=dc04c83b-fca9-4d23-b0d9-cecf0276b9f5&aslot={AD_SLOT}&krg_imp_id={IMP_ID}]]></Tracking>
-                        <Tracking event="mute">
-                          <![CDATA[https://tk.kargo.com/t/mute.2eucc5arkobuhdrq?rand=13561821663705664&kid=&uuid=dc04c83b-fca9-4d23-b0d9-cecf0276b9f5&aslot={AD_SLOT}&krg_imp_id={IMP_ID}]]></Tracking>
-                        <Tracking event="unmute">
-                          <![CDATA[https://tk.kargo.com/t/unmute.2eucc5arkobuhdrr?rand=13561821663705664&kid=&uuid=dc04c83b-fca9-4d23-b0d9-cecf0276b9f5&aslot={AD_SLOT}&krg_imp_id={IMP_ID}]]></Tracking>
-                      </TrackingEvents>
-                        <VideoClicks>
-                          <ClickThrough>
-                            <![CDATA[https://www.t-mobile.com/]]>
-                          </ClickThrough>
-                          <ClickTracking>
-                            <![CDATA[https://tk.kargo.com/t/click.2eucc5arkobuhdrk?rand=13561821663705664&kid=&uuid=dc04c83b-fca9-4d23-b0d9-cecf0276b9f5&aslot={AD_SLOT}&krg_imp_id={IMP_ID}&url=]]>
-                          </ClickTracking>
-                        </VideoClicks>
-                        <MediaFiles>
-                          <MediaFile height="360" width="640" bitrate="480" type="video/mp4" delivery="progressive">
-                              <![CDATA[https://storage.cloud.kargo.com/ad/campaign/rm/adCouncil/video/202105171303/Ad_Council.mp4]]>
-                          </MediaFile>
-                        </MediaFiles>
-                      </Linear>
-                    </Creative>
-                  </Creatives>
-                </InLine>
-              </Ad>
-            </VAST>`;
-
         var adsense = new BetaJS.MediaComponents.Ads.IMAProvider({
             // adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator='
             // adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator='

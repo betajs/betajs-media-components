@@ -268,7 +268,7 @@ Scoped.define("module:Ads.IMARequester", [
                         // be sure player will not run in the background on linear ad
                         // if (this._dyn && this._isLinear && this._dyn.get("playing"))
                         //     this._dyn.pause();
-                        // break;
+                        break;
                     case google.ima.AdEvent.Type.PAUSED:
                         this._isPlaying = false;
                         this.trigger('ad' + ev.type, ad);

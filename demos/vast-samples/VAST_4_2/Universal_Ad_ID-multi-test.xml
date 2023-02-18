@@ -35,7 +35,7 @@
                          maxBitrate="2500" scalable="1" maintainAspectRatio="1"
                          codec="H.264"
               >
-                <![CDATA[//localhost:5050/static/demos/assets/iab-vast-intro.mp4]]>
+                <![CDATA[//localhost:5050/static/demos/assets/vast/iab-vast-intro.mp4]]>
               </MediaFile>
               <MediaFile id="5244" delivery="progressive" type="video/mp4" bitrate="1000"
                          width="854" height="480" minBitrate="700" maxBitrate="1500"

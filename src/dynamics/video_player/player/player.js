@@ -426,7 +426,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             delay: 1000 / (this.get("sample_brightness_rate") || 10),
                             fire: function() {
                                 if (!this.player) return;
-                                this.set("brightness", this.player.lightLevel(this.get("sample_brightness_sample_size")) * 100 / 255);
+                                var lightLevel = this.player.lightLevel(this.get("sample_brightness_sample_size"), this.get("sample_brightness_sample_areas"));
+                                if (Array.isArray(lightLevel)) lightLevel = lightLevel.map(function(level) {
+                                    return level * 100 / 255;
+                                });
+                                else lightLevel = lightLevel * 100 / 255;
+                                this.set("brightness", lightLevel);
                             }.bind(this),
                             start: false
                         }));

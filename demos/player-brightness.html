@@ -50,7 +50,8 @@
       poster: "./sample-cover.png",
       sample_brightness: true,
       sample_brightness_rate: 10,
-      sample_brightness_sample_size: 250
+      sample_brightness_sample_size: 100,
+      sample_brightness_sample_areas: [[[0,0.2],[0,1]],[[0.5,1],[0.5,1]]] // [[x0, x1], [y0, y1]] goes from 0 to 1
     }
   });
   player.on("change:brightness", function(brightness) {

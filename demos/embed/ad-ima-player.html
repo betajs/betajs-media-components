@@ -22,13 +22,13 @@
         var errroAd = '//localhost:5050/static/demos/vast-samples/---error-url---';
         var v3_clickThroughtLocalAd = '//localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml';
         var v3_skipable = '//localhost:5050/static/demos/vast-samples/ads-linear-skipable.xml';
-        var v3_doubleclick = 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=';
+        var v3_doubleclick = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/single_preroll_skippable&sz=640x480&ciu_szs=300x250%2C728x90&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=';
         // var v3_doubleclickVMAP = 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=&ad_rule=1';
-        var v3_doubleclickbased = '//localhost:5050/static/demos/vast-samples/based-doubleclick.xml';
+        // var v3_doubleclickbased = '//localhost:5050/static/demos/vast-samples/based-doubleclick.xml';
         var v4_2_wrapper = '//localhost:5050/static/demos/vast-samples/VAST_4_2/Wrapper_Tag-test.xml';
         // var v4_2_non_linear = '//localhost:5050/static/demos/vast-samples/VAST_4_2/Inline_Non-Linear_Tag-test.xml';
         var v3_non_linear = '//localhost:5050/static/demos/vast-samples/VAST_3_0/Inline_Non-Linear_Tag-test.xml';
-        var v4_2_skipable = (gnrok || '//localhost:5050/') + 'static/demos/vast-samples/VAST_4_2/Inline_Skipable.xml';
+        // var v4_2_skipable = (gnrok || '//localhost:5050/') + 'static/demos/vast-samples/VAST_4_2/Inline_Skipable.xml';
         var v4_2_non_skipable = '//localhost:5050/static/demos/vast-samples/VAST_4_2/Inline_NON_Skipable.xml';
 
         // VMAP - Pre-roll Single Ad, Mid-roll Optimized Pod with 3 Ads, Post-roll Single Ad
@@ -45,16 +45,16 @@
             // adTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Inline_Linear_Tag-test.xml'
             // adTagUrl: errroAd
             // adTagUrl: v3_clickThroughtLocalAd
-            // adTagUrl: v3_doubleclickbased
             // adTagUrl: v3_skipable
             // adTagUrl: v4_2_wrapper
             // adTagUrl: v3_doubleclickVMAP
-            adTagUrl: v4_2_skipable
             // adTagUrl: v4_2_non_skipable
             // adTagUrl: vmap
             // adTagUrl: nonLinear
-            , nonLinearAdTagUrl: v3_non_linear
-
+            // adTagUrl: v4_2_skipable
+            // inlineVASTXML: inlineVAST
+            adTagUrl: v3_doubleclick
+            // , nonLinearAdTagUrl: v3_non_linear
             // preAdTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml',
             // postAdTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml',
             // midAdTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml',
@@ -98,11 +98,11 @@
         var player = new BetaJS.MediaComponents.VideoPlayer.Dynamics.Player({
             element: document.getElementById('player'),
             attrs: {
-                theme: "modern",
+                // theme: "modern",
                 poster: "/static/demos/assets/sample-cover.png"
                 // , source: "/static/demos/assets/portrait.mp4"
                 , source: "https://betajs.com/sample.mp4"
-                // source: "/static/demos/assets/landscape.mp4",
+                // , source: "/static/demos/assets/landscape.mp4"
                 // 'ba-playlist': [
                 //     {poster: 'sample-cover2.png', source: 'sample-video2.mp4'},
                 //     {poster: 'sample-cover.png', source: 'sample-video.mp4'},
@@ -116,7 +116,7 @@
                 // , linear: "mid[5*]"
                 , minadintervals: 8
                 , skipinitial: true
-                // , autoplay: true
+                , autoplay: true
                 // , preload: true
                 // , 'non-linear': "52[,250], 55%[300], 19[,250], 2[480,70]"
             }

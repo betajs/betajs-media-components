@@ -63,9 +63,13 @@ Scoped.define("module:Ads.IMARequester", [
                 // setAutoPlayAdBreaks(boolean)
                 // google.ima.settings.setVpaidAllowed(true); // true will cause an issue
 
-                // For IOS skip able
-                if (Info.isiOS() && Info.safariVersion() >= 10)
-                    google.ima.settings.setDisableCustomPlaybackForIOS10Plus(true);
+                // For IOS, make mobile Safari only skip able in the fullscreen
+                // As we're not providing a fullscreen mode in the iOS ads, disable it.
+                // Setting is as a true, will replace a Dynamics video element source via ad source.
+                // if (Info.isiOS() && Info.safariVersion() >= 10) {
+                //     this._isCustomPlayback;
+                //     google.ima.settings.setDisableCustomPlaybackForIOS10Plus(true);
+                // }
 
                 this._adsRequest = new google.ima.AdsRequest();
                 this._adsRequest.adsResponse = this._providerOptions.inlineVASTXML;
@@ -266,8 +270,8 @@ Scoped.define("module:Ads.IMARequester", [
                         break;
                     case google.ima.AdEvent.Type.AD_PROGRESS:
                         // be sure player will not run in the background on linear ad
-                        if (this._dyn && this._isLinear && this._dyn.get("playing"))
-                            this._dyn.pause();
+                        // if (this._dyn && this._isLinear && this._dyn.get("playing"))
+                        //     this._dyn.pause();
                         break;
                     case google.ima.AdEvent.Type.PAUSED:
                         this._isPlaying = false;

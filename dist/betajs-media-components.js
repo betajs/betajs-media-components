@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.351 - 2023-02-13
+betajs-media-components - v0.0.352 - 2023-02-19
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.351 - 2023-02-13
+betajs-media-components - v0.0.352 - 2023-02-19
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.351",
-    "datetime": 1676323041067
+    "version": "0.0.352",
+    "datetime": 1676831654205
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -1783,9 +1783,13 @@ Scoped.define("module:Ads.IMARequester", [
                 // setAutoPlayAdBreaks(boolean)
                 // google.ima.settings.setVpaidAllowed(true); // true will cause an issue
 
-                // For IOS skip able
-                if (Info.isiOS() && Info.safariVersion() >= 10)
-                    google.ima.settings.setDisableCustomPlaybackForIOS10Plus(true);
+                // For IOS, make mobile Safari only skip able in the fullscreen
+                // As we're not providing a fullscreen mode in the iOS ads, disable it.
+                // Setting is as a true, will replace a Dynamics video element source via ad source.
+                // if (Info.isiOS() && Info.safariVersion() >= 10) {
+                //     this._isCustomPlayback;
+                //     google.ima.settings.setDisableCustomPlaybackForIOS10Plus(true);
+                // }
 
                 this._adsRequest = new google.ima.AdsRequest();
                 this._adsRequest.adsResponse = this._providerOptions.inlineVASTXML;
@@ -1986,8 +1990,8 @@ Scoped.define("module:Ads.IMARequester", [
                         break;
                     case google.ima.AdEvent.Type.AD_PROGRESS:
                         // be sure player will not run in the background on linear ad
-                        if (this._dyn && this._isLinear && this._dyn.get("playing"))
-                            this._dyn.pause();
+                        // if (this._dyn && this._isLinear && this._dyn.get("playing"))
+                        //     this._dyn.pause();
                         break;
                     case google.ima.AdEvent.Type.PAUSED:
                         this._isPlaying = false;
@@ -7023,6 +7027,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 attrs: function() {
                     return {
                         /* CSS */
+                        brightness: 0,
+                        sample_brightness: false,
+                        sample_brightness_rate: 10, // times per second
+                        sample_brightness_sample_size: 250,
                         "css": "ba-videoplayer",
                         "csscommon": "ba-commoncss",
                         "cssplayer": "ba-player",
@@ -7377,6 +7385,21 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         volumelevel: this.get("volume"),
                         autoplay: this.get("autoplay")
                     }));
+                    if (this.get("sample_brightness")) {
+                        this.__brightnessSampler = this.auto_destroy(new Timers.Timer({
+                            delay: 1000 / (this.get("sample_brightness_rate") || 10),
+                            fire: function() {
+                                if (!this.player) return;
+                                var lightLevel = this.player.lightLevel(this.get("sample_brightness_sample_size"), this.get("sample_brightness_sample_areas"));
+                                if (Array.isArray(lightLevel)) lightLevel = lightLevel.map(function(level) {
+                                    return level * 100 / 255;
+                                });
+                                else lightLevel = lightLevel * 100 / 255;
+                                this.set("brightness", lightLevel);
+                            }.bind(this),
+                            start: false
+                        }));
+                    }
                     if (this.get("fullscreenmandatory")) {
                         if (!(document.fullscreenEnabled || document.mozFullscreenEnabled ||
                                 document.webkitFullscreenEnabled || document.msFullscreenEnabled)) {
@@ -7894,6 +7917,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this._error("poster");
                         }, this);
                         this.player.on("playing", function() {
+                            if (this.get("sample_brightness")) this.__brightnessSampler.start();
                             if (this.get("sticky")) this.stickyHandler.start();
                             this.set("playing", true);
                             this.trigger("playing");
@@ -7903,16 +7927,21 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.set("playbackcount", this.get("playbackended") + 1);
                             }
                         }, this);
+                        this.player.on("loaded", function() {
+                            if (this.get("sample_brightness")) this.__brightnessSampler.fire();
+                        }, this);
                         this.player.on("error", function(e) {
                             this._error("video", e);
                         }, this);
                         if (this.player.error())
                             this.player.trigger("error", this.player.error());
                         this.player.on("paused", function() {
+                            if (this.get("sample_brightness")) this.__brightnessSampler.stop();
                             this.set("playing", false);
                             this.trigger("paused");
                         }, this);
                         this.player.on("ended", function() {
+                            if (this.get("sample_brightness")) this.__brightnessSampler.stop();
                             this.set("playing", false);
                             this.set('playedonce', true);
                             this.set("playbackended", this.get('playbackended') + 1);

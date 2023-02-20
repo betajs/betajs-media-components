@@ -39,6 +39,7 @@ Scoped.define("module:Ads.IMA.Controlbar", [
                     clickthroughurl: null,
                     fullscreened: false,
                     supportsfullscreen: false,
+                    inlineadplayer: false,
                     hidebarafter: 5000,
                     // if controlbar is hidden, touch on screen should make it visible,
                     // and not handle click trough action, as user may want to use controlbar options
@@ -57,6 +58,10 @@ Scoped.define("module:Ads.IMA.Controlbar", [
                     this._adsManager = this._adsRequester._adsManager;
                     this._ads = this._adsManager && this._adsManager.getCurrentAd ? this._adsManager.getCurrentAd() : undefined;
                     this._element = this._adsRequester._options.adContainer;
+                    // On skipinitial w/o autoplay with inline video dyn controlbar will be ad controlbar as well
+                    this.set("inlineadplayer", this._adsRequester._isInlinePlayer &&
+                        (this._contentPlayer.get("skipinitial") && !this._contentPlayer.get("autoplay"))
+                    );
                     this.set("last_activity", Time.now());
 
                     if (this._ads) {

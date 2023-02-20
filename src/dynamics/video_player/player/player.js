@@ -852,7 +852,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.player = instance;
                         this.__video = video;
                         // On autoplay video, silent attach should be false
-                        this.set("silent_attach", (silent && !this.get("autoplay")) || false);
+                        this.set("silent_attach", (silent && !this.get("autoplay")) || this._prerollAd || false);
 
                         if (this.get("chromecast")) {
                             if (!this.get("skipinitial")) this.set("skipinitial", true);
@@ -1599,9 +1599,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (new_position !== this.get("position") || this.get("last_position_change"))
                                 this.set("last_position_change", _now);
 
+                            if (this.get("playing") && (this._prerollAd && !this._prerollAd._isInlinePlayer) && this._prerollAd._isLinear) {
+                                this.player.pause();
+                            }
                             // If play action will not set the silent_attach to false.
-                            if (new_position > 0.0 && this.get("silent_attach"))
+                            if (new_position > 0.0 && this.get("silent_attach")) {
                                 this.set("silent_attach", false);
+                            }
                             // In case if prevent interaction with controller set to true
                             if (this.get('preventinteraction')) {
                                 // set timer since player started to play

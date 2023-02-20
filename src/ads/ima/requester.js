@@ -36,6 +36,8 @@ Scoped.define("module:Ads.IMARequester", [
                 this._allAdsCompelted = false;
                 this._isLinear = null;
                 this._isPlaying = false;
+                // When only one video used for ad and content
+                this._isInlinePlayer = this._options.adContainer && (this._options.adContainer.querySelector('video') === null);
                 this._linearExpected = position !== provider.__IMA_AD_TYPE_NON_LINEAR;
 
                 this._adsRequest = new google.ima.AdsRequest();
@@ -206,6 +208,7 @@ Scoped.define("module:Ads.IMARequester", [
                         break;
                     case google.ima.AdEvent.Type.STARTED:
                         this._allAdsCompelted = false;
+                        this._isLinear = ad && ad.isLinear();
                         if (this._dyn) {
                             // Don't show NonLinear on post-roll
                             if (this._adsPosition !== this._adsProvider.__IMA_POST_ROLL && !ad.isLinear()) {
@@ -256,6 +259,7 @@ Scoped.define("module:Ads.IMARequester", [
                         if (this._options)
                             this._options.adElement.style.display = "none";
                         if (this._dyn && ad.isLinear()) {
+                            this._isLinear = true;
                             if (!this._dyn.get("playing") && this._adsPosition !== this._adsProvider.__IMA_POST_ROLL) {
                                 if (!this._dyn.videoAttached()) {
                                     this._dyn.on("attached", function(player) {

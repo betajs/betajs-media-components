@@ -37,7 +37,6 @@
 
         // var nonLinear = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/nonlinear_ad_samples&sz=480x70&cust_params=sample_ct%3Dnonlinear&ciu_szs=300x250%2C728x90&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=';
         var nonLinear = '//localhost:5050/static/demos/vast-samples/dc-single_non-linear.xml';
-
         var adsense = new BetaJS.MediaComponents.Ads.IMAProvider({
             // adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator='
             // adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator='
@@ -110,7 +109,7 @@
                 // ],
                 , adprovider: "ima"
                 // showduration: true,
-                // ,linear: "pre, mid[6*], post"
+                // ,linear: "pre, mid[12*], post"
                 // ,linear: "post"
                 , linear: "pre"
                 // , linear: "mid[5*]"

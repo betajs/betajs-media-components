@@ -77,6 +77,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
             var adInstance = this.dyn[instanceKey];
             if (!adInstance) return this.next(next);
             this.dyn._adsRoll = adInstance;
+            this.dyn.set("controlbar_active", false);
 
             adInstance.once("adloaded", function(ad) {
                 if (typeof ad !== "undefined") {
@@ -89,8 +90,11 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
 
             adInstance.on("adfinished", function(dyn) {
                 dyn = this.dyn || dyn;
+                dyn.set("controlbar_active", true);
                 if (dyn) {
-                    if (typeof dyn._adsRoll.__cid !== "undefined") dyn._adsRoll.weakDestroy();
+                    if (dyn._adsRoll && typeof dyn._adsRoll.__cid !== "undefined") {
+                        dyn._adsRoll.weakDestroy();
+                    }
                     dyn._adsRoll = null;
                     if (dyn[instanceKey]) {
                         if (adInstance) adInstance.weakDestroy();
@@ -104,6 +108,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
 
             adInstance.once("adskipped", function() {
                 this.dyn._adsRoll = null;
+                this.dyn.set("controlbar_active", true);
                 if (this.dyn[instanceKey]) {
                     this.dyn[instanceKey] = null;
                     if (adInstance) adInstance.weakDestroy();
@@ -112,11 +117,13 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
             }, this);
 
             adInstance.once("adcontentResumeRequested", function(ad) {
+                if (this.dyn) this.dyn.set("controlbar_active", true);
                 if (next) this.next(next);
             }, this);
 
             adInstance.once("adendmanually", function(ad, dyn) {
                 dyn = this.dyn || dyn;
+                dyn.set("controlbar_active", true);
                 if (dyn) {
                     if (dyn[instanceKey] && dyn._adsRoll) {
                         if (typeof dyn._adsRoll.__cid !== "undefined")
@@ -132,6 +139,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
             }, this);
 
             adInstance.once("ad-error", function(message) {
+                if (this.dyn) this.dyn.set("controlbar_active", true);
                 console.error('Error during loading an ' + instanceKey + ' ad. Details: "' + message + '".');
                 this.dyn._adsRoll = null;
                 if (this.dyn[instanceKey]) {

@@ -1,20 +1,5 @@
-.#{$cssplayer}-adslot {
-    @include align-all();
-    @include background-rgba(0, 0, 0, 0.8, #333333);
-    color: #ffffff;
-    position: absolute;
-}
-
 .#{$cssplayer}-ad-click-tracker {
     @include align-all();
-}
-
-.#{$cssplayer}-ad-dashboard {
-    @include absolute-align-full-bottom;
-    @include transition1(opacity, 0.5s, ease-in-out);
-    height: 100%;
-    opacity: 0.9;
-    overflow: hidden;
 }
 
 .#{$cssplayer}-ad-controlbar {

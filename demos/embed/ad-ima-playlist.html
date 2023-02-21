@@ -98,16 +98,20 @@
         var player = new BetaJS.MediaComponents.VideoPlayer.Dynamics.Player({
             element: document.getElementById('player'),
             attrs: {
-                // theme: "modern",
-                poster: "/static/demos/assets/sample-cover.png"
-                // , source: "/static/demos/assets/portrait.mp4"
-                , source: "https://betajs.com/sample.mp4"
-                // , source: "/static/demos/assets/landscape.mp4"
-                // 'ba-playlist': [
-                //     {poster: 'sample-cover2.png', source: 'sample-video2.mp4'},
-                //     {poster: 'sample-cover.png', source: 'sample-video.mp4'},
-                //     {poster: 'sample-cover.png', source: 'sample-video3.mp4'}
-                // ],
+                playlist: [
+                    {
+                        poster: '/static/demos/assets/sample-cover.png',
+                        source: 'https://betajs.com/sample.mp4'
+                    },
+                    {
+                        poster: '/static/demos/assets/sample-cover.png',
+                        source: '/static/demos/assets/landscape.mp4'
+                    },
+                    {
+                        poster: '/static/demos/assets/portrait-poster.png',
+                        source: '/static/demos/assets/portrait.mp4'
+                    },
+                ]
                 , adprovider: "ima"
                 // showduration: true,
                 // ,linear: "pre, mid[12*], post"

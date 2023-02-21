@@ -1194,7 +1194,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 _keyDownActivity: function(element, ev) {
                     if (this.get("preventinteractionstatus")) return;
                     var _keyCode = ev.which || ev.keyCode;
-                    // Prevent whitespace browser center scroll and arrow buttons behaviours
+                    // Prevent white-space browser center scroll and arrow buttons behaviours
                     if (_keyCode === 32 || _keyCode === 37 || _keyCode === 38 || _keyCode === 39 || _keyCode === 40) ev.preventDefault();
 
                     if (_keyCode === 32 || _keyCode === 13 || _keyCode === 9) {
@@ -1884,7 +1884,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this._nextRollPosition = null;
                                 // as soon as is loaded will reset next position data and find a new
                                 this._adsRoll.once("adloaded", function(ad) {
-                                    if (!ad.isLinear()) {
+                                    if (!ad && ad.isLinear()) {
                                         var _suggestedSeconds = (ad.getMinSuggestedDuration() || this.get("non-linear-min-duration")) + 1;
                                         var _nextPossible = _startedPosition + _suggestedSeconds;
 
@@ -1910,7 +1910,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this._adsRoll.once("adendmanually", function(ad) {
                                     if (this._adsRoll) this._adsRoll.weakDestroy();
                                     this._adsRoll = null;
-                                    if (!this.get("playing") && !this.get("manuallypaused") && ad.isLinear()) {
+                                    if (!this.get("playing") && !this.get("manuallypaused") && (ad && ad.isLinear())) {
                                         this.player.play();
                                     }
                                 }, this);
@@ -1919,7 +1919,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     if (this._adsRoll) this._adsRoll.weakDestroy();
                                     this._adsRoll = null;
                                     if (!this.get("playing") && !this.get("manuallypaused")) {
-                                        console.warn("adfinished PLAY ll ");
                                         this.player.play();
                                     }
                                 }, this);

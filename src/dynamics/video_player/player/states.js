@@ -77,12 +77,10 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
             var adInstance = this.dyn[instanceKey];
             if (!adInstance) return this.next(next);
             this.dyn._adsRoll = adInstance;
-            this.dyn.set("controlbar_active", false);
-
             adInstance.once("adloaded", function(ad) {
                 if (typeof ad !== "undefined") {
                     // If ad type is non-linear like image banner needs to load video
-                    if (!ad.isLinear()) {
+                    if (!ad && ad.isLinear()) {
                         this.next(next);
                     }
                 }
@@ -90,7 +88,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
 
             adInstance.on("adfinished", function(dyn) {
                 dyn = this.dyn || dyn;
-                dyn.set("controlbar_active", true);
                 if (dyn) {
                     if (dyn._adsRoll && typeof dyn._adsRoll.__cid !== "undefined") {
                         dyn._adsRoll.weakDestroy();
@@ -108,7 +105,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
 
             adInstance.once("adskipped", function() {
                 this.dyn._adsRoll = null;
-                this.dyn.set("controlbar_active", true);
                 if (this.dyn[instanceKey]) {
                     this.dyn[instanceKey] = null;
                     if (adInstance) adInstance.weakDestroy();
@@ -117,13 +113,11 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
             }, this);
 
             adInstance.once("adcontentResumeRequested", function(ad) {
-                if (this.dyn) this.dyn.set("controlbar_active", true);
                 if (next) this.next(next);
             }, this);
 
             adInstance.once("adendmanually", function(ad, dyn) {
                 dyn = this.dyn || dyn;
-                dyn.set("controlbar_active", true);
                 if (dyn) {
                     if (dyn[instanceKey] && dyn._adsRoll) {
                         if (typeof dyn._adsRoll.__cid !== "undefined")
@@ -139,7 +133,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
             }, this);
 
             adInstance.once("ad-error", function(message) {
-                if (this.dyn) this.dyn.set("controlbar_active", true);
                 console.error('Error during loading an ' + instanceKey + ' ad. Details: "' + message + '".');
                 this.dyn._adsRoll = null;
                 if (this.dyn[instanceKey]) {
@@ -611,10 +604,16 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
             }, this);
             this.listenOn(this.dyn, "ended", function() {
                 this.dyn.set("autoseek", null);
-                if (this.dyn._postrollAd)
-                    this.executeAd("_postrollAd", "NextVideo");
-                else
+                // stop any rolls before start post-roll, especially nonLinear
+                var adRolls = (this.dyn._adsRoll || this.dyn._prerollAd);
+                if (adRolls && typeof adRolls.manuallyEndAd === "function") {
+                    adRolls.manuallyEndAd();
+                }
+                if (this.dyn._postrollAd) {
+                    this.executeAd("_postrollAd", this.dyn.get("next") ? "NextVideo" : "LoadVideo");
+                } else {
                     this.next("NextVideo");
+                }
             }, this);
             this.listenOn(this.dyn, "change:buffering", function() {
                 this.dyn.set("loader_active", this.dyn.get("buffering"));
@@ -686,7 +685,12 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
                     this.dyn.reattachVideo();
                 }
             }
-            this.next("PosterReady");
+
+            if (this.dyn._prerollAd) {
+                this.executeAd("_prerollAd", "LoadVideo");
+            } else {
+                this.next("PosterReady");
+            }
         },
 
         /**

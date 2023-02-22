@@ -46,7 +46,7 @@ Scoped.define("module:Ads.IMARequester", [
                 // DISABLED == 0 - VPAID ads will not play, and an error will be returned.
                 // ENABLED == 1 - VPAID ads are enabled using a cross-domain iframe
                 // INSECURE == 2 - This allows the ad access to the site via JavaScript.
-                if (this._providerOptions.vpaidMode && [
+                if (typeof this._providerOptions.vpaidMode === "number" && [
                         google.ima.ImaSdkSettings.VpaidMode.DISABLED,
                         google.ima.ImaSdkSettings.VpaidMode.ENABLED,
                         google.ima.ImaSdkSettings.VpaidMode.INSECURE

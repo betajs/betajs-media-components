@@ -482,13 +482,36 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Preroll", [
                     if (this.dyn.get("sticky")) this.dyn.stickyHandler.start();
                 }
             } else {
-                this.next("LoadVideo");
+                if (!this.dyn.get("skipinitial")) this.next("LoadAds");
+                else this.next("LoadVideo");
             }
         }
 
     });
 });
 
+Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
+    "module:VideoPlayer.Dynamics.PlayerStates.State"
+], function(State, scoped) {
+    return State.extend({
+        scoped: scoped
+    }, {
+        dynamics: ["loader"],
+        _started: function() {
+            if (this.dyn.get("adtagurl") && !this.dyn.__adsloaded) {
+                this.dyn.channel("ads").trigger("load");
+                this.listenOn(this.dyn.channel("ads"), "loaded", function() {
+                    this.next(this._nextState());
+                }, this);
+                this.dyn.__adsloaded = true;
+            } else this.next(this._nextState());
+        },
+        _nextState: function() {
+            if (this.dyn.get("skipinitial")) return "PlayVideo";
+            return "LoadVideo";
+        }
+    });
+});
 
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterError", [
     "module:VideoPlayer.Dynamics.PlayerStates.State"
@@ -522,6 +545,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
         dynamics: ["loader"],
 
         _started: function() {
+            this.listenOn(this.dyn.channel("ads"), "contentPauseRequested", function() {
+                this.next("PrerollAd");
+            }, this);
             this.dyn.set("hasnext", this.dyn.get("loop") || this.dyn.get("loopall") || this.dyn.get("playlist") && this.dyn.get("playlist").length > 1);
             if (!this.dyn.get("videoelement_active")) {
                 this.listenOn(this.dyn, "error:attach", function() {
@@ -594,8 +620,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.ErrorVideo", [
 
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
     "module:VideoPlayer.Dynamics.PlayerStates.State",
-    "base:Objs"
-], function(State, Objs, scoped) {
+    "base:Objs",
+    "base:Timers.Timer"
+], function(State, Objs, Timer, scoped) {
     return State.extend({
         scoped: scoped
     }, {
@@ -604,6 +631,13 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
 
         _started: function() {
             this.dyn.set("autoplay", false);
+            this.listenOn(this.dyn.channel("ads"), "contentPauseRequested", function() {
+                this.dyn.pause();
+                var position = this.dyn.getCurrentPosition();
+                if (position === 0) this.next("PrerollAd");
+                else if (Math.abs(this.dyn.getCurrentPosition() - this.dyn.get("duration")) < 0.1) this.next("PostrollAd");
+                else this.next("MidrollAd");
+            }, this);
             // As during a loop we will play player after ended event fire, need initial cover will be hidden
             if (this.dyn.get("loop"))
                 this.dyn.set("skipinitial", true);
@@ -614,6 +648,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
                 this.next("LoadPlayer");
             }, this);
             this.listenOn(this.dyn, "ended", function() {
+                this.dyn.channel("ads").trigger("contentComplete");
                 this.dyn.set("autoseek", null);
                 // stop any rolls before start post-roll, especially nonLinear
 
@@ -626,10 +661,17 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
                         this.dyn[key] = null;
                     }
                 }, this);
-                if (this.dyn._postrollAd) {
-                    this.executeAd("_postrollAd", this.dyn.get("next") ? "NextVideo" : "LoadVideo");
-                } else {
-                    this.next("NextVideo");
+                if (this.dyn._postrollAd)
+                    this.executeAd("_postrollAd", "NextVideo");
+                else {
+                    // waiting a bit for postroll
+                    this.auto_destroy(new Timer({
+                        once: true,
+                        fire: function() {
+                            this.next("NextVideo");
+                        }.bind(this),
+                        delay: 50
+                    }));
                 }
             }, this);
             this.listenOn(this.dyn, "change:buffering", function() {
@@ -645,9 +687,71 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
             if (this.dyn.get("position") === 0 && this.dyn._prerollAd && (this.dyn.get("autoplay") || this.dyn.get("skipinitial"))) {
                 this.executeAd('_prerollAd');
             }
+            if (this.dyn.get("adtagurl") && this.dyn.get("skipinitial") && this.dyn.get("position") === 0) return this.next("LoadAds");
             if (!this.dyn.get("playing")) {
                 this.dyn.player.play();
             }
+        }
+    });
+});
+
+Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayAd", [
+    "module:VideoPlayer.Dynamics.PlayerStates.State"
+], function(State, scoped) {
+    return State.extend({
+        scoped: scoped
+    }, {
+        dynamics: [],
+        _started: function() {
+            if (this.state_name() === "PlayAd") throw Error("PlayAd should be an abstract state.");
+            this._showbuiltincontroller = this.dyn.get("showbuiltincontroller");
+            this.dyn.set("showbuiltincontroller", true);
+            this.listenOn(this.dyn, "playing", function() {
+                this.dyn.player.pause();
+            }, this);
+            this.listenOn(this.dyn.channel("ads"), "contentResumeRequested", function() {
+                this.dyn.set("showbuiltincontroller", this._showbuiltincontroller);
+                this.resume();
+            }, this);
+        },
+        resume: function() {
+            this.dyn.player.play();
+            this.next("PlayVideo");
+        }
+    });
+});
+
+Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PrerollAd", [
+    "module:VideoPlayer.Dynamics.PlayerStates.PlayAd"
+], function(State, scoped) {
+    return State.extend({
+        scoped: scoped
+    }, function(inherited) {
+        return {
+            _started: function() {
+                if (this.dyn.get("sticky")) this.dyn.stickyHandler.start();
+                inherited._started.call(this);
+            }
+        };
+    });
+});
+
+Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.MidrollAd", [
+    "module:VideoPlayer.Dynamics.PlayerStates.PlayAd"
+], function(State, scoped) {
+    return State.extend({
+        scoped: scoped
+    });
+});
+
+Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PostrollAd", [
+    "module:VideoPlayer.Dynamics.PlayerStates.PlayAd"
+], function(State, scoped) {
+    return State.extend({
+        scoped: scoped
+    }, {
+        resume: function() {
+            this.next("NextVideo");
         }
     });
 });

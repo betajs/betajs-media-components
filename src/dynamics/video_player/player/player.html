@@ -21,6 +21,10 @@
     <div ba-show="{{(imageelement_active && !videoelement_active) || silent_attach}}" class="{{css}}-poster-container">
         <img tabindex="-1" data-image="image" alt="{{posteralt}}" class="{{csscommon}}-{{posterfitstrategy}}-fit"/>
     </div>
+    <ba-{{dynadsplayer}}
+        ba-if="{{adtagurl}}"
+        ba-adtagurl="{{adtagurl}}"
+    ></ba-{{dynadsplayer}}>
     <div class="{{css}}-overlay {{hasplaceholderstyle ? (css + '-overlay-with-placeholder') : ''}}"
          ba-show="{{!showbuiltincontroller}}" style="{{placeholderstyle}}"
     >

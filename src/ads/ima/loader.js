@@ -17,15 +17,15 @@ Scoped.define("module:Ads.IMALoader", [
             try {
                 if (typeof google === "undefined") {
                     Loader.loadScript('https://imasdk.googleapis.com/js/sdkloader/ima3.js', function() {
-                        promise.asyncSuccess(this.adsLoader(options));
+                        promise.asyncSuccess(options && this.adsLoader(options));
                     }, this);
                 } else {
                     // Just in case, check if Google is relating IMA SDK, not another Google service
                     if (typeof google.ima === "undefined") {
                         Loader.loadScript('https://imasdk.googleapis.com/js/sdkloader/ima3.js', function() {
-                            promise.asyncSuccess(this.adsLoader(options));
+                            promise.asyncSuccess(options && this.adsLoader(options));
                         }, this);
-                    } else promise.asyncSuccess(this.adsLoader(options));
+                    } else promise.asyncSuccess(options && this.adsLoader(options));
                 }
             } catch (e) {
                 promise.asyncError(e);

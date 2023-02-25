@@ -25,6 +25,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:Ads.IMARequester",
     "browser:Events"
 ], [
+    "module:Ads.Dynamics.Player",
     "module:Common.Dynamics.Settingsmenu",
     "module:VideoPlayer.Dynamics.Playbutton",
     "module:VideoPlayer.Dynamics.Message",
@@ -47,6 +48,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.PlayerStates.LoadError",
     "module:VideoPlayer.Dynamics.PlayerStates.PosterReady",
     "module:VideoPlayer.Dynamics.PlayerStates.Preroll",
+    "module:VideoPlayer.Dynamics.PlayerStates.LoadAds",
+    "module:VideoPlayer.Dynamics.PlayerStates.PlayAd",
+    "module:VideoPlayer.Dynamics.PlayerStates.PrerollAd",
+    "module:VideoPlayer.Dynamics.PlayerStates.MidrollAd",
+    "module:VideoPlayer.Dynamics.PlayerStates.PostrollAd",
     "module:VideoPlayer.Dynamics.PlayerStates.PosterError",
     "module:VideoPlayer.Dynamics.PlayerStates.LoadVideo",
     "module:VideoPlayer.Dynamics.PlayerStates.ErrorVideo",
@@ -89,6 +95,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "csstheme": "",
                         "themecolor": "",
                         /* Dynamics */
+                        "dynadsplayer": "adsplayer",
                         "dynplaybutton": "videoplayer-playbutton",
                         "dynloader": "videoplayer-loader",
                         "dynmessage": "videoplayer-message",
@@ -338,7 +345,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 extendables: ["states"],
 
+                registerchannels: ["ads"],
+
                 scopes: {
+                    adsplayer: ">[tagname='ba-adsplayer']",
                     settingsmenu: ">[tagname='ba-common-settingsmenu']"
                 },
 

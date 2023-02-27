@@ -76,7 +76,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
         executeAd: function(instanceKey, next) {
             var adInstance = this.dyn[instanceKey];
             if (!adInstance) return this.next(next);
-            this.dyn._adsRoll = adInstance;
+            // this.dyn._adsRoll = adInstance;
             adInstance.once("adloaded", function(ad) {
                 if (typeof ad !== "undefined") {
                     // If ad type is non-linear like image banner needs to load video
@@ -583,8 +583,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.ErrorVideo", [
 });
 
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
-    "module:VideoPlayer.Dynamics.PlayerStates.State"
-], function(State, scoped) {
+    "module:VideoPlayer.Dynamics.PlayerStates.State",
+    "base:Objs"
+], function(State, Objs, scoped) {
     return State.extend({
         scoped: scoped
     }, {
@@ -605,10 +606,16 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
             this.listenOn(this.dyn, "ended", function() {
                 this.dyn.set("autoseek", null);
                 // stop any rolls before start post-roll, especially nonLinear
-                var adRolls = (this.dyn._adsRoll || this.dyn._prerollAd);
-                if (adRolls && typeof adRolls.manuallyEndAd === "function") {
-                    adRolls.manuallyEndAd();
-                }
+
+                Objs.iter(['_prerollAd', '_adsRoll'], function(key) {
+                    var adsRoll = this.dyn && this.dyn[key];
+                    if (adsRoll && !adsRoll.destroyed()) {
+                        if (typeof adsRoll.manuallyEndAd === "function")
+                            adsRoll.manuallyEndAd();
+                        adsRoll.weakDestroy();
+                        this.dyn[key] = null;
+                    }
+                }, this);
                 if (this.dyn._postrollAd) {
                     this.executeAd("_postrollAd", this.dyn.get("next") ? "NextVideo" : "LoadVideo");
                 } else {
@@ -634,7 +641,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
         }
     });
 });
-
 
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
     "module:VideoPlayer.Dynamics.PlayerStates.State"
@@ -686,7 +692,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
                 }
             }
 
-            if (this.dyn._prerollAd) {
+            if (this.dyn.get("adprovider")) {
+                this.dyn.initAdProvider();
                 this.executeAd("_prerollAd", "LoadVideo");
             } else {
                 this.next("PosterReady");

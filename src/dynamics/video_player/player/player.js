@@ -578,13 +578,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 adContainer: this.activeElement().querySelector("[data-video='ima-ad-container']"),
                                 dynamic: this
                             };
-
                             if (this.get("preroll")) {
                                 this._prerollAd = this._adProvider.newPrerollAd(adInitOptions);
                                 this.set("ad-provider-ready", true);
                             }
                         }
-
 
                         if ((this.get("adprovider") === 'ima' || this.get("adprovider").__IMA_PRE_ROLL) && (this.get("linear") || this.get("non-linear"))) {
                             var schedules = [],
@@ -830,7 +828,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("videoelement_active", true);
                     var video = this.activeElement().querySelector("[data-video='video']");
                     this._clearError();
-                    // Just in case be sure that player's controllers will be hidden
+                    // Just in case, be sure that player's controllers will be hidden
                     video.controls = this.get("showbuiltincontroller");
                     if (!this.get("allowpip"))
                         video.disablePictureInPicture = true;
@@ -1599,9 +1597,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (new_position !== this.get("position") || this.get("last_position_change"))
                                 this.set("last_position_change", _now);
 
-                            if (this.get("playing") && (this._prerollAd && !this._prerollAd._isInlinePlayer) && this._prerollAd._isLinear) {
-                                this.player.pause();
-                            }
+                            // var midPreAdRolls = (this._adsRoll || this._prerollAd);
+                            // // Check in the last 3 seconds if nonLinear is showing and disable it
+                            // if ((this.get("duration") > 0 && new_position > 10) && (this.get("duration") - new_position) > 3) {
+                            //     if (midPreAdRolls && typeof midPreAdRolls.manuallyEndAd === "function" && !midPreAdRolls._isLinear) {
+                            //         midPreAdRolls.manuallyEndAd();
+                            //     }
+                            // }
                             // If play action will not set the silent_attach to false.
                             if (new_position > 0.0 && this.get("silent_attach")) {
                                 this.set("silent_attach", false);

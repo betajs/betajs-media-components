@@ -377,8 +377,8 @@ Scoped.define("module:Ads.IMARequester", [
                     this._adsManager.init(initWidth, initHeight, google.ima.ViewMode.NORMAL);
                     // Play if browser allows playing without sound
                     // this._adsRequest.setAdWillPlayMuted(true);
-                    if (dyn.get("autoplay-requires-muted") && dyn.get("autoplay-allowed") && dyn.get("autoplay")) {
-                        this._adsManager.setVolume(0);
+                    if (dyn.get("autoplay-requires-muted") && dyn.get("autoplay")) {
+                        this._adsManager.setVolume((dyn.get("autoplay-allowed") && dyn.get("user-has-interaction")) ? 0 : 1);
                     }
                     this._adsManager.start();
                 } catch (e) {

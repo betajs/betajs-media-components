@@ -76,7 +76,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
         executeAd: function(instanceKey, next) {
             var adInstance = this.dyn[instanceKey];
             if (!adInstance) return this.next(next);
-            // this.dyn._adsRoll = adInstance;
+            this.dyn._adsRoll = adInstance;
             adInstance.once("adloaded", function(ad) {
                 if (typeof ad !== "undefined") {
                     // If ad type is non-linear like image banner needs to load video
@@ -610,7 +610,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
                 Objs.iter(['_prerollAd', '_adsRoll'], function(key) {
                     var adsRoll = this.dyn && this.dyn[key];
                     if (adsRoll && !adsRoll.destroyed()) {
-                        if (typeof adsRoll.manuallyEndAd === "function")
+                        if (typeof adsRoll.manuallyEndAd === "function" && !adsRoll.isLinear)
                             adsRoll.manuallyEndAd();
                         adsRoll.weakDestroy();
                         this.dyn[key] = null;

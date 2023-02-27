@@ -378,7 +378,7 @@ Scoped.define("module:Ads.IMARequester", [
                     // Play if browser allows playing without sound
                     // this._adsRequest.setAdWillPlayMuted(true);
                     if (dyn.get("autoplay-requires-muted") && dyn.get("autoplay")) {
-                        this._adsManager.setVolume((dyn.get("autoplay-allowed") && dyn.get("user-has-interaction")) ? 0 : 1);
+                        this._adsManager.setVolume((dyn.get("autoplay-allowed") && dyn.get("user-has-interaction")) ? 1 : 0);
                     }
                     this._adsManager.start();
                 } catch (e) {

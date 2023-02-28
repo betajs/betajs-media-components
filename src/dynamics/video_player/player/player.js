@@ -578,13 +578,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 adContainer: this.activeElement().querySelector("[data-video='ima-ad-container']"),
                                 dynamic: this
                             };
-
                             if (this.get("preroll")) {
                                 this._prerollAd = this._adProvider.newPrerollAd(adInitOptions);
                                 this.set("ad-provider-ready", true);
                             }
                         }
-
 
                         if ((this.get("adprovider") === 'ima' || this.get("adprovider").__IMA_PRE_ROLL) && (this.get("linear") || this.get("non-linear"))) {
                             var schedules = [],
@@ -830,7 +828,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("videoelement_active", true);
                     var video = this.activeElement().querySelector("[data-video='video']");
                     this._clearError();
-                    // Just in case be sure that player's controllers will be hidden
+                    // Just in case, be sure that player's controllers will be hidden
                     video.controls = this.get("showbuiltincontroller");
                     if (!this.get("allowpip"))
                         video.disablePictureInPicture = true;
@@ -852,7 +850,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.player = instance;
                         this.__video = video;
                         // On autoplay video, silent attach should be false
-                        this.set("silent_attach", (silent && !this.get("autoplay")) || false);
+                        this.set("silent_attach", (silent && !this.get("autoplay")) || this._prerollAd || false);
 
                         if (this.get("chromecast")) {
                             if (!this.get("skipinitial")) this.set("skipinitial", true);
@@ -1194,7 +1192,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 _keyDownActivity: function(element, ev) {
                     if (this.get("preventinteractionstatus")) return;
                     var _keyCode = ev.which || ev.keyCode;
-                    // Prevent whitespace browser center scroll and arrow buttons behaviours
+                    // Prevent white-space browser center scroll and arrow buttons behaviours
                     if (_keyCode === 32 || _keyCode === 37 || _keyCode === 38 || _keyCode === 39 || _keyCode === 40) ev.preventDefault();
 
                     if (_keyCode === 32 || _keyCode === 13 || _keyCode === 9) {
@@ -1599,9 +1597,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (new_position !== this.get("position") || this.get("last_position_change"))
                                 this.set("last_position_change", _now);
 
+                            // var midPreAdRolls = (this._adsRoll || this._prerollAd);
+                            // // Check in the last 3 seconds if nonLinear is showing and disable it
+                            // if ((this.get("duration") > 0 && new_position > 10) && (this.get("duration") - new_position) > 3) {
+                            //     if (midPreAdRolls && typeof midPreAdRolls.manuallyEndAd === "function" && !midPreAdRolls._isLinear) {
+                            //         midPreAdRolls.manuallyEndAd();
+                            //     }
+                            // }
                             // If play action will not set the silent_attach to false.
-                            if (new_position > 0.0 && this.get("silent_attach"))
+                            if (new_position > 0.0 && this.get("silent_attach")) {
                                 this.set("silent_attach", false);
+                            }
                             // In case if prevent interaction with controller set to true
                             if (this.get('preventinteraction')) {
                                 // set timer since player started to play
@@ -1880,7 +1886,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this._nextRollPosition = null;
                                 // as soon as is loaded will reset next position data and find a new
                                 this._adsRoll.once("adloaded", function(ad) {
-                                    if (!ad.isLinear()) {
+                                    if (!ad && ad.isLinear()) {
                                         var _suggestedSeconds = (ad.getMinSuggestedDuration() || this.get("non-linear-min-duration")) + 1;
                                         var _nextPossible = _startedPosition + _suggestedSeconds;
 
@@ -1906,7 +1912,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this._adsRoll.once("adendmanually", function(ad) {
                                     if (this._adsRoll) this._adsRoll.weakDestroy();
                                     this._adsRoll = null;
-                                    if (!this.get("playing") && !this.get("manuallypaused") && ad.isLinear()) {
+                                    if (!this.get("playing") && !this.get("manuallypaused") && (ad && ad.isLinear())) {
                                         this.player.play();
                                     }
                                 }, this);
@@ -1915,7 +1921,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     if (this._adsRoll) this._adsRoll.weakDestroy();
                                     this._adsRoll = null;
                                     if (!this.get("playing") && !this.get("manuallypaused")) {
-                                        console.warn("adfinished PLAY ll ");
                                         this.player.play();
                                     }
                                 }, this);

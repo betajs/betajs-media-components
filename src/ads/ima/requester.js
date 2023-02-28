@@ -36,6 +36,8 @@ Scoped.define("module:Ads.IMARequester", [
                 this._allAdsCompelted = false;
                 this._isLinear = null;
                 this._isPlaying = false;
+                // When only one video used for ad and content
+                this._isInlinePlayer = this._options.adContainer && (this._options.adContainer.querySelector('video') === null);
                 this._linearExpected = position !== provider.__IMA_AD_TYPE_NON_LINEAR;
 
                 this._adsRequest = new google.ima.AdsRequest();
@@ -185,9 +187,11 @@ Scoped.define("module:Ads.IMARequester", [
                     case google.ima.AdEvent.Type.LOADED:
                         this._isLinear = ad.isLinear();
                         this._allAdsCompelted = false;
+                        this.__togglePlayerControlBar(false, player, this._isLinear);
                         this.trigger('adloaded', ad);
                         break;
                     case google.ima.AdEvent.Type.ALL_ADS_COMPLETED:
+                        this.__togglePlayerControlBar(true, player, this._isLinear);
                         if (this._adControlbar) {
                             this._adControlbar.weakDestroy();
                             this._adControlbar = undefined;
@@ -206,15 +210,20 @@ Scoped.define("module:Ads.IMARequester", [
                         break;
                     case google.ima.AdEvent.Type.STARTED:
                         this._allAdsCompelted = false;
+                        this._isLinear = ad && ad.isLinear();
+                        this.__togglePlayerControlBar(false, player, this._isLinear);
+                        if (this._adControlbar && !this._isLinear) {
+                            this._adControlbar.weakDestroy();
+                            this._adControlbar = undefined;
+                        }
                         if (this._dyn) {
+                            this._dyn.set("linearadplayer", this._isLinear);
                             // Don't show NonLinear on post-roll
                             if (this._adsPosition !== this._adsProvider.__IMA_POST_ROLL && !ad.isLinear()) {
                                 this._options.adElement.style.display = "";
-                                this._dyn.set("linearadplayer", false);
 
                                 this._leftSuggesstedDuration = ad.getMinSuggestedDuration() || this._providerOptions.nonLinearDuration || 10;
                                 if (this._leftSuggesstedDuration > 0) {
-
                                     this._timer = this._auto_destroy(new Timers.Timer({
                                         context: this,
                                         fire: function() {
@@ -245,6 +254,7 @@ Scoped.define("module:Ads.IMARequester", [
                         break;
                     case google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED:
                         if (ad.isLinear()) this._dyn.pause();
+                        this.__togglePlayerControlBar(false, player, this._isLinear);
                         if ((ad.isLinear() && this._linearExpected) || (!ad.isLinear() && !this._linearExpected)) {
                             this._options.adElement.style.display = "";
                             if (!this._adControlbar) this._showIMAAdController(ad);
@@ -256,6 +266,8 @@ Scoped.define("module:Ads.IMARequester", [
                         if (this._options)
                             this._options.adElement.style.display = "none";
                         if (this._dyn && ad.isLinear()) {
+                            this.__togglePlayerControlBar(true, player, this._isLinear);
+                            this._isLinear = true;
                             if (!this._dyn.get("playing") && this._adsPosition !== this._adsProvider.__IMA_POST_ROLL) {
                                 if (!this._dyn.videoAttached()) {
                                     this._dyn.on("attached", function(player) {
@@ -304,6 +316,7 @@ Scoped.define("module:Ads.IMARequester", [
                     this._adControlbar.weakDestroy();
                     this._adControlbar = undefined;
                 }
+                this.__togglePlayerControlBar(true);
                 if (typeof type.getError === "function") {
                     var error = type.getError();
                     if (error) {
@@ -364,8 +377,8 @@ Scoped.define("module:Ads.IMARequester", [
                     this._adsManager.init(initWidth, initHeight, google.ima.ViewMode.NORMAL);
                     // Play if browser allows playing without sound
                     // this._adsRequest.setAdWillPlayMuted(true);
-                    if (dyn.get("autoplay-requires-muted") && dyn.get("autoplay-allowed") && dyn.get("autoplay")) {
-                        this._adsManager.setVolume(0);
+                    if (dyn.get("autoplay-requires-muted") && dyn.get("autoplay")) {
+                        this._adsManager.setVolume((dyn.get("autoplay-allowed") && dyn.get("user-has-interaction")) ? 1 : 0);
                     }
                     this._adsManager.start();
                 } catch (e) {
@@ -496,6 +509,30 @@ Scoped.define("module:Ads.IMARequester", [
                             break;
                         default:
                             playerElement.parentNode.append(element);
+                    }
+                }
+            },
+
+            /**
+             * Will toggle player controlbar
+             * @param show
+             * @param player
+             * @param isLinear
+             * @private
+             */
+            __togglePlayerControlBar: function(show, player, isLinear) {
+                show = show || false;
+                player = player || this._dyn;
+                isLinear = isLinear || this._isLinear;
+                if (player && typeof player.get === "function") {
+                    if (show) {
+                        if (player.get("hidecontrolbar")) {
+                            player.set("hidecontrolbar", !isLinear);
+                        }
+                    } else {
+                        if (!player.get("hidecontrolbar")) {
+                            player.set("hidecontrolbar", isLinear && !this._isInlinePlayer);
+                        }
                     }
                 }
             },

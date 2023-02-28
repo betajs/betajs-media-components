@@ -77,11 +77,10 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
             var adInstance = this.dyn[instanceKey];
             if (!adInstance) return this.next(next);
             this.dyn._adsRoll = adInstance;
-
             adInstance.once("adloaded", function(ad) {
                 if (typeof ad !== "undefined") {
                     // If ad type is non-linear like image banner needs to load video
-                    if (!ad.isLinear()) {
+                    if (!ad && ad.isLinear()) {
                         this.next(next);
                     }
                 }
@@ -90,7 +89,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
             adInstance.on("adfinished", function(dyn) {
                 dyn = this.dyn || dyn;
                 if (dyn) {
-                    if (typeof dyn._adsRoll.__cid !== "undefined") dyn._adsRoll.weakDestroy();
+                    if (dyn._adsRoll && typeof dyn._adsRoll.__cid !== "undefined") {
+                        dyn._adsRoll.weakDestroy();
+                    }
                     dyn._adsRoll = null;
                     if (dyn[instanceKey]) {
                         if (adInstance) adInstance.weakDestroy();
@@ -583,8 +584,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.ErrorVideo", [
 });
 
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
-    "module:VideoPlayer.Dynamics.PlayerStates.State"
-], function(State, scoped) {
+    "module:VideoPlayer.Dynamics.PlayerStates.State",
+    "base:Objs"
+], function(State, Objs, scoped) {
     return State.extend({
         scoped: scoped
     }, {
@@ -604,10 +606,22 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
             }, this);
             this.listenOn(this.dyn, "ended", function() {
                 this.dyn.set("autoseek", null);
-                if (this.dyn._postrollAd)
-                    this.executeAd("_postrollAd", "NextVideo");
-                else
+                // stop any rolls before start post-roll, especially nonLinear
+
+                Objs.iter(['_prerollAd', '_adsRoll'], function(key) {
+                    var adsRoll = this.dyn && this.dyn[key];
+                    if (adsRoll && !adsRoll.destroyed()) {
+                        if (typeof adsRoll.manuallyEndAd === "function" && !adsRoll.isLinear)
+                            adsRoll.manuallyEndAd();
+                        adsRoll.weakDestroy();
+                        this.dyn[key] = null;
+                    }
+                }, this);
+                if (this.dyn._postrollAd) {
+                    this.executeAd("_postrollAd", this.dyn.get("next") ? "NextVideo" : "LoadVideo");
+                } else {
                     this.next("NextVideo");
+                }
             }, this);
             this.listenOn(this.dyn, "change:buffering", function() {
                 this.dyn.set("loader_active", this.dyn.get("buffering"));
@@ -628,7 +642,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
         }
     });
 });
-
 
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
     "module:VideoPlayer.Dynamics.PlayerStates.State"
@@ -679,7 +692,13 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
                     this.dyn.reattachVideo();
                 }
             }
-            this.next("PosterReady");
+
+            if (this.dyn.get("adprovider")) {
+                this.dyn.initAdProvider();
+                this.executeAd("_prerollAd", "LoadVideo");
+            } else {
+                this.next("PosterReady");
+            }
         },
 
         /**

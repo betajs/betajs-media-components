@@ -469,6 +469,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Preroll", [
                 else {
                     if (!this.dyn.videoAttached()) this.dyn.reattachVideo();
                     this.executeAd('_prerollAd', "LoadVideo");
+                    if (this.dyn.get("sticky")) this.dyn.stickyHandler.start();
                 }
             } else {
                 this.next("LoadVideo");

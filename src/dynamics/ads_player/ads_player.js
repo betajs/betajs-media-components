@@ -2,12 +2,19 @@ Scoped.define("module:Ads.Dynamics.Player", [
     "dynamics:Dynamic",
     "module:Ads.IMALoader",
     "module:Ads.IMA.AdsManager"
+], [
+    "module:Ads.Dynamics.Controlbar"
 ], function(Class, IMALoader, AdsManager, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
             return {
                 template: "<%= template(dirname + '/ads_player.html') %>",
+
+                attrs: {
+                    dyncontrolbar: "ads-controlbar",
+                    tmplcontrolbar: ""
+                },
 
                 _deferActivate: function() {
                     if (this._loadedSDK) return false;
@@ -24,6 +31,13 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     "ads:contentComplete": function() {
                         this.call("contentComplete");
+                    },
+                    "ads:loaded": function(event) {
+                        this.set("volume", this.adsManager.getVolume());
+                        this.set("duration", event.getAdData().duration);
+                    },
+                    "ads:volumeChange": function() {
+                        this.set("volume", this.adsManager.getVolume());
                     }
                 },
 
@@ -66,6 +80,18 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     contentComplete: function() {
                         this.adsManager.contentComplete();
+                    },
+                    pause: function() {
+                        return this.adsManager.pause();
+                    },
+                    resume: function() {
+                        return this.adsManager.resume();
+                    },
+                    setVolume: function(volume) {
+                        return this.adsManager.setVolume(Math.min(volume, 1));
+                    },
+                    stop: function() {
+                        return this.adsManager.stop();
                     }
                 },
 

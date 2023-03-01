@@ -95,6 +95,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "csstheme": "",
                         "themecolor": "",
                         /* Dynamics */
+                        "dynadscontrolbar": "ads-controlbar",
                         "dynadsplayer": "adsplayer",
                         "dynplaybutton": "videoplayer-playbutton",
                         "dynloader": "videoplayer-loader",
@@ -107,6 +108,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "dyntrimmer": "videorecorder-trimmer",
 
                         /* Templates */
+                        "tmpladcontrolbar": "",
                         "tmplplaybutton": "",
                         "tmplloader": "",
                         "tmplmessage": "",

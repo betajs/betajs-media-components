@@ -51,6 +51,9 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                     this._options.videoElement, adsRenderingSettings
                 );
                 this.addEventListeners();
+                this.__methods().forEach(function(method) {
+                    this[method] = this._adsManager[method].bind(this._adsManager);
+                }.bind(this));
                 this.trigger(adsManagerLoadedEvent.type, adsManagerLoadedEvent);
             },
 
@@ -103,6 +106,28 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 }
             },
 
+            __methods: function() {
+                return [
+                    "collapse",
+                    "discardAdBreak",
+                    "focus",
+                    "getAdSkippableState",
+                    "getCuePoints",
+                    "getCurrentAd",
+                    "getRemainingTime",
+                    "getVolume",
+                    "isCustomClickTrackingUsed",
+                    "isCustomPlaybackUsed",
+                    "pause",
+                    "resize",
+                    "resume",
+                    "setVolume",
+                    "skip",
+                    "stop",
+                    "updateAdsRenderingSettings"
+                ];
+            },
+
             __events: function() {
                 return [
                     google.ima.AdErrorEvent.Type.AD_ERROR,
@@ -124,7 +149,7 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                     google.ima.AdEvent.Type.DURATION_CHANGE,
                     google.ima.AdEvent.Type.SKIPPED,
                     google.ima.AdEvent.Type.LINEAR_CHANGED,
-                    google.ima.AdEvent.Type.VOLUME_CHANGED,
+                    google.ima.AdEvent.Type.VOLUME_CHANGED, // volumeChange
                     google.ima.AdEvent.Type.VOLUME_MUTED,
                     google.ima.AdEvent.Type.SKIPPABLE_STATE_CHANGED,
                     google.ima.AdEvent.Type.INTERACTION,

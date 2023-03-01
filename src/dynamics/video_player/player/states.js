@@ -12,6 +12,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
         _start: function() {
             this.dyn = this.host.dynamic;
             Objs.iter(Objs.extend({
+                "adscontrolbar": false,
                 "loader": false,
                 "message": false,
                 "playbutton": false,
@@ -701,7 +702,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayAd", [
     return State.extend({
         scoped: scoped
     }, {
-        dynamics: [],
+        dynamics: ["adscontrolbar"],
         _started: function() {
             if (this.state_name() === "PlayAd") throw Error("PlayAd should be an abstract state.");
             this._showbuiltincontroller = this.dyn.get("showbuiltincontroller");

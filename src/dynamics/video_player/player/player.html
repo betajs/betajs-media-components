@@ -22,8 +22,11 @@
         <img tabindex="-1" data-image="image" alt="{{posteralt}}" class="{{csscommon}}-{{posterfitstrategy}}-fit"/>
     </div>
     <ba-{{dynadsplayer}}
-        ba-if="{{adtagurl}}"
+        ba-if="{{!!adtagurl}}"
         ba-adtagurl="{{adtagurl}}"
+        ba-hidecontrolbar="{{!adscontrolbar_active}}"
+        ba-tmplcontrolbar="{{tmpladscontrolbar}}"
+        ba-dyncontrolbar="{{dynadscontrolbar}}"
     ></ba-{{dynadsplayer}}>
     <div class="{{css}}-overlay {{hasplaceholderstyle ? (css + '-overlay-with-placeholder') : ''}}"
          ba-show="{{!showbuiltincontroller}}" style="{{placeholderstyle}}"

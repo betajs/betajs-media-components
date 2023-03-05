@@ -133,6 +133,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "reloadonplay": false,
                         "playonclick": true,
                         "pauseonclick": true,
+                        "unmuteonclick": false,
+                        "muted": false,
 
                         /* Ads */
                         "adprovider": null,
@@ -257,6 +259,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "allowpip": "boolean",
                     "hasnext": "boolean",
                     "hidecontrolbar": "boolean",
+                    "muted": "boolean",
+                    "unmuteonclick": "boolean",
                     "rerecordable": "boolean",
                     "loop": "boolean",
                     "loopall": "boolean",
@@ -1013,7 +1017,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.player.once("loaded", function() {
                             var volume = Math.min(1.0, this.get("volume"));
                             this.player.setVolume(volume);
-                            this.player.setMuted(volume <= 0.0);
+                            this.player.setMuted(this.get("muted") || volume <= 0.0);
                             if (!this.__trackTags && this.get("tracktags").length)
                                 this.__trackTags = new TrackTags({}, this);
                             if (this.get("totalduration") || this.player.duration() < Infinity)
@@ -1278,9 +1282,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     user_activity: function(strong) {
                         if (strong && !this.get("volumeafterinteraction")) {
+                            if (this.get("muted") && this.get("unmuteonclick")) {
+                                this.set("muted", false);
+                                this.set("unmuteonclick", false);
+                            }
                             // User interacted with player, and set player's volume level/un-mute
                             // So we will play voice as soon as player visible for user
-                            this.set_volume(this.get("initialoptions").volumelevel);
+                            if (!this.get("muted")) this.set_volume(this.get("initialoptions").volumelevel);
                             this.set("volumeafterinteraction", true);
                             if (this.get("forciblymuted")) this.set("forciblymuted", false);
                         }
@@ -1458,7 +1466,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this._delegatedPlayer.execute("toggle_player");
                             return;
                         }
-                        if (this.get("playing") && this.get("pauseonclick")) {
+                        if (this.get("unmuteonclick") && this.get("muted")) {
+                            this.player.setMuted(false);
+                            this.set("muted", false);
+                            this.set("unmuteonclick", false);
+                        } else if (this.get("playing") && this.get("pauseonclick")) {
                             this.pause();
                         } else if (!this.get("playing") && this.get("playonclick")) {
                             this.play();
@@ -2011,16 +2023,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     video = video || this.__video;
                     if (!video) return;
                     if (this.get("autoplay-requires-muted") || this.get("autoplay-requires-playsinline") || this.get("wait-user-interaction") || this.get("forciblymuted")) {
-                        if (this.get("autoplay-requires-muted") || this.get("forciblymuted"))
-                            video.muted = true;
+                        if (this.get("autoplay-requires-muted") || this.get("forciblymuted")) video.muted = true;
                         if (this.get("autoplay-requires-playsinline"))
                             video.playsinline = true;
                         Dom.userInteraction(function() {
                             var _initialVolume = this.get("initialoptions").volumelevel > 1 ? 1 : this.get("initialoptions").volumelevel;
-                            this.set_volume(_initialVolume);
+                            if (!this.get("muted")) this.set_volume(_initialVolume);
                             this.set("autoplay", this.get("initialoptions").autoplay);
-                            if (this.get("volume") > 0.00)
-                                video.muted = false;
+                            if (!this.get("muted") && this.get("volume") > 0.00) video.muted = false;
                             this.set("forciblymuted", false);
                             if (this.get("autoplay-requires-muted") && (this._prerollAd || this._adsRoll)) {
                                 var _adsManager = (this._prerollAd || this._adsRoll)._adsManager;

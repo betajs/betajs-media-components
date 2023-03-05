@@ -240,13 +240,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     },
 
                     toggle_volume: function() {
+                        if (this.get("unmuteonclick")) return;
                         if (this.get("volume") > 0) {
                             this.__oldVolume = this.get("volume");
                             this.set("volume", 0);
                         } else {
                             this.set("volume", this.__oldVolume || 1);
                         }
-
                         this.trigger("volume", this.get("volume"));
                     },
 

@@ -1284,7 +1284,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (strong && !this.get("volumeafterinteraction")) {
                             if (this.get("muted") && this.get("unmuteonclick")) {
                                 this.set("muted", false);
-                                this.set("unmuteonclick", false);
+                                this.auto_destroy(new Timers.Timer({ // This is being fired right before toggle_player
+                                    delay: 500,
+                                    fire: function() {
+                                        this.set("unmuteonclick", false);
+                                    }.bind(this),
+                                    once: true
+                                }));
                             }
                             // User interacted with player, and set player's volume level/un-mute
                             // So we will play voice as soon as player visible for user
@@ -1466,9 +1472,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this._delegatedPlayer.execute("toggle_player");
                             return;
                         }
-                        if (this.get("unmuteonclick") && this.get("muted")) {
-                            this.player.setMuted(false);
-                            this.set("muted", false);
+                        if (this.get("unmuteonclick")) {
+                            if (this.get("muted")) {
+                                this.player.setMuted(false);
+                                this.set("muted", false);
+                            }
                             this.set("unmuteonclick", false);
                         } else if (this.get("playing") && this.get("pauseonclick")) {
                             this.pause();

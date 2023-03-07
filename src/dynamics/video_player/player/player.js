@@ -152,6 +152,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "rerecordable": false,
                         "submittable": false,
                         "autoplay": false,
+                        "autoplaywhenvisible": false,
                         "preload": false,
                         "loop": false,
                         "loopall": false,
@@ -261,6 +262,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "loop": "boolean",
                     "loopall": "boolean",
                     "autoplay": "boolean",
+                    "autoplaywhenvisible": "boolean",
                     "preload": "boolean",
                     "ready": "boolean",
                     "nofullscreen": "boolean",
@@ -506,6 +508,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("message", "");
                     this.set("fullscreensupport", false);
                     this.set("csssize", "normal");
+                    if (this.get("autoplaywhenvisible"))
+                        this.set("autoplay", true);
 
                     // this.set("loader_active", false);
                     // this.set("playbutton_active", false);

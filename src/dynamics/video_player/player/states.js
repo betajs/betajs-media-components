@@ -377,8 +377,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
     "module:VideoPlayer.Dynamics.PlayerStates.State",
     "module:PopupHelper",
     "base:Objs",
-    "base:Types"
-], function(State, PopupHelper, Objs, Types, scoped) {
+    "base:Types",
+    "browser:Dom"
+], function(State, PopupHelper, Objs, Types, Dom, scoped) {
     return State.extend({
         scoped: scoped
     }, {
@@ -400,7 +401,15 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
             if (this.dyn && ((this.dyn.get("skipinitial") && !this.dyn.get("autoplay")) || this.dyn.get("play-next"))) {
                 this.play();
             }
-            if (this.dyn && this.dyn.get("autoplay")) this.runAutoplay();
+            if (this.dyn && this.dyn.get("autoplay")) {
+                if (this.dyn.get("autoplaywhenvisible")) {
+                    Dom.onScrollIntoView(this.dyn.activeElement(), this.dyn.get("visibilityfraction"), function() {
+                        if (!this.destroyed())
+                            this.runAutoplay();
+                    }, this);
+                } else
+                    this.runAutoplay();
+            }
         },
 
         play: function() {

@@ -57,13 +57,21 @@
   ba-videorecorder-controlbar.cancel: Cancel
   ba-videorecorder-controlbar.cancel-tooltip: Click here to cancel.
   ba-videorecorder.cancel-confirm: Do you really want to cancel your video upload?
-  ba-videoplayer-adslot.elapsed-time: Elapsed time
-  ba-videoplayer-adslot.volume-button: Set volume
-  ba-videoplayer-adslot.volume-mute: Mute sound
-  ba-videoplayer-adslot.volume-unmute: Unmute sound
-  ba-videoplayer-adslot.ad-will-end-after: Ad will end after %s
-  ba-videoplayer-adslot.can-skip-after: Skip after %d
-  ba-videoplayer-adslot.skip-ad: Skip ad
+  ba-videoplayer-adslot.elapsed-time: '&#x648;&#x642;&#x62A; &#x625;&#x644;&#x627;&#x633;&#x628;&#x62F;'
+  ba-videoplayer-adslot.volume-button: >-
+    &#x62A;&#x639;&#x64A;&#x64A;&#x646; &#x645;&#x633;&#x62A;&#x648;&#x649;
+    &#x627;&#x644;&#x635;&#x648;&#x62A;
+  ba-videoplayer-adslot.volume-mute: '&#x635;&#x648;&#x62A; &#x645;&#x646;&#x62E;&#x641;&#x636;'
+  ba-videoplayer-adslot.volume-unmute: >-
+    &#x625;&#x644;&#x63A;&#x627;&#x621; &#x635;&#x648;&#x62A;
+    &#x627;&#x644;&#x635;&#x648;&#x62A;
+  ba-videoplayer-adslot.ad-will-end-after: >-
+    &#x633;&#x64A;&#x646;&#x62A;&#x647;&#x64A;
+    &#x627;&#x644;&#x625;&#x639;&#x644;&#x627;&#x646; &#x628;&#x639;&#x62F;%s
+  ba-videoplayer-adslot.can-skip-after: '&#x62A;&#x62E;&#x637;&#x64A; &#x628;&#x639;&#x62F;%d'
+  ba-videoplayer-adslot.skip-ad: >-
+    &#x62A;&#x62C;&#x627;&#x647;&#x644;
+    &#x627;&#x644;&#x627;&#x639;&#x644;&#x627;&#x646;&#x627;&#x62A;
   ba-videorecorder.software-required: >-
     Please click below to install / activate the following requirements in order
     to proceed.

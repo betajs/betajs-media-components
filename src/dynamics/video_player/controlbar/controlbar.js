@@ -93,7 +93,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 
                     startUpdatePosition: function(event) {
                         if (this.get("disableseeking")) return;
-                        event[0].preventDefault();
+                        // https://chromestatus.com/feature/5093566007214080
+                        // touchstart and touchmove listeners added to the document will default to passive:true
+                        if (event[0] && event[0].type.indexOf("touch") === -1)
+                            event[0].preventDefault();
+
                         if (!this.__parent.get("playing") && this.__parent.player && !this.get("manuallypaused"))
                             this.__parent.player.play();
 
@@ -105,11 +109,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 
                         var events = this.get("events");
                         events.on(document, "mousemove touchmove", function(e) {
-                            e.preventDefault();
+                            if (e.type.indexOf("touch") === -1)
+                                e.preventDefault();
                             this.call("progressUpdatePosition", e);
                         }, this);
                         events.on(document, "mouseup touchend", function(e) {
-                            e.preventDefault();
+                            if (e.type.indexOf("touch") === -1)
+                                e.preventDefault();
                             this.call("stopUpdatePosition");
                             events.off(document, "mouseup touchend mousemove touchmove");
                         }, this);

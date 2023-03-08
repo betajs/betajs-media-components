@@ -90,6 +90,10 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 if (this._adsLoader) this._adsLoader.contentComplete();
             },
 
+            reset: function() {
+                if (this._adsManager) this._adsManager.destroy();
+            },
+
             start: function(options) {
                 if (!this._adsManager) {
                     return this.once("adsManagerLoaded", function() {

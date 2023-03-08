@@ -1,10 +1,11 @@
 Scoped.define("module:Ads.Dynamics.Player", [
+    "base:Objs",
     "dynamics:Dynamic",
     "module:Ads.IMALoader",
     "module:Ads.IMA.AdsManager"
 ], [
     "module:Ads.Dynamics.Controlbar"
-], function(Class, IMALoader, AdsManager, scoped) {
+], function(Objs, Class, IMALoader, AdsManager, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -23,6 +24,19 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.activate();
                     }, this);
                     return true;
+                },
+
+                _baseRequestAdsOptions: function() {
+                    return {
+                        adTagUrl: this.get("adtagurl"),
+                        adWillAutoPlay: true, // TODO
+                        adWillAutoPlayMuted: false, // TODO
+                        continuousPlayback: false, // TODO
+                        linearAdSlotWidth: this.getAdWidth(),
+                        linearAdSlotHeight: this.getAdHeight(),
+                        nonLinearAdSlotWidth: this.getAdWidth(),
+                        nonLinearAdSlotHeight: this.getAdHeight() / 3
+                    };
                 },
 
                 channels: {
@@ -53,16 +67,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             restoreCustomPlaybackStateOnAdBreakComplete: true
                         }
                     }));
-                    this.adsManager.requestAds({
-                        adTagUrl: this.get("adtagurl"),
-                        adWillAutoPlay: true, // TODO
-                        adWillAutoPlayMuted: false, // TODO
-                        continuousPlayback: false, // TODO
-                        linearAdSlotWidth: this.getAdWidth(),
-                        linearAdSlotHeight: this.getAdHeight(),
-                        nonLinearAdSlotWidth: this.getAdWidth(),
-                        nonLinearAdSlotHeight: this.getAdHeight() / 3
-                    });
+                    this.adsManager.requestAds(this._baseRequestAdsOptions());
                     this.adsManager.on("all", function(event, data) {
                         this.channel("ads").trigger(event, data);
                     }, this);
@@ -77,6 +82,13 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             width: this.getAdWidth(),
                             height: this.getAdHeight()
                         });
+                    },
+                    reset: function() {
+                        this.adsManager.reset();
+                        this.adsManager.requestAds(this._baseRequestAdsOptions());
+                    },
+                    requestAds: function(options) {
+                        this.adsManager.requestAds(Objs.extend(this._baseRequestAdsOptions(), options));
                     },
                     contentComplete: function() {
                         this.adsManager.contentComplete();

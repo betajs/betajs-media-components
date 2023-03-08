@@ -499,17 +499,39 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
     }, {
         dynamics: ["loader"],
         _started: function() {
-            if (this.dyn.get("adtagurl") && !this.dyn.__adsloaded) {
+            if (this.dyn.get("adtagurl")) {
                 this.dyn.channel("ads").trigger("load");
                 this.listenOn(this.dyn.channel("ads"), "loaded", function() {
                     this.next(this._nextState());
                 }, this);
-                this.dyn.__adsloaded = true;
+                this.listenOn(this.dyn.channel("ads"), "ad-error", function() {
+                    this.next(this._nextState());
+                });
             } else this.next(this._nextState());
         },
         _nextState: function() {
             if (this.dyn.get("skipinitial")) return "PlayVideo";
             return "LoadVideo";
+        }
+    });
+});
+
+Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.ReloadAds", [
+    "module:VideoPlayer.Dynamics.PlayerStates.State"
+], function(State, scoped) {
+    return State.extend({
+        scoped: scoped
+    }, {
+        _started: function() {
+            if (this.dyn.get("adtagurl")) {
+                this.dyn.scopes.adsplayer.execute("reset");
+                this.listenOn(this.dyn.channel("ads"), "adsManagerLoaded", function() {
+                    this.next("NextVideo");
+                });
+                this.listenOn(this.dyn.channel("ads"), "ad-error", function() {
+                    this.next("NextVideo");
+                });
+            } else this.next("NextVideo");
         }
     });
 });
@@ -669,7 +691,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
                     this.auto_destroy(new Timer({
                         once: true,
                         fire: function() {
-                            this.next("NextVideo");
+                            this.next("ReloadAds");
                         }.bind(this),
                         delay: 50
                     }));
@@ -752,7 +774,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PostrollAd", [
         scoped: scoped
     }, {
         resume: function() {
-            this.next("NextVideo");
+            this.next("ReloadAds");
         }
     });
 });

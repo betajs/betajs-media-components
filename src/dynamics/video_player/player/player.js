@@ -394,7 +394,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             aspectRatio: aspectRatio
                         };
                         if (height) styles.height = typeof height === "string" && height[height.length - 1] === "%" ? height : height + "px";
-                        if (width) styles.width = typeof width === "string" && width[width.length - 1] === "%" ? width : width + "px";
+                        if (width && width !== "100%") styles.width = typeof width === "string" && width[width.length - 1] === "%" ? width : width + "px";
                         if (this.activeElement()) {
                             this._applyStyles(this.activeElement(), styles, this.__lastContainerSizingStyles);
                         }

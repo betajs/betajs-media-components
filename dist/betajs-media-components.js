@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.354 - 2023-03-07
+betajs-media-components - v0.0.355 - 2023-03-13
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.354 - 2023-03-07
+betajs-media-components - v0.0.355 - 2023-03-13
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.354",
-    "datetime": 1678208810033
+    "version": "0.0.355",
+    "datetime": 1678722672813
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -4140,7 +4140,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 
                     startUpdatePosition: function(event) {
                         if (this.get("disableseeking")) return;
-                        event[0].preventDefault();
+                        // https://chromestatus.com/feature/5093566007214080
+                        // touchstart and touchmove listeners added to the document will default to passive:true
+                        if (event[0] && event[0].type.indexOf("touch") === -1)
+                            event[0].preventDefault();
+
                         if (!this.__parent.get("playing") && this.__parent.player && !this.get("manuallypaused"))
                             this.__parent.player.play();
 
@@ -4152,11 +4156,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 
                         var events = this.get("events");
                         events.on(document, "mousemove touchmove", function(e) {
-                            e.preventDefault();
+                            if (e.type.indexOf("touch") === -1)
+                                e.preventDefault();
                             this.call("progressUpdatePosition", e);
                         }, this);
                         events.on(document, "mouseup touchend", function(e) {
-                            e.preventDefault();
+                            if (e.type.indexOf("touch") === -1)
+                                e.preventDefault();
                             this.call("stopUpdatePosition");
                             events.off(document, "mouseup touchend mousemove touchmove");
                         }, this);
@@ -5080,7 +5086,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             aspectRatio: aspectRatio
                         };
                         if (height) styles.height = typeof height === "string" && height[height.length - 1] === "%" ? height : height + "px";
-                        if (width) styles.width = typeof width === "string" && width[width.length - 1] === "%" ? width : width + "px";
+                        if (width && width !== "100%") styles.width = typeof width === "string" && width[width.length - 1] === "%" ? width : width + "px";
                         if (this.activeElement()) {
                             this._applyStyles(this.activeElement(), styles, this.__lastContainerSizingStyles);
                         }

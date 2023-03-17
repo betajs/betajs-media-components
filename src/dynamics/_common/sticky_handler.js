@@ -65,8 +65,12 @@ Scoped.define("module:StickyHandler", [
                             elementFirstObservation = false;
                             return;
                         }
-                        if (entry.isIntersecting || this.paused) return;
-                        this.trigger("elementLeftView");
+                        if (entry.isIntersecting) return;
+                        if (this.paused) {
+                            this.trigger("transitionOutOfView");
+                            return;
+                        }
+                        this.trigger("transitionToFloat");
                         if (!this.elementWasDragged()) this.element.classList.add("ba-commoncss-fade-up");
                         this.element.classList.add("ba-commoncss-sticky", "ba-commoncss-sticky-" + this.position);
                         if (this._top) this.element.style.top = this._top;
@@ -82,7 +86,7 @@ Scoped.define("module:StickyHandler", [
                             return;
                         }
                         if (!entry.isIntersecting) return;
-                        this.trigger("containerEnteredView");
+                        this.trigger("transitionToView");
                         this.element.style.removeProperty("top");
                         this.element.style.removeProperty("left");
                         this.element.classList.remove("ba-commoncss-sticky", "ba-commoncss-sticky-" + this.position, "ba-commoncss-fade-up");

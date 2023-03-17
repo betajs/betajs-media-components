@@ -556,19 +556,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.activeElement().style.setProperty("display", "inline-block");
                     this._applyStyles(this.activeElement(), this.get("containerSizingStyles"));
 
-                    if (this.get("sticky")) {
-                        var stickyOptions = {
-                            paused: true,
-                            position: this.get("sticky-position")
-                        };
-                        this.stickyHandler = this.auto_destroy(new StickyHandler(
-                            this.activeElement().firstChild,
-                            this.activeElement(),
-                            stickyOptions
-                        ));
-                        this.delegateEvents(null, this.stickyHandler);
-                        this.stickyHandler.init();
-                    }
+                    var stickyOptions = {
+                        paused: true,
+                        position: this.get("sticky-position")
+                    };
+                    this.stickyHandler = this.auto_destroy(new StickyHandler(
+                        this.activeElement().firstChild,
+                        this.activeElement(),
+                        stickyOptions
+                    ));
+                    this.delegateEvents(null, this.stickyHandler);
+                    this.stickyHandler.init();
                 },
 
                 initAdProvider: function() {

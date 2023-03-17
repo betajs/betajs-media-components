@@ -566,6 +566,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.activeElement(),
                             stickyOptions
                         ));
+                        this.delegateEvents(null, this.stickyHandler);
                         this.stickyHandler.init();
                     }
                 },

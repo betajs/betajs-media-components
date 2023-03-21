@@ -1,11 +1,13 @@
 Scoped.define("module:Ads.Dynamics.Player", [
     "base:Objs",
+    "base:Async",
+    "browser:Info",
     "dynamics:Dynamic",
     "module:Ads.IMALoader",
     "module:Ads.IMA.AdsManager"
 ], [
     "module:Ads.Dynamics.Controlbar"
-], function(Objs, Class, IMALoader, AdsManager, scoped) {
+], function(Objs, Async, Info, Class, IMALoader, AdsManager, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -14,7 +16,14 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                 attrs: {
                     dyncontrolbar: "ads-controlbar",
-                    tmplcontrolbar: ""
+                    tmplcontrolbar: "",
+                    cssadsplayer: "ba-adsplayer",
+                    commoncss: "",
+                    linear: true, // should be true to cover all the player container
+                    playing: false,
+                    currenttime: 0,
+                    volume: 1,
+                    hidecontrolbar: false
                 },
 
                 _deferActivate: function() {
@@ -29,12 +38,14 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 _baseRequestAdsOptions: function() {
                     return {
                         adTagUrl: this.get("adtagurl"),
-                        adWillAutoPlay: true, // TODO
-                        adWillAutoPlayMuted: false, // TODO
+                        inlinevastxml: this.get("inlinevastxml"),
                         continuousPlayback: false, // TODO
                         linearAdSlotWidth: this.getAdWidth(),
                         linearAdSlotHeight: this.getAdHeight(),
                         nonLinearAdSlotWidth: this.getAdWidth(),
+                        adWillAutoplay: this.getAdWillAutoplay(),
+                        contentAutoplay: this.getContentAutoplay(),
+                        adWillPlayMuted: this.getAdWillPlayMuted(),
                         nonLinearAdSlotHeight: this.getAdHeight() / 3
                     };
                 },
@@ -42,6 +53,18 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 channels: {
                     "ads:load": function() {
                         this.call("load");
+                    },
+                    "ads:start": function(ev) {
+                        this.set("playing", true);
+                        this.set("currentTime", 0);
+                        this.set("remaining", this.get("duration"));
+
+                        var isLinear = ev && ev.getAd && ev.getAd().isLinear();
+                        this.set("linear", isLinear);
+                        this.set("hidecontrolbar", !isLinear);
+                    },
+                    "ads:allAdsCompleted": function() {
+                        this.call("reset");
                     },
                     "ads:contentComplete": function() {
                         this.call("contentComplete");
@@ -54,30 +77,49 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     "ads:volumeChange": function() {
                         this.set("volume", this.adsManager.getVolume());
+                    },
+                    "ads:pause": function() {
+                        this.set("playing", false);
+                    },
+                    "ads:resume": function() {
+                        this.set("playing", true);
                     }
                 },
 
                 create: function() {
+                    var dynamics = this.parent();
                     var adContainer = this.getAdContainer();
-                    var videoElement = this.getVideoElement();
-                    this.adsManager = this.auto_destroy(new AdsManager({
+                    var adManagerOptions = {
                         adContainer: adContainer,
-                        videoElement: videoElement,
                         adsRenderingSettings: {
                             enablePreloading: true,
                             useStyledNonLinearAds: true,
                             restoreCustomPlaybackStateOnAdBreakComplete: true
                         }
-                    }));
+                    };
+                    if (!Info.isMobile() && this.getVideoElement() && !this.get("outstream")) {
+                        // It's optionalParameter
+                        adManagerOptions.videoElement = this.getVideoElement();
+                    }
+                    this.adsManager = this.auto_destroy(new AdsManager(adManagerOptions, dynamics));
                     this.adsManager.requestAds(this._baseRequestAdsOptions());
                     this.adsManager.on("all", function(event, data) {
                         this.channel("ads").trigger(event, data);
                     }, this);
-                    this.parent().on("resize", function(dimensions) {
-                        this.adsManager.resize(
-                            dimensions.width, dimensions.height, google.ima.ViewMode.NORMAL
-                        );
-                    }, this);
+                    if (dynamics && this.adsManager) {
+                        dynamics.on("resize", function(dimensions) {
+                            this.adsManager.resize(
+                                dimensions.width, dimensions.height, google.ima.ViewMode.NORMAL
+                            );
+                        }, this);
+                        dynamics.on("unmute-ads", function(volume) {
+                            Async.eventually(function() {
+                                // ads:volumeChange not trigger initially, only after change volume
+                                this.set("volume", volume);
+                                this.adsManager.setVolume(volume);
+                            }, this, 300);
+                        }, this);
+                    }
                 },
 
                 functions: {
@@ -91,6 +133,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         });
                     },
                     reset: function() {
+                        this.set("linear", true);
                         this.adsManager.reset();
                         this.adsManager.requestAds(this._baseRequestAdsOptions());
                     },
@@ -128,8 +171,21 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 getVideoElement: function() {
-                    if (!this._videoElement) this._videoElement = this.parent() && this.parent().activeElement().querySelector("[data-video='video']"); // TODO video element for outstream
+                    if (!this._videoElement)
+                        this._videoElement = this.parent() && this.parent().activeElement().querySelector("[data-video='video']"); // TODO video element for outstream
                     return this._videoElement;
+                },
+
+                getContentAutoplay: function() {
+                    return this.parent() && this.parent().get("autoplay");
+                },
+
+                getAdWillAutoplay: function() {
+                    return this.parent() && this.parent().get("autoplay-allowed");
+                },
+
+                getAdWillPlayMuted: function() {
+                    return this.parent() && this.parent().get("autoplay-requires-muted");
                 }
             };
         }).register("ba-adsplayer")

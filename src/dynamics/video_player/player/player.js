@@ -22,7 +22,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.PlayerStates.Initial",
     "module:VideoPlayer.Dynamics.PlayerStates",
     "module:Ads.AbstractVideoAdProvider",
-    "module:Ads.IMARequester",
     "browser:Events"
 ], [
     "module:Ads.Dynamics.Player",
@@ -59,7 +58,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.PlayerStates.ErrorVideo",
     "module:VideoPlayer.Dynamics.PlayerStates.PlayVideo",
     "module:VideoPlayer.Dynamics.PlayerStates.NextVideo"
-], function(Class, Assets, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, PlayerSupport, Types, Objs, Strings, Collection, Time, Timers, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, IMARequester, DomEvents, scoped) {
+], function(Class, Assets, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, PlayerSupport, Types, Objs, Strings, Collection, Time, Timers, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, [StylesMixin, function(inherited) {
@@ -149,6 +148,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         /* Ads */
                         "adprovider": null,
                         "preroll": false,
+                        "outstream": false,
+                        "imasettings": [],
+                        "adtagurl": null,
+                        "inlinevastxml": null,
                         "linear": null,
                         "non-linear": null,
                         "companion-ad": null,
@@ -218,6 +221,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "slim": false,
 
                         /* States (helper variables which are controlled by application itself not set by user) */
+                        "adshassource": false,
                         "showbuiltincontroller": false,
                         "airplaybuttonvisible": false,
                         "castbuttonvisble": false,
@@ -336,6 +340,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "thumbnailurl": "string",
                     "videofitstrategy": "string",
                     "posterfitstrategy": "string",
+                    "adtagurl": "string",
+                    "inlinevastxml": "string",
+                    "imasettings": "jsonarray",
                     "linear": "string",
                     "non-linear": "string",
                     "minadintervals": "int",
@@ -438,6 +445,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             });
                         }
                     }.bind(this));
+                    this.set("adshassource", !!this.get("adtagurl") || !!this.get("inlinevastxml"));
                     this._observer.observe(this.activeElement().firstChild);
                     this._validateParameters();
                     // Will set volume initial state
@@ -588,8 +596,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 initAdProvider: function() {
-                    var adInitOptions, adContainer;
+                    var adInitOptions, adContainer, videoContainer;
                     this._adProvider = this.get("adprovider");
+                    videoContainer = this.activeElement().querySelector("[data-video='video']");
                     adContainer = this.activeElement().querySelector("[data-video='ima-ad-container']");
                     if (Types.is_string(this._adProvider))
                         this._adProvider = AdProvider.registry[this._adProvider];
@@ -598,11 +607,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (!adContainer.hasChildNodes()) {
                             this.set("ad-provider-ready", false);
                             adInitOptions = {
-                                videoElement: this.activeElement().querySelector("[data-video='video']"),
                                 adElement: this.activeElement().querySelector("[data-video='ad']"),
                                 adContainer: this.activeElement().querySelector("[data-video='ima-ad-container']"),
                                 dynamic: this
                             };
+                            if (!this.isMobile() && videoContainer) {
+                                // Optional but if passing any, value must not be null.
+                                // On the mobile, it can cause trouble conflicting with dynamic player
+                                adContainer.videoElement = videoContainer;
+                            }
                             if (this.get("preroll")) {
                                 this._prerollAd = this._adProvider.newPrerollAd(adInitOptions);
                                 this.set("ad-provider-ready", true);
@@ -1690,27 +1703,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     } catch (e) {}
                     try {
-                        // For now, it will be implemented only for ads, if in the feature
-                        //  are applied for another feature statement could be updated
-                        if (this._adsRoll) {
-                            var dimensions = this.get("states").dimensions;
-                            var _width = Dom.elementDimensions(this.activeElement()).width || this.videoWidth() || this.parentWidth();
-                            var _height = Dom.elementDimensions(this.activeElement()).height || this.videoHeight() || this.parentHeight();
-                            // If any updates occur
-                            if (dimensions.width === null || (dimensions.height !== _height || dimensions.width !== _width)) {
-                                this.set("states", Objs.tree_merge(this.get("states"), {
-                                    dimensions: {
-                                        width: _width,
-                                        height: _height
-                                    }
-                                }));
-                                if (this._adsRoll._adsManager) {
-                                    this._adsRoll._adsManager.resize(_width, _height, google.ima.ViewMode.NORMAL);
-                                }
-                            }
-                        }
-                    } catch (e) {}
-                    try {
                         this._updateCSSSize();
                     } catch (e) {}
                 },
@@ -1750,7 +1742,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 aspectRatio: function() {
-                    // Don't use shortcut way of getting aspect ratio, will act as not expected.
+                    // Don't use a shortcut way of getting an aspect ratio, will act as not expected.
                     var height = this.videoHeight();
                     var width = this.videoWidth();
 
@@ -1858,33 +1850,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                                 width: Dom.elementDimensions(this.activeElement()).width || this.parentWidth(),
                                                 height: Dom.elementDimensions(this.activeElement()).height || this.parentHeight()
                                             }
-                                        });
-                                    }
-                                }
-                            }, this);
-                        }
-
-                        // non-linear ads, They can be delivered as text, static image, or interactive rich media.
-                        if (this.get("non-linear-ad").length > 0) {
-                            Objs.iter(this.get("non-linear-ad"), function(nonLinear) {
-                                if (Types.is_defined(nonLinear)) {
-                                    if (nonLinear.position && nonLinear.position >= 0) {
-                                        var _position = nonLinear.position < 1 ?
-                                            Math.floor(this.get("duration") * nonLinear.position) :
-                                            nonLinear.position;
-                                        var _width = nonLinear.width || Dom.elementDimensions(this.activeElement()).width || this.parentWidth();
-                                        var _height = nonLinear.height || Dom.elementDimensions(this.activeElement()).height || this.parentHeight();
-                                        this._adsCollection.add({
-                                            position: _position,
-                                            duration: this._adProvider.nonLienarDuration,
-                                            type: this._adProvider.__IMA_AD_TYPE_NON_LINEAR,
-                                            isLinear: false,
-                                            exact: (!!nonLinear.width && !!nonLinear.height),
-                                            dimensions: {
-                                                width: +_width,
-                                                height: +_height
-                                            },
-                                            waitToLoadInSeconds: 5 // We can set divergent on linear or on non-linear
                                         });
                                     }
                                 }
@@ -2065,15 +2030,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             video.playsinline = true;
                         Dom.userInteraction(function() {
                             var _initialVolume = this.get("initialoptions").volumelevel > 1 ? 1 : this.get("initialoptions").volumelevel;
-                            if (!this.get("muted")) this.set_volume(_initialVolume);
                             this.set("autoplay", this.get("initialoptions").autoplay);
-                            if (!this.get("muted") && this.get("volume") > 0.00) video.muted = false;
+                            // Sometimes browser detects that unmute happens before the user has interaction, and it pauses ad
+                            Async.eventually(function() {
+                                if (!this.get("muted")) this.set_volume(_initialVolume);
+                                if (!this.get("muted") && this.get("volume") > 0.00) video.muted = false;
+                            }, this, 300);
+
                             this.set("forciblymuted", false);
-                            if (this.get("autoplay-requires-muted") && (this._prerollAd || this._adsRoll)) {
-                                var _adsManager = (this._prerollAd || this._adsRoll)._adsManager;
-                                var _adsControlBar = (this._prerollAd || this._adsRoll)._adControlbar;
-                                if (_adsManager) _adsManager.setVolume(_initialVolume);
-                                if (_adsControlBar) _adsControlBar.set('volume', _initialVolume);
+                            if (this.get("autoplay-requires-muted") && this.get("adshassource")) {
+                                // Sometimes browser detects that unmute happens before the user has interaction, and it pauses ad
+                                this.trigger("unmute-ads", Math.min(_initialVolume, 1));
                             }
                             if (this.get("wait-user-interaction") && this.get("autoplay")) {
                                 this.__testAutoplayOptions(video);

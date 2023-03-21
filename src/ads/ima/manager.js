@@ -29,7 +29,8 @@ Scoped.define("module:Ads.IMA.AdsManager", [
 
             requestAds: function(options) {
                 this._adsRequest = new google.ima.AdsRequest();
-                this._adsRequest.adTagUrl = options.adTagUrl;
+                if (options.adTagUrl) this._adsRequest.adTagUrl = options.adTagUrl;
+                else if (options.inlinevastxml) this._adsRequest.adsResponse = options.inlinevastxml;
                 this._adsRequest.linearAdSlotWidth = options.linearAdSlotWidth;
                 this._adsRequest.linearAdSlotHeight = options.linearAdSlotHeight;
                 this._adsRequest.nonLinearAdSlotWidth = options.nonLinearAdSlotWidth;
@@ -103,6 +104,9 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 try {
                     this._adDisplayContainer.initialize();
                     this._adsManager.init(options.width, options.height, google.ima.ViewMode.NORMAL);
+                    if (this._requestOptions && this._requestOptions.contentAutoplay && this._requestOptions.adWillPlayMuted) {
+                        this._adsManager.setVolume(0);
+                    }
                     this._adsManager.start();
                 } catch (e) {
                     this.onAdError(e);

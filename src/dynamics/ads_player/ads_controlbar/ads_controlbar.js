@@ -14,13 +14,10 @@ Scoped.define("module:Ads.Dynamics.Controlbar", [
 
                 attrs: {
                     css: "ba-videoplayer",
-                    cssplayer: "ba-player",
-                    csscommon: "ba-commoncss",
                     showcontrolbar: true,
                     showbanner: false,
                     media: null,
                     playing: false,
-                    volume: 1,
                     disablepause: false,
                     title: null,
                     pausedonclick: false,
@@ -35,19 +32,8 @@ Scoped.define("module:Ads.Dynamics.Controlbar", [
                 },
 
                 channels: {
-                    "ads:pause": function() {
-                        this.set("playing", false);
-                    },
-                    "ads:start": function() {
-                        this.set("playing", true);
-                        this.set("currentTime", 0);
-                        this.set("remaining", this.get("duration"));
-                    },
-                    "ads:resume": function() {
-                        this.set("playing", true);
-                    },
                     "ads:adProgress": function(event) {
-                        this.set("currentTime", event.getAdData().currentTime);
+                        this.set("currenttime", event.getAdData().currentTime);
                         this.set("remaining", this.get("duration") - event.getAdData().currentTime);
                     }
                 },

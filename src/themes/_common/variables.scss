@@ -1,6 +1,7 @@
 $csscommon: "ba-commoncss";
 $cssrecorder: "ba-recorder";
 $cssplayer: "ba-player";
+$cssadsplayer: "ba-adsplayer";
 $cssvideoplayer: "ba-videoplayer";
 $cssvideorecorder: "ba-videorecorder";
 $cssaudioplayer: "ba-audioplayer";
@@ -77,6 +78,8 @@ $loader_label_fontsize: 40px;
 $controlbar_icon_good: #9F9;
 $controlbar_icon_bad: #F99;
 
+$controlbar_height: 30px;
+$progressbar_height: 9px;
 $player_controlbar_height: 30px;
 $player_progressbar_height: 3px;
 

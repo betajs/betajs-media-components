@@ -33,44 +33,45 @@
 
         // VMAP - Pre-roll Single Ad, Mid-roll Optimized Pod with 3 Ads, Post-roll Single Ad
         // var vmap = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/vmap_ad_samples&sz=640x480&cust_params=sample_ar%3Dpremidpostoptimizedpod&ciu_szs=300x250&gdfp_req=1&ad_rule=1&output=vmap&unviewed_position_start=1&env=vp&impl=s&cmsid=496&vid=short_onecue&correlator='
-        var vmap = '//localhost:5050/static/demos/vast-samples/VMAP/dc_vmap_pre_1_mid_3_post_1.xml'
+        var vmap = '//localhost:5050/static/demosvast-samples/VMAP/dc_vmap_pre_1_mid_3_post_1.xml'
 
         // var nonLinear = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/nonlinear_ad_samples&sz=480x70&cust_params=sample_ct%3Dnonlinear&ciu_szs=300x250%2C728x90&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=';
         var nonLinear = '//localhost:5050/static/demos/vast-samples/dc-single_non-linear.xml';
-        const inlineVAST = "";
-        var adsense = new BetaJS.MediaComponents.Ads.IMAProvider({
-            // adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator='
-            // adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator='
-            // adTagUrl: 'https://securepubads.g.doubleclick.net/gampad/ads?env=vp&gdfp_req=1&output=vast&iu=/1234/video-demo&sz=400x300&unviewed_position_start=1&ciu_szs=728x90,300x250'
-            // adTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Inline_Linear_Tag-test.xml'
-            // adTagUrl: errroAd
-            // adTagUrl: v3_clickThroughtLocalAd
-            // adTagUrl: v3_skipable
-            // adTagUrl: v4_2_wrapper
-            // adTagUrl: v3_doubleclickVMAP
-            // adTagUrl: v4_2_non_skipable
-            // adTagUrl: vmap
-            // adTagUrl: nonLinear
-            // adTagUrl: v4_2_skipable
-            // inlineVASTXML: inlineVAST
-            adTagUrl: v3_doubleclick
-            // , nonLinearAdTagUrl: v3_non_linear
-            // preAdTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml',
-            // postAdTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml',
-            // midAdTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml',
-            // adMidTagUrls: [
-            //     'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml',
-            //     'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml'
-            // ]
-            //, vpaidMode: true, DISABLED, ENABLED, INSECURE
-            // , maxAllowedRedirects: 10,
-            // https://developers.google.com/interactive-media-ads/docs/sdks/html5/client-side/localization
-            , locale: 'fr'
-            , customSkipView: true
-            // , skipAfter: 3
-            , nonLinearDuration: 10 // default will be 10 seconds
-        });
-        adsense.register("ima");
+        // const inlineVAST = ``;
+
+        // var adsense = new BetaJS.MediaComponents.Ads.IMAProvider({
+        //     // adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator='
+        //     // adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator='
+        //     // adTagUrl: 'https://securepubads.g.doubleclick.net/gampad/ads?env=vp&gdfp_req=1&output=vast&iu=/1234/video-demo&sz=400x300&unviewed_position_start=1&ciu_szs=728x90,300x250'
+        //     // adTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Inline_Linear_Tag-test.xml'
+        //     // adTagUrl: errroAd
+        //     // adTagUrl: v3_clickThroughtLocalAd
+        //     // adTagUrl: v3_skipable
+        //     // adTagUrl: v4_2_wrapper
+        //     // adTagUrl: v3_doubleclickVMAP
+        //     // adTagUrl: v4_2_non_skipable
+        //     // adTagUrl: vmap
+        //     // adTagUrl: nonLinear
+        //     // adTagUrl: v4_2_skipable
+        //     // inlineVASTXML: inlineVAST
+        //     adTagUrl: v3_doubleclick
+        //     // , nonLinearAdTagUrl: v3_non_linear
+        //     // preAdTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml',
+        //     // postAdTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml',
+        //     // midAdTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml',
+        //     // adMidTagUrls: [
+        //     //     'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml',
+        //     //     'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml'
+        //     // ]
+        //     //, vpaidMode: true, DISABLED, ENABLED, INSECURE
+        //     // , maxAllowedRedirects: 10,
+        //     // https://developers.google.com/interactive-media-ads/docs/sdks/html5/client-side/localization
+        //     , locale: 'fr'
+        //     , customSkipView: true
+        //     // , skipAfter: 3
+        //     , nonLinearDuration: 10 // default will be 10 seconds
+        // });
+        // adsense.register("ima");
     </script>
 
 
@@ -112,17 +113,20 @@
                 // showduration: true,
                 // ,linear: "pre, mid[12*], post"
                 // ,linear: "post"
+                , outstream: true
                 , linear: "pre"
                 // , linear: "mid[5*]"
-                , minadintervals: 8
-                , skipinitial: true
+                // , minadintervals: 8
+                // , skipinitial: true
                 , autoplay: true
+                // , adtagurl: v3_doubleclick
+                , inlinevastxml: inlineVAST
                 // , preload: true
                 // , 'non-linear': "52[,250], 55%[300], 19[,250], 2[480,70]"
             }
         });
 
-        player.on("adloaded", () => { console.log("ad loaded")});
+        player.on("adloaded", () => { console.log("ad loaded") });
         player.on("adcontentPauseRequested", () => { console.log("ad contentPauseRequested")});
         player.on("contentResumeRequested", () => { console.log("ad contentResumeRequested")});
         player.on("start", () => { console.log("ad start")});

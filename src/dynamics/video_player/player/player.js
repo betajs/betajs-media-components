@@ -427,6 +427,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 create: function() {
                     if (typeof this.get("showsettings") !== "undefined")
                         this.set("showsettingsmenu", this.get("showsettings"));
+                    this.delegateEvents(null, this.channel("ads"), "ad");
                     this.set("prominent_title", this.get("prominent-title"));
                     this.set("closeable_title", this.get("closeable-title"));
                     this._observer = new ResizeObserver(function(entries) {

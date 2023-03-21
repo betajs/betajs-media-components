@@ -47,6 +47,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.call("contentComplete");
                     },
                     "ads:loaded": function(event) {
+                        this.set("ad", event.getAd());
+                        this.set("addata", event.getAdData());
                         this.set("volume", this.adsManager.getVolume());
                         this.set("duration", event.getAdData().duration);
                     },

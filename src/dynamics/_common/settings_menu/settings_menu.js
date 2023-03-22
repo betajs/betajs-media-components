@@ -117,7 +117,8 @@ Scoped.define("module:Common.Dynamics.Settingsmenu", [
                     },
 
                     add_new_settings_item: function(settingObject) {
-                        this.addSetting(settingObject);
+                        if (settingObject.visible || typeof settingObject.visible === 'undefined')
+                            this.addSetting(settingObject);
                     },
 
                     update_new_settings_item: function(id, updatedSetting) {

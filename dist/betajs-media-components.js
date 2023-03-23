@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.355 - 2023-03-13
+betajs-media-components - v0.0.356 - 2023-03-23
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.355 - 2023-03-13
+betajs-media-components - v0.0.356 - 2023-03-23
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.355",
-    "datetime": 1678722672813
+    "version": "0.0.356",
+    "datetime": 1679584239638
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -3066,8 +3066,12 @@ Scoped.define("module:StickyHandler", [
                             elementFirstObservation = false;
                             return;
                         }
-                        if (entry.isIntersecting || this.paused) return;
-                        this.trigger("elementLeftView");
+                        if (entry.isIntersecting) return;
+                        if (this.paused) {
+                            this.trigger("transitionOutOfView");
+                            return;
+                        }
+                        this.trigger("transitionToFloat");
                         if (!this.elementWasDragged()) this.element.classList.add("ba-commoncss-fade-up");
                         this.element.classList.add("ba-commoncss-sticky", "ba-commoncss-sticky-" + this.position);
                         if (this._top) this.element.style.top = this._top;
@@ -3083,7 +3087,7 @@ Scoped.define("module:StickyHandler", [
                             return;
                         }
                         if (!entry.isIntersecting) return;
-                        this.trigger("containerEnteredView");
+                        this.trigger("transitionToView");
                         this.element.style.removeProperty("top");
                         this.element.style.removeProperty("left");
                         this.element.classList.remove("ba-commoncss-sticky", "ba-commoncss-sticky-" + this.position, "ba-commoncss-fade-up");
@@ -3679,7 +3683,8 @@ Scoped.define("module:Common.Dynamics.Settingsmenu", [
                     },
 
                     add_new_settings_item: function(settingObject) {
-                        this.addSetting(settingObject);
+                        if (settingObject.visible || typeof settingObject.visible === 'undefined')
+                            this.addSetting(settingObject);
                     },
 
                     update_new_settings_item: function(id, updatedSetting) {
@@ -4881,6 +4886,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "thumbimage": {},
                         "thumbcuelist": [],
                         "showduration": false,
+                        "showsettings": true,
                         "showsettingsmenu": true, // As a property show/hide from users
                         "posteralt": "",
                         "hidevolumebar": false,
@@ -5006,6 +5012,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "playerspeeds": "array",
                     "playercurrentspeed": "float",
                     "showsettings": "boolean",
+                    "showsettingsmenu": "boolean",
                     "showduration": "boolean",
                     "visibilityfraction": "float",
                     "showchaptertext": "boolean",
@@ -5102,6 +5109,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 remove_on_destroy: true,
 
                 create: function() {
+                    if (typeof this.get("showsettings") !== "undefined")
+                        this.set("showsettingsmenu", this.get("showsettings"));
                     this.set("prominent_title", this.get("prominent-title"));
                     this.set("closeable_title", this.get("closeable-title"));
                     this._observer = new ResizeObserver(function(entries) {
@@ -5248,18 +5257,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.activeElement().style.setProperty("display", "inline-block");
                     this._applyStyles(this.activeElement(), this.get("containerSizingStyles"));
 
-                    if (this.get("sticky")) {
-                        var stickyOptions = {
-                            paused: true,
-                            position: this.get("sticky-position")
-                        };
-                        this.stickyHandler = this.auto_destroy(new StickyHandler(
-                            this.activeElement().firstChild,
-                            this.activeElement(),
-                            stickyOptions
-                        ));
-                        this.stickyHandler.init();
-                    }
+                    var stickyOptions = {
+                        paused: true,
+                        position: this.get("sticky-position")
+                    };
+                    this.stickyHandler = this.auto_destroy(new StickyHandler(
+                        this.activeElement().firstChild,
+                        this.activeElement(),
+                        stickyOptions
+                    ));
+                    this.delegateEvents(null, this.stickyHandler);
+                    this.stickyHandler.init();
                 },
 
                 initAdProvider: function() {
@@ -5548,6 +5556,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.destroyed())
                             return;
                         this.player = instance;
+                        this.delegateEvents(null, this.player, "player");
                         this.__video = video;
                         // On autoplay video, silent attach should be false
                         this.set("silent_attach", (silent && !this.get("autoplay")) || this._prerollAd || false);
@@ -6001,10 +6010,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     playbutton_click: function() {
+                        this.trigger("playbuttonclick");
                         this.host.state().play();
                     },
 
                     play: function() {
+                        this.trigger("playrequested");
                         if (this._delegatedPlayer) {
                             this._delegatedPlayer.execute("play");
                             return;

@@ -189,6 +189,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "thumbimage": {},
                         "thumbcuelist": [],
                         "showduration": false,
+                        "showsettings": true,
                         "showsettingsmenu": true, // As a property show/hide from users
                         "posteralt": "",
                         "hidevolumebar": false,
@@ -314,6 +315,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "playerspeeds": "array",
                     "playercurrentspeed": "float",
                     "showsettings": "boolean",
+                    "showsettingsmenu": "boolean",
                     "showduration": "boolean",
                     "visibilityfraction": "float",
                     "showchaptertext": "boolean",
@@ -410,6 +412,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 remove_on_destroy: true,
 
                 create: function() {
+                    if (typeof this.get("showsettings") !== "undefined")
+                        this.set("showsettingsmenu", this.get("showsettings"));
                     this.set("prominent_title", this.get("prominent-title"));
                     this.set("closeable_title", this.get("closeable-title"));
                     this._observer = new ResizeObserver(function(entries) {

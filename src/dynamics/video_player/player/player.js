@@ -1314,6 +1314,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     play: function() {
+                        this.trigger("playrequested");
                         if (this._delegatedPlayer) {
                             this._delegatedPlayer.execute("play");
                             return;

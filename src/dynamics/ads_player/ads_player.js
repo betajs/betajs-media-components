@@ -106,17 +106,22 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     this.adsManager.on("all", function(event, data) {
                         this.channel("ads").trigger(event, data);
                     }, this);
-                    if (dynamics && this.adsManager) {
+                    if (dynamics) {
                         dynamics.on("resize", function(dimensions) {
-                            this.adsManager.resize(
-                                dimensions.width, dimensions.height, google.ima.ViewMode.NORMAL
-                            );
+                            // This part will listen to the resize even after adsManger will be destroyed
+                            if (this.adsManager && typeof this.adsManager.resize === "function") {
+                                this.adsManager.resize(
+                                    dimensions.width, dimensions.height, google.ima.ViewMode.NORMAL
+                                );
+                            }
                         }, this);
                         dynamics.on("unmute-ads", function(volume) {
                             Async.eventually(function() {
                                 // ads:volumeChange not trigger initially, only after change volume
                                 this.set("volume", volume);
-                                this.adsManager.setVolume(volume);
+                                if (this.adsManager && typeof this.adsManager.setVolume === "function") {
+                                    this.adsManager.setVolume(volume);
+                                }
                             }, this, 300);
                         }, this);
                     }

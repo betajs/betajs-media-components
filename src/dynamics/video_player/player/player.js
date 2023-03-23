@@ -1309,6 +1309,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     playbutton_click: function() {
+                        this.trigger("playbuttonclick");
                         this.host.state().play();
                     },
 

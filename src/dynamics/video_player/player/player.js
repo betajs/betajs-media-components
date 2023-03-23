@@ -855,6 +855,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.destroyed())
                             return;
                         this.player = instance;
+                        this.delegateEvents(null, this.player, "player");
                         this.__video = video;
                         // On autoplay video, silent attach should be false
                         this.set("silent_attach", (silent && !this.get("autoplay")) || this._prerollAd || false);

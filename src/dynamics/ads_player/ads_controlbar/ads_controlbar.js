@@ -123,12 +123,17 @@ Scoped.define("module:Ads.Dynamics.Controlbar", [
         })
         .attachStringTable(Assets.strings)
         .addStrings({
-            "elapsed-time": "Elapsed time",
-            "volume-button": "Set volume",
+            "skip-ad": "Skip ad",
+            "play-ad": "Play",
+            "pause-video": "Pause",
             "volume-mute": "Mute sound",
+            "volume-button": "Set volume",
+            "elapsed-time": "Elapsed time",
             "volume-unmute": "Unmute sound",
-            "ad-will-end-after": "Ad will end after %s",
             "can-skip-after": "Skip after %d",
-            "skip-ad": "Skip ad"
+            "fullscreen-video": "Enter fullscreen",
+            "exit-fullscreen-video": "Exit fullscreen",
+            "ad-will-end-after": "Ad will end after %s",
+            "pause-video-disabled": "Pause not supported"
         });
 });

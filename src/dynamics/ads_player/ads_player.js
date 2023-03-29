@@ -171,7 +171,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this._replay();
                     },
                     close: function() {
-                        return this._hideContentPlayer(true);
+                        return this._hideContentPlayer();
                     }
                 },
 
@@ -232,7 +232,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             this._hideContentPlayer(dyn);
                         } else {
                             this.set("showactionbuttons", true);
-                            dyn.set("adshassource", false); // Be able to reattach ads_player
                         }
                     } else {
                         this._hideContentPlayer(dyn);
@@ -247,6 +246,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     dyn = dyn || this.parent();
                     if (Types.is_undefined(dyn.activeElement))
                         throw Error("Wrong dynamics instance was provided to _reply");
+                    dyn.set("adshassource", false); // Be able to reattach ads_player
                     dyn.create();
                 },
 

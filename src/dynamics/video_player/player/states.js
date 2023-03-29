@@ -235,13 +235,17 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadPlayer", [
         dynamics: ["loader"],
 
         _started: function() {
-            this.listenOn(this.dyn, "error:poster", function() {
-                this.next("LoadPlayerDirectly");
-            }, this);
-            this.listenOn(this.dyn, "image-attached", function() {
-                this.next("PosterReady");
-            }, this);
-            this.dyn.reattachImage();
+            if (this.dyn.get("outstream")) {
+                this.next("Outstream");
+            } else {
+                this.listenOn(this.dyn, "error:poster", function() {
+                    this.next("LoadPlayerDirectly");
+                }, this);
+                this.listenOn(this.dyn, "image-attached", function() {
+                    this.next("PosterReady");
+                }, this);
+                this.dyn.reattachImage();
+            }
         }
     });
 });
@@ -382,6 +386,48 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
     });
 });
 
+Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Preroll", [
+    "module:VideoPlayer.Dynamics.PlayerStates.State"
+], function(State, scoped) {
+    return State.extend({
+        scoped: scoped
+    }, {
+
+        dynamics: [],
+
+        _started: function() {
+            if (this.dyn.get("skipinitial") && !this.dyn.get("autoplay"))
+                this.next("LoadVideo");
+            else this.next("LoadAds");
+        }
+
+    });
+});
+
+Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Outstream", [
+    "module:VideoPlayer.Dynamics.PlayerStates.State",
+    "browser:Dom"
+], function(State, Dom, scoped) {
+    return State.extend({
+        scoped: scoped
+    }, {
+
+        dynamics: [],
+
+        _started: function() {
+            if (!this.dyn.get("adshassource"))
+                throw Error("Please provide ad source for the outstream");
+
+            this.listenOn(this.dyn.channel("ads"), "adsManagerLoaded", function() {
+                Dom.onScrollIntoView(this.dyn.activeElement(), this.dyn.get("visibilityfraction"), function() {
+                    if (!this.destroyed())
+                        this.next("LoadAds");
+                }, this);
+            });
+        }
+    });
+});
+
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
     "module:VideoPlayer.Dynamics.PlayerStates.State"
 ], function(State, scoped) {
@@ -404,9 +450,47 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
         },
 
         _nextState: function() {
+            if (!!this.dyn.get("outstream"))
+                return "PlayOutstream";
             if (this.dyn.get("autoplay"))
                 return "PlayVideo";
             return "LoadVideo";
+        }
+    });
+});
+
+Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream", [
+    "module:VideoPlayer.Dynamics.PlayerStates.State"
+], function(State, scoped) {
+    return State.extend({
+        scoped: scoped
+    }, {
+
+        dynamics: ["adscontrolbar"],
+
+        _started: function() {
+            this.dyn._outstreamCompleted = false;
+            if (this.dyn.get("sticky")) this.dyn.stickyHandler.start();
+
+            this.dyn.channel("ads").trigger("outstreamStarted", this.dyn);
+
+            this.listenOn(this.dyn.channel("ads"), "allAdsCompleted", function() {
+                this.afterAdCompleted();
+            }, this);
+
+            /* if this trigger before allAdsCompleted, setTimeout error shows in console
+            // In case, if ad contains nonLinear and requests to resume playing the content
+            this.listenOn(this.dyn.channel("ads"), "contentResumeRequested", function() {
+                this.afterAdCompleted();
+            }, this);*/
+        },
+
+        afterAdCompleted: function() {
+            if (!this.dyn || this.dyn._outstreamCompleted)
+                return;
+            this.dyn._outstreamCompleted = true;
+            this.dyn.trigger("outstream-completed");
+            this.dyn.channel("ads").trigger("outstreamCompleted", this.dyn);
         }
     });
 });
@@ -588,11 +672,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
                         }.bind(this),
                         delay: 50
                     }));
-                }
-                if (this.dyn._postrollAd) {
-                    if (this.dyn.get("next"))
-                        this.next("NextVideo");
-                    this.next("LoadVideo");
                 }
             }, this);
             this.listenOn(this.dyn, "change:buffering", function() {

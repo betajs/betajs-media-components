@@ -2,12 +2,14 @@ Scoped.define("module:Ads.Dynamics.Player", [
     "base:Objs",
     "base:Async",
     "browser:Info",
+    "base:Types",
+    "module:Assets",
     "dynamics:Dynamic",
     "module:Ads.IMALoader",
     "module:Ads.IMA.AdsManager"
 ], [
     "module:Ads.Dynamics.Controlbar"
-], function(Objs, Async, Info, Class, IMALoader, AdsManager, scoped) {
+], function(Objs, Async, Info, Types, Assets, Class, IMALoader, AdsManager, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -23,7 +25,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     playing: false,
                     currenttime: 0,
                     volume: 1,
-                    hidecontrolbar: false
+                    isoutstream: false,
+                    hidecontrolbar: false,
+                    showactionbuttons: false
                 },
 
                 _deferActivate: function() {
@@ -55,13 +59,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.call("load");
                     },
                     "ads:start": function(ev) {
-                        this.set("playing", true);
-                        this.set("currentTime", 0);
-                        this.set("remaining", this.get("duration"));
-
-                        var isLinear = ev && ev.getAd && ev.getAd().isLinear();
-                        this.set("linear", isLinear);
-                        this.set("hidecontrolbar", !isLinear);
+                        this._onStart(ev);
                     },
                     "ads:allAdsCompleted": function() {
                         this.call("reset");
@@ -77,6 +75,12 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     "ads:volumeChange": function() {
                         this.set("volume", this.adsManager.getVolume());
+                    },
+                    "ads:outstreamCompleted": function(dyn) {
+                        this._outstreamCompleted(dyn);
+                    },
+                    "ads:outstreamStarted": function(dyn) {
+                        this._outstreamStarted(dyn);
                     },
                     "ads:pause": function() {
                         this.set("playing", false);
@@ -97,7 +101,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             restoreCustomPlaybackStateOnAdBreakComplete: true
                         }
                     };
-                    if (!Info.isMobile() && this.getVideoElement() && !this.get("outstream")) {
+                    this.set("isoutstream", !!this.get("outstream"));
+                    if (!Info.isMobile() && this.getVideoElement() && !this.get("isoutstream")) {
                         // It's optionalParameter
                         adManagerOptions.videoElement = this.getVideoElement();
                     }
@@ -155,10 +160,18 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         return this.adsManager.resume();
                     },
                     setVolume: function(volume) {
-                        return this.adsManager.setVolume(Math.min(volume, 1));
+                        volume = Math.min(volume, 1);
+                        this.set("volume", volume);
+                        return this.adsManager.setVolume(volume);
                     },
                     stop: function() {
                         return this.adsManager.stop();
+                    },
+                    replay: function() {
+                        this._replay();
+                    },
+                    close: function() {
+                        return this._hideContentPlayer(true);
                     }
                 },
 
@@ -191,10 +204,66 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                 getAdWillPlayMuted: function() {
                     return this.parent() && this.parent().get("autoplay-requires-muted");
+                },
+
+                _onStart: function(ev) {
+                    this.set("playing", true);
+                    this.set("currentTime", 0);
+                    this.set("remaining", this.get("duration"));
+                    this.set("showactionbuttons", false);
+
+                    var isLinear = ev && ev.getAd && ev.getAd().isLinear();
+                    this.set("linear", isLinear);
+                    this.set("hidecontrolbar", !isLinear);
+                    // if ad is outstream and
+                    if (!isLinear && this.get("isoutstream")) {
+                        this.adsManager.reset();
+                    }
+                },
+
+                _outstreamCompleted: function(dyn) {
+                    dyn = dyn || this.parent();
+                    if (Types.is_undefined(dyn.activeElement))
+                        throw Error("Wrong dynamics instance was provided to _outstreamCompleted");
+                    // this._hideContentPlayer(dyn);
+                    // TODO: add option for selection
+                    if (dyn.get("outstreamoptions")) {
+                        if (!dyn.get("outstreamoptions").allowReply) {
+                            this._hideContentPlayer(dyn);
+                        } else {
+                            this.set("showactionbuttons", true);
+                            dyn.set("adshassource", false); // Be able to reattach ads_player
+                        }
+                    } else {
+                        this._hideContentPlayer(dyn);
+                    }
+                },
+
+                _outstreamStarted: function(dyn, options) {
+                    this.set("isoutstream", true);
+                },
+
+                _replay: function(dyn) {
+                    dyn = dyn || this.parent();
+                    if (Types.is_undefined(dyn.activeElement))
+                        throw Error("Wrong dynamics instance was provided to _reply");
+                    dyn.create();
+                },
+
+                _hideContentPlayer: function(dyn) {
+                    dyn = dyn || this.parent();
+                    if (Types.is_undefined(dyn.activeElement))
+                        throw Error("Wrong dynamics instance was provided to _hideContentPlayer");
+                    dyn.activeElement().style.setProperty("display", "none");
+                    dyn.weakDestroy(); // << Create will not work as expected
                 }
             };
         }).register("ba-adsplayer")
         .registerFunctions({
             /*<%= template_function_cache(dirname + '/ads_player.html') %>*/
+        }).attachStringTable(Assets.strings)
+        .addStrings({
+            "replay-ad": "Replay",
+            "close-ad": "Close"
         });
 });

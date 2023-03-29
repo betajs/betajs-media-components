@@ -4,9 +4,30 @@
     {{hideoninactivity ? (cssplayer + '-controlbar-hidden') : ''}}"
     style="width: 100%; height: 100%;"
     data-video="ima-ad-container"
-></div>
+>
+    <div ba-if="{{showactionbuttons && isoutstream}}"
+        class="{{cssadsplayer}}-actions-button-container {{csscommon}}-center-all"
+    >
+        <div>
+            <div class="{{cssadsplayer}}-action-button" title="{{string('replay-ad')}}"
+                 ba-click="{{replay()}}"
+            >
+                <i class="{{csscommon}}-icon-ccw"></i>
+                {{string('replay-ad')}}
+            </div>
+        </div>
+        <div>
+            <div class="{{cssadsplayer}}-action-button {{cssadsplayer}}-reversed-color"
+                 title="{{string('close-ad')}}" ba-click="{{close()}}"
+            >
+                <i class="{{csscommon}}-icon-cancel"></i>
+                {{string('close-ad')}}
+            </div>
+        </div>
+    </div>
+</div>
 <ba-{{dyncontrolbar}}
-    ba-if="{{!hidecontrolbar && linear}}"
+    ba-if="{{!hidecontrolbar && linear && !showactionbuttons}}"
     ba-css="{{css}}"
     ba-csscommon="{{csscommon}}"
     ba-cssadsplayer="{{cssadsplayer}}"

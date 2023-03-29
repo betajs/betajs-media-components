@@ -149,6 +149,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "adprovider": null,
                         "preroll": false,
                         "outstream": false,
+                        "outstreamoptions": {},
                         "imasettings": [],
                         "adtagurl": null,
                         "inlinevastxml": null,
@@ -475,7 +476,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.set("showbuiltincontroller", true);
                         }
                     }
-
                     if (this.get("autoplay") || this.get("playwhenvisible")) {
                         // check in which option player allow autoplay
                         this.__testAutoplayOptions();
@@ -496,7 +496,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (!this.get("themecolor"))
                         this.set("themecolor", "default");
 
-                    if (this.get("adprovider")) this.initAdProvider();
+                    // if (this.get("adprovider")) this.initAdProvider();
                     if (this.get("playlist") && this.get("playlist").length > 0) {
                         var pl0 = (this.get("playlist"))[0];
                         if (pl0 && Types.is_object(pl0)) {
@@ -658,7 +658,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                         }
                                     }
                                 }, this);
-                                // If user just set this setting will aplly it in 50% of the player
+                                // If a user just set this setting will aplly it in 50% of the player
                                 if (nonLinearSchedules.length === 0) {
                                     nonLinearSchedules = [{
                                         position: 0.5,
@@ -795,28 +795,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 _detachVideo: function() {
                     this.set("playing", false);
-                    if (this.player)
-                        this.player.weakDestroy();
-                    // if the same instance
-                    if (this._prerollAd && !this.get("hasnext")) {
-                        if (typeof this._prerollAd._allAdsCompelted !== "undefined") {
-                            if (this._prerollAd._allAdsCompelted) {
-                                this._prerollAd.weakDestroy();
-                                if (typeof this._adsRoll.__cid !== "undefined")
-                                    this._adsRoll.weakDestroy();
-                                this._adsRoll = null;
-                                this._prerollAd = this._adsRoll;
-                            }
-                        } else {
-                            this._prerollAd.weakDestroy();
-                            this._adsRoll = null;
-                        }
-                    }
-
-                    if (this._postrollAd && !this.get("hasnext")) {
-                        this._postrollAd.weakDestroy();
-                        this._postrollAd = null;
-                    }
+                    if (this.player) this.player.weakDestroy();
                     this.player = null;
                     this.__video = null;
                     this.set("videoelement_active", false);

@@ -43,7 +43,7 @@ Scoped.define("module:Ads.IMA.AdsManager", [
 
             onAdsManagerLoaded: function(adsManagerLoadedEvent) {
                 var adsRenderingSettings = new google.ima.AdsRenderingSettings();
-                if (this._options.adsRenderingSettings) {
+                if (this._options && this._options.adsRenderingSettings) {
                     for (var setting in this._options.adsRenderingSettings) {
                         adsRenderingSettings[setting] = this._options.adsRenderingSettings[setting];
                     }
@@ -139,6 +139,7 @@ Scoped.define("module:Ads.IMA.AdsManager", [
             __events: function() {
                 return [
                     google.ima.AdErrorEvent.Type.AD_ERROR,
+                    google.ima.AdEvent.Type.AD_CAN_PLAY,
                     google.ima.AdEvent.Type.IMPRESSION,
                     google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED, // contentPauseRequested
                     google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED, // contentResumeRequested

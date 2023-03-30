@@ -127,12 +127,7 @@ Scoped.define("module:Ads.Dynamics.Controlbar", [
                     },
 
                     toggle_fullscreen: function() {
-                        var fullscreenElement = this._element;
-                        if (this.get("fullscreened")) {
-                            Dom.documentExitFullscreen(fullscreenElement);
-                        } else {
-                            Dom.elementEnterFullscreen(fullscreenElement);
-                        }
+                        this.trigger("fullscreen");
                     }
                 }
             };

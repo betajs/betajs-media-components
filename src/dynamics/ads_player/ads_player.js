@@ -73,6 +73,11 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     this.adsManager.on("all", function(event, data) {
                         this.channel("ads").trigger(event, data);
                     }, this);
+                    this.parent().on("resize", function(dimensions) {
+                        this.adsManager.resize(
+                            dimensions.width, dimensions.height, google.ima.ViewMode.NORMAL
+                        );
+                    }, this);
                 },
 
                 functions: {

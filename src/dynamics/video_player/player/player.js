@@ -1473,34 +1473,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     },
 
-                    toggle_ad_player: function() {
-                        Objs.iter(['_prerollAd', '_adsRoll', '_postrollAd'], function(key) {
-                            var _ad = this[key];
-                            if (Types.is_defined(_ad) && _ad) {
-                                var _manager = _ad._adsManager;
-                                if (_manager && typeof _manager.getCurrentAd === 'function') {
-                                    var _currentAd = _manager.getCurrentAd();
-                                    if (_currentAd) {
-                                        if (_currentAd.isLinear()) {
-                                            _manager.clicked();
-                                            if (_ad._adsRequest._isPlaying) {
-                                                _manager.pause();
-                                                // _manager.dispatchEvent(google.ima.AdEvent.Type.PAUSED);
-                                            } else {
-                                                _manager.resume();
-                                                // _manager.dispatchEvent(google.ima.AdEvent.Type.RESUMED);
-                                            }
-                                        } else {
-                                            // As it's not trigger onUserExpand, can't control pause/play
-                                            this.functions.toggle_player.apply(this);
-                                        }
-                                    }
-                                }
-                            }
-                        }, this);
-
-                    },
-
                     tab_index_move: function(ev, nextSelector, focusingSelector) {
                         if (this.get("preventinteractionstatus")) return;
                         var _targetElement, _activeElement, _selector, _keyCode;
@@ -1842,10 +1814,22 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     }
 
-                    if (this._nextRollPosition && this.get("adshassource")) {
-                        if (this._nextRollPosition.position < this.get("position")) {
+                    if (this._nextRollPosition && this.get("adshassource") && this._nextRollPosition.position < this.get("position")) {
+                        // If active ads player is existed
+                        if (this.scopes.adsplayer) {
+                            var adsPlayer = this.scopes.adsplayer;
+
+                            // Only if min suggested seconds of nonLinear ads are shown will show next ads
+                            if (adsPlayer.get("non-linear-min-suggestion") >= 0 && !adsPlayer.get("linear")) return;
+
+                            this.channel("ads").trigger("allAdsCompleted");
+                            this.trigger("playnextmidroll");
                             this._nextRollPosition = null; // To be able to grab another next position from the Collection
-                            // this.dyn.channel("ads"), "contentResumeRequested"
+                        } else {
+                            // In case if preroll not exists, so ads_player is not activated
+                            this._nextRollPosition = null; // To be able to grab another next position from the Collection
+                            // activate ads_player if it's not activated yet
+                            this.set("adsplayer_active", this.get("adshassource"));
                             this.trigger("playnextmidroll");
                         }
                     }

@@ -3,13 +3,14 @@ Scoped.define("module:Ads.Dynamics.Player", [
     "base:Async",
     "browser:Info",
     "base:Types",
+    "base:Timers",
     "module:Assets",
     "dynamics:Dynamic",
     "module:Ads.IMALoader",
     "module:Ads.IMA.AdsManager"
 ], [
     "module:Ads.Dynamics.Controlbar"
-], function(Objs, Async, Info, Types, Assets, Class, IMALoader, AdsManager, scoped) {
+], function(Objs, Async, Info, Types, Timers, Assets, Class, IMALoader, AdsManager, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -116,7 +117,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             // This part will listen to the resize even after adsManger will be destroyed
                             if (this.adsManager && typeof this.adsManager.resize === "function") {
                                 this.adsManager.resize(
-                                    dimensions.width, dimensions.height, google.ima.ViewMode.NORMAL
+                                    dimensions.width, dimensions.height,
+                                    google.ima.ViewMode.NORMAL
                                 );
                             }
                         }, this);
@@ -212,12 +214,31 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     this.set("remaining", this.get("duration"));
                     this.set("showactionbuttons", false);
 
-                    var isLinear = ev && ev.getAd && ev.getAd().isLinear();
-                    this.set("linear", isLinear);
-                    this.set("hidecontrolbar", !isLinear);
-                    // if ad is outstream and
-                    if (!isLinear && this.get("isoutstream")) {
-                        this.adsManager.reset();
+                    if (ev && Types.is_function(ev.getAd)) {
+                        var adData = ev.getAd();
+                        var isLinear = adData.isLinear();
+                        this.set("linear", isLinear);
+                        this.set("hidecontrolbar", !isLinear);
+                        if (!isLinear) {
+                            this.set("non-linear-min-suggestion", adData.getMinSuggestedDuration());
+                            // decrease a non-linear suggestion period, be able to show midroll
+                            this._minSuggestionCalcualationTimer = this.auto_destroy(new Timers.Timer({ // This is being fired right before toggle_player
+                                delay: 1000,
+                                fire: function() {
+                                    if (this.get("non-linear-min-suggestion") < 0) {
+                                        this._minSuggestionCalcualationTimer.destroy();
+                                    } else {
+                                        this.set("non-linear-min-suggestion", this.get("non-linear-min-suggestion") - 1);
+                                    }
+                                }.bind(this)
+                            }));
+                        }
+
+                        // this.set("minSuggestedDuration", ev);
+                        // if ad is outstream and
+                        if (!isLinear && this.get("isoutstream")) {
+                            this.adsManager.reset();
+                        }
                     }
                 },
 

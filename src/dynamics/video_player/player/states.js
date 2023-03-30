@@ -649,12 +649,13 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
                         } else this.next("MidrollAd");
                     }
                 }, this);
-                // this.listenOn(this.dyn, "playnextmidroll", function() {
-                //     this.dyn.set("adsplayer_active", true);
-                //     this.next("LoadAds", {
-                //         midroll: true
-                //     });
-                // }, this);
+                this.listenOn(this.dyn, "playnextmidroll", function() {
+                    this.listenOnce(this.dyn.channel("ads"), "adsManagerLoaded", function() {
+                        this.next("LoadAds", {
+                            midroll: true
+                        });
+                    });
+                }, this);
             }
             if (this.dyn.get("loop"))
                 this.dyn.set("skipinitial", true);

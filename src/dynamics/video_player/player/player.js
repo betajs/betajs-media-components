@@ -157,7 +157,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "inlinevastxml": null,
                         "linear": null,
                         "non-linear": null,
-                        "companion-ad": null,
+                        "companionad": null,
                         "linearadplayer": true,
                         "customnonlinear": false, // Currently, not fully supported
                         "minadintervals": 5,
@@ -350,7 +350,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "non-linear": "string",
                     "minadintervals": "int",
                     "non-linear-min-duration": "int",
-                    "companion-ad": "string",
+                    "companionad": "string",
                     "slim": "boolean",
                     "prominent-title": "boolean",
                     "closeable-title": "boolean"
@@ -1816,13 +1816,18 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     if (this._nextRollPosition && this.get("adshassource") && this._nextRollPosition.position < this.get("position")) {
                         // If active ads player is existed
-                        if (this.scopes.adsplayer) {
+                        if (this.get("adsplayer_active") && this.scopes.adsplayer) {
                             var adsPlayer = this.scopes.adsplayer;
 
                             // Only if min suggested seconds of nonLinear ads are shown will show next ads
-                            if (adsPlayer.get("non-linear-min-suggestion") >= 0 && !adsPlayer.get("linear")) return;
+                            if (adsPlayer.get("non-linear-min-suggestion") >= 0 && !adsPlayer.get("linear"))
+                                return;
 
-                            this.channel("ads").trigger("allAdsCompleted");
+                            if (!this.get("adscompleted") && !adsPlayer.get("linear")) {
+                                this.channel("ads").trigger("allAdsCompleted");
+                            } else {
+                                this.set("adsplayer_active", false);
+                            }
                             this.trigger("playnextmidroll");
                             this._nextRollPosition = null; // To be able to grab another next position from the Collection
                         } else {

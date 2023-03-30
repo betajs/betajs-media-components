@@ -4,13 +4,14 @@ Scoped.define("module:Ads.Dynamics.Player", [
     "browser:Info",
     "base:Types",
     "base:Timers",
+    "browser:Dom",
     "module:Assets",
     "dynamics:Dynamic",
     "module:Ads.IMALoader",
     "module:Ads.IMA.AdsManager"
 ], [
     "module:Ads.Dynamics.Controlbar"
-], function(Objs, Async, Info, Types, Timers, Assets, Class, IMALoader, AdsManager, scoped) {
+], function(Objs, Async, Info, Types, Timers, Dom, Assets, Class, IMALoader, AdsManager, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -28,7 +29,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     volume: 1,
                     isoutstream: false,
                     hidecontrolbar: false,
-                    showactionbuttons: false
+                    showactionbuttons: false,
+                    adscompleted: false
                 },
 
                 _deferActivate: function() {
@@ -146,6 +148,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     reset: function() {
                         this.set("linear", true);
+                        this.set("adscompleted", true);
                         this.adsManager.reset();
                         this.adsManager.requestAds(this._baseRequestAdsOptions());
                     },
@@ -213,6 +216,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     this.set("currentTime", 0);
                     this.set("remaining", this.get("duration"));
                     this.set("showactionbuttons", false);
+                    this.set("adscompleted", false);
 
                     if (ev && Types.is_function(ev.getAd)) {
                         var adData = ev.getAd();
@@ -232,6 +236,10 @@ Scoped.define("module:Ads.Dynamics.Player", [
                                     }
                                 }.bind(this)
                             }));
+                        }
+
+                        if (this.get("companionad") && adData) {
+                            this._showCompanionAd(adData, this.get("companionad"));
                         }
 
                         // this.set("minSuggestedDuration", ev);
@@ -277,6 +285,86 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         throw Error("Wrong dynamics instance was provided to _hideContentPlayer");
                     dyn.activeElement().style.setProperty("display", "none");
                     dyn.weakDestroy(); // << Create will not work as expected
+                },
+
+                /**
+                 * @param ad IMA Ad data
+                 * @param options
+                 */
+                _showCompanionAd: function(ad, options) {
+                    var dyn, element, playerElement, position, selector, height, width;
+                    dyn = this.parent();
+                    if (!dyn || !(Types.is_defined(google) && google.ima))
+                        throw Error("Parent dynamics or google not defined, to attach companion ad");
+                    playerElement = dyn.activeElement();
+                    if (options.split('|').length > 0) {
+                        position = options.split('|')[1] || 'bottom';
+                    }
+                    options = options.replace(/\].*/g, "$'").split('[');
+                    selector = options[0];
+                    if (selector) {
+                        element = document.getElementById(selector);
+                    } else {
+                        element = document.createElement('div');
+                    }
+                    if (!element) return;
+                    var dimensions = options[1].split(',');
+                    var isFluid = dimensions[0] === 'fluid';
+                    // dimensions = dimensions.split(',');
+                    if (!isFluid) {
+                        width = Number((dimensions && dimensions[0] && dimensions[0] > 0) ?
+                            dimensions[0] : Dom.elementDimensions(playerElement).width);
+                        height = Number((dimensions && dimensions[1] && dimensions[1] > 0) ?
+                            dimensions[1] : Dom.elementDimensions(playerElement).height);
+                    }
+                    var selectionCriteria = new google.ima.CompanionAdSelectionSettings();
+                    // HTML,IFRAME,STATIC,ALL
+                    selectionCriteria.resourceType = google.ima.CompanionAdSelectionSettings.ResourceType.ALL;
+                    // CreativeType:IMAGE, FLASH, ALL
+                    selectionCriteria.creativeType = google.ima.CompanionAdSelectionSettings.CreativeType.ALL;
+                    var companionAds = [];
+
+                    // SizeCriteria: IGNORE, SELECT_EXACT_MATCH, SELECT_NEAR_MATCH, SELECT_FLUID
+                    if (!isFluid) {
+                        // nearMatchPercent
+                        selectionCriteria.sizeCriteria = google.ima.CompanionAdSelectionSettings.SizeCriteria.IGNORE;
+                        if (width && height) {
+                            // Get a list of companion ads for an ad slot size and CompanionAdSelectionSettings
+                            companionAds = ad.getCompanionAds(width, height, selectionCriteria);
+                        }
+                    } else {
+                        selectionCriteria.sizeCriteria = google.ima.CompanionAdSelectionSettings.SizeCriteria.SELECT_FLUID;
+                        companionAds = ad.getCompanionAds(0, 0, selectionCriteria);
+                    }
+
+
+                    if (typeof companionAds[0] === "undefined") return;
+
+                    var companionAd = companionAds[0];
+                    // Get HTML content from the companion ad.
+                    // Write the content to the companion ad slot.
+                    element.innerHTML = companionAd.getContent();
+                    if (position && !selector) {
+                        switch (position) {
+                            case 'left':
+                                // Prevent on click though taking all the width of the div element
+                                element.style.display = 'inline-block';
+                                element.style['float'] = 'left';
+                                playerElement.parentNode.prepend(element);
+                                break;
+                            case 'top':
+                                playerElement.parentNode.prepend(element);
+                                break;
+                            case 'right':
+                                // Prevent on click though taking all the width of the div element
+                                element.style.display = 'inline-block';
+                                playerElement.style['float'] = 'left';
+                                playerElement.parentNode.append(element);
+                                break;
+                            default:
+                                playerElement.parentNode.append(element);
+                        }
+                    }
                 }
             };
         }).register("ba-adsplayer")

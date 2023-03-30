@@ -650,6 +650,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
                     }
                 }, this);
                 this.listenOn(this.dyn, "playnextmidroll", function() {
+                    if (!this.dyn.get("adsplayer_active")) {
+                        this.dyn.set("adsplayer_active", true);
+                    }
                     this.listenOnce(this.dyn.channel("ads"), "adsManagerLoaded", function() {
                         this.next("LoadAds", {
                             midroll: true

@@ -1,0 +1,16 @@
+<div
+    class="ba-ad-container ba-commoncss-align-all"
+    style="width: 100%; height: 100%;"
+></div>
+<ba-{{dyncontrolbar}}
+    ba-if="{{!hidecontrolbar}}"
+    ba-template="{{tmplcontrolbar}}"
+    ba-duration="{{duration}}"
+    ba-volume="{{volume}}"
+    ba-event:resume="resume"
+    ba-event:fullscreen="{{trigger('fullscreen')}}"
+    ba-fullscreened="{{fullscreened}}"
+    ba-event:pause="pause"
+    ba-event:volume="setVolume"
+    ba-event:stop="stop"
+></ba-{{dyncontrolbar}}>

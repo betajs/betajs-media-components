@@ -279,7 +279,7 @@ Scoped.define("module:Ads.IMA.Controlbar", [
                     this.set("controlbarisvisible", this.get("activity_delta") < this.get("hidebarafter"));
                 }
             };
-        }).register("ba-ads-controlbar")
+        }).register("ba-adscontrolbar")
         .registerFunctions({
             /*<%= template_function_cache(dirname + '/controlbar.html') %>*/
         })

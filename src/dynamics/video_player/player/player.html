@@ -21,6 +21,19 @@
     <div ba-show="{{(imageelement_active && !videoelement_active) || silent_attach}}" class="{{css}}-poster-container">
         <img tabindex="-1" data-image="image" alt="{{posteralt}}" class="{{csscommon}}-{{posterfitstrategy}}-fit"/>
     </div>
+    <ba-{{dynadsplayer}}
+        ba-if="{{!!adtagurl}}"
+        ba-ad="{{=ad}}"
+        ba-addata="{{=addata}}"
+        ba-duration="{{=adduration}}"
+        ba-volume="{{=advolume}}"
+        ba-adtagurl="{{adtagurl}}"
+        ba-event:fullscreen="toggle_fullscreen"
+        ba-fullscreened="{{fullscreened}}"
+        ba-hidecontrolbar="{{!adscontrolbar_active}}"
+        ba-tmplcontrolbar="{{tmpladscontrolbar}}"
+        ba-dyncontrolbar="{{dynadscontrolbar}}"
+    ></ba-{{dynadsplayer}}>
     <div class="{{css}}-overlay {{hasplaceholderstyle ? (css + '-overlay-with-placeholder') : ''}}"
          ba-show="{{!showbuiltincontroller}}" style="{{placeholderstyle}}"
     >

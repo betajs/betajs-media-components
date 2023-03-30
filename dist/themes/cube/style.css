@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.356 - 2023-03-23
+betajs-media-components - v0.0.356 - 2023-03-30
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -583,14 +583,10 @@ Apache-2.0 Software License.
 }
 .ba-recorder-theme-cube-dashboard .ba-videorecorder-button {
   border: none;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=270, Color=#666666)";
-  /*IE 8*/
-  -moz-box-shadow: inset -1px 0 0 #666666;
-  /*FF 3.5+*/
-  -webkit-box-shadow: inset -1px 0 0 #666666;
-  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
-  box-shadow: inset -1px 0 0 #666666;
-  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=270, Color=#666666)"; /*IE 8*/
+  -moz-box-shadow: inset -1px 0 0 #666666; /*FF 3.5+*/
+  -webkit-box-shadow: inset -1px 0 0 #666666; /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: inset -1px 0 0 #666666; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
   color: #eeeeee;
   cursor: pointer;
   float: left;

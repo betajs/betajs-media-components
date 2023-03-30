@@ -213,6 +213,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Initial", [
         _started: function() {
             this.dyn.set("imageelement_active", false);
             this.dyn.set("videoelement_active", false);
+            this.dyn.set("adsplayer_active", this.dyn.get("adshassource") && (this.dyn.get("adsplaypreroll") || this.dyn.get("outstream")));
             if (this.dyn.get("ready")) {
                 this.next("LoadPlayer");
             } else {
@@ -236,6 +237,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadPlayer", [
 
         _started: function() {
             if (this.dyn.get("outstream")) {
+                this.dyn.set("autoplay", true);
                 this.next("Outstream");
             } else {
                 this.listenOn(this.dyn, "error:poster", function() {
@@ -396,7 +398,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Preroll", [
         dynamics: [],
 
         _started: function() {
-            if (this.dyn.get("skipinitial") && !this.dyn.get("autoplay"))
+            if ((this.dyn.get("skipinitial") && !this.dyn.get("autoplay")) || !this.dyn.get("adsplaypreroll"))
                 this.next("LoadVideo");
             else this.next("LoadAds");
         }
@@ -436,6 +438,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
     }, {
 
         dynamics: ["loader"],
+        _locals: ["midroll"],
 
         _started: function() {
             if (this.dyn.get("adshassource")) {
@@ -452,7 +455,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
         _nextState: function() {
             if (!!this.dyn.get("outstream"))
                 return "PlayOutstream";
-            if (this.dyn.get("autoplay"))
+            if (this.dyn.get("autoplay") || !!this._midroll)
                 return "PlayVideo";
             return "LoadVideo";
         }
@@ -633,25 +636,26 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
 
         _started: function() {
             this.dyn.set("autoplay", false);
-            this.listenOn(this.dyn.channel("ads"), "contentPauseRequested", function() {
-                this.dyn.pause();
-                var position = this.dyn.getCurrentPosition();
-                if (position === 0) this.next("PrerollAd");
-                else if (Math.abs(this.dyn.getCurrentPosition() - this.dyn.get("duration")) < 0.1) this.next("PostrollAd");
-                else this.next("MidrollAd");
-            }, this);
-            // As during a loop we will play player after ended event fire, need initial cover will be hidden
-            this.listenOn(this.dyn.channel("ads"), "contentPauseRequested", function() {
-                this.dyn.pause();
-                var position = this.dyn.getCurrentPosition();
-                if (position === 0) {
-                    this.next("PrerollAd");
-                } else {
-                    if (Math.abs(this.dyn.getCurrentPosition() - this.dyn.get("duration")) < 0.1) {
-                        this.next("PostrollAd");
-                    } else this.next("MidrollAd");
-                }
-            }, this);
+            if (this.dyn.get("adshassource")) {
+                // As during a loop, we will play player after ended event fire, need initial cover will be hidden
+                this.listenOn(this.dyn.channel("ads"), "contentPauseRequested", function() {
+                    this.dyn.pause();
+                    var position = this.dyn.getCurrentPosition();
+                    if (position === 0) {
+                        this.next("PrerollAd");
+                    } else {
+                        if (Math.abs(this.dyn.getCurrentPosition() - this.dyn.get("duration")) < 0.1) {
+                            this.next("PostrollAd");
+                        } else this.next("MidrollAd");
+                    }
+                }, this);
+                // this.listenOn(this.dyn, "playnextmidroll", function() {
+                //     this.dyn.set("adsplayer_active", true);
+                //     this.next("LoadAds", {
+                //         midroll: true
+                //     });
+                // }, this);
+            }
             if (this.dyn.get("loop"))
                 this.dyn.set("skipinitial", true);
             this.listenOn(this.dyn, "change:currentstream", function() {

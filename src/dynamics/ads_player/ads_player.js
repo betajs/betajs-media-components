@@ -246,7 +246,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     dyn = dyn || this.parent();
                     if (Types.is_undefined(dyn.activeElement))
                         throw Error("Wrong dynamics instance was provided to _reply");
-                    dyn.set("adshassource", false); // Be able to reattach ads_player
+                    dyn.set("adsplayer_active", false); // Be able to reattach ads_player
                     dyn.create();
                 },
 

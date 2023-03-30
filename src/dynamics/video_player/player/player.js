@@ -47,7 +47,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.PlayerStates.LoadError",
     "module:VideoPlayer.Dynamics.PlayerStates.PosterReady",
     "module:VideoPlayer.Dynamics.PlayerStates.Preroll",
+    "module:VideoPlayer.Dynamics.PlayerStates.Outstream",
     "module:VideoPlayer.Dynamics.PlayerStates.LoadAds",
+    "module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream",
     "module:VideoPlayer.Dynamics.PlayerStates.ReloadAds",
     "module:VideoPlayer.Dynamics.PlayerStates.PlayAd",
     "module:VideoPlayer.Dynamics.PlayerStates.PrerollAd",
@@ -160,7 +162,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "customnonlinear": false, // Currently, not fully supported
                         "minadintervals": 5,
                         "non-linear-min-duration": 10,
-                        "mid-linear-ad": [],
+                        "midrollads": [],
                         "non-linear-ad": [],
 
                         /* Options */
@@ -447,6 +449,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     }.bind(this));
                     this.set("adshassource", !!this.get("adtagurl") || !!this.get("inlinevastxml"));
+                    if (this.get("adshassource")) {
+                        if (this.get("linear")) {
+                            this.set("adsplaypreroll", this.get("linear").indexOf("pre") !== -1);
+                            this.set("adsplaypostroll", this.get("linear").indexOf("post") !== -1);
+                        } else {
+                            // if there's no specification, play preroll
+                            this.set("adsplaypreroll", true);
+                        }
+                    }
                     this._observer.observe(this.activeElement().firstChild);
                     this._validateParameters();
                     // Will set volume initial state
@@ -482,7 +493,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         // Safari is behaving differently on the Desktop and Mobile
                         // preload in desktop allow autoplay. In mobile, it's preventing autoplay
                         if (Info.isSafari()) this.set("preload", !Info.isMobile());
-                        // In Safari Desktop can cause trouble on preload, if user will
+                        // In Safari Desktop can cause trouble on preload, if the user will
                     }
 
                     if (this.get("theme")) this.set("theme", this.get("theme").toLowerCase());
@@ -496,7 +507,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (!this.get("themecolor"))
                         this.set("themecolor", "default");
 
-                    // if (this.get("adprovider")) this.initAdProvider();
+                    if (!!this.get("linear")) this.initMidRollAds();
                     if (this.get("playlist") && this.get("playlist").length > 0) {
                         var pl0 = (this.get("playlist"))[0];
                         if (pl0 && Types.is_object(pl0)) {
@@ -571,7 +582,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.host.dynamic = this;
                     this.host.initialize(this._initialState);
 
-                    this.__adControlPosition = 0;
+                    this.__adsControlPosition = 0;
                     this._timer = new Timers.Timer({
                         context: this,
                         fire: this._timerFire,
@@ -595,109 +606,72 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.stickyHandler.init();
                 },
 
-                initAdProvider: function() {
-                    var adInitOptions, adContainer, videoContainer;
-                    this._adProvider = this.get("adprovider");
-                    videoContainer = this.activeElement().querySelector("[data-video='video']");
-                    adContainer = this.activeElement().querySelector("[data-video='ima-ad-container']");
-                    if (Types.is_string(this._adProvider))
-                        this._adProvider = AdProvider.registry[this._adProvider];
+                initMidRollAds: function() {
+                    var schedules;
+                    // Split all via comma exclude inside brackets
+                    schedules = Objs.map(this.get("linear").split(/(?![^)(]*\([^)(]*?\)\)),(?![^\[]*\])/), function(item) {
+                        return item.trim();
+                    }, this);
 
-                    if (this._adProvider) {
-                        if (!adContainer.hasChildNodes()) {
-                            this.set("ad-provider-ready", false);
-                            adInitOptions = {
-                                adElement: this.activeElement().querySelector("[data-video='ad']"),
-                                adContainer: this.activeElement().querySelector("[data-video='ima-ad-container']"),
-                                dynamic: this
-                            };
-                            if (!this.isMobile() && videoContainer) {
-                                // Optional but if passing any, value must not be null.
-                                // On the mobile, it can cause trouble conflicting with dynamic player
-                                adContainer.videoElement = videoContainer;
-                            }
-                            if (this.get("preroll")) {
-                                this._prerollAd = this._adProvider.newPrerollAd(adInitOptions);
-                                this.set("ad-provider-ready", true);
-                            }
-                        }
-
-                        if ((this.get("adprovider") === 'ima' || this.get("adprovider").__IMA_PRE_ROLL) && (this.get("linear") || this.get("non-linear"))) {
-                            var schedules = [],
-                                nonLinearSchedules = [];
-                            // Split all via comma exclude inside brackets
-                            if (this.get("linear")) {
-                                schedules = Objs.map(this.get("linear").split(/(?![^)(]*\([^)(]*?\)\)),(?![^\[]*\])/), function(item) {
-                                    return item.trim();
-                                }, this);
-                            }
-
-                            if (this.get("non-linear")) {
-                                // TODO: add non-linear schedule as well
-                                nonLinearSchedules = Objs.map(this.get("non-linear").split(/(?![^)(]*\([^)(]*?\)\)),(?![^\[]*\])/), function(item) {
-                                    var items = item.trim().split(/[\[\]]/);
-                                    if (items[0]) {
-                                        var position = items[0].split('%');
-                                        position = position.length > 1 ? parseFloat((position[0] / 100).toFixed(2)) : +items[0];
-                                        if (position > 0) {
-                                            var output = {
-                                                position: position,
-                                                width: null,
-                                                height: null
-                                            };
-                                            if (items[1]) {
-                                                var dimensions = items[1].split(',');
-                                                if (dimensions.length > 0) {
-                                                    output.width = dimensions[0] ? dimensions[0] : null;
-                                                    output.height = dimensions[1] ? dimensions[1] : null;
+                    if (schedules.length > 0) {
+                        this.set("midrollads", []);
+                        this.__adMinIntervals = this.get("minadintervals");
+                        this.__adsControlPosition = 0;
+                        // This will be called in the next video cases
+                        if (schedules.length > 0) {
+                            Objs.iter(schedules, function(schedule, index) {
+                                schedule = schedule.toLowerCase();
+                                // if user set schedule with time settings
+                                if (/^mid\[[\d\s]+(,[\d\s]+|[\d\s]+\%|\%|[\d\s]+\*|\*)*\]*$/i.test(schedule)) {
+                                    var _s = schedule.replace('mid[', '').replace(']', '');
+                                    Objs.map(_s.split(','), function(item) {
+                                        item = item.trim();
+                                        if (/^[\d\s]+\*$/.test(item)) {
+                                            item = +item.replace("\*", '');
+                                            this.on("change:duration", function(duration) {
+                                                if (duration > 0) {
+                                                    var step = Math.floor(duration / item);
+                                                    if (duration > item) {
+                                                        for (var i = 1; i <= step; i++) {
+                                                            this.get("midrollads").push({
+                                                                position: i * item
+                                                            });
+                                                        }
+                                                    }
                                                 }
-                                                return output;
+                                            }, this);
+                                        } else {
+                                            if (/^[\d\s]+\%$/.test(item)) {
+                                                item = parseInt(item.replace('%', '').trim(), 10);
+                                                if (item < 100 && item > 0) {
+                                                    this.get("midrollads").push({
+                                                        position: parseFloat((item / 100).toFixed(2))
+                                                    });
+                                                }
                                             } else {
-                                                return output;
+                                                // the user also set 0 to 1 value, as percentage, more 1 means seconds
+                                                this.get("midrollads").push({
+                                                    position: parseFloat(item)
+                                                });
                                             }
                                         }
-                                    }
-                                }, this);
-                                // If a user just set this setting will aplly it in 50% of the player
-                                if (nonLinearSchedules.length === 0) {
-                                    nonLinearSchedules = [{
-                                        position: 0.5,
-                                        width: null,
-                                        height: null
-                                    }];
-                                }
-                            }
-                            // On iOS and Android devices, video playback must begin in a user action.
-                            // In mobile could be require wait user interaction before init container and loader
-                            // Dom.userInteraction(function() {}, this);
-
-                            if (schedules.length > 0 || nonLinearSchedules.length > 0) {
-                                this.set("mid-linear-ad", []);
-                                this.__adMinIntervals = this.get("minadintervals");
-                                if (Types.is_undefined(this._adsLoader) && adInitOptions) {
-                                    this._adProvider.initAdsLoader(adInitOptions)
-                                        .success(function(loader) {
-                                            this._adsLoader = loader;
-                                            this._adOptions = adInitOptions;
-                                            this.__prepareAdSchedule(schedules, nonLinearSchedules);
-                                        }, this)
-                                        .error(function(err) {
-                                            console.error("Error could not be able init adsense container. Err: ", err);
-                                        }, this)
-                                        .callback(function() {
-                                            // on IMS SDK related URLs are loaded
-                                            this.set("ad-provider-ready", true);
-                                        }, this);
+                                    }, this);
                                 } else {
-                                    // This will be called in the next video cases
-                                    this.__prepareAdSchedule(schedules, nonLinearSchedules);
-                                    this.__adControlPosition = 0;
-                                    if ((this.get("mid-linear-ad").length > 0 || this.get('non-linear-ad').length > 0) && this._adsCollection) {
-                                        this._adsCollection.destroy();
-                                        this._adsCollection = null;
+                                    if (/^mid\[.*?\]$/.test(schedule))
+                                        console.log('Seems your mid roll settings does not correctly set. It will be played only in the middle of the video.');
+                                    if (/^mid$/.test(schedule)) {
+                                        this.get("midrollads").push({
+                                            position: 0.5
+                                        });
                                     }
                                 }
-                            }
+
+                                // After iteration completing. If adsCollections existed should be destroyed
+                                if (((index + 1) === schedules.length) && !!this._adsRollPositionsCollection) {
+                                    this._adsRollPositionsCollection.destroy();
+                                    this._adsRollPositionsCollection = null;
+                                }
+                            }, this);
                         }
                     }
                 },
@@ -789,7 +763,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         self.set("imageelement_active", true);
                         self.trigger("image-attached");
                     };
-                    // If type of source of image is Blob object, convert it to URL
+                    // If a type of source of image is a Blob object, convert it to URL
                     img.src = isLocal ? (window.URL || window.webkitURL).createObjectURL(this.get("poster")) : this.get("poster");
                 },
 
@@ -1411,9 +1385,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }
                         }
                         // In midroll ads we need recheck next ad position
-                        if (this._adsCollection) {
-                            if (this._adsCollection.count() > 0) {
-                                this._adsCollection.iterate(function(curr) {
+                        if (this._adsRollPositionsCollection) {
+                            if (this._adsRollPositionsCollection.count() > 0) {
+                                this._adsRollPositionsCollection.iterate(function(curr) {
                                     if (curr.get("position") < position)
                                         this._nextRollPosition = null;
                                 }, this);
@@ -1674,9 +1648,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (this.get('hideoninactivity') && (this.get('activity_delta') > this.get('hidebarafter'))) {
                                 this.set("settingsmenu_active", false);
                             }
-                            // We need this part run each second not too fast, this.__adControlPosition will control it
-                            if (this._adsLoader && this._adProvider && this.__adControlPosition < this.get("position")) {
-                                this.__adControlPosition = Math.ceil(this.get("position"));
+                            // We need this part run each second not too fast, this.__adsControlPosition will control it
+                            if (this.__adsControlPosition < this.get("position")) {
+                                this.__adsControlPosition = Math.ceil(this.get("position"));
                                 this.__controlAdRolls();
                             }
                         }
@@ -1800,16 +1774,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 __controlAdRolls: function() {
                     // If we have mid-rolls, then prepare mid-Rolls
                     if (
-                        (this.get("mid-linear-ad").length > 0 || this.get('non-linear-ad').length > 0) &&
-                        this.get("duration") > 0.0 && !this._adsCollection
+                        this.get("midrollads").length > 0 && this.get("duration") > 0.0 && !this._adsRollPositionsCollection
                     ) {
-                        this._adsCollection = this.auto_destroy(new Collection()); // our adsCollections
+                        this._adsRollPositionsCollection = this.auto_destroy(new Collection()); // our adsCollections
                         this.__adMinIntervals = this.__adMinIntervals === 0 ?
                             this.get("minadintervals") : (this.__adMinIntervals - 1);
-                        if (this.get("mid-linear-ad").length > 0) {
+                        if (this.get("midrollads").length > 0) {
                             var _current = null;
                             var _nextPositionIndex = null;
-                            Objs.iter(this.get("mid-linear-ad"), function(roll, index) {
+                            Objs.iter(this.get("midrollads"), function(roll, index) {
                                 if (roll.position && roll.position > 0) {
                                     // First ad position, if less than 1 it means it's percentage not second
                                     var _position = roll.position < 1 ?
@@ -1820,10 +1793,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     if ((Math.abs(_position - _current) > this.__adMinIntervals) && _position < this.get("duration")) {
                                         _current = _position;
                                         _nextPositionIndex = index;
-                                        this._adsCollection.add({
+                                        this._adsRollPositionsCollection.add({
                                             position: _position,
                                             duration: null,
-                                            type: this._adProvider.__IMA_AD_TYPE_LINEAR,
+                                            type: 'linear',
                                             isLinear: true,
                                             dimensions: {
                                                 width: Dom.elementDimensions(this.activeElement()).width || this.parentWidth(),
@@ -1837,8 +1810,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }
 
                     // Set a new position when ad should run
-                    if (this._adsCollection && !this._nextRollPosition) {
-                        var _counter = this._adsCollection.count();
+                    if (this._adsRollPositionsCollection && !this._nextRollPosition) {
+                        var _counter = this._adsRollPositionsCollection.count();
                         var _removeCurr = null;
                         if (_counter > 0) {
                             var _nextAdPoint = {
@@ -1847,7 +1820,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 nextIsLast: true,
                                 type: null
                             };
-                            this._adsCollection.iterate(function(curr) {
+                            this._adsRollPositionsCollection.iterate(function(curr) {
                                 _counter--;
                                 if ((_nextAdPoint.position > curr.get("position") && _nextAdPoint.type) || _nextAdPoint.position === -1) {
                                     _removeCurr = curr;
@@ -1856,121 +1829,24 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 // We need max close position to play, if user seeked the video
                                 if (this.get("position") >= curr.get("position")) {
                                     // Remove all passed positions
-                                    this._adsCollection.remove(curr);
+                                    this._adsRollPositionsCollection.remove(curr);
                                 }
                                 if (_nextAdPoint.position && _nextAdPoint.type && _counter === 0 && _removeCurr) {
                                     this._nextRollPosition = _nextAdPoint;
-                                    this._adsCollection.remove(_removeCurr);
+                                    this._adsRollPositionsCollection.remove(_removeCurr);
                                 }
                             }, this);
+                        } else {
+                            this._adsRollPositionsCollection.destroy();
+                            this._adsRollPositionsCollection = null;
                         }
                     }
 
-                    if (this._nextRollPosition && this._adsRoll) {
+                    if (this._nextRollPosition && this.get("adshassource")) {
                         if (this._nextRollPosition.position < this.get("position")) {
-                            if (this._adsRoll._isLoaded) {
-                                var _startedPosition = this._nextRollPosition.position;
-                                this._adsRoll.startAd();
-                                this._nextRollPosition = null;
-                                // as soon as is loaded will reset next position data and find a new
-                                this._adsRoll.once("adloaded", function(ad) {
-                                    if (!ad && ad.isLinear()) {
-                                        var _suggestedSeconds = (ad.getMinSuggestedDuration() || this.get("non-linear-min-duration")) + 1;
-                                        var _nextPossible = _startedPosition + _suggestedSeconds;
-
-                                        this._adCheckerTimer = new Timers.Timer({
-                                            context: this,
-                                            fire: function() {
-                                                if (this._nextRollPosition) {
-                                                    _nextPossible = Math.max(this._nextRollPosition.position, _nextPossible) - 1.5;
-                                                    // We need be less than an above statement "this._nextRollPosition.position < this.get("position")"
-                                                    if (_nextPossible < this.get("position")) {
-                                                        this._adsRoll.manuallyEndAd();
-                                                        this._adCheckerTimer.stop();
-                                                    }
-                                                }
-                                            },
-                                            delay: 1000,
-                                            start: true,
-                                            destroy_on_stop: true
-                                        });
-                                    }
-                                }, this);
-
-                                this._adsRoll.once("adendmanually", function(ad) {
-                                    if (this._adsRoll) this._adsRoll.weakDestroy();
-                                    this._adsRoll = null;
-                                    if (!this.get("playing") && !this.get("manuallypaused") && (ad && ad.isLinear())) {
-                                        this.player.play();
-                                    }
-                                }, this);
-
-                                this._adsRoll.once("adfinished", function(ad) {
-                                    if (this._adsRoll) this._adsRoll.weakDestroy();
-                                    this._adsRoll = null;
-                                    if (!this.get("playing") && !this.get("manuallypaused")) {
-                                        this.player.play();
-                                    }
-                                }, this);
-
-                                this._adsRoll.on("ad-error", function(message) {
-                                    console.error('Error during loading an ad. Details:"' + message + '".');
-                                    if (this._adsRoll) this._adsRoll.weakDestroy();
-                                    this._adsRoll = null;
-                                    if (!this.get("playing") && !this.get("manuallypaused")) {
-                                        this.player.play();
-                                    }
-                                }, this);
-                            } else {
-                                // Will allow 5 seconds for load content before destroying the roll instance
-                                if (this._adsRoll && this._nextRollPosition.waitToLoadInSeconds <= 0) {
-                                    this._adsRoll.weakDestroy();
-                                    this._adsRoll = null;
-                                    this._nextRollPosition = null;
-                                } else {
-                                    this._nextRollPosition.waitToLoadInSeconds = this._nextRollPosition.waitToLoadInSeconds - 1;
-                                }
-                            }
-                        }
-                    }
-
-                    // If we've set mid-roll position:
-                    if (this._nextRollPosition && !this._adsRoll) {
-                        if (this._nextRollPosition.type) {
-                            this._adsRoll = this._adProvider._newAdsRequester(
-                                this, this._nextRollPosition.type, false
-                            );
-                            var _nextPosition = this._nextRollPosition;
-                            this._adsRoll.executeAd({
-                                width: _nextPosition.dimensions.width || Dom.elementDimensions(this.activeElement()).width || this.parentWidth(),
-                                height: _nextPosition.dimensions.height || Dom.elementDimensions(this.activeElement()).height || this.parentHeight(),
-                                exact: _nextPosition.exact || false,
-                                isLinear: _nextPosition.isLinear
-                            });
-
-                            // To remove previous all roll positions
-                            if (this._adsCollection.count() > 0 && _nextPosition.position >= 0) {
-                                this._adsCollection.iterate(function(curr) {
-                                    if (curr.get("position") < _nextPosition.position) {
-                                        this._adsCollection.remove(curr);
-                                    }
-                                }, this);
-                            }
-                        }
-                    }
-
-                    // Set postroll ads
-                    if (this.get("has-post-roll-ad") && !this._postrollAd) {
-                        // when time is less than 10 seconds
-                        if ((this.get("duration") - this.get("position")) <= 10) {
-                            this._postrollAd = this._adProvider._newAdsRequester(
-                                this, this._adProvider.__IMA_POST_ROLL, true
-                            );
-                            this._postrollAd.on("ad-error", function(message) {
-                                console.error('Error during loading an ad. Details:"' + message + '".');
-                                this._postrollAd = null;
-                                this.set("has-post-roll-ad", false);
-                            }, this);
+                            this._nextRollPosition = null; // To be able to grab another next position from the Collection
+                            // this.dyn.channel("ads"), "contentResumeRequested"
+                            this.trigger("playnextmidroll");
                         }
                     }
                 },
@@ -2109,83 +1985,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 console.warn("Error :", err, opt, index);
                             }, this);
                     }, this);
-                },
-
-                __prepareAdSchedule: function(schedules, nonLinearSchedules) {
-                    if (schedules.length > 0) {
-                        Objs.iter(schedules, function(schedule, index) {
-                            switch (schedule.toLowerCase()) {
-                                case this._adProvider.__IMA_PRE_ROLL:
-                                    // if already, the user did not set preroll as an attribute
-                                    if (!this._prerollAd) {
-                                        this._prerollAd = this._adProvider._newAdsRequester(this, this._adProvider.__IMA_PRE_ROLL, true);
-                                    }
-                                    break;
-                                case this._adProvider.__IMA_POST_ROLL:
-                                    // Post-roll will trigger as soon as the video will be stopped
-                                    this.set("has-post-roll-ad", true);
-                                    break;
-                                    // Midroll could be just "mid", which will trigger on 50% of player time,
-                                    // or specify more details with second and percentage
-                                default:
-                                    // if user set schedule with time settings
-                                    if (/^mid\[[\d\s]+(,[\d\s]+|[\d\s]+\%|\%|[\d\s]+\*|\*)*\]*$/i.test(schedule)) {
-                                        var _s = schedule.replace('mid[', '').replace(']', '');
-                                        Objs.map(_s.split(','), function(item) {
-                                            item = item.trim();
-                                            if (/^[\d\s]+\*$/.test(item)) {
-                                                item = +item.replace("\*", '');
-                                                this.on("change:duration", function(duration) {
-                                                    if (duration > 0) {
-                                                        var step = Math.floor(duration / item);
-                                                        if (duration > item) {
-                                                            for (var i = 1; i <= step; i++) {
-                                                                this.get("mid-linear-ad").push({
-                                                                    position: i * item
-                                                                });
-                                                            }
-                                                        }
-                                                    }
-                                                }, this);
-                                            } else {
-                                                if (/^[\d\s]+\%$/.test(item)) {
-                                                    item = parseInt(item.replace('%', '').trim(), 10);
-                                                    if (item < 100 && item > 0) {
-                                                        this.get("mid-linear-ad").push({
-                                                            position: parseFloat((item / 100).toFixed(2))
-                                                        });
-                                                    }
-                                                } else {
-                                                    // the user also set 0 to 1 value, as percentage, more 1 means seconds
-                                                    this.get("mid-linear-ad").push({
-                                                        position: parseFloat(item)
-                                                    });
-                                                }
-                                            }
-                                        }, this);
-                                    } else {
-                                        if (/^mid\[.*?\]$/.test(schedule))
-                                            console.log('Seems your mid roll settings does not correctly set. It will be played only in the middle of the video.');
-                                        if (/^mid$/.test(schedule)) {
-                                            this.get("mid-linear-ad").push({
-                                                position: 0.5
-                                            });
-                                        }
-                                    }
-                                    break;
-                            }
-
-                            // After iteration completing. if adsCollections existed should be destroyed
-                            if (((index + 1) === schedules.length) && !!this._adsCollection) {
-                                this._adsCollection.destroy();
-                                this._adsCollection = null;
-                            }
-                        }, this);
-                    }
-
-                    if (nonLinearSchedules.length > 0) {
-                        this.set("non-linear-ad", nonLinearSchedules);
-                    }
                 }
             };
         }], {

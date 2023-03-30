@@ -1,9 +1,10 @@
 Scoped.define("module:Ads.Dynamics.Controlbar", [
     "dynamics:Dynamic",
     "browser:Dom",
+    "base:Maths",
     "base:TimeFormat",
     "module:Assets"
-], function(Dynamic, Dom, TimeFormat, Assets, scoped) {
+], function(Dynamic, Dom, Maths, TimeFormat, Assets, scoped) {
     return Dynamic.extend({
             scoped: scoped
         }, function(inherited) {
@@ -61,27 +62,37 @@ Scoped.define("module:Ads.Dynamics.Controlbar", [
                         return TimeFormat.format(TimeFormat.ELAPSED_MINUTES_SECONDS, Math.round(time) * 1000);
                     },
 
-                    startUpdateVolume: function(event) {
-                        event[0].preventDefault();
-                        this.set("_updateVolume", true);
-                        this.call("progressUpdateVolume", event);
-                    },
+                    startUpdateVolume: function(args, element) { // TODO this was copied from the video player, should refactor to keep it DRY
+                        var event = args[0];
+                        var moveEvent = event.type === "mousedown" ? "mousemove" : "touchmove";
+                        var stopEvent = event.type === "mousedown" ? "mouseup" : "touchend";
+                        var domRect = element.getBoundingClientRect();
+                        event.preventDefault();
 
-                    progressUpdateVolume: function(event) {
-                        var ev = event[0];
-                        ev.preventDefault();
-                        if (!this.get("_updateVolume"))
-                            return;
-                        var clientX = ev.clientX;
-                        var target = ev.currentTarget;
-                        var offset = Dom.elementOffset(target);
-                        var dimensions = Dom.elementDimensions(target);
-                        this.trigger("volume", Math.min((clientX - offset.left) / (dimensions.width || 1), 1));
-                    },
+                        var updateVolume = function(event) {
+                            event.preventDefault();
+                            if (domRect.width > domRect.height) {
+                                // Horizontal slider
+                                var x = event.clientX;
+                                if (!x && Array.isArray(event.touches)) x = event.touches[0].clientX;
+                                this.set("volume", Maths.clamp((x - domRect.x) / domRect.width, 0, 1));
+                            } else {
+                                // Vertical slider
+                                var y = event.clientY;
+                                if (!y && Array.isArray(event.touches)) y = event.touches[0].clientY;
+                                this.set("volume", Maths.clamp((domRect.bottom - y) / domRect.height, 0, 1));
+                            }
+                            this.trigger("volume", this.get("volume"));
+                        }.bind(this);
 
-                    stopUpdateVolume: function(event) {
-                        event[0].preventDefault();
-                        this.set("_updateVolume", false);
+                        updateVolume(event);
+
+                        document.addEventListener(moveEvent, updateVolume);
+                        document.addEventListener(stopEvent, function() {
+                            document.removeEventListener(moveEvent, updateVolume);
+                        }, {
+                            once: true
+                        });
                     },
 
                     resume: function() {

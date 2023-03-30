@@ -67,12 +67,7 @@
              ba-hotkey:right="{{set_volume(volume + 0.1)}}" ba-hotkey:left="{{set_volume(volume - 0.1)}}"
              ba-hotkey:up="{{set_volume(1)}}" ba-hotkey:down="{{set_volume(0)}}"
         >
-            <div data-selector="button-volume-bar" class="{{cssplayer}}-ad-volumebar-inner"
-                 onmousedown="{{startUpdateVolume(domEvent)}}"
-                 onmouseup="{{stopUpdateVolume(domEvent)}}"
-                 onmouseleave="{{stopUpdateVolume(domEvent)}}"
-                 onmousemove="{{progressUpdateVolume(domEvent)}}"
-            >
+            <div data-selector="button-volume-bar" class="{{cssplayer}}-ad-volumebar-inner" onmousedown="{{startUpdateVolume(domEvent, currElement)}}" ontouchstart="{{startUpdateVolume(domEvent, currElement)}}">
                 <div class="{{cssplayer}}-ad-volumebar-position"
                      ba-styles="{{{width: Math.min(100, Math.round(volume * 100)) + '%'}}}"
                 >

@@ -34,66 +34,33 @@
         // VMAP - Pre-roll Single Ad, Mid-roll Optimized Pod with 3 Ads, Post-roll Single Ad
         // var vmap = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/vmap_ad_samples&sz=640x480&cust_params=sample_ar%3Dpremidpostoptimizedpod&ciu_szs=300x250&gdfp_req=1&ad_rule=1&output=vmap&unviewed_position_start=1&env=vp&impl=s&cmsid=496&vid=short_onecue&correlator='
         var vmap = '//localhost:5050/static/demos/vast-samples/VMAP/dc_vmap_pre_1_mid_3_post_1.xml'
+        var v4_2_companion = (gnrok || '//localhost:5050/') + 'static/demos/vast-samples/VAST_4_2/Inline_Companion_Tag-test.xml';
 
         // var nonLinear = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/nonlinear_ad_samples&sz=480x70&cust_params=sample_ct%3Dnonlinear&ciu_szs=300x250%2C728x90&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=';
         var nonLinear = '//localhost:5050/static/demos/vast-samples/dc-single_non-linear.xml';
-        // const inlineVAST = ``;
-
-        // var adsense = new BetaJS.MediaComponents.Ads.IMAProvider({
-        //     // adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator='
-        //     // adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator='
-        //     // adTagUrl: 'https://securepubads.g.doubleclick.net/gampad/ads?env=vp&gdfp_req=1&output=vast&iu=/1234/video-demo&sz=400x300&unviewed_position_start=1&ciu_szs=728x90,300x250'
-        //     // adTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Inline_Linear_Tag-test.xml'
-        //     // adTagUrl: errroAd
-        //     // adTagUrl: v3_clickThroughtLocalAd
-        //     // adTagUrl: v3_skipable
-        //     // adTagUrl: v4_2_wrapper
-        //     // adTagUrl: v3_doubleclickVMAP
-        //     // adTagUrl: v4_2_non_skipable
-        //     // adTagUrl: vmap
-        //     // adTagUrl: nonLinear
-        //     // adTagUrl: v4_2_skipable
-        //     // inlineVASTXML: inlineVAST
-        //     adTagUrl: v3_doubleclick
-        //     // , nonLinearAdTagUrl: v3_non_linear
-        //     // preAdTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml',
-        //     // postAdTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml',
-        //     // midAdTagUrl: 'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml',
-        //     // adMidTagUrls: [
-        //     //     'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml',
-        //     //     'https://localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml'
-        //     // ]
-        //     //, vpaidMode: true, DISABLED, ENABLED, INSECURE
-        //     // , maxAllowedRedirects: 10,
-        //     // https://developers.google.com/interactive-media-ads/docs/sdks/html5/client-side/localization
-        //     , locale: 'fr'
-        //     , customSkipView: true
-        //     // , skipAfter: 3
-        //     , nonLinearDuration: 10 // default will be 10 seconds
-        // });
-        // adsense.register("ima");
+        const inlineVAST = ``;
     </script>
 
+<!--    <div style="margin-bottom: 20px; min-height: 980px">-->
+<!--        Ea laborum optio aut est sunt rerum qui ab sapiente. Ducimus incidunt excepturi explicabo eos velit consequatur non voluptatem illum deleniti impedit labore ipsam. Distinctio rerum eos harum blanditiis eum in labore optio omnis animi voluptates aspernatur. Distinctio aliquam ipsa est libero eaque laboriosam et rerum eius libero porro non debitis.-->
+<!--        Atque voluptatum blanditiis officia perferendis rerum similique reprehenderit saepe quibusdam. Aut quisquam incidunt quo amet aut. Excepturi consequatur ea odio qui qui veniam nemo sint rerum placeat. Harum quas perspiciatis rerum eos eos enim vel voluptatibus fugiat sit minima nihil rerum.-->
+<!--    </div>-->
 
-    <div style="position: relative">
+    <div style="position: relative; width:80%; margin: auto">
         <div id="player"></div>
     </div>
 
-<!--    ba-skipinitial-->
-<!--    ba-autoplay-->
-<!--    custom-non-linear-->
-<!--    <ba-videoplayer></ba-videoplayer>-->
-<!--    ba-non-linear="52[,250], 40%[300], 13[300,250], 2[480,70]"-->
-    <!-- 40% == 24sec   -->
-<!-- 45% == 27sec   -->
-<!--    ba-non-linear="40[,90], 50%, 20[720,90], 45[250]"-->
-    <!--    ba-non-linear="40, 50%[720,90], 20[,90], 45[250]", based on player dimension it could be 720x90 or 300x50 -->
-    <!-- If will not set ba-non-linear dimensions it will be based on video player dimenstions
-    , also if will be set only one side dimension it will be not look for exact match advertisement, but only partial
-    -->
-    <!--  mid,post  -->
-    <!--  ba-linear="pre,mid[14, 45%,39], post" -->
-    <!--  ba-non-linear="40, 50%[720,90], 20[,90], 45[250]"-->
+    <div style="margin-top: 30px; min-height: 900px">
+        Doloribus consequatur in a quaerat tempora. Quae asperiores illum odit impedit inventore atque laborum suscipit et voluptas. Ipsam quasi rerum consequatur alias molestias accusamus natus corporis illo non molestias qui dolorem non. Consequatur qui officiis natus necessitatibus consequatur tempore vel aperiam reiciendis quos ipsam ut natus. Ipsam molestiae iusto ipsa sapiente nesciunt accusantium laudantium accusamus quam hic adipisci est inventore. Id ducimus dolorem perspiciatis asperiores aut sequi ut impedit omnis et laboriosam non.
+        Id odio ipsam molestias est adipisci repellendus. Omnis consequuntur enim eum id itaque eligendi minima natus expedita consequatur et ipsam quia. Est nulla cupiditate ad harum dolores ab soluta reprehenderit rerum maiores nulla facilis libero facilis sit. Est repellendus et distinctio ipsam nulla beatae modi autem expedita ut nisi.
+        Ea deleniti earum voluptas ratione nobis a aspernatur deserunt. Aut rerum officia et voluptatem corporis et nihil aut natus expedita nisi impedit voluptatem. Ab libero atque dignissimos laboriosam sed qui vero sed. Ab aut qui iusto est dignissimos consectetur. Ad sed est quis commodi ea animi et quis itaque odit omnis nulla. Et eos mollitia dolor inventore vel laudantium consequatur mollitia libero sunt ipsum eum explicabo vero minus.
+        Fugit omnis voluptas voluptate velit ab nobis. Reiciendis dolorem perspiciatis fuga dolorem excepturi natus eaque aut. Vel non alias voluptate laboriosam vero officia voluptate aliquam perspiciatis nemo quia quia itaque quidem. Nulla a et quas corrupti et ea eaque officiis amet a nihil officiis quibusdam sit et.
+        Eos aut voluptates et sit quos et earum. Totam unde sunt sint et ad cumque at esse explicabo. Voluptas deserunt modi necessitatibus similique voluptate ut voluptas ratione provident quis distinctio. Velit aliquid vitae vel et explicabo accusamus sint possimus. Velit velit expedita tempora aut ex illum rerum cum doloremque qui et excepturi quos est. Accusamus ut quos est neque assumenda perferendis ut delectus qui nostrum ducimus.
+        Beatae eaque ut officiis itaque rerum. Maiores ea nobis consectetur architecto iure vero voluptatem veniam nemo quia quidem earum quia. Nulla aut architecto numquam dicta quia ab velit. Repudiandae dolor beatae aut praesentium doloribus rerum asperiores quas numquam dolorum sunt voluptatum dolorem repellat. Voluptates enim commodi nobis fuga deserunt tempora.
+        Aliquid vero fugit veniam earum accusamus. Optio repellat ut odio debitis doloremque et assumenda voluptatem. Ipsa voluptas qui vel fugit voluptatum molestiae et velit sunt. Facere distinctio non sit provident et vel nostrum.
+        Quia laudantium nam accusamus possimus et. Aut numquam voluptatem rerum ut sed quos ut labore. Qui totam rem qui eveniet eos consequatur autem quo illo sit quidem voluptas ut. Exercitationem unde error veritatis deleniti dicta dicta assumenda voluptate nesciunt adipisci sit eum qui iure dolorem. Iure eos ex ut repellat id.
+        Eum alias cumque architecto laboriosam ea nisi impedit hic amet quis molestiae aut. Expedita beatae laudantium ea aperiam aliquam ab molestiae impedit omnis et. Laboriosam voluptatibus delectus molestias quo culpa et. Mollitia ea dolor autem rem nam autem dolor voluptatem corrupti consequatur.
+    </div>
 
     <script>
         var player = new BetaJS.MediaComponents.VideoPlayer.Dynamics.Player({
@@ -109,20 +76,30 @@
                 //     {poster: 'sample-cover.png', source: 'sample-video.mp4'},
                 //     {poster: 'sample-cover.png', source: 'sample-video3.mp4'}
                 // ],
-                , adprovider: "ima"
+                //adprovider: "ima"
                 // showduration: true,
-                // ,linear: "pre, mid[12*], post"
-                // ,linear: "post"
-                , outstream: true
-                , linear: "pre"
-                // , linear: "mid[5*]"
+                , adsposition: "pre,mid[12*], post"
+                // , 'companionad': '[300,250]|left'
+                // , 'companionad': '[300,]|top'
+                // , 'companionad': '[]|bottom'
+                // , 'companionad': '[300,]|bottom'
+                // , 'companionad': 'companion-selector[300,200]'
+                // , 'companionad': 'companion-fluid[fluid]'
+                // ,adsposition: "post"
+                // , outstream: true
+                // , outstreamoptions: {
+                //     allowReply: true
+                // }
+                // , visibilityfraction: 0.01
+                // , adsposition: "pre, mid, post"
+                // , adsposition: "mid[5*]"
                 // , minadintervals: 8
-                // , skipinitial: true
+                , skipinitial: true
                 , autoplay: true
+                // , adtagurl: v4_2_companion
                 // , adtagurl: v3_doubleclick
                 , inlinevastxml: inlineVAST
                 // , preload: true
-                // , 'non-linear': "52[,250], 55%[300], 19[,250], 2[480,70]"
             }
         });
 

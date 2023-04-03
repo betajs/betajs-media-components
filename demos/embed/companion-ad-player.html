@@ -20,16 +20,6 @@
 
         var gnrok; // = 'https://PUBLIC_ID.in.ngrok.io/';
         var v4_2_companion = (gnrok || '//localhost:5050/') + 'static/demos/vast-samples/VAST_4_2/Inline_Companion_Tag-test.xml';
-
-        var adsense = new BetaJS.MediaComponents.Ads.IMAProvider({
-            adTagUrl: v4_2_companion
-            // adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator='
-
-
-            // , skipAfter: 3
-            , nonLinearDuration: 10 // default will be 10 seconds
-        });
-        adsense.register("ima");
     </script>
 
 
@@ -68,7 +58,7 @@
                 //     {poster: 'sample-cover.png', source: 'sample-video.mp4'},
                 //     {poster: 'sample-cover.png', source: 'sample-video3.mp4'}
                 // ],
-                , adprovider: "ima"
+                , adtagurl: v4_2_companion
                 // showduration: true,
                 // ,linear: "pre, mid[6*], post"
                 // ,linear: "post"
@@ -78,12 +68,12 @@
                 // , 'non-linear': "52[,250], 55%[300], 19[,250], 2[480,70]"
                 // , preload: true
                 // , autoplay: true
-                // , 'companion-ad': '[300,250]|left'
-                // , 'companion-ad': '[300,]|top'
-                , 'companion-ad': '[]|bottom'
-                // , 'companion-ad': '[300,]|bottom'
-                // , 'companion-ad': 'companion-selector[300,200]'
-                // , 'companion-ad': 'companion-fluid[fluid]'
+                // , 'companionad': '[300,250]|left'
+                // , 'companionad': '[300,]|top'
+                , companionad: '[]|bottom'
+                // , 'companionad': '[300,]|bottom'
+                // , 'companionad': 'companion-selector[300,200]'
+                // , 'companionad': 'companion-fluid[fluid]'
                 , width: 420
                 // , height: 480
             }

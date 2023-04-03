@@ -739,8 +739,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayAd", [
         },
 
         resume: function() {
-            // If we have adsposition settings to play ads on mid and postRoll, to be able to reload ads_player
-            if (!this.dyn.get("vmapads")) this.dyn.set("adsplayer_active", false);
             if (this.dyn && this.dyn.player)
                 this.dyn.player.play();
             this.next("PlayVideo");

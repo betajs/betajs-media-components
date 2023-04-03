@@ -45,6 +45,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 _baseRequestAdsOptions: function() {
                     return {
                         adTagUrl: this.get("adtagurl"),
+                        IMASettings: this.get("imasettings"),
                         inlinevastxml: this.get("inlinevastxml"),
                         continuousPlayback: false, // TODO
                         linearAdSlotWidth: this.getAdWidth(),
@@ -66,6 +67,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     "ads:allAdsCompleted": function() {
                         this.call("reset");
+                    },
+                    "ads:discardAdBreak": function() {
+                        this.call("discardAdBreak");
                     },
                     "ads:contentComplete": function() {
                         this.call("contentComplete");
@@ -151,6 +155,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.set("adscompleted", true);
                         this.adsManager.reset();
                         this.adsManager.requestAds(this._baseRequestAdsOptions());
+                    },
+                    discardAdBreak: function() {
+                        this.adsManager.discardAdBreak();
                     },
                     requestAds: function(options) {
                         this.adsManager.requestAds(Objs.extend(this._baseRequestAdsOptions(), options));

@@ -152,10 +152,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "preroll": false,
                         "outstream": false,
                         "outstreamoptions": {},
-                        "imasettings": [],
+                        "imasettings": {},
                         "adtagurl": null,
                         "inlinevastxml": null,
-                        "linear": null,
+                        "adsposition": null,
+                        "vmapads": false, // VMAP ads will set pre, mid, post positions inside XML file
                         "non-linear": null,
                         "companionad": null,
                         "linearadplayer": true,
@@ -346,7 +347,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "adtagurl": "string",
                     "inlinevastxml": "string",
                     "imasettings": "jsonarray",
-                    "linear": "string",
+                    "adsposition": "string",
                     "non-linear": "string",
                     "minadintervals": "int",
                     "non-linear-min-duration": "int",
@@ -448,16 +449,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             });
                         }
                     }.bind(this));
-                    this.set("adshassource", !!this.get("adtagurl") || !!this.get("inlinevastxml"));
-                    if (this.get("adshassource")) {
-                        if (this.get("linear")) {
-                            this.set("adsplaypreroll", this.get("linear").indexOf("pre") !== -1);
-                            this.set("adsplaypostroll", this.get("linear").indexOf("post") !== -1);
-                        } else {
-                            // if there's no specification, play preroll
-                            this.set("adsplaypreroll", true);
-                        }
-                    }
+                    this.initAdSources();
                     this._observer.observe(this.activeElement().firstChild);
                     this._validateParameters();
                     // Will set volume initial state
@@ -507,7 +499,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (!this.get("themecolor"))
                         this.set("themecolor", "default");
 
-                    if (!!this.get("linear")) this.initMidRollAds();
                     if (this.get("playlist") && this.get("playlist").length > 0) {
                         var pl0 = (this.get("playlist"))[0];
                         if (pl0 && Types.is_object(pl0)) {
@@ -609,7 +600,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 initMidRollAds: function() {
                     var schedules;
                     // Split all via comma exclude inside brackets
-                    schedules = Objs.map(this.get("linear").split(/(?![^)(]*\([^)(]*?\)\)),(?![^\[]*\])/), function(item) {
+                    schedules = Objs.map(this.get("adsposition").split(/(?![^)(]*\([^)(]*?\)\)),(?![^\[]*\])/), function(item) {
                         return item.trim();
                     }, this);
 
@@ -1739,6 +1730,20 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     };
                 },
 
+                initAdSources: function() {
+                    this.set("adshassource", !!this.get("adtagurl") || !!this.get("inlinevastxml"));
+                    if (this.get("adshassource")) {
+                        if (this.get("adsposition")) {
+                            this.set("adsplaypreroll", this.get("adsposition").indexOf("pre") !== -1);
+                            this.set("adsplaypostroll", this.get("adsposition").indexOf("post") !== -1);
+                            this.initMidRollAds();
+                        } else {
+                            // if there's no specification, play preroll or VMAP if not set adsposition at all
+                            this.set("vmapads", true);
+                        }
+                    }
+                },
+
                 /**
                  * Prepare for postoll and mid-roll ad managers
                  * @private
@@ -1755,7 +1760,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             var _current = null;
                             var _nextPositionIndex = null;
                             Objs.iter(this.get("midrollads"), function(roll, index) {
-                                if (roll.position && roll.position > 0) {
+                                if (roll.position && roll.position > this.get("position")) {
                                     // First ad position, if less than 1 it means it's percentage not second
                                     var _position = roll.position < 1 ?
                                         Math.floor(this.get("duration") * roll.position) :
@@ -1825,6 +1830,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                             if (!this.get("adscompleted") && !adsPlayer.get("linear")) {
                                 this.channel("ads").trigger("allAdsCompleted");
+                                // this.channel("ads").trigger("discardAdBreak"); // nonLinear not run discard
                             } else {
                                 this.set("adsplayer_active", false);
                             }

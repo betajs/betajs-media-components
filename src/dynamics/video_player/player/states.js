@@ -213,7 +213,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Initial", [
         _started: function() {
             this.dyn.set("imageelement_active", false);
             this.dyn.set("videoelement_active", false);
-            this.dyn.set("adsplayer_active", this.dyn.get("adshassource") && (this.dyn.get("adsplaypreroll") || this.dyn.get("outstream")));
+            this.dyn.set("adsplayer_active", this.dyn.get("adshassource") && (this.dyn.get("adsplaypreroll") || this.dyn.get("outstream") || this.dyn.get("vmapads")));
             if (this.dyn.get("ready")) {
                 this.next("LoadPlayer");
             } else {
@@ -325,7 +325,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
                 if (!this.dyn.get("states").poster_error.ignore && !this.dyn.get("popup"))
                     this.next("PosterError");
             }, this);
-            if (this.dyn && ((this.dyn.get("skipinitial") && !this.dyn.get("autoplay")) || this.dyn.get("play-next"))) {
+            if (this.dyn && (this.dyn.get("skipinitial") && !this.dyn.get("autoplay"))) {
                 this.play();
             }
             if (this.dyn && this.dyn.get("autoplay")) {
@@ -398,7 +398,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Preroll", [
         dynamics: [],
 
         _started: function() {
-            if ((this.dyn.get("skipinitial") && !this.dyn.get("autoplay")) || !this.dyn.get("adsplaypreroll"))
+            if ((this.dyn.get("skipinitial") && !this.dyn.get("autoplay")) || !(this.dyn.get("adsplaypreroll") || this.dyn.get("vmapads")))
                 this.next("LoadVideo");
             else this.next("LoadAds");
         }
@@ -438,7 +438,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
     }, {
 
         dynamics: ["loader"],
-        _locals: ["midroll"],
+        _locals: ["position"],
 
         _started: function() {
             if (this.dyn.get("adshassource")) {
@@ -455,7 +455,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
         _nextState: function() {
             if (!!this.dyn.get("outstream"))
                 return "PlayOutstream";
-            if (this.dyn.get("autoplay") || !!this._midroll)
+            if (this.dyn.get("autoplay") || (this.__position && this.__position === 'mid'))
                 return "PlayVideo";
             return "LoadVideo";
         }
@@ -499,23 +499,36 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream", [
 });
 
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.ReloadAds", [
-    "module:VideoPlayer.Dynamics.PlayerStates.State"
-], function(State, scoped) {
+    "module:VideoPlayer.Dynamics.PlayerStates.State",
+    "base:Timers.Timer"
+], function(State, Timer, scoped) {
     return State.extend({
         scoped: scoped
     }, {
+
+        _locals: ["hard"],
         _started: function() {
-            if (this.dyn.get("adshassource")) {
-                this.dyn.scopes.adsplayer.execute("reset");
+            if (this.dyn.get("adshassource") && (this.dyn.get("vmapads") || this.dyn.get("adsplaypostroll"))) {
+                // if VAST/VMAP has postroll which was already loaded in advance, so no need for reset
+                // In case if we want to launch it manually via settings "adsposition: 'post'" or after re-attach on playlist,
+                // then we need reset ads manager and wait for adsManager Loaded
+                if (this.dyn.get("adsplaypostroll")) {
+                    this.dyn.set("adsplayer_active", true);
+                }
                 this.listenOn(this.dyn.channel("ads"), "adsManagerLoaded", function() {
-                    this.next("LoadAds");
+                    this.next("LoadAds", {
+                        position: 'post'
+                    });
                 });
                 this.listenOn(this.dyn.channel("ads"), "ad-error", function() {
                     this.next("NextVideo");
                 });
-            } else this.next("NextVideo");
+            } else {
+                this.next("NextVideo");
+            }
         }
     });
+
 });
 
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterError", [
@@ -649,13 +662,16 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
                         } else this.next("MidrollAd");
                     }
                 }, this);
+
                 this.listenOn(this.dyn, "playnextmidroll", function() {
                     if (!this.dyn.get("adsplayer_active")) {
                         this.dyn.set("adsplayer_active", true);
                     }
+                    // INFO: could be improved via using reset, but currently it's providing some console errors on reset execution
+                    // this.next("ReloadAds", { hard: true });
                     this.listenOnce(this.dyn.channel("ads"), "adsManagerLoaded", function() {
                         this.next("LoadAds", {
-                            midroll: true
+                            position: 'mid'
                         });
                     });
                 }, this);
@@ -669,18 +685,16 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
                 this.next("LoadPlayer");
             }, this);
             this.listenOn(this.dyn, "ended", function() {
-                this.dyn.channel("ads").trigger("contentComplete");
                 this.dyn.set("autoseek", null);
-                if (this.dyn.get("adshassource")) {
-                    // waiting a bit for postroll
-                    this.auto_destroy(new Timer({
-                        once: true,
-                        fire: function() {
-                            this.next("ReloadAds");
-                        }.bind(this),
-                        delay: 50
-                    }));
-                }
+                this.dyn.channel("ads").trigger("contentComplete");
+                // waiting a bit for postroll
+                this.auto_destroy(new Timer({
+                    once: true,
+                    fire: function() {
+                        this.next("ReloadAds"); // << if no adshassource, redirect to the NextVideo
+                    }.bind(this),
+                    delay: 50
+                }));
             }, this);
             this.listenOn(this.dyn, "change:buffering", function() {
                 this.dyn.set("loader_active", this.dyn.get("buffering"));
@@ -691,7 +705,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
         },
 
         play: function() {
-            if (this.dyn.get("skipinitial") && !this.dyn.get("autoplay") && this.dyn.get("adshassource")) {
+            if (this.dyn.get("skipinitial") && !this.dyn.get("autoplay") && this.dyn.get("adshassource") && this.dyn.get("position") === 0) {
+                // w/o position === 0 condition player will reload on toggle player
                 this.next("LoadAds");
             } else {
                 this.dyn.player.play();
@@ -724,6 +739,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayAd", [
         },
 
         resume: function() {
+            // If we have adsposition settings to play ads on mid and postRoll, to be able to reload ads_player
+            if (!this.dyn.get("vmapads")) this.dyn.set("adsplayer_active", false);
             if (this.dyn && this.dyn.player)
                 this.dyn.player.play();
             this.next("PlayVideo");
@@ -762,7 +779,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PostrollAd", [
         scoped: scoped
     }, {
         resume: function() {
-            this.next("ReloadAds");
+            this.dyn.set("adsplayer_active", false);
+            this.next("NextVideo");
         }
     });
 });
@@ -827,9 +845,15 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
          */
         _playNext: function(pl) {
             this.dyn.trigger("playlist-next", pl);
-            // this.dyn.reattachVideo();
-            this.dyn.set("play-next", true);
-            this.next("LoadPlayerDirectly");
+            if (this.dyn.get("adshassource")) {
+                this.dyn.initAdSources();
+                this.dyn.reattachVideo();
+                this.dyn.set("autoplay", true);
+                this.dyn.set("adsplayer_active", true);
+                this.next("Preroll");
+            } else {
+                this.next("LoadPlayerDirectly");
+            }
         }
     });
 });

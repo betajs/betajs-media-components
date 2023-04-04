@@ -1429,14 +1429,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this._delegatedPlayer.execute("toggle_fullscreen");
                             return;
                         }
-                        if (!this.player) return;
                         if (this.get("fullscreened")) {
-                            this.player.exitFullscreen();
+                            Dom.documentExitFullscreen();
                         } else {
-                            if (Info.isSafari())
-                                this.player.enterFullscreen(this.activeElement().querySelector('video'));
-                            else
-                                this.player.enterFullscreen(this.activeElement().childNodes[0]);
+                            if (Info.isSafari()) Dom.elementEnterFullscreen(this.activeElement().querySelector("video"));
+                            else Dom.elementEnterFullscreen(this.activeElement().childNodes[0]);
                         }
                         this.set("fullscreened", !this.get("fullscreened"));
                     },

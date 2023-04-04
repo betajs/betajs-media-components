@@ -1,51 +1,58 @@
-.#{$cssplayer}-ad-click-tracker {
+.#{$cssadsplayer}-click-tracker {
     @include align-all();
 }
 
-.#{$cssplayer}-ad-controlbar {
-    @include background-rgba(0, 0, 0, 0.8, #333333);
+.#{$cssadsplayer}-controlbar {
     @include absolute-align-bottom();
+    @include background-rgba(0, 0, 0, 0.8, #333333);
+    @include transition1(opacity, #{$player_dashboard_transition}, ease-in-out);
+    opacity: 1;
     height: 32px;
     width: 100%;
     z-index: 10;
 }
 
-.#{$cssplayer}-ad-leftbutton-container {
+.#{$cssadsplayer}-controlbar-hidden {
+    opacity: 0;
+}
+
+
+.#{$cssadsplayer}-leftbutton-container {
     @include float-width-height(left, 40px, 100%);
     @include clickable;
     box-sizing: content-box;
 }
 
-.#{$cssnoie8} .#{$cssplayer}-ad-rightbutton-container {
+.#{$cssnoie8} .#{$cssadsplayer}-rightbutton-container {
     @include float-width-height(right, 40px, 100%);
     @include clickable;
     box-sizing: content-box;
 }
 
-.#{$cssie8} .#{$cssplayer}-ad-rightbutton-container {
+.#{$cssie8} .#{$cssadsplayer}-rightbutton-container {
     @include float-width-height(right, 40px, 50%);
     @include clickable;
     box-sizing: content-box;
 }
 
-.#{$cssnoie8} .#{$cssplayer}-ad-button-inner {
+.#{$cssnoie8} .#{$cssadsplayer}-button-inner {
     @include relative-center-center;
     color: #ffffff;
     font-size: 13px;
 }
 
-.#{$cssie8} .#{$cssplayer}-ad-button-inner {
+.#{$cssie8} .#{$cssadsplayer}-button-inner {
     margin-top: 6px + 6;
     text-align: center;
     color: #ffffff;
     font-size: 13px;
 }
 
-.#{$cssplayer}-ad-button-inner {
+.#{$cssadsplayer}-button-inner {
     @include clickable;
 }
 
-.#{$cssplayer}-ad-time-container {
+.#{$cssadsplayer}-time-container {
     @include float-width-height(left, auto, 100%);
     text-align: center;
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
@@ -54,17 +61,17 @@
     box-sizing: content-box;
 }
 
-.#{$cssie8} .#{$cssplayer}-ad-time-container {
+.#{$cssie8} .#{$cssadsplayer}-time-container {
     margin-top: 6px + 5;
 }
 
-.#{$cssplayer}-ad-time-value {
+.#{$cssadsplayer}-time-value {
     @include relative-center-center;
     float: left;
     width: auto;
     padding: 3px 15px 0;
 }
-.#{$cssvideoplayer}-ad-progressbar-container {
+.#{$cssadsplayer}-progressbar-container {
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -73,32 +80,32 @@
     height: 3px;
     cursor: not-allowed;
 }
-.#{$cssvideoplayer}-ad-progressbar-played {
+.#{$cssadsplayer}-progressbar-played {
     background-color: #F1D44F;
     position: relative;
     left: 0;
     height: 3px;
 }
-.#{$cssvideoplayer}-ad-progressbar-inside-controller {
+.#{$cssadsplayer}-progressbar-inside-controller {
     position: absolute;
     width: 100%;
-    .#{$cssvideoplayer}-ad-progressbar-played {
+    .#{$cssadsplayer}-progressbar-played {
         height: 1px;
     }
 }
 
-.#{$cssnoie8} .#{$cssplayer}-ad-volumebar {
+.#{$cssnoie8} .#{$cssadsplayer}-volumebar {
     @include float-width-height(right, 60px, 100%);
     margin-right: 6px*2;
 }
 
-.#{$cssie8} .#{$cssplayer}-ad-volumebar {
+.#{$cssie8} .#{$cssadsplayer}-volumebar {
     @include float-width-height(right, 60px, 50%);
     margin-top: 6px+10;
     margin-right: 6px*2;
 }
 
-.#{$cssplayer}-ad-volumebar-inner {
+.#{$cssadsplayer}-volumebar-inner {
     @include relative-center-center;
     @include border-round-edges(6px / 2);
     @include clickable;
@@ -106,14 +113,14 @@
     height: 6px;
 }
 
-.#{$cssplayer}-ad-volumebar-position {
+.#{$cssadsplayer}-volumebar-position {
     @include border-round-edges(6px / 2);
     @include absolute-align-left();
     background-color: #ffffff;
     height: 100%;
 }
 
-.#{$cssplayer}-skipbutton-container {
+.#{$cssadsplayer}-skipbutton-container {
     @include transition1(all, 0.3s, ease-in-out 0.2s);
     @include transparent(0.4);
     background: #020202;
@@ -129,22 +136,97 @@
     min-width: 100px;
 }
 
-.#{$cssplayer}-skipbutton {
+.#{$cssadsplayer}-skipbutton {
     text-align: center;
     margin: 0;
     padding: 0;
 }
 
-.#{$cssplayer}-skipbutton-container:hover {
+.#{$cssadsplayer}-skipbutton-container:hover {
     @include transparent(0.7);
     @include transition1(all, 0.3s, ease-in-out 0.2s);
 }
 
-.#{$cssplayer}-container {
+.#{$cssadsplayer}-container {
     .raisedSkipButton.videoAdUiSkipWidgetV2 .videoAdUiPreSkipContainer,
     .raisedSkipButton.videoAdUiSkipWidgetV2 .videoAdUiSkipContainer,
     .gma-instream .videoAdUiSkipWidgetV2 .videoAdUiPreSkipContainer,
     .gma-instream .videoAdUiSkipWidgetV2 .videoAdUiSkipContainer {
         bottom: 70px;
     }
+}
+
+// non-linear-container
+.#{$cssadsplayer}-non-linear-ad-container {
+    @include transition1(opacity, #{$player_dashboard_transition}, ease-in-out);
+    @include transition1(bottom, #{$player_dashboard_transition}, ease 0.2s);
+    position: absolute;
+    bottom: #{$controlbar_height + $progressbar_height};
+    opacity: 0.9;
+    text-align: center;
+    width: 100%;
+    z-index: 10;
+}
+
+.#{$cssplayer}-controlbar-hidden.#{$cssadsplayer}-non-linear-ad-container {
+    @include transition1(bottom, #{$player_dashboard_transition}, ease 0.2s);
+    bottom: 0;
+}
+
+.#{$cssadsplayer}-non-linear-controlbar:hover {
+    @include transition1(opacity, #{$player_dashboard_transition}, ease-in-out);
+    opacity: 1;
+}
+
+.#{$cssadsplayer}-media-container {
+    position: relative;
+    display: inline-block;
+}
+
+.#{$cssadsplayer}-banner-close-button {
+    background: white;
+    color: black;
+    cursor: pointer;
+    display: inline-block;
+    height: 16px;
+    position: absolute;
+    right: 15px;
+    text-align: center;
+    top: 10px;
+    width: 16px;
+    z-index: 100;
+}
+
+.#{$cssadsplayer}-banner-close-button > i::before {
+    margin: 0;
+    line-height: 16px;
+}
+
+.#{$cssadsplayer}-action-button {
+    @include transition1(background-color, 0.3s, ease-in-out);
+    background: #020202;
+    border-color: #c9c9c9;
+    border-radius: 1px;
+    color: #ccc;
+    cursor: pointer;
+    display: inline-block;
+    padding: 5px 20px;
+    line-height: 20px;
+    margin-bottom: 10px;
+    min-width: 7em;
+}
+
+.#{$cssadsplayer}-action-button.#{$cssadsplayer}-reversed-color {
+    background-color: #ccc;
+    color: #020202;
+}
+
+.#{$cssadsplayer}-action-button:hover {
+    background-color: #ccc;
+    color: #020202;
+}
+
+.#{$cssadsplayer}-action-button.#{$cssadsplayer}-reversed-color:hover {
+    background: #020202;
+    color: #ccc;
 }

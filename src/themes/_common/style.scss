@@ -10,6 +10,10 @@
 
 .#{$csscommon}-square-aspect-ratio { aspect-ratio: 1/1; }
 
+.#{$csscommon}-horizontally-center { @include relative-horizontally-center(); }
+
+.#{$csscommon}-center-all { @include relative-center-center(); }
+
 .#{$csscommon}-text-center {text-align: center;}
 
 .#{$csscommon}-text-right {text-align: right;}

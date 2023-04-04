@@ -559,7 +559,7 @@ module.exports = function(grunt) {
                 }));
             });
 
-            Promise.all(promisesArray).then(function(dictsArray) {   
+            Promise.all(promisesArray).then(function(dictsArray) {
                 var result = {};
                 dictsArray.forEach(function(d) {
                     Object.assign(target.dict, d);

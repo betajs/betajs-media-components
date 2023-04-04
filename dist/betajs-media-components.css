@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.356 - 2023-03-30
+betajs-media-components - v0.0.358 - 2023-04-03
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1293,24 +1293,34 @@ Apache-2.0 Software License.
   z-index: 1001;
 }
 
-.ba-player-ad-click-tracker {
+.ba-adsplayer-click-tracker {
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
 }
 
-.ba-player-ad-controlbar {
-  background-color: #333333;
-  background-color: rgba(0, 0, 0, 0.8);
+.ba-adsplayer-controlbar {
   position: absolute;
   bottom: 0;
+  background-color: #333333;
+  background-color: rgba(0, 0, 0, 0.8);
+  transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out;
+  -ms-transition: opacity 0.5s ease-in-out;
+  opacity: 1;
   height: 32px;
   width: 100%;
   z-index: 10;
 }
 
-.ba-player-ad-leftbutton-container {
+.ba-adsplayer-controlbar-hidden {
+  opacity: 0;
+}
+
+.ba-adsplayer-leftbutton-container {
   float: left;
   width: 40px;
   height: 100%;
@@ -1318,7 +1328,7 @@ Apache-2.0 Software License.
   box-sizing: content-box;
 }
 
-.ba-videoplayer-noie8 .ba-player-ad-rightbutton-container {
+.ba-videoplayer-noie8 .ba-adsplayer-rightbutton-container {
   float: right;
   width: 40px;
   height: 100%;
@@ -1326,7 +1336,7 @@ Apache-2.0 Software License.
   box-sizing: content-box;
 }
 
-.ba-videoplayer-ie8 .ba-player-ad-rightbutton-container {
+.ba-videoplayer-ie8 .ba-adsplayer-rightbutton-container {
   float: right;
   width: 40px;
   height: 50%;
@@ -1334,7 +1344,7 @@ Apache-2.0 Software License.
   box-sizing: content-box;
 }
 
-.ba-videoplayer-noie8 .ba-player-ad-button-inner {
+.ba-videoplayer-noie8 .ba-adsplayer-button-inner {
   -webkit-transform: translateY(-50%);
   -moz-transform: translateY(-50%);
   -o-transform: translateY(-50%);
@@ -1347,18 +1357,18 @@ Apache-2.0 Software License.
   font-size: 13px;
 }
 
-.ba-videoplayer-ie8 .ba-player-ad-button-inner {
+.ba-videoplayer-ie8 .ba-adsplayer-button-inner {
   margin-top: 12px;
   text-align: center;
   color: #ffffff;
   font-size: 13px;
 }
 
-.ba-player-ad-button-inner {
+.ba-adsplayer-button-inner {
   cursor: pointer;
 }
 
-.ba-player-ad-time-container {
+.ba-adsplayer-time-container {
   float: left;
   width: auto;
   height: 100%;
@@ -1369,11 +1379,11 @@ Apache-2.0 Software License.
   box-sizing: content-box;
 }
 
-.ba-videoplayer-ie8 .ba-player-ad-time-container {
+.ba-videoplayer-ie8 .ba-adsplayer-time-container {
   margin-top: 11px;
 }
 
-.ba-player-ad-time-value {
+.ba-adsplayer-time-value {
   -webkit-transform: translateY(-50%);
   -moz-transform: translateY(-50%);
   -o-transform: translateY(-50%);
@@ -1387,7 +1397,7 @@ Apache-2.0 Software License.
   padding: 3px 15px 0;
 }
 
-.ba-videoplayer-ad-progressbar-container {
+.ba-adsplayer-progressbar-container {
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -1397,29 +1407,29 @@ Apache-2.0 Software License.
   cursor: not-allowed;
 }
 
-.ba-videoplayer-ad-progressbar-played {
+.ba-adsplayer-progressbar-played {
   background-color: #F1D44F;
   position: relative;
   left: 0;
   height: 3px;
 }
 
-.ba-videoplayer-ad-progressbar-inside-controller {
+.ba-adsplayer-progressbar-inside-controller {
   position: absolute;
   width: 100%;
 }
-.ba-videoplayer-ad-progressbar-inside-controller .ba-videoplayer-ad-progressbar-played {
+.ba-adsplayer-progressbar-inside-controller .ba-adsplayer-progressbar-played {
   height: 1px;
 }
 
-.ba-videoplayer-noie8 .ba-player-ad-volumebar {
+.ba-videoplayer-noie8 .ba-adsplayer-volumebar {
   float: right;
   width: 60px;
   height: 100%;
   margin-right: 12px;
 }
 
-.ba-videoplayer-ie8 .ba-player-ad-volumebar {
+.ba-videoplayer-ie8 .ba-adsplayer-volumebar {
   float: right;
   width: 60px;
   height: 50%;
@@ -1427,7 +1437,7 @@ Apache-2.0 Software License.
   margin-right: 12px;
 }
 
-.ba-player-ad-volumebar-inner {
+.ba-adsplayer-volumebar-inner {
   -webkit-transform: translateY(-50%);
   -moz-transform: translateY(-50%);
   -o-transform: translateY(-50%);
@@ -1445,7 +1455,7 @@ Apache-2.0 Software License.
   height: 6px;
 }
 
-.ba-player-ad-volumebar-position {
+.ba-adsplayer-volumebar-position {
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
   border-top-left-radius: 3px;
@@ -1456,7 +1466,7 @@ Apache-2.0 Software License.
   height: 100%;
 }
 
-.ba-player-skipbutton-container {
+.ba-adsplayer-skipbutton-container {
   transition: all 0.3s ease-in-out 0.2s;
   -moz-transition: all 0.3s ease-in-out 0.2s;
   -webkit-transition: all 0.3s ease-in-out 0.2s;
@@ -1484,13 +1494,13 @@ Apache-2.0 Software License.
   min-width: 100px;
 }
 
-.ba-player-skipbutton {
+.ba-adsplayer-skipbutton {
   text-align: center;
   margin: 0;
   padding: 0;
 }
 
-.ba-player-skipbutton-container:hover {
+.ba-adsplayer-skipbutton-container:hover {
   /* works for IE 5+. */
   /* works for IE 8. */
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
@@ -1507,11 +1517,105 @@ Apache-2.0 Software License.
   -ms-transition: all 0.3s ease-in-out 0.2s;
 }
 
-.ba-player-container .raisedSkipButton.videoAdUiSkipWidgetV2 .videoAdUiPreSkipContainer,
-.ba-player-container .raisedSkipButton.videoAdUiSkipWidgetV2 .videoAdUiSkipContainer,
-.ba-player-container .gma-instream .videoAdUiSkipWidgetV2 .videoAdUiPreSkipContainer,
-.ba-player-container .gma-instream .videoAdUiSkipWidgetV2 .videoAdUiSkipContainer {
+.ba-adsplayer-container .raisedSkipButton.videoAdUiSkipWidgetV2 .videoAdUiPreSkipContainer,
+.ba-adsplayer-container .raisedSkipButton.videoAdUiSkipWidgetV2 .videoAdUiSkipContainer,
+.ba-adsplayer-container .gma-instream .videoAdUiSkipWidgetV2 .videoAdUiPreSkipContainer,
+.ba-adsplayer-container .gma-instream .videoAdUiSkipWidgetV2 .videoAdUiSkipContainer {
   bottom: 70px;
+}
+
+.ba-adsplayer-non-linear-ad-container {
+  transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out;
+  -ms-transition: opacity 0.5s ease-in-out;
+  transition: bottom 0.5s ease 0.2s;
+  -moz-transition: bottom 0.5s ease 0.2s;
+  -webkit-transition: bottom 0.5s ease 0.2s;
+  -o-transition: bottom 0.5s ease 0.2s;
+  -ms-transition: bottom 0.5s ease 0.2s;
+  position: absolute;
+  bottom: 39px;
+  opacity: 0.9;
+  text-align: center;
+  width: 100%;
+  z-index: 10;
+}
+
+.ba-player-controlbar-hidden.ba-adsplayer-non-linear-ad-container {
+  transition: bottom 0.5s ease 0.2s;
+  -moz-transition: bottom 0.5s ease 0.2s;
+  -webkit-transition: bottom 0.5s ease 0.2s;
+  -o-transition: bottom 0.5s ease 0.2s;
+  -ms-transition: bottom 0.5s ease 0.2s;
+  bottom: 0;
+}
+
+.ba-adsplayer-non-linear-controlbar:hover {
+  transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out;
+  -ms-transition: opacity 0.5s ease-in-out;
+  opacity: 1;
+}
+
+.ba-adsplayer-media-container {
+  position: relative;
+  display: inline-block;
+}
+
+.ba-adsplayer-banner-close-button {
+  background: white;
+  color: black;
+  cursor: pointer;
+  display: inline-block;
+  height: 16px;
+  position: absolute;
+  right: 15px;
+  text-align: center;
+  top: 10px;
+  width: 16px;
+  z-index: 100;
+}
+
+.ba-adsplayer-banner-close-button > i::before {
+  margin: 0;
+  line-height: 16px;
+}
+
+.ba-adsplayer-action-button {
+  transition: background-color 0.3s ease-in-out;
+  -moz-transition: background-color 0.3s ease-in-out;
+  -webkit-transition: background-color 0.3s ease-in-out;
+  -o-transition: background-color 0.3s ease-in-out;
+  -ms-transition: background-color 0.3s ease-in-out;
+  background: #020202;
+  border-color: #c9c9c9;
+  border-radius: 1px;
+  color: #ccc;
+  cursor: pointer;
+  display: inline-block;
+  padding: 5px 20px;
+  line-height: 20px;
+  margin-bottom: 10px;
+  min-width: 7em;
+}
+
+.ba-adsplayer-action-button.ba-adsplayer-reversed-color {
+  background-color: #ccc;
+  color: #020202;
+}
+
+.ba-adsplayer-action-button:hover {
+  background-color: #ccc;
+  color: #020202;
+}
+
+.ba-adsplayer-action-button.ba-adsplayer-reversed-color:hover {
+  background: #020202;
+  color: #ccc;
 }
 
 .ba-player-red-color .ba-player-button-inactive .ba-commoncss-icon-subtitle,
@@ -2452,6 +2556,22 @@ div.ba-commoncss-sticky {
 
 .ba-commoncss-square-aspect-ratio {
   aspect-ratio: 1/1;
+}
+
+.ba-commoncss-horizontally-center {
+  position: relative;
+  margin: auto;
+}
+
+.ba-commoncss-center-all {
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  top: 50%;
+  position: relative;
+  text-align: center;
 }
 
 .ba-commoncss-text-center {
@@ -3552,78 +3672,6 @@ div.ba-commoncss-sticky {
   font-family: Arial, sans-serif;
   font-weight: normal;
   font-size: 14px;
-}
-
-.ba-player-ad-media-controlbar {
-  transition: opacity 0.5s ease-in-out;
-  -moz-transition: opacity 0.5s ease-in-out;
-  -webkit-transition: opacity 0.5s ease-in-out;
-  -o-transition: opacity 0.5s ease-in-out;
-  -ms-transition: opacity 0.5s ease-in-out;
-  position: absolute;
-  bottom: 55px;
-  opacity: 0.6;
-  text-align: center;
-  width: 100%;
-}
-
-.ba-player-controlbar-hidden .ba-player-non-linear-ad-container > div {
-  transition: bottom 0.5s ease 0.2s;
-  -moz-transition: bottom 0.5s ease 0.2s;
-  -webkit-transition: bottom 0.5s ease 0.2s;
-  -o-transition: bottom 0.5s ease 0.2s;
-  -ms-transition: bottom 0.5s ease 0.2s;
-  bottom: 0;
-}
-
-.ba-player-non-linear-ad-container > div {
-  transition: bottom 0.5s ease 0.2s;
-  -moz-transition: bottom 0.5s ease 0.2s;
-  -webkit-transition: bottom 0.5s ease 0.2s;
-  -o-transition: bottom 0.5s ease 0.2s;
-  -ms-transition: bottom 0.5s ease 0.2s;
-  bottom: 43px;
-}
-
-.ba-player-ad-media-controlbar:hover {
-  transition: opacity 0.5s ease-in-out;
-  -moz-transition: opacity 0.5s ease-in-out;
-  -webkit-transition: opacity 0.5s ease-in-out;
-  -o-transition: opacity 0.5s ease-in-out;
-  -ms-transition: opacity 0.5s ease-in-out;
-  opacity: 1;
-}
-
-.ba-player-ad-media-container {
-  position: relative;
-  display: inline-block;
-}
-
-.ba-player-ad-banner-close-button {
-  background: white;
-  color: black;
-  cursor: pointer;
-  display: inline-block;
-  height: 16px;
-  position: absolute;
-  right: 15px;
-  text-align: center;
-  top: 10px;
-  width: 16px;
-  z-index: 100;
-}
-
-.ba-player-ad-banner-close-button > i::before {
-  margin: 0;
-  line-height: 16px;
-}
-
-.ba-player-ad-controlbar {
-  transition: opacity 0.5s ease-in-out;
-  -moz-transition: opacity 0.5s ease-in-out;
-  -webkit-transition: opacity 0.5s ease-in-out;
-  -o-transition: opacity 0.5s ease-in-out;
-  -ms-transition: opacity 0.5s ease-in-out;
 }
 
 .ba-videoplayer-topmessage-container {

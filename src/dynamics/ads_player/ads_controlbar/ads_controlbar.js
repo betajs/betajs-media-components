@@ -14,13 +14,10 @@ Scoped.define("module:Ads.Dynamics.Controlbar", [
 
                 attrs: {
                     css: "ba-videoplayer",
-                    cssplayer: "ba-player",
-                    csscommon: "ba-commoncss",
                     showcontrolbar: true,
                     showbanner: false,
                     media: null,
                     playing: false,
-                    volume: 1,
                     disablepause: false,
                     title: null,
                     pausedonclick: false,
@@ -35,19 +32,8 @@ Scoped.define("module:Ads.Dynamics.Controlbar", [
                 },
 
                 channels: {
-                    "ads:pause": function() {
-                        this.set("playing", false);
-                    },
-                    "ads:start": function() {
-                        this.set("playing", true);
-                        this.set("currentTime", 0);
-                        this.set("remaining", this.get("duration"));
-                    },
-                    "ads:resume": function() {
-                        this.set("playing", true);
-                    },
                     "ads:adProgress": function(event) {
-                        this.set("currentTime", event.getAdData().currentTime);
+                        this.set("currenttime", event.getAdData().currentTime);
                         this.set("remaining", this.get("duration") - event.getAdData().currentTime);
                     }
                 },
@@ -137,12 +123,17 @@ Scoped.define("module:Ads.Dynamics.Controlbar", [
         })
         .attachStringTable(Assets.strings)
         .addStrings({
-            "elapsed-time": "Elapsed time",
-            "volume-button": "Set volume",
+            "skip-ad": "Skip ad",
+            "play-ad": "Play",
+            "pause-video": "Pause",
             "volume-mute": "Mute sound",
+            "volume-button": "Set volume",
+            "elapsed-time": "Elapsed time",
             "volume-unmute": "Unmute sound",
-            "ad-will-end-after": "Ad will end after %s",
             "can-skip-after": "Skip after %d",
-            "skip-ad": "Skip ad"
+            "fullscreen-video": "Enter fullscreen",
+            "exit-fullscreen-video": "Exit fullscreen",
+            "ad-will-end-after": "Ad will end after %s",
+            "pause-video-disabled": "Pause not supported"
         });
 });

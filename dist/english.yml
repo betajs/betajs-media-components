@@ -263,17 +263,10 @@ language:en:
   ba-video-call.call-ended: Call ended
   ba-video-call.connecting: Connecting...
   ba-video-call.connection-error: There was an error while connecting, please click to try again.
-  ba-adscontrolbar.elapsed-time: Elapsed time
-  ba-adscontrolbar.volume-button: Set volume
-  ba-adscontrolbar.volume-mute: Mute sound
-  ba-adscontrolbar.volume-unmute: Unmute sound
-  ba-adscontrolbar.ad-will-end-after: Ad will end after %s
-  ba-adscontrolbar.can-skip-after: Skip after %d
-  ba-adscontrolbar.skip-ad: Skip ad
-  ba-ads-banner.elapsed-time: Elapsed time
-  ba-ads-banner.volume-button: Set volume
-  ba-ads-banner.volume-mute: Mute sound
-  ba-ads-banner.volume-unmute: Unmute sound
-  ba-ads-banner.ad-will-end-after: Ad will end after %s
-  ba-ads-banner.can-skip-after: Skip after %d
-  ba-ads-banner.skip-ad: Skip ad
+  ba-ads-controlbar.play-ad: Play
+  ba-ads-controlbar.pause-video: Pause
+  ba-ads-controlbar.fullscreen-video: Enter fullscreen
+  ba-ads-controlbar.exit-fullscreen-video: Exit fullscreen
+  ba-ads-controlbar.pause-video-disabled: Pause not supported
+  ba-adsplayer.replay-ad: Replay
+  ba-adsplayer.close-ad: Close

@@ -388,24 +388,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
     });
 });
 
-Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Preroll", [
-    "module:VideoPlayer.Dynamics.PlayerStates.State"
-], function(State, scoped) {
-    return State.extend({
-        scoped: scoped
-    }, {
-
-        dynamics: [],
-
-        _started: function() {
-            if ((this.dyn.get("skipinitial") && !this.dyn.get("autoplay")) || !(this.dyn.get("adsplaypreroll") || this.dyn.get("vmapads")))
-                this.next("LoadVideo");
-            else this.next("LoadAds");
-        }
-
-    });
-});
-
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Outstream", [
     "module:VideoPlayer.Dynamics.PlayerStates.State",
     "browser:Dom"
@@ -455,7 +437,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
         _nextState: function() {
             if (!!this.dyn.get("outstream"))
                 return "PlayOutstream";
-            if (this.dyn.get("autoplay") || (this.__position && this.__position === 'mid'))
+            if (this.__position && this.__position === 'mid')
                 return "PlayVideo";
             return "LoadVideo";
         }
@@ -848,7 +830,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
                 this.dyn.reattachVideo();
                 this.dyn.set("autoplay", true);
                 this.dyn.set("adsplayer_active", true);
-                this.next("Preroll");
+                this.next("LoadAds");
             } else {
                 this.next("LoadPlayerDirectly");
             }

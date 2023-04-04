@@ -423,7 +423,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Outstream", [
             this.listenOn(this.dyn.channel("ads"), "adsManagerLoaded", function() {
                 Dom.onScrollIntoView(this.dyn.activeElement(), this.dyn.get("visibilityfraction"), function() {
                     if (!this.destroyed())
-                        this.next("LoadAds");
+                        this.next("LoadAds", {
+                            position: 'outstream'
+                        });
                 }, this);
             });
         }
@@ -453,9 +455,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
         },
 
         _nextState: function() {
-            if (!!this.dyn.get("outstream"))
+            if (this._position && this._position === 'outstream')
                 return "PlayOutstream";
-            if (this.dyn.get("autoplay") || (this.__position && this.__position === 'mid'))
+            if (this.dyn.get("autoplay") || (this._position && this._position === 'mid'))
                 return "PlayVideo";
             return "LoadVideo";
         }
@@ -506,7 +508,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.ReloadAds", [
         scoped: scoped
     }, {
 
-        _locals: ["hard"],
         _started: function() {
             if (this.dyn.get("adshassource") && (this.dyn.get("vmapads") || this.dyn.get("adsplaypostroll"))) {
                 // if VAST/VMAP has postroll which was already loaded in advance, so no need for reset

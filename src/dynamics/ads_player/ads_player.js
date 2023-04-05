@@ -2,6 +2,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
     "base:Objs",
     "base:Async",
     "browser:Info",
+    "base:Maths",
     "base:Types",
     "base:Timers",
     "browser:Dom",
@@ -11,12 +12,21 @@ Scoped.define("module:Ads.Dynamics.Player", [
     "module:Ads.IMA.AdsManager"
 ], [
     "module:Ads.Dynamics.Controlbar"
-], function(Objs, Async, Info, Types, Timers, Dom, Assets, Class, IMALoader, AdsManager, scoped) {
+], function(Objs, Async, Info, Maths, Types, Timers, Dom, Assets, Class, IMALoader, AdsManager, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
             return {
                 template: "<%= template(dirname + '/ads_player.html') %>",
+
+                events: {
+                    "change:volume": function(volume) {
+                        this.call("setVolume", this.get("muted") ? 0 : volume);
+                    },
+                    "change:muted": function(muted) {
+                        this.call("setVolume", muted ? 0 : this.get("volume"));
+                    }
+                },
 
                 attrs: {
                     dyncontrolbar: "ads-controlbar",
@@ -51,10 +61,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         linearAdSlotWidth: this.getAdWidth(),
                         linearAdSlotHeight: this.getAdHeight(),
                         nonLinearAdSlotWidth: this.getAdWidth(),
+                        nonLinearAdSlotHeight: this.getAdHeight() / 3,
                         adWillAutoplay: this.getAdWillAutoplay(),
-                        contentAutoplay: this.getContentAutoplay(),
-                        adWillPlayMuted: this.getAdWillPlayMuted(),
-                        nonLinearAdSlotHeight: this.getAdHeight() / 3
+                        adWillPlayMuted: this.getAdWillPlayMuted()
                     };
                 },
 
@@ -147,7 +156,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         }, this);
                         this.adsManager.start({
                             width: this.getAdWidth(),
-                            height: this.getAdHeight()
+                            height: this.getAdHeight(),
+                            volume: this.getAdWillPlayMuted() ? 0 : this.get("volume")
                         });
                     },
                     reset: function() {
@@ -172,9 +182,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         return this.adsManager.resume();
                     },
                     setVolume: function(volume) {
-                        volume = Math.min(volume, 1);
-                        this.set("volume", volume);
-                        return this.adsManager.setVolume(volume);
+                        return this.adsManager && this.adsManager.setVolume && this.adsManager.setVolume(Maths.clamp(volume, 0, 1));
                     },
                     stop: function() {
                         return this.adsManager.stop();
@@ -206,16 +214,12 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     return this._videoElement;
                 },
 
-                getContentAutoplay: function() {
-                    return this.parent() && this.parent().get("autoplay");
-                },
-
                 getAdWillAutoplay: function() {
                     return this.parent() && this.parent().get("autoplay-allowed");
                 },
 
                 getAdWillPlayMuted: function() {
-                    return this.parent() && this.parent().get("autoplay-requires-muted");
+                    return this.get("muted");
                 },
 
                 _onStart: function(ev) {

@@ -1449,7 +1449,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         if (this.get("unmuteonclick")) {
                             if (this.get("muted")) {
-                                this.player.setMuted(false);
+                                if (this.player) this.player.setMuted(false);
                                 this.set("muted", false);
                             }
                             this.set("unmuteonclick", false);

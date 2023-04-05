@@ -437,8 +437,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
         _nextState: function() {
             if (!!this.dyn.get("outstream"))
                 return "PlayOutstream";
-            if (this.__position && this.__position === 'mid')
-                return "PlayVideo";
             return "LoadVideo";
         }
     });

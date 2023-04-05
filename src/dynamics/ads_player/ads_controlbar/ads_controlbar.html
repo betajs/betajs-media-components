@@ -81,7 +81,7 @@
 
         <div tabindex="2" class="{{cssadsplayer}}-rightbutton-container"
              ba-click="{{toggle_volume()}}" ba-hotkey:space^enter="{{toggle_volume()}}"
-             title="{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}"
+             title="{{string(!muted && volume > 0 ? 'volume-mute' : 'volume-unmute')}}"
         >
             <div class="{{cssadsplayer}}-button-inner">
                 <i class="{{csscommon + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}"></i>

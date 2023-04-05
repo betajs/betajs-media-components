@@ -154,9 +154,7 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 try {
                     this._adDisplayContainer.initialize();
                     this._adsManager.init(options.width, options.height, google.ima.ViewMode.NORMAL);
-                    if (this._requestOptions && this._requestOptions.contentAutoplay && this._requestOptions.adWillPlayMuted) {
-                        this._adsManager.setVolume(0);
-                    }
+                    this._adsManager.setVolume(options.volume);
                     this._adsManager.start();
                 } catch (e) {
                     this.onAdError(e);

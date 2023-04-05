@@ -514,16 +514,30 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.ReloadAds", [
                 // In case if we want to launch it manually via settings "adsposition: 'post'" or after re-attach on playlist,
                 // then we need reset ads manager and wait for adsManager Loaded
                 if (this.dyn.get("adsplaypostroll")) {
+                    if (this.dyn.get("adsplayer_active"))
+                        this.dyn.set("adsplayer_active", false);
                     this.dyn.set("adsplayer_active", true);
+                } else {
+                    // if adsManager do not load within 1 second will forward to the NextVideo state
+                    this.auto_destroy(new Timer({
+                        context: this,
+                        fire: function() {
+                            if (this.next) this.next("NextVideo");
+                        },
+                        delay: 1000,
+                        immediate: true
+                    }));
                 }
-                this.listenOn(this.dyn.channel("ads"), "adsManagerLoaded", function() {
-                    this.next("LoadAds", {
-                        position: 'post'
+                if (this.dyn) {
+                    this.listenOn(this.dyn.channel("ads"), "adsManagerLoaded", function() {
+                        this.next("LoadAds", {
+                            position: 'post'
+                        });
                     });
-                });
-                this.listenOn(this.dyn.channel("ads"), "ad-error", function() {
-                    this.next("NextVideo");
-                });
+                    this.listenOn(this.dyn.channel("ads"), "ad-error", function() {
+                        this.next("NextVideo");
+                    });
+                }
             } else {
                 this.next("NextVideo");
             }

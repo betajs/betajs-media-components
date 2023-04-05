@@ -161,7 +161,7 @@
     @include transition1(opacity, #{$player_dashboard_transition}, ease-in-out);
     @include transition1(bottom, #{$player_dashboard_transition}, ease 0.2s);
     position: absolute;
-    bottom: #{$controlbar_height + $progressbar_height};
+    bottom: #{$controlbar_height + $progressbar_height + 10};
     opacity: 0.9;
     text-align: center;
     width: 100%;

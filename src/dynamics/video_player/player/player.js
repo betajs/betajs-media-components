@@ -1749,13 +1749,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                  * @private
                  */
                 __controlAdRolls: function() {
+                    this.__adMinIntervals = this.__adMinIntervals === 0 ? this.get("minadintervals") : (this.__adMinIntervals - 1);
                     // If we have mid-rolls, then prepare mid-Rolls
                     if (
                         this.get("midrollads").length > 0 && this.get("duration") > 0.0 && !this._adsRollPositionsCollection
                     ) {
                         this._adsRollPositionsCollection = this.auto_destroy(new Collection()); // our adsCollections
-                        this.__adMinIntervals = this.__adMinIntervals === 0 ?
-                            this.get("minadintervals") : (this.__adMinIntervals - 1);
                         if (this.get("midrollads").length > 0) {
                             var _current = null;
                             var _nextPositionIndex = null;
@@ -1765,9 +1764,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     var _position = roll.position < 1 ?
                                         Math.floor(this.get("duration") * roll.position) :
                                         roll.position;
-                                    // If the user does not set, and we will not get the same ad position, avoids dublication,
+                                    // If the user does not set, and we will not get the same ad position, avoids duplication,
                                     // prevent very close ads and also wrong set position which exceeds the duration
-                                    if ((Math.abs(_position - _current) > this.__adMinIntervals) && _position < this.get("duration")) {
+                                    if ((Math.abs(_position - _current) > this.get("minadintervals")) && _position < this.get("duration")) {
                                         _current = _position;
                                         _nextPositionIndex = index;
                                         this._adsRollPositionsCollection.add({
@@ -1894,8 +1893,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     hard = hard || false;
                     var adsPlayer = this.scopes.adsplayer;
 
-                    // Only if min suggested seconds of nonLinear ads are shown will show next ads
-                    if (adsPlayer.get("non-linear-min-suggestion") >= 0 && !adsPlayer.get("linear") && !hard)
+                    // Only if min-suggested seconds of nonLinear ads are shown will show next ads
+                    if (adsPlayer.get("non-linear-min-suggestion") >= 0 && !adsPlayer.get("linear") && this.__adMinIntervals > 0 && !hard)
                         return;
 
                     if (!this.get("adscompleted") && !adsPlayer.get("linear")) {

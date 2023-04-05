@@ -860,8 +860,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
             this.dyn.brakeAdsManually(true);
             this.dyn.set("adsplayer_active", true);
             if (reattach) {
-                this.dyn.set("autoplay", true);
-                this.dyn.set("adsplayer_active", true);
+                this.dyn.reattachVideo();
             }
             // On reply currentTime not reset and cause confusion defining AdsRollPosition
             if (this.dyn.player && this.dyn.player._element)

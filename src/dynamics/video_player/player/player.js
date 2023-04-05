@@ -1822,18 +1822,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this._nextRollPosition && this.get("adshassource") && this._nextRollPosition.position < this.get("position")) {
                         // If active ads player is existed
                         if (this.get("adsplayer_active") && this.scopes.adsplayer) {
-                            var adsPlayer = this.scopes.adsplayer;
-
-                            // Only if min suggested seconds of nonLinear ads are shown will show next ads
-                            if (adsPlayer.get("non-linear-min-suggestion") >= 0 && !adsPlayer.get("linear"))
-                                return;
-
-                            if (!this.get("adscompleted") && !adsPlayer.get("linear")) {
-                                this.channel("ads").trigger("allAdsCompleted");
-                                // this.channel("ads").trigger("discardAdBreak"); // nonLinear not run discard
-                            } else {
-                                this.set("adsplayer_active", false);
-                            }
+                            this.brakeAdsManually();
                             this.trigger("playnextmidroll");
                             this._nextRollPosition = null; // To be able to grab another next position from the Collection
                         } else {
@@ -1899,6 +1888,21 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }, this);
                     }
 
+                },
+
+                brakeAdsManually: function(hard) {
+                    hard = hard || false;
+                    var adsPlayer = this.scopes.adsplayer;
+
+                    // Only if min suggested seconds of nonLinear ads are shown will show next ads
+                    if (adsPlayer.get("non-linear-min-suggestion") >= 0 && !adsPlayer.get("linear") && !hard)
+                        return;
+
+                    if (!this.get("adscompleted") && !adsPlayer.get("linear")) {
+                        this.channel("ads").trigger("allAdsCompleted");
+                        // this.channel("ads").trigger("discardAdBreak"); // nonLinear not run discard
+                    }
+                    this.set("adsplayer_active", false);
                 },
 
                 __testAutoplayOptions: function(video) {

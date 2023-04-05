@@ -213,6 +213,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Initial", [
         _started: function() {
             this.dyn.set("imageelement_active", false);
             this.dyn.set("videoelement_active", false);
+            // no need activation for the adsposition: mid and post
             this.dyn.set("adsplayer_active", this.dyn.get("adshassource") && (this.dyn.get("adsplaypreroll") || this.dyn.get("outstream") || this.dyn.get("vmapads")));
             if (this.dyn.get("ready")) {
                 this.next("LoadPlayer");
@@ -342,8 +343,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
 
         play: function() {
             if (!this.dyn.get("popup")) {
-                if (this.dyn.get("skipinitial") && !this.dyn.get("autoplay")) this.next("LoadVideo");
-                else this.next("LoadAds");
+                this.next("Preroll");
                 return;
             }
             var popup = this.auto_destroy(new PopupHelper());
@@ -423,7 +423,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Outstream", [
             this.listenOn(this.dyn.channel("ads"), "adsManagerLoaded", function() {
                 Dom.onScrollIntoView(this.dyn.activeElement(), this.dyn.get("visibilityfraction"), function() {
                     if (!this.destroyed())
-                        this.next("LoadAds");
+                        this.next("LoadAds", {
+                            position: 'outstream'
+                        });
                 }, this);
             });
         }
@@ -453,9 +455,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
         },
 
         _nextState: function() {
-            if (!!this.dyn.get("outstream"))
+            if (this._position && this._position === 'outstream')
                 return "PlayOutstream";
-            if (this.dyn.get("autoplay") || (this.__position && this.__position === 'mid'))
+            if (this.dyn.get("autoplay") || (this._position && this._position === 'mid'))
                 return "PlayVideo";
             return "LoadVideo";
         }
@@ -506,7 +508,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.ReloadAds", [
         scoped: scoped
     }, {
 
-        _locals: ["hard"],
         _started: function() {
             if (this.dyn.get("adshassource") && (this.dyn.get("vmapads") || this.dyn.get("adsplaypostroll"))) {
                 // if VAST/VMAP has postroll which was already loaded in advance, so no need for reset
@@ -777,7 +778,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PostrollAd", [
         scoped: scoped
     }, {
         resume: function() {
-            this.dyn.set("adsplayer_active", false);
             this.next("NextVideo");
         }
     });
@@ -791,6 +791,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
     }, {
 
         _started: function() {
+            this.dyn.set("autoplay", this.dyn.get("initialoptions").autoplay);
             if (this.dyn.get("playlist") && this.dyn.get("playlist").length > 0) {
                 var pl0, initialPlaylist;
                 var list = this.dyn.get("playlist");
@@ -833,7 +834,10 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
                 }
             }
 
-            this.next("LoadVideo");
+            if (this.dyn.get("adshassource")) {
+                return this.__resetAdPlayer();
+            }
+            this.next("PosterReady");
         },
 
         /**
@@ -844,14 +848,24 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
         _playNext: function(pl) {
             this.dyn.trigger("playlist-next", pl);
             if (this.dyn.get("adshassource")) {
-                this.dyn.initAdSources();
-                this.dyn.reattachVideo();
-                this.dyn.set("autoplay", true);
-                this.dyn.set("adsplayer_active", true);
-                this.next("Preroll");
+                this.__resetAdPlayer(true);
             } else {
                 this.next("LoadPlayerDirectly");
             }
+        },
+
+        __resetAdPlayer: function(reattach) {
+            reattach = reattach || false;
+            this.dyn.initAdSources();
+            this.dyn.brakeAdsManually(true);
+            this.dyn.set("adsplayer_active", true);
+            if (reattach) {
+                this.dyn.reattachVideo();
+            }
+            // On reply currentTime not reset and cause confusion defining AdsRollPosition
+            if (this.dyn.player && this.dyn.player._element)
+                this.dyn.player._element.currentTime = 0.00;
+            this.next("Preroll");
         }
     });
 });

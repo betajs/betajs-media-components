@@ -11,7 +11,8 @@ Scoped.define("module:Ads.IMA.AdsManager", [
             constructor: function(options) {
                 inherited.constructor.call(this, options);
                 if (!options.adContainer) throw Error("Missing adContainer");
-                if (!options.videoElement) throw Error("Missing videoElement");
+                // IMA SDK: This is an optional parameter but can't be null
+                if (options.videoElement === null) throw Error("Missing videoElement");
                 this._options = options;
 
                 if (google && google.ima && options.IMASettings)
@@ -78,6 +79,7 @@ Scoped.define("module:Ads.IMA.AdsManager", [
 
             requestAds: function(options) {
                 this._adsRequest = new google.ima.AdsRequest();
+                this._requestOptions = options;
                 if (options.adTagUrl) this._adsRequest.adTagUrl = options.adTagUrl;
                 else if (options.inlinevastxml) this._adsRequest.adsResponse = options.inlinevastxml;
                 this._adsRequest.linearAdSlotWidth = options.linearAdSlotWidth;

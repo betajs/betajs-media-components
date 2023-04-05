@@ -439,7 +439,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
         _nextState: function() {
             if (this._position && this._position === 'outstream')
                 return "PlayOutstream";
-            if (this.dyn.get("autoplay") || (this._position && this._position === 'mid'))
+            if (this._position && this._position === 'mid')
                 return "PlayVideo";
             return "LoadVideo";
         }

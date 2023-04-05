@@ -1,66 +1,66 @@
 'language:hr':
   ba-videoplayer-playbutton.tooltip: Kliknite za reprodukciju video zapisa.
-  ba-videoplayer-playbutton.rerecord: preurediti
+  ba-videoplayer-playbutton.rerecord: presnimiti
   ba-videoplayer-playbutton.submit-video: Potvrda videa
   ba-videoplayer-loader.tooltip: Učitavanje videa ...
-  ba-videoplayer-controlbar.change-resolution: Promjena razlučivosti
-  ba-videoplayer-controlbar.video-progress: napredak Video
-  ba-videoplayer-controlbar.rerecord-video: Ponovi video?
+  ba-videoplayer-controlbar.change-resolution: Promjena rezolucije
+  ba-videoplayer-controlbar.video-progress: Napredak video
+  ba-videoplayer-controlbar.rerecord-video: Presnimi video?
   ba-videoplayer-controlbar.submit-video: Potvrda videa
-  ba-videoplayer-controlbar.play-video: Reprodukcija videozapisa
-  ba-videoplayer-controlbar.pause-video: Pauza Video
+  ba-videoplayer-controlbar.play-video: Reprodukcija video zapisa
+  ba-videoplayer-controlbar.pause-video: Pauza Videa
   ba-videoplayer-controlbar.elapsed-time: Proteklo vrijeme
   ba-videoplayer-controlbar.total-time: Ukupna dužina videa
   ba-videoplayer-controlbar.fullscreen-video: Idi na puni zaslon
-  ba-videoplayer-controlbar.volume-button: Set volumen
+  ba-videoplayer-controlbar.volume-button: Podesi jačinu
   ba-videoplayer-controlbar.volume-mute: Bez zvuka
   ba-videoplayer-controlbar.volume-unmute: Vrati zvuk
   ba-videoplayer.video-error: >-
-    Došlo je do pogreške. Molimo pokušajte ponovno kasnije. Kliknite za ponovni
+    Došlo je do greške. Molimo pokušajte ponovno kasnije. Kliknite za ponovni
     pokušaj.
   ba-videorecorder-chooser.record-video: Snimanje videa
   ba-videorecorder-chooser.upload-video: Dodaj video
   ba-videorecorder-controlbar.settings: Postavke
   ba-videorecorder-controlbar.camerahealthy: Rasvjeta je dobra
-  ba-videorecorder-controlbar.cameraunhealthy: Rasvjeta nije optimalno
+  ba-videorecorder-controlbar.cameraunhealthy: Rasvjeta nije optimalna
   ba-videorecorder-controlbar.microphonehealthy: Zvuk je dobar
-  ba-videorecorder-controlbar.microphoneunhealthy: ne može podići bilo koji zvuk
+  ba-videorecorder-controlbar.microphoneunhealthy: Sa mikrofona se nečuju zvuci
   ba-videorecorder-controlbar.record: Snimiti
   ba-videorecorder-controlbar.record-tooltip: Kliknite ovdje za snimanje.
-  ba-videorecorder-controlbar.rerecord: preurediti
-  ba-videorecorder-controlbar.rerecord-tooltip: Kliknite ovdje ponoviti.
-  ba-videorecorder-controlbar.upload-covershot: Postavi
-  ba-videorecorder-controlbar.upload-covershot-tooltip: Kliknite ovdje kako biste poslali prilagođene cover metak
-  ba-videorecorder-controlbar.stop: Stop
+  ba-videorecorder-controlbar.rerecord: presnimiti
+  ba-videorecorder-controlbar.rerecord-tooltip: Kliknite ovdje za ponoviti.
+  ba-videorecorder-controlbar.upload-covershot: Pošalji sliku
+  ba-videorecorder-controlbar.upload-covershot-tooltip: Kliknite ovdje kako biste izabrali sliku
+  ba-videorecorder-controlbar.stop: Stani
   ba-videorecorder-controlbar.stop-tooltip: Kliknite ovdje da se zaustavi.
   ba-videorecorder-controlbar.skip: Preskočiti
-  ba-videorecorder-controlbar.skip-tooltip: Kliknite ovdje preskočiti.
+  ba-videorecorder-controlbar.skip-tooltip: Kliknite ovdje da preskočite ovaj korak.
   ba-videorecorder.recorder-error: >-
     Došlo je do pogreške. Molimo pokušajte ponovno kasnije. Kliknite za ponovni
     pokušaj.
   ba-videorecorder.attach-error: >-
-    Nismo mogli pristupiti sučelju fotoaparata. Ovisno o uređaju i preglednika,
-    možda ćete morati instalirati Flash ili pristupiti stranici putem SSL-a.
-  ba-videorecorder.access-forbidden: Pristup kameri je zabranjeno. Kliknite za ponovni pokušaj.
-  ba-videorecorder.pick-covershot: Izaberite covershot.
-  ba-videorecorder.uploading: Prijenos
+    Nismo mogli pristupiti kameri ili mikrofonu. Ovisno o uređaju i od pretraživača,
+    možda ćete morati pristupiti stranici putem SSL-a.
+  ba-videorecorder.access-forbidden: Pristup kameri je zabranjen. Kliknite za ponovni pokušaj.
+  ba-videorecorder.pick-covershot: Izaberite sliku.
+  ba-videorecorder.uploading: Prijenos do servera
   ba-videorecorder.uploading-failed: Prijenos nije uspio - kliknite ovdje za ponovni pokušaj.
   ba-videorecorder.verifying: Potvrđivanje
   ba-videorecorder.verifying-failed: Potvrđivanje nije uspjelo - kliknite ovdje za ponovni pokušaj.
-  ba-videorecorder.rerecord-confirm: Da li zaista želite ponoviti svoj video?
+  ba-videorecorder.rerecord-confirm: Da li zaista želite snimit video opet?
   ba-videorecorder.video_file_too_large: >-
-    Vaš video datoteka je prevelika (%s) - kliknite ovdje kako bi pokušali
-    ponovno s manjim video datoteka.
-  ba-videorecorder.unsupported_video_type: 'Prenesite: %s - kliknite ovdje za ponovni pokušaj.'
+    Vaš video fal je prevelik (%s) - kliknite ovdje kako bi pokušali
+    ponovno s manjim video fajlom.
+  ba-videorecorder.unsupported_video_type: 'Video fail nije podržan. Izaberite: %s - kliknite ovdje za ponovni pokušaj.'
   ba-videoplayer-controlbar.exit-fullscreen-video: Izađite iz cijelog zaslona
   ba-videoplayer-share.share: Dijeljenje videozapisa
-  ba-videorecorder-chooser.record-screen: Zaslon za snimanje
+  ba-videorecorder-chooser.record-screen: Snimite Zaslon
   ba-videoplayer-controlbar.pause-video-disabled: Pauza nije podržana
   ba-videorecorder-chooser.record-audio: Snimanje zvuka
   ba-videorecorder-controlbar.stop-available-after: Minimalno vrijeme snimanja je %d sekundi
   ba-videorecorder-controlbar.cancel: Otkazati
   ba-videorecorder-controlbar.cancel-tooltip: Kliknite ovdje kako biste odustali.
-  ba-videorecorder.cancel-confirm: Želite li zaista odustati od prijenosa videozapisa?
+  ba-videorecorder.cancel-confirm: Želite li zaista odustati od prijenosa video zapisa?
   ba-videoplayer-adslot.elapsed-time: Proteklo vrijeme
   ba-videoplayer-adslot.volume-button: Postavite glasnoću
   ba-videoplayer-adslot.volume-mute: Isključite zvuk
@@ -76,16 +76,16 @@
     stranicu nakon završetka.
   ba-videoplayer-controlbar.close-tracks: Zatvori CC
   ba-videoplayer-controlbar.show-tracks: Prikaži CC
-  ba-videoplayer-tracks.upload-text-tracks: Prenesite tekstne datoteke zapisa
+  ba-videoplayer-tracks.upload-text-tracks: Prenesite tekstne trake zapisa
   ba-videoplayer-tracks.select-text-track-language: Jezik podnaslova
-  ba-videoplayer-tracks.info-select-locale-first: Prvo odaberite mjesto
+  ba-videoplayer-tracks.info-select-locale-first: Prvo odaberite jezik
   ba-videoplayer-tracks.select-text-track-file: Kliknite za odabir datoteke
-  ba-videoplayer-tracks.back: leđa
+  ba-videoplayer-tracks.back: Odi nazad
   ba-videorecorder.framerate-warning: >-
-    Brzina videozapisa je vrlo niska. Preporučujemo zatvaranje svih ostalih
+    Brzina video zapisa je vrlo niska. Preporučujemo zatvaranje svih ostalih
     programa i kartica preglednika ili korištenje bržeg računala.
   ba-videorecorder.upload-error-duration: >-
-    Duljina prijenosa videozapisa ne zadovoljava uvjete - kliknite ovdje kako
+    Duljina prijenosa video zapisa ne zadovoljava uvjete - kliknite ovdje kako
     biste pokušali ponovno.
   ba-videorecorder.resolution-constraint-error: >-
     Odabrana datoteka ne odgovara potrebnoj rezoluciji - kliknite ovdje kako
@@ -94,7 +94,7 @@
   ba-videorecorder.orientation-landscape-required: Zakrenite uređaj da snimate u pejzažnom načinu rada.
   ba-imageviewer-controlbar.rerecord-image: Ponovi?
   ba-imageviewer-controlbar.submit-image: potvrditi
-  ba-imageviewer-controlbar.fullscreen-image: Unesite puni zaslon
+  ba-imageviewer-controlbar.fullscreen-image: Uđite u puni zaslon
   ba-imageviewer-controlbar.exit-fullscreen-image: Izlaz iz cijelog zaslona
   ba-imageviewer.image-error: >-
     Došlo je do pogreške. Molimo pokušajte ponovno kasnije. Kliknite za ponovni
@@ -104,17 +104,17 @@
   ba-imagecapture-controlbar.settings: postavke
   ba-imagecapture-controlbar.camerahealthy: Rasvjeta je dobra
   ba-imagecapture-controlbar.cameraunhealthy: Rasvjeta nije optimalna
-  ba-imagecapture-controlbar.record: Uhvatiti
+  ba-imagecapture-controlbar.record: Snimi
   ba-imagecapture-controlbar.record-tooltip: Kliknite ovdje za snimanje.
-  ba-imagecapture-controlbar.rerecord: preurediti
-  ba-imagecapture-controlbar.rerecord-tooltip: Kliknite ovdje za ponavljanje.
+  ba-imagecapture-controlbar.rerecord: presnimiti
+  ba-imagecapture-controlbar.rerecord-tooltip: Kliknite ovdje za ponavljanje snimanja.
   ba-imagecapture-controlbar.cancel: Otkazati
   ba-imagecapture-controlbar.cancel-tooltip: Kliknite ovdje kako biste odustali.
   ba-audioplayer-controlbar.audio-progress: Napredak
   ba-audioplayer-controlbar.rerecord-audio: Ponovi?
   ba-audioplayer-controlbar.submit-audio: potvrditi
-  ba-audioplayer-controlbar.play-audio: igra
-  ba-audioplayer-controlbar.pause-audio: Pauza
+  ba-audioplayer-controlbar.play-audio: Pokreni reprodukciju
+  ba-audioplayer-controlbar.pause-audio: Pauzirajte
   ba-audioplayer-controlbar.pause-audio-disabled: Pauza nije podržana
   ba-audioplayer-controlbar.elapsed-time: Proteklo vrijeme
   ba-audioplayer-controlbar.total-time: Ukupna duljina
@@ -129,42 +129,42 @@
   ba-audiorecorder-chooser.upload-audio: Prijenos zvuka
   ba-audiorecorder-controlbar.settings: postavke
   ba-audiorecorder-controlbar.microphonehealthy: Zvuk je dobar
-  ba-audiorecorder-controlbar.microphoneunhealthy: Ne mogu podići zvuk
+  ba-audiorecorder-controlbar.microphoneunhealthy: Zvuk se ne može pronaći
   ba-audiorecorder-controlbar.record: Snimiti
   ba-audiorecorder-controlbar.record-tooltip: Kliknite ovdje za snimanje.
-  ba-audiorecorder-controlbar.rerecord: preurediti
-  ba-audiorecorder-controlbar.rerecord-tooltip: Kliknite ovdje za ponavljanje.
-  ba-audiorecorder-controlbar.stop: Stop
+  ba-audiorecorder-controlbar.rerecord: Presnimi
+  ba-audiorecorder-controlbar.rerecord-tooltip: Kliknite ovdje za presnimavanje.
+  ba-audiorecorder-controlbar.stop: Stani
   ba-audiorecorder-controlbar.stop-tooltip: Kliknite ovdje da biste prestali.
   ba-audiorecorder-controlbar.stop-available-after: Minimalno vrijeme snimanja je %d sekundi
   ba-audiorecorder-controlbar.cancel: Otkazati
   ba-audiorecorder-controlbar.cancel-tooltip: Kliknite ovdje kako biste odustali.
-  ba-videoplayer-controlbar.player-speed: Brzina igrača
+  ba-videoplayer-controlbar.player-speed: Brzina reprodukcije
   ba-videoplayer-controlbar.settings: postavke
-  ba-videoplayer-controlbar.airplay: Airplay
-  ba-videoplayer-controlbar.airplay-icon: Ikona Airplay.
+  ba-videoplayer-controlbar.airplay: AirPlay
+  ba-videoplayer-controlbar.airplay-icon: Ikona AirPlay-a.
   ba-videoplayer.all-settings: Sve postavke
-  ba-videoplayer.player-speed: Brzina igrača
+  ba-videoplayer.player-speed: Brzina reprodukcije
   ba-videoplayer.full-screen: Puni zaslon
-  ba-videorecorder-controlbar.add-stream: Dodaj tok
+  ba-videorecorder-controlbar.add-stream: Dodaj izvor
   ba-videorecorder.switch-camera: Promijenite kameru
-  ba-videorecorder.prepare-covershot: Priprema snimke
+  ba-videorecorder.prepare-covershot: Priprema slike
   ba-videorecorder.prepare-thumbnails: Priprema za traženje sličica
-  ba-videorecorder.adding-new-stream: Dodavanje novog toka
+  ba-videorecorder.adding-new-stream: Dodavanje novog izvora
   ba-imagecapture.recorder-error: >-
     Došlo je do pogreške. Molimo pokušajte ponovno kasnije. Kliknite za ponovni
     pokušaj.
   ba-imagecapture.attach-error: >-
-    Nismo mogli pristupiti sučelju medija. Ovisno o uređaju i pregledniku, možda
-    ćete morati instalirati Flash ili pristupiti stranici putem SSL-a.
+    Nismo mogli pristupiti kameri ili mikrofonu. Ovisno o uređaju i od pretraživača,
+    možda ćete morati pristupiti stranici putem SSL-a.
   ba-imagecapture.software-required: >-
     Da biste nastavili, kliknite ispod kako biste instalirali / aktivirali
     sljedeće zahtjeve.
   ba-imagecapture.software-waiting: >-
     Čeka se instaliranje / aktiviranje zahtjeva. Možda ćete morati osvježiti
-    stranicu nakon dovršetka.
+    stranicu nakon završetka.
   ba-imagecapture.access-forbidden: Pristup medijima bio je zabranjen. Kliknite za ponovni pokušaj.
-  ba-imagecapture.uploading: Prijenos
+  ba-imagecapture.uploading: Slanje na server
   ba-imagecapture.uploading-failed: Učitavanje nije uspjelo - kliknite ovdje za ponovni pokušaj.
   ba-imagecapture.upload-error-duration: >-
     Duljina prenesene slike ne ispunjava uvjete - kliknite ovdje za ponovni
@@ -176,23 +176,23 @@
   ba-imagecapture.verifying-failed: Potvrđivanje nije uspjelo - kliknite ovdje za ponovni pokušaj.
   ba-imagecapture.rerecord-confirm: Želite li doista ponovno uzeti sliku?
   ba-imagecapture.image_file_too_large: >-
-    Vaša je slikovna datoteka prevelika (%s) - kliknite ovdje da biste pokušali
-    ponovno s manjom slikovnom datotekom.
-  ba-imagecapture.unsupported_image_type: 'Prenesite: %s - kliknite ovdje za ponovni pokušaj.'
-  ba-imagecapture.orientation-portrait-required: Okrećite uređaj da biste snimali u portretnom načinu.
+    Vaš slikovni fajl je prevelik (%s) - kliknite ovdje da biste pokušali
+    ponovno s manjim slikovnim fajlom.
+  ba-imagecapture.unsupported_image_type: 'Tip fajla nije podržan. Izaberite: %s - kliknite ovdje za ponovni pokušaj.'
+  ba-imagecapture.orientation-portrait-required: Okrenite uređaj da biste snimali u portretnom načinu.
   ba-imagecapture.orientation-landscape-required: Rotirajte uređaj da biste snimali u pejzažnom načinu.
   ba-audiorecorder.recorder-error: >-
     Došlo je do pogreške. Molimo pokušajte ponovno kasnije. Kliknite za ponovni
     pokušaj.
   ba-audiorecorder.attach-error: >-
-    Nismo mogli pristupiti sučelju medija. Ovisno o uređaju i pregledniku, možda
-    ćete morati instalirati Flash ili pristupiti stranici putem SSL-a.
+    Nismo mogli pristupiti kameri ili mikrofonu. Ovisno o uređaju i od pretraživača,
+    možda ćete morati pristupiti stranici putem SSL-a.
   ba-audiorecorder.software-required: >-
     Da biste nastavili, kliknite ispod kako biste instalirali / aktivirali
     sljedeće zahtjeve.
   ba-audiorecorder.software-waiting: >-
     Čeka se instaliranje / aktiviranje zahtjeva. Možda ćete morati osvježiti
-    stranicu nakon dovršetka.
+    stranicu nakon završetka.
   ba-audiorecorder.access-forbidden: Pristup medijima bio je zabranjen. Kliknite za ponovni pokušaj.
   ba-audiorecorder.uploading: Prijenos
   ba-audiorecorder.uploading-failed: Učitavanje nije uspjelo - kliknite ovdje za ponovni pokušaj.
@@ -204,21 +204,21 @@
   ba-audiorecorder.rerecord-confirm: Želite li zaista ponoviti zvuk?
   ba-audiorecorder.cancel-confirm: Želite li zaista otkazati prijenos zvuka?
   ba-audiorecorder.audio_file_too_large: >-
-    Vaša je audio datoteka prevelika (%s) - kliknite ovdje da biste pokušali
+    Vaša audio datoteka je prevelika (%s) - kliknite ovdje da biste pokušali
     ponovno s manjom audio datotekom.
   ba-audiorecorder.unsupported_audio_type: 'Prenesite: %s - kliknite ovdje za ponovni pokušaj.'
   ba-common-settingsmenu.tooltip: Kliknite za reprodukciju.
   ba-common-settingsmenu.setting-menu: Sve postavke
-  ba-common-settingsmenu.source-quality: Kvaliteta izvora
-  ba-common-settingsmenu.player-speed: Brzina igrača
+  ba-common-settingsmenu.source-quality: Kvalitet izvora
+  ba-common-settingsmenu.player-speed: Brzina reprodukcije
   ba-common-settingsmenu.set-menu-option: Postavite opciju
   ba-common-settingsmenu.submit-video: Potvrdite video
   ba-common-settingsmenu.picture-in-picture: Slika u slici
   ba-common-settingsmenu.exit-fullscreen-video: Izlaz iz cijelog zaslona
   ba-common-settingsmenu.fullscreen-video: Uđite u cijeli zaslon
-  ba-videorecorder-chooser.multi-stream: Višestruki tok
-  ba-videorecorder-controlbar.pause-recorder: Pauzirajte snimač
-  ba-videorecorder-controlbar.resume-recorder: Snimač životopisa
+  ba-videorecorder-chooser.multi-stream: Višestruki broj izvora
+  ba-videorecorder-controlbar.pause-recorder: Pauzirajte snimanje
+  ba-videorecorder-controlbar.resume-recorder: Nastavi snimanje
   ba-videorecorder.missing-track: Nedostaje potreban audio ili video zapis
   ba-videorecorder.device-already-in-use: Barem jedan od vaših ulaznih uređaja već se koristi
   ba-videorecorder.browser-permission-denied: >-
@@ -227,17 +227,17 @@
   ba-audioplayer.all-settings: Sve postavke
   ba-videoplayer-controlbar.remaining-time: Preostalo vrijeme
   ba-videoplayer-controlbar.select-frame: Odaberi
-  ba-videoplayer-controlbar.trim-video: Obrežite
-  ba-videoplayer-playbutton.trim: Obrežite
+  ba-videoplayer-controlbar.trim-video: Isecite video
+  ba-videoplayer-playbutton.trim: Isecite video
   ba-videoplayer-playbutton.skip: Preskočiti
   ba-videorecorder-imagegallery.upload-covershot: Prenesi naslovnicu
-  ba-videorecorder.pick-covershot-frame: Odaberite okvir koji ćete koristiti kao snimku naslovnice.
+  ba-videorecorder.pick-covershot-frame: Odaberite sliku koji ćete koristiti kao snimku naslovnice.
   ba-videorecorder.screen-recorder-is-not-supported: Snimač zaslona nije podržan na ovom uređaju
-  ba-videorecorder.trim-prompt: Želite li obrezati svoj videozapis?
-  ba-videorecorder.trim-video: Pomaknite oznake početka i kraja da biste obrezali videozapis
-  ba-videorecorder.wait-for-trim: Čeka se naredba trim ...
+  ba-videorecorder.trim-prompt: Želite li iseći deo svog video zapisa?
+  ba-videorecorder.trim-video: Pomaknite oznake početka i kraja da biste isekli videozapis
+  ba-videorecorder.wait-for-trim: Čeka se naredba isecanja ...
   ba-videorecorder-controlbar.no-video-source: Nedostaje dodatni video ulaz
-  ba-videorecorder-controlbar.stream-already-selected: Dodatni tok već je odabran
-  ba-videorecorder.uploading-src-error: 'Videozapis se sada ne može reproducirati, prijenos je još u tijeku'
+  ba-videorecorder-controlbar.stream-already-selected: Dodatni ulaz je već odabran
+  ba-videorecorder.uploading-src-error: 'Video zapis se sada ne može reproducirati, prijenos je još u tijeku'
   ba-audiorecorder-controlbar.pause-recorder: Zaustavi snimač
-  ba-audiorecorder-controlbar.resume-recorder: Snimač životopisa
+  ba-audiorecorder-controlbar.resume-recorder: Nastavi snimanje

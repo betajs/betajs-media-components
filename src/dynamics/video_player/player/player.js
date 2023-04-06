@@ -431,6 +431,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "buffering:buffered,position,last_position_change_delta,playing": function(buffered, position, ld, playing) {
                         if (playing) this.__playedStats(position, this.get("duration"));
                         return this.get("playing") && this.get("buffered") < this.get("position") && this.get("last_position_change_delta") > 1000;
+                    },
+                    "is_floating:view_type": function(view_type) {
+                        return view_type === "float";
                     }
                 },
 
@@ -595,6 +598,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.activeElement(),
                         stickyOptions
                     ));
+                    this.stickyHandler.on("transitionToFloat", function() {
+                        this.set("view_type", "float");
+                    }, this);
+                    this.stickyHandler.on("transitionToView", function() {
+                        this.set("view_type", "default");
+                    }, this);
+                    this.stickyHandler.on("transitionOutOfView", function() {
+                        this.set("view_type", "out_of_view");
+                    }, this);
                     this.delegateEvents(null, this.stickyHandler);
                     this.stickyHandler.init();
                 },

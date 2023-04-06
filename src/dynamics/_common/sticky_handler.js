@@ -22,6 +22,7 @@ Scoped.define("module:StickyHandler", [
                 this.position = options.position || "bottom-right";
                 this.threshold = options.threshold;
                 this.events = this.auto_destroy(new DomEvents());
+                this.floating = false;
             },
 
             destroy: function() {
@@ -35,6 +36,7 @@ Scoped.define("module:StickyHandler", [
             },
 
             pause: function() {
+                if (this.floating) this.removeStickyStyles();
                 this.paused = true;
             },
 
@@ -52,6 +54,19 @@ Scoped.define("module:StickyHandler", [
 
             elementWasDragged: function() {
                 return !!this.__elementWasDragged;
+            },
+
+            addStickyStyles: function() {
+                if (!this.elementWasDragged()) this.element.classList.add("ba-commoncss-fade-up");
+                this.element.classList.add("ba-commoncss-sticky", "ba-commoncss-sticky-" + this.position);
+                if (this._top) this.element.style.top = this._top;
+                if (this._left) this.element.style.left = this._left;
+            },
+
+            removeStickyStyles: function() {
+                this.element.style.removeProperty("top");
+                this.element.style.removeProperty("left");
+                this.element.classList.remove("ba-commoncss-sticky", "ba-commoncss-sticky-" + this.position, "ba-commoncss-fade-up");
             },
 
             _initIntersectionObservers: function() {
@@ -75,11 +90,9 @@ Scoped.define("module:StickyHandler", [
                             this.trigger("transitionOutOfView");
                             return;
                         }
+                        this.floating = true;
                         this.trigger("transitionToFloat");
-                        if (!this.elementWasDragged()) this.element.classList.add("ba-commoncss-fade-up");
-                        this.element.classList.add("ba-commoncss-sticky", "ba-commoncss-sticky-" + this.position);
-                        if (this._top) this.element.style.top = this._top;
-                        if (this._left) this.element.style.left = this._left;
+                        this.addStickyStyles();
                         this._initEventListeners();
                     }.bind(this));
                 }
@@ -91,10 +104,9 @@ Scoped.define("module:StickyHandler", [
                             return;
                         }
                         if (!entry.isIntersecting) return;
+                        this.floating = false;
                         this.trigger("transitionToView");
-                        this.element.style.removeProperty("top");
-                        this.element.style.removeProperty("left");
-                        this.element.classList.remove("ba-commoncss-sticky", "ba-commoncss-sticky-" + this.position, "ba-commoncss-fade-up");
+                        this.removeStickyStyles();
                         this.events.off(this.element, "mousedown touchstart");
                         this.dragging = false;
                     }.bind(this));

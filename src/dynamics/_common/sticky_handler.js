@@ -20,6 +20,7 @@ Scoped.define("module:StickyHandler", [
                 this.container = container;
                 this.paused = options.paused || false;
                 this.position = options.position || "bottom-right";
+                this.threshold = options.threshold;
                 this.events = this.auto_destroy(new DomEvents());
             },
 
@@ -56,8 +57,12 @@ Scoped.define("module:StickyHandler", [
             _initIntersectionObservers: function() {
                 var elementFirstObservation = true;
                 var containerFirstObservation = true;
-                this._elementObserver = new IntersectionObserver(elementCallback.bind(this));
-                this._containerObserver = new IntersectionObserver(containerCallback.bind(this));
+                this._elementObserver = new IntersectionObserver(elementCallback.bind(this), {
+                    threshold: this.threshold
+                });
+                this._containerObserver = new IntersectionObserver(containerCallback.bind(this), {
+                    threshold: this.threshold
+                });
 
                 function elementCallback(entries, observer) {
                     entries.forEach(function(entry) {

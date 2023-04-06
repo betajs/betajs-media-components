@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.360 - 2023-04-06
+betajs-media-components - v0.0.361 - 2023-04-06
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.360",
-    "datetime": 1680793255187
+    "version": "0.0.361",
+    "datetime": 1680800489018
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -1230,6 +1230,7 @@ Scoped.define("module:StickyHandler", [
                 this.container = container;
                 this.paused = options.paused || false;
                 this.position = options.position || "bottom-right";
+                this.threshold = options.threshold;
                 this.events = this.auto_destroy(new DomEvents());
             },
 
@@ -1266,8 +1267,12 @@ Scoped.define("module:StickyHandler", [
             _initIntersectionObservers: function() {
                 var elementFirstObservation = true;
                 var containerFirstObservation = true;
-                this._elementObserver = new IntersectionObserver(elementCallback.bind(this));
-                this._containerObserver = new IntersectionObserver(containerCallback.bind(this));
+                this._elementObserver = new IntersectionObserver(elementCallback.bind(this), {
+                    threshold: this.threshold
+                });
+                this._containerObserver = new IntersectionObserver(containerCallback.bind(this), {
+                    threshold: this.threshold
+                });
 
                 function elementCallback(entries, observer) {
                     entries.forEach(function(entry) {
@@ -3632,6 +3637,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "skipseconds": 5,
                         "sticky": false,
                         "sticky-position": "bottom-right",
+                        "sticky-threshold": undefined,
                         "tracktags": [],
                         "tracktagsstyled": true,
                         "tracktaglang": 'en',
@@ -3788,7 +3794,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "companionad": "string",
                     "slim": "boolean",
                     "prominent-title": "boolean",
-                    "closeable-title": "boolean"
+                    "closeable-title": "boolean",
+                    "sticky-threshold": "float"
                 },
 
                 extendables: ["states"],
@@ -4020,7 +4027,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     var stickyOptions = {
                         paused: true,
-                        position: this.get("sticky-position")
+                        position: this.get("sticky-position"),
+                        threshold: this.get("stick-threshold")
                     };
                     this.stickyHandler = this.auto_destroy(new StickyHandler(
                         this.activeElement().firstChild,

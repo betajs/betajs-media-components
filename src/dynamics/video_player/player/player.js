@@ -197,6 +197,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "skipseconds": 5,
                         "sticky": false,
                         "sticky-position": "bottom-right",
+                        "sticky-threshold": undefined,
                         "tracktags": [],
                         "tracktagsstyled": true,
                         "tracktaglang": 'en',
@@ -353,7 +354,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "companionad": "string",
                     "slim": "boolean",
                     "prominent-title": "boolean",
-                    "closeable-title": "boolean"
+                    "closeable-title": "boolean",
+                    "sticky-threshold": "float"
                 },
 
                 extendables: ["states"],
@@ -585,7 +587,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     var stickyOptions = {
                         paused: true,
-                        position: this.get("sticky-position")
+                        position: this.get("sticky-position"),
+                        threshold: this.get("stick-threshold")
                     };
                     this.stickyHandler = this.auto_destroy(new StickyHandler(
                         this.activeElement().firstChild,

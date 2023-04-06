@@ -571,19 +571,19 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.__trackTags = new TrackTags({}, this);
                     }, this);
 
-                    this.host = new Host({
+                    this.host = this.auto_destroy(new Host({
                         stateRegistry: new ClassRegistry(this.cls.playerStates())
-                    });
+                    }));
                     this.host.dynamic = this;
                     this.host.initialize(this._initialState);
 
                     this.__adsControlPosition = 0;
-                    this._timer = new Timers.Timer({
+                    this._timer = this.auto_destroy(new Timers.Timer({
                         context: this,
                         fire: this._timerFire,
                         delay: 100,
                         start: true
-                    });
+                    }));
 
                     this.activeElement().style.setProperty("display", "inline-block");
                     this._applyStyles(this.activeElement(), this.get("containerSizingStyles"));
@@ -1564,8 +1564,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 destroy: function() {
                     if (this._observer) this._observer.disconnect();
-                    this._timer.destroy();
-                    this.host.destroy();
                     this._detachVideo();
                     inherited.destroy.call(this);
                 },

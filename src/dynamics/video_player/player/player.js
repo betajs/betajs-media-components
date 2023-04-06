@@ -429,6 +429,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "buffering:buffered,position,last_position_change_delta,playing": function(buffered, position, ld, playing) {
                         if (playing) this.__playedStats(position, this.get("duration"));
                         return this.get("playing") && this.get("buffered") < this.get("position") && this.get("last_position_change_delta") > 1000;
+                    },
+                    "is_floating:view_type": function(view_type) {
+                        return view_type === "float";
                     }
                 },
 

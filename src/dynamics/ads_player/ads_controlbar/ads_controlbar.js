@@ -102,6 +102,7 @@ Scoped.define("module:Ads.Dynamics.Controlbar", [
                     },
 
                     toggle_volume: function() {
+                        if (this.get("unmuteonclick")) return;
                         var volume = this.get("volume");
                         if (volume > 0) this.__lastVolume = volume;
                         volume = volume > 0 ? 0 : (this.__lastVolume || 1);

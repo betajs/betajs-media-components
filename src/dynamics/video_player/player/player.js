@@ -46,7 +46,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.PlayerStates.LoadPlayerDirectly",
     "module:VideoPlayer.Dynamics.PlayerStates.LoadError",
     "module:VideoPlayer.Dynamics.PlayerStates.PosterReady",
-    "module:VideoPlayer.Dynamics.PlayerStates.Preroll",
     "module:VideoPlayer.Dynamics.PlayerStates.Outstream",
     "module:VideoPlayer.Dynamics.PlayerStates.LoadAds",
     "module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream",
@@ -1429,14 +1428,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this._delegatedPlayer.execute("toggle_fullscreen");
                             return;
                         }
-                        if (!this.player) return;
                         if (this.get("fullscreened")) {
-                            this.player.exitFullscreen();
+                            Dom.documentExitFullscreen();
                         } else {
-                            if (Info.isSafari())
-                                this.player.enterFullscreen(this.activeElement().querySelector('video'));
-                            else
-                                this.player.enterFullscreen(this.activeElement().childNodes[0]);
+                            if (Info.isSafari()) Dom.elementEnterFullscreen(this.activeElement().querySelector("video"));
+                            else Dom.elementEnterFullscreen(this.activeElement().childNodes[0]);
                         }
                         this.set("fullscreened", !this.get("fullscreened"));
                     },
@@ -1453,7 +1449,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         if (this.get("unmuteonclick")) {
                             if (this.get("muted")) {
-                                this.player.setMuted(false);
+                                if (this.player) this.player.setMuted(false);
                                 this.set("muted", false);
                             }
                             this.set("unmuteonclick", false);

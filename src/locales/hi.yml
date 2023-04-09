@@ -1,18 +1,18 @@
 'language:hi':
   ba-videoplayer-playbutton.tooltip: वीडियो चलाने के लिए क्लिक करें
-  ba-videoplayer-playbutton.rerecord: फवीडियो पुनः रिकॉिड कि
-  ba-videoplayer-playbutton.submit-video: वीडियो जमा कि
+  ba-videoplayer-playbutton.rerecord: फिर से करें
+  ba-videoplayer-playbutton.submit-video: वीडियो की पुष्टि करें
   ba-videoplayer-loader.tooltip: वीडियो लोड हो रहा है ...
-  ba-videoplayer-controlbar.change-resolution: वीडियो - िेसोलुशन बदलो
-  ba-videoplayer-controlbar.video-progress: वीडियो बढ़ िहा ह
-  ba-videoplayer-controlbar.rerecord-video: वीडियो पुनः रिकॉिड कि
-  ba-videoplayer-controlbar.submit-video: वीडियो जमा कि
-  ba-videoplayer-controlbar.play-video: वीडियो चलाएं
+  ba-videoplayer-controlbar.change-resolution: रेज़लुशन बदलें
+  ba-videoplayer-controlbar.video-progress: प्रगति
+  ba-videoplayer-controlbar.rerecord-video: वीडियो फिर से रिकॉर्ड करें?
+  ba-videoplayer-controlbar.submit-video: पुष्टि करें
+  ba-videoplayer-controlbar.play-video: वीडियो चलाएँ
   ba-videoplayer-controlbar.pause-video: वीडियो रोकें
-  ba-videoplayer-controlbar.elapsed-time: बीता हुआ समय
+  ba-videoplayer-controlbar.elapsed-time: बीता हुआ वक्त
   ba-videoplayer-controlbar.total-time: वीडियो की कुल लंबाई
   ba-videoplayer-controlbar.fullscreen-video: पूर्ण स्क्रीन दर्ज करें
-  ba-videoplayer-controlbar.volume-button: मात्रा सेट करें
+  ba-videoplayer-controlbar.volume-button: वॉल्यूम तय करें
   ba-videoplayer-controlbar.volume-mute: ध्वनि म्यूट करें
   ba-videoplayer-controlbar.volume-unmute: ध्वनि को अनम्यूट करें
   ba-videoplayer.video-error: अ ात  ुडि | पुनः  यास किने के डलए  िक कि

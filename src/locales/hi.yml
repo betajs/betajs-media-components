@@ -5,7 +5,7 @@
   ba-videoplayer-loader.tooltip: वीडियो लोड हो रहा है ...
   ba-videoplayer-controlbar.change-resolution: रेज़लुशन बदलें
   ba-videoplayer-controlbar.video-progress: प्रगति
-  ba-videoplayer-controlbar.rerecord-video: वीडियो फिर से रिकॉर्ड करें?
+  ba-videoplayer-controlbar.rerecord-video: फिर से रिकॉर्ड करें?
   ba-videoplayer-controlbar.submit-video: पुष्टि करें
   ba-videoplayer-controlbar.play-video: वीडियो चलाएँ
   ba-videoplayer-controlbar.pause-video: वीडियो रोकें
@@ -15,24 +15,24 @@
   ba-videoplayer-controlbar.volume-button: वॉल्यूम तय करें
   ba-videoplayer-controlbar.volume-mute: ध्वनि म्यूट करें
   ba-videoplayer-controlbar.volume-unmute: ध्वनि को अनम्यूट करें
-  ba-videoplayer.video-error: अ ात  ुडि | पुनः  यास किने के डलए  िक कि
+  ba-videoplayer.video-error: त्रुटि घटित हुई है, कृपया बाद में पुनः प्रयास करें। पुनः प्रयास करने के लिए क्लिक करें
   ba-videorecorder-chooser.record-video: वीडियो रिकॉर्ड करो
   ba-videorecorder-chooser.upload-video: वीडियो अपलोड करें
   ba-videorecorder-controlbar.settings: सेटिंग्स
-  ba-videorecorder-controlbar.camerahealthy: प्रकाश अच्छा है
-  ba-videorecorder-controlbar.cameraunhealthy: प्रकाश इष्टतम नहीं है
+  ba-videorecorder-controlbar.camerahealthy: प्रकाश व्यवस्था अच्छी है
+  ba-videorecorder-controlbar.cameraunhealthy: प्रकाश व्यवस्था इष्टतम नहीं है
   ba-videorecorder-controlbar.microphonehealthy: ध्वनि अच्छी है
-  ba-videorecorder-controlbar.microphoneunhealthy: कोई भी आवाज नहीं उठा सकता
+  ba-videorecorder-controlbar.microphoneunhealthy: कोई भी आवाज पकड़ में नहीं आ रही
   ba-videorecorder-controlbar.record: रिकॉिड
   ba-videorecorder-controlbar.record-tooltip: रिकॉर्ड करने के लिए यहां क्लिक करें।
-  ba-videorecorder-controlbar.rerecord: वीडियो पुनः रिकॉिड कि
-  ba-videorecorder-controlbar.rerecord-tooltip: फिर से करें करने के लिए यहां क्लिक करें।
-  ba-videorecorder-controlbar.upload-covershot: अपलोड
+  ba-videorecorder-controlbar.rerecord: वीडियो पुनः रिकॉिड करें
+  ba-videorecorder-controlbar.rerecord-tooltip: दुबारा करने के लिए यहां क्लिक करें।
+  ba-videorecorder-controlbar.upload-covershot: कवर अपलोड करें
   ba-videorecorder-controlbar.upload-covershot-tooltip: कस्टम कवर शॉट अपलोड करने के लिए यहां क्लिक करें
   ba-videorecorder-controlbar.stop: रुकें
   ba-videorecorder-controlbar.stop-tooltip: रोकने के लिए यहां क्लिक करें
-  ba-videorecorder-controlbar.skip: छोड़ें
-  ba-videorecorder-controlbar.skip-tooltip: छोड़ने के लिए यहां क्लिक करें।
+  ba-videorecorder-controlbar.skip: स्किप करें
+  ba-videorecorder-controlbar.skip-tooltip: स्किप करने के लिए यहां क्लिक करें।
   ba-videorecorder.recorder-error: >-
     एक त्रुटि घटित हुई है, कृपया बाद में पुन: प्रयास करें। पुनः प्रयास करने के
     लिए क्लिक करें

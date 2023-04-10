@@ -39,11 +39,11 @@
   ba-videorecorder.attach-error: >-
     हम कैमरे के इंटरफ़ेस तक पहुंच नहीं सके। डिवाइस और ब्राउज़र के आधार पर, आपको
     फ्लैश इंस्टॉल करना या पृष्ठ पर एसएसएल के माध्यम से प्रवेश करना पड़ सकता है
-  ba-videorecorder.access-forbidden: कैमरे तक पहुंच मनाई गई थी पुनः प्रयास करने के लिए क्लिक करें
-  ba-videorecorder.pick-covershot: शॉिडकि का चुनाव कीडजए
+  ba-videorecorder.access-forbidden: कैमरा तक पोहोंच की मनाई है| पुनः प्रयास करने के लिए क्लिक करें
+  ba-videorecorder.pick-covershot: कवरशॉट का चुनाव कीजिये
   ba-videorecorder.uploading: अपलोड हो रहा है
   ba-videorecorder.uploading-failed: अपलोड करना विफल - पुनः प्रयास करने के लिए यहां क्लिक करें।
-  ba-videorecorder.verifying: जा च जािी है
+  ba-videorecorder.verifying: सत्यापन हो रहा है
   ba-videorecorder.verifying-failed: सत्यापन विफल - पुनः प्रयास करने के लिए यहां क्लिक करें।
   ba-videorecorder.rerecord-confirm: क्या आप वास्तव में अपने वीडियो को फिर से करना चाहते हैं?
   ba-videorecorder.video_file_too_large: >-
@@ -53,7 +53,7 @@
   ba-videoplayer-controlbar.exit-fullscreen-video: पूर्ण स्क्रीन से बाहर निकलें
   ba-videoplayer-share.share: वीडियो शेयर करें
   ba-videorecorder-chooser.record-screen: रिकॉर्ड स्क्रीन
-  ba-videoplayer-controlbar.pause-video-disabled: रोकें समर्थित नहीं है
+  ba-videoplayer-controlbar.pause-video-disabled: रोकना समर्थित नहीं है
   ba-videorecorder-chooser.record-audio: ध्वनि रिकॉर्ड करें
   ba-videorecorder-controlbar.stop-available-after: न्यूनतम रिकॉर्डिंग समय %d सेकंड है
   ba-videorecorder-controlbar.cancel: रद्द करना

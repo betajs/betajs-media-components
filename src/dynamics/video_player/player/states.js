@@ -214,7 +214,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Initial", [
             this.dyn.set("imageelement_active", false);
             this.dyn.set("videoelement_active", false);
             // no need activation for the adsposition: mid and post
-            this.dyn.set("adsplayer_active", this.dyn.get("adshassource") && (this.dyn.get("adsplaypreroll") || this.dyn.get("outstream") || this.dyn.get("vmapads")));
+            this.dyn.set("adsplayer_active", !this.dyn.get("delayadsmanagerload"));
             if (this.dyn.get("ready")) {
                 this.next("LoadPlayer");
             } else {
@@ -426,13 +426,18 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
 
         _started: function() {
             if (this.dyn.get("adshassource")) {
-                this.dyn.channel("ads").trigger("load");
-                this.listenOn(this.dyn.channel("ads"), "loaded", function() {
-                    this.next(this._nextState());
-                }, this);
-                this.listenOn(this.dyn.channel("ads"), "ad-error", function() {
-                    this.next(this._nextState());
-                }, this);
+                if (this._triggerLoadAds()) {
+                    if (!this.dyn.get("adsplayer_active")) this.dyn.set("adsplayer_active", true);
+                    this.dyn.channel("ads").trigger("load");
+                    this.listenOn(this.dyn.channel("ads"), "loaded", function() {
+                        this.next(this._nextState());
+                    }, this);
+                    this.listenOn(this.dyn.channel("ads"), "ad-error", function() {
+                        this.next(this._nextState());
+                    }, this);
+                } else {
+                    this.next("LoadVideo");
+                }
             } else this.next(this._nextState());
         },
 
@@ -442,6 +447,19 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
             if (this._position && this._position === 'mid')
                 return "PlayVideo";
             return "LoadVideo";
+        },
+
+        _triggerLoadAds: function() {
+            if (
+                typeof this._position !== "undefined" && (
+                    this._position === 'outstream' || this._position === 'mid' || this._position === 'pre'
+                )
+            ) {
+                return true;
+            }
+
+            // if skip initial and no autoplay should load video
+            return !this.dyn.get("delayadsmanagerload");
         }
     });
 });
@@ -702,9 +720,11 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
         },
 
         play: function() {
-            if (this.dyn.get("skipinitial") && !this.dyn.get("autoplay") && this.dyn.get("adshassource") && this.dyn.get("position") === 0) {
+            if (this.dyn.get("preloadadsmanager") && this.dyn.get("position") === 0) {
                 // w/o position === 0 condition player will reload on toggle player
-                this.next("LoadAds");
+                this.next("LoadAds", {
+                    position: 'pre'
+                });
             } else {
                 this.dyn.player.play();
             }

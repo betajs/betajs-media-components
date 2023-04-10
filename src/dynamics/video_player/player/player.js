@@ -1740,6 +1740,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 initAdSources: function() {
+                    this.set("preloadadsmanager", false);
+                    this.set("delayadsmanagerload", false);
                     this.set("adshassource", !!this.get("adtagurl") || !!this.get("inlinevastxml"));
                     if (this.get("adshassource")) {
                         if (this.get("adsposition")) {
@@ -1750,6 +1752,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             // if there's no specification, play preroll or VMAP if not set adsposition at all
                             this.set("vmapads", true);
                         }
+
+                        this.set("preloadadsmanager", this.get("adsplaypreroll") || this.get("vmapads") || this.get("outstream"));
+                        var skipInitialWithoutAutoplay = this.get("skipinitial") && !this.get("autoplay");
+                        this.set("delayadsmanagerload", !this.get("preloadadsmanager") || skipInitialWithoutAutoplay);
                     }
                 },
 
@@ -1763,8 +1769,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.get("midrollads").length > 0 && this.get("duration") > 0.0 && !this._adsRollPositionsCollection
                     ) {
                         this._adsRollPositionsCollection = this.auto_destroy(new Collection()); // our adsCollections
-                        this.__adMinIntervals = this.__adMinIntervals === 0 ?
-                            this.get("minadintervals") : (this.__adMinIntervals - 1);
                         if (this.get("midrollads").length > 0) {
                             var _current = null;
                             var _nextPositionIndex = null;
@@ -1793,6 +1797,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 }
                             }, this);
                         }
+                    } else {
+                        this.__adMinIntervals = this.__adMinIntervals === 0 ?
+                            this.get("minadintervals") : (this.__adMinIntervals - 1);
+
                     }
 
                     // Set a new position when ad should run
@@ -1829,18 +1837,18 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }
 
                     if (this._nextRollPosition && this.get("adshassource") && this._nextRollPosition.position < this.get("position")) {
+                        if (this.__adMinIntervals > 0) {
+                            return;
+                        }
                         // If active ads player is existed
                         if (this.get("adsplayer_active") && this.scopes.adsplayer) {
                             this.brakeAdsManually();
                             this.trigger("playnextmidroll");
-                            this._nextRollPosition = null; // To be able to grab another next position from the Collection
                         } else {
                             // In case if preroll not exists, so ads_player is not activated
-                            this._nextRollPosition = null; // To be able to grab another next position from the Collection
-                            // activate ads_player if it's not activated yet
-                            this.set("adsplayer_active", this.get("adshassource"));
                             this.trigger("playnextmidroll");
                         }
+                        this._nextRollPosition = null; // To be able to grab another next position from the Collection
                     }
                 },
 
@@ -1903,7 +1911,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     hard = hard || false;
                     var adsPlayer = this.scopes.adsplayer;
 
-                    // Only if min suggested seconds of nonLinear ads are shown will show next ads
+                    // Only if min-suggested seconds of nonLinear ads are shown will show next ads
                     if (adsPlayer.get("non-linear-min-suggestion") >= 0 && !adsPlayer.get("linear") && !hard)
                         return;
 

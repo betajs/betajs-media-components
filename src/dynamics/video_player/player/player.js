@@ -196,6 +196,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "chromecastreceiverappid": null, // Could be published custom App ID https://cast.google.com/publish/#/overview
                         "skipseconds": 5,
                         "sticky": false,
+                        "sticky-starts-paused": true,
                         "sticky-position": "bottom-right",
                         "sticky-threshold": undefined,
                         "tracktags": [],
@@ -322,6 +323,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "chromecastreceiverappid": "string",
                     "skipseconds": "integer",
                     "sticky": "boolean",
+                    "sticky-starts-paused": "boolean",
                     "streams": "jsonarray",
                     "sources": "jsonarray",
                     "tracktags": "jsonarray",
@@ -589,7 +591,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this._applyStyles(this.activeElement(), this.get("containerSizingStyles"));
 
                     var stickyOptions = {
-                        paused: true,
+                        paused: this.get("sticky-starts-paused"),
                         position: this.get("sticky-position"),
                         threshold: this.get("sticky-threshold")
                     };

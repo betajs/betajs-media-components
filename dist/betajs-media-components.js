@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.362 - 2023-04-06
+betajs-media-components - v0.0.363 - 2023-04-10
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.362 - 2023-04-06
+betajs-media-components - v0.0.363 - 2023-04-10
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.362",
-    "datetime": 1680807833564
+    "version": "0.0.363",
+    "datetime": 1681183631191
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -5034,19 +5034,19 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.__trackTags = new TrackTags({}, this);
                     }, this);
 
-                    this.host = new Host({
+                    this.host = this.auto_destroy(new Host({
                         stateRegistry: new ClassRegistry(this.cls.playerStates())
-                    });
+                    }));
                     this.host.dynamic = this;
                     this.host.initialize(this._initialState);
 
                     this.__adsControlPosition = 0;
-                    this._timer = new Timers.Timer({
+                    this._timer = this.auto_destroy(new Timers.Timer({
                         context: this,
                         fire: this._timerFire,
                         delay: 100,
                         start: true
-                    });
+                    }));
 
                     this.activeElement().style.setProperty("display", "inline-block");
                     this._applyStyles(this.activeElement(), this.get("containerSizingStyles"));
@@ -6027,8 +6027,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 destroy: function() {
                     if (this._observer) this._observer.disconnect();
-                    this._timer.destroy();
-                    this.host.destroy();
                     this._detachVideo();
                     inherited.destroy.call(this);
                 },

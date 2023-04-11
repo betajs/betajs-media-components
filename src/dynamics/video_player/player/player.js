@@ -1743,6 +1743,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("preloadadsmanager", false);
                     this.set("delayadsmanagerload", false);
                     this.set("adshassource", !!this.get("adtagurl") || !!this.get("inlinevastxml"));
+
+                    // The initial mute state will not be changes if outstream is not set
+                    if (this.get("outstream")) {
+                        this.set("muted", true);
+                        this.set("autoplay", true);
+                        this.set("skipinitial", false);
+                        this.set("unmuteonclick", true);
+                    }
+
                     if (this.get("adshassource")) {
                         if (this.get("adsposition")) {
                             this.set("adsplaypreroll", this.get("adsposition").indexOf("pre") !== -1);

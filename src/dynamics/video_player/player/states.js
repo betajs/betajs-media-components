@@ -238,7 +238,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadPlayer", [
 
         _started: function() {
             if (this.dyn.get("outstream")) {
-                this.dyn.set("autoplay", true);
                 this.next("Outstream");
             } else {
                 this.listenOn(this.dyn, "error:poster", function() {
@@ -399,8 +398,11 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Outstream", [
         dynamics: [],
 
         _started: function() {
-            if (!this.dyn.get("adshassource"))
+            if (!this.dyn.get("adshassource")) {
+                if (typeof this.dyn.activeElement === "function")
+                    this.dyn.activeElement().style.setProperty("display", "none");
                 throw Error("Please provide ad source for the outstream");
+            }
 
             this.listenOn(this.dyn.channel("ads"), "adsManagerLoaded", function() {
                 Dom.onScrollIntoView(this.dyn.activeElement(), this.dyn.get("visibilityfraction"), function() {
@@ -481,6 +483,10 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream", [
 
             this.listenOn(this.dyn.channel("ads"), "allAdsCompleted", function() {
                 this.afterAdCompleted();
+            }, this);
+
+            this.listenOn(this.dyn.channel("ads"), "ad-error", function(message) {
+                console.log("Error on loading ad. Details: ", message);
             }, this);
 
             /* if this trigger before allAdsCompleted, setTimeout error shows in console

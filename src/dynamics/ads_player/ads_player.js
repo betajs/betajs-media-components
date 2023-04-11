@@ -40,7 +40,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     isoutstream: false,
                     hidecontrolbar: false,
                     showactionbuttons: false,
-                    adscompleted: false
+                    adscompleted: false,
+                    moredetailslink: null,
+                    moredetailstext: null
                 },
 
                 _deferActivate: function() {
@@ -88,6 +90,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.set("addata", event.getAdData());
                         this.set("volume", this.adsManager.getVolume());
                         this.set("duration", event.getAdData().duration);
+                        this.set("moredetailslink", event.getAdData().clickThroughUrl);
                     },
                     "ads:volumeChange": function() {
                         this.set("volume", this.adsManager.getVolume());
@@ -117,8 +120,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             restoreCustomPlaybackStateOnAdBreakComplete: true
                         }
                     };
-                    this.set("isoutstream", !!this.get("outstream"));
-                    if (!Info.isMobile() && this.getVideoElement() && !this.get("isoutstream")) {
+                    if (!Info.isMobile() && this.getVideoElement()) {
                         // It's optionalParameter
                         adManagerOptions.videoElement = this.getVideoElement();
                     }
@@ -268,14 +270,18 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     // this._hideContentPlayer(dyn);
                     // TODO: add option for selection
                     if (dyn.get("outstreamoptions")) {
-                        if (!dyn.get("outstreamoptions").allowReply) {
+                        if (dyn.get("outstreamoptions").hideOnCompletion) {
                             this._hideContentPlayer(dyn);
-                        } else {
-                            this.set("showactionbuttons", true);
+                            return;
                         }
-                    } else {
-                        this._hideContentPlayer(dyn);
+                        if (dyn.get("outstreamoptions").moreURL) {
+                            this.set("moredetailslink", dyn.get("outstreamoptions").moreURL);
+                        }
+                        if (dyn.get("outstreamoptions").moreText) {
+                            this.set("moredetailstext", dyn.get("outstreamoptions").moreText);
+                        }
                     }
+                    this.set("showactionbuttons", true);
                 },
 
                 _outstreamStarted: function(dyn, options) {
@@ -384,6 +390,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
         }).attachStringTable(Assets.strings)
         .addStrings({
             "replay-ad": "Replay",
-            "close-ad": "Close"
+            "close-ad": "Close",
+            "learn-more": "Learn More"
         });
 });

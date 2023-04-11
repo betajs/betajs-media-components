@@ -214,7 +214,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Initial", [
             this.dyn.set("imageelement_active", false);
             this.dyn.set("videoelement_active", false);
             // no need activation for the adsposition: mid and post
-            this.dyn.set("adsplayer_active", this.dyn.get("adshassource") && (this.dyn.get("adsplaypreroll") || this.dyn.get("outstream") || this.dyn.get("vmapads")));
+            this.dyn.set("adsplayer_active", !this.dyn.get("delayadsmanagerload"));
             if (this.dyn.get("ready")) {
                 this.next("LoadPlayer");
             } else {
@@ -238,7 +238,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadPlayer", [
 
         _started: function() {
             if (this.dyn.get("outstream")) {
-                this.dyn.set("autoplay", true);
                 this.next("Outstream");
             } else {
                 this.listenOn(this.dyn, "error:poster", function() {
@@ -399,8 +398,11 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Outstream", [
         dynamics: [],
 
         _started: function() {
-            if (!this.dyn.get("adshassource"))
+            if (!this.dyn.get("adshassource")) {
+                if (typeof this.dyn.activeElement === "function")
+                    this.dyn.activeElement().style.setProperty("display", "none");
                 throw Error("Please provide ad source for the outstream");
+            }
 
             this.listenOn(this.dyn.channel("ads"), "adsManagerLoaded", function() {
                 Dom.onScrollIntoView(this.dyn.activeElement(), this.dyn.get("visibilityfraction"), function() {
@@ -426,16 +428,21 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
 
         _started: function() {
             if (this.dyn.get("adshassource")) {
-                this.dyn.channel("ads").trigger("load");
-                this.listenOn(this.dyn.channel("ads"), "contentResumeRequested", function() {
-                    this.next(this._nextState());
-                }, this);
-                this.listenOn(this.dyn.channel("ads"), "loaded", function() {
-                    this.next(this._nextState());
-                }, this);
-                this.listenOn(this.dyn.channel("ads"), "ad-error", function() {
-                    this.next(this._nextState());
-                }, this);
+                if (this._triggerLoadAds()) {
+                    if (!this.dyn.get("adsplayer_active")) this.dyn.set("adsplayer_active", true);
+                    this.dyn.channel("ads").trigger("load");
+                    this.listenOn(this.dyn.channel("ads"), "contentResumeRequested", function() {
+                        this.next(this._nextState());
+                    }, this);
+                    this.listenOn(this.dyn.channel("ads"), "loaded", function() {
+                        this.next(this._nextState());
+                    }, this);
+                    this.listenOn(this.dyn.channel("ads"), "ad-error", function() {
+                        this.next(this._nextState());
+                    }, this);
+                } else {
+                    this.next("LoadVideo");
+                }
             } else this.next(this._nextState());
         },
 
@@ -445,6 +452,19 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
             if (this._position && this._position === 'mid')
                 return "PlayVideo";
             return "LoadVideo";
+        },
+
+        _triggerLoadAds: function() {
+            if (
+                typeof this._position !== "undefined" && (
+                    this._position === 'outstream' || this._position === 'mid' || this._position === 'pre'
+                )
+            ) {
+                return true;
+            }
+
+            // if skip initial and no autoplay should load video
+            return !this.dyn.get("delayadsmanagerload");
         }
     });
 });
@@ -466,6 +486,10 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream", [
 
             this.listenOn(this.dyn.channel("ads"), "allAdsCompleted", function() {
                 this.afterAdCompleted();
+            }, this);
+
+            this.listenOn(this.dyn.channel("ads"), "ad-error", function(message) {
+                console.log("Error on loading ad. Details: ", message);
             }, this);
 
             /* if this trigger before allAdsCompleted, setTimeout error shows in console
@@ -705,9 +729,11 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
         },
 
         play: function() {
-            if (this.dyn.get("skipinitial") && !this.dyn.get("autoplay") && this.dyn.get("adshassource") && this.dyn.get("position") === 0) {
+            if (this.dyn.get("preloadadsmanager") && this.dyn.get("position") === 0) {
                 // w/o position === 0 condition player will reload on toggle player
-                this.next("LoadAds");
+                this.next("LoadAds", {
+                    position: 'pre'
+                });
             } else {
                 this.dyn.player.play();
             }

@@ -41,10 +41,10 @@
         const inlineVAST = ``;
     </script>
 
-<!--    <div style="margin-bottom: 20px; min-height: 980px">-->
-<!--        Ea laborum optio aut est sunt rerum qui ab sapiente. Ducimus incidunt excepturi explicabo eos velit consequatur non voluptatem illum deleniti impedit labore ipsam. Distinctio rerum eos harum blanditiis eum in labore optio omnis animi voluptates aspernatur. Distinctio aliquam ipsa est libero eaque laboriosam et rerum eius libero porro non debitis.-->
-<!--        Atque voluptatum blanditiis officia perferendis rerum similique reprehenderit saepe quibusdam. Aut quisquam incidunt quo amet aut. Excepturi consequatur ea odio qui qui veniam nemo sint rerum placeat. Harum quas perspiciatis rerum eos eos enim vel voluptatibus fugiat sit minima nihil rerum.-->
-<!--    </div>-->
+    <div style="margin-bottom: 20px; min-height: 980px">
+        Ea laborum optio aut est sunt rerum qui ab sapiente. Ducimus incidunt excepturi explicabo eos velit consequatur non voluptatem illum deleniti impedit labore ipsam. Distinctio rerum eos harum blanditiis eum in labore optio omnis animi voluptates aspernatur. Distinctio aliquam ipsa est libero eaque laboriosam et rerum eius libero porro non debitis.
+        Atque voluptatum blanditiis officia perferendis rerum similique reprehenderit saepe quibusdam. Aut quisquam incidunt quo amet aut. Excepturi consequatur ea odio qui qui veniam nemo sint rerum placeat. Harum quas perspiciatis rerum eos eos enim vel voluptatibus fugiat sit minima nihil rerum.
+    </div>
 
     <div style="position: relative; width:80%; margin: auto">
         <div id="player"></div>
@@ -63,44 +63,79 @@
     </div>
 
     <script>
+        // https://localhost:5050/static/demos/embed/ad-ima-player.html?autoplay=1&skipinitial=0&ad=1&adp=mid[12*],post
+        // https://localhost:5050/static/demos/embed/ad-ima-player.html?autoplay=1&skipinitial=1&ad=1&adp=pre,mid[12*],post
+        const params = new Proxy(new URLSearchParams(window.location.search), {
+            get: (searchParams, prop) => searchParams.get(prop),
+        });
+        let attrs = {
+            // , source: "/static/demos/assets/portrait.mp4"
+            // , source: "/static/demos/assets/landscape.mp4"
+            poster: "/static/demos/assets/sample-cover.png",
+            source: "https://betajs.com/sample.mp4",
+            skipinitial: Number(params.si) === 1,
+            autoplay: Number(params.ap) === 1,
+            outstream: Number(params.os) === 1,
+        }
+
+        if (params.ad) {
+            switch (params.ad) {
+                case 0: case '0':
+                    attrs.adtagurl = null
+                    break;
+                // Inline XML
+                case 2: case '2': case 'inline':
+                    attrs.inlinevastxml = inlineVAST;
+                    break;
+                // VMAP
+                case 3: case '3': case 'vmap':
+                    attrs.adtagurl = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/vmap_ad_samples&sz=640x480&cust_params=sample_ar%3Dpremidpost&ciu_szs=300x250&gdfp_req=1&ad_rule=1&output=vmap&unviewed_position_start=1&env=vp&impl=s&cmsid=496&vid=short_onecue&correlator='
+                    break;
+                // VAST via nonLinear
+                case 4: case '4': case 'nl': // with nonLinear
+                    attrs.adtagurl = 'https://static.kargovideo.com/playground/public/samples/kargo_with_non_linear.xml';
+                    break;
+                case 1: case '1': default:
+                    attrs.adtagurl = v3_doubleclick;
+            }
+        }
+        // ads positions
+        if (params.adp) {attrs.adsposition = params.adp}
+
+        attrs = {...attrs, ...{
+            // theme: "modern",
+            // 'ba-playlist': [
+            //     {poster: 'sample-cover2.png', source: 'sample-video2.mp4'},
+            //     {poster: 'sample-cover.png', source: 'sample-video.mp4'},
+            //     {poster: 'sample-cover.png', source: 'sample-video3.mp4'}
+            // ],
+            // adprovider: "ima",
+            // showduration: true ,
+            // adsposition: "mid[12*], post",
+            // 'companionad': '[300,250]|left',
+            // 'companionad': '[300,]|top',
+            // 'companionad': '[]|bottom',
+            // 'companionad': '[300,]|bottom',
+            // 'companionad': 'companion-selector[300,200]',
+            // 'companionad': 'companion-fluid[fluid]',
+            // adsposition: "post",
+            // outstream: true,
+            outstreamoptions: {
+                // moreURL: "https://ziggeo.com",
+                // moreText: "Read more about Ziggeo",
+                // hideOnCompletion: true,
+            },
+            // visibilityfraction: 0.01,
+            // adsposition: "pre, mid, post",
+            // adsposition: "mid[5*]",
+            // minadintervals: 8,
+
+            // preload: true
+        }}
+        console.log("Final attributes: ", attrs);
         var player = new BetaJS.MediaComponents.VideoPlayer.Dynamics.Player({
             element: document.getElementById('player'),
-            attrs: {
-                // theme: "modern",
-                poster: "/static/demos/assets/sample-cover.png"
-                // , source: "/static/demos/assets/portrait.mp4"
-                , source: "https://betajs.com/sample.mp4"
-                // , source: "/static/demos/assets/landscape.mp4"
-                // 'ba-playlist': [
-                //     {poster: 'sample-cover2.png', source: 'sample-video2.mp4'},
-                //     {poster: 'sample-cover.png', source: 'sample-video.mp4'},
-                //     {poster: 'sample-cover.png', source: 'sample-video3.mp4'}
-                // ],
-                //adprovider: "ima"
-                // showduration: true,
-                , adsposition: "pre,mid[12*], post"
-                // , 'companionad': '[300,250]|left'
-                // , 'companionad': '[300,]|top'
-                // , 'companionad': '[]|bottom'
-                // , 'companionad': '[300,]|bottom'
-                // , 'companionad': 'companion-selector[300,200]'
-                // , 'companionad': 'companion-fluid[fluid]'
-                // ,adsposition: "post"
-                // , outstream: true
-                // , outstreamoptions: {
-                //     allowReply: true
-                // }
-                // , visibilityfraction: 0.01
-                // , adsposition: "pre, mid, post"
-                // , adsposition: "mid[5*]"
-                // , minadintervals: 8
-                , skipinitial: true
-                , autoplay: true
-                // , adtagurl: v4_2_companion
-                // , adtagurl: v3_doubleclick
-                , inlinevastxml: inlineVAST
-                // , preload: true
-            }
+            attrs
         });
 
         player.on("adloaded", () => { console.log("ad loaded") });
@@ -129,7 +164,7 @@
         player.on("ended", function () {
             // console.log('ENDED');
         }, player);
-        //
+
         // setInterval(() => {
         //     player.set("duration", new Date());
         // }, 3000);

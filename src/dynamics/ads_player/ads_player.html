@@ -8,13 +8,15 @@
     <div ba-if="{{showactionbuttons && isoutstream}}"
         class="{{cssadsplayer}}-actions-button-container {{csscommon}}-center-all"
     >
-        <div>
-            <div class="{{cssadsplayer}}-action-button" title="{{string('replay-ad')}}"
-                 ba-click="{{replay()}}"
+        <div ba-if="{{moredetailslink}}">
+            <a
+                href="{{ moredetailslink }}" target="_blank"
+                class="{{cssadsplayer}}-action-button"
+                title="{{moredetailstext ? moredetailstext : string('learn-more')}}"
             >
-                <i class="{{csscommon}}-icon-ccw"></i>
-                {{string('replay-ad')}}
-            </div>
+                <i class="{{csscommon}}-icon-share"></i>
+                {{moredetailstext ? moredetailstext : string('learn-more')}}
+            </a>
         </div>
         <div>
             <div class="{{cssadsplayer}}-action-button {{cssadsplayer}}-reversed-color"

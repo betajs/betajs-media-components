@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.364 - 2023-04-10
+betajs-media-components - v0.0.365 - 2023-04-11
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.364",
-    "datetime": 1681184607608
+    "version": "0.0.365",
+    "datetime": 1681223786953
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -2295,7 +2295,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
             scoped: scoped
         }, function(inherited) {
             return {
-                template: "<div\n    class=\"ba-ad-container {{linear ? (css + '-overlay') : ''}}\n    {{cssadsplayer + (linear ? '-linear-ad-container' : '-non-linear-ad-container')}}\n    {{hideoninactivity ? (cssplayer + '-controlbar-hidden') : ''}}\"\n    style=\"width: 100%; height: 100%;\"\n    data-video=\"ima-ad-container\"\n>\n    <div ba-if=\"{{showactionbuttons && isoutstream}}\"\n        class=\"{{cssadsplayer}}-actions-button-container {{csscommon}}-center-all\"\n    >\n        <div>\n            <div class=\"{{cssadsplayer}}-action-button\" title=\"{{string('replay-ad')}}\"\n                 ba-click=\"{{replay()}}\"\n            >\n                <i class=\"{{csscommon}}-icon-ccw\"></i>\n                {{string('replay-ad')}}\n            </div>\n        </div>\n        <div>\n            <div class=\"{{cssadsplayer}}-action-button {{cssadsplayer}}-reversed-color\"\n                 title=\"{{string('close-ad')}}\" ba-click=\"{{close()}}\"\n            >\n                <i class=\"{{csscommon}}-icon-cancel\"></i>\n                {{string('close-ad')}}\n            </div>\n        </div>\n    </div>\n</div>\n<ba-{{dyncontrolbar}}\n    ba-if=\"{{!hidecontrolbar && linear && !showactionbuttons}}\"\n    ba-css=\"{{css}}\"\n    ba-csscommon=\"{{csscommon}}\"\n    ba-cssadsplayer=\"{{cssadsplayer}}\"\n    ba-template=\"{{tmplcontrolbar}}\"\n    ba-linear={{linear}}\n    ba-duration=\"{{duration}}\"\n    ba-volume=\"{{volume}}\"\n    ba-muted=\"{{muted}}\"\n    ba-unmuteonclick=\"{{unmuteonclick}}\"\n    ba-playing={{playing}}\n    ba-currenttime={{currenttime}}\n    ba-hideoninactivity={{hideoninactivity}}\n    ba-event:resume=\"resume\"\n    ba-event:fullscreen=\"{{trigger('fullscreen')}}\"\n    ba-fullscreened=\"{{fullscreened}}\"\n    ba-event:pause=\"pause\"\n    ba-event:volume=\"setVolume\"\n    ba-event:stop=\"stop\"\n></ba-{{dyncontrolbar}}>\n",
+                template: "<div\n    class=\"ba-ad-container {{linear ? (css + '-overlay') : ''}}\n    {{cssadsplayer + (linear ? '-linear-ad-container' : '-non-linear-ad-container')}}\n    {{hideoninactivity ? (cssplayer + '-controlbar-hidden') : ''}}\"\n    style=\"width: 100%; height: 100%;\"\n    data-video=\"ima-ad-container\"\n>\n    <div ba-if=\"{{showactionbuttons && isoutstream}}\"\n        class=\"{{cssadsplayer}}-actions-button-container {{csscommon}}-center-all\"\n    >\n        <div ba-if=\"{{moredetailslink}}\">\n            <a\n                href=\"{{ moredetailslink }}\" target=\"_blank\"\n                class=\"{{cssadsplayer}}-action-button\"\n                title=\"{{moredetailstext ? moredetailstext : string('learn-more')}}\"\n            >\n                <i class=\"{{csscommon}}-icon-share\"></i>\n                {{moredetailstext ? moredetailstext : string('learn-more')}}\n            </a>\n        </div>\n        <div>\n            <div class=\"{{cssadsplayer}}-action-button {{cssadsplayer}}-reversed-color\"\n                 title=\"{{string('close-ad')}}\" ba-click=\"{{close()}}\"\n            >\n                <i class=\"{{csscommon}}-icon-cancel\"></i>\n                {{string('close-ad')}}\n            </div>\n        </div>\n    </div>\n</div>\n<ba-{{dyncontrolbar}}\n    ba-if=\"{{!hidecontrolbar && linear && !showactionbuttons}}\"\n    ba-css=\"{{css}}\"\n    ba-csscommon=\"{{csscommon}}\"\n    ba-cssadsplayer=\"{{cssadsplayer}}\"\n    ba-template=\"{{tmplcontrolbar}}\"\n    ba-linear={{linear}}\n    ba-duration=\"{{duration}}\"\n    ba-volume=\"{{volume}}\"\n    ba-muted=\"{{muted}}\"\n    ba-unmuteonclick=\"{{unmuteonclick}}\"\n    ba-playing={{playing}}\n    ba-currenttime={{currenttime}}\n    ba-hideoninactivity={{hideoninactivity}}\n    ba-event:resume=\"resume\"\n    ba-event:fullscreen=\"{{trigger('fullscreen')}}\"\n    ba-fullscreened=\"{{fullscreened}}\"\n    ba-event:pause=\"pause\"\n    ba-event:volume=\"setVolume\"\n    ba-event:stop=\"stop\"\n></ba-{{dyncontrolbar}}>\n",
 
                 events: {
                     "change:volume": function(volume) {
@@ -2318,7 +2318,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     isoutstream: false,
                     hidecontrolbar: false,
                     showactionbuttons: false,
-                    adscompleted: false
+                    adscompleted: false,
+                    moredetailslink: null,
+                    moredetailstext: null
                 },
 
                 _deferActivate: function() {
@@ -2366,6 +2368,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.set("addata", event.getAdData());
                         this.set("volume", this.adsManager.getVolume());
                         this.set("duration", event.getAdData().duration);
+                        this.set("moredetailslink", event.getAdData().clickThroughUrl);
                     },
                     "ads:volumeChange": function() {
                         this.set("volume", this.adsManager.getVolume());
@@ -2395,8 +2398,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             restoreCustomPlaybackStateOnAdBreakComplete: true
                         }
                     };
-                    this.set("isoutstream", !!this.get("outstream"));
-                    if (!Info.isMobile() && this.getVideoElement() && !this.get("isoutstream")) {
+                    if (!Info.isMobile() && this.getVideoElement()) {
                         // It's optionalParameter
                         adManagerOptions.videoElement = this.getVideoElement();
                     }
@@ -2546,14 +2548,18 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     // this._hideContentPlayer(dyn);
                     // TODO: add option for selection
                     if (dyn.get("outstreamoptions")) {
-                        if (!dyn.get("outstreamoptions").allowReply) {
+                        if (dyn.get("outstreamoptions").hideOnCompletion) {
                             this._hideContentPlayer(dyn);
-                        } else {
-                            this.set("showactionbuttons", true);
+                            return;
                         }
-                    } else {
-                        this._hideContentPlayer(dyn);
+                        if (dyn.get("outstreamoptions").moreURL) {
+                            this.set("moredetailslink", dyn.get("outstreamoptions").moreURL);
+                        }
+                        if (dyn.get("outstreamoptions").moreText) {
+                            this.set("moredetailstext", dyn.get("outstreamoptions").moreText);
+                        }
                     }
+                    this.set("showactionbuttons", true);
                 },
 
                 _outstreamStarted: function(dyn, options) {
@@ -2658,11 +2664,12 @@ Scoped.define("module:Ads.Dynamics.Player", [
             };
         }).register("ba-adsplayer")
         .registerFunctions({
-            /**/"linear ? (css + '-overlay') : ''": function (obj) { return obj.linear ? (obj.css + '-overlay') : ''; }, "cssadsplayer + (linear ? '-linear-ad-container' : '-non-linear-ad-container')": function (obj) { return obj.cssadsplayer + (obj.linear ? '-linear-ad-container' : '-non-linear-ad-container'); }, "hideoninactivity ? (cssplayer + '-controlbar-hidden') : ''": function (obj) { return obj.hideoninactivity ? (obj.cssplayer + '-controlbar-hidden') : ''; }, "showactionbuttons && isoutstream": function (obj) { return obj.showactionbuttons && obj.isoutstream; }, "cssadsplayer": function (obj) { return obj.cssadsplayer; }, "csscommon": function (obj) { return obj.csscommon; }, "string('replay-ad')": function (obj) { return obj.string('replay-ad'); }, "replay()": function (obj) { return obj.replay(); }, "string('close-ad')": function (obj) { return obj.string('close-ad'); }, "close()": function (obj) { return obj.close(); }, "dyncontrolbar": function (obj) { return obj.dyncontrolbar; }, "!hidecontrolbar && linear && !showactionbuttons": function (obj) { return !obj.hidecontrolbar && obj.linear && !obj.showactionbuttons; }, "css": function (obj) { return obj.css; }, "tmplcontrolbar": function (obj) { return obj.tmplcontrolbar; }, "linear": function (obj) { return obj.linear; }, "duration": function (obj) { return obj.duration; }, "volume": function (obj) { return obj.volume; }, "muted": function (obj) { return obj.muted; }, "unmuteonclick": function (obj) { return obj.unmuteonclick; }, "playing": function (obj) { return obj.playing; }, "currenttime": function (obj) { return obj.currenttime; }, "hideoninactivity": function (obj) { return obj.hideoninactivity; }, "trigger('fullscreen')": function (obj) { return obj.trigger('fullscreen'); }, "fullscreened": function (obj) { return obj.fullscreened; }/**/
+            /**/"linear ? (css + '-overlay') : ''": function (obj) { return obj.linear ? (obj.css + '-overlay') : ''; }, "cssadsplayer + (linear ? '-linear-ad-container' : '-non-linear-ad-container')": function (obj) { return obj.cssadsplayer + (obj.linear ? '-linear-ad-container' : '-non-linear-ad-container'); }, "hideoninactivity ? (cssplayer + '-controlbar-hidden') : ''": function (obj) { return obj.hideoninactivity ? (obj.cssplayer + '-controlbar-hidden') : ''; }, "showactionbuttons && isoutstream": function (obj) { return obj.showactionbuttons && obj.isoutstream; }, "cssadsplayer": function (obj) { return obj.cssadsplayer; }, "csscommon": function (obj) { return obj.csscommon; }, "moredetailslink": function (obj) { return obj.moredetailslink; }, "moredetailstext ? moredetailstext : string('learn-more')": function (obj) { return obj.moredetailstext ? obj.moredetailstext : obj.string('learn-more'); }, "string('close-ad')": function (obj) { return obj.string('close-ad'); }, "close()": function (obj) { return obj.close(); }, "dyncontrolbar": function (obj) { return obj.dyncontrolbar; }, "!hidecontrolbar && linear && !showactionbuttons": function (obj) { return !obj.hidecontrolbar && obj.linear && !obj.showactionbuttons; }, "css": function (obj) { return obj.css; }, "tmplcontrolbar": function (obj) { return obj.tmplcontrolbar; }, "linear": function (obj) { return obj.linear; }, "duration": function (obj) { return obj.duration; }, "volume": function (obj) { return obj.volume; }, "muted": function (obj) { return obj.muted; }, "unmuteonclick": function (obj) { return obj.unmuteonclick; }, "playing": function (obj) { return obj.playing; }, "currenttime": function (obj) { return obj.currenttime; }, "hideoninactivity": function (obj) { return obj.hideoninactivity; }, "trigger('fullscreen')": function (obj) { return obj.trigger('fullscreen'); }, "fullscreened": function (obj) { return obj.fullscreened; }/**/
         }).attachStringTable(Assets.strings)
         .addStrings({
             "replay-ad": "Replay",
-            "close-ad": "Close"
+            "close-ad": "Close",
+            "learn-more": "Learn More"
         });
 });
 Scoped.define("module:Ads.Dynamics.Controlbar", [
@@ -5192,7 +5199,18 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 initAdSources: function() {
+                    this.set("preloadadsmanager", false);
+                    this.set("delayadsmanagerload", false);
                     this.set("adshassource", !!this.get("adtagurl") || !!this.get("inlinevastxml"));
+
+                    // The initial mute state will not be changes if outstream is not set
+                    if (this.get("outstream")) {
+                        this.set("muted", true);
+                        this.set("autoplay", true);
+                        this.set("skipinitial", false);
+                        this.set("unmuteonclick", true);
+                    }
+
                     if (this.get("adshassource")) {
                         if (this.get("adsposition")) {
                             this.set("adsplaypreroll", this.get("adsposition").indexOf("pre") !== -1);
@@ -5202,6 +5220,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             // if there's no specification, play preroll or VMAP if not set adsposition at all
                             this.set("vmapads", true);
                         }
+
+                        this.set("preloadadsmanager", this.get("adsplaypreroll") || this.get("vmapads") || this.get("outstream"));
+                        var skipInitialWithoutAutoplay = this.get("skipinitial") && !this.get("autoplay");
+                        this.set("delayadsmanagerload", !this.get("preloadadsmanager") || skipInitialWithoutAutoplay);
                     }
                 },
 
@@ -5215,8 +5237,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.get("midrollads").length > 0 && this.get("duration") > 0.0 && !this._adsRollPositionsCollection
                     ) {
                         this._adsRollPositionsCollection = this.auto_destroy(new Collection()); // our adsCollections
-                        this.__adMinIntervals = this.__adMinIntervals === 0 ?
-                            this.get("minadintervals") : (this.__adMinIntervals - 1);
                         if (this.get("midrollads").length > 0) {
                             var _current = null;
                             var _nextPositionIndex = null;
@@ -5245,6 +5265,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 }
                             }, this);
                         }
+                    } else {
+                        this.__adMinIntervals = this.__adMinIntervals === 0 ?
+                            this.get("minadintervals") : (this.__adMinIntervals - 1);
+
                     }
 
                     // Set a new position when ad should run
@@ -5281,18 +5305,18 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }
 
                     if (this._nextRollPosition && this.get("adshassource") && this._nextRollPosition.position < this.get("position")) {
+                        if (this.__adMinIntervals > 0) {
+                            return;
+                        }
                         // If active ads player is existed
                         if (this.get("adsplayer_active") && this.scopes.adsplayer) {
                             this.brakeAdsManually();
                             this.trigger("playnextmidroll");
-                            this._nextRollPosition = null; // To be able to grab another next position from the Collection
                         } else {
                             // In case if preroll not exists, so ads_player is not activated
-                            this._nextRollPosition = null; // To be able to grab another next position from the Collection
-                            // activate ads_player if it's not activated yet
-                            this.set("adsplayer_active", this.get("adshassource"));
                             this.trigger("playnextmidroll");
                         }
+                        this._nextRollPosition = null; // To be able to grab another next position from the Collection
                     }
                 },
 
@@ -5355,7 +5379,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     hard = hard || false;
                     var adsPlayer = this.scopes.adsplayer;
 
-                    // Only if min suggested seconds of nonLinear ads are shown will show next ads
+                    // Only if min-suggested seconds of nonLinear ads are shown will show next ads
                     if (adsPlayer.get("non-linear-min-suggestion") >= 0 && !adsPlayer.get("linear") && !hard)
                         return;
 
@@ -5681,7 +5705,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Initial", [
             this.dyn.set("imageelement_active", false);
             this.dyn.set("videoelement_active", false);
             // no need activation for the adsposition: mid and post
-            this.dyn.set("adsplayer_active", this.dyn.get("adshassource") && (this.dyn.get("adsplaypreroll") || this.dyn.get("outstream") || this.dyn.get("vmapads")));
+            this.dyn.set("adsplayer_active", !this.dyn.get("delayadsmanagerload"));
             if (this.dyn.get("ready")) {
                 this.next("LoadPlayer");
             } else {
@@ -5705,7 +5729,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadPlayer", [
 
         _started: function() {
             if (this.dyn.get("outstream")) {
-                this.dyn.set("autoplay", true);
                 this.next("Outstream");
             } else {
                 this.listenOn(this.dyn, "error:poster", function() {
@@ -5866,8 +5889,11 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Outstream", [
         dynamics: [],
 
         _started: function() {
-            if (!this.dyn.get("adshassource"))
+            if (!this.dyn.get("adshassource")) {
+                if (typeof this.dyn.activeElement === "function")
+                    this.dyn.activeElement().style.setProperty("display", "none");
                 throw Error("Please provide ad source for the outstream");
+            }
 
             this.listenOn(this.dyn.channel("ads"), "adsManagerLoaded", function() {
                 Dom.onScrollIntoView(this.dyn.activeElement(), this.dyn.get("visibilityfraction"), function() {
@@ -5893,13 +5919,21 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
 
         _started: function() {
             if (this.dyn.get("adshassource")) {
-                this.dyn.channel("ads").trigger("load");
-                this.listenOn(this.dyn.channel("ads"), "loaded", function() {
-                    this.next(this._nextState());
-                }, this);
-                this.listenOn(this.dyn.channel("ads"), "ad-error", function() {
-                    this.next(this._nextState());
-                }, this);
+                if (this._triggerLoadAds()) {
+                    if (!this.dyn.get("adsplayer_active")) this.dyn.set("adsplayer_active", true);
+                    this.dyn.channel("ads").trigger("load");
+                    this.listenOn(this.dyn.channel("ads"), "contentResumeRequested", function() {
+                        this.next(this._nextState());
+                    }, this);
+                    this.listenOn(this.dyn.channel("ads"), "loaded", function() {
+                        this.next(this._nextState());
+                    }, this);
+                    this.listenOn(this.dyn.channel("ads"), "ad-error", function() {
+                        this.next(this._nextState());
+                    }, this);
+                } else {
+                    this.next("LoadVideo");
+                }
             } else this.next(this._nextState());
         },
 
@@ -5909,6 +5943,19 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
             if (this._position && this._position === 'mid')
                 return "PlayVideo";
             return "LoadVideo";
+        },
+
+        _triggerLoadAds: function() {
+            if (
+                typeof this._position !== "undefined" && (
+                    this._position === 'outstream' || this._position === 'mid' || this._position === 'pre'
+                )
+            ) {
+                return true;
+            }
+
+            // if skip initial and no autoplay should load video
+            return !this.dyn.get("delayadsmanagerload");
         }
     });
 });
@@ -5930,6 +5977,10 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream", [
 
             this.listenOn(this.dyn.channel("ads"), "allAdsCompleted", function() {
                 this.afterAdCompleted();
+            }, this);
+
+            this.listenOn(this.dyn.channel("ads"), "ad-error", function(message) {
+                console.log("Error on loading ad. Details: ", message);
             }, this);
 
             /* if this trigger before allAdsCompleted, setTimeout error shows in console
@@ -6169,9 +6220,11 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
         },
 
         play: function() {
-            if (this.dyn.get("skipinitial") && !this.dyn.get("autoplay") && this.dyn.get("adshassource") && this.dyn.get("position") === 0) {
+            if (this.dyn.get("preloadadsmanager") && this.dyn.get("position") === 0) {
                 // w/o position === 0 condition player will reload on toggle player
-                this.next("LoadAds");
+                this.next("LoadAds", {
+                    position: 'pre'
+                });
             } else {
                 this.dyn.player.play();
             }

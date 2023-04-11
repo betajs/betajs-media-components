@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.365 - 2023-04-11
+betajs-media-components - v0.0.366 - 2023-04-11
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.365",
-    "datetime": 1681223786953
+    "version": "0.0.366",
+    "datetime": 1681240922281
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -1251,6 +1251,7 @@ Scoped.define("module:StickyHandler", [
             },
 
             start: function() {
+                if (!this.elementIsVisible && !this.floating) this.transitionToFloat();
                 this.paused = false;
             },
 
@@ -1260,6 +1261,13 @@ Scoped.define("module:StickyHandler", [
 
             stopDragging: function() {
                 this.dragging = false;
+            },
+
+            transitionToFloat: function() {
+                this.floating = true;
+                this.trigger("transitionToFloat");
+                this.addStickyStyles();
+                this._initEventListeners();
             },
 
             elementWasDragged: function() {
@@ -1291,6 +1299,7 @@ Scoped.define("module:StickyHandler", [
 
                 function elementCallback(entries, observer) {
                     entries.forEach(function(entry) {
+                        this.elementIsVisible = entry.isIntersecting;
                         if (elementFirstObservation) {
                             elementFirstObservation = false;
                             return;
@@ -1300,10 +1309,7 @@ Scoped.define("module:StickyHandler", [
                             this.trigger("transitionOutOfView");
                             return;
                         }
-                        this.floating = true;
-                        this.trigger("transitionToFloat");
-                        this.addStickyStyles();
-                        this._initEventListeners();
+                        this.transitionToFloat();
                     }.bind(this));
                 }
 
@@ -3655,6 +3661,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "chromecastreceiverappid": null, // Could be published custom App ID https://cast.google.com/publish/#/overview
                         "skipseconds": 5,
                         "sticky": false,
+                        "sticky-starts-paused": true,
                         "sticky-position": "bottom-right",
                         "sticky-threshold": undefined,
                         "tracktags": [],
@@ -3781,6 +3788,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "chromecastreceiverappid": "string",
                     "skipseconds": "integer",
                     "sticky": "boolean",
+                    "sticky-starts-paused": "boolean",
                     "streams": "jsonarray",
                     "sources": "jsonarray",
                     "tracktags": "jsonarray",
@@ -4048,7 +4056,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this._applyStyles(this.activeElement(), this.get("containerSizingStyles"));
 
                     var stickyOptions = {
-                        paused: true,
+                        paused: this.get("sticky-starts-paused"),
                         position: this.get("sticky-position"),
                         threshold: this.get("sticky-threshold")
                     };

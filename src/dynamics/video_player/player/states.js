@@ -427,6 +427,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
         _started: function() {
             if (this.dyn.get("adshassource")) {
                 this.dyn.channel("ads").trigger("load");
+                this.listenOn(this.dyn.channel("ads"), "contentResumeRequested", function() {
+                    this.next(this._nextState());
+                }, this);
                 this.listenOn(this.dyn.channel("ads"), "loaded", function() {
                     this.next(this._nextState());
                 }, this);

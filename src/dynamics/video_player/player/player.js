@@ -591,7 +591,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     var stickyOptions = {
                         paused: true,
                         position: this.get("sticky-position"),
-                        threshold: this.get("stick-threshold")
+                        threshold: this.get("sticky-threshold")
                     };
                     this.stickyHandler = this.auto_destroy(new StickyHandler(
                         this.activeElement().firstChild,

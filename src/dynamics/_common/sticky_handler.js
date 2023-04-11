@@ -41,6 +41,7 @@ Scoped.define("module:StickyHandler", [
             },
 
             start: function() {
+                if (!this.elementIsVisible && !this.floating) this.transitionToFloat();
                 this.paused = false;
             },
 
@@ -50,6 +51,13 @@ Scoped.define("module:StickyHandler", [
 
             stopDragging: function() {
                 this.dragging = false;
+            },
+
+            transitionToFloat: function() {
+                this.floating = true;
+                this.trigger("transitionToFloat");
+                this.addStickyStyles();
+                this._initEventListeners();
             },
 
             elementWasDragged: function() {
@@ -81,6 +89,7 @@ Scoped.define("module:StickyHandler", [
 
                 function elementCallback(entries, observer) {
                     entries.forEach(function(entry) {
+                        this.elementIsVisible = entry.isIntersecting;
                         if (elementFirstObservation) {
                             elementFirstObservation = false;
                             return;
@@ -90,10 +99,7 @@ Scoped.define("module:StickyHandler", [
                             this.trigger("transitionOutOfView");
                             return;
                         }
-                        this.floating = true;
-                        this.trigger("transitionToFloat");
-                        this.addStickyStyles();
-                        this._initEventListeners();
+                        this.transitionToFloat();
                     }.bind(this));
                 }
 

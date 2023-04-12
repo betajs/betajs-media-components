@@ -746,29 +746,37 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayAd", [
 ], function(State, scoped) {
     return State.extend({
         scoped: scoped
-    }, {
+    }, function(inherited) {
+        return {
 
-        dynamics: ["adscontrolbar"],
+            dynamics: ["adscontrolbar"],
 
-        _started: function() {
-            if (this.state_name() === "PlayAd")
-                throw Error("PlayAd should be an abstract state.");
-            this._showbuiltincontroller = this.dyn.get("showbuiltincontroller");
-            this.dyn.set("showbuiltincontroller", true);
-            this.listenOn(this.dyn, "playing", function() {
-                this.dyn.player.pause();
-            }, this);
-            this.listenOn(this.dyn.channel("ads"), "contentResumeRequested", function() {
-                this.dyn.set("showbuiltincontroller", this._showbuiltincontroller);
-                this.resume();
-            }, this);
-        },
+            _started: function() {
+                if (this.state_name() === "PlayAd")
+                    throw Error("PlayAd should be an abstract state.");
+                this.dyn.set("playing_ad", true);
+                this._showbuiltincontroller = this.dyn.get("showbuiltincontroller");
+                this.dyn.set("showbuiltincontroller", true);
+                this.listenOn(this.dyn, "playing", function() {
+                    this.dyn.player.pause();
+                }, this);
+                this.listenOn(this.dyn.channel("ads"), "contentResumeRequested", function() {
+                    this.dyn.set("showbuiltincontroller", this._showbuiltincontroller);
+                    this.resume();
+                }, this);
+            },
 
-        resume: function() {
-            if (this.dyn && this.dyn.player)
-                this.dyn.player.play();
-            this.next("PlayVideo");
-        }
+            resume: function() {
+                if (this.dyn && this.dyn.player)
+                    this.dyn.player.play();
+                this.next("PlayVideo");
+            },
+
+            next: function(state) {
+                this.dyn.set("playing_ad", false);
+                inherited.next.call(this, state);
+            }
+        };
     });
 });
 

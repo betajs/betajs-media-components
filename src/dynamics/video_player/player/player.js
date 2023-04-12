@@ -150,7 +150,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "adprovider": null,
                         "preroll": false,
                         "outstream": false,
-                        "outstreamoptions": {},
+                        "outstreamoptions": {}, // can be false, string () or numeric
                         "imasettings": {},
                         "adtagurl": null,
                         "inlinevastxml": null,
@@ -235,7 +235,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             "hideoninactivity": null,
                             "volumelevel": null,
                             "playlist": [],
-                            "autoplay": null
+                            "autoplay": null,
+                            "outstreamoptions": {
+                                corner: true
+                            }
                         },
                         "silent_attach": false,
                         "inpipmode": false,
@@ -1752,6 +1755,22 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("autoplay", true);
                         this.set("skipinitial", false);
                         this.set("unmuteonclick", true);
+                        this.set("outstreamoptions", Objs.tree_merge(this.get("initialoptions").outstreamoptions, this.get("outstreamoptions")));
+                        if (Types.is_defined(this.get("outstreamoptions").corner) && this.activeElement()) {
+                            var _corner = this.get("outstreamoptions").corner;
+                            if (Types.is_boolean(_corner)) {
+                                if (_corner) {
+                                    this._applyStyles(this.activeElement().firstChild, {
+                                        borderRadius: '10px'
+                                    });
+                                }
+                            } else {
+                                // it can be string ot numeric
+                                this._applyStyles(this.activeElement().firstChild, {
+                                    borderRadius: (Types.is_string(_corner) ? Number(_corner.replace(/\D/g, '')) : _corner) + 'px'
+                                });
+                            }
+                        }
                     }
 
                     if (this.get("adshassource")) {

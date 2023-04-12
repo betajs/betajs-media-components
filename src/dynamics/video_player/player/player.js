@@ -418,14 +418,20 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "aspect_ratio:aspectratio,fallback-width,fallback-height": function(aspectRatio, fallbackWidth, fallbackHeight) {
                         return aspectRatio || fallbackWidth + "/" + fallbackHeight;
                     },
-                    "containerSizingStyles:aspect_ratio,height,width,floating_height,floating_width,is_floating": function(aspectRatio, height, width, floatingHeight, floatingWidth, isFloating) {
+                    "containerSizingStyles:aspect_ratio,height,width,floating_height,floating_width,floating_top,floating_right,floating_bottom,floating_left,is_floating": function(aspectRatio, height, width, floatingHeight, floatingWidth, floatingTop, floatingRight, floatingBottom, floatingLeft, isFloating) {
                         var styles = {
                             aspectRatio: aspectRatio
                         };
                         if (height) styles.height = typeof height === "string" && height[height.length - 1] === "%" ? height : height + "px";
                         if (width && width !== "100%") styles.width = typeof width === "string" && width[width.length - 1] === "%" ? width : width + "px";
-                        if (isFloating && floatingWidth) styles.width = floatingWidth;
-                        if (isFloating && floatingHeight) styles.height = floatingHeight;
+                        if (isFloating) {
+                            if (floatingWidth) styles.width = floatingWidth;
+                            if (floatingHeight) styles.height = floatingHeight;
+                            if (floatingTop !== undefined) styles.top = floatingTop;
+                            if (floatingRight !== undefined) styles.right = floatingRight;
+                            if (floatingBottom !== undefined) styles.bottom = floatingBottom;
+                            if (floatingLeft !== undefined) styles.left = floatingLeft;
+                        }
                         if (this.activeElement()) {
                             this._applyStyles(this.activeElement(), styles, this.__lastContainerSizingStyles);
                         }

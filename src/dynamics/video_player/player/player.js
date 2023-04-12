@@ -150,7 +150,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "adprovider": null,
                         "preroll": false,
                         "outstream": false,
-                        "outstreamoptions": {}, // can be false, string () or numeric
+                        "outstreamoptions": {}, // can be false, string (example: '10px', '10') or numeric
                         "imasettings": {},
                         "adtagurl": null,
                         "inlinevastxml": null,

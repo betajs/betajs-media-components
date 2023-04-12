@@ -418,12 +418,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "aspect_ratio:aspectratio,fallback-width,fallback-height": function(aspectRatio, fallbackWidth, fallbackHeight) {
                         return aspectRatio || fallbackWidth + "/" + fallbackHeight;
                     },
-                    "containerSizingStyles:aspect_ratio,height,width": function(aspectRatio, height, width) {
+                    "containerSizingStyles:aspect_ratio,height,width,floating_height,floating_width,is_floating": function(aspectRatio, height, width, floatingHeight, floatingWidth, isFloating) {
                         var styles = {
                             aspectRatio: aspectRatio
                         };
                         if (height) styles.height = typeof height === "string" && height[height.length - 1] === "%" ? height : height + "px";
                         if (width && width !== "100%") styles.width = typeof width === "string" && width[width.length - 1] === "%" ? width : width + "px";
+                        if (isFloating && floatingWidth) styles.width = floatingWidth;
+                        if (isFloating && floatingHeight) styles.height = floatingHeight;
                         if (this.activeElement()) {
                             this._applyStyles(this.activeElement(), styles, this.__lastContainerSizingStyles);
                         }

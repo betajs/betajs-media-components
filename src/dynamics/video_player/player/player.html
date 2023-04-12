@@ -43,6 +43,8 @@
         ba-dyncontrolbar="{{dynadscontrolbar}}"
         ba-companionad="{{companionad}}"
         ba-hideoninactivity="{{(activity_delta > hidebarafter) && hideoninactivity}}"
+        ba-view_type="{{view_type}}"
+        ba-is_floating="{{is_floating}}"
     ></ba-{{dynadsplayer}}>
     <div class="{{css}}-overlay {{hasplaceholderstyle ? (css + '-overlay-with-placeholder') : ''}}"
          ba-show="{{!showbuiltincontroller && !outstream}}" style="{{placeholderstyle}}"

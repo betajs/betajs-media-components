@@ -95,6 +95,9 @@
                 case 4: case '4': case 'nl': // with nonLinear
                     attrs.adtagurl = 'https://static.kargovideo.com/playground/public/samples/kargo_with_non_linear.xml';
                     break;
+                case 5: case '5': case 'os': // with nonLinear
+                    attrs.adtagurl = 'https://ads.celtra.com/f41e9364/vpaid/vast.xml';
+                    break;
                 case 1: case '1': default:
                     attrs.adtagurl = v3_doubleclick;
             }
@@ -124,6 +127,8 @@
                 // moreURL: "https://ziggeo.com",
                 // moreText: "Read more about Ziggeo",
                 // hideOnCompletion: true,
+                // corner: false
+                corner: "30px"
             },
             // visibilityfraction: 0.01,
             // adsposition: "pre, mid, post",

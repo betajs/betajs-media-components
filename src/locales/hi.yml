@@ -91,7 +91,7 @@
   ba-videorecorder.orientation-portrait-required: पोर्ट्रेट मोड में रिकॉर्ड करने के लिए कृपया अपने डिवाइस को घुमाएं।
   ba-videorecorder.orientation-landscape-required: लैंडस्केप मोड में रिकॉर्ड करने के लिए कृपया अपने डिवाइस को घुमाएं।
   ba-imageviewer-controlbar.rerecord-image: फिर से करें?
-  ba-imageviewer-controlbar.submit-image: की पुष्टि करें
+  ba-imageviewer-controlbar.submit-image: पुष्टि करें
   ba-imageviewer-controlbar.fullscreen-image: पूर्ण स्क्रीन दर्ज करें
   ba-imageviewer-controlbar.exit-fullscreen-image: पूर्ण स्क्रीन से बाहर निकलें
   ba-imageviewer.image-error: >-
@@ -113,7 +113,7 @@
   ba-audioplayer-controlbar.submit-audio: की पुष्टि करें
   ba-audioplayer-controlbar.play-audio: प्ले
   ba-audioplayer-controlbar.pause-audio: ठहराव
-  ba-audioplayer-controlbar.pause-audio-disabled: रोकें समर्थित नहीं है
+  ba-audioplayer-controlbar.pause-audio-disabled: रोकना समर्थित नहीं है
   ba-audioplayer-controlbar.elapsed-time: बीता हुआ समय
   ba-audioplayer-controlbar.total-time: की कुल लंबाई
   ba-audioplayer-controlbar.volume-button: वॉल्यूम सेट करें
@@ -127,8 +127,8 @@
   ba-audiorecorder-chooser.upload-audio: ऑडियो अपलोड करें
   ba-audiorecorder-controlbar.settings: सेटिंग्स
   ba-audiorecorder-controlbar.microphonehealthy: ध्वनि अच्छी हैं
-  ba-audiorecorder-controlbar.microphoneunhealthy: कोई आवाज नहीं उठा सकते हैं
-  ba-audiorecorder-controlbar.record: अभिलेख
+  ba-audiorecorder-controlbar.microphoneunhealthy: कोई आवाज़ पकड़ में नहीं आ रही
+  ba-audiorecorder-controlbar.record: रिकॉर्ड
   ba-audiorecorder-controlbar.record-tooltip: रिकॉर्ड करने के लिए यहां क्लिक करें।
   ba-audiorecorder-controlbar.rerecord: फिर से करना
   ba-audiorecorder-controlbar.rerecord-tooltip: फिर से करने के लिए यहां क्लिक करें।
@@ -137,7 +137,7 @@
   ba-audiorecorder-controlbar.stop-available-after: न्यूनतम रिकॉर्डिंग समय %d सेकेंड है
   ba-audiorecorder-controlbar.cancel: रद्द करना
   ba-audiorecorder-controlbar.cancel-tooltip: रद्द करने के लिए यहां क्लिक करें।
-  ba-videoplayer-controlbar.player-speed: खिलाड़ी की गति
+  ba-videoplayer-controlbar.player-speed: चलने की गति
   ba-videoplayer-controlbar.settings: सेटिंग्स
   ba-videoplayer-controlbar.airplay: एयरप्ले
   ba-videoplayer-controlbar.airplay-icon: एयरप्ले आइकन।
@@ -243,3 +243,39 @@
   ba-videorecorder.uploading-src-error: 'अभी वीडियो वापस चलाने में असमर्थ, अपलोड करना अभी भी प्रगति पर है'
   ba-audiorecorder-controlbar.pause-recorder: रोकें रिकॉर्डर
   ba-audiorecorder-controlbar.resume-recorder: रिज्यूमे रिकॉर्डर
+  ba-ads-controlbar.elapsed-time: बीता हुआ वक़्त
+  ba-ads-controlbar.volume-button: वॉल्यूम तय करें
+  ba-ads-controlbar.volume-mute: ध्वनि म्यूट करें
+  ba-ads-controlbar.volume-unmute: ध्वनि को अनम्यूट करें
+  ba-ads-controlbar.ad-will-end-after: विज्ञापन %s के बाद समाप्त हो जाएगा
+  ba-ads-controlbar.can-skip-after: '%d के बाद छोड़ें'
+  ba-ads-controlbar.skip-ad: विज्ञापन से आगे बढ़ें
+  ba-videorecorder.supported-mode: मीडिया रेज़ोल्यूशन '%s' मोड में होना चाहिए
+  ba-videorecorder.re-choose-action: कृपया कोई अन्य इनपुट डिवाइस चुनने के लिए क्लिक करें या पुनः प्रयास करें
+  ba-audiorecorder.uploading-src-error: 'अब ऑडियो चलाने में असमर्थ, अपलोडिंग अभी भी जारी है'
+  ba-audiorecorder.missing-track: आवश्यक ऑडियो या वीडियो ट्रैक गायब है
+  ba-audiorecorder.device-already-in-use: आपका कम से कम एक इनपुट डिवाइस पहले से ही उपयोग में है
+  ba-audiorecorder.browser-permission-denied: 'ब्राउज़र द्वारा अनुमति से इनकार किया गया है, कृपया पहुँच और पुनः लोड पृष्ठ
+    प्रदान करें'
+  ba-local-view.local-camera-connection-error: स्थानीय कैमरा से कनेक्ट करते समय एक त्रुटि हुई। पुनः प्रयास करने के लिए क्लिक करें।
+  ba-call-controlbar.camera-button: कैमरा दिखाएँ / छुपाएँ
+  ba-call-controlbar.leave-button: कॉल छोड़ो
+  ba-call-controlbar.mute-button: म्यूट / अनम्यूट
+  ba-call-lobby.camera-button: कैमरा
+  ba-call-lobby.description-create: जब आप तैयार हों तो कॉल करने के लिए नीचे दिए गए बटन पर क्लिक करें।
+  ba-call-lobby.description-join: जब आप तैयार हों तो कॉल में शामिल होने के लिए नीचे दिए गए बटन पर क्लिक करें।
+  ba-call-lobby.join-button: जुड़ना
+  ba-call-lobby.create-button: बनाएं
+  ba-call-lobby.mute-button: म्यूट
+  ba-call-lobby.title-create: कॉल बनाएं
+  ba-call-lobby.title-join: कॉल में शामिल हों
+  ba-video-call.call-ended: कॉल समाप्त
+  ba-video-call.connecting: कनेक्ट हो रहा है...
+  ba-video-call.connection-error: 'कनेक्ट करते समय एक त्रुटि हुई, कृपया पुनः प्रयास करने के लिए क्लिक करें।'
+  ba-ads-controlbar.play-ad: प्ले
+  ba-ads-controlbar.pause-video: ठहराव
+  ba-ads-controlbar.fullscreen-video: पूर्ण स्क्रीन दर्ज करें
+  ba-ads-controlbar.exit-fullscreen-video: पूर्ण स्क्रीन से बाहर निकलें
+  ba-ads-controlbar.pause-video-disabled: रोकना समर्थित नहीं है
+  ba-adsplayer.replay-ad: फिर से चलाना
+  ba-adsplayer.close-ad: बंद करें

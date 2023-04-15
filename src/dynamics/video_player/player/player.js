@@ -150,7 +150,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "adprovider": null,
                         "preroll": false,
                         "outstream": false,
-                        "outstreamoptions": {},
+                        "outstreamoptions": {}, // can be false, string (example: '10px', '10') or numeric
                         "imasettings": {},
                         "adtagurl": null,
                         "inlinevastxml": null,
@@ -196,6 +196,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "chromecastreceiverappid": null, // Could be published custom App ID https://cast.google.com/publish/#/overview
                         "skipseconds": 5,
                         "sticky": false,
+                        "sticky-starts-paused": true,
                         "sticky-position": "bottom-right",
                         "sticky-threshold": undefined,
                         "tracktags": [],
@@ -234,7 +235,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             "hideoninactivity": null,
                             "volumelevel": null,
                             "playlist": [],
-                            "autoplay": null
+                            "autoplay": null,
+                            "outstreamoptions": {
+                                corner: true
+                            }
                         },
                         "silent_attach": false,
                         "inpipmode": false,
@@ -322,6 +326,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "chromecastreceiverappid": "string",
                     "skipseconds": "integer",
                     "sticky": "boolean",
+                    "sticky-starts-paused": "boolean",
                     "streams": "jsonarray",
                     "sources": "jsonarray",
                     "tracktags": "jsonarray",
@@ -416,12 +421,20 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "aspect_ratio:aspectratio,fallback-width,fallback-height": function(aspectRatio, fallbackWidth, fallbackHeight) {
                         return aspectRatio || fallbackWidth + "/" + fallbackHeight;
                     },
-                    "containerSizingStyles:aspect_ratio,height,width": function(aspectRatio, height, width) {
+                    "containerSizingStyles:aspect_ratio,height,width,floating_height,floating_width,floating_top,floating_right,floating_bottom,floating_left,is_floating": function(aspectRatio, height, width, floatingHeight, floatingWidth, floatingTop, floatingRight, floatingBottom, floatingLeft, isFloating) {
                         var styles = {
                             aspectRatio: aspectRatio
                         };
                         if (height) styles.height = typeof height === "string" && height[height.length - 1] === "%" ? height : height + "px";
                         if (width && width !== "100%") styles.width = typeof width === "string" && width[width.length - 1] === "%" ? width : width + "px";
+                        if (isFloating) {
+                            if (floatingWidth) styles.width = floatingWidth;
+                            if (floatingHeight) styles.height = floatingHeight;
+                            if (floatingTop !== undefined) styles.top = floatingTop;
+                            if (floatingRight !== undefined) styles.right = floatingRight;
+                            if (floatingBottom !== undefined) styles.bottom = floatingBottom;
+                            if (floatingLeft !== undefined) styles.left = floatingLeft;
+                        }
                         if (this.activeElement()) {
                             this._applyStyles(this.activeElement(), styles, this.__lastContainerSizingStyles);
                         }
@@ -571,27 +584,27 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.__trackTags = new TrackTags({}, this);
                     }, this);
 
-                    this.host = new Host({
+                    this.host = this.auto_destroy(new Host({
                         stateRegistry: new ClassRegistry(this.cls.playerStates())
-                    });
+                    }));
                     this.host.dynamic = this;
                     this.host.initialize(this._initialState);
 
                     this.__adsControlPosition = 0;
-                    this._timer = new Timers.Timer({
+                    this._timer = this.auto_destroy(new Timers.Timer({
                         context: this,
                         fire: this._timerFire,
                         delay: 100,
                         start: true
-                    });
+                    }));
 
                     this.activeElement().style.setProperty("display", "inline-block");
                     this._applyStyles(this.activeElement(), this.get("containerSizingStyles"));
 
                     var stickyOptions = {
-                        paused: true,
+                        paused: this.get("sticky-starts-paused"),
                         position: this.get("sticky-position"),
-                        threshold: this.get("stick-threshold")
+                        threshold: this.get("sticky-threshold")
                     };
                     this.stickyHandler = this.auto_destroy(new StickyHandler(
                         this.activeElement().firstChild,
@@ -1347,6 +1360,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                         if (this.get('disablepause')) return;
 
+                        if (this.get("playing_ad")) this.scopes.adsplayer.execute("pause");
+
                         if (this.get("playing")) {
                             if (this.player && this.get("broadcasting")) {
                                 this._broadcasting.player.trigger("pause-google-cast");
@@ -1564,8 +1579,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 destroy: function() {
                     if (this._observer) this._observer.disconnect();
-                    this._timer.destroy();
-                    this.host.destroy();
                     this._detachVideo();
                     inherited.destroy.call(this);
                 },
@@ -1742,7 +1755,34 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 initAdSources: function() {
+                    this.set("preloadadsmanager", false);
+                    this.set("delayadsmanagerload", false);
                     this.set("adshassource", !!this.get("adtagurl") || !!this.get("inlinevastxml"));
+
+                    // The initial mute state will not be changes if outstream is not set
+                    if (this.get("outstream")) {
+                        this.set("muted", true);
+                        this.set("autoplay", true);
+                        this.set("skipinitial", false);
+                        this.set("unmuteonclick", true);
+                        this.set("outstreamoptions", Objs.tree_merge(this.get("initialoptions").outstreamoptions, this.get("outstreamoptions")));
+                        if (Types.is_defined(this.get("outstreamoptions").corner) && this.activeElement()) {
+                            var _corner = this.get("outstreamoptions").corner;
+                            if (Types.is_boolean(_corner)) {
+                                if (_corner) {
+                                    this._applyStyles(this.activeElement().firstChild, {
+                                        borderRadius: '10px'
+                                    });
+                                }
+                            } else {
+                                // it can be string ot numeric
+                                this._applyStyles(this.activeElement().firstChild, {
+                                    borderRadius: (Types.is_string(_corner) ? Number(_corner.replace(/\D/g, '')) : _corner) + 'px'
+                                });
+                            }
+                        }
+                    }
+
                     if (this.get("adshassource")) {
                         if (this.get("adsposition")) {
                             this.set("adsplaypreroll", this.get("adsposition").indexOf("pre") !== -1);
@@ -1752,6 +1792,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             // if there's no specification, play preroll or VMAP if not set adsposition at all
                             this.set("vmapads", true);
                         }
+
+                        this.set("preloadadsmanager", this.get("adsplaypreroll") || this.get("vmapads") || this.get("outstream"));
+                        var skipInitialWithoutAutoplay = this.get("skipinitial") && !this.get("autoplay");
+                        this.set("delayadsmanagerload", !this.get("preloadadsmanager") || skipInitialWithoutAutoplay);
                     }
                 },
 
@@ -1765,8 +1809,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.get("midrollads").length > 0 && this.get("duration") > 0.0 && !this._adsRollPositionsCollection
                     ) {
                         this._adsRollPositionsCollection = this.auto_destroy(new Collection()); // our adsCollections
-                        this.__adMinIntervals = this.__adMinIntervals === 0 ?
-                            this.get("minadintervals") : (this.__adMinIntervals - 1);
                         if (this.get("midrollads").length > 0) {
                             var _current = null;
                             var _nextPositionIndex = null;
@@ -1795,6 +1837,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 }
                             }, this);
                         }
+                    } else {
+                        this.__adMinIntervals = this.__adMinIntervals === 0 ?
+                            this.get("minadintervals") : (this.__adMinIntervals - 1);
+
                     }
 
                     // Set a new position when ad should run
@@ -1831,18 +1877,18 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }
 
                     if (this._nextRollPosition && this.get("adshassource") && this._nextRollPosition.position < this.get("position")) {
+                        if (this.__adMinIntervals > 0) {
+                            return;
+                        }
                         // If active ads player is existed
                         if (this.get("adsplayer_active") && this.scopes.adsplayer) {
                             this.brakeAdsManually();
                             this.trigger("playnextmidroll");
-                            this._nextRollPosition = null; // To be able to grab another next position from the Collection
                         } else {
                             // In case if preroll not exists, so ads_player is not activated
-                            this._nextRollPosition = null; // To be able to grab another next position from the Collection
-                            // activate ads_player if it's not activated yet
-                            this.set("adsplayer_active", this.get("adshassource"));
                             this.trigger("playnextmidroll");
                         }
+                        this._nextRollPosition = null; // To be able to grab another next position from the Collection
                     }
                 },
 
@@ -1905,7 +1951,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     hard = hard || false;
                     var adsPlayer = this.scopes.adsplayer;
 
-                    // Only if min suggested seconds of nonLinear ads are shown will show next ads
+                    // Only if min-suggested seconds of nonLinear ads are shown will show next ads
                     if (adsPlayer.get("non-linear-min-suggestion") >= 0 && !adsPlayer.get("linear") && !hard)
                         return;
 

@@ -160,6 +160,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "imasettings": {},
                         "adtagurl": null,
                         "adchoiceslink": null,
+                        "adtagurlfallbacks": null,
                         "inlinevastxml": null,
                         "adsposition": null,
                         "vmapads": false, // VMAP ads will set pre, mid, post positions inside XML file
@@ -379,6 +380,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "posterfitstrategy": "string",
                     "adtagurl": "string",
                     "adchoiceslink": "string",
+                    "adtagurlfallbacks": "array",
                     "inlinevastxml": "string",
                     "imasettings": "jsonarray",
                     "adsposition": "string",

@@ -252,29 +252,30 @@
   ba-ads-controlbar.skip-ad: विज्ञापन से आगे बढ़ें
   ba-videorecorder.supported-mode: मीडिया रेज़ोल्यूशन '%s' मोड में होना चाहिए
   ba-videorecorder.re-choose-action: कृपया कोई अन्य इनपुट डिवाइस चुनने के लिए क्लिक करें या पुनः प्रयास करें
-  ba-audiorecorder.uploading-src-error: 'Unable to play back audio now, uploading is still in progress'
-  ba-audiorecorder.missing-track: Required audio track is missing
-  ba-audiorecorder.device-already-in-use: At least one of your input devices are already in use
-  ba-audiorecorder.browser-permission-denied: 'Permission denied by browser, please grant access and reload page'
-  ba-local-view.local-camera-connection-error: There was an error when connecting to local camera. Click to try again.
-  ba-call-controlbar.camera-button: Show/Hide Camera
-  ba-call-controlbar.leave-button: Leave Call
-  ba-call-controlbar.mute-button: Mute/Unmute
-  ba-call-lobby.camera-button: Camera
-  ba-call-lobby.description-create: When you're ready click on the button below to create a call.
-  ba-call-lobby.description-join: When you're ready click on the button below to join the call.
-  ba-call-lobby.join-button: Join
-  ba-call-lobby.create-button: Create
-  ba-call-lobby.mute-button: Mute
-  ba-call-lobby.title-create: Create Call
-  ba-call-lobby.title-join: Join Call
-  ba-video-call.call-ended: Call ended
-  ba-video-call.connecting: Connecting...
-  ba-video-call.connection-error: 'There was an error while connecting, please click to try again.'
-  ba-ads-controlbar.play-ad: Play
-  ba-ads-controlbar.pause-video: Pause
-  ba-ads-controlbar.fullscreen-video: Enter fullscreen
-  ba-ads-controlbar.exit-fullscreen-video: Exit fullscreen
-  ba-ads-controlbar.pause-video-disabled: Pause not supported
-  ba-adsplayer.replay-ad: Replay
-  ba-adsplayer.close-ad: Close
+  ba-audiorecorder.uploading-src-error: 'अब ऑडियो चलाने में असमर्थ, अपलोडिंग अभी भी जारी है'
+  ba-audiorecorder.missing-track: आवश्यक ऑडियो या वीडियो ट्रैक गायब है
+  ba-audiorecorder.device-already-in-use: आपका कम से कम एक इनपुट डिवाइस पहले से ही उपयोग में है
+  ba-audiorecorder.browser-permission-denied: 'ब्राउज़र द्वारा अनुमति से इनकार किया गया है, कृपया पहुँच और पुनः लोड पृष्ठ
+    प्रदान करें'
+  ba-local-view.local-camera-connection-error: स्थानीय कैमरा से कनेक्ट करते समय एक त्रुटि हुई। पुनः प्रयास करने के लिए क्लिक करें।
+  ba-call-controlbar.camera-button: कैमरा दिखाएँ / छुपाएँ
+  ba-call-controlbar.leave-button: कॉल छोड़ो
+  ba-call-controlbar.mute-button: म्यूट / अनम्यूट
+  ba-call-lobby.camera-button: कैमरा
+  ba-call-lobby.description-create: जब आप तैयार हों तो कॉल करने के लिए नीचे दिए गए बटन पर क्लिक करें।
+  ba-call-lobby.description-join: जब आप तैयार हों तो कॉल में शामिल होने के लिए नीचे दिए गए बटन पर क्लिक करें।
+  ba-call-lobby.join-button: जुड़ना
+  ba-call-lobby.create-button: बनाएं
+  ba-call-lobby.mute-button: म्यूट
+  ba-call-lobby.title-create: कॉल बनाएं
+  ba-call-lobby.title-join: कॉल में शामिल हों
+  ba-video-call.call-ended: कॉल समाप्त
+  ba-video-call.connecting: कनेक्ट हो रहा है...
+  ba-video-call.connection-error: 'कनेक्ट करते समय एक त्रुटि हुई, कृपया पुनः प्रयास करने के लिए क्लिक करें।'
+  ba-ads-controlbar.play-ad: प्ले
+  ba-ads-controlbar.pause-video: ठहराव
+  ba-ads-controlbar.fullscreen-video: पूर्ण स्क्रीन दर्ज करें
+  ba-ads-controlbar.exit-fullscreen-video: पूर्ण स्क्रीन से बाहर निकलें
+  ba-ads-controlbar.pause-video-disabled: रोकना समर्थित नहीं है
+  ba-adsplayer.replay-ad: फिर से चलाना
+  ba-adsplayer.close-ad: बंद करें

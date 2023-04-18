@@ -590,7 +590,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
             this.listenOn(this.dyn.channel("ads"), "contentPauseRequested", function() {
                 this.next("PrerollAd");
             }, this);
-            this.dyn.set("hasnext", this.dyn.get("loop") || this.dyn.get("loopall") || this.dyn.get("playlist") && this.dyn.get("current_video_index_from_playlist") === (this.dyn.get("playlist").length - 1));
+            this.dyn.set("hasnext", this.dyn.get("loop") || this.dyn.get("loopall") || this.dyn.get("playlist") && this.dyn.get("current_video_index_from_playlist") !== (this.dyn.get("playlist").length - 1));
             if (!this.dyn.get("videoelement_active")) {
                 this.listenOn(this.dyn, "error:attach", function() {
                     this.next("LoadError");

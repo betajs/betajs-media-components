@@ -439,13 +439,20 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
                     if (!this.dyn.get("adsplayer_active")) this.dyn.set("adsplayer_active", true);
                     this.dyn.channel("ads").trigger("load");
                     this.listenOn(this.dyn.channel("ads"), "contentResumeRequested", function() {
+                        if (this.dyn.get("adtagurlfallbacks") && this.dyn.get("adtagurlfallbacks").length > 0) {
+                            this.dyn.set("adtagurl", this.dyn.get("adtagurlfallbacks").shift());
+                            this.dyn.scopes.adsplayer.execute("requestAds");
+                        }
                         this.next(this._nextState());
                     }, this);
                     this.listenOn(this.dyn.channel("ads"), "loaded", function() {
                         this.next(this._nextState());
                     }, this);
                     this.listenOn(this.dyn.channel("ads"), "ad-error", function() {
-                        this.next(this._nextState());
+                        if (this.dyn.get("adtagurlfallbacks") && this.dyn.get("adtagurlfallbacks").length > 0) {
+                            this.dyn.set("adtagurl", this.dyn.get("adtagurlfallbacks").shift());
+                            this.dyn.scopes.adsplayer.execute("requestAds");
+                        } else this.next(this._nextState());
                     }, this);
                 } else {
                     this.next("LoadVideo");

@@ -453,7 +453,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 remove_on_destroy: true,
 
-                create: function() {
+                create: function(repeat) {
+                    repeat = repeat || false;
+                    this.set("repeatedplayer", repeat);
                     if (typeof this.get("showsettings") !== "undefined")
                         this.set("showsettingsmenu", this.get("showsettings"));
                     this.delegateEvents(null, this.channel("ads"), "ad");
@@ -1762,11 +1764,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     // The initial mute state will not be changes if outstream is not set
                     if (this.get("outstream")) {
-                        this.set("muted", true);
+                        this.set("muted", !this.get("repeatedplayer"));
                         this.set("autoplay", true);
                         this.set("skipinitial", false);
-                        this.set("unmuteonclick", true);
+                        this.set("unmuteonclick", !this.get("repeatedplayer"));
                         this.set("outstreamoptions", Objs.tree_merge(this.get("initialoptions").outstreamoptions, this.get("outstreamoptions")));
+                        if (this.get("repeatedplayer")) {
+                            this.set("wait-user-interaction", false);
+                            this.set("autoplay-requires-muted", false);
+                        }
                         if (Types.is_defined(this.get("outstreamoptions").corner) && this.activeElement()) {
                             var _corner = this.get("outstreamoptions").corner;
                             if (Types.is_boolean(_corner)) {

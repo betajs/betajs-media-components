@@ -134,6 +134,11 @@
     content: '\e81a';
 }
 
+.#{$csscommon}-icon-cw:before {
+    @include fontello-icon;
+    content: '\e81b';
+}
+
 .#{$csscommon}-icon-twitter:before {
     @include fontello-icon;
     content: '\f099';

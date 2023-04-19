@@ -18,6 +18,14 @@
                 {{moredetailstext ? moredetailstext : string('learn-more')}}
             </a>
         </div>
+        <div ba-if="{{showrepeatbutton}}">
+            <div class="{{cssadsplayer}}-action-button" ba-click="{{replay()}}"
+                title="{{repeatbuttontext ? repeatbuttontext : string('replay-ad')}}"
+            >
+                <i class="{{csscommon}}-icon-cw"></i>
+                {{repeatbuttontext ? repeatbuttontext : string('replay-ad')}}
+            </div>
+        </div>
         <div>
             <div class="{{cssadsplayer}}-action-button {{cssadsplayer}}-reversed-color"
                  title="{{string('close-ad')}}" ba-click="{{close()}}"

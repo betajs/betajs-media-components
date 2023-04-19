@@ -40,9 +40,11 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     isoutstream: false,
                     hidecontrolbar: false,
                     showactionbuttons: false,
+                    showrepeatbutton: true,
                     adscompleted: false,
                     moredetailslink: null,
-                    moredetailstext: null
+                    moredetailstext: null,
+                    repeatbuttontext: null
                 },
 
                 _deferActivate: function() {
@@ -159,7 +161,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.adsManager.start({
                             width: this.getAdWidth(),
                             height: this.getAdHeight(),
-                            volume: this.getAdWillPlayMuted() ? 0 : this.get("volume")
+                            volume: this.get("repeatedplayer") ? 1 : (this.getAdWillPlayMuted() ? 0 : this.get("volume"))
                         });
                     },
                     reset: function() {
@@ -280,6 +282,12 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         if (dyn.get("outstreamoptions").moreText) {
                             this.set("moredetailstext", dyn.get("outstreamoptions").moreText);
                         }
+                        if (dyn.get("outstreamoptions").allowRepeat) {
+                            this.set("showrepeatbutton", !!dyn.get("outstreamoptions").allowRepeat);
+                        }
+                        if (dyn.get("outstreamoptions").repeatText) {
+                            this.set("repeatbuttontext", dyn.get("outstreamoptions").moreText);
+                        }
                     }
                     this.set("showactionbuttons", true);
                 },
@@ -293,7 +301,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     if (Types.is_undefined(dyn.activeElement))
                         throw Error("Wrong dynamics instance was provided to _reply");
                     dyn.set("adsplayer_active", false); // Be able to reattach ads_player
-                    dyn.create();
+                    this.set("repeat", true);
+                    dyn.create(true);
                 },
 
                 _hideContentPlayer: function(dyn) {
@@ -389,7 +398,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
             /*<%= template_function_cache(dirname + '/ads_player.html') %>*/
         }).attachStringTable(Assets.strings)
         .addStrings({
-            "replay-ad": "Replay",
+            "replay-ad": "Replay Video",
             "close-ad": "Close",
             "learn-more": "Learn More"
         });

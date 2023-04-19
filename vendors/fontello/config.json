@@ -269,6 +269,12 @@
       "css": "linkedin",
       "code": 62220,
       "src": "fontawesome"
+    },
+    {
+      "uid": "bb46b15cb78cc4cc05d3d715d522ac4d",
+      "css": "cw",
+      "code": 59419,
+      "src": "entypo"
     }
   ]
 }

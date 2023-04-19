@@ -72,7 +72,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         adTagUrl: this.get("adtagurl"),
                         IMASettings: this.get("imasettings"),
                         inlinevastxml: this.get("inlinevastxml"),
-                        continuousPlayback: false, // TODO
+                        continuousPlayback: true,
                         linearAdSlotWidth: this.getAdWidth(),
                         linearAdSlotHeight: this.getAdHeight(),
                         nonLinearAdSlotWidth: this.getAdWidth(),

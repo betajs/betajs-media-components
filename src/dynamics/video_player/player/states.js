@@ -827,7 +827,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
     }, {
 
         _started: function() {
-            this.dyn.set("autoplay", this.dyn.get("initialoptions").autoplay);
+            this.dyn.set("autoplay", this.dyn.get("continuousplayback"));
             if (this.dyn.get("playlist") && this.dyn.get("playlist").length > 0) {
                 this.dyn.set("passed-quarter", 0);
                 this.dyn.set("played-seconds", 0);

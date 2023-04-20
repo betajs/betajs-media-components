@@ -848,7 +848,10 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
                 this.dyn.set("source", nextVideo.source);
                 this.dyn.set("sources", nextVideo.sources);
 
-                if (this.dyn.get("lastplaylistitem")) this.dyn.trigger("last-playlist-item");
+                if (this.dyn.get("lastplaylistitem")) {
+                    if (this.dyn.get("next_video_from_playlist") === 0) this.dyn.set("autoplay", this.dyn.get("loop"));
+                    this.dyn.trigger("last-playlist-item");
+                }
                 return this._playNext(nextVideo);
             } else {
                 // If a user set loopall as true, a single video also be played

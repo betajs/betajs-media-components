@@ -286,7 +286,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             this.set("showrepeatbutton", !!dyn.get("outstreamoptions").allowRepeat);
                         }
                         if (dyn.get("outstreamoptions").repeatText) {
-                            this.set("repeatbuttontext", dyn.get("outstreamoptions").moreText);
+                            this.set("repeatbuttontext", dyn.get("outstreamoptions").repeatText);
                         }
                     }
                     this.set("showactionbuttons", true);

@@ -837,13 +837,13 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
                 var nextIndex = this.dyn.get("next_video_from_playlist");
                 if (currentIndex === nextIndex) this.dyn.set("next_video_from_playlist", ++nextIndex);
                 nextIndex = nextIndex % this.dyn.get("playlist").length;
-                this.dyn.set("current_video_from_playlist", nextIndex);
                 this.dyn.set("next_video_from_playlist", nextIndex);
 
-                this.dyn.set("lastplaylistitem", this.dyn.get("next_video_from_playlist") === (this.dyn.get("playlist").length - 1));
+                this.dyn.set("lastplaylistitem", this.dyn.get("current_video_from_playlist") === (this.dyn.get("playlist").length - 1));
                 this.dyn.set("hasnext", this.dyn.get("loop") || this.dyn.get("loopall") || !this.dyn.get("lastplaylistitem"));
 
                 var nextVideo = this.dyn.get("playlist")[nextIndex];
+                this.dyn.set("current_video_from_playlist", nextIndex);
                 this.dyn.set("poster", nextVideo.poster);
                 this.dyn.set("source", nextVideo.source);
                 this.dyn.set("sources", nextVideo.sources);

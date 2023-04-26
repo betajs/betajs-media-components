@@ -230,3 +230,17 @@
     background: #020202;
     color: #ccc;
 }
+
+.#{$cssadsplayer}-ad-choices-container > a {
+    display: inline-block;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 16px;
+    height: 16px;
+    text-indent: -9999px;
+    svg {
+        display: block;
+        filter: drop-shadow(1px 4px 3px rgba(0, 0, 0, 0.7));
+    }
+}

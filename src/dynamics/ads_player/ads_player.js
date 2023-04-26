@@ -42,7 +42,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     showactionbuttons: false,
                     adscompleted: false,
                     moredetailslink: null,
-                    moredetailstext: null
+                    moredetailstext: null,
+                    adchoiceslink: null
                 },
 
                 _deferActivate: function() {
@@ -226,7 +227,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                 _onStart: function(ev) {
                     this.set("playing", true);
-                    this.set("currentTime", 0);
+                    this.set("currenttime", 0);
                     this.set("remaining", this.get("duration"));
                     this.set("showactionbuttons", false);
                     this.set("adscompleted", false);
@@ -391,6 +392,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
         .addStrings({
             "replay-ad": "Replay",
             "close-ad": "Close",
+            "ad-choices": "Ad Choices",
             "learn-more": "Learn More"
         });
 });

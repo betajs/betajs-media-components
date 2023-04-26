@@ -76,6 +76,7 @@
             skipinitial: Number(params.si) === 1,
             autoplay: Number(params.ap) === 1,
             outstream: Number(params.os) === 1,
+            adchoiceslink: Number(params.ac) === 1 ? 'https://ziggeo.com/privacy/' : null,
         }
 
         if (params.ad) {
@@ -123,12 +124,13 @@
             // 'companionad': 'companion-fluid[fluid]',
             // adsposition: "post",
             // outstream: true,
+            adchoiceslink: 'https://ziggeo.com/privacy/',
             outstreamoptions: {
                 // moreURL: "https://ziggeo.com",
                 // moreText: "Read more about Ziggeo",
                 // hideOnCompletion: true,
                 // corner: false
-                corner: "30px"
+                // corner: "30px"
             },
             // visibilityfraction: 0.01,
             // adsposition: "pre, mid, post",

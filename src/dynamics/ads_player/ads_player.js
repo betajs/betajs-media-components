@@ -389,7 +389,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
             /*<%= template_function_cache(dirname + '/ads_player.html') %>*/
         }).attachStringTable(Assets.strings)
         .addStrings({
-            "replay-ad": "Replay",
+            "replay-ad": "Play Again",
             "close-ad": "Close",
             "learn-more": "Learn More"
         });

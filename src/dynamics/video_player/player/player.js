@@ -153,6 +153,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "outstreamoptions": {}, // can be false, string (example: '10px', '10') or numeric
                         "imasettings": {},
                         "adtagurl": null,
+                        "adchoiceslink": null,
                         "inlinevastxml": null,
                         "adsposition": null,
                         "vmapads": false, // VMAP ads will set pre, mid, post positions inside XML file
@@ -350,6 +351,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "videofitstrategy": "string",
                     "posterfitstrategy": "string",
                     "adtagurl": "string",
+                    "adchoiceslink": "string",
                     "inlinevastxml": "string",
                     "imasettings": "jsonarray",
                     "adsposition": "string",

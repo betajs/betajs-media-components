@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.368 - 2023-04-29
+betajs-media-components - v0.0.369 - 2023-04-29
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.368",
-    "datetime": 1682789278849
+    "version": "0.0.369",
+    "datetime": 1682789616408
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -3538,6 +3538,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     return {
                         /* CSS */
                         brightness: 0,
+                        current_video_from_playlist: 0,
+                        next_video_from_playlist: 0,
                         sample_brightness: false,
                         sample_brightness_rate: 10, // times per second
                         sample_brightness_sample_size: 250,
@@ -3639,6 +3641,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "submittable": false,
                         "autoplay": false,
                         "autoplaywhenvisible": false,
+                        continuousplayback: true,
                         "preload": false,
                         "loop": false,
                         "loopall": false,
@@ -3702,7 +3705,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "initialoptions": {
                             "hideoninactivity": null,
                             "volumelevel": null,
-                            "playlist": [],
                             "autoplay": null,
                             "outstreamoptions": {
                                 corner: true
@@ -3758,6 +3760,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "loopall": "boolean",
                     "autoplay": "boolean",
                     "autoplaywhenvisible": "boolean",
+                    continuousplayback: "boolean",
                     "preload": "boolean",
                     "ready": "boolean",
                     "nofullscreen": "boolean",
@@ -6122,7 +6125,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
             this.listenOn(this.dyn.channel("ads"), "contentPauseRequested", function() {
                 this.next("PrerollAd");
             }, this);
-            this.dyn.set("hasnext", this.dyn.get("loop") || this.dyn.get("loopall") || this.dyn.get("playlist") && this.dyn.get("playlist").length > 1);
+            this.dyn.set("hasnext", this.dyn.get("loop") || this.dyn.get("loopall") || this.dyn.get("playlist") && this.dyn.get("current_video_index_from_playlist") !== (this.dyn.get("playlist").length - 1));
             if (!this.dyn.get("videoelement_active")) {
                 this.listenOn(this.dyn, "error:attach", function() {
                     this.next("LoadError");
@@ -6240,6 +6243,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
                 this.dyn.reattachVideo();
                 this.next("LoadPlayer");
             }, this);
+            this.listenOn(this.dyn, "play_next", function() {
+                this.next("NextVideo");
+            }, this);
             this.listenOn(this.dyn, "ended", function() {
                 this.dyn.set("autoseek", null);
                 this.dyn.channel("ads").trigger("contentComplete");
@@ -6356,40 +6362,32 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
     }, {
 
         _started: function() {
-            this.dyn.set("autoplay", this.dyn.get("initialoptions").autoplay);
+            this.dyn.set("autoplay", this.dyn.get("continuousplayback"));
             if (this.dyn.get("playlist") && this.dyn.get("playlist").length > 0) {
-                var pl0, initialPlaylist;
-                var list = this.dyn.get("playlist");
-                var head = list.shift();
-                this.dyn.get("initialoptions").playlist.push(head);
                 this.dyn.set("passed-quarter", 0);
                 this.dyn.set("played-seconds", 0);
                 this.dyn.set("last-played-position", 0);
-                if (list.length > 0) {
-                    pl0 = list[0];
-                    this.dyn.set("poster", pl0.poster);
-                    this.dyn.set("source", pl0.source);
-                    this.dyn.set("sources", pl0.sources);
-                    this.dyn.set("hasnext", this.dyn.get("loop") || this.dyn.get("loopall") || list.length > 1);
-                    return this._playNext(pl0);
-                } else {
-                    initialPlaylist = this.dyn.get("initialoptions").playlist;
-                    this.dyn.set("lastplaylistitem", true);
-                    this.dyn.set("hasnext", this.dyn.get("loop") || this.dyn.get("loopall") || initialPlaylist.length > 1);
-                    this.dyn.trigger("last-playlist-item");
-                    this.dyn.set("playlist", initialPlaylist);
-                    this.dyn.get("initialoptions").playlist = [];
 
-                    pl0 = initialPlaylist[0];
-                    this.dyn.set("poster", pl0.poster);
-                    this.dyn.set("source", pl0.source);
-                    this.dyn.set("sources", pl0.sources);
-                    if (this.dyn.get("loopall")) {
-                        return this._playNext(pl0);
-                    } else {
-                        this.dyn.reattachVideo();
-                    }
+                var currentIndex = this.dyn.get("current_video_from_playlist");
+                var nextIndex = this.dyn.get("next_video_from_playlist");
+                if (currentIndex === nextIndex) this.dyn.set("next_video_from_playlist", ++nextIndex);
+                nextIndex = nextIndex % this.dyn.get("playlist").length;
+                this.dyn.set("next_video_from_playlist", nextIndex);
+
+                this.dyn.set("lastplaylistitem", this.dyn.get("current_video_from_playlist") === (this.dyn.get("playlist").length - 1));
+                this.dyn.set("hasnext", this.dyn.get("loop") || this.dyn.get("loopall") || !this.dyn.get("lastplaylistitem"));
+
+                var nextVideo = this.dyn.get("playlist")[nextIndex];
+                this.dyn.set("current_video_from_playlist", nextIndex);
+                this.dyn.set("poster", nextVideo.poster);
+                this.dyn.set("source", nextVideo.source);
+                this.dyn.set("sources", nextVideo.sources);
+
+                if (this.dyn.get("lastplaylistitem")) {
+                    if (this.dyn.get("next_video_from_playlist") === 0) this.dyn.set("autoplay", this.dyn.get("loop"));
+                    this.dyn.trigger("last-playlist-item");
                 }
+                return this._playNext(nextVideo);
             } else {
                 // If a user set loopall as true, a single video also be played
                 if (this.dyn.get("loopall")) {

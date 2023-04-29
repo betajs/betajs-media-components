@@ -71,6 +71,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     return {
                         /* CSS */
                         brightness: 0,
+                        current_video_from_playlist: 0,
+                        next_video_from_playlist: 0,
                         sample_brightness: false,
                         sample_brightness_rate: 10, // times per second
                         sample_brightness_sample_size: 250,
@@ -172,6 +174,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "submittable": false,
                         "autoplay": false,
                         "autoplaywhenvisible": false,
+                        continuousplayback: true,
                         "preload": false,
                         "loop": false,
                         "loopall": false,
@@ -235,7 +238,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "initialoptions": {
                             "hideoninactivity": null,
                             "volumelevel": null,
-                            "playlist": [],
                             "autoplay": null,
                             "outstreamoptions": {
                                 corner: true
@@ -291,6 +293,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "loopall": "boolean",
                     "autoplay": "boolean",
                     "autoplaywhenvisible": "boolean",
+                    continuousplayback: "boolean",
                     "preload": "boolean",
                     "ready": "boolean",
                     "nofullscreen": "boolean",

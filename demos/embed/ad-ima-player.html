@@ -41,10 +41,10 @@
         const inlineVAST = ``;
     </script>
 
-    <div style="margin-bottom: 20px; min-height: 980px">
-        Ea laborum optio aut est sunt rerum qui ab sapiente. Ducimus incidunt excepturi explicabo eos velit consequatur non voluptatem illum deleniti impedit labore ipsam. Distinctio rerum eos harum blanditiis eum in labore optio omnis animi voluptates aspernatur. Distinctio aliquam ipsa est libero eaque laboriosam et rerum eius libero porro non debitis.
-        Atque voluptatum blanditiis officia perferendis rerum similique reprehenderit saepe quibusdam. Aut quisquam incidunt quo amet aut. Excepturi consequatur ea odio qui qui veniam nemo sint rerum placeat. Harum quas perspiciatis rerum eos eos enim vel voluptatibus fugiat sit minima nihil rerum.
-    </div>
+<!--    <div style="margin-bottom: 20px; min-height: 980px">-->
+<!--        Ea laborum optio aut est sunt rerum qui ab sapiente. Ducimus incidunt excepturi explicabo eos velit consequatur non voluptatem illum deleniti impedit labore ipsam. Distinctio rerum eos harum blanditiis eum in labore optio omnis animi voluptates aspernatur. Distinctio aliquam ipsa est libero eaque laboriosam et rerum eius libero porro non debitis.-->
+<!--        Atque voluptatum blanditiis officia perferendis rerum similique reprehenderit saepe quibusdam. Aut quisquam incidunt quo amet aut. Excepturi consequatur ea odio qui qui veniam nemo sint rerum placeat. Harum quas perspiciatis rerum eos eos enim vel voluptatibus fugiat sit minima nihil rerum.-->
+<!--    </div>-->
 
     <div style="position: relative; width:80%; margin: auto">
         <div id="player"></div>
@@ -130,7 +130,9 @@
                 // moreText: "Read more about Ziggeo",
                 // hideOnCompletion: true,
                 // corner: false
-                // corner: "30px"
+                // corner: "30px",
+                // allowRepeat: false,
+                // repeatText: "repeatText"
             },
             // visibilityfraction: 0.01,
             // adsposition: "pre, mid, post",
@@ -138,7 +140,7 @@
             // minadintervals: 8,
 
             // preload: true
-        }}
+        }};
         console.log("Final attributes: ", attrs);
         var player = new BetaJS.MediaComponents.VideoPlayer.Dynamics.Player({
             element: document.getElementById('player'),

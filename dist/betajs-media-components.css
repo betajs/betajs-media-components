@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.367 - 2023-04-12
+betajs-media-components - v0.0.368 - 2023-04-29
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1620,6 +1620,20 @@ Apache-2.0 Software License.
 .ba-adsplayer-action-button.ba-adsplayer-reversed-color:hover {
   background: #020202;
   color: #ccc;
+}
+
+.ba-adsplayer-ad-choices-container > a {
+  display: inline-block;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 16px;
+  height: 16px;
+  text-indent: -9999px;
+}
+.ba-adsplayer-ad-choices-container > a svg {
+  display: block;
+  filter: drop-shadow(1px 4px 3px rgba(0, 0, 0, 0.7));
 }
 
 .ba-player-red-color .ba-player-button-inactive .ba-commoncss-icon-subtitle,

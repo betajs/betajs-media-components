@@ -268,6 +268,7 @@
   ba-ads-controlbar.fullscreen-video: Enter fullscreen
   ba-ads-controlbar.exit-fullscreen-video: Exit fullscreen
   ba-ads-controlbar.pause-video-disabled: Pause not supported
-  ba-adsplayer.replay-ad: Replay
+  ba-adsplayer.replay-ad: Play Again
   ba-adsplayer.close-ad: Close
+  ba-adsplayer.ad-choices: Ad Choices
   ba-adsplayer.learn-more: Learn More

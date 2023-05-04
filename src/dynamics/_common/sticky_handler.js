@@ -8,6 +8,9 @@ Scoped.define("module:StickyHandler", [
         scoped: scoped
     }, [EventsMixin, function(inherited) {
         return {
+
+            template: "<%= template(dirname + '/sticky.html') %>",
+
             /**
              * @param {HTMLElement} element
              * @param {HTMLElement} container

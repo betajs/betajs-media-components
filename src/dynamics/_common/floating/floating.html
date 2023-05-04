@@ -1,0 +1,27 @@
+<div class="{{cssplayer}}-floating-container">
+    <div class="{{cssplayer}}-floating-player">
+        {{element}}
+    </div>
+    <div class="{{cssplayer}}-floating-sidebar">
+        <div class="{{cssplayer}}-floating-sidebar-content">
+            <div class="{{cssplayer}}-floating-ad-choices"></div>
+            <div class="{{cssplayer}}-floating-ad-close-button">
+                <i class="{{csscommon}}-icon-cancel"></i>
+            </div>
+            <div ba-if="{{moredetailslink}}"
+                 class="{{cssplayer}}-floating-action-call-button"
+            >
+                <div ba-if="{{moredetailslink}}">
+                    <a
+                        href="{{moredetailslink}}" target="_blank"
+                        class="{{cssadsplayer}}-action-button"
+                        title="{{moredetailstext ? moredetailstext : string('learn-more')}}"
+                    >
+                        <i class="{{csscommon}}-icon-share"></i>
+                        {{moredetailstext ? moredetailstext : string('learn-more')}}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

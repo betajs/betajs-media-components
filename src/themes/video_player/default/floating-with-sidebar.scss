@@ -1,0 +1,37 @@
+.#{$cssplayer}-floating-player {
+    width: 100%;
+    top: 0;
+    max-height: 75px;
+    &.#{$cssplayer}-device-type-mobile {
+        height: 75px;
+        max-width: none;
+        .#{$csssidebar}-sidebar-container {
+            height: 75px;
+        }
+    }
+    &.#{$cssplayer}-device-type-desktop {
+        height: 300px;
+        max-width: 450px;
+        max-height: none;
+        top: auto;
+        bottom: 20px;
+        right: 0;
+        .#{$csssidebar}-sidebar-container {
+            right: 0;
+            height: 300px;
+        }
+    }
+    &.#{$css}-container {
+        position: fixed;
+    }
+    .#{$csssidebar}-sidebar-container {
+        float: right;
+        width: 50%;
+        background: #0a0a0a;
+    }
+    & > div { float: right; }
+    & > div, & .#{$cssadsplayer}-controlbar {
+        width: 50%;
+    }
+
+}

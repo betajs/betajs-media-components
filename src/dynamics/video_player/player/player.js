@@ -86,6 +86,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "csstopmessage": "",
                         "csscontrolbar": "",
                         "csstracks": "",
+                        "csssidebar": "ba-sidebar",
                         "width": "",
                         "height": "",
                         "popup-width": "",
@@ -107,6 +108,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "dyncontrolbar": "videoplayer-controlbar",
                         "dynshare": "videoplayer-share",
                         "dyntracks": "videoplayer-tracks",
+                        "dynsidebar": "videoplayer-sidebar",
                         "dynsettingsmenu": "common-settingsmenu",
                         "dyntrimmer": "videorecorder-trimmer",
 
@@ -142,6 +144,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "share_active": true,
                         "visibilityfraction": 0.8,
                         /* Configuration */
+                        "floating": false,
                         "reloadonplay": false,
                         "playonclick": true,
                         "pauseonclick": true,
@@ -173,6 +176,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "rerecordable": false,
                         "submittable": false,
                         "autoplay": false,
+                        "floatingoptions": {},
                         "autoplaywhenvisible": false,
                         continuousplayback: true,
                         "preload": false,
@@ -230,6 +234,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "slim": false,
 
                         /* States (helper variables which are controlled by application itself not set by user) */
+                        "adsplaying": false,
                         "adshassource": false,
                         "showbuiltincontroller": false,
                         "airplaybuttonvisible": false,
@@ -322,6 +327,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "manuallypaused": "boolean",
                     "disablepause": "boolean",
                     "disableseeking": "boolean",
+                    "floating": "boolean",
                     "playonclick": "boolean",
                     "pauseonclick": "boolean",
                     "airplay": "boolean",
@@ -365,7 +371,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "slim": "boolean",
                     "prominent-title": "boolean",
                     "closeable-title": "boolean",
-                    "sticky-threshold": "float"
+                    "sticky-threshold": "float",
+                    "floatingoptions": "jsonarray"
                 },
 
                 extendables: ["states"],
@@ -440,7 +447,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (floatingBottom !== undefined) styles.bottom = floatingBottom;
                             if (floatingLeft !== undefined) styles.left = floatingLeft;
                         }
-                        if (this.activeElement()) {
+                        if (this.activeElement() && !this.get("floating")) {
                             this._applyStyles(this.activeElement(), styles, this.__lastContainerSizingStyles);
                         }
                         this.__lastContainerSizingStyles = styles;
@@ -551,7 +558,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("firefox", Info.isFirefox());
                     this.set("mobileview", Info.isMobile());
                     this.set("hasnext", this.get("loop") || this.get("loopall") || this.get("playlist") && this.get("playlist").length > 1);
-                    // For Apple it's very important that their users always remain in control of the volume of the sounds their devices emit
+                    // For Apple, it's very important that their users always remain in control of the volume of the sounds their devices emit
                     this.set("hidevolumebar", (Info.isMobile() && Info.isiOS()));
                     this.set("duration", this.get("totalduration") || 0.0);
                     this.set("position", 0.0);
@@ -605,9 +612,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         start: true
                     }));
 
-                    this.activeElement().style.setProperty("display", "inline-block");
-                    this._applyStyles(this.activeElement(), this.get("containerSizingStyles"));
-
+                    if (!this.get('floating')) {
+                        this.activeElement().style.setProperty("display", "inline-block");
+                        this._applyStyles(this.activeElement(), this.get("containerSizingStyles"));
+                    }
                     var stickyOptions = {
                         paused: this.get("sticky-starts-paused"),
                         position: this.get("sticky-position"),

@@ -480,7 +480,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream", [
 
         _started: function() {
             this.dyn._outstreamCompleted = false;
-            if (this.dyn.get("sticky")) this.dyn.stickyHandler.start();
+            if (this.dyn.get("sticky") && this.dyn.stickyHandler) this.dyn.stickyHandler.start();
 
             this.dyn.channel("ads").trigger("outstreamStarted", this.dyn);
 
@@ -791,7 +791,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PrerollAd", [
     }, function(inherited) {
         return {
             _started: function() {
-                if (this.dyn.get("sticky"))
+                if (this.dyn.get("sticky") && this.dyn.stickyHandler)
                     this.dyn.stickyHandler.start();
                 inherited._started.call(this);
             }

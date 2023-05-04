@@ -2,7 +2,7 @@
     class="ba-ad-container {{linear ? (css + '-overlay') : ''}}
     {{cssadsplayer + (linear ? '-linear-ad-container' : '-non-linear-ad-container')}}
     {{hideoninactivity ? (cssplayer + '-controlbar-hidden') : ''}}"
-    style="width: 100%; height: 100%;"
+    ba-styles="{{parentcontainersizingstyles}}"
     data-video="ima-ad-container"
 >
     <div ba-if="{{adchoiceslink && currenttime > 0 && !adscompleted}}" class="{{cssadsplayer}}-ad-choices-container">

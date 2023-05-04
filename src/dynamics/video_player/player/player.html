@@ -2,7 +2,7 @@
      class="{{css}}-container {{cssplayer}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}
      {{cssplayer}}-{{fullscreened ? 'fullscreen' : 'normal'}}-view {{cssplayer}}-{{firefox ? 'firefox' : 'common'}}-browser
      {{cssplayer}}-{{themecolor}}-color {{cssplayer}}-device-type-{{mobileview ? 'mobile' : 'desktop'}}
-     {{csscommon}}-full-width
+     {{floating ? cssplayer + '-floating-player' : csscommon + '-full-width'}}
      {{cssplayer + (((activity_delta > hidebarafter) && hideoninactivity) ? '-controlbar-hidden' : '-controlbar-visible')}}"
      ba-on:mousemove="{{user_activity()}}"
      ba-on:mousedown="{{user_activity(true)}}"
@@ -46,6 +46,9 @@
         ba-companionad="{{companionad}}"
         ba-hideoninactivity="{{(activity_delta > hidebarafter) && hideoninactivity}}"
         ba-view_type="{{view_type}}"
+        ba-floating="{{floating}}"
+        ba-adsplaying="{{=adsplaying}}"
+        ba-mobileview="{{mobileview}}"
         ba-is_floating="{{is_floating}}"
     ></ba-{{dynadsplayer}}>
     <div class="{{css}}-overlay {{hasplaceholderstyle ? (css + '-overlay-with-placeholder') : ''}}"
@@ -242,4 +245,17 @@
         <meta itemprop="contentUrl" content="{{contenturl}}" />
     </div>
     <div ba-show="{{useAspectRatioFallback}}" ba-styles="{{aspectRatioFallback}}"></div>
+    <ba-{{dynsidebar}}
+        ba-if="{{floating}}"
+        ba-css="{{csssidebar || css}}"
+        ba-cssplayer="{{cssplayer}}"
+        ba-csscommon="{{csscommon}}"
+        ba-csstheme="{{csstheme || css}}"
+        ba-ad="{{ad}}"
+        ba-title="{{title}}"
+        ba-addata="{{addata}}"
+        ba-adsplaying="{{adsplaying}}"
+        ba-containerstyle="{{containerSizingStyles}}"
+        ba-mobileview="{{mobileview}}"
+    ></ba-{{dynsidebar}}>
 </div>

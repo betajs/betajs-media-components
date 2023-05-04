@@ -45,7 +45,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     moredetailslink: null,
                     moredetailstext: null,
                     adchoiceslink: null,
-                    repeatbuttontext: null
+                    repeatbuttontext: null,
+                    adsplaying: false
                 },
 
                 _deferActivate: function() {
@@ -109,6 +110,14 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     "ads:resume": function() {
                         this.set("playing", true);
+                    },
+                    "ads:contentResumeRequested": function() {
+                        console.log("Resume requested");
+                        this.set("adsplaying", true);
+                    },
+                    "ads:contentPauseRequested": function() {
+                        console.log("Pause requested");
+                        this.set("adsplaying", false);
                     }
                 },
 
@@ -201,10 +210,16 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 getAdWidth: function() {
+                    if (this.get("floating") && this.parent()) {
+                        return Dom.elementDimensions(this.parent().activeElement().firstChild).width / 2;
+                    }
                     return this.activeElement().firstChild.clientWidth;
                 },
 
                 getAdHeight: function() {
+                    if (this.get("floating") && this.parent()) {
+                        return Dom.elementDimensions(this.parent().activeElement().firstChild).height;
+                    }
                     return this.activeElement().firstChild.clientHeight;
                 },
 

@@ -44,7 +44,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     adscompleted: false,
                     moredetailslink: null,
                     moredetailstext: null,
-                    adchoiceslink: null,
                     repeatbuttontext: null,
                     adsplaying: false
                 },
@@ -112,12 +111,10 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.set("playing", true);
                     },
                     "ads:contentResumeRequested": function() {
-                        console.log("Resume requested");
-                        this.set("adsplaying", true);
+                        this.set("adsplaying", false);
                     },
                     "ads:contentPauseRequested": function() {
-                        console.log("Pause requested");
-                        this.set("adsplaying", false);
+                        this.set("adsplaying", true);
                     }
                 },
 

@@ -48,6 +48,8 @@
         ba-view_type="{{view_type}}"
         ba-floating="{{floating}}"
         ba-adsplaying="{{=adsplaying}}"
+        ba-moredetailslink="{{=moredetailslink}}"
+        ba-moredetailstext="{{=moredetailstext}}"
         ba-mobileview="{{mobileview}}"
         ba-is_floating="{{is_floating}}"
     ></ba-{{dynadsplayer}}>
@@ -245,17 +247,20 @@
         <meta itemprop="contentUrl" content="{{contenturl}}" />
     </div>
     <div ba-show="{{useAspectRatioFallback}}" ba-styles="{{aspectRatioFallback}}"></div>
-    <ba-{{dynsidebar}}
+    <ba-{{dynfloatingsidebar}}
         ba-if="{{floating}}"
-        ba-css="{{csssidebar || css}}"
+        ba-css="{{css}}"
         ba-cssplayer="{{cssplayer}}"
         ba-csscommon="{{csscommon}}"
         ba-csstheme="{{csstheme || css}}"
         ba-ad="{{ad}}"
-        ba-title="{{title}}"
+        ba-title="{{title || 'Video Player'}}"
         ba-addata="{{addata}}"
+        ba-adchoiceslink="{{adchoiceslink}}"
+        ba-moredetailslink="{{moredetailslink}}"
+        ba-moredetailstext="{{moredetailstext}}"
         ba-adsplaying="{{adsplaying}}"
         ba-containerstyle="{{containerSizingStyles}}"
         ba-mobileview="{{mobileview}}"
-    ></ba-{{dynsidebar}}>
+    ></ba-{{dynfloatingsidebar}}>
 </div>

@@ -243,4 +243,16 @@
         display: block;
         filter: drop-shadow(1px 4px 3px rgba(0, 0, 0, 0.7));
     }
+    &:link {
+        text-decoration: none;
+    }
+    &:visited {
+        text-decoration: none;
+    }
+    &:hover {
+        text-decoration: none;
+    }
+    &:active {
+        text-decoration: none;
+    }
 }

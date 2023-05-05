@@ -1,37 +1,86 @@
 .#{$cssplayer}-floating-player {
     width: 100%;
     top: 0;
-    max-height: 75px;
+    max-height: #{$floating_player_mobile_height};
+    .#{$cssfloatingsidebar}-container {
+        color: #fff;
+        text-align: center;
+        margin: 0;
+        .#{$cssfloatingsidebar}-content-container {
+            display: inline-block;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+        a.#{$cssfloatingsidebar}-action-button {
+            @include transition1(border, 500ms, ease-out);
+            color: #FFFFFF;
+            padding: 7px 18px;
+            border: 1px solid #ececec;
+            border-radius: 3px;
+            cursor: pointer;
+            &:hover {
+                border-color: #FF9933;
+            }
+            &:link {
+                text-decoration: none;
+            }
+            &:visited {
+                text-decoration: none;
+            }
+            &:hover {
+                text-decoration: none;
+            }
+            &:active {
+                text-decoration: none;
+            }
+        }
+    }
     &.#{$cssplayer}-device-type-mobile {
-        height: 75px;
+        height: #{$floating_player_mobile_height};
         max-width: none;
-        .#{$csssidebar}-sidebar-container {
-            height: 75px;
+        box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.4);
+        .#{$cssfloatingsidebar}-container {
+            height: #{$floating_player_mobile_height};
         }
     }
     &.#{$cssplayer}-device-type-desktop {
-        height: 300px;
-        max-width: 450px;
+        height: #{$floating_player_desktop_height};
+        max-width: #{$floating_player_desktop_width};
         max-height: none;
         top: auto;
         bottom: 20px;
         right: 0;
-        .#{$csssidebar}-sidebar-container {
+        .#{$cssfloatingsidebar}-container {
             right: 0;
-            height: 300px;
+            height: #{$floating_player_desktop_height};
         }
     }
     &.#{$css}-container {
         position: fixed;
     }
-    .#{$csssidebar}-sidebar-container {
+    .#{$cssfloatingsidebar}-container {
         float: right;
-        width: 50%;
+        width: #{$floating_player_sidebar_width};
         background: #0a0a0a;
     }
     & > div { float: right; }
     & > div, & .#{$cssadsplayer}-controlbar {
-        width: 50%;
+        width: #{$floating_player_player_width};
     }
 
+    .#{$cssfloatingsidebar}-close-container, .#{$cssadsplayer}-ad-choices-container {
+        position: absolute;
+        color: #fff;
+        top: 5px;
+        right: 5px;
+        height: 20px;
+        width: 20px;
+        cursor: pointer;
+    }
+
+    .#{$cssadsplayer}-ad-choices-container {
+        left: 5px;
+        position: relative;
+    }
 }

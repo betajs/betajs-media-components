@@ -2,7 +2,7 @@ $csscommon: "ba-commoncss";
 $cssrecorder: "ba-recorder";
 $cssplayer: "ba-player";
 $cssadsplayer: "ba-adsplayer";
-$csssidebar: "ba-sidebar";
+$cssfloatingsidebar: "ba-floating-sidebar";
 $cssvideoplayer: "ba-videoplayer";
 $cssvideorecorder: "ba-videorecorder";
 $cssaudioplayer: "ba-audioplayer";
@@ -87,6 +87,13 @@ $player_progressbar_height: 3px;
 $player_dashboard_transition: 0.5s;
 
 $accent_color: #8CF;
+
+// Floating Player
+$floating_player_mobile_height: 110px;
+$floating_player_desktop_width: 460px;
+$floating_player_desktop_height: 180px;
+$floating_player_player_width: 50%;
+$floating_player_sidebar_width: 100% - $floating_player_player_width;
 
 // Theme Colors
 $theme_color_blue: #2a74eb;

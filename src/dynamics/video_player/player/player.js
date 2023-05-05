@@ -86,7 +86,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "csstopmessage": "",
                         "csscontrolbar": "",
                         "csstracks": "",
-                        "csssidebar": "ba-sidebar",
                         "width": "",
                         "height": "",
                         "popup-width": "",
@@ -108,7 +107,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "dyncontrolbar": "videoplayer-controlbar",
                         "dynshare": "videoplayer-share",
                         "dyntracks": "videoplayer-tracks",
-                        "dynsidebar": "videoplayer-sidebar",
+                        "dynfloatingsidebar": "videoplayer-floating-sidebar",
                         "dynsettingsmenu": "common-settingsmenu",
                         "dyntrimmer": "videorecorder-trimmer",
 

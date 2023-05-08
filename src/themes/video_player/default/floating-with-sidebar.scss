@@ -19,6 +19,7 @@
             border: 1px solid #ececec;
             border-radius: 3px;
             cursor: pointer;
+            white-space: nowrap;
             &:hover {
                 border-color: #FF9933;
             }
@@ -36,6 +37,7 @@
             }
         }
     }
+
     &.#{$cssplayer}-device-type-mobile {
         height: #{$floating_player_mobile_height};
         max-width: none;
@@ -65,10 +67,9 @@
         background: #0a0a0a;
     }
     & > div { float: right; }
-    & > div, & .#{$cssadsplayer}-controlbar {
+    & > div, & .#{$cssadsplayer}-controlbar, .#{$cssadsplayer}-linear-ad-container {
         width: #{$floating_player_player_width};
     }
-
     .#{$cssfloatingsidebar}-close-container, .#{$cssadsplayer}-ad-choices-container {
         position: absolute;
         color: #fff;
@@ -78,9 +79,14 @@
         width: 20px;
         cursor: pointer;
     }
-
     .#{$cssadsplayer}-ad-choices-container {
         left: 5px;
         position: relative;
+    }
+
+    &.#{$cssplayer}-fullscreen-view {
+        & > div, & .#{$cssadsplayer}-controlbar, .#{$cssadsplayer}-linear-ad-container {
+            width: 100%;
+        }
     }
 }

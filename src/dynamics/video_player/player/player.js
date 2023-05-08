@@ -33,6 +33,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.Controlbar",
     "module:VideoPlayer.Dynamics.Topmessage",
     "module:VideoPlayer.Dynamics.Tracks",
+    "module:VideoPlayer.Dynamics.FloatingSidebar",
     "dynamics:Partials.EventPartial",
     "dynamics:Partials.OnPartial",
     "dynamics:Partials.TogglePartial",
@@ -436,6 +437,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         var styles = {
                             aspectRatio: aspectRatio
                         };
+                        if (this.get("floating")) return styles;
                         if (height) styles.height = typeof height === "string" && height[height.length - 1] === "%" ? height : height + "px";
                         if (width && width !== "100%") styles.width = typeof width === "string" && width[width.length - 1] === "%" ? width : width + "px";
                         if (isFloating) {

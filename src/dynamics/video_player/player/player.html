@@ -248,7 +248,7 @@
     </div>
     <div ba-show="{{useAspectRatioFallback}}" ba-styles="{{aspectRatioFallback}}"></div>
     <ba-{{dynfloatingsidebar}}
-        ba-if="{{floating}}"
+        ba-if="{{floating && !fullscreened}}"
         ba-css="{{css}}"
         ba-cssplayer="{{cssplayer}}"
         ba-csscommon="{{csscommon}}"

@@ -34,6 +34,12 @@ Scoped.define("module:VideoPlayer.Dynamics.FloatingSidebar", [
                 },
 
                 functions: {
+                    pause_ads: function() {
+                        if (this.get("adsplaying")) {
+                            this.trigger("pause_ads");
+                        }
+                    },
+
                     close: function() {
                         var parent = this.parent();
                         if (this.get("bodyelementtouched")) {

@@ -1,7 +1,9 @@
 <div class="{{cssfloatingsidebar}}-container">
     <div ba-if="{{adsplaying}}">
         <div ba-if="{{adchoiceslink}}" class="{{cssadsplayer}}-ad-choices-container">
-            <a href="{{adchoiceslink}}" title="{{string('ad-choices')}}" target="_blank">
+            <a href="{{adchoiceslink}}" title="{{string('ad-choices')}}"
+               target="_blank"
+            >
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <rect width="16" height="16" transform="matrix(1 0 0 -1 0 16)" fill="url(#ba-ad-choice-pattern-sidebar)"/>
                     <defs>
@@ -19,6 +21,8 @@
                     href="{{ moredetailslink }}" target="_blank"
                     class="{{cssfloatingsidebar}}-action-button"
                     title="{{moredetailstext ? moredetailstext : string('learn-more')}}"
+                    ba-on:mouseup="{{pause_ads()}}"
+                    ba-on:touchend="{{pause_ads()}}"
                 >
                     {{string('learn-more')}}
                 </a>

@@ -106,9 +106,15 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     "ads:pause": function() {
                         this.set("playing", false);
+                        if (this.get("adsplaying")) {
+                            this.call("pause");
+                        }
                     },
                     "ads:resume": function() {
                         this.set("playing", true);
+                        if (!this.get("adsplaying")) {
+                            this.call("resume");
+                        }
                     },
                     "ads:contentResumeRequested": function() {
                         this.set("adsplaying", false);

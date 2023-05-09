@@ -1590,6 +1590,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     toggle_tracks: function() {
                         this.toggleTrackTags(!this.get('tracktextvisible'));
+                    },
+
+                    pause_ads: function() {
+                        this.channel("ads").trigger("pause");
+                    },
+
+                    resume_ads: function() {
+                        this.channel("ads").trigger("resume");
                     }
                 },
 

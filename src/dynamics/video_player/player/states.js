@@ -844,9 +844,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
 
                 var nextVideo = this.dyn.get("playlist")[nextIndex];
                 this.dyn.set("current_video_from_playlist", nextIndex);
-                this.dyn.set("poster", nextVideo.poster);
-                this.dyn.set("source", nextVideo.source);
-                this.dyn.set("sources", nextVideo.sources);
+                this.dyn.setAll(nextVideo);
 
                 if (this.dyn.get("lastplaylistitem")) {
                     if (this.dyn.get("next_video_from_playlist") === 0) this.dyn.set("autoplay", this.dyn.get("loop"));

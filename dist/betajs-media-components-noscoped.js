@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.370 - 2023-04-29
+betajs-media-components - v0.0.371 - 2023-05-10
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.370",
-    "datetime": 1682790600187
+    "version": "0.0.371",
+    "datetime": 1683732210938
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -6394,9 +6394,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
 
                 var nextVideo = this.dyn.get("playlist")[nextIndex];
                 this.dyn.set("current_video_from_playlist", nextIndex);
-                this.dyn.set("poster", nextVideo.poster);
-                this.dyn.set("source", nextVideo.source);
-                this.dyn.set("sources", nextVideo.sources);
+                this.dyn.setAll(nextVideo);
 
                 if (this.dyn.get("lastplaylistitem")) {
                     if (this.dyn.get("next_video_from_playlist") === 0) this.dyn.set("autoplay", this.dyn.get("loop"));

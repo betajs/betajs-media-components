@@ -39,33 +39,33 @@ Scoped.define("module:Ads.IMA.AdsManager", [
 
                 // boolean: Sets whether VMAP and ad rules ad breaks are automatically played
                 if (settings.autoPlayAdBreaks) {
-                    google.ima.setAutoPlayAdBreaks(autoPlayAdBreaks);
+                    google.ima.settings.setAutoPlayAdBreaks(autoPlayAdBreaks);
                 }
 
                 // boolean
                 if (settings.cookiesEnabled) {
-                    google.ima.setCookiesEnabled(settings.cookiesEnabled);
+                    google.ima.settings.setCookiesEnabled(settings.cookiesEnabled);
                 }
 
                 // boolean: Sets whether to disable custom playback on iOS 10+ browsers. If true, ads will play inline if the content video is inline.
                 if (settings.disableCustomPlaybackForIOS10Plus) {
-                    google.ima.setDisableCustomPlaybackForIOS10Plus(settings.disableCustomPlaybackForIOS10Plus);
+                    google.ima.settings.setDisableCustomPlaybackForIOS10Plus(settings.disableCustomPlaybackForIOS10Plus);
                 }
 
                 // string: Sets the publisher provided locale. Must be called before creating AdsLoader or AdDisplayContainer.
                 if (settings.locale) {
-                    google.ima.setLocale(settings.locale);
+                    google.ima.settings.setLocale(settings.locale);
                 }
 
                 // number: Specifies the maximum number of redirects before the subsequent redirects will be denied, and the ad load aborted.
                 if (settings.numRedirects) {
-                    google.ima.setNumRedirects(settings.numRedirects);
+                    google.ima.settings.setNumRedirects(settings.numRedirects);
                 }
 
                 // Sets the companion backfill mode. See the various modes available in ImaSdkSettings.CompanionBackfillMode.
                 // The default mode is ImaSdkSettings.CompanionBackfillMode.ALWAYS.
                 if (settings.companionBackfillMode) {
-                    google.ima.setCompanionBackfill(companionBackfillMode);
+                    google.ima.settings.setCompanionBackfill(companionBackfillMode);
                 }
             },
 

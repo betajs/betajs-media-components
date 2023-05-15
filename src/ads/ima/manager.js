@@ -35,7 +35,7 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                     ].includes(settings.vpaidMode))
                     google.ima.settings.setVpaidMode(settings.vpaidMode);
                 else
-                    google.ima.settings.setVpaidMode(google.ima.ImaSdkSettings.VpaidMode.ENABLED);
+                    google.ima.settings.setVpaidMode(google.ima.ImaSdkSettings.VpaidMode.INSECURE);
 
                 // boolean: Sets whether VMAP and ad rules ad breaks are automatically played
                 if (settings.autoPlayAdBreaks) {

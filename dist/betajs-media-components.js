@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.371 - 2023-05-10
+betajs-media-components - v0.0.372 - 2023-05-17
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.371 - 2023-05-10
+betajs-media-components - v0.0.372 - 2023-05-17
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.371",
-    "datetime": 1683732210938
+    "version": "0.0.372",
+    "datetime": 1684353738829
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -1307,37 +1307,37 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                     ].includes(settings.vpaidMode))
                     google.ima.settings.setVpaidMode(settings.vpaidMode);
                 else
-                    google.ima.settings.setVpaidMode(google.ima.ImaSdkSettings.VpaidMode.ENABLED);
+                    google.ima.settings.setVpaidMode(google.ima.ImaSdkSettings.VpaidMode.INSECURE);
 
                 // boolean: Sets whether VMAP and ad rules ad breaks are automatically played
                 if (settings.autoPlayAdBreaks) {
-                    google.ima.setAutoPlayAdBreaks(autoPlayAdBreaks);
+                    google.ima.settings.setAutoPlayAdBreaks(autoPlayAdBreaks);
                 }
 
                 // boolean
                 if (settings.cookiesEnabled) {
-                    google.ima.setCookiesEnabled(settings.cookiesEnabled);
+                    google.ima.settings.setCookiesEnabled(settings.cookiesEnabled);
                 }
 
                 // boolean: Sets whether to disable custom playback on iOS 10+ browsers. If true, ads will play inline if the content video is inline.
                 if (settings.disableCustomPlaybackForIOS10Plus) {
-                    google.ima.setDisableCustomPlaybackForIOS10Plus(settings.disableCustomPlaybackForIOS10Plus);
+                    google.ima.settings.setDisableCustomPlaybackForIOS10Plus(settings.disableCustomPlaybackForIOS10Plus);
                 }
 
                 // string: Sets the publisher provided locale. Must be called before creating AdsLoader or AdDisplayContainer.
                 if (settings.locale) {
-                    google.ima.setLocale(settings.locale);
+                    google.ima.settings.setLocale(settings.locale);
                 }
 
                 // number: Specifies the maximum number of redirects before the subsequent redirects will be denied, and the ad load aborted.
                 if (settings.numRedirects) {
-                    google.ima.setNumRedirects(settings.numRedirects);
+                    google.ima.settings.setNumRedirects(settings.numRedirects);
                 }
 
                 // Sets the companion backfill mode. See the various modes available in ImaSdkSettings.CompanionBackfillMode.
                 // The default mode is ImaSdkSettings.CompanionBackfillMode.ALWAYS.
                 if (settings.companionBackfillMode) {
-                    google.ima.setCompanionBackfill(companionBackfillMode);
+                    google.ima.settings.setCompanionBackfill(companionBackfillMode);
                 }
             },
 
@@ -3416,7 +3416,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             enablePreloading: true,
                             useStyledNonLinearAds: true,
                             restoreCustomPlaybackStateOnAdBreakComplete: true
-                        }
+                        },
+                        IMASettings: this.get("imasettings")
                     };
                     if (!Info.isMobile() && this.getVideoElement()) {
                         // It's optionalParameter

@@ -121,7 +121,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             enablePreloading: true,
                             useStyledNonLinearAds: true,
                             restoreCustomPlaybackStateOnAdBreakComplete: true
-                        }
+                        },
+                        IMASettings: this.get("imasettings")
                     };
                     if (!Info.isMobile() && this.getVideoElement()) {
                         // It's optionalParameter

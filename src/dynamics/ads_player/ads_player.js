@@ -147,9 +147,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             Async.eventually(function() {
                                 // ads:volumeChange not trigger initially, only after change volume
                                 this.set("volume", volume);
-                                if (this.adsManager && typeof this.adsManager.setVolume === "function") {
-                                    this.adsManager.setVolume(volume);
-                                }
                             }, this, 300);
                         }, this);
                     }
@@ -188,7 +185,11 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         return this.adsManager.resume();
                     },
                     setVolume: function(volume) {
-                        return this.adsManager && this.adsManager.setVolume && this.adsManager.setVolume(Maths.clamp(volume, 0, 1));
+                        if (!this.adsManager || !this.adsManager.setVolume) return;
+                        if (volume > 0 && this.parent() && this.parent().get("unmuteonclick")) return setTimeout(function() {
+                            this.adsManager.setVolume(Maths.clamp(volume, 0, 1));
+                        }.bind(this));
+                        return this.adsManager.setVolume(Maths.clamp(volume, 0, 1));
                     },
                     stop: function() {
                         return this.adsManager.stop();

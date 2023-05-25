@@ -441,6 +441,11 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
                     this.listenOn(this.dyn.channel("ads"), "loaded", function() {
                         this.next(this._nextState());
                     }, this);
+                    this.listenOn(this.dyn.channel("ads"), "log", function(event) {
+                        if (!event.getAdData().adError || !this.dyn.get("adtagurlfallbacks") || this.dyn.get("adtagurlfallbacks").length === 0) return;
+                        this.dyn.set("adtagurl", this.dyn.get("adtagurlfallbacks").shift());
+                        this.dyn.scopes.adsplayer.execute("reload");
+                    }, this);
                     this.listenOn(this.dyn.channel("ads"), "ad-error", function() {
                         if (this.dyn.get("adtagurlfallbacks") && this.dyn.get("adtagurlfallbacks").length > 0) {
                             this.dyn.set("adtagurl", this.dyn.get("adtagurlfallbacks").shift());
@@ -769,6 +774,16 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayAd", [
                 this.dyn.set("showbuiltincontroller", true);
                 this.listenOn(this.dyn, "playing", function() {
                     this.dyn.player.pause();
+                }, this);
+                this.dyn.channel("ads").on("log", function(event) {
+                    if (!event.getAdData().adError || !this.dyn.get("adtagurlfallbacks") || this.dyn.get("adtagurlfallbacks").length === 0) return;
+                    this.dyn.set("adtagurl", this.dyn.get("adtagurlfallbacks").shift());
+                    this.dyn.scopes.adsplayer.execute("reload");
+                }, this);
+                this.listenOn(this.dyn.channel("ads"), "ad-error", function() {
+                    if (!this.dyn.get("adtagurlfallbacks") || this.dyn.get("adtagurlfallbacks").length === 0) return;
+                    this.dyn.set("adtagurl", this.dyn.get("adtagurlfallbacks").shift());
+                    this.dyn.scopes.adsplayer.execute("reload");
                 }, this);
                 this.listenOn(this.dyn.channel("ads"), "contentResumeRequested", function() {
                     this.dyn.set("showbuiltincontroller", this._showbuiltincontroller);

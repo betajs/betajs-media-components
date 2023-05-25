@@ -189,6 +189,11 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.adsManager.reset();
                         this.adsManager.requestAds(this._baseRequestAdsOptions());
                     },
+                    reload: function() {
+                        this.adsManager.reset();
+                        this.adsManager.contentComplete();
+                        this.call("requestAds");
+                    },
                     discardAdBreak: function() {
                         this.adsManager.discardAdBreak();
                     },

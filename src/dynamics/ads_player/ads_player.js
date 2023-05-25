@@ -269,7 +269,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 getAdWillPlayMuted: function() {
-                    return this.get("muted");
+                    return this.get("muted") || this.get("volume") === 0;
                 },
 
                 _onStart: function(ev) {

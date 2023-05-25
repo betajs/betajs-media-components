@@ -79,7 +79,10 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         nonLinearAdSlotHeight: this.getAdHeight() / 3,
                         adWillAutoplay: this.getAdWillAutoplay(),
                         adWillPlayMuted: this.getAdWillPlayMuted(),
-                        autoPlayAdBreaks: true
+                        autoPlayAdBreaks: true,
+                        width: this.getAdWidth(),
+                        height: this.getAdHeight(),
+                        volume: this.get("repeatedplayer") ? 1 : (this.getAdWillPlayMuted() ? 0 : this.get("volume"))
                     };
                 },
 

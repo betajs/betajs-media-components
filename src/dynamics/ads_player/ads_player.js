@@ -78,7 +78,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         nonLinearAdSlotWidth: this.getAdWidth(),
                         nonLinearAdSlotHeight: this.getAdHeight() / 3,
                         adWillAutoplay: this.getAdWillAutoplay(),
-                        adWillPlayMuted: this.getAdWillPlayMuted()
+                        adWillPlayMuted: this.getAdWillPlayMuted(),
+                        autoPlayAdBreaks: true
                     };
                 },
 

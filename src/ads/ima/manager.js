@@ -112,6 +112,11 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 this._adsRequest.setContinuousPlayback(options.continuousPlayback);
                 this._adsLoader.getSettings().setAutoPlayAdBreaks(options.autoPlayAdBreaks);
                 this._adsLoader.requestAds(this._adsRequest);
+                this.once("adsManagerLoaded", function() {
+                    this._adsManager.init(options.width, options.height, google.ima.ViewMode.NORMAL);
+                    this._adsManager.setVolume(options.volume);
+                    this._adsManager.start();
+                }.bind(this));
             },
 
             onAdsManagerLoaded: function(adsManagerLoadedEvent) {
@@ -174,21 +179,14 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 if (this._adsManager) this._adsManager.destroy();
             },
 
-            start: function(options) {
-                if (!this._adsManager) {
-                    return this.once("adsManagerLoaded", function() {
-                        this.start(options);
-                    }, this);
-                }
-                try {
-                    this._adDisplayContainer.initialize();
-                    this._adsManager.init(options.width, options.height, google.ima.ViewMode.NORMAL);
-                    this._adsManager.setVolume(options.volume);
-                    this._adsManager.start();
-                } catch (e) {
-                    this.onAdError(e);
-                    throw e;
-                }
+            adDisplayContainerInitialized: function() {
+                return !!this.__adDisplayContainerInitialized;
+            },
+
+            initializeAdDisplayContainer: function() {
+                if (this.__adDisplayContainerInitialized) return;
+                this._adDisplayContainer.initialize();
+                this.__adDisplayContainerInitialized = true;
             },
 
             __methods: function() {

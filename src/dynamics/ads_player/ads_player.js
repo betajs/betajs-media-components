@@ -162,7 +162,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         adManagerOptions.videoElement = this.getVideoElement();
                     }
                     this.adsManager = this.auto_destroy(new AdsManager(adManagerOptions, dynamics));
-                    this.adsManager.requestAds(this._baseRequestAdsOptions());
                     this.adsManager.on("all", function(event, data) {
                         this.channel("ads").trigger(event, data);
                     }, this);
@@ -190,11 +189,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         if (!this.adsManager) return this.once("dynamic-activated", function() {
                             this.call("load");
                         }, this);
-                        this.adsManager.start({
-                            width: this.getAdWidth(),
-                            height: this.getAdHeight(),
-                            volume: this.get("repeatedplayer") ? 1 : (this.getAdWillPlayMuted() ? 0 : this.get("volume"))
-                        });
+                        if (!this.adsManager.adDisplayContainerInitialized) this.adsManager.initializeAdDisplayContainer();
+                        this.call("requestAds");
                     },
                     reset: function() {
                         this.set("linear", true);

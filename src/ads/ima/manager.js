@@ -101,7 +101,6 @@ Scoped.define("module:Ads.IMA.AdsManager", [
 
             requestAds: function(options) {
                 this._adsRequest = new google.ima.AdsRequest();
-                this._requestOptions = options;
                 if (options.adTagUrl) this._adsRequest.adTagUrl = options.adTagUrl;
                 else if (options.inlinevastxml) this._adsRequest.adsResponse = options.inlinevastxml;
                 this._adsRequest.linearAdSlotWidth = options.linearAdSlotWidth;

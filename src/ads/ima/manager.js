@@ -159,11 +159,6 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 Objs.iter(this.__events(), function(eventType) {
                     this._adsManager.addEventListener(eventType, function(event) {
                         if (event.type === google.ima.AdErrorEvent.Type.AD_ERROR) return this.onAdError(event);
-                        if (event.type === google.ima.AdEvent.Type.LOG) {
-                            var data = event.getAdData();
-                            if (data.adError) console.warn("Non fatal ad error", data.adError.getMessage());
-                            return;
-                        }
                         return this.onAdEvent(event);
                     }, false, this);
                 }, this);

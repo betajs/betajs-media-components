@@ -88,6 +88,7 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 this._adsRequest.setAdWillAutoPlay(options.adWillAutoPlay);
                 this._adsRequest.setAdWillPlayMuted(options.adWillPlayMuted);
                 this._adsRequest.setContinuousPlayback(options.continuousPlayback);
+                this._adsLoader.getSettings().setAutoPlayAdBreaks(options.autoPlayAdBreaks);
                 this._adsLoader.requestAds(this._adsRequest);
             },
 

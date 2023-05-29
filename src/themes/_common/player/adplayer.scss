@@ -1,3 +1,9 @@
+.#{$cssplayer}-floating .#{$cssplayer}-content {
+    .#{$cssadsplayer}-linear-ad-container > div {
+        max-width: 100%;
+    }
+}
+
 .#{$cssadsplayer}-click-tracker {
     @include align-all();
 }

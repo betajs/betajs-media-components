@@ -38,10 +38,12 @@
 }
 
 div.#{$csscommon}-sticky {
-    z-index: 10000;
     position: fixed;
-    height: auto;
-    min-height: initial;
+    z-index: 10000;
+    &.#{$cssplayer}-viewport-mobile {
+        left: 0;
+        width: 100%;
+    }
 }
 
 .#{$csscommon}-sticky {

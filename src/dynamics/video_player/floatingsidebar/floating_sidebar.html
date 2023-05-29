@@ -1,7 +1,8 @@
-<div class="{{cssfloatingsidebar}}-container">
+<div class="{{cssfloatingsidebar}}-container" ba-styles="{{containerstyle}}">
     <div ba-if="{{adsplaying}}">
         <div ba-if="{{adchoiceslink}}" class="{{cssadsplayer}}-ad-choices-container">
-            <a href="{{adchoiceslink}}" title="{{string('ad-choices')}}"
+            <a href="{{ adchoiceslink }}" title="{{string('ad-choices')}}"
+               ba-on:touchend="{{redirect(adchoiceslink)}}"
                target="_blank"
             >
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -15,14 +16,17 @@
                 </svg>
             </a>
         </div>
-        <div ba-if="moredetailslink" class="{{cssfloatingsidebar}}-content-container">
+        <div ba-if="{{companionadcontent}}">
+            {{companionadcontent}}
+        </div>
+        <div ba-if="{{moredetailslink && !companionadcontent}}" class="{{cssfloatingsidebar}}-content-container">
             <div ba-if="{{moredetailslink}}">
                 <a
                     href="{{ moredetailslink }}" target="_blank"
                     class="{{cssfloatingsidebar}}-action-button"
                     title="{{moredetailstext ? moredetailstext : string('learn-more')}}"
                     ba-on:mouseup="{{pause_ads()}}"
-                    ba-on:touchend="{{pause_ads()}}"
+                    ba-on:touchend="{{pause_ads(moredetailslink)}}"
                 >
                     {{string('learn-more')}}
                 </a>
@@ -33,10 +37,5 @@
         <div class="{{cssfloatingsidebar}}-title">
             {{title}}
         </div>
-    </div>
-    <div class="{{cssfloatingsidebar}}-close-container" ba-click="close()">
-        <svg viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
-            <path d="m17.459 16.014 8.239-8.194a.992.992 0 0 0 0-1.414 1.016 1.016 0 0 0-1.428 0l-8.232 8.187L7.73 6.284a1.009 1.009 0 0 0-1.428 0 1.015 1.015 0 0 0 0 1.432l8.302 8.303-8.332 8.286a.994.994 0 0 0 0 1.414 1.016 1.016 0 0 0 1.428 0l8.325-8.279 8.275 8.276a1.009 1.009 0 0 0 1.428 0 1.015 1.015 0 0 0 0-1.432l-8.269-8.27z" fill="#ffffff" class="fill-121313"></path>
-        </svg>
     </div>
 </div>

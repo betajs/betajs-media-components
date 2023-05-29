@@ -10,7 +10,6 @@
 	display: block;
 }
 
-
 .#{$css}-container video::-webkit-media-controls-start-playback-button {
 	display: none;
 	-webkit-appearance: none;
@@ -34,4 +33,17 @@
     font-family: $rerecord_font_family;
     font-weight: $rerecord_primarybutton_font_weight;
     font-size: $rerecord_primarybutton_font_size;
+}
+
+.#{$cssplayer}-close-container {
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    height: 20px;
+    width: 20px;
+    z-index: 1000;
+    .#{$cssplayer}-close-svg-button {
+        fill: #cccccc;
+    }
 }

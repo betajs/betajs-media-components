@@ -20,32 +20,26 @@ Scoped.define("module:VideoPlayer.Dynamics.FloatingSidebar", [
                     "containerstyle": null,
                     "sidebartitle": null,
                     "bodyelementtouched": false,
-                    "bodyelementpadding": 114
-                },
-
-                events: {
-                    "change:mobileview": function(isMobile) {
-                        if (isMobile) {
-                            document.body.style.paddingTop = parseFloat(document.body.style.paddingTop) + this.get("bodyelementpadding") + 'px';
-                            this.set("bodyelementtouched", true);
-                        }
-                    }
-                    // "change:adsplaying": function(isPlaying) {}
+                    "bodyelementpadding": 114,
+                    "companionadcontent": null
                 },
 
                 functions: {
-                    pause_ads: function() {
+                    pause_ads: function(url) {
                         if (this.get("adsplaying")) {
                             this.trigger("pause_ads");
                         }
+                        if (url) this.__redirect(url);
                     },
+                    redirect: function(url) {
+                        this.__redirect(url);
+                    }
+                },
 
-                    close: function() {
-                        var parent = this.parent();
-                        if (this.get("bodyelementtouched")) {
-                            document.body.style.paddingTop = parseFloat(document.body.style.paddingTop) - this.get("bodyelementpadding") + 'px';
-                        }
-                        if (parent) parent.destroy();
+                // in mobileview click not redirect to url, so making it manually
+                __redirect: function(url) {
+                    if (url && url.length > 0 && /^(http|https):\/\//i.test(url) && window) {
+                        window.open(url, "_blank");
                     }
                 }
             };

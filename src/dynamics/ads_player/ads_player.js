@@ -25,6 +25,15 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     "change:muted": function(muted) {
                         this.call("setVolume", muted ? 0 : this.get("volume"));
+                    },
+                    "change:floating": function(isFloating) {
+                        if (this.adsManager && typeof this.adsManager.resize === "function") {
+                            this.adsManager.resize(
+                                this.getAdWidth(),
+                                this.getAdHeight(),
+                                google.ima.ViewMode.NORMAL
+                            );
+                        }
                     }
                 },
 
@@ -45,7 +54,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     moredetailslink: null,
                     moredetailstext: null,
                     repeatbuttontext: null,
-                    adsplaying: false
+                    adsplaying: false,
+                    companionadcontent: null
                 },
 
                 _deferActivate: function() {
@@ -214,17 +224,19 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 getAdWidth: function() {
+                    if (!this.activeElement()) return null;
                     if (this.get("floating") && this.parent()) {
-                        return Dom.elementDimensions(this.parent().activeElement().firstChild).width / 2;
+                        return Dom.elementDimensions(this.parent().__playerContainer).width;
                     }
-                    return this.activeElement().firstChild.clientWidth;
+                    return this.activeElement().firstChild ? this.activeElement().firstChild.clientWidth : this.activeElement().clientWidth;
                 },
 
                 getAdHeight: function() {
+                    if (!this.activeElement()) return null;
                     if (this.get("floating") && this.parent()) {
-                        return Dom.elementDimensions(this.parent().activeElement().firstChild).height;
+                        return +parseFloat(this.get("containerstyle").height).toFixed() || Dom.elementDimensions(this.parent().activeElement().firstChild).height;
                     }
-                    return this.activeElement().firstChild.clientHeight;
+                    return this.activeElement().firstChild ? this.activeElement().firstChild.clientHeight : this.activeElement().clientHeight;
                 },
 
                 getAdContainer: function() {
@@ -390,6 +402,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     // Get HTML content from the companion ad.
                     // Write the content to the companion ad slot.
                     element.innerHTML = companionAd.getContent();
+                    this.set("companionadcontent", companionAd);
                     if (position && !selector) {
                         switch (position) {
                             case 'left':

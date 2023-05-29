@@ -1,7 +1,14 @@
-.#{$cssplayer}-floating-player {
-    width: 100%;
-    top: 0;
-    max-height: #{$floating_player_mobile_height};
+.#{$cssplayer}-with-sidebar {
+    flex-wrap: nowrap;
+    flex-direction: row;
+    .#{$cssvideoplayer}-poster-container, .#{$cssvideoplayer}-poster-container img,
+    .#{$cssvideoplayer}-video-container, .#{$cssvideoplayer}-video-container video {
+        position: relative;
+    }
+    &.#{$cssplayer}-floating .#{$cssplayer}-content {
+        position: relative;
+        max-width: 50%;
+    }
     .#{$cssfloatingsidebar}-container {
         color: #fff;
         text-align: center;
@@ -37,55 +44,26 @@
             }
         }
     }
-
-    &.#{$cssplayer}-device-type-mobile {
-        height: #{$floating_player_mobile_height};
-        max-width: none;
+    &.#{$cssplayer}-viewport-mobile {
         box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.4);
-        .#{$cssfloatingsidebar}-container {
-            height: #{$floating_player_mobile_height};
-        }
-    }
-    &.#{$cssplayer}-device-type-desktop {
-        height: #{$floating_player_desktop_height};
-        max-width: #{$floating_player_desktop_width};
-        max-height: none;
-        top: auto;
-        bottom: 20px;
-        right: 0;
-        .#{$cssfloatingsidebar}-container {
-            right: 0;
-            height: #{$floating_player_desktop_height};
-        }
-    }
-    &.#{$css}-container {
-        position: fixed;
+        max-width: 100%;
     }
     .#{$cssfloatingsidebar}-container {
-        float: right;
-        width: #{$floating_player_sidebar_width};
-        background: #0a0a0a;
+        flex-grow: 1;
+        background: $sidebar_background_color;
     }
-    & > div { float: right; }
-    & > div, & .#{$cssadsplayer}-controlbar, .#{$cssadsplayer}-linear-ad-container {
-        width: #{$floating_player_player_width};
-    }
-    .#{$cssfloatingsidebar}-close-container, .#{$cssadsplayer}-ad-choices-container {
-        position: absolute;
+    .#{$cssadsplayer}-ad-choices-container {
+        position: relative;
         color: #fff;
         top: 5px;
+        left: 5px;
         right: 5px;
         height: 20px;
         width: 20px;
         cursor: pointer;
     }
-    .#{$cssadsplayer}-ad-choices-container {
-        left: 5px;
-        position: relative;
-    }
-
     &.#{$cssplayer}-fullscreen-view {
-        & > div, & .#{$cssadsplayer}-controlbar, .#{$cssadsplayer}-linear-ad-container {
+        & .#{$cssadsplayer}-controlbar, .#{$cssadsplayer}-linear-ad-container {
             width: 100%;
         }
     }

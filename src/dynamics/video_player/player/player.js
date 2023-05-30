@@ -1977,6 +1977,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }
                     aspectRatio = Number(parseFloat(aspectRatio).toFixed(2));
                     if (isMobile) {
+                        response.floating_left = 0;
                         width = '100%'; // Not set via CSS, will break the player
                         viewportOptions = this.get("floatingoptions.mobile");
                         if (viewportOptions) {

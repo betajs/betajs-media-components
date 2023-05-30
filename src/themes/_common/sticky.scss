@@ -17,24 +17,26 @@
     }
 }
 
-.#{$csscommon}-sticky-top-left {
-    top: 20px;
-    left: 20px;
-}
+.#{$csscommon}-device-type-desktop {
+    &.#{$csscommon}-sticky-top-left {
+        top: 20px;
+        left: 20px;
+    }
 
-.#{$csscommon}-sticky-top-right {
-    top: 20px;
-    right: 20px;
-}
+    &.#{$csscommon}-sticky-top-right {
+        top: 20px;
+        right: 20px;
+    }
 
-.#{$csscommon}-sticky-bottom-right {
-    bottom: 20px;
-    right: 20px;
-}
+    &.#{$csscommon}-sticky-bottom-right {
+        bottom: 20px;
+        right: 20px;
+    }
 
-.#{$csscommon}-sticky-bottom-left {
-    bottom: 20px;
-    left: 20px;
+    &.#{$csscommon}-sticky-bottom-left {
+        bottom: 20px;
+        left: 20px;
+    }
 }
 
 div.#{$csscommon}-sticky {

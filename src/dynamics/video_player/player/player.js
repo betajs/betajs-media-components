@@ -447,6 +447,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (this.get("floating_height") !== calculated.floating_height)
                                 this.set("floating_height", calculated.floating_height);
                         }
+                    },
+                    "change:fullscreened": function(isFullscreen) {
+                        if (isFullscreen && this.get("view_type") === "floating") {
+                            this.set("view_type", "default");
+                        }
                     }
                 },
 
@@ -464,7 +469,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         styles = {
                             aspectRatio: aspectRatio
                         };
-                        if (isFloating) {
+                        if (isFloating && !this.get("fullscreened")) {
                             styles.position = "fixed";
                             styles.display = this.get("with_sidebar") ? 'flex' : 'block';
 
@@ -527,7 +532,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         return this.get("playing") && this.get("buffered") < this.get("position") && this.get("last_position_change_delta") > 1000;
                     },
                     "is_floating:view_type": function(view_type) {
-                        return view_type === "float" || this.get("floatingoptions.floatingonly");
+                        return view_type === "float" || ((view_type !== undefined && !this.get("fullscreened")) && this.get("floatingoptions.floatingonly"));
                     }
                 },
 

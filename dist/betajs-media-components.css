@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.373 - 2023-05-31
+betajs-media-components - v0.0.374 - 2023-05-31
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1323,6 +1323,10 @@ Apache-2.0 Software License.
   z-index: 1001;
 }
 
+.ba-player-floating .ba-player-content .ba-adsplayer-linear-ad-container > div {
+  max-width: 100%;
+}
+
 .ba-adsplayer-click-tracker {
   left: 0;
   right: 0;
@@ -1660,6 +1664,18 @@ Apache-2.0 Software License.
 .ba-adsplayer-ad-choices-container > a svg {
   display: block;
   filter: drop-shadow(1px 4px 3px rgba(0, 0, 0, 0.7));
+}
+.ba-adsplayer-ad-choices-container > a:link {
+  text-decoration: none;
+}
+.ba-adsplayer-ad-choices-container > a:visited {
+  text-decoration: none;
+}
+.ba-adsplayer-ad-choices-container > a:hover {
+  text-decoration: none;
+}
+.ba-adsplayer-ad-choices-container > a:active {
+  text-decoration: none;
 }
 
 .ba-player-red-color .ba-player-button-inactive .ba-commoncss-icon-subtitle,
@@ -2568,31 +2584,30 @@ Apache-2.0 Software License.
     opacity: 1;
   }
 }
-.ba-commoncss-sticky-top-left {
+.ba-commoncss-device-type-desktop.ba-commoncss-sticky-top-left {
   top: 20px;
   left: 20px;
 }
-
-.ba-commoncss-sticky-top-right {
+.ba-commoncss-device-type-desktop.ba-commoncss-sticky-top-right {
   top: 20px;
   right: 20px;
 }
-
-.ba-commoncss-sticky-bottom-right {
+.ba-commoncss-device-type-desktop.ba-commoncss-sticky-bottom-right {
   bottom: 20px;
   right: 20px;
 }
-
-.ba-commoncss-sticky-bottom-left {
+.ba-commoncss-device-type-desktop.ba-commoncss-sticky-bottom-left {
   bottom: 20px;
   left: 20px;
 }
 
 div.ba-commoncss-sticky {
-  z-index: 10000;
   position: fixed;
-  height: auto;
-  min-height: initial;
+  z-index: 10000;
+}
+div.ba-commoncss-sticky.ba-player-viewport-mobile {
+  left: 0;
+  width: 100%;
 }
 
 .ba-commoncss-sticky {
@@ -3461,6 +3476,79 @@ div.ba-commoncss-sticky {
   height: 100%;
 }
 
+.ba-player-with-sidebar {
+  flex-wrap: nowrap;
+  flex-direction: row;
+}
+.ba-player-with-sidebar .ba-videoplayer-poster-container, .ba-player-with-sidebar .ba-videoplayer-poster-container img,
+.ba-player-with-sidebar .ba-videoplayer-video-container, .ba-player-with-sidebar .ba-videoplayer-video-container video {
+  position: relative;
+}
+.ba-player-with-sidebar.ba-player-floating .ba-player-content {
+  position: relative;
+  max-width: 50%;
+}
+.ba-player-with-sidebar .ba-floating-sidebar-container {
+  color: #fff;
+  text-align: center;
+  margin: 0;
+}
+.ba-player-with-sidebar .ba-floating-sidebar-container .ba-floating-sidebar-content-container {
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.ba-player-with-sidebar .ba-floating-sidebar-container a.ba-floating-sidebar-action-button {
+  transition: border 500ms ease-out;
+  -moz-transition: border 500ms ease-out;
+  -webkit-transition: border 500ms ease-out;
+  -o-transition: border 500ms ease-out;
+  -ms-transition: border 500ms ease-out;
+  color: #FFFFFF;
+  padding: 7px 18px;
+  border: 1px solid #ececec;
+  border-radius: 3px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.ba-player-with-sidebar .ba-floating-sidebar-container a.ba-floating-sidebar-action-button:hover {
+  border-color: #FF9933;
+}
+.ba-player-with-sidebar .ba-floating-sidebar-container a.ba-floating-sidebar-action-button:link {
+  text-decoration: none;
+}
+.ba-player-with-sidebar .ba-floating-sidebar-container a.ba-floating-sidebar-action-button:visited {
+  text-decoration: none;
+}
+.ba-player-with-sidebar .ba-floating-sidebar-container a.ba-floating-sidebar-action-button:hover {
+  text-decoration: none;
+}
+.ba-player-with-sidebar .ba-floating-sidebar-container a.ba-floating-sidebar-action-button:active {
+  text-decoration: none;
+}
+.ba-player-with-sidebar.ba-player-viewport-mobile {
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.4);
+  max-width: 100%;
+}
+.ba-player-with-sidebar .ba-floating-sidebar-container {
+  flex-grow: 1;
+  background: #000000;
+}
+.ba-player-with-sidebar .ba-adsplayer-ad-choices-container {
+  position: relative;
+  color: #fff;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+}
+.ba-player-with-sidebar.ba-player-fullscreen-view .ba-adsplayer-controlbar, .ba-player-with-sidebar.ba-player-fullscreen-view .ba-adsplayer-linear-ad-container {
+  width: 100%;
+}
+
 /* Full screen options */
 .ba-player-fullscreen-view video::-webkit-media-controls-overlay-enclosure {
   display: none;
@@ -3749,6 +3837,19 @@ div.ba-commoncss-sticky {
   font-family: Arial, sans-serif;
   font-weight: normal;
   font-size: 14px;
+}
+
+.ba-player-close-container {
+  cursor: pointer;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  height: 20px;
+  width: 20px;
+  z-index: 1000;
+}
+.ba-player-close-container .ba-player-close-svg-button {
+  fill: #cccccc;
 }
 
 .ba-videoplayer-topmessage-container {

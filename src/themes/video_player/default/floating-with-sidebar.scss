@@ -1,0 +1,70 @@
+.#{$cssplayer}-with-sidebar {
+    flex-wrap: nowrap;
+    flex-direction: row;
+    .#{$cssvideoplayer}-poster-container, .#{$cssvideoplayer}-poster-container img,
+    .#{$cssvideoplayer}-video-container, .#{$cssvideoplayer}-video-container video {
+        position: relative;
+    }
+    &.#{$cssplayer}-floating .#{$cssplayer}-content {
+        position: relative;
+        max-width: 50%;
+    }
+    .#{$cssfloatingsidebar}-container {
+        color: #fff;
+        text-align: center;
+        margin: 0;
+        .#{$cssfloatingsidebar}-content-container {
+            display: inline-block;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+        a.#{$cssfloatingsidebar}-action-button {
+            @include transition1(border, 500ms, ease-out);
+            color: #FFFFFF;
+            padding: 7px 18px;
+            border: 1px solid #ececec;
+            border-radius: 3px;
+            cursor: pointer;
+            white-space: nowrap;
+            &:hover {
+                border-color: #FF9933;
+            }
+            &:link {
+                text-decoration: none;
+            }
+            &:visited {
+                text-decoration: none;
+            }
+            &:hover {
+                text-decoration: none;
+            }
+            &:active {
+                text-decoration: none;
+            }
+        }
+    }
+    &.#{$cssplayer}-viewport-mobile {
+        box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.4);
+        max-width: 100%;
+    }
+    .#{$cssfloatingsidebar}-container {
+        flex-grow: 1;
+        background: $sidebar_background_color;
+    }
+    .#{$cssadsplayer}-ad-choices-container {
+        position: relative;
+        color: #fff;
+        top: 5px;
+        left: 5px;
+        right: 5px;
+        height: 20px;
+        width: 20px;
+        cursor: pointer;
+    }
+    &.#{$cssplayer}-fullscreen-view {
+        & .#{$cssadsplayer}-controlbar, .#{$cssadsplayer}-linear-ad-container {
+            width: 100%;
+        }
+    }
+}

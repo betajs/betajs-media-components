@@ -35,11 +35,13 @@
              autofocus
         >
             <div ba-if="{{!playing}}" class="{{css}}-button-inner"
+                 ba-on:touchend="{{resume()}}"
                  ba-click="{{resume()}}" title="{{string('play-ad')}}"
             >
                 <i class="{{csscommon}}-icon-play"></i>
             </div>
             <div ba-if="{{playing}}" class="{{css}}-button-inner" ba-click="{{pause()}}"
+                 ba-on:touchend="{{pause()}}"
                  title="{{disablepause ? string('pause-video-disabled') : string('pause-video')}}"
             >
                 <i class="{{csscommon}}-icon-pause"></i>
@@ -57,6 +59,7 @@
         <div tabindex="4" ba-if="{{supportsfullscreen}}"
              title="{{ fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video') }}"
              ba-hotkey:space^enter="{{toggle_fullscreen()}}" onmouseout="this.blur()"
+             ba-on:touchend="{{toggle_fullscreen()}}"
              class="{{css}}-rightbutton-container" ba-click="{{toggle_fullscreen()}}"
         >
             <div class="{{css}}-button-inner">
@@ -80,7 +83,9 @@
         </div>
 
         <div tabindex="2" class="{{cssadsplayer}}-rightbutton-container"
-             ba-click="{{toggle_volume()}}" ba-hotkey:space^enter="{{toggle_volume()}}"
+             ba-click="{{toggle_volume()}}"
+             ba-hotkey:space^enter="{{toggle_volume()}}"
+             ba-on:touchend="{{toggle_volume()}}"
              title="{{string(!muted && volume > 0 ? 'volume-mute' : 'volume-unmute')}}"
         >
             <div class="{{cssadsplayer}}-button-inner">

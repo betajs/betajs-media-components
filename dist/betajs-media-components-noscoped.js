@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.372 - 2023-05-17
+betajs-media-components - v0.0.373 - 2023-05-31
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.372",
-    "datetime": 1684353738829
+    "version": "0.0.373",
+    "datetime": 1685544879461
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -2431,9 +2431,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             Async.eventually(function() {
                                 // ads:volumeChange not trigger initially, only after change volume
                                 this.set("volume", volume);
-                                if (this.adsManager && typeof this.adsManager.setVolume === "function") {
-                                    this.adsManager.setVolume(volume);
-                                }
                             }, this, 300);
                         }, this);
                     }
@@ -2472,7 +2469,11 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         return this.adsManager.resume();
                     },
                     setVolume: function(volume) {
-                        return this.adsManager && this.adsManager.setVolume && this.adsManager.setVolume(Maths.clamp(volume, 0, 1));
+                        if (!this.adsManager || !this.adsManager.setVolume) return;
+                        if (volume > 0 && this.parent() && this.parent().get("unmuteonclick")) return setTimeout(function() {
+                            this.adsManager.setVolume(Maths.clamp(volume, 0, 1));
+                        }.bind(this));
+                        return this.adsManager.setVolume(Maths.clamp(volume, 0, 1));
                     },
                     stop: function() {
                         return this.adsManager.stop();
@@ -4775,6 +4776,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.auto_destroy(new Timers.Timer({ // This is being fired right before toggle_player
                                     delay: 500,
                                     fire: function() {
+                                        if (!this.get("muted")) this.set_volume(this.get("initialoptions").volumelevel);
                                         this.set("unmuteonclick", false);
                                     }.bind(this),
                                     once: true
@@ -4782,7 +4784,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }
                             // User interacted with player, and set player's volume level/un-mute
                             // So we will play voice as soon as player visible for user
-                            if (!this.get("muted")) this.set_volume(this.get("initialoptions").volumelevel);
+                            if (!this.get("muted") && !this.get("unmuteonclick")) this.set_volume(this.get("initialoptions").volumelevel);
                             this.set("volumeafterinteraction", true);
                             if (this.get("forciblymuted")) this.set("forciblymuted", false);
                         }

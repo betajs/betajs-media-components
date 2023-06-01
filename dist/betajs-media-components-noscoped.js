@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.374 - 2023-05-31
+betajs-media-components - v0.0.375 - 2023-06-01
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.374",
-    "datetime": 1685551166720
+    "version": "0.0.375",
+    "datetime": 1685644767802
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -3776,19 +3776,21 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         // sticky options
                         "floatingoptions": {
                             "sidebar": true, // show sidebar
-                            "fluidsidebar": true, // if false, 50% width will be applied
                             "floatingonly": false, // hide and show on video player based on view port
-                            "companion": true, // show companion if exists else sidebar default
                             "closeable": true, // show close button
                             "hideplayeronclose": true, // show close button
+                            "companion": false, // TODO: not works for now, show companion if exists else sidebar default
+                            // "fluidsidebar": true, // TODO: not works for now, if false, 50% width will be applied on sidebar
                             "desktop": {
                                 "position": "bottom-right", // position of floating video player for desktop
-                                "height": 160,
-                                "bottom": 30
+                                "height": 190,
+                                "bottom": 30,
+                                "sidebar": false
                             },
                             "mobile": {
                                 "position": "top", // positions of floating video player for mobile
-                                "height": 75
+                                "height": 75,
+                                "sidebar": true
                             }
                         },
                         "tracktags": [],
@@ -5282,8 +5284,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     close_floating: function() {
-                        if (this.get("sticky")) {
-                            if (this.get("floatingoptions.hideplayeronclose")) {
+                        this.trigger("floatingplayerclosed");
+                        if (this.get("sticky") || this.get("floatingoptions.floatingonly")) {
+                            if (this.get("floatingoptions.hideplayeronclose") || this.get("floatingoptions.floatingonly")) {
                                 // Hide container element if player will be destroyed
                                 if (this.activeElement()) {
                                     this._applyStyles(this.activeElement(), {
@@ -5292,6 +5295,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 }
                                 this.destroy();
                             } else {
+                                this.pause();
                                 this.set("sticky", false);
                                 this.set("view_type", "default");
                                 if (this.stickyHandler) this.stickyHandler.destroy();
@@ -5559,6 +5563,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.activeElement()) {
                             this.activeElement().classList.add(this.get("csscommon") + "-full-width");
                         }
+                        if (typeof this.get("floatingoptions.mobile.sidebar") !== "undefined")
+                            this.set("with_sidebar", this.get("floatingoptions.mobile.sidebar"));
                     } else {
                         viewportOptions = this.get("floatingoptions.desktop");
                         if (viewportOptions) {
@@ -5568,6 +5574,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.activeElement()) {
                             this.activeElement().classList.remove(this.get("csscommon") + "-full-width");
                         }
+                        if (typeof this.get("floatingoptions.desktop.sidebar") !== "undefined")
+                            this.set("with_sidebar", this.get("floatingoptions.desktop.sidebar"));
                     }
                     position = position || this.get("sticky-position");
                     if (position) {
@@ -5726,6 +5734,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.set("autoplay", this.get("initialoptions").autoplay);
                             // Sometimes browser detects that unmute happens before the user has interaction, and it pauses ad
                             Async.eventually(function() {
+                                if (this.destroyed()) return; // in some cases it can be destroyed before
                                 if (!this.get("muted")) this.set_volume(_initialVolume);
                                 if (!this.get("muted") && this.get("volume") > 0.00) video.muted = false;
                             }, this, 300);

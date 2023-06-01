@@ -210,19 +210,21 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         // sticky options
                         "floatingoptions": {
                             "sidebar": true, // show sidebar
-                            "fluidsidebar": true, // if false, 50% width will be applied
                             "floatingonly": false, // hide and show on video player based on view port
-                            "companion": true, // show companion if exists else sidebar default
                             "closeable": true, // show close button
-                            "hideplayeronclose": false, // hide main player on sticky, when floating player is closed
+                            "hideplayeronclose": true, // show close button
+                            "companion": false, // TODO: not works for now, show companion if exists else sidebar default
+                            // "fluidsidebar": true, // TODO: not works for now, if false, 50% width will be applied on sidebar
                             "desktop": {
                                 "position": "bottom-right", // position of floating video player for desktop
-                                "height": 160,
-                                "bottom": 30
+                                "height": 190,
+                                "bottom": 30,
+                                "sidebar": false
                             },
                             "mobile": {
                                 "position": "top", // positions of floating video player for mobile
-                                "height": 75
+                                "height": 75,
+                                "sidebar": true
                             }
                         },
                         "tracktags": [],
@@ -1995,6 +1997,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.activeElement()) {
                             this.activeElement().classList.add(this.get("csscommon") + "-full-width");
                         }
+                        if (typeof this.get("floatingoptions.mobile.sidebar") !== "undefined")
+                            this.set("with_sidebar", this.get("floatingoptions.mobile.sidebar"));
                     } else {
                         viewportOptions = this.get("floatingoptions.desktop");
                         if (viewportOptions) {
@@ -2004,6 +2008,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.activeElement()) {
                             this.activeElement().classList.remove(this.get("csscommon") + "-full-width");
                         }
+                        if (typeof this.get("floatingoptions.desktop.sidebar") !== "undefined")
+                            this.set("with_sidebar", this.get("floatingoptions.desktop.sidebar"));
                     }
                     position = position || this.get("sticky-position");
                     if (position) {

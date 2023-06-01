@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.374 - 2023-05-31
+betajs-media-components - v0.0.375 - 2023-06-01
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -3530,6 +3530,13 @@ div.ba-commoncss-sticky.ba-player-viewport-mobile {
 .ba-player-with-sidebar.ba-player-viewport-mobile {
   box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.4);
   max-width: 100%;
+}
+.ba-player-with-sidebar .ba-floating-sidebar-title {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 .ba-player-with-sidebar .ba-floating-sidebar-container {
   flex-grow: 1;

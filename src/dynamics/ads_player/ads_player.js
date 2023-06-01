@@ -170,6 +170,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         }, this);
                         dynamics.on("unmute-ads", function(volume) {
                             Async.eventually(function() {
+                                if (dynamics.destroyed()) return; // in some cases it can be destroyed before
                                 // ads:volumeChange not trigger initially, only after change volume
                                 this.set("volume", volume);
                             }, this, 300);

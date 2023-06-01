@@ -2162,6 +2162,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.set("autoplay", this.get("initialoptions").autoplay);
                             // Sometimes browser detects that unmute happens before the user has interaction, and it pauses ad
                             Async.eventually(function() {
+                                if (this.destroyed()) return; // in some cases it can be destroyed before
                                 if (!this.get("muted")) this.set_volume(_initialVolume);
                                 if (!this.get("muted") && this.get("volume") > 0.00) video.muted = false;
                             }, this, 300);

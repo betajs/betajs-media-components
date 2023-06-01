@@ -90,6 +90,8 @@
         attrs
     });
 
+    player.on("floatingplayerclosed", () => console.log("Floating Player Closed"), player);
+
     player.on("quarter-passed", (qr) => {
         // qr == this.get();
         console.log("TYPED: ", typeof this, qr);

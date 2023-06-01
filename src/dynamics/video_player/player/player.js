@@ -214,7 +214,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             "floatingonly": false, // hide and show on video player based on view port
                             "companion": true, // show companion if exists else sidebar default
                             "closeable": true, // show close button
-                            "hideplayeronclose": true, // show close button
+                            "hideplayeronclose": false, // hide main player on sticky, when floating player is closed
                             "desktop": {
                                 "position": "bottom-right", // position of floating video player for desktop
                                 "height": 160,
@@ -1716,8 +1716,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     close_floating: function() {
-                        if (this.get("sticky")) {
-                            if (this.get("floatingoptions.hideplayeronclose")) {
+                        this.trigger("floatingplayerclosed");
+                        if (this.get("sticky") || this.get("floatingoptions.floatingonly")) {
+                            if (this.get("floatingoptions.hideplayeronclose") || this.get("floatingoptions.floatingonly")) {
                                 // Hide container element if player will be destroyed
                                 if (this.activeElement()) {
                                     this._applyStyles(this.activeElement(), {
@@ -1726,6 +1727,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 }
                                 this.destroy();
                             } else {
+                                this.pause();
                                 this.set("sticky", false);
                                 this.set("view_type", "default");
                                 if (this.stickyHandler) this.stickyHandler.destroy();

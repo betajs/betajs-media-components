@@ -48,6 +48,13 @@
         box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.4);
         max-width: 100%;
     }
+    .#{$cssfloatingsidebar}-title {
+        display: -webkit-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+    }
     .#{$cssfloatingsidebar}-container {
         flex-grow: 1;
         background: $sidebar_background_color;

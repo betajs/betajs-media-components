@@ -252,6 +252,7 @@
         <div ba-show="{{useAspectRatioFallback}}" ba-styles="{{aspectRatioFallback}}"></div>
     </div>
     <div
+        ba-if="{{with_sidebar && !fullscreened}}"
         class="{{cssplayer}}-sidebar"
         ba-styles={{{flexGrow:1}}}
     >

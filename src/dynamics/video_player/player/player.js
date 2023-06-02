@@ -347,7 +347,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "manuallypaused": "boolean",
                     "disablepause": "boolean",
                     "disableseeking": "boolean",
-                    "floating": "boolean",
                     "playonclick": "boolean",
                     "pauseonclick": "boolean",
                     "airplay": "boolean",
@@ -1997,7 +1996,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.activeElement()) {
                             this.activeElement().classList.add(this.get("csscommon") + "-full-width");
                         }
-                        if (typeof this.get("floatingoptions.mobile.sidebar") !== "undefined")
+                        if (typeof this.get("floatingoptions.mobile.sidebar") !== "undefined" && this.get("floatingoptions.sidebar"))
                             this.set("with_sidebar", this.get("floatingoptions.mobile.sidebar"));
                     } else {
                         viewportOptions = this.get("floatingoptions.desktop");
@@ -2008,7 +2007,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.activeElement()) {
                             this.activeElement().classList.remove(this.get("csscommon") + "-full-width");
                         }
-                        if (typeof this.get("floatingoptions.desktop.sidebar") !== "undefined")
+                        if (typeof this.get("floatingoptions.desktop.sidebar") !== "undefined" && this.get("floatingoptions.sidebar"))
                             this.set("with_sidebar", this.get("floatingoptions.desktop.sidebar"));
                     }
                     position = position || this.get("sticky-position");

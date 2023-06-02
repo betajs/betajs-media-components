@@ -68,7 +68,8 @@
         <div tabindex="{{skipinitial ? 0 : 2}}" data-selector="button-icon-play"
              ba-hotkey:space^enter="{{toggle_player()}}" onmouseout="this.blur()"
              class="{{css}}-leftbutton-container {{controlbar_hide_class}}" title="{{string('play-video')}}"
-             onkeydown="{{tab_index_move(domEvent, null, 'button-icon-pause')}}" ba-if="{{!playing}}" ba-click="{{play()}}"
+             onkeydown="{{tab_index_move(domEvent, null, 'button-icon-pause')}}" ba-if="{{!playing}}"
+             ba-click="{{play()}}" ba-on:touchend="{{play()}}"
         >
             <div class="{{css}}-button-inner">
                 <i class="{{csscommon}}-icon-play"></i>
@@ -78,7 +79,8 @@
         <div tabindex="{{skipinitial ? 0 : 2}}" data-selector="button-icon-pause"
              ba-hotkey:space^enter="{{toggle_player()}}" onmouseout="this.blur()"
              class="{{css}}-leftbutton-container {{disablepause ? cssplayer + '-disabled' : ''}} {{controlbar_hide_class}}"
-             onkeydown="{{tab_index_move(domEvent, null, 'button-icon-play')}}" ba-if="{{playing}}" ba-click="{{pause()}}"
+             onkeydown="{{tab_index_move(domEvent, null, 'button-icon-play')}}" ba-if="{{playing}}"
+             ba-click="{{pause()}}" ba-on:touchend="{{pause()}}"
              title="{{disablepause ? string('pause-video-disabled') : string('pause-video')}}"
         >
             <div class="{{css}}-button-inner">
@@ -125,6 +127,7 @@
              ba-hotkey:space^enter="{{toggle_settings_menu()}}" onmouseout="this.blur()"
              class="{{css}}-rightbutton-container {{cssplayer}}-button-{{settingsmenuactive ? 'active' : 'inactive'}} {{controlbar_hide_class}}"
              onkeydown="{{tab_index_move(domEvent)}}"
+             ba-on:touchend="{{toggle_settings_menu()}}"
              ba-if="{{settingsmenubutton}}" ba-click="{{toggle_settings_menu()}}"
              title="{{string('settings')}}"
         >
@@ -147,10 +150,12 @@
             </div>
         </div>
 
-        <div tabindex=9 data-selector="button-icon-resize-full"
+        <div tabindex=9 data-selector="button-icon-resize-full" ba-if="{{fullscreen}}"
              ba-hotkey:space^enter="{{toggle_fullscreen()}}" onmouseout="this.blur()"
              class="{{css}}-rightbutton-container {{controlbar_hide_class}}"
-             onkeydown="{{tab_index_move(domEvent)}}" ba-if="{{fullscreen}}" ba-click="{{toggle_fullscreen()}}" title="{{ fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video') }}">
+             onkeydown="{{tab_index_move(domEvent)}}"
+             ba-click="{{toggle_fullscreen()}}" ba-on:touchend="{{toggle_fullscreen()}}"
+             title="{{ fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video') }}">
             <div class="{{css}}-button-inner">
                 <i class="{{csscommon}}-icon-resize-{{fullscreened ? 'small' : 'full'}}"></i>
             </div>
@@ -206,6 +211,7 @@
         <div tabindex="4" data-selector="button-icon-volume"
              ba-hotkey:space^enter="{{toggle_volume()}}" onmouseout="this.blur()"
              class="{{css}}-rightbutton-container {{controlbar_hide_class}}"
+             ba-on:touchend="{{toggle_volume()}}"
              ba-click="{{toggle_volume()}}" title="{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}"
         >
             <div class="{{css}}-button-inner">

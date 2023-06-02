@@ -505,7 +505,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.activeElement()) {
                             // if element is sticky no need, to apply styles which are position with fixed
                             if (this.get("sticky")) {
-                                containerStyles.display = this.get("with_sidebar") ? 'flex' : 'block';
+                                containerStyles.display = (this.get("with_sidebar") && isFloating) ? 'flex' : 'block';
                                 delete containerStyles.position;
                             }
                             if (!isFloating) {
@@ -701,7 +701,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.__playerContainer = this.activeElement().querySelector("[data-selector='ba-player-container']");
 
                     // Floating and Sticky
-                    this.set("with_sidebar", this.get("floatingoptions.sidebar"));
                     this.set("floating_height", this.get("mobileview") ? this.get("floatingoptions.mobile.height") : this.get("floatingoptions.desktop.height"));
 
                     if (!this.get("sticky") && this.get("floatingoptions.floatingonly")) {

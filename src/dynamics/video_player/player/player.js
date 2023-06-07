@@ -714,6 +714,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             threshold: this.get("sticky-threshold"),
                             paused: this.get("sticky-starts-paused"),
                             sidebar: this.get("floatingoptions.sidebar"),
+                            "static": this.get("floatingoptions.static"),
                             mobile: this.get("floatingoptions.mobile"),
                             desktop: this.get("floatingoptions.desktop"),
                             // left here temporarily for backwards compatibility, in the future we should remove "sticky-position"

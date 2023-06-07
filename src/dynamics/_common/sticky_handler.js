@@ -21,7 +21,7 @@ Scoped.define("module:StickyHandler", [
                 this.paused = options.paused || false;
                 this.position = options.position || "bottom-right";
                 this.threshold = options.threshold;
-                this.events = this.auto_destroy(new DomEvents());
+                if (!options["static"]) this.events = this.auto_destroy(new DomEvents());
                 this.floating = false;
             },
 
@@ -57,7 +57,7 @@ Scoped.define("module:StickyHandler", [
                 this.floating = true;
                 this.trigger("transitionToFloat");
                 this.addStickyStyles();
-                this._initEventListeners();
+                if (this.events) this._initEventListeners();
             },
 
             elementWasDragged: function() {
@@ -113,7 +113,7 @@ Scoped.define("module:StickyHandler", [
                         this.floating = false;
                         this.trigger("transitionToView");
                         this.removeStickyStyles();
-                        this.events.off(this.element, "mousedown touchstart");
+                        if (this.events) this.events.off(this.element, "mousedown touchstart");
                         this.dragging = false;
                     }.bind(this));
                 }

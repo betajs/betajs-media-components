@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.376 - 2023-06-02
+betajs-media-components - v0.0.377 - 2023-06-07
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.376",
-    "datetime": 1685739915677
+    "version": "0.0.377",
+    "datetime": 1686149533262
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -1231,7 +1231,7 @@ Scoped.define("module:StickyHandler", [
                 this.paused = options.paused || false;
                 this.position = options.position || "bottom-right";
                 this.threshold = options.threshold;
-                this.events = this.auto_destroy(new DomEvents());
+                if (!options["static"]) this.events = this.auto_destroy(new DomEvents());
                 this.floating = false;
             },
 
@@ -1267,7 +1267,7 @@ Scoped.define("module:StickyHandler", [
                 this.floating = true;
                 this.trigger("transitionToFloat");
                 this.addStickyStyles();
-                this._initEventListeners();
+                if (this.events) this._initEventListeners();
             },
 
             elementWasDragged: function() {
@@ -1323,7 +1323,7 @@ Scoped.define("module:StickyHandler", [
                         this.floating = false;
                         this.trigger("transitionToView");
                         this.removeStickyStyles();
-                        this.events.off(this.element, "mousedown touchstart");
+                        if (this.events) this.events.off(this.element, "mousedown touchstart");
                         this.dragging = false;
                     }.bind(this));
                 }
@@ -4280,6 +4280,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             threshold: this.get("sticky-threshold"),
                             paused: this.get("sticky-starts-paused"),
                             sidebar: this.get("floatingoptions.sidebar"),
+                            "static": this.get("floatingoptions.static"),
                             mobile: this.get("floatingoptions.mobile"),
                             desktop: this.get("floatingoptions.desktop"),
                             // left here temporarily for backwards compatibility, in the future we should remove "sticky-position"

@@ -1758,7 +1758,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (new_position !== this.get("position") || this.get("last_position_change"))
                                 this.set("last_position_change", _now);
                             // Run each second not to fast
-                            // Math.abs((this.__previousPostion || 0.00) - Math.round(this.get("position"))) > 1
                             if (this.get("position") > 0.0 && this.__previousPostion !== Math.round(this.get("position"))) {
                                 this.__previousPostion = Math.round(this.get("position"));
                                 if (this.__previousPostion > 0) this.trigger("playing_progress", this.__previousPostion);

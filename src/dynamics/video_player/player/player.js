@@ -1758,7 +1758,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             var new_position = this.player.position();
                             if (new_position !== this.get("position") || this.get("last_position_change"))
                                 this.set("last_position_change", _now);
-
+                            // Run each second not to fast
+                            if (this.get("position") > 0.0 && this.__previousPostion !== Math.round(this.get("position"))) {
+                                this.__previousPostion = Math.round(this.get("position"));
+                                if (this.__previousPostion > 0) this.trigger("playing_progress", this.__previousPostion);
+                            }
                             // var midPreAdRolls = (this._adsRoll || this._prerollAd);
                             // // Check in the last 3 seconds if nonLinear is showing and disable it
                             // if ((this.get("duration") > 0 && new_position > 10) && (this.get("duration") - new_position) > 3) {

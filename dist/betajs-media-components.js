@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.377 - 2023-06-07
+betajs-media-components - v0.0.378 - 2023-06-12
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.377 - 2023-06-07
+betajs-media-components - v0.0.378 - 2023-06-12
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.377",
-    "datetime": 1686149533262
+    "version": "0.0.378",
+    "datetime": 1686589016596
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -6335,7 +6335,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             var new_position = this.player.position();
                             if (new_position !== this.get("position") || this.get("last_position_change"))
                                 this.set("last_position_change", _now);
-
+                            // Run each second not to fast
+                            if (this.get("position") > 0.0 && this.__previousPostion !== Math.round(this.get("position"))) {
+                                this.__previousPostion = Math.round(this.get("position"));
+                                if (this.__previousPostion > 0) this.trigger("playing_progress", this.__previousPostion);
+                            }
                             // var midPreAdRolls = (this._adsRoll || this._prerollAd);
                             // // Check in the last 3 seconds if nonLinear is showing and disable it
                             // if ((this.get("duration") > 0 && new_position > 10) && (this.get("duration") - new_position) > 3) {

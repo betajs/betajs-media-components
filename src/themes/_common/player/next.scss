@@ -1,0 +1,34 @@
+.#{$cssplayer}-next-action-container {
+  position: relative;
+  top: $next_container_top;
+  width: $next_container_width;
+  .#{$cssplayer}-button-inner {
+    @include transform-translate-y(0);
+    top: 0;
+  }
+}
+
+.#{$cssplayer}-toggle-next-container {
+  @include background-rgba(0, 0, 0, .3, #979797);
+  border-bottom-left-radius: $open_next_button_border_radius;
+  border-top-left-radius: $open_next_button_border_radius;
+  color: white;
+  font-size: $open_next_button_font_size;
+  line-height: $open_next_button_box_size;
+  text-align: center;
+  width: $next_container_width / 2;
+  position: relative;
+  z-index: 6;
+  float: right;
+}
+
+.#{$cssplayer}-chooser-button-0, .#{$cssplayer}-chooser-button-1, .#{$cssplayer}-chooser-button-2, .#{$cssplayer}-chooser-button-3 {
+  line-height: 1;
+  min-width: 100;
+  margin: 2px 0;
+  padding: 0;
+}
+
+
+
+

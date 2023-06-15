@@ -30,6 +30,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.Message",
     "module:VideoPlayer.Dynamics.Loader",
     "module:VideoPlayer.Dynamics.Share",
+    "module:VideoPlayer.Dynamics.Next",
     "module:VideoPlayer.Dynamics.Controlbar",
     "module:VideoPlayer.Dynamics.Topmessage",
     "module:VideoPlayer.Dynamics.Tracks",
@@ -109,6 +110,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "dyntracks": "videoplayer-tracks",
                         "dynsettingsmenu": "common-settingsmenu",
                         "dyntrimmer": "videorecorder-trimmer",
+                        "dynnext": "videoplayer-next",
 
                         /* Templates */
                         "tmpladcontrolbar": "",
@@ -147,6 +149,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "pauseonclick": true,
                         "unmuteonclick": false,
                         "muted": false,
+                        "shownext": 3,
+                        "noengagenext": 5,
+                        "next_active": false,
+                        "noengagenext_active": false,
+                        "playlistempty": true,
 
                         /* Ads */
                         "adprovider": null,
@@ -287,6 +294,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "hasnext": "boolean",
                     "hidecontrolbar": "boolean",
                     "muted": "boolean",
+                    "shownext": "float",
+                    "noengagenext": "float",
+                    "next_active": "boolean",
+                    "noengagenext_active": "boolean",
+                    "playlistempty": "boolean",
                     "unmuteonclick": "boolean",
                     "rerecordable": "boolean",
                     "loop": "boolean",
@@ -370,7 +382,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 extendables: ["states"],
 
-                registerchannels: ["ads"],
+                registerchannels: ["ads", "next"],
 
                 scopes: {
                     adsplayer: ">[tagname='ba-adsplayer']",
@@ -414,6 +426,31 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
                     "change:placeholderstyle": function(value) {
                         this.set("hasplaceholderstyle", value.length > 10);
+                    },
+                    "change:position": function(position) {
+                        if (!this.get("playlistempty")) {
+                            if (position > this.get("shownext") && this.get("shownext") > 0 && !this.get("next_active")) {
+                                this.set("next_active", true);
+                                this.channel("next").trigger("showNextWidget");
+                            }
+                            if (position > this.get("shownext") + this.get("noengagenext") && this.get("shownext") + this.get("noengagenext") > 0 && !this.get("noengagenext_active")) {
+                                this.set("noengagenext_active", true);
+                                this.channel("next").trigger("noEngageNextWidget");
+                            }
+                        }
+                    },
+                    "change:playlist": function(playlist) {
+                        if (playlist.length > 0) {
+                            this.set("playlistempty", false);
+                        }
+                    }
+                },
+                channels: {
+                    "next:setUnmute": function() {
+                        this.player.setMuted(false);
+                    },
+                    "next:playNext": function() {
+                        this.trigger("play_next");
                     }
                 },
 

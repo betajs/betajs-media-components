@@ -48,6 +48,13 @@
         ba-view_type="{{view_type}}"
         ba-is_floating="{{is_floating}}"
     ></ba-{{dynadsplayer}}>
+
+    <ba-{{dynnext}}
+        ba-staytext="Stay"
+        ba-nexttext="Next"
+        ba-currenttime="{{currenttime}}"
+    ></ba-{{dynnext}}>
+
     <div class="{{css}}-overlay {{hasplaceholderstyle ? (css + '-overlay-with-placeholder') : ''}}"
          ba-show="{{!showbuiltincontroller && !outstream}}" style="{{placeholderstyle}}"
     >

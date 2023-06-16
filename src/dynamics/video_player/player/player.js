@@ -451,6 +451,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
                     "next:playNext": function() {
                         this.trigger("play_next");
+                        this.set("next_active", false);
+                        this.set("noengagenext_active", false);
                     }
                 },
 

@@ -141,6 +141,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         adContainer: adContainer,
                         adsRenderingSettings: {
                             enablePreloading: true,
+                            uiElements: [],
                             useStyledNonLinearAds: true,
                             restoreCustomPlaybackStateOnAdBreakComplete: true
                         },

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!--    <script type="text/javascript" src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>-->
+    <!--    <script type="text/javascript" src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>-->
 
     <script src="../../vendors/jquery.min.js"></script>
     <script src="../../node_modules/betajs-shims/dist/betajs-shims.js"></script>
@@ -16,97 +16,97 @@
     <link  href="../../dist/themes/modern/style.css" rel="stylesheet" />
 </head>
 <body style="background: #EEE">
-    <script>
+<script>
 
-        var gnrok; // = 'https://613d-213-172-83-96.in.ngrok.io/';
-        var errroAd = '//localhost:5050/static/demos/vast-samples/---error-url---';
-        var v3_clickThroughtLocalAd = '//localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml';
-        var v3_skipable = '//localhost:5050/static/demos/vast-samples/ads-linear-skipable.xml';
-        var v3_doubleclick = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/single_preroll_skippable&sz=640x480&ciu_szs=300x250%2C728x90&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=';
-        // var v3_doubleclickVMAP = 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=&ad_rule=1';
-        // var v3_doubleclickbased = '//localhost:5050/static/demos/vast-samples/based-doubleclick.xml';
-        var v4_2_wrapper = '//localhost:5050/static/demos/vast-samples/VAST_4_2/Wrapper_Tag-test.xml';
-        // var v4_2_non_linear = '//localhost:5050/static/demos/vast-samples/VAST_4_2/Inline_Non-Linear_Tag-test.xml';
-        var v3_non_linear = '//localhost:5050/static/demos/vast-samples/VAST_3_0/Inline_Non-Linear_Tag-test.xml';
-        // var v4_2_skipable = (gnrok || '//localhost:5050/') + 'static/demos/vast-samples/VAST_4_2/Inline_Skipable.xml';
-        var v4_2_non_skipable = '//localhost:5050/static/demos/vast-samples/VAST_4_2/Inline_NON_Skipable.xml';
+    var gnrok; // = 'https://613d-213-172-83-96.in.ngrok.io/';
+    var errroAd = '//localhost:5050/static/demos/vast-samples/---error-url---';
+    var v3_clickThroughtLocalAd = '//localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml';
+    var v3_skipable = '//localhost:5050/static/demos/vast-samples/ads-linear-skipable.xml';
+    var v3_doubleclick = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/single_preroll_skippable&sz=640x480&ciu_szs=300x250%2C728x90&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=';
+    // var v3_doubleclickVMAP = 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=&ad_rule=1';
+    // var v3_doubleclickbased = '//localhost:5050/static/demos/vast-samples/based-doubleclick.xml';
+    var v4_2_wrapper = '//localhost:5050/static/demos/vast-samples/VAST_4_2/Wrapper_Tag-test.xml';
+    // var v4_2_non_linear = '//localhost:5050/static/demos/vast-samples/VAST_4_2/Inline_Non-Linear_Tag-test.xml';
+    var v3_non_linear = '//localhost:5050/static/demos/vast-samples/VAST_3_0/Inline_Non-Linear_Tag-test.xml';
+    // var v4_2_skipable = (gnrok || '//localhost:5050/') + 'static/demos/vast-samples/VAST_4_2/Inline_Skipable.xml';
+    var v4_2_non_skipable = '//localhost:5050/static/demos/vast-samples/VAST_4_2/Inline_NON_Skipable.xml';
 
-        // VMAP - Pre-roll Single Ad, Mid-roll Optimized Pod with 3 Ads, Post-roll Single Ad
-        // var vmap = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/vmap_ad_samples&sz=640x480&cust_params=sample_ar%3Dpremidpostoptimizedpod&ciu_szs=300x250&gdfp_req=1&ad_rule=1&output=vmap&unviewed_position_start=1&env=vp&impl=s&cmsid=496&vid=short_onecue&correlator='
-        var vmap = '//localhost:5050/static/demos/vast-samples/VMAP/dc_vmap_pre_1_mid_3_post_1.xml'
-        var v4_2_companion = (gnrok || '//localhost:5050/') + 'static/demos/vast-samples/VAST_4_2/Inline_Companion_Tag-test.xml';
+    // VMAP - Pre-roll Single Ad, Mid-roll Optimized Pod with 3 Ads, Post-roll Single Ad
+    // var vmap = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/vmap_ad_samples&sz=640x480&cust_params=sample_ar%3Dpremidpostoptimizedpod&ciu_szs=300x250&gdfp_req=1&ad_rule=1&output=vmap&unviewed_position_start=1&env=vp&impl=s&cmsid=496&vid=short_onecue&correlator='
+    var vmap = '//localhost:5050/static/demos/vast-samples/VMAP/dc_vmap_pre_1_mid_3_post_1.xml'
+    var v4_2_companion = (gnrok || '//localhost:5050/') + 'static/demos/vast-samples/VAST_4_2/Inline_Companion_Tag-test.xml';
 
-        // var nonLinear = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/nonlinear_ad_samples&sz=480x70&cust_params=sample_ct%3Dnonlinear&ciu_szs=300x250%2C728x90&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=';
-        var nonLinear = '//localhost:5050/static/demos/vast-samples/dc-single_non-linear.xml';
-        const inlineVAST = ``;
-    </script>
+    // var nonLinear = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/nonlinear_ad_samples&sz=480x70&cust_params=sample_ct%3Dnonlinear&ciu_szs=300x250%2C728x90&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=';
+    var nonLinear = '//localhost:5050/static/demos/vast-samples/dc-single_non-linear.xml';
+    const inlineVAST = ``;
+</script>
 
 <!--    <div style="margin-bottom: 20px; min-height: 980px">-->
 <!--        Ea laborum optio aut est sunt rerum qui ab sapiente. Ducimus incidunt excepturi explicabo eos velit consequatur non voluptatem illum deleniti impedit labore ipsam. Distinctio rerum eos harum blanditiis eum in labore optio omnis animi voluptates aspernatur. Distinctio aliquam ipsa est libero eaque laboriosam et rerum eius libero porro non debitis.-->
 <!--        Atque voluptatum blanditiis officia perferendis rerum similique reprehenderit saepe quibusdam. Aut quisquam incidunt quo amet aut. Excepturi consequatur ea odio qui qui veniam nemo sint rerum placeat. Harum quas perspiciatis rerum eos eos enim vel voluptatibus fugiat sit minima nihil rerum.-->
 <!--    </div>-->
 
-    <div style="position: relative; width:80%; margin: auto">
-        <div id="player"></div>
-    </div>
+<div style="position: relative; width:80%; margin: auto">
+    <div id="player"></div>
+</div>
 
-    <div style="margin-top: 30px; min-height: 900px">
-        Doloribus consequatur in a quaerat tempora. Quae asperiores illum odit impedit inventore atque laborum suscipit et voluptas. Ipsam quasi rerum consequatur alias molestias accusamus natus corporis illo non molestias qui dolorem non. Consequatur qui officiis natus necessitatibus consequatur tempore vel aperiam reiciendis quos ipsam ut natus. Ipsam molestiae iusto ipsa sapiente nesciunt accusantium laudantium accusamus quam hic adipisci est inventore. Id ducimus dolorem perspiciatis asperiores aut sequi ut impedit omnis et laboriosam non.
-        Id odio ipsam molestias est adipisci repellendus. Omnis consequuntur enim eum id itaque eligendi minima natus expedita consequatur et ipsam quia. Est nulla cupiditate ad harum dolores ab soluta reprehenderit rerum maiores nulla facilis libero facilis sit. Est repellendus et distinctio ipsam nulla beatae modi autem expedita ut nisi.
-        Ea deleniti earum voluptas ratione nobis a aspernatur deserunt. Aut rerum officia et voluptatem corporis et nihil aut natus expedita nisi impedit voluptatem. Ab libero atque dignissimos laboriosam sed qui vero sed. Ab aut qui iusto est dignissimos consectetur. Ad sed est quis commodi ea animi et quis itaque odit omnis nulla. Et eos mollitia dolor inventore vel laudantium consequatur mollitia libero sunt ipsum eum explicabo vero minus.
-        Fugit omnis voluptas voluptate velit ab nobis. Reiciendis dolorem perspiciatis fuga dolorem excepturi natus eaque aut. Vel non alias voluptate laboriosam vero officia voluptate aliquam perspiciatis nemo quia quia itaque quidem. Nulla a et quas corrupti et ea eaque officiis amet a nihil officiis quibusdam sit et.
-        Eos aut voluptates et sit quos et earum. Totam unde sunt sint et ad cumque at esse explicabo. Voluptas deserunt modi necessitatibus similique voluptate ut voluptas ratione provident quis distinctio. Velit aliquid vitae vel et explicabo accusamus sint possimus. Velit velit expedita tempora aut ex illum rerum cum doloremque qui et excepturi quos est. Accusamus ut quos est neque assumenda perferendis ut delectus qui nostrum ducimus.
-        Beatae eaque ut officiis itaque rerum. Maiores ea nobis consectetur architecto iure vero voluptatem veniam nemo quia quidem earum quia. Nulla aut architecto numquam dicta quia ab velit. Repudiandae dolor beatae aut praesentium doloribus rerum asperiores quas numquam dolorum sunt voluptatum dolorem repellat. Voluptates enim commodi nobis fuga deserunt tempora.
-        Aliquid vero fugit veniam earum accusamus. Optio repellat ut odio debitis doloremque et assumenda voluptatem. Ipsa voluptas qui vel fugit voluptatum molestiae et velit sunt. Facere distinctio non sit provident et vel nostrum.
-        Quia laudantium nam accusamus possimus et. Aut numquam voluptatem rerum ut sed quos ut labore. Qui totam rem qui eveniet eos consequatur autem quo illo sit quidem voluptas ut. Exercitationem unde error veritatis deleniti dicta dicta assumenda voluptate nesciunt adipisci sit eum qui iure dolorem. Iure eos ex ut repellat id.
-        Eum alias cumque architecto laboriosam ea nisi impedit hic amet quis molestiae aut. Expedita beatae laudantium ea aperiam aliquam ab molestiae impedit omnis et. Laboriosam voluptatibus delectus molestias quo culpa et. Mollitia ea dolor autem rem nam autem dolor voluptatem corrupti consequatur.
-    </div>
+<div style="margin-top: 30px; min-height: 900px">
+    Doloribus consequatur in a quaerat tempora. Quae asperiores illum odit impedit inventore atque laborum suscipit et voluptas. Ipsam quasi rerum consequatur alias molestias accusamus natus corporis illo non molestias qui dolorem non. Consequatur qui officiis natus necessitatibus consequatur tempore vel aperiam reiciendis quos ipsam ut natus. Ipsam molestiae iusto ipsa sapiente nesciunt accusantium laudantium accusamus quam hic adipisci est inventore. Id ducimus dolorem perspiciatis asperiores aut sequi ut impedit omnis et laboriosam non.
+    Id odio ipsam molestias est adipisci repellendus. Omnis consequuntur enim eum id itaque eligendi minima natus expedita consequatur et ipsam quia. Est nulla cupiditate ad harum dolores ab soluta reprehenderit rerum maiores nulla facilis libero facilis sit. Est repellendus et distinctio ipsam nulla beatae modi autem expedita ut nisi.
+    Ea deleniti earum voluptas ratione nobis a aspernatur deserunt. Aut rerum officia et voluptatem corporis et nihil aut natus expedita nisi impedit voluptatem. Ab libero atque dignissimos laboriosam sed qui vero sed. Ab aut qui iusto est dignissimos consectetur. Ad sed est quis commodi ea animi et quis itaque odit omnis nulla. Et eos mollitia dolor inventore vel laudantium consequatur mollitia libero sunt ipsum eum explicabo vero minus.
+    Fugit omnis voluptas voluptate velit ab nobis. Reiciendis dolorem perspiciatis fuga dolorem excepturi natus eaque aut. Vel non alias voluptate laboriosam vero officia voluptate aliquam perspiciatis nemo quia quia itaque quidem. Nulla a et quas corrupti et ea eaque officiis amet a nihil officiis quibusdam sit et.
+    Eos aut voluptates et sit quos et earum. Totam unde sunt sint et ad cumque at esse explicabo. Voluptas deserunt modi necessitatibus similique voluptate ut voluptas ratione provident quis distinctio. Velit aliquid vitae vel et explicabo accusamus sint possimus. Velit velit expedita tempora aut ex illum rerum cum doloremque qui et excepturi quos est. Accusamus ut quos est neque assumenda perferendis ut delectus qui nostrum ducimus.
+    Beatae eaque ut officiis itaque rerum. Maiores ea nobis consectetur architecto iure vero voluptatem veniam nemo quia quidem earum quia. Nulla aut architecto numquam dicta quia ab velit. Repudiandae dolor beatae aut praesentium doloribus rerum asperiores quas numquam dolorum sunt voluptatum dolorem repellat. Voluptates enim commodi nobis fuga deserunt tempora.
+    Aliquid vero fugit veniam earum accusamus. Optio repellat ut odio debitis doloremque et assumenda voluptatem. Ipsa voluptas qui vel fugit voluptatum molestiae et velit sunt. Facere distinctio non sit provident et vel nostrum.
+    Quia laudantium nam accusamus possimus et. Aut numquam voluptatem rerum ut sed quos ut labore. Qui totam rem qui eveniet eos consequatur autem quo illo sit quidem voluptas ut. Exercitationem unde error veritatis deleniti dicta dicta assumenda voluptate nesciunt adipisci sit eum qui iure dolorem. Iure eos ex ut repellat id.
+    Eum alias cumque architecto laboriosam ea nisi impedit hic amet quis molestiae aut. Expedita beatae laudantium ea aperiam aliquam ab molestiae impedit omnis et. Laboriosam voluptatibus delectus molestias quo culpa et. Mollitia ea dolor autem rem nam autem dolor voluptatem corrupti consequatur.
+</div>
 
-    <script>
-        // https://localhost:5050/static/demos/embed/ad-ima-player.html?autoplay=1&skipinitial=0&ad=1&adp=mid[12*],post
-        // https://localhost:5050/static/demos/embed/ad-ima-player.html?autoplay=1&skipinitial=1&ad=1&adp=pre,mid[12*],post
-        const params = new Proxy(new URLSearchParams(window.location.search), {
-            get: (searchParams, prop) => searchParams.get(prop),
-        });
-        let attrs = {
-            // , source: "/static/demos/assets/portrait.mp4"
-            // , source: "/static/demos/assets/landscape.mp4"
-            poster: "/static/demos/assets/sample-cover.png",
-            source: "https://betajs.com/sample.mp4",
-            skipinitial: Number(params.si) === 1,
-            autoplay: Number(params.ap) === 1,
-            outstream: Number(params.os) === 1,
-            adchoiceslink: Number(params.ac) === 1 ? 'https://ziggeo.com/privacy/' : null,
+<script>
+    // https://localhost:5050/static/demos/embed/ad-ima-player.html?autoplay=1&skipinitial=0&ad=1&adp=mid[12*],post
+    // https://localhost:5050/static/demos/embed/ad-ima-player.html?autoplay=1&skipinitial=1&ad=1&adp=pre,mid[12*],post
+    const params = new Proxy(new URLSearchParams(window.location.search), {
+        get: (searchParams, prop) => searchParams.get(prop),
+    });
+    let attrs = {
+        // , source: "/static/demos/assets/portrait.mp4"
+        // , source: "/static/demos/assets/landscape.mp4"
+        poster: "/static/demos/assets/sample-cover.png",
+        source: "https://betajs.com/sample.mp4",
+        skipinitial: Number(params.si) === 1,
+        autoplay: Number(params.ap) === 1,
+        outstream: Number(params.os) === 1,
+        adchoiceslink: Number(params.ac) === 1 ? 'https://ziggeo.com/privacy/' : null,
+    }
+
+    if (params.ad) {
+        switch (params.ad) {
+            case 0: case '0':
+                attrs.adtagurl = null
+                break;
+            // Inline XML
+            case 2: case '2': case 'inline':
+                attrs.inlinevastxml = inlineVAST;
+                break;
+            // VMAP
+            case 3: case '3': case 'vmap':
+                attrs.adtagurl = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/vmap_ad_samples&sz=640x480&cust_params=sample_ar%3Dpremidpost&ciu_szs=300x250&gdfp_req=1&ad_rule=1&output=vmap&unviewed_position_start=1&env=vp&impl=s&cmsid=496&vid=short_onecue&correlator='
+                break;
+            // VAST via nonLinear
+            case 4: case '4': case 'nl': // with nonLinear
+                attrs.adtagurl = 'https://static.kargovideo.com/playground/public/samples/kargo_with_non_linear.xml';
+                break;
+            case 5: case '5': case 'os': // with nonLinear
+                attrs.adtagurl = 'https://ads.celtra.com/f41e9364/vpaid/vast.xml';
+                break;
+            case 1: case '1': default:
+                attrs.adtagurl = v3_doubleclick;
         }
+    }
+    // ads positions
+    if (params.adp) {attrs.adsposition = params.adp}
 
-        if (params.ad) {
-            switch (params.ad) {
-                case 0: case '0':
-                    attrs.adtagurl = null
-                    break;
-                // Inline XML
-                case 2: case '2': case 'inline':
-                    attrs.inlinevastxml = inlineVAST;
-                    break;
-                // VMAP
-                case 3: case '3': case 'vmap':
-                    attrs.adtagurl = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/vmap_ad_samples&sz=640x480&cust_params=sample_ar%3Dpremidpost&ciu_szs=300x250&gdfp_req=1&ad_rule=1&output=vmap&unviewed_position_start=1&env=vp&impl=s&cmsid=496&vid=short_onecue&correlator='
-                    break;
-                // VAST via nonLinear
-                case 4: case '4': case 'nl': // with nonLinear
-                    attrs.adtagurl = 'https://static.kargovideo.com/playground/public/samples/kargo_with_non_linear.xml';
-                    break;
-                case 5: case '5': case 'os': // with nonLinear
-                    attrs.adtagurl = 'https://ads.celtra.com/f41e9364/vpaid/vast.xml';
-                    break;
-                case 1: case '1': default:
-                    attrs.adtagurl = v3_doubleclick;
-            }
-        }
-        // ads positions
-        if (params.adp) {attrs.adsposition = params.adp}
-
-        attrs = {...attrs, ...{
+    attrs = {...attrs, ...{
             // theme: "modern",
             // 'ba-playlist': [
             //     {poster: 'sample-cover2.png', source: 'sample-video2.mp4'},
@@ -141,45 +141,45 @@
 
             // preload: true
         }};
-        console.log("Final attributes: ", attrs);
-        var player = new BetaJS.MediaComponents.VideoPlayer.Dynamics.Player({
-            element: document.getElementById('player'),
-            attrs
-        });
+    console.log("Final attributes: ", attrs);
+    var player = new BetaJS.MediaComponents.VideoPlayer.Dynamics.Player({
+        element: document.getElementById('player'),
+        attrs
+    });
 
-        player.on("adloaded", () => { console.log("ad loaded") });
-        player.on("adcontentPauseRequested", () => { console.log("ad contentPauseRequested")});
-        player.on("contentResumeRequested", () => { console.log("ad contentResumeRequested")});
-        player.on("start", () => { console.log("ad start")});
-        player.on("firstQuartile", () => { console.log("ad firstQuartile")});
-        player.on("midpoint", () => { console.log("ad midpoint")});
-        player.on("thirdQuartile", () => { console.log("ad thirdQuartile")});
-        player.on("complete", () => { console.log("ad complete")});
-        player.on("allAdsCompleted", () => { console.log("ad allAdsCompleted")});
-        player.on("pause", () => { console.log("ad pause")});
-        player.on("userClose", () => { console.log("ad userClose")});
+    player.on("adloaded", () => { console.log("ad loaded") });
+    player.on("adcontentPauseRequested", () => { console.log("ad contentPauseRequested")});
+    player.on("contentResumeRequested", () => { console.log("ad contentResumeRequested")});
+    player.on("start", () => { console.log("ad start")});
+    player.on("firstQuartile", () => { console.log("ad firstQuartile")});
+    player.on("midpoint", () => { console.log("ad midpoint")});
+    player.on("thirdQuartile", () => { console.log("ad thirdQuartile")});
+    player.on("complete", () => { console.log("ad complete")});
+    player.on("allAdsCompleted", () => { console.log("ad allAdsCompleted")});
+    player.on("pause", () => { console.log("ad pause")});
+    player.on("userClose", () => { console.log("ad userClose")});
 
-        player.on("attached", function (playerInstance) {
-            // this.addSettingsMenuItem({set: 'Somen'});
-            // playerInstance.add_setting({setting: 'someID'});
-            // console.log("Tags >  ", player.get("tracktags"));
-            // console.log('00 >> ', playerInstance, player.player._element)
-        }, player);
+    player.on("attached", function (playerInstance) {
+        // this.addSettingsMenuItem({set: 'Somen'});
+        // playerInstance.add_setting({setting: 'someID'});
+        // console.log("Tags >  ", player.get("tracktags"));
+        // console.log('00 >> ', playerInstance, player.player._element)
+    }, player);
 
-        player.on("ready_to_play", (ev) => {
-            // console.log('Portrait after ?? ', player.isPortrait(), player.isLandscape());
-        }, player);
+    player.on("ready_to_play", (ev) => {
+        // console.log('Portrait after ?? ', player.isPortrait(), player.isLandscape());
+    }, player);
 
-        player.on("ended", function () {
-            // console.log('ENDED');
-        }, player);
+    player.on("ended", function () {
+        // console.log('ENDED');
+    }, player);
 
-        // setInterval(() => {
-        //     player.set("duration", new Date());
-        // }, 3000);
+    // setInterval(() => {
+    //     player.set("duration", new Date());
+    // }, 3000);
 
-        player.activate();
+    player.activate();
 
-    </script>
+</script>
 </body>
 </html>

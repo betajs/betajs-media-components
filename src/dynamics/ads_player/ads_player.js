@@ -25,6 +25,15 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     "change:muted": function(muted) {
                         this.call("setVolume", muted ? 0 : this.get("volume"));
+                    },
+                    "change:floating": function(isFloating) {
+                        if (this.adsManager && typeof this.adsManager.resize === "function") {
+                            this.adsManager.resize(
+                                this.getAdWidth(),
+                                this.getAdHeight(),
+                                google.ima.ViewMode.NORMAL
+                            );
+                        }
                     }
                 },
 
@@ -44,8 +53,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     adscompleted: false,
                     moredetailslink: null,
                     moredetailstext: null,
-                    adchoiceslink: null,
-                    repeatbuttontext: null
+                    repeatbuttontext: null,
+                    adsplaying: false,
+                    companionadcontent: null
                 },
 
                 _deferActivate: function() {
@@ -106,9 +116,21 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     "ads:pause": function() {
                         this.set("playing", false);
+                        if (this.get("adsplaying")) {
+                            this.call("pause");
+                        }
                     },
                     "ads:resume": function() {
                         this.set("playing", true);
+                        if (!this.get("adsplaying")) {
+                            this.call("resume");
+                        }
+                    },
+                    "ads:contentResumeRequested": function() {
+                        this.set("adsplaying", false);
+                    },
+                    "ads:contentPauseRequested": function() {
+                        this.set("adsplaying", true);
                     }
                 },
 
@@ -147,9 +169,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             Async.eventually(function() {
                                 // ads:volumeChange not trigger initially, only after change volume
                                 this.set("volume", volume);
-                                if (this.adsManager && typeof this.adsManager.setVolume === "function") {
-                                    this.adsManager.setVolume(volume);
-                                }
                             }, this, 300);
                         }, this);
                     }
@@ -169,6 +188,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     reset: function() {
                         this.set("linear", true);
                         this.set("adscompleted", true);
+                        this.set("adsplaying", false);
                         this.adsManager.reset();
                         this.adsManager.requestAds(this._baseRequestAdsOptions());
                     },
@@ -188,7 +208,11 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         return this.adsManager.resume();
                     },
                     setVolume: function(volume) {
-                        return this.adsManager && this.adsManager.setVolume && this.adsManager.setVolume(Maths.clamp(volume, 0, 1));
+                        if (!this.adsManager || !this.adsManager.setVolume) return;
+                        if (volume > 0 && this.parent() && this.parent().get("unmuteonclick")) return setTimeout(function() {
+                            this.adsManager.setVolume(Maths.clamp(volume, 0, 1));
+                        }.bind(this));
+                        return this.adsManager.setVolume(Maths.clamp(volume, 0, 1));
                     },
                     stop: function() {
                         return this.adsManager.stop();
@@ -202,11 +226,19 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 getAdWidth: function() {
-                    return this.activeElement().firstChild.clientWidth;
+                    if (!this.activeElement()) return null;
+                    if (this.get("floating") && this.parent()) {
+                        return Dom.elementDimensions(this.parent().__playerContainer).width;
+                    }
+                    return this.activeElement().firstChild ? this.activeElement().firstChild.clientWidth : this.activeElement().clientWidth;
                 },
 
                 getAdHeight: function() {
-                    return this.activeElement().firstChild.clientHeight;
+                    if (!this.activeElement()) return null;
+                    if (this.get("floating") && this.parent()) {
+                        return +parseFloat(this.get("containerstyle").height).toFixed() || Dom.elementDimensions(this.parent().activeElement().firstChild).height;
+                    }
+                    return this.activeElement().firstChild ? this.activeElement().firstChild.clientHeight : this.activeElement().clientHeight;
                 },
 
                 getAdContainer: function() {
@@ -372,6 +404,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     // Get HTML content from the companion ad.
                     // Write the content to the companion ad slot.
                     element.innerHTML = companionAd.getContent();
+                    this.set("companionadcontent", companionAd);
                     if (position && !selector) {
                         switch (position) {
                             case 'left':

@@ -1,3 +1,9 @@
+.#{$cssplayer}-floating .#{$cssplayer}-content {
+    .#{$cssadsplayer}-linear-ad-container > div {
+        max-width: 100%;
+    }
+}
+
 .#{$cssadsplayer}-click-tracker {
     @include align-all();
 }
@@ -242,5 +248,17 @@
     svg {
         display: block;
         filter: drop-shadow(1px 4px 3px rgba(0, 0, 0, 0.7));
+    }
+    &:link {
+        text-decoration: none;
+    }
+    &:visited {
+        text-decoration: none;
+    }
+    &:hover {
+        text-decoration: none;
+    }
+    &:active {
+        text-decoration: none;
     }
 }

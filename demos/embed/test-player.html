@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <script src="/static/vendors/jquery.min.js"></script>
+    <script src="/static/node_modules/betajs-shims/dist/betajs-shims.js"></script>
+    <script src="/static/node_modules/betajs-scoped/dist/scoped.js"></script>
+    <script src="/static/node_modules/betajs/dist/beta-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-browser/dist/betajs-browser-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-media/dist/betajs-media-noscoped.js"></script>
+    <script src="/static/node_modules/betajs-dynamics/dist/betajs-dynamics-noscoped.js"></script>
+    <script src="/static/dist/betajs-media-components-noscoped.js"></script>
+    <!--    <script src="/static/demos/tmp/current.js"></script>-->
+    <link  href="/static/dist/betajs-media-components.css" rel="stylesheet" />
+    <script src="/static/dist/themes/modern/script.js"></script>
+    <link  href="/static/dist/themes/modern/style.css" rel="stylesheet" />
+
+
+    <!-- Cube Theme Assets -->
+    <script src="/static/dist/themes/cube/script.js"></script>
+    <link href="/static/dist/themes/cube/style.css" rel="stylesheet" />
+
+    <!-- Elevate Theme Assets -->
+    <script src="/static/dist/themes/elevate/script.js"></script>
+    <link href="/static/dist/themes/elevate/style.css" rel="stylesheet" />
+
+    <!-- Minimalist Theme Assets -->
+    <script src="/static/dist/themes/minimalist/script.js"></script>
+    <link href="/static/dist/themes/minimalist/style.css" rel="stylesheet" />
+
+    <!-- Minimalist Theme Assets -->
+    <script src="/static/dist/themes/modern/script.js"></script>
+    <link href="/static/dist/themes/modern/style.css" rel="stylesheet" />
+
+    <!-- Space Theme Assets -->
+    <script src="/static/dist/themes/space/script.js"></script>
+    <link href="/static/dist/themes/space/style.css" rel="stylesheet" />
+
+    <!-- Theatre Theme Assets -->
+    <script src="/static/dist/themes/theatre/script.js"></script>
+    <link href="/static/dist/themes/theatre/style.css" rel="stylesheet" />
+
+    <script>
+        if (!HTMLScriptElement.supports?.("importmap")) {
+            console.log("Browser does not supports import maps. Please use modern browser for tetsing.");
+        }
+    </script>
+</head>
+<body style="background: #EEE; margin: 0">
+<div id="before-player-content" class="row" style="display: none; margin-bottom: 20px">
+    <div class="col-xs-12" style="min-height: calc(100vh + 10vh);">
+        <h1>FIRST PARAGRAPH BEFORE PLAYER WITH HEIGHT 1300px</h1>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div id="player"></div>
+    </div>
+</div>
+
+<div id="after-player-content" class="row" style="display: none; margin-top: 20px">
+    <div class="col-xs-12" style="min-height: calc(100vh + 50vh);">
+        <h2>AFTER PLAYER PARAGRAPH BEFORE PLAYER WITH HEIGHT 1300px</h2>
+    </div>
+</div>
+
+<script type="module">
+    // attrs via query string: 'ad' ads number from 0 to 5, 'si' skipinitial,
+    // 'blk' show-blocks for scroll from 0 to 2 (1=bottom, 2=top as well), 'ap' autoplay,
+    // 'os' outstream, 'stk' sticky, 'flt' floating, 'ac' adchoiceslink 1 or URL,
+    // 'adp' ads positions string like 'pre,post'
+    import { attrs, showBlocks, generateParagraphs } from "../assets/options.js";
+
+    // Show content for floating and sticky testing
+    const beforePlayerContent = document.getElementById("before-player-content");
+    const afterPlayerContent = document.getElementById("after-player-content");
+    if (beforePlayerContent && afterPlayerContent && showBlocks > 0) {
+        afterPlayerContent.style.display = "block";
+        generateParagraphs(afterPlayerContent.firstElementChild, 10);
+        if (showBlocks > 1) {
+            beforePlayerContent.style.display = "block";
+            generateParagraphs(beforePlayerContent.firstElementChild, 20);
+        }
+    }
+
+    var player = new BetaJS.MediaComponents.VideoPlayer.Dynamics.Player({
+        element: $('#player'),
+        attrs
+    });
+
+    player.on("floatingplayerclosed", () => console.log("Floating Player Closed"), player);
+
+    player.on("quarter-passed", (qr) => {
+        // qr == this.get();
+        console.log("TYPED: ", typeof this, qr);
+        // console.log("Passed Quarter: ", qr);
+        console.log("Played Seconds: ", player.get("played-seconds"));
+        // console.log("Played w/seconds: ", this.get("played-with-sound-seconds"));
+    }, player);
+
+    player.on("ended", () => console.log("ENDED"), player);
+
+    player.on("playing", function() {
+        console.log('Player, started: ', this, this.get('autoplay'), this.get("position"));
+    }, player);
+
+    player.on("attached", function (playerInstance) {
+        playerInstance.on("fullscreen-change", function (isFullscreen) {
+            console.log('is Full', isFullscreen);
+        }, this);
+    }, player);
+
+    player.on("ready_to_play", (ev) => {
+        // console.log('Portrait after ?? ', player.isPortrait(), player.isLandscape());
+    }, player);
+
+    player.on("ended", function () {
+        // console.log('ENDED');
+    }, player);
+
+    player.activate();
+
+</script>
+</body>
+</html>

@@ -55,7 +55,8 @@ if (params.ad) {
             attrs.adtagurl = 'https://ads.celtra.com/f41e9364/vpaid/vast.xml';
             break;
         case 1: case '1': default:
-            attrs.adtagurl = v3_doubleclick;
+            attrs.adtagurl = `https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=`;
+            // attrs.adtagurl = v3_doubleclick;
     }
 }
 
@@ -83,6 +84,14 @@ attrs = {...attrs, ...{
         // ** SOURCES
         source: '/static/demos/sample-video.mp4',
         poster: '/static/demos/assets/sample-cover.png',
+        imasettings: {
+            // ** IMA
+            locale: 'fr',
+            uiElements: [], // ['adAttribution', 'countdown']
+            // uiElements: ['adAttribution'],
+            // uiElements: ['countdown'],
+            // uiElements: ['adAttribution', 'countdown'],
+        },
         // source: '/static/demos/assets/portrait.mp4',
         // poster: '/static/demos/assets/portrait-poster.png',
         // poster: '/static/demos/assets/portrait-poster-270x480.jpeg',

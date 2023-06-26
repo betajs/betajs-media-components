@@ -2,8 +2,8 @@
     <div class="{{cssplayer}}-toggle-next-container" style="width: 100px;">
         <div class="{{cssplayer}}-button-inner" >
             <div class="{{cssplayer}}-next-button-container">
-                <input type="button"  value="{{staytext}}" ba-click="{{stay()}}" style="cursor: pointer; width: 90%;"/>
-                <input type="button" value="{{nexttext}}" ba-click="{{next()}}" style="cursor: pointer; width: 90%;"/>
+                <a class="{{cssplayer}}-next-button-stay" ba-click="{{stay()}}">{{staytext}}</a>
+                <a class="{{cssplayer}}-next-button-next" ba-click="{{next()}}">{{nexttext}}</a>
             </div>
         </div>
     </div>

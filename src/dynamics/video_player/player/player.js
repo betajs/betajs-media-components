@@ -149,8 +149,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "pauseonclick": true,
                         "unmuteonclick": false,
                         "muted": false,
+                        "nextwidget": false,
                         "shownext": 3,
                         "noengagenext": 5,
+                        "stayengaged": false,
                         "next_active": false,
                         "noengagenext_active": false,
                         "playlistempty": true,
@@ -294,8 +296,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "hasnext": "boolean",
                     "hidecontrolbar": "boolean",
                     "muted": "boolean",
+                    "nextwidget": "boolean",
                     "shownext": "float",
                     "noengagenext": "float",
+                    "stayengaged": "boolean",
                     "next_active": "boolean",
                     "noengagenext_active": "boolean",
                     "playlistempty": "boolean",
@@ -428,12 +432,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("hasplaceholderstyle", value.length > 10);
                     },
                     "change:position": function(position) {
+                        if (!this.get("nextwidget"))
+                            return;
                         if (!this.get("playlistempty")) {
                             if (position > this.get("shownext") && this.get("shownext") > 0 && !this.get("next_active")) {
                                 this.set("next_active", true);
                                 this.channel("next").trigger("showNextWidget");
                             }
-                            if (position > this.get("shownext") + this.get("noengagenext") && this.get("shownext") + this.get("noengagenext") > 0 && !this.get("noengagenext_active")) {
+                            if (position > this.get("shownext") + this.get("noengagenext") && this.get("shownext") + this.get("noengagenext") > 0 && !this.get("noengagenext_active") && !this.get("stayengaged")) {
                                 this.set("noengagenext_active", true);
                                 this.channel("next").trigger("noEngageNextWidget");
                             }
@@ -446,11 +452,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }
                 },
                 channels: {
-                    "next:setUnmute": function() {
+                    "next:setStay": function() {
+                        this.set("stayengaged", true);
                         this.player.setMuted(false);
                     },
                     "next:playNext": function() {
                         this.trigger("play_next");
+                        this.set("next_active", false);
+                        this.set("noengagenext_active", false);
+                    },
+                    "next:resetNextWidget": function() {
+                        this.set("stayengaged", false);
                         this.set("next_active", false);
                         this.set("noengagenext_active", false);
                     }
@@ -1065,6 +1077,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         this.trigger("attached", instance);
                         this.player.once("loaded", function() {
+                            this.channel("next").trigger("resetNextWidget");
                             var volume = Math.min(1.0, this.get("volume"));
                             this.player.setVolume(volume);
                             this.player.setMuted(this.get("muted") || volume <= 0.0);

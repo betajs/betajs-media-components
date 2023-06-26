@@ -31,7 +31,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Next", [
                 functions: {
                     stay: function() {
                         this.set("shownext", false);
-                        this.channel("next").trigger("setUnmute");
+                        this.channel("next").trigger("setStay");
                     },
                     next: function() {
                         this.set("shownext", false);

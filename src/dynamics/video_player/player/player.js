@@ -159,7 +159,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "stayengaged": false,
                         "next_active": false,
                         "noengagenext_active": false,
-                        "playlistempty": true,
 
                         /* Ads */
                         "adprovider": null,
@@ -327,7 +326,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "stayengaged": "boolean",
                     "next_active": "boolean",
                     "noengagenext_active": "boolean",
-                    "playlistempty": "boolean",
                     "unmuteonclick": "boolean",
                     "rerecordable": "boolean",
                     "loop": "boolean",
@@ -461,7 +459,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "change:position": function(position) {
                         if (!this.get("nextwidget"))
                             return;
-                        if (!this.get("playlistempty")) {
+                        if (this.get("playlist").length > 0) {
                             if (position > this.get("shownext") && this.get("shownext") > 0 && !this.get("next_active")) {
                                 this.set("next_active", true);
                                 this.channel("next").trigger("showNextWidget");
@@ -470,11 +468,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.set("noengagenext_active", true);
                                 this.channel("next").trigger("noEngageNextWidget");
                             }
-                        }
-                    },
-                    "change:playlist": function(playlist) {
-                        if (playlist.length > 0) {
-                            this.set("playlistempty", false);
                         }
                     },
                     "change:mobileviewport": function(viewport) {

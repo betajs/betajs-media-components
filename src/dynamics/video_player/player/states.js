@@ -325,10 +325,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
                 if (!this.dyn.get("states").poster_error.ignore && !this.dyn.get("popup"))
                     this.next("PosterError");
             }, this);
-            if (this.dyn && (this.dyn.get("skipinitial") && !this.dyn.get("autoplay"))) {
-                this.play();
-            }
-            if (this.dyn && this.dyn.get("autoplay")) {
+            if (this.dyn && this.dyn.get("skipinitial")) this.play();
+            else if (this.dyn && this.dyn.get("autoplay")) {
                 if (this.dyn.get("autoplaywhenvisible")) {
                     Dom.onScrollIntoView(this.dyn.activeElement(), this.dyn.get("visibilityfraction"), function() {
                         if (!this.destroyed())

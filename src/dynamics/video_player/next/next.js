@@ -15,17 +15,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Next", [
                     css: "ba-videoplayer",
                     csscommon: "ba-commoncss",
                     cssplayer: "ba-player",
-                    shownext: false,
                     style: "mobile"
-                },
-                channels: {
-                    "next:showNextWidget": function() {
-                        this.set("shownext", true);
-                    },
-                    "next:noEngageNextWidget": function() {
-                        this.set("shownext", false);
-                        this.call("next");
-                    }
                 },
 
                 computed: {
@@ -52,11 +42,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Next", [
 
                 functions: {
                     stay: function() {
-                        this.set("shownext", false);
                         this.channel("next").trigger("setStay");
                     },
                     next: function() {
-                        this.set("shownext", false);
                         this.channel("next").trigger("playNext");
                     }
                 }

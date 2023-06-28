@@ -37,4 +37,14 @@
     margin-bottom: 10px;
     width: 170px;
   }
+  span {
+    border-radius: 5px 0 0 5px;
+    height: 100%;
+    position: relative;
+    left: 0;
+    &.#{$cssplayer}-next-progress {
+      position: absolute;
+      background-color: $theme_color_blue;
+    }
+  }
 }

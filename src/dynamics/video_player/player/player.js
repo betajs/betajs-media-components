@@ -158,7 +158,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "noengagenext": 5,
                         "stayengaged": false,
                         "next_active": false,
-                        "noengagenext_active": false,
 
                         /* Ads */
                         "adprovider": null,
@@ -325,7 +324,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "noengagenext": "float",
                     "stayengaged": "boolean",
                     "next_active": "boolean",
-                    "noengagenext_active": "boolean",
                     "unmuteonclick": "boolean",
                     "rerecordable": "boolean",
                     "loop": "boolean",
@@ -462,11 +460,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.get("playlist").length > 0) {
                             if (position > this.get("shownext") && this.get("shownext") > 0 && !this.get("next_active")) {
                                 this.set("next_active", true);
-                                this.channel("next").trigger("showNextWidget");
                             }
-                            if (position > this.get("shownext") + this.get("noengagenext") && this.get("shownext") + this.get("noengagenext") > 0 && !this.get("noengagenext_active") && !this.get("stayengaged")) {
-                                this.set("noengagenext_active", true);
-                                this.channel("next").trigger("noEngageNextWidget");
+                            if (position > this.get("shownext") + this.get("noengagenext") && this.get("shownext") + this.get("noengagenext") > 0 && !this.get("stayengaged")) {
+                                this.channel("next").trigger("playNext");
                             }
                         }
                     },
@@ -486,17 +482,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 channels: {
                     "next:setStay": function() {
                         this.set("stayengaged", true);
-                        this.player.setMuted(false);
+                        this.set("next_active", false);
                     },
                     "next:playNext": function() {
                         this.trigger("play_next");
                         this.set("next_active", false);
-                        this.set("noengagenext_active", false);
                     },
                     "next:resetNextWidget": function() {
                         this.set("stayengaged", false);
                         this.set("next_active", false);
-                        this.set("noengagenext_active", false);
                     }
                 },
 

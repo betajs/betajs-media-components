@@ -29,6 +29,8 @@
     z-index: 1;
   }
   img {
+    aspect-ratio: 16/9;
+    object-fit: contain;
     margin-top: -24px;
     margin-bottom: 10px;
     width: 170px;

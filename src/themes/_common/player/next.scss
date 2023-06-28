@@ -1,5 +1,4 @@
 .#{$cssplayer}-next-style-desktop {
-  @include background-rgba(0, 0, 0, .6, #979797);
   a {
     width: 168px;
   }
@@ -10,12 +9,9 @@
     width: 100px;
     background: rgba(0,0,0,0.1);
   }
-  background: none;
 }
 
 .#{$cssplayer}-toggle-next-container {
-  border-bottom-left-radius: $open_next_button_border_radius;
-  border-top-left-radius: $open_next_button_border_radius;
   color: white;
   font-size: $open_next_button_font_size;
   line-height: $open_next_button_box_size;

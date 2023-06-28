@@ -1,34 +1,33 @@
-.#{$cssplayer}-next-action-container {
-  position: relative;
-  top: $next_container_top;
-  width: $next_container_width;
-  .#{$cssplayer}-button-inner {
-    @include transform-translate-y(0);
-    top: 0;
+.#{$cssplayer}-next-style-desktop {
+  @include background-rgba(0, 0, 0, .6, #979797);
+  a {
+    width: 168px;
   }
 }
 
+.#{$cssplayer}-next-style-mobile {
+  a {
+    width: 100px;
+    background: rgba(0,0,0,0.1);
+  }
+  background: none;
+}
+
 .#{$cssplayer}-toggle-next-container {
-  @include background-rgba(0, 0, 0, .3, #979797);
   border-bottom-left-radius: $open_next_button_border_radius;
   border-top-left-radius: $open_next_button_border_radius;
   color: white;
   font-size: $open_next_button_font_size;
   line-height: $open_next_button_box_size;
   text-align: center;
-  width: $next_container_width / 2;
-  position: relative;
+  padding: 0 16px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
   z-index: 6;
-  float: right;
+  a {
+    box-shadow: 0 1px 4px 0 rgba(0,0,0,.25);
+    text-shadow: 0 1px 4px rgba(0,0,0,.25);
+  }
 }
-
-.#{$cssplayer}-chooser-button-0, .#{$cssplayer}-chooser-button-1, .#{$cssplayer}-chooser-button-2, .#{$cssplayer}-chooser-button-3 {
-  line-height: 1;
-  min-width: 100;
-  margin: 2px 0;
-  padding: 0;
-}
-
-
-
-

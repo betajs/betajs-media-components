@@ -1,10 +1,6 @@
-<div class="{{cssplayer}}-next-action-container" style="width: 100%;" ba-if="{{shownext}}">
-    <div class="{{cssplayer}}-toggle-next-container" style="width: 100px;">
-        <div class="{{cssplayer}}-button-inner" >
-            <div class="{{cssplayer}}-next-button-container">
-                <a class="{{cssplayer}}-next-button-stay" ba-click="{{stay()}}">{{staytext}}</a>
-                <a class="{{cssplayer}}-next-button-next" ba-click="{{next()}}">{{nexttext}}</a>
-            </div>
-        </div>
+<div class="{{cssplayer}}-toggle-next-container {{cssplayer}}-next-style-{{style}}" ba-if="{{shownext}}">
+    <div class="{{cssplayer}}-next-button-container">
+        <a class="{{cssplayer}}-next-button-stay" ba-click="{{stay()}}">{{staytext}}</a>
+        <a class="{{cssplayer}}-next-button-next" ba-click="{{next()}}">{{nexttext}}</a>
     </div>
 </div>

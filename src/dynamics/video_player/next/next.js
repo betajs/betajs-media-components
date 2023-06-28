@@ -1,7 +1,8 @@
 Scoped.define("module:VideoPlayer.Dynamics.Next", [
     "dynamics:Dynamic",
+    "browser:Info",
     "module:Assets"
-], function(Class, Assets, scoped) {
+], function(Class, Info, Assets, scoped) {
 
     return Class.extend({
             scoped: scoped
@@ -14,9 +15,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Next", [
                     css: "ba-videoplayer",
                     csscommon: "ba-commoncss",
                     cssplayer: "ba-player",
-                    staytext: "Stay",
-                    nexttext: "Next",
-                    shownext: false
+                    shownext: false,
+                    style: "mobile"
                 },
                 channels: {
                     "next:showNextWidget": function() {
@@ -25,6 +25,24 @@ Scoped.define("module:VideoPlayer.Dynamics.Next", [
                     "next:noEngageNextWidget": function() {
                         this.set("shownext", false);
                         this.call("next");
+                    }
+                },
+
+                computed: {
+                    "staytext:style": function(style) {
+                        return style === "desktop" ? "Stay & Watch" : "Stay";
+                    },
+                    "nexttext:style": function(style) {
+                        return style === "desktop" ? "Next Video" : "Next";
+                    }
+                },
+
+                create: function() {
+                    if (!Info.isMobile()) {
+                        if (!this.get("is_floating")) this.set("style", "desktop");
+                        this.on("change:is_floating", function(isFloating) {
+                            this.set("style", isFloating ? "mobile" : "desktop");
+                        }, this);
                     }
                 },
 

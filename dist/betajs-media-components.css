@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.378 - 2023-06-12
+betajs-media-components - v0.0.378 - 2023-06-28
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1218,14 +1218,10 @@ Apache-2.0 Software License.
 }
 
 .ba-imageviewer-overlay div[tabindex]:focus {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2px, Direction=90, Color=#1b8fcc)";
-  /*IE 8*/
-  -moz-box-shadow: 0 0 0 2px #1b8fcc;
-  /*FF 3.5+*/
-  -webkit-box-shadow: 0 0 0 2px #1b8fcc;
-  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
-  box-shadow: 0 0 0 2px #1b8fcc;
-  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2px, Direction=90, Color=#1b8fcc)"; /*IE 8*/
+  -moz-box-shadow: 0 0 0 2px #1b8fcc; /*FF 3.5+*/
+  -webkit-box-shadow: 0 0 0 2px #1b8fcc; /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: 0 0 0 2px #1b8fcc; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
   outline: 0;
   -moz-outline-style: none;
 }
@@ -1811,8 +1807,7 @@ Apache-2.0 Software License.
 .ba-player-loader-loader:before {
   content: "";
   display: block;
-  padding-top: 100%;
-  /* initial ratio of 1:1*/
+  padding-top: 100%; /* initial ratio of 1:1*/
 }
 
 .ba-player-loader-loader {
@@ -1866,6 +1861,58 @@ Apache-2.0 Software License.
     transform: rotate(360deg);
   }
 }
+.ba-player-next-style-desktop {
+  background-color: #979797;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.ba-player-next-style-desktop a {
+  width: 168px;
+}
+
+.ba-player-next-style-mobile {
+  background: none;
+}
+.ba-player-next-style-mobile a {
+  width: 100px;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.ba-player-toggle-next-container {
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+  color: white;
+  font-size: 16px;
+  line-height: 45px;
+  text-align: center;
+  padding: 0 16px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 6;
+}
+.ba-player-toggle-next-container a {
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.25);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  position: relative;
+  z-index: 1;
+}
+.ba-player-toggle-next-container img {
+  margin-top: -24px;
+  margin-bottom: 10px;
+  width: 170px;
+}
+.ba-player-toggle-next-container span {
+  border-radius: 5px 0 0 5px;
+  height: 100%;
+  position: relative;
+  left: 0;
+}
+.ba-player-toggle-next-container span.ba-player-next-progress {
+  position: absolute;
+  background-color: #2a74eb;
+}
+
 .ba-videoplayer-noie8 .ba-player-playbutton-container {
   -webkit-transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);
@@ -1883,14 +1930,10 @@ Apache-2.0 Software License.
   -webkit-transition: all 0.25s ease-in-out;
   -o-transition: all 0.25s ease-in-out;
   -ms-transition: all 0.25s ease-in-out;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=22, Direction=90, Color=#000000)";
-  /*IE 8*/
-  -moz-box-shadow: 0 0 22px #000000;
-  /*FF 3.5+*/
-  -webkit-box-shadow: 0 0 22px #000000;
-  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
-  box-shadow: 0 0 22px #000000;
-  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=22, Direction=90, Color=#000000)"; /*IE 8*/
+  -moz-box-shadow: 0 0 22px #000000; /*FF 3.5+*/
+  -webkit-box-shadow: 0 0 22px #000000; /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: 0 0 22px #000000; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
   border-radius: 50%;
   box-sizing: content-box;
   cursor: pointer;
@@ -1903,33 +1946,23 @@ Apache-2.0 Software License.
   outline: none;
   border-radius: 50%;
   border-color: #1b8fcc;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2px, Direction=90, Color=#1b8fcc)";
-  /*IE 8*/
-  -moz-box-shadow: 0 0 0 2px #1b8fcc;
-  /*FF 3.5+*/
-  -webkit-box-shadow: 0 0 0 2px #1b8fcc;
-  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
-  box-shadow: 0 0 0 2px #1b8fcc;
-  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2px, Direction=90, Color=#1b8fcc)"; /*IE 8*/
+  -moz-box-shadow: 0 0 0 2px #1b8fcc; /*FF 3.5+*/
+  -webkit-box-shadow: 0 0 0 2px #1b8fcc; /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: 0 0 0 2px #1b8fcc; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
 }
 .ba-videoplayer-noie8 .ba-player-playbutton-container:focus:hover {
   border: none;
 }
 .ba-videoplayer-noie8 .ba-player-playbutton-container:hover {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=22, Direction=90, Color=#eeeeee)";
-  /*IE 8*/
-  -moz-box-shadow: 0 0 22px #eeeeee;
-  /*FF 3.5+*/
-  -webkit-box-shadow: 0 0 22px #eeeeee;
-  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
-  box-shadow: 0 0 22px #eeeeee;
-  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=22, Direction=90, Color=#eeeeee)"; /*IE 8*/
+  -moz-box-shadow: 0 0 22px #eeeeee; /*FF 3.5+*/
+  -webkit-box-shadow: 0 0 22px #eeeeee; /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: 0 0 22px #eeeeee; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
 }
 .ba-videoplayer-noie8 .ba-player-playbutton-container:hover .ba-player-playbutton-button::after {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color=#eeeeee)";
-  /*IE 8*/
-  text-shadow: 0 0 4px #eeeeee;
-  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color=#eeeeee)"; /*IE 8*/
+  text-shadow: 0 0 4px #eeeeee; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
 }
 .ba-videoplayer-noie8 .ba-player-playbutton-button::after {
   font-family: "bjsmc";
@@ -1954,10 +1987,8 @@ Apache-2.0 Software License.
   /* font-size: 120%; */
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color=#000000)";
-  /*IE 8*/
-  text-shadow: 0 0 4px #000000;
-  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color=#000000)"; /*IE 8*/
+  text-shadow: 0 0 4px #000000; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
   transition: all 0.25s ease-in-out;
   -moz-transition: all 0.25s ease-in-out;
   -webkit-transition: all 0.25s ease-in-out;
@@ -2031,14 +2062,10 @@ Apache-2.0 Software License.
   -ms-transition: all 0.3s ease-in-out;
 }
 .ba-videoplayer-overlay div[tabindex]:focus {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2px, Direction=90, Color=#1b8fcc)";
-  /*IE 8*/
-  -moz-box-shadow: 0 0 0 2px #1b8fcc;
-  /*FF 3.5+*/
-  -webkit-box-shadow: 0 0 0 2px #1b8fcc;
-  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
-  box-shadow: 0 0 0 2px #1b8fcc;
-  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2px, Direction=90, Color=#1b8fcc)"; /*IE 8*/
+  -moz-box-shadow: 0 0 0 2px #1b8fcc; /*FF 3.5+*/
+  -webkit-box-shadow: 0 0 0 2px #1b8fcc; /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: 0 0 0 2px #1b8fcc; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
   outline: 0;
   -moz-outline-style: none;
 }
@@ -2292,8 +2319,7 @@ Apache-2.0 Software License.
 .ba-recorder-loader-loader:before {
   content: "";
   display: block;
-  padding-top: 100%;
-  /* initial ratio of 1:1*/
+  padding-top: 100%; /* initial ratio of 1:1*/
 }
 
 .ba-recorder-loader-loader {
@@ -2466,14 +2492,10 @@ Apache-2.0 Software License.
   -ms-transition: all 0.3s ease-in-out;
 }
 .ba-recorder-overlay div[tabindex]:focus {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2px, Direction=90, Color=#1b8fcc)";
-  /*IE 8*/
-  -moz-box-shadow: 0 0 0 2px #1b8fcc;
-  /*FF 3.5+*/
-  -webkit-box-shadow: 0 0 0 2px #1b8fcc;
-  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
-  box-shadow: 0 0 0 2px #1b8fcc;
-  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2px, Direction=90, Color=#1b8fcc)"; /*IE 8*/
+  -moz-box-shadow: 0 0 0 2px #1b8fcc; /*FF 3.5+*/
+  -webkit-box-shadow: 0 0 0 2px #1b8fcc; /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: 0 0 0 2px #1b8fcc; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
   outline: 0;
   -moz-outline-style: none;
 }
@@ -2484,10 +2506,8 @@ Apache-2.0 Software License.
 .ba-commoncss-settings-menu {
   background-color: #0a0a0a;
   background-color: rgba(28, 28, 28, 0.9);
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2, Direction=90, Color=#333333)";
-  /*IE 8*/
-  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
-  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2, Direction=90, Color=#333333)"; /*IE 8*/
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5); /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
   border-radius: 2px;
   min-width: 150px;
   overflow: hidden;
@@ -3668,14 +3688,10 @@ div.ba-commoncss-sticky.ba-player-viewport-mobile {
   outline: none;
   border-radius: 50%;
   border-color: #1b8fcc;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2px, Direction=90, Color=#1b8fcc)";
-  /*IE 8*/
-  -moz-box-shadow: 0 0 0 2px #1b8fcc;
-  /*FF 3.5+*/
-  -webkit-box-shadow: 0 0 0 2px #1b8fcc;
-  /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
-  box-shadow: 0 0 0 2px #1b8fcc;
-  /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2px, Direction=90, Color=#1b8fcc)"; /*IE 8*/
+  -moz-box-shadow: 0 0 0 2px #1b8fcc; /*FF 3.5+*/
+  -webkit-box-shadow: 0 0 0 2px #1b8fcc; /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: 0 0 0 2px #1b8fcc; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
 }
 .ba-videoplayer-noie8 .ba-videoplayer-playbutton-container:focus:hover, .ba-videoplayer-noie8 .ba-videoplayer-playbutton-container:focus:active {
   border: none;
@@ -3695,8 +3711,7 @@ div.ba-commoncss-sticky.ba-player-viewport-mobile {
   cursor: pointer;
   display: block;
   opacity: 0.75;
-  padding-top: 100%;
-  /* initial ratio of 1:1*/
+  padding-top: 100%; /* initial ratio of 1:1*/
   position: relative;
   width: 100%;
 }

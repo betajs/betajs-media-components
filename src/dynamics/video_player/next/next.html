@@ -3,5 +3,6 @@
         <a class="{{cssplayer}}-next-button-stay" ba-click="{{stay()}}">{{staytext}}</a>
         <hr ba-if="{{style === 'desktop'}}">
         <a class="{{cssplayer}}-next-button-next" ba-click="{{next()}}">{{nexttext}}</a>
+        <img ba-prop:src="{{nextvideoposter}}" ba-show="{{style === 'desktop' && nextvideoposter}}" />
     </div>
 </div>

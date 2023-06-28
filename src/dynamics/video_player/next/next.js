@@ -34,6 +34,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Next", [
                     },
                     "nexttext:style": function(style) {
                         return style === "desktop" ? "Next Video" : "Next";
+                    },
+                    "nextvideoposter:playlist,current_video_from_playlist": function(playlist, currIndex) {
+                        if (!playlist || !playlist[currIndex + 1]) return;
+                        return playlist[currIndex + 1].poster;
                     }
                 },
 

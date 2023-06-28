@@ -455,13 +455,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("hasplaceholderstyle", value.length > 10);
                     },
                     "change:position": function(position) {
-                        if (!this.get("nextwidget"))
+                        if (!this.get("nextwidget") || this.get("stayengaged"))
                             return;
                         if (this.get("playlist").length > 0) {
                             if (position > this.get("shownext") && this.get("shownext") > 0 && !this.get("next_active")) {
                                 this.set("next_active", true);
                             }
-                            if (position > this.get("shownext") + this.get("noengagenext") && this.get("shownext") + this.get("noengagenext") > 0 && !this.get("stayengaged")) {
+                            if (position > this.get("shownext") + this.get("noengagenext") && this.get("shownext") + this.get("noengagenext") > 0) {
                                 this.channel("next").trigger("playNext");
                             }
                         }

@@ -60,6 +60,15 @@
             ba-mobileview="{{mobileview}}"
             ba-floating="{{is_floating}}"
         ></ba-{{dynadsplayer}}>
+        <ba-{{dynnext}}
+            ba-if="{{next_active}}"
+            ba-is_floating="{{is_floating}}"
+            ba-playlist="{{playlist}}"
+            ba-current_video_from_playlist="{{current_video_from_playlist}}"
+            ba-position="{{position}}"
+            ba-shownext="{{shownext}}"
+            ba-noengagenext="{{noengagenext}}"
+        ></ba-{{dynnext}}>
         <div class="{{css}}-overlay {{hasplaceholderstyle ? (css + '-overlay-with-placeholder') : ''}}"
              ba-show="{{!showbuiltincontroller && !outstream}}" style="{{placeholderstyle}}"
         >

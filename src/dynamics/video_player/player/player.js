@@ -30,6 +30,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.Message",
     "module:VideoPlayer.Dynamics.Loader",
     "module:VideoPlayer.Dynamics.Share",
+    "module:VideoPlayer.Dynamics.Next",
     "module:VideoPlayer.Dynamics.Controlbar",
     "module:VideoPlayer.Dynamics.Topmessage",
     "module:VideoPlayer.Dynamics.Tracks",
@@ -113,6 +114,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "dynfloatingsidebar": "videoplayer-floating-sidebar",
                         "dynsettingsmenu": "common-settingsmenu",
                         "dyntrimmer": "videorecorder-trimmer",
+                        "dynnext": "videoplayer-next",
 
                         /* Templates */
                         "tmpladcontrolbar": "",
@@ -151,6 +153,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "pauseonclick": true,
                         "unmuteonclick": false,
                         "muted": false,
+                        "nextwidget": false,
+                        "shownext": 3,
+                        "noengagenext": 5,
+                        "stayengaged": false,
+                        "next_active": false,
 
                         /* Ads */
                         "adprovider": null,
@@ -312,6 +319,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "hasnext": "boolean",
                     "hidecontrolbar": "boolean",
                     "muted": "boolean",
+                    "nextwidget": "boolean",
+                    "shownext": "float",
+                    "noengagenext": "float",
+                    "stayengaged": "boolean",
+                    "next_active": "boolean",
                     "unmuteonclick": "boolean",
                     "rerecordable": "boolean",
                     "loop": "boolean",
@@ -396,7 +408,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 extendables: ["states"],
 
-                registerchannels: ["ads"],
+                registerchannels: ["ads", "next"],
 
                 scopes: {
                     adsplayer: ">[tagname='ba-adsplayer']",
@@ -442,6 +454,18 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "change:placeholderstyle": function(value) {
                         this.set("hasplaceholderstyle", value.length > 10);
                     },
+                    "change:position": function(position) {
+                        if (!this.get("nextwidget"))
+                            return;
+                        if (this.get("playlist").length > 0) {
+                            if (position > this.get("shownext") && this.get("shownext") > 0 && !this.get("next_active")) {
+                                this.set("next_active", true);
+                            }
+                            if (position > this.get("shownext") + this.get("noengagenext") && this.get("shownext") + this.get("noengagenext") > 0 && !this.get("stayengaged")) {
+                                this.channel("next").trigger("playNext");
+                            }
+                        }
+                    },
                     "change:mobileviewport": function(viewport) {
                         if (this.get("is_floating")) {
                             var calculated = this.__calculateFloatingDimensions();
@@ -453,6 +477,20 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (isFullscreen && this.get("view_type") === "floating") {
                             this.set("view_type", "default");
                         }
+                    }
+                },
+                channels: {
+                    "next:setStay": function() {
+                        this.set("stayengaged", true);
+                        this.set("next_active", false);
+                    },
+                    "next:playNext": function() {
+                        this.trigger("play_next");
+                        this.set("next_active", false);
+                    },
+                    "next:resetNextWidget": function() {
+                        this.set("stayengaged", false);
+                        this.set("next_active", false);
                     }
                 },
 
@@ -1150,6 +1188,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         this.trigger("attached", instance);
                         this.player.once("loaded", function() {
+                            this.channel("next").trigger("resetNextWidget");
                             var volume = Math.min(1.0, this.get("volume"));
                             this.player.setVolume(volume);
                             this.player.setMuted(this.get("muted") || volume <= 0.0);

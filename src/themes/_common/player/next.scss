@@ -1,18 +1,13 @@
 .#{$cssplayer}-next-style-desktop {
   top: auto;
   transform: none;
-  a {
-    width: 168px;
-  }
 }
 
 .#{$cssplayer}-next-style-mobile {
-  a {
-    width: 100px;
-  }
 }
 
 .#{$cssplayer}-toggle-next-container {
+  width: 24%;
   color: white;
   font-size: $open_next_button_font_size;
   line-height: $open_next_button_box_size;
@@ -24,6 +19,7 @@
   transform: translateY(-50%);
   z-index: 6;
   a {
+    font-size: 16px;
     text-decoration: none;
     color: white;
     display: block;
@@ -44,11 +40,12 @@
     border-width: 1px;
   }
   img {
+    width: 100%;
     aspect-ratio: 16/9;
     object-fit: contain;
     margin-top: -24px;
     margin-bottom: 10px;
-    width: 170px;
+    
   }
   span {
     border-radius: 4px;

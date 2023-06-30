@@ -24,6 +24,8 @@
   transform: translateY(-50%);
   z-index: 6;
   a {
+    text-decoration: none;
+    color: white;
     display: block;
     cursor: pointer;
     border: #DDD 1px solid;
@@ -35,6 +37,11 @@
     text-shadow: 0 1px 4px rgba(0,0,0,.25);
     position: relative;
     z-index: 1;
+  }
+  hr {
+    margin: 0;
+    border-style: inset;
+    border-width: 1px;
   }
   img {
     aspect-ratio: 16/9;

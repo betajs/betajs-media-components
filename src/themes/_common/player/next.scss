@@ -1,4 +1,6 @@
 .#{$cssplayer}-next-style-desktop {
+  top: auto;
+  transform: none;
   a {
     width: 168px;
   }
@@ -22,6 +24,12 @@
   transform: translateY(-50%);
   z-index: 6;
   a {
+    display: block;
+    cursor: pointer;
+    border: #DDD 1px solid;
+    border-radius: 5px;
+    margin: 10px 0;
+    line-height: 2;
     background: #2E2E2E;
     box-shadow: 0 1px 4px 0 rgba(0,0,0,.25);
     text-shadow: 0 1px 4px rgba(0,0,0,.25);
@@ -36,7 +44,7 @@
     width: 170px;
   }
   span {
-    border-radius: 5px;
+    border-radius: 4px;
     height: 100%;
     position: relative;
     left: 0;

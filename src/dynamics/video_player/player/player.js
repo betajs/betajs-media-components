@@ -582,6 +582,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
                     "quartile:passed-quarter": function(passedQuarter) {
                         return ["first", "second", "third", "fourth"][passedQuarter];
+                    },
+                    "orientation:videowidth,videoheight,fallback-width,fallback-height": function(videoWidth, videoHeight, fallbackWidth, fallbackHeight) {
+                        var width = videoWidth || fallbackWidth;
+                        var height = videoHeight || fallbackHeight;
+                        if (width === height) return "square";
+                        return width > height ? "landscape" : "portrait";
                     }
                 },
 
@@ -598,6 +604,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this._dataset.bind("visibility", this.properties(), {
                         secondKey: "view_type"
                     });
+                    this._dataset.bind("orientation", this.properties());
                     if (typeof this.get("showsettings") !== "undefined")
                         this.set("showsettingsmenu", this.get("showsettings"));
                     this.delegateEvents(null, this.channel("ads"), "ad");
@@ -1159,6 +1166,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }
                         }, this);
                         this.player.on("loaded", function() {
+                            this.set("videowidth", this.player.videoWidth());
+                            this.set("videoheight", this.player.videoHeight());
                             if (this.get("sample_brightness")) this.__brightnessSampler.fire();
                         }, this);
                         this.player.on("error", function(e) {

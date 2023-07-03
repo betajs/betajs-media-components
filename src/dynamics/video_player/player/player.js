@@ -579,6 +579,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
                     "placement:outstream": function(outstream) {
                         return outstream ? "outstream" : "instream";
+                    },
+                    "quartile:passed-quarter": function(passedQuarter) {
+                        return ["first", "second", "third", "fourth"][passedQuarter];
                     }
                 },
 
@@ -590,6 +593,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this._dataset = this.auto_destroy(new DatasetProperties(this.activeElement()));
                     this._dataset.bind("layout", this.properties());
                     this._dataset.bind("placement", this.properties());
+                    this._dataset.bind("quartile", this.properties());
                     if (typeof this.get("showsettings") !== "undefined")
                         this.set("showsettingsmenu", this.get("showsettings"));
                     this.delegateEvents(null, this.channel("ads"), "ad");

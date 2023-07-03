@@ -573,6 +573,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
                     "is_floating:view_type": function(view_type) {
                         return view_type === "float" || ((view_type !== undefined && !this.get("fullscreened")) && this.get("floatingoptions.floatingonly"));
+                    },
+                    "layout:mobileview": function(mobileview) {
+                        return mobileview ? "mobile" : "desktop";
                     }
                 },
 
@@ -582,6 +585,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     repeat = repeat || false;
                     this.set("repeatedplayer", repeat);
                     this._dataset = this.auto_destroy(new DatasetProperties(this.activeElement()));
+                    this._dataset.bind("layout", this.properties());
                     if (typeof this.get("showsettings") !== "undefined")
                         this.set("showsettingsmenu", this.get("showsettings"));
                     this.delegateEvents(null, this.channel("ads"), "ad");

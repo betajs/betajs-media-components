@@ -1,6 +1,7 @@
 Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "dynamics:Dynamic",
     "module:Assets",
+    "module:DatasetProperties",
     "module:StickyHandler",
     "module:StylesMixin",
     "module:TrackTags",
@@ -61,7 +62,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.PlayerStates.ErrorVideo",
     "module:VideoPlayer.Dynamics.PlayerStates.PlayVideo",
     "module:VideoPlayer.Dynamics.PlayerStates.NextVideo"
-], function(Class, Assets, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, PlayerSupport, Types, Objs, Strings, Collection, Time, Timers, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
+], function(Class, Assets, DatasetProperties, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, PlayerSupport, Types, Objs, Strings, Collection, Time, Timers, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, [StylesMixin, function(inherited) {
@@ -580,6 +581,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 create: function(repeat) {
                     repeat = repeat || false;
                     this.set("repeatedplayer", repeat);
+                    this._dataset = this.auto_destroy(new DatasetProperties(this.activeElement()));
                     if (typeof this.get("showsettings") !== "undefined")
                         this.set("showsettingsmenu", this.get("showsettings"));
                     this.delegateEvents(null, this.channel("ads"), "ad");

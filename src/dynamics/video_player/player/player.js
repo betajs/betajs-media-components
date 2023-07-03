@@ -594,6 +594,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this._dataset.bind("layout", this.properties());
                     this._dataset.bind("placement", this.properties());
                     this._dataset.bind("quartile", this.properties());
+                    this._dataset.bind("adsplaying", this.properties());
                     if (typeof this.get("showsettings") !== "undefined")
                         this.set("showsettingsmenu", this.get("showsettings"));
                     this.delegateEvents(null, this.channel("ads"), "ad");

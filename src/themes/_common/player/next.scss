@@ -1,21 +1,13 @@
 .#{$cssplayer}-next-style-desktop {
-  @include background-rgba(0, 0, 0, .6, #979797);
-  a {
-    width: 168px;
-  }
+  top: auto;
+  transform: none;
 }
 
 .#{$cssplayer}-next-style-mobile {
-  a {
-    width: 100px;
-    background: rgba(0,0,0,0.1);
-  }
-  background: none;
 }
 
 .#{$cssplayer}-toggle-next-container {
-  border-bottom-left-radius: $open_next_button_border_radius;
-  border-top-left-radius: $open_next_button_border_radius;
+  width: 24%;
   color: white;
   font-size: $open_next_button_font_size;
   line-height: $open_next_button_box_size;
@@ -27,18 +19,36 @@
   transform: translateY(-50%);
   z-index: 6;
   a {
+    font-size: 16px;
+    text-decoration: none;
+    color: white;
+    display: block;
+    cursor: pointer;
+    border: #DDD 1px solid;
+    border-radius: 5px;
+    margin: 10px 0;
+    line-height: 2;
+    background: #2E2E2E;
     box-shadow: 0 1px 4px 0 rgba(0,0,0,.25);
     text-shadow: 0 1px 4px rgba(0,0,0,.25);
     position: relative;
     z-index: 1;
   }
+  hr {
+    margin: 0;
+    border-style: inset;
+    border-width: 1px;
+  }
   img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: contain;
     margin-top: -24px;
     margin-bottom: 10px;
-    width: 170px;
+    
   }
   span {
-    border-radius: 5px 0 0 5px;
+    border-radius: 4px;
     height: 100%;
     position: relative;
     left: 0;

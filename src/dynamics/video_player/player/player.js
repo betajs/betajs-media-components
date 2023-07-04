@@ -457,7 +457,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "change:position": function(position) {
                         if (!this.get("nextwidget") || this.get("stayengaged"))
                             return;
-                        if (this.get("playlist").length > 0) {
+                        if (Array.isArray(this.get("playlist")) && this.get("playlist").length > 0) {
                             if (position > this.get("shownext") && this.get("shownext") > 0 && !this.get("next_active")) {
                                 this.set("next_active", true);
                             }
@@ -1565,6 +1565,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             return;
                         }
                         if (this.get('disableseeking')) return;
+                        if (this.get("nextwidget")) this.channel("next").trigger("setStay");
                         if (this.videoLoaded()) {
                             if (position > this.player.duration())
                                 this.player.setPosition(this.player.duration() - this.get("skipseconds"));

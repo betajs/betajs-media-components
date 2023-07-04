@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.379 - 2023-06-28
+betajs-media-components - v0.0.381 - 2023-07-04
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.379",
-    "datetime": 1687933674360
+    "version": "0.0.381",
+    "datetime": 1688498359703
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -4112,7 +4112,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "change:position": function(position) {
                         if (!this.get("nextwidget") || this.get("stayengaged"))
                             return;
-                        if (this.get("playlist").length > 0) {
+                        if (Array.isArray(this.get("playlist")) && this.get("playlist").length > 0) {
                             if (position > this.get("shownext") && this.get("shownext") > 0 && !this.get("next_active")) {
                                 this.set("next_active", true);
                             }
@@ -5220,6 +5220,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             return;
                         }
                         if (this.get('disableseeking')) return;
+                        if (this.get("nextwidget")) this.channel("next").trigger("setStay");
                         if (this.videoLoaded()) {
                             if (position > this.player.duration())
                                 this.player.setPosition(this.player.duration() - this.get("skipseconds"));

@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.381 - 2023-07-04
+betajs-media-components - v0.0.382 - 2023-07-05
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.381",
-    "datetime": 1688498359703
+    "version": "0.0.382",
+    "datetime": 1688580139353
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -6400,16 +6400,25 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Outstream", [
             if (!this.dyn.get("adshassource")) {
                 if (typeof this.dyn.activeElement === "function")
                     this.dyn.activeElement().style.setProperty("display", "none");
-                throw Error("Please provide ad source for the outstream");
+                if (this.dyn.get("floatingoptions.floatingonly"))
+                    this.dyn.execute("close_floating");
+                console.warn("Please provide ad source for the outstream");
             }
 
             this.listenOn(this.dyn.channel("ads"), "adsManagerLoaded", function() {
-                Dom.onScrollIntoView(this.dyn.activeElement(), this.dyn.get("visibilityfraction"), function() {
+                if (this.dyn.get("is_floating")) {
                     if (!this.destroyed())
                         this.next("LoadAds", {
                             position: 'outstream'
                         });
-                }, this);
+                } else {
+                    Dom.onScrollIntoView(this.dyn.activeElement(), this.dyn.get("visibilityfraction"), function() {
+                        if (!this.destroyed())
+                            this.next("LoadAds", {
+                                position: 'outstream'
+                            });
+                    }, this);
+                }
             });
         }
     });
@@ -6859,7 +6868,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
                 }
             }
 
-            if (this.dyn.get("adshassource")) {
+            if (this.dyn.get("autoplay") && this.dyn.get("adshassource")) {
                 return this.__resetAdPlayer();
             }
             this.next("PosterReady");

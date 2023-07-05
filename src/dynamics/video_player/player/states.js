@@ -399,16 +399,25 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Outstream", [
             if (!this.dyn.get("adshassource")) {
                 if (typeof this.dyn.activeElement === "function")
                     this.dyn.activeElement().style.setProperty("display", "none");
-                throw Error("Please provide ad source for the outstream");
+                if (this.dyn.get("floatingoptions.floatingonly"))
+                    this.dyn.execute("close_floating");
+                console.warn("Please provide ad source for the outstream");
             }
 
             this.listenOn(this.dyn.channel("ads"), "adsManagerLoaded", function() {
-                Dom.onScrollIntoView(this.dyn.activeElement(), this.dyn.get("visibilityfraction"), function() {
+                if (this.dyn.get("is_floating")) {
                     if (!this.destroyed())
                         this.next("LoadAds", {
                             position: 'outstream'
                         });
-                }, this);
+                } else {
+                    Dom.onScrollIntoView(this.dyn.activeElement(), this.dyn.get("visibilityfraction"), function() {
+                        if (!this.destroyed())
+                            this.next("LoadAds", {
+                                position: 'outstream'
+                            });
+                    }, this);
+                }
             });
         }
     });
@@ -858,7 +867,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
                 }
             }
 
-            if (this.dyn.get("adshassource")) {
+            if (this.dyn.get("autoplay") && this.dyn.get("adshassource")) {
                 return this.__resetAdPlayer();
             }
             this.next("PosterReady");

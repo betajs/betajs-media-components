@@ -178,6 +178,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "non-linear-min-duration": 10,
                         "midrollads": [],
                         "non-linear-ad": [],
+                        "adchoicesontop": true,
 
                         /* Options */
                         "allowpip": true, // Picture-In-Picture Mode
@@ -396,6 +397,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "imasettings": "jsonarray",
                     "adsposition": "string",
                     "non-linear": "string",
+                    "adchoicesontop": "boolean",
                     "minadintervals": "int",
                     "non-linear-min-duration": "int",
                     "companionad": "string",

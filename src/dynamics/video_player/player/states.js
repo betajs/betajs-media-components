@@ -530,7 +530,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream", [
                 return;
             this.dyn._outstreamCompleted = true;
             this.dyn.trigger("outstream-completed");
-            this.dyn.channel("ads").trigger("outstreamCompleted", this.dyn);
+            // Somehow below code is running even this.dyn is undefined and this states checked in the above statement
+            if (this.dyn) this.dyn.channel("ads").trigger("outstreamCompleted", this.dyn);
         }
     });
 });

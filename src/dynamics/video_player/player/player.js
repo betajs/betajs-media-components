@@ -573,9 +573,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (height) styles.height = typeof height === "string" && (height[height.length - 1] === "%" || height === 'auto') ? height : parseFloat(height).toFixed(2) + "px";
                         if (width) styles.width = typeof width === "string" && (width[width.length - 1] === "%" || width === 'auto') ? width : parseFloat(width).toFixed(2) + "px";
 
+
                         // If we have an ads and before content we will not show the player poster with loader at all
-                        if (this.get("adshassource") && !adsInitialized && this.get("hidebeforeadstarts")) {
-                            styles.display = 'none';
+                        if ((this.get("adshassource") && !adsInitialized) && this.get("hidebeforeadstarts") && (this.get("autoplay") || this.get("outstream"))) {
+                            // NOTE: Display none will cause trouble as we're mostly running the ads via playwhenvisible.
+                            // playwhenvisible also prevents scrolling to the ads when it stars inside the body.
+                            if (this.get("autoplaywhenvisible") || this.get("outstream")) {
+                                styles.height = '1px';
+                                styles.opacity = 0;
+                            } else {
+                                styles.display = 'none';
+                            }
                         }
 
                         containerStyles = styles;
@@ -589,6 +597,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this._applyStyles(this.activeElement(), containerStyles || styles, !isFloating ? this.__lastContainerSizingStyles : null);
                                 this.__lastContainerSizingStyles = containerStyles || styles;
                             }
+
+                            if ((this.get("adshassource") && adsInitialized) && this.__lastContainerSizingStyles && (this.__lastContainerSizingStyles.opacity === 0 || this.__lastContainerSizingStyles.display === 'none')) {
+                                this.__lastContainerSizingStyles.opacity = null;
+                                this.__lastContainerSizingStyles.display = (containerStyles || styles).display;
+                                this._applyStyles(this.activeElement(), containerStyles || styles, this.__lastContainerSizingStyles);
+                            }
+
                             if (containerStyles.width && containerStyles.width.includes("%") && styles.width.includes("%")) {
                                 // If container width is in percentage, then we need to set the width of the player to auto
                                 // in other case width will be applied twice

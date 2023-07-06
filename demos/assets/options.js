@@ -83,10 +83,14 @@ if (params.flt) {
 }
 
 attrs = {...attrs, ...{
-        hideoninactivity: false,
+        // autoplaywhenvisible: true,
+        hidebeforeadstarts: false, // Will help hide player poster before ads start
+        // showplayercontentafter: 1500, // we can set any seconds to show player content in any case if ads not intialized
+        // hideoninactivity: false,
         // ** SOURCES
         source: '/static/demos/sample-video.mp4',
         poster: '/static/demos/assets/sample-cover.png',
+        minadintervals: 0,
         imasettings: {
             // ** IMA
             locale: 'fr',

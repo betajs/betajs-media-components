@@ -148,6 +148,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     "ads:contentPauseRequested": function() {
                         this.set("adsplaying", true);
+                    },
+                    "ads:ad-error": function() {
+                        if (this.parent().get("outstream")) this.parent().destroy();
                     }
                 },
 

@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.382 - 2023-07-05
+betajs-media-components - v0.0.383 - 2023-07-06
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1878,6 +1878,10 @@ Apache-2.0 Software License.
   top: 50%;
   transform: translateY(-50%);
   z-index: 6;
+}
+.ba-player-toggle-next-container.ba-player-next-with-sidebar {
+  right: 7.5%;
+  width: 35%;
 }
 .ba-player-toggle-next-container a {
   font-size: 16px;

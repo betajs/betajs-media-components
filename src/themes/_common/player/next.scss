@@ -7,6 +7,10 @@
 }
 
 .#{$cssplayer}-toggle-next-container {
+  &.#{$cssplayer}-next-with-sidebar {
+    right: 7.5%;
+    width: 35%;
+  }
   width: 24%;
   color: white;
   font-size: $open_next_button_font_size;

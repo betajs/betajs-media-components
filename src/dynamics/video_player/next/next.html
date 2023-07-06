@@ -1,4 +1,4 @@
-<div class="{{cssplayer}}-toggle-next-container {{cssplayer}}-next-style-{{style}}">
+<div class="{{cssplayer}}-toggle-next-container {{cssplayer}}-next-style-{{style}} {{(is_floating && with_sidebar) ? cssplayer + '-next-with-sidebar' : ''}}">
     <div class="{{cssplayer}}-next-button-container">
         <a class="{{cssplayer}}-next-button-stay" ba-click="{{stay()}}">{{staytext}}</a>
         <hr ba-if="{{style === 'desktop'}}">

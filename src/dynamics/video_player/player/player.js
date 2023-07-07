@@ -601,6 +601,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this._dataset.bind("layout", this.properties());
                     this._dataset.bind("placement", this.properties());
                     this._dataset.bind("quartile", this.properties());
+                    this._dataset.bind("adsquartile", this.properties());
                     this._dataset.bind("adsplaying", this.properties());
                     this._dataset.bind("visibility", this.properties(), {
                         secondKey: "view_type"

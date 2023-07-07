@@ -85,6 +85,16 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 channels: {
                     "ads:load": function() {
                         this.call("load");
+                        this.set("quartile", "first");
+                    },
+                    "ads:firstQuartile": function() {
+                        this.set("quartile", "second");
+                    },
+                    "ads:midpoint": function() {
+                        this.set("quartile", "third");
+                    },
+                    "ads:thirdQuartile": function() {
+                        this.set("quartile", "fourth");
                     },
                     "ads:start": function(ev) {
                         this._onStart(ev);

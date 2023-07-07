@@ -580,7 +580,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "placement:outstream": function(outstream) {
                         return outstream ? "outstream" : "instream";
                     },
-                    "quartile:passed-quarter": function(passedQuarter) {
+                    "quartile:passed-quarter,playing": function(passedQuarter, playing) {
+                        if (this.get("position") === 0 && !playing) return null;
                         return ["first", "second", "third", "fourth"][passedQuarter];
                     },
                     "orientation:videowidth,videoheight,fallback-width,fallback-height": function(videoWidth, videoHeight, fallbackWidth, fallbackHeight) {

@@ -475,7 +475,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     },
                     "change:fullscreened": function(isFullscreen) {
-                        if (isFullscreen && this.get("view_type") === "floating") {
+                        if (isFullscreen && this.get("view_type") === "float") {
                             this.set("view_type", "default");
                         }
                     }

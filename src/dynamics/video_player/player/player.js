@@ -455,7 +455,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("hasplaceholderstyle", value.length > 10);
                     },
                     "change:position": function(position) {
-                        if (!this.get("nextwidget") || this.get("stayengaged"))
+                        if (!this.get("nextwidget") || this.get("stayengaged") || this.get("adsplaying"))
                             return;
                         if (Array.isArray(this.get("playlist")) && this.get("playlist").length > 0) {
                             if (position > this.get("shownext") && this.get("shownext") > 0 && !this.get("next_active")) {

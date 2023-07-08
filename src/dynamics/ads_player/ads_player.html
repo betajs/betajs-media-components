@@ -8,7 +8,7 @@
     <div ba-if="{{adchoiceslink && adsplaying && !floating}}"
          class="{{cssadsplayer}}-ad-choices-container"
     >
-        <a href="{{adchoiceslink}}" title="{{string('ad-choices')}}" target="_blank">
+        <a href="{{adchoiceslink}}" title="{{string('ad-choices')}}" target="_blank" ba-if="{{adchoicesontop}}">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <rect width="16" height="16" transform="matrix(1 0 0 -1 0 16)" fill="url(#ba-ad-choice-pattern)"/>
                 <defs>
@@ -74,4 +74,7 @@
     ba-event:stop="stop"
     ba-view_type="{{view_type}}"
     ba-is_floating="{{is_floating}}"
+    ba-adchoicesontop="{{adchoicesontop}}"
+    ba-adchoiceslink="{{adchoiceslink}}"
+    ba-adchoicesstring="{{string('ad-choices')}}"
 ></ba-{{dyncontrolbar}}>

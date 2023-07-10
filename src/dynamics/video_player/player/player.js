@@ -1,6 +1,7 @@
 Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "dynamics:Dynamic",
     "module:Assets",
+    "module:DatasetProperties",
     "module:StickyHandler",
     "module:StylesMixin",
     "module:TrackTags",
@@ -61,7 +62,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.PlayerStates.ErrorVideo",
     "module:VideoPlayer.Dynamics.PlayerStates.PlayVideo",
     "module:VideoPlayer.Dynamics.PlayerStates.NextVideo"
-], function(Class, Assets, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, PlayerSupport, Types, Objs, Strings, Collection, Time, Timers, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
+], function(Class, Assets, DatasetProperties, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, PlayerSupport, Types, Objs, Strings, Collection, Time, Timers, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, [StylesMixin, function(inherited) {
@@ -476,7 +477,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     },
                     "change:fullscreened": function(isFullscreen) {
-                        if (isFullscreen && this.get("view_type") === "floating") {
+                        if (isFullscreen && this.get("view_type") === "float") {
                             this.set("view_type", "default");
                         }
                     }
@@ -574,6 +575,22 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
                     "is_floating:view_type": function(view_type) {
                         return view_type === "float" || ((view_type !== undefined && !this.get("fullscreened")) && this.get("floatingoptions.floatingonly"));
+                    },
+                    "layout:mobileview": function(mobileview) {
+                        return mobileview ? "mobile" : "desktop";
+                    },
+                    "placement:outstream": function(outstream) {
+                        return outstream ? "outstream" : "instream";
+                    },
+                    "quartile:passed-quarter,playing": function(passedQuarter, playing) {
+                        if (this.get("position") === 0 && !playing) return null;
+                        return ["first", "second", "third", "fourth"][passedQuarter];
+                    },
+                    "orientation:videowidth,videoheight,fallback-width,fallback-height": function(videoWidth, videoHeight, fallbackWidth, fallbackHeight) {
+                        var width = videoWidth || fallbackWidth;
+                        var height = videoHeight || fallbackHeight;
+                        if (width === height) return "square";
+                        return width > height ? "landscape" : "portrait";
                     }
                 },
 
@@ -582,6 +599,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 create: function(repeat) {
                     repeat = repeat || false;
                     this.set("repeatedplayer", repeat);
+                    this._dataset = this.auto_destroy(new DatasetProperties(this.activeElement()));
+                    this._dataset.bind("layout", this.properties());
+                    this._dataset.bind("placement", this.properties());
+                    this._dataset.bind("quartile", this.properties());
+                    this._dataset.bind("adsquartile", this.properties());
+                    this._dataset.bind("adsplaying", this.properties());
+                    this._dataset.bind("visibility", this.properties(), {
+                        secondKey: "view_type"
+                    });
+                    this._dataset.bind("orientation", this.properties());
                     if (typeof this.get("showsettings") !== "undefined")
                         this.set("showsettingsmenu", this.get("showsettings"));
                     this.delegateEvents(null, this.channel("ads"), "ad");
@@ -1143,6 +1170,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }
                         }, this);
                         this.player.on("loaded", function() {
+                            this.set("videowidth", this.player.videoWidth());
+                            this.set("videoheight", this.player.videoHeight());
                             if (this.get("sample_brightness")) this.__brightnessSampler.fire();
                         }, this);
                         this.player.on("error", function(e) {

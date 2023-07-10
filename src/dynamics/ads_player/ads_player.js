@@ -87,6 +87,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 channels: {
+                    "ads:ad-error": function() {
+                        this.set("adsplaying", false);
+                    },
                     "ads:load": function() {
                         this.call("load");
                         this.set("quartile", "first");
@@ -165,6 +168,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         adManagerOptions.videoElement = this.getVideoElement();
                     }
                     this.adsManager = this.auto_destroy(new AdsManager(adManagerOptions, dynamics));
+                    this.adsManager.requestAds(this._baseRequestAdsOptions());
                     this.adsManager.on("all", function(event, data) {
                         this.channel("ads").trigger(event, data);
                     }, this);
@@ -192,19 +196,25 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         if (!this.adsManager) return this.once("dynamic-activated", function() {
                             this.call("load");
                         }, this);
-                        if (!this.adsManager.adDisplayContainerInitialized) this.adsManager.initializeAdDisplayContainer();
-                        this.call("requestAds");
+                        this.adsManager.start({
+                            width: this.getAdWidth(),
+                            height: this.getAdHeight(),
+                            volume: this.get("repeatedplayer") ? 1 : (this.getAdWillPlayMuted() ? 0 : this.get("volume"))
+                        });
+                        // if (!this.adsManager.adDisplayContainerInitialized) this.adsManager.initializeAdDisplayContainer();
+                        // this.call("requestAds");
                     },
                     reset: function() {
                         this.set("linear", true);
                         this.set("adscompleted", true);
                         this.set("adsplaying", false);
                         this.adsManager.reset();
+                        // this.adsManager.contentComplete();
                         this.adsManager.requestAds(this._baseRequestAdsOptions());
                     },
                     reload: function() {
-                        this.adsManager.reset();
-                        this.adsManager.contentComplete();
+                        // this.adsManager.reset();
+                        // this.adsManager.contentComplete();
                         this.call("requestAds");
                     },
                     discardAdBreak: function() {

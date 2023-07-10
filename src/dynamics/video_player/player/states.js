@@ -451,7 +451,14 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
                     this.listenOn(this.dyn.channel("ads"), "log", function(event) {
                         if (!event.getAdData().adError || !this.dyn.get("adtagurlfallbacks") || this.dyn.get("adtagurlfallbacks").length === 0) return;
                         this.dyn.set("adtagurl", this.dyn.get("adtagurlfallbacks").shift());
-                        this.dyn.scopes.adsplayer.execute("reload");
+                        this.dyn.brakeAdsManually();
+                        if (!this.dyn.get("adsplayer_active")) this.dyn.set("adsplayer_active", true);
+                        this.listenOnce(this.dyn.channel("ads"), "adsManagerLoaded", function() {
+                            this.next("LoadAds", {
+                                position: this._position
+                            });
+                        }.bind(this));
+                        // this.dyn.scopes.adsplayer.execute("reload");
                     }, this);
                     this.listenOn(this.dyn.channel("ads"), "ad-error", function() {
                         if (this.dyn.get("adtagurlfallbacks") && this.dyn.get("adtagurlfallbacks").length > 0) {
@@ -777,23 +784,36 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayAd", [
                 if (this.state_name() === "PlayAd")
                     throw Error("PlayAd should be an abstract state.");
                 this.dyn.set("playing_ad", true);
-                this._showbuiltincontroller = this.dyn.get("showbuiltincontroller");
-                this.dyn.set("showbuiltincontroller", true);
                 this.listenOn(this.dyn, "playing", function() {
                     this.dyn.player.pause();
                 }, this);
-                this.dyn.channel("ads").on("log", function(event) {
+                this.listenOn(this.dyn.channel("ads"), "log", function(event) {
                     if (!event.getAdData().adError || !this.dyn.get("adtagurlfallbacks") || this.dyn.get("adtagurlfallbacks").length === 0) return;
                     this.dyn.set("adtagurl", this.dyn.get("adtagurlfallbacks").shift());
-                    this.dyn.scopes.adsplayer.execute("reload");
+                    this.dyn.brakeAdsManually();
+                    if (!this.dyn.get("adsplayer_active")) this.dyn.set("adsplayer_active", true);
+                    this.listenOnce(this.dyn.channel("ads"), "adsManagerLoaded", function() {
+                        this.next("LoadAds", {
+                            position: this._position
+                        });
+                    }.bind(this));
+                    // this.dyn.scopes.adsplayer.execute("reload");
                 }, this);
                 this.listenOn(this.dyn.channel("ads"), "ad-error", function() {
-                    if (!this.dyn.get("adtagurlfallbacks") || this.dyn.get("adtagurlfallbacks").length === 0) return;
+                    if (!this.dyn.get("adtagurlfallbacks") || this.dyn.get("adtagurlfallbacks").length === 0) return this.resume();
                     this.dyn.set("adtagurl", this.dyn.get("adtagurlfallbacks").shift());
-                    this.dyn.scopes.adsplayer.execute("reload");
+                    if (this.dyn && this.dyn.player) this.dyn.player.play();
+                    this.dyn.brakeAdsManually();
+                    if (!this.dyn.get("adsplayer_active")) this.dyn.set("adsplayer_active", true);
+                    this.listenOnce(this.dyn.channel("ads"), "adsManagerLoaded", function() {
+                        this.next("LoadAds", {
+                            position: this._position
+                        });
+                    }.bind(this));
+                    // this.dyn.scopes.adsplayer.execute("reload");
+                    // this.next("PlayVideo");
                 }, this);
                 this.listenOn(this.dyn.channel("ads"), "contentResumeRequested", function() {
-                    this.dyn.set("showbuiltincontroller", this._showbuiltincontroller);
                     this.resume();
                 }, this);
             },

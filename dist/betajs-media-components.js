@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.385 - 2023-07-09
+betajs-media-components - v0.0.386 - 2023-07-10
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.385 - 2023-07-09
+betajs-media-components - v0.0.386 - 2023-07-10
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.385",
-    "datetime": 1688954404688
+    "version": "0.0.386",
+    "datetime": 1688959196163
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -5151,7 +5151,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("hasplaceholderstyle", value.length > 10);
                     },
                     "change:position": function(position) {
-                        if (!this.get("nextwidget") || this.get("stayengaged"))
+                        if (!this.get("nextwidget") || this.get("stayengaged") || this.get("adsplaying"))
                             return;
                         if (Array.isArray(this.get("playlist")) && this.get("playlist").length > 0) {
                             if (position > this.get("shownext") && this.get("shownext") > 0 && !this.get("next_active")) {

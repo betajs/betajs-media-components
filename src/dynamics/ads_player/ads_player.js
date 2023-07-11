@@ -72,17 +72,24 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         adTagUrl: this.get("adtagurl"),
                         IMASettings: this.get("imasettings"),
                         inlinevastxml: this.get("inlinevastxml"),
-                        continuousPlayback: false, // TODO
+                        continuousPlayback: true,
                         linearAdSlotWidth: this.getAdWidth(),
                         linearAdSlotHeight: this.getAdHeight(),
                         nonLinearAdSlotWidth: this.getAdWidth(),
                         nonLinearAdSlotHeight: this.getAdHeight() / 3,
                         adWillAutoplay: this.getAdWillAutoplay(),
-                        adWillPlayMuted: this.getAdWillPlayMuted()
+                        adWillPlayMuted: this.getAdWillPlayMuted(),
+                        autoPlayAdBreaks: true,
+                        width: this.getAdWidth(),
+                        height: this.getAdHeight(),
+                        volume: this.get("repeatedplayer") ? 1 : (this.getAdWillPlayMuted() ? 0 : this.get("volume"))
                     };
                 },
 
                 channels: {
+                    "ads:ad-error": function() {
+                        this.set("adsplaying", false);
+                    },
                     "ads:load": function() {
                         this.call("load");
                         this.set("quartile", "first");
@@ -194,13 +201,21 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             height: this.getAdHeight(),
                             volume: this.get("repeatedplayer") ? 1 : (this.getAdWillPlayMuted() ? 0 : this.get("volume"))
                         });
+                        // if (!this.adsManager.adDisplayContainerInitialized) this.adsManager.initializeAdDisplayContainer();
+                        // this.call("requestAds");
                     },
                     reset: function() {
                         this.set("linear", true);
                         this.set("adscompleted", true);
                         this.set("adsplaying", false);
                         this.adsManager.reset();
+                        // this.adsManager.contentComplete();
                         this.adsManager.requestAds(this._baseRequestAdsOptions());
+                    },
+                    reload: function() {
+                        // this.adsManager.reset();
+                        // this.adsManager.contentComplete();
+                        this.call("requestAds");
                     },
                     discardAdBreak: function() {
                         this.adsManager.discardAdBreak();
@@ -267,7 +282,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 getAdWillPlayMuted: function() {
-                    return this.get("muted");
+                    return this.get("muted") || this.get("volume") === 0;
                 },
 
                 _onStart: function(ev) {

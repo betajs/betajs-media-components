@@ -101,7 +101,6 @@ Scoped.define("module:Ads.IMA.AdsManager", [
 
             requestAds: function(options) {
                 this._adsRequest = new google.ima.AdsRequest();
-                this._requestOptions = options;
                 if (options.adTagUrl) this._adsRequest.adTagUrl = options.adTagUrl;
                 else if (options.inlinevastxml) this._adsRequest.adsResponse = options.inlinevastxml;
                 this._adsRequest.linearAdSlotWidth = options.linearAdSlotWidth;
@@ -111,7 +110,13 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 this._adsRequest.setAdWillAutoPlay(options.adWillAutoPlay);
                 this._adsRequest.setAdWillPlayMuted(options.adWillPlayMuted);
                 this._adsRequest.setContinuousPlayback(options.continuousPlayback);
+                this._adsLoader.getSettings().setAutoPlayAdBreaks(options.autoPlayAdBreaks);
                 this._adsLoader.requestAds(this._adsRequest);
+                // this.once("adsManagerLoaded", function() {
+                //     this._adsManager.init(options.width, options.height, google.ima.ViewMode.NORMAL);
+                //     this._adsManager.setVolume(options.volume);
+                //     this._adsManager.start();
+                // }.bind(this));
             },
 
             onAdsManagerLoaded: function(adsManagerLoadedEvent) {
@@ -160,11 +165,6 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 Objs.iter(this.__events(), function(eventType) {
                     this._adsManager.addEventListener(eventType, function(event) {
                         if (event.type === google.ima.AdErrorEvent.Type.AD_ERROR) return this.onAdError(event);
-                        if (event.type === google.ima.AdEvent.Type.LOG) {
-                            var data = event.getAdData();
-                            if (data.adError) console.warn("Non fatal ad error", data.adError.getMessage());
-                            return;
-                        }
                         return this.onAdEvent(event);
                     }, false, this);
                 }, this);
@@ -194,6 +194,16 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                     this.onAdError(e);
                     throw e;
                 }
+            },
+
+            adDisplayContainerInitialized: function() {
+                return !!this.__adDisplayContainerInitialized;
+            },
+
+            initializeAdDisplayContainer: function() {
+                if (this.__adDisplayContainerInitialized) return;
+                this._adDisplayContainer.initialize();
+                this.__adDisplayContainerInitialized = true;
             },
 
             __methods: function() {

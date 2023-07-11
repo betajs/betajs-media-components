@@ -2005,6 +2005,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 initAdSources: function() {
                     this.set("preloadadsmanager", false);
                     this.set("delayadsmanagerload", false);
+                    if (
+                        Array.isArray(this.get("adtagurlfallbacks")) &&
+                        this.get("adtagurlfallbacks").length > 0 &&
+                        !this.get("adtagurl") &&
+                        !this.get("inlinevastxml")
+                    ) this.set("adtagurl", this.get("adtagurlfallbacks").shift());
                     this.set("adshassource", !!this.get("adtagurl") || !!this.get("inlinevastxml"));
 
                     // The initial mute state will not be changes if outstream is not set

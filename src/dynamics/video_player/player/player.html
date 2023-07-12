@@ -73,7 +73,7 @@
             ba-adchoicesontop="{{adchoicesontop}}"
         ></ba-{{dynadsplayer}}>
         <div class="{{css}}-overlay {{hasplaceholderstyle ? (css + '-overlay-with-placeholder') : ''}}"
-             ba-show="{{!showbuiltincontroller && !outstream}}" style="{{placeholderstyle}}"
+             ba-show="{{!showbuiltincontroller && !outstream && !adsplaying}}" style="{{placeholderstyle}}"
         >
             <div tabindex="-1" class="{{css}}-player-toggle-overlay" data-selector="player-toggle-overlay"
                  ba-hotkey:right="{{seek(position + skipseconds)}}" ba-hotkey:left="{{seek(position - skipseconds)}}"

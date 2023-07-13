@@ -738,6 +738,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
                 this.next("NextVideo");
             }, this);
             this.listenOn(this.dyn, "ended", function() {
+                if (!this.dyn) return;
                 this.dyn.set("autoseek", null);
                 this.dyn.channel("ads").trigger("contentComplete");
                 // waiting a bit for postroll

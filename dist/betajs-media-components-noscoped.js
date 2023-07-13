@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.388 - 2023-07-12
+betajs-media-components - v0.0.389 - 2023-07-13
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.388",
-    "datetime": 1689170404040
+    "version": "0.0.389",
+    "datetime": 1689292489627
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -6830,6 +6830,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
                 this.next("NextVideo");
             }, this);
             this.listenOn(this.dyn, "ended", function() {
+                if (!this.dyn) return;
                 this.dyn.set("autoseek", null);
                 this.dyn.channel("ads").trigger("contentComplete");
                 // waiting a bit for postroll

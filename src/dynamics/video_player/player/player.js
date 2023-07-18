@@ -170,6 +170,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "adchoiceslink": null,
                         "adtagurlfallbacks": null,
                         "inlinevastxml": null,
+                        "hidebeforeadstarts": true, // Will help hide player poster before ads start
+                        "showplayercontentafter": null, // we can set any seconds to show player content in any case if ads not intialized
                         "adsposition": null,
                         "vmapads": false, // VMAP ads will set pre, mid, post positions inside XML file
                         "non-linear": null,
@@ -179,7 +181,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "minadintervals": 5,
                         "non-linear-min-duration": 10,
                         "midrollads": [],
-                        "non-linear-ad": [],
                         "adchoicesontop": true,
 
                         /* Options */
@@ -508,7 +509,35 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "aspect_ratio:aspectratio,fallback-width,fallback-height": function(aspectRatio, fallbackWidth, fallbackHeight) {
                         return aspectRatio || fallbackWidth + "/" + fallbackHeight;
                     },
-                    "containerSizingStyles:aspect_ratio,height,width,floating_height,floating_width,floating_top,floating_right,floating_bottom,floating_left,is_floating": function(aspectRatio, height, width, floatingHeight, floatingWidth, floatingTop, floatingRight, floatingBottom, floatingLeft, isFloating) {
+                    "adsinitialized:addata,adtagurl,inlinevastxml": function(addata, adsTagURL, inlineVastXML) {
+                        if (this.get("adsinitialized")) {
+                            if (this.__adInitilizeChecker) this.__adInitilizeChecker.clear();
+                            return true;
+                        }
+                        // On load event, we're getting addata from IMA SDK
+                        if (typeof addata !== "undefined" && addata) {
+                            if (this.__adInitilizeChecker) this.__adInitilizeChecker.clear();
+                            return true;
+                        }
+
+                        if (!!adsTagURL || !!inlineVastXML) {
+                            this.set("adshassource", true);
+                            // On error, we're set initialized to true to prevent further attempts
+                            this.on("ad:ad-error", function() {
+                                if (this.__adInitilizeChecker) this.__adInitilizeChecker.clear();
+                                this.set("adsinitialized", true);
+                            }, this);
+                            // in case if ads will not trigger any event, we're setting initialized to true after defined seconds and wil show player content
+                            if (!this.__adInitilizeChecker && this.get("showplayercontentafter")) {
+                                this.__adInitilizeChecker = Async.eventually(function() {
+                                    if (!this.get("adsinitialized")) this.set("adsinitialized", true);
+                                }, this, Math.round(this.get("showplayercontentafter") > 100 ? this.get("showplayercontentafter") : this.get("showplayercontentafter") * 1000));
+                            }
+                        } else {
+                            return false;
+                        }
+                    },
+                    "containerSizingStyles:aspect_ratio,height,width,floating_height,floating_width,floating_top,floating_right,floating_bottom,floating_left,is_floating,adsinitialized": function(aspectRatio, height, width, floatingHeight, floatingWidth, floatingTop, floatingRight, floatingBottom, floatingLeft, isFloating, adsInitialized) {
                         var containerStyles, styles, calculated;
                         styles = {
                             aspectRatio: aspectRatio
@@ -543,6 +572,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                         if (height) styles.height = typeof height === "string" && (height[height.length - 1] === "%" || height === 'auto') ? height : parseFloat(height).toFixed(2) + "px";
                         if (width) styles.width = typeof width === "string" && (width[width.length - 1] === "%" || width === 'auto') ? width : parseFloat(width).toFixed(2) + "px";
+
+                        // If we have an ads and before content we will not show the player poster with loader at all
+                        if (this.get("adshassource") && !adsInitialized && this.get("hidebeforeadstarts")) {
+                            styles.display = 'none';
+                        }
 
                         containerStyles = styles;
                         if (this.activeElement()) {

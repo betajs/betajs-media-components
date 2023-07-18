@@ -171,7 +171,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "adtagurlfallbacks": null,
                         "inlinevastxml": null,
                         "hidebeforeadstarts": true, // Will help hide player poster before ads start
-                        "showplayercontentafter": null, // we can set any seconds to show player content in any case if ads not intialized
+                        "showplayercontentafter": null, // we can set any microseconds to show player content in any case if ads not initialized
                         "adsposition": null,
                         "vmapads": false, // VMAP ads will set pre, mid, post positions inside XML file
                         "non-linear": null,
@@ -223,7 +223,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             "sidebar": true, // show sidebar
                             "floatingonly": false, // hide and show on video player based on view port
                             "closeable": true, // show close button
-                            "hideplayeronclose": true, // show close button
+                            "hideplayeronclose": true, // hide player container in the content if floating player was closed
                             "companion": false, // TODO: not works for now, show companion if exists else sidebar default
                             // "fluidsidebar": true, // TODO: not works for now, if false, 50% width will be applied on sidebar
                             "desktop": {
@@ -509,30 +509,38 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "aspect_ratio:aspectratio,fallback-width,fallback-height": function(aspectRatio, fallbackWidth, fallbackHeight) {
                         return aspectRatio || fallbackWidth + "/" + fallbackHeight;
                     },
-                    "adsinitialized:addata,adtagurl,inlinevastxml": function(addata, adsTagURL, inlineVastXML) {
+                    "adsinitialized:adsmanagerloaded,addata,adtagurl,inlinevastxml": function(adsmanagerloaded, addata, adsTagURL, inlineVastXML) {
                         if (this.get("adsinitialized")) {
                             if (this.__adInitilizeChecker) this.__adInitilizeChecker.clear();
                             return true;
                         }
-                        // On load event, we're getting addata from IMA SDK
-                        if (typeof addata !== "undefined" && addata) {
-                            if (this.__adInitilizeChecker) this.__adInitilizeChecker.clear();
-                            return true;
+                        if (this.get("skipinitial")) {
+                            // on autoplay set to true, we're getting addata from player on ads start or error event
+                            if (typeof addata !== "undefined" && addata) {
+                                if (this.__adInitilizeChecker) this.__adInitilizeChecker.clear();
+                                return true;
+                            }
+                        } else {
+                            // On load event, we're getting addata from IMA SDK
+                            if (typeof adsmanagerloaded !== "undefined" && adsmanagerloaded) {
+                                if (this.__adInitilizeChecker) this.__adInitilizeChecker.clear();
+                                return true;
+                            }
                         }
 
-                        if (!!adsTagURL || !!inlineVastXML) {
+                        if (!!adsTagURL || !!inlineVastXML && !this.get("adshassource")) {
                             this.set("adshassource", true);
                             // On error, we're set initialized to true to prevent further attempts
-                            this.on("ad:ad-error", function() {
-                                if (this.__adInitilizeChecker) this.__adInitilizeChecker.clear();
-                                this.set("adsinitialized", true);
-                            }, this);
                             // in case if ads will not trigger any event, we're setting initialized to true after defined seconds and wil show player content
                             if (!this.__adInitilizeChecker && this.get("showplayercontentafter")) {
                                 this.__adInitilizeChecker = Async.eventually(function() {
                                     if (!this.get("adsinitialized")) this.set("adsinitialized", true);
-                                }, this, Math.round(this.get("showplayercontentafter") > 100 ? this.get("showplayercontentafter") : this.get("showplayercontentafter") * 1000));
+                                }, this, this.get("showplayercontentafter"));
                             }
+                            this.on("ad:ad-error", function() {
+                                if (this.__adInitilizeChecker) this.__adInitilizeChecker.clear();
+                                this.set("adsinitialized", true);
+                            }, this);
                         } else {
                             return false;
                         }
@@ -665,6 +673,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.delegateEvents(null, this.channel("ads"), "ad");
                     this.set("prominent_title", this.get("prominent-title"));
                     this.set("closeable_title", this.get("closeable-title"));
+                    // NOTE: below condition has to be before ads initialization
+                    if (this.get("autoplaywhenvisible")) this.set("autoplay", true);
                     this.set("floatingoptions", Objs.tree_merge(
                         this.attrs().floatingoptions,
                         this.get("floatingoptions")
@@ -772,8 +782,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("message", "");
                     this.set("fullscreensupport", false);
                     this.set("csssize", "normal");
-                    if (this.get("autoplaywhenvisible"))
-                        this.set("autoplay", true);
 
                     // this.set("loader_active", false);
                     // this.set("playbutton_active", false);

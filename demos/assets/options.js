@@ -84,7 +84,7 @@ if (params.flt) {
 
 attrs = {...attrs, ...{
         // autoplaywhenvisible: true,
-        hidebeforeadstarts: false, // Will help hide player poster before ads start
+        // hidebeforeadstarts: false, // Will help hide player poster before ads start
         // showplayercontentafter: 1500, // we can set any seconds to show player content in any case if ads not intialized
         // hideoninactivity: false,
         // ** SOURCES
@@ -99,7 +99,6 @@ attrs = {...attrs, ...{
             // uiElements: ['countdown'],
             // uiElements: ['adAttribution', 'countdown'],
         },
-        // hidebeforeadstarts: false, // Will help hide player poster before ads start
         // source: '/static/demos/assets/portrait.mp4',
         // poster: '/static/demos/assets/portrait-poster.png',
         // poster: '/static/demos/assets/portrait-poster-270x480.jpeg',

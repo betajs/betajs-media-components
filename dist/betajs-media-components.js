@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.389 - 2023-07-13
+betajs-media-components - v0.0.390 - 2023-07-20
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.389 - 2023-07-13
+betajs-media-components - v0.0.390 - 2023-07-20
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.389",
-    "datetime": 1689292489627
+    "version": "0.0.390",
+    "datetime": 1689889060552
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -4940,7 +4940,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             "sidebar": true, // show sidebar
                             "floatingonly": false, // hide and show on video player based on view port
                             "closeable": true, // show close button
-                            "hideplayeronclose": true, // show close button
+                            "hideplayeronclose": false, // show close button
                             "companion": false, // TODO: not works for now, show companion if exists else sidebar default
                             // "fluidsidebar": true, // TODO: not works for now, if false, 50% width will be applied on sidebar
                             "desktop": {

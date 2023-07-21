@@ -522,7 +522,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }
                         } else {
                             // On load event, we're getting addata from IMA SDK
-                            if (typeof adsmanagerloaded !== "undefined" && adsmanagerloaded) {
+                            if (adsmanagerloaded) {
                                 if (this.__adInitilizeChecker) this.__adInitilizeChecker.clear();
                                 return true;
                             }

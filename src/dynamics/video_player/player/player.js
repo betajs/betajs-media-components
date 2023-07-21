@@ -516,7 +516,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         if (this.get("skipinitial")) {
                             // on autoplay set to true, we're getting addata from player on ads start or error event
-                            if (typeof addata !== "undefined" && addata) {
+                            if (addata) {
                                 if (this.__adInitilizeChecker) this.__adInitilizeChecker.clear();
                                 return true;
                             }

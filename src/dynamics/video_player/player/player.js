@@ -223,7 +223,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             "sidebar": true, // show sidebar
                             "floatingonly": false, // hide and show on video player based on view port
                             "closeable": true, // show close button
-                            "hideplayeronclose": true, // hide player container in the content if floating player was closed
+                            "hideplayeronclose": false, // hide player container in the content if floating player was closed
                             "companion": false, // TODO: not works for now, show companion if exists else sidebar default
                             // "fluidsidebar": true, // TODO: not works for now, if false, 50% width will be applied on sidebar
                             "desktop": {

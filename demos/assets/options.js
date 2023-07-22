@@ -54,6 +54,9 @@ if (params.ad) {
         case 5: case '5': case 'os': // with nonLinear
             attrs.adtagurl = 'https://ads.celtra.com/f41e9364/vpaid/vast.xml';
             break;
+        case 'err':
+            attrs.adtagurl = 'https://ads.celtra.com/vpaid/vast.xml';
+            break;
         case 1: case '1': default:
             attrs.adtagurl = `https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=`;
             // attrs.adtagurl = v3_doubleclick;
@@ -80,10 +83,14 @@ if (params.flt) {
 }
 
 attrs = {...attrs, ...{
-        hideoninactivity: false,
+        // autoplaywhenvisible: true,
+        // hidebeforeadstarts: false, // Will help hide player poster before ads start
+        // showplayercontentafter: 1500, // we can set any seconds to show player content in any case if ads not intialized
+        // hideoninactivity: false,
         // ** SOURCES
         source: '/static/demos/sample-video.mp4',
         poster: '/static/demos/assets/sample-cover.png',
+        minadintervals: 0,
         imasettings: {
             // ** IMA
             locale: 'fr',

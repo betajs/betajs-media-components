@@ -47,7 +47,7 @@
         }
     </script>
 </head>
-<body style="background: #EEE; margin: 0">
+<body style="background: #EEE; margin: 0; padding: 0 15px">
 <div id="before-player-content" class="row" style="display: none; margin-bottom: 20px">
     <div class="col-xs-12" style="min-height: calc(100vh + 10vh);">
         <h1>FIRST PARAGRAPH BEFORE PLAYER WITH HEIGHT 1300px</h1>
@@ -107,6 +107,9 @@
     }, player);
 
     player.on("attached", function (playerInstance) {
+        // ['autoplay', 'skipinitial','autoplaywhenvisible', 'outstream'].forEach(key => {
+        //     console.log(`${key} = ${player.get(key)}\n`);
+        // });
         playerInstance.on("fullscreen-change", function (isFullscreen) {
             console.log('is Full', isFullscreen);
         }, this);

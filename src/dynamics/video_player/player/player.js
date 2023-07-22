@@ -170,6 +170,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "adchoiceslink": null,
                         "adtagurlfallbacks": null,
                         "inlinevastxml": null,
+                        "hidebeforeadstarts": true, // Will help hide player poster before ads start
+                        "showplayercontentafter": null, // we can set any microseconds to show player content in any case if ads not initialized
                         "adsposition": null,
                         "vmapads": false, // VMAP ads will set pre, mid, post positions inside XML file
                         "non-linear": null,
@@ -179,7 +181,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "minadintervals": 5,
                         "non-linear-min-duration": 10,
                         "midrollads": [],
-                        "non-linear-ad": [],
                         "adchoicesontop": true,
 
                         /* Options */
@@ -222,7 +223,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             "sidebar": true, // show sidebar
                             "floatingonly": false, // hide and show on video player based on view port
                             "closeable": true, // show close button
-                            "hideplayeronclose": false, // show close button
+                            "hideplayeronclose": false, // hide player container in the content if floating player was closed
                             "companion": false, // TODO: not works for now, show companion if exists else sidebar default
                             // "fluidsidebar": true, // TODO: not works for now, if false, 50% width will be applied on sidebar
                             "desktop": {
@@ -508,7 +509,37 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "aspect_ratio:aspectratio,fallback-width,fallback-height": function(aspectRatio, fallbackWidth, fallbackHeight) {
                         return aspectRatio || fallbackWidth + "/" + fallbackHeight;
                     },
-                    "containerSizingStyles:aspect_ratio,height,width,floating_height,floating_width,floating_top,floating_right,floating_bottom,floating_left,is_floating": function(aspectRatio, height, width, floatingHeight, floatingWidth, floatingTop, floatingRight, floatingBottom, floatingLeft, isFloating) {
+                    "adsinitialized:playing,adtagurl,inlinevastxml": function(playing, adsTagURL, inlineVastXML) {
+                        if (this.get("adsinitialized")) {
+                            if (this.__adInitilizeChecker) this.__adInitilizeChecker.clear();
+                            return true;
+                        }
+                        if (playing) {
+                            if (this.__adInitilizeChecker) this.__adInitilizeChecker.clear();
+                            return true;
+                        }
+                        if (!!adsTagURL || !!inlineVastXML && !this.get("adshassource")) {
+                            this.set("adshassource", true);
+                            // On error, we're set initialized to true to prevent further attempts
+                            // in case if ads will not trigger any event, we're setting initialized to true after defined seconds and wil show player content
+                            if (!this.__adInitilizeChecker && this.get("showplayercontentafter")) {
+                                this.__adInitilizeChecker = Async.eventually(function() {
+                                    if (!this.get("adsinitialized")) this.set("adsinitialized", true);
+                                }, this, this.get("showplayercontentafter"));
+                            }
+                            this.once("ad:adCanPlay", function() {
+                                if (this.__adInitilizeChecker) this.__adInitilizeChecker.clear();
+                                this.set("adsinitialized", true);
+                            });
+                            this.once("ad:ad-error", function() {
+                                if (this.__adInitilizeChecker) this.__adInitilizeChecker.clear();
+                                this.set("adsinitialized", true);
+                            }, this);
+                        } else {
+                            return false;
+                        }
+                    },
+                    "containerSizingStyles:aspect_ratio,height,width,floating_height,floating_width,floating_top,floating_right,floating_bottom,floating_left,is_floating,adsinitialized": function(aspectRatio, height, width, floatingHeight, floatingWidth, floatingTop, floatingRight, floatingBottom, floatingLeft, isFloating, adsInitialized) {
                         var containerStyles, styles, calculated;
                         styles = {
                             aspectRatio: aspectRatio
@@ -544,6 +575,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (height) styles.height = typeof height === "string" && (height[height.length - 1] === "%" || height === 'auto') ? height : parseFloat(height).toFixed(2) + "px";
                         if (width) styles.width = typeof width === "string" && (width[width.length - 1] === "%" || width === 'auto') ? width : parseFloat(width).toFixed(2) + "px";
 
+
+                        // If we have an ads and before content we will not show the player poster with loader at all
+                        if ((this.get("adshassource") && !adsInitialized) && this.get("hidebeforeadstarts") && (this.get("autoplay") || this.get("outstream"))) {
+                            styles.height = '1px';
+                            styles.opacity = 0;
+                        }
+
                         containerStyles = styles;
                         if (this.activeElement()) {
                             // if element is sticky no need, to apply styles which are position with fixed
@@ -555,6 +593,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this._applyStyles(this.activeElement(), containerStyles || styles, !isFloating ? this.__lastContainerSizingStyles : null);
                                 this.__lastContainerSizingStyles = containerStyles || styles;
                             }
+
+                            if ((this.get("adshassource") && adsInitialized) && this.__lastContainerSizingStyles && (this.__lastContainerSizingStyles.opacity === 0 || this.__lastContainerSizingStyles.display === 'none')) {
+                                this.__lastContainerSizingStyles.opacity = null;
+                                this.__lastContainerSizingStyles.display = (containerStyles || styles).display;
+                                this._applyStyles(this.activeElement(), containerStyles || styles, this.__lastContainerSizingStyles);
+                            }
+
                             if (containerStyles.width && containerStyles.width.includes("%") && styles.width.includes("%")) {
                                 // If container width is in percentage, then we need to set the width of the player to auto
                                 // in other case width will be applied twice
@@ -616,6 +661,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.delegateEvents(null, this.channel("ads"), "ad");
                     this.set("prominent_title", this.get("prominent-title"));
                     this.set("closeable_title", this.get("closeable-title"));
+                    // NOTE: below condition has to be before ads initialization
+                    if (this.get("autoplaywhenvisible")) this.set("autoplay", true);
                     this.set("floatingoptions", Objs.tree_merge(
                         this.attrs().floatingoptions,
                         this.get("floatingoptions")
@@ -723,8 +770,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("message", "");
                     this.set("fullscreensupport", false);
                     this.set("csssize", "normal");
-                    if (this.get("autoplaywhenvisible"))
-                        this.set("autoplay", true);
 
                     // this.set("loader_active", false);
                     // this.set("playbutton_active", false);

@@ -89,6 +89,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 channels: {
                     "ads:ad-error": function() {
                         this.set("adsplaying", false);
+                        if (this.parent().get("outstream")) this.parent().destroy();
                     },
                     "ads:load": function() {
                         this.call("load");
@@ -170,6 +171,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     this.adsManager = this.auto_destroy(new AdsManager(adManagerOptions, dynamics));
                     this.adsManager.requestAds(this._baseRequestAdsOptions());
                     this.adsManager.on("all", function(event, data) {
+                        if (event === "adsManagerLoaded") this.set("adsmanagerloaded", true);
                         this.channel("ads").trigger(event, data);
                     }, this);
                     if (dynamics) {

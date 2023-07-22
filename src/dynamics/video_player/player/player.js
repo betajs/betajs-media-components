@@ -509,25 +509,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "aspect_ratio:aspectratio,fallback-width,fallback-height": function(aspectRatio, fallbackWidth, fallbackHeight) {
                         return aspectRatio || fallbackWidth + "/" + fallbackHeight;
                     },
-                    "adsinitialized:adsmanagerloaded,addata,adtagurl,inlinevastxml": function(adsmanagerloaded, addata, adsTagURL, inlineVastXML) {
+                    "adsinitialized:playing,adtagurl,inlinevastxml": function(playing, adsTagURL, inlineVastXML) {
                         if (this.get("adsinitialized")) {
                             if (this.__adInitilizeChecker) this.__adInitilizeChecker.clear();
                             return true;
                         }
-                        if (this.get("skipinitial")) {
-                            // on autoplay set to true, we're getting addata from player on ads start or error event
-                            if (addata) {
-                                if (this.__adInitilizeChecker) this.__adInitilizeChecker.clear();
-                                return true;
-                            }
-                        } else {
-                            // On load event, we're getting addata from IMA SDK
-                            if (adsmanagerloaded) {
-                                if (this.__adInitilizeChecker) this.__adInitilizeChecker.clear();
-                                return true;
-                            }
+                        if (playing) {
+                            if (this.__adInitilizeChecker) this.__adInitilizeChecker.clear();
+                            return true;
                         }
-
                         if (!!adsTagURL || !!inlineVastXML && !this.get("adshassource")) {
                             this.set("adshassource", true);
                             // On error, we're set initialized to true to prevent further attempts
@@ -537,7 +527,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     if (!this.get("adsinitialized")) this.set("adsinitialized", true);
                                 }, this, this.get("showplayercontentafter"));
                             }
-                            this.on("ad:ad-error", function() {
+                            this.once("ad:adCanPlay", function() {
+                                if (this.__adInitilizeChecker) this.__adInitilizeChecker.clear();
+                                this.set("adsinitialized", true);
+                            });
+                            this.once("ad:ad-error", function() {
                                 if (this.__adInitilizeChecker) this.__adInitilizeChecker.clear();
                                 this.set("adsinitialized", true);
                             }, this);
@@ -584,14 +578,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                         // If we have an ads and before content we will not show the player poster with loader at all
                         if ((this.get("adshassource") && !adsInitialized) && this.get("hidebeforeadstarts") && (this.get("autoplay") || this.get("outstream"))) {
-                            // NOTE: Display none will cause trouble as we're mostly running the ads via playwhenvisible.
-                            // playwhenvisible also prevents scrolling to the ads when it stars inside the body.
-                            if (this.get("autoplaywhenvisible") || this.get("outstream")) {
-                                styles.height = '1px';
-                                styles.opacity = 0;
-                            } else {
-                                styles.display = 'none';
-                            }
+                            styles.height = '1px';
+                            styles.opacity = 0;
                         }
 
                         containerStyles = styles;

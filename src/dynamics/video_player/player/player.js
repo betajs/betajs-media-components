@@ -133,6 +133,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "source": "",
                         "sources": [],
                         "sourcefilter": {},
+                        "state": "",
                         "streams": [],
                         "currentstream": null,
                         "hasnext": false,
@@ -324,6 +325,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "muted": "boolean",
                     "nextwidget": "boolean",
                     "shownext": "float",
+                    "state": "string",
                     "noengagenext": "float",
                     "stayengaged": "boolean",
                     "next_active": "boolean",
@@ -754,6 +756,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         stateRegistry: new ClassRegistry(this.cls.playerStates())
                     }));
                     this.host.dynamic = this;
+                    this.set("state", this._initialState.classname ? this._initialState.classname.split(".").slice(-1)[0] : this._initialState);
+                    this.host.on("next", function(state) {
+                        this.set("state", state);
+                    }, this);
                     this.host.initialize(this._initialState);
 
                     this.__adsControlPosition = 0;

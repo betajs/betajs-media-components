@@ -47,10 +47,24 @@ Scoped.define("module:VideoPlayer.Dynamics.FloatingSidebar", [
                                             closestIndex = index;
                                         }
                                         if (companionads.length === index + 1) {
-                                            this.set("companionadcontent", companionads[closestIndex].getContent());
+                                            var companionAd = companionads[closestIndex];
+                                            this.set("companionadcontent", companionAd.getContent());
                                             var container = this.activeElement().querySelector("." + this.get("cssfloatingsidebar") + '-companion-container');
                                             container.style.height = dimensions.height + "px";
-                                            if (container) container.innerHTML = this.get("companionadcontent");
+                                            if (container) {
+                                                container.innerHTML = this.get("companionadcontent");
+                                                var image = container.querySelector('img');
+                                                if (image && _ar && dimensions) {
+                                                    _ar = companionAd.data.width / companionAd.data.height;
+                                                    if (_ar < ar) {
+                                                        image.height = dimensions.height;
+                                                        image.width = dimensions.height * (_ar <= 1 ? _ar : companionAd.data.width / companionAd.data.height);
+                                                    } else {
+                                                        image.width = dimensions.width;
+                                                        image.height = dimensions.width * (companionAd.data.height / companionAd.data.width);
+                                                    }
+                                                }
+                                            }
                                         }
                                     }, this);
                                 }

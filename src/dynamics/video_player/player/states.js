@@ -295,26 +295,10 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadError", [
         _started: function() {
             this.dyn.set("message", this.dyn.string("video-error"));
             this.listenOn(this.dyn, "message:click", function() {
-                this.next("LoadErrorClicked");
+                this.dyn.trigger("error:reloadplayer");
+                this.next("Initial");
             }, this);
 
-        }
-
-    });
-});
-
-Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadErrorClicked", [
-    "module:VideoPlayer.Dynamics.PlayerStates.State"
-], function(State, scoped) {
-    return State.extend({
-        scoped: scoped
-    }, {
-
-        dynamics: ["message"],
-
-        _started: function() {
-            this.dyn.trigger("error:reloadplayer");
-            this.next("Initial");
         }
 
     });

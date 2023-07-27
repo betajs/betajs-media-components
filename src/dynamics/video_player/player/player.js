@@ -48,6 +48,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.PlayerStates.LoadPlayer",
     "module:VideoPlayer.Dynamics.PlayerStates.LoadPlayerDirectly",
     "module:VideoPlayer.Dynamics.PlayerStates.LoadError",
+    "module:VideoPlayer.Dynamics.PlayerStates.LoadErrorClicked",
     "module:VideoPlayer.Dynamics.PlayerStates.PosterReady",
     "module:VideoPlayer.Dynamics.PlayerStates.Outstream",
     "module:VideoPlayer.Dynamics.PlayerStates.LoadAds",

@@ -152,11 +152,12 @@ attrs = {...attrs, ...{
             mobile: {
                 height: 120,
                 // position: 'bottom'
+                companionad: "[,250]",
             },
             desktop: {
                 height: 140,
                 bottom: 20,
-                companionad: "[,250]|top",
+                companionad: true, //"[]|bottom", //"[]|top", // true
             }
         }},
         // adsposition: "pre, mid, post",

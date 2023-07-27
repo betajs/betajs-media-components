@@ -417,7 +417,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                     var playerElement, position, selector, height, width, companionAdDimensions,
                         isFluid, containerDimensions, selectionCriteria, expectedAR,
-                        companionAd, closestIndex, closestAr, parentStyles;
+                        companionAd, closestIndex, closestAr, parentStyles, companionAdContainerStyles, excludeStyles;
                     var companionAds = [];
                     options = options || this.get("companionad");
                     if (Types.is_string(options)) {
@@ -441,7 +441,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     this.__companionAdElement.innerHTML = "";
                     // playerElement = this.get("floating") ? this.parent().activeElement().firstChild : this.parent().activeElement();
                     playerElement = this.parent().activeElement();
-                    companionAdDimensions = options[1].split(',');
+                    companionAdDimensions = options[1] ? options[1].split(',') : [0, 0];
                     isFluid = companionAdDimensions[0] === 'fluid';
                     containerDimensions = Dom.elementDimensions(playerElement);
                     // companionAdDimensions = companionAdDimensions.split(',');
@@ -492,7 +492,21 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     Dom.elementAddClass(this.__companionAdElement, this.get("cssplayer") + "-companion-ad-container" + (this.get("mobileviewport") ? '-mobile' : '-desktop'));
                     var applyFloatingStyles = this.get("floating") && !this.get("withsidebar");
                     if (applyFloatingStyles) {
+                        // Mobile has to show in the sidebar
+                        position = this.get("mobileviewport") ? null : 'top';
                         parentStyles = this.parent().get("containerSizingStyles");
+                        // var floatingoptions = this.get("mobileviewport") ? this.get("floatingoptions.mobile") : this.get("floatingoptions.desktop");
+                        companionAdContainerStyles = {
+                            position: 'relative'
+                        };
+                        var image = this.__companionAdElement.querySelector('img');
+                        if (image && containerDimensions && companionAd.data) {
+                            var _ar = companionAd.data.width / companionAd.data.height;
+                            var _h = containerDimensions.width * (_ar <= 1 ? _ar : companionAd.data.height / companionAd.data.width);
+                            image.width = containerDimensions.width;
+                            image.height = _h;
+                            companionAdContainerStyles.bottom = (_h + 20) + 'px';
+                        }
                     }
                     if (position) {
                         switch (position) {
@@ -504,12 +518,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                                 break;
                             case 'top':
                                 if (applyFloatingStyles && parentStyles) {
-                                    parentStyles.bottom = +(companionAd.data.height + 30) + 'px';
-                                    parentStyles.width = 'auto';
-                                    Objs.iter(parentStyles, function(value, style) {
-                                        this.__companionAdElement.style[style] = value;
-                                    }, this);
-                                    // this.parent()._applyStyles(this.__companionAdElement, applyFloatingStyles);
+                                    this.parent()._applyStyles(this.__companionAdElement, companionAdContainerStyles);
                                 }
                                 playerElement.prepend(this.__companionAdElement);
                                 break;

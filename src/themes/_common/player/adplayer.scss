@@ -22,11 +22,6 @@
     align-items: center;
     display: flex;
     justify-content: center;
-    position: absolute;
-    & img, & a > .overlayContainer > * {
-        max-width: 100%;
-        height: auto;
-    }
 }
 
 .#{$cssadsplayer}-click-tracker {

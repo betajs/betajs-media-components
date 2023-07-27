@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.391 - 2023-07-22
+betajs-media-components - v0.0.392 - 2023-07-27
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.391",
-    "datetime": 1690065437367
+    "version": "0.0.392",
+    "datetime": 1690484362250
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -3842,6 +3842,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "source": "",
                         "sources": [],
                         "sourcefilter": {},
+                        "state": "",
                         "streams": [],
                         "currentstream": null,
                         "hasnext": false,
@@ -4034,6 +4035,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "muted": "boolean",
                     "nextwidget": "boolean",
                     "shownext": "float",
+                    "state": "string",
                     "noengagenext": "float",
                     "stayengaged": "boolean",
                     "next_active": "boolean",
@@ -4508,6 +4510,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         stateRegistry: new ClassRegistry(this.cls.playerStates())
                     }));
                     this.host.dynamic = this;
+                    this.set("state", this._initialState.classname ? this._initialState.classname.split(".").slice(-1)[0] : this._initialState);
+                    this.host.on("next", function(state) {
+                        this.set("state", state);
+                    }, this);
                     this.host.initialize(this._initialState);
 
                     this.__adsControlPosition = 0;
@@ -6353,12 +6359,15 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Initial", [
             this.dyn.set("imageelement_active", false);
             this.dyn.set("videoelement_active", false);
             // no need activation for the adsposition: mid and post
-            this.dyn.set("adsplayer_active", !this.dyn.get("delayadsmanagerload"));
+            this.dyn.set("adsplayer_active", this.dyn.get("adshassource") && !this.dyn.get("delayadsmanagerload"));
             if (this.dyn.get("ready")) {
                 this.next("LoadPlayer");
             } else {
                 this.listenOn(this.dyn, "change:ready", function() {
                     this.next("LoadPlayer");
+                }, this);
+                this.listenOn(this.dyn, "error:initialize", function() {
+                    this.next("LoadError");
                 }, this);
             }
         }
@@ -6431,13 +6440,14 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadError", [
         _started: function() {
             this.dyn.set("message", this.dyn.string("video-error"));
             this.listenOn(this.dyn, "message:click", function() {
+                this.dyn.trigger("error:reloadplayer");
                 this.next("Initial");
             }, this);
+
         }
 
     });
 });
-
 
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
     "module:VideoPlayer.Dynamics.PlayerStates.State",

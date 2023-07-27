@@ -214,7 +214,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Initial", [
             this.dyn.set("imageelement_active", false);
             this.dyn.set("videoelement_active", false);
             // no need activation for the adsposition: mid and post
-            this.dyn.set("adsplayer_active", !this.dyn.get("delayadsmanagerload"));
+            this.dyn.set("adsplayer_active", this.dyn.get("adshassource") && !this.dyn.get("delayadsmanagerload"));
             if (this.dyn.get("ready")) {
                 this.next("LoadPlayer");
             } else {

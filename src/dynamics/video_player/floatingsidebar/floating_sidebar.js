@@ -1,9 +1,10 @@
 Scoped.define("module:VideoPlayer.Dynamics.FloatingSidebar", [
     "dynamics:Dynamic",
-    "module:StylesMixin",
+    "base:Objs",
     "browser:Dom",
-    "module:Assets"
-], function(Class, StylesMixin, DOM, Assets, scoped) {
+    "module:Assets",
+    "module:StylesMixin"
+], function(Class, Objs, DOM, Assets, StylesMixin, scoped) {
     return Class.extend({
             scoped: scoped
         }, [StylesMixin, function(inherited) {
@@ -21,7 +22,41 @@ Scoped.define("module:VideoPlayer.Dynamics.FloatingSidebar", [
                     "sidebartitle": null,
                     "bodyelementtouched": false,
                     "bodyelementpadding": 114,
-                    "companionadcontent": null
+                    "companionadcontent": null,
+                    "companionads": []
+                },
+
+                create: function() {
+                    if (this.get("floatingoptions.showcompanionad")) {
+                        this.auto_destroy(this.on("change:companionads", function(companionads) {
+                            if (companionads && companionads.length > 0) {
+                                var isMobile = this.get("mobileviewport");
+                                if (
+                                    (this.get("floatingoptions.desktop.companionad") && !isMobile) ||
+                                    (this.get("floatingoptions.mobile.companionad") && isMobile)
+                                ) {
+                                    var dimensions = DOM.elementDimensions(this.activeElement());
+                                    var ar, closestIndex, closestAr;
+                                    ar = dimensions.width / dimensions.height;
+                                    Objs.iter(companionads, function(companion, index) {
+                                        var _data = companion.data;
+                                        var _ar = _data.width / _data.height;
+                                        var _currentDiff = Math.abs(_ar - ar);
+                                        if (index === 0 || closestAr > _currentDiff) {
+                                            closestAr = _currentDiff;
+                                            closestIndex = index;
+                                        }
+                                        if (companionads.length === index + 1) {
+                                            this.set("companionadcontent", companionads[closestIndex].getContent());
+                                            var container = this.activeElement().querySelector("." + this.get("cssfloatingsidebar") + '-companion-container');
+                                            container.style.height = dimensions.height + "px";
+                                            if (container) container.innerHTML = this.get("companionadcontent");
+                                        }
+                                    }, this);
+                                }
+                            }
+                        }, this), this);
+                    }
                 },
 
                 functions: {

@@ -4,6 +4,31 @@
     }
 }
 
+.#{$cssplayer}-companion-ad-container-mobile {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    & > * {
+        width: 100%;
+    }
+    img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+.#{$cssfloatingsidebar}-companion-container {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    & img, & a > .overlayContainer > * {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
 .#{$cssadsplayer}-click-tracker {
     @include align-all();
 }

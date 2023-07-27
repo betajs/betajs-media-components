@@ -221,6 +221,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Initial", [
                 this.listenOn(this.dyn, "change:ready", function() {
                     this.next("LoadPlayer");
                 }, this);
+                this.listenOn(this.dyn, "error:initialize", function() {
+                    this.next("LoadError");
+                }, this);
             }
         }
     });
@@ -292,13 +295,14 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadError", [
         _started: function() {
             this.dyn.set("message", this.dyn.string("video-error"));
             this.listenOn(this.dyn, "message:click", function() {
+                this.dyn.trigger("error:reloadplayer");
                 this.next("Initial");
             }, this);
+
         }
 
     });
 });
-
 
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
     "module:VideoPlayer.Dynamics.PlayerStates.State",

@@ -13,6 +13,11 @@
         color: #fff;
         text-align: center;
         margin: 0;
+        flex-grow: 1;
+        background: $sidebar_background_color;
+        .#{$cssfloatingsidebar}-ad-playing-container{
+            position: relative;
+        }
         .#{$cssfloatingsidebar}-content-container {
             display: inline-block;
             position: absolute;
@@ -55,16 +60,11 @@
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
     }
-    .#{$cssfloatingsidebar}-container {
-        flex-grow: 1;
-        background: $sidebar_background_color;
-    }
     .#{$cssadsplayer}-ad-choices-container {
-        position: relative;
+        position: absolute;
         color: #fff;
         top: 5px;
         left: 5px;
-        right: 5px;
         height: 20px;
         width: 20px;
         cursor: pointer;

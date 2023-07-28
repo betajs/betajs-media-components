@@ -1,5 +1,5 @@
 <div class="{{cssfloatingsidebar}}-container" ba-styles="{{containerstyle}}">
-    <div ba-if="{{adsplaying}}">
+    <div ba-if="{{adsplaying}}" class="{{cssfloatingsidebar}}-ad-playing-container">
         <div ba-if="{{adchoiceslink}}" class="{{cssadsplayer}}-ad-choices-container">
             <a href="{{ adchoiceslink }}" title="{{string('ad-choices')}}"
                ba-on:touchend="{{redirect(adchoiceslink)}}"

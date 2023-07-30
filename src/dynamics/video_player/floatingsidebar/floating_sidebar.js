@@ -50,7 +50,6 @@ Scoped.define("module:VideoPlayer.Dynamics.FloatingSidebar", [
                                             var companionAd = companionads[closestIndex];
                                             this.set("companionadcontent", companionAd.getContent());
                                             var container = this.activeElement().querySelector("." + this.get("cssfloatingsidebar") + '-companion-container');
-                                            container.style.height = dimensions.height + "px";
                                             if (container) {
                                                 container.innerHTML = this.get("companionadcontent");
                                                 var image = container.querySelector('img');

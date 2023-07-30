@@ -19,10 +19,9 @@
             position: relative;
         }
         .#{$cssfloatingsidebar}-content-container {
-            display: inline-block;
-            position: absolute;
-            top: 50%;
-            transform: translate(-50%, -50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         a.#{$cssfloatingsidebar}-action-button {
             @include transition1(border, 500ms, ease-out);

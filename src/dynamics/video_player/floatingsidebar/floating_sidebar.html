@@ -16,10 +16,16 @@
                 </svg>
             </a>
         </div>
-        <div ba-if="{{companionadcontent}}" class="{{cssfloatingsidebar}}-companion-container">
+        <div ba-if="{{companionadcontent}}"
+             class="{{cssfloatingsidebar}}-companion-container"
+             ba-styles="{{{height: containerstyle.height}}}"
+        >
             {{companionadcontent}}
         </div>
-        <div ba-if="{{moredetailslink && !companionadcontent}}" class="{{cssfloatingsidebar}}-content-container">
+        <div ba-if="{{moredetailslink && !companionadcontent}}"
+             class="{{cssfloatingsidebar}}-content-container"
+             ba-styles="{{{height: containerstyle.height}}}"
+        >
             <div ba-if="{{moredetailslink}}">
                 <a
                     href="{{ moredetailslink }}" target="_blank"

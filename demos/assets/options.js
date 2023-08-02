@@ -88,6 +88,7 @@ attrs = {...attrs, ...{
         // showplayercontentafter: 1500, // we can set any seconds to show player content in any case if ads not intialized
         // hideoninactivity: false,
         // ** SOURCES
+        // width: 640,
         source: '/static/demos/sample-video.mp4',
         poster: '/static/demos/assets/sample-cover.png',
         minadintervals: 0,
@@ -151,8 +152,9 @@ attrs = {...attrs, ...{
             // hideplayeronclose: false,
             mobile: {
                 height: 120,
+                companionad: true,
                 // position: 'bottom'
-                companionad: "[,250]",
+                // companionad: "[,250]",
             },
             desktop: {
                 height: 140,

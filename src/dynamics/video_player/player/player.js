@@ -605,7 +605,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this._applyStyles(this.activeElement(), containerStyles || styles, this.__lastContainerSizingStyles);
                             }
 
-                            if (containerStyles.width && containerStyles.width.includes("%") && styles.width.includes("%")) {
+                            if (containerStyles.width && (containerStyles.width).toString().includes("%") && (styles.width).toString().includes("%")) {
                                 // If container width is in percentage, then we need to set the width of the player to auto
                                 // in other case width will be applied twice
                                 styles.width = "100%";

@@ -508,6 +508,11 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             companionAdContainerStyles.bottom = (_h + 20) + 'px';
                         }
                     }
+                    if (this.get("floating") && !this.get("mobileviewport") && applyFloatingStyles) {
+                        // On floating desktop attach to the player element
+                        var _pl = this.parent().activeElement().querySelector('.ba-player-content');
+                        if (_pl) playerElement = _pl;
+                    }
                     if (position) {
                         switch (position) {
                             case 'left':

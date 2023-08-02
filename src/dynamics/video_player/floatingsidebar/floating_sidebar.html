@@ -16,12 +16,11 @@
                 </svg>
             </a>
         </div>
+        <!-- Companion ad content will be set as innerHTML  -->
         <div ba-if="{{companionadcontent}}"
              class="{{cssfloatingsidebar}}-companion-container"
              ba-styles="{{{height: containerstyle.height}}}"
-        >
-            {{companionadcontent}}
-        </div>
+        ></div>
         <div ba-if="{{moredetailslink && !companionadcontent}}"
              class="{{cssfloatingsidebar}}-content-container"
              ba-styles="{{{height: containerstyle.height}}}"

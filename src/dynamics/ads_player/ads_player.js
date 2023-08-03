@@ -56,9 +56,15 @@ Scoped.define("module:Ads.Dynamics.Player", [
                                 google.ima.ViewMode.NORMAL
                             );
                         }
-                    },
-                    "change:companionads": function(companionads) {
-
+                        if (this.get("ad")) {
+                            if ((!isFloating && this.get("companionad")) || ((isFloating && !this.get("withsidebar")) && this.get("floatingoptions.showcompanionad"))) {
+                                // Render companion ad for the floating player, sidebar will handle companion ad itself
+                                this._renderCompanionAd(this.get("ad"), this.get('mobileviewport') ?
+                                    this.get("floatingoptions.mobile.companionad") :
+                                    this.get("floatingoptions.desktop.companionad")
+                                );
+                            }
+                        }
                     }
                 },
 
@@ -330,20 +336,12 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         // Set companion ads array and render for normal content player viewport
                         if (ad && (this.get("companionad") || this.get("floatingoptions.showcompanionad"))) {
                             this._getCompanionAds(ad);
-
-                            // Render companion ad for the floating player, sidebar will handle companion ad itself
-                            if (ad && this.get("floating") && !this.get("withsidebar") && this.get("floatingoptions.showcompanionad")) {
-                                this._renderCompanionAd(
-                                    ad, this.get('mobileviewport') ?
-                                    this.get("floatingoptions.mobile.companionad") :
-                                    this.get("floatingoptions.desktop.companionad")
-                                );
-                            }
                         }
                     }
                 },
 
                 _onAdComplete: function(ev) {
+                    if (this.get("companionads").length > 0) this.set("companionads", []);
                     if (this.__companionAdElement) {
                         this.__companionAdElement.innerHTML = "";
                     }
@@ -385,7 +383,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     var companionAds = [];
                     if (google && google.ima && ad && Types.is_function(ad.getCompanionAds)) {
                         // if options is not boolean, then we have provided more options, like size and selector
-                        if (this.get("companionad") && Types.is_string(this.get("companionad"))) {
+                        if (this.get("companionad") && !this.get("floating")) {
                             this._renderCompanionAd(ad);
                         }
                         var selectionCriteria = new google.ima.CompanionAdSelectionSettings();
@@ -441,37 +439,40 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     this.__companionAdElement.innerHTML = "";
                     // playerElement = this.get("floating") ? this.parent().activeElement().firstChild : this.parent().activeElement();
                     playerElement = this.parent().activeElement();
-                    companionAdDimensions = options[1] ? options[1].split(',') : [0, 0];
-                    isFluid = companionAdDimensions[0] === 'fluid';
-                    containerDimensions = Dom.elementDimensions(playerElement);
-                    // companionAdDimensions = companionAdDimensions.split(',');
-                    if (!isFluid) {
-                        width = Number((companionAdDimensions && companionAdDimensions[0] && companionAdDimensions[0] > 0) ?
-                            companionAdDimensions[0] : containerDimensions.width);
-                        height = Number((companionAdDimensions && companionAdDimensions[1] && companionAdDimensions[1] > 0) ?
-                            companionAdDimensions[1] : containerDimensions.height);
-                    }
-
-                    selectionCriteria = new google.ima.CompanionAdSelectionSettings();
-                    // HTML,IFRAME,STATIC,ALL
-                    selectionCriteria.resourceType = google.ima.CompanionAdSelectionSettings.ResourceType.ALL;
-                    // CreativeType:IMAGE, FLASH, ALL
-                    selectionCriteria.creativeType = google.ima.CompanionAdSelectionSettings.CreativeType.ALL;
-                    // SizeCriteria: IGNORE, SELECT_EXACT_MATCH, SELECT_NEAR_MATCH, SELECT_FLUID
-                    if (!isFluid) {
-                        // nearMatchPercent
-                        selectionCriteria.sizeCriteria = google.ima.CompanionAdSelectionSettings.SizeCriteria.IGNORE;
-                        if (width && height) {
-                            // Get a list of companion ads for an ad slot size and CompanionAdSelectionSettings
-                            companionAds = ad.getCompanionAds(width, height, selectionCriteria);
+                    containerDimensions = Dom.elementDimensions(playerElement.firstChild);
+                    if (this.get("companionads").length <= 0) {
+                        companionAdDimensions = options[1] ? options[1].split(',') : [0, 0];
+                        isFluid = companionAdDimensions[0] === 'fluid';
+                        // companionAdDimensions = companionAdDimensions.split(',');
+                        if (!isFluid) {
+                            width = Number((companionAdDimensions && companionAdDimensions[0] && companionAdDimensions[0] > 0) ?
+                                companionAdDimensions[0] : containerDimensions.width);
+                            height = Number((companionAdDimensions && companionAdDimensions[1] && companionAdDimensions[1] > 0) ?
+                                companionAdDimensions[1] : containerDimensions.height);
                         }
+
+                        selectionCriteria = new google.ima.CompanionAdSelectionSettings();
+                        // HTML,IFRAME,STATIC,ALL
+                        selectionCriteria.resourceType = google.ima.CompanionAdSelectionSettings.ResourceType.ALL;
+                        // CreativeType:IMAGE, FLASH, ALL
+                        selectionCriteria.creativeType = google.ima.CompanionAdSelectionSettings.CreativeType.ALL;
+                        // SizeCriteria: IGNORE, SELECT_EXACT_MATCH, SELECT_NEAR_MATCH, SELECT_FLUID
+                        if (!isFluid) {
+                            // nearMatchPercent
+                            selectionCriteria.sizeCriteria = google.ima.CompanionAdSelectionSettings.SizeCriteria.IGNORE;
+                            if (width && height) {
+                                // Get a list of companion ads for an ad slot size and CompanionAdSelectionSettings
+                                companionAds = ad.getCompanionAds(width, height, selectionCriteria);
+                            }
+                        } else {
+                            selectionCriteria.sizeCriteria = google.ima.CompanionAdSelectionSettings.SizeCriteria.SELECT_FLUID;
+                            companionAds = ad.getCompanionAds(0, 0, selectionCriteria);
+                        }
+
+                        if (typeof companionAds[0] === "undefined") return;
                     } else {
-                        selectionCriteria.sizeCriteria = google.ima.CompanionAdSelectionSettings.SizeCriteria.SELECT_FLUID;
-                        companionAds = ad.getCompanionAds(0, 0, selectionCriteria);
+                        companionAds = this.get("companionads");
                     }
-
-                    if (typeof companionAds[0] === "undefined") return;
-
                     expectedAR = containerDimensions.width / containerDimensions.height;
                     Objs.iter(companionAds, function(companion, index) {
                         var _data = companion.data;
@@ -507,6 +508,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             image.height = _h;
                             companionAdContainerStyles.bottom = (_h + 20) + 'px';
                         }
+                    } else {
+                        this.__companionAdElement.removeAttribute('style');
                     }
                     if (this.get("floating") && !this.get("mobileviewport") && applyFloatingStyles) {
                         // On floating desktop attach to the player element

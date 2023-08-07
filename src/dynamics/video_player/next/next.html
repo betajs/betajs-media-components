@@ -6,6 +6,6 @@
             <span class="{{cssplayer}}-next-progress"ba-styles="{{{width: ((position - shownext) / noengagenext * 100) + '%'}}}"></span>
             <span>{{nexttext}}</span>
         </a>
-        <img ba-prop:src="{{nextvideoposter}}" ba-show="{{style === 'desktop' && nextvideoposter}}" />
+        <img ba-prop:src="{{nextvideoposter}}" ba-show="{{style === 'desktop' && nextvideoposter && !hidenextvideoposter}}" />
     </div>
 </div>

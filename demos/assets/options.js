@@ -82,6 +82,18 @@ if (params.flt) {
     attrs.floatingoptions.floatingonly = Number(params.flt) === 1;
 }
 
+if (params.nextwidget) {
+    attrs.nextwidget = params.nextwidget;
+}
+
+if (params.shownext) {
+    attrs.shownext = Number(params.nextsn) === 1;
+}
+
+if (params.noengagenext) {
+    attrs.noengagenext = Number(params.nextsn) === 1;
+}
+
 attrs = {...attrs, ...{
         // autoplaywhenvisible: true,
         // hidebeforeadstarts: false, // Will help hide player poster before ads start

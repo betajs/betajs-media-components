@@ -1,22 +1,70 @@
 language:en:
-  ba-videoplayer-playbutton.tooltip: Click to play.
-  ba-videoplayer-playbutton.rerecord: Redo
-  ba-videoplayer-playbutton.submit-video: Confirm video
-  ba-videoplayer-loader.tooltip: Loading...
-  ba-videoplayer-controlbar.change-resolution: Change resolution
+  ba-common-settingsmenu.tooltip: Click to play.
+  ba-common-settingsmenu.setting-menu: All settings
+  ba-common-settingsmenu.source-quality: Source quality
+  ba-common-settingsmenu.player-speed: Player speed
+  ba-common-settingsmenu.set-menu-option: Set option
+  ba-common-settingsmenu.submit-video: Confirm video
+  ba-common-settingsmenu.picture-in-picture: Picture in picture
+  ba-common-settingsmenu.exit-fullscreen-video: Exit fullscreen
+  ba-common-settingsmenu.fullscreen-video: Enter fullscreen
+  ba-ads-controlbar.skip-ad: Skip ad
+  ba-ads-controlbar.play-ad: Play
+  ba-ads-controlbar.pause-video: Pause
+  ba-ads-controlbar.volume-mute: Mute sound
+  ba-ads-controlbar.volume-button: Set volume
+  ba-ads-controlbar.elapsed-time: Elapsed time
+  ba-ads-controlbar.volume-unmute: Unmute sound
+  ba-ads-controlbar.can-skip-after: Skip after %d
+  ba-ads-controlbar.fullscreen-video: Enter fullscreen
+  ba-ads-controlbar.exit-fullscreen-video: Exit fullscreen
+  ba-ads-controlbar.ad-will-end-after: Ad will end after %s
+  ba-ads-controlbar.pause-video-disabled: Pause not supported
+  ba-adsplayer.replay-ad: Replay Video
+  ba-adsplayer.close-ad: Close
+  ba-adsplayer.ad-choices: Ad Choices
+  ba-adsplayer.learn-more: Learn More
   ba-videoplayer-controlbar.video-progress: Progress
   ba-videoplayer-controlbar.rerecord-video: Redo?
   ba-videoplayer-controlbar.submit-video: Confirm
   ba-videoplayer-controlbar.play-video: Play
   ba-videoplayer-controlbar.pause-video: Pause
+  ba-videoplayer-controlbar.pause-video-disabled: Pause not supported
   ba-videoplayer-controlbar.elapsed-time: Elapsed time
   ba-videoplayer-controlbar.total-time: Total length of
   ba-videoplayer-controlbar.fullscreen-video: Enter fullscreen
   ba-videoplayer-controlbar.volume-button: Set volume
   ba-videoplayer-controlbar.volume-mute: Mute sound
   ba-videoplayer-controlbar.volume-unmute: Unmute sound
-  ba-videoplayer.video-error: An error occurred, please try again later. Click to retry.
+  ba-videoplayer-controlbar.change-resolution: Change resolution
+  ba-videoplayer-controlbar.exit-fullscreen-video: Exit fullscreen
+  ba-videoplayer-controlbar.close-tracks: Close CC
+  ba-videoplayer-controlbar.show-tracks: Show CC
+  ba-videoplayer-controlbar.player-speed: Player speed
+  ba-videoplayer-controlbar.settings: Settings
+  ba-videoplayer-controlbar.airplay: Airplay
+  ba-videoplayer-controlbar.airplay-icon: Airplay icon.
+  ba-videoplayer-controlbar.remaining-time: Remaining time
+  ba-videoplayer-controlbar.select-frame: Select
+  ba-videoplayer-controlbar.trim-video: Trim
+  ba-videoplayer-floating-sidebar.ad-choices: Ad Choices
+  ba-videoplayer-floating-sidebar.learn-more: Learn More
+  ba-videoplayer-loader.tooltip: Loading...
+  ba-videoplayer-playbutton.tooltip: Click to play.
+  ba-videoplayer-playbutton.rerecord: Redo
+  ba-videoplayer-playbutton.submit-video: Confirm video
+  ba-videoplayer-playbutton.trim: Trim
+  ba-videoplayer-playbutton.skip: Skip
+  ba-videoplayer-share.share: Share media
+  ba-videoplayer-tracks.upload-text-tracks: Upload track text files
+  ba-videoplayer-tracks.select-text-track-language: Subtitle Language
+  ba-videoplayer-tracks.info-select-locale-first: First select locale
+  ba-videoplayer-tracks.select-text-track-file: Click to select file
+  ba-videoplayer-tracks.back: back
   ba-videorecorder-chooser.record-video: Record Video
+  ba-videorecorder-chooser.record-audio: Record Audio
+  ba-videorecorder-chooser.record-screen: Record Screen
+  ba-videorecorder-chooser.multi-stream: Multi Stream
   ba-videorecorder-chooser.upload-video: Upload Video
   ba-videorecorder-controlbar.settings: Settings
   ba-videorecorder-controlbar.camerahealthy: Lighting is good
@@ -33,69 +81,63 @@ language:en:
   ba-videorecorder-controlbar.stop-tooltip: Click here to stop.
   ba-videorecorder-controlbar.skip: Skip
   ba-videorecorder-controlbar.skip-tooltip: Click here to skip.
+  ba-videorecorder-controlbar.stop-available-after: Minimum recording time is %d seconds
+  ba-videorecorder-controlbar.cancel: Cancel
+  ba-videorecorder-controlbar.cancel-tooltip: Click here to cancel.
+  ba-videorecorder-controlbar.add-stream: Add Stream
+  ba-videorecorder-controlbar.pause-recorder: Pause Recorder
+  ba-videorecorder-controlbar.resume-recorder: Resume Recorder
+  ba-videorecorder-controlbar.no-video-source: Missing additional video input source
+  ba-videorecorder-controlbar.stream-already-selected: Additional stream has been already selected
+  ba-videorecorder-imagegallery.upload-covershot: Upload Cover
   ba-videorecorder.recorder-error: An error occurred, please try again later. Click to retry.
   ba-videorecorder.attach-error: >-
     We could not access the media interface. Depending on the device and
     browser, you might need to access the page via SSL.
-  ba-videorecorder.access-forbidden: Access to the media was forbidden. Click to retry.
-  ba-videorecorder.pick-covershot: Pick a covershot.
-  ba-videorecorder.uploading: Uploading
-  ba-videorecorder.uploading-failed: Uploading failed - click here to retry.
-  ba-videorecorder.verifying: Verifying
-  ba-videorecorder.verifying-failed: Verifying failed - click here to retry.
-  ba-videorecorder.rerecord-confirm: Do you really want to redo your video?
-  ba-videorecorder.video_file_too_large: >-
-    Your video file is too large (%s) - click here to try again with a smaller
-    video file.
-  ba-videorecorder.unsupported_video_type: 'Please upload: %s - click here to retry.'
-  ba-videoplayer-controlbar.exit-fullscreen-video: Exit fullscreen
-  ba-videoplayer-share.share: Share media
-  ba-videorecorder-chooser.record-screen: Record Screen
-  ba-videoplayer-controlbar.pause-video-disabled: Pause not supported
-  ba-videorecorder-chooser.record-audio: Record Audio
-  ba-videorecorder-controlbar.stop-available-after: Minimum recording time is %d seconds
-  ba-videorecorder-controlbar.cancel: Cancel
-  ba-videorecorder-controlbar.cancel-tooltip: Click here to cancel.
-  ba-videorecorder.cancel-confirm: Do you really want to cancel your video upload?
-  ba-videoplayer-adslot.elapsed-time: '&#x648;&#x642;&#x62A; &#x625;&#x644;&#x627;&#x633;&#x628;&#x62F;'
-  ba-videoplayer-adslot.volume-button: >-
-    &#x62A;&#x639;&#x64A;&#x64A;&#x646; &#x645;&#x633;&#x62A;&#x648;&#x649;
-    &#x627;&#x644;&#x635;&#x648;&#x62A;
-  ba-videoplayer-adslot.volume-mute: '&#x635;&#x648;&#x62A; &#x645;&#x646;&#x62E;&#x641;&#x636;'
-  ba-videoplayer-adslot.volume-unmute: >-
-    &#x625;&#x644;&#x63A;&#x627;&#x621; &#x635;&#x648;&#x62A;
-    &#x627;&#x644;&#x635;&#x648;&#x62A;
-  ba-videoplayer-adslot.ad-will-end-after: >-
-    &#x633;&#x64A;&#x646;&#x62A;&#x647;&#x64A;
-    &#x627;&#x644;&#x625;&#x639;&#x644;&#x627;&#x646; &#x628;&#x639;&#x62F;%s
-  ba-videoplayer-adslot.can-skip-after: '&#x62A;&#x62E;&#x637;&#x64A; &#x628;&#x639;&#x62F;%d'
-  ba-videoplayer-adslot.skip-ad: >-
-    &#x62A;&#x62C;&#x627;&#x647;&#x644;
-    &#x627;&#x644;&#x627;&#x639;&#x644;&#x627;&#x646;&#x627;&#x62A;
   ba-videorecorder.software-required: >-
     Please click below to install / activate the following requirements in order
     to proceed.
   ba-videorecorder.software-waiting: >-
     Waiting for the requirements to be installed / activated. You might need to
     refresh the page after completion.
-  ba-videoplayer-controlbar.close-tracks: Close CC
-  ba-videoplayer-controlbar.show-tracks: Show CC
-  ba-videoplayer-tracks.upload-text-tracks: Upload track text files
-  ba-videoplayer-tracks.select-text-track-language: Subtitle Language
-  ba-videoplayer-tracks.info-select-locale-first: First select locale
-  ba-videoplayer-tracks.select-text-track-file: Click to select file
-  ba-videoplayer-tracks.back: back
+  ba-videorecorder.access-forbidden: Access to the media was forbidden. Click to retry.
+  ba-videorecorder.pick-covershot: Pick a covershot.
+  ba-videorecorder.pick-covershot-frame: Select a frame to use as covershot.
   ba-videorecorder.framerate-warning: >-
     The video frame rate is very low. We recommend closing all other programs
     and browser tabs or to use a faster computer.
+  ba-videorecorder.uploading: Uploading
+  ba-videorecorder.uploading-src-error: Unable to play back video now, uploading is still in progress
+  ba-videorecorder.uploading-failed: Uploading failed - click here to retry.
   ba-videorecorder.upload-error-duration: >-
     Length of the uploaded video does not meet the requirements - click here to
     retry.
   ba-videorecorder.resolution-constraint-error: >-
     The file you've selected does not match the required resolution - click here
     to retry.
+  ba-videorecorder.verifying: Verifying
+  ba-videorecorder.verifying-failed: Verifying failed - click here to retry.
+  ba-videorecorder.rerecord-confirm: Do you really want to redo your video?
+  ba-videorecorder.cancel-confirm: Do you really want to cancel your video upload?
+  ba-videorecorder.video_file_too_large: >-
+    Your video file is too large (%s) - click here to try again with a smaller
+    video file.
+  ba-videorecorder.unsupported_video_type: 'Please upload: %s - click here to retry.'
   ba-videorecorder.orientation-portrait-required: Please rotate your device to record in portrait mode.
   ba-videorecorder.orientation-landscape-required: Please rotate your device to record in landscape mode.
+  ba-videorecorder.switch-camera: Switch camera
+  ba-videorecorder.prepare-covershot: Preparing covershots
+  ba-videorecorder.prepare-thumbnails: Preparing seeking thumbnails
+  ba-videorecorder.adding-new-stream: Adding New Stream
+  ba-videorecorder.missing-track: Required audio or video track is missing
+  ba-videorecorder.device-already-in-use: At least one of your input devices are already in use
+  ba-videorecorder.browser-permission-denied: Permission denied by browser, please grant access and reload page
+  ba-videorecorder.screen-recorder-is-not-supported: Screen recorder is not supported on this device
+  ba-videorecorder.trim-prompt: Do you want to trim your video?
+  ba-videorecorder.trim-video: Move the start and end markers to trim your video
+  ba-videorecorder.wait-for-trim: Waiting for trim command...
+  ba-videorecorder.supported-mode: Media resolution should be in '%s' mode.
+  ba-videorecorder.re-choose-action: Please click to choose another input device or retry action.
   ba-imageviewer-controlbar.rerecord-image: Redo?
   ba-imageviewer-controlbar.submit-image: Confirm
   ba-imageviewer-controlbar.fullscreen-image: Enter fullscreen
@@ -112,45 +154,6 @@ language:en:
   ba-imagecapture-controlbar.rerecord-tooltip: Click here to redo.
   ba-imagecapture-controlbar.cancel: Cancel
   ba-imagecapture-controlbar.cancel-tooltip: Click here to cancel.
-  ba-audioplayer-controlbar.audio-progress: Progress
-  ba-audioplayer-controlbar.rerecord-audio: Redo?
-  ba-audioplayer-controlbar.submit-audio: Confirm
-  ba-audioplayer-controlbar.play-audio: Play
-  ba-audioplayer-controlbar.pause-audio: Pause
-  ba-audioplayer-controlbar.pause-audio-disabled: Pause not supported
-  ba-audioplayer-controlbar.elapsed-time: Elapsed time
-  ba-audioplayer-controlbar.total-time: Total length of
-  ba-audioplayer-controlbar.volume-button: Set volume
-  ba-audioplayer-controlbar.volume-mute: Mute sound
-  ba-audioplayer-controlbar.volume-unmute: Unmute sound
-  ba-audioplayer-loader.tooltip: Loading...
-  ba-audioplayer.audio-error: An error occurred, please try again later. Click to retry.
-  ba-audiorecorder-chooser.record-audio: Record Audio
-  ba-audiorecorder-chooser.upload-audio: Upload Audio
-  ba-audiorecorder-controlbar.settings: Settings
-  ba-audiorecorder-controlbar.microphonehealthy: Sound is good
-  ba-audiorecorder-controlbar.microphoneunhealthy: Cannot pick up any sound
-  ba-audiorecorder-controlbar.record: Record
-  ba-audiorecorder-controlbar.record-tooltip: Click here to record.
-  ba-audiorecorder-controlbar.rerecord: Redo
-  ba-audiorecorder-controlbar.rerecord-tooltip: Click here to redo.
-  ba-audiorecorder-controlbar.stop: Stop
-  ba-audiorecorder-controlbar.stop-tooltip: Click here to stop.
-  ba-audiorecorder-controlbar.stop-available-after: Minimum recording time is %d seconds
-  ba-audiorecorder-controlbar.cancel: Cancel
-  ba-audiorecorder-controlbar.cancel-tooltip: Click here to cancel.
-  ba-videoplayer-controlbar.player-speed: Player speed
-  ba-videoplayer-controlbar.settings: Settings
-  ba-videoplayer-controlbar.airplay: Airplay
-  ba-videoplayer-controlbar.airplay-icon: Airplay icon.
-  ba-videoplayer.all-settings: All settings
-  ba-videoplayer.player-speed: Player speed
-  ba-videoplayer.full-screen: Full screen
-  ba-videorecorder-controlbar.add-stream: Add Stream
-  ba-videorecorder.switch-camera: Switch camera
-  ba-videorecorder.prepare-covershot: Preparing covershots
-  ba-videorecorder.prepare-thumbnails: Preparing seeking thumbnails
-  ba-videorecorder.adding-new-stream: Adding New Stream
   ba-imagecapture.recorder-error: An error occurred, please try again later. Click to retry.
   ba-imagecapture.attach-error: >-
     We could not access the media interface. Depending on the device and
@@ -179,6 +182,36 @@ language:en:
   ba-imagecapture.unsupported_image_type: 'Please upload: %s - click here to retry.'
   ba-imagecapture.orientation-portrait-required: Please rotate your device to record in portrait mode.
   ba-imagecapture.orientation-landscape-required: Please rotate your device to record in landscape mode.
+  ba-audioplayer-controlbar.audio-progress: Progress
+  ba-audioplayer-controlbar.rerecord-audio: Redo?
+  ba-audioplayer-controlbar.submit-audio: Confirm
+  ba-audioplayer-controlbar.play-audio: Play
+  ba-audioplayer-controlbar.pause-audio: Pause
+  ba-audioplayer-controlbar.pause-audio-disabled: Pause not supported
+  ba-audioplayer-controlbar.elapsed-time: Elapsed time
+  ba-audioplayer-controlbar.total-time: Total length of
+  ba-audioplayer-controlbar.volume-button: Set volume
+  ba-audioplayer-controlbar.volume-mute: Mute sound
+  ba-audioplayer-controlbar.volume-unmute: Unmute sound
+  ba-audioplayer-loader.tooltip: Loading...
+  ba-audioplayer.audio-error: An error occurred, please try again later. Click to retry.
+  ba-audioplayer.all-settings: All settings
+  ba-audiorecorder-chooser.record-audio: Record Audio
+  ba-audiorecorder-chooser.upload-audio: Upload Audio
+  ba-audiorecorder-controlbar.settings: Settings
+  ba-audiorecorder-controlbar.microphonehealthy: Sound is good
+  ba-audiorecorder-controlbar.microphoneunhealthy: Cannot pick up any sound
+  ba-audiorecorder-controlbar.record: Record
+  ba-audiorecorder-controlbar.record-tooltip: Click here to record.
+  ba-audiorecorder-controlbar.rerecord: Redo
+  ba-audiorecorder-controlbar.rerecord-tooltip: Click here to redo.
+  ba-audiorecorder-controlbar.stop: Stop
+  ba-audiorecorder-controlbar.stop-tooltip: Click here to stop.
+  ba-audiorecorder-controlbar.stop-available-after: Minimum recording time is %d seconds
+  ba-audiorecorder-controlbar.cancel: Cancel
+  ba-audiorecorder-controlbar.cancel-tooltip: Click here to cancel.
+  ba-audiorecorder-controlbar.pause-recorder: Pause Recorder
+  ba-audiorecorder-controlbar.resume-recorder: Resume Recorder
   ba-audiorecorder.recorder-error: An error occurred, please try again later. Click to retry.
   ba-audiorecorder.attach-error: >-
     We could not access the media interface. Depending on the device and
@@ -203,47 +236,6 @@ language:en:
     Your audio file is too large (%s) - click here to try again with a smaller
     audio file.
   ba-audiorecorder.unsupported_audio_type: 'Please upload: %s - click here to retry.'
-  ba-common-settingsmenu.tooltip: Click to play.
-  ba-common-settingsmenu.setting-menu: All settings
-  ba-common-settingsmenu.source-quality: Source quality
-  ba-common-settingsmenu.player-speed: Player speed
-  ba-common-settingsmenu.set-menu-option: Set option
-  ba-common-settingsmenu.submit-video: Confirm video
-  ba-common-settingsmenu.picture-in-picture: Picture in picture
-  ba-common-settingsmenu.exit-fullscreen-video: Exit fullscreen
-  ba-common-settingsmenu.fullscreen-video: Enter fullscreen
-  ba-videorecorder-chooser.multi-stream: Multi Stream
-  ba-videorecorder-controlbar.pause-recorder: Pause Recorder
-  ba-videorecorder-controlbar.resume-recorder: Resume Recorder
-  ba-videorecorder.missing-track: Required audio or video track is missing
-  ba-videorecorder.device-already-in-use: At least one of your input devices are already in use
-  ba-videorecorder.browser-permission-denied: Permission denied by browser, please grant access and reload page
-  ba-audioplayer.all-settings: All settings
-  ba-videoplayer-controlbar.remaining-time: Remaining time
-  ba-videoplayer-controlbar.select-frame: Select
-  ba-videoplayer-controlbar.trim-video: Trim
-  ba-videoplayer-playbutton.trim: Trim
-  ba-videoplayer-playbutton.skip: Skip
-  ba-videorecorder-imagegallery.upload-covershot: Upload Cover
-  ba-videorecorder.pick-covershot-frame: Select a frame to use as covershot.
-  ba-videorecorder.screen-recorder-is-not-supported: Screen recorder is not supported on this device
-  ba-videorecorder.trim-prompt: Do you want to trim your video?
-  ba-videorecorder.trim-video: Move the start and end markers to trim your video
-  ba-videorecorder.wait-for-trim: Waiting for trim command...
-  ba-videorecorder-controlbar.no-video-source: Missing additional video input source
-  ba-videorecorder-controlbar.stream-already-selected: Additional stream has been already selected
-  ba-videorecorder.uploading-src-error: Unable to play back video now, uploading is still in progress
-  ba-audiorecorder-controlbar.pause-recorder: Pause Recorder
-  ba-audiorecorder-controlbar.resume-recorder: Resume Recorder
-  ba-ads-controlbar.elapsed-time: Elapsed time
-  ba-ads-controlbar.volume-button: Set volume
-  ba-ads-controlbar.volume-mute: Mute sound
-  ba-ads-controlbar.volume-unmute: Unmute sound
-  ba-ads-controlbar.ad-will-end-after: Ad will end after %s
-  ba-ads-controlbar.can-skip-after: Skip after %d
-  ba-ads-controlbar.skip-ad: Skip ad
-  ba-videorecorder.supported-mode: Media resolution should be in '%s' mode.
-  ba-videorecorder.re-choose-action: Please click to choose another input device or retry action.
   ba-audiorecorder.uploading-src-error: Unable to play back audio now, uploading is still in progress
   ba-audiorecorder.missing-track: Required audio track is missing
   ba-audiorecorder.device-already-in-use: At least one of your input devices are already in use
@@ -263,14 +255,3 @@ language:en:
   ba-video-call.call-ended: Call ended
   ba-video-call.connecting: Connecting...
   ba-video-call.connection-error: There was an error while connecting, please click to try again.
-  ba-ads-controlbar.play-ad: Play
-  ba-ads-controlbar.pause-video: Pause
-  ba-ads-controlbar.fullscreen-video: Enter fullscreen
-  ba-ads-controlbar.exit-fullscreen-video: Exit fullscreen
-  ba-ads-controlbar.pause-video-disabled: Pause not supported
-  ba-adsplayer.replay-ad: Replay Video
-  ba-adsplayer.close-ad: Close
-  ba-adsplayer.ad-choices: Ad Choices
-  ba-adsplayer.learn-more: Learn More
-  ba-videoplayer-floating-sidebar.ad-choices: Ad Choices
-  ba-videoplayer-floating-sidebar.learn-more: Learn More

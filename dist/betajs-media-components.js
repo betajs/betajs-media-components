@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.393 - 2023-07-28
+betajs-media-components - v0.0.394 - 2023-08-07
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.393 - 2023-07-28
+betajs-media-components - v0.0.394 - 2023-08-07
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.393",
-    "datetime": 1690566470344
+    "version": "0.0.394",
+    "datetime": 1691426472502
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -4591,16 +4591,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Message", [
 });
 Scoped.define("module:VideoPlayer.Dynamics.Next", [
     "dynamics:Dynamic",
+    "browser:Canvas",
     "browser:Info",
     "module:Assets"
-], function(Class, Info, Assets, scoped) {
+], function(Class, Canvas, Info, Assets, scoped) {
 
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
             return {
 
-                template: "<div class=\"{{cssplayer}}-toggle-next-container {{cssplayer}}-next-style-{{style}} {{(is_floating && with_sidebar) ? cssplayer + '-next-with-sidebar' : ''}}\">\n    <div class=\"{{cssplayer}}-next-button-container\">\n        <a class=\"{{cssplayer}}-next-button-stay\" ba-click=\"{{stay()}}\">{{staytext}}</a>\n        <hr ba-if=\"{{style === 'desktop'}}\">\n        <a class=\"{{cssplayer}}-next-button-next\" ba-click=\"{{next()}}\">\n            <span class=\"{{cssplayer}}-next-progress\"ba-styles=\"{{{width: ((position - shownext) / noengagenext * 100) + '%'}}}\"></span>\n            <span>{{nexttext}}</span>\n        </a>\n        <img ba-prop:src=\"{{nextvideoposter}}\" ba-show=\"{{style === 'desktop' && nextvideoposter}}\" />\n    </div>\n</div>\n",
+                template: "<div class=\"{{cssplayer}}-toggle-next-container {{cssplayer}}-next-style-{{style}} {{(is_floating && with_sidebar) ? cssplayer + '-next-with-sidebar' : ''}}\">\n    <div class=\"{{cssplayer}}-next-button-container\">\n        <a class=\"{{cssplayer}}-next-button-stay\" ba-click=\"{{stay()}}\">{{staytext}}</a>\n        <hr ba-if=\"{{style === 'desktop'}}\">\n        <a class=\"{{cssplayer}}-next-button-next\" ba-click=\"{{next()}}\">\n            <span class=\"{{cssplayer}}-next-progress\"ba-styles=\"{{{width: ((position - shownext) / noengagenext * 100) + '%'}}}\"></span>\n            <span>{{nexttext}}</span>\n        </a>\n        <img ba-prop:src=\"{{nextvideoposter}}\" ba-show=\"{{style === 'desktop' && nextvideoposter && !hidenextvideoposter}}\" />\n    </div>\n</div>\n",
 
                 attrs: {
                     css: "ba-videoplayer",
@@ -4631,6 +4632,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Next", [
                     }
                 },
 
+                events: {
+                    "change:nextvideoposter": function(nextvideoposter) {
+                        if (!nextvideoposter) return;
+                        var img = new Image();
+                        img.onload = function() {
+                            this.set("hidenextvideoposter", Canvas.isImageBlack(img));
+                        }.bind(this);
+                        img.src = nextvideoposter;
+                    }
+                },
+
                 functions: {
                     stay: function() {
                         this.channel("next").trigger("setStay");
@@ -4642,7 +4654,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Next", [
             };
         }).register("ba-videoplayer-next")
         .registerFunctions({
-            /**/"cssplayer": function (obj) { return obj.cssplayer; }, "style": function (obj) { return obj.style; }, "(is_floating && with_sidebar) ? cssplayer + '-next-with-sidebar' : ''": function (obj) { return (obj.is_floating && obj.with_sidebar) ? obj.cssplayer + '-next-with-sidebar' : ''; }, "stay()": function (obj) { return obj.stay(); }, "staytext": function (obj) { return obj.staytext; }, "style === 'desktop'": function (obj) { return obj.style === 'desktop'; }, "next()": function (obj) { return obj.next(); }, "{width: ((position - shownext) / noengagenext * 100) + '%'}": function (obj) { return {width: ((obj.position - obj.shownext) / obj.noengagenext * 100) + '%'}; }, "nexttext": function (obj) { return obj.nexttext; }, "nextvideoposter": function (obj) { return obj.nextvideoposter; }, "style === 'desktop' && nextvideoposter": function (obj) { return obj.style === 'desktop' && obj.nextvideoposter; }/**/
+            /**/"cssplayer": function (obj) { return obj.cssplayer; }, "style": function (obj) { return obj.style; }, "(is_floating && with_sidebar) ? cssplayer + '-next-with-sidebar' : ''": function (obj) { return (obj.is_floating && obj.with_sidebar) ? obj.cssplayer + '-next-with-sidebar' : ''; }, "stay()": function (obj) { return obj.stay(); }, "staytext": function (obj) { return obj.staytext; }, "style === 'desktop'": function (obj) { return obj.style === 'desktop'; }, "next()": function (obj) { return obj.next(); }, "{width: ((position - shownext) / noengagenext * 100) + '%'}": function (obj) { return {width: ((obj.position - obj.shownext) / obj.noengagenext * 100) + '%'}; }, "nexttext": function (obj) { return obj.nexttext; }, "nextvideoposter": function (obj) { return obj.nextvideoposter; }, "style === 'desktop' && nextvideoposter && !hidenextvideoposter": function (obj) { return obj.style === 'desktop' && obj.nextvideoposter && !obj.hidenextvideoposter; }/**/
         })
         .attachStringTable(Assets.strings);
 });
@@ -4997,7 +5009,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             "volumelevel": null,
                             "autoplay": null,
                             "outstreamoptions": {
-                                corner: true
+                                corner: true,
+                                hideOnCompletion: true
                             }
                         },
                         "silent_attach": false,

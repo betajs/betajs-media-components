@@ -277,7 +277,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             "volumelevel": null,
                             "autoplay": null,
                             "outstreamoptions": {
-                                corner: true
+                                corner: true,
+                                hideOnCompletion: true
                             }
                         },
                         "silent_attach": false,

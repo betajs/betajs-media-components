@@ -2443,6 +2443,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 __setPlayerHadInteraction: function() {
                     if (this.get("userhadplayerinteraction")) return;
                     this.set("userhadplayerinteraction", true);
+                    this.trigger("playerinteracted");
                     this.__removePlayerInteractionEvents();
                 }
             };

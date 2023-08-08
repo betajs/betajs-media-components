@@ -13,6 +13,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "base:Types",
     "base:Objs",
     "base:Strings",
+    "base:Functions",
     "base:Collections.Collection",
     "base:Time",
     "base:Timers",
@@ -62,7 +63,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.PlayerStates.ErrorVideo",
     "module:VideoPlayer.Dynamics.PlayerStates.PlayVideo",
     "module:VideoPlayer.Dynamics.PlayerStates.NextVideo"
-], function(Class, Assets, DatasetProperties, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, PlayerSupport, Types, Objs, Strings, Collection, Time, Timers, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
+], function(Class, Assets, DatasetProperties, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, PlayerSupport, Types, Objs, Strings, Functions, Collection, Time, Timers, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, [StylesMixin, function(inherited) {
@@ -415,6 +416,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "floatingoptions": "jsonarray"
                 },
 
+                __INTERACTION_EVENTS: ["click", "mousedown", "mouseup", "touchstart", "touchend", "keydown", "keyup", "keypress"],
+
                 extendables: ["states"],
 
                 registerchannels: ["ads", "next"],
@@ -649,6 +652,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 create: function(repeat) {
                     repeat = repeat || false;
                     this.set("repeatedplayer", repeat);
+                    this.__attachPlayerInteractionEvents();
                     this._dataset = this.auto_destroy(new DatasetProperties(this.activeElement()));
                     this._dataset.bind("layout", this.properties());
                     this._dataset.bind("placement", this.properties());
@@ -1608,6 +1612,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     pause: function() {
+                        this.__setPlayerHadInteraction();
                         if (this.get("preventinteractionstatus")) return;
                         if (this._delegatedPlayer) {
                             this._delegatedPlayer.execute("pause");
@@ -2415,6 +2420,32 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 console.warn("Error :", err, opt, index);
                             }, this);
                     }, this);
+                },
+
+                __attachPlayerInteractionEvents: function() {
+                    this.set("userhadplayerinteraction", false);
+                    Objs.iter(this.__INTERACTION_EVENTS, function(eventName) {
+                        this.auto_destroy(
+                            this.activeElement().addEventListener(
+                                eventName, Functions.debounce(this.__setPlayerHadInteraction.bind(this), 200, false), {
+                                    once: true
+                                }
+                            ));
+                    }, this);
+                },
+
+                __removePlayerInteractionEvents: function() {
+                    Objs.iter(this.__INTERACTION_EVENTS, function(eventName) {
+                        this.activeElement().removeEventListener(
+                            eventName, this.__setPlayerHadInteraction
+                        );
+                    }, this);
+                },
+
+                __setPlayerHadInteraction: function() {
+                    if (this.get("userhadplayerinteraction")) return;
+                    this.set("userhadplayerinteraction", true);
+                    this.__removePlayerInteractionEvents();
                 }
             };
         }], {

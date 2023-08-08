@@ -100,10 +100,6 @@
         // console.log("Played w/seconds: ", this.get("played-with-sound-seconds"));
     }, player);
 
-    setTimeout(() => {
-        console.log("userhadplayerinteraction: ", player.get("userhadplayerinteraction"));
-    }, 3000);
-
     player.on("ended", () => console.log("ENDED"), player);
 
     player.on("playing", function() {

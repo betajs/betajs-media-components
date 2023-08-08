@@ -13,7 +13,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "base:Types",
     "base:Objs",
     "base:Strings",
-    "base:Functions",
     "base:Collections.Collection",
     "base:Time",
     "base:Timers",
@@ -63,7 +62,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.PlayerStates.ErrorVideo",
     "module:VideoPlayer.Dynamics.PlayerStates.PlayVideo",
     "module:VideoPlayer.Dynamics.PlayerStates.NextVideo"
-], function(Class, Assets, DatasetProperties, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, PlayerSupport, Types, Objs, Strings, Functions, Collection, Time, Timers, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
+], function(Class, Assets, DatasetProperties, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, PlayerSupport, Types, Objs, Strings, Collection, Time, Timers, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, [StylesMixin, function(inherited) {
@@ -416,7 +415,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "floatingoptions": "jsonarray"
                 },
 
-                __INTERACTION_EVENTS: ["click", "mousedown", "mouseup", "touchstart", "touchend", "keydown", "keyup", "keypress"],
+                __INTERACTION_EVENTS: ["click", "mousedown", "touchstart", "keydown", "keypress"],
 
                 extendables: ["states"],
 
@@ -1612,7 +1611,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     pause: function() {
-                        this.__setPlayerHadInteraction();
                         if (this.get("preventinteractionstatus")) return;
                         if (this._delegatedPlayer) {
                             this._delegatedPlayer.execute("pause");
@@ -2427,7 +2425,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     Objs.iter(this.__INTERACTION_EVENTS, function(eventName) {
                         this.auto_destroy(
                             this.activeElement().addEventListener(
-                                eventName, Functions.debounce(this.__setPlayerHadInteraction.bind(this), 200, false), {
+                                eventName, this.__setPlayerHadInteraction.bind(this), {
                                     once: true
                                 }
                             ));

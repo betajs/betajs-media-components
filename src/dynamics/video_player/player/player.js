@@ -293,6 +293,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "playbackended": 0,
                         "currentchapterindex": 0,
                         "chapterslist": [],
+                        "userengadedwithplayer": false,
+                        "userhadplayerinteraction": false,
                         // If settings are open and visible
                         "states": {
                             "poster_error": {
@@ -494,10 +496,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "next:setStay": function() {
                         this.set("stayengaged", true);
                         this.set("next_active", false);
+                        this.__setPlayerEngagement();
                     },
                     "next:playNext": function() {
                         this.trigger("play_next");
                         this.set("next_active", false);
+                        this.__setPlayerEngagement();
                     },
                     "next:resetNextWidget": function() {
                         this.set("stayengaged", false);
@@ -1567,14 +1571,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     message_click: function() {
                         this.trigger("message:click");
+                        this.__setPlayerEngagement();
                     },
 
                     playbutton_click: function() {
+                        this.__setPlayerEngagement();
                         this.trigger("playbuttonclick");
                         this.host.state().play();
                     },
 
                     play: function() {
+                        this.__setPlayerEngagement();
                         this.trigger("playrequested");
                         if (this._delegatedPlayer) {
                             this._delegatedPlayer.execute("play");
@@ -1647,6 +1654,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     seek: function(position) {
+                        this.__setPlayerEngagement();
                         if (this.get("preventinteractionstatus")) return;
                         if (this._delegatedPlayer) {
                             this._delegatedPlayer.execute("seek", position);
@@ -1677,6 +1685,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     set_speed: function(speed, from_ui) {
+                        this.__setPlayerEngagement();
                         if (!this.player) return false;
                         this.player.setSpeed(speed);
                         if (!from_ui) this.updateSettingsMenuItem("playerspeeds", {
@@ -1686,6 +1695,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     set_volume: function(volume) {
+                        this.__setPlayerEngagement();
                         if (this.get("preventinteractionstatus")) return;
                         if (this._delegatedPlayer) {
                             this._delegatedPlayer.execute("set_volume", volume);
@@ -1713,6 +1723,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     toggle_fullscreen: function() {
+                        this.__setPlayerEngagement();
                         if (this.get("preventinteractionstatus")) return;
                         if (this._delegatedPlayer) {
                             this._delegatedPlayer.execute("toggle_fullscreen");
@@ -1746,6 +1757,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         } else if (this.get("playing") && this.get("pauseonclick")) {
                             this.pause();
                         } else if (!this.get("playing") && this.get("playonclick")) {
+                            this.__setPlayerEngagement();
                             this.play();
                         }
                     },
@@ -1841,6 +1853,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     resume_ads: function() {
+                        this.__setPlayerEngagement();
                         this.channel("ads").trigger("resume");
                     },
 
@@ -2421,7 +2434,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 __attachPlayerInteractionEvents: function() {
-                    this.set("userhadplayerinteraction", false);
                     Objs.iter(this.__INTERACTION_EVENTS, function(eventName) {
                         this.auto_destroy(
                             this.activeElement().addEventListener(
@@ -2438,6 +2450,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             eventName, this.__setPlayerHadInteraction
                         );
                     }, this);
+                },
+
+                __setPlayerEngagement: function() {
+                    if (this.get("userengadedwithplayer")) return;
+                    this.set("userengadedwithplayer", true);
+                    this.trigger("playerengaded");
                 },
 
                 __setPlayerHadInteraction: function() {

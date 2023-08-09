@@ -2454,8 +2454,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 __setPlayerEngagement: function() {
                     if (this.get("userengadedwithplayer")) return;
-                    this.set("userengadedwithplayer", true);
-                    this.trigger("playerengaded");
+                    // User will be engaged with player if volume is not 0
+                    if (!this.get("muted")) {
+                        this.set("userengadedwithplayer", true);
+                        this.trigger("playerengaded");
+                    }
                 },
 
                 __setPlayerHadInteraction: function() {

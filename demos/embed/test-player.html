@@ -100,6 +100,19 @@
         // console.log("Played w/seconds: ", this.get("played-with-sound-seconds"));
     }, player);
 
+    // player.on("change:userengadedwithplayer", (userengadedwithplayer) => {
+    //     console.log("userengadedwithplayer: ", userengadedwithplayer);
+    // }, player);
+    // player.once("playerengaded", () => {
+    //     console.log("ON playerengaded >>> ", player.get("userengadedwithplayer"));
+    // }, player);
+    // player.on("change:userhadplayerinteraction", (userhadplayerinteraction) => {
+    //     console.log("userhadplayerinteraction: ", userhadplayerinteraction);
+    // }, player);
+    // player.once("playerinteracted", () => {
+    //     console.log("ON playerinteracted >>> ", player.get("userhadplayerinteraction"));
+    // }, player);
+
     player.on("ended", () => console.log("ENDED"), player);
 
     player.on("playing", function() {

@@ -45,6 +45,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Next", [
                     "change:nextvideoposter": function(nextvideoposter) {
                         if (!nextvideoposter) return;
                         var img = new Image();
+                        img.crossOrigin = "anonymous";
                         img.onload = function() {
                             this.set("hidenextvideoposter", Canvas.isImageBlack(img));
                         }.bind(this);

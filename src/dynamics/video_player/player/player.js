@@ -293,7 +293,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "playbackended": 0,
                         "currentchapterindex": 0,
                         "chapterslist": [],
-                        "userengadedwithplayer": false,
+                        "userengagedwithplayer": false,
                         "userhadplayerinteraction": false,
                         // If settings are open and visible
                         "states": {
@@ -2453,11 +2453,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 __setPlayerEngagement: function() {
-                    if (this.get("userengadedwithplayer")) return;
+                    if (this.get("userengagedwithplayer")) return;
                     // User will be engaged with player if volume is not 0
                     if (!this.get("muted")) {
-                        this.set("userengadedwithplayer", true);
-                        this.trigger("playerengaded");
+                        this.set("userengagedwithplayer", true);
+                        this.trigger("playerengaged");
                     }
                 },
 

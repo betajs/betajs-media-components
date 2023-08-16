@@ -1553,7 +1553,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.auto_destroy(new Timers.Timer({ // This is being fired right before toggle_player
                                     delay: 500,
                                     fire: function() {
-                                        if (!this.get("muted")) this.set_volume(this.get("initialoptions").volumelevel);
+                                        if (!this.get("muted")) {
+                                            // If user not paused video manually, we set user as engaged
+                                            if (!this.get("manuallypaused")) this.__setPlayerEngagement();
+                                            this.set_volume(this.get("initialoptions").volumelevel);
+                                        }
                                         this.set("unmuteonclick", false);
                                     }.bind(this),
                                     once: true

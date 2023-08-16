@@ -281,7 +281,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             "autoplay": null,
                             "outstreamoptions": {
                                 corner: true,
-                                hideOnCompletion: true
+                                hideOnCompletion: true,
+                                nextadtimeout: 3000, // Period before when next ads will be checked, default: 3 seconds
+                                recurrenceperiod: 30000, // Period when a new request will be sent if ads is not showing, default: 30 seconds
+                                requestnextadbeforecompletion: 1000 // Period before when next ads will be checked, default: 1 second
                             }
                         },
                         "silent_attach": false,
@@ -1864,7 +1867,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.channel("ads").trigger("resume");
                     },
 
-                    close_floating: function() {
+                    close_floating: function(destroy) {
+                        destroy = destroy || false;
                         this.trigger("floatingplayerclosed");
                         if (this.get("sticky") || this.get("floatingoptions.floatingonly")) {
                             if (this.get("floatingoptions.hideplayeronclose") || this.get("floatingoptions.floatingonly")) {
@@ -1874,15 +1878,20 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                         display: "none"
                                     });
                                 }
-                                this.destroy();
+                                if (destroy) this.destroy();
                             } else {
                                 this.pause();
-                                this.set("sticky", false);
-                                this.set("view_type", "default");
-                                if (this.stickyHandler) this.stickyHandler.destroy();
+                                if (destroy) {
+                                    this.set("sticky", false);
+                                    this.set("view_type", "default");
+                                    if (this.stickyHandler) this.stickyHandler.destroy();
+                                } else {
+                                    this.hidePlayerContainer();
+                                }
                             }
                         } else {
-                            this.destroy();
+                            if (destroy) this.destroy();
+                            this.hidePlayerContainer();
                         }
                     }
                 },
@@ -2002,6 +2011,39 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         return img.width;
                     }
                     return NaN;
+                },
+
+                hidePlayerContainer: function() {
+                    // If no there will be no this.__playerContainerWasHidden condition, states will be overwritten
+                    if (this.activeElement() && !this.__playerContainerWasHidden) {
+                        this.set("states.hiddenelement.dimensions", Dom.elementDimensions(this.activeElement()));
+                        this.set("states.hiddenelement.styles.display", this.activeElement().style.display, null);
+                        this._applyStyles(this.activeElement(), {
+                            display: "none"
+                        });
+                        this.__playerContainerWasHidden = true;
+                        if (this.get("adsplaying")) {
+                            this.set("states.hiddenelement.adsplaying", this.scopes.adsplayer.get("playing"));
+                            this.scopes.adsplayer.call("pause");
+                        }
+                        if (this.get("playing")) {
+                            this.pause();
+                            this.set("states.hiddenelement.playing", true);
+                        }
+                    }
+                },
+
+                showHiddenPlayerContainer: function() {
+                    if (!this.__playerContainerWasHidden) return;
+                    if (this.activeElement()) {
+                        var display = this.get("states.hiddenelement.styles.display");
+                        this._applyStyles(this.activeElement(), {
+                            display: display || 'inline-block'
+                        });
+                        if (this.get("states.hiddenelement.playing")) this.play();
+                        if (this.get("states.hiddenelement.adsplaying") && this.scopes.adsplayer) this.scopes.adsplayer.call("resume");
+                        this.__playerContainerWasHidden = false;
+                    }
                 },
 
                 aspectRatio: function() {

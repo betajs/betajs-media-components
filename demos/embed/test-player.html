@@ -42,9 +42,21 @@
     <link href="/static/dist/themes/theatre/style.css" rel="stylesheet" />
 
     <script>
+        let player;
         if (!HTMLScriptElement.supports?.("importmap")) {
             console.log("Browser does not supports import maps. Please use modern browser for tetsing.");
         }
+        const hidePlayer = () => {
+            if (player) {
+                player.hidePlayerContainer();
+            }
+        };
+
+        const showPlayer = () => {
+            if (player) {
+                player.showHiddenPlayerContainer();
+            }
+        };
     </script>
 </head>
 <body style="background: #EEE; margin: 0; padding: 0 15px">
@@ -57,6 +69,19 @@
 <div class="row">
     <div class="col-xs-12">
         <div id="player"></div>
+        <hr/>
+        <div style="width: 48%; float: left">
+            <button class="btn btn-danger btn-block btn-xs"
+                    style="width: 100%; background-color: #ff6256;"
+                    onclick="hidePlayer()"
+            >HIDE</button>
+        </div>
+        <div style="width: 48%; float: right">
+            <button class="btn btn-success btn-block btn-xs"
+                    style="width: 100%; background-color: #5daa96;"
+                    onclick="showPlayer()"
+            >SHOW</button>
+        </div>
     </div>
 </div>
 
@@ -85,7 +110,7 @@
         }
     }
 
-    var player = new BetaJS.MediaComponents.VideoPlayer.Dynamics.Player({
+    player = new BetaJS.MediaComponents.VideoPlayer.Dynamics.Player({
         element: $('#player'),
         attrs
     });

@@ -401,10 +401,13 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Outstream", [
 
         _started: function() {
             if (!this.dyn.get("adshassource")) {
-                if (typeof this.dyn.activeElement === "function")
-                    this.dyn.activeElement().style.setProperty("display", "none");
-                if (this.dyn.get("floatingoptions.floatingonly"))
+                this.dyn.hidePlayerContainer();
+                if (this.dyn.get("floatingoptions.floatingonly")) {
                     this.dyn.execute("close_floating");
+                } else {
+                    if (typeof this.dyn.activeElement === "function")
+                        this.dym.hidePlayerContainer();
+                }
                 console.warn("Please provide ad source for the outstream");
             }
 

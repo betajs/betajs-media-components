@@ -98,7 +98,7 @@ Scoped.define("module:VideoPlayer.Dynamics.FloatingSidebar", [
                                                     this._observer = null;
                                                 }
                                             }, this);
-                                        };
+                                        }.bind(this);
 
                                         this._observer = new MutationObserver(_findContainer);
                                         // Start observing the target node for configured mutations

@@ -1,8 +1,9 @@
 Scoped.define("module:VideoPlayer.Dynamics.Next", [
     "dynamics:Dynamic",
+    "browser:Canvas",
     "browser:Info",
     "module:Assets"
-], function(Class, Info, Assets, scoped) {
+], function(Class, Canvas, Info, Assets, scoped) {
 
     return Class.extend({
             scoped: scoped
@@ -37,6 +38,18 @@ Scoped.define("module:VideoPlayer.Dynamics.Next", [
                         this.on("change:is_floating", function(isFloating) {
                             this.set("style", isFloating ? "mobile" : "desktop");
                         }, this);
+                    }
+                },
+
+                events: {
+                    "change:nextvideoposter": function(nextvideoposter) {
+                        if (!nextvideoposter) return;
+                        var img = new Image();
+                        img.crossOrigin = "anonymous";
+                        img.onload = function() {
+                            this.set("hidenextvideoposter", Canvas.isImageBlack(img));
+                        }.bind(this);
+                        img.src = nextvideoposter;
                     }
                 },
 

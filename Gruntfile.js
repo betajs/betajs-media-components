@@ -38,6 +38,33 @@ module.exports = function(grunt) {
             "dynamics:version": pkg.devDependencies["betajs-dynamics"],
             "media:version": pkg.devDependencies["betajs-media"]
         }, null, betajsTemplates.concatProcess(grunt))
+        .scopedclosurerevisionTask("scopedclosurerevisionnolocales", [
+            'src/ads/**/*.js',
+            'src/dynamics/_common/*.js',
+            'src/dynamics/_common/**/*.js',
+            'src/dynamics/popup_helper/*.js',
+            'src/dynamics/iframe_helper/*.js',
+            'src/dynamics/ads_player/*.js',
+            'src/dynamics/ads_player/**/*.js',
+            'src/dynamics/video_player/**/*.js',
+            'src/dynamics/video_recorder/**/*.js',
+            'src/dynamics/image_viewer/**/*.js',
+            'src/dynamics/image_capture/**/*.js',
+            'src/dynamics/audio_player/**/*.js',
+            'src/dynamics/audio_recorder/**/*.js',
+            'src/dynamics/video_call/**/*.js'
+        ], "dist/" + dist + "-nolocales-noscoped.js", {
+            "module": "global:BetaJS.MediaComponents",
+            "base": "global:BetaJS",
+            "browser": "global:BetaJS.Browser",
+            "media": "global:BetaJS.Media",
+            "dynamics": "global:BetaJS.Dynamics"
+        }, {
+            "base:version": pkg.devDependencies.betajs,
+            "browser:version": pkg.devDependencies["betajs-browser"],
+            "dynamics:version": pkg.devDependencies["betajs-dynamics"],
+            "media:version": pkg.devDependencies["betajs-media"]
+        }, null, betajsTemplates.concatProcess(grunt))
         .concatTask('concat-scoped', [require.resolve("betajs-scoped"), 'dist/' + dist + '-noscoped.js'], 'dist/' + dist + '.js')
         .concatsassTask('concat-dist-css', [
             // mixins
@@ -424,6 +451,7 @@ module.exports = function(grunt) {
         'locales',
         'beautify1', 'beautify2', 'beautify3',
         'scopedclosurerevision',
+        'scopedclosurerevisionnolocales',
         'concat-scoped',
         'uglify-noscoped',
         'uglify-scoped',
@@ -596,7 +624,7 @@ module.exports = function(grunt) {
             require.resolve("betajs-browser"),
             require.resolve("betajs-dynamics"),
             require.resolve("betajs-media"),
-            "./dist/betajs-media-components-noscoped.js"
+            "./dist/betajs-media-components-nolocales-noscoped.js"
         ], function (err, window) {
             var strings = window.BetaJS.MediaComponents.Assets.strings.all();
             var lang = {

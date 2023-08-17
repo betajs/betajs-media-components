@@ -80,6 +80,7 @@ if (params.flt) {
 // Show Companion Ad
 if (params.cmp) {
     attrs.companionad = Number(params.flt) === 1 ? true : '[300,]|bottom';
+}
 
 if (params.nextwidget) {
     attrs.nextwidget = params.nextwidget;

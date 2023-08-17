@@ -56,15 +56,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                                 google.ima.ViewMode.NORMAL
                             );
                         }
-                        if (this.get("ad")) {
-                            if ((!isFloating && this.get("companionad")) || ((isFloating && !this.get("withsidebar")) && this.get("floatingoptions.showcompanionad"))) {
-                                // Render companion ad for the floating player, sidebar will handle companion ad itself
-                                this._renderCompanionAd(this.get("ad"), this.get('mobileviewport') ?
-                                    this.get("floatingoptions.mobile.companionad") :
-                                    this.get("floatingoptions.desktop.companionad")
-                                );
-                            }
-                        }
                     }
                 },
 
@@ -334,8 +325,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         }
 
                         // Set companion ads array and render for normal content player viewport
-                        if (ad && (this.get("companionad") || this.get("floatingoptions.showcompanionad"))) {
+                        if (ad) {
                             this._getCompanionAds(ad);
+                            if (this.get("companionad")) this._renderCompanionAd(ad);
                         }
                     }
                 },
@@ -383,9 +375,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     var companionAds = [];
                     if (google && google.ima && ad && Types.is_function(ad.getCompanionAds)) {
                         // if options is not boolean, then we have provided more options, like size and selector
-                        if (this.get("companionad") && !this.get("floating")) {
-                            this._renderCompanionAd(ad);
-                        }
                         var selectionCriteria = new google.ima.CompanionAdSelectionSettings();
                         // HTML,IFRAME,STATIC,ALL
                         selectionCriteria.resourceType = google.ima.CompanionAdSelectionSettings.ResourceType.ALL;

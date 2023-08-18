@@ -19,7 +19,6 @@ Scoped.define("module:StickyHandler", [
                 this.element = element;
                 this.container = container;
                 this.paused = options.paused || false;
-                this.position = options.position || "bottom-right";
                 this.threshold = options.threshold;
                 if (!options["static"]) this.events = this.auto_destroy(new DomEvents());
                 this.floating = false;
@@ -65,8 +64,6 @@ Scoped.define("module:StickyHandler", [
             },
 
             addStickyStyles: function() {
-                if (!this.elementWasDragged()) this.element.classList.add("ba-commoncss-fade-up");
-                this.element.classList.add("ba-commoncss-sticky", "ba-commoncss-sticky-" + this.position);
                 if (this._top) this.element.style.top = this._top;
                 if (this._left) this.element.style.left = this._left;
             },
@@ -74,7 +71,6 @@ Scoped.define("module:StickyHandler", [
             removeStickyStyles: function() {
                 this.element.style.removeProperty("top");
                 this.element.style.removeProperty("left");
-                this.element.classList.remove("ba-commoncss-sticky", "ba-commoncss-sticky-" + this.position, "ba-commoncss-fade-up");
             },
 
             _initIntersectionObservers: function() {

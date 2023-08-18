@@ -3,7 +3,7 @@
      {{cssplayer}}-{{fullscreened ? 'fullscreen' : 'normal'}}-view {{cssplayer}}-{{firefox ? 'firefox' : 'common'}}-browser
      {{cssplayer}}-{{themecolor}}-color {{cssplayer}}-device-type-{{mobileview ? 'mobile' : 'desktop'}}
      {{cssplayer}}-viewport-{{mobileviewport ? 'mobile' : 'desktop'}}
-     {{is_floating ? cssplayer + '-floating' : ''}}
+     {{is_floating ? cssfloatingclasses : ''}}
      {{(with_sidebar && is_floating && !fullscreened) ? cssplayer + '-with-sidebar' : csscommon + '-full-width'}}
      {{cssplayer + (((activity_delta > hidebarafter) && hideoninactivity) ? '-controlbar-hidden' : '-controlbar-visible')}}"
      ba-on:mousemove="{{user_activity()}}"

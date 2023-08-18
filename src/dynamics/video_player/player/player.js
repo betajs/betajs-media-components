@@ -614,6 +614,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         return styles;
                     },
+                    "cssfloatingclasses:is_floating": function() {
+                        return [
+                            this.get("cssplayer") + "-floating",
+                            this.get("csscommon") + "-sticky",
+                            this.get("csscommon") + "-sticky-" + this.get("sticky-position") || this.get("floatingoptions.desktop.position") || "bottom-right",
+                            this.StickyHandler && this.StickyHandler.elementWasDragged() ? "ba-commoncss-fade-up" : ""
+                        ].join(" ");
+                    },
                     "sidebarSizingStyles:is_floating,floating_height": function(isFloating, floatingHeight) {
                         if (!isFloating || !this.get("floatingoptions.sidebar")) return {
                             display: "none"

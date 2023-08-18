@@ -511,22 +511,22 @@ Scoped.define("module:Ads.Dynamics.Player", [
                                 // Prevent on click though taking all the width of the div element
                                 this.__companionAdElement.style.display = 'inline-block';
                                 this.__companionAdElement.style['float'] = 'left';
-                                playerElement.prepend(this.__companionAdElement);
+                                playerElement.insertAdjacentElement("beforebegin", this.__companionAdElement);
                                 break;
                             case 'top':
                                 if (applyFloatingStyles && parentStyles) {
                                     this.parent()._applyStyles(this.__companionAdElement, companionAdContainerStyles);
                                 }
-                                playerElement.prepend(this.__companionAdElement);
+                                playerElement.insertAdjacentElement("beforebegin", this.__companionAdElement);
                                 break;
                             case 'right':
                                 // Prevent on click though taking all the width of the div element
                                 this.__companionAdElement.style.display = 'inline-block';
                                 playerElement.style['float'] = 'left';
-                                playerElement.append(this.__companionAdElement);
+                                playerElement.insertAdjacentElement("afterend", this.__companionAdElement);
                                 break;
                             default:
-                                playerElement.append(this.__companionAdElement);
+                                playerElement.insertAdjacentElement("afterend", this.__companionAdElement);
                         }
                     }
                 },

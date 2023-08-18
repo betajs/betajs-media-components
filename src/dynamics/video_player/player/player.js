@@ -622,10 +622,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.StickyHandler && this.StickyHandler.elementWasDragged() ? "ba-commoncss-fade-up" : ""
                         ].join(" ");
                     },
-                    "sidebarSizingStyles:is_floating,floating_height": function(isFloating, floatingHeight) {
-                        if (!isFloating || !this.get("floatingoptions.sidebar")) return {
-                            display: "none"
-                        };
+                    "sidebarSizingStyles:floating_height": function(floatingHeight) {
                         return {
                             height: parseFloat(floatingHeight).toFixed() + 'px'
                         };

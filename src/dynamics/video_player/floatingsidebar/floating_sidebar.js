@@ -26,7 +26,7 @@ Scoped.define("module:VideoPlayer.Dynamics.FloatingSidebar", [
                     "companionads": []
                 },
 
-                create: function() {
+                _afterActivate: function() {
                     if (this.get("floatingoptions.showcompanionad")) {
                         if (this.get("companionads") && this.get("companionads").length > 0) {
                             this.__generateCompanionAdContent();
@@ -48,11 +48,6 @@ Scoped.define("module:VideoPlayer.Dynamics.FloatingSidebar", [
                     redirect: function(url) {
                         this.__redirect(url);
                     }
-                },
-
-                destroy: function() {
-                    if (this._observer) this._observer.disconnect();
-                    inherited.destroy.call(this);
                 },
 
                 /**
@@ -82,33 +77,7 @@ Scoped.define("module:VideoPlayer.Dynamics.FloatingSidebar", [
                                     var companionAd = companionads[closestIndex];
                                     this.set("companionadcontent", companionAd.getContent());
                                     var container = this.activeElement().querySelector("." + this.get("cssfloatingsidebar") + '-companion-container');
-                                    if (container) {
-                                        this.__drawCompanionAdToContainer(container, companionAd, dimensions, ar, _ar);
-                                    } else {
-                                        var _findContainer = function(mutationList, observer) {
-                                            if (container) {
-                                                this._observer.disconnect();
-                                                this._observer = null;
-                                            }
-                                            Objs.iter(mutationList, function(mutation) {
-                                                container = mutation.target.querySelector("." + this.get("cssfloatingsidebar") + '-companion-container');
-                                                if (container) {
-                                                    this.__drawCompanionAdToContainer(container, companionAd, dimensions, ar);
-                                                    this._observer.disconnect();
-                                                    this._observer = null;
-                                                }
-                                            }, this);
-                                        }.bind(this);
-
-                                        this._observer = new MutationObserver(_findContainer);
-                                        // Start observing the target node for configured mutations
-                                        this._observer.observe(this.activeElement(), {
-                                            attributes: true,
-                                            childList: false,
-                                            subtree: false
-                                        });
-
-                                    }
+                                    if (container) this.__drawCompanionAdToContainer(container, companionAd, dimensions, ar, _ar);
                                 }
                             }, this);
                         }

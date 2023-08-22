@@ -293,6 +293,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "playbackended": 0,
                         "currentchapterindex": 0,
                         "chapterslist": [],
+                        "userengagedwithplayer": false,
+                        "userhadplayerinteraction": false,
                         // If settings are open and visible
                         "states": {
                             "poster_error": {
@@ -415,6 +417,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "floatingoptions": "jsonarray"
                 },
 
+                __INTERACTION_EVENTS: ["click", "mousedown", "touchstart", "keydown", "keypress"],
+
                 extendables: ["states"],
 
                 registerchannels: ["ads", "next"],
@@ -492,10 +496,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "next:setStay": function() {
                         this.set("stayengaged", true);
                         this.set("next_active", false);
+                        this.__setPlayerEngagement();
                     },
                     "next:playNext": function() {
                         this.trigger("play_next");
                         this.set("next_active", false);
+                        this.__setPlayerEngagement();
                     },
                     "next:resetNextWidget": function() {
                         this.set("stayengaged", false);
@@ -649,6 +655,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 create: function(repeat) {
                     repeat = repeat || false;
                     this.set("repeatedplayer", repeat);
+                    this.__attachPlayerInteractionEvents();
                     this._dataset = this.auto_destroy(new DatasetProperties(this.activeElement()));
                     this._dataset.bind("layout", this.properties());
                     this._dataset.bind("placement", this.properties());
@@ -1546,7 +1553,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.auto_destroy(new Timers.Timer({ // This is being fired right before toggle_player
                                     delay: 500,
                                     fire: function() {
-                                        if (!this.get("muted")) this.set_volume(this.get("initialoptions").volumelevel);
+                                        if (!this.get("muted")) {
+                                            // If user not paused video manually, we set user as engaged
+                                            if (!this.get("manuallypaused")) this.__setPlayerEngagement();
+                                            this.set_volume(this.get("initialoptions").volumelevel);
+                                        }
                                         this.set("unmuteonclick", false);
                                     }.bind(this),
                                     once: true
@@ -1564,14 +1575,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     message_click: function() {
                         this.trigger("message:click");
+                        this.__setPlayerEngagement();
                     },
 
                     playbutton_click: function() {
+                        this.__setPlayerEngagement();
                         this.trigger("playbuttonclick");
                         this.host.state().play();
                     },
 
                     play: function() {
+                        this.__setPlayerEngagement();
                         this.trigger("playrequested");
                         if (this._delegatedPlayer) {
                             this._delegatedPlayer.execute("play");
@@ -1644,6 +1658,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     seek: function(position) {
+                        this.__setPlayerEngagement();
                         if (this.get("preventinteractionstatus")) return;
                         if (this._delegatedPlayer) {
                             this._delegatedPlayer.execute("seek", position);
@@ -1674,6 +1689,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     set_speed: function(speed, from_ui) {
+                        this.__setPlayerEngagement();
                         if (!this.player) return false;
                         this.player.setSpeed(speed);
                         if (!from_ui) this.updateSettingsMenuItem("playerspeeds", {
@@ -1683,6 +1699,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     set_volume: function(volume) {
+                        this.__setPlayerEngagement();
                         if (this.get("preventinteractionstatus")) return;
                         if (this._delegatedPlayer) {
                             this._delegatedPlayer.execute("set_volume", volume);
@@ -1710,6 +1727,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     toggle_fullscreen: function() {
+                        this.__setPlayerEngagement();
                         if (this.get("preventinteractionstatus")) return;
                         if (this._delegatedPlayer) {
                             this._delegatedPlayer.execute("toggle_fullscreen");
@@ -1743,6 +1761,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         } else if (this.get("playing") && this.get("pauseonclick")) {
                             this.pause();
                         } else if (!this.get("playing") && this.get("playonclick")) {
+                            this.__setPlayerEngagement();
                             this.play();
                         }
                     },
@@ -1838,6 +1857,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     resume_ads: function() {
+                        this.__setPlayerEngagement();
                         this.channel("ads").trigger("resume");
                     },
 
@@ -2415,6 +2435,41 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 console.warn("Error :", err, opt, index);
                             }, this);
                     }, this);
+                },
+
+                __attachPlayerInteractionEvents: function() {
+                    Objs.iter(this.__INTERACTION_EVENTS, function(eventName) {
+                        this.auto_destroy(
+                            this.activeElement().addEventListener(
+                                eventName, this.__setPlayerHadInteraction.bind(this), {
+                                    once: true
+                                }
+                            ));
+                    }, this);
+                },
+
+                __removePlayerInteractionEvents: function() {
+                    Objs.iter(this.__INTERACTION_EVENTS, function(eventName) {
+                        this.activeElement().removeEventListener(
+                            eventName, this.__setPlayerHadInteraction
+                        );
+                    }, this);
+                },
+
+                __setPlayerEngagement: function() {
+                    if (this.get("userengagedwithplayer")) return;
+                    // User will be engaged with player if volume is not 0
+                    if (!this.get("muted")) {
+                        this.set("userengagedwithplayer", true);
+                        this.trigger("playerengaged");
+                    }
+                },
+
+                __setPlayerHadInteraction: function() {
+                    if (this.get("userhadplayerinteraction")) return;
+                    this.set("userhadplayerinteraction", true);
+                    this.trigger("playerinteracted");
+                    this.__removePlayerInteractionEvents();
                 }
             };
         }], {

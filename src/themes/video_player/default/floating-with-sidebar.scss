@@ -21,6 +21,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            height: 100%;
         }
         a.#{$cssfloatingsidebar}-action-button {
             @include transition1(border, 500ms, ease-out);

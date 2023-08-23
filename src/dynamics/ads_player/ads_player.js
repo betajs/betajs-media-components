@@ -47,15 +47,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     "change:muted": function(muted) {
                         this.call("setVolume", muted ? 0 : this.get("volume"));
-                    },
-                    "change:floating": function(isFloating) {
-                        if (this.adsManager && typeof this.adsManager.resize === "function") {
-                            this.adsManager.resize(
-                                this.getAdWidth(),
-                                this.getAdHeight(),
-                                google.ima.ViewMode.NORMAL
-                            );
-                        }
                     }
                 },
 
@@ -183,7 +174,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             // This part will listen to the resize even after adsManger will be destroyed
                             if (this.adsManager && typeof this.adsManager.resize === "function") {
                                 this.adsManager.resize(
-                                    dimensions.width, dimensions.height,
+                                    this.getAdWidth(),
+                                    this.getAdHeight(),
                                     google.ima.ViewMode.NORMAL
                                 );
                             }

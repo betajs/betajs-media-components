@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.395 - 2023-08-16
+betajs-media-components - v0.0.396 - 2023-08-22
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1323,6 +1323,26 @@ Apache-2.0 Software License.
   max-width: 100%;
 }
 
+.ba-player-companion-ad-container-mobile {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+.ba-player-companion-ad-container-mobile > * {
+  width: 100%;
+}
+.ba-player-companion-ad-container-mobile img {
+  width: 100%;
+  height: auto;
+}
+
+.ba-floating-sidebar-companion-container {
+  align-items: center;
+  display: inline-block;
+  justify-content: center;
+}
+
 .ba-adsplayer-click-tracker {
   left: 0;
   right: 0;
@@ -2174,6 +2194,10 @@ Apache-2.0 Software License.
 }
 .ba-player-button-active .ba-commoncss-icon-subtitle {
   color: #eeeeee;
+}
+
+.ba-player-floating.ba-player-viewport-desktop {
+  overflow: initial;
 }
 
 .ba-player-share-action-container {
@@ -3515,18 +3539,22 @@ div.ba-commoncss-sticky.ba-player-viewport-mobile {
 }
 .ba-player-with-sidebar.ba-player-floating .ba-player-content {
   position: relative;
-  max-width: 50%;
 }
 .ba-player-with-sidebar .ba-floating-sidebar-container {
   color: #fff;
   text-align: center;
   margin: 0;
+  flex-grow: 1;
+  background: #000000;
+}
+.ba-player-with-sidebar .ba-floating-sidebar-container .ba-floating-sidebar-ad-playing-container {
+  position: relative;
 }
 .ba-player-with-sidebar .ba-floating-sidebar-container .ba-floating-sidebar-content-container {
-  display: inline-block;
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
 .ba-player-with-sidebar .ba-floating-sidebar-container a.ba-floating-sidebar-action-button {
   transition: border 500ms ease-out;
@@ -3567,16 +3595,11 @@ div.ba-commoncss-sticky.ba-player-viewport-mobile {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
-.ba-player-with-sidebar .ba-floating-sidebar-container {
-  flex-grow: 1;
-  background: #000000;
-}
 .ba-player-with-sidebar .ba-adsplayer-ad-choices-container {
-  position: relative;
+  position: absolute;
   color: #fff;
   top: 5px;
   left: 5px;
-  right: 5px;
   height: 20px;
   width: 20px;
   cursor: pointer;

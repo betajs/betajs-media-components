@@ -176,7 +176,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "adsposition": null,
                         "vmapads": false, // VMAP ads will set pre, mid, post positions inside XML file
                         "non-linear": null,
-                        "companionad": null,
+                        "companionad": null, // if just set to true, it will set companionads attribute for further use cases and will not render companion ad
+                        "companionads": [],
                         "linearadplayer": true,
                         "customnonlinear": false, // Currently, not fully supported
                         "minadintervals": 5,
@@ -225,18 +226,20 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             "floatingonly": false, // hide and show on video player based on view port
                             "closeable": true, // show close button
                             "hideplayeronclose": false, // hide player container in the content if floating player was closed
-                            "companion": false, // TODO: not works for now, show companion if exists else sidebar default
+                            "showcompanionad": false, // if set to true, companion ad will be shown on sidebar if it's exitst
                             // "fluidsidebar": true, // TODO: not works for now, if false, 50% width will be applied on sidebar
                             "desktop": {
                                 "position": "bottom-right", // position of floating video player for desktop
                                 "height": 190,
                                 "bottom": 30,
-                                "sidebar": false
+                                "sidebar": false,
+                                "companionad": false
                             },
                             "mobile": {
                                 "position": "top", // positions of floating video player for mobile
                                 "height": 75,
-                                "sidebar": true
+                                "sidebar": true,
+                                "companionad": true
                             }
                         },
                         "tracktags": [],
@@ -554,10 +557,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             aspectRatio: aspectRatio
                         };
                         if (isFloating && !this.get("fullscreened")) {
+                            calculated = this.__calculateFloatingDimensions();
+
                             styles.position = "fixed";
                             styles.display = this.get("with_sidebar") ? 'flex' : 'block';
-
-                            calculated = this.__calculateFloatingDimensions();
 
                             floatingTop = floatingTop || calculated.floating_top;
                             floatingBottom = floatingBottom || calculated.floating_bottom;
@@ -609,7 +612,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this._applyStyles(this.activeElement(), containerStyles || styles, this.__lastContainerSizingStyles);
                             }
 
-                            if (containerStyles.width && containerStyles.width.includes("%") && styles.width.includes("%")) {
+                            if (containerStyles.width && (containerStyles.width).toString().includes("%") && (styles.width).toString().includes("%")) {
                                 // If container width is in percentage, then we need to set the width of the player to auto
                                 // in other case width will be applied twice
                                 styles.width = "100%";
@@ -617,10 +620,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         return styles;
                     },
-                    "sidebarSizingStyles:is_floating,floating_height": function(isFloating, floatingHeight) {
-                        if (!isFloating || !this.get("floatingoptions.sidebar")) return {
-                            display: "none"
-                        };
+                    "cssfloatingclasses:is_floating": function() {
+                        return [
+                            this.get("cssplayer") + "-floating",
+                            this.get("csscommon") + "-sticky",
+                            this.get("csscommon") + "-sticky-" + this.get("sticky-position") || this.get("floatingoptions.desktop.position") || "bottom-right",
+                            this.StickyHandler && this.StickyHandler.elementWasDragged() ? "ba-commoncss-fade-up" : ""
+                        ].join(" ");
+                    },
+                    "sidebarSizingStyles:floating_height": function(floatingHeight) {
                         return {
                             height: parseFloat(floatingHeight).toFixed() + 'px'
                         };
@@ -841,12 +849,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         var stickyOptions = {
                             threshold: this.get("sticky-threshold"),
                             paused: this.get("sticky-starts-paused"),
-                            sidebar: this.get("floatingoptions.sidebar"),
-                            "static": this.get("floatingoptions.static"),
-                            mobile: this.get("floatingoptions.mobile"),
-                            desktop: this.get("floatingoptions.desktop"),
-                            // left here temporarily for backwards compatibility, in the future we should remove "sticky-position"
-                            position: this.get("sticky-position") || this.get("floatingoptions.desktop.position")
+                            "static": this.get("floatingoptions.static")
                         };
                         this.stickyHandler = this.auto_destroy(new StickyHandler(
                             this.activeElement().firstChild,

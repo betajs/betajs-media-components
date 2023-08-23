@@ -1,24 +1,16 @@
-export let gnrok; // = 'https://613d-213-172-83-96.in.ngrok.io/';
+export let gnrok // = 'https://3c5e-213-172-83-96.ngrok-free.app';
 let showBlocks = 0;
-export const errroAd = '//localhost:5050/static/demos/vast-samples/---error-url---';
-export const v3_clickThroughtLocalAd = '//localhost:5050/static/demos/vast-samples/VAST_3_0/Video_Clicks_and_click_tracking-Inline-test.xml';
-export const v3_skipable = '//localhost:5050/static/demos/vast-samples/ads-linear-skipable.xml';
-export const v3_doubleclick = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/single_preroll_skippable&sz=640x480&ciu_szs=300x250%2C728x90&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=';
-// export const v3_doubleclickVMAP = 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=&ad_rule=1';
-// export const v3_doubleclickbased = '//localhost:5050/static/demos/vast-samples/based-doubleclick.xml';
-export const v4_2_wrapper = '//localhost:5050/static/demos/vast-samples/VAST_4_2/Wrapper_Tag-test.xml';
-// export const v4_2_non_linear = '//localhost:5050/static/demos/vast-samples/VAST_4_2/Inline_Non-Linear_Tag-test.xml';
-export const v3_non_linear = '//localhost:5050/static/demos/vast-samples/VAST_3_0/Inline_Non-Linear_Tag-test.xml';
-// export const v4_2_skipable = (gnrok || '//localhost:5050/') + 'static/demos/vast-samples/VAST_4_2/Inline_Skipable.xml';
-export const v4_2_non_skipable = '//localhost:5050/static/demos/vast-samples/VAST_4_2/Inline_NON_Skipable.xml';
 
-// VMAP - Pre-roll Single Ad, Mid-roll Optimized Pod with 3 Ads, Post-roll Single Ad
 // var vmap = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/vmap_ad_samples&sz=640x480&cust_params=sample_ar%3Dpremidpostoptimizedpod&ciu_szs=300x250&gdfp_req=1&ad_rule=1&output=vmap&unviewed_position_start=1&env=vp&impl=s&cmsid=496&vid=short_onecue&correlator='
-export const vmap = '//localhost:5050/static/demos/vast-samples/VMAP/dc_vmap_pre_1_mid_3_post_1.xml'
-export const v4_2_companion = (gnrok || '//localhost:5050/') + 'static/demos/vast-samples/VAST_4_2/Inline_Companion_Tag-test.xml';
+export const vmap = (gnrok || '//localhost:5050/') + '/static/demos/vast-samples/VMAP/dc_vmap_pre_1_mid_3_post_1.xml'
+
+//'static/demos/vast-samples/companion-with-linear.xml';
+// export const companion = (gnrok || '//localhost:5050/') + 'static/demos/vast-samples/VAST_4_2/Inline_Companion_Tag-test.xml';
+export const companion = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/single_preroll_skippable&sz=640x480&ciu_szs=728x90,300x200|300x250&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=';
+// export const companion = 'https://09930015639790402128.googlegroups.com/attach/62ac5a9916f48/sample-vast.xml?part=0.1&view=1&vt=ANaJVrHVLmRw1mYQmPCtxOesXTdbSu7yVfa2937GV8eQizPPklqORGMEtxwSN_uM2Y0ZGhCbOOqSX5HsJpIFzHV9oaZRBW6OE6Sy4ypq-iQeMBJW4MVU1Yg';
 
 // var nonLinear = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/nonlinear_ad_samples&sz=480x70&cust_params=sample_ct%3Dnonlinear&ciu_szs=300x250%2C728x90&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=';
-export const nonLinear = '//localhost:5050/static/demos/vast-samples/dc-single_non-linear.xml';
+export const nonLinear = (gnrok || '//localhost:5050/') + '/static/demos/vast-samples/dc-single_non-linear.xml';
 export const inlineVAST = ``;
 
 const params = new Proxy(new URLSearchParams(window.location.search), {
@@ -36,8 +28,8 @@ let attrs = {
 
 if (params.ad) {
     switch (params.ad) {
-        case 0: case '0':
-            attrs.adtagurl = null
+        case 1: case '1':
+            attrs.adtagurl = `https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=`;
             break;
         // Inline XML
         case 2: case '2': case 'inline':
@@ -54,12 +46,15 @@ if (params.ad) {
         case 5: case '5': case 'os': // with nonLinear
             attrs.adtagurl = 'https://ads.celtra.com/f41e9364/vpaid/vast.xml';
             break;
-        case 'err':
-            attrs.adtagurl = 'https://ads.celtra.com/vpaid/vast.xml';
+        case 6: case '6': case 'companion': case 'cmp': // with Companion Ads
+            attrs.adtagurl = companion;
             break;
-        case 1: case '1': default:
-            attrs.adtagurl = `https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=`;
-            // attrs.adtagurl = v3_doubleclick;
+        case 9: case '9': case 'err': // with nonLinear
+            attrs.adtagurl = 'https://ads.celtra.com/wrong/vpaid/error.xml';
+            break;
+        case 0: case '0': default:
+            attrs.adtagurl = null
+            break;
     }
 }
 
@@ -82,6 +77,11 @@ if (params.flt) {
     attrs.floatingoptions.floatingonly = Number(params.flt) === 1;
 }
 
+// Show Companion Ad
+if (params.cmp) {
+    attrs.companionad = Number(params.flt) === 1 ? true : '[300,]|bottom';
+}
+
 if (params.nextwidget) {
     attrs.nextwidget = params.nextwidget;
 }
@@ -100,6 +100,7 @@ attrs = {...attrs, ...{
         // showplayercontentafter: 1500, // we can set any seconds to show player content in any case if ads not intialized
         // hideoninactivity: false,
         // ** SOURCES
+        // width: 640,
         source: '/static/demos/sample-video.mp4',
         poster: '/static/demos/assets/sample-cover.png',
         minadintervals: 0,
@@ -159,14 +160,18 @@ attrs = {...attrs, ...{
             // repeatText: "repeatText"
         },
         floatingoptions: {...attrs.floatingoptions, ...{
+            showcompanionad: true,
             // hideplayeronclose: false,
             mobile: {
-                height: 75,
+                height: 120,
+                companionad: true,
                 // position: 'bottom'
+                // companionad: "[,250]",
             },
             desktop: {
                 height: 140,
-                bottom: 20
+                bottom: 20,
+                companionad: true, //"[]|bottom", //"[]|top", // true
             }
         }},
         // adsposition: "pre, mid, post",
@@ -188,7 +193,7 @@ attrs = {...attrs, ...{
         // theme: "theatre",
 
         // **SETTINGS
-        // height: 320,
+        // height: 120,
         // width: 400,
         // width: '640px',
         // width: '80%',

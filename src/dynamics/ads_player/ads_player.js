@@ -19,24 +19,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
             return {
                 template: "<%= template(dirname + '/ads_player.html') %>",
 
-                events: {
-                    "change:volume": function(volume) {
-                        this.call("setVolume", this.get("muted") ? 0 : volume);
-                    },
-                    "change:muted": function(muted) {
-                        this.call("setVolume", muted ? 0 : this.get("volume"));
-                    },
-                    "change:floating": function(isFloating) {
-                        if (this.adsManager && typeof this.adsManager.resize === "function") {
-                            this.adsManager.resize(
-                                this.getAdWidth(),
-                                this.getAdHeight(),
-                                google.ima.ViewMode.NORMAL
-                            );
-                        }
-                    }
-                },
-
                 attrs: {
                     dyncontrolbar: "ads-controlbar",
                     tmplcontrolbar: "",
@@ -55,7 +37,17 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     moredetailstext: null,
                     repeatbuttontext: null,
                     adsplaying: false,
+                    companionads: [],
                     companionadcontent: null
+                },
+
+                events: {
+                    "change:volume": function(volume) {
+                        this.call("setVolume", this.get("muted") ? 0 : volume);
+                    },
+                    "change:muted": function(muted) {
+                        this.call("setVolume", muted ? 0 : this.get("volume"));
+                    }
                 },
 
                 _deferActivate: function() {
@@ -106,6 +98,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     "ads:start": function(ev) {
                         this._onStart(ev);
+                    },
+                    "ads:complete": function(ev) {
+                        this._onAdComplete(ev);
                     },
                     "ads:allAdsCompleted": function() {
                         this.call("reset");
@@ -179,7 +174,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             // This part will listen to the resize even after adsManger will be destroyed
                             if (this.adsManager && typeof this.adsManager.resize === "function") {
                                 this.adsManager.resize(
-                                    dimensions.width, dimensions.height,
+                                    this.getAdWidth(),
+                                    this.getAdHeight(),
                                     google.ima.ViewMode.NORMAL
                                 );
                             }
@@ -295,12 +291,12 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     this.set("adscompleted", false);
 
                     if (ev && Types.is_function(ev.getAd)) {
-                        var adData = ev.getAd();
-                        var isLinear = adData.isLinear();
+                        var ad = ev.getAd();
+                        var isLinear = ad.isLinear();
                         this.set("linear", isLinear);
                         this.set("hidecontrolbar", !isLinear);
                         if (!isLinear) {
-                            this.set("non-linear-min-suggestion", adData.getMinSuggestedDuration());
+                            this.set("non-linear-min-suggestion", ad.getMinSuggestedDuration());
                             // decrease a non-linear suggestion period, be able to show midroll
                             this._minSuggestionCalcualationTimer = this.auto_destroy(new Timers.Timer({ // This is being fired right before toggle_player
                                 delay: 1000,
@@ -314,15 +310,24 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             }));
                         }
 
-                        if (this.get("companionad") && adData) {
-                            this._showCompanionAd(adData, this.get("companionad"));
-                        }
-
                         // this.set("minSuggestedDuration", ev);
                         // if ad is outstream and
                         if (!isLinear && this.get("isoutstream")) {
                             this.adsManager.reset();
                         }
+
+                        // Set companion ads array and render for normal content player viewport
+                        if (ad) {
+                            this._getCompanionAds(ad);
+                            if (this.get("companionad")) this._renderCompanionAd(ad);
+                        }
+                    }
+                },
+
+                _onAdComplete: function(ev) {
+                    if (this.get("companionads").length > 0) this.set("companionads", []);
+                    if (this.__companionAdElement) {
+                        this.__companionAdElement.innerHTML = "";
                     }
                 },
 
@@ -353,6 +358,171 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     this.set("showactionbuttons", true);
                 },
 
+                /**
+                 * @param ad
+                 * @private
+                 */
+                _getCompanionAds: function(ad) {
+                    ad = ad || this.get("ad");
+                    var companionAds = [];
+                    if (google && google.ima && ad && Types.is_function(ad.getCompanionAds)) {
+                        // if options is not boolean, then we have provided more options, like size and selector
+                        var selectionCriteria = new google.ima.CompanionAdSelectionSettings();
+                        // HTML,IFRAME,STATIC,ALL
+                        selectionCriteria.resourceType = google.ima.CompanionAdSelectionSettings.ResourceType.ALL;
+                        // CreativeType:IMAGE, FLASH, ALL
+                        selectionCriteria.creativeType = google.ima.CompanionAdSelectionSettings.CreativeType.ALL;
+                        // get all companionads
+                        selectionCriteria.sizeCriteria = google.ima.CompanionAdSelectionSettings.SizeCriteria.IGNORE;
+                        // get all available companion ads
+                        companionAds = ad.getCompanionAds(0, 0, selectionCriteria);
+                        if (companionAds && companionAds.length > 0) {
+                            this.set("companionads", companionAds);
+                        }
+                        return companionAds;
+                    } else {
+                        return [];
+                    }
+                },
+
+                /**
+                 * @param ad
+                 * @param options
+                 * @return void
+                 */
+                _renderCompanionAd: function(ad, options) {
+                    // Do not render anything if options is boolean and false
+                    if (Types.is_boolean(options) && !Boolean(options)) return;
+
+                    var playerElement, position, selector, height, width, companionAdDimensions,
+                        isFluid, containerDimensions, selectionCriteria, expectedAR,
+                        companionAd, closestIndex, closestAr, parentStyles, companionAdContainerStyles, excludeStyles;
+                    var companionAds = [];
+                    options = options || this.get("companionad");
+                    if (Types.is_string(options)) {
+                        if (options.split('|').length > 0) {
+                            position = options.split('|')[1] || 'bottom';
+                        }
+                        options = options.replace(/\].*/g, "$'").split('[');
+                        selector = options[0];
+                    } else {
+                        // if it's floating and floatingoptions.device.companionad is set to boolean true,
+                        // then it will be handled by floating_sidebar.js
+                        position = this.get("floating") && this.get("withsidebar") ? null : 'bottom';
+                    }
+                    if (selector) {
+                        this.__companionAdElement = document.getElementById(selector);
+                    } else {
+                        this.__companionAdElement = this.__companionAdElement || document.createElement('div');
+                    }
+                    if (!this.__companionAdElement) return;
+                    // reset companion ad container
+                    this.__companionAdElement.innerHTML = "";
+                    // playerElement = this.get("floating") ? this.parent().activeElement().firstChild : this.parent().activeElement();
+                    playerElement = this.parent().activeElement();
+                    containerDimensions = Dom.elementDimensions(playerElement.firstChild);
+                    if (this.get("companionads").length <= 0) {
+                        companionAdDimensions = options[1] ? options[1].split(',') : [0, 0];
+                        isFluid = companionAdDimensions[0] === 'fluid';
+                        // companionAdDimensions = companionAdDimensions.split(',');
+                        if (!isFluid) {
+                            width = Number((companionAdDimensions && companionAdDimensions[0] && companionAdDimensions[0] > 0) ?
+                                companionAdDimensions[0] : containerDimensions.width);
+                            height = Number((companionAdDimensions && companionAdDimensions[1] && companionAdDimensions[1] > 0) ?
+                                companionAdDimensions[1] : containerDimensions.height);
+                        }
+
+                        selectionCriteria = new google.ima.CompanionAdSelectionSettings();
+                        // HTML,IFRAME,STATIC,ALL
+                        selectionCriteria.resourceType = google.ima.CompanionAdSelectionSettings.ResourceType.ALL;
+                        // CreativeType:IMAGE, FLASH, ALL
+                        selectionCriteria.creativeType = google.ima.CompanionAdSelectionSettings.CreativeType.ALL;
+                        // SizeCriteria: IGNORE, SELECT_EXACT_MATCH, SELECT_NEAR_MATCH, SELECT_FLUID
+                        if (!isFluid) {
+                            // nearMatchPercent
+                            selectionCriteria.sizeCriteria = google.ima.CompanionAdSelectionSettings.SizeCriteria.IGNORE;
+                            if (width && height) {
+                                // Get a list of companion ads for an ad slot size and CompanionAdSelectionSettings
+                                companionAds = ad.getCompanionAds(width, height, selectionCriteria);
+                            }
+                        } else {
+                            selectionCriteria.sizeCriteria = google.ima.CompanionAdSelectionSettings.SizeCriteria.SELECT_FLUID;
+                            companionAds = ad.getCompanionAds(0, 0, selectionCriteria);
+                        }
+
+                        if (typeof companionAds[0] === "undefined") return;
+                    } else {
+                        companionAds = this.get("companionads");
+                    }
+                    expectedAR = containerDimensions.width / containerDimensions.height;
+                    Objs.iter(companionAds, function(companion, index) {
+                        var _data = companion.data;
+                        var _ar = _data.width / _data.height;
+                        var _currentDiff = Math.abs(_ar - expectedAR);
+                        if (index === 0 || closestAr > _currentDiff) {
+                            closestAr = _currentDiff;
+                            closestIndex = index;
+                        }
+                        if (companionAds.length === index + 1) {
+                            companionAd = companionAds[closestIndex];
+                        }
+                    }, this);
+
+                    // Get HTML content from the companion ad.
+                    // Write the content to the companion ad slot.
+                    this.__companionAdElement.innerHTML = companionAd.getContent();
+                    Dom.elementAddClass(this.__companionAdElement, this.get("cssplayer") + "-companion-ad-container" + (this.get("mobileviewport") ? '-mobile' : '-desktop'));
+                    var applyFloatingStyles = this.get("floating") && !this.get("withsidebar");
+                    if (applyFloatingStyles) {
+                        // Mobile has to show in the sidebar
+                        position = this.get("mobileviewport") ? null : 'top';
+                        parentStyles = this.parent().get("containerSizingStyles");
+                        // var floatingoptions = this.get("mobileviewport") ? this.get("floatingoptions.mobile") : this.get("floatingoptions.desktop");
+                        companionAdContainerStyles = {
+                            position: 'relative'
+                        };
+                        var image = this.__companionAdElement.querySelector('img');
+                        if (image && containerDimensions && companionAd.data) {
+                            var _ar = companionAd.data.width / companionAd.data.height;
+                            var _h = containerDimensions.width * (_ar <= 1 ? _ar : companionAd.data.height / companionAd.data.width);
+                            image.width = containerDimensions.width;
+                            image.height = _h;
+                            companionAdContainerStyles.bottom = (_h + 20) + 'px';
+                        }
+                    } else {
+                        this.__companionAdElement.removeAttribute('style');
+                    }
+                    if (this.get("floating") && !this.get("mobileviewport") && applyFloatingStyles) {
+                        // On floating desktop attach to the player element
+                        var _pl = this.parent().activeElement().querySelector('.ba-player-content');
+                        if (_pl) playerElement = _pl;
+                    }
+                    if (position) {
+                        switch (position) {
+                            case 'left':
+                                // Prevent on click though taking all the width of the div element
+                                this.__companionAdElement.style.display = 'inline-block';
+                                this.__companionAdElement.style['float'] = 'left';
+                                playerElement.insertAdjacentElement("beforebegin", this.__companionAdElement);
+                                break;
+                            case 'top':
+                                if (applyFloatingStyles && parentStyles) {
+                                    this.parent()._applyStyles(this.__companionAdElement, companionAdContainerStyles);
+                                }
+                                playerElement.insertAdjacentElement("beforebegin", this.__companionAdElement);
+                                break;
+                            case 'right':
+                                // Prevent on click though taking all the width of the div element
+                                this.__companionAdElement.style.display = 'inline-block';
+                                playerElement.style['float'] = 'left';
+                                playerElement.insertAdjacentElement("afterend", this.__companionAdElement);
+                                break;
+                            default:
+                                playerElement.insertAdjacentElement("afterend", this.__companionAdElement);
+                        }
+                    }
+                },
+
                 _outstreamStarted: function(dyn, options) {
                     this.set("isoutstream", true);
                 },
@@ -372,87 +542,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         throw Error("Wrong dynamics instance was provided to _hideContentPlayer");
                     dyn.activeElement().style.setProperty("display", "none");
                     dyn.weakDestroy(); // << Create will not work as expected
-                },
-
-                /**
-                 * @param ad IMA Ad data
-                 * @param options
-                 */
-                _showCompanionAd: function(ad, options) {
-                    var dyn, element, playerElement, position, selector, height, width;
-                    dyn = this.parent();
-                    if (!dyn || !(Types.is_defined(google) && google.ima))
-                        throw Error("Parent dynamics or google not defined, to attach companion ad");
-                    playerElement = dyn.activeElement();
-                    if (options.split('|').length > 0) {
-                        position = options.split('|')[1] || 'bottom';
-                    }
-                    options = options.replace(/\].*/g, "$'").split('[');
-                    selector = options[0];
-                    if (selector) {
-                        element = document.getElementById(selector);
-                    } else {
-                        element = document.createElement('div');
-                    }
-                    if (!element) return;
-                    var dimensions = options[1].split(',');
-                    var isFluid = dimensions[0] === 'fluid';
-                    // dimensions = dimensions.split(',');
-                    if (!isFluid) {
-                        width = Number((dimensions && dimensions[0] && dimensions[0] > 0) ?
-                            dimensions[0] : Dom.elementDimensions(playerElement).width);
-                        height = Number((dimensions && dimensions[1] && dimensions[1] > 0) ?
-                            dimensions[1] : Dom.elementDimensions(playerElement).height);
-                    }
-                    var selectionCriteria = new google.ima.CompanionAdSelectionSettings();
-                    // HTML,IFRAME,STATIC,ALL
-                    selectionCriteria.resourceType = google.ima.CompanionAdSelectionSettings.ResourceType.ALL;
-                    // CreativeType:IMAGE, FLASH, ALL
-                    selectionCriteria.creativeType = google.ima.CompanionAdSelectionSettings.CreativeType.ALL;
-                    var companionAds = [];
-
-                    // SizeCriteria: IGNORE, SELECT_EXACT_MATCH, SELECT_NEAR_MATCH, SELECT_FLUID
-                    if (!isFluid) {
-                        // nearMatchPercent
-                        selectionCriteria.sizeCriteria = google.ima.CompanionAdSelectionSettings.SizeCriteria.IGNORE;
-                        if (width && height) {
-                            // Get a list of companion ads for an ad slot size and CompanionAdSelectionSettings
-                            companionAds = ad.getCompanionAds(width, height, selectionCriteria);
-                        }
-                    } else {
-                        selectionCriteria.sizeCriteria = google.ima.CompanionAdSelectionSettings.SizeCriteria.SELECT_FLUID;
-                        companionAds = ad.getCompanionAds(0, 0, selectionCriteria);
-                    }
-
-
-                    if (typeof companionAds[0] === "undefined") return;
-
-                    var companionAd = companionAds[0];
-                    // Get HTML content from the companion ad.
-                    // Write the content to the companion ad slot.
-                    element.innerHTML = companionAd.getContent();
-                    this.set("companionadcontent", companionAd);
-                    if (position && !selector) {
-                        switch (position) {
-                            case 'left':
-                                // Prevent on click though taking all the width of the div element
-                                element.style.display = 'inline-block';
-                                element.style['float'] = 'left';
-                                playerElement.parentNode.prepend(element);
-                                break;
-                            case 'top':
-                                playerElement.parentNode.prepend(element);
-                                break;
-                            case 'right':
-                                // Prevent on click though taking all the width of the div element
-                                element.style.display = 'inline-block';
-                                playerElement.style['float'] = 'left';
-                                playerElement.parentNode.append(element);
-                                break;
-                            default:
-                                playerElement.parentNode.append(element);
-                        }
-                    }
                 }
             };
         }).register("ba-adsplayer")

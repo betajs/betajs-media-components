@@ -1,0 +1,106 @@
+<VAST xmlns="http://www.iab.com/VAST" version="4.2">
+    <Ad id="20204">
+        <InLine>
+            <AdSystem version="1">Beta JS</AdSystem>
+            <Error>
+                <![CDATA[ //localhost:5050/ad/error ]]>
+            </Error>
+            <Impression id="Impression-ID">
+                <![CDATA[ //localhost:5050/ad/impression ]]>
+            </Impression>
+            <AdServingId>4440-bd29-2ec0e693fc80</AdServingId>
+            <AdTitle>
+                <![CDATA[ VAST 4 Companion Example ]]>
+            </AdTitle>
+            <Creatives>
+                <Creative id="34280" sequence="1" adId="442226">
+                    <CompanionAds>
+                        <Companion id="242" adSlotId="ac_242">
+                            <HTMLResource>
+                                <![CDATA[ <div style="background:#AB0000;text-align:center;color:#fff;padding:3px 0;">This is HTML based Vast Companion ad</div><div style="width:100%; background:#000; text-align:right;padding-right:10px;font-size:12px; color:#999;">&copy Nuevodevel.com</div> ]]>
+                            </HTMLResource>
+                            <CompanionClickThrough>
+                                <![CDATA[ https://betajs.com/ ]]>
+                            </CompanionClickThrough>
+                        </Companion>
+                        <Companion id="243" width="480" height="70" adSlotId="3214" pxratio="1400">
+                            <StaticResource creativeType="image/png">
+                                <![CDATA[ //localhost:5050/static/demos/assets/vast/ad-banner-480x70.png ]]>
+                            </StaticResource>
+                            <CompanionClickThrough>
+                                <![CDATA[ //betajs.com ]]>
+                            </CompanionClickThrough>
+                            <AltText>
+                                <![CDATA[ Example Companion Banner Image ]]>
+                            </AltText>
+                        </Companion>
+                        <Companion id="244" width="320" height="180" pxratio="1400">
+                            <StaticResource creativeType="image/png">
+                                <![CDATA[ //localhost:5050/static/demos/assets/vast/ad-banner-320x180.png ]]>
+                            </StaticResource>
+                            <CompanionClickThrough>
+                                <![CDATA[ https://betajs.com/ ]]>
+                            </CompanionClickThrough>
+                            <AltText>
+                                <![CDATA[ Example Companion Banner Image ]]>
+                            </AltText>
+                        </Companion>
+                        <Companion id="245" width="100" height="100" pxratio="1400">
+                            <StaticResource creativeType="image/png">
+                                <![CDATA[ //localhost:5050/static/demos/assets/vast/ad-banner-100x100.png ]]>
+                            </StaticResource>
+                            <CompanionClickThrough>
+                                <![CDATA[ https://betajs.com/ ]]>
+                            </CompanionClickThrough>
+                            <AltText>
+                                <![CDATA[ Example Companion Banner Image ]]>
+                            </AltText>
+                        </Companion>
+                        <Companion id="241" adSlotId="ac_235">
+                            <HTMLResource>
+                                <![CDATA[ <div style="background:#AB0000;text-align:center;color:#fff;padding:3px 0;">Thank you for your attention!</div><div style="width:100%; background:#000; text-align:right;padding-right:10px;font-size:12px; color:#999;">&copy Nuevodevel.com</div> ]]>
+                            </HTMLResource>
+                            <CompanionClickThrough>
+                                <![CDATA[ https://betajs.com/ ]]>
+                            </CompanionClickThrough>
+                        </Companion>
+                    </CompanionAds>
+                    <UniversalAdId idRegistry="Ad-ID">4629</UniversalAdId>
+                </Creative>
+                <Creative id="5381" sequence="1" adId="24226">
+                    <Linear skipoffset="00:00:05">
+                        <TrackingEvents>
+                            <Tracking event="start">//localhost:5050/ad/start</Tracking>
+                            <Tracking event="firstQuartile">//localhost:5050/ad/firstQuartile</Tracking>
+                            <Tracking event="midpoint">//localhost:5050/ad/midpoint</Tracking>
+                            <Tracking event="thirdQuartile">//localhost:5050/ad/thirdQuartile</Tracking>
+                            <Tracking event="complete">//localhost:5050/ad/complete</Tracking>
+                            <Tracking event="pause">//localhost:5050/ad/pause</Tracking>
+                            <Tracking event="resume">//localhost:5050/ad/resume</Tracking>
+                            <Tracking event="skip">//localhost:5050/ad/skip</Tracking>
+                            <Tracking event="clickthrough">//localhost:5050/ad/clickthrough</Tracking>
+                        </TrackingEvents>
+                        <Duration>00:00:25</Duration>
+                        <MediaFiles>
+                            <MediaFile id="12" delivery="progressive" type="video/mp4" bitrate="450" width="1280" height="720" minBitrate="450" maxBitrate="450" scalable="1" maintainAspectRatio="1" codec="0">
+                                <![CDATA[ //localhost:5050/static/demos/assets/vast/video_mp4_1280x720_br-450.mp4 ]]>
+                            </MediaFile>
+                            <MediaFile id="13" delivery="progressive" type="video/mp4" bitrate="132" width="854" height="480" minBitrate="100" maxBitrate="132" scalable="1" maintainAspectRatio="1" codec="0">
+                                <![CDATA[ //localhost:5050/static/demos/assets/vast/video_webm_854x480_br-132.webm ]]>
+                            </MediaFile>
+                        </MediaFiles>
+                        <VideoClicks>
+                            <ClickThrough id="blog">
+                                <![CDATA[ https://betajs.com/ ]]>
+                            </ClickThrough>
+                        </VideoClicks>
+                    </Linear>
+                    <UniversalAdId idRegistry="Ad-ID">82566</UniversalAdId>
+                </Creative>
+            </Creatives>
+            <Description>
+                <![CDATA[ This is sample companion ad tag with Linear ad tag. ]]>
+            </Description>
+        </InLine>
+    </Ad>
+</VAST>

@@ -467,8 +467,14 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
                         // this.dyn.scopes.adsplayer.execute("reload");
                     }, this);
                     this.listenOn(this.dyn.channel("ads"), "ad-error", function() {
-                        if (this.dyn.get("outstream") && this.dyn.get("nextadtagurl")) {
-
+                        if (this.dyn.get("outstream")) {
+                            this.dyn.hidePlayerContainer();
+                            if (this.dyn.get("nextadtagurls").length > 0 || this.dyn.get("adtagurlfallbacks").length > 0) {
+                                this.dyn.set("adtagurl", this.dyn.get("nextadtagurls").length > 0 ? this.dyn.get("nextadtagurls").shift() : this.dyn.get("adtagurlfallbacks").shift());
+                                this.dyn.scopes.adsplayer.execute("requestAds");
+                            } else {
+                                this.__nextOutstreamAdTagURL();
+                            }
                         } else if (this.dyn.get("adtagurlfallbacks") && this.dyn.get("adtagurlfallbacks").length > 0) {
                             this.dyn.set("adtagurl", this.dyn.get("adtagurlfallbacks").shift());
                             this.dyn.scopes.adsplayer.execute("requestAds");
@@ -501,6 +507,24 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
 
             // if skip initial and no autoplay should load video
             return !this.dyn.get("delayadsmanagerload");
+        },
+
+        _nextOutstreamAdTagURL: function() {
+            // if we have set nextadtagurls, then we will try to load next adtagurl
+            this.dyn.getNextOutstreamAdTagURLs()
+                .asyncSuccess(function(response) {
+                    if (typeof response === "string") {
+                        this.dyn.set("nextadtagurls", [response]);
+                    } else if (response && typeof response.length !== "undefined" && response.length > 0) {
+                        this.dyn.set("nextadtagurls", response);
+                    }
+                    this.dyn.scopes.adsplayer.execute("requestAds");
+                }, this)
+                .asyncError(function(err) {
+                    // Recruitre
+                    this._nextOutstreamAdTagURL();
+                    console.log("Error on getting next outstream tag", err);
+                }, this);
         }
     });
 });
@@ -524,11 +548,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream", [
 
             this.listenOn(this.dyn.channel("ads"), "allAdsCompleted", function() {
                 this.afterAdCompleted();
-            }, this);
-
-            this.listenOn(this.dyn.channel("ads"), "ad-error", function(message, code) {
-                this.dyn.hidePlayerContainer();
-                console.log("Error on loading ad. Details: ", message, code);
             }, this);
 
             /* if this trigger before allAdsCompleted, setTimeout error shows in console

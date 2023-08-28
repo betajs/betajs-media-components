@@ -401,12 +401,11 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Outstream", [
 
         _started: function() {
             if (!this.dyn.get("adshassource")) {
-                this.dyn.hidePlayerContainer();
-                if (this.dyn.get("floatingoptions.floatingonly")) {
+                if (this.dyn.get("floatingoptions.floatingonly") || this.dyn.get("view_type") === "is_floating") {
                     this.dyn.execute("close_floating");
                 } else {
                     if (typeof this.dyn.activeElement === "function")
-                        this.dym.hidePlayerContainer();
+                        this.dyn.hidePlayerContainer();
                 }
                 console.warn("Please provide ad source for the outstream");
             }
@@ -468,10 +467,14 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
                         // this.dyn.scopes.adsplayer.execute("reload");
                     }, this);
                     this.listenOn(this.dyn.channel("ads"), "ad-error", function() {
-                        if (this.dyn.get("adtagurlfallbacks") && this.dyn.get("adtagurlfallbacks").length > 0) {
+                        if (this.dyn.get("outstream") && this.dyn.get("nextadtagurl")) {
+
+                        } else if (this.dyn.get("adtagurlfallbacks") && this.dyn.get("adtagurlfallbacks").length > 0) {
                             this.dyn.set("adtagurl", this.dyn.get("adtagurlfallbacks").shift());
                             this.dyn.scopes.adsplayer.execute("requestAds");
-                        } else this.next(this._nextState());
+                        } else {
+                            this.next(this._nextState());
+                        }
                     }, this);
                 } else {
                     this.next("LoadVideo");
@@ -512,7 +515,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream", [
         dynamics: ["adscontrolbar"],
 
         _started: function() {
-            this.dyn._outstreamCompleted = false;
+            // if player is not hidden below method will do nothing
+            this.dyn.showHiddenPlayerContainer();
+
             if (this.dyn.get("sticky") && this.dyn.stickyHandler) this.dyn.stickyHandler.start();
 
             this.dyn.channel("ads").trigger("outstreamStarted", this.dyn);
@@ -521,8 +526,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream", [
                 this.afterAdCompleted();
             }, this);
 
-            this.listenOn(this.dyn.channel("ads"), "ad-error", function(message) {
-                console.log("Error on loading ad. Details: ", message);
+            this.listenOn(this.dyn.channel("ads"), "ad-error", function(message, code) {
+                this.dyn.hidePlayerContainer();
+                console.log("Error on loading ad. Details: ", message, code);
             }, this);
 
             /* if this trigger before allAdsCompleted, setTimeout error shows in console
@@ -533,9 +539,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream", [
         },
 
         afterAdCompleted: function() {
-            if (!this.dyn || this.dyn._outstreamCompleted)
-                return;
-            this.dyn._outstreamCompleted = true;
+            if (!this.dyn) return;
+            this.dyn.hidePlayerContainer();
             this.dyn.trigger("outstream-completed");
             // Somehow below code is running even this.dyn is undefined and this states checked in the above statement
             if (this.dyn) this.dyn.channel("ads").trigger("outstreamCompleted", this.dyn);

@@ -170,6 +170,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "adtagurl": null,
                         "adchoiceslink": null,
                         "adtagurlfallbacks": null,
+                        "nextadtagurls": [],
                         "inlinevastxml": null,
                         "hidebeforeadstarts": true, // Will help hide player poster before ads start
                         "showplayercontentafter": null, // we can set any microseconds to show player content in any case if ads not initialized
@@ -282,9 +283,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             "outstreamoptions": {
                                 corner: true,
                                 hideOnCompletion: true,
-                                nextadtimeout: 3000, // Period before when next ads will be checked, default: 3 seconds
+                                nextadtimeout: 3000, // How many seconds player container should be shown maximum in seconds during new ads requested, default: 3 seconds
                                 recurrenceperiod: 30000, // Period when a new request will be sent if ads is not showing, default: 30 seconds
-                                requestnextadbeforecompletion: 1000 // Period before when next ads will be checked, default: 1 second
+                                requestnextadafterstart: 300, // Period when next ads will be requested after ad starts to play, default: 0.3 second
+                                maxadstoshow: -1 // Maximum number of ads to show, if there's next ads or errors occurred default: -1 (unlimited)
                             }
                         },
                         "silent_attach": false,
@@ -310,6 +312,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             "dimensions": {
                                 "width": null,
                                 "height": null
+                            },
+                            "hiddenelement": {
+                                "visible": true
                             }
                         },
                         "placeholderstyle": "",
@@ -1871,27 +1876,18 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         destroy = destroy || false;
                         this.trigger("floatingplayerclosed");
                         if (this.get("sticky") || this.get("floatingoptions.floatingonly")) {
+                            this.pause();
+                            if (this.stickyHandler) this.stickyHandler.destroy();
                             if (this.get("floatingoptions.hideplayeronclose") || this.get("floatingoptions.floatingonly")) {
                                 // Hide container element if player will be destroyed
-                                if (this.activeElement()) {
-                                    this._applyStyles(this.activeElement(), {
-                                        display: "none"
-                                    });
-                                }
+                                this.hidePlayerContainer();
                                 if (destroy) this.destroy();
                             } else {
-                                this.pause();
-                                if (destroy) {
-                                    this.set("sticky", false);
-                                    this.set("view_type", "default");
-                                    if (this.stickyHandler) this.stickyHandler.destroy();
-                                } else {
-                                    this.hidePlayerContainer();
-                                }
+                                this.set("view_type", "default");
                             }
                         } else {
-                            if (destroy) this.destroy();
                             this.hidePlayerContainer();
+                            if (destroy) this.destroy();
                         }
                     }
                 },
@@ -2014,15 +2010,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 hidePlayerContainer: function() {
-                    // If no there will be no this.__playerContainerWasHidden condition, states will be overwritten
-                    if (this.activeElement() && !this.__playerContainerWasHidden) {
+                    // If no there will be "states.hiddenelement.visible" condition, states will be overwritten
+                    if (this.activeElement() && this.get("states.hiddenelement.visible")) {
                         this.set("states.hiddenelement.dimensions", Dom.elementDimensions(this.activeElement()));
-                        this.set("states.hiddenelement.styles.display", this.activeElement().style.display, null);
+                        // save last display style for the hidden element
+                        this.set("states.hiddenelement.styles.display", this.activeElement().style.display);
                         this._applyStyles(this.activeElement(), {
                             display: "none"
                         });
-                        this.__playerContainerWasHidden = true;
-                        if (this.get("adsplaying")) {
+                        this.set("states.hiddenelement.visible", this.activeElement().style.display !== 'none');
+                        if (this.get("adsplaying") && this.scopes.adsplayer) {
                             this.set("states.hiddenelement.adsplaying", this.scopes.adsplayer.get("playing"));
                             this.scopes.adsplayer.call("pause");
                         }
@@ -2034,16 +2031,60 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 showHiddenPlayerContainer: function() {
-                    if (!this.__playerContainerWasHidden) return;
+                    if (this.get("states.hiddenelement.visible"))
+                        return;
                     if (this.activeElement()) {
                         var display = this.get("states.hiddenelement.styles.display");
                         this._applyStyles(this.activeElement(), {
                             display: display || 'inline-block'
                         });
-                        if (this.get("states.hiddenelement.playing")) this.play();
-                        if (this.get("states.hiddenelement.adsplaying") && this.scopes.adsplayer) this.scopes.adsplayer.call("resume");
-                        this.__playerContainerWasHidden = false;
+                        this.set("states.hiddenelement.visible", this.activeElement().style.display !== 'none');
+                        if (this.get("states.hiddenelement.playing"))
+                            this.play();
+                        if (this.get("states.hiddenelement.adsplaying") && this.scopes.adsplayer)
+                            this.scopes.adsplayer.call("resume");
                     }
+                },
+
+                getNextOutstreamAdTag: function() {
+                    var promise = Promise.create();
+                    if (this.get("nextadtagurls").length > 0 || this.get("adtagurlfallbacks").length > 0) {
+                        if (this.get("outstreamoptions.maxadstoshow") === -1)
+                            return promise.asyncSuccess(this.get("nextadtagurls").length > 0 ? this.get("nextadtagurls").shift() : this.get("adtagurlfallbacks").shift());
+                        // if 0 then no more ads to show
+                        if (this.get("outstreamoptions.maxadstoshow") > 0) {
+                            this.set("outstreamoptions.maxadstoshow", this.get("outstreamoptions.maxadstoshow") - 1);
+                            return promise.asyncSuccess(this.get("nextadtagurls").length > 0 ? this.get("nextadtagurls").shift() : this.get("adtagurlfallbacks").shift());
+                        }
+                    } else {
+                        return this.setNextOutstreamAdTag().asyncSuccess(function (response) {
+                            if (Types.is_string(response)) {
+                                if (this.get("nextadtagurls").indexOf(response) === -1)
+                                    return promise.asyncSuccess(response);
+                                else
+                                    return promise.asyncError("Ad tag url is already in the list");
+                            } else if (Types.is_array(response)) {
+                                Objs.iter(response, function (url, index) {
+                                    if (this.get("nextadtagurls").indexOf(url) === -1)
+                                        this.get("adtagurlfallbacks").push(url);
+                                    if (Objs.count(response) === index + 1)
+                                        return promise.asyncSuccess(this.get("nextadtagurls").shift());
+                                }, this);
+                            }
+                        }, this);
+                    }
+                    return promise;
+                },
+
+                /**
+                 * This method should be overwritten.
+                 * @return {*}
+                 */
+                setNextOutstreamAdTag: function () {
+                    var promise = Promise.create();
+                    // inherit this function from the parent player and set a new next ad tag
+                    promise.asyncSuccess([]);
+                    return promise;
                 },
 
                 aspectRatio: function() {

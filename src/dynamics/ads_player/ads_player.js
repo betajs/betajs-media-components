@@ -81,7 +81,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 channels: {
                     "ads:ad-error": function() {
                         this.set("adsplaying", false);
-                        if (this.parent().get("outstream")) this.parent().destroy();
+                        if (this.parent().get("outstream")) {
+                            this.parent().hidePlayerContainer();
+                        }
                     },
                     "ads:load": function() {
                         this.call("load");
@@ -540,8 +542,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     dyn = dyn || this.parent();
                     if (Types.is_undefined(dyn.activeElement))
                         throw Error("Wrong dynamics instance was provided to _hideContentPlayer");
-                    dyn.activeElement().style.setProperty("display", "none");
-                    dyn.weakDestroy(); // << Create will not work as expected
+                    dyn.hidePlayerContainer();
+                    // dyn.weakDestroy(); // << Create will not work as expected
                 }
             };
         }).register("ba-adsplayer")

@@ -919,9 +919,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
             this.dyn.set("autoplay", this.dyn.get("continuousplayback"));
             this.dyn.set("playbackcount", this.dyn.get("playbackcount") + 1);
             if (this.dyn.get("playlist") && this.dyn.get("playlist").length > 0) {
-                this.dyn.set("passed-quarter", 0);
-                this.dyn.set("played-seconds", 0);
-                this.dyn.set("last-played-position", 0);
+                this._resetPlayerAttrs();
 
                 var currentIndex = this.dyn.get("current_video_from_playlist");
                 var nextIndex = this.dyn.get("next_video_from_playlist");
@@ -954,6 +952,14 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
                 return this.__resetAdPlayer();
             }
             this.next("PosterReady");
+        },
+
+        _resetPlayerAttrs: function() {
+            this.dyn.set("passed-quarter", 0);
+            this.dyn.set("played-seconds", 0);
+            this.dyn.set("last-played-position", 0);
+            this.dyn.set("currentstream", {});
+            this.dyn.set("sources", []);
         },
 
         /**

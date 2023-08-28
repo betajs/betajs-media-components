@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.396 - 2023-08-22
+betajs-media-components - v0.0.397 - 2023-08-28
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.396 - 2023-08-22
+betajs-media-components - v0.0.397 - 2023-08-28
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.396",
-    "datetime": 1692759029635
+    "version": "0.0.397",
+    "datetime": 1693237475925
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -6104,16 +6104,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.player.on("postererror", function() {
                             this._error("poster");
                         }, this);
+                        if (!this.get("playedonce")) {
+                            this.player.once("playing", function() {
+                                this.set("playedonce", true);
+                                this.set("playbackcount", 1);
+                            }, this);
+                        }
                         this.player.on("playing", function() {
                             if (this.get("sample_brightness")) this.__brightnessSampler.start();
                             if (this.get("sticky") && this.stickyHandler) this.stickyHandler.start();
                             this.set("playing", true);
                             this.trigger("playing");
-                            if (this.get("playedonce") === false) {
-                                this.set("playbackcount", 1);
-                            } else {
-                                this.set("playbackcount", this.get("playbackended") + 1);
-                            }
                         }, this);
                         this.player.on("loaded", function() {
                             this.set("videowidth", this.player.videoWidth());
@@ -8260,6 +8261,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
 
         _started: function() {
             this.dyn.set("autoplay", this.dyn.get("continuousplayback"));
+            this.dyn.set("playbackcount", this.dyn.get("playbackcount") + 1);
             if (this.dyn.get("playlist") && this.dyn.get("playlist").length > 0) {
                 this.dyn.set("passed-quarter", 0);
                 this.dyn.set("played-seconds", 0);

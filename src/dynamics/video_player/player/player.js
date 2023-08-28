@@ -656,8 +656,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "is_floating:view_type": function(view_type) {
                         return view_type === "float" || ((view_type !== undefined && !this.get("fullscreened")) && this.get("floatingoptions.floatingonly"));
                     },
-                    "layout:mobileview": function(mobileview) {
-                        return mobileview ? "mobile" : "desktop";
+                    "layout:mobileviewport": function(mobileviewport) {
+                        return mobileviewport ? "mobile" : "desktop";
                     },
                     "placement:outstream": function(outstream) {
                         return outstream ? "outstream" : "instream";

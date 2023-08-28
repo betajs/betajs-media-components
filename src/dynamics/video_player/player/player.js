@@ -1222,16 +1222,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.player.on("postererror", function() {
                             this._error("poster");
                         }, this);
+                        if (!this.get("playedonce")) {
+                            this.player.once("playing", function() {
+                                this.set("playedonce", true);
+                                this.set("playbackcount", 1);
+                            }, this);
+                        }
                         this.player.on("playing", function() {
                             if (this.get("sample_brightness")) this.__brightnessSampler.start();
                             if (this.get("sticky") && this.stickyHandler) this.stickyHandler.start();
                             this.set("playing", true);
                             this.trigger("playing");
-                            if (this.get("playedonce") === false) {
-                                this.set("playbackcount", 1);
-                            } else {
-                                this.set("playbackcount", this.get("playbackended") + 1);
-                            }
                         }, this);
                         this.player.on("loaded", function() {
                             this.set("videowidth", this.player.videoWidth());

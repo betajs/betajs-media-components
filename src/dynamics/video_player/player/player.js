@@ -16,6 +16,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "base:Collections.Collection",
     "base:Time",
     "base:Timers",
+    "base:Promise",
     "base:TimeFormat",
     "base:States.Host",
     "base:Classes.ClassRegistry",
@@ -62,7 +63,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.PlayerStates.ErrorVideo",
     "module:VideoPlayer.Dynamics.PlayerStates.PlayVideo",
     "module:VideoPlayer.Dynamics.PlayerStates.NextVideo"
-], function(Class, Assets, DatasetProperties, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, PlayerSupport, Types, Objs, Strings, Collection, Time, Timers, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
+], function(Class, Assets, DatasetProperties, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, PlayerSupport, Types, Objs, Strings, Collection, Time, Timers, Promise, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, [StylesMixin, function(inherited) {
@@ -169,7 +170,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "imasettings": {},
                         "adtagurl": null,
                         "adchoiceslink": null,
-                        "adtagurlfallbacks": null,
+                        "adtagurlfallbacks": [],
                         "nextadtagurls": [],
                         "inlinevastxml": null,
                         "hidebeforeadstarts": true, // Will help hide player poster before ads start
@@ -283,9 +284,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             "outstreamoptions": {
                                 corner: true,
                                 hideOnCompletion: true,
-                                nextadtimeout: 3000, // How many seconds player container should be shown maximum in seconds during new ads requested, default: 3 seconds
                                 recurrenceperiod: 30000, // Period when a new request will be sent if ads is not showing, default: 30 seconds
-                                requestnextadafterstart: 300, // Period when next ads will be requested after ad starts to play, default: 0.3 second
                                 maxadstoshow: -1 // Maximum number of ads to show, if there's next ads or errors occurred default: -1 (unlimited)
                             }
                         },
@@ -541,6 +540,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         if (!!adsTagURL || !!inlineVastXML && !this.get("adshassource")) {
                             this.set("adshassource", true);
+                            this.set("adsplayer_active", !this.get("delayadsmanagerload"));
                             // On error, we're set initialized to true to prevent further attempts
                             // in case if ads will not trigger any event, we're setting initialized to true after defined seconds and wil show player content
                             if (!this.__adInitilizeChecker && this.get("showplayercontentafter")) {
@@ -2027,10 +2027,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             display: 'none'
                         }, this.__lastContainerSizingStyles);
                         this.set("states.hiddenelement.visible", false);
-                        if (this.get("adsplaying") && this.scopes.adsplayer) {
-                            this.set("states.hiddenelement.adsplaying", this.scopes.adsplayer.get("playing"));
-                            this.scopes.adsplayer.call("pause");
-                        }
+                        this.set("adsplayer_active", false);
                         if (this.get("playing")) {
                             this.pause();
                             this.set("states.hiddenelement.playing", true);
@@ -2044,58 +2041,37 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.activeElement()) {
                         this.set("states.hiddenelement.visible", true);
                         this._applyStyles(this.activeElement(), {
-                            display: this.get("states.hiddenelement.styles.display") || 'inline-block'
+                            display: this.get("containerSizingStyles.display") || 'inline-block'
                         });
                         if (this.get("states.hiddenelement.playing")) this.play();
-                        if (this.get("states.hiddenelement.adsplaying") && this.scopes.adsplayer)
-                            this.scopes.adsplayer.call("resume");
                     }
                 },
 
-                getNextOutstreamAdTagURLs: function() {
+                resetAdsPlayer: function() {
+                    if (this.get("adsplayer_active")) this.set("adsplayer_active", false);
+                    this.set("adsplayer_active", true);
+                },
+
+                getNextOutstreamAdTagURLs: function(immediate) {
+                    immediate = immediate || false;
                     var promise = Promise.create();
                     if (this.get("outstreamoptions.maxadstoshow") > -1) {
                         if (this.get("outstreamoptions.maxadstoshow") === 0) {
-                            return promise.asyncError("Limit of showing ads exceeded.");
-                        } else {
-                            this.set("outstreamoptions.maxadstoshow", this.get("outstreamoptions.maxadstoshow") - 1);
+                            return promise.asyncError("Limit of showing ads exceeded.", true);
                         }
                     }
-                    if (this.get("nextadtagurls").length > 0 || this.get("adtagurlfallbacks").length > 0) {
-                        return promise.asyncSuccess(this.get("nextadtagurls").length > 0 ? this.get("nextadtagurls").shift() : this.get("adtagurlfallbacks").shift());
+                    if (this.get("nextadtagurls").length > 0 || (this.get("adtagurlfallbacks") && this.get("adtagurlfallbacks").length > 0)) {
+                        promise.asyncSuccess(this.get("nextadtagurls").length > 0 ? this.get("nextadtagurls").shift() : this.get("adtagurlfallbacks").shift());
                     } else {
-                        if (!this.__outstreamTimer || (this.__outstreamTimer && this.__outstreamTimer.destroyed())) {
-                            this.__outstreamTimer = this.auto_destroy(new Timers.Timer({
-                                once: true,
-                                context: this,
-                                // immediate: !this.get("adsinitialized"), only if ads initially not initialized
-                                fire: function() {
-                                    // Will request for the next ad tag
-                                    this.requestForNextOutstreamAdTag()
-                                        .asyncSuccess(function(response) {
-                                            if (this.__outstreamTimer) {
-                                                this.__outstreamTimer.stop();
-                                            }
-                                            return promise.asyncSuccess(response);
-                                        }, this)
-                                        .asyncError(function(error) {
-                                            if (this.__outstreamTimer) {
-                                                this.__outstreamTimer.stop();
-                                            }
-                                            return promise.asyncError(error);
-                                        }, this);
-                                    // If still not destroyed, destroy it
-                                    Async.eventually(function() {
-                                        if (this.__outstreamTimer && !this.__outstreamTimer.destroyed()) {
-                                            this.__outstreamTimer.stop();
-                                            return promise.asyncError("No response from server for the next outstream ad");
-                                        }
-                                    }, this, this.get("outstreamoptions.nextadtimeout") || 3000);
-                                },
-                                delay: this.get("outstreamoptions.recurrenceperiod") || 30000,
-                                destroy_on_stop: true
-                            }));
-                        }
+                        Async.eventually(function() {
+                            return this.requestForNextOutstreamAdTag()
+                                .success(function(response) {
+                                    return promise.asyncSuccess(response);
+                                }, this)
+                                .error(function(error) {
+                                    return promise.asyncError(error);
+                                }, this);
+                        }, this, immediate ? 100 : this.get("outstreamoptions.recurrenceperiod") || 30000);
                     }
                     return promise;
                 },
@@ -2109,6 +2085,45 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     // inherit this function from the parent player and set a new next ad tag
                     promise.asyncSuccess([]);
                     return promise;
+                },
+
+                /**
+                 * @param immediate
+                 * @param stateContext
+                 * @param nextState
+                 * @private
+                 */
+                setNextOutstreamAdTagURL: function(immediate, stateContext, nextState) {
+                    immediate = immediate || false;
+                    // if we have set nextadtagurls, then we will try to load next adtagurl
+                    this.getNextOutstreamAdTagURLs(immediate)
+                        .success(function(response) {
+                            if (typeof response === "string") {
+                                this.set("adtagurl", response);
+                            } else if (response && typeof response.shift === "function" && response.length > 0) {
+                                this.set("adtagurl", response.shift());
+                                // if still length is more than 0, then set it to nextadtagurls
+                                if (response.length > 0) this.set("nextadtagurls", response);
+                            } else {
+                                return this.setNextOutstreamAdTagURL(immediate, stateContext, nextState);
+                            }
+
+                            if ((!immediate && this.scopes.adsplayer) || this.get("adsmanagerloaded")) {
+                                this.resetAdsPlayer();
+                            }
+
+                            if (stateContext && nextState) {
+                                return stateContext.next(nextState);
+                            } else {
+                                return stateContext.next("LoadAds", {
+                                    position: 'outstream'
+                                });
+                            }
+                        }, this)
+                        .error(function(err, complete) {
+                            console.log("Error on getting next outstream tag", err);
+                            if (!complete) return stateContext.next("LoadPlayer");
+                        }, this);
                 },
 
                 aspectRatio: function() {

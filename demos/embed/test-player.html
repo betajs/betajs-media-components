@@ -101,6 +101,10 @@
     // Show content for floating and sticky testing
     const beforePlayerContent = document.getElementById("before-player-content");
     const afterPlayerContent = document.getElementById("after-player-content");
+
+    const adTagURL = `https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=`;
+    const adErrorTagURL = '//localhost:5050/static/demos/vast-samples/---error-url---';
+
     if (beforePlayerContent && afterPlayerContent && showBlocks > 0) {
         afterPlayerContent.style.display = "block";
         generateParagraphs(afterPlayerContent.firstElementChild, 10);
@@ -114,6 +118,23 @@
         element: $('#player'),
         attrs
     });
+
+    let _index = 0;
+    const adTagURLS = [adErrorTagURL, adErrorTagURL, adErrorTagURL, adTagURL, adErrorTagURL, adTagURL, adTagURL];
+    player.requestForNextOutstreamAdTag = () => {
+        console.log("Will call requestForNextOutstreamAdTag times..", _index);
+        var promise = BetaJS.Promise.create();
+        // inherit this function from the parent player and set a new next ad tag
+        setTimeout(() => {
+            // console.log("Will return success ad tag", adTagURLS[_index]);
+            promise.asyncSuccess(adTagURLS[_index]);
+            _index++;
+        }, 1000);
+        return promise;
+    }
+
+    setTimeout(() => {console.log("Now our ad tag URL IS: ", player.get("adtagurl").slice(0, 20));}, 13000);
+    // setInterval(() => {console.log("Now our ad tag URL IS: ", player.get("adtagurl").slice(0, 20));}, 1000);
 
     player.on("floatingplayerclosed", () => console.log("Floating Player Closed"), player);
 

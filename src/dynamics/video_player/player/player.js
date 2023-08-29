@@ -2026,6 +2026,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this._applyStyles(this.activeElement(), {
                             display: 'none'
                         }, this.__lastContainerSizingStyles);
+                        // If floating sidebar then it will be hidden via player itself so not set companionads as []
+                        if (this.scopes.adsplayer) this.scopes.adsplayer.execute("hideCompanionAd");
                         this.set("states.hiddenelement.visible", false);
                         this.set("adsplayer_active", false);
                         if (this.get("playing")) {

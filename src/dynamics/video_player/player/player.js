@@ -1885,7 +1885,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.trigger("floatingplayerclosed");
                         if (this.get("sticky") || this.get("floatingoptions.floatingonly")) {
                             this.pause();
-                            if (this.stickyHandler) this.stickyHandler.destroy();
+                            if (this.stickyHandler && destroy) this.stickyHandler.destroy();
                             if (this.get("floatingoptions.hideplayeronclose") || this.get("floatingoptions.floatingonly")) {
                                 // Hide container element if player will be destroyed
                                 this.hidePlayerContainer();

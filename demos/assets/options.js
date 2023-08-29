@@ -151,9 +151,9 @@ attrs = {...attrs, ...{
         // 'companionad': 'companion-fluid[fluid]',
         // adsposition: "post",
         outstreamoptions: {
-            // recurrenceperiod: 5000, // Period when a new request will be sent if ads is not showing, default: 30 seconds
+            recurrenceperiod: 5000, // Period when a new request will be sent if ads is not showing, default: 30 seconds
             // maxadstoshow: -1 // Maximum number of ads to show; default: -1 (unlimited)
-            // maxadstoshow: 2 // Maximum number of ads to show; default: -1 (unlimited)
+            // maxadstoshow: 0 // Maximum number of ads to show; default: -1 (unlimited)
             // moreURL: "https://ziggeo.com",
             // moreText: "Read more about Ziggeo",
             // hideOnCompletion: true,

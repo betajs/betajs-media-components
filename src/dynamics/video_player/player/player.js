@@ -2066,13 +2066,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         promise.asyncSuccess(this.get("nextadtagurls").length > 0 ? this.get("nextadtagurls").shift() : this.get("adtagurlfallbacks").shift());
                     } else {
                         Async.eventually(function() {
-                            return this.requestForNextOutstreamAdTag()
-                                .success(function(response) {
+                            var isGlobalPromise = typeof this.requestForNextOutstreamAdTag().then === "function";
+                            return Types.is_function(this.requestForNextOutstreamAdTag) ?
+                                this.requestForNextOutstreamAdTag()[isGlobalPromise ? 'then' : 'success'](function(response) {
                                     return promise.asyncSuccess(response);
-                                }, this)
-                                .error(function(error) {
+                                }, this)[isGlobalPromise ? 'catch' : 'error'](function(error) {
                                     return promise.asyncError(error);
-                                }, this);
+                                }, this) :
+                                console.log("Please define requestForTheNextAdTag method with Promise.");
                         }, this, immediate ? 100 : this.get("outstreamoptions.recurrenceperiod") || 30000);
                     }
                     return promise;

@@ -2066,14 +2066,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         promise.asyncSuccess(this.get("nextadtagurls").length > 0 ? this.get("nextadtagurls").shift() : this.get("adtagurlfallbacks").shift());
                     } else {
                         Async.eventually(function() {
-                            var isGlobalPromise = typeof this.requestForNextOutstreamAdTag().then === "function";
-                            return Types.is_function(this.requestForNextOutstreamAdTag) ?
-                                this.requestForNextOutstreamAdTag()[isGlobalPromise ? 'then' : 'success'](function(response) {
+                            var isGlobalPromise = typeof this.requestForTheNextAdTagURL().then === "function";
+                            return Types.is_function(this.requestForTheNextAdTagURL) ?
+                                this.requestForTheNextAdTagURL()[isGlobalPromise ? 'then' : 'success'](function(response) {
                                     return promise.asyncSuccess(response);
                                 }, this)[isGlobalPromise ? 'catch' : 'error'](function(error) {
                                     return promise.asyncError(error);
                                 }, this) :
-                                console.log("Please define requestForTheNextAdTag method with Promise.");
+                                console.log("Please define requestForTheNextAdTagURL method with Promise.");
                         }, this, immediate ? 100 : this.get("outstreamoptions.recurrenceperiod") || 30000);
                     }
                     return promise;
@@ -2083,7 +2083,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                  * This method should be overwritten.
                  * @return {*}
                  */
-                requestForNextOutstreamAdTag: function() {
+                requestForTheNextAdTagURL: function() {
                     var promise = Promise.create();
                     // inherit this function from the parent player and set a new next ad tag
                     promise.asyncSuccess([]);

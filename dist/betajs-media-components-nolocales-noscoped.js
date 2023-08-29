@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.397 - 2023-08-28
+betajs-media-components - v0.0.398 - 2023-08-29
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.397",
-    "datetime": 1693237475934
+    "version": "0.0.398",
+    "datetime": 1693343514676
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -4335,8 +4335,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "is_floating:view_type": function(view_type) {
                         return view_type === "float" || ((view_type !== undefined && !this.get("fullscreened")) && this.get("floatingoptions.floatingonly"));
                     },
-                    "layout:mobileview": function(mobileview) {
-                        return mobileview ? "mobile" : "desktop";
+                    "layout:mobileviewport": function(mobileviewport) {
+                        return mobileviewport ? "mobile" : "desktop";
                     },
                     "placement:outstream": function(outstream) {
                         return outstream ? "outstream" : "instream";
@@ -5366,6 +5366,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.get('disableseeking')) return;
                         if (this.get("nextwidget")) this.channel("next").trigger("setStay");
                         if (this.videoLoaded()) {
+                            if (position < this.get("position")) this.trigger("rewind");
                             if (position > this.player.duration())
                                 this.player.setPosition(this.player.duration() - this.get("skipseconds"));
                             else if (this.get("starttime") && position < this.get("starttime")) {
@@ -7076,9 +7077,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
             this.dyn.set("autoplay", this.dyn.get("continuousplayback"));
             this.dyn.set("playbackcount", this.dyn.get("playbackcount") + 1);
             if (this.dyn.get("playlist") && this.dyn.get("playlist").length > 0) {
-                this.dyn.set("passed-quarter", 0);
-                this.dyn.set("played-seconds", 0);
-                this.dyn.set("last-played-position", 0);
+                this._resetPlayerAttrs();
 
                 var currentIndex = this.dyn.get("current_video_from_playlist");
                 var nextIndex = this.dyn.get("next_video_from_playlist");
@@ -7111,6 +7110,14 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
                 return this.__resetAdPlayer();
             }
             this.next("PosterReady");
+        },
+
+        _resetPlayerAttrs: function() {
+            this.dyn.set("passed-quarter", 0);
+            this.dyn.set("played-seconds", 0);
+            this.dyn.set("last-played-position", 0);
+            this.dyn.set("currentstream", {});
+            this.dyn.set("sources", []);
         },
 
         /**

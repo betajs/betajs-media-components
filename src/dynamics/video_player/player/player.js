@@ -2062,7 +2062,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             return promise.asyncError("Limit of showing ads exceeded.", true);
                         }
                     }
-                    if (this.get("nextadtagurls").length > 0 || (this.get("adtagurlfallbacks") && this.get("adtagurlfallbacks").length > 0)) {
+                    if ((this.get("nextadtagurls") && this.get("nextadtagurls").length > 0) || (this.get("adtagurlfallbacks") && this.get("adtagurlfallbacks").length > 0)) {
                         promise.asyncSuccess(this.get("nextadtagurls").length > 0 ? this.get("nextadtagurls").shift() : this.get("adtagurlfallbacks").shift());
                     } else {
                         Async.eventually(function() {

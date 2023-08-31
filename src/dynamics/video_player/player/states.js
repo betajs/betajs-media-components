@@ -481,12 +481,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
                     this.listenOn(this.dyn.channel("ads"), "ad-error", function() {
                         if (this.dyn.get("outstream")) {
                             this.dyn.hidePlayerContainer();
-                            if ((this.dyn.get("nextadtagurls") && this.dyn.get("nextadtagurls").length > 0) || (this.dyn.get("adtagurlfallbacks") && this.dyn.get("adtagurlfallbacks").length > 0)) {
-                                this.dyn.set("adtagurl", this.dyn.get("nextadtagurls").length > 0 ? this.dyn.get("nextadtagurls").shift() : this.dyn.get("adtagurlfallbacks").shift());
-                                this.dyn.scopes.adsplayer.execute("requestAds");
-                            } else {
-                                this.dyn.setNextOutstreamAdTagURL(false, this);
-                            }
+                            this.dyn.setNextOutstreamAdTagURL(false, this);
                         } else if (this.dyn.get("adtagurlfallbacks") && this.dyn.get("adtagurlfallbacks").length > 0) {
                             this.dyn.set("adtagurl", this.dyn.get("adtagurlfallbacks").shift());
                             this.dyn.scopes.adsplayer.execute("requestAds");

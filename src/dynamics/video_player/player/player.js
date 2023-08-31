@@ -2057,10 +2057,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 getNextOutstreamAdTagURLs: function(immediate) {
                     immediate = immediate || false;
                     var promise = Promise.create();
-                    if (this.get("outstreamoptions.maxadstoshow") > -1) {
-                        if (this.get("outstreamoptions.maxadstoshow") === 0) {
-                            return promise.asyncError("Limit of showing ads exceeded.", true);
-                        }
+                    if (this.get("outstreamoptions.maxadstoshow") === 0) {
+                        return promise.asyncError("Limit of showing ads exceeded.", true);
                     }
                     if ((this.get("nextadtagurls") && this.get("nextadtagurls").length > 0) || (this.get("adtagurlfallbacks") && this.get("adtagurlfallbacks").length > 0)) {
                         promise.asyncSuccess(this.get("nextadtagurls").length > 0 ? this.get("nextadtagurls").shift() : this.get("adtagurlfallbacks").shift());

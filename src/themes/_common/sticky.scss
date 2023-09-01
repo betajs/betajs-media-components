@@ -17,39 +17,39 @@
     }
 }
 
-.#{$csscommon}-device-type-desktop {
-    &.#{$csscommon}-sticky-top-left {
-        top: 20px;
-        left: 20px;
-    }
-
-    &.#{$csscommon}-sticky-top-right {
-        top: 20px;
-        right: 20px;
-    }
-
-    &.#{$csscommon}-sticky-bottom-right {
-        bottom: 20px;
-        right: 20px;
-    }
-
-    &.#{$csscommon}-sticky-bottom-left {
-        bottom: 20px;
-        left: 20px;
-    }
-}
-
 div.#{$csscommon}-sticky {
     position: fixed;
     z-index: 10000;
-    &.#{$cssplayer}-viewport-mobile {
-        left: 0;
-        width: 100%;
-    }
 }
 
 .#{$csscommon}-sticky {
-    width: 360px;
+    &.#{$cssplayer}-viewport-desktop {
+        width: 360px;
+        &.#{$csscommon}-sticky-top-left {
+            top: 20px;
+            left: 20px;
+        }
+
+        &.#{$csscommon}-sticky-top-right {
+            top: 20px;
+            right: 20px;
+        }
+
+        &.#{$csscommon}-sticky-bottom-right {
+            bottom: 20px;
+            right: 20px;
+        }
+
+        &.#{$csscommon}-sticky-bottom-left {
+            bottom: 20px;
+            left: 20px;
+        }
+    }
+    &.#{$cssplayer}-viewport-mobile {
+        top: 0;
+        left: 0;
+        height: 75px;
+    }
     max-width: 100%;
     animation: #{$csscommon}-fade-in 0.75s ease forwards;
 }

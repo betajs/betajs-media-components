@@ -96,8 +96,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "aspectratio": null,
                         "fallback-width": 480,
                         "fallback-height": 270,
-                        "floating-fallback-mobile-height": 75,
-                        "floating-fallback-desktop-height": 240,
                         /* Themes */
                         "theme": "",
                         "csstheme": "",
@@ -230,14 +228,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             // "fluidsidebar": true, // TODO: not works for now, if false, 50% width will be applied on sidebar
                             "desktop": {
                                 "position": "bottom-right", // position of floating video player for desktop
-                                "height": 190,
-                                "bottom": 30,
                                 "sidebar": false,
                                 "companionad": false
                             },
                             "mobile": {
                                 "position": "top", // positions of floating video player for mobile
-                                "height": 75,
                                 "sidebar": true,
                                 "companionad": true
                             }
@@ -482,13 +477,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }
                         }
                     },
-                    "change:mobileviewport": function(viewport) {
-                        if (this.get("is_floating")) {
-                            var calculated = this.__calculateFloatingDimensions();
-                            if (this.get("floating_height") !== calculated.floating_height)
-                                this.set("floating_height", calculated.floating_height);
-                        }
-                    },
                     "change:fullscreened": function(isFullscreen) {
                         if (isFullscreen && this.get("view_type") === "float") {
                             this.set("view_type", "default");
@@ -556,33 +544,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         styles = {
                             aspectRatio: aspectRatio
                         };
-                        if (isFloating && !this.get("fullscreened")) {
-                            calculated = this.__calculateFloatingDimensions();
-
-                            styles.position = "fixed";
-                            styles.display = this.get("with_sidebar") ? 'flex' : 'block';
-
-                            floatingTop = floatingTop || calculated.floating_top;
-                            floatingBottom = floatingBottom || calculated.floating_bottom;
-                            floatingRight = floatingRight || calculated.floating_right;
-                            floatingLeft = floatingLeft || calculated.floating_left;
-
-                            if (floatingTop !== undefined) styles.top = parseFloat(floatingTop).toFixed() + 'px';
-                            if (floatingRight !== undefined) styles.right = parseFloat(floatingRight).toFixed() + 'px';
-                            if (floatingBottom !== undefined) styles.bottom = parseFloat(floatingBottom).toFixed() + 'px';
-                            if (floatingLeft !== undefined) styles.left = parseFloat(floatingLeft).toFixed() + 'px';
-
-                            floatingWidth = calculated.floating_width || floatingWidth;
-                            floatingHeight = calculated.floating_height || floatingHeight;
-
-                            if (floatingWidth) width = floatingWidth;
-                            if (floatingHeight) height = floatingHeight;
-
-                            // if element is not floating no need below code
-                            if (this.get("with_sidebar") && this.get("sidebarSizingStyles.width")) {
-                                width += Number(parseFloat(this.get("sidebarSizingStyles.width")).toFixed(2));
-                            }
-                        }
 
                         if (height) styles.height = typeof height === "string" && (height[height.length - 1] === "%" || height === 'auto') ? height : parseFloat(height).toFixed(2) + "px";
                         if (width) styles.width = typeof width === "string" && (width[width.length - 1] === "%" || width === 'auto') ? width : parseFloat(width).toFixed(2) + "px";
@@ -596,15 +557,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                         containerStyles = styles;
                         if (this.activeElement()) {
-                            // if element is sticky no need, to apply styles which are position with fixed
-                            if (this.get("sticky")) {
-                                containerStyles.display = (this.get("with_sidebar") && isFloating) ? 'flex' : 'block';
-                                delete containerStyles.position;
-                            }
-                            if (!isFloating) {
-                                this._applyStyles(this.activeElement(), containerStyles || styles, !isFloating ? this.__lastContainerSizingStyles : null);
-                                this.__lastContainerSizingStyles = containerStyles || styles;
-                            }
 
                             if ((this.get("adshassource") && adsInitialized) && this.__lastContainerSizingStyles && (this.__lastContainerSizingStyles.opacity === 0 || this.__lastContainerSizingStyles.display === 'none')) {
                                 this.__lastContainerSizingStyles.opacity = null;
@@ -624,14 +576,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         return [
                             this.get("cssplayer") + "-floating",
                             this.get("csscommon") + "-sticky",
-                            this.get("csscommon") + "-sticky-" + this.get("sticky-position") || this.get("floatingoptions.desktop.position") || "bottom-right",
+                            this.get("csscommon") + "-sticky-" + (this.get("floatingoptions.desktop.position") || this.get("sticky-position") || "bottom-right"),
                             this.StickyHandler && this.StickyHandler.elementWasDragged() ? "ba-commoncss-fade-up" : ""
                         ].join(" ");
-                    },
-                    "sidebarSizingStyles:floating_height": function(floatingHeight) {
-                        return {
-                            height: parseFloat(floatingHeight).toFixed() + 'px'
-                        };
                     },
                     "buffering:buffered,position,last_position_change_delta,playing": function(buffered, position, ld, playing) {
                         if (playing) this.__playedStats(position, this.get("duration"));
@@ -835,9 +782,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     // to detect only video playing container dimensions, when there also sidebar exists
                     this.__playerContainer = this.activeElement().querySelector("[data-selector='ba-player-container']");
-
-                    // Floating and Sticky
-                    this.set("floating_height", this.get("mobileview") ? this.get("floatingoptions.mobile.height") : this.get("floatingoptions.desktop.height"));
 
                     if (!this.get("sticky") && this.get("floatingoptions.floatingonly")) {
                         // Will ignore sticky way and float every
@@ -2132,70 +2076,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         var skipInitialWithoutAutoplay = this.get("skipinitial") && !this.get("autoplay");
                         this.set("delayadsmanagerload", !this.get("preloadadsmanager") || skipInitialWithoutAutoplay);
                     }
-                },
-
-                /**
-                 * @private
-                 */
-                __calculateFloatingDimensions: function() {
-                    var height, width, playerWidth, position, viewportOptions, response = {};
-                    var aspectRatio = typeof this.get("aspect_ratio") === "string" ? this.get("aspect_ratio").split("/") : 1.77;
-                    var isMobile = this.get("mobileviewport") || Info.isMobile();
-                    if (Types.is_array(aspectRatio)) {
-                        aspectRatio = aspectRatio[0] / aspectRatio[1];
-                    }
-                    aspectRatio = Number(parseFloat(aspectRatio).toFixed(2));
-                    if (isMobile) {
-                        response.floating_left = 0;
-                        width = '100%'; // Not set via CSS, will break the player
-                        viewportOptions = this.get("floatingoptions.mobile");
-                        if (viewportOptions) {
-                            height = +this.get("floatingoptions.mobile.height");
-                            position = this.get("floatingoptions.mobile.position");
-                        }
-                        if (this.activeElement()) {
-                            this.activeElement().classList.add(this.get("csscommon") + "-full-width");
-                        }
-                        if (typeof this.get("floatingoptions.mobile.sidebar") !== "undefined" && this.get("floatingoptions.sidebar"))
-                            this.set("with_sidebar", this.get("floatingoptions.mobile.sidebar"));
-                    } else {
-                        viewportOptions = this.get("floatingoptions.desktop");
-                        if (viewportOptions) {
-                            position = viewportOptions.position;
-                            height = +viewportOptions.height;
-                        }
-                        if (this.activeElement()) {
-                            this.activeElement().classList.remove(this.get("csscommon") + "-full-width");
-                        }
-                        if (typeof this.get("floatingoptions.desktop.sidebar") !== "undefined" && this.get("floatingoptions.sidebar"))
-                            this.set("with_sidebar", this.get("floatingoptions.desktop.sidebar"));
-                    }
-                    position = position || this.get("sticky-position");
-                    if (position) {
-                        Objs.iter(["top", "right", "bottom", "left"], function(val) {
-                            if (position.includes(val)) {
-                                response['floating_' + val] = viewportOptions[val] ? viewportOptions[val] : 0;
-                            }
-                        }, this);
-                    }
-                    if (height)
-                        height = +parseFloat(height).toFixed(2);
-                    else height = isMobile ?
-                        this.get("fallback-floating-mobile-height") :
-                        this.get("fallback-floating-desktop-height");
-                    // this.set("height", height);
-                    playerWidth = Number(parseFloat(
-                        aspectRatio > 1 ? (aspectRatio * height) : (height / aspectRatio)
-                    ).toFixed(2));
-                    if (this.get("with_sidebar") && !isMobile) {
-                        width = playerWidth + Number(aspectRatio > 1 ? playerWidth : height);
-                    }
-                    response.floating_height = height;
-                    response.player_width = playerWidth;
-                    response.floating_width = width ? width : playerWidth;
-
-                    // this.setAll(response);
-                    return response;
                 },
 
                 /**

@@ -170,7 +170,8 @@
 
     player.activate();
 
-    dispatchEvent(new CustomEvent('player-ready', { player }));
+    window.BetaJSPlayer = player;
+    dispatchEvent(new CustomEvent('player-activated', { player }));
 
 </script>
 </body>

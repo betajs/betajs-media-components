@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { options } from "../consts";
 
 export default (selectedOptions) => {

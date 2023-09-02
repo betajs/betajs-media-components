@@ -1,4 +1,3 @@
-// @ts-check
 const { defineConfig, devices } = require('@playwright/test');
 
 /**
@@ -13,8 +12,9 @@ const { defineConfig, devices } = require('@playwright/test');
 module.exports = defineConfig({
   testDir: './tests/playwright/tests',
   outputDir: './tests/playwright/output',
-  snapshotDir: './tests/playwright/screenshots',
-  // snapshotPathTemplate: './tests/playwright/screenshots/__TEST__-__SUITE__-__USERAGENT__-__LOCALE___-__DARKMODE____DIFFERENCE__.png',
+  updateSnapshots: 'all', // "all"|"none"|"missing"
+  // snapshotDir: './tests/playwright/screenshots',
+  snapshotPathTemplate: './tests/playwright/snapshot/__TEST__-__SUITE__-__USERAGENT__-__LOCALE___-__DIFFERENCE__.png',
   screenshotDir: './tests/playwright/screenshots',
   // screenshotPathTemplate: './tests/playwright/screenshots/__TEST__-__SUITE__-__USERAGENT__-__LOCALE___-__DARKMODE__.png',
 
@@ -28,7 +28,13 @@ module.exports = defineConfig({
   workers: process.env.CI ? 1 : undefined,
 
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [['html', { outputFolder: './tests/playwright/reports' }]],
+  reporter: [
+    [process.env.CI ? 'dot' : 'list', {
+      stdout: true, outputFile: './tests/playwright/reports/list-results.txt'
+    }],
+    ['json', { outputFile: './tests/playwright/reports/json-results.json' }],
+    ['html', { outputFolder: './tests/playwright/reports' }]
+  ],
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {

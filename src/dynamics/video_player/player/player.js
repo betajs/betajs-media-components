@@ -1649,7 +1649,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                         if (this.get('disablepause')) return;
 
-                        if (this.get("playing_ad")) this.scopes.adsplayer.execute("pause");
+                        if (this.get("playing_ad") || this.get("adsplaying"))
+                            this.scopes.adsplayer.execute("pause");
 
                         if (this.get("playing")) {
                             if (this.player && this.get("broadcasting")) {

@@ -1885,12 +1885,18 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.trigger("floatingplayerclosed");
                         if (this.get("sticky") || this.get("floatingoptions.floatingonly")) {
                             this.pause();
-                            if (this.stickyHandler && destroy) this.stickyHandler.destroy();
+                            if (this.stickyHandler) {
+                                if (destroy) this.stickyHandler.destroy();
+                                else this.stickyHandler.stop();
+                            }
                             if (this.get("floatingoptions.hideplayeronclose") || this.get("floatingoptions.floatingonly")) {
+                                // If player is not sticky but floating we need hide whole player,
+                                // this is true also if we want to hide player container on floating close
                                 // Hide container element if player will be destroyed
                                 this.hidePlayerContainer();
                                 if (destroy) this.destroy();
                             } else {
+                                // If we want left player container visible and close floating player
                                 this.set("view_type", "default");
                             }
                         } else {
@@ -2038,6 +2044,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 showHiddenPlayerContainer: function() {
+                    // Resume sticky handler if it is not destroyed
+                    if (this.stickyHandler && !this.stickyHandler.destroyed() && this.stickyHandler.observing === false) {
+                        this.stickyHandler.resume();
+                    }
                     // If player is visible no need todo anything
                     if (this.get("states.hiddenelement.visible")) return;
                     if (this.activeElement()) {
@@ -2064,9 +2074,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         promise.asyncSuccess(this.get("nextadtagurls").length > 0 ? this.get("nextadtagurls").shift() : this.get("adtagurlfallbacks").shift());
                     } else {
                         Async.eventually(function() {
-                            var isGlobalPromise = typeof this.requestForTheNextAdTagURL().then === "function";
+                            var _promise = this.requestForTheNextAdTagURL();
+                            var isGlobalPromise = typeof _promise.then === "function";
                             return Types.is_function(this.requestForTheNextAdTagURL) ?
-                                this.requestForTheNextAdTagURL()[isGlobalPromise ? 'then' : 'success'](function(response) {
+                                _promise[isGlobalPromise ? 'then' : 'success'](function(response) {
                                     return promise.asyncSuccess(response);
                                 }, this)[isGlobalPromise ? 'catch' : 'error'](function(error) {
                                     return promise.asyncError(error);

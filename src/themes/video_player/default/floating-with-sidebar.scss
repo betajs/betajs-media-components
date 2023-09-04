@@ -1,11 +1,13 @@
-.#{$cssplayer}-with-sidebar {
+.#{$cssplayer}-container.#{$cssplayer}-with-sidebar {
     flex-wrap: nowrap;
     flex-direction: row;
+    display: flex;
     .#{$cssvideoplayer}-poster-container, .#{$cssvideoplayer}-poster-container img,
     .#{$cssvideoplayer}-video-container, .#{$cssvideoplayer}-video-container video {
         position: relative;
     }
     &.#{$cssplayer}-floating .#{$cssplayer}-content {
+        width: auto;
         position: relative;
     }
     .#{$cssfloatingsidebar}-container {

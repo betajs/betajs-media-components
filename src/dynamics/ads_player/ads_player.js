@@ -477,7 +477,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         // Mobile has to show in the sidebar
                         position = this.get("mobileviewport") ? null : 'top';
                         parentStyles = this.parent().get("containerSizingStyles");
-                        // var floatingoptions = this.get("mobileviewport") ? this.get("floatingoptions.mobile") : this.get("floatingoptions.desktop");
                         companionAdContainerStyles = {
                             position: 'relative'
                         };

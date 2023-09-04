@@ -501,6 +501,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 computed: {
+                    "with_sidebar:floatingoptions.mobile.sidebar,mobileviewport,is_floating": function(sbr, mvp, isflt) {
+                        return sbr && mvp && isflt;
+                    },
                     "aspectRatioFallback:aspectratio,fallback-width,fallback-height": function(aspectRatio, fallbackWidth, fallbackHeight) {
                         return {
                             paddingTop: 100 / (aspectRatio || (fallbackWidth / fallbackHeight)) + "%"
@@ -539,8 +542,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             return false;
                         }
                     },
-                    "containerSizingStyles:aspect_ratio,height,width,floating_height,floating_width,floating_top,floating_right,floating_bottom,floating_left,is_floating,adsinitialized": function(aspectRatio, height, width, floatingHeight, floatingWidth, floatingTop, floatingRight, floatingBottom, floatingLeft, isFloating, adsInitialized) {
-                        var containerStyles, styles, calculated;
+                    "containerSizingStyles:aspect_ratio,height,width,adsinitialized": function(aspectRatio, height, width, adsInitialized) {
+                        var styles;
                         styles = {
                             aspectRatio: aspectRatio
                         };
@@ -555,16 +558,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             styles.opacity = 0;
                         }
 
-                        containerStyles = styles;
                         if (this.activeElement()) {
-
-                            if ((this.get("adshassource") && adsInitialized) && this.__lastContainerSizingStyles && (this.__lastContainerSizingStyles.opacity === 0 || this.__lastContainerSizingStyles.display === 'none')) {
-                                this.__lastContainerSizingStyles.opacity = null;
-                                this.__lastContainerSizingStyles.display = (containerStyles || styles).display;
-                                this._applyStyles(this.activeElement(), containerStyles || styles, this.__lastContainerSizingStyles);
-                            }
-
-                            if (containerStyles.width && (containerStyles.width).toString().includes("%") && (styles.width).toString().includes("%")) {
+                            this._applyStyles(this.activeElement(), styles, this.__lastContainerSizingStyles);
+                            this.__lastContainerSizingStyles = styles;
+                            if (styles.width && (styles.width).toString().includes("%")) {
                                 // If container width is in percentage, then we need to set the width of the player to auto
                                 // in other case width will be applied twice
                                 styles.width = "100%";
@@ -813,8 +810,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.stickyHandler.init();
                     }
 
-                    if (!this.get("floatingoptions.floatingonly") && !this.get("sticky"))
-                        this._applyStyles(this.activeElement(), this.get("containerSizingStyles"));
+                    if (!this.get("floatingoptions.floatingonly")) this._applyStyles(this.activeElement(), this.get("containerSizingStyles"));
                 },
 
                 initMidRollAds: function() {

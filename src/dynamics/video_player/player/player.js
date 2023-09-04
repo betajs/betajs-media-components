@@ -594,9 +594,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }
                         }
 
-                        if (height) styles.height = typeof height === "string" && (height[height.length - 1] === "%" || height === 'auto') ? height : parseFloat(height).toFixed(2) + "px";
-                        if (width) styles.width = typeof width === "string" && (width[width.length - 1] === "%" || width === 'auto') ? width : parseFloat(width).toFixed(2) + "px";
-
+                        if (height) styles.height = isNaN(height) ? height : parseFloat(height).toFixed(2) + "px";
+                        if (width) styles.width = isNaN(width) ? width : parseFloat(width).toFixed(2) + "px";
 
                         // If we have an ads and before content we will not show the player poster with loader at all
                         if ((this.get("adshassource") && !adsInitialized) && this.get("hidebeforeadstarts") && (this.get("autoplay") || this.get("outstream"))) {

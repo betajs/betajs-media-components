@@ -13,7 +13,8 @@ export const companion = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/217757
 export const nonLinear = (gnrok || '//localhost:5050/') + '/static/demos/vast-samples/dc-single_non-linear.xml';
 export const inlineVAST = ``;
 
-const params = new Proxy(new URLSearchParams(window.location.search), {
+const searchInstance = new URLSearchParams(window.location.search);
+const params = new Proxy(searchInstance, {
     get: (searchParams, prop) => searchParams.get(prop),
 });
 
@@ -24,6 +25,29 @@ let attrs = {
     sticky: Number(params.stk) === 1, // sticky is enabled
     adchoiceslink: Number(params.ac) === 1 ? 'https://ziggeo.com/privacy/' : null,
     floatingoptions: {}
+}
+
+if (searchInstance.size > 0) {
+    const existingAttributes = BetaJS.MediaComponents.VideoPlayer.Dynamics.Player.prototype.attrs();
+    Object.keys(existingAttributes).forEach((key) => {
+        if (params[key]) {
+            if (typeof Number(params[key]) === 'number' && !isNaN(Number(params[key]))) {
+                console.log("Key: ", key, "Value: ", params[key], "Type: ", typeof Number(params[key]), Number(params[key]));
+                if ((Number(params[key]) === 1 ||  Number(params[key]) === 0))
+                    attrs[key] = Number(params[key] === 1);
+                else
+                    attrs[key] = Number(params[key]);
+            } else if (typeof Boolean(params[key]) === 'boolean' && typeof Number(params[key]) !== 'number') {
+                attrs[key] = Boolean(params[key]);
+            } else {
+                try {
+                    attrs[key] = JSON.parse(decodeURI(params[key]));
+                } catch (e) {
+                    attrs[key] = params[key];
+                }
+            }
+        }
+    });
 }
 
 if (params.ad) {

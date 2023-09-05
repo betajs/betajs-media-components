@@ -33,7 +33,7 @@ module.exports = defineConfig({
       stdout: true, outputFile: './tests/playwright/reports/list-results.txt'
     }],
     ['json', { outputFile: './tests/playwright/reports/json-results.json' }],
-    ['html', { outputFolder: './tests/playwright/reports' }]
+    ['html', { outputFolder: './tests/playwright/reports', open: 'always' }]
   ],
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */

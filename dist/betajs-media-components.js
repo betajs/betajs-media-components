@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.396 - 2023-09-05
+betajs-media-components - v0.0.398 - 2023-08-29
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.396 - 2023-09-05
+betajs-media-components - v0.0.398 - 2023-08-29
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.396",
-    "datetime": 1693930213279
+    "version": "0.0.398",
+    "datetime": 1693343514674
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -2302,7 +2302,6 @@ Scoped.define("module:StickyHandler", [
                 this.threshold = options.threshold;
                 if (!options["static"]) this.events = this.auto_destroy(new DomEvents());
                 this.floating = false;
-                this.observing = false;
             },
 
             destroy: function() {
@@ -2323,24 +2322,6 @@ Scoped.define("module:StickyHandler", [
             start: function() {
                 if (!this.elementIsVisible && !this.floating) this.transitionToFloat();
                 this.paused = false;
-            },
-
-            stop: function() {
-                if (!this.observing) return;
-                if (this._elementObserver && this.element)
-                    this._elementObserver.unobserve(this.element);
-                if (this._containerObserver && this.container)
-                    this._containerObserver.unobserve(this.container);
-                this.observing = false;
-            },
-
-            resume: function() {
-                if (this.observing) return;
-                if (this._elementObserver && this.element)
-                    this._elementObserver.observe(this.element);
-                if (this._containerObserver && this.container)
-                    this._containerObserver.observe(this.container);
-                this.observing = true;
             },
 
             isDragging: function() {
@@ -2415,7 +2396,6 @@ Scoped.define("module:StickyHandler", [
 
                 this._elementObserver.observe(this.element);
                 this._containerObserver.observe(this.container);
-                this.observing = true;
             },
 
             _initEventListeners: function() {
@@ -3451,9 +3431,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 channels: {
                     "ads:ad-error": function() {
                         this.set("adsplaying", false);
-                        if (this.parent().get("outstream")) {
-                            this.parent().hidePlayerContainer();
-                        }
+                        if (this.parent().get("outstream")) this.parent().destroy();
                     },
                     "ads:load": function() {
                         this.call("load");
@@ -3617,9 +3595,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     close: function() {
                         return this._hideContentPlayer();
-                    },
-                    hideCompanionAd: function() {
-                        return this._hideCompanionAd();
                     }
                 },
 
@@ -3843,7 +3818,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         }
                     }, this);
 
-                    this.set("companionadcontainer", this.__companionAdElement);
                     // Get HTML content from the companion ad.
                     // Write the content to the companion ad slot.
                     this.__companionAdElement.innerHTML = companionAd.getContent();
@@ -3899,13 +3873,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     }
                 },
 
-                _hideCompanionAd: function() {
-                    // If there is any content in the companion ad container, remove it
-                    if (this.__companionAdElement && Types.is_function(this.__companionAdElement.remove)) {
-                        this.__companionAdElement.remove();
-                    }
-                },
-
                 _outstreamStarted: function(dyn, options) {
                     this.set("isoutstream", true);
                 },
@@ -3923,9 +3890,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     dyn = dyn || this.parent();
                     if (Types.is_undefined(dyn.activeElement))
                         throw Error("Wrong dynamics instance was provided to _hideContentPlayer");
-                    this._hideCompanionAd();
-                    dyn.hidePlayerContainer();
-                    // dyn.weakDestroy(); // << Create will not work as expected
+                    dyn.activeElement().style.setProperty("display", "none");
+                    dyn.weakDestroy(); // << Create will not work as expected
                 }
             };
         }).register("ba-adsplayer")
@@ -4932,7 +4898,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "base:Collections.Collection",
     "base:Time",
     "base:Timers",
-    "base:Promise",
     "base:TimeFormat",
     "base:States.Host",
     "base:Classes.ClassRegistry",
@@ -4979,7 +4944,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.PlayerStates.ErrorVideo",
     "module:VideoPlayer.Dynamics.PlayerStates.PlayVideo",
     "module:VideoPlayer.Dynamics.PlayerStates.NextVideo"
-], function(Class, Assets, DatasetProperties, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, PlayerSupport, Types, Objs, Strings, Collection, Time, Timers, Promise, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
+], function(Class, Assets, DatasetProperties, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, PlayerSupport, Types, Objs, Strings, Collection, Time, Timers, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, [StylesMixin, function(inherited) {
@@ -5086,8 +5051,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "imasettings": {},
                         "adtagurl": null,
                         "adchoiceslink": null,
-                        "adtagurlfallbacks": [],
-                        "nextadtagurls": [],
+                        "adtagurlfallbacks": null,
                         "inlinevastxml": null,
                         "hidebeforeadstarts": true, // Will help hide player poster before ads start
                         "showplayercontentafter": null, // we can set any microseconds to show player content in any case if ads not initialized
@@ -5199,9 +5163,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             "autoplay": null,
                             "outstreamoptions": {
                                 corner: true,
-                                hideOnCompletion: true,
-                                recurrenceperiod: 30000, // Period when a new request will be sent if ads is not showing, default: 30 seconds
-                                maxadstoshow: -1 // Maximum number of ads to show, if there's next ads or errors occurred default: -1 (unlimited)
+                                hideOnCompletion: true
                             }
                         },
                         "silent_attach": false,
@@ -5227,9 +5189,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             "dimensions": {
                                 "width": null,
                                 "height": null
-                            },
-                            "hiddenelement": {
-                                "visible": true
                             }
                         },
                         "placeholderstyle": "",
@@ -5328,7 +5287,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "adtagurl": "string",
                     "adchoiceslink": "string",
                     "adtagurlfallbacks": "array",
-                    "nextadtagurls": "array",
                     "inlinevastxml": "string",
                     "imasettings": "jsonarray",
                     "adsposition": "string",
@@ -5456,7 +5414,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         if (!!adsTagURL || !!inlineVastXML && !this.get("adshassource")) {
                             this.set("adshassource", true);
-                            this.set("adsplayer_active", !this.get("delayadsmanagerload"));
                             // On error, we're set initialized to true to prevent further attempts
                             // in case if ads will not trigger any event, we're setting initialized to true after defined seconds and wil show player content
                             if (!this.__adInitilizeChecker && this.get("showplayercontentafter")) {
@@ -5476,7 +5433,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             return false;
                         }
                     },
-                    "containerSizingStyles:aspect_ratio,height,width,floating_height,floating_width,floating_top,floating_right,floating_bottom,floating_left,is_floating,adsinitialized,states.hiddenelement": function(aspectRatio, height, width, floatingHeight, floatingWidth, floatingTop, floatingRight, floatingBottom, floatingLeft, isFloating, adsInitialized, hiddenelement) {
+                    "containerSizingStyles:aspect_ratio,height,width,floating_height,floating_width,floating_top,floating_right,floating_bottom,floating_left,is_floating,adsinitialized": function(aspectRatio, height, width, floatingHeight, floatingWidth, floatingTop, floatingRight, floatingBottom, floatingLeft, isFloating, adsInitialized) {
                         var containerStyles, styles, calculated;
                         styles = {
                             aspectRatio: aspectRatio
@@ -5542,13 +5499,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 // in other case width will be applied twice
                                 styles.width = "100%";
                             }
-
-                            if (hiddenelement && !hiddenelement.visible) {
-                                this.set("states.hiddenelement.styles.display", containerStyles.display);
-                                this._applyStyles(this.activeElement(), {
-                                    display: 'none'
-                                }, this.__lastContainerSizingStyles || null);
-                            }
                         }
                         return styles;
                     },
@@ -5572,8 +5522,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "is_floating:view_type": function(view_type) {
                         return view_type === "float" || ((view_type !== undefined && !this.get("fullscreened")) && this.get("floatingoptions.floatingonly"));
                     },
-                    "layout:mobileview": function(mobileview) {
-                        return mobileview ? "mobile" : "desktop";
+                    "layout:mobileviewport": function(mobileviewport) {
+                        return mobileviewport ? "mobile" : "desktop";
                     },
                     "placement:outstream": function(outstream) {
                         return outstream ? "outstream" : "instream";
@@ -6154,16 +6104,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.player.on("postererror", function() {
                             this._error("poster");
                         }, this);
+                        if (!this.get("playedonce")) {
+                            this.player.once("playing", function() {
+                                this.set("playedonce", true);
+                                this.set("playbackcount", 1);
+                            }, this);
+                        }
                         this.player.on("playing", function() {
                             if (this.get("sample_brightness")) this.__brightnessSampler.start();
                             if (this.get("sticky") && this.stickyHandler) this.stickyHandler.start();
                             this.set("playing", true);
                             this.trigger("playing");
-                            if (this.get("playedonce") === false) {
-                                this.set("playbackcount", 1);
-                            } else {
-                                this.set("playbackcount", this.get("playbackended") + 1);
-                            }
                         }, this);
                         this.player.on("loaded", function() {
                             this.set("videowidth", this.player.videoWidth());
@@ -6565,8 +6516,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                         if (this.get('disablepause')) return;
 
-                        if (this.get("playing_ad") || this.get("adsplaying"))
-                            this.scopes.adsplayer.execute("pause");
+                        if (this.get("playing_ad")) this.scopes.adsplayer.execute("pause");
 
                         if (this.get("playing")) {
                             if (this.player && this.get("broadcasting")) {
@@ -6603,6 +6553,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.get('disableseeking')) return;
                         if (this.get("nextwidget")) this.channel("next").trigger("setStay");
                         if (this.videoLoaded()) {
+                            if (position < this.get("position")) this.trigger("rewind");
                             if (position > this.player.duration())
                                 this.player.setPosition(this.player.duration() - this.get("skipseconds"));
                             else if (this.get("starttime") && position < this.get("starttime")) {
@@ -6797,28 +6748,25 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.channel("ads").trigger("resume");
                     },
 
-                    close_floating: function(destroy) {
-                        destroy = destroy || false;
+                    close_floating: function() {
                         this.trigger("floatingplayerclosed");
                         if (this.get("sticky") || this.get("floatingoptions.floatingonly")) {
-                            this.pause();
-                            if (this.stickyHandler) {
-                                if (destroy) this.stickyHandler.destroy();
-                                else this.stickyHandler.stop();
-                            }
                             if (this.get("floatingoptions.hideplayeronclose") || this.get("floatingoptions.floatingonly")) {
-                                // If player is not sticky but floating we need hide whole player,
-                                // this is true also if we want to hide player container on floating close
                                 // Hide container element if player will be destroyed
-                                this.hidePlayerContainer();
-                                if (destroy) this.destroy();
+                                if (this.activeElement()) {
+                                    this._applyStyles(this.activeElement(), {
+                                        display: "none"
+                                    });
+                                }
+                                this.destroy();
                             } else {
-                                // If we want left player container visible and close floating player
+                                this.pause();
+                                this.set("sticky", false);
                                 this.set("view_type", "default");
+                                if (this.stickyHandler) this.stickyHandler.destroy();
                             }
                         } else {
-                            this.hidePlayerContainer();
-                            if (destroy) this.destroy();
+                            this.destroy();
                         }
                     }
                 },
@@ -6938,121 +6886,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         return img.width;
                     }
                     return NaN;
-                },
-
-                hidePlayerContainer: function() {
-                    // If no there will be "states.hiddenelement.visible" condition, states will be overwritten
-                    if (this.activeElement() && this.get("states.hiddenelement.visible")) {
-                        this.set("states.hiddenelement.dimensions", Dom.elementDimensions(this.activeElement()));
-                        // save last display style for the hidden element
-                        this.set("states.hiddenelement.styles.display", this.activeElement().style.display);
-                        this._applyStyles(this.activeElement(), {
-                            display: 'none'
-                        }, this.__lastContainerSizingStyles);
-                        // If floating sidebar then it will be hidden via player itself so not set companionads as []
-                        if (this.scopes.adsplayer) this.scopes.adsplayer.execute("hideCompanionAd");
-                        this.set("states.hiddenelement.visible", false);
-                        this.set("adsplayer_active", false);
-                        if (this.get("playing")) {
-                            this.pause();
-                            this.set("states.hiddenelement.playing", true);
-                        }
-                    }
-                },
-
-                showHiddenPlayerContainer: function() {
-                    // Resume sticky handler if it is not destroyed
-                    if (this.stickyHandler && !this.stickyHandler.destroyed() && this.stickyHandler.observing === false) {
-                        this.stickyHandler.resume();
-                    }
-                    // If player is visible no need todo anything
-                    if (this.get("states.hiddenelement.visible")) return;
-                    if (this.activeElement()) {
-                        this.set("states.hiddenelement.visible", true);
-                        this._applyStyles(this.activeElement(), {
-                            display: this.get("containerSizingStyles.display") || 'inline-block'
-                        });
-                        if (this.get("states.hiddenelement.playing")) this.play();
-                    }
-                },
-
-                resetAdsPlayer: function() {
-                    if (this.get("adsplayer_active")) this.set("adsplayer_active", false);
-                    this.set("adsplayer_active", true);
-                },
-
-                getNextOutstreamAdTagURLs: function(immediate) {
-                    immediate = immediate || false;
-                    var promise = Promise.create();
-                    if (this.get("outstreamoptions.maxadstoshow") === 0) {
-                        return promise.asyncError("Limit of showing ads exceeded.", true);
-                    }
-                    if ((this.get("nextadtagurls") && this.get("nextadtagurls").length > 0) || (this.get("adtagurlfallbacks") && this.get("adtagurlfallbacks").length > 0)) {
-                        promise.asyncSuccess(this.get("nextadtagurls").length > 0 ? this.get("nextadtagurls").shift() : this.get("adtagurlfallbacks").shift());
-                    } else {
-                        Async.eventually(function() {
-                            var _promise = this.requestForTheNextAdTagURL();
-                            var isGlobalPromise = typeof _promise.then === "function";
-                            return Types.is_function(this.requestForTheNextAdTagURL) ?
-                                _promise[isGlobalPromise ? 'then' : 'success'](function(response) {
-                                    return promise.asyncSuccess(response);
-                                }, this)[isGlobalPromise ? 'catch' : 'error'](function(error) {
-                                    return promise.asyncError(error);
-                                }, this) :
-                                console.log("Please define requestForTheNextAdTagURL method with Promise.");
-                        }, this, immediate ? 100 : this.get("outstreamoptions.recurrenceperiod") || 30000);
-                    }
-                    return promise;
-                },
-
-                /**
-                 * This method should be overwritten.
-                 * @return {*}
-                 */
-                requestForTheNextAdTagURL: function() {
-                    var promise = Promise.create();
-                    // inherit this function from the parent player and set a new next ad tag
-                    promise.asyncSuccess([]);
-                    return promise;
-                },
-
-                /**
-                 * @param immediate
-                 * @param stateContext
-                 * @param nextState
-                 * @private
-                 */
-                setNextOutstreamAdTagURL: function(immediate, stateContext, nextState) {
-                    immediate = immediate || false;
-                    // if we have set nextadtagurls, then we will try to load next adtagurl
-                    this.getNextOutstreamAdTagURLs(immediate)
-                        .success(function(response) {
-                            if (typeof response === "string") {
-                                this.set("adtagurl", response);
-                            } else if (response && typeof response.shift === "function" && response.length > 0) {
-                                this.set("adtagurl", response.shift());
-                                // if still length is more than 0, then set it to nextadtagurls
-                                if (response.length > 0) this.set("nextadtagurls", response);
-                            } else {
-                                return this.setNextOutstreamAdTagURL(immediate, stateContext, nextState);
-                            }
-
-                            if ((!immediate && this.scopes.adsplayer) || this.get("adsmanagerloaded")) {
-                                this.resetAdsPlayer();
-                            }
-
-                            if (stateContext && nextState) {
-                                return stateContext.next(nextState);
-                            } else {
-                                return stateContext.next("LoadAds", {
-                                    position: 'outstream'
-                                });
-                            }
-                        }, this)
-                        .error(function(err, complete) {
-                            console.log("Error on getting next outstream tag", err);
-                            if (!complete) return stateContext.next("LoadPlayer");
-                        }, this);
                 },
 
                 aspectRatio: function() {
@@ -7759,6 +7592,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Initial", [
         _started: function() {
             this.dyn.set("imageelement_active", false);
             this.dyn.set("videoelement_active", false);
+            // no need activation for the adsposition: mid and post
+            this.dyn.set("adsplayer_active", this.dyn.get("adshassource") && !this.dyn.get("delayadsmanagerload"));
             if (this.dyn.get("ready")) {
                 this.next("LoadPlayer");
             } else {
@@ -7945,57 +7780,28 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Outstream", [
 
         _started: function() {
             if (!this.dyn.get("adshassource")) {
-                if (this.dyn.get("floatingoptions.floatingonly") || this.dyn.get("view_type") === "is_floating") {
+                if (typeof this.dyn.activeElement === "function")
+                    this.dyn.activeElement().style.setProperty("display", "none");
+                if (this.dyn.get("floatingoptions.floatingonly"))
                     this.dyn.execute("close_floating");
-                } else {
-                    if (typeof this.dyn.activeElement === "function")
-                        this.dyn.hidePlayerContainer();
-                }
                 console.warn("Please provide ad source for the outstream");
-                return this.dyn.setNextOutstreamAdTagURL(true, this, "LoadPlayer");
             }
 
-            this.listenOn(this.dyn.channel("ads"), "ad-error", function() {
-                if (this.dyn.get("outstream")) {
-                    this.dyn.hidePlayerContainer();
-                    if ((this.dyn.get("nextadtagurls") && this.dyn.get("nextadtagurls").length > 0) || (this.dyn.get("adtagurlfallbacks") && this.dyn.get("adtagurlfallbacks").length > 0)) {
-                        this.dyn.set("adtagurl", this.dyn.get("nextadtagurls").length > 0 ? this.dyn.get("nextadtagurls").shift() : this.dyn.get("adtagurlfallbacks").shift());
-                        this.dyn.scopes.adsplayer.execute("requestAds");
-                    } else {
-                        this.dyn.setNextOutstreamAdTagURL(false, this);
-                    }
-                } else if (this.dyn.get("adtagurlfallbacks") && this.dyn.get("adtagurlfallbacks").length > 0) {
-                    // This condition will be run if outstream is not enabled and fallbacks are available
-                    this.dyn.set("adtagurl", this.dyn.get("adtagurlfallbacks").shift());
-                    this.dyn.scopes.adsplayer.execute("requestAds");
-                } else {
-                    this.next(this._nextState());
-                }
-            }, this);
-
-            if (!this.dyn.get("adsmanagerloaded")) {
-                this.listenOn(this.dyn.channel("ads"), "adsManagerLoaded", function() {
-                    this._nextState();
-                }, this);
-            } else {
-                this._nextState();
-            }
-        },
-
-        _nextState: function() {
-            if (this.dyn.get("is_floating")) {
-                if (!this.destroyed())
-                    this.next("LoadAds", {
-                        position: 'outstream'
-                    });
-            } else {
-                Dom.onScrollIntoView(this.dyn.activeElement(), this.dyn.get("visibilityfraction"), function() {
+            this.listenOn(this.dyn.channel("ads"), "adsManagerLoaded", function() {
+                if (this.dyn.get("is_floating")) {
                     if (!this.destroyed())
                         this.next("LoadAds", {
                             position: 'outstream'
                         });
-                }, this);
-            }
+                } else {
+                    Dom.onScrollIntoView(this.dyn.activeElement(), this.dyn.get("visibilityfraction"), function() {
+                        if (!this.destroyed())
+                            this.next("LoadAds", {
+                                position: 'outstream'
+                            });
+                    }, this);
+                }
+            });
         }
     });
 });
@@ -8038,15 +7844,10 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
                         // this.dyn.scopes.adsplayer.execute("reload");
                     }, this);
                     this.listenOn(this.dyn.channel("ads"), "ad-error", function() {
-                        if (this.dyn.get("outstream")) {
-                            this.dyn.hidePlayerContainer();
-                            this.dyn.setNextOutstreamAdTagURL(false, this);
-                        } else if (this.dyn.get("adtagurlfallbacks") && this.dyn.get("adtagurlfallbacks").length > 0) {
+                        if (this.dyn.get("adtagurlfallbacks") && this.dyn.get("adtagurlfallbacks").length > 0) {
                             this.dyn.set("adtagurl", this.dyn.get("adtagurlfallbacks").shift());
                             this.dyn.scopes.adsplayer.execute("requestAds");
-                        } else {
-                            this.next(this._nextState());
-                        }
+                        } else this.next(this._nextState());
                     }, this);
                 } else {
                     this.next("LoadVideo");
@@ -8087,9 +7888,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream", [
         dynamics: ["adscontrolbar"],
 
         _started: function() {
-            // if player is not hidden below method will do nothing
-            this.dyn.showHiddenPlayerContainer();
-
+            this.dyn._outstreamCompleted = false;
             if (this.dyn.get("sticky") && this.dyn.stickyHandler) this.dyn.stickyHandler.start();
 
             this.dyn.channel("ads").trigger("outstreamStarted", this.dyn);
@@ -8098,8 +7897,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream", [
                 this.afterAdCompleted();
             }, this);
 
-            if (this.dyn.get("outstreamoptions.maxadstoshow") > 0)
-                this.dyn.set("outstreamoptions.maxadstoshow", this.dyn.get("outstreamoptions.maxadstoshow") - 1);
+            this.listenOn(this.dyn.channel("ads"), "ad-error", function(message) {
+                console.log("Error on loading ad. Details: ", message);
+            }, this);
 
             /* if this trigger before allAdsCompleted, setTimeout error shows in console
             // In case, if ad contains nonLinear and requests to resume playing the content
@@ -8109,12 +7909,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream", [
         },
 
         afterAdCompleted: function() {
-            if (!this.dyn) return;
-            if (this.dyn.get("outstreamoptions.maxadstoshow") !== 0) {
-                this.dyn.setNextOutstreamAdTagURL(false, this, "LoadPlayer");
-            } else {
-                this.dyn.hidePlayerContainer();
-            }
+            if (!this.dyn || this.dyn._outstreamCompleted)
+                return;
+            this.dyn._outstreamCompleted = true;
             this.dyn.trigger("outstream-completed");
             // Somehow below code is running even this.dyn is undefined and this states checked in the above statement
             if (this.dyn) this.dyn.channel("ads").trigger("outstreamCompleted", this.dyn);
@@ -8136,7 +7933,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.ReloadAds", [
                 // In case if we want to launch it manually via settings "adsposition: 'post'" or after re-attach on playlist,
                 // then we need reset ads manager and wait for adsManager Loaded
                 if (this.dyn.get("adsplaypostroll")) {
-                    this.dyn.resetAdsPlayer();
+                    if (this.dyn.get("adsplayer_active"))
+                        this.dyn.set("adsplayer_active", false);
+                    this.dyn.set("adsplayer_active", true);
                 } else {
                     // if adsManager do not load within 1 second will forward to the NextVideo state
                     this.auto_destroy(new Timer({
@@ -8463,10 +8262,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
 
         _started: function() {
             this.dyn.set("autoplay", this.dyn.get("continuousplayback"));
+            this.dyn.set("playbackcount", this.dyn.get("playbackcount") + 1);
             if (this.dyn.get("playlist") && this.dyn.get("playlist").length > 0) {
-                this.dyn.set("passed-quarter", 0);
-                this.dyn.set("played-seconds", 0);
-                this.dyn.set("last-played-position", 0);
+                this._resetPlayerAttrs();
 
                 var currentIndex = this.dyn.get("current_video_from_playlist");
                 var nextIndex = this.dyn.get("next_video_from_playlist");
@@ -8499,6 +8297,14 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
                 return this.__resetAdPlayer();
             }
             this.next("PosterReady");
+        },
+
+        _resetPlayerAttrs: function() {
+            this.dyn.set("passed-quarter", 0);
+            this.dyn.set("played-seconds", 0);
+            this.dyn.set("last-played-position", 0);
+            this.dyn.set("currentstream", {});
+            this.dyn.set("sources", []);
         },
 
         /**

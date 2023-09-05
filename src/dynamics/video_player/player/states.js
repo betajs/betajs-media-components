@@ -418,9 +418,13 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Outstream", [
                     } else {
                         this.dyn.setNextOutstreamAdTagURL(false, this);
                     }
+                } else if (this.dyn.get("adtagurlfallbacks") && this.dyn.get("adtagurlfallbacks").length > 0) {
+                    // This condition will be run if outstream is not enabled and fallbacks are available
+                    this.dyn.set("adtagurl", this.dyn.get("adtagurlfallbacks").shift());
+                    this.dyn.scopes.adsplayer.execute("requestAds");
+                } else {
+                    this.next(this._nextState());
                 }
-                this.dyn.hidePlayerContainer();
-                return this.dyn.setNextOutstreamAdTagURL(false, this);
             }, this);
 
             if (!this.dyn.get("adsmanagerloaded")) {

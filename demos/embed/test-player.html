@@ -120,25 +120,25 @@
     });
 
     // Test for outstream ads, and it's recruitment process
-    // let _index = 0;
-    // const adTagURLS = [adErrorTagURL, "", adErrorTagURL, adTagURL, adErrorTagURL, adTagURL, adTagURL];
-    // player.requestForTheNextAdTagURL = () => {
-    //     var promise = BetaJS.Promise.create();
-    //     // inherit this function from the parent player and set a new next ad tag
-    //     setTimeout(() => {
-    //         console.log("Will return success ad tag via BetaJS.Promise", adTagURLS[_index]);
-    //         promise.asyncSuccess(adTagURLS[_index]);
-    //         _index++;
-    //     }, 1000);
-    //     return promise;
-    //     // return new Promise((resolve, reject) => {
-    //     //     setTimeout(() => {
-    //     //     console.log("Will return success ad tag via window global Promise", adTagURLS[_index]);
-    //     //         adTagURLS[_index] ? resolve(adTagURLS.shift()) : reject(adTagURLS.shift());
-    //     //         _index++;
-    //     //     }, 1000);
-    //     // });
-    // }
+    let _index = 0;
+    const adTagURLS = [adErrorTagURL, "", adErrorTagURL, adTagURL, adErrorTagURL, adTagURL, adTagURL];
+    player.requestForTheNextAdTagURL = () => {
+        var promise = BetaJS.Promise.create();
+        // inherit this function from the parent player and set a new next ad tag
+        setTimeout(() => {
+            console.log("Will return success ad tag via BetaJS.Promise", adTagURLS[_index]);
+            promise.asyncSuccess(adTagURLS[_index]);
+            _index++;
+        }, 1000);
+        return promise;
+        // return new Promise((resolve, reject) => {
+        //     setTimeout(() => {
+        //     console.log("Will return success ad tag via window global Promise", adTagURLS[_index]);
+        //         adTagURLS[_index] ? resolve(adTagURLS.shift()) : reject(adTagURLS.shift());
+        //         _index++;
+        //     }, 1000);
+        // });
+    }
     // setTimeout(() => {console.log("Now our ad tag URL IS: ", player.get("adtagurl").slice(0, 20));}, 13000);
     // setInterval(() => {console.log("Now our ad tag URL IS: ", player.get("adtagurl").slice(0, 20));}, 1000);
 

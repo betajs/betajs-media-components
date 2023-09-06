@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.398 - 2023-08-29
+betajs-media-components - v0.0.399 - 2023-09-06
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.398",
-    "datetime": 1693343514674
+    "version": "0.0.399",
+    "datetime": 1694007940084
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -2408,7 +2408,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         linearAdSlotHeight: this.getAdHeight(),
                         nonLinearAdSlotWidth: this.getAdWidth(),
                         nonLinearAdSlotHeight: this.getAdHeight() / 3,
-                        adWillAutoplay: this.getAdWillAutoplay(),
+                        adWillAutoPlay: this.getAdWillAutoPlay(),
                         adWillPlayMuted: this.getAdWillPlayMuted(),
                         autoPlayAdBreaks: true,
                         width: this.getAdWidth(),
@@ -2614,8 +2614,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     return this._videoElement;
                 },
 
-                getAdWillAutoplay: function() {
-                    return this.parent() && this.parent().get("autoplay-allowed");
+                getAdWillAutoPlay: function() {
+                    return this.parent() && (this.parent().get("autoplay-allowed") || this.parent().get("autoplay"));
                 },
 
                 getAdWillPlayMuted: function() {
@@ -4230,6 +4230,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "aspectratio": "float",
                     "fallback-width": "int",
                     "fallback-height": "int",
+                    "outstreamoptions": "json",
                     "initialseek": "float",
                     "fullscreened": "boolean",
                     "sharevideo": "array",

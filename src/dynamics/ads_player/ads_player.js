@@ -69,7 +69,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         linearAdSlotHeight: this.getAdHeight(),
                         nonLinearAdSlotWidth: this.getAdWidth(),
                         nonLinearAdSlotHeight: this.getAdHeight() / 3,
-                        adWillAutoplay: this.getAdWillAutoplay(),
+                        adWillAutoPlay: this.getAdWillAutoPlay(),
                         adWillPlayMuted: this.getAdWillPlayMuted(),
                         autoPlayAdBreaks: true,
                         width: this.getAdWidth(),
@@ -275,8 +275,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     return this._videoElement;
                 },
 
-                getAdWillAutoplay: function() {
-                    return this.parent() && this.parent().get("autoplay-allowed");
+                getAdWillAutoPlay: function() {
+                    return this.parent() && (this.parent().get("autoplay-allowed") || this.parent().get("autoplay"));
                 },
 
                 getAdWillPlayMuted: function() {

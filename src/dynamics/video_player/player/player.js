@@ -359,6 +359,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "aspectratio": "float",
                     "fallback-width": "int",
                     "fallback-height": "int",
+                    "outstreamoptions": "json",
                     "initialseek": "float",
                     "fullscreened": "boolean",
                     "sharevideo": "array",

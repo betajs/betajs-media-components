@@ -679,6 +679,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (typeof this.get("showsettings") !== "undefined")
                         this.set("showsettingsmenu", this.get("showsettings"));
                     this.delegateEvents(null, this.channel("ads"), "ad");
+                    this.delegateEvents(null, this.channel("next"), "next");
                     this.set("prominent_title", this.get("prominent-title"));
                     this.set("closeable_title", this.get("closeable-title"));
                     // NOTE: below condition has to be before ads initialization

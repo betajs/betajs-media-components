@@ -1,0 +1,301 @@
+export let gnrok // = 'https://3c5e-213-172-83-96.ngrok-free.app';
+let showBlocks = 0;
+
+// var vmap = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/vmap_ad_samples&sz=640x480&cust_params=sample_ar%3Dpremidpostoptimizedpod&ciu_szs=300x250&gdfp_req=1&ad_rule=1&output=vmap&unviewed_position_start=1&env=vp&impl=s&cmsid=496&vid=short_onecue&correlator='
+export const vmap = (gnrok || '//localhost:5050/') + '/static/demos/vast-samples/VMAP/dc_vmap_pre_1_mid_3_post_1.xml'
+
+//'static/demos/vast-samples/companion-with-linear.xml';
+// export const companion = (gnrok || '//localhost:5050/') + 'static/demos/vast-samples/VAST_4_2/Inline_Companion_Tag-test.xml';
+export const companion = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/single_preroll_skippable&sz=640x480&ciu_szs=728x90,300x200|300x250&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=';
+// export const companion = 'https://09930015639790402128.googlegroups.com/attach/62ac5a9916f48/sample-vast.xml?part=0.1&view=1&vt=ANaJVrHVLmRw1mYQmPCtxOesXTdbSu7yVfa2937GV8eQizPPklqORGMEtxwSN_uM2Y0ZGhCbOOqSX5HsJpIFzHV9oaZRBW6OE6Sy4ypq-iQeMBJW4MVU1Yg';
+
+// var nonLinear = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/nonlinear_ad_samples&sz=480x70&cust_params=sample_ct%3Dnonlinear&ciu_szs=300x250%2C728x90&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=';
+export const nonLinear = (gnrok || '//localhost:5050/') + '/static/demos/vast-samples/dc-single_non-linear.xml';
+export const inlineVAST = ``;
+
+const searchInstance = new URLSearchParams(window.location.search);
+const params = new Proxy(searchInstance, {
+    get: (searchParams, prop) => searchParams.get(prop),
+});
+
+let attrs = {
+    testInBrowser: Number(params.tib) === 1,
+    skipinitial: Number(params.si) === 1,
+    autoplay: Number(params.ap) === 1,
+    outstream: Number(params.os) === 1, // outstream is enabled
+    sticky: Number(params.stk) === 1, // sticky is enabled
+    adchoiceslink: Number(params.ac) === 1 ? 'https://ziggeo.com/privacy/' : null,
+    floatingoptions: {}
+}
+
+if (searchInstance.size > 0) {
+    const existingAttributes = BetaJS.MediaComponents.VideoPlayer.Dynamics.Player.prototype.attrs();
+    Object.keys(existingAttributes).forEach((key) => {
+        if (params[key]) {
+            if (typeof Number(params[key]) === 'number' && !isNaN(Number(params[key]))) {
+                console.log("Key: ", key, "Value: ", params[key], "Type: ", typeof Number(params[key]), Number(params[key]));
+                if ((Number(params[key]) === 1 ||  Number(params[key]) === 0))
+                    attrs[key] = Number(params[key] === 1);
+                else
+                    attrs[key] = Number(params[key]);
+            } else if (typeof Boolean(params[key]) === 'boolean' && typeof Number(params[key]) !== 'number') {
+                attrs[key] = Boolean(params[key]);
+            } else {
+                try {
+                    attrs[key] = JSON.parse(decodeURI(params[key]));
+                } catch (e) {
+                    attrs[key] = params[key];
+                }
+            }
+        }
+    });
+}
+
+if (params.ad) {
+    switch (params.ad) {
+        case 1: case '1':
+            attrs.adtagurl = `https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=`;
+            break;
+        // Inline XML
+        case 2: case '2': case 'inline':
+            attrs.inlinevastxml = inlineVAST;
+            break;
+        // VMAP
+        case 3: case '3': case 'vmap':
+            attrs.adtagurl = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/vmap_ad_samples&sz=640x480&cust_params=sample_ar%3Dpremidpost&ciu_szs=300x250&gdfp_req=1&ad_rule=1&output=vmap&unviewed_position_start=1&env=vp&impl=s&cmsid=496&vid=short_onecue&correlator='
+            break;
+        // VAST via nonLinear
+        case 4: case '4': case 'nl': // with nonLinear
+            attrs.adtagurl = 'https://static.kargovideo.com/playground/public/samples/kargo_with_non_linear.xml';
+            break;
+        case 5: case '5': case 'os': // with nonLinear
+            attrs.adtagurl = 'https://ads.celtra.com/f41e9364/vpaid/vast.xml';
+            break;
+        case 6: case '6': case 'companion': case 'cmp': // with Companion Ads
+            attrs.adtagurl = companion;
+            break;
+        case 9: case '9': case 'err': // with nonLinear
+            attrs.adtagurl = 'https://ads.celtra.com/wrong/vpaid/error.xml';
+            break;
+        case 0: case '0': default:
+            attrs.adtagurl = null
+            break;
+    }
+}
+
+if (params.blk) {
+    showBlocks = Number(params.blk);
+}
+
+// ads positions
+if (params.adp) {
+    attrs.adsposition = params.adp;
+}
+
+// sticky/floating sidebar
+if (params.sbr) {
+    attrs.floatingoptions.sidebar = Number(params.sbr) === 1;
+}
+
+// floating only
+if (params.flt) {
+    attrs.floatingoptions.floatingonly = Number(params.flt) === 1;
+}
+
+// Show Companion Ad
+if (params.cmp) {
+    attrs.companionad = Number(params.flt) === 1 ? true : '[300,]|bottom';
+}
+
+if (params.nextwidget) {
+    attrs.nextwidget = params.nextwidget;
+}
+
+if (params.shownext) {
+    attrs.shownext = Number(params.nextsn) === 1;
+}
+
+if (params.noengagenext) {
+    attrs.noengagenext = Number(params.nextsn) === 1;
+}
+
+attrs = {...attrs, ...{
+        // autoplaywhenvisible: true,
+        // hidebeforeadstarts: false, // Will help hide player poster before ads start
+        // showplayercontentafter: 1500, // we can set any seconds to show player content in any case if ads not intialized
+        // hideoninactivity: false,
+        // ** SOURCES
+        // width: 640,
+        source: '/static/demos/sample-video.mp4',
+        poster: '/static/demos/assets/sample-cover.png',
+        minadintervals: 0,
+        imasettings: {
+            // ** IMA
+            locale: 'fr',
+            uiElements: [], // ['adAttribution', 'countdown']
+            // uiElements: ['adAttribution'],
+            // uiElements: ['countdown'],
+            // uiElements: ['adAttribution', 'countdown'],
+        },
+        // source: '/static/demos/assets/portrait.mp4',
+        // poster: '/static/demos/assets/portrait-poster.png',
+        // poster: '/static/demos/assets/portrait-poster-270x480.jpeg',
+        // source: 'https://storage.googleapis.com/cpe-sample-media/content/big_buck_bunny/prog/big_buck_bunny_prog.mp4', // << Chromecast
+        // poster: 'https://storage.googleapis.com/cpe-sample-media/content/big_buck_bunny/images/screenshot1.png', // << Chromecast
+        // source: '/static/demos/assets/huge_video.mp4',
+        // sources: [
+        //     {
+        //         // src:'/static/demos/assets/portrait.mp4'
+        //         src:'/static/demos/sample-video.mp4'
+        //         // , poster: '/static/demos/assets/portrait-poster.png'
+        //         , hd: true
+        //         // , poster: '/static/demos/sample-cover.png'
+        //     },
+        //     {
+        //         // src:'/static/demos/assets/portrait.mp4'
+        //         // , poster:'/static/demos/assets/portrait-poster.png', hd: false
+        //         src:'/static/demos/sample-video2.mp4'
+        //         // , hd: false
+        //         , poster: '/static/demos/sample-cover.png'
+        //     }
+        // ],
+        // streams: [{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }],
+        // 'ba-playlist': [
+        //     {poster: 'sample-cover2.png', source: 'sample-video2.mp4'},
+        //     {poster: 'sample-cover.png', source: 'sample-video.mp4'},
+        //     {poster: 'sample-cover.png', source: 'sample-video3.mp4'}
+        // ],
+
+        // **ADS
+        // adsposition: "mid[12*], post",
+        // 'companionad': '[300,250]|left',
+        // 'companionad': '[300,]|top',
+        // 'companionad': '[]|bottom',
+        // 'companionad': '[300,]|bottom',
+        // 'companionad': 'companion-selector[300,200]',
+        // 'companionad': 'companion-fluid[fluid]',
+        // adsposition: "post",
+        outstreamoptions: {
+            // moreURL: "https://ziggeo.com",
+            // moreText: "Read more about Ziggeo",
+            // hideOnCompletion: true,
+            // corner: false
+            // corner: "30px",
+            // allowRepeat: false,
+            // repeatText: "repeatText"
+        },
+        floatingoptions: {...attrs.floatingoptions, ...{
+            showcompanionad: true,
+            // hideplayeronclose: false,
+            mobile: {
+                height: 120,
+                companionad: true,
+                // position: 'bottom'
+                // companionad: "[,250]",
+            },
+            desktop: {
+                height: 140,
+                bottom: 20,
+                companionad: true, //"[]|bottom", //"[]|top", // true
+            }
+        }},
+        // adsposition: "pre, mid, post",
+        // adsposition: "mid[5*]",
+        // minadintervals: 8,
+
+        // **FLOATING - STICKY
+        // visibilityfraction: 0.01,
+        // 'sticky-threshold': 0.1,
+        // 'sticky-position': 'bottom-right',
+
+        // **THEMES
+        // theme: "modern",
+        // theme: "cube",
+        // theme: "elevate",
+        // theme: "minimalist",
+        // theme: "modern",
+        // theme: "space",
+        // theme: "theatre",
+
+        // **SETTINGS
+        // height: 120,
+        // width: 400,
+        // width: '640px',
+        // width: '80%',
+        // videofitstrategy: "pad",// "crop", "pad", "original"
+
+        // popup: true,
+        // showduration: true ,
+        // preload: true,
+        // fitonwidth: true,
+        // fitonheight: true,
+        // chromecast: true, // Will work only with valid URL, use ngrock for testing
+        // fullscreenmandatory: true,
+        // showsettingsmenu: false,
+        // showchaptertext: true,
+        // preload: true,
+        // tracktagsstyled: false,
+        // loop: true,
+        // tracktags: [
+        //     {
+        //         lang: 'en',
+        //         kind: 'subtitles',
+        //         label: 'English',
+        //         //enabled: true,
+        //         src: '../assets/bunny-en.vtt'
+        //     },
+        //     {
+        //         lang: 'de',
+        //         kind: 'subtitles',
+        //         label: 'Deutsch',
+        //         //enabled: true,
+        //         src: '../assets/bunny-de.vtt'
+        //     },
+        //     {
+        //         kind: 'thumbnails',
+        //         // src: '/static/demos/assets/example-3rdp.vtt'
+        //         src: '/static/demos/assets/video-bgbb.vtt'
+        //     },
+        //     {
+        //         kind: 'chapters',
+        //         // src: '/static/demos/assets/example-3rdp.vtt'
+        //         src: '/static/demos/assets/video-bgbb-chapters.vtt'
+        //     }
+        // ],
+    }
+};
+
+// https://codepen.io/chiragbhansali/pen/EWppvy
+let verbs, nouns, adjectives, adverbs, preposition;
+nouns = ["bird", "clock", "boy", "plastic", "duck", "teacher", "old lady", "professor", "hamster", "dog"];
+verbs = ["kicked", "ran", "flew", "dodged", "sliced", "rolled", "died", "breathed", "slept", "killed"];
+adjectives = ["beautiful", "lazy", "professional", "lovely", "dumb", "rough", "soft", "hot", "vibrating", "slimy"];
+adverbs = ["slowly", "elegantly", "precisely", "quickly", "sadly", "humbly", "proudly", "shockingly", "calmly", "passionately"];
+preposition = ["down", "into", "up", "on", "upon", "below", "above", "through", "across", "towards"];
+
+const sentence = () => {
+    var rand1 = Math.floor(Math.random() * 10);
+    var rand2 = Math.floor(Math.random() * 10);
+    var rand3 = Math.floor(Math.random() * 10);
+    var rand4 = Math.floor(Math.random() * 10);
+    var rand5 = Math.floor(Math.random() * 10);
+    var rand6 = Math.floor(Math.random() * 10);
+    //                var randCol = [rand1,rand2,rand3,rand4,rand5];
+    //                var i = randGen();
+    return "The " + adjectives[rand1] + " " + nouns[rand2] + " " + adverbs[rand3] + " " + verbs[rand4] + " because some " + nouns[rand1] + " " + adverbs[rand1] + " " + verbs[rand1] + " " + preposition[rand1] + " a " + adjectives[rand2] + " " + nouns[rand5] + " which, became a " + adjectives[rand3] + ", " + adjectives[rand4] + " " + nouns[rand6] + ".";
+    /// document.getElementById('sentence').innerHTML = "&quot;" + content + "&quot;";
+    // return content
+};
+
+const generateParagraphs = (element, number) => {
+    number = number | 1;
+    if (!element) console.log("Please provide an element to append the paragraphs to");
+    for (var i = 0; i < number; i++) {
+        let para = document.createElement("p");
+        let node = document.createTextNode(sentence());
+        para.appendChild(node);
+        element.appendChild(para);
+    }
+}
+
+export { attrs, showBlocks, generateParagraphs };

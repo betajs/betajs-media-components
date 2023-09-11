@@ -1,5 +1,6 @@
 /* eslint-disable */
 export default (selectedOptions) => {
+    if (!selectedOptions) return '';
     let firstFound = false;
     let result = selectedOptions.map(option => {
         let prepend = null;

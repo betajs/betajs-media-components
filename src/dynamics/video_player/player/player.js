@@ -479,6 +479,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.set("next_active", true);
                             }
                             if (position > this.get("shownext") + this.get("noengagenext") && this.get("shownext") + this.get("noengagenext") > 0) {
+                                this.channel("next").trigger("autoPlayNext");
                                 this.channel("next").trigger("playNext");
                             }
                         }
@@ -677,6 +678,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (typeof this.get("showsettings") !== "undefined")
                         this.set("showsettingsmenu", this.get("showsettings"));
                     this.delegateEvents(null, this.channel("ads"), "ad");
+                    this.delegateEvents(null, this.channel("next"), "next");
                     this.set("prominent_title", this.get("prominent-title"));
                     this.set("closeable_title", this.get("closeable-title"));
                     // NOTE: below condition has to be before ads initialization

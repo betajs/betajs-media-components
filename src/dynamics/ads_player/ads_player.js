@@ -81,7 +81,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 channels: {
                     "ads:ad-error": function() {
                         this.set("adsplaying", false);
-                        if (this.parent().get("outstream")) this.parent().destroy();
+                        if (this.parent().get("outstream")) {
+                            this.parent().hidePlayerContainer();
+                        }
                     },
                     "ads:load": function() {
                         this.call("load");
@@ -245,6 +247,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     close: function() {
                         return this._hideContentPlayer();
+                    },
+                    hideCompanionAd: function() {
+                        return this._hideCompanionAd();
                     }
                 },
 
@@ -468,6 +473,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         }
                     }, this);
 
+                    this.set("companionadcontainer", this.__companionAdElement);
                     // Get HTML content from the companion ad.
                     // Write the content to the companion ad slot.
                     this.__companionAdElement.innerHTML = companionAd.getContent();
@@ -523,6 +529,13 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     }
                 },
 
+                _hideCompanionAd: function() {
+                    // If there is any content in the companion ad container, remove it
+                    if (this.__companionAdElement && Types.is_function(this.__companionAdElement.remove)) {
+                        this.__companionAdElement.remove();
+                    }
+                },
+
                 _outstreamStarted: function(dyn, options) {
                     this.set("isoutstream", true);
                 },
@@ -540,8 +553,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     dyn = dyn || this.parent();
                     if (Types.is_undefined(dyn.activeElement))
                         throw Error("Wrong dynamics instance was provided to _hideContentPlayer");
-                    dyn.activeElement().style.setProperty("display", "none");
-                    dyn.weakDestroy(); // << Create will not work as expected
+                    this._hideCompanionAd();
+                    dyn.hidePlayerContainer();
+                    // dyn.weakDestroy(); // << Create will not work as expected
                 }
             };
         }).register("ba-adsplayer")

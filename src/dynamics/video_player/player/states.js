@@ -213,8 +213,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Initial", [
         _started: function() {
             this.dyn.set("imageelement_active", false);
             this.dyn.set("videoelement_active", false);
-            // no need activation for the adsposition: mid and post
-            this.dyn.set("adsplayer_active", this.dyn.get("adshassource") && !this.dyn.get("delayadsmanagerload"));
             if (this.dyn.get("ready")) {
                 this.next("LoadPlayer");
             } else {
@@ -401,28 +399,57 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Outstream", [
 
         _started: function() {
             if (!this.dyn.get("adshassource")) {
-                if (typeof this.dyn.activeElement === "function")
-                    this.dyn.activeElement().style.setProperty("display", "none");
-                if (this.dyn.get("floatingoptions.floatingonly"))
+                if (this.dyn.get("floatingoptions.floatingonly") || this.dyn.get("view_type") === "is_floating") {
                     this.dyn.execute("close_floating");
+                } else {
+                    if (typeof this.dyn.activeElement === "function")
+                        this.dyn.hidePlayerContainer();
+                }
                 console.warn("Please provide ad source for the outstream");
+                return this.dyn.setNextOutstreamAdTagURL(true, this, "LoadPlayer");
             }
 
-            this.listenOn(this.dyn.channel("ads"), "adsManagerLoaded", function() {
-                if (this.dyn.get("is_floating")) {
+            this.listenOn(this.dyn.channel("ads"), "ad-error", function() {
+                if (this.dyn.get("outstream")) {
+                    this.dyn.hidePlayerContainer();
+                    if ((this.dyn.get("nextadtagurls") && this.dyn.get("nextadtagurls").length > 0) || (this.dyn.get("adtagurlfallbacks") && this.dyn.get("adtagurlfallbacks").length > 0)) {
+                        this.dyn.set("adtagurl", this.dyn.get("nextadtagurls").length > 0 ? this.dyn.get("nextadtagurls").shift() : this.dyn.get("adtagurlfallbacks").shift());
+                        this.dyn.scopes.adsplayer.execute("requestAds");
+                    } else {
+                        this.dyn.setNextOutstreamAdTagURL(false, this);
+                    }
+                } else if (this.dyn.get("adtagurlfallbacks") && this.dyn.get("adtagurlfallbacks").length > 0) {
+                    // This condition will be run if outstream is not enabled and fallbacks are available
+                    this.dyn.set("adtagurl", this.dyn.get("adtagurlfallbacks").shift());
+                    this.dyn.scopes.adsplayer.execute("requestAds");
+                } else {
+                    this.next(this._nextState());
+                }
+            }, this);
+
+            if (!this.dyn.get("adsmanagerloaded")) {
+                this.listenOn(this.dyn.channel("ads"), "adsManagerLoaded", function() {
+                    this._nextState();
+                }, this);
+            } else {
+                this._nextState();
+            }
+        },
+
+        _nextState: function() {
+            if (this.dyn.get("is_floating")) {
+                if (!this.destroyed())
+                    this.next("LoadAds", {
+                        position: 'outstream'
+                    });
+            } else {
+                Dom.onScrollIntoView(this.dyn.activeElement(), this.dyn.get("visibilityfraction"), function() {
                     if (!this.destroyed())
                         this.next("LoadAds", {
                             position: 'outstream'
                         });
-                } else {
-                    Dom.onScrollIntoView(this.dyn.activeElement(), this.dyn.get("visibilityfraction"), function() {
-                        if (!this.destroyed())
-                            this.next("LoadAds", {
-                                position: 'outstream'
-                            });
-                    }, this);
-                }
-            });
+                }, this);
+            }
         }
     });
 });
@@ -465,10 +492,15 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
                         // this.dyn.scopes.adsplayer.execute("reload");
                     }, this);
                     this.listenOn(this.dyn.channel("ads"), "ad-error", function() {
-                        if (this.dyn.get("adtagurlfallbacks") && this.dyn.get("adtagurlfallbacks").length > 0) {
+                        if (this.dyn.get("outstream")) {
+                            this.dyn.hidePlayerContainer();
+                            this.dyn.setNextOutstreamAdTagURL(false, this);
+                        } else if (this.dyn.get("adtagurlfallbacks") && this.dyn.get("adtagurlfallbacks").length > 0) {
                             this.dyn.set("adtagurl", this.dyn.get("adtagurlfallbacks").shift());
                             this.dyn.scopes.adsplayer.execute("requestAds");
-                        } else this.next(this._nextState());
+                        } else {
+                            this.next(this._nextState());
+                        }
                     }, this);
                 } else {
                     this.next("LoadVideo");
@@ -509,7 +541,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream", [
         dynamics: ["adscontrolbar"],
 
         _started: function() {
-            this.dyn._outstreamCompleted = false;
+            // if player is not hidden below method will do nothing
+            this.dyn.showHiddenPlayerContainer();
+
             if (this.dyn.get("sticky") && this.dyn.stickyHandler) this.dyn.stickyHandler.start();
 
             this.dyn.channel("ads").trigger("outstreamStarted", this.dyn);
@@ -518,9 +552,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream", [
                 this.afterAdCompleted();
             }, this);
 
-            this.listenOn(this.dyn.channel("ads"), "ad-error", function(message) {
-                console.log("Error on loading ad. Details: ", message);
-            }, this);
+            if (this.dyn.get("outstreamoptions.maxadstoshow") > 0)
+                this.dyn.set("outstreamoptions.maxadstoshow", this.dyn.get("outstreamoptions.maxadstoshow") - 1);
 
             /* if this trigger before allAdsCompleted, setTimeout error shows in console
             // In case, if ad contains nonLinear and requests to resume playing the content
@@ -530,9 +563,12 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream", [
         },
 
         afterAdCompleted: function() {
-            if (!this.dyn || this.dyn._outstreamCompleted)
-                return;
-            this.dyn._outstreamCompleted = true;
+            if (!this.dyn) return;
+            if (this.dyn.get("outstreamoptions.maxadstoshow") !== 0) {
+                this.dyn.setNextOutstreamAdTagURL(false, this, "LoadPlayer");
+            } else {
+                this.dyn.hidePlayerContainer();
+            }
             this.dyn.trigger("outstream-completed");
             // Somehow below code is running even this.dyn is undefined and this states checked in the above statement
             if (this.dyn) this.dyn.channel("ads").trigger("outstreamCompleted", this.dyn);
@@ -554,9 +590,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.ReloadAds", [
                 // In case if we want to launch it manually via settings "adsposition: 'post'" or after re-attach on playlist,
                 // then we need reset ads manager and wait for adsManager Loaded
                 if (this.dyn.get("adsplaypostroll")) {
-                    if (this.dyn.get("adsplayer_active"))
-                        this.dyn.set("adsplayer_active", false);
-                    this.dyn.set("adsplayer_active", true);
+                    this.dyn.resetAdsPlayer();
                 } else {
                     // if adsManager do not load within 1 second will forward to the NextVideo state
                     this.auto_destroy(new Timer({

@@ -42,9 +42,21 @@
     <link href="/static/dist/themes/theatre/style.css" rel="stylesheet" />
 
     <script>
+        let player;
         if (!HTMLScriptElement.supports?.("importmap")) {
             console.log("Browser does not supports import maps. Please use modern browser for tetsing.");
         }
+        const hidePlayer = () => {
+            if (player) {
+                player.hidePlayerContainer();
+            }
+        };
+
+        const showPlayer = () => {
+            if (player) {
+                player.showHiddenPlayerContainer();
+            }
+        };
     </script>
 </head>
 <body style="background: #EEE; margin: 0; padding: 0 15px">
@@ -57,6 +69,19 @@
 <div class="row">
     <div class="col-xs-12">
         <div id="player"></div>
+        <hr/>
+        <div style="width: 48%; float: left">
+            <button class="btn btn-danger btn-block btn-xs"
+                    style="width: 100%; background-color: #ff6256;"
+                    onclick="hidePlayer()"
+            >HIDE</button>
+        </div>
+        <div style="width: 48%; float: right">
+            <button class="btn btn-success btn-block btn-xs"
+                    style="width: 100%; background-color: #5daa96;"
+                    onclick="showPlayer()"
+            >SHOW</button>
+        </div>
     </div>
 </div>
 
@@ -76,6 +101,10 @@
     // Show content for floating and sticky testing
     const beforePlayerContent = document.getElementById("before-player-content");
     const afterPlayerContent = document.getElementById("after-player-content");
+
+    const adTagURL = `https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=`;
+    const adErrorTagURL = '//localhost:5050/static/demos/vast-samples/---error-url---';
+
     if (beforePlayerContent && afterPlayerContent && showBlocks > 0) {
         afterPlayerContent.style.display = "block";
         generateParagraphs(afterPlayerContent.firstElementChild, 10);
@@ -85,10 +114,33 @@
         }
     }
 
-    var player = new BetaJS.MediaComponents.VideoPlayer.Dynamics.Player({
+    player = new BetaJS.MediaComponents.VideoPlayer.Dynamics.Player({
         element: $('#player'),
         attrs
     });
+
+    // Test for outstream ads, and it's recruitment process
+    let _index = 0;
+    const adTagURLS = [adErrorTagURL, "", adErrorTagURL, adTagURL, adErrorTagURL, adTagURL, adTagURL];
+    player.requestForTheNextAdTagURL = () => {
+        var promise = BetaJS.Promise.create();
+        // inherit this function from the parent player and set a new next ad tag
+        setTimeout(() => {
+            console.log("Will return success ad tag via BetaJS.Promise", adTagURLS[_index]);
+            promise.asyncSuccess(adTagURLS[_index]);
+            _index++;
+        }, 1000);
+        return promise;
+        // return new Promise((resolve, reject) => {
+        //     setTimeout(() => {
+        //     console.log("Will return success ad tag via window global Promise", adTagURLS[_index]);
+        //         adTagURLS[_index] ? resolve(adTagURLS.shift()) : reject(adTagURLS.shift());
+        //         _index++;
+        //     }, 1000);
+        // });
+    }
+    // setTimeout(() => {console.log("Now our ad tag URL IS: ", player.get("adtagurl").slice(0, 20));}, 13000);
+    // setInterval(() => {console.log("Now our ad tag URL IS: ", player.get("adtagurl").slice(0, 20));}, 1000);
 
     player.on("floatingplayerclosed", () => console.log("Floating Player Closed"), player);
 

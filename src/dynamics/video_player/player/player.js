@@ -16,6 +16,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "base:Collections.Collection",
     "base:Time",
     "base:Timers",
+    "base:Promise",
     "base:TimeFormat",
     "base:States.Host",
     "base:Classes.ClassRegistry",
@@ -62,7 +63,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.PlayerStates.ErrorVideo",
     "module:VideoPlayer.Dynamics.PlayerStates.PlayVideo",
     "module:VideoPlayer.Dynamics.PlayerStates.NextVideo"
-], function(Class, Assets, DatasetProperties, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, PlayerSupport, Types, Objs, Strings, Collection, Time, Timers, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
+], function(Class, Assets, DatasetProperties, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, PlayerSupport, Types, Objs, Strings, Collection, Time, Timers, Promise, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, [StylesMixin, function(inherited) {
@@ -169,7 +170,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "imasettings": {},
                         "adtagurl": null,
                         "adchoiceslink": null,
-                        "adtagurlfallbacks": null,
+                        "adtagurlfallbacks": [],
+                        "nextadtagurls": [],
                         "inlinevastxml": null,
                         "hidebeforeadstarts": true, // Will help hide player poster before ads start
                         "showplayercontentafter": null, // we can set any microseconds to show player content in any case if ads not initialized
@@ -281,7 +283,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             "autoplay": null,
                             "outstreamoptions": {
                                 corner: true,
-                                hideOnCompletion: true
+                                hideOnCompletion: true,
+                                recurrenceperiod: 30000, // Period when a new request will be sent if ads is not showing, default: 30 seconds
+                                maxadstoshow: -1 // Maximum number of ads to show, if there's next ads or errors occurred default: -1 (unlimited)
                             }
                         },
                         "silent_attach": false,
@@ -307,6 +311,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             "dimensions": {
                                 "width": null,
                                 "height": null
+                            },
+                            "hiddenelement": {
+                                "visible": true
                             }
                         },
                         "placeholderstyle": "",
@@ -406,6 +413,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "adtagurl": "string",
                     "adchoiceslink": "string",
                     "adtagurlfallbacks": "array",
+                    "nextadtagurls": "array",
                     "inlinevastxml": "string",
                     "imasettings": "jsonarray",
                     "adsposition": "string",
@@ -534,6 +542,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         if (!!adsTagURL || !!inlineVastXML && !this.get("adshassource")) {
                             this.set("adshassource", true);
+                            this.set("adsplayer_active", !this.get("delayadsmanagerload"));
                             // On error, we're set initialized to true to prevent further attempts
                             // in case if ads will not trigger any event, we're setting initialized to true after defined seconds and wil show player content
                             if (!this.__adInitilizeChecker && this.get("showplayercontentafter")) {
@@ -553,7 +562,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             return false;
                         }
                     },
-                    "containerSizingStyles:aspect_ratio,height,width,floating_height,floating_width,floating_top,floating_right,floating_bottom,floating_left,is_floating,adsinitialized": function(aspectRatio, height, width, floatingHeight, floatingWidth, floatingTop, floatingRight, floatingBottom, floatingLeft, isFloating, adsInitialized) {
+                    "containerSizingStyles:aspect_ratio,height,width,floating_height,floating_width,floating_top,floating_right,floating_bottom,floating_left,is_floating,adsinitialized,states.hiddenelement": function(aspectRatio, height, width, floatingHeight, floatingWidth, floatingTop, floatingRight, floatingBottom, floatingLeft, isFloating, adsInitialized, hiddenelement) {
                         var containerStyles, styles, calculated;
                         styles = {
                             aspectRatio: aspectRatio
@@ -617,6 +626,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 // If container width is in percentage, then we need to set the width of the player to auto
                                 // in other case width will be applied twice
                                 styles.width = "100%";
+                            }
+
+                            if (hiddenelement && !hiddenelement.visible) {
+                                this.set("states.hiddenelement.styles.display", containerStyles.display);
+                                this._applyStyles(this.activeElement(), {
+                                    display: 'none'
+                                }, this.__lastContainerSizingStyles || null);
                             }
                         }
                         return styles;
@@ -1636,7 +1652,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                         if (this.get('disablepause')) return;
 
-                        if (this.get("playing_ad")) this.scopes.adsplayer.execute("pause");
+                        if (this.get("playing_ad") || this.get("adsplaying"))
+                            this.scopes.adsplayer.execute("pause");
 
                         if (this.get("playing")) {
                             if (this.player && this.get("broadcasting")) {
@@ -1868,25 +1885,28 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.channel("ads").trigger("resume");
                     },
 
-                    close_floating: function() {
+                    close_floating: function(destroy) {
+                        destroy = destroy || false;
                         this.trigger("floatingplayerclosed");
                         if (this.get("sticky") || this.get("floatingoptions.floatingonly")) {
+                            this.pause();
+                            if (this.stickyHandler) {
+                                if (destroy) this.stickyHandler.destroy();
+                                else this.stickyHandler.stop();
+                            }
                             if (this.get("floatingoptions.hideplayeronclose") || this.get("floatingoptions.floatingonly")) {
+                                // If player is not sticky but floating we need hide whole player,
+                                // this is true also if we want to hide player container on floating close
                                 // Hide container element if player will be destroyed
-                                if (this.activeElement()) {
-                                    this._applyStyles(this.activeElement(), {
-                                        display: "none"
-                                    });
-                                }
-                                this.destroy();
+                                this.hidePlayerContainer();
+                                if (destroy) this.destroy();
                             } else {
-                                this.pause();
-                                this.set("sticky", false);
+                                // If we want left player container visible and close floating player
                                 this.set("view_type", "default");
-                                if (this.stickyHandler) this.stickyHandler.destroy();
                             }
                         } else {
-                            this.destroy();
+                            this.hidePlayerContainer();
+                            if (destroy) this.destroy();
                         }
                     }
                 },
@@ -2006,6 +2026,121 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         return img.width;
                     }
                     return NaN;
+                },
+
+                hidePlayerContainer: function() {
+                    // If no there will be "states.hiddenelement.visible" condition, states will be overwritten
+                    if (this.activeElement() && this.get("states.hiddenelement.visible")) {
+                        this.set("states.hiddenelement.dimensions", Dom.elementDimensions(this.activeElement()));
+                        // save last display style for the hidden element
+                        this.set("states.hiddenelement.styles.display", this.activeElement().style.display);
+                        this._applyStyles(this.activeElement(), {
+                            display: 'none'
+                        }, this.__lastContainerSizingStyles);
+                        // If floating sidebar then it will be hidden via player itself so not set companionads as []
+                        if (this.scopes.adsplayer) this.scopes.adsplayer.execute("hideCompanionAd");
+                        this.set("states.hiddenelement.visible", false);
+                        this.set("adsplayer_active", false);
+                        if (this.get("playing")) {
+                            this.pause();
+                            this.set("states.hiddenelement.playing", true);
+                        }
+                    }
+                },
+
+                showHiddenPlayerContainer: function() {
+                    // Resume sticky handler if it is not destroyed
+                    if (this.stickyHandler && !this.stickyHandler.destroyed() && this.stickyHandler.observing === false) {
+                        this.stickyHandler.resume();
+                    }
+                    // If player is visible no need todo anything
+                    if (this.get("states.hiddenelement.visible")) return;
+                    if (this.activeElement()) {
+                        this.set("states.hiddenelement.visible", true);
+                        this._applyStyles(this.activeElement(), {
+                            display: this.get("containerSizingStyles.display") || 'inline-block'
+                        });
+                        if (this.get("states.hiddenelement.playing")) this.play();
+                    }
+                },
+
+                resetAdsPlayer: function() {
+                    if (this.get("adsplayer_active")) this.set("adsplayer_active", false);
+                    this.set("adsplayer_active", true);
+                },
+
+                getNextOutstreamAdTagURLs: function(immediate) {
+                    immediate = immediate || false;
+                    var promise = Promise.create();
+                    if (this.get("outstreamoptions.maxadstoshow") === 0) {
+                        return promise.asyncError("Limit of showing ads exceeded.", true);
+                    }
+                    if ((this.get("nextadtagurls") && this.get("nextadtagurls").length > 0) || (this.get("adtagurlfallbacks") && this.get("adtagurlfallbacks").length > 0)) {
+                        promise.asyncSuccess(this.get("nextadtagurls").length > 0 ? this.get("nextadtagurls").shift() : this.get("adtagurlfallbacks").shift());
+                    } else {
+                        Async.eventually(function() {
+                            var _promise = this.requestForTheNextAdTagURL();
+                            var isGlobalPromise = typeof _promise.then === "function";
+                            return Types.is_function(this.requestForTheNextAdTagURL) ?
+                                _promise[isGlobalPromise ? 'then' : 'success'](function(response) {
+                                    return promise.asyncSuccess(response);
+                                }, this)[isGlobalPromise ? 'catch' : 'error'](function(error) {
+                                    return promise.asyncError(error);
+                                }, this) :
+                                console.log("Please define requestForTheNextAdTagURL method with Promise.");
+                        }, this, immediate ? 100 : this.get("outstreamoptions.recurrenceperiod") || 30000);
+                    }
+                    return promise;
+                },
+
+                /**
+                 * This method should be overwritten.
+                 * @return {*}
+                 */
+                requestForTheNextAdTagURL: function() {
+                    var promise = Promise.create();
+                    // inherit this function from the parent player and set a new next ad tag
+                    promise.asyncSuccess([]);
+                    return promise;
+                },
+
+                /**
+                 * @param immediate
+                 * @param stateContext
+                 * @param nextState
+                 * @private
+                 */
+                setNextOutstreamAdTagURL: function(immediate, stateContext, nextState) {
+                    immediate = immediate || false;
+                    // if we have set nextadtagurls, then we will try to load next adtagurl
+                    this.getNextOutstreamAdTagURLs(immediate)
+                        .success(function(response) {
+                            if (typeof response === "string") {
+                                this.set("adtagurl", response);
+                            } else if (response && typeof response.shift === "function" && response.length > 0) {
+                                this.set("adtagurl", response.shift());
+                                // if still length is more than 0, then set it to nextadtagurls
+                                if (response.length > 0) this.set("nextadtagurls", response);
+                            } else {
+                                return this.setNextOutstreamAdTagURL(immediate, stateContext, nextState);
+                            }
+
+                            if ((!immediate && this.scopes.adsplayer) || this.get("adsmanagerloaded")) {
+                                this.resetAdsPlayer();
+                            }
+
+                            if (stateContext && nextState) {
+                                return stateContext.next(nextState);
+                            } else {
+                                return stateContext.next("LoadAds", {
+                                    position: 'outstream'
+                                });
+                            }
+                        }, this)
+                        .error(function(err, complete) {
+                            console.log("Error on getting next outstream tag", err);
+                            if (!complete) return stateContext.next("LoadPlayer");
+                        }, this);
                 },
 
                 aspectRatio: function() {

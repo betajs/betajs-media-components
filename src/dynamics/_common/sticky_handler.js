@@ -22,6 +22,7 @@ Scoped.define("module:StickyHandler", [
                 this.threshold = options.threshold;
                 if (!options["static"]) this.events = this.auto_destroy(new DomEvents());
                 this.floating = false;
+                this.observing = false;
             },
 
             destroy: function() {
@@ -42,6 +43,24 @@ Scoped.define("module:StickyHandler", [
             start: function() {
                 if (!this.elementIsVisible && !this.floating) this.transitionToFloat();
                 this.paused = false;
+            },
+
+            stop: function() {
+                if (!this.observing) return;
+                if (this._elementObserver && this.element)
+                    this._elementObserver.unobserve(this.element);
+                if (this._containerObserver && this.container)
+                    this._containerObserver.unobserve(this.container);
+                this.observing = false;
+            },
+
+            resume: function() {
+                if (this.observing) return;
+                if (this._elementObserver && this.element)
+                    this._elementObserver.observe(this.element);
+                if (this._containerObserver && this.container)
+                    this._containerObserver.observe(this.container);
+                this.observing = true;
             },
 
             isDragging: function() {
@@ -116,6 +135,7 @@ Scoped.define("module:StickyHandler", [
 
                 this._elementObserver.observe(this.element);
                 this._containerObserver.observe(this.container);
+                this.observing = true;
             },
 
             _initEventListeners: function() {

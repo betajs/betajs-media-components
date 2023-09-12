@@ -21,3 +21,4 @@ google-translate-creds.json
 *.log
 package-lock.json
 /demos/kargo/
+/pnpm-lock.yaml

@@ -189,6 +189,10 @@
         // console.log('Portrait after ?? ', player.isPortrait(), player.isLandscape());
     }, player);
 
+    setInterval(() => {
+        console.log("Interval : ", " has interaction ", player.get("userhadplayerinteraction"));
+    }, 2000);
+
     player.on("ended", function () {
         // console.log('ENDED');
     }, player);

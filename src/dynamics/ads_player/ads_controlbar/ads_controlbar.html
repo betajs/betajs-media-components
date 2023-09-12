@@ -20,8 +20,8 @@
         </span>
     </div>
 
-    <div ba-if="{{customcontroller && !media}}" class="{{css}}-overlay {{cssadsplayer}}-ad-click-tracker
-        {{clickthroughurl && controlbarisvisible ? csscommon + '-clickable' : ''}}"
+    <div ba-if="{{!userhadplayerinteraction && linear}}"
+         class="{{css}}-overlay {{cssadsplayer}}-ad-click-tracker {{csscommon}}-clickable"
          ba-click="{{ad_clicked()}}"
     ></div>
 

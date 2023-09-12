@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.399 - 2023-09-06
+betajs-media-components - v0.0.400 - 2023-09-12
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.399",
-    "datetime": 1694007940084
+    "version": "0.0.400",
+    "datetime": 1694528887438
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -3611,6 +3611,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Next", [
                         this.channel("next").trigger("setStay");
                     },
                     next: function() {
+                        this.channel("next").trigger("manualPlayNext");
                         this.channel("next").trigger("playNext");
                     }
                 }
@@ -4174,6 +4175,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.set("next_active", true);
                             }
                             if (position > this.get("shownext") + this.get("noengagenext") && this.get("shownext") + this.get("noengagenext") > 0) {
+                                this.channel("next").trigger("autoPlayNext");
                                 this.channel("next").trigger("playNext");
                             }
                         }
@@ -4280,9 +4282,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }
                         }
 
-                        if (height) styles.height = typeof height === "string" && (height[height.length - 1] === "%" || height === 'auto') ? height : parseFloat(height).toFixed(2) + "px";
-                        if (width) styles.width = typeof width === "string" && (width[width.length - 1] === "%" || width === 'auto') ? width : parseFloat(width).toFixed(2) + "px";
-
+                        if (height) styles.height = isNaN(height) ? height : parseFloat(height).toFixed(2) + "px";
+                        if (width) styles.width = isNaN(width) ? width : parseFloat(width).toFixed(2) + "px";
 
                         // If we have an ads and before content we will not show the player poster with loader at all
                         if ((this.get("adshassource") && !adsInitialized) && this.get("hidebeforeadstarts") && (this.get("autoplay") || this.get("outstream"))) {
@@ -4373,6 +4374,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (typeof this.get("showsettings") !== "undefined")
                         this.set("showsettingsmenu", this.get("showsettings"));
                     this.delegateEvents(null, this.channel("ads"), "ad");
+                    this.delegateEvents(null, this.channel("next"), "next");
                     this.set("prominent_title", this.get("prominent-title"));
                     this.set("closeable_title", this.get("closeable-title"));
                     // NOTE: below condition has to be before ads initialization

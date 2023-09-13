@@ -27,7 +27,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     linear: true, // should be true to cover all the player container
                     playing: false,
                     currenttime: 0,
-                    volume: 1,
+                    volume: 0,
                     isoutstream: false,
                     hidecontrolbar: false,
                     showactionbuttons: false,

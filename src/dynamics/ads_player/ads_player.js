@@ -119,6 +119,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.set("volume", this.adsManager.getVolume());
                         this.set("duration", event.getAdData().duration);
                         this.set("moredetailslink", event.getAdData().clickThroughUrl);
+                        var parent = this.parent();
                     },
                     "ads:volumeChange": function() {
                         this.set("volume", this.adsManager.getVolume());
@@ -168,7 +169,13 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     this.adsManager = this.auto_destroy(new AdsManager(adManagerOptions, dynamics));
                     this.adsManager.requestAds(this._baseRequestAdsOptions());
                     this.adsManager.on("all", function(event, data) {
-                        if (event === "adsManagerLoaded") this.set("adsmanagerloaded", true);
+                        if (event === "adsManagerLoaded") {
+                            this.set("adsmanagerloaded", true);
+                            // Makes active element not redirect to click through URL on first click
+                            if (!dynamics.get("userhadplayerinteraction") && dynamics.activeElement()) {
+                                dynamics.activeElement().blur();
+                            }
+                        }
                         this.channel("ads").trigger(event, data);
                     }, this);
                     if (dynamics) {

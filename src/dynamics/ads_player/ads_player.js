@@ -119,7 +119,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.set("volume", this.adsManager.getVolume());
                         this.set("duration", event.getAdData().duration);
                         this.set("moredetailslink", event.getAdData().clickThroughUrl);
-                        var parent = this.parent();
                     },
                     "ads:volumeChange": function() {
                         this.set("volume", this.adsManager.getVolume());
@@ -151,6 +150,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 create: function() {
+                    var focusedElement, adsManagedEvents;
                     var dynamics = this.parent();
                     var adContainer = this.getAdContainer();
                     var adManagerOptions = {
@@ -168,12 +168,25 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     }
                     this.adsManager = this.auto_destroy(new AdsManager(adManagerOptions, dynamics));
                     this.adsManager.requestAds(this._baseRequestAdsOptions());
+                    // Will list events which are require some additional actions,
+                    // ignore events like adsProgress for additional statement checks
+                    adsManagedEvents = ['adsManagerLoaded', 'start'];
                     this.adsManager.on("all", function(event, data) {
-                        if (event === "adsManagerLoaded") {
-                            this.set("adsmanagerloaded", true);
-                            // Makes active element not redirect to click through URL on first click
-                            if (!dynamics.get("userhadplayerinteraction") && dynamics.activeElement()) {
-                                dynamics.activeElement().blur();
+                        if (adsManagedEvents.indexOf(event) !== -1) {
+                            if (event === "adsManagerLoaded") {
+                                this.set("adsmanagerloaded", true);
+                                // Makes active element not redirect to click through URL on first click
+                                if (!dynamics.get("userhadplayerinteraction") && dynamics.activeElement() && this.get("unmuteonclick")) {
+                                    dynamics.activeElement().blur();
+                                    dynamics.once("change:userhadplayerinteraction", function(hasInteraction) {
+                                        if (hasInteraction && Types.is_defined(focusedElement) && focusedElement instanceof HTMLElement) {
+                                            focusedElement.focus();
+                                        }
+                                    }, dynamics);
+                                }
+                            }
+                            if (event === 'start' && !dynamics.get("userhadplayerinteraction")) {
+                                focusedElement = document.activeElement;
                             }
                         }
                         this.channel("ads").trigger(event, data);

@@ -293,7 +293,7 @@
             ba-event:pause_ads="pause_ads"
         ></ba-{{dynfloatingsidebar}}>
     </div>
-    <div ba-if="{{is_floating && floatingoptions.closeable}}"
+    <div ba-if="{{!fullscreened && is_floating && floatingoptions.closeable}}"
          class="{{cssplayer}}-close-container"
          ba-click="close_floating()"
          ba-on:touchend="{{close_floating()}}"

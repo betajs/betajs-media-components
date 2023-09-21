@@ -588,11 +588,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                             if (floatingWidth) width = floatingWidth;
                             if (floatingHeight) height = floatingHeight;
-
-                            // if element is not floating no need below code
-                            if (this.get("with_sidebar") && this.get("sidebarSizingStyles.width")) {
-                                width += Number(parseFloat(this.get("sidebarSizingStyles.width")).toFixed(2));
-                            }
                         }
 
                         if (height) styles.height = isNaN(height) ? height : parseFloat(height).toFixed(2) + "px";
@@ -644,11 +639,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.get("csscommon") + "-sticky-" + this.get("sticky-position") || this.get("floatingoptions.desktop.position") || "bottom-right",
                             this.StickyHandler && this.StickyHandler.elementWasDragged() ? "ba-commoncss-fade-up" : ""
                         ].join(" ");
-                    },
-                    "sidebarSizingStyles:floating_height": function(floatingHeight) {
-                        return {
-                            height: parseFloat(floatingHeight).toFixed() + 'px'
-                        };
                     },
                     "buffering:buffered,position,last_position_change_delta,playing": function(buffered, position, ld, playing) {
                         if (playing) this.__playedStats(position, this.get("duration"));

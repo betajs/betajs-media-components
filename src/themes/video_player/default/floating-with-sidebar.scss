@@ -1,3 +1,7 @@
+.#{$cssplayer}-sidebar {
+    flex-grow: 1;
+    max-width: 50%;
+}
 .#{$cssplayer}-with-sidebar {
     flex-wrap: nowrap;
     flex-direction: row;

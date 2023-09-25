@@ -1,0 +1,20 @@
+<div ba-if="{{tooltiptext}}" role="tooltip"
+     title="{{(pauseonhover && disappearafter > 0) ? string('hover-to-pause-tooltip-close') : tooltiptext}}"
+     class="{{csscommon}}-tooltip-container {{csscommon}}-tooltip-{{position}}
+     {{csscommon}}-fade-{{tooltiptext ? 'in' : 'out'}}
+     {{ (pauseonhover && disappearafter > 0) ? csscommon + '-pause-on-hover' : '' }}"
+     onmouseover="{{mouseover()}}" onmouseout="{{mouseout()}}"
+>
+    <div data-selector="tooltip-text" class="{{csscommon}}-tooltip-text">
+        {{tooltiptext}}
+    </div>
+    <div ba-if="{{closeable}}" ba-click="{{close()}}"
+         data-selector="close-tooltip"
+         class="{{csscommon}}-close-tooltip"
+    >
+        <i class="{{csscommon}}-icon-cancel"></i>
+    </div>
+    <div data-selector="tooltip-progress" role="progressbar"
+         class="{{csscommon}}-tooltip-progress"
+    ></div>
+</div>

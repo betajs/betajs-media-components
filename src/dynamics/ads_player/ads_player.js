@@ -181,6 +181,10 @@ Scoped.define("module:Ads.Dynamics.Player", [
                                     dynamics.once("change:userhadplayerinteraction", function(hasInteraction) {
                                         if (hasInteraction && Types.is_defined(focusedElement) && focusedElement instanceof HTMLElement) {
                                             focusedElement.focus();
+                                            dynamics.showTooltip({
+                                                tooltiptext: "Click again to learn more",
+                                                disappearafterseconds: 5
+                                            });
                                         }
                                     }, dynamics);
                                 }

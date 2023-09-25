@@ -1,32 +1,43 @@
-.#{$csscommon}-tooltip-container .#{$csscommon}-tooltiptext {
-    visibility: hidden;
-    min-width: 120px;
-    background-color: #555;
-    color: #fff;
+.#{$csscommon}-tooltip-container{
+    border-radius: 5px;
+    background-color: #dddddd;
+    color: #444950;
+    cursor: text;
+    display: inline-block;
+    min-width: 80px;
+    padding: 5px 10px;
+    position: absolute;
     text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 1;
-    top: 10px;
-    right: 10px;
-    margin-left: -60px;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.#{$csscommon}-tooltip-container .#{$csscommon}-tooltiptext::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #555 transparent transparent transparent;
-}
-
-.#{$csscommon}-tooltip-container .#{$csscommon}-tooltiptext {
-    visibility: visible;
-    animation: #{$csscommon}-fade-in 0.75s ease forwards;
+    z-index: 10;
+    &.#{$csscommon}-pause-on-hover {
+        cursor: wait;
+    }
+    & > .#{$csscommon}-close-tooltip {
+        display: inline;
+        font-size: 10px;
+        position: relative;
+        bottom: 5px;
+        border-radius: 50%;
+        border: 1px solid;
+        cursor: pointer;
+    }
+    .#{$csscommon}-tooltip-text {
+        display: inline-block;
+    }
+    &.#{$csscommon}-tooltip-top-right {
+        top: 20px;
+        right: 20px;
+    }
+    &.#{$csscommon}-tooltip-top-left {
+        top: 20px;
+        left: 20px;
+    }
+    &.#{$csscommon}-tooltip-bottom-left {
+        bottom: 50px;
+        left: 20px;
+    }
+    &.#{$csscommon}-tooltip-bottom-right {
+        bottom: 50px;
+        right: 20px;
+    }
 }

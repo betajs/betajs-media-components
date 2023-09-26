@@ -32,7 +32,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Tooltip", [
                     "change:tooltiptext": function(message) {
                         // If no message or disappear after seconds is set to -1, don't hide automatically
                         if (!message || this.get("disappearafter") < 0) return;
-                        var progressbarSteps = 100;
+                        // on showprogressbar fewer steps make it smoother
+                        var progressbarSteps = this.get("showprogressbar") ? 100 : 1000;
                         this._timer = this.auto_destroy(new Timers.Timer({
                             context: this,
                             fire: function() {

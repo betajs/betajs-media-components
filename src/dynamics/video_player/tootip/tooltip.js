@@ -71,7 +71,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Tooltip", [
                         this.set("disappearafter", this.get("disappearafterinitial"));
                         this.set("showonhover", tooltipCollection.get("showonhover") || false);
                         this.set("showprogressbar", tooltipCollection.get("showprogressbar") || false);
-                        this.set("pauseonhover", tooltipCollection.get("pauseonhover") || true);
+                        this.set("pauseonhover", tooltipCollection.get("pauseonhover") || false);
 
                         // NOTE: this line should be the last as, it will trigger change:tooltiptext event
                         this.set("tooltiptext", this.get("tooltip").get("tooltiptext"));

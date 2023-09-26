@@ -1601,7 +1601,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         tooltiptext: tooltip.tooltiptext,
                         position: tooltip.position || 'top-right',
                         closeable: tooltip.closeable || false,
-                        pauseonhover: tooltip.pauseonhover || true,
+                        pauseonhover: tooltip.pauseonhover || false,
                         showprogressbar: tooltip.showprogressbar || false,
                         disappearafterseconds: tooltip.disappearafterseconds || 2,
                         showonhover: tooltip.showonhover || false,

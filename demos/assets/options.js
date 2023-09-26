@@ -106,16 +106,23 @@ if (params.cmp) {
     attrs.companionad = Number(params.flt) === 1 ? true : '[300,]|bottom';
 }
 
+// Show Companion Ad
+if (params.unmuteonclick || params.umc) {
+    attrs.unmuteonclick = Number(params.umc) > 0;
+    if (attrs.unmuteonclick) attrs.muted = true;
+}
+
 if (params.nextwidget) {
-    attrs.nextwidget = params.nextwidget;
+    attrs.nextwidget = Number(params.nextwidget) === 1;
 }
 
 if (params.shownext) {
-    attrs.shownext = Number(params.nextsn) === 1;
+    // Seems shownext has to be float number
+    attrs.shownext = Number(params.shownext);
 }
 
 if (params.noengagenext) {
-    attrs.noengagenext = Number(params.nextsn) === 1;
+    attrs.noengagenext = Number(params.noengagenext);
 }
 
 attrs = {...attrs, ...{

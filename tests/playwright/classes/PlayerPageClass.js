@@ -181,13 +181,14 @@ class PlayerPage {
      */
     async waitNextSecondPosition(waitFor = 1, debug = false, timeout = 12000) {
         const position = await this.getPlayerAttribute(`position`);
+        const isPlaying = await this.getPlayerAttribute(`playing`);
         return this.page.waitForFunction(
             (args) => {
-                const [cp, wait, debug] = args;
+                const [cp, isPlaying, wait, debug] = args;
                 if (debug)
                     console.log(`Current position: ${window.player.get("position")} and wait for: ${cp + wait}`);
-                return window.player.get("position") >= (cp + wait)
-            }, [position, waitFor, debug], {timeout}
+                return window.player.get("position") >= (cp + wait) || isPlaying;
+            }, [position, isPlaying, waitFor, debug], {timeout}
         );
     }
 
@@ -353,9 +354,18 @@ class PlayerPage {
         // Will wait while remaining seconds will be less than 3
         await this.waitAdsRemainingSeconds();
 
-        const muteVolume = adsControlbarContainer.getByTitle(`Mute sound`);
+        const muteVolume = await adsControlbarContainer.getByTitle(`Mute sound`);
         await muteVolume.waitFor({ state: 'visible', timeout: 3000 });
         await expect(muteVolume).toBeVisible();
+
+        let tooltipContainer;
+        const clickThroughUrl = await this.getAdsPlayerAttribute('addata.clickThroughUrl');
+        const tooltipClickThoroughText = await this.getPlayerAttribute('presetedtooltips.onclicktroughexistence.tooltiptext');
+        if (clickThroughUrl && tooltipClickThoroughText) {
+            tooltipContainer = await playerContainer.getByRole('tooltip', { name: tooltipClickThoroughText });
+            // Only if there is click through URL tooltip should be visible.
+            await expect(tooltipContainer).toBeVisible();
+        }
 
         await this.waitAdsRemainingSeconds();
 
@@ -390,6 +400,11 @@ class PlayerPage {
 
         // Will wait while remaining seconds will be less than 3
         await this.waitAdsRemainingSeconds(3);
+
+        if (typeof tooltipContainer !== "undefined") {
+            // tooltipContainer should not be visible for this period
+            await expect(tooltipContainer).not.toBeVisible();
+        }
 
         if (skipAd) {
             if (iFrame) {
@@ -487,14 +502,16 @@ class PlayerPage {
      */
     async contentVideoExperienceFlowWithNextVideo( options ) {
         let {
-            nextEngaged = true, unmuteOnClick = true,
+            nextEngaged = true,
+            unmuteOnClick = true,
             recurring = true,
             mutedOnStart = true,
-            preroll = false
+            preroll = false,
+            stayEngaged = false,
+            turns = 0
         } = options;
 
-        console.log("What is preroll and reci: ", preroll, recurring);
-
+        ++turns;
         let volume, position, playButton, unmuteButton, muteButton, isPlaying;
 
         if (preroll) {
@@ -513,8 +530,8 @@ class PlayerPage {
 
         const widgetShowedSecond = await this.getPlayerAttribute(`shownext`);
         const nextWidgetContainer = await this.getLocatorInState(
-            `.ba-player-next-style-desktop`, playerContainer, 'visible', true,
-            (widgetShowedSecond + 0.5) * 1000
+            `.ba-player-toggle-next-container`, playerContainer, 'visible', true,
+            (widgetShowedSecond + 2) * 1000
         );
         const nextButton = await nextWidgetContainer.locator('a').filter({ hasText: 'Next Video' });
         const waitButton = await nextWidgetContainer.locator('a').filter({ hasText: 'Stay & Watch' });
@@ -522,16 +539,16 @@ class PlayerPage {
 
         await expect(nextButton).toBeVisible();
         await expect(waitButton).toBeVisible();
-        if (recurring) {
+
+        if (recurring && turns <= 2) {
             const nextWidgetPoster = await this.getLocatorInState(
-                `img[src="${recurring ? SAMPLE_3_VIDEO_POSTER : SAMPLE_2_VIDEO_POSTER}"]`,
+                `img[src="${turns === 1 ? SAMPLE_3_VIDEO_POSTER : SAMPLE_2_VIDEO_POSTER }"]`,
                 playerContainer, 'visible', true
             );
         } else {
             await pauseButton.click();
-            await this.waitNextSecondPosition(15, {
-                timeout: 40_000
-            });
+            // NOTE: not recommended to use page.delay
+            await this.page.waitForTimeout(3000);
         }
 
         position = await this.getPlayerAttribute(`position`);
@@ -540,73 +557,79 @@ class PlayerPage {
         if (unmuteOnClick) {
             volume = await this.getPlayerAttribute(`volume`);
             if (mutedOnStart) {
-                expect(volume).toEqual(0);
-                unmuteButton = await this.getLocatorInState(
-                    `.ba-videoplayer-rightbutton-container[title="Unmute sound"]`,
+                if (recurring) {
+                    expect(volume).toEqual(0);
+                    unmuteButton = await this.getLocatorInState(
+                        `.ba-videoplayer-rightbutton-container[title="Unmute sound"]`,
+                        playerContainer, 'visible', true
+                    );
+                }
+                isPlaying = await this.getPlayerAttribute(`playing`);
+                if (isPlaying) await this.waitNextSecondPosition(5);
+
+                stayEngaged ? await waitButton.click() : await nextButton.click();
+
+                if (recurring) {
+                    await this.listenPlayerEvent(`change:volume`);
+                    volume = await this.getPlayerAttribute(`volume`);
+                    await expect(volume).toBeGreaterThan(0);
+
+                    muteButton = await this.getLocatorInState(
+                        `.ba-videoplayer-rightbutton-container[title="Mute sound"]`,
+                        playerContainer, 'visible', true
+                    );
+                }
+            } else {
+                await expect(volume).toBeGreaterThan(0);
+                muteButton = await this.getLocatorInState(
+                    `.ba-videoplayer-rightbutton-container[title="Mute sound"]`,
                     playerContainer, 'visible', true
                 );
-                await this.waitNextSecondPosition(5);
-                await nextButton.click();
+                isPlaying = await this.getPlayerAttribute(`playing`);
+                if (isPlaying) await this.waitNextSecondPosition(5);
+                stayEngaged ? await waitButton.click() : await nextButton.click();
+            }
 
-                // await this.waitNextSecondPosition(2);
-                await this.listenPlayerEvent(`change:volume`);
+            if (turns < 2) {
+                if (unmuteButton && await unmuteButton.isVisible()) {
+                    await unmuteButton.click();
+                    await expect(muteButton).toBeVisible();
+                }
+
                 volume = await this.getPlayerAttribute(`volume`);
                 await expect(volume).toBeGreaterThan(0);
 
-                muteButton = await this.getLocatorInState(
-                    `.ba-videoplayer-rightbutton-container[title="Mute sound"]`,
-                    playerContainer, 'visible', true
-                );
-            } else {
-                await expect(volume).toBeGreaterThan(0);
-                muteButton = await this.getLocatorInState(
-                    `.ba-videoplayer-rightbutton-container[title="Mute sound"]`,
-                    playerContainer, 'visible', true
-                );
-                await this.waitNextSecondPosition(5);
-                await nextButton.click();
-            }
+                isPlaying = await this.getPlayerAttribute(`playing`);
+                if (isPlaying) await pauseButton.click();
 
-            if (unmuteButton && await unmuteButton.isVisible()) {
-                await unmuteButton.click();
-                await expect(muteButton).toBeVisible();
-            }
-
-            volume = await this.getPlayerAttribute(`volume`);
-            await expect(volume).toBeGreaterThan(0);
-
-            isPlaying = await this.getPlayerAttribute(`playing`);
-
-            if (isPlaying) {
-                await pauseButton.click();
                 playButton = await this.getLocatorInState(
                     `.ba-videoplayer-leftbutton-container[title="Play"]`,
                     playerContainer, 'visible', true
                 );
-            } else {
-                playButton = await this.getLocatorInState(
-                    `.ba-videoplayer-leftbutton-container[title="Play"]`,
-                    playerContainer, 'visible', true
-                );
-            }
 
-            if (await playButton.isVisible()) await playButton.click();
-            await expect(pauseButton).toBeVisible();
+                if (await playButton.isVisible()) await playButton.click();
+                await expect(pauseButton).toBeVisible();
 
-            await expect(nextWidgetContainer).toBeVisible({ timeout: 3_000 });
-            await expect(nextButton).toBeVisible();
-            await nextButton.click();
+                if (!stayEngaged) {
+                    await expect(nextWidgetContainer).toBeVisible({ timeout: 3_000 });
+                    await expect(nextButton).toBeVisible();
+                    await nextButton.click();
+                    if (recurring) {
+                        await this.contentVideoExperienceFlowWithNextVideo(
+                            {...options, recurring: false, turns, stayEngaged: turns >= 2}
+                        )
+                    } else {
+                        await pauseButton.click();
+                        await expect(await playButton.isVisible()).toBeTruthy();
 
-            if (recurring) {
-                await this.contentVideoExperienceFlowWithNextVideo(
-                    {...options, recurring: false }
-                )
-            } else {
-                await pauseButton.click();
-                await expect(await playButton.isVisible()).toBeTruthy();
-                await this.locatorClickWithDelay(playButton, 4000);
+                        await expect(playButton).toBeVisible();
+                    }
+                } else {
+                    await expect(nextWidgetContainer).not.toBeVisible();
 
-                await expect(playButton).toBeVisible();
+                    await pauseButton.click();
+                    await expect(playButton).toBeVisible();
+                }
             }
         }
     }

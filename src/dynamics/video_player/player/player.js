@@ -170,7 +170,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             "position": "top-right", // default: "top-right", other options: top-center, top-left, bottom-right, bottom-center, bottom-left
                             "pauseonhover": false, //  default: false
                             "disappearafterseconds": 2 // -1 will set it as showing always, default: 2 seconds
-                            "showprogressbar": false, // TODO: default: false, will show progressbar on tooltip completion
+                            "showprogressbar": true, // default: true, will show progressbar on tooltip completion
                             "showonhover": false, // TODO: will be shown on hover only
                             "queryselector": null // TODO: will be shown on hover only on this element
                         }
@@ -1602,7 +1602,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         position: tooltip.position || 'top-right',
                         closeable: tooltip.closeable || false,
                         pauseonhover: tooltip.pauseonhover || true,
-                        showprogressbar: tooltip.showprogressbar || false,
+                        showprogressbar: tooltip.showprogressbar || true,
                         disappearafterseconds: tooltip.disappearafterseconds || 2,
                         showonhover: tooltip.showonhover || false,
                         queryselector: tooltip.queryselector || null

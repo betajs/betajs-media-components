@@ -14,7 +14,15 @@
     >
         <i class="{{csscommon}}-icon-cancel"></i>
     </div>
-    <div data-selector="tooltip-progress" role="progressbar"
+    <div ba-if="{{disappearafter > 0 && showprogressbar}}"
+         data-selector="tooltip-progress" role="progressbar"
          class="{{csscommon}}-tooltip-progress"
-    ></div>
+    >
+        <div class="{{csscommon}}-tooltip-progress-full">
+            <div
+                ba-styles="{{tooltipleftprogressstyle}}"
+                class="{{csscommon}}-tooltip-progress-passed"
+            ></div>
+        </div>
+    </div>
 </div>

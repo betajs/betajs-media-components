@@ -40,4 +40,17 @@
         bottom: 50px;
         right: 20px;
     }
+
+    .#{$csscommon}-tooltip-progress-full {
+        background: #efefef;
+        bottom: 0;
+        height: 2px;
+        position: relative;
+        top: 1px;
+        width: 100%;
+        .#{$csscommon}-tooltip-progress-passed {
+            background: #0a0a0a;
+            height: 2px;
+        }
+    }
 }

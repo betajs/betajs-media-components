@@ -19,17 +19,25 @@ Scoped.define("module:VideoPlayer.Dynamics.Tooltip", [
                     "cssplayer": "ba-player"
                 },
 
+                computed: {
+                    "tooltipleftprogressstyle:disappearafter": function(left) {
+                        var widthPercentage = Number((left / this.get("disappearafterinitial")).toFixed(2)) * 100;
+                        return {
+                            width: widthPercentage + "%"
+                        };
+                    }
+                },
+
                 events: {
                     "change:tooltiptext": function(message) {
                         // If no message or disappear after seconds is set to -1, don't hide automatically
                         if (!message || this.get("disappearafter") < 0) return;
-                        var progressbarSteps = 300;
+                        var progressbarSteps = 100;
                         this._timer = this.auto_destroy(new Timers.Timer({
                             context: this,
                             fire: function() {
                                 if (this.get("hovered")) return;
                                 this.set("disappearafter", this.get("disappearafter") - progressbarSteps);
-                                this.set("left", this.get("left") - progressbarSteps / 1000 * 100 / this.get("disappearafterseconds"));
                                 if (this.get("disappearafter") <= 0) {
                                     this.destroy();
                                 }
@@ -58,7 +66,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Tooltip", [
                     if (tooltipCollection && typeof tooltipCollection.get === "function") {
                         this.set("closeable", tooltipCollection.get("closeable") || false);
                         this.set("position", tooltipCollection.get("position") || 'top-right');
-                        this.set("disappearafter", (tooltipCollection.get("disappearafterseconds") || 2) * 1000);
+                        this.set("disappearafterinitial", (tooltipCollection.get("disappearafterseconds") || 2) * 1000);
+                        this.set("disappearafter", this.get("disappearafterinitial"));
                         this.set("showprogressbar", tooltipCollection.get("showprogressbar") || false);
                         this.set("showonhover", tooltipCollection.get("showonhover") || false);
                         this.set("showprogressbar", tooltipCollection.get("showprogressbar") || false);

@@ -571,7 +571,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             calculated = this.__calculateFloatingDimensions();
 
                             styles.position = "fixed";
-                            styles.display = this.get("with_sidebar") ? 'flex' : 'block';
 
                             floatingTop = floatingTop || calculated.floating_top;
                             floatingBottom = floatingBottom || calculated.floating_bottom;
@@ -607,10 +606,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         containerStyles = styles;
                         if (this.activeElement()) {
                             // if element is sticky no need, to apply styles which are position with fixed
-                            if (this.get("sticky")) {
-                                containerStyles.display = (this.get("with_sidebar") && isFloating) ? 'flex' : 'block';
-                                delete containerStyles.position;
-                            }
                             if (!isFloating) {
                                 this._applyStyles(this.activeElement(), containerStyles || styles, !isFloating ? this.__lastContainerSizingStyles : null);
                                 this.__lastContainerSizingStyles = containerStyles || styles;
@@ -1374,8 +1369,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.get("slim") === true) {
                         // We should add the CSS codes, and we are adding it here, to mark the player
                         this.activeElement().classList.add(this.get("csscommon") + "-slim");
-                        // Makes player a block, so we can position it in the page more easily
-                        this.activeElement().style.setProperty("display", "block");
                     }
 
                     var img = this.activeElement().querySelector('img[data-image="image"]');

@@ -1,22 +1,3 @@
-@keyframes #{$csscommon}-fade-in {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-@keyframes #{$csscommon}-fade-in-up {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
 .#{$csscommon}-device-type-desktop {
     &.#{$csscommon}-sticky-top-left {
         top: 20px;

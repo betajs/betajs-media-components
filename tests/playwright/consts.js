@@ -7,10 +7,28 @@ export const AD_TAG_URL = `https://pubads.g.doubleclick.net/gampad/ads?sz=640x48
 // export const AD_TAG_URL = `//localhost:5050/static/demos/vast-samples/VAST_4_2/Inline_Linear_Tag-test.xml`;
 export const SAMPLE_VIDEO_PATH = '/static/demos/sample-video.mp4';
 export const SAMPLE_VIDEO_POSTER = '/static/demos/assets/sample-cover.png';
+export const SAMPLE_2_VIDEO_PATH = '/static/demos/assets/portrait.mp4';
+export const SAMPLE_2_VIDEO_POSTER = '/static/demos/assets/portrait-poster.png';
+export const SAMPLE_3_VIDEO_PATH = '/static/demos/sample-video2.mp4';
+export const SAMPLE_3_VIDEO_POSTER = '/static/demos/sample-cover2.png';
 export const CHROME_LOCATION = `/Applications/Google Chrome.app/Contents/MacOS/Google Chrome`;
 export const CHROME_CANARY_LOCATION = `/Applications/Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary`;
 
 export const defaultPlayerAttributes = {
     source: SAMPLE_VIDEO_PATH,
     poster: SAMPLE_VIDEO_POSTER,
+    playlist: [
+        {
+            source: SAMPLE_VIDEO_PATH,
+            poster: SAMPLE_VIDEO_POSTER,
+        },
+        {
+            source: SAMPLE_3_VIDEO_PATH,
+            poster: SAMPLE_3_VIDEO_POSTER,
+        },
+        {
+            source: SAMPLE_2_VIDEO_PATH,
+            poster: SAMPLE_2_VIDEO_POSTER,
+        },
+    ]
 }

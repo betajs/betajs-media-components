@@ -17,6 +17,13 @@
     <meta itemprop="caption" content="{{title}}" />
     <meta itemprop="thumbnailUrl" content="{{thumbnailurl}}" />
     <meta itemprop="contentUrl" content="{{contenturl}}" />
+    <div ba-if="{{tooltiptext}}" role="tooltip"
+         class="{{csscommon}}-tooltip-container {{csscommon}}-fade-{{tooltiptext ? '-in' : '-out'}}"
+    >
+        <div class="{{csscommon}}-tooltip-text">
+            {{tooltiptext}}
+        </div>
+    </div>
     <ba-{{dynnext}}
         ba-if="{{next_active}}"
         ba-is_floating="{{is_floating}}"

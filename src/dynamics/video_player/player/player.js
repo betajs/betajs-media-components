@@ -439,6 +439,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 events: {
+                    "change:tooltiptext": function(message, seconds) {
+                        if (!message) return;
+                        seconds = seconds || 2;
+                        this._tooltipListener = Async.eventually(function() {
+                            this.set("tooltiptext", null);
+                        }, this, seconds * 1000);
+                    },
                     "change:uploaddate": function(value) {
                         if (typeof value === "number")
                             this.set("uploaddate", TimeFormat.format("yyyy-mm-dd", value * 1000));
@@ -2498,6 +2505,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 __testAutoplayOptions: function(video) {
                     var suitableCondition = false;
+                    // TODO: in the future look for a way order correctly provided options and it's callback
                     var autoplayPossibleOptions = [{
                             muted: true,
                             playsinline: false

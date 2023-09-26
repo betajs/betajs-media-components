@@ -168,14 +168,20 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             "tooltiptext": null,
                             "closeable": false,
                             "position": "top-right", // default: "top-right", other options: top-center, top-left, bottom-right, bottom-center, bottom-left
-                            "showprogressbar": false, //  default: false
                             "pauseonhover": false, //  default: false
                             "disappearafterseconds": 2 // -1 will set it as showing always, default: 2 seconds
-                            "showonhover": false, // will be shown on hover only
-                            "queryselector": null // will be shown on hover only on this element
+                            "showprogressbar": false, // TODO: default: false, will show progressbar on tooltip completion
+                            "showonhover": false, // TODO: will be shown on hover only
+                            "queryselector": null // TODO: will be shown on hover only on this element
                         }
                          */
-                        "tooltip": {},
+                        "presetedtooltips": {
+                            "onplayercreate": null,
+                            "onclicktroughexistence": {
+                                "tooltiptext": "Click again to learn more",
+                                "disappearafterseconds": 5
+                            }
+                        },
 
                         /* Ads */
                         "adprovider": null,
@@ -439,7 +445,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "closeable-title": "boolean",
                     "sticky-threshold": "float",
                     "floatingoptions": "jsonarray",
-                    "tooltip": "object"
+                    "presetedtooltips": "object"
                 },
 
                 __INTERACTION_EVENTS: ["click", "mousedown", "touchstart", "keydown", "keypress"],
@@ -767,8 +773,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         // In Safari Desktop can cause trouble on preload, if the user will
                     }
 
-                    if (this.get("tooltip") && this.get("tooltip").tooltiptext)
-                        this.showTooltip(this.get("tooltip"));
+                    if (this.get("presetedtooltips") && this.get("presetedtooltips.onplayercreate"))
+                        this.showTooltip(this.get("presetedtooltips.onplayercreate"));
 
                     if (this.get("theme")) this.set("theme", this.get("theme").toLowerCase());
                     if (this.get("theme") in Assets.playerthemes) {
@@ -1585,16 +1591,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 showTooltip: function(tooltip) {
-                    if (!tooltip.tooltiptext) {
-                        console.warn("Please provide text for tooltip");
-                    }
+                    if (!Types.is_object(tooltip) || !tooltip.tooltiptext)
+                        console.warn("Provided tooltip has to be an object, at least with 'tooltiptext' key");
                     var position = tooltip.position || 'top-right';
                     if (this.get("tooltips").count() > 0) this.hideTooltip(position);
 
                     this.get("tooltips").add({
                         id: Time.now(),
                         tooltiptext: tooltip.tooltiptext,
-                        positions: tooltip.position || 'top-right',
+                        position: tooltip.position || 'top-right',
                         closeable: tooltip.closeable || false,
                         pauseonhover: tooltip.pauseonhover || true,
                         showprogressbar: tooltip.showprogressbar || false,
@@ -1602,11 +1607,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         showonhover: tooltip.showonhover || false,
                         queryselector: tooltip.queryselector || null
                     });
-                    this.get("tooltips").add_secondary_index("positions");
+                    this.get("tooltips").add_secondary_index("position");
                 },
 
                 hideTooltip: function(position, id) {
-                    var exists = this.get("tooltips").get_by_secondary_index("positions", position, true);
+                    var exists = this.get("tooltips").get_by_secondary_index("position", position, true);
                     if (exists) {
                         this.get("tooltips").remove(exists);
                     } else {

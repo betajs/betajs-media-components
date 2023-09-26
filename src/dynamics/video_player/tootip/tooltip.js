@@ -68,7 +68,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Tooltip", [
                         this.set("position", tooltipCollection.get("position") || 'top-right');
                         this.set("disappearafterinitial", (tooltipCollection.get("disappearafterseconds") || 2) * 1000);
                         this.set("disappearafter", this.get("disappearafterinitial"));
-                        this.set("showprogressbar", tooltipCollection.get("showprogressbar") || false);
                         this.set("showonhover", tooltipCollection.get("showonhover") || false);
                         this.set("showprogressbar", tooltipCollection.get("showprogressbar") || false);
                         this.set("pauseonhover", tooltipCollection.get("pauseonhover") || true);

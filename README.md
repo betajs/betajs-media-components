@@ -99,6 +99,23 @@ The icons in this library depend on Fontello. In order to update the icons / add
 | :----- | -------: |
 | Test Suite | [Run](http://rawgit.com/betajs/betajs-media-components/master/tests/tests.html) |
 
+## end-to-end testing via Playwright
+First need to start nano server after there are several options to run tests
+```bash
+# start nano server from the root of the project
+sudo node node_modules/nano-media-server/server.js --staticserve .
+# additional options can be applied via options: 
+# --port='PORT_NUMBER' --sslkey='PATH_TO_SSL_KEY' --sslcert='PATH_TO_SSL_CERT'
+
+# Will run all tests through command line
+npm run test
+# To run single test based on name
+npx playwright test -g "test name set before"
+
+# Will appear testing ui with listed tests
+npm run test:ui
+```
+
 
 ## Dependencies
 | Name | URL |

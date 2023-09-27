@@ -844,7 +844,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         start: true
                     }));
 
-                    this.activeElement().style.setProperty("display", "inline-block");
+                    this.activeElement().style.setProperty("display", "flex");
 
                     // to detect only video playing container dimensions, when there also sidebar exists
                     this.__playerContainer = this.activeElement().querySelector("[data-selector='ba-player-container']");
@@ -853,9 +853,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("floating_height", this.get("mobileview") ? this.get("floatingoptions.mobile.height") : this.get("floatingoptions.desktop.height"));
 
                     if (!this.get("sticky") && this.get("floatingoptions.floatingonly")) {
-                        // Will ignore sticky way and float every
                         this.set("view_type", "float");
-                        this.activeElement().firstChild.style.setProperty("display", "flex");
                     } else if (this.get("sticky")) {
                         // If sticky is enabled, disable only floating
                         this.set("floatingoptions.floatingonly", false);
@@ -2051,7 +2049,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.activeElement()) {
                         this.set("states.hiddenelement.visible", true);
                         this._applyStyles(this.activeElement(), {
-                            display: this.get("containerSizingStyles.display") || 'inline-block'
+                            display: this.get("containerSizingStyles.display") || 'flex'
                         });
                         if (this.get("states.hiddenelement.playing")) this.play();
                     }

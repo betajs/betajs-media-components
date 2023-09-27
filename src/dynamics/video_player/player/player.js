@@ -95,8 +95,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "popup-width": "",
                         "popup-height": "",
                         "aspectratio": null,
-                        "fallback-width": 480,
-                        "fallback-height": 270,
+                        "fallback-aspect-ratio": "1280/720",
                         "floating-fallback-mobile-height": 75,
                         "floating-fallback-desktop-height": 240,
                         /* Themes */
@@ -364,8 +363,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "popup-width": "int",
                     "popup-height": "int",
                     "aspectratio": "float",
-                    "fallback-width": "int",
-                    "fallback-height": "int",
+                    "fallback-aspect-ratio": "string",
                     "outstreamoptions": "json",
                     "initialseek": "float",
                     "fullscreened": "boolean",
@@ -523,13 +521,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 computed: {
-                    "aspectRatioFallback:aspectratio,fallback-width,fallback-height": function(aspectRatio, fallbackWidth, fallbackHeight) {
+                    "aspectRatioFallback:aspectratio,fallback-aspect-ratio": function(aspectRatio, fallback) {
+                        var f = fallback.split("/");
                         return {
-                            paddingTop: 100 / (aspectRatio || (fallbackWidth / fallbackHeight)) + "%"
+                            paddingTop: 100 / (aspectRatio || (f[0] / f[1])) + "%"
                         };
                     },
-                    "aspect_ratio:aspectratio,fallback-width,fallback-height": function(aspectRatio, fallbackWidth, fallbackHeight) {
-                        return aspectRatio || fallbackWidth + "/" + fallbackHeight;
+                    "aspect_ratio:aspectratio,fallback-aspect-ratio": function(aspectRatio, fallback) {
+                        return aspectRatio || fallback;
                     },
                     "adsinitialized:playing,adtagurl,inlinevastxml": function(playing, adsTagURL, inlineVastXML) {
                         if (this.get("adsinitialized")) {
@@ -664,9 +663,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.get("position") === 0 && !playing) return null;
                         return ["first", "second", "third", "fourth"][passedQuarter];
                     },
-                    "orientation:videowidth,videoheight,fallback-width,fallback-height": function(videoWidth, videoHeight, fallbackWidth, fallbackHeight) {
-                        var width = videoWidth || fallbackWidth;
-                        var height = videoHeight || fallbackHeight;
+                    "orientation:videowidth,videoheight,fallback-aspect-ratio": function(videoWidth, videoHeight, fallbackAspectRatio) {
+                        var fallbackDimensions = fallbackAspectRatio.split("/");
+                        var width = videoWidth || fallbackDimensions[0];
+                        var height = videoHeight || fallbackDimensions[1];
                         if (width === height) return "square";
                         return width > height ? "landscape" : "portrait";
                     }
@@ -1378,8 +1378,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     var img = this.activeElement().querySelector('img[data-image="image"]');
                     var imgEventHandler = this.auto_destroy(new DomEvents());
                     imgEventHandler.on(img, "load", function() {
-                        this.set("fallback-width", img.naturalWidth);
-                        this.set("fallback-height", img.naturalHeight);
+                        this.set("fallback-aspect-ratio", img.naturaWidth + "/" + img.naturalHeight);
                         imgEventHandler.destroy();
                     }, this);
                 },

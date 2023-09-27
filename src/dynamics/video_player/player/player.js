@@ -570,7 +570,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             calculated = this.__calculateFloatingDimensions();
 
                             styles.position = "fixed";
-                            styles.display = this.get("with_sidebar") ? 'flex' : 'block';
 
                             floatingTop = floatingTop || calculated.floating_top;
                             floatingBottom = floatingBottom || calculated.floating_bottom;
@@ -603,10 +602,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         containerStyles = styles;
                         if (this.activeElement()) {
                             // if element is sticky no need, to apply styles which are position with fixed
-                            if (this.get("sticky")) {
-                                containerStyles.display = (this.get("with_sidebar") && isFloating) ? 'flex' : 'block';
-                                delete containerStyles.position;
-                            }
                             if (!isFloating) {
                                 this._applyStyles(this.activeElement(), containerStyles || styles, !isFloating ? this.__lastContainerSizingStyles : null);
                                 this.__lastContainerSizingStyles = containerStyles || styles;
@@ -846,7 +841,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         start: true
                     }));
 
-                    this.activeElement().style.setProperty("display", "inline-block");
+                    this.activeElement().style.setProperty("display", "flex");
 
                     // to detect only video playing container dimensions, when there also sidebar exists
                     this.__playerContainer = this.activeElement().querySelector("[data-selector='ba-player-container']");
@@ -855,9 +850,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("floating_height", this.get("mobileview") ? this.get("floatingoptions.mobile.height") : this.get("floatingoptions.desktop.height"));
 
                     if (!this.get("sticky") && this.get("floatingoptions.floatingonly")) {
-                        // Will ignore sticky way and float every
                         this.set("view_type", "float");
-                        this.activeElement().firstChild.style.setProperty("display", "flex");
                     } else if (this.get("sticky")) {
                         // If sticky is enabled, disable only floating
                         this.set("floatingoptions.floatingonly", false);
@@ -1371,8 +1364,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.get("slim") === true) {
                         // We should add the CSS codes, and we are adding it here, to mark the player
                         this.activeElement().classList.add(this.get("csscommon") + "-slim");
-                        // Makes player a block, so we can position it in the page more easily
-                        this.activeElement().style.setProperty("display", "block");
                     }
 
                     var img = this.activeElement().querySelector('img[data-image="image"]');
@@ -2054,7 +2045,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.activeElement()) {
                         this.set("states.hiddenelement.visible", true);
                         this._applyStyles(this.activeElement(), {
-                            display: this.get("containerSizingStyles.display") || 'inline-block'
+                            display: this.get("containerSizingStyles.display") || 'flex'
                         });
                         if (this.get("states.hiddenelement.playing")) this.play();
                     }

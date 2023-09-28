@@ -7,21 +7,24 @@
 }
 
 .#{$cssplayer}-toggle-next-container {
+  pointer-events: none;
   &.#{$cssplayer}-next-with-sidebar {
     right: 7.5%;
     width: 35%;
   }
   width: 24%;
+  max-width: 175px;
   color: white;
-  font-size: $open_next_button_font_size;
-  line-height: $open_next_button_box_size;
   text-align: center;
   padding: 0 16px;
   position: absolute;
   right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  height: 100%;
+  display: flex;
+  align-items: center;
   z-index: 6;
+  .ba-player-next-button-container { width: 100%; }
+  .ba-player-next-button { pointer-events: auto; }
   a {
     font-size: 16px;
     text-decoration: none;

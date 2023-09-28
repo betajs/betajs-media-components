@@ -477,9 +477,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "change:placeholderstyle": function(value) {
                         this.set("hasplaceholderstyle", value.length > 10);
                     },
-                    "change:position": function(position) {
+                    "change:position": function(position, old) {
                         if (!this.get("nextwidget") || this.get("stayengaged") || this.get("adsplaying"))
                             return;
+                        if (position - old > 1) return this.channel("next").trigger("setStay");
                         if (Array.isArray(this.get("playlist")) && this.get("playlist").length > 0) {
                             if (position > this.get("shownext") && this.get("shownext") > 0 && !this.get("next_active")) {
                                 this.set("next_active", true);

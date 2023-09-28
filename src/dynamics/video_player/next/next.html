@@ -1,8 +1,8 @@
 <div class="{{cssplayer}}-toggle-next-container {{cssplayer}}-next-style-{{style}} {{(is_floating && with_sidebar) ? cssplayer + '-next-with-sidebar' : ''}}">
     <div class="{{cssplayer}}-next-button-container">
-        <a class="{{cssplayer}}-next-button-stay" ba-click="{{stay()}}">{{staytext}}</a>
+        <a class="{{cssplayer}}-next-button-stay {{cssplayer}}-next-button" ba-click="{{stay()}}">{{staytext}}</a>
         <hr ba-if="{{style === 'desktop'}}">
-        <a class="{{cssplayer}}-next-button-next" ba-click="{{next()}}">
+        <a class="{{cssplayer}}-next-button-next {{cssplayer}}-next-button" ba-click="{{next()}}">
             <span class="{{cssplayer}}-next-progress"ba-styles="{{{width: ((position - shownext) / noengagenext * 100) + '%'}}}"></span>
             <span>{{nexttext}}</span>
         </a>

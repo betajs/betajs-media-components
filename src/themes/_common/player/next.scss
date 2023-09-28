@@ -7,6 +7,7 @@
 }
 
 .#{$cssplayer}-toggle-next-container {
+  pointer-events: none;
   &.#{$cssplayer}-next-with-sidebar {
     right: 7.5%;
     width: 35%;
@@ -23,6 +24,7 @@
   align-items: center;
   z-index: 6;
   .ba-player-next-button-container { width: 100%; }
+  .ba-player-next-button { pointer-events: auto; }
   a {
     font-size: 16px;
     text-decoration: none;

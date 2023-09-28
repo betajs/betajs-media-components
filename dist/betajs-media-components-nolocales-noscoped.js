@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.402 - 2023-09-25
+betajs-media-components - v0.0.403 - 2023-09-28
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.402",
-    "datetime": 1695697462828
+    "version": "0.0.403",
+    "datetime": 1695926077297
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -3597,7 +3597,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Next", [
         }, function(inherited) {
             return {
 
-                template: "<div class=\"{{cssplayer}}-toggle-next-container {{cssplayer}}-next-style-{{style}} {{(is_floating && with_sidebar) ? cssplayer + '-next-with-sidebar' : ''}}\">\n    <div class=\"{{cssplayer}}-next-button-container\">\n        <a class=\"{{cssplayer}}-next-button-stay\" ba-click=\"{{stay()}}\">{{staytext}}</a>\n        <hr ba-if=\"{{style === 'desktop'}}\">\n        <a class=\"{{cssplayer}}-next-button-next\" ba-click=\"{{next()}}\">\n            <span class=\"{{cssplayer}}-next-progress\"ba-styles=\"{{{width: ((position - shownext) / noengagenext * 100) + '%'}}}\"></span>\n            <span>{{nexttext}}</span>\n        </a>\n        <img ba-prop:src=\"{{nextvideoposter}}\" ba-show=\"{{style === 'desktop' && nextvideoposter && !hidenextvideoposter}}\" />\n    </div>\n</div>\n",
+                template: "<div class=\"{{cssplayer}}-toggle-next-container {{cssplayer}}-next-style-{{style}} {{(is_floating && with_sidebar) ? cssplayer + '-next-with-sidebar' : ''}}\">\n    <div class=\"{{cssplayer}}-next-button-container\">\n        <a class=\"{{cssplayer}}-next-button-stay {{cssplayer}}-next-button\" ba-click=\"{{stay()}}\">{{staytext}}</a>\n        <hr ba-if=\"{{style === 'desktop'}}\">\n        <a class=\"{{cssplayer}}-next-button-next {{cssplayer}}-next-button\" ba-click=\"{{next()}}\">\n            <span class=\"{{cssplayer}}-next-progress\"ba-styles=\"{{{width: ((position - shownext) / noengagenext * 100) + '%'}}}\"></span>\n            <span>{{nexttext}}</span>\n        </a>\n        <img ba-prop:src=\"{{nextvideoposter}}\" ba-show=\"{{style === 'desktop' && nextvideoposter && !hidenextvideoposter}}\" />\n    </div>\n</div>\n",
 
                 attrs: {
                     css: "ba-videoplayer",
@@ -3825,8 +3825,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "popup-width": "",
                         "popup-height": "",
                         "aspectratio": null,
-                        "fallback-width": 480,
-                        "fallback-height": 270,
+                        "fallback-aspect-ratio": "1280/720",
                         "floating-fallback-mobile-height": 75,
                         "floating-fallback-desktop-height": 240,
                         /* Themes */
@@ -4094,8 +4093,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "popup-width": "int",
                     "popup-height": "int",
                     "aspectratio": "float",
-                    "fallback-width": "int",
-                    "fallback-height": "int",
+                    "fallback-aspect-ratio": "string",
                     "outstreamoptions": "json",
                     "initialseek": "float",
                     "fullscreened": "boolean",
@@ -4209,9 +4207,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "change:placeholderstyle": function(value) {
                         this.set("hasplaceholderstyle", value.length > 10);
                     },
-                    "change:position": function(position) {
+                    "change:position": function(position, old) {
                         if (!this.get("nextwidget") || this.get("stayengaged") || this.get("adsplaying"))
                             return;
+                        if (position - old > 1) return this.channel("next").trigger("setStay");
                         if (Array.isArray(this.get("playlist")) && this.get("playlist").length > 0) {
                             if (position > this.get("shownext") && this.get("shownext") > 0 && !this.get("next_active")) {
                                 this.set("next_active", true);
@@ -4253,13 +4252,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 computed: {
-                    "aspectRatioFallback:aspectratio,fallback-width,fallback-height": function(aspectRatio, fallbackWidth, fallbackHeight) {
+                    "aspectRatioFallback:aspectratio,fallback-aspect-ratio": function(aspectRatio, fallback) {
+                        var f = fallback.split("/");
                         return {
-                            paddingTop: 100 / (aspectRatio || (fallbackWidth / fallbackHeight)) + "%"
+                            paddingTop: 100 / (aspectRatio || (f[0] / f[1])) + "%"
                         };
                     },
-                    "aspect_ratio:aspectratio,fallback-width,fallback-height": function(aspectRatio, fallbackWidth, fallbackHeight) {
-                        return aspectRatio || fallbackWidth + "/" + fallbackHeight;
+                    "aspect_ratio:aspectratio,fallback-aspect-ratio": function(aspectRatio, fallback) {
+                        return aspectRatio || fallback;
                     },
                     "adsinitialized:playing,adtagurl,inlinevastxml": function(playing, adsTagURL, inlineVastXML) {
                         if (this.get("adsinitialized")) {
@@ -4301,7 +4301,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             calculated = this.__calculateFloatingDimensions();
 
                             styles.position = "fixed";
-                            styles.display = this.get("with_sidebar") ? 'flex' : 'block';
 
                             floatingTop = floatingTop || calculated.floating_top;
                             floatingBottom = floatingBottom || calculated.floating_bottom;
@@ -4329,18 +4328,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (width) styles.width = isNaN(width) ? width : parseFloat(width).toFixed(2) + "px";
 
                         // If we have an ads and before content we will not show the player poster with loader at all
-                        if ((this.get("adshassource") && !adsInitialized) && this.get("hidebeforeadstarts") && (this.get("autoplay") || this.get("outstream"))) {
-                            styles.height = '1px';
-                            styles.opacity = 0;
-                        }
+                        if ((this.get("adshassource") && !adsInitialized) && this.get("hidebeforeadstarts") && (this.get("autoplay") || this.get("outstream"))) styles.opacity = 0;
 
                         containerStyles = styles;
                         if (this.activeElement()) {
                             // if element is sticky no need, to apply styles which are position with fixed
-                            if (this.get("sticky")) {
-                                containerStyles.display = (this.get("with_sidebar") && isFloating) ? 'flex' : 'block';
-                                delete containerStyles.position;
-                            }
                             if (!isFloating) {
                                 this._applyStyles(this.activeElement(), containerStyles || styles, !isFloating ? this.__lastContainerSizingStyles : null);
                                 this.__lastContainerSizingStyles = containerStyles || styles;
@@ -4397,9 +4389,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.get("position") === 0 && !playing) return null;
                         return ["first", "second", "third", "fourth"][passedQuarter];
                     },
-                    "orientation:videowidth,videoheight,fallback-width,fallback-height": function(videoWidth, videoHeight, fallbackWidth, fallbackHeight) {
-                        var width = videoWidth || fallbackWidth;
-                        var height = videoHeight || fallbackHeight;
+                    "orientation:videowidth,videoheight,fallback-aspect-ratio": function(videoWidth, videoHeight, fallbackAspectRatio) {
+                        var fallbackDimensions = fallbackAspectRatio.split("/");
+                        var width = videoWidth || fallbackDimensions[0];
+                        var height = videoHeight || fallbackDimensions[1];
                         if (width === height) return "square";
                         return width > height ? "landscape" : "portrait";
                     }
@@ -4579,7 +4572,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         start: true
                     }));
 
-                    this.activeElement().style.setProperty("display", "inline-block");
+                    this.activeElement().style.setProperty("display", "flex");
 
                     // to detect only video playing container dimensions, when there also sidebar exists
                     this.__playerContainer = this.activeElement().querySelector("[data-selector='ba-player-container']");
@@ -4588,9 +4581,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("floating_height", this.get("mobileview") ? this.get("floatingoptions.mobile.height") : this.get("floatingoptions.desktop.height"));
 
                     if (!this.get("sticky") && this.get("floatingoptions.floatingonly")) {
-                        // Will ignore sticky way and float every
                         this.set("view_type", "float");
-                        this.activeElement().firstChild.style.setProperty("display", "flex");
                     } else if (this.get("sticky")) {
                         // If sticky is enabled, disable only floating
                         this.set("floatingoptions.floatingonly", false);
@@ -5104,15 +5095,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.get("slim") === true) {
                         // We should add the CSS codes, and we are adding it here, to mark the player
                         this.activeElement().classList.add(this.get("csscommon") + "-slim");
-                        // Makes player a block, so we can position it in the page more easily
-                        this.activeElement().style.setProperty("display", "block");
                     }
 
                     var img = this.activeElement().querySelector('img[data-image="image"]');
                     var imgEventHandler = this.auto_destroy(new DomEvents());
                     imgEventHandler.on(img, "load", function() {
-                        this.set("fallback-width", img.naturalWidth);
-                        this.set("fallback-height", img.naturalHeight);
+                        this.set("fallback-aspect-ratio", img.naturaWidth + "/" + img.naturalHeight);
                         imgEventHandler.destroy();
                     }, this);
                 },
@@ -5490,7 +5478,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.get("fullscreened")) {
                             Dom.documentExitFullscreen();
                         } else {
-                            if (Info.isSafari()) Dom.elementEnterFullscreen(this.activeElement().querySelector("video"));
+                            if (Info.isSafari() && Info.isMobile()) Dom.elementEnterFullscreen(this.activeElement().querySelector("video"));
                             else Dom.elementEnterFullscreen(this.activeElement().childNodes[0]);
                         }
                         this.set("fullscreened", !this.get("fullscreened"));
@@ -5788,7 +5776,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.activeElement()) {
                         this.set("states.hiddenelement.visible", true);
                         this._applyStyles(this.activeElement(), {
-                            display: this.get("containerSizingStyles.display") || 'inline-block'
+                            display: this.get("containerSizingStyles.display") || 'flex'
                         });
                         if (this.get("states.hiddenelement.playing")) this.play();
                     }

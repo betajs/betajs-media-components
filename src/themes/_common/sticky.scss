@@ -46,10 +46,10 @@ div.#{$csscommon}-sticky {
         left: 0;
         width: 100%;
     }
+    width: 360px;
 }
 
 .#{$csscommon}-sticky {
-    width: 360px;
     max-width: 100%;
     animation: #{$csscommon}-fade-in 0.75s ease forwards;
 }

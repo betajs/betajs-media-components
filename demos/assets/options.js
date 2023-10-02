@@ -170,11 +170,21 @@ attrs = {...attrs, ...{
                 companionad: true,
                 // position: 'bottom'
                 // companionad: "[,250]",
+
+                // size: "l",
+                // availablesizes: {
+                //     'xs': 50, 's': 75, 'm': 80, 'l': 120, 'xl': 150
+                // }
             },
             desktop: {
                 height: 140,
                 bottom: 20,
                 companionad: true, //"[]|bottom", //"[]|top", // true
+
+                // size: "xl",
+                // availablesizes: {
+                //     'xs': 169, 's': 183, 'm': 197, 'l': 211, 'xl': 225
+                // }
             }
         }},
         // adsposition: "pre, mid, post",

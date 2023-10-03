@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.403 - 2023-09-28
+betajs-media-components - v0.0.404 - 2023-10-03
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.403 - 2023-09-28
+betajs-media-components - v0.0.404 - 2023-10-03
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.403",
-    "datetime": 1695926077295
+    "version": "0.0.404",
+    "datetime": 1696374198697
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -2299,6 +2299,8 @@ Scoped.define("module:StickyHandler", [
                 this.element = element;
                 this.container = container;
                 this.paused = options.paused || false;
+                this.noFloatIfBelow = options.noFloatIfBelow || false;
+                this.noFloatIfAbove = options.noFloatIfAbove || false;
                 this.threshold = options.threshold;
                 if (!options["static"]) this.events = this.auto_destroy(new DomEvents());
                 this.floating = false;
@@ -2393,6 +2395,11 @@ Scoped.define("module:StickyHandler", [
                         if (this.paused) {
                             this.trigger("transitionOutOfView");
                             return;
+                        }
+                        if (this.noFloatIfAbove || this.noFloatIfBelow) {
+                            var r = this.element.getBoundingClientRect();
+                            if (this.noFloatIfAbove && r.top >= 0) return;
+                            if (this.noFloatIfBelow && r.top <= 0) return;
                         }
                         this.transitionToFloat();
                     }.bind(this));
@@ -5775,7 +5782,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         var stickyOptions = {
                             threshold: this.get("sticky-threshold"),
                             paused: this.get("sticky-starts-paused"),
-                            "static": this.get("floatingoptions.static")
+                            "static": this.get("floatingoptions.static"),
+                            "noFloatIfBelow": this.get("floatingoptions.noFloatIfBelow"),
+                            "noFloatIfAbove": this.get("floatingoptions.noFloatIfAbove")
                         };
                         this.stickyHandler = this.auto_destroy(new StickyHandler(
                             this.activeElement().firstChild,

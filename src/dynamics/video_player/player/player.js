@@ -333,7 +333,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 types: {
                     "allowpip": "boolean",
-                    "hasnext": "boolean",
                     "hidecontrolbar": "boolean",
                     "muted": "boolean",
                     "nextwidget": "boolean",
@@ -346,7 +345,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "loopall": "boolean",
                     "autoplay": "boolean",
                     "autoplaywhenvisible": "boolean",
-                    continuousplayback: "boolean",
+                    "continuousplayback": "boolean",
                     "preload": "boolean",
                     "ready": "boolean",
                     "nofullscreen": "boolean",

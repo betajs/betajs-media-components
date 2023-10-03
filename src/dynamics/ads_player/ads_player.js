@@ -27,7 +27,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     linear: true, // should be true to cover all the player container
                     playing: false,
                     currenttime: 0,
-                    volume: 1,
+                    volume: 0,
                     isoutstream: false,
                     hidecontrolbar: false,
                     showactionbuttons: false,
@@ -150,6 +150,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 create: function() {
+                    var focusedElement, adsManagedEvents;
                     var dynamics = this.parent();
                     var adContainer = this.getAdContainer();
                     var adManagerOptions = {
@@ -167,8 +168,30 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     }
                     this.adsManager = this.auto_destroy(new AdsManager(adManagerOptions, dynamics));
                     this.adsManager.requestAds(this._baseRequestAdsOptions());
+                    // Will list events which are require some additional actions,
+                    // ignore events like adsProgress for additional statement checks
+                    adsManagedEvents = ['adsManagerLoaded', 'start'];
                     this.adsManager.on("all", function(event, data) {
-                        if (event === "adsManagerLoaded") this.set("adsmanagerloaded", true);
+                        if (adsManagedEvents.indexOf(event) !== -1) {
+                            if (event === "adsManagerLoaded") {
+                                this.set("adsmanagerloaded", true);
+                                // Makes active element not redirect to click through URL on first click
+                                if (!dynamics.get("userhadplayerinteraction") && dynamics.activeElement() && this.get("unmuteonclick")) {
+                                    dynamics.activeElement().blur();
+                                    dynamics.once("change:userhadplayerinteraction", function(hasInteraction) {
+                                        if (hasInteraction && Types.is_defined(focusedElement) && focusedElement instanceof HTMLElement) {
+                                            focusedElement.focus();
+                                            if (dynamics.get("presetedtooltips.onclicktroughexistence")) {
+                                                dynamics.showTooltip(dynamics.get("presetedtooltips.onclicktroughexistence"));
+                                            }
+                                        }
+                                    }, dynamics);
+                                }
+                            }
+                            if (event === 'start' && !dynamics.get("userhadplayerinteraction")) {
+                                focusedElement = document.activeElement;
+                            }
+                        }
                         this.channel("ads").trigger(event, data);
                     }, this);
                     if (dynamics) {

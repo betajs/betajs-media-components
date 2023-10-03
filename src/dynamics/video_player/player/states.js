@@ -372,7 +372,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
                     this.play();
                 }
             } else {
-                if (!this.dyn.videoAttached()) this.dyn.reattachVideo();
+                if (!this.dyn.videoAttached() && !this.dyn.get("adsplayer_active"))
+                    this.dyn.reattachVideo();
                 this.listenOn(this.dyn, "change:wait-user-interaction", function(wait) {
                     if (wait) {
                         this.dyn.once("user-has-interaction", function() {

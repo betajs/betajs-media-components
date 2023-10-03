@@ -318,7 +318,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "placeholderstyle": "",
                         "hasplaceholderstyle": false,
                         "playerorientation": undefined,
-                        // Reference to Chrome renewed policy, we have to setup mute for auto-playing players.
+                        // Reference to Chrome renewed policy, we have to set up mute for autoplaying players.
                         // If we do it forcibly, then we will set as true
                         "forciblymuted": false,
                         "autoplay-allowed": false,
@@ -1557,13 +1557,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 functions: {
 
                     user_activity: function(strong) {
-                        if (strong && !this.get("volumeafterinteraction")) {
-                            // User interacted with player, and set player's volume level/un-mute
-                            // So we will play voice as soon as player visible for user
-                            if (!this.get("muted") && !this.get("unmuteonclick"))
-                                this.set_volume(this.get("initialoptions").volumelevel);
-                            if (this.get("forciblymuted")) this.set("forciblymuted", false);
-                        }
+                        if (strong && !this.get("volumeafterinteraction")) {}
                         if (this.get('preventinteractionstatus')) return;
                         this._resetActivity();
                     },
@@ -1749,14 +1743,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this._delegatedPlayer.execute("toggle_player");
                             return;
                         }
-                        if (this.get("unmuteonclick")) {
-                            if (this.get("muted")) {
-                                if (this.player) this.player.setMuted(false);
-                                this.set("muted", false);
-                            }
-                            this.set("unmuteonclick", false);
-                        } else
-                            if (this.get("playing") && this.get("pauseonclick")) {
+                        if (this.get("playing") && this.get("pauseonclick")) {
                             this.pause();
                         } else if (!this.get("playing") && this.get("playonclick")) {
                             this.__setPlayerEngagement();
@@ -2430,7 +2417,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     video = video || this.__video;
                     if (!video) return;
                     if (this.get("autoplay-requires-muted") || this.get("autoplay-requires-playsinline") || this.get("wait-user-interaction") || this.get("forciblymuted")) {
-                        if (this.get("autoplay-requires-muted") || this.get("forciblymuted")) video.muted = true;
+                        if (this.get("autoplay-requires-muted") || this.get("forciblymuted")) {
+                            this.set("muted", true);
+                            video.muted = true;
+                        }
                         if (this.get("autoplay-requires-playsinline"))
                             video.playsinline = true;
                         Dom.userInteraction(function() {
@@ -2521,7 +2511,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     this.set("autoplay-requires-muted", true);
                                     this.set("wait-user-interaction", false);
                                     this.set("volume", 0.0);
-                                    this.set("forciblymuted", true);
+                                    this.set("muted", true);
                                     suitableCondition = true;
                                     if (video) video.muted = opt.muted;
                                     if (video) {
@@ -2542,6 +2532,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     if (opt.muted) {
                                         this.set("forciblymuted", true);
                                         this.set("autoplay-requires-muted", true);
+                                        this.set("mute", true);
                                         if (video) video.muted = true;
                                     }
                                     suitableCondition = true;
@@ -2585,12 +2576,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.get("userhadplayerinteraction")) return;
                     this.set("userhadplayerinteraction", true);
                     this.trigger("playerinteracted");
-                    if (this.get("muted") && this.get("unmuteonclick"))
+                    if (this.get("muted") && this.get("unmuteonclick") && !this.get("volumeafterinteraction"))
                         this.__unmuteOnClick();
                     this.__removePlayerInteractionEvents();
                 },
 
-                __unmuteOnClick: function () {
+                __unmuteOnClick: function() {
                     this.set("muted", false);
                     this.auto_destroy(new Timers.Timer({ // This is being fired right before toggle_player
                         delay: 500,
@@ -2606,6 +2597,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         once: true
                     }));
                     this.set("volumeafterinteraction", true);
+                    if (this.get("forciblymuted")) this.set("forciblymuted", false);
                 }
             };
         }], {

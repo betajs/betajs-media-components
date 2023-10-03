@@ -876,7 +876,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayAd", [
                 inherited.next.call(this, state);
             },
 
-            pause: function () {
+            pause: function() {
                 this.dyn.player.pause();
                 // Fid ads player container to the content player container
                 this.dyn.trigger("resize");

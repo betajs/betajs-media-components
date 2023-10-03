@@ -2451,11 +2451,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             var _initialVolume = this.get("initialoptions").volumelevel > 1 ? 1 : this.get("initialoptions").volumelevel;
                             this.set("autoplay", this.get("initialoptions").autoplay);
                             // Sometimes browser detects that unmute happens before the user has interaction, and it pauses ad
-                            Async.eventually(function() {
-                                if (this.destroyed()) return; // in some cases it can be destroyed before
-                                if (!this.get("muted")) this.set_volume(_initialVolume);
-                                if (!this.get("muted") && this.get("volume") > 0.00) video.muted = false;
-                            }, this, 300);
+                            if (!this.get("unmuteonclick")) {
+                                Async.eventually(function() {
+                                    if (this.destroyed()) return; // in some cases it can be destroyed before
+                                    if (!this.get("muted")) this.set_volume(_initialVolume);
+                                    if (!this.get("muted") && this.get("volume") > 0.00) video.muted = false;
+                                }, this, 300);
+                            }
 
                             this.set("forciblymuted", false);
                             if (this.get("autoplay-requires-muted") && this.get("adshassource")) {
@@ -2488,14 +2490,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 __testAutoplayOptions: function(video) {
                     var suitableCondition = false;
-                    var autoplayPossibleOptions = [{
-                            muted: false,
-                            playsinline: false
-                        },
-                        {
-                            muted: false,
-                            playsinline: true
-                        },
+                    var autoplayPossibleOptions = [
                         {
                             muted: true,
                             playsinline: false
@@ -2505,6 +2500,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             playsinline: true
                         }
                     ];
+                    // If we preset muted and unmuteonclick is false, we don't need to check unmuted options
+                    if (!this.get("muted") && !this.get("unmuteonclick")) {
+                        autoplayPossibleOptions.push({
+                            muted: false,
+                            playsinline: false
+                        }, {
+                            muted: false,
+                            playsinline: true
+                        });
+                    }
                     Objs.iter(autoplayPossibleOptions, function(opt, index) {
                         PlayerSupport.canAutoplayVideo(opt)
                             .success(function(response, err) {

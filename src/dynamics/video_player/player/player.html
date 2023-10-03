@@ -27,6 +27,14 @@
         ba-shownext="{{shownext}}"
         ba-noengagenext="{{noengagenext}}"
     ></ba-{{dynnext}}>
+    <div class="{{css}}-tooltips-list-container"
+         ba-repeat="{{tooltip :: tooltips}}"
+    >
+        <ba-{{dyntooltip}}
+        ba-if="{{tooltip.tooltiptext}}"
+        ba-tooltip="{{tooltip}}"
+        ></ba-{{dyntooltip}}>
+    </div>
     <div class="{{cssplayer}}-content" data-selector="ba-player-container">
         <div ba-show="{{(videoelement_active || !imageelement_active) && !silent_attach}}" class="{{css}}-video-container">
             <video tabindex="-1" class="{{css}}-video {{csscommon}}-{{videofitstrategy}}-fit" data-video="video"

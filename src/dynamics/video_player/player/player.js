@@ -340,8 +340,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "shownext": "float",
                     "state": "string",
                     "noengagenext": "float",
-                    "stayengaged": "boolean",
-                    "next_active": "boolean",
                     "unmuteonclick": "boolean",
                     "rerecordable": "boolean",
                     "loop": "boolean",

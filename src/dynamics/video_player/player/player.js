@@ -1558,25 +1558,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     user_activity: function(strong) {
                         if (strong && !this.get("volumeafterinteraction")) {
-                            if (this.get("muted") && this.get("unmuteonclick")) {
-                                this.set("muted", false);
-                                this.auto_destroy(new Timers.Timer({ // This is being fired right before toggle_player
-                                    delay: 500,
-                                    fire: function() {
-                                        if (!this.get("muted")) {
-                                            // If user not paused video manually, we set user as engaged
-                                            if (!this.get("manuallypaused")) this.__setPlayerEngagement();
-                                            this.set_volume(this.get("initialoptions").volumelevel);
-                                        }
-                                        this.set("unmuteonclick", false);
-                                    }.bind(this),
-                                    once: true
-                                }));
-                            }
                             // User interacted with player, and set player's volume level/un-mute
                             // So we will play voice as soon as player visible for user
-                            if (!this.get("muted") && !this.get("unmuteonclick")) this.set_volume(this.get("initialoptions").volumelevel);
-                            this.set("volumeafterinteraction", true);
+                            if (!this.get("muted") && !this.get("unmuteonclick"))
+                                this.set_volume(this.get("initialoptions").volumelevel);
                             if (this.get("forciblymuted")) this.set("forciblymuted", false);
                         }
                         if (this.get('preventinteractionstatus')) return;
@@ -1770,7 +1755,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.set("muted", false);
                             }
                             this.set("unmuteonclick", false);
-                        } else if (this.get("playing") && this.get("pauseonclick")) {
+                        } else
+                            if (this.get("playing") && this.get("pauseonclick")) {
                             this.pause();
                         } else if (!this.get("playing") && this.get("playonclick")) {
                             this.__setPlayerEngagement();
@@ -2599,7 +2585,27 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.get("userhadplayerinteraction")) return;
                     this.set("userhadplayerinteraction", true);
                     this.trigger("playerinteracted");
+                    if (this.get("muted") && this.get("unmuteonclick"))
+                        this.__unmuteOnClick();
                     this.__removePlayerInteractionEvents();
+                },
+
+                __unmuteOnClick: function () {
+                    this.set("muted", false);
+                    this.auto_destroy(new Timers.Timer({ // This is being fired right before toggle_player
+                        delay: 500,
+                        fire: function() {
+                            if (!this.get("muted")) {
+                                // If user not paused video manually, we set user as engaged
+                                if (!this.get("manuallypaused")) this.__setPlayerEngagement();
+                                if (this.player) this.player.setMuted(false)
+                                this.set_volume(this.get("initialoptions").volumelevel);
+                            }
+                            this.set("unmuteonclick", false);
+                        }.bind(this),
+                        once: true
+                    }));
+                    this.set("volumeafterinteraction", true);
                 }
             };
         }], {

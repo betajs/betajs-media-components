@@ -83,15 +83,17 @@ if (params.cmp) {
 }
 
 if (params.nextwidget) {
-    attrs.nextwidget = params.nextwidget;
+    attrs.nextwidget = Number(params.nextwidget) === 1;
 }
 
 if (params.shownext) {
-    attrs.shownext = Number(params.nextsn) === 1;
+    // Seems shownext has to be float number
+    attrs.shownext = Number(params.shownext);
 }
 
 if (params.noengagenext) {
-    attrs.noengagenext = Number(params.nextsn) === 1;
+    // Has to be float number
+    attrs.noengagenext = Number(params.noengagenext);
 }
 
 attrs = {...attrs, ...{

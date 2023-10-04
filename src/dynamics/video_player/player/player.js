@@ -2530,7 +2530,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     if (opt.muted) {
                                         this.set("forciblymuted", true);
                                         this.set("autoplay-requires-muted", true);
-                                        this.set("mute", true);
+                                        this.set("muted", true);
                                         if (video) video.muted = true;
                                     }
                                     suitableCondition = true;

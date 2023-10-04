@@ -83,15 +83,32 @@ if (params.cmp) {
 }
 
 if (params.nextwidget) {
-    attrs.nextwidget = params.nextwidget;
+    attrs.nextwidget = Number(params.nextwidget) === 1;
+    attrs.playlist = [
+        {
+            poster: '/static/demos/sample-cover.png',
+            source: '/static/demos/sample-video.mp4'
+        },
+        {
+            poster: '/static/demos/sample-cover2.png',
+            source: '/static/demos/sample-video2.mp4'
+        },
+        {
+            poster: '/static/demos/sample-cover.png',
+            source: '/static/demos/sample-video3.mp4'
+        }
+    ];
+} else {
+    attrs.source = '/static/demos/sample-video.mp4';
+    attrs.poster = '/static/demos/assets/sample-cover.png';
 }
 
 if (params.shownext) {
-    attrs.shownext = Number(params.nextsn) === 1;
+    attrs.shownext = params.shownext;
 }
 
 if (params.noengagenext) {
-    attrs.noengagenext = Number(params.nextsn) === 1;
+    attrs.noengagenext = params.noengagenext;
 }
 
 attrs = {...attrs, ...{
@@ -101,9 +118,9 @@ attrs = {...attrs, ...{
         // hideoninactivity: false,
         // ** SOURCES
         // width: 640,
-        source: '/static/demos/sample-video.mp4',
-        poster: '/static/demos/assets/sample-cover.png',
         minadintervals: 0,
+        // hidecontrolbar: true,
+        // hideadscontrolbar: true,
         imasettings: {
             // ** IMA
             locale: 'fr',
@@ -170,6 +187,13 @@ attrs = {...attrs, ...{
                 companionad: true,
                 // position: 'bottom'
                 // companionad: "[,250]",
+                // top: 40,
+                positioning: {
+                    // applyProperty: 'margin-top', // default: 'margin-top'
+                    // applySelector: `div.ba-player-floating`, // default: div.ba-player-floating
+                    relativeSelector: `div#header`,
+                    // relativeSelector: null,
+                }
             },
             desktop: {
                 height: 140,

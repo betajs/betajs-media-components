@@ -173,6 +173,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "nextadtagurls": [],
                         "inlinevastxml": null,
                         "hidebeforeadstarts": true, // Will help hide player poster before ads start
+                        "hideadscontrolbar": false,
                         "showplayercontentafter": null, // we can set any microseconds to show player content in any case if ads not initialized
                         "adsposition": null,
                         "vmapads": false, // VMAP ads will set pre, mid, post positions inside XML file
@@ -192,7 +193,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "submittable": false,
                         "autoplay": false,
                         "autoplaywhenvisible": false,
-                        continuousplayback: true,
+                        "continuousplayback": true,
                         "preload": false,
                         "loop": false,
                         "loopall": false,
@@ -240,7 +241,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 "position": "top", // positions of floating video player for mobile
                                 "height": 75,
                                 "sidebar": true,
-                                "companionad": true
+                                "companionad": true,
+                                "positioning": {
+                                    "relativeSelector": null, // To be able to work positioning option, correct selector should be provided (Example: div#header)
+                                    "applySelector": 'div.ba-player-floating', // could be changed if you require
+                                    "applyProperty": 'margin-top' // will apply height of the relativeSelector
+                                }
                             }
                         },
                         "tracktags": [],
@@ -348,7 +354,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "loopall": "boolean",
                     "autoplay": "boolean",
                     "autoplaywhenvisible": "boolean",
-                    continuousplayback: "boolean",
+                    "continuousplayback": "boolean",
                     "preload": "boolean",
                     "ready": "boolean",
                     "nofullscreen": "boolean",
@@ -412,6 +418,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "adchoiceslink": "string",
                     "adtagurlfallbacks": "array",
                     "nextadtagurls": "array",
+                    "hideadscontrolbar": "boolean",
                     "inlinevastxml": "string",
                     "imasettings": "jsonarray",
                     "adsposition": "string",
@@ -858,7 +865,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         var stickyOptions = {
                             threshold: this.get("sticky-threshold"),
                             paused: this.get("sticky-starts-paused"),
-                            "static": this.get("floatingoptions.static")
+                            "static": this.get("floatingoptions.static"),
+                            "noFloatIfBelow": this.get("floatingoptions.noFloatIfBelow"),
+                            "noFloatIfAbove": this.get("floatingoptions.noFloatIfAbove")
                         };
                         this.stickyHandler = this.auto_destroy(new StickyHandler(
                             this.activeElement().firstChild,
@@ -2283,6 +2292,22 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         if (typeof this.get("floatingoptions.mobile.sidebar") !== "undefined" && this.get("floatingoptions.sidebar"))
                             this.set("with_sidebar", this.get("floatingoptions.mobile.sidebar"));
+                        if (typeof this.get("floatingoptions.mobile.positioning") === "object") {
+                            var playerApplyForSelector, documentRelativeSelector, positioningApplySelector, positioningRelativeSelector, positioningProperty;
+                            positioningApplySelector = this.get("floatingoptions.mobile.positioning.applySelector");
+                            positioningRelativeSelector = this.get("floatingoptions.mobile.positioning.relativeSelector");
+                            positioningProperty = Strings.camelCase(this.get("floatingoptions.mobile.positioning.applyProperty") || 'margin-top');
+                            if (typeof positioningRelativeSelector === "string") {
+                                if (positioningRelativeSelector)
+                                    playerApplyForSelector = this.activeElement().querySelector(positioningApplySelector);
+                                if (playerApplyForSelector) playerApplyForSelector = this.activeElement().firstChild;
+                                documentRelativeSelector = document.querySelector(positioningRelativeSelector);
+                                if (documentRelativeSelector && playerApplyForSelector) {
+                                    var relativeSelectorHeight = Dom.elementDimensions(documentRelativeSelector).height;
+                                    playerApplyForSelector.style[positioningProperty] = relativeSelectorHeight + 'px';
+                                }
+                            }
+                        }
                     } else {
                         viewportOptions = this.get("floatingoptions.desktop");
                         if (viewportOptions) {

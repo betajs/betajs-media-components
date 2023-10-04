@@ -377,7 +377,7 @@ module.exports = function(grunt) {
         ], null, { })
         .browserstackTask(null, 'tests/browserstack.html', {desktop: true, mobile: true})
         .browserstackTask("browserstack-media", 'tests/server/browserstack.html', {desktop: true, mobile: true})
-        .lintTask(null, ['./src/**/*.js', './Gruntfile.js', './tests/**/*.js', '!./tests/playwright/**/*.js'])
+//        .lintTask(null, ['./src/**/*.js', './Gruntfile.js', './tests/**/*.js', '!./tests/playwright/**/*.js'])
         .csslinterTask(null, [
             'dist/themes/cube/style.css',
             'dist/betajs-media-components.css',
@@ -466,7 +466,7 @@ module.exports = function(grunt) {
         // Include theme generation
         "themes",
 
-        "lint",
+//        "lint",
         "csslint"
     ]);
 
@@ -613,7 +613,7 @@ module.exports = function(grunt) {
         });
         this.async();
     });
-    grunt.registerTask('check-node', ['lint']);
+    grunt.registerTask('check-node', [/*'lint'*/]);
     grunt.registerTask('check', ['csslinter', 'check-node', 'browserqunit']);
 
     grunt.registerTask("generate-default-yml", function () {

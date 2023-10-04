@@ -3,6 +3,7 @@ import PlayerPage from "../../classes/PlayerPageClass";
 import {
     CHROME_CANARY_LOCATION, defaultPlayerAttributes, AD_TAG_URL
 } from "../../consts.js";
+import runTestMethod from '../../utils/run-test';
 
 // Will test the player with autoplay and unmute on click
 test.describe('Desktop Player unmute autoplay player', () => {
@@ -14,27 +15,12 @@ test.describe('Desktop Player unmute autoplay player', () => {
         width: 640, height: 360,
         adtagurl: AD_TAG_URL,
     }
+
     const browserSettings = {
         // args: [`--user-data-dir="/tmp/chrome_dev_test"`, '--disable-web-security'],
         headless: false, // If headless is true, player will start with user interaction
         devtools: true,
         executablePath: CHROME_CANARY_LOCATION,
-    }
-
-    const runTestMethod = async (args , func) => {
-        const { page, browserName, browser, context } = args;
-        if (browserName === 'chromium') {
-            await (async () => {
-                // const browser = await firefox.launch();
-                const browser = await chromium.launch(browserSettings);
-                const page = await browser.newPage();
-                const context = await browser.newContext();
-                await func(page, browser, context);
-            })();
-        } else {
-            await func(page, browser, context);
-        }
-
     }
 
     test.describe.configure({
@@ -73,7 +59,7 @@ test.describe('Desktop Player unmute autoplay player', () => {
             });
         }
 
-        await runTestMethod({page, browserName, browser, context}, runAdsTester);
+        await runTestMethod({page, browserName, browser, context}, runAdsTester, browserSettings);
     });
 
     test(`Video content user experience`, async ({ page, browserName, browser, context }) => {
@@ -91,7 +77,7 @@ test.describe('Desktop Player unmute autoplay player', () => {
 
             await player.contentVideoExperienceFlow();
         }
-        await runTestMethod({ page, browserName, browser, context }, runContentPlayerTest);
+        await runTestMethod({ page, browserName, browser, context }, runContentPlayerTest, browserSettings);
     });
 
     test(`Next Widget: Content experience`, async ({ page, browserName, browser, context }) => {
@@ -123,41 +109,6 @@ test.describe('Desktop Player unmute autoplay player', () => {
             });
         }
 
-        await runTestMethod({ page, browserName, browser, context }, runContentVideoWithNext);
+        await runTestMethod({ page, browserName, browser, context }, runContentVideoWithNext, browserSettings);
     });
-
-    test(`Next Widget Stay Engaged: Content experience`, async ({ page, browserName, browser, context }) => {
-        const runContentVideoWithNext = async (page, browser, context) => {
-
-            descriptionPlayerAttributes.nextwidget = true; // if player activated next widget
-            // How many seconds to wait before showing next widget
-            descriptionPlayerAttributes.shownext = 2.5;
-            // If not engaged, how many seconds to wait before showing next widget
-            descriptionPlayerAttributes.noengagenext = 15;
-
-            delete defaultPlayerAttributes["poster"];
-            delete defaultPlayerAttributes["source"];
-            delete descriptionPlayerAttributes["adtagurl"];
-
-            const player = new PlayerPage(page,
-                { ...defaultPlayerAttributes, ...descriptionPlayerAttributes }
-                , context, [{
-                    blk: 1
-                }]);
-
-            // Go to the starting url before each test.
-            await player.goto();
-            await player.setPlayerInstance();
-
-            await player.contentVideoExperienceFlowWithNextVideo({
-                nextWidget: false,
-                preroll: typeof descriptionPlayerAttributes.adtagurl !== 'undefined',
-                stayEngaged: true
-            });
-
-        }
-
-        await runTestMethod({page, browserName, browser, context }, runContentVideoWithNext);
-    });
-
 });

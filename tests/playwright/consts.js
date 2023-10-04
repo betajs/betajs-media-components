@@ -32,3 +32,14 @@ export const defaultPlayerAttributes = {
         },
     ]
 }
+
+export const VMAP_AD_TAG = `https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/vmap_ad_samples&sz=640x480&cust_params=sample_ar%3Dpremidpost&ciu_szs=300x250&gdfp_req=1&ad_rule=1&output=vmap&unviewed_position_start=1&env=vp&impl=s&cmsid=496&vid=short_onecue&correlator=`;
+export const inlineVAST = ``
+export const AD_TAGS = {
+    0: null,
+    1: AD_TAG_URL,
+    3: inlineVAST,
+    inline: inlineVAST,
+    4: VMAP_AD_TAG,
+    vmap: VMAP_AD_TAG,
+}

@@ -865,7 +865,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         var stickyOptions = {
                             threshold: this.get("sticky-threshold"),
                             paused: this.get("sticky-starts-paused"),
-                            "static": this.get("floatingoptions.static")
+                            "static": this.get("floatingoptions.static"),
+                            "noFloatIfBelow": this.get("floatingoptions.noFloatIfBelow"),
+                            "noFloatIfAbove": this.get("floatingoptions.noFloatIfAbove")
                         };
                         this.stickyHandler = this.auto_destroy(new StickyHandler(
                             this.activeElement().firstChild,

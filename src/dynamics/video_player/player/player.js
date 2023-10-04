@@ -240,7 +240,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 "position": "top", // positions of floating video player for mobile
                                 "height": 75,
                                 "sidebar": true,
-                                "companionad": true
+                                "companionad": true,
+                                "positioning": {
+                                    "relativeSelector": null, // To be able to work positioning option, correct selector should be provided (Example: div#header)
+                                    "applySelector": 'div.ba-player-floating', // could be changed if you require
+                                    "applyProperty": 'margin-top' // will apply height of the relativeSelector
+                                }
                             }
                         },
                         "tracktags": [],
@@ -2283,6 +2288,22 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         if (typeof this.get("floatingoptions.mobile.sidebar") !== "undefined" && this.get("floatingoptions.sidebar"))
                             this.set("with_sidebar", this.get("floatingoptions.mobile.sidebar"));
+                        if (typeof this.get("floatingoptions.mobile.positioning") === "object") {
+                            var playerApplyForSelector, documentRelativeSelector, positioningApplySelector, positioningRelativeSelector, positioningProperty;
+                            positioningApplySelector = this.get("floatingoptions.mobile.positioning.applySelector");
+                            positioningRelativeSelector = this.get("floatingoptions.mobile.positioning.relativeSelector");
+                            positioningProperty = Strings.camelCase(this.get("floatingoptions.mobile.positioning.applyProperty") || 'margin-top');
+                            if (typeof positioningRelativeSelector === "string") {
+                                if (positioningRelativeSelector)
+                                    playerApplyForSelector = this.activeElement().querySelector(positioningApplySelector);
+                                if (playerApplyForSelector) playerApplyForSelector = this.activeElement().firstChild;
+                                documentRelativeSelector = document.querySelector(positioningRelativeSelector);
+                                if (documentRelativeSelector && playerApplyForSelector) {
+                                    var relativeSelectorHeight = Dom.elementDimensions(documentRelativeSelector).height;
+                                    playerApplyForSelector.style[positioningProperty] = relativeSelectorHeight + 'px';
+                                }
+                            }
+                        }
                     } else {
                         viewportOptions = this.get("floatingoptions.desktop");
                         if (viewportOptions) {

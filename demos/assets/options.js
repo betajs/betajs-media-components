@@ -170,6 +170,13 @@ attrs = {...attrs, ...{
                 companionad: true,
                 // position: 'bottom'
                 // companionad: "[,250]",
+                // top: 40,
+                positioning: {
+                    // applyProperty: 'margin-top', // default: 'margin-top'
+                    // applySelector: `div.ba-player-floating`, // default: div.ba-player-floating
+                    relativeSelector: `div#header`,
+                    // relativeSelector: null,
+                }
             },
             desktop: {
                 height: 140,

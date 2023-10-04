@@ -173,6 +173,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "nextadtagurls": [],
                         "inlinevastxml": null,
                         "hidebeforeadstarts": true, // Will help hide player poster before ads start
+                        "hideadscontrolbar": false,
                         "showplayercontentafter": null, // we can set any microseconds to show player content in any case if ads not initialized
                         "adsposition": null,
                         "vmapads": false, // VMAP ads will set pre, mid, post positions inside XML file
@@ -192,7 +193,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "submittable": false,
                         "autoplay": false,
                         "autoplaywhenvisible": false,
-                        continuousplayback: true,
+                        "continuousplayback": true,
                         "preload": false,
                         "loop": false,
                         "loopall": false,
@@ -353,7 +354,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "loopall": "boolean",
                     "autoplay": "boolean",
                     "autoplaywhenvisible": "boolean",
-                    continuousplayback: "boolean",
+                    "continuousplayback": "boolean",
                     "preload": "boolean",
                     "ready": "boolean",
                     "nofullscreen": "boolean",
@@ -417,6 +418,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "adchoiceslink": "string",
                     "adtagurlfallbacks": "array",
                     "nextadtagurls": "array",
+                    "hideadscontrolbar": "boolean",
                     "inlinevastxml": "string",
                     "imasettings": "jsonarray",
                     "adsposition": "string",

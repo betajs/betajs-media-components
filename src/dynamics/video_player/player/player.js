@@ -1557,7 +1557,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 functions: {
 
                     user_activity: function(strong) {
-                        if (strong && !this.get("volumeafterinteraction")) {}
                         if (this.get('preventinteractionstatus')) return;
                         this._resetActivity();
                     },

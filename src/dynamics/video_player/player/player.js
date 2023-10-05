@@ -1725,7 +1725,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.get("fullscreened")) {
                             Dom.documentExitFullscreen();
                         } else {
-                            if (Info.isSafari() && Info.isMobile()) Dom.elementEnterFullscreen(this.activeElement().querySelector("video"));
+                            if (Info.isiOS() && Info.isMobile()) Dom.elementEnterFullscreen(this.activeElement().querySelector("video"));
                             else Dom.elementEnterFullscreen(this.activeElement().childNodes[0]);
                         }
                         this.set("fullscreened", !this.get("fullscreened"));

@@ -1,0 +1,131 @@
+{
+  "config": {
+    "configFile": "/Users/amansaurabh/Desktop/Open-Source-Contri/betajs-media-components/tests/playwright/config.js",
+    "rootDir": "/Users/amansaurabh/Desktop/Open-Source-Contri/betajs-media-components/tests/playwright",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "list",
+        {
+          "stdout": true,
+          "outputFile": "./reports/list-results.txt"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "./reports/json-results.json"
+        }
+      ],
+      [
+        "html",
+        {
+          "outputFolder": "./reports",
+          "open": "always"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 15000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/Users/amansaurabh/Desktop/Open-Source-Contri/betajs-media-components/tests/playwright/output",
+        "repeatEach": 1,
+        "retries": 0,
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/Users/amansaurabh/Desktop/Open-Source-Contri/betajs-media-components/tests/playwright",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "all",
+    "version": "1.38.1",
+    "workers": 2,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "tests/player/user-player-unmute-experience.spec.js",
+      "file": "tests/player/user-player-unmute-experience.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Desktop Player unmute autoplay player",
+          "file": "tests/player/user-player-unmute-experience.spec.js",
+          "line": 8,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Ads user experience",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "status": "failed",
+                      "duration": 131,
+                      "error": {
+                        "message": "browserType.launch: Executable doesn't exist at /Users/amansaurabh/Library/Caches/ms-playwright/chromium-1080/chrome-mac/Chromium.app/Contents/MacOS/Chromium\n╔═════════════════════════════════════════════════════════════════════════╗\n║ Looks like Playwright Test or Playwright was just installed or updated. ║\n║ Please run the following command to download new browsers:              ║\n║                                                                         ║\n║     npx playwright install                                              ║\n║                                                                         ║\n║ <3 Playwright Team                                                      ║\n╚═════════════════════════════════════════════════════════════════════════╝",
+                        "stack": "Error: browserType.launch: Executable doesn't exist at /Users/amansaurabh/Library/Caches/ms-playwright/chromium-1080/chrome-mac/Chromium.app/Contents/MacOS/Chromium\n╔═════════════════════════════════════════════════════════════════════════╗\n║ Looks like Playwright Test or Playwright was just installed or updated. ║\n║ Please run the following command to download new browsers:              ║\n║                                                                         ║\n║     npx playwright install                                              ║\n║                                                                         ║\n║ <3 Playwright Team                                                      ║\n╚═════════════════════════════════════════════════════════════════════════╝\n"
+                      },
+                      "errors": [
+                        {
+                          "message": "Error: browserType.launch: Executable doesn't exist at /Users/amansaurabh/Library/Caches/ms-playwright/chromium-1080/chrome-mac/Chromium.app/Contents/MacOS/Chromium\n╔═════════════════════════════════════════════════════════════════════════╗\n║ Looks like Playwright Test or Playwright was just installed or updated. ║\n║ Please run the following command to download new browsers:              ║\n║                                                                         ║\n║     npx playwright install                                              ║\n║                                                                         ║\n║ <3 Playwright Team                                                      ║\n╚═════════════════════════════════════════════════════════════════════════╝\n\n\n"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-10-05T16:07:49.172Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/amansaurabh/Desktop/Open-Source-Contri/betajs-media-components/tests/playwright/output/tests-player-user-player-unmute-experience-Desktop-Player-unmute-autoplay-player-Ads-user-experience-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d5ee42bc38e8b2c0a708-e62f62cbc395162f97f3",
+              "file": "tests/player/user-player-unmute-experience.spec.js",
+              "line": 51,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

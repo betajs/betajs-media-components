@@ -324,7 +324,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "placeholderstyle": "",
                         "hasplaceholderstyle": false,
                         "playerorientation": undefined,
-                        // Reference to Chrome renewed policy, we have to set up mute for autoplaying players.
+                        // Reference to Chrome renewed policy, we have to setup mute for auto-playing players.
                         // If we do it forcibly, then we will set as true
                         "forciblymuted": false,
                         "autoplay-allowed": false,
@@ -1556,6 +1556,28 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 functions: {
 
                     user_activity: function(strong) {
+                        if (strong && !this.get("volumeafterinteraction")) {
+                            if (this.get("muted") && this.get("unmuteonclick")) {
+                                this.set("muted", false);
+                                this.auto_destroy(new Timers.Timer({ // This is being fired right before toggle_player
+                                    delay: 500,
+                                    fire: function() {
+                                        if (!this.get("muted")) {
+                                            // If user not paused video manually, we set user as engaged
+                                            if (!this.get("manuallypaused")) this.__setPlayerEngagement();
+                                            this.set_volume(this.get("initialoptions").volumelevel);
+                                        }
+                                        this.set("unmuteonclick", false);
+                                    }.bind(this),
+                                    once: true
+                                }));
+                            }
+                            // User interacted with player, and set player's volume level/un-mute
+                            // So we will play voice as soon as player visible for user
+                            if (!this.get("muted") && !this.get("unmuteonclick")) this.set_volume(this.get("initialoptions").volumelevel);
+                            this.set("volumeafterinteraction", true);
+                            if (this.get("forciblymuted")) this.set("forciblymuted", false);
+                        }
                         if (this.get('preventinteractionstatus')) return;
                         this._resetActivity();
                     },
@@ -1741,7 +1763,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this._delegatedPlayer.execute("toggle_player");
                             return;
                         }
-                        if (this.get("playing") && this.get("pauseonclick")) {
+                        if (this.get("unmuteonclick")) {
+                            if (this.get("muted")) {
+                                if (this.player) this.player.setMuted(false);
+                                this.set("muted", false);
+                            }
+                            this.set("unmuteonclick", false);
+                        } else if (this.get("playing") && this.get("pauseonclick")) {
                             this.pause();
                         } else if (!this.get("playing") && this.get("playonclick")) {
                             this.__setPlayerEngagement();
@@ -2431,30 +2459,28 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     video = video || this.__video;
                     if (!video) return;
                     if (this.get("autoplay-requires-muted") || this.get("autoplay-requires-playsinline") || this.get("wait-user-interaction") || this.get("forciblymuted")) {
-                        if (this.get("autoplay-requires-muted") || this.get("forciblymuted")) {
-                            this.set("muted", true);
-                            video.muted = true;
-                        }
+                        if (this.get("autoplay-requires-muted") || this.get("forciblymuted")) video.muted = true;
                         if (this.get("autoplay-requires-playsinline"))
                             video.playsinline = true;
                         Dom.userInteraction(function() {
                             var _initialVolume = this.get("initialoptions").volumelevel > 1 ? 1 : this.get("initialoptions").volumelevel;
                             this.set("autoplay", this.get("initialoptions").autoplay);
-                            // We will unmute only if unmuteonclick is false, as it means user has to click on player not in any place
-                            if (!this.get("unmuteonclick")) {
-                                // Sometimes browser detects that unmute happens before the user has interaction, and it pauses ad
-                                Async.eventually(function() {
-                                    if (this.destroyed()) return; // in some cases it can be destroyed before
-                                    if (!this.get("muted")) this.set_volume(_initialVolume);
-                                    if (!this.get("muted") && this.get("volume") > 0.00) video.muted = false;
-                                }, this, 300);
+                            // Sometimes browser detects that unmute happens before the user has interaction, and it pauses ad
+                            Async.eventually(function() {
+                                if (this.destroyed()) return; // in some cases it can be destroyed before
+                                if (!this.get("muted")) this.set_volume(_initialVolume);
+                                if (!this.get("muted") && this.get("volume") > 0.00) video.muted = false;
+                            }, this, 300);
 
-                                if (this.get("wait-user-interaction") && this.get("autoplay")) {
-                                    this.__testAutoplayOptions(video);
-                                    this.trigger("user-has-interaction");
-                                }
-                            }
                             this.set("forciblymuted", false);
+                            if (this.get("autoplay-requires-muted") && this.get("adshassource")) {
+                                // Sometimes browser detects that unmute happens before the user has interaction, and it pauses ad
+                                this.trigger("unmute-ads", Math.min(_initialVolume, 1));
+                            }
+                            if (this.get("wait-user-interaction") && this.get("autoplay")) {
+                                this.__testAutoplayOptions(video);
+                                this.trigger("user-has-interaction");
+                            }
                         }, this);
                     }
 
@@ -2524,7 +2550,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     this.set("autoplay-requires-muted", true);
                                     this.set("wait-user-interaction", false);
                                     this.set("volume", 0.0);
-                                    this.set("muted", true);
+                                    this.set("forciblymuted", true);
                                     suitableCondition = true;
                                     if (video) video.muted = opt.muted;
                                     if (video) {
@@ -2545,7 +2571,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     if (opt.muted) {
                                         this.set("forciblymuted", true);
                                         this.set("autoplay-requires-muted", true);
-                                        this.set("muted", true);
                                         if (video) video.muted = true;
                                     }
                                     suitableCondition = true;
@@ -2589,33 +2614,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.get("userhadplayerinteraction")) return;
                     this.set("userhadplayerinteraction", true);
                     this.trigger("playerinteracted");
-                    if (this.get("muted") && this.get("unmuteonclick") && !this.get("volumeafterinteraction"))
-                        this.__unmuteOnClick();
                     this.__removePlayerInteractionEvents();
-                },
-
-                __unmuteOnClick: function() {
-                    this.set("muted", false);
-                    this.auto_destroy(new Timers.Timer({ // This is being fired right before toggle_player
-                        delay: 500,
-                        fire: function() {
-                            if (!this.get("muted")) {
-                                // If user not paused video manually, we set user as engaged
-                                if (!this.get("manuallypaused")) this.__setPlayerEngagement();
-                                if (this.player) this.player.setMuted(false);
-                                this.set_volume(this.get("initialoptions").volumelevel);
-                            }
-                            this.set("unmuteonclick", false);
-                        }.bind(this),
-                        once: true
-                    }));
-                    this.set("volumeafterinteraction", true);
-                    if (this.get("forciblymuted")) this.set("forciblymuted", false);
-                    var _initialVolume = this.get("initialoptions").volumelevel > 1 ? 1 : this.get("initialoptions").volumelevel;
-                    if (this.get("autoplay-requires-muted") && this.get("adshassource")) {
-                        // Sometimes browser detects that unmute happens before the user has interaction, and it pauses ad
-                        this.trigger("unmute-ads", Math.min(_initialVolume, 1));
-                    }
                 }
             };
         }], {

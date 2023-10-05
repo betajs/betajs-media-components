@@ -19,6 +19,8 @@ Scoped.define("module:StickyHandler", [
                 this.element = element;
                 this.container = container;
                 this.paused = options.paused || false;
+                this.noFloatIfBelow = options.noFloatIfBelow || false;
+                this.noFloatIfAbove = options.noFloatIfAbove || false;
                 this.threshold = options.threshold;
                 if (!options["static"]) this.events = this.auto_destroy(new DomEvents());
                 this.floating = false;
@@ -113,6 +115,11 @@ Scoped.define("module:StickyHandler", [
                         if (this.paused) {
                             this.trigger("transitionOutOfView");
                             return;
+                        }
+                        if (this.noFloatIfAbove || this.noFloatIfBelow) {
+                            var r = this.element.getBoundingClientRect();
+                            if (this.noFloatIfAbove && r.top >= 0) return;
+                            if (this.noFloatIfBelow && r.top <= 0) return;
                         }
                         this.transitionToFloat();
                     }.bind(this));

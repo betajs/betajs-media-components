@@ -299,7 +299,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         var ad = ev.getAd();
                         var isLinear = ad.isLinear();
                         this.set("linear", isLinear);
-                        this.set("hidecontrolbar", !isLinear);
+                        this.set("hidecontrolbar", !isLinear || this.get("hideadscontrolbar"));
                         if (!isLinear) {
                             this.set("non-linear-min-suggestion", ad.getMinSuggestedDuration());
                             // decrease a non-linear suggestion period, be able to show midroll

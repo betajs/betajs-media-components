@@ -215,7 +215,7 @@
              ba-click="{{toggle_volume()}}" title="{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}"
         >
             <div class="{{css}}-button-inner">
-                <i class="{{csscommon + '-icon-volume-' + ((volume >= 0.5 && !muted) ? 'up' : ((volume > 0 && !muted) ? 'down' : 'off')) }}"></i>
+                <i class="{{csscommon + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}"></i>
             </div>
         </div>
 

@@ -264,7 +264,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 getAdHeight: function() {
                     if (!this.activeElement()) return null;
                     if (this.get("floating") && this.parent()) {
-                        return Dom.elementDimensions(this.parent().activeElement().firstChild).height;
+                        return +parseFloat(this.get("containerstyle").height).toFixed() || Dom.elementDimensions(this.parent().activeElement().firstChild).height;
                     }
                     return this.activeElement().firstChild ? this.activeElement().firstChild.clientHeight : this.activeElement().clientHeight;
                 },

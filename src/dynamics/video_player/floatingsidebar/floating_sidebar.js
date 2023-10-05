@@ -18,6 +18,7 @@ Scoped.define("module:VideoPlayer.Dynamics.FloatingSidebar", [
                     "cssplayer": "ba-player",
                     "cssadsplayer": "ba-adsplayer",
                     "cssfloatingsidebar": "ba-floating-sidebar",
+                    "containerstyle": null,
                     "sidebartitle": null,
                     "bodyelementtouched": false,
                     "bodyelementpadding": 114,

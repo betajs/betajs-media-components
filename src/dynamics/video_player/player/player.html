@@ -272,6 +272,7 @@
     <div
         ba-if="{{with_sidebar && !fullscreened}}"
         class="{{cssplayer}}-sidebar"
+        ba-styles={{{flexGrow:1}}}
     >
         <ba-{{dynfloatingsidebar}}
             ba-if="{{with_sidebar && !fullscreened}}"
@@ -287,6 +288,7 @@
             ba-adchoiceslink="{{adchoiceslink}}"
             ba-moredetailslink="{{moredetailslink}}"
             ba-moredetailstext="{{moredetailstext}}"
+            ba-containerstyle="{{sidebarSizingStyles}}"
             ba-adsplaying="{{adsplaying}}"
             ba-mobileviewport="{{mobileviewport}}"
             ba-event:pause_ads="pause_ads"

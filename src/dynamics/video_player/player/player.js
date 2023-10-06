@@ -232,10 +232,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             // "fluidsidebar": true, // TODO: not works for now, if false, 50% width will be applied on sidebar
                             "desktop": {
                                 "position": "bottom-right", // position of floating video player for desktop
-                                "height": 190,
+                                "height": 197,
                                 "bottom": 30,
                                 "sidebar": false,
                                 "companionad": false
+
+                                /** optional settings */
+                                // "size": null", // any key
+                                // "availablesizes": {
+                                //     'key1': heightInNumber, 'key2': heightInNumber2, ...
+                                // }
                             },
                             "mobile": {
                                 "position": "top", // positions of floating video player for mobile
@@ -247,6 +253,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     "applySelector": 'div.ba-player-floating', // could be changed if you require
                                     "applyProperty": 'margin-top' // will apply height of the relativeSelector
                                 }
+                                /** optional settings */
+                                // "size": null", // any key
+                                // "availablesizes": {
+                                //     'key1': heightInNumber, 'key2': heightInNumber2, ...
+                                // }
                             }
                         },
                         "tracktags": [],
@@ -689,10 +700,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("closeable_title", this.get("closeable-title"));
                     // NOTE: below condition has to be before ads initialization
                     if (this.get("autoplaywhenvisible")) this.set("autoplay", true);
-                    this.set("floatingoptions", Objs.tree_merge(
-                        this.attrs().floatingoptions,
-                        this.get("floatingoptions")
-                    ));
+                    this.__initFloatingOptions();
                     this._observer = new ResizeObserver(function(entries) {
                         for (var i = 0; i < entries.length; i++) {
                             this.trigger("resize", {
@@ -2256,6 +2264,33 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         var skipInitialWithoutAutoplay = this.get("skipinitial") && !this.get("autoplay");
                         this.set("delayadsmanagerload", !this.get("preloadadsmanager") || skipInitialWithoutAutoplay);
                     }
+                },
+
+                /** @private */
+                __initFloatingOptions: function() {
+                    this.set("floatingoptions", Objs.tree_merge(
+                        this.attrs().floatingoptions,
+                        this.get("floatingoptions")
+                    ));
+                    Objs.iter(["mobile", "desktop"], function(view) {
+                        var _floatingoptions = this.get("floatingoptions")[view];
+                        if (_floatingoptions && _floatingoptions.size && _floatingoptions.availablesizes) {
+                            var _availableSizes = _floatingoptions.availablesizes;
+                            if (!Types.is_object(_availableSizes)) return;
+                            Objs.keyMap(_availableSizes, function(v, k) {
+                                if (Types.is_string(_floatingoptions.size) && k === _floatingoptions.size.toLowerCase()) {
+                                    switch (view) {
+                                        case "mobile":
+                                            this.set("floatingoptions.mobile.height", v);
+                                            break;
+                                        case "desktop":
+                                            this.set("floatingoptions.desktop.height", v);
+                                            break;
+                                    }
+                                }
+                            }, this);
+                        }
+                    }, this);
                 },
 
                 /**

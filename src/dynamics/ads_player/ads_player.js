@@ -105,6 +105,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this._onAdComplete(ev);
                     },
                     "ads:allAdsCompleted": function() {
+                        if (this.parent() && this.parent().get("outstreamoptions").noEndCard) return;
                         this.call("reset");
                     },
                     "ads:discardAdBreak": function() {
@@ -347,6 +348,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             this._hideContentPlayer(dyn);
                             return;
                         }
+                        if (dyn.get("outstreamoptions").noEndCard) return;
                         if (dyn.get("outstreamoptions").moreURL) {
                             this.set("moredetailslink", dyn.get("outstreamoptions").moreURL);
                         }

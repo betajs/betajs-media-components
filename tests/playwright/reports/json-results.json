@@ -1,0 +1,148 @@
+{
+  "config": {
+    "configFile": "/private/var/www/github.com/betajs/betajs-media-components/tests/playwright/config.js",
+    "rootDir": "/private/var/www/github.com/betajs/betajs-media-components/tests/playwright",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "totalTime": 17198.466000000015,
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "list",
+        {
+          "stdout": true,
+          "outputFile": "./reports/list-results.txt"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "./reports/json-results.json"
+        }
+      ],
+      [
+        "html",
+        {
+          "outputFolder": "./reports",
+          "open": "always"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 15000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/private/var/www/github.com/betajs/betajs-media-components/tests/playwright/output",
+        "repeatEach": 1,
+        "retries": 0,
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/private/var/www/github.com/betajs/betajs-media-components/tests/playwright",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "all",
+    "version": "1.37.1",
+    "workers": 4,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "tests/player/next-widget-experience.spec.js",
+      "file": "tests/player/next-widget-experience.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Next Widget Tests",
+          "file": "tests/player/next-widget-experience.spec.js",
+          "line": 10,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Ads: With Preroll Ads",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 9,
+                      "status": "failed",
+                      "duration": 16322,
+                      "error": {
+                        "message": "page.waitForFunction: Timeout 12000ms exceeded.",
+                        "stack": "TimeoutError: page.waitForFunction: Timeout 12000ms exceeded.\n    at PlayerPage.waitAdsRemainingSeconds (/private/var/www/github.com/betajs/betajs-media-components/tests/playwright/classes/PlayerPageClass.js:207:26)\n    at PlayerPage.adExperienceFlow (/private/var/www/github.com/betajs/betajs-media-components/tests/playwright/classes/PlayerPageClass.js:359:9)\n    at PlayerPage.contentVideoExperienceFlowWithNextVideo (/private/var/www/github.com/betajs/betajs-media-components/tests/playwright/classes/PlayerPageClass.js:523:13)\n    at runAdsWithNextWidget (/private/var/www/github.com/betajs/betajs-media-components/tests/playwright/tests/player/next-widget-experience.spec.js:55:13)\n    at /private/var/www/github.com/betajs/betajs-media-components/tests/playwright/utils/run-test.js:11:13\n    at _default (/private/var/www/github.com/betajs/betajs-media-components/tests/playwright/utils/run-test.js:6:9)\n    at /private/var/www/github.com/betajs/betajs-media-components/tests/playwright/tests/player/next-widget-experience.spec.js:63:9",
+                        "location": {
+                          "file": "/private/var/www/github.com/betajs/betajs-media-components/tests/playwright/classes/PlayerPageClass.js",
+                          "column": 26,
+                          "line": 207
+                        },
+                        "snippet": "\u001b[90m   at \u001b[39mclasses/PlayerPageClass.js:207\n\n\u001b[0m \u001b[90m 205 |\u001b[39m     \u001b[36masync\u001b[39m waitAdsRemainingSeconds(position \u001b[33m=\u001b[39m \u001b[36mnull\u001b[39m\u001b[33m,\u001b[39m timeout \u001b[33m=\u001b[39m \u001b[35m12000\u001b[39m) {\u001b[0m\n\u001b[0m \u001b[90m 206 |\u001b[39m         position \u001b[33m=\u001b[39m position \u001b[33m||\u001b[39m (\u001b[36mawait\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mgetAdsPlayerAttribute(\u001b[32m`remaining`\u001b[39m) \u001b[33m-\u001b[39m \u001b[35m1\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 207 |\u001b[39m         \u001b[36mreturn\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mpage\u001b[33m.\u001b[39mwaitForFunction(\u001b[0m\n\u001b[0m \u001b[90m     |\u001b[39m                          \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 208 |\u001b[39m             ([remaining\u001b[33m,\u001b[39m debug]) \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 209 |\u001b[39m                 \u001b[36mif\u001b[39m (\u001b[36mtypeof\u001b[39m window\u001b[33m.\u001b[39mplayer\u001b[33m.\u001b[39mscopes\u001b[33m.\u001b[39madsplayer \u001b[33m===\u001b[39m \u001b[32m\"undefined\"\u001b[39m)\u001b[0m\n\u001b[0m \u001b[90m 210 |\u001b[39m                     \u001b[36mthrow\u001b[39m \u001b[36mnew\u001b[39m \u001b[33mError\u001b[39m(\u001b[32m`Seems ads not active get it's remaining position: ${position}`\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/private/var/www/github.com/betajs/betajs-media-components/tests/playwright/classes/PlayerPageClass.js",
+                            "column": 26,
+                            "line": 207
+                          },
+                          "message": "TimeoutError: page.waitForFunction: Timeout 12000ms exceeded.\n\n\u001b[90m   at \u001b[39mclasses/PlayerPageClass.js:207\n\n\u001b[0m \u001b[90m 205 |\u001b[39m     \u001b[36masync\u001b[39m waitAdsRemainingSeconds(position \u001b[33m=\u001b[39m \u001b[36mnull\u001b[39m\u001b[33m,\u001b[39m timeout \u001b[33m=\u001b[39m \u001b[35m12000\u001b[39m) {\u001b[0m\n\u001b[0m \u001b[90m 206 |\u001b[39m         position \u001b[33m=\u001b[39m position \u001b[33m||\u001b[39m (\u001b[36mawait\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mgetAdsPlayerAttribute(\u001b[32m`remaining`\u001b[39m) \u001b[33m-\u001b[39m \u001b[35m1\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 207 |\u001b[39m         \u001b[36mreturn\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mpage\u001b[33m.\u001b[39mwaitForFunction(\u001b[0m\n\u001b[0m \u001b[90m     |\u001b[39m                          \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 208 |\u001b[39m             ([remaining\u001b[33m,\u001b[39m debug]) \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 209 |\u001b[39m                 \u001b[36mif\u001b[39m (\u001b[36mtypeof\u001b[39m window\u001b[33m.\u001b[39mplayer\u001b[33m.\u001b[39mscopes\u001b[33m.\u001b[39madsplayer \u001b[33m===\u001b[39m \u001b[32m\"undefined\"\u001b[39m)\u001b[0m\n\u001b[0m \u001b[90m 210 |\u001b[39m                     \u001b[36mthrow\u001b[39m \u001b[36mnew\u001b[39m \u001b[33mError\u001b[39m(\u001b[32m`Seems ads not active get it's remaining position: ${position}`\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at PlayerPage.waitAdsRemainingSeconds (/private/var/www/github.com/betajs/betajs-media-components/tests/playwright/classes/PlayerPageClass.js:207:26)\u001b[22m\n\u001b[2m    at PlayerPage.adExperienceFlow (/private/var/www/github.com/betajs/betajs-media-components/tests/playwright/classes/PlayerPageClass.js:359:9)\u001b[22m\n\u001b[2m    at PlayerPage.contentVideoExperienceFlowWithNextVideo (/private/var/www/github.com/betajs/betajs-media-components/tests/playwright/classes/PlayerPageClass.js:523:13)\u001b[22m\n\u001b[2m    at runAdsWithNextWidget (/private/var/www/github.com/betajs/betajs-media-components/tests/playwright/tests/player/next-widget-experience.spec.js:55:13)\u001b[22m\n\u001b[2m    at /private/var/www/github.com/betajs/betajs-media-components/tests/playwright/utils/run-test.js:11:13\u001b[22m\n\u001b[2m    at _default (/private/var/www/github.com/betajs/betajs-media-components/tests/playwright/utils/run-test.js:6:9)\u001b[22m\n\u001b[2m    at /private/var/www/github.com/betajs/betajs-media-components/tests/playwright/tests/player/next-widget-experience.spec.js:63:9\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-10-08T18:22:57.866Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/private/var/www/github.com/betajs/betajs-media-components/tests/playwright/output/tests-player-next-widget-experience-Next-Widget-Tests-Ads-With-Preroll-Ads-chromium/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/private/var/www/github.com/betajs/betajs-media-components/tests/playwright/classes/PlayerPageClass.js",
+                        "column": 26,
+                        "line": 207
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "1977b53d06ef8b5129cc-b740032825f5069c34ef",
+              "file": "tests/player/next-widget-experience.spec.js",
+              "line": 38,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

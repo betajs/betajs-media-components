@@ -7,7 +7,11 @@ import runTest from "../../utils/run-test";
 
 
 // Will test the player with autoplay and unmute on click
-test.describe('Next Widget', () => {
+test.describe('Next Widget Tests', () => {
+
+    delete defaultPlayerAttributes["poster"];
+    delete defaultPlayerAttributes["source"];
+
     let descriptionPlayerAttributes = {
         autoplay: true,
         muted: true,
@@ -15,7 +19,14 @@ test.describe('Next Widget', () => {
         skipinitial: false,
         width: 640, height: 360,
         adtagurl: AD_TAGS[1],
+        nextwidget: true,
+        // How many seconds to wait before showing next widget
+        shownext: 3,
+        // If not engaged, how many seconds to wait before showing next widget
+        noengagenext: 10
     }
+
+    const URIOptions = [{ blk: 1 }]
 
     const browserSettings = {
         // args: [`--user-data-dir="/tmp/chrome_dev_test"`, '--disable-web-security'],
@@ -25,64 +36,50 @@ test.describe('Next Widget', () => {
     }
 
     test(`Ads: With Preroll Ads`, async ({ page, browserName, browser, context }) => {
-        const runAdsWithNextWidget = async (page, browser, context) => {
 
+        const runAdsWithNextWidget = async (page, browser, context) => {
             descriptionPlayerAttributes.nextwidget = true; // if player activated next widget
             // How many seconds to wait before showing next widget
             descriptionPlayerAttributes.shownext = 2.5;
             // If not engaged, how many seconds to wait before showing next widget
             descriptionPlayerAttributes.noengagenext = 15;
 
-            delete defaultPlayerAttributes["poster"];
-            delete defaultPlayerAttributes["source"];
 
-            const player = new PlayerPage(page,
-                { ...defaultPlayerAttributes, ...descriptionPlayerAttributes }
-                , context, [{
-                    blk: 1
-                }]);
+            const attrs = {...defaultPlayerAttributes, ...descriptionPlayerAttributes};
+            const player = new PlayerPage(page, attrs, context, URIOptions);
 
             // Go to the starting url before each test.
             await player.goto();
             await player.setPlayerInstance();
 
             await player.contentVideoExperienceFlowWithNextVideo({
-                nextWidget: false,
+                // state confirming it's only first video is playing
+                nextWidget: true,
                 preroll: typeof descriptionPlayerAttributes.adtagurl !== 'undefined',
                 stayEngaged: true
             });
         }
 
         await runTest(
-            {page, browserName, browser, context}, runAdsWithNextWidet, browserSettings
+            {page, browserName, browser, context}, runAdsWithNextWidget, browserSettings
         );
     });
 
 
-    test(`Without Ads`, async ({ page, browserName, browser, context }) => {
+    test(`Content Player: Will show next video on the next click`, async ({ page, browserName, browser, context }) => {
         const runContentVideoWithNext = async (page, browser, context) => {
 
-            descriptionPlayerAttributes.nextwidget = true; // if player activated next widget
-            // How many seconds to wait before showing next widget
-            descriptionPlayerAttributes.shownext = 2.5;
-            // If not engaged, how many seconds to wait before showing next widget
-            descriptionPlayerAttributes.noengagenext = 15;
-
-            delete defaultPlayerAttributes["poster"];
-            delete defaultPlayerAttributes["source"];
             delete descriptionPlayerAttributes["adtagurl"];
 
-            const player = new PlayerPage(page,
-                { ...defaultPlayerAttributes, ...descriptionPlayerAttributes }
-                , context, [{
-                    blk: 1
-                }]);
+            const attrs = {...defaultPlayerAttributes, ...descriptionPlayerAttributes};
+            const player = new PlayerPage(page, attrs, context, URIOptions);
 
             // Go to the starting url before each test.
             await player.goto();
             await player.setPlayerInstance();
 
             await player.contentVideoExperienceFlowWithNextVideo({
+                // state confirming it's only first video is playing
                 nextWidget: false,
                 preroll: typeof descriptionPlayerAttributes.adtagurl !== 'undefined',
                 stayEngaged: true
@@ -92,5 +89,13 @@ test.describe('Next Widget', () => {
         await runTest({page, browserName, browser, context },
             runContentVideoWithNext, browserSettings
         );
+    });
+
+    test(`Content Player: next video after timeout`, async ({ page, browserName, browser, context }) => {
+
+    });
+
+    test(`Content Player: Stay engaged and next video on timeout`, async ({ page, browserName, browser, context }) => {
+
     });
 });

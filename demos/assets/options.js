@@ -101,7 +101,7 @@ if (params.nextwidget) {
 
     // Below part will be overwritten if it will be provided in the URL
     attrs.shownext = 2;
-    attrs.noengagenext = 15;
+    attrs.noengagenext = 1;
 } else {
     attrs.source = '/static/demos/sample-video.mp4';
     attrs.poster = '/static/demos/assets/sample-cover.png';

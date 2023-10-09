@@ -864,6 +864,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             threshold: this.get("sticky-threshold"),
                             paused: this.get("sticky-starts-paused"),
                             "static": this.get("floatingoptions.static"),
+                            "noFloatOnDesktop": this.get("floatingoptions.noFloatOnDesktop"),
+                            "noFloatOnMobile": this.get("floatingoptions.noFloatOnMobile"),
                             "noFloatIfBelow": this.get("floatingoptions.noFloatIfBelow"),
                             "noFloatIfAbove": this.get("floatingoptions.noFloatIfAbove")
                         };

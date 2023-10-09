@@ -2,8 +2,9 @@ Scoped.define("module:StickyHandler", [
     "base:Class",
     "base:Events.EventsMixin",
     "base:Maths",
-    "browser:Events"
-], function(Class, EventsMixin, Maths, DomEvents, scoped) {
+    "browser:Events",
+    "browser:Info"
+], function(Class, EventsMixin, Maths, DomEvents, Info, scoped) {
     return Class.extend({
         scoped: scoped
     }, [EventsMixin, function(inherited) {
@@ -19,6 +20,8 @@ Scoped.define("module:StickyHandler", [
                 this.element = element;
                 this.container = container;
                 this.paused = options.paused || false;
+                this.noFloatOnDesktop = options.noFloatOnDesktop || false;
+                this.noFloatOnMobile = options.noFloatOnMobile || false;
                 this.noFloatIfBelow = options.noFloatIfBelow || false;
                 this.noFloatIfAbove = options.noFloatIfAbove || false;
                 this.threshold = options.threshold;
@@ -116,6 +119,8 @@ Scoped.define("module:StickyHandler", [
                             this.trigger("transitionOutOfView");
                             return;
                         }
+                        if (this.noFloatOnDesktop && !Info.isMobile()) return;
+                        if (this.noFloatOnMobile && Info.isMobile()) return;
                         if (this.noFloatIfAbove || this.noFloatIfBelow) {
                             var r = this.element.getBoundingClientRect();
                             if (this.noFloatIfAbove && r.top >= 0) return;

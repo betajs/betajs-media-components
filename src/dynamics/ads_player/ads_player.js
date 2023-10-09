@@ -43,10 +43,25 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                 events: {
                     "change:volume": function(volume) {
-                        this.call("setVolume", this.get("muted") ? 0 : volume);
-                    },
-                    "change:muted": function(muted) {
-                        this.call("setVolume", muted ? 0 : this.get("volume"));
+                        // Muted should be pass only from the parent
+                        this.parent().set('muted', volume <= 0);
+                        if (!this.adsManager || !this.adsManager.setVolume) return;
+                        // In some cases ads:volumeChange is not triggering
+                        Async.eventually(function() {
+                            if (!this.__volumeChangeTriggered) {
+                                var adsVolume = this.adsManager.getVolume();
+                                this.set("volume", adsVolume);
+                                this.parent().set("muted", adsVolume <= 0);
+                                this.__volumeChangeTriggered = false;
+                            }
+                        }, this, 100);
+                        if (volume > 0 && this.get("unmuteonclick")) {
+                            return setTimeout(function() {
+                                this.adsManager.setVolume(Maths.clamp(volume, 0, 1));
+                            }.bind(this));
+                        } else {
+                            return this.adsManager.setVolume(Maths.clamp(volume, 0, 1));
+                        }
                     }
                 },
 
@@ -121,7 +136,10 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.set("moredetailslink", event.getAdData().clickThroughUrl);
                     },
                     "ads:volumeChange": function() {
-                        this.set("volume", this.adsManager.getVolume());
+                        this.__volumeChangeTriggered = true;
+                        var adsVolume = this.adsManager.getVolume();
+                        this.set("volume", adsVolume);
+                        this.parent().set("muted", adsVolume <= 0);
                     },
                     "ads:outstreamCompleted": function(dyn) {
                         this._outstreamCompleted(dyn);
@@ -183,10 +201,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             }
                         }, this);
                         dynamics.on("unmute-ads", function(volume) {
-                            Async.eventually(function() {
-                                // ads:volumeChange not trigger initially, only after change volume
-                                this.set("volume", volume);
-                            }, this, 300);
+                            this.set("volume", volume);
                         }, this);
                     }
                 },
@@ -232,12 +247,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     resume: function() {
                         return this.adsManager.resume();
                     },
-                    setVolume: function(volume) {
-                        if (!this.adsManager || !this.adsManager.setVolume) return;
-                        if (volume > 0 && this.parent() && this.parent().get("unmuteonclick")) return setTimeout(function() {
-                            this.adsManager.setVolume(Maths.clamp(volume, 0, 1));
-                        }.bind(this));
-                        return this.adsManager.setVolume(Maths.clamp(volume, 0, 1));
+                    set_volume: function(volume) {
+                        this.set("volume", volume);
                     },
                     stop: function() {
                         return this.adsManager.stop();

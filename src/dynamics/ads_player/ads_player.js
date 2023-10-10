@@ -170,6 +170,13 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     this.adsManager.requestAds(this._baseRequestAdsOptions());
                     this.adsManager.on("all", function(event, data) {
                         if (event === "adsManagerLoaded") this.set("adsmanagerloaded", true);
+                        /**
+                         * TODO: merge below tooltip after user experience related task will be merged
+                         * inside change:userhadplayerinteraction after line focusedElement.focus();
+                         * if (dynamics.get("presetedtooltips.onclicktroughexistence")) {
+                         *    dynamics.showTooltip(dynamics.get("presetedtooltips.onclicktroughexistence"));
+                         *  }
+                         */
                         this.channel("ads").trigger(event, data);
                     }, this);
                     if (dynamics) {

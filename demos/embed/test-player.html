@@ -187,6 +187,23 @@
         playerInstance.on("fullscreen-change", function (isFullscreen) {
             console.log('is Full', isFullscreen);
         }, this);
+
+        // player.showTooltip({
+        //     tooltiptext: "Hello World 3...",
+        //     closeable: false,
+        //     showprogressbar: false,
+        //     disappearafterseconds: 10,
+        // });
+
+        // Should reset old one
+        // setTimeout(() => {
+        //     player.showTooltip({
+        //         tooltiptext: "Hello World 4..",
+        //         closeable: true,
+        //         showprogressbar: false,
+        //         disappearafterseconds: -1,
+        //     });
+        // }, 5000);
     }, player);
 
     player.on("ready_to_play", (ev) => {

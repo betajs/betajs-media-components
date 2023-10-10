@@ -1265,9 +1265,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }, this);
 
                         // All conditions below appear on autoplay only
-                        // If the browser not allows unmuted autoplay,
-                        // and we have manually forcibly muted player
-                        this._checkAutoPlay(this.__video);
+                        // If the browser not allows unmuted autoplay, and we have manually forcibly muted player
+                        // If user already has an interaction with player, we don't need to check it again
+                        if (!this.get("userhadplayerinteraction")) this._checkAutoPlay(this.__video);
                         this.player.on("postererror", function() {
                             this._error("poster");
                         }, this);
@@ -2289,9 +2289,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     ) this.set("adtagurl", this.get("adtagurlfallbacks").shift());
                     this.set("adshassource", !!this.get("adtagurl") || !!this.get("inlinevastxml"));
 
+                    if (this.get("userhadplayerinteraction")) {
+                        this.set("unmuteonclick", false);
+                    }
+
                     // The initial mute state will not be changes if outstream is not set
                     if (this.get("outstream")) {
-                        this.set("muted", !this.get("repeatedplayer"));
                         this.set("autoplay", true);
                         this.set("skipinitial", false);
                         this.set("unmuteonclick", !this.get("repeatedplayer"));
@@ -2585,7 +2588,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }
                         }, this);
                     }
-
                 },
 
                 brakeAdsManually: function(hard) {

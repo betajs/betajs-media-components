@@ -86,18 +86,22 @@ if (params.nextwidget) {
     attrs.nextwidget = Number(params.nextwidget) === 1;
     attrs.playlist = [
         {
-            poster: '/static/demos/sample-cover.png',
-            source: '/static/demos/sample-video.mp4'
-        },
-        {
             poster: '/static/demos/sample-cover2.png',
             source: '/static/demos/sample-video2.mp4'
+        },
+        {
+            poster: '/static/demos/sample-cover.png',
+            source: '/static/demos/sample-video.mp4'
         },
         {
             poster: '/static/demos/sample-cover.png',
             source: '/static/demos/sample-video3.mp4'
         }
     ];
+
+    // Below part will be overwritten if it will be provided in the URL
+    attrs.shownext = 2;
+    attrs.noengagenext = 1;
 } else {
     attrs.source = '/static/demos/sample-video.mp4';
     attrs.poster = '/static/demos/assets/sample-cover.png';

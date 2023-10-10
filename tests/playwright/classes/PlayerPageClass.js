@@ -15,13 +15,17 @@ class PlayerPage {
     ADS_CONTROLBAR_CONTAINER_SELECTOR = `ba-ads-controlbar .ba-adsplayer-controlbar`;
     ADS_BOTTOM_LINE_PROGRESSBAR_SELECTOR = `ba-ads-controlbar .ba-adsplayer-progressbar-container`;
 
+    page = null;
+    attrs = {};
+    debug = false;
+    playerInstance = null;
+
     constructor(page, attrs, context, urlOptions) {
         this.page = page;
         this.context = context;
         this.debug = false;
         this.fullURI = `${PLAYER_URI}?${createOptions(urlOptions)}`;
         this.attrs = attrs;
-        this.playerInstance = null;
     }
 
     playerContainerLocator = () => this.page.locator('#player > .ba-videoplayer-container');
@@ -352,7 +356,7 @@ class PlayerPage {
         await playerContainer.click();
 
         // Will wait while remaining seconds will be less than 3
-        await this.waitAdsRemainingSeconds();
+        await this.waitAdsRemainingSeconds(5);
 
         const muteVolume = await adsControlbarContainer.getByTitle(`Mute sound`);
         await muteVolume.waitFor({ state: 'visible', timeout: 3000 });
@@ -501,6 +505,7 @@ class PlayerPage {
      * @param options
      */
     async contentVideoExperienceFlowWithNextVideo( options ) {
+        let { shownext, noengagenext } = this.attrs;
         let {
             nextEngaged = true,
             unmuteOnClick = true,
@@ -523,15 +528,14 @@ class PlayerPage {
         }
 
         const playerContainer = await this.playerContainerVisible();
-
         const pauseButton = await this.getLocatorInState(
             `.ba-videoplayer-leftbutton-container[title="Pause"]`, playerContainer, 'visible', true
         );
 
-        const widgetShowedSecond = await this.getPlayerAttribute(`shownext`);
+        if (!shownext) shownext = await this.getPlayerAttribute(`shownext`);
         const nextWidgetContainer = await this.getLocatorInState(
             `.ba-player-toggle-next-container`, playerContainer, 'visible', true,
-            (widgetShowedSecond + 2) * 1000
+            (shownext + 2) * 1000
         );
         const nextButton = await nextWidgetContainer.locator('a').filter({ hasText: 'Next Video' });
         const waitButton = await nextWidgetContainer.locator('a').filter({ hasText: 'Stay & Watch' });
@@ -539,6 +543,9 @@ class PlayerPage {
 
         await expect(nextButton).toBeVisible();
         await expect(waitButton).toBeVisible();
+
+        position = await this.getPlayerAttribute(`position`);
+        await expect(position).toBeLessThanOrEqual(shownext);
 
         if (recurring && turns <= 2) {
             const nextWidgetPoster = await this.getLocatorInState(
@@ -552,7 +559,7 @@ class PlayerPage {
         }
 
         position = await this.getPlayerAttribute(`position`);
-        await expect(position).toBeGreaterThanOrEqual(widgetShowedSecond);
+        await expect(position).toBeGreaterThanOrEqual(shownext);
 
         if (unmuteOnClick) {
             volume = await this.getPlayerAttribute(`volume`);

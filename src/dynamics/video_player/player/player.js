@@ -37,6 +37,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.Topmessage",
     "module:VideoPlayer.Dynamics.Tracks",
     "module:VideoPlayer.Dynamics.FloatingSidebar",
+    "module:VideoPlayer.Dynamics.Tooltip",
     "dynamics:Partials.EventPartial",
     "dynamics:Partials.OnPartial",
     "dynamics:Partials.TogglePartial",
@@ -116,6 +117,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "dynsettingsmenu": "common-settingsmenu",
                         "dyntrimmer": "videorecorder-trimmer",
                         "dynnext": "videoplayer-next",
+                        "dyntooltip": "videoplayer-tooltip",
 
                         /* Templates */
                         "tmpladcontrolbar": "",
@@ -160,6 +162,26 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "noengagenext": 5,
                         "stayengaged": false,
                         "next_active": false,
+
+                        /** tooltip
+                         {
+                         "tooltiptext": null,
+                         "closeable": false,
+                         "position": "top-right", // default: "top-right", other options: top-center, top-left, bottom-right, bottom-center, bottom-left
+                         "pauseonhover": false, //  default: false
+                         "disappearafterseconds": 2 // -1 will set it as showing always, default: 2 seconds
+                         "showprogressbar": true, // default: false, will show progressbar on tooltip completion
+                         "showonhover": false, // TODO: will be shown on hover only
+                         "queryselector": null // TODO: will be shown on hover only on this element
+                         }
+                         */
+                        "presetedtooltips": {
+                            "onplayercreate": null,
+                            "onclicktroughexistence": {
+                                "tooltiptext": "Click again to learn more",
+                                "disappearafterseconds": 5
+                            }
+                        },
 
                         /* Ads */
                         "adprovider": null,
@@ -442,7 +464,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "prominent-title": "boolean",
                     "closeable-title": "boolean",
                     "sticky-threshold": "float",
-                    "floatingoptions": "jsonarray"
+                    "floatingoptions": "jsonarray",
+                    "presetedtooltips": "object"
                 },
 
                 __INTERACTION_EVENTS: ["click", "mousedown", "touchstart", "keydown", "keypress"],
@@ -455,6 +478,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     adsplayer: ">[tagname='ba-adsplayer']",
                     settingsmenu: ">[tagname='ba-common-settingsmenu']",
                     floatingsidebar: ">[tagname='ba-videoplayer-floating-sidebar']"
+                },
+
+                collections: {
+                    tooltips: {}
                 },
 
                 events: {
@@ -748,6 +775,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         // In Safari Desktop can cause trouble on preload, if the user will
                     }
 
+                    if (this.get("presetedtooltips") && this.get("presetedtooltips.onplayercreate")) {
+                        this.showTooltip(this.get("presetedtooltips.onplayercreate"));
+                    }
+
                     if (this.get("theme")) this.set("theme", this.get("theme").toLowerCase());
                     if (this.get("theme") in Assets.playerthemes) {
                         Objs.iter(Assets.playerthemes[this.get("theme")], function(value, key) {
@@ -864,6 +895,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             threshold: this.get("sticky-threshold"),
                             paused: this.get("sticky-starts-paused"),
                             "static": this.get("floatingoptions.static"),
+                            "noFloatOnDesktop": this.get("floatingoptions.noFloatOnDesktop"),
+                            "noFloatOnMobile": this.get("floatingoptions.noFloatOnMobile"),
                             "noFloatIfBelow": this.get("floatingoptions.noFloatIfBelow"),
                             "noFloatIfAbove": this.get("floatingoptions.noFloatIfAbove")
                         };
@@ -1232,10 +1265,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }, this);
 
                         // All conditions below appear on autoplay only
-                        // If the browser not allows unmuted autoplay,
-                        // and we have manually forcibly muted player
-                        if (!this.get("userhadplayerinteraction"))
-                            this._checkAutoPlay(this.__video);
+                        // If the browser not allows unmuted autoplay, and we have manually forcibly muted player
+                        // If user already has an interaction with player, we don't need to check it again
+                        if (!this.get("userhadplayerinteraction")) this._checkAutoPlay(this.__video);
+                      
                         this.player.on("postererror", function() {
                             this._error("poster");
                         }, this);
@@ -1558,6 +1591,40 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("last_activity", Time.now());
                     }
                     this.set("activity_delta", 0);
+                },
+
+                showTooltip: function(tooltip) {
+                    if (!Types.is_object(tooltip) || !tooltip.tooltiptext)
+                        console.warn("Provided tooltip has to be an object, at least with 'tooltiptext' key");
+                    var position = tooltip.position || 'top-right';
+                    if (this.get("tooltips").count() > 0) this.hideTooltip(position);
+
+                    this.get("tooltips").add({
+                        id: Time.now(),
+                        tooltiptext: tooltip.tooltiptext,
+                        position: tooltip.position || 'top-right',
+                        closeable: tooltip.closeable || false,
+                        pauseonhover: tooltip.pauseonhover || false,
+                        showprogressbar: tooltip.showprogressbar || false,
+                        disappearafterseconds: tooltip.disappearafterseconds || 2,
+                        showonhover: tooltip.showonhover || false,
+                        queryselector: tooltip.queryselector || null
+                    });
+                    this.get("tooltips").add_secondary_index("position");
+                },
+
+                hideTooltip: function(position, id) {
+                    var exists = this.get("tooltips").get_by_secondary_index("position", position, true);
+                    if (exists) {
+                        this.get("tooltips").remove(exists);
+                    } else {
+                        if (id) {
+                            exists = this.get("tooltips").query({
+                                id: id
+                            });
+                            if (exists) this.get("tooltips").remove(exists);
+                        }
+                    }
                 },
 
                 object_functions: ["play", "rerecord", "pause", "stop", "seek", "set_volume", "set_speed", "toggle_tracks"],
@@ -2201,9 +2268,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     ) this.set("adtagurl", this.get("adtagurlfallbacks").shift());
                     this.set("adshassource", !!this.get("adtagurl") || !!this.get("inlinevastxml"));
 
+                    if (this.get("userhadplayerinteraction")) {
+                        this.set("unmuteonclick", false);
+                    }
+
                     // The initial mute state will not be changes if outstream is not set
                     if (this.get("outstream")) {
-                        this.set("muted", !this.get("repeatedplayer"));
                         this.set("autoplay", true);
                         this.set("skipinitial", false);
                         this.set("unmuteonclick", !this.get("repeatedplayer"));
@@ -2497,7 +2567,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.set("forciblymuted", false);
                         }, this);
                     }
-
                 },
 
                 brakeAdsManually: function(hard) {

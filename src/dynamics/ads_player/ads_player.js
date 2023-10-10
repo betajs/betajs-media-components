@@ -120,6 +120,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this._onAdComplete(ev);
                     },
                     "ads:allAdsCompleted": function() {
+                        if (this.parent() && this.parent().get("outstreamoptions").noEndCard) return;
                         this.call("reset");
                     },
                     "ads:discardAdBreak": function() {
@@ -187,6 +188,13 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     this.adsManager.requestAds(this._baseRequestAdsOptions());
                     this.adsManager.on("all", function(event, data) {
                         if (event === "adsManagerLoaded") this.set("adsmanagerloaded", true);
+                        /**
+                         * TODO: merge below tooltip after user experience related task will be merged
+                         * inside change:userhadplayerinteraction after line focusedElement.focus();
+                         * if (dynamics.get("presetedtooltips.onclicktroughexistence")) {
+                         *    dynamics.showTooltip(dynamics.get("presetedtooltips.onclicktroughexistence"));
+                         *  }
+                         */
                         this.channel("ads").trigger(event, data);
                     }, this);
                     if (dynamics) {
@@ -358,6 +366,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             this._hideContentPlayer(dyn);
                             return;
                         }
+                        if (dyn.get("outstreamoptions").noEndCard) return;
                         if (dyn.get("outstreamoptions").moreURL) {
                             this.set("moredetailslink", dyn.get("outstreamoptions").moreURL);
                         }

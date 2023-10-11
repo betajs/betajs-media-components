@@ -99,7 +99,6 @@ Scoped.define("module:StickyHandler", [
 
             _initIntersectionObservers: function() {
                 var elementFirstObservation = true;
-                var containerFirstObservation = true;
                 this._elementObserver = new IntersectionObserver(elementCallback.bind(this), {
                     threshold: this.threshold
                 });
@@ -132,10 +131,6 @@ Scoped.define("module:StickyHandler", [
 
                 function containerCallback(entries, observer) {
                     entries.forEach(function(entry) {
-                        if (containerFirstObservation) {
-                            containerFirstObservation = false;
-                            return;
-                        }
                         if (!entry.isIntersecting) return;
                         this.floating = false;
                         this.trigger("transitionToView");

@@ -888,12 +888,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     if (!this.get("sticky") && this.get("floatingoptions.floatingonly")) {
                         this.set("view_type", "float");
-                    } else if (this.get("sticky")) {
+                    } else {
                         // If sticky is enabled, disable only floating
                         this.set("floatingoptions.floatingonly", false);
                         var stickyOptions = {
                             threshold: this.get("sticky-threshold"),
-                            paused: this.get("sticky-starts-paused"),
+                            paused: this.get("sticky-starts-paused") || !this.get("sticky"),
                             "static": this.get("floatingoptions.static"),
                             "noFloatOnDesktop": this.get("floatingoptions.noFloatOnDesktop"),
                             "noFloatOnMobile": this.get("floatingoptions.noFloatOnMobile"),

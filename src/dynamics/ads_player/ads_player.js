@@ -105,6 +105,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this._onAdComplete(ev);
                     },
                     "ads:allAdsCompleted": function() {
+                        if (this.parent() && this.parent().get("outstreamoptions").noEndCard) return;
                         this.call("reset");
                     },
                     "ads:discardAdBreak": function() {
@@ -175,6 +176,13 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         if (adsManagedEvents.indexOf(event) !== -1) {
                             if (event === "adsManagerLoaded") {
                                 this.set("adsmanagerloaded", true);
+                                /**
+                                 * TODO: merge below tooltip after user experience related task will be merged
+                                 * inside change:userhadplayerinteraction after line focusedElement.focus();
+                                 * if (dynamics.get("presetedtooltips.onclicktroughexistence")) {
+                                 *    dynamics.showTooltip(dynamics.get("presetedtooltips.onclicktroughexistence"));
+                                 *  }
+                                */
                                 // Makes active element not redirect to click through URL on first click
                                 if (!dynamics.get("userhadplayerinteraction") && dynamics.activeElement() && this.get("unmuteonclick")) {
                                     dynamics.activeElement().blur();
@@ -292,7 +300,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 getAdHeight: function() {
                     if (!this.activeElement()) return null;
                     if (this.get("floating") && this.parent()) {
-                        return +parseFloat(this.get("containerstyle").height).toFixed() || Dom.elementDimensions(this.parent().activeElement().firstChild).height;
+                        return Dom.elementDimensions(this.parent().activeElement().firstChild).height;
                     }
                     return this.activeElement().firstChild ? this.activeElement().firstChild.clientHeight : this.activeElement().clientHeight;
                 },
@@ -327,7 +335,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         var ad = ev.getAd();
                         var isLinear = ad.isLinear();
                         this.set("linear", isLinear);
-                        this.set("hidecontrolbar", !isLinear);
+                        this.set("hidecontrolbar", !isLinear || this.get("hideadscontrolbar"));
                         if (!isLinear) {
                             this.set("non-linear-min-suggestion", ad.getMinSuggestedDuration());
                             // decrease a non-linear suggestion period, be able to show midroll
@@ -375,6 +383,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             this._hideContentPlayer(dyn);
                             return;
                         }
+                        if (dyn.get("outstreamoptions").noEndCard) return;
                         if (dyn.get("outstreamoptions").moreURL) {
                             this.set("moredetailslink", dyn.get("outstreamoptions").moreURL);
                         }

@@ -1,4 +1,4 @@
-<div class="{{cssfloatingsidebar}}-container" ba-styles="{{containerstyle}}">
+<div class="{{cssfloatingsidebar}}-container {{csscommon}}-full-height">
     <div ba-if="{{adsplaying}}" class="{{cssfloatingsidebar}}-ad-playing-container">
         <div ba-if="{{adchoiceslink}}" class="{{cssadsplayer}}-ad-choices-container">
             <a href="{{ adchoiceslink }}" title="{{string('ad-choices')}}"
@@ -19,11 +19,9 @@
         <!-- Companion ad content will be set as innerHTML  -->
         <div ba-if="{{companionadcontent}}"
              class="{{cssfloatingsidebar}}-companion-container"
-             ba-styles="{{{height: containerstyle.height}}}"
         ></div>
         <div ba-if="{{moredetailslink && !companionadcontent}}"
              class="{{cssfloatingsidebar}}-content-container"
-             ba-styles="{{{height: containerstyle.height}}}"
         >
             <div ba-if="{{moredetailslink}}">
                 <a

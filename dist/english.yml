@@ -56,6 +56,8 @@ language:en:
   ba-videoplayer-playbutton.trim: Trim
   ba-videoplayer-playbutton.skip: Skip
   ba-videoplayer-share.share: Share media
+  ba-videoplayer-tooltip.tooltip: Tooltip
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: Hold mouse on, to pause tooltip closing
   ba-videoplayer-tracks.upload-text-tracks: Upload track text files
   ba-videoplayer-tracks.select-text-track-language: Subtitle Language
   ba-videoplayer-tracks.info-select-locale-first: First select locale

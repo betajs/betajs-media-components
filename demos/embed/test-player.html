@@ -60,6 +60,9 @@
     </script>
 </head>
 <body style="background: #EEE; margin: 0; padding: 0 15px">
+<div id="header" style="height: 60px; width: 100%; color: white; background-color: #3d2020">
+    HERE WILL BE HEADER <button onclick="alert(`You clicked me, you're accessible`)">CLICK ME!</button>
+</div>
 <div id="before-player-content" class="row" style="display: none; margin-bottom: 20px">
     <div class="col-xs-12" style="min-height: calc(100vh + 10vh);">
         <h1>FIRST PARAGRAPH BEFORE PLAYER WITH HEIGHT 1300px</h1>
@@ -144,13 +147,13 @@
 
     player.on("floatingplayerclosed", () => console.log("Floating Player Closed"), player);
 
-    player.on("quarter-passed", (qr) => {
+    // player.on("quarter-passed", (qr) => {
         // qr == this.get();
-        console.log("TYPED: ", typeof this, qr);
+        // console.log("TYPED: ", typeof this, qr);
         // console.log("Passed Quarter: ", qr);
-        console.log("Played Seconds: ", player.get("played-seconds"));
+        // console.log("Played Seconds: ", player.get("played-seconds"));
         // console.log("Played w/seconds: ", this.get("played-with-sound-seconds"));
-    }, player);
+    // }, player);
 
     // player.on("change:userengagedwithplayer", (userengagedwithplayer) => {
     //     console.log("userengagedwithplayer: ", userengagedwithplayer);
@@ -167,22 +170,42 @@
 
     player.on("ended", () => console.log("ENDED"), player);
 
-    player.on("playing", function() {
-        console.log('Player, started: ', this, this.get('autoplay'), this.get("position"));
-    }, player);
+    // player.on("playing", function() {
+        // console.log('Player, started: ', this, this.get('autoplay'), this.get("position"));
+    // }, player);
 
-    player.on("ad:loaded", function (ad) {
-        ['outstreamoptions'].forEach(key => {
-            console.log(`${key} = ${JSON.stringify(player.get(key))}\n`);
-        });
-    }, player);
+    if (player.get("outstream")) {
+        player.on("ad:loaded", function (ad) {
+            ['outstreamoptions'].forEach(key => {
+                console.log(`${key} = ${JSON.stringify(player.get(key))}\n`);
+            });
+        }, player);
+    }
     player.on("attached", function (playerInstance) {
+        console.log("Player active element", player.activeElement());
         // ['autoplay', 'skipinitial','autoplaywhenvisible', 'outstream'].forEach(key => {
         //     console.log(`${key} = ${player.get(key)}\n`);
         // });
         playerInstance.on("fullscreen-change", function (isFullscreen) {
             console.log('is Full', isFullscreen);
         }, this);
+
+        // player.showTooltip({
+        //     tooltiptext: "Hello World 3...",
+        //     closeable: false,
+        //     showprogressbar: false,
+        //     disappearafterseconds: 10,
+        // });
+
+        // Should reset old one
+        // setTimeout(() => {
+        //     player.showTooltip({
+        //         tooltiptext: "Hello World 4..",
+        //         closeable: true,
+        //         showprogressbar: false,
+        //         disappearafterseconds: -1,
+        //     });
+        // }, 5000);
     }, player);
 
     player.on("ready_to_play", (ev) => {

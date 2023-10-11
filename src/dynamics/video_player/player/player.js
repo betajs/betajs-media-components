@@ -37,6 +37,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.Topmessage",
     "module:VideoPlayer.Dynamics.Tracks",
     "module:VideoPlayer.Dynamics.FloatingSidebar",
+    "module:VideoPlayer.Dynamics.Tooltip",
     "dynamics:Partials.EventPartial",
     "dynamics:Partials.OnPartial",
     "dynamics:Partials.TogglePartial",
@@ -116,6 +117,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "dynsettingsmenu": "common-settingsmenu",
                         "dyntrimmer": "videorecorder-trimmer",
                         "dynnext": "videoplayer-next",
+                        "dyntooltip": "videoplayer-tooltip",
 
                         /* Templates */
                         "tmpladcontrolbar": "",
@@ -161,6 +163,26 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "stayengaged": false,
                         "next_active": false,
 
+                        /** tooltip
+                         {
+                         "tooltiptext": null,
+                         "closeable": false,
+                         "position": "top-right", // default: "top-right", other options: top-center, top-left, bottom-right, bottom-center, bottom-left
+                         "pauseonhover": false, //  default: false
+                         "disappearafterseconds": 2 // -1 will set it as showing always, default: 2 seconds
+                         "showprogressbar": true, // default: false, will show progressbar on tooltip completion
+                         "showonhover": false, // TODO: will be shown on hover only
+                         "queryselector": null // TODO: will be shown on hover only on this element
+                         }
+                         */
+                        "presetedtooltips": {
+                            "onplayercreate": null,
+                            "onclicktroughexistence": {
+                                "tooltiptext": "Click again to learn more",
+                                "disappearafterseconds": 5
+                            }
+                        },
+
                         /* Ads */
                         "adprovider": null,
                         "preroll": false,
@@ -173,6 +195,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "nextadtagurls": [],
                         "inlinevastxml": null,
                         "hidebeforeadstarts": true, // Will help hide player poster before ads start
+                        "hideadscontrolbar": false,
                         "showplayercontentafter": null, // we can set any microseconds to show player content in any case if ads not initialized
                         "adsposition": null,
                         "vmapads": false, // VMAP ads will set pre, mid, post positions inside XML file
@@ -192,7 +215,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "submittable": false,
                         "autoplay": false,
                         "autoplaywhenvisible": false,
-                        continuousplayback: true,
+                        "continuousplayback": true,
                         "preload": false,
                         "loop": false,
                         "loopall": false,
@@ -231,16 +254,32 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             // "fluidsidebar": true, // TODO: not works for now, if false, 50% width will be applied on sidebar
                             "desktop": {
                                 "position": "bottom-right", // position of floating video player for desktop
-                                "height": 190,
+                                "height": 197,
                                 "bottom": 30,
                                 "sidebar": false,
                                 "companionad": false
+
+                                /** optional settings */
+                                // "size": null", // any key
+                                // "availablesizes": {
+                                //     'key1': heightInNumber, 'key2': heightInNumber2, ...
+                                // }
                             },
                             "mobile": {
                                 "position": "top", // positions of floating video player for mobile
                                 "height": 75,
                                 "sidebar": true,
-                                "companionad": true
+                                "companionad": true,
+                                "positioning": {
+                                    "relativeSelector": null, // To be able to work positioning option, correct selector should be provided (Example: div#header)
+                                    "applySelector": 'div.ba-player-floating', // could be changed if you require
+                                    "applyProperty": 'margin-top' // will apply height of the relativeSelector
+                                }
+                                /** optional settings */
+                                // "size": null", // any key
+                                // "availablesizes": {
+                                //     'key1': heightInNumber, 'key2': heightInNumber2, ...
+                                // }
                             }
                         },
                         "tracktags": [],
@@ -409,6 +448,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "adchoiceslink": "string",
                     "adtagurlfallbacks": "array",
                     "nextadtagurls": "array",
+                    "hideadscontrolbar": "boolean",
                     "inlinevastxml": "string",
                     "imasettings": "jsonarray",
                     "adsposition": "string",
@@ -421,7 +461,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "prominent-title": "boolean",
                     "closeable-title": "boolean",
                     "sticky-threshold": "float",
-                    "floatingoptions": "jsonarray"
+                    "floatingoptions": "jsonarray",
+                    "presetedtooltips": "object"
                 },
 
                 __INTERACTION_EVENTS: ["click", "mousedown", "touchstart", "keydown", "keypress"],
@@ -434,6 +475,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     adsplayer: ">[tagname='ba-adsplayer']",
                     settingsmenu: ">[tagname='ba-common-settingsmenu']",
                     floatingsidebar: ">[tagname='ba-videoplayer-floating-sidebar']"
+                },
+
+                collections: {
+                    tooltips: {}
                 },
 
                 events: {
@@ -584,11 +629,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                             if (floatingWidth) width = floatingWidth;
                             if (floatingHeight) height = floatingHeight;
-
-                            // if element is not floating no need below code
-                            if (this.get("with_sidebar") && this.get("sidebarSizingStyles.width")) {
-                                width += Number(parseFloat(this.get("sidebarSizingStyles.width")).toFixed(2));
-                            }
                         }
 
                         if (height) styles.height = isNaN(height) ? height : parseFloat(height).toFixed(2) + "px";
@@ -633,11 +673,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.get("csscommon") + "-sticky-" + this.get("sticky-position") || this.get("floatingoptions.desktop.position") || "bottom-right",
                             this.StickyHandler && this.StickyHandler.elementWasDragged() ? "ba-commoncss-fade-up" : ""
                         ].join(" ");
-                    },
-                    "sidebarSizingStyles:floating_height": function(floatingHeight) {
-                        return {
-                            height: parseFloat(floatingHeight).toFixed() + 'px'
-                        };
                     },
                     "buffering:buffered,position,last_position_change_delta,playing": function(buffered, position, ld, playing) {
                         if (playing) this.__playedStats(position, this.get("duration"));
@@ -689,10 +724,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("closeable_title", this.get("closeable-title"));
                     // NOTE: below condition has to be before ads initialization
                     if (this.get("autoplaywhenvisible")) this.set("autoplay", true);
-                    this.set("floatingoptions", Objs.tree_merge(
-                        this.attrs().floatingoptions,
-                        this.get("floatingoptions")
-                    ));
+                    this.__initFloatingOptions();
                     this._observer = new ResizeObserver(function(entries) {
                         for (var i = 0; i < entries.length; i++) {
                             this.trigger("resize", {
@@ -738,6 +770,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         // preload in desktop allow autoplay. In mobile, it's preventing autoplay
                         if (Info.isSafari()) this.set("preload", !Info.isMobile());
                         // In Safari Desktop can cause trouble on preload, if the user will
+                    }
+
+                    if (this.get("presetedtooltips") && this.get("presetedtooltips.onplayercreate")) {
+                        this.showTooltip(this.get("presetedtooltips.onplayercreate"));
                     }
 
                     if (this.get("theme")) this.set("theme", this.get("theme").toLowerCase());
@@ -855,7 +891,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         var stickyOptions = {
                             threshold: this.get("sticky-threshold"),
                             paused: this.get("sticky-starts-paused"),
-                            "static": this.get("floatingoptions.static")
+                            "static": this.get("floatingoptions.static"),
+                            "noFloatOnDesktop": this.get("floatingoptions.noFloatOnDesktop"),
+                            "noFloatOnMobile": this.get("floatingoptions.noFloatOnMobile"),
+                            "noFloatIfBelow": this.get("floatingoptions.noFloatIfBelow"),
+                            "noFloatIfAbove": this.get("floatingoptions.noFloatIfAbove")
                         };
                         this.stickyHandler = this.auto_destroy(new StickyHandler(
                             this.activeElement().firstChild,
@@ -1222,9 +1262,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }, this);
 
                         // All conditions below appear on autoplay only
-                        // If the browser not allows unmuted autoplay,
-                        // and we have manually forcibly muted player
-                        this._checkAutoPlay(this.__video);
+                        // If the browser not allows unmuted autoplay, and we have manually forcibly muted player
+                        // If user already has an interaction with player, we don't need to check it again
+                        if (!this.get("userhadplayerinteraction")) this._checkAutoPlay(this.__video);
                         this.player.on("postererror", function() {
                             this._error("poster");
                         }, this);
@@ -1549,6 +1589,40 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("activity_delta", 0);
                 },
 
+                showTooltip: function(tooltip) {
+                    if (!Types.is_object(tooltip) || !tooltip.tooltiptext)
+                        console.warn("Provided tooltip has to be an object, at least with 'tooltiptext' key");
+                    var position = tooltip.position || 'top-right';
+                    if (this.get("tooltips").count() > 0) this.hideTooltip(position);
+
+                    this.get("tooltips").add({
+                        id: Time.now(),
+                        tooltiptext: tooltip.tooltiptext,
+                        position: tooltip.position || 'top-right',
+                        closeable: tooltip.closeable || false,
+                        pauseonhover: tooltip.pauseonhover || false,
+                        showprogressbar: tooltip.showprogressbar || false,
+                        disappearafterseconds: tooltip.disappearafterseconds || 2,
+                        showonhover: tooltip.showonhover || false,
+                        queryselector: tooltip.queryselector || null
+                    });
+                    this.get("tooltips").add_secondary_index("position");
+                },
+
+                hideTooltip: function(position, id) {
+                    var exists = this.get("tooltips").get_by_secondary_index("position", position, true);
+                    if (exists) {
+                        this.get("tooltips").remove(exists);
+                    } else {
+                        if (id) {
+                            exists = this.get("tooltips").query({
+                                id: id
+                            });
+                            if (exists) this.get("tooltips").remove(exists);
+                        }
+                    }
+                },
+
                 object_functions: ["play", "rerecord", "pause", "stop", "seek", "set_volume", "set_speed", "toggle_tracks"],
 
                 functions: {
@@ -1745,7 +1819,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.get("fullscreened")) {
                             Dom.documentExitFullscreen();
                         } else {
-                            if (Info.isSafari() && Info.isMobile()) Dom.elementEnterFullscreen(this.activeElement().querySelector("video"));
+                            if (Info.isiOS() && Info.isMobile()) Dom.elementEnterFullscreen(this.activeElement().querySelector("video"));
                             else Dom.elementEnterFullscreen(this.activeElement().childNodes[0]);
                         }
                         this.set("fullscreened", !this.get("fullscreened"));
@@ -2212,9 +2286,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     ) this.set("adtagurl", this.get("adtagurlfallbacks").shift());
                     this.set("adshassource", !!this.get("adtagurl") || !!this.get("inlinevastxml"));
 
+                    if (this.get("userhadplayerinteraction")) {
+                        this.set("unmuteonclick", false);
+                    }
+
                     // The initial mute state will not be changes if outstream is not set
                     if (this.get("outstream")) {
-                        this.set("muted", !this.get("repeatedplayer"));
                         this.set("autoplay", true);
                         this.set("skipinitial", false);
                         this.set("unmuteonclick", !this.get("repeatedplayer"));
@@ -2256,6 +2333,33 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }
                 },
 
+                /** @private */
+                __initFloatingOptions: function() {
+                    this.set("floatingoptions", Objs.tree_merge(
+                        this.attrs().floatingoptions,
+                        this.get("floatingoptions")
+                    ));
+                    Objs.iter(["mobile", "desktop"], function(view) {
+                        var _floatingoptions = this.get("floatingoptions")[view];
+                        if (_floatingoptions && _floatingoptions.size && _floatingoptions.availablesizes) {
+                            var _availableSizes = _floatingoptions.availablesizes;
+                            if (!Types.is_object(_availableSizes)) return;
+                            Objs.keyMap(_availableSizes, function(v, k) {
+                                if (Types.is_string(_floatingoptions.size) && k === _floatingoptions.size.toLowerCase()) {
+                                    switch (view) {
+                                        case "mobile":
+                                            this.set("floatingoptions.mobile.height", v);
+                                            break;
+                                        case "desktop":
+                                            this.set("floatingoptions.desktop.height", v);
+                                            break;
+                                    }
+                                }
+                            }, this);
+                        }
+                    }, this);
+                },
+
                 /**
                  * @private
                  */
@@ -2280,6 +2384,22 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         if (typeof this.get("floatingoptions.mobile.sidebar") !== "undefined" && this.get("floatingoptions.sidebar"))
                             this.set("with_sidebar", this.get("floatingoptions.mobile.sidebar"));
+                        if (typeof this.get("floatingoptions.mobile.positioning") === "object") {
+                            var playerApplyForSelector, documentRelativeSelector, positioningApplySelector, positioningRelativeSelector, positioningProperty;
+                            positioningApplySelector = this.get("floatingoptions.mobile.positioning.applySelector");
+                            positioningRelativeSelector = this.get("floatingoptions.mobile.positioning.relativeSelector");
+                            positioningProperty = Strings.camelCase(this.get("floatingoptions.mobile.positioning.applyProperty") || 'margin-top');
+                            if (typeof positioningRelativeSelector === "string") {
+                                if (positioningRelativeSelector)
+                                    playerApplyForSelector = this.activeElement().querySelector(positioningApplySelector);
+                                if (playerApplyForSelector) playerApplyForSelector = this.activeElement().firstChild;
+                                documentRelativeSelector = document.querySelector(positioningRelativeSelector);
+                                if (documentRelativeSelector && playerApplyForSelector) {
+                                    var relativeSelectorHeight = Dom.elementDimensions(documentRelativeSelector).height;
+                                    playerApplyForSelector.style[positioningProperty] = relativeSelectorHeight + 'px';
+                                }
+                            }
+                        }
                     } else {
                         viewportOptions = this.get("floatingoptions.desktop");
                         if (viewportOptions) {
@@ -2467,7 +2587,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }
                         }, this);
                     }
-
                 },
 
                 brakeAdsManually: function(hard) {

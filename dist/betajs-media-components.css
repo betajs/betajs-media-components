@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.407 - 2023-10-09
+betajs-media-components - v0.0.408 - 2023-10-11
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -3099,6 +3099,62 @@ div.ba-commoncss-sticky.ba-player-viewport-mobile {
 
 .ba-commoncss-icon-left-open:before {
   margin-left: 0;
+}
+
+.ba-commoncss-tooltip-container {
+  border-radius: 5px;
+  background-color: #dddddd;
+  color: #444950;
+  cursor: text;
+  display: inline-block;
+  min-width: 80px;
+  padding: 5px 10px;
+  position: absolute;
+  text-align: center;
+  z-index: 10;
+}
+.ba-commoncss-tooltip-container.ba-commoncss-pause-on-hover {
+  cursor: wait;
+}
+.ba-commoncss-tooltip-container > .ba-commoncss-close-tooltip {
+  display: inline;
+  font-size: 10px;
+  position: relative;
+  bottom: 5px;
+  border-radius: 50%;
+  border: 1px solid;
+  cursor: pointer;
+}
+.ba-commoncss-tooltip-container .ba-commoncss-tooltip-text {
+  display: inline-block;
+}
+.ba-commoncss-tooltip-container.ba-commoncss-tooltip-top-right {
+  top: 20px;
+  right: 20px;
+}
+.ba-commoncss-tooltip-container.ba-commoncss-tooltip-top-left {
+  top: 20px;
+  left: 20px;
+}
+.ba-commoncss-tooltip-container.ba-commoncss-tooltip-bottom-left {
+  bottom: 50px;
+  left: 20px;
+}
+.ba-commoncss-tooltip-container.ba-commoncss-tooltip-bottom-right {
+  bottom: 50px;
+  right: 20px;
+}
+.ba-commoncss-tooltip-container .ba-commoncss-tooltip-progress-full {
+  background: #efefef;
+  bottom: 0;
+  height: 2px;
+  position: relative;
+  top: 1px;
+  width: 100%;
+}
+.ba-commoncss-tooltip-container .ba-commoncss-tooltip-progress-full .ba-commoncss-tooltip-progress-passed {
+  background: #0a0a0a;
+  height: 2px;
 }
 
 .ba-commoncss-slim.ba-commoncss-full-width {

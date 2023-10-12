@@ -1265,7 +1265,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         // If the browser not allows unmuted autoplay, and we have manually forcibly muted player
                         // If user already has an interaction with player, we don't need to check it again
                         if (!this.get("userhadplayerinteraction")) this._checkAutoPlay(this.__video);
-
                         this.player.on("postererror", function() {
                             this._error("poster");
                         }, this);
@@ -2549,6 +2548,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.set("autoplay", this.get("initialoptions").autoplay);
                             // We will unmute only if unmuteonclick is false, as it means user has to click on player not in any place
                             if (!this.get("unmuteonclick")) {
+                                // Sometimes browser detects that unmute happens before the user has interaction, and it pauses ad
                                 Async.eventually(function() {
                                     if (this.destroyed()) return; // in some cases it can be destroyed before
                                     if (!this.get("muted")) this.set_volume(_initialVolume);

@@ -149,15 +149,15 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this._outstreamStarted(dyn);
                     },
                     "ads:pause": function() {
-                        this.set("playing", false);
-                        if (this.get("adsplaying")) {
+                        if (this.get("playing")) {
                             this.call("pause");
+                            this.set("playing", false);
                         }
                     },
                     "ads:resume": function() {
-                        this.set("playing", true);
-                        if (!this.get("adsplaying")) {
+                        if (!this.get("playing")) {
                             this.call("resume");
+                            this.set("playing", true);
                         }
                     },
                     "ads:contentResumeRequested": function() {

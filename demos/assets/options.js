@@ -123,6 +123,8 @@ attrs = {...attrs, ...{
         // ** SOURCES
         // width: 640,
         minadintervals: 0,
+        muted: true,
+        // unmuteonclick: true,
         // hidecontrolbar: true,
         // hideadscontrolbar: true,
         imasettings: {

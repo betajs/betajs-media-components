@@ -189,34 +189,19 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     this.adsManager.requestAds(this._baseRequestAdsOptions());
                     // Will list events which are require some additional actions,
                     // ignore events like adsProgress for additional statement checks
-                    adsManagedEvents = ['adsManagerLoaded', 'start'];
                     this.adsManager.on("all", function(event, data) {
-                        if (adsManagedEvents.indexOf(event) !== -1) {
-                            if (event === "adsManagerLoaded") {
-                                this.set("adsmanagerloaded", true);
-                                /**
-                                 * TODO: merge below tooltip after user experience related task will be merged
-                                 * inside change:userhadplayerinteraction after line focusedElement.focus();
-                                 * if (dynamics.get("presetedtooltips.onclicktroughexistence")) {
-                                 *    dynamics.showTooltip(dynamics.get("presetedtooltips.onclicktroughexistence"));
-                                 *  }
-                                */
-                                // Makes active element not redirect to click through URL on first click
-                                if (!dynamics.get("userhadplayerinteraction") && dynamics.activeElement() && this.get("unmuteonclick")) {
-                                    dynamics.activeElement().blur();
-                                    dynamics.once("change:userhadplayerinteraction", function(hasInteraction) {
-                                        if (hasInteraction && Types.is_defined(focusedElement) && focusedElement instanceof HTMLElement) {
-                                            focusedElement.focus();
-                                            if (dynamics.get("presetedtooltips.onclicktroughexistence")) {
-                                                dynamics.showTooltip(dynamics.get("presetedtooltips.onclicktroughexistence"));
-                                            }
-                                        }
-                                    }, dynamics);
-                                }
-                            }
-                            if (event === 'start' && !dynamics.get("userhadplayerinteraction")) {
-                                focusedElement = document.activeElement;
-                            }
+                        if (event === "adsManagerLoaded") {
+                            this.set("adsmanagerloaded", true);
+                            // Makes active element not redirect to click through URL on first click
+                            // if (!dynamics.get("userhadplayerinteraction") && dynamics.activeElement() && this.get("unmuteonclick")) {
+                            //     dynamics.once("change:userhadplayerinteraction", function(hasInteraction) {
+                            //         if (hasInteraction) {
+                            //             if (dynamics.get("presetedtooltips.onclicktroughexistence")) {
+                            //                 dynamics.showTooltip(dynamics.get("presetedtooltips.onclicktroughexistence"));
+                            //             }
+                            //         }
+                            //     }, dynamics);
+                            // }
                         }
                         this.channel("ads").trigger(event, data);
                     }, this);

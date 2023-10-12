@@ -177,10 +177,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                          */
                         "presetedtooltips": {
                             "onplayercreate": null,
-                            "onclicktroughexistence": {
-                                "tooltiptext": "Click again to learn more",
-                                "disappearafterseconds": 5
-                            }
+                            // "onclicktroughexistence": {
+                            //     "tooltiptext": "Click again to learn more",
+                            //     "disappearafterseconds": 5
+                            // }
                         },
 
                         /* Ads */

@@ -1,11 +1,11 @@
-Scoped.define("module:Ads.Dynamics.ChoicesLink", [
+Scoped.define("module:Ads.Dynamics.LearnMoreButton", [
     "dynamics:Dynamic",
     "module:Assets"
 ], function(Dynamic, Assets, scoped) {
     return Dynamic.extend({
-        scoped: scoped
-    }, function(inherited) {
-        return {
+            scoped: scoped
+        }, function(inherited) {
+            return {
 
                 template: "<%= template(dirname + '/ads_learn_more_button.html') %>",
 

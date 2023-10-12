@@ -445,7 +445,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         selector = options[0];
                     } else {
                         // if it's floating and floatingoptions.device.companionad is set to boolean true,
-                        // then it will be handled by floating_sidebar.js
+                        // then it will be handled by sidebar.js
                         position = this.get("floating") && this.get("withsidebar") ? null : 'bottom';
                     }
                     if (selector) {

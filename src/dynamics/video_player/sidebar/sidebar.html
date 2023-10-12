@@ -1,40 +1,60 @@
-<div ba-if="{{is_floating}}" class="{{cssfloatingsidebar}}-container {{csscommon}}-full-height">
-    <div ba-if="{{adsplaying}}" class="{{cssfloatingsidebar}}-ad-playing-container">
-        <div ba-if="{{adchoiceslink}}" class="{{cssadsplayer}}-ad-choices-container">
-            <a href="{{ adchoiceslink }}" title="{{string('ad-choices')}}"
-               ba-on:touchend="{{redirect(adchoiceslink)}}"
-               target="_blank"
-            >
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <rect width="16" height="16" transform="matrix(1 0 0 -1 0 16)" fill="url(#ba-ad-choice-pattern-sidebar)"/>
-                    <defs>
-                        <pattern id="ba-ad-choice-pattern-sidebar" patternContentUnits="objectBoundingBox" width="1" height="1">
-                            <use xlink:href="#ba-ad-choices-image" transform="scale(0.00208333)"/>
-                        </pattern>
-                        <image id="ba-ad-choices-image" width="480" height="480" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAALxUExURQAAAP////n+//L8//r///f9//r+//v///j+//f+//n///f///z///z+//3///L+//n9//j9//r9//j///v+//T8/8v0//j8//7///T7/+v8//f7//P+//39//v4//n8/8jh//b7//f8//X///38/+36//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n///n+//n+//n+//n+//n+//n+//n+//n+//n+//f///n+//n+//n+//n+//n+//n+//n+//n+//n+//r+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//z///n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//r///n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//v///r+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//j+//n+//n+//n+//n+//n+//n+//n+//n+//r+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n///n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+//n+/////yUvWvEAAAD5dFJOUwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGy0cBgdu1uvarGIf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"/>
-                    </defs>
-                </svg>
-            </a>
+<div ba-if="{{showsidebargallery && !floating}}"
+     class="{{cssgallerysidebar}}-container {{csscommon}}-full-height"
+>
+    <div ba-if="{{adsplaying}}" class="{{cssgallerysidebar}}-ads-container">
+        <ba-ads-learn-more-button
+            ba-if="{{moredetailslink && !companionadcontent}}"
+            ba-adsplaying="{{adsplaying}}"
+            ba-event:pause_ads="button_click"
+        ></ba-ads-learn-more-button>
+        <ba-ads-choices-link ba-if="{{adchoiceslink}}"></ba-ads-choices-link>
+    </div>
+    <div ba-if="{{!adsplaying}}" class="{{cssgallerysidebar}}-gallery">
+        <div class="{{cssgallerysidebar}}-gallery-title-container">
+            <div class="{{cssgallerysidebar}}-gallery-title">
+                Up Next
+            </div>
+            <div>
+                Logo
+            </div>
         </div>
+        <ul class="{{cssgallerysidebar}}-gallery-list"
+            ba-repeat="{{videos :: video}}"
+        >
+            <li class="{{cssgallerysidebar}}-gallery-list-item"
+                onclick="{{play_video(video)}}"
+            >
+                <div class="{{cssgallerysidebar}}-gallery-list-item-image-container">
+                    <div class="{{cssgallerysidebar}}-play-button-container"></div>
+                    <img class="{{cssgallerysidebar}}-gallery-list-item-image"
+                         src="{{video.poster}}" alt="{{title}}"
+                    />
+                </div>
+                <div class="{{cssgallerysidebar}}-gallery-list-item-title">
+                    {{title}}
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div ba-if="{{floating && with_sidebar}}"
+     class="{{cssfloatingsidebar}}-container {{csscommon}}-full-height"
+>
+    <div ba-if="{{adsplaying}}" class="{{cssfloatingsidebar}}-ad-playing-container">
+        <ba-ads-choices-link
+            ba-if="{{adchoiceslink}}"
+            ba-cssadsplayer="{{cssadsplayer}}"
+        ></ba-ads-choices-link>
         <!-- Companion ad content will be set as innerHTML  -->
         <div ba-if="{{companionadcontent}}"
              class="{{cssfloatingsidebar}}-companion-container"
         ></div>
-        <div ba-if="{{moredetailslink && !companionadcontent}}"
-             class="{{cssfloatingsidebar}}-content-container"
-        >
-            <div ba-if="{{moredetailslink}}">
-                <a
-                    href="{{ moredetailslink }}" target="_blank"
-                    class="{{cssfloatingsidebar}}-action-button"
-                    title="{{moredetailstext ? moredetailstext : string('learn-more')}}"
-                    ba-on:mouseup="{{pause_ads()}}"
-                    ba-on:touchend="{{pause_ads(moredetailslink)}}"
-                >
-                    {{string('learn-more')}}
-                </a>
-            </div>
-        </div>
+        <ba-ads-learn-more-button
+            ba-if="{{moredetailslink && !companionadcontent}}"
+            ba-adsplaying="{{adsplaying}}"
+            ba-event:pause_ads="button_click"
+        ></ba-ads-learn-more-button>
     </div>
     <div ba-if="{{!adsplaying}}" class="{{cssfloatingsidebar}}-content-container">
         <div class="{{cssfloatingsidebar}}-title">

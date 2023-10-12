@@ -4,13 +4,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
     "browser:Dom",
     "module:Assets",
     "module:StylesMixin"
+], [
+    "module:Ads.Dynamics.ChoicesLink",
+    "module:Ads.Dynamics.LearnMoreButton"
 ], function(Class, Objs, DOM, Assets, StylesMixin, scoped) {
     return Class.extend({
             scoped: scoped
         }, [StylesMixin, function(inherited) {
             return {
 
-                template: "<%= template(dirname + '/floating_sidebar.html') %>",
+                template: "<%= template(dirname + '/sidebar.html') %>",
 
                 attrs: {
                     "css": "ba-videoplayer",
@@ -111,7 +114,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
         }])
         .register("ba-videoplayer-floating-sidebar")
         .registerFunctions({
-            /*<%= template_function_cache(dirname + '/floating_sidebar.html') %>*/
+            /*<%= template_function_cache(dirname + '/sidebar.html') %>*/
         })
         .attachStringTable(Assets.strings)
         .addStrings({

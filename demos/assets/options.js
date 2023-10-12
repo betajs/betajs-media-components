@@ -84,25 +84,29 @@ if (params.cmp) {
 
 if (params.nextwidget) {
     attrs.nextwidget = Number(params.nextwidget) === 1;
-    attrs.playlist = [
-        {
-            poster: '/static/demos/sample-cover2.png',
-            source: '/static/demos/sample-video2.mp4'
-        },
-        {
-            poster: '/static/demos/sample-cover.png',
-            source: '/static/demos/sample-video.mp4'
-        },
-        {
-            poster: '/static/demos/sample-cover.png',
-            source: '/static/demos/sample-video3.mp4'
-        }
-    ];
+    if (attrs.nextwidget) {
+        attrs.playlist = [
+            {
+                poster: '/static/demos/sample-cover2.png',
+                source: '/static/demos/sample-video2.mp4'
+            },
+            {
+                poster: '/static/demos/sample-cover.png',
+                source: '/static/demos/sample-video.mp4'
+            },
+            {
+                poster: '/static/demos/sample-cover.png',
+                source: '/static/demos/sample-video3.mp4'
+            }
+        ];
+        // Below part will be overwritten if it will be provided in the URL
+        attrs.shownext = 2;
+        attrs.noengagenext = 1;
+    }
+}
 
-    // Below part will be overwritten if it will be provided in the URL
-    attrs.shownext = 2;
-    attrs.noengagenext = 1;
-} else {
+// If not defined nextwidget, we will use default source and poster
+if (!attrs.nextwidget) {
     attrs.source = '/static/demos/sample-video.mp4';
     attrs.poster = '/static/demos/assets/sample-cover.png';
 }
@@ -126,7 +130,7 @@ attrs = {...attrs, ...{
         // width: 640,
         minadintervals: 0,
         muted: true,
-        // unmuteonclick: true,
+        unmuteonclick: true,
         // hidecontrolbar: true,
         // hideadscontrolbar: true,
         imasettings: {

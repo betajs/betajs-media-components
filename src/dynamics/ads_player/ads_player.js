@@ -27,7 +27,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     linear: true, // should be true to cover all the player container
                     playing: false,
                     currenttime: 0,
-                    volume: 1,
+                    volume: 0,
                     isoutstream: false,
                     hidecontrolbar: false,
                     showactionbuttons: false,
@@ -169,6 +169,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 create: function() {
+                    var focusedElement, adsManagedEvents;
                     var dynamics = this.parent();
                     var adContainer = this.getAdContainer();
                     var adManagerOptions = {
@@ -186,15 +187,22 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     }
                     this.adsManager = this.auto_destroy(new AdsManager(adManagerOptions, dynamics));
                     this.adsManager.requestAds(this._baseRequestAdsOptions());
+                    // Will list events which are require some additional actions,
+                    // ignore events like adsProgress for additional statement checks
                     this.adsManager.on("all", function(event, data) {
-                        if (event === "adsManagerLoaded") this.set("adsmanagerloaded", true);
-                        /**
-                         * TODO: merge below tooltip after user experience related task will be merged
-                         * inside change:userhadplayerinteraction after line focusedElement.focus();
-                         * if (dynamics.get("presetedtooltips.onclicktroughexistence")) {
-                         *    dynamics.showTooltip(dynamics.get("presetedtooltips.onclicktroughexistence"));
-                         *  }
-                         */
+                        if (event === "adsManagerLoaded") {
+                            this.set("adsmanagerloaded", true);
+                            // Makes active element not redirect to click through URL on first click
+                            // if (!dynamics.get("userhadplayerinteraction") && dynamics.activeElement() && this.get("unmuteonclick")) {
+                            //     dynamics.once("change:userhadplayerinteraction", function(hasInteraction) {
+                            //         if (hasInteraction) {
+                            //             if (dynamics.get("presetedtooltips.onclicktroughexistence")) {
+                            //                 dynamics.showTooltip(dynamics.get("presetedtooltips.onclicktroughexistence"));
+                            //             }
+                            //         }
+                            //     }, dynamics);
+                            // }
+                        }
                         this.channel("ads").trigger(event, data);
                     }, this);
                     if (dynamics) {
@@ -226,6 +234,11 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         });
                         // if (!this.adsManager.adDisplayContainerInitialized) this.adsManager.initializeAdDisplayContainer();
                         // this.call("requestAds");
+                    },
+                    ad_clicked: function() {
+                        if (!this.get("userhadplayerinteraction")) {
+                            this.parent().set("userhadplayerinteraction", true);
+                        }
                     },
                     reset: function() {
                         this.set("linear", true);

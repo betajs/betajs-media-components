@@ -177,10 +177,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                          */
                         "presetedtooltips": {
                             "onplayercreate": null,
-                            "onclicktroughexistence": {
-                                "tooltiptext": "Click again to learn more",
-                                "disappearafterseconds": 5
-                            }
+                            // "onclicktroughexistence": {
+                            //     "tooltiptext": "Click again to learn more",
+                            //     "disappearafterseconds": 5
+                            // }
                         },
 
                         /* Ads */
@@ -357,7 +357,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "placeholderstyle": "",
                         "hasplaceholderstyle": false,
                         "playerorientation": undefined,
-                        // Reference to Chrome renewed policy, we have to setup mute for auto-playing players.
+                        // Reference to Chrome renewed policy, we have to set up mute for autoplaying players.
                         // If we do it forcibly, then we will set as true
                         "forciblymuted": false,
                         "autoplay-allowed": false,
@@ -372,15 +372,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 types: {
                     "allowpip": "boolean",
-                    "hasnext": "boolean",
                     "hidecontrolbar": "boolean",
                     "muted": "boolean",
                     "nextwidget": "boolean",
                     "shownext": "float",
                     "state": "string",
                     "noengagenext": "float",
-                    "stayengaged": "boolean",
-                    "next_active": "boolean",
                     "unmuteonclick": "boolean",
                     "rerecordable": "boolean",
                     "loop": "boolean",
@@ -1268,7 +1265,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         // If the browser not allows unmuted autoplay, and we have manually forcibly muted player
                         // If user already has an interaction with player, we don't need to check it again
                         if (!this.get("userhadplayerinteraction")) this._checkAutoPlay(this.__video);
-                      
                         this.player.on("postererror", function() {
                             this._error("poster");
                         }, this);
@@ -2587,14 +2583,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 __testAutoplayOptions: function(video) {
                     var suitableCondition = false;
                     var autoplayPossibleOptions = [{
-                            muted: false,
-                            playsinline: false
-                        },
-                        {
-                            muted: false,
-                            playsinline: true
-                        },
-                        {
                             muted: true,
                             playsinline: false
                         },
@@ -2603,6 +2591,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             playsinline: true
                         }
                     ];
+                    // If we preset muted and unmuteonclick is false, we don't need to check unmuted options
+                    if (!this.get("muted") && !this.get("unmuteonclick")) {
+                        autoplayPossibleOptions.push({
+                            muted: false,
+                            playsinline: false
+                        }, {
+                            muted: false,
+                            playsinline: true
+                        });
+                    }
                     Objs.iter(autoplayPossibleOptions, function(opt, index) {
                         PlayerSupport.canAutoplayVideo(opt)
                             .success(function(response, err) {

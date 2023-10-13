@@ -51,6 +51,10 @@
             </div>
         </div>
     </div>
+    <div ba-if="{{!userhadplayerinteraction && unmuteonclick && linear}}"
+         class="{{css}}-overlay {{cssadsplayer}}-ad-click-tracker {{csscommon}}-clickable"
+         ba-click="{{ad_clicked()}}"
+    ></div>
 </div>
 <ba-{{dyncontrolbar}}
     ba-if="{{!hidecontrolbar && linear && !showactionbuttons}}"
@@ -62,8 +66,10 @@
     ba-duration="{{duration}}"
     ba-volume="{{volume}}"
     ba-muted="{{muted}}"
+    ba-remaining="{{=remaining}}"
     ba-unmuteonclick="{{unmuteonclick}}"
     ba-playing={{playing}}
+    ba-userhadplayerinteraction="{{userhadplayerinteraction}}"
     ba-currenttime={{=currenttime}}
     ba-hideoninactivity={{hideoninactivity}}
     ba-event:resume="resume"

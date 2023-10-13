@@ -48,6 +48,10 @@ Scoped.define("module:Ads.Dynamics.Controlbar", [
                         return TimeFormat.format(TimeFormat.ELAPSED_MINUTES_SECONDS, Math.round(time) * 1000);
                     },
 
+                    ad_clicked: function() {
+                        this.parent().call('ad_clicked');
+                    },
+
                     startUpdateVolume: function(args, element) { // TODO this was copied from the video player, should refactor to keep it DRY
                         var event = args[0];
                         var moveEvent = event.type === "mousedown" ? "mousemove" : "touchmove";

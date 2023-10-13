@@ -342,7 +342,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
 
         play: function() {
             if (!this.dyn.get("popup")) {
-                this.next("LoadAds");
+                this.next("LoadAds", {
+                    position: 'pre'
+                });
                 return;
             }
             var popup = this.auto_destroy(new PopupHelper());
@@ -372,7 +374,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
                     this.play();
                 }
             } else {
-                if (!this.dyn.videoAttached()) this.dyn.reattachVideo();
+                if (!this.dyn.videoAttached() && !this.dyn.get("adsplayer_active"))
+                    this.dyn.reattachVideo();
                 this.listenOn(this.dyn, "change:wait-user-interaction", function(wait) {
                     if (wait) {
                         this.dyn.once("user-has-interaction", function() {
@@ -824,9 +827,13 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayAd", [
                 if (this.state_name() === "PlayAd")
                     throw Error("PlayAd should be an abstract state.");
                 this.dyn.set("playing_ad", true);
-                this.listenOn(this.dyn, "playing", function() {
-                    this.dyn.player.pause();
-                }, this);
+                if (this.dyn.get("playing")) {
+                    this.pause();
+                } else {
+                    this.listenOn(this.dyn, "playing", function() {
+                        this.pause();
+                    }, this);
+                }
                 this.listenOn(this.dyn.channel("ads"), "log", function(event) {
                     if (!event.getAdData().adError || !this.dyn.get("adtagurlfallbacks") || this.dyn.get("adtagurlfallbacks").length === 0) return;
                     this.dyn.set("adtagurl", this.dyn.get("adtagurlfallbacks").shift());
@@ -867,6 +874,10 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayAd", [
             next: function(state) {
                 this.dyn.set("playing_ad", false);
                 inherited.next.call(this, state);
+            },
+
+            pause: function() {
+                this.dyn.player.pause();
             }
         };
     });

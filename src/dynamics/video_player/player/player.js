@@ -93,6 +93,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "csstracks": "",
                         "width": "",
                         "height": "",
+                        "size": null,
+                        "sidebarwidth": null,
+                        "availablesizes": {},
+                        "showgallery": false,
                         "popup-width": "",
                         "popup-height": "",
                         "aspectratio": null,
@@ -113,7 +117,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "dyncontrolbar": "videoplayer-controlbar",
                         "dynshare": "videoplayer-share",
                         "dyntracks": "videoplayer-tracks",
-                        "dynfloatingsidebar": "videoplayer-floating-sidebar",
+                        "dynsidebar": "videoplayer-sidebar",
                         "dynsettingsmenu": "common-settingsmenu",
                         "dyntrimmer": "videorecorder-trimmer",
                         "dynnext": "videoplayer-next",
@@ -462,7 +466,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "closeable-title": "boolean",
                     "sticky-threshold": "float",
                     "floatingoptions": "jsonarray",
-                    "presetedtooltips": "object"
+                    "presetedtooltips": "object",
+                    "size": "string",
+                    "sidebarwidth": "int", // can be as a string as well via px and %, default is int with px
+                    "availablesizes": "object",
+                    "showsidebargallery": "boolean"
                 },
 
                 __INTERACTION_EVENTS: ["click", "mousedown", "touchstart", "keydown", "keypress"],

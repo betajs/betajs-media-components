@@ -280,10 +280,10 @@
         <div ba-show="{{useAspectRatioFallback}}" ba-styles="{{aspectRatioFallback}}"></div>
     </div>
     <div
-        ba-if="{{with_sidebar && !fullscreened}}"
+        ba-if="{{with_sidebar && !fullscreened && (is_floating || showsidebargallery)}}"
         class="{{cssplayer}}-sidebar"
     >
-        <ba-{{dynfloatingsidebar}}
+        <ba-{{dynsidebar}}
             ba-if="{{with_sidebar && !fullscreened}}"
             ba-css="{{css}}"
             ba-cssplayer="{{cssplayer}}"
@@ -298,9 +298,11 @@
             ba-moredetailslink="{{moredetailslink}}"
             ba-moredetailstext="{{moredetailstext}}"
             ba-adsplaying="{{adsplaying}}"
+            ba-playlist="{{playlist}}"
+            ba-shownext="{{shownext}}"
             ba-mobileviewport="{{mobileviewport}}"
             ba-event:pause_ads="pause_ads"
-        ></ba-{{dynfloatingsidebar}}>
+        ></ba-{{dynsidebar}}>
     </div>
     <div ba-if="{{!fullscreened && is_floating && floatingoptions.closeable}}"
          class="{{cssplayer}}-close-container"

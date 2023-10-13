@@ -1,4 +1,4 @@
-Scoped.define("module:VideoPlayer.Dynamics.FloatingSidebar", [
+Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
     "dynamics:Dynamic",
     "base:Objs",
     "browser:Dom",
@@ -17,12 +17,14 @@ Scoped.define("module:VideoPlayer.Dynamics.FloatingSidebar", [
                     "csscommon": "ba-commoncss",
                     "cssplayer": "ba-player",
                     "cssadsplayer": "ba-adsplayer",
+                    "cssgallerysidebar": "ba-gallery-sidebar",
                     "cssfloatingsidebar": "ba-floating-sidebar",
                     "sidebartitle": null,
                     "bodyelementtouched": false,
                     "bodyelementpadding": 114,
                     "companionadcontent": null,
-                    "companionads": []
+                    "companionads": [],
+                    "is_floating": false
                 },
 
                 _afterActivate: function() {

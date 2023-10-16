@@ -1,4 +1,5 @@
 /** NOTE: adding flex-grow 1 to the player content will make not fully show ads */
+//.#{$cssplayer}-content { min-width: fit-content; }
 .#{$cssplayer}-sidebar {
     flex-grow: 1;
     max-width: 50%;
@@ -21,7 +22,7 @@ div.#{$cssplayer}-with-sidebar {
         margin: 0;
         flex-grow: 1;
         background: $sidebar_background_color;
-        .#{$cssfloatingsidebar}-ad-playing-container{
+        .#{$cssfloatingsidebar}-ad-playing-container {
             position: relative;
         }
         .#{$cssfloatingsidebar}-content-container {

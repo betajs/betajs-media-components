@@ -199,7 +199,7 @@ attrs = {...attrs, ...{
             showcompanionad: true,
             // hideplayeronclose: false,
             mobile: {
-                height: 150,
+                height: 120,
                 companionad: false,
                 // position: 'bottom'
                 // companionad: "[,250]",
@@ -217,9 +217,9 @@ attrs = {...attrs, ...{
                 // }
             },
             desktop: {
-                height: 140,
+                height: 150,
                 bottom: 20,
-                companionad: true, //"[]|bottom", //"[]|top", // true
+                companionad: false, //"[]|bottom", //"[]|top", // true
                 sidebar: true,
 
                 // size: "xl",

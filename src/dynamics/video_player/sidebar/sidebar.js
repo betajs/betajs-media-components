@@ -42,18 +42,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     }
                 },
 
-                functions: {
-                    pause_ads: function(url) {
-                        if (this.get("adsplaying")) {
-                            this.trigger("pause_ads");
-                        }
-                        if (url) this.__redirect(url);
-                    },
-                    redirect: function(url) {
-                        this.__redirect(url);
-                    }
-                },
-
                 /**
                  * @param companionads
                  * @private
@@ -102,23 +90,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                         }
                     }
 
-                },
-
-                // in mobileview click not redirect to url, so making it manually
-                __redirect: function(url) {
-                    if (url && url.length > 0 && /^(http|https):\/\//i.test(url) && window) {
-                        window.open(url, "_blank");
-                    }
                 }
             };
         }])
-        .register("ba-videoplayer-floating-sidebar")
+        .register("ba-videoplayer-sidebar")
         .registerFunctions({
             /*<%= template_function_cache(dirname + '/sidebar.html') %>*/
         })
         .attachStringTable(Assets.strings)
         .addStrings({
-            "ad-choices": "Ad Choices",
-            "learn-more": "Learn More"
+            "up-next": "Up Next"
         });
 });

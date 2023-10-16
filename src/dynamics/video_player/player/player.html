@@ -4,7 +4,7 @@
      {{cssplayer}}-{{themecolor}}-color {{cssplayer}}-device-type-{{mobileview ? 'mobile' : 'desktop'}}
      {{cssplayer}}-viewport-{{mobileviewport ? 'mobile' : 'desktop'}}
      {{is_floating ? cssfloatingclasses : ''}}
-     {{(with_sidebar && is_floating && !fullscreened) ? cssplayer + '-with-sidebar' : csscommon + '-full-width'}}
+     {{sidebar_active ? cssplayer + '-with-sidebar' : csscommon + '-full-width'}}
      {{cssplayer + (((activity_delta > hidebarafter) && hideoninactivity) ? '-controlbar-hidden' : '-controlbar-visible')}}"
      ba-on:mousemove="{{user_activity()}}"
      ba-on:mousedown="{{user_activity(true)}}"
@@ -279,12 +279,9 @@
         </div>
         <div ba-show="{{useAspectRatioFallback}}" ba-styles="{{aspectRatioFallback}}"></div>
     </div>
-    <div
-        ba-if="{{with_sidebar && !fullscreened && (is_floating || showsidebargallery)}}"
-        class="{{cssplayer}}-sidebar"
-    >
+    <div ba-if="{{sidebar_active}}" class="{{cssplayer}}-sidebar">
         <ba-{{dynsidebar}}
-            ba-if="{{with_sidebar && !fullscreened}}"
+            ba-if="{{sidebar_active}}"
             ba-css="{{css}}"
             ba-cssplayer="{{cssplayer}}"
             ba-csscommon="{{csscommon}}"
@@ -293,6 +290,8 @@
             ba-title="{{next_active ? '' : title || 'Video Player'}}"
             ba-addata="{{addata}}"
             ba-companionads="{{companionads}}"
+            ba-with_sidebar="{{with_sidebar}}"
+            ba-is_floating="{{is_floating}}"
             ba-floatingoptions="{{floatingoptions}}"
             ba-adchoiceslink="{{adchoiceslink}}"
             ba-moredetailslink="{{moredetailslink}}"

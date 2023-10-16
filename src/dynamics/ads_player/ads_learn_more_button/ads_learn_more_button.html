@@ -1,7 +1,7 @@
 <div class="{{cssadsplayer}}-action-button-container">
     <a
         href="{{ moredetailslink }}" target="_blank"
-        class="{{cssfloatingsidebar}}-action-button"
+        class="{{cssadsplayer}}-action-button {{passedclasses}}"
         title="{{moredetailstext ? moredetailstext : string('learn-more')}}"
         ba-on:mouseup="{{pause_ads()}}"
         ba-on:touchend="{{pause_ads(moredetailslink)}}"

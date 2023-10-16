@@ -1,4 +1,4 @@
-<div ba-if="{{showsidebargallery && !floating}}"
+<div ba-if="{{showsidebargallery}}"
      class="{{cssgallerysidebar}}-container {{csscommon}}-full-height"
 >
     <div ba-if="{{adsplaying}}" class="{{cssgallerysidebar}}-ads-container">
@@ -38,10 +38,13 @@
     </div>
 </div>
 
-<div ba-if="{{floating && with_sidebar}}"
+<!-- Show gallery more prioritized than sidebar -->
+<div ba-if="{{!showsidebargallery}}"
      class="{{cssfloatingsidebar}}-container {{csscommon}}-full-height"
 >
-    <div ba-if="{{adsplaying}}" class="{{cssfloatingsidebar}}-ad-playing-container">
+    <div ba-if="{{adsplaying}}"
+         class="{{cssfloatingsidebar}}-ad-playing-container {{csscommon}}-full-height"
+    >
         <ba-ads-choices-link
             ba-if="{{adchoiceslink}}"
             ba-cssadsplayer="{{cssadsplayer}}"
@@ -50,13 +53,17 @@
         <div ba-if="{{companionadcontent}}"
              class="{{cssfloatingsidebar}}-companion-container"
         ></div>
-        <ba-ads-learn-more-button
-            ba-if="{{moredetailslink && !companionadcontent}}"
-            ba-adsplaying="{{adsplaying}}"
-            ba-event:pause_ads="button_click"
-        ></ba-ads-learn-more-button>
+        <div class="{{cssfloatingsidebar}}-content-container">
+            <ba-ads-learn-more-button
+                ba-if="{{moredetailslink && !companionadcontent}}"
+                ba-adsplaying="{{adsplaying}}"
+                ba-event:pause_ads="button_click"
+                ba-moredetailslink="{{moredetailslink}}"
+                ba-passedclasses="{{cssfloatingsidebar + '-action-button'}}"
+            ></ba-ads-learn-more-button>
+        </div>
     </div>
-    <div ba-if="{{!adsplaying}}" class="{{cssfloatingsidebar}}-content-container">
+    <div ba-if="{{!adsplaying}}" class="{{cssfloatingsidebar}}-content-container {{csscommon}}-full-height">
         <div class="{{cssfloatingsidebar}}-title">
             {{title}}
         </div>

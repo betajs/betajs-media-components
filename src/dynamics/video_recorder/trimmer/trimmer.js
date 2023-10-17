@@ -181,7 +181,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Trimmer", [
 
                 create: function() {
                     this._events = this.auto_destroy(new DomEvents());
-                    this._progressBarElement = this.activeElement().querySelector("[data-selector='progressbar'");
+                    this._progressBarElement = this.activeElement().querySelector("[data-selector='progressbar']");
                     this._selectionElement = this.activeElement().querySelector("[data-selector='selection']");
                     this._snapshotsElement = this.activeElement().querySelector("[data-selector='snapshots']");
 

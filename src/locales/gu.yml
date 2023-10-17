@@ -15,10 +15,10 @@
   ba-ads-controlbar.volume-button: આવાજ સુરૂ કરો
   ba-ads-controlbar.elapsed-time: બીતેલો સમય
   ba-ads-controlbar.volume-unmute: આવાજ ચાલુ કરો
-  ba-ads-controlbar.can-skip-after: %d પછી પસંદ કરો
+  ba-ads-controlbar.can-skip-after: '%d પછી પસંદ કરો'
   ba-ads-controlbar.fullscreen-video: પૂર્ણ-સ્ક્રીન વીડિયોમાં પ્રવેશ કરો
   ba-ads-controlbar.exit-fullscreen-video: પૂર્ણ-સ્ક્રીન વીડિયોમાંથી બહાર ને નિકળો
-  ba-ads-controlbar.ad-will-end-after: %s પછી પ્રગતિ થઈ જશે
+  ba-ads-controlbar.ad-will-end-after: '%s પછી પ્રગતિ થઈ જશે'
   ba-ads-controlbar.pause-video-disabled: થરી રાખવું સપોર્ટ કરતું નથી
   ba-adsplayer.replay-ad: વીડિયો ફરીથી ચાલુ કરો
   ba-adsplayer.close-ad: બંધ કરો
@@ -137,7 +137,7 @@
   ba-videorecorder-settings.instructions-covershot: કવર શોટ પ્રયાસ કરો
   ba-videorecorder-settings.instructions-streams: સ્ટ્રીમ્સ ચયન કરો
   ba-videorecorder-settings.instructions-aspect-ratio: સંપ્રેક્ષ્ય દરમિયાન પ્રયાસ કરો
-ba-imageviewer-controlbar.rerecord-image: ફરીથી રેકૉર્ડ કરો?
+  ba-imageviewer-controlbar.rerecord-image: ફરીથી રેકૉર્ડ કરો?
   ba-imageviewer-controlbar.submit-image: પુષ્ટિ કરો
   ba-imageviewer-controlbar.fullscreen-image: પૂર્ણ સ્ક્રીન મોડે જવું
   ba-imageviewer-controlbar.exit-fullscreen-image: પૂર્ણ સ્ક્રીન મોડેથી બહાર નીકળો

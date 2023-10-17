@@ -1,28 +1,33 @@
-Scoped.define("module:VideoPlayer.Dynamics.FloatingSidebar", [
+Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
     "dynamics:Dynamic",
     "base:Objs",
     "browser:Dom",
     "module:Assets",
     "module:StylesMixin"
+], [
+    "module:Ads.Dynamics.ChoicesLink",
+    "module:Ads.Dynamics.LearnMoreButton"
 ], function(Class, Objs, DOM, Assets, StylesMixin, scoped) {
     return Class.extend({
             scoped: scoped
         }, [StylesMixin, function(inherited) {
             return {
 
-                template: "<%= template(dirname + '/floating_sidebar.html') %>",
+                template: "<%= template(dirname + '/sidebar.html') %>",
 
                 attrs: {
                     "css": "ba-videoplayer",
                     "csscommon": "ba-commoncss",
                     "cssplayer": "ba-player",
                     "cssadsplayer": "ba-adsplayer",
+                    "cssgallerysidebar": "ba-gallery-sidebar",
                     "cssfloatingsidebar": "ba-floating-sidebar",
                     "sidebartitle": null,
                     "bodyelementtouched": false,
                     "bodyelementpadding": 114,
                     "companionadcontent": null,
-                    "companionads": []
+                    "companionads": [],
+                    "is_floating": false
                 },
 
                 _afterActivate: function() {
@@ -34,18 +39,6 @@ Scoped.define("module:VideoPlayer.Dynamics.FloatingSidebar", [
                                 this.__generateCompanionAdContent(companionads);
                             }, this), this);
                         }
-                    }
-                },
-
-                functions: {
-                    pause_ads: function(url) {
-                        if (this.get("adsplaying")) {
-                            this.trigger("pause_ads");
-                        }
-                        if (url) this.__redirect(url);
-                    },
-                    redirect: function(url) {
-                        this.__redirect(url);
                     }
                 },
 
@@ -97,23 +90,15 @@ Scoped.define("module:VideoPlayer.Dynamics.FloatingSidebar", [
                         }
                     }
 
-                },
-
-                // in mobileview click not redirect to url, so making it manually
-                __redirect: function(url) {
-                    if (url && url.length > 0 && /^(http|https):\/\//i.test(url) && window) {
-                        window.open(url, "_blank");
-                    }
                 }
             };
         }])
-        .register("ba-videoplayer-floating-sidebar")
+        .register("ba-videoplayer-sidebar")
         .registerFunctions({
-            /*<%= template_function_cache(dirname + '/floating_sidebar.html') %>*/
+            /*<%= template_function_cache(dirname + '/sidebar.html') %>*/
         })
         .attachStringTable(Assets.strings)
         .addStrings({
-            "ad-choices": "Ad Choices",
-            "learn-more": "Learn More"
+            "up-next": "Up Next"
         });
 });

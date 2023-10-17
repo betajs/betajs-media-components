@@ -149,15 +149,15 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this._outstreamStarted(dyn);
                     },
                     "ads:pause": function() {
-                        this.set("playing", false);
-                        if (this.get("adsplaying")) {
+                        if (this.get("playing")) {
                             this.call("pause");
+                            this.set("playing", false);
                         }
                     },
                     "ads:resume": function() {
-                        this.set("playing", true);
-                        if (!this.get("adsplaying")) {
+                        if (!this.get("playing")) {
                             this.call("resume");
+                            this.set("playing", true);
                         }
                     },
                     "ads:contentResumeRequested": function() {
@@ -445,7 +445,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         selector = options[0];
                     } else {
                         // if it's floating and floatingoptions.device.companionad is set to boolean true,
-                        // then it will be handled by floating_sidebar.js
+                        // then it will be handled by sidebar.js
                         position = this.get("floating") && this.get("withsidebar") ? null : 'bottom';
                     }
                     if (selector) {

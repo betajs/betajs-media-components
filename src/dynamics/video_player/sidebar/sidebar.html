@@ -1,0 +1,71 @@
+<div ba-if="{{showsidebargallery}}"
+     class="{{cssgallerysidebar}}-container {{csscommon}}-full-height"
+>
+    <div ba-if="{{adsplaying}}" class="{{cssgallerysidebar}}-ads-container">
+        <ba-ads-learn-more-button
+            ba-if="{{moredetailslink && !companionadcontent}}"
+            ba-adsplaying="{{adsplaying}}"
+            ba-event:pause_ads="button_click"
+        ></ba-ads-learn-more-button>
+        <ba-ads-choices-link ba-if="{{adchoiceslink}}"></ba-ads-choices-link>
+    </div>
+    <div ba-if="{{!adsplaying}}" class="{{cssgallerysidebar}}-gallery">
+        <div class="{{cssgallerysidebar}}-gallery-title-container">
+            <div class="{{cssgallerysidebar}}-gallery-title">
+                Up Next
+            </div>
+            <div>
+                Logo
+            </div>
+        </div>
+        <ul class="{{cssgallerysidebar}}-gallery-list"
+            ba-repeat="{{videos :: video}}"
+        >
+            <li class="{{cssgallerysidebar}}-gallery-list-item"
+                onclick="{{play_video(video)}}"
+            >
+                <div class="{{cssgallerysidebar}}-gallery-list-item-image-container">
+                    <div class="{{cssgallerysidebar}}-play-button-container"></div>
+                    <img class="{{cssgallerysidebar}}-gallery-list-item-image"
+                         src="{{video.poster}}" alt="{{title}}"
+                    />
+                </div>
+                <div class="{{cssgallerysidebar}}-gallery-list-item-title">
+                    {{title}}
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- Show gallery more prioritized than sidebar -->
+<div ba-if="{{!showsidebargallery}}"
+     class="{{cssfloatingsidebar}}-container {{csscommon}}-full-height"
+>
+    <div ba-if="{{adsplaying}}"
+         class="{{cssfloatingsidebar}}-ad-playing-container {{csscommon}}-full-height"
+    >
+        <ba-ads-choices-link
+            ba-if="{{adchoiceslink}}"
+            ba-cssadsplayer="{{cssadsplayer}}"
+        ></ba-ads-choices-link>
+        <!-- Companion ad content will be set as innerHTML  -->
+        <div ba-if="{{companionadcontent}}"
+             class="{{cssfloatingsidebar}}-companion-container"
+        ></div>
+        <div class="{{cssfloatingsidebar}}-content-container">
+            <ba-ads-learn-more-button
+                ba-if="{{moredetailslink && !companionadcontent}}"
+                ba-adsplaying="{{adsplaying}}"
+                ba-event:pause_ads="button_click"
+                ba-moredetailslink="{{moredetailslink}}"
+                ba-passedclasses="{{cssfloatingsidebar + '-action-button'}}"
+            ></ba-ads-learn-more-button>
+        </div>
+    </div>
+    <div ba-if="{{!adsplaying}}" class="{{cssfloatingsidebar}}-content-container {{csscommon}}-full-height">
+        <div class="{{cssfloatingsidebar}}-title">
+            {{title}}
+        </div>
+    </div>
+</div>

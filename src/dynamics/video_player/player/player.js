@@ -36,7 +36,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.Controlbar",
     "module:VideoPlayer.Dynamics.Topmessage",
     "module:VideoPlayer.Dynamics.Tracks",
-    "module:VideoPlayer.Dynamics.FloatingSidebar",
+    "module:VideoPlayer.Dynamics.Sidebar",
     "module:VideoPlayer.Dynamics.Tooltip",
     "dynamics:Partials.EventPartial",
     "dynamics:Partials.OnPartial",
@@ -93,6 +93,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "csstracks": "",
                         "width": "",
                         "height": "",
+                        "size": null,
+                        "sidebarwidth": null,
+                        "availablesizes": {},
+                        "showgallery": false,
                         "popup-width": "",
                         "popup-height": "",
                         "aspectratio": null,
@@ -113,7 +117,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "dyncontrolbar": "videoplayer-controlbar",
                         "dynshare": "videoplayer-share",
                         "dyntracks": "videoplayer-tracks",
-                        "dynfloatingsidebar": "videoplayer-floating-sidebar",
+                        "dynsidebar": "videoplayer-sidebar",
                         "dynsettingsmenu": "common-settingsmenu",
                         "dyntrimmer": "videorecorder-trimmer",
                         "dynnext": "videoplayer-next",
@@ -462,7 +466,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "closeable-title": "boolean",
                     "sticky-threshold": "float",
                     "floatingoptions": "jsonarray",
-                    "presetedtooltips": "object"
+                    "presetedtooltips": "object",
+                    "size": "string",
+                    "sidebarwidth": "int", // can be as a string as well via px and %, default is int with px
+                    "availablesizes": "object",
+                    "showsidebargallery": "boolean",
+                    // Will help hide player poster before ads start,
+                    // if false rectangle with full dimensions will be shown
+                    "hidebeforeadstarts": "boolean"
                 },
 
                 __INTERACTION_EVENTS: ["click", "mousedown", "touchstart", "keydown", "keypress"],
@@ -474,7 +485,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 scopes: {
                     adsplayer: ">[tagname='ba-adsplayer']",
                     settingsmenu: ">[tagname='ba-common-settingsmenu']",
-                    floatingsidebar: ">[tagname='ba-videoplayer-floating-sidebar']"
+                    floatingsidebar: ">[tagname='ba-videoplayer-sidebar']"
                 },
 
                 collections: {
@@ -572,6 +583,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
                     "aspect_ratio:aspectratio,fallback-aspect-ratio": function(aspectRatio, fallback) {
                         return aspectRatio || fallback;
+                    },
+                    "sidebar_active:is_floating,with_sidebar,showgallery,fullscreened": function(isFloating, withSidebar, showGallery, fullscreened) {
+                        if (fullscreened) return false;
+                        return (isFloating && withSidebar) || (showGallery && !isFloating);
+
                     },
                     "adsinitialized:playing,adtagurl,inlinevastxml": function(playing, adsTagURL, inlineVastXML) {
                         if (this.get("adsinitialized")) {

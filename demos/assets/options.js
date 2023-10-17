@@ -72,6 +72,10 @@ if (params.sbr) {
     attrs.floatingoptions.sidebar = Number(params.sbr) === 1;
 }
 
+if (attrs.adtagurl && params.acl) {
+    attrs.adchoiceslink = 'https://betajs.com/builds.html';
+}
+
 // floating only
 if (params.flt) {
     attrs.floatingoptions.floatingonly = Number(params.flt) === 1;
@@ -196,7 +200,7 @@ attrs = {...attrs, ...{
             // hideplayeronclose: false,
             mobile: {
                 height: 120,
-                companionad: true,
+                companionad: false,
                 // position: 'bottom'
                 // companionad: "[,250]",
                 // top: 40,
@@ -206,15 +210,17 @@ attrs = {...attrs, ...{
                     relativeSelector: `div#header`,
                     // relativeSelector: null,
                 },
+                sidebar: true,
                 // size: "l",
                 // availablesizes: {
                 //     'xs': 50, 's': 75, 'm': 80, 'l': 120, 'xl': 150
                 // }
             },
             desktop: {
-                height: 140,
+                height: 150,
                 bottom: 20,
-                companionad: true, //"[]|bottom", //"[]|top", // true
+                companionad: false, //"[]|bottom", //"[]|top", // true
+                sidebar: true,
 
                 // size: "xl",
                 // availablesizes: {

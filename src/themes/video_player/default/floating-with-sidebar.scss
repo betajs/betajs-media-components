@@ -1,10 +1,12 @@
-.#{$cssplayer}-sidebar, .#{$cssplayer}-content {
-    flex-grow: 1;
-}
+/** NOTE: adding flex-grow 1 to the player content will make not fully show ads */
+//.#{$cssplayer}-content { min-width: fit-content; }
 .#{$cssplayer}-sidebar {
+    flex-grow: 1;
     max-width: 50%;
+    flex-basis: min-content;
 }
-.#{$cssplayer}-with-sidebar {
+div.#{$cssplayer}-with-sidebar {
+    display: flex;
     flex-wrap: nowrap;
     flex-direction: row;
     .#{$cssvideoplayer}-poster-container, .#{$cssvideoplayer}-poster-container img,
@@ -20,7 +22,7 @@
         margin: 0;
         flex-grow: 1;
         background: $sidebar_background_color;
-        .#{$cssfloatingsidebar}-ad-playing-container{
+        .#{$cssfloatingsidebar}-ad-playing-container {
             position: relative;
         }
         .#{$cssfloatingsidebar}-content-container {
@@ -31,12 +33,13 @@
         }
         a.#{$cssfloatingsidebar}-action-button {
             @include transition1(border, 500ms, ease-out);
+            box-sizing: border-box;
             color: #FFFFFF;
-            padding: 7px 18px;
+            padding: 7px 12px;
             border: 1px solid #ececec;
             border-radius: 3px;
             cursor: pointer;
-            white-space: nowrap;
+            margin: 0;
             &:hover {
                 border-color: #FF9933;
             }

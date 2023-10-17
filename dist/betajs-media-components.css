@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.409 - 2023-10-13
+betajs-media-components - v0.0.410 - 2023-10-17
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1339,7 +1339,8 @@ Apache-2.0 Software License.
 
 .ba-floating-sidebar-companion-container {
   align-items: center;
-  display: inline-block;
+  display: flex;
+  height: 100%;
   justify-content: center;
 }
 
@@ -3590,81 +3591,82 @@ div.ba-commoncss-sticky.ba-player-viewport-mobile {
   height: 100%;
 }
 
-.ba-player-sidebar, .ba-player-content {
-  flex-grow: 1;
-}
-
+/** NOTE: adding flex-grow 1 to the player content will make not fully show ads */
 .ba-player-sidebar {
+  flex-grow: 1;
   max-width: 50%;
+  flex-basis: min-content;
 }
 
-.ba-player-with-sidebar {
+div.ba-player-with-sidebar {
+  display: flex;
   flex-wrap: nowrap;
   flex-direction: row;
 }
-.ba-player-with-sidebar .ba-videoplayer-poster-container, .ba-player-with-sidebar .ba-videoplayer-poster-container img,
-.ba-player-with-sidebar .ba-videoplayer-video-container, .ba-player-with-sidebar .ba-videoplayer-video-container video {
+div.ba-player-with-sidebar .ba-videoplayer-poster-container, div.ba-player-with-sidebar .ba-videoplayer-poster-container img,
+div.ba-player-with-sidebar .ba-videoplayer-video-container, div.ba-player-with-sidebar .ba-videoplayer-video-container video {
   position: relative;
 }
-.ba-player-with-sidebar.ba-player-floating .ba-player-content {
+div.ba-player-with-sidebar.ba-player-floating .ba-player-content {
   position: relative;
 }
-.ba-player-with-sidebar .ba-floating-sidebar-container {
+div.ba-player-with-sidebar .ba-floating-sidebar-container {
   color: #fff;
   text-align: center;
   margin: 0;
   flex-grow: 1;
   background: #000000;
 }
-.ba-player-with-sidebar .ba-floating-sidebar-container .ba-floating-sidebar-ad-playing-container {
+div.ba-player-with-sidebar .ba-floating-sidebar-container .ba-floating-sidebar-ad-playing-container {
   position: relative;
 }
-.ba-player-with-sidebar .ba-floating-sidebar-container .ba-floating-sidebar-content-container {
+div.ba-player-with-sidebar .ba-floating-sidebar-container .ba-floating-sidebar-content-container {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
 }
-.ba-player-with-sidebar .ba-floating-sidebar-container a.ba-floating-sidebar-action-button {
+div.ba-player-with-sidebar .ba-floating-sidebar-container a.ba-floating-sidebar-action-button {
   transition: border 500ms ease-out;
   -moz-transition: border 500ms ease-out;
   -webkit-transition: border 500ms ease-out;
   -o-transition: border 500ms ease-out;
   -ms-transition: border 500ms ease-out;
+  box-sizing: border-box;
   color: #FFFFFF;
-  padding: 7px 18px;
+  padding: 7px 12px;
   border: 1px solid #ececec;
   border-radius: 3px;
   cursor: pointer;
-  white-space: nowrap;
+  margin: 0;
 }
-.ba-player-with-sidebar .ba-floating-sidebar-container a.ba-floating-sidebar-action-button:hover {
+div.ba-player-with-sidebar .ba-floating-sidebar-container a.ba-floating-sidebar-action-button:hover {
   border-color: #FF9933;
 }
-.ba-player-with-sidebar .ba-floating-sidebar-container a.ba-floating-sidebar-action-button:link {
+div.ba-player-with-sidebar .ba-floating-sidebar-container a.ba-floating-sidebar-action-button:link {
   text-decoration: none;
 }
-.ba-player-with-sidebar .ba-floating-sidebar-container a.ba-floating-sidebar-action-button:visited {
+div.ba-player-with-sidebar .ba-floating-sidebar-container a.ba-floating-sidebar-action-button:visited {
   text-decoration: none;
 }
-.ba-player-with-sidebar .ba-floating-sidebar-container a.ba-floating-sidebar-action-button:hover {
+div.ba-player-with-sidebar .ba-floating-sidebar-container a.ba-floating-sidebar-action-button:hover {
   text-decoration: none;
 }
-.ba-player-with-sidebar .ba-floating-sidebar-container a.ba-floating-sidebar-action-button:active {
+div.ba-player-with-sidebar .ba-floating-sidebar-container a.ba-floating-sidebar-action-button:active {
   text-decoration: none;
 }
-.ba-player-with-sidebar.ba-player-viewport-mobile {
+div.ba-player-with-sidebar.ba-player-viewport-mobile {
   box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.4);
   max-width: 100%;
 }
-.ba-player-with-sidebar .ba-floating-sidebar-title {
+div.ba-player-with-sidebar .ba-floating-sidebar-title {
   display: -webkit-box;
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
-.ba-player-with-sidebar .ba-adsplayer-ad-choices-container {
+div.ba-player-with-sidebar .ba-adsplayer-ad-choices-container {
   position: absolute;
   color: #fff;
   top: 5px;
@@ -3673,7 +3675,7 @@ div.ba-commoncss-sticky.ba-player-viewport-mobile {
   width: 20px;
   cursor: pointer;
 }
-.ba-player-with-sidebar.ba-player-fullscreen-view .ba-adsplayer-controlbar, .ba-player-with-sidebar.ba-player-fullscreen-view .ba-adsplayer-linear-ad-container {
+div.ba-player-with-sidebar.ba-player-fullscreen-view .ba-adsplayer-controlbar, div.ba-player-with-sidebar.ba-player-fullscreen-view .ba-adsplayer-linear-ad-container {
   width: 100%;
 }
 

@@ -8,6 +8,7 @@ language:en:
   ba-common-settingsmenu.picture-in-picture: Picture in picture
   ba-common-settingsmenu.exit-fullscreen-video: Exit fullscreen
   ba-common-settingsmenu.fullscreen-video: Enter fullscreen
+  ba-ads-choices-link.ad-choices: Ad Choices
   ba-ads-controlbar.skip-ad: Skip ad
   ba-ads-controlbar.play-ad: Play
   ba-ads-controlbar.pause-video: Pause
@@ -24,6 +25,7 @@ language:en:
   ba-adsplayer.close-ad: Close
   ba-adsplayer.ad-choices: Ad Choices
   ba-adsplayer.learn-more: Learn More
+  ba-ads-learn-more-button.learn-more: Learn More
   ba-videoplayer-controlbar.video-progress: Progress
   ba-videoplayer-controlbar.rerecord-video: Redo?
   ba-videoplayer-controlbar.submit-video: Confirm
@@ -47,8 +49,6 @@ language:en:
   ba-videoplayer-controlbar.remaining-time: Remaining time
   ba-videoplayer-controlbar.select-frame: Select
   ba-videoplayer-controlbar.trim-video: Trim
-  ba-videoplayer-floating-sidebar.ad-choices: Ad Choices
-  ba-videoplayer-floating-sidebar.learn-more: Learn More
   ba-videoplayer-loader.tooltip: Loading...
   ba-videoplayer-playbutton.tooltip: Click to play.
   ba-videoplayer-playbutton.rerecord: Redo
@@ -56,6 +56,7 @@ language:en:
   ba-videoplayer-playbutton.trim: Trim
   ba-videoplayer-playbutton.skip: Skip
   ba-videoplayer-share.share: Share media
+  ba-videoplayer-sidebar.up-next: Up Next
   ba-videoplayer-tooltip.tooltip: Tooltip
   ba-videoplayer-tooltip.hover-to-pause-tooltip-close: Hold mouse on, to pause tooltip closing
   ba-videoplayer-tracks.upload-text-tracks: Upload track text files

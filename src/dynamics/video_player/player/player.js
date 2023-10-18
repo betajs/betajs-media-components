@@ -1423,7 +1423,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     var img = this.activeElement().querySelector('img[data-image="image"]');
                     var imgEventHandler = this.auto_destroy(new DomEvents());
                     imgEventHandler.on(img, "load", function() {
-                        this.set("fallback-aspect-ratio", img.naturaWidth + "/" + img.naturalHeight);
+                        this.set("fallback-aspect-ratio", img.naturalWidth + "/" + img.naturalHeight);
                         imgEventHandler.destroy();
                     }, this);
                 },

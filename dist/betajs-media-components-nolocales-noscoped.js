@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.410 - 2023-10-17
+betajs-media-components - v0.0.411 - 2023-10-19
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.410",
-    "datetime": 1697582385847
+    "version": "0.0.411",
+    "datetime": 1697746572786
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -4366,8 +4366,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (isFloating && !this.get("fullscreened")) {
                             calculated = this.__calculateFloatingDimensions();
 
-                            styles.position = "fixed";
-
                             floatingTop = floatingTop || calculated.floating_top;
                             floatingBottom = floatingBottom || calculated.floating_bottom;
                             floatingRight = floatingRight || calculated.floating_right;
@@ -5161,7 +5159,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     var img = this.activeElement().querySelector('img[data-image="image"]');
                     var imgEventHandler = this.auto_destroy(new DomEvents());
                     imgEventHandler.on(img, "load", function() {
-                        this.set("fallback-aspect-ratio", img.naturaWidth + "/" + img.naturalHeight);
+                        this.set("fallback-aspect-ratio", img.naturalWidth + "/" + img.naturalHeight);
                         imgEventHandler.destroy();
                     }, this);
                 },

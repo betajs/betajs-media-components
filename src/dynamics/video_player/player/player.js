@@ -628,8 +628,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (isFloating && !this.get("fullscreened")) {
                             calculated = this.__calculateFloatingDimensions();
 
-                            styles.position = "fixed";
-
                             floatingTop = floatingTop || calculated.floating_top;
                             floatingBottom = floatingBottom || calculated.floating_bottom;
                             floatingRight = floatingRight || calculated.floating_right;

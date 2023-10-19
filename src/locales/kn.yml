@@ -15,7 +15,7 @@ language:kn:
   ba-ads-controlbar.volume-button: ಸ್ವರವನ್ನು ಹೊಂದಿಸು
   ba-ads-controlbar.elapsed-time: ಕಳೆದ ಸಮಯ
   ba-ads-controlbar.volume-unmute: ಶಬ್ದವನ್ನು ಚಾಲುಮಾಡು
-  ba-ads-controlbar.can-skip-after: %d ನಂತರ ಹಾರಿಹೋಗಬಹುದು
+  ba-ads-controlbar.can-skip-after: '%d ನಂತರ ಹಾರಿಹೋಗಬಹುದು'
   ba-ads-controlbar.fullscreen-video: ಪೂರ್ಣ ಪರದೆಯಲ್ಲಿ ಹೋಗಿ
   ba-ads-controlbar.exit-fullscreen-video: ಪೂರ್ಣ ಪರದೆಯನ್ನು ಬಿಟ್ಟುಹೋಗಿ
   ba-ads-controlbar.ad-will-end-after: ವಿಜ್ಞಾಪನ ನಂತರ %s

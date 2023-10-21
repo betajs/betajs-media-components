@@ -18,7 +18,9 @@ Scoped.define("module:Ads.IMA.AdsManager", [
 
                 if (google && google.ima && options.IMASettings)
                     this._setIMASettings(options.IMASettings);
-                this._adDisplayContainer = new google.ima.AdDisplayContainer(options.adContainer, options.videoElement);
+                this._adDisplayContainer = new google.ima.AdDisplayContainer(
+                    options.adContainer, options.videoElement, options.customclickthrough || null
+                );
                 this._adsLoader = new google.ima.AdsLoader(this._adDisplayContainer);
                 this._adsLoader.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, this.onAdError.bind(this), false);
                 this._adsLoader.addEventListener(google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED, this.onAdsManagerLoaded.bind(this), false);

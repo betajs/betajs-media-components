@@ -38,7 +38,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     repeatbuttontext: null,
                     adsplaying: false,
                     companionads: [],
-                    companionadcontent: null
+                    companionadcontent: null,
+                    customclickthrough: false
                 },
 
                 events: {
@@ -135,6 +136,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.set("volume", this.adsManager.getVolume());
                         this.set("duration", event.getAdData().duration);
                         this.set("moredetailslink", event.getAdData().clickThroughUrl);
+                        this.set("adsclicktroughurl", event.getAdData().clickThroughUrl);
                     },
                     "ads:volumeChange": function() {
                         this.__volumeChangeTriggered = true;
@@ -169,7 +171,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 create: function() {
-                    var focusedElement, adsManagedEvents;
                     var dynamics = this.parent();
                     var adContainer = this.getAdContainer();
                     var adManagerOptions = {
@@ -184,8 +185,12 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     if (!Info.isMobile() && this.getVideoElement()) {
                         // It's optionalParameter
                         adManagerOptions.videoElement = this.getVideoElement();
+                    } else {
+                        adManagerOptions.customclickthrough = this.getClickTroughElement();
+                        this.set("customclickthrough", !!adManagerOptions.customclickthrough);
                     }
-                    this.adsManager = this.auto_destroy(new AdsManager(adManagerOptions, dynamics));
+                    this.adsManager = this.auto_destroy(
+                        new AdsManager(adManagerOptions, dynamics));
                     this.adsManager.requestAds(this._baseRequestAdsOptions());
                     // Will list events which are require some additional actions,
                     // ignore events like adsProgress for additional statement checks
@@ -310,6 +315,10 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     if (!this._videoElement)
                         this._videoElement = this.parent() && this.parent().activeElement().querySelector("[data-video='video']"); // TODO video element for outstream
                     return this._videoElement;
+                },
+
+                getClickTroughElement: function() {
+                    return this.activeElement().querySelector('[data-selector="ba-ads-clickthrough-container"]') || null;
                 },
 
                 getAdWillAutoPlay: function() {

@@ -12,11 +12,10 @@ Scoped.define("module:Ads.Dynamics.ChoicesLink", [
                 attrs: {
                     css: "ba-videoplayer",
                     cssadsplayer: "ba-adsplayer",
-                    visibilitycondition: true,
                     datatestselector: 'ba-ads-choices-link'
                 },
 
-                object_functions: ['click_action'],
+                // object_functions: ['click_action'],
 
                 functions: {
                     click_action: function(url) {

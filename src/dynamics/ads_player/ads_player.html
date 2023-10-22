@@ -6,11 +6,10 @@
     data-video="ima-ad-container"
 >
     <ba-ads-choices-link
-        ba-if="{{adchoiceslink && adchoicesontop}}"
+        ba-if="{{adchoiceslink && adchoicesontop && adsplaying && !floating && !sidebar_active}}"
         ba-adchoiceslink="{{adchoiceslink}}"
         ba-cssadsplayer="{{cssadsplayer}}"
-        ba-datatestselector="{{top-ads-choices-button}}"
-        ba-visibilitycondition="{{adsplaying && !floating && !sidebar_active}}"
+        ba-datatestselector="top-ads-choices-button"
     ></ba-ads-choices-link>
 
     <div ba-if="{{showactionbuttons && isoutstream}}"

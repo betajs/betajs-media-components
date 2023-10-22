@@ -5,15 +5,15 @@ import {
 } from "../../consts.js";
 import runTestMethod from '../../utils/run-test';
 
-// Will test the player with autoplay and unmute on click
-test.describe('Desktop Player unmute autoplay player', () => {
+test.describe('Desktop Player with sidebar gallery', () => {
     let descriptionPlayerAttributes = {
         autoplay: true,
         muted: true,
         unmuteonclick: true,
         skipinitial: false,
-        width: 640, height: 360,
         adtagurl: AD_TAG_URL,
+        showsidebargallery: true,
+        sidebaroptions: {}
     }
 
     const browserSettings = {
@@ -32,12 +32,10 @@ test.describe('Desktop Player unmute autoplay player', () => {
         video: 'on-first-retry',
     });
 
-    // test.beforeEach(async ({ page, browserName }) => {});
-
-    test(`Ads user experience`, async ({ page, browserName, browser, context }) => {
+    test(`Player with ads and companion on the sidebar`, async ({ page, browserName, browser, context }) => {
         // const screenShotTitle = `./tests/playwright/screenshots/${(testInfo.title.replaceAll(' ', '-')).slice(0, 20)}-${browserName}.png`;
 
-        const runAdsTester = async (page, browser, context) => {
+        const runTest = async (page, browser, context) => {
             // delete defaultPlayerAttributes['poster'];
             const player = new PlayerPage(page,
                 { ...defaultPlayerAttributes, ...descriptionPlayerAttributes }
@@ -59,7 +57,10 @@ test.describe('Desktop Player unmute autoplay player', () => {
             });
         }
 
-        await runTestMethod({page, browserName, browser, context}, runAdsTester, browserSettings);
+        await runTestMethod(
+            {page, browserName, browser, context},
+            runTest, browserSettings
+        );
     });
 
     test(`Video content user experience`, async ({ page, browserName, browser, context }) => {

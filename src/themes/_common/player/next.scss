@@ -6,6 +6,13 @@
 .#{$cssplayer}-next-style-mobile {
 }
 
+.#{$cssplayer}-with-sidebar-gallery {
+  .#{$cssplayer}-toggle-next-container {
+    align-items: end;
+    bottom: #{5 + $player_controlbar_height};
+  }
+}
+
 .#{$cssplayer}-toggle-next-container {
   box-sizing: content-box;
   pointer-events: none;
@@ -53,7 +60,7 @@
     object-fit: contain;
     margin-top: -24px;
     margin-bottom: 10px;
-    
+
   }
   span {
     border-radius: 4px;

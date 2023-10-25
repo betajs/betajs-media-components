@@ -596,6 +596,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("floatingsidebar", isFloating && withSidebar);
                         this.set("gallerysidebar", showSidebarGallery && !isFloating && (Types.is_defined(mobileViewport) && !mobileViewport));
                         if (fullscreened) return false;
+                        if (this.get("gallerysidebar") && this.get("playlist") && this.get("playlist").length > 0) this.set("nextwidget", true);
                         return this.get("floatingsidebar") || this.get("gallerysidebar");
                     },
                     "playercontainerstyles:sidebar_active,gallerysidebar,sidebaroptions.presetwidth": function(sideBarActive, gallerySidebar, sidebarPresetWidth) {

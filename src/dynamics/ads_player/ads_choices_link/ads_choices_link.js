@@ -12,21 +12,15 @@ Scoped.define("module:Ads.Dynamics.ChoicesLink", [
                 attrs: {
                     css: "ba-videoplayer",
                     cssadsplayer: "ba-adsplayer",
-                    visibilitycondition: true
+                    visibilitycondition: true,
+                    datatestselector: 'ba-ads-choices-link'
                 },
 
-                object_functions: ['redirect'],
+                object_functions: ['click_action'],
 
                 functions: {
-                    redirect: function(url) {
-                        this.__redirect(url);
-                    }
-                },
-
-                // in mobileview click not redirect to url, so making it manually
-                __redirect: function(url) {
-                    if (url && url.length > 0 && /^(http|https):\/\//i.test(url) && window) {
-                        window.open(url, "_blank");
+                    click_action: function(url) {
+                        this.trigger("click_action", url);
                     }
                 }
             };

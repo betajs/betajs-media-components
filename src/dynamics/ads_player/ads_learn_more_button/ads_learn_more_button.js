@@ -11,24 +11,18 @@ Scoped.define("module:Ads.Dynamics.LearnMoreButton", [
 
                 attrs: {
                     css: "ba-videoplayer",
-                    cssadsplayer: "ba-adsplayer"
+                    cssadsplayer: "ba-adsplayer",
+                    cssprefix: null,
+                    buttontext: null,
+                    buttontitletext: null,
+                    datatestselector: 'ba-ads-learn-more-link'
                 },
 
                 object_functions: ["pause_ads"],
 
                 functions: {
-                    pause_ads: function(url) {
-                        if (this.get("adsplaying")) {
-                            this.trigger("pause_ads");
-                        }
-                        if (url) this.__redirect(url);
-                    },
-                },
-
-                // in mobileview click not redirect to url, so making it manually
-                __redirect: function(url) {
-                    if (url && url.length > 0 && /^(http|https):\/\//i.test(url) && window) {
-                        window.open(url, "_blank");
+                    click_action: function(url) {
+                        this.trigger("click_action", url);
                     }
                 }
             };

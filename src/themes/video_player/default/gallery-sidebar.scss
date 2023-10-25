@@ -1,12 +1,58 @@
 .#{$cssgallerysidebar}-container {
     background-color: black;
     color: white;
+    // Common styles
+    .#{$cssgallerysidebar}-ads-header-container, .#{$cssgallerysidebar}--gallery-header-container {
+        height: 30px;
+        display: flex;
+        align-self: start;
+        align-content: center;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+    .#{$cssgallerysidebar}-ads-body-container, .#{$cssgallerysidebar}-gallery-list {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex-grow: 1;
+        width: 100%;
+    }
+    .#{$cssgallerysidebar}-ads-footer-container {
+        height: 30px;
+        line-height: 30px;
+        position: relative;
+        align-self: end;
+        margin-top: auto;
+        width: 100%;
+    }
+
+    // Only gallery related styles
     .#{$cssgallerysidebar}-gallery {
-        .#{$cssgallerysidebar}-gallery-title-container {
+        box-sizing: border-box;
+        padding: 15px 13px;
+        .#{$cssgallerysidebar}-gallery-header-container {
 
         }
     }
-    .#{$cssgallerysidebar}-ads-container {
 
+    // Only sidebar ads related styles
+    .#{$cssgallerysidebar}-ads-container {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+        padding: 15px 13px;
+        .#{$cssgallerysidebar}-ads-body-container p {
+            font-size: 22px;
+            margin: 0;
+            padding: 0 0 15px 0;
+        }
+        .#{$cssgallerysidebar}-ads-footer-container .#{$cssadsplayer}-ad-choices-container {
+            position: relative;
+            top: auto;
+            left: auto;
+            bottom: 0;
+            right: 0;
+        }
     }
 }

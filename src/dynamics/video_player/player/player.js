@@ -96,7 +96,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "size": null,
                         "availablesizes": {},
                         "showsidebargallery": false,
-                        "sidebarpresetwidth": 24, // percentage by default, or could be in px
+                        "sidebaroptions": {
+                            "presetwidth": 24, // percentage by default, or could be in px
+                            "afteradsendtext": null,
+                            "gallerytitletext": null,
+                            "headerlogourl": "",
+                            "headerlogoname": ""
+                        },
                         "popup-width": "",
                         "popup-height": "",
                         "aspectratio": null,
@@ -471,8 +477,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "showsidebargallery": "boolean",
                     // Will help hide player poster before ads start,
                     // if false rectangle with full dimensions will be shown
-                    "hidebeforeadstarts": "boolean"
-                    // "sidebarpresetwidth": "int" || "string", // can be as a string as well via px and %
+                    "hidebeforeadstarts": "boolean",
+                    "sidebaroptions": "object"
                 },
 
                 __INTERACTION_EVENTS: ["click", "mousedown", "touchstart", "keydown", "keypress"],
@@ -589,7 +595,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (fullscreened) return false;
                         return this.get("floatingsidebar") || this.get("gallerysidebar");
                     },
-                    "playercontainerstyles:sidebar_active,gallerysidebar,sidebarpresetwidth": function(sideBarActive, gallerySidebar, sidebarPresetWidth) {
+                    "playercontainerstyles:sidebar_active,gallerysidebar,sidebaroptions.presetwidth": function(sideBarActive, gallerySidebar, sidebarPresetWidth) {
                         // Only if sidebarPresetWidth
                         if (typeof sidebarPresetWidth === "string") {
                             sidebarPresetWidth = sidebarPresetWidth.includes("%") ?
@@ -603,11 +609,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }
                             if (width && Types.is_defined(styles) && styles) {
                                 this.set("controlbarstyles", {
-                                    width: width,
-                                    position: 'absolute'
+                                    width: width
                                 });
                                 return {
-                                    width: width
+                                    width: width,
+                                    position: 'relative'
                                 };
                             }
                         }

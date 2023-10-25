@@ -51,6 +51,10 @@
             </div>
         </div>
     </div>
+    <div ba-if="{{ adsclicktroughurl && customclickthrough }}"
+         data-selector="ba-ads-clickthrough-container"
+         class="{{css}}-overlay {{csscommon}}-clickable"
+    ></div>
     <div ba-if="{{!userhadplayerinteraction && unmuteonclick && linear}}"
          class="{{css}}-overlay {{cssadsplayer}}-ad-click-tracker {{csscommon}}-clickable"
          ba-click="{{ad_clicked()}}"

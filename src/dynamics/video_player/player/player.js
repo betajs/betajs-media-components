@@ -774,7 +774,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     // NOTE: below condition has to be before ads initialization
                     if (this.get("autoplaywhenvisible")) this.set("autoplay", true);
                     // initializations
-                    this.__initiPresets();
+                    this.__initPresets();
                     this.__initFloatingOptions();
                     this._observer = new ResizeObserver(function(entries) {
                         for (var i = 0; i < entries.length; i++) {
@@ -2398,7 +2398,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }, this);
                 },
 
-                __initiPresets: function() {
+                __initPresets: function() {
                     var presetKey = this.get("presetkey");
                     var multiPresets = this.get("availablepresetoptions");
                     if (multiPresets && Objs.count(multiPresets) > 0 && presetKey) {

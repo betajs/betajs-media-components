@@ -2,15 +2,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
     "dynamics:Dynamic",
     "base:Objs",
     "base:Async",
+    "base:Types",
     "browser:Dom",
     "module:Assets",
     "module:StylesMixin"
 ], [
     "module:Ads.Dynamics.ChoicesLink",
-    "module:Common.Dynamics.Scrollbar",
     "module:Ads.Dynamics.LearnMoreButton",
     "module:Common.Dynamics.CircleProgress"
-], function(Class, Objs, Async, DOM, Assets, StylesMixin, scoped) {
+], function(Class, Objs, Async, Types, DOM, Assets, StylesMixin, scoped) {
     return Class.extend({
             scoped: scoped
         }, [StylesMixin, function(inherited) {
@@ -41,6 +41,27 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     nextindex: 1
                 },
 
+                events: {
+                    "change:shownext": function(nextVisible) {
+                        if (nextVisible) this.calculateHeight();
+                    },
+
+                    "changes:playlist": function(playlist) {
+                        Objs.iter(playlist, function(pl, index) {
+                            if (this.get('videos').get_by_secondary_index('index', index)) return;
+                            if (Types.is_object(pl)) {
+                                this.get("videos").add({
+                                    index: pl.token || index,
+                                    title: pl.title,
+                                    poster: pl.poster,
+                                    height: null
+                                });
+                            }
+                            this.calculateHeight();
+                        }, this);
+                    }
+                },
+
                 collections: {
                     videos: {}
                 },
@@ -53,15 +74,19 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     this.set("afteradsendtext", this.get("sidebaroptions.afteradsendtext") || this.string("continue-on-ads-end"));
                     if (this.get("playlist").length > 0) {
                         Objs.iter(this.get("playlist"), function(pl, index) {
-                            this.get("videos").add({
-                                index: index,
-                                title: pl.title,
-                                poster: pl.poster
-                            });
+                            if (Types.is_object(pl)) {
+                                this.get("videos").add({
+                                    index: pl.token || index,
+                                    title: pl.title,
+                                    poster: pl.poster,
+                                    height: 0
+                                });
+                            }
                         }, this);
+                        this.get("videos").add_secondary_index("index");
                     }
                     this.__dyn.on("resize", function() {
-                        this.__singleElementHeight = null;
+                        this.__scrollTop();
                     }, this);
                 },
 
@@ -79,36 +104,27 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                         }
                     }
                     if (this.get("videos").count() > 0) {
-                        Async.eventually(function() {
-                            this.topIndex();
-                        }, this, 300);
+                        this.calculateHeight();
                     }
                 },
 
                 functions: {
                     play_video: function(index) {
+                        this.set("nextindex", index + 1);
+                        this.__dyn.set("next_video_from_playlist", index);
+
+                        this.calculateHeight(index);
                         this.channel("next").trigger("manualPlayNext", index);
                         this.channel("next").trigger("playNext", index);
+                        this.__scrollTop();
 
                     },
-                    on_learn_more_click: function(url) {
+                    on_learn_more_click: function() {
                         this.pauseAds();
                     },
 
-                    on_ads_choices_click: function(url) {
+                    on_ads_choices_click: function() {
                         this.pauseAds();
-                    },
-
-                    pause_proggres: function() {
-
-                    },
-
-                    resume_proggres: function() {
-
-                    },
-
-                    stop_proggres: function() {
-
                     }
                 },
 
@@ -118,19 +134,25 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     }
                 },
 
-                topIndex: function(index) {
-                    index = index || this.get("nextindex");
-                    var element = this.activeElement().querySelector("li[data-index-selector='gallery-item-" + index + "']");
-                    if (!this.__singleElementHeight) {
-                        this.__singleElementHeight = DOM.elementDimensions(element).height;
-                        this.__singleElementWidth = DOM.elementDimensions(element).width;
-                    }
-                    var container = this.activeElement().querySelector(`.${this.get("cssgallerysidebar")}-list-container`);
-                    if (container && container.scrollTo) {
-                        container.scrollTo({
-                            top: index * this.__singleElementHeight,
-                            left: 0,
-                            behavior: "smooth",
+                calculateHeight: function() {
+                    const _ = this;
+                    // var element = this.activeElement().querySelect("li[data-index-selector='gallery-item-" + index + "']");
+                    const elements = this.activeElement().querySelectorAll(`li.${this.get("cssgallerysidebar")}-list-item`);
+                    if (elements && elements.length > 0) {
+                        elements.forEach(function(el) {
+                            const image = el.querySelector('img');
+                            const currentIndex = el.dataset.index;
+                            const elRelatedCollections = _.get("videos").get_by_secondary_index('index', parseInt(currentIndex), true);
+                            if (elRelatedCollections && !elRelatedCollections.get("height") && image) {
+                                image.onload = function() {
+                                    elRelatedCollections.set("height", DOM.elementDimensions(el).height);
+                                    _.__scrollTop();
+                                }
+                                image.onerror = function() {
+                                    el.style.display = 'none';
+                                    _.__scrollTop();
+                                }
+                            }
                         });
                     }
                 },
@@ -189,6 +211,25 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     var textArea = document.createElement('textarea');
                     textArea.innerHTML = text;
                     return textArea.value;
+                },
+
+                __scrollTop: function() {
+                    let topHeight = 0;
+                    const container = this.activeElement().querySelector(`.${this.get("cssgallerysidebar")}-list-container`);
+                    this.get("videos").iterate(function(video, index) {
+                        const videoIndex = video.get("index");
+                        const height = video.get("height");
+                        if (this.get("nextindex") === videoIndex) {
+                            if (container && container.scrollTo) {
+                                container.scrollTo({
+                                    top: topHeight,
+                                    left: 0,
+                                    behavior: "smooth",
+                                });
+                            }
+                        }
+                        topHeight += height;
+                    }, this);
                 }
             };
         }])

@@ -61,9 +61,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     this.__dyn.on("resize", function() {
                         this.__singleElementHeight = null;
                     }, this);
-
-                    //
-                    // ba-styles="{{{width: ((position - shownext) / noengagenext * 100) + '%'}}}"
                 },
 
                 _afterActivate: function() {
@@ -88,7 +85,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
 
                 functions: {
                     play_video: function(index) {
-                        this.trigger("play_video", index);
+                        this.channel("next").trigger("manualPlayNext", index);
+                        this.channel("next").trigger("playNext", index);
+
                     },
                     on_learn_more_click: function(url) {
                         this.pauseAds();

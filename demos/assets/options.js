@@ -199,7 +199,11 @@ attrs = {...attrs, ...{
             showcompanionad: true,
             // hideplayeronclose: false,
             mobile: {
+<<<<<<< HEAD
                 height: 120,
+=======
+                height: 150,
+>>>>>>> 3dde0257 (Fixed floating sidebar with ads view inside)
                 companionad: false,
                 // position: 'bottom'
                 // companionad: "[,250]",
@@ -219,7 +223,11 @@ attrs = {...attrs, ...{
             desktop: {
                 height: 150,
                 bottom: 20,
+<<<<<<< HEAD
                 companionad: false, //"[]|bottom", //"[]|top", // true
+=======
+                companionad: true, //"[]|bottom", //"[]|top", // true
+>>>>>>> 3dde0257 (Fixed floating sidebar with ads view inside)
                 sidebar: true,
 
                 // size: "xl",

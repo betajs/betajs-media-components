@@ -51,9 +51,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
 
                     "change:adsplaying": function(adsPlaying) {
                         if (!adsPlaying && this.get("videos").count() > 0) {
-                            Async.eventually(function() {
+                            this.auto_destroy(Async.eventually(function() {
                                 this.calculateHeight();
-                            }, this, 200);
+                            }, this, 200));
                         }
                     },
 
@@ -65,7 +65,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                                     index: pl.token || index,
                                     title: pl.title,
                                     poster: pl.poster,
-                                    height: null
+                                    height: null,
+                                    display: true
                                 });
                             }
                             this.calculateHeight();
@@ -90,7 +91,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                                     index: pl.token || index,
                                     title: pl.title,
                                     poster: pl.poster,
-                                    height: 0
+                                    height: 0,
+                                    display: true
                                 });
                             }
                         }, this);
@@ -146,6 +148,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                 },
 
                 calculateHeight: function() {
+                    // Don't calculate when ads active
+                    if (this.get("adsplaying")) return;
                     const _ = this;
                     // var element = this.activeElement().querySelect("li[data-index-selector='gallery-item-" + index + "']");
                     const elements = this.activeElement().querySelectorAll(`li.${this.get("cssgallerysidebar")}-list-item`);
@@ -161,6 +165,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                                 }
                                 image.onerror = function() {
                                     el.style.display = 'none';
+                                    elRelatedCollections.set("display", false);
                                     _.__scrollTop();
                                 }
                             }

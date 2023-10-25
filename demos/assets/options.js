@@ -72,6 +72,11 @@ if (params.sbr) {
     attrs.floatingoptions.sidebar = Number(params.sbr) === 1;
 }
 
+// sticky/floating sidebar
+if (params.prk) {
+    attrs.presetkey = params.prk;
+}
+
 if (attrs.adtagurl && params.acl) {
     attrs.adchoiceslink = Number(params.acl) === 1 ? 'https://betajs.com/builds.html' : '';
 }

@@ -99,7 +99,7 @@
     // 'blk' show-blocks for scroll from 0 to 2 (1=bottom, 2=top as well), 'ap' autoplay,
     // 'os' outstream, 'stk' sticky, 'flt' floating, 'ac' adchoiceslink 1 or URL,
     // 'adp' ads positions string like 'pre,post'
-    import { attrs, showBlocks, generateParagraphs } from "../assets/options.js";
+    import { attrs, playlist, showBlocks, generateParagraphs } from "../assets/options.js";
 
     // Show content for floating and sticky testing
     const beforePlayerContent = document.getElementById("before-player-content");
@@ -115,6 +115,11 @@
             beforePlayerContent.style.display = "block";
             generateParagraphs(beforePlayerContent.firstElementChild, 20);
         }
+    }
+
+    const {showsidebargallery, nextwidget } = attrs;
+    if ((showsidebargallery || nextwidget) && !attrs.playlist) {
+        attrs.playlist = playlist;
     }
 
     player = new BetaJS.MediaComponents.VideoPlayer.Dynamics.Player({
@@ -183,7 +188,6 @@
         }, player);
     }
     player.on("attached", function (playerInstance) {
-        console.log("Player active element", player.activeElement());
         // ['autoplay', 'skipinitial','autoplaywhenvisible', 'outstream'].forEach(key => {
         //     console.log(`${key} = ${player.get(key)}\n`);
         // });

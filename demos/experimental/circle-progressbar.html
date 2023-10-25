@@ -1,0 +1,298 @@
+<html lang="en">
+    <head>
+        <title>Circle Progressbar Experimental</title>
+        <style>
+            /*Progressbar experiments*/
+            /*#circle-progress {*/
+            /*    !*width: 100px;*!*/
+            /*    !*height: 100px;*!*/
+            /*    border-radius: 50%;*/
+            /*    !*background:*!*/
+            /*    !*    radial-gradient(closest-side, white 79%, transparent 80% 100%),*!*/
+            /*    !*    conic-gradient(hotpink 75%, pink 0);*!*/
+            /*    !*position: relative;*!*/
+            /*    !*height: 200px;*!*/
+            /*    !*width: 200px;*!*/
+            /*    !*border-radius: 50%;*!*/
+            /*    !*display: grid;*!*/
+            /*    height: 200px;*/
+            /*    width: 200px;*/
+            /*    place-items: center;*/
+            /*    background-image: conic-gradient(black 120deg, transparent 5deg);*/
+            /*    clip-path: path('M20 100 a80 80 0 1 0 160 0 a80 80 0 1 0 -160 0 L0 100 L0 0 L200 0 L200 200 L0 200 L0 100 Z');*/
+            /*}*/
+            /*#circle-progress::after {*/
+            /*    content: attr(data-progress);*/
+            /*    display: flex;*/
+            /*    align-self: center;*/
+            /*    width: 100%;*/
+            /*    height: 100%;*/
+            /*    align-content: center;*/
+            /*    justify-content: center;*/
+            /*    flex-direction: column;*/
+            /*    text-align: center;*/
+            /*}*/
+            /*#circle-progress {*/
+            /*    display: flex;*/
+            /*    justify-content: space-around;*/
+            /*}*/
+            /*#circle-progress > div {*/
+            /*    background: conic-gradient(red 75%, black 75deg);*/
+            /*    display: flex;*/
+            /*    border-radius: 50%;*/
+            /*    font-size: 0;*/
+            /*    animation: .4s ease-out reverse;*/
+            /*    width: 45px;*/
+            /*    height: 45px;*/
+            /*}*/
+            /*#circle-progress > div::after {*/
+            /*    background-color: rgba(172, 172, 172, .5);*/
+            /*    color: #fff;*/
+            /*    content: attr(data-progress);*/
+            /*    display: flex;*/
+            /*    justify-content: center;*/
+            /*    flex-direction: column;*/
+            /*    width: 100%;*/
+            /*    border-radius: 50%;*/
+            /*    font-size: 1rem;*/
+            /*    text-align: center;*/
+            /*}*/
+
+
+            /*#circle-progress {*/
+            /*    height: 100px;*/
+            /*    width: 100px;*/
+            /*    position: relative;*/
+            /*    !*background: transparent;*!*/
+            /*}*/
+
+            /*#circle-progress .inner,*/
+            /*#circle-progress .outer,*/
+            /*#circle-progress .circle {*/
+            /*    position: absolute;*/
+            /*    z-index: 6;*/
+            /*    height: 100%;*/
+            /*    width: 100%;*/
+            /*    border-radius: 100%;*/
+            /*    box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.2);*/
+            /*}*/
+
+            /*#circle-progress .inner {*/
+            /*    top: 50%;*/
+            /*    left: 50%;*/
+            /*    height: 80px;*/
+            /*    width: 80px;*/
+            /*    margin: -40px 0 0 -40px;*/
+            /*    background-color: transparent;*/
+            /*    border-radius: 100%;*/
+            /*    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);*/
+            /*}*/
+
+            /*#circle-progress .circle {*/
+            /*    z-index: 1;*/
+            /*    box-shadow: none;*/
+            /*}*/
+
+            /*#circle-progress .numb {*/
+            /*    position: absolute;*/
+            /*    top: 50%;*/
+            /*    left: 50%;*/
+            /*    transform: translate(-50%, -50%);*/
+            /*    z-index: 10;*/
+            /*    font-size: 18px;*/
+            /*    font-weight: 500;*/
+            /*    color: black;*/
+            /*}*/
+
+            /*#circle-progress .bar {*/
+            /*    position: absolute;*/
+            /*    height: 100%;*/
+            /*    width: 100%;*/
+            /*    background: #fff;*/
+            /*    -webkit-border-radius: 100%;*/
+            /*    clip: rect(0px, 100px, 100px, 50px);*/
+            /*}*/
+
+            /*.circle .bar .progress {*/
+            /*    position: absolute;*/
+            /*    height: 100%;*/
+            /*    width: 100%;*/
+            /*    -webkit-border-radius: 100%;*/
+            /*    clip: rect(0px, 50px, 100px, 0px);*/
+            /*}*/
+
+            /*.circle .bar .progress, .dot span {*/
+            /*    background: #4158d0;*/
+            /*}*/
+
+            /*.circle .left .progress {*/
+            /*    z-index: 1;*/
+            /*    animation: left 4s linear both;*/
+            /*}*/
+
+            /*@keyframes left {*/
+            /*    100% {*/
+            /*        transform: rotate(180deg);*/
+            /*    }*/
+            /*}*/
+
+            /*.circle .right {*/
+            /*    z-index: 3;*/
+            /*    transform: rotate(180deg);*/
+            /*}*/
+
+            /*.circle .right .progress {*/
+            /*    animation: right 4s linear both;*/
+            /*    animation-delay: 4s;*/
+            /*}*/
+
+            /*@keyframes right {*/
+            /*    100% {*/
+            /*        transform: rotate(180deg);*/
+            /*    }*/
+            /*}*/
+
+            /*.circle .dot {*/
+            /*    z-index: 2;*/
+            /*    position: absolute;*/
+            /*    left: 50%;*/
+            /*    top: 50%;*/
+            /*    width: 50%;*/
+            /*    height: 10px;*/
+            /*    margin-top: -5px;*/
+            /*    animation: dot 8s linear both;*/
+            /*    transform-origin: 0 50%;*/
+            /*}*/
+
+            /*.circle .dot span {*/
+            /*    position: absolute;*/
+            /*    right: 0;*/
+            /*    width: 10px;*/
+            /*    height: 10px;*/
+            /*    border-radius: 100%;*/
+            /*}*/
+
+            /*@keyframes dot {*/
+            /*    0% {*/
+            /*        transform: rotate(-90deg);*/
+            /*    }*/
+
+            /*    50% {*/
+            /*        transform: rotate(90deg);*/
+            /*        z-index: 4;*/
+            /*    }*/
+
+            /*    100% {*/
+            /*        transform: rotate(270deg);*/
+            /*        z-index: 4;*/
+            /*    }*/
+            /*}*/
+
+            #circle-progress-container {
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                height: 100%;
+            }
+            #circle-progress {
+                height: 45px;
+                width: 45px;
+                position: relative;
+            }
+            #circle-progress::after {
+                content: attr(data-countdown);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                border-radius: 50%;
+                background-color: rgba(172, 172, 172, .5);
+                color: #fff;
+                font-size: 1rem;
+                text-align: center;
+                position: relative;
+                top: 10%;
+                left: 10%;
+                z-index: 0;
+                width: 75%;
+                height: 75%;
+            }
+            .circle-svg {
+                display: inline-block;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                z-index: 10;
+                transform: rotate(-90deg);
+            }
+
+            .circle-svg__background {
+                fill: none;
+                stroke: transparent;
+                stroke-width: 5px;
+            }
+
+            .circle-svg__progress {
+                fill: none;
+                stroke-linecap: round;
+                stroke: orange;
+                stroke-dasharray: 100 100;
+                stroke-linecap: round;
+                stroke-width: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Circle Experimental</h2>
+<!--        <div id="progress"></div>-->
+        <div style="background-color: #5daa96; height: 120px; width: 100%">
+            <div id="circle-progress-container">
+                <div id="circle-progress" data-countdown="75%">
+                    <svg class="circle-svg" viewBox="2 -2 28 40"
+                         xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <circle class="circle-svg__background" r="16" cx="16" cy="16"></circle>
+                        <circle
+                            class="circle-svg__progress"
+                            r="16"
+                            cx="16"
+                            cy="16"
+                            style="stroke-dashoffset: 33"
+                        ></circle>
+                    </svg>
+                </div>
+            </div>
+
+<!--            <div id="circle-progress">-->
+<!--                <div class="inner"></div>-->
+<!--                <div class="outer"></div>-->
+<!--                <div class="numb">0%</div>-->
+<!--                <div class="circle">-->
+<!--                    <div class="dot"><span></span></div>-->
+<!--                    <div class="bar left"><div class="progress"></div></div>-->
+<!--                    <div class="bar right"><div class="progress"></div></div>-->
+<!--                </div>-->
+
+                <!--    <div data-progress="75%"></div>-->
+                <!--    <div id="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>-->
+            </div>
+        </div>
+
+        <script>
+        // const numb = document.querySelector(".numb");
+        // let counter = 0;
+        // setInterval(()=>{
+        //     if (counter === 20) {
+        //         clearInterval();
+        //     } else {
+        //         counter+=1;
+        //         numb.textContent = counter + "%";
+        //     }
+        // }, 80);
+    </script>
+
+    <hr />
+
+
+    </body>
+</html>

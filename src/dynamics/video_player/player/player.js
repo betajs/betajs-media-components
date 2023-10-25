@@ -95,8 +95,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "height": "",
                         "size": null,
                         "availablesizes": {},
-                        "sidebarwidth": "24%",
-                        "showgallery": false,
+                        "showsidebargallery": false,
+                        "sidebarpresetwidth": 24, // percentage by default, or could be in px
                         "popup-width": "",
                         "popup-height": "",
                         "aspectratio": null,
@@ -468,13 +468,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "floatingoptions": "jsonarray",
                     "presetedtooltips": "object",
                     "size": "string",
-                    "sidebarwidth": "int", // can be as a string as well via px and %, default is int with px
                     "availablesizes": "object",
                     "showsidebargallery": "boolean",
                     // Will help hide player poster before ads start,
                     // if false rectangle with full dimensions will be shown
-                    "hidebeforeadstarts": "boolean",
-                    "showgallery": "boolean"
+                    "hidebeforeadstarts": "boolean"
+                    // "sidebarpresetwidth": "int" || "string", // can be as a string as well via px and %
                 },
 
                 __INTERACTION_EVENTS: ["click", "mousedown", "touchstart", "keydown", "keypress"],
@@ -585,12 +584,35 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "aspect_ratio:aspectratio,fallback-aspect-ratio": function(aspectRatio, fallback) {
                         return aspectRatio || fallback;
                     },
-                    "sidebar_active:is_floating,with_sidebar,showgallery,fullscreened": function(isFloating, withSidebar, showGallery, fullscreened) {
+                    "sidebar_active:is_floating,with_sidebar,showsidebargallery,fullscreened,mobileviewport": function(isFloating, withSidebar, showSidebarGallery, fullscreened, mobileViewport) {
                         this.set("floatingsidebar", isFloating && withSidebar);
-                        this.set("gallerysidebar", showGallery && !isFloating);
+                        this.set("gallerysidebar", showSidebarGallery && !isFloating && (Types.is_defined(mobileViewport) && !mobileViewport));
                         if (fullscreened) return false;
                         return this.get("floatingsidebar") || this.get("gallerysidebar");
-
+                    },
+                    "playercontainerstyles:sidebar_active,gallerysidebar,sidebarpresetwidth": function(sideBarActive, gallerySidebar, sidebarPresetWidth) {
+                        // Only if sidebarPresetWidth
+                        if (typeof sidebarPresetWidth === "string") {
+                            sidebarPresetWidth = sidebarPresetWidth.includes("%") ?
+                                parseFloat(sidebarPresetWidth).toFixed(2) :
+                                sidebarPresetWidth;
+                        }
+                        if (sideBarActive && gallerySidebar && sidebarPresetWidth) {
+                            var width = typeof sidebarPresetWidth === "number" ? ((100 - sidebarPresetWidth) + "%") : `calc(100% - ${sidebarPresetWidth})`;
+                            if (window && window.CSS) {
+                                var styles = window.CSS.supports("width", width);
+                            }
+                            if (width && Types.is_defined(styles) && styles) {
+                                this.set("controlbarstyles", {
+                                    width: width,
+                                    position: 'absolute'
+                                });
+                                return {
+                                    width: width
+                                };
+                            }
+                        }
+                        return {}
                     },
                     "adsinitialized:playing,adtagurl,inlinevastxml": function(playing, adsTagURL, inlineVastXML) {
                         if (this.get("adsinitialized")) {

@@ -35,7 +35,9 @@
         ba-tooltip="{{tooltip}}"
         ></ba-{{dyntooltip}}>
     </div>
-    <div class="{{cssplayer}}-content" data-selector="ba-player-container">
+    <div class="{{cssplayer}}-content" data-selector="ba-player-container"
+         ba-styles="{{playercontainerstyles}}"
+    >
         <div ba-show="{{(videoelement_active || !imageelement_active) && !silent_attach}}" class="{{css}}-video-container">
             <video tabindex="-1" class="{{css}}-video {{csscommon}}-{{videofitstrategy}}-fit" data-video="video"
                    preload="{{preload ? 'auto' : 'metadata'}}"
@@ -65,6 +67,8 @@
             ba-outstreamoptions="{{outstreamoptions}}"
             ba-quartile="{{=adsquartile}}"
             ba-userhadplayerinteraction="{{userhadplayerinteraction}}"
+            ba-controlbarstyles="{{controlbarstyles}}"
+            ba-sidebar_active="{{sidebar_active}}"
             ba-imasettings="{{imasettings}}"
             ba-event:fullscreen="toggle_fullscreen"
             ba-fullscreened="{{fullscreened}}"
@@ -127,6 +131,7 @@
                 ba-airplay="{{airplay}}"
                 ba-airplaybuttonvisible="{{airplaybuttonvisible}}"
                 ba-chromecast="{{chromecast}}"
+                ba-controlbarstyles="{{controlbarstyles}}"
                 ba-castbuttonvisble="{{castbuttonvisble}}"
                 ba-event:rerecord="rerecord"
                 ba-event:submit="submit"
@@ -293,6 +298,7 @@
             ba-is_floating="{{is_floating}}"
             ba-floatingoptions="{{floatingoptions}}"
             ba-floatingsidebar="{{floatingsidebar}}"
+            ba-showsidebargallery="{{showsidebargallery}}"
             ba-gallerysidebar="{{gallerysidebar}}"
             ba-adchoiceslink="{{adchoiceslink}}"
             ba-moredetailslink="{{moredetailslink}}"

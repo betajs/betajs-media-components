@@ -86,31 +86,74 @@ if (params.cmp) {
     attrs.companionad = Number(params.flt) === 1 ? true : '[300,]|bottom';
 }
 
-if (params.nextwidget) {
-    attrs.nextwidget = Number(params.nextwidget) === 1;
-    if (attrs.nextwidget) {
-        attrs.playlist = [
-            {
-                poster: '/static/demos/sample-cover2.png',
-                source: '/static/demos/sample-video2.mp4'
-            },
-            {
-                poster: '/static/demos/sample-cover.png',
-                source: '/static/demos/sample-video.mp4'
-            },
-            {
-                poster: '/static/demos/sample-cover.png',
-                source: '/static/demos/sample-video3.mp4'
-            }
-        ];
-        // Below part will be overwritten if it will be provided in the URL
-        attrs.shownext = 2;
-        attrs.noengagenext = 1;
+let withPlaylist = false;
+
+const playlist =  [
+    {
+        poster: '/static/demos/sample-cover.png',
+        source: '/static/demos/sample-video.mp4',
+        title: 'First Video title'
+    },
+    {
+        poster: '/static/demos/sample-cover2.png',
+        source: '/static/demos/sample-video2.mp4',
+        title: 'Second Video title'
+    },
+    {
+        poster: '//non-existing.png',
+        source: '//non-existing.mp4',
+        title: 'WRONG Video title'
+    },
+    {
+        poster: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ElephantsDream.jpg',
+        source: '//commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+        title: 'he first Blender Open Movie from 2006'
+    },
+    {
+        poster: '//commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerBlazes.jpg',
+        source: '//commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+        title: 'HBO GO now works with Chromecast '
+    },
+    {
+        poster: '//commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerEscapes.jpg',
+        source: '//commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+        title: 'Introducing Chromecast. The easiest way to enjoy'
+    },
+    {
+        poster: '//commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerFun.jpg',
+        source: '//commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
+        title: 'The easiest way to enjoy online video'
+    },
+    {
+        poster: '//commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/SubaruOutbackOnStreetAndDirt.jpg',
+        source: '//commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4',
+        title: 'Smoking Tire takes the all-new Subaru Outback'
+    },
+];
+
+if (params.nextwidget || params.glr) {
+    attrs.nextwidget = Number(params.nextwidget) >= 1;
+    attrs.showsidebargallery = Number(params.glr) >= 1;
+    if (attrs.showsidebargallery) {
+        attrs.sidebaroptions = {
+            "headerlogourl": "https://betajs.com/assets/img/logo_home.png",
+            // "presetwidth": "185px",
+            // "headerlogoname": "betajs",
+        }
+    }
+    let withPlaylist = attrs.nextwidget || attrs.showsidebargallery;
+    if (withPlaylist) {
+        attrs.playlist = playlist;
+        if (attrs.nextwidget) {
+            // Below part will be overwritten if it will be provided in the URL
+            attrs.shownext = 2;
+            attrs.noengagenext = 3;
+        }
     }
 }
 
 // If not defined nextwidget, we will use default source and poster
-if (!attrs.nextwidget) {
+if (!withPlaylist) {
     attrs.source = '/static/demos/sample-video.mp4';
     attrs.poster = '/static/demos/assets/sample-cover.png';
 }
@@ -145,6 +188,19 @@ attrs = {...attrs, ...{
             // uiElements: ['countdown'],
             // uiElements: ['adAttribution', 'countdown'],
         },
+        // presetedtooltips: {
+        //     "onclicktroughexistence": {
+        //         "closeable": true,
+        //         // "position": "top-right", // default: "top-right", other options: top-center, top-left, bottom-right, bottom-center, bottom-left
+        //         "pauseonhover": true, //  default: false
+        //         "showprogressbar": true, // default: false, will show progressbar on tooltip completion
+        //         // "showonhover": false, // TODO: will be shown on hover only
+        //         // "queryselector": null // TODO: will be shown on hover only on this element
+        //         "tooltiptext": "Click again to learn more",
+        //         "disappearafterseconds": 5 // -1 will set it as showing always, default: 2 seconds
+        //     }
+        // },
+
         // source: '/static/demos/assets/portrait.mp4',
         // poster: '/static/demos/assets/portrait-poster.png',
         // poster: '/static/demos/assets/portrait-poster-270x480.jpeg',
@@ -195,15 +251,41 @@ attrs = {...attrs, ...{
             // allowRepeat: false,
             // repeatText: "repeatText"
         },
+        sidebaroptions: {
+            "headerlogourl": "https://betajs.com/assets/img/logo_home.png",
+            "headerlogoname": "Beta JS",
+        },
+        availablepresetoptions: {
+            'xs': {
+                width: 365,
+                height: 180,
+                showsidebargallery: false
+            }, 's': {
+                width: 523.64,
+                height: 225,
+                showsidebargallery: true,
+                playlist
+            },
+            'm': {
+                width: 640,
+                height: 275,
+                showsidebargallery: true
+            }, 'l': {
+                width: 670.25,
+                height: 288,
+                showsidebargallery: true
+            }, 'xl': {
+                width: 838,
+                height: 360,
+                showsidebargallery: true
+            }
+        },
+        // fitonwidth: true,
         floatingoptions: {...attrs.floatingoptions, ...{
             showcompanionad: true,
             // hideplayeronclose: false,
             mobile: {
-<<<<<<< HEAD
                 height: 120,
-=======
-                height: 150,
->>>>>>> 3dde0257 (Fixed floating sidebar with ads view inside)
                 companionad: false,
                 // position: 'bottom'
                 // companionad: "[,250]",
@@ -215,25 +297,21 @@ attrs = {...attrs, ...{
                     // relativeSelector: null,
                 },
                 sidebar: true,
-                // size: "l",
-                // availablesizes: {
-                //     'xs': 50, 's': 75, 'm': 80, 'l': 120, 'xl': 150
-                // }
+                size: "l",
+                availablesizes: {
+                    'xs': 50, 's': 75, 'm': 80, 'l': 120, 'xl': 150
+                }
             },
             desktop: {
                 height: 150,
                 bottom: 20,
-<<<<<<< HEAD
-                companionad: false, //"[]|bottom", //"[]|top", // true
-=======
                 companionad: true, //"[]|bottom", //"[]|top", // true
->>>>>>> 3dde0257 (Fixed floating sidebar with ads view inside)
                 sidebar: true,
 
-                // size: "xl",
-                // availablesizes: {
-                //     'xs': 169, 's': 183, 'm': 197, 'l': 211, 'xl': 225
-                // }
+                size: "xs",
+                availablesizes: {
+                    'xs': 169, 's': 183, 'm': 197, 'l': 211, 'xl': 225
+                }
             }
         }},
         // adsposition: "pre, mid, post",
@@ -335,4 +413,4 @@ const generateParagraphs = (element, number) => {
     }
 }
 
-export { attrs, showBlocks, generateParagraphs };
+export { attrs, showBlocks, playlist, generateParagraphs };

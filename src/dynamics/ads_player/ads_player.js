@@ -292,7 +292,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                 getAdWidth: function() {
                     if (!this.activeElement()) return null;
-                    if (this.get("floating") && this.parent()) {
+                    if ((this.get("sidebar_active") || this.get("floating")) && this.parent()) {
                         return Dom.elementDimensions(this.parent().__playerContainer).width;
                     }
                     return this.activeElement().firstChild ? this.activeElement().firstChild.clientWidth : this.activeElement().clientWidth;

@@ -1,6 +1,6 @@
-<div class="{{cssadsplayer}}-ad-choices-container">
+<div ba-if="{{visibilitycondition}}" class="{{cssadsplayer}}-ad-choices-container">
     <a href="{{ adchoiceslink }}" title="{{string('ad-choices')}}"
-       ba-on:touchend="{{redirect(adchoiceslink)}}"
+       ba-click="{{redirect(adchoiceslink)}}"
        target="_blank"
     >
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

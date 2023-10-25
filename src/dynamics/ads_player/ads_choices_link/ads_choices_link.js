@@ -12,7 +12,7 @@ Scoped.define("module:Ads.Dynamics.ChoicesLink", [
                 attrs: {
                     css: "ba-videoplayer",
                     cssadsplayer: "ba-adsplayer",
-                    adchoiceslink: null
+                    visibilitycondition: true
                 },
 
                 object_functions: ['redirect'],

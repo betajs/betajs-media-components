@@ -27,7 +27,19 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     "bodyelementpadding": 114,
                     "companionadcontent": null,
                     "companionads": [],
-                    "is_floating": false
+                    "is_floating": false,
+                    "gallerytitletext": null,
+                    "headerlogourl": null,
+                    "headerlogoname": null,
+                    "afteradsendtext": null,
+                    "adchoiceslink": null
+                },
+
+                create: function() {
+                    this.set("headerlogourl", this.get("sidebaroptions.headerlogourl") || null);
+                    this.set("headerlogoname", this.get("sidebaroptions.headerlogoname") || "Brand's logo");
+                    this.set("gallerytitletext", this.get("sidebaroptions.gallerytitletext") || this.string("up-next"));
+                    this.set("afteradsendtext", this.get("sidebaroptions.afteradsendtext") || this.string("continue-on-ads-end"));
                 },
 
                 _afterActivate: function() {
@@ -89,7 +101,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                             image.height = dimensions.width * (companionAd.data.height / companionAd.data.width);
                         }
                     }
+                },
 
+                __decodeHTML: function(text) {
+                    var textArea = document.createElement('textarea');
+                    textArea.innerHTML = text;
+                    return textArea.value;
                 }
             };
         }])
@@ -99,6 +116,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
         })
         .attachStringTable(Assets.strings)
         .addStrings({
-            "up-next": "Up Next"
+            "up-next": "Up Next",
+            "continue-on-ads-end": "Content will resume after this video..."
         });
 });

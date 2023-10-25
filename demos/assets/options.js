@@ -22,7 +22,7 @@ let attrs = {
     autoplay: Number(params.ap) === 1,
     outstream: Number(params.os) === 1, // outstream is enabled
     sticky: Number(params.stk) === 1, // sticky is enabled
-    adchoiceslink: Number(params.ac) === 1 ? 'https://ziggeo.com/privacy/' : null,
+    adchoiceslink: Number(params.acl) === 1 ? 'https://ziggeo.com/privacy/' : null,
     floatingoptions: {}
 }
 
@@ -73,7 +73,7 @@ if (params.sbr) {
 }
 
 if (attrs.adtagurl && params.acl) {
-    attrs.adchoiceslink = 'https://betajs.com/builds.html';
+    attrs.adchoiceslink = Number(params.acl) === 1 ? 'https://betajs.com/builds.html' : '';
 }
 
 // floating only

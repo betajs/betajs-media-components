@@ -3,7 +3,9 @@
         <a class="{{cssplayer}}-next-button-stay {{cssplayer}}-next-button" ba-click="{{stay()}}">{{staytext}}</a>
         <hr ba-if="{{style === 'desktop'}}">
         <a class="{{cssplayer}}-next-button-next {{cssplayer}}-next-button" ba-click="{{next()}}">
-            <span class="{{cssplayer}}-next-progress"ba-styles="{{{width: ((position - shownext) / noengagenext * 100) + '%'}}}"></span>
+            <span class="{{cssplayer}}-next-progress"
+                  ba-styles="{{{width: ((position - shownext) / noengagenext * 100) + '%'}}}"
+            ></span>
             <span>{{nexttext}}</span>
         </a>
         <img ba-prop:src="{{nextvideoposter}}" ba-show="{{style === 'desktop' && nextvideoposter && !hidenextvideoposter}}" />

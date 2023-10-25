@@ -94,8 +94,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "width": "",
                         "height": "",
                         "size": null,
-                        "sidebarwidth": null,
                         "availablesizes": {},
+                        "sidebarwidth": "24%",
                         "showgallery": false,
                         "popup-width": "",
                         "popup-height": "",
@@ -474,7 +474,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "showsidebargallery": "boolean",
                     // Will help hide player poster before ads start,
                     // if false rectangle with full dimensions will be shown
-                    "hidebeforeadstarts": "boolean"
+                    "hidebeforeadstarts": "boolean",
+                    "showgallery": "boolean"
                 },
 
                 __INTERACTION_EVENTS: ["click", "mousedown", "touchstart", "keydown", "keypress"],
@@ -581,8 +582,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         return (Types.is_string(c) ? parseFloat(c.replace(/\D/g, '')).toFixed() : c) + 'px';
                     },
                     "sidebar_active:is_floating,with_sidebar,showgallery,fullscreened": function(isFloating, withSidebar, showGallery, fullscreened) {
+                        this.set("floatingsidebar", isFloating && withSidebar);
+                        this.set("gallerysidebar", showGallery && !isFloating);
                         if (fullscreened) return false;
-                        return (isFloating && withSidebar) || (showGallery && !isFloating);
+                        return this.get("floatingsidebar") || this.get("gallerysidebar");
 
                     },
                     "adsinitialized:playing,adtagurl,inlinevastxml": function(playing, adsTagURL, inlineVastXML) {

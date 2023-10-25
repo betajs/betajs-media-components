@@ -73,9 +73,6 @@
                                 ba-timeout="{{noengagenext * 1000}}"
                                 ba-noengagenext="{{noengagenext}}"
                                 ba-paused="{{!playing}}"
-                                ba-event:stop="stop_progress"
-                                ba-event:pause="pause_progress"
-                                ba-event:resume="resume_progress"
                             ></ba-circle-progress>
                             <svg ba-if="{{!(nextactive && nextindex === video.index)}}"
                                  width="34" height="36" viewBox="0 0 34 36" fill="none"

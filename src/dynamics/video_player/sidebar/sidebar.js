@@ -7,7 +7,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
     "module:StylesMixin"
 ], [
     "module:Ads.Dynamics.ChoicesLink",
-    "module:Ads.Dynamics.LearnMoreButton"
+    "module:Ads.Dynamics.LearnMoreButton",
+    "module:Common.Dynamics.CircleProgress"
 ], function(Class, Objs, Async, DOM, Assets, StylesMixin, scoped) {
     return Class.extend({
             scoped: scoped
@@ -95,6 +96,18 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
 
                     on_ads_choices_click: function(url) {
                         this.pauseAds();
+                    },
+
+                    pause_proggres: function() {
+
+                    },
+
+                    resume_proggres: function() {
+
+                    },
+
+                    stop_proggres: function() {
+
                     }
                 },
 

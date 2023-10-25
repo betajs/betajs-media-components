@@ -1,13 +1,14 @@
 Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
     "dynamics:Dynamic",
     "base:Objs",
+    "base:Async",
     "browser:Dom",
     "module:Assets",
     "module:StylesMixin"
 ], [
     "module:Ads.Dynamics.ChoicesLink",
     "module:Ads.Dynamics.LearnMoreButton"
-], function(Class, Objs, DOM, Assets, StylesMixin, scoped) {
+], function(Class, Objs, Async, DOM, Assets, StylesMixin, scoped) {
     return Class.extend({
             scoped: scoped
         }, [StylesMixin, function(inherited) {
@@ -32,14 +33,37 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     "headerlogourl": null,
                     "headerlogoname": null,
                     "afteradsendtext": null,
-                    "adchoiceslink": null
+                    "adchoiceslink": null,
+                    playlist: [],
+                    showprogress: false,
+                    nextindex: 1
+                },
+
+                collections: {
+                    videos: {}
                 },
 
                 create: function() {
+                    this.__dyn = this.parent();
                     this.set("headerlogourl", this.get("sidebaroptions.headerlogourl") || null);
                     this.set("headerlogoname", this.get("sidebaroptions.headerlogoname") || "Brand's logo");
                     this.set("gallerytitletext", this.get("sidebaroptions.gallerytitletext") || this.string("up-next"));
                     this.set("afteradsendtext", this.get("sidebaroptions.afteradsendtext") || this.string("continue-on-ads-end"));
+                    if (this.get("playlist").length > 0) {
+                        Objs.iter(this.get("playlist"), function(pl, index) {
+                            this.get("videos").add({
+                                index: index,
+                                title: pl.title,
+                                poster: pl.poster
+                            });
+                        }, this);
+                    }
+                    this.__dyn.on("resize", function() {
+                        this.__singleElementHeight = null;
+                    }, this);
+
+                    //
+                    // ba-styles="{{{width: ((position - shownext) / noengagenext * 100) + '%'}}}"
                 },
 
                 _afterActivate: function() {
@@ -55,9 +79,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                             }, this), this);
                         }
                     }
+                    if (this.get("videos").count() > 0) {
+                        Async.eventually(function() {
+                            this.topIndex();
+                        }, this, 300);
+                    }
                 },
 
                 functions: {
+                    play_video: function(index) {
+                        this.trigger("play_video", index);
+                    },
                     on_learn_more_click: function(url) {
                         this.pauseAds();
                     },
@@ -70,6 +102,22 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                 pauseAds: function() {
                     if (this.get("adsplaying")) {
                         this.trigger("pause_ads");
+                    }
+                },
+
+                topIndex: function(index) {
+                    index = index || this.get("nextindex");
+                    var element = this.activeElement().querySelector("li[data-index-selector='gallery-item-" + index + "']");
+                    if (!this.__singleElementHeight) {
+                        this.__singleElementHeight = DOM.elementDimensions(element).height;
+                    }
+                    var container = this.activeElement().querySelector(`.${this.get("cssgallerysidebar")}-list-container`);
+                    if (container && container.scrollTo) {
+                        container.scrollTo({
+                            top: index * this.__singleElementHeight,
+                            left: 0,
+                            behavior: "smooth",
+                        });
                     }
                 },
 

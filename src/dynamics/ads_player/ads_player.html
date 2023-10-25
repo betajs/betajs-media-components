@@ -6,9 +6,10 @@
     data-video="ima-ad-container"
 >
     <ba-ads-choices-link
-        ba-if="{{adchoiceslink}}"
+        ba-if="{{adchoiceslink && adchoicesontop}}"
         ba-adchoiceslink="{{adchoiceslink}}"
         ba-cssadsplayer="{{cssadsplayer}}"
+        ba-datatestselector="{{top-ads-choices-button}}"
         ba-visibilitycondition="{{adsplaying && !floating && !sidebar_active}}"
     ></ba-ads-choices-link>
 

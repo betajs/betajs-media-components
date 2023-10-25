@@ -97,11 +97,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "availablesizes": {},
                         "showsidebargallery": false,
                         "sidebaroptions": {
-                            "presetwidth": 24, // percentage by default, or could be in px
+                            // percentage by default, or could be in px
+                            "presetwidth": 24,
                             "afteradsendtext": null,
                             "gallerytitletext": null,
                             "headerlogourl": "",
-                            "headerlogoname": ""
+                            "headerlogoname": "",
+                            // if set to true, companion ad will be shown on sidebar if it's exits
+                            "showcompanionad": false
                         },
                         "popup-width": "",
                         "popup-height": "",

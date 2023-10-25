@@ -387,6 +387,15 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             if (this.get("companionad")) this._renderCompanionAd(ad);
                         }
                     }
+
+                    // Additional resize will fit ads fully inside the player container
+                    if (this.get("sidebar_active") && this.adsManager) {
+                        this.adsManager.resize(
+                            this.getAdWidth(),
+                            this.getAdHeight(),
+                            google.ima.ViewMode.NORMAL
+                        );
+                    }
                 },
 
                 _onAdComplete: function(ev) {

@@ -1,11 +1,11 @@
-<div class="{{cssadsplayer}}-action-button-container">
+<div ba-if="{{moredetailslink}}" class="{{cssadsplayer}}-action-button-container">
     <a
         href="{{ moredetailslink }}" target="_blank"
-        class="{{cssadsplayer}}-action-button {{passedclasses}}"
-        title="{{moredetailstext ? moredetailstext : string('learn-more')}}"
-        ba-on:mouseup="{{pause_ads()}}"
-        ba-on:touchend="{{pause_ads(moredetailslink)}}"
+        class="{{cssadsplayer}}-action-button {{cssprefix ? cssprefix + '-action-button' : ''}}"
+        title="{{ buttontitletext || buttontext || string('learn-more')}}"
+        data-test-selector="{{datatestselector}}"
+        ba-click="{{click_action(moredetailslink)}}"
     >
-        {{string('learn-more')}}
+        {{buttontext || string('learn-more')}}
     </a>
 </div>

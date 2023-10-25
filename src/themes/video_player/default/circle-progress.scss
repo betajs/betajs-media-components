@@ -1,0 +1,53 @@
+.#{$cssprogressbar}-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%;
+    .#{$cssprogressbar}-circle {
+        // default dimensions
+        height: 45px;
+        width: 45px;
+        position: relative;
+        &::after {
+            content: attr(data-countdown);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            border-radius: 50%;
+            background-color: rgba(172, 172, 172, .5);
+            color: #fff;
+            font-size: 1rem;
+            text-align: center;
+            position: relative;
+            top: 10%;
+            left: 10%;
+            z-index: 0;
+            width: 75%;
+            height: 75%;
+        }
+    }
+
+    .#{$cssprogressbar}-svg {
+        display: inline-block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+        transform: rotate(-90deg);
+    }
+
+    .#{$cssprogressbar}-svg__background {
+        fill: none;
+        stroke: transparent;
+        stroke-width: 5px;
+    }
+
+    .#{$cssprogressbar}-svg__progress {
+        fill: none;
+        stroke-linecap: round;
+        stroke-dasharray: 100 100;
+        stroke-linecap: round;
+        stroke-width: 5px;
+    }
+}

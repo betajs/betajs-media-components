@@ -5,12 +5,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
     "base:Types",
     "browser:Dom",
     "module:Assets",
-    "module:StylesMixin"
+    "module:StylesMixin",
+    "browser:DomMutation.MutationObserverNodeInsertObserver"
 ], [
     "module:Ads.Dynamics.ChoicesLink",
     "module:Ads.Dynamics.LearnMoreButton",
     "module:Common.Dynamics.CircleProgress"
-], function(Class, Objs, Async, Types, DOM, Assets, StylesMixin, scoped) {
+], function(Class, Objs, Async, Types, DOM, Assets, StylesMixin, DomMutationObserver, scoped) {
     return Class.extend({
             scoped: scoped
         }, [StylesMixin, function(inherited) {
@@ -43,7 +44,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
 
                 events: {
                     "change:shownext": function(nextVisible) {
-                        if (nextVisible) this.calculateHeight();
+                        if (nextVisible && this.get("videos").count() > 0) {
+                            this.__scrollTop();
+                        }
+                    },
+
+                    "change:adsplaying": function(adsPlaying) {
+                        if (!adsPlaying && this.get("videos").count() > 0) {
+                            Async.eventually(function() {
+                                this.calculateHeight();
+                            }, this, 200);
+                        }
                     },
 
                     "changes:playlist": function(playlist) {
@@ -113,7 +124,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                         this.set("nextindex", index + 1);
                         this.__dyn.set("next_video_from_playlist", index);
 
-                        this.calculateHeight(index);
+                        this.calculateHeight();
                         this.channel("next").trigger("manualPlayNext", index);
                         this.channel("next").trigger("playNext", index);
                         this.__scrollTop();
@@ -226,6 +237,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                                     left: 0,
                                     behavior: "smooth",
                                 });
+                            } else {
+                                // TODO: in the future could be better replace Async.eventually calling in the adsplaying change event to MutationObserver
                             }
                         }
                         topHeight += height;

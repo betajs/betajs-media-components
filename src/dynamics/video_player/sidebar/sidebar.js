@@ -43,7 +43,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                 },
 
                 _afterActivate: function() {
-                    if (this.get("floatingoptions.showcompanionad")) {
+                    if (
+                        this.get("floatingoptions.showcompanionad") && this.get("floatingsidebar") ||
+                        (this.get("sidebaroptions.showcompanionad") && this.get("floatingsidebar"))
+                    ) {
                         if (this.get("companionads") && this.get("companionads").length > 0) {
                             this.__generateCompanionAdContent();
                         } else {
@@ -51,6 +54,22 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                                 this.__generateCompanionAdContent(companionads);
                             }, this), this);
                         }
+                    }
+                },
+
+                functions: {
+                    on_learn_more_click: function(url) {
+                        this.pauseAds();
+                    },
+
+                    on_ads_choices_click: function(url) {
+                        this.pauseAds();
+                    }
+                },
+
+                pauseAds: function() {
+                    if (this.get("adsplaying")) {
+                        this.trigger("pause_ads");
                     }
                 },
 
@@ -64,7 +83,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                         var isMobile = this.get("mobileviewport");
                         if (
                             (this.get("floatingoptions.desktop.companionad") && !isMobile) ||
-                            (this.get("floatingoptions.mobile.companionad") && isMobile)
+                            (this.get("floatingoptions.mobile.companionad") && isMobile) ||
+                            (this.get("gallerysidebar") && this.get("sidebaroptions.showcompanionad") && !isMobile)
                         ) {
                             var dimensions = DOM.elementDimensions(this.activeElement());
                             var ar, closestIndex, closestAr;

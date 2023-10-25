@@ -7,6 +7,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
     "module:StylesMixin"
 ], [
     "module:Ads.Dynamics.ChoicesLink",
+    "module:Common.Dynamics.Scrollbar",
     "module:Ads.Dynamics.LearnMoreButton",
     "module:Common.Dynamics.CircleProgress"
 ], function(Class, Objs, Async, DOM, Assets, StylesMixin, scoped) {
@@ -122,6 +123,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     var element = this.activeElement().querySelector("li[data-index-selector='gallery-item-" + index + "']");
                     if (!this.__singleElementHeight) {
                         this.__singleElementHeight = DOM.elementDimensions(element).height;
+                        this.__singleElementWidth = DOM.elementDimensions(element).width;
                     }
                     var container = this.activeElement().querySelector(`.${this.get("cssgallerysidebar")}-list-container`);
                     if (container && container.scrollTo) {

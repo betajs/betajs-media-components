@@ -31,6 +31,7 @@ Scoped.define("module:Common.Dynamics.CircleProgress", [
                     "autostart": false,
                     "progresstext": null,
                     "stepelements": [],
+                    "linewidth": 2,
                     "size": 45,
                     "showpercentage": false,
                     "progresscolor": "#FF9933",
@@ -62,9 +63,10 @@ Scoped.define("module:Common.Dynamics.CircleProgress", [
                         }
                     },
 
-                    "circleLeft:progress": function(progress) {
+                    "circleStyle:progress": function(progress) {
                         return {
-                            strokeDashoffset: (progress * -1)
+                            strokeDashoffset: (progress * -1),
+                            strokeWidth: parseInt(this.get("linewidth")) + "px",
                         }
                     }
                 },

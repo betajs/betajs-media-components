@@ -33,6 +33,7 @@
     padding-bottom: 15px;
     color: #ffffff;
     height: 100%;
+    padding-right: 2px;
 
     .#{$cssgallerysidebar}-header-container {
         box-sizing: border-box;
@@ -49,22 +50,28 @@
         height: 100%;
         overflow-y: auto;
         overflow-x: hidden;
+
         /* width */
-        ::-webkit-scrollbar {
-            width: 5px;
-            border-radius: 3px;
+        &::-webkit-scrollbar {
+            width: 8px;
         }
-        /* Track */
-        ::-webkit-scrollbar-track {
-            background: #000000;
+        /* button */
+        &::-webkit-scrollbar-button {
+            background: #222;
         }
         /* Handle */
-        ::-webkit-scrollbar-thumb {
+        &::-webkit-scrollbar-thumb {
             background: #b3b3b3;
+            border-radius: 12px;
+            min-height: 40px;
         }
         /* Handle on hover */
-        ::-webkit-scrollbar-thumb:hover {
-            background: #7f7f7f;
+        &::-webkit-scrollbar-thumb:hover {
+            background: #666;
+        }
+        /* Track */
+        &::-webkit-scrollbar-track {
+            background: #000; // << will be background of the track
         }
         /** Firefox only */
         scrollbar-color: #b3b3b3 #000000;
@@ -75,13 +82,19 @@
         box-sizing: border-box;
         list-style: none;
         margin: 0;
-        padding: 0 10px;
+        padding: 0 5px 0 10px;
         .#{$cssgallerysidebar}-list-item-title {
             font-size: 12px;
             margin: 5px 0 10px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            max-width: 100%;
         }
     }
-    .#{$cssgallerysidebar}-list-item {}
+    .#{$cssgallerysidebar}-list-item {
+        display: inline-grid;
+    }
     .#{$cssgallerysidebar}-list-item-poster-container {
         display: flex;
         align-items: center;

@@ -55,13 +55,18 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                                 this.calculateHeight();
                             }, this, 200));
                         }
-                    },
+                    }
+                },
 
-                    "changes:playlist": function(playlist) {
+                computed: {
+                    "showplaylist:playlist": function(playlist) {
+                        const videos = this.get("videos");
+                        const count = videos.count();
+
                         Objs.iter(playlist, function(pl, index) {
-                            if (this.get('videos').get_by_secondary_index('index', index)) return;
+                            if (count > 0 && videos.get_by_secondary_index('index', index)) return;
                             if (Types.is_object(pl)) {
-                                this.get("videos").add({
+                                videos.add({
                                     index: index,
                                     title: pl.title,
                                     poster: pl.poster,
@@ -73,6 +78,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                             }
                             this.calculateHeight();
                         }, this);
+
+                        return playlist.length > 0;
                     }
                 },
 
@@ -82,27 +89,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
 
                 create: function() {
                     this.__dyn = this.parent();
+                    this.get("videos").add_secondary_index("index");
                     this.set("headerlogourl", this.get("sidebaroptions.headerlogourl") || null);
                     this.set("headerlogoimgurl", this.get("sidebaroptions.headerlogoimgurl") || null);
                     this.set("headerlogoname", this.get("sidebaroptions.headerlogoname") || "Brand's logo");
                     this.set("gallerytitletext", this.get("sidebaroptions.gallerytitletext") || this.string("up-next"));
                     this.set("afteradsendtext", this.get("sidebaroptions.afteradsendtext") || this.string("continue-on-ads-end"));
-                    if (this.get("playlist").length > 0) {
-                        Objs.iter(this.get("playlist"), function(pl, index) {
-                            if (Types.is_object(pl)) {
-                                this.get("videos").add({
-                                    index: index,
-                                    title: pl.title,
-                                    poster: pl.poster,
-                                    token: pl.token || null,
-                                    height: 0,
-                                    display: true,
-                                    watched: false
-                                });
-                            }
-                        }, this);
-                        this.get("videos").add_secondary_index("index");
-                    }
                     this.__dyn.on("resize", function() {
                         this.__scrollTop();
                     }, this);

@@ -150,6 +150,16 @@
     // setTimeout(() => {console.log("Now our ad tag URL IS: ", player.get("adtagurl").slice(0, 20));}, 13000);
     // setInterval(() => {console.log("Now our ad tag URL IS: ", player.get("adtagurl").slice(0, 20));}, 1000);
 
+    setTimeout(() => {
+        console.log("Ad  to playlist");
+        player.get("playlist").push(
+            {
+                poster: '//commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerEscapes.jpg',
+                source: '//commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+                title: 'Introducing Chromecast. The easiest way to enjoy'
+            }
+            );
+    }, 3000);
     player.on("floatingplayerclosed", () => console.log("Floating Player Closed"), player);
 
     // player.on("quarter-passed", (qr) => {

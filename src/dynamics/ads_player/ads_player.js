@@ -371,7 +371,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                     // Additional resize will fit ads fully inside the player container
                     if (this.get("sidebar_active") && this.adsManager && this.parent()) {
-                        this.parent().trigger("resize");
+                        // NOTE: can cause console error on main player, uncomment if required separately
+                        // this.parent().trigger("resize");
                     }
                 },
 

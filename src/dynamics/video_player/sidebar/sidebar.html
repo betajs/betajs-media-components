@@ -64,7 +64,7 @@
             <ul ba-if="{{showplaylist}}" class="{{cssgallerysidebar}}-list"
                 ba-repeat="{{video :: videos}}"
             >
-                <li ba-if="{{video.display}}" class="{{cssgallerysidebar}}-list-item"
+                <li ba-if="{{video.display && !video.watched}}" class="{{cssgallerysidebar}}-list-item"
                     data-index="{{video.index}}"
                     data-index-selector="gallery-item-{{video.index}}"
                     onclick="{{play_video(video.index)}}"

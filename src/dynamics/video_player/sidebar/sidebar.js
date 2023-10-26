@@ -39,7 +39,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     "adchoiceslink": null,
                     playlist: [],
                     showprogress: false,
-                    nextindex: 1
+                    nextindex: 1,
+                    previousindex: null
                 },
 
                 events: {
@@ -105,6 +106,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     }, this);
 
                     this.__dyn.channel("next").on("playNext", function() {
+                        if (this.get('previousindex')) {
+                            this.removeVideoFromList(this.get('previousindex'));
+                        }
                         this.setNextVideoIndex();
                     }, this);
                 },
@@ -150,13 +154,24 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                 playNextVideo: function(index) {
                     this.get("videos").iterate(function(v, i) {
                         if (index && v.get("index") === index) {
+                            this.set("previousindex", this.__dyn.get("next_video_from_playlist"));
                             this.__dyn.set("next_video_from_playlist", index);
                             this.__dyn.channel("next").trigger("manualPlayNext");
                             this.__dyn.channel("next").trigger("playNext");
                             v.set("watched", true);
+                            if (this.get("sidebaroptions.removevideoaftercompletion") && this.get("previousindex")) {
+                                this.removeVideoFromList(this.get("previousindex"));
+                            }
                             this.__scrollTop();
                         }
                     }, this);
+                },
+
+                removeVideoFromList: function(index) {
+                    const video = this.get("videos").get_by_secondary_index('index', index);
+                    if (video) {
+                        this.get("videos").remove(video);
+                    }
                 },
 
                 setNextVideoIndex: function() {

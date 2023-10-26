@@ -230,6 +230,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                 },
 
                 __scrollTop: function() {
+                    if (!this.activeElement()) return;
                     let topHeight = 0;
                     const container = this.activeElement().querySelector(`.${this.get("cssgallerysidebar")}-list-container`);
                     this.get("videos").iterate(function(video, index) {

@@ -72,7 +72,7 @@ The icons in this library depend on Fontello. In order to update the icons / add
 
 
 
-## Compatability
+## Compatibility
 | Target | Versions |
 | :----- | -------: |
 | Firefox | 4 - Latest |

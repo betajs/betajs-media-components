@@ -287,7 +287,7 @@
         </div>
         <div ba-show="{{useAspectRatioFallback}}" ba-styles="{{aspectRatioFallback}}"></div>
     </div>
-    <div ba-if="{{sidebar_active}}" class="{{cssplayer}}-sidebar">
+    <div ba-show="{{sidebar_active}}" class="{{cssplayer}}-sidebar">
         <ba-{{dynsidebar}}
             ba-if="{{sidebar_active}}"
             ba-css="{{css}}"
@@ -295,6 +295,7 @@
             ba-csscommon="{{csscommon}}"
             ba-csstheme="{{csstheme || css}}"
             ba-ad="{{ad}}"
+            ba-show="{{!fullscreened}}"
             ba-title="{{next_active ? '' : title || 'Video Player'}}"
             ba-addata="{{addata}}"
             ba-companionads="{{companionads}}"

@@ -203,7 +203,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
 
                 calculateHeight: function() {
                     // Don't calculate when ads active
-                    if (this.get("adsplaying")) return;
+                    if (this.get("adsplaying") || this.get("videos").destroyed()) return;
                     const _ = this;
                     // var element = this.activeElement().querySelect("li[data-index-selector='gallery-item-" + index + "']");
                     const elements = this.activeElement().querySelectorAll(`li.${this.get("cssgallerysidebar")}-list-item`);
@@ -214,10 +214,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                             const elRelatedCollections = _.get("videos").get_by_secondary_index('index', parseInt(currentIndex), true);
                             if (elRelatedCollections && !elRelatedCollections.get("height") && image) {
                                 image.onload = function() {
+                                    if (!elRelatedCollections) return;
                                     elRelatedCollections.set("height", DOM.elementDimensions(el).height);
                                     _.__scrollTop();
                                 }
                                 image.onerror = function() {
+                                    if (!elRelatedCollections) return;
                                     el.style.display = 'none';
                                     elRelatedCollections.set("display", false);
                                     _.__scrollTop();

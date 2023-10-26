@@ -719,6 +719,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 create: function(repeat) {
                     repeat = repeat || false;
                     this.set("repeatedplayer", repeat);
+                    if (this.get("autoplaywhenvisible")) {
+                        this.set("autoplay", true);
+                        Dom.onScrollIntoView(this.activeElement(), this.get("visibilityfraction"), function() {
+                            if (this.destroyed()) return;
+                            this.set("autoplaywhenvisible", false);
+                        }, this);
+                    }
                     this.__attachPlayerInteractionEvents();
                     this._dataset = this.auto_destroy(new DatasetProperties(this.activeElement()));
                     this._dataset.bind("layout", this.properties());
@@ -736,8 +743,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.delegateEvents(null, this.channel("next"), "next");
                     this.set("prominent_title", this.get("prominent-title"));
                     this.set("closeable_title", this.get("closeable-title"));
-                    // NOTE: below condition has to be before ads initialization
-                    if (this.get("autoplaywhenvisible")) this.set("autoplay", true);
                     this.__initFloatingOptions();
                     this._observer = new ResizeObserver(function(entries) {
                         for (var i = 0; i < entries.length; i++) {

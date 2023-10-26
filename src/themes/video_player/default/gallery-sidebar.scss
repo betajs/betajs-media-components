@@ -9,6 +9,14 @@
     align-content: center;
     flex-wrap: nowrap;
     width: 100%;
+    a {
+        color: #ffffff;
+        cursor: pointer;
+        display: inherit;
+        height: 100%;
+        text-decoration: none;
+        justify-content: end;
+    }
 }
 .#{$cssgallerysidebar}-ads-body-container, .#{$cssgallerysidebar}-list {
     display: flex;

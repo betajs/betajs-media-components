@@ -20,8 +20,7 @@ Scoped.define("module:StickyHandler", [
                 this.element = element;
                 this.container = container;
                 this.paused = options.paused || false;
-                this.noFloatOnDesktop = options.noFloatOnDesktop || false;
-                this.noFloatOnMobile = options.noFloatOnMobile || false;
+                this.floatCondition = options.floatCondition;
                 this.noFloatIfBelow = options.noFloatIfBelow || false;
                 this.noFloatIfAbove = options.noFloatIfAbove || false;
                 this.threshold = options.threshold;
@@ -114,12 +113,10 @@ Scoped.define("module:StickyHandler", [
                             return;
                         }
                         if (entry.isIntersecting) return;
-                        if (this.paused) {
+                        if (this.paused || (this.floatCondition && !this.floatCondition())) {
                             this.trigger("transitionOutOfView");
                             return;
                         }
-                        if (this.noFloatOnDesktop && !Info.isMobile()) return;
-                        if (this.noFloatOnMobile && Info.isMobile()) return;
                         if (this.noFloatIfAbove || this.noFloatIfBelow) {
                             var r = this.element.getBoundingClientRect();
                             if (this.noFloatIfAbove && r.top >= 0) return;

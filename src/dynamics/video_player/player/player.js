@@ -906,8 +906,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             threshold: this.get("sticky-threshold"),
                             paused: this.get("sticky-starts-paused") || !this.get("sticky"),
                             "static": this.get("floatingoptions.static"),
-                            "noFloatOnDesktop": this.get("floatingoptions.noFloatOnDesktop"),
-                            "noFloatOnMobile": this.get("floatingoptions.noFloatOnMobile"),
+                            floatCondition: function() {
+                                if (this.get("floatingoptions.noFloatOnDesktop") && !this.get("mobileviewport")) return false;
+                                if (this.get("floatingoptions.noFloatOnMobile") && this.get("mobileviewport")) return false;
+                                return true;
+                            }.bind(this),
                             "noFloatIfBelow": this.get("floatingoptions.noFloatIfBelow"),
                             "noFloatIfAbove": this.get("floatingoptions.noFloatIfAbove")
                         };

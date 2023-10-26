@@ -101,8 +101,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             "presetwidth": 24,
                             "afteradsendtext": null,
                             "gallerytitletext": null,
-                            "headerlogourl": "",
-                            "headerlogoname": "",
+                            "headerlogourl": null,
+                            "headerlogoimgurl": null,
+                            "headerlogoname": null,
                             // if set to true, companion ad will be shown on sidebar if it's exits
                             "showcompanionad": false
                         },

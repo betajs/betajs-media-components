@@ -142,6 +142,7 @@ if (params.nextwidget || params.glr) {
     if (attrs.showsidebargallery) {
         attrs.sidebaroptions = {
             "headerlogourl": "https://betajs.com/assets/img/logo_home.png",
+            "headerlogoimgurl": "https://betajs.com",
             // "presetwidth": "185px",
             // "headerlogoname": "betajs",
         }
@@ -259,7 +260,8 @@ attrs = {...attrs, ...{
             repeatText: "Custom Repeat",
         },
         sidebaroptions: {
-            "headerlogourl": "https://betajs.com/assets/img/logo_home.png",
+            "headerlogourl": "https://betajs.com",
+            "headerlogoimgurl": "https://betajs.com/assets/img/logo_home.png",
             "headerlogoname": "Beta JS",
         },
         availablepresetoptions: {

@@ -105,7 +105,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             "headerlogoimgurl": null,
                             "headerlogoname": null,
                             // if set to true, companion ad will be shown on sidebar if it's exits
-                            "showcompanionad": false
+                            "showcompanionad": false,
+                            "removevideoaftercompletion": false
                         },
                         "popup-width": "",
                         "popup-height": "",

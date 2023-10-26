@@ -4,10 +4,12 @@
     <div ba-if="{{adsplaying}}" class="{{cssgallerysidebar}}-ads-container">
 
         <div class="{{cssgallerysidebar}}-ads-header-container">
-            <div ba-if="{{headerlogourl}}"
+            <div ba-if="{{headerlogoimgurl}}"
                  class="{{cssgallerysidebar}}-ads-header-logo-container"
             >
-                <img src="{{headerlogourl}}" alt="{{headerlogoname}}" />
+                <a href="{{ headerlogourl || headerlogoimgurl }}" title="{{headerlogoname}}">
+                    <img src="{{headerlogoimgurl}}" alt="{{headerlogoname}}" />
+                </a>
             </div>
         </div>
 
@@ -49,10 +51,12 @@
             <div class="{{cssgallerysidebar}}-title">
                 {{gallerytitletext}}
             </div>
-            <div ba-if="{{ headerlogourl }}"
+            <div ba-if="{{ headerlogoimgurl }}"
                  class="{{cssgallerysidebar}}-header-logo"
             >
-                <img src="{{ headerlogourl }}" alt="{{headerlogoname}}" />
+                <a href="{{headerlogourl || headerlogoimgurl }}" title="{{ headerlogoname }}">
+                    <img src="{{ headerlogoimgurl }}" alt="{{headerlogoname}}" />
+                </a>
             </div>
         </div>
 

@@ -588,11 +588,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "aspect_ratio:aspectratio,fallback-aspect-ratio": function(aspectRatio, fallback) {
                         return aspectRatio || fallback;
                     },
-                    "sidebar_active:is_floating,with_sidebar,showsidebargallery,fullscreened,mobileviewport": function(isFloating, withSidebar, showSidebarGallery, fullscreened, mobileViewport) {
+                    "sidebar_active:is_floating,with_sidebar,showsidebargallery,fullscreened,mobileviewport,playlist": function(isFloating, withSidebar, showSidebarGallery, fullscreened, mobileViewport,playlist) {
                         this.set("floatingsidebar", isFloating && withSidebar);
                         this.set("gallerysidebar", showSidebarGallery && !isFloating && (Types.is_defined(mobileViewport) && !mobileViewport));
                         if (fullscreened) return false;
-                        if (this.get("gallerysidebar") && this.get("playlist") && this.get("playlist").length > 0) this.set("nextwidget", true);
+                        if (this.get("gallerysidebar") && playlist && playlist.length > 0) this.set("nextwidget", true);
                         return this.get("floatingsidebar") || this.get("gallerysidebar");
                     },
                     "playercontainerstyles:sidebar_active,gallerysidebar,sidebaroptions.presetwidth": function(sideBarActive, gallerySidebar, sidebarPresetWidth) {

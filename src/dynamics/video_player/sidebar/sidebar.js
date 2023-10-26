@@ -66,7 +66,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                                     title: pl.title,
                                     poster: pl.poster,
                                     height: null,
-                                    display: true
+                                    display: true,
+                                    watched: false
                                 });
                             }
                             this.calculateHeight();
@@ -92,7 +93,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                                     title: pl.title,
                                     poster: pl.poster,
                                     height: 0,
-                                    display: true
+                                    display: true,
+                                    watched: false
                                 });
                             }
                         }, this);
@@ -100,6 +102,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     }
                     this.__dyn.on("resize", function() {
                         this.__scrollTop();
+                    }, this);
+
+                    this.__dyn.channel("next").on("playNext", function() {
+                        this.setNextVideoIndex();
                     }, this);
                 },
 
@@ -123,15 +129,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
 
                 functions: {
                     play_video: function(index) {
-                        this.set("nextindex", index + 1);
-                        this.__dyn.set("next_video_from_playlist", index);
-
-                        this.calculateHeight();
-                        this.channel("next").trigger("manualPlayNext", index);
-                        this.channel("next").trigger("playNext", index);
-                        this.__scrollTop();
-
+                        this.playNextVideo(index);
                     },
+
                     on_learn_more_click: function() {
                         this.pauseAds();
                     },
@@ -145,6 +145,45 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     if (this.get("adsplaying")) {
                         this.trigger("pause_ads");
                     }
+                },
+
+                playNextVideo: function(index) {
+                    this.get("videos").iterate(function(v, i) {
+                        if (index && v.get("index") === index) {
+                            this.__dyn.set("next_video_from_playlist", index);
+                            this.__dyn.channel("next").trigger("manualPlayNext");
+                            this.__dyn.channel("next").trigger("playNext");
+                            v.set("watched", true);
+                            this.__scrollTop();
+                        }
+                    }, this);
+                },
+
+                setNextVideoIndex: function() {
+                    let nextIndex;
+                    const index = this.__dyn.get("next_video_from_playlist");
+                    const lastIndex = this.get("videos").last().get("index");
+                    this.get("videos").iterate(function(v, i) {
+                        if (v.get("index") > index && !nextIndex && v.get("display") && !v.get("watched")) {
+                            nextIndex = v.get("index");
+                            this.set("nextindex", nextIndex);
+                            this.__scrollTop();
+                        }
+                        if (lastIndex === i && !nextIndex) {
+                            this.get("videos").iterate(function(v, _i) {
+                                if (v.get("display")) {
+                                    v.set("watched", false);
+                                }
+                                if (_i === lastIndex) {
+                                    nextIndex = this.get("videos").queryOne({
+                                        display: true
+                                    }).get("index")
+                                    this.__dyn.set("nextindex", index);
+                                    this.__scrollTop();
+                                }
+                            }, this)
+                        }
+                    }, this)
                 },
 
                 calculateHeight: function() {

@@ -82,6 +82,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                 create: function() {
                     this.__dyn = this.parent();
                     this.set("headerlogourl", this.get("sidebaroptions.headerlogourl") || null);
+                    this.set("headerlogoimgurl", this.get("sidebaroptions.headerlogoimgurl") || null);
                     this.set("headerlogoname", this.get("sidebaroptions.headerlogoname") || "Brand's logo");
                     this.set("gallerytitletext", this.get("sidebaroptions.gallerytitletext") || this.string("up-next"));
                     this.set("afteradsendtext", this.get("sidebaroptions.afteradsendtext") || this.string("continue-on-ads-end"));

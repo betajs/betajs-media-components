@@ -61,7 +61,7 @@
         </div>
 
         <div class="{{cssgallerysidebar}}-list-container">
-            <ul class="{{cssgallerysidebar}}-list"
+            <ul ba-if="{{showplaylist}}" class="{{cssgallerysidebar}}-list"
                 ba-repeat="{{video :: videos}}"
             >
                 <li ba-if="{{video.display}}" class="{{cssgallerysidebar}}-list-item"

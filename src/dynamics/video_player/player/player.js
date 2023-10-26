@@ -594,7 +594,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "aspect_ratio:aspectratio,fallback-aspect-ratio": function(aspectRatio, fallback) {
                         return aspectRatio || fallback;
                     },
-                    "sidebar_active:is_floating,with_sidebar,showsidebargallery,fullscreened,mobileviewport,playlist": function(isFloating, withSidebar, showSidebarGallery, fullscreened, mobileViewport,playlist) {
+                    "sidebar_active:is_floating,with_sidebar,showsidebargallery,fullscreened,mobileviewport,playlist": function(isFloating, withSidebar, showSidebarGallery, fullscreened, mobileViewport, playlist) {
                         this.set("floatingsidebar", isFloating && withSidebar);
                         this.set("gallerysidebar", showSidebarGallery && !isFloating && (Types.is_defined(mobileViewport) && !mobileViewport));
                         if (fullscreened) return false;

@@ -52,6 +52,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     "change:adsplaying": function(adsPlaying) {
                         if (!adsPlaying && this.get("videos").count() > 0) {
                             this.auto_destroy(Async.eventually(function() {
+                                // NOTE: will be better to use DOMMutationObserver on container element appearance
                                 this.calculateHeight();
                             }, this, 200));
                         }
@@ -76,8 +77,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                                     watched: false
                                 });
                             }
-                            this.calculateHeight();
                         }, this);
+
+                        // NOTE: will be better to use DOMMutationObserver on li elements appearance
+                        this.auto_destroy(Async.eventually(function() {
+                            this.calculateHeight();
+                        }, this, 200));
 
                         return playlist.length > 0;
                     }

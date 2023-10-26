@@ -65,7 +65,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                                     index: pl.token || index,
                                     title: pl.title,
                                     poster: pl.poster,
-                                    height: null,
+                                    token: pl.token || null,
+                                    height: 0,
                                     display: true,
                                     watched: false
                                 });
@@ -90,9 +91,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                         Objs.iter(this.get("playlist"), function(pl, index) {
                             if (Types.is_object(pl)) {
                                 this.get("videos").add({
-                                    index: pl.token || index,
+                                    index: index,
                                     title: pl.title,
                                     poster: pl.poster,
+                                    token: pl.token || null,
                                     height: 0,
                                     display: true,
                                     watched: false

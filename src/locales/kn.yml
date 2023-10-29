@@ -18,7 +18,7 @@ language:kn:
   ba-ads-controlbar.can-skip-after: %d ನಂತರ ಹಾರಿಹೋಗಬಹುದು
   ba-ads-controlbar.fullscreen-video: ಪೂರ್ಣ ಪರದೆಯಲ್ಲಿ ಹೋಗಿ
   ba-ads-controlbar.exit-fullscreen-video: ಪೂರ್ಣ ಪರದೆಯನ್ನು ಬಿಟ್ಟುಹೋಗಿ
-  ba-ads-controlbar.ad-will-end-after: ವಿಜ್ಞಾಪನ ನಂತರ %s
+  ba-ads-controlbar.ad-will-end-after: 'ವಿಜ್ಞಾಪನ ನಂತರ %s'
   ba-ads-controlbar.pause-video-disabled: ನಿಲ್ಲಿಸಲು ಬೇಕಾದ ಬೆಂಬಲವಿಲ್ಲ
   ba-adsplayer.replay-ad: ವಿಜ್ಞಾಪನವನ್ನು ಪುನರಾರಂಭಿಸಿ
   ba-adsplayer.close-ad: ಮುಚ್ಚಿ

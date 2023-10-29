@@ -5,8 +5,8 @@
      {{cssplayer}}-viewport-{{mobileviewport ? 'mobile' : 'desktop'}}
      {{is_floating ? cssfloatingclasses : ''}}
      {{presetkey ? cssplayer + '-preset-' + presetkey : ''}}
-     {{showsidebargallery ? cssplayer + '-with-sidebar-gallery' : ''}}
-     {{sidebar_active ? cssplayer + '-with-sidebar' : csscommon + '-full-width'}}
+     {{(sidebar_active && gallerysidebar) ? cssplayer + '-with-sidebar-gallery' : ''}}
+     {{(sidebar_active && show_sidebar) ? cssplayer + '-with-sidebar' : csscommon + '-full-width'}}
      {{cssplayer + (((activity_delta > hidebarafter) && hideoninactivity) ? '-controlbar-hidden' : '-controlbar-visible')}}"
      ba-on:mousemove="{{user_activity()}}"
      ba-on:mousedown="{{user_activity(true)}}"

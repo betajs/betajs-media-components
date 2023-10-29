@@ -338,7 +338,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 hideOnCompletion: true,
                                 recurrenceperiod: 30000, // Period when a new request will be sent if ads is not showing, default: 30 seconds
                                 maxadstoshow: -1 // Maximum number of ads to show, if there's next ads or errors occurred default: -1 (unlimited)
-                            }
+                            },
+                            // rollback: {}
                         },
                         "silent_attach": false,
                         "inpipmode": false,
@@ -594,11 +595,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "aspect_ratio:aspectratio,fallback-aspect-ratio": function(aspectRatio, fallback) {
                         return aspectRatio || fallback;
                     },
-                    "sidebar_active:is_floating,with_sidebar,showsidebargallery,fullscreened,mobileviewport,playlist": function(isFloating, withSidebar, showSidebarGallery, fullscreened, mobileViewport, playlist) {
-                        this.set("floatingsidebar", isFloating && withSidebar);
-                        this.set("gallerysidebar", showSidebarGallery && !isFloating && (Types.is_defined(mobileViewport) && !mobileViewport));
+                    "sidebar_active:with_sidebar,showsidebargallery": function(withSidebar, showSidebarGallery) {
+                        return withSidebar || showSidebarGallery;
+                    },
+                    "show_sidebar:sidebar_active,is_floating,is_floating,fullscreened,mobileviewport,playlist": function(sidebarActive, isFloating, fullscreened, mobileViewport, playlist) {
                         if (fullscreened) return false;
-                        if (this.get("gallerysidebar") && playlist && playlist.length > 0) this.set("nextwidget", true);
+                        this.set("floatingsidebar", sidebarActive && isFloating);
+                        this.set("gallerysidebar", sidebarActive && !isFloating && (Types.is_defined(mobileViewport) && !mobileViewport));
+                        if (this.get("gallerysidebar") && playlist && playlist.length > 0)
+                            this.set("nextwidget", true);
                         return this.get("floatingsidebar") || this.get("gallerysidebar");
                     },
                     "playercontainerstyles:sidebar_active,gallerysidebar,sidebaroptions.presetwidth": function(sideBarActive, gallerySidebar, sidebarPresetWidth) {

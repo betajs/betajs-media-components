@@ -44,8 +44,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                 },
 
                 events: {
-                    "change:shownext": function(nextVisible) {
-                        if (nextVisible && this.get("videos").count() > 0) {
+                    "change:nextindex": function(nextindex) {
+                        if (this.get("videos").count() > 0) {
                             this.__scrollTop();
                         }
                     },
@@ -57,6 +57,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                                 this.calculateHeight();
                             }, this, 200));
                         }
+                    },
+                    "change:fullscreened": function(fullscreened) {
+                        if (!fullscreened) this.__scrollTop();
+                    },
+                    "change:is_floating": function(floating) {
+                        if (!floating) this.__scrollTop();
                     }
                 },
 
@@ -101,6 +107,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     this.set("headerlogoname", this.get("sidebaroptions.headerlogoname") || "Brand's logo");
                     this.set("gallerytitletext", this.get("sidebaroptions.gallerytitletext") || this.string("up-next"));
                     this.set("afteradsendtext", this.get("sidebaroptions.afteradsendtext") || this.string("continue-on-ads-end"));
+                    this.set("hidevideoafterplay", this.get("sidebaroptions.hidevideoafterplay") || false);
                     this.__dyn.on("resize", function() {
                         this.__scrollTop();
                     }, this);
@@ -113,7 +120,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     }, this);
                 },
 
-                _afterActivate: function() {
+                _afterActivate: function(element) {
+                    inherited._afterActivate.call(this, element);
                     if (
                         this.get("floatingoptions.showcompanionad") && this.get("floatingsidebar") ||
                         (this.get("sidebaroptions.showcompanionad") && this.get("floatingsidebar"))
@@ -152,14 +160,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                 },
 
                 playNextVideo: function(index) {
-                    this.get("videos").iterate(function(v, i) {
+                    this.get("videos").iterate(function(v) {
                         if (index && v.get("index") === index) {
                             this.set("previousindex", this.__dyn.get("next_video_from_playlist"));
                             this.__dyn.set("next_video_from_playlist", index);
                             this.__dyn.channel("next").trigger("manualPlayNext");
                             this.__dyn.channel("next").trigger("playNext");
                             v.set("watched", true);
-                            if (this.get("sidebaroptions.removevideoaftercompletion") && this.get("previousindex")) {
+                            if (this.get("previousindex")) {
                                 this.removeVideoFromList(this.get("previousindex"));
                             }
                             this.__scrollTop();
@@ -168,6 +176,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                 },
 
                 removeVideoFromList: function(index) {
+                    if (!this.get("hidevideoafterplay")) return;
                     const video = this.get("videos").get_by_secondary_index('index', index);
                     if (video) {
                         this.get("videos").remove(video);
@@ -289,9 +298,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     if (!this.activeElement()) return;
                     let topHeight = 0;
                     const container = this.activeElement().querySelector(`.${this.get("cssgallerysidebar")}-list-container`);
-                    this.get("videos").iterate(function(video, index) {
-                        const videoIndex = video.get("index");
+                    this.get("videos").iterate(function(video) {
                         const height = video.get("height");
+                        const videoIndex = video.get("index");
                         if (this.get("nextindex") === videoIndex) {
                             if (container && container.scrollTo) {
                                 container.scrollTo({

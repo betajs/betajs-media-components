@@ -106,7 +106,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             "headerlogoname": null,
                             // if set to true, companion ad will be shown on sidebar if it's exits
                             "showcompanionad": false,
-                            "removevideoaftercompletion": false
+                            "hidevideoafterplay": false
                         },
                         "popup-width": "",
                         "popup-height": "",
@@ -596,14 +596,21 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         return aspectRatio || fallback;
                     },
                     "sidebar_active:with_sidebar,showsidebargallery": function(withSidebar, showSidebarGallery) {
+                        if (!showSidebarGallery && Types.is_defined(this.get("initialoptions.nextwidget"))) {
+                            this.set("nextwidget", this.get("initialoptions.nextwidget"));
+                        }
                         return withSidebar || showSidebarGallery;
                     },
-                    "show_sidebar:sidebar_active,is_floating,is_floating,fullscreened,mobileviewport,playlist": function(sidebarActive, isFloating, fullscreened, mobileViewport, playlist) {
+                    "show_sidebar:sidebar_active,is_floating,fullscreened,mobileviewport,playlist": function(sidebarActive, isFloating, fullscreened, mobileViewport, playlist) {
                         if (fullscreened) return false;
                         this.set("floatingsidebar", sidebarActive && isFloating);
                         this.set("gallerysidebar", sidebarActive && !isFloating && (Types.is_defined(mobileViewport) && !mobileViewport));
-                        if (this.get("gallerysidebar") && playlist && playlist.length > 0)
+                        if (this.get("gallerysidebar") && playlist && playlist.length > 0) {
+                            if (!this.get("nextwidget") && Types.is_undefined(this.set("initialoptions.nextwidget"))) {
+                                this.set("initialoptions.nextwidget", false);
+                            }
                             this.set("nextwidget", true);
+                        }
                         return this.get("floatingsidebar") || this.get("gallerysidebar");
                     },
                     "playercontainerstyles:sidebar_active,gallerysidebar,sidebaroptions.presetwidth": function(sideBarActive, gallerySidebar, sidebarPresetWidth) {

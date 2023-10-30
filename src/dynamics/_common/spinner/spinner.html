@@ -1,0 +1,24 @@
+<div class="{{cssspinner}}-container">
+    <div ba-styles="{{ {width: size, height: size} }}">
+        <svg viewBox="0 0 100 100" fill="none"
+             xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                d="M95 50C95 58.9002 92.3608 67.6004 87.4161 75.0007C82.4715 82.4009 75.4434 88.1686 67.2208 91.5746C58.9981 94.9805 49.9501 95.8717 41.2209 94.1353C32.4918 92.399 24.4736 88.1132 18.1802 81.8198C11.8868 75.5264 7.601 67.5082 5.86466 58.7791C4.12833 50.0499 5.01948 41.0019 8.42542 32.7792C11.8314 24.5566 17.5991 17.5285 24.9993 12.5839C32.3996 7.6392 41.0998 5 50 5"
+                stroke="url(#ba-paint-spinner-line)"
+                stroke-width="{{linewidth}}" stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+            <defs>
+                <linearGradient
+                    id="ba-paint-spinner-line" x1="50" y1="1.29144e-07" x2="96" y2="4.66667"
+                    gradientUnits="userSpaceOnUse"
+                >
+                    <stop stop-color="{{color}}" />
+                    <stop offset="0.397391" stop-color="{{color}}" stop-opacity="0.59" />
+                    <stop offset="0.903685" stop-color="{{color}}" stop-opacity="0" />
+                </linearGradient>
+            </defs>
+        </svg>
+    </div>
+</div>

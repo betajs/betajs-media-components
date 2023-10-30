@@ -5,13 +5,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
     "base:Types",
     "browser:Dom",
     "module:Assets",
+    "base:Timers.Timer",
     "module:StylesMixin",
     "browser:DomMutation.MutationObserverNodeInsertObserver"
 ], [
+    "module:Common.Dynamics.Spinner",
     "module:Ads.Dynamics.ChoicesLink",
     "module:Ads.Dynamics.LearnMoreButton",
     "module:Common.Dynamics.CircleProgress"
-], function(Class, Objs, Async, Types, DOM, Assets, StylesMixin, DomMutationObserver, scoped) {
+], function(Class, Objs, Async, Types, DOM, Assets, Timer, StylesMixin, DomMutationObserver, scoped) {
     return Class.extend({
             scoped: scoped
         }, [StylesMixin, function(inherited) {
@@ -38,24 +40,25 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     "afteradsendtext": null,
                     "adchoiceslink": null,
                     playlist: [],
+                    blacklisted: [],
+                    loaded: [],
+                    watched: [],
                     showprogress: false,
-                    nextindex: 1,
-                    previousindex: null
+                    nextindex: null,
+                    previousindex: null,
+                    currentindex: null,
+                    loading: true,
+                    hideloadingafter: 2500
                 },
 
                 events: {
                     "change:nextindex": function(nextindex) {
-                        if (this.get("videos").count() > 0) {
-                            this.__scrollTop();
-                        }
+                        console.log("Will asd ", nextindex);
+                        this.__checkIndexPlayability(nextindex);
                     },
-
                     "change:adsplaying": function(adsPlaying) {
                         if (!adsPlaying && this.get("videos").count() > 0) {
-                            this.auto_destroy(Async.eventually(function() {
-                                // NOTE: will be better to use DOMMutationObserver on container element appearance
-                                this.calculateHeight();
-                            }, this, 200));
+                            this.startLoader();
                         }
                     },
                     "change:fullscreened": function(fullscreened) {
@@ -86,12 +89,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                             }
                         }, this);
 
-                        // NOTE: will be better to use DOMMutationObserver on li elements appearance
-                        this.auto_destroy(Async.eventually(function() {
-                            this.calculateHeight();
-                        }, this, 200));
-
-                        return playlist.length > 0;
+                        const showSidebar = playlist.length > 0;
+                        if (showSidebar) this.startLoader();
+                        return showSidebar;
                     }
                 },
 
@@ -108,15 +108,27 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     this.set("gallerytitletext", this.get("sidebaroptions.gallerytitletext") || this.string("up-next"));
                     this.set("afteradsendtext", this.get("sidebaroptions.afteradsendtext") || this.string("continue-on-ads-end"));
                     this.set("hidevideoafterplay", this.get("sidebaroptions.hidevideoafterplay") || false);
+
+                    // On screen size changes, we need to go to the top of the list
                     this.__dyn.on("resize", function() {
                         this.__scrollTop();
                     }, this);
 
+                    // When next video automatically played
                     this.__dyn.channel("next").on("playNext", function() {
-                        if (this.get('previousindex')) {
-                            this.removeVideoFromList(this.get('previousindex'));
-                        }
-                        this.setNextVideoIndex();
+                        this.__dyn.trigger("play_next", this.get("nextindex"));
+                        this.__removeVideoFromList(this.get("previousindex"));
+                    }, this);
+
+                    // When next video actually starts to play
+                    // Will trigger on both playNext and manualPlayNext
+                    this.__dyn.on("playlist-next", function(pl) {
+                        console.log("TIMESS 3333");
+                        this.__setNextVideoIndex();
+                    }, this);
+
+                    this.__dyn.on("last-playlist-item", function() {
+                        this.set("nextindex", null);
                     }, this);
                 },
 
@@ -133,9 +145,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                                 this.__generateCompanionAdContent(companionads);
                             }, this), this);
                         }
-                    }
-                    if (this.get("videos").count() > 0) {
-                        this.calculateHeight();
                     }
                 },
 
@@ -164,59 +173,79 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                         if (index && v.get("index") === index) {
                             this.set("previousindex", this.__dyn.get("next_video_from_playlist"));
                             this.__dyn.set("next_video_from_playlist", index);
+                            // Just for tracking
                             this.__dyn.channel("next").trigger("manualPlayNext");
-                            this.__dyn.channel("next").trigger("playNext");
+                            this.__dyn.trigger("play_next", index);
                             v.set("watched", true);
-                            if (this.get("previousindex")) {
-                                this.removeVideoFromList(this.get("previousindex"));
-                            }
+                            this.__removeVideoFromList(this.get("previousindex"));
+                            console.log("CALL 111");
                             this.__scrollTop();
                         }
                     }, this);
                 },
 
-                removeVideoFromList: function(index) {
-                    if (!this.get("hidevideoafterplay")) return;
-                    const video = this.get("videos").get_by_secondary_index('index', index);
-                    if (video) {
-                        this.get("videos").remove(video);
+                /**
+                 * Will define and set next Video
+                 */
+                __setNextVideoIndex: function() {
+                    let nextIndex = null;
+                    const index = this.__dyn.get("next_video_from_playlist");
+                    if (!this.get("currentindex")) {
+                        this.set("currentindex", this.get("videos").first().get("index"))
+                    }
+                    const lastIndex = this.get("videos").last().get("index");
+                    this.get("videos").iterate(function(v, i) {
+                        const _videoIndex = v.get("index");
+                        // if nextIndex not defined, and we have not watched video, we can set it as nextIndex
+                        if (this.get("blacklisted").indexOf(_videoIndex) === -1 && _videoIndex > index && !nextIndex && v.get("display") && !v.get("watched")) {
+                            nextIndex = v.get("index");
+                            this.set("nextindex", nextIndex);
+                            console.log("CALL 2222");
+                            this.__scrollTop();
+                        }
+                        // If still we couldn't find next index, we need to reset playlist
+                        if (lastIndex === i && !nextIndex) {
+                            this.__resetPlaylist();
+                        }
+                    }, this);
+
+                    // Preset last index if we don't set it before, or playlist was changed
+                    if (lastIndex !== this.__dyn.get("lastplaylistindex")) {
+                        this.__dyn.set("lastplaylistindex", lastIndex);
                     }
                 },
 
-                setNextVideoIndex: function() {
-                    let nextIndex;
-                    const index = this.__dyn.get("next_video_from_playlist");
-                    const lastIndex = this.get("videos").last().get("index");
-                    this.get("videos").iterate(function(v, i) {
-                        if (v.get("index") > index && !nextIndex && v.get("display") && !v.get("watched")) {
-                            nextIndex = v.get("index");
-                            this.set("nextindex", nextIndex);
-                            this.__scrollTop();
-                        }
-                        if (lastIndex === i && !nextIndex) {
-                            this.get("videos").iterate(function(v, _i) {
-                                if (v.get("display")) {
-                                    v.set("watched", false);
-                                }
-                                if (_i === lastIndex) {
-                                    nextIndex = this.get("videos").queryOne({
-                                        display: true
-                                    }).get("index")
-                                    this.__dyn.set("nextindex", index);
-                                    this.__scrollTop();
-                                }
-                            }, this)
-                        }
-                    }, this)
+                startLoader: function() {
+                    this.set('loading', true);
+                    this._containerCheckTimer = this.auto_destroy(new Timer({
+                        delay: 100,
+                        fire: function() {
+                            if (this.get("hideloadingafter") <= 0 || (this.get("loading") && this.get("loaded").length > 3)) {
+                                this.set('loading', false);
+                                console.log("TIMESS 111");
+                                this.__setNextVideoIndex();
+                                this._containerCheckTimer.stop();
+                            } else {
+                                if (!this.__calculationStarted) this.__calculateHeight();
+                            }
+                            this.set('hideloadingafter', this.get("hideloadingafter") - 100);
+                        }.bind(this),
+                        context: this,
+                        start: true,
+                        immediate: true,
+                        destroy_on_stop: true
+                        // fire_max: this.get("hideloadingafter") / 100
+                    }));
                 },
 
-                calculateHeight: function() {
+                __calculateHeight: function() {
                     // Don't calculate when ads active
                     if (this.get("adsplaying") || this.get("videos").destroyed()) return;
                     const _ = this;
                     // var element = this.activeElement().querySelect("li[data-index-selector='gallery-item-" + index + "']");
                     const elements = this.activeElement().querySelectorAll(`li.${this.get("cssgallerysidebar")}-list-item`);
                     if (elements && elements.length > 0) {
+                        this.__calculationStarted = true;
                         elements.forEach(function(el) {
                             const image = el.querySelector('img');
                             const currentIndex = el.dataset.index;
@@ -225,17 +254,65 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                                 image.onload = function() {
                                     if (!elRelatedCollections) return;
                                     elRelatedCollections.set("height", DOM.elementDimensions(el).height);
+
+                                    console.log("CALLD 3333")
                                     _.__scrollTop();
+                                    _.get("loaded").push(currentIndex);
                                 }
                                 image.onerror = function() {
-                                    if (!elRelatedCollections) return;
-                                    el.style.display = 'none';
+                                    if (!elRelatedCollections || !el) return;
+                                    _.get("blacklisted").push(currentIndex);
                                     elRelatedCollections.set("display", false);
+                                    el.parentNode.removeChild(el);
+                                    // We have to remove object to be sure getting correct first and last index
+                                    _.get("videos").remove(elRelatedCollections);
+                                    console.log("CALLD 44")
                                     _.__scrollTop();
                                 }
                             }
                         });
                     }
+                },
+
+                __removeVideoFromList: function(index) {
+                    if (!this.get("hidevideoafterplay") || !index) return;
+                    const video = this.get("videos").get_by_secondary_index('index', index);
+                    if (video) {
+                        this.get("videos").remove(video);
+                    }
+                },
+
+                /**
+                 * Will check if index not blacklisted and watchable, if not will set next index
+                 * @param index
+                 * @private
+                 */
+                __checkIndexPlayability: function(index) {
+                    index = index || this.get("nextindex");
+                    const nextVideo = this.get("videos").get_by_secondary_index('index', index);
+                    Async.eventually(function() {
+                        console.log("WRIL", index, nextVideo, this.get("blacklisted").indexOf(index));
+                        if (this.get("blacklisted").indexOf(index) > -1 || !nextVideo || (nextVideo && !nextVideo.get("display"))) {
+                            console.log("TIMESS 222");
+                            this.__setNextVideoIndex();
+                        } else {
+                            this.__dyn.set("next_video_from_playlist", index);
+                        }
+                    }, this, 200);
+                },
+
+                __resetPlaylist: function() {
+                    this.get("videos").iterate(function(v, _i) {
+                        if (v.get("display")) v.set("watched", false);
+                        if (v.last()) {
+                            let nextIndex = this.get("videos").queryOne({
+                                display: true
+                            }).get("index");
+                            this.__dyn.set("nextindex", nextIndex);
+                            console.log("CALLD 555")
+                            this.__scrollTop();
+                        }
+                    }, this);
                 },
 
                 /**
@@ -245,27 +322,27 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                 __generateCompanionAdContent: function(companionads) {
                     companionads = companionads || this.get("companionads");
                     if (companionads && companionads.length > 0) {
-                        var isMobile = this.get("mobileviewport");
+                        const isMobile = this.get("mobileviewport");
                         if (
                             (this.get("floatingoptions.desktop.companionad") && !isMobile) ||
                             (this.get("floatingoptions.mobile.companionad") && isMobile) ||
                             (this.get("gallerysidebar") && this.get("sidebaroptions.showcompanionad") && !isMobile)
                         ) {
-                            var dimensions = DOM.elementDimensions(this.activeElement());
-                            var ar, closestIndex, closestAr;
+                            const dimensions = DOM.elementDimensions(this.activeElement());
+                            let ar, closestIndex, closestAr;
                             ar = dimensions.width / dimensions.height;
                             Objs.iter(companionads, function(companion, index) {
-                                var _data = companion.data;
-                                var _ar = _data.width / _data.height;
-                                var _currentDiff = Math.abs(_ar - ar);
+                                const _data = companion.data;
+                                const _ar = _data.width / _data.height;
+                                const _currentDiff = Math.abs(_ar - ar);
                                 if (index === 0 || closestAr > _currentDiff) {
                                     closestAr = _currentDiff;
                                     closestIndex = index;
                                 }
                                 if (companionads.length === index + 1) {
-                                    var companionAd = companionads[closestIndex];
+                                    const companionAd = companionads[closestIndex];
                                     this.set("companionadcontent", companionAd.getContent());
-                                    var container = this.activeElement().querySelector("." + this.get("cssfloatingsidebar") + '-companion-container');
+                                    const container = this.activeElement().querySelector("." + this.get("cssfloatingsidebar") + '-companion-container');
                                     if (container) this.__drawCompanionAdToContainer(container, companionAd, dimensions, ar, _ar);
                                 }
                             }, this);
@@ -289,7 +366,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                 },
 
                 __decodeHTML: function(text) {
-                    var textArea = document.createElement('textarea');
+                    const textArea = document.createElement('textarea');
                     textArea.innerHTML = text;
                     return textArea.value;
                 },

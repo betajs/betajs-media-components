@@ -776,8 +776,10 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
                 this.dyn.reattachVideo();
                 this.next("LoadPlayer");
             }, this);
-            this.listenOn(this.dyn, "play_next", function() {
-                this.next("NextVideo");
+            this.listenOn(this.dyn, "play_next", function(index) {
+                this.next("NextVideo", {
+                    nextIndex: index
+                });
             }, this);
             this.listenOn(this.dyn, "ended", function() {
                 if (!this.dyn) return;
@@ -926,6 +928,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
         scoped: scoped
     }, {
 
+        _locals: ["nextIndex", "lastplaylistitem"],
+
         _started: function() {
             this.dyn.set("autoplay", this.dyn.get("continuousplayback"));
             this.dyn.set("playbackcount", this.dyn.get("playbackcount") + 1);
@@ -938,7 +942,11 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
                 nextIndex = nextIndex % this.dyn.get("playlist").length;
                 this.dyn.set("next_video_from_playlist", nextIndex);
 
-                this.dyn.set("lastplaylistitem", this.dyn.get("current_video_from_playlist") === (this.dyn.get("playlist").length - 1));
+                if (this.dyn.get("lastplaylistindex") === nextIndex) {
+                    this.dyn.set("lastplaylistitem", true);
+                } else {
+                    this.dyn.set("lastplaylistitem", this.dyn.get("current_video_from_playlist") === (this.dyn.get("playlist").length - 1));
+                }
                 this.dyn.set("hasnext", this.dyn.get("loop") || this.dyn.get("loopall") || !this.dyn.get("lastplaylistitem"));
 
                 var nextVideo = this.dyn.get("playlist")[nextIndex];

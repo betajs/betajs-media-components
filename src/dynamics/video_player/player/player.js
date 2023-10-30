@@ -246,7 +246,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "skipseconds": 5,
                         "sticky": false,
                         "sticky-starts-paused": true,
-                        "sticky-position": undefined,
                         "sticky-threshold": undefined,
                         // sticky options
                         "floatingoptions": {
@@ -680,11 +679,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         return styles;
                     },
-                    "cssfloatingclasses:is_floating": function() {
+                    "cssfloatingclasses:floatingoptions.desktop.position": function(position) {
                         return [
                             this.get("cssplayer") + "-floating",
                             this.get("csscommon") + "-sticky",
-                            this.get("csscommon") + "-sticky-" + this.get("sticky-position") || this.get("floatingoptions.desktop.position") || "bottom-right",
+                            this.get("csscommon") + "-sticky-" + position || "bottom-right",
                             this.StickyHandler && this.StickyHandler.elementWasDragged() ? "ba-commoncss-fade-up" : ""
                         ].join(" ");
                     },

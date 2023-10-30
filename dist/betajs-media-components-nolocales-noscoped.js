@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.412 - 2023-10-25
+betajs-media-components - v0.0.413 - 2023-10-30
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.412",
-    "datetime": 1698240069713
+    "version": "0.0.413",
+    "datetime": 1698687371529
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -1115,8 +1115,7 @@ Scoped.define("module:StickyHandler", [
                 this.element = element;
                 this.container = container;
                 this.paused = options.paused || false;
-                this.noFloatOnDesktop = options.noFloatOnDesktop || false;
-                this.noFloatOnMobile = options.noFloatOnMobile || false;
+                this.floatCondition = options.floatCondition;
                 this.noFloatIfBelow = options.noFloatIfBelow || false;
                 this.noFloatIfAbove = options.noFloatIfAbove || false;
                 this.threshold = options.threshold;
@@ -1209,12 +1208,10 @@ Scoped.define("module:StickyHandler", [
                             return;
                         }
                         if (entry.isIntersecting) return;
-                        if (this.paused) {
+                        if (this.paused || (this.floatCondition && !this.floatCondition())) {
                             this.trigger("transitionOutOfView");
                             return;
                         }
-                        if (this.noFloatOnDesktop && !Info.isMobile()) return;
-                        if (this.noFloatOnMobile && Info.isMobile()) return;
                         if (this.noFloatIfAbove || this.noFloatIfBelow) {
                             var r = this.element.getBoundingClientRect();
                             if (this.noFloatIfAbove && r.top >= 0) return;
@@ -4468,6 +4465,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 create: function(repeat) {
                     repeat = repeat || false;
                     this.set("repeatedplayer", repeat);
+                    if (this.get("autoplaywhenvisible")) {
+                        this.set("autoplay", true);
+                        Dom.onScrollIntoView(this.activeElement(), this.get("visibilityfraction"), function() {
+                            if (this.destroyed()) return;
+                            this.set("autoplaywhenvisible", false);
+                        }, this);
+                    }
                     this.__attachPlayerInteractionEvents();
                     this._dataset = this.auto_destroy(new DatasetProperties(this.activeElement()));
                     this._dataset.bind("layout", this.properties());
@@ -4485,8 +4489,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.delegateEvents(null, this.channel("next"), "next");
                     this.set("prominent_title", this.get("prominent-title"));
                     this.set("closeable_title", this.get("closeable-title"));
-                    // NOTE: below condition has to be before ads initialization
-                    if (this.get("autoplaywhenvisible")) this.set("autoplay", true);
                     this.__initFloatingOptions();
                     this._observer = new ResizeObserver(function(entries) {
                         for (var i = 0; i < entries.length; i++) {
@@ -4655,8 +4657,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             threshold: this.get("sticky-threshold"),
                             paused: this.get("sticky-starts-paused") || !this.get("sticky"),
                             "static": this.get("floatingoptions.static"),
-                            "noFloatOnDesktop": this.get("floatingoptions.noFloatOnDesktop"),
-                            "noFloatOnMobile": this.get("floatingoptions.noFloatOnMobile"),
+                            floatCondition: function() {
+                                if (this.get("floatingoptions.noFloatOnDesktop") && !this.get("mobileviewport")) return false;
+                                if (this.get("floatingoptions.noFloatOnMobile") && this.get("mobileviewport")) return false;
+                                return true;
+                            }.bind(this),
                             "noFloatIfBelow": this.get("floatingoptions.noFloatIfBelow"),
                             "noFloatIfAbove": this.get("floatingoptions.noFloatIfAbove")
                         };

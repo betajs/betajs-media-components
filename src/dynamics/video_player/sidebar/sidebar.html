@@ -61,12 +61,11 @@
         </div>
 
         <div class="{{cssgallerysidebar}}-list-container">
-            <div ba-if="{{ loading }}" class="{{cssgallerysidebar}}-loading-container">
+            <div ba-if="{{loading}}" class="{{cssgallerysidebar}}-loading-container">
                 <ba-spinner></ba-spinner>
             </div>
             <ul ba-if="{{showplaylist}}" class="{{cssgallerysidebar}}-list"
-                ba-show="{{ !loading }}"
-                ba-repeat="{{video :: videos}}"
+                ba-show="{{!loading}}" ba-repeat="{{video :: videos}}"
             >
                 <li ba-if="{{video.display && !(video.watched && hidevideoafterplay)}}"
                     class="{{cssgallerysidebar}}-list-item"

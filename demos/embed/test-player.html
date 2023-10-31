@@ -13,33 +13,34 @@
     <script src="/static/dist/betajs-media-components-noscoped.js"></script>
     <!--    <script src="/static/demos/tmp/current.js"></script>-->
     <link  href="/static/dist/betajs-media-components.css" rel="stylesheet" />
-    <script src="/static/dist/themes/modern/script.js"></script>
-    <link  href="/static/dist/themes/modern/style.css" rel="stylesheet" />
+
+<!--    <script src="/static/dist/themes/modern/script.js"></script>-->
+<!--    <link  href="/static/dist/themes/modern/style.css" rel="stylesheet" />-->
 
 
-    <!-- Cube Theme Assets -->
-    <script src="/static/dist/themes/cube/script.js"></script>
-    <link href="/static/dist/themes/cube/style.css" rel="stylesheet" />
+<!--    &lt;!&ndash; Cube Theme Assets &ndash;&gt;-->
+<!--    <script src="/static/dist/themes/cube/script.js"></script>-->
+<!--    <link href="/static/dist/themes/cube/style.css" rel="stylesheet" />-->
 
-    <!-- Elevate Theme Assets -->
-    <script src="/static/dist/themes/elevate/script.js"></script>
-    <link href="/static/dist/themes/elevate/style.css" rel="stylesheet" />
+<!--    &lt;!&ndash; Elevate Theme Assets &ndash;&gt;-->
+<!--    <script src="/static/dist/themes/elevate/script.js"></script>-->
+<!--    <link href="/static/dist/themes/elevate/style.css" rel="stylesheet" />-->
 
-    <!-- Minimalist Theme Assets -->
-    <script src="/static/dist/themes/minimalist/script.js"></script>
-    <link href="/static/dist/themes/minimalist/style.css" rel="stylesheet" />
+<!--    &lt;!&ndash; Minimalist Theme Assets &ndash;&gt;-->
+<!--    <script src="/static/dist/themes/minimalist/script.js"></script>-->
+<!--    <link href="/static/dist/themes/minimalist/style.css" rel="stylesheet" />-->
 
-    <!-- Minimalist Theme Assets -->
-    <script src="/static/dist/themes/modern/script.js"></script>
-    <link href="/static/dist/themes/modern/style.css" rel="stylesheet" />
+<!--    &lt;!&ndash; Minimalist Theme Assets &ndash;&gt;-->
+<!--    <script src="/static/dist/themes/modern/script.js"></script>-->
+<!--    <link href="/static/dist/themes/modern/style.css" rel="stylesheet" />-->
 
-    <!-- Space Theme Assets -->
-    <script src="/static/dist/themes/space/script.js"></script>
-    <link href="/static/dist/themes/space/style.css" rel="stylesheet" />
+<!--    &lt;!&ndash; Space Theme Assets &ndash;&gt;-->
+<!--    <script src="/static/dist/themes/space/script.js"></script>-->
+<!--    <link href="/static/dist/themes/space/style.css" rel="stylesheet" />-->
 
-    <!-- Theatre Theme Assets -->
-    <script src="/static/dist/themes/theatre/script.js"></script>
-    <link href="/static/dist/themes/theatre/style.css" rel="stylesheet" />
+<!--    &lt;!&ndash; Theatre Theme Assets &ndash;&gt;-->
+<!--    <script src="/static/dist/themes/theatre/script.js"></script>-->
+<!--    <link href="/static/dist/themes/theatre/style.css" rel="stylesheet" />-->
 
     <script>
         let player;
@@ -150,17 +151,16 @@
     // setTimeout(() => {console.log("Now our ad tag URL IS: ", player.get("adtagurl").slice(0, 20));}, 13000);
     // setInterval(() => {console.log("Now our ad tag URL IS: ", player.get("adtagurl").slice(0, 20));}, 1000);
 
-    setTimeout(() => {
-        console.log("Ad  to playlist");
-        player.get("playlist").push(
-            {
-                poster: '//commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerEscapes.jpg',
-                source: '//commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
-                title: 'Introducing Chromecast. The easiest way to enjoy'
-            }
-            );
-    }, 3000);
-    player.on("floatingplayerclosed", () => console.log("Floating Player Closed"), player);
+    // setTimeout(() => {
+        // console.log("Ad  to playlist");
+        // const newList = [...player.get("playlist"), {
+        //     poster: '//commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerEscapes.jpg',
+        //     source: '//commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+        //     title: 'Introducing Chromecast. The easiest way to enjoy'
+        // }];
+        // player.set("playlist", newList);
+    // }, 3000);
+    // player.on("floatingplayerclosed", () => console.log("Floating Player Closed"), player);
 
     // player.on("quarter-passed", (qr) => {
         // qr == this.get();

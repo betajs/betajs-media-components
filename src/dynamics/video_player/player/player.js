@@ -608,7 +608,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         return this.get("floatingsidebar") || this.get("gallerysidebar");
                     },
-                    "playercontainerstyles:sidebar_active,gallerysidebar,sidebaroptions.presetwidth": function(sideBarActive, gallerySidebar, sidebarPresetWidth) {
+                    "playercontainerstyles:sidebar_active,gallerysidebar,sidebaroptions.presetwidth,fullscreened": function(sideBarActive, gallerySidebar, sidebarPresetWidth, fullscreened) {
                         // Only if sidebarPresetWidth
                         if (typeof sidebarPresetWidth === "string") {
                             sidebarPresetWidth = sidebarPresetWidth.includes("%") ?
@@ -622,10 +622,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }
                             if (width && Types.is_defined(styles) && styles) {
                                 this.set("controlbarstyles", {
-                                    width: width
+                                    width: fullscreened ? '100%' : width
                                 });
                                 return {
-                                    width: width,
+                                    width: fullscreened ? '100%' : width,
                                     position: 'relative'
                                 };
                             }

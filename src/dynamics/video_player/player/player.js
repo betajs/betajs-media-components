@@ -93,8 +93,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "csstracks": "",
                         "width": "",
                         "height": "",
-                        "size": null,
-                        "availablesizes": {},
+                        "presetkey": null,
+                        "availablepresetoptions": {},
                         "showsidebargallery": false,
                         "sidebaroptions": {
                             // percentage by default, or could be in px
@@ -475,8 +475,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "sticky-threshold": "float",
                     "floatingoptions": "jsonarray",
                     "presetedtooltips": "object",
-                    "size": "string",
-                    "availablesizes": "object",
+                    "presetkey": "string",
+                    "availablepresetoptions": "object",
                     "showsidebargallery": "boolean",
                     // Will help hide player poster before ads start,
                     // if false rectangle with full dimensions will be shown
@@ -777,6 +777,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.delegateEvents(null, this.channel("next"), "next");
                     this.set("prominent_title", this.get("prominent-title"));
                     this.set("closeable_title", this.get("closeable-title"));
+                    this.__initiPresets();
                     this.__initFloatingOptions();
                     this._observer = new ResizeObserver(function(entries) {
                         for (var i = 0; i < entries.length; i++) {
@@ -2396,6 +2397,22 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }, this);
                         }
                     }, this);
+                },
+
+                __initiPresets: function() {
+                    var presetKey = this.get("presetkey");
+                    var multiPresets = this.get("availablepresetoptions");
+                    if (multiPresets && Objs.count(multiPresets) > 0 && presetKey) {
+                        presetKey = presetKey.toLowerCase();
+                        var presets = multiPresets[presetKey];
+                        if (presets && Types.is_object(presets)) {
+                            Objs.iter(presets, function(v, k) {
+                                if (Types.is_defined(this.attrs()[k])) this.set(k, v);
+                            }, this);
+                        } else {
+                            console.warn("Make sure that 'presetOption' and 'availablepresetoptions' are set correctly.");
+                        }
+                    }
                 },
 
                 /**

@@ -776,7 +776,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.delegateEvents(null, this.channel("next"), "next");
                     this.set("prominent_title", this.get("prominent-title"));
                     this.set("closeable_title", this.get("closeable-title"));
-                    this.__initiPresets();
+                    this.__initPresets();
                     this.__initFloatingOptions();
                     this._observer = new ResizeObserver(function(entries) {
                         for (var i = 0; i < entries.length; i++) {
@@ -2363,7 +2363,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }, this);
                 },
 
-                __initiPresets: function() {
+                __initPresets: function() {
                     var presetKey = this.get("presetkey");
                     var multiPresets = this.get("availablepresetoptions");
                     if (multiPresets && Objs.count(multiPresets) > 0 && presetKey) {

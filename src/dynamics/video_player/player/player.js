@@ -246,7 +246,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "skipseconds": 5,
                         "sticky": false,
                         "sticky-starts-paused": true,
-                        "sticky-position": undefined,
                         "sticky-threshold": undefined,
                         // sticky options
                         "floatingoptions": {
@@ -680,11 +679,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         return styles;
                     },
-                    "cssfloatingclasses:is_floating": function() {
+                    "cssfloatingclasses:floatingoptions.desktop.position": function(position) {
                         return [
                             this.get("cssplayer") + "-floating",
                             this.get("csscommon") + "-sticky",
-                            this.get("csscommon") + "-sticky-" + this.get("sticky-position") || this.get("floatingoptions.desktop.position") || "bottom-right",
+                            this.get("csscommon") + "-sticky-" + position || "bottom-right",
                             this.StickyHandler && this.StickyHandler.elementWasDragged() ? "ba-commoncss-fade-up" : ""
                         ].join(" ");
                     },
@@ -1122,11 +1121,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }
                     if (this.get("stretch") || this.get("stretchwidth") || this.get("stretchheight")) {
                         console.warn("Stretch parameters were deprecated, your player will stretch to the full container width by default.");
-                    }
-                    if (this.get("sticky") && !stickyPositions.includes(this.get("sticky-position") || this.get("floatingoptions").desktop.position)) {
-                        console.warn("Invalid option for attribute sticky-position: " + this.get("sticky-position"));
-                        console.warn("Please choose one of the following values instead:", stickyPositions);
-                        this.set("sticky-position", "bottom-right");
                     }
                     if (this.get("sticky") && !(mobilePositions.includes(this.get("floatingoptions").mobile))) {
                         console.warn("Please choose one of the following values instead:", mobilePositions);
@@ -2412,7 +2406,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (typeof this.get("floatingoptions.desktop.sidebar") !== "undefined" && this.get("floatingoptions.sidebar"))
                             this.set("with_sidebar", this.get("floatingoptions.desktop.sidebar"));
                     }
-                    position = position || this.get("sticky-position");
                     if (position) {
                         Objs.iter(["top", "right", "bottom", "left"], function(val) {
                             if (position.includes(val)) {

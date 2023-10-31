@@ -776,6 +776,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
                 this.dyn.reattachVideo();
                 this.next("LoadPlayer");
             }, this);
+            // If first video on paylist will run error, this listener will not be triggerable
+            this.__listeningOnPlayNext = true;
             this.listenOn(this.dyn, "play_next", function() {
                 this.next("NextVideo");
             }, this);

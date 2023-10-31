@@ -776,10 +776,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
                 this.dyn.reattachVideo();
                 this.next("LoadPlayer");
             }, this);
-            this.listenOn(this.dyn, "play_next", function(index) {
-                this.next("NextVideo", {
-                    nextIndex: index
-                });
+            this.listenOn(this.dyn, "play_next", function() {
+                this.next("NextVideo");
             }, this);
             this.listenOn(this.dyn, "ended", function() {
                 if (!this.dyn) return;
@@ -927,8 +925,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
     return State.extend({
         scoped: scoped
     }, {
-
-        _locals: ["nextIndex", "lastplaylistitem"],
 
         _started: function() {
             this.dyn.set("autoplay", this.dyn.get("continuousplayback"));

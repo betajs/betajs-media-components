@@ -343,16 +343,19 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                  * @private
                  */
                 resetPlaylist: function() {
-                    this.get("videos").iterate(function(v, _i) {
-                        if (v.get("display")) v.set("watched", false);
-                        if (v.last()) {
-                            let nextIndex = this.get("videos").queryOne({
-                                display: true
-                            }).get("index");
-                            this.set("nextindex", nextIndex);
+                    const iterator = this.get("videos").iterator();
+                    let firstPlayableIndex = null;
+                    while (iterator.hasNext()) {
+                        const v = iterator.next();
+                        if (v.get("display")) {
+                            v.set("watched", false);
+                            if (!firstPlayableIndex) firstPlayableIndex = v.get("index");
+                        }
+                        if (!iterator.hasNext()) {
+                            this.set("nextindex", firstPlayableIndex || 0);
                             this.scrollTop();
                         }
-                    }, this);
+                    }
                 },
 
                 scrollTop: function() {
@@ -362,8 +365,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     this.get("videos").iterate(function(video, _i) {
                         const height = video.get("height");
                         const videoIndex = video.get("index");
-                        if (height === 0) {
-                            this.__drawListedVideos();
+                        if (!height || height === 0) {
+                            this.__recalculateHeight(video);
                             return;
                         }
                         if (this.get("nextindex") === videoIndex) {
@@ -402,6 +405,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                         _.get("blacklisted").push(index);
                     }
                     image.src = poster;
+                },
+
+                __recalculateHeight: function(video) {
+                    const index = video.get("index");
+                    const itemElement = this.activeElement().querySelector(`li[data-index-selector="gallery-item-${index}"]`);
+                    if (itemElement) {
+                        video.set("height", DOM.elementDimensions(itemElement).height);
+                    }
                 },
 
                 /**

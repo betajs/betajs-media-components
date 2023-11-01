@@ -77,13 +77,13 @@
                     <div class="{{cssgallerysidebar}}-list-item-poster-container">
                         <div class="{{cssgallerysidebar}}-play-button-container">
                             <ba-circle-progress
-                                ba-if="{{nextactive && nextindex === video.index}}"
+                                ba-if="{{shownextloader && nextindex === video.index}}"
                                 ba-autostart="{{true}}"
                                 ba-timeout="{{noengagenext * 1000}}"
                                 ba-noengagenext="{{noengagenext}}"
                                 ba-paused="{{!playing}}"
                             ></ba-circle-progress>
-                            <svg ba-if="{{!(nextactive && nextindex === video.index)}}"
+                            <svg ba-if="{{!(shownextloader && nextindex === video.index)}}"
                                  width="34" height="36" viewBox="0 0 34 36" fill="none"
                                  xmlns="http://www.w3.org/2000/svg"
                             >

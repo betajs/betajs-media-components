@@ -262,7 +262,11 @@
     display: inline-block;
     position: absolute;
     text-indent: -9999px;
+    max-width: 25px;
+    max-height: 25px;
     svg {
+        width: 100%;
+        height: 100%;
         display: block;
         filter: drop-shadow(1px 4px 3px rgba(0, 0, 0, 0.7));
     }

@@ -59,7 +59,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     },
                     "change:adsplaying": function(adsPlaying) {
                         if (!adsPlaying && this.get("videos").count() > 0) {
-                            this.proceedWithLoader();
+                            this.set("loaded", []);
+                            this.get("videos").iterate(function(item) {
+                                this.__checkVideoPoster(item);
+                                this.proceedWithLoader();
+                            }, this);
                         }
                     },
                     "change:fullscreened": function(fullscreened) {

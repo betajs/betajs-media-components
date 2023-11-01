@@ -49,7 +49,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     currentindex: null,
                     loading: true,
                     hideloaderafter: 1700,
-                    states: {}
+                    states: {},
+                    shownextloader: false
                 },
 
                 events: {
@@ -59,12 +60,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     "change:adsplaying": function(adsPlaying) {
                         if (!adsPlaying && this.get("videos").count() > 0) {
                             this.proceedWithLoader();
-                        }
-                    },
-                    "change:shownext": function(shownext) {
-                        // Only on first countdown scroll to top
-                        if (shownext === this.get("states.shownext")) {
-                            this.scrollTop();
                         }
                     },
                     "change:fullscreened": function(fullscreened) {
@@ -79,6 +74,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                 },
 
                 computed: {
+                    "shownextloader:nextactive": function(nextactive) {
+                        if (nextactive) this.scrollTop();
+                        return !!nextactive;
+                    },
                     "showplaylist:playlist": function(playlist) {
                         const showSidebar = playlist.length > 0;
                         if (!showSidebar) return false;
@@ -152,6 +151,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     // When next video actually starts to play
                     // Will trigger on both playNext and manualPlayNext
                     this.__dyn.on("playlist-next", function(pl) {
+                        this.set("shownextloader", false);
                         const video = this.get("videos").queryOne({
                             source: pl.source
                         });

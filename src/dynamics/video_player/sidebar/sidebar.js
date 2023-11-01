@@ -48,7 +48,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     previousindex: null,
                     currentindex: null,
                     loading: true,
-                    hideloaderafter: 1700
+                    hideloaderafter: 1700,
+                    states: {}
                 },
 
                 events: {
@@ -60,11 +61,20 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                             this.proceedWithLoader();
                         }
                     },
+                    "change:shownext": function(shownext) {
+                        // Only on first countdown scroll to top
+                        if (shownext === this.get("states.shownext")) {
+                            this.scrollTop();
+                        }
+                    },
                     "change:fullscreened": function(fullscreened) {
                         if (!fullscreened) this.scrollTop();
                     },
                     "change:is_floating": function(floating) {
-                        if (!floating) this.scrollTop();
+                        if (!floating) {
+                            this.scrollTop();
+                            this.proceedWithLoader()
+                        }
                     }
                 },
 
@@ -113,6 +123,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                 create: function() {
                     this.__dyn = this.parent();
                     this.get("videos").add_secondary_index("index");
+                    this.set("states.shownext", this.get("shownext"));
+                    this.set("states.gallerysidebar", this.get("gallerysidebar"));
                     this.set("headerlogourl", this.get("sidebaroptions.headerlogourl") || null);
                     this.set("headerlogoimgurl", this.get("sidebaroptions.headerlogoimgurl") || null);
                     this.set("headerlogoname", this.get("sidebaroptions.headerlogoname") || "Brand's logo");
@@ -350,6 +362,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     this.get("videos").iterate(function(video, _i) {
                         const height = video.get("height");
                         const videoIndex = video.get("index");
+                        if (height === 0) {
+                            this.__drawListedVideos();
+                            return;
+                        }
                         if (this.get("nextindex") === videoIndex) {
                             if (container && container.scrollTo) {
                                 container.scrollTo({

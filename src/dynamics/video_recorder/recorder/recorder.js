@@ -921,7 +921,7 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                 object_functions: [
                     "record", "rerecord", "record_screen", "stop", "play", "pause", "reset", "cancel",
                     "pause_recorder", "resume", "upload_video", "upload_covershot", "select_camera",
-                    "select_microphone", "add_new_stream", "trim"
+                    "select_microphone", "add_new_stream", "trim", "toggle_face_mode"
                 ],
 
                 functions: {
@@ -1012,10 +1012,11 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     },
 
                     toggle_face_mode: function() {
-                        if (this.recorder) {
-                            this.recorder.setCameraFace(this.get("camerafacefront"));
-                            this.set("camerafacefront", !this.get("camerafacefront"));
+                        if (this._delegatedRecorder) {
+                            this._delegatedRecorder.execute("toggle_face_mode");
+                            return;
                         }
+                        this.toggleFaceMode();
                     },
 
                     add_new_stream: function(deviceId) {
@@ -1105,10 +1106,6 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                         }, this);
                     },
 
-                    toggle_facemode: function() {
-                        this._toggleFaceMode();
-                    },
-
                     trim: function(start, end) {
                         if (this.host.state().state_name() !== "Trimming") return;
                         this.trigger("manual-trim", start, end);
@@ -1158,8 +1155,11 @@ Scoped.define("module:VideoRecorder.Dynamics.Recorder", [
                     return this.recorderAttached() ? this.recorder.soundLevel() : null;
                 },
 
-                _toggleFaceMode: function() {
-                    this.set("camerafacefront", !!this.get("camerafacefront"));
+                toggleFaceMode: function() {
+                    if (this.recorder) {
+                        this.recorder.setCameraFace(this.get("camerafacefront"));
+                        this.set("camerafacefront", !this.get("camerafacefront"));
+                    }
                 },
 
                 _timerFire: function() {

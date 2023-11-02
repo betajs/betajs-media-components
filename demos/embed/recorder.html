@@ -76,6 +76,14 @@
               onclick="recorderScreen()"
             > Record Screen </button>
         </div>
+
+        <div>
+            <button
+                style="min-width: 10px; color: #000000; background: #9b4215"
+                onclick="toggleFaceMode()"
+            > Toggle Face Mode </button>
+        </div>
+
         <hr/>
          Logs : >> <div id="recorder-logs"></div>
         <hr/>
@@ -83,6 +91,13 @@
 </div>
 
     <script>
+        const logsContainer = document.getElementById('recorder-logs');
+        const appendMessage = (text) => {
+            const p = document.createElement('p');
+            p.innerText = text;
+            logsContainer.appendChild(p);
+        }
+
         var filename = "video-" + BetaJS.Time.now();
         var recorder = new BetaJS.MediaComponents.VideoRecorder.Dynamics.Recorder({
             element: document.getElementById('recorder'),
@@ -192,12 +207,18 @@
         }, recorder);
 
         recorder.on("attached", function () {
-            console.log('Recorder Attcahed !!!');
+            console.log('Recorder Attached !!!');
         });
 
         recorder.on("uploaded", function (embedding) {
             console.log('Uploaded: ', 'uploaded'+ ' ('+ Date.now() + ')');
         });
+
+        recorder.on("change:camerafacefront", (ff) => {
+            const message = 'Toggled FaceFront: ' + ff;
+            console.log(message);
+            appendMessage(message);
+        }, recorder);
 
         recorder.on("processing", function (embedding, percentage) {
             console.log('Processing: ', percentage + '%' + ' ('+ Date.now() + ')');
@@ -210,17 +231,25 @@
         recorder.activate();
 
         const recordClickHandler = (ev) => {
-            console.log('Record Button Pressed >> ', recorder.get("autorecord"));
+            const message = 'Record Button Pressed >> ' + recorder.get("autorecord");
+            console.log(message);
+            appendMessage(message);
             recorder.record();
         }
 
         const resetClickHandler = () => {
-            console.log('Reset Button Pressed >> ');
+            const message = 'Reset Button Pressed >> ';
+            console.log(message);
+            appendMessage(message);
             recorder.reset();
         }
 
         const recorderScreen = () => {
             recorder.record_screen();
+        }
+
+        const toggleFaceMode = () => {
+            recorder.toggleFaceMode();
         }
 
         const pauseClickHandler = () => {

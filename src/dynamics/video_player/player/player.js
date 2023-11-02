@@ -624,9 +624,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         styles = {
                             aspectRatio: aspectRatio
                         };
-                        if (height) styles.height = isNaN(height) ? height : parseFloat(height).toFixed(2) + "px";
-                        if (width) styles.width = isNaN(width) ? width : parseFloat(width).toFixed(2) + "px";
-                        containerStyles = styles;
                         if (isFloating && !this.get("fullscreened")) {
                             calculated = this.__calculateFloatingDimensions();
 
@@ -647,9 +644,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (floatingHeight) height = floatingHeight;
                         }
 
+                        if (height) styles.height = isNaN(height) ? height : parseFloat(height).toFixed(2) + "px";
+                        if (width) styles.width = isNaN(width) ? width : parseFloat(width).toFixed(2) + "px";
+
                         // If we have an ads and before content we will not show the player poster with loader at all
                         if ((this.get("adshassource") && !adsInitialized) && this.get("hidebeforeadstarts") && (this.get("autoplay") || this.get("outstream"))) styles.opacity = 0;
 
+                        containerStyles = styles;
                         if (this.activeElement()) {
                             // if element is sticky no need, to apply styles which are position with fixed
                             if (!isFloating) {
@@ -1611,13 +1612,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.get("tooltips").count() > 0) this.hideTooltip(position);
 
                     this.get("tooltips").add({
-                        id: Time.now(),
+                        id: tooltip.id || Time.now(),
                         tooltiptext: tooltip.tooltiptext,
                         position: tooltip.position || 'top-right',
                         closeable: tooltip.closeable || false,
                         pauseonhover: tooltip.pauseonhover || false,
                         showprogressbar: tooltip.showprogressbar || false,
-                        disappearafterseconds: tooltip.disappearafterseconds || 2,
+                        disappearafterseconds: tooltip.disappearafterseconds || -1,
                         showonhover: tooltip.showonhover || false,
                         queryselector: tooltip.queryselector || null
                     });
@@ -1625,17 +1626,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 hideTooltip: function(position, id) {
-                    var exists = this.get("tooltips").get_by_secondary_index("position", position, true);
-                    if (exists) {
-                        this.get("tooltips").remove(exists);
+                    let exists;
+                    if (id) {
+                        exists = this.get("tooltips").queryOne({
+                            id: id
+                        });
                     } else {
-                        if (id) {
-                            exists = this.get("tooltips").query({
-                                id: id
-                            });
-                            if (exists) this.get("tooltips").remove(exists);
-                        }
+                        exists = this.get("tooltips").get_by_secondary_index("position", position, true);
                     }
+                    if (exists) this.get("tooltips").remove(exists);
                 },
 
                 object_functions: ["play", "rerecord", "pause", "stop", "seek", "set_volume", "set_speed", "toggle_tracks"],

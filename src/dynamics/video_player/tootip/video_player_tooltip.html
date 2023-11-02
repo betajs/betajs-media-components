@@ -1,7 +1,9 @@
 <div ba-if="{{tooltiptext}}" role="tooltip"
      title="{{(pauseonhover && disappearafter > 0) ? string('hover-to-pause-tooltip-close') : tooltiptext}}"
      class="{{csscommon}}-tooltip-container {{csscommon}}-tooltip-{{position}}
+     {{csscommon}}-tooltip-container-on-{{playing ? 'playing' : 'pause'}}
      {{csscommon}}-fade-{{tooltiptext ? 'in' : 'out'}}
+     {{ adsplaying ? (csscommon + '-tooltip-container-playing-ads') : ''}}
      {{ (pauseonhover && disappearafter > 0) ? csscommon + '-pause-on-hover' : '' }}"
      onmouseover="{{mouseover()}}" onmouseout="{{mouseout()}}"
 >

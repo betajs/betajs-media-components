@@ -673,6 +673,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         styles = {
                             aspectRatio: aspectRatio
                         };
+                        if (height) styles.height = isNaN(height) ? height : parseFloat(height).toFixed(2) + "px";
+                        if (width) styles.width = isNaN(width) ? width : parseFloat(width).toFixed(2) + "px";
+                        containerStyles = styles;
                         if (isFloating && !this.get("fullscreened")) {
                             calculated = this.__calculateFloatingDimensions();
 
@@ -693,13 +696,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (floatingHeight) height = floatingHeight;
                         }
 
-                        if (height) styles.height = isNaN(height) ? height : parseFloat(height).toFixed(2) + "px";
-                        if (width) styles.width = isNaN(width) ? width : parseFloat(width).toFixed(2) + "px";
-
                         // If we have an ads and before content we will not show the player poster with loader at all
                         if ((this.get("adshassource") && !adsInitialized) && this.get("hidebeforeadstarts") && (this.get("autoplay") || this.get("outstream"))) styles.opacity = 0;
 
-                        containerStyles = styles;
                         if (this.activeElement()) {
                             // if element is sticky no need, to apply styles which are position with fixed
                             if (!isFloating) {

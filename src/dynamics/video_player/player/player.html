@@ -27,7 +27,8 @@
         ba-shownext="{{shownext}}"
         ba-noengagenext="{{noengagenext}}"
     ></ba-{{dynnext}}>
-    <div class="{{css}}-tooltips-list-container"
+    <div ba-show="{{!fullscreened}}"
+         class="{{css}}-tooltips-list-container"
          ba-repeat="{{tooltip :: tooltips}}"
     >
         <ba-{{dyntooltip}}

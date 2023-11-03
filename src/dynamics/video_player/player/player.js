@@ -643,8 +643,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             floatingWidth = calculated.floating_width || floatingWidth;
                             floatingHeight = calculated.floating_height || floatingHeight;
 
-                            if (floatingWidth) width = floatingWidth;
-                            if (floatingHeight) height = floatingHeight;
+                            if (floatingWidth) styles.width = isNaN(floatingWidth) ? floatingWidth : parseFloat(floatingWidth).toFixed(2) + "px";
+                            if (floatingHeight) styles.height = isNaN(floatingHeight) ? floatingHeight : parseFloat(floatingHeight).toFixed(2) + "px";
                         }
 
                         // If we have an ads and before content we will not show the player poster with loader at all

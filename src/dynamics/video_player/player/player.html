@@ -33,12 +33,12 @@
             ba-noengagenext="{{noengagenext}}"
             ba-showsidebargallery="{{showsidebargallery}}"
         ></ba-{{dynnext}}>
-        <div class="{{css}}-tooltips-list-container"
-             ba-repeat="{{tooltip :: tooltips}}"
-        >
+        <div class="{{css}}-tooltips-list-container" ba-repeat="{{tooltip :: tooltips}}">
             <ba-{{dyntooltip}}
                 ba-if="{{tooltip.tooltiptext}}"
                 ba-tooltip="{{tooltip}}"
+                ba-playing="{{playing}}"
+                ba-adsplaying="{{adsplaying}}"
             ></ba-{{dyntooltip}}>
         </div>
         <div ba-show="{{(videoelement_active || !imageelement_active) && !silent_attach}}" class="{{css}}-video-container">

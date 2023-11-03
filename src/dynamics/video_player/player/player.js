@@ -1611,13 +1611,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.get("tooltips").count() > 0) this.hideTooltip(position);
 
                     this.get("tooltips").add({
-                        id: Time.now(),
+                        id: tooltip.id || Time.now(),
                         tooltiptext: tooltip.tooltiptext,
                         position: tooltip.position || 'top-right',
                         closeable: tooltip.closeable || false,
                         pauseonhover: tooltip.pauseonhover || false,
                         showprogressbar: tooltip.showprogressbar || false,
-                        disappearafterseconds: tooltip.disappearafterseconds || 2,
+                        disappearafterseconds: tooltip.disappearafterseconds || -1,
                         showonhover: tooltip.showonhover || false,
                         queryselector: tooltip.queryselector || null
                     });
@@ -1625,17 +1625,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 hideTooltip: function(position, id) {
-                    var exists = this.get("tooltips").get_by_secondary_index("position", position, true);
-                    if (exists) {
-                        this.get("tooltips").remove(exists);
+                    let exists;
+                    if (id) {
+                        exists = this.get("tooltips").queryOne({
+                            id: id
+                        });
                     } else {
-                        if (id) {
-                            exists = this.get("tooltips").query({
-                                id: id
-                            });
-                            if (exists) this.get("tooltips").remove(exists);
-                        }
+                        exists = this.get("tooltips").get_by_secondary_index("position", position, true);
                     }
+                    if (exists) this.get("tooltips").remove(exists);
                 },
 
                 object_functions: ["play", "rerecord", "pause", "stop", "seek", "set_volume", "set_speed", "toggle_tracks"],

@@ -694,7 +694,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (playing) this.__playedStats(position, this.get("duration"));
                         return this.get("playing") && this.get("buffered") < this.get("position") && this.get("last_position_change_delta") > 1000;
                     },
-                    "is_floating:view_type,fullscreened": function(view_type,fullscreened) {
+                    "is_floating:view_type,fullscreened": function(view_type, fullscreened) {
                         if (fullscreened) return false;
                         return view_type === "float" || (view_type !== undefined && this.get("floatingoptions.floatingonly"));
                     },

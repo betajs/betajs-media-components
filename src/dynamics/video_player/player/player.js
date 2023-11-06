@@ -551,8 +551,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     },
                     "change:fullscreened": function(isFullscreen) {
-                        if (isFullscreen && this.get("view_type") === "float") {
+                        if (isFullscreen && this.get("view_type") !== "default") {
+                            this.__viewTypeOnFullscreen = this.get("view_type");
                             this.set("view_type", "default");
+                        } else if (this.__viewTypeOnFullscreen) {
+                            this.set("view_type", this.__viewTypeOnFullscreen);
+                            this.__viewTypeOnFullscreen = null;
                         }
                     }
                 },
@@ -690,8 +694,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (playing) this.__playedStats(position, this.get("duration"));
                         return this.get("playing") && this.get("buffered") < this.get("position") && this.get("last_position_change_delta") > 1000;
                     },
-                    "is_floating:view_type": function(view_type) {
-                        return view_type === "float" || ((view_type !== undefined && !this.get("fullscreened")) && this.get("floatingoptions.floatingonly"));
+                    "is_floating:view_type,fullscreened": function(view_type,fullscreened) {
+                        if (fullscreened) return false;
+                        return view_type === "float" || (view_type !== undefined && this.get("floatingoptions.floatingonly"));
                     },
                     "layout:mobileviewport": function(mobileviewport) {
                         return mobileviewport ? "mobile" : "desktop";

@@ -30,8 +30,10 @@
 // Fix Chromium related fullscreen issue
 .#{$css}-container {
   &.#{$cssplayer}-fullscreen-view {
-    min-width: 100%; position: absolute;
+    //height: 100%; TODO: fix fullscreen on wider screens
     min-height: fit-content; // Supports only with Chrome and fix Chrome only related issue
+    min-width: 100%;
+    position: absolute;
     & > .#{$css}-overlay {
       position: fixed;
     }

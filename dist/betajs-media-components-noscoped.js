@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.417 - 2023-11-06
+betajs-media-components - v0.0.418 - 2023-11-07
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.417",
-    "datetime": 1699292046947
+    "version": "0.0.418",
+    "datetime": 1699373929851
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -4486,15 +4486,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (this.get("floating_height") !== calculated.floating_height)
                                 this.set("floating_height", calculated.floating_height);
                         }
-                    },
-                    "change:fullscreened": function(isFullscreen) {
-                        if (isFullscreen && this.get("view_type") !== "default") {
-                            this.__viewTypeOnFullscreen = this.get("view_type");
-                            this.set("view_type", "default");
-                        } else if (this.__viewTypeOnFullscreen) {
-                            this.set("view_type", this.__viewTypeOnFullscreen);
-                            this.__viewTypeOnFullscreen = null;
-                        }
                     }
                 },
                 channels: {
@@ -4586,7 +4577,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                             if (floatingWidth) styles.width = isNaN(floatingWidth) ? floatingWidth : parseFloat(floatingWidth).toFixed(2) + "px";
                             if (floatingHeight) styles.height = isNaN(floatingHeight) ? floatingHeight : parseFloat(floatingHeight).toFixed(2) + "px";
-
                         }
 
                         // If we have an ads and before content we will not show the player poster with loader at all
@@ -4634,7 +4624,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
                     "is_floating:view_type,fullscreened": function(view_type, fullscreened) {
                         if (fullscreened) return false;
-                        return view_type === "float" || (view_type !== undefined && this.get("floatingoptions.floatingonly"));
+                        return view_type === "float" || (view_type && this.get("floatingoptions.floatingonly"));
                     },
                     "layout:mobileviewport": function(mobileviewport) {
                         return mobileviewport ? "mobile" : "desktop";

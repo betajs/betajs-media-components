@@ -59,20 +59,19 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     },
                     "change:adsplaying": function(adsPlaying) {
                         if (!adsPlaying && this.get("videos").count() > 0) {
-                            this.set("loaded", []);
-                            this.get("videos").iterate(function(item) {
-                                this.__checkVideoPoster(item);
-                                this.proceedWithLoader();
-                            }, this);
+                            this.scrollTop();
                         }
                     },
                     "change:fullscreened": function(fullscreened) {
-                        if (!fullscreened) this.scrollTop();
+                        if (!fullscreened && !this.get("adsplaying")) this.scrollTop();
                     },
                     "change:is_floating": function(floating) {
                         if (!floating) {
                             this.scrollTop();
                             this.proceedWithLoader()
+                        }
+                        if (this.get("adsplaying") && this.__dyn) {
+                            this.__dyn.trigger("resize");
                         }
                     }
                 },
@@ -83,6 +82,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                         return !!nextactive;
                     },
                     "showplaylist:playlist": function(playlist) {
+                        if (!playlist) return false;
                         const showSidebar = playlist.length > 0;
                         if (!showSidebar) return false;
                         const videos = this.get("videos");
@@ -168,6 +168,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
 
                     // On screen size changes, we need to go to the top of the list
                     this.__dyn.on("resize", function() {
+                        if (this.get('adsplaying')) return;
                         this.scrollTop();
                     }, this);
                     // When video will be set as watched collection will be updated
@@ -240,9 +241,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                 setNextVideoIndex: function(triggerNext) {
                     triggerNext = triggerNext || false;
                     let nextVideo, videoFromTop, indexFromTop, nextIndex = null;
-                    let currentIndex = this.get("videos").queryOne({
+                    const currentVideo = this.get("videos").queryOne({
                         source: this.__dyn.get("source")
-                    }).get("index");
+                    });
+                    if (!currentVideo) return;
+                    const currentIndex = currentVideo ? currentVideo.get("index") : null;
+                    if (currentIndex === this.get("currentindex") && !currentVideo.get("watched")) return;
                     const iterator = this.get("videos").iterator();
                     while (iterator.hasNext()) {
                         const v = iterator.next();
@@ -294,6 +298,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     this._containerCheckTimer = this.auto_destroy(new Timer({
                         delay: 200,
                         fire: function() {
+                            if (this.get("adsplaying")) {
+                                return;
+                            }
                             // If time pass and there is no video loaded, we need to stop timer
                             // If some videos loaded, we need to stop timer
                             if ((this.get("hideloaderafter") <= 0 && this.get("loaded").length > 0) || (this.get("loading") && this.get("loaded").length > 5)) {
@@ -415,7 +422,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     const index = video.get("index");
                     const itemElement = this.activeElement().querySelector(`li[data-index-selector="gallery-item-${index}"]`);
                     if (itemElement) {
-                        video.set("height", DOM.elementDimensions(itemElement).height);
+                        const height = DOM.elementDimensions(itemElement).height;
+                        if (height > 0) {
+                            video.setAll({
+                                height: height,
+                                display: true
+                            });
+                        }
                     }
                 },
 

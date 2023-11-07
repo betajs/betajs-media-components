@@ -47,7 +47,7 @@
         </div>
     </div>
 
-    <div ba-if="{{!adsplaying}}" class="{{cssgallerysidebar}}-container">
+    <div ba-show="{{!adsplaying}}" class="{{cssgallerysidebar}}-container">
         <div class="{{cssgallerysidebar}}-header-container">
             <div class="{{cssgallerysidebar}}-title">
                 {{gallerytitletext}}
@@ -65,10 +65,11 @@
             <div ba-if="{{loading}}" class="{{cssgallerysidebar}}-loading-container">
                 <ba-spinner></ba-spinner>
             </div>
-            <ul ba-if="{{showplaylist}}" class="{{cssgallerysidebar}}-list"
-                ba-show="{{!loading}}" ba-repeat="{{video :: videos}}"
+            <ul ba-if="{{showplaylist}}"
+                class="{{cssgallerysidebar}}-list" ba-show="{{!loading}}"
+                ba-repeat="{{video :: videos}}"
             >
-                <li ba-if="{{video.display && !(video.watched && hidevideoafterplay)}}"
+                <li ba-show="{{video.display && !(video.watched && hidevideoafterplay)}}"
                     class="{{cssgallerysidebar}}-list-item"
                     data-index="{{video.index}}"
                     data-index-selector="gallery-item-{{video.index}}"

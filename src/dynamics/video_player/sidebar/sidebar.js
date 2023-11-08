@@ -68,10 +68,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     },
                     "change:is_floating": function(floating) {
                         if (!floating) this.scrollTop();
-
-                        if (this.get("adsplaying") && this.__dyn) {
-                            this.__dyn.trigger("resize");
-                        }
                     }
                 },
 

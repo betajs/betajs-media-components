@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.418 - 2023-11-07
+betajs-media-components - v0.0.418 - 2023-11-08
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -3750,6 +3750,10 @@ div.ba-player-with-sidebar.ba-player-fullscreen-view .ba-adsplayer-controlbar, d
   position: fixed;
 }
 
+.ba-gallery-sidebar-container {
+  background-color: black;
+  color: white;
+}
 .ba-videoplayer-message-container {
   position: absolute;
   left: 0;

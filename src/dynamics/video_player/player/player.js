@@ -663,7 +663,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             return false;
                         }
                     },
-                    "containerSizingStyles:aspect_ratio,height,width,floating_height,floating_width,floating_top,floating_right,floating_bottom,floating_left,is_floating,adsinitialized,states.hiddenelement": function(aspectRatio, height, width, floatingHeight, floatingWidth, floatingTop, floatingRight, floatingBottom, floatingLeft, isFloating, adsInitialized, hiddenelement) {
+                    "containerSizingStyles:aspect_ratio,height,width,floating_height,floating_width,floating_top,floating_right,floating_bottom,floating_left,is_floating,adsinitialized,states.hiddenelement,fullscreened": function(aspectRatio, height, width, floatingHeight, floatingWidth, floatingTop, floatingRight, floatingBottom, floatingLeft, isFloating, adsInitialized, hiddenelement, fullscreened) {
                         var containerStyles, styles, calculated;
                         styles = {
                             aspectRatio: aspectRatio
@@ -671,7 +671,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (height) styles.height = isNaN(height) ? height : parseFloat(height).toFixed(2) + "px";
                         if (width) styles.width = isNaN(width) ? width : parseFloat(width).toFixed(2) + "px";
                         containerStyles = styles;
-                        if (isFloating && !this.get("fullscreened")) {
+                        if (isFloating && !fullscreened) {
                             calculated = this.__calculateFloatingDimensions();
 
                             floatingTop = floatingTop || calculated.floating_top;
@@ -720,6 +720,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 }, this.__lastContainerSizingStyles || null);
                             }
                         }
+                        if (fullscreened) { delete styles['height']; delete styles['width'];}
                         return styles;
                     },
                     "cssfloatingclasses:floatingoptions.desktop.position": function(position) {

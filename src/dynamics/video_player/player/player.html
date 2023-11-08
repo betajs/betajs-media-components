@@ -4,6 +4,8 @@
      {{cssplayer}}-{{themecolor}}-color {{cssplayer}}-device-type-{{mobileview ? 'mobile' : 'desktop'}}
      {{cssplayer}}-viewport-{{mobileviewport ? 'mobile' : 'desktop'}}
      {{is_floating ? cssfloatingclasses : ''}}
+     {{presetkey ? cssplayer + '-preset-' + presetkey : ''}}
+     {{showsidebargallery ? cssplayer + '-with-sidebar-gallery' : ''}}
      {{sidebar_active ? cssplayer + '-with-sidebar' : csscommon + '-full-width'}}
      {{cssplayer + (((activity_delta > hidebarafter) && hideoninactivity) ? '-controlbar-hidden' : '-controlbar-visible')}}"
      ba-on:mousemove="{{user_activity()}}"
@@ -17,18 +19,23 @@
     <meta itemprop="caption" content="{{title}}" />
     <meta itemprop="thumbnailUrl" content="{{thumbnailurl}}" />
     <meta itemprop="contentUrl" content="{{contenturl}}" />
-    <ba-{{dynnext}}
-        ba-if="{{next_active}}"
-        ba-is_floating="{{is_floating}}"
-        ba-with_sidebar="{{with_sidebar}}"
-        ba-playlist="{{playlist}}"
-        ba-current_video_from_playlist="{{current_video_from_playlist}}"
-        ba-position="{{position}}"
-        ba-shownext="{{shownext}}"
-        ba-noengagenext="{{noengagenext}}"
-    ></ba-{{dynnext}}>
-    <div class="{{cssplayer}}-content" data-selector="ba-player-container">
-        <div class="{{css}}-tooltips-list-container" ba-repeat="{{tooltip :: tooltips}}">
+    <div class="{{cssplayer}}-content" data-selector="ba-player-container"
+         ba-styles="{{playercontainerstyles}}"
+    >
+        <ba-{{dynnext}}
+            ba-if="{{next_active}}"
+            ba-is_floating="{{is_floating}}"
+            ba-with_sidebar="{{with_sidebar}}"
+            ba-playlist="{{playlist}}"
+            ba-current_video_from_playlist="{{current_video_from_playlist}}"
+            ba-position="{{position}}"
+            ba-shownext="{{shownext}}"
+            ba-noengagenext="{{noengagenext}}"
+            ba-showsidebargallery="{{showsidebargallery}}"
+        ></ba-{{dynnext}}>
+        <div class="{{css}}-tooltips-list-container"
+             ba-repeat="{{tooltip :: tooltips}}"
+        >
             <ba-{{dyntooltip}}
                 ba-if="{{tooltip.tooltiptext}}"
                 ba-tooltip="{{tooltip}}"
@@ -304,6 +311,7 @@
             ba-moredetailstext="{{moredetailstext}}"
             ba-adsplaying="{{adsplaying}}"
             ba-playlist="{{playlist}}"
+            ba-position="{{position}}"
             ba-shownext="{{shownext}}"
             ba-mobileviewport="{{mobileviewport}}"
             ba-event:pause_ads="pause_ads"

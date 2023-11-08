@@ -1,13 +1,13 @@
 <div class="{{cssplayer}}-toggle-next-container {{cssplayer}}-next-style-{{style}} {{(is_floating && with_sidebar) ? cssplayer + '-next-with-sidebar' : ''}}">
     <div class="{{cssplayer}}-next-button-container">
         <a class="{{cssplayer}}-next-button-stay {{cssplayer}}-next-button" ba-click="{{stay()}}">{{staytext}}</a>
-        <hr ba-if="{{style === 'desktop'}}">
-        <a class="{{cssplayer}}-next-button-next {{cssplayer}}-next-button" ba-click="{{next()}}">
+        <hr ba-if="{{style === 'desktop' && !showsidebargallery}}">
+        <a ba-if="{{!showsidebargallery}}" class="{{cssplayer}}-next-button-next {{cssplayer}}-next-button" ba-click="{{next()}}">
             <span class="{{cssplayer}}-next-progress"
                   ba-styles="{{{width: ((position - shownext) / noengagenext * 100) + '%'}}}"
             ></span>
             <span>{{nexttext}}</span>
         </a>
-        <img ba-prop:src="{{nextvideoposter}}" ba-show="{{style === 'desktop' && nextvideoposter && !hidenextvideoposter}}" />
+        <img ba-prop:src="{{nextvideoposter}}" ba-show="{{style === 'desktop' && nextvideoposter && !hidenextvideoposter && !showsidebargallery}}" />
     </div>
 </div>

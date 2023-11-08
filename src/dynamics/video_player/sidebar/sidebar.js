@@ -55,6 +55,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
 
                 events: {
                     "change:nextindex": function(nextindex) {
+                        this.__hasNotPlayedNextVideoIndex = false;
                         this.checkIndexPlayability(nextindex);
                     },
                     "change:adsplaying": function(adsPlaying) {
@@ -66,10 +67,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                         if (!fullscreened && !this.get("adsplaying")) this.scrollTop();
                     },
                     "change:is_floating": function(floating) {
-                        if (!floating) {
-                            this.scrollTop();
-                            this.proceedWithLoader()
-                        }
+                        if (!floating) this.scrollTop();
+
                         if (this.get("adsplaying") && this.__dyn) {
                             this.__dyn.trigger("resize");
                         }
@@ -110,7 +109,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                                     token: pl.token || null,
                                     height: null,
                                     display: false,
-                                    watched: index === 0
+                                    watched: false
                                 });
                             }
                         }, this);
@@ -125,6 +124,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
 
                 create: function() {
                     this.__dyn = this.parent();
+                    this.__hasNotPlayedNextVideoIndex = false;
                     this.get("videos").add_secondary_index("index");
                     this.set("states.shownext", this.get("shownext"));
                     this.set("states.gallerysidebar", this.get("gallerysidebar"));
@@ -242,11 +242,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     triggerNext = triggerNext || false;
                     let nextVideo, videoFromTop, indexFromTop, nextIndex = null;
                     const currentVideo = this.get("videos").queryOne({
-                        source: this.__dyn.get("source")
+                        source: this.__dyn.get("source"),
                     });
-                    if (!currentVideo) return;
                     const currentIndex = currentVideo ? currentVideo.get("index") : null;
-                    if (currentIndex === this.get("currentindex") && !currentVideo.get("watched")) return;
+                    if (currentIndex === this.get("currentindex") && currentVideo && currentVideo.get("display") && !currentVideo.get("watched")) {
+                        this.__hasNotPlayedNextVideoIndex = true;
+                    }
+                    if (this.__hasNotPlayedNextVideoIndex) return;
                     const iterator = this.get("videos").iterator();
                     while (iterator.hasNext()) {
                         const v = iterator.next();
@@ -298,9 +300,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     this._containerCheckTimer = this.auto_destroy(new Timer({
                         delay: 200,
                         fire: function() {
-                            if (this.get("adsplaying")) {
-                                return;
-                            }
+                            if (this.get("adsplaying")) return;
                             // If time pass and there is no video loaded, we need to stop timer
                             // If some videos loaded, we need to stop timer
                             if ((this.get("hideloaderafter") <= 0 && this.get("loaded").length > 0) || (this.get("loading") && this.get("loaded").length > 5)) {
@@ -376,6 +376,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     this.get("videos").iterate(function(video, _i) {
                         const height = video.get("height");
                         const videoIndex = video.get("index");
+                        if (!video.get("display")) return;
                         if (!height || height === 0) {
                             this.__recalculateHeight(video);
                             return;

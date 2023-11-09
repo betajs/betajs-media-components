@@ -329,6 +329,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 maxadstoshow: -1 // Maximum number of ads to show, if there's next ads or errors occurred default: -1 (unlimited)
                             }
                         },
+                        "showadsactionbuttons": false,
                         "silent_attach": false,
                         "inpipmode": false,
                         "lastplaylistitem": false,
@@ -2075,6 +2076,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 hidePlayerContainer: function() {
+                    // If outstream and we need to repeat then ignore hidePlayer
+                    if (this.get("outstream") && !this.get("outstreamoptions.hideOnCompletion")) return;
                     // If no there will be "states.hiddenelement.visible" condition, states will be overwritten
                     if (this.activeElement() && this.get("states.hiddenelement.visible")) {
                         this.set("states.hiddenelement.dimensions", Dom.elementDimensions(this.activeElement()));

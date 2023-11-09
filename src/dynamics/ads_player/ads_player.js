@@ -227,6 +227,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     }
                 },
 
+                _afterActivate: function() {},
+
                 functions: {
                     load: function() {
                         if (!this.adsManager) return this.once("dynamic-activated", function() {
@@ -329,6 +331,13 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     return this.get("muted") || this.get("volume") === 0;
                 },
 
+                destroy: function() {
+                    if (this.adsManager) {
+                        this.adsManager.destroy();
+                    }
+                    inherited.destroy.call(this);
+                },
+
                 _onStart: function(ev) {
                     this.set("playing", true);
                     this.set("currenttime", 0);
@@ -384,6 +393,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     // this._hideContentPlayer(dyn);
                     // TODO: add option for selection
                     if (dyn.get("outstreamoptions")) {
+                        // Will handle via player State on ads completion
                         if (dyn.get("outstreamoptions").hideOnCompletion) {
                             this._hideContentPlayer(dyn);
                             return;
@@ -595,6 +605,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     dyn = dyn || this.parent();
                     if (Types.is_undefined(dyn.activeElement))
                         throw Error("Wrong dynamics instance was provided to _hideContentPlayer");
+                    dyn.set("outstreamoptions.hideOnCompletion", true);
                     this._hideCompanionAd();
                     dyn.hidePlayerContainer();
                     // dyn.weakDestroy(); // << Create will not work as expected

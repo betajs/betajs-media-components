@@ -227,8 +227,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     }
                 },
 
-                _afterActivate: function() {},
-
                 functions: {
                     load: function() {
                         if (!this.adsManager) return this.once("dynamic-activated", function() {
@@ -329,13 +327,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                 getAdWillPlayMuted: function() {
                     return this.get("muted") || this.get("volume") === 0;
-                },
-
-                destroy: function() {
-                    if (this.adsManager) {
-                        this.adsManager.destroy();
-                    }
-                    inherited.destroy.call(this);
                 },
 
                 _onStart: function(ev) {

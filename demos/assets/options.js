@@ -44,8 +44,7 @@ if (params.ad) {
             attrs.adtagurl = 'https://static.kargovideo.com/playground/public/samples/kargo_with_non_linear.xml';
             break;
         case 5: case '5': case 'os': // with nonLinear
-            attrs.adtagurl = companion;
-            // attrs.adtagurl = 'https://ads.celtra.com/f41e9364/vpaid/vast.xml';
+            attrs.adtagurl = 'https://ads.celtra.com/f41e9364/vpaid/vast.xml';
             break;
         case 6: case '6': case 'companion': case 'cmp': // with Companion Ads
             attrs.adtagurl = companion;

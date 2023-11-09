@@ -329,7 +329,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 maxadstoshow: -1 // Maximum number of ads to show, if there's next ads or errors occurred default: -1 (unlimited)
                             }
                         },
-                        "showadsactionbuttons": false,
                         "silent_attach": false,
                         "inpipmode": false,
                         "lastplaylistitem": false,

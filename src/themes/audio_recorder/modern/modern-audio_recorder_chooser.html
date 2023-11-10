@@ -2,7 +2,7 @@
 
 	<div class="{{css}}-chooser-button-container">
 
-		<div class="{{css}}-chooser-icon-container">
+		<div ba-if="{{actions.first()}}" class="{{css}}-chooser-icon-container">
 			<i class="{{csscommon}}-icon-{{actions.first().get('icon')}}"></i>
 		</div>
 		<div ba-repeat="{{action :: actions}}">

@@ -622,14 +622,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (hidebeforeadstarts && adshassource) return !adsinitialized;
                         return false;
                     },
-                    "containerSizingStyles:aspect_ratio,height,width,mobileviewport,is_floating,hideplayer,corner": function(
+                    "containerSizingStyles:aspect_ratio,height,width,mobileviewport,is_floating,hideplayer,corner,floatingoptions.floatingonly": function(
                         aspectRatio,
                         height,
                         width,
                         mobileviewport,
                         isFloating,
                         hidden,
-                        corner
+                        corner,
+                        floatingonly
                     ) {
                         var containerStyles, styles, calculated;
                         styles = {
@@ -637,7 +638,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         };
                         if (height) styles.height = isNaN(height) ? height : parseFloat(height).toFixed(2) + "px";
                         if (width) styles.width = isNaN(width) ? width : parseFloat(width).toFixed(2) + "px";
-                        containerStyles = Objs.extend({}, styles);
+                        containerStyles = floatingonly ? {} : Objs.extend({}, styles);
                         if (corner) styles.borderRadius = corner;
                         if (isFloating) {
                             calculated = this.__calculateFloatingDimensions();
@@ -926,9 +927,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.delegateEvents(null, this.stickyHandler);
                         this.stickyHandler.init();
                     }
-
-                    this._applyStyles(this.activeElement(), this.get("containerSizingStyles"));
-                    this.__lastContainerSizingStyles = this.get("containerSizingStyles");
                 },
 
                 initMidRollAds: function() {

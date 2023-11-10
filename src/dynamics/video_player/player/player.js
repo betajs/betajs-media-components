@@ -598,24 +598,31 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (!this.__adInitilizeChecker && this.get("showplayercontentafter")) {
                                 this.__adInitilizeChecker = Async.eventually(function() {
                                     if (!this.get("adsinitialized")) this.set("adsinitialized", true);
-                                    this.set("hidden", false);
                                 }, this, this.get("showplayercontentafter"));
                             }
                             this.once("ad:adCanPlay", function() {
                                 if (this.__adInitilizeChecker) this.__adInitilizeChecker.clear();
                                 this.set("adsinitialized", true);
-                                this.set("hidden", false);
                             });
                             this.once("ad:ad-error", function() {
                                 if (this.__adInitilizeChecker) this.__adInitilizeChecker.clear();
                                 this.set("adsinitialized", true);
-                                this.set("hidden", false);
                             }, this);
                         } else {
                             return false;
                         }
                     },
-                    "containerSizingStyles:aspect_ratio,height,width,mobileviewport,is_floating,hidden,corner": function(
+                    "hideplayer:adshassource,adsinitialized,hidden,hidebeforeadstarts": function(
+                        adshassource,
+                        adsinitialized,
+                        hidden,
+                        hidebeforeadstarts
+                    ) {
+                        if (hidden) return hidden;
+                        if (hidebeforeadstarts && adshassource) return !adsinitialized;
+                        return false;
+                    },
+                    "containerSizingStyles:aspect_ratio,height,width,mobileviewport,is_floating,hideplayer,corner": function(
                         aspectRatio,
                         height,
                         width,
@@ -711,10 +718,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (this.destroyed()) return;
                             this.set("autoplaywhenvisible", false);
                         }, this);
-                    }
-                    if (this.get("hidebeforeadstarts")) {
-                        this.set("hidden", true);
-                        this.set("hidebeforeadstarts", false);
                     }
                     this.__attachPlayerInteractionEvents();
                     this._dataset = this.auto_destroy(new DatasetProperties(this.activeElement()));

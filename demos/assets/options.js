@@ -189,7 +189,7 @@ attrs = {...attrs, ...{
             // maxadstoshow: 0 // Maximum number of ads to show; default: -1 (unlimited)
             // moreURL: "https://ziggeo.com",
             moreText: "Read more about Ziggeo",
-            // hideOnCompletion: false,
+            hideOnCompletion: false,
             // corner: false
             // corner: "30px",
             allowRepeat: true,

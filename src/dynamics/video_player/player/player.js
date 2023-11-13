@@ -643,10 +643,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (isFloating) {
                             calculated = this.__calculateFloatingDimensions();
 
-                            floatingTop = calculated.floating_top;
-                            floatingBottom = calculated.floating_bottom;
-                            floatingRight = calculated.floating_right;
-                            floatingLeft = calculated.floating_left;
+                            var floatingTop = calculated.floating_top;
+                            var floatingBottom = calculated.floating_bottom;
+                            var floatingRight = calculated.floating_right;
+                            var floatingLeft = calculated.floating_left;
 
                             if (floatingTop !== undefined) styles.top = parseFloat(floatingTop).toFixed() + 'px';
                             if (floatingRight !== undefined) styles.right = parseFloat(floatingRight).toFixed() + 'px';

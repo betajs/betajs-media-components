@@ -69,8 +69,15 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 _deferActivate: function() {
                     if (this._loadedSDK) return false;
                     IMALoader.loadSDK().success(function() {
-                        this._loadedSDK = true;
-                        this.activate();
+                        if (this.__iasConfig()) {
+                            IMALoader.loadIAS().success(function () {
+                                this._loadedSDK = true;
+                                this.activate();
+                            }, this);
+                        } else {
+                            this._loadedSDK = true;
+                            this.activate();    
+                        }
                     }, this);
                     return true;
                 },
@@ -170,6 +177,10 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     }
                 },
 
+                __iasConfig: function () {
+                    return this.parent().get("ias-config");
+                },
+
                 create: function() {
                     var dynamics = this.parent();
                     var adContainer = this.getAdContainer();
@@ -197,6 +208,11 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     this.adsManager.on("all", function(event, data) {
                         if (event === "adsManagerLoaded") {
                             this.set("adsmanagerloaded", true);
+                            if (this.__iasConfig() && typeof googleImaVansAdapter !== "undefined") {
+                                googleImaVansAdapter.init(google, this.adsManager, this.getVideoElement(), Objs.extend({
+                                    "campId": (this.getAdWidth() || 640) + "x" + (this.getAdHeight() || 360)
+                                }, this.__iasConfig));
+                            }
                             // Makes active element not redirect to click through URL on first click
                             // if (!dynamics.get("userhadplayerinteraction") && dynamics.activeElement() && this.get("unmuteonclick")) {
                             //     dynamics.once("change:userhadplayerinteraction", function(hasInteraction) {

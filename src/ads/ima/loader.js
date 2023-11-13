@@ -34,6 +34,23 @@ Scoped.define("module:Ads.IMALoader", [
             return promise;
         },
 
+        loadIAS: function() {
+            var promise = Promise.create();
+            try {
+                if (typeof googleImaVansAdapter === "undefined") {
+                    Loader.loadScript('https://static.adsafeprotected.com/vans-adapter-google-ima.js', function() {
+                        promise.asyncSuccess(true);
+                    }, this);
+                } else {
+                    promise.asyncSuccess(true);
+                }
+            } catch (e) {
+                promise.asyncError(e);
+            }
+            return promise;
+        },
+
+
         /**
          *
          * @param options

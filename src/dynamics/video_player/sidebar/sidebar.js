@@ -35,9 +35,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                         if (this.get("companionads") && this.get("companionads").length > 0) {
                             this.__generateCompanionAdContent();
                         } else {
-                            this.auto_destroy(this.on("change:companionads", function(companionads) {
+                            this.on("change:companionads", function(companionads) {
                                 this.__generateCompanionAdContent(companionads);
-                            }, this), this);
+                            }, this);
                         }
                     }
                 },

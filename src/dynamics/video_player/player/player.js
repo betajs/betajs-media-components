@@ -2075,8 +2075,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 hidePlayerContainer: function() {
-                    // If outstream and we need to repeat then ignore hidePlayer
-                    if (this.get("outstream") && !this.get("outstreamoptions.hideOnCompletion")) return;
                     // If no there will be "states.hiddenelement.visible" condition, states will be overwritten
                     if (this.activeElement() && this.get("states.hiddenelement.visible")) {
                         this.set("states.hiddenelement.dimensions", Dom.elementDimensions(this.activeElement()));
@@ -2092,10 +2090,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.get("playing")) {
                             this.pause();
                             this.set("states.hiddenelement.playing", true);
-                        }
-                        // Will set user preset hideOnCompletion state
-                        if (this.get("state.outstreamoptions")) {
-                            this.set("outstreamoptions.hideOnCompletion", this.get("state.outstreamoptions.hideOnCompletion"));
                         }
                     }
                 },

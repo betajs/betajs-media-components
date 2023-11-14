@@ -157,6 +157,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "visibilityfraction": 0.8,
                         /* Configuration */
                         "reloadonplay": false,
+                        "ias-config": undefined,
                         "playonclick": true,
                         "pauseonclick": true,
                         "unmuteonclick": false,
@@ -406,6 +407,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "outstreamoptions": "json",
                     "initialseek": "float",
                     "fullscreened": "boolean",
+                    "ias-config": "json",
                     "sharevideo": "array",
                     "sharevideourl": "string",
                     "playfullscreenonmobile": "boolean",

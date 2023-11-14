@@ -121,7 +121,10 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this._onAdComplete(ev);
                     },
                     "ads:allAdsCompleted": function() {
-                        if (this.parent() && this.parent().get("outstreamoptions").noEndCard) return;
+                        if (this.parent() && (
+                                this.parent().get("outstreamoptions").noEndCard ||
+                                this.parent().get("outstreamoptions.allowRepeat")
+                            )) return;
                         this.call("reset");
                     },
                     "ads:discardAdBreak": function() {
@@ -381,25 +384,27 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     dyn = dyn || this.parent();
                     if (Types.is_undefined(dyn.activeElement))
                         throw Error("Wrong dynamics instance was provided to _outstreamCompleted");
-                    // this._hideContentPlayer(dyn);
                     // TODO: add option for selection
+
                     if (dyn.get("outstreamoptions")) {
-                        if (dyn.get("outstreamoptions").hideOnCompletion) {
+                        // Will handle via player State on ads completion
+                        if (dyn.get("outstreamoptions.hideOnCompletion")) {
                             this._hideContentPlayer(dyn);
                             return;
-                        }
-                        if (dyn.get("outstreamoptions").noEndCard) return;
-                        if (dyn.get("outstreamoptions").moreURL) {
-                            this.set("moredetailslink", dyn.get("outstreamoptions").moreURL);
-                        }
-                        if (dyn.get("outstreamoptions").moreText) {
-                            this.set("moredetailstext", dyn.get("outstreamoptions").moreText);
-                        }
-                        if (dyn.get("outstreamoptions").allowRepeat) {
-                            this.set("showrepeatbutton", !!dyn.get("outstreamoptions").allowRepeat);
-                        }
-                        if (dyn.get("outstreamoptions").repeatText) {
-                            this.set("repeatbuttontext", dyn.get("outstreamoptions").repeatText);
+                        } else {
+                            if (dyn.get("outstreamoptions.noEndCard")) return;
+                            if (dyn.get("outstreamoptions.moreURL")) {
+                                this.set("moredetailslink", dyn.get("outstreamoptions.moreURL"));
+                            }
+                            if (dyn.get("outstreamoptions.moreText")) {
+                                this.set("moredetailstext", dyn.get("outstreamoptions.moreText"));
+                            }
+                            if (dyn.get("outstreamoptions.allowRepeat")) {
+                                this.set("showrepeatbutton", !!dyn.get("outstreamoptions.allowRepeat"));
+                            }
+                            if (dyn.get("outstreamoptions.repeatText")) {
+                                this.set("repeatbuttontext", dyn.get("outstreamoptions.repeatText"));
+                            }
                         }
                     }
                     this.set("showactionbuttons", true);

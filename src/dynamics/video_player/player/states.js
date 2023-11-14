@@ -440,7 +440,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Outstream", [
         },
 
         _nextState: function() {
-            if (this.dyn.get("is_floating")) {
+            if (this.dyn.get("is_floating") || this.dyn.get("userhadplayerinteraction")) {
                 if (!this.destroyed())
                     this.next("LoadAds", {
                         position: 'outstream'
@@ -570,7 +570,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream", [
             if (this.dyn.get("outstreamoptions.maxadstoshow") !== 0) {
                 this.dyn.setNextOutstreamAdTagURL(false, this, "LoadPlayer");
             } else {
-                this.dyn.hidePlayerContainer();
+                if (this.dyn.get("outstreamoptions.hideOnCompletion")) this.dyn.hidePlayerContainer();
             }
             this.dyn.trigger("outstream-completed");
             // Somehow below code is running even this.dyn is undefined and this states checked in the above statement

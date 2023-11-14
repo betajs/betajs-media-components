@@ -188,12 +188,13 @@ attrs = {...attrs, ...{
             // maxadstoshow: -1 // Maximum number of ads to show; default: -1 (unlimited)
             // maxadstoshow: 0 // Maximum number of ads to show; default: -1 (unlimited)
             // moreURL: "https://ziggeo.com",
-            // moreText: "Read more about Ziggeo",
-            // hideOnCompletion: true,
+            moreText: "Read more about Ziggeo",
+            hideOnCompletion: false,
             // corner: false
             // corner: "30px",
-            // allowRepeat: false,
-            // repeatText: "repeatText"
+            allowRepeat: true,
+            noEndCard: false,
+            repeatText: "Custom Repeat",
         },
         floatingoptions: {...attrs.floatingoptions, ...{
             showcompanionad: true,
@@ -220,7 +221,7 @@ attrs = {...attrs, ...{
                 height: 150,
                 bottom: 20,
                 companionad: false, //"[]|bottom", //"[]|top", // true
-                sidebar: true,
+                // sidebar: true,
 
                 // size: "xl",
                 // availablesizes: {

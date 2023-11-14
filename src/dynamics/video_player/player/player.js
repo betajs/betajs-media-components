@@ -2264,6 +2264,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("skipinitial", false);
                         this.set("unmuteonclick", !this.get("repeatedplayer"));
                         this.set("outstreamoptions", Objs.tree_merge(this.get("initialoptions").outstreamoptions, this.get("outstreamoptions")));
+                        // will store user set options for outstream
+                        this.set("states.outstreamoptions", this.get("outstreamoptions"));
                         if (this.get("repeatedplayer")) {
                             this.set("wait-user-interaction", false);
                             this.set("autoplay-requires-muted", false);

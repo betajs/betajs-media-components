@@ -534,10 +534,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             return;
                         if (position - old > 1) return this.channel("next").trigger("setStay");
                         if (Array.isArray(this.get("playlist")) && this.get("playlist").length > 0) {
-                            if (position > this.get("shownext") && this.get("shownext") > 0 && !this.get("next_active")) {
+                            const showNextTime = Number(this.get("shownext")) || 0;
+                            const engageTime = showNextTime + (Number(this.get("noengagenext")) || 0);
+                            if (position > showNextTime && showNextTime && !this.get("next_active")) {
                                 this.set("next_active", true);
                             }
-                            if (position > this.get("shownext") + this.get("noengagenext") && this.get("shownext") + this.get("noengagenext") > 0) {
+                            if (position > engageTime && engageTime > 0) {
                                 this.channel("next").trigger("autoPlayNext");
                                 this.channel("next").trigger("playNext");
                             }

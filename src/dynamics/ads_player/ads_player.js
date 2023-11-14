@@ -70,13 +70,13 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     if (this._loadedSDK) return false;
                     IMALoader.loadSDK().success(function() {
                         if (this.__iasConfig()) {
-                            IMALoader.loadIAS().success(function () {
+                            IMALoader.loadIAS().success(function() {
                                 this._loadedSDK = true;
                                 this.activate();
                             }, this);
                         } else {
                             this._loadedSDK = true;
-                            this.activate();    
+                            this.activate();
                         }
                     }, this);
                     return true;
@@ -180,7 +180,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     }
                 },
 
-                __iasConfig: function () {
+                __iasConfig: function() {
                     return this.parent().get("ias-config");
                 },
 

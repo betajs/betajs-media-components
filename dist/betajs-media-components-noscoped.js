@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.419 - 2023-11-14
+betajs-media-components - v0.0.420 - 2023-11-14
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.419",
-    "datetime": 1699973822714
+    "version": "0.0.420",
+    "datetime": 1699990044732
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -248,6 +248,23 @@ Scoped.define("module:Ads.IMALoader", [
 
             return promise;
         },
+
+        loadIAS: function() {
+            var promise = Promise.create();
+            try {
+                if (typeof googleImaVansAdapter === "undefined") {
+                    Loader.loadScript('https://static.adsafeprotected.com/vans-adapter-google-ima.js', function() {
+                        promise.asyncSuccess(true);
+                    }, this);
+                } else {
+                    promise.asyncSuccess(true);
+                }
+            } catch (e) {
+                promise.asyncError(e);
+            }
+            return promise;
+        },
+
 
         /**
          *
@@ -2449,8 +2466,15 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 _deferActivate: function() {
                     if (this._loadedSDK) return false;
                     IMALoader.loadSDK().success(function() {
-                        this._loadedSDK = true;
-                        this.activate();
+                        if (this.__iasConfig()) {
+                            IMALoader.loadIAS().success(function() {
+                                this._loadedSDK = true;
+                                this.activate();
+                            }, this);
+                        } else {
+                            this._loadedSDK = true;
+                            this.activate();
+                        }
                     }, this);
                     return true;
                 },
@@ -2501,7 +2525,10 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this._onAdComplete(ev);
                     },
                     "ads:allAdsCompleted": function() {
-                        if (this.parent() && this.parent().get("outstreamoptions").noEndCard) return;
+                        if (this.parent() && (
+                                this.parent().get("outstreamoptions").noEndCard ||
+                                this.parent().get("outstreamoptions.allowRepeat")
+                            )) return;
                         this.call("reset");
                     },
                     "ads:discardAdBreak": function() {
@@ -2550,6 +2577,10 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     }
                 },
 
+                __iasConfig: function() {
+                    return this.parent().get("ias-config");
+                },
+
                 create: function() {
                     var dynamics = this.parent();
                     var adContainer = this.getAdContainer();
@@ -2577,6 +2608,11 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     this.adsManager.on("all", function(event, data) {
                         if (event === "adsManagerLoaded") {
                             this.set("adsmanagerloaded", true);
+                            if (this.__iasConfig() && typeof googleImaVansAdapter !== "undefined") {
+                                googleImaVansAdapter.init(google, this.adsManager, this.getVideoElement(), Objs.extend({
+                                    "campId": (this.getAdWidth() || 640) + "x" + (this.getAdHeight() || 360)
+                                }, this.__iasConfig));
+                            }
                             // Makes active element not redirect to click through URL on first click
                             // if (!dynamics.get("userhadplayerinteraction") && dynamics.activeElement() && this.get("unmuteonclick")) {
                             //     dynamics.once("change:userhadplayerinteraction", function(hasInteraction) {
@@ -2761,25 +2797,27 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     dyn = dyn || this.parent();
                     if (Types.is_undefined(dyn.activeElement))
                         throw Error("Wrong dynamics instance was provided to _outstreamCompleted");
-                    // this._hideContentPlayer(dyn);
                     // TODO: add option for selection
+
                     if (dyn.get("outstreamoptions")) {
-                        if (dyn.get("outstreamoptions").hideOnCompletion) {
+                        // Will handle via player State on ads completion
+                        if (dyn.get("outstreamoptions.hideOnCompletion")) {
                             this._hideContentPlayer(dyn);
                             return;
-                        }
-                        if (dyn.get("outstreamoptions").noEndCard) return;
-                        if (dyn.get("outstreamoptions").moreURL) {
-                            this.set("moredetailslink", dyn.get("outstreamoptions").moreURL);
-                        }
-                        if (dyn.get("outstreamoptions").moreText) {
-                            this.set("moredetailstext", dyn.get("outstreamoptions").moreText);
-                        }
-                        if (dyn.get("outstreamoptions").allowRepeat) {
-                            this.set("showrepeatbutton", !!dyn.get("outstreamoptions").allowRepeat);
-                        }
-                        if (dyn.get("outstreamoptions").repeatText) {
-                            this.set("repeatbuttontext", dyn.get("outstreamoptions").repeatText);
+                        } else {
+                            if (dyn.get("outstreamoptions.noEndCard")) return;
+                            if (dyn.get("outstreamoptions.moreURL")) {
+                                this.set("moredetailslink", dyn.get("outstreamoptions.moreURL"));
+                            }
+                            if (dyn.get("outstreamoptions.moreText")) {
+                                this.set("moredetailstext", dyn.get("outstreamoptions.moreText"));
+                            }
+                            if (dyn.get("outstreamoptions.allowRepeat")) {
+                                this.set("showrepeatbutton", !!dyn.get("outstreamoptions.allowRepeat"));
+                            }
+                            if (dyn.get("outstreamoptions.repeatText")) {
+                                this.set("repeatbuttontext", dyn.get("outstreamoptions.repeatText"));
+                            }
                         }
                     }
                     this.set("showactionbuttons", true);
@@ -4094,6 +4132,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "visibilityfraction": 0.8,
                         /* Configuration */
                         "reloadonplay": false,
+                        "ias-config": undefined,
                         "playonclick": true,
                         "pauseonclick": true,
                         "unmuteonclick": false,
@@ -4343,6 +4382,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "outstreamoptions": "json",
                     "initialseek": "float",
                     "fullscreened": "boolean",
+                    "ias-config": "json",
                     "sharevideo": "array",
                     "sharevideourl": "string",
                     "playfullscreenonmobile": "boolean",
@@ -6201,6 +6241,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("skipinitial", false);
                         this.set("unmuteonclick", !this.get("repeatedplayer"));
                         this.set("outstreamoptions", Objs.tree_merge(this.get("initialoptions").outstreamoptions, this.get("outstreamoptions")));
+                        // will store user set options for outstream
+                        this.set("states.outstreamoptions", this.get("outstreamoptions"));
                         if (this.get("repeatedplayer")) {
                             this.set("wait-user-interaction", false);
                             this.set("autoplay-requires-muted", false);
@@ -7096,7 +7138,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Outstream", [
         },
 
         _nextState: function() {
-            if (this.dyn.get("is_floating")) {
+            if (this.dyn.get("is_floating") || this.dyn.get("userhadplayerinteraction")) {
                 if (!this.destroyed())
                     this.next("LoadAds", {
                         position: 'outstream'
@@ -7226,7 +7268,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream", [
             if (this.dyn.get("outstreamoptions.maxadstoshow") !== 0) {
                 this.dyn.setNextOutstreamAdTagURL(false, this, "LoadPlayer");
             } else {
-                this.dyn.hidePlayerContainer();
+                if (this.dyn.get("outstreamoptions.hideOnCompletion")) this.dyn.hidePlayerContainer();
             }
             this.dyn.trigger("outstream-completed");
             // Somehow below code is running even this.dyn is undefined and this states checked in the above statement

@@ -590,7 +590,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (Types.is_boolean(c)) return "10px";
                         return (Types.is_string(c) ? parseFloat(c.replace(/\D/g, '')).toFixed() : c) + 'px';
                     },
-                    "sidebar_active:is_floating,with_sidebar,showsidebargallery,fullscreened,mobileviewport,playlist": function(isFloating, withSidebar, showSidebarGallery, fullscreened, mobileViewport,playlist) {
+                    "sidebar_active:is_floating,with_sidebar,showsidebargallery,fullscreened,mobileviewport,playlist": function(isFloating, withSidebar, showSidebarGallery, fullscreened, mobileViewport, playlist) {
                         this.set("floatingsidebar", isFloating && withSidebar);
                         this.set("gallerysidebar", showSidebarGallery && !isFloating && (Types.is_defined(mobileViewport) && !mobileViewport));
                         if (fullscreened) return false;

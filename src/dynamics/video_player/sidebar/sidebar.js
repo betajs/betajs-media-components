@@ -62,7 +62,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                             if (this.get('videos').get_by_secondary_index('index', index)) return;
                             if (Types.is_object(pl)) {
                                 this.get("videos").add({
-                                    index: pl.token || index,
+                                    index: index,
                                     title: pl.title,
                                     poster: pl.poster,
                                     token: pl.token || null,

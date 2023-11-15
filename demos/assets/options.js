@@ -154,7 +154,11 @@ const availablepresetoptions = {
     }, 'l': {
         width: 670.25,
         height: 288,
-        showsidebargallery: true
+        showsidebargallery: true,
+        videofitstrategy: 'crop',
+        // 'sidebaroptions.presetwidth': 33,
+        'sidebaroptions.presetwidth': null,
+        'sidebaroptions.preferredratio': "16:9", //0.5,
     }, 'xl': {
         width: 838,
         height: 360,
@@ -294,6 +298,8 @@ attrs = {...attrs, ...{
             "headerlogourl": "https://betajs.com",
             "headerlogoimgurl": "https://betajs.com/assets/img/logo_home.png",
             "headerlogoname": "Beta JS",
+            // presetwidth: null,
+            presetwidth: 25,
         },
         availablepresetoptions: availablepresetoptions,
         // fitonwidth: true,

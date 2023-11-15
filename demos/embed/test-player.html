@@ -201,6 +201,9 @@
         // ['autoplay', 'skipinitial','autoplaywhenvisible', 'outstream'].forEach(key => {
         //     console.log(`${key} = ${player.get(key)}\n`);
         // });
+        ['sidebaroptions'].forEach(key => {
+            console.log(`${key} = ${JSON.stringify(player.get(key))}\n`);
+        });
         playerInstance.on("fullscreen-change", function (isFullscreen) {
             console.log('is Full', isFullscreen);
         }, this);

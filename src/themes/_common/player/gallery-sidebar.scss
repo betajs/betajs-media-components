@@ -1,5 +1,11 @@
 // NOTE: Don't put to deeper, to be able to override
 
+.#{$cssplayer}-with-sidebar-gallery {
+    .#{$cssplayer}-content {
+        position: relative;
+    }
+}
+
 // Gallery slider related styles
 .#{$cssgallerysidebar}-ads-header-container,
 .#{$cssgallerysidebar}-header-container {

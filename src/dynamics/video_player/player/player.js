@@ -104,9 +104,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             "headerlogourl": null,
                             "headerlogoimgurl": null,
                             "headerlogoname": null,
+                            "fluid": false, // when set to true, when we have no presetwidth, then sidebar will be changed based on video width
+                            "preferredratio": 1.778, // if set, then sidebar will be resized based on video container ratio, 16/9(=1.778), 4/3(1.333), 1/1, 9/16(0.5625), 3/4(0.75)
                             // if set to true, companion ad will be shown on sidebar if it's exits
                             "showcompanionad": false,
-                            "hidevideoafterplay": false
+                            "hidevideoafterplay": false,
                         },
                         "popup-width": "",
                         "popup-height": "",
@@ -610,29 +612,78 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         return this.get("floatingsidebar") || this.get("gallerysidebar");
                     },
-                    "playercontainerstyles:sidebar_active,gallerysidebar,sidebaroptions.presetwidth,fullscreened": function(sideBarActive, gallerySidebar, sidebarPresetWidth, fullscreened) {
-                        // Only if sidebarPresetWidth
-                        if (typeof sidebarPresetWidth === "string") {
-                            sidebarPresetWidth = sidebarPresetWidth.includes("%") ?
-                                parseFloat(sidebarPresetWidth).toFixed(2) :
-                                sidebarPresetWidth;
-                        }
-                        if (sideBarActive && gallerySidebar && sidebarPresetWidth) {
-                            var width = typeof sidebarPresetWidth === "number" ? ((100 - sidebarPresetWidth) + "%") : `calc(100% - ${sidebarPresetWidth})`;
-                            if (window && window.CSS) {
-                                var styles = window.CSS.supports("width", width);
+                    "playercontainerstyles:sidebar_active,gallerysidebar,sidebaroptions.presetwidth,fullscreened,videowidth": function(sideBarActive, gallerySidebar, sidebarPresetWidth, fullscreened, videoWidth) {
+                        let width, styles;
+                        if (sideBarActive && gallerySidebar && !fullscreened) {
+                            if (typeof sidebarPresetWidth === "string") {
+                                sidebarPresetWidth = sidebarPresetWidth.includes("%") ?
+                                    parseFloat(sidebarPresetWidth).toFixed(2) :
+                                    sidebarPresetWidth;
                             }
-                            if (width && Types.is_defined(styles) && styles) {
-                                this.set("controlbarstyles", {
-                                    width: fullscreened ? '100%' : width
-                                });
-                                return {
-                                    width: fullscreened ? '100%' : width,
-                                    position: 'relative'
-                                };
+                            if (sidebarPresetWidth) {
+                                if (!width) width = typeof sidebarPresetWidth === "number" ? ((100 - sidebarPresetWidth) + "%") : `calc(100% - ${sidebarPresetWidth})`;
+                                if (window && window.CSS) {
+                                    styles = window.CSS.supports("width", width);
+                                }
+                                if (width && Types.is_defined(styles) && styles) {
+                                    this.set("controlbarstyles", {
+                                        width: width
+                                    });
+                                    return {
+                                        width: width,
+                                        position: 'relative'
+                                    };
+                                }
+                            } else if (videoWidth && this.__video && this.get("width") && this.activeElement()) {
+                                let sidebarWidth;
+                                const videoWidthInNumber = Dom.elementDimensions(this.__video).width;
+                                const videoHeightInNumber = Dom.elementDimensions(this.__video).height;
+                                const playerContainerWidthInNumber = Dom.elementDimensions(this.activeElement()).width;
+                                const playerContainerHeightInNumber = Dom.elementDimensions(this.activeElement()).height;
+                                if (playerContainerHeightInNumber > 0 && videoHeightInNumber) {
+                                    if (this.get("sidebaroptions.preferredratio")) {
+                                        let _ar = this.get("sidebaroptions.preferredratio");
+                                        if (Types.is_string(_ar)) {
+                                            if (_ar.includes("/"))
+                                                _ar = parseFloat(_ar.split("/").reduce((a, b) => a / b));
+                                            else if (_ar.includes(":"))
+                                                _ar = parseFloat(_ar.split(":").reduce((a, b) => a / b));
+                                        }
+                                        _ar = Number(parseFloat(_ar).toFixed(2));
+                                        if (typeof _ar === "number") {
+                                            sidebarWidth = playerContainerWidthInNumber - (playerContainerHeightInNumber * _ar);
+                                        }
+                                    }
+                                    if (sidebarWidth && sidebarWidth > 0) {
+                                        // if sidebar non-fluid, we will calculate based on preferred ar or first video we're getting
+                                        if (!this.get('sidebaroptions.fluid')) {
+                                            this.set("sidebaroptions.presetwidth", sidebarWidth + "px");
+                                        }
+                                        this.set("sidebarstyles", {
+                                            maxWidth: sidebarWidth + 'px',
+                                        });
+                                        this.set("controlbarstyles", {
+                                            maxWidth: (playerContainerWidthInNumber - sidebarWidth) + 'px',
+                                        });
+                                        return {
+                                            minWidth: (playerContainerWidthInNumber - sidebarWidth) + 'px',
+                                            flexBasis: 0,
+                                        };
+                                    } else if (videoWidthInNumber) {
+                                        this.set("controlbarstyles", {
+                                            maxWidth: videoWidthInNumber + 'px',
+                                        });
+                                        return {
+                                            minWidth: videoWidthInNumber + 'px',
+                                        };
+                                    }
+                                }
                             }
                         }
-                        return {}
+                        // reset styles
+                        this.set("sidebarstyles", {});
+                        this.set("controlbarstyles", {});
+                        return {};
                     },
                     "adsinitialized:playing,adtagurl,inlinevastxml": function(playing, adsTagURL, inlineVastXML) {
                         if (this.get("adsinitialized")) {
@@ -2386,7 +2437,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         var presets = multiPresets[presetKey];
                         if (presets && Types.is_object(presets)) {
                             Objs.iter(presets, function(v, k) {
-                                if (Types.is_defined(this.attrs()[k])) this.set(k, v);
+                                // if key already preset in root level, and key contains object key separated via dots
+                                if (Types.is_defined(this.attrs()[k]) || (Types.is_string(k) && k.includes('.')))
+                                    this.set(k, v);
                             }, this);
                         } else {
                             console.warn("Make sure that 'presetOption' and 'availablepresetoptions' are set correctly.");

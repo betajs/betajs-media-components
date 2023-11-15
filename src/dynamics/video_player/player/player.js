@@ -685,7 +685,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         corner,
                         floatingonly
                     ) {
-                        var containerStyles, styles, calculated;
+                        let containerStyles, styles;
                         styles = {
                             aspectRatio: aspectRatio
                         };
@@ -694,20 +694,20 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         containerStyles = floatingonly ? {} : Objs.extend({}, styles);
                         if (corner) styles.borderRadius = corner;
                         if (isFloating) {
-                            calculated = this.__calculateFloatingDimensions();
+                            const calculated = this.__calculateFloatingDimensions();
 
-                            var floatingTop = calculated.floating_top;
-                            var floatingBottom = calculated.floating_bottom;
-                            var floatingRight = calculated.floating_right;
-                            var floatingLeft = calculated.floating_left;
+                            const floatingTop = calculated.floating_top;
+                            const floatingBottom = calculated.floating_bottom;
+                            const floatingRight = calculated.floating_right;
+                            const floatingLeft = calculated.floating_left;
 
                             if (floatingTop !== undefined) styles.top = parseFloat(floatingTop).toFixed() + 'px';
                             if (floatingRight !== undefined) styles.right = parseFloat(floatingRight).toFixed() + 'px';
                             if (floatingBottom !== undefined) styles.bottom = parseFloat(floatingBottom).toFixed() + 'px';
                             if (floatingLeft !== undefined) styles.left = parseFloat(floatingLeft).toFixed() + 'px';
 
-                            floatingWidth = calculated.floating_width;
-                            floatingHeight = calculated.floating_height;
+                            const floatingWidth = calculated.floating_width;
+                            const floatingHeight = calculated.floating_height;
 
                             if (floatingWidth) styles.width = isNaN(floatingWidth) ? floatingWidth : parseFloat(floatingWidth).toFixed(2) + "px";
                             if (floatingHeight) styles.height = isNaN(floatingHeight) ? floatingHeight : parseFloat(floatingHeight).toFixed(2) + "px";

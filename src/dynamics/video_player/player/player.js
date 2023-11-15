@@ -759,6 +759,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }, this);
                     }
                     this.__attachPlayerInteractionEvents();
+                    this.__mergeDeepAttributes();
                     this._dataset = this.auto_destroy(new DatasetProperties(this.activeElement()));
                     this._dataset.bind("layout", this.properties());
                     this._dataset.bind("placement", this.properties());
@@ -2324,12 +2325,22 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }
                 },
 
+                /**
+                 * Will merge attributes from the user with the default/initial attributes
+                 * @private
+                 */
+                __mergeDeepAttributes: function() {
+                    Objs.iter([
+                        'floatingoptions', 'outstreamoptions', 'sidebaroptions'
+                    ], function(k) {
+                        if (Types.is_object(this.get(k))) {
+                            this.set(k, Objs.tree_merge(this.attrs()[k], this.get(k)));
+                        }
+                    }, this);
+                },
+
                 /** @private */
                 __initFloatingOptions: function() {
-                    this.set("floatingoptions", Objs.tree_merge(
-                        this.attrs().floatingoptions,
-                        this.get("floatingoptions")
-                    ));
                     Objs.iter(["mobile", "desktop"], function(view) {
                         var _floatingoptions = this.get("floatingoptions")[view];
                         if (_floatingoptions && _floatingoptions.size && _floatingoptions.availablesizes) {

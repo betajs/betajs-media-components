@@ -4,6 +4,7 @@
     flex-grow: 1;
     max-width: 50%;
     flex-basis: min-content;
+    z-index: 1;
 }
 
 div.#{$cssplayer}-with-sidebar {

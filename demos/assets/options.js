@@ -200,7 +200,7 @@ attrs = {...attrs, ...{
             showcompanionad: true,
             // hideplayeronclose: false,
             mobile: {
-                height: 120,
+                height: 150,
                 companionad: false,
                 // position: 'bottom'
                 // companionad: "[,250]",

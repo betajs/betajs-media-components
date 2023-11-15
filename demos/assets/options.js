@@ -178,6 +178,7 @@ attrs = {...attrs, ...{
         minadintervals: 0,
         muted: true,
         unmuteonclick: true,
+        // sidebarpresetwidth: "300px" // 24,
         // hidecontrolbar: true,
         // hideadscontrolbar: true,
         imasettings: {

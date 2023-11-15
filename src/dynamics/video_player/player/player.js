@@ -726,7 +726,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (hidebeforeadstarts && adshassource) return !adsinitialized;
                         return false;
                     },
-                    "containerSizingStyles:aspect_ratio,height,width,mobileviewport,is_floating,hideplayer,corner,floatingoptions.floatingonly": function(
+                    "containerSizingStyles:aspect_ratio,height,width,mobileviewport,is_floating,hideplayer,corner,floatingoptions.floatingonly,fullscreened": function(
                         aspectRatio,
                         height,
                         width,
@@ -734,7 +734,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         isFloating,
                         hidden,
                         corner,
-                        floatingonly
+                        floatingonly,
+                        fullscreened
                     ) {
                         let containerStyles, styles;
                         styles = {
@@ -774,6 +775,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }
                             this._applyStyles(this.activeElement(), containerStyles, this.__lastContainerSizingStyles);
                             this.__lastContainerSizingStyles = containerStyles;
+                        }
+                        if (fullscreened) {
+                            delete styles.width;
+                            delete styles.height;
                         }
                         return styles;
                     },

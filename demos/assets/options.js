@@ -136,6 +136,32 @@ const playlist =  [
     },
 ];
 
+const availablepresetoptions = {
+    'xs': {
+        width: 365,
+        height: 180,
+        showsidebargallery: false
+    }, 's': {
+        width: 523.64,
+        height: 225,
+        showsidebargallery: true,
+        playlist
+    },
+    'm': {
+        width: 640,
+        height: 275,
+        showsidebargallery: true
+    }, 'l': {
+        width: 670.25,
+        height: 288,
+        showsidebargallery: true
+    }, 'xl': {
+        width: 838,
+        height: 360,
+        showsidebargallery: true
+    }
+};
+
 if (params.nextwidget || params.glr) {
     attrs.nextwidget = Number(params.nextwidget) >= 1;
     attrs.showsidebargallery = Number(params.glr) >= 1;
@@ -152,10 +178,15 @@ if (params.nextwidget || params.glr) {
         attrs.playlist = playlist;
         if (attrs.nextwidget) {
             // Below part will be overwritten if it will be provided in the URL
-            attrs.shownext = 2;
-            attrs.noengagenext = 3;
+            attrs.shownext = params.shownext || 2;
+            attrs.noengagenext = params.noengagenext || 3;
         }
     }
+}
+
+if (params.prk && availablepresetoptions[params.prk]) {
+    withPlaylist = true;
+    attrs.playlist = playlist;
 }
 
 // If not defined nextwidget, we will use default source and poster
@@ -264,31 +295,7 @@ attrs = {...attrs, ...{
             "headerlogoimgurl": "https://betajs.com/assets/img/logo_home.png",
             "headerlogoname": "Beta JS",
         },
-        availablepresetoptions: {
-            'xs': {
-                width: 365,
-                height: 180,
-                showsidebargallery: false
-            }, 's': {
-                width: 523.64,
-                height: 225,
-                showsidebargallery: true,
-                playlist
-            },
-            'm': {
-                width: 640,
-                height: 275,
-                showsidebargallery: true
-            }, 'l': {
-                width: 670.25,
-                height: 288,
-                showsidebargallery: true
-            }, 'xl': {
-                width: 838,
-                height: 360,
-                showsidebargallery: true
-            }
-        },
+        availablepresetoptions: availablepresetoptions,
         // fitonwidth: true,
         floatingoptions: {...attrs.floatingoptions, ...{
             showcompanionad: true,

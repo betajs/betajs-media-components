@@ -641,18 +641,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 const playerContainerWidthInNumber = Dom.elementDimensions(this.activeElement()).width;
                                 const playerContainerHeightInNumber = Dom.elementDimensions(this.activeElement()).height;
                                 if (playerContainerHeightInNumber > 0 && videoHeightInNumber) {
-                                    if (this.get("sidebaroptions.preferredratio")) {
-                                        let _ar = this.get("sidebaroptions.preferredratio");
-                                        if (Types.is_string(_ar)) {
-                                            if (_ar.includes("/"))
-                                                _ar = parseFloat(_ar.split("/").reduce((a, b) => a / b));
-                                            else if (_ar.includes(":"))
-                                                _ar = parseFloat(_ar.split(":").reduce((a, b) => a / b));
-                                        }
-                                        _ar = Number(parseFloat(_ar).toFixed(2));
-                                        if (typeof _ar === "number") {
-                                            sidebarWidth = playerContainerWidthInNumber - (playerContainerHeightInNumber * _ar);
-                                        }
+                                    let _ar = this.get("sidebaroptions.preferredratio") || 1.7778;
+                                    if (Types.is_string(_ar)) {
+                                        if (_ar.includes("/"))
+                                            _ar = parseFloat(_ar.split("/").reduce((a, b) => a / b));
+                                        else if (_ar.includes(":"))
+                                            _ar = parseFloat(_ar.split(":").reduce((a, b) => a / b));
+                                    }
+                                    _ar = Number(parseFloat(_ar).toFixed(2));
+                                    if (typeof _ar === "number") {
+                                        sidebarWidth = playerContainerWidthInNumber - (playerContainerHeightInNumber * _ar);
                                     }
                                     if (sidebarWidth && sidebarWidth > 0) {
                                         // if sidebar non-fluid, we will calculate based on preferred ar or first video we're getting

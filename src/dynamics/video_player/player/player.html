@@ -18,7 +18,7 @@
     <meta itemprop="thumbnailUrl" content="{{thumbnailurl}}" />
     <meta itemprop="contentUrl" content="{{contenturl}}" />
     <ba-{{dynnext}}
-        ba-if="{{next_active}}"
+        ba-if="{{next_active && !playing_ad}}"
         ba-is_floating="{{is_floating}}"
         ba-with_sidebar="{{with_sidebar}}"
         ba-playlist="{{playlist}}"

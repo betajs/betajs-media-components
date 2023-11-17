@@ -1775,9 +1775,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         volume = Math.min(1.0, volume);
 
-                        if (this.player && this.player._broadcastingState && this.player._broadcastingState.googleCastConnected) {
-                            this._broadcasting.player.trigger("change-google-cast-volume", volume);
-                        }
+                        if (this.isBroadcasting()) this._broadcasting.player.trigger("change-google-cast-volume", volume);
 
                         this.set("volume", volume);
                         if (this.videoLoaded()) {
@@ -2204,6 +2202,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     return Objs.map(Types.is_function(this.attrs) ? this.attrs.call(this) : this.attrs, function(value, key) {
                         return this.get(key);
                     }, this);
+                },
+
+                isBroadcasting: function() {
+                    return this.player && this.player._broadcastingState && this.player._broadcastingState.googleCastConnected;
                 },
 
                 isHD: function() {

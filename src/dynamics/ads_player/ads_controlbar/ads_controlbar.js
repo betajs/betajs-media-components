@@ -60,19 +60,20 @@ Scoped.define("module:Ads.Dynamics.Controlbar", [
                         event.preventDefault();
 
                         var updateVolume = function(event) {
+                            var volume;
                             event.preventDefault();
                             if (domRect.width > domRect.height) {
                                 // Horizontal slider
                                 var x = event.clientX;
                                 if (!x && Array.isArray(event.touches)) x = event.touches[0].clientX;
-                                this.set("volume", Maths.clamp((x - domRect.x) / domRect.width, 0, 1));
+                                volume = Maths.clamp((x - domRect.x) / domRect.width, 0, 1);
                             } else {
                                 // Vertical slider
                                 var y = event.clientY;
                                 if (!y && Array.isArray(event.touches)) y = event.touches[0].clientY;
-                                this.set("volume", Maths.clamp((domRect.bottom - y) / domRect.height, 0, 1));
+                                volume = Maths.clamp((domRect.bottom - y) / domRect.height, 0, 1);
                             }
-                            this.trigger("volume", this.get("volume"));
+                            this.trigger("volume", volume);
                         }.bind(this);
 
                         updateVolume(event);
@@ -108,8 +109,12 @@ Scoped.define("module:Ads.Dynamics.Controlbar", [
                     toggle_volume: function() {
                         if (this.get("unmuteonclick")) return;
                         var volume = this.get("volume");
-                        if (volume > 0) this.__lastVolume = volume;
-                        volume = volume > 0 ? 0 : (this.__lastVolume || 1);
+                        if (volume > 0) {
+                            this.__oldVolume = volume;
+                            volume = 0;
+                        } else {
+                            volume = this.__oldVolume || 1;
+                        }
                         this.trigger("volume", volume);
                     },
 

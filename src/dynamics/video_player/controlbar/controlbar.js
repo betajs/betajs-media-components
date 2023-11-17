@@ -279,7 +279,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     },
 
                     set_volume: function(volume) {
-                        this.trigger("set_volume", volume);
+                        this.trigger("volume", volume);
                     },
 
                     submit: function() {

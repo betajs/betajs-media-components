@@ -50,7 +50,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         if (volume > 0 && this.get("unmuteonclick")) {
                             return setTimeout(function() {
                                 this.adsManager.setVolume(Maths.clamp(volume, 0, 1));
-                            }.bind(this));
+                            }.bind(this), 200);
                         } else {
                             return this.adsManager.setVolume(Maths.clamp(volume, 0, 1));
                         }

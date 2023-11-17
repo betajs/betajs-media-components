@@ -293,7 +293,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         return this.adsManager.resume();
                     },
                     set_volume: function(volume) {
-                        this.set("volume", volume);
+                        this.set("volume", Maths.clamp(volume, 0, 1));
                     },
                     stop: function() {
                         return this.adsManager.stop();

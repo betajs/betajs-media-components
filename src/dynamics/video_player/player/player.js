@@ -14,6 +14,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "base:Objs",
     "base:Strings",
     "base:Collections.Collection",
+    "base:Maths",
     "base:Time",
     "base:Timers",
     "base:Promise",
@@ -64,7 +65,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.PlayerStates.ErrorVideo",
     "module:VideoPlayer.Dynamics.PlayerStates.PlayVideo",
     "module:VideoPlayer.Dynamics.PlayerStates.NextVideo"
-], function(Class, Assets, DatasetProperties, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, PlayerSupport, Types, Objs, Strings, Collection, Time, Timers, Promise, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
+], function(Class, Assets, DatasetProperties, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, PlayerSupport, Types, Objs, Strings, Collection, Maths, Time, Timers, Promise, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, [StylesMixin, function(inherited) {
@@ -545,6 +546,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.channel("next").trigger("autoPlayNext");
                                 this.channel("next").trigger("playNext");
                             }
+                        }
+                    },
+                    "change:volume": function(volume) {
+                        if (this.isBroadcasting()) this._broadcasting.player.trigger("change-google-cast-volume", volume);
+                        if (this.videoLoaded()) {
+                            this.player.setVolume(volume);
+                            this.player.setMuted(volume <= 0);
                         }
                     }
                 },
@@ -1773,15 +1781,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this._delegatedPlayer.execute("set_volume", volume);
                             return;
                         }
-                        volume = Math.min(1.0, volume);
-
-                        if (this.isBroadcasting()) this._broadcasting.player.trigger("change-google-cast-volume", volume);
-
-                        this.set("volume", volume);
-                        if (this.videoLoaded()) {
-                            this.player.setVolume(volume);
-                            this.player.setMuted(volume <= 0);
-                        }
+                        this.set("volume", Maths.clamp(volume, 0, 1));
                     },
 
                     toggle_settings_menu: function() {

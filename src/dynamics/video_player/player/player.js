@@ -205,6 +205,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "adsposition": null,
                         "vmapads": false, // VMAP ads will set pre, mid, post positions inside XML file
                         "non-linear": null,
+                        // **
+                        // companionad: {
+                        //  hideoncompletion: true, // FEATURE: default: true, should hide when ad is completed
+                        //  timeout: null, // FEATURE:: default: null, timeout in milliseconds when should be hidden
+                        //  "locations": [{
+                        //      id: 'adSlotID or ID', // required, ID of the companion ad slot
+                        //      selector: 'selector' // required, CSS selector,
+                        //      timeout: null, // FEATURE: default: null, timeout in milliseconds when should be hidden
+                        //   }]
+                        // }
                         "companionad": null, // if just set to true, it will set companionads attribute for further use cases and will not render companion ad
                         "companionads": [],
                         "linearadplayer": true,
@@ -461,7 +471,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "adchoicesontop": "boolean",
                     "minadintervals": "int",
                     "non-linear-min-duration": "int",
-                    "companionad": "string",
                     "slim": "boolean",
                     "prominent-title": "boolean",
                     "closeable-title": "boolean",
@@ -475,6 +484,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     // Will help hide player poster before ads start,
                     // if false rectangle with full dimensions will be shown
                     "hidebeforeadstarts": "boolean"
+                    // "companionad": "string", can be also boolean, object and null
                 },
 
                 __INTERACTION_EVENTS: ["click", "mousedown", "touchstart", "keydown", "keypress"],

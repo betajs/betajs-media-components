@@ -39,7 +39,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     adsplaying: false,
                     companionads: [],
                     companionadcontent: null,
-                    customclickthrough: false
+                    customclickthrough: false,
+                    multicompanionads: []
                 },
 
                 events: {
@@ -62,6 +63,17 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             }.bind(this));
                         } else {
                             return this.adsManager.setVolume(Maths.clamp(volume, 0, 1));
+                        }
+                    },
+                    "change:companionads": function(companionAds) {
+                        if (companionAds && companionAds.length > 0 && this.get("companionad")) {
+                            if (this.get("companionad.locations")) {
+                                this._renderMultiCompanionAds();
+                            } else if (Types.is_string(this.get("companionad")) || Types.is_boolean(this.get("companionad"))) {
+                                this._renderCompanionAd(ad);
+                            } else {
+                                console.warn(`Please set correct companion ad attribute. It can be object with locations, string with "|" character seperated or boolean`);
+                            }
                         }
                     }
                 },
@@ -382,15 +394,18 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         }
 
                         // Set companion ads array and render for normal content player viewport
-                        if (ad) {
-                            this._getCompanionAds(ad);
-                            if (this.get("companionad")) this._renderCompanionAd(ad);
-                        }
+                        if (ad) this._getCompanionAds(ad);
                     }
                 },
 
                 _onAdComplete: function(ev) {
                     if (this.get("companionads").length > 0) this.set("companionads", []);
+                    if (this.get("multicompanionads").length > 0) {
+                        Objs.iter(this.get("multicompanionads"), function(element, index) {
+                            element.innerHTML = "";
+                            delete this.get("multicompanionads")[index];
+                        }, this);
+                    }
                     if (this.__companionAdElement) {
                         this.__companionAdElement.innerHTML = "";
                     }
@@ -590,6 +605,40 @@ Scoped.define("module:Ads.Dynamics.Player", [
                                 playerElement.insertAdjacentElement("afterend", this.__companionAdElement);
                         }
                     }
+                },
+
+                _renderMultiCompanionAds: function() {
+                    this.set("multicompanionads", []);
+                    const companionAds = this.get('companionads');
+                    const locations = this.get("companionad.locations");
+                    Objs.iter(locations, function(location) {
+                        const {
+                            selector,
+                            id,
+                            adslotid
+                        } = location;
+                        if (!selector || !(id || adslotid)) {
+                            console.warn(`Please provide selector and adslotid for companion ad`);
+                            return;
+                        }
+                        const element = document.querySelector(selector);
+                        if (element) {
+                            Objs.map(companionAds, function(ad) {
+                                const adContent = ad.data?.content;
+                                if (adContent) {
+                                    const reg = new RegExp(`id=['"]${adslotid}['"]`, "g");
+                                    const matching = reg.test(ad.data?.content);
+
+                                    if (Number(ad.getAdSlotId()) === Number(adslotid) || matching) {
+                                        element.innerHTML = ad.getContent() || adContent;
+                                        this.get("multicompanionads").push(element);
+                                    }
+                                }
+                            }, this);
+                        } else {
+                            console.warn(`Non existing element for companion ad selector: ${selector}`);
+                        }
+                    }, this);
                 },
 
                 _hideCompanionAd: function() {

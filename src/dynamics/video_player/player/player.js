@@ -1805,8 +1805,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             Dom.documentExitFullscreen();
                         } else {
                             if (Info.isiOS() && Info.isMobile()) {
-                                Dom.elementEnterFullscreen(this.activeElement().querySelector("video"));
-                                this.activeElement().querySelector("video").addEventListener("webkitendfullscreen", function() {
+                                var videoEl = this.activeElement().querySelector(this.get("playing_ad") ? "[data-video='ima-ad-container'] video" : "video");
+                                Dom.elementEnterFullscreen(videoEl);
+                                videoEl.addEventListener("webkitendfullscreen", function() {
                                     this.set("fullscreened", false);
                                 }.bind(this), {
                                     once: true

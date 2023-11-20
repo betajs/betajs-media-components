@@ -1809,6 +1809,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 Dom.elementEnterFullscreen(videoEl);
                                 videoEl.addEventListener("webkitendfullscreen", function() {
                                     this.set("fullscreened", false);
+                                    if (this.get("playing")) {
+                                        this.once("paused", function() {
+                                            this.play();
+                                        }, this);
+                                    } else if (this.get("adnotpaused")) {
+                                        this.once("change:adnotpaused", function() {
+                                            this.play();
+                                        }, this);
+                                    }
                                 }.bind(this), {
                                     once: true
                                 });

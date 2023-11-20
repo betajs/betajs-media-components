@@ -47,19 +47,10 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         // Muted should be pass only from the parent
                         this.parent().set('muted', volume <= 0);
                         if (!this.adsManager || !this.adsManager.setVolume) return;
-                        // In some cases ads:volumeChange is not triggering
-                        Async.eventually(function() {
-                            if (!this.__volumeChangeTriggered) {
-                                var adsVolume = this.adsManager.getVolume();
-                                this.set("volume", adsVolume);
-                                this.parent().set("muted", adsVolume <= 0);
-                                this.__volumeChangeTriggered = false;
-                            }
-                        }, this, 100);
                         if (volume > 0 && this.get("unmuteonclick")) {
                             return setTimeout(function() {
                                 this.adsManager.setVolume(Maths.clamp(volume, 0, 1));
-                            }.bind(this));
+                            }.bind(this), 200);
                         } else {
                             return this.adsManager.setVolume(Maths.clamp(volume, 0, 1));
                         }
@@ -147,12 +138,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.set("duration", event.getAdData().duration);
                         this.set("moredetailslink", event.getAdData().clickThroughUrl);
                         this.set("adsclicktroughurl", event.getAdData().clickThroughUrl);
-                    },
-                    "ads:volumeChange": function() {
-                        this.__volumeChangeTriggered = true;
-                        var adsVolume = this.adsManager.getVolume();
-                        this.set("volume", adsVolume);
-                        this.parent().set("muted", adsVolume <= 0);
                     },
                     "ads:outstreamCompleted": function(dyn) {
                         this._outstreamCompleted(dyn);
@@ -293,7 +278,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         return this.adsManager.resume();
                     },
                     set_volume: function(volume) {
-                        this.set("volume", volume);
+                        this.set("volume", Maths.clamp(volume, 0, 1));
                     },
                     stop: function() {
                         return this.adsManager.stop();

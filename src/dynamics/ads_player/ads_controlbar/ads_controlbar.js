@@ -65,12 +65,12 @@ Scoped.define("module:Ads.Dynamics.Controlbar", [
                             if (domRect.width > domRect.height) {
                                 // Horizontal slider
                                 var x = event.clientX;
-                                if (!x && Array.isArray(event.touches)) x = event.touches[0].clientX;
+                                if (!x && event.touches) x = event.touches[0].clientX;
                                 volume = Maths.clamp((x - domRect.x) / domRect.width, 0, 1);
                             } else {
                                 // Vertical slider
                                 var y = event.clientY;
-                                if (!y && Array.isArray(event.touches)) y = event.touches[0].clientY;
+                                if (!y && event.touches) y = event.touches[0].clientY;
                                 volume = Maths.clamp((domRect.bottom - y) / domRect.height, 0, 1);
                             }
                             this.trigger("volume", volume);

@@ -1804,8 +1804,24 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.get("fullscreened")) {
                             Dom.documentExitFullscreen();
                         } else {
-                            if (Info.isiOS() && Info.isMobile()) Dom.elementEnterFullscreen(this.activeElement().querySelector("video"));
-                            else Dom.elementEnterFullscreen(this.activeElement().childNodes[0]);
+                            if (Info.isiOS() && Info.isMobile()) {
+                                var videoEl = this.activeElement().querySelector(this.get("playing_ad") ? "[data-video='ima-ad-container'] video" : "video");
+                                Dom.elementEnterFullscreen(videoEl);
+                                videoEl.addEventListener("webkitendfullscreen", function() {
+                                    this.set("fullscreened", false);
+                                    if (this.get("playing")) {
+                                        this.once("paused", function() {
+                                            this.play();
+                                        }, this);
+                                    } else if (this.get("adnotpaused")) {
+                                        this.once("change:adnotpaused", function() {
+                                            this.play();
+                                        }, this);
+                                    }
+                                }.bind(this), {
+                                    once: true
+                                });
+                            } else Dom.elementEnterFullscreen(this.activeElement().childNodes[0]);
                         }
                         this.set("fullscreened", !this.get("fullscreened"));
                     },
@@ -2015,7 +2031,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 else
                                     this.set("duration", this.get("totalduration") || new_position);
                             }
-                            this.set("fullscreened", this.player.isFullscreen(this.activeElement().childNodes[0]));
+                            if (!Info.isiOS() || !Info.isMobile()) this.set("fullscreened", this.player.isFullscreen(this.activeElement().childNodes[0]));
                             // If setting pop-up is open, hide it together with a control-bar if hideOnInactivity is true
                             if (this.get('hideoninactivity') && (this.get('activity_delta') > this.get('hidebarafter'))) {
                                 this.set("settingsmenu_active", false);

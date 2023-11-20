@@ -109,6 +109,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             // if set to true, companion ad will be shown on sidebar if it's exits
                             "showcompanionad": false,
                             "hidevideoafterplay": false,
+                            "autonext": true
                         },
                         "popup-width": "",
                         "popup-height": "",
@@ -608,7 +609,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (!this.get("nextwidget") && Types.is_undefined(this.set("initialoptions.nextwidget"))) {
                                 this.set("initialoptions.nextwidget", false);
                             }
-                            this.set("nextwidget", true);
+                            this.set("nextwidget", this.set("sidebaroptions.autonext"));
                         }
                         return this.get("floatingsidebar") || this.get("gallerysidebar");
                     },

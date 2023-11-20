@@ -2690,7 +2690,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 // If user not paused video manually, we set user as engaged
                                 if (!this.get("manuallypaused")) this.__setPlayerEngagement();
                                 if (this.player) this.player.setMuted(false);
-                                this.set_volume(this.get("initialoptions").volumelevel);
+                                this.set_volume(this.get("volume") || this.get("initialoptions").volumelevel);
                             }
                             this.set("unmuteonclick", false);
                         }.bind(this),

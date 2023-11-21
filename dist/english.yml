@@ -1,4 +1,5 @@
 language:en:
+  ba-circle-progress.fullscreen-video: Enter fullscreen
   ba-common-settingsmenu.tooltip: Click to play.
   ba-common-settingsmenu.setting-menu: All settings
   ba-common-settingsmenu.source-quality: Source quality
@@ -57,6 +58,7 @@ language:en:
   ba-videoplayer-playbutton.skip: Skip
   ba-videoplayer-share.share: Share media
   ba-videoplayer-sidebar.up-next: Up Next
+  ba-videoplayer-sidebar.continue-on-ads-end: Content will resume after this video...
   ba-videoplayer-tooltip.tooltip: Tooltip
   ba-videoplayer-tooltip.hover-to-pause-tooltip-close: Hold mouse on, to pause tooltip closing
   ba-videoplayer-tracks.upload-text-tracks: Upload track text files

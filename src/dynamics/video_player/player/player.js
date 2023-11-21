@@ -94,10 +94,24 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "csstracks": "",
                         "width": "",
                         "height": "",
-                        "size": null,
-                        "sidebarwidth": null,
-                        "availablesizes": {},
-                        "showgallery": false,
+                        "presetkey": null,
+                        "availablepresetoptions": {},
+                        "showsidebargallery": false,
+                        "sidebaroptions": {
+                            // percentage by default, or could be in px
+                            "presetwidth": 24,
+                            "afteradsendtext": null,
+                            "gallerytitletext": null,
+                            "headerlogourl": null,
+                            "headerlogoimgurl": null,
+                            "headerlogoname": null,
+                            "fluid": false, // when set to true, when we have no presetwidth, then sidebar will be changed based on video width
+                            "preferredratio": 1.778, // if set, then sidebar will be resized based on video container ratio, 16/9(=1.778), 4/3(1.333), 1/1, 9/16(0.5625), 3/4(0.75)
+                            // if set to true, companion ad will be shown on sidebar if it's exits
+                            "showcompanionad": false,
+                            "hidevideoafterplay": false,
+                            "autonext": true
+                        },
                         "popup-width": "",
                         "popup-height": "",
                         "aspectratio": null,
@@ -329,7 +343,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 hideOnCompletion: true,
                                 recurrenceperiod: 30000, // Period when a new request will be sent if ads is not showing, default: 30 seconds
                                 maxadstoshow: -1 // Maximum number of ads to show, if there's next ads or errors occurred default: -1 (unlimited)
-                            }
+                            },
+                            // rollback: {}
                         },
                         "silent_attach": false,
                         "inpipmode": false,
@@ -469,13 +484,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "sticky-threshold": "float",
                     "floatingoptions": "jsonarray",
                     "presetedtooltips": "object",
-                    "size": "string",
-                    "sidebarwidth": "int", // can be as a string as well via px and %, default is int with px
-                    "availablesizes": "object",
+                    "presetkey": "string",
+                    "availablepresetoptions": "object",
                     "showsidebargallery": "boolean",
                     // Will help hide player poster before ads start,
                     // if false rectangle with full dimensions will be shown
-                    "hidebeforeadstarts": "boolean"
+                    "hidebeforeadstarts": "boolean",
+                    "sidebaroptions": "object"
                 },
 
                 __INTERACTION_EVENTS: ["click", "mousedown", "touchstart", "keydown", "keypress"],
@@ -588,10 +603,94 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (Types.is_boolean(c)) return "10px";
                         return (Types.is_string(c) ? parseFloat(c.replace(/\D/g, '')).toFixed() : c) + 'px';
                     },
-                    "sidebar_active:is_floating,with_sidebar,showgallery,fullscreened": function(isFloating, withSidebar, showGallery, fullscreened) {
+                    "sidebar_active:with_sidebar,showsidebargallery,playlist": function(withSidebar, showSidebarGallery, playlist) {
+                        if (!showSidebarGallery && Types.is_defined(this.get("initialoptions.nextwidget"))) {
+                            this.set("nextwidget", this.get("initialoptions.nextwidget"));
+                        }
+                        return withSidebar || (showSidebarGallery && playlist && playlist.length > 0);
+                    },
+                    "show_sidebar:sidebar_active,is_floating,with_sidebar,fullscreened,mobileviewport": function(sidebarActive, isFloating, withSidebar, fullscreened, mobileViewport) {
                         if (fullscreened) return false;
-                        return (isFloating && withSidebar) || (showGallery && !isFloating);
-
+                        this.set("floatingsidebar", sidebarActive && isFloating && withSidebar);
+                        this.set("gallerysidebar", sidebarActive && !isFloating && (Types.is_defined(mobileViewport) && !mobileViewport));
+                        if (this.get("gallerysidebar")) {
+                            if (!this.get("nextwidget") && Types.is_undefined(this.set("initialoptions.nextwidget"))) {
+                                this.set("initialoptions.nextwidget", false);
+                            }
+                            this.set("nextwidget", this.set("sidebaroptions.autonext"));
+                        }
+                        return this.get("floatingsidebar") || this.get("gallerysidebar");
+                    },
+                    "playercontainerstyles:sidebar_active,gallerysidebar,sidebaroptions.presetwidth,fullscreened,videowidth": function(sideBarActive, gallerySidebar, sidebarPresetWidth, fullscreened, videoWidth) {
+                        let width, styles;
+                        if (sideBarActive && gallerySidebar && !fullscreened) {
+                            if (typeof sidebarPresetWidth === "string") {
+                                sidebarPresetWidth = sidebarPresetWidth.includes("%") ?
+                                    parseFloat(sidebarPresetWidth).toFixed(2) :
+                                    sidebarPresetWidth;
+                            }
+                            if (sidebarPresetWidth) {
+                                if (!width) width = typeof sidebarPresetWidth === "number" ? ((100 - sidebarPresetWidth) + "%") : `calc(100% - ${sidebarPresetWidth})`;
+                                if (window && window.CSS) {
+                                    styles = window.CSS.supports("width", width);
+                                }
+                                if (width && Types.is_defined(styles) && styles) {
+                                    this.set("controlbarstyles", {
+                                        width: width
+                                    });
+                                    return {
+                                        width: width,
+                                        position: 'relative'
+                                    };
+                                }
+                            } else if (videoWidth && this.__video && this.get("width") && this.activeElement()) {
+                                let sidebarWidth;
+                                const videoWidthInNumber = Dom.elementDimensions(this.__video).width;
+                                const videoHeightInNumber = Dom.elementDimensions(this.__video).height;
+                                const playerContainerWidthInNumber = Dom.elementDimensions(this.activeElement()).width;
+                                const playerContainerHeightInNumber = Dom.elementDimensions(this.activeElement()).height;
+                                if (playerContainerHeightInNumber > 0 && videoHeightInNumber) {
+                                    let _ar = this.get("sidebaroptions.preferredratio") || 1.7778;
+                                    if (Types.is_string(_ar)) {
+                                        if (_ar.includes("/"))
+                                            _ar = parseFloat(_ar.split("/").reduce((a, b) => a / b));
+                                        else if (_ar.includes(":"))
+                                            _ar = parseFloat(_ar.split(":").reduce((a, b) => a / b));
+                                    }
+                                    _ar = Number(parseFloat(_ar).toFixed(2));
+                                    if (typeof _ar === "number") {
+                                        sidebarWidth = playerContainerWidthInNumber - (playerContainerHeightInNumber * _ar);
+                                    }
+                                    if (sidebarWidth && sidebarWidth > 0) {
+                                        // if sidebar non-fluid, we will calculate based on preferred ar or first video we're getting
+                                        if (!this.get('sidebaroptions.fluid')) {
+                                            this.set("sidebaroptions.presetwidth", sidebarWidth + "px");
+                                        }
+                                        this.set("sidebarstyles", {
+                                            maxWidth: sidebarWidth + 'px',
+                                        });
+                                        this.set("controlbarstyles", {
+                                            maxWidth: (playerContainerWidthInNumber - sidebarWidth) + 'px',
+                                        });
+                                        return {
+                                            minWidth: (playerContainerWidthInNumber - sidebarWidth) + 'px',
+                                            flexBasis: 0,
+                                        };
+                                    } else if (videoWidthInNumber) {
+                                        this.set("controlbarstyles", {
+                                            maxWidth: videoWidthInNumber + 'px',
+                                        });
+                                        return {
+                                            minWidth: videoWidthInNumber + 'px',
+                                        };
+                                    }
+                                }
+                            }
+                        }
+                        // reset styles
+                        this.set("sidebarstyles", {});
+                        this.set("controlbarstyles", {});
+                        return {};
                     },
                     "adsinitialized:playing,adtagurl,inlinevastxml": function(playing, adsTagURL, inlineVastXML) {
                         if (this.get("adsinitialized")) {
@@ -634,7 +733,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (hidebeforeadstarts && adshassource) return !adsinitialized;
                         return false;
                     },
-                    "containerSizingStyles:aspect_ratio,height,width,mobileviewport,is_floating,hideplayer,corner,floatingoptions.floatingonly": function(
+                    "containerSizingStyles:aspect_ratio,height,width,mobileviewport,is_floating,hideplayer,corner,floatingoptions.floatingonly,fullscreened": function(
                         aspectRatio,
                         height,
                         width,
@@ -642,9 +741,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         isFloating,
                         hidden,
                         corner,
-                        floatingonly
+                        floatingonly,
+                        fullscreened
                     ) {
-                        var containerStyles, styles, calculated;
+                        let containerStyles, styles;
                         styles = {
                             aspectRatio: aspectRatio
                         };
@@ -653,20 +753,20 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         containerStyles = floatingonly ? {} : Objs.extend({}, styles);
                         if (corner) styles.borderRadius = corner;
                         if (isFloating) {
-                            calculated = this.__calculateFloatingDimensions();
+                            const calculated = this.__calculateFloatingDimensions();
 
-                            var floatingTop = calculated.floating_top;
-                            var floatingBottom = calculated.floating_bottom;
-                            var floatingRight = calculated.floating_right;
-                            var floatingLeft = calculated.floating_left;
+                            const floatingTop = calculated.floating_top;
+                            const floatingBottom = calculated.floating_bottom;
+                            const floatingRight = calculated.floating_right;
+                            const floatingLeft = calculated.floating_left;
 
                             if (floatingTop !== undefined) styles.top = parseFloat(floatingTop).toFixed() + 'px';
                             if (floatingRight !== undefined) styles.right = parseFloat(floatingRight).toFixed() + 'px';
                             if (floatingBottom !== undefined) styles.bottom = parseFloat(floatingBottom).toFixed() + 'px';
                             if (floatingLeft !== undefined) styles.left = parseFloat(floatingLeft).toFixed() + 'px';
 
-                            floatingWidth = calculated.floating_width;
-                            floatingHeight = calculated.floating_height;
+                            const floatingWidth = calculated.floating_width;
+                            const floatingHeight = calculated.floating_height;
 
                             if (floatingWidth) styles.width = isNaN(floatingWidth) ? floatingWidth : parseFloat(floatingWidth).toFixed(2) + "px";
                             if (floatingHeight) styles.height = isNaN(floatingHeight) ? floatingHeight : parseFloat(floatingHeight).toFixed(2) + "px";
@@ -682,6 +782,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }
                             this._applyStyles(this.activeElement(), containerStyles, this.__lastContainerSizingStyles);
                             this.__lastContainerSizingStyles = containerStyles;
+                        }
+                        if (fullscreened) {
+                            delete styles.width;
+                            delete styles.height;
                         }
                         return styles;
                     },
@@ -733,6 +837,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }, this);
                     }
                     this.__attachPlayerInteractionEvents();
+                    this.__mergeDeepAttributes();
                     this._dataset = this.auto_destroy(new DatasetProperties(this.activeElement()));
                     this._dataset.bind("layout", this.properties());
                     this._dataset.bind("placement", this.properties());
@@ -749,6 +854,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.delegateEvents(null, this.channel("next"), "next");
                     this.set("prominent_title", this.get("prominent-title"));
                     this.set("closeable_title", this.get("closeable-title"));
+                    this.__initPresets();
                     this.__initFloatingOptions();
                     this._observer = new ResizeObserver(function(entries) {
                         for (var i = 0; i < entries.length; i++) {
@@ -2308,12 +2414,22 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }
                 },
 
+                /**
+                 * Will merge attributes from the user with the default/initial attributes
+                 * @private
+                 */
+                __mergeDeepAttributes: function() {
+                    Objs.iter([
+                        'floatingoptions', 'outstreamoptions', 'sidebaroptions'
+                    ], function(k) {
+                        if (Types.is_object(this.get(k))) {
+                            this.set(k, Objs.tree_merge(this.attrs()[k], this.get(k)));
+                        }
+                    }, this);
+                },
+
                 /** @private */
                 __initFloatingOptions: function() {
-                    this.set("floatingoptions", Objs.tree_merge(
-                        this.attrs().floatingoptions,
-                        this.get("floatingoptions")
-                    ));
                     Objs.iter(["mobile", "desktop"], function(view) {
                         var _floatingoptions = this.get("floatingoptions")[view];
                         if (_floatingoptions && _floatingoptions.size && _floatingoptions.availablesizes) {
@@ -2333,6 +2449,24 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }, this);
                         }
                     }, this);
+                },
+
+                __initPresets: function() {
+                    var presetKey = this.get("presetkey");
+                    var multiPresets = this.get("availablepresetoptions");
+                    if (multiPresets && Objs.count(multiPresets) > 0 && presetKey) {
+                        presetKey = presetKey.toLowerCase();
+                        var presets = multiPresets[presetKey];
+                        if (presets && Types.is_object(presets)) {
+                            Objs.iter(presets, function(v, k) {
+                                // if key already preset in root level, and key contains object key separated via dots
+                                if (Types.is_defined(this.attrs()[k]) || (Types.is_string(k) && k.includes('.')))
+                                    this.set(k, v);
+                            }, this);
+                        } else {
+                            console.warn("Make sure that 'presetOption' and 'availablepresetoptions' are set correctly.");
+                        }
+                    }
                 },
 
                 /**

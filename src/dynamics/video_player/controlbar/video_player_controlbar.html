@@ -1,6 +1,6 @@
-
 <div class="{{cssplayer}}-dashboard {{((prominent_title_closed || title_hide_class) && controlbar_hide_class) ? cssplayer + '-dashboard-hidden' : ''}}">
-    <div tabindex="{{skipinitial ? 2 : 1}}" data-selector="progress-bar-inner" class="{{css}}-progressbar {{controlbar_hide_class}} {{activitydelta < 2500 || ismobile ? '' : (css + '-progressbar-small')}} {{disableseeking ? cssplayer + '-disabled' : ''}}"
+    <div tabindex="{{skipinitial ? 2 : 1}}" data-selector="progress-bar-inner"
+         class="{{css}}-progressbar {{controlbar_hide_class}} {{activitydelta < 2500 || ismobile ? '' : (css + '-progressbar-small')}} {{disableseeking ? cssplayer + '-disabled' : ''}}"
          ba-hotkey:right="{{seek(position + skipseconds)}}"
          ba-hotkey:left="{{seek(position - skipseconds)}}"
          ba-hotkey:alt+right="{{seek(position + skipseconds * 3)}}"

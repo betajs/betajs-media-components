@@ -296,7 +296,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                 getAdWidth: function() {
                     if (!this.activeElement()) return null;
-                    if (this.get("floating") && this.parent()) {
+                    if ((this.get("sidebar_active") || this.get("floating")) && this.parent()) {
                         return Dom.elementDimensions(this.parent().__playerContainer).width;
                     }
                     return this.activeElement().firstChild ? this.activeElement().firstChild.clientWidth : this.activeElement().clientWidth;
@@ -371,6 +371,12 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             this._getCompanionAds(ad);
                             if (this.get("companionad")) this._renderCompanionAd(ad);
                         }
+                    }
+
+                    // Additional resize will fit ads fully inside the player container
+                    if (this.get("sidebar_active") && this.adsManager && this.parent()) {
+                        // NOTE: can cause console error on main player, uncomment if required separately
+                        // this.parent().trigger("resize");
                     }
                 },
 

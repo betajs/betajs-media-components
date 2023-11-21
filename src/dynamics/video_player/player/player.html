@@ -23,7 +23,7 @@
          ba-styles="{{playercontainerstyles}}"
     >
         <ba-{{dynnext}}
-            ba-if="{{next_active}}"
+            ba-if="{{next_active && !playing_ad}}"
             ba-is_floating="{{is_floating}}"
             ba-with_sidebar="{{with_sidebar}}"
             ba-playlist="{{playlist}}"
@@ -86,6 +86,7 @@
             ba-hideoninactivity="{{(activity_delta > hidebarafter) && hideoninactivity}}"
             ba-view_type="{{view_type}}"
             ba-adsplaying="{{=adsplaying}}"
+            ba-playing="{{=adnotpaused}}"
             ba-moredetailslink="{{=moredetailslink}}"
             ba-moredetailstext="{{=moredetailstext}}"
             ba-mobileview="{{mobileview}}"
@@ -150,7 +151,6 @@
                 ba-event:toggle_player="toggle_player"
                 ba-event:tab_index_move="tab_index_move"
                 ba-event:seek="seek"
-                ba-event:set_volume="set_volume"
                 ba-event:toggle_tracks="toggle_tracks"
                 ba-tabindex="{{tabindex}}"
                 ba-showchaptertext="{{showchaptertext}}"

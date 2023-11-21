@@ -14,6 +14,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "base:Objs",
     "base:Strings",
     "base:Collections.Collection",
+    "base:Maths",
     "base:Time",
     "base:Timers",
     "base:Promise",
@@ -64,7 +65,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.PlayerStates.ErrorVideo",
     "module:VideoPlayer.Dynamics.PlayerStates.PlayVideo",
     "module:VideoPlayer.Dynamics.PlayerStates.NextVideo"
-], function(Class, Assets, DatasetProperties, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, PlayerSupport, Types, Objs, Strings, Collection, Time, Timers, Promise, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
+], function(Class, Assets, DatasetProperties, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, PlayerSupport, Types, Objs, Strings, Collection, Maths, Time, Timers, Promise, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, [StylesMixin, function(inherited) {
@@ -560,6 +561,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.channel("next").trigger("autoPlayNext");
                                 this.channel("next").trigger("playNext");
                             }
+                        }
+                    },
+                    "change:volume": function(volume) {
+                        if (this.isBroadcasting()) this._broadcasting.player.trigger("change-google-cast-volume", volume);
+                        if (this.videoLoaded()) {
+                            this.player.setVolume(volume);
+                            this.player.setMuted(volume <= 0);
                         }
                     }
                 },
@@ -1879,17 +1887,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this._delegatedPlayer.execute("set_volume", volume);
                             return;
                         }
-                        volume = Math.min(1.0, volume);
-
-                        if (this.player && this.player._broadcastingState && this.player._broadcastingState.googleCastConnected) {
-                            this._broadcasting.player.trigger("change-google-cast-volume", volume);
-                        }
-
-                        this.set("volume", volume);
-                        if (this.videoLoaded()) {
-                            this.player.setVolume(volume);
-                            this.player.setMuted(volume <= 0);
-                        }
+                        this.set("volume", Maths.clamp(volume, 0, 1));
                     },
 
                     toggle_settings_menu: function() {
@@ -1910,8 +1908,24 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.get("fullscreened")) {
                             Dom.documentExitFullscreen();
                         } else {
-                            if (Info.isiOS() && Info.isMobile()) Dom.elementEnterFullscreen(this.activeElement().querySelector("video"));
-                            else Dom.elementEnterFullscreen(this.activeElement().childNodes[0]);
+                            if (Info.isiOS() && Info.isMobile()) {
+                                var videoEl = this.activeElement().querySelector(this.get("playing_ad") ? "[data-video='ima-ad-container'] video" : "video");
+                                Dom.elementEnterFullscreen(videoEl);
+                                videoEl.addEventListener("webkitendfullscreen", function() {
+                                    this.set("fullscreened", false);
+                                    if (this.get("playing")) {
+                                        this.once("paused", function() {
+                                            this.play();
+                                        }, this);
+                                    } else if (this.get("adnotpaused")) {
+                                        this.once("change:adnotpaused", function() {
+                                            this.play();
+                                        }, this);
+                                    }
+                                }.bind(this), {
+                                    once: true
+                                });
+                            } else Dom.elementEnterFullscreen(this.activeElement().childNodes[0]);
                         }
                         this.set("fullscreened", !this.get("fullscreened"));
                     },
@@ -2121,7 +2135,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 else
                                     this.set("duration", this.get("totalduration") || new_position);
                             }
-                            this.set("fullscreened", this.player.isFullscreen(this.activeElement().childNodes[0]));
+                            if (!Info.isiOS() || !Info.isMobile()) this.set("fullscreened", this.player.isFullscreen(this.activeElement().childNodes[0]));
                             // If setting pop-up is open, hide it together with a control-bar if hideOnInactivity is true
                             if (this.get('hideoninactivity') && (this.get('activity_delta') > this.get('hidebarafter'))) {
                                 this.set("settingsmenu_active", false);
@@ -2310,6 +2324,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     return Objs.map(Types.is_function(this.attrs) ? this.attrs.call(this) : this.attrs, function(value, key) {
                         return this.get(key);
                     }, this);
+                },
+
+                isBroadcasting: function() {
+                    return this.player && this.player._broadcastingState && this.player._broadcastingState.googleCastConnected;
                 },
 
                 isHD: function() {
@@ -2822,7 +2840,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 // If user not paused video manually, we set user as engaged
                                 if (!this.get("manuallypaused")) this.__setPlayerEngagement();
                                 if (this.player) this.player.setMuted(false);
-                                this.set_volume(this.get("initialoptions").volumelevel);
+                                this.set_volume(this.get("volume") || this.get("initialoptions").volumelevel);
                             }
                             this.set("unmuteonclick", false);
                         }.bind(this),

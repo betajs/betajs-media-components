@@ -215,7 +215,8 @@ attrs = {...attrs, ...{
         // showplayercontentafter: 1500, // we can set any seconds to show player content in any case if ads not intialized
         // hideoninactivity: false,
         // ** SOURCES
-        // width: 640,
+        // width: 440,
+        // height: 320,
         minadintervals: 0,
         muted: true,
         unmuteonclick: true,
@@ -293,6 +294,7 @@ attrs = {...attrs, ...{
             allowRepeat: true,
             noEndCard: false,
             repeatText: "Custom Repeat",
+            persistentcompanionad: true
         },
         sidebaroptions: {
             "headerlogourl": "https://betajs.com",

@@ -342,9 +342,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 corner: true,
                                 hideOnCompletion: true,
                                 recurrenceperiod: 30000, // Period when a new request will be sent if ads is not showing, default: 30 seconds
-                                maxadstoshow: -1 // Maximum number of ads to show, if there's next ads or errors occurred default: -1 (unlimited)
-                            },
-                            // rollback: {}
+                                maxadstoshow: -1, // Maximum number of ads to show, if there's next ads or errors occurred default: -1 (unlimited)
+                                noEndCard: false, // No end cart at the end when outstream completed
+                                allowRepeat: false, // Make possible to repeat ads
+                                // moreURL: '', // more button URL
+                                // moreText: '', // read more about outstream text
+                                // repeatText: '', // repeat button text
+                                persistentcompanionad: false
+                            }
                         },
                         "silent_attach": false,
                         "inpipmode": false,

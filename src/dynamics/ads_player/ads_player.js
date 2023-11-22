@@ -5,6 +5,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
     "base:Maths",
     "base:Types",
     "base:Timers",
+    "base:Promise",
     "browser:Dom",
     "module:Assets",
     "dynamics:Dynamic",
@@ -12,7 +13,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
     "module:Ads.IMA.AdsManager"
 ], [
     "module:Ads.Dynamics.Controlbar"
-], function(Objs, Async, Info, Maths, Types, Timers, Dom, Assets, Class, IMALoader, AdsManager, scoped) {
+], function(Objs, Async, Info, Maths, Types, Timers, Promise, Dom, Assets, Class, IMALoader, AdsManager, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -39,7 +40,10 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     adsplaying: false,
                     companionads: [],
                     companionadcontent: null,
-                    customclickthrough: false
+                    customclickthrough: false,
+                    persistentcompanionad: null,
+                    widthbasedcompanionad: false,
+                    heightbasedcompanionad: false
                 },
 
                 events: {
@@ -121,7 +125,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     "ads:allAdsCompleted": function() {
                         if (this.parent() && (
                                 this.parent().get("outstreamoptions").noEndCard ||
-                                this.parent().get("outstreamoptions.allowRepeat")
+                                this.parent().get("outstreamoptions.allowRepeat") ||
+                                this.parent().get("outstreamoptions.persistentcompanionad")
                             )) return;
                         this.call("reset");
                     },
@@ -369,7 +374,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         // Set companion ads array and render for normal content player viewport
                         if (ad) {
                             this._getCompanionAds(ad);
-                            if (this.get("companionad")) this._renderCompanionAd(ad);
+                            if (this.get("companionad")) this._renderCompanionAd();
                         }
                     }
 
@@ -400,6 +405,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             return;
                         } else {
                             if (dyn.get("outstreamoptions.noEndCard")) return;
+                            if (dyn.get("outstreamoptions.persistentcompanionad") && this.get("companionads").length > 0) {
+                                this._renderPersistentCompanionAd(dyn);
+                            }
                             if (dyn.get("outstreamoptions.moreURL")) {
                                 this.set("moredetailslink", dyn.get("outstreamoptions.moreURL"));
                             }
@@ -415,6 +423,15 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         }
                     }
                     this.set("showactionbuttons", true);
+                },
+
+                _renderPersistentCompanionAd: function(dyn) {
+                    dyn = dyn || this.parent();
+                    const element = dyn.activeElement().querySelector(`div[data-selector="ba-ads-persistent-companion-ad-container"]`);
+                    if (element && this.get("companionadcontent")) {
+                        this.set("persistentcompanionad", true);
+                        element.innerHTML = this.get("companionadcontent");
+                    }
                 },
 
                 /**
@@ -437,6 +454,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         companionAds = ad.getCompanionAds(0, 0, selectionCriteria);
                         if (companionAds && companionAds.length > 0) {
                             this.set("companionads", companionAds);
+                            if (this.get("isoutstream") && this.get("outstreamoptions.persistentcompanionad")) {
+                                this.prepareSuitableCompanionAd(companionAds);
+                            }
                         }
                         return companionAds;
                     } else {
@@ -581,6 +601,112 @@ Scoped.define("module:Ads.Dynamics.Player", [
                                 playerElement.insertAdjacentElement("afterend", this.__companionAdElement);
                         }
                     }
+                },
+
+                /**
+                 * Will prepare companion ad content, while ad is playing
+                 * @param companionAds
+                 */
+                prepareSuitableCompanionAd: function(companionAds) {
+                    const parentContainer = this.parent().activeElement();
+                    const containerDimensions = Dom.elementDimensions(parentContainer.firstChild);
+                    const promise = this.getClosestCompanionAd(companionAds, containerDimensions.width, containerDimensions.height);
+                    if (promise.isFinished()) {
+                        const data = promise.value();
+                        if (data && data.content) {
+                            if (data.widthBased) {
+                                this.set("widthbasedcompanionad", true);
+                            } else {
+                                this.set("heightbasedcompanionad", true);
+                            }
+                            this.set("companionadcontent", data.content);
+                        }
+                    } else {
+                        promise.asyncSuccess(function(data) {
+                            if (data.content) {
+                                // First apply class styles after active element is rendered
+                                if (data.widthBased) {
+                                    this.set("widthbasedcompanionad", true);
+                                } else {
+                                    this.set("heightbasedcompanionad", true);
+                                }
+                                this.set("companionadcontent", data.content);
+                            }
+                        }, this);
+                        promise.asyncError(function(error) {
+                            console.warn(error);
+                        }, this);
+                    }
+                },
+
+                /**
+                 * Will calculate the closest companion ad to the player container
+                 * @param companionAds || null
+                 * @param width || null
+                 * @param height || null
+                 * @return {*} // Promise
+                 */
+                getClosestCompanionAd(companionAds, width, height) {
+                    const promise = Promise.create();
+                    companionAds = companionAds || this.get("companionads");
+                    const containerDimensions = Dom.elementDimensions(this.getAdContainer());
+                    width = width || this.getAdWidth() || containerDimensions.width;
+                    height = height || this.getAdHeight() || containerDimensions.height;
+                    if (companionAds && companionAds.length > 0 && (width && width > 0 && height && height > 0)) {
+                        let closestIndex, closestAr, closestDiff, rest = [];
+                        let counter = 1;
+                        const containerAr = width / height;
+                        Objs.iter(companionAds, function(companionAd, index) {
+                            try {
+                                const _content = companionAd.getContent() || companionAd.data.content;
+                                const _width = companionAd.getWidth() || companionAd.data.width;
+                                const _height = companionAd.getHeight() || companionAd.data.height;
+                                if (_width && _height && _content) {
+                                    const _ar = _width / _height;
+                                    const _diff = Math.abs(containerAr - _ar);
+                                    if (!closestDiff || closestDiff > _diff) {
+                                        closestDiff = _diff;
+                                        closestIndex = index;
+                                        closestAr = _ar;
+                                    }
+                                    rest.push({
+                                        index: index,
+                                        diff: _diff,
+                                        content: _content,
+                                        ar: _ar,
+                                        width: _width,
+                                        height: _height,
+                                    });
+                                }
+                            } catch (e) {
+                                const message = `Could not be able to get companion ad width and height for index ${index}, Error: ${e}`;
+                                console.warn(message);
+                                // return promise.asyncError(message);
+                            }
+                            if (counter === companionAds.length) {
+                                const companion = companionAds[closestIndex];
+                                const content = companion.getContent() || companion.data.content;
+                                const closestWidth = companion.getWidth() || companion.data.width;
+                                const closestHeight = companion.getHeight() || companion.data.height;
+                                const data = {
+                                    index: closestIndex,
+                                    content: content,
+                                    width: closestWidth,
+                                    height: closestHeight,
+                                    widthBased: closestWidth / closestHeight >= containerAr,
+                                    rest: rest.filter(calc => calc.index !== closestIndex),
+                                }
+                                promise.asyncSuccess(data);
+                                // sometimes promise is not resolved, so we have to check if data is provided
+                                // return data;
+                            } else {
+                                counter++;
+                            }
+                        }, this);
+                    } else {
+                        promise.asyncError(`Either companion ads are not provided or width and height are not provided`);
+                    }
+                    return promise;
                 },
 
                 _hideCompanionAd: function() {

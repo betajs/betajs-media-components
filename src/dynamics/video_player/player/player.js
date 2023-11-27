@@ -826,9 +826,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 remove_on_destroy: true,
 
-                create: function(repeat) {
-                    repeat = repeat || false;
-                    this.set("repeatedplayer", repeat);
+                create: function() {
                     if (this.get("autoplaywhenvisible")) {
                         this.set("autoplay", true);
                         Dom.onScrollIntoView(this.activeElement(), this.get("visibilityfraction"), function() {
@@ -2388,14 +2386,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.get("outstream")) {
                         this.set("autoplay", true);
                         this.set("skipinitial", false);
-                        this.set("unmuteonclick", !this.get("repeatedplayer"));
                         this.set("outstreamoptions", Objs.tree_merge(this.get("initialoptions").outstreamoptions, this.get("outstreamoptions")));
                         // will store user set options for outstream
                         this.set("states.outstreamoptions", this.get("outstreamoptions"));
-                        if (this.get("repeatedplayer")) {
-                            this.set("wait-user-interaction", false);
-                            this.set("autoplay-requires-muted", false);
-                        }
                     }
 
                     if (this.get("adshassource")) {

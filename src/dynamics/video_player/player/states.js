@@ -558,6 +558,10 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream", [
             if (this.dyn.get("outstreamoptions.maxadstoshow") > 0)
                 this.dyn.set("outstreamoptions.maxadstoshow", this.dyn.get("outstreamoptions.maxadstoshow") - 1);
 
+            this.listenOn(this.dyn.channel("ads"), "replayOutstream", function() {
+                this.dyn.set("adsplayer_active", false);
+                this.next("Outstream");
+            }.bind(this));
             /* if this trigger before allAdsCompleted, setTimeout error shows in console
             // In case, if ad contains nonLinear and requests to resume playing the content
             this.listenOn(this.dyn.channel("ads"), "contentResumeRequested", function() {

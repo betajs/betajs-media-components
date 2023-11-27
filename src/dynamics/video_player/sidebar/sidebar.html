@@ -1,45 +1,128 @@
-<div ba-if="{{showsidebargallery}}"
+<div ba-if="{{states.gallerysidebar}}"
+     ba-show="{{gallerysidebar}}"
      class="{{cssgallerysidebar}}-container {{csscommon}}-full-height"
 >
     <div ba-if="{{adsplaying}}" class="{{cssgallerysidebar}}-ads-container">
-        <ba-ads-learn-more-button
-            ba-if="{{moredetailslink && !companionadcontent}}"
-            ba-adsplaying="{{adsplaying}}"
-            ba-event:pause_ads="button_click"
-        ></ba-ads-learn-more-button>
-        <ba-ads-choices-link ba-if="{{adchoiceslink}}"></ba-ads-choices-link>
-    </div>
-    <div ba-if="{{!adsplaying}}" class="{{cssgallerysidebar}}-gallery">
-        <div class="{{cssgallerysidebar}}-gallery-title-container">
-            <div class="{{cssgallerysidebar}}-gallery-title">
-                Up Next
-            </div>
-            <div>
-                Logo
+
+        <div class="{{cssgallerysidebar}}-ads-header-container">
+            <div ba-if="{{headerlogoimgurl}}"
+                 class="{{cssgallerysidebar}}-ads-header-logo-container"
+            >
+                <a href="{{ headerlogourl || headerlogoimgurl }}" title="{{headerlogoname}}">
+                    <img src="{{headerlogoimgurl}}" alt="{{headerlogoname}}" />
+                </a>
             </div>
         </div>
-        <ul class="{{cssgallerysidebar}}-gallery-list"
-            ba-repeat="{{videos :: video}}"
-        >
-            <li class="{{cssgallerysidebar}}-gallery-list-item"
-                onclick="{{play_video(video)}}"
+
+        <div class="{{cssgallerysidebar}}-ads-body-container">
+            <div ba-if="{{afteradsendtext}}" class="{{cssgallerysidebar}}-ad-information-text">
+                <p>
+                    {{afteradsendtext}}
+                </p>
+            </div>
+            <div ba-if="{{companionadcontent}}"
+                 class="{{cssfloatingsidebar}}-companion-container"
+            ></div>
+            <div ba-if="{{!companionadcontent}}">
+                <ba-ads-learn-more-button
+                    ba-if="{{moredetailslink && !companionadcontent}}"
+                    ba-adsplaying="{{adsplaying}}"
+                    ba-cssprefix="{{cssgallerysidebar}}"
+                    ba-moredetailslink="{{moredetailslink}}"
+                    ba-datatestselector="sidebar-ads-learn-more-button"
+                    ba-event:click_action="on_learn_more_click"
+                ></ba-ads-learn-more-button>
+            </div>
+        </div>
+
+        <div class="{{cssgallerysidebar}}-ads-footer-container">
+            <div class="{{cssgallerysidebar}}-ads-footer-right-container">
+                <ba-ads-choices-link
+                    ba-if="{{adchoiceslink}}"
+                    ba-adchoiceslink="{{adchoiceslink}}"
+                    ba-datatestselector="sidebar-ads-choices-button"
+                    ba-event:click_action="on_ads_choices_click"
+                ></ba-ads-choices-link>
+            </div>
+        </div>
+    </div>
+
+    <div ba-show="{{!adsplaying}}" class="{{cssgallerysidebar}}-container">
+        <div class="{{cssgallerysidebar}}-header-container">
+            <div class="{{cssgallerysidebar}}-title">
+                {{gallerytitletext}}
+            </div>
+            <div ba-if="{{ headerlogoimgurl }}"
+                 class="{{cssgallerysidebar}}-header-logo"
             >
-                <div class="{{cssgallerysidebar}}-gallery-list-item-image-container">
-                    <div class="{{cssgallerysidebar}}-play-button-container"></div>
-                    <img class="{{cssgallerysidebar}}-gallery-list-item-image"
-                         src="{{video.poster}}" alt="{{title}}"
-                    />
-                </div>
-                <div class="{{cssgallerysidebar}}-gallery-list-item-title">
-                    {{title}}
-                </div>
-            </li>
-        </ul>
+                <a href="{{headerlogourl || headerlogoimgurl }}" title="{{ headerlogoname }}">
+                    <img src="{{ headerlogoimgurl }}" alt="{{headerlogoname}}" />
+                </a>
+            </div>
+        </div>
+
+        <div class="{{cssgallerysidebar}}-list-container">
+            <div ba-if="{{loading}}" class="{{cssgallerysidebar}}-loading-container">
+                <ba-spinner></ba-spinner>
+            </div>
+            <ul ba-if="{{showplaylist}}"
+                class="{{cssgallerysidebar}}-list" ba-show="{{!loading}}"
+                ba-repeat="{{video :: videos}}"
+            >
+                <li ba-show="{{video.display && !(video.watched && hidevideoafterplay)}}"
+                    class="{{cssgallerysidebar}}-list-item"
+                    data-index="{{video.index}}"
+                    data-index-selector="gallery-item-{{video.index}}"
+                    onclick="{{play_video(video.index)}}"
+                >
+                    <div class="{{cssgallerysidebar}}-list-item-poster-container">
+                        <div class="{{cssgallerysidebar}}-play-button-container">
+                            <ba-circle-progress
+                                ba-if="{{shownextloader && nextindex === video.index}}"
+                                ba-autostart="{{true}}"
+                                ba-timeout="{{noengagenext * 1000}}"
+                                ba-noengagenext="{{noengagenext}}"
+                                ba-paused="{{!playing}}"
+                            ></ba-circle-progress>
+                            <svg ba-if="{{!(shownextloader && nextindex === video.index)}}"
+                                 width="34" height="36" viewBox="0 0 34 36" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <g filter="url(#filter0_d_4559_6796)">
+                                    <path d="M23.8049 18.0771L10.6387 25.6026L10.6387 10.5515L23.8049 18.0771Z" fill="white"/>
+                                </g>
+                                <defs>
+                                    <filter id="filter0_d_4559_6796" x="-3.75" y="-0.612671" width="37.5549" height="37.3794" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                                        <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                                        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                                        <feOffset/>
+                                        <feGaussianBlur stdDeviation="5"/>
+                                        <feComposite in2="hardAlpha" operator="out"/>
+                                        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+                                        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_4559_6796"/>
+                                        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_4559_6796" result="shape"/>
+                                    </filter>
+                                </defs>
+                            </svg>
+                        </div>
+                        <img class="{{cssgallerysidebar}}-list-item-poster"
+                             src="{{video.poster}}" alt="{{video.title}}"
+                        />
+                    </div>
+                    <div class="{{cssgallerysidebar}}-list-item-title">
+                        {{video.title}}
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+
+        <div class="{{cssgallerysidebar}}-footer-container"></div>
     </div>
 </div>
 
 <!-- Show gallery more prioritized than sidebar -->
-<div ba-if="{{!showsidebargallery}}"
+<div ba-if="{{floatingsidebar}}"
      class="{{cssfloatingsidebar}}-container {{csscommon}}-full-height"
 >
     <div ba-if="{{adsplaying}}"
@@ -47,7 +130,9 @@
     >
         <ba-ads-choices-link
             ba-if="{{adchoiceslink}}"
-            ba-cssadsplayer="{{cssadsplayer}}"
+            ba-adchoiceslink="{{adchoiceslink}}"
+            ba-datatestselector="sidebar-ads-choices-button"
+            ba-event:click_action="on_ads_choices_click"
         ></ba-ads-choices-link>
         <!-- Companion ad content will be set as innerHTML  -->
         <div ba-if="{{companionadcontent}}"
@@ -57,9 +142,10 @@
             <ba-ads-learn-more-button
                 ba-if="{{moredetailslink && !companionadcontent}}"
                 ba-adsplaying="{{adsplaying}}"
-                ba-event:pause_ads="button_click"
+                ba-cssprefix="{{cssfloatingsidebar}}"
                 ba-moredetailslink="{{moredetailslink}}"
-                ba-passedclasses="{{cssfloatingsidebar + '-action-button'}}"
+                ba-datatestselector="sidebar-ads-learn-more-button"
+                ba-event:click_action="on_learn_more_click"
             ></ba-ads-learn-more-button>
         </div>
     </div>

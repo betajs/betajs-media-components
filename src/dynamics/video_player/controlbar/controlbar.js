@@ -194,19 +194,20 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         event.preventDefault();
 
                         var updateVolume = function(event) {
+                            var volume;
                             event.preventDefault();
                             if (domRect.width > domRect.height) {
                                 // Horizontal slider
                                 var x = event.clientX;
-                                if (!x && Array.isArray(event.touches)) x = event.touches[0].clientX;
-                                this.set("volume", Maths.clamp((x - domRect.x) / domRect.width, 0, 1));
+                                if (!x && event.touches) x = event.touches[0].clientX;
+                                volume = Maths.clamp((x - domRect.x) / domRect.width, 0, 1);
                             } else {
                                 // Vertical slider
                                 var y = event.clientY;
-                                if (!y && Array.isArray(event.touches)) y = event.touches[0].clientY;
-                                this.set("volume", Maths.clamp((domRect.bottom - y) / domRect.height, 0, 1));
+                                if (!y && event.touches) y = event.touches[0].clientY;
+                                volume = Maths.clamp((domRect.bottom - y) / domRect.height, 0, 1);
                             }
-                            this.trigger("volume", this.get("volume"));
+                            this.trigger("volume", volume);
                         }.bind(this);
 
                         updateVolume(event);
@@ -247,13 +248,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
 
                     toggle_volume: function() {
                         if (this.get("unmuteonclick") && !this.get("userhadplayerinteraction")) return;
-                        if (this.get("volume") > 0) {
-                            this.__oldVolume = this.get("volume");
-                            this.set("volume", 0);
+                        var volume = this.get("volume");
+                        if (volume > 0) {
+                            this.__oldVolume = volume;
+                            volume = 0;
                         } else {
-                            this.set("volume", this.__oldVolume || 1);
+                            volume = this.__oldVolume || 1;
                         }
-                        this.trigger("volume", this.get("volume"));
+                        this.trigger("volume", volume);
                     },
 
                     toggle_position_info: function() {
@@ -277,7 +279,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     },
 
                     set_volume: function(volume) {
-                        this.trigger("set_volume", volume);
+                        this.trigger("volume", volume);
                     },
 
                     submit: function() {

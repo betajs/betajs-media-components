@@ -4,7 +4,9 @@
      {{cssplayer}}-{{themecolor}}-color {{cssplayer}}-device-type-{{mobileview ? 'mobile' : 'desktop'}}
      {{cssplayer}}-viewport-{{mobileviewport ? 'mobile' : 'desktop'}}
      {{is_floating ? cssfloatingclasses : ''}}
-     {{sidebar_active ? cssplayer + '-with-sidebar' : csscommon + '-full-width'}}
+     {{presetkey ? cssplayer + '-preset-' + presetkey : ''}}
+     {{(sidebar_active && gallerysidebar) ? cssplayer + '-with-sidebar-gallery' : ''}}
+     {{(sidebar_active && show_sidebar) ? cssplayer + '-with-sidebar' : csscommon + '-full-width'}}
      {{cssplayer + (((activity_delta > hidebarafter) && hideoninactivity) ? '-controlbar-hidden' : '-controlbar-visible')}}"
      ba-on:mousemove="{{user_activity()}}"
      ba-on:mousedown="{{user_activity(true)}}"
@@ -17,18 +19,23 @@
     <meta itemprop="caption" content="{{title}}" />
     <meta itemprop="thumbnailUrl" content="{{thumbnailurl}}" />
     <meta itemprop="contentUrl" content="{{contenturl}}" />
-    <ba-{{dynnext}}
-        ba-if="{{next_active}}"
-        ba-is_floating="{{is_floating}}"
-        ba-with_sidebar="{{with_sidebar}}"
-        ba-playlist="{{playlist}}"
-        ba-current_video_from_playlist="{{current_video_from_playlist}}"
-        ba-position="{{position}}"
-        ba-shownext="{{shownext}}"
-        ba-noengagenext="{{noengagenext}}"
-    ></ba-{{dynnext}}>
-    <div class="{{cssplayer}}-content" data-selector="ba-player-container">
-        <div class="{{css}}-tooltips-list-container" ba-repeat="{{tooltip :: tooltips}}">
+    <div class="{{cssplayer}}-content" data-selector="ba-player-container"
+         ba-styles="{{playercontainerstyles}}"
+    >
+        <ba-{{dynnext}}
+            ba-if="{{next_active && !playing_ad}}"
+            ba-is_floating="{{is_floating}}"
+            ba-with_sidebar="{{with_sidebar}}"
+            ba-playlist="{{playlist}}"
+            ba-current_video_from_playlist="{{current_video_from_playlist}}"
+            ba-position="{{position}}"
+            ba-shownext="{{shownext}}"
+            ba-noengagenext="{{noengagenext}}"
+            ba-gallerysidebar="{{gallerysidebar}}"
+        ></ba-{{dynnext}}>
+        <div class="{{css}}-tooltips-list-container"
+             ba-repeat="{{tooltip :: tooltips}}"
+        >
             <ba-{{dyntooltip}}
                 ba-if="{{tooltip.tooltiptext}}"
                 ba-tooltip="{{tooltip}}"
@@ -65,6 +72,8 @@
             ba-outstreamoptions="{{outstreamoptions}}"
             ba-quartile="{{=adsquartile}}"
             ba-userhadplayerinteraction="{{userhadplayerinteraction}}"
+            ba-controlbarstyles="{{controlbarstyles}}"
+            ba-sidebar_active="{{sidebar_active}}"
             ba-imasettings="{{imasettings}}"
             ba-event:fullscreen="toggle_fullscreen"
             ba-fullscreened="{{fullscreened}}"
@@ -77,6 +86,7 @@
             ba-hideoninactivity="{{(activity_delta > hidebarafter) && hideoninactivity}}"
             ba-view_type="{{view_type}}"
             ba-adsplaying="{{=adsplaying}}"
+            ba-playing="{{=adnotpaused}}"
             ba-moredetailslink="{{=moredetailslink}}"
             ba-moredetailstext="{{=moredetailstext}}"
             ba-mobileview="{{mobileview}}"
@@ -84,7 +94,7 @@
             ba-withsidebar="{{with_sidebar}}"
             ba-floatingoptions="{{floatingoptions}}"
             ba-mobileviewport="{{mobileviewport}}"
-            ba-adchoicesontop="{{adchoicesontop}}"
+            ba-adchoicesontop="{{adchoicesontop && !gallerysidebar}}"
             ba-presetedtooltips="{{presetedtooltips}}"
         ></ba-{{dynadsplayer}}>
         <div class="{{css}}-overlay {{hasplaceholderstyle ? (css + '-overlay-with-placeholder') : ''}}"
@@ -128,6 +138,7 @@
                 ba-airplaybuttonvisible="{{airplaybuttonvisible}}"
                 ba-chromecast="{{chromecast}}"
                 ba-castbuttonvisble="{{castbuttonvisble}}"
+                ba-sidebar_active="{{sidebar_active}}"
                 ba-event:rerecord="rerecord"
                 ba-event:submit="submit"
                 ba-event:play="play"
@@ -140,7 +151,6 @@
                 ba-event:toggle_player="toggle_player"
                 ba-event:tab_index_move="tab_index_move"
                 ba-event:seek="seek"
-                ba-event:set_volume="set_volume"
                 ba-event:toggle_tracks="toggle_tracks"
                 ba-tabindex="{{tabindex}}"
                 ba-showchaptertext="{{showchaptertext}}"
@@ -279,7 +289,7 @@
         </div>
         <div ba-show="{{useAspectRatioFallback}}" ba-styles="{{aspectRatioFallback}}"></div>
     </div>
-    <div ba-if="{{sidebar_active}}" class="{{cssplayer}}-sidebar">
+    <div ba-show="{{show_sidebar}}" class="{{cssplayer}}-sidebar" ba-styles="{{sidebarstyles}}">
         <ba-{{dynsidebar}}
             ba-if="{{sidebar_active}}"
             ba-css="{{css}}"
@@ -290,15 +300,23 @@
             ba-title="{{next_active ? '' : title || 'Video Player'}}"
             ba-addata="{{addata}}"
             ba-companionads="{{companionads}}"
-            ba-with_sidebar="{{with_sidebar}}"
+            ba-fullscreened="{{fullscreened}}"
             ba-is_floating="{{is_floating}}"
+            ba-sidebaroptions="{{sidebaroptions}}"
             ba-floatingoptions="{{floatingoptions}}"
+            ba-floatingsidebar="{{floatingsidebar}}"
+            ba-showsidebargallery="{{showsidebargallery}}"
+            ba-gallerysidebar="{{gallerysidebar}}"
             ba-adchoiceslink="{{adchoiceslink}}"
             ba-moredetailslink="{{moredetailslink}}"
             ba-moredetailstext="{{moredetailstext}}"
             ba-adsplaying="{{adsplaying}}"
             ba-playlist="{{playlist}}"
+            ba-playing="{{playing}}"
+            ba-position="{{position}}"
             ba-shownext="{{shownext}}"
+            ba-nextactive="{{next_active}}"
+            ba-noengagenext="{{noengagenext}}"
             ba-mobileviewport="{{mobileviewport}}"
             ba-event:pause_ads="pause_ads"
         ></ba-{{dynsidebar}}>

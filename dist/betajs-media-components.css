@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.420 - 2023-11-14
+betajs-media-components - v0.0.423 - 2023-11-20
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1672,13 +1672,13 @@ Apache-2.0 Software License.
 .ba-adsplayer-ad-choices-container > a {
   display: inline-block;
   position: absolute;
-  top: 5px;
-  left: 5px;
-  width: 16px;
-  height: 16px;
   text-indent: -9999px;
+  max-width: 25px;
+  max-height: 25px;
 }
 .ba-adsplayer-ad-choices-container > a svg {
+  width: 100%;
+  height: 100%;
   display: block;
   filter: drop-shadow(1px 4px 3px rgba(0, 0, 0, 0.7));
 }
@@ -1758,6 +1758,80 @@ Apache-2.0 Software License.
   color: #5daa96;
 }
 
+div.ba-player-with-sidebar.ba-player-floating .ba-player-content {
+  flex: auto;
+  position: relative;
+  contain: size;
+}
+div.ba-player-with-sidebar .ba-floating-sidebar-container {
+  color: #fff;
+  text-align: center;
+  margin: 0;
+  flex-grow: 1;
+  background: #000000;
+}
+div.ba-player-with-sidebar .ba-floating-sidebar-container .ba-floating-sidebar-ad-playing-container {
+  position: relative;
+}
+div.ba-player-with-sidebar .ba-floating-sidebar-container .ba-floating-sidebar-content-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+div.ba-player-with-sidebar .ba-floating-sidebar-container a.ba-floating-sidebar-action-button {
+  transition: border 500ms ease-out;
+  -moz-transition: border 500ms ease-out;
+  -webkit-transition: border 500ms ease-out;
+  -o-transition: border 500ms ease-out;
+  -ms-transition: border 500ms ease-out;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  padding: 7px 12px;
+  border: 1px solid #ececec;
+  border-radius: 3px;
+  cursor: pointer;
+  margin: 0;
+}
+div.ba-player-with-sidebar .ba-floating-sidebar-container a.ba-floating-sidebar-action-button:hover {
+  border-color: #FF9933;
+}
+div.ba-player-with-sidebar .ba-floating-sidebar-container a.ba-floating-sidebar-action-button:link {
+  text-decoration: none;
+}
+div.ba-player-with-sidebar .ba-floating-sidebar-container a.ba-floating-sidebar-action-button:visited {
+  text-decoration: none;
+}
+div.ba-player-with-sidebar .ba-floating-sidebar-container a.ba-floating-sidebar-action-button:hover {
+  text-decoration: none;
+}
+div.ba-player-with-sidebar .ba-floating-sidebar-container a.ba-floating-sidebar-action-button:active {
+  text-decoration: none;
+}
+div.ba-player-with-sidebar.ba-player-viewport-mobile {
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.4);
+  max-width: 100%;
+}
+div.ba-player-with-sidebar .ba-floating-sidebar-title {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+div.ba-player-with-sidebar .ba-adsplayer-ad-choices-container {
+  position: absolute;
+  color: #fff;
+  top: 5px;
+  left: 5px;
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+}
+div.ba-player-with-sidebar.ba-player-fullscreen-view .ba-adsplayer-controlbar, div.ba-player-with-sidebar.ba-player-fullscreen-view .ba-adsplayer-linear-ad-container {
+  width: 100%;
+}
+
 /* Full screen options */
 .ba-player-fullscreen-view video::-webkit-media-controls-overlay-enclosure {
   display: none;
@@ -1809,6 +1883,166 @@ Apache-2.0 Software License.
   min-height: 100%;
   min-width: 100%;
   z-index: 0;
+}
+
+.ba-player-with-sidebar-gallery .ba-player-content {
+  position: relative;
+}
+
+.ba-gallery-sidebar-ads-header-container,
+.ba-gallery-sidebar-header-container {
+  height: 30px;
+  display: flex;
+  align-self: start;
+  align-content: center;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+.ba-gallery-sidebar-ads-header-container a,
+.ba-gallery-sidebar-header-container a {
+  color: #ffffff;
+  cursor: pointer;
+  display: inherit;
+  height: 100%;
+  text-decoration: none;
+  justify-content: end;
+}
+
+.ba-gallery-sidebar-ads-body-container, .ba-gallery-sidebar-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+  width: 100%;
+}
+
+.ba-gallery-sidebar-ads-footer-container {
+  height: 30px;
+  line-height: 30px;
+  position: relative;
+  align-self: end;
+  margin-top: auto;
+  width: 100%;
+}
+
+.ba-gallery-sidebar-loading-container {
+  height: 100%;
+}
+.ba-gallery-sidebar-loading-container .ba-spinner-container {
+  align-content: center;
+  display: grid;
+  justify-content: center;
+  height: 100%;
+}
+
+.ba-gallery-sidebar-container {
+  background-color: #000000;
+  box-sizing: border-box;
+  padding-bottom: 15px;
+  color: #ffffff;
+  height: 100%;
+  padding-right: 2px;
+}
+.ba-gallery-sidebar-container .ba-gallery-sidebar-header-container {
+  box-sizing: border-box;
+  padding: 5px 13px;
+  font-size: 12px;
+  height: 24px;
+  justify-content: space-between;
+}
+.ba-gallery-sidebar-container .ba-gallery-sidebar-header-container img {
+  height: 10px;
+}
+.ba-gallery-sidebar-container .ba-gallery-sidebar-list-container {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  /* width */
+  /* button */
+  /* Handle */
+  /* Handle on hover */
+  /* Track */
+  /** Firefox only */
+  scrollbar-color: #b3b3b3 #000000;
+  scrollbar-width: thin;
+}
+.ba-gallery-sidebar-container .ba-gallery-sidebar-list-container::-webkit-scrollbar {
+  width: 8px;
+}
+.ba-gallery-sidebar-container .ba-gallery-sidebar-list-container::-webkit-scrollbar-button {
+  background: #222;
+}
+.ba-gallery-sidebar-container .ba-gallery-sidebar-list-container::-webkit-scrollbar-thumb {
+  background: #b3b3b3;
+  border-radius: 12px;
+  min-height: 40px;
+}
+.ba-gallery-sidebar-container .ba-gallery-sidebar-list-container::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+.ba-gallery-sidebar-container .ba-gallery-sidebar-list-container::-webkit-scrollbar-track {
+  background: #000;
+}
+.ba-gallery-sidebar-container .ba-gallery-sidebar-list {
+  box-sizing: border-box;
+  list-style: none;
+  margin: 0;
+  padding: 0 5px 0 10px;
+}
+.ba-gallery-sidebar-container .ba-gallery-sidebar-list .ba-gallery-sidebar-list-item-title {
+  font-size: 12px;
+  margin: 5px 0 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+.ba-gallery-sidebar-container .ba-gallery-sidebar-list-item {
+  display: inline-grid;
+}
+.ba-gallery-sidebar-container .ba-gallery-sidebar-list-item-poster-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.ba-gallery-sidebar-container .ba-gallery-sidebar-list-item-poster-container img {
+  max-width: 100%;
+}
+.ba-gallery-sidebar-container .ba-gallery-sidebar-list-item-poster-container .ba-gallery-sidebar-play-button-container {
+  cursor: pointer;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  position: absolute;
+}
+.ba-gallery-sidebar-ads-container {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  padding: 15px 13px;
+}
+.ba-gallery-sidebar-ads-container .ba-gallery-sidebar-ads-header-logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  height: 100%;
+  width: 100%;
+}
+.ba-gallery-sidebar-ads-container .ba-gallery-sidebar-ads-header-logo-container > img {
+  height: 25px;
+}
+.ba-gallery-sidebar-ads-container .ba-gallery-sidebar-ads-body-container p {
+  font-size: 22px;
+  margin: 0;
+  padding: 0 0 15px 0;
+}
+.ba-gallery-sidebar-ads-container .ba-gallery-sidebar-ads-footer-container .ba-adsplayer-ad-choices-container {
+  top: auto;
+  left: auto;
+  bottom: 0;
+  right: 0;
 }
 
 .ba-player-loader-container {
@@ -1882,6 +2116,11 @@ Apache-2.0 Software License.
 .ba-player-next-style-desktop {
   top: auto;
   transform: none;
+}
+
+.ba-player-with-sidebar-gallery .ba-player-toggle-next-container {
+  align-items: end;
+  bottom: 35px;
 }
 
 .ba-player-toggle-next-container {
@@ -2626,6 +2865,23 @@ Apache-2.0 Software License.
   padding-right: 10px;
 }
 
+@keyframes rotation {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+.ba-spinner-container > div > svg {
+  width: 100%;
+  height: 100%;
+  -webkit-animation: rotation 1.4s infinite linear;
+  animation: rotation 1.4s infinite linear;
+}
+
 @keyframes ba-commoncss-fade-in {
   0% {
     opacity: 0;
@@ -3171,6 +3427,56 @@ div.ba-commoncss-sticky.ba-player-viewport-mobile {
   max-width: 100%;
 }
 
+.ba-progressbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 100%;
+}
+.ba-progressbar-container .ba-progressbar-circle {
+  height: 45px;
+  width: 45px;
+  position: relative;
+}
+.ba-progressbar-container .ba-progressbar-circle::after {
+  content: attr(data-countdown);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 50%;
+  background-color: rgba(172, 172, 172, 0.5);
+  color: #fff;
+  font-size: 1rem;
+  text-align: center;
+  position: relative;
+  top: 10%;
+  left: 10%;
+  z-index: 0;
+  width: 75%;
+  height: 75%;
+}
+.ba-progressbar-container .ba-progressbar-svg {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  transform: rotate(-90deg);
+}
+.ba-progressbar-container .ba-progressbar-svg__background {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 5px;
+}
+.ba-progressbar-container .ba-progressbar-svg__progress {
+  fill: none;
+  stroke-linecap: round;
+  stroke-dasharray: 100 100;
+  stroke-linecap: round;
+  stroke-width: 5px;
+}
+
 .ba-player-red-color .ba-videoplayer-button-inner, .ba-player-red-color .ba-videoplayer-title {
   color: #eb6a74;
 }
@@ -3591,96 +3897,6 @@ div.ba-commoncss-sticky.ba-player-viewport-mobile {
   height: 100%;
 }
 
-/** NOTE: adding flex-grow 1 to the player content will make not fully show ads */
-.ba-player-sidebar {
-  flex-grow: 1;
-  max-width: 50%;
-  flex-basis: min-content;
-}
-
-div.ba-player-with-sidebar {
-  display: flex;
-  flex-wrap: nowrap;
-  flex-direction: row;
-}
-div.ba-player-with-sidebar .ba-videoplayer-poster-container, div.ba-player-with-sidebar .ba-videoplayer-poster-container img,
-div.ba-player-with-sidebar .ba-videoplayer-video-container, div.ba-player-with-sidebar .ba-videoplayer-video-container video {
-  position: relative;
-}
-div.ba-player-with-sidebar.ba-player-floating .ba-player-content {
-  flex: auto;
-  position: relative;
-  contain: size;
-}
-div.ba-player-with-sidebar .ba-floating-sidebar-container {
-  color: #fff;
-  text-align: center;
-  margin: 0;
-  flex-grow: 1;
-  background: #000000;
-}
-div.ba-player-with-sidebar .ba-floating-sidebar-container .ba-floating-sidebar-ad-playing-container {
-  position: relative;
-}
-div.ba-player-with-sidebar .ba-floating-sidebar-container .ba-floating-sidebar-content-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-}
-div.ba-player-with-sidebar .ba-floating-sidebar-container a.ba-floating-sidebar-action-button {
-  transition: border 500ms ease-out;
-  -moz-transition: border 500ms ease-out;
-  -webkit-transition: border 500ms ease-out;
-  -o-transition: border 500ms ease-out;
-  -ms-transition: border 500ms ease-out;
-  box-sizing: border-box;
-  color: #FFFFFF;
-  padding: 7px 12px;
-  border: 1px solid #ececec;
-  border-radius: 3px;
-  cursor: pointer;
-  margin: 0;
-}
-div.ba-player-with-sidebar .ba-floating-sidebar-container a.ba-floating-sidebar-action-button:hover {
-  border-color: #FF9933;
-}
-div.ba-player-with-sidebar .ba-floating-sidebar-container a.ba-floating-sidebar-action-button:link {
-  text-decoration: none;
-}
-div.ba-player-with-sidebar .ba-floating-sidebar-container a.ba-floating-sidebar-action-button:visited {
-  text-decoration: none;
-}
-div.ba-player-with-sidebar .ba-floating-sidebar-container a.ba-floating-sidebar-action-button:hover {
-  text-decoration: none;
-}
-div.ba-player-with-sidebar .ba-floating-sidebar-container a.ba-floating-sidebar-action-button:active {
-  text-decoration: none;
-}
-div.ba-player-with-sidebar.ba-player-viewport-mobile {
-  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.4);
-  max-width: 100%;
-}
-div.ba-player-with-sidebar .ba-floating-sidebar-title {
-  display: -webkit-box;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-}
-div.ba-player-with-sidebar .ba-adsplayer-ad-choices-container {
-  position: absolute;
-  color: #fff;
-  top: 5px;
-  left: 5px;
-  height: 20px;
-  width: 20px;
-  cursor: pointer;
-}
-div.ba-player-with-sidebar.ba-player-fullscreen-view .ba-adsplayer-controlbar, div.ba-player-with-sidebar.ba-player-fullscreen-view .ba-adsplayer-linear-ad-container {
-  width: 100%;
-}
-
 /* Full screen options */
 .ba-player-fullscreen-view video::-webkit-media-controls-overlay-enclosure {
   display: none;
@@ -3977,6 +4193,24 @@ div.ba-player-with-sidebar.ba-player-fullscreen-view .ba-adsplayer-controlbar, d
 }
 .ba-player-close-container .ba-player-close-svg-button {
   fill: #cccccc;
+}
+
+/** NOTE: adding flex-grow 1 to the player content will make not fully show ads */
+.ba-player-sidebar {
+  flex-grow: 1;
+  max-width: 50%;
+  flex-basis: min-content;
+  z-index: 1;
+}
+
+div.ba-player-with-sidebar {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+}
+div.ba-player-with-sidebar .ba-videoplayer-poster-container, div.ba-player-with-sidebar .ba-videoplayer-poster-container img,
+div.ba-player-with-sidebar .ba-videoplayer-video-container, div.ba-player-with-sidebar .ba-videoplayer-video-container video {
+  position: relative;
 }
 
 .ba-videoplayer-topmessage-container {

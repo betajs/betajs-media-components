@@ -430,7 +430,15 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     const element = dyn.activeElement().querySelector(`div[data-selector="ba-ads-persistent-companion-ad-container"]`);
                     if (element) {
                         this.set("persistentcompanionad", true);
-                        element.innerHTML = this.get("companionadcontent");
+                        if (this.get("adsclicktroughurl") && !this.get("companionadcontent").includes("<a")) {
+                            const a = document.createElement('a');
+                            a.href = this.get("adsclicktroughurl");
+                            a.title = this.get("outstreamoptions.moreText") || "Click to learn more";
+                            a.innerHTML = this.get("companionadcontent");
+                            element.append(a);
+                        } else {
+                            element.innerHTML = this.get("companionadcontent");
+                        }
                     }
                 },
 

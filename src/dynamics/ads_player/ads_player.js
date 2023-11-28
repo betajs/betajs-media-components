@@ -617,7 +617,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             Objs.map(companionAds, function(ad) {
                                 const adContent = ad.data?.content;
                                 if (adContent) {
-                                    const reg = new RegExp(`id=['"]${adslotid}['"]`, "g");
+                                    const reg = new RegExp(`id=['"]${id}['"]`, "g");
                                     const matching = reg.test(ad.data?.content);
 
                                     if (Number(ad.getAdSlotId()) === Number(adslotid) || matching) {

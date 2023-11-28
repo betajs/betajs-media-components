@@ -405,7 +405,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             return;
                         } else {
                             if (dyn.get("outstreamoptions.noEndCard")) return;
-                            if (dyn.get("outstreamoptions.persistentcompanionad") && this.get("companionads").length > 0) {
+                            if (dyn.get("outstreamoptions.persistentcompanionad") && this.get("companionadcontent")) {
                                 this._renderPersistentCompanionAd(dyn);
                             }
                             if (dyn.get("outstreamoptions.moreURL")) {
@@ -428,7 +428,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 _renderPersistentCompanionAd: function(dyn) {
                     dyn = dyn || this.parent();
                     const element = dyn.activeElement().querySelector(`div[data-selector="ba-ads-persistent-companion-ad-container"]`);
-                    if (element && this.get("companionadcontent")) {
+                    if (element) {
                         this.set("persistentcompanionad", true);
                         element.innerHTML = this.get("companionadcontent");
                     }

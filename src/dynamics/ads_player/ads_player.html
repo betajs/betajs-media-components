@@ -12,7 +12,14 @@
         ba-datatestselector="top-ads-choices-button"
     ></ba-ads-choices-link>
 
-    <div ba-if="{{showactionbuttons && isoutstream}}"
+    <div ba-if="{{persistentcompanionad}}"
+         class="{{cssadsplayer}}-persistent-companion-ad-container
+         {{widthbasedcompanionad ? cssadsplayer + '-width-based-companion' : ''}}
+         {{heightbasedcompanionad ? cssadsplayer + '-height-based-companion' : ''}}"
+         data-selector="ba-ads-persistent-companion-ad-container"
+    ></div>
+
+    <div ba-if="{{showactionbuttons && isoutstream && !persistentcompanionad}}"
         class="{{cssadsplayer}}-actions-button-container {{csscommon}}-center-all"
     >
         <div ba-if="{{moredetailslink}}">

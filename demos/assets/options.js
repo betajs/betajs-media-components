@@ -46,8 +46,13 @@ if (params.ad) {
         case 5: case '5': case 'os': // with nonLinear
             attrs.adtagurl = 'https://ads.celtra.com/f41e9364/vpaid/vast.xml';
             break;
-        case 6: case '6': case 'companion': case 'cmp': // with Companion Ads
-            attrs.adtagurl = companion;
+        case 7: case '7': case 'cmp': // with nonLinear
+            // TODO: remove after testing
+            // https://kvid-demo-kargo-com.s3.amazonaws.com/functional-mocks/vast/functional-mock-1.xml
+            // https://kvid-demo-kargo-com.s3.amazonaws.com/functional-mocks/vast/functional-mock-2.xml
+            // https://kvid-demo-kargo-com.s3.amazonaws.com/functional-mocks/vast/functional-mock-3.xml
+            attrs.adtagurl = 'https://kvid-demo-kargo-com.s3.amazonaws.com/functional-mocks/vast/functional-mock-2.xml';
+            // attrs.adtagurl = companion;
             break;
         case 9: case '9': case 'err': // with nonLinear
             attrs.adtagurl = 'https://ads.celtra.com/wrong/vpaid/error.xml';
@@ -215,7 +220,8 @@ attrs = {...attrs, ...{
         // showplayercontentafter: 1500, // we can set any seconds to show player content in any case if ads not intialized
         // hideoninactivity: false,
         // ** SOURCES
-        // width: 640,
+        // width: 440,
+        // height: 320,
         minadintervals: 0,
         muted: true,
         unmuteonclick: true,
@@ -293,6 +299,7 @@ attrs = {...attrs, ...{
             allowRepeat: true,
             noEndCard: false,
             repeatText: "Custom Repeat",
+            persistentcompanionad: true
         },
         sidebaroptions: {
             "headerlogourl": "https://betajs.com",

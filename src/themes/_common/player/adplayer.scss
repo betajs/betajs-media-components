@@ -258,6 +258,35 @@
     color: #ccc;
 }
 
+.#{$cssadsplayer}-persistent-companion-ad-container {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    height: 100%;
+    &.#{$cssadsplayer}-width-based-companion {
+        width: 100%;
+        * {
+            width: 100%;
+        }
+        img {
+            height: auto;
+            width: 100%;
+        }
+    }
+    &.#{$cssadsplayer}-height-based-companion {
+        * {
+            height: 100%;
+        }
+        img {
+            width: 100%;
+        }
+    }
+    & > * {
+        align-self: center;
+        display: flex;
+    }
+}
+
 .#{$cssadsplayer}-ad-choices-container > a {
     display: inline-block;
     position: absolute;

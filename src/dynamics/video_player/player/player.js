@@ -225,7 +225,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         //  hideoncompletion: true, // FEATURE: default: true, should hide when ad is completed
                         //  timeout: null, // FEATURE:: default: null, timeout in milliseconds when should be hidden
                         //  "locations": [{
-                        //      id: 'adSlotID or ID', // required, ID of the companion ad slot
+                        //      id: 'ID', // required, ID of the companion ad slot
+                        //      adslotid: 'adslotid'
                         //      selector: 'selector' // required, CSS selector,
                         //      timeout: null, // FEATURE: default: null, timeout in milliseconds when should be hidden
                         //   }]

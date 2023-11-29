@@ -229,12 +229,12 @@
     line-height: 16px;
 }
 
-.#{$cssadsplayer}-action-button {
+a.#{$cssadsplayer}-action-button, button.#{$cssadsplayer}-action-button {
     @include transition1(background-color, 0.3s, ease-in-out);
     background: #020202;
     border-color: #c9c9c9;
     border-radius: 1px;
-    color: #ccc;
+    color: #fff;
     cursor: pointer;
     display: inline-block;
     padding: 5px 20px;
@@ -243,17 +243,20 @@
     min-width: 7em;
 }
 
-.#{$cssadsplayer}-action-button.#{$cssadsplayer}-reversed-color {
+a.#{$cssadsplayer}-action-button.#{$cssadsplayer}-reversed-color,
+button.#{$cssadsplayer}-action-button.#{$cssadsplayer}-reversed-color {
     background-color: #ccc;
     color: #020202;
 }
 
-.#{$cssadsplayer}-action-button:hover {
+a.#{$cssadsplayer}-action-button:hover,
+button.#{$cssadsplayer}-action-button:hover {
     background-color: #ccc;
     color: #020202;
 }
 
-.#{$cssadsplayer}-action-button.#{$cssadsplayer}-reversed-color:hover {
+a.#{$cssadsplayer}-action-button.#{$cssadsplayer}-reversed-color:hover,
+button.#{$cssadsplayer}-action-button.#{$cssadsplayer}-reversed-color:hover {
     background: #020202;
     color: #ccc;
 }

@@ -100,7 +100,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         autoPlayAdBreaks: true,
                         width: this.getAdWidth(),
                         height: this.getAdHeight(),
-                        volume: this.get("repeatedplayer") ? 1 : (this.getAdWillPlayMuted() ? 0 : this.get("volume"))
+                        volume: this.getAdWillPlayMuted() ? 0 : this.get("volume")
                     };
                 },
 
@@ -251,7 +251,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.adsManager.start({
                             width: this.getAdWidth(),
                             height: this.getAdHeight(),
-                            volume: this.get("repeatedplayer") ? 1 : (this.getAdWillPlayMuted() ? 0 : this.get("volume"))
+                            volume: this.getAdWillPlayMuted() ? 0 : this.get("volume")
                         });
                         // if (!this.adsManager.adDisplayContainerInitialized) this.adsManager.initializeAdDisplayContainer();
                         // this.call("requestAds");
@@ -647,9 +647,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     dyn = dyn || this.parent();
                     if (Types.is_undefined(dyn.activeElement))
                         throw Error("Wrong dynamics instance was provided to _reply");
-                    dyn.set("adsplayer_active", false); // Be able to reattach ads_player
                     this.set("repeat", true);
-                    dyn.create(true);
+                    this.channel("ads").trigger("replayOutstream");
                 },
 
                 _hideContentPlayer: function(dyn) {

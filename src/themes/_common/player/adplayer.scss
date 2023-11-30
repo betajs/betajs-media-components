@@ -231,7 +231,8 @@
 
 a.#{$cssadsplayer}-action-button, button.#{$cssadsplayer}-action-button {
     @include transition1(background-color, 0.3s, ease-in-out);
-    background: #020202;
+    background: none;
+    text-decoration: none;
     border-color: #c9c9c9;
     border-radius: 1px;
     color: #fff;

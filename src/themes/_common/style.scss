@@ -81,7 +81,7 @@
     background-color: #FF6256;
 }
 
-.#{$csscommon}-action-button {
+a.#{$csscommon}-action-button, button.#{$csscommon}-action-button {
     cursor: pointer;
     float: right;
     text-align: right;

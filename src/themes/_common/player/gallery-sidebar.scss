@@ -18,10 +18,7 @@
     a {
         color: #ffffff;
         cursor: pointer;
-        display: inherit;
         height: 100%;
-        text-decoration: none;
-        justify-content: end;
     }
 }
 .#{$cssgallerysidebar}-ads-body-container, .#{$cssgallerysidebar}-list {
@@ -52,10 +49,11 @@
 
 // Only gallery related styles
 .#{$cssgallerysidebar}-container {
-    background-color: #000000;
+    background-color: #1f1f1f;
     box-sizing: border-box;
-    padding-bottom: 15px;
     color: #ffffff;
+    display: flex;
+    flex-direction: column;
     height: 100%;
     padding-right: 2px;
 
@@ -95,7 +93,7 @@
         }
         /* Track */
         &::-webkit-scrollbar-track {
-            background: #000; // << will be background of the track
+            background: #1f1f1f; // << will be background of the track
         }
         /** Firefox only */
         scrollbar-color: #b3b3b3 #000000;
@@ -106,10 +104,10 @@
         box-sizing: border-box;
         list-style: none;
         margin: 0;
-        padding: 0 5px 0 10px;
+        padding: 0 12px 0 10px;
         .#{$cssgallerysidebar}-list-item-title {
             font-size: 12px;
-            margin: 5px 0 10px;
+            margin: 3px 0 11px;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
@@ -136,7 +134,12 @@
         }
     }
 
-    .#{$cssgallerysidebar}-footer-container {}
+    .#{$cssgallerysidebar}-footer-container {
+        min-height: 2px;
+        background: black;
+        display: block;
+        width: 100%;
+    }
 }
 
 // Only sidebar ads related styles
@@ -162,9 +165,12 @@
         padding: 0 0 15px 0;
     }
     .#{$cssgallerysidebar}-ads-footer-container .#{$cssadsplayer}-ad-choices-container {
-        top: auto;
-        left: auto;
-        bottom: 0;
-        right: 0;
+        position: relative;
+        float: right;
+        top: 10px;
+        left: 5px;
+        & > a {
+            position: static;
+        }
     }
 }

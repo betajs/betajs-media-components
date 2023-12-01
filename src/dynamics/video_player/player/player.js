@@ -220,6 +220,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "adsposition": null,
                         "vmapads": false, // VMAP ads will set pre, mid, post positions inside XML file
                         "non-linear": null,
+                        // **
+                        // companionad: {
+                        //  hideoncompletion: true, // FEATURE: default: true, should hide when ad is completed
+                        //  timeout: null, // FEATURE:: default: null, timeout in milliseconds when should be hidden
+                        //  "locations": [{
+                        //      id: 'ID', // required, ID of the companion ad slot
+                        //      adslotid: 'adslotid'
+                        //      selector: 'selector' // required, CSS selector,
+                        //      timeout: null, // FEATURE: default: null, timeout in milliseconds when should be hidden
+                        //   }]
+                        // }
                         "companionad": null, // if just set to true, it will set companionads attribute for further use cases and will not render companion ad
                         "companionads": [],
                         "linearadplayer": true,
@@ -477,7 +488,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "adchoicesontop": "boolean",
                     "minadintervals": "int",
                     "non-linear-min-duration": "int",
-                    "companionad": "string",
                     "slim": "boolean",
                     "prominent-title": "boolean",
                     "closeable-title": "boolean",
@@ -490,6 +500,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     // Will help hide player poster before ads start,
                     // if false rectangle with full dimensions will be shown
                     "hidebeforeadstarts": "boolean",
+                    // "companionad": "string", can be also boolean, object and null
                     "sidebaroptions": "object",
                     "playerwidth50percentile": "boolean"
                 },
@@ -838,9 +849,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 remove_on_destroy: true,
 
-                create: function(repeat) {
-                    repeat = repeat || false;
-                    this.set("repeatedplayer", repeat);
+                create: function() {
                     if (this.get("autoplaywhenvisible")) {
                         this.set("autoplay", true);
                         Dom.onScrollIntoView(this.activeElement(), this.get("visibilityfraction"), function() {
@@ -2400,14 +2409,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.get("outstream")) {
                         this.set("autoplay", true);
                         this.set("skipinitial", false);
-                        this.set("unmuteonclick", !this.get("repeatedplayer"));
                         this.set("outstreamoptions", Objs.tree_merge(this.get("initialoptions").outstreamoptions, this.get("outstreamoptions")));
                         // will store user set options for outstream
                         this.set("states.outstreamoptions", this.get("outstreamoptions"));
-                        if (this.get("repeatedplayer")) {
-                            this.set("wait-user-interaction", false);
-                            this.set("autoplay-requires-muted", false);
-                        }
                     }
 
                     if (this.get("adshassource")) {

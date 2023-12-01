@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.423 - 2023-11-20
+betajs-media-components - v0.0.425 - 2023-12-01
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1636,16 +1636,17 @@ Apache-2.0 Software License.
   line-height: 16px;
 }
 
-.ba-adsplayer-action-button {
+a.ba-adsplayer-action-button, button.ba-adsplayer-action-button {
   transition: background-color 0.3s ease-in-out;
   -moz-transition: background-color 0.3s ease-in-out;
   -webkit-transition: background-color 0.3s ease-in-out;
   -o-transition: background-color 0.3s ease-in-out;
   -ms-transition: background-color 0.3s ease-in-out;
-  background: #020202;
+  background: none;
+  text-decoration: none;
   border-color: #c9c9c9;
   border-radius: 1px;
-  color: #ccc;
+  color: #fff;
   cursor: pointer;
   display: inline-block;
   padding: 5px 20px;
@@ -1654,17 +1655,20 @@ Apache-2.0 Software License.
   min-width: 7em;
 }
 
-.ba-adsplayer-action-button.ba-adsplayer-reversed-color {
+a.ba-adsplayer-action-button.ba-adsplayer-reversed-color,
+button.ba-adsplayer-action-button.ba-adsplayer-reversed-color {
   background-color: #ccc;
   color: #020202;
 }
 
-.ba-adsplayer-action-button:hover {
+a.ba-adsplayer-action-button:hover,
+button.ba-adsplayer-action-button:hover {
   background-color: #ccc;
   color: #020202;
 }
 
-.ba-adsplayer-action-button.ba-adsplayer-reversed-color:hover {
+a.ba-adsplayer-action-button.ba-adsplayer-reversed-color:hover,
+button.ba-adsplayer-action-button.ba-adsplayer-reversed-color:hover {
   background: #020202;
   color: #ccc;
 }
@@ -1819,7 +1823,7 @@ div.ba-player-with-sidebar .ba-floating-sidebar-title {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
-div.ba-player-with-sidebar .ba-adsplayer-ad-choices-container {
+div.ba-player-with-sidebar.ba-player-floating .ba-adsplayer-ad-choices-container {
   position: absolute;
   color: #fff;
   top: 5px;
@@ -1902,10 +1906,7 @@ div.ba-player-with-sidebar.ba-player-fullscreen-view .ba-adsplayer-controlbar, d
 .ba-gallery-sidebar-header-container a {
   color: #ffffff;
   cursor: pointer;
-  display: inherit;
   height: 100%;
-  text-decoration: none;
-  justify-content: end;
 }
 
 .ba-gallery-sidebar-ads-body-container, .ba-gallery-sidebar-list {
@@ -1936,10 +1937,11 @@ div.ba-player-with-sidebar.ba-player-fullscreen-view .ba-adsplayer-controlbar, d
 }
 
 .ba-gallery-sidebar-container {
-  background-color: #000000;
+  background-color: #1f1f1f;
   box-sizing: border-box;
-  padding-bottom: 15px;
   color: #ffffff;
+  display: flex;
+  flex-direction: column;
   height: 100%;
   padding-right: 2px;
 }
@@ -1981,17 +1983,17 @@ div.ba-player-with-sidebar.ba-player-fullscreen-view .ba-adsplayer-controlbar, d
   background: #666;
 }
 .ba-gallery-sidebar-container .ba-gallery-sidebar-list-container::-webkit-scrollbar-track {
-  background: #000;
+  background: #1f1f1f;
 }
 .ba-gallery-sidebar-container .ba-gallery-sidebar-list {
   box-sizing: border-box;
   list-style: none;
   margin: 0;
-  padding: 0 5px 0 10px;
+  padding: 0 12px 0 10px;
 }
 .ba-gallery-sidebar-container .ba-gallery-sidebar-list .ba-gallery-sidebar-list-item-title {
   font-size: 12px;
-  margin: 5px 0 10px;
+  margin: 3px 0 11px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -2016,6 +2018,13 @@ div.ba-player-with-sidebar.ba-player-fullscreen-view .ba-adsplayer-controlbar, d
   justify-content: center;
   position: absolute;
 }
+.ba-gallery-sidebar-container .ba-gallery-sidebar-footer-container {
+  min-height: 2px;
+  background: black;
+  display: block;
+  width: 100%;
+}
+
 .ba-gallery-sidebar-ads-container {
   box-sizing: border-box;
   display: flex;
@@ -2039,10 +2048,13 @@ div.ba-player-with-sidebar.ba-player-fullscreen-view .ba-adsplayer-controlbar, d
   padding: 0 0 15px 0;
 }
 .ba-gallery-sidebar-ads-container .ba-gallery-sidebar-ads-footer-container .ba-adsplayer-ad-choices-container {
-  top: auto;
-  left: auto;
-  bottom: 0;
-  right: 0;
+  position: relative;
+  float: right;
+  top: 10px;
+  left: 5px;
+}
+.ba-gallery-sidebar-ads-container .ba-gallery-sidebar-ads-footer-container .ba-adsplayer-ad-choices-container > a {
+  position: static;
 }
 
 .ba-player-loader-container {
@@ -3088,7 +3100,7 @@ div.ba-commoncss-sticky.ba-player-viewport-mobile {
   background-color: #FF6256;
 }
 
-.ba-commoncss-action-button {
+a.ba-commoncss-action-button, button.ba-commoncss-action-button {
   cursor: pointer;
   float: right;
   text-align: right;
@@ -4200,6 +4212,7 @@ div.ba-commoncss-sticky.ba-player-viewport-mobile {
   flex-grow: 1;
   max-width: 50%;
   flex-basis: min-content;
+  overflow: hidden;
   z-index: 1;
 }
 

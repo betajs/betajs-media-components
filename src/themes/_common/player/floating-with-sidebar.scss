@@ -56,14 +56,16 @@ div.#{$cssplayer}-with-sidebar {
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
     }
-    .#{$cssadsplayer}-ad-choices-container {
-        position: absolute;
-        color: #fff;
-        top: 5px;
-        left: 5px;
-        height: 20px;
-        width: 20px;
-        cursor: pointer;
+    &.#{$cssplayer}-floating {
+        .#{$cssadsplayer}-ad-choices-container {
+            position: absolute;
+            color: #fff;
+            top: 5px;
+            left: 5px;
+            height: 20px;
+            width: 20px;
+            cursor: pointer;
+        }
     }
     &.#{$cssplayer}-fullscreen-view {
         & .#{$cssadsplayer}-controlbar, .#{$cssadsplayer}-linear-ad-container {

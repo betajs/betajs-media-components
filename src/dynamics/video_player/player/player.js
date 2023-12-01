@@ -490,7 +490,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     // Will help hide player poster before ads start,
                     // if false rectangle with full dimensions will be shown
                     "hidebeforeadstarts": "boolean",
-                    "sidebaroptions": "object"
+                    "sidebaroptions": "object",
+                    "playerwidth50percentile": "boolean"
                 },
 
                 __INTERACTION_EVENTS: ["click", "mousedown", "touchstart", "keydown", "keypress"],
@@ -821,7 +822,18 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         var height = videoHeight || fallbackDimensions[1];
                         if (width === height) return "square";
                         return width > height ? "landscape" : "portrait";
-                    }
+                    },
+                    "playerwidth50percentile:autoplaywhenvisible": function(autoplaywhenvisible) {
+                        if (autoplaywhenvisible) {
+                            var playerWidth = this.dyn.activeElement().width;
+                            var containerWidth = this.dyn.activeElement().parentNode.width;
+                            if (playerWidth > containerWidth / 2) {
+                                // Player width is beyond 50% of container
+                                return false;
+                            }
+                        }                        
+                        return true;
+                    },
                 },
 
                 remove_on_destroy: true,

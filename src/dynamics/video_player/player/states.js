@@ -331,8 +331,11 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
             else if (this.dyn && this.dyn.get("autoplay")) {
                 if (this.dyn.get("autoplaywhenvisible")) {
                     Dom.onScrollIntoView(this.dyn.activeElement(), this.dyn.get("visibilityfraction"), function() {
-                        if (!this.destroyed())
-                            this.runAutoplay();
+                        if (!this.destroyed()) {
+                            if (this.dyn.get("playerwidth50percentile")) {
+                                this.runAutoplay();
+                            }
+                        }
                     }, this);
                 } else {
                     this.runAutoplay();

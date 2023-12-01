@@ -51,8 +51,8 @@ if (params.ad) {
             // https://kvid-demo-kargo-com.s3.amazonaws.com/functional-mocks/vast/functional-mock-1.xml
             // https://kvid-demo-kargo-com.s3.amazonaws.com/functional-mocks/vast/functional-mock-2.xml
             // https://kvid-demo-kargo-com.s3.amazonaws.com/functional-mocks/vast/functional-mock-3.xml
-            attrs.adtagurl = 'https://kvid-demo-kargo-com.s3.amazonaws.com/functional-mocks/vast/functional-mock-2.xml';
-            // attrs.adtagurl = companion;
+            // attrs.adtagurl = 'https://kvid-demo-kargo-com.s3.amazonaws.com/functional-mocks/vast/functional-mock-2.xml';
+            attrs.adtagurl = companion;
             break;
         case 9: case '9': case 'err': // with nonLinear
             attrs.adtagurl = 'https://ads.celtra.com/wrong/vpaid/error.xml';
@@ -93,7 +93,7 @@ if (params.flt) {
 
 // Show Companion Ad
 if (params.cmp) {
-    attrs.companionad = Number(params.flt) === 1 ? true : '[300,]|bottom';
+    attrs.companionad = Number(params.cmp) === 1 ? true : '[300,]|bottom';
 }
 
 let withPlaylist = false;
@@ -298,6 +298,7 @@ attrs = {...attrs, ...{
             allowRepeat: true,
             noEndCard: false,
             repeatText: "Custom Repeat",
+            persistentcompanionad: true
         },
         sidebaroptions: {
             "headerlogourl": "https://betajs.com",

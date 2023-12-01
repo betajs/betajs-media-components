@@ -586,6 +586,19 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.player.setVolume(volume);
                             this.player.setMuted(volume <= 0);
                         }
+                    },
+                    "change:companionads": function(companionAds) {
+                        if (this.__repeatOutstream && this.get("outstreamoptions.persistentcompanionad"))
+                            return;
+                        if (companionAds && companionAds.length > 0 && this.get("companionad")) {
+                            if (this.get("companionad.locations")) {
+                                this._renderMultiCompanionAds();
+                            } else if (this.scopes.adsplayer && Types.is_string(this.get("companionad")) || Types.is_boolean(this.get("companionad"))) {
+                                this.scopes.adsplayer.execute('renderCompanionAd', this.get("ad"), this.get("companionad"));
+                            } else {
+                                console.warn(`Please set correct companion ad attribute. It can be object with locations, string with "|" character seperated or boolean`);
+                            }
+                        }
                     }
                 },
                 channels: {
@@ -2703,6 +2716,44 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.set("forciblymuted", false);
                         }, this);
                     }
+                },
+
+                /**
+                 * Will render multi companion ads
+                 * @private
+                 */
+                _renderMultiCompanionAds: function() {
+                    this.set("multicompanionads", []);
+                    const companionAds = this.get('companionads');
+                    const locations = this.get("companionad.locations");
+                    Objs.iter(locations, function(location) {
+                        const {
+                            selector,
+                            id,
+                            adslotid
+                        } = location;
+                        if (!selector || !(id || adslotid)) {
+                            console.warn(`Please provide selector and adslotid for companion ad`);
+                            return;
+                        }
+                        const element = document.querySelector(selector);
+                        if (element) {
+                            Objs.map(companionAds, function(ad) {
+                                const adContent = ad.data?.content;
+                                if (adContent) {
+                                    const reg = new RegExp(`id=['"]${id}['"]`, "g");
+                                    const matching = reg.test(ad.data?.content);
+
+                                    if (Number(ad.getAdSlotId()) === Number(adslotid) || matching) {
+                                        element.innerHTML = ad.getContent() || adContent;
+                                        this.get("multicompanionads").push(element);
+                                    }
+                                }
+                            }, this);
+                        } else {
+                            console.warn(`Non existing element for companion ad selector: ${selector}`);
+                        }
+                    }, this);
                 },
 
                 brakeAdsManually: function(hard) {

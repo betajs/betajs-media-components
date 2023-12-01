@@ -596,7 +596,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 _hideCompanionAd: function() {
-                    if (this.get("isoutstream") && this.get("outstreamoptions.persistentcompanionad")) return;
+                    if (this.get("persistentcompanionad")) return;
                     // If there is any content in the companion ad container, remove it
                     if (this.__companionAdElement && Types.is_function(this.__companionAdElement.remove)) {
                         this.__companionAdElement.remove();

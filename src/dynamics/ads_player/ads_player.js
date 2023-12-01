@@ -40,6 +40,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     companionads: [],
                     companionadcontent: null,
                     customclickthrough: false,
+                    persistentcompanionad: false,
                     multicompanionads: []
                 },
 
@@ -390,6 +391,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 _onAdComplete: function(ev) {
+                    // NOTE: As below codes only companion ads related code will be better return.
+                    // Non companion ads code should be applied above of this line
+                    if (this.get("persistentcompanionad")) return;
                     if (this.get("companionads").length > 0) this.set("companionads", []);
                     if (this.get("multicompanionads").length > 0) {
                         Objs.iter(this.get("multicompanionads"), function(element, index) {
@@ -641,6 +645,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                 _outstreamStarted: function(dyn, options) {
                     this.set("isoutstream", true);
+                    if (Types.is_defined(this.get("outstreamoptions.persistentcompanionad"))) {
+                        this.set("persistentcompanionad", this.get("outstreamoptions.persistentcompanionad"));
+                    }
                 },
 
                 _replay: function(dyn) {

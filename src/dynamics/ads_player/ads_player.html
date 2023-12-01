@@ -26,20 +26,20 @@
             </a>
         </div>
         <div ba-if="{{showrepeatbutton}}">
-            <div class="{{cssadsplayer}}-action-button" ba-click="{{replay()}}"
+            <button class="{{cssadsplayer}}-action-button" ba-click="{{replay()}}"
                 title="{{repeatbuttontext ? repeatbuttontext : string('replay-ad')}}"
             >
                 <i class="{{csscommon}}-icon-cw"></i>
                 {{repeatbuttontext ? repeatbuttontext : string('replay-ad')}}
-            </div>
+            </button>
         </div>
         <div>
-            <div class="{{cssadsplayer}}-action-button {{cssadsplayer}}-reversed-color"
+            <button class="{{cssadsplayer}}-action-button {{cssadsplayer}}-reversed-color"
                  title="{{string('close-ad')}}" ba-click="{{close()}}"
             >
                 <i class="{{csscommon}}-icon-cancel"></i>
                 {{string('close-ad')}}
-            </div>
+            </button>
         </div>
     </div>
     <div ba-if="{{ adsclicktroughurl && customclickthrough }}"

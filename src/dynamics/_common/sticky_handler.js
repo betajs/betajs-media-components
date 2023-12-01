@@ -45,6 +45,7 @@ Scoped.define("module:StickyHandler", [
             },
 
             start: function() {
+                if (this.floatCondition && !this.floatCondition()) return;
                 if (!this.elementIsVisible && !this.floating) this.transitionToFloat();
                 this.paused = false;
             },

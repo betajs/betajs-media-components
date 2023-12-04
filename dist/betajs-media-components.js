@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.425 - 2023-12-01
+betajs-media-components - v0.0.426 - 2023-12-04
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.425 - 2023-12-01
+betajs-media-components - v0.0.426 - 2023-12-04
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.425",
-    "datetime": 1701444145074
+    "version": "0.0.426",
+    "datetime": 1701707691294
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -3631,7 +3631,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
             scoped: scoped
         }, function(inherited) {
             return {
-                template: "<div\n    class=\"ba-ad-container {{linear ? (css + '-overlay') : ''}}\n    {{cssadsplayer + (linear ? '-linear-ad-container' : '-non-linear-ad-container')}}\n    {{hideoninactivity ? (cssplayer + '-controlbar-hidden') : ''}}\"\n    ba-styles=\"{{floating ? {} : parentcontainersizingstyles}}\"\n    data-video=\"ima-ad-container\"\n>\n    <ba-ads-choices-link\n        ba-if=\"{{adchoiceslink && adchoicesontop && adsplaying && !floating && !sidebar_active}}\"\n        ba-adchoiceslink=\"{{adchoiceslink}}\"\n        ba-cssadsplayer=\"{{cssadsplayer}}\"\n        ba-datatestselector=\"top-ads-choices-button\"\n    ></ba-ads-choices-link>\n\n    <div ba-if=\"{{showactionbuttons && isoutstream}}\"\n        class=\"{{cssadsplayer}}-actions-button-container {{csscommon}}-center-all\"\n    >\n        <div ba-if=\"{{moredetailslink}}\">\n            <a\n                href=\"{{ moredetailslink }}\" target=\"_blank\"\n                class=\"{{cssadsplayer}}-action-button\"\n                title=\"{{moredetailstext ? moredetailstext : string('learn-more')}}\"\n            >\n                <i class=\"{{csscommon}}-icon-share\"></i>\n                {{moredetailstext ? moredetailstext : string('learn-more')}}\n            </a>\n        </div>\n        <div ba-if=\"{{showrepeatbutton}}\">\n            <div class=\"{{cssadsplayer}}-action-button\" ba-click=\"{{replay()}}\"\n                title=\"{{repeatbuttontext ? repeatbuttontext : string('replay-ad')}}\"\n            >\n                <i class=\"{{csscommon}}-icon-cw\"></i>\n                {{repeatbuttontext ? repeatbuttontext : string('replay-ad')}}\n            </div>\n        </div>\n        <div>\n            <div class=\"{{cssadsplayer}}-action-button {{cssadsplayer}}-reversed-color\"\n                 title=\"{{string('close-ad')}}\" ba-click=\"{{close()}}\"\n            >\n                <i class=\"{{csscommon}}-icon-cancel\"></i>\n                {{string('close-ad')}}\n            </div>\n        </div>\n    </div>\n    <div ba-if=\"{{ adsclicktroughurl && customclickthrough }}\"\n         data-selector=\"ba-ads-clickthrough-container\"\n         class=\"{{css}}-overlay {{csscommon}}-clickable\"\n    ></div>\n    <div ba-if=\"{{!userhadplayerinteraction && unmuteonclick && linear}}\"\n         class=\"{{css}}-overlay {{cssadsplayer}}-ad-click-tracker {{csscommon}}-clickable\"\n         ba-click=\"{{ad_clicked()}}\"\n    ></div>\n</div>\n<ba-{{dyncontrolbar}}\n    ba-if=\"{{!hidecontrolbar && linear && !showactionbuttons}}\"\n    ba-css=\"{{css}}\"\n    ba-csscommon=\"{{csscommon}}\"\n    ba-cssadsplayer=\"{{cssadsplayer}}\"\n    ba-template=\"{{tmplcontrolbar}}\"\n    ba-linear={{linear}}\n    ba-duration=\"{{duration}}\"\n    ba-volume=\"{{volume}}\"\n    ba-muted=\"{{muted}}\"\n    ba-remaining=\"{{=remaining}}\"\n    ba-unmuteonclick=\"{{unmuteonclick}}\"\n    ba-playing={{playing}}\n    ba-userhadplayerinteraction=\"{{userhadplayerinteraction}}\"\n    ba-currenttime={{=currenttime}}\n    ba-hideoninactivity={{hideoninactivity}}\n    ba-event:resume=\"resume\"\n    ba-event:fullscreen=\"{{trigger('fullscreen')}}\"\n    ba-fullscreened=\"{{fullscreened}}\"\n    ba-event:pause=\"pause\"\n    ba-event:volume=\"set_volume\"\n    ba-event:stop=\"stop\"\n    ba-view_type=\"{{view_type}}\"\n    ba-floating=\"{{floating}}\"\n    ba-adchoicesontop=\"{{adchoicesontop}}\"\n    ba-adchoiceslink=\"{{adchoiceslink}}\"\n    ba-adchoicesstring=\"{{string('ad-choices')}}\"\n    ba-controlbarstyles=\"{{controlbarstyles}}\"\n></ba-{{dyncontrolbar}}>\n",
+                template: "<div\n    class=\"ba-ad-container {{linear ? (css + '-overlay') : ''}}\n    {{cssadsplayer + (linear ? '-linear-ad-container' : '-non-linear-ad-container')}}\n    {{hideoninactivity ? (cssplayer + '-controlbar-hidden') : ''}}\"\n    ba-styles=\"{{floating ? {} : parentcontainersizingstyles}}\"\n    data-video=\"ima-ad-container\"\n>\n    <ba-ads-choices-link\n        ba-if=\"{{adchoiceslink && adchoicesontop && adsplaying && !floating && !sidebar_active}}\"\n        ba-adchoiceslink=\"{{adchoiceslink}}\"\n        ba-cssadsplayer=\"{{cssadsplayer}}\"\n        ba-datatestselector=\"top-ads-choices-button\"\n    ></ba-ads-choices-link>\n\n    <div ba-if=\"{{showactionbuttons && isoutstream}}\"\n        class=\"{{cssadsplayer}}-actions-button-container {{csscommon}}-center-all\"\n    >\n        <div ba-if=\"{{moredetailslink}}\">\n            <a\n                href=\"{{ moredetailslink }}\" target=\"_blank\"\n                class=\"{{cssadsplayer}}-action-button\"\n                title=\"{{moredetailstext ? moredetailstext : string('learn-more')}}\"\n            >\n                <i class=\"{{csscommon}}-icon-share\"></i>\n                {{moredetailstext ? moredetailstext : string('learn-more')}}\n            </a>\n        </div>\n        <div ba-if=\"{{showrepeatbutton}}\">\n            <button class=\"{{cssadsplayer}}-action-button\" ba-click=\"{{replay()}}\"\n                title=\"{{repeatbuttontext ? repeatbuttontext : string('replay-ad')}}\"\n            >\n                <i class=\"{{csscommon}}-icon-cw\"></i>\n                {{repeatbuttontext ? repeatbuttontext : string('replay-ad')}}\n            </button>\n        </div>\n        <div>\n            <button class=\"{{cssadsplayer}}-action-button {{cssadsplayer}}-reversed-color\"\n                 title=\"{{string('close-ad')}}\" ba-click=\"{{close()}}\"\n            >\n                <i class=\"{{csscommon}}-icon-cancel\"></i>\n                {{string('close-ad')}}\n            </button>\n        </div>\n    </div>\n    <div ba-if=\"{{ adsclicktroughurl && customclickthrough }}\"\n         data-selector=\"ba-ads-clickthrough-container\"\n         class=\"{{css}}-overlay {{csscommon}}-clickable\"\n    ></div>\n    <div ba-if=\"{{!userhadplayerinteraction && unmuteonclick && linear}}\"\n         class=\"{{css}}-overlay {{cssadsplayer}}-ad-click-tracker {{csscommon}}-clickable\"\n         ba-click=\"{{ad_clicked()}}\"\n    ></div>\n</div>\n<ba-{{dyncontrolbar}}\n    ba-if=\"{{!hidecontrolbar && linear && !showactionbuttons}}\"\n    ba-css=\"{{css}}\"\n    ba-csscommon=\"{{csscommon}}\"\n    ba-cssadsplayer=\"{{cssadsplayer}}\"\n    ba-template=\"{{tmplcontrolbar}}\"\n    ba-linear={{linear}}\n    ba-duration=\"{{duration}}\"\n    ba-volume=\"{{volume}}\"\n    ba-muted=\"{{muted}}\"\n    ba-remaining=\"{{=remaining}}\"\n    ba-unmuteonclick=\"{{unmuteonclick}}\"\n    ba-playing={{playing}}\n    ba-userhadplayerinteraction=\"{{userhadplayerinteraction}}\"\n    ba-currenttime={{=currenttime}}\n    ba-hideoninactivity={{hideoninactivity}}\n    ba-event:resume=\"resume\"\n    ba-event:fullscreen=\"{{trigger('fullscreen')}}\"\n    ba-fullscreened=\"{{fullscreened}}\"\n    ba-event:pause=\"pause\"\n    ba-event:volume=\"set_volume\"\n    ba-event:stop=\"stop\"\n    ba-view_type=\"{{view_type}}\"\n    ba-floating=\"{{floating}}\"\n    ba-adchoicesontop=\"{{adchoicesontop}}\"\n    ba-adchoiceslink=\"{{adchoiceslink}}\"\n    ba-adchoicesstring=\"{{string('ad-choices')}}\"\n    ba-controlbarstyles=\"{{controlbarstyles}}\"\n></ba-{{dyncontrolbar}}>\n",
 
                 attrs: {
                     dyncontrolbar: "ads-controlbar",
@@ -3654,7 +3654,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     companionads: [],
                     companionadcontent: null,
                     customclickthrough: false,
-                    multicompanionads: []
+                    persistentcompanionad: false
                 },
 
                 events: {
@@ -3668,17 +3668,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             }.bind(this), 200);
                         } else {
                             return this.adsManager.setVolume(Maths.clamp(volume, 0, 1));
-                        }
-                    },
-                    "change:companionads": function(companionAds) {
-                        if (companionAds && companionAds.length > 0 && this.get("companionad")) {
-                            if (this.get("companionad.locations")) {
-                                this._renderMultiCompanionAds();
-                            } else if (Types.is_string(this.get("companionad")) || Types.is_boolean(this.get("companionad"))) {
-                                this._renderCompanionAd(ad);
-                            } else {
-                                console.warn(`Please set correct companion ad attribute. It can be object with locations, string with "|" character seperated or boolean`);
-                            }
                         }
                     }
                 },
@@ -3917,6 +3906,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     hideCompanionAd: function() {
                         return this._hideCompanionAd();
+                    },
+                    renderCompanionAd: function() {
+                        return this._renderCompanionAd();
                     }
                 },
 
@@ -4004,6 +3996,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 _onAdComplete: function(ev) {
+                    // NOTE: As below codes only companion ads related code will be better return.
+                    // Non companion ads code should be applied above of this line
+                    if (this.get("persistentcompanionad")) return;
                     if (this.get("companionads").length > 0) this.set("companionads", []);
                     if (this.get("multicompanionads").length > 0) {
                         Objs.iter(this.get("multicompanionads"), function(element, index) {
@@ -4082,11 +4077,13 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     // Do not render anything if options is boolean and false
                     if (Types.is_boolean(options) && !Boolean(options)) return;
 
+                    ad = ad || this.get("ad");
+                    options = options || this.get("companionad");
+
                     var playerElement, position, selector, height, width, companionAdDimensions,
                         isFluid, containerDimensions, selectionCriteria, expectedAR,
-                        companionAd, closestIndex, closestAr, parentStyles, companionAdContainerStyles, excludeStyles;
+                        companionAd, closestIndex, closestAr, parentStyles, companionAdContainerStyles;
                     var companionAds = [];
-                    options = options || this.get("companionad");
                     if (Types.is_string(options)) {
                         if (options.split('|').length > 0) {
                             position = options.split('|')[1] || 'bottom';
@@ -4212,41 +4209,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     }
                 },
 
-                _renderMultiCompanionAds: function() {
-                    this.set("multicompanionads", []);
-                    const companionAds = this.get('companionads');
-                    const locations = this.get("companionad.locations");
-                    Objs.iter(locations, function(location) {
-                        const {
-                            selector,
-                            id,
-                            adslotid
-                        } = location;
-                        if (!selector || !(id || adslotid)) {
-                            console.warn(`Please provide selector and adslotid for companion ad`);
-                            return;
-                        }
-                        const element = document.querySelector(selector);
-                        if (element) {
-                            Objs.map(companionAds, function(ad) {
-                                const adContent = ad.data?.content;
-                                if (adContent) {
-                                    const reg = new RegExp(`id=['"]${id}['"]`, "g");
-                                    const matching = reg.test(ad.data?.content);
-
-                                    if (Number(ad.getAdSlotId()) === Number(adslotid) || matching) {
-                                        element.innerHTML = ad.getContent() || adContent;
-                                        this.get("multicompanionads").push(element);
-                                    }
-                                }
-                            }, this);
-                        } else {
-                            console.warn(`Non existing element for companion ad selector: ${selector}`);
-                        }
-                    }, this);
-                },
-
                 _hideCompanionAd: function() {
+                    if (this.get("persistentcompanionad")) return;
                     // If there is any content in the companion ad container, remove it
                     if (this.__companionAdElement && Types.is_function(this.__companionAdElement.remove)) {
                         this.__companionAdElement.remove();
@@ -4255,6 +4219,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                 _outstreamStarted: function(dyn, options) {
                     this.set("isoutstream", true);
+                    if (Types.is_defined(this.get("outstreamoptions.persistentcompanionad"))) {
+                        this.set("persistentcompanionad", this.get("outstreamoptions.persistentcompanionad"));
+                    }
                 },
 
                 _replay: function(dyn) {
@@ -5579,7 +5546,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 corner: true,
                                 hideOnCompletion: true,
                                 recurrenceperiod: 30000, // Period when a new request will be sent if ads is not showing, default: 30 seconds
-                                maxadstoshow: -1 // Maximum number of ads to show, if there's next ads or errors occurred default: -1 (unlimited)
+                                maxadstoshow: -1, // Maximum number of ads to show, if there's next ads or errors occurred default: -1 (unlimited)
+                                noEndCard: false, // No end cart at the end when outstream completed
+                                allowRepeat: true, // Make possible to repeat ads
+                                // moreURL: '', // more button URL
+                                // moreText: '', // read more about outstream text
+                                // repeatText: '', // repeat button text
+                                persistentcompanionad: false
                             },
                             // rollback: {}
                         },
@@ -5806,6 +5779,19 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.player.setVolume(volume);
                             this.player.setMuted(volume <= 0);
                         }
+                    },
+                    "change:companionads": function(companionAds) {
+                        if (this.__repeatOutstream && this.get("outstreamoptions.persistentcompanionad"))
+                            return;
+                        if (companionAds && companionAds.length > 0 && this.get("companionad")) {
+                            if (this.get("companionad.locations")) {
+                                this._renderMultiCompanionAds();
+                            } else if (this.scopes.adsplayer && Types.is_string(this.get("companionad")) || Types.is_boolean(this.get("companionad"))) {
+                                this.scopes.adsplayer.execute('renderCompanionAd', this.get("ad"), this.get("companionad"));
+                            } else {
+                                console.warn(`Please set correct companion ad attribute. It can be object with locations, string with "|" character seperated or boolean`);
+                            }
+                        }
                     }
                 },
                 channels: {
@@ -5988,7 +5974,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (height) styles.height = isNaN(height) ? height : parseFloat(height).toFixed(2) + "px";
                         if (width) styles.width = isNaN(width) ? width : parseFloat(width).toFixed(2) + "px";
                         containerStyles = floatingonly ? {} : Objs.extend({}, styles);
-                        if (corner) styles.borderRadius = corner;
+                        if (corner) styles.borderRadius = mobileviewport && isFloating ? "0" : corner;
                         if (isFloating) {
                             const calculated = this.__calculateFloatingDimensions();
 
@@ -7925,6 +7911,44 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }
                 },
 
+                /**
+                 * Will render multi companion ads
+                 * @private
+                 */
+                _renderMultiCompanionAds: function() {
+                    this.set("multicompanionads", []);
+                    const companionAds = this.get('companionads');
+                    const locations = this.get("companionad.locations");
+                    Objs.iter(locations, function(location) {
+                        const {
+                            selector,
+                            id,
+                            adslotid
+                        } = location;
+                        if (!selector || !(id || adslotid)) {
+                            console.warn(`Please provide selector and adslotid for companion ad`);
+                            return;
+                        }
+                        const element = document.querySelector(selector);
+                        if (element) {
+                            Objs.map(companionAds, function(ad) {
+                                const adContent = ad.data?.content;
+                                if (adContent) {
+                                    const reg = new RegExp(`id=['"]${id}['"]`, "g");
+                                    const matching = reg.test(ad.data?.content);
+
+                                    if (Number(ad.getAdSlotId()) === Number(adslotid) || matching) {
+                                        element.innerHTML = ad.getContent() || adContent;
+                                        this.get("multicompanionads").push(element);
+                                    }
+                                }
+                            }, this);
+                        } else {
+                            console.warn(`Non existing element for companion ad selector: ${selector}`);
+                        }
+                    }, this);
+                },
+
                 brakeAdsManually: function(hard) {
                     hard = hard || false;
                     var adsPlayer = this.scopes.adsplayer;
@@ -8664,6 +8688,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream", [
                 this.dyn.set("outstreamoptions.maxadstoshow", this.dyn.get("outstreamoptions.maxadstoshow") - 1);
 
             this.listenOn(this.dyn.channel("ads"), "replayOutstream", function() {
+                this.dyn.__repeatOutstream = true;
                 this.dyn.set("adsplayer_active", false);
                 this.next("Outstream");
             }.bind(this));

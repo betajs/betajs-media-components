@@ -762,7 +762,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (height) styles.height = isNaN(height) ? height : parseFloat(height).toFixed(2) + "px";
                         if (width) styles.width = isNaN(width) ? width : parseFloat(width).toFixed(2) + "px";
                         containerStyles = floatingonly ? {} : Objs.extend({}, styles);
-                        if (corner) styles.borderRadius = corner;
+                        if (corner) styles.borderRadius = mobileviewport && isFloating ? "0" : corner;
                         if (isFloating) {
                             const calculated = this.__calculateFloatingDimensions();
 

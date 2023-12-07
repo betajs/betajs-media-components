@@ -1966,8 +1966,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }
                             this.set("unmuteonclick", false);
                         } else if (this.get("playing") && this.get("pauseonclick")) {
+                            this.trigger("pause_requested");
                             this.pause();
                         } else if (!this.get("playing") && this.get("playonclick")) {
+                            this.trigger("play_requested");
                             this.__setPlayerEngagement();
                             this.play();
                         }

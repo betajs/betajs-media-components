@@ -20,24 +20,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Next", [
                 },
 
                 computed: {
-                    "staytext:style": function(style) {
-                        return style === "desktop" ? "Stay & Watch" : "Stay";
+                    "staytext:style,is_floating": function(style, isFloating) {
+                        return (style === "desktop" && !isFloating) ? "Stay & Watch" : "Stay";
                     },
-                    "nexttext:style": function(style) {
-                        return style === "desktop" ? "Next Video" : "Next";
+                    "nexttext:style,is_floating": function(style, isFloating) {
+                        return (style === "desktop" && !isFloating) ? "Next Video" : "Next";
                     },
                     "nextvideoposter:playlist,current_video_from_playlist": function(playlist, currIndex) {
                         if (!playlist || !playlist[currIndex + 1]) return;
                         return playlist[currIndex + 1].poster;
-                    }
-                },
-
-                create: function() {
-                    if (!Info.isMobile()) {
-                        if (!this.get("is_floating")) this.set("style", "desktop");
-                        this.on("change:is_floating", function(isFloating) {
-                            this.set("style", isFloating ? "mobile" : "desktop");
-                        }, this);
                     }
                 },
 

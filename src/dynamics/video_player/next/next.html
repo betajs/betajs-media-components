@@ -3,7 +3,7 @@
         <a class="{{cssplayer}}-next-button-stay {{cssplayer}}-next-button"
            ba-click="{{stay()}}"
         >{{staytext}}</a>
-        <hr ba-if="{{style === 'desktop' && !gallerysidebar}}">
+        <hr ba-if="{{style === 'desktop' && !is_floating && !gallerysidebar}}">
         <a ba-if="{{!gallerysidebar}}" ba-click="{{next()}}"
            class="{{cssplayer}}-next-button-next {{cssplayer}}-next-button"
         >
@@ -12,6 +12,6 @@
             ></span>
             <span>{{nexttext}}</span>
         </a>
-        <img ba-prop:src="{{nextvideoposter}}" ba-show="{{style === 'desktop' && nextvideoposter && !hidenextvideoposter && !gallerysidebar}}" />
+        <img ba-prop:src="{{nextvideoposter}}" ba-show="{{style === 'desktop' && !is_floating && nextvideoposter && !hidenextvideoposter && !gallerysidebar}}" />
     </div>
 </div>

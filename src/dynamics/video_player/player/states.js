@@ -527,9 +527,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
             ) {
                 return true;
             }
-
-            // if skip initial and no autoplay should load video
-            return !this.dyn.get("delayadsmanagerload");
         }
     });
 });
@@ -808,14 +805,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
         },
 
         play: function() {
-            if (this.dyn.get("preloadadsmanager") && this.dyn.get("position") === 0) {
-                // w/o position === 0 condition player will reload on toggle player
-                this.next("LoadAds", {
-                    position: 'pre'
-                });
-            } else {
-                this.dyn.player.play();
-            }
+            this.dyn.player.play();
         }
     });
 });

@@ -727,7 +727,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         if (!!adsTagURL || !!inlineVastXML && !this.get("adshassource")) {
                             this.set("adshassource", true);
-                            this.set("adsplayer_active", !this.get("delayadsmanagerload"));
                             // On error, we're set initialized to true to prevent further attempts
                             // in case if ads will not trigger any event, we're setting initialized to true after defined seconds and wil show player content
                             if (!this.__adInitilizeChecker && this.get("showplayercontentafter")) {
@@ -2403,8 +2402,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 initAdSources: function() {
-                    this.set("preloadadsmanager", false);
-                    this.set("delayadsmanagerload", false);
                     if (
                         Array.isArray(this.get("adtagurlfallbacks")) &&
                         this.get("adtagurlfallbacks").length > 0 &&
@@ -2435,10 +2432,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             // if there's no specification, play preroll or VMAP if not set adsposition at all
                             this.set("vmapads", true);
                         }
-
-                        this.set("preloadadsmanager", this.get("adsplaypreroll") || this.get("vmapads") || this.get("outstream"));
-                        var skipInitialWithoutAutoplay = this.get("skipinitial") && !this.get("autoplay");
-                        this.set("delayadsmanagerload", !this.get("preloadadsmanager") || skipInitialWithoutAutoplay);
                     }
                 },
 

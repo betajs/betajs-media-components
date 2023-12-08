@@ -1930,7 +1930,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (Info.isiOS() && Info.isMobile()) {
                                 var videoEl = this.activeElement().querySelector(this.get("playing_ad") ? "[data-video='ima-ad-container'] video" : "video");
                                 Dom.elementEnterFullscreen(videoEl);
+                                this.__lastPause = 0;
+                                this.__changePlayingCB = function(p) {
+                                    if (!p) this.__lastPause = Time.now();
+                                }.bind(this);
+                                this.on("change:playing", this.__changePlayingCB);
+                                this.on("change:adnotpaused", this.__changePlayingCB);
                                 videoEl.addEventListener("webkitendfullscreen", function() {
+                                    this.off("change:playing", this.__changePlayingCB);
+                                    this.off("change:adnotpaused", this.__changePlayingCB);
                                     this.set("fullscreened", false);
                                     if (this.get("playing")) {
                                         this.once("paused", function() {
@@ -1940,6 +1948,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                         this.once("change:adnotpaused", function() {
                                             this.play();
                                         }, this);
+                                    } else if (Time.now() - this.__lastPause < 100) {
+                                        setTimeout(function() {
+                                            this.play();
+                                        }.bind(this), 500);
                                     }
                                 }.bind(this), {
                                     once: true

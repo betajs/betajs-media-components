@@ -23,7 +23,7 @@
             <div ba-if="{{companionadcontent}}"
                  class="{{cssfloatingsidebar}}-companion-container"
             ></div>
-            <div ba-if="{{!companionadcontent}}">
+            <div ba-if="{{showlearnmorebutton && !companionadcontent}}">
                 <ba-ads-learn-more-button
                     ba-if="{{moredetailslink && !companionadcontent}}"
                     ba-adsplaying="{{adsplaying}}"
@@ -138,7 +138,7 @@
         <div ba-if="{{companionadcontent}}"
              class="{{cssfloatingsidebar}}-companion-container"
         ></div>
-        <div class="{{cssfloatingsidebar}}-content-container">
+        <div class="{{cssfloatingsidebar}}-content-container" ba-if={{showlearnmorebutton}}>
             <ba-ads-learn-more-button
                 ba-if="{{moredetailslink && !companionadcontent}}"
                 ba-adsplaying="{{adsplaying}}"

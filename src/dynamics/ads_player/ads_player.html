@@ -15,7 +15,7 @@
     <div ba-if="{{showactionbuttons && isoutstream}}"
         class="{{cssadsplayer}}-actions-button-container {{csscommon}}-center-all"
     >
-        <div ba-if="{{moredetailslink}}">
+        <div ba-if="{{showlearnmorebutton && moredetailslink}}">
             <a
                 href="{{ moredetailslink }}" target="_blank"
                 class="{{cssadsplayer}}-action-button"

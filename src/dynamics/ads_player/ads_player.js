@@ -385,8 +385,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     // NOTE: As below codes only companion ads related code will be better return.
                     // Non companion ads code should be applied above of this line
                     if (this.get("persistentcompanionad")) return;
-                    if (this.get("companionads").length > 0) this.set("companionads", []);
-                    if (this.get("multicompanionads").length > 0) {
+                    if (this.get("companionads") && this.get("companionads").length > 0) this.set("companionads", []);
+                    if (this.get("multicompanionads") && this.get("multicompanionads").length > 0) {
                         Objs.iter(this.get("multicompanionads"), function(element, index) {
                             element.innerHTML = "";
                             delete this.get("multicompanionads")[index];
@@ -492,7 +492,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     // playerElement = this.get("floating") ? this.parent().activeElement().firstChild : this.parent().activeElement();
                     playerElement = this.parent().activeElement();
                     containerDimensions = Dom.elementDimensions(playerElement.firstChild);
-                    if (this.get("companionads").length <= 0) {
+                    if (this.get("companionads") && this.get("companionads").length <= 0) {
                         companionAdDimensions = options[1] ? options[1].split(',') : [0, 0];
                         isFluid = companionAdDimensions[0] === 'fluid';
                         // companionAdDimensions = companionAdDimensions.split(',');

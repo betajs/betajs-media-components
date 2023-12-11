@@ -101,6 +101,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         }
                     },
                     "ads:load": function() {
+                        this.set("skipvisible", false);
                         this.call("load");
                         this.set("quartile", "first");
                     },
@@ -115,6 +116,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     "ads:start": function(ev) {
                         this._onStart(ev);
+                    },
+                    "ads:skippableStateChanged": function(event) {
+                        this.set("skipvisible", true);
                     },
                     "ads:complete": function(ev) {
                         this._onAdComplete(ev);

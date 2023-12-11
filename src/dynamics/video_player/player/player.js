@@ -171,6 +171,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "share_active": true,
                         "visibilityfraction": 0.8,
                         /* Configuration */
+                        "disableadpreload": true,
                         "reloadonplay": false,
                         "ias-config": undefined,
                         "playonclick": true,
@@ -727,7 +728,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         if (!!adsTagURL || !!inlineVastXML && !this.get("adshassource")) {
                             this.set("adshassource", true);
-                            this.set("adsplayer_active", !this.get("delayadsmanagerload"));
+                            if (!this.get("disableadpreload")) this.set("adsplayer_active", !this.get("delayadsmanagerload"));
                             // On error, we're set initialized to true to prevent further attempts
                             // in case if ads will not trigger any event, we're setting initialized to true after defined seconds and wil show player content
                             if (!this.__adInitilizeChecker && this.get("showplayercontentafter")) {

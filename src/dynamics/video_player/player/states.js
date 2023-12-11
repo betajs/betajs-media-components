@@ -808,7 +808,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
         },
 
         play: function() {
-            if (this.dyn.get("preloadadsmanager") && this.dyn.get("position") === 0) {
+            if (!this.dyn.get("disableadpreload") && this.dyn.get("preloadadsmanager") && this.dyn.get("position") === 0) {
                 // w/o position === 0 condition player will reload on toggle player
                 this.next("LoadAds", {
                     position: 'pre'

@@ -793,7 +793,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (floatingHeight) styles.height = isNaN(floatingHeight) ? floatingHeight : parseFloat(floatingHeight).toFixed(2) + "px";
                         }
 
-                        if (hidden) styles.opacity = 0;
+                        if (hidden) {
+                            styles.opacity = 0;
+                            if (isFloating) {
+                                styles.display = 'none';
+                                return styles;
+                            }
+                        }
 
                         if (this.activeElement()) {
                             if (containerStyles.width && (containerStyles.width).toString().includes("%") && (styles.width).toString().includes("%")) {

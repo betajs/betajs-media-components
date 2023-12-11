@@ -6,7 +6,7 @@
     data-video="ima-ad-container"
 >
     <ba-ads-choices-link
-        ba-if="{{adchoiceslink && adchoicesontop && adsplaying && !floating && !sidebar_active}}"
+        ba-if="{{showadchoices && adchoiceslink && adchoicesontop && adsplaying && !floating && !sidebar_active}}"
         ba-adchoiceslink="{{adchoiceslink}}"
         ba-cssadsplayer="{{cssadsplayer}}"
         ba-datatestselector="top-ads-choices-button"
@@ -79,4 +79,5 @@
     ba-adchoiceslink="{{adchoiceslink}}"
     ba-adchoicesstring="{{string('ad-choices')}}"
     ba-controlbarstyles="{{controlbarstyles}}"
+    ba-showadchoices="{{showadchoices}}"
 ></ba-{{dyncontrolbar}}>

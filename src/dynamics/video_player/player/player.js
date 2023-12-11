@@ -402,7 +402,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         // When volume was unmuted, by the user himself, not automatically
                         "volumeafterinteraction": false,
                         "prominent-title": false,
-                        "closeable-title": false
+                        "closeable-title": false,
+                        "showadchoices": true,
                     };
                 },
 
@@ -506,7 +507,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     // if false rectangle with full dimensions will be shown
                     "hidebeforeadstarts": "boolean",
                     // "companionad": "string", can be also boolean, object and null
-                    "sidebaroptions": "object"
+                    "sidebaroptions": "object",
+                    "showadchoices": "boolean",
                 },
 
                 __INTERACTION_EVENTS: ["click", "mousedown", "touchstart", "keydown", "keypress"],

@@ -38,7 +38,7 @@
         <div class="{{cssgallerysidebar}}-ads-footer-container">
             <div class="{{cssgallerysidebar}}-ads-footer-right-container">
                 <ba-ads-choices-link
-                    ba-if="{{adchoiceslink}}"
+                    ba-if="{{adchoiceslink && showadchoices}}"
                     ba-adchoiceslink="{{adchoiceslink}}"
                     ba-datatestselector="sidebar-ads-choices-button"
                     ba-event:click_action="on_ads_choices_click"
@@ -129,7 +129,7 @@
          class="{{cssfloatingsidebar}}-ad-playing-container {{csscommon}}-full-height"
     >
         <ba-ads-choices-link
-            ba-if="{{adchoiceslink}}"
+            ba-if="{{adchoiceslink && showadchoices}}"
             ba-adchoiceslink="{{adchoiceslink}}"
             ba-datatestselector="sidebar-ads-choices-button"
             ba-event:click_action="on_ads_choices_click"

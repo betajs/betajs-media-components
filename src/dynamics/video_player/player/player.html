@@ -96,6 +96,7 @@
             ba-mobileviewport="{{mobileviewport}}"
             ba-adchoicesontop="{{adchoicesontop && !gallerysidebar}}"
             ba-presetedtooltips="{{presetedtooltips}}"
+            ba-showadchoices="{{showadchoices}}"
         ></ba-{{dynadsplayer}}>
         <div class="{{css}}-overlay {{hasplaceholderstyle ? (css + '-overlay-with-placeholder') : ''}}"
              ba-show="{{!showbuiltincontroller && !outstream && !adsplaying}}" style="{{placeholderstyle}}"
@@ -319,6 +320,7 @@
             ba-noengagenext="{{noengagenext}}"
             ba-mobileviewport="{{mobileviewport}}"
             ba-event:pause_ads="pause_ads"
+            ba-showadchoices="{{showadchoices}}"
         ></ba-{{dynsidebar}}>
     </div>
     <div ba-if="{{!fullscreened && is_floating && floatingoptions.closeable}}"

@@ -404,6 +404,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "prominent-title": false,
                         "closeable-title": false,
                         "showadchoices": true,
+                        "unknownadsrc": false,
                     };
                 },
 
@@ -509,6 +510,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     // "companionad": "string", can be also boolean, object and null
                     "sidebaroptions": "object",
                     "showadchoices": "boolean",
+                    "unknownadsrc": "boolean",
                 },
 
                 __INTERACTION_EVENTS: ["click", "mousedown", "touchstart", "keydown", "keypress"],

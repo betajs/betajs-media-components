@@ -145,18 +145,22 @@ const availablepresetoptions = {
     'xs': {
         width: 365,
         height: 180,
-        showsidebargallery: false
+        showsidebargallery: false,
+        mobile: false
     }, 's': {
         width: 523.64,
         height: 225,
         showsidebargallery: true,
-        playlist
+        mobile: {
+            width: 120
+        }
     },
     'm': {
         width: 640,
         height: 275,
         showsidebargallery: true
-    }, 'l': {
+    },
+    'l': {
         width: 670.25,
         height: 288,
         showsidebargallery: true,
@@ -164,6 +168,9 @@ const availablepresetoptions = {
         // 'sidebaroptions.presetwidth': 33,
         'sidebaroptions.presetwidth': null,
         'sidebaroptions.preferredratio': "16:9", //0.5,
+        mobile: {
+            showsidebargallery: true
+        }
     }, 'xl': {
         width: 838,
         height: 360,

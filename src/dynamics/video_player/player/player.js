@@ -239,6 +239,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "non-linear-min-duration": 10,
                         "midrollads": [],
                         "adchoicesontop": true,
+                        "mobilebreakpoint": 560,
 
                         /* Options */
                         "allowpip": true, // Picture-In-Picture Mode
@@ -637,7 +638,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         return withSidebar || (showSidebarGallery && playlist && playlist.length > 0);
                     },
-                    "show_sidebar:sidebar_active,is_floating,with_sidebar,fullscreened,mobileviewport": function(sidebarActive, isFloating, withSidebar, fullscreened, mobileViewport) {
+                    "show_sidebar:sidebar_active,is_floating,with_sidebar,fullscreened,mobileviewport": function(
+                        sidebarActive, isFloating, withSidebar, fullscreened, mobileViewport
+                    ) {
                         if (fullscreened) return false;
                         this.set("floatingsidebar", sidebarActive && isFloating && withSidebar);
                         this.set("gallerysidebar", sidebarActive && !isFloating && (Types.is_defined(mobileViewport) && !mobileViewport));
@@ -837,6 +840,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         return view_type === "float" || (view_type && this.get("floatingoptions.floatingonly"));
                     },
                     "layout:mobileviewport": function(mobileviewport) {
+                        this.applyPresets();
                         return mobileviewport ? "mobile" : "desktop";
                     },
                     "placement:outstream": function(outstream) {
@@ -883,7 +887,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.delegateEvents(null, this.channel("next"), "next");
                     this.set("prominent_title", this.get("prominent-title"));
                     this.set("closeable_title", this.get("closeable-title"));
-                    this.__initPresets();
                     this.__initFloatingOptions();
                     this._observer = new ResizeObserver(function(entries) {
                         for (var i = 0; i < entries.length; i++) {
@@ -974,10 +977,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("ie8", Info.isInternetExplorer() && Info.internetExplorerVersion() < 9);
                     this.set("firefox", Info.isFirefox());
                     this.set("mobileview", Info.isMobile());
-                    // mobileviewport different from mobileview, as mobileview will get player itself mobileview, mobileviewport from screen size
-                    var clientWidth = window.innerWidth || document.documentElement.clientWidth ||
-                        document.body.clientWidth;
-                    this.set("mobileviewport", this.isMobile() || clientWidth <= 560);
+                    this.set("mobileviewport", this.__isInMobileViewport());
+                    this.applyPresets();
                     this.set("hasnext", this.get("loop") || this.get("loopall") || this.get("playlist") && this.get("playlist").length > 1);
                     // For Apple, it's very important that their users always remain in control of the volume of the sounds their devices emit
                     this.set("hidevolumebar", (Info.isMobile() && Info.isiOS()));
@@ -2128,9 +2129,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.destroyed())
                         return;
                     try {
-                        var clientWidth = window.innerWidth || document.documentElement.clientWidth ||
-                            document.body.clientWidth;
-                        this.set("mobileviewport", this.isMobile() || clientWidth <= 560);
+                        this.set("mobileviewport", this.__isInMobileViewport());
                         if (this.videoLoaded()) {
                             var _now = Time.now();
                             this.set("activity_delta", _now - this.get("last_activity"));
@@ -2204,7 +2203,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         width = Dom.elementDimensions(this.activeElement()).width;
                     }
                     this.set("csssize", width > 400 ? "normal" : (width > 320 ? "medium" : "small"));
-                    this.set("mobileview", width < 560);
+                    this.set("mobileview", width < this.get("mobilebreakpoint"));
                 },
 
                 videoHeight: function() {
@@ -2489,20 +2488,72 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }, this);
                 },
 
-                __initPresets: function() {
-                    var presetKey = this.get("presetkey");
-                    var multiPresets = this.get("availablepresetoptions");
-                    if (multiPresets && Objs.count(multiPresets) > 0 && presetKey) {
-                        presetKey = presetKey.toLowerCase();
-                        var presets = multiPresets[presetKey];
-                        if (presets && Types.is_object(presets)) {
-                            Objs.iter(presets, function(v, k) {
-                                // if key already preset in root level, and key contains object key separated via dots
-                                if (Types.is_defined(this.attrs()[k]) || (Types.is_string(k) && k.includes('.')))
-                                    this.set(k, v);
-                            }, this);
+                __isInMobileViewport: function() {
+                    // mobileviewport different from mobileview, as mobileview will get player itself mobileview, mobileviewport from screen size
+                    const clientWidth = window.innerWidth || document.documentElement.clientWidth ||
+                        document.body.clientWidth;
+                    // as isMobile will calculate based on userAgent, and user's platform,
+                    // it will depend on how user starts the player, and will not be changed.
+                    return clientWidth <= this.get("mobilebreakpoint") || (Types.is_undefined("mobileviewport") && Info.isMobile());
+                },
+
+                /**
+                 * Will set preset options.
+                 * Default settings will be applied to the desktop.
+                 * If we want to set default for mobile, or exact for mobile,
+                 * we have to set via mobile boolean false or object key.
+                 * NOTE: if require we also can add floating presets
+                 */
+                applyPresets: function() {
+                    const presetKey = this.get("presetkey");
+                    const multiPresets = this.get("availablepresetoptions");
+                    // both attributes should be defined
+                    if (!presetKey || !Types.is_object(multiPresets) || !multiPresets[presetKey]) {
+                        console.warn(`Make sure that 'presetkey' and 'availablepresetoptions' attributes both are correctly set.`);
+                        return;
+                    }
+
+                    // will check if attribute exists in root level or in object level
+                    const existingAttribute = (key) => Types.is_defined(this.attrs()[key]) || (Types.is_string(key) && key.split('.').some(k => this.attrs()[k]));
+
+                    // if we have mobile view, then we need to calculate mobile presets
+                    // Adding condition: "|| Info.isMobile()" will be always true/false as it's getting data from the userAgent and at once;
+                    const isMobileView = this.__isInMobileViewport();
+
+                    // If it's true then we previously applied all presets
+                    if (Types.is_defined(this.get("initialoptions.mobilepresets"))) {
+                        // if mobile viewport and we have mobile presets, then apply them
+                        if (isMobileView) {
+                            // apply only attributes which are defined as desktop presets
+                            if (Objs.count(this.get("initialoptions.mobilepresets")) > 0) {
+                                Objs.iter(this.get("initialoptions.mobilepresets"), (v, k) => existingAttribute(k) && this.set(k, v), this);
+                            }
                         } else {
-                            console.warn("Make sure that 'presetOption' and 'availablepresetoptions' are set correctly.");
+                            // If not mobile apply all presets, as desktop is default
+                            Objs.iter(multiPresets[presetKey], (v, k) => existingAttribute(k) && this.set(k, v), this);
+                        }
+                    } else {
+                        // define initialoptions.mobilepresets, not to visit this block again
+                        this.set("initialoptions.mobilepresets", {});
+                        if (Objs.count(multiPresets) > 0) {
+                            const presets = multiPresets[presetKey];
+                            Objs.iter(presets, function(v, k) {
+                                const currentValue = this.get(k);
+                                // if boolean value, then it can be false.
+                                if (Types.is_defined(presets.mobile) && existingAttribute(k)) {
+                                    // current value also can be false
+                                    if (Types.is_boolean(presets.mobile) && presets.mobile === false) {
+                                        this.set(`initialoptions.mobilepresets.${k}`, currentValue);
+                                    } else {
+                                        if (Types.is_object(presets.mobile) && presets.mobile[k]) {
+                                            this.set(`initialoptions.mobilepresets.${k}`, presets.mobile[k]);
+                                            if (isMobileView) this.set(k, presets.mobile[k]);
+                                        }
+                                    }
+                                }
+                                // if key already preset in root level, and key contains object key separated via dots
+                                if (existingAttribute(k) && !isMobileView) this.set(k, v);
+                            }, this);
                         }
                     }
                 },
@@ -2513,7 +2564,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 __calculateFloatingDimensions: function() {
                     var height, width, playerWidth, position, viewportOptions, response = {};
                     var aspectRatio = typeof this.get("aspect_ratio") === "string" ? this.get("aspect_ratio").split("/") : 1.77;
-                    var isMobile = this.get("mobileviewport") || Info.isMobile();
+                    // Adding condition: "|| Info.isMobile()" will be always true/false as it's getting data from the userAgent and at once;
+                    var isMobile = this.__isInMobileViewport();
                     if (Types.is_array(aspectRatio)) {
                         aspectRatio = aspectRatio[0] / aspectRatio[1];
                     }

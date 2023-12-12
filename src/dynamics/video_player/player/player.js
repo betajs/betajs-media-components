@@ -151,6 +151,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                         /* Attributes */
                         "poster": "",
+                        "showlearnmorebutton": false,
                         "source": "",
                         "sources": [],
                         "sourcefilter": {},
@@ -437,6 +438,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "popup": "boolean",
                     "popup-width": "int",
                     "popup-height": "int",
+                    "showlearnmorebutton": "boolean",
                     "aspectratio": "float",
                     "fallback-aspect-ratio": "string",
                     "outstreamoptions": "json",

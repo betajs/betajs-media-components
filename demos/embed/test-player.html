@@ -140,6 +140,8 @@
         attrs.playlist = playlist;
     }
 
+    console.log("Attributes: ", attrs);
+
     player = new BetaJS.MediaComponents.VideoPlayer.Dynamics.Player({
         element: $('#player'),
         attrs
@@ -186,6 +188,12 @@
         // console.log("Passed Quarter: ", qr);
         // console.log("Played Seconds: ", player.get("played-seconds"));
         // console.log("Played w/seconds: ", this.get("played-with-sound-seconds"));
+    // }, player);
+    // player.on("change:layout", (layout) => {
+    //     console.log("Layout is: ", layout, player.get("width"));
+    // }, player);
+    // player.on("change:mobileview", (isMobile) => {
+    //     console.log("IS MOBILE ?", isMobile, player.get("width"));
     // }, player);
 
     // player.on("change:userengagedwithplayer", (userengagedwithplayer) => {

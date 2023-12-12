@@ -2426,6 +2426,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     // The initial mute state will not be changes if outstream is not set
                     if (this.get("outstream")) {
+                        this.set("disableadpreload", false);
                         this.set("autoplay", true);
                         this.set("skipinitial", false);
                         this.set("outstreamoptions", Objs.tree_merge(this.get("initialoptions").outstreamoptions, this.get("outstreamoptions")));

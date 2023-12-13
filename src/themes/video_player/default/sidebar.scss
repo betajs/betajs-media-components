@@ -12,8 +12,4 @@ div.#{$cssplayer}-with-sidebar {
     display: flex;
     flex-wrap: nowrap;
     flex-direction: row;
-    .#{$cssvideoplayer}-poster-container, .#{$cssvideoplayer}-poster-container img,
-    .#{$cssvideoplayer}-video-container, .#{$cssvideoplayer}-video-container video {
-        position: relative;
-    }
 }

@@ -651,7 +651,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (fullscreened) return false;
                         this.set("floatingsidebar", !hideSidebar && isFloating && withSidebar);
                         this.set("gallerysidebar", !hideSidebar && !isFloating && (Types.is_defined(mobileViewport) && !mobileViewport));
-                        console.log("Which one is true? ", hideSidebar, this.get("floatingsidebar"), this.get("gallerysidebar"), isFloating);
                         if (this.get("gallerysidebar")) {
                             if (!this.get("nextwidget") && Types.is_undefined(this.set("initialoptions.nextwidget"))) {
                                 this.set("initialoptions.nextwidget", false);

@@ -1990,6 +1990,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 if (this.player) this.player.setMuted(false);
                                 this.set("muted", false);
                             }
+                            if (this.get("volume") === 0) this.set("volume", 1);
                             this.set("unmuteonclick", false);
                         } else if (this.get("playing") && this.get("pauseonclick")) {
                             this.trigger("pause_requested");
@@ -2972,7 +2973,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 // If user not paused video manually, we set user as engaged
                                 if (!this.get("manuallypaused")) this.__setPlayerEngagement();
                                 if (this.player) this.player.setMuted(false);
-                                this.set_volume(this.get("volume") || this.get("initialoptions").volumelevel);
+                                this.set_volume(this.get("volume") || this.get("initialoptions").volumelevel || 1);
                             }
                             this.set("unmuteonclick", false);
                         }.bind(this),

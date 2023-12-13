@@ -635,18 +635,25 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "aspect_ratio:aspectratio,fallback-aspect-ratio": function(aspectRatio, fallback) {
                         return aspectRatio || fallback;
                     },
-                    "sidebar_active:with_sidebar,showsidebargallery,playlist": function(withSidebar, showSidebarGallery, playlist) {
+                    "hide_sidebar:with_sidebar,is_floating,showsidebargallery,playlist": function(
+                        withSidebar, isFloating, showSidebarGallery, playlist
+                    ) {
                         if (!showSidebarGallery && Types.is_defined(this.get("initialoptions.nextwidget"))) {
                             this.set("nextwidget", this.get("initialoptions.nextwidget"));
                         }
-                        return withSidebar || (showSidebarGallery && playlist && playlist.length > 0);
+                        const showSidebar = (withSidebar && isFloating) || (showSidebarGallery && (playlist && playlist.length >= 0));
+                        if (this.get("sidebar_active") !== true && showSidebar) {
+                            this.set("sidebar_active", true);
+                        }
+                        // we can activate only once, after we should hide sidebar
+                        return !showSidebar;
                     },
-                    "show_sidebar:sidebar_active,is_floating,with_sidebar,fullscreened,mobileviewport": function(
-                        sidebarActive, isFloating, withSidebar, fullscreened, mobileViewport
+                    "show_sidebar:hide_sidebar,is_floating,with_sidebar,fullscreened,mobileviewport": function(
+                        hideSidebar, isFloating, withSidebar, fullscreened, mobileViewport
                     ) {
                         if (fullscreened) return false;
-                        this.set("floatingsidebar", sidebarActive && isFloating && withSidebar);
-                        this.set("gallerysidebar", sidebarActive && !isFloating && (Types.is_defined(mobileViewport) && !mobileViewport));
+                        this.set("floatingsidebar", !hideSidebar && isFloating && withSidebar);
+                        this.set("gallerysidebar", !hideSidebar && !isFloating && (Types.is_defined(mobileViewport) && !mobileViewport));
                         if (this.get("gallerysidebar")) {
                             if (!this.get("nextwidget") && Types.is_undefined(this.set("initialoptions.nextwidget"))) {
                                 this.set("initialoptions.nextwidget", false);
@@ -2925,10 +2932,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 __attachPlayerInteractionEvents: function() {
+                    this.__bindedInteractionEvents = [];
                     Objs.iter(this.__INTERACTION_EVENTS, function(eventName) {
+                        const f = this.__setPlayerHadInteraction.bind(this);
+                        this.__bindedInteractionEvents.push({
+                            type: eventName,
+                            func: f
+                        });
                         this.auto_destroy(
                             this.activeElement().addEventListener(
-                                eventName, this.__setPlayerHadInteraction.bind(this), {
+                                eventName, f, {
                                     once: true
                                 }
                             ));
@@ -2936,10 +2949,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 __removePlayerInteractionEvents: function() {
+                    if (Objs.count(this.__bindedInteractionEvents) <= 0) return;
                     Objs.iter(this.__INTERACTION_EVENTS, function(eventName) {
-                        this.activeElement().removeEventListener(
-                            eventName, this.__setPlayerHadInteraction
-                        );
+                        const ev = this.__bindedInteractionEvents.filter(_ev => _ev.type === eventName)[0];
+                        if (ev && ev.func) {
+                            this.__bindedInteractionEvents = this.__bindedInteractionEvents.filter(_ev => _ev.type !== eventName);
+                            this.activeElement().removeEventListener(
+                                ev.type || eventName, ev.func
+                            );
+                        }
                     }, this);
                 },
 

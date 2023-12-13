@@ -639,7 +639,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (!showSidebarGallery && Types.is_defined(this.get("initialoptions.nextwidget"))) {
                             this.set("nextwidget", this.get("initialoptions.nextwidget"));
                         }
-                        return withSidebar || (showSidebarGallery && playlist && playlist.length > 0);
+                        // we can activate only once, after we should hide sidebar
+                        return Types.is_defined(this.get("sidebar_active")) || (withSidebar || (showSidebarGallery && playlist && playlist.length > 0));
                     },
                     "show_sidebar:sidebar_active,is_floating,with_sidebar,fullscreened,mobileviewport": function(
                         sidebarActive, isFloating, withSidebar, fullscreened, mobileViewport

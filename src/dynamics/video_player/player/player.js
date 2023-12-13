@@ -2426,10 +2426,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     ) this.set("adtagurl", this.get("adtagurlfallbacks").shift());
                     this.set("adshassource", !!this.get("adtagurl") || !!this.get("inlinevastxml"));
 
-                    if (this.get("userhadplayerinteraction")) {
-                        this.set("unmuteonclick", false);
-                    }
-
                     // The initial mute state will not be changes if outstream is not set
                     if (this.get("outstream")) {
                         this.set("disableadpreload", false);
@@ -2955,12 +2951,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 __setPlayerHadInteraction: function() {
+                    if (this.get("unmuteonclick") && (this.get("muted") || this.get("volume") == 0)) this.__unmuteOnClick();
                     if (this.get("userhadplayerinteraction")) return;
                     this.set("userhadplayerinteraction", true);
                     this.trigger("playerinteracted");
-                    if (this.get("muted") && this.get("unmuteonclick") && !this.get("volumeafterinteraction")) {
-                        this.__unmuteOnClick();
-                    }
                     this.__removePlayerInteractionEvents();
                 },
 

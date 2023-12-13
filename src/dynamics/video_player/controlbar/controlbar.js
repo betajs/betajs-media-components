@@ -247,7 +247,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     },
 
                     toggle_volume: function() {
-                        if (this.get("unmuteonclick") && !this.get("userhadplayerinteraction")) return;
+                        if (this.get("unmuteonclick")) return;
                         var volume = this.get("volume");
                         if (volume > 0) {
                             this.__oldVolume = volume;

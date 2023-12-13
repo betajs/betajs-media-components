@@ -1992,6 +1992,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 if (this.player) this.player.setMuted(false);
                                 this.set("muted", false);
                             }
+                            if (this.get("volume") === 0) this.set("volume", 1);
                             this.set("unmuteonclick", false);
                         } else if (this.get("playing") && this.get("pauseonclick")) {
                             this.trigger("pause_requested");
@@ -2426,10 +2427,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         !this.get("inlinevastxml")
                     ) this.set("adtagurl", this.get("adtagurlfallbacks").shift());
                     this.set("adshassource", !!this.get("adtagurl") || !!this.get("inlinevastxml"));
-
-                    if (this.get("userhadplayerinteraction")) {
-                        this.set("unmuteonclick", false);
-                    }
 
                     // The initial mute state will not be changes if outstream is not set
                     if (this.get("outstream")) {
@@ -2956,12 +2953,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 __setPlayerHadInteraction: function() {
+                    if (this.get("unmuteonclick") && (this.get("muted") || this.get("volume") == 0)) this.__unmuteOnClick();
                     if (this.get("userhadplayerinteraction")) return;
                     this.set("userhadplayerinteraction", true);
                     this.trigger("playerinteracted");
-                    if (this.get("muted") && this.get("unmuteonclick") && !this.get("volumeafterinteraction")) {
-                        this.__unmuteOnClick();
-                    }
                     this.__removePlayerInteractionEvents();
                 },
 
@@ -2974,7 +2969,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 // If user not paused video manually, we set user as engaged
                                 if (!this.get("manuallypaused")) this.__setPlayerEngagement();
                                 if (this.player) this.player.setMuted(false);
-                                this.set_volume(this.get("volume") || this.get("initialoptions").volumelevel);
+                                this.set_volume(this.get("volume") || this.get("initialoptions").volumelevel || 1);
                             }
                             this.set("unmuteonclick", false);
                         }.bind(this),

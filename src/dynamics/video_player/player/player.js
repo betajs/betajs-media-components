@@ -2949,7 +2949,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (f.func) {
                             this.__bindedInteractionEvents = this.__bindedInteractionEvents.filter(e => e.type !== eventName);
                             this.activeElement().removeEventListener(
-                                eventName, f.func
+                                f.type || eventName, f.func
                             );
                         }
                     }, this);

@@ -123,7 +123,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     this.__hasNotPlayedNextVideoIndex = false;
                     this.get("videos").add_secondary_index("index");
                     this.set("states.shownext", this.get("shownext"));
-                    this.set("states.gallerysidebar", this.get("gallerysidebar"));
                     this.set("headerlogourl", this.get("sidebaroptions.headerlogourl") || null);
                     this.set("headerlogoimgurl", this.get("sidebaroptions.headerlogoimgurl") || null);
                     this.set("headerlogoname", this.get("sidebaroptions.headerlogoname") || "Brand's logo");
@@ -131,8 +130,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     this.set("afteradsendtext", this.get("sidebaroptions.afteradsendtext") || this.string("continue-on-ads-end"));
                     this.set("hidevideoafterplay", this.get("sidebaroptions.hidevideoafterplay") || false);
 
-                    if (this.get("gallerysidebar") && !this.get("adsplaying")) {
+                    if (this.get("gallerysidebar")) {
                         this.initSidebarGallery();
+                    } else {
+                        this.__dyn.on("change:show_sidebar", (showSidebar) => {
+                            if (!this.__sidebarGalleryInited && showSidebar && this.get("gallerysidebar")) {
+                                this.initSidebarGallery();
+                            }
+                        }, this)
                     }
                 },
 
@@ -140,6 +145,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                  * Will initialize sidebar gallery related listeners
                  */
                 initSidebarGallery: function() {
+                    this.set("states.gallerysidebar", this.get("gallerysidebar"));
+                    if (this.get("adsplaying")) return;
+                    this.__sidebarGalleryInited = true;
+
                     const checkErrors = ["attach", "source", "video"];
                     Objs.iter(checkErrors, function(error) {
                         this.auto_destroy(this.__dyn.on(`error:${error}`, function(err) {

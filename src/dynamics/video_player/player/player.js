@@ -635,19 +635,23 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "aspect_ratio:aspectratio,fallback-aspect-ratio": function(aspectRatio, fallback) {
                         return aspectRatio || fallback;
                     },
-                    "sidebar_active:with_sidebar,showsidebargallery,playlist": function(withSidebar, showSidebarGallery, playlist) {
+                    "sidebar_active:with_sidebar,is_floating,showsidebargallery,playlist": function(
+                        withSidebar, isFloating, showSidebarGallery, playlist
+                    ) {
                         if (!showSidebarGallery && Types.is_defined(this.get("initialoptions.nextwidget"))) {
                             this.set("nextwidget", this.get("initialoptions.nextwidget"));
                         }
+                        this.set("hide_sidebar", !(withSidebar && isFloating) && !(showSidebarGallery && (playlist && playlist.length >= 0)));
                         // we can activate only once, after we should hide sidebar
-                        return Types.is_defined(this.get("sidebar_active")) || (withSidebar || (showSidebarGallery && playlist && playlist.length > 0));
+                        return this.get("sidebar_active") === true || !this.get("hide_sidebar");
                     },
-                    "show_sidebar:sidebar_active,is_floating,with_sidebar,fullscreened,mobileviewport": function(
-                        sidebarActive, isFloating, withSidebar, fullscreened, mobileViewport
+                    "show_sidebar:hide_sidebar,is_floating,with_sidebar,fullscreened,mobileviewport": function(
+                        hideSidebar, isFloating, withSidebar, fullscreened, mobileViewport
                     ) {
                         if (fullscreened) return false;
-                        this.set("floatingsidebar", sidebarActive && isFloating && withSidebar);
-                        this.set("gallerysidebar", sidebarActive && !isFloating && (Types.is_defined(mobileViewport) && !mobileViewport));
+                        this.set("floatingsidebar", !hideSidebar && isFloating && withSidebar);
+                        this.set("gallerysidebar", !hideSidebar && !isFloating && (Types.is_defined(mobileViewport) && !mobileViewport));
+                        console.log("Which one is true? ", hideSidebar, this.get("floatingsidebar"), this.get("gallerysidebar"), isFloating);
                         if (this.get("gallerysidebar")) {
                             if (!this.get("nextwidget") && Types.is_undefined(this.set("initialoptions.nextwidget"))) {
                                 this.set("initialoptions.nextwidget", false);

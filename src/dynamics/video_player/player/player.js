@@ -662,9 +662,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         return this.get("floatingsidebar") || this.get("gallerysidebar");
                     },
-                    "playercontainerstyles:sidebar_active,gallerysidebar,sidebaroptions.presetwidth,fullscreened,videowidth": function(sideBarActive, gallerySidebar, sidebarPresetWidth, fullscreened, videoWidth) {
+                    "playercontainerstyles:show_sidebar,gallerysidebar,sidebaroptions.presetwidth,fullscreened,videowidth": function(showSidebar, gallerySidebar, sidebarPresetWidth, fullscreened, videoWidth) {
                         let width, styles;
-                        if (sideBarActive && gallerySidebar && !fullscreened) {
+                        if (showSidebar && gallerySidebar && !fullscreened) {
                             if (typeof sidebarPresetWidth === "string") {
                                 sidebarPresetWidth = sidebarPresetWidth.includes("%") ?
                                     parseFloat(sidebarPresetWidth).toFixed(2) :

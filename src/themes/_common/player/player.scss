@@ -26,6 +26,14 @@
     background-color: black;
 }
 
+[data-adsplaying="true"] {
+    div.#{$cssvideoplayer}-video-container {
+        video {
+            visibility: hidden;
+        }
+    }
+}
+
 .#{$cssvideoplayer}-poster-container, .#{$cssvideoplayer}-poster-container img,
 .#{$cssvideoplayer}-video-container, .#{$cssvideoplayer}-video-container video {
     @include absolute-align-all();

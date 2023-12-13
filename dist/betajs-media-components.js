@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.428 - 2023-12-12
+betajs-media-components - v0.0.429 - 2023-12-13
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.428 - 2023-12-12
+betajs-media-components - v0.0.429 - 2023-12-13
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.428",
-    "datetime": 1702407551030
+    "version": "0.0.429",
+    "datetime": 1702479793834
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -4726,7 +4726,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     },
 
                     toggle_volume: function() {
-                        if (this.get("unmuteonclick") && !this.get("userhadplayerinteraction")) return;
+                        if (this.get("unmuteonclick")) return;
                         var volume = this.get("volume");
                         if (volume > 0) {
                             this.__oldVolume = volume;
@@ -5823,18 +5823,25 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "aspect_ratio:aspectratio,fallback-aspect-ratio": function(aspectRatio, fallback) {
                         return aspectRatio || fallback;
                     },
-                    "sidebar_active:with_sidebar,showsidebargallery,playlist": function(withSidebar, showSidebarGallery, playlist) {
+                    "hide_sidebar:with_sidebar,is_floating,showsidebargallery,playlist": function(
+                        withSidebar, isFloating, showSidebarGallery, playlist
+                    ) {
                         if (!showSidebarGallery && Types.is_defined(this.get("initialoptions.nextwidget"))) {
                             this.set("nextwidget", this.get("initialoptions.nextwidget"));
                         }
-                        return withSidebar || (showSidebarGallery && playlist && playlist.length > 0);
+                        const showSidebar = (withSidebar && isFloating) || (showSidebarGallery && (playlist && playlist.length >= 0));
+                        if (this.get("sidebar_active") !== true && showSidebar) {
+                            this.set("sidebar_active", true);
+                        }
+                        // we can activate only once, after we should hide sidebar
+                        return !showSidebar;
                     },
-                    "show_sidebar:sidebar_active,is_floating,with_sidebar,fullscreened,mobileviewport": function(
-                        sidebarActive, isFloating, withSidebar, fullscreened, mobileViewport
+                    "show_sidebar:hide_sidebar,is_floating,with_sidebar,fullscreened,mobileviewport": function(
+                        hideSidebar, isFloating, withSidebar, fullscreened, mobileViewport
                     ) {
                         if (fullscreened) return false;
-                        this.set("floatingsidebar", sidebarActive && isFloating && withSidebar);
-                        this.set("gallerysidebar", sidebarActive && !isFloating && (Types.is_defined(mobileViewport) && !mobileViewport));
+                        this.set("floatingsidebar", !hideSidebar && isFloating && withSidebar);
+                        this.set("gallerysidebar", !hideSidebar && !isFloating && (Types.is_defined(mobileViewport) && !mobileViewport));
                         if (this.get("gallerysidebar")) {
                             if (!this.get("nextwidget") && Types.is_undefined(this.set("initialoptions.nextwidget"))) {
                                 this.set("initialoptions.nextwidget", false);
@@ -5955,19 +5962,21 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (hidebeforeadstarts && adshassource) return !adsinitialized;
                         return false;
                     },
-                    "containerSizingStyles:aspect_ratio,height,width,is_floating,hideplayer,floatingoptions.floatingonly,fullscreened": function(
+                    "containerSizingStyles:aspect_ratio,height,width,is_floating,hideplayer,floatingoptions.floatingonly,fullscreened,show_sidebar": function(
                         aspectRatio,
                         height,
                         width,
                         isFloating,
                         hidden,
                         floatingonly,
-                        fullscreened
+                        fullscreened,
+                        showSidebar
                     ) {
                         let containerStyles, styles;
                         styles = {
                             aspectRatio: aspectRatio
                         };
+                        if (showSidebar) styles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
                         if (height) styles.height = isNaN(height) ? height : parseFloat(height).toFixed(2) + "px";
                         if (width) styles.width = isNaN(width) ? width : parseFloat(width).toFixed(2) + "px";
                         containerStyles = floatingonly ? {} : Objs.extend({}, styles);
@@ -7178,6 +7187,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 if (this.player) this.player.setMuted(false);
                                 this.set("muted", false);
                             }
+                            if (this.get("volume") === 0) this.set("volume", 1);
                             this.set("unmuteonclick", false);
                         } else if (this.get("playing") && this.get("pauseonclick")) {
                             this.trigger("pause_requested");
@@ -7612,10 +7622,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         !this.get("inlinevastxml")
                     ) this.set("adtagurl", this.get("adtagurlfallbacks").shift());
                     this.set("adshassource", !!this.get("adtagurl") || !!this.get("inlinevastxml"));
-
-                    if (this.get("userhadplayerinteraction")) {
-                        this.set("unmuteonclick", false);
-                    }
 
                     // The initial mute state will not be changes if outstream is not set
                     if (this.get("outstream")) {
@@ -8114,10 +8120,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 __attachPlayerInteractionEvents: function() {
+                    this.__bindedInteractionEvents = [];
                     Objs.iter(this.__INTERACTION_EVENTS, function(eventName) {
+                        const f = this.__setPlayerHadInteraction.bind(this);
+                        this.__bindedInteractionEvents.push({
+                            type: eventName,
+                            func: f
+                        });
                         this.auto_destroy(
                             this.activeElement().addEventListener(
-                                eventName, this.__setPlayerHadInteraction.bind(this), {
+                                eventName, f, {
                                     once: true
                                 }
                             ));
@@ -8125,10 +8137,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 __removePlayerInteractionEvents: function() {
+                    if (Objs.count(this.__bindedInteractionEvents) <= 0) return;
                     Objs.iter(this.__INTERACTION_EVENTS, function(eventName) {
-                        this.activeElement().removeEventListener(
-                            eventName, this.__setPlayerHadInteraction
-                        );
+                        const ev = this.__bindedInteractionEvents.filter(_ev => _ev.type === eventName)[0];
+                        if (ev && ev.func) {
+                            this.__bindedInteractionEvents = this.__bindedInteractionEvents.filter(_ev => _ev.type !== eventName);
+                            this.activeElement().removeEventListener(
+                                ev.type || eventName, ev.func
+                            );
+                        }
                     }, this);
                 },
 
@@ -8142,12 +8159,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 __setPlayerHadInteraction: function() {
+                    if (this.get("unmuteonclick") && (this.get("muted") || this.get("volume") == 0)) this.__unmuteOnClick();
                     if (this.get("userhadplayerinteraction")) return;
                     this.set("userhadplayerinteraction", true);
                     this.trigger("playerinteracted");
-                    if (this.get("muted") && this.get("unmuteonclick") && !this.get("volumeafterinteraction")) {
-                        this.__unmuteOnClick();
-                    }
                     this.__removePlayerInteractionEvents();
                 },
 
@@ -8160,7 +8175,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 // If user not paused video manually, we set user as engaged
                                 if (!this.get("manuallypaused")) this.__setPlayerEngagement();
                                 if (this.player) this.player.setMuted(false);
-                                this.set_volume(this.get("volume") || this.get("initialoptions").volumelevel);
+                                this.set_volume(this.get("volume") || this.get("initialoptions").volumelevel || 1);
                             }
                             this.set("unmuteonclick", false);
                         }.bind(this),
@@ -9384,7 +9399,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     this.__hasNotPlayedNextVideoIndex = false;
                     this.get("videos").add_secondary_index("index");
                     this.set("states.shownext", this.get("shownext"));
-                    this.set("states.gallerysidebar", this.get("gallerysidebar"));
                     this.set("headerlogourl", this.get("sidebaroptions.headerlogourl") || null);
                     this.set("headerlogoimgurl", this.get("sidebaroptions.headerlogoimgurl") || null);
                     this.set("headerlogoname", this.get("sidebaroptions.headerlogoname") || "Brand's logo");
@@ -9392,8 +9406,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     this.set("afteradsendtext", this.get("sidebaroptions.afteradsendtext") || this.string("continue-on-ads-end"));
                     this.set("hidevideoafterplay", this.get("sidebaroptions.hidevideoafterplay") || false);
 
-                    if (this.get("gallerysidebar") && !this.get("adsplaying")) {
+                    if (this.get("gallerysidebar")) {
                         this.initSidebarGallery();
+                    } else {
+                        this.__dyn.on("change:show_sidebar", (showSidebar) => {
+                            if (!this.__sidebarGalleryInited && showSidebar && this.get("gallerysidebar")) {
+                                this.initSidebarGallery();
+                            }
+                        }, this)
                     }
                 },
 
@@ -9401,6 +9421,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                  * Will initialize sidebar gallery related listeners
                  */
                 initSidebarGallery: function() {
+                    this.set("states.gallerysidebar", this.get("gallerysidebar"));
+                    if (this.get("adsplaying")) return;
+                    this.__sidebarGalleryInited = true;
+
                     const checkErrors = ["attach", "source", "video"];
                     Objs.iter(checkErrors, function(error) {
                         this.auto_destroy(this.__dyn.on(`error:${error}`, function(err) {

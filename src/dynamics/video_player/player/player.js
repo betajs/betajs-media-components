@@ -2945,11 +2945,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 __removePlayerInteractionEvents: function() {
                     if (Objs.count(this.__bindedInteractionEvents) <= 0) return;
                     Objs.iter(this.__INTERACTION_EVENTS, function(eventName) {
-                        const f = this.__bindedInteractionEvents.filter(e => e.type === eventName)[0];
-                        if (f.func) {
-                            this.__bindedInteractionEvents = this.__bindedInteractionEvents.filter(e => e.type !== eventName);
+                        const ev = this.__bindedInteractionEvents.filter(_ev => _ev.type === eventName)[0];
+                        if (ev && ev.func) {
+                            this.__bindedInteractionEvents = this.__bindedInteractionEvents.filter(_ev => _ev.type !== eventName);
                             this.activeElement().removeEventListener(
-                                f.type || eventName, f.func
+                                ev.type || eventName, ev.func
                             );
                         }
                     }, this);

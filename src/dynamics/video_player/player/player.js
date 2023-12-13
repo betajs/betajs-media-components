@@ -767,19 +767,21 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (hidebeforeadstarts && adshassource) return !adsinitialized;
                         return false;
                     },
-                    "containerSizingStyles:aspect_ratio,height,width,is_floating,hideplayer,floatingoptions.floatingonly,fullscreened": function(
+                    "containerSizingStyles:aspect_ratio,height,width,is_floating,hideplayer,floatingoptions.floatingonly,fullscreened,show_sidebar": function(
                         aspectRatio,
                         height,
                         width,
                         isFloating,
                         hidden,
                         floatingonly,
-                        fullscreened
+                        fullscreened,
+                        showSidebar
                     ) {
                         let containerStyles, styles;
                         styles = {
                             aspectRatio: aspectRatio
                         };
+                        if (showSidebar) styles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
                         if (height) styles.height = isNaN(height) ? height : parseFloat(height).toFixed(2) + "px";
                         if (width) styles.width = isNaN(width) ? width : parseFloat(width).toFixed(2) + "px";
                         containerStyles = floatingonly ? {} : Objs.extend({}, styles);

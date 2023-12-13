@@ -2926,10 +2926,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 __attachPlayerInteractionEvents: function() {
+                    this.__bindedInteractionEvents = [];
                     Objs.iter(this.__INTERACTION_EVENTS, function(eventName) {
+                        const f = this.__setPlayerHadInteraction.bind(this);
+                        this.__bindedInteractionEvents.push({
+                            type: eventName,
+                            func: f
+                        });
                         this.auto_destroy(
                             this.activeElement().addEventListener(
-                                eventName, this.__setPlayerHadInteraction.bind(this), {
+                                eventName, f, {
                                     once: true
                                 }
                             ));
@@ -2937,10 +2943,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 __removePlayerInteractionEvents: function() {
+                    if (Objs.count(this.__bindedInteractionEvents) <= 0) return;
                     Objs.iter(this.__INTERACTION_EVENTS, function(eventName) {
-                        this.activeElement().removeEventListener(
-                            eventName, this.__setPlayerHadInteraction
-                        );
+                        const f = this.__bindedInteractionEvents.filter(e => e.type === eventName)[0];
+                        if (f.func) {
+                            this.__bindedInteractionEvents = this.__bindedInteractionEvents.filter(e => e.type !== eventName);
+                            this.activeElement().removeEventListener(
+                                eventName, f.func
+                            );
+                        }
                     }, this);
                 },
 

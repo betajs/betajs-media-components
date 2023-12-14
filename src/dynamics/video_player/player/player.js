@@ -2769,17 +2769,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             video.playsinline = true;
                         }
                         Dom.userInteraction(function() {
-                            var _initialVolume = this.get("initialoptions").volumelevel > 1 ? 1 : this.get("initialoptions").volumelevel;
                             this.set("autoplay", this.get("initialoptions").autoplay);
                             // We will unmute only if unmuteonclick is false, as it means user has to click on player not in any place
                             if (!this.get("unmuteonclick")) {
-                                // Sometimes browser detects that unmute happens before the user has interaction, and it pauses ad
-                                Async.eventually(function() {
-                                    if (this.destroyed()) return; // in some cases it can be destroyed before
-                                    if (!this.get("muted")) this.set_volume(_initialVolume);
-                                    if (!this.get("muted") && this.get("volume") > 0.00) video.muted = false;
-                                }, this, 300);
-
                                 if (this.get("wait-user-interaction") && this.get("autoplay")) {
                                     this.__testAutoplayOptions(video);
                                     this.trigger("user-has-interaction");

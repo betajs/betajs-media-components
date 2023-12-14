@@ -1984,7 +1984,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("fullscreened", !this.get("fullscreened"));
                     },
 
-                    toggle_player: function() {
+                    toggle_player: function(fromOverlay) {
                         if (this.get("sticky") && this.stickyHandler && this.stickyHandler.isDragging()) {
                             this.stickyHandler.stopDragging();
                             return;
@@ -2001,7 +2001,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }
                             if (this.get("volume") === 0) this.set("volume", 1);
                             this.set("unmuteonclick", false);
-                        } else if (this.get("playing") && this.get("pauseonclick")) {
+                            if (fromOverlay) return;
+                        }
+                        if (this.get("playing") && this.get("pauseonclick")) {
                             this.trigger("pause_requested");
                             this.pause();
                         } else if (!this.get("playing") && this.get("playonclick")) {

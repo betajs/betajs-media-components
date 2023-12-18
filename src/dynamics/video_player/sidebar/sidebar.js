@@ -3,6 +3,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
     "base:Objs",
     "base:Async",
     "base:Types",
+    "base:Functions",
     "browser:Dom",
     "module:Assets",
     "base:Timers.Timer",
@@ -13,7 +14,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
     "module:Ads.Dynamics.ChoicesLink",
     "module:Ads.Dynamics.LearnMoreButton",
     "module:Common.Dynamics.CircleProgress"
-], function(Class, Objs, Async, Types, DOM, Assets, Timer, StylesMixin, DomMutationObserver, scoped) {
+], function(Class, Objs, Async, Types, Functions, DOM, Assets, Timer, StylesMixin, DomMutationObserver, scoped) {
     return Class.extend({
             scoped: scoped
         }, [StylesMixin, function(inherited) {
@@ -55,11 +56,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
 
                 events: {
                     "change:nextindex": function(nextindex) {
-                        this.__hasNotPlayedNextVideoIndex = false;
-                        this.checkIndexPlayability(nextindex);
+                        if (this.__dyn.get("next_video_from_playlist") === nextindex) return;
+                        // If nextindex is not defined, we need to set it
+                        nextindex ? this.checkIndexPlayability(nextindex) : this.setNextVideoIndex();
                     },
                     "change:adsplaying": function(adsPlaying) {
-                        if (!adsPlaying && this.get("videos").count() > 0 && this.__lastTopPosition) {
+                        const container = this.__galleryListContainer;
+                        if (!adsPlaying && this.get("videos").count() > 0 && this.__lastTopPosition && container) {
                             // this.scrollTop(true);
                             Async.eventually(() => {
                                 if (container && Math.abs(container.scrollTop - this.__lastTopPosition) > 1) {
@@ -172,7 +175,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                             source: pl.source
                         });
                         if (video) video.set("watched", true);
-                        this.setNextVideoIndex();
+                        this.set("nextindex", null);
                     }, this);
 
                     // Will conflict with local next video change
@@ -257,10 +260,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                         source: this.__dyn.get("source"),
                     });
                     const currentIndex = currentVideo ? currentVideo.get("index") : null;
-                    if (currentIndex === this.get("currentindex") && currentVideo && currentVideo.get("display") && !currentVideo.get("watched")) {
-                        this.__hasNotPlayedNextVideoIndex = true;
-                    }
-                    if (this.__hasNotPlayedNextVideoIndex) return;
+                    if (currentIndex === this.get("currentindex") && currentVideo && currentVideo.get("display") && !currentVideo.get("watched"))
+                        return;
                     const iterator = this.get("videos").iterator();
                     while (iterator.hasNext()) {
                         const v = iterator.next();
@@ -309,26 +310,28 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     this.set('loading', true);
                     this.__loaderStarted = true;
                     this.__drawInProcess = false;
-                    this._containerCheckTimer = this.auto_destroy(new Timer({
-                        delay: 200,
-                        fire: function() {
-                            if (this.get("adsplaying")) return;
-                            // If time pass and there is no video loaded, we need to stop timer
-                            // If some videos loaded, we need to stop timer
-                            if ((this.get("hideloaderafter") <= 0 && this.get("loaded").length > 0) || (this.get("loading") && this.get("loaded").length > 5)) {
-                                this.set('loading', false);
-                                this.setNextVideoIndex();
-                                this.__drawListedVideos();
-                                this._containerCheckTimer.stop();
-                            }
-                            this.set('hideloaderafter', this.get("hideloaderafter") - 100);
-                        }.bind(this),
-                        context: this,
-                        start: true,
-                        immediate: true,
-                        destroy_on_stop: true
-                        // fire_max: this.get("hideloaderafter") / 100
-                    }));
+                    if (!this._containerCheckTimer) {
+                        this._containerCheckTimer = this.auto_destroy(new Timer({
+                            delay: 200,
+                            fire: function() {
+                                if (this.get("adsplaying")) return;
+                                // If time pass and there is no video loaded, we need to stop timer
+                                // If some videos loaded, we need to stop timer
+                                if ((this.get("hideloaderafter") <= 0 && this.get("loaded").length > 0) || (this.get("loading") && this.get("loaded").length > 5)) {
+                                    this.set('loading', false);
+                                    this.setNextVideoIndex();
+                                    this.__drawListedVideos();
+                                    this._containerCheckTimer.stop();
+                                }
+                                this.set('hideloaderafter', this.get("hideloaderafter") - 100);
+                            }.bind(this),
+                            context: this,
+                            // start: true,
+                            immediate: true,
+                            destroy_on_stop: true
+                            // fire_max: this.get("hideloaderafter") / 100
+                        }));
+                    }
                 },
 
                 /**
@@ -354,7 +357,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     const nextVideo = this.get("videos").get_by_secondary_index('index', index);
                     Async.eventually(function() {
                         if (this.get("blacklisted").indexOf(index) !== -1 || !nextVideo) {
-                            this.setNextVideoIndex();
+                            this.set("nextindex", null);
                         } else {
                             this.__dyn.set("next_video_from_playlist", index);
                         }

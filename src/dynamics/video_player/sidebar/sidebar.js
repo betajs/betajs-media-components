@@ -227,7 +227,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                  */
                 playNextVideo: function(index) {
                     this.get("videos").iterate(function(v) {
-                        if (index && v.get("index") === index) {
+                        if (index >= 0 && v.get("index") === index) {
                             this.set("previousindex", this.__dyn.get("next_video_from_playlist"));
                             this.__dyn.set("next_video_from_playlist", index);
                             this.__dyn.trigger("play_next", index);

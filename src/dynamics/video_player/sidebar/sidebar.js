@@ -260,6 +260,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     let nextVideo, videoFromTop, indexFromTop, nextIndex = null;
                     const currentVideo = this.__getCurrentVideo();
                     const currentIndex = currentVideo.get("index");
+                    if (this.get('currentindex') !== currentIndex) this.set('currentindex', currentIndex);
                     const iterator = this.get("videos").iterator();
                     while (iterator.hasNext()) {
                         const v = iterator.next();

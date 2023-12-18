@@ -187,7 +187,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                         this.scrollTop();
                     }, this);
                     // When video will be set as watched collection will be updated
-                    this.get("videos").on("update", () => this.scrollTop(), this);
+                    this.get("videos").on("update", () => {
+                        Functions.debounce(this.scrollTop, 100);
+                    }, this);
                     // When there will be error on poster image, we need to remove it from the collection list
                     this.get("videos").on("removed", (_) => this.scrollTop(), this);
                 },
@@ -479,7 +481,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                                 elRelatedCollections.setAll({
                                     height: DOM.elementDimensions(el).height
                                 });
-                                _.scrollTop();
+                                Functions.debounce(_.scrollTop, 100);
                             }
                         });
                     }

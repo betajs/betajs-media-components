@@ -59,8 +59,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                         this.checkIndexPlayability(nextindex);
                     },
                     "change:adsplaying": function(adsPlaying) {
-                        if (!adsPlaying && this.get("videos").count() > 0) {
-                            this.scrollTop();
+                        if (!adsPlaying && this.get("videos").count() > 0 && this.__lastTopPosition) {
+                            // this.scrollTop(true);
+                            Async.eventually(() => {
+                                if (container && Math.abs(container.scrollTop - this.__lastTopPosition) > 1) {
+                                    container.scroll({
+                                        top: this.__lastTopPosition,
+                                        left: 0
+                                    });
+                                }
+                            }, this, 50);
                         }
                     },
                     "change:fullscreened": function(fullscreened) {
@@ -120,7 +128,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
 
                 create: function() {
                     this.__dyn = this.parent();
-                    this.__hasNotPlayedNextVideoIndex = false;
                     this.get("videos").add_secondary_index("index");
                     this.set("states.shownext", this.get("shownext"));
                     this.set("headerlogourl", this.get("sidebaroptions.headerlogourl") || null);
@@ -179,7 +186,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     // When video will be set as watched collection will be updated
                     this.get("videos").on("update", () => this.scrollTop(), this);
                     // When there will be error on poster image, we need to remove it from the collection list
-                    this.get("videos").on("removed", (item) => this.scrollTop(), this);
+                    this.get("videos").on("removed", (_) => this.scrollTop(), this);
                 },
 
                 _afterActivate: function(element) {
@@ -374,19 +381,32 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     }
                 },
 
-                scrollTop: function() {
+                scrollTop: function(force) {
+                    force = force || false;
+                    if (!this.__galleryListContainer) {
+                        this.__galleryListContainer = this.activeElement().querySelector(`.${this.get("cssgallerysidebar")}-list-container`);
+                    }
+                    if (this.__galleryListContainer && ((this.__galleryListContainer.scrollTop !== this.__lastTopPosition && this.__galleryListContainer.offsetHeight > 0) || force)) {
+                        // Functions.debounce(
+                        this.__scrollToTop();
+                        // , 100);
+                    }
+                },
+
+                __scrollToTop: function() {
                     if (!this.activeElement() || !this.get("videos")) return;
                     let topHeight = 0;
-                    const container = this.activeElement().querySelector(`.${this.get("cssgallerysidebar")}-list-container`);
+                    const container = this.__galleryListContainer;
                     this.get("videos").iterate(function(video, _i) {
                         const height = video.get("height");
                         const videoIndex = video.get("index");
                         if (!video.get("display")) return;
-                        if (!height || height === 0) {
+                        if (!height || height <= 0) {
                             this.__recalculateHeight(video);
                             return;
                         }
                         if (this.get("nextindex") === videoIndex) {
+                            this.__lastTopPosition = topHeight;
                             if (container && container.scrollTo) {
                                 container.scrollTo({
                                     top: topHeight,

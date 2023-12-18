@@ -3,6 +3,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
     "base:Objs",
     "base:Async",
     "base:Types",
+    "base:Functions",
     "browser:Dom",
     "module:Assets",
     "base:Timers.Timer",
@@ -13,7 +14,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
     "module:Ads.Dynamics.ChoicesLink",
     "module:Ads.Dynamics.LearnMoreButton",
     "module:Common.Dynamics.CircleProgress"
-], function(Class, Objs, Async, Types, DOM, Assets, Timer, StylesMixin, DomMutationObserver, scoped) {
+], function(Class, Objs, Async, Types, Functions, DOM, Assets, Timer, StylesMixin, DomMutationObserver, scoped) {
     return Class.extend({
             scoped: scoped
         }, [StylesMixin, function(inherited) {
@@ -186,7 +187,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                         this.scrollTop();
                     }, this);
                     // When video will be set as watched collection will be updated
-                    this.get("videos").on("update", () => this.scrollTop(), this);
+                    this.get("videos").on("update", () => {
+                        Functions.debounce(this.scrollTop, 100);
+                    }, this);
                     // When there will be error on poster image, we need to remove it from the collection list
                     this.get("videos").on("removed", (_) => this.scrollTop(), this);
                 },
@@ -387,8 +390,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     force = force || false;
                     if (!this.__galleryListContainer) {
                         this.__galleryListContainer = this.activeElement().querySelector(`.${this.get("cssgallerysidebar")}-list-container`);
-                    }
-                    if (this.__galleryListContainer && ((this.__galleryListContainer.scrollTop !== this.__lastTopPosition && this.__galleryListContainer.offsetHeight > 0) || force)) {
+                    } else if (
+                        this.__galleryListContainer && (
+                            (
+                                this.__galleryListContainer.scrollTop !== this.__lastTopPosition &&
+                                this.__galleryListContainer.offsetHeight > 0
+                            ) ||
+                            this.__lastTopPosition || force
+                        )
+                    ) {
                         this.__scrollToTop();
                     }
                 },
@@ -476,7 +486,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                                 elRelatedCollections.setAll({
                                     height: DOM.elementDimensions(el).height
                                 });
-                                _.scrollTop();
+                                Functions.debounce(_.scrollTop, 100);
                             }
                         });
                     }

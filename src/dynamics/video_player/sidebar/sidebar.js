@@ -239,7 +239,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                  */
                 playNextVideo: function(index) {
                     this.get("videos").iterate(function(v) {
-                        if (index >= 0 && v.get("index") === index) {
+                        if (index >= 0 && v.get("index") === index && index !== this.get("currentindex")) {
                             this.set("previousindex", this.__dyn.get("next_video_from_playlist"));
                             this.__dyn.set("next_video_from_playlist", index);
                             this.__dyn.trigger("play_next", index);
@@ -258,12 +258,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                 setNextVideoIndex: function(triggerNext) {
                     triggerNext = triggerNext || false;
                     let nextVideo, videoFromTop, indexFromTop, nextIndex = null;
-                    const currentVideo = this.get("videos").queryOne({
-                        source: this.__dyn.get("source"),
-                    });
-                    const currentIndex = currentVideo ? currentVideo.get("index") : null;
-                    if (currentIndex === this.get("currentindex") && currentVideo && currentVideo.get("display") && !currentVideo.get("watched"))
-                        return;
+                    const currentVideo = this.__getCurrentVideo();
+                    const currentIndex = currentVideo.get("index");
                     const iterator = this.get("videos").iterator();
                     while (iterator.hasNext()) {
                         const v = iterator.next();
@@ -549,6 +545,20 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                             image.height = dimensions.width * (companionAd.data.height / companionAd.data.width);
                         }
                     }
+                },
+
+                /**
+                 * Will get current video and set currentIndex
+                 * @return {*}
+                 * @private
+                 */
+                __getCurrentVideo: function() {
+                    const currentVideo = this.get("videos").queryOne({
+                        source: this.__dyn.get("source"),
+                    });
+                    const currentIndex = currentVideo ? currentVideo.get("index") : null;
+                    if (currentIndex) this.set("currentindex", currentIndex);
+                    return currentVideo;
                 }
             };
         }])

@@ -827,12 +827,18 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 // in other case width will be applied twice
                                 containerStyles.width = "100%";
                             }
+                            if (containerStyles.width && containerStyles.height) {
+                                delete containerStyles.aspectRatio;
+                            }
                             this._applyStyles(this.activeElement(), containerStyles, this.__lastContainerSizingStyles);
                             this.__lastContainerSizingStyles = containerStyles;
                         }
                         if (fullscreened) {
                             delete styles.width;
                             delete styles.height;
+                        }
+                        if (styles.width && styles.height) {
+                            delete styles.aspectRatio;
                         }
                         return styles;
                     },
@@ -1006,6 +1012,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("message", "");
                     this.set("fullscreensupport", false);
                     this.set("csssize", "normal");
+                    this.set("with_sidebar", false);
 
                     // this.set("loader_active", false);
                     // this.set("playbutton_active", false);
@@ -2586,7 +2593,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.activeElement()) {
                             this.activeElement().classList.add(this.get("csscommon") + "-full-width");
                         }
-                        if (typeof this.get("floatingoptions.mobile.sidebar") !== "undefined" && this.get("floatingoptions.sidebar"))
+                        if (Types.is_defined(this.get("floatingoptions.mobile.sidebar")) && this.get("floatingoptions.sidebar"))
                             this.set("with_sidebar", this.get("floatingoptions.mobile.sidebar"));
                         if (typeof this.get("floatingoptions.mobile.positioning") === "object") {
                             var playerApplyForSelector, documentRelativeSelector, positioningApplySelector, positioningRelativeSelector, positioningProperty;
@@ -2613,7 +2620,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.activeElement()) {
                             this.activeElement().classList.remove(this.get("csscommon") + "-full-width");
                         }
-                        if (typeof this.get("floatingoptions.desktop.sidebar") !== "undefined" && this.get("floatingoptions.sidebar"))
+                        if (Types.is_defined(this.get("floatingoptions.desktop.sidebar")) && this.get("floatingoptions.sidebar"))
                             this.set("with_sidebar", this.get("floatingoptions.desktop.sidebar"));
                     }
                     if (position) {

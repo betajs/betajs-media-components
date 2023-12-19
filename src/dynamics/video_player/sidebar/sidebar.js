@@ -383,7 +383,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     }
                 },
 
+                /**
+                 * Will scroll to the top of the gallery sidebar list
+                 * @param force
+                 */
                 scrollTop: function(force) {
+                    // No need for scroll if ads playing or player is in floating view
+                    if (this.get("is_floating") || this.get("adsplaying")) return;
                     force = force || false;
                     if (!this.__galleryListContainer) {
                         this.__galleryListContainer = this.activeElement().querySelector(`.${this.get("cssgallerysidebar")}-list-container`);

@@ -306,31 +306,30 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                  * On first load, we need to show loader for some time
                  */
                 proceedWithLoader: function() {
+                    if (this._containerCheckTimer) return;
                     this.set('loading', true);
                     this.__loaderStarted = true;
                     this.__drawInProcess = false;
-                    if (!this._containerCheckTimer) {
-                        this._containerCheckTimer = this.auto_destroy(new Timer({
-                            delay: 200,
-                            fire: function() {
-                                if (this.get("adsplaying")) return;
-                                // If time pass and there is no video loaded, we need to stop timer
-                                // If some videos loaded, we need to stop timer
-                                if ((this.get("hideloaderafter") <= 0 && this.get("loaded").length > 0) || (this.get("loading") && this.get("loaded").length > 5)) {
-                                    this.set('loading', false);
-                                    this.setNextVideoIndex();
-                                    this.__drawListedVideos();
-                                    this._containerCheckTimer.stop();
-                                }
-                                this.set('hideloaderafter', this.get("hideloaderafter") - 100);
-                            }.bind(this),
-                            context: this,
-                            // start: true,
-                            immediate: true,
-                            destroy_on_stop: true
-                            // fire_max: this.get("hideloaderafter") / 100
-                        }));
-                    }
+                    this._containerCheckTimer = this.auto_destroy(new Timer({
+                        delay: 200,
+                        fire: function() {
+                            if (this.get("adsplaying")) return;
+                            // If time pass and there is no video loaded, we need to stop timer
+                            // If some videos loaded, we need to stop timer
+                            if ((this.get("hideloaderafter") <= 0 && this.get("loaded").length > 0) || (this.get("loading") && this.get("loaded").length > 5)) {
+                                this.set('loading', false);
+                                this.setNextVideoIndex();
+                                this.__drawListedVideos();
+                                this._containerCheckTimer.stop();
+                            }
+                            this.set('hideloaderafter', this.get("hideloaderafter") - 100);
+                        }.bind(this),
+                        context: this,
+                        // start: true,
+                        immediate: true,
+                        destroy_on_stop: true
+                        // fire_max: this.get("hideloaderafter") / 100
+                    }));
                 },
 
                 /**

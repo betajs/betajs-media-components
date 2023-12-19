@@ -394,7 +394,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     if (!this.__galleryListContainer) {
                         this.__galleryListContainer = this.activeElement().querySelector(`.${this.get("cssgallerysidebar")}-list-container`);
                         // after getting container, we need run this function again
-                        this.scrollTop(force);
+                        Functions.debounce(this.scrollTop, 100);
                     } else if (
                         this.__galleryListContainer && (
                             (

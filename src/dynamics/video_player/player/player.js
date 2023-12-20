@@ -2970,6 +2970,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.auto_destroy(new Timers.Timer({
                         delay: 500,
                         fire: function() {
+                            this.set("willunmute", false);
+                            if (!this.get("unmuteonclick")) return;
                             if (this.get("muted")) this.set("muted", false);
                             if (this.get("volume") == 0) this.set_volume(this.get("volume") || this.get("initialoptions").volumelevel || 1);
                             if (!this.get("manuallypaused")) this.__setPlayerEngagement();
@@ -2977,7 +2979,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }.bind(this),
                         once: true
                     }));
-                    this.set("volumeafterinteraction", true);
+                    this.set("willunmute", true);
                     if (this.get("forciblymuted")) this.set("forciblymuted", false);
                 }
             };

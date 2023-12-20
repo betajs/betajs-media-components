@@ -775,7 +775,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (hidebeforeadstarts && adshassource) return !adsinitialized;
                         return false;
                     },
-                    "containerSizingStyles:aspect_ratio,height,width,is_floating,hideplayer,floatingoptions.floatingonly,fullscreened,show_sidebar": function(
+                    "containerSizingStyles:aspect_ratio,height,width,is_floating,hideplayer,floatingoptions.floatingonly,fullscreened,gallerysidebar": function(
                         aspectRatio,
                         height,
                         width,
@@ -783,7 +783,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         hidden,
                         floatingonly,
                         fullscreened,
-                        showSidebar
+                        gallerySidebar
                     ) {
                         let containerStyles, styles;
                         styles = {
@@ -827,18 +827,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 // in other case width will be applied twice
                                 containerStyles.width = "100%";
                             }
-                            if (containerStyles.width && containerStyles.height) {
-                                delete containerStyles.aspectRatio;
-                            }
+                            // will shrink the page
+                            if (gallerySidebar) delete containerStyles.aspectRatio;
                             this._applyStyles(this.activeElement(), containerStyles, this.__lastContainerSizingStyles);
                             this.__lastContainerSizingStyles = containerStyles;
                         }
                         if (fullscreened) {
                             delete styles.width;
                             delete styles.height;
-                        }
-                        if (styles.width && styles.height) {
-                            delete styles.aspectRatio;
                         }
                         return styles;
                     },

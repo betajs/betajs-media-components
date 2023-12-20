@@ -140,7 +140,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     "ads:loaded": function(event) {
                         this.set("ad", event.getAd());
                         this.set("addata", event.getAdData());
-                        this.set("volume", this.adsManager.getVolume());
                         this.set("duration", event.getAdData().duration);
                         this.set("moredetailslink", event.getAdData().clickThroughUrl);
                         this.set("adsclicktroughurl", event.getAdData().clickThroughUrl);
@@ -231,9 +230,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                                 );
                             }
                         }, this);
-                        dynamics.on("unmute-ads", function(volume) {
-                            this.set("volume", volume);
-                        }, this);
                     }
                 },
 
@@ -244,8 +240,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         }, this);
                         this.adsManager.start({
                             width: this.getAdWidth(),
-                            height: this.getAdHeight(),
-                            volume: this.getAdWillPlayMuted() ? 0 : this.get("volume")
+                            height: this.getAdHeight()
                         });
                         // if (!this.adsManager.adDisplayContainerInitialized) this.adsManager.initializeAdDisplayContainer();
                         // this.call("requestAds");

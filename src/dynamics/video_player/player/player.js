@@ -2979,11 +2979,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }));
                     this.set("volumeafterinteraction", true);
                     if (this.get("forciblymuted")) this.set("forciblymuted", false);
-                    var _initialVolume = this.get("initialoptions").volumelevel > 1 ? 1 : this.get("initialoptions").volumelevel;
-                    if (this.get("autoplay-requires-muted") && this.get("adshassource")) {
-                        // Sometimes browser detects that unmute happens before the user has interaction, and it pauses ad
-                        this.trigger("unmute-ads", Math.min(_initialVolume, 1));
-                    }
                 }
             };
         }], {

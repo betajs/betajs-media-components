@@ -92,7 +92,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         autoPlayAdBreaks: true,
                         width: this.getAdWidth(),
                         height: this.getAdHeight(),
-                        volume: this.getAdWillPlayMuted() ? 0 : this.get("volume")
+                        volume: this.getAdWillPlayMuted() ? 0 : (this.get("volume") || 1)
                     };
                 },
 
@@ -408,7 +408,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 getAdWillPlayMuted: function() {
-                    return this.get("muted") || this.get("volume") === 0;
+                    return (this.get("muted") || this.get("volume") === 0) && !this.parent().get("willunmute");
                 },
 
                 _onStart: function(ev) {

@@ -183,12 +183,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
 
                     // On screen size changes, we need to go to the top of the list
                     this.__dyn.on("resize", function() {
-                        if (this.get('adsplaying')) return;
-                        this.scrollTop();
+                        this.__drawInProcess = false;
+                        Functions.debounce(this.__drawListedVideos, 100).apply(this);
                     }, this);
                     // When video will be set as watched collection will be updated
                     this.get("videos").on("update", () => {
-                        Functions.debounce(this.scrollTop, 100);
+                        this.scrollTop();
                     }, this);
                     // When there will be error on poster image, we need to remove it from the collection list
                     this.get("videos").on("removed", (_) => this.scrollTop(), this);
@@ -393,7 +393,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     if (!this.__galleryListContainer) {
                         this.__galleryListContainer = this.activeElement().querySelector(`.${this.get("cssgallerysidebar")}-list-container`);
                         // after getting container, we need run this function again
-                        Functions.debounce(this.scrollTop, 100);
+                        Functions.debounce(this.scrollTop, 100).apply(this);
                     } else if (
                         this.__galleryListContainer && (
                             (
@@ -403,7 +403,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                             this.__lastTopPosition || force
                         )
                     ) {
-                        this.__scrollToTop();
+                        Functions.debounce(this.__scrollToTop, 50).apply(this);
                     }
                 },
 
@@ -487,10 +487,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                             const currentIndex = el.dataset.index;
                             const elRelatedCollections = _.get("videos").get_by_secondary_index('index', parseInt(currentIndex), true);
                             if (!_.get("blacklisted").includes(currentIndex)) {
-                                elRelatedCollections.setAll({
-                                    height: DOM.elementDimensions(el).height
+                                const _h = DOM.elementDimensions(el).height;
+                                if (_h) elRelatedCollections.setAll({
+                                    height: _h
                                 });
-                                Functions.debounce(_.scrollTop, 100);
+                                _.scrollTop(true);
                             }
                         });
                     }

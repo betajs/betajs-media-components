@@ -51,7 +51,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     loading: true,
                     hideloaderafter: 1700,
                     states: {},
-                    shownextloader: false
+                    shownextloader: false,
+                    nextunplayed: false
                 },
 
                 events: {
@@ -133,6 +134,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     this.__dyn = this.parent();
                     this.get("videos").add_secondary_index("index");
                     this.set("states.shownext", this.get("shownext"));
+                    this.set("nextunplayed", this.get("sidebaroptions.nextunplayed") || false);
                     this.set("headerlogourl", this.get("sidebaroptions.headerlogourl") || null);
                     this.set("headerlogoimgurl", this.get("sidebaroptions.headerlogoimgurl") || null);
                     this.set("headerlogoname", this.get("sidebaroptions.headerlogoname") || "Brand's logo");
@@ -266,7 +268,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                         const v = iterator.next();
                         const _videoIndex = v.get("index");
                         // if nextIndex not defined, and we have not watched video, we can set it as nextIndex
-                        if (this.get("blacklisted").indexOf(_videoIndex) === -1 && v.get("display") && !v.get("watched")) {
+                        if (this.get("blacklisted").indexOf(_videoIndex) === -1 && v.get("display") && !(!v.get("watched") && this.get("nextunplayed"))) {
                             if (_videoIndex > currentIndex && !nextIndex) {
                                 nextVideo = v;
                                 nextIndex = v.get("index");

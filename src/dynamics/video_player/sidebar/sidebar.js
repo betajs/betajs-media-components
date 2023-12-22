@@ -594,6 +594,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
         .attachStringTable(Assets.strings)
         .addStrings({
             "up-next": "Up Next",
-            "continue-on-ads-end": "Content will resume after this video..."
+            "continue-on-ads-end": "Content will resume after this advertisement."
         });
 });

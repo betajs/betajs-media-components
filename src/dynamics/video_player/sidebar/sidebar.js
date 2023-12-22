@@ -117,7 +117,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                                     token: pl.token || null,
                                     height: null,
                                     display: false,
-                                    watched: false
+                                    watched: false,
+                                    scroll: true
                                 });
                             }
                         }, this);
@@ -188,9 +189,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                         this.__drawInProcess = false;
                         Functions.debounce(this.__drawListedVideos, 100).apply(this);
                     }, this);
-                    // When video will be set as watched collection will be updated
-                    this.get("videos").on("update", () => {
-                        this.scrollTop();
+                    // Update event will not provide any information as an argument, we can use
+                    // "change" with "object, key, value, oldValue", or "change:key" with "object, value, oldValue" arguments
+                    // this.get("videos").on("update", (_) => this.scrollTop(), this);
+                    this.get("videos").on("change:scroll", (object, value) => {
+                        if (value) this.scrollTop();
                     }, this);
                     // When there will be error on poster image, we need to remove it from the collection list
                     this.get("videos").on("removed", (_) => this.scrollTop(), this);
@@ -321,7 +324,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                             if ((this.get("hideloaderafter") <= 0 && this.get("loaded").length > 0) || (this.get("loading") && this.get("loaded").length > 5)) {
                                 this.set('loading', false);
                                 this.setNextVideoIndex();
-                                this.__drawListedVideos();
+                                this.__drawListedVideos(true);
                                 this._containerCheckTimer.stop();
                             }
                             this.set('hideloaderafter', this.get("hideloaderafter") - 100);
@@ -342,7 +345,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     if (!this.get("hidevideoafterplay") || !index) return;
                     const video = this.get("videos").get_by_secondary_index('index', index);
                     if (video) {
-                        video.set("display", false);
+                        video.setAll({
+                            display: false,
+                            scroll: true
+                        });
                         // this.get("videos").remove(video);
                     }
                 },
@@ -374,7 +380,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     while (iterator.hasNext()) {
                         const v = iterator.next();
                         if (v.get("display")) {
-                            v.set("watched", false);
+                            v.setAll({
+                                watched: false,
+                                scroll: true
+                            });
                             if (!firstPlayableIndex) firstPlayableIndex = v.get("index");
                         }
                         if (!iterator.hasNext()) {
@@ -451,7 +460,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     if (!poster || !source) return;
                     const image = new Image();
                     image.onload = function() {
-                        video.set("display", true);
+                        video.setAll({
+                            display: true,
+                            scroll: true
+                        });
                         _.get("loaded").push(index);
                     }
                     image.onerror = function() {
@@ -468,7 +480,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                         if (height > 0) {
                             video.setAll({
                                 height: height,
-                                display: true
+                                display: true,
+                                scroll: true
                             });
                         }
                     }
@@ -478,8 +491,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                  * Draw and get each item height
                  * @private
                  */
-                __drawListedVideos: function() {
+                __drawListedVideos: function(scroll) {
                     const _ = this;
+                    scroll = scroll || false;
                     // Don't draw when ads active
                     if (this.get("adsplaying") || this.get("videos").destroyed() || this.__drawInProcess) return;
                     const elements = this.activeElement().querySelectorAll(`li.${this.get("cssgallerysidebar")}-list-item`);
@@ -491,9 +505,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                             if (!_.get("blacklisted").includes(currentIndex)) {
                                 const _h = DOM.elementDimensions(el).height;
                                 if (_h) elRelatedCollections.setAll({
-                                    height: _h
+                                    height: _h,
+                                    scroll: scroll
                                 });
-                                _.scrollTop(true);
                             }
                         });
                     }

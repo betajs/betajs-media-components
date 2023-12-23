@@ -77,9 +77,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     },
                     "change:fullscreened": function(fullscreened) {
                         if (!fullscreened && !this.get("adsplaying")) this.scrollTop();
-                    },
-                    "change:is_floating": function(floating) {
-                        if (!floating) this.scrollTop();
                     }
                 },
 

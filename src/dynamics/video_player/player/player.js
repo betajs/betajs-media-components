@@ -110,7 +110,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             // if set to true, companion ad will be shown on sidebar if it's exits
                             "showcompanionad": false,
                             "hidevideoafterplay": false,
-                            "autonext": true
+                            "autonext": true,
+                            // Currently it's playing next video in the list, but if required watch next un-watched one, set it as true
+                            "nextunplayed": false
                         },
                         "popup-width": "",
                         "popup-height": "",

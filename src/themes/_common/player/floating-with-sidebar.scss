@@ -12,6 +12,12 @@ div.#{$cssplayer}-with-sidebar {
         background: $sidebar_background_color;
         .#{$cssfloatingsidebar}-ad-playing-container {
             position: relative;
+            .#{$cssfloatingsidebar}-title {
+                font-size: 12px;
+                font-weight: 500;
+                max-width: 150px;
+                text-align: left;
+            }
         }
         .#{$cssfloatingsidebar}-content-container {
             display: flex;

@@ -126,7 +126,7 @@
      class="{{cssfloatingsidebar}}-container {{csscommon}}-full-height"
 >
     <div ba-if="{{adsplaying}}"
-         class="{{cssfloatingsidebar}}-ad-playing-container {{csscommon}}-full-height"
+         class="{{cssfloatingsidebar}}-ad-playing-container {{cssfloatingsidebar}}-content-container {{csscommon}}-full-height"
     >
         <ba-ads-choices-link
             ba-if="{{adchoiceslink && showadchoices && !unknownadsrc}}"
@@ -147,6 +147,9 @@
                 ba-datatestselector="sidebar-ads-learn-more-button"
                 ba-event:click_action="on_learn_more_click"
             ></ba-ads-learn-more-button>
+        </div>
+        <div ba-if="{{!showlearnmorebutton && afteradsendtext}}" class="{{cssfloatingsidebar}}-title">
+            {{afteradsendtext}}
         </div>
     </div>
     <div ba-if="{{!adsplaying}}" class="{{cssfloatingsidebar}}-content-container {{csscommon}}-full-height">

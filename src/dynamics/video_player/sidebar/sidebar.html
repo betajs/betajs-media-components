@@ -157,4 +157,9 @@
             {{title}}
         </div>
     </div>
+    <div ba-if="{{headerlogoimgurl}}" class="{{cssfloatingsidebar}}-logo">
+        <a href="{{ headerlogourl || headerlogoimgurl }}" title="{{headerlogoname}}" target="_blank">
+            <img src="{{headerlogoimgurl}}" alt="{{headerlogoname}}" />
+        </a>
+    </div>
 </div>

@@ -19,6 +19,14 @@ div.#{$cssplayer}-with-sidebar {
                 text-align: left;
             }
         }
+        .#{$cssfloatingsidebar}-logo {
+            position: absolute;
+            right: 5px;
+            bottom: 5px;
+            img {
+                max-width: 40px;
+            }
+        }
         .#{$cssfloatingsidebar}-content-container {
             display: flex;
             align-items: center;

@@ -13,10 +13,6 @@
 .#{$cssplayer}-toggle-next-container {
   box-sizing: content-box;
   pointer-events: none;
-  &.#{$cssplayer}-next-with-sidebar {
-    right: 7.5%;
-    width: 35%;
-  }
   width: 24%;
   max-width: 180px;
   color: white;

@@ -767,13 +767,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             return false;
                         }
                     },
-                    "hideplayer:adshassource,adsinitialized,hidden,hidebeforeadstarts": function(
+                    "hideplayer:autoplay,autoplaywhenvisible,adshassource,adsinitialized,hidden,hidebeforeadstarts": function(
+                        autoplay,
+                        autoplaywhenvisible,
                         adshassource,
                         adsinitialized,
                         hidden,
                         hidebeforeadstarts
                     ) {
                         if (hidden) return hidden;
+                        if (!autoplay && !autoplaywhenvisible) return false;
                         if (hidebeforeadstarts && adshassource) return !adsinitialized;
                         return false;
                     },

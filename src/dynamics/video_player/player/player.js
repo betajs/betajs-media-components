@@ -828,7 +828,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 containerStyles.width = "100%";
                             }
                             // will shrink the page
-                            if (gallerySidebar) delete containerStyles.aspectRatio;
+                            if (gallerySidebar) containerStyles.display = "flex";
                             this._applyStyles(this.activeElement(), containerStyles, this.__lastContainerSizingStyles);
                             this.__lastContainerSizingStyles = containerStyles;
                         }

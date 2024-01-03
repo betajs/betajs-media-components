@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.430 - 2023-12-14
+betajs-media-components - v0.0.431 - 2024-01-03
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1772,16 +1772,36 @@ div.ba-player-with-sidebar .ba-floating-sidebar-container {
   text-align: center;
   margin: 0;
   flex-grow: 1;
-  background: #000000;
+  background: #0f0f0f;
 }
 div.ba-player-with-sidebar .ba-floating-sidebar-container .ba-floating-sidebar-ad-playing-container {
   position: relative;
-}
-div.ba-player-with-sidebar .ba-floating-sidebar-container .ba-floating-sidebar-content-container {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
+}
+div.ba-player-with-sidebar .ba-floating-sidebar-container .ba-floating-sidebar-ad-playing-container .ba-floating-sidebar-title {
+  font-size: 12px;
+  font-weight: 500;
+  max-width: 150px;
+  text-align: left;
+}
+div.ba-player-with-sidebar .ba-floating-sidebar-container .ba-floating-sidebar-logo {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+}
+div.ba-player-with-sidebar .ba-floating-sidebar-container .ba-floating-sidebar-logo img {
+  max-width: 40px;
+}
+div.ba-player-with-sidebar .ba-floating-sidebar-container .ba-floating-sidebar-content-container {
+  height: 100%;
+  margin-left: 7px;
+  margin-top: 11px;
+  margin-right: 18px;
+  text-align: left;
+  word-wrap: break-word;
 }
 div.ba-player-with-sidebar .ba-floating-sidebar-container a.ba-floating-sidebar-action-button {
   transition: border 500ms ease-out;
@@ -2125,14 +2145,8 @@ div.ba-player-with-sidebar.ba-player-fullscreen-view .ba-adsplayer-controlbar, d
     transform: rotate(360deg);
   }
 }
-.ba-player-next-style-desktop {
-  top: auto;
-  transform: none;
-}
-
 .ba-player-with-sidebar-gallery .ba-player-toggle-next-container {
   align-items: end;
-  bottom: 35px;
 }
 
 .ba-player-toggle-next-container {
@@ -2145,14 +2159,10 @@ div.ba-player-with-sidebar.ba-player-fullscreen-view .ba-adsplayer-controlbar, d
   padding: 0 16px;
   position: absolute;
   right: 0;
-  height: 100%;
+  bottom: 15px;
   display: flex;
   align-items: center;
   z-index: 6;
-}
-.ba-player-toggle-next-container.ba-player-next-with-sidebar {
-  right: 7.5%;
-  width: 35%;
 }
 .ba-player-toggle-next-container .ba-player-next-button-container {
   width: 100%;

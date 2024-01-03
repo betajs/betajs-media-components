@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.430 - 2023-12-14
+betajs-media-components - v0.0.431 - 2024-01-03
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.430",
-    "datetime": 1702591120575
+    "version": "0.0.431",
+    "datetime": 1704325739770
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -2462,6 +2462,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         if (!this.adsManager || !this.adsManager.setVolume) return;
                         if (volume > 0 && this.get("unmuteonclick")) {
                             return setTimeout(function() {
+                                if (!this.adsManager || !this.adsManager.setVolume) return;
                                 this.adsManager.setVolume(Maths.clamp(volume, 0, 1));
                             }.bind(this), 200);
                         } else {
@@ -2672,7 +2673,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.set("adsplaying", false);
                         this.adsManager.reset();
                         // this.adsManager.contentComplete();
-                        this.adsManager.requestAds(this._baseRequestAdsOptions());
                     },
                     reload: function() {
                         // this.adsManager.reset();
@@ -2784,6 +2784,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         // if ad is outstream and
                         if (!isLinear && this.get("isoutstream")) {
                             this.adsManager.reset();
+                            this.adsManager.requestAds(this._baseRequestAdsOptions());
                         }
 
                         // Set companion ads array and render for normal content player viewport
@@ -3862,7 +3863,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Next", [
         }, function(inherited) {
             return {
 
-                template: "<div class=\"{{cssplayer}}-toggle-next-container {{cssplayer}}-next-style-{{style}} {{(is_floating && with_sidebar) ? cssplayer + '-next-with-sidebar' : ''}}\">\n    <div class=\"{{cssplayer}}-next-button-container\">\n        <a class=\"{{cssplayer}}-next-button-stay {{cssplayer}}-next-button\"\n           ba-click=\"{{stay()}}\"\n        >{{staytext}}</a>\n        <hr ba-if=\"{{style === 'desktop' && !is_floating && !gallerysidebar}}\">\n        <a ba-if=\"{{!gallerysidebar}}\" ba-click=\"{{next()}}\"\n           class=\"{{cssplayer}}-next-button-next {{cssplayer}}-next-button\"\n        >\n            <span class=\"{{cssplayer}}-next-progress\"\n                  ba-styles=\"{{{width: ((position - shownext) / noengagenext * 100) + '%'}}}\"\n            ></span>\n            <span>{{nexttext}}</span>\n        </a>\n        <img ba-prop:src=\"{{nextvideoposter}}\" ba-show=\"{{style === 'desktop' && !is_floating && nextvideoposter && !hidenextvideoposter && !gallerysidebar}}\" />\n    </div>\n</div>\n",
+                template: "<div class=\"{{cssplayer}}-toggle-next-container {{cssplayer}}-next-style-{{style}}\">\n    <div class=\"{{cssplayer}}-next-button-container\">\n        <a class=\"{{cssplayer}}-next-button-stay {{cssplayer}}-next-button\"\n           ba-click=\"{{stay()}}\"\n        >Stay</a>\n        <a ba-click=\"{{next()}}\"\n           class=\"{{cssplayer}}-next-button-next {{cssplayer}}-next-button\"\n        >\n            <span class=\"{{cssplayer}}-next-progress\"\n                  ba-styles=\"{{{width: ((position - shownext) / noengagenext * 100) + '%'}}}\"\n            ></span>\n            <span>Next</span>\n        </a>\n    </div>\n</div>\n",
 
                 attrs: {
                     css: "ba-videoplayer",
@@ -3872,12 +3873,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Next", [
                 },
 
                 computed: {
-                    "staytext:style,is_floating": function(style, isFloating) {
-                        return (style === "desktop" && !isFloating) ? "Stay & Watch" : "Stay";
-                    },
-                    "nexttext:style,is_floating": function(style, isFloating) {
-                        return (style === "desktop" && !isFloating) ? "Next Video" : "Next";
-                    },
                     "nextvideoposter:playlist,current_video_from_playlist": function(playlist, currIndex) {
                         if (!playlist || !playlist[currIndex + 1]) return;
                         return playlist[currIndex + 1].poster;
@@ -3908,7 +3903,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Next", [
             };
         }).register("ba-videoplayer-next")
         .registerFunctions({
-            /**/"cssplayer": function (obj) { return obj.cssplayer; }, "style": function (obj) { return obj.style; }, "(is_floating && with_sidebar) ? cssplayer + '-next-with-sidebar' : ''": function (obj) { return (obj.is_floating && obj.with_sidebar) ? obj.cssplayer + '-next-with-sidebar' : ''; }, "stay()": function (obj) { return obj.stay(); }, "staytext": function (obj) { return obj.staytext; }, "style === 'desktop' && !is_floating && !gallerysidebar": function (obj) { return obj.style === 'desktop' && !obj.is_floating && !obj.gallerysidebar; }, "!gallerysidebar": function (obj) { return !obj.gallerysidebar; }, "next()": function (obj) { return obj.next(); }, "{width: ((position - shownext) / noengagenext * 100) + '%'}": function (obj) { return {width: ((obj.position - obj.shownext) / obj.noengagenext * 100) + '%'}; }, "nexttext": function (obj) { return obj.nexttext; }, "nextvideoposter": function (obj) { return obj.nextvideoposter; }, "style === 'desktop' && !is_floating && nextvideoposter && !hidenextvideoposter && !gallerysidebar": function (obj) { return obj.style === 'desktop' && !obj.is_floating && obj.nextvideoposter && !obj.hidenextvideoposter && !obj.gallerysidebar; }/**/
+            /**/"cssplayer": function (obj) { return obj.cssplayer; }, "style": function (obj) { return obj.style; }, "stay()": function (obj) { return obj.stay(); }, "next()": function (obj) { return obj.next(); }, "{width: ((position - shownext) / noengagenext * 100) + '%'}": function (obj) { return {width: ((obj.position - obj.shownext) / obj.noengagenext * 100) + '%'}; }/**/
         })
         .attachStringTable(Assets.strings);
 });
@@ -4096,7 +4091,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             // if set to true, companion ad will be shown on sidebar if it's exits
                             "showcompanionad": false,
                             "hidevideoafterplay": false,
-                            "autonext": true
+                            "autonext": true,
+                            // Currently it's playing next video in the list, but if required watch next un-watched one, set it as true
+                            "nextunplayed": false
                         },
                         "popup-width": "",
                         "popup-height": "",
@@ -4751,13 +4748,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             return false;
                         }
                     },
-                    "hideplayer:adshassource,adsinitialized,hidden,hidebeforeadstarts": function(
+                    "hideplayer:autoplay,autoplaywhenvisible,adshassource,adsinitialized,hidden,hidebeforeadstarts": function(
+                        autoplay,
+                        autoplaywhenvisible,
                         adshassource,
                         adsinitialized,
                         hidden,
                         hidebeforeadstarts
                     ) {
                         if (hidden) return hidden;
+                        if (!autoplay && !autoplaywhenvisible) return false;
                         if (hidebeforeadstarts && adshassource) return !adsinitialized;
                         return false;
                     },
@@ -8061,6 +8061,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
     "base:Objs",
     "base:Async",
     "base:Types",
+    "base:Functions",
     "browser:Dom",
     "module:Assets",
     "base:Timers.Timer",
@@ -8071,13 +8072,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
     "module:Ads.Dynamics.ChoicesLink",
     "module:Ads.Dynamics.LearnMoreButton",
     "module:Common.Dynamics.CircleProgress"
-], function(Class, Objs, Async, Types, DOM, Assets, Timer, StylesMixin, DomMutationObserver, scoped) {
+], function(Class, Objs, Async, Types, Functions, DOM, Assets, Timer, StylesMixin, DomMutationObserver, scoped) {
     return Class.extend({
             scoped: scoped
         }, [StylesMixin, function(inherited) {
             return {
 
-                template: "<div ba-if=\"{{states.gallerysidebar}}\"\n     ba-show=\"{{gallerysidebar}}\"\n     class=\"{{cssgallerysidebar}}-container {{csscommon}}-full-height\"\n>\n    <div ba-if=\"{{adsplaying}}\" class=\"{{cssgallerysidebar}}-ads-container\">\n\n        <div class=\"{{cssgallerysidebar}}-ads-header-container\">\n            <div ba-if=\"{{headerlogoimgurl}}\"\n                 class=\"{{cssgallerysidebar}}-ads-header-logo-container\"\n            >\n                <a href=\"{{ headerlogourl || headerlogoimgurl }}\" title=\"{{headerlogoname}}\" target=\"_blank\">\n                    <img src=\"{{headerlogoimgurl}}\" alt=\"{{headerlogoname}}\" />\n                </a>\n            </div>\n        </div>\n\n        <div class=\"{{cssgallerysidebar}}-ads-body-container\">\n            <div ba-if=\"{{afteradsendtext}}\" class=\"{{cssgallerysidebar}}-ad-information-text\">\n                <p>\n                    {{afteradsendtext}}\n                </p>\n            </div>\n            <div ba-if=\"{{companionadcontent}}\"\n                 class=\"{{cssfloatingsidebar}}-companion-container\"\n            ></div>\n            <div ba-if=\"{{showlearnmorebutton && !companionadcontent}}\">\n                <ba-ads-learn-more-button\n                    ba-if=\"{{moredetailslink && !companionadcontent}}\"\n                    ba-adsplaying=\"{{adsplaying}}\"\n                    ba-cssprefix=\"{{cssgallerysidebar}}\"\n                    ba-moredetailslink=\"{{moredetailslink}}\"\n                    ba-datatestselector=\"sidebar-ads-learn-more-button\"\n                    ba-event:click_action=\"on_learn_more_click\"\n                ></ba-ads-learn-more-button>\n            </div>\n        </div>\n\n        <div class=\"{{cssgallerysidebar}}-ads-footer-container\">\n            <div class=\"{{cssgallerysidebar}}-ads-footer-right-container\">\n                <ba-ads-choices-link\n                    ba-if=\"{{adchoiceslink && showadchoices && !unknownadsrc}}\"\n                    ba-adchoiceslink=\"{{adchoiceslink}}\"\n                    ba-datatestselector=\"sidebar-ads-choices-button\"\n                    ba-event:click_action=\"on_ads_choices_click\"\n                ></ba-ads-choices-link>\n            </div>\n        </div>\n    </div>\n\n    <div ba-show=\"{{!adsplaying}}\" class=\"{{cssgallerysidebar}}-container\">\n        <div class=\"{{cssgallerysidebar}}-header-container\">\n            <div class=\"{{cssgallerysidebar}}-title\">\n                {{gallerytitletext}}\n            </div>\n            <div ba-if=\"{{ headerlogoimgurl }}\"\n                 class=\"{{cssgallerysidebar}}-header-logo\"\n            >\n                <a href=\"{{headerlogourl || headerlogoimgurl }}\" title=\"{{ headerlogoname }}\" target=\"_blank\">\n                    <img src=\"{{ headerlogoimgurl }}\" alt=\"{{headerlogoname}}\" />\n                </a>\n            </div>\n        </div>\n\n        <div class=\"{{cssgallerysidebar}}-list-container\">\n            <div ba-if=\"{{loading}}\" class=\"{{cssgallerysidebar}}-loading-container\">\n                <ba-spinner></ba-spinner>\n            </div>\n            <ul ba-if=\"{{showplaylist}}\"\n                class=\"{{cssgallerysidebar}}-list\" ba-show=\"{{!loading}}\"\n                ba-repeat=\"{{video :: videos}}\"\n            >\n                <li ba-show=\"{{video.display && !(video.watched && hidevideoafterplay)}}\"\n                    class=\"{{cssgallerysidebar}}-list-item\"\n                    data-index=\"{{video.index}}\"\n                    data-index-selector=\"gallery-item-{{video.index}}\"\n                    onclick=\"{{play_video(video.index)}}\"\n                >\n                    <div class=\"{{cssgallerysidebar}}-list-item-poster-container\">\n                        <div class=\"{{cssgallerysidebar}}-play-button-container\">\n                            <ba-circle-progress\n                                ba-if=\"{{shownextloader && nextindex === video.index}}\"\n                                ba-autostart=\"{{true}}\"\n                                ba-timeout=\"{{noengagenext * 1000}}\"\n                                ba-noengagenext=\"{{noengagenext}}\"\n                                ba-paused=\"{{!playing}}\"\n                            ></ba-circle-progress>\n                            <svg ba-if=\"{{!(shownextloader && nextindex === video.index)}}\"\n                                 width=\"34\" height=\"36\" viewBox=\"0 0 34 36\" fill=\"none\"\n                                 xmlns=\"http://www.w3.org/2000/svg\"\n                            >\n                                <g filter=\"url(#filter0_d_4559_6796)\">\n                                    <path d=\"M23.8049 18.0771L10.6387 25.6026L10.6387 10.5515L23.8049 18.0771Z\" fill=\"white\"/>\n                                </g>\n                                <defs>\n                                    <filter id=\"filter0_d_4559_6796\" x=\"-3.75\" y=\"-0.612671\" width=\"37.5549\" height=\"37.3794\" filterUnits=\"userSpaceOnUse\" color-interpolation-filters=\"sRGB\">\n                                        <feFlood flood-opacity=\"0\" result=\"BackgroundImageFix\"/>\n                                        <feColorMatrix in=\"SourceAlpha\" type=\"matrix\" values=\"0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0\" result=\"hardAlpha\"/>\n                                        <feOffset/>\n                                        <feGaussianBlur stdDeviation=\"5\"/>\n                                        <feComposite in2=\"hardAlpha\" operator=\"out\"/>\n                                        <feColorMatrix type=\"matrix\" values=\"0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0\"/>\n                                        <feBlend mode=\"normal\" in2=\"BackgroundImageFix\" result=\"effect1_dropShadow_4559_6796\"/>\n                                        <feBlend mode=\"normal\" in=\"SourceGraphic\" in2=\"effect1_dropShadow_4559_6796\" result=\"shape\"/>\n                                    </filter>\n                                </defs>\n                            </svg>\n                        </div>\n                        <img class=\"{{cssgallerysidebar}}-list-item-poster\"\n                             src=\"{{video.poster}}\" alt=\"{{video.title}}\"\n                        />\n                    </div>\n                    <div class=\"{{cssgallerysidebar}}-list-item-title\">\n                        {{video.title}}\n                    </div>\n                </li>\n            </ul>\n\n        </div>\n\n        <div class=\"{{cssgallerysidebar}}-footer-container\"></div>\n    </div>\n</div>\n\n\n<div ba-if=\"{{floatingsidebar}}\"\n     class=\"{{cssfloatingsidebar}}-container {{csscommon}}-full-height\"\n>\n    <div ba-if=\"{{adsplaying}}\"\n         class=\"{{cssfloatingsidebar}}-ad-playing-container {{csscommon}}-full-height\"\n    >\n        <ba-ads-choices-link\n            ba-if=\"{{adchoiceslink && showadchoices && !unknownadsrc}}\"\n            ba-adchoiceslink=\"{{adchoiceslink}}\"\n            ba-datatestselector=\"sidebar-ads-choices-button\"\n            ba-event:click_action=\"on_ads_choices_click\"\n        ></ba-ads-choices-link>\n        \n        <div ba-if=\"{{companionadcontent}}\"\n             class=\"{{cssfloatingsidebar}}-companion-container\"\n        ></div>\n        <div class=\"{{cssfloatingsidebar}}-content-container\" ba-if={{showlearnmorebutton}}>\n            <ba-ads-learn-more-button\n                ba-if=\"{{moredetailslink && !companionadcontent}}\"\n                ba-adsplaying=\"{{adsplaying}}\"\n                ba-cssprefix=\"{{cssfloatingsidebar}}\"\n                ba-moredetailslink=\"{{moredetailslink}}\"\n                ba-datatestselector=\"sidebar-ads-learn-more-button\"\n                ba-event:click_action=\"on_learn_more_click\"\n            ></ba-ads-learn-more-button>\n        </div>\n    </div>\n    <div ba-if=\"{{!adsplaying}}\" class=\"{{cssfloatingsidebar}}-content-container {{csscommon}}-full-height\">\n        <div class=\"{{cssfloatingsidebar}}-title\">\n            {{title}}\n        </div>\n    </div>\n</div>\n",
+                template: "<div ba-if=\"{{states.gallerysidebar}}\"\n     ba-show=\"{{gallerysidebar}}\"\n     class=\"{{cssgallerysidebar}}-container {{csscommon}}-full-height\"\n>\n    <div ba-if=\"{{adsplaying}}\" class=\"{{cssgallerysidebar}}-ads-container\">\n\n        <div class=\"{{cssgallerysidebar}}-ads-header-container\">\n            <div ba-if=\"{{headerlogoimgurl}}\"\n                 class=\"{{cssgallerysidebar}}-ads-header-logo-container\"\n            >\n                <a href=\"{{ headerlogourl || headerlogoimgurl }}\" title=\"{{headerlogoname}}\" target=\"_blank\">\n                    <img src=\"{{headerlogoimgurl}}\" alt=\"{{headerlogoname}}\" />\n                </a>\n            </div>\n        </div>\n\n        <div class=\"{{cssgallerysidebar}}-ads-body-container\">\n            <div ba-if=\"{{afteradsendtext}}\" class=\"{{cssgallerysidebar}}-ad-information-text\">\n                <p>\n                    {{afteradsendtext}}\n                </p>\n            </div>\n            <div ba-if=\"{{companionadcontent}}\"\n                 class=\"{{cssfloatingsidebar}}-companion-container\"\n            ></div>\n            <div ba-if=\"{{showlearnmorebutton && !companionadcontent}}\">\n                <ba-ads-learn-more-button\n                    ba-if=\"{{moredetailslink && !companionadcontent}}\"\n                    ba-adsplaying=\"{{adsplaying}}\"\n                    ba-cssprefix=\"{{cssgallerysidebar}}\"\n                    ba-moredetailslink=\"{{moredetailslink}}\"\n                    ba-datatestselector=\"sidebar-ads-learn-more-button\"\n                    ba-event:click_action=\"on_learn_more_click\"\n                ></ba-ads-learn-more-button>\n            </div>\n        </div>\n\n        <div class=\"{{cssgallerysidebar}}-ads-footer-container\">\n            <div class=\"{{cssgallerysidebar}}-ads-footer-right-container\">\n                <ba-ads-choices-link\n                    ba-if=\"{{adchoiceslink && showadchoices && !unknownadsrc}}\"\n                    ba-adchoiceslink=\"{{adchoiceslink}}\"\n                    ba-datatestselector=\"sidebar-ads-choices-button\"\n                    ba-event:click_action=\"on_ads_choices_click\"\n                ></ba-ads-choices-link>\n            </div>\n        </div>\n    </div>\n\n    <div ba-show=\"{{!adsplaying}}\" class=\"{{cssgallerysidebar}}-container\">\n        <div class=\"{{cssgallerysidebar}}-header-container\">\n            <div class=\"{{cssgallerysidebar}}-title\">\n                {{gallerytitletext}}\n            </div>\n            <div ba-if=\"{{ headerlogoimgurl }}\"\n                 class=\"{{cssgallerysidebar}}-header-logo\"\n            >\n                <a href=\"{{headerlogourl || headerlogoimgurl }}\" title=\"{{ headerlogoname }}\" target=\"_blank\">\n                    <img src=\"{{ headerlogoimgurl }}\" alt=\"{{headerlogoname}}\" />\n                </a>\n            </div>\n        </div>\n\n        <div class=\"{{cssgallerysidebar}}-list-container\">\n            <div ba-if=\"{{loading}}\" class=\"{{cssgallerysidebar}}-loading-container\">\n                <ba-spinner></ba-spinner>\n            </div>\n            <ul ba-if=\"{{showplaylist}}\"\n                class=\"{{cssgallerysidebar}}-list\" ba-show=\"{{!loading}}\"\n                ba-repeat=\"{{video :: videos}}\"\n            >\n                <li ba-show=\"{{video.display && !(video.watched && hidevideoafterplay)}}\"\n                    class=\"{{cssgallerysidebar}}-list-item\"\n                    data-index=\"{{video.index}}\"\n                    data-index-selector=\"gallery-item-{{video.index}}\"\n                    onclick=\"{{play_video(video.index)}}\"\n                >\n                    <div class=\"{{cssgallerysidebar}}-list-item-poster-container\">\n                        <div class=\"{{cssgallerysidebar}}-play-button-container\">\n                            <ba-circle-progress\n                                ba-if=\"{{shownextloader && nextindex === video.index}}\"\n                                ba-autostart=\"{{true}}\"\n                                ba-timeout=\"{{noengagenext * 1000}}\"\n                                ba-noengagenext=\"{{noengagenext}}\"\n                                ba-paused=\"{{!playing}}\"\n                            ></ba-circle-progress>\n                            <svg ba-if=\"{{!(shownextloader && nextindex === video.index) && currentindex !== video.index}}\"\n                                 width=\"34\" height=\"36\" viewBox=\"0 0 34 36\" fill=\"none\"\n                                 xmlns=\"http://www.w3.org/2000/svg\"\n                            >\n                                <g filter=\"url(#filter0_d_4559_6796)\">\n                                    <path d=\"M23.8049 18.0771L10.6387 25.6026L10.6387 10.5515L23.8049 18.0771Z\" fill=\"white\"/>\n                                </g>\n                                <defs>\n                                    <filter id=\"filter0_d_4559_6796\" x=\"-3.75\" y=\"-0.612671\" width=\"37.5549\" height=\"37.3794\" filterUnits=\"userSpaceOnUse\" color-interpolation-filters=\"sRGB\">\n                                        <feFlood flood-opacity=\"0\" result=\"BackgroundImageFix\"/>\n                                        <feColorMatrix in=\"SourceAlpha\" type=\"matrix\" values=\"0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0\" result=\"hardAlpha\"/>\n                                        <feOffset/>\n                                        <feGaussianBlur stdDeviation=\"5\"/>\n                                        <feComposite in2=\"hardAlpha\" operator=\"out\"/>\n                                        <feColorMatrix type=\"matrix\" values=\"0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0\"/>\n                                        <feBlend mode=\"normal\" in2=\"BackgroundImageFix\" result=\"effect1_dropShadow_4559_6796\"/>\n                                        <feBlend mode=\"normal\" in=\"SourceGraphic\" in2=\"effect1_dropShadow_4559_6796\" result=\"shape\"/>\n                                    </filter>\n                                </defs>\n                            </svg>\n                        </div>\n                        <img class=\"{{cssgallerysidebar}}-list-item-poster\"\n                             src=\"{{video.poster}}\" alt=\"{{video.title}}\"\n                        />\n                    </div>\n                    <div class=\"{{cssgallerysidebar}}-list-item-title\">\n                        {{video.title}}\n                    </div>\n                </li>\n            </ul>\n\n        </div>\n\n        <div class=\"{{cssgallerysidebar}}-footer-container\"></div>\n    </div>\n</div>\n\n\n<div ba-if=\"{{floatingsidebar}}\"\n     class=\"{{cssfloatingsidebar}}-container {{csscommon}}-full-height\"\n>\n    <div ba-if=\"{{adsplaying}}\"\n         class=\"{{cssfloatingsidebar}}-ad-playing-container {{csscommon}}-full-height\"\n    >\n        <ba-ads-choices-link\n            ba-if=\"{{adchoiceslink && showadchoices && !unknownadsrc}}\"\n            ba-adchoiceslink=\"{{adchoiceslink}}\"\n            ba-datatestselector=\"sidebar-ads-choices-button\"\n            ba-event:click_action=\"on_ads_choices_click\"\n        ></ba-ads-choices-link>\n        \n        <div ba-if=\"{{companionadcontent}}\"\n             class=\"{{cssfloatingsidebar}}-companion-container\"\n        ></div>\n        <div class=\"{{cssfloatingsidebar}}-content-container\" ba-if={{showlearnmorebutton}}>\n            <ba-ads-learn-more-button\n                ba-if=\"{{moredetailslink && !companionadcontent}}\"\n                ba-adsplaying=\"{{adsplaying}}\"\n                ba-cssprefix=\"{{cssfloatingsidebar}}\"\n                ba-moredetailslink=\"{{moredetailslink}}\"\n                ba-datatestselector=\"sidebar-ads-learn-more-button\"\n                ba-event:click_action=\"on_learn_more_click\"\n            ></ba-ads-learn-more-button>\n        </div>\n        <div ba-if=\"{{!showlearnmorebutton && afteradsendtext}}\" class=\"{{cssfloatingsidebar}}-title\">\n            {{afteradsendtext}}\n        </div>\n    </div>\n    <div ba-if=\"{{!adsplaying}}\" class=\"{{cssfloatingsidebar}}-content-container {{csscommon}}-full-height\">\n        <div class=\"{{cssfloatingsidebar}}-title\">\n            {{title}}\n        </div>\n    </div>\n    <div ba-if=\"{{headerlogoimgurl}}\" class=\"{{cssfloatingsidebar}}-logo\">\n        <a href=\"{{ headerlogourl || headerlogoimgurl }}\" title=\"{{headerlogoname}}\" target=\"_blank\">\n            <img src=\"{{headerlogoimgurl}}\" alt=\"{{headerlogoname}}\" />\n        </a>\n    </div>\n</div>\n",
 
                 attrs: {
                     "css": "ba-videoplayer",
@@ -8108,24 +8109,32 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     loading: true,
                     hideloaderafter: 1700,
                     states: {},
-                    shownextloader: false
+                    shownextloader: false,
+                    nextunplayed: false
                 },
 
                 events: {
                     "change:nextindex": function(nextindex) {
-                        this.__hasNotPlayedNextVideoIndex = false;
-                        this.checkIndexPlayability(nextindex);
+                        if (this.__dyn.get("next_video_from_playlist") === nextindex) return;
+                        // If nextindex is not defined, we need to set it
+                        nextindex ? this.checkIndexPlayability(nextindex) : this.setNextVideoIndex();
                     },
                     "change:adsplaying": function(adsPlaying) {
-                        if (!adsPlaying && this.get("videos").count() > 0) {
-                            this.scrollTop();
+                        const container = this.__galleryListContainer;
+                        if (!adsPlaying && this.get("videos").count() > 0 && this.__lastTopPosition && container) {
+                            // this.scrollTop(true);
+                            Async.eventually(() => {
+                                if (container && Math.abs(container.scrollTop - this.__lastTopPosition) > 1) {
+                                    container.scroll({
+                                        top: this.__lastTopPosition,
+                                        left: 0
+                                    });
+                                }
+                            }, this, 50);
                         }
                     },
                     "change:fullscreened": function(fullscreened) {
                         if (!fullscreened && !this.get("adsplaying")) this.scrollTop();
-                    },
-                    "change:is_floating": function(floating) {
-                        if (!floating) this.scrollTop();
                     }
                 },
 
@@ -8163,7 +8172,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                                     token: pl.token || null,
                                     height: null,
                                     display: false,
-                                    watched: false
+                                    watched: false,
+                                    scroll: true
                                 });
                             }
                         }, this);
@@ -8178,9 +8188,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
 
                 create: function() {
                     this.__dyn = this.parent();
-                    this.__hasNotPlayedNextVideoIndex = false;
                     this.get("videos").add_secondary_index("index");
                     this.set("states.shownext", this.get("shownext"));
+                    this.set("nextunplayed", this.get("sidebaroptions.nextunplayed") || false);
                     this.set("headerlogourl", this.get("sidebaroptions.headerlogourl") || null);
                     this.set("headerlogoimgurl", this.get("sidebaroptions.headerlogoimgurl") || null);
                     this.set("headerlogoname", this.get("sidebaroptions.headerlogoname") || "Brand's logo");
@@ -8223,7 +8233,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                             source: pl.source
                         });
                         if (video) video.set("watched", true);
-                        this.setNextVideoIndex();
+                        this.set("nextindex", null);
                     }, this);
 
                     // Will conflict with local next video change
@@ -8231,13 +8241,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
 
                     // On screen size changes, we need to go to the top of the list
                     this.__dyn.on("resize", function() {
-                        if (this.get('adsplaying')) return;
-                        this.scrollTop();
+                        this.__drawInProcess = false;
+                        Functions.debounce(this.__drawListedVideos, 100).apply(this);
                     }, this);
-                    // When video will be set as watched collection will be updated
-                    this.get("videos").on("update", () => this.scrollTop(), this);
+                    // Update event will not provide any information as an argument, we can use
+                    // "change" with "object, key, value, oldValue", or "change:key" with "object, value, oldValue" arguments
+                    // this.get("videos").on("update", (_) => this.scrollTop(), this);
+                    this.get("videos").on("change:scroll", (object, value) => {
+                        if (value) this.scrollTop();
+                    }, this);
                     // When there will be error on poster image, we need to remove it from the collection list
-                    this.get("videos").on("removed", (item) => this.scrollTop(), this);
+                    this.get("videos").on("removed", (_) => this.scrollTop(), this);
                 },
 
                 _afterActivate: function(element) {
@@ -8285,7 +8299,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                  */
                 playNextVideo: function(index) {
                     this.get("videos").iterate(function(v) {
-                        if (index && v.get("index") === index) {
+                        if (index >= 0 && v.get("index") === index && index !== this.get("currentindex")) {
                             this.set("previousindex", this.__dyn.get("next_video_from_playlist"));
                             this.__dyn.set("next_video_from_playlist", index);
                             this.__dyn.trigger("play_next", index);
@@ -8304,20 +8318,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                 setNextVideoIndex: function(triggerNext) {
                     triggerNext = triggerNext || false;
                     let nextVideo, videoFromTop, indexFromTop, nextIndex = null;
-                    const currentVideo = this.get("videos").queryOne({
-                        source: this.__dyn.get("source"),
-                    });
-                    const currentIndex = currentVideo ? currentVideo.get("index") : null;
-                    if (currentIndex === this.get("currentindex") && currentVideo && currentVideo.get("display") && !currentVideo.get("watched")) {
-                        this.__hasNotPlayedNextVideoIndex = true;
-                    }
-                    if (this.__hasNotPlayedNextVideoIndex) return;
+                    const currentVideo = this.__getCurrentVideo();
+                    const currentIndex = currentVideo.get("index");
+                    if (this.get('currentindex') !== currentIndex) this.set('currentindex', currentIndex);
                     const iterator = this.get("videos").iterator();
                     while (iterator.hasNext()) {
                         const v = iterator.next();
                         const _videoIndex = v.get("index");
                         // if nextIndex not defined, and we have not watched video, we can set it as nextIndex
-                        if (this.get("blacklisted").indexOf(_videoIndex) === -1 && v.get("display") && !v.get("watched")) {
+                        if (this.get("blacklisted").indexOf(_videoIndex) === -1 && v.get("display") && !(!v.get("watched") && this.get("nextunplayed"))) {
                             if (_videoIndex > currentIndex && !nextIndex) {
                                 nextVideo = v;
                                 nextIndex = v.get("index");
@@ -8357,6 +8366,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                  * On first load, we need to show loader for some time
                  */
                 proceedWithLoader: function() {
+                    if (this._containerCheckTimer) return;
                     this.set('loading', true);
                     this.__loaderStarted = true;
                     this.__drawInProcess = false;
@@ -8369,13 +8379,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                             if ((this.get("hideloaderafter") <= 0 && this.get("loaded").length > 0) || (this.get("loading") && this.get("loaded").length > 5)) {
                                 this.set('loading', false);
                                 this.setNextVideoIndex();
-                                this.__drawListedVideos();
+                                this.__drawListedVideos(true);
                                 this._containerCheckTimer.stop();
                             }
                             this.set('hideloaderafter', this.get("hideloaderafter") - 100);
                         }.bind(this),
                         context: this,
-                        start: true,
+                        // start: true,
                         immediate: true,
                         destroy_on_stop: true
                         // fire_max: this.get("hideloaderafter") / 100
@@ -8390,7 +8400,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     if (!this.get("hidevideoafterplay") || !index) return;
                     const video = this.get("videos").get_by_secondary_index('index', index);
                     if (video) {
-                        video.set("display", false);
+                        video.setAll({
+                            display: false,
+                            scroll: true
+                        });
                         // this.get("videos").remove(video);
                     }
                 },
@@ -8405,7 +8418,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     const nextVideo = this.get("videos").get_by_secondary_index('index', index);
                     Async.eventually(function() {
                         if (this.get("blacklisted").indexOf(index) !== -1 || !nextVideo) {
-                            this.setNextVideoIndex();
+                            this.set("nextindex", null);
                         } else {
                             this.__dyn.set("next_video_from_playlist", index);
                         }
@@ -8422,7 +8435,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     while (iterator.hasNext()) {
                         const v = iterator.next();
                         if (v.get("display")) {
-                            v.set("watched", false);
+                            v.setAll({
+                                watched: false,
+                                scroll: true
+                            });
                             if (!firstPlayableIndex) firstPlayableIndex = v.get("index");
                         }
                         if (!iterator.hasNext()) {
@@ -8432,19 +8448,45 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     }
                 },
 
-                scrollTop: function() {
+                /**
+                 * Will scroll to the top of the gallery sidebar list
+                 * @param force
+                 */
+                scrollTop: function(force) {
+                    // No need for scroll if ads playing or player is in floating view
+                    if (this.get("is_floating") || this.get("adsplaying")) return;
+                    force = force || false;
+                    if (!this.__galleryListContainer) {
+                        this.__galleryListContainer = this.activeElement().querySelector(`.${this.get("cssgallerysidebar")}-list-container`);
+                        // after getting container, we need run this function again
+                        Functions.debounce(this.scrollTop, 100).apply(this);
+                    } else if (
+                        this.__galleryListContainer && (
+                            (
+                                this.__galleryListContainer.scrollTop !== this.__lastTopPosition &&
+                                this.__galleryListContainer.offsetHeight > 0
+                            ) ||
+                            this.__lastTopPosition || force
+                        )
+                    ) {
+                        Functions.debounce(this.__scrollToTop, 50).apply(this);
+                    }
+                },
+
+                __scrollToTop: function() {
                     if (!this.activeElement() || !this.get("videos")) return;
                     let topHeight = 0;
-                    const container = this.activeElement().querySelector(`.${this.get("cssgallerysidebar")}-list-container`);
+                    const container = this.__galleryListContainer;
                     this.get("videos").iterate(function(video, _i) {
                         const height = video.get("height");
                         const videoIndex = video.get("index");
                         if (!video.get("display")) return;
-                        if (!height || height === 0) {
+                        if (!height || height <= 0) {
                             this.__recalculateHeight(video);
                             return;
                         }
                         if (this.get("nextindex") === videoIndex) {
+                            this.__lastTopPosition = topHeight;
                             if (container && container.scrollTo) {
                                 container.scrollTo({
                                     top: topHeight,
@@ -8473,7 +8515,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     if (!poster || !source) return;
                     const image = new Image();
                     image.onload = function() {
-                        video.set("display", true);
+                        video.setAll({
+                            display: true,
+                            scroll: true
+                        });
                         _.get("loaded").push(index);
                     }
                     image.onerror = function() {
@@ -8490,7 +8535,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                         if (height > 0) {
                             video.setAll({
                                 height: height,
-                                display: true
+                                display: true,
+                                scroll: true
                             });
                         }
                     }
@@ -8500,8 +8546,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                  * Draw and get each item height
                  * @private
                  */
-                __drawListedVideos: function() {
+                __drawListedVideos: function(scroll) {
                     const _ = this;
+                    scroll = scroll || false;
                     // Don't draw when ads active
                     if (this.get("adsplaying") || this.get("videos").destroyed() || this.__drawInProcess) return;
                     const elements = this.activeElement().querySelectorAll(`li.${this.get("cssgallerysidebar")}-list-item`);
@@ -8511,10 +8558,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                             const currentIndex = el.dataset.index;
                             const elRelatedCollections = _.get("videos").get_by_secondary_index('index', parseInt(currentIndex), true);
                             if (!_.get("blacklisted").includes(currentIndex)) {
-                                elRelatedCollections.setAll({
-                                    height: DOM.elementDimensions(el).height
+                                const _h = DOM.elementDimensions(el).height;
+                                if (_h) elRelatedCollections.setAll({
+                                    height: _h,
+                                    scroll: scroll
                                 });
-                                _.scrollTop();
                             }
                         });
                     }
@@ -8577,17 +8625,31 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                             image.height = dimensions.width * (companionAd.data.height / companionAd.data.width);
                         }
                     }
+                },
+
+                /**
+                 * Will get current video and set currentIndex
+                 * @return {*}
+                 * @private
+                 */
+                __getCurrentVideo: function() {
+                    const currentVideo = this.get("videos").queryOne({
+                        source: this.__dyn.get("source"),
+                    });
+                    const currentIndex = currentVideo ? currentVideo.get("index") : null;
+                    if (currentIndex) this.set("currentindex", currentIndex);
+                    return currentVideo;
                 }
             };
         }])
         .register("ba-videoplayer-sidebar")
         .registerFunctions({
-            /**/"states.gallerysidebar": function (obj) { return obj.states.gallerysidebar; }, "gallerysidebar": function (obj) { return obj.gallerysidebar; }, "cssgallerysidebar": function (obj) { return obj.cssgallerysidebar; }, "csscommon": function (obj) { return obj.csscommon; }, "adsplaying": function (obj) { return obj.adsplaying; }, "headerlogoimgurl": function (obj) { return obj.headerlogoimgurl; }, "headerlogourl || headerlogoimgurl": function (obj) { return obj.headerlogourl || obj.headerlogoimgurl; }, "headerlogoname": function (obj) { return obj.headerlogoname; }, "afteradsendtext": function (obj) { return obj.afteradsendtext; }, "companionadcontent": function (obj) { return obj.companionadcontent; }, "cssfloatingsidebar": function (obj) { return obj.cssfloatingsidebar; }, "showlearnmorebutton && !companionadcontent": function (obj) { return obj.showlearnmorebutton && !obj.companionadcontent; }, "moredetailslink && !companionadcontent": function (obj) { return obj.moredetailslink && !obj.companionadcontent; }, "moredetailslink": function (obj) { return obj.moredetailslink; }, "adchoiceslink && showadchoices && !unknownadsrc": function (obj) { return obj.adchoiceslink && obj.showadchoices && !obj.unknownadsrc; }, "adchoiceslink": function (obj) { return obj.adchoiceslink; }, "!adsplaying": function (obj) { return !obj.adsplaying; }, "gallerytitletext": function (obj) { return obj.gallerytitletext; }, "loading": function (obj) { return obj.loading; }, "showplaylist": function (obj) { return obj.showplaylist; }, "!loading": function (obj) { return !obj.loading; }, "videos": function (obj) { return obj.videos; }, "video.display && !(video.watched && hidevideoafterplay)": function (obj) { return obj.video.display && !(obj.video.watched && obj.hidevideoafterplay); }, "video.index": function (obj) { return obj.video.index; }, "play_video(video.index)": function (obj) { return obj.play_video(obj.video.index); }, "shownextloader && nextindex === video.index": function (obj) { return obj.shownextloader && obj.nextindex === obj.video.index; }, "true": function (obj) { return true; }, "noengagenext * 1000": function (obj) { return obj.noengagenext * 1000; }, "noengagenext": function (obj) { return obj.noengagenext; }, "!playing": function (obj) { return !obj.playing; }, "!(shownextloader && nextindex === video.index)": function (obj) { return !(obj.shownextloader && obj.nextindex === obj.video.index); }, "video.poster": function (obj) { return obj.video.poster; }, "video.title": function (obj) { return obj.video.title; }, "floatingsidebar": function (obj) { return obj.floatingsidebar; }, "showlearnmorebutton": function (obj) { return obj.showlearnmorebutton; }, "title": function (obj) { return obj.title; }/**/
+            /**/"states.gallerysidebar": function (obj) { return obj.states.gallerysidebar; }, "gallerysidebar": function (obj) { return obj.gallerysidebar; }, "cssgallerysidebar": function (obj) { return obj.cssgallerysidebar; }, "csscommon": function (obj) { return obj.csscommon; }, "adsplaying": function (obj) { return obj.adsplaying; }, "headerlogoimgurl": function (obj) { return obj.headerlogoimgurl; }, "headerlogourl || headerlogoimgurl": function (obj) { return obj.headerlogourl || obj.headerlogoimgurl; }, "headerlogoname": function (obj) { return obj.headerlogoname; }, "afteradsendtext": function (obj) { return obj.afteradsendtext; }, "companionadcontent": function (obj) { return obj.companionadcontent; }, "cssfloatingsidebar": function (obj) { return obj.cssfloatingsidebar; }, "showlearnmorebutton && !companionadcontent": function (obj) { return obj.showlearnmorebutton && !obj.companionadcontent; }, "moredetailslink && !companionadcontent": function (obj) { return obj.moredetailslink && !obj.companionadcontent; }, "moredetailslink": function (obj) { return obj.moredetailslink; }, "adchoiceslink && showadchoices && !unknownadsrc": function (obj) { return obj.adchoiceslink && obj.showadchoices && !obj.unknownadsrc; }, "adchoiceslink": function (obj) { return obj.adchoiceslink; }, "!adsplaying": function (obj) { return !obj.adsplaying; }, "gallerytitletext": function (obj) { return obj.gallerytitletext; }, "loading": function (obj) { return obj.loading; }, "showplaylist": function (obj) { return obj.showplaylist; }, "!loading": function (obj) { return !obj.loading; }, "videos": function (obj) { return obj.videos; }, "video.display && !(video.watched && hidevideoafterplay)": function (obj) { return obj.video.display && !(obj.video.watched && obj.hidevideoafterplay); }, "video.index": function (obj) { return obj.video.index; }, "play_video(video.index)": function (obj) { return obj.play_video(obj.video.index); }, "shownextloader && nextindex === video.index": function (obj) { return obj.shownextloader && obj.nextindex === obj.video.index; }, "true": function (obj) { return true; }, "noengagenext * 1000": function (obj) { return obj.noengagenext * 1000; }, "noengagenext": function (obj) { return obj.noengagenext; }, "!playing": function (obj) { return !obj.playing; }, "!(shownextloader && nextindex === video.index) && currentindex !== video.index": function (obj) { return !(obj.shownextloader && obj.nextindex === obj.video.index) && obj.currentindex !== obj.video.index; }, "video.poster": function (obj) { return obj.video.poster; }, "video.title": function (obj) { return obj.video.title; }, "floatingsidebar": function (obj) { return obj.floatingsidebar; }, "showlearnmorebutton": function (obj) { return obj.showlearnmorebutton; }, "!showlearnmorebutton && afteradsendtext": function (obj) { return !obj.showlearnmorebutton && obj.afteradsendtext; }, "title": function (obj) { return obj.title; }/**/
         })
         .attachStringTable(Assets.strings)
         .addStrings({
             "up-next": "Up Next",
-            "continue-on-ads-end": "Content will resume after this video..."
+            "continue-on-ads-end": "Content will resume after this advertisement."
         });
 });
 Scoped.define("module:VideoPlayer.Dynamics.Tooltip", [

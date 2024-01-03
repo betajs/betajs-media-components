@@ -261,7 +261,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.set("adsplaying", false);
                         this.adsManager.reset();
                         // this.adsManager.contentComplete();
-                        this.adsManager.requestAds(this._baseRequestAdsOptions());
                     },
                     reload: function() {
                         // this.adsManager.reset();
@@ -373,6 +372,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         // if ad is outstream and
                         if (!isLinear && this.get("isoutstream")) {
                             this.adsManager.reset();
+                            this.adsManager.requestAds(this._baseRequestAdsOptions());
                         }
 
                         // Set companion ads array and render for normal content player viewport

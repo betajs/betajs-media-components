@@ -20,12 +20,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Next", [
                 },
 
                 computed: {
-                    "staytext:style,is_floating": function(style, isFloating) {
-                        return (style === "desktop" && !isFloating) ? "Stay & Watch" : "Stay";
-                    },
-                    "nexttext:style,is_floating": function(style, isFloating) {
-                        return (style === "desktop" && !isFloating) ? "Next Video" : "Next";
-                    },
                     "nextvideoposter:playlist,current_video_from_playlist": function(playlist, currIndex) {
                         if (!playlist || !playlist[currIndex + 1]) return;
                         return playlist[currIndex + 1].poster;

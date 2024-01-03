@@ -1,6 +1,4 @@
 .#{$cssplayer}-next-style-desktop {
-  top: auto;
-  transform: none;
 }
 
 .#{$cssplayer}-next-style-mobile {
@@ -9,17 +7,12 @@
 .#{$cssplayer}-with-sidebar-gallery {
   .#{$cssplayer}-toggle-next-container {
     align-items: end;
-    bottom: #{5 + $player_controlbar_height};
   }
 }
 
 .#{$cssplayer}-toggle-next-container {
   box-sizing: content-box;
   pointer-events: none;
-  &.#{$cssplayer}-next-with-sidebar {
-    right: 7.5%;
-    width: 35%;
-  }
   width: 24%;
   max-width: 180px;
   color: white;
@@ -27,7 +20,7 @@
   padding: 0 16px;
   position: absolute;
   right: 0;
-  height: 100%;
+  bottom: 15px;
   display: flex;
   align-items: center;
   z-index: 6;

@@ -148,10 +148,18 @@
                 ba-event:click_action="on_learn_more_click"
             ></ba-ads-learn-more-button>
         </div>
+        <div ba-if="{{!showlearnmorebutton && afteradsendtext}}" class="{{cssfloatingsidebar}}-title">
+            {{afteradsendtext}}
+        </div>
     </div>
     <div ba-if="{{!adsplaying}}" class="{{cssfloatingsidebar}}-content-container {{csscommon}}-full-height">
         <div class="{{cssfloatingsidebar}}-title">
             {{title}}
         </div>
+    </div>
+    <div ba-if="{{headerlogoimgurl}}" class="{{cssfloatingsidebar}}-logo">
+        <a href="{{ headerlogourl || headerlogoimgurl }}" title="{{headerlogoname}}" target="_blank">
+            <img src="{{headerlogoimgurl}}" alt="{{headerlogoname}}" />
+        </a>
     </div>
 </div>

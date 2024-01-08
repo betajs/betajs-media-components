@@ -33,7 +33,7 @@
                 {{repeatbuttontext ? repeatbuttontext : string('replay-ad')}}
             </button>
         </div>
-        <div>
+        <div ba-if="{{!hideCloseButton}}">
             <button class="{{cssadsplayer}}-action-button {{cssadsplayer}}-reversed-color"
                  title="{{string('close-ad')}}" ba-click="{{close()}}"
             >

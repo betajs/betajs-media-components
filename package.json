@@ -15,7 +15,7 @@
         "url": "https://github.com/betajs/betajs-media-components/issues"
     },
     "name": "betajs-media-components",
-    "version": "0.0.432",
+    "version": "0.0.433",
     "description": "BetaJS-Media-Components is a JavaScript media UI components framework",
     "contributors": [
         "Ziggeo",
@@ -71,9 +71,9 @@
         "demos": "node node_modules/nano-media-server/server.js --staticserve . --port='5050'",
         "relink": "npm link betajs betajs-compile betajs-scoped betajs-shims betajs-browser betajs-dynamics betajs-media grunt-betajs-docs-compile grunt-betajs-templates",
         "reinstall": "rm -f package-lock.json && rm -rf node_modules && npm i && npm run relink",
-        "test": "npm run test:traced --reporter=list --ui --config ./tests/playwright/config.js && npm run test:show-report",
+        "test": "npm run test:traced && npm run test:show-report",
         "test:ui": "npx playwright test --ui --config ./tests/playwright/config.js",
-        "test:traced": "npx playwright test --trace on --config ./tests/playwright/config.js",
+        "test:traced": "npx playwright test --trace on --reporter=list --config ./tests/playwright/config.js",
         "test:show-report": "npx playwright show-report --config ./tests/playwright/config.js"
     },
     "meta": {

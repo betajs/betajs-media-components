@@ -428,18 +428,20 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                             return;
                         }
                         if (this.get("nextindex") === videoIndex) {
-                            this.__lastTopPosition = topHeight;
+                            // minus current video height
+                            this.__lastTopPosition = topHeight - height;
                             if (container && container.scrollTo) {
                                 container.scrollTo({
-                                    top: topHeight,
+                                    top: this.__lastTopPosition,
                                     left: 0,
                                     behavior: "smooth",
                                 });
                             } else {
                                 // TODO: in the future could be better replace Async.eventually calling in the adsplaying change event to MutationObserver
                             }
+                        } else {
+                            topHeight += height;
                         }
-                        topHeight += height;
                     }, this);
                 },
 

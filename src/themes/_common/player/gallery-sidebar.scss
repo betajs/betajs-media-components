@@ -116,6 +116,9 @@
     }
     .#{$cssgallerysidebar}-list-item {
         display: inline-grid;
+        &.#{$cssgallerysidebar}-currently-playing-list-item {
+            cursor: pointer;
+        }
     }
     .#{$cssgallerysidebar}-list-item-poster-container {
         display: flex;

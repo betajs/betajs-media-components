@@ -115,7 +115,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                                     height: null,
                                     display: false,
                                     watched: false,
-                                    scroll: true
+                                    scroll: true,
+                                    cached: 0
                                 });
                             }
                         }, this);
@@ -240,18 +241,23 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                  * @param index
                  */
                 playNextVideo: function(index) {
-                    this.get("videos").iterate(function(v) {
-                        if (index >= 0 && v.get("index") === index && index !== this.get("currentindex")) {
-                            this.set("previousindex", this.__dyn.get("next_video_from_playlist"));
-                            this.__dyn.set("next_video_from_playlist", index);
-                            this.__dyn.trigger("play_next", index);
-                            // Just for tracking
-                            this.__dyn.channel("next").trigger("manualPlayNext");
-                            v.set("watched", true);
-                            this.removeVideoFromList(this.get("previousindex"));
-                            this.scrollTop();
-                        }
-                    }, this);
+                    this.__dyn.set("next_video_from_playlist", index);
+                    if (index === this.get("currentindex")) {
+                        this.__dyn.set("current_video_from_playlist", null);
+                        this.__dyn.trigger("play_next", index);
+                    } else {
+                        this.get("videos").iterate(function(v) {
+                            if (index >= 0 && v.get("index") === index && index !== this.get("currentindex")) {
+                                this.set("previousindex", this.__dyn.get("next_video_from_playlist"));
+                                this.__dyn.trigger("play_next", index);
+                                // Just for tracking
+                                this.__dyn.channel("next").trigger("manualPlayNext");
+                                v.set("watched", true);
+                                this.removeVideoFromList(this.get("previousindex"));
+                                this.scrollTop();
+                            }
+                        }, this);
+                    }
                 },
 
                 /**
@@ -402,15 +408,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                         this.__galleryListContainer = this.activeElement().querySelector(`.${this.get("cssgallerysidebar")}-list-container`);
                         // after getting container, we need run this function again
                         Functions.debounce(this.scrollTop, 100).apply(this);
-                    } else if (
-                        this.__galleryListContainer && (
-                            (
-                                this.__galleryListContainer.scrollTop !== this.__lastTopPosition &&
-                                this.__galleryListContainer.offsetHeight > 0
-                            ) ||
-                            this.__lastTopPosition || force
-                        )
-                    ) {
+                    } else if (this.__galleryListContainer || force) {
                         Functions.debounce(this.__scrollToTop, 50).apply(this);
                     }
                 },

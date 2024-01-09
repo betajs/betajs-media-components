@@ -138,12 +138,15 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.call("contentComplete");
                     },
                     "ads:loaded": function(event) {
-                        this.set("ad", event.getAd());
-                        this.set("addata", event.getAdData());
+                        const ad = event.getAd();
+                        const adData = event.getAdData();
+                        this.set("ad", ad);
+                        this.set("addata", adData);
                         this.set("volume", this.adsManager.getVolume());
-                        this.set("duration", event.getAdData().duration);
-                        this.set("moredetailslink", event.getAdData().clickThroughUrl);
-                        this.set("adsclicktroughurl", event.getAdData().clickThroughUrl);
+                        this.set("duration", adData.duration);
+                        this.set("moredetailslink", adData.clickThroughUrl);
+                        this.set("adsclicktroughurl", adData.clickThroughUrl);
+                        this.setEndCardBackground(ad);
                     },
                     "ads:outstreamCompleted": function(dyn) {
                         this._outstreamCompleted(dyn);
@@ -327,6 +330,24 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     if (!this._videoElement)
                         this._videoElement = this.parent() && this.parent().activeElement().querySelector("[data-video='video']"); // TODO video element for outstream
                     return this._videoElement;
+                },
+
+                setEndCardBackground: function(ad) {
+                    const showEndCard = this.parent() && (!this.parent().get("outstreamoptions").noEndCard || !this.parent().get("outstreamoptions.allowRepeat"));
+                    if (this._adContainer && showEndCard) {
+                        const video = this.getVideoElement();
+                        const canvas = document.createElement("canvas");
+                        if (ad?.data?.mediaUrl && video && canvas) {
+                            video.src = ad.data.mediaUrl;
+                            canvas.width = this.getAdWidth();
+                            canvas.height = this.getAdHeight();
+                            canvas
+                                .getContext("2d")
+                                .drawImage(video, 0, 0, canvas.width, canvas.height);
+                            const src = canvas.toDataURL("image/png");
+                            this._adContainer.style.backgroundImage = `url("${src}")`;
+                        }
+                    }
                 },
 
                 getClickTroughElement: function() {

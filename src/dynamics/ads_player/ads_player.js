@@ -32,6 +32,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     hidecontrolbar: false,
                     showactionbuttons: false,
                     showrepeatbutton: true,
+                    showlearnmore: false,
+                    hideclosebutton: false,
                     adscompleted: false,
                     moredetailslink: null,
                     moredetailstext: null,
@@ -414,19 +416,20 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             this._hideContentPlayer(dyn);
                             return;
                         } else {
+                            const moreDetailsLink = dyn.get("outstreamoptions.moredetailslink");
                             if (dyn.get("outstreamoptions.noEndCard")) return;
-                            if (dyn.get("outstreamoptions.moreURL")) {
-                                this.set("moredetailslink", dyn.get("outstreamoptions.moreURL"));
-                            }
                             if (dyn.get("outstreamoptions.moreText")) {
                                 this.set("moredetailstext", dyn.get("outstreamoptions.moreText"));
                             }
-                            if (dyn.get("outstreamoptions.allowRepeat")) {
-                                this.set("showrepeatbutton", !!dyn.get("outstreamoptions.allowRepeat"));
-                            }
+                            this.set("showrepeatbutton", !!dyn.get("outstreamoptions.allowRepeat"));
                             if (dyn.get("outstreamoptions.repeatText")) {
                                 this.set("repeatbuttontext", dyn.get("outstreamoptions.repeatText"));
                             }
+                            if (moreDetailsLink) {
+                                this.set("moredetailslink", moreDetailsLink);
+                            }
+                            this.set("hideclosebutton", !!dyn.get("outstreamoptions.hideclose"));
+                            this.set("showlearnmorebutton", !!dyn.get("outstreamoptions.showlearnmore"));
                         }
                     }
                     this.set("showactionbuttons", true);

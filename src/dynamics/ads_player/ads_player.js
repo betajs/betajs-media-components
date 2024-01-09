@@ -336,16 +336,21 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     const showEndCard = this.parent() && (!this.parent().get("outstreamoptions").noEndCard || !this.parent().get("outstreamoptions.allowRepeat"));
                     if (this._adContainer && showEndCard) {
                         const video = this.getVideoElement();
+                        video.crossOrigin = "anonymous";
                         const canvas = document.createElement("canvas");
-                        if (ad?.data?.mediaUrl && video && canvas) {
-                            video.src = ad.data.mediaUrl;
-                            canvas.width = this.getAdWidth();
-                            canvas.height = this.getAdHeight();
-                            canvas
-                                .getContext("2d")
-                                .drawImage(video, 0, 0, canvas.width, canvas.height);
-                            const src = canvas.toDataURL("image/png");
-                            this._adContainer.style.backgroundImage = `url("${src}")`;
+                        const mediaUrl = ad?.data?.mediaUrl;
+                        if (mediaUrl && video && canvas) {
+                            video.src = mediaUrl;
+                            video.play();
+                            setTimeout(function() {
+                                canvas.width = this.getAdWidth();
+                                canvas.height = this.getAdHeight();
+                                canvas
+                                    .getContext("2d")
+                                    .drawImage(video, 0, 0, canvas.width, canvas.height);
+                                const src = canvas.toDataURL("image/png");
+                                this._adContainer.style.backgroundImage = `url("${src}")`;
+                            }.bind(this), 1000);
                         }
                     }
                 },

@@ -361,6 +361,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 noEndCard: false, // No end cart at the end when outstream completed
                                 allowRepeat: true, // Make possible to repeat ads
                                 // moreURL: '', // more button URL
+                                // firstframeasendcard: '', // to capture first frame and show as endcard background
                                 // moreText: '', // read more about outstream text
                                 // repeatText: '', // repeat button text
                                 persistentcompanionad: false

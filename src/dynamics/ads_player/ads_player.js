@@ -335,7 +335,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                 setEndCardBackground: function(ad) {
                     const showEndCard = this.getShouldShowEndCard();
-                    if (showEndCard) {
+                    const dyn = this.parent();
+                    const showFirstFrameAsEndcard = dyn.get("outstreamoptions") && dyn.get("outstreamoptions.firstframeasendcard");
+                    if (showEndCard && showFirstFrameAsEndcard) {
                         const video = document.createElement("video");
                         const canvas = document.createElement("canvas");
                         const mediaUrl = ad?.data?.mediaUrl;

@@ -342,6 +342,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         const mediaUrl = ad?.data?.mediaUrl;
                         if (mediaUrl && video && canvas) {
                             video.src = mediaUrl;
+                            video.muted = true;
                             video.play();
                             setTimeout(function() {
                                 canvas.width = this.getAdWidth();

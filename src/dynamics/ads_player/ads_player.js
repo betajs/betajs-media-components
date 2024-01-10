@@ -334,10 +334,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 setEndCardBackground: function(ad) {
-                    const showEndCard = this.getShouldShowEndCard();
-                    const dyn = this.parent();
-                    const showFirstFrameAsEndcard = dyn.get("outstreamoptions") && dyn.get("outstreamoptions.firstframeasendcard");
-                    if (showEndCard && showFirstFrameAsEndcard) {
+                    const showFirstFrameAsEndcard = this.shouldShowFirstFrameAsEndcard();
+                    if (showFirstFrameAsEndcard) {
                         const video = document.createElement("video");
                         const canvas = document.createElement("canvas");
                         const mediaUrl = ad?.data?.mediaUrl;
@@ -359,8 +357,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     }
                 },
 
-                getShouldShowEndCard: function() {
-                    return this.parent() && (!this.parent().get("outstreamoptions").noEndCard || !this.parent().get("outstreamoptions.allowRepeat"));
+                shouldShowFirstFrameAsEndcard: function() {
+                    const dyn = this.parent();
+                    return dyn && (!dyn.get("outstreamoptions").noEndCard || !dyn.get("outstreamoptions.allowRepeat")) && dyn.get("outstreamoptions.firstframeasendcard");
                 },
 
                 getClickTroughElement: function() {

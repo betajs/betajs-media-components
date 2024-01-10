@@ -140,12 +140,13 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     "ads:loaded": function(event) {
                         const ad = event.getAd();
                         const adData = event.getAdData();
+                        const clickthroughUrl = adData.clickThroughUrl;
                         this.set("ad", ad);
                         this.set("addata", adData);
                         this.set("volume", this.adsManager.getVolume());
                         this.set("duration", adData.duration);
-                        this.set("moredetailslink", adData.clickThroughUrl);
-                        this.set("adsclicktroughurl", adData.clickThroughUrl);
+                        this.set("moredetailslink", clickthroughUrl);
+                        this.set("adsclicktroughurl", clickthroughUrl);
                         this.setEndCardBackground(ad);
                     },
                     "ads:outstreamCompleted": function(dyn) {
@@ -334,7 +335,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                 setEndCardBackground: function(ad) {
                     const showEndCard = this.parent() && (!this.parent().get("outstreamoptions").noEndCard || !this.parent().get("outstreamoptions.allowRepeat"));
-                    if (this._adContainer && showEndCard) {
+                    if (showEndCard) {
                         const video = this.getVideoElement();
                         video.crossOrigin = "anonymous";
                         const canvas = document.createElement("canvas");
@@ -348,8 +349,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                                 canvas
                                     .getContext("2d")
                                     .drawImage(video, 0, 0, canvas.width, canvas.height);
-                                const src = canvas.toDataURL("image/png");
-                                this._adContainer.style.backgroundImage = `url("${src}")`;
+                                this._src = canvas.toDataURL("image/png");
                             }.bind(this), 1000);
                         }
                     }
@@ -452,6 +452,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             }
                             if (dyn.get("outstreamoptions.repeatText")) {
                                 this.set("repeatbuttontext", dyn.get("outstreamoptions.repeatText"));
+                            }
+                            if (this._src) {
+                                this.getAdContainer().style.backgroundImage = `url("${this._src}")`;
                             }
                         }
                     }

@@ -334,13 +334,13 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 setEndCardBackground: function(ad) {
-                    const showEndCard = this.parent() && (!this.parent().get("outstreamoptions").noEndCard || !this.parent().get("outstreamoptions.allowRepeat"));
+                    const showEndCard = this.getShouldShowEndCard();
                     if (showEndCard) {
                         const video = document.createElement("video");
-                        video.crossOrigin = "anonymous";
                         const canvas = document.createElement("canvas");
                         const mediaUrl = ad?.data?.mediaUrl;
                         if (mediaUrl && video && canvas) {
+                            video.crossOrigin = "anonymous";
                             video.src = mediaUrl;
                             video.muted = true;
                             video.play();
@@ -351,9 +351,14 @@ Scoped.define("module:Ads.Dynamics.Player", [
                                     .getContext("2d")
                                     .drawImage(video, 0, 0, canvas.width, canvas.height);
                                 this._src = canvas.toDataURL("image/png");
+                                video.pause();
                             }.bind(this), 1000);
                         }
                     }
+                },
+
+                getShouldShowEndCard: function() {
+                    return this.parent() && (!this.parent().get("outstreamoptions").noEndCard || !this.parent().get("outstreamoptions.allowRepeat"));
                 },
 
                 getClickTroughElement: function() {

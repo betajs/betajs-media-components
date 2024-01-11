@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.432 - 2024-01-04
+betajs-media-components - v0.0.433 - 2024-01-11
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.432",
-    "datetime": 1704402093746
+    "version": "0.0.433",
+    "datetime": 1704998825203
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');

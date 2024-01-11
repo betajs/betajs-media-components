@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.432 - 2024-01-04
+betajs-media-components - v0.0.433 - 2024-01-11
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -2152,8 +2152,7 @@ div.ba-player-with-sidebar.ba-player-fullscreen-view .ba-adsplayer-controlbar, d
 .ba-player-toggle-next-container {
   box-sizing: content-box;
   pointer-events: none;
-  width: 24%;
-  max-width: 180px;
+  width: 120px;
   color: white;
   text-align: center;
   padding: 0 16px;
@@ -2185,6 +2184,7 @@ div.ba-player-with-sidebar.ba-player-fullscreen-view .ba-adsplayer-controlbar, d
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
   position: relative;
   z-index: 1;
+  height: 28px;
 }
 .ba-player-toggle-next-container hr {
   margin: 0;

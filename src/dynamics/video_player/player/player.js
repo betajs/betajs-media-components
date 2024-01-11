@@ -18,6 +18,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "base:Time",
     "base:Timers",
     "base:Promise",
+    "base:Functions",
     "base:TimeFormat",
     "base:States.Host",
     "base:Classes.ClassRegistry",
@@ -65,7 +66,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.PlayerStates.ErrorVideo",
     "module:VideoPlayer.Dynamics.PlayerStates.PlayVideo",
     "module:VideoPlayer.Dynamics.PlayerStates.NextVideo"
-], function(Class, Assets, DatasetProperties, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, PlayerSupport, Types, Objs, Strings, Collection, Maths, Time, Timers, Promise, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
+], function(Class, Assets, DatasetProperties, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, PlayerSupport, Types, Objs, Strings, Collection, Maths, Time, Timers, Promise, Functions, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, [StylesMixin, function(inherited) {
@@ -665,8 +666,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         return this.get("floatingsidebar") || this.get("gallerysidebar");
                     },
-                    "playercontainerstyles:show_sidebar,gallerysidebar,sidebaroptions.presetwidth,fullscreened,videowidth": function(showSidebar, gallerySidebar, sidebarPresetWidth, fullscreened, videoWidth) {
-                        let width, styles;
+                    "playercontainerstyles:show_sidebar,gallerysidebar,sidebaroptions.presetwidth,fullscreened": function(
+                        showSidebar, gallerySidebar, sidebarPresetWidth, fullscreened
+                    ) {
                         if (showSidebar && gallerySidebar && !fullscreened) {
                             if (typeof sidebarPresetWidth === "string") {
                                 sidebarPresetWidth = sidebarPresetWidth.includes("%") ?
@@ -674,60 +676,20 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     sidebarPresetWidth;
                             }
                             if (sidebarPresetWidth) {
-                                if (!width) width = typeof sidebarPresetWidth === "number" ? ((100 - sidebarPresetWidth) + "%") : `calc(100% - ${sidebarPresetWidth})`;
+                                let styles;
+                                const playerContainerWidth = typeof sidebarPresetWidth === "number" ? ((100 - sidebarPresetWidth) + "%") : `calc(100% - ${sidebarPresetWidth})`;
                                 if (window && window.CSS) {
-                                    styles = window.CSS.supports("width", width);
+                                    // Will checking if provided value is valid css value
+                                    styles = window.CSS.supports("width", playerContainerWidth);
                                 }
-                                if (width && Types.is_defined(styles) && styles) {
+                                if (playerContainerWidth && Types.is_defined(styles) && styles) {
                                     this.set("controlbarstyles", {
-                                        width: width
+                                        width: playerContainerWidth
                                     });
                                     return {
-                                        width: width,
+                                        width: playerContainerWidth,
                                         position: 'relative'
                                     };
-                                }
-                            } else if (videoWidth && this.__video && this.get("width") && this.activeElement()) {
-                                let sidebarWidth;
-                                const videoWidthInNumber = Dom.elementDimensions(this.__video).width;
-                                const videoHeightInNumber = Dom.elementDimensions(this.__video).height;
-                                const playerContainerWidthInNumber = Dom.elementDimensions(this.activeElement()).width;
-                                const playerContainerHeightInNumber = Dom.elementDimensions(this.activeElement()).height;
-                                if (playerContainerHeightInNumber > 0 && videoHeightInNumber) {
-                                    let _ar = this.get("sidebaroptions.preferredratio") || 1.7778;
-                                    if (Types.is_string(_ar)) {
-                                        if (_ar.includes("/"))
-                                            _ar = parseFloat(_ar.split("/").reduce((a, b) => a / b));
-                                        else if (_ar.includes(":"))
-                                            _ar = parseFloat(_ar.split(":").reduce((a, b) => a / b));
-                                    }
-                                    _ar = Number(parseFloat(_ar).toFixed(2));
-                                    if (typeof _ar === "number") {
-                                        sidebarWidth = playerContainerWidthInNumber - (playerContainerHeightInNumber * _ar);
-                                    }
-                                    if (sidebarWidth && sidebarWidth > 0) {
-                                        // if sidebar non-fluid, we will calculate based on preferred ar or first video we're getting
-                                        if (!this.get('sidebaroptions.fluid')) {
-                                            this.set("sidebaroptions.presetwidth", sidebarWidth + "px");
-                                        }
-                                        this.set("sidebarstyles", {
-                                            maxWidth: sidebarWidth + 'px',
-                                        });
-                                        this.set("controlbarstyles", {
-                                            maxWidth: (playerContainerWidthInNumber - sidebarWidth) + 'px',
-                                        });
-                                        return {
-                                            minWidth: (playerContainerWidthInNumber - sidebarWidth) + 'px',
-                                            flexBasis: 0,
-                                        };
-                                    } else if (videoWidthInNumber) {
-                                        this.set("controlbarstyles", {
-                                            maxWidth: videoWidthInNumber + 'px',
-                                        });
-                                        return {
-                                            minWidth: videoWidthInNumber + 'px',
-                                        };
-                                    }
                                 }
                             }
                         }
@@ -780,7 +742,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (hidebeforeadstarts && adshassource) return !adsinitialized;
                         return false;
                     },
-                    "containerSizingStyles:aspect_ratio,height,width,is_floating,hideplayer,floatingoptions.floatingonly,fullscreened,gallerysidebar": function(
+                    "containerSizingStyles:aspect_ratio,height,width,is_floating,hideplayer,floatingoptions.floatingonly,fullscreened,gallerysidebar,showsidebargallery": function(
                         aspectRatio,
                         height,
                         width,
@@ -788,17 +750,26 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         hidden,
                         floatingonly,
                         fullscreened,
-                        gallerySidebar
+                        gallerySidebar,
+                        showSidebarGallery
                     ) {
+                        // containerStyle will apply activeElement parent, containerSizingStyles/styles will apply to activeElement
                         let containerStyles, styles;
                         styles = {
                             aspectRatio: aspectRatio
                         };
-                        if (gallerySidebar) styles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
+                        // If there's no set height, but we want to see video in aspect ratio, we need to calculate height
+                        if (fullscreened && this.get("states.calculatedplayerheight")) {
+                            this.set("states.preventheightcalculation", true);
+                        }
+                        if (gallerySidebar && !height) this.__setGallerySidebarPlayerHeight();
                         if (height) styles.height = isNaN(height) ? height : parseFloat(height).toFixed(2) + "px";
                         if (width) styles.width = isNaN(width) ? width : parseFloat(width).toFixed(2) + "px";
                         containerStyles = floatingonly ? {} : Objs.extend({}, styles);
                         if (isFloating) {
+                            if (this.get("states.calculatedplayerheight")) {
+                                this.set("states.preventheightcalculation", true);
+                            }
                             const calculated = this.__calculateFloatingDimensions();
 
                             const floatingTop = calculated.floating_top;
@@ -816,6 +787,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                             if (floatingWidth) styles.width = isNaN(floatingWidth) ? floatingWidth : parseFloat(floatingWidth).toFixed(2) + "px";
                             if (floatingHeight) styles.height = isNaN(floatingHeight) ? floatingHeight : parseFloat(floatingHeight).toFixed(2) + "px";
+                        } else if (this.get("states.calculatedplayerheight") && this.get("states.calculatedplayerheight") > 0) {
+                            styles.height = this.get("states.calculatedplayerheight") + 'px';
+                            containerStyles.height = this.get("states.calculatedplayerheight") + 'px';
                         }
 
                         if (hidden) {
@@ -833,7 +807,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 containerStyles.width = "100%";
                             }
                             // will shrink the page
-                            if (gallerySidebar) containerStyles.display = "flex";
+                            // if (gallerySidebar) {containerStyles.display = "flex";}
+                            if (showSidebarGallery && containerStyles.aspectRatio) delete containerStyles.aspectRatio;
                             this._applyStyles(this.activeElement(), containerStyles, this.__lastContainerSizingStyles);
                             this.__lastContainerSizingStyles = containerStyles;
                         }
@@ -841,6 +816,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             delete styles.width;
                             delete styles.height;
                         }
+                        // console.table({containerStyles, styles});
                         return styles;
                     },
                     "cssfloatingclasses:floatingoptions.desktop.position": function(position) {
@@ -909,6 +885,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("closeable_title", this.get("closeable-title"));
                     this.__initFloatingOptions();
                     this._observer = new ResizeObserver(function(entries) {
+                        if (this.get("gallerysidebar") && !this.get("floating") && !this.get("fullscreened")) {
+                            this.set("states.preventheightcalculation", false);
+                            Functions.debounce(this.__setGallerySidebarPlayerHeight, 100).apply(this, [true]);
+                        }
                         for (var i = 0; i < entries.length; i++) {
                             this.trigger("resize", {
                                 width: entries[i].contentRect.width,
@@ -2569,6 +2549,86 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }, this);
                         }
                     }
+                },
+
+                __setGallerySidebarPlayerHeight: function(setHeight, width, height) {
+                    setHeight = setHeight || false;
+                    width = width || this.get("width");
+                    height = height || this.get("height");
+                    if (width.toString().includes('%') && this.get("sidebaroptions.aspectratio") && (!height || setHeight) && !this.get("states.preventheightcalculation")) {
+                        const resultAR = this.__calculateAppropriateAspectRatio(
+                            this.get("sidebaroptions.aspectratio"), null, null
+                        );
+                        if (resultAR.height && resultAR.height > 0) {
+                            this.set("states.calculatedplayerheight", resultAR.height);
+                            if (setHeight) {
+                                this.set('height', resultAR.height);
+                            }
+                        }
+                    }
+                },
+
+                __calculateAppropriateAspectRatio: function(targetAR, width, height) {
+                    if (Types.is_string(targetAR)) {
+                        if (targetAR.includes("/")) {
+                            const [w, h] = targetAR.split("/");
+                            targetAR = Number(w) / Number(h);
+                        }
+                    }
+                    targetAR = Math.round(Number(targetAR) * 100) / 100;
+                    const correctAR = Types.isNumber(targetAR) && targetAR > 0;
+                    const widthAsPercentage = Types.is_string(width) && width.includes('%');
+                    const heightAsPercentage = Types.is_string(height) && height.includes('%');
+
+                    if (width && height && !heightAsPercentage && !widthAsPercentage) {
+                        // console.log("AR Based on h & w", width, height, targetAR);
+                        return {
+                            width: width,
+                            height: height,
+                            ar: `${Number(width)}/${Number(height)}`
+                        }
+                    }
+
+                    if (height && !heightAsPercentage && correctAR) {
+                        width = Math.round(targetAR >= 1 ? height * targetAR : height / targetAR);
+                        // console.log("AR Based on h only", height, width, targetAR);
+                        return {
+                            width: width,
+                            height: height,
+                            ar: `${Number(width)}/${Number(height)}`
+                        }
+                    }
+
+                    if (targetAR > 0 && (!width || widthAsPercentage)) {
+                        width = Dom.elementDimensions(this.__playerContainer ? this.__playerContainer : this.activeElement().firstChild).width;
+                        // console.log("Width will be take from container", width, targetAR);
+                    }
+
+                    if (width && correctAR) {
+                        height = Math.round(targetAR >= 1 ? width / targetAR : width * targetAR);
+                        // console.log("AR Based on w only", width, height, targetAR);
+                        return {
+                            width: width,
+                            height: height,
+                            ar: Math.round(Number(width) / Number(height) * 100) / 100
+                        }
+                    }
+
+                    if (width) {
+                        targetAR = Math.round(16 / 9) * 100 / 100;
+                        height = Math.round(targetAR >= 1 ? width / targetAR : width * targetAR);
+                        return {
+                            width: width,
+                            height: height,
+                            ar: Math.round(Number(width) / Number(height) * 100) / 100
+                        }
+                    }
+
+                    return {
+                        width: width,
+                        height: height,
+                        ar: "16/9"
+                    };
                 },
 
                 /**

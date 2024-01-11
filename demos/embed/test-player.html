@@ -205,7 +205,29 @@
                 // presetwidth: null,
                 presetwidth: 25,
             },
-            availablepresetoptions: availablepresetoptions,
+            availablepresetoptions: {
+                ...availablepresetoptions,
+                l: {
+                    width: 670.25,
+                    height: 288,
+                    showsidebargallery: true,
+                    videofitstrategy: 'crop',
+                    'sidebaroptions.presetwidth': 33,
+                    // 'sidebaroptions.presetwidth': null,
+                    'sidebaroptions.aspectratio': "16:9", //0.5,
+                    mobile: {
+                        showsidebargallery: true
+                    }
+                },
+                resp: {
+                    width: '100%',
+                    showsidebargallery: true,
+                    // 'sidebaroptions.presetwidth': 30,
+                    'sidebaroptions.aspectratio': 16/9,
+                    // 'sidebaroptions.preferredratio': '1:1',
+
+                }
+            },
             // fitonwidth: true,
             floatingoptions: {...attrs.floatingoptions, ...{
                     showcompanionad: true,

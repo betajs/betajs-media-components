@@ -138,10 +138,10 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.call("contentComplete");
                     },
                     "ads:loaded": function(event) {
-                        this._ad = event.getAd();
+                        const ad = event.getAd();
                         const adData = event.getAdData();
                         const clickthroughUrl = adData.clickThroughUrl;
-                        this.set("ad", this._ad);
+                        this.set("ad", ad);
                         this.set("addata", adData);
                         this.set("volume", this.adsManager.getVolume());
                         this.set("duration", adData.duration);
@@ -228,7 +228,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             const width = dimensions?.width || this.getAdWidth();
                             const height = dimensions?.height || this.getAdHeight();
                             if (width && height) {
-
                                 // This part will listen to the resize even after adsManger will be destroyed
                                 if (this.adsManager && typeof this.adsManager.resize === "function") {
                                     this.adsManager.resize(
@@ -237,7 +236,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                                         google.ima.ViewMode.NORMAL
                                     );
                                 }
-
                                 if (this.shouldShowFirstFrameAsEndcard()) {
                                     this.setEndCardBackground(width, height);
                                     if (this._src) {
@@ -345,8 +343,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 setEndCardBackground: function(width, height) {
-                    if (this._ad) {
-                        this.updateEndCardImage(this._ad, width, height);
+                    const ad = this.get("ad");
+                    if (ad) {
+                        this.updateEndCardImage(ad, width, height);
                     }
                 },
 

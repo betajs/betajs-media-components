@@ -225,16 +225,16 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     }, this);
                     if (dynamics) {
                         dynamics.on("resize", function(dimensions) {
+                            const width = dimensions?.width || this.getAdWidth();
+                            const height = dimensions?.height || this.getAdHeight();
                             // This part will listen to the resize even after adsManger will be destroyed
                             if (this.adsManager && typeof this.adsManager.resize === "function") {
                                 this.adsManager.resize(
-                                    this.getAdWidth(),
-                                    this.getAdHeight(),
+                                    width,
+                                    height,
                                     google.ima.ViewMode.NORMAL
                                 );
                             }
-                            const width = dimensions?.width || this.getAdWidth();
-                            const height = dimensions?.height || this.getAdHeight();
                             if (width && height) {
                                 if (this.shouldShowFirstFrameAsEndcard()) {
                                     this.setEndCardBackground(width, height);

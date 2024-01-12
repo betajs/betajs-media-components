@@ -138,16 +138,15 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.call("contentComplete");
                     },
                     "ads:loaded": function(event) {
-                        const ad = event.getAd();
+                        this._ad = event.getAd();
                         const adData = event.getAdData();
                         const clickthroughUrl = adData.clickThroughUrl;
-                        this.set("ad", ad);
+                        this.set("ad", this._ad);
                         this.set("addata", adData);
                         this.set("volume", this.adsManager.getVolume());
                         this.set("duration", adData.duration);
                         this.set("moredetailslink", clickthroughUrl);
                         this.set("adsclicktroughurl", clickthroughUrl);
-                        this.setEndCardBackground(ad);
                     },
                     "ads:outstreamCompleted": function(dyn) {
                         this._outstreamCompleted(dyn);
@@ -233,6 +232,16 @@ Scoped.define("module:Ads.Dynamics.Player", [
                                     this.getAdHeight(),
                                     google.ima.ViewMode.NORMAL
                                 );
+                            }
+                            const width = dimensions?.width || this.getAdWidth();
+                            const height = dimensions?.height || this.getAdHeight();
+                            if (width && height) {
+                                if (this.shouldShowFirstFrameAsEndcard()) {
+                                    this.setEndCardBackground(width, height);
+                                    if (this._src) {
+                                        this.getAdContainer().style.backgroundImage = `url("${this._src}")`;
+                                    }
+                                }
                             }
                         }, this);
                         dynamics.on("unmute-ads", function(volume) {
@@ -333,33 +342,51 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     return this._videoElement;
                 },
 
-                setEndCardBackground: function(ad) {
-                    const showFirstFrameAsEndcard = this.shouldShowFirstFrameAsEndcard();
-                    if (showFirstFrameAsEndcard) {
-                        const video = document.createElement("video");
-                        const canvas = document.createElement("canvas");
-                        const mediaUrl = ad?.data?.mediaUrl;
-                        if (mediaUrl && video && canvas) {
-                            video.crossOrigin = "anonymous";
-                            video.src = mediaUrl;
-                            video.muted = true;
-                            video.play();
-                            setTimeout(function() {
-                                canvas.width = this.getAdWidth();
-                                canvas.height = this.getAdHeight();
-                                canvas
-                                    .getContext("2d")
-                                    .drawImage(video, 0, 0, canvas.width, canvas.height);
-                                this._src = canvas.toDataURL("image/png");
-                                video.pause();
-                            }.bind(this), 1000);
-                        }
+                setEndCardBackground: function(width, height) {
+                    if (this._ad) {
+                        this.updateEndCardImage(this._ad, width, height);
                     }
                 },
 
+                updateEndCardImage: function(ad, width, height) {
+                    if (this._video && this._canvas && this._mediaUrl) {
+                        this.resizeCanvas(width, height);
+                        return;
+                    }
+                    this._video = document.createElement("video");
+                    this._canvas = document.createElement("canvas");
+                    this._mediaUrl = ad?.data?.mediaUrl;
+                    this._video.crossOrigin = "anonymous";
+                    this._video.src = this._mediaUrl;
+                    this._video.muted = true;
+                    this._video.play();
+                    setTimeout(function() {
+                        this._canvas.width = width;
+                        this._canvas.height = height;
+                        this._canvas
+                            .getContext("2d")
+                            .drawImage(this._video, 0, 0, this._canvas.width, this._canvas.height);
+                        this._src = this._canvas.toDataURL("image/png");
+                        this._video.pause();
+                    }.bind(this), 1000);
+                },
+
+                resizeCanvas: function(newWidth, newHeight) {
+                    this._canvas.width = newWidth;
+                    this._canvas.height = newHeight;
+                    this._canvas
+                        .getContext("2d")
+                        .drawImage(this._video, 0, 0, this._canvas.width, this._canvas.height);
+                    this._src = this._canvas.toDataURL("image/png");
+                },
+
+
                 shouldShowFirstFrameAsEndcard: function() {
                     const dyn = this.parent();
-                    return dyn && (!dyn.get("outstreamoptions").noEndCard || !dyn.get("outstreamoptions.allowRepeat")) && dyn.get("outstreamoptions.firstframeasendcard");
+                    const showEndCard = !dyn.get("outstreamoptions").noEndCard;
+                    const noRepeat = !dyn.get("outstreamoptions.allowRepeat");
+                    const showFirstFrameAsEndCard = dyn.get("outstreamoptions.firstframeasendcard");
+                    return dyn && (showEndCard || noRepeat) && showFirstFrameAsEndCard;
                 },
 
                 getClickTroughElement: function() {
@@ -460,7 +487,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             if (dyn.get("outstreamoptions.repeatText")) {
                                 this.set("repeatbuttontext", dyn.get("outstreamoptions.repeatText"));
                             }
-                            if (this._src) {
+                            if (this.shouldShowFirstFrameAsEndcard() && this._src) {
                                 this.getAdContainer().style.backgroundImage = `url("${this._src}")`;
                             }
                         }

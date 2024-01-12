@@ -227,15 +227,17 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         dynamics.on("resize", function(dimensions) {
                             const width = dimensions?.width || this.getAdWidth();
                             const height = dimensions?.height || this.getAdHeight();
-                            // This part will listen to the resize even after adsManger will be destroyed
-                            if (this.adsManager && typeof this.adsManager.resize === "function") {
-                                this.adsManager.resize(
-                                    width,
-                                    height,
-                                    google.ima.ViewMode.NORMAL
-                                );
-                            }
                             if (width && height) {
+
+                                // This part will listen to the resize even after adsManger will be destroyed
+                                if (this.adsManager && typeof this.adsManager.resize === "function") {
+                                    this.adsManager.resize(
+                                        width,
+                                        height,
+                                        google.ima.ViewMode.NORMAL
+                                    );
+                                }
+
                                 if (this.shouldShowFirstFrameAsEndcard()) {
                                     this.setEndCardBackground(width, height);
                                     if (this._src) {

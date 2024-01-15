@@ -780,7 +780,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (hidebeforeadstarts && adshassource) return !adsinitialized;
                         return false;
                     },
-                    "containerSizingStyles:aspect_ratio,height,width,is_floating,hideplayer,floatingoptions.floatingonly,fullscreened,showsidebargallery,gallerysidebar": function(
+                    "containerSizingStyles:aspect_ratio,height,width,is_floating,hideplayer,floatingoptions.floatingonly,fullscreened,showsidebargallery,gallerysidebar,layout": function(
                         aspectRatio,
                         height,
                         width,
@@ -789,7 +789,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         floatingonly,
                         fullscreened,
                         showsidebargallery,
-                        gallerySidebar
+                        gallerySidebar,
+                        layout
                     ) {
                         let containerStyles, styles;
                         styles = {
@@ -799,7 +800,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (height) styles.height = isNaN(height) ? height : parseFloat(height).toFixed(2) + "px";
                         if (width) styles.width = isNaN(width) ? width : parseFloat(width).toFixed(2) + "px";
                         containerStyles = floatingonly ? {} : Objs.extend({}, styles);
-                        if (!gallerySidebar && showsidebargallery) containerStyles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
+                        if (!gallerySidebar && showsidebargallery && layout === "desktop") containerStyles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
                         if (isFloating) {
                             const calculated = this.__calculateFloatingDimensions();
 

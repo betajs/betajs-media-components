@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.433 - 2024-01-11
+betajs-media-components - v0.0.434 - 2024-01-16
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.433",
-    "datetime": 1704998825203
+    "version": "0.0.434",
+    "datetime": 1705432358402
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -2429,7 +2429,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
             scoped: scoped
         }, function(inherited) {
             return {
-                template: "<div\n    class=\"ba-ad-container {{linear ? (css + '-overlay') : ''}}\n    {{cssadsplayer + (linear ? '-linear-ad-container' : '-non-linear-ad-container')}}\n    {{hideoninactivity ? (cssplayer + '-controlbar-hidden') : ''}}\"\n    ba-styles=\"{{floating ? {} : parentcontainersizingstyles}}\"\n    data-video=\"ima-ad-container\"\n>\n    <ba-ads-choices-link\n        ba-if=\"{{showadchoices && adchoiceslink && adchoicesontop && adsplaying && !floating && !sidebar_active}}\"\n        ba-adchoiceslink=\"{{adchoiceslink}}\"\n        ba-cssadsplayer=\"{{cssadsplayer}}\"\n        ba-datatestselector=\"top-ads-choices-button\"\n    ></ba-ads-choices-link>\n\n    <div ba-if=\"{{showactionbuttons && isoutstream}}\"\n        class=\"{{cssadsplayer}}-actions-button-container {{csscommon}}-center-all\"\n    >\n        <div ba-if=\"{{showlearnmorebutton && moredetailslink}}\">\n            <a\n                href=\"{{ moredetailslink }}\" target=\"_blank\"\n                class=\"{{cssadsplayer}}-action-button\"\n                title=\"{{moredetailstext ? moredetailstext : string('learn-more')}}\"\n            >\n                <i class=\"{{csscommon}}-icon-share\"></i>\n                {{moredetailstext ? moredetailstext : string('learn-more')}}\n            </a>\n        </div>\n        <div ba-if=\"{{showrepeatbutton}}\">\n            <button class=\"{{cssadsplayer}}-action-button\" ba-click=\"{{replay()}}\"\n                title=\"{{repeatbuttontext ? repeatbuttontext : string('replay-ad')}}\"\n            >\n                <i class=\"{{csscommon}}-icon-cw\"></i>\n                {{repeatbuttontext ? repeatbuttontext : string('replay-ad')}}\n            </button>\n        </div>\n        <div>\n            <button class=\"{{cssadsplayer}}-action-button {{cssadsplayer}}-reversed-color\"\n                 title=\"{{string('close-ad')}}\" ba-click=\"{{close()}}\"\n            >\n                <i class=\"{{csscommon}}-icon-cancel\"></i>\n                {{string('close-ad')}}\n            </button>\n        </div>\n    </div>\n    <div ba-if=\"{{ adsclicktroughurl && customclickthrough }}\"\n         data-selector=\"ba-ads-clickthrough-container\"\n         class=\"{{css}}-overlay {{csscommon}}-clickable\"\n    ></div>\n    <div ba-if=\"{{!userhadplayerinteraction && unmuteonclick && linear}}\"\n         class=\"{{css}}-overlay {{cssadsplayer}}-ad-click-tracker {{csscommon}}-clickable\"\n         ba-click=\"{{ad_clicked()}}\"\n    ></div>\n</div>\n<ba-{{dyncontrolbar}}\n    ba-if=\"{{!hidecontrolbar && linear && !showactionbuttons}}\"\n    ba-css=\"{{css}}\"\n    ba-csscommon=\"{{csscommon}}\"\n    ba-cssadsplayer=\"{{cssadsplayer}}\"\n    ba-template=\"{{tmplcontrolbar}}\"\n    ba-linear={{linear}}\n    ba-duration=\"{{duration}}\"\n    ba-volume=\"{{volume}}\"\n    ba-muted=\"{{muted}}\"\n    ba-remaining=\"{{=remaining}}\"\n    ba-unmuteonclick=\"{{unmuteonclick}}\"\n    ba-playing={{playing}}\n    ba-skipvisible=\"{{skipvisible}}\"\n    ba-userhadplayerinteraction=\"{{userhadplayerinteraction}}\"\n    ba-currenttime={{=currenttime}}\n    ba-hideoninactivity={{hideoninactivity}}\n    ba-event:resume=\"resume\"\n    ba-event:fullscreen=\"{{trigger('fullscreen')}}\"\n    ba-fullscreened=\"{{fullscreened}}\"\n    ba-event:pause=\"pause\"\n    ba-event:volume=\"set_volume\"\n    ba-event:stop=\"stop\"\n    ba-view_type=\"{{view_type}}\"\n    ba-floating=\"{{floating}}\"\n    ba-adchoicesontop=\"{{adchoicesontop}}\"\n    ba-adchoiceslink=\"{{adchoiceslink}}\"\n    ba-adchoicesstring=\"{{string('ad-choices')}}\"\n    ba-controlbarstyles=\"{{controlbarstyles}}\"\n    ba-showadchoices=\"{{showadchoices}}\"\n></ba-{{dyncontrolbar}}>\n",
+                template: "<div\n    class=\"ba-ad-container {{linear ? (css + '-overlay') : ''}}\n    {{cssadsplayer + (linear ? '-linear-ad-container' : '-non-linear-ad-container')}}\n    {{hideoninactivity ? (cssplayer + '-controlbar-hidden') : ''}}\"\n    ba-styles=\"{{floating ? {} : parentcontainersizingstyles}}\"\n    data-video=\"ima-ad-container\"\n>\n    <ba-ads-choices-link\n        ba-if=\"{{showadchoices && adchoiceslink && adchoicesontop && adsplaying && !floating && !sidebar_active}}\"\n        ba-adchoiceslink=\"{{adchoiceslink}}\"\n        ba-cssadsplayer=\"{{cssadsplayer}}\"\n        ba-datatestselector=\"top-ads-choices-button\"\n    ></ba-ads-choices-link>\n\n    <div ba-if=\"{{showactionbuttons && isoutstream}}\"\n        class=\"{{cssadsplayer}}-actions-button-container {{csscommon}}-center-all\"\n    >\n        <div ba-if=\"{{showlearnmorebutton && moredetailslink}}\">\n            <a\n                href=\"{{ moredetailslink }}\" target=\"_blank\"\n                class=\"{{cssadsplayer}}-action-button\"\n                title=\"{{moredetailstext ? moredetailstext : string('learn-more')}}\"\n            >\n                <i class=\"{{csscommon}}-icon-share\"></i>\n                {{moredetailstext ? moredetailstext : string('learn-more')}}\n            </a>\n        </div>\n        <div ba-if=\"{{showrepeatbutton}}\">\n            <button class=\"{{cssadsplayer}}-action-button\" ba-click=\"{{replay()}}\"\n                title=\"{{repeatbuttontext ? repeatbuttontext : string('replay-ad')}}\"\n            >\n                <i class=\"{{csscommon}}-icon-cw\"></i>\n                {{repeatbuttontext ? repeatbuttontext : string('replay-ad')}}\n            </button>\n        </div>\n        <div ba-if=\"{{!hideclosebutton}}\">\n            <button class=\"{{cssadsplayer}}-action-button {{cssadsplayer}}-reversed-color\"\n                 title=\"{{string('close-ad')}}\" ba-click=\"{{close()}}\"\n            >\n                <i class=\"{{csscommon}}-icon-cancel\"></i>\n                {{string('close-ad')}}\n            </button>\n        </div>\n    </div>\n    <div ba-if=\"{{ adsclicktroughurl && customclickthrough }}\"\n         data-selector=\"ba-ads-clickthrough-container\"\n         class=\"{{css}}-overlay {{csscommon}}-clickable\"\n    ></div>\n    <div ba-if=\"{{!userhadplayerinteraction && unmuteonclick && linear}}\"\n         class=\"{{css}}-overlay {{cssadsplayer}}-ad-click-tracker {{csscommon}}-clickable\"\n         ba-click=\"{{ad_clicked()}}\"\n    ></div>\n</div>\n<ba-{{dyncontrolbar}}\n    ba-if=\"{{!hidecontrolbar && linear && !showactionbuttons}}\"\n    ba-css=\"{{css}}\"\n    ba-csscommon=\"{{csscommon}}\"\n    ba-cssadsplayer=\"{{cssadsplayer}}\"\n    ba-template=\"{{tmplcontrolbar}}\"\n    ba-linear={{linear}}\n    ba-duration=\"{{duration}}\"\n    ba-volume=\"{{volume}}\"\n    ba-muted=\"{{muted}}\"\n    ba-remaining=\"{{=remaining}}\"\n    ba-unmuteonclick=\"{{unmuteonclick}}\"\n    ba-playing={{playing}}\n    ba-skipvisible=\"{{skipvisible}}\"\n    ba-userhadplayerinteraction=\"{{userhadplayerinteraction}}\"\n    ba-currenttime={{=currenttime}}\n    ba-hideoninactivity={{hideoninactivity}}\n    ba-event:resume=\"resume\"\n    ba-event:fullscreen=\"{{trigger('fullscreen')}}\"\n    ba-fullscreened=\"{{fullscreened}}\"\n    ba-event:pause=\"pause\"\n    ba-event:volume=\"set_volume\"\n    ba-event:stop=\"stop\"\n    ba-view_type=\"{{view_type}}\"\n    ba-floating=\"{{floating}}\"\n    ba-adchoicesontop=\"{{adchoicesontop}}\"\n    ba-adchoiceslink=\"{{adchoiceslink}}\"\n    ba-adchoicesstring=\"{{string('ad-choices')}}\"\n    ba-controlbarstyles=\"{{controlbarstyles}}\"\n    ba-showadchoices=\"{{showadchoices}}\"\n></ba-{{dyncontrolbar}}>\n",
 
                 attrs: {
                     dyncontrolbar: "ads-controlbar",
@@ -2444,6 +2444,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     hidecontrolbar: false,
                     showactionbuttons: false,
                     showrepeatbutton: true,
+                    showlearnmore: false,
+                    hideclosebutton: false,
                     adscompleted: false,
                     moredetailslink: null,
                     moredetailstext: null,
@@ -2550,12 +2552,15 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.call("contentComplete");
                     },
                     "ads:loaded": function(event) {
-                        this.set("ad", event.getAd());
-                        this.set("addata", event.getAdData());
+                        const ad = event.getAd();
+                        const adData = event.getAdData();
+                        const clickthroughUrl = adData.clickThroughUrl;
+                        this.set("ad", ad);
+                        this.set("addata", adData);
                         this.set("volume", this.adsManager.getVolume());
-                        this.set("duration", event.getAdData().duration);
-                        this.set("moredetailslink", event.getAdData().clickThroughUrl);
-                        this.set("adsclicktroughurl", event.getAdData().clickThroughUrl);
+                        this.set("duration", adData.duration);
+                        this.set("moredetailslink", clickthroughUrl);
+                        this.set("adsclicktroughurl", clickthroughUrl);
                     },
                     "ads:outstreamCompleted": function(dyn) {
                         this._outstreamCompleted(dyn);
@@ -2634,13 +2639,23 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     }, this);
                     if (dynamics) {
                         dynamics.on("resize", function(dimensions) {
-                            // This part will listen to the resize even after adsManger will be destroyed
-                            if (this.adsManager && typeof this.adsManager.resize === "function") {
-                                this.adsManager.resize(
-                                    this.getAdWidth(),
-                                    this.getAdHeight(),
-                                    google.ima.ViewMode.NORMAL
-                                );
+                            const width = this.getAdWidth();
+                            const height = this.getAdHeight();
+                            if (width && height) {
+                                // This part will listen to the resize even after adsManger will be destroyed
+                                if (this.adsManager && typeof this.adsManager.resize === "function") {
+                                    this.adsManager.resize(
+                                        width,
+                                        height,
+                                        google.ima.ViewMode.NORMAL
+                                    );
+                                }
+                                if (this.shouldShowFirstFrameAsEndcard()) {
+                                    this.setEndCardBackground(width, height);
+                                    if (this._src) {
+                                        this.getAdContainer().style.backgroundImage = `url("${this._src}")`;
+                                    }
+                                }
                             }
                         }, this);
                         dynamics.on("unmute-ads", function(volume) {
@@ -2741,6 +2756,54 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     return this._videoElement;
                 },
 
+                setEndCardBackground: function(width, height) {
+                    const ad = this.get("ad");
+                    if (ad) {
+                        this.updateEndCardImage(ad, width, height);
+                    }
+                },
+
+                updateEndCardImage: function(ad, width, height) {
+                    if (this._video && this._canvas && this._mediaUrl) {
+                        this.resizeCanvas(width, height);
+                        return;
+                    }
+                    this._video = document.createElement("video");
+                    this._canvas = document.createElement("canvas");
+                    this._mediaUrl = ad?.data?.mediaUrl;
+                    this._video.crossOrigin = "anonymous";
+                    this._video.src = this._mediaUrl;
+                    this._video.muted = true;
+                    this._video.play();
+                    setTimeout(function() {
+                        this._canvas.width = width;
+                        this._canvas.height = height;
+                        this._canvas
+                            .getContext("2d")
+                            .drawImage(this._video, 0, 0, this._canvas.width, this._canvas.height);
+                        this._src = this._canvas.toDataURL("image/png");
+                        this._video.pause();
+                    }.bind(this), 1000);
+                },
+
+                resizeCanvas: function(newWidth, newHeight) {
+                    this._canvas.width = newWidth;
+                    this._canvas.height = newHeight;
+                    this._canvas
+                        .getContext("2d")
+                        .drawImage(this._video, 0, 0, this._canvas.width, this._canvas.height);
+                    this._src = this._canvas.toDataURL("image/png");
+                },
+
+
+                shouldShowFirstFrameAsEndcard: function() {
+                    const dyn = this.parent();
+                    const showEndCard = !dyn.get("outstreamoptions").noEndCard;
+                    const noRepeat = !dyn.get("outstreamoptions.allowRepeat");
+                    const showFirstFrameAsEndCard = dyn.get("outstreamoptions.firstframeasendcard");
+                    return dyn && (showEndCard || noRepeat) && showFirstFrameAsEndCard;
+                },
+
                 getClickTroughElement: function() {
                     return this.activeElement().querySelector('[data-selector="ba-ads-clickthrough-container"]') || null;
                 },
@@ -2826,19 +2889,23 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             this._hideContentPlayer(dyn);
                             return;
                         } else {
+                            const moreDetailsLink = dyn.get("outstreamoptions.moredetailslink");
                             if (dyn.get("outstreamoptions.noEndCard")) return;
-                            if (dyn.get("outstreamoptions.moreURL")) {
-                                this.set("moredetailslink", dyn.get("outstreamoptions.moreURL"));
-                            }
                             if (dyn.get("outstreamoptions.moreText")) {
                                 this.set("moredetailstext", dyn.get("outstreamoptions.moreText"));
                             }
-                            if (dyn.get("outstreamoptions.allowRepeat")) {
-                                this.set("showrepeatbutton", !!dyn.get("outstreamoptions.allowRepeat"));
-                            }
+                            this.set("showrepeatbutton", !!dyn.get("outstreamoptions.allowRepeat"));
                             if (dyn.get("outstreamoptions.repeatText")) {
                                 this.set("repeatbuttontext", dyn.get("outstreamoptions.repeatText"));
                             }
+                            if (this.shouldShowFirstFrameAsEndcard() && this._src) {
+                                this.getAdContainer().style.backgroundImage = `url("${this._src}")`;
+                            }
+                            if (moreDetailsLink) {
+                                this.set("moredetailslink", moreDetailsLink);
+                            }
+                            this.set("hideclosebutton", !!dyn.get("outstreamoptions.hideclose"));
+                            this.set("showlearnmorebutton", !!dyn.get("outstreamoptions.showlearnmore"));
                         }
                     }
                     this.set("showactionbuttons", true);
@@ -3046,7 +3113,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
             };
         }).register("ba-adsplayer")
         .registerFunctions({
-            /**/"linear ? (css + '-overlay') : ''": function (obj) { return obj.linear ? (obj.css + '-overlay') : ''; }, "cssadsplayer + (linear ? '-linear-ad-container' : '-non-linear-ad-container')": function (obj) { return obj.cssadsplayer + (obj.linear ? '-linear-ad-container' : '-non-linear-ad-container'); }, "hideoninactivity ? (cssplayer + '-controlbar-hidden') : ''": function (obj) { return obj.hideoninactivity ? (obj.cssplayer + '-controlbar-hidden') : ''; }, "floating ? {} : parentcontainersizingstyles": function (obj) { return obj.floating ? {} : obj.parentcontainersizingstyles; }, "showadchoices && adchoiceslink && adchoicesontop && adsplaying && !floating && !sidebar_active": function (obj) { return obj.showadchoices && obj.adchoiceslink && obj.adchoicesontop && obj.adsplaying && !obj.floating && !obj.sidebar_active; }, "adchoiceslink": function (obj) { return obj.adchoiceslink; }, "cssadsplayer": function (obj) { return obj.cssadsplayer; }, "showactionbuttons && isoutstream": function (obj) { return obj.showactionbuttons && obj.isoutstream; }, "csscommon": function (obj) { return obj.csscommon; }, "showlearnmorebutton && moredetailslink": function (obj) { return obj.showlearnmorebutton && obj.moredetailslink; }, "moredetailslink": function (obj) { return obj.moredetailslink; }, "moredetailstext ? moredetailstext : string('learn-more')": function (obj) { return obj.moredetailstext ? obj.moredetailstext : obj.string('learn-more'); }, "showrepeatbutton": function (obj) { return obj.showrepeatbutton; }, "replay()": function (obj) { return obj.replay(); }, "repeatbuttontext ? repeatbuttontext : string('replay-ad')": function (obj) { return obj.repeatbuttontext ? obj.repeatbuttontext : obj.string('replay-ad'); }, "string('close-ad')": function (obj) { return obj.string('close-ad'); }, "close()": function (obj) { return obj.close(); }, "adsclicktroughurl && customclickthrough": function (obj) { return obj.adsclicktroughurl && obj.customclickthrough; }, "css": function (obj) { return obj.css; }, "!userhadplayerinteraction && unmuteonclick && linear": function (obj) { return !obj.userhadplayerinteraction && obj.unmuteonclick && obj.linear; }, "ad_clicked()": function (obj) { return obj.ad_clicked(); }, "dyncontrolbar": function (obj) { return obj.dyncontrolbar; }, "!hidecontrolbar && linear && !showactionbuttons": function (obj) { return !obj.hidecontrolbar && obj.linear && !obj.showactionbuttons; }, "tmplcontrolbar": function (obj) { return obj.tmplcontrolbar; }, "linear": function (obj) { return obj.linear; }, "duration": function (obj) { return obj.duration; }, "volume": function (obj) { return obj.volume; }, "muted": function (obj) { return obj.muted; }, "remaining": function (obj) { return obj.remaining; }, "unmuteonclick": function (obj) { return obj.unmuteonclick; }, "playing": function (obj) { return obj.playing; }, "skipvisible": function (obj) { return obj.skipvisible; }, "userhadplayerinteraction": function (obj) { return obj.userhadplayerinteraction; }, "currenttime": function (obj) { return obj.currenttime; }, "hideoninactivity": function (obj) { return obj.hideoninactivity; }, "trigger('fullscreen')": function (obj) { return obj.trigger('fullscreen'); }, "fullscreened": function (obj) { return obj.fullscreened; }, "view_type": function (obj) { return obj.view_type; }, "floating": function (obj) { return obj.floating; }, "adchoicesontop": function (obj) { return obj.adchoicesontop; }, "string('ad-choices')": function (obj) { return obj.string('ad-choices'); }, "controlbarstyles": function (obj) { return obj.controlbarstyles; }, "showadchoices": function (obj) { return obj.showadchoices; }/**/
+            /**/"linear ? (css + '-overlay') : ''": function (obj) { return obj.linear ? (obj.css + '-overlay') : ''; }, "cssadsplayer + (linear ? '-linear-ad-container' : '-non-linear-ad-container')": function (obj) { return obj.cssadsplayer + (obj.linear ? '-linear-ad-container' : '-non-linear-ad-container'); }, "hideoninactivity ? (cssplayer + '-controlbar-hidden') : ''": function (obj) { return obj.hideoninactivity ? (obj.cssplayer + '-controlbar-hidden') : ''; }, "floating ? {} : parentcontainersizingstyles": function (obj) { return obj.floating ? {} : obj.parentcontainersizingstyles; }, "showadchoices && adchoiceslink && adchoicesontop && adsplaying && !floating && !sidebar_active": function (obj) { return obj.showadchoices && obj.adchoiceslink && obj.adchoicesontop && obj.adsplaying && !obj.floating && !obj.sidebar_active; }, "adchoiceslink": function (obj) { return obj.adchoiceslink; }, "cssadsplayer": function (obj) { return obj.cssadsplayer; }, "showactionbuttons && isoutstream": function (obj) { return obj.showactionbuttons && obj.isoutstream; }, "csscommon": function (obj) { return obj.csscommon; }, "showlearnmorebutton && moredetailslink": function (obj) { return obj.showlearnmorebutton && obj.moredetailslink; }, "moredetailslink": function (obj) { return obj.moredetailslink; }, "moredetailstext ? moredetailstext : string('learn-more')": function (obj) { return obj.moredetailstext ? obj.moredetailstext : obj.string('learn-more'); }, "showrepeatbutton": function (obj) { return obj.showrepeatbutton; }, "replay()": function (obj) { return obj.replay(); }, "repeatbuttontext ? repeatbuttontext : string('replay-ad')": function (obj) { return obj.repeatbuttontext ? obj.repeatbuttontext : obj.string('replay-ad'); }, "!hideclosebutton": function (obj) { return !obj.hideclosebutton; }, "string('close-ad')": function (obj) { return obj.string('close-ad'); }, "close()": function (obj) { return obj.close(); }, "adsclicktroughurl && customclickthrough": function (obj) { return obj.adsclicktroughurl && obj.customclickthrough; }, "css": function (obj) { return obj.css; }, "!userhadplayerinteraction && unmuteonclick && linear": function (obj) { return !obj.userhadplayerinteraction && obj.unmuteonclick && obj.linear; }, "ad_clicked()": function (obj) { return obj.ad_clicked(); }, "dyncontrolbar": function (obj) { return obj.dyncontrolbar; }, "!hidecontrolbar && linear && !showactionbuttons": function (obj) { return !obj.hidecontrolbar && obj.linear && !obj.showactionbuttons; }, "tmplcontrolbar": function (obj) { return obj.tmplcontrolbar; }, "linear": function (obj) { return obj.linear; }, "duration": function (obj) { return obj.duration; }, "volume": function (obj) { return obj.volume; }, "muted": function (obj) { return obj.muted; }, "remaining": function (obj) { return obj.remaining; }, "unmuteonclick": function (obj) { return obj.unmuteonclick; }, "playing": function (obj) { return obj.playing; }, "skipvisible": function (obj) { return obj.skipvisible; }, "userhadplayerinteraction": function (obj) { return obj.userhadplayerinteraction; }, "currenttime": function (obj) { return obj.currenttime; }, "hideoninactivity": function (obj) { return obj.hideoninactivity; }, "trigger('fullscreen')": function (obj) { return obj.trigger('fullscreen'); }, "fullscreened": function (obj) { return obj.fullscreened; }, "view_type": function (obj) { return obj.view_type; }, "floating": function (obj) { return obj.floating; }, "adchoicesontop": function (obj) { return obj.adchoicesontop; }, "string('ad-choices')": function (obj) { return obj.string('ad-choices'); }, "controlbarstyles": function (obj) { return obj.controlbarstyles; }, "showadchoices": function (obj) { return obj.showadchoices; }/**/
         }).attachStringTable(Assets.strings)
         .addStrings({
             "replay-ad": "Replay Video",
@@ -4341,7 +4408,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 maxadstoshow: -1, // Maximum number of ads to show, if there's next ads or errors occurred default: -1 (unlimited)
                                 noEndCard: false, // No end cart at the end when outstream completed
                                 allowRepeat: true, // Make possible to repeat ads
-                                // moreURL: '', // more button URL
+                                // firstframeasendcard: '', // to capture first frame and show as endcard background
+                                // moredetailslink: '', // more button URL
                                 // moreText: '', // read more about outstream text
                                 // repeatText: '', // repeat button text
                                 persistentcompanionad: false
@@ -4761,7 +4829,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (hidebeforeadstarts && adshassource) return !adsinitialized;
                         return false;
                     },
-                    "containerSizingStyles:aspect_ratio,height,width,is_floating,hideplayer,floatingoptions.floatingonly,fullscreened,gallerysidebar": function(
+                    "containerSizingStyles:aspect_ratio,height,width,is_floating,hideplayer,floatingoptions.floatingonly,fullscreened,showsidebargallery,gallerysidebar,layout": function(
                         aspectRatio,
                         height,
                         width,
@@ -4769,16 +4837,20 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         hidden,
                         floatingonly,
                         fullscreened,
-                        gallerySidebar
+                        showsidebargallery,
+                        gallerySidebar,
+                        layout
                     ) {
                         let containerStyles, styles;
                         styles = {
                             aspectRatio: aspectRatio
                         };
-                        if (gallerySidebar) styles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
+                        if (!fullscreened && gallerySidebar) styles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
                         if (height) styles.height = isNaN(height) ? height : parseFloat(height).toFixed(2) + "px";
                         if (width) styles.width = isNaN(width) ? width : parseFloat(width).toFixed(2) + "px";
                         containerStyles = floatingonly ? {} : Objs.extend({}, styles);
+                        if (!gallerySidebar && showsidebargallery && layout === "desktop" && !fullscreened)
+                            containerStyles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
                         if (isFloating) {
                             const calculated = this.__calculateFloatingDimensions();
 
@@ -4813,8 +4885,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 // in other case width will be applied twice
                                 containerStyles.width = "100%";
                             }
-                            // will shrink the page
-                            if (gallerySidebar) containerStyles.display = "flex";
                             this._applyStyles(this.activeElement(), containerStyles, this.__lastContainerSizingStyles);
                             this.__lastContainerSizingStyles = containerStyles;
                         }

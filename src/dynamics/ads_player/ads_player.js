@@ -225,8 +225,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     }, this);
                     if (dynamics) {
                         dynamics.on("resize", function(dimensions) {
-                            const width = dimensions?.width || this.getAdWidth();
-                            const height = dimensions?.height || this.getAdHeight();
+                            const width = this.getAdWidth();
+                            const height = this.getAdHeight();
                             if (width && height) {
                                 // This part will listen to the resize even after adsManger will be destroyed
                                 if (this.adsManager && typeof this.adsManager.resize === "function") {

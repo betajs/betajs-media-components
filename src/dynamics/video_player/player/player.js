@@ -780,7 +780,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (hidebeforeadstarts && adshassource) return !adsinitialized;
                         return false;
                     },
-                    "containerSizingStyles:aspect_ratio,height,width,is_floating,hideplayer,floatingoptions.floatingonly,fullscreened,gallerysidebar": function(
+                    "containerSizingStyles:aspect_ratio,height,width,is_floating,hideplayer,floatingoptions.floatingonly,fullscreened,showsidebargallery,gallerysidebar,layout": function(
                         aspectRatio,
                         height,
                         width,
@@ -788,16 +788,20 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         hidden,
                         floatingonly,
                         fullscreened,
-                        gallerySidebar
+                        showsidebargallery,
+                        gallerySidebar,
+                        layout
                     ) {
                         let containerStyles, styles;
                         styles = {
                             aspectRatio: aspectRatio
                         };
-                        if (gallerySidebar) styles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
+                        if (!fullscreened && gallerySidebar) styles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
                         if (height) styles.height = isNaN(height) ? height : parseFloat(height).toFixed(2) + "px";
                         if (width) styles.width = isNaN(width) ? width : parseFloat(width).toFixed(2) + "px";
                         containerStyles = floatingonly ? {} : Objs.extend({}, styles);
+                        if (!gallerySidebar && showsidebargallery && layout === "desktop" && !fullscreened)
+                            containerStyles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
                         if (isFloating) {
                             const calculated = this.__calculateFloatingDimensions();
 
@@ -832,8 +836,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 // in other case width will be applied twice
                                 containerStyles.width = "100%";
                             }
-                            // will shrink the page
-                            if (gallerySidebar) containerStyles.display = "flex";
                             this._applyStyles(this.activeElement(), containerStyles, this.__lastContainerSizingStyles);
                             this.__lastContainerSizingStyles = containerStyles;
                         }

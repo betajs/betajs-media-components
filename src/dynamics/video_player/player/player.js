@@ -360,6 +360,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 maxadstoshow: -1, // Maximum number of ads to show, if there's next ads or errors occurred default: -1 (unlimited)
                                 noEndCard: false, // No end cart at the end when outstream completed
                                 allowRepeat: true, // Make possible to repeat ads
+                                // firstframeasendcard: '', // to capture first frame and show as endcard background
                                 // moredetailslink: '', // more button URL
                                 // moreText: '', // read more about outstream text
                                 // repeatText: '', // repeat button text

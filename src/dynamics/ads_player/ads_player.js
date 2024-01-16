@@ -140,12 +140,15 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.call("contentComplete");
                     },
                     "ads:loaded": function(event) {
-                        this.set("ad", event.getAd());
-                        this.set("addata", event.getAdData());
+                        const ad = event.getAd();
+                        const adData = event.getAdData();
+                        const clickthroughUrl = adData.clickThroughUrl;
+                        this.set("ad", ad);
+                        this.set("addata", adData);
                         this.set("volume", this.adsManager.getVolume());
-                        this.set("duration", event.getAdData().duration);
-                        this.set("moredetailslink", event.getAdData().clickThroughUrl);
-                        this.set("adsclicktroughurl", event.getAdData().clickThroughUrl);
+                        this.set("duration", adData.duration);
+                        this.set("moredetailslink", clickthroughUrl);
+                        this.set("adsclicktroughurl", clickthroughUrl);
                     },
                     "ads:outstreamCompleted": function(dyn) {
                         this._outstreamCompleted(dyn);
@@ -224,13 +227,23 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     }, this);
                     if (dynamics) {
                         dynamics.on("resize", function(dimensions) {
-                            // This part will listen to the resize even after adsManger will be destroyed
-                            if (this.adsManager && typeof this.adsManager.resize === "function") {
-                                this.adsManager.resize(
-                                    this.getAdWidth(),
-                                    this.getAdHeight(),
-                                    google.ima.ViewMode.NORMAL
-                                );
+                            const width = this.getAdWidth();
+                            const height = this.getAdHeight();
+                            if (width && height) {
+                                // This part will listen to the resize even after adsManger will be destroyed
+                                if (this.adsManager && typeof this.adsManager.resize === "function") {
+                                    this.adsManager.resize(
+                                        width,
+                                        height,
+                                        google.ima.ViewMode.NORMAL
+                                    );
+                                }
+                                if (this.shouldShowFirstFrameAsEndcard()) {
+                                    this.setEndCardBackground(width, height);
+                                    if (this._src) {
+                                        this.getAdContainer().style.backgroundImage = `url("${this._src}")`;
+                                    }
+                                }
                             }
                         }, this);
                         dynamics.on("unmute-ads", function(volume) {
@@ -331,6 +344,54 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     return this._videoElement;
                 },
 
+                setEndCardBackground: function(width, height) {
+                    const ad = this.get("ad");
+                    if (ad) {
+                        this.updateEndCardImage(ad, width, height);
+                    }
+                },
+
+                updateEndCardImage: function(ad, width, height) {
+                    if (this._video && this._canvas && this._mediaUrl) {
+                        this.resizeCanvas(width, height);
+                        return;
+                    }
+                    this._video = document.createElement("video");
+                    this._canvas = document.createElement("canvas");
+                    this._mediaUrl = ad?.data?.mediaUrl;
+                    this._video.crossOrigin = "anonymous";
+                    this._video.src = this._mediaUrl;
+                    this._video.muted = true;
+                    this._video.play();
+                    setTimeout(function() {
+                        this._canvas.width = width;
+                        this._canvas.height = height;
+                        this._canvas
+                            .getContext("2d")
+                            .drawImage(this._video, 0, 0, this._canvas.width, this._canvas.height);
+                        this._src = this._canvas.toDataURL("image/png");
+                        this._video.pause();
+                    }.bind(this), 1000);
+                },
+
+                resizeCanvas: function(newWidth, newHeight) {
+                    this._canvas.width = newWidth;
+                    this._canvas.height = newHeight;
+                    this._canvas
+                        .getContext("2d")
+                        .drawImage(this._video, 0, 0, this._canvas.width, this._canvas.height);
+                    this._src = this._canvas.toDataURL("image/png");
+                },
+
+
+                shouldShowFirstFrameAsEndcard: function() {
+                    const dyn = this.parent();
+                    const showEndCard = !dyn.get("outstreamoptions").noEndCard;
+                    const noRepeat = !dyn.get("outstreamoptions.allowRepeat");
+                    const showFirstFrameAsEndCard = dyn.get("outstreamoptions.firstframeasendcard");
+                    return dyn && (showEndCard || noRepeat) && showFirstFrameAsEndCard;
+                },
+
                 getClickTroughElement: function() {
                     return this.activeElement().querySelector('[data-selector="ba-ads-clickthrough-container"]') || null;
                 },
@@ -424,6 +485,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             this.set("showrepeatbutton", !!dyn.get("outstreamoptions.allowRepeat"));
                             if (dyn.get("outstreamoptions.repeatText")) {
                                 this.set("repeatbuttontext", dyn.get("outstreamoptions.repeatText"));
+                            }
+                            if (this.shouldShowFirstFrameAsEndcard() && this._src) {
+                                this.getAdContainer().style.backgroundImage = `url("${this._src}")`;
                             }
                             if (moreDetailsLink) {
                                 this.set("moredetailslink", moreDetailsLink);

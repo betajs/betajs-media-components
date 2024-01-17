@@ -70,7 +70,8 @@
                 ba-repeat="{{video :: videos}}"
             >
                 <li ba-show="{{video.display && !(video.watched && hidevideoafterplay)}}"
-                    class="{{cssgallerysidebar}}-list-item"
+                    class="{{cssgallerysidebar}}-list-item
+                    {{currentindex === video.index ? (cssgallerysidebar + '-currently-playing-list-item') : ''}}"
                     data-index="{{video.index}}"
                     data-index-selector="gallery-item-{{video.index}}"
                     onclick="{{play_video(video.index)}}"

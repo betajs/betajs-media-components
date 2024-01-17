@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.434 - 2024-01-16
+betajs-media-components - v0.0.435 - 2024-01-17
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -2022,6 +2022,9 @@ div.ba-player-with-sidebar.ba-player-fullscreen-view .ba-adsplayer-controlbar, d
 .ba-gallery-sidebar-container .ba-gallery-sidebar-list-item {
   display: inline-grid;
 }
+.ba-gallery-sidebar-container .ba-gallery-sidebar-list-item.ba-gallery-sidebar-currently-playing-list-item {
+  cursor: pointer;
+}
 .ba-gallery-sidebar-container .ba-gallery-sidebar-list-item-poster-container {
   display: flex;
   align-items: center;
@@ -2184,7 +2187,7 @@ div.ba-player-with-sidebar.ba-player-fullscreen-view .ba-adsplayer-controlbar, d
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
   position: relative;
   z-index: 1;
-  height: 28px;
+  height: 30px;
 }
 .ba-player-toggle-next-container hr {
   margin: 0;
@@ -3984,6 +3987,7 @@ a.ba-commoncss-action-button, button.ba-commoncss-action-button {
 }
 
 .ba-videoplayer-container.ba-player-fullscreen-view {
+  max-width: 100%;
   min-width: 100%;
   position: absolute;
   min-height: fit-content;

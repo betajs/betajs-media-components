@@ -107,8 +107,7 @@
                  ba-hotkey:alt+right="{{seek(position + skipseconds * 3)}}" ba-hotkey:alt+left="{{seek(position - skipseconds * 3)}}"
                  ba-hotkey:up="{{set_volume(volume + 0.1)}}" ba-hotkey:down="{{set_volume(volume - 0.1)}}"
                  ba-hotkey:space^enter="{{toggle_player(true)}}"
-                 ba-on:mouseup="{{toggle_player(true)}}"
-                 ba-on:touchend="{{toggle_player(true)}}"
+                 ba-click="{{toggle_player(true)}}"
             ></div>
             <ba-{{dyntrimmer}}
                 ba-if="{{trimmingmode && videoelement_active}}"

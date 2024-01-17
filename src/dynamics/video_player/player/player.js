@@ -22,6 +22,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "base:States.Host",
     "base:Classes.ClassRegistry",
     "base:Async",
+    "base:Functions",
     "module:VideoPlayer.Dynamics.PlayerStates.Initial",
     "module:VideoPlayer.Dynamics.PlayerStates",
     "module:Ads.AbstractVideoAdProvider",
@@ -65,7 +66,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.PlayerStates.ErrorVideo",
     "module:VideoPlayer.Dynamics.PlayerStates.PlayVideo",
     "module:VideoPlayer.Dynamics.PlayerStates.NextVideo"
-], function(Class, Assets, DatasetProperties, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, PlayerSupport, Types, Objs, Strings, Collection, Maths, Time, Timers, Promise, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
+], function(Class, Assets, DatasetProperties, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, PlayerSupport, Types, Objs, Strings, Collection, Maths, Time, Timers, Promise, TimeFormat, Host, ClassRegistry, Async, Functions, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, [StylesMixin, function(inherited) {
@@ -1997,24 +1998,27 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     toggle_player: function(fromOverlay) {
-                        if (this.get("sticky") && this.stickyHandler && this.stickyHandler.isDragging()) {
-                            this.stickyHandler.stopDragging();
-                            return;
-                        }
-                        if (this.get("playing") && this.get("preventinteractionstatus")) return;
-                        if (this._delegatedPlayer) {
-                            this._delegatedPlayer.execute("toggle_player");
-                            return;
-                        }
-                        if (fromOverlay && this.get("unmuteonclick")) return;
-                        if (this.get("playing") && this.get("pauseonclick")) {
-                            this.trigger("pause_requested");
-                            this.pause();
-                        } else if (!this.get("playing") && this.get("playonclick")) {
-                            this.trigger("play_requested");
-                            this.__setPlayerEngagement();
-                            this.play();
-                        }
+                        if (!this._debouncedToggle) this._debouncedToggle = Functions.debounce(function() {
+                            if (this.get("sticky") && this.stickyHandler && this.stickyHandler.isDragging()) {
+                                this.stickyHandler.stopDragging();
+                                return;
+                            }
+                            if (this.get("playing") && this.get("preventinteractionstatus")) return;
+                            if (this._delegatedPlayer) {
+                                this._delegatedPlayer.execute("toggle_player");
+                                return;
+                            }
+                            if (fromOverlay && this.get("unmuteonclick")) return;
+                            if (this.get("playing") && this.get("pauseonclick")) {
+                                this.trigger("pause_requested");
+                                this.pause();
+                            } else if (!this.get("playing") && this.get("playonclick")) {
+                                this.trigger("play_requested");
+                                this.__setPlayerEngagement();
+                                this.play();
+                            }
+                        }.bind(this),);
+                        this._debouncedToggle();
                     },
 
                     tab_index_move: function(ev, nextSelector, focusingSelector) {

@@ -54,8 +54,9 @@
             <img tabindex="-1" data-image="image" alt="{{posteralt}}" class="{{csscommon}}-{{posterfitstrategy}}-fit"/>
         </div>
         <div ba-show="{{canvaselement_active}}" class="{{css}}-poster-container">
-            <canvas tabindex="-1" data-canvas="canvas"   class="{{csscommon}}-{{posterfitstrategy}}-fit"></canvas>
+            <canvas tabindex="-1" data-canvas="canvas"   class="{{csscommon}}-{{posterfitstrategy}}-fit canvas-frames"></canvas>
         </div>
+        
         <ba-{{dynadsplayer}}
             ba-if="{{adsplayer_active}}"
             ba-ad="{{=ad}}"

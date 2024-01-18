@@ -1522,7 +1522,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.player.error())
                             this.player.trigger("error", this.player.error());
                         this.player.on("paused", function() {
-                            if (Info.isSafari() && this.get("blackscreen")) {
+                             if (Info.isSafari() && this.get("blackscreen")) {
                             this.set("videoelement_active", false);
                             this.set("canvaselement_active", true);
                             this._renderVideoFrame(this.__video)

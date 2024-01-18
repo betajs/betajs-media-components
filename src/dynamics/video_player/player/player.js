@@ -1998,7 +1998,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     toggle_player: function(fromOverlay) {
-                        if (!this._debouncedToggle) this._debouncedToggle = Functions.debounce(function() {
+                        if (!this._debouncedToggle) this._debouncedToggle = Functions.debounce(function(fo) {
                             if (this.get("sticky") && this.stickyHandler && this.stickyHandler.isDragging()) {
                                 this.stickyHandler.stopDragging();
                                 return;
@@ -2008,7 +2008,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this._delegatedPlayer.execute("toggle_player");
                                 return;
                             }
-                            if (fromOverlay && this.get("unmuteonclick")) return;
+                            if (fo && this.get("unmuteonclick")) return;
                             if (this.get("playing") && this.get("pauseonclick")) {
                                 this.trigger("pause_requested");
                                 this.pause();
@@ -2017,8 +2017,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.__setPlayerEngagement();
                                 this.play();
                             }
-                        }.bind(this),);
-                        this._debouncedToggle();
+                        }.bind(this), 100, true);
+                        this._debouncedToggle(fromOverlay);
                     },
 
                     tab_index_move: function(ev, nextSelector, focusingSelector) {

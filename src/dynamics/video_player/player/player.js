@@ -1548,6 +1548,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }, this);
                         this.player.on("ended", function() {
                             if (this.get("sample_brightness")) this.__brightnessSampler.stop();
+                            this.pause();
                             this.set("playing", false);
                             this.set('playedonce', true);
                             this.set("playbackended", this.get('playbackended') + 1);

@@ -1282,23 +1282,23 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                         var ctx = this.canvasFrame.getContext('2d');
 
-                        this.canvasFrame.width = this.canvasFrame.clientWidth;
-                        this.canvasFrame.height = this.canvasFrame.clientHeight;
+                        this.canvasFrame.width = this.canvasFrame.clientWidth || 640;
+                        this.canvasFrame.height = this.canvasFrame.clientHeight || 400;
 
 
                         ctx.clearRect(0, 0, this.canvasFrame.width, this.canvasFrame.height)
                         ctx.drawImage(video, 0, 0, this.canvasFrame.width, this.canvasFrame.height);
                         var imagedata = ctx.getImageData(0, 0, this.canvasFrame.width, this.canvasFrame.height);
 
+
                         if (this.isFrameMostlyBlack(imagedata)) {
                             this.set("videoelement_active", false);
                             this.set("canvaselement_active", true);
-                            ctx.putImageData(this.previousFrameData, 0, 0);
+                            const currentTime = video.currentTime;
+                            video.currentTime = Math.max(currentTime - 0.5, 0);
+                            ctx.drawImage(video, 0, 0, this.canvasFrame.width, this.canvasFrame.height);
 
-                        } else {
-                            this.previousFrameData = new ImageData(new Uint8ClampedArray(imagedata.data), imagedata.width, imagedata.height);
                         }
-
 
                     } catch (e) {}
 
@@ -1503,7 +1503,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                             if (Info.isSafari() && this.get("canvaselement_active")) {
                                 this.set("canvaselement_active", false);
-                                this.set("videoelement_active", true);  
+                                this.set("videoelement_active", true);
                             }
 
                             if (this.get("sample_brightness")) this.__brightnessSampler.start();
@@ -1522,8 +1522,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.player.error())
                             this.player.trigger("error", this.player.error());
                         this.player.on("paused", function() {
-                             if (Info.isSafari()) {
-                            this._renderVideoFrame(this.__video)
+                            if (Info.isSafari()) {
+                                this._renderVideoFrame(this.__video)
                             }
                             if (this.get("sample_brightness")) this.__brightnessSampler.stop();
                             this.set("playing", false);

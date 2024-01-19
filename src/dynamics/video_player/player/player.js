@@ -56,7 +56,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.PlayerStates.Outstream",
     "module:VideoPlayer.Dynamics.PlayerStates.LoadAds",
     "module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream",
-    "module:VideoPlayer.Dynamics.PlayerStates.ReloadAds",
     "module:VideoPlayer.Dynamics.PlayerStates.PlayAd",
     "module:VideoPlayer.Dynamics.PlayerStates.PrerollAd",
     "module:VideoPlayer.Dynamics.PlayerStates.MidrollAd",

@@ -589,50 +589,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream", [
     });
 });
 
-Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.ReloadAds", [
-    "module:VideoPlayer.Dynamics.PlayerStates.State",
-    "base:Timers.Timer"
-], function(State, Timer, scoped) {
-    return State.extend({
-        scoped: scoped
-    }, {
-
-        _started: function() {
-            if (this.dyn.get("adshassource") && (this.dyn.get("vmapads") || this.dyn.get("adsplaypostroll"))) {
-                // if VAST/VMAP has postroll which was already loaded in advance, so no need for reset
-                // In case if we want to launch it manually via settings "adsposition: 'post'" or after re-attach on playlist,
-                // then we need reset ads manager and wait for adsManager Loaded
-                if (this.dyn.get("adsplaypostroll")) {
-                    this.dyn.resetAdsPlayer();
-                } else {
-                    // if adsManager do not load within 1 second will forward to the NextVideo state
-                    this.auto_destroy(new Timer({
-                        context: this,
-                        fire: function() {
-                            if (this.next) this.next("NextVideo");
-                        },
-                        delay: 1000,
-                        immediate: true
-                    }));
-                }
-                if (this.dyn) {
-                    this.listenOn(this.dyn.channel("ads"), "adsManagerLoaded", function() {
-                        this.next("LoadAds", {
-                            position: 'post'
-                        });
-                    });
-                    this.listenOn(this.dyn.channel("ads"), "ad-error", function() {
-                        this.next("NextVideo");
-                    });
-                }
-            } else {
-                this.next("NextVideo");
-            }
-        }
-    });
-
-});
-
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterError", [
     "module:VideoPlayer.Dynamics.PlayerStates.State"
 ], function(State, scoped) {
@@ -770,7 +726,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
                         this.dyn.set("adsplayer_active", true);
                     }
                     // INFO: could be improved via using reset, but currently it's providing some console errors on reset execution
-                    // this.next("ReloadAds", { hard: true });
                     this.listenOnce(this.dyn.channel("ads"), "adsManagerLoaded", function() {
                         this.next("LoadAds", {
                             position: 'mid'
@@ -799,7 +754,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
                 this.auto_destroy(new Timer({
                     once: true,
                     fire: function() {
-                        this.next("ReloadAds"); // << if no adshassource, redirect to the NextVideo
+                        this.next("NextVideo");
                     }.bind(this),
                     delay: 50
                 }));

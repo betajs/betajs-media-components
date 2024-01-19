@@ -725,11 +725,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
                     if (!this.dyn.get("adsplayer_active")) {
                         this.dyn.set("adsplayer_active", true);
                     }
-                    // INFO: could be improved via using reset, but currently it's providing some console errors on reset execution
                     this.listenOnce(this.dyn.channel("ads"), "adsManagerLoaded", function() {
-                        this.next("LoadAds", {
-                            position: 'mid'
-                        });
+                        this.dyn.channel("ads").trigger("load");
                     });
                 }, this);
             }

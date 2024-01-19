@@ -1291,11 +1291,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         var imagedata = ctx.getImageData(0, 0, this.canvasFrame.width, this.canvasFrame.height);
 
                         if (this.isFrameMostlyBlack(imagedata)) {
-                            this.set("blackscreen", true);
+                            this.set("videoelement_active", false);
+                            this.set("canvaselement_active", true);
                             ctx.putImageData(this.previousFrameData, 0, 0);
 
                         } else {
-                            this.set("blackscreen", false);
                             this.previousFrameData = new ImageData(new Uint8ClampedArray(imagedata.data), imagedata.width, imagedata.height);
                         }
 
@@ -1501,9 +1501,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                         this.player.on("playing", function() {
 
-                            if (Info.isSafari() || !this.get("blackscreen") || this.get("blackscreen")) {
-                                this.set("videoelement_active", true);
+                            if (Info.isSafari() && this.get("canvaselement_active")) {
                                 this.set("canvaselement_active", false);
+                                this.set("videoelement_active", true);  
                             }
 
                             if (this.get("sample_brightness")) this.__brightnessSampler.start();
@@ -1522,9 +1522,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.player.error())
                             this.player.trigger("error", this.player.error());
                         this.player.on("paused", function() {
-                             if (Info.isSafari() && this.get("blackscreen")) {
-                            this.set("videoelement_active", false);
-                            this.set("canvaselement_active", true);
+                             if (Info.isSafari()) {
                             this._renderVideoFrame(this.__video)
                             }
                             if (this.get("sample_brightness")) this.__brightnessSampler.stop();

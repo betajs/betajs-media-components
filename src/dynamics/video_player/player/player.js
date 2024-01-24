@@ -1074,15 +1074,22 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 return true;
                             }.bind(this),
                             "noFloatIfBelow": this.get("floatingoptions.noFloatIfBelow"),
-                            "noFloatIfAbove": this.get("floatingoptions.noFloatIfAbove")
+                            "noFloatIfAbove": this.get("floatingoptions.noFloatIfAbove"),
+                            noFloatIfAboveCondition: function(r) {
+                                if (this.get("floatingoptions.noFloatIfAbove") && this.get("mobileviewport") && r.top >= 0) return false
+                                return true
+                            }.bind(this)
                         };
                         this.stickyHandler = this.auto_destroy(new StickyHandler(
                             this.activeElement().firstChild,
                             this.activeElement(),
                             stickyOptions
                         ));
+                        const elementClientRect = this.stickyHandler.element.getBoundingClientRect();
+                        const noFloatIfAboveCondition = this.stickyHandler.noFloatIfAboveCondition(elementClientRect)
+                       
                         this.stickyHandler.on("transitionToFloat", function() {
-                            this.set("view_type", "float");
+                            this.set("view_type", !noFloatIfAboveCondition ? "default" : "float");
                         }, this);
                         this.stickyHandler.on("transitionToView", function() {
                             this.set("view_type", "default");

@@ -21,6 +21,7 @@ Scoped.define("module:StickyHandler", [
                 this.container = container;
                 this.paused = options.paused || false;
                 this.floatCondition = options.floatCondition;
+                this.noFloatIfAboveCondition = options.noFloatIfAboveCondition;
                 this.noFloatIfBelow = options.noFloatIfBelow || false;
                 this.noFloatIfAbove = options.noFloatIfAbove || false;
                 this.threshold = options.threshold;
@@ -118,11 +119,12 @@ Scoped.define("module:StickyHandler", [
                             this.trigger("transitionOutOfView");
                             return;
                         }
+                        var r = this.element.getBoundingClientRect();
                         if (this.noFloatIfAbove || this.noFloatIfBelow) {
-                            var r = this.element.getBoundingClientRect();
                             if (this.noFloatIfAbove && r.top >= 0) return;
                             if (this.noFloatIfBelow && r.top <= 0) return;
                         }
+                        if (!this.noFloatIfAboveCondition(r)) return
                         this.transitionToFloat();
                     }.bind(this));
                 }

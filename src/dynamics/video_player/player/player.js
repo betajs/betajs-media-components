@@ -1095,7 +1095,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }
 
                     if (Info.isSafari()) {
-                        this.previousFrameData = [];
                         this.canvasFrame = document.querySelector("[data-canvas='canvas']");
                     }
                 },
@@ -1279,7 +1278,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 _renderVideoFrame: function(video) {
 
                     try {
-
+                        video.setAttribute('crossOrigin', 'Anonymous')
                         var ctx = this.canvasFrame.getContext('2d');
 
                         this.canvasFrame.width = this.canvasFrame.clientWidth || 640;
@@ -1289,7 +1288,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         ctx.clearRect(0, 0, this.canvasFrame.width, this.canvasFrame.height)
                         ctx.drawImage(video, 0, 0, this.canvasFrame.width, this.canvasFrame.height);
                         var imagedata = ctx.getImageData(0, 0, this.canvasFrame.width, this.canvasFrame.height);
-
 
                         if (this.isFrameMostlyBlack(imagedata)) {
                             this.set("videoelement_active", false);
@@ -1301,6 +1299,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
 
                     } catch (e) {}
+                    
 
 
                 },

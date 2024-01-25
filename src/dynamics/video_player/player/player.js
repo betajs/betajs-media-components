@@ -671,8 +671,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         let width, styles;
                         // before setting any computed to sidebar width, we set a default max-width value based on showSidebar, gallerySidebar and isFloating states.
                         const defaultMaxWidthSB = (showSidebar && gallerySidebar && !isFloating) ? '30%' : '50%';
-                        this.set("sidebarstyles", {maxWidth: defaultMaxWidthSB});
-
+                        this.set("sidebarstyles", {
+                            maxWidth: defaultMaxWidthSB
+                        });
                         if (showSidebar && gallerySidebar && !fullscreened) {
                             if (typeof sidebarPresetWidth === "string") {
                                 sidebarPresetWidth = sidebarPresetWidth.includes("%") ?

@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.436 - 2024-01-23
+betajs-media-components - v0.0.437 - 2024-01-25
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.436 - 2024-01-23
+betajs-media-components - v0.0.437 - 2024-01-25
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.436",
-    "datetime": 1706029643772
+    "version": "0.0.437",
+    "datetime": 1706205517363
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -5917,8 +5917,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         return this.get("floatingsidebar") || this.get("gallerysidebar");
                     },
-                    "playercontainerstyles:show_sidebar,gallerysidebar,sidebaroptions.presetwidth,fullscreened,videowidth": function(showSidebar, gallerySidebar, sidebarPresetWidth, fullscreened, videoWidth) {
+                    "playercontainerstyles:show_sidebar,gallerysidebar,sidebaroptions.presetwidth,fullscreened,videowidth,is_floating": function(showSidebar, gallerySidebar, sidebarPresetWidth, fullscreened, videoWidth, isFloating) {
                         let width, styles;
+                        // before setting any computed to sidebar width, we set a default max-width value based on showSidebar, gallerySidebar and isFloating states.
+                        const defaultMaxWidthSB = (showSidebar && gallerySidebar && !isFloating) ? '30%' : '50%';
+                        this.set("sidebarstyles", {
+                            maxWidth: defaultMaxWidthSB
+                        });
                         if (showSidebar && gallerySidebar && !fullscreened) {
                             if (typeof sidebarPresetWidth === "string") {
                                 sidebarPresetWidth = sidebarPresetWidth.includes("%") ?
@@ -7776,10 +7781,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                  */
                 applyPresets: function() {
                     const presetKey = this.get("presetkey");
+                    // No need to apply presets if presetkey is not defined
+                    if (!presetKey) return;
                     const multiPresets = this.get("availablepresetoptions");
                     // both attributes should be defined
-                    if (!presetKey || !Types.is_object(multiPresets) || !multiPresets[presetKey]) {
-                        console.warn(`Make sure that 'presetkey' and 'availablepresetoptions' attributes both are correctly set.`);
+                    if (!Types.is_object(multiPresets) || !multiPresets[presetKey]) {
+                        console.warn(`Make sure presetkey (${presetKey}) is defined as object key, inside 'availablepresetoptions' hashed objects.`);
                         return;
                     }
 
@@ -8702,6 +8709,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Outstream", [
             }, this);
 
             if (!this.dyn.get("adsmanagerloaded")) {
+                if (!this.dyn.get("adsplayer_active")) this.dyn.set("adsplayer_active", true);
                 this.listenOn(this.dyn.channel("ads"), "adsManagerLoaded", function() {
                     this._nextState();
                 }, this);

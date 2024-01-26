@@ -125,10 +125,11 @@
         align-items: center;
         justify-content: center;
         position: relative;
+        cursor: pointer;
         img {
             max-width: 100%;
         }
-        .#{$cssgallerysidebar}-play-button-container {
+        .#{$cssgallerysidebar}-circle-progress-container {
             cursor: pointer;
             display: flex;
             align-self: center;

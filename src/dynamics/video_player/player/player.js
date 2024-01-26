@@ -187,7 +187,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "noengagenext": 5,
                         "stayengaged": false,
                         "next_active": false,
-
                         /** tooltip
                          {
                          "tooltiptext": null,
@@ -245,6 +244,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "midrollads": [],
                         "adchoicesontop": true,
                         "mobilebreakpoint": 560,
+
 
                         /* Options */
                         "allowpip": true, // Picture-In-Picture Mode
@@ -1105,6 +1105,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.delegateEvents(null, this.stickyHandler);
                         this.stickyHandler.init();
                     }
+
+                    if (Info.isSafari()) {
+                        this.canvasFrame = document.querySelector("[data-canvas='canvas']");
+                    }
                 },
 
                 initMidRollAds: function() {
@@ -1268,6 +1272,50 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     img.src = isLocal ? (window.URL || window.webkitURL).createObjectURL(this.get("poster")) : this.get("poster");
                 },
 
+
+                isFrameMostlyBlack: function(imageData) {
+                    var totalBrightness = 0;
+                    var blackThreshold = 50;
+
+                    for (let i = 0; i < imageData.data.length; i += 4) {
+
+                        totalBrightness += (imageData.data[i] + imageData.data[i + 1] + imageData.data[i + 2]) / 3;
+                    }
+                    var averageBrightness = totalBrightness / (imageData.data.length / 4);
+
+                    return averageBrightness < blackThreshold;
+                },
+
+
+                _renderVideoFrame: function(video) {
+
+                    try {
+                        video.setAttribute('crossOrigin', 'Anonymous')
+                        var ctx = this.canvasFrame.getContext('2d');
+
+                        this.canvasFrame.width = this.canvasFrame.clientWidth || 640;
+                        this.canvasFrame.height = this.canvasFrame.clientHeight || 400;
+
+
+                        ctx.clearRect(0, 0, this.canvasFrame.width, this.canvasFrame.height)
+                        ctx.drawImage(video, 0, 0, this.canvasFrame.width, this.canvasFrame.height);
+                        var imagedata = ctx.getImageData(0, 0, this.canvasFrame.width, this.canvasFrame.height);
+
+                        if (this.isFrameMostlyBlack(imagedata)) {
+                            this.set("videoelement_active", false);
+                            this.set("canvaselement_active", true);
+                            const currentTime = video.currentTime;
+                            video.currentTime = Math.max(currentTime - 0.5, 0);
+                            ctx.drawImage(video, 0, 0, this.canvasFrame.width, this.canvasFrame.height);
+
+                        }
+
+                    } catch (e) {}
+                    
+
+
+                },
+
                 _detachVideo: function() {
                     this.set("playing", false);
                     if (this.player) this.player.weakDestroy();
@@ -1327,6 +1375,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.__attachRequested = false;
                     this.set("videoelement_active", true);
                     var video = this.activeElement().querySelector("[data-video='video']");
+
                     this._clearError();
                     // Just in case, be sure that player's controllers will be hidden
                     video.controls = this.get("showbuiltincontroller");
@@ -1350,6 +1399,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.player = instance;
                         this.delegateEvents(null, this.player, "player");
                         this.__video = video;
+
                         // On autoplay video, silent attach should be false
                         this.set("silent_attach", (silent && !this.get("autoplay")) || this._prerollAd || false);
 
@@ -1444,6 +1494,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }
                         }, this);
 
+
+
                         // All conditions below appear on autoplay only
                         // If the browser not allows unmuted autoplay, and we have manually forcibly muted player
                         // If user already has an interaction with player, we don't need to check it again
@@ -1457,7 +1509,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.set("playbackcount", 1);
                             }, this);
                         }
+
                         this.player.on("playing", function() {
+
+                            if (Info.isSafari() && this.get("canvaselement_active")) {
+                                this.set("canvaselement_active", false);
+                                this.set("videoelement_active", true);
+                            }
+
                             if (this.get("sample_brightness")) this.__brightnessSampler.start();
                             if (this.get("sticky") && this.stickyHandler) this.stickyHandler.start();
                             this.set("playing", true);
@@ -1474,6 +1533,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.player.error())
                             this.player.trigger("error", this.player.error());
                         this.player.on("paused", function() {
+                            if (Info.isSafari()) {
+                                this._renderVideoFrame(this.__video)
+                            }
                             if (this.get("sample_brightness")) this.__brightnessSampler.stop();
                             this.set("playing", false);
                             this.trigger("paused");
@@ -1549,6 +1611,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.player.loaded())
                             this.player.trigger("loaded");
                     }, this);
+
+
                 },
 
                 _getSources: function() {
@@ -1835,6 +1899,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this._broadcasting.player.trigger("play-google-cast");
                             return;
                         }
+
+
+
                         this.host.state().play();
                         this.set("manuallypaused", false);
                     },
@@ -2145,6 +2212,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (destroy) this.destroy();
                         }
                     }
+
                 },
 
                 destroy: function() {

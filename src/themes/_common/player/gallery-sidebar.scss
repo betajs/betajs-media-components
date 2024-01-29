@@ -75,7 +75,7 @@
 
         /* width */
         &::-webkit-scrollbar {
-            width: 8px;
+            width: 4px;
         }
         /* button */
         &::-webkit-scrollbar-button {
@@ -104,10 +104,10 @@
         box-sizing: border-box;
         list-style: none;
         margin: 0;
-        padding: 0 12px 0 10px;
+        padding: 0 4px 0 12px;
         .#{$cssgallerysidebar}-list-item-title {
-            font-size: 12px;
-            margin: 3px 0 11px;
+            font-size: 8px
+            margin: 4px 0 8px;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
@@ -116,6 +116,7 @@
     }
     .#{$cssgallerysidebar}-list-item {
         display: inline-grid;
+        margin-bottom: 2px;
         &.#{$cssgallerysidebar}-currently-playing-list-item {
             cursor: pointer;
         }

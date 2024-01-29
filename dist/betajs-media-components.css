@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.437 - 2024-01-25
+betajs-media-components - v0.0.438 - 2024-01-29
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1976,7 +1976,7 @@ div.ba-player-with-sidebar.ba-player-fullscreen-view .ba-adsplayer-controlbar, d
   height: 10px;
 }
 .ba-gallery-sidebar-container .ba-gallery-sidebar-list-container {
-  height: 100%;
+  flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
   /* width */
@@ -1989,7 +1989,7 @@ div.ba-player-with-sidebar.ba-player-fullscreen-view .ba-adsplayer-controlbar, d
   scrollbar-width: thin;
 }
 .ba-gallery-sidebar-container .ba-gallery-sidebar-list-container::-webkit-scrollbar {
-  width: 8px;
+  width: 4px;
 }
 .ba-gallery-sidebar-container .ba-gallery-sidebar-list-container::-webkit-scrollbar-button {
   background: #222;
@@ -2009,11 +2009,11 @@ div.ba-player-with-sidebar.ba-player-fullscreen-view .ba-adsplayer-controlbar, d
   box-sizing: border-box;
   list-style: none;
   margin: 0;
-  padding: 0 12px 0 10px;
+  padding: 0 4px 0 12px;
 }
 .ba-gallery-sidebar-container .ba-gallery-sidebar-list .ba-gallery-sidebar-list-item-title {
-  font-size: 12px;
-  margin: 3px 0 11px;
+  font-size: 8px;
+  margin: 4px 0 8px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -2021,6 +2021,7 @@ div.ba-player-with-sidebar.ba-player-fullscreen-view .ba-adsplayer-controlbar, d
 }
 .ba-gallery-sidebar-container .ba-gallery-sidebar-list-item {
   display: inline-grid;
+  margin-bottom: 2px;
 }
 .ba-gallery-sidebar-container .ba-gallery-sidebar-list-item.ba-gallery-sidebar-currently-playing-list-item {
   cursor: pointer;
@@ -2030,11 +2031,12 @@ div.ba-player-with-sidebar.ba-player-fullscreen-view .ba-adsplayer-controlbar, d
   align-items: center;
   justify-content: center;
   position: relative;
+  cursor: pointer;
 }
 .ba-gallery-sidebar-container .ba-gallery-sidebar-list-item-poster-container img {
   max-width: 100%;
 }
-.ba-gallery-sidebar-container .ba-gallery-sidebar-list-item-poster-container .ba-gallery-sidebar-play-button-container {
+.ba-gallery-sidebar-container .ba-gallery-sidebar-list-item-poster-container .ba-gallery-sidebar-circle-progress-container {
   cursor: pointer;
   display: flex;
   align-self: center;
@@ -4222,6 +4224,16 @@ a.ba-commoncss-action-button, button.ba-commoncss-action-button {
 }
 .ba-player-close-container .ba-player-close-svg-button {
   fill: #cccccc;
+}
+
+.ba-videoplayer-canvas-frames {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
 /** NOTE: adding flex-grow 1 to the player content will make not fully show ads */

@@ -1312,7 +1312,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
 
                     } catch (e) {}
-                    
+
 
 
                 },

@@ -1068,28 +1068,22 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             threshold: this.get("sticky-threshold"),
                             paused: this.get("sticky-starts-paused") || !this.get("sticky"),
                             "static": this.get("floatingoptions.static"),
-                            floatCondition: function() {
+                            floatCondition: function(elementRect) {
                                 if (this.get("floatingoptions.noFloatOnDesktop") && !this.get("mobileviewport")) return false;
                                 if (this.get("floatingoptions.noFloatOnMobile") && this.get("mobileviewport")) return false;
+                                if (this.get("floatingoptions.noFloatIfAbove") && this.get("mobileviewport") && elementRect.top >= 0) return false
+                                if (this.get("floatingoptions.noFloatIfBelow") && this.get("mobileviewport") && elementRect.top <= 0) return false
                                 return true;
                             }.bind(this),
-                            "noFloatIfBelow": this.get("floatingoptions.noFloatIfBelow"),
-                            "noFloatIfAbove": this.get("floatingoptions.noFloatIfAbove"),
-                            noFloatIfAboveCondition: function(r) {
-                                if (this.get("floatingoptions.noFloatIfAbove") && this.get("mobileviewport") && r.top >= 0) return false
-                                return true
-                            }.bind(this)
                         };
                         this.stickyHandler = this.auto_destroy(new StickyHandler(
                             this.activeElement().firstChild,
                             this.activeElement(),
                             stickyOptions
                         ));
-                        const elementClientRect = this.stickyHandler.element.getBoundingClientRect();
-                        const noFloatIfAboveCondition = this.stickyHandler.noFloatIfAboveCondition(elementClientRect)
-                       
+
                         this.stickyHandler.on("transitionToFloat", function() {
-                            this.set("view_type", !noFloatIfAboveCondition ? "default" : "float");
+                            this.set("view_type", "float");
                         }, this);
                         this.stickyHandler.on("transitionToView", function() {
                             this.set("view_type", "default");

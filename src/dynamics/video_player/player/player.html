@@ -53,6 +53,10 @@
         <div ba-show="{{(imageelement_active && !videoelement_active) || silent_attach}}" class="{{css}}-poster-container">
             <img tabindex="-1" data-image="image" alt="{{posteralt}}" class="{{csscommon}}-{{posterfitstrategy}}-fit"/>
         </div>
+        <div ba-show="{{canvaselement_active}}" class="{{css}}-video-container">
+            <canvas tabindex="-1" data-canvas="canvas"   class="{{csscommon}}-{{posterfitstrategy}}-fit {{css}}-canvas-frames"></canvas>
+        </div>
+        
         <ba-{{dynadsplayer}}
             ba-if="{{adsplayer_active}}"
             ba-ad="{{=ad}}"

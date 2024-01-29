@@ -27,6 +27,7 @@ Scoped.define("module:StickyHandler", [
                 if (!options["static"]) this.events = this.auto_destroy(new DomEvents());
                 this.floating = false;
                 this.observing = false;
+                this.elementRect = this.element.getBoundingClientRect();
             },
 
             destroy: function() {
@@ -45,7 +46,8 @@ Scoped.define("module:StickyHandler", [
             },
 
             start: function() {
-                if (this.floatCondition && !this.floatCondition()) return;
+                this.elementRect = this.element.getBoundingClientRect();
+                if (this.floatCondition && !this.floatCondition(this.elementRect)) return;
                 if (!this.elementIsVisible && !this.floating) this.transitionToFloat();
                 this.paused = false;
             },
@@ -114,14 +116,10 @@ Scoped.define("module:StickyHandler", [
                             return;
                         }
                         if (entry.isIntersecting) return;
-                        if (this.paused || (this.floatCondition && !this.floatCondition())) {
+                        this.elementRect = this.element.getBoundingClientRect();
+                        if (this.paused || (this.floatCondition && !this.floatCondition(this.elementRect))) {
                             this.trigger("transitionOutOfView");
                             return;
-                        }
-                        if (this.noFloatIfAbove || this.noFloatIfBelow) {
-                            var r = this.element.getBoundingClientRect();
-                            if (this.noFloatIfAbove && r.top >= 0) return;
-                            if (this.noFloatIfBelow && r.top <= 0) return;
                         }
                         this.transitionToFloat();
                     }.bind(this));

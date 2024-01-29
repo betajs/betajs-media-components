@@ -104,7 +104,7 @@
         box-sizing: border-box;
         list-style: none;
         margin: 0;
-        padding: 0 min(max(0.7cqw, 4px),8px) 0 min(max(1.45cqw, 12px),19px);
+        padding: 0 4px 0 12px;
         .#{$cssgallerysidebar}-list-item-title {
             font-size: min(max(1.15cqw, 8px), 14px);
             margin: 4px 0 8px;

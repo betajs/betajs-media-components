@@ -69,7 +69,7 @@
     }
 
     .#{$cssgallerysidebar}-list-container {
-        height: 100%;
+        flex: 1;
         overflow-y: auto;
         overflow-x: hidden;
 
@@ -126,10 +126,11 @@
         align-items: center;
         justify-content: center;
         position: relative;
+        cursor: pointer;
         img {
             max-width: 100%;
         }
-        .#{$cssgallerysidebar}-play-button-container {
+        .#{$cssgallerysidebar}-circle-progress-container {
             cursor: pointer;
             display: flex;
             align-self: center;

@@ -431,6 +431,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Outstream", [
             }, this);
 
             if (!this.dyn.get("adsmanagerloaded")) {
+                if (!this.dyn.get("adsplayer_active")) this.dyn.set("adsplayer_active", true);
                 this.listenOn(this.dyn.channel("ads"), "adsManagerLoaded", function() {
                     this._nextState();
                 }, this);

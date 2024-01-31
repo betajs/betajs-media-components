@@ -97,7 +97,7 @@
         }
         /** Firefox only */
         @supports ( -moz-appearance:none ){
-            scrollbar-color: #b3b3b3 #000000;
+            scrollbar-color: #b3b3b3 #1f1f1f;
             scrollbar-width: thin;
         }
     }

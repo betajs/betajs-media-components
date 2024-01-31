@@ -217,6 +217,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "adtagurlfallbacks": [],
                         "nextadtagurls": [],
                         "inlinevastxml": null,
+                        "midrollminintervalbeforeend": 5,
                         "hidebeforeadstarts": true, // Will help hide player poster before ads start
                         "hideadscontrolbar": false,
                         "showplayercontentafter": null, // we can set any microseconds to show player content in any case if ads not initialized
@@ -2809,7 +2810,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     }
 
-                    if (this._nextRollPosition && this.get("adshassource") && this._nextRollPosition.position < this.get("position")) {
+                    if (this._nextRollPosition && this.get("adshassource") && this._nextRollPosition.position < this.get("position") && this.get("duration") - this.get("position") > this.get("midrollminintervalbeforeend")) {
                         if (this.__adMinIntervals > 0) {
                             return;
                         }

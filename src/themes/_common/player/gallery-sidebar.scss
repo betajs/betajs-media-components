@@ -96,8 +96,10 @@
             background: #1f1f1f; // << will be background of the track
         }
         /** Firefox only */
-        scrollbar-color: #b3b3b3 #000000;
-        scrollbar-width: thin;
+        @supports ( -moz-appearance:none ){
+            scrollbar-color: #b3b3b3 #1f1f1f;
+            scrollbar-width: thin;
+        }
     }
 
     .#{$cssgallerysidebar}-list {

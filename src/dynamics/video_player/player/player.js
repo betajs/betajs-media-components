@@ -1134,7 +1134,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                         item = item.trim();
                                         if (/^[\d\s]+\*$/.test(item)) {
                                             item = +item.replace("\*", '');
-                                            this.on("change:duration", function(duration) {
+                                            this.once("change:duration", function(duration) {
                                                 if (duration > 0) {
                                                     var step = Math.floor(duration / item);
                                                     if (duration > item) {

@@ -2326,7 +2326,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.set("settingsmenu_active", false);
                             }
                             // We need this part run each second not too fast, this.__adsControlPosition will control it
-                            if (this.__adsControlPosition < this.get("position")) {
+                            if (this.__adsControlPosition < this.get("position") && !this.get("isseeking")) {
                                 this.__adsControlPosition = Math.ceil(this.get("position"));
                                 this.__controlAdRolls();
                             }
@@ -2792,7 +2792,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this._adsRollPositionsCollection = this.auto_destroy(new Collection()); // our adsCollections
                         if (this.get("midrollads").length > 0) {
                             var _current = null;
-                            var _nextPositionIndex = null;
                             Objs.iter(this.get("midrollads"), function(roll, index) {
                                 if (roll.position && roll.position > this.get("position")) {
                                     // First ad position, if less than 1 it means it's percentage not second

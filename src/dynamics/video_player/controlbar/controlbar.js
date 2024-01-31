@@ -104,7 +104,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         var target = event[0].currentTarget;
                         this.set("dimensions", target.getBoundingClientRect());
 
-                        this.set("_updatePosition", true);
+                        this.set("isseeking", true);
                         this.call("progressUpdatePosition", event[0]);
 
                         var events = this.get("events");
@@ -135,7 +135,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                         }
                         var onDuration = this.get("duration") * percentageFromStart;
 
-                        if (!this.get("_updatePosition") && typeof _dyn.__trackTags === 'undefined')
+                        if (!this.get("isseeking") && typeof _dyn.__trackTags === 'undefined')
                             return;
 
                         var player = _dyn.player;
@@ -168,7 +168,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                             }
                         }
 
-                        if (this.get("_updatePosition")) {
+                        if (this.get("isseeking")) {
                             this.set("position", onDuration);
 
                             if (typeof player._broadcastingState !== 'undefined') {
@@ -182,7 +182,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Controlbar", [
                     },
 
                     stopUpdatePosition: function() {
-                        this.set("_updatePosition", false);
+                        this.set("isseeking", false);
                         this._hideThumb();
                     },
 

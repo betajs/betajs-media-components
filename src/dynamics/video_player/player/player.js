@@ -181,6 +181,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "playonclick": true,
                         "pauseonclick": true,
                         "unmuteonclick": false,
+                        "unmuteonengagement": false,
                         "muted": false,
                         "nextwidget": false,
                         "shownext": 3,
@@ -424,6 +425,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "state": "string",
                     "noengagenext": "float",
                     "unmuteonclick": "boolean",
+                    "unmuteonengagement": "boolean",
                     "rerecordable": "boolean",
                     "loop": "boolean",
                     "loopall": "boolean",
@@ -912,6 +914,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this._dataset.bind("orientation", this.properties());
                     if (typeof this.get("showsettings") !== "undefined")
                         this.set("showsettingsmenu", this.get("showsettings"));
+                    if (this.get("unmuteonengagement")) this.set("unmuteonclick", true);
                     this.delegateEvents(null, this.channel("ads"), "ad");
                     this.delegateEvents(null, this.channel("next"), "next");
                     this.set("prominent_title", this.get("prominent-title"));
@@ -1901,8 +1904,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             return;
                         }
 
-
-
                         this.host.state().play();
                         this.set("manuallypaused", false);
                     },
@@ -2081,7 +2082,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this._delegatedPlayer.execute("toggle_player");
                                 return;
                             }
-                            if (fo && this.get("unmuteonclick")) return;
+                            if (fo && this.get("unmuteonclick")) {
+                                this.__setPlayerEngagement();
+                                return;
+                            }
                             if (this.get("playing") && this.get("pauseonclick")) {
                                 this.trigger("pause_requested");
                                 this.pause();
@@ -3041,15 +3045,24 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 __setPlayerEngagement: function() {
                     if (this.get("userengagedwithplayer")) return;
-                    // User will be engaged with player if volume is not 0
-                    if (!this.get("muted")) {
-                        this.set("userengagedwithplayer", true);
-                        this.trigger("playerengaged");
-                    }
+                    this.set("userengagedwithplayer", true);
+                    this.trigger("playerengaged");
                 },
 
                 __setPlayerHadInteraction: function() {
-                    if (this.get("unmuteonclick")) this.__unmuteOnClick();
+                    if (this.get("unmuteonclick")) {
+                        if (this.get("unmuteonengagement")) {
+                            if (!this.get("userengagedwithplayer")) {
+                                this.once("playerengaged", function() {
+                                    this.__unmuteOnClick();
+                                    this.__removePlayerInteractionEvents();
+                                }, this);
+                                // this return required, not to allow to delete events and set unmute
+                                return;
+                            }
+                        }
+                        this.__unmuteOnClick();
+                    }
                     this.__removePlayerInteractionEvents();
                     if (this.get("userhadplayerinteraction")) return;
                     this.set("userhadplayerinteraction", true);
@@ -3062,7 +3075,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         delay: 500,
                         fire: function() {
                             if (this.get("muted")) this.set("muted", false);
-                            if (this.get("volume") == 0) this.set_volume(this.get("volume") || this.get("initialoptions").volumelevel || 1);
+                            if (this.get("volume") === 0) this.set_volume(this.get("volume") || this.get("initialoptions").volumelevel || 1);
                             if (!this.get("manuallypaused")) this.__setPlayerEngagement();
                             this.set("unmuteonclick", false);
                         }.bind(this),

@@ -55,7 +55,7 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    padding-right: 2px;
+    padding-right: 4px;
 
     .#{$cssgallerysidebar}-header-container {
         box-sizing: border-box;
@@ -97,8 +97,9 @@
         }
         /** Firefox only */
         @supports ( -moz-appearance:none ){
-            scrollbar-color: #b3b3b3 #1f1f1f;
+            scrollbar-color: #b3b3b3 #1f1f1f00;
             scrollbar-width: thin;
+            padding-right: 5px;
         }
     }
 

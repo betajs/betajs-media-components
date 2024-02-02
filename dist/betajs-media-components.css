@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.438 - 2024-01-29
+betajs-media-components - v0.0.439 - 2024-02-02
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1963,7 +1963,7 @@ div.ba-player-with-sidebar.ba-player-fullscreen-view .ba-adsplayer-controlbar, d
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding-right: 2px;
+  padding-right: 4px;
 }
 .ba-gallery-sidebar-container .ba-gallery-sidebar-header-container {
   box-sizing: border-box;
@@ -1985,8 +1985,6 @@ div.ba-player-with-sidebar.ba-player-fullscreen-view .ba-adsplayer-controlbar, d
   /* Handle on hover */
   /* Track */
   /** Firefox only */
-  scrollbar-color: #b3b3b3 #000000;
-  scrollbar-width: thin;
 }
 .ba-gallery-sidebar-container .ba-gallery-sidebar-list-container::-webkit-scrollbar {
   width: 4px;
@@ -2004,6 +2002,13 @@ div.ba-player-with-sidebar.ba-player-fullscreen-view .ba-adsplayer-controlbar, d
 }
 .ba-gallery-sidebar-container .ba-gallery-sidebar-list-container::-webkit-scrollbar-track {
   background: #1f1f1f;
+}
+@supports (-moz-appearance: none) {
+  .ba-gallery-sidebar-container .ba-gallery-sidebar-list-container {
+    scrollbar-color: #b3b3b3 rgba(31, 31, 31, 0);
+    scrollbar-width: thin;
+    padding-right: 5px;
+  }
 }
 .ba-gallery-sidebar-container .ba-gallery-sidebar-list {
   box-sizing: border-box;

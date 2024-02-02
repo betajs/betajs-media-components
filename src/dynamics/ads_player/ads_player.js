@@ -225,6 +225,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         }
                         this.channel("ads").trigger(event, data);
                     }, this);
+
                     if (dynamics) {
                         dynamics.on("resize", function(dimensions) {
                             const width = this.getAdWidth();
@@ -292,6 +293,10 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.adsManager.contentComplete();
                     },
                     pause: function() {
+                        const ad = this.get("ad")?.data?.mediaUrl
+                        if (Info.isSafari()) {
+                            this.renderVideoFrame(ad, this.getAdWidth(), this.getAdHeight())
+                        }
                         return this.adsManager.pause();
                     },
                     resume: function() {
@@ -324,7 +329,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     }
                     return this.activeElement().firstChild ? this.activeElement().firstChild.clientWidth : this.activeElement().clientWidth;
                 },
-
                 getAdHeight: function() {
                     if (!this.activeElement()) return null;
                     if (this.get("floating") && this.parent()) {
@@ -342,6 +346,21 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     if (!this._videoElement)
                         this._videoElement = this.parent() && this.parent().activeElement().querySelector("[data-video='video']"); // TODO video element for outstream
                     return this._videoElement;
+                },
+                renderVideoFrame: function(mediaUrl, width, height) {
+                    const video = document.createElement("video");
+                    const canvas = document.createElement("canvas");
+                    video.crossOrigin = "anonymous";
+                    video.src = mediaUrl;
+                    setTimeout(function() {
+                        canvas.width = width;
+                        canvas.height = height;
+                        canvas.getContext("2d")
+                            .drawImage(video, 0, 0, canvas.width, canvas.height);
+                        this.parent().__video.style.backgroundImage = `url(${canvas.toDataURL("image/jpeg")})`;
+                        this.parent().__video.style.backgroundRepeat = "no-repeat";
+                        this.parent().__video.style.backgroundSize = "contain";
+                    }.bind(this), 100);
                 },
 
                 setEndCardBackground: function(width, height) {

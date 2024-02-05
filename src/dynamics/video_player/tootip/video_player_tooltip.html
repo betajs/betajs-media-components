@@ -4,6 +4,7 @@
      {{csscommon}}-tooltip-container-on-{{playing ? 'playing' : 'pause'}}
      {{csscommon}}-fade-{{tooltiptext ? 'in' : 'out'}}
      {{ adsplaying ? (csscommon + '-tooltip-container-playing-ads') : ''}}
+     {{ fixed_tooltip ? 'fixed-tooltip' : ''}}
      {{ (pauseonhover && disappearafter > 0) ? csscommon + '-pause-on-hover' : '' }}"
      onmouseover="{{mouseover()}}" onmouseout="{{mouseout()}}"
 >

@@ -412,6 +412,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "closeable-title": false,
                         "showadchoices": true,
                         "unknownadsrc": false,
+                        "fixed_tooltip": false
                     };
                 },
 
@@ -519,6 +520,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "sidebaroptions": "object",
                     "showadchoices": "boolean",
                     "unknownadsrc": "boolean",
+                    "fixed_tooltip": "boolean"
                 },
 
                 __INTERACTION_EVENTS: ["click", "mousedown", "touchstart", "keydown", "keypress"],

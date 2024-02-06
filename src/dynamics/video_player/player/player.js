@@ -1033,7 +1033,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("last_activity", Time.now());
                     this.set("activity_delta", 0);
                     this.set("passed_after_play", 0);
-
+                    this.set('trackFrameTime', 0);
                     this.set("playing", false);
 
                     this.__attachRequested = false;
@@ -1281,26 +1281,37 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
                 _renderVideoFrame: function(video) {
 
+
+                    var canvas;
+                    const currentPosition = this.getCurrentPosition();
+                    video.setAttribute('crossOrigin', 'anonymous')
+                    video.style.backgroundImage = 'none';
+
+                    // setTimeout(function() {
                     try {
+                        const currentTime = Math.max(0, currentPosition - 0.5);
+                        canvas = this._drawFrame(video, currentTime);
 
-                        const currentPosition = this.getCurrentPosition();
-                        video.setAttribute('crossOrigin', 'anonymous')
-                        video.style.backgroundImage = 'none';
+                        var img = this.activeElement().querySelector("[data-image='image']");
+                        var self = this;
+                        img.onload = function() {
+                            self.set("showImage", true);
+                            self.set("videoelement_active", false);
+                            self.set("imageelement_active", true);
+                        };
+                        img.src = `${canvas.toDataURL("image/jpeg")}`;
+                        if (this.get("trackFrameTime") > currentPosition) {
+                            video.currentTime = this.get("trackFrameTime");
+                        }
+                        this.set('trackFrameTime', currentPosition)
 
-                        setTimeout(function() {
-                            const currentTime = Math.max(0, currentPosition - 0.5);
-                            const canvas = this._drawFrame(video, currentTime);
-                            video.style.backgroundImage = `url(${canvas.toDataURL("image/jpeg")})`;
-                            video.style.backgroundRepeat = "no-repeat";
-                            video.style.backgroundSize = "contain";
-                            if (video.style.backgroundImage === 'none') {
-                                video.style.backgroundImage = `url(${video.poster})`
-                            }
-                            video.currentTime = currentPosition;
+                    } catch (e) {
+                        img.src = video.poster;
+                    }
 
-                        }.bind(this), 100);
+                    // }.bind(this), 100);
 
-                    } catch (e) {}
+
 
                 },
 
@@ -1500,10 +1511,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                         this.player.on("playing", function() {
 
-                            if (Info.isSafari()) {
-                                // this.set("imageelement_active", false);
-                                // this.set("videoelement_active", true);
-                                // this.set('showImage', false);
+                            if (Info.isSafari() && this.get("showImage")) {
+                                this.set("imageelement_active", false);
+                                this.set("videoelement_active", true);
+                                this.set('showImage', false);
                             }
                             if (this.get("sample_brightness")) this.__brightnessSampler.start();
                             if (this.get("sticky") && this.stickyHandler) this.stickyHandler.start();
@@ -1522,7 +1533,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.player.error())
                             this.player.trigger("error", this.player.error());
                         this.player.on("paused", function() {
-                            if (Info.isSafari()) {
+                            if (Info.isSafari() && !this.get("showImage")) {
                                 this._renderVideoFrame(this.__video)
                             }
                             if (this.get("sample_brightness")) this.__brightnessSampler.stop();
@@ -1531,6 +1542,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                         }, this);
                         this.player.on("ended", function() {
+                            this.set('trackFrameTime', 0);
                             if (this.get("sample_brightness")) this.__brightnessSampler.stop();
                             this.set("playing", false);
                             this.set('playedonce', true);

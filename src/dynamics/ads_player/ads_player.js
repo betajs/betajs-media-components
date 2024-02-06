@@ -352,14 +352,15 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     const canvas = document.createElement("canvas");
                     video.crossOrigin = "anonymous";
                     video.src = mediaUrl;
+                    video.currentTime = this.get('currenttime');
                     setTimeout(function() {
                         canvas.width = width;
                         canvas.height = height;
                         canvas.getContext("2d")
                             .drawImage(video, 0, 0, canvas.width, canvas.height);
-                        this.parent().__video.style.backgroundImage = `url(${canvas.toDataURL("image/jpeg")})`;
-                        this.parent().__video.style.backgroundRepeat = "no-repeat";
-                        this.parent().__video.style.backgroundSize = "contain";
+                        this.getAdContainer().style.backgroundImage = `url(${canvas.toDataURL("image/jpeg")})`;
+                        this.getAdContainer().style.backgroundRepeat = "no-repeat";
+                        this.getAdContainer().style.backgroundSize = "contain";
                     }.bind(this), 100);
                 },
 
@@ -469,6 +470,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 _onAdComplete: function(ev) {
+                    if (Info.isSafari() && this.getAdContainer().style.backgroundImage) {
+                        this.getAdContainer().style.backgroundImage = 'none';
+                    }
                     // NOTE: As below codes only companion ads related code will be better return.
                     // Non companion ads code should be applied above of this line
                     if (this.get("persistentcompanionad")) return;

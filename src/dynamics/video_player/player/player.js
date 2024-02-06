@@ -1287,7 +1287,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     video.setAttribute('crossOrigin', 'anonymous')
                     video.style.backgroundImage = 'none';
 
-                    // setTimeout(function() {
+                   
                     try {
                         const currentTime = Math.max(0, currentPosition - 0.5);
                         canvas = this._drawFrame(video, currentTime);
@@ -1309,7 +1309,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         img.src = video.poster;
                     }
 
-                    // }.bind(this), 100);
+                   
 
 
 

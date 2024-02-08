@@ -359,8 +359,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         canvas.getContext("2d")
                             .drawImage(video, 0, 0, canvas.width, canvas.height);
                         this.getAdContainer().style.backgroundImage = `url(${canvas.toDataURL("image/jpeg")})`;
-                        this.getAdContainer().style.backgroundRepeat = "no-repeat";
-                        this.getAdContainer().style.backgroundSize = "contain";
                     }.bind(this), 100);
                 },
 

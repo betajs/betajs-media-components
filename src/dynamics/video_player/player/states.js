@@ -459,8 +459,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Outstream", [
 });
 
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
-    "module:VideoPlayer.Dynamics.PlayerStates.State"
-], function(State, scoped) {
+    "module:VideoPlayer.Dynamics.PlayerStates.State",
+    "browser:Info"
+], function(State, Info, scoped) {
     return State.extend({
         scoped: scoped
     }, {

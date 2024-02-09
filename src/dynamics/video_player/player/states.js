@@ -473,8 +473,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
             if (this.dyn.get("adshassource")) {
                 if (this._triggerLoadAds()) {
                     if (this.dyn.get("fullscreened") && (Info.isMobile() && Info.isiOS())) {
-                        this.next("LoadVideo");
                         if (this.dyn.get("adsplayer_active")) this.dyn.set("adsplayer_active", false)
+                        this.next("LoadVideo");
                     } else {
                         if (!this.dyn.get("adsplayer_active")) this.dyn.set("adsplayer_active", true);
                         this.dyn.channel("ads").trigger("load");

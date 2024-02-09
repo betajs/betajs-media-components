@@ -1268,34 +1268,40 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     img.src = isLocal ? (window.URL || window.webkitURL).createObjectURL(this.get("poster")) : this.get("poster");
                 },
 
-                _drawFrame: function(video, currentTime) {
+                _drawFrame: function(video, currentTime, width, height) {
                     video.currentTime = currentTime;
                     const canvas = document.createElement('canvas');
-                    canvas.width = video.videoWidth;
-                    canvas.height = video.videoHeight;
+                    canvas.width = width;
+                    canvas.height = height
                     const ctx = canvas.getContext('2d');
                     ctx.clearRect(0, 0, canvas.width, canvas.height)
                     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
                     return {
                         canvas,
                         ctx
                     };
                 },
                 _renderVideoFrame: function(video) {
+                    const videoPoster = video.poster;
+                    const img = document.createElement('img');
+                    img.style.width = '100%';
+                    video.style.backgroundColor = 'transparent';
+                    const videoParentEle = video.parentElement;
+                    const imgElements = videoParentEle.querySelectorAll('img');
+                    imgElements.forEach(img => {
+                        img.remove()
+                    })
                     const currentPosition = this.getCurrentPosition();
-                    video.setAttribute('crossOrigin', 'anonymous')
+                    video.setAttribute('crossorigin', 'anonymous')
+                    const width = video.videoWidth;
+                    const height = video.videoHeight;
 
                     try {
-                        const canvas = this._drawFrame(video, currentPosition);
-
-                        var img = this.activeElement().querySelector("[data-image='image']");
+                        const canvas = this._drawFrame(video, currentPosition, width, height);
                         img.onload = function(e) {};
-                        img.src = `${canvas.canvas.toDataURL()}`;
-                        if (this.isImageBlack(canvas)) {
-                            this.set("showImage", true);
-                            this.set("videoelement_active", false);
-                            this.set("imageelement_active", true);
-                        }
+                        img.src = `${canvas.canvas.toDataURL()}`;;
+                        videoParentEle.appendChild(img);
 
                         if (this.get("trackFrameTime") > currentPosition) {
                             video.currentTime = this.get("trackFrameTime");
@@ -1303,10 +1309,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set('trackFrameTime', currentPosition)
 
                     } catch (e) {
-                        this.set("showImage", true);
-                        this.set("videoelement_active", false);
-                        this.set("imageelement_active", true);
-                        img.src = video.poster;
+                        img.src = videoPoster;
+                        videoParentEle.appendChild(img);
                     }
 
                 },
@@ -1323,6 +1327,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }
                     return true;
                 },
+
                 _detachVideo: function() {
                     this.set("playing", false);
                     if (this.player) this.player.weakDestroy();
@@ -1517,13 +1522,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }, this);
                         }
 
-                        this.player.on("playing", function() {
 
-                            if (Info.isSafari() && this.get("showImage")) {
-                                this.set("imageelement_active", false);
-                                this.set("videoelement_active", true);
-                                this.set('showImage', false);
-                            }
+                        this.player.on("playing", function() {
                             if (this.get("sample_brightness")) this.__brightnessSampler.start();
                             if (this.get("sticky") && this.stickyHandler) this.stickyHandler.start();
                             this.set("playing", true);
@@ -1531,6 +1531,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                         }, this);
                         this.player.on("loaded", function() {
+                            if (Info.isSafari()) {
+                                this._renderVideoFrame(this.__video);
+                            }
+
                             this.set("videowidth", this.player.videoWidth());
                             this.set("videoheight", this.player.videoHeight());
                             if (this.get("sample_brightness")) this.__brightnessSampler.fire();
@@ -1541,16 +1545,20 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.player.error())
                             this.player.trigger("error", this.player.error());
                         this.player.on("paused", function() {
-                            if (Info.isSafari() && !this.get("showImage")) {
+                            if (Info.isSafari()) {
                                 this._renderVideoFrame(this.__video);
                             }
+
                             if (this.get("sample_brightness")) this.__brightnessSampler.stop();
                             this.set("playing", false);
                             this.trigger("paused");
 
                         }, this);
                         this.player.on("ended", function() {
+                            console.log('ended');
                             this.set('trackFrameTime', 0);
+
+
                             if (this.get("sample_brightness")) this.__brightnessSampler.stop();
                             this.set("playing", false);
                             this.set('playedonce', true);

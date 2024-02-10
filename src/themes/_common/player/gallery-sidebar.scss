@@ -55,7 +55,7 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    padding-right: 2px;
+    padding-right: 4px;
 
     .#{$cssgallerysidebar}-header-container {
         box-sizing: border-box;
@@ -69,13 +69,13 @@
     }
 
     .#{$cssgallerysidebar}-list-container {
-        height: 100%;
+        flex: 1;
         overflow-y: auto;
         overflow-x: hidden;
 
         /* width */
         &::-webkit-scrollbar {
-            width: 8px;
+            width: 4px;
         }
         /* button */
         &::-webkit-scrollbar-button {
@@ -96,18 +96,21 @@
             background: #1f1f1f; // << will be background of the track
         }
         /** Firefox only */
-        scrollbar-color: #b3b3b3 #000000;
-        scrollbar-width: thin;
+        @supports ( -moz-appearance:none ){
+            scrollbar-color: #b3b3b3 #1f1f1f00;
+            scrollbar-width: thin;
+            padding-right: 5px;
+        }
     }
 
     .#{$cssgallerysidebar}-list {
         box-sizing: border-box;
         list-style: none;
         margin: 0;
-        padding: 0 12px 0 10px;
+        padding: 0 4px 0 12px;
         .#{$cssgallerysidebar}-list-item-title {
-            font-size: 12px;
-            margin: 3px 0 11px;
+            font-size: 8px;
+            margin: 4px 0 8px;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
@@ -116,16 +119,21 @@
     }
     .#{$cssgallerysidebar}-list-item {
         display: inline-grid;
+        margin-bottom: 2px;
+        &.#{$cssgallerysidebar}-currently-playing-list-item {
+            cursor: pointer;
+        }
     }
     .#{$cssgallerysidebar}-list-item-poster-container {
         display: flex;
         align-items: center;
         justify-content: center;
         position: relative;
+        cursor: pointer;
         img {
             max-width: 100%;
         }
-        .#{$cssgallerysidebar}-play-button-container {
+        .#{$cssgallerysidebar}-circle-progress-container {
             cursor: pointer;
             display: flex;
             align-self: center;

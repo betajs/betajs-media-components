@@ -1,6 +1,6 @@
 /* Full screen options */
 .#{$cssplayer}-fullscreen-view {
-
+  max-width: 100%;
   @include hide-dom-shadow-media-control();
 
   .#{$csstheme}-dashboard {

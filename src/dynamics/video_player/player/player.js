@@ -22,6 +22,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "base:States.Host",
     "base:Classes.ClassRegistry",
     "base:Async",
+    "base:Functions",
     "module:VideoPlayer.Dynamics.PlayerStates.Initial",
     "module:VideoPlayer.Dynamics.PlayerStates",
     "module:Ads.AbstractVideoAdProvider",
@@ -65,7 +66,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.PlayerStates.ErrorVideo",
     "module:VideoPlayer.Dynamics.PlayerStates.PlayVideo",
     "module:VideoPlayer.Dynamics.PlayerStates.NextVideo"
-], function(Class, Assets, DatasetProperties, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, PlayerSupport, Types, Objs, Strings, Collection, Maths, Time, Timers, Promise, TimeFormat, Host, ClassRegistry, Async, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
+], function(Class, Assets, DatasetProperties, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, PlayerSupport, Types, Objs, Strings, Collection, Maths, Time, Timers, Promise, TimeFormat, Host, ClassRegistry, Async, Functions, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, [StylesMixin, function(inherited) {
@@ -110,7 +111,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             // if set to true, companion ad will be shown on sidebar if it's exits
                             "showcompanionad": false,
                             "hidevideoafterplay": false,
-                            "autonext": true
+                            "autonext": true,
+                            // Currently it's playing next video in the list, but if required watch next un-watched one, set it as true
+                            "nextunplayed": false
                         },
                         "popup-width": "",
                         "popup-height": "",
@@ -184,7 +187,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "noengagenext": 5,
                         "stayengaged": false,
                         "next_active": false,
-
                         /** tooltip
                          {
                          "tooltiptext": null,
@@ -242,6 +244,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "midrollads": [],
                         "adchoicesontop": true,
                         "mobilebreakpoint": 560,
+
 
                         /* Options */
                         "allowpip": true, // Picture-In-Picture Mode
@@ -358,7 +361,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 maxadstoshow: -1, // Maximum number of ads to show, if there's next ads or errors occurred default: -1 (unlimited)
                                 noEndCard: false, // No end cart at the end when outstream completed
                                 allowRepeat: true, // Make possible to repeat ads
-                                // moreURL: '', // more button URL
+                                // firstframeasendcard: '', // to capture first frame and show as endcard background
+                                // moredetailslink: '', // more button URL
                                 // moreText: '', // read more about outstream text
                                 // repeatText: '', // repeat button text
                                 persistentcompanionad: false
@@ -663,8 +667,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         return this.get("floatingsidebar") || this.get("gallerysidebar");
                     },
-                    "playercontainerstyles:show_sidebar,gallerysidebar,sidebaroptions.presetwidth,fullscreened,videowidth": function(showSidebar, gallerySidebar, sidebarPresetWidth, fullscreened, videoWidth) {
+                    "playercontainerstyles:show_sidebar,gallerysidebar,sidebaroptions.presetwidth,fullscreened,videowidth,is_floating": function(showSidebar, gallerySidebar, sidebarPresetWidth, fullscreened, videoWidth, isFloating) {
                         let width, styles;
+                        // before setting any computed to sidebar width, we set a default max-width value based on showSidebar, gallerySidebar and isFloating states.
+                        const defaultMaxWidthSB = (showSidebar && gallerySidebar && !isFloating) ? '30%' : '50%';
+                        this.set("sidebarstyles", {
+                            maxWidth: defaultMaxWidthSB
+                        });
                         if (showSidebar && gallerySidebar && !fullscreened) {
                             if (typeof sidebarPresetWidth === "string") {
                                 sidebarPresetWidth = sidebarPresetWidth.includes("%") ?
@@ -765,17 +774,20 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             return false;
                         }
                     },
-                    "hideplayer:adshassource,adsinitialized,hidden,hidebeforeadstarts": function(
+                    "hideplayer:autoplay,autoplaywhenvisible,adshassource,adsinitialized,hidden,hidebeforeadstarts": function(
+                        autoplay,
+                        autoplaywhenvisible,
                         adshassource,
                         adsinitialized,
                         hidden,
                         hidebeforeadstarts
                     ) {
                         if (hidden) return hidden;
+                        if (!autoplay && !autoplaywhenvisible) return false;
                         if (hidebeforeadstarts && adshassource) return !adsinitialized;
                         return false;
                     },
-                    "containerSizingStyles:aspect_ratio,height,width,is_floating,hideplayer,floatingoptions.floatingonly,fullscreened,show_sidebar": function(
+                    "containerSizingStyles:aspect_ratio,height,width,is_floating,hideplayer,floatingoptions.floatingonly,fullscreened,showsidebargallery,gallerysidebar,layout": function(
                         aspectRatio,
                         height,
                         width,
@@ -783,16 +795,20 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         hidden,
                         floatingonly,
                         fullscreened,
-                        showSidebar
+                        showsidebargallery,
+                        gallerySidebar,
+                        layout
                     ) {
                         let containerStyles, styles;
                         styles = {
                             aspectRatio: aspectRatio
                         };
-                        if (showSidebar) styles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
+                        if (!fullscreened && gallerySidebar) styles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
                         if (height) styles.height = isNaN(height) ? height : parseFloat(height).toFixed(2) + "px";
                         if (width) styles.width = isNaN(width) ? width : parseFloat(width).toFixed(2) + "px";
                         containerStyles = floatingonly ? {} : Objs.extend({}, styles);
+                        if (!gallerySidebar && showsidebargallery && layout === "desktop" && !fullscreened)
+                            containerStyles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
                         if (isFloating) {
                             const calculated = this.__calculateFloatingDimensions();
 
@@ -1006,6 +1022,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("message", "");
                     this.set("fullscreensupport", false);
                     this.set("csssize", "normal");
+                    this.set("with_sidebar", false);
 
                     // this.set("loader_active", false);
                     // this.set("playbutton_active", false);
@@ -1063,19 +1080,20 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             threshold: this.get("sticky-threshold"),
                             paused: this.get("sticky-starts-paused") || !this.get("sticky"),
                             "static": this.get("floatingoptions.static"),
-                            floatCondition: function() {
+                            floatCondition: function(elementRect) {
                                 if (this.get("floatingoptions.noFloatOnDesktop") && !this.get("mobileviewport")) return false;
                                 if (this.get("floatingoptions.noFloatOnMobile") && this.get("mobileviewport")) return false;
+                                if (this.get("floatingoptions.noFloatIfAbove") && this.get("mobileviewport") && elementRect.top >= 0) return false
+                                if (this.get("floatingoptions.noFloatIfBelow") && this.get("mobileviewport") && elementRect.top <= 0) return false
                                 return true;
                             }.bind(this),
-                            "noFloatIfBelow": this.get("floatingoptions.noFloatIfBelow"),
-                            "noFloatIfAbove": this.get("floatingoptions.noFloatIfAbove")
                         };
                         this.stickyHandler = this.auto_destroy(new StickyHandler(
                             this.activeElement().firstChild,
                             this.activeElement(),
                             stickyOptions
                         ));
+
                         this.stickyHandler.on("transitionToFloat", function() {
                             this.set("view_type", "float");
                         }, this);
@@ -1087,6 +1105,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }, this);
                         this.delegateEvents(null, this.stickyHandler);
                         this.stickyHandler.init();
+                    }
+
+                    if (Info.isSafari()) {
+                        this.canvasFrame = document.querySelector("[data-canvas='canvas']");
                     }
                 },
 
@@ -1251,6 +1273,50 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     img.src = isLocal ? (window.URL || window.webkitURL).createObjectURL(this.get("poster")) : this.get("poster");
                 },
 
+
+                isFrameMostlyBlack: function(imageData) {
+                    var totalBrightness = 0;
+                    var blackThreshold = 50;
+
+                    for (let i = 0; i < imageData.data.length; i += 4) {
+
+                        totalBrightness += (imageData.data[i] + imageData.data[i + 1] + imageData.data[i + 2]) / 3;
+                    }
+                    var averageBrightness = totalBrightness / (imageData.data.length / 4);
+
+                    return averageBrightness < blackThreshold;
+                },
+
+
+                _renderVideoFrame: function(video) {
+
+                    try {
+                        video.setAttribute('crossOrigin', 'Anonymous')
+                        var ctx = this.canvasFrame.getContext('2d');
+
+                        this.canvasFrame.width = this.canvasFrame.clientWidth || 640;
+                        this.canvasFrame.height = this.canvasFrame.clientHeight || 400;
+
+
+                        ctx.clearRect(0, 0, this.canvasFrame.width, this.canvasFrame.height)
+                        ctx.drawImage(video, 0, 0, this.canvasFrame.width, this.canvasFrame.height);
+                        var imagedata = ctx.getImageData(0, 0, this.canvasFrame.width, this.canvasFrame.height);
+
+                        if (this.isFrameMostlyBlack(imagedata)) {
+                            this.set("videoelement_active", false);
+                            this.set("canvaselement_active", true);
+                            const currentTime = video.currentTime;
+                            video.currentTime = Math.max(currentTime - 0.5, 0);
+                            ctx.drawImage(video, 0, 0, this.canvasFrame.width, this.canvasFrame.height);
+
+                        }
+
+                    } catch (e) {}
+
+
+
+                },
+
                 _detachVideo: function() {
                     this.set("playing", false);
                     if (this.player) this.player.weakDestroy();
@@ -1310,6 +1376,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.__attachRequested = false;
                     this.set("videoelement_active", true);
                     var video = this.activeElement().querySelector("[data-video='video']");
+
                     this._clearError();
                     // Just in case, be sure that player's controllers will be hidden
                     video.controls = this.get("showbuiltincontroller");
@@ -1333,6 +1400,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.player = instance;
                         this.delegateEvents(null, this.player, "player");
                         this.__video = video;
+
                         // On autoplay video, silent attach should be false
                         this.set("silent_attach", (silent && !this.get("autoplay")) || this._prerollAd || false);
 
@@ -1427,6 +1495,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }
                         }, this);
 
+
+
                         // All conditions below appear on autoplay only
                         // If the browser not allows unmuted autoplay, and we have manually forcibly muted player
                         // If user already has an interaction with player, we don't need to check it again
@@ -1440,7 +1510,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.set("playbackcount", 1);
                             }, this);
                         }
+
                         this.player.on("playing", function() {
+
+                            if (Info.isSafari() && this.get("canvaselement_active")) {
+                                this.set("canvaselement_active", false);
+                                this.set("videoelement_active", true);
+                            }
+
                             if (this.get("sample_brightness")) this.__brightnessSampler.start();
                             if (this.get("sticky") && this.stickyHandler) this.stickyHandler.start();
                             this.set("playing", true);
@@ -1457,6 +1534,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.player.error())
                             this.player.trigger("error", this.player.error());
                         this.player.on("paused", function() {
+                            if (Info.isSafari()) {
+                                this._renderVideoFrame(this.__video)
+                            }
                             if (this.get("sample_brightness")) this.__brightnessSampler.stop();
                             this.set("playing", false);
                             this.trigger("paused");
@@ -1532,6 +1612,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.player.loaded())
                             this.player.trigger("loaded");
                     }, this);
+
+
                 },
 
                 _getSources: function() {
@@ -1818,6 +1900,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this._broadcasting.player.trigger("play-google-cast");
                             return;
                         }
+
+
+
                         this.host.state().play();
                         this.set("manuallypaused", false);
                     },
@@ -1986,24 +2071,27 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     toggle_player: function(fromOverlay) {
-                        if (this.get("sticky") && this.stickyHandler && this.stickyHandler.isDragging()) {
-                            this.stickyHandler.stopDragging();
-                            return;
-                        }
-                        if (this.get("playing") && this.get("preventinteractionstatus")) return;
-                        if (this._delegatedPlayer) {
-                            this._delegatedPlayer.execute("toggle_player");
-                            return;
-                        }
-                        if (fromOverlay && this.get("unmuteonclick")) return;
-                        if (this.get("playing") && this.get("pauseonclick")) {
-                            this.trigger("pause_requested");
-                            this.pause();
-                        } else if (!this.get("playing") && this.get("playonclick")) {
-                            this.trigger("play_requested");
-                            this.__setPlayerEngagement();
-                            this.play();
-                        }
+                        if (!this._debouncedToggle) this._debouncedToggle = Functions.debounce(function(fo) {
+                            if (this.get("sticky") && this.stickyHandler && this.stickyHandler.isDragging()) {
+                                this.stickyHandler.stopDragging();
+                                return;
+                            }
+                            if (this.get("playing") && this.get("preventinteractionstatus")) return;
+                            if (this._delegatedPlayer) {
+                                this._delegatedPlayer.execute("toggle_player");
+                                return;
+                            }
+                            if (fo && this.get("unmuteonclick")) return;
+                            if (this.get("playing") && this.get("pauseonclick")) {
+                                this.trigger("pause_requested");
+                                this.pause();
+                            } else if (!this.get("playing") && this.get("playonclick")) {
+                                this.trigger("play_requested");
+                                this.__setPlayerEngagement();
+                                this.play();
+                            }
+                        }.bind(this), 100, true);
+                        this._debouncedToggle(fromOverlay);
                     },
 
                     tab_index_move: function(ev, nextSelector, focusingSelector) {
@@ -2125,6 +2213,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (destroy) this.destroy();
                         }
                     }
+
                 },
 
                 destroy: function() {
@@ -2511,10 +2600,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                  */
                 applyPresets: function() {
                     const presetKey = this.get("presetkey");
+                    // No need to apply presets if presetkey is not defined
+                    if (!presetKey) return;
                     const multiPresets = this.get("availablepresetoptions");
                     // both attributes should be defined
-                    if (!presetKey || !Types.is_object(multiPresets) || !multiPresets[presetKey]) {
-                        console.warn(`Make sure that 'presetkey' and 'availablepresetoptions' attributes both are correctly set.`);
+                    if (!Types.is_object(multiPresets) || !multiPresets[presetKey]) {
+                        console.warn(`Make sure presetkey (${presetKey}) is defined as object key, inside 'availablepresetoptions' hashed objects.`);
                         return;
                     }
 
@@ -2586,7 +2677,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.activeElement()) {
                             this.activeElement().classList.add(this.get("csscommon") + "-full-width");
                         }
-                        if (typeof this.get("floatingoptions.mobile.sidebar") !== "undefined" && this.get("floatingoptions.sidebar"))
+                        if (Types.is_defined(this.get("floatingoptions.mobile.sidebar")) && this.get("floatingoptions.sidebar"))
                             this.set("with_sidebar", this.get("floatingoptions.mobile.sidebar"));
                         if (typeof this.get("floatingoptions.mobile.positioning") === "object") {
                             var playerApplyForSelector, documentRelativeSelector, positioningApplySelector, positioningRelativeSelector, positioningProperty;
@@ -2613,7 +2704,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.activeElement()) {
                             this.activeElement().classList.remove(this.get("csscommon") + "-full-width");
                         }
-                        if (typeof this.get("floatingoptions.desktop.sidebar") !== "undefined" && this.get("floatingoptions.sidebar"))
+                        if (Types.is_defined(this.get("floatingoptions.desktop.sidebar")) && this.get("floatingoptions.sidebar"))
                             this.set("with_sidebar", this.get("floatingoptions.desktop.sidebar"));
                     }
                     if (position) {

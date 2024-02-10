@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<script src="/static/vendors/jquery.min.js"></script>
+    <title>Embed BetaJS Player Demo</title>
+
     <script src="/static/node_modules/betajs-shims/dist/betajs-shims.js"></script>
     <script src="/static/node_modules/betajs-scoped/dist/scoped.js"></script>
     <script src="/static/node_modules/betajs/dist/beta-noscoped.js"></script>
@@ -39,223 +40,56 @@
     <script src="/static/dist/themes/theatre/script.js"></script>
     <link href="/static/dist/themes/theatre/style.css" rel="stylesheet" />
 
-    <style>
-        /*.ba-videoplayer-stretch-height .ba-videoplayer-container img.ba-videoplayer-video {*/
-        /*    max-height: 100%;*/
-        /*    min-width: auto;*/
-        /*    width: auto;*/
-        /*    transform-box: border-box;*/
-        /*    transform: translateX(-50%);*/
-        /*    left: 50%;*/
-        /*}*/
-        .ba-videoplayer-container {
-            /*display: block;*/
+    <script>
+        let player;
+        if (!HTMLScriptElement.supports?.("importmap")) {
+            console.log("Browser does not supports import maps. Please use modern browser for testing.");
         }
-        .ba-videoplayer-overlay {
-            /*height: 360px;*/
-            /*width: 640px;*/
-        }
-    </style>
+    </script>
+
 </head>
 <body style="background: #EEE">
     <div class="row">
-        <div class="col-xs-10" style="float: left">
-<!--            <div class="col-xs-12" style="width: 300px">-->
-                <div id="player"></div>
-<!--            </div>-->
-        </div>
-<!--        <div class="col-xs-6">-->
-<!--            <video id="videoBlob" ></video>-->
-<!--            <script>-->
-<!--                $(document).ready(() => {-->
-<!--                    const video = $("#videoBlob")[0];-->
-<!--                    let blob = new Blob([-->
-<!--                        // "blob:https://localhost:5050/d760965b-fa47-4e16-a4ea-067fb6fb087d"-->
-<!--                        '/static/demos/sample-video.mp4'-->
-<!--                    ], {type: "video/mp4"});-->
-<!--                    video.src = "blob:https://localhost:5050/d760965b-fa47-4e16-a4ea-067fb6fb087d";-->
-<!--                    // URL.createObjectURL(blob);-->
-<!--                    // video.src = '/static/demos/sample-video.mp4';-->
-<!--                    console.log('Blob >> ', blob, video, URL.createObjectURL(blob));-->
-<!--                    video.onloadstart = (ev) => {-->
-<!--                        video.play();-->
-<!--                    };-->
-<!--                });-->
-<!--            </script>-->
-<!--        </div>-->
-    </div>
-    <div class="row">
-        <div class="not-embed-player" style="width: 400px">
-<!--            <ba-videoplayer-->
-<!--                ba-stretch-->
-<!--                ba-stretchheight-->
-<!--                ba-skipinitial="false"-->
-<!--                ba-source="/static/demos/sample-video.mp4"-->
-<!--                ba-poster="/static/demos/assets/sample-cover.png"-->
-<!--            ></ba-videoplayer>-->
-        </div>
-        <div class="divider"></div>
         <div class="col-xs-12">
-            <button id="toggleTracks" class="btn btn-success">Toggle Track Tag</button>
+            <div id="player"></div>
         </div>
     </div>
 
-    <script>
+    <script type="module">
 
-        var player = new BetaJS.MediaComponents.VideoPlayer.Dynamics.Player({
-            element: $('#player'),
-            attrs: {
-                height: 320,
-                // width: 400,
-                width: '640px',
-                // width: '80%',
-                // stretch: true,
-                // stretchheight: true,
-                // stretchwidth: true,
-                // popup: true,
-                skipinitial: true,
-                autoplay: true,
-                // preload: true,
-                // fitonwidth: true,
-                // fitonheight: true,
-                // chromecast: true, // Will work only with valid URL, use ngrock for testing
+        import { attrs } from "../assets/options.js";
 
-                // theme: "cube",
-                // theme: "elevate",
-                // theme: "minimalist",
-                // theme: "modern",
-                // theme: "space",
-                // theme: "theatre",
-                themecolor: "red",
-                // fullscreenmandatory: true,
-                showsettingsmenu: false,
-                showchaptertext: true,
-                source: '/static/demos/sample-video.mp4',
-                poster: '/static/demos/assets/sample-cover.png',
-                adtagurl: 'https://public.kargovideo.com/api/v1/ad/cache?uuid=a028b44693bef5e7dd94c640409be115',
-                imasettings: {
-                    vpaidMode: 2
-                },
-                // source: '/static/demos/assets/portrait.mp4',
-                // source: 'https://storage.googleapis.com/cpe-sample-media/content/big_buck_bunny/prog/big_buck_bunny_prog.mp4', // << Chromecast
-                // poster: '/static/demos/assets/portrait-poster.png',
-                // poster: '/static/demos/assets/portrait-poster-270x480.jpeg',
-                // poster: 'https://storage.googleapis.com/cpe-sample-media/content/big_buck_bunny/images/screenshot1.png', // << Chromecast
-                // source: '/static/demos/assets/huge_video.mp4',
-                // sources: [
-                //     {
-                //         // src:'/static/demos/assets/portrait.mp4'
-                //         src:'/static/demos/sample-video.mp4'
-                //         // , poster: '/static/demos/assets/portrait-poster.png'
-                //         , hd: true
-                //         // , poster: '/static/demos/sample-cover.png'
-                //     },
-                //     {
-                //         // src:'/static/demos/assets/portrait.mp4'
-                //         // , poster:'/static/demos/assets/portrait-poster.png', hd: false
-                //         src:'/static/demos/sample-video2.mp4'
-                //         // , hd: false
-                //         , poster: '/static/demos/sample-cover.png'
-                //     }
-                // ],
-                // streams: [{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }],
-                hideoninactivity: true,
-                // tracktagsstyled: false,
-                // loop: true,
-                // tracktags: [
-                //     {
-                //         lang: 'en',
-                //         kind: 'subtitles',
-                //         label: 'English',
-                //         //enabled: true,
-                //         src: '../assets/bunny-en.vtt'
-                //     },
-                //     {
-                //         lang: 'de',
-                //         kind: 'subtitles',
-                //         label: 'Deutsch',
-                //         //enabled: true,
-                //         src: '../assets/bunny-de.vtt'
-                //     },
-                //     {
-                //         kind: 'thumbnails',
-                //         // src: '/static/demos/assets/example-3rdp.vtt'
-                //         src: '/static/demos/assets/video-bgbb.vtt'
-                //     },
-                //     {
-                //         kind: 'chapters',
-                //         // src: '/static/demos/assets/example-3rdp.vtt'
-                //         src: '/static/demos/assets/video-bgbb-chapters.vtt'
-                //     }
-                // ],
-            }
+        const localAttrs = {...attrs, ...{
+            // Can set any custom attributes here
+            // **THEMES
+            theme: "modern",
+            // theme: "cube",
+            // theme: "elevate",
+            // theme: "minimalist",
+            // theme: "modern",
+            // theme: "space",
+            // theme: "theatre",
+
+            // **SETTINGS
+            // height: 120,
+            // width: 400,
+            // width: '640px',
+            // width: '80%',
+            // videofitstrategy: "pad",// "crop", "pad", "original"
+        }};
+
+        const player = new BetaJS.MediaComponents.VideoPlayer.Dynamics.Player({
+            element: document.getElementById("player"),
+            attrs: localAttrs
         });
-
-        // console.log('Player >> ', player);
-        player.on("quarter-passed", (qr) => {
-            // qr == this.get();
-            console.log("TYPED: ", typeof this, qr);
-            // console.log("Passed Quarter: ", qr);
-            console.log("Played Seconds: ", player.get("played-seconds"));
-            // console.log("Played w/seconds: ", this.get("played-with-sound-seconds"));
-        }, player);
 
         player.on("ended", () => console.log("ENDED"), player);
 
-        player.on("playing", function() {
-            console.log('Player, started: ', this, this.get("position"));
-        }, player);
-
-        player.on("change-google-cast-volume", function (ev) {
-            console.log("change-google-cast-VOLUME - >> ", ev);
-        });
-
-        player.on("pause-google-cast", function (ev) {
-            console.log(" Should not be triggered PAUSE-google-cast ", ev);
-        });
-
-        player.on("play-google-cast", function (ev) {
-            console.log(" Should not be triggered PLAY-google-cast ", ev);
-        });
-
         player.on("attached", function (playerInstance) {
-            // this.addSettingsMenuItem({set: 'Somen'});
-            // playerInstance.add_setting({setting: 'someID'});
-            // console.log("Tags >  ", player.get("tracktags"));
-            // console.log('00 >> ', playerInstance, player.player._element)
-            let toggleButton = document.getElementById('toggleTracks');
-            if (toggleButton)
-                toggleButton.onclick = function() {
-                    player.toggle_tracks();
-                };
-
             playerInstance.on("fullscreen-change", function (isFullscreen) {
-                // console.log('is Full', isFullscreen);
+                console.log('is Full', isFullscreen);
             }, this);
-
-            // setTimeout(() => {
-            //     player.set("tracktags", [
-            //         {
-            //             lang: 'en',
-            //             kind: 'subtitles',
-            //             label: 'English',
-            //             //enabled: true,
-            //             src: '../assets/bunny-en.vtt'
-            //         }
-            //     ]);
-            // }, 2000);
-
-            // this.on("loaded", () => {
-            //     console.log('Player >> ', this);
-            // }, this);
-        }, player);
-
-        player.on("ready_to_play", (ev) => {
-            // console.log('Portrait after ?? ', player.isPortrait(), player.isLandscape());
-        }, player);
-
-        player.on("ended", function () {
-            // console.log('ENDED');
+            console.log("Player Attached", playerInstance);
         }, player);
 
         player.activate();

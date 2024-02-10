@@ -32,6 +32,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     hidecontrolbar: false,
                     showactionbuttons: false,
                     showrepeatbutton: true,
+                    showlearnmore: false,
+                    hideclosebutton: false,
                     adscompleted: false,
                     moredetailslink: null,
                     moredetailstext: null,
@@ -138,11 +140,14 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.call("contentComplete");
                     },
                     "ads:loaded": function(event) {
-                        this.set("ad", event.getAd());
-                        this.set("addata", event.getAdData());
-                        this.set("duration", event.getAdData().duration);
-                        this.set("moredetailslink", event.getAdData().clickThroughUrl);
-                        this.set("adsclicktroughurl", event.getAdData().clickThroughUrl);
+                        const ad = event.getAd();
+                        const adData = event.getAdData();
+                        const clickthroughUrl = adData.clickThroughUrl;
+                        this.set("ad", ad);
+                        this.set("addata", adData);
+                        this.set("duration", adData.duration);
+                        this.set("moredetailslink", clickthroughUrl);
+                        this.set("adsclicktroughurl", clickthroughUrl);
                     },
                     "ads:outstreamCompleted": function(dyn) {
                         this._outstreamCompleted(dyn);
@@ -221,13 +226,23 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     }, this);
                     if (dynamics) {
                         dynamics.on("resize", function(dimensions) {
-                            // This part will listen to the resize even after adsManger will be destroyed
-                            if (this.adsManager && typeof this.adsManager.resize === "function") {
-                                this.adsManager.resize(
-                                    this.getAdWidth(),
-                                    this.getAdHeight(),
-                                    google.ima.ViewMode.NORMAL
-                                );
+                            const width = this.getAdWidth();
+                            const height = this.getAdHeight();
+                            if (width && height) {
+                                // This part will listen to the resize even after adsManger will be destroyed
+                                if (this.adsManager && typeof this.adsManager.resize === "function") {
+                                    this.adsManager.resize(
+                                        width,
+                                        height,
+                                        google.ima.ViewMode.NORMAL
+                                    );
+                                }
+                                if (this.shouldShowFirstFrameAsEndcard()) {
+                                    this.setEndCardBackground(width, height);
+                                    if (this._src) {
+                                        this.getAdContainer().style.backgroundImage = `url("${this._src}")`;
+                                    }
+                                }
                             }
                         }, this);
                     }
@@ -256,7 +271,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.set("adsplaying", false);
                         this.adsManager.reset();
                         // this.adsManager.contentComplete();
-                        this.adsManager.requestAds(this._baseRequestAdsOptions());
                     },
                     reload: function() {
                         // this.adsManager.reset();
@@ -325,6 +339,54 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     return this._videoElement;
                 },
 
+                setEndCardBackground: function(width, height) {
+                    const ad = this.get("ad");
+                    if (ad) {
+                        this.updateEndCardImage(ad, width, height);
+                    }
+                },
+
+                updateEndCardImage: function(ad, width, height) {
+                    if (this._video && this._canvas && this._mediaUrl) {
+                        this.resizeCanvas(width, height);
+                        return;
+                    }
+                    this._video = document.createElement("video");
+                    this._canvas = document.createElement("canvas");
+                    this._mediaUrl = ad?.data?.mediaUrl;
+                    this._video.crossOrigin = "anonymous";
+                    this._video.src = this._mediaUrl;
+                    this._video.muted = true;
+                    this._video.play();
+                    setTimeout(function() {
+                        this._canvas.width = width;
+                        this._canvas.height = height;
+                        this._canvas
+                            .getContext("2d")
+                            .drawImage(this._video, 0, 0, this._canvas.width, this._canvas.height);
+                        this._src = this._canvas.toDataURL("image/png");
+                        this._video.pause();
+                    }.bind(this), 1000);
+                },
+
+                resizeCanvas: function(newWidth, newHeight) {
+                    this._canvas.width = newWidth;
+                    this._canvas.height = newHeight;
+                    this._canvas
+                        .getContext("2d")
+                        .drawImage(this._video, 0, 0, this._canvas.width, this._canvas.height);
+                    this._src = this._canvas.toDataURL("image/png");
+                },
+
+
+                shouldShowFirstFrameAsEndcard: function() {
+                    const dyn = this.parent();
+                    const showEndCard = !dyn.get("outstreamoptions").noEndCard;
+                    const noRepeat = !dyn.get("outstreamoptions.allowRepeat");
+                    const showFirstFrameAsEndCard = dyn.get("outstreamoptions.firstframeasendcard");
+                    return dyn && (showEndCard || noRepeat) && showFirstFrameAsEndCard;
+                },
+
                 getClickTroughElement: function() {
                     return this.activeElement().querySelector('[data-selector="ba-ads-clickthrough-container"]') || null;
                 },
@@ -368,6 +430,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         // if ad is outstream and
                         if (!isLinear && this.get("isoutstream")) {
                             this.adsManager.reset();
+                            this.adsManager.requestAds(this._baseRequestAdsOptions());
                         }
 
                         // Set companion ads array and render for normal content player viewport
@@ -409,19 +472,23 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             this._hideContentPlayer(dyn);
                             return;
                         } else {
+                            const moreDetailsLink = dyn.get("outstreamoptions.moredetailslink");
                             if (dyn.get("outstreamoptions.noEndCard")) return;
-                            if (dyn.get("outstreamoptions.moreURL")) {
-                                this.set("moredetailslink", dyn.get("outstreamoptions.moreURL"));
-                            }
                             if (dyn.get("outstreamoptions.moreText")) {
                                 this.set("moredetailstext", dyn.get("outstreamoptions.moreText"));
                             }
-                            if (dyn.get("outstreamoptions.allowRepeat")) {
-                                this.set("showrepeatbutton", !!dyn.get("outstreamoptions.allowRepeat"));
-                            }
+                            this.set("showrepeatbutton", !!dyn.get("outstreamoptions.allowRepeat"));
                             if (dyn.get("outstreamoptions.repeatText")) {
                                 this.set("repeatbuttontext", dyn.get("outstreamoptions.repeatText"));
                             }
+                            if (this.shouldShowFirstFrameAsEndcard() && this._src) {
+                                this.getAdContainer().style.backgroundImage = `url("${this._src}")`;
+                            }
+                            if (moreDetailsLink) {
+                                this.set("moredetailslink", moreDetailsLink);
+                            }
+                            this.set("hideclosebutton", !!dyn.get("outstreamoptions.hideclose"));
+                            this.set("showlearnmorebutton", !!dyn.get("outstreamoptions.showlearnmore"));
                         }
                     }
                     this.set("showactionbuttons", true);

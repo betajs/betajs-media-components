@@ -106,7 +106,207 @@
     // 'blk' show-blocks for scroll from 0 to 2 (1=bottom, 2=top as well), 'ap' autoplay,
     // 'os' outstream, 'stk' sticky, 'flt' floating, 'ac' adchoiceslink 1 or URL,
     // 'adp' ads positions string like 'pre,post'
-    import { attrs, playlist, showBlocks, generateParagraphs } from "../assets/options.js";
+    import {
+        attrs, availablepresetoptions
+    } from "../assets/options.js";
+
+    const localAttrs = {...attrs, ...{
+            fullscreenasmodal: true,
+            // autoplaywhenvisible: true,
+            // hidebeforeadstarts: false, // Will help hide player poster before ads start
+            // showplayercontentafter: 1500, // we can set any seconds to show player content in any case if ads not intialized
+            // hideoninactivity: false,
+            // ** SOURCES
+            // width: 640,
+            // height: 360,
+            minadintervals: 0,
+            muted: true,
+            unmuteonclick: true,
+            // sidebarpresetwidth: "300px" // 24,
+            // hidecontrolbar: true,
+            // hideadscontrolbar: true,
+            imasettings: {
+                // ** IMA
+                locale: 'fr',
+                uiElements: [], // ['adAttribution', 'countdown']
+                // uiElements: ['adAttribution'],
+                // uiElements: ['countdown'],
+                // uiElements: ['adAttribution', 'countdown'],
+            },
+            // presetedtooltips: {
+            //     "onclicktroughexistence": {
+            //         "closeable": true,
+            //         // "position": "top-right", // default: "top-right", other options: top-center, top-left, bottom-right, bottom-center, bottom-left
+            //         "pauseonhover": true, //  default: false
+            //         "showprogressbar": true, // default: false, will show progressbar on tooltip completion
+            //         // "showonhover": false, // TODO: will be shown on hover only
+            //         // "queryselector": null // TODO: will be shown on hover only on this element
+            //         "tooltiptext": "Click again to learn more",
+            //         "disappearafterseconds": 5 // -1 will set it as showing always, default: 2 seconds
+            //     }
+            // },
+
+            // source: '/static/demos/assets/portrait.mp4',
+            // poster: '/static/demos/assets/portrait-poster.png',
+            // poster: '/static/demos/assets/portrait-poster-270x480.jpeg',
+            // source: 'https://storage.googleapis.com/cpe-sample-media/content/big_buck_bunny/prog/big_buck_bunny_prog.mp4', // << Chromecast
+            // poster: 'https://storage.googleapis.com/cpe-sample-media/content/big_buck_bunny/images/screenshot1.png', // << Chromecast
+            // source: '/static/demos/assets/huge_video.mp4',
+            // sources: [
+            //     {
+            //         // src:'/static/demos/assets/portrait.mp4'
+            //         src:'/static/demos/sample-video.mp4'
+            //         // , poster: '/static/demos/assets/portrait-poster.png'
+            //         , hd: true
+            //         // , poster: '/static/demos/sample-cover.png'
+            //     },
+            //     {
+            //         // src:'/static/demos/assets/portrait.mp4'
+            //         // , poster:'/static/demos/assets/portrait-poster.png', hd: false
+            //         src:'/static/demos/sample-video2.mp4'
+            //         // , hd: false
+            //         , poster: '/static/demos/sample-cover.png'
+            //     }
+            // ],
+            // streams: [{label:'HD', filter:{hd:true} }, {label:'SD', filter:{hd: false} }],
+            // 'ba-playlist': [
+            //     {poster: 'sample-cover2.png', source: 'sample-video2.mp4'},
+            //     {poster: 'sample-cover.png', source: 'sample-video.mp4'},
+            //     {poster: 'sample-cover.png', source: 'sample-video3.mp4'}
+            // ],
+
+            // **ADS
+            // adsposition: "mid[12*], post",
+            // 'companionad': '[300,250]|left',
+            // 'companionad': '[300,]|top',
+            // 'companionad': '[]|bottom',
+            // 'companionad': '[300,]|bottom',
+            // 'companionad': 'companion-selector[300,200]',
+            // 'companionad': 'companion-fluid[fluid]',
+            // adsposition: "post",
+            outstreamoptions: {
+                recurrenceperiod: 5000, // Period when a new request will be sent if ads is not showing, default: 30 seconds
+                // maxadstoshow: -1 // Maximum number of ads to show; default: -1 (unlimited)
+                // maxadstoshow: 0 // Maximum number of ads to show; default: -1 (unlimited)
+                // firstframeasendcard: true,
+                // moredetailslink: "https://ziggeo.com",
+                // hideclose: false,
+                moreText: "Read more about Ziggeo",
+                hideOnCompletion: false,
+                // corner: false
+                // corner: "30px",
+                allowRepeat: true,
+                noEndCard: false,
+                repeatText: "Custom Repeat",
+                persistentcompanionad: true
+            },
+            sidebaroptions: {
+                "headerlogourl": "https://betajs.com",
+                "headerlogoimgurl": "https://betajs.com/assets/img/logo_home.png",
+                "headerlogoname": "Beta JS",
+                // presetwidth: null,
+                presetwidth: 25,
+            },
+            availablepresetoptions: availablepresetoptions,
+            // fitonwidth: true,
+            floatingoptions: {...attrs.floatingoptions, ...{
+                    showcompanionad: true,
+                    // hideplayeronclose: false,
+                    mobile: {
+                        height: 150,
+                        companionad: false,
+                        // position: 'bottom'
+                        // companionad: "[,250]",
+                        // top: 40,
+                        positioning: {
+                            // applyProperty: 'margin-top', // default: 'margin-top'
+                            // applySelector: `div.ba-player-floating`, // default: div.ba-player-floating
+                            relativeSelector: `div#header`,
+                            // relativeSelector: null,
+                        },
+                        sidebar: true,
+                        size: "l",
+                        availablesizes: {
+                            'xs': 50, 's': 75, 'm': 80, 'l': 120, 'xl': 150
+                        }
+                    },
+                    desktop: {
+                        height: 150,
+                        bottom: 20,
+                        companionad: false, //"[]|bottom", //"[]|top", // true
+                        // sidebar: true,
+
+                        size: "xs",
+                        availablesizes: {
+                            'xs': 169, 's': 183, 'm': 197, 'l': 211, 'xl': 225
+                        }
+                    }
+                }},
+            // adsposition: "pre, mid, post",
+            // adsposition: "mid[5*]",
+            // minadintervals: 8,
+
+            // **FLOATING - STICKY
+            // visibilityfraction: 0.01,
+            // 'sticky-threshold': 0.1,
+            // 'sticky-position': 'bottom-right',
+
+            // **THEMES
+            // theme: "modern",
+            // theme: "cube",
+            // theme: "elevate",
+            // theme: "minimalist",
+            // theme: "modern",
+            // theme: "space",
+            // theme: "theatre",
+
+            // **SETTINGS
+            // height: 120,
+            // width: 400,
+            // width: '640px',
+            // width: '80%',
+            // videofitstrategy: "pad",// "crop", "pad", "original"
+
+            // popup: true,
+            // showduration: true ,
+            // preload: true,
+            // fitonwidth: true,
+            // fitonheight: true,
+            // chromecast: true, // Will work only with valid URL, use ngrock for testing
+            // fullscreenmandatory: true,
+            // showsettingsmenu: false,
+            // showchaptertext: true,
+            // preload: true,
+            // tracktagsstyled: false,
+            // loop: true,
+            // tracktags: [
+            //     {
+            //         lang: 'en',
+            //         kind: 'subtitles',
+            //         label: 'English',
+            //         //enabled: true,
+            //         src: '../assets/bunny-en.vtt'
+            //     },
+            //     {
+            //         lang: 'de',
+            //         kind: 'subtitles',
+            //         label: 'Deutsch',
+            //         //enabled: true,
+            //         src: '../assets/bunny-de.vtt'
+            //     },
+            //     {
+            //         kind: 'thumbnails',
+            //         // src: '/static/demos/assets/example-3rdp.vtt'
+            //         src: '/static/demos/assets/video-bgbb.vtt'
+            //     },
+            //     {
+            //         kind: 'chapters',
+            //         // src: '/static/demos/assets/example-3rdp.vtt'
+            //         src: '/static/demos/assets/video-bgbb-chapters.vtt'
+            //     }
+            // ],
+        }
+    };
 
     // Check multiple companion ads
     // attrs.companionad = {
@@ -119,32 +319,12 @@
     //     }]
     // }
 
-    // Show content for floating and sticky testing
-    const beforePlayerContent = document.getElementById("before-player-content");
-    const afterPlayerContent = document.getElementById("after-player-content");
-
     const adTagURL = `https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=`;
     const adErrorTagURL = '//localhost:5050/static/demos/vast-samples/---error-url---';
 
-    if (beforePlayerContent && afterPlayerContent && showBlocks > 0) {
-        afterPlayerContent.style.display = "block";
-        generateParagraphs(afterPlayerContent.firstElementChild, 10);
-        if (showBlocks > 1) {
-            beforePlayerContent.style.display = "block";
-            generateParagraphs(beforePlayerContent.firstElementChild, 20);
-        }
-    }
-
-    const {showsidebargallery, nextwidget } = attrs;
-    if ((showsidebargallery || nextwidget) && !attrs.playlist) {
-        attrs.playlist = playlist;
-    }
-
-    console.log("Attributes: ", attrs);
-
     player = new BetaJS.MediaComponents.VideoPlayer.Dynamics.Player({
         element: $('#player'),
-        attrs
+        attrs: localAttrs
     });
 
     // Test for outstream ads, and it's recruitment process

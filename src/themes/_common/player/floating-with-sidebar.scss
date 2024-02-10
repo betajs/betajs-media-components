@@ -12,12 +12,32 @@ div.#{$cssplayer}-with-sidebar {
         background: $sidebar_background_color;
         .#{$cssfloatingsidebar}-ad-playing-container {
             position: relative;
-        }
-        .#{$cssfloatingsidebar}-content-container {
             display: flex;
             align-items: center;
             justify-content: center;
             height: 100%;
+            .#{$cssfloatingsidebar}-title {
+                font-size: 12px;
+                font-weight: 500;
+                max-width: 150px;
+                text-align: left;
+            }
+        }
+        .#{$cssfloatingsidebar}-logo {
+            position: absolute;
+            right: 5px;
+            bottom: 5px;
+            img {
+                max-width: 40px;
+            }
+        }
+        .#{$cssfloatingsidebar}-content-container {
+            height: 100%;
+            margin-left: 7px;
+            margin-top: 11px;
+            margin-right: 18px;
+            text-align: left;
+            word-wrap: break-word;
         }
         a.#{$cssfloatingsidebar}-action-button {
             @include transition1(border, 500ms, ease-out);

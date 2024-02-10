@@ -1386,7 +1386,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         element: video,
                         onlyaudio: this.get("onlyaudio"), // Will fix only audio local playback bug
                         preload: !!this.get("preload"),
-                        loop: !!this.get("loop") || (this.get("lastplaylistitem") && this.get("loopall")),
+                        loop: !!this.get("loop"),
                         reloadonplay: this.get('playlist') && this.get("playlist").length > 0 ? true : !!this.get("reloadonplay"),
                         fullscreenedElement: this.activeElement().childNodes[0],
                         loadmetadata: Info.isChrome() && this.get("skipinitial")
@@ -1543,7 +1543,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }, this);
                         this.player.on("ended", function() {
                             if (this.get("sample_brightness")) this.__brightnessSampler.stop();
-                            this.pause();
                             this.set("playing", false);
                             this.set('playedonce', true);
                             this.set("playbackended", this.get('playbackended') + 1);

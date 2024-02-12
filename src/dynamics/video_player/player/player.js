@@ -1277,13 +1277,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     ctx.clearRect(0, 0, canvas.width, canvas.height)
                     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-                    return {
-                        canvas,
-                        ctx
-                    };
+                    return canvas;
+
                 },
                 _renderVideoFrame: function(video) {
-                    const videoPoster = video.poster;
                     const img = document.createElement('img');
                     img.style.width = '100%';
                     video.style.backgroundColor = 'transparent';
@@ -1300,34 +1297,19 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     try {
                         const canvas = this._drawFrame(video, currentPosition, width, height);
                         img.onload = function(e) {};
-                        img.src = `${canvas.canvas.toDataURL()}`;;
+                        img.src = `${canvas.toDataURL()}`;;
                         videoParentEle.appendChild(img);
-
                         if (this.get("trackFrameTime") > currentPosition) {
                             video.currentTime = this.get("trackFrameTime");
                         }
                         this.set('trackFrameTime', currentPosition)
 
                     } catch (e) {
-                        img.src = videoPoster;
+                        img.src = video.poster;
                         videoParentEle.appendChild(img);
                     }
 
                 },
-                isImageBlack: function(canvas) {
-                    var imageData = canvas.ctx.getImageData(0, 0, canvas.canvas.width, canvas.canvas.height);
-                    var pixels = imageData.data;
-                    for (var i = 0; i < pixels.length; i += 4) {
-                        var r = pixels[i];
-                        var g = pixels[i + 1];
-                        var b = pixels[i + 2];
-                        if (r !== 0 || g !== 0 || b !== 0) {
-                            return false;
-                        }
-                    }
-                    return true;
-                },
-
                 _detachVideo: function() {
                     this.set("playing", false);
                     if (this.player) this.player.weakDestroy();

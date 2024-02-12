@@ -369,7 +369,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     video.src = mediaUrl;
                     setTimeout(function() {
                         try {
-                            const img = document.createElement('img');
                             video.currenttime = this.get('currenttime');
                             canvas.width = width;
                             canvas.height = height;
@@ -377,8 +376,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             ctx.clearRect(0, 0, canvas.width, canvas.height);
                             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-                            img.onload = function(e) {};
-                            img.src = `${canvas.toDataURL("image/png")}`;
                             if (this.isImageBlack(ctx, width, height)) {
                                 this.getAdContainer().style.backgroundImage = `url(${canvas.toDataURL("image/png")})`;
                             }

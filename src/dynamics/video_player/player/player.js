@@ -1023,7 +1023,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("fullscreensupport", false);
                     this.set("csssize", "normal");
                     this.set("with_sidebar", false);
-
+                    this.set('isAnroid', (Info.isMobile() && !Info.isiOS()))
                     // this.set("loader_active", false);
                     // this.set("playbutton_active", false);
                     // this.set("controlbar_active", false);
@@ -1868,6 +1868,27 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }
                     if (exists) this.get("tooltips").remove(exists);
                 },
+                hideControl: function() {
+                    this.auto_destroy(new Timers.Timer({
+                        delay: 3000,
+                        fire: function() {
+                            if (this.get("showcontroll") && this.get('playing')) this.set("showcontroll", false);
+
+                        }.bind(this),
+                        once: true
+                    }));
+                },
+                showControll: function() {
+                    if (this.get("playing") && !this.get('showcontroll') && this.get('trackUnmute') && this.get('isAnroid')) {
+                        this.set('showcontroll', true);
+                        this.hideControl();
+                        return true;
+
+                    } else if (!this.get("playing") && this.get('showcontroll')) {
+                        this.set('showcontroll', false);
+                        return false;
+                    }
+                },
 
                 object_functions: ["play", "rerecord", "pause", "stop", "seek", "set_volume", "set_speed", "toggle_tracks"],
 
@@ -2081,8 +2102,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this._delegatedPlayer.execute("toggle_player");
                                 return;
                             }
-                            if (fo && this.get("unmuteonclick")) return;
+                            if (fo && this.get("unmuteonclick")) {
+                                this.set('trackUnmute', false);
+                                return;
+                            }
+                            if (this.showControll()) return;
                             if (this.get("playing") && this.get("pauseonclick")) {
+                                this.set('showcontroll', this.get('isAnroid'));
+                                this.set('trackUnmute', this.get('isAnroid'));
                                 this.trigger("pause_requested");
                                 this.pause();
                             } else if (!this.get("playing") && this.get("playonclick")) {

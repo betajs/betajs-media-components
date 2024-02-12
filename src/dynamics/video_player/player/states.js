@@ -556,6 +556,10 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream", [
                 this.afterAdCompleted();
             }, this);
 
+            this.listenOn(this.dyn.channel("ads"), "contentResumeRequested", function() {
+                this.afterAdCompleted();
+            }, this);
+
             if (this.dyn.get("outstreamoptions.maxadstoshow") > 0)
                 this.dyn.set("outstreamoptions.maxadstoshow", this.dyn.get("outstreamoptions.maxadstoshow") - 1);
 

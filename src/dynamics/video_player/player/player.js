@@ -93,6 +93,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "csstopmessage": "",
                         "csscontrolbar": "",
                         "csstracks": "",
+                        "testid": "ba-testid",
                         "width": "",
                         "height": "",
                         "presetkey": null,
@@ -619,12 +620,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "next:setStay": function() {
                         this.set("stayengaged", true);
                         this.set("next_active", false);
-                        this.__setPlayerEngagement();
+                        this.setPlayerEngagement();
                     },
                     "next:playNext": function() {
                         this.trigger("play_next");
                         this.set("next_active", false);
-                        this.__setPlayerEngagement();
+                        this.setPlayerEngagement();
                     },
                     "next:resetNextWidget": function() {
                         this.set("stayengaged", false);
@@ -1392,7 +1393,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         loop: !!this.get("loop") || (this.get("lastplaylistitem") && this.get("loopall")),
                         reloadonplay: this.get('playlist') && this.get("playlist").length > 0 ? true : !!this.get("reloadonplay"),
                         fullscreenedElement: this.activeElement().childNodes[0],
-                        loadmetadata: Info.isChrome() && this.get("skipinitial")
+                        loadmetadata: Info.isChrome() && this.get("skipinitial"),
+                        muted: this.get("muted") || this.get("volume") <= 0
                     })).error(function(e) {
                         if (this.destroyed())
                             return;
@@ -1883,17 +1885,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     message_click: function() {
                         this.trigger("message:click");
-                        this.__setPlayerEngagement();
+                        this.setPlayerEngagement();
                     },
 
                     playbutton_click: function() {
-                        this.__setPlayerEngagement();
+                        this.setPlayerEngagement();
                         this.trigger("playbuttonclick");
                         this.host.state().play();
                     },
 
                     play: function() {
-                        this.__setPlayerEngagement();
+                        this.setPlayerEngagement();
                         this.trigger("playrequested");
                         if (this._delegatedPlayer) {
                             this._delegatedPlayer.execute("play");
@@ -1968,7 +1970,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     seek: function(position) {
-                        this.__setPlayerEngagement();
+                        this.setPlayerEngagement();
                         if (this.get("preventinteractionstatus")) return;
                         if (this._delegatedPlayer) {
                             this._delegatedPlayer.execute("seek", position);
@@ -2000,7 +2002,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     set_speed: function(speed, from_ui) {
-                        this.__setPlayerEngagement();
+                        this.setPlayerEngagement();
                         if (!this.player) return false;
                         this.player.setSpeed(speed);
                         if (!from_ui) this.updateSettingsMenuItem("playerspeeds", {
@@ -2010,13 +2012,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     set_volume: function(volume) {
-                        this.__setPlayerEngagement();
+                        this.setPlayerEngagement();
                         if (this.get("preventinteractionstatus")) return;
                         if (this._delegatedPlayer) {
                             this._delegatedPlayer.execute("set_volume", volume);
                             return;
                         }
                         this.set("volume", Maths.clamp(volume, 0, 1));
+                    },
+
+                    toggle_volume: function() {
+                        this.setPlayerEngagement();
                     },
 
                     toggle_settings_menu: function() {
@@ -2028,7 +2034,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     toggle_fullscreen: function() {
-                        this.__setPlayerEngagement();
+                        this.setPlayerEngagement();
                         if (this.get("preventinteractionstatus")) return;
                         if (this._delegatedPlayer) {
                             this._delegatedPlayer.execute("toggle_fullscreen");
@@ -2083,7 +2089,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 return;
                             }
                             if (fo && this.get("unmuteonclick")) {
-                                this.__setPlayerEngagement();
+                                this.setPlayerEngagement();
                                 return;
                             }
                             if (this.get("playing") && this.get("pauseonclick")) {
@@ -2091,7 +2097,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.pause();
                             } else if (!this.get("playing") && this.get("playonclick")) {
                                 this.trigger("play_requested");
-                                this.__setPlayerEngagement();
+                                this.setPlayerEngagement();
                                 this.play();
                             }
                         }.bind(this), 100, true);
@@ -2189,7 +2195,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     resume_ads: function() {
-                        this.__setPlayerEngagement();
+                        this.setPlayerEngagement();
                         this.channel("ads").trigger("resume");
                     },
 
@@ -3013,6 +3019,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }, this);
                 },
 
+                // We will listen some interaction events,
+                // and remove them as soon as user has interaction
                 __attachPlayerInteractionEvents: function() {
                     this.__bindedInteractionEvents = [];
                     Objs.iter(this.__INTERACTION_EVENTS, function(eventName) {
@@ -3024,7 +3032,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.auto_destroy(
                             this.activeElement().addEventListener(
                                 eventName, f, {
-                                    once: true
+                                    once: false
                                 }
                             ));
                     }, this);
@@ -3043,12 +3051,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }, this);
                 },
 
-                __setPlayerEngagement: function() {
+                // Detect if user engaged with the player. It happens in some actions made by user, pause is not that action
+                setPlayerEngagement: function() {
                     if (this.get("userengagedwithplayer")) return;
                     this.set("userengagedwithplayer", true);
                     this.trigger("playerengaged");
                 },
 
+                // If user has any player interaction
                 __setPlayerHadInteraction: function() {
                     if (this.get("unmuteonclick")) {
                         if (this.get("unmuteonengagement")) {
@@ -3076,7 +3086,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         fire: function() {
                             if (this.get("muted")) this.set("muted", false);
                             if (this.get("volume") === 0) this.set_volume(this.get("volume") || this.get("initialoptions").volumelevel || 1);
-                            if (!this.get("manuallypaused")) this.__setPlayerEngagement();
+                            if (!this.get("manuallypaused")) this.setPlayerEngagement();
                             this.set("unmuteonclick", false);
                         }.bind(this),
                         once: true

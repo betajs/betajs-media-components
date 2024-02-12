@@ -56,7 +56,7 @@
         <div ba-show="{{canvaselement_active}}" class="{{css}}-video-container">
             <canvas tabindex="-1" data-canvas="canvas"   class="{{csscommon}}-{{posterfitstrategy}}-fit {{css}}-canvas-frames"></canvas>
         </div>
-        
+
         <ba-{{dynadsplayer}}
             ba-if="{{adsplayer_active}}"
             ba-ad="{{=ad}}"
@@ -65,6 +65,7 @@
             ba-css="{{css}}"
             ba-cssplayer="{{cssplayer}}"
             ba-csscommon="{{csscommon}}"
+            ba-testid="{{testid}}"
             ba-duration="{{=adduration}}"
             ba-volume="{{=volume}}"
             ba-muted="{{muted}}"
@@ -130,6 +131,7 @@
                 ba-css="{{csscontrolbar || css}}"
                 ba-cssplayer="{{cssplayer || css}}"
                 ba-csstheme="{{csstheme || css}}"
+                ba-testid="{{testid}}"
                 ba-logo="{{controlbar_logo}}"
                 ba-themecolor="{{themecolor}}"
                 ba-template="{{tmplcontrolbar}}"
@@ -157,6 +159,7 @@
                 ba-event:tab_index_move="tab_index_move"
                 ba-event:seek="seek"
                 ba-event:toggle_tracks="toggle_tracks"
+                ba-event:toggle_volume="toggle_volume"
                 ba-tabindex="{{tabindex}}"
                 ba-showchaptertext="{{showchaptertext}}"
                 ba-chapterslist="{{chapterslist}}"

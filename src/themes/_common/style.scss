@@ -1,6 +1,11 @@
 .#{$csscommon}-full-width { width: 100%; }
 
-.#{$csscommon}-full-height { height: 100%; }
+.#{$csscommon}-full-height { 
+    height: 100%; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 
 .#{$csscommon}-portrait-aspect-ratio { aspect-ratio: 9/16; }
 

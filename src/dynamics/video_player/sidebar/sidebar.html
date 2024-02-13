@@ -2,18 +2,20 @@
      ba-show="{{gallerysidebar}}"
      class="{{csscommon}}-full-height"
 >
-    <div ba-if="{{adsplaying}}" class="{{cssgallerysidebar}}-container {{cssgallerysidebar}}-ads-container">
-
-        <div class="{{cssgallerysidebar}}-ads-header-container">
-            <div ba-if="{{headerlogoimgurl}}"
-                 class="{{cssgallerysidebar}}-ads-header-logo-container"
-            >
-                <a href="{{ headerlogourl || headerlogoimgurl }}" title="{{headerlogoname}}" target="_blank">
-                    <img src="{{headerlogoimgurl}}" alt="{{headerlogoname}}" />
-                </a>
-            </div>
+    <div class="{{cssgallerysidebar}}-header-container">
+        <div class="{{cssgallerysidebar}}-title">
+            <span ba-if="{{!adsplaying}}">{{gallerytitletext}}</span>
         </div>
+        <div ba-if="{{ headerlogoimgurl }}"
+             class="{{cssgallerysidebar}}-header-logo"
+        >
+            <a href="{{headerlogourl || headerlogoimgurl }}" title="{{ headerlogoname }}" target="_blank">
+                <img src="{{ headerlogoimgurl }}" alt="{{headerlogoname}}" />
+            </a>
+        </div>
+    </div>
 
+    <div ba-if="{{adsplaying}}" class="{{cssgallerysidebar}}-container {{cssgallerysidebar}}-ads-container">
         <div class="{{cssgallerysidebar}}-ads-body-container">
             <div ba-if="{{afteradsendtext}}" class="{{cssgallerysidebar}}-ad-information-text">
                 <p>
@@ -48,19 +50,6 @@
     </div>
 
     <div ba-show="{{!adsplaying}}" class="{{cssgallerysidebar}}-container">
-        <div class="{{cssgallerysidebar}}-header-container">
-            <div class="{{cssgallerysidebar}}-title">
-                {{gallerytitletext}}
-            </div>
-            <div ba-if="{{ headerlogoimgurl }}"
-                 class="{{cssgallerysidebar}}-header-logo"
-            >
-                <a href="{{headerlogourl || headerlogoimgurl }}" title="{{ headerlogoname }}" target="_blank">
-                    <img src="{{ headerlogoimgurl }}" alt="{{headerlogoname}}" />
-                </a>
-            </div>
-        </div>
-
         <div class="{{cssgallerysidebar}}-list-container">
             <div ba-if="{{loading}}" class="{{cssgallerysidebar}}-loading-container">
                 <ba-spinner></ba-spinner>

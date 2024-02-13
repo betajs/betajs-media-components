@@ -1,9 +1,11 @@
 <div class="{{cssplayer}}-toggle-next-container {{cssplayer}}-next-style-{{style}}">
     <div class="{{cssplayer}}-next-button-container">
         <a class="{{cssplayer}}-next-button-stay {{cssplayer}}-next-button"
-           ba-click="{{stay()}}"
+        ontouchstart="{{stay(domEvent)}}"
+        ba-click="{{stay(domEvent)}}"
         >Stay</a>
-        <a ba-click="{{next()}}"
+        <a ontouchstart="{{next(domEvent)}}"
+        ba-click="{{next(domEvent)}}"
            class="{{cssplayer}}-next-button-next {{cssplayer}}-next-button"
         >
             <span class="{{cssplayer}}-next-progress"

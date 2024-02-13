@@ -37,12 +37,22 @@ Scoped.define("module:VideoPlayer.Dynamics.Next", [
                         img.src = nextvideoposter;
                     }
                 },
-
                 functions: {
-                    stay: function() {
+                    stay: function(event) {
+                        if (event)
+                            if (event[0].type === 'touchstart') {
+                                event[0].preventDefault();
+                                event[0].stopPropagation();
+                            }
+
                         this.channel("next").trigger("setStay");
                     },
-                    next: function() {
+                    next: function(event) {
+                        if (event)
+                            if (event[0].type === 'touchstart') {
+                                event[0].preventDefault();
+                                event[0].stopPropagation();
+                            }
                         this.channel("next").trigger("manualPlayNext");
                         this.channel("next").trigger("playNext");
                     }

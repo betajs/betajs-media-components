@@ -3,13 +3,14 @@
     {{cssadsplayer + (linear ? '-linear-ad-container' : '-non-linear-ad-container')}}
     {{hideoninactivity ? (cssplayer + '-controlbar-hidden') : ''}}"
     ba-styles="{{floating ? {} : parentcontainersizingstyles}}"
-    data-video="ima-ad-container"
+    data-video="ima-ad-container" data-testid="{{testid}}-ads-player-container"
 >
     <ba-ads-choices-link
         ba-if="{{showadchoices && adchoiceslink && adchoicesontop && adsplaying && !floating && !sidebar_active}}"
         ba-adchoiceslink="{{adchoiceslink}}"
         ba-cssadsplayer="{{cssadsplayer}}"
         ba-datatestselector="top-ads-choices-button"
+        data-testid="{{testid}}-top-ads-choices-button"
     ></ba-ads-choices-link>
 
     <div ba-if="{{showactionbuttons && isoutstream}}"
@@ -20,6 +21,7 @@
                 href="{{ moredetailslink }}" target="_blank"
                 class="{{cssadsplayer}}-action-button"
                 title="{{moredetailstext ? moredetailstext : string('learn-more')}}"
+                data-testid="{{testid}}-ads-player-more-details-button"
             >
                 <i class="{{csscommon}}-icon-share"></i>
                 {{moredetailstext ? moredetailstext : string('learn-more')}}
@@ -27,7 +29,8 @@
         </div>
         <div ba-if="{{showrepeatbutton}}">
             <button class="{{cssadsplayer}}-action-button" ba-click="{{replay()}}"
-                title="{{repeatbuttontext ? repeatbuttontext : string('replay-ad')}}"
+                    title="{{repeatbuttontext ? repeatbuttontext : string('replay-ad')}}"
+                    data-testid="{{testid}}-ads-player-replay-button"
             >
                 <i class="{{csscommon}}-icon-cw"></i>
                 {{repeatbuttontext ? repeatbuttontext : string('replay-ad')}}
@@ -35,7 +38,8 @@
         </div>
         <div ba-if="{{!hideclosebutton}}">
             <button class="{{cssadsplayer}}-action-button {{cssadsplayer}}-reversed-color"
-                 title="{{string('close-ad')}}" ba-click="{{close()}}"
+                    title="{{string('close-ad')}}" ba-click="{{close()}}"
+                    data-testid="{{testid}}-ads-player-close-button"
             >
                 <i class="{{csscommon}}-icon-cancel"></i>
                 {{string('close-ad')}}

@@ -93,6 +93,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "csstopmessage": "",
                         "csscontrolbar": "",
                         "csstracks": "",
+                        "testid": "ba-testid",
                         "width": "",
                         "height": "",
                         "presetkey": null,

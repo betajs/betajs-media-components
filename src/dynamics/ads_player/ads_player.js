@@ -266,6 +266,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         // this.call("requestAds");
                     },
                     ad_clicked: function() {
+                        this._onPlayerEngaged();
                         if (!this.get("userhadplayerinteraction")) {
                             this.parent().set("userhadplayerinteraction", true);
                         }
@@ -295,15 +296,25 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         return this.adsManager.pause();
                     },
                     resume: function() {
+                        this._onPlayerEngaged();
                         return this.adsManager.resume();
                     },
                     set_volume: function(volume) {
+                        this._onPlayerEngaged();
                         this.set("volume", Maths.clamp(volume, 0, 1));
                     },
                     stop: function() {
                         return this.adsManager.stop();
                     },
+                    fullscreen: function() {
+                        this._onPlayerEngaged();
+                        this.trigger('fullscreen');
+                    },
+                    toggle_volume: function() {
+                        this._onPlayerEngaged();
+                    },
                     replay: function() {
+                        this._onPlayerEngaged();
                         this._replay();
                     },
                     close: function() {
@@ -462,6 +473,13 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     }
                     if (this.__companionAdElement) {
                         this.__companionAdElement.innerHTML = "";
+                    }
+                },
+
+                _onPlayerEngaged: function() {
+                    const parentDyn = this.parent();
+                    if (parentDyn && Types.is_function(parentDyn.setPlayerEngagement)) {
+                        parentDyn.setPlayerEngagement();
                     }
                 },
 

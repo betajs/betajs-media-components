@@ -56,7 +56,7 @@
         <div ba-show="{{canvaselement_active}}" class="{{css}}-video-container">
             <canvas tabindex="-1" data-canvas="canvas"   class="{{csscommon}}-{{posterfitstrategy}}-fit {{css}}-canvas-frames"></canvas>
         </div>
-        
+
         <ba-{{dynadsplayer}}
             ba-if="{{adsplayer_active}}"
             ba-ad="{{=ad}}"
@@ -144,19 +144,6 @@
                 ba-chromecast="{{chromecast}}"
                 ba-castbuttonvisble="{{castbuttonvisble}}"
                 ba-sidebar_active="{{sidebar_active}}"
-                ba-event:rerecord="rerecord"
-                ba-event:submit="submit"
-                ba-event:play="play"
-                ba-event:pause="pause"
-                ba-event:position="seek"
-                ba-event:volume="set_volume"
-                ba-event:set_speed="set_speed"
-                ba-event:settings_menu="toggle_settings_menu"
-                ba-event:fullscreen="toggle_fullscreen"
-                ba-event:toggle_player="toggle_player"
-                ba-event:tab_index_move="tab_index_move"
-                ba-event:seek="seek"
-                ba-event:toggle_tracks="toggle_tracks"
                 ba-tabindex="{{tabindex}}"
                 ba-showchaptertext="{{showchaptertext}}"
                 ba-chapterslist="{{chapterslist}}"
@@ -198,6 +185,20 @@
                 ba-view_type="{{view_type}}"
                 ba-is_floating="{{is_floating}}"
                 ba-with_sidebar="{{with_sidebar}}"
+                ba-event:rerecord="rerecord"
+                ba-event:submit="submit"
+                ba-event:play="play"
+                ba-event:pause="pause"
+                ba-event:position="seek"
+                ba-event:volume="set_volume"
+                ba-event:set_speed="set_speed"
+                ba-event:settings_menu="toggle_settings_menu"
+                ba-event:fullscreen="toggle_fullscreen"
+                ba-event:toggle_player="toggle_player"
+                ba-event:tab_index_move="tab_index_move"
+                ba-event:seek="seek"
+                ba-event:toggle_tracks="toggle_tracks"
+                ba-event:toggle_volume="toggle_volume"
             ></ba-{{dyncontrolbar}}>
 
             <ba-{{dyntracks}}
@@ -324,9 +325,9 @@
             ba-nextactive="{{next_active}}"
             ba-noengagenext="{{noengagenext}}"
             ba-mobileviewport="{{mobileviewport}}"
-            ba-event:pause_ads="pause_ads"
             ba-showadchoices="{{showadchoices}}"
             ba-unknownadsrc="{{unknownadsrc}}"
+            ba-event:pause_ads="pause_ads"
         ></ba-{{dynsidebar}}>
     </div>
     <div ba-if="{{!fullscreened && is_floating && floatingoptions.closeable}}"

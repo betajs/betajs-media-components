@@ -65,39 +65,41 @@ test.describe('Unmute on click behave', () => {
             // Go to the starting url before each test.
             await player.goto();
             await player.setPlayerInstance();
+            // await player.listenPlayerEvent("attached", 5);
 
             const dataTestId = await player.getPlayerAttribute('testid');
             const hasAdsSource = await player.getPlayerAttribute(`adshassource`);
             expect(hasAdsSource).not.toBeUndefined();
 
-            const playerContainer = await page.getByTestId(`${dataTestId}-player-container`);
-
-            let unmuteOnEngagement = await player.getPlayerAttribute(`unmuteonengagement`)
+            let unmuteOnEngagement = await player.getPlayerAttribute(`unmuteonengagement`);
             await expect(unmuteOnEngagement).toBeTruthy();
 
             if (!hasAdsSource) throw new Error(`We need ad tag URL to proceed`);
-            await playerContainer.hover({timeout: 1_000});
+            const playerContainer = await page.getByTestId(`${dataTestId}-player-container`);
+            await player.waitAdsRemainingSeconds(8, 15_000);
+            // await player.listenPlayerEvent("ads:loaded", 15);
+            await expect(playerContainer).toBeVisible();
+            await playerContainer.hover({timeout: 10_000});
+
             const pauseButton = await page.getByTestId(`${dataTestId}-ads-controlbar-pause-button`);
-            const mutedIcon = await page.getByTestId(`${dataTestId}-ads-controlbar-volume-unmute`).locator('i');
             let isMuted = await player.getPlayerAttribute("muted");
             await expect(isMuted).toBeTruthy();
 
-            // await player.listenPlayerEvent("ads:adCanPlay", 10);
             await pauseButton.isVisible();
-            await page.waitForTimeout(1000);
             await pauseButton.click();
             await page.waitForTimeout(300);
 
             isMuted = await player.getPlayerAttribute("muted");
             await expect(isMuted).toBeTruthy();
+            const mutedIcon = await page.getByTestId(`${dataTestId}-ads-controlbar-volume-unmute`).locator('i');
             await mutedIcon.isVisible();
 
             const playButton = await page.getByTestId(`${dataTestId}-ads-controlbar-play-button`);
 
             await playButton.isVisible();
-            await page.waitForTimeout(300);
             await playButton.click();
-            await page.waitForTimeout(300);
+            // Unmute will take some time to reflect
+            await page.waitForTimeout(500);
 
             isMuted = await player.getPlayerAttribute("muted");
             await expect(isMuted).toBeFalsy();
@@ -107,14 +109,15 @@ test.describe('Unmute on click behave', () => {
             await volumeIcon.isVisible();
 
             // PART 2: Reload now click on the unmute button
+            await player.waitAdsRemainingSeconds(8, 15_000);
             await playerContainer.hover({timeout: 1_000});
             const unMuteButton = page.getByTestId(`${dataTestId}-ads-controlbar-volume-unmute`);
             await reloadPage(player, unMuteButton, dataTestId);
 
             // Now click on the unmute player
-            await page.waitForTimeout(300);
             await unMuteButton.click();
-            await page.waitForTimeout(300);
+            // Unmute will take some time to reflect
+            await page.waitForTimeout(500);
             isMuted = await player.getPlayerAttribute("muted");
             await expect(isMuted).toBeFalsy();
         }
@@ -127,8 +130,8 @@ test.describe('Unmute on click behave', () => {
 
 
     test(`Content Player Unmute only on engagement`, async ({
-                                                                page, browserName, browser, context
-                                                            }) => {
+        page, browserName, browser, context
+    }) => {
 
         const runTest = async (page, browser, context) => {
             // delete defaultPlayerAttributes['poster'];
@@ -173,9 +176,9 @@ test.describe('Unmute on click behave', () => {
             // await player.listenPlayerEvent("ads:adCanPlay", 10);
             const pauseButton = await page.getByTestId(`${dataTestId}-content-pause-button`);
             await pauseButton.isVisible();
-            await page.waitForTimeout(1000);
             await pauseButton.click();
-            await page.waitForTimeout(300);
+            // Unmute will take some time to reflect
+            await page.waitForTimeout(500);
 
             isMuted = await player.getPlayerAttribute("muted");
             await expect(isMuted).toBeTruthy();
@@ -184,8 +187,9 @@ test.describe('Unmute on click behave', () => {
 
             await playButton.isVisible();
             await playButton.click();
-            await page.waitForTimeout(500);
 
+            // Unmute will take some time to reflect
+            await page.waitForTimeout(500);
             isMuted = await player.getPlayerAttribute("muted");
             let volume = await player.getPlayerAttribute("volume");
             await expect(volume).toBeGreaterThan(0);

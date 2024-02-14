@@ -3017,6 +3017,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }, this);
                 },
 
+                // We will listen some interaction events,
+                // and remove them as soon as user has interaction
                 __attachPlayerInteractionEvents: function() {
                     this.__bindedInteractionEvents = [];
                     Objs.iter(this.__INTERACTION_EVENTS, function(eventName) {

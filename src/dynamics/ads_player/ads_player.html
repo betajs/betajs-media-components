@@ -52,7 +52,7 @@
     ></div>
     <div ba-if="{{!userhadplayerinteraction && unmuteonclick && linear}}"
          class="{{css}}-overlay {{cssadsplayer}}-ad-click-tracker {{csscommon}}-clickable"
-         ba-click="{{ad_clicked()}}"
+         ba-click="{{ad_clicked()}}" data-testid="ads-player-ad-click-button"
     ></div>
 </div>
 <ba-{{dyncontrolbar}}
@@ -60,6 +60,7 @@
     ba-css="{{css}}"
     ba-csscommon="{{csscommon}}"
     ba-cssadsplayer="{{cssadsplayer}}"
+    ba-testid="{{testid}}"
     ba-template="{{tmplcontrolbar}}"
     ba-linear={{linear}}
     ba-duration="{{duration}}"
@@ -80,10 +81,10 @@
     ba-adchoicesstring="{{string('ad-choices')}}"
     ba-controlbarstyles="{{controlbarstyles}}"
     ba-showadchoices="{{showadchoices}}"
-    ba-event:resume="resume"
     ba-event:pause="pause"
-    ba-event:stop="stop"
     ba-event:volume="set_volume"
+    ba-event:stop="stop"
+    ba-event:resume="resume"
     ba-event:fullscreen="{{trigger('fullscreen')}}"
     ba-event:toggle_volume="{{toggle_volume}}"
 ></ba-{{dyncontrolbar}}>

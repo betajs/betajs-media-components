@@ -164,7 +164,9 @@
              class="{{css}}-rightbutton-container {{controlbar_hide_class}}"
              onkeydown="{{tab_index_move(domEvent)}}"
              ba-click="{{toggle_fullscreen()}}" ba-on:touchend="{{toggle_fullscreen()}}"
-             title="{{ fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video') }}">
+             title="{{ fullscreened ? string('exit-fullscreen-video') : string('fullscreen-video') }}"
+             data-testid="{{testid}}-fullscreen-button"
+        >
             <div class="{{css}}-button-inner">
                 <i class="{{csscommon}}-icon-resize-{{fullscreened ? 'small' : 'full'}}"></i>
             </div>
@@ -173,7 +175,9 @@
         <div tabindex="7" data-selector="button-airplay"
              ba-hotkey:space^enter="{{show_airplay_devices()}}" onmouseout="this.blur()"
              class="{{css}}-rightbutton-container {{controlbar_hide_class}}"
-             ba-show="{{airplaybuttonvisible}}" ba-click="{{show_airplay_devices()}}">
+             ba-show="{{airplaybuttonvisible}}" ba-click="{{show_airplay_devices()}}"
+             data-testid="{{testid}}-show-airplay-button"
+        >
             <div class="{{css}}-airplay-container">
                 <svg width="16px" height="11px" viewBox="0 0 16 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <!-- Generator: Sketch 3.3.2 (12043) - http://www.bohemiancoding.com/sketch -->
@@ -196,6 +200,7 @@
              class="{{css}}-rightbutton-container {{controlbar_hide_class}}"
              ba-if="{{streams.length > 1 && currentstream}}" ba-click="{{toggle_stream()}}"
              title="{{string('change-resolution')}}"
+             data-testid="{{testid}}-toggle-stream-button"
         >
             <div class="{{css}}-button-inner {{controlbar_hide_class}}">
                 <span class="{{css}}-button-text">{{currentstream_label}}</span>
@@ -210,6 +215,7 @@
                  class="{{css}}-volumebar-inner"
                  ontouchstart="{{startUpdateVolume(domEvent, currElement)}}"
                  onmousedown="{{startUpdateVolume(domEvent, currElement)}}"
+                 data-testid="{{testid}}-set-volume-progressbar"
             >
                 <div class="{{css}}-volumebar-position" ba-styles="{{{width: Math.min(100, Math.round(volume * 100)) + '%'}}}">
                     <div class="{{css}}-volumebar-button" title="{{string('volume-button')}}"></div>
@@ -222,6 +228,7 @@
              class="{{css}}-rightbutton-container {{controlbar_hide_class}}"
              ba-on:touchend="{{toggle_volume()}}"
              ba-click="{{toggle_volume()}}" title="{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}"
+             data-testid="{{testid}}-volume-{{(volume > 0 && !muted) ? 'mute' : 'unmute'}}-button"
         >
             <div class="{{css}}-button-inner">
                 <i class="{{csscommon + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}"></i>

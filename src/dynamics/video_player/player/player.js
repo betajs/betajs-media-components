@@ -1872,7 +1872,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.auto_destroy(new Timers.Timer({
                         delay: 3000,
                         fire: function() {
-                            if (this.get("showcontroll") && this.get('playing')) this.set("showcontroll", false);
+                            if (this.get("showcontroll") && this.get('playing') && this.get('trackUnmute')) this.set("showcontroll", false);
 
                         }.bind(this),
                         once: true
@@ -1887,7 +1887,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     } else if (!this.get("playing") && this.get('showcontroll')) {
                         this.set('showcontroll', false);
                         return false;
-                    }
+                    } else if (!this.get('trackUnmute') && this.get("playing")) return false;
+                    
                 },
 
                 object_functions: ["play", "rerecord", "pause", "stop", "seek", "set_volume", "set_speed", "toggle_tracks"],
@@ -2103,10 +2104,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 return;
                             }
                             if (fo && this.get("unmuteonclick")) {
+                                this.set('showcontroll', this.get('isAnroid'));
                                 this.set('trackUnmute', false);
                                 return;
                             }
+
                             if (this.showControll()) return;
+
                             if (this.get("playing") && this.get("pauseonclick")) {
                                 this.set('showcontroll', this.get('isAnroid'));
                                 this.set('trackUnmute', this.get('isAnroid'));

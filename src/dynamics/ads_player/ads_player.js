@@ -354,7 +354,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
                 isImageBlack: function(ctx, width, height) {
                     var imageData = ctx.getImageData(0, 0, width, height);
-                    console.log('data', imageData)
                     var pixels = imageData.data;
                     for (var i = 0; i < pixels.length; i += 4) {
                         var r = pixels[i];
@@ -371,8 +370,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     const ad = adObj?.data?.mediaUrl;
                     if (!Info.isSafari() && ad) {
                         this.renderVideoFrame(ad, this.getAdWidth(), this.getAdHeight())
-                    }else if(!adObj.isUiDisabled()){
-                   console.warn('This is not a custom Ui and Ad does not allow processing of its video frames');
+                    } else if (!adObj.isUiDisabled()) {
+                        console.warn('This is not a custom Ui and Ad does not allow processing of its video frames');
                     }
                 },
                 renderVideoFrame: function(mediaUrl, width, height) {
@@ -381,8 +380,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                     video.crossOrigin = "anonymous";
                     video.src = mediaUrl;
-                    this._video.muted = true;
-                    this._video.play();
+                    video.muted = true;
+                    video.play();
                     setTimeout(function() {
                         try {
                             video.currenttime = this.get('currenttime');

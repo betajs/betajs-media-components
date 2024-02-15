@@ -361,7 +361,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 checkIfAdUiIsDisable: function() {
                     const adObj = this.get("ad");
                     const ad = adObj?.data?.mediaUrl;
-                    if (!Info.isSafari() && ad) {
+                    if (Info.isSafari() && ad) {
                         this.renderVideoFrame(ad, this.getAdWidth(), this.getAdHeight())
                     } else if (!adObj.isUiDisabled()) {
                         console.warn('This is not a custom Ui and Ad does not allow processing of its video frames');

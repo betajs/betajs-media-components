@@ -294,10 +294,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.adsManager.contentComplete();
                     },
                     pause: function() {
-                        const ad = this.get("ad")?.data?.mediaUrl
-                        if (Info.isSafari()) {
-                            this.renderVideoFrame(ad, this.getAdWidth(), this.getAdHeight())
-                        }
+                        this.checkIfAdUiIsDisable();
                         return this.adsManager.pause();
                     },
                     resume: function() {
@@ -350,6 +347,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
                 isImageBlack: function(ctx, width, height) {
                     var imageData = ctx.getImageData(0, 0, width, height);
+                    console.log('data', imageData)
                     var pixels = imageData.data;
                     for (var i = 0; i < pixels.length; i += 4) {
                         var r = pixels[i];
@@ -361,12 +359,23 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     }
                     return true;
                 },
+                checkIfAdUiIsDisable: function() {
+                    const adObj = this.get("ad");
+                    const ad = adObj?.data?.mediaUrl;
+                    if (!Info.isSafari() && ad) {
+                        this.renderVideoFrame(ad, this.getAdWidth(), this.getAdHeight())
+                    }else if(!adObj.isUiDisabled()){
+                   console.warn('This is not a custom Ui and Ad does not allow processing of its video frames');
+                    }
+                },
                 renderVideoFrame: function(mediaUrl, width, height) {
                     const video = document.createElement("video");
                     const canvas = document.createElement("canvas");
 
                     video.crossOrigin = "anonymous";
                     video.src = mediaUrl;
+                    this._video.muted = true;
+                    this._video.play();
                     setTimeout(function() {
                         try {
                             video.currenttime = this.get('currenttime');

@@ -579,7 +579,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (!this.get("nextwidget") || this.get("stayengaged") || this.get("adsplaying"))
                             return;
                         if (position - old > 1) return this.channel("next").trigger("setStay");
-                        if (Array.isArray(this.get("playlist")) && this.get("playlist").length > 0) {
+                        const thisPlaylist = this.get("playlist");
+                        if (Array.isArray(thisPlaylist) && thisPlaylist.length > 0) {
+                            // do not autoPlayNext if the only video on sidebar playlist is the current video playing
+                            if (thisPlaylist.length === 1 && thisPlaylist[0].title === this.get('title')) return;
                             const showNextTime = Number(this.get("shownext")) || 0;
                             const engageTime = showNextTime + (Number(this.get("noengagenext")) || 0);
                             if (position > showNextTime && showNextTime && !this.get("next_active")) {

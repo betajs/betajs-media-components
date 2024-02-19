@@ -1097,14 +1097,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         ));
 
                         this.stickyHandler.on("transitionToFloat", function() {
-                            console.log('float')
                             this.set("view_type", "float");
                         }, this);
                         this.stickyHandler.on("transitionToView", function() {
                             this.set("view_type", "default");
                         }, this);
                         this.stickyHandler.on("transitionOutOfView", function() {
-                            console.log('out_of_view')
                             this.set("view_type", "out_of_view");
                         }, this);
                         this.delegateEvents(null, this.stickyHandler);

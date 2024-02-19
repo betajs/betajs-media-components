@@ -149,6 +149,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.set("duration", adData.duration);
                         this.set("moredetailslink", clickthroughUrl);
                         this.set("adsclicktroughurl", clickthroughUrl);
+                        this.checkIfAdIsBlack();
                     },
                     "ads:outstreamCompleted": function(dyn) {
                         this._outstreamCompleted(dyn);
@@ -262,6 +263,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             height: this.getAdHeight(),
                             volume: this.getAdWillPlayMuted() ? 0 : this.get("volume")
                         });
+
                         // if (!this.adsManager.adDisplayContainerInitialized) this.adsManager.initializeAdDisplayContainer();
                         // this.call("requestAds");
                     },
@@ -343,14 +345,69 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this._videoElement = this.parent() && this.parent().activeElement().querySelector("[data-video='video']"); // TODO video element for outstream
                     return this._videoElement;
                 },
+                isImageBlack: function(ctx, width, height) {
+                    var imageData = ctx.getImageData(0, 0, width, height);
+                    var pixels = imageData.data;
+                    for (var i = 0; i < pixels.length; i += 4) {
+                        var r = pixels[i];
+                        var g = pixels[i + 1];
+                        var b = pixels[i + 2];
+                        if (r !== 0 || g !== 0 || b !== 0) {
+                            return false;
+                        }
+                    }
+                    return true;
+                },
+                createDrawElement: function() {
+                    const video = document.createElement("video");
+                    const canvas = document.createElement("canvas");
+                    return {
+                        video,
+                        canvas
+                    }
+                },
+                checkIfAdIsBlack: function() {
+                    const mediaUrl = this.get('ad')?.data?.mediaUrl;
+                    if (mediaUrl) {
+                        this.skipBlackAd(mediaUrl, this.getAdWidth(), this.getAdHeight())
+                            .then(data => {
+                                if (data) {
+                                    this.call('stop');
+                                    setTimeout(function() {
+                                        this.parent().call('play');
+                                    }.bind(this), 300)
+                                }
+                            })
+                    }
+                },
+                skipBlackAd: function(mediaUrl, width, height) {
+                    const {
+                        video,
+                        canvas
+                    } = this.createDrawElement();
+                    video.crossOrigin = "anonymous";
+                    video.src = mediaUrl;
+                    video.muted = true;
+                    video.play();
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext("2d");
+                    return new Promise((resolve, reject) => {
+                        setTimeout(function() {
+                            ctx.clearRect(0, 0, canvas.width, canvas.height);
+                            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
+                            resolve(this.isImageBlack(ctx, width, height));
+                        }.bind(this), 200);
+
+                    });
+                },
                 setEndCardBackground: function(width, height) {
                     const ad = this.get("ad");
                     if (ad) {
                         this.updateEndCardImage(ad, width, height);
                     }
                 },
-
                 updateEndCardImage: function(ad, width, height) {
                     if (this._video && this._canvas && this._mediaUrl) {
                         this.resizeCanvas(width, height);

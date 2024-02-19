@@ -280,6 +280,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "sticky": false,
                         "sticky-starts-paused": true,
                         "sticky-threshold": undefined,
+                        "fallback-sticky-threshold": 0.3,
                         // sticky options
                         "floatingoptions": {
                             "sidebar": true, // show sidebar
@@ -507,6 +508,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "prominent-title": "boolean",
                     "closeable-title": "boolean",
                     "sticky-threshold": "float",
+                    "fallback-sticky-threshold": "float",
                     "floatingoptions": "jsonarray",
                     "presetedtooltips": "object",
                     "presetkey": "string",
@@ -1077,7 +1079,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         // If sticky is enabled, disable only floating
                         this.set("floatingoptions.floatingonly", false);
                         var stickyOptions = {
-                            threshold: this.get("sticky-threshold"),
+                            threshold: this.get("sticky-threshold") || this.get('fallback-sticky-threshold'),
                             paused: this.get("sticky-starts-paused") || !this.get("sticky"),
                             "static": this.get("floatingoptions.static"),
                             floatCondition: function(elementRect) {
@@ -1095,12 +1097,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         ));
 
                         this.stickyHandler.on("transitionToFloat", function() {
+                            console.log('float')
                             this.set("view_type", "float");
                         }, this);
                         this.stickyHandler.on("transitionToView", function() {
                             this.set("view_type", "default");
                         }, this);
                         this.stickyHandler.on("transitionOutOfView", function() {
+                            console.log('out_of_view')
                             this.set("view_type", "out_of_view");
                         }, this);
                         this.delegateEvents(null, this.stickyHandler);

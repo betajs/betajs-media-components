@@ -899,6 +899,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }, this);
                     }
                     this.__attachPlayerInteractionEvents();
+                    this.set('clearDebounce', 0);
                     this.__mergeDeepAttributes();
                     this._dataset = this.auto_destroy(new DatasetProperties(this.activeElement()));
                     this._dataset.bind("layout", this.properties());
@@ -1023,7 +1024,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("fullscreensupport", false);
                     this.set("csssize", "normal");
                     this.set("with_sidebar", false);
-                    this.set('isAnroid', (Info.isMobile() && !Info.isiOS()))
+                    this.set('isAndroid', (Info.isMobile() && !Info.isiOS()))
                     // this.set("loader_active", false);
                     // this.set("playbutton_active", false);
                     // this.set("controlbar_active", false);
@@ -1870,7 +1871,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
                 hideControl: function() {
                     this.auto_destroy(new Timers.Timer({
-                        delay: 3000,
+                        delay: 4000,
                         fire: function() {
                             if (this.get("showcontroll") && this.get('playing') && this.get('trackUnmute')) this.set("showcontroll", false);
 
@@ -1879,7 +1880,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }));
                 },
                 showControll: function() {
-                    if (this.get("playing") && !this.get('showcontroll') && this.get('trackUnmute') && this.get('isAnroid')) {
+                    if (this.get("playing") && !this.get('showcontroll') && this.get('trackUnmute') && this.get('isAndroid')) {
                         this.set('showcontroll', true);
                         this.hideControl();
                         return true;
@@ -1887,8 +1888,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     } else if (!this.get("playing") && this.get('showcontroll')) {
                         this.set('showcontroll', false);
                         return false;
-                    } else if (!this.get('trackUnmute') && this.get("playing")) return false;
-                    
+                    } else if (!this.get('trackUnmute') && this.get("playing") && this.get('isAndroid')) {
+                        return false;
+                    }
+
+
+
                 },
 
                 object_functions: ["play", "rerecord", "pause", "stop", "seek", "set_volume", "set_speed", "toggle_tracks"],
@@ -2104,7 +2109,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 return;
                             }
                             if (fo && this.get("unmuteonclick")) {
-                                this.set('showcontroll', this.get('isAnroid'));
+                                this.set('showcontroll', this.get('isAndroid'));
                                 this.set('trackUnmute', false);
                                 return;
                             }
@@ -2112,8 +2117,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (this.showControll()) return;
 
                             if (this.get("playing") && this.get("pauseonclick")) {
-                                this.set('showcontroll', this.get('isAnroid'));
-                                this.set('trackUnmute', this.get('isAnroid'));
+                                this.set('showcontroll', this.get('isAndroid'));
+                                this.set('trackUnmute', this.get('isAndroid'));
                                 this.trigger("pause_requested");
                                 this.pause();
                             } else if (!this.get("playing") && this.get("playonclick")) {
@@ -3088,24 +3093,30 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 __unmuteOnClick: function() {
-                    if (!this.get("muted") && this.get("volume") > 0) return this.set("unmuteonclick", false);
-                    this.auto_destroy(new Timers.Timer({
-                        delay: 500,
-                        fire: function() {
-                            if (this.get("muted")) this.set("muted", false);
-                            if (this.get("volume") == 0) this.set_volume(this.get("volume") || this.get("initialoptions").volumelevel || 1);
-                            if (!this.get("manuallypaused")) this.__setPlayerEngagement();
-                            this.set("unmuteonclick", false);
-                        }.bind(this),
-                        once: true
-                    }));
-                    this.set("volumeafterinteraction", true);
-                    if (this.get("forciblymuted")) this.set("forciblymuted", false);
-                    var _initialVolume = this.get("initialoptions").volumelevel > 1 ? 1 : this.get("initialoptions").volumelevel;
-                    if (this.get("autoplay-requires-muted") && this.get("adshassource")) {
-                        // Sometimes browser detects that unmute happens before the user has interaction, and it pauses ad
-                        this.trigger("unmute-ads", Math.min(_initialVolume, 1));
-                    }
+                    clearTimeout(this.get('clearDebounce'));
+                    const clearDebounce = setTimeout(function() {
+
+                        if (!this.get("muted") && this.get("volume") > 0) return this.set("unmuteonclick", false);
+                        this.auto_destroy(new Timers.Timer({
+                            delay: 500,
+                            fire: function() {
+                                if (this.get("muted")) this.set("muted", false);
+                                if (this.get("volume") == 0) this.set_volume(this.get("volume") || this.get("initialoptions").volumelevel || 1);
+                                if (!this.get("manuallypaused")) this.__setPlayerEngagement();
+                                this.set("unmuteonclick", false);
+                            }.bind(this),
+                            once: true
+                        }));
+                        this.set("volumeafterinteraction", true);
+                        if (this.get("forciblymuted")) this.set("forciblymuted", false);
+                        var _initialVolume = this.get("initialoptions").volumelevel > 1 ? 1 : this.get("initialoptions").volumelevel;
+                        if (this.get("autoplay-requires-muted") && this.get("adshassource")) {
+                            // Sometimes browser detects that unmute happens before the user has interaction, and it pauses ad
+                            this.trigger("unmute-ads", Math.min(_initialVolume, 1));
+                        }
+                    }.bind(this), 1);
+                    this.set('clearDebounce', clearDebounce);
+
                 }
             };
         }], {

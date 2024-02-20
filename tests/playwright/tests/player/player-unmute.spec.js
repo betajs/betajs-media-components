@@ -10,8 +10,7 @@ test.describe('Unmute on click behave', () => {
     let descriptionPlayerAttributes = {
         autoplay: true,
         muted: true,
-        unmuteonclick: false,
-        unmuteonengagement: true,
+        unmuteonclick: true,
         skipinitial: false,
         adtagurl: AD_TAG_URL,
         showsidebargallery: true,
@@ -35,9 +34,8 @@ test.describe('Unmute on click behave', () => {
     });
 
     test(`Unmute only on engagement inside ads`, async ({
-                                                            page, browserName, browser, context
-                                                        }) => {
-
+        page, browserName, browser, context
+    }) => {
         const runTest = async (page, browser, context) => {
             // delete defaultPlayerAttributes['poster'];
             const player = new PlayerPage(page, {
@@ -71,8 +69,8 @@ test.describe('Unmute on click behave', () => {
             const hasAdsSource = await player.getPlayerAttribute(`adshassource`);
             expect(hasAdsSource).not.toBeUndefined();
 
-            let unmuteOnEngagement = await player.getPlayerAttribute(`unmuteonengagement`);
-            await expect(unmuteOnEngagement).toBeTruthy();
+            let unmuteOnClick = await player.getPlayerAttribute(`unmuteonclick`);
+            await expect(unmuteOnClick).toBeTruthy();
 
             if (!hasAdsSource) throw new Error(`We need ad tag URL to proceed`);
             const playerContainer = await page.getByTestId(`${dataTestId}-player-container`);
@@ -164,8 +162,8 @@ test.describe('Unmute on click behave', () => {
 
             const dataTestId = await player.getPlayerAttribute('testid');
 
-            const unmuteOnEngagement = await player.getPlayerAttribute(`unmuteonengagement`)
-            await expect(unmuteOnEngagement).toBeTruthy();
+            const unmuteOnClick = await player.getPlayerAttribute(`unmuteonclick`)
+            await expect(unmuteOnClick).toBeTruthy();
 
             let unMuteButton = await page.getByTestId(`${dataTestId}-volume-unmute-button`);
 

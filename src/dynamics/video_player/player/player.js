@@ -661,7 +661,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     ) {
                         if (fullscreened) return false;
                         this.set("floatingsidebar", !hideSidebar && isFloating && withSidebar);
-                        this.set("gallerysidebar", !hideSidebar && !isFloating && (Types.is_defined(mobileViewport) && !mobileViewport));
+                        this.set("gallerysidebar", !hideSidebar && !isFloating && (Types.is_defined(mobileViewport) && !mobileViewport) && !this.get('outstream'));
                         if (this.get("gallerysidebar")) {
                             if (!this.get("nextwidget") && Types.is_undefined(this.set("initialoptions.nextwidget"))) {
                                 this.set("initialoptions.nextwidget", false);
@@ -806,12 +806,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         styles = {
                             aspectRatio: aspectRatio
                         };
-                        if (!fullscreened && gallerySidebar) styles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
+                        if (!fullscreened && (gallerySidebar)) styles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
                         if (height) styles.height = isNaN(height) ? height : parseFloat(height).toFixed(2) + "px";
                         if (width) styles.width = isNaN(width) ? width : parseFloat(width).toFixed(2) + "px";
                         containerStyles = floatingonly ? {} : Objs.extend({}, styles);
                         if (!gallerySidebar && showsidebargallery && layout === "desktop" && !fullscreened)
-                            containerStyles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
+                            if (!this.get('outstream')) containerStyles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
                         if (isFloating) {
                             const calculated = this.__calculateFloatingDimensions();
 

@@ -167,6 +167,11 @@
             height: 25px;
         }
     }
+    .#{$cssgallerysidebar}-ads-body-container {
+        .#{$cssgallerysidebar}-ad-information-text p {
+            color: #fff;
+        }  
+    }
     .#{$cssgallerysidebar}-ads-body-container p {
         font-size: 22px;
         margin: 0;

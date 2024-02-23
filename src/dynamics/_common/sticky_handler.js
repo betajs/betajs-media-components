@@ -27,7 +27,6 @@ Scoped.define("module:StickyHandler", [
                 if (!options["static"]) this.events = this.auto_destroy(new DomEvents());
                 this.floating = false;
                 this.observing = false;
-                this.elementRect = this.element.getBoundingClientRect();
             },
 
             destroy: function() {
@@ -46,10 +45,10 @@ Scoped.define("module:StickyHandler", [
             },
 
             start: function() {
+                this.paused = false;
                 this.elementRect = this.element.getBoundingClientRect();
                 if (this.floatCondition && !this.floatCondition(this.elementRect)) return;
                 if (!this.elementIsVisible && !this.floating) this.transitionToFloat();
-                this.paused = false;
             },
 
             stop: function() {
@@ -109,6 +108,7 @@ Scoped.define("module:StickyHandler", [
                 });
 
                 function elementCallback(entries, observer) {
+                    this.elementRect = this.element.getBoundingClientRect();
                     entries.forEach(function(entry) {
                         this.elementIsVisible = entry.isIntersecting;
                         if (elementFirstObservation) {
@@ -116,7 +116,7 @@ Scoped.define("module:StickyHandler", [
                             return;
                         }
                         if (entry.isIntersecting) return;
-                        this.elementRect = this.element.getBoundingClientRect();
+
                         if (this.paused || (this.floatCondition && !this.floatCondition(this.elementRect))) {
                             this.trigger("transitionOutOfView");
                             return;

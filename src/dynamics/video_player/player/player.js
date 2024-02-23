@@ -56,7 +56,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.PlayerStates.Outstream",
     "module:VideoPlayer.Dynamics.PlayerStates.LoadAds",
     "module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream",
-    "module:VideoPlayer.Dynamics.PlayerStates.ReloadAds",
     "module:VideoPlayer.Dynamics.PlayerStates.PlayAd",
     "module:VideoPlayer.Dynamics.PlayerStates.PrerollAd",
     "module:VideoPlayer.Dynamics.PlayerStates.MidrollAd",
@@ -218,6 +217,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "adtagurlfallbacks": [],
                         "nextadtagurls": [],
                         "inlinevastxml": null,
+                        "midrollminintervalbeforeend": 5,
                         "hidebeforeadstarts": true, // Will help hide player poster before ads start
                         "hideadscontrolbar": false,
                         "showplayercontentafter": null, // we can set any microseconds to show player content in any case if ads not initialized
@@ -1138,7 +1138,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                         item = item.trim();
                                         if (/^[\d\s]+\*$/.test(item)) {
                                             item = +item.replace("\*", '');
-                                            this.on("change:duration", function(duration) {
+                                            this.once("change:duration", function(duration) {
                                                 if (duration > 0) {
                                                     var step = Math.floor(duration / item);
                                                     if (duration > item) {
@@ -1390,7 +1390,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         element: video,
                         onlyaudio: this.get("onlyaudio"), // Will fix only audio local playback bug
                         preload: !!this.get("preload"),
-                        loop: !!this.get("loop") || (this.get("lastplaylistitem") && this.get("loopall")),
+                        loop: !!this.get("loop"),
                         reloadonplay: this.get('playlist') && this.get("playlist").length > 0 ? true : !!this.get("reloadonplay"),
                         fullscreenedElement: this.activeElement().childNodes[0],
                         loadmetadata: Info.isChrome() && this.get("skipinitial")
@@ -2319,7 +2319,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.set("settingsmenu_active", false);
                             }
                             // We need this part run each second not too fast, this.__adsControlPosition will control it
-                            if (this.__adsControlPosition < this.get("position")) {
+                            if (this.__adsControlPosition < this.get("position") && !this.get("isseeking")) {
                                 this.__adsControlPosition = Math.ceil(this.get("position"));
                                 this.__controlAdRolls();
                             }
@@ -2785,7 +2785,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this._adsRollPositionsCollection = this.auto_destroy(new Collection()); // our adsCollections
                         if (this.get("midrollads").length > 0) {
                             var _current = null;
-                            var _nextPositionIndex = null;
                             Objs.iter(this.get("midrollads"), function(roll, index) {
                                 if (roll.position && roll.position > this.get("position")) {
                                     // First ad position, if less than 1 it means it's percentage not second
@@ -2849,7 +2848,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     }
 
-                    if (this._nextRollPosition && this.get("adshassource") && this._nextRollPosition.position < this.get("position")) {
+                    if (this._nextRollPosition && this.get("adshassource") && this._nextRollPosition.position < this.get("position") && this.get("duration") - this.get("position") > this.get("midrollminintervalbeforeend")) {
                         if (this.__adMinIntervals > 0) {
                             return;
                         }

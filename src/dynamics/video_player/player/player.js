@@ -1546,7 +1546,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                         }, this);
                         this.player.on("ended", function() {
-                            console.log('ended');
                             this.set('trackFrameTime', 0);
 
 

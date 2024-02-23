@@ -92,7 +92,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         autoPlayAdBreaks: true,
                         width: this.getAdWidth(),
                         height: this.getAdHeight(),
-                        volume: this.getAdWillPlayMuted() ? 0 : this.get("volume")
+                        volume: this.getAdWillPlayMuted() ? 0 : (this.get("volume") || 1)
                     };
                 },
 
@@ -145,7 +145,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         const clickthroughUrl = adData.clickThroughUrl;
                         this.set("ad", ad);
                         this.set("addata", adData);
-                        this.set("volume", this.adsManager.getVolume());
                         this.set("duration", adData.duration);
                         this.set("moredetailslink", clickthroughUrl);
                         this.set("adsclicktroughurl", clickthroughUrl);
@@ -246,9 +245,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                                 }
                             }
                         }, this);
-                        dynamics.on("unmute-ads", function(volume) {
-                            this.set("volume", volume);
-                        }, this);
                     }
                 },
 
@@ -259,8 +255,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         }, this);
                         this.adsManager.start({
                             width: this.getAdWidth(),
-                            height: this.getAdHeight(),
-                            volume: this.getAdWillPlayMuted() ? 0 : this.get("volume")
+                            height: this.getAdHeight()
                         });
                         // if (!this.adsManager.adDisplayContainerInitialized) this.adsManager.initializeAdDisplayContainer();
                         // this.call("requestAds");
@@ -401,7 +396,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 getAdWillPlayMuted: function() {
-                    return this.get("muted") || this.get("volume") === 0;
+                    return (this.get("muted") || this.get("volume") === 0) && !this.parent().get("willunmute");
                 },
 
                 _onStart: function(ev) {

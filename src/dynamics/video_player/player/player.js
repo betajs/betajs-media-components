@@ -1268,47 +1268,57 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     img.src = isLocal ? (window.URL || window.webkitURL).createObjectURL(this.get("poster")) : this.get("poster");
                 },
 
-                _drawFrame: function(video, currentTime, width, height) {
-                    video.currentTime = currentTime;
+                _drawFrame: function(video, currentTime, width, height, cb) {
                     const canvas = document.createElement('canvas');
                     canvas.width = width;
                     canvas.height = height
                     const ctx = canvas.getContext('2d');
-                    ctx.clearRect(0, 0, canvas.width, canvas.height)
-                    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-                    return canvas;
-
+                    video.currentTime = currentTime;
+                    setTimeout(function() {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height)
+                        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                        cb(canvas, ctx);
+                    }.bind(this), 200);
                 },
                 _renderVideoFrame: function(video) {
-                    const img = document.createElement('img');
-                    img.style.width = '100%';
+                    const currentPosition = this.getCurrentPosition();
                     video.style.backgroundColor = 'transparent';
                     const videoParentEle = video.parentElement;
+
+                    img = document.createElement('img');
+                    img.style.width = '100%';
                     const imgElements = videoParentEle.querySelectorAll('img');
-                    imgElements.forEach(img => {
-                        img.remove()
-                    })
-                    const currentPosition = this.getCurrentPosition();
-                    video.setAttribute('crossorigin', 'anonymous')
-                    const width = video.videoWidth;
-                    const height = video.videoHeight;
+
+                    const vidEle = document.createElement('video');
+                    vidEle.src = this.get("source");;
+                    vidEle.setAttribute('crossorigin', 'anonymous')
+                    vidEle.muted = true;
+                    vidEle.play();
+
+
+
 
                     try {
-                        const canvas = this._drawFrame(video, currentPosition, width, height);
-                        img.onload = function(e) {};
-                        img.src = `${canvas.toDataURL()}`;;
-                        videoParentEle.appendChild(img);
-                        if (this.get("trackFrameTime") > currentPosition) {
-                            video.currentTime = this.get("trackFrameTime");
-                        }
-                        this.set('trackFrameTime', currentPosition)
+                        vidEle.addEventListener("loadeddata", (event) => {
+                            this._drawFrame(vidEle, currentPosition, video.videoWidth, video.videoHeight, (canvas) => {
 
-                    } catch (e) {
-                        img.src = video.poster;
-                        videoParentEle.appendChild(img);
-                    }
+                                imgElements.forEach(img => {
+                                    if (img.parentNode)
+                                        img.parentNode.removeChild(img)
+                                })
 
+                                img.src = `${canvas.toDataURL()}`;
+                                videoParentEle.appendChild(img);
+                        
+                                if (this.get("trackFrameTime") > currentPosition) {
+                                    video.currentTime = this.get("trackFrameTime");
+                                }
+                                this.set('trackFrameTime', currentPosition)
+
+                            })
+                        });
+
+                    } catch (e) {}
                 },
                 _detachVideo: function() {
                     this.set("playing", false);

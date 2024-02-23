@@ -294,7 +294,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.adsManager.contentComplete();
                     },
                     pause: function() {
-                        this.checkIfAdUiIsDisable();
+                        this.checkIfAdHasMediaUrl();
                         return this.adsManager.pause();
                     },
                     resume: function() {
@@ -347,6 +347,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
                 isImageBlack: function(ctx, width, height) {
                     var imageData = ctx.getImageData(0, 0, width, height);
+                    console.log('data', imageData);
                     var pixels = imageData.data;
                     for (var i = 0; i < pixels.length; i += 4) {
                         var r = pixels[i];
@@ -358,39 +359,27 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     }
                     return true;
                 },
-                checkIfAdUiIsDisable: function() {
+                checkIfAdHasMediaUrl: function() {
                     const adObj = this.get("ad");
                     const ad = adObj?.data?.mediaUrl;
                     if (Info.isSafari() && ad) {
                         this.renderVideoFrame(ad, this.getAdWidth(), this.getAdHeight())
-                    } else if (!adObj.isUiDisabled()) {
-                        console.warn('This is not a custom Ui and Ad does not allow processing of its video frames');
                     }
                 },
                 renderVideoFrame: function(mediaUrl, width, height) {
                     const video = document.createElement("video");
-                    const canvas = document.createElement("canvas");
-
+                   
                     video.crossOrigin = "anonymous";
                     video.src = mediaUrl;
                     video.muted = true;
                     video.play();
-                    setTimeout(function() {
-                        try {
-                            video.currenttime = this.get('currenttime');
-                            canvas.width = width;
-                            canvas.height = height;
-                            const ctx = canvas.getContext("2d");
-                            ctx.clearRect(0, 0, canvas.width, canvas.height);
-                            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
+                    video.addEventListener("loadeddata", (event) => {
+                        this.parent()._drawFrame(video, this.get('currenttime'), width, height, (canvas, ctx) => {
                             if (this.isImageBlack(ctx, width, height)) {
                                 this.getAdContainer().style.backgroundImage = `url(${canvas.toDataURL("image/png")})`;
                             }
-                        } catch (e) {}
-
-                    }.bind(this), 500);
-
+                        })
+                    })
                 },
 
                 setEndCardBackground: function(width, height) {

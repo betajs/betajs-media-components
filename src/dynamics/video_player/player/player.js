@@ -56,7 +56,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.PlayerStates.Outstream",
     "module:VideoPlayer.Dynamics.PlayerStates.LoadAds",
     "module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream",
-    "module:VideoPlayer.Dynamics.PlayerStates.ReloadAds",
     "module:VideoPlayer.Dynamics.PlayerStates.PlayAd",
     "module:VideoPlayer.Dynamics.PlayerStates.PrerollAd",
     "module:VideoPlayer.Dynamics.PlayerStates.MidrollAd",
@@ -218,6 +217,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "adtagurlfallbacks": [],
                         "nextadtagurls": [],
                         "inlinevastxml": null,
+                        "midrollminintervalbeforeend": 5,
                         "hidebeforeadstarts": true, // Will help hide player poster before ads start
                         "hideadscontrolbar": false,
                         "showplayercontentafter": null, // we can set any microseconds to show player content in any case if ads not initialized
@@ -579,7 +579,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (!this.get("nextwidget") || this.get("stayengaged") || this.get("adsplaying"))
                             return;
                         if (position - old > 1) return this.channel("next").trigger("setStay");
-                        if (Array.isArray(this.get("playlist")) && this.get("playlist").length > 0) {
+                        const thisPlaylist = this.get("playlist");
+                        if (Array.isArray(thisPlaylist) && thisPlaylist.length > 0) {
+                            // do not autoPlayNext if the only video on sidebar playlist is the current video playing
+                            if (thisPlaylist.length === 1 && thisPlaylist[0].title === this.get('title')) return;
                             const showNextTime = Number(this.get("shownext")) || 0;
                             const engageTime = showNextTime + (Number(this.get("noengagenext")) || 0);
                             if (position > showNextTime && showNextTime && !this.get("next_active")) {
@@ -899,6 +902,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }, this);
                     }
                     this.__attachPlayerInteractionEvents();
+                    this.set('clearDebounce', 0);
                     this.__mergeDeepAttributes();
                     this._dataset = this.auto_destroy(new DatasetProperties(this.activeElement()));
                     this._dataset.bind("layout", this.properties());
@@ -1023,7 +1027,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("fullscreensupport", false);
                     this.set("csssize", "normal");
                     this.set("with_sidebar", false);
-
+                    this.set('isAndroid', (Info.isMobile() && !Info.isiOS()))
                     // this.set("loader_active", false);
                     // this.set("playbutton_active", false);
                     // this.set("controlbar_active", false);
@@ -1134,7 +1138,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                         item = item.trim();
                                         if (/^[\d\s]+\*$/.test(item)) {
                                             item = +item.replace("\*", '');
-                                            this.on("change:duration", function(duration) {
+                                            this.once("change:duration", function(duration) {
                                                 if (duration > 0) {
                                                     var step = Math.floor(duration / item);
                                                     if (duration > item) {
@@ -1386,7 +1390,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         element: video,
                         onlyaudio: this.get("onlyaudio"), // Will fix only audio local playback bug
                         preload: !!this.get("preload"),
-                        loop: !!this.get("loop") || (this.get("lastplaylistitem") && this.get("loopall")),
+                        loop: !!this.get("loop"),
                         reloadonplay: this.get('playlist') && this.get("playlist").length > 0 ? true : !!this.get("reloadonplay"),
                         fullscreenedElement: this.activeElement().childNodes[0],
                         loadmetadata: Info.isChrome() && this.get("skipinitial")
@@ -1868,6 +1872,32 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }
                     if (exists) this.get("tooltips").remove(exists);
                 },
+                hideControl: function() {
+                    this.auto_destroy(new Timers.Timer({
+                        delay: 4000,
+                        fire: function() {
+                            if (this.get("showcontroll") && this.get('playing') && this.get('trackUnmute')) this.set("showcontroll", false);
+
+                        }.bind(this),
+                        once: true
+                    }));
+                },
+                showControll: function() {
+                    if (this.get("playing") && !this.get('showcontroll') && this.get('trackUnmute') && this.get('isAndroid')) {
+                        this.set('showcontroll', true);
+                        this.hideControl();
+                        return true;
+
+                    } else if (!this.get("playing") && this.get('showcontroll')) {
+                        this.set('showcontroll', false);
+                        return false;
+                    } else if (!this.get('trackUnmute') && this.get("playing") && this.get('isAndroid')) {
+                        return false;
+                    }
+
+
+
+                },
 
                 object_functions: ["play", "rerecord", "pause", "stop", "seek", "set_volume", "set_speed", "toggle_tracks"],
 
@@ -2081,8 +2111,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this._delegatedPlayer.execute("toggle_player");
                                 return;
                             }
-                            if (fo && this.get("unmuteonclick")) return;
+                            if (fo && this.get("unmuteonclick")) {
+                                this.set('showcontroll', this.get('isAndroid'));
+                                this.set('trackUnmute', false);
+                                return;
+                            }
+
+                            if (this.showControll()) return;
+
                             if (this.get("playing") && this.get("pauseonclick")) {
+                                this.set('showcontroll', this.get('isAndroid'));
+                                this.set('trackUnmute', this.get('isAndroid'));
                                 this.trigger("pause_requested");
                                 this.pause();
                             } else if (!this.get("playing") && this.get("playonclick")) {
@@ -2280,7 +2319,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.set("settingsmenu_active", false);
                             }
                             // We need this part run each second not too fast, this.__adsControlPosition will control it
-                            if (this.__adsControlPosition < this.get("position")) {
+                            if (this.__adsControlPosition < this.get("position") && !this.get("isseeking")) {
                                 this.__adsControlPosition = Math.ceil(this.get("position"));
                                 this.__controlAdRolls();
                             }
@@ -2746,7 +2785,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this._adsRollPositionsCollection = this.auto_destroy(new Collection()); // our adsCollections
                         if (this.get("midrollads").length > 0) {
                             var _current = null;
-                            var _nextPositionIndex = null;
                             Objs.iter(this.get("midrollads"), function(roll, index) {
                                 if (roll.position && roll.position > this.get("position")) {
                                     // First ad position, if less than 1 it means it's percentage not second
@@ -2810,7 +2848,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     }
 
-                    if (this._nextRollPosition && this.get("adshassource") && this._nextRollPosition.position < this.get("position")) {
+                    if (this._nextRollPosition && this.get("adshassource") && this._nextRollPosition.position < this.get("position") && this.get("duration") - this.get("position") > this.get("midrollminintervalbeforeend")) {
                         if (this.__adMinIntervals > 0) {
                             return;
                         }
@@ -3057,21 +3095,31 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 __unmuteOnClick: function() {
-                    if (!this.get("muted") && this.get("volume") > 0) return this.set("unmuteonclick", false);
-                    this.auto_destroy(new Timers.Timer({
-                        delay: 500,
-                        fire: function() {
-                            this.set("willunmute", false);
-                            if (!this.get("unmuteonclick")) return;
-                            if (this.get("muted")) this.set("muted", false);
-                            if (this.get("volume") == 0) this.set_volume(this.get("volume") || this.get("initialoptions").volumelevel || 1);
-                            if (!this.get("manuallypaused")) this.__setPlayerEngagement();
-                            this.set("unmuteonclick", false);
-                        }.bind(this),
-                        once: true
-                    }));
+                    clearTimeout(this.get('clearDebounce'));
+                    const clearDebounce = setTimeout(function() {
+                        if (!this.get("muted") && this.get("volume") > 0) return this.set("unmuteonclick", false);
+                        this.auto_destroy(new Timers.Timer({
+                            delay: 500,
+                            fire: function() {
+                                this.set("willunmute", false);
+                                if (!this.get("unmuteonclick")) return;
+                                if (this.get("muted")) this.set("muted", false);
+                                if (this.get("volume") == 0) this.set_volume(this.get("volume") || this.get("initialoptions").volumelevel || 1);
+                                if (!this.get("manuallypaused")) this.__setPlayerEngagement();
+                                this.set("unmuteonclick", false);
+                            }.bind(this),
+                            once: true
+                        }));
+                        this.set("volumeafterinteraction", true);
+                        if (this.get("forciblymuted")) this.set("forciblymuted", false);
+                        var _initialVolume = this.get("initialoptions").volumelevel > 1 ? 1 : this.get("initialoptions").volumelevel;
+                        if (this.get("autoplay-requires-muted") && this.get("adshassource")) {
+                            // Sometimes browser detects that unmute happens before the user has interaction, and it pauses ad
+                            this.trigger("unmute-ads", Math.min(_initialVolume, 1));
+                        }
+                    }.bind(this), 1);
                     this.set("willunmute", true);
-                    if (this.get("forciblymuted")) this.set("forciblymuted", false);
+                    this.set('clearDebounce', clearDebounce);
                 }
             };
         }], {

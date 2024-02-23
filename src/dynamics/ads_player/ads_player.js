@@ -347,7 +347,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
                 isImageBlack: function(ctx, width, height) {
                     var imageData = ctx.getImageData(0, 0, width, height);
-                    console.log('data', imageData);
                     var pixels = imageData.data;
                     for (var i = 0; i < pixels.length; i += 4) {
                         var r = pixels[i];

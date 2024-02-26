@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.441 - 2024-02-26
+betajs-media-components - v0.0.442 - 2024-02-26
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -4243,16 +4243,6 @@ a.ba-commoncss-action-button, button.ba-commoncss-action-button {
 }
 .ba-player-close-container .ba-player-close-svg-button {
   fill: #cccccc;
-}
-
-.ba-videoplayer-canvas-frames {
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-  height: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
 }
 
 /** NOTE: adding flex-grow 1 to the player content will make not fully show ads */

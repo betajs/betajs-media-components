@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.443 - 2024-02-26
+betajs-media-components - v0.0.444 - 2024-02-26
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.443",
-    "datetime": 1708973793269
+    "version": "0.0.444",
+    "datetime": 1708977637803
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -215,9 +215,7 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 this._adsRequest.setAdWillPlayMuted(options.adWillPlayMuted);
                 this._adsRequest.setContinuousPlayback(options.continuousPlayback);
                 this._adsLoader.getSettings().setAutoPlayAdBreaks(options.autoPlayAdBreaks);
-                this._adsLoader.requestAds(this._adsRequest, {
-                    options: options
-                });
+                this._adsLoader.requestAds(this._adsRequest);
                 // this.once("adsManagerLoaded", function() {
                 //     this._adsManager.init(options.width, options.height, google.ima.ViewMode.NORMAL);
                 //     this._adsManager.setVolume(options.volume);
@@ -245,7 +243,6 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 this._adsManager = adsManagerLoadedEvent.getAdsManager(
                     this._options.videoElement, adsRenderingSettings
                 );
-                this._adsManager.setVolume(adsManagerLoadedEvent.getUserRequestContext().options.volume);
                 this.addEventListeners();
                 this.__methods().forEach(function(method) {
                     this[method] = this._adsManager[method].bind(this._adsManager);
@@ -295,6 +292,7 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 try {
                     this._adDisplayContainer.initialize();
                     this._adsManager.init(options.width, options.height, google.ima.ViewMode.NORMAL);
+                    this._adsManager.setVolume(options.volume);
                     this._adsManager.start();
                 } catch (e) {
                     this.onAdError(e);
@@ -2504,7 +2502,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         autoPlayAdBreaks: true,
                         width: this.getAdWidth(),
                         height: this.getAdHeight(),
-                        volume: this.getAdWillPlayMuted() ? 0 : (this.get("volume") || 1)
+                        volume: this.getAdWillPlayMuted() ? 0 : this.get("volume")
                     };
                 },
 
@@ -2557,6 +2555,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         const clickthroughUrl = adData.clickThroughUrl;
                         this.set("ad", ad);
                         this.set("addata", adData);
+                        this.set("volume", this.adsManager.getVolume());
                         this.set("duration", adData.duration);
                         this.set("moredetailslink", clickthroughUrl);
                         this.set("adsclicktroughurl", clickthroughUrl);
@@ -2658,6 +2657,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                                 }
                             }
                         }, this);
+                        dynamics.on("unmute-ads", function(volume) {
+                            this.set("volume", volume);
+                        }, this);
                     }
                 },
 
@@ -2668,7 +2670,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         }, this);
                         this.adsManager.start({
                             width: this.getAdWidth(),
-                            height: this.getAdHeight()
+                            height: this.getAdHeight(),
+                            volume: this.getAdWillPlayMuted() ? 0 : this.get("volume")
                         });
 
                         // if (!this.adsManager.adDisplayContainerInitialized) this.adsManager.initializeAdDisplayContainer();
@@ -2845,7 +2848,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 getAdWillPlayMuted: function() {
-                    return (this.get("muted") || this.get("volume") === 0) && !this.parent().get("willunmute");
+                    return this.get("muted") || this.get("volume") === 0;
                 },
 
                 _onStart: function(ev) {
@@ -7199,12 +7202,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 __unmuteOnClick: function() {
                     clearTimeout(this.get('clearDebounce'));
                     const clearDebounce = setTimeout(function() {
+
                         if (!this.get("muted") && this.get("volume") > 0) return this.set("unmuteonclick", false);
                         this.auto_destroy(new Timers.Timer({
                             delay: 500,
                             fire: function() {
-                                this.set("willunmute", false);
-                                if (!this.get("unmuteonclick")) return;
                                 if (this.get("muted")) this.set("muted", false);
                                 if (this.get("volume") == 0) this.set_volume(this.get("volume") || this.get("initialoptions").volumelevel || 1);
                                 if (!this.get("manuallypaused")) this.__setPlayerEngagement();
@@ -7220,8 +7222,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.trigger("unmute-ads", Math.min(_initialVolume, 1));
                         }
                     }.bind(this), 1);
-                    this.set("willunmute", true);
                     this.set('clearDebounce', clearDebounce);
+
                 }
             };
         }], {

@@ -113,9 +113,7 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 this._adsRequest.setAdWillPlayMuted(options.adWillPlayMuted);
                 this._adsRequest.setContinuousPlayback(options.continuousPlayback);
                 this._adsLoader.getSettings().setAutoPlayAdBreaks(options.autoPlayAdBreaks);
-                this._adsLoader.requestAds(this._adsRequest, {
-                    options: options
-                });
+                this._adsLoader.requestAds(this._adsRequest);
                 // this.once("adsManagerLoaded", function() {
                 //     this._adsManager.init(options.width, options.height, google.ima.ViewMode.NORMAL);
                 //     this._adsManager.setVolume(options.volume);
@@ -143,7 +141,6 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 this._adsManager = adsManagerLoadedEvent.getAdsManager(
                     this._options.videoElement, adsRenderingSettings
                 );
-                this._adsManager.setVolume(adsManagerLoadedEvent.getUserRequestContext().options.volume);
                 this.addEventListeners();
                 this.__methods().forEach(function(method) {
                     this[method] = this._adsManager[method].bind(this._adsManager);
@@ -193,6 +190,7 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 try {
                     this._adDisplayContainer.initialize();
                     this._adsManager.init(options.width, options.height, google.ima.ViewMode.NORMAL);
+                    this._adsManager.setVolume(options.volume);
                     this._adsManager.start();
                 } catch (e) {
                     this.onAdError(e);

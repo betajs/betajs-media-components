@@ -3134,6 +3134,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     }.bind(this), 1);
                     this.set('clearDebounce', clearDebounce);
+
                 }
             };
         }], {

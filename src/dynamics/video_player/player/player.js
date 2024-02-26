@@ -3106,12 +3106,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 __unmuteOnClick: function() {
                     clearTimeout(this.get('clearDebounce'));
                     const clearDebounce = setTimeout(function() {
+
                         if (!this.get("muted") && this.get("volume") > 0) return this.set("unmuteonclick", false);
                         this.auto_destroy(new Timers.Timer({
                             delay: 500,
                             fire: function() {
-                                this.set("willunmute", false);
-                                if (!this.get("unmuteonclick")) return;
                                 if (this.get("muted")) this.set("muted", false);
                                 if (this.get("volume") == 0) this.set_volume(this.get("volume") || this.get("initialoptions").volumelevel || 1);
                                 if (!this.get("manuallypaused")) this.__setPlayerEngagement();
@@ -3127,8 +3126,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.trigger("unmute-ads", Math.min(_initialVolume, 1));
                         }
                     }.bind(this), 1);
-                    this.set("willunmute", true);
                     this.set('clearDebounce', clearDebounce);
+
                 }
             };
         }], {

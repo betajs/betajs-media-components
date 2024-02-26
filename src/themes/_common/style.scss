@@ -2,6 +2,12 @@
 
 .#{$csscommon}-full-height { height: 100%; }
 
+.#{$csscommon}-flex-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+}
+
 .#{$csscommon}-portrait-aspect-ratio { aspect-ratio: 9/16; }
 
 .#{$csscommon}-landscape-aspect-ratio { aspect-ratio: 16/9; }

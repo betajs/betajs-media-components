@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.439 - 2024-02-02
+betajs-media-components - v0.0.444 - 2024-02-26
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1956,24 +1956,28 @@ div.ba-player-with-sidebar.ba-player-fullscreen-view .ba-adsplayer-controlbar, d
   height: 100%;
 }
 
-.ba-gallery-sidebar-container {
-  background-color: #1f1f1f;
-  box-sizing: border-box;
-  color: #ffffff;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  padding-right: 4px;
-}
-.ba-gallery-sidebar-container .ba-gallery-sidebar-header-container {
+.ba-gallery-sidebar-header-container {
   box-sizing: border-box;
   padding: 5px 13px;
   font-size: 12px;
   height: 24px;
   justify-content: space-between;
+  background: #1f1f1f;
+  color: #ffffff;
 }
-.ba-gallery-sidebar-container .ba-gallery-sidebar-header-container img {
+.ba-gallery-sidebar-header-container img {
   height: 10px;
+}
+
+.ba-gallery-sidebar-container {
+  flex: 1;
+  background-color: #1f1f1f;
+  box-sizing: border-box;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  height: 0;
+  padding-right: 4px;
 }
 .ba-gallery-sidebar-container .ba-gallery-sidebar-list-container {
   flex: 1;
@@ -2056,10 +2060,11 @@ div.ba-player-with-sidebar.ba-player-fullscreen-view .ba-adsplayer-controlbar, d
 }
 
 .ba-gallery-sidebar-ads-container {
+  flex: 1;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  min-height: 100%;
+  height: 0;
   padding: 15px 13px;
 }
 .ba-gallery-sidebar-ads-container .ba-gallery-sidebar-ads-header-logo-container {
@@ -2071,6 +2076,9 @@ div.ba-player-with-sidebar.ba-player-fullscreen-view .ba-adsplayer-controlbar, d
 }
 .ba-gallery-sidebar-ads-container .ba-gallery-sidebar-ads-header-logo-container > img {
   height: 25px;
+}
+.ba-gallery-sidebar-ads-container .ba-gallery-sidebar-ads-body-container .ba-gallery-sidebar-ad-information-text p {
+  color: #fff !important;
 }
 .ba-gallery-sidebar-ads-container .ba-gallery-sidebar-ads-body-container p {
   font-size: 22px;
@@ -2977,6 +2985,12 @@ div.ba-commoncss-sticky.ba-player-viewport-mobile {
 
 .ba-commoncss-full-height {
   height: 100%;
+}
+
+.ba-commoncss-flex-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .ba-commoncss-portrait-aspect-ratio {
@@ -4229,16 +4243,6 @@ a.ba-commoncss-action-button, button.ba-commoncss-action-button {
 }
 .ba-player-close-container .ba-player-close-svg-button {
   fill: #cccccc;
-}
-
-.ba-videoplayer-canvas-frames {
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-  height: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
 }
 
 /** NOTE: adding flex-grow 1 to the player content will make not fully show ads */

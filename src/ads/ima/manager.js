@@ -189,6 +189,7 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 try {
                     this._adDisplayContainer.initialize();
                     this._adsManager.init(options.width, options.height, google.ima.ViewMode.NORMAL);
+                    this._adsManager.setVolume(options.volume);
                     this._adsManager.start();
                 } catch (e) {
                     this.onAdError(e);

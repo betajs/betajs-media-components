@@ -1064,7 +1064,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("last_activity", Time.now());
                     this.set("activity_delta", 0);
                     this.set("passed_after_play", 0);
-
+                    this.set('trackFrameTime', 0);
                     this.set("playing", false);
 
                     this.__attachRequested = false;
@@ -1096,7 +1096,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         delay: 100,
                         start: true
                     }));
-
                     this.activeElement().style.setProperty("display", "flex");
 
                     // to detect only video playing container dimensions, when there also sidebar exists
@@ -1136,10 +1135,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }, this);
                         this.delegateEvents(null, this.stickyHandler);
                         this.stickyHandler.init();
-                    }
-
-                    if (Info.isSafari()) {
-                        this.canvasFrame = document.querySelector("[data-canvas='canvas']");
                     }
                 },
 
@@ -1360,46 +1355,54 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     img.src = isLocal ? (window.URL || window.webkitURL).createObjectURL(this.get("poster")) : this.get("poster");
                 },
 
-
-                isFrameMostlyBlack: function(imageData) {
-                    var totalBrightness = 0;
-                    var blackThreshold = 50;
-
-                    for (let i = 0; i < imageData.data.length; i += 4) {
-
-                        totalBrightness += (imageData.data[i] + imageData.data[i + 1] + imageData.data[i + 2]) / 3;
-                    }
-                    var averageBrightness = totalBrightness / (imageData.data.length / 4);
-
-                    return averageBrightness < blackThreshold;
+                _drawFrame: function(video, currentTime, width, height, cb) {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = width;
+                    canvas.height = height
+                    const ctx = canvas.getContext('2d');
+                    video.currentTime = currentTime;
+                    setTimeout(function() {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height)
+                        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                        cb(canvas, ctx);
+                    }.bind(this), 200);
                 },
-
-
                 _renderVideoFrame: function(video) {
+                    const currentPosition = this.getCurrentPosition();
+                    video.style.backgroundColor = 'transparent';
+                    const videoParentEle = video.parentElement;
+
+                    img = document.createElement('img');
+                    img.style.width = '100%';
+                    const imgElements = videoParentEle.querySelectorAll('img');
+
+                    const vidEle = document.createElement('video');
+                    vidEle.src = this.get("source");;
+                    vidEle.setAttribute('crossorigin', 'anonymous')
+                    vidEle.muted = true;
+                    vidEle.play();
 
                     try {
-                        video.setAttribute('crossOrigin', 'Anonymous')
-                        var ctx = this.canvasFrame.getContext('2d');
+                        vidEle.addEventListener("loadeddata", (event) => {
+                            this._drawFrame(vidEle, currentPosition, video.videoWidth, video.videoHeight, (canvas) => {
 
-                        this.canvasFrame.width = this.canvasFrame.clientWidth || 640;
-                        this.canvasFrame.height = this.canvasFrame.clientHeight || 400;
+                                imgElements.forEach(img => {
+                                    if (img.parentNode)
+                                        img.parentNode.removeChild(img)
+                                })
 
+                                img.src = `${canvas.toDataURL()}`;
+                                videoParentEle.appendChild(img);
+                        
+                                if (this.get("trackFrameTime") > currentPosition) {
+                                    video.currentTime = this.get("trackFrameTime");
+                                }
+                                this.set('trackFrameTime', currentPosition)
 
-                        ctx.clearRect(0, 0, this.canvasFrame.width, this.canvasFrame.height)
-                        ctx.drawImage(video, 0, 0, this.canvasFrame.width, this.canvasFrame.height);
-                        var imagedata = ctx.getImageData(0, 0, this.canvasFrame.width, this.canvasFrame.height);
-
-                        if (this.isFrameMostlyBlack(imagedata)) {
-                            this.set("videoelement_active", false);
-                            this.set("canvaselement_active", true);
-                            const currentTime = video.currentTime;
-                            video.currentTime = Math.max(currentTime - 0.5, 0);
-                            ctx.drawImage(video, 0, 0, this.canvasFrame.width, this.canvasFrame.height);
-
-                        }
+                            })
+                        });
                     } catch (e) {}
                 },
-
                 _detachVideo: function() {
                     this.set("playing", false);
                     if (this.player) this.player.weakDestroy();
@@ -1593,17 +1596,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
 
                         this.player.on("playing", function() {
-                            if (Info.isSafari() && this.get("canvaselement_active")) {
-                                this.set("canvaselement_active", false);
-                                this.set("videoelement_active", true);
-                            }
-
                             if (this.get("sample_brightness")) this.__brightnessSampler.start();
                             if (this.get("sticky") && this.stickyHandler) this.stickyHandler.start();
                             this.set("playing", true);
                             this.trigger("playing");
+
                         }, this);
                         this.player.on("loaded", function() {
+                            if (Info.isSafari()) {
+                                this._renderVideoFrame(this.__video);
+                            }
+
                             this.set("videowidth", this.player.videoWidth());
                             this.set("videoheight", this.player.videoHeight());
                             if (this.get("sample_brightness")) this.__brightnessSampler.fire();
@@ -1615,13 +1618,18 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.player.trigger("error", this.player.error());
                         this.player.on("paused", function() {
                             if (Info.isSafari()) {
-                                this._renderVideoFrame(this.__video)
+                                this._renderVideoFrame(this.__video);
                             }
+
                             if (this.get("sample_brightness")) this.__brightnessSampler.stop();
                             this.set("playing", false);
                             this.trigger("paused");
+
                         }, this);
                         this.player.on("ended", function() {
+                            this.set('trackFrameTime', 0);
+
+
                             if (this.get("sample_brightness")) this.__brightnessSampler.stop();
                             this.set("playing", false);
                             this.set('playedonce', true);
@@ -2391,6 +2399,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.__adsControlPosition = Math.ceil(this.get("position"));
                                 this.__controlAdRolls();
                             }
+
                         }
                     } catch (e) {}
                     try {
@@ -3186,12 +3195,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 __unmuteOnClick: function() {
                     clearTimeout(this.get('clearDebounce'));
                     const clearDebounce = setTimeout(function() {
+
                         if (!this.get("muted") && this.get("volume") > 0) return this.set("unmuteonclick", false);
                         this.auto_destroy(new Timers.Timer({
                             delay: 500,
                             fire: function() {
-                                this.set("willunmute", false);
-                                if (!this.get("unmuteonclick")) return;
                                 if (this.get("muted")) this.set("muted", false);
                                 if (this.get("volume") == 0) this.set_volume(this.get("volume") || this.get("initialoptions").volumelevel || 1);
                                 if (!this.get("manuallypaused")) this.__setPlayerEngagement();
@@ -3207,8 +3215,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.trigger("unmute-ads", Math.min(_initialVolume, 1));
                         }
                     }.bind(this), 1);
-                    this.set("willunmute", true);
                     this.set('clearDebounce', clearDebounce);
+
                 }
             };
         }], {

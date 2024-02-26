@@ -58,6 +58,10 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         } else {
                             return this.adsManager.setVolume(Maths.clamp(volume, 0, 1));
                         }
+                    },
+                    "change:imaadsrenderingsetting": function(settings) {
+                        if (!this.adsManager || !Types.is_object(settings)) return;
+                        this.adsManager.updateAdsRenderingSettings(settings);
                     }
                 },
 
@@ -184,11 +188,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     var adContainer = this.getAdContainer();
                     var adManagerOptions = {
                         adContainer: adContainer,
-                        adsRenderingSettings: {
-                            enablePreloading: true,
-                            useStyledNonLinearAds: true,
-                            restoreCustomPlaybackStateOnAdBreakComplete: true
-                        },
+                        adsRenderingSettings: this.get("imaadsrenderingsetting"),
                         IMASettings: this.get("imasettings")
                     };
                     if (!Info.isMobile() && this.getVideoElement()) {
@@ -377,7 +377,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         .drawImage(this._video, 0, 0, this._canvas.width, this._canvas.height);
                     this._src = this._canvas.toDataURL("image/png");
                 },
-
 
                 shouldShowFirstFrameAsEndcard: function() {
                     const dyn = this.parent();

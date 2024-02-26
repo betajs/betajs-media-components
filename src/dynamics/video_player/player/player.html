@@ -56,7 +56,7 @@
         <div ba-show="{{canvaselement_active}}" class="{{css}}-video-container">
             <canvas tabindex="-1" data-canvas="canvas"   class="{{csscommon}}-{{posterfitstrategy}}-fit {{css}}-canvas-frames"></canvas>
         </div>
-        
+
         <ba-{{dynadsplayer}}
             ba-if="{{adsplayer_active}}"
             ba-ad="{{=ad}}"
@@ -102,6 +102,7 @@
             ba-adchoicesontop="{{adchoicesontop && !gallerysidebar}}"
             ba-presetedtooltips="{{presetedtooltips}}"
             ba-showadchoices="{{showadchoices}}"
+            ba-imaadsrenderingsetting="{{imaadsrenderingsetting}}"
         ></ba-{{dynadsplayer}}>
         <div class="{{css}}-overlay {{hasplaceholderstyle ? (css + '-overlay-with-placeholder') : ''}}"
              ba-show="{{!showbuiltincontroller && !outstream && !adsplaying}}" style="{{placeholderstyle}}"

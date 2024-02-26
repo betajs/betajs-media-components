@@ -212,6 +212,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "outstream": false,
                         "outstreamoptions": {}, // can be false, string (example: '10px', '10') or numeric
                         "imasettings": {},
+                        "imaadsrenderingsetting": {},
                         "adtagurl": null,
                         "adchoiceslink": null,
                         "adtagurlfallbacks": [],
@@ -244,7 +245,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "midrollads": [],
                         "adchoicesontop": true,
                         "mobilebreakpoint": 560,
-
 
                         /* Options */
                         "allowpip": true, // Picture-In-Picture Mode
@@ -351,7 +351,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "airplaybuttonvisible": false,
                         "castbuttonvisble": false,
                         "fullscreened": false,
+                        // As "initialoptions" we're setting options which were set by user, but could be required to be restored
+                        // also setting which we want to be predefined as a default settings and users are not set them
                         "initialoptions": {
+                            // below settings are will be store for further use-cases
                             "hideoninactivity": null,
                             "volumelevel": null,
                             "autoplay": null,
@@ -367,6 +370,21 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 // repeatText: '', // repeat button text
                                 persistentcompanionad: false
                             },
+                            imaadsrenderingsetting: {
+                                enablePreloading: true,
+                                useStyledNonLinearAds: true,
+                                restoreCustomPlaybackStateOnAdBreakComplete: true, // This is setting is used primarily when the publisher passes in its content player to use for custom ad playback.
+                                // loadVideoTimeout: -1, // use -1 for the default of 8 seconds
+                                // Specifies whether the UI elements that should be displayed.
+                                // The elements in this array are ignored for AdSense/AdX ads.
+                                uiElements: [], // (null or non-null Array of string)
+                                // autoAlign: boolean,
+                                // bitrate: number,
+                                // mimeTypes: null or non-null Array of string
+                                // playAdsAfterTime: number
+                                // useStyledLinearAds: boolean // Render linear ads with full UI styling. This setting does not apply to AdSense/AdX ads or ads played in a mobile context
+                                // useStyledNonLinearAds: boolean // Render non-linear ads with a close and recall button.
+                            }
                             // rollback: {}
                         },
                         "silent_attach": false,
@@ -519,6 +537,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "sidebaroptions": "object",
                     "showadchoices": "boolean",
                     "unknownadsrc": "boolean",
+                    "imaadsrenderingsetting": "object"
                 },
 
                 __INTERACTION_EVENTS: ["click", "mousedown", "touchstart", "keydown", "keypress"],
@@ -904,6 +923,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.__attachPlayerInteractionEvents();
                     this.set('clearDebounce', 0);
                     this.__mergeDeepAttributes();
+                    this.__mergeWithInitialOptions();
                     this._dataset = this.auto_destroy(new DatasetProperties(this.activeElement()));
                     this._dataset.bind("layout", this.properties());
                     this._dataset.bind("placement", this.properties());
@@ -1314,11 +1334,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             ctx.drawImage(video, 0, 0, this.canvasFrame.width, this.canvasFrame.height);
 
                         }
-
                     } catch (e) {}
-
-
-
                 },
 
                 _detachVideo: function() {
@@ -1616,8 +1632,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.player.loaded())
                             this.player.trigger("loaded");
                     }, this);
-
-
                 },
 
                 _getSources: function() {
@@ -1930,8 +1944,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this._broadcasting.player.trigger("play-google-cast");
                             return;
                         }
-
-
 
                         this.host.state().play();
                         this.set("manuallypaused", false);
@@ -2252,7 +2264,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (destroy) this.destroy();
                         }
                     }
-
                 },
 
                 destroy: function() {
@@ -2581,6 +2592,27 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("preloadadsmanager", this.get("adsplaypreroll") || this.get("vmapads") || this.get("outstream"));
                         var skipInitialWithoutAutoplay = this.get("skipinitial") && !this.get("autoplay");
                         this.set("delayadsmanagerload", !this.get("preloadadsmanager") || skipInitialWithoutAutoplay);
+                    }
+                },
+
+                __mergeWithInitialOptions: function() {
+                    const options = this.get("initialoptions");
+                    if (options && Types.is_object(options)) {
+                        Objs.iter(options, function(v, k) {
+                            // if value is null, then we need to set it user or default value, as initial options
+                            if (v === null) {
+                                this.set(`initialoptions.${k}`, this.get(k));
+                            } else {
+                                if (Types.is_defined(v) && typeof options[k] === typeof this.get(k)) {
+                                    const isCountable = v && this.types[k] && ["json", "array", "object", "jsonarray"].indexOf(this.types[k]) > -1;
+                                    if (isCountable && options[k] && Objs.count(options[k]) > 0) {
+                                        this.set(k, Objs.tree_merge(options[k], this.get(k)));
+                                    } else if (!Types.is_object(v)) {
+                                        this.set(k, v);
+                                    }
+                                }
+                            }
+                        }, this);
                     }
                 },
 

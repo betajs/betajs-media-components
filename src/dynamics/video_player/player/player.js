@@ -656,8 +656,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         // we can activate only once, after we should hide sidebar
                         return !showSidebar;
                     },
-                    "show_sidebar:hide_sidebar,is_floating,with_sidebar,fullscreened,mobileviewport, outstream": function(
-                        hideSidebar, isFloating, withSidebar, fullscreened, mobileViewport, outstream
+                    "show_sidebar:outstream,hide_sidebar,is_floating,with_sidebar,fullscreened,mobileviewport": function(
+                        outstream, hideSidebar, isFloating, withSidebar, fullscreened, mobileViewport
                     ) {
                         if (fullscreened) return false;
                         this.set("floatingsidebar", !hideSidebar && isFloating && withSidebar);
@@ -790,7 +790,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (hidebeforeadstarts && adshassource) return !adsinitialized;
                         return false;
                     },
-                    "containerSizingStyles:aspect_ratio,height,width,is_floating,hideplayer,floatingoptions.floatingonly,fullscreened,showsidebargallery,gallerysidebar,layout, outstream": function(
+                    "containerSizingStyles:outstream,aspect_ratio,height,width,is_floating,hideplayer,floatingoptions.floatingonly,fullscreened,showsidebargallery,gallerysidebar,layout": function(
+                        outstream,
                         aspectRatio,
                         height,
                         width,
@@ -801,7 +802,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         showsidebargallery,
                         gallerySidebar,
                         layout,
-                        outstream,
                     ) {
                         let containerStyles, styles;
                         styles = {

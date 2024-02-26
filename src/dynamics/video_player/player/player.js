@@ -238,6 +238,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         // }
                         "companionad": null, // if just set to true, it will set companionads attribute for further use cases and will not render companion ad
                         "companionads": [],
+                        "adsrendertimeout": null,
                         "linearadplayer": true,
                         "customnonlinear": false, // Currently, not fully supported
                         "minadintervals": 5,
@@ -358,6 +359,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             "hideoninactivity": null,
                             "volumelevel": null,
                             "autoplay": null,
+                            "adsrendertimeout": null,
+                            // below are default settings
                             "outstreamoptions": {
                                 hideOnCompletion: true,
                                 recurrenceperiod: 30000, // Period when a new request will be sent if ads is not showing, default: 30 seconds
@@ -537,6 +540,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "sidebaroptions": "object",
                     "showadchoices": "boolean",
                     "unknownadsrc": "boolean",
+                    "adsrendertimeout": "int",
                     "imaadsrenderingsetting": "object"
                 },
 
@@ -776,6 +780,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         if (!!adsTagURL || !!inlineVastXML && !this.get("adshassource")) {
                             this.set("adshassource", true);
+                            // If we're already not set timer for ads failure, and we have some ads source
+                            // start set it here. Possible other options are via Header bidding services like Prebid
+                            this.initAdsRenderFailTimeout();
                             if (!this.get("disableadpreload")) this.set("adsplayer_active", !this.get("delayadsmanagerload"));
                             // On error, we're set initialized to true to prevent further attempts
                             // in case if ads will not trigger any event, we're setting initialized to true after defined seconds and wil show player content
@@ -1134,6 +1141,62 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (Info.isSafari()) {
                         this.canvasFrame = document.querySelector("[data-canvas='canvas']");
                     }
+                },
+
+                /**
+                 * Global Method, can be used when using some bidding parameters as well
+                 * initAdsRenderFailTimeout
+                 * @param {null|function} runAtTheEnd
+                 */
+                initAdsRenderFailTimeout: function(runAtTheEnd) {
+                    const renderTimeout = Number(this.get("adsrendertimeout"));
+                    const repeatMicroseconds = 200;
+                    if (!this.__adsRenderFailTimer && renderTimeout && renderTimeout > 0) {
+                        this.__adsRenderFailTimer = new Timers.Timer({
+                            fire: function() {
+                                if (this.get("adsplaying")) {
+                                    this.stopAdsRenderFailTimeout();
+                                }
+                                const _timer = this.get("adsrendertimeout");
+                                if (_timer > 0) {
+                                    this.set("adsrendertimeout", _timer - repeatMicroseconds);
+                                    return;
+                                }
+                                // If after passing the time, ads still not playing, we should trigger an error
+                                if (runAtTheEnd && Types.is_function(runAtTheEnd)) runAtTheEnd.bind(this);
+                                this.channel("ads").trigger("render-timeout");
+                                this.brakeAdsManually();
+                                this.stopAdsRenderFailTimeout();
+                            }.bind(this),
+                            delay: repeatMicroseconds,
+                            start: true,
+                            context: this
+                        });
+                        this.auto_destroy(this.__adsRenderFailTimer);
+                    }
+                },
+
+                /**
+                 * Global Method, will reset ads fail timeout with a new function
+                 * @param {null|function} runAtTheEnd
+                 */
+                resetAdsRenderFailTimeout: function(runAtTheEnd) {
+                    if (this.__adsRenderFailTimer) {
+                        this.stopAdsRenderFailTimeout();
+                        this.initAdsRenderFailTimeout(runAtTheEnd);
+                        return;
+                    }
+                    this.initAdsRenderFailTimeout(runAtTheEnd);
+                },
+
+                /**
+                 * Clear ads fail timout
+                 */
+                stopAdsRenderFailTimeout: function() {
+                    if (!this.__adsRenderFailTimer) return;
+                    this.__adsRenderFailTimer.stop();
+                    this.__adsRenderFailTimer = null;
+                    this.set("adsrendertimeout", this.get("initialoptions.adsrendertimeout"));
                 },
 
                 initMidRollAds: function() {
@@ -1515,8 +1578,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }
                         }, this);
 
-
-
                         // All conditions below appear on autoplay only
                         // If the browser not allows unmuted autoplay, and we have manually forcibly muted player
                         // If user already has an interaction with player, we don't need to check it again
@@ -1532,7 +1593,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
 
                         this.player.on("playing", function() {
-
                             if (Info.isSafari() && this.get("canvaselement_active")) {
                                 this.set("canvaselement_active", false);
                                 this.set("videoelement_active", true);
@@ -2574,6 +2634,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("disableadpreload", false);
                         this.set("autoplay", true);
                         this.set("skipinitial", false);
+                        // Actually we can remove it as a new function should merge it, anyway need first test
                         this.set("outstreamoptions", Objs.tree_merge(this.get("initialoptions").outstreamoptions, this.get("outstreamoptions")));
                         // will store user set options for outstream
                         this.set("states.outstreamoptions", this.get("outstreamoptions"));

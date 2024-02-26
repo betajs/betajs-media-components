@@ -82,7 +82,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 _baseRequestAdsOptions: function() {
-                    return {
+                    const requestAdsOptions = {
                         adTagUrl: this.get("adtagurl"),
                         IMASettings: this.get("imasettings"),
                         inlinevastxml: this.get("inlinevastxml"),
@@ -96,8 +96,11 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         autoPlayAdBreaks: true,
                         width: this.getAdWidth(),
                         height: this.getAdHeight(),
-                        volume: this.getAdWillPlayMuted() ? 0 : (this.get("volume") || 1)
+                        volume: this.getAdWillPlayMuted() ? 0 : this.get("volume")
                     };
+                    if (this.get("adsrendertimeout") && this.get("adsrendertimeout") > 0)
+                        requestAdsOptions.vastLoadTimeout = this.get("adsrendertimeout");
+                    return requestAdsOptions;
                 },
 
                 channels: {
@@ -105,6 +108,16 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.set("adsplaying", false);
                         if (this.parent().get("outstream")) {
                             this.parent().hidePlayerContainer();
+                        }
+                    },
+                    "ads:render-timeout": function() {
+                        if (this.adsManager && typeof this.adsManager.destroy === "function" && !this.adsManager.destroyed()) {
+                            this.adsManager.destroy();
+                        }
+                        const dyn = this.parent();
+                        if (dyn) {
+                            dyn.stopAdsRenderFailTimeout();
+                            dyn.channel("ads").trigger("ad-error");
                         }
                     },
                     "ads:load": function() {
@@ -152,6 +165,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.set("duration", adData.duration);
                         this.set("moredetailslink", clickthroughUrl);
                         this.set("adsclicktroughurl", clickthroughUrl);
+                        this._setLoadVideoTimeout();
                     },
                     "ads:outstreamCompleted": function(dyn) {
                         this._outstreamCompleted(dyn);
@@ -456,6 +470,20 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     }
                     if (this.__companionAdElement) {
                         this.__companionAdElement.innerHTML = "";
+                    }
+                },
+
+                _setLoadVideoTimeout: function() {
+                    const dyn = this.parent();
+                    // If we've set or timer still exists
+                    if (dyn && dyn.__adsRenderFailTimer && this.get("adsrendertimeout") > 0) {
+                        dyn.set("imaadsrenderingsetting", {
+                            ...dyn.get("imaadsrenderingsetting"),
+                            loadVideoTimeout: dyn.get("adsrendertimeout")
+                        });
+                        // as we will reset the adsrendertimeout,
+                        // we should define loadVideoTimeout before
+                        dyn.stopAdsRenderFailTimeout();
                     }
                 },
 

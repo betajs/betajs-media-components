@@ -224,6 +224,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         }
                         this.channel("ads").trigger(event, data);
                     }, this);
+
                     if (dynamics) {
                         dynamics.on("resize", function(dimensions) {
                             const width = this.getAdWidth();
@@ -257,6 +258,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             width: this.getAdWidth(),
                             height: this.getAdHeight()
                         });
+
                         // if (!this.adsManager.adDisplayContainerInitialized) this.adsManager.initializeAdDisplayContainer();
                         // this.call("requestAds");
                     },
@@ -287,6 +289,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.adsManager.contentComplete();
                     },
                     pause: function() {
+                        this.checkIfAdHasMediaUrl();
                         return this.adsManager.pause();
                     },
                     resume: function() {
@@ -319,7 +322,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     }
                     return this.activeElement().firstChild ? this.activeElement().firstChild.clientWidth : this.activeElement().clientWidth;
                 },
-
                 getAdHeight: function() {
                     if (!this.activeElement()) return null;
                     if (this.get("floating") && this.parent()) {
@@ -337,6 +339,41 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     if (!this._videoElement)
                         this._videoElement = this.parent() && this.parent().activeElement().querySelector("[data-video='video']"); // TODO video element for outstream
                     return this._videoElement;
+                },
+                isImageBlack: function(ctx, width, height) {
+                    var imageData = ctx.getImageData(0, 0, width, height);
+                    var pixels = imageData.data;
+                    for (var i = 0; i < pixels.length; i += 4) {
+                        var r = pixels[i];
+                        var g = pixels[i + 1];
+                        var b = pixels[i + 2];
+                        if (r !== 0 || g !== 0 || b !== 0) {
+                            return false;
+                        }
+                    }
+                    return true;
+                },
+                checkIfAdHasMediaUrl: function() {
+                    const adObj = this.get("ad");
+                    const ad = adObj?.data?.mediaUrl;
+                    if (Info.isSafari() && ad) {
+                        this.renderVideoFrame(ad, this.getAdWidth(), this.getAdHeight())
+                    }
+                },
+                renderVideoFrame: function(mediaUrl, width, height) {
+                    const video = document.createElement("video");
+                   
+                    video.crossOrigin = "anonymous";
+                    video.src = mediaUrl;
+                    video.muted = true;
+                    video.play();
+                    video.addEventListener("loadeddata", (event) => {
+                        this.parent()._drawFrame(video, this.get('currenttime'), width, height, (canvas, ctx) => {
+                            if (this.isImageBlack(ctx, width, height)) {
+                                this.getAdContainer().style.backgroundImage = `url(${canvas.toDataURL("image/png")})`;
+                            }
+                        })
+                    })
                 },
 
                 setEndCardBackground: function(width, height) {
@@ -445,6 +482,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 _onAdComplete: function(ev) {
+                    if (Info.isSafari() && this.getAdContainer().style.backgroundImage) {
+                        this.getAdContainer().style.backgroundImage = 'none';
+                    }
                     // NOTE: As below codes only companion ads related code will be better return.
                     // Non companion ads code should be applied above of this line
                     if (this.get("persistentcompanionad")) return;

@@ -656,12 +656,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         // we can activate only once, after we should hide sidebar
                         return !showSidebar;
                     },
-                    "show_sidebar:hide_sidebar,is_floating,with_sidebar,fullscreened,mobileviewport": function(
-                        hideSidebar, isFloating, withSidebar, fullscreened, mobileViewport
+                    "show_sidebar:hide_sidebar,is_floating,with_sidebar,fullscreened,mobileviewport, outstream": function(
+                        hideSidebar, isFloating, withSidebar, fullscreened, mobileViewport, outstream
                     ) {
                         if (fullscreened) return false;
                         this.set("floatingsidebar", !hideSidebar && isFloating && withSidebar);
-                        this.set("gallerysidebar", !hideSidebar && !isFloating && (Types.is_defined(mobileViewport) && !mobileViewport) && !this.get('outstream'));
+                        this.set("gallerysidebar", !hideSidebar && !isFloating && (Types.is_defined(mobileViewport) && !mobileViewport) && !outstream);
                         if (this.get("gallerysidebar")) {
                             if (!this.get("nextwidget") && Types.is_undefined(this.set("initialoptions.nextwidget"))) {
                                 this.set("initialoptions.nextwidget", false);
@@ -790,7 +790,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (hidebeforeadstarts && adshassource) return !adsinitialized;
                         return false;
                     },
-                    "containerSizingStyles:aspect_ratio,height,width,is_floating,hideplayer,floatingoptions.floatingonly,fullscreened,showsidebargallery,gallerysidebar,layout": function(
+                    "containerSizingStyles:aspect_ratio,height,width,is_floating,hideplayer,floatingoptions.floatingonly,fullscreened,showsidebargallery,gallerysidebar,layout, outstream": function(
                         aspectRatio,
                         height,
                         width,
@@ -800,7 +800,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         fullscreened,
                         showsidebargallery,
                         gallerySidebar,
-                        layout
+                        layout,
+                        outstream,
                     ) {
                         let containerStyles, styles;
                         styles = {
@@ -811,7 +812,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (width) styles.width = isNaN(width) ? width : parseFloat(width).toFixed(2) + "px";
                         containerStyles = floatingonly ? {} : Objs.extend({}, styles);
                         if (!gallerySidebar && showsidebargallery && layout === "desktop" && !fullscreened)
-                            if (!this.get('outstream')) containerStyles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
+                            if (!outstream) containerStyles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
                         if (isFloating) {
                             const calculated = this.__calculateFloatingDimensions();
 

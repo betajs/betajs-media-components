@@ -74,14 +74,15 @@ Scoped.define("module:Ads.IMA.AdsManager", [
             },
 
             destroy: function() {
+                // Prevent error on destroying non triggered adsLoader events.
+                if (this._adsLoader) {
+                    this._adsLoader.destroy();
+                    this._adsLoader = null;
+                }
                 if (this._adsManager) {
                     this._adsManager.destroy();
                     this._adsManager = null;
                 }
-                // if (this._adsLoader) {
-                //     this._adsLoader.destroy();
-                //     this._adsLoader = null;
-                // }
                 inherited.destroy.call(this);
             },
 
@@ -134,7 +135,11 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 this._adsManager = adsManagerLoadedEvent.getAdsManager(
                     this._options.videoElement, adsRenderingSettings
                 );
-                this._adsManager.setVolume(adsManagerLoadedEvent.getUserRequestContext().options.volume);
+                if (adsManagerLoadedEvent.getUserRequestContext()) {
+                    this._adsManager.setVolume(adsManagerLoadedEvent.getUserRequestContext().options.volume);
+                } else {
+                    this._adsManager.setVolume(this._options?.videoElement?.volume || 0);
+                }
                 this.addEventListeners();
                 this.__methods().forEach(function(method) {
                     this[method] = this._adsManager[method].bind(this._adsManager);

@@ -1968,9 +1968,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     } else if (!this.get('trackUnmute') && this.get("playing") && this.get('isAndroid')) {
                         return false;
                     }
-
-
-
                 },
 
                 object_functions: ["play", "rerecord", "pause", "stop", "seek", "set_volume", "set_speed", "toggle_tracks"],
@@ -2979,7 +2976,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }
 
                     if (!this.get("player-started")) this.set("player-started", true);
-
                 },
 
                 _checkAutoPlay: function(video) {

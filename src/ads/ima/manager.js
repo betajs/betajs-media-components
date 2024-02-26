@@ -71,27 +71,6 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 if (settings.companionBackfillMode) {
                     google.ima.settings.setCompanionBackfill(companionBackfillMode);
                 }
-
-                if (settings.uiElements) {
-                    // ['adAttribution', 'countdown']
-                    var allowedUIElements = [
-                        google.ima.UiElements.AD_ATTRIBUTION, google.ima.UiElements.COUNTDOWN
-                    ];
-                    if (Types.is_array(settings.uiElements)) {
-                        var uiElements = settings.uiElements.filter(function(element) {
-                            return allowedUIElements.includes(element);
-                        });
-                        if (uiElements.length >= 0) {
-                            this.__UIElementSettings = uiElements;
-                        } else {
-                            if (settings.uiElements.length > 0) {
-                                console.log("Only the following UI elements as an array of values are allowed: ", allowedUIElements.join(", "));
-                            }
-                        }
-                    } else {
-                        console.log("IMA: uiElements must be an array of allowed UI elements. See https://developers.google.com/interactive-media-ads/docs/sdks/html5/client-side/reference/js/google.ima#.UiElements for more information.");
-                    }
-                }
             },
 
             destroy: function() {
@@ -151,7 +130,6 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                             adsRenderingSettings[setting] = this._options.adsRenderingSettings[setting];
                         }
                     }
-                    adsRenderingSettings.uiElements = uiRenderingSettings;
                 }
                 this._adsManager = adsManagerLoadedEvent.getAdsManager(
                     this._options.videoElement, adsRenderingSettings

@@ -246,9 +246,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                                 }
                             }
                         }, this);
-                        dynamics.on("unmute-ads", function(volume) {
-                            this.set("volume", volume);
-                        }, this);
                     }
                 },
 
@@ -259,8 +256,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         }, this);
                         this.adsManager.start({
                             width: this.getAdWidth(),
-                            height: this.getAdHeight(),
-                            volume: this.getAdWillPlayMuted() ? 0 : this.get("volume")
+                            height: this.getAdHeight()
                         });
                         // if (!this.adsManager.adDisplayContainerInitialized) this.adsManager.initializeAdDisplayContainer();
                         // this.call("requestAds");

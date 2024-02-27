@@ -1186,7 +1186,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                  * Clear ads fail timout
                  */
                 stopAdsRenderFailTimeout: function(reset) {
-                    this.set("adsrendertimeout", this.get("initialoptions.adsrendertimeout"));
+                    reset = reset || false;
+                    if (reset)
+                        this.set("adsrendertimeout", this.get("initialoptions.adsrendertimeout"));
                     if (!this.__adsRenderFailTimer) return;
                     if (!this.__adsRenderFailTimer.destroyed()) {
                         this.__adsRenderFailTimer.stop();

@@ -59,7 +59,8 @@
         "test": "npm run test:traced && npm run test:show-report",
         "test:ui": "npx playwright test --ui --config ./tests/playwright/config.js",
         "test:traced": "npx playwright test --trace on --reporter=list --config ./tests/playwright/config.js",
-        "test:show-report": "npx playwright show-report --config ./tests/playwright/config.js"
+        "test:show-report": "npx playwright show-report --config ./tests/playwright/config.js",
+        "run:nanoserver": "node node_modules/nano-media-server/server.js --staticserve . --port='5000'"
     },
     "meta": {
         "sponsors": [

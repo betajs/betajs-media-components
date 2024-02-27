@@ -181,6 +181,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "playonclick": true,
                         "pauseonclick": true,
                         "unmuteonclick": false,
+                        "unmuteonengagement": false,
                         "muted": false,
                         "nextwidget": false,
                         "shownext": 3,
@@ -425,6 +426,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "state": "string",
                     "noengagenext": "float",
                     "unmuteonclick": "boolean",
+                    "unmuteonengagement": "boolean",
                     "rerecordable": "boolean",
                     "loop": "boolean",
                     "loopall": "boolean",
@@ -917,6 +919,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this._dataset.bind("orientation", this.properties());
                     if (typeof this.get("showsettings") !== "undefined")
                         this.set("showsettingsmenu", this.get("showsettings"));
+                    if (this.get("unmuteonengagement")) this.set("unmuteonclick", true);
                     this.delegateEvents(null, this.channel("ads"), "ad");
                     this.delegateEvents(null, this.channel("next"), "next");
                     this.set("prominent_title", this.get("prominent-title"));
@@ -3120,7 +3123,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             fire: function() {
                                 if (this.get("muted")) this.set("muted", false);
                                 if (this.get("volume") == 0) this.set_volume(this.get("volume") || this.get("initialoptions").volumelevel || 1);
-                                if (!this.get("manuallypaused")) this.__setPlayerEngagement();
+                                if (!this.get("manuallypaused")) this.setPlayerEngagement();
                                 this.set("unmuteonclick", false);
                             }.bind(this),
                             once: true

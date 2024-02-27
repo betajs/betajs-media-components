@@ -381,7 +381,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
                 renderVideoFrame: function(mediaUrl, width, height) {
                     const video = document.createElement("video");
-                   
                     video.crossOrigin = "anonymous";
                     video.src = mediaUrl;
                     video.muted = true;

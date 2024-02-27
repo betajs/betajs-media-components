@@ -1149,9 +1149,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 /**
                  * Global Method, can be used when using some bidding parameters as well
                  * initAdsRenderFailTimeout
-                 * @param {null|function} runAtTheEnd
                  */
-                initAdsRenderFailTimeout: function(runAtTheEnd) {
+                initAdsRenderFailTimeout: function() {
                     const renderTimeout = Number(this.get("adsrendertimeout"));
                     const repeatMicroseconds = 200;
                     if (!this.__adsRenderFailTimer && renderTimeout && renderTimeout > 0) {
@@ -1166,7 +1165,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     return;
                                 }
                                 // If after passing the time, ads still not playing, we should trigger an error
-                                if (runAtTheEnd && Types.is_function(runAtTheEnd)) runAtTheEnd.bind(this);
                                 this.channel("ads").trigger("render-timeout");
                                 this.brakeAdsManually();
                                 this.stopAdsRenderFailTimeout();
@@ -1181,15 +1179,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 /**
                  * Global Method, will reset ads fail timeout with a new function
-                 * @param {null|function} runAtTheEnd
                  */
-                resetAdsRenderFailTimeout: function(runAtTheEnd) {
+                resetAdsRenderFailTimeout: function() {
                     if (this.__adsRenderFailTimer) {
                         this.stopAdsRenderFailTimeout();
-                        this.initAdsRenderFailTimeout(runAtTheEnd);
+                        this.initAdsRenderFailTimeout();
                         return;
                     }
-                    this.initAdsRenderFailTimeout(runAtTheEnd);
+                    this.initAdsRenderFailTimeout();
                 },
 
                 /**
